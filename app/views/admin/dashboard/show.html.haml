@@ -28,7 +28,7 @@
         %td=(my_order = order.order_state_transitions.detect {|state| state.event == 'delivering'}) ? my_order.created_at.strftime('%A, %e %B %Y') : ''
         %td=(my_order = order.order_state_transitions.detect {|state| state.event == 'delivered'}) ? my_order.created_at.strftime('%A, %e %B %Y') : ''
         %td=(my_order = order.order_state_transitions.detect {|state| state.event == 'authorized'}) ? headline_delivered_date_format(order.order_state_transitions.detect {|state| state.event == 'authorized'}.created_at, order.freight.delivery_time) : ''
-        %td=order.freight.shipping_service_name
+        %td#shipping_service_name=order.freight.shipping_service_name
         %td=I18n.t("gateways.#{order.gateway}")
         %td=order.user_name
         %td=order.user_email

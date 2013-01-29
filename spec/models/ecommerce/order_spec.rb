@@ -101,6 +101,13 @@ describe Order do
   #   end
   # end
 
+  describe "#shipping_service_name" do
+    it "returns the freight.shipping_service" do
+      expect(order_with_waiting_payment.shipping_service_name).
+        to eql(order_with_waiting_payment.freight.shipping_service.name)
+    end
+  end
+
   describe "State machine transitions" do
     context 'authorized' do
       it "returns true" do
@@ -109,12 +116,19 @@ describe Order do
       end
 
       it "sets #expected_delivery_on" do
-        # expect(order_with_waiting_payment.expected_delivery_on).to be_nil
         order_with_waiting_payment.authorized
         expect(order_with_waiting_payment.expected_delivery_on).to_not be_nil
 
         delivery_date = order_with_waiting_payment.freight.delivery_time.days.from_now
         expect(order_with_waiting_payment.expected_delivery_on.to_s).to eq(delivery_date.to_s)
+      end
+
+      it "sets #shipping_service_name" do
+        order_with_waiting_payment.authorized
+        expect(order_with_waiting_payment.shipping_service_name).to_not be_nil
+
+        shipping_service_name = order_with_waiting_payment.freight.shipping_service.name
+        expect(order_with_waiting_payment.shipping_service_name).to eq(shipping_service_name)
       end
     end
 

@@ -9,7 +9,10 @@ feature "Operations dashboard", %q{
 } do
 
   let(:admin) { FactoryGirl.create(:admin_superadministrator) }
-  let!(:order) { FactoryGirl.create(:order, created_at: Time.now, state: "authorized") }
+  let!(:order) { FactoryGirl.create(:order,
+                                     created_at: Time.now,
+                                     state: "authorized",
+                                     shipping_service_name: 'TEX') }
 
   background do
     ApplicationController.any_instance.stub(:load_promotion)
@@ -106,13 +109,23 @@ feature "Operations dashboard", %q{
   end
 
   scenario 'Transportation filter' do
+    FactoryGirl.create(:delivered_order,
+                        state: 'authorized',
+                        shipping_service_name: 'Pac')
 
     click_link 'Ciclo de vida'
 
-    page.select 'Pac', :from => "transportador"
+    expect(page.find('tr#0_dias td#authorized', text: '2'))
+
+    select 'Pac', :from => "transportadora"
 
     click_button 'Enviar'
 
+    expect(page.find('tr#0_dias td#authorized', text: '1'))
+
+    page.find('tr#0_dias td#authorized a').click
+
+    expect(page.find('tr td#shipping_service_name'), text: 'Pac')
   end
 
 end

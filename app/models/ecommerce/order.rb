@@ -77,7 +77,9 @@ class Order < ActiveRecord::Base
     state :under_review
     state :authorized
 
-    after_transition any => :authorized, :do => [:transition_to_authorized, :set_delivery_date_on]
+    after_transition any => :authorized, :do => [:transition_to_authorized,
+                                                 :set_delivery_date_on,
+                                                 :set_shipping_service_name]
 
     state :reversed do
       after_save do |order|
@@ -242,11 +244,36 @@ class Order < ActiveRecord::Base
   private
 
     def set_delivery_date_on
-      update_attribute(:expected_delivery_on, calculate_delivery_date) if calculate_delivery_date && authorized?
+      if calculate_delivery_date
+        update_attribute(:expected_delivery_on, calculate_delivery_date)
+      else
+        Airbrake.notify(
+          :error_class   => "Order",
+          :error_message => "couldn't calculate_delivery_date for expected_delivery_on"
+        )
+      end
+    end
+
+    def set_shipping_service_name
+      if freight && freight.shipping_service
+        update_attribute(:shipping_service_name, freight.shipping_service.name)
+      else
+        Airbrake.notify(
+          :error_class   => "Order",
+          :error_message => "couldn't set_shipping_service_name, either freight or freight.shipping_service isn't set"
+        )
+      end
     end
 
     def calculate_delivery_date
-      freight.delivery_time.days.from_now if freight
+      if freight
+        freight.delivery_time.days.from_now
+      else
+        Airbrake.notify(
+          :error_class   => "Order",
+          :error_message => "couldn't calculate_delivery_date, freight is nil"
+        )
+      end
     end
 
     def initialize_order
