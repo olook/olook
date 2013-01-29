@@ -6,10 +6,6 @@ describe PromotionAction do
     it { should respond_to(:apply).with(2).arguments }
   end
 
-  describe "#calculate" do
-    it { should respond_to(:calculate).with(2).arguments }
-  end
-
   describe "#simulate" do
     let(:cart) { mock_model Cart, items: [] }
 
