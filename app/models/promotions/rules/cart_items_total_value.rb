@@ -2,7 +2,7 @@
 class CartItemsTotalValue < PromotionRule
 
   def matches?(cart, parameter)
-    cart.total_price >= parameter
+    cart.total_price >= BigDecimal(parameter)
   end
 
 end
