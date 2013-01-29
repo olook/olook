@@ -21,7 +21,7 @@ class PromotionAction < ActiveRecord::Base
     calculate(cart.items, param).each do |item|
       adjustment = item[:adjustment]
       item = cart.items.find(item[:id])
-      item.cart_item_adjustment.update_attributes(value: adjustment)
+      item.cart_item_adjustment.update_attributes(value: adjustment) if item.should_apply?(adjustment)
     end
   end
 
@@ -29,8 +29,7 @@ class PromotionAction < ActiveRecord::Base
     cart.items.any? ? calculate(cart.items, param).map{|item| item[:adjustment]}.reduce(:+) : 0
   end
 
-  protected
-
+  private
     #
     # This method should return an Array of Hashes in the form:
     # => [{id: item.id, adjustment: item.price}]
