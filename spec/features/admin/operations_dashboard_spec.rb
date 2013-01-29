@@ -40,6 +40,8 @@ feature "Operations dashboard", %q{
     expect(page).to have_content("6 ou mais dias atrás")
     expect(page).to have_content("TOTAL")
 
+    save_and_open_page
+
     expect(page.find('tr#0_dias td#total', text: '1'))
 
     expect(page).to have_css('#total_authorized', text: '1')
