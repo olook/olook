@@ -58,6 +58,7 @@ pt-BR:
               invalid: "O número do cartão parece estranho. Pode conferir? "
             expiration_date:
               blank: "Até quando vale o seu cartão, mesmo?"
+              invalid: "A validade não está batendo. Pode conferir?"
             user_birthday:
               blank: "Queremos saber esta data especial :)"
         debit:
