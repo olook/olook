@@ -54,6 +54,7 @@
 
 <div class="payment">
   <p class="subtitle">SELECIONE A FORMA DE PAGAMENTO:</p>
+  <%= errors_for(@checkout, :payment_base) %>
   <ul class="payment_type">
     <li class="boleto"><%= checkout_form.radio_button :payment_method, "billet", checked: @checkout.payment && @checkout.payment.is_a?(Billet) %> <%= checkout_form.label :payment_method, 'Boleto' %></li>
     <li class="credit_card"><%= checkout_form.radio_button :payment_method, "credit_card", checked: @checkout.payment && @checkout.payment.is_a?(CreditCard) %> <%= checkout_form.label :payment_method, 'Cartão de Crédito' %></li>
@@ -142,6 +143,7 @@
       <%= payment_form.radio_button :bank, bank %>
       <%= payment_form.label "bank_#{bank}", bank %>
       <span class="debit_bank_<%= bank %>"><%= bank %></span>
+      <%= errors_for(@checkout.payment, :bank) %>
     <% end %>
 
     <p>Após clicar em “finalizar compra”, você deverá<br/> clicar em “Realizar pagamento”, na página de confirmação de compra.</p>
