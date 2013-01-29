@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class SpecificItem < PromotionRule
 
-  def matches?(cart_items, products_list)
-    (products_for(cart_items) & products_list).any?
+  def matches?(cart, products)
+    (products_for(cart.items) & products_list_for(products)).any?
   end
 
   private
@@ -14,5 +14,10 @@ class SpecificItem < PromotionRule
       end
       products
     end
+
+    def products_list_for(products)
+      products.delete(",").split.map { |id| id.to_i }
+    end
+
 end
 
