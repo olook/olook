@@ -4,6 +4,7 @@ module Admin::DashboardHelper
     unless options[:state]
       options[:state] = ["authorized","picking","delivering","delivered"]
     end
+
     links_params = {number: number_day, state: options.fetch(:state)}
     link_to(total, admin_report_detail_path(links_params))
   end

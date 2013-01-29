@@ -16,8 +16,15 @@ class Admin::DashboardController < Admin::BaseController
 
   def orders_life_cicle_report
     @report_days = [*0..6]
-    @authorized = []
-    @report_days.each{|a| @authorized << Order.with_date(a.business_days.before(Time.now)).with_state('authorized').count}
+    [:@authorized, :@picking, :@delivering, :@delivered].each do |name|
+      array = []
+      @all = []
+      @report_days.each do |report_day|
+        array << Order.with_date(report_day.business_days.before(Time.now)).with_state(name.to_s.delete('@')).count
+      end
+      instance_variable_set(name, array)
+      @all << array.inject(0) { |total, value| total += value }
+    end
   end
 
   def orders_time_report
