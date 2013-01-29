@@ -81,7 +81,7 @@
     <%= field_set_tag do %>
       <div>
         <% options = build_installment_options(@cart_service.total, CreditCard.installments_number_for(@cart_service.total)) %>
-        <%= payment_form.select :payments, options %>
+        <%= payment_form.select :payments, options, onchange: track_event("CheckoutPayment","changeNumberOfInstallments")  %>
       </div>
     <% end %>  
     
