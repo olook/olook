@@ -27,11 +27,11 @@
     - @report_days.each do |report_day_number|
       %tr{:id => "#{report_day_number}_dias"}
         %td= I18n.t("admin_dashboard.report_days.#{report_day_number}")
-        %td{:id => "authorized"}= report_days_link(report_day_number, state: "authorized")
-        %td{:id => "picking"}= report_days_link(report_day_number, state: "picking")
-        %td{:id => "delivering"}= report_days_link(report_day_number, state: "delivering")
-        %td{:id => "delivered"}= report_days_link(report_day_number, state: "delivered")
-        %td{:id => "total"}= report_days_link(report_day_number)
+        %td{:id => "authorized"}= report_days_link(@authorized[report_day_number],report_day_number , state: 'auhorized')
+        %td{:id => "picking"}= report_days_link(0,report_day_number, state: "picking")
+        %td{:id => "delivering"}= report_days_link(0,report_day_number, state: "delivering")
+        %td{:id => "delivered"}= report_days_link(0,report_day_number, state: "delivered")
+        %td{:id => "total"}= report_days_link(0,report_day_number)
 
     %tr
       %td TOTAL</td>
