@@ -1496,6 +1496,7 @@ section.checkout{
 	
 	form.new_checkout{float:left;
 		div#checkout_address{float:left;
+				.span_error{float:none !important;display:block;margin-bottom:10px;}
 				div#address_fields{float:left;}
 		}
 		fieldset{margin-bottom:14px;
@@ -1505,6 +1506,7 @@ section.checkout{
 		}
 		
 		label{display:block;margin-bottom:4px;
+			span{font-size:11px;font-weight:italic;}
 			&.address_label{display:none;}
 			&.frete_label{display:inline;}
 		}
@@ -1568,6 +1570,7 @@ section.checkout{
 			}
 		}
 		.payment{float:left;padding-left:5px;
+			.span_error{float:none !important;display:block;margin-bottom:10px;}
       p{font-size:13px;margin-top:15px;
         span{color:#000;}
       }

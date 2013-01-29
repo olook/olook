@@ -1,6 +1,7 @@
 function maskTel(tel){
 	ddd  = $(tel).val().substring(1, 3);
-	dig9 = $(tel).val().substring(5, 6);
+	dig9 = $(tel).val().substring(4, 5);
+
 	if(ddd == "11" && dig9 == "9")
 		$(tel).setMask("(99)99999-9999");
   else
@@ -15,10 +16,6 @@ var masks = {
 	},
 	tel: function(tel){
 		$(tel).keyup(function(){
-			maskTel(tel);
-		}).focus(function(){
-		    $(tel).unsetMask();
-		}).focusout(function() {
 			maskTel(tel);
 		});
 	},
