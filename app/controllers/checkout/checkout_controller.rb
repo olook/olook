@@ -8,8 +8,7 @@ class Checkout::CheckoutController < Checkout::BaseController
   def new
     @addresses = @user.addresses
     @report  = CreditReportService.new(@user)
-    address = @addresses.first || Address.new
-    @checkout = Checkout.new(address: address)
+    @checkout = Checkout.new
   end
 
   def create
