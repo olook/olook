@@ -25,6 +25,7 @@ class CreditCard < Payment
   validates_format_of :user_birthday, :with => BirthdayFormat, :on => :create
   validates_format_of :expiration_date, :with => ExpirationDateFormat, :on => :create
   validates_with CreditCardNumberValidator, :attributes => [:credit_card_number]
+  validates_with UserIdentificationValidator, :attributes => [:user_identification]
 
   after_create :set_payment_expiration_date
 
