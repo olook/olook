@@ -143,6 +143,7 @@
       <%= payment_form.radio_button :bank, bank %>
       <%= payment_form.label "bank_#{bank}", bank %>
       <span class="debit_bank_<%= bank %>"><%= bank %></span>
+      <%= errors_for(@checkout.payment, :bank) %>
     <% end %>
 
     <p>Após clicar em “finalizar compra”, você deverá<br/> clicar em “Realizar pagamento”, na página de confirmação de compra.</p>
