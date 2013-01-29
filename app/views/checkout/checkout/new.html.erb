@@ -2,7 +2,7 @@
   <%= stylesheet_link_tag "section/checkout" %>
 <% end %>
 
-<%= link_to "Continuar comprando", @referer[:url], :class => "back_link" %>
+<%= link_to "Continuar comprando", @referer[:url], :class => "back_link", onclick: track_event("Checkout","clickContinueShopping") %>
 <section id="payment" class="checkout">
   <%= form_for(@checkout, url: { action: "create" }) do |checkout_form| %>
     <div class="box-step-one">
@@ -31,7 +31,7 @@
 
       <%= render "payments_type", checkout_form: checkout_form %>
     </div>
-    <%= checkout_form.submit '', class: "send_it", disable_with: "" %>
+    <%= checkout_form.submit '', class: "send_it", disable_with: "", onclick: track_event("Checkout","clickSubmit") %>
   <% end %>
   
     <div class="box-step-three">
