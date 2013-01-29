@@ -16,6 +16,7 @@ class Admin::DashboardController < Admin::BaseController
 
   def orders_life_cicle_report
     @report_days = [*0..6]
+    @total = []
     [:@authorized, :@picking, :@delivering, :@delivered].each do |name|
       array = []
       @all = []
@@ -24,6 +25,9 @@ class Admin::DashboardController < Admin::BaseController
       end
       instance_variable_set(name, array)
       @all << array.inject(0) { |total, value| total += value }
+    end
+    [*0..6].each do |index|
+      @total << (@authorized[index] + @picking[index] + @delivering[index] + @delivered[index])
     end
   end
 
