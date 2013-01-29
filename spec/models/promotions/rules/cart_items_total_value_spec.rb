@@ -11,19 +11,19 @@ describe CartItemsTotalValue do
 
     context "when items total value is lower than parameter" do
       it "returns false" do
-        subject.matches?(cart, BigDecimal("120")).should be_false
+        subject.matches?(cart, "120").should be_false
       end
     end
 
     context "when items total value is greater than parameter" do
       it "returns true" do
-        subject.matches?(cart, BigDecimal("50")).should be_true
+        subject.matches?(cart, "50").should be_true
       end
     end
 
     context "when items total value is equal than parameter" do
       it "returns true" do
-        subject.matches?(cart, BigDecimal("100")).should be_true
+        subject.matches?(cart, "100").should be_true
       end
     end
 

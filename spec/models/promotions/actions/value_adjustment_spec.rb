@@ -6,7 +6,7 @@ describe ValueAdjustment do
     let(:cart) { FactoryGirl.create(:cart_with_items) }
      it "returns hash with cart items and discounts" do
         cart.items.should_receive(:size).and_return(2)
-        subject.simulate(cart, BigDecimal("20")).should eq(BigDecimal("10"))
+        subject.simulate(cart, "20").should eq(BigDecimal("10"))
      end
   end
 end
