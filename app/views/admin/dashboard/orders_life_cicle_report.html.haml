@@ -31,7 +31,7 @@
         %td{:id => "picking"}= report_days_link(@picking[report_day_number],report_day_number, state: "picking")
         %td{:id => "delivering"}= report_days_link(@delivering[report_day_number],report_day_number, state: "delivering")
         %td{:id => "delivered"}= report_days_link(@delivered[report_day_number],report_day_number, state: "delivered")
-        %td{:id => "total"}= report_days_link(@all[report_day_number],report_day_number)
+        %td{:id => "total"}= report_days_link(@total[report_day_number],report_day_number)
 
     %tr
       %td TOTAL</td>
