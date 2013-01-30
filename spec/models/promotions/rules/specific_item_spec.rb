@@ -9,7 +9,8 @@ describe SpecificItem do
 
     context "when product of item has promotion" do
       it "returns true" do
-        subject.matches?(cart, "1, 2, 3").should be_true
+        product_id = cart.items.first.id
+        subject.matches?(cart, "1, #{ product_id }, 3").should be_true
       end
     end
 
