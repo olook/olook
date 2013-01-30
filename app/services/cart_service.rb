@@ -157,7 +157,7 @@ class CartService
     self.subtotal(:price) + self.total_increase
   end
 
-  def generate_order!(gateway, tracking = nil)
+  def generate_order!(gateway, tracking = nil, payment = nil)
     raise ActiveRecord::RecordNotFound.new('A valid cart is required for generating an order.') if cart.nil?
     raise ActiveRecord::RecordNotFound.new('A valid freight is required for generating an order.') if freight.nil?
     raise ActiveRecord::RecordNotFound.new('A valid user is required for generating an order.') if cart.user.nil?
@@ -169,9 +169,9 @@ class CartService
       :user_id => user.id,
       :restricted => cart.has_gift_items?,
       :gift_wrap => cart.gift_wrap,
-      :amount_discount => total_discount,
+      :amount_discount => total_discount(payment),
       :amount_increase => total_increase,
-      :amount_paid => total,
+      :amount_paid => total(payment),
       :subtotal => subtotal,
       :user_first_name => user.first_name,
       :user_last_name => user.last_name,
