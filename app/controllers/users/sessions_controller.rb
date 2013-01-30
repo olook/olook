@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Users::SessionsController < Devise::SessionsController
+  layout :layout_by_resource
+
   after_filter :create_sign_in_event, :only => :create
   before_filter :create_sign_out_event, :only => :destroy
 
@@ -44,5 +46,11 @@ class Users::SessionsController < Devise::SessionsController
       member_showroom_path
     end
   end
+
+  def layout_by_resource
+    return "checkout" if params[:checkout_login] == "true"
+    return "site"
+  end
+
 end
 

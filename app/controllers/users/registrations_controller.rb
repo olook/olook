@@ -170,7 +170,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def layout_by_resource
     return "my_account" if action_name == "edit"
     return "my_account" if action_name == "update"
-    return "checkout" if action_name == "new_half" && params[:checkout_registration] == "true"
+    return "checkout" if (action_name == "new_half" || action_name == "create_half") && params[:checkout_registration] == "true"
     return "site"
   end
 end
