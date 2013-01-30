@@ -84,7 +84,9 @@ function setButton(){
 $(function() {
 	masks.card();
 	setButton();
-	
+	masks.tel(".tel_contato1");
+	masks.tel(".tel_contato2");
+
 	var msie6 = $.browser == 'msie' && $.browser.version < 7;
 	if(!msie6 && $('.box-step-three').length == 1) {
 		var helpLeft = $('.box-step-three').offset().left; 
