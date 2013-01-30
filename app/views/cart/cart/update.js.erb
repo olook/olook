@@ -45,8 +45,12 @@ if($("#cart-box").length > 0){
   $("#cart-box #billet_discount_value").text("-<%= number_to_currency(@cart_service.billet_discount) %>");
 
   if($("li.boleto #checkout_payment_method_billet").is(":checked")) {
-    $("#cart-box #total_billet").delay(200).fadeIn();
-    $("#cart-box #billet_discount_cart").delay(200).fadeIn();
+    <% if @cart_service.billet_discount > 0 %>
+      $("#cart-box #total_billet").delay(200).fadeIn();
+      $("#cart-box #billet_discount_cart").delay(200).fadeIn();
+    <% else %>
+      $("#cart-box #total").delay(200).fadeIn();
+    <% end %>
   }
   else {
     $("#cart-box #total").delay(200).fadeIn();

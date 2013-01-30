@@ -143,7 +143,7 @@ $(function() {
 
 	//SHOW TOTAL 
 	function showTotal(){
-		if($("div.billet").is(":visible")){
+		if($("div.billet").is(":visible") && $("#billet_discount_value").text() != "-R$ 0,00"){
 			$("span#total").fadeOut('fast');
 			$("span#total_billet").delay(200).fadeIn();
       $("#cart-box #billet_discount_cart").delay(200).fadeIn();
