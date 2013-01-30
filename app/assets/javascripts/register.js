@@ -19,12 +19,14 @@ function cleanErrors(){
 			$(this).removeClass("input_error");
 			$(this).parents('div').siblings('.span_error').first().fadeOut().delay(300).remove();
 		});
-	}/*else	if(span_error_gender === 1){
-			$("select#user_gender").click(function(){
+	}
+	if(span_error_gender === 1){
+		console.info("aqui")
+		$("select#user_gender").click(function(){
 			$("span.custom_select").removeClass("input_error");
 			$(this).parents('div').siblings('.span_error').fadeOut().delay(300).remove();
 		});	
-	}*/
+	}
 }
 
 function changeSpan(){
