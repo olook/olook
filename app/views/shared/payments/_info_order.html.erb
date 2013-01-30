@@ -70,6 +70,13 @@
     <li>
       <p><span class="txt-black">CUPOM DESCONTO:</span><span>- <%= number_to_currency(coupon) %> <%= discount_percentage(cart_service.cart.coupon.discount_percent)%></span></p>
     </li>  
+    <% end 
+    billet_discount = @order.payments.for_billet_discount.sum(:total_paid) if has_payment
+    billet_discount ||= cart_service.billet_discount
+    if billet_discount > 0 %>
+    <li>
+      <p><span class="txt-black">DESCONTO DE BOLETO:</span><span>- <%= number_to_currency(billet_discount) %> </span></p>
+    </li>  
     <% end %>
   </ul>  
   <ul class="total">

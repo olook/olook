@@ -65,7 +65,7 @@ class Payment < ActiveRecord::Base
   end
 
   def self.for_billet_discount
-    where(type: 'BilletDiscount')
+    where(type: 'BilletDiscountPayment')
   end
 
   def self.with_discount
