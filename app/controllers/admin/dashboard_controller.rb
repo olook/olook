@@ -11,7 +11,7 @@ class Admin::DashboardController < Admin::BaseController
 
   def show
     number_of_days = params[:number].to_i
-    @orders = Order.with_date(number_of_days.business_days.before(Time.now)).
+    @orders = Order.with_date(number_of_days.business_days.before(today)).
                     with_state(params[:state]).
                     page(params[:page]).
                     per_page(15).
@@ -25,7 +25,7 @@ class Admin::DashboardController < Admin::BaseController
       state_counts = []
 
       @report_days.each do |report_day|
-        state_counts << Order.with_date(report_day.business_days.before(Time.now)).with_state(name.to_s.delete('@')).count
+        state_counts << Order.with_date(report_day.business_days.before(today)).with_state(name.to_s.delete('@')).count
       end
 
       instance_variable_set(name, state_counts)
@@ -45,5 +45,11 @@ class Admin::DashboardController < Admin::BaseController
   def orders_time_report
     @report_days = [*0..6]
   end
+
+  private
+
+   def today
+     0.business_day.ago
+   end
 end
 
