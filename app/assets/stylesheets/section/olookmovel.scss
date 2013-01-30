@@ -6,7 +6,7 @@ section#kombi {
     float: left;
     h1 {
       font-family: $johnston;
-      font-size: 21px;
+      font-size: 22px;
       margin: 0 0 20px;
       span {
         font-family: $kepler;
@@ -27,6 +27,7 @@ section#kombi {
   }
   div#pictures {
     width: 397px;
+    margin: 0 0 20px;
     float: right;
     div#instagram {
       background: #f1f2f2;
@@ -76,6 +77,65 @@ section#kombi {
       font-weight: 500;
       span {
         color: #d35285;
+      }
+    }
+  }
+  div#schedule {
+    position: relative;
+    min-height: 435px;
+    clear: both;
+    h1 {
+      font-family: $johnston;
+      font-size: 22px;
+      text-transform: uppercase;
+      margin: 0 0 55px;
+      span {
+        font-family: $kepler;
+        font-size: 26px;
+        text-transform: lowercase;
+      }
+    }
+    h2 {
+      position: absolute;
+      background: image-url('kombi/know-where-to-find.png') no-repeat;
+      text-indent: -99999px;
+      width: 147px;
+      height: 146px;
+      display: block;
+      top: 15px;
+      right: 0;
+    }
+    table {
+      width: 800px;
+      margin: 0 auto 20px;
+      border-collapse: separate;
+      border-spacing: 0 5px;
+      tr {
+        td {
+          background: image-url('kombi/bg-dates.jpg') 0 -41px no-repeat;
+          color: #FFF;
+          line-height: 34px;
+          height: 34px;
+          padding: 0 0 0 18px;
+          &:last-child {
+            background-position: -169px -41px;
+          }
+        }
+        &.selected {
+          td {
+            background-position: 0 0;
+            &:last-child {
+              background-position: -169px 0;
+            }
+          }
+        }
+        &.title {
+          td {
+            font-family: $johnston;
+            font-family: 15px;
+            text-transform: uppercase;
+          }
+        }
       }
     }
   }
