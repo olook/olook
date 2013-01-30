@@ -92,7 +92,7 @@ $(function() {
 		$(window).scroll(function(event) {
 			var y = $(this).scrollTop();
 			if(y >= 170) {
-				$('div.box-step-three').addClass('fixed').css({'left' : helpLeft, 'top' : '0'});
+				$('div.box-step-three').addClass('fixed').css({'left' : helpLeft, 'top' : '0', 'float' : 'none'});
 				$('input.send_it').addClass('fixed').css('left', helpLeft2);
 			} else {
 				$('.box-step-three').removeClass('fixed').removeAttr('style');
@@ -106,6 +106,7 @@ $(function() {
     $("#cart-box #credits_used").hide();
     $("#cart-box #total").hide();
     $("#cart-box #total_billet").hide();
+    $("#cart-box #billet_discount_cart").hide();
     $.ajax({
       url: '/sacola',
       type: 'PUT',
@@ -145,9 +146,11 @@ $(function() {
 		if($("div.billet").is(":visible")){
 			$("span#total").fadeOut('fast');
 			$("span#total_billet").delay(200).fadeIn();
+      $("#cart-box #billet_discount_cart").delay(200).fadeIn();
 		}else{
 			$("span#total_billet").fadeOut('fast');
 			$("span#total").delay(200).fadeIn();
+      $("#cart-box #billet_discount_cart").hide();
 		}
 	}
 
@@ -187,11 +190,8 @@ $(function() {
 	});
 	
 });
-//SCROLLTOP WHEN NEW ADDRESS IS CLICKED
-$('#checkout_address a').click(function(e) {
-	$("html, body").animate({scrollTop: 0}, 'fast');
-  e.preventDefault();
-});
+
+
 
 $("form.edit_cart_item").submit(function() {
     retrieve_freight_price($("#checkout_address_zip_code").val(),null);  

@@ -30,7 +30,7 @@ class PaymentBuilder
 
       if @gateway_strategy.payment_successful?
         tracking_order = payment.user.add_event(EventType::TRACKING, @tracking_params) if @tracking_params
-        order = cart_service.generate_order!(payment.gateway, tracking_order)
+        order = cart_service.generate_order!(payment.gateway, tracking_order, payment)
         payment.order = order
         payment.calculate_percentage!
         payment.deliver! if payment.kind_of?(CreditCard)
