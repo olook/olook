@@ -8,7 +8,10 @@
     <%= f.password_field :password, class: "fields" %>
   </fieldset>
 
-  <% checkout_login ||= false %>
+  <% 
+    checkout_login ||= params[:checkout_login]
+    checkout_login ||= false 
+  %>
   <%= hidden_field_tag :checkout_login, checkout_login %>
 
   <fieldset class='buttons'>
