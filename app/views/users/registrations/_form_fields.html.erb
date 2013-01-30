@@ -36,13 +36,13 @@
   <div>
     <%= f.label :gender, "Você é" %>
     <%= f.select(:gender, options_for_select({"Selecione:" => "", "Mulher" => 0, "Homem" => 1})) %>
-    <span class="custom_select">Selecione</span>
+    <span class="custom_select <%="#{error_class_if_needed(resource, :gender)}"%>">Selecione</span>
   </div>
   <div>  
     <%= f.label :birthday, "Data de Nascimento" %>
     <%= f.text_field :birthday, class: "nasc", value: resource.birthday ? resource.birthday.strftime("%d/%m/%Y") : '' %>    
   </div>
-  <%#= errors_for(resource, :gender) %>
+  <%= errors_for(resource, :gender) %>
 
 </fieldset>  
 <fieldset>
