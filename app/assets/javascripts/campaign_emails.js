@@ -70,6 +70,7 @@ $(function(){
 	
 		
 	$("input[type=submit]").click(function(){
+		_gaq.push(['_trackEvent', 'Modal', 'Submit', '']);
 		if(flag==true)
 			parent.top.$("#modal-campaign").fadeOut();
 		if($(".dont_show").is(":checked")){
