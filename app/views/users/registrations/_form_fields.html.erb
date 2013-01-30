@@ -49,7 +49,7 @@
   <%= f.label :cpf, "CPF" %>
   <%= f.text_field :cpf, class: "cpf #{error_class_if_needed(resource, :cpf)}" %>
   <%= errors_for(resource, :cpf) %>
-  <!-- <p class="info-cpf">Para as compras é necessário<br />informar o CPF</p> -->
+  <p class="info-cpf">Para as compras é necessário<br />informar o CPF</p>
   <p class="terms">Concluindo o cadastro você aceita nossos <%= link_to 'termos de uso', terms_path, :target => "_blank" %> e a<br />
      nossa <%= link_to "política de privacidade", privacy_path, :target => "_blank" %> </p>
 </fieldset>  
