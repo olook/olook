@@ -11,7 +11,7 @@ class MinorPriceAdjustment < PromotionAction
 
   private
     def minor_price_items(cart_items, quantity)
-      sorted_cart_items = cart_items.sort_by { |cart_item| cart_item.price }
+      sorted_cart_items = cart_items.sort_by { |cart_item| cart_item.retail_price }
       sorted_cart_items.first(quantity)
     end
 

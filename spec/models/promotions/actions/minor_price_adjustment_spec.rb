@@ -19,7 +19,7 @@ describe MinorPriceAdjustment do
         let(:cart_item) { mock(CartItem) }
 
         before do
-          cart_item.stub(id: 1097, price: BigDecimal("75"))
+          cart_item.stub(id: 1097, price: BigDecimal("75"), retail_price: BigDecimal("65"))
         end
 
         context "and quantity = 1" do
@@ -29,7 +29,7 @@ describe MinorPriceAdjustment do
             subject.calculate([cart_item], 1).should == [{id: cart_item.id, adjustment: BigDecimal("75")}]
           end
         end
-        
+
         context "and quantity = 2" do
 
           it "return de item id and its value as adjustment" do
@@ -46,9 +46,9 @@ describe MinorPriceAdjustment do
         let(:cart_items) {[cart_item_1, cart_item_2, cart_item_3]}
 
         before do
-          cart_item_1.stub(id: 1001, price: BigDecimal("95"))
-          cart_item_2.stub(id: 1002, price: BigDecimal("50"))
-          cart_item_3.stub(id: 1003, price: BigDecimal("110"))
+          cart_item_1.stub(id: 1001, price: BigDecimal("95"), retail_price: BigDecimal("85"))
+          cart_item_2.stub(id: 1002, price: BigDecimal("50"), retail_price: BigDecimal("40"))
+          cart_item_3.stub(id: 1003, price: BigDecimal("110"), retail_price: BigDecimal("90"))
         end
 
         context "when call calculate with quantity = 1" do
@@ -59,7 +59,7 @@ describe MinorPriceAdjustment do
           it "return an array with 1 element" do
             @return.size.should == 1
           end
-          
+
           it "return the minor item value (50)" do
             @return.should == [{id: cart_item_2.id, adjustment: BigDecimal("50")}]
           end
@@ -69,7 +69,7 @@ describe MinorPriceAdjustment do
           before do
             @return = subject.calculate(cart_items, 2)
           end
-          
+
           it "return an array with 2 elements" do
             @return.size.should == 2
           end
