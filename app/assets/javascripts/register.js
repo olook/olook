@@ -19,28 +19,28 @@ function cleanErrors(){
 			$(this).removeClass("input_error");
 			$(this).parents('div').siblings('.span_error').first().fadeOut().delay(300).remove();
 		});
-	}/*else	if(span_error_gender === 1){
-			$("select#user_gender").click(function(){
+	}
+	if(span_error_gender === 1){
+		$("select#user_gender").click(function(){
 			$("span.custom_select").removeClass("input_error");
 			$(this).parents('div').siblings('.span_error').fadeOut().delay(300).remove();
 		});	
-	}*/
+	}
 }
 
 function changeSpan(){
-	$("#user_gender").change(function(){
-			txt = $("option:selected").val();
-			if (txt == "0"){
-				$("span.custom_select").text(" ").delay(100).text("Mulher");
-			}else if(txt == "1"){
-				$("span.custom_select").text(" ").delay(100).text("Homem");
-			}else{
-				$("span.custom_select").text(" ").delay(100).text("Selecione");
-			}
-	});
+	txt = $("option:selected").val();
+	if (txt == "0"){
+		$("span.custom_select").text(" ").delay(100).text("Mulher");
+	}else if(txt == "1"){
+		$("span.custom_select").text(" ").delay(100).text("Homem");
+	}else{
+		$("span.custom_select").text(" ").delay(100).text("Selecione");
+	}
 }
 
 $(function(){
+	$("#user_gender").change(function(){changeSpan()})
 	cleanErrors();
 	changeSpan();
 	masks.cpf();
