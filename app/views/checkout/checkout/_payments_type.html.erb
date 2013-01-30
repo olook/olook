@@ -55,7 +55,7 @@
 <div class="payment">
   <p class="subtitle">SELECIONE A FORMA DE PAGAMENTO:</p>
   <% if billet_discount_enabled %>
-    <p class="tip">Pague com boleto e <span>ganhe <%= billet_discount_percentage%>% de desconto.<br /></span> Nesta compra seu desconto será de <span id="billet_discount" class="txt-pink"><%= number_to_currency(@cart_service.billet_discount) %></span>.</p>
+    <p class="tip" id="billet_tip" style="<%= @cart_service.billet_discount > 0 ? "" : "display:none;" %>">Pague com boleto e <span>ganhe <%= billet_discount_percentage%>% de desconto.<br /></span> Nesta compra seu desconto será de <span id="billet_discount" class="txt-pink"><%= number_to_currency(@cart_service.billet_discount) %></span>.</p>
   <% end %>
       
   <%= errors_for(@checkout, :payment_base) %>
@@ -77,7 +77,6 @@
         </li>
       <% end %>
     </ol>
-    <%= errors_for(@checkout.payment, :bank) %>
     <p>Número de parcelas:</p>
     <%= field_set_tag do %>
       <div>

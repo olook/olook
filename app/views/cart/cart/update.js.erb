@@ -53,6 +53,13 @@ if($("#cart-box").length > 0){
     $("#cart-box #billet_discount_cart").hide();
   }
 
+  <% if @cart_service.billet_discount > 0 %>
+    $("#billet_tip").show();
+  <% else %>
+    $("#billet_tip").hide();
+  <% end %>
+
+
 }
 
 if($("#payment #billet_discount").length > 0){
