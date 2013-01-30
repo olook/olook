@@ -4,35 +4,6 @@
   <meta name="chaordic:user" content="<%= @chaordic_user %>">
 <% end %>
 
-<section class="model">
-  <h1>Didi Wagner</h1>
-  <h2>Stylist Convidada</h2>
-</section>
-
-<section class="description">
-  <h2>Seu estilo está aqui</h2>
-  <h3>Receba todos os meses uma coleção de sapatos, bolsas,<br />óculos e acessórios criada pelas nossas stylists.</h3>
-
-  <section class="steps">
-    <ul>
-      <li><span>1</span> Você responde<br />nosso Style Quiz</li>
-      <li><span>2</span> Recebe sua vitrine<br />personalizada</li>
-      <li class="last"><span>3</span> Compra seus produtos<br /> favoritos</li>
-    </ul>
-  </section>
-
-  <section class="making_of">
-    <%= link_to "Video", "#", :rel => "http://www.youtube.com/watch?v=_yVjTaDzvEE", :class => "open_making_of" %>
-    <div class="video_description">
-      <h1>Conheça mais sobre a olook</h1>
-      <%= link_to "Gostou? Descubra o seu estilo e veja a coleção completa", new_survey_path, :class => "home" %>
-    </div>
-  </section>
-  <%= link_to 'Comece aqui. É grátis!', new_survey_path, :class => "start" %>
-
-</section>
-
-<%= render 'shared/facebook_like_button' %>
 <%= render :partial => 'shared/metrics/criteo/home' %>
 <%= render :partial => 'shared/metrics/triggit/home' %>
 
