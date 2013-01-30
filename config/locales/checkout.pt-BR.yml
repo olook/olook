@@ -4,7 +4,7 @@ pt-BR:
     errors:
       models:
         address:
-          blank: "Campo obrigatório"
+          blank: "O campo em vermelho é obrigatório"
           invalid: "Campo inválido"
           attributes:
             zip_code:
@@ -20,7 +20,7 @@ pt-BR:
             neighborhood:
               blank: "Qual é o seu bairro, mesmo?"
             street:
-              blank: "Qual o seu endereço?"
+              blank: "Onde devemos entregar? Selecione um endereço"
             telephone:
               blank: "É bom termos o seu telefone. Qualquer coisa, ligamos"
               invalid: "O telefone parece estranho. Pode conferir?"
