@@ -19,8 +19,7 @@ describe Order do
   let(:quantity) { 3 }
   let(:credits) { 1.89 }
 
-  let(:order_with_waiting_payment) { FactoryGirl.create :order_with_waiting_payment }
-
+  let!(:order_with_waiting_payment) { FactoryGirl.create :order_with_waiting_payment }
 
   it { should belong_to(:user) }
   it { should belong_to(:cart) }
@@ -87,19 +86,22 @@ describe Order do
     end
 
     context "when the order is authorized" do
+      let(:another_order_with_waiting_payment) { FactoryGirl.create :order_with_waiting_payment }
+
       it "should enqueue a job to confirm a payment" do
         Resque.stub(:enqueue)
-        Resque.should_receive(:enqueue_in).with(20.minutes, Abacos::ConfirmPayment, order_with_waiting_payment.number)
-        order_with_waiting_payment.authorized
+        Resque.should_receive(:enqueue_in).with(20.minutes, Abacos::ConfirmPayment, another_order_with_waiting_payment.number)
+        another_order_with_waiting_payment.authorized
       end
     end
   end
 
-  # describe "#expected_delivery_on" do
-  #   it "returns the freight deliver_time converted to a date" do
-  #     order_with_waiting_payment.freight.delivery_time
-  #   end
-  # end
+  describe "#expected_delivery_on" do
+    it "returns the freight delivery_time converted to a date" do
+      expect(order_with_waiting_payment.expected_delivery_on.to_s).
+        to eql(order_with_waiting_payment.freight.delivery_time.days.from_now.to_s)
+    end
+  end
 
   describe "#shipping_service_name" do
     it "returns the freight.shipping_service" do
@@ -331,7 +333,7 @@ describe Order do
   end
 
   describe '#with_payment' do
-    let!(:order_with_waiting_payment) { FactoryGirl.create :order }
+    let!(:order_with_waiting_payment) { FactoryGirl.create(:order_with_waiting_payment) }
     let!(:order_without_payment) do
       order = FactoryGirl.create :clean_order
       order.payments.destroy_all
@@ -376,33 +378,38 @@ describe Order do
   end
 
   context "scopes" do
-    context ".with_state" do
-      before(:each) do
-        FactoryGirl.create(:order, state: "waiting_payment")
-        FactoryGirl.create(:order, state: "picking")
-      end
+    let(:now) { Time.now }
 
+    context ".with_state" do
       it "returns orders with one state" do
+        #I know, weird.. but state comes as :authorized :P
+        order = FactoryGirl.create(:order_with_waiting_payment)
+        order.update_attribute(:state, 'waiting_payment')
         waiting = Order.with_state("waiting_payment").map(&:state)
         expect(waiting).to have(1).item
         expect(waiting).to include("waiting_payment")
       end
     end
 
-
     context ".with_date" do
-      let!(:now) { Time.now }
-
-      before(:each) do
-        @order_now = FactoryGirl.create(:order)
-        order_past = FactoryGirl.create(:order)
-        order_past.update_attribute(:updated_at, now - 2.day)
-      end
 
       it "returns orders on a specific date" do
         orders_today = Order.with_date(now)
         expect(orders_today).to have(1).item
-        expect(orders_today.first).to eq(@order_now)
+        expect(orders_today.first).to eq(order_with_waiting_payment)
+      end
+
+      context "6 or more days" do
+        before(:each) do
+          2.times do
+            past_order = FactoryGirl.create(:order_with_waiting_payment)
+            past_order.update_attribute(:updated_at, now - 6.days)
+          end
+        end
+
+        it "returns all orders from 6 business days ago or before" do
+          expect(Order.with_date(now - 6.days).count).to eql 2
+        end
       end
     end
 
@@ -414,6 +421,21 @@ describe Order do
         orders = Order.with_expected_delivery_on(expected_delivery_on)
         expect(orders).to have(1).item
         expect(orders.first).to eq(order)
+      end
+
+      context "6 or more days" do
+        let(:six_days_ago) { 6.business_days.ago }
+
+        before(:each) do
+          @past_order = FactoryGirl.create(:order_with_waiting_payment)
+          @past_order.update_attribute(:expected_delivery_on, six_days_ago)
+        end
+
+        it "returns all orders expected to be delivered 6 business days ago or before" do
+          orders = Order.with_expected_delivery_on(six_days_ago)
+          expect(orders).to have(1).item
+          expect(orders.first).to eq(@past_order)
+        end
       end
     end
   end
