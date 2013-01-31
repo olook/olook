@@ -31,11 +31,11 @@ describe Checkout::AddressesController do
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:user]
+    CartService.any_instance.stub(:cart_sub_total).and_return(60)
   end
 
   after :each do
     session[:cart_id] = nil
-    session[:cart_freight] = nil
   end
 
   it "should redirect user to login when is offline" do
@@ -70,14 +70,6 @@ describe Checkout::AddressesController do
 
   end
 
-  it "should erase freight when call any action" do
-    sign_in user
-    session[:cart_id] = cart.id
-    session[:cart_freight] = mock
-    get :index
-    assigns(:cart_service).freight.should be_nil
-  end
-
   context "GET index" do
     before :each do
       sign_in user
@@ -92,7 +84,7 @@ describe Checkout::AddressesController do
 
     it "should redirect to new if the user dont have an address" do
       get :index
-      response.should redirect_to(new_cart_checkout_address_path)
+      response.should redirect_to(new_checkout_address_path)
     end
   end
 
@@ -118,36 +110,6 @@ describe Checkout::AddressesController do
     end
   end
 
-  context "POST create" do
-    before :each do
-      sign_in user
-      session[:cart_id] = cart.id
-    end
-
-    context "with valid a address" do
-      before :each do
-        FreightCalculator.stub(:freight_for_zip).and_return(freight)
-      end
-
-      it "should create a address" do
-        expect {
-          post :create, :address => attributes
-        }.to change(Address, :count).by(1)
-      end
-
-      it "should redirect to cart checkout" do
-        post :create, :address => attributes
-        response.should redirect_to(new_credit_card_cart_checkout_path)
-      end
-
-      it "should set a feight in session" do
-        session[:cart_freight] = nil
-        post :create, :address => attributes
-        session[:cart_freight].should eq(freight.merge!(:address_id => user.addresses.last.id))
-      end
-    end
-  end
-
   context "GET edit" do
     before :each do
       sign_in user
@@ -157,31 +119,6 @@ describe Checkout::AddressesController do
     it "should assigns @address" do
       get 'edit', :id => address.id
       assigns(:address).should eq(address)
-    end
-  end
-
-  context "PUT update" do
-    before :each do
-      sign_in user
-      session[:cart_id] = cart.id
-      FreightCalculator.stub(:freight_for_zip).and_return(freight)
-    end
-
-    it "should updates an address" do
-      updated_attr = { :street => 'Rua Jones' }
-      put :update, :id => address.id, :address => updated_attr
-      Address.find(address.id).street.should eql('Rua Jones')
-    end
-
-    it "should redirect to cart checkout" do
-      put :update, :id => address.id, :address => { :street => 'Rua Jones' }
-      response.should redirect_to(new_credit_card_cart_checkout_path)
-    end
-
-    it "should set a feight in session" do
-      session[:cart_freight] = nil
-      put :update, :id => address.id, :address => { :zip_code => '18015-172' }
-      session[:cart_freight].should eq(freight.merge!(:address_id => address.id))
     end
   end
 
@@ -199,50 +136,10 @@ describe Checkout::AddressesController do
       }.to change(Address, :count).by(-1)
     end
 
-    it "should remove freight form session" do
-      session[:cart_freight] = mock
-      delete :destroy, :id => address.id
-      session[:cart_freight].should be_nil
-    end
-
     it "should redirect to addresses" do
       delete :destroy, :id => address.id
-      response.should redirect_to(cart_checkout_addresses_path)
+      response.should redirect_to(checkout_addresses_path)
     end
   end
 
-  context "GET assign_address" do
-    before :each do
-      sign_in user
-      session[:cart_id] = cart.id
-      FreightCalculator.stub(:freight_for_zip).and_return(freight)
-    end
-
-    context "with a valid address" do
-      it "should redirect to cart checkout" do
-        get :assign_address, :address_id => address.id
-        response.should redirect_to(new_credit_card_cart_checkout_path)
-      end
-
-      it "should set telephone on session" do
-        # passing address telephone to credit card form
-        get :assign_address, :address_id => address.id
-        session[:user_telephone_number].should eq(address.telephone)
-      end
-
-      it "should set a feight in session" do
-        session[:cart_freight] = nil
-        get :assign_address, :address_id => address.id
-        session[:cart_freight].should eq(freight.merge!(:address_id => address.id))
-      end
-    end
-
-    context "without a valid address" do
-      it "should redirect to address_path" do
-        get :assign_address, :address_id => "12345"
-        response.should redirect_to(cart_checkout_addresses_path)
-        flash[:notice].should eq("Por favor, selecione um endereço")
-      end
-    end
-  end
 end

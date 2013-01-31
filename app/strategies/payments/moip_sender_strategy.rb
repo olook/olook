@@ -38,26 +38,26 @@ module Payments
     def payment_data
       if payment.is_a? Billet
         data = { :valor => payment.total_paid, :id_proprio => payment.identification_code,
-                    :forma => payment.to_s, :recebimento => payment.receipt, :pagador => payer,
-                    :razao=> Payment::REASON, :data_vencimento => billet_expiration_date }
-        elsif payment.is_a? CreditCard
-          data = { :valor => payment.total_paid, :id_proprio => payment.identification_code, :forma => payment.to_s,
-                    :instituicao => payment.bank, :numero => credit_card_number,
-                    :expiracao => payment.expiration_date, :codigo_seguranca => payment.security_code,
-                    :nome => payment.user_name, :identidade => payment.user_identification,
-                    :telefone => format_telephone(payment.telephone), :data_nascimento => payment.user_birthday,
-                    :parcelas => payment.payments, :recebimento => payment.receipt,
-                    :pagador => payer, :razao => Payment::REASON }
-        else
-          data = { :valor => payment.total_paid, :id_proprio => payment.identification_code, :forma => payment.to_s,
-                   :instituicao => payment.bank, :recebimento => payment.receipt, :pagador => payer,
-                   :razao => Payment::REASON }
-        end
+                 :forma => payment.to_s, :recebimento => payment.receipt, :pagador => payer,
+                 :razao=> Payment::REASON, :data_vencimento => billet_expiration_date }
+      elsif payment.is_a? CreditCard
+        data = { :valor => payment.total_paid, :id_proprio => payment.identification_code, :forma => payment.to_s,
+                 :instituicao => payment.bank, :numero => credit_card_number,
+                 :expiracao => payment.expiration_date, :codigo_seguranca => payment.security_code,
+                 :nome => payment.user_name, :identidade => payment.user_identification,
+                 :telefone => format_telephone(payment.telephone), :data_nascimento => payment.user_birthday,
+                 :parcelas => payment.payments, :recebimento => payment.receipt,
+                 :pagador => payer, :razao => Payment::REASON }
+      else
+        data = { :valor => payment.total_paid, :id_proprio => payment.identification_code, :forma => payment.to_s,
+                 :instituicao => payment.bank, :recebimento => payment.receipt, :pagador => payer,
+                 :razao => Payment::REASON }
+      end
       data
     end
 
     def payer
-      delivery_address = Address.find_by_id!(cart_service.freight[:address_id])
+      delivery_address = Address.find_by_id!(cart_service.freight[:address][:id])
       data = {
         :nome => cart_service.cart.user.name,
         :email => cart_service.cart.user.email,

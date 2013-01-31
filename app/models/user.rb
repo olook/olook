@@ -300,6 +300,10 @@ class User < ActiveRecord::Base
     !self.campaign_email_created_at.nil?
   end
 
+  def has_valid_cpf?
+    self.cpf && Cpf.new(self.cpf).valido?
+  end
+
   private
 
   def generate_invite_token
