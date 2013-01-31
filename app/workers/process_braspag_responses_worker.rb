@@ -27,7 +27,7 @@ class ProcessBraspagResponsesWorker
       braspag_response.update_payment_status(payment)
     else
       braspag_response.update_attributes(
-        processed: true,
+        retries: braspag_response.retries + 1,
         error_message: "Pagamento não identificado."
       )
     end
