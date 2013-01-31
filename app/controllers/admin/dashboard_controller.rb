@@ -25,7 +25,11 @@ class Admin::DashboardController < Admin::BaseController
       state_counts = []
 
       @report_days.each do |report_day|
-        state_counts << Order.with_date(report_day.business_days.before(today)).with_state(name.to_s.delete('@')).count
+        if params[:transportadora]
+          state_counts << Order.with_date(report_day.business_days.before(today)).with_state(name.to_s.delete('@')).where(shipping_service_name: params[:transportadora]).count
+        else
+          state_counts << Order.with_date(report_day.business_days.before(today)).with_state(name.to_s.delete('@')).count
+        end
       end
 
       instance_variable_set(name, state_counts)
