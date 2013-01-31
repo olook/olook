@@ -4,16 +4,8 @@ class Checkout::BaseController < ApplicationController
   respond_to :html
 
   private
-  def erase_freight
-    @cart_service.freight = nil
-  end
-
-  def check_freight
-    redirect_to cart_checkout_addresses_path, :notice => "Escolha seu endereço" if @cart_service.freight.nil?
-  end
-
   def check_cpf
-    redirect_to new_cart_checkout_path, :notice => "Informe seu CPF" unless Cpf.new(@user.cpf).valido?
+    redirect_to edit_user_registration_path(:checkout_registration => true) unless @user.has_valid_cpf?
   end
 
   def check_order
@@ -34,6 +26,5 @@ class Checkout::BaseController < ApplicationController
 
   def clean_cart!
     session[:cart_id] = nil
-    session[:cart_freight] = nil
   end
 end

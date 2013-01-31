@@ -38,12 +38,12 @@ describe CreditCard do
         it { should_not allow_value("111122223333444455").for(:credit_card_number) }
       end
       context 'regular numbers for Visa and Master' do
-        it { should allow_value("1111222233334444").for(:credit_card_number) }
-        it { should_not allow_value("1111 2222 3333 4444").for(:credit_card_number) }
+        it { should allow_value("4111111111111111").for(:credit_card_number) }
+        it { should_not allow_value("4111 1111 1111 1111").for(:credit_card_number) }
       end
       context 'numbers for Amex and Diners' do
-        it { should allow_value("11122223333444").for(:credit_card_number) }
-        it { should_not allow_value("1111 2222 3333 444").for(:credit_card_number) }
+        it { should allow_value("370000000000002").for(:credit_card_number) }
+        it { should_not allow_value("3700 0000 0000 002").for(:credit_card_number) }
       end
       context 'numbers for Hypercard' do
         it { should allow_value("11112222333344445").for(:credit_card_number) }
@@ -69,7 +69,7 @@ describe CreditCard do
   context "expiration date" do
     it "should set payment expiration date after create" do
       CreditCard.any_instance.stub(:build_payment_expiration_date).and_return(expiration_date = CreditCard::EXPIRATION_IN_MINUTES.days.from_now)
-      credit_card = FactoryGirl.create(:credit_card)
+      credit_card = FactoryGirl.create(:credit_card, :credit_card_number => "4111111111111111")
       credit_card.payment_expiration_date.should == expiration_date
     end
   end

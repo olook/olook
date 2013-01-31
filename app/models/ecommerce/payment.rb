@@ -64,8 +64,12 @@ class Payment < ActiveRecord::Base
     where(type: 'CouponPayment')
   end
 
+  def self.for_billet_discount
+    where(type: 'BilletDiscountPayment')
+  end
+
   def self.with_discount
-    where(type: ['CouponPayment', 'GiftPayment', 'OlookletPayment', 'PromotionPayment', 'CreditPayment'])
+    where(type: ['BilletDiscount', 'CouponPayment', 'GiftPayment', 'OlookletPayment', 'PromotionPayment', 'CreditPayment'])
   end
 
   state_machine :initial => :started do

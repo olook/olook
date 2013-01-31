@@ -1,0 +1,155 @@
+<% if @user && @user.current_credit > 0 %>
+  <%= fields_for "checkout[credits]", @cart do |credits_form|%>
+  <div class="credits">
+    <%= credits_form.check_box :use_credits, onclick: track_event("CheckoutPayment","clickUserCredits") %>
+    <%= credits_form.label :use_credits, "QUERO USAR MEUS CRÉDITOS" %>
+    <p>Você acumulou <span><%= number_to_currency(total_user_credits) %></span> em créditos que podem ser utilizados nesta compra.
+       <a href="#" class="more_credits" onclick="<%= track_event("CheckoutPayment","clickUserCreditsInformation") %>">Mais sobre seus créditos</a>
+    </p>
+  </div>
+  <div id="about_credits">
+    <button type="button">Fechar</button>
+    <p class="about_title">SOBRE OS SEUS CRÉDITOS</p>
+    <table cellpadding="0" cellspacing="0" class="check">
+      <tbody>
+        <tr>
+          <td class="check_column">
+              <p>Você acumulou <span><%= number_to_currency(total_user_credits) %></span> créditos que podem ser utilizados nesta compra.</p>
+
+                <p>O valor do seu saldo é superior ao valor do pedido e você receberá a diferença em créditos</p>
+
+                <p>O valor do seu pedido é o mesmo que o seu saldo. Você pagará apenas o custo de envio (dependendo da localidade)</p>
+                  <p>O valor do seu pedido é superior ao seu saldo e você deverá pagar a diferença</p>
+
+              <section id="credits_explanation">
+                <p>ENTENDA SEUS CRÉDITOS</p>
+                <ul>
+                  <li>
+                    <div class="description">Créditos por compras realizadas:</div>
+                    <div class="value"><%= number_to_currency @report.amount_of_loyalty_credits %></div>
+                    <div class="message"> (não podem ser utilizados em pedidos com desconto)</div>
+                  </li>
+
+                 <li>
+                    <div class="description">Créditos por indicação:</div>
+                    <div class="value"><%= number_to_currency @report.amount_of_invite_credits %></div>
+                    <div class="message"> (não podem ser utilizados em pedidos com desconto)</div>
+                  </li>
+
+                 <li>
+                    <div class="description">Reembolso via Central de Atendimento:</div>
+                    <div class="value"><%= number_to_currency @report.amount_of_redeem_credits %></div>
+                    <div class="message">&nbsp;</div>
+                  </li>
+                </ul>
+
+              </section>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <% end %>
+<% end %>
+
+<div class="payment">
+  <p class="subtitle">SELECIONE A FORMA DE PAGAMENTO:</p>
+  <% if billet_discount_enabled %>
+    <p class="tip" id="billet_tip" style="<%= @cart_service.billet_discount > 0 ? "" : "display:none;" %>">Pague com boleto e <span>ganhe <%= billet_discount_percentage%>% de desconto.<br /></span> Nesta compra seu desconto será de <span id="billet_discount" class="txt-pink"><%= number_to_currency(@cart_service.billet_discount) %></span>.</p>
+  <% end %>
+      
+  <%= errors_for(@checkout, :payment_base) %>
+  <ul class="payment_type">
+    <li class="boleto"><%= checkout_form.radio_button :payment_method, "billet", checked: @checkout.payment && @checkout.payment.is_a?(Billet), onclick: track_event("CheckoutPayment","clickSelectBillet") %> <%= checkout_form.label :payment_method, 'Boleto' %></li>
+    <li class="credit_card"><%= checkout_form.radio_button :payment_method, "credit_card", checked: @checkout.payment && @checkout.payment.is_a?(CreditCard), onclick: track_event("CheckoutPayment","clickSelectCreditCard") %> <%= checkout_form.label :payment_method, 'Cartão de Crédito' %></li>
+    <li class="debito"><%= checkout_form.radio_button :payment_method, "debit", onclick: track_event("CheckoutPayment","clickSelectDebit")  %> <%= checkout_form.label :payment_method, 'Débito Online', checked: @checkout.payment && @checkout.payment.is_a?(Debit) %></li>
+  </ul>
+
+  <%= fields_for "checkout[payment]", @checkout.payment do |payment_form|%>
+  <div class="box-cartao credit_card">
+    <p class="subtitle">SELECIONE A BANDEIRA DO CARTÃO:</p>
+    <ol class="cards">
+      <% CreditCard::BANKS_OPTIONS.each do |bank| %>
+        <li>
+          <%= payment_form.radio_button :bank, bank, checked: (@checkout.payment && (bank == @checkout.payment.bank)) %>
+          <%= payment_form.label "credit_card_bank_#{bank}", bank %>
+          <span class="<%= (@checkout.payment && (bank == @checkout.payment.bank)) ? "selected #{bank}" : bank %>" onclick="<%= track_event("CheckoutPayment","clickBank") %>"><%= bank %></span>
+        </li>
+      <% end %>
+    </ol>
+    <%= errors_for(@checkout.payment, :bank) %>
+    <p>Número de parcelas:</p>
+    <%= field_set_tag do %>
+      <div>
+        <% options = build_installment_options(@cart_service.total, CreditCard.installments_number_for(@cart_service.total)) %>
+        <%= payment_form.select :payments, options, onchange: track_event("CheckoutPayment","changeNumberOfInstallments")  %>
+      </div>
+    <% end %>  
+    
+    <%= field_set_tag do %>
+      <div>
+      <%= payment_form.label :user_name, 'Nome (como exibido no cartão)' %>
+      <%= payment_form.text_field :user_name,  class: "user_name #{error_class_if_needed(@checkout.payment, :user_name)}", onblur: track_event("CheckoutPayment","fillUserName") %>
+      </div>
+      <%= errors_for(@checkout.payment, :user_name) %>
+    <% end %>  
+
+    <%= field_set_tag do %>
+      <div>
+      <%= payment_form.label :credit_card_number, 'Número do cartão' %>
+      <%= payment_form.text_field :credit_card_number,  class: "credit_card_number #{error_class_if_needed(@checkout.payment, :credit_card_number)}", onblur: track_event("CheckoutPayment","fillCreditCardNumber") %>
+      </div>
+      <%= errors_for(@checkout.payment, :credit_card_number) %>
+    <% end %>  
+
+    <%= field_set_tag do %>
+      <div>
+      <%= payment_form.label :security_code, 'Cód. de segurança' %>
+      <%= payment_form.text_field :security_code,  class: "security_code #{error_class_if_needed(@checkout.payment, :security_code)}", onblur: track_event("CheckoutPayment","fillSecurityCode") %>
+      </div>
+      <div class="fieldset_validate">
+      <%= payment_form.label :expiration_date, 'Validade (mm/aa)' %>
+      <%= payment_form.text_field :expiration_date,  class: "expiration_date #{error_class_if_needed(@checkout.payment, :expiration_date)}", onblur: track_event("CheckoutPayment","fillExpirationDate") %>
+      </div>
+      <%= errors_for(@checkout.payment, :security_code) %>
+      <%= errors_for(@checkout.payment, :expiration_date) %>
+    <% end %>  
+
+    <%= field_set_tag do %>
+      <div>
+      <%= payment_form.label :user_identification, 'CPF' %>
+      <%= payment_form.text_field :user_identification,  class: "user_identification #{error_class_if_needed(@checkout.payment, :user_identification)}", onblur: track_event("CheckoutPayment","fillUserIdentification") %>
+      </div>
+      <%= errors_for(@checkout.payment, :user_identification) %>
+    <% end %>
+
+    <%= field_set_tag do %>
+      <div>
+      <%= payment_form.label :user_birthday, 'Data de nascimento' %>
+      <%= payment_form.text_field :user_birthday,  class: "date #{error_class_if_needed(@checkout.payment, :user_birthday)}", onblur: track_event("CheckoutPayment","fillUserBirthday") %>
+      </div>
+      <%= errors_for(@checkout.payment, :user_birthday) %>
+    <% end %>        
+  </div>
+  <div class="box-boleto billet">
+    <p>Você deverá imprimir e realizar o pagamento
+    do boleto após a finalização da compra.</p>
+
+    <p><span>Importante:</span> Seu pedido ficará reservado por 48hrs, enquanto aguardamos a confirmação
+    do seu pagamento.</p>
+  </div>
+  <div class="box-debito debit">
+    <p class="subtitle">SELECIONE SEU BANCO:</p>
+    <% Debit::BANKS_OPTIONS.each do |bank| %>
+      <%= payment_form.radio_button :bank, bank, checked: (@checkout.payment && (bank == @checkout.payment.bank)), onclick: track_event("CheckoutPayment","clickBankOption") %>
+      <%= payment_form.label "bank_#{bank}", bank %>
+      <span class="<%= (@checkout.payment && (bank == @checkout.payment.bank)) ? "selected debit_bank_#{bank}" : "debit_bank_#{bank}" %>"><%= bank %></span>
+      <%= errors_for(@checkout.payment, :bank) %>
+    <% end %>
+
+    <p>Após clicar em “finalizar compra”, você deverá<br/> clicar em “Realizar pagamento”, na página de confirmação de compra.</p>
+    <p><span>Importante:</span> Seu pedido ficará reservado por 48hrs, enquanto aguardamos a confirmação do seu pagamento.</p>
+  </div>      
+  
+  <% end %>
+</div>  
