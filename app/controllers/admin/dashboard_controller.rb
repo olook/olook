@@ -25,10 +25,15 @@ class Admin::DashboardController < Admin::BaseController
       state_counts = []
 
       @report_days.each do |report_day|
-        if params[:transportadora]
-          state_counts << Order.with_date(report_day.business_days.before(today)).with_state(name.to_s.delete('@')).where(shipping_service_name: params[:transportadora]).count
+        if params[:transportadora] && !params[:transportadora].empty?
+          state_counts << Order.where(shipping_service_name: params[:transportadora]).
+                                with_date(report_day.business_days.before(today)).
+                                with_state(name.to_s.delete('@')).
+                                count
         else
-          state_counts << Order.with_date(report_day.business_days.before(today)).with_state(name.to_s.delete('@')).count
+          state_counts << Order.with_date(report_day.business_days.before(today)).
+                                with_state(name.to_s.delete('@')).
+                                count
         end
       end
 
@@ -37,6 +42,8 @@ class Admin::DashboardController < Admin::BaseController
       state_total = state_counts.inject(0) { |total, value| total += value }
 
       instance_variable_set("#{name}_total", state_total)
+
+      flash[:notice] = "Filtrando pela transportadora #{params[:transportadora]}" unless !params[:transportadora] || params[:transportadora].empty?
     end
 
     @report_days.each do |index|

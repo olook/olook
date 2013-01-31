@@ -9,7 +9,7 @@
     =form_tag(admin_orders_life_cicle_report_path) do
       .group
         =label_tag 'Transportadora'
-        =select_tag "transportadora",  options_for_select(["Tex", "Pac"]), include_blank: true
+        =select_tag "transportadora",  options_for_select(["TEX", "PAC"], params[:transportadora]), include_blank: true
       .group
         =submit_tag "Enviar"
 
