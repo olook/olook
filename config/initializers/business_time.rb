@@ -6,7 +6,7 @@ BusinessTime::Config.end_of_workday = "11:30 am"
 
 begin
   Holiday.all.each do |holiday|
-    BusinessTime::Config.holidays << holiday.event_time.to_date
+    BusinessTime::Config.holidays << holiday.event_date.to_date
   end
 rescue
 end
