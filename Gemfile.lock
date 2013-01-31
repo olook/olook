@@ -98,6 +98,7 @@ GEM
     akami (1.2.0)
       gyoku (>= 0.4.0)
       nokogiri (>= 1.4.0)
+    archive-tar-minitar (0.5.2)
     arel (3.0.2)
     asset_sync (0.5.3)
       activemodel
@@ -142,6 +143,7 @@ GEM
     choice (0.1.6)
     chronic (0.9.0)
     coderay (1.0.8)
+    columnize (0.3.6)
     connection_pool (1.0.0)
     curb (0.8.3)
     daemons (1.1.9)
@@ -238,6 +240,8 @@ GEM
     libwebsocket (0.1.7.1)
       addressable
       websocket
+    linecache19 (0.5.12)
+      ruby_core_source (>= 0.1.4)
     listen (0.7.2)
     lumberjack (1.0.2)
     mail (2.4.4)
@@ -376,8 +380,18 @@ GEM
     rubinius-actor (0.0.2)
       rubinius-core-api
     rubinius-core-api (0.0.1)
+    ruby-debug-base19 (0.11.25)
+      columnize (>= 0.3.1)
+      linecache19 (>= 0.5.11)
+      ruby_core_source (>= 0.1.4)
+    ruby-debug19 (0.11.6)
+      columnize (>= 0.3.1)
+      linecache19 (>= 0.5.11)
+      ruby-debug-base19 (>= 0.11.19)
     ruby-graphviz (1.0.8)
     ruby-hmac (0.4.0)
+    ruby_core_source (0.1.5)
+      archive-tar-minitar (>= 0.5.2)
     rubyzip (0.9.9)
     rufus-scheduler (2.0.17)
       tzinfo (>= 0.3.23)
@@ -525,6 +539,7 @@ DEPENDENCIES
   resque-scheduler (~> 2.0.0)
   resque_mailer (~> 2.0.2)
   rspec-rails (~> 2.12.0)
+  ruby-debug19
   sass-rails (~> 3.2.3)
   savon (= 0.9.9)
   shoulda-matchers
