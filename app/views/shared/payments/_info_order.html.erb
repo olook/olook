@@ -70,10 +70,17 @@
     <li>
       <p><span class="txt-black">CUPOM DESCONTO:</span><span>- <%= number_to_currency(coupon) %> <%= discount_percentage(cart_service.cart.coupon.discount_percent)%></span></p>
     </li>  
+    <% end 
+    billet_discount = @order.payments.for_billet_discount.sum(:total_paid) if has_payment
+    billet_discount ||= cart_service.billet_discount
+    if billet_discount > 0 %>
+    <li>
+      <p><span class="txt-black">DESCONTO DE BOLETO:</span><span>- <%= number_to_currency(billet_discount) %> </span></p>
+    </li>  
     <% end %>
   </ul>  
   <ul class="total">
-    <li class="delivery_time"><p>(entrega em <%= cart_service.freight[:delivery_time] if cart_service.freight %> dias úteis)</p></li>
+    <li class="delivery_time"><p><%= delivery_time_message(@order.freight.delivery_time) if @order.freight %></p></li>
     <%
     total_paid = @order.amount_paid if has_payment
     total_paid ||= cart_service.total

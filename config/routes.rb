@@ -318,27 +318,15 @@ Olook::Application.routes.draw do
   end
 
   #CHECKOUT
-  resource :cart, :path => 'sacola', :controller => "checkout/cart", :except => [:create] do
-    get "update_status" => "checkout/cart#update_status", :as => :update_status
-    put "update_credits" => "checkout/cart#update_credits", :as => :update_credits
-    put "update_coupon" => "checkout/cart#update_coupon", :as => :update_coupon
-    delete "remove_coupon" => "checkout/cart#remove_coupon", :as => :remove_coupon
-
+  resource :cart, :path => 'sacola', :controller => "cart/cart", :except => [:create] do
     resources :items, :to => 'cart/items'
+  end
 
-    resource :checkout, :path => 'pagamento', :controller => 'checkout/checkout' do
-      get "preview_by_zipcode", :to => "checkout/addresses#preview", :as => :preview_zipcode
-      resources :addresses, :path => 'endereco', :controller => "checkout/addresses" do
-        get "assign_address", :to => "checkout/addresses#assign_address", :as => :assign_address
-      end
-
-      get "boleto", :to => "checkout/checkout#new_billet", :as => :new_billet
-      post "boleto", :to => "checkout/checkout#create_billet", :as => :billet
-      get "credito", :to => "checkout/checkout#new_credit_card", :as => :new_credit_card
-      post "credito", :to => "checkout/checkout#create_credit_card", :as => :credit_card
-      get "debito", :to => "checkout/checkout#new_debit", :as => :new_debit
-      post "debito", :to => "checkout/checkout#create_debit", :as => :debit
-    end
+  resource :checkout, :path => 'pagamento', :controller => 'checkout/checkout' do
+    get "/", :to => "checkout/checkout#new"
+    get "preview_by_zipcode", :to => "checkout/addresses#preview", :as => :preview_zipcode
+    resources :addresses, :path => 'endereco', :controller => "checkout/addresses"
+    resources :login, :path=> "login", :controller => "checkout/login", :only => [:index]
   end
 
   #FINISH
@@ -349,6 +337,10 @@ Olook::Application.routes.draw do
 
   #ZIPCODE
   get "/get_address_by_zipcode", :to => "zipcode_lookup#get_address_by_zipcode"
+  post "/address_data", :to => "zipcode_lookup#address_data"
+
+  #FREIGHT
+  post "freight_price", :to => "freight_lookup#show"
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get ":page_url", :to => "landing_pages#show"
