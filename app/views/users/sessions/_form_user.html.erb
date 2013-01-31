@@ -1,33 +1,26 @@
 <%= form_for(:user, :as => :user, :url => session_path(:user)) do |f| %>
-  <fieldset class="inputs">
-    <ol>
-      <li>
-        <%= f.label "E-mail" %>
-        <%= f.email_field :email %>
-      </li>
-
-      <li>
-        <%= f.label "Senha" %>
-        <%= f.password_field :password %>
-      </li>
-    </ol>
+  <fieldset>
+    <%= f.label :email, "E-mail" %>
+    <%= f.email_field :email, class: "fields" %>
+  </fieldset>
+  <fieldset>
+    <%= f.label :password, "Senha" %>
+    <%= f.password_field :password, class: "fields" %>
   </fieldset>
 
-  <fieldset class='buttons'>
-    <ol>
-      <li class="remember-me">
-        <%= f.check_box :remember_me, :id => "user_remember_me_login", :checked => true %> <%= f.label :remember_me_login, "Lembrar de mim" %>
-      </li>
+  <% 
+    checkout_login ||= params[:checkout_login]
+    checkout_login ||= false 
+  %>
+  <%= hidden_field_tag :checkout_login, checkout_login %>
 
-      <li class="forgot-password">
-        <%= link_to "Esqueceu sua senha?", new_password_path(:user) %>
-      </li>
-      <li>
-        <%= f.submit "", :id => "login" %>
-      </li>
-    </ol>
+  <fieldset class='buttons'>
+    <%= f.check_box :remember_me, :id => "user_remember_me_login", :checked => true %> <%= f.label :remember_me_login, "Lembrar de mim" %>
+    <%= link_to "Esqueceu sua senha?", new_password_path(:user) %>
+    <%= f.submit "ENTRAR", :id => "login" %>
   </fieldset>
 <% end %>
 <div class="login_with_facebook">
-  <%= link_to 'Entrar com Facebook', user_omniauth_authorize_path(:facebook), :class => 'fb_login_button' %>
+  <%= link_to 'Entrar com Facebook', user_omniauth_authorize_path(:facebook), :class => 'fb_login_button popup', :"data-width" => 410, :"data-height" => 300 %>
 </div>
+

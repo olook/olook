@@ -1,5 +1,10 @@
-<% if resource.half_user %>
-  <%= render :partial => "half_user" %>
+
+<% if registration_for_checkout? %>
+  <%= render :partial => "form_half_with_cart" %>
 <% else %>
-  <%= render :partial => "full_user" %>
+  <% if resource.half_user %>
+    <%= render :partial => "half_user" %>
+  <% else %>
+    <%= render :partial => "full_user" %>
+  <% end %>
 <% end %>

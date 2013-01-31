@@ -74,15 +74,15 @@ describe Users::SessionsController do
         cart.reload.user_id.should be(controller.current_user.id)
       end
 
-      it "should redirect to cart page when user has credits" do
+      it "should redirect to new_checkout page when user has credits" do
         user.user_credits_for(:invite).add(amount: 50)
         post :create, :user => user_params
-        response.should redirect_to(cart_path)
+        response.should redirect_to(new_checkout_path)
       end
 
-      it "should redirect to address page" do
+      it "should redirect to new_checkout page" do
         post :create, :user => user_params
-        response.should redirect_to(cart_checkout_addresses_path)
+        response.should redirect_to(new_checkout_path)
       end
     end
 
@@ -98,15 +98,15 @@ describe Users::SessionsController do
         cart.reload.user_id.should be(controller.current_user.id)
       end
       
-      it "should redirect to cart page when user has credits" do
+      it "should redirect to new_checkout page when user has credits" do
         user.user_credits_for(:invite).add(amount: 50)
         post :create, :user => user_params
-        response.should redirect_to(cart_path)
+        response.should redirect_to(new_checkout_path)
       end
 
-      it "should redirect to address page" do
+      it "should redirect to new_checkout page" do
         post :create, :user => user_params
-        response.should redirect_to(cart_checkout_addresses_path)
+        response.should redirect_to(new_checkout_path)
       end
     end
 
