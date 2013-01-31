@@ -20,8 +20,9 @@
     <meta property="fb:page_id" content="157293541026960" />
     <meta property="fb:admins" content="100002490760020" />
     
-    <script type="text/javascript">  
-      if(window.opener) {
+    <script type="text/javascript">
+      var url=window.location.href;
+      if(window.opener && url.indexOf('utm_source') == -1 ) {
          window.opener.top.location = window.location.href;
          document.getElementsByTagName('body')[0].style.display='none';
          setTimeout(function(){
