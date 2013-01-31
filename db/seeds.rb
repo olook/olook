@@ -23,3 +23,21 @@ end
   Page.where("controller_name = ?", page_attributes[:controller_name]).first_or_create(page_attributes)
 end
 
+
+# Promotion Rules and Promotion Actions
+[
+  {type: FirstBuy, name: "Primeira Compra"},
+  {type: CartItemsAmount, name: "Quantidade de itens na sacola"},
+  {type: CartItemsTotalValue, name: "Valor total dos items na sacola"},
+  {type: FirstBuy, name: "Primeira Compra"},
+  {type: SpecificItem, name: "Items especificos"},
+
+  #Actions
+  {type: MinorPriceAdjustment, name: "Produto de menor valor Gratis"},
+  {type: PercentageAdjustment, name: "Desconto em % do valor do pedido"},
+  {type: ValueAdjustment, name: "Desconto de valor fixo"},
+].each do | values |
+  values[:type].first_or_create(name: values[:name])
+end
+
+# Promotion Actions
