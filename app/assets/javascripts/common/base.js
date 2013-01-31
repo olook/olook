@@ -28,7 +28,21 @@ var LuhnCheck = (function()
 	}
 })();
 
+/* FACEBOOK POPUP */
+function popupCenter(url, width, height, name) {
+  var left = (screen.width/2)-(width/2), top = (screen.height/2)-(height/2), popupValue = "on";
+  return window.open(url, name, "menubar=no,toolbar=no,status=no,width="+width+",height="+height+",toolbar=no,left="+left+",top="+top);
+}
+  
+
 $(document).ready(function() {
+	
+	$("a.popup").click(function(e) {
+	  popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "authPopup");
+	  e.stopPropagation(); return false;
+	});
+
+	
   initBase.dialogLogin();
   initBase.loadJailImages();
   initBase.customSelect();
@@ -259,22 +273,25 @@ $(document).ready(function() {
   });
 
   // For now both fone field will acept nine digits
-  if(($("input:text.phone").length >= 1) && ($("input:text.phone").val().length == 13)) {
-    $("input:text.phone").setMask('(99)9999-9999');
-  }else{
-    $("input:text.phone").setMask('(99)99999-9999');
-  }
-
-  $("input:text.phone").change(function(){
-    if ($("input:text.phone").val().length == 13) {
-      $("input:text.phone").setMask('(99)9999-9999');
-    }
-  });
-
- $("input:text.phone").click(function(){
-    $("input:text.phone").unsetMask();
-    $("input:text.phone").setMask('(99)99999-9999');
-  });
+  $("input:text.phone").keyup(function(){
+		ddd  = $(tel).val().substring(1, 3);
+		dig9 = $(tel).val().substring(5, 6);
+		if(ddd == "11" && dig9 == "9")
+			$(tel).setMask("(99) 99999-9999");
+	  else
+	    $(tel).setMask("(99) 9999-9999");	  
+	}).focus(function(){
+	    $(tel).unsetMask();
+	}).focusout(function() {
+			ddd  = $(tel).val().substring(1, 3);
+			dig9 = $(tel).val().substring(5, 6);
+	    if(ddd == "11" && dig9 == "9")
+				$(tel).setMask("(99) 99999-9999");
+		  else
+		    $(tel).setMask("(99) 9999-9999");
+	});
+   
+   
 
   $("input:text.expiration_date").setMask({
     mask: '19/99'

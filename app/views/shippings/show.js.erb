@@ -1,0 +1,13 @@
+$("#freight_price").html("<%= number_to_currency(@freight_price) %>");
+$("#freight_price").delay(200).fadeIn();
+
+$("#delivery_time").html("<%= delivery_time_message(@days_to_deliver) %>");
+$("#delivery_time").delay(200).fadeIn();
+
+$("#total").html("<%= number_to_currency(total_with_freight(@freight_price)) %>");
+$("#total_billet").html("<%= number_to_currency(total_with_freight(@freight_price, Billet.new)) %>");
+
+if($("#checkout_payment_method_billet").is(":checked"))
+  $("#total_billet").delay(200).fadeIn();
+else 
+  $("#total").delay(200).fadeIn();

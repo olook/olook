@@ -5,6 +5,8 @@ Setting.defaults[:loyalty_program_credits_available] = true
 Setting.defaults[:invite_credits_bonus_for_inviter] = "20.00"
 Setting.defaults[:invite_credits_bonus_for_invitee] = "10.00"
 Setting.defaults[:percentage_on_order] = "0.20"
+Setting.defaults[:billet_discount_available] = true
+Setting.defaults[:billet_discount_percent] = 5
 
 Setting.defaults[:sac_beginning_working_hour] = "08:00:00"
 Setting.defaults[:sac_end_working_hour] = "19:00:00"
