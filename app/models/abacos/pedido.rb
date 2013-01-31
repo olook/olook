@@ -60,10 +60,11 @@ module Abacos
       result['ListaDePedidos']['DadosPedidos'].merge! @endereco.parsed_data('Dest')
       result
     end
+
   private
 
     def parse_data_entrega(delivery_time)
-      "#{delivery_time.days.from_now.strftime("%d%m%Y")} 21:00"
+      "#{delivery_time.business_days.from_now.strftime("%d%m%Y")} 21:00"
     end
 
     def parse_itens(line_items)

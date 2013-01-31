@@ -165,7 +165,7 @@ describe Abacos::Pedido do
                     'ValorFrete' => '22.00',
                     'Transportadora' => 'TEX',
                     'PrazoEntregaPosPagamento' => 5,
-                    'DataPrazoEntregaInicial' => "#{5.days.from_now.strftime("%d%m%Y")} 21:00",
+                    'DataPrazoEntregaInicial' => "#{5.business_days.from_now.strftime("%d%m%Y")} 21:00",
                     'Itens' =>  {
                       'DadosPedidosItem' => [
                                   {
@@ -211,5 +211,5 @@ describe Abacos::Pedido do
         subject.parsed_data.should == expected_parsed_data
       end
     end
-    end
+  end
 end

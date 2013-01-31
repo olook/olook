@@ -283,7 +283,7 @@ class Order < ActiveRecord::Base
 
     def calculate_delivery_date
       if freight
-        freight.delivery_time.days.from_now
+        freight.delivery_time.business_days.from_now
       else
         Airbrake.notify(
           :error_class   => "Order",
