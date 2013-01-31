@@ -11,11 +11,10 @@ describe Payments::MoipSenderStrategy do
   let(:billet) { FactoryGirl.create(:billet, :order => order) }
   let(:debit) { FactoryGirl.create(:debit, :order => order) }
   let(:address) { FactoryGirl.create(:address, :user => user) }
-  let(:freight) { { :price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => shipping_service.id, :address_id => address.id} }
+  let(:freight) { {price: 12.34, cost: 2.34, delivery_time: 2, shipping_service_id: shipping_service.id, address: {id: address.id}} }
   let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
   let(:cart_service) { CartService.new({
-    :cart => cart,
-    :freight => freight,
+    :cart => cart
   }) }
   let(:order_total) { 12.34 }
 
@@ -35,6 +34,7 @@ describe Payments::MoipSenderStrategy do
     end
 
     it "should send payments" do
+      CartService.any_instance.should_receive(:freight).twice.and_return(freight)
       MoIP::Client.should_receive(:checkout).with(subject.payment_data)
       payment.stub(:build_response)
       payment.stub(:gateway_response_status).and_return(Payment::SUCCESSFUL_STATUS)
@@ -55,6 +55,7 @@ describe Payments::MoipSenderStrategy do
     end
 
     it "should return the payer" do
+      CartService.any_instance.should_receive(:freight).and_return(freight)
       delivery_address = order.freight.address
       expected = {
         :nome => user.name,
@@ -77,6 +78,7 @@ describe Payments::MoipSenderStrategy do
 
 
     it "should return payment data for billet" do
+      CartService.any_instance.should_receive(:freight).twice.and_return(freight)
       subject.payment = billet
       expected_expiration_date = billet.payment_expiration_date.strftime("%Y-%m-%dT15:00:00.0-03:00")
       expected = { :valor => order_total, :id_proprio => billet.identification_code,
@@ -87,6 +89,7 @@ describe Payments::MoipSenderStrategy do
     end
 
     it "should return payment data for debit" do
+      CartService.any_instance.should_receive(:freight).twice.and_return(freight)
       subject.payment = debit
       expected = { :valor => order_total, :id_proprio => debit.identification_code, :forma => subject.payment.to_s,
                  :instituicao => debit.bank, :recebimento => debit.receipt, :pagador => subject.payer,
@@ -96,6 +99,7 @@ describe Payments::MoipSenderStrategy do
     end
 
     it "should return payment data for credit card" do
+      CartService.any_instance.should_receive(:freight).twice.and_return(freight)
       subject.payment = credit_card
       subject.credit_card_number = credit_card.credit_card_number
       payer = subject.payer

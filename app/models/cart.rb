@@ -4,6 +4,7 @@ class Cart < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :coupon
+  belongs_to :address
   has_many :orders
   has_many :items, :class_name => "CartItem", :dependent => :destroy
 

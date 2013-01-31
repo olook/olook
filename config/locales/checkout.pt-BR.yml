@@ -1,0 +1,69 @@
+# encoding: UTF-8
+pt-BR:
+  activerecord:
+    errors:
+      models:
+        address:
+          blank: "O campo em vermelho é obrigatório"
+          invalid: "Campo inválido"
+          attributes:
+            zip_code:
+              blank: "O CEP parece estranho. Pode conferir?"
+              invalid: "Precisamos do seu CEP"
+            city:
+              blank: "Qual é o nome da cidade, mesmo?"
+            state:
+              blank: "Também precisamos da sigla do estado (UF)"
+            number:
+              blank: "Também precisamos do número"
+              invalid: "O número parece estranho. Pode conferir?"
+            neighborhood:
+              blank: "Qual é o seu bairro, mesmo?"
+            street:
+              blank: "Onde devemos entregar? Selecione um endereço"
+            telephone:
+              blank: "É bom termos o seu telefone. Qualquer coisa, ligamos"
+              invalid: "O telefone parece estranho. Pode conferir?"
+        user:
+          attributes:
+            first_name:
+              blank: "Queremos te conhecer, qual é o seu nome? :)"
+            last_name:
+              blank: "Ah, precisamos do nome completo"
+            password:
+              blank: "Crie sua senha para acessos futuros"
+              too_short: "Ah, a senha deve ter no mínimo %{count} caracteres, tá?"
+              confirmation: "Pode repetir? Parece que não está batendo"
+            email:
+              blank: "Precisamos dele para envio de mensagens sobre o pedido"
+              invalid: "O e-mail parece estranho. Pode conferir?"
+            cpf:
+              blank: "Para compras, é necessário informar o CPF"
+              invalid: "O CPF parece estranho. Pode conferir?"
+        credit_card:
+          attributes:
+            user_identification:
+              blank: "Para compras, é necessário informar o CPF"
+              invalid: "Pode repetir o CPF? Parece que não está batendo"
+            user_birthday:
+              blank: "Queremos saber esta data especial :)"
+              invalid: "Pode repetir? Parece que não está batendo"
+            security_code:
+              blank: "É preciso informar o código de segurança"
+              invalid: "O código parece estranho. Pode conferir?"
+            user_name:
+              blank: "O nome deve ser igualzinho ao impresso no seu cartão"
+            bank:
+              blank: "Qual é a bandeira do seu cartão, mesmo?"
+            credit_card_number:
+              blank: "Precisamos deste número para mandar a conta :)"
+              invalid: "O número do cartão parece estranho. Pode conferir? "
+            expiration_date:
+              blank: "Até quando vale o seu cartão, mesmo?"
+              invalid: "A validade não está batendo. Pode conferir?"
+            user_birthday:
+              blank: "Queremos saber esta data especial :)"
+        debit:
+          attributes:
+            bank:
+              blank: "Selecione o banco para pagamento via débito online"

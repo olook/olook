@@ -1,0 +1,34 @@
+<div id="cart-box">
+  <span class="bg-box">&nbsp;</span>
+  <div class="products">
+    <table cellpadding="0" cellspacing="0" class="items_list" id="items">
+      <tbody>
+        <% @cart.items.each do |item| %>
+          <%= render partial: 'cart/items/checkout_row', locals: { cart_service: @cart_service, item: item } if item %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <ul class="subtotal">
+    <li><span class="txt-black">SUBTOTAL: </span><span class="txt-pink"><%= number_to_currency(@cart_service.subtotal) %></span></li>
+    <li class="frete"><span class="txt-black">FRETE: </span><span id="freight_price"><% if address && address.zip_code %><%= number_to_currency(freight_for(address)[:price]) %><% end %></span></li>
+    <li><span class="txt-black">CRÉDITOS: </span><span id="credits_used">-<%= number_to_currency(@cart_service.total_credits_discount) %></span></li>
+    <% if @cart_service.total_coupon_discount > 0 %>
+      <li><span class="txt-black">CUPOM: </span><span id="coupon_discount_value">-<%= number_to_currency(@cart_service.total_coupon_discount) %></span></li>
+    <% end %>
+    <% if @checkout %>
+    <div id="billet_discount_cart">
+      <li><span class="txt-black">BOLETO: </span><span id="billet_discount_value">-<%= number_to_currency(@cart_service.billet_discount) %></span></li>
+    </div>
+    <% end %>
+  </ul> 
+  <p class="total">
+    <span class="txt-black">TOTAL: </span>
+    <% if @checkout %>
+      <span class="txt-pink" id="total_billet"><%= number_to_currency(@cart_service.total(Billet.new)) %></span>
+    <%end%>    
+    <span class="txt-pink" id="total"><%= number_to_currency(@cart_service.total) %></span>
+
+    <span class="frete" id="delivery_time"><% if address && address.zip_code %><%= delivery_time_message(freight_for(address)[:delivery_time]) %><% end %></span>
+  </p>
+</div>

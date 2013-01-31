@@ -1,0 +1,16 @@
+<% addresses.each do |address| %>
+  <%= field_set_tag do %>
+    <%= radio_button :address, 'id', address.id, class: "address_recorded", id: "", checked: (selected_address && (address.id == selected_address.id)), onclick:"retrieve_freight_price('#{address.zip_code}');#{track_event('CheckoutAddress','clickChangeAddress')}" %>
+    <%= label_tag :address, '', class: "address_label" %>
+    <ul class="address_data">
+      <li><%= "#{address.first_name} #{address.last_name}" %></li>
+      <li><%= "#{address.street}, #{address.number}" %></li>
+      <li><%= "#{address.neighborhood} - #{address.zip_code}" %></li>
+      <li><%= "#{address.city}, #{address.state}" %></li>
+      <li><%= link_to "Alterar endereço", edit_checkout_address_path(address), remote: true, onclick: track_event("CheckoutAddress","clickChangeAddress") %></li>
+    </ul>
+  <% end %>
+<% end %>
+<% if @user.addresses && @user.addresses.select{|address| address.id }.any?  %>
+<p class="new_address"><%= link_to "+ Adicionar novo endereço", new_checkout_address_path, remote: true, onclick: track_event("CheckoutAddress","clickAddAddress") %></p>
+<% end %>

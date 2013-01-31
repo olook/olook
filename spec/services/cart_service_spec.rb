@@ -14,12 +14,10 @@ describe CartService do
   let(:coupon_of_percentage) { FactoryGirl.create :percentage_coupon}
   let(:payment) { FactoryGirl.create :debit }
   let(:cart_service) { CartService.new({
-    :cart => cart,
-    :freight => freight,
+    :cart => cart
   }) }
 
   context "#allow_credit_payment?" do
-
     it "should delegate to cart when no promotion exists" do
       cart.should_receive(:allow_credit_payment?)
       cart_service.allow_credit_payment?
@@ -31,7 +29,7 @@ describe CartService do
   end
 
   context "when initialize" do
-    [:cart, :freight].each do |attribute|
+    [:cart].each do |attribute|
       it "should set #{attribute}" do
         value = mock
         cart_service = CartService.new({attribute => value})
@@ -43,16 +41,13 @@ describe CartService do
   context ".freight_price" do
     it "should return zero when freight is not available" do
       cart_service = CartService.new({})
-      cart_service.freight_price.should eq(0)
-    end
-
-    it "should return zero when price is not available" do
-      cart_service = CartService.new({:freight => {}})
+      cart_service.stub(:freight).and_return({})
       cart_service.freight_price.should eq(0)
     end
 
     it "should return price" do
-      cart_service = CartService.new({:freight => {:price => 10.0}})
+      cart_service = CartService.new({})
+      cart_service.stub(:freight).and_return({:price => 10.0})
       cart_service.freight_price.should eq(10.0)
     end
   end
@@ -60,16 +55,13 @@ describe CartService do
   context ".freight_city" do
     it "should return empty when freight is not available" do
       cart_service = CartService.new({})
-      cart_service.freight_city.should eq("")
-    end
-
-    it "should return empty when city is not available" do
-      cart_service = CartService.new({:freight => {}})
+      cart_service.stub(:freight).and_return({})
       cart_service.freight_city.should eq("")
     end
 
     it "should return city" do
-      cart_service = CartService.new({:freight => {:city => "XPTO2.0"}})
+      cart_service = CartService.new({})
+      cart_service.stub(:freight).and_return({:city => "XPTO2.0"})
       cart_service.freight_city.should eq("XPTO2.0")
     end
   end
@@ -77,16 +69,13 @@ describe CartService do
   context ".freight_state" do
     it "should return empty when freight is not available" do
       cart_service = CartService.new({})
-      cart_service.freight_state.should eq("")
-    end
-
-    it "should return empty when state is not available" do
-      cart_service = CartService.new({:freight => {}})
+      cart_service.stub(:freight).and_return({})
       cart_service.freight_state.should eq("")
     end
 
     it "should return state" do
-      cart_service = CartService.new({:freight => {:state => "XPTO"}})
+      cart_service = CartService.new({})
+      cart_service.stub(:freight).and_return({:state => "XPTO"})
       cart_service.freight_state.should eq("XPTO")
     end
   end
@@ -289,7 +278,8 @@ describe CartService do
     end
 
     it "should sum freight price" do
-      cart_service = CartService.new({:cart => cart, :freight => {:price => 10.0}})
+      cart_service = CartService.new({:cart => cart})
+      cart_service.stub(:freight).and_return({:price => 10.0})
       cart_service.total_increase.should eq(10.0)
     end
   end
@@ -316,14 +306,15 @@ describe CartService do
     end
 
     it "should return correct value when coupon is greater than maximum value and has freight" do
+      cart_service.stub(:freight).and_return(freight)
       coupon_of_value.update_attribute(:value, 100)
       cart_service.cart.coupon = coupon_of_value
       cart_service.total_coupon_discount.should eq(100)
     end
 
     it "should return correct value when coupon is greater than maximum value and has no freight" do
+      cart_service.stub(:freight).and_return(nil)
       coupon_of_value.update_attribute(:value, 100)
-      cart_service.freight = nil
       cart_service.cart.coupon = coupon_of_value
       cart_service.total_coupon_discount.should eq(95)
     end
@@ -339,7 +330,7 @@ describe CartService do
 
     context "when freight price is greater than minimum value" do
       before :each do
-        cart_service.freight = freight.merge!(:price => 10)
+        cart_service.stub(:freight).and_return(freight.merge!(:price => 10))
       end
 
       it "and there are no credits to the total purchase should return false" do
@@ -351,7 +342,7 @@ describe CartService do
 
     context "when freight price is less than minimum value" do
       before :each do
-        cart_service.freight = freight.merge!(:price => 3)
+        cart_service.stub(:freight).and_return(freight.merge!(:price => 3))
       end
 
       it "and there are no credits to the total purchase should return false" do
@@ -371,6 +362,68 @@ describe CartService do
       cart.items.first.variant.product.master_variant.update_attribute(:price, 20)
       cart_service.cart.coupon = coupon_of_percentage
       cart_service.total_discount_by_type(:coupon).should eq(4.0)
+    end
+  end
+
+  context ".calculate_discounts" do
+    let(:user_credit) { mock_model(UserCredit, total: 50) }
+    let(:empty_user_credit) { mock_model(UserCredit, total: 0) }
+
+    before :each do
+      master_variant = cart.items.first.variant.product.master_variant
+      master_variant.update_attribute(:price, 100)
+      master_variant.update_attribute(:retail_price, 100)
+      cart_service.cart.coupon = nil
+      cart.items.first.quantity = 1
+    end
+
+    it "returns discounts = billet_discount when payment type is billet" do
+      Setting.should_receive(:billet_discount_available).and_return(true)
+      Setting.should_receive(:billet_discount_percent).and_return("5")
+      cart_service.calculate_discounts(Billet.new).fetch(:discounts).should eq([:billet_discount])
+    end
+
+    it "applies billet_discount on the retail_value" do
+      Setting.should_receive(:billet_discount_available).and_return(true)
+      Setting.should_receive(:billet_discount_percent).and_return("5")
+      cart_service.calculate_discounts(Billet.new).fetch(:billet_discount).should eq(5.0)
+    end
+
+    it "applies billet_discount on the retail_value after applying coupon of value" do
+      Setting.should_receive(:billet_discount_available).and_return(true)
+      Setting.should_receive(:billet_discount_percent).and_return("5")
+      cart_service.cart.coupon = coupon_of_value
+      cart_service.calculate_discounts(Billet.new).fetch(:billet_discount).should eq(2.5)
+    end
+
+    it "applies billet_discount on the retail_value after applying loyalty_program credits" do
+      Setting.should_receive(:billet_discount_available).and_return(true)
+      Setting.should_receive(:billet_discount_percent).and_return("5")
+      cart_service.cart.user.should_receive(:user_credits_for).with(:loyalty_program).and_return(user_credit)
+      cart_service.cart.user.should_receive(:user_credits_for).with(:invite).and_return(empty_user_credit)
+      cart_service.cart.user.should_receive(:user_credits_for).with(:redeem).and_return(empty_user_credit)
+      cart_service.cart.use_credits = true
+      cart_service.calculate_discounts(Billet.new).fetch(:billet_discount).should eq(2.5)
+    end
+
+    it "applies billet_discount on the retail_value after applying invite credits" do
+      Setting.should_receive(:billet_discount_available).and_return(true)
+      Setting.should_receive(:billet_discount_percent).and_return("5")
+      cart_service.cart.user.should_receive(:user_credits_for).with(:loyalty_program).and_return(empty_user_credit)
+      cart_service.cart.user.should_receive(:user_credits_for).with(:invite).and_return(user_credit)
+      cart_service.cart.user.should_receive(:user_credits_for).with(:redeem).and_return(empty_user_credit)
+      cart_service.cart.use_credits = true
+      cart_service.calculate_discounts(Billet.new).fetch(:billet_discount).should eq(2.5)
+    end
+
+    it "applies billet_discount on the retail_value after applying invite credits" do
+      Setting.should_receive(:billet_discount_available).and_return(true)
+      Setting.should_receive(:billet_discount_percent).and_return("5")
+      cart_service.cart.user.should_receive(:user_credits_for).with(:loyalty_program).and_return(empty_user_credit)
+      cart_service.cart.user.should_receive(:user_credits_for).with(:invite).and_return(empty_user_credit)
+      cart_service.cart.user.should_receive(:user_credits_for).with(:redeem).and_return(user_credit)
+      cart_service.cart.use_credits = true
+      cart_service.calculate_discounts(Billet.new).fetch(:billet_discount).should eq(2.5)
     end
   end
 
@@ -438,22 +491,17 @@ describe CartService do
       }.to raise_error(ActiveRecord::RecordNotFound, 'A valid cart is required for generating an order.')
     end
 
-    it "should a valid freight is required" do
-      expect {
-        CartService.new({:cart => cart}).generate_order!(Payment::GATEWAYS[:moip])
-      }.to raise_error(ActiveRecord::RecordNotFound, 'A valid freight is required for generating an order.')
-    end
-
     it "should a valid user is required" do
       expect {
         cart.user = nil
-        CartService.new({:cart => cart, :freight => freight}).generate_order!(Payment::GATEWAYS[:moip])
+        CartService.new({:cart => cart}).generate_order!(Payment::GATEWAYS[:moip])
       }.to raise_error(ActiveRecord::RecordNotFound, 'A valid user is required for generating an order.')
     end
 
     it "should create" do
       expect {
-        cart_service = CartService.new({:cart => cart, :freight => freight})
+        cart_service = CartService.new({:cart => cart})
+        cart_service.stub(:freight).and_return(freight)
         cart_service.stub(:total_credits_discount => 0)
         cart_service.stub(:total_discount => 10)
         cart_service.stub(:total_increase => 20)
@@ -503,7 +551,8 @@ describe CartService do
 
       before do
         FactoryGirl.create(:freebie_variant, :variant => cart.items.first.variant, :freebie => freebie)
-        cart_service = CartService.new({:cart => cart, :freight => freight})
+        cart_service = CartService.new({:cart => cart})
+        cart_service.stub(:freight).and_return(freight)
       end
 
       it "creates freebies line items" do
