@@ -16,7 +16,7 @@
 
   <% @holidays.each do |holiday| %>
     <tr>
-      <td><%= holiday.event_time.strftime("%d/%m/%Y") %></td>
+      <td><%= holiday.event_date %></td>
       <td><%= holiday.name %></td>
       <td><%= link_to 'Mostrar', admin_holiday_path(holiday), :class => 'button' %></td>
       <td><%= link_to 'Editar', edit_admin_holiday_path(holiday), :class => 'button' %></td>
