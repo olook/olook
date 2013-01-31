@@ -52,14 +52,14 @@ describe Payments::BraspagSenderStrategy do
     end
 
     it "should return payment successful as TRUE" do
-      Resque.should_receive(:enqueue_in).with(1.minutes, Braspag::GatewaySenderWorker, subject.payment.id)
+      Resque.should_receive(:enqueue).with(Braspag::GatewaySenderWorker, subject.payment.id)
       subject.stub(:set_payment_gateway){nil}
       subject.send_to_gateway
       subject.payment_successful?.should eq(true)
     end
 
     it "should enqueue request on resque" do
-      Resque.should_receive(:enqueue_in).with(1.minutes, Braspag::GatewaySenderWorker, subject.payment.id)
+      Resque.should_receive(:enqueue).with(Braspag::GatewaySenderWorker, subject.payment.id)
       subject.stub(:set_payment_gateway){nil}
       subject.send_to_gateway
     end

@@ -12,7 +12,7 @@ module Payments
     def send_to_gateway
       log("Sending transaction to gateway")
       begin
-        Resque.enqueue_in(1.minutes, Braspag::GatewaySenderWorker, payment.id)
+        Resque.enqueue(Braspag::GatewaySenderWorker, payment.id)
         @payment_successful = true
         payment
       rescue Exception => error
