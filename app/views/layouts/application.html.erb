@@ -21,7 +21,8 @@
     <meta property="fb:admins" content="100002490760020" />
     
     <script type="text/javascript">  
-      if(window.opener) {
+      var url=window.location.href;
+      if(window.opener && url.indexOf('utm_source') == -1 ) {
          window.opener.top.location = window.location.href;
          document.getElementsByTagName('body')[0].style.display='none';
          setTimeout(function(){
