@@ -63,7 +63,7 @@ class ChaordicInfo
     def self.set_cart cart
       chaordic_cart = Chaordic::Packr::Cart.new
       cart.items.each do |item|
-        chaordic_cart.add_product item.product.id, item.product.retail_price.round(2).to_s, item.variant.sku
+        chaordic_cart.add_product item.product.id, item.product.retail_price.round(2).to_s, "#{item.variant.sku}:#{cart.id}"
       end
       chaordic_cart
     end
