@@ -25,8 +25,13 @@ class Admin::DashboardController < Admin::BaseController
       state_counts = []
 
       @report_days.each do |report_day|
-        if params[:transportadora] && !params[:transportadora].empty?
+        if shipping_filter?
           state_counts << Order.where(shipping_service_name: params[:transportadora]).
+                                with_date(report_day.business_days.before(today)).
+                                with_state(name.to_s.delete('@')).
+                                count
+        elsif freight_state_filter?
+          state_counts << Order.where(freight_state: params[:freight_state]).
                                 with_date(report_day.business_days.before(today)).
                                 with_state(name.to_s.delete('@')).
                                 count
@@ -43,7 +48,9 @@ class Admin::DashboardController < Admin::BaseController
 
       instance_variable_set("#{name}_total", state_total)
 
-      flash[:notice] = "Filtrando pela transportadora #{params[:transportadora]}" unless !params[:transportadora] || params[:transportadora].empty?
+      flash[:notice] = "Filtrando pela transportadora #{params[:transportadora]}" if shipping_filter?
+
+      flash[:notice] = "Filtrando por #{params[:freight_state]}" if freight_state_filter?
     end
 
     @report_days.each do |index|
@@ -61,6 +68,14 @@ class Admin::DashboardController < Admin::BaseController
 
    def today
      0.business_day.ago
+   end
+
+   def shipping_filter?
+     params[:transportadora] && !params[:transportadora].empty?
+   end
+
+   def freight_state_filter?
+     params[:freight_state] && !params[:freight_state].empty?
    end
 end
 
