@@ -196,7 +196,7 @@ describe MarketingReports::Builder do
   end
 
   describe "#generate_campaign_emails" do
-    let(:csv_header) { "email\n" }
+    let(:csv_header) { "email,created_at\n" }
     let(:campaign_email) { FactoryGirl.create(:campaign_email) }
 
     before(:each) do
@@ -209,8 +209,7 @@ describe MarketingReports::Builder do
 
     it "builds a csv file containing all email data from campaign_emails table" do
       csv_body = [campaign_email].inject("") do |data, campaign_email|
-        data += "#{campaign_email.email.chomp}\n"
-        data
+        data += "#{campaign_email.email.chomp},#{campaign_email.created_at.strftime("%d-%m-%Y")}\n"
       end 
       subject.generate_campaign_emails
       subject.csv.should match /^#{csv_header}#{csv_body}/

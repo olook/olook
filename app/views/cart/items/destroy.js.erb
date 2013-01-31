@@ -1,7 +1,11 @@
 //deal with empty cart
 <% if @cart.items_total == 0 %>
-$('section#cart').hide().empty().delay(300).append('<%= escape_javascript( render partial: "checkout/cart/empty_cart") %>').delay(300).fadeIn();
-$(".menu li#cart a.cart").removeClass("selected");
+  <% if request.referer =~ /#{new_checkout_path}/ %>
+    window.location.href='<%= "#{cart_path}" %>';
+  <% else %>
+    $('section#cart').hide().empty().delay(300).append('<%= escape_javascript( render partial: "cart/cart/empty_cart") %>').delay(300).fadeIn();
+    $(".menu li#cart a.cart").removeClass("selected");
+  <% end %>
 <% end %>
 
 <% if @cart_service.is_minimum_payment? %>

@@ -1,6 +1,7 @@
 class Address < ActiveRecord::Base
   belongs_to :user
   has_many :freights
+  has_many :carts
 
   STATES = ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"]
 
@@ -11,7 +12,7 @@ class Address < ActiveRecord::Base
 
   validates_presence_of :country, :state, :street, :city, :number, :zip_code, :neighborhood, :telephone
 
-  validates :number, :numericality => true, :presence => true
+  validates :number, :numericality => true
   validates :zip_code, :format => {:with => ZipCodeFormat}
   validates :telephone, :format => {:with => PhoneFormat}, :if => :telephone?
   validates :mobile, :format => { :with => MobileFormat }, :if => :mobile?

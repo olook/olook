@@ -4,18 +4,32 @@
     <meta charset="UTF-8">
     <title>olook</title>
     <%= favicon_link_tag 'olook_favicon.ico' %>
+   
+    
     <% error = nil unless error %>
     <% if params[:share] %>
       <%= render 'shared/meta_tags' %>
     <% else %>
       <meta name="Description" content="A olook descobre o seu estilo. Todos os meses o nossos stylists montam uma vitrine personalizada com produtos fabulosos para você. A devolução é grátis.">
     <% end %>
-
+    
+    
     <%= csrf_meta_tags %>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700|Pontano+Sans' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag  "application" %>
     <meta property="fb:page_id" content="157293541026960" />
     <meta property="fb:admins" content="100002490760020" />
+    
+    <script type="text/javascript">  
+      if(window.opener) {
+         window.opener.top.location = window.location.href;
+         document.getElementsByTagName('body')[0].style.display='none';
+         setTimeout(function(){
+           window.close();
+         },300)
+       }
+    </script>
+    
     <%= yield :head %>
 
     <!--[if IE]>
@@ -23,21 +37,7 @@
     <![endif]-->
     <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
 
-
-    <% unless ["development", "test"].include? Rails.env %>
-      <%= render "shared/metrics/vwo/tracking_code" %>
-    <% end %>
-
-    <script>
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-    </script>
-
+    
   </head>
 
   <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>">
@@ -54,7 +54,6 @@
     <%= yield :top_my_account %>
     <div id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
 
-    <%# Banner from campaigns %>
     <%= render_promotion_banner unless error %>
 
     <%= content_for?(:content) ? yield(:content) : yield %>
@@ -64,7 +63,7 @@
     <% if user_signed_in? %>
       <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
     <% else %>
-      <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal %>
+      <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal &&  !['landing_pages','survey'].include?(params[:controller]) %>
     <% end %>
 
 

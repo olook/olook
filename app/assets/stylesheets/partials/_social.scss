@@ -29,7 +29,7 @@ div.social {
       }
       &.twitter {
         a {
-   				@include sprite_checkout(-195px, -285px);
+   				@include sprite_checkout(-195px, -284px);
         }
       }
       &.facebook {
@@ -53,7 +53,7 @@ div.social {
       }
       &.email {
         a {
-          @include sprite_checkout(-310px, -285px);
+          @include sprite_checkout(-310px, -284px);
           margin: 0;
           
           &.selected {

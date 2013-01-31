@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Checkout::CartController do
+describe Cart::CartController do
   let(:cart) { FactoryGirl.create(:clean_cart) }
   let(:user) { FactoryGirl.create(:user) }
   let(:basic_bag) { FactoryGirl.create(:basic_bag_simple) }
@@ -11,29 +11,18 @@ describe Checkout::CartController do
 
   before :each do
     session[:cart_id] = cart.id
-    session[:cart_freight] = mock
     request.env['devise.mapping'] = Devise.mappings[:user]
   end
 
   after :each do
     session[:cart_id] = nil
     session[:cart_coupon] = nil
-    session[:cart_freight] = nil
-  end
-
-  it "should erase freight when call any action" do
-    session[:cart_freight] = mock
-    ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i} 
-    Product.stub(:find).with(ids).and_return(nil)
-    get :show
-    assigns(:cart_service).freight.should be_nil
-    assigns(:report).should_not be_nil
   end
 
   context "when show" do
     it "should render show view" do
       ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i} 
-      Product.stub(:find).with(ids).and_return(nil)
+      Product.stub(:find).with(ids).and_return([])
       get :show
       response.should render_template ["layouts/site", "show"]
     end

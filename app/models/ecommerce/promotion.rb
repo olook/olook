@@ -49,10 +49,6 @@ class Promotion < ActiveRecord::Base
         promotion.rule_parameters.each do |rule_param|
           matched_all_rules &&= rule_param.matches?(cart)
         end
-
-        # matched_all_rules = promotion.promotion_rules.inject(true) do | match_result, rule |
-        #   match_result &&= rule.matches?(cart)
-        # end
         promotions << promotion if matched_all_rules
       end
       promotions
