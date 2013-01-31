@@ -19,7 +19,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       else
         session["devise.facebook_data"] = request.env["omniauth.auth"]
         if @cart.items.any?
-          redirect_to new_half_user_session_path
+          redirect_to new_half_user_session_path(:checkout_registration => "true")
         else
           redirect_to new_user_registration_url
         end
@@ -45,7 +45,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     #        
     def redirect user
       if @cart.items.any?
-        redirect_to cart_path @cart
+        redirect_to new_checkout_path
       elsif !user.half_user?
         redirect_to member_showroom_path
       else
@@ -54,7 +54,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     def facebook_redirect_paths
-      {:friends => friends_home_path, :gift => gift_root_path, :showroom => member_showroom_path}
+      {:friends => friends_home_path, :gift => gift_root_path, :showroom => member_showroom_path, :checkout => new_checkout_path}
     end
 
     def already_exist_a_facebook_account(omniauth)

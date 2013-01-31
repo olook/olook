@@ -1,37 +1,29 @@
 <header class="checkout">
-  <div class="contact">
-    <div class="content">
-      <ul>
-        <li>Central de Atendimento (11) 2626-3489</li> |
-        <li><%= link_to "falecom@olook.com.br", contact_path %>
-      </ul>
-    </div>
-  </div>
-  <div class="content">
+  <div class="head">
     <h1><%= link_to 'Olook', root_path %></h1>
-    <div id="session">
-      <% if user_signed_in? %>
-        <div class="user">
-          <ul>
-            <li>Olá,</li>
-            <li class="submenu">
-              <%= link_to "#{current_user.name}", "#", :id => "info_user" %>
-              <div class="my_account">
-                <ul>
-                  <li><%= link_to "Meus pedidos", user_orders_path %></li>
-                  <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
-                  <li><%= link_to "Endereços", user_addresses_path %></li>
-                  <li class="last"><%= link_to "Meus créditos", user_credits_path %></li>
-                </ul>
-              </div>
-            </li>
-            <li><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
-          </ul>
-        </div>
-      <% end %>
-      <div class="sign-in-dropdown close">
-        <%= render "users/sessions/form_user" %>
-      </div>
-    </div>
+    <!-- <p class="security">Ambiente Seguro</p> -->
+     <div id="session">
+        <% if user_signed_in? %>
+          <div class="user">
+            <ul>
+              <li>Olá,</li>
+              <li class="submenu">
+                <%= link_to "#{current_user.name}", "#", :id => "info_user" %>
+                <div class="my_account">
+                  <ul>
+                    <li><%= link_to "Meus pedidos", user_orders_path %></li>
+                    <!-- <li><%#= link_to "Meus presentes", user_gifts_path %></li> -->
+                    <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
+                    <li><%= link_to "Endereços", user_addresses_path %></li>
+                    <li class="last"><%= link_to "Meus créditos", user_credits_path %></li>
+                  </ul>
+                </div>
+              </li>
+              <li><%= link_to "Sair", destroy_user_session_path, :method => :delete, onclick: track_event("Checkout","clickSignOut") %></li>
+            </ul>
+          </div>
+        <% end %>
+    </div>  
+    <p class="contact"><span>Central de Atendimento (11) 2626-3489</span>|<%= link_to "falecom@olook.com.br", contact_path %></p>
   </div>
 </header>

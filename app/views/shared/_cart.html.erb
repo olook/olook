@@ -9,7 +9,6 @@
     <%= render partial: 'shared/cart_line_item', locals: {item: item, hidden: false} %>
   <% end %>
   <li class="last">
-    <%= link_to "Ver minha sacola", cart_path, :class => "close" %>
     <%= link_to "Finalizar Compra", cart_path, :class => "finish" %>
   </li>
 </ul>

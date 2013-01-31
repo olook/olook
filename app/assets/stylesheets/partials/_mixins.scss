@@ -65,50 +65,30 @@ $johnston: johnston, arial, sans-serif;
 
     form {
       fieldset {
-        &.inputs {
-          ol {
-            li {
-              label {
-                display: block;
-                font-size: 11px;
-                font-weight: bold;
-                margin: 2px 0;
-              }
-
-              input {
-                background: #FFF url("/assets/common/background-inputs.png") bottom repeat-x;
-                border: 1px solid #BBB;
-                padding: 6px 8px;
-                width: 92%;
-
-                &:focus {
-                  outline: none;
-                }
-              }
-            }
-          }
+  			&.buttons{
+					label{font-weight:normal !important;width:103px;}
+					a{font-size:11px;float:left;}
+				}
+        label {
+          display: block;
+          font-size: 11px;
+          font-weight: bold;
+          margin: 2px 0;
         }
 
-        &.buttons {
-          margin-top: 7px;
-          ol {
-            li {
-              font-size: 11px;
-
-              &.remember-me, &.forgot-password {
-                float: left;
-                width: 140px;
-              }
-
-              &.forgot-password {
-                & + li {
-                  float: right;
-                  margin-top: -15px;
-                }
-              }
-            }
+        input {
+          background: #FFF url("/assets/common/background-inputs.png") bottom repeat-x;
+          border: 1px solid #BBB;
+          padding: 6px 8px;
+          width: 92%;
+					&#user_remember_me_login{width:auto;float:left;}	
+					&#login{float:right;margin:-17px 0 0 65px;}
+					&#user_password{margin-bottom:10px;}
+          &:focus {
+            outline: none;
           }
         }
+          
       }
     }
 
@@ -136,3 +116,6 @@ $johnston: johnston, arial, sans-serif;
 	background:image-url("new_checkout/sprite.png") no-repeat $left $top;
 }
 
+@mixin sprite_login($left, $top){
+	background:image-url("/assets/login/sprite.png") no-repeat $left $top;
+}

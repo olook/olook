@@ -1,0 +1,18 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/login_register" %>
+<% end %>
+
+<div class="form_register">
+  <p class="title-box">CADASTRO OLOOK<br /><span>Queremos saber mais sobre você.</span></p>
+  <% user = @user || User.new(:half_user => true) %>
+  <%= render 'users/registrations/form_half_create', :resource => user, :resource_name => :user %>
+</div>
+
+<div class="cart_details">
+  <p class="title">Vamos lá. Sua sacola te espera! ;)</span></p>
+  <%= render "checkout/checkout/cart_details", address: nil %>
+</div>
+
+<div class="signup">
+  <p class="title-box">JÁ TEM CADASTRO?<br/><%= link_to "Então é só entrar", checkout_login_index_path %></p>
+</div>
