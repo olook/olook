@@ -244,7 +244,7 @@ class Order < ActiveRecord::Base
   private
 
     def self.updated_at_range(date)
-      if date > 6.business_days.ago
+      if date > 6.business_days.ago.to_date
         where(updated_at: date.beginning_of_day..date.end_of_day)
       else
         where("updated_at <= ?", date.end_of_day)
