@@ -99,7 +99,7 @@ describe Order do
   describe "#expected_delivery_on" do
     it "returns the freight delivery_time converted to a date" do
       expect(order_with_waiting_payment.expected_delivery_on.to_s).
-        to eql(order_with_waiting_payment.freight.delivery_time.days.from_now.to_s)
+        to eql(order_with_waiting_payment.freight.delivery_time.business_days.from_now.to_s)
     end
   end
 
@@ -121,7 +121,7 @@ describe Order do
         order_with_waiting_payment.authorized
         expect(order_with_waiting_payment.expected_delivery_on).to_not be_nil
 
-        delivery_date = order_with_waiting_payment.freight.delivery_time.days.from_now
+        delivery_date = order_with_waiting_payment.freight.delivery_time.business_days.from_now
         expect(order_with_waiting_payment.expected_delivery_on.to_s).to eq(delivery_date.to_s)
       end
 
