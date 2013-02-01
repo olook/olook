@@ -2,6 +2,7 @@
 require 'spec_helper'
 
 describe Admin::DashboardHelper do
+	let(:order) { { day_number: 1, state: 'delivered' } }
 
 	# with_a_logged_admin do
 	context "#report_days_link" do
@@ -13,8 +14,10 @@ describe Admin::DashboardHelper do
         end
 
         it "returns a link with orders from a past date" do
-          link = '<a href="/admin/report_detail?number=1&amp;state=delivered">1</a>'
-          expect(helper.report_days_link(1, state: "delivered")).to eq(link)
+          options = { day_number: 1, state: 'delivered' }
+
+          link = '<a href="/admin/report_detail?day_number=1&amp;state=delivered">1</a>'
+          expect(helper.report_days_link(options)).to eq(link)
         end
 
       end
