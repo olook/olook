@@ -5,6 +5,7 @@
   %li= link_to 'Voltar', admin_path
 
 .inner
+  = link_to "Excel", admin_report_detail_path(format: "xls", state: @state, number: @number_of_days)
   %table.table
     %tr
       %th Cadastro
