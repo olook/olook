@@ -40,6 +40,7 @@ Olook::Application.routes.draw do
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
   match "/promododia" , :to => "liquidations#index", :as => "promododia"
+  match "/olooklet" , :to => "liquidations#index", :as => "olooklet"
 
   #MOMENTS
   get '/colecoes', to: "moments#index", as: "moments"
