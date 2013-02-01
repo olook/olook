@@ -1,0 +1,12 @@
+<tr id="item_<%= item.id %>">
+  <td class="item">
+    <% unless item.thumb_picture.nil? %>
+      <%= image_tag item.variant.bag_picture %>
+    <% end %>
+    <ul>
+      <li class="txt-black"><%= item.variant.name %></li>
+      <li>Tamanho: <%= item.variant.description %></li>
+      <li><%= render partial: 'cart/items/subtotal', locals: { cart_service: cart_service, item: item } %>
+    </ul>
+  </td>
+</tr>

@@ -18,12 +18,16 @@ class CreditCard < Payment
   BirthdayFormat = /^\d{2}\/\d{2}\/\d{4}$/
   ExpirationDateFormat = /^\d{2}\/\d{2}$/
 
-  validates :user_name, :bank, :security_code, :expiration_date, :user_identification, :telephone, :user_birthday, :presence => true, :on => :create
+  validates :user_name, :bank, :security_code, :expiration_date, :user_identification, :telephone, :user_birthday, :credit_card_number, :presence => true, :on => :create
   validate :apply_bank_number_of_digits, :on => :create
   validates_format_of :telephone, :with => PhoneFormat, :on => :create
   validates_format_of :security_code, :with => SecurityCodeFormat, :on => :create
   validates_format_of :user_birthday, :with => BirthdayFormat, :on => :create
   validates_format_of :expiration_date, :with => ExpirationDateFormat, :on => :create
+
+  # THIS VALIDATION SHOULD OCCOUR ONLY ON CREATE, BECAUSE WE ENCRYPT THE CREDIT_CARD NUMBER AND SAVE IT
+  validates_with CreditCardNumberValidator, :attributes => [:credit_card_number], :on => :create
+  validates_with UserIdentificationValidator, :attributes => [:user_identification], :on => :create
 
   after_create :set_payment_expiration_date
 
