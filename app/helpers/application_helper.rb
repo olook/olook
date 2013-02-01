@@ -87,7 +87,7 @@ module ApplicationHelper
     if item.variant.inventory == 1
       '1 (última peça!)'
     else
-      select_tag('quantity', options_for_select((1..item_qty_max_option(item)).to_a, item.quantity))
+      select_tag('quantity', options_for_select((1..item_qty_max_option(item)).to_a, item.quantity), onchange: "changeCartItemQty('#{item.id}');")
     end
   end
 
