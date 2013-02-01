@@ -14,12 +14,6 @@
               =select_tag "transportadora",  options_for_select(["TEX", "PAC"], params[:transportadora]), include_blank: true
         .group
           %p
-            =submit_tag "Filtrar"
-
-    %p
-      =form_tag(admin_orders_life_cicle_report_path) do
-        .group
-          %p
             %b
               =label_tag 'Estado'
             %br
