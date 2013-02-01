@@ -21,10 +21,9 @@ feature "Operations dashboard", %q{
   end
 
   scenario "Listing the orders by their dates and statuses" do
-    click_link 'Ciclo de vida'
+    click_link 'order_status'
 
-    expect(page).to have_content("Dashboard")
-    expect(page).to have_content("Operações")
+    expect(page).to have_content("Status do pedido")
 
     expect(page).to have_content("Prazo para despacho")
     expect(page).to have_content("Pago")
@@ -46,7 +45,7 @@ feature "Operations dashboard", %q{
   end
 
   scenario "Viewing details for a list of orders" do
-    click_link 'Ciclo de vida'
+    click_link 'order_status'
 
     page.find('tr#0_dias td#authorized a').click
 
@@ -88,7 +87,7 @@ feature "Operations dashboard", %q{
       FactoryGirl.create(:delivered_order, expected_delivery_on: number.business_days.after(Time.now) )
     end
 
-    click_link 'Entrega'
+    click_link 'order_delivery'
 
     expect(page).to have_content("<= -3")
     expect(page).to have_content("-2")
@@ -113,7 +112,7 @@ feature "Operations dashboard", %q{
                         state: 'authorized',
                         shipping_service_name: 'Pac')
 
-    click_link 'Ciclo de vida'
+    click_link 'order_status'
 
     expect(page.find('tr#0_dias td#authorized', text: '2'))
 
@@ -121,13 +120,13 @@ feature "Operations dashboard", %q{
 
     click_button 'Enviar'
 
-    save_and_open_page
-
     expect(page.find('tr#0_dias td#authorized', text: '1'))
 
     page.find('tr#0_dias td#authorized a').click
 
-    expect(page.find('tr td#shipping_service_name'), text: 'Pac')
+    save_and_open_page
+
+    expect(page.find('tr td.shipping_service_name'), text: 'Pac')
   end
 
 end
