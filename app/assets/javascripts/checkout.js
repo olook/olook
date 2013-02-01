@@ -115,7 +115,8 @@ $(function() {
       data: {
         cart: {
           use_credits: $(this).attr('checked') == 'checked'
-        }
+        },
+        freight_price: $("#freight_price").text()
       }
     });
   });

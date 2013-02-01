@@ -37,9 +37,10 @@ $('table#total tr.total span').text('<%= number_to_currency(@cart_service.total)
 <% end %>
 
 if($("#cart-box").length > 0){
+  <% freight_value = params[:freight_price] ? BigDecimal.new(params[:freight_price].gsub('R$ ', '').gsub('.', '').gsub(',', '.')) : 0 %>
   $("#cart-box #credits_used").text('-<%= number_to_currency(@cart_service.total_credits_discount) %>');
-  $("#cart-box #total").text('<%= number_to_currency(@cart_service.total) %>');
-  $("#cart-box #total_billet").text('<%= number_to_currency(@cart_service.total(Billet.new)) %>');
+  $("#cart-box #total").text('<%= number_to_currency(total_with_freight(freight_value)) %>');
+  $("#cart-box #total_billet").text('<%= number_to_currency(total_with_freight(freight_value, Billet.new)) %>');
   $("#cart-box #credits_used").delay(200).fadeIn();
 
   $("#cart-box #billet_discount_value").text("-<%= number_to_currency(@cart_service.billet_discount) %>");

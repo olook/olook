@@ -19,17 +19,9 @@
     <%= stylesheet_link_tag  "application" %>
     <meta property="fb:page_id" content="157293541026960" />
     <meta property="fb:admins" content="100002490760020" />
-    
-    <script type="text/javascript">  
-      if(window.opener) {
-         window.opener.top.location = window.location.href;
-         document.getElementsByTagName('body')[0].style.display='none';
-         setTimeout(function(){
-           window.close();
-         },300)
-       }
-    </script>
-    
+
+    <%= javascript_include_tag "opener_hack" %>       
+
     <%= yield :head %>
 
     <!--[if IE]>
