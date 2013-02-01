@@ -7,12 +7,19 @@ class Admin::DashboardController < Admin::BaseController
   end
 
   def show
-    number_of_days = params[:day_number].to_i
-    @orders = Order.with_date(number_of_days.business_days.before(today)).
+    @number_of_days = params[:number].to_i
+    @state = params[:state]
+    @orders = Order.with_date(@number_of_days.business_days.before(today)).
                     with_state(params[:state]).
                     page(params[:page]).
                     per_page(15).
                     order('created_at desc')
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @orders.to_csv }
+      format.xls
+    end
   end
 
   def orders_life_cicle_report

@@ -153,8 +153,6 @@ Olook::Application.routes.draw do
     match "/orders_life_cicle_report", to: "dashboard#orders_life_cicle_report"
     get "/orders_time_report", to: "dashboard#orders_time_report"
 
-    get "/dashboard/show/:state/:report_day_number", :controller =>'dashboard', :action => 'show'
-
     get 'product_autocomplete' => 'products#autocomplete_information'
     resources :products do
       collection do
