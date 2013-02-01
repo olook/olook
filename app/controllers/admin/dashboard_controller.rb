@@ -26,7 +26,7 @@ class Admin::DashboardController < Admin::BaseController
 
       @report_days.each do |report_day|
         if shipping_filter?
-          state_counts << Order.where(shipping_service_name: params[:transportadora]).
+          state_counts << Order.where(shipping_service_name: params[:shipping_service_name]).
                                 with_date(report_day.business_days.before(today)).
                                 with_state(name.to_s.delete('@')).
                                 count
@@ -71,7 +71,7 @@ class Admin::DashboardController < Admin::BaseController
    end
 
    def shipping_filter?
-     params[:transportadora] && !params[:transportadora].empty?
+     params[:shipping_service_name] && !params[:shipping_service_name].empty?
    end
 
    def freight_state_filter?
