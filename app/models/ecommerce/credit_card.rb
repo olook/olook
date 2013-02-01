@@ -24,7 +24,10 @@ class CreditCard < Payment
   validates_format_of :security_code, :with => SecurityCodeFormat, :on => :create
   validates_format_of :user_birthday, :with => BirthdayFormat, :on => :create
   validates_format_of :expiration_date, :with => ExpirationDateFormat, :on => :create
-  validates_with CreditCardNumberValidator, :attributes => [:credit_card_number]
+
+  # THIS VALIDATION SHOULD OCCOUR ONLY ON CREATE, BECAUSE WE ENCRYPT THE CREDIT_CARD NUMBER AND SAVE IT
+  validates_with CreditCardNumberValidator, :attributes => [:credit_card_number], :on => :create
+  
   validates_with UserIdentificationValidator, :attributes => [:user_identification]
 
   after_create :set_payment_expiration_date
