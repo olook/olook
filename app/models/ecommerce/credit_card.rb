@@ -27,8 +27,7 @@ class CreditCard < Payment
 
   # THIS VALIDATION SHOULD OCCOUR ONLY ON CREATE, BECAUSE WE ENCRYPT THE CREDIT_CARD NUMBER AND SAVE IT
   validates_with CreditCardNumberValidator, :attributes => [:credit_card_number], :on => :create
-  
-  validates_with UserIdentificationValidator, :attributes => [:user_identification]
+  validates_with UserIdentificationValidator, :attributes => [:user_identification], :on => :create
 
   after_create :set_payment_expiration_date
 
