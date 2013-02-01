@@ -31,6 +31,7 @@ Olook::Application.routes.draw do
   post  "/contato" => "pages#send_contact", :as => "send_contact"
   match "/fidelidade", :to => "pages#loyalty", :as => "loyalty"
   match "/festas", :to => "moments#show", :as => "festas", :defaults => {:id => 4}
+  match "/olookmovel", to: "pages#olookmovel", as: "olookmovel"
 
   #LOOKBOOKS
   match "/tendencias/:name", :to => "lookbooks#show", :as => "lookbook"
