@@ -77,6 +77,18 @@ FactoryGirl.define do
     end
 
 
+    factory :basic_bag_with_variant do
+      name "Bagelle"
+      description "Elegant black bag for executives"
+      category Category::BAG
+      sequence :model_number do |n|
+        "BG01A#{n}"
+      end
+      after_create do |product|
+        product.variants << FactoryGirl.create(:basic_bag_simple, number: 'UNIQAB')
+      end
+    end
+
     factory :blue_sliper_with_two_variants do
       name "Sliper"
       description "Elegant black high-heeled shoe for executives"
