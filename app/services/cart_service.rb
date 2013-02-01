@@ -326,7 +326,9 @@ class CartService
     end
 
     if payment && payment.is_a?(Billet) && Setting.billet_discount_available
-      billet_discount_value = (retail_value + minimum_value) * Setting.billet_discount_percent.to_i / 100
+
+      billet_discount_value = calculate_billet_discount_value(retail_value)
+
       if billet_discount_value > retail_value
         billet_discount_value = retail_value
       end
@@ -351,5 +353,11 @@ class CartService
     }
   end
 
+
+  def calculate_billet_discount_value retail_value
+    billet_discount_percent = (Setting.billet_discount_percent.to_i / 100.0).to_d
+    billet_discount_value = (retail_value.to_d + minimum_value.to_d) * billet_discount_percent
+    billet_discount_value.round(2, BigDecimal::ROUND_HALF_UP)    
+  end
 
 end
