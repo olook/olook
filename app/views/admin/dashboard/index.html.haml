@@ -1,8 +1,10 @@
 %h1 Dashboard
 
-%h2 Operações
+%h3 Relatórios:
 
 .inner
-  = link_to "Ciclo de vida", admin_orders_life_cicle_report_path
+  .dashboard_report_buttons
+    = link_to "Status dos pedidos", admin_orders_life_cicle_report_path, :class => "button", id: "order_status"
   %br
-  = link_to "Entrega", admin_orders_time_report_path
+  .dashboard_report_buttons
+    = link_to "Pedidos referente entrega", admin_orders_time_report_path, :class => "button", id: "order_delivery"
