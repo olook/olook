@@ -145,13 +145,13 @@ _gaq.push(['_addTrans',
                 <% style = @cart_service.allow_credit_payment? ? 'normal' : 'prohibited' %>
 
                 <ul>
-                  <li>
+                  <li id="loyalty_credit">
                     <div class="description">Créditos por compras realizadas:</div>
                     <div class="value <%= style %>"><%= number_to_currency @report.amount_of_loyalty_credits %></div>
                     <div class="message"><%= print_credit_message %></div>
                   </li>
 
-                 <li>
+                 <li id="mgm_credit">
                     <div class="description">Créditos por indicação:</div>
                     <div class="value <%= style %>"><%= number_to_currency @report.amount_of_invite_credits %></div>
                     <div class="message"><%= print_credit_message %></div>
