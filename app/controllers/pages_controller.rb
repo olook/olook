@@ -11,6 +11,9 @@ class PagesController < ApplicationController
     @presenter = LoyaltyPresenter.new(@user, user_credits)
   end
 
+  def olookmovel
+  end
+
   def send_contact
     @contact_form = ContactForm.new(params[:contact_form])
     if @contact_form.save
@@ -20,7 +23,7 @@ class PagesController < ApplicationController
       render :contact
     end
   end
-  
+
   def avc_campaign
     render :avc_campaign
   end
