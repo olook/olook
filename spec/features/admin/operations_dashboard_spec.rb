@@ -10,9 +10,10 @@ feature "Operations dashboard", %q{
 
   let(:admin) { FactoryGirl.create(:admin_superadministrator) }
   let!(:order) { FactoryGirl.create(:order,
-                                     created_at: Time.now,
+                                     updated_at: Time.now,
                                      state: "authorized",
-                                     shipping_service_name: 'TEX') }
+                                     shipping_service_name: 'TEX',
+                                     freight_state: 'RJ') }
 
   background do
     ApplicationController.any_instance.stub(:load_promotion)
@@ -21,7 +22,7 @@ feature "Operations dashboard", %q{
   end
 
   scenario "Listing the orders by their dates and statuses" do
-    click_link 'order_status'
+    click_link 'Status dos pedidos'
 
     expect(page).to have_content("Status do pedido")
 
@@ -45,7 +46,7 @@ feature "Operations dashboard", %q{
   end
 
   scenario "Viewing details for a list of orders" do
-    click_link 'order_status'
+    click_link 'Status dos pedidos'
 
     page.find('tr#0_dias td#authorized a').click
 
@@ -87,7 +88,7 @@ feature "Operations dashboard", %q{
       FactoryGirl.create(:delivered_order, expected_delivery_on: number.business_days.after(Time.now) )
     end
 
-    click_link 'order_delivery'
+    click_link 'Pedidos referente entrega'
 
     expect(page).to have_content("<= -3")
     expect(page).to have_content("-2")
@@ -108,15 +109,41 @@ feature "Operations dashboard", %q{
   end
 
   scenario 'Transportation filter' do
-    FactoryGirl.create(:delivered_order,
-                        state: 'authorized',
-                        shipping_service_name: 'PAC')
+    FactoryGirl.create(:order,
+                        updated_at: Time.now,
+                        state: "authorized",
+                        shipping_service_name: 'PAC',
+                        freight_state: 'SP')
 
-    click_link 'order_status'
+    click_link 'Status dos pedidos'
 
     expect(page.find('tr#0_dias td#authorized', text: '2'))
 
-    select 'PAC', :from => "transportadora"
+    select 'PAC', :from => "shipping_service_name"
+
+    click_button 'Filtrar'
+
+    save_and_open_page
+
+    expect(page.find('tr#0_dias td#authorized', text: '1'))
+
+    page.find('tr#0_dias td#authorized a').click
+
+    expect(page.first('tr td.shipping_service_name', text: 'PAC'))
+  end
+
+  scenario 'Freight state filter' do
+    FactoryGirl.create(:order,
+                        updated_at: Time.now,
+                        state: "authorized",
+                        shipping_service_name: 'PAC',
+                        freight_state: 'SP')
+
+    click_link 'Status dos pedidos'
+
+    expect(page.find('tr#0_dias td#authorized', text: '2'))
+
+    select 'SP', :from => "freight_state"
 
     click_button 'Filtrar'
 
@@ -124,8 +151,32 @@ feature "Operations dashboard", %q{
 
     page.find('tr#0_dias td#authorized a').click
 
+    expect(page.first('tr td.freight_state', text: 'SP'))
+  end
 
-    expect(page.first([:css, 'tr td.shipping_service_name'], 'Pac'))
+  scenario 'Both filters' do
+    FactoryGirl.create(:order,
+                        updated_at: Time.now,
+                        state: "authorized",
+                        shipping_service_name: 'PAC',
+                        freight_state: 'SP')
+
+    click_link 'Status dos pedidos'
+
+    expect(page.find('tr#0_dias td#authorized', text: '2'))
+
+    select 'RJ', :from => "freight_state"
+    select 'TEX', :from => "shipping_service_name"
+
+    click_button 'Filtrar'
+
+    expect(page.find('tr#0_dias td#authorized', text: '1'))
+
+    page.find('tr#0_dias td#authorized a').click
+
+    expect(page.first('tr td.shipping_service_name', text: 'TEX'))
+
+    expect(page.first('tr td.freight_state', text: 'RJ'))
   end
 
 end

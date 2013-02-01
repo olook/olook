@@ -11,7 +11,7 @@
             %b
               =label_tag 'Transportadora'
             %br
-              =select_tag "transportadora",  options_for_select(["TEX", "PAC"], params[:transportadora]), include_blank: true
+              =select_tag "shipping_service_name",  options_for_select(["TEX", "PAC"], params[:shipping_service_name]), include_blank: true
         .group
           %p
             %b
