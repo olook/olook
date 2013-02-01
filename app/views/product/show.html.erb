@@ -24,12 +24,10 @@
   <% end %>
 
   <% content_for :footer do %>
+    <%= javascript_include_tag "api_fb" %>
     <%= javascript_include_tag "product" %>
   <% end %>
 
-  <% unless user_signed_in? %>
-    <%= render "shared/modal_login" %>
-  <% end %>
 
   <div id="product">
     <div class="content">

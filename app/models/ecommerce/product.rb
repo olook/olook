@@ -295,6 +295,21 @@ class Product < ActiveRecord::Base
     (self.shoe? && self.variants.where("inventory >=  3").count < 3)
   end
 
+  def add_freebie product
+    variant_for_freebie = product.variants.first
+    variants.each do |variant| 
+      FreebieVariant.create!({:variant => variant, :freebie => variant_for_freebie})
+    end
+  end
+
+  def remove_freebie freebie
+    variant_for_freebie = freebie.variants.first
+    variants.each do |variant| 
+      freebie_variants_to_destroy = variant.freebie_variants.where(:freebie_id => variant_for_freebie.id) 
+      freebie_variants_to_destroy.each { |v| v.destroy }
+    end
+  end  
+
   private
 
     def create_master_variant

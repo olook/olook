@@ -99,13 +99,7 @@ html {
           #sign-in-dropdown {
             form {
               fieldset.buttons {
-                ol {
-                  li.forgot-password {
-                    & + li input[type='submit'] {
-                      border: none;
-                    }
-                  }
-                }
+              	input[type='submit'] {border: none;}
               }
             }
           }

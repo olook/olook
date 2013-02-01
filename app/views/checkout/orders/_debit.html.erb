@@ -7,7 +7,7 @@
       </p>
       <%#= link_to "banco", @payment.url, :target => "_blank", :class => "bank_flag Debito" %>
       <p class="logo_itau">Logo Banco Itaú</p>
-      <%= link_to "Realizar Pagamento", @payment.url, :target => "_blank", :class => "btn_pay" %>
+      <%= link_to "Realizar Pagamento", @payment.url, :target => "_blank", :class => "btn_pay", onclick: track_event("PostCheckout","clickChooseBankBillet") %>
     </div>
     <p class="thanks">Obrigada pela sua compra</p>
     <p class="description">

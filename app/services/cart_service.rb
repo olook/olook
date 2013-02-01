@@ -1,13 +1,11 @@
 # -*- encoding : utf-8 -*-
 class CartService
   attr_accessor :cart
-  attr_accessor :freight
 
   delegate :allow_credit_payment?, :to => :cart
   delegate :total_promotion_discount, :to => :cart, :prefix => :cart
   delegate :total_coupon_discount, :to => :cart, :prefix => :cart
   delegate :sub_total, :to => :cart, :prefix => :cart
-
 
   def self.gift_wrap_price
     YAML::load_file(Rails.root.to_s + '/config/gifts.yml')["values"][0]
@@ -17,6 +15,14 @@ class CartService
     params.each_pair do |key, value|
       self.send(key.to_s+'=',value)
     end
+  end
+
+  def freight
+    cart.address ? freight_for_zip_code(cart.address.zip_code).merge({address: cart.address}) : {}
+  end
+
+  def freight_for_zip_code zip_code
+    FreightCalculator.freight_for_zip(zip_code, subtotal)
   end
 
   def freight_price
@@ -94,20 +100,25 @@ class CartService
     calculate_discounts.fetch(:total_credits)
   end
 
-  def total_discount
-    calculate_discounts.fetch(:total_discount)
+  def billet_discount
+    calculate_discounts(Billet.new).fetch(:billet_discount)
+  end
+
+  def total_discount(payment=nil)
+    calculate_discounts(payment).fetch(:total_discount)
   end
 
   def is_minimum_payment?
     calculate_discounts.fetch(:is_minimum_payment)
   end
 
-  def total_discount_by_type(type)
+  def total_discount_by_type(type, payment=nil)
     total_value = 0
     total_value += total_coupon_discount if :coupon == type
     total_value += calculate_discounts.fetch(:total_credits_by_invite) if :credits_by_invite == type
     total_value += calculate_discounts.fetch(:total_credits_by_redeem) if :credits_by_redeem == type
     total_value += calculate_discounts.fetch(:total_credits_by_loyalty_program) if :credits_by_loyalty_program == type
+    total_value += calculate_discounts(payment).fetch(:billet_discount) if :billet_discount == type
 
     cart.items.each do |item|
       if item_discount_origin_type(item) == type
@@ -130,12 +141,12 @@ class CartService
     active_discounts.size > 1
   end
 
-  def total
+  def total(payment=nil)
     # total = subtotal(:retail_price)
 
     total = cart_sub_total
     total += total_increase
-    total -= total_discount
+    total -= total_discount(payment)
     # total -= cart_total_promotion_discount unless should_override_promotion_discount?
 
     total = Payment::MINIMUM_VALUE if total < Payment::MINIMUM_VALUE
@@ -146,7 +157,7 @@ class CartService
     self.subtotal(:price) + self.total_increase
   end
 
-  def generate_order!(gateway, tracking = nil)
+  def generate_order!(gateway, tracking = nil, payment = nil)
     raise ActiveRecord::RecordNotFound.new('A valid cart is required for generating an order.') if cart.nil?
     raise ActiveRecord::RecordNotFound.new('A valid freight is required for generating an order.') if freight.nil?
     raise ActiveRecord::RecordNotFound.new('A valid user is required for generating an order.') if cart.user.nil?
@@ -158,9 +169,9 @@ class CartService
       :user_id => user.id,
       :restricted => cart.has_gift_items?,
       :gift_wrap => cart.gift_wrap,
-      :amount_discount => total_discount,
+      :amount_discount => total_discount(payment),
       :amount_increase => total_increase,
-      :amount_paid => total,
+      :amount_paid => total(payment),
       :subtotal => subtotal,
       :user_first_name => user.first_name,
       :user_last_name => user.last_name,
@@ -182,7 +193,6 @@ class CartService
     end
 
     order.freight = Freight.create(freight)
-
     order.save
     order
   end
@@ -266,7 +276,7 @@ class CartService
     Payment::MINIMUM_VALUE
   end
 
-  def calculate_discounts
+  def calculate_discounts(payment=nil)
     discounts = []
     retail_value = self.subtotal(:retail_price) - minimum_value
     retail_value = 0 if retail_value < 0
@@ -274,6 +284,7 @@ class CartService
     coupon_value = cart.coupon.value if cart.coupon && !cart.coupon.is_percentage?
     coupon_value = 0 if cart.coupon && !should_override_promotion_discount?
     coupon_value ||= 0
+    billet_discount_value = 0
 
     if coupon_value >= retail_value
       coupon_value = retail_value
@@ -286,6 +297,7 @@ class CartService
     credits_invite = 0
     credits_redeem = 0
     if (use_credits == true)
+
 
       # Use loyalty only if there is no product with olooklet discount in the cart
       credits_loyality = allow_credit_payment? ? self.cart.user.user_credits_for(:loyalty_program).total : 0
@@ -312,14 +324,25 @@ class CartService
       retail_value -= credits_redeem
 
     end
+
+    if payment && payment.is_a?(Billet) && Setting.billet_discount_available
+      billet_discount_value = (retail_value + minimum_value) * Setting.billet_discount_percent.to_i / 100
+      if billet_discount_value > retail_value
+        billet_discount_value = retail_value
+      end
+      retail_value -= billet_discount_value
+    end
+
     total_credits = credits_loyality + credits_invite + credits_redeem
 
-    discounts << :coupon unless coupon_value < 0
+    discounts << :coupon if coupon_value > 0
+    discounts << :billet_discount if billet_discount_value > 0
 
     {
       :discounts                         => discounts,
       :is_minimum_payment                => (minimum_value > 0 && retail_value <= 0),
-      :total_discount                    => (coupon_value + total_credits),
+      :total_discount                    => (coupon_value + total_credits + billet_discount_value),
+      :billet_discount                   => billet_discount_value,
       :total_coupon                      => coupon_value,
       :total_credits_by_loyalty_program  => credits_loyality,
       :total_credits_by_invite           => credits_invite,

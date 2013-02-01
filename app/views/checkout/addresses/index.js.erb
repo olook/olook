@@ -1,0 +1,21 @@
+$("#checkout_address").html("<%= escape_javascript( 
+     render partial: 'checkout/checkout/address_list', 
+     locals: { addresses: @addresses, selected_address: nil } ) %>");
+
+$("#freight_price").html("");
+$("#freight_price").show();
+
+$("#delivery_time").html("");
+$("#delivery_time").show();
+
+$("#total").hide();
+$("#total").html("<%= number_to_currency(@cart_service.total) %>");
+$("#total_billet").hide();
+$("#total_billet").html("<%= number_to_currency(@cart_service.total(Billet.new)) %>");
+
+if($("#checkout_payment_method_billet").is(":checked"))
+  $("#total_billet").delay(200).fadeIn();
+else 
+  $("#total").delay(200).fadeIn();
+
+$("html, body").animate({scrollTop: 0}, 'fast');
