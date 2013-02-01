@@ -110,23 +110,22 @@ feature "Operations dashboard", %q{
   scenario 'Transportation filter' do
     FactoryGirl.create(:delivered_order,
                         state: 'authorized',
-                        shipping_service_name: 'Pac')
+                        shipping_service_name: 'PAC')
 
     click_link 'order_status'
 
     expect(page.find('tr#0_dias td#authorized', text: '2'))
 
-    select 'Pac', :from => "transportadora"
+    select 'PAC', :from => "transportadora"
 
-    click_button 'Enviar'
+    click_button 'Filtrar'
 
     expect(page.find('tr#0_dias td#authorized', text: '1'))
 
     page.find('tr#0_dias td#authorized a').click
 
-    save_and_open_page
 
-    expect(page.find('tr td.shipping_service_name'), text: 'Pac')
+    expect(page.first([:css, 'tr td.shipping_service_name'], 'Pac'))
   end
 
 end
