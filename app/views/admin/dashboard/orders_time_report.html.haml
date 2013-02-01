@@ -11,5 +11,6 @@
     - @report_days.each do |report_day_number|
       %tr{:id => "#{report_day_number}_dias"}
         %td= I18n.t("admin_dashboard.deliver_days.#{report_day_number}")
-        %td{:id => "delivering"}=report_deliver_link(report_day_number, state: "delivering")
-        %td{:id => "expected_delivery_on"}=report_deliver_link(report_day_number, state: "delivered")
+        %td{:id => "delivering"}=report_deliver_link(params)
+
+        %td{:id => "expected_delivery_on"}=report_deliver_link(params)

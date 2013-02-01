@@ -123,13 +123,13 @@ feature "Operations dashboard", %q{
 
     click_button 'Filtrar'
 
-    save_and_open_page
-
     expect(page.find('tr#0_dias td#authorized', text: '1'))
 
     page.find('tr#0_dias td#authorized a').click
 
     expect(page.first('tr td.shipping_service_name', text: 'PAC'))
+
+    expect(page).to have_content('Filtrando por transportadora PAC')
   end
 
   scenario 'Freight state filter' do
@@ -152,6 +152,8 @@ feature "Operations dashboard", %q{
     page.find('tr#0_dias td#authorized a').click
 
     expect(page.first('tr td.freight_state', text: 'SP'))
+
+    expect(page).to have_content('Filtrando por SP')
   end
 
   scenario 'Both filters' do
@@ -174,9 +176,15 @@ feature "Operations dashboard", %q{
 
     page.find('tr#0_dias td#authorized a').click
 
+    save_and_open_page
+
     expect(page.first('tr td.shipping_service_name', text: 'TEX'))
+    expect(page.first('tr td.shipping_service_name', text: 'PAC'))
 
     expect(page.first('tr td.freight_state', text: 'RJ'))
+    expect(page.first('tr td.freight_state', text: 'SP'))
+
+    expect(page).to have_content('Filtrando por transportadora TEXT e por RJ')
   end
 
 end
