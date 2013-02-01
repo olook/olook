@@ -2,7 +2,7 @@
 section#kombi {
   padding: 30px 0 0;
   div#description {
-    width: 415px;
+    width: 475px;
     float: left;
     h1 {
       font-family: $johnston;
@@ -22,16 +22,17 @@ section#kombi {
     }
     p {
       color: #808285;
-      margin: 0 0 30px;
+      margin: 0 0 35px;
+			a{color:#D95385;}
     }
   }
   div#pictures {
     width: 397px;
-    margin: 0 0 20px;
+    margin: 0 0 60px;
     float: right;
     div#instagram {
       background: #f1f2f2;
-      margin: 0 0 15px;
+      margin: 15px 0 15px;
       padding: 10px;
       border: 1px #b7b7b7 solid;
       h1 {
@@ -75,6 +76,7 @@ section#kombi {
     }
     p {
       font-weight: 500;
+			font-size:15px;
       span {
         color: #d35285;
       }
@@ -84,42 +86,43 @@ section#kombi {
     position: relative;
     min-height: 435px;
     clear: both;
+		float:left;
+		width:100%;
     h1 {
       font-family: $johnston;
       font-size: 22px;
       text-transform: uppercase;
-      margin: 0 0 55px;
+      margin: 0 0 30px;
+			line-height:18px;
       span {
-        font-family: $kepler;
-        font-size: 26px;
-        text-transform: lowercase;
+        font-family: $avenir;
+        font-size: 12px;
+        text-transform: none;
+				color:#808285;
       }
     }
     h2 {
       position: absolute;
       background: image-url('kombi/know-where-to-find.png') no-repeat;
       text-indent: -99999px;
-      width: 147px;
-      height: 146px;
+      width: 162px;
+      height: 152px;
       display: block;
-      top: 15px;
-      right: 0;
+      top: -21px;
+      right: 7px;
     }
     table {
-      width: 800px;
-      margin: 0 auto 20px;
+      width: 100%;
+      margin: 0 0 20px;
       border-collapse: separate;
       border-spacing: 0 5px;
       tr {
         td {
-          background: image-url('kombi/bg-dates.jpg') 0 -41px no-repeat;
-          color: #FFF;
+          background: #DCDDDE;
+          color: #000;
           line-height: 34px;
           height: 34px;
           padding: 0 0 0 18px;
-          &:last-child {
-            background-position: -169px -41px;
-          }
         }
         &.selected {
           td {
