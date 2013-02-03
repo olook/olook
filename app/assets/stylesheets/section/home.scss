@@ -1,11 +1,15 @@
 @import 'partials/mixins';
 
+div#content {
+  overflow: visible;
+}
+
 section#home {
   padding: 20px 0 0;
   ul.warnings {
     background: image-url('home/bg-warnings.jpg') no-repeat;
     width: 990px;
-    height: 54px;
+    height: 65px;
     margin: 0 0 20px;
     padding: 12px 0 0;
     li {
@@ -25,6 +29,70 @@ section#home {
       }
       &.discount {
         width: 390px;
+      }
+    }
+  }
+  div#carousel {
+    position: relative;
+    width: 990px;
+    height: 486px;
+    margin: 0 0 40px;
+    a.close {
+      position: absolute;
+      background: image-url("lookbooks/close.png") no-repeat;
+      text-indent: -99999px;
+      top: 0;
+      right: 0;
+      width: 38px;
+      height: 40px;
+      display: block;
+      z-index: 101;
+      &:hover{
+        background: image-url("lookbooks/close-hover.png") no-repeat;
+      }
+    }
+    .jcarousel-container {
+      width: 990px;
+      position: relative;
+    }
+    .prev-item, .next-item {
+      position: absolute;
+      background: image-url("home/arrows.jpg") no-repeat;
+      text-indent: -9999px;
+      width: 8px;
+      height: 33px;
+      display: block;
+      top: 230px;
+      z-index: 100;
+      cursor: pointer;
+    }
+    .prev-item {
+      background-position: 0 0;
+      left: -13px;
+      &:hover {
+        background-position: 0 -33px;
+      }
+    }
+    .next-item {
+      background-position: -8px 0;
+      right: -13px;
+      &:hover {
+        background-position: -8px -33px;
+      }
+    }
+    ul {
+      position: relative;
+      width: 3000px;
+      overflow: auto;
+      left: 0;
+      li {
+        position: relative;
+        width: 990px;
+        height: 486px;
+        display: block;
+        margin: 0;
+        padding: 0;
+        float: left;
       }
     }
   }
