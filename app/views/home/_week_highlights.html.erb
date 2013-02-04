@@ -1,0 +1,29 @@
+<section id="week_highlights">
+  <h1>Veja os destaques da semana</h1>
+  <ul>
+    <li id="about">
+      <%= link_to "#" do %>
+        <%= image_tag "home/img-thumb-video.jpg", title: "Sobre a Olook" %>
+      <% end %>
+      <h1>Sobre a olook</h1>
+      <p>Saiba como a olook funciona</p>
+      <%= link_to "Veja mais aqui", our_essence_path, class: "more" %>
+    </li>
+    <li id="shoes">
+      <%= link_to shoes_path do %>
+        <%= image_tag "home/sapatos.jpg", title: "Sapatos Hot" %>
+      <% end %>
+      <h1>Sapatos hot</h1>
+      <p>Veja todos na seção sapatos</p>
+      <%= link_to "Confira aqui", shoes_path, class: "more" %>
+    </li>
+    <li id="olookmovel">
+      <%= link_to "#" do %>
+        <%= image_tag "home/olookmovel.jpg", title: "Olookmóvel" %>
+      <% end %>
+      <h1>Olookmóvel</h1>
+      <p>Conheça nossa vitrine móvel</p>
+      <%= link_to "Veja mais aqui", "#", class: "more" %>
+    </li>
+  </ul>
+</section>

@@ -88,11 +88,64 @@ section#home {
       li {
         position: relative;
         width: 990px;
-        height: 486px;
+        height: 490px;
         display: block;
         margin: 0;
         padding: 0;
         float: left;
+      }
+    }
+  }
+  section#week_highlights {
+    > h1 {
+      background: image-url("home/bg-title-highlights.jpg") center center no-repeat;
+      color: #231f20;
+      font-family: $avenir;
+      font-size: 19px;
+      text-transform: uppercase;
+      text-align: center;
+      margin: 0 0 30px;
+    }
+    ul {
+      width: 100%;
+      margin: 0 0 30px;
+      overflow: auto;
+      li {
+        width: 315px;
+        display: block;
+        text-align: center;
+        margin: 0 20px 0 0;
+        float: left;
+        img {
+          margin: 0 0 10px;
+        }
+        h1 {
+          font-family: $johnston;
+          font-family: 29px;
+          text-transform: uppercase;
+        }
+        p {
+          color: #231f20;
+          font-size: 15px;
+          margin: 0 0 15px;
+        }
+        a.more {
+          background: image-url("home/bg-more.jpg") center center no-repeat;
+          color: #000;
+          font-size: 12px;
+          font-weight: bold;
+          text-decoration: none;
+          text-transform: uppercase;
+          padding: 0 30px;
+          &:hover {
+            color: #d95385;
+          }
+        }
+        &:last-child {
+          width: 318px;
+          float: right;
+          margin: 0;
+        }
       }
     }
   }
