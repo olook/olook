@@ -152,4 +152,24 @@ section#home {
       }
     }
   }
+  a#press {
+    background: image-url("home/press.jpg") no-repeat;
+    text-indent: -99999px;
+    width: 990px;
+    height: 65px;
+    display: block;
+    margin: 0 0 30px;
+  }
+  section#top5 {
+    padding: 0 0 30px;
+    border-bottom: 1px #cbcbcb solid;
+    h1 {
+      background: image-url("home/tit-top5.jpg") top center no-repeat;
+      font-family: $kepler;
+      font-size: 18px;
+      text-align: center;
+      margin: 0 0 30px;
+      padding: 33px 0 0 0;
+    }
+  }
 }
