@@ -7,10 +7,9 @@ class Admin::DashboardController < Admin::BaseController
   end
 
   def show
-    @number_of_days = params[:number].to_i
+    @number_of_days = params[:day_number].to_i
     @state = params[:state]
-    @orders = Order.with_date(@number_of_days.business_days.before(today)).
-                    with_state(params[:state]).
+    @orders = build_scope(@number_of_days.business_days.before(today), params).
                     page(params[:page]).
                     per_page(15).
                     order('created_at desc')
@@ -31,7 +30,7 @@ class Admin::DashboardController < Admin::BaseController
       params.merge!(state: name.to_s.delete('@'))
 
       @report_days.each do |day|
-        state_counts << build_scope(day.business_days.before(today), params)
+        state_counts << build_scope(day.business_days.before(today), params).count
       end
 
       instance_variable_set(name, state_counts)
