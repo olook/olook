@@ -116,6 +116,9 @@ section#home {
         text-align: center;
         margin: 0 20px 0 0;
         float: left;
+        div.video_description {
+          display: none;
+        }
         img {
           margin: 0 0 10px;
         }
