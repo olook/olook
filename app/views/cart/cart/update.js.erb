@@ -1,12 +1,28 @@
 $("#total_value").html("<%= number_to_currency(@cart_service.total) %>");
 
+<% style = @cart_service.allow_credit_payment? ? 'normal' : 'prohibited' %>
+
+$("li#loyalty_credit div.value").removeClass("normal prohibited").addClass("<%= style %>");
+$("li#mgm_credit div.value").removeClass("normal prohibited").addClass("<%= style %>");
+
+$("#total_user_credits").html("<%= number_to_currency(total_user_credits) %>");
+
 <% if @cart.coupon %>
   $("#coupon_discount").html("<%= number_to_currency(@cart_service.total_coupon_discount) if !@cart.coupon.is_percentage? %><%= discount_percentage(@cart.coupon.discount_percent) %>");
   $("#coupon_info").show();
+
+  $("li#loyalty_credit div.message").html("<%= print_credit_message %>");
+  $("li#mgm_credit div.message").html("<%= print_credit_message %>");
+  
 <% else %>
   $("#coupon_discount").html("");
   $("#coupon_info").hide();
+
+  $("li#loyalty_credit div.message").html("");
+  $("li#mgm_credit div.message").html("");
+
 <% end %>
+
 
 $("#coupon a#show_coupon_field").show();
 $("#coupon a#show_coupon_field").siblings("form").hide();
