@@ -161,6 +161,7 @@ section#home {
     margin: 0 0 30px;
   }
   section#top5 {
+    margin: 0 0 20px;
     padding: 0 0 30px;
     border-bottom: 1px #cbcbcb solid;
     h1 {
@@ -170,6 +171,30 @@ section#home {
       text-align: center;
       margin: 0 0 30px;
       padding: 33px 0 0 0;
+    }
+  }
+  section#stylists {
+    position: relative;
+    min-height: 270px;
+    margin: 0 0 30px;
+    padding: 10px 0 30px;
+    border-bottom: 1px #cbcbcb solid;
+    h1 {
+      font-family: $kepler;
+      font-size: 27px;
+      text-align: center;
+      text-transform: uppercase;
+      margin: 0 0 30px;
+    }
+    h2 {
+      position: absolute;
+      background: image-url("home/olook-loved.jpg") no-repeat;
+      text-indent: -99999px;
+      width: 104px;
+      height: 104px;
+      display: block;
+      top: 0;
+      left: 75px;
     }
   }
 }
