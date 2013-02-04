@@ -25,7 +25,7 @@
     - @orders.each do |order|
       %tr
         %td=order.created_at.strftime('%A, %e %B %Y')
-        %td=order.payments.for_erp.first.created_at.strftime('%A, %e %B %Y')
+        %td=order.payments.for_erp.count > 0 ? order.payments.for_erp.first.created_at.strftime('%A, %e %B %Y') : 'sem pagamentos via boleto, debito ou credito'
         %td=(my_order = order.order_state_transitions.detect {|state| state.event == 'delivering'}) ? my_order.created_at.strftime('%A, %e %B %Y') : ''
         %td=(my_order = order.order_state_transitions.detect {|state| state.event == 'delivered'}) ? my_order.created_at.strftime('%A, %e %B %Y') : ''
         %td=(my_order = order.order_state_transitions.detect {|state| state.event == 'authorized'}) ? headline_delivered_date_format(order.order_state_transitions.detect {|state| state.event == 'authorized'}.created_at, order.freight.delivery_time) : ''

@@ -1,51 +1,52 @@
 module Admin::DashboardHelper
 
+  #first table: status dos pedidos
   def report_days_link(options = {})
     unless options[:state]
       options[:state] = ["authorized","picking","delivering","delivered"]
     end
 
-    total = options.delete(:total)
+    total = options.fetch(:total)
 
     link_to(total, admin_report_detail_path(options))
-
   end
 
+  #second table: pedidos referentes a entrega
   def report_deliver_link(options = {})
     unless options[:state]
       options[:state] = ["authorized","delivering","delivered"]
     end
 
-    case options.delete[:day_number]
+    case options.fetch(:day_number)
     when 0
+      link_to(build_scope(3.business_days.before(Time.now), options).count, admin_report_detail_path(options))
 
-      link_to(build_scope(3.business_days.before(Time.now), options), admin_report_detail_path(options))
     when 1
+      link_to(build_scope(2.business_days.before(Time.now), options).count, admin_report_detail_path(options))
 
-      link_to(build_scope(2.business_days.before(Time.now), options), admin_report_detail_path(options))
     when 2
+      link_to(build_scope(1.business_days.before(Time.now), options).count, admin_report_detail_path(options))
 
-      link_to(build_scope(1.business_days.before(Time.now), options), admin_report_detail_path(options))
     when 3
+      link_to(build_scope(0.business_days.after(Time.now), options).count, admin_report_detail_path(options))
 
-      link_to(build_scope(0.business_days.after(Time.now), options), admin_report_detail_path(options))
     when 4
+      link_to(build_scope(1.business_days.after(Time.now), options).count, admin_report_detail_path(options))
 
-      link_to(build_scope(1.business_days.after(Time.now), options), admin_report_detail_path(options))
     when 5
+      link_to(build_scope(2.business_days.after(Time.now), options).count, admin_report_detail_path(options))
 
-      link_to(build_scope(2.business_days.after(Time.now), options), admin_report_detail_path(options))
     else 6
-
-      link_to(build_scope(3.business_days.after(Time.now), options), admin_report_detail_path(options))
+      link_to(build_scope(3.business_days.after(Time.now), options).count, admin_report_detail_path(options))
+      
     end
   end
 
   def build_scope(date, options)
-    if params[:action].match("orders_life_cicle_report")
-      default_scope = Order.with_date(date).with_state(options[:state])
-    else
+    if options[:action] && options[:action].match("orders_time_report")
       default_scope = Order.with_expected_delivery_on(date).with_state(options[:state])
+    else
+      default_scope = Order.with_date(date).with_state(options[:state])
     end
 
     scope = if freight_state_filter? && !shipping_filter?
@@ -61,7 +62,8 @@ module Admin::DashboardHelper
             else
               default_scope
             end
-    scope.size
+
+    scope
   end
 
   private

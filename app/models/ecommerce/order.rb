@@ -261,7 +261,7 @@ class Order < ActiveRecord::Base
     end
 
     def self.expected_delivery_on_range(date)
-      if date > 6.business_days.ago
+      if date > 5.business_days.ago
         where(expected_delivery_on: date.beginning_of_day..date.end_of_day)
       else
         where("expected_delivery_on <= ?", date.end_of_day)
