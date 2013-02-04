@@ -55,6 +55,12 @@ class Admin::DashboardController < Admin::BaseController
 
   def orders_time_report
     @report_days = [*0..6]
+
+    flash[:notice] = "Filtrando por transportadora #{params[:shipping_service_name]}" if shipping_filter?
+
+    flash[:notice] = "Filtrando por #{params[:freight_state]}" if freight_state_filter?
+
+    flash[:notice] = "Filtrando por transportadora #{params[:shipping_service_name]} e por #{params[:freight_state]}" if shipping_filter? && freight_state_filter?
   end
 
   private
