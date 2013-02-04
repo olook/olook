@@ -2,9 +2,13 @@
   <h1>Veja os destaques da semana</h1>
   <ul>
     <li id="about">
-      <%= link_to "#" do %>
+      <%= link_to "#", rel: "http://www.youtube.com/watch?v=_yVjTaDzvEE", class: "open_making_of" do %>
         <%= image_tag "home/img-thumb-video.jpg", title: "Sobre a Olook" %>
       <% end %>
+      <div class="video_description">
+        <h1>Conheça mais sobre a olook</h1>
+        <%= link_to "Gostou? Descubra o seu estilo e veja a coleção completa", new_survey_path, :class => "home" %>
+      </div>
       <h1>Sobre a olook</h1>
       <p>Saiba como a olook funciona</p>
       <%= link_to "Veja mais aqui", our_essence_path, class: "more" %>
