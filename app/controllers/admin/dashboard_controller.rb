@@ -9,7 +9,10 @@ class Admin::DashboardController < Admin::BaseController
   def show
     @number_of_days = params[:day_number].to_i
     @state = params[:state]
-    @orders = build_scope(@number_of_days.business_days.before(today), params).
+
+    options = request.referer.match(/orders_time_report/) ? params.merge(action: 'orders_time_report') : params
+
+    @orders = build_scope(scope_date, options).
                     page(params[:page]).
                     per_page(15).
                     order('created_at desc')
@@ -67,6 +70,14 @@ class Admin::DashboardController < Admin::BaseController
 
    def today
      0.business_day.ago
+   end
+
+   def scope_date
+     if request.referer.match /orders_time_report/
+       @number_of_days < 3 ? @number_of_days.business_days.before(today) : @number_of_days.business_days.after(today)
+     else
+       @number_of_days.business_days.before(today)
+     end
    end
 end
 
