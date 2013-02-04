@@ -42,22 +42,25 @@ module Admin::DashboardHelper
   end
 
   def build_scope(date, options)
-    default_scope = Order.with_expected_delivery_on(date).with_state(options[:state])
+    if params[:action].match("orders_life_cicle_report")
+      default_scope = Order.with_date(date).with_state(options[:state])
+    else
+      default_scope = Order.with_expected_delivery_on(date).with_state(options[:state])
+    end
 
-    scope = if freight_state_filter?
+    scope = if freight_state_filter? && !shipping_filter?
               default_scope.where(freight_state: options[:freight_state])
 
-            elsif freight_state_filter?
+            elsif shipping_filter? && !freight_state_filter?
               default_scope.where(shipping_service_name: options[:shipping_service_name])
 
-            elsif freight_state_filter? && freight_state_filter?
+            elsif freight_state_filter? && shipping_filter?
               default_scope.where(shipping_service_name: options[:shipping_service_name]).
                             where(freight_state: options[:freight_state])
 
             else
               default_scope
             end
-
     scope.size
   end
 
@@ -66,7 +69,7 @@ module Admin::DashboardHelper
     def shipping_filter?
       params[:shipping_service_name] && !params[:shipping_service_name].empty?
     end
- 
+
     def freight_state_filter?
       params[:freight_state] && !params[:freight_state].empty?
     end
