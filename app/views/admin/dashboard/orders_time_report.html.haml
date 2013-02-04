@@ -1,6 +1,4 @@
-%h1 Dashboard
-
-%h2 Operações
+%h2 Entregas de pedidos
 
 .inner
   %table.table
@@ -13,4 +11,4 @@
         %td= I18n.t("admin_dashboard.deliver_days.#{report_day_number}")
         %td{:id => "delivering"}=report_deliver_link(params.merge(day_number: report_day_number, state: 'delivering'))
 
-        %td{:id => "expected_delivery_on"}=report_deliver_link(params.merge(day_number: report_day_number, state: 'delivering'))
+        %td{:id => "expected_delivery_on"}=report_deliver_link(params.merge(day_number: report_day_number, state: 'delivered'))
