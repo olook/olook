@@ -1,5 +1,27 @@
 %h2 Entregas de pedidos
 
+- content_for :sidebar do
+  .block
+  %h3 Filtros
+  .content
+    %p
+      =form_tag(admin_orders_life_cicle_report_path) do
+        .group
+          %p
+            %b
+              =label_tag 'Transportadora'
+            %br
+              =select_tag "shipping_service_name",  options_for_select(["TEX", "PAC"], params[:shipping_service_name]), include_blank: true
+        .group
+          %p
+            %b
+              =label_tag 'Estado'
+            %br
+              =select_tag "freight_state",  options_for_select(Address::STATES, params[:freight_state]), include_blank: true
+        .group
+          %p
+            =submit_tag "Filtrar"
+
 .inner
   %table.table
     %tr
