@@ -76,7 +76,7 @@ class Admin::DashboardController < Admin::BaseController
      if request.referer.match /orders_time_report/
        @number_of_days < 3 ? @number_of_days.business_days.before(today) : @number_of_days.business_days.after(today)
      else
-       @number_of_days.business_days.before(today)
+       @number_of_days.days.ago
      end
    end
 end
