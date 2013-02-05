@@ -46,7 +46,7 @@ module Admin::DashboardHelper
     if options[:action] && options[:action].match("orders_time_report")
       default_scope = Order.with_expected_delivery_on(date).with_state(options[:state])
     else
-      default_scope = Order.with_date(date).with_state(options[:state])
+      default_scope = Order.with_date_and_authorized(date).with_state(options[:state])
     end
 
     scope = if freight_state_filter? && !shipping_filter?

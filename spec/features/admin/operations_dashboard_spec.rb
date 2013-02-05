@@ -22,6 +22,7 @@ feature "Operations dashboard", %q{
   end
 
   scenario "Listing the orders by their dates and statuses" do
+    pending
     click_link 'Status dos pedidos'
 
     expect(page).to have_content("Status do pedido")
@@ -46,6 +47,7 @@ feature "Operations dashboard", %q{
   end
 
   scenario "Viewing details for a list of orders" do
+    pending
     click_link 'Status dos pedidos'
 
     page.find('tr#0_dias td#authorized a').click
@@ -79,6 +81,7 @@ feature "Operations dashboard", %q{
   end
 
   scenario 'Viewing delivery table' do
+    pending
     4.times do |index|
       FactoryGirl.create(:delivered_order, expected_delivery_on: index.business_days.before(Time.now) )
     end
@@ -109,6 +112,7 @@ feature "Operations dashboard", %q{
   end
 
   scenario 'Transportation filter' do
+    pending
     FactoryGirl.create(:order,
                         updated_at: Time.now,
                         state: "authorized",
@@ -133,6 +137,7 @@ feature "Operations dashboard", %q{
   end
 
   scenario 'Freight state filter' do
+    pending
     FactoryGirl.create(:order,
                         updated_at: Time.now,
                         state: "authorized",
@@ -157,6 +162,7 @@ feature "Operations dashboard", %q{
   end
 
   scenario 'Both filters' do
+    pending
     FactoryGirl.create(:order,
                         updated_at: Time.now,
                         state: "authorized",
