@@ -104,6 +104,10 @@ module ApplicationHelper
     end
   end
 
+  def protocol
+    Rails.env.production? ? 'https' : 'http'
+  end
+
   private
 
     def ga_event_referer
