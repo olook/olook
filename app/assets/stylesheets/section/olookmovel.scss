@@ -1,0 +1,146 @@
+@import 'partials/mixins';
+section#kombi {
+  padding: 30px 0 0;
+  div#description {
+    width: 475px;
+    float: left;
+    h1 {
+      font-family: $johnston;
+      font-size: 22px;
+      margin: 0 0 20px;
+      span {
+        font-family: $kepler;
+        font-size: 30px;
+      }
+    }
+    h2 {
+      color: #808285;
+      font-family: $avenir;
+      font-size: 16px;
+      text-transform: uppercase;
+      margin: 0 0 10px;
+    }
+    p {
+      color: #808285;
+      margin: 0 0 25px;
+			a{color:#D95385;}
+    }
+  }
+  div#pictures {
+    width: 397px;
+    margin: 0 0 60px;
+    float: right;
+    div#instagram {
+      background: #f1f2f2;
+      margin: 15px 0 15px;
+      padding: 10px;
+      border: 1px #b7b7b7 solid;
+      h1 {
+        background: image-url('kombi/instagram.jpg') top left no-repeat;
+        font-family: $avenir;
+        font-size: 15px;
+        font-weight: lighter;
+        text-transform: uppercase;
+        height: 53px;
+        margin: 0 0 20px;
+        padding: 8px 0 0 75px;
+        strong {
+          span {
+            font-family: $kepler;
+            text-transform: lowercase;
+          }
+        }
+      }
+      div.instagram_pictures {
+        width: 381px;
+        overflow: auto;
+        div.instagram-placeholder {
+          position: relative;
+          background: image-url('kombi/bg-instagram.jpg') top left no-repeat;
+          width: 122px;
+          height: 122px;
+          display: block;
+          margin: 0 5px 5px 0;
+          float: left;
+          a {
+            img {
+              position: absolute;
+              width: 106px;
+              height: 105px;
+              top: 10px;
+              left: 8px;
+            }
+          }
+        }
+      }
+    }
+    p {
+      font-weight: 500;
+			font-size:15px;
+      span {
+        color: #d35285;
+      }
+    }
+  }
+  div#schedule {
+    position: relative;
+    min-height: 435px;
+    clear: both;
+		float:left;
+		width:100%;
+		margin-top:25px;
+    h1 {
+      font-family: $johnston;
+      font-size: 22px;
+      text-transform: uppercase;
+      margin: 0 0 30px;
+			line-height:18px;
+      span {
+        font-family: $avenir;
+        font-size: 12px;
+        text-transform: none;
+				color:#808285;
+      }
+    }
+    h2 {
+      position: absolute;
+      background: image-url('kombi/know-where-to-find.png') no-repeat;
+      text-indent: -99999px;
+      width: 162px;
+      height: 152px;
+      display: block;
+      top: -21px;
+      right: 7px;
+    }
+    table {
+      width: 100%;
+      margin: 0 0 20px;
+      border-collapse: separate;
+      border-spacing: 0 5px;
+      tr {
+        td {
+          background: #DCDDDE;
+          color: #000;
+          line-height: 34px;
+          height: 34px;
+          padding: 0 0 0 18px;
+        }
+        &.selected {
+          td {
+            background-position: 0 0;
+            &:last-child {
+              background-position: -169px 0;
+            }
+          }
+        }
+        &.title {
+          td {
+            font-family: $johnston;
+            font-family: 15px;
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+  }
+}
