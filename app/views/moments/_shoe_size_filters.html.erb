@@ -1,8 +1,8 @@
-<div id="shoe_size_filter">
-  <%= label_tag "Mostrar números:" %>
-  <span><%= current_user.shoes_size if current_user && current_user.shoes_size %></span>
+<div class="filter main">
+  <p class="filter_type opened">Tamanho</p>
+  <button type="button">[ limpar ]</button>
   <div class="sizes">
-    <ul>
+    <ol class="column">
       <% moment_presenter.moment.catalog.shoe_sizes.each do |key, value| %>
         <% unless key.zero? %>
           <li>
@@ -15,7 +15,7 @@
           </li>
         <% end %>
       <% end %>
-    </ul>
+    </ol>
   </div>
 </div>
 
