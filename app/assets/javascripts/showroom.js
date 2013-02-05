@@ -103,8 +103,8 @@ $(document).ready(function() {
   }
 
   if($('.dialog.liquidation').length == 1) {
-    var clone = $('.dialog.liquidation').clone();
-    var content = clone[0].outerHTML;
+   // var clone = $('.dialog.liquidation').clone();
+    var content = $('.dialog.liquidation');
     initBase.modal(content);
   }
 
