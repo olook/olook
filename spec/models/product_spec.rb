@@ -16,6 +16,28 @@ describe Product do
     it { should have_and_belong_to_many(:profiles) }
   end
 
+  describe "#add_freebie" do
+    let(:product) { FactoryGirl.create :blue_sliper_with_variants }
+    let(:bag) { FactoryGirl.create(:basic_bag_with_variant) }
+    let(:shoe) { FactoryGirl.create(:basic_shoe) }
+
+    it { should respond_to :add_freebie }
+
+    context "when adding a bag" do
+      
+      it "every variant should have a freebie" do
+        FreebieVariant.should_receive(:create!).exactly(product.variants.size).times
+        product.add_freebie bag
+      end
+
+    end
+
+  end
+
+  describe "#remove_freebie" do
+    it { should respond_to :remove_freebie }
+  end
+
   describe "scopes" do
     let!(:shoe)      { FactoryGirl.create(:basic_shoe) }
     let!(:shoe_for_xml) { FactoryGirl.create :blue_sliper_with_variants }
