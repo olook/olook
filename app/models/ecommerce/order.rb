@@ -254,12 +254,11 @@ class Order < ActiveRecord::Base
 
     def self.updated_at_range(date)
       if date > 5.business_days.ago.to_date
-        where(updated_at: date.beginning_of_day..date.end_of_day)
-      else
-        where("updated_at <= ?", date.end_of_day)
-
+        # where(updated_at: date.beginning_of_day..date.end_of_day)
         joins(:order_state_transitions).where(order_state_transitions: {event: "authorized", to: "authorized", created_at: date.beginning_of_day..date.end_of_day})
-
+      else
+        # where("updated_at <= ?", date.end_of_day)
+        joins(:order_state_transitions).where('order_state_transitions.event = "authorized" AND order_state_transitions.to = "authorized" and order_state_transitions.created_at <= ?', date.end_of_day)
       end
     end
 
