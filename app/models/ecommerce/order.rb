@@ -18,7 +18,8 @@ class Order < ActiveRecord::Base
   }
 
   scope :with_status, lambda { |status| where(state: status) }
-  scope :with_date, lambda { |date| updated_at_range(date) }
+  scope :with_date_and_authorized, lambda { |date| joins(:order_state_transitions).
+                                                   where(order_state_transitions: {event: "authorized", to: "authorized", created_at: date.beginning_of_day..date.end_of_day}) }
   scope :with_expected_delivery_on, lambda { |date| expected_delivery_on_range(date) }
 
   belongs_to :cart
@@ -251,16 +252,6 @@ class Order < ActiveRecord::Base
   end
 
   private
-
-    def self.updated_at_range(date)
-      if date > 5.business_days.ago.to_date
-        # where(updated_at: date.beginning_of_day..date.end_of_day)
-        joins(:order_state_transitions).where(order_state_transitions: {event: "authorized", to: "authorized", created_at: date.beginning_of_day..date.end_of_day})
-      else
-        # where("updated_at <= ?", date.end_of_day)
-        joins(:order_state_transitions).where('order_state_transitions.event = "authorized" AND order_state_transitions.to = "authorized" and order_state_transitions.created_at <= ?', date.end_of_day)
-      end
-    end
 
     def self.expected_delivery_on_range(date)
       if date > 5.business_days.ago

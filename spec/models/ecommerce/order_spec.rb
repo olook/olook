@@ -391,25 +391,12 @@ describe Order do
       end
     end
 
-    context ".with_date" do
+    context ".with_date_and_authorized" do
 
       it "returns orders on a specific date" do
-        orders_today = Order.with_date(now)
+        orders_today = Order.with_date_and_authorized(now)
         expect(orders_today).to have(1).item
         expect(orders_today.first).to eq(order_with_waiting_payment)
-      end
-
-      context "6 or more days" do
-        before(:each) do
-          2.times do
-            past_order = FactoryGirl.create(:order_with_waiting_payment)
-            past_order.update_attribute(:updated_at, now - 6.days)
-          end
-        end
-
-        it "returns all orders from 6 business days ago or before" do
-          expect(Order.with_date(now - 6.days).count).to eql 2
-        end
       end
     end
 

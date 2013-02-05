@@ -25,7 +25,7 @@ class Admin::DashboardController < Admin::BaseController
   end
 
   def orders_status_report
-    @report_days, @totals = [*0..6], []
+    @report_days, @totals = [*0..10], []
 
     [:@authorized, :@picking, :@delivering, :@delivered].each do |name|
       state_counts = []
