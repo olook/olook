@@ -32,8 +32,8 @@ class Admin::DashboardController < Admin::BaseController
 
       params.merge!(state: name.to_s.delete('@'))
 
-      @report_days.each do |day|
-        state_counts << build_scope(day.business_days.before(today), params).count
+      @report_days.each do |number_of_days|
+        state_counts << build_scope(number_of_days.ago, params).count
       end
 
       instance_variable_set(name, state_counts)
