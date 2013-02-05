@@ -22,23 +22,29 @@ feature "Operations dashboard", %q{
   end
 
   scenario "Listing the orders by their dates and statuses" do
-    pending
+
     click_link 'Status dos pedidos'
 
     expect(page).to have_content("Status do pedido")
+
+    Delorean.time_travel_to("February 5, 2013")
 
     expect(page).to have_content("Prazo para despacho")
     expect(page).to have_content("Pago")
     expect(page).to have_content("Aguardando Separação")
     expect(page).to have_content("Despachado")
     expect(page).to have_content("Entregue")
-    expect(page).to have_content("Hoje")
-    expect(page).to have_content("Ontem")
-    expect(page).to have_content("2 dias atrás")
-    expect(page).to have_content("3 dias atrás")
-    expect(page).to have_content("4 dias atrás")
-    expect(page).to have_content("5 dias atrás")
-    expect(page).to have_content("6 ou mais dias atrás")
+    expect(page).to have_content("Terça")
+    expect(page).to have_content("Segunda")
+    expect(page).to have_content("Domingo")
+    expect(page).to have_content("Sábado")
+    expect(page).to have_content("Sexta")
+    expect(page).to have_content("Quinta")
+    expect(page).to have_content("Quarta")
+    expect(page).to have_content("Terça")
+    expect(page).to have_content("Segunda")
+    expect(page).to have_content("Domingo")
+    expect(page).to have_content("Sábado")
     expect(page).to have_content("TOTAL")
 
     expect(page.find('tr#0_dias td#total', text: '1'))
