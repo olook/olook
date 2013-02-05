@@ -8,7 +8,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   # Choose what kind of storage to use for this uploader:
   # storage :file
   storage :fog
-  
+
   def store_dir
     "#{self.model.class.name.underscore.pluralize}/#{self.model.product.model_number}/#{self.model.display_on}"
   end
@@ -44,6 +44,9 @@ class PictureUploader < CarrierWave::Uploader::Base
     process :resize_to_fill => [90, 90]
   end
   #end
+  version :catalog, from_version: :suggestion do
+    process :resize_to_fill => [230, 230]
+  end
   version :showroom do
     process :resize_to_limit => [170, 170], :quality => 100
   end
@@ -55,7 +58,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   end
   version :zoom_out do
     process :resize_to_limit => [1000, 1000], :quality => 100
-  end  
+  end
 
   def extension_white_list
     %w(jpg jpeg gif png)
