@@ -24,7 +24,7 @@ class Admin::DashboardController < Admin::BaseController
     end
   end
 
-  def orders_life_cicle_report
+  def orders_status_report
     @report_days, @totals = [*0..6], []
 
     [:@authorized, :@picking, :@delivering, :@delivered].each do |name|

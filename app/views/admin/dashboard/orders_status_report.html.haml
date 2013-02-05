@@ -5,7 +5,7 @@
   %h3 Filtros
   .content
     %p
-      =form_tag(admin_orders_life_cicle_report_path) do
+      =form_tag(admin_orders_status_report_path) do
         .group
           %p
             %b
@@ -36,7 +36,7 @@
     - @report_days.each do |day_number|
       %tr{:id => "#{day_number}_dias"}
         %td= I18n.t("admin_dashboard.report_days.#{day_number}")
-        
+
         %td{:id => "authorized"}= report_days_link({total: @authorized[day_number], day_number: day_number,  state: 'authorized'}.merge!(params.slice(:action, :freight_state, :shipping_service_name)))
 
         %td{:id => "picking"}= report_days_link({total: @picking[day_number], day_number: day_number,  state: "picking"}.merge!(params.slice(:action, :freight_state, :shipping_service_name)))
