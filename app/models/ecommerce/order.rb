@@ -257,6 +257,9 @@ class Order < ActiveRecord::Base
         where(updated_at: date.beginning_of_day..date.end_of_day)
       else
         where("updated_at <= ?", date.end_of_day)
+
+        joins(:order_state_transitions).where(order_state_transitions: {event: "authorized", to: "authorized", created_at: date.beginning_of_day..date.end_of_day})
+
       end
     end
 
