@@ -79,19 +79,12 @@ filter.deleteTag = function(classname){
       filter.submitAndScrollUp();
    });
 }
+filter.cleanCategory = function(){
+   $("button.clean_filter").each(function(){
+      $(this).next().find("input[type='checkbox']:checked").attr("checked", false);
+   })
+}
 
 $(function(){
   filter.init();
-
-  $('img.async').mouseover(function () {
-    var backside_image = $(this).attr('data-src');
-    $(this).attr('src', backside_image);
-    
-  }); 
-
-  $('img.async').mouseout(function () {
-    var showroom_image = $(this).attr('data-showroom');
-    $(this).attr('src', showroom_image);
-  });
-
 })
