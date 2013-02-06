@@ -3,7 +3,6 @@
     <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
     <p><span class="model"><%= product.model_name %></span> <span class="name"><%= product.name %></span></p>
     <p class="brand">Olook</p>
-    <!-- <p class="price">R$ 129,00 ou <span class="plots">4 x de R$ 32,47</span></p> -->
     <%#= TODO criar helper para calcular parcelas %>
     <p class="price"><%= number_to_currency product.price %> ou <span class="plots">4 x de R$ 32,47</span></p>
   </a>  
