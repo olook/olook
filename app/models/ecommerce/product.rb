@@ -147,6 +147,11 @@ class Product < ActiveRecord::Base
     picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
   end
 
+  def backside_picture
+    picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_4).first
+    picture.try(:image_url, :suggestion) # 260x260
+  end
+
   def thumb_picture
     main_picture.try(:image_url, :thumb) # 50x50
   end

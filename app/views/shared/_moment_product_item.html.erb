@@ -5,7 +5,7 @@ shoe_size = params[:shoe_sizes].try(:first).try(:to_i) || current_user.try(:shoe
   <%= render "shared/product_hover", :product => product %>
   <div class="box_product <%= quantity_status_moments(product, shoe_size) %>">
     <%= link_to product, :class => "product_link", :rel => "#{product.id}", :remote => defined?(suggestion) do %>
-      <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
+      <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name, :class => "async", "data-showroom" => product.showroom_picture, "data-src" => product.backside_picture) %>
       <h1><%= product.name %></h1>
       <% if product.promotion? %>
         <span class="old">de: <%= number_to_currency product.price %></span>
