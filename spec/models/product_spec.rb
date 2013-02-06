@@ -24,7 +24,7 @@ describe Product do
     it { should respond_to :add_freebie }
 
     context "when adding a bag" do
-      
+
       it "every variant should have a freebie" do
         FreebieVariant.should_receive(:create!).exactly(product.variants.size).times
         product.add_freebie bag
@@ -367,6 +367,17 @@ describe Product do
       end
     end
 
+    describe '#catalog_picture' do
+      it "should return the picture sized image if it exists" do
+        mock_picture.stub(:image_url).with(:catalog).and_return(:valid_image)
+        subject.stub(:main_picture).and_return(mock_picture)
+        subject.catalog_picture.should == :valid_image
+      end
+      it "should return nil if it doesn't exist" do
+        subject.catalog_picture.should be_nil
+      end
+    end
+
     describe '#image_at_position' do
       let!(:shoe)      { FactoryGirl.create(:basic_shoe) }
       let!(:main_picture)      { FactoryGirl.create(:main_picture) }
@@ -539,10 +550,10 @@ describe Product do
         end
       end
     end
-    
+
     context "products that aren't shoes" do
-      let(:basic_bag_for_xml) { FactoryGirl.create(:basic_bag) }  
-      
+      let(:basic_bag_for_xml) { FactoryGirl.create(:basic_bag) }
+
       it "returns false" do
         basic_bag_for_xml.shoe_inventory_has_less_than_minimum?.should be_false
       end
