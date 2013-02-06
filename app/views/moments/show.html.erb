@@ -9,7 +9,7 @@
   <% content_for :footer do %>
     <%= javascript_include_tag "moments" %>
     <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => @products_id } %>
-    <% end %>
+  <% end %>
 
   <div id="moments" class="content">
 	<section class="header-moments">
@@ -21,40 +21,17 @@
     <%= moment_presenter.display_nav_bar %>
     <%= moment_presenter.render_search_form %>
     <div id="products_container">
-		<section class="news">
-			<div>
-				<h2>Novidades</h2>
-			</div>
-			<ul class="news-list products-list">
-				<li>
-					<a href="#" rel="">
-						<img src="/assets/moments/prod_fake.png" alt="" />
-						<p><span class="model">Anabela</span> <span class="name">Silva Jardim</span></p>
-						<p class="brand">Olook</p>
-						<p class="price">R$ 129,00 ou <span class="plots">4 x de R$ 32,47</span></p>
-					</a>	
-				</li>
-				<li>
-					<a href="#" rel="">
-						<img src="/assets/moments/prod_fake.png" alt="" />
-						<p><span class="model">Anabela</span> <span class="name">Silva Jardim</span></p>
-						<p class="brand">Olook</p>
-						<p class="price">R$ 129,00 ou <span class="plots">4 x de R$ 32,47</span></p>
-					</a>	
-				</li>
-				<li>
-					<a href="#" rel="">
-						<img src="/assets/moments/prod_fake.png" alt="" />
-						<p><span class="model">Anabela</span> <span class="name">Silva Jardim</span></p>
-						<p class="brand">Olook</p>
-						<p class="price">R$ 129,00 ou <span class="plots">4 x de R$ 32,47</span></p>
-					</a>	
-				</li>
-			</ul>	
-		</section>
+
+      <%= render "shared/filters/order" %>
+
+      <% if @featured_products %>
+        <%= render "shared/featured_products", :products => @featured_products, :category_id => @category_id %>
+      <% end %>
+
       <ul id="products">
         <%= render "products", :products => @catalog_products %>
       </ul>
+
       <div class="loading"></div>
       <%= will_paginate @catalog_products %>
     </div>
