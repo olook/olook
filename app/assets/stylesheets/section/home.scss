@@ -160,11 +160,31 @@ section#home {
     display: block;
     margin: 0 0 30px;
   }
+  section ul.products_list {
+    width: 100%;
+    overflow: auto;
+    li {
+      margin: 0 0 0 25px;
+      float: left;
+      a {
+        color: #000;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        float: left;
+        h1 {
+          font-family: $avenir;
+          font-size: 15px;
+          font-weight: 600;
+        }
+      }
+    }
+  }
   section#top5 {
     margin: 0 0 20px;
     padding: 0 0 30px;
     border-bottom: 1px #cbcbcb solid;
-    h1 {
+    >h1 {
       background: image-url("home/tit-top5.jpg") top center no-repeat;
       font-family: $kepler;
       font-size: 18px;
