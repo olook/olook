@@ -56,7 +56,7 @@ class Admin::DashboardController < Admin::BaseController
     @grand_total = @totals.inject(0) { |total, value| total += value }
   end
 
-  def orders_time_report
+  def orders_delivery_report
     @report_days = [*0..6]
 
     flash[:notice] = "Filtrando por transportadora #{params[:shipping_service_name]}" if shipping_filter?
