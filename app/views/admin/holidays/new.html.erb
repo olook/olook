@@ -1,0 +1,9 @@
+<h2>Novo feriado</h2>
+
+<div class="inner">
+  <%= render 'form' %>
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Voltar', admin_holidays_path %></li>
+<% end %>
