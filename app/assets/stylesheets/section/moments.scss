@@ -182,7 +182,7 @@ div#moments {
           transform: rotate(-45deg);-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-ms-transform:rotate(-45deg);    
        }
     }
-    .products-list{
+    .products-list{margin-left:30px;
        li{width:213px;max-height:290px;float:left;margin-right:20px;
          a{display:block;text-decoration:none;color:#000;font-size:13px;
             img{border-bottom:solid 1px #B9BABD;}
@@ -249,19 +249,20 @@ div#moments {
     ul#products {
       clear:both;
     }
-    div.loading {
-      background: url("/assets/common/ajax-loader.gif") center no-repeat;
-      width: 770px;
-      height: 30px;
-      margin: 0 auto;
+
+  }
+	div.loading {
+    background: url("/assets/common/ajax-loader.gif") center no-repeat;
+    width: 770px;
+    height: 30px;
+    margin: 0 auto;
+    display: none;
+    clear: both;
+  }
+  div.pagination {
+    clear: both;
+    a, span, em.current {
       display: none;
-      clear: both;
-    }
-    div.pagination {
-      clear: both;
-      a, span, em.current {
-        display: none;
-      }
     }
   }
 }
