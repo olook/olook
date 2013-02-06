@@ -12,8 +12,10 @@ describe Product do
     it { should have_many(:catalog_products) }
     it { should have_many(:catalogs) }
     it { should belong_to(:collection) }
-
     it { should have_and_belong_to_many(:profiles) }
+    
+    it { should respond_to :backside_picture }
+    it { should respond_to :remove_freebie }
   end
 
   describe "#add_freebie" do
@@ -24,18 +26,12 @@ describe Product do
     it { should respond_to :add_freebie }
 
     context "when adding a bag" do
-
       it "every variant should have a freebie" do
         FreebieVariant.should_receive(:create!).exactly(product.variants.size).times
         product.add_freebie bag
       end
-
     end
 
-  end
-
-  describe "#remove_freebie" do
-    it { should respond_to :remove_freebie }
   end
 
   describe "scopes" do
