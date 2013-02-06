@@ -12,7 +12,7 @@ module Admin::DashboardHelper
   end
 
   #second table: pedidos referentes a entrega
-  def report_deliver_link(options = {})
+  def orders_delivery_report_link(options = {})
     unless options[:state]
       options[:state] = ["authorized","delivering","delivered"]
     end

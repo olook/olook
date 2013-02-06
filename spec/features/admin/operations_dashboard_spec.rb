@@ -148,7 +148,6 @@ feature "Operations dashboard", %q{
   end
 
   scenario 'Viewing delivery table' do
-    pending
 
     4.times do |index|
       FactoryGirl.create(:delivered_order, expected_delivery_on: index.business_days.before(Time.now) )
@@ -159,7 +158,9 @@ feature "Operations dashboard", %q{
       FactoryGirl.create(:delivered_order, expected_delivery_on: number.business_days.after(Time.now) )
     end
 
-    click_link 'Status dos pedidos'
+    click_link 'Status de entrega dos pedidos'
+
+    binding.pry
 
     expect(page).to have_content("<= -3")
     expect(page).to have_content("-2")
