@@ -272,19 +272,19 @@ class CartService
   end
 
   def minimum_value
-    return 0 if freight_price > Payment::MINIMUM_VALUE
+    return 0.0 if freight_price > Payment::MINIMUM_VALUE
     Payment::MINIMUM_VALUE
   end
 
   def calculate_discounts(payment=nil)
     discounts = []
     retail_value = self.subtotal(:retail_price) - minimum_value
-    retail_value = 0 if retail_value < 0
-    total_discount = 0
+    retail_value = 0.0 if retail_value < 0
+    total_discount = 0.0
     coupon_value = cart.coupon.value if cart.coupon && !cart.coupon.is_percentage?
-    coupon_value = 0 if cart.coupon && !should_override_promotion_discount?
-    coupon_value ||= 0
-    billet_discount_value = 0
+    coupon_value = 0.0 if cart.coupon && !should_override_promotion_discount?
+    coupon_value ||= 0.0
+    billet_discount_value = 0.0
 
     if coupon_value >= retail_value
       coupon_value = retail_value
@@ -293,14 +293,14 @@ class CartService
     retail_value -= coupon_value
 
     use_credits = self.cart.use_credits
-    credits_loyality = 0
-    credits_invite = 0
-    credits_redeem = 0
-    if (use_credits == true)
+    credits_loyality = 0.0
+    credits_invite = 0.0
+    credits_redeem = 0.0
+    if (use_credits == true && self.cart.user)
 
 
       # Use loyalty only if there is no product with olooklet discount in the cart
-      credits_loyality = allow_credit_payment? ? self.cart.user.user_credits_for(:loyalty_program).total : 0
+      credits_loyality = allow_credit_payment? ? self.cart.user.user_credits_for(:loyalty_program).total : 0.0
       if credits_loyality >= retail_value
         credits_loyality = retail_value
       end
@@ -308,7 +308,7 @@ class CartService
       retail_value -= credits_loyality
 
       #GET FROM INVITE
-      credits_invite = allow_credit_payment? ? self.cart.user.user_credits_for(:invite).total : 0
+      credits_invite = allow_credit_payment? ? self.cart.user.user_credits_for(:invite).total : 0.0
       if credits_invite >= retail_value
         credits_invite = retail_value
       end
@@ -337,7 +337,7 @@ class CartService
 
     total_credits = credits_loyality + credits_invite + credits_redeem
 
-    discounts << :coupon if coupon_value > 0
+    discounts << :coupon if coupon_value > 0.0
     discounts << :billet_discount if billet_discount_value > 0
 
     {
