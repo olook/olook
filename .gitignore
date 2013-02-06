@@ -39,3 +39,4 @@ config/abacos.yml
 vendor/bundle
 olook.sublime-project
 olook.sublime-workspace
+*.swl
