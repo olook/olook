@@ -153,7 +153,7 @@ Olook::Application.routes.draw do
     get "/", :to => "dashboard#index"
     get "/report_detail", to: "dashboard#show"
     match "/orders_status_report", to: "dashboard#orders_status_report"
-    match "/orders_time_report", to: "dashboard#orders_time_report"
+    match "/orders_delivery_report", to: "dashboard#orders_delivery_report"
 
     get 'product_autocomplete' => 'products#autocomplete_information'
     resources :products do

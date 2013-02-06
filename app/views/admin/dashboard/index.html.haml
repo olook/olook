@@ -5,3 +5,5 @@
 .inner
   .dashboard_report_buttons
     = link_to "Status dos pedidos", admin_orders_status_report_path, :class => "button", id: "order_status"
+    %br
+    = link_to "Status de entrega dos pedidos", admin_orders_delivery_report_path, :class => "button", id: "order_delivery_status"
