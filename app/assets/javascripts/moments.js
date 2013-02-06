@@ -1,7 +1,7 @@
 var filter = {};
 
 filter.init = function(){
-   filter.endlessScroll();
+   filter.endlessScroll(window, document);
    filter.submitAndScrollUp();
    filter.seeAll();
    filter.selectedFilter();
