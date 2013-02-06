@@ -22,7 +22,7 @@ describe Admin::DashboardHelper do
 
 	end
 
-	context "#report_deliver_link" do
+	context "#orders_delivery_report_link" do
 		let(:options) { { total: 1, day_number: 1, state: 'delivered', action: 'orders_time_report' } }
 
 		context "past" do
@@ -33,7 +33,7 @@ describe Admin::DashboardHelper do
 
 			it "returns a link with orders from a past date" do
 				link = '<a href="/admin/report_detail?action=orders_time_report&amp;day_number=1&amp;state=delivered&amp;total=1">1</a>'
-				expect(helper.report_deliver_link(options)).to eq(link)
+				expect(helper.orders_delivery_report_link(options)).to eq(link)
 			end
 		end
 
@@ -45,7 +45,7 @@ describe Admin::DashboardHelper do
 
 			it "returns a link with orders expected on a future date" do
 				link = '<a href="/admin/report_detail?action=orders_time_report&amp;day_number=5&amp;state=delivered&amp;total=1">1</a>'
-				expect(helper.report_deliver_link(options.merge!(day_number: 5))).to eq(link)
+				expect(helper.orders_delivery_report_link(options.merge!(day_number: 5))).to eq(link)
 			end
 		end
 	end
