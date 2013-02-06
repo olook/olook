@@ -1,7 +1,7 @@
 var filter = {};
 
 filter.init = function(){
-   filter.endlessScroll();
+   filter.endlessScroll(window, document);
    filter.submitAndScrollUp();
    filter.seeAll();
    filter.selectedFilter();
@@ -85,7 +85,16 @@ filter.deleteTag = function(checkbox,classname){//TO DO
 
 $(function(){
   filter.init();
-  if ($('.pagination').length) {
-    filter.endlessScroll(window, document);
-  }   
+
+  $('img.async').mouseover(function () {
+    var backside_image = $(this).attr('data-src');
+    $(this).attr('src', backside_image);
+    
+  }); 
+
+  $('img.async').mouseout(function () {
+    var showroom_image = $(this).attr('data-showroom');
+    $(this).attr('src', showroom_image);
+  });
+
 })
