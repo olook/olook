@@ -8,26 +8,26 @@ feature "Operations dashboard", %q{
   So I can better manage late deliveries
 } do
 
-  let(:admin) { FactoryGirl.create(:admin_superadministrator) }
-  let!(:order) { FactoryGirl.create(:order,
-                                     updated_at: Time.now,
-                                     state: "authorized",
-                                     shipping_service_name: 'TEX',
-                                     freight_state: 'RJ') }
-
   background do
+    Delorean.time_travel_to("February 5, 2013")
     ApplicationController.any_instance.stub(:load_promotion)
     do_admin_login!(admin)
     visit '/admin'
   end
+
+  let(:admin) { FactoryGirl.create(:admin_superadministrator) }
+  let!(:order) { FactoryGirl.create(:authorized_order,
+                         shipping_service_name: 'TEX',
+                         freight_state: 'RJ') }
+  let!(:order2) { FactoryGirl.create(:authorized_order,
+                        shipping_service_name: 'PAC',
+                        freight_state: 'SP') }
 
   scenario "Listing the orders by their dates and statuses" do
 
     click_link 'Status dos pedidos'
 
     expect(page).to have_content("Status do pedido")
-
-    Delorean.time_travel_to("February 5, 2013")
 
     expect(page).to have_content("Prazo para despacho")
     expect(page).to have_content("Pago")
@@ -47,13 +47,12 @@ feature "Operations dashboard", %q{
     expect(page).to have_content("Sábado")
     expect(page).to have_content("TOTAL")
 
-    expect(page.find('tr#0_dias td#total', text: '1'))
+    expect(page.find('tr#0_dias td#total', text: '2'))
 
-    expect(page).to have_css('#total_authorized', text: '1')
+    expect(page).to have_css('#total_authorized', text: '2')
   end
 
-  scenario "Viewing details for a list of orders" do
-    pending
+  scenario "Viewing details for a list of authorized orders" do
     click_link 'Status dos pedidos'
 
     page.find('tr#0_dias td#authorized a').click
@@ -86,44 +85,7 @@ feature "Operations dashboard", %q{
     expect(page).to have_content("0")
   end
 
-  scenario 'Viewing delivery table' do
-    pending
-    4.times do |index|
-      FactoryGirl.create(:delivered_order, expected_delivery_on: index.business_days.before(Time.now) )
-    end
-
-    3.times do |index|
-      number = index + 1
-      FactoryGirl.create(:delivered_order, expected_delivery_on: number.business_days.after(Time.now) )
-    end
-
-    click_link 'Pedidos referente entrega'
-
-    expect(page).to have_content("<= -3")
-    expect(page).to have_content("-2")
-    expect(page).to have_content("-1")
-    expect(page).to have_content("Data prometida")
-    expect(page).to have_content("1")
-    expect(page).to have_content("2")
-    expect(page).to have_content(">= 3")
-
-    # testa coluna de data de entrega prometida
-    expect(page.find('tr#0_dias td#expected_delivery_on', text: '1'))
-    expect(page.find('tr#1_dias td#expected_delivery_on', text: '1'))
-    expect(page.find('tr#2_dias td#expected_delivery_on', text: '1'))
-    expect(page.find('tr#3_dias td#expected_delivery_on', text: '1'))
-    expect(page.find('tr#4_dias td#expected_delivery_on', text: '1'))
-    expect(page.find('tr#5_dias td#expected_delivery_on', text: '1'))
-    expect(page.find('tr#6_dias td#expected_delivery_on', text: '1'))
-  end
-
   scenario 'Transportation filter' do
-    pending
-    FactoryGirl.create(:order,
-                        updated_at: Time.now,
-                        state: "authorized",
-                        shipping_service_name: 'PAC',
-                        freight_state: 'SP')
 
     click_link 'Status dos pedidos'
 
@@ -143,12 +105,6 @@ feature "Operations dashboard", %q{
   end
 
   scenario 'Freight state filter' do
-    pending
-    FactoryGirl.create(:order,
-                        updated_at: Time.now,
-                        state: "authorized",
-                        shipping_service_name: 'PAC',
-                        freight_state: 'SP')
 
     click_link 'Status dos pedidos'
 
@@ -168,12 +124,6 @@ feature "Operations dashboard", %q{
   end
 
   scenario 'Both filters' do
-    pending
-    FactoryGirl.create(:order,
-                        updated_at: Time.now,
-                        state: "authorized",
-                        shipping_service_name: 'PAC',
-                        freight_state: 'SP')
 
     click_link 'Status dos pedidos'
 
@@ -195,6 +145,49 @@ feature "Operations dashboard", %q{
     expect(page.first('tr td.freight_state', text: 'SP'))
 
     expect(page).to have_content('Filtrando por transportadora TEX e por RJ')
+  end
+
+  scenario 'Viewing delivery table' do
+    pending
+
+    4.times do |index|
+      FactoryGirl.create(:delivered_order, expected_delivery_on: index.business_days.before(Time.now) )
+    end
+
+    3.times do |index|
+      number = index + 1
+      FactoryGirl.create(:delivered_order, expected_delivery_on: number.business_days.after(Time.now) )
+    end
+
+    click_link 'Status dos pedidos'
+
+    expect(page).to have_content("<= -3")
+    expect(page).to have_content("-2")
+    expect(page).to have_content("-1")
+    expect(page).to have_content("Data prometida")
+    expect(page).to have_content("1")
+    expect(page).to have_content("2")
+    expect(page).to have_content(">= 3")
+
+    # testa coluna de data de entrega prometida
+    expect(page.find('tr#0_dias td#expected_delivery_on', text: '1'))
+    expect(page.find('tr#1_dias td#expected_delivery_on', text: '1'))
+    expect(page.find('tr#2_dias td#expected_delivery_on', text: '1'))
+    expect(page.find('tr#3_dias td#expected_delivery_on', text: '1'))
+    expect(page.find('tr#4_dias td#expected_delivery_on', text: '1'))
+    expect(page.find('tr#5_dias td#expected_delivery_on', text: '1'))
+    expect(page.find('tr#6_dias td#expected_delivery_on', text: '1'))
+  end
+
+  scenario "Viewing details for a list of paid orders" do
+    pending
+    click_link 'Status dos pedidos'
+
+    expect(page.find('tr#0_dias td#delivering', text: '1'))
+
+    page.find('tr#0_dias td#delivering a').click
+
+    # expect(page).to have_content(
   end
 
 end
