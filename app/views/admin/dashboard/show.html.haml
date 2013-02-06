@@ -8,6 +8,7 @@
   = link_to "Excel", admin_report_detail_path(format: "xls", state: @state, number: @number_of_days)
   %table.table
     %tr
+      %th Número
       %th Cadastro
       %th Pagamento
       %th Despacho
@@ -24,6 +25,7 @@
       %th Quantidade de itens
     - @orders.each do |order|
       %tr
+        %td=order.number
         %td=order.created_at.strftime('%A, %e %B %Y')
         %td=order.payments.for_erp.count > 0 ? order.payments.for_erp.first.created_at.strftime('%A, %e %B %Y') : 'sem pagamentos via boleto, debito ou credito'
         %td=(my_order = order.order_state_transitions.detect {|state| state.event == 'delivering'}) ? my_order.created_at.strftime('%A, %e %B %Y') : ''
