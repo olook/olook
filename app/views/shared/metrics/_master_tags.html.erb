@@ -1,7 +1,5 @@
 <!-- Google -->
-
 <!-- Google Analytics-->
-
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', "<%= ANALYTICS_CONFIG['analytics_id'] %>" ]);
@@ -27,11 +25,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 var google_tag_params = {
-      prodid:"<%= @product.id if @product%>",
+      prodid:"<%= google_ids @product, @google_cart_pixel_information %>",
       pagetype:"<%= @google_path_pixel_information if @google_path_pixel_information%>",
-      pname:"<%= @product.name if @product%>",
-      pcat:"<%= @product.category_humanize if @product%>",
-      value:"<%= @product.retail_price if @product%>"
+      pname:"<%= google_name @product, @google_cart_pixel_information %>",
+      pcat:"<%= google_cat @product, @google_cart_pixel_information %>",
+      value:"<%= google_value @product, @google_cart_pixel_information %>"
 };
 /* ]]> */
 </script>
@@ -84,3 +82,7 @@ var google_remarketing_only = true;
 </div>
 <!-- END Zanox -->
 <script src="//static.chaordicsystems.com/static/loader.js" data-apikey="olook"></script>
+
+<!-- VWO -->
+<%= render :partial => "shared/metrics/vwo/tracking_code" %>
+
