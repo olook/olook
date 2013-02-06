@@ -57,6 +57,8 @@ feature "Operations dashboard", %q{
 
     page.find('tr#0_dias td#authorized a').click
 
+    save_and_open_page
+
     expect(page).to have_content("Cadastro")
     expect(page).to have_content("Pagamento")
     expect(page).to have_content("Despacho Entrega")
@@ -146,49 +148,4 @@ feature "Operations dashboard", %q{
 
     expect(page).to have_content('Filtrando por transportadora TEX e por RJ')
   end
-
-  scenario 'Viewing delivery table' do
-
-    4.times do |index|
-      FactoryGirl.create(:delivered_order, expected_delivery_on: index.business_days.before(Time.now) )
-    end
-
-    3.times do |index|
-      number = index + 1
-      FactoryGirl.create(:delivered_order, expected_delivery_on: number.business_days.after(Time.now) )
-    end
-
-    click_link 'Status de entrega dos pedidos'
-
-    binding.pry
-
-    expect(page).to have_content("<= -3")
-    expect(page).to have_content("-2")
-    expect(page).to have_content("-1")
-    expect(page).to have_content("Data prometida")
-    expect(page).to have_content("1")
-    expect(page).to have_content("2")
-    expect(page).to have_content(">= 3")
-
-    # testa coluna de data de entrega prometida
-    expect(page.find('tr#0_dias td#expected_delivery_on', text: '1'))
-    expect(page.find('tr#1_dias td#expected_delivery_on', text: '1'))
-    expect(page.find('tr#2_dias td#expected_delivery_on', text: '1'))
-    expect(page.find('tr#3_dias td#expected_delivery_on', text: '1'))
-    expect(page.find('tr#4_dias td#expected_delivery_on', text: '1'))
-    expect(page.find('tr#5_dias td#expected_delivery_on', text: '1'))
-    expect(page.find('tr#6_dias td#expected_delivery_on', text: '1'))
-  end
-
-  scenario "Viewing details for a list of paid orders" do
-    pending
-    click_link 'Status dos pedidos'
-
-    expect(page.find('tr#0_dias td#delivering', text: '1'))
-
-    page.find('tr#0_dias td#delivering a').click
-
-    # expect(page).to have_content(
-  end
-
 end
