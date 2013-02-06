@@ -4,6 +4,8 @@ class HomeController < ApplicationController
   def index
     @google_path_pixel_information = "Home"
     @chaordic_user = ChaordicInfo.user current_user
+    @top5 = Product.find(12425, 13125, 14331, 9464, 13754)
+    @stylists = Product.find(12425, 13125, 14331, 9464, 13754)
 
     if params[:share]
       @user = User.find(params[:uid])
