@@ -42,11 +42,14 @@
         </ul>
         <div id="details">
           <div>
-            <h1>Endereço de entrega</h1>
-            <p><strong><%= @address.identification %></strong></p>
-            <p><%= "#{@address.street}, #{@address.number}" %><%= @address.complement? ? ", #{@address.complement}" : '' %></p>
-            <p><%= "#{@address.neighborhood} - #{@address.zip_code}" %></p>
-            <p><%= "#{@address.city}, #{@address.state}" %></p>
+
+            <% if @address %>
+              <h1>Endereço de entrega</h1>
+              <p><strong><%= @address.identification %></strong></p>
+              <p><%= "#{@address.street}, #{@address.number}" %><%= @address.complement? ? ", #{@address.complement}" : '' %></p>
+              <p><%= "#{@address.neighborhood} - #{@address.zip_code}" %></p>
+              <p><%= "#{@address.city}, #{@address.state}" %></p>
+            <% end %>
           </div>
           <div>
             <h1>Data do Pedido</h1>
@@ -54,7 +57,7 @@
           </div>
           <div>
             <h1>Prazo de Entrega</h1>
-            <p><%= @current_order.freight.delivery_time %> dias úteis</p>
+            <p><%= @current_order.freight.try(:delivery_time) %> dias úteis</p>
           </div>
           <div>
             <h1>Quantidade de Produtos</h1>
