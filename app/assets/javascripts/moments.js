@@ -84,5 +84,8 @@ filter.deleteTag = function(checkbox,classname){//TO DO
 }
 
 $(function(){
-   filter.init();
+  filter.init();
+  if ($('.pagination').length) {
+    filter.endlessScroll(window, document);
+  }   
 })
