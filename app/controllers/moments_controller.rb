@@ -61,7 +61,7 @@ class MomentsController < ApplicationController
   end
 
   def add_featured_products   
-    @featured_products = Product.featured_products(@category_id).first(4)
+    @featured_products = Product.featured_products(@category_id).first(3)
   end
 
   def filter_products_by_category
