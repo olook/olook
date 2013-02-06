@@ -6,7 +6,7 @@ shoe_size = params[:shoe_sizes].try(:first).try(:to_i) || current_user.try(:shoe
   <div class="box_product <%= quantity_status_moments(product, shoe_size) %>">
     <%= link_to product, :class => "product_link", :rel => "#{product.id}", :remote => defined?(suggestion) do %>
 
-      <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name), :class => "async", "data-showroom" => product.showroom_picture, "data-src" => product.backside_picture) %>
+      <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name, :class => "async", "data-showroom" => product.showroom_picture, "data-src" => product.backside_picture) %>
       <p><span class="model"><%= product.model_name %></span> <span class="name"><%= product.name %></span></p>
       <p class="brand">Olook</p>
       <p class="price"><%= number_to_currency product.price %> ou <span class="plots">4 x de R$ 32,47</span></p>

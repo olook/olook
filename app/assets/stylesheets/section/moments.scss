@@ -6,6 +6,24 @@ div#moments {
   padding: 20px 0 0;
   overflow: auto;
 
+  li.product {
+    width: 213px;
+    height: 290px;
+    margin: 0 10px;
+    .box_product {
+      a.product_link {
+         display:block;text-decoration:none;color:#000;font-size:13px;
+            img{border-bottom:solid 1px #B9BABD;margin: 0;}
+            .brand{text-transform:uppercase;font-weight:bold;}
+         
+        img {
+          width: 230px;
+          height: 230px;
+        }        
+      }
+    }
+  }
+
   nav {
     background: url("/assets/cart/bg-order-status.jpg") top left repeat-x;
     width: 100%;

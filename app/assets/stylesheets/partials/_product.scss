@@ -152,7 +152,7 @@ li.product {
         .fb_edge_comment_widget {
           display: none;
          }
-		iframe{overflow:hidden !important;}
+    iframe{overflow:hidden !important;}
       }
       a {
         float: none;
@@ -396,7 +396,6 @@ li.product {
         img {
           width: 150px;
           height: 150px;
-          margin: 0 0 0px 0;
         }
         h1 {
           width: 150px;
@@ -414,17 +413,8 @@ li.product {
 
 #moments {
   li.product {
-    width: 213px;
-    height: 290px;
-
     .box_product {
       a.product_link {
-         display:block;text-decoration:none;color:#000;font-size:13px;
-            img{border-bottom:solid 1px #B9BABD;}
-            .brand{text-transform:uppercase;font-weight:bold;}
-         
-
-/*
         h1 {
           font-size: 14px;
           width: auto !important;
@@ -438,11 +428,6 @@ li.product {
           margin: 0 7px 0 0;
           float: right;
         }
-*/
-        img {
-          width: 230px;
-          height: 230px;
-        }        
       }
     }
     &.promotion {
