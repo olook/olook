@@ -4,6 +4,7 @@ class MomentsController < ApplicationController
 
   before_filter :load_products_of_user_size, only: [:show]
   before_filter :filter_products_by_category, :unless => lambda{ params[:category_id].nil? }
+  before_filter :add_featured_products, :unless => lambda{ params[:category_id].nil? }
   before_filter :load_catalog_products
 
   def index
@@ -57,6 +58,10 @@ class MomentsController < ApplicationController
       redirect_to root_path
       flash[:notice] = "No momento não existe nenhuma ocasião cadastrada."
     end
+  end
+
+  def add_featured_products   
+    @featured_products = Product.featured_products(@category_id).first(4)
   end
 
   def filter_products_by_category

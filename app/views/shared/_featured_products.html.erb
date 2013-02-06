@@ -1,0 +1,8 @@
+<div id="featured">
+  <p><%= Setting.send("featured_#{Category.key_for(@category_id).to_s}_label") %></p>
+  <ul id="featured_products">
+    <% @featured_products.each do |p| %>
+    <%= render "shared/moment_product_item", :product => p %>
+    <% end %>        
+  </ul>
+</div>

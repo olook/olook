@@ -16,9 +16,15 @@
     <%= moment_presenter.render_search_form %>
     <div id="products_container">
       <%= render "shared/filters/order" %>
+
+      <% if @featured_products %>
+        <%= render "shared/featured_products", :products => @featured_products, :category_id => @category_id %>
+      <% end %>
+
       <ul id="products">
         <%= render "products", :products => @catalog_products %>
       </ul>
+
       <div class="loading"></div>
       <%= will_paginate @catalog_products %>
     </div>
