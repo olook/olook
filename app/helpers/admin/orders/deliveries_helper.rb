@@ -1,18 +1,6 @@
-module Admin::DashboardHelper
-
-  #first table: status dos pedidos
-  def report_days_link(options = {})
-    unless options[:state]
-      options[:state] = ["authorized","picking","delivering","delivered"]
-    end
-
-    total = options.fetch(:total)
-
-    link_to(total, admin_report_detail_path(options))
-  end
-
-  #second table: pedidos referentes a entrega
-  def orders_delivery_report_link(options = {})
+module Admin::Orders::DeliveriesHelper
+  
+  def orders_delivery_link(options = {})
     unless options[:state]
       options[:state] = ["authorized","delivering","delivered"]
     end

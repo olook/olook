@@ -5,7 +5,7 @@
   %h3 Filtros
   .content
     %p
-      =form_tag(admin_orders_status_report_path) do
+      =form_tag(admin_orders_status_path) do
         .group
           %p
             %b
@@ -37,15 +37,15 @@
       %tr{:id => "#{day_number}_dias"}
         %td= I18n.t("date.day_names")[day_number.days.ago.wday]
 
-        %td{:id => "authorized"}= report_days_link({total: @authorized[day_number], day_number: day_number,  state: 'authorized'}.merge!(params.slice(:action, :freight_state, :shipping_service_name)))
+        %td{:id => "authorized"}= orders_status_link({total: @authorized[day_number], day_number: day_number,  state: 'authorized'}.merge!(params.slice(:action, :freight_state, :shipping_service_name)))
 
-        %td{:id => "picking"}= report_days_link({total: @picking[day_number], day_number: day_number,  state: "picking"}.merge!(params.slice(:action, :freight_state, :shipping_service_name)))
+        %td{:id => "picking"}= orders_status_link({total: @picking[day_number], day_number: day_number,  state: "picking"}.merge!(params.slice(:action, :freight_state, :shipping_service_name)))
 
-        %td{:id => "delivering"}= report_days_link({total: @delivering[day_number], day_number: day_number,  state: "delivering"}.merge!(params.slice(:action, :freight_state, :shipping_service_name)))
+        %td{:id => "delivering"}= orders_status_link({total: @delivering[day_number], day_number: day_number,  state: "delivering"}.merge!(params.slice(:action, :freight_state, :shipping_service_name)))
 
-        %td{:id => "delivered"}= report_days_link({total: @delivered[day_number], day_number: day_number,  state: "delivered"}.merge!(params.slice(:action, :freight_state, :shipping_service_name)))
+        %td{:id => "delivered"}= orders_status_link({total: @delivered[day_number], day_number: day_number,  state: "delivered"}.merge!(params.slice(:action, :freight_state, :shipping_service_name)))
 
-        %td{:id => "total"}= report_days_link({total: @totals[day_number], day_number: day_number}.merge!(params.slice(:action, :freight_state, :shipping_service_name)))
+        %td{:id => "total"}= orders_status_link({total: @totals[day_number], day_number: day_number}.merge!(params.slice(:action, :freight_state, :shipping_service_name)))
 
     %tr
       %td TOTAL

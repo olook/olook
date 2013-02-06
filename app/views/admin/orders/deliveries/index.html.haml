@@ -5,7 +5,7 @@
   %h3 Filtros
   .content
     %p
-      =form_tag(admin_orders_delivery_report_path) do
+      =form_tag(admin_orders_deliveries_path) do
         .group
           %p
             %b
@@ -31,6 +31,6 @@
     - @report_days.each do |report_day_number|
       %tr{:id => "#{report_day_number}_dias"}
         %td= I18n.t("admin_dashboard.deliver_days.#{report_day_number}")
-        %td{:id => "delivering"}=orders_delivery_report_link(params.merge(day_number: report_day_number, state: 'delivering').except(:authenticity_token, :utf8, :commit))
+        %td{:id => "delivering"}=orders_delivery_link(params.merge(day_number: report_day_number, state: 'delivering').except(:authenticity_token, :utf8, :commit))
 
-        %td{:id => "expected_delivery_on"}=orders_delivery_report_link(params.merge(day_number: report_day_number, state: 'delivered').except(:authenticity_token, :utf8, :commit))
+        %td{:id => "expected_delivery_on"}=orders_delivery_link(params.merge(day_number: report_day_number, state: 'delivered').except(:authenticity_token, :utf8, :commit))
