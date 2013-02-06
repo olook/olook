@@ -53,6 +53,17 @@ class Product < ActiveRecord::Base
   scope :in_collection, lambda { |value| { :conditions => ({ collection_id: value } unless value.blank? || value.nil?) } }
   scope :search, lambda { |value| { :conditions => ([ "name like ? or model_number = ?", "%#{value}%", value ] unless value.blank? || value.nil?) } }
 
+  def self.featured_products category
+    products = Rails.cache.fetch("featured_products_#{category}", :expires_in => 5.minutes) do
+      category_name = Category.key_for(category).to_s
+      product_ids = Setting.send("featured_#{category_name}_ids").split(",")
+      includes(:variants).where("id in (?) and category = ?", product_ids, category)
+    end
+
+    remove_sold_out products
+    # TODO => it is still missing the removal of sold out specifc variants (shoe number)
+  end
+
   def self.valid_for_xml(products_blacklist, collections_blacklist)
     products = only_visible.joins(valid_for_xml_join_query).where(valid_for_xml_where_query,
                                                                   :products_blacklist => products_blacklist ,
@@ -79,6 +90,11 @@ class Product < ActiveRecord::Base
 
   def product_id
     id
+  end
+
+  def model_name
+    category_detail = details.find_by_translation_token("Categoria")
+    category_detail ? category_detail.description : ""
   end
 
   def related_products
@@ -149,6 +165,10 @@ class Product < ActiveRecord::Base
 
   def suggestion_picture
     main_picture.try(:image_url, :suggestion) # 260x260
+  end
+
+  def catalog_picture
+    main_picture.try(:image_url, :catalog) # 230x230
   end
 
   def master_variant
@@ -297,20 +317,31 @@ class Product < ActiveRecord::Base
 
   def add_freebie product
     variant_for_freebie = product.variants.first
-    variants.each do |variant| 
+    variants.each do |variant|
       FreebieVariant.create!({:variant => variant, :freebie => variant_for_freebie})
     end
   end
 
   def remove_freebie freebie
     variant_for_freebie = freebie.variants.first
-    variants.each do |variant| 
-      freebie_variants_to_destroy = variant.freebie_variants.where(:freebie_id => variant_for_freebie.id) 
+    variants.each do |variant|
+      freebie_variants_to_destroy = variant.freebie_variants.where(:freebie_id => variant_for_freebie.id)
       freebie_variants_to_destroy.each { |v| v.destroy }
     end
-  end  
+  end
 
+  # Actually, this method only avoid the database if using includes(:variants)
+  # i.e. eager loading variants
+  def inventory_without_hiting_the_database
+    variants.inject(0) {|total, variant| total += variant.inventory}
+  end
+  
   private
+
+    def self.remove_sold_out products
+      products.select {|product| product.inventory_without_hiting_the_database > 0}
+    end
+
 
     def create_master_variant
       @master_variant = Variant.new(:is_master => true,
