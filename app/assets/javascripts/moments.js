@@ -88,4 +88,16 @@ $(function(){
   if ($('.pagination').length) {
     filter.endlessScroll(window, document);
   }   
+
+  $('img.async').mouseover(function () {
+    var backside_image = $(this).attr('data-src');
+    $(this).attr('src', backside_image);
+    
+  }); 
+
+  $('img.async').mouseout(function () {
+    var showroom_image = $(this).attr('data-showroom');
+    $(this).attr('src', showroom_image);
+  });
+
 })
