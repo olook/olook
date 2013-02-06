@@ -15,7 +15,7 @@ shoe_size = params[:shoe_sizes].try(:first).try(:to_i) || current_user.try(:shoe
         <span class="old">De <%= number_to_currency product.price %></span>
         <span class="txt-pink">por <%= number_to_currency product.retail_price %></span>
       <% else %>
-        <%= number_to_currency product.price %> ou <span class="plots">4 x de R$ 32,47</span>
+        <%= number_to_currency product.price %> ou <span class="plots"><%= installments(product.price) %></span>
       <% end %>
       </p>
 
