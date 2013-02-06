@@ -22,11 +22,11 @@
     <%= moment_presenter.render_search_form %>
     <div id="products_container">
 
-      <%= render "shared/filters/order" %>
-
       <% if @featured_products %>
         <%= render "shared/featured_products", :products => @featured_products, :category_id => @category_id %>
       <% end %>
+
+      <%= render "shared/filters/order" %>
 
       <ul id="products">
         <%= render "products", :products => @catalog_products %>
