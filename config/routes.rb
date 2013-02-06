@@ -152,7 +152,10 @@ Olook::Application.routes.draw do
   devise_for :admins
 
   namespace :admin do
-    match "/", :to => "index#dashboard"
+    get "/", :to => "dashboard#index"
+    get "/report_detail", to: "dashboard#show"
+    match "/orders_status_report", to: "dashboard#orders_status_report"
+    match "/orders_time_report", to: "dashboard#orders_time_report"
 
     get 'product_autocomplete' => 'products#autocomplete_information'
     resources :products do
@@ -227,6 +230,7 @@ Olook::Application.routes.draw do
 
     end
     resources :coupons, :except => [:destroy]
+    resources :holidays
     resources :landing_pages
     resources :promotions
     resources :liquidations do
