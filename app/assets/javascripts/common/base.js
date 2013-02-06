@@ -460,15 +460,24 @@ initBase = {
     $("div#modal").prepend(content);
 
     $("div#modal").dialog({
+			height: 'auto',
       width: 'auto',
       resizable: false,
       draggable: false,
       modal: true,
+			autoOpen: false,
+			show: {
+			        effect: "bounce",
+			        duration: 500,
+							options:{direction:"right"}
+			      },
+			position: { my: "center", at: "center", of: window },
       close: function(event) {
         $("div#modal").html("");
         $("div#modal").hide();
       }
     });
+		setTimeout(function(){$( "div#modal" ).dialog( "open" )},700)
   },
 
   showInfoCredits : function() {
