@@ -49,7 +49,13 @@ Setting.defaults[:show_campaign_email_modal] = true
 Setting.defaults[:discount_period_in_days] = 7
 Setting.defaults[:discount_period_expiration_warning_in_days] = 2
 Setting.defaults[:lower_limit_expiration_date] = "2012-12-12"
-
 Setting.defaults[:recommended_products] = "11101"
-
 Setting.defaults[:default_item_quantity] = 10
+
+# Featured products
+Setting.defaults[:featured_shoe_label] = "Sapatos mais vendidos"
+Setting.defaults[:featured_shoe_ids] = "12963,12981,12194,12203,8554,8572"
+Setting.defaults[:featured_bag_label] = "Bolsas mais vendidas"
+Setting.defaults[:featured_bag_ids] = "11449,11461,11467,11437,11189,11501,11229"
+Setting.defaults[:featured_accessory_label] = "Acessorios mais vendidos"
+Setting.defaults[:featured_accessory_ids] = "13179,14082,13255,13173,13165"
