@@ -1,14 +1,4 @@
 <section id="top5">
   <h1>Conheça os 5 mais vendidos do momento</h1>
-  <ul class="products_list">
-    <% @top5.each do |product| %>
-      <li>
-        <%= link_to product do %>
-          <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
-          <h1><%= product.name %></h1>
-          <p><%= number_to_currency product.price %></p>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
+  <%= render "products", :products => @top5 %>
 </section>
