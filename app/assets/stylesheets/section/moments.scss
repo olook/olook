@@ -175,7 +175,7 @@ div#moments {
     width: 785px;
     overflow: visible;
     float: right;
-    section.news{position:relative;width:738px;height:295px;background:#FFF;box-shadow: 2px 2px 7px #888;margin-bottom:35px;padding:25px 0 0 45px;
+    section.news{position:relative;width:738px;height:295px;background:#FFF;box-shadow: 2px 2px 7px #888;margin-bottom:35px;padding:25px 0 0 45px;clear: both;
        div{background:transparent;height: 126px;left: 0;overflow: hidden;position: absolute;top: 0;width: 162px;z-index: 3;}
        h2{background: none repeat scroll 0 0 #000000;color: #FFFFFF;font-size: 18px;font-weight: bold;height: 40px;left: -47px;line-height: 40px;position: absolute;text-align: center;
           text-transform: uppercase;width: 190px;z-index: 1;top: 28px;
@@ -242,6 +242,9 @@ div#moments {
           }
         }
       }
+    }
+    div#featured {
+      clear: both;
     }
     ul#products {
       clear:both;
