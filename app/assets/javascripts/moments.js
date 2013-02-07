@@ -5,6 +5,7 @@ filter.init = function(){
    filter.submitAndScrollUp();
    filter.seeAll();
    filter.selectedFilter();
+   filter.bindObjects();
 }
 filter.endlessScroll = function(window, document){
    var url;
@@ -79,18 +80,25 @@ filter.deleteTag = function(classname){
       filter.submitAndScrollUp();
    });
 }
-filter.cleanCategory = function(){
-   $("button.clean_filter").each(function(){
-      $(this).next().find("input[type='checkbox']:checked").attr("checked", false);
-      
-   })
+filter.cleanCategory = function(event){
+   $(event.target).parent().find("li").each(function(){
+      $(this).find("input[type='checkbox']:checked").attr("checked", false);
+   });
+   // $("button.clean_filter").each(function(){
+   //    console.log("2");
+   //    $(this).next().find("input[type='checkbox']:checked").attr("checked", false);
+   // })
 }
 filter.toggleFilter = function(){
    $(".filter_type").each(function(){
-      
+      console.log(this);
    })
 }
-
+filter.bindObjects =function(){
+   $('.clear_filter').bind('click', (function(event){
+      filter.cleanCategory(event);
+   }));
+}
 
 $(function(){
   filter.init();
