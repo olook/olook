@@ -82,8 +82,15 @@ filter.deleteTag = function(classname){
 filter.cleanCategory = function(){
    $("button.clean_filter").each(function(){
       $(this).next().find("input[type='checkbox']:checked").attr("checked", false);
+      
    })
 }
+filter.toggleFilter = function(){
+   $(".filter_type").each(function(){
+      
+   })
+}
+
 
 $(function(){
   filter.init();
