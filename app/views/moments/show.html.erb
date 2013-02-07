@@ -12,12 +12,6 @@
   <% end %>
 
   <div id="moments" class="content">
-	<section class="header-moments">
-		<h1 class="shoes">Você está em <b>sapatos</b></h1>
-		<div id="tags">
-	      <ul>&nbsp;</ul>
-	    </div>
-    </section>
     <%= moment_presenter.display_nav_bar %>
     <%= moment_presenter.render_search_form %>
     <div id="products_container">
@@ -26,8 +20,17 @@
         <%= render "shared/featured_products", :products => @featured_products, :category_id => @category_id %>
       <% end %>
 
-      <%= render "shared/filters/order" %>
-
+      <section class="filters">
+    		<h1 class="shoes"><b>Você está em sapatos <span>//</span></b></h1>
+    		<div id="tags">
+    	      <ul>&nbsp;</ul>
+    	  </div>
+      </section>
+      
+      <div class="exhibition-mode">
+        <p>EXIBIÇÃO: <span class="selected">Produto</span><b>/</b><span>Produto com modelo</span></p>
+        <%= render "shared/filters/order" %>
+      </div>
       <ul id="products">
         <%= render "products", :products => @catalog_products %>
       </ul>
