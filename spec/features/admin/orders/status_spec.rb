@@ -57,8 +57,6 @@ feature "Operations dashboard", %q{
 
     page.find('tr#0_dias td#authorized a').click
 
-    save_and_open_page
-
     expect(page).to have_content("Cadastro")
     expect(page).to have_content("Pagamento")
     expect(page).to have_content("Despacho Entrega")
@@ -71,6 +69,8 @@ feature "Operations dashboard", %q{
     expect(page).to have_content("Estado")
     expect(page).to have_content("CEP")
     expect(page).to have_content("Quantidade de itens")
+
+    save_and_open_page
 
     expect(page).to have_content(order.created_at.strftime('%A, %e %B %Y'))
     expect(page).to have_content(order.payments.for_erp.first.created_at.strftime('%A, %e %B %Y'))

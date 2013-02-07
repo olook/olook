@@ -1,21 +1,22 @@
 module Admin::Orders::StatusesHelper
 
-  def orders_statuses_link(options = {})
-    unless options[:state]
-      options[:state] = ["authorized","picking","delivering","delivered"]
-    end
+  def orders_status_link(options = {})
+
+    extract_options!(options)
+
+    options[:state] = ["authorized","picking","delivering","delivered"] unless options[:state]
 
     total = options.fetch(:total)
 
-    link_to(total, admin_orders_status_path(options))
+    # routing isn't working properly
+    # link_to(total, admin_orders_status_path(options))
+    link_to(total, "statuses/show?#{options.to_params}")
   end
 
   def build_scope(date, options)
-    if options[:action] && options[:action].match("orders_time_report")
-      default_scope = Order.with_expected_delivery_on(date).with_state(options[:state])
-    else
-      default_scope = Order.with_date_and_authorized(date).with_state(options[:state])
-    end
+    options = extract_options!(options)
+
+    default_scope = Order.with_date_and_authorized(date).with_state(options[:state])
 
     scope = if freight_state_filter? && !shipping_filter?
               default_scope.where(freight_state: options[:freight_state])
@@ -42,5 +43,11 @@ module Admin::Orders::StatusesHelper
 
     def freight_state_filter?
       params[:freight_state] && !params[:freight_state].empty?
+    end
+
+    def extract_options!(options)
+      options = options.to_hash
+      options.symbolize_keys!.slice!(:total, :day_number, :state, :freight_state, :shipping_service_name)
+      options
     end
 end
