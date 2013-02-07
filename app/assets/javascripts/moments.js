@@ -116,15 +116,31 @@ filter.cleanCategory = function(event){
    });
    $(event.target).parent().submit();
 }
-filter.toggleFilter = function(){
-   $(".filter_type").each(function(){
-      console.log(this);
-   })
+filter.toggleFilter = function(event){
+   style = $(event.target).attr('class');
+   opened = (style.indexOf("opened") >= 0);
+   style = opened ? style.replace("opened", "") : style+" opened"; 
+   $(event.target).attr('class', style);
+   opened = (style.indexOf("opened") >= 0);
+
+   if(opened){
+      $(event.target).parent().find("ol").show();
+      $(event.target).parent().find("button.clear_filter").show();
+   } else {
+      $(event.target).parent().find("ol").hide();
+      $(event.target).parent().find("button.clear_filter").click();
+      $(event.target).parent().find("button.clear_filter").hide();
+   }
 }
 filter.bindObjects =function(){
    $('.clear_filter').bind('click', (function(event){
       filter.cleanCategory(event);
    }));
+
+   $(".filter_type").bind('click', (function(event){
+      filter.toggleFilter(event);
+   }));   
+
 }
 
 $(function(){
