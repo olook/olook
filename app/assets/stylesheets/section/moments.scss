@@ -4,7 +4,8 @@ div#moments {
   position: relative;
   width: 100%;
   padding: 20px 0 0;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   nav {
     background: url("/assets/cart/bg-order-status.jpg") top left repeat-x;
@@ -198,10 +199,11 @@ div#moments {
       li{width: 213px;height: 290px;margin: 0 10px;
         a.product_link {display:block;text-decoration:none;color:#000;font-size:13px;
           img{border-bottom:solid 1px #B9BABD;margin: 0;width: 235px;height: 235px;}
-          p{line-height:16px;}
-          &.brand{text-transform:uppercase;font-weight:bold;}
-           .old{text-decoration:line-through;}
-           .txt-pink{color:#E05A8C;}
+          p{line-height:16px;
+            &.brand{text-transform:uppercase;font-weight:bold;}
+            .old{text-decoration:line-through;}
+            .txt-pink{color:#E05A8C;}
+          } 
         }  
       }
     }
