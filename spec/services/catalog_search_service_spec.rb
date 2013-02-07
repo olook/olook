@@ -77,11 +77,13 @@ describe CatalogSearchService do
         cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
         cp2 = CatalogProductService.new(catalog, basic_shoe_2).save!.first
         cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
+        bag = CatalogProductService.new(catalog, basic_bag).save!
         params = {id: catalog.id}
         products = CatalogSearchService.new(params).search_products
         products.should include(cp1)
         products.should include(cp2)
         products.should include(cp3)
+        products.should_not include(bag)
       end
 
       it "returns products given some subcategories" do
