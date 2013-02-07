@@ -70,8 +70,6 @@ feature "Operations dashboard", %q{
     expect(page).to have_content("CEP")
     expect(page).to have_content("Quantidade de itens")
 
-    save_and_open_page
-
     expect(page).to have_content(order.created_at.strftime('%A, %e %B %Y'))
     expect(page).to have_content(order.payments.for_erp.first.created_at.strftime('%A, %e %B %Y'))
     #TODO: Despacho Entrega
