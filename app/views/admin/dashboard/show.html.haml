@@ -1,0 +1,46 @@
+%h1 Dashboard
+%h2 Listagem de pedidos
+
+- content_for :secondary_navigation do
+  %li= link_to 'Voltar', admin_path
+
+.inner
+  = link_to "Excel", admin_report_detail_path(format: "xls", state: @state, number: @number_of_days)
+  %table.table
+    %tr
+      %th Número
+      %th Cadastro
+      %th Pagamento
+      %th Despacho
+      %th Entrega
+      %th Data prometida de Entrega
+      %th Transportador
+      %th Gateway de pagamento
+      %th Cliente nome
+      %th Cliente email
+      %th Cidade
+      %th Estado
+      %th CEP
+      %th Valor
+      %th Quantidade de itens
+    - @orders.each do |order|
+      %tr
+        %td=order.number
+        %td=order.created_at.strftime('%A, %e %B %Y')
+        %td=order.payments.for_erp.count > 0 ? order.payments.for_erp.first.created_at.strftime('%A, %e %B %Y') : 'sem pagamentos via boleto, debito ou credito'
+        %td=(my_order = order.order_state_transitions.detect {|state| state.event == 'delivering'}) ? my_order.created_at.strftime('%A, %e %B %Y') : ''
+        %td=(my_order = order.order_state_transitions.detect {|state| state.event == 'delivered'}) ? my_order.created_at.strftime('%A, %e %B %Y') : ''
+        %td=(my_order = order.order_state_transitions.detect {|state| state.event == 'authorized'}) ? headline_delivered_date_format(order.order_state_transitions.detect {|state| state.event == 'authorized'}.created_at, order.freight.delivery_time) : ''
+        %td.shipping_service_name=order.shipping_service_name
+        %td=I18n.t("gateways.#{order.gateway}")
+        %td=order.user_name
+        %td=order.user_email
+        %td=order.freight.city
+        %td.freight_state=order.freight_state
+        %td=order.freight.zip_code
+        %td=order.amount_paid
+        %td=order.items_quantity
+
+  .actions-bar.wat-cf
+    .pagination
+      = will_paginate @orders
