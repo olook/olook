@@ -9,15 +9,16 @@ shoe_size = params[:shoe_sizes].try(:first).try(:to_i) || current_user.try(:shoe
       <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name, :class => "async", "data-showroom" => product.showroom_picture, "data-src" => product.backside_picture) %>
       <p><span class="model"><%= product.model_name %></span> <span class="name"><%= product.name %></span></p>
       <p class="brand">Olook</p>
-      <p class="price"><%= number_to_currency product.price %> ou <span class="plots">4 x de R$ 32,47</span></p>
-      <!--h1><%= product.name %></h1>
-      <!--
+
+      <p class="price">
       <% if product.promotion? %>
-        <span class="old">de: <%= number_to_currency product.price %></span>
-        <span>por: <%= number_to_currency product.retail_price %></span>
+        <span class="old">De <%= number_to_currency product.price %></span>
+        <span class="txt-pink">por <%= number_to_currency product.retail_price %></span>
       <% else %>
-        <span><%= number_to_currency product.price %></span>
+        <%= number_to_currency product.price %> ou <span class="plots"><%= installments(product.price) %></span>
       <% end %>
+      </p>
+
       <p class="warn sold_out">ESGOTADO</p>
 
       <% if shoe_size && product.shoe? -%>
@@ -34,7 +35,6 @@ shoe_size = params[:shoe_sizes].try(:first).try(:to_i) || current_user.try(:shoe
       <% if product.promotion? && !product.sold_out? && product.discount_percent.to_i != 0 %>
         <p class="warn percentage"><span><%= product.discount_percent.to_i %>%</span><br />off</p>
       <% end %>
-    <% end %>
-    -->
+    <% end %>    
   </div>
 </li>
