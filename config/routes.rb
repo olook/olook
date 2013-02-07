@@ -155,7 +155,7 @@ Olook::Application.routes.draw do
 
     namespace :orders do
       resources :deliveries
-      resources :status
+      resources :statuses
     end
 
     get 'product_autocomplete' => 'products#autocomplete_information'

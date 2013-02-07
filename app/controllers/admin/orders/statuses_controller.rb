@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
-class Admin::Orders::StatusController < Admin::BaseController
-  include Admin::Orders::StatusHelper
+class Admin::Orders::StatusesController < Admin::BaseController
+  include Admin::Orders::StatusesHelper
 
   def index
     @report_days, @totals = [*0..10], []

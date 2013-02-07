@@ -1,6 +1,6 @@
-module Admin::Orders::StatusHelper
+module Admin::Orders::StatusesHelper
 
-  def orders_status_link(options = {})
+  def orders_statuses_link(options = {})
     unless options[:state]
       options[:state] = ["authorized","picking","delivering","delivered"]
     end
