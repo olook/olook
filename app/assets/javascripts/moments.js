@@ -1,11 +1,41 @@
 var filter = {};
 
+
 filter.init = function(){
-   filter.endlessScroll(window, document);
-   filter.submitAndScrollUp();
-   filter.seeAll();
-   filter.selectedFilter();
+  /**
+  * mode can be "wearing" or "product"
+  */
+  filter.visualization_mode = "product";
+  filter.endlessScroll(window, document);
+  filter.submitAndScrollUp();
+  filter.seeAll();
+  filter.selectedFilter();
+  filter.setMouseOverOnImages();
+  filter.showAllImages();
 }
+
+filter.showAllImages = function() {
+  var field_name = 'data-' + filter.visualization_mode;
+
+  $('img.async').each(function(){
+    var image = $(this).attr(field_name);
+    $(this).attr('src', image);
+  });
+}
+
+filter.setMouseOverOnImages = function() {
+  $('img.async').mouseover(function () {
+    var backside_image = $(this).attr('data-backside');
+    $(this).attr('src', backside_image);
+  }); 
+
+  $('img.async').mouseout(function () {
+    var showroom_image = $(this).attr('data-product');
+    $(this).attr('src', showroom_image);
+  });
+}
+
+
 filter.endlessScroll = function(window, document){
    var url;
    if ($('.pagination').length) {
