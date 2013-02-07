@@ -12,8 +12,47 @@ describe Product do
     it { should have_many(:catalog_products) }
     it { should have_many(:catalogs) }
     it { should belong_to(:collection) }
-
     it { should have_and_belong_to_many(:profiles) }
+    
+    it { should respond_to :backside_picture }
+    it { should respond_to :wearing_picture }
+    it { should respond_to :remove_freebie }
+  end
+
+  describe ".featured_products" do
+
+    context "when there is no featured products configured" do
+      before do
+        Product.should_receive(:fetch_all_featured_products_of).with(Category::SHOE).and_return([])
+      end
+
+      it "return empty array" do
+        Product.featured_products(Category::SHOE).should be_empty
+      end
+    end
+
+    context "when there is two featured products configured" do
+      before do
+        featured_products = [
+          mock_model(Product, inventory_without_hiting_the_database: 1), 
+          mock_model(Product, inventory_without_hiting_the_database: 0)
+        ]
+
+        Product.should_receive(:fetch_all_featured_products_of)
+          .with(Category::SHOE)
+          .and_return(featured_products)
+
+        Product.any_instance.stub(:inventory_without_hiting_the_database).and_return(2)
+      end
+
+      it "return both products" do
+        Product.featured_products(Category::SHOE).should have(2).items
+      end
+
+
+    end
+
+
   end
 
   describe "#add_freebie" do
@@ -24,18 +63,12 @@ describe Product do
     it { should respond_to :add_freebie }
 
     context "when adding a bag" do
-
       it "every variant should have a freebie" do
         FreebieVariant.should_receive(:create!).exactly(product.variants.size).times
         product.add_freebie bag
       end
-
     end
 
-  end
-
-  describe "#remove_freebie" do
-    it { should respond_to :remove_freebie }
   end
 
   describe "scopes" do
