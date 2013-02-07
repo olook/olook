@@ -79,8 +79,7 @@ filter.selectedFilter = function(){
       if(!$(this).is(":checked")) {
          $(this).parent().siblings("li").find("input[type='checkbox'].select_all").attr("checked", false);
       }
-
-      filter.tags($(this).siblings().text(), $(this).is(":checked"));
+      filter.tags($(this).attr('id'), $(this).is(":checked"));
       
       $(this).parent().submit();
       filter.submitAndScrollUp();
@@ -102,9 +101,9 @@ filter.tags = function(name, flag){
 }
 filter.deleteTag = function(classname){
    $("button.del-"+classname).bind("click", function(){
-      classname = classname.toLowerCase(), filterId = $(".filter input#"+classname), flag = filterId.is(":checked");
-
+      classname = classname.toLowerCase(), filterId = $(".filter input#"+classname);
       $(filterId).attr("checked", false);
+      flag = filterId.is(":checked");      
       filter.tags(classname,flag);
       filterId.parent().submit();
       filter.submitAndScrollUp();
@@ -113,12 +112,9 @@ filter.deleteTag = function(classname){
 filter.cleanCategory = function(event){
    $(event.target).parent().find("li").each(function(){
       $(this).find("input[type='checkbox']:checked").attr("checked", false);
-      console.log(this.id);
+      $("div#tags li."+$(this).find("input").attr('id')).remove();
    });
-   // $("button.clean_filter").each(function(){
-   //    console.log("2");
-   //    $(this).next().find("input[type='checkbox']:checked").attr("checked", false);
-   // })
+   $(event.target).parent().submit();
 }
 filter.toggleFilter = function(){
    $(".filter_type").each(function(){
