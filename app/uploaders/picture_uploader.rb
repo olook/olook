@@ -45,7 +45,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   end
   #end
   version :catalog, from_version: :suggestion do
-    process :resize_to_fill => [230, 230]
+    process :resize_to_fill => [235, 235]
   end
   version :showroom do
     process :resize_to_limit => [170, 170], :quality => 100
