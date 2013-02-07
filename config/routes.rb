@@ -151,7 +151,6 @@ Olook::Application.routes.draw do
 
   namespace :admin do
     get "/", :to => "dashboard#index"
-    get "/report_detail", to: "dashboard#show"
 
     namespace :orders do
       resources :deliveries

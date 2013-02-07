@@ -4,6 +4,7 @@
 # Add new inflection rules using the following format
 # (all these examples are active by default):
 ActiveSupport::Inflector.inflections do |inflect|
+	inflect.uncountable 'status'
 	inflect.irregular 'status', 'statuses'
 #   inflect.plural /^(ox)$/i, '\1en'
 #   inflect.singular /^(ox)en/i, '\1'

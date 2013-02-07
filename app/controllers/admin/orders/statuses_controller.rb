@@ -3,6 +3,7 @@ class Admin::Orders::StatusesController < Admin::BaseController
   include Admin::Orders::StatusesHelper
 
   def index
+
     @report_days, @totals = [*0..10], []
 
     [:@authorized, :@picking, :@delivering, :@delivered].each do |name|
