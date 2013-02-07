@@ -173,7 +173,7 @@ class Product < ActiveRecord::Base
   end
 
   def catalog_picture
-    main_picture.try(:image_url, :catalog) # 230x230
+    main_picture.try(:image_url, :catalog) # 235x235
   end
 
   def master_variant
@@ -340,7 +340,7 @@ class Product < ActiveRecord::Base
   def inventory_without_hiting_the_database
     variants.inject(0) {|total, variant| total += variant.inventory}
   end
-  
+
   private
 
     def self.fetch_all_featured_products_of category
