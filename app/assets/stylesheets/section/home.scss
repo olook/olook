@@ -327,4 +327,27 @@ section#home {
       }
     }
   }
+  div#facebook_box {
+    width: 295px;
+    height: 140px;
+    padding: 35px 0 0 20px;
+    float: right;
+    border-top: 1px #cbcbcb solid;
+    img {
+      margin: 0 7px 20px 0;
+      float: left;
+    }
+    h1 {
+      color: #36569e;
+      font-family: $avenir;
+      font-size: 14px;
+      span {
+        font-size: 17px;
+        font-weight: bold;
+      }
+    }
+    .like {
+      clear: both;
+    }
+  }
 }
