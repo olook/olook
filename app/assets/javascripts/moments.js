@@ -113,6 +113,7 @@ filter.deleteTag = function(classname){
 filter.cleanCategory = function(event){
    $(event.target).parent().find("li").each(function(){
       $(this).find("input[type='checkbox']:checked").attr("checked", false);
+      console.log(this.id);
    });
    // $("button.clean_filter").each(function(){
    //    console.log("2");
