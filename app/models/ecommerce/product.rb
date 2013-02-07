@@ -54,12 +54,7 @@ class Product < ActiveRecord::Base
   scope :search, lambda { |value| { :conditions => ([ "name like ? or model_number = ?", "%#{value}%", value ] unless value.blank? || value.nil?) } }
 
   def self.featured_products category
-    products = Rails.cache.fetch("featured_products_#{category}", :expires_in => 5.minutes) do
-      category_name = Category.key_for(category).to_s
-      product_ids = Setting.send("featured_#{category_name}_ids").split(",")
-      includes(:variants).where("id in (?) and category = ?", product_ids, category)
-    end
-
+    products = fetch_all_featured_products_of category   
     remove_sold_out products
     # TODO => it is still missing the removal of sold out specifc variants (shoe number)
   end
@@ -148,7 +143,12 @@ class Product < ActiveRecord::Base
   end
 
   def backside_picture
-    picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_4).first
+    picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
+    picture.try(:image_url, :suggestion) # 260x260
+  end
+
+  def wearing_picture
+    picture = pictures.order(:display_on).last
     picture.try(:image_url, :suggestion) # 260x260
   end
 
@@ -343,6 +343,14 @@ class Product < ActiveRecord::Base
   
   private
 
+    def self.fetch_all_featured_products_of category
+      products = Rails.cache.fetch("featured_products_#{category}", :expires_in => 5.minutes) do
+        category_name = Category.key_for(category).to_s
+        product_ids = Setting.send("featured_#{category_name}_ids").split(",")
+        includes(:variants).where("id in (?) and category = ?", product_ids, category)
+      end
+    end  
+
     def self.remove_sold_out products
       products.select {|product| product.inventory_without_hiting_the_database > 0}
     end
@@ -395,4 +403,5 @@ class Product < ActiveRecord::Base
       query = "x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id "
       query += "NOT IN (:products_blacklist) AND products.collection_id NOT IN (:collections_blacklist)"
     end
+
 end
