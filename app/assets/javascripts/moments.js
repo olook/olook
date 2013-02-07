@@ -11,7 +11,7 @@ filter.endlessScroll = function(window, document){
    if ($('.pagination').length) {
       $(window).scroll(function() {
          url = $('.pagination .next_page').attr('href');
-         var canPaginate =  url && ($(window).scrollTop() > ($(document).height() - $(window).height() - 1750)) && !$('.loading').is(':visible');
+         var canPaginate =  url && ($(window).scrollTop() > ($(document).height() - 1250)) && !$('.loading').is(':visible');
          if (canPaginate) {
             $('.loading').show();
             $('.pagination .next_page').remove();
@@ -29,7 +29,8 @@ filter.submitAndScrollUp = function(){
          $(this).fadeIn("slow").html("");
        });    
    });
-   $("html, body").delay(300).animate({scrollTop: 0}, 'slow');
+
+	$("html, body").delay(300).animate({scrollTop: 0}, 'slow');
 } 
 filter.seeAll = function(){
    $("#filter input[type='checkbox'].select_all").each(function(i){
@@ -56,12 +57,11 @@ filter.selectedFilter = function(){
    });
 }
 filter.tags = function(name, flag){
-   var classname = name.replace(' ',''), list = $("#tags ul"), checkbox = name.replace(' ','-').toLowerCase();
+   var classname = name.replace(' ','').toLowerCase(), list = $("#tags ul");
    
    if(flag == true) {
-      list.hide().append('<li class="'+classname+'">'+name+'<button type="button" class="'+classname+'">( x )</button></li>').delay(100).fadeIn();
-      filter.deleteTag(checkbox, classname);
-      
+      list.hide().append('<li class="'+classname+'">'+name+'<button type="button" class="del-'+classname+'">( x )</button></li>').delay(100).fadeIn();
+      window.setTimeout('filter.deleteTag("'+classname+'")', 300)   
    }   
    else {
       list.hide();
@@ -69,32 +69,29 @@ filter.tags = function(name, flag){
       list.fadeIn();
    }   
 }
-filter.deleteTag = function(checkbox,classname){//TO DO
-   $("button.clear_filter").each(function(){
+filter.deleteTag = function(classname){
+   $("button.del-"+classname).bind("click", function(){
+      classname = classname.toLowerCase(), filterId = $(".filter input#"+classname), flag = filterId.is(":checked");
 
-     $(this).bind("click", function(){
-        $(this).next().children().find("input:checked").attr("checked", false);
-        check= $(this).next().children().find("input[type='checkbox']").is(":checked");
-        filter.tags(classname,check)
-        $(this).parent().parent().submit();
-        filter.submitAndScrollUp();
-     });
-     
+      $(filterId).attr("checked", false);
+      filter.tags(classname,flag);
+      filterId.parent().submit();
+      filter.submitAndScrollUp();
    });
 }
+filter.cleanCategory = function(){
+   $("button.clean_filter").each(function(){
+      $(this).next().find("input[type='checkbox']:checked").attr("checked", false);
+      
+   })
+}
+filter.toggleFilter = function(){
+   $(".filter_type").each(function(){
+      
+   })
+}
+
 
 $(function(){
   filter.init();
-
-  $('img.async').mouseover(function () {
-    var backside_image = $(this).attr('data-src');
-    $(this).attr('src', backside_image);
-    
-  }); 
-
-  $('img.async').mouseout(function () {
-    var showroom_image = $(this).attr('data-showroom');
-    $(this).attr('src', showroom_image);
-  });
-
 })
