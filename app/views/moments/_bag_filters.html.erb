@@ -1,5 +1,7 @@
 <div class="filter main">
-  <h1 class="shoes">Você está em <b>bolsas</b></h1>
+  <% unless is_moment_page? %>
+  <h1 class="purse">Você está em <b>bolsas</b></h1>
+  <% end %>
   <p class="filter_type opened">Modelo</p>
   <button type="button" class="clear_filter">( limpar )</button>
   <ol>
