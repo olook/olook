@@ -120,20 +120,23 @@ div#moments {
   }
   
   
-  section.filters{margin:10px 0 40px;height:44px;color:#000;background: image-url('moments/bg_modo_exibicao.png') no-repeat;line-height:45px;padding:0 10px;
+  section.filters{float:left;margin:10px 0 30px;min-height:20px;color:#000;border:solid 1px #A7A9AC;padding:10px 10px;display:none;width:761px;
      h1 {font-family: $avenir;font-size: 12px;font-weight: lighter;text-transform: uppercase;float:left;margin-right:15px;
         b{font-weight:bold;
           span{margin-left:10px;}
         }
      }
      
-	  div#tags{
-     li{float:left;margin-right:25px;text-transform:uppercase;font-size:12px;
+	  div#tags{float:left;
+     li{float:left;margin-right:25px;text-transform:uppercase;font-size:12px;position:relative;
          button{border:none;background:none;cursor:pointer;width:27px;height:15px;padding:0;font-size:8px}
+         span.del-txt{font-size: 11px;position: absolute;right: -3px;text-transform: capitalize;top: -23px;display:none;color:#6D6E71;}
  	   }
    	}
+   	
+   	button.cleanFilter{font-size:11px;color:#6D6E71;background:none;border:none;font-family:$avenir;cursor:pointer;}
   }
-  div.exhibition-mode{padding:5px 15px 0;border-bottom:solid 1px #CBCBCB;color:#000;height:25px;margin-bottom:35px;
+  div.exhibition-mode{clear:both;padding:5px 15px 0;border-bottom:solid 1px #CBCBCB;color:#000;height:25px;margin-bottom:35px;
     p{text-transform:uppercase;font-size:11px;float:left;
       span{margin:0 5px;
         &.selected{font-weight:bold;}
