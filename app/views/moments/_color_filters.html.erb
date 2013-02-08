@@ -2,10 +2,10 @@
   <p class="filter_type">Cor</p>
   <button type="button" class="clear_filter">( limpar )</button>
   <ol class="color_filter">
-    <li>
+    <!--li>
       <%= check_box_tag "select_all_colors", 1, params[:select_all_colors], :class => "select_all" %>
       <%= label_tag "select_all_colors", "Todas as cores" %>
-    </li>
+    </li-->
   <% {'neutras' => 'Neutras', 'metalizadas' => 'Metalizadas', 'estampadas' => 'Estampadas', 'vivas' => 'Vivas', 'animal-print' => 'Animal print', 'tons-pastel' => 'Tons pastel'}.sort{|a,b| b[0] <=> a[0]}.each do |subcategory, label| -%>
     <li class="<%= subcategory %>">
       <%= check_box_tag('shoe_colors[]', label, params[:shoe_colors] && params[:shoe_colors].include?(label) || params[:select_all_colors], id: subcategory) %>
