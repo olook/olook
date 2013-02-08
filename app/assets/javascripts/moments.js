@@ -7,7 +7,7 @@ filter.init = function(){
   */
   filter.visualization_mode = "product";
   filter.endlessScroll(window, document);
-  filter.submitAndScrollUp();
+  // filter.submitAndScrollUp();
   filter.seeAll();
   filter.selectedFilter();
   filter.showAllImages(filter.visualization_mode);
@@ -62,8 +62,8 @@ filter.submitAndScrollUp = function(){
          $(this).fadeIn("slow").html("");
        });    
    });
-
-	$("html, body").delay(300).animate({scrollTop: 0}, 'slow');
+  console.log("going UP!");
+	$("html, body").delay(300).animate({scrollTop: $(".filters").length ? 530 : 0}, 'slow');
 } 
 filter.seeAll = function(){
    $("#filter input[type='checkbox'].select_all").each(function(i){
