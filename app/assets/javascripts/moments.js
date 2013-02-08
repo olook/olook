@@ -13,6 +13,7 @@ filter.init = function(){
   filter.setMouseOverOnImages();
   filter.showAllImages();
   filter.bindObjects();
+  filter.changeVisualization();
 }
 
 filter.showAllImages = function() {
@@ -151,7 +152,24 @@ filter.bindObjects = function(){
    });   
 
 }
+filter.changeVisualization = function(){
+   $(".exhibition-mode p span").bind('click', function(){
+      if($(this).hasClass("product")){
+         filter.visualization_mode = "product";
+         filter.showAllImages();
+         $(this).addClass("selected").next().next().removeClass("selected");
+      }
+      else{
+         filter.visualization_mode = "wearing";
+         filter.showAllImages();
+         $(this).addClass("selected").prev().prev().removeClass("selected");
+      }
+   })
+}
 
 $(function(){
   filter.init();
+  $('#order_filter').change(function() {
+     $("form#filter").submit();
+   });
 })
