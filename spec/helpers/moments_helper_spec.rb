@@ -23,4 +23,46 @@ describe MomentsHelper do
     end
   end
 
+  describe "#print_section_name" do
+    context "when the request fullpath equals to an existing catalog section" do
+
+      context "when the actions equals to '/bolsas'" do
+        before do
+          controller.request.stub(:fullpath).and_return('/bolsas')
+        end
+        it "returns bolsas" do
+          helper.print_section_name.should == "bolsas"
+        end
+      end
+
+      context "when the actions equals to '/sapatos" do
+        before do
+          controller.request.stub(:fullpath).and_return('/sapatos')
+        end
+        it "returns sapatos" do
+          helper.print_section_name.should == "sapatos"
+        end
+      end
+
+      context "when the actions equals to '/acessorios'" do
+        before do
+          controller.request.stub(:fullpath).and_return('/acessorios')
+        end        
+        it "returns acessórios" do
+          helper.print_section_name.should == "acessórios"
+        end
+      end
+
+    end
+
+    context "when the request fullpath isn't an exisitng catalog section " do
+      before do
+        controller.request.stub(:fullpath).and_return('/afsdoij')
+      end
+      it "returns nil" do
+        helper.print_section_name.should be_nil
+      end 
+    end    
+  end    
+
 end
