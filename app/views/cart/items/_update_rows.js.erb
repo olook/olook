@@ -1,0 +1,31 @@
+<% @cart.items.each do |item| %>
+//update item value on item row
+$('p#item_subtotal_' + <%= item.id %>).text('<%= number_to_currency(@cart_service.item_price_total(item)) %>');
+
+//update items quantity on cart summary header
+$("#cart_items").text(<%= @cart.items_total %>);
+
+//update total order value
+$('table#total tr.total span').text('<%= number_to_currency(@cart_service.total) %>');
+
+// update item rows' discounts and subtotals
+$("table#items tbody tr#item_<%= item.id %> td.discount").empty();
+
+$("table#items tbody tr#item_<%= item.id %> td.discount").first().append("<%= escape_javascript( render partial: 'cart/items/discount',
+																				locals: {
+																					cart_service: @cart_service,
+																					item: item
+																				} ) %>");
+
+$("table#items tbody tr#item_<%= item.id %> td.value").empty();
+
+$("table#items tbody tr#item_<%= item.id %> td.value").first().append("<%= escape_javascript( render partial: 'cart/items/subtotal',
+																					locals: {
+																						cart_service: @cart_service,
+																						item: item
+																					} ) %>");
+
+//update item quantity on cart summary (pull down)
+$('ul#cart_summary li[data-id=<%= item.id %>] p.qte span').text(<%= item.quantity %>);
+<% end %>
+
