@@ -13,7 +13,7 @@ module Admin::Orders::StatusesHelper
     link_to(total, "statuses/show?#{options.to_params}")
   end
 
-  def build_scope(date, options)
+  def build_status_scope(date, options)
     options = extract_options!(options)
 
     default_scope = Order.with_date_and_authorized(date).with_state(options[:state])

@@ -3,6 +3,7 @@ require 'spec_helper'
 
 describe Admin::Orders::StatusesHelper do
 	let(:options) { { total: 1, day_number: 1, state: 'delivered' } }
+    let(:link) { "<a href=\"statuses/show?#{options.to_params}\">1</a>".gsub!("&", "&amp;") }
 
 	# with_a_logged_admin do
 	context "#orders_status_link" do
@@ -12,7 +13,6 @@ describe Admin::Orders::StatusesHelper do
     end
 
     it "returns a link to the orders details page" do
-      link = '<a href="statuses/show?total=1&amp;day_number=1&amp;state=delivered">1</a>'
       expect(helper.orders_status_link(options)).to eq(link)
     end
 
@@ -20,7 +20,6 @@ describe Admin::Orders::StatusesHelper do
     	let(:options) { { total: 1, day_number: 1, state: 'delivered', freight_state: 'SP' } }
     	
     	it "returns the same link with this param included" do
-    		link = '<a href="statuses/show?total=1&amp;day_number=1&amp;state=delivered&amp;freight_state=SP">1</a>'
     		expect(helper.orders_status_link(options)).to eq(link)
     	end
     end
@@ -29,7 +28,6 @@ describe Admin::Orders::StatusesHelper do
     	let(:options) { { total: 1, day_number: 1, state: 'delivered', shipping_service_name: 'PAC' } }
     	
     	it "returns the same link with this param included" do
-    		link = '<a href="statuses/show?total=1&amp;day_number=1&amp;state=delivered&amp;shipping_service_name=PAC">1</a>'
     		expect(helper.orders_status_link(options)).to eq(link)
     	end
     end
@@ -38,7 +36,6 @@ describe Admin::Orders::StatusesHelper do
     	let(:options) { { total: 1, day_number: 1, state: 'delivered', freight_state: 'SP', shipping_service_name: 'PAC' } }
     	
     	it "returns the same link with these params included" do
-    		link = '<a href="statuses/show?total=1&amp;day_number=1&amp;state=delivered&amp;freight_state=SP&amp;shipping_service_name=PAC">1</a>'
     		expect(helper.orders_status_link(options)).to eq(link)
     	end
     end

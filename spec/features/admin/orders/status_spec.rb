@@ -2,10 +2,10 @@
 require 'spec_helper'
 require 'features/helpers'
 
-feature "Operations dashboard", %q{
+feature "Orders statuses dashboard", %q{
   As any admin user
-  I can view orders by their planned delivery statuses
-  So I can better manage late deliveries
+  I can view orders by their statuses
+  So I can better manage them
 } do
 
   background do

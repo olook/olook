@@ -1,53 +1,57 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::DashboardHelper do
-	let(:options) { { total: 1, day_number: 1, state: 'delivered' } }
+describe Admin::Orders::DeliveriesHelper do
+	let(:options) { { day_number: 1, state: 'delivered' } }
+  let(:link) { "<a href=\"deliveries/show?#{options.to_params}\">1</a>".gsub!("&", "&amp;") }
 
-	# with_a_logged_admin do
-	context "#orders_status_link" do
-      context "past" do
-
-        before(:each) do
-          f = FactoryGirl.create(:delivered_order, created_at: 1.business_days.ago)
-          f.update_attribute(:updated_at, 1.business_days.ago)
-        end
-
-        it "returns a link with orders from a past date" do
-          link = '<a href="/admin/report_detail?day_number=1&amp;state=delivered&amp;total=1">1</a>'
-          expect(helper.orders_status_link(options)).to eq(link)
-        end
-
-      end
-
+	before(:each) do
+		FactoryGirl.create(:delivered_order, expected_delivery_on: 2.business_days.ago)
 	end
 
 	context "#orders_delivery_link" do
-		let(:options) { { total: 1, day_number: 1, state: 'delivered', action: 'orders_time_report' } }
+		let(:options) { { day_number: 1, state: 'delivered' } }
 
-		context "past" do
-			before(:each) do
-				f = FactoryGirl.create(:delivered_order, expected_delivery_on: 2.business_days.ago)
-				f2 = FactoryGirl.create(:delivered_order, expected_delivery_on: 6.business_days.ago)
-			end
+		context "with past expected delivery date" do
 
 			it "returns a link with orders from a past date" do
-				link = '<a href="/admin/report_detail?action=orders_time_report&amp;day_number=1&amp;state=delivered&amp;total=1">1</a>'
 				expect(helper.orders_delivery_link(options)).to eq(link)
 			end
 		end
 
-		context "present and future" do
+		context "present and future expected delivery date" do
 			before(:each) do
-				f = FactoryGirl.create(:delivered_order, expected_delivery_on: 2.business_days.from_now)
-				f2 = FactoryGirl.create(:delivered_order, expected_delivery_on: 4.business_days.from_now)
+				FactoryGirl.create(:delivered_order, expected_delivery_on: 2.business_days.from_now)
+				FactoryGirl.create(:delivered_order, expected_delivery_on: 4.business_days.from_now)
 			end
 
 			it "returns a link with orders expected on a future date" do
-				link = '<a href="/admin/report_detail?action=orders_time_report&amp;day_number=5&amp;state=delivered&amp;total=1">1</a>'
 				expect(helper.orders_delivery_link(options.merge!(day_number: 5))).to eq(link)
 			end
 		end
+
+    context "with freight_state param" do
+    	let(:options) { { day_number: 1, state: 'delivered', freight_state: 'SP' } }
+    	
+    	it "returns the same link with this param included" do
+    		expect(helper.orders_delivery_link(options)).to eq(link)
+    	end
+    end
+
+    context "with shipping_service params" do
+    	let(:options) { { day_number: 1, state: 'delivered', shipping_service_name: 'PAC' } }
+    	
+    	it "returns the same link with this param included" do
+    		expect(helper.orders_delivery_link(options)).to eq(link)
+    	end
+    end
+
+    context "with freight_state and shipping_service params" do
+    	let(:options) { { day_number: 1, state: 'delivered', freight_state: 'SP', shipping_service_name: 'PAC' } }
+    	
+    	it "returns the same link with these params included" do
+    		expect(helper.orders_delivery_link(options)).to eq(link)
+    	end
+    end
 	end
-	# end
 end

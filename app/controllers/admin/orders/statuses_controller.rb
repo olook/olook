@@ -12,7 +12,7 @@ class Admin::Orders::StatusesController < Admin::BaseController
       params.merge!(state: name.to_s.delete('@'))
 
       @report_days.each do |number_of_days|
-        state_counts << build_scope(number_of_days.days.ago, params).count
+        state_counts << build_status_scope(number_of_days.days.ago, params).count
       end
 
       instance_variable_set(name, state_counts)
@@ -39,10 +39,10 @@ class Admin::Orders::StatusesController < Admin::BaseController
     @number_of_days = params[:day_number].to_i
     @state = params[:state]
 
-    @orders = build_scope(@number_of_days.days.ago, params).
-                    page(params[:page]).
-                    per_page(15).
-                    order('created_at desc')
+    @orders = build_status_scope(@number_of_days.days.ago, params).
+                                  page(params[:page]).
+                                  per_page(15).
+                                  order('created_at desc')
 
     respond_to do |format|
       format.html
