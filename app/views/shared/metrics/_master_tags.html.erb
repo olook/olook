@@ -25,11 +25,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 var google_tag_params = {
-      prodid:"<%= google_ids @product, @google_cart_pixel_information %>",
-      pagetype:"<%= @google_path_pixel_information if @google_path_pixel_information%>",
-      pname:"<%= google_name @product, @google_cart_pixel_information %>",
-      pcat:"<%= google_cat @product, @google_cart_pixel_information %>",
-      value:"<%= google_value @product, @google_cart_pixel_information %>"
+      prodid:"<%= google_ids @google_pixel_information %>",
+      et:"<%= @google_path_pixel_information if @google_path_pixel_information %>",
+      pname:"<%= google_name @google_pixel_information %>",
+      pcat:"<%= google_cat @google_pixel_information %>",
+      pvalues:"<%= google_value @google_pixel_information %>"
 };
 /* ]]> */
 </script>
