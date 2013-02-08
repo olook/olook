@@ -14,7 +14,6 @@ filter.init = function(){
   filter.bindObjects();
   filter.changeVisualization();
 }
-
 filter.setMouseOverOnImages = function() {
   $('img.async').mouseover(function () {
     var backside_image = $(this).attr('data-backside');
@@ -24,21 +23,16 @@ filter.setMouseOverOnImages = function() {
     $(this).attr('src', showroom_image);
   });
 }
-
-filter.showAllImages = function(visualization_mode) {
-  var field_name = 'data-' + visualization_mode;
+filter.showAllImages = function() {
+  var field_name = 'data-' + filter.visualization_mode;
 
   $('img.async').each(function(){
     var image = $(this).attr(field_name);
     $(this).attr('src', image);
   });
-
-  if(visualization_mode == "product"){
-    filter.setMouseOverOnImages();
-  }
+  filter.setMouseOverOnImages();
+ 
 }
-
-
 filter.endlessScroll = function(window, document){
    var url;
    if ($('.pagination').length) {
@@ -55,7 +49,7 @@ filter.endlessScroll = function(window, document){
    }
 }
 filter.submitAndScrollUp = function(){
-   $("form#filter").submit(function() {
+   $("form").submit(function() {
       $('.loading').show();
       $('#sort_filter').val($("#filter").find("input:checked").val());
       $("#products").fadeOut("slow", function() {
@@ -92,14 +86,20 @@ filter.tags = function(name, flag){
    var classname = name.replace(' ','').toLowerCase(), list = $("#tags ul");
    
    if(flag == true) {
-      list.hide().append('<li class="'+classname+'">'+name+'<button type="button" class="del-'+classname+'">( x )</button></li>').delay(100).fadeIn();
-      window.setTimeout('filter.deleteTag("'+classname+'")', 300)   
+      $("section.filters").fadeIn();
+      list.hide().append('<li class="'+classname+'">'+name+'<button type="button" class="del-'+classname+'">( x )</button><span class="del-txt">Excluir</span></p></li>').delay(100).fadeIn();
+      window.setTimeout('filter.deleteTag("'+classname+'")', 300);
+      filter.cleanFilter();   
    }   
    else {
       list.hide();
       list.find("li."+classname).fadeOut().delay(300).remove();
       list.fadeIn();
    }   
+   
+   if($("#tags ul").children().size() < 1){
+      $("section.filters").delay(300).fadeOut();
+   }
 }
 filter.deleteTag = function(classname){
    $("button.del-"+classname).bind("click", function(){
@@ -109,16 +109,25 @@ filter.deleteTag = function(classname){
       filter.tags(classname,flag);
       filterId.parent().submit();
       filter.submitAndScrollUp();
-   });
+   }).hover(
+      function(){
+         $(this).next().fadeIn();
+      },
+      function(){
+         $(this).next().fadeOut();
+      }
+   )
 }
 filter.cleanCategory = function(event){
    event.preventDefault();
    event.stopPropagation();
+    
    $(event.target).parent().find("li").each(function(){
       $(this).find("input[type='checkbox']:checked").attr("checked", false);
       $("div#tags li."+$(this).find("input").attr('id')).remove();
    });
    $(event.target).parent().submit();
+   
 }
 filter.toggleFilter = function(event){
    event.preventDefault();
@@ -157,14 +166,21 @@ filter.changeVisualization = function(){
    $(".exhibition-mode p span").bind('click', function(){
       if($(this).hasClass("product")){
          filter.visualization_mode = "product";
-         filter.showAllImages(filter.visualization_mode);
+         filter.showAllImages();
          $(this).addClass("selected").next().next().removeClass("selected");
       }
       else{
          filter.visualization_mode = "wearing";
-         filter.showAllImages(filter.visualization_mode);
+         filter.showAllImages();
          $(this).addClass("selected").prev().prev().removeClass("selected");
       }
+   })
+}
+filter.cleanFilter = function(){
+   $(".cleanFilter").bind('click', function(){
+      $("#tags ul").empty();
+      $("section.filters").fadeOut();
+      $(".filter input:checked").attr("checked", false).delay(150).parent().submit();
    })
 }
 
@@ -173,4 +189,5 @@ $(function(){
   $('#order_filter').change(function() {
      $("form#filter").submit();
    });
+ 
 })
