@@ -9,15 +9,15 @@
         <h1>Conheça mais sobre a olook</h1>
         <%= link_to "Gostou? Descubra o seu estilo e veja a coleção completa", new_survey_path, :class => "home" %>
       </div>
-      <h1>Sobre a olook</h1>
+      <h1><%= link_to "Sobre a olook", our_essence_path %></h1>
       <p>Saiba como a olook funciona</p>
       <%= link_to "Veja mais aqui", our_essence_path, class: "more" %>
     </li>
     <li id="shoes">
       <%= link_to shoes_path do %>
         <%= image_tag "home/sapatos.jpg", title: "Sapatos Hot" %>
-      <% end %>
-      <h1>Sapatos hot</h1>
+      <% end %>      
+      <h1><%= link_to "Sapatos hot", shoes_path %></h1>
       <p>Veja todos na seção sapatos</p>
       <%= link_to "Confira aqui", shoes_path, class: "more" %>
     </li>
@@ -25,7 +25,7 @@
       <%= link_to olookmovel_path do %>
         <%= image_tag "home/olookmovel.jpg", title: "Olookmóvel" %>
       <% end %>
-      <h1>Olookmóvel</h1>
+      <h1><%= link_to "Olookmóvel", olookmovel_path %></h1>
       <p>Conheça nossa vitrine móvel</p>
       <%= link_to "Veja mais aqui", olookmovel_path, class: "more" %>
     </li>
