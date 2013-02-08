@@ -271,8 +271,6 @@ $(document).ready(function() {
   $("input:text.phone").keyup(function(){
 		maskTel(this);
 	});
-
-   
    
 
   $("input:text.expiration_date").setMask({
