@@ -167,6 +167,11 @@ div#moments {
     		cursor:pointer;
     		&.opened{background: image-url('moments/sprite.png') right 8px no-repeat;}
     	}
+    	h1{font-family: avenir,arial,sans-serif;font-size: 16px;font-weight: lighter;text-transform: uppercase;margin: 5px 0 20px 0;padding: 0 0 5px 5px;border-bottom: 1px #DEDEDE solid;	
+    	  &.shoes{background: url("/assets/moments/shoes.png") no-repeat top left;padding-left: 23px;}
+    	  &.purse{background: url("/assets/moments/purse.png") no-repeat top left;padding-left: 23px;}
+    	  &.accessories{background: url("/assets/moments/acessories.png") no-repeat top left;padding-left: 26px;}
+      }
       ol {
         width: 180px;
         margin: 15px 0 20px 0;
