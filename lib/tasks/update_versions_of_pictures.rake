@@ -8,6 +8,7 @@ namespace :db do
         update_versions_of(product.main_picture)
         update_versions_of(product.pictures.where(display_on: 2).first)
         update_versions_of(product.pictures.order('display_on desc').first)
+        puts "Pictures generated for product #{ product.id }"
      rescue
        next
      end
