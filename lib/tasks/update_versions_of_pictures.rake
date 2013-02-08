@@ -2,9 +2,8 @@
 namespace :db do
 
   desc "Updates recreate version of pictures"
-  task :update_version_of_pictures => :environment do
-    #TODO change date
-    Product.where("created_at > date('#{Date.today-100.day}')").each do |product|
+  task :update_version_of_pictures, [:collection_id] => :environment do |t, args|
+    Collection.find(args[:collection_id]).products.each do |product|
       begin
         update_versions_of(product.main_picture)
         update_versions_of(product.pictures.where(display_on: 2).first)
