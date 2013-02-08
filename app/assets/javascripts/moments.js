@@ -12,7 +12,7 @@ filter.init = function(){
   filter.showAllImages(filter.visualization_mode);
   filter.bindObjects();
   filter.changeVisualization();
-
+  filter.displayCleanCategories();
 }
 filter.setMouseOverOnImages = function() {
   $('img.async').mouseover(function () {
@@ -77,7 +77,7 @@ filter.selectedFilter = function(){
          if($(this).parent().parent().find("li input[type='checkbox']:checked").length == 0){
           $(this).parent().parent().parent().find("button.clear_filter").hide();   
          }
-      } else {
+      } else if($(this).parent().parent().find("li input[type='checkbox']:checked").length > 0){
         $(this).parent().parent().parent().find("button.clear_filter").show();
       }
       filter.tags($(this).attr('id'), $(this).is(":checked"));
@@ -148,8 +148,7 @@ filter.displayCleanCategories = function(){
 }
 
 filter.toggleFilter = function(event){
-   event.preventDefault();
-   event.stopPropagation();
+
    style = $(event.target).attr('class');
    style = (style.indexOf("opened") >= 0) ? style.replace("opened", "") : style+" opened";
     
@@ -158,7 +157,9 @@ filter.toggleFilter = function(event){
 
    if(opened){
       $(event.target).parent().find("ol").show();
-      $(event.target).parent().find("button.clear_filter").show();
+      if($(event.target).next().next().find("input[type='checkbox']:checked").length > 0){
+         $(event.target).parent().find("button.clear_filter").show();
+      }   
    } else {
       $(event.target).parent().find("ol").hide();
       $(event.target).parent().find("button.clear_filter").hide();

@@ -175,12 +175,7 @@ div#moments {
     	  &.purse{background: url("/assets/moments/purse.png") no-repeat top left;padding-left: 23px;}
     	  &.accessories{background: url("/assets/moments/acessories.png") no-repeat top left;padding-left: 26px;}
       }
-      ol {
-        width: 180px;
-        margin: 15px 0 20px 0;
-		  padding-bottom:15px;
-        float: left;
-		  clear: both;
+      ol {width: 180px;margin: 15px 0 20px 0;padding-bottom:15px;float: left;clear: both;display:none;
 			
         li {
           margin: 0 0 10px 0;
