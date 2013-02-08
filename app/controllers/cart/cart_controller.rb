@@ -26,7 +26,7 @@ class Cart::CartController < ApplicationController
 
     unless should_apply?(coupon, @cart)
       params[:cart].delete(:coupon_code)
-      render :error, :locals => { :notice => "A promoção é mais vantajosa que o cupon" }
+      render :error, :locals => { :notice => "A promoção é mais vantajosa que o cupom" }
     end
 
     unless @cart.update_attributes(params[:cart])
