@@ -296,7 +296,7 @@ class CartService
     credits_loyality = 0.0
     credits_invite = 0.0
     credits_redeem = 0.0
-    if (use_credits == true)
+    if (use_credits == true && self.cart.user)
 
 
       # Use loyalty only if there is no product with olooklet discount in the cart

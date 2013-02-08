@@ -7,6 +7,7 @@ module CartHelper
   end
 
   def total_user_credits
+    return 0.0 if @user.nil?
     return @user.current_credit if @cart_service.allow_credit_payment?
     @user.user_credits_for(:redeem).total
   end
