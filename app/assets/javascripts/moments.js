@@ -128,11 +128,10 @@ filter.toggleFilter = function(event){
       $(event.target).parent().find("button.clear_filter").show();
    } else {
       $(event.target).parent().find("ol").hide();
-      $(event.target).parent().find("button.clear_filter").click();
       $(event.target).parent().find("button.clear_filter").hide();
    }
 }
-filter.bindObjects =function(){
+filter.bindObjects = function(){
    $('.clear_filter').bind('click', (function(event){
       filter.cleanCategory(event);
    }));
