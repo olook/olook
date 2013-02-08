@@ -125,6 +125,7 @@ section#home {
       text-transform: uppercase;
       text-align: center;
       margin: 0 0 30px;
+      
     }
     ul {
       width: 100%;
@@ -146,6 +147,10 @@ section#home {
           font-family: $johnston;
           font-family: 29px;
           text-transform: uppercase;
+          a{
+            text-decoration: none;
+            color: #000 ;
+          }
         }
         p {
           color: #231f20;
