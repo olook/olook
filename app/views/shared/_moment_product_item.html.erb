@@ -28,7 +28,7 @@ shoe_size = params[:shoe_sizes].try(:first).try(:to_i) || current_user.try(:shoe
       <% if current_user && current_user.full_user? && product.promotion? == false -%>
         <p class="warn quantity">Só mais <span><%= "#{product.quantity(shoe_size) unless shoe_size.nil?}" %></span></p>
         <% if product.shoe? %>
-          <p class="warn shoe_size">Tam. 36<%= shoe_size %></p>
+          <p class="warn shoe_size">Tam. <%= shoe_size %></p>
         <% end %>
       <% end -%>
 
