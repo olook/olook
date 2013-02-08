@@ -85,17 +85,17 @@ filter.selectedFilter = function(){
       } else {
         $(this).parent().parent().parent().find("button.clear_filter").show();
       }
-      filter.tags($(this).attr('id'), $(this).is(":checked"));
+      filter.tags($(this).attr('id'),$(this).next().text() ,$(this).is(":checked"));
       $(this).parent().submit();
       filter.submitAndScrollUp();
       $('form#filter').find("input[type='checkbox']").attr("disabled", "true");
    });
 }
-filter.tags = function(name, flag){
+filter.tags = function(name, desc, flag){
    var classname = name.replace(' ','').toLowerCase(), list = $("#tags ul");
    
    if(flag == true) {
-      list.hide().append('<li class="'+classname+'">'+name+'<button type="button" class="del-'+classname+'">( x )</button></li>').delay(100).fadeIn();
+      list.hide().append('<li class="'+classname+'">'+desc+'<button type="button" class="del-'+classname+'">( x )</button></li>').delay(100).fadeIn();
       window.setTimeout('filter.deleteTag("'+classname+'")', 300)   
    }   
    else {
@@ -109,7 +109,7 @@ filter.deleteTag = function(classname){
       classname = classname.toLowerCase(), filterId = $(".filter input#"+classname);
       $(filterId).attr("checked", false);
       flag = filterId.is(":checked");      
-      filter.tags(classname,flag);
+      filter.tags(classname,null,flag);
       filterId.parent().submit();
       filter.submitAndScrollUp();
    });
