@@ -154,7 +154,7 @@ div#moments {
 		padding-left:10px;
 	 position:relative;
     div.filter {margin: 0 0 10px 0;float:left;clear:both;
-     button{float:right;border:none;background:none;line-height:18px;cursor:pointer;color:#141414;}
+     button{float:right;border:none;background:none;line-height:18px;cursor:pointer;color:#141414;display:none;}
      p.filter_type{
     		font-size:15px;
     		background: image-url('moments/sprite.png') right -31px no-repeat;
