@@ -16,12 +16,10 @@ class Admin::Orders::DeliveriesController < Admin::BaseController
     @number_of_days = params[:day_number].to_i
     @state = params[:state]
 
-    options = params.merge(action: 'orders_time_report')
-
-    @orders = build_scope(scope_date, options).
-                    page(params[:page]).
-                    per_page(15).
-                    order('created_at desc')
+    @orders = build_delivery_scope(scope_date, params).
+                                    page(params[:page]).
+                                    per_page(15).
+                                    order('created_at desc')
 
     respond_to do |format|
       format.html
@@ -37,7 +35,24 @@ class Admin::Orders::DeliveriesController < Admin::BaseController
    end
 
    def scope_date
-     @number_of_days < 3 ? @number_of_days.business_days.before(today) : @number_of_days.business_days.after(today)
+     biz_days = case @number_of_days
+                when 0
+                  3
+                when 1
+                  2
+                when 2
+                  1
+                when 3
+                  0
+                when 4
+                  1
+                when 5
+                  2
+                else 6
+                  3                       
+                end
+
+     @number_of_days < 3 ? biz_days.business_days.before(today) : biz_days.business_days.after(today)
    end
 end
 

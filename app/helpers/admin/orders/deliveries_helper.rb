@@ -7,35 +7,31 @@ module Admin::Orders::DeliveriesHelper
 
     case options.fetch(:day_number)
     when 0
-      link_to(build_scope(3.business_days.before(Time.now), options).count, admin_report_detail_path(options))
+      link_to(build_delivery_scope(3.business_days.before(Time.now), options).count, "deliveries/show?#{options.to_params}")
 
     when 1
-      link_to(build_scope(2.business_days.before(Time.now), options).count, admin_report_detail_path(options))
+      link_to(build_delivery_scope(2.business_days.before(Time.now), options).count, "deliveries/show?#{options.to_params}")
 
     when 2
-      link_to(build_scope(1.business_days.before(Time.now), options).count, admin_report_detail_path(options))
+      link_to(build_delivery_scope(1.business_days.before(Time.now), options).count, "deliveries/show?#{options.to_params}")
 
     when 3
-      link_to(build_scope(0.business_days.after(Time.now), options).count, admin_report_detail_path(options))
+      link_to(build_delivery_scope(0.business_days.after(Time.now), options).count, "deliveries/show?#{options.to_params}")
 
     when 4
-      link_to(build_scope(1.business_days.after(Time.now), options).count, admin_report_detail_path(options))
+      link_to(build_delivery_scope(1.business_days.after(Time.now), options).count, "deliveries/show?#{options.to_params}")
 
     when 5
-      link_to(build_scope(2.business_days.after(Time.now), options).count, admin_report_detail_path(options))
+      link_to(build_delivery_scope(2.business_days.after(Time.now), options).count, "deliveries/show?#{options.to_params}")
 
     else 6
-      link_to(build_scope(3.business_days.after(Time.now), options).count, admin_report_detail_path(options))
+      link_to(build_delivery_scope(3.business_days.after(Time.now), options).count, "deliveries/show?#{options.to_params}")
       
     end
-  end
+  end 
 
-  def build_scope(date, options)
-    if options[:action] && options[:action].match("orders_time_report")
-      default_scope = Order.with_expected_delivery_on(date).with_state(options[:state])
-    else
-      default_scope = Order.with_date_and_authorized(date).with_state(options[:state])
-    end
+  def build_delivery_scope(date, options)
+    default_scope = Order.with_expected_delivery_on(date).with_state(options[:state])
 
     scope = if freight_state_filter? && !shipping_filter?
               default_scope.where(freight_state: options[:freight_state])
