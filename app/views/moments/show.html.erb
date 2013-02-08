@@ -16,11 +16,8 @@
     <%= moment_presenter.render_search_form %>
     <div id="products_container">
       
-      <%#if%>
+
       <%= render "new_header_moments" %>
-      <%#else%>
-      <%= render "shared/filters/order" %>
-      <%#end%>
       
       <ul id="products">
         <%= render "products", :products => @catalog_products %>
