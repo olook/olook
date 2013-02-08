@@ -104,6 +104,10 @@ module ApplicationHelper
     end
   end
 
+  def is_moment_page?
+    params[:controller] == "moments" && params[:action] == "show" 
+  end
+
   private
 
     def ga_event_referer
