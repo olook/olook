@@ -1,8 +1,8 @@
-<h2>Listing promotions</h2>
+<h2>Promocoes</h2>
 
 
 <% content_for :secondary_navigation do %>
-  <li><%= link_to 'New promotion', new_admin_promotion_path %></li>
+  <li><%= link_to 'Nova promocao', new_admin_promotion_path %></li>
 <% end %>
 
 <div class="inner">
@@ -19,9 +19,9 @@
     <tr>
       <td><%= promotion.name %></td>
       <td><%= promotion.active %></td>
-      <td><%= link_to 'Show', admin_promotion_path(promotion), :class => 'button' %></td>
-      <td><%= link_to 'Edit', edit_admin_promotion_path(promotion), :class => 'button' %></td>
-      <td><%= link_to 'Destroy', admin_promotion_path(promotion), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
+      <td><%= link_to 'Exibir', admin_promotion_path(promotion), :class => 'button' %></td>
+      <td><%= link_to 'Editar', edit_admin_promotion_path(promotion), :class => 'button' %></td>
+      <td><%= link_to 'Apagar', admin_promotion_path(promotion), confirm: 'Tem certeza?', method: :delete, :class => 'button danger' %></td>
     </tr>
   <% end %>
   </table>
