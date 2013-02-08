@@ -99,25 +99,37 @@ footer {
           margin: 15px 0 0 0;
           li {
             a {
-              background: image-url("home/social.jpg") no-repeat;
+              background: image-url("home/social.png") no-repeat;
               text-indent: -99999px;
               width: 24px;
-              height: 26px;
+              height: 24px;
               margin: 0 6px 0 0;
               display: block;
               float: left;
             }
             &.facebook a {
-              background-position: 0 0;
+              background-position: 0 -34px;
+              &:hover {
+                background-position: 0 0px;
+              }
             }
             &.twitter a {
-              background-position: -29px 0;
+              background-position: -28px -34px;
+              &:hover {
+                background-position: -28px 0px;
+              }
             }
             &.rss a {
-              background-position: -58px 0;
+              background-position: -58px -34px;
+              &:hover {
+                background-position: -58px 0px;
+              }
             }
             &.instagram a {
-              background-position: -88px 0;
+              background-position: -89px -35px;
+              &:hover {
+                background-position: -89px 0px;
+              }
             }
           }
         }
