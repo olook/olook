@@ -58,6 +58,7 @@ Olook::Application.routes.draw do
   match '/slippers', to: "moments#show", as: "slippers", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["slipper"]}
   match '/sandalias', to: "moments#show", as: "sandalias", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["sandalia"]}
   match '/scarpins', to: "moments#show", as: "scarpins", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["scarpin"]}
+  match '/anabelas', to: "moments#show", as: "anabelas", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["anabela"]}
 
 
   match '/bolsas', to: "moments#show", as: "bags", :defaults => {:category_id => Category::BAG, :id => 1}
