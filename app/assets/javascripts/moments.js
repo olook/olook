@@ -122,8 +122,8 @@ filter.toggleFilter = function(event){
    event.preventDefault();
    event.stopPropagation();
    style = $(event.target).attr('class');
-   opened = (style.indexOf("opened") >= 0);
-   style = opened ? style.replace("opened", "") : style+" opened"; 
+   style = (style.indexOf("opened") >= 0) ? style.replace("opened", "") : style+" opened";
+    
    $(event.target).attr('class', style);
    opened = (style.indexOf("opened") >= 0);
 
