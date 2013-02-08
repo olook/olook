@@ -21,9 +21,10 @@ class CatalogSearchService
 
   def search_products
     add_categories_filter_to_query_base
-    
-    @query = prepare_query_joins 
 
+    @query = prepare_query_joins
+
+    add_subcategories_filter_to_query_base
     @query.where(@query_base)
       .order(sort_filter, 'name asc')
       .group("catalog_products.product_id")
@@ -35,7 +36,7 @@ class CatalogSearchService
 
   def prepare_query_joins
     query = Catalog::Product.joins(:product).joins(:variant)
-    query = query.joins('left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id') if @liquidation   
+    query = query.joins('left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id') if @liquidation
     query
   end
 
@@ -49,24 +50,24 @@ class CatalogSearchService
     end
     category_query ||= params[:shoe_sizes] ? filter_by_shoe_size : @query_base
 
-    @query_base = category_query   
+    @query_base = category_query
   end
 
   def add_subcategories_filter_to_query_base
     # Subcategories filter to make possible to have Shoes / Bags / Accessories pages
-    @query_base = @query_base.and(l_products[:category_id].in(params[:category_id])) if params[:category_id] 
+    @query_base = @query_base.and(l_products[:category_id].in(params[:category_id])) if params[:category_id]
   end
 
-  def compact_category_queries    
+  def compact_category_queries
     [query_shoes, query_bags, query_accessories].compact
   end
 
   def query_shoes
     query = [query_shoe_sizes, query_colors, query_heels, query_subcategories].detect{|query| !query.nil?}
-    query.and(l_products[:category_id].in(Category::SHOE)) if query    
+    query.and(l_products[:category_id].in(Category::SHOE)) if query
   end
 
-  def query_shoe_sizes 
+  def query_shoe_sizes
     build_sub_query((query_colors || query_heels || query_subcategories || query_base), filter_by_shoe_size) if (query_colors || query_heels || query_subcategories) && params[:shoe_sizes]
   end
 
@@ -85,12 +86,12 @@ class CatalogSearchService
   def query_bags
     query = params[:bag_subcategories] ? l_products[:subcategory_name].in(params[:bag_subcategories]) : nil
     query = build_sub_query((query || query_base), Product.arel_table[:color_name].in(params[:bag_colors])) if params[:bag_colors]
-    query.and(l_products[:category_id].in(Category::BAG)) if query    
+    query.and(l_products[:category_id].in(Category::BAG)) if query
   end
 
   def query_accessories
     query = params[:accessory_subcategories] ? l_products[:subcategory_name].in(params[:accessory_subcategories]) : nil
-    query.and(l_products[:category_id].in(Category::ACCESSORY)) if query    
+    query.and(l_products[:category_id].in(Category::ACCESSORY)) if query
   end
 
   def build_sub_query(current_query, sub_query)
