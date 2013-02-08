@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Cadastro</Data></Cell>
+        <Cell><Data ss:Type="String">Pagamento</Data></Cell>
+        <Cell><Data ss:Type="String">Despacho</Data></Cell>
+        <Cell><Data ss:Type="String">Entrega</Data></Cell>
+        <Cell><Data ss:Type="String">Data prometida de Entrega</Data></Cell>
+        <Cell><Data ss:Type="String">Transportador</Data></Cell>
+        <Cell><Data ss:Type="String">Gateway de pagamento</Data></Cell>
+        <Cell><Data ss:Type="String">Cliente nome</Data></Cell>
+        <Cell><Data ss:Type="String">Cliente email</Data></Cell>
+        <Cell><Data ss:Type="String">Cidade</Data></Cell>
+        <Cell><Data ss:Type="String">Estado</Data></Cell>
+        <Cell><Data ss:Type="String">CEP</Data></Cell>
+        <Cell><Data ss:Type="String">Valor</Data></Cell>
+        <Cell><Data ss:Type="String">Quantidade de itens</Data></Cell>
+      </Row>
+    <% @orders.each do |order| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%=order.created_at.strftime('%A, %e %B %Y')%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=order.payments.for_erp.first.created_at.strftime('%A, %e %B %Y')%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=(my_order = order.order_state_transitions.detect {|state| state.event == 'delivering'}) ? my_order.created_at.strftime('%A, %e %B %Y') : ''%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=(my_order = order.order_state_transitions.detect {|state| state.event == 'delivered'}) ? my_order.created_at.strftime('%A, %e %B %Y') : ''%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=(my_order = order.order_state_transitions.detect {|state| state.event == 'authorized'}) ? headline_delivered_date_format(order.order_state_transitions.detect {|state| state.event == 'authorized'}.created_at, order.freight.delivery_time) : ''%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=order.shipping_service_name%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=I18n.t("gateways.#{order.gateway}")%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=order.user_name%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=order.user_email%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=order.freight.city%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=order.freight.state%></Data></Cell>
+        <Cell><Data ss:Type="Number"><%=order.freight.zip_code%></Data></Cell>
+        <Cell><Data ss:Type="String"><%=order.amount_paid%></Data></Cell>
+        <Cell><Data ss:Type="Number"><%=order.items_quantity%></Data></Cell>
+      </Row>
+    <%end%>
+    </Table>
+  </Worksheet>
+</Workbook>

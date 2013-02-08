@@ -37,3 +37,6 @@ config/abacos.yml
 *.csv
 *.swn
 vendor/bundle
+olook.sublime-project
+olook.sublime-workspace
+*.swl
