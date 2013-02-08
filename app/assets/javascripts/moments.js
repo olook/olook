@@ -118,18 +118,11 @@ filter.cleanCategory = function(event){
 }
 filter.toggleFilter = function(event){
    style = $(event.target).attr('class');
-   opened = (style.indexOf("opened") >= 0);
-   style = opened ? style.replace("opened", "") : style+" opened"; 
+   style = (style.indexOf("opened") >= 0) ? style.replace("opened", "") : style+" opened";
+    
    $(event.target).attr('class', style);
-   opened = (style.indexOf("opened") >= 0);
-
-   if(opened){
-      $(event.target).parent().find("ol").show();
-      $(event.target).parent().find("button.clear_filter").show();
-   } else {
-      $(event.target).parent().find("ol").hide();
-      $(event.target).parent().find("button.clear_filter").hide();
-   }
+   $(event.target).parent().find("ol").toggle();
+   $(event.target).parent().find("button.clear_filter").toggle();
 }
 filter.bindObjects = function(){
    $('.clear_filter').bind('click', (function(event){
