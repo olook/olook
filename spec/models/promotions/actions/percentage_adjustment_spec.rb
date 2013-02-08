@@ -20,7 +20,7 @@ describe PercentageAdjustment do
   describe "#simulate" do
     context "when cart has items" do
       it "calculates percentage" do
-        subject.simulate(cart, "20").should eq([{id: cart.items.first.id, adjust: cart.items.first.price * BigDecimal("#{20 / 100.0}")}])
+        subject.simulate(cart, "20").should eq(cart.items.first.price * BigDecimal("#{20 / 100.0}"))
       end
     end
 
