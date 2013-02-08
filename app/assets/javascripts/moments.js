@@ -10,31 +10,32 @@ filter.init = function(){
   filter.submitAndScrollUp();
   filter.seeAll();
   filter.selectedFilter();
-  filter.setMouseOverOnImages();
-  filter.showAllImages();
+  filter.showAllImages(filter.visualization_mode);
   filter.bindObjects();
   filter.changeVisualization();
-}
-
-filter.showAllImages = function() {
-  var field_name = 'data-' + filter.visualization_mode;
-
-  $('img.async').each(function(){
-    var image = $(this).attr(field_name);
-    $(this).attr('src', image);
-  });
 }
 
 filter.setMouseOverOnImages = function() {
   $('img.async').mouseover(function () {
     var backside_image = $(this).attr('data-backside');
     $(this).attr('src', backside_image);
-  }); 
-
-  $('img.async').mouseout(function () {
+  }).mouseout(function () {
     var showroom_image = $(this).attr('data-product');
     $(this).attr('src', showroom_image);
   });
+}
+
+filter.showAllImages = function(visualization_mode) {
+  var field_name = 'data-' + visualization_mode;
+
+  $('img.async').each(function(){
+    var image = $(this).attr(field_name);
+    $(this).attr('src', image);
+  });
+
+  if(visualization_mode == "product"){
+    filter.setMouseOverOnImages();
+  }
 }
 
 
@@ -156,12 +157,12 @@ filter.changeVisualization = function(){
    $(".exhibition-mode p span").bind('click', function(){
       if($(this).hasClass("product")){
          filter.visualization_mode = "product";
-         filter.showAllImages();
+         filter.showAllImages(filter.visualization_mode);
          $(this).addClass("selected").next().next().removeClass("selected");
       }
       else{
          filter.visualization_mode = "wearing";
-         filter.showAllImages();
+         filter.showAllImages(filter.visualization_mode);
          $(this).addClass("selected").prev().prev().removeClass("selected");
       }
    })
