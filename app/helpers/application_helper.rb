@@ -105,7 +105,7 @@ module ApplicationHelper
   end
 
   def is_moment_page?
-    params[:controller] == "moments" && params[:action] == "show" 
+    params[:controller] == "moments" && params[:action] == "show" && @featured_products
   end
 
   private
