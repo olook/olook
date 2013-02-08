@@ -122,4 +122,41 @@ describe ApplicationHelper do
     end
   end
 
+  describe "#is_moment_page?" do
+    context "when the controller equals to 'moments'" do
+      before do
+        controller.params[:controller] = 'moments'
+      end
+
+      context "when the actions equals to 'show'" do
+        before do
+          controller.params[:action] = 'show'
+        end
+        it "returns true" do
+          helper.is_moment_page?.should be_true
+        end
+      end
+
+      context "when the actions isn't 'show'" do
+        before do
+          controller.params[:action] = 'fdsasfda'
+        end      
+        it "returns false" do
+          helper.is_moment_page?.should be_false
+        end
+      end
+    end
+
+    context "when the controller isn't 'moments' " do
+      before do
+        controller.params[:controller] = 'afsdfasd'
+        controller.params[:action] = 'fdsasfda'
+      end
+
+      it "returns false" do
+        helper.is_moment_page?.should be_false
+      end 
+    end    
+  end  
+
 end
