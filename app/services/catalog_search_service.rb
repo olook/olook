@@ -100,10 +100,10 @@ class CatalogSearchService
 
   def sort_filter
     case params[:sort_filter]
-      when "0" then "category_id asc"
+      when "0" then "collection_id desc"
       when "1" then "price asc"
       when "2" then "price desc"
-      else "price asc"
+      else "collection_id desc"
     end
   end
 end
