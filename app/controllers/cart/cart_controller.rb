@@ -6,6 +6,7 @@ class Cart::CartController < ApplicationController
 
   def show
     @google_path_pixel_information = "Carrinho"
+    @google_pixel_information = @cart
     @report  = CreditReportService.new(@user)
     @url = request.protocol + request.host
     @url += ":" + request.port.to_s if request.port != 80

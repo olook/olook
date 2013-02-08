@@ -3,7 +3,7 @@ require 'spec_helper'
 describe OrderStateTransition do
   
   let(:waiting_order) { FactoryGirl.create(:clean_order) }
-  let(:order) { FactoryGirl.create(:order_with_payment_authorized) }
+  let(:order) { FactoryGirl.create(:order_with_waiting_payment) }
   let(:authorized_order) {FactoryGirl.create(:authorized_order)}
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }

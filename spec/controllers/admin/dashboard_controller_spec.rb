@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::IndexController do
+describe Admin::DashboardController do
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
@@ -11,7 +11,7 @@ describe Admin::IndexController do
 
   describe "GET 'index'" do
     it "should be successful" do
-      get 'dashboard'
+      get 'index'
       response.should be_success
     end
   end

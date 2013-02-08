@@ -39,6 +39,7 @@ section#home {
     margin: 0 0 40px;
     a.close {
       position: absolute;
+/*<<<<<<< HEAD*/
       background: image-url("lookbooks/close.png") no-repeat;
       text-indent: -99999px;
       top: 0;
@@ -49,6 +50,25 @@ section#home {
       z-index: 101;
       &:hover{
         background: image-url("lookbooks/close-hover.png") no-repeat;
+/*======= */
+/*      width: 405px;
+      padding: 10px 30px 15px;
+      overflow: visible;
+      border: 1px #e8e8e8 solid;
+      top: 540px;
+      left: 315px;
+      float: right;
+
+      p {
+        background: url('/assets/common/facebook-title.png') top left no-repeat;
+        color: #a2a2a2;
+        font-size: 13px;
+        line-height: 25px;
+        float: left;
+        margin-top:3px;
+        padding: 2px 0 0 133px;*/
+
+/*>>>>>>> master*/
       }
     }
     .jcarousel-container {
@@ -150,6 +170,235 @@ section#home {
           margin: 0;
         }
       }
+    }
+  }
+  a#press {
+    background: image-url("home/press.jpg") no-repeat;
+    text-indent: -99999px;
+    width: 990px;
+    height: 65px;
+    display: block;
+    margin: 0 0 30px;
+  }
+  section ul.products_list {
+    width: 100%;
+    overflow: auto;
+    li {
+      margin: 0 0 0 25px;
+      float: left;
+      a {
+        color: #000;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        float: left;
+        h1 {
+          font-family: $avenir;
+          font-size: 15px;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  section#top5 {
+    margin: 0 0 20px;
+    padding: 0 0 30px;
+    border-bottom: 1px #cbcbcb solid;
+    >h1 {
+      background: image-url("home/tit-top5.jpg") top center no-repeat;
+      font-family: $kepler;
+      font-size: 18px;
+      text-align: center;
+      margin: 0 0 30px;
+      padding: 33px 0 0 0;
+    }
+  }
+  section#stylists {
+    position: relative;
+    min-height: 270px;
+    margin: 0 0 30px;
+    padding: 10px 0 30px;
+    border-bottom: 1px #cbcbcb solid;
+    >h1 {
+      font-family: $kepler;
+      font-size: 27px;
+      text-align: center;
+      text-transform: uppercase;
+      margin: 0 0 30px;
+    }
+    h2 {
+      position: absolute;
+      background: image-url("home/olook-loved.jpg") no-repeat;
+      text-indent: -99999px;
+      width: 104px;
+      height: 104px;
+      display: block;
+      top: 0;
+      left: 75px;
+    }
+  }
+  section#boxes {
+    width: 100%;
+    overflow: auto;
+    margin: 0 0 55px;
+    ul {
+      li {
+        background: #f8f8f8;
+        width: 314px;
+        height: 287px;
+        display: block;
+        margin: 0 21px 0 0;
+        float: left;
+        border: 1px #c2c2c2 solid;
+        a {
+          color: #231f20;
+          text-decoration: none;
+          h1 {
+            font-family: $avenir;
+            font-size: 17px;
+            text-transform: uppercase;
+            margin: 16px 0 3px 24px;
+          }
+          p {
+            background: image-url("home/arrows-pink.png") right center no-repeat;
+            font-size: 15px;
+            display: inline;
+            margin: 0 0 0 24px;
+            padding: 0 20px 0 0;
+          }
+          &:hover {
+            p {
+              color: #d75387;
+            }
+          }
+        }
+        &:last-child {
+          margin: 0;
+          float: right;
+        }
+      }
+    }
+  }
+  div#products_categories {
+    width: 650px;
+    height: 140px;
+    margin: 0 0 30px;
+    padding: 35px 0 0 0;
+    float: left;
+    border-top: 1px #cbcbcb solid;
+    >h1 {
+      font-family: $avenir;
+      font-size: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin: 0 0 25px 60px;
+    }
+    ul {
+      width: 100%;
+      overflow: auto;
+      margin: 0 0 0 60px;
+      li {
+        a {
+          background: image-url("home/categories.png") no-repeat;
+          color: #000;
+          font-size: 11px;
+          text-align: center;
+          text-decoration: none;
+          height: 17px;
+          margin: 0 10px 0 0;
+          padding: 53px 0 0 0;
+          float: left;
+          &:hover {
+            color: #939598;
+          }
+        }
+        &.anabela a {
+          background-position: 6px 0;
+          width: 45px;
+          &:hover {
+            background-position: 6px -84px;
+          }
+        }
+        &.rasteira a {
+          background-position: -45px 0;
+          width: 53px;
+          &:hover {
+            background-position: -45px -84px;
+          }
+        }
+        &.sandalia a {
+          background-position: -100px 0;
+          &:hover {
+            background-position: -100px -84px;
+          }
+        }
+        &.sapatilha a {
+          background-position: -154px 0;
+          &:hover {
+            background-position: -154px -84px;
+          }
+        }
+        &.scarpin a {
+          background-position: -212px 0;
+          &:hover {
+            background-position: -212px -84px;
+          }
+        }
+        &.slipper a {
+          background-position: -262px 0;
+          width: 43px;
+          &:hover {
+            background-position: -262px -84px;
+          }
+        }
+        &.sneaker a {
+          background-position: -322px 0;
+          &:hover {
+            background-position: -322px -84px;
+          }
+        }
+        &.acessorios a {
+          background-position: -371px 0;
+          &:hover {
+            background-position: -371px -84px;
+          }
+        }
+        &.bolsas a {
+          background-position: -430px 0;
+          &:hover {
+            background-position: -430px -84px;
+          }
+        }
+        &.oculos a {
+          background-position: -475px 0;
+          &:hover {
+            background-position: -475px -84px;
+          }
+        }
+      }
+    }
+  }
+  div#facebook_box {
+    width: 295px;
+    height: 140px;
+    padding: 35px 0 0 20px;
+    float: right;
+    border-top: 1px #cbcbcb solid;
+    img {
+      margin: 0 7px 20px 0;
+      float: left;
+    }
+    h1 {
+      color: #36569e;
+      font-family: $avenir;
+      font-size: 14px;
+      span {
+        font-size: 17px;
+        font-weight: bold;
+      }
+    }
+    .like {
+      clear: both;
     }
   }
 }
