@@ -1,0 +1,15 @@
+<% if @featured_products %>
+  <%= render "shared/featured_products", :products => @featured_products, :category_id => @category_id %>
+<% end %>
+
+<section class="filters">
+	<h1 class="shoes"><b>Você está em sapatos <span>//</span></b></h1>
+	<div id="tags">
+      <ul>&nbsp;</ul>
+  </div>
+</section>
+
+<div class="exhibition-mode">
+  <p>EXIBIÇÃO: <span class="selected">Produto</span><b>/</b><span>Produto com modelo</span></p>
+  <%= render "shared/filters/order" %>
+</div>

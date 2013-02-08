@@ -31,7 +31,8 @@
 
   </head>
 
-  <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>">
+
+  <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %> <%= "moments" if params[:controller] == "moments" && params[:action] == "show" %>">
     <%= render 'shared/admin_label' if current_admin %>
 
     <div id="modal"></div>
