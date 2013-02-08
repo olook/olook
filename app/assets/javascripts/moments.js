@@ -110,6 +110,8 @@ filter.deleteTag = function(classname){
    });
 }
 filter.cleanCategory = function(event){
+   event.preventDefault();
+   event.stopPropagation();
    $(event.target).parent().find("li").each(function(){
       $(this).find("input[type='checkbox']:checked").attr("checked", false);
       $("div#tags li."+$(this).find("input").attr('id')).remove();
@@ -117,6 +119,8 @@ filter.cleanCategory = function(event){
    $(event.target).parent().submit();
 }
 filter.toggleFilter = function(event){
+   event.preventDefault();
+   event.stopPropagation();
    style = $(event.target).attr('class');
    opened = (style.indexOf("opened") >= 0);
    style = opened ? style.replace("opened", "") : style+" opened"; 
@@ -128,18 +132,23 @@ filter.toggleFilter = function(event){
       $(event.target).parent().find("button.clear_filter").show();
    } else {
       $(event.target).parent().find("ol").hide();
-      $(event.target).parent().find("button.clear_filter").click();
       $(event.target).parent().find("button.clear_filter").hide();
    }
-}
-filter.bindObjects =function(){
-   $('.clear_filter').bind('click', (function(event){
-      filter.cleanCategory(event);
-   }));
 
-   $(".filter_type").bind('click', (function(event){
+
+}
+filter.bindObjects = function(){
+   $('.clear_filter').bind('click', function(event){
+      event.preventDefault();
+      event.stopPropagation();
+      filter.cleanCategory(event);
+   });
+
+   $(".filter_type").bind('click', function(event){
+      event.preventDefault();
+      event.stopPropagation();
       filter.toggleFilter(event);
-   }));   
+   });   
 
 }
 
