@@ -7,12 +7,12 @@ filter.init = function(){
   */
   filter.visualization_mode = "product";
   filter.endlessScroll(window, document);
-  // filter.submitAndScrollUp();
   filter.seeAll();
   filter.selectedFilter();
   filter.showAllImages(filter.visualization_mode);
   filter.bindObjects();
   filter.changeVisualization();
+  filter.displayCleanCategories();
 }
 
 filter.setMouseOverOnImages = function() {
@@ -55,14 +55,13 @@ filter.endlessScroll = function(window, document){
    }
 }
 filter.submitAndScrollUp = function(){
-   $("form#filter").submit(function() {
-      $('.loading').show();
-      $('#sort_filter').val($("#filter").find("input:checked").val());
-      $("#products").fadeOut("slow", function() {
-         $(this).fadeIn("slow").html("");
-       });    
-   });
-  console.log("going UP!");
+  $("form#filter").submit(function() {
+    $('.loading').show();
+    $('#sort_filter').val($("#filter").find("input:checked").val());
+    $("#products").fadeOut("slow", function() {
+      $(this).fadeIn("slow").html("");
+    });    
+  });
 	$("html, body").delay(300).animate({scrollTop: $(".filters").length ? 530 : 0}, 'slow');
 } 
 filter.seeAll = function(){
@@ -80,9 +79,13 @@ filter.selectedFilter = function(){
    $("#filter input[type='checkbox']").not(".select_all").bind("click", function() {
       if(!$(this).is(":checked")) {
          $(this).parent().siblings("li").find("input[type='checkbox'].select_all").attr("checked", false);
+         if($(this).parent().parent().find("li input[type='checkbox']:checked").length == 0){
+          $(this).parent().parent().parent().find("button.clear_filter").hide();   
+         }
+      } else {
+        $(this).parent().parent().parent().find("button.clear_filter").show();
       }
       filter.tags($(this).attr('id'), $(this).is(":checked"));
-      
       $(this).parent().submit();
       filter.submitAndScrollUp();
       $('form#filter').find("input[type='checkbox']").attr("disabled", "true");
@@ -114,12 +117,25 @@ filter.deleteTag = function(classname){
 filter.cleanCategory = function(event){
    event.preventDefault();
    event.stopPropagation();
+   canSubmit = false;
    $(event.target).parent().find("li").each(function(){
-      $(this).find("input[type='checkbox']:checked").attr("checked", false);
-      $("div#tags li."+$(this).find("input").attr('id')).remove();
+      checked = $(this).find("input[type='checkbox']:checked");
+      if(checked.attr("checked")){
+        canSubmit = true;
+        checked.attr("checked", false);
+        $("div#tags li."+$(this).find("input").attr('id')).remove();
+      }
    });
-   $(event.target).parent().submit();
+   if(canSubmit){
+     $(event.target).parent().submit();
+     $(event.target).hide();
+   }
 }
+
+filter.displayCleanCategories = function(){
+  //TODO: display clean categories if the checkboxes are already checked on reload
+}
+
 filter.toggleFilter = function(event){
    event.preventDefault();
    event.stopPropagation();
