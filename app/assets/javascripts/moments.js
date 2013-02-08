@@ -91,7 +91,7 @@ filter.tags = function(name, desc, flag){
    
    if(flag == true) {
       $("section.filters").fadeIn();
-      list.hide().append('<li class="'+classname+'">'+name+'<button type="button" class="del-'+classname+'">( x )</button><span class="del-txt">Excluir</span></p></li>').delay(100).fadeIn();
+      list.hide().append('<li class="'+classname+'">'+desc+'<button type="button" class="del-'+classname+'">( x )</button></li>').delay(100).fadeIn();
       window.setTimeout('filter.deleteTag("'+classname+'")', 300);
       filter.cleanFilter();   
    }   
