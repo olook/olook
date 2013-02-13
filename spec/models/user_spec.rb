@@ -680,7 +680,7 @@ describe User do
     end
 
     context "when user has orders" do
-      let(:order) { FactoryGirl.create(:order_with_payment_authorized, :user => subject) }
+      let(:order) { FactoryGirl.create(:order_with_waiting_payment, :user => subject) }
 
       context "when user has 1 authorized order" do
         it "returns true" do
@@ -701,7 +701,7 @@ describe User do
     end
 
     context "when user has orders" do
-      let(:order) { FactoryGirl.create(:order_with_payment_authorized, :user => subject) }
+      let(:order) { FactoryGirl.create(:order_with_waiting_payment, :user => subject) }
 
       context "when user has one order in the cart" do
         it "returns false" do
@@ -748,7 +748,7 @@ describe User do
       end
 
       context "when user has two orders authorized" do
-        let(:second_order) { FactoryGirl.create(:order_with_payment_authorized, :user => subject) }
+        let(:second_order) { FactoryGirl.create(:order_with_waiting_payment, :user => subject) }
 
         it "returns false" do
           order.authorized

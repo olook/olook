@@ -144,12 +144,12 @@ class Product < ActiveRecord::Base
 
   def backside_picture
     picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
-    picture.try(:image_url, :suggestion) # 260x260
+    return_catalog_or_suggestion_image(picture)
   end
 
   def wearing_picture
     picture = pictures.order(:display_on).last
-    picture.try(:image_url, :suggestion) # 260x260
+    return_catalog_or_suggestion_image(picture)
   end
 
   def thumb_picture
@@ -173,7 +173,11 @@ class Product < ActiveRecord::Base
   end
 
   def catalog_picture
-    main_picture.try(:image_url, :catalog) # 235x235
+    return_catalog_or_suggestion_image(main_picture)
+  end
+
+  def return_catalog_or_suggestion_image(picture)
+    picture.try(:image_url, :catalog) || picture.try(:image_url, :suggestion)
   end
 
   def master_variant

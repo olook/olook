@@ -50,7 +50,7 @@ class CatalogSearchService
     end
     category_query ||= params[:shoe_sizes] ? filter_by_shoe_size : @query_base
 
-    @query_base = category_query
+    @query_base = @query_base.and(category_query)  
   end
 
   def add_subcategories_filter_to_query_base
