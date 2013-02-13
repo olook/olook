@@ -78,6 +78,14 @@ Spork.prefork do
       DatabaseCleaner.clean
     end
 
+    config.before(:all) do
+      DeferredGarbageCollection.start
+    end
+
+    config.after(:all) do
+      DeferredGarbageCollection.reconsider
+    end
+
     config.mock_with :rspec
 
     # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
