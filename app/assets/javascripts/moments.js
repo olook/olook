@@ -91,7 +91,7 @@ filter.tags = function(name, desc, flag){
    
    if(flag == true) {
       $("section.filters").fadeIn();
-      list.hide().append('<li class="'+classname+'">'+desc+'<button type="button" class="del-'+classname+'">( x )</button></li>').delay(100).fadeIn();
+      list.hide().prepend('<li class="'+classname+'">'+desc+'<button type="button" class=" delete del-'+classname+'">( x )</button></li>').delay(100).fadeIn();
       window.setTimeout('filter.deleteTag("'+classname+'")', 300);
       filter.cleanFilter();   
    }   
@@ -101,7 +101,7 @@ filter.tags = function(name, desc, flag){
       list.fadeIn();
    }   
    
-   if($("#tags ul").children().size() < 1){
+   if($("#tags ul").children().size() < 2){
       $("section.filters").delay(300).fadeOut();
    }
 }
@@ -140,6 +140,10 @@ filter.cleanCategory = function(event){
      $(event.target).parent().submit();
      $(event.target).hide();
    }
+   
+   if($("#tags ul li").length < 1){
+      $("section.filters").fadeOut();
+   }
 
 }
 
@@ -164,7 +168,6 @@ filter.toggleFilter = function(event){
       $(event.target).parent().find("ol").hide();
       $(event.target).parent().find("button.clear_filter").hide();
    }
-
 
 }
 filter.bindObjects = function(){
@@ -200,6 +203,8 @@ filter.cleanFilter = function(){
       $("#tags ul").empty();
       $("section.filters").fadeOut();
       $(".filter input:checked").attr("checked", false).delay(150).parent().submit();
+      $('.clear_filter').fadeOut();
+      $("html, body").delay(300).animate({scrollTop: 0}, 'slow');
    })
 }
 
