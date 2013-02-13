@@ -79,11 +79,11 @@ Spork.prefork do
     end
 
     config.before(:all) do
-      DeferredGarbageCollection.start
+      # DeferredGarbageCollection.start
     end
 
     config.after(:all) do
-      DeferredGarbageCollection.reconsider
+      # DeferredGarbageCollection.reconsider
     end
 
     config.mock_with :rspec
