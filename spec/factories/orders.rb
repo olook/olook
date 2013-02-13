@@ -97,7 +97,10 @@ FactoryGirl.define do
 
   factory :authorized_order, :class => Order do
     association :freight, :factory => :freight
-    association :user, :factory => :member
+    user_first_name 'José'
+    user_last_name 'Ernesto'
+    user_email 'jose.ernesto@dominio.com'
+    user_cpf '228.016.368-35'
     state "authorized"
     subtotal BigDecimal.new("100")
     amount_paid BigDecimal.new("100")
@@ -108,6 +111,9 @@ FactoryGirl.define do
     end
     after_create do |order|
       FactoryGirl.create(:credit_card_with_response, :order => order)
+    end
+    after_create do |order|
+      FactoryGirl.create(:authorized, :order => order)
     end
   end
 
