@@ -31,7 +31,12 @@ module Admin::Orders::DeliveriesHelper
   end 
 
   def build_delivery_scope(date, options)
-    default_scope = Order.with_expected_delivery_on(date).with_state(options[:state])
+
+    # TODO [oliver] => improve this caching. It doens't belong to the controller!
+    cache_key = "deliveries:#{date.strftime("%Y%m%d")}:#{options[:state]}"
+    default_scope = Rails.cache.fetch(cache_key, :expires_in => 20.minutes) do 
+      Order.with_expected_delivery_on(date).with_state(options[:state])
+    end
 
     scope = if freight_state_filter? && !shipping_filter?
               default_scope.where(freight_state: options[:freight_state])

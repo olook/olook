@@ -16,7 +16,11 @@ module Admin::Orders::StatusesHelper
   def build_status_scope(date, options)
     options = extract_options!(options)
 
-    default_scope = Order.with_date_and_authorized(date).with_state(options[:state])
+    # TODO [oliver] => improve this caching. It doens't belong to the controller!
+    cache_key = "orders_statuses:#{date.strftime("%Y%m%d")}:#{options[:state]}"
+    default_scope = Rails.cache.fetch(cache_key, :expires_in => 20.minutes) do 
+      Order.with_date_and_authorized(date).with_state(options[:state])
+    end
 
     scope = if freight_state_filter? && !shipping_filter?
               default_scope.where(freight_state: options[:freight_state])
