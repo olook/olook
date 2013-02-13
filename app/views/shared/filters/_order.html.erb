@@ -3,7 +3,7 @@
     <ol>
       <li class="select">
         <%= label_tag "ordenação: " %>
-        <%= select_tag('filter', options_for_select({"Menor preço" => 1, "Categoria" => 0, "Maior preço" => 2}), :class => "custom_select") %>
+        <%= select_tag('filter', options_for_select({"Relevância" => 0, "Menor preço" => 1, "Maior preço" => 2}), :class => "custom_select") %>
       </li>
     </ol>
   <% end %>
