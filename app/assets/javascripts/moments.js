@@ -81,8 +81,8 @@ filter.selectedFilter = function(){
         $(this).parent().parent().parent().find("button.clear_filter").show();
       }
       filter.tags($(this).attr('id'),$(this).next().text() ,$(this).is(":checked"));
-      $(this).parent().submit();
       filter.submitAndScrollUp();
+      $(this).parent().submit();      
       $('form#filter').find("input[type='checkbox']").attr("disabled", "true");
    });
 }
