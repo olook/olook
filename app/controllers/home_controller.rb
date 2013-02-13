@@ -5,6 +5,9 @@ class HomeController < ApplicationController
     @google_path_pixel_information = "Home"
     @chaordic_user = ChaordicInfo.user current_user
 
+    @top5 = fetch_products :top5
+    @stylist = fetch_products :selection
+
     if params[:share]
       @user = User.find(params[:uid])
       @profile = @user.profile_scores.first.try(:profile).try(:first_visit_banner)
@@ -18,5 +21,11 @@ class HomeController < ApplicationController
       flash[:notice] = flash[:notice]
     end
   end
+
+
+  private 
+    def fetch_products label
+      Product.where("id in (?)", Setting.send("home_#{label}").split(","))      
+    end
 
 end

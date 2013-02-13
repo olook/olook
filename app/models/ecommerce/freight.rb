@@ -5,12 +5,16 @@ class Freight < ActiveRecord::Base
 
   validates_presence_of :address_id
   validates_presence_of :shipping_service_id
-  
+
   validates :price, :presence => true, :numericality => { :greater_than_or_equal_to => 0.0 }
   validates :cost, :presence => true, :numericality => { :greater_than_or_equal_to => 0.0 }
   validates :delivery_time, :presence => true, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
 
   before_create :set_address_fields
+
+  def shipping_service_name
+    shipping_service.name
+  end
 
   private
   def set_address_fields
