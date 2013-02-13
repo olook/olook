@@ -104,7 +104,7 @@ jQuery(function() {
   });
 
   if ($('.pagination').length) {
-    InfititeScroll(window, document)
+    InfititeScroll(window, document);
   }
 });
 
