@@ -207,8 +207,15 @@ $(function(){
   filter.init();
 
   $('#filter').change(function() {
+
+    //TODO: the following lines are duplicated
+    $('.loading').show();
     var selected_sort = $(this).val() ;
     $('#sort_filter').val(selected_sort);
+    $("#products").fadeOut("slow", function() {
+      $(this).fadeIn("slow").html("");
+    });
+
     $('form#filter').submit();
   });
 
