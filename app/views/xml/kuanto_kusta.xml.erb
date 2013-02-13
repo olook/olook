@@ -15,7 +15,7 @@
       <nparcela></nparcela>
       <vparcela></vparcela>
       <url>
-        <%= product.product_url(utm_source: "kuanto_kusta", utm_content: "olook" ) %></url>
+        <%= product.product_url(utm_source: "kuanto_kusta").gsub("utm_content=#{ product.id }&", "") %></url>
       <url_imagem>
         <%= first_image_of product %></url_imagem>
       <departamento><%= product.category_humanize %></departamento>
