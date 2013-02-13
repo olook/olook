@@ -108,6 +108,10 @@ module ApplicationHelper
     params[:controller] == "moments" && params[:action] == "show" && @featured_products
   end
 
+  def protocol
+    Rails.env.production? ? 'https' : 'http'
+  end
+
   private
 
     def ga_event_referer

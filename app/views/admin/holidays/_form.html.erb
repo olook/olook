@@ -1,0 +1,26 @@
+<%= form_for([:admin, @holiday]) do |f| %>
+  <% if @holiday.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@holiday.errors.count, "error") %> prohibited this coupon from being saved:</h2>
+
+      <ul>
+      <% @holiday.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label "Data do evento" %><br />
+    <%= f.date_select :event_date, :default => Time.now%>
+  </div>
+  <div class="field">
+    <%= f.label "Nome" %><br />
+    <%= f.text_field :name %>
+  </div>
+  <br />
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
