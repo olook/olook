@@ -28,20 +28,30 @@ describe Admin::PromotionsController do
 
     describe "POST create" do
       describe "with valid params" do
+
+        let!(:rule_parameter) {  FactoryGirl.build(:rule_parameter, promotion_rule_id: 1).attributes  }
+        let!(:action_parameter) {  FactoryGirl.build(:action_parameter, promotion_action_id: 1).attributes  }
+
         it "creates a new Promotion" do
           expect {
-            post :create, :promotion => valid_attributes
+            attrs = { rule_parameters_attributes: rule_parameter }.merge({ action_parameter_attributes: action_parameter })
+            attributes = valid_attributes.merge(attrs)
+            post :create, :promotion => attributes
           }.to change(Promotion, :count).by(1)
         end
 
         it "assigns a newly created promotion as @promotion" do
-          post :create, :promotion => valid_attributes
+          attrs = { rule_parameters_attributes: rule_parameter }.merge({ action_parameter_attributes: action_parameter })
+          attributes = valid_attributes.merge(attrs)
+          post :create, :promotion => attributes
           assigns(:promotion).should be_a(Promotion)
           assigns(:promotion).should be_persisted
         end
 
         it "redirects to the created promotion" do
-          post :create, :promotion => valid_attributes
+          attrs = { rule_parameters_attributes: rule_parameter }.merge({ action_parameter_attributes: action_parameter })
+          attributes = valid_attributes.merge(attrs)
+          post :create, :promotion => attributes
           response.should redirect_to(admin_promotion_path(Promotion.last))
         end
       end

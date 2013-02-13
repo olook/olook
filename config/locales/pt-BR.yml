@@ -281,6 +281,7 @@
             not_delivered: "Não entregue"
 
     models:
+      promotion: Promoção
       address: Endereço
       credit_card: Cartão de crédito
       user: Usuário
@@ -289,6 +290,13 @@
       gift_occasion_type: "tipo de ocasião"
       gift_recipient_relation: "relacionamento"
     attributes:
+      promotion:
+        name: Nome
+        starts_at: Inicia em
+        ends_at: Termina em
+        description: Descrição
+        active: Ativa?
+        
       address:
         city: Cidade
         complement: Complemento

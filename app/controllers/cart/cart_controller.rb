@@ -6,7 +6,7 @@ class Cart::CartController < ApplicationController
 
   def show
     @google_path_pixel_information = "Carrinho"
-    @google_cart_pixel_information = @cart
+    @google_pixel_information = @cart
     @report  = CreditReportService.new(@user)
     @url = request.protocol + request.host
     @url += ":" + request.port.to_s if request.port != 80
@@ -26,7 +26,7 @@ class Cart::CartController < ApplicationController
 
     unless should_apply?(coupon, @cart)
       params[:cart].delete(:coupon_code)
-      render :error, :locals => { :notice => "A promoção é mais vantajosa que o cupon" }
+      render :error, :locals => { :notice => "A promoção é mais vantajosa que o cupom" }
     end
 
     unless @cart.update_attributes(params[:cart])
