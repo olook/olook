@@ -59,6 +59,7 @@ Olook::Application.routes.draw do
   match '/slippers', to: "moments#show", as: "slippers", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["slipper"]}
   match '/sandalias', to: "moments#show", as: "sandalias", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["sandalia"]}
   match '/scarpins', to: "moments#show", as: "scarpins", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["scarpin"]}
+  match '/anabelas', to: "moments#show", as: "anabelas", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["anabela"]}
 
 
   match '/bolsas', to: "moments#show", as: "bags", :defaults => {:category_id => Category::BAG, :id => 1}
@@ -151,7 +152,10 @@ Olook::Application.routes.draw do
   devise_for :admins
 
   namespace :admin do
-    match "/", :to => "index#dashboard"
+    get "/", :to => "dashboard#index"
+    get "/report_detail", to: "dashboard#show"
+    match "/orders_status_report", to: "dashboard#orders_status_report"
+    match "/orders_time_report", to: "dashboard#orders_time_report"
 
     get 'product_autocomplete' => 'products#autocomplete_information'
     resources :products do
@@ -226,6 +230,7 @@ Olook::Application.routes.draw do
 
     end
     resources :coupons, :except => [:destroy]
+    resources :holidays
     resources :landing_pages
     resources :promotions
     resources :liquidations do

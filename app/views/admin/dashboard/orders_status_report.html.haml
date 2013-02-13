@@ -1,0 +1,56 @@
+%h1 Status do pedido
+
+- content_for :sidebar do
+  .block
+  %h3 Filtros
+  .content
+    %p
+      =form_tag(admin_orders_status_report_path) do
+        .group
+          %p
+            %b
+              =label_tag 'Transportadora'
+            %br
+              =select_tag "shipping_service_name",  options_for_select(["TEX", "PAC"], params[:shipping_service_name]), include_blank: true
+        .group
+          %p
+            %b
+              =label_tag 'Estado'
+            %br
+              =select_tag "freight_state",  options_for_select(Address::STATES, params[:freight_state]), include_blank: true
+        .group
+          %p
+            =submit_tag "Filtrar"
+
+
+.inner
+  %table.table
+    %tr
+      %th Prazo para despacho
+      %th Pago
+      %th Aguardando Separação
+      %th Despachado
+      %th Entregue
+      %th TOTAL
+
+    - @report_days.each do |day_number|
+      %tr{:id => "#{day_number}_dias"}
+        %td= I18n.t("date.day_names")[day_number.days.ago.wday]
+
+        %td{:id => "authorized"}= report_days_link({total: @authorized[day_number], day_number: day_number,  state: 'authorized'}.merge!(params.slice(:action, :freight_state, :shipping_service_name)))
+
+        %td{:id => "picking"}= report_days_link({total: @picking[day_number], day_number: day_number,  state: "picking"}.merge!(params.slice(:action, :freight_state, :shipping_service_name)))
+
+        %td{:id => "delivering"}= report_days_link({total: @delivering[day_number], day_number: day_number,  state: "delivering"}.merge!(params.slice(:action, :freight_state, :shipping_service_name)))
+
+        %td{:id => "delivered"}= report_days_link({total: @delivered[day_number], day_number: day_number,  state: "delivered"}.merge!(params.slice(:action, :freight_state, :shipping_service_name)))
+
+        %td{:id => "total"}= report_days_link({total: @totals[day_number], day_number: day_number}.merge!(params.slice(:action, :freight_state, :shipping_service_name)))
+
+    %tr
+      %td TOTAL
+      %td{:id => "total_authorized"}= @authorized_total
+      %td{:id => "total_picking"}=    @picking_total
+      %td{:id => "total_delivering"}= @delivering_total
+      %td{:id => "total_delivered"}=  @delivered_total
+      %td{:id => "grand_total"}=      @grand_total
