@@ -205,8 +205,11 @@ filter.cleanFilter = function(){
 
 $(function(){
   filter.init();
-  $('#order_filter').change(function() {
-     $("form#filter").submit();
-   });
- 
+
+  $('#filter').change(function() {
+    var selected_sort = $(this).val() ;
+    $('#sort_filter').val(selected_sort);
+    $('form#filter').submit();
+  });
+
 })
