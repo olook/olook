@@ -79,7 +79,7 @@ FactoryGirl.define do
     end    
   end
   
-  factory :order_with_payment_authorized, :class => Order do
+  factory :order_with_waiting_payment, :class => Order do
     association :freight, :factory => :freight
     association :user, :factory => :member
     state "waiting_payment"

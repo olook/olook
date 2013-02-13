@@ -1,7 +1,5 @@
 <!-- Google -->
-
 <!-- Google Analytics-->
-
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', "<%= ANALYTICS_CONFIG['analytics_id'] %>" ]);
@@ -27,11 +25,11 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 var google_tag_params = {
-      prodid:"<%= @product.id if @product%>",
-      pagetype:"<%= @google_path_pixel_information if @google_path_pixel_information%>",
-      pname:"<%= @product.name if @product%>",
-      pcat:"<%= @product.category_humanize if @product%>",
-      value:"<%= @product.retail_price if @product%>"
+      prodid:"<%= google_ids @google_pixel_information %>",
+      et:"<%= @google_path_pixel_information if @google_path_pixel_information %>",
+      pname:"<%= google_name @google_pixel_information %>",
+      pcat:"<%= google_cat @google_pixel_information %>",
+      pvalues:"<%= google_value @google_pixel_information %>"
 };
 /* ]]> */
 </script>
