@@ -7,6 +7,10 @@
   <% if user_signed_in? %>
     _gaq.push(['_setCustomVar',2,'Age','<%= current_user.age %>',1]);
     _gaq.push(['_setCustomVar',3,'Profile','<%= current_user.profile_name %>',1]);
+    _gaq.push(['_setCustomVar',4,'Purchases','<%= current_user.orders.purchased.size %>',1]);
+    <% if !current_user.facebook_token.blank? %>
+      _gaq.push(['_setCustomVar',5,'Facebook','FB',1]);
+    <% end %>
   <% end %>
   _gaq.push(['_trackPageview']);
 </script>
