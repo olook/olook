@@ -61,3 +61,6 @@ Setting.defaults[:featured_bag_label] = "Bolsas mais vendidas"
 Setting.defaults[:featured_bag_ids] = "11449,11461,11467,11437,11189,11501,11229"
 Setting.defaults[:featured_accessory_label] = "Acessorios mais vendidos"
 Setting.defaults[:featured_accessory_ids] = "13179,14082,13255,13173,13165"
+
+# Image cache settings
+Setting.defaults[:image_expiration_period_in_days] = "1"

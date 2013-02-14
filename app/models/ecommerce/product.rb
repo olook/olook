@@ -177,7 +177,9 @@ class Product < ActiveRecord::Base
   end
 
   def return_catalog_or_suggestion_image(picture)
-    picture.try(:image_url, :catalog) || picture.try(:image_url, :suggestion)
+    Rails.cache.fetch("catalog_image_for_product#{id}", expires_in: Setting.image_expiration_period_in_days.to_i.days) do 
+      picture.image.catalog.file.exists? ? picture.try(:image_url, :catalog) : picture.try(:image_url, :suggestion)
+    end
   end
 
   def master_variant
