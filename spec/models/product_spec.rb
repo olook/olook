@@ -13,7 +13,7 @@ describe Product do
     it { should have_many(:catalogs) }
     it { should belong_to(:collection) }
     it { should have_and_belong_to_many(:profiles) }
-    
+
     it { should respond_to :backside_picture }
     it { should respond_to :wearing_picture }
     it { should respond_to :remove_freebie }
@@ -34,8 +34,8 @@ describe Product do
     context "when there is two featured products configured" do
       before do
         featured_products = [
-          mock_model(Product, inventory_without_hiting_the_database: 1), 
-          mock_model(Product, inventory_without_hiting_the_database: 0)
+          mock_model(Product, inventory_without_hiting_the_database: 2),
+          mock_model(Product, inventory_without_hiting_the_database: 1)
         ]
 
         Product.should_receive(:fetch_all_featured_products_of)
@@ -403,11 +403,41 @@ describe Product do
     describe '#catalog_picture' do
       it "should return the picture sized image if it exists" do
         mock_picture.stub(:image_url).with(:catalog).and_return(:valid_image)
+        mock_picture.stub(:display_on).and_return(1)
         subject.stub(:main_picture).and_return(mock_picture)
+        subject.stub(:fetch_cache_for).and_return(:valid_image)
         subject.catalog_picture.should == :valid_image
       end
       it "should return nil if it doesn't exist" do
         subject.catalog_picture.should be_nil
+      end
+    end
+
+    describe '#return_catalog_or_suggestion_image' do
+      context "when product has picture" do
+        before :each do
+          mock_picture.stub(:image_url).with(:catalog).and_return(:valid_image)
+          mock_picture.stub(:display_on).and_return(1)
+          subject.stub(:main_picture).and_return(mock_picture)
+        end
+
+        it "returns catalog picture" do
+          subject.stub(:fetch_cache_for).and_return(:valid_image)
+          subject.return_catalog_or_suggestion_image(mock_picture).should eq(:valid_image)
+        end
+
+        it "returns suggestion picture" do
+          mock_picture.stub(:image_url).with(:suggestion).and_return(:suggestion_image)
+          subject.stub(:fetch_cache_for).and_return(:suggestion_image)
+          subject.return_catalog_or_suggestion_image(mock_picture).should eq(:suggestion_image)
+        end
+      end
+
+      context "when product has no picture" do
+        it "returns nil" do
+          mock_picture = nil
+          subject.return_catalog_or_suggestion_image(mock_picture).should be_nil
+        end
       end
     end
 

@@ -16,7 +16,7 @@ describe CampaignEmailNotificationMailer do
     end
 
     it "sets 'title' attribute welcoming the new member" do
-      mail.subject.should == "Use agora mesmo seus 20% de desconto!"
+      mail.subject.should == "Recebemos seu e-mail. Agora é hora de descobrir o seu estilo"
     end
 
     it "sets 'headers' with welcome_email category json" do
