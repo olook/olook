@@ -51,7 +51,7 @@ filter.endlessScroll = function(window, document){
 filter.submitAndScrollUp = function(){
   $("form#filter").submit(function() {
     $('.loading').show();
-    var selected_sort = $("select#filter").val() ;
+    var selected_sort = $("select#filter_option").val() ;
     $('#sort_filter').val(selected_sort);    
     // $('#sort_filter').val($("#filter").find("input:checked").val());
     $("#products").fadeOut("slow", function() {
@@ -213,7 +213,7 @@ filter.cleanFilter = function(){
 $(function(){
   filter.init();
 
-  $('#filter').change(function() {
+  $('#filter_option').change(function() {
 
     //TODO: the following lines are duplicated
     $('.loading').show();
