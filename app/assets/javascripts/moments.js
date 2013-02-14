@@ -3,7 +3,7 @@ var filter = {};
 
 filter.init = function(){
   /**
-  * mode can be "wearing" or "product"
+  * visualization_mode can be "wearing" or "product"
   */
   filter.visualization_mode = "product";
   filter.endlessScroll(window, document);
@@ -13,15 +13,28 @@ filter.init = function(){
   filter.bindObjects();
   filter.changeVisualization();
   filter.displayCleanCategories();
+
+}
+filter.spyOverChangeImage = function(){
+   $(".spy").on({
+      mouseover: function() {
+         var backside_image = $(this).parents(".hover_suggestive").next().find("img").attr('data-backside');
+         $(this).parents(".hover_suggestive").next().find("img").attr('src', backside_image);
+       },
+       mouseout: function() {
+         var showroom_image = $(this).parents(".hover_suggestive").next().find("img").attr('data-product');
+         $(this).parents(".hover_suggestive").next().find("img").attr('src', showroom_image);
+       }
+   });
 }
 filter.setMouseOverOnImages = function() {
-  $('img.async').mouseover(function () {
-    var backside_image = $(this).attr('data-backside');
-    $(this).attr('src', backside_image);
-  }).mouseout(function () {
-    var showroom_image = $(this).attr('data-product');
-    $(this).attr('src', showroom_image);
-  });
+     $('img.async').mouseover(function () {
+       var backside_image = $(this).attr('data-backside');
+       $(this).attr('src', backside_image);
+     }).mouseout(function () {
+       var showroom_image = $(this).attr('data-product');
+       $(this).attr('src', showroom_image);
+     });
 }
 filter.showAllImages = function() {
   var field_name = 'data-' + filter.visualization_mode;
@@ -30,8 +43,8 @@ filter.showAllImages = function() {
     var image = $(this).attr(field_name);
     $(this).attr('src', image);
   });
-  filter.setMouseOverOnImages();
- 
+ // filter.setMouseOverOnImages(filter.visualization_mode);
+  //filter.spyOverChangeImage(filter.visualization_mode);
 }
 filter.endlessScroll = function(window, document){
    var url;
@@ -190,12 +203,12 @@ filter.changeVisualization = function(){
    $(".exhibition-mode p span").bind('click', function(){
       if($(this).hasClass("product")){
          filter.visualization_mode = "product";
-         filter.showAllImages();
+         filter.showAllImages(filter.visualization_mode);
          $(this).addClass("selected").next().next().removeClass("selected");
       }
       else{
          filter.visualization_mode = "wearing";
-         filter.showAllImages();
+         filter.showAllImages(filter.visualization_mode);
          $(this).addClass("selected").prev().prev().removeClass("selected");
       }
    })
@@ -214,7 +227,6 @@ $(function(){
   filter.init();
 
   $('#filter_option').change(function() {
-
     //TODO: the following lines are duplicated
     $('.loading').show();
     var selected_sort = $(this).val() ;
