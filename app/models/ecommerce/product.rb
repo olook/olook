@@ -7,6 +7,7 @@ class Product < ActiveRecord::Base
   #has_paper_trail :skip => [:pictures_attributes, :color_sample]
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
   MINIMUM_INVENTORY_FOR_XML = 3
+  CACHE_KEY = "C_I_P_"
   has_enumeration_for :category, :with => Category, :required => true
 
   after_create :create_master_variant
@@ -177,13 +178,7 @@ class Product < ActiveRecord::Base
   end
 
   def return_catalog_or_suggestion_image(picture)
-    img = nil
-    if picture
-      img = fetch_cache_for(picture) do
-        picture.image.catalog.file.exists? ? picture.try(:image_url, :catalog) : picture.try(:image_url, :suggestion)
-      end
-    end
-    img
+    fetch_cache_for(picture) if picture
   end
 
   def master_variant
@@ -419,7 +414,9 @@ class Product < ActiveRecord::Base
     end
 
     def fetch_cache_for(picture)
-      Rails.cache.fetch("catalog_image_for_product_#{id}_pos_#{picture.display_on}", expires_in: Setting.image_expiration_period_in_days.to_i.days)
+      Rails.cache.fetch(CACHE_KEY+"#{id}d#{picture.display_on}", expires_in: Setting.image_expiration_period_in_days.to_i.days) do        
+        picture.image.catalog.file.exists? ? picture.try(:image_url, :catalog) : picture.try(:image_url, :suggestion)
+      end
     end
 
 end
