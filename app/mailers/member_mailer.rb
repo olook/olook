@@ -35,7 +35,7 @@ class MemberMailer < ActionMailer::Base
     if @member.half_user
       "#{@member.name}, seja bem vind#{@member.male? ? 'o' : 'a'}! Seu cadastro foi feito com sucesso!"
     else
-      "#{@member.name}, use agora mesmo seus 20% de desconto!"
+      "#{@member.name}, bem vinda! Agora que sabemos o seu estilo..."
     end
   end
 end

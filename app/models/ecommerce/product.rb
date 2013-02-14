@@ -54,7 +54,7 @@ class Product < ActiveRecord::Base
   scope :search, lambda { |value| { :conditions => ([ "name like ? or model_number = ?", "%#{value}%", value ] unless value.blank? || value.nil?) } }
 
   def self.featured_products category
-    products = fetch_all_featured_products_of category   
+    products = fetch_all_featured_products_of category
     remove_sold_out products
     # TODO => it is still missing the removal of sold out specifc variants (shoe number)
   end
@@ -179,7 +179,7 @@ class Product < ActiveRecord::Base
   def return_catalog_or_suggestion_image(picture)
     img = nil
     if picture
-      img = Rails.cache.fetch("catalog_image_for_product_#{id}_pos_#{picture.display_on}", expires_in: Setting.image_expiration_period_in_days.to_i.days) do 
+      img = Rails.cache.fetch("catalog_image_for_product_#{id}_pos_#{picture.display_on}", expires_in: Setting.image_expiration_period_in_days.to_i.days) do
         picture.image.catalog.file.exists? ? picture.try(:image_url, :catalog) : picture.try(:image_url, :suggestion)
       end
     end
@@ -351,6 +351,10 @@ class Product < ActiveRecord::Base
     variants.inject(0) {|total, variant| total += variant.inventory}
   end
 
+  def self.fetch_products label
+    where("id in (?)", Setting.send("home_#{label}").split(","))
+  end
+
   private
 
     def self.fetch_all_featured_products_of category
@@ -359,7 +363,7 @@ class Product < ActiveRecord::Base
         product_ids = Setting.send("featured_#{category_name}_ids").split(",")
         includes(:variants).where("id in (?) and category = ?", product_ids, category)
       end
-    end  
+    end
 
     def self.remove_sold_out products
       products.select {|product| product.inventory_without_hiting_the_database > 0}
