@@ -19,7 +19,9 @@ class ShowroomPresenter < BasePresenter
 
   def display_products(asked_range, category, collection = Collection.active, user=nil)
     product_finder_service = ProductFinderService.new member, admin, collection
-    products = product_finder_service.products_from_all_profiles(:category => category, :collection => collection)
+    products = product_finder_service.products_from_all_profiles(:category => category, 
+                                                                 :collection => collection, 
+                                                                 :not_allow_sold_out_products => true)
     range = parse_range(asked_range, products)
     output = ''
     (products[range] || []).each do |product|
