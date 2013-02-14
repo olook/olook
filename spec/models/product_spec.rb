@@ -34,8 +34,8 @@ describe Product do
     context "when there is two featured products configured" do
       before do
         featured_products = [
-          mock_model(Product, inventory_without_hiting_the_database: 1),
-          mock_model(Product, inventory_without_hiting_the_database: 0)
+          mock_model(Product, inventory_without_hiting_the_database: 2),
+          mock_model(Product, inventory_without_hiting_the_database: 1)
         ]
 
         Product.should_receive(:fetch_all_featured_products_of)
