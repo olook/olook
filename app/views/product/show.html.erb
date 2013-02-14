@@ -47,6 +47,22 @@
   </div>
 <% end %>
 <% content_for :footer do %>
+<div id="compartilhar_email" style="display: block;">
+<p>COMPARTILHAR POR E-MAIL</p>
+  <form>
+    <fieldset>
+          <label>Para <span>(para enviar para  vários contatos, separe os e-mails com vírgula)</span></label>
+          <input class="fields" size="30" type="email">
+    </fieldset>
+      <fieldset>
+          <label>De <span>(seu e-mail)</span></label>
+          <input class="fields" size="30" type="email">
+    </fieldset>
+    <fieldset>
+          <input id="send" type="submit"/>
+    </fieldset>
+  </form>  
+</div>
   <%= render partial: "shared/metrics/sociomantic/product", :locals => { product_id: @product.id } %>
   <%= render partial: "shared/metrics/criteo/product_page_tracker", :locals => { product_id: @product.id } %>
   <%= render partial: "shared/metrics/triggit/product", :locals => { product_id: @product.id } %>
