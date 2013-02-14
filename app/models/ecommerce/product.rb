@@ -179,7 +179,7 @@ class Product < ActiveRecord::Base
   def return_catalog_or_suggestion_image(picture)
     img = nil
     if picture
-      img = Rails.cache.fetch("catalog_image_for_product_#{id}_pos_#{picture.display_on}", expires_in: Setting.image_expiration_period_in_days.to_i.days) do
+      img = fetch_cache_for(picture) do
         picture.image.catalog.file.exists? ? picture.try(:image_url, :catalog) : picture.try(:image_url, :suggestion)
       end
     end
@@ -418,4 +418,9 @@ class Product < ActiveRecord::Base
       query += "NOT IN (:products_blacklist) AND products.collection_id NOT IN (:collections_blacklist)"
     end
 
+    def fetch_cache_for(picture)
+      Rails.cache.fetch("catalog_image_for_product_#{id}_pos_#{picture.display_on}", expires_in: Setting.image_expiration_period_in_days.to_i.days)
+    end
+
 end
+
