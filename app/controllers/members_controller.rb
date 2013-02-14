@@ -82,6 +82,7 @@ class MembersController < ApplicationController
     @chaordic_user = ChaordicInfo.user current_user
     if @user.half_user
       if @user.female?
+        prepare_for_home
         return render "/home/index"
       else
         return redirect_to lookbooks_path, :alert => flash[:notice]

@@ -9,7 +9,7 @@
       <li><%= "#{address.city}, #{address.state}" %></li>
       <li><%= link_to "Alterar endereço", edit_checkout_address_path(address), remote: true, onclick: track_event("CheckoutAddress","clickChangeAddress") %></li>
     </ul>
-  <% end %>
+  <% end %> 
 <% end %>
 <% if @user.addresses && @user.addresses.select{|address| address.id }.any?  %>
 <p class="new_address"><%= link_to "+ Adicionar novo endereço", new_checkout_address_path, remote: true, onclick: track_event("CheckoutAddress","clickAddAddress") %></p>
