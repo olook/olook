@@ -51,7 +51,7 @@ module ApplicationHelper
 
   def member_type
     if user_signed_in?
-      current_user.half_user ? 'half' : 'full'
+      current_user.half_user ? 'half' : 'quiz'
     else
       'visitor'
     end

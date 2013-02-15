@@ -124,7 +124,7 @@ describe ApplicationHelper do
       it "returns full when user is not half_user" do
         helper.stub(:'user_signed_in?').and_return(true)
         helper.stub_chain('current_user.half_user').and_return(false)
-        helper.member_type.should == "full"
+        helper.member_type.should == "quiz"
       end
     end
   end
