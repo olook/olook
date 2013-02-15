@@ -115,9 +115,16 @@ describe ApplicationHelper do
     end
 
     context "when user is logged in" do
-      it "returns member" do
+      it "returns half when user is half_user" do
         helper.stub(:'user_signed_in?').and_return(true)
-        helper.member_type.should == "member"
+        helper.stub_chain('current_user.half_user').and_return(true)
+        helper.member_type.should == "half"
+      end
+
+      it "returns full when user is not half_user" do
+        helper.stub(:'user_signed_in?').and_return(true)
+        helper.stub_chain('current_user.half_user').and_return(false)
+        helper.member_type.should == "full"
       end
     end
   end
