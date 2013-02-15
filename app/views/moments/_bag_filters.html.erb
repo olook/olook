@@ -1,10 +1,14 @@
 <div class="filter main">
-  <h1 class="purse">Bolsas</h1>
-  <ol>
-    <li>
+  <% unless is_moment_page? %>
+  <h1 class="purse">BOLSAS</h1>
+  <% end %>
+  <p class="filter_type opened">Modelo</p>
+  <button type="button" class="clear_filter">( limpar )</button>
+  <ol class="open">
+    <!--li>
       <%= check_box_tag "select_all_bags", 1, params[:select_all_bags], :class => "select_all" %>
       <%= label_tag "select_all_bags", "Todas as bolsas" %>
-    </li>
+    </li-->
     <% moment_presenter.moment.catalog.bags.each do |subcategory,label| %>
       <% unless subcategory.nil? && label.nil? %>
         <li>

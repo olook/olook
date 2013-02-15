@@ -1,6 +1,6 @@
 $(document).ready(function() {
   $("div#carousel ul").carouFredSel({
-    auto: false,
+    auto: true,
     prev : {
       button : ".prev-item",
       key : "left"

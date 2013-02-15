@@ -1,15 +1,19 @@
 <div class="filter main">
-  <h1 class="shoes">Sapatos</h1>
-  <ol>
-    <li>
+  <% unless is_moment_page? %>
+    <h1 class="shoes">SAPATOS</h1>
+  <% end %>
+  <p class="filter_type opened">Modelo</p>
+  <button type="button" class="clear_filter">( limpar )</button>
+  <ol class="open">
+    <!--li>
       <%= check_box_tag "select_all_shoes", 1, params[:select_all_shoes], :class => "select_all" %>
-      <%= label_tag "select_all_shoes", "Todos os sapatos" %>
-    </li>
+      <%= label_tag "select_all_shoes", "VER TODOS" %>
+    </li-->
 
   <% moment_presenter.moment.catalog.subcategories(Category::SHOE).each do |subcategory,label| %>
     <% unless subcategory.nil? && label.nil? %>
       <li>
-        <%= check_box_tag('shoe_subcategories[]', subcategory, params[:shoe_subcategories] && params[:shoe_subcategories].include?(subcategory) || params[:select_all_shoes], :id => subcategory) %>
+        <%= check_box_tag('shoe_subcategories[]', subcategory, params[:shoe_subcategories] && params[:shoe_subcategories].include?(subcategory) || params[:select_all_shoes], :id => subcategory.gsub("-","")) %>
         <%= label_tag(label, nil, :for => subcategory) %>
       </li>
     <% end %>
