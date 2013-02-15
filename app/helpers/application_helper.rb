@@ -50,7 +50,11 @@ module ApplicationHelper
   end
 
   def member_type
-    user_signed_in? ? 'member' : 'visitor'
+    if user_signed_in?
+      current_user.half_user ? 'half' : 'full'
+    else
+      'visitor'
+    end
   end
 
   def quantity_status(product, user)
