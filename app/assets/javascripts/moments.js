@@ -13,8 +13,9 @@ filter.init = function(){
   filter.bindObjects();
   filter.changeVisualization();
   filter.displayCleanCategories();
-
+  filter.setMouseOverOnImages();
 }
+
 filter.spyOverChangeImage = function(){
    $(".spy").on({
       mouseover: function() {
@@ -32,7 +33,8 @@ filter.setMouseOverOnImages = function() {
        var backside_image = $(this).attr('data-backside');
        $(this).attr('src', backside_image);
      }).mouseout(function () {
-       var showroom_image = $(this).attr('data-product');
+       var field_name = 'data-' + filter.visualization_mode;    
+       var showroom_image = $(this).attr(field_name);
        $(this).attr('src', showroom_image);
      });
 }
