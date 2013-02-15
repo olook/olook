@@ -26,7 +26,6 @@
     <!--[if IE]>
     <%= javascript_include_tag "html5.js" %>
     <![endif]-->
-    <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
 
 
   </head>
@@ -52,20 +51,20 @@
 
     </div>
 
+
+    <%= yield :site_footer %>
+    <%= render "shared/lightbox_credits" %>
+    <%= javascript_include_tag "application" %>
     <% if user_signed_in? %>
       <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
     <% else %>
       <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal &&  !['landing_pages','survey', 'users/registrations'].include?(params[:controller]) %>
     <% end %>
 
+    <% if content_for? :footer %>
+      <%= yield :footer %>
+    <% end %>
 
-  <%= yield :site_footer %>
-  <%= render "shared/lightbox_credits" %>
-  <%= javascript_include_tag "application" %>
-  <% if content_for? :footer %>
-    <%= yield :footer %>
-  <% end %>
-
-  <%= render :partial => "shared/metrics/master_tags" %>
-</body>
+    <%= render :partial => "shared/metrics/master_tags" %>
+  </body>
 </html>
