@@ -364,9 +364,10 @@ class Product < ActiveRecord::Base
     def self.find_keeping_the_order product_ids
       products =  includes(:variants).where("id in (?)", product_ids).all
       
-      product_ids.map do |product_id|
+      sorted_products = product_ids.map do |product_id|
         products.find { |product| product.id == product_id.to_i }
       end
+      sorted_products.compact
     end
 
     def self.remove_sold_out products
