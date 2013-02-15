@@ -122,7 +122,7 @@ describe Order do
         expect(order_with_waiting_payment.expected_delivery_on).to_not be_nil
 
         delivery_date = order_with_waiting_payment.freight.delivery_time.business_days.from_now
-        expect(order_with_waiting_payment.expected_delivery_on.to_s).to eq(delivery_date.to_s)
+        expect(order_with_waiting_payment.expected_delivery_on.to_s).to eql(delivery_date.to_s)
       end
 
       it "sets #shipping_service_name" do

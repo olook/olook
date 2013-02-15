@@ -463,7 +463,7 @@ initBase = {
 			show: {
 			        effect: "bounce",
 			        duration: 500,
-							options:{direction:"linear"}
+							options:{direction:"right"}
 			      },
 			position: { my: "center", at: "center", of: window },
       close: function(event) {

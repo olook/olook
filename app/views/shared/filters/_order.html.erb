@@ -2,8 +2,8 @@
   <%= form_for "" do %>
     <ol>
       <li class="select">
-        <%= label_tag "Ordenar por:" %>
-        <%= select_tag('order_filter', options_for_select({"Menor preço" => 1, "Categoria" => 0, "Maior preço" => 2}), :class => "custom_select") %>
+        <%= label_tag "ordenação: " %>
+        <%= select_tag('filter_option', options_for_select({"Relevância" => 0, "Menor preço" => 1, "Maior preço" => 2}), :class => "custom_select") %>
       </li>
     </ol>
   <% end %>

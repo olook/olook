@@ -14,14 +14,14 @@
     <li class="exchange">DEVOLUÇÃO E TROCA<br />GRÁTIS em até 30 DIAS</li>
     <li class="discount">GANHE 15% DE VOLTA<br />Em crédito para compras acima de R$ 100</li>
   </ul>
-  <%= render "carousel" %>
-  <%= render "week_highlights" %>
+  <%= render "home/carousel" %>
+  <%= render "home/week_highlights" %>
   <%= link_to "Olook na imprensa", press_path, id: "press" %>
-  <%= render "top5" %>
-  <%= render "stylists" %>
-  <%= render "boxes" %>
-  <%= render "products_categories" %>
-  <%= render "facebook_box" %>
+  <%= render "home/top5" %>
+  <%= render "home/stylists" %>
+  <%= render "home/boxes" %>
+  <%= render "home/products_categories" %>
+  <%= render "home/facebook_box" %>
 </section>
 
 <%= render partial: 'shared/metrics/criteo/home' %>

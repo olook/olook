@@ -65,7 +65,7 @@ jQuery(function() {
     });
   });
   $('#order_filter').change(function() {
-    $("form#filter").submit();
+    $("form	#filter").submit();
   });
 
   $("#filter").find("input[type='checkbox'].select_all").each(function(i){
@@ -74,8 +74,8 @@ jQuery(function() {
     }
   });
 
-  $("#filter").find("input[type='checkbox'].select_all").live("click", function() {
-    checkbox = this
+  $("#filter").find("input[type='checkbox'].select_all").bind("click", function() {
+    checkbox = this;
     $('div.content nav li a').each(function(i,nav){
       href = $(nav).attr('href');
       if(checkbox.checked){
@@ -91,18 +91,20 @@ jQuery(function() {
     $(this).parents(".filter").find("input[type='checkbox']").not(".select_all").attr("checked", this.checked);
     clearTimeout(submit_moments_form);
     $("form#filter").submit();
+		
   });
 
-  $('#filter').find("input[type='checkbox']").not(".select_all").click(function() {
+  $('#filter').find("input[type='checkbox']").not(".select_all").bind("click", function() {
     if(!$(this).is(":checked")) {
       $(this).parent().siblings("li").find("input[type='checkbox'].select_all").attr("checked", false);
     }
     $(this).parent().submit();
     $('form#filter').find("input[type='checkbox']").attr("disabled", "true");
+
   });
 
   if ($('.pagination').length) {
-    InfititeScroll(window, document)
+    InfititeScroll(window, document);
   }
 });
 

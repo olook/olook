@@ -5,15 +5,21 @@ shoe_size = params[:shoe_sizes].try(:first).try(:to_i) || current_user.try(:shoe
   <%= render "shared/product_hover", :product => product %>
   <div class="box_product <%= quantity_status_moments(product, shoe_size) %>">
     <%= link_to product, :class => "product_link", :rel => "#{product.id}", :remote => defined?(suggestion) do %>
-      <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
-      <h1><%= product.name %></h1>
+
+      <%= image_tag("common/ajax-loader-product.gif", :alt => product.name, :class => "async", "data-product" => product.catalog_picture, "data-backside" => product.backside_picture, "data-wearing" => product.wearing_picture) %>
+      <p><span class="model"><%= product.model_name %></span> <span class="name"><%= product.name %></span></p>
+      <p class="brand">Olook</p>
+
+      <p class="price">
       <% if product.promotion? %>
-        <span class="old">de: <%= number_to_currency product.price %></span>
-        <span>por: <%= number_to_currency product.retail_price %></span>
+        <span class="old">De <%= number_to_currency product.price %></span>
+        <span class="txt-pink">por <%= number_to_currency product.retail_price %></span>
       <% else %>
-        <span><%= number_to_currency product.price %></span>
+        <%= number_to_currency product.price %> ou <span class="plots"><%= installments(product.price) %></span>
       <% end %>
-      <p class="warn sold_out">ESGOTADO</p>
+      </p>
+
+      <p class="warn sold_out"><b>ESGOTADO!</b></p>
 
       <% if shoe_size && product.shoe? -%>
         <p class="warn shoe_size">Tam. <%= "#{shoe_size unless shoe_size.nil?}" %></p>
@@ -29,6 +35,6 @@ shoe_size = params[:shoe_sizes].try(:first).try(:to_i) || current_user.try(:shoe
       <% if product.promotion? && !product.sold_out? && product.discount_percent.to_i != 0 %>
         <p class="warn percentage"><span><%= product.discount_percent.to_i %>%</span><br />off</p>
       <% end %>
-    <% end %>
+    <% end %>    
   </div>
 </li>

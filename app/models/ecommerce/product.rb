@@ -7,6 +7,7 @@ class Product < ActiveRecord::Base
   #has_paper_trail :skip => [:pictures_attributes, :color_sample]
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
   MINIMUM_INVENTORY_FOR_XML = 3
+  CACHE_KEY = "C_I_P_"
   has_enumeration_for :category, :with => Category, :required => true
 
   after_create :create_master_variant
@@ -53,6 +54,12 @@ class Product < ActiveRecord::Base
   scope :in_collection, lambda { |value| { :conditions => ({ collection_id: value } unless value.blank? || value.nil?) } }
   scope :search, lambda { |value| { :conditions => ([ "name like ? or model_number = ?", "%#{value}%", value ] unless value.blank? || value.nil?) } }
 
+  def self.featured_products category
+    products = fetch_all_featured_products_of category
+    remove_sold_out products
+    # TODO => it is still missing the removal of sold out specifc variants (shoe number)
+  end
+
   def self.valid_for_xml(products_blacklist, collections_blacklist)
     products = only_visible.joins(valid_for_xml_join_query).where(valid_for_xml_where_query,
                                                                   :products_blacklist => products_blacklist ,
@@ -79,6 +86,11 @@ class Product < ActiveRecord::Base
 
   def product_id
     id
+  end
+
+  def model_name
+    category_detail = details.find_by_translation_token("Categoria")
+    category_detail ? category_detail.description : ""
   end
 
   def related_products
@@ -131,6 +143,16 @@ class Product < ActiveRecord::Base
     picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
   end
 
+  def backside_picture
+    picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
+    return_catalog_or_suggestion_image(picture)
+  end
+
+  def wearing_picture
+    picture = pictures.order(:display_on).last
+    return_catalog_or_suggestion_image(picture)
+  end
+
   def thumb_picture
     main_picture.try(:image_url, :thumb) # 50x50
   end
@@ -149,6 +171,14 @@ class Product < ActiveRecord::Base
 
   def suggestion_picture
     main_picture.try(:image_url, :suggestion) # 260x260
+  end
+
+  def catalog_picture
+    return_catalog_or_suggestion_image(main_picture)
+  end
+
+  def return_catalog_or_suggestion_image(picture)
+    fetch_cache_for(picture) if picture
   end
 
   def master_variant
@@ -297,20 +327,43 @@ class Product < ActiveRecord::Base
 
   def add_freebie product
     variant_for_freebie = product.variants.first
-    variants.each do |variant| 
+    variants.each do |variant|
       FreebieVariant.create!({:variant => variant, :freebie => variant_for_freebie})
     end
   end
 
   def remove_freebie freebie
     variant_for_freebie = freebie.variants.first
-    variants.each do |variant| 
-      freebie_variants_to_destroy = variant.freebie_variants.where(:freebie_id => variant_for_freebie.id) 
+    variants.each do |variant|
+      freebie_variants_to_destroy = variant.freebie_variants.where(:freebie_id => variant_for_freebie.id)
       freebie_variants_to_destroy.each { |v| v.destroy }
     end
-  end  
+  end
+
+  # Actually, this method only avoid the database if using includes(:variants)
+  # i.e. eager loading variants
+  def inventory_without_hiting_the_database
+    variants.inject(0) {|total, variant| total += variant.inventory}
+  end
+
+  def self.fetch_products label
+    where("id in (?)", Setting.send("home_#{label}").split(","))
+  end
 
   private
+
+    def self.fetch_all_featured_products_of category
+      products = Rails.cache.fetch("featured_products_#{category}", :expires_in => 5.minutes) do
+        category_name = Category.key_for(category).to_s
+        product_ids = Setting.send("featured_#{category_name}_ids").split(",")
+        includes(:variants).where("id in (?) and category = ?", product_ids, category)
+      end
+    end
+
+    def self.remove_sold_out products
+      products.select {|product| product.inventory_without_hiting_the_database > 0}
+    end
+
 
     def create_master_variant
       @master_variant = Variant.new(:is_master => true,
@@ -359,4 +412,12 @@ class Product < ActiveRecord::Base
       query = "x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id "
       query += "NOT IN (:products_blacklist) AND products.collection_id NOT IN (:collections_blacklist)"
     end
+
+    def fetch_cache_for(picture)
+      Rails.cache.fetch(CACHE_KEY+"#{id}d#{picture.display_on}", expires_in: Setting.image_expiration_period_in_days.to_i.days) do        
+        picture.image.catalog.file.exists? ? picture.try(:image_url, :catalog) : picture.try(:image_url, :suggestion)
+      end
+    end
+
 end
+
