@@ -13,7 +13,6 @@ filter.init = function(){
   filter.bindObjects();
   filter.changeVisualization();
   filter.displayCleanCategories();
-  filter.setMouseOverOnImages();
 }
 
 filter.spyOverChangeImage = function(){
@@ -23,7 +22,8 @@ filter.spyOverChangeImage = function(){
          $(this).parents(".hover_suggestive").next().find("img").attr('src', backside_image);
        },
        mouseout: function() {
-         var showroom_image = $(this).parents(".hover_suggestive").next().find("img").attr('data-product');
+         var field_name = 'data-' + filter.visualization_mode;    
+         var showroom_image = $(this).parents(".hover_suggestive").next().find("img").attr(field_name);
          $(this).parents(".hover_suggestive").next().find("img").attr('src', showroom_image);
        }
    });
@@ -45,8 +45,9 @@ filter.showAllImages = function() {
     var image = $(this).attr(field_name);
     $(this).attr('src', image);
   });
- // filter.setMouseOverOnImages(filter.visualization_mode);
-  //filter.spyOverChangeImage(filter.visualization_mode);
+  
+  filter.setMouseOverOnImages();
+  filter.spyOverChangeImage();
 }
 filter.endlessScroll = function(window, document){
    var url;
