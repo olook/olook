@@ -178,7 +178,12 @@ class Product < ActiveRecord::Base
   end
 
   def return_catalog_or_suggestion_image(picture)
-    fetch_cache_for(picture) if picture
+    img = nil
+    begin
+      img = fetch_cache_for(picture) if picture
+    rescue => e
+      Rails.logger.info e
+    end
   end
 
   def master_variant
