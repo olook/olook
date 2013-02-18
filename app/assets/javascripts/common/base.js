@@ -447,31 +447,45 @@ initBase = {
   youtubePlayer : function(yt_id) {
     return "<iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&autoplay=1' frameborder='0' allowfullscreen></iframe>";
   },
+  
+  newModal: function(content,h,w){
+    $("#overlay-campaign").fadeIn(); 
+    $modal = $("div#modal");
+    ml=-parseInt((w/2)+10);
+    mt=-parseInt((h/2)+10);
+    $modal.html("").html(content).css({
+       'height'      : h + 10,
+       'width'       : w + 10,
+       'top'         : '50%',
+       'left'        : '50%',
+       'margin-left' : ml,
+       'margin-top'  : mt
+    })
+    .delay(500).fadeIn();
 
-  modal : function(content) {
+  },
+  
+  modal : function(content, h) {
     $("div#modal").html("");
 
     $("div#modal").prepend(content);
 
     $("div#modal").dialog({
-			height: 'auto',
+		height: h,
       width: 'auto',
       resizable: false,
       draggable: false,
       modal: true,
-			autoOpen: false,
-			show: {
-			        effect: "bounce",
-			        duration: 500,
-							options:{direction:"right"}
-			      },
-			position: { my: "center", at: "center", of: window },
+		autoOpen: false,
+		show: {effect: "bounce",duration: 500,options:{direction:"right"}},
+		position: { my: "center", at: "center", of: window },
       close: function(event) {
         $("div#modal").html("");
         $("div#modal").hide();
       }
     });
-		setTimeout(function(){$( "div#modal" ).dialog( "open" )},700)
+	
+	setTimeout(function(){$("div#modal").dialog( "open" )},1000)
   },
 
   showInfoCredits : function() {

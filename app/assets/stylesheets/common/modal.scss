@@ -11,10 +11,11 @@ html {
 
     .content {
       .dialog {
+        float:left;
         position: absolute;
         left: 0;
         top: 0;
-        height:525px;
+        /*height:525px;*/
         z-index: 20000;
         border:10px solid #000;
         #first_visit {
@@ -86,6 +87,8 @@ html {
 }
 
 div#modal {
+  position:absolute;
+  z-index:99999;
   background: #FFF;
   padding: 0;
   border: 5px #000 solid;
@@ -122,7 +125,8 @@ div#modal {
   .dialog {
     left: 0;
     top: 0;
-    height:525px;
+    float:left;
+    /*height:525px;*/
     z-index: 20000;
     border:10px solid #000;
     #first_visit {
