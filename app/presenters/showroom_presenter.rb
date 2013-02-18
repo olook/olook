@@ -17,15 +17,16 @@ class ShowroomPresenter < BasePresenter
     collection.try(:name) || I18n.l(Date.today, :format => '%B')
   end
 
-  def display_products(asked_range, category, collection = Collection.active, user=nil)
+  def display_products(asked_range, category, collection = Collection.active, user=nil, shoes_size=nil)
     product_finder_service = ProductFinderService.new member, admin, collection
-    products = product_finder_service.products_from_all_profiles(:category => category, 
+    products = product_finder_service.products_from_all_profiles(:category => category,
+                                                                 :description => shoes_size, 
                                                                  :collection => collection, 
                                                                  :not_allow_sold_out_products => true)
     range = parse_range(asked_range, products)
     output = ''
     (products[range] || []).each do |product|
-      product = change_order_using_inventory(product) if user
+      # product = change_order_using_inventory(product) if user
       if product.liquidation?
         output << h.render("shared/promotion_product_item", :liquidation_product => LiquidationProductService.liquidation_product(product))
       else
@@ -36,7 +37,7 @@ class ShowroomPresenter < BasePresenter
   end
 
   def display_shoes(asked_range, collection = Collection.active, user=nil)
-    display_products(asked_range, Category::SHOE, collection, user)
+    display_products(asked_range, Category::SHOE, collection, user, user.try(:shoes_size))
   end
 
   def display_bags(asked_range, collection = Collection.active, user=nil)
