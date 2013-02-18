@@ -172,6 +172,7 @@ div#moments {
     		color:#000;
     		float:left;
     		cursor:pointer;
+    		width:100px;
     		&.opened{background: image-url('moments/sprite.png') right 8px no-repeat;}
     	}
     	h1{font-family: avenir,arial,sans-serif;font-size: 20px;font-weight: lighter;text-transform: uppercase;margin: 5px 0 20px 0;padding: 0 0 5px;
