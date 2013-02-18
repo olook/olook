@@ -11,10 +11,11 @@ html {
 
     .content {
       .dialog {
+        float:left;
         position: absolute;
         left: 0;
         top: 0;
-        height:525px;
+        /*height:525px;*/
         z-index: 20000;
         border:10px solid #000;
         #first_visit {
@@ -86,10 +87,14 @@ html {
 }
 
 div#modal {
-  background: #FFF;
+  position:absolute;
+  z-index:50000;
+  /*background: #FFF;*/
+  /*border: 5px #000 solid;*/ 
   padding: 0;
-  border: 5px #000 solid;
   display: none;
+  a.close{display:block;position: absolute; background: url("/assets/common/close_dialog.png") no-repeat; right: -23px; top: -10px; width: 30px; margin: -10px 0 0 0; padding: 0; height: 30px; z-index: 50001;text-indent:-9999em;}
+
   div.video_description {
     background: #FFF;
     overflow: auto;
@@ -120,9 +125,11 @@ div#modal {
     }
   }
   .dialog {
+
     left: 0;
     top: 0;
-    height:525px;
+    float:left;
+    /*height:525px;*/
     z-index: 20000;
     border:10px solid #000;
     #first_visit {

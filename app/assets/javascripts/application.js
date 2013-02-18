@@ -4,11 +4,10 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
-//= require jquery
 //= require jquery_ujs
-//= require_tree ./plugins
-//= require_tree ./common
 //= require ./ui/jquery.ui.core.min
 //= require ./ui/jquery.ui.position.min
 //= require ./ui/jquery.ui.widget.min
 //= require ./ui/jquery.ui.dialog.min
+//= require_tree ./plugins
+//= require_tree ./common
