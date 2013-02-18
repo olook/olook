@@ -34,7 +34,7 @@
   <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %> <%= "moments" if is_moment_page? %>">
     <%= render 'shared/admin_label' if current_admin %>
 
-    <div id="modal"></div>
+    <div id="modal" class="promo-olook"></div>
     <div id="error-messages">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
