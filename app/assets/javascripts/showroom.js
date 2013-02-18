@@ -105,8 +105,9 @@ $(document).ready(function() {
 
   if($('.dialog.liquidation').length == 1) {
    var content = $('.dialog.liquidation'), h = content.height(), w = content.width();
-    
-    initBase.newModal(content, h, w);
+   
+   initBase.newModal(content, h, w);
+   //initBase.modal(content);
   }
 
   $(".dialog.liquidation :checkbox").live("change", function() {
