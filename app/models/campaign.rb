@@ -27,7 +27,11 @@ class Campaign < ActiveRecord::Base
     start_at.between?(another_campaign.start_at, another_campaign.end_at) || end_at.between?(another_campaign.start_at, another_campaign.end_at)
   end
 
-  def show_banner_for?(controller_name)
+  def show_banner_for?(params)
+    controller_name = params[:controller]
+    action_name = params[:action]
+    return false if (action_name && action_name.downcase == "invite") && controller_name.downcase == "members"
+    
     matched = pages.select {|page| page.controller_name.downcase == controller_name.downcase}
     matched.any?
   end
