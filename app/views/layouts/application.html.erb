@@ -54,6 +54,7 @@
 
     <%= yield :site_footer %>
     <%= render "shared/lightbox_credits" %>
+    <%= javascript_include_tag "jquery" %>
     <%= javascript_include_tag "application" %>
     <% if user_signed_in? %>
       <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
