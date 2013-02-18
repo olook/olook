@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Product < ActiveRecord::Base
 
-  SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto/Tamanho"
+  SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto"
   UNAVAILABLE_ITEMS = :unavailable_items
   # TODO: Temporarily disabling paper_trail for app analysis
   #has_paper_trail :skip => [:pictures_attributes, :color_sample]
