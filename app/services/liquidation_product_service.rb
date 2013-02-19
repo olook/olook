@@ -1,5 +1,6 @@
 class LiquidationProductService
-  SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto/Tamanho"
+  # TODO => This is duplicated in Product.rb
+  SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto"
     
   def self.retail_price product
     price = product.price
