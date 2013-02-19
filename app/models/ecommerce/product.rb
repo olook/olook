@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Product < ActiveRecord::Base
 
-  SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto/Tamanho"
+  SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto"
   UNAVAILABLE_ITEMS = :unavailable_items
   # TODO: Temporarily disabling paper_trail for app analysis
   #has_paper_trail :skip => [:pictures_attributes, :color_sample]
@@ -178,7 +178,12 @@ class Product < ActiveRecord::Base
   end
 
   def return_catalog_or_suggestion_image(picture)
-    fetch_cache_for(picture) if picture
+    img = nil
+    begin
+      img = fetch_cache_for(picture) if picture
+    rescue => e
+      Rails.logger.info e
+    end
   end
 
   def master_variant
