@@ -115,11 +115,76 @@ describe ApplicationHelper do
     end
 
     context "when user is logged in" do
-      it "returns member" do
+      it "returns half when user is half_user" do
         helper.stub(:'user_signed_in?').and_return(true)
-        helper.member_type.should == "member"
+        helper.stub_chain('current_user.half_user').and_return(true)
+        helper.member_type.should == "half"
+      end
+
+      it "returns full when user is not half_user" do
+        helper.stub(:'user_signed_in?').and_return(true)
+        helper.stub_chain('current_user.half_user').and_return(false)
+        helper.member_type.should == "quiz"
       end
     end
   end
+
+  describe "#is_moment_page?" do
+
+    context "when the @featured_products variable is nil" do  
+      before do
+        @featured_products = nil
+      end
+      context "when the controller = 'moments' and action = 'show'" do
+        before do
+          controller.params[:controller] = 'moments'
+          controller.params[:action] = 'show'
+        end
+        it "returns false" do
+          helper.is_moment_page?.should be_false
+        end
+      end
+    end
+
+    context "when the @featured_products variable isn't nil" do  
+      before do
+        @featured_products = ""
+      end
+      context "when the controller equals to 'moments'" do
+        before do
+          controller.params[:controller] = 'moments'
+        end
+
+        context "when the actions equals to 'show'" do
+          before do
+            controller.params[:action] = 'show'
+          end
+          it "returns true" do
+            helper.is_moment_page?.should be_true
+          end
+        end
+
+        context "when the actions isn't 'show'" do
+          before do
+            controller.params[:action] = 'fdsasfda'
+          end      
+          it "returns false" do
+            helper.is_moment_page?.should be_false
+          end
+        end
+      end
+
+      context "when the controller isn't 'moments' " do
+        before do
+          controller.params[:controller] = 'afsdfasd'
+          controller.params[:action] = 'fdsasfda'
+        end
+
+        it "returns false" do
+          helper.is_moment_page?.should be_false
+        end 
+      end    
+    end
+  end  
 
 end

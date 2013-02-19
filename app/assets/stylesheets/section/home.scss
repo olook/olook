@@ -21,14 +21,14 @@ section#home {
       float: left;
       &.freight {
         background: image-url('home/separator-warnings.jpg') center right no-repeat;
-        width: 340px;
+        width: 341px;
       }
       &.exchange {
         background: image-url('home/separator-warnings.jpg') center right no-repeat;
-        width: 255px;
+        width: 305px;
       }
       &.discount {
-        width: 390px;
+        width: 335px;
       }
     }
   }
