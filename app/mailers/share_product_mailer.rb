@@ -12,8 +12,9 @@ class ShareProductMailer < ActionMailer::Base
     }
   end
 
-  def send_share_message(user, receiver, product)
-    mail(:to => @receiver, :reply_to => @user.email, :subject => "#{@product.id}")
+  def send_share_message_for(product, informations)
+    user_email = informations[:email_from]
+    email_receiver = informations[:emails_to]
+    mail(to: email_receiver, from: user_email, subject: "#{product.id}")
   end
 end
-
