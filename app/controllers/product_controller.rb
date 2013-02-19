@@ -28,6 +28,8 @@ class ProductController < ApplicationController
   end
 
   def share_by_email
+    email_to = params[:email_to]
+    email_from = params[:email_from]
     binding.pry
   end
 end
