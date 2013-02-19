@@ -21,16 +21,16 @@ class ProcessBraspagResponsesWorker
 
   private
 
-  def self.process_braspag_response(braspag_response)
-    payment = Payment.find_by_identification_code(braspag_response.identification_code)
-    if payment
-      braspag_response.update_payment_status(payment)
-    else
-      braspag_response.update_attributes(
-        retries: braspag_response.retries + 1,
-        error_message: "Pagamento não identificado."
-      )
+    def self.process_braspag_response(braspag_response)
+      payment = Payment.find_by_identification_code(braspag_response.identification_code)
+      if payment
+        braspag_response.update_payment_status(payment)
+      else
+        braspag_response.update_attributes(
+          retries: braspag_response.retries + 1,
+          error_message: "Pagamento não identificado."
+        )
+      end
     end
-  end
 
 end

@@ -251,6 +251,10 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def can_be_canceled?
+    true
+  end
+
   private
 
     def set_delivery_date_on
