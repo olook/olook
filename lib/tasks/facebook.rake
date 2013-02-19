@@ -1,7 +1,7 @@
 namespace :facebook do
   desc 'Generates the csv file with the friends birthdays'
   task :generate_friends_birthdays_csv => :environment do
-    pool = FacebookDataService.pool(size: 2)
+    service = FacebookDataService.new
     puts "executing multithreaded tasks"
     fbds = FacebookDataService.new
     starting_point = ENV['STARTING_POINT']? ENV['STARTING_POINT']:0
@@ -17,7 +17,7 @@ namespace :facebook do
     
     batches.each do |users|
       puts "processing" 
-      pool.friends_birthdays(users, date)
+      service.friends_birthdays(users, date)
     end
 
     puts "consolidating csv files"

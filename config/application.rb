@@ -7,7 +7,7 @@ require 'rack/cache'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-  Bundler.require *Rails.groups(:assets => %w(development test))
+  Bundler.require(*Rails.groups(:assets => %w(development test)))
   # If you want your assets lazily compiled in production, use this line
   # Bundler.require(:default, :assets, Rails.env)
 end
@@ -26,6 +26,10 @@ module Olook
     config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/actions/*"]
     config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/rules/*"]
 
+    config.middleware.delete(ActionDispatch::Cookies)
+    config.middleware.delete(ActionDispatch::Session::CookieStore)
+    config.middleware.insert_before(Rails::Rack::Logger, ActionDispatch::Session::CookieStore)
+    config.middleware.insert_before(ActionDispatch::Session::CookieStore, ActionDispatch::Cookies)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
