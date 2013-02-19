@@ -55,7 +55,7 @@ describe XmlHelper do
   end
 
   describe "Categories for ilove_ecommerce" do
-    let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
+    let(:basic_shoe) { FactoryGirl.create(:shoe, :casual) }
 
     it "should return 12 for a basic_shoe" do
       helper.get_ilove_category_for(basic_shoe).should == 12

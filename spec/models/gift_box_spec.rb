@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe GiftBox do
 
-  let!(:product_a) { FactoryGirl.create(:basic_shoe) }
+  let!(:product_a) { FactoryGirl.create(:shoe, :casual) }
   let!(:product_b) { FactoryGirl.create(:basic_bag) }
   let!(:product_c) { FactoryGirl.create(:basic_accessory) }
 

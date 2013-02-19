@@ -19,7 +19,7 @@ describe Liquidation do
     FactoryGirl.create(:march_2012_collection)  
     february_collection = FactoryGirl.create(:february_2012_collection)  
   	liquidation = FactoryGirl.create(:liquidation, :starts_at => "07/03/2012", :ends_at => "14/03/2012")
-  	product = FactoryGirl.create(:basic_shoe, :collection_id => february_collection.id)
+  	product = FactoryGirl.create(:shoe, :casual, :collection_id => february_collection.id)
   	liquidation.liquidation_products.create(:liquidation_id => liquidation.id, :product_id => product.id)
   	liquidation.starts_at = "01/02/2012"
   	liquidation.save.should be_false

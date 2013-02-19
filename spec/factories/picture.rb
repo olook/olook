@@ -2,7 +2,7 @@
 FactoryGirl.define do
   factory :picture do
     image {"PIC_#{Random.rand 1000}"}
-    association :product, :factory => :basic_shoe
+    association :product, :factory => [:shoe, :casual]
 
     factory :main_picture do
       display_on DisplayPictureOn::GALLERY_1
