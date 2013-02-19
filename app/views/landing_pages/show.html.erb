@@ -8,18 +8,29 @@
   <%= content_for?(:news_content) ? yield(:news_content) : yield %>
 <% end %>
 
- <section id="register">
+<section id="register">
 	<div class="header_login">
-<!-- 		<h1>Já faz parte? <span>Entre</span></h1> -->
+		<!-- <h1>Já faz parte? <span>Entre</span></h1> -->
 		<h2><%= image_tag "landing_page/olook-landing-logo.png", :title => "Olook" %></a></h2>
 	</div>
-	<div class="bg">
-		<div class="register-content content-area-A">
-			<p class="bt-acesse">
-				<a href="#" title="Quiz"></a>
-			</p>
-			<img src="assets/landing_page/bg-landing-A-infos.png" class="infos" />
+
+	<div class="register-content bt-landing-A">
+	 	<div class="bg">
+			<div class="content-area-A">
+				<img src="assets/landing_page/bg-landing-A-infos.png" class="infos" />
+			</div>
+		</div> 
+		<!--	<div>
+			<div class="content-area-B">
+				<h1> Descubra seu estilo</h1>
+				<h2>Com qual dessas celebridades brasileiras você se identifica mais?</h2>
+				<div class="content-B"></div>
+			</div>
 		</div>
+		-->
+		<p class="bt-acesse">
+			<a href="/quiz/new" title="Quiz"></a>
+		</p>
 	</div>
 </section>  
 <!-- <section id="register">
