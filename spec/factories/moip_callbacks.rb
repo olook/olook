@@ -10,7 +10,7 @@ FactoryGirl.define do
 
   factory :moip_callback, :parent => :clean_moip_callback do
     association :payment, :factory => :billet
-    after_create do |moip_callback|
+    after(:create) do |moip_callback|
       moip_callback.update_attribute(:id_transacao, moip_callback.payment.identification_code)
     end
   end

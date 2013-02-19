@@ -74,7 +74,7 @@ group :development, :test do
   gem 'sqlite3', '~> 1.3.6'
   gem 'capistrano'
   gem 'capistrano-maintenance'
-  gem 'factory_girl_rails', '~> 3.2.0'
+  gem 'factory_girl_rails', '~> 4.2.0'
   gem 'rspec-rails', '~> 2.12.0'
   #not working with current rspec
   #gem 'rspec-gc-control'

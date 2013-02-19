@@ -10,7 +10,7 @@ FactoryGirl.define do
     factory :complex_lookbook do
       name "Complex_Lookbook"
       slug "Complex_Lookbook"
-      after_create do |lookbook|
+      after(:create) do |lookbook|
         lookbook.products << FactoryGirl.create(:shoe, :casual)
       end
     end

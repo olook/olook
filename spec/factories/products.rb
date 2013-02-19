@@ -12,7 +12,7 @@ FactoryGirl.define do
     end
 
     trait :casual do
-      after_create do |product|
+      after(:create) do |product|
         product.profiles << FactoryGirl.create(:casual_profile)
       end
     end
@@ -50,7 +50,7 @@ FactoryGirl.define do
         sequence :model_number do |n|
           "CSH02#{n}"
         end
-        after_create do |product|
+        after(:create) do |product|
           product.variants << FactoryGirl.create(:basic_shoe_size_35)
           product.variants << FactoryGirl.create(:basic_shoe_size_37)
           product.variants << FactoryGirl.create(:basic_shoe_size_39)
@@ -64,7 +64,7 @@ FactoryGirl.define do
         sequence :model_number do |n|
           "CSH02A#{n}"
         end
-        after_create do |product|
+        after(:create) do |product|
           product.variants << FactoryGirl.create(:basic_shoe_size_35, number: '35AB')
           product.variants << FactoryGirl.create(:basic_shoe_size_37, number: '37AB')
         end
@@ -86,7 +86,7 @@ FactoryGirl.define do
         sequence :model_number do |n|
           "BG01A#{n}"
         end
-        after_create do |product|
+        after(:create) do |product|
           product.variants << FactoryGirl.create(:basic_bag_simple, number: 'UNIQAB')
         end
       end

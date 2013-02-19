@@ -20,7 +20,7 @@ FactoryGirl.define do
       banner_label "compre_3_pague_2"
       active true
     end
-    after_build do |promotion|
+    after(:build) do |promotion|
       promotion.rule_parameters << FactoryGirl.build(:rule_parameter, promotion: promotion)
     end
   end
