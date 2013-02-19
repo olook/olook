@@ -7,13 +7,14 @@ module CartHelper
   end
 
   def total_user_credits
+    return 0.0 if @user.nil?
     return @user.current_credit if @cart_service.allow_credit_payment?
     @user.user_credits_for(:redeem).total
   end
 
   def promotion_discount(item)
     percent = calculate_percentage_for item
-    number_to_percentage(percent, :precision => 0)
+    percent == 100 ? "Grátis" : number_to_percentage(percent, :precision => 0)
   end
 
   def remaining_items cart, promotion

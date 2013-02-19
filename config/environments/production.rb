@@ -34,7 +34,7 @@ Olook::Application.configure do
   # config.force_ssl = true
 
   # See everything in the log (default is :info)
-  # config.log_level = :debug
+  config.log_level = :warn
 
   # Use a different logger for distributed setups
   #config.logger = SyslogLogger.new('rails-olook-prod')
@@ -45,7 +45,8 @@ Olook::Application.configure do
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   config.action_controller.asset_host = proc do |x| 
-    "//cdn-app-#{rand(3)}.olook.com.br"
+    "//d22zjnmu4464ds.cloudfront.net"
+    # "//cdn-app-#{rand(3)}.olook.com.br"
   end
   # config.action_controller.asset_host = Proc.new do |source, request|
   #   request.ssl? ? "https://cdn-app.olook.com.br.s3.amazonaws.com" : "http://cdn-app.olook.com.br.s3.amazonaws.com"

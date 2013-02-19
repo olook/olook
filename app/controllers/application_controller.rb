@@ -2,20 +2,20 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   layout "site"
-  
+
   before_filter :load_user,
                 :load_cart,
                 :load_coupon,
                 :load_cart_service,
-                :load_facebook_api, 
-                :load_referer, 
+                :load_facebook_api,
+                :load_referer,
                 :load_tracking_parameters
 
-  helper_method :current_liquidation, 
-                :show_current_liquidation?, 
-                :show_current_liquidation_advertise?, 
-                :current_cart, 
-                :current_moment, 
+  helper_method :current_liquidation,
+                :show_current_liquidation?,
+                :show_current_liquidation_advertise?,
+                :current_cart,
+                :current_moment,
                 :current_referer
 
   rescue_from CanCan::AccessDenied do  |exception|
@@ -133,7 +133,7 @@ class ApplicationController < ActionController::Base
     def current_ability
       @current_ability ||= ::Ability.new(current_admin)
     end
-    
+
     def logged_in?
       current_user
     end
@@ -148,6 +148,20 @@ class ApplicationController < ActionController::Base
     def external_referer?(referer)
       return false if referer.nil?
       !(referer =~ /olook\.com\.br/)
+    end
+
+    def prepare_for_home
+      @top5 = Product.fetch_products :top5
+      @stylist = Product.fetch_products :selection
+
+      if params[:share]
+        @user = User.find(params[:uid])
+        @profile = @user.profile_scores.first.try(:profile).try(:first_visit_banner)
+        @qualities = Profile::DESCRIPTION["#{@profile}"]
+        @url = request.protocol + request.host
+      end
+      @incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
+      session[:tracking_params] ||= @incoming_params
     end
 end
 

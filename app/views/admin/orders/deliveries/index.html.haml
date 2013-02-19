@@ -1,0 +1,36 @@
+%h2 Entregas
+
+- content_for :sidebar do
+  .block
+  %h3 Filtros
+  .content
+    %p
+      =form_tag(admin_orders_deliveries_path, method: 'get') do
+        .group
+          %p
+            %b
+              =label_tag 'Transportadora'
+            %br
+              =select_tag "shipping_service_name",  options_for_select(["TEX", "PAC"], params[:shipping_service_name]), include_blank: true
+        .group
+          %p
+            %b
+              =label_tag 'Estado'
+            %br
+              =select_tag "freight_state",  options_for_select(Address::STATES, params[:freight_state]), include_blank: true
+        .group
+          %p
+            =submit_tag "Filtrar"
+
+.inner
+  %table.table
+    %tr
+      %th Dias em relação à data prometida
+      %th Despachado
+      %th Entregue
+    - @report_days.each do |report_day_number|
+      %tr{:id => "#{report_day_number}_dias"}
+        %td= I18n.t("admin_dashboard.deliver_days.#{report_day_number}")
+        %td{:id => "delivering"}=orders_delivery_link(params.merge(day_number: report_day_number, state: 'delivering').except(:authenticity_token, :utf8, :commit))
+
+        %td{:id => "expected_delivery_on"}=orders_delivery_link(params.merge(day_number: report_day_number, state: 'delivered').except(:authenticity_token, :utf8, :commit))

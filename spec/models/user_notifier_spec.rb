@@ -52,7 +52,7 @@ describe UserNotifier do
 
         user_credit.add({amount: 20})
         activation_date = (user_credit.credits.last.activates_at)
-        Delorean.time_travel_to(DateTime.new(activation_date.year, activation_date.month, 1))
+        Delorean.time_travel_to(activation_date)
         LoyaltyProgramMailer.should_receive(:send_enabled_credits_notification).with(user).once
         LoyaltyProgramMailer.should_not_receive(:send_enabled_credits_notification).with(other_user)
 

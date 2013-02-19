@@ -19,8 +19,7 @@ describe Order do
   let(:quantity) { 3 }
   let(:credits) { 1.89 }
 
-  let(:order_with_payment) { FactoryGirl.create :order_with_payment_authorized }
-
+  let!(:order_with_waiting_payment) { FactoryGirl.create :order_with_waiting_payment }
 
   it { should belong_to(:user) }
   it { should belong_to(:cart) }
@@ -39,17 +38,17 @@ describe Order do
       basic_shoe_40.increment!(:inventory, quantity)
       basic_shoe_35_inventory = basic_shoe_35.inventory
       basic_shoe_40_inventory = basic_shoe_40.inventory
-      subject.line_items.create( 
+      subject.line_items.create(
         :variant_id => basic_shoe_35.id,
-        :quantity => quantity, 
+        :quantity => quantity,
         :price => basic_shoe_35.price,
         :retail_price => basic_shoe_35.retail_price)
-      subject.line_items.create( 
+      subject.line_items.create(
         :variant_id => basic_shoe_40.id,
-        :quantity => quantity, 
+        :quantity => quantity,
         :price => basic_shoe_40.price,
         :retail_price => basic_shoe_40.retail_price)
-        
+
       subject.increment_inventory_for_each_item
       basic_shoe_35.reload.inventory.should == basic_shoe_35_inventory + quantity
       basic_shoe_40.reload.inventory.should == basic_shoe_40_inventory + quantity
@@ -87,168 +86,243 @@ describe Order do
     end
 
     context "when the order is authorized" do
+      let(:another_order_with_waiting_payment) { FactoryGirl.create :order_with_waiting_payment }
+
       it "should enqueue a job to confirm a payment" do
         Resque.stub(:enqueue)
-        Resque.should_receive(:enqueue_in).with(20.minutes, Abacos::ConfirmPayment, order_with_payment.number)
-        order_with_payment.authorized
+        Resque.should_receive(:enqueue_in).with(20.minutes, Abacos::ConfirmPayment, another_order_with_waiting_payment.number)
+        another_order_with_waiting_payment.authorized
       end
     end
   end
 
-  describe "State machine" do
-    it "should set authorized" do
-      order_with_payment.authorized
-      order_with_payment.authorized?.should be_true
+  describe "#expected_delivery_on" do
+    it "returns the freight delivery_time converted to a date" do
+      expect(order_with_waiting_payment.expected_delivery_on.to_s).
+        to eql(order_with_waiting_payment.freight.delivery_time.business_days.from_now.to_s)
     end
+  end
 
-    it "should set authorized" do
-      order_with_payment.authorized
-      order_with_payment.under_review
-      order_with_payment.under_review?.should be_true
+  describe "#shipping_service_name" do
+    it "returns the freight.shipping_service" do
+      expect(order_with_waiting_payment.shipping_service_name).
+        to eql(order_with_waiting_payment.freight.shipping_service.name)
     end
+  end
 
-    it "should set canceled" do
-      subject.canceled
-      subject.canceled?.should be_true
-    end
-
-    it "should set canceled given not_delivered" do
-      order_with_payment.authorized
-      order_with_payment.picking
-      order_with_payment.delivering
-      order_with_payment.not_delivered
-      order_with_payment.canceled
-      order_with_payment.canceled?.should be_true
-    end
-
-    it "should set canceled given in_the_cart" do
-      subject.canceled
-      subject.canceled?.should be_true
-    end
-
-    context 'state to reversed' do
-      it "should set reversed from under_review" do
-        order_with_payment.authorized
-        order_with_payment.reversed
-        order_with_payment.reversed?.should be_true
+  describe "State machine transitions" do
+    context 'authorized' do
+      it "returns true" do
+        order_with_waiting_payment.authorized
+        expect(order_with_waiting_payment.authorized?).to be_true
       end
 
-      it "should set reversed from under_review" do
-        order_with_payment.authorized
-        order_with_payment.under_review
-        order_with_payment.reversed
-        order_with_payment.reversed?.should be_true
+      it "sets #expected_delivery_on" do
+        order_with_waiting_payment.authorized
+        expect(order_with_waiting_payment.expected_delivery_on).to_not be_nil
+
+        delivery_date = order_with_waiting_payment.freight.delivery_time.business_days.from_now
+        expect(order_with_waiting_payment.expected_delivery_on.to_s).to eql(delivery_date.to_s)
       end
 
-      it "should set reversed from picking" do
-        order_with_payment.authorized
-        order_with_payment.picking
-        order_with_payment.reversed
-        order_with_payment.reversed?.should be_true
-      end
+      it "sets #shipping_service_name" do
+        order_with_waiting_payment.authorized
+        expect(order_with_waiting_payment.shipping_service_name).to_not be_nil
 
-      it "should set reversed from delivering" do
-        order_with_payment.authorized
-        order_with_payment.picking
-        order_with_payment.delivering
-        order_with_payment.reversed
-        order_with_payment.reversed?.should be_true
-      end
-
-      it "should set reversed from delivered" do
-        order_with_payment.authorized
-        order_with_payment.picking
-        order_with_payment.delivering
-        order_with_payment.delivered
-        order_with_payment.reversed
-        order_with_payment.reversed?.should be_true
-      end
-
-      it "should set reversed from not_delivered" do
-        order_with_payment.authorized
-        order_with_payment.picking
-        order_with_payment.delivering
-        order_with_payment.not_delivered
-        order_with_payment.reversed
-        order_with_payment.reversed?.should be_true
+        shipping_service_name = order_with_waiting_payment.freight.shipping_service.name
+        expect(order_with_waiting_payment.shipping_service_name).to eq(shipping_service_name)
       end
     end
 
-    context 'to refunded' do
-      it "should set refunded from authorized" do
-        order_with_payment.authorized
-        order_with_payment.refunded
-        order_with_payment.refunded?.should be_true
-      end
-
-      it "should set refunded from picking" do
-        order_with_payment.authorized
-        order_with_payment.picking
-        order_with_payment.refunded
-        order_with_payment.refunded?.should be_true
-      end
-
-      it "should set refunded from delivering" do
-        order_with_payment.authorized
-        order_with_payment.picking
-        order_with_payment.delivering
-        order_with_payment.refunded
-        order_with_payment.refunded?.should be_true
-      end
-
-      it "should set refunded from delivered" do
-        order_with_payment.authorized
-        order_with_payment.picking
-        order_with_payment.delivering
-        order_with_payment.delivered
-        order_with_payment.refunded
-        order_with_payment.refunded?.should be_true
-      end
-
-      it "should set refunded from not_delivered" do
-        order_with_payment.authorized
-        order_with_payment.picking
-        order_with_payment.delivering
-        order_with_payment.not_delivered
-        order_with_payment.refunded
-        order_with_payment.refunded?.should be_true
+    context 'under_review' do
+      context 'from authorized' do
+        it "returns true" do
+          order_with_waiting_payment.authorized
+          order_with_waiting_payment.under_review
+          order_with_waiting_payment.under_review?.should be_true
+        end
       end
     end
 
-    it "should set refunded" do
-      order_with_payment.authorized
-      order_with_payment.under_review
-      order_with_payment.refunded
-      order_with_payment.refunded?.should be_true
+    context "canceled" do
+      it "returns true" do
+        subject.canceled
+        subject.canceled?.should be_true
+      end
+
+      context "from not_delivered" do
+        it "returns true" do
+          order_with_waiting_payment.authorized
+          order_with_waiting_payment.picking
+          order_with_waiting_payment.delivering
+          order_with_waiting_payment.not_delivered
+          order_with_waiting_payment.canceled
+          order_with_waiting_payment.canceled?.should be_true
+        end
+      end
     end
 
-    it "should set picking" do
-      order_with_payment.authorized
-      order_with_payment.picking
-      order_with_payment.picking?.should be_true
+    context 'reversed' do
+      context 'from authorized' do
+        it "returns true" do
+          order_with_waiting_payment.authorized
+          order_with_waiting_payment.reversed
+          order_with_waiting_payment.reversed?.should be_true
+        end
+      end
+
+      context "from under_review" do
+        it "returns true" do
+          order_with_waiting_payment.authorized
+          order_with_waiting_payment.under_review
+          order_with_waiting_payment.reversed
+          order_with_waiting_payment.reversed?.should be_true
+        end
+      end
+
+      context "from picking" do
+        it "returns true" do
+          order_with_waiting_payment.authorized
+          order_with_waiting_payment.picking
+          order_with_waiting_payment.reversed
+          order_with_waiting_payment.reversed?.should be_true
+        end
+      end
+
+      context "from delivering" do
+        it "returns true" do
+          order_with_waiting_payment.authorized
+          order_with_waiting_payment.picking
+          order_with_waiting_payment.delivering
+          order_with_waiting_payment.reversed
+          order_with_waiting_payment.reversed?.should be_true
+        end
+      end
+
+      context "from delivered" do
+        it "returns true" do
+          order_with_waiting_payment.authorized
+          order_with_waiting_payment.picking
+          order_with_waiting_payment.delivering
+          order_with_waiting_payment.delivered
+          order_with_waiting_payment.reversed
+          order_with_waiting_payment.reversed?.should be_true
+        end
+      end
+
+      context "from not_delivered" do
+        it "returns true" do
+          order_with_waiting_payment.authorized
+          order_with_waiting_payment.picking
+          order_with_waiting_payment.delivering
+          order_with_waiting_payment.not_delivered
+          order_with_waiting_payment.reversed
+          order_with_waiting_payment.reversed?.should be_true
+        end
+      end
     end
 
-    it "should set delivering" do
-      order_with_payment.authorized
-      order_with_payment.picking
-      order_with_payment.delivering
-      order_with_payment.delivering?.should be_true
+    context 'refunded' do
+      it "returns true" do
+        order_with_waiting_payment.authorized
+        order_with_waiting_payment.under_review
+        order_with_waiting_payment.refunded
+        order_with_waiting_payment.refunded?.should be_true
+      end
+
+      context "from authorized" do
+        it "returns true" do
+          order_with_waiting_payment.authorized
+          order_with_waiting_payment.refunded
+          order_with_waiting_payment.refunded?.should be_true
+        end
+      end
+
+      context "from picking" do
+        it "returns true" do
+          order_with_waiting_payment.authorized
+          order_with_waiting_payment.picking
+          order_with_waiting_payment.refunded
+          order_with_waiting_payment.refunded?.should be_true
+        end
+      end
+
+      context "from delivering" do
+        it "returns true" do
+          order_with_waiting_payment.authorized
+          order_with_waiting_payment.picking
+          order_with_waiting_payment.delivering
+          order_with_waiting_payment.refunded
+          order_with_waiting_payment.refunded?.should be_true
+        end
+      end
+
+      context "from delivered" do
+        it "returns true" do
+          order_with_waiting_payment.authorized
+          order_with_waiting_payment.picking
+          order_with_waiting_payment.delivering
+          order_with_waiting_payment.delivered
+          order_with_waiting_payment.refunded
+          order_with_waiting_payment.refunded?.should be_true
+        end
+      end
+
+      context "from not_delivered" do
+        it "returns true" do
+          order_with_waiting_payment.authorized
+          order_with_waiting_payment.picking
+          order_with_waiting_payment.delivering
+          order_with_waiting_payment.not_delivered
+          order_with_waiting_payment.refunded
+          order_with_waiting_payment.refunded?.should be_true
+        end
+      end
     end
 
-    it "should set delivered" do
-      order_with_payment.authorized
-      order_with_payment.picking
-      order_with_payment.delivering
-      order_with_payment.delivered
-      order_with_payment.delivered?.should be_true
+    context "picking" do
+      context "from authorized" do
+        it "should set picking" do
+          order_with_waiting_payment.authorized
+          order_with_waiting_payment.picking
+          order_with_waiting_payment.picking?.should be_true
+        end
+      end
     end
 
-    it "should set not_delivered" do
-      order_with_payment.authorized
-      order_with_payment.picking
-      order_with_payment.delivering
-      order_with_payment.not_delivered
-      order_with_payment.not_delivered?.should be_true
+    context "delivering" do
+      context "from picking" do
+        it "returns true" do
+          order_with_waiting_payment.authorized
+          order_with_waiting_payment.picking
+          order_with_waiting_payment.delivering
+          order_with_waiting_payment.delivering?.should be_true
+        end
+      end
+    end
+
+    context "delivered" do
+      context "from delivering" do
+        it "returns true" do
+          order_with_waiting_payment.authorized
+          order_with_waiting_payment.picking
+          order_with_waiting_payment.delivering
+          order_with_waiting_payment.delivered
+          order_with_waiting_payment.delivered?.should be_true
+        end
+      end
+    end
+
+    context "not delivered" do
+      context "from delivering" do
+        it "should set not_delivered" do
+          order_with_waiting_payment.authorized
+          order_with_waiting_payment.picking
+          order_with_waiting_payment.delivering
+          order_with_waiting_payment.not_delivered
+          order_with_waiting_payment.not_delivered?.should be_true
+        end
+      end
     end
   end
 
@@ -259,7 +333,7 @@ describe Order do
   end
 
   describe '#with_payment' do
-    let!(:order_with_payment) { FactoryGirl.create :order }
+    let!(:order_with_waiting_payment) { FactoryGirl.create(:order_with_waiting_payment) }
     let!(:order_without_payment) do
       order = FactoryGirl.create :clean_order
       order.payments.destroy_all
@@ -267,7 +341,7 @@ describe Order do
     end
 
     it 'should include the order with the payment' do
-      described_class.with_payment.all.should include(order_with_payment)
+      described_class.with_payment.all.should include(order_with_waiting_payment)
     end
     it 'should not include the order without the payment' do
       described_class.with_payment.all.should_not include(order_without_payment)
@@ -283,8 +357,8 @@ describe Order do
 
   describe "Audit trail" do
     it "should audit the transition" do
-      order_with_payment.authorized
-      transition = order_with_payment.order_state_transitions.last
+      order_with_waiting_payment.authorized
+      transition = order_with_waiting_payment.order_state_transitions.last
       transition.event.should == "authorized"
       transition.from.should == "waiting_payment"
       transition.to.should == "authorized"
@@ -292,14 +366,64 @@ describe Order do
   end
 
   describe "order metadata" do
-    subject do 
-      FactoryGirl.create(:clean_order, 
+    subject do
+      FactoryGirl.create(:clean_order,
         :user_first_name => 'Jéssica',
         :user_last_name => 'Gomes'
       )
     end
-    
+
     it { subject.user_name.should == 'Jéssica Gomes'}
-    
+
+  end
+
+  context "scopes" do
+    let(:now) { Time.now }
+
+    context ".with_state" do
+      it "returns orders with one state" do
+        #I know, weird.. but state comes as :authorized :P
+        order = FactoryGirl.create(:order_with_waiting_payment)
+        order.update_attribute(:state, 'waiting_payment')
+        waiting = Order.with_state("waiting_payment").map(&:state)
+        expect(waiting).to have(1).item
+        expect(waiting).to include("waiting_payment")
+      end
+    end
+
+    context ".with_date_and_authorized" do
+
+      it "returns orders on a specific date" do
+        orders_today = Order.with_date_and_authorized(now)
+        expect(orders_today).to have(1).item
+        expect(orders_today.first).to eq(order_with_waiting_payment)
+      end
+    end
+
+    context ".with_expected_delivery_on" do
+      let(:expected_delivery_on) { 2.days.from_now }
+      let!(:order) { FactoryGirl.create(:order, expected_delivery_on: expected_delivery_on) }
+
+      it "returns orders on expected delivery date" do
+        orders = Order.with_expected_delivery_on(expected_delivery_on)
+        expect(orders).to have(1).item
+        expect(orders.first).to eq(order)
+      end
+
+      context "6 or more days" do
+        let(:six_days_ago) { 6.business_days.ago }
+
+        before(:each) do
+          @past_order = FactoryGirl.create(:order_with_waiting_payment)
+          @past_order.update_attribute(:expected_delivery_on, six_days_ago)
+        end
+
+        it "returns all orders expected to be delivered 6 business days ago or before" do
+          orders = Order.with_expected_delivery_on(six_days_ago)
+          expect(orders).to have(1).item
+          expect(orders.first).to eq(@past_order)
+        end
+      end
+    end
   end
 end

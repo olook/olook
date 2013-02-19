@@ -28,7 +28,7 @@ FactoryGirl.define do
 
     factory :shoe_heel do
       display_on DisplayDetailOn::SPECIFICATION
-      translation_token 'Salto/Tamanho'
+      translation_token 'Salto'
       description "0,5 cm"
     end
 

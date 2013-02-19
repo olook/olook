@@ -9,6 +9,9 @@ class CreditCardNumberValidator < ActiveModel::Validator
 
     return false unless number
 
+    # Means the credit card is encrypted (just to make sure)
+    return true if (number && !number.empty? && number[0].upcase == 'X')
+
     # Hypercard
     return true if number.length > 16
 

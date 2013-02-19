@@ -24,25 +24,11 @@ var LuhnCheck = (function()
 			$(".credit_card_number input").removeClass("credit-error");
 			$("input.finish").removeAttr('disabled')
 		}
-		
+
 	}
 })();
 
-/* FACEBOOK POPUP */
-function popupCenter(url, width, height, name) {
-  var left = (screen.width/2)-(width/2), top = (screen.height/2)-(height/2), popupValue = "on";
-  return window.open(url, name, "menubar=no,toolbar=no,status=no,width="+width+",height="+height+",toolbar=no,left="+left+",top="+top);
-}
-  
-
-$(document).ready(function() {
-	
-	$("a.popup").click(function(e) {
-	  popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "authPopup");
-	  e.stopPropagation(); return false;
-	});
-
-	
+$(document).ready(function() {	
   initBase.dialogLogin();
   initBase.loadJailImages();
   initBase.customSelect();
@@ -273,24 +259,18 @@ $(document).ready(function() {
   });
 
   // For now both fone field will acept nine digits
+  function maskTel(tel){
+  	ddd  = $(tel).val().substring(1, 3);
+  	dig9 = $(tel).val().substring(4, 5);
+
+  	if(ddd == "11" && dig9 == "9")
+  		$(tel).setMask("(99)99999-9999");
+    else
+     	$(tel).setMask("(99)9999-9999");	  
+  }
   $("input:text.phone").keyup(function(){
-		ddd  = $(tel).val().substring(1, 3);
-		dig9 = $(tel).val().substring(5, 6);
-		if(ddd == "11" && dig9 == "9")
-			$(tel).setMask("(99) 99999-9999");
-	  else
-	    $(tel).setMask("(99) 9999-9999");	  
-	}).focus(function(){
-	    $(tel).unsetMask();
-	}).focusout(function() {
-			ddd  = $(tel).val().substring(1, 3);
-			dig9 = $(tel).val().substring(5, 6);
-	    if(ddd == "11" && dig9 == "9")
-				$(tel).setMask("(99) 99999-9999");
-		  else
-		    $(tel).setMask("(99) 9999-9999");
+		maskTel(this);
 	});
-   
    
 
   $("input:text.expiration_date").setMask({
@@ -308,7 +288,7 @@ $(document).ready(function() {
   $("input:text.date").setMask({
     mask: '99/19/9999'
   });
-	
+
 	// VALIDATION EXCEPTION - HIPERCARD
 	$("#credit_card_bank_Hipercard").click(function(){
 		if($("input:text.credit_card").hasClass("credit-error")){
@@ -316,7 +296,7 @@ $(document).ready(function() {
 			$(".credit_card_number .span-error").text('');
 		}
 	})
-	
+
   $("input:text.credit_card")
 		.focusout(function(){
 			val = $(this).val();
@@ -414,7 +394,7 @@ $(document).ready(function() {
     container = $('div#profile_quiz.clone img');
     profile = container.attr('class');
     container.attr('src', 'http://cdn-app-staging-0.olook.com.br/assets/profiles/big_'+profile+'.jpg');
-    
+
     e.preventDefault();
   });
 
@@ -467,22 +447,55 @@ initBase = {
   youtubePlayer : function(yt_id) {
     return "<iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&autoplay=1' frameborder='0' allowfullscreen></iframe>";
   },
+  
+  newModal : function(content,h,w){
+    var $modal = $("div#modal.promo-olook"), h = h+10, w = w+10, ml = -parseInt((w/2)), mt = -parseInt((h/2));
+    
+    $("#overlay-campaign").css("background-color", "#000").fadeIn().bind("click", function(){
+       $modal.fadeOut();
+       $(this).fadeOut();
+    }); 
+    
+    $modal.html("").html(content)
+    .css({
+       'height'      : h,
+       'width'       : w,
+       'top'         : '50%',
+       'left'        : '50%',
+       'margin-left' : ml,
+       'margin-top'  : mt
+    })
+   .append('<a href="#" class="close" role="button">close</a>')
+   .delay(500).fadeIn();
+   
+   $("#modal a.close").click(function(){
+      $modal.fadeOut();
+      $("#overlay-campaign").fadeOut();
+   })
 
-  modal : function(content) {
+  },
+  
+  modal : function(content, h) {
     $("div#modal").html("");
 
     $("div#modal").prepend(content);
 
     $("div#modal").dialog({
+		height: h,
       width: 'auto',
       resizable: false,
       draggable: false,
       modal: true,
+		autoOpen: false,
+		show: {effect: "bounce",duration: 500,options:{direction:"right"}},
+		position: { my: "center", at: "center", of: window },
       close: function(event) {
         $("div#modal").html("");
         $("div#modal").hide();
       }
     });
+	
+	setTimeout(function(){$("div#modal").dialog( "open" )},1000)
   },
 
   showInfoCredits : function() {
@@ -617,7 +630,7 @@ initBase = {
   },
 
   openMakingOfVideo : function() {
-    $("section.making_of a.open_making_of, div#making_of a").live("click", function(e) {
+    $("#about a.open_making_of, div#making_of a").live("click", function(e) {
       var url = $(this).attr("rel");
       var title = $("<div>").append($(this).siblings(".video_description").clone()).remove().html();
       var youtube_id = initBase.youtubeParser(url);

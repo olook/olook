@@ -6,6 +6,8 @@
     .product-map a p { background: <%= @lookbook.bg_color || "#000" %>; color: <%= @lookbook.fg_color || "#FFF" %>; }
   </style>
 
+
+
 <% end %>
 
 <% content_for :footer do %>
@@ -13,16 +15,11 @@
   <meta name="chaordic:source" content= <%= "home/tendencias"%> >
   <meta name="chaordic:user" content= <%= @chaordic_user %>>
   <meta name="chaordic:category" content="Tendencias" >
+  <%= javascript_include_tag "api_fb" %>
 <% end %>
 
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+
 
 <section id="lookbooks">
   <%= render 'shared/banners/olooklet' %>
