@@ -18,7 +18,7 @@
 }
 /*.bg{background: image-url('landing_page/bg-landing-A.png') repeat-x;height: 488px;}*/
 .register-content{position: relative;width: 990px;margin: 0 auto; 
-  .bt-acesse{ background: image-url('landing_page/bt-quiz-landing-A.png') no-repeat;
+  .bt-acesse a{display: block; background: image-url('landing_page/bt-quiz-landing-A.png') no-repeat;
     width: 252px;
     height: 79px;
     padding-bottom: 78px;
@@ -65,6 +65,6 @@
       margin: -8px auto 0; 
     }
   }
-  
+
 }
 
