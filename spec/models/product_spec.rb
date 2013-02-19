@@ -19,7 +19,7 @@ describe Product do
   describe "#add_freebie" do
     let(:product) { FactoryGirl.create :blue_sliper_with_variants }
     let(:bag) { FactoryGirl.create(:basic_bag_with_variant) }
-    let(:shoe) { FactoryGirl.create(:basic_shoe) }
+    let(:shoe) { FactoryGirl.create(:shoe, :casual) }
 
     it { should respond_to :add_freebie }
 
@@ -39,11 +39,11 @@ describe Product do
   end
 
   describe "scopes" do
-    let!(:shoe)      { FactoryGirl.create(:basic_shoe) }
+    let!(:shoe)      { FactoryGirl.create(:shoe, :casual) }
     let!(:shoe_for_xml) { FactoryGirl.create :blue_sliper_with_variants }
     let!(:bag)       { FactoryGirl.create(:basic_bag) }
     let!(:accessory) { FactoryGirl.create(:basic_accessory) }
-    let!(:invisible_shoe) { FactoryGirl.create(:basic_shoe, :is_visible => false) }
+    let!(:invisible_shoe) { FactoryGirl.create(:shoe, :casual, :is_visible => false) }
 
     context ".shoes" do
       it "includes all shoes" do
@@ -150,7 +150,7 @@ describe Product do
   describe 'when working with related products' do
     subject { FactoryGirl.create(:red_slipper) }
     let(:silver_slipper) { FactoryGirl.create(:silver_slipper) }
-    let(:unrelated_product) { FactoryGirl.create(:basic_shoe) }
+    let(:unrelated_product) { FactoryGirl.create(:shoe, :casual) }
 
     it "#related_products" do
       FactoryGirl.create(:related_product, :product_a => silver_slipper, :product_b => subject )
@@ -183,7 +183,7 @@ describe Product do
   end
 
   describe "#master_variant" do
-    subject { FactoryGirl.build(:basic_shoe) }
+    subject { FactoryGirl.build(:shoe, :casual) }
 
     it "newly initialized products should return nil" do
       subject.master_variant.should be_nil
@@ -245,7 +245,7 @@ describe Product do
   end
 
   describe "methods delegated to master_variant" do
-    subject { FactoryGirl.create(:basic_shoe) }
+    subject { FactoryGirl.create(:shoe, :casual) }
 
     describe 'getter methods' do
       it "#price" do
@@ -368,7 +368,7 @@ describe Product do
     end
 
     describe '#image_at_position' do
-      let!(:shoe)      { FactoryGirl.create(:basic_shoe) }
+      let!(:shoe)      { FactoryGirl.create(:shoe, :casual) }
       let!(:main_picture)      { FactoryGirl.create(:main_picture) }
       it 'should return the image at asked position' do
         shoe.pictures << main_picture
@@ -386,7 +386,7 @@ describe Product do
   end
 
   describe '#variants.sorted_by_description' do
-    subject { FactoryGirl.create(:basic_shoe) }
+    subject { FactoryGirl.create(:shoe, :casual) }
     let!(:last_variant) { FactoryGirl.create(:variant, :product => subject, :description => '36') }
     let!(:first_variant) { FactoryGirl.create(:variant, :product => subject, :description => '35') }
 
@@ -397,8 +397,8 @@ describe Product do
   end
 
   context "color variations" do
-    let(:black_shoe) { FactoryGirl.create(:basic_shoe, :color_name => 'black', :color_sample => 'black_sample') }
-    let(:red_shoe) { FactoryGirl.create(:basic_shoe, :color_name => 'red', :color_sample => 'red_sample') }
+    let(:black_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'black', :color_sample => 'black_sample') }
+    let(:red_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'red', :color_sample => 'red_sample') }
     let(:black_bag) { FactoryGirl.create(:basic_bag) }
 
     before :each do
@@ -456,7 +456,7 @@ describe Product do
   end
 
   describe '#product_url' do
-    subject { FactoryGirl.create(:basic_shoe) }
+    subject { FactoryGirl.create(:shoe, :casual) }
 
     context "without params" do
       it "returns valid url with the product id" do

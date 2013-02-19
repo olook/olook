@@ -4,7 +4,7 @@ describe Promotions::FreeItemStrategy do
   let(:user) { double(:user) }
   let(:promotion) { double(:promotion, param: "3") }
   let(:cart) {FactoryGirl.create(:cart_with_items)}
-  let(:product) { FactoryGirl.create(:basic_shoe) }
+  let(:product) { FactoryGirl.create(:shoe, :casual) }
   subject {  described_class.new(promotion, user) }
 
   describe ".initialize" do

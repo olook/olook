@@ -11,12 +11,12 @@ feature "Accessing my vitrine", "In order to see the products as a user" do
   let!(:casual_points) { FactoryGirl.create(:point, user: user, profile: casual_profile, value: 50) }
 
   let(:collection) { FactoryGirl.create(:collection) }
-  let!(:shoe) { FactoryGirl.create(:basic_shoe, :collection => collection, :color_name => 'Black', :profiles => [casual_profile]) }
+  let!(:shoe) { FactoryGirl.create(:shoe, :casual, :collection => collection, :color_name => 'Black') }
   let!(:shoe_a) { FactoryGirl.create(:basic_shoe_size_35, :product => shoe, :inventory => 1) }
   let!(:shoe_b) { FactoryGirl.create(:basic_shoe_size_37, :product => shoe, :inventory => 1) }
 
   let(:collection) { FactoryGirl.create(:collection) }
-  let!(:shoe) { FactoryGirl.create(:basic_shoe, :collection => collection, :color_name => 'Black', :profiles => [casual_profile]) }
+  let!(:shoe) { FactoryGirl.create(:shoe, :casual, :collection => collection, :color_name => 'Black') }
   let!(:shoe_a) { FactoryGirl.create(:basic_shoe_size_35, :product => shoe, :inventory => 1) }
   let!(:shoe_b) { FactoryGirl.create(:basic_shoe_size_37, :product => shoe, :inventory => 1) }
 

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
   factory :variant do
-    association :product, :factory => :basic_shoe
+    association :product, :factory => [:shoe, :casual]
     is_master false
     number { "number#{Random.rand 10000}" }
     description 'size X'

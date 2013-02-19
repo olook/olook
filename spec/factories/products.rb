@@ -3,19 +3,28 @@ FactoryGirl.define do
   factory :product do
     is_visible true
 
+    trait :sold_out do
+      inventory 0
+    end
+
+    trait :in_stock do
+      inventory 1
+    end
+
+    trait :casual do
+      after_create do |product|
+        product.profiles << FactoryGirl.create(:casual_profile)
+      end
+    end
+
     factory :shoe do
+      name "Chanelle"
+      description "Elegant black high-heeled shoe for executives"
       category Category::SHOE
       collection_id 1
+
       sequence :model_number do |n|
         "CSH01#{n}"
-      end
-
-      factory :basic_shoe do
-        name "Chanelle"
-        description "Elegant black high-heeled shoe for executives"
-        after_create do |product|
-          product.profiles << FactoryGirl.create(:casual_profile)
-        end
       end
 
       factory :red_slipper do

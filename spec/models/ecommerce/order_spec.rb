@@ -11,7 +11,7 @@ describe Order do
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }
 
   subject { FactoryGirl.create(:clean_order)}
-  let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
+  let(:basic_shoe) { FactoryGirl.create(:shoe, :casual) }
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
   let(:basic_shoe_37) { FactoryGirl.create(:basic_shoe_size_37, :product => basic_shoe) }
   let(:basic_shoe_40) { FactoryGirl.create(:basic_shoe_size_40, :product => basic_shoe) }

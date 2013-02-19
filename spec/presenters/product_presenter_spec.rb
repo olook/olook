@@ -161,7 +161,7 @@ describe ProductPresenter do
     end
 
     context "when the product has some related products " do
-      let(:related_shoe)      { FactoryGirl.create(:basic_shoe) }
+      let(:related_shoe)      { FactoryGirl.create(:shoe, :casual) }
       let(:related_bag)       { FactoryGirl.create(:basic_bag) }
       let(:out_of_stock_bag)  { FactoryGirl.create(:basic_bag) }
 

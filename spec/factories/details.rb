@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
   factory :detail do
-    association :product, :factory => :basic_shoe
+    association :product, :factory => [:shoe, :casual]
 
     factory :heel_detail do
       display_on DisplayDetailOn::SPECIFICATION

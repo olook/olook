@@ -5,7 +5,7 @@ describe Cart do
   it { should have_many(:orders) }
   it { should have_many(:items) }
 
-  let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
+  let(:basic_shoe) { FactoryGirl.create(:shoe, :casual) }
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
   let(:basic_shoe_37) { FactoryGirl.create(:basic_shoe_size_37, :product => basic_shoe) }
 

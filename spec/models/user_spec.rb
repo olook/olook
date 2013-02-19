@@ -443,11 +443,11 @@ describe User do
   describe "showroom methods" do
     let(:last_collection) { FactoryGirl.create(:collection, :start_date => 1.month.ago, :end_date => Date.today, :is_active => false) }
     let(:collection) { FactoryGirl.create(:collection) }
-    let!(:product_a) { FactoryGirl.create(:basic_shoe, :name => 'A', :collection => collection, :profiles => [casual_profile]) }
-    let!(:product_b) { FactoryGirl.create(:basic_shoe, :name => 'B', :collection => collection, :profiles => [casual_profile]) }
-    let!(:product_c) { FactoryGirl.create(:basic_shoe, :name => 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
-    let!(:product_d) { FactoryGirl.create(:basic_shoe, :name => 'A', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
-    let!(:invisible_product) { FactoryGirl.create(:basic_shoe, :is_visible => false, :collection => collection, :profiles => [sporty_profile]) }
+    let!(:product_a) { FactoryGirl.create(:shoe, :casual, :name => 'A', :collection => collection) }
+    let!(:product_b) { FactoryGirl.create(:shoe, :casual, :name => 'B', :collection => collection) }
+    let!(:product_c) { FactoryGirl.create(:shoe, :casual, :name => 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
+    let!(:product_d) { FactoryGirl.create(:shoe, :casual, :name => 'A', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
+    let!(:invisible_product) { FactoryGirl.create(:shoe, :casual, :is_visible => false, :collection => collection, :profiles => [sporty_profile]) }
     let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 10) }
     let!(:sporty_points) { FactoryGirl.create(:point, user: subject, profile: sporty_profile, value: 40) }
 
