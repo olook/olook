@@ -55,6 +55,35 @@ describe Order do
     end
   end
 
+  describe '#can_be_canceled?' do
+    context 'order without payments' do
+      let(:order_without_payment) { FactoryGirl.create(:order_without_payment)}
+
+      it 'return true' do
+        order_without_payment.can_be_canceled? should be_true
+      end
+
+    end
+
+    context 'order with a canceled payment' do
+
+      it 'return true' do
+        pending
+      end
+
+    end
+
+    context 'order with a waiting payment' do
+
+      it 'return false' do
+        order_with_waiting_payment.can_be_canceled? should be_false
+      end
+
+    end
+
+
+  end
+
   describe '#installments' do
     context "when there's no payment" do
       it "should return 1" do

@@ -92,7 +92,8 @@ class Payment < ActiveRecord::Base
     #Cancelado - 5
     state :cancelled do
       after_save do |payment|
-        payment.cancel_order?
+        Rails.logger.warn "[CNVR] payment cancelled: #{payment.id}. Check why"
+        # payment.cancel_order?
       end
     end
 
