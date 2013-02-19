@@ -28,8 +28,8 @@ class ProductController < ApplicationController
   end
 
   def share_by_email
-    email_to = params[:email_to]
-    email_from = params[:email_from]
-    binding.pry
+    name_and_emails = params.slice(:name_from, :email_from, :emails_to_deliver)
+    @product = Product.find(params[:product_id])
+    @product.share_by_email(name_and_emails)
   end
 end
