@@ -38,7 +38,7 @@ $(document).ready(function() {
   });
   
   if($('#compartilhar_email').length == 1) {
-     var content = $('#compartilhar_email'), h = content.height() + 70, w = content.width() + 70;
+     var content = $('#compartilhar_email'), h = content.outerHeight(), w = content.outerWidth();
      $("ul.social li.email").click(function(e){
         e.preventDefault();
         e.stopPropagation();
