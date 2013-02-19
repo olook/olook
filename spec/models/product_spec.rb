@@ -588,7 +588,7 @@ describe Product do
 
   describe "#share_by_email" do
     context "when has emails to send" do
-      informations = { name_from: "User name", email_from: "user@email.com", emails_to: "user_friend@email.com" }
+      informations = { name_from: "User name", email_from: "user@email.com", emails_to_deliver: "user_friend@email.com" }
        it "receives share mailer deliver" do
          ShareProductMailer.should_receive(:send_share_message_for).with(subject, informations)
          subject.share_by_email(informations)
