@@ -26,4 +26,8 @@ class ProductController < ApplicationController
     @shoe_size = params[:shoe_size].to_i
     respond_to :html, :js
   end
+
+  def share_by_email
+    binding.pry
+  end
 end
