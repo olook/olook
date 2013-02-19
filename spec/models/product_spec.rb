@@ -586,6 +586,16 @@ describe Product do
     end
   end
 
+  describe "#share_by_email" do
+    context "when has emails to send" do
+      informations = { name_from: "User name", email_from: "user@email.com", emails_to: "user_friend@email.com" }
+       it "receives share mailer deliver" do
+         ShareProductMailer.should_receive(:send_share_message_for).with(subject, informations)
+         subject.share_by_email(informations)
+       end
+    end
+  end
+
   describe "#shoe_inventory_has_less_than_minimum?" do
     let(:shoe_for_xml) { FactoryGirl.create :blue_sliper_with_variants }
 
