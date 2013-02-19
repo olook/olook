@@ -8,7 +8,7 @@ FactoryGirl.define do
       display_on DisplayPictureOn::GALLERY_1
     end
 
-    after_build do |picture|
+    after(:build) do |picture|
       CloudfrontInvalidator.stub_chain(:new, :invalidate)
     end
   end

@@ -431,7 +431,7 @@ describe Product do
   end
 
   describe 'inventory related methods' do
-    subject { FactoryGirl.create :basic_shoe }
+    subject { FactoryGirl.create(:shoe, :casual) }
     let!(:basic_shoe_size_35) { FactoryGirl.create :basic_shoe_size_35, :product => subject }
     let!(:basic_shoe_size_40) { FactoryGirl.create :basic_shoe_size_40, :product => subject }
 

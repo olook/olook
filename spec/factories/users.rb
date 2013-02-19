@@ -26,7 +26,7 @@ FactoryGirl.define do
     half_user false
     created_at 2.days.ago
 
-    after_build do |user|
+    after(:build) do |user|
       Resque.stub(:enqueue)
       Resque.stub(:enqueue_in)
     end
@@ -40,11 +40,11 @@ FactoryGirl.define do
       is_invited nil
       cpf nil
 
-      after_build do |user|
+      after(:build) do |user|
         Resque.stub(:enqueue_in)
       end
 
-      after_create do |member|
+      after(:create) do |member|
         member.send(:write_attribute, :invite_token, 'OK'*4)
         member.save!
       end

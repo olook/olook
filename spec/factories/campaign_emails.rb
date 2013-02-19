@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :campaign_email do
 	  factory :new_campaign_email, :parent => :campaign_email
     email "eu@teste.com"
-    after_build do |user|
+    after(:build) do |user|
       Resque.stub(:enqueue)
       # Resque.stub(:enqueue_in)
     end    
