@@ -4,14 +4,6 @@ class Order < ActiveRecord::Base
   CONSTANT_FACTOR = 17
   WAREHOUSE_TIME = 2
 
-  AUTHORIZED_STATES = [
-    "delivered",
-    "authorized",
-    "delivered",
-    "delivering",
-    "picking"
-  ]
-
   STATUS = {
     "waiting_payment" => "Aguardando pagamento",
     "under_review" => "Em revisão",
@@ -25,6 +17,11 @@ class Order < ActiveRecord::Base
     "authorized" => "Pagamento autorizado"
   }
 
+  scope :with_status, lambda { |status| where(state: status) }
+  scope :with_date_and_authorized, lambda { |date| joins(:order_state_transitions).
+                                                   where(order_state_transitions: {event: "authorized", to: "authorized", created_at: date.beginning_of_day..date.end_of_day}) }
+  scope :with_expected_delivery_on, lambda { |date| where(expected_delivery_on: date.beginning_of_day..date.end_of_day) }
+
   belongs_to :cart
   belongs_to :user
 
@@ -35,7 +32,7 @@ class Order < ActiveRecord::Base
   has_many :moip_callbacks
   has_many :line_items, :dependent => :destroy
   has_many :clearsale_order_responses
-  
+
   belongs_to :tracking, :dependent => :destroy
 
   after_create :initialize_order
@@ -78,10 +75,12 @@ class Order < ActiveRecord::Base
     state :not_delivered
     state :picking
     state :waiting_payment
-    state :authorized
     state :under_review
+    state :authorized
 
-    after_transition any => :authorized, :do => :transition_to_authorized
+    after_transition any => :authorized, :do => [:transition_to_authorized,
+                                                 :set_delivery_date_on,
+                                                 :set_shipping_service_name]
 
     state :reversed do
       after_save do |order|
@@ -243,42 +242,84 @@ class Order < ActiveRecord::Base
     line_items.inject(0) { |quantity, item| item.is_freebie ? quantity : quantity + 1 }
   end
 
+  def self.to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << column_names
+      all.each do |order|
+        csv << order.attributes.values_at(*column_names)
+      end
+    end
+  end
+
   private
 
-  def initialize_order
-    update_attributes(:number => (id * CONSTANT_FACTOR) + CONSTANT_NUMBER)
-    self.update_attribute(:purchased_at, Time.now)
-    Resque.enqueue_in(1.minute, Abacos::InsertOrder, self.number)
-    Resque.enqueue_in(1.minute, Orders::NotificationOrderRequestedWorker, self.id)
-    Resque.enqueue_in(1.minute, SAC::AlertWorker, :order, self.number)
-  end
+    def set_delivery_date_on
+      if calculate_delivery_date
+        update_attribute(:expected_delivery_on, calculate_delivery_date)
+      else
+        Airbrake.notify(
+          :error_class   => "Order",
+          :error_message => "couldn't calculate_delivery_date for expected_delivery_on"
+        )
+      end
+    end
 
-  def confirm_payment?
-    #Seleciona a lista de estados de pagamento desta order
-    payment_states = self.payments.map(&:state).uniq
+    def set_shipping_service_name
+      if freight && freight.shipping_service
+        update_attribute(:shipping_service_name, freight.shipping_service.name)
+      else
+        Airbrake.notify(
+          :error_class   => "Order",
+          :error_message => "couldn't set_shipping_service_name, either freight or freight.shipping_service isn't set"
+        )
+      end
+    end
 
-    #so continua se so houver um tipo de estado listado e esse tipo de estado for authorized
-    return false unless payment_states.include?("authorized") && payment_states.size == 1
-    true
-  end
+    def calculate_delivery_date
+      if freight
+        freight.delivery_time.business_days.from_now
+      else
+        Airbrake.notify(
+          :error_class   => "Order",
+          :error_message => "couldn't calculate_delivery_date, freight is nil"
+        )
+      end
+    end
 
-  def cancel_order?
-    Resque.enqueue_in(1.minute, Orders::NotificationPaymentRefusedWorker, self.id)
-    true
-  end
+    def initialize_order
+      update_attributes(:number => (id * CONSTANT_FACTOR) + CONSTANT_NUMBER)
+      self.update_attribute(:purchased_at, Time.now)
+      Resque.enqueue_in(1.minute, Abacos::InsertOrder, self.number)
+      Resque.enqueue_in(1.minute, Orders::NotificationOrderRequestedWorker, self.id)
+      Resque.enqueue_in(1.minute, SAC::AlertWorker, :order, self.number)
+    end
 
-  def refused_order?
-    Resque.enqueue_in(1.minute, Orders::NotificationPaymentRefusedWorker, self.id)
-    true
-  end
+    def confirm_payment?
+      #Seleciona a lista de estados de pagamento desta order
+      payment_states = self.payments.map(&:state).uniq
 
-  def send_notification_order_delivered?
-    Resque.enqueue_in(1.minute, Orders::NotificationOrderDeliveredWorker, self.id)
-    true
-  end
+      #so continua se so houver um tipo de estado listado e esse tipo de estado for authorized
+      return false unless payment_states.include?("authorized") && payment_states.size == 1
+      true
+    end
 
-  def send_notification_order_shipped?
-    Resque.enqueue_in(12.hour, Orders::NotificationOrderShippedWorker, self.id)
-    true
-  end
+    def cancel_order?
+      Resque.enqueue_in(1.minute, Orders::NotificationPaymentRefusedWorker, self.id)
+      true
+    end
+
+    def refused_order?
+      Resque.enqueue_in(1.minute, Orders::NotificationPaymentRefusedWorker, self.id)
+      true
+    end
+
+    def send_notification_order_delivered?
+      Resque.enqueue_in(1.minute, Orders::NotificationOrderDeliveredWorker, self.id)
+      true
+    end
+
+    def send_notification_order_shipped?
+      Resque.enqueue_in(12.hour, Orders::NotificationOrderShippedWorker, self.id)
+      true
+    end
 end

@@ -21,6 +21,7 @@ Olook::Application.routes.draw do
   #match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/duvidasfrequentes", :to => "pages#faq", :as => "duvidasfrequentes"
+  match "/centraldeatendimento", :to => "pages#faq", :as => "duvidasfrequentes"
   match "/devolucoes", :to => "pages#return_policy", :as => "return_policy"
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
@@ -31,6 +32,7 @@ Olook::Application.routes.draw do
   post  "/contato" => "pages#send_contact", :as => "send_contact"
   match "/fidelidade", :to => "pages#loyalty", :as => "loyalty"
   match "/festas", :to => "moments#show", :as => "festas", :defaults => {:id => 4}
+  match "/olookmovel", to: "pages#olookmovel", as: "olookmovel"
 
   #LOOKBOOKS
   match "/tendencias/:name", :to => "lookbooks#show", :as => "lookbook"
@@ -40,6 +42,7 @@ Olook::Application.routes.draw do
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
   match "/promododia" , :to => "liquidations#index", :as => "promododia"
+  match "/olooklet" , :to => "liquidations#index", :as => "olooklet"
 
   #MOMENTS
   get '/colecoes', to: "moments#index", as: "moments"
@@ -56,6 +59,7 @@ Olook::Application.routes.draw do
   match '/slippers', to: "moments#show", as: "slippers", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["slipper"]}
   match '/sandalias', to: "moments#show", as: "sandalias", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["sandalia"]}
   match '/scarpins', to: "moments#show", as: "scarpins", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["scarpin"]}
+  match '/anabelas', to: "moments#show", as: "anabelas", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["anabela"]}
 
 
   match '/bolsas', to: "moments#show", as: "bags", :defaults => {:category_id => Category::BAG, :id => 1}
@@ -88,6 +92,7 @@ Olook::Application.routes.draw do
   match "/google_shopping", :to => "xml#google_shopping", :as => "google_shopping", :defaults => { :format => 'xml' }
   match "/buscape", :to => "xml#buscape", :as => "buscape", :defaults => { :format => 'xml' }
   match "/kelkoo", :to => "xml#kelkoo", :as => "kelkoo", :defaults => { :format => 'xml' }
+  match "/kuanto_kusta", :to => "xml#kuanto_kusta", :as => "kuanto_kusta", :defaults => { :format => 'xml' }
 
   #SURVEY
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
@@ -148,7 +153,12 @@ Olook::Application.routes.draw do
   devise_for :admins
 
   namespace :admin do
-    match "/", :to => "index#dashboard"
+    get "/", :to => "dashboard#index"
+
+    namespace :orders do
+      resources :deliveries
+      resources :statuses
+    end
 
     get 'product_autocomplete' => 'products#autocomplete_information'
     resources :products do
@@ -223,6 +233,7 @@ Olook::Application.routes.draw do
 
     end
     resources :coupons, :except => [:destroy]
+    resources :holidays
     resources :landing_pages
     resources :promotions
     resources :liquidations do

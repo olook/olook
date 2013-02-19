@@ -16,7 +16,7 @@ describe MemberMailer do
     end
 
     it "sets 'title' attribute welcoming the new member" do
-      mail.subject.should == "#{member.name}, use agora mesmo seus 20% de desconto!"
+      mail.subject.should == "#{member.name}, bem vinda! Agora que sabemos o seu estilo..."
     end
 
     it "sets 'headers' with welcome_email category json" do

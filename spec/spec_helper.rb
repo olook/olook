@@ -49,13 +49,13 @@ Spork.prefork do
     # By default, Savon logs each SOAP request and response to $stdout.
     # Here's how you can disable logging:
     config.log = false
-    
+
   end
 
   HTTPI.log = false
 
   RSpec.configure do |config|
-    
+
     # Trying: http://devblog.avdi.org/2012/08/31/configuring-database_cleaner-with-rails-rspec-capybara-and-selenium/
     # And https://gist.github.com/855604
     config.before(:suite) do
@@ -76,6 +76,15 @@ Spork.prefork do
 
     config.after(:each) do
       DatabaseCleaner.clean
+      Delorean.back_to_the_present
+    end
+
+    config.before(:all) do
+      # DeferredGarbageCollection.start
+    end
+
+    config.after(:all) do
+      # DeferredGarbageCollection.reconsider
     end
 
     config.mock_with :rspec

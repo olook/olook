@@ -114,17 +114,20 @@ describe Campaign do
       end
 
       it "show the banner" do
-        campaign.show_banner_for?("moments").should be_true
+        params = params_for_controller("moments")       
+        campaign.show_banner_for?(params).should be_true
       end
 
       it "show the banner ignoring the case" do
-        campaign.show_banner_for?("MoMents").should be_true
+        params = params_for_controller("MoMents")       
+        campaign.show_banner_for?(params).should be_true
       end
     end
 
     context "when the campaign has no pages" do
       it "don't show the banner" do
-        campaign.show_banner_for?("MoMents").should be_false
+        params = params_for_controller("MoMents")
+        campaign.show_banner_for?(params).should be_false
       end
     end
 
@@ -134,10 +137,16 @@ describe Campaign do
       end
 
       it "don't show the banner" do
-        campaign.show_banner_for?("stylists").should be_false
+        params = params_for_controller("stylists")
+        campaign.show_banner_for?(params).should be_false
       end
     end
 
   end
+
+  private
+    def params_for_controller controller_name
+      {:controller => controller_name}
+    end
 
 end

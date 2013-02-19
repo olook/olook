@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class FacebookDataService
-  include Celluloid
 
   DESTINATION_FOLDER = "/tmp/fb_csv/"
   CONSOLIDATED_FILE_FOLDER = "/tmp/fb_consolidated_file/"

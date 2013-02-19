@@ -50,7 +50,11 @@ module ApplicationHelper
   end
 
   def member_type
-    user_signed_in? ? 'member' : 'visitor'
+    if user_signed_in?
+      current_user.half_user ? 'half' : 'quiz'
+    else
+      'visitor'
+    end
   end
 
   def quantity_status(product, user)
@@ -87,7 +91,7 @@ module ApplicationHelper
     if item.variant.inventory == 1
       '1 (última peça!)'
     else
-      select_tag('quantity', options_for_select((1..item_qty_max_option(item)).to_a, item.quantity))
+      select_tag('quantity', options_for_select((1..item_qty_max_option(item)).to_a, item.quantity), onchange: "changeCartItemQty('#{item.id}');")
     end
   end
 
@@ -102,6 +106,14 @@ module ApplicationHelper
     else
       'Coleções'
     end
+  end
+
+  def is_moment_page?
+    params[:controller] == "moments" && params[:action] == "show" && @featured_products
+  end
+
+  def protocol
+    Rails.env.production? ? 'https' : 'http'
   end
 
   private

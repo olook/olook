@@ -1,7 +1,10 @@
 class RuleParameter < ActiveRecord::Base
-  include Parameters
 
   belongs_to :promotion
   belongs_to :promotion_rule
+
+  def matches? cart
+    promotion_rule.matches?(cart, rules_params)
+  end
 
 end

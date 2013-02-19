@@ -57,10 +57,10 @@
 
     <h2>Critérios para a promoção</h2>
 
-    <%= f.fields_for :rule_parameters, @rule_parameters do |builder| %>
+    <%= f.fields_for :rule_parameters do |builder| %>
       <div class="field">
         <%= builder.label 'Regra aplicada' %>
-        <%= builder.collection_select(:promotion_rule_id, PromotionRule.all, :id, :type) %>
+        <%= builder.collection_select(:promotion_rule_id, PromotionRule.all, :id, :name, { include_blank: true }) %>
       </div>
       <div class="field">
         <%= builder.label 'Parâmetro de regra' %>
@@ -72,12 +72,12 @@
 
   <div id="actions">
 
-    <h2>Critérios para action</h2>
+    <h2>Ação da promoção</h2>
 
     <%= f.fields_for :action_parameter, @action_parameter  do |builder| %>
       <div class="field">
         <%= builder.label 'Ação aplicada' %>
-        <%= builder.collection_select(:promotion_action_id, PromotionAction.all, :id, :type) %>
+        <%= builder.collection_select(:promotion_action_id, PromotionAction.all, :id, :name, { include_blank: true }) %>
       </div>
       <div class="field">
         <%= builder.label 'Parâmetro de ação' %>

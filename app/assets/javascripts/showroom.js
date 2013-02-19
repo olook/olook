@@ -94,6 +94,7 @@ $(document).ready(function() {
   });
 
   if($('.dialog.didi').length == 1) {
+
     var clone = $('.dialog.didi').clone().addClass('clone');
     var content = clone[0].outerHTML;
     initBase.modal(content);
@@ -103,9 +104,10 @@ $(document).ready(function() {
   }
 
   if($('.dialog.liquidation').length == 1) {
-    var clone = $('.dialog.liquidation').clone();
-    var content = clone[0].outerHTML;
-    initBase.modal(content);
+   var content = $('.dialog.liquidation'), h = content.height(), w = content.width();
+   
+   initBase.newModal(content, h, w);
+   //initBase.modal(content);
   }
 
   $(".dialog.liquidation :checkbox").live("change", function() {

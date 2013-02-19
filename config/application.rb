@@ -1,12 +1,13 @@
 # -*- encoding : utf-8 -*-
 require File.expand_path('../boot', __FILE__)
 
+require 'csv'
 require 'rails/all'
 require 'rack/cache'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-  Bundler.require *Rails.groups(:assets => %w(development test))
+  Bundler.require(*Rails.groups(:assets => %w(development test)))
   # If you want your assets lazily compiled in production, use this line
   # Bundler.require(:default, :assets, Rails.env)
 end
@@ -21,9 +22,12 @@ module Olook
     # config.autoload_paths += %W(#{config.root}/extras)
     config.autoload_paths += %W(#{Rails.root}/app/presenters #{Rails.root}/app/services #{Rails.root}/app/adapters #{Rails.root}/app/workers #{Rails.root}/app/validators #{Rails.root}/app/models/ecommerce #{Rails.root}/lib #{Rails.root}/app/strategies/**/ #{Rails.root}/app/sac )
     config.autoload_paths += %W(#{Rails.root}/app/models/promotions/**)
-    
     config.autoload_paths += Dir["#{Rails.root}/lib/**/"]
+    config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/actions/*"]
+    config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/rules/*"]
 
+    config.middleware.delete(ActiveRecord::SessionStore)
+    config.middleware.insert_before(Rails::Rack::Logger, ActiveRecord::SessionStore)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -59,9 +63,9 @@ module Olook
     # config.middleware.use "Graylog2Exceptions", { :hostname => '107.21.158.126', :port => '12201', :level => 0 }
 
     config.middleware.delete Rack::Cache
-    
-    config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
-      "#{html_tag}".html_safe 
+
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance|
+      "#{html_tag}".html_safe
     }
   end
 end

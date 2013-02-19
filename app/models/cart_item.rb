@@ -24,16 +24,20 @@ class CartItem < ActiveRecord::Base
     liquidation? ? LiquidationProductService.liquidation_product(product).original_price : product.price
   end
 
+  #
+  # A lot of badsmels in this code !!!!
+  # TODO => Refactor as soon as possilbe
+  #
   def retail_price
     # coupon discount is calculated by cart service
     if cart.coupon
       cart.coupon.is_percentage? ? price - (price * cart.coupon.value / 100) : price
     else
       olooklet_value = variant.product.retail_price == 0 ? price : variant.product.retail_price
-      promotional_value = price - adjustment_value / quantity.to_f
+      promotional_value = price - adjustment_value / quantity.to_f if has_adjustment?
 
-      min_value_excluding_zero = [promotional_value, olooklet_value].delete_if{|value| value == 0}.min
-      min_value_excluding_zero.nil? ? price : min_value_excluding_zero 
+      min_value_excluding_nil = [promotional_value, olooklet_value].delete_if{|value| value.nil? }.min
+      min_value_excluding_nil || 0
     end
   end
 
