@@ -8,14 +8,31 @@
   <%= content_for?(:news_content) ? yield(:news_content) : yield %>
 <% end %>
 
-<section class="landing-content">
+ <section id="register">
+	<div class="header_login">
+<!-- 		<h1>Já faz parte? <span>Entre</span></h1> -->
+		<h2><%= image_tag "landing_page/olook-landing-logo.png", :title => "Olook" %></a></h2>
+	</div>
+	<div class="bg">
+		<div class="register-content content-area-A">
+			<p class="bt-acesse">
+				<a href="#" title="Quiz"></a>
+			</p>
+			<img src="assets/landing_page/bg-landing-A-infos.png" class="infos" />
+		</div>
+	</div>
+</section>  
 
-  <%= link_to @landing_page.button_url, :class => "action", :title => @landing_page.button_alt do %>
-    <%= image_tag @landing_page.button_image.try(:url),
-                  :alt => @landing_page.button_alt,
-                  :style => button_position(@landing_page) %>
-  <% end %>
 
-</section>
-
+<% content_for :footer do %>
+  <script>
+    $(function(){
+      $(".bt-acesse a").mouseover(function(){
+        $("img.infos").fadeIn();
+      }).mouseout(function(){
+        $("img.infos").fadeOut();
+      })
+    })
+  </script>
+<% end %>
 <%= content_for :site_footer, render(:partial => "shared/footer") if @landing_page.show_footer? %>
