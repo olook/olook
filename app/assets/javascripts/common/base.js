@@ -466,7 +466,7 @@ initBase = {
        'margin-top'  : mt
     })
    .append('<a href="#" class="close" role="button">close</a>')
-   .delay(500).fadeIn();
+   .delay(500).fadeIn().children().fadeIn();
    
    $("#modal a.close").click(function(){
       $modal.fadeOut();

@@ -160,15 +160,14 @@
     }
   }
 }
-
+/** MODAL COMPARTILHAR POR EMAIL**/
 div#compartilhar_email {
   background: #FFF;
   padding: 35px;
   display: none;
   width: 530px;
   height:223px;
-  position: absolute;
-
+  border:solid 7px #000;
   fieldset{
   margin-bottom: 20px;
   }
