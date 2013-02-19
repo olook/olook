@@ -8,15 +8,11 @@
      font-size: 12px;
      color: #9c9da0;
      float: right;
-      span {
-        color: $pink;
-      }
-        }
-        h2{
-          width: 214px;
-          height: 67px;
-          margin: 0 auto;
-        }
+     span {
+       color: $pink;
+     }
+  }
+  h2{width: 214px;height: 67px;margin: 0 auto;}
 }
 #content{width: 100% !important;
 }
@@ -43,6 +39,7 @@
     margin-top: 27px;
     height: 488px;
     background: image-url('landing_page/bg-content-landing-A.jpg') no-repeat;
+    .infos{position:absolute;right:74px;top:59px;display:none;}
   }
   .content-area-B{
     h1{
@@ -68,5 +65,6 @@
       margin: -8px auto 0; 
     }
   }
+  
 }
 
