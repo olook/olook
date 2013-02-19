@@ -1,4 +1,4 @@
-var filter = {};
+var filter = {}, h = 0;
 
 
 filter.init = function(){
@@ -74,7 +74,8 @@ filter.submitAndScrollUp = function(){
       $(this).fadeIn("slow").html("");
     });    
   });
-	$("html, body").delay(300).animate({scrollTop: $(".filters").length ? 530 : 0}, 'slow');
+
+	$("html, body").delay(300).animate({scrollTop: $(".filters").length ? h : 0}, 'slow');
 
 } 
 filter.seeAll = function(){
@@ -227,6 +228,8 @@ filter.cleanFilter = function(){
 }
 
 $(function(){
+   h = $(".exhibition-mode").position().top;
+   h += 105;
   filter.init();
 
   $('#filter_option').change(function() {
