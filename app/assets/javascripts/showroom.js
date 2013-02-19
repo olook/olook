@@ -104,7 +104,7 @@ $(document).ready(function() {
   }
 
   if($('.dialog.liquidation').length == 1) {
-   var content = $('.dialog.liquidation'), h = content.height(), w = content.width();
+   var content = $('.dialog.liquidation'), h = content.outerHeight(), w = content.outerWidth();
    
    initBase.newModal(content, h, w);
    //initBase.modal(content);
