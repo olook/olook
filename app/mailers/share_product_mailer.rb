@@ -14,7 +14,7 @@ class ShareProductMailer < ActionMailer::Base
 
   def send_share_message_for(product, informations)
     user_email = informations[:email_from]
-    email_receiver = informations[:emails_to]
+    email_receiver = informations[:emails_to_deliver]
     mail(to: email_receiver, from: user_email, subject: "#{product.id}")
   end
 end
