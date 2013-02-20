@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Product < ActiveRecord::Base
 
-  SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto/Tamanho"
+  SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto"
   UNAVAILABLE_ITEMS = :unavailable_items
   # TODO: Temporarily disabling paper_trail for app analysis
   #has_paper_trail :skip => [:pictures_attributes, :color_sample]
@@ -178,7 +178,12 @@ class Product < ActiveRecord::Base
   end
 
   def return_catalog_or_suggestion_image(picture)
-    fetch_cache_for(picture) if picture
+    img = nil
+    begin
+      img = fetch_cache_for(picture) if picture
+    rescue => e
+      Rails.logger.info e
+    end
   end
 
   def master_variant
@@ -347,17 +352,27 @@ class Product < ActiveRecord::Base
   end
 
   def self.fetch_products label
-    where("id in (?)", Setting.send("home_#{label}").split(","))
+    find_keeping_the_order Setting.send("home_#{label}").split(",")
   end
 
   private
 
     def self.fetch_all_featured_products_of category
-      products = Rails.cache.fetch("featured_products_#{category}", :expires_in => 5.minutes) do
+      products = Rails.cache.fetch("featured_products_#{category}", :expires_in => 10.minutes) do
         category_name = Category.key_for(category).to_s
         product_ids = Setting.send("featured_#{category_name}_ids").split(",")
-        includes(:variants).where("id in (?) and category = ?", product_ids, category)
+
+        find_keeping_the_order product_ids
       end
+    end
+
+    def self.find_keeping_the_order product_ids
+      products =  includes(:variants).where("id in (?)", product_ids).all
+      
+      sorted_products = product_ids.map do |product_id|
+        products.find { |product| product.id == product_id.to_i }
+      end
+      sorted_products.compact
     end
 
     def self.remove_sold_out products
