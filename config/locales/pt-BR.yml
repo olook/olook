@@ -32,6 +32,7 @@
       shoe: Sapato
       bag: Bolsa
       accessory: Acessório
+      cloth: Roupa
 
   # formatos de data e hora
   date:

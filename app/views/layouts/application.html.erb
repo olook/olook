@@ -34,7 +34,7 @@
   <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %> <%= "moments" if is_moment_page? %>">
     <%= render 'shared/admin_label' if current_admin %>
 
-    <div id="modal"></div>
+    <div id="modal" class="promo-olook"></div>
     <div id="error-messages">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
@@ -54,6 +54,7 @@
 
     <%= yield :site_footer %>
     <%= render "shared/lightbox_credits" %>
+    <%= javascript_include_tag "jquery" %>
     <%= javascript_include_tag "application" %>
     <% if user_signed_in? %>
       <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>

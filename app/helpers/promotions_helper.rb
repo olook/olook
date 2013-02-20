@@ -27,7 +27,7 @@ module PromotionsHelper
     #   render(:partial => "campaigns/campaign_active")
     # end
     campaign = Campaign.activated_campaign
-    if campaign && campaign.show_banner_for?(params[:controller])
+    if campaign && campaign.show_banner_for?(params)
       render(:partial => "campaigns/campaign_active")
     end
 
