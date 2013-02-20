@@ -47,37 +47,28 @@
   </div>
 <% end %>
 <% content_for :footer do %>
-<div id="compartilhar_email">
-<p>COMPARTILHAR POR E-MAIL</p>
-<%= form_tag product_share_by_email_path do %>
-  <%= label_tag :nome %>
-  <%= text_field_tag :name_from, "", class: 'fields', size: '30' %>
-
-  <%= label_tag :email_from %>
-  <%= text_field_tag :email_from, "", class: 'fields', size: '30' %>
-
-  <%= label_tag :emails_to_deliver %>
-  <%= text_field_tag :emails_to_deliver, "", class: 'fields', size: '30' %>
-
-  <%= hidden_field_tag :product_id, @product.id %>
-  <%= submit_tag 'Enviar', id: :send %>
-<% end %>
-<!--
-  <form>
-    <fieldset>
-          <label>Para <span>(para enviar para  vários contatos, separe os e-mails com vírgula)</span></label>
-          <input class="fields" size="30" type="email">
-    </fieldset>
-      <fieldset>
-          <label>De <span>(seu e-mail)</span></label>
-          <input class="fields" size="30" type="email">
-    </fieldset>
-    <fieldset>
-          <input id="send" type="submit"/>
-    </fieldset>
-  </form>
-  --->
-</div>
+   <div id="compartilhar_email">
+      <p>COMPARTILHAR POR E-MAIL</p>
+      <%= form_tag product_share_by_email_path do %>
+         <%= field_set_tag do %>
+            <%= label_tag :nome, "Seu nome" %>
+            <%= text_field_tag :name_from, "", class: 'fields', size: '30' %>
+         <% end %>
+         <%= field_set_tag do %>
+            <%= label_tag :email_from, "Seu e-mail" %>
+            <%= text_field_tag :email_from, "", class: 'fields', size: '30' %>
+         <% end %>
+         <%= field_set_tag do %>
+            <%= label_tag :emails_to_deliver, "Para <span>(para enviar para  vários contatos, separe os e-mails com vírgula)</span>".html_safe %>
+            <%= text_field_tag :emails_to_deliver, "", class: 'fields', size: '30' %>
+         <% end %>
+         <%= field_set_tag do %>   
+            <p class="msg">&nbsp;</p>
+            <%= hidden_field_tag :product_id, @product.id %>
+            <%= submit_tag 'Enviar', id: :send %>
+         <% end %>   
+     <% end %>
+   </div>
   <%= render partial: "shared/metrics/sociomantic/product", :locals => { product_id: @product.id } %>
   <%= render partial: "shared/metrics/criteo/product_page_tracker", :locals => { product_id: @product.id } %>
   <%= render partial: "shared/metrics/triggit/product", :locals => { product_id: @product.id } %>
