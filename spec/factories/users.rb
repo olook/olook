@@ -26,6 +26,10 @@ FactoryGirl.define do
     half_user false
     created_at 2.days.ago
 
+    trait :with_user_info do
+      user_info
+    end
+
     after(:build) do |user|
       Resque.stub(:enqueue)
       Resque.stub(:enqueue_in)

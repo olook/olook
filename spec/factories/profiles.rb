@@ -1,6 +1,24 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
   factory :profile do
+    trait :with_products do
+      after(:create) do |profile|
+        profile.products << FactoryGirl.create(:shoe, :in_stock, :in_collection)
+      end
+    end
+
+    trait :with_points do
+      after(:create) do |profile|
+        profile.points << FactoryGirl.create(:point, value: 50)
+      end
+    end
+
+    trait :with_user do
+      after(:create) do |profile| 
+        profile.users << FactoryGirl.create(:user, :with_user_info)
+      end
+    end
+
     factory :casual_profile do
       name "Casual Profile"
       first_visit_banner 'casual'
