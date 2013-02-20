@@ -46,25 +46,8 @@ $(document).ready(function() {
      });
   }
   
-  validaModal();
 });
 
-function validaModal(){
-   $("#compartilhar_email form").submit(function(){
-      var name = $("input#name_from").val(), email = $("#email_from").val(), to = $("#emails_to_deliver").val();
-      if(name == "" || email == "" || to == ""){
-         $(".msg").text("Todos os campos são obrigatórios").fadeIn();
-         return false;
-      }else if(email.indexOf("@") < 0 || to.indexOf("@") < 0){
-         $(".msg").text("Favor preencher os emails corretamente").fadeIn();
-         return false;
-      }
-      else{
-         $(".msg").text("").fadeOut();
-         return true;
-      }
-   })
-}
 
 initProduct = {
   checkRelatedProducts : function() {
