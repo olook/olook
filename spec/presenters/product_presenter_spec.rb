@@ -3,7 +3,7 @@ require "spec_helper"
 
 describe ProductPresenter do
   include ActionView::TestCase::Behavior
-  let(:product) { FactoryGirl.create :basic_shoe }
+  let(:product) { FactoryGirl.create(:shoe, :casual) }
   let(:member) { double :user }
   let(:facebook_app_id) { double :facebook_app_id }
   let(:template) { double :template }

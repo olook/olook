@@ -3,18 +3,14 @@ FactoryGirl.define do
   factory :product do
     is_visible true
 
-    trait :sold_out do
-      inventory 0
-    end
-
-    trait :in_stock do
-      inventory 1
-    end
-
     trait :casual do
       after(:create) do |product|
         product.profiles << FactoryGirl.create(:casual_profile)
       end
+    end
+
+    trait :in_collection do
+      collection
     end
 
     factory :shoe do
@@ -22,6 +18,19 @@ FactoryGirl.define do
       description "Elegant black high-heeled shoe for executives"
       category Category::SHOE
       collection_id 1
+      color_name 'Black'
+
+      trait :in_stock do
+        after(:create) do |product|
+          product.variants << FactoryGirl.create(:shoe_variant, :in_stock)
+        end
+      end
+
+      trait :sold_out do
+        after(:create) do |product|
+          product.variants << FactoryGirl.create(:shoe_variant, :sold_out)
+        end
+      end
 
       sequence :model_number do |n|
         "CSH01#{n}"
