@@ -449,9 +449,9 @@ initBase = {
   },
   
   newModal : function(content){
-    var $modal = $("div#modal.promo-olook"), h = content.outerHeight(), w = content.outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2));
+    var $modal = $("div#modal.promo-olook"), h = content.outerHeight(), w = content.outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2)), heightDoc = $(document).height();
     
-    $("#overlay-campaign").css("background-color", "#000").fadeIn().bind("click", function(){
+    $("#overlay-campaign").css({"background-color": "#000", 'height' : heightDoc}).fadeIn().bind("click", function(){
        $modal.fadeOut();
        $(this).fadeOut();
     }); 
