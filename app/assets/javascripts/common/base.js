@@ -449,7 +449,7 @@ initBase = {
   },
   
   newModal : function(content,h,w){
-    var $modal = $("div#modal.promo-olook"), h = h+10, w = w+10, ml = -parseInt((w/2)), mt = -parseInt((h/2));
+    var $modal = $("div#modal.promo-olook"), h = content.outerHeight(), w = content.outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2));
     
     $("#overlay-campaign").css("background-color", "#000").fadeIn().bind("click", function(){
        $modal.fadeOut();
