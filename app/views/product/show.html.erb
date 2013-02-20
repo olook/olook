@@ -47,16 +47,17 @@
   </div>
 <% end %>
 <% content_for :footer do %>
+
    <div id="compartilhar_email">
       <p>COMPARTILHAR POR E-MAIL</p>
       <%= form_tag product_share_by_email_path do %>
          <%= field_set_tag do %>
             <%= label_tag :nome, "Seu nome" %>
-            <%= text_field_tag :name_from, "", class: 'fields', size: '30' %>
+            <%= text_field_tag :name_from, current_user.try(:first_name), class: 'fields', size: '30' %>
          <% end %>
          <%= field_set_tag do %>
             <%= label_tag :email_from, "Seu e-mail" %>
-            <%= text_field_tag :email_from, "", class: 'fields', size: '30' %>
+            <%= text_field_tag :email_from, current_user.try(:email), class: 'fields', size: '30' %>
          <% end %>
          <%= field_set_tag do %>
             <%= label_tag :emails_to_deliver, "Para <span>(para enviar para  vários contatos, separe os e-mails com vírgula)</span>".html_safe %>
@@ -69,6 +70,7 @@
          <% end %>   
      <% end %>
    </div>
+
   <%= render partial: "shared/metrics/sociomantic/product", :locals => { product_id: @product.id } %>
   <%= render partial: "shared/metrics/criteo/product_page_tracker", :locals => { product_id: @product.id } %>
   <%= render partial: "shared/metrics/triggit/product", :locals => { product_id: @product.id } %>
