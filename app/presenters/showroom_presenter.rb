@@ -21,8 +21,8 @@ class ShowroomPresenter < BasePresenter
     product_finder_service = ProductFinderService.new member, admin, collection
     products = product_finder_service.products_from_all_profiles(:category => category,
                                                                  :description => shoes_size, 
-                                                                 :collection => collection, 
-                                                                 :not_allow_sold_out_products => true)
+                                                                 :collection => collection)
+
     range = parse_range(asked_range, products)
     output = ''
     (products[range] || []).each do |product|
