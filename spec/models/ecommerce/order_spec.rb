@@ -60,7 +60,7 @@ describe Order do
       let(:order_without_payment) { FactoryGirl.create(:order_without_payment)}
 
       it 'return true' do
-        order_without_payment.can_be_canceled? should be_true
+        order_without_payment.can_be_canceled?.should be_true
       end
 
     end
@@ -76,7 +76,7 @@ describe Order do
     context 'order with a waiting payment' do
 
       it 'return false' do
-        order_with_waiting_payment.can_be_canceled? should be_false
+        order_with_waiting_payment.can_be_canceled?.should be_false
       end
 
     end
