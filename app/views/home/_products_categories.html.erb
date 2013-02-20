@@ -1,15 +1,15 @@
 <div id="products_categories">
   <h1>O que você quer ver hoje?</h1>
   <ul>
-    <li class="anabela"><%= link_to "Anabela", anabelas_path %></li>
-    <li class="rasteira"><%= link_to "Rasteira", rasteiras_path %></li>
-    <li class="sandalia"><%= link_to "Sandália", sandalias_path %></li>
-    <li class="sapatilha"><%= link_to "Sapatilha", sapatilhas_path %></li>
-    <li class="scarpin"><%= link_to "Scarpin", scarpins_path %></li>
-    <li class="slipper"><%= link_to "Slipper", slippers_path %></li>
-    <li class="sneaker"><%= link_to "Sneaker", sneakers_path %></li>
-    <li class="acessorios"><%= link_to "Acessórios", accessories_path %></li>
-    <li class="bolsas"><%= link_to "Bolsas", bags_path %></li>
-    <li class="oculos"><%= link_to "Óculos", glasses_path %></li>
+    <li class="anabela"><%= link_to "Anabela", "/olooklet?shoe_subcategories[]=anabela"%></li>
+    <li class="rasteira"><%= link_to "Rasteira", "/colecoes?shoe_subcategories[]=rasteira" %></li>
+    <li class="sandalia"><%= link_to "Sandália", "/olooklet?shoe_subcategories[]=sandalia" %></li>
+    <li class="sapatilha"><%= link_to "Sapatilha", "/colecoes?shoe_subcategories[]=sapatilha" %></li>
+    <li class="scarpin"><%= link_to "Scarpin", "/olooklet?shoe_subcategories[]=scarpin" %></li>
+    <li class="slipper"><%= link_to "Slipper", "/olooklet?shoe_subcategories[]=slipper" %></li>
+    <li class="sneaker"><%= link_to "Sneaker", "/olooklet?shoe_subcategories[]=sneaker" %></li>
+    <li class="acessorios"><%= link_to "Acessórios", "/colecoes?category_id=3&sort_filter=0&select_all_accessories=1  "%></li>
+    <li class="bolsas"><%= link_to "Bolsas", "/colecoes?category_id=2&sort_filter=0&select_all_bags=1" %></li>
+    <li class="oculos"><%= link_to "Óculos", "/olooklet?accessory_subcategories[]=oculos-de-sol" %></li>
   </ul>
 </div>
