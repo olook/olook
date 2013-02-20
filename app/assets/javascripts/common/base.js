@@ -448,7 +448,7 @@ initBase = {
     return "<iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&autoplay=1' frameborder='0' allowfullscreen></iframe>";
   },
   
-  newModal : function(content,h,w){
+  newModal : function(content){
     var $modal = $("div#modal.promo-olook"), h = content.outerHeight(), w = content.outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2));
     
     $("#overlay-campaign").css("background-color", "#000").fadeIn().bind("click", function(){
