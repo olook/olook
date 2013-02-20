@@ -166,7 +166,7 @@ div#compartilhar_email {
   padding: 35px;
   display: none;
   width: 530px;
-  height:223px;
+  height:300px;
   border:solid 7px #000;
   fieldset{
   margin-bottom: 20px;
@@ -198,6 +198,9 @@ div#compartilhar_email {
     position: center;
     margin-bottom: 20px;
     padding-top: 5px;
+    &.msg{
+      float:left;font-family:$avenir;font-size:14px;color:#F00;margin:0;
+    }
   }
 }
  
