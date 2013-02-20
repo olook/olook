@@ -9,9 +9,10 @@ describe ProductFinder do
 
   subject { Dummy.new }
 
-  # let!(:sold_out) { FactoryGirl.create(:blue_slipper,  }
-  # let!(:product_b) { FactoryGirl.create(:blue_slipper, :name => 'B', :collection => collection, :profiles => [casual_profile]) }
-  # let!(:product_c) { FactoryGirl.create(:blue_slipper, :name => 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
+  let!(:sold_out)  { FactoryGirl.create(:shoe, :sold_out) }
+  let!(:in_stock)  { FactoryGirl.create(:shoe, :in_stock) }
+  let!(:duplicate_in_stock) { FactoryGirl.create(:shoe, :in_stock) }
+  let!(:products)  { [sold_out, in_stock, duplicate_in_stock] }
 
   context "#remove_color_variations" do
   	context "without products passed" do
@@ -20,13 +21,16 @@ describe ProductFinder do
 	    end
   	end
 
-  	it "adds to the list the products that aren't already displayed" do
-  		pending
-  	end
+    context "when passed two or more products with the same name" do
+    	it "removes repeated products" do
+    		expect(subject.remove_color_variations(products)).to_not include(duplicate_in_stock)
+    	end
+    end
 
-  	context "when a product of the same color was already displayed but was sold out and the algorithm find another color that isn't" do
-  		it "replaces the sold out one by the one that's not sold out" do
-  			pending
+  	context "when passed a product that was already displayed and sold out" do
+  		it "replaces it with another product by the same name, presumably with a different color" do
+  			expect(subject.remove_color_variations(products)).to include(in_stock)
+        expect(subject.remove_color_variations(products)).to_not include(sold_out)
   		end
   	end
   end
