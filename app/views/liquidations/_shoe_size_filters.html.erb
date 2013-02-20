@@ -6,7 +6,7 @@
   <ol class="column">
    <% liquidation_presenter.liquidation.shoe_sizes.each do |shoe_size| %>
     <li>
-      <%= check_box_tag('shoe_sizes[]', shoe_size, false , :id => "size_#{shoe_size}") %>
+      <%= check_box_tag('shoe_sizes[]', shoe_size, current_user.try(:shoes_size).to_i == shoe_size.to_i, :id => "size_#{shoe_size}") %>
       <%= label_tag(shoe_size, nil, :for => shoe_size) %>
     </li>
     <% end %>
