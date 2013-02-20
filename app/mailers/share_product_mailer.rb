@@ -19,6 +19,6 @@ class ShareProductMailer < ActionMailer::Base
     @user_name = informations[:name_from]
     @user_email = informations[:email_from]
     @product = Product.find(product)
-    mail(to: email_receiver, reply_to: @user_email, subject: "#{@product.id}").deliver
+    mail(to: email_receiver, reply_to: @user_email, subject: "#{ @user_name } viu #{ @product.category_humanize.last } #{ @product.category_humanize } #{ @product.name } no site da olook e lembrou de você").deliver
   end
 end
