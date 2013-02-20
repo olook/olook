@@ -50,7 +50,8 @@
 
    <div id="compartilhar_email">
       <p>COMPARTILHAR POR E-MAIL</p>
-      <p class="msg">&nbsp;</p>
+      <div class="msg"><p>&nbsp;</p></div>
+      <p class="forgot-msg">Lembrou de mais alguém? Compartilhe</p>
       <%= form_tag product_share_by_email_path, remote: true do %>
          <%= field_set_tag do %>
             <%= label_tag :nome, "Seu nome" %>

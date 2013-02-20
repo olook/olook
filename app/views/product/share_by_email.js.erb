@@ -1,9 +1,10 @@
 var name = $("input#name_from").val(), email = $("#email_from").val(), to = $("#emails_to_deliver").val();
 if(name == "" || email == "" || to == ""){
-   $(".msg").removeClass("success").text("Precisamos das informações abaixo para enviar a recomendação").fadeIn();
+   $(".msg").addClass("error").delay(300).fadeIn().find("p").text("Precisamos das informações abaixo para enviar a recomendação");
 }else if(email.indexOf("@") < 0 || to.indexOf("@") < 0){
-   $(".msg").removeClass("success").text("Precisamos das informações abaixo para enviar a recomendação").fadeIn();
+   $(".msg").addClass("error").delay(300).fadeIn().find("p").text("Precisamos das informações abaixo para enviar a recomendação")
 }else{
-   $(".msg").addClass("success").text("Sua recomendação foi enviada com sucesso!").fadeIn();
+   $(".msg").removeClass("error").delay(100).fadeIn().delay(1500).fadeOut("slow").find("p").text("Sua recomendação foi enviada com sucesso!");
+   $(".forgot-msg").fadeIn();
    $("#compartilhar_email form input.fields").val("");
 }
