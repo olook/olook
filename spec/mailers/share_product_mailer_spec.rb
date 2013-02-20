@@ -5,8 +5,9 @@ describe MemberMailer do
   let(:product) { FactoryGirl.create(:basic_shoe) }
 
   describe "#send_share_message_for" do
-    informations = { name_from: "User name", email_from: "user@email.com", emails_to_deliver: "user_friend@email.com" }
-    let!(:mail) { ShareProductMailer.send_share_message_for(product, informations) }
+    informations = { name_from: "User name", email_from: "user@email.com" }
+    email_receiver = "user_friend@email.com"
+    let!(:mail) { ShareProductMailer.send_share_message_for(product, informations, email_receiver) }
 
     it "sets 'from' attribute to olook email" do
       mail.from.should include("vip@o.conviteolook.com.br")
@@ -17,7 +18,7 @@ describe MemberMailer do
     end
 
     it "sets 'to' attribute to passed member's email" do
-      mail.to.should include(informations[:emails_to_deliver])
+      mail.to.should include(email_receiver)
     end
 
     it "sets 'title' attribute welcoming the new member" do
