@@ -30,10 +30,10 @@ FactoryGirl.define do
       user_info
     end
 
-    after(:build) do |user|
-      Resque.stub(:enqueue)
-      Resque.stub(:enqueue_in)
-    end
+    # after(:build) do |user|
+    #   Resque.stub(:enqueue)
+    #   Resque.stub(:enqueue_in)
+    # end
 
     factory :member do
       sequence :email do |n|
@@ -44,9 +44,9 @@ FactoryGirl.define do
       is_invited nil
       cpf nil
 
-      after(:build) do |user|
-        Resque.stub(:enqueue_in)
-      end
+      # after(:build) do |user|
+      #   Resque.stub(:enqueue_in)
+      # end
 
       after(:create) do |member|
         member.send(:write_attribute, :invite_token, 'OK'*4)

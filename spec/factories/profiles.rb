@@ -15,7 +15,7 @@ FactoryGirl.define do
 
     trait :with_user do
       after(:create) do |profile| 
-        profile.users << FactoryGirl.create(:user, :with_user_info)
+        profile.users << FactoryGirl.create(:member, :with_user_info)
       end
     end
 
