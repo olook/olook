@@ -45,7 +45,9 @@ $(document).ready(function() {
         initBase.newModal(content);
      });
   }
-  
+  $("#compartilhar_email input#send").click(function(){
+     $(this).addClass("opacidade").prop('disabled', true);
+  })
 });
 
 
