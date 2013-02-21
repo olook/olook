@@ -47,6 +47,7 @@ module Payments
           end
         end
       rescue Exception => error
+        log("[ERROR] Error on authorizing payment: " + error)
         ErrorNotifier.send_notifier("Braspag", error.message, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
         raise error
@@ -65,6 +66,7 @@ module Payments
         authorize_response = BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code)
         capture(authorize_response)    
       rescue Exception => error
+        log("[ERROR] Error on capturing payment: " + error)
         ErrorNotifier.send_notifier("Braspag", error.message, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
         raise error
@@ -105,7 +107,7 @@ module Payments
     end
 
     def address_data
-      delivery_address = self.payment.order.freight.address
+      delivery_address = self.payment.reload.order.freight.address
       Braspag::AddressBuilder.new
       .with_street(delivery_address.street)
       .with_number(delivery_address.number)
@@ -164,6 +166,8 @@ module Payments
     end
 
     def process_authorize_response(authorize_response)
+      log("Processing authorize response #{authorize_response}")
+
       authorize_transaction_result = authorize_response[:authorize_transaction_response][:authorize_transaction_result]
       if authorize_transaction_result[:success]
         update_payment_response(Payment::SUCCESSFUL_STATUS, authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_message])
