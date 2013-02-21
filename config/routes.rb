@@ -192,6 +192,8 @@ Olook::Application.routes.draw do
       get :products, :to => "lookbooks#product"
     end
 
+    resources :collection_theme_groups
+
     resources :moments
 
     resources :users, :except => [:create, :new] do
