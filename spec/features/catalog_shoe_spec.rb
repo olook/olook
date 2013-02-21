@@ -9,7 +9,7 @@ feature "Navigating by Catalog Shoe", %q{
   } do
 
   describe "Navigating" do
-    before(:all) do
+    before(:each) do
       moment = FactoryGirl.create(:moment, { name: "work", slug: "work", id: 1 })
       shoe = (FactoryGirl.create :shoe_subcategory_name).product
       shoe.update_attributes(name: "Never SHOE")
