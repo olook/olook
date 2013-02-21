@@ -5,7 +5,7 @@ function maskTel(tel){
 	if(ddd == "11" && dig9 == "9")
 		$(tel).setMask("(99)99999-9999");
   else
-   	$(tel).setMask("(99)9999-9999");	  
+   	$(tel).setMask("(99)9999-9999");
 }
 
 var masks = {
@@ -21,7 +21,7 @@ var masks = {
 	},
 	card: function(){
 		$("input.credit_card_number").setMask('9999999999999999999')
-	}	
+	}
 }
 
 
@@ -40,7 +40,7 @@ function retrieve_freight_price(zip_code) {
       $("#delivery_time").delay(200).fadeIn();
       if($("#checkout_payment_method_billet").is(":checked")){
         $("#total_billet").delay(200).fadeIn();
-      } 
+      }
       else {
         $("#total").delay(200).fadeIn();
       }
@@ -75,7 +75,7 @@ function setButton(){
 	el = $("#cart-box").height();
 	h = el + 120;
 	$("#new_checkout .send_it").css("top", h).fadeIn();
- 	
+
 	if($('input.send_it').size() > 0)
 		return helpLeft2 = $('input.send_it').offset().left;
 }
@@ -87,9 +87,14 @@ $(function() {
 	masks.tel(".tel_contato1");
 	masks.tel(".tel_contato2");
 
+  $(".credit_card").click(function()
+      { $(".box-debito .debit_bank_Itau").removeClass("selected").siblings("input:checked").removeAttr("checked");
+      }
+    )
+
 	var msie6 = $.browser == 'msie' && $.browser.version < 7;
 	if(!msie6 && $('.box-step-three').length == 1) {
-		var helpLeft = $('.box-step-three').offset().left; 
+		var helpLeft = $('.box-step-three').offset().left;
 
 		$(window).scroll(function(event) {
 			var y = $(this).scrollTop();
@@ -102,8 +107,8 @@ $(function() {
 			}
 		});
 	}
-	
-	
+
+
   $("div.box-step-two #checkout_credits_use_credits").change(function() {
     $("#cart-box #credits_used").hide();
     $("#cart-box #total").hide();
@@ -120,13 +125,13 @@ $(function() {
       }
     });
   });
-	
+
 	// ABOUT CREDITS MODAL
 	$("div.box-step-two .more_credits").click(function(){
 		$("#overlay-campaign").show();
 		$("#about_credits").fadeIn();
 	});
-	
+
 	$("div.box-step-two button").click(function(){
 		$("#about_credits").fadeOut();
 		$("#overlay-campaign").hide();
@@ -137,14 +142,14 @@ $(function() {
 
 			$("#about_credits,#overlay-campaign").fadeOut();
 		}
-	});	 
+	});
 	$(document).keyup(function(e) {
-			if (e.keyCode == 27) { //ESC 
+			if (e.keyCode == 27) { //ESC
 	   		$("#about_credits,#overlay-campaign").fadeOut();
 			}
 	});
 
-	//SHOW TOTAL 
+	//SHOW TOTAL
 	function showTotal(){
 		if($("div.billet").is(":visible")){
 			$("span#total").fadeOut('fast');
@@ -161,21 +166,21 @@ $(function() {
 	(function showPaymentType(){
 		var payment_type_checked = $(".payment_type input:checked");
 		$(".payment_type").siblings('div').hide();
-		elem=$(payment_type_checked).val();			
+		elem=$(payment_type_checked).val();
     $("div."+elem).show();
 		showTotal();
 	})();
-	
+
 	var payment_type = $(".payment_type input");
 	$.each(payment_type,function(){
 	    $(this).click(function(){
 	        $(".payment_type").siblings('div').hide();
-	        elem=$(this).val();			
+	        elem=$(this).val();
 	        $("div."+elem).show();
 					showTotal();
 	    });
 	});
-	
+
 	//SELECT CARD
 	var cards = $("ol.cards li span");
 	$.each(cards, function(){
@@ -184,19 +189,20 @@ $(function() {
 			$(this).addClass("selected").siblings("input").attr('checked','checked');
 		});
 	});
-	
+
 	var debit = $(".box-debito span.debit_bank_Itau");
 	$(debit).click(function(){
 		$(this).addClass("selected").siblings("input").attr('checked','checked');
 		$("ol.cards li input:checked").removeAttr("checked");
 		$("ol.cards li span").removeClass("selected");
 	});
-	
+
 });
 
 
 
 $("form.edit_cart_item").submit(function() {
-    retrieve_freight_price($("#checkout_address_zip_code").val(),null);  
+    retrieve_freight_price($("#checkout_address_zip_code").val(),null);
     return true;
 });
+
