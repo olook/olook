@@ -22,7 +22,7 @@ describe MemberMailer do
     end
 
     it "sets 'title' attribute welcoming the new member" do
-      mail.subject.should eq "#{ informations[:name_from] } viu o #{ product.category_humanize } #{ product.name } no site da olook e lembrou de você"
+      mail.subject.should eq "#{ informations[:name_from].upcase } viu o #{ product.category_humanize } #{ product.name } no site da olook e lembrou de você"
     end
 
   end
