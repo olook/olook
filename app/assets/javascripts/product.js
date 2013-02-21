@@ -45,8 +45,8 @@ $(document).ready(function() {
         initBase.newModal(content);
      });
   }
-  $("#compartilhar_email input#send").click(function(){
-     $(this).addClass("opacidade").prop('disabled', true);
+  $("#compartilhar_email form").submit(function(){
+     $("input#send").addClass("opacidade").delay(300).attr('disabled', true);
   })
 });
 
