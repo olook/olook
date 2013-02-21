@@ -82,31 +82,18 @@ describe Payment do
     context "try to cancel" do
       context "when from started" do
         it "should go to canceled when cancel_order" do
-          subject.should_receive(:cancel_order?).twice.and_return(true)
+          # subject.should_receive(:cancel_order?).twice.and_return(true)
           subject.cancel!
           subject.cancelled?.should eq(true)
         end
 
-        it "should raise error when not cancel_order" do
-          subject.should_receive(:cancel_order?).and_raise
-          expect {
-            subject.cancel!
-          }.to raise_error
-        end
       end
 
       context "when from waiting_payment" do
         it "should go to canceled when cancel_order" do
-          waiting_payment.should_receive(:cancel_order?).and_return(true)
+          # waiting_payment.should_receive(:cancel_order?).and_return(true)
           waiting_payment.cancel!
           waiting_payment.cancelled?.should eq(true)
-        end
-
-        it "should raise error when not cancel_order" do
-          waiting_payment.should_receive(:cancel_order?).and_raise
-          expect {
-            waiting_payment.cancel!
-          }.to raise_error
         end
       end
     end

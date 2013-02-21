@@ -252,7 +252,12 @@ class Order < ActiveRecord::Base
   end
 
   def can_be_canceled?
-    true
+    paids = payments.where(:state => :authorized)
+
+    return true if ( payments.empty? || paids.empty? )
+
+    order_was_fully_paid = paids.sum(:total_paid) == amount_paid
+    not order_was_fully_paid
   end
 
   private
