@@ -18,7 +18,7 @@ FactoryGirl.define do
     initial_inventory 0
 
     trait :in_stock do
-      inventory 1
+      inventory 10
     end
 
     trait :sold_out do
