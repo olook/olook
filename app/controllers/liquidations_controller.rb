@@ -4,7 +4,6 @@ class LiquidationsController < ApplicationController
   respond_to :html, :js
 
   before_filter :verify_if_active, :only => [:show, :index]
-  before_filter :load_products_of_user_size
   before_filter :load_liquidation_products
 
   def index
@@ -26,12 +25,6 @@ class LiquidationsController < ApplicationController
   end
 
   private
-
-  def load_products_of_user_size
-    # To show just the shoes of the user size at the
-    # first time that the liquidations page is rendered
-    params[:shoe_sizes] = [current_user.shoes_size.to_s] if current_user && current_user.shoes_size
-  end
 
   def load_liquidation_products
       @liquidation = Liquidation.find(params[:id])
