@@ -1,0 +1,22 @@
+<h2>Listando Grupos de Temas</h2>
+
+<div class="inner">
+
+  <ul id="collection_theme_groups">
+    <% @collection_theme_groups.each do |collection_theme_group| %>
+    <li id="collection_theme_group_<%= collection_theme_group.id %>"><span class="handle">[drag]</span><%= collection_theme_group.name %>
+      <%= #link_to 'Show', admin_collection_path(collection), :class => 'button' 
+      %> - 
+      <%= #link_to 'Edit', edit_admin_collection_path(collection), :class => 'button' 
+      %> - 
+      <%= #link_to 'Destroy', admin_collection_path(collection), confirm: 'Are you sure?', method: :delete, :class => 'button danger' 
+      %>
+    </li>
+    <% end %>
+  </ul>
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Criar Grupo de Temas', new_admin_collection_theme_group_path 
+  %></li>
+<% end %>
