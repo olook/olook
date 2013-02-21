@@ -29,6 +29,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'i18n', '= 0.6.1'
 gem 'clearsale', :git => 'git://github.com/olook/clearsale.git', :branch => 'master'
+gem 'acts_as_list'
 
 group :production, :staging do
   gem 'asset_sync', '~> 0.5.0'
