@@ -26,10 +26,8 @@ module Olook
     config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/actions/*"]
     config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/rules/*"]
 
-    config.middleware.delete(ActionDispatch::Cookies)
-    config.middleware.delete(ActionDispatch::Session::CookieStore)
-    config.middleware.insert_before(Rails::Rack::Logger, ActionDispatch::Session::CookieStore)
-    config.middleware.insert_before(ActionDispatch::Session::CookieStore, ActionDispatch::Cookies)
+    config.middleware.delete(ActiveRecord::SessionStore)
+    config.middleware.insert_before(Rails::Rack::Logger, ActiveRecord::SessionStore)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
