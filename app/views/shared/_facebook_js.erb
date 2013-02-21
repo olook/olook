@@ -10,7 +10,10 @@ $(function(){
 	    cookie: true,
 	    oauth: true
 	  });
-
+        FB.Event.subscribe('edge.create', function(href, widget) {
+          alert('Facebook Like');
+          _gaq.push(['_trackEvent', 'facebook', 'Facebook like', href]);
+        });
 	  try {
 	    FB.XFBML.parse();
 	  } catch(ex){}
@@ -46,7 +49,6 @@ $(function(){
   js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
-
 
 </script>
 <% end %>
