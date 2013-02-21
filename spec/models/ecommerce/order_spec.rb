@@ -66,22 +66,38 @@ describe Order do
     end
 
     context 'order with a canceled payment' do
+      let(:order_with_canceled_payment) { FactoryGirl.create(:order_with_canceled_payment)}
 
-      it 'return true' do
-        pending
+      it 'return true' do       
+        order_with_canceled_payment.can_be_canceled?.should be_true
       end
-
     end
 
-    context 'order with a waiting payment' do
+    context 'order has a canceled and an authorized payment' do
+      let(:authorized_payment) {FactoryGirl.create(:credit_card_with_response_authorized, :order => order_with_payments)}
+      let(:order_with_payments) { FactoryGirl.create(:order_with_canceled_payment)}
 
-      it 'return false' do
-        order_with_waiting_payment.can_be_canceled?.should be_false
+      before do
+        order_with_payments.payments << authorized_payment
       end
 
+      context "payment's total_paid is equal to order's amount_paid " do
+        before do
+          order_with_payments.amount_paid = authorized_payment.total_paid
+        end
+
+        it 'return false' do
+          order_with_payments.can_be_canceled?.should be_false
+        end
+      end
+
+      context "payment's total_paid is less than order's amount_paid " do
+
+        it 'return true' do
+          order_with_payments.can_be_canceled?.should be_true
+        end
+      end
     end
-
-
   end
 
   describe '#installments' do
