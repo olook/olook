@@ -60,7 +60,7 @@ class MomentsController < ApplicationController
     end
   end
 
-  def add_featured_products   
+  def add_featured_products
     @featured_products = Product.featured_products(@category_id).first(3)
   end
 
