@@ -355,6 +355,14 @@ class Product < ActiveRecord::Base
     find_keeping_the_order Setting.send("home_#{label}").split(",")
   end
 
+  def find_suggested_products
+    products = []
+    Detail.where(description: self.subcategory).each do |detail|
+      products << detail.product
+    end
+    products
+  end
+
   private
 
     def self.fetch_all_featured_products_of category
@@ -368,7 +376,7 @@ class Product < ActiveRecord::Base
 
     def self.find_keeping_the_order product_ids
       products =  includes(:variants).where("id in (?)", product_ids).all
-      
+
       sorted_products = product_ids.map do |product_id|
         products.find { |product| product.id == product_id.to_i }
       end
@@ -429,7 +437,7 @@ class Product < ActiveRecord::Base
     end
 
     def fetch_cache_for(picture)
-      Rails.cache.fetch(CACHE_KEY+"#{id}d#{picture.display_on}", expires_in: Setting.image_expiration_period_in_days.to_i.days) do        
+      Rails.cache.fetch(CACHE_KEY+"#{id}d#{picture.display_on}", expires_in: Setting.image_expiration_period_in_days.to_i.days) do
         picture.image.catalog.file.exists? ? picture.try(:image_url, :catalog) : picture.try(:image_url, :suggestion)
       end
     end
