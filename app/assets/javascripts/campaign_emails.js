@@ -62,7 +62,7 @@ $(function(){
 	
 	$(".close, .btn-continue").bind("click", function(){
 		parent.top.$("#modal-campaign,#overlay-campaign").fadeOut();
-		_gaq.push(['_trackEvent', 'Modal', 'Close', '']);
+		// _gaq.push(['_trackEvent', 'Modal', 'Close', '']);
 		if($(".dont_show").is(":checked")){
 			parent.top.dontShow();
 		}
@@ -70,7 +70,7 @@ $(function(){
 	
 		
 	$("input[type=submit]").click(function(){
-		_gaq.push(['_trackEvent', 'Modal', 'Submit', '']);
+		// _gaq.push(['_trackEvent', 'Modal', 'Submit', '']);
 		if(flag==true)
 			parent.top.$("#modal-campaign").fadeOut();
 		if($(".dont_show").is(":checked")){
