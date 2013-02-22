@@ -623,4 +623,26 @@ describe Product do
     end
 
   end
+
+  describe 'find_suggested_products' do
+    context "when product has suggested products" do
+      let!(:first_shoe) { FactoryGirl.create(:basic_shoe) }
+      let!(:second_shoe) { FactoryGirl.create(:red_slipper) }
+      let!(:third_shoe) { FactoryGirl.create(:silver_slipper) }
+      let!(:subcategory) { FactoryGirl.create(:shoe_subcategory_name) }
+
+      before do
+        first_shoe.stub(:subcategory).and_return("Scarpin")
+        second_shoe.stub(:subcategory).and_return("Sandalia")
+        third_shoe.stub(:subcategory).and_return("Sandalia")
+        subject.stub(:subcategory).and_return("Sandalia")
+      end
+
+      it "returns suggested products" do
+        subject.find_suggested_products.should eq ([second_shoe, third_shoe])
+      end
+
+    end
+  end
+
 end
