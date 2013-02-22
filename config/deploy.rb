@@ -2,6 +2,7 @@
 require 'capistrano/ext/multistage'
 require 'bundler/capistrano'
 require 'capistrano/maintenance'
+require 'capistrano_performance'
 
 set :stages, %w(prod1 prod2 prod3 prod4 prodspare prod_prod prod_todas hmg dev resque showroom new_machine apptest)
 
