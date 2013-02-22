@@ -10,7 +10,7 @@ feature "Navigating by Catalog Shoe", %q{
 
   describe "Navigating" do
     before(:each) do
-      moment = FactoryGirl.create(:moment, { name: "work", slug: "work", id: 1 })
+      collection_theme = FactoryGirl.create(:collection_theme, { name: "work", slug: "work", id: 1 })
       shoe = (FactoryGirl.create :shoe_subcategory_name).product
       shoe.update_attributes(name: "Never SHOE")
       FactoryGirl.create :shoe_heel, product: shoe
@@ -31,9 +31,9 @@ feature "Navigating by Catalog Shoe", %q{
       accessory.master_variant.save!
       FactoryGirl.create :basic_accessory_simple, product: accessory
 
-      CatalogProductService.new(moment.catalog, accessory).save!
-      CatalogProductService.new(moment.catalog, bag).save!
-      CatalogProductService.new(moment.catalog, shoe).save!
+      CatalogProductService.new(collection_theme.catalog, accessory).save!
+      CatalogProductService.new(collection_theme.catalog, bag).save!
+      CatalogProductService.new(collection_theme.catalog, shoe).save!
     end
 
     scenario "visiting shoes link" do

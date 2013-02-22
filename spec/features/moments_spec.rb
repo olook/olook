@@ -8,8 +8,8 @@ feature "Navigating by moments", %q{
   } do
 
   let!(:user) { FactoryGirl.create(:user, :user_info => UserInfo.new) }
-  let!(:day_moment) { FactoryGirl.create(:moment) }
-  let!(:work_moment) { FactoryGirl.create(:moment, { :name => "work", :slug => "work" }) }
+  let!(:day_collection_theme) { FactoryGirl.create(:collection_theme) }
+  let!(:work_collection_theme) { FactoryGirl.create(:collection_theme, { :name => "work", :slug => "work" }) }
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
   let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
@@ -53,8 +53,8 @@ feature "Navigating by moments", %q{
     describe "checking products at the related moment" do
 
       before :each do
-        CatalogProductService.new(day_moment.catalog, basic_bag).save!
-        CatalogProductService.new(work_moment.catalog, basic_shoes).save!
+        CatalogProductService.new(day_collection_theme.catalog, basic_bag).save!
+        CatalogProductService.new(work_collection_theme.catalog, basic_shoes).save!
         visit moments_path
       end
 

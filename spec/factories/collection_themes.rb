@@ -7,7 +7,7 @@ FactoryGirl.define do
     position 1
     active true
   end
-  
+
   factory :collection_themes, :class => CollectionTheme do
     sequence :name do |n|
       "moment#{n}"
