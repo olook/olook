@@ -9,7 +9,7 @@
       <%= check_box_tag "select_all_accessories", 1, params[:select_all_accessories], :class => "select_all" %>
       <%= label_tag "select_all_accessories", "Todos os acessórios" %>
     </li-->
-    <% moment_presenter.moment.catalog.accessories.each do |subcategory, label| %>
+    <% collection_theme_presenter.collection_theme.catalog.accessories.each do |subcategory, label| %>
       <% unless subcategory.nil? && label.nil? %>
         <li>
           <%= check_box_tag('accessory_subcategories[]', subcategory, params[:accessory_subcategories] && params[:accessory_subcategories].include?(subcategory) || params[:select_all_accessories], :id => subcategory) %>
