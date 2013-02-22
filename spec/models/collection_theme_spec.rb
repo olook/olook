@@ -1,14 +1,14 @@
 require 'spec_helper'
 
 describe CollectionTheme do
-  let(:moment) { FactoryGirl.create(:moment) }
-  let(:day_by_day) { FactoryGirl.build(:moment) }
+  let(:collection_theme) { FactoryGirl.create(:collection_theme) }
+  let(:day_by_day) { FactoryGirl.build(:collection_theme) }
 
   describe "validation" do
     it { should validate_presence_of(:name) }
-    it { moment.should validate_uniqueness_of(:name) }
+    it { collection_theme.should validate_uniqueness_of(:name) }
     it { should validate_presence_of(:slug) }
-    it { moment.should validate_uniqueness_of(:slug) }
+    it { collection_theme.should validate_uniqueness_of(:slug) }
 
     it { should validate_numericality_of(:position) }
     it { should have_one(:catalog) }
