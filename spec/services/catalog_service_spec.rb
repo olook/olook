@@ -34,8 +34,8 @@ describe CatalogService do
       ct_collection_theme_strategy = double(Catalogs::CollectionThemeStrategy)
       ct_collection_theme_strategy.should_receive(:seek_and_destroy!)
       Catalogs::CollectionThemeStrategy.should_receive(:new)
-                     .with(basic_bag, {:test_options => true, :moments => []}).and_return(ct_collection_theme_strategy)
-      CatalogService.save_product basic_bag, :test_options => true, :moments => []
+                     .with(basic_bag, {:test_options => true, :collection_themes => []}).and_return(ct_collection_theme_strategy)
+      CatalogService.save_product basic_bag, :test_options => true, :collection_themes => []
     end
   end
 end
