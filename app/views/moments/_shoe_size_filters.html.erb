@@ -3,7 +3,7 @@
   <button type="button" class="clear_filter">( limpar )</button>
 
     <ol class="column">
-      <% moment_presenter.moment.catalog.shoe_sizes.each do |key, value| %>
+      <% collection_theme_presenter.collection_theme.catalog.shoe_sizes.each do |key, value| %>
         <% unless key.zero? %>
           <li>
             <% if current_user && current_user.shoes_size %>

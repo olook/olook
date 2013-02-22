@@ -9,7 +9,7 @@ class MomentsController < ApplicationController
 
   def index
     @chaordic_user = ChaordicInfo.user current_user
-    render :show, id: @moment.id
+    render :show, id: @collection_theme.id
   end
 
   def show
@@ -53,7 +53,7 @@ class MomentsController < ApplicationController
       @catalog_products = CatalogSearchService.new(params.merge({id: @collection_theme.catalog.id})).search_products
       @products_id = @catalog_products.map{|item| item.product_id }.compact
       # params[:id] is into array for pixel iterator
-      @categories_id = params[:id] ? [params[:id]] : @collection_theme.map(&:id).compact.uniq
+      @categories_id = params[:id] ? [params[:id]] : @collection_themes.map(&:id).compact.uniq
     else
       redirect_to root_path
       flash[:notice] = "No momento não existe nenhuma ocasião cadastrada."

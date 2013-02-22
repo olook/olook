@@ -4,7 +4,7 @@ module MomentsHelper
   MAX_INSTALLMENT_NUMBER = 10
 
   def msn_tags
-    image_tag "http://view.atdmt.com/action/mmn_olook_colecoes#{@moment.id}", size: "1x1"
+    image_tag "http://view.atdmt.com/action/mmn_olook_colecoes#{@collection_theme.id}", size: "1x1"
   end
 
   def installments(price)

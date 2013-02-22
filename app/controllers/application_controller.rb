@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
     end
 
     def current_moment
-      Moment.active.first
+      CollectionTheme.active.first
     end
 
     def current_referer
