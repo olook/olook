@@ -3,7 +3,7 @@ require 'spec_helper'
 describe CollectionTheme do
   let(:moment) { FactoryGirl.create(:moment) }
   let(:day_by_day) { FactoryGirl.build(:moment) }
-  
+
   describe "validation" do
     it { should validate_presence_of(:name) }
     it { moment.should validate_uniqueness_of(:name) }
@@ -13,11 +13,11 @@ describe CollectionTheme do
     it { should validate_numericality_of(:position) }
     it { should have_one(:catalog) }
   end
-  
+
   describe "default" do
     it { CollectionTheme.new.active.should be_false }
   end
-  
+
   describe "after create" do
     it "generate catalog" do
       day_by_day.catalog.should be_blank
