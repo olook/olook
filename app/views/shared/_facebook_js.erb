@@ -11,7 +11,6 @@ $(function(){
 	    oauth: true
 	  });
         FB.Event.subscribe('edge.create', function(href, widget) {
-          alert('Facebook Like');
           _gaq.push(['_trackEvent', 'facebook', 'Facebook like', href]);
         });
 	  try {
