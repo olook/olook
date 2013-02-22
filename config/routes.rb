@@ -194,7 +194,7 @@ Olook::Application.routes.draw do
 
     resources :collection_theme_groups
 
-    resources :moments
+    resources :collection_themes
 
     resources :users, :except => [:create, :new] do
       collection do
