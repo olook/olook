@@ -24,7 +24,7 @@ describe Abacos::Product do
 
      before :all do
       Profile.destroy_all
-      Moment.destroy_all
+      CollectionTheme.destroy_all
     end
 
     let!(:sexy_profile) { FactoryGirl.create(:profile, :name => "Sexy", :first_visit_banner => 'sexy') }
