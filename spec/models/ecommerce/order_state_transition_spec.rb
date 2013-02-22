@@ -8,11 +8,6 @@ describe OrderStateTransition do
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }
 
-  before do
-    Resque.stub(:enqueue)
-    Resque.stub(:enqueue_in)
-  end
-
   it "should audit the transition" do
     order.authorized
     subject = order.order_state_transitions.last

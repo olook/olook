@@ -9,11 +9,6 @@ describe Abacos::OrderStatus do
   let(:parsed_data) { described_class.parse_abacos_data downloaded_status }
   subject { described_class.new parsed_data }
 
-  before :each do
-    Resque.stub(:enqueue)
-    Resque.stub(:enqueue_in)
-  end
-
   describe '#integrate' do
     before :each do
       @order = double

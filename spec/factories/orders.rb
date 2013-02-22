@@ -6,10 +6,6 @@ FactoryGirl.define do
     user_last_name 'Ernesto'
     user_email 'jose.ernesto@dominio.com'
     user_cpf '228.016.368-35'
-    after(:build) do |order|
-      Resque.stub(:enqueue)
-      Resque.stub(:enqueue_in)
-    end
     after(:create) do |order|
       FactoryGirl.create(:billet, :order => order)
     end
@@ -19,10 +15,6 @@ FactoryGirl.define do
     association :freight, :factory => :freight
     restricted true
 
-    after(:build) do |order|
-      Resque.stub(:enqueue)
-      Resque.stub(:enqueue_in)
-    end
     after(:create) do |order|
       FactoryGirl.create(:billet, :order => order)
     end    
@@ -31,10 +23,6 @@ FactoryGirl.define do
   factory :clean_order_credit_card, :class => Order do
     association :freight, :factory => :freight
 
-    after(:build) do |order|
-      Resque.stub(:enqueue)
-      Resque.stub(:enqueue_in)
-    end
     after(:create) do |order|
       FactoryGirl.create(:credit_card, :order => order)
     end
@@ -43,10 +31,6 @@ FactoryGirl.define do
   factory :clean_order_credit_card_authorized, :class => Order do
     association :freight, :factory => :freight
 
-    after(:build) do |order|
-      Resque.stub(:enqueue)
-      Resque.stub(:enqueue_in)
-    end
     after(:create) do |order|
       FactoryGirl.create(:authorized_credit_card, :order => order, :user => order.user)
     end
@@ -55,10 +39,6 @@ FactoryGirl.define do
   factory :order_without_payment, :class => Order do
     association :freight, :factory => :freight
 
-    after(:build) do |order|
-      Resque.stub(:enqueue)
-      Resque.stub(:enqueue_in)
-    end
   end
 
   factory :order do
@@ -70,10 +50,6 @@ FactoryGirl.define do
     user_email 'jose.ernesto@dominio.com'
     user_cpf '228.016.368-35'
     
-    after(:build) do |order|
-      Resque.stub(:enqueue)
-      Resque.stub(:enqueue_in)
-    end
     after(:create) do |order|
       FactoryGirl.create(:billet, :order => order)
     end    
@@ -86,10 +62,6 @@ FactoryGirl.define do
     subtotal BigDecimal.new("100")
     amount_paid BigDecimal.new("100")
 
-    after(:build) do |order|
-      Resque.stub(:enqueue)
-      Resque.stub(:enqueue_in)
-    end
     after(:create) do |order|
       FactoryGirl.create(:credit_card_with_response_authorized, :order => order)
     end
@@ -105,10 +77,6 @@ FactoryGirl.define do
     subtotal BigDecimal.new("100")
     amount_paid BigDecimal.new("100")
 
-    after(:build) do |order|
-      Resque.stub(:enqueue)
-      Resque.stub(:enqueue_in)
-    end
     after(:create) do |order|
       FactoryGirl.create(:credit_card_with_response, :order => order)
     end
@@ -123,10 +91,6 @@ FactoryGirl.define do
     state "delivered"
     subtotal BigDecimal.new("99.90")
     amount_paid BigDecimal.new("99.90")
-    after(:build) do |order|
-      Resque.stub(:enqueue)
-      Resque.stub(:enqueue_in)
-    end
     
     after(:create) do |order|
       FactoryGirl.create(:billet, :order => order)
