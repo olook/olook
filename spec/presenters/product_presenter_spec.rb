@@ -47,9 +47,13 @@ describe ProductPresenter do
   end
 
   describe '#render_related_products' do
+    let(:second_shoe) { FactoryGirl.create(:red_slipper, collection_id: 1) }
+    let(:third_shoe) { FactoryGirl.create(:silver_slipper, collection_id: 1) }
+
     it "should render the partial with product's related products" do
-      subject.stub(:related_products).and_return(:mock_related_products)
-      template.should_receive(:render).with(:partial => 'product/related_products', :locals => {:related_products => :mock_related_products}).and_return('related')
+      products = [second_shoe, third_shoe]
+      subject.stub(:related_products).and_return(products)
+      template.should_receive(:render).with(:partial => 'product/related_products', :locals => {:related_products => products}).and_return('related')
       subject.render_related_products.should == 'related'
     end
   end
@@ -178,12 +182,6 @@ describe ProductPresenter do
         product.relate_with_product out_of_stock_bag
         subject.related_products.should == []
       end
-
-      it "should only the related products of a different category from the presented product" do
-        product.relate_with_product related_shoe
-        product.relate_with_product related_bag
-        subject.related_products.should == [related_bag]
-      end
     end
   end
 
@@ -232,5 +230,5 @@ describe ProductPresenter do
       day_str = "%02d" % (now + 7.days).to_date.day.to_s
       subject.user_expiration_day(user).should eq day_str
     end
-  end  
+  end
 end

@@ -359,9 +359,9 @@ class Product < ActiveRecord::Base
   end
 
   def find_suggested_products
-    products = Product.joins(:details).where("details.description = '#{ self.subcategory }' AND collection_id <= #{ self.collection_id }").order('collection_id desc').first(6)
+    products = Product.joins(:details).where("details.description = '#{ self.subcategory }' AND collection_id <= #{ self.collection_id }").order('collection_id desc')
 
-    remove_color_variations products
+    remove_color_variations(products)
   end
 
   private
