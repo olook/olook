@@ -448,10 +448,10 @@ initBase = {
     return "<iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&autoplay=1' frameborder='0' allowfullscreen></iframe>";
   },
   
-  newModal : function(content,h,w){
-    var $modal = $("div#modal.promo-olook"), h = h+10, w = w+10, ml = -parseInt((w/2)), mt = -parseInt((h/2));
+  newModal : function(content){
+    var $modal = $("div#modal.promo-olook"), h = content.outerHeight(), w = content.outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2)), heightDoc = $(document).height();
     
-    $("#overlay-campaign").css("background-color", "#000").fadeIn().bind("click", function(){
+    $("#overlay-campaign").css({"background-color": "#000", 'height' : heightDoc}).fadeIn().bind("click", function(){
        $modal.fadeOut();
        $(this).fadeOut();
     }); 
@@ -466,7 +466,7 @@ initBase = {
        'margin-top'  : mt
     })
    .append('<a href="#" class="close" role="button">close</a>')
-   .delay(500).fadeIn();
+   .delay(500).fadeIn().children().fadeIn();
    
    $("#modal a.close").click(function(){
       $modal.fadeOut();

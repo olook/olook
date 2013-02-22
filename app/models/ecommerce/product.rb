@@ -364,6 +364,14 @@ class Product < ActiveRecord::Base
     remove_color_variations(products)
   end
 
+  def share_by_email( informations = { } )
+    emails_to_deliver = informations[:emails_to_deliver].split(/,|;|\r|\t/).map(&:strip)
+    informations.slice!(:email_from, :name_from)
+    emails_to_deliver.each do |email|
+      ShareProductMailer.send_share_message_for(self, informations, email)
+    end
+  end
+
   private
 
     def self.fetch_all_featured_products_of category

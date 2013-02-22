@@ -586,6 +586,28 @@ describe Product do
     end
   end
 
+  describe "#share_by_email" do
+    context "when has one email to send" do
+      informations = { name_from: "User name", email_from: "user@email.com", emails_to_deliver: "user_friend@email.com" }
+       it "receives share mailer deliver" do
+         ShareProductMailer.should_receive(:send_share_message_for).with(subject, informations, informations[:emails_to_deliver].split(/,|;|\r|\t/).map(&:strip).first)
+         subject.share_by_email(informations)
+       end
+    end
+    context "when has N emails to send" do
+      informations = { name_from: "User name", email_from: "user@email.com", emails_to_deliver: "user_friend@email.com, another_friend@email.com, third_fiend@email.com" }
+       it "receives share mailer deliver 3 times" do
+         ShareProductMailer.should_receive(:send_share_message_for).with(subject, informations, informations[:emails_to_deliver].split(/,|;|\r|\t/).map(&:strip).first)
+
+         ShareProductMailer.should_receive(:send_share_message_for).with(subject, informations, informations[:emails_to_deliver].split(/,|;|\r|\t/).map(&:strip).second)
+
+         ShareProductMailer.should_receive(:send_share_message_for).with(subject, informations, informations[:emails_to_deliver].split(/,|;|\r|\t/).map(&:strip).third)
+
+         subject.share_by_email(informations)
+       end
+    end
+  end
+
   describe "#shoe_inventory_has_less_than_minimum?" do
     let(:shoe_for_xml) { FactoryGirl.create :blue_sliper_with_variants }
 

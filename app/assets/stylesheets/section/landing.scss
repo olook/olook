@@ -1,70 +1,36 @@
 @import 'partials/mixins';
 
+#content{width: 100% !important;}
 .header_login {
   width: 990px;
-  margin: 0 auto;
-  h1 {
-     font-family: $avenir;
-     font-size: 12px;
-     color: #9c9da0;
-     float: right;
-     span {
-       color: $pink;
-     }
+  margin: 0 auto 25px;
+  h1 {font-family: $avenir;font-size: 12px;color: #9c9da0;float: right;
+     span{color: $pink;}
   }
   h2{width: 214px;height: 67px;margin: 0 auto;}
 }
-#content{width: 100% !important;
-}
-/*.bg{background: image-url('landing_page/bg-landing-A.png') repeat-x;height: 488px;}*/
-.register-content{position: relative;width: 990px;margin: 0 auto; 
-  .bt-acesse a{display: block; background: image-url('landing_page/bt-quiz-landing-A.png') no-repeat;
-    width: 252px;
-    height: 79px;
-    padding-bottom: 78px;
-    &:hover{
-     background: image-url('landing_page/bt-quiz-landing-A-hover.png') no-repeat;
-      width: 252px;
-      height: 79px;
+.landing-content {
+  position: relative;
+  overflow: hidden;
+  width: 990px;
+  height: 500px;
+  margin: 0 auto;
+  background: image-url('landing_page/landing_page_A.jpg') no-repeat;
+  
+  .infos{display:none;position:absolute;top:58px;right:74px;}
+  
+  .action{display: block;position: absolute;top: 300px;left: 100px;
+    img{
+      text-indent: -9999px;
+      margin: 5px;
     }  
   }
-  &.bt-landing-A{
-    .bt-acesse {position: absolute;bottom: 0; left:100px;}   
-  }
-
-  &.bt-landing-B{
-    .bt-acesse {position: absolute;bottom: 0; top:560px; left: 360px;}   
-  }
-  .content-area-A{
-    margin-top: 27px;
-    height: 488px;
-    background: image-url('landing_page/bg-content-landing-A.jpg') no-repeat;
-    .infos{position:absolute;right:74px;top:59px;display:none;}
-  }
-  .content-area-B{
-    h1{
-     font-family: $avenir;
-     font-size: 30px;
-     text-align: center;
-     margin-top: 45px;
-     background: image-url('landing_page/warnings-landing-B.png') no-repeat center;
-     width: 100%;
-     text-transform: uppercase;
-     letter-spacing: 6px;
-    } 
-    h2{
-     font-family: $kepler;
-     font-size: 17px;
-     margin-top: 25px;
-     text-align: center;
-    }
-    .content-B{
-      background: image-url('landing_page/bg-content-B.jpg') no-repeat center center;
-      width: 801px;
-      height: 560px;
-      margin: -8px auto 0; 
-    }
-  }
-
+  
 }
+
+
+
+
+
+
 
