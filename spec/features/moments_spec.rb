@@ -8,8 +8,8 @@ feature "Navigating by moments", %q{
   } do
 
   let!(:user) { FactoryGirl.create(:user, :user_info => UserInfo.new) }
-  let!(:day_collection_theme) { FactoryGirl.create(:collection_theme) }
   let!(:work_collection_theme) { FactoryGirl.create(:collection_theme, { :name => "work", :slug => "work" }) }
+  let!(:day_collection_theme) { FactoryGirl.create(:collection_theme) }
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
   let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
