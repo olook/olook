@@ -12,6 +12,7 @@ $('body').prepend("<div class='overlay'></div>");
 $('.overlay').width(width).height(height);
 
 $('#quick_view ol.colors li a').attr('data-remote', true);
+$("ul.social li.email").hide();
 
 if (typeof initSuggestion != 'undefined') {
   initSuggestion.checkIfProductIsAlreadySelected();
