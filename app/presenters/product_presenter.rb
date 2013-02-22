@@ -91,7 +91,7 @@ class ProductPresenter < BasePresenter
   end
 
   def related_products
-    product.related_products.inject([]) do |result, related_product|
+    product.find_suggested_products.inject([]) do |result, related_product|
       if (related_product.name != product.name && related_product.category) &&  (!related_product.sold_out?)
         result << related_product
       else
@@ -118,7 +118,7 @@ class ProductPresenter < BasePresenter
 
   def user_expiration_day(user)
     "%02d" % ::DiscountExpirationCheckService.discount_expiration_date_for(user).day.to_s
-  end  
+  end
 
   private
 
