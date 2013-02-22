@@ -627,19 +627,23 @@ describe Product do
   describe 'find_suggested_products' do
     context "when product has suggested products" do
       let!(:first_shoe) { FactoryGirl.create(:basic_shoe) }
-      let!(:second_shoe) { FactoryGirl.create(:red_slipper) }
-      let!(:third_shoe) { FactoryGirl.create(:silver_slipper) }
-      let!(:subcategory) { FactoryGirl.create(:shoe_subcategory_name) }
+      let!(:second_shoe) { FactoryGirl.create(:red_slipper, collection_id: 1) }
+      let!(:third_shoe) { FactoryGirl.create(:silver_slipper, collection_id: 1) }
+      let!(:subcategory) { FactoryGirl.create(:shoe_subcategory_name, product: second_shoe) }
+      let!(:another_subcategory) { FactoryGirl.create(:shoe_subcategory_name, product: third_shoe) }
 
       before do
         first_shoe.stub(:subcategory).and_return("Scarpin")
         second_shoe.stub(:subcategory).and_return("Sandalia")
         third_shoe.stub(:subcategory).and_return("Sandalia")
         subject.stub(:subcategory).and_return("Sandalia")
+        subject.stub(:collection_id).and_return(1)
       end
 
       it "returns suggested products" do
-        subject.find_suggested_products.should eq ([second_shoe, third_shoe])
+        subject.find_suggested_products.should_not include (first_shoe)
+        subject.find_suggested_products.should include (second_shoe)
+        subject.find_suggested_products.should include (third_shoe)
       end
 
     end
