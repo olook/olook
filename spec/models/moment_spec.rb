@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Moment do
+describe CollectionTheme do
   let(:moment) { FactoryGirl.create(:moment) }
   let(:day_by_day) { FactoryGirl.build(:moment) }
   
@@ -15,7 +15,7 @@ describe Moment do
   end
   
   describe "default" do
-    it { Moment.new.active.should be_false }
+    it { CollectionTheme.new.active.should be_false }
   end
   
   describe "after create" do

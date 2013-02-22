@@ -1,4 +1,4 @@
-class Moment < ActiveRecord::Base
+class CollectionTheme < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates :slug, presence: true, uniqueness: true
   validates :position, numericality: true
