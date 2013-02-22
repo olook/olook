@@ -12,7 +12,7 @@ feature "Accessing my vitrine", "In order to see a customized list of products a
   let!(:bag)  { FactoryGirl.create(:bag, :in_stock, collection: collection) }
   let!(:accessory) { FactoryGirl.create(:basic_accessory, :in_stock, collection: collection) }
 
-  before(:all) do
+  before(:each) do
     user.update_attribute(:password, '123456')
     user.update_attribute(:password_confirmation, '123456')
 
