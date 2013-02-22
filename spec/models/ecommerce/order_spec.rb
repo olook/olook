@@ -2,10 +2,6 @@
 require 'spec_helper'
 
 describe Order do
-  before do
-    Resque.stub(:enqueue)
-    Resque.stub(:enqueue_in)
-  end
 
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }
@@ -89,7 +85,6 @@ describe Order do
       let(:another_order_with_waiting_payment) { FactoryGirl.create :order_with_waiting_payment }
 
       it "should enqueue a job to confirm a payment" do
-        Resque.stub(:enqueue)
         Resque.should_receive(:enqueue_in).with(20.minutes, Abacos::ConfirmPayment, another_order_with_waiting_payment.number)
         another_order_with_waiting_payment.authorized
       end

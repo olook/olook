@@ -4,6 +4,8 @@ FactoryGirl.define do
     trait :with_products do
       after(:create) do |profile|
         profile.products << FactoryGirl.create(:shoe, :in_stock, :in_collection)
+        profile.products << FactoryGirl.create(:bag, :in_stock, :in_collection)
+        profile.products << FactoryGirl.create(:basic_accessory, :in_stock, :in_collection)
       end
     end
 

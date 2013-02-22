@@ -10,7 +10,7 @@ FactoryGirl.define do
     end
 
     trait :in_collection do
-      collection
+      association :collection
     end
 
     factory :shoe do
@@ -29,6 +29,12 @@ FactoryGirl.define do
       trait :sold_out do
         after(:create) do |product|
           product.variants << FactoryGirl.create(:shoe_variant, :sold_out)
+        end
+      end
+
+      trait :with_plenty_of_stock do
+        after(:create) do |product|
+          product.variants << FactoryGirl.create(:shoe_variant, inventory: 10)
         end
       end
 
@@ -84,10 +90,16 @@ FactoryGirl.define do
       name "Bagelle"
       description "Elegant black bag for executives"
       category Category::BAG
+      sequence :model_number do |n|
+        "BG01#{n}"
+      end
 
       factory :basic_bag do
-        sequence :model_number do |n|
-          "BG01#{n}"
+      end
+
+      trait :in_stock do
+        after(:create) do |product|
+          product.variants << FactoryGirl.create(:basic_bag_simple, :in_stock)
         end
       end
 
@@ -107,6 +119,12 @@ FactoryGirl.define do
       category Category::ACCESSORY
       sequence :model_number do |n|
         "JW01#{n}"
+      end
+
+      trait :in_stock do
+        after(:create) do |product|
+          product.variants << FactoryGirl.create(:basic_accessory_simple, :in_stock)
+        end
       end
     end
   end
