@@ -26,4 +26,11 @@ class ProductController < ApplicationController
     @shoe_size = params[:shoe_size].to_i
     respond_to :html, :js
   end
+
+  def share_by_email
+    name_and_emails = params.slice(:name_from, :email_from, :emails_to_deliver)
+    @product = Product.find(params[:product_id])
+    @product.share_by_email(name_and_emails)
+    #redirect_to(:back, notice: "Emails enviados com sucesso!")
+  end
 end
