@@ -7,7 +7,7 @@ class CollectionTheme < ActiveRecord::Base
 
   mount_uploader :header_image, ImageUploader
 
-  has_one :catalog, class_name: "Catalog::Moment", foreign_key: "association_id"
+  has_one :catalog, class_name: "Catalog::CollectionTheme", foreign_key: "association_id"
   belongs_to :collection_theme_group
 
   after_create :generate_catalog
