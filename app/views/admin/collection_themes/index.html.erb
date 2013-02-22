@@ -1,4 +1,4 @@
-<h2>Listing Moment</h2>
+<h2>Listing collection_theme</h2>
 
 <% content_for :sidebar do %>
   <div class="block">
@@ -27,15 +27,15 @@
       <th></th>
     </tr>
 
-  <% @moments.each do |moment| %>
+  <% @collection_themes.each do |collection_theme| %>
     <tr>
-      <td><%= moment.name %></td>
-      <td><%= moment.active %></td>
-      <td><%= moment.position %></td>
+      <td><%= collection_theme.name %></td>
+      <td><%= collection_theme.active %></td>
+      <td><%= collection_theme.position %></td>
       <td>
-        <%= link_to 'Show', admin_moment_path(moment), :class => 'button' %>
-        <%= link_to 'Edit', edit_admin_moment_path(moment), :class => 'button' %>
-        <%= link_to 'Destroy', admin_moment_path(moment), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %>
+        <%= link_to 'Show', admin_collection_theme_path(collection_theme), :class => 'button' %>
+        <%= link_to 'Edit', edit_admin_collection_theme_path(collection_theme), :class => 'button' %>
+        <%= link_to 'Destroy', admin_collection_theme_path(collection_theme), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %>
       </td>
     </tr>
   <% end %>
@@ -43,11 +43,11 @@
 
   <br />
   <% content_for :secondary_navigation do %>
-    <li><%= link_to 'New Moment', new_admin_moment_path %></li>
+    <li><%= link_to 'New collection_theme', new_admin_collection_theme_path %></li>
   <% end %>
   <div class="actions-bar wat-cf">
     <div class="pagination">
-      <%= will_paginate @moments %>
+      <%= will_paginate @collection_themes %>
     </div>
   </div>
 </div>
