@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Admin::MomentsController do
   render_views
-  let!(:moment_day)      { FactoryGirl.create(:moment) }
+  let!(:moment_day) { FactoryGirl.create(:moment) }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
