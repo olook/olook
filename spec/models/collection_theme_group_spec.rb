@@ -1,5 +1,9 @@
 require 'spec_helper'
 
 describe CollectionThemeGroup do
-  pending "add some examples to (or delete) #{__FILE__}"
+  context "On creation" do
+    it "be invalid with name" do
+      expect(CollectionThemeGroup.new).to_not be_valid
+    end
+  end
 end
