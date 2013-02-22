@@ -41,12 +41,18 @@ section#kombi {
         font-size: 15px;
         font-weight: lighter;
         text-transform: uppercase;
-        height: 42px;
+        height: 58px;
         margin: 0 0 20px;
-        padding: 19px 0 0 75px;
+        padding: 5px 0 0 75px;
+        .test{
+          text-transform: lowercase;
+          font-size: 13px;
+          display: block;
+        }
 
         a{
           text-decoration: none;
+          color: #000;
           &:hover{
             color: $pink;
           }
