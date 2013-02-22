@@ -13,7 +13,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_related_products
-    h.render :partial => 'product/related_products', :locals => {:related_products => related_products}
+    h.render :partial => 'product/related_products', :locals => {:related_products => related_products.first(6)}
   end
 
   def render_description
