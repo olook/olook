@@ -2,7 +2,7 @@
   <p class="filter_type">Salto</p>
   <button type="button" class="clear_filter">( limpar )</button>
   <ol class="column">
-  <% moment_presenter.moment.catalog.heels.each do |heel, label| %>
+  <% collection_theme_presenter.collection_theme.catalog.heels.each do |heel, label| %>
     <li>
       <%= check_box_tag('heels[]', heel, params[:heels] && params[:heels].include?(heel), :id => heel) %>
       <%= label_tag(label ? label : heel, nil, :for => heel) %>
