@@ -1,3 +1,3 @@
-class Catalog::Moment < Catalog::Catalog
+class Catalog::CollectionTheme < Catalog::Catalog
   belongs_to :collection_theme, :class_name => "::CollectionTheme", :foreign_key => "association_id"
 end
