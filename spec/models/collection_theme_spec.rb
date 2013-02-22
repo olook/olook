@@ -23,7 +23,7 @@ describe CollectionTheme do
       day_by_day.catalog.should be_blank
       day_by_day.save!
       day_by_day.catalog.should_not be_nil
-      day_by_day.catalog.should == Catalog::Moment.last
+      day_by_day.catalog.should == Catalog::CollectionTheme.last
     end
   end
 end
