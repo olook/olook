@@ -12,8 +12,7 @@ module Payments
     def send_to_gateway
       log("Sending transaction to gateway")
       begin
-        Resque.enqueue(Braspag::GatewaySenderWorker, payment.id)
-        @payment_successful = true
+        send_authorization_request
         payment
       rescue Exception => error
         ErrorNotifier.send_notifier("Braspag", error.message, payment)
@@ -32,11 +31,12 @@ module Payments
       payment.gateway_response_status = Payment::SUCCESSFUL_STATUS
     end
 
-    def process_enqueued_request
+    def send_authorization_request
       begin
         authorize_response = authorize
 
         if authorized_and_pending_capture?(authorize_response)
+          @payment_successful = true
           order_analysis_service = OrderAnalysisService.new(self.payment, self.credit_card_number, BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code).created_at)
           if order_analysis_service.should_send_to_analysis? 
             log("Sending to analysis")
@@ -45,9 +45,11 @@ module Payments
             log("Capturing transaction")
             capture(authorize_response)
           end
+        else
+          @payment_successful = false
         end
       rescue Exception => error
-        log("[ERROR] Error on authorizing payment: " + error)
+        log("[ERROR] Error on authorizing payment: " + error.message)
         ErrorNotifier.send_notifier("Braspag", error.message, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
         raise error
@@ -107,16 +109,16 @@ module Payments
     end
 
     def address_data
-      delivery_address = self.payment.reload.order.freight.address
+      delivery_address = Address.find_by_id!(cart_service.freight[:address][:id])
       Braspag::AddressBuilder.new
-      .with_street(delivery_address.street)
-      .with_number(delivery_address.number)
-      .with_complement(delivery_address.complement)
-      .with_district(delivery_address.neighborhood)
-      .with_zip_code(delivery_address.zip_code)
-      .with_city(delivery_address.city)
-      .with_state(delivery_address.state)
-      .with_country(delivery_address.country).build
+        .with_street(delivery_address.street)
+        .with_number(delivery_address.number)
+        .with_complement(delivery_address.complement)
+        .with_district(delivery_address.neighborhood)
+        .with_zip_code(delivery_address.zip_code)
+        .with_city(delivery_address.city)
+        .with_state(delivery_address.state)
+        .with_country(delivery_address.country).build
     end
 
     def customer_data
@@ -286,5 +288,6 @@ module Payments
       def log text
         logger.info("#{Time.now} - [#{@payment.id}] - #{text}")
       end
+
   end
 end
