@@ -24,7 +24,7 @@
   <% end %>
 
   <% content_for :footer do %>
-    <%= javascript_include_tag "api_fb" %>
+    <%#= javascript_include_tag "api_fb" %>
     <%= javascript_include_tag "product" %>
   <% end %>
 
@@ -47,6 +47,31 @@
   </div>
 <% end %>
 <% content_for :footer do %>
+
+   <div id="compartilhar_email">
+      <p>COMPARTILHAR POR E-MAIL</p>
+      <div class="msg"><p>&nbsp;</p></div>
+      <p class="forgot-msg">Lembrou de mais alguém? Compartilhe</p>
+      <%= form_tag product_share_by_email_path, remote: true do %>
+         <%= field_set_tag do %>
+            <%= label_tag :nome, "Seu nome" %>
+            <%= text_field_tag :name_from, current_user.try(:first_name), class: 'fields', size: '30' %>
+         <% end %>
+         <%= field_set_tag do %>
+            <%= label_tag :email_from, "Seu e-mail" %>
+            <%= text_field_tag :email_from, current_user.try(:email), class: 'fields', size: '30' %>
+         <% end %>
+         <%= field_set_tag do %>
+            <%= label_tag :emails_to_deliver, "Para <span>(use vírgula para enviar para vários contatos)</span>".html_safe %>
+            <%= text_field_tag :emails_to_deliver, "", class: 'fields', size: '30' %>
+         <% end %>
+         <%= field_set_tag do %>
+            <%= hidden_field_tag :product_id, @product.id %>
+            <%= submit_tag 'Enviar', id: :send %>
+         <% end %>
+     <% end %>
+   </div>
+
   <%= render partial: "shared/metrics/sociomantic/product", :locals => { product_id: @product.id } %>
   <%= render partial: "shared/metrics/criteo/product_page_tracker", :locals => { product_id: @product.id } %>
   <%= render partial: "shared/metrics/triggit/product", :locals => { product_id: @product.id } %>
