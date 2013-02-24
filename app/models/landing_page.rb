@@ -9,4 +9,5 @@ class LandingPage < ActiveRecord::Base
 
   mount_uploader :page_image, ImageUploader
   mount_uploader :button_image, ImageUploader
+  mount_uploader :button_hover_image, ImageUploader
 end
