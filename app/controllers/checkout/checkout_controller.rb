@@ -27,15 +27,6 @@ class Checkout::CheckoutController < Checkout::BaseController
     @cart_service.cart.address = address
 
     sender_strategy = PaymentService.create_sender_strategy(@cart_service, payment)
-
-    if (sender_strategy.nil?)
-      # Only for bugtracking
-      Airbrake.notify(
-        :error_class   => "CheckoutController",
-        :error_message => "Nao foi possivel criar um sender_strategy para o pagamento #{payment}, metodo = #{payment_method}"
-      )      
-    end
-
     payment_builder = PaymentBuilder.new({ :cart_service => @cart_service, :payment => payment, :gateway_strategy => sender_strategy, :tracking_params => session[:order_tracking_params] } )
     response = payment_builder.process!
 
