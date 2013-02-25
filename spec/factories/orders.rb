@@ -93,6 +93,22 @@ FactoryGirl.define do
     after_create do |order|
       FactoryGirl.create(:credit_card_with_response_authorized, :order => order)
     end
+  end  
+
+  factory :order_with_canceled_payment, :class => Order do
+    association :freight, :factory => :freight
+    association :user, :factory => :member
+    state "canceled"
+    subtotal BigDecimal.new("100")
+    amount_paid BigDecimal.new("100")
+
+    after_build do |order|
+      Resque.stub(:enqueue)
+      Resque.stub(:enqueue_in)
+    end
+    after_create do |order|
+      FactoryGirl.create(:credit_card_with_response_canceled, :order => order)
+    end
   end
 
   factory :authorized_order, :class => Order do

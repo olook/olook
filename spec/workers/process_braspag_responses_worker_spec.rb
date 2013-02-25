@@ -5,20 +5,20 @@ describe ProcessBraspagResponsesWorker do
 
   context "when payment does not exist" do
 
-    let(:authorize_response) { FactoryGirl.create(:braspag_authorize_response, :identification_code => "invalid") }
-    let(:capture_response) { FactoryGirl.create(:braspag_capture_response, :identification_code => "invalid") }
+    let(:authorize_response) { FactoryGirl.create(:braspag_authorize_response, :identification_code => "invalid", :retries => 0) }
+    let(:capture_response) { FactoryGirl.create(:braspag_capture_response, :identification_code => "invalid", :retries => 0) }
 
     it "should update authorize_response to processed with error" do
       BraspagAuthorizeResponse.stub_chain(:to_process).and_return([authorize_response])
-      ProcessBraspagResponsesWorker.perform
-      authorize_response.reload.processed.should eq(true)
+      ProcessBraspagResponsesWorker.process_authorize_responses
+      authorize_response.reload.retries.should eq(1)
       authorize_response.error_message.should eq("Pagamento não identificado.")
     end
 
     it "should update capture_response to processed with error" do
       BraspagAuthorizeResponse.stub_chain(:to_process).and_return([capture_response])
-      ProcessBraspagResponsesWorker.perform
-      capture_response.reload.processed.should eq(true)
+      ProcessBraspagResponsesWorker.process_capture_responses
+      capture_response.reload.retries.should eq(1)
       capture_response.error_message.should eq("Pagamento não identificado.")
     end
   end
