@@ -7,6 +7,7 @@ class Admin::CollectionThemesController < Admin::BaseController
   def index
     @groups = CollectionThemeGroup.includes(:collection_themes).order(:position)
     @collection_themes = CollectionTheme.where(collection_theme_group_id: nil).order(:position)
+    @groups.push(CollectionThemeGroup.new(name: 'Sem Grupo', collection_themes: @collection_themes))
   end
 
   def show
