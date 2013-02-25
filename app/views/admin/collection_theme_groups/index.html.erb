@@ -1,17 +1,31 @@
 <h2>Listando Grupos de Temas</h2>
 
 <div class="inner">
-
-  <ul id="collection_theme_groups">
+  <table class="table">
+    <tr>
+      <th>id</th>
+      <th>Posição</th>
+      <th>Nome</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
     <% @collection_theme_groups.each do |collection_theme_group| %>
-    <li id="collection_theme_group_<%= collection_theme_group.id %>"><span class="handle">[drag]</span><%= collection_theme_group.position.to_s %> - <%= collection_theme_group.name %>
-      <%= link_to 'Edit', edit_admin_collection_theme_group_path(collection_theme_group), :class => 'button' %> 
-    </li>
+
+    <tr>
+      <td><%= "#{collection_theme_group.id}" %></td>
+      <td><%= "#{collection_theme_group.position}" %></td>
+      <td><%= "#{collection_theme_group.name}" %></td>
+      <td><%= link_to 'Exibir', admin_collection_theme_group_path(collection_theme_group), :class => 'button' %></td>
+      <td> <%= link_to 'Alterar', edit_admin_collection_theme_group_path(collection_theme_group), :class => 'button' %> </td>
+      <td> <%= link_to 'Destruir', admin_collection_theme_group_path(collection_theme_group), confirm: 'Tem certeza?', method: :delete, :class => 'button danger' %>      
+    </tr>
     <% end %>
-  </ul>
+  </table>
 </div>
 
 <% content_for :secondary_navigation do %>
   <li><%= link_to 'Criar Grupo de Temas', new_admin_collection_theme_group_path 
   %></li>
 <% end %>
+
