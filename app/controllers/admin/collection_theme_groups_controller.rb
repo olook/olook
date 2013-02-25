@@ -19,7 +19,7 @@ class Admin::CollectionThemeGroupsController < Admin::BaseController
   def create
     @collection_theme_group = CollectionThemeGroup.new(params[:collection_theme_group])
     if @collection_theme_group.save
-      flash[:notice] = 'Collection Theme Group was successfully created.'
+      flash[:notice] = 'Grupo da Coleção Temática foi criado com sucesso.'
     end
     redirect_if_called_remotely
   end
@@ -28,7 +28,7 @@ class Admin::CollectionThemeGroupsController < Admin::BaseController
     @collection_theme_group = CollectionThemeGroup.find(params[:id])
 
     if @collection_theme_group.update_attributes(params[:collection_theme_group])
-      flash[:notice] = 'Collection Theme Group was successfully updated.'
+      flash[:notice] = 'Grupo da Coleção Temática foi atualizado com sucesso.'
     end
 
     redirect_if_called_remotely
@@ -46,6 +46,12 @@ class Admin::CollectionThemeGroupsController < Admin::BaseController
   end
 
   def redirect_if_called_remotely
-    request.xhr? ? respond_with(:admin, @collection_theme_group) : redirect_to(admin_collection_theme_groups_path)
+    if request.xhr?
+      respond_with(:admin, @collection_theme_group)
+    elsif params[:redirect_to]
+      redirect_to params[:redirect_to]
+    else
+      redirect_to(admin_collection_theme_groups_path)
+    end
   end
 end

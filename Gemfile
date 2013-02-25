@@ -83,7 +83,7 @@ group :development, :test do
   gem 'delorean'
   gem "equivalent-xml", " ~> 0.2.9"
   gem 'capybara', '2.0.2'
-  gem "capybara-webkit", git: 'git://github.com/thoughtbot/capybara-webkit.git'
+  gem 'capybara-webkit', '0.14.2'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'simplecov', '~> 0.5.3', :require => false
