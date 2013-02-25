@@ -4,5 +4,5 @@ class CollectionThemeGroup < ActiveRecord::Base
 
   acts_as_list
 
-  has_many :collections_themes, class_name: "CollectionTheme"
+  has_many :collection_themes
 end
