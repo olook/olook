@@ -4,13 +4,8 @@
 
   <ul id="collection_theme_groups">
     <% @collection_theme_groups.each do |collection_theme_group| %>
-    <li id="collection_theme_group_<%= collection_theme_group.id %>"><span class="handle">[drag]</span><%= collection_theme_group.name %>
-      <%= #link_to 'Show', admin_collection_path(collection), :class => 'button' 
-      %> - 
-      <%= #link_to 'Edit', edit_admin_collection_path(collection), :class => 'button' 
-      %> - 
-      <%= #link_to 'Destroy', admin_collection_path(collection), confirm: 'Are you sure?', method: :delete, :class => 'button danger' 
-      %>
+    <li id="collection_theme_group_<%= collection_theme_group.id %>"><span class="handle">[drag]</span><%= collection_theme_group.position.to_s %> - <%= collection_theme_group.name %>
+      <%= link_to 'Edit', edit_admin_collection_theme_group_path(collection_theme_group), :class => 'button' %> 
     </li>
     <% end %>
   </ul>
