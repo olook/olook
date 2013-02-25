@@ -18,14 +18,6 @@ GIT
       nokogiri (~> 1.5.0)
 
 GIT
-  remote: git://github.com/thoughtbot/capybara-webkit.git
-  revision: 29c360eefadf129738c35762d5ba08a258e948fa
-  specs:
-    capybara-webkit (0.14.1)
-      capybara (~> 2.0, >= 2.0.2)
-      json
-
-GIT
   remote: git@github.com:olook/chaordic-packr.git
   revision: 568baf36fe8765eff7d3b58f15617a3840e50712
   branch: master
@@ -133,6 +125,9 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 1.0.0)
+    capybara-webkit (0.14.2)
+      capybara (~> 2.0, >= 2.0.2)
+      json
     carrierwave (0.6.2)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -484,7 +479,7 @@ DEPENDENCIES
   capistrano
   capistrano-maintenance
   capybara (= 2.0.2)
-  capybara-webkit!
+  capybara-webkit (= 0.14.2)
   carrierwave (~> 0.6.0)
   chaordic-packr (= 4.0.0)!
   clearsale!
