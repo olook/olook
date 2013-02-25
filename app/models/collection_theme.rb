@@ -15,13 +15,34 @@ class CollectionTheme < ActiveRecord::Base
 
   scope :active, where(active: true)
 
-  after_initialize :default_values
+  def name=(val)
+    self[:slug] = val.parameterize unless val.nil?
+    self[:name] = val
+  end
+
+  def video_id
+    @video_id ||=
+    begin
+      /(?:embed\/|v=)(?<vid>[^&?]*)/ =~ video_link.to_s
+      vid
+    end
+  end
+
+  def video_options
+    @video_options ||=
+    begin
+      opt_query = video_link.to_s.split('?').last
+      options = opt_query.to_s.split('&').inject({}) do |h, i|
+        k, v = i.split('=')
+        h[k] = v
+        h
+      end
+      options.delete('v')
+      options
+    end
+  end
 
   private
-
-  def default_values
-    self["slug"] = self.name.parameterize unless self.name.nil?
-  end
 
   def generate_catalog
     self.build_catalog.save!
