@@ -7,8 +7,8 @@ Navegue em nosso site e mude isso já!</h2>
 
 <% if @user %>  
   <li><%= link_to "Confira sua vitrine do mês", "/membro/vitrine" %></li>
-<% end %> 
-  
+<% else %>  
   <li><%= link_to "Sapatos hot:Veja todos na seção sapatos" , "/sapatos" %></li>
+<% end %>   
   <li><%= link_to "Veja nossos editoriais e inspire-se!" , "/tendencias" %></li>
 </ul>
