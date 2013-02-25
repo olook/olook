@@ -78,11 +78,12 @@ $(function() {
     });
   }
   
-  showGiftPackage();
+  showGiftPackageModal();
 });
-function showGiftPackage(){
+
+function showGiftPackageModal(){
    content = $(".modal_gift");
-   $(".txt-conheca").bind("click", function(e){
+   $("a.txt-conheca").bind("click", function(e){
       initBase.newModal(content);
       e.preventDefault();
       e.stopPropagation();
