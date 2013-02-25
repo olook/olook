@@ -25,15 +25,15 @@
         <div id="main-navigation">
           <ul class="wat-cf">
             <li class="submenu<%= ' active' if params[:controller] =~ /users/ %>">
-              <span>Customers</span>
+              <span>Consumidores</span>
               <ul>
                 <li><%= access_link("Users") %></li>
                 <li><%= access_link("Credits") %></li>
-                <li><%= link_to "Discounts", admin_discounts_path %></li>
+                <li><%= link_to I18n.t("activerecord.models.discount.other"), admin_discounts_path %></li>
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /orders|shipping|moip_callbacks|payments/ %>">
-              <span>Sales</span>
+              <span>Vendas</span>
               <ul>
                 <li><%= access_link("Orders") %></li>
                 <li><%= access_link("Shipping Services") %></li>
@@ -44,10 +44,10 @@
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /collections|moments|products/ %>">
-              <span>Products</span>
+              <span>Produtos</span>
               <ul>
                 <li><%= access_link("Collections") %></li>
-                <li><%= access_link("CollectionTheme") %></li>
+                <li><%= access_link("Collection Theme") %></li>
                 <li><%= access_link("Products") %></li>
               </ul>
             </li>
@@ -63,7 +63,7 @@
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /admins|roles|settings/ %>">
-              <span>Site Management</span>
+              <span>Gerenciador do site</span>
               <ul>
                 <li><%= access_link("Admins") %></li>
                 <li><%= access_link("Roles") %></li>
@@ -72,7 +72,7 @@
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /gift/ %>">
-              <span>Gift Project</span>
+              <span>Projeto presentes</span>
               <ul>
                 <li><%= access_link("Gift Occasion Types") %></li>
                 <li><%= access_link("Gift Recipient Relations") %></li>

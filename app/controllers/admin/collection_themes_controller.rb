@@ -35,7 +35,6 @@ class Admin::CollectionThemesController < Admin::BaseController
   end
 
   def update
-    generate_slug(params[:collection_theme]["name"])
     @collection_theme = CollectionTheme.find(params[:id])
 
     if @collection_theme.update_attributes(params[:collection_theme])
@@ -53,7 +52,6 @@ class Admin::CollectionThemesController < Admin::BaseController
   private
 
   def generate_slug(name)
-    params[:collection_theme]["slug"] = name.parameterize unless params[:collection_theme]["name"].nil?
   end
 
 end
