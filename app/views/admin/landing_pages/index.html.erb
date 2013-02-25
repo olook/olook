@@ -1,11 +1,11 @@
-<h2>Listing Landing pages</h2>
+<h2>Listando Landing pages</h2>
 
 <div class="inner">
   <table class="table">
     <tr>
-      <th>Title</th>
+      <th>Título</th>
       <th>URL</th>
-      <th>Enabled</th>
+      <th>Habilitado</th>
       <th></th>
       <th></th>
       <th></th>
@@ -15,15 +15,15 @@
     <tr>
       <td><%= page.page_title %></td>
       <td><%= link_to page.page_url,  landing_url(page.page_url) %></td>
-      <td><%= page.enabled %></td>
+      <td><%= page.enabled ? "Sim" : "Não" %></td>
       <td><%= link_to 'Show', admin_landing_page_path(page), :class => 'button' %></td>
       <td><%= link_to 'Edit', edit_admin_landing_page_path(page), :class => 'button' %></td>
-      <td><%= link_to 'Destroy', admin_landing_page_path(page), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
+      <td><%= link_to 'Destroy', admin_landing_page_path(page), confirm: 'Tem certeza?', method: :delete, :class => 'button danger' %></td>
     </tr>
   <% end %>
   </table>
 
   <br />
 
-  <%= link_to 'New Landing page', new_admin_landing_page_path %>
+  <%= link_to 'Nova Landing page', new_admin_landing_page_path %>
 </div>

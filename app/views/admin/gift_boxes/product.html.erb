@@ -19,14 +19,14 @@
       <%= f.submit %>
     </div>
     <tr>
-      <th style="width:100px">Product</th>
-      <th>Collection</th>
+      <th style="width:100px">Produto</th>
+      <th>Coleção</th>
       <th>ID</th>
-      <th>Profile</th>
-      <th style="width:125px">Name</th>
-      <th>Inventory</th>
-      <th>Visible?</th>
-      <th>Select</th>
+      <th>Perfil</th>
+      <th style="width:125px">Nome</th>
+      <th>Estoque</th>
+      <th>Visível?</th>
+      <th>Selecionar</th>
       <th><%= f.submit("Limpar seleções", { :name => 'reset', :id => 'reset_button', :type => "reset" }) %></th>
     </tr>
     <%
@@ -40,7 +40,7 @@
     <td><%= product.profiles.first.name if product.profiles.size > 0 %></td>
     <td><%= product.name %></td>
     <td><%= product.inventory %></td>
-    <td><%= product.is_visible? ? "Yes" : "No" %></td>
+    <td><%= product.is_visible? ? "Sim" : "Não" %></td>
     <td><%= check_box_tag "gift_box[product_list][#{product.id}]", "1", @gift_box.products.detect{ |d| d == product } %></td>
   </tr>
 <% end %>

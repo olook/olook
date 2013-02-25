@@ -1,11 +1,11 @@
-<h2>Listing Occasion Types</h2>
+<h2>Listando Tipo de Ocasiões</h2>
 
 <div class="inner">
   <table class="table">
     <tr>
-      <th>Name</th>
-      <th>Date</th>      
-      <th>Recipient Relation</th>      
+      <th>Nome</th>
+      <th>Data</th>
+      <th>Relação com destinatário</th>
       <th></th>
       <th></th>
       <th></th>
@@ -14,11 +14,11 @@
   <% @gift_occasion_types.each do |type| %>
     <tr>
       <td><%= type.name %></td>
-      <td><%= type.date %></td>      
-      <td><%= type.gift_recipient_relation_name %></td>            
-      <td><%= link_to 'Show', admin_gift_occasion_type_path(type), :class => 'button' %></td>
-      <td><%= link_to 'Edit', edit_admin_gift_occasion_type_path(type), :class => 'button' %></td>
-      <td><%= link_to 'Destroy', admin_gift_occasion_type_path(type), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
+      <td><%= type.date %></td>
+      <td><%= type.gift_recipient_relation_name %></td>
+      <td><%= link_to 'Mostrar', admin_gift_occasion_type_path(type), :class => 'button' %></td>
+      <td><%= link_to 'Editar', edit_admin_gift_occasion_type_path(type), :class => 'button' %></td>
+      <td><%= link_to 'Apagar', admin_gift_occasion_type_path(type), confirm: 'Tem certeza?', method: :delete, :class => 'button danger' %></td>
     </tr>
   <% end %>
   </table>
@@ -27,5 +27,5 @@
 </div>
 
 <% content_for :secondary_navigation do %>
-  <li><%= link_to 'New Occasion Type', new_admin_gift_occasion_type_path %></li>
+  <li><%= link_to 'Novo Tipo de Ocasião', new_admin_gift_occasion_type_path %></li>
 <% end %>
