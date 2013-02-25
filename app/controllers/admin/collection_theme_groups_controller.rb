@@ -21,4 +21,12 @@ class Admin::CollectionThemeGroupsController < Admin::BaseController
     end
     respond_with :admin, @collection_theme_group
   end
+
+  def update
+    @collection_theme_group = CollectionThemeGroup.find(params[:id])
+    if @collection_theme_group.update_attributes(params[:collection_theme_group])
+      flash[:notice] = 'Collection Theme Group was successfully updated.'
+    end
+    respond_with :admin, @collection_theme_group
+  end
 end
