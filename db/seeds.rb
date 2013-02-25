@@ -12,7 +12,7 @@ SurveyBuilder.new( SURVEY_DATA, "Registration Survey" ).build
 	"Elegante" => "chic", 
 	"Básica" => "casual", 
 	"Fashionista" => "moderna" }.each do |key, value|
-		Profile.find_by_name(key).update_attribute(:alternative_name, value)
+		Profile.find_by_name(key).try :update_attribute, :alternative_name, value
 end
 
 [ {:controller_name => 'moments', :description => 'Coleções e Catálogos'},
