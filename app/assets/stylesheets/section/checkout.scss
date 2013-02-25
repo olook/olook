@@ -1980,13 +1980,16 @@ div.credit_details {
   height: 494px;
   background-color: #fff;
   position: absolute;
+  display: none;
   h1{
     text-align: center;
     font-family: $avenir;
     font-size: 20px;
     font-weight: bold;
     margin-top: 35px;
+
   }
+
   h2{
     font-family: $avenir !important;
     font-size: 18px !important;
@@ -2001,3 +2004,9 @@ div.credit_details {
 
   }
 }
+a.txt-conheca{
+    font-family: $avenir;
+    font-size: 14px;
+    color: $pink;
+    text-transform: none;
+    }
