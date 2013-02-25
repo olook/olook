@@ -13,8 +13,8 @@ redecard:
   hipercard: :sitef_hipercard
 
 teste:
-  visa: :homolog
-  mastercard: :homolog
-  americanexpress: :homolog
-  diners: :homolog
-  hipercard: :homolog
+  visa: :braspag
+  mastercard: :braspag
+  americanexpress: :braspag
+  diners: :braspag
+  hipercard: :braspag
