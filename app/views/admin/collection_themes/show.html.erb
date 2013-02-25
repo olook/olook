@@ -1,22 +1,27 @@
 <h2>Coleções Temáticas</h2>
 <div class="inner">
   <p id="notice"><%= notice %></p>
-
   <p>
-    <b>Article:</b>
-    <%= @moment.article %>
+    <b>Header: (alt: <%= @collection_theme.header_image_alt %>)</b>
+    <%= image_tag @collection_theme.header_image.try(:url), alt: @collection_theme.header_image_alt  %>
   </p>
   <p>
-    <b>Name:</b>
-    <%= @moment.name %>
+    <b>Abacos ID:</b>
+    <%= @collection_theme.id %>
   </p>
   <p>
-    <b>Position:</b>
-    <%= @moment.position %>
+    <b>Tema:</b>
+    <%= @collection_theme.name %>
   </p>
   <p>
-    <b>Header:</b>
-    <%= image_tag @moment.header_image.try(:url) %>
+    <b>Link do vídeo: (title: <%= @collection.video_title %>)</b>
+    http://www.youtube.com/watch?v=1tCr23eZ7Vo&list=UUjPbOLQD7X5ef0T29IkkXzQ
+    <iframe width="560" height="315" src="http://www.youtube.com/embed/1tCr23eZ7Vo?list=UUjPbOLQD7X5ef0T29IkkXzQ" frameborder="0" allowfullscreen></iframe>
+    <%= @collection.video_link %>
+  </p>
+  <p>
+    <b>Posição no Grupo:</b>
+    <%= @collection_theme.position %>
   </p>
 
   <% content_for :secondary_navigation do %>
