@@ -1,13 +1,12 @@
 <h2>Coleções Temáticas</h2>
 
 <div class="inner">
-
-  <% @groups.each do |group| %>
-    <h3><%= group.name %></h3>
+  <% @groups.each_with_index do |group, i| %>
+    <h3><%= i+1 %>. <%= group.name %></h3>
     <table class="table">
       <tr>
         <th>Tema</th>
-        <th>Ativo</th>
+        <th>Ativo?</th>
         <th>Posição</th>
         <th>Abacos code</th>
         <th></th>
@@ -16,7 +15,7 @@
     <% group.collection_themes.each do |collection_theme| %>
       <tr>
         <td><%= collection_theme.name %></td>
-        <td><%= collection_theme.active %></td>
+        <td><%= collection_theme.active ? 'Sim' : 'Não' %></td>
         <td><%= collection_theme.position %></td>
         <td><%= collection_theme.id %></td>
         <td>
@@ -28,31 +27,6 @@
     <% end %>
     </table>
   <%- end -%>
-  <h3>Sem grupo</h3>
-  <table class="table">
-    <tr>
-      <th>Tema</th>
-      <th>Ativo</th>
-      <th>Position</th>
-      <th>Abacos code</th>
-      <th></th>
-    </tr>
-
-  <% @collection_themes.each do |collection_theme| %>
-    <tr>
-      <td><%= collection_theme.name %></td>
-      <td><%= collection_theme.active %></td>
-      <td><%= collection_theme.position %></td>
-      <td><%= collection_theme.id %></td>
-      <td>
-        <%= link_to 'Ver', admin_collection_theme_path(collection_theme), :class => 'button' %>
-        <%= link_to 'Alterar', edit_admin_collection_theme_path(collection_theme), :class => 'button' %>
-        <%= link_to 'Destruir', admin_collection_theme_path(collection_theme), confirm: 'Tem certeza que quer destruir?', method: :delete, :class => 'button danger' %>
-      </td>
-    </tr>
-  <% end %>
-  </table>
-
   <br />
   <% content_for :secondary_navigation do %>
     <li><%= link_to 'Nova Coleção Temática', new_admin_collection_theme_path %></li>
