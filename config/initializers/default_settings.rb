@@ -59,4 +59,4 @@ Setting.defaults[:home_top5] = "5044,5017,10022,4350,9406"
 Setting.defaults[:home_selection] = "5044,5017,10022,4350,9406"
 
 #Showroom Settings
-Setting.defaults[:showroom_active_fb_like_buttons] = true
+Setting.defaults[:showroom_active_fb_like_buttons] = false
