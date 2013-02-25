@@ -2,10 +2,12 @@
 class Admin::CollectionThemeGroupsController < Admin::BaseController
   respond_to :html, :js
 
+  before_filter :load_collections, only: [:update, :create, :destroy]
+
   load_and_authorize_resource
 
   def index
-    @collection_theme_groups = CollectionThemeGroup.all
+    @collection_theme_groups = CollectionThemeGroup.order("position")
     respond_with :admin, @collection_theme_groups
   end
 
@@ -19,20 +21,31 @@ class Admin::CollectionThemeGroupsController < Admin::BaseController
     if @collection_theme_group.save
       flash[:notice] = 'Collection Theme Group was successfully created.'
     end
-    respond_with :admin, @collection_theme_group
+    redirect_if_called_remotely
   end
 
   def update
     @collection_theme_group = CollectionThemeGroup.find(params[:id])
+
     if @collection_theme_group.update_attributes(params[:collection_theme_group])
       flash[:notice] = 'Collection Theme Group was successfully updated.'
     end
-    respond_with :admin, @collection_theme_group
+
+    redirect_if_called_remotely
   end
 
   def destroy
     @collection_theme_group = CollectionThemeGroup.find(params[:id])
-    @collection_theme_group.destroy
-    respond_with :admin, @collection_theme_group
+    @collection_theme_group.destroy  
+    redirect_if_called_remotely  
+  end
+
+  private 
+  def load_collections
+    @collection_theme_groups = CollectionThemeGroup.order("position") if request.xhr?
+  end
+
+  def redirect_if_called_remotely
+    request.xhr? ? respond_with(:admin, @collection_theme_group) : redirect_to(admin_collection_theme_groups_path)
   end       
 end
