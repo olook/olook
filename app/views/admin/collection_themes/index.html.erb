@@ -6,10 +6,13 @@
       <%- if group.new_record? -%>
         <%= i+1 %>. <%= group.name %>
       <%- else -%>
-        <%= form_for(group, method: :put, url: admin_collection_theme_group_path(group)) do |f| %>
+        <%= form_for(group, url: admin_collection_theme_group_path(group)) do |f| %>
           <%= hidden_field_tag 'redirect_to', admin_collection_themes_path %>
           <%= i+1 %>. <%= group.name %>
-          <%= f.select(:position, options_for_select((1 .. @groups.map {|g| g.position || 0 }.max ).to_a, selected: group.position),{}, onchange: "$(this).parents('form').submit();") %>
+          <%= f.select(:position,
+                       options_for_select((1 .. @groups.map {|g| g.position || 0 }.max ).to_a, selected: group.position),
+                       {},
+                       onchange: "$(this).parents('form').submit();") %>
         <% end %>
       <%- end -%>
     </h3>
@@ -26,7 +29,14 @@
       <tr>
         <td><%= collection_theme.name %></td>
         <td><%= collection_theme.active ? 'Sim' : 'Não' %></td>
-        <td><%= collection_theme.position %></td>
+        <td>
+          <%= form_for collection_theme, url: admin_collection_theme_path(collection_theme) do |f| %>
+            <%= f.select(:position,
+                         options_for_select((1 .. group.collection_themes.map {|g| g.position || 0 }.max ).to_a, collection_theme.position),
+                         {},
+                         onchange: "$(this).parents('form').submit();") %>
+          <%- end -%>
+        </td>
         <td><%= collection_theme.id %></td>
         <td>
           <%= link_to 'Ver', admin_collection_theme_path(collection_theme), :class => 'button' %>
