@@ -92,7 +92,8 @@ class Payment < ActiveRecord::Base
     #Cancelado - 5
     state :cancelled do
       after_save do |payment|
-        payment.cancel_order?
+        logger.warn "[PMTS] payment #{payment.id} was canceled. Check the reason"
+        # payment.cancel_order?
       end
     end
 
