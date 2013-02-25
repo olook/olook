@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'spec_helper'
 require 'features/helpers'
 
@@ -20,7 +21,7 @@ feature "Admin user with sac_operator role executing actions on the system", %q{
   scenario "As a sac_operator I want to list all collections" do
     do_admin_login!(@admin)
     visit admin_collections_path
-    page.should have_content("Listing collections")
+    page.should have_content("Listando coleções do mês")
   end
 
   scenario "As a sac_operator I want to edit a collection" do
@@ -32,7 +33,7 @@ feature "Admin user with sac_operator role executing actions on the system", %q{
   scenario "As a sac_operator I should not be allowed to destroy a collection" do
     do_admin_login!(@admin)
     visit admin_collections_path
-    click_link "Destroy"
+    click_link "Apagar"
     page.should have_content("Access Denied!")
   end
 

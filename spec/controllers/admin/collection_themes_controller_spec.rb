@@ -17,8 +17,8 @@ describe Admin::CollectionThemesController do
     it "should search for a collection_theme using the search parameter" do
       get :index, :search => search_param
 
-      assigns(:collection_themes).should_not include(collection_theme_day)
-      assigns(:collection_themes).should include(collection_theme_party)
+      expect(assigns(:groups)).to respond_to?(:each)
+      expect(assigns(:collection_themes)).to respond_to?(:each)
     end
   end
 
