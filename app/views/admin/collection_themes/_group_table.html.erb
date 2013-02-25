@@ -1,0 +1,44 @@
+<h3>
+  <%- if group.new_record? -%>
+    <%= group.position.to_s + ". " %><%= group.name %>
+  <%- else -%>
+    <%= form_for(group, url: admin_collection_theme_group_path(group)) do |f| %>
+      <%= hidden_field_tag 'redirect_to', admin_collection_themes_path %>
+      <%= group.position %>. <%= group.name %>
+      <%= f.select(:position,
+                   options_for_select((1 .. groups_size ).to_a, selected: group.position),
+                   {},
+                   onchange: "$(this).parents('form').submit();") %>
+    <% end %>
+  <%- end -%>
+</h3>
+<table class="table">
+  <tr>
+    <th>Tema</th>
+    <th>Ativo?</th>
+    <th>Posição</th>
+    <th>Abacos code</th>
+    <th></th>
+  </tr>
+
+  <% group.collection_themes.sort {|a,b| a.position <=> b.position}.each do |collection_theme| %>
+  <tr>
+    <td><%= collection_theme.name %></td>
+    <td><%= collection_theme.active ? 'Sim' : 'Não' %></td>
+    <td>
+      <%= form_for collection_theme, url: admin_collection_theme_path(collection_theme), remote: true do |f| %>
+        <%= f.select(:position,
+                     options_for_select((1 .. group.collection_themes.size ).to_a, collection_theme.position),
+                     {},
+                     onchange: "$(this).parents('form').submit();") %>
+      <%- end -%>
+    </td>
+    <td><%= collection_theme.id %></td>
+    <td>
+      <%= link_to 'Ver', admin_collection_theme_path(collection_theme), :class => 'button' %>
+      <%= link_to 'Alterar', edit_admin_collection_theme_path(collection_theme), :class => 'button' %>
+      <%= link_to 'Destruir', admin_collection_theme_path(collection_theme), confirm: 'Tem certeza que quer destruir?', method: :delete, :class => 'button danger' %>
+    </td>
+  </tr>
+<% end %>
+</table>

@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Admin::CollectionThemesController < Admin::BaseController
 
   load_and_authorize_resource
@@ -30,7 +31,7 @@ class Admin::CollectionThemesController < Admin::BaseController
     @collection_theme = CollectionTheme.new(params[:collection_theme])
 
     if @collection_theme.save
-      flash[:notice] = 'CollectionTheme page was successfully created.'
+      flash[:notice] = 'Coleção Temática foi criada com sucesso.'
     end
     respond_with :admin, @collection_theme
   end
@@ -39,20 +40,18 @@ class Admin::CollectionThemesController < Admin::BaseController
     @collection_theme = CollectionTheme.find(params[:id])
 
     if @collection_theme.update_attributes(params[:collection_theme])
-      flash[:notice] = 'CollectionTheme page was successfully updated.'
+      flash[:notice] = 'Coleção Temática foi atualizada com sucesso.'
     end
-    respond_with :admin, @collection_theme
+    respond_with :admin, @collection_theme do |format|
+      format.js { render :update }
+    end
   end
 
   def destroy
     @collection_theme = CollectionTheme.find(params[:id])
     @collection_theme.destroy
+    flash[:notice] = 'Coleção Temática destruída com sucesso.'
     respond_with :admin, @collection_theme
-  end
-
-  private
-
-  def generate_slug(name)
   end
 
 end
