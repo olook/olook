@@ -68,7 +68,7 @@ describe ShowroomPresenter do
     describe 'specific methods' do
       let(:range) { (1..10) }
       it "#display_shoes" do
-        subject.should_receive(:display_products).with(range, Category::SHOE, anything, nil)
+        subject.should_receive(:display_products).with(range, Category::SHOE, nil, nil, nil)
         subject.display_shoes(range, nil)
       end
       it "#display_bags" do

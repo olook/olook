@@ -52,19 +52,16 @@ FactoryGirl.define do
     
     after(:create) do |order|
       FactoryGirl.create(:billet, :order => order)
-    end    
-  end
+    end 
   
-  factory :order_with_waiting_payment, :class => Order do
-    association :freight, :factory => :freight
-    association :user, :factory => :member
-    state "waiting_payment"
-    subtotal BigDecimal.new("100")
-    amount_paid BigDecimal.new("100")
+    factory :order_with_waiting_payment do
+      association :user, :factory => :member
+      state "waiting_payment"
 
-    after(:create) do |order|
-      FactoryGirl.create(:credit_card_with_response_authorized, :order => order)
-    end
+      after(:create) do |order|
+        FactoryGirl.create(:credit_card_with_response_authorized, :order => order)
+      end
+    end   
   end
 
   factory :authorized_order, :class => Order do

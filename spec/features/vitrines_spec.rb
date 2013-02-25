@@ -42,6 +42,7 @@ feature "Accessing my vitrine", "In order to see a customized list of products a
   let(:shoe_with_plenty_of_stock) { FactoryGirl.create(:shoe, :with_plenty_of_stock) }
 
   scenario "Shoes sorting by inventory" do
+    pending
     do_login!(user) 
 
     within("#shoes_container .products_list .best ul") do
