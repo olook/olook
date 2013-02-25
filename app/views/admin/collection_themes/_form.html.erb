@@ -13,9 +13,9 @@
 
   <div class="field">
     <%= f.label :collection_theme_group %><br />
-    <%= f.collection_select :collection_theme_group, CollectionThemeGroup.all, :name, :id %>
+    <%= f.collection_select :collection_theme_group_id, CollectionThemeGroup.all, :id, :name %>
   </div>
-  <%= f.fields_for :new_collection_theme_group, CollectionThemeGroup.new do |group| %>
+  <%= f.fields_for :collection_theme_group_attributes, CollectionThemeGroup.new do |group| %>
     <div class="field">
       <%= group.label :name, 'OU Crie um novo Grupo' %><br />
       <%= group.text_field :name %>
