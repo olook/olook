@@ -28,5 +28,11 @@ class Admin::CollectionThemeGroupsController < Admin::BaseController
       flash[:notice] = 'Collection Theme Group was successfully updated.'
     end
     respond_with :admin, @collection_theme_group
-  end     
+  end
+
+  def destroy
+    @collection_theme_group = CollectionThemeGroup.find(params[:id])
+    @collection_theme_group.destroy
+    respond_with :admin, @collection_theme_group
+  end       
 end
