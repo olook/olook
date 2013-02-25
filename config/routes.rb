@@ -93,6 +93,7 @@ Olook::Application.routes.draw do
   match "/buscape", :to => "xml#buscape", :as => "buscape", :defaults => { :format => 'xml' }
   match "/kelkoo", :to => "xml#kelkoo", :as => "kelkoo", :defaults => { :format => 'xml' }
   match "/kuanto_kusta", :to => "xml#kuanto_kusta", :as => "kuanto_kusta", :defaults => { :format => 'xml' }
+  match "/nextperformance", :to => "xml#nextperformance", :as => "nextperformance", :defaults => { :format => 'xml' }
 
   #SURVEY
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey

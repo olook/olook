@@ -82,6 +82,8 @@ class Order < ActiveRecord::Base
                                                  :set_delivery_date_on,
                                                  :set_shipping_service_name]
 
+    after_transition any => :canceled, :do => :enqueue_cancelation_notification
+
     state :reversed do
       after_save do |order|
         order.payments.where(Payment.arel_table[:state].not_eq('reversed')).each do |payment|
@@ -134,10 +136,11 @@ class Order < ActiveRecord::Base
     end
 
     event :canceled do
-      transition :waiting_payment => :canceled, :if => :cancel_order?
-      transition :not_delivered => :canceled, :if => :cancel_order?
-      transition :under_review => :canceled, :if => :cancel_order?
+      transition :waiting_payment => :canceled, :if => :can_be_canceled?
+      transition :not_delivered => :canceled, :if => :can_be_canceled?
+      transition :under_review => :canceled, :if => :can_be_canceled?
     end
+
 
     event :reversed do
       transition :authorized => :reversed, :if => :refused_order?
@@ -251,6 +254,15 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def can_be_canceled?
+    paids = payments.where(:state => :authorized)
+
+    return true if ( payments.empty? || paids.empty? )
+
+    order_was_fully_paid = paids.sum(:total_paid) == amount_paid
+    not order_was_fully_paid
+  end
+
   private
 
     def set_delivery_date_on
@@ -303,9 +315,8 @@ class Order < ActiveRecord::Base
       true
     end
 
-    def cancel_order?
+    def enqueue_cancelation_notification
       Resque.enqueue_in(1.minute, Orders::NotificationPaymentRefusedWorker, self.id)
-      true
     end
 
     def refused_order?

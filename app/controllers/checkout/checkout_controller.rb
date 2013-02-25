@@ -27,6 +27,15 @@ class Checkout::CheckoutController < Checkout::BaseController
     @cart_service.cart.address = address
 
     sender_strategy = PaymentService.create_sender_strategy(@cart_service, payment)
+
+    if (sender_strategy.nil?)
+      # Only for bugtracking
+      Airbrake.notify(
+        :error_class   => "CheckoutController",
+        :error_message => "Nao foi possivel criar um sender_strategy para o pagamento #{payment}, metodo = #{payment_method}"
+      )      
+    end
+
     payment_builder = PaymentBuilder.new({ :cart_service => @cart_service, :payment => payment, :gateway_strategy => sender_strategy, :tracking_params => session[:order_tracking_params] } )
     response = payment_builder.process!
 
@@ -35,8 +44,8 @@ class Checkout::CheckoutController < Checkout::BaseController
       return redirect_to(order_show_path(:number => response.payment.order.number))
     else
       @addresses = @user.addresses
-      error_message = "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento." if payment.is_a? CreditCard
-      display_form(address, payment, payment_method)
+      error_message = "Identificamos um problema com o cartão.<br> Confira os dados ou tente outra forma de pagamento." if payment.is_a? CreditCard
+      display_form(address, payment, payment_method, error_message)
       return
     end
   end
@@ -80,6 +89,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     @checkout = Checkout.new(address: address, payment: payment, payment_method: payment_method)
     if error_message
       @checkout.errors.add(:payment_base, error_message)
+      payment.credit_card_number = ""
     end
 
     unless using_address_form?
