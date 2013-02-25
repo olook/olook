@@ -2,7 +2,7 @@
   <% @colors.each do |question, colors| %>
     <div>
       <h3>
-        <%= image_tag "/assets/common/colors/#{question.title.sub(' ', '_').downcase}.png" %>
+        <%= image_tag "common/colors/#{question.title.sub(' ', '_').downcase}.png" %>
       </h3>
       <ol class="colors">
         <% colors.each do |color| %>
