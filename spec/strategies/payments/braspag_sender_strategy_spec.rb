@@ -10,7 +10,6 @@ describe Payments::BraspagSenderStrategy do
   let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
   let(:cart_service) { CartService.new({
     :cart => cart
-    # ,    :freight => freight,
   }) }
   let(:order_total) { 12.34 }
 
@@ -65,7 +64,7 @@ describe Payments::BraspagSenderStrategy do
     end
 
     it "should enqueue request on resque" do
-      subject.should_receive(:send_authorization_request).and_return(:true)
+      subject.should_receive(:authorize).and_return(:true)
       subject.send_to_gateway
     end
 
@@ -73,7 +72,7 @@ describe Payments::BraspagSenderStrategy do
       it "should encrypt the credit card data for the given payment even if an exception is raised" do
         subject.stub(:web_service_data).and_raise(Exception)
         CreditCard.any_instance.should_receive(:encrypt_credit_card)
-        expect {subject.send_authorization_request}.to raise_error{Exception}
+        expect {subject.process_enqueued_request}.to raise_error{Exception}
       end
     end
 
