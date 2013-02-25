@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+<% @products.each do |product| %>
+<product id="<%= product.id %>">
+<name><%= product.name %></name>
+<smallimage><%= product.thumb_picture %></smallimage>
+<bigimage><%= product.main_picture.try(:image) %></bigimage>
+<producturl><%= product.product_url(utm_source: "nextperformance") %></producturl>
+<description><%= product.description %></description>
+<price><%= number_with_precision(product.retail_price, precision: 2, separator: ",") %></price>
+<retailprice><%= number_with_precision(product.price, precision: 2, separator: ",") %></retailprice>
+<discount><%= (100-(product.retail_price*100/product.price)).to_i %></discount>
+<recommendable>1</recommendable>
+<instock><%= product.instock %></instock>
+<category><%= product.subcategory %></category>
+</product>
+<% end %>
+</products>
+

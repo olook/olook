@@ -8,6 +8,9 @@ class Product < ActiveRecord::Base
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
   MINIMUM_INVENTORY_FOR_XML = 3
   CACHE_KEY = "C_I_P_"
+
+  include ProductFinder
+
   has_enumeration_for :category, :with => Category, :required => true
 
   after_create :create_master_variant
@@ -353,6 +356,12 @@ class Product < ActiveRecord::Base
 
   def self.fetch_products label
     find_keeping_the_order Setting.send("home_#{label}").split(",")
+  end
+
+  def find_suggested_products
+    products = Product.joins(:details).where("details.description = '#{ self.subcategory }' AND collection_id <= #{ self.collection_id }").order('collection_id desc')
+
+    remove_color_variations(products)
   end
 
   def share_by_email( informations = { } )
