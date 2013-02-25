@@ -1,28 +1,28 @@
-<h2>Listing orders</h2>
+<h2>Listando ordens</h2>
 
 
 <% content_for :sidebar do %>
   <div class="block">
-    <h3>Filters</h3>
+    <h3>Filtros</h3>
 
     <div class="content">
       <%= form_for([:admin, @search], :html => {:class => "form"}) do |f| %>
         <div class="group">
-          <%= f.label :number_eq, "Number", :class => "label" %>
+          <%= f.label :number_eq, "Número", :class => "label" %>
           <%= f.text_field :number_eq, :class => "text_field" %>
         </div>
         <div class="group">
-          <%= f.label :user_first_name_contains, :class => "label" %>
+          <%= f.label :user_first_name_contains, "Primeiro nome" , :class => "label" %>
           <%= f.text_field :user_first_name_contains, :class => "text_field" %>
         </div>
         <div class="group">
-          <%= f.label :user_email_contains, :class => "label" %>
+          <%= f.label :user_email_contains, "Email do usuário" ,:class => "label" %>
           <%= f.text_field :user_email_contains, :class => "text_field" %>
         </div>
         <div class="group">
-          <%= f.label :created_at_gte, "Ordered from", :class => "label"  %>
+          <%= f.label :created_at_gte, "Ordens de", :class => "label"  %>
           <%= f.date_select :created_at_gte, :include_blank => true %>
-          <%= f.label :created_at_lte, "to", :class => "label" %>
+          <%= f.label :created_at_lte, "até", :class => "label" %>
           <%= f.date_select :created_at_lte, :include_blank => true %>
         </div>
         <div class="group">
@@ -30,7 +30,7 @@
           <%= f.collection_select :state_eq, Order::STATUS.to_a, :first, :last, {:include_blank => true} %>
         </div>
         <div class="group">
-          <%= f.label :state, "Payment Method", :class => "label" %>
+          <%= f.label :state, "Metodo de pagamento", :class => "label" %>
           <%= f.select :payments_type_eq, {"Boleto Bancário" => "Billet", "Cartão de Crédito" => "CreditCard", "Débito" => "Debit"} , {:include_blank => true} %>
         </div>
 
@@ -40,7 +40,7 @@
         </div>
 
         <div class="group">
-          <%= f.submit 'Search', :class => "button" %>
+          <%= f.submit 'Procurar', :class => "button" %>
         </div>
       <% end %>
     </div>
@@ -48,27 +48,27 @@
 <% end %>
 
 <div class="inner">
-  <%= button_to "Integrate Orders",  admin_integrate_orders_path %>
-  <%= button_to "Integrate Payment", admin_integrate_payment_path %>
-  <%= button_to "Integrate Cancel", admin_integrate_cancel_path %>
-  
-  
+  <%= button_to "Integrar Ordens",  admin_integrate_orders_path %>
+  <%= button_to "Integrar Pagamento", admin_integrate_payment_path %>
+  <%= button_to "Cancelar integração", admin_integrate_cancel_path %>
+
+
   <table class="table">
     <tr>
       <th><%= sort_link @search, :number %></th>
-      <th><%= sort_link @search, :user_first_name, "Client" %></th>
+      <th><%= sort_link @search, :user_first_name, "Cliente" %></th>
       <th><%= sort_link @search, :user_email, "E-mail" %></th>
-      <th><%= sort_link @search, :created_at, "Date" %></th>
+      <th><%= sort_link @search, :created_at, "Data" %></th>
       <th><%= sort_link @search, :gateway, "Gateway" %></th>
       <th><%= sort_link @search, :state, "Status" %></th>
-      <th>Status Reason</th>
-      <th><%= sort_link @search, :payment_type, "Payment Method" %></th>
-      <th>Payment Status Reason</th>
-      <th>Item count</th>
-      <th>Products Total</th>
-      <th>Used Credits</th>
-      <th>Used Coupons</th>
-      <th>Freight Price</th>
+      <th>Razão do status</th>
+      <th><%= sort_link @search, :payment_type, "Método de pagamento" %></th>
+      <th>Razão do status do pagamento</th>
+      <th>Quantidade de itens</th>
+      <th>Total dos produtos</th>
+      <th>Créditos usados</th>
+      <th>Cupons usados</th>
+      <th>Preço do frete</th>
       <th>Total</th>
       <th>x</th>
       <th></th>

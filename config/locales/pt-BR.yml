@@ -282,14 +282,63 @@
             not_delivered: "Não entregue"
 
     models:
-      promotion: Promoção
-      address: Endereço
-      credit_card: Cartão de crédito
-      user: Usuário
+
+      user:
+        one: Usuário
+        other: Usuários
+
+      credit:
+        one: Crédito
+        other: Créditos
+
+      discount:
+        one: Desconto
+        other: Descontos
+
+      order:
+        one: Ordem
+        other: Ordens
+
+      collection:
+        one: Coleção do mês
+        other: Coleções do mês
+
+      collection_theme:
+        one: Coleção temática
+        other: Coleções temáticas
+
+      product:
+        one: Produto
+        other: Produtos
+
+      shipping_service:
+        one: Serviço de entrega
+        other: Serviços de entrega
+
+      moip_callback:
+        one: Retorno do Moip
+        other: Retornos do Moip
+
+      braspag_authorize_response:
+        one: Resposta de autorização da Braspag
+        other: Respostas de autorização da Braspag
+
+      braspag_capture_response:
+        one: Resposta de captura da Braspag
+        other: Respostas de captura da Braspag
+
+      payment:
+        one: Pagamento
+        other: Pagamentos
+
       gift_recipient: presenteado
       gift_occasion: "ocasião"
       gift_occasion_type: "tipo de ocasião"
       gift_recipient_relation: "relacionamento"
+      promotion: Promoção
+      address: Endereço
+      credit_card: Cartão de crédito
+
     attributes:
       promotion:
         name: Nome
@@ -297,7 +346,7 @@
         ends_at: Termina em
         description: Descrição
         active: Ativa?
-        
+
       address:
         city: Cidade
         complement: Complemento

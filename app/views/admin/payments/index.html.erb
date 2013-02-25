@@ -1,20 +1,20 @@
-<h2>Listing payments</h2>
+<h2>Listando pagamentos</h2>
 
 <% content_for :sidebar do %>
   <div class="block">
-    <h3>Filters</h3>
+    <h3>Filtros</h3>
 
     <div class="content">
       <%= form_for([:admin, @search], :html => {:class => "form"}) do |f| %>
         <div class="group">
-          <%= f.label :created_at_gte, "Created at from", :class => "label"  %>
+          <%= f.label :created_at_gte, "Criado em", :class => "label"  %>
           <%= f.date_select :created_at_gte, :include_blank => true %>
-          <%= f.label :created_at_lte, "to", :class => "label" %>
+          <%= f.label :created_at_lte, "até", :class => "label" %>
           <%= f.date_select :created_at_lte, :include_blank => true %>
         </div>
 
         <div class="group">
-          <%= f.label :state, "State", :class => "label" %>
+          <%= f.label :state, "Status do pagamento", :class => "label" %>
           <%= f.collection_select :state_eq, Payment.state_machine.states.keys, :to_s, :to_s, {:include_blank => true} %>
         </div>
 
@@ -24,22 +24,22 @@
         </div>
 
         <div class="group">
-          <%= f.label :type, "Type", :class => "label" %>
+          <%= f.label :type, "Tipo", :class => "label" %>
           <%= f.select :type_eq, {"Boleto Bancário" => "Billet", "Cartão de Crédito" => "CreditCard", "Débito" => "Debit"} , {:include_blank => true} %>
         </div>
 
         <div class="group">
-          <%= f.label :order, "Order", :class => "label" %>
+          <%= f.label :order, "Ordem", :class => "label" %>
           <%= f.text_field :order_number_eq, :class => "text_field" %>
         </div>
 
         <div class="group">
-          <%= f.label :user_first_name_contains, :class => "label" %>
+          <%= f.label :user_first_name_contains, "Primeiro nome do usuário" , :class => "label" %>
           <%= f.text_field :user_first_name_contains, :class => "text_field" %>
         </div>
 
         <div class="group">
-          <%= f.submit 'Search', :class => "button" %>
+          <%= f.submit 'Procurar', :class => "button" %>
         </div>
       <% end %>
     </div>
@@ -50,13 +50,13 @@
   <table class="table">
     <tr>
       <th>Obs:</th>
-      <th>Transaction</th>
-      <th><%= sort_link @search, :user_first_name, "Client" %></th>
-      <th>Order</th>
-      <th>Type</th>
+      <th>Transação</th>
+      <th><%= sort_link @search, :user_first_name, "Cliente" %></th>
+      <th>Ordem</th>
+      <th>Tipo</th>
       <th>Gateway</th>
-      <th>State</th>
-      <th>Percent</th>
+      <th>Status</th>
+      <th>Porcentagem</th>
       <th><%= sort_link @search, :created_at %></th>
       <th></th>
     </tr>
@@ -73,10 +73,10 @@
       <td><%= payment.percent %></td>
       <td><%= payment.created_at.to_s(:long) %></td>
       <% if payment.gateway == 1 %>
-        <td><%= link_to 'Show Moip callbacks', admin_moip_callbacks_path(:search => {:id_transacao_eq => payment.identification_code}) %></td>
+        <td><%= link_to 'Mostrar retornos do Moip', admin_moip_callbacks_path(:search => {:id_transacao_eq => payment.identification_code}) %></td>
       <% elsif payment.gateway == 2 %>
-        <td><%= link_to 'Show Braspag authorize', admin_braspag_authorize_responses_path(:search => {:identification_code_eq => payment.identification_code}) %></td>
-        <td><%= link_to 'Show Braspag capture', admin_braspag_capture_responses_path(:search => {:identification_code_eq => payment.identification_code}) %></td>
+        <td><%= link_to 'Mostrar autorização da Braspag', admin_braspag_authorize_responses_path(:search => {:identification_code_eq => payment.identification_code}) %></td>
+        <td><%= link_to 'Mostrar captura da Braspag', admin_braspag_capture_responses_path(:search => {:identification_code_eq => payment.identification_code}) %></td>
       <% end %>
     </tr>
   <% end %>
