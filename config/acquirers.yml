@@ -11,3 +11,10 @@ redecard:
   americanexpress: :sitef_amex
   diners: :redecard_diners
   hipercard: :sitef_hipercard
+
+teste:
+  visa: :homolog
+  mastercard: :homolog
+  americanexpress: :homolog
+  diners: :homolog
+  hipercard: :homolog
