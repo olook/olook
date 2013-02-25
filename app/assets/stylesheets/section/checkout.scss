@@ -1517,7 +1517,7 @@ section.checkout{
 			height:30px;line-height:30px;padding-left:7px;font-size:14px;border:solid 1px #C3C3C3;
 
 /*********** STEP ONE *********/
-			&.input_error{border-color:#EA1E40 !important;}
+			&.input_error{border-color:#EA1E40 !important;border-left:solid 5px #EA1E40;}
 			&.zip_code{width:115px;float:left}
 			&.endereco{width:172px;}
 			&.numero{width:80px;}
