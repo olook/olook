@@ -22,7 +22,6 @@ Spork.prefork do
   # https://github.com/timcharper/spork/wiki/Spork.trap_method-Jujutsu
   Spork.trap_method(Rails::Application::RoutesReloader, :reload!) if defined?(Rails)
 
-  require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'capybara/rspec'
   require 'carrierwave/test/matchers'
@@ -36,13 +35,6 @@ Spork.prefork do
     'extra' => {"raw_info" => {"email" => "user@mail.com", "first_name" => "User Name", "last_name" => "Last Name", "id" => "abc"}},
     'credentials' => {'token' => "AXDV"}
   }
-
-  # Requires supporting ruby files with custom matchers and macros, etc,
-  # in spec/support/ and its subdirectories.
-  Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
-
-  #Requires libs. Check why I need to do it later
-  Dir[Rails.root.join("lib/**/*.rb")].each {|f| require f}
 
   Savon.configure do |config|
 
@@ -99,13 +91,22 @@ Spork.prefork do
 
     config.include Devise::TestHelpers, :type => :controller
     config.extend VCR::RSpec::Macros
-    config.include Abacos::TestHelpers
   end
 end
 
 Spork.each_run do
+  require File.expand_path("../../config/environment", __FILE__)
+  # Requires supporting ruby files with custom matchers and macros, etc,
+  # in spec/support/ and its subdirectories.
+  Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+  #Requires libs. Check why I need to do it later
+  Dir[Rails.root.join("lib/**/*.rb")].each {|f| require f}
   FactoryGirl.reload
   Dir[File.expand_path("app/controllers/user/*.rb")].each do |file|
     require file
+  end
+  RSpec.configure do |config|
+    config.include Abacos::TestHelpers
   end
 end
