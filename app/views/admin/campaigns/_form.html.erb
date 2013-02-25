@@ -12,17 +12,17 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %><br />
+    <%= f.label :title, "Título" %><br />
     <%= f.text_field :title %>
   </div>
 
   <div class="field">
-    <%= f.label :start_at %><br />
+    <%= f.label :start_at, "Início em" %><br />
     <%= f.date_select :start_at %>
   </div>
 
   <div class="field">
-    <%= f.label :end_at %><br />
+    <%= f.label :end_at, "Término em" %><br />
     <%= f.date_select :end_at %>
   </div>
 
@@ -66,13 +66,13 @@
   </div>
 
   <div class="field">
-    <%= f.label :description %><br />
+    <%= f.label :description, "Descrição" %><br />
     <%= f.text_field :description %>
   </div>
 
   <div class="field">
     <%= f.label :pages, "Paginas para exibir o banner" %><br />
-    <%= hidden_field_tag "campaign[page_ids][]", nil %> 
+    <%= hidden_field_tag "campaign[page_ids][]", nil %>
     <% Page.all.each do |page| %>
       <%= check_box_tag "campaign[page_ids][]", page.id, @campaign.page_ids.include?(page.id), :id => dom_id(page) %>
       <%= label_tag dom_id(page), page.description %>
