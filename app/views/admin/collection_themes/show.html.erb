@@ -2,7 +2,7 @@
 <div class="inner">
   <p id="notice"><%= notice %></p>
   <p>
-    <b>Header: (alt: <%= @collection_theme.header_image_alt %>)</b>
+    <b>Header: (alt: <%= @collection_theme.header_image_alt %>)</b><br />
     <%= image_tag @collection_theme.header_image.try(:url), alt: @collection_theme.header_image_alt  %>
   </p>
   <p>
