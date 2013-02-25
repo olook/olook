@@ -15,9 +15,8 @@
   </p>
   <p>
     <b>Link do vídeo: (title: <%= @collection.video_title %>)</b>
-    http://www.youtube.com/watch?v=1tCr23eZ7Vo&list=UUjPbOLQD7X5ef0T29IkkXzQ
-    <iframe width="560" height="315" src="http://www.youtube.com/embed/1tCr23eZ7Vo?list=UUjPbOLQD7X5ef0T29IkkXzQ" frameborder="0" allowfullscreen></iframe>
-    <%= @collection.video_link %>
+    <%= @collection_theme.video_link %><br />
+    <iframe width="560" height="315" src="<%= url_for("http://www.youtube.com/embed/#{@collection.video_id}", @collection_theme.video_options) %>" frameborder="0" allowfullscreen></iframe>
   </p>
   <p>
     <b>Posição no Grupo:</b>
