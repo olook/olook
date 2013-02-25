@@ -5,8 +5,8 @@ class Admin::CollectionThemesController < Admin::BaseController
   respond_to :html, :text
 
   def index
-    @search = CollectionTheme.search(params[:search])
-    @collection_themes = @search.relation.page(params[:page]).per_page(15).order('created_at desc')
+    @groups = CollectionThemeGroup.includes(:collection_themes).order(:position)
+    @collection_themes = CollectionTheme.where(collection_theme_group_id: nil).order(:position)
   end
 
   def show

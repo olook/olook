@@ -1,7 +1,7 @@
 <%= form_for([:admin,@collection_theme]) do |f| %>
   <% if @collection_theme.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@collection_theme.errors.count, "error") %> prohibited this landing page from being saved:</h2>
+      <h2><%= pluralize(@collection_theme.errors.count, "error") %> impediram essa coleção de ser salva:</h2>
 
       <ul>
       <% @collection_theme.errors.full_messages.each do |msg| %>
@@ -12,8 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :article %><br />
-    <%= f.text_field :article, limit: 10, default: "a" %>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
   </div>
   <div class="field">
     <%= f.label :name %><br />
@@ -30,6 +30,14 @@
   <div class="field">
     <%= f.label :header_image %><br />
     <%= f.file_field :header_image %>
+  </div>
+  <div class="field">
+    <%= f.label :header_image_alt %><br />
+    <%= f.text_field :header_image_alt %>
+  </div>
+  <div class="field">
+    <%= f.label :video_link %><br />
+    <%= f.text_field :video_link %>
   </div>
   <div class="actions">
     <%= f.submit %>
