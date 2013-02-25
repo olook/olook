@@ -23,6 +23,7 @@ _gaq.push(['_addTrans',
   <%= render :partial => "shared/metrics/criteo/basket_tracker", :locals => {:cart => @cart, :cart_service => @cart_service } %>
   <%= render :partial => "shared/metrics/sociomantic/basket", :locals => {:cart => @cart, :cart_service => @cart_service } %>
   <%= render :partial => "shared/metrics/triggit/cart" %>
+  <%= render partial: "shared/metrics/nextperformance/cart" %>
   <%= javascript_include_tag "carts" %>
 <% end %>
 
@@ -94,8 +95,8 @@ _gaq.push(['_addTrans',
             </td>
             <td class="avc-button">
               <p><%= number_to_currency(@suggested_product.retail_price) %></p>
-			  <%= form_tag(cart_items_path, onsubmit: track_event("Shopping", "AddToCartFromRecommended", @suggested_product.id), 
-                                      id: "product_add_to_cart", 
+			  <%= form_tag(cart_items_path, onsubmit: track_event("Shopping", "AddToCartFromRecommended", @suggested_product.id),
+                                      id: "product_add_to_cart",
                                       remote: true) do %>
         <input name="from_sacola" type="hidden" value="true" %>
 				<input id="variant_id" name="variant[id]" type="hidden" value="<%= @suggested_product.variants.first.id.to_s %>" />
@@ -206,9 +207,9 @@ _gaq.push(['_addTrans',
                   <tr class="discount">
                     <td>
                       <a href="#" id="show_coupon_field">Quero usar um código promocional</a>
-                      <%= form_for(@cart, remote: true, 
-                                          html: { 
-                                            :id => "coupon" 
+                      <%= form_for(@cart, remote: true,
+                                          html: {
+                                            :id => "coupon"
                                           }) do |f| %>
                         <fieldset class="inputs">
                           <ol>

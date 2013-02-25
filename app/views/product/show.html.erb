@@ -75,5 +75,7 @@
   <%= render partial: "shared/metrics/sociomantic/product", :locals => { product_id: @product.id } %>
   <%= render partial: "shared/metrics/criteo/product_page_tracker", :locals => { product_id: @product.id } %>
   <%= render partial: "shared/metrics/triggit/product", :locals => { product_id: @product.id } %>
+  <%= render partial: "shared/metrics/nextperformance/product", :locals => { product_id: @product.id } %>
+  <%= render partial: "shared/metrics/nextperformance/category", :locals => { category_id: @product.category } %>
   <%= render "facebook_js", :facebook_app_id => @facebook_app_id, :product => @product %>
 <% end %>
