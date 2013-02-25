@@ -503,7 +503,7 @@ initBase = {
       _gaq.push(['_trackEvent', 'product_show', 'show_loyalty_info', '']);
       clone = $("div.credits_description").clone().addClass("clone");
       content = clone[0].outerHTML;
-      initBase.modal(content);
+      initBase.newModal(content);
       e.preventDefault();
     });
   },
