@@ -2,7 +2,7 @@
 section#kombi {
   padding: 30px 0 0;
   div#description {
-    width: 475px;
+    width: 500px;
     float: left;
     h1 {
       font-family: $johnston;
@@ -41,14 +41,29 @@ section#kombi {
         font-size: 15px;
         font-weight: lighter;
         text-transform: uppercase;
-        height: 53px;
+        height: 58px;
         margin: 0 0 20px;
-        padding: 8px 0 0 75px;
-        strong {
+        padding: 5px 0 0 75px;
+        .test{
+          text-transform: lowercase;
+          font-size: 13px;
+          display: block;
+        }
+
+        a{
+          text-decoration: none;
+          color: #000;
+          &:hover{
+            color: $pink;
+          }
+          
           span {
             font-family: $kepler;
             text-transform: lowercase;
+            font-size: 23px;
           }
+          
+          
         }
       }
       div.instagram_pictures {

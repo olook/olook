@@ -1,7 +1,13 @@
 .dashboard_report_buttons {
-  a{
+  .button{
     width: 170px;
+    margin-bottom: 20px !important;
+    display:block;
+    padding:0 !important;
+    line-height:27px !important;
+
   }
+  width: 200px;
+  height: 100px;
   padding: 10px;
-  margin-bottom: 20px;
 }

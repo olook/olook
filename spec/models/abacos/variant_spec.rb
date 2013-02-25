@@ -33,7 +33,7 @@ describe Abacos::Variant do
       expect {
         ::Product.stub(:find_by_model_number).with(subject.model_number).and_return(nil)
         subject.integrate
-      }.to raise_error "Product with model_number #{subject.model_number} is related to variant number #{subject.number} but it doesn't exist"
+      }.to raise_error "O produto pai [#{subject.model_number}] não foi encontrado, e com isso a variante #{subject.number} nao pode ser integrada"
     end
   end
 

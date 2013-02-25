@@ -40,6 +40,8 @@ pt-BR:
             cpf:
               blank: "Para compras, é necessário informar o CPF"
               invalid: "O CPF parece estranho. Pode conferir?"
+            gender:
+              blank: "Homem ou Mulher?"  
         credit_card:
           attributes:
             user_identification:

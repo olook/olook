@@ -101,6 +101,7 @@ Olook::Application.routes.draw do
 
   #PRODUCT
   get "/produto/:id" => "product#show", :as => "product"
+  post "/produto/share" => "product#share_by_email", as: 'product_share_by_email'
 
   #VITRINE / INVITE
   get "membro/convite" => "members#invite", :as => 'member_invite'

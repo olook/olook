@@ -21,7 +21,7 @@ module Abacos
     
     def integrate
       product = ::Product.find_by_model_number(self.model_number)
-      raise RuntimeError.new "Product with model_number #{self.model_number} is related to variant number #{self.number} but it doesn't exist" if product.nil?
+      raise RuntimeError.new "O produto pai [#{self.model_number}] não foi encontrado, e com isso a variante #{self.number} nao pode ser integrada" if product.nil?
       
       variant = product.variants.find_by_number(self.number) || product.variants.build
       variant.update_attributes(self.attributes)
