@@ -41,8 +41,8 @@ describe SendEnabledCreditsNotificationWorker do
 
     Delorean.time_travel_to(another_user_credit.credits.first.activates_at)
 
-    mock_mail.should_receive(:deliver).exactly(2).times
-    LoyaltyProgramMailer.should_receive(:send_enabled_credits_notification).exactly(2).times.and_return(mock_mail)
+    mock_mail.should_receive(:deliver).once
+    LoyaltyProgramMailer.should_receive(:send_enabled_credits_notification).and_return(mock_mail)
 
     described_class.perform    
     Delorean.back_to_the_present

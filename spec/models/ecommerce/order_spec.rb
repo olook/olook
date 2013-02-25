@@ -68,8 +68,8 @@ describe Order do
 
   context "ERP(abacos) integration" do
     context "when the order is waiting payment" do
-      it "should enqueue a job to insert a order" do
-        Resque.should_receive(:enqueue_in).with(Abacos::InsertOrder, subject.number)
+      it "enqueues a job to insert a order" do
+        Resque.should_receive(:enqueue_in).exactly(3).times.with(Abacos::InsertOrder, subject.number)
         subject
       end
 
@@ -85,7 +85,7 @@ describe Order do
       let(:another_order_with_waiting_payment) { FactoryGirl.create :order_with_waiting_payment }
 
       it "should enqueue a job to confirm a payment" do
-        Resque.should_receive(:enqueue_in).with(20.minutes, Abacos::ConfirmPayment, another_order_with_waiting_payment.number)
+        Resque.should_receive(:enqueue_in).exactly(5).times.with(20.minutes, Abacos::ConfirmPayment, another_order_with_waiting_payment.number)
         another_order_with_waiting_payment.authorized
       end
     end
