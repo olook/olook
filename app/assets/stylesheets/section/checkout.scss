@@ -1985,10 +1985,19 @@ div.credit_details {
     font-family: $avenir;
     font-size: 20px;
     font-weight: bold;
+    margin-top: 35px;
   }
   h2{
-    text-align: center;
-    font-family: $avenir;
-    font-size: 18px;
+    font-family: $avenir !important;
+    font-size: 18px !important;
+    padding: 5px;
+    clear: both;
+    margin: 20px 40px !important;
+  }
+  .img_modal{
+    width: 600px;
+    height: 298px;
+    background: image-url('loyalty/modal-gift.jpg') no-repeat;
+
   }
 }
