@@ -35,7 +35,7 @@ class Checkout::CheckoutController < Checkout::BaseController
       return redirect_to(order_show_path(:number => response.payment.order.number))
     else
       @addresses = @user.addresses
-      error_message = "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento." if payment.is_a? CreditCard
+      error_message = "Identificamos um problema com cartão. Confira os dados ou tente outra forma de pagamento." if payment.is_a? CreditCard
       display_form(address, payment, payment_method, error_message)
       return
     end
