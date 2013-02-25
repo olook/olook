@@ -331,11 +331,60 @@
         one: Pagamento
         other: Pagamentos
 
+      promotion:
+        one: Promoção
+        other: Promoções
+
+      liquidation:
+        one: Liquidação
+        other: Liquidações
+
+      campaign:
+        one: Campanha
+        other: Campanhas
+
+      coupon:
+        one: Cupom
+        other: Cupons
+
+      landing_page:
+        one: Landing Page
+        other: Landing Pages
+
+      lookbook:
+        one: Lookbook
+        other: Lookbooks
+
+      admin:
+        one: Administrador
+        other: Administradores
+
+      role:
+        one: Permissão
+        other: Permissões
+
+      setting:
+        one: Configuração
+        other: Configurações
+
+      holiday:
+        one: Feriado
+        other: Feriados
+
+      gift_occasion_type:
+        one: "Tipo de ocasião"
+        other: "Tipos de ocasiões"
+
+      gift_recipient_relation:
+        one: Relacionamento
+        other: Relacionamentos
+
+      gift_box:
+        one: Box de presente
+        other: Box de presentes
+
       gift_recipient: presenteado
       gift_occasion: "ocasião"
-      gift_occasion_type: "tipo de ocasião"
-      gift_recipient_relation: "relacionamento"
-      promotion: Promoção
       address: Endereço
       credit_card: Cartão de crédito
 
