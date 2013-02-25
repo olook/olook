@@ -1972,3 +1972,23 @@ div.credit_details {
 }
 /********** AVC CAMPAIGN ****************/
 .txt-recomenda{font:18px avenir,arial,sans-serif;text-transform:uppercase;color:#000;margin-bottom:23px;}
+
+/********** Modal gift ****************/
+
+.modal_gift {
+  width: 600px;
+  height: 494px;
+  background-color: #fff;
+  position: absolute;
+  h1{
+    text-align: center;
+    font-family: $avenir;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  h2{
+    text-align: center;
+    font-family: $avenir;
+    font-size: 18px;
+  }
+}

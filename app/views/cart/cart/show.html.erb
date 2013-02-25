@@ -114,10 +114,16 @@ _gaq.push(['_addTrans',
           <td class="check_column">
             <%= form_for(@cart, :remote => true, html: { :id => "gift_wrap" }) do |f| %>
               <%= f.check_box('gift_wrap', :checked => @cart.gift_wrap) %>
-              <h1>Embrulhar pedido para presente</h1>
+              <h1>Embrulhar pedido para presente. Conheça nossa embalagem de presente</h1>
             <% end %>
           </td>
           <td class="value">R$ 5,00</td>
+          <div class="modal_gift">
+            <h1>CONHEÇA NOSSAS EMBALAGENS DE PRESENTE!</h1>
+            
+
+
+          </div>
         </tr>
       </tbody>
     </table>
