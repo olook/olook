@@ -29,4 +29,10 @@ class Admin::CollectionThemeGroupsController < Admin::BaseController
     end
     respond_with :admin, @collection_theme_group
   end
+
+  def destroy
+    @collection_theme_group = CollectionThemeGroup.find(params[:id])
+    @collection_theme_group.destroy
+    respond_with :admin, @collection_theme_group
+  end
 end
