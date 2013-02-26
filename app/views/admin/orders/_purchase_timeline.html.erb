@@ -1,15 +1,16 @@
 <%= stylesheet_link_tag "admin/purchase_timeline/order_timeline" %>
 <div id='timeline_container'>
-    <div id="timeline-embed"></div>
-      <script type="text/javascript">
+  <div id="timeline-embed"></div>
+  <script type="text/javascript">
 
-        var timeline_config = {
-            source: "/admin/orders/timeline/<%= params[:id] %>.json",
-            css:  '/assets/admin/purchase_timeline/timeline.css',
-            js:   '/assets/timeline-min.js'
-        }
-      </script>
-  <script type="text/javascript" src="/assets/timeline-embed.js"></script>
+    var timeline_config = {
+      source: "/admin/orders/timeline/<%= params[:id] %>.json",
+      css:  "<%= asset_path 'admin/purchase_timeline/timeline.css' %>",
+      js:   "<%= asset_path 'timeline-min.js' %>"
+    }
+  </script>
+
+  <%= javascript_include_tag "timeline-embed.js" %>
   <script type="text/javascript">
     $(document).load(function(){
       var timeline = new VMM.Timeline();

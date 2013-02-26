@@ -3,7 +3,7 @@
   </div>
 <div class="new_payment_link">
    <p class="txt_payment_link">Recebemos o seu pedido de compra com sucesso! Confira instruções sobre os próximos passos abaixo:</p>
-   <%= image_tag("/assets/new_checkout/img_boleto.png") %>
+   <%= image_tag("new_checkout/img_boleto.png") %>
    <%= link_to "Imprimir boleto", @payment.url, :target => "_blank", :class => "link-boleto", onclick: track_event("PostCheckout","clickPrintBillet") %>
    <p class="txt-instrucao">Você também pode pagar o seu boleto online. Veja como é fácil:</p>
    <ul class="steps">

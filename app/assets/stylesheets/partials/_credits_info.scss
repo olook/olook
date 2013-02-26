@@ -1,8 +1,10 @@
 div.credits_description {
   width: 555px;
-  overflow: auto;
   display: none;
   padding: 0 45px;
+  float:left;
+  background:#FFF;
+  height:340px;
   div.box_months {
     position: relative;
     width: 460px;

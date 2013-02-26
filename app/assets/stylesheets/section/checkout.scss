@@ -1517,7 +1517,7 @@ section.checkout{
 			height:30px;line-height:30px;padding-left:7px;font-size:14px;border:solid 1px #C3C3C3;
 
 /*********** STEP ONE *********/
-			&.input_error{border-color:#EA1E40 !important;}
+			&.input_error{border-color:#EA1E40 !important;border-left:solid 5px #EA1E40;}
 			&.zip_code{width:115px;float:left}
 			&.endereco{width:172px;}
 			&.numero{width:80px;}
@@ -1972,3 +1972,41 @@ div.credit_details {
 }
 /********** AVC CAMPAIGN ****************/
 .txt-recomenda{font:18px avenir,arial,sans-serif;text-transform:uppercase;color:#000;margin-bottom:23px;}
+
+/********** GIFT MODAL ****************/
+
+.modal_gift {
+  width: 600px;
+  height: 494px;
+  background-color: #fff;
+  display: none;
+  border:solid 5px #000;
+  h1{
+    text-align: center;
+    font-family: $avenir;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 35px;
+
+  }
+
+  h2{
+    font-family: $avenir !important;
+    font-size: 18px !important;
+    padding: 5px;
+    clear: both;
+    margin: 20px 40px !important;
+  }
+  .img_modal{
+    width: 600px;
+    height: 298px;
+    background: image-url('loyalty/modal-gift.jpg') no-repeat;
+
+  }
+}
+a.txt-conheca{
+    font-family: $avenir;
+    font-size: 14px;
+    color: $pink;
+    text-transform: none;
+    }

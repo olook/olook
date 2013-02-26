@@ -10,7 +10,7 @@ module Braspag
       begin
         strategy.process_enqueued_request
       rescue Exception => e
-        Rails.logger.error e.backtrace
+        ErrorNotifier.send_notifier("GatewaySenderWorker", e.message, strategy.payment)
       end
     end
 
