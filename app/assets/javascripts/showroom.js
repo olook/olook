@@ -104,9 +104,9 @@ $(document).ready(function() {
   }
 
   if($('.dialog.liquidation').length == 1) {
-   var content = $('.dialog.liquidation'), h = content.height(), w = content.width();
+   var content = $('.dialog.liquidation');
    
-   initBase.newModal(content, h, w);
+   initBase.newModal(content);
    //initBase.modal(content);
   }
 

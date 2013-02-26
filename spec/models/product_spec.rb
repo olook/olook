@@ -586,6 +586,28 @@ describe Product do
     end
   end
 
+  describe "#share_by_email" do
+    context "when has one email to send" do
+      informations = { name_from: "User name", email_from: "user@email.com", emails_to_deliver: "user_friend@email.com" }
+       it "receives share mailer deliver" do
+         ShareProductMailer.should_receive(:send_share_message_for).with(subject, informations, informations[:emails_to_deliver].split(/,|;|\r|\t/).map(&:strip).first)
+         subject.share_by_email(informations)
+       end
+    end
+    context "when has N emails to send" do
+      informations = { name_from: "User name", email_from: "user@email.com", emails_to_deliver: "user_friend@email.com, another_friend@email.com, third_fiend@email.com" }
+       it "receives share mailer deliver 3 times" do
+         ShareProductMailer.should_receive(:send_share_message_for).with(subject, informations, informations[:emails_to_deliver].split(/,|;|\r|\t/).map(&:strip).first)
+
+         ShareProductMailer.should_receive(:send_share_message_for).with(subject, informations, informations[:emails_to_deliver].split(/,|;|\r|\t/).map(&:strip).second)
+
+         ShareProductMailer.should_receive(:send_share_message_for).with(subject, informations, informations[:emails_to_deliver].split(/,|;|\r|\t/).map(&:strip).third)
+
+         subject.share_by_email(informations)
+       end
+    end
+  end
+
   describe "#shoe_inventory_has_less_than_minimum?" do
     let(:shoe_for_xml) { FactoryGirl.create :blue_sliper_with_variants }
 
@@ -623,4 +645,30 @@ describe Product do
     end
 
   end
+
+  describe 'find_suggested_products' do
+    context "when product has suggested products" do
+      let!(:first_shoe) { FactoryGirl.create(:basic_shoe) }
+      let!(:second_shoe) { FactoryGirl.create(:red_slipper, collection_id: 1) }
+      let!(:third_shoe) { FactoryGirl.create(:silver_slipper, collection_id: 1) }
+      let!(:subcategory) { FactoryGirl.create(:shoe_subcategory_name, product: second_shoe) }
+      let!(:another_subcategory) { FactoryGirl.create(:shoe_subcategory_name, product: third_shoe) }
+
+      before do
+        first_shoe.stub(:subcategory).and_return("Scarpin")
+        second_shoe.stub(:subcategory).and_return("Sandalia")
+        third_shoe.stub(:subcategory).and_return("Sandalia")
+        subject.stub(:subcategory).and_return("Sandalia")
+        subject.stub(:collection_id).and_return(1)
+      end
+
+      it "returns suggested products" do
+        subject.find_suggested_products.should_not include (first_shoe)
+        subject.find_suggested_products.should include (second_shoe)
+        subject.find_suggested_products.should include (third_shoe)
+      end
+
+    end
+  end
+
 end

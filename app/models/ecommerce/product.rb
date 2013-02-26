@@ -8,6 +8,9 @@ class Product < ActiveRecord::Base
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
   MINIMUM_INVENTORY_FOR_XML = 3
   CACHE_KEY = "C_I_P_"
+
+  include ProductFinder
+
   has_enumeration_for :category, :with => Category, :required => true
 
   after_create :create_master_variant
@@ -355,6 +358,20 @@ class Product < ActiveRecord::Base
     find_keeping_the_order Setting.send("home_#{label}").split(",")
   end
 
+  def find_suggested_products
+    products = Product.joins(:details).where("details.description = '#{ self.subcategory }' AND collection_id <= #{ self.collection_id }").order('collection_id desc')
+
+    remove_color_variations(products)
+  end
+
+  def share_by_email( informations = { } )
+    emails_to_deliver = informations[:emails_to_deliver].split(/,|;|\r|\t/).map(&:strip)
+    informations.slice!(:email_from, :name_from)
+    emails_to_deliver.each do |email|
+      ShareProductMailer.send_share_message_for(self, informations, email)
+    end
+  end
+
   private
 
     def self.fetch_all_featured_products_of category
@@ -368,7 +385,7 @@ class Product < ActiveRecord::Base
 
     def self.find_keeping_the_order product_ids
       products =  includes(:variants).where("id in (?)", product_ids).all
-      
+
       sorted_products = product_ids.map do |product_id|
         products.find { |product| product.id == product_id.to_i }
       end
@@ -429,7 +446,7 @@ class Product < ActiveRecord::Base
     end
 
     def fetch_cache_for(picture)
-      Rails.cache.fetch(CACHE_KEY+"#{id}d#{picture.display_on}", expires_in: Setting.image_expiration_period_in_days.to_i.days) do        
+      Rails.cache.fetch(CACHE_KEY+"#{id}d#{picture.display_on}", expires_in: Setting.image_expiration_period_in_days.to_i.days) do
         picture.image.catalog.file.exists? ? picture.try(:image_url, :catalog) : picture.try(:image_url, :suggestion)
       end
     end
