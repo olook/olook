@@ -45,7 +45,9 @@ module Payments
 
         log("Processing payment request of order #{payment.order}")
 
-        order_analysis_service = OrderAnalysisService.new(self.payment, self.credit_card_number, BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code).created_at)
+        authorize_response = BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code)
+
+        order_analysis_service = OrderAnalysisService.new(self.payment, self.credit_card_number, authorize_response)
         if order_analysis_service.should_send_to_analysis? 
           log("Sending to analysis")
           clearsale_order_response = order_analysis_service.send_to_analysis
