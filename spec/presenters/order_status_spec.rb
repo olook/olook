@@ -57,7 +57,7 @@ describe OrderStatus do
   end
 
   context "order.authorized?" do
-    let(:order) {  FactoryGirl.create(:order) }
+    let(:order) {  FactoryGirl.create(:authorized_order) }
     subject { OrderStatus.new(order) }
     
     it "should return status data for payment-made-authorized" do
@@ -67,7 +67,7 @@ describe OrderStatus do
   end
 
   context "order.picking?" do
-    let(:order) {  FactoryGirl.create(:order) }
+    let(:order) {  FactoryGirl.create(:authorized_order) }
     subject { OrderStatus.new(order) }
     
     it "should return status data for order-picking" do
@@ -78,7 +78,7 @@ describe OrderStatus do
   end
 
   context "order.delivering?" do
-    let(:order) {  FactoryGirl.create(:order) }
+    let(:order) {  FactoryGirl.create(:authorized_order) }
     subject { OrderStatus.new(order) }
     
     it "should return status data for order-delivering" do
@@ -90,7 +90,7 @@ describe OrderStatus do
   end
   
   context "order.not_delivered?" do
-    let(:order) {  FactoryGirl.create(:order) }
+    let(:order) {  FactoryGirl.create(:authorized_order) }
     subject { OrderStatus.new(order) }
     
     it "should return status data for not-order-delivered" do
@@ -103,7 +103,7 @@ describe OrderStatus do
   end
 
   context "order.delivered?" do
-    let(:order) {  FactoryGirl.create(:order) }
+    let(:order) {  FactoryGirl.create(:authorized_order) }
     subject { OrderStatus.new(order) }
     
     it "should return status data for order-delivered" do

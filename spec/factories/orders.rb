@@ -22,74 +22,55 @@ FactoryGirl.define do
         FactoryGirl.create(:credit_card_with_response_authorized, :order => order)
       end
     end   
-  end
   
-  factory :clean_order, :class => Order do
-    association :freight, :factory => :freight
-    
-    user_email 'jose.ernesto@dominio.com'
-    user_cpf '228.016.368-35'
-
-    after(:create) do |order|
-      FactoryGirl.create(:billet, :order => order)
+    factory :clean_order, :class => Order do
+      after(:create) do |order|
+        FactoryGirl.create(:billet, :order => order)
+      end
     end
-  end
 
-  factory :restricted_order, :class => Order do
-    association :freight, :factory => :freight
-    restricted true
+    factory :restricted_order, :class => Order do
+      restricted true
 
-    after(:create) do |order|
-      FactoryGirl.create(:billet, :order => order)
-    end    
-  end
-
-  factory :clean_order_credit_card, :class => Order do
-    association :freight, :factory => :freight
-
-    after(:create) do |order|
-      FactoryGirl.create(:credit_card, :order => order)
+      after(:create) do |order|
+        FactoryGirl.create(:billet, :order => order)
+      end    
     end
-  end
 
-  factory :clean_order_credit_card_authorized, :class => Order do
-    association :freight, :factory => :freight
-
-    after(:create) do |order|
-      FactoryGirl.create(:authorized_credit_card, :order => order, :user => order.user)
+    factory :clean_order_credit_card, :class => Order do
+      after(:create) do |order|
+        FactoryGirl.create(:credit_card, :order => order)
+      end
     end
-  end
 
-  factory :order_without_payment, :class => Order do
-    association :freight, :factory => :freight
-
-  end
-
-  factory :authorized_order, :class => Order do
-    association :freight, :factory => :freight
-    user_email 'jose.ernesto@dominio.com'
-    user_cpf '228.016.368-35'
-    state "authorized"
-    subtotal BigDecimal.new("100")
-    amount_paid BigDecimal.new("100")
-
-    after(:create) do |order|
-      FactoryGirl.create(:credit_card_with_response, :order => order)
+    factory :clean_order_credit_card_authorized, :class => Order do
+      after(:create) do |order|
+        FactoryGirl.create(:authorized_credit_card, :order => order, :user => order.user)
+      end
     end
-    after(:create) do |order|
-      FactoryGirl.create(:authorized, :order => order)
-    end
-  end
 
-  factory :delivered_order, :class => Order do
-    association :freight, :factory => :freight
-    association :user
-    state "delivered"
-    subtotal BigDecimal.new("99.90")
-    amount_paid BigDecimal.new("99.90")
-    
-    after(:create) do |order|
-      FactoryGirl.create(:billet, :order => order)
-    end    
+    factory :order_without_payment, :class => Order do
+    end
+
+    factory :authorized_order, :class => Order do
+      state "authorized"
+
+      after(:create) do |order|
+        FactoryGirl.create(:credit_card_with_response, :order => order)
+      end
+      after(:create) do |order|
+        FactoryGirl.create(:authorized, :order => order)
+      end
+    end  
+
+    factory :delivered_order, :class => Order do
+      state "delivered"
+      subtotal BigDecimal.new("99.90")
+      amount_paid BigDecimal.new("99.90")
+      
+      after(:create) do |order|
+        FactoryGirl.create(:billet, :order => order)
+      end    
+    end
   end
 end
