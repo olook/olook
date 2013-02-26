@@ -111,7 +111,7 @@ describe SendExpirationWarningWorker do
 
   
     mock_mail.should_not_receive(:deliver)
-    LoyaltyProgramMailer.should_not_receive(:send_expiration_warning).and_return(mock_mail)
+    LoyaltyProgramMailer.should_not_receive(:send_expiration_warning)
 
     described_class.perform    
     Delorean.back_to_the_present
@@ -133,7 +133,7 @@ describe SendExpirationWarningWorker do
 
   
     mock_mail.should_not_receive(:deliver)
-    LoyaltyProgramMailer.should_not_receive(:send_expiration_warning).and_return(mock_mail)
+    LoyaltyProgramMailer.should_not_receive(:send_expiration_warning)
 
     described_class.perform    
     Delorean.back_to_the_present
