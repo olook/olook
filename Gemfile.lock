@@ -164,9 +164,6 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 1.0.0)
-    capybara-webkit (0.14.2)
-      capybara (~> 2.0, >= 2.0.2)
-      json
     carrierwave (0.6.2)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -210,6 +207,8 @@ GEM
       multipart-post (~> 1.1)
       rack (~> 1.1)
     fastercsv (1.5.5)
+    faye-websocket (0.4.7)
+      eventmachine (>= 0.12.0)
     ffi (1.4.0)
     fog (1.11.1)
       builder
@@ -253,6 +252,7 @@ GEM
     highline (1.6.19)
     hike (1.2.2)
     hpricot (0.8.6)
+    http_parser.rb (0.5.3)
     httparty (0.8.3)
       multi_json (~> 1.0)
       multi_xml
@@ -333,6 +333,10 @@ GEM
     parallel_tests (0.10.4)
       parallel
     png_quantizator (0.1.0)
+    poltergeist (1.1.2)
+      capybara (~> 2.0.1)
+      faye-websocket (~> 0.4.4)
+      http_parser.rb (~> 0.5.3)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
@@ -526,7 +530,6 @@ DEPENDENCIES
   capistrano
   capistrano-maintenance
   capybara (= 2.0.2)
-  capybara-webkit (= 0.14.2)
   carrierwave (~> 0.6.0)
   chaordic-packr (= 4.0.0)!
   clearsale!
@@ -569,6 +572,7 @@ DEPENDENCIES
   paper_trail (~> 2)
   parallel_tests
   piet!
+  poltergeist
   pry
   pry-nav
   puma

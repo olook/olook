@@ -29,13 +29,14 @@ Spork.prefork do
   require 'rspec/rails'
   require 'capybara/rspec'
   require 'carrierwave/test/matchers'
+  require 'capybara/poltergeist'
   include ActionView::Helpers::NumberHelper
 
   # Since we're using devise, the spork guys recommend us to reload the routes on this step
   # https://github.com/timcharper/spork/wiki/Spork.trap_method-Jujutsu
   Spork.trap_method(Rails::Application::RoutesReloader, :reload!) if defined?(Rails)
 
-  Capybara.javascript_driver = :webkit
+  Capybara.javascript_driver = :poltergeist
 
   OmniAuth.config.test_mode = true
 
