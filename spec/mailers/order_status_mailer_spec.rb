@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe OrderStatusMailer do
   let(:user) { FactoryGirl.create(:user) }
-  let(:order) { FactoryGirl.create(:order, :user => user) }
+  let(:order) { FactoryGirl.create(:order, :with_billet, :user => user) }
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }
 
