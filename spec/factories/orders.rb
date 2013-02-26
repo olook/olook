@@ -72,5 +72,14 @@ FactoryGirl.define do
         FactoryGirl.create(:billet, :order => order)
       end    
     end
+
+    factory :order_with_canceled_payment, :class => Order do
+      state "canceled"
+
+      #after_create do |order|
+      #  FactoryGirl.create(:credit_card_with_response_canceled, :order => order)
+      #end
+    end
+
   end
 end
