@@ -50,14 +50,13 @@ FactoryGirl.define do
     user_email 'jose.ernesto@dominio.com'
     user_cpf '228.016.368-35'
     
-    after(:create) do |order|
-      FactoryGirl.create(:billet, :order => order)
-    end 
+    trait :with_billet do
+      after(:create) do |order|
+        FactoryGirl.create(:billet, :order => order)
+      end 
+    end
   
-    factory :order_with_waiting_payment do
-      association :user, :factory => :member
-      state "waiting_payment"
-
+    trait :with_authorized_credit_card do
       after(:create) do |order|
         FactoryGirl.create(:credit_card_with_response_authorized, :order => order)
       end

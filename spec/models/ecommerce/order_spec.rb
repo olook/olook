@@ -328,7 +328,7 @@ describe Order do
   end
 
   describe '#with_payment' do
-    let!(:order_with_waiting_payment) { FactoryGirl.create(:order_with_waiting_payment) }
+    let!(:order_with_waiting_payment) { FactoryGirl.create(:order) }
     let!(:order_without_payment) do
       order = FactoryGirl.create :clean_order
       order.payments.destroy_all
@@ -378,7 +378,7 @@ describe Order do
     context ".with_state" do
       it "returns orders with one state" do
         #I know, weird.. but state comes as :authorized :P
-        order = FactoryGirl.create(:order_with_waiting_payment)
+        order = FactoryGirl.create(:order)
         order.update_attribute(:state, 'waiting_payment')
         waiting = Order.with_state("waiting_payment").map(&:state)
         expect(waiting).to have(1).item
@@ -409,7 +409,7 @@ describe Order do
         let(:six_days_ago) { 6.business_days.ago }
 
         before(:each) do
-          @past_order = FactoryGirl.create(:order_with_waiting_payment)
+          @past_order = FactoryGirl.create(:order)
           @past_order.update_attribute(:expected_delivery_on, six_days_ago)
         end
 
