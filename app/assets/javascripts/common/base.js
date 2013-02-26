@@ -447,39 +447,62 @@ initBase = {
   youtubePlayer : function(yt_id) {
     return "<iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&autoplay=1' frameborder='0' allowfullscreen></iframe>";
   },
+  
+  newModal : function(content){
+    var $modal = $("div#modal.promo-olook"), h = content.outerHeight(), w = content.outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2)), heightDoc = $(document).height(), _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()), _left=Math.max(0, (($(window).width() - w) / 2) + $(window).scrollLeft());
 
+    $("#overlay-campaign").css({"background-color": "#000", 'height' : heightDoc}).fadeIn().bind("click", function(){
+       $modal.fadeOut();
+       $(this).fadeOut();
+    }); 
+
+    $modal.html("").html(content)
+    .css({
+       'height'      : h,
+       'width'       : w,
+       'top'         : _top,
+       'left'        : _left,
+       /*'margin-left' : ml,
+       'margin-top'  : mt*/
+    })
+   .append('<button type="button" class="close" role="button">close</a>')
+   .delay(500).fadeIn().children().fadeIn();
+   
+   $("#modal button.close").click(function(){
+      $modal.fadeOut();
+      $("#overlay-campaign").fadeOut();
+   })
+
+  },
+  
   modal : function(content) {
     $("div#modal").html("");
 
     $("div#modal").prepend(content);
 
     $("div#modal").dialog({
-			height: 'auto',
+		height: 'auto',
       width: 'auto',
       resizable: false,
       draggable: false,
       modal: true,
-			autoOpen: false,
-			show: {
-			        effect: "bounce",
-			        duration: 500,
-							options:{direction:"linear"}
-			      },
-			position: { my: "center", at: "center", of: window },
+		autoOpen: false,
+		show: {effect: "bounce",duration: 500,options:{direction:"right"}},
+		position: { my: "center", at: "center", of: window },
       close: function(event) {
         $("div#modal").html("");
         $("div#modal").hide();
       }
     });
-		setTimeout(function(){$( "div#modal" ).dialog( "open" )},700)
+	
+	setTimeout(function(){$("div#modal").dialog( "open" )},1000)
   },
 
   showInfoCredits : function() {
     $("a.open_loyalty_lightbox").live('click', function(e) {
       _gaq.push(['_trackEvent', 'product_show', 'show_loyalty_info', '']);
-      clone = $("div.credits_description").clone().addClass("clone");
-      content = clone[0].outerHTML;
-      initBase.modal(content);
+      content = $("div.credits_description");
+      initBase.newModal(content);
       e.preventDefault();
     });
   },

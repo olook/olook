@@ -4,7 +4,8 @@ div#moments {
   position: relative;
   width: 100%;
   padding: 20px 0 0;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   nav {
     background: url("/assets/cart/bg-order-status.jpg") top left repeat-x;
@@ -63,88 +64,136 @@ div#moments {
       }
     }
   }
-
-
-  div#filters_container {
-    width: 170px;
-    float: left;
-	 position:relative;
-    div.filter {
-      margin: 0 0 10px 0;
-      h1 {
-        font-family: $avenir;
-        font-size: 16px;
-        font-weight: lighter;
-        text-transform: uppercase;
-        margin: 0 0 20px 0;
-        padding: 0 0 5px 5px;
-        border-bottom: 1px #dedede solid;
-        a {
-          background: url("/assets/moments/arrow-down.png") right no-repeat;
-          color: #000;
-          text-decoration: none;
-          display: block;
-          &.opened {
-            background: url("/assets/moments/arrow-up.png") right no-repeat;
+  
+  div#order_filter {
+    width: 380px;
+    height: 45px;
+    display: inline-block;
+    margin-right: 8px;
+    float: right;
+    form {
+      width: 215px;
+      float: right;
+      ol {
+        li {
+          label {
+            color: #101010;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 38px;
+            margin-right: 15px;
+            float: left;
+          }
+          &.select {
+            position: relative;
+            width: 250px;
+            overflow: auto;
+            display: inline;
+            span.select {
+              position: absolute;
+              background: url('/assets/moments/select.jpg') no-repeat;
+              text-indent: 12px;
+              bottom: 0;
+              top: 2px;
+              float: left;
+              width: 119px;
+              height: 34px;
+              line-height: 32px;
+              cursor: default;
+              z-index: 1;
+            }
+            select {
+              &.custom_select {
+                position: absolute;
+                line-height: 26px;
+                width: 119px;
+                height: 34px;
+                margin-right: 10px;
+                top: 0;
+                left: 10px;
+              }
+            }
           }
         }
-        &.shoes {
-          background: url("/assets/moments/shoes.png") no-repeat top left;
-          padding-left: 23px;
-        }
-        &.purse {
-          background: url("/assets/moments/purse.png") no-repeat top left;
-          padding-left: 23px;
-        }
-        &.acessories {
-          background: url("/assets/moments/acessories.png") no-repeat top left;
-          padding-left: 26px;
-        }
-        &.subtitle {
-          font-size: 14px;
-        }
       }
-      ol {
-        width: 160px;
-        margin: 0 0 20px 10px;
-        overflow: auto;
+    }
+  }
+  
+  
+  section.filters{float:left;margin:10px 0 30px;color:#000;border:solid 1px #A7A9AC;padding:10px 10px 2px;display:none;width:761px;
+     h1 {font-family: $avenir;font-size: 12px;font-weight: lighter;text-transform: uppercase;float:left;margin-right:15px;
+        b{font-weight:bold;
+          span{margin-left:10px;}
+        }
+     }
+     
+	  div#tags{
+     li{float:left;margin-right:10px;text-transform:uppercase;font-size:12px;position:relative;line-height:18px;
+         button{border:none;background:none;cursor:pointer;width:27px;height:19px;padding:0;font-size:0;font-family:a;line-height:0;background: image-url('moments/sprite.png') right -157px no-repeat;
+          &.cleanFilter{font-size:11px;color:#6D6E71;background:none;border:none;font-family:$avenir;cursor:pointer;width:100%;text-transform:none;}
+         }
+         span.del-txt{font-size: 11px;position: absolute;right: -3px;text-transform: capitalize;top: -23px;display:none;color:#6D6E71;}
+         
+         &.btn-clean{margin-top:-3px;}
+ 	   }
+   	}
+   	
+    
+  }
+  div.exhibition-mode{clear:both;padding:5px 15px 0;border-bottom:solid 1px #CBCBCB;color:#000;height:25px;margin-bottom:35px;
+    p{text-transform:uppercase;font-size:11px;float:left;
+      span{margin:0 5px;
+        &.selected{font-weight:bold;}
+        &:hover{cursor:pointer;}
+      }
+    }
+    #order_filter{float:left !important;width:225px !important;height:30px;margin-left:55px;
+      label{text-transform:uppercase;font-weight:normal;font-size:11px;margin-right:5px;line-height:22px;}
+      li.select{
+        span.select{background:image-url('moments/sprite.png') right 4px no-repeat !important;font-size:11px;text-transform:uppercase;line-height:18px;width:105px;text-indent:6px;}
+      }
+    }
+  }
+	
+  div#filters_container {
+    width: 180px;
+    float: left;
+		padding-left:10px;
+	 position:relative;
+    div.filter {margin: 0 0 10px 0;float:left;clear:both;
+     button{float:right;border:none;background:none;line-height:18px;cursor:pointer;color:#141414;display:none;padding:0;}
+     p.filter_type{
+    		font-size:15px;
+    		background: image-url('moments/sprite.png') right -31px no-repeat;
+    		min-height:15px;
+    		padding-right:18px;
+    		text-transform:uppercase;
+    		font-weight:bold;
+    		color:#000;
+    		float:left;
+    		cursor:pointer;
+    		width:100px;
+    		&.opened{background: image-url('moments/sprite.png') right 8px no-repeat;}
+    	}
+    	h1{font-family: avenir,arial,sans-serif;font-size: 20px;font-weight: lighter;text-transform: uppercase;margin: 5px 0 20px 0;padding: 0 0 5px;
+    	  &.purse{margin-top:25px;}
+    	  &.accessories{margin-top:25px;}
+    	}
+      ol {width: 180px;margin: 15px 0 20px 0;padding-bottom:5px;float: left;clear: both;display:none;
+        &.open{display:block;}
+			
         li {
           margin: 0 0 10px 0;
           label {
             color: $third_color;
             letter-spacing: -1px;
           }
+					input{margin:0}
         }
         &.column {
           li {
             width: 80px;
             float: left;
-          }
-        }
-        &.color_filter {
-          li {
-            background: url('/assets/moments/color-filter.jpg') no-repeat;
-            &.neutras {
-              background-position: 96px 2px;
-            }
-            &.metalizadas {
-              background-position: 96px -26px;
-            }
-            &.tons-pastel {
-              background-position: 96px -53px;
-            }
-            &.vivas {
-              background-position: 96px -81px;
-            }
-            &.estampadas {
-              background-position: 96px -109px;
-            }
-            &.animal-print {
-              background-position: 96px -137px;
-            }
-            &:first-child {
-              background: none;
-            }
           }
         }
       }
@@ -203,79 +252,81 @@ div#moments {
   }
 	
   div#products_container {
-    width: 770px;
+    width: 785px;
     overflow: visible;
     float: right;
-    margin-right: 8px;
-    div#order_filter {
-      width: 380px;
-      height: 45px;
-      display: inline-block;
-      margin-right: 8px;
-      float: right;
-      form {
-        width: 215px;
-        float: right;
-        ol {
-          li {
-            label {
-              color: #101010;
-              font-size: 13px;
-              font-weight: 600;
-              line-height: 38px;
-              margin-right: 15px;
-              float: left;
-            }
-            &.select {
-              position: relative;
-              width: 250px;
-              overflow: auto;
-              display: inline;
-              span.select {
-                position: absolute;
-                background: url('/assets/moments/select.jpg') no-repeat;
-                text-indent: 12px;
-                bottom: 0;
-                top: 2px;
-                float: left;
-                width: 119px;
-                height: 34px;
-                line-height: 32px;
-                cursor: default;
-                z-index: 1;
-              }
-              select {
-                &.custom_select {
-                  position: absolute;
-                  line-height: 26px;
-                  width: 119px;
-                  height: 34px;
-                  margin-right: 10px;
-                  top: 0;
-                  left: 10px;
-                }
-              }
+    div.title-news{background:transparent;position: relative;width: 100%;height:40px;margin-bottom:10px;
+      hr{border-style: solid none none;border-width: 1px 0 0 0;height: 3px;width: 100%;position:absolute;top:10px;left:0px;border-color:#000;margin:5px 0 0;z-index:1;}
+      h2{color: #000;font-size: 35px;font-family:$kepler;position: absolute;text-align: center;top:-6px;left:0;width:100%;z-index:2;text-transform:uppercase;
+        span{background:#FFF;padding:0 15px;}
+      }
+    }
+    section.news{position:relative;width:778px;height:315px;background:#FFF;box-shadow: 2px 2px 7px #888;margin-bottom:35px;padding:5px 0 0 5px;clear: both;
+      .products-list{margin-left:10px;
+        li{float:left;margin-right:20px;
+          a{display:block;text-decoration:none;color:#000;font-size:13px;
+            img{border-bottom:solid 1px #B9BABD;width: 235px;height: 235px;}
+            p{line-height:17px;
+              &.brand{text-transform:uppercase;font-weight:bold;}
             }
           }
         }
       }
     }
     ul#products {
-      clear:both;
-    }
-    div.loading {
-      background: url("/assets/common/ajax-loader.gif") center no-repeat;
-      width: 770px;
-      height: 30px;
-      margin: 0 auto;
-      display: none;
-      clear: both;
-    }
-    div.pagination {
-      clear: both;
-      a, span, em.current {
-        display: none;
+      clear:both;width:763px;margin:0 auto;
+      li.product{width: 235px;height:293px;margin: 0 8px 35px;padding:0;
+        a.product_link {display:block;text-decoration:none;color:#000;font-size:13px;margin:0;
+          img{border-bottom:solid 1px #B9BABD;margin: 0;width: 235px;height: 235px;}
+          p{line-height:18px;
+            &.brand{text-transform:uppercase;font-weight:bold;}
+            .old{text-decoration:line-through;}
+            .txt-pink{color:#E05A8C;}
+          /**** OVERRIDE LABEL PRODUCTS ****/
+            &.warn{left:0;top:60px;}
+            &.warn.sold_out{background: image-url('moments/sprite.png') no-repeat 0 -76px;line-height: 25px;padding-left: 13px;text-align: left;width: 92px;color:#000;}
+            &.warn.quantity{background:none #FFF !important;border: 1px solid #000;color: #000;font-family: 'avenir_medium';font-weight: 600;height: 20px;width: 74px;line-height: 20px !important;text-align: center;word-spacing: -1px;}
+            &.warn.shoe_size{background: none #000;height: 20px;left: 25px !important;line-height: 20px !important;top: 81px !important;width: 55px;word-spacing: -1px;}
+            &.warn.percentage{background: image-url('moments/sprite.png') no-repeat 0 -109px;width:60px;height:60px;font-size:14px;font-family:$avenir;text-align:center;
+              span{font-size:14px;font-weight:normal}
+            }
+          /****** END *****/    
+          } 
+        }
+      /***** OVERRIDE HOVER_SUGGESTIVE ****/
+        &:hover{border:0;padding:0}
+        div.hover_suggestive{
+          top:280px;left:0;
+          ul{float:none;
+            li.spy{margin:0;
+              a{width:100%;height:54px;position:absolute;left:0;bottom:44px !important;font-size:16px;font-style:italic;line-height:54px;
+                span{background: image-url('moments/sprite.png') no-repeat right -178px !important;padding:5px 26px 9px 0;}
+                &:hover{span{color:#000;}}  
+              }
+            }
+          }
+        }
+      /***** END ******/  
       }
+    }
+    div#featured {
+      clear: both;
+    }
+   
+
+  }
+	div.loading {
+    background: image-url("common/ajax-loader.gif") center no-repeat;
+    width: 770px;
+    height: 30px;
+    margin: 0 auto;
+    display: none;
+    clear: both;
+  }
+  div.pagination {
+    clear: both;
+    a, span, em.current {
+      display: none;
     }
   }
 }
@@ -327,6 +378,30 @@ div#moments {
           select.custom_select {
             top: 15px !important;
             left: 0 !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+/**** moments hack to webkit ****/
+html.webkit{ 
+  div#moments{ 
+    section.filters{ 
+      div#tags {
+        li.btn-clean{margin-top:0 !important;}
+      }
+    }
+  }      
+}
+html.chrome.win{
+  div#moments{
+    div#products_container{
+      ul#products{
+        li.product{
+          a.product_link{
+            p.warn.quantity{font-weight:normal !important;}
           }
         }
       }

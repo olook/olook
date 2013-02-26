@@ -57,7 +57,9 @@
           </div>
           <div>
             <h1>Prazo de Entrega</h1>
-            <p><%= @current_order.freight.try(:delivery_time) %> dias úteis</p>
+            <% if @current_order.freight %>
+              <p><%= @current_order.freight.try(:delivery_time) %> dias úteis</p>
+            <% end %>
           </div>
           <div>
             <h1>Quantidade de Produtos</h1>

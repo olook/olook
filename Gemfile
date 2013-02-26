@@ -58,8 +58,6 @@ gem 'uglifier', '~> 1.0.3'
 gem 'business_time'
 
 gem "rails-settings-cached"
-gem "celluloid"
-
 
 group :development do
   gem 'faker'

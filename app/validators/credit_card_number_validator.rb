@@ -6,7 +6,6 @@ class CreditCardNumberValidator < ActiveModel::Validator
 
   private
   def valid_credit_card?(number)
-
     return false unless number
 
     # Means the credit card is encrypted (just to make sure)

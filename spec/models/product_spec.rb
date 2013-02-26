@@ -12,8 +12,47 @@ describe Product do
     it { should have_many(:catalog_products) }
     it { should have_many(:catalogs) }
     it { should belong_to(:collection) }
-
     it { should have_and_belong_to_many(:profiles) }
+
+    it { should respond_to :backside_picture }
+    it { should respond_to :wearing_picture }
+    it { should respond_to :remove_freebie }
+  end
+
+  describe ".featured_products" do
+
+    context "when there is no featured products configured" do
+      before do
+        Product.should_receive(:fetch_all_featured_products_of).with(Category::SHOE).and_return([])
+      end
+
+      it "return empty array" do
+        Product.featured_products(Category::SHOE).should be_empty
+      end
+    end
+
+    context "when there is two featured products configured" do
+      before do
+        featured_products = [
+          mock_model(Product, inventory_without_hiting_the_database: 2),
+          mock_model(Product, inventory_without_hiting_the_database: 1)
+        ]
+
+        Product.should_receive(:fetch_all_featured_products_of)
+          .with(Category::SHOE)
+          .and_return(featured_products)
+
+        Product.any_instance.stub(:inventory_without_hiting_the_database).and_return(2)
+      end
+
+      it "return both products" do
+        Product.featured_products(Category::SHOE).should have(2).items
+      end
+
+
+    end
+
+
   end
 
   describe "#add_freebie" do
@@ -24,18 +63,12 @@ describe Product do
     it { should respond_to :add_freebie }
 
     context "when adding a bag" do
-      
       it "every variant should have a freebie" do
         FreebieVariant.should_receive(:create!).exactly(product.variants.size).times
         product.add_freebie bag
       end
-
     end
 
-  end
-
-  describe "#remove_freebie" do
-    it { should respond_to :remove_freebie }
   end
 
   describe "scopes" do
@@ -367,6 +400,47 @@ describe Product do
       end
     end
 
+    describe '#catalog_picture' do
+      it "should return the picture sized image if it exists" do
+        mock_picture.stub(:image_url).with(:catalog).and_return(:valid_image)
+        mock_picture.stub(:display_on).and_return(1)
+        subject.stub(:main_picture).and_return(mock_picture)
+        subject.stub(:fetch_cache_for).and_return(:valid_image)
+        subject.catalog_picture.should == :valid_image
+      end
+      it "should return nil if it doesn't exist" do
+        subject.catalog_picture.should be_nil
+      end
+    end
+
+    describe '#return_catalog_or_suggestion_image' do
+      context "when product has picture" do
+        before :each do
+          mock_picture.stub(:image_url).with(:catalog).and_return(:valid_image)
+          mock_picture.stub(:display_on).and_return(1)
+          subject.stub(:main_picture).and_return(mock_picture)
+        end
+
+        it "returns catalog picture" do
+          subject.stub(:fetch_cache_for).and_return(:valid_image)
+          subject.return_catalog_or_suggestion_image(mock_picture).should eq(:valid_image)
+        end
+
+        it "returns suggestion picture" do
+          mock_picture.stub(:image_url).with(:suggestion).and_return(:suggestion_image)
+          subject.stub(:fetch_cache_for).and_return(:suggestion_image)
+          subject.return_catalog_or_suggestion_image(mock_picture).should eq(:suggestion_image)
+        end
+      end
+
+      context "when product has no picture" do
+        it "returns nil" do
+          mock_picture = nil
+          subject.return_catalog_or_suggestion_image(mock_picture).should be_nil
+        end
+      end
+    end
+
     describe '#image_at_position' do
       let!(:shoe)      { FactoryGirl.create(:shoe, :casual) }
       let!(:main_picture)      { FactoryGirl.create(:main_picture) }
@@ -512,6 +586,28 @@ describe Product do
     end
   end
 
+  describe "#share_by_email" do
+    context "when has one email to send" do
+      informations = { name_from: "User name", email_from: "user@email.com", emails_to_deliver: "user_friend@email.com" }
+       it "receives share mailer deliver" do
+         ShareProductMailer.should_receive(:send_share_message_for).with(subject, informations, informations[:emails_to_deliver].split(/,|;|\r|\t/).map(&:strip).first)
+         subject.share_by_email(informations)
+       end
+    end
+    context "when has N emails to send" do
+      informations = { name_from: "User name", email_from: "user@email.com", emails_to_deliver: "user_friend@email.com, another_friend@email.com, third_fiend@email.com" }
+       it "receives share mailer deliver 3 times" do
+         ShareProductMailer.should_receive(:send_share_message_for).with(subject, informations, informations[:emails_to_deliver].split(/,|;|\r|\t/).map(&:strip).first)
+
+         ShareProductMailer.should_receive(:send_share_message_for).with(subject, informations, informations[:emails_to_deliver].split(/,|;|\r|\t/).map(&:strip).second)
+
+         ShareProductMailer.should_receive(:send_share_message_for).with(subject, informations, informations[:emails_to_deliver].split(/,|;|\r|\t/).map(&:strip).third)
+
+         subject.share_by_email(informations)
+       end
+    end
+  end
+
   describe "#shoe_inventory_has_less_than_minimum?" do
     let(:shoe_for_xml) { FactoryGirl.create :blue_sliper_with_variants }
 
@@ -539,14 +635,40 @@ describe Product do
         end
       end
     end
-    
+
     context "products that aren't shoes" do
-      let(:basic_bag_for_xml) { FactoryGirl.create(:basic_bag) }  
-      
+      let(:basic_bag_for_xml) { FactoryGirl.create(:basic_bag) }
+
       it "returns false" do
         basic_bag_for_xml.shoe_inventory_has_less_than_minimum?.should be_false
       end
     end
 
   end
+
+  describe 'find_suggested_products' do
+    context "when product has suggested products" do
+      let!(:first_shoe) { FactoryGirl.create(:basic_shoe) }
+      let!(:second_shoe) { FactoryGirl.create(:red_slipper, collection_id: 1) }
+      let!(:third_shoe) { FactoryGirl.create(:silver_slipper, collection_id: 1) }
+      let!(:subcategory) { FactoryGirl.create(:shoe_subcategory_name, product: second_shoe) }
+      let!(:another_subcategory) { FactoryGirl.create(:shoe_subcategory_name, product: third_shoe) }
+
+      before do
+        first_shoe.stub(:subcategory).and_return("Scarpin")
+        second_shoe.stub(:subcategory).and_return("Sandalia")
+        third_shoe.stub(:subcategory).and_return("Sandalia")
+        subject.stub(:subcategory).and_return("Sandalia")
+        subject.stub(:collection_id).and_return(1)
+      end
+
+      it "returns suggested products" do
+        subject.find_suggested_products.should_not include (first_shoe)
+        subject.find_suggested_products.should include (second_shoe)
+        subject.find_suggested_products.should include (third_shoe)
+      end
+
+    end
+  end
+
 end

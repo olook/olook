@@ -1,18 +1,36 @@
+@import 'partials/mixins';
+
+#content{width: 100% !important;}
+.header_login {
+  width: 990px;
+  margin: 0 auto 25px;
+  h1 {font-family: $avenir;font-size: 12px;color: #9c9da0;float: right;
+     span{color: $pink;}
+  }
+  h2{width: 214px;height: 67px;margin: 0 auto;}
+}
 .landing-content {
   position: relative;
   overflow: hidden;
   width: 990px;
-  height: 820px;
-  float: left;
-  margin: 0;
-	background: image-url('landing_page/home_cadastro.png') no-repeat;
+  height: 500px;
+  margin: 0 auto;
+  background: image-url('landing_page/landing_page_A.jpg') no-repeat;
+  
+  .infos{display:none;position:absolute;top:58px;right:74px;}
+  
+  .action{display: block;position: absolute;top: 300px;left: 100px;
+    img{
+      text-indent: -9999px;
+      margin: 5px;
+    }  
+  }
+  
 }
 
-.action img{
-  top: 565px;
-  left: 505px;
-  position: absolute;
-  text-indent: -9999px;
-  margin: 5px;
-  display: block;
-}
+
+
+
+
+
+

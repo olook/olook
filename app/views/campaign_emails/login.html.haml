@@ -1,6 +1,6 @@
-- content_for :footer do
-  :javascript
-    = track_event('Modal', 'LoginPage', @user.id)
+/ - content_for :footer do
+/   %script
+/     = track_event('Modal', 'LoginPage', @user.id)
 
 .box-remember
   %h3 LEMBRAMOS DE VOCÊ!
@@ -21,4 +21,4 @@
       =f.submit :value => "ENTRAR", :class => "bt-enter"
   %p.facebook
     %a{:href => "/conta/auth/facebook", :target => "_top"}Entrar com Facebook
-  %button{:type => "button", :class => "close"} Fechar   
+  %button{:type => "button", :class => "close"} Fechar
