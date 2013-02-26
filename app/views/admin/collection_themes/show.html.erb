@@ -3,7 +3,7 @@
   <p id="notice"><%= notice %></p>
   <p>
     <b>Header: (alt: <%= @collection_theme.header_image_alt %>)</b><br />
-    <%= image_tag @collection_theme.header_image.try(:url), alt: @collection_theme.header_image_alt  %>
+    <%= image_tag(@collection_theme.header_image.url, alt: @collection_theme.header_image_alt, title: @collection_theme.header_image_alt) if @collection_theme.header_image %>
   </p>
   <p>
     <b>Abacos ID:</b>
