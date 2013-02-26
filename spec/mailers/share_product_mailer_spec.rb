@@ -2,11 +2,12 @@
 require 'spec_helper'
 
 describe MemberMailer do
-  let(:product) { FactoryGirl.create(:basic_shoe) }
+  let(:product) { FactoryGirl.create(:shoe) }
 
   describe "#send_share_message_for" do
     informations = { name_from: "User name", email_from: "user@email.com" }
     email_receiver = "user_friend@email.com"
+
     let!(:mail) { ShareProductMailer.send_share_message_for(product, informations, email_receiver) }
 
     it "sets 'from' attribute to olook email" do

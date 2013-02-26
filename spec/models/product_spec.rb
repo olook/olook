@@ -648,7 +648,7 @@ describe Product do
 
   describe 'find_suggested_products' do
     context "when product has suggested products" do
-      let!(:first_shoe) { FactoryGirl.create(:basic_shoe) }
+      let!(:first_shoe) { FactoryGirl.create(:shoe) }
       let!(:second_shoe) { FactoryGirl.create(:red_slipper, collection_id: 1) }
       let!(:third_shoe) { FactoryGirl.create(:silver_slipper, collection_id: 1) }
       let!(:subcategory) { FactoryGirl.create(:shoe_subcategory_name, product: second_shoe) }
