@@ -449,39 +449,39 @@ initBase = {
   },
   
   newModal : function(content){
-    var $modal = $("div#modal.promo-olook"), h = content.outerHeight(), w = content.outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2)), heightDoc = $(document).height();
-    
+    var $modal = $("div#modal.promo-olook"), h = content.outerHeight(), w = content.outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2)), heightDoc = $(document).height(), _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()), _left=Math.max(0, (($(window).width() - w) / 2) + $(window).scrollLeft());
+
     $("#overlay-campaign").css({"background-color": "#000", 'height' : heightDoc}).fadeIn().bind("click", function(){
        $modal.fadeOut();
        $(this).fadeOut();
     }); 
-    
+
     $modal.html("").html(content)
     .css({
        'height'      : h,
        'width'       : w,
-       'top'         : '50%',
-       'left'        : '50%',
-       'margin-left' : ml,
-       'margin-top'  : mt
+       'top'         : _top,
+       'left'        : _left,
+       /*'margin-left' : ml,
+       'margin-top'  : mt*/
     })
-   .append('<a href="#" class="close" role="button">close</a>')
+   .append('<button type="button" class="close" role="button">close</a>')
    .delay(500).fadeIn().children().fadeIn();
    
-   $("#modal a.close").click(function(){
+   $("#modal button.close").click(function(){
       $modal.fadeOut();
       $("#overlay-campaign").fadeOut();
    })
 
   },
   
-  modal : function(content, h) {
+  modal : function(content) {
     $("div#modal").html("");
 
     $("div#modal").prepend(content);
 
     $("div#modal").dialog({
-		height: h,
+		height: 'auto',
       width: 'auto',
       resizable: false,
       draggable: false,
@@ -501,9 +501,8 @@ initBase = {
   showInfoCredits : function() {
     $("a.open_loyalty_lightbox").live('click', function(e) {
       _gaq.push(['_trackEvent', 'product_show', 'show_loyalty_info', '']);
-      clone = $("div.credits_description").clone().addClass("clone");
-      content = clone[0].outerHTML;
-      initBase.modal(content);
+      content = $("div.credits_description");
+      initBase.newModal(content);
       e.preventDefault();
     });
   },

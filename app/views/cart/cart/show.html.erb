@@ -54,7 +54,7 @@ _gaq.push(['_addTrans',
 
   <% if @cart_service.has_more_than_one_discount? %>
     <div class="banner">
-      <%= image_tag("/assets/cart/banner_discount2.jpg", :class => "img-alert") %>
+      <%= image_tag("cart/banner_discount2.jpg", :class => "img-alert") %>
       <h1>Sua sacola possui descontos que não podem ser aplicados juntos ao mesmo produto</h1>
       <p>Selecionamos o maior desconto possível para você em cada produto (verifique abaixo):</p>
     </div>
@@ -115,10 +115,16 @@ _gaq.push(['_addTrans',
           <td class="check_column">
             <%= form_for(@cart, :remote => true, html: { :id => "gift_wrap" }) do |f| %>
               <%= f.check_box('gift_wrap', :checked => @cart.gift_wrap) %>
-              <h1>Embrulhar pedido para presente</h1>
+              <h1>Embrulhar pedido para presente. <a href="#" target="_blank" class="txt-conheca">Conheça nossa embalagem de presente</a></h1>
             <% end %>
+            <div class="modal_gift">
+               <h1>CONHEÇA NOSSAS EMBALAGENS DE PRESENTE!</h1>
+               <div class="img_modal"></div>
+               <h2>Nossa embalagem de presente é composta pelo tradicional saquinho TNT e possui também um saquinho adicional em tule, com fita de cetim. Uma graça!</h2>
+            </div>
           </td>
           <td class="value">R$ 5,00</td>
+       
         </tr>
       </tbody>
     </table>
