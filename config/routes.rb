@@ -45,12 +45,12 @@ Olook::Application.routes.draw do
   match "/olooklet" , :to => "liquidations#index", :as => "olooklet"
 
   #NEW COLLECTIONS
-  get '/colecoes', to: "collection_themes#index"
+  get '/colecoes', to: "collection_themes#index", as: "collection_themes"
   get '/colecoes/tropicaliente', to: "collection_themes#show"
 
   # NEW COLLECTIONS - TODO
-  get '/colecoes/:id', to: "moments#show", as: "moment"
-  get '/update_moment', to: "moments#update", as: "update_moment"
+  #get '/colecoes/:id', to: "moments#show", as: "moment"
+  #get '/update_moment', to: "moments#update", as: "update_moment"
 
   #MOMENTS
   match '/sapatos', to: "moments#show", as: "shoes", :defaults => {:category_id => Category::SHOE, :id => 1}
