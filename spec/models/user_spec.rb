@@ -456,7 +456,7 @@ describe User do
     end
 
     describe "all_profiles_showroom" do
-      it "should return the products ordered by profiles without duplicate names" do
+      it "returns the products ordered by profiles without duplicate names" do
         subject.all_profiles_showroom.should == [product_c, product_d]
       end
 
@@ -501,7 +501,7 @@ describe User do
 
     describe "main_profile_showroom" do
       it "should return the products ordered by profiles without duplicate names" do
-        subject.main_profile_showroom.should == [product_d, product_b, product_c]
+        subject.main_profile_showroom.should == [product_d, product_c]
       end
 
       it 'should return only the products of a given category' do
@@ -702,7 +702,7 @@ describe User do
     end
 
     context "when user has orders" do
-      let(:order) { FactoryGirl.create(:order, :user => subject) }
+      let(:order) { FactoryGirl.create(:authorized_order, :user => subject) }
 
       context "when user has one order in the cart" do
         it "returns false" do
@@ -749,7 +749,7 @@ describe User do
       end
 
       context "when user has two orders authorized" do
-        let(:second_order) { FactoryGirl.create(:order, :user => subject) }
+        let(:second_order) { FactoryGirl.create(:authorized_order, :user => subject) }
 
         it "returns false" do
           order.authorized

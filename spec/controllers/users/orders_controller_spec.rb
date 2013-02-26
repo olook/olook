@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Users::OrdersController do
-  let(:user) { FactoryGirl.create(:user, :orders => [ FactoryGirl.create(:order)] ) }
+  let(:user) { FactoryGirl.create(:user, :orders => [ FactoryGirl.create(:authorized_order, user: nil)] ) }
 
   before(:each) do
     sign_in user
