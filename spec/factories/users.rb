@@ -1,18 +1,5 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
-  
-  factory :db_user do
-    uid "abc"
-    password "123456"
-    password_confirmation "123456"
-    sequence :email do |n|
-      "person#{n}@example.com"
-    end
-    first_name "User First Name"
-    last_name "User Last Name"
-    half_user false
-  end
-
   factory :user do
     uid "abc"
     password "123456"
@@ -20,8 +7,8 @@ FactoryGirl.define do
     sequence :email do |n|
       "person#{n}@example.com"
     end
-    first_name "User First Name"
-    last_name "User Last Name"
+    first_name "José"
+    last_name "Ernesto"
     facebook_permissions []
     half_user false
     created_at 2.days.ago
@@ -44,7 +31,17 @@ FactoryGirl.define do
         member.save!
       end
     end
-
   end
 
+  factory :db_user do
+    uid "abc"
+    password "123456"
+    password_confirmation "123456"
+    sequence :email do |n|
+      "person#{n}@example.com"
+    end
+    first_name "User First Name"
+    last_name "User Last Name"
+    half_user false
+  end
 end

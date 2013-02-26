@@ -1,11 +1,35 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
-  factory :clean_order, :class => Order do
+
+  factory :order do
     association :freight, :factory => :freight
-    user_first_name 'José'
-    user_last_name 'Ernesto'
+    association :user, :factory => :user 
+
+    subtotal BigDecimal.new("100")
+    amount_paid BigDecimal.new("100")
+
     user_email 'jose.ernesto@dominio.com'
     user_cpf '228.016.368-35'
+    
+    trait :with_billet do
+      after(:create) do |order|
+        FactoryGirl.create(:billet, :order => order)
+      end 
+    end
+  
+    trait :with_authorized_credit_card do
+      after(:create) do |order|
+        FactoryGirl.create(:credit_card_with_response_authorized, :order => order)
+      end
+    end   
+  end
+  
+  factory :clean_order, :class => Order do
+    association :freight, :factory => :freight
+    
+    user_email 'jose.ernesto@dominio.com'
+    user_cpf '228.016.368-35'
+
     after(:create) do |order|
       FactoryGirl.create(:billet, :order => order)
     end
@@ -41,32 +65,8 @@ FactoryGirl.define do
 
   end
 
-  factory :order do
-    association :freight, :factory => :freight
-    subtotal BigDecimal.new("100")
-    amount_paid BigDecimal.new("100")
-    user_first_name 'José'
-    user_last_name 'Ernesto'
-    user_email 'jose.ernesto@dominio.com'
-    user_cpf '228.016.368-35'
-    
-    trait :with_billet do
-      after(:create) do |order|
-        FactoryGirl.create(:billet, :order => order)
-      end 
-    end
-  
-    trait :with_authorized_credit_card do
-      after(:create) do |order|
-        FactoryGirl.create(:credit_card_with_response_authorized, :order => order)
-      end
-    end   
-  end
-
   factory :authorized_order, :class => Order do
     association :freight, :factory => :freight
-    user_first_name 'José'
-    user_last_name 'Ernesto'
     user_email 'jose.ernesto@dominio.com'
     user_cpf '228.016.368-35'
     state "authorized"
