@@ -30,7 +30,7 @@
         <%= f.select(:position,
                      options_for_select((1 .. group.collection_themes.size ).to_a, collection_theme.position),
                      {},
-                     onchange: "$(this).parents('form').submit();") %>
+                     onchange: "$(this).parents('form').submit();", disabled: collection_theme.collection_theme_group_id.nil?) %>
       <%- end -%>
     </td>
     <td><%= collection_theme.id %></td>
