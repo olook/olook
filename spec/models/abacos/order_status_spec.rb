@@ -7,6 +7,7 @@ describe Abacos::OrderStatus do
 
   let(:downloaded_status) { load_abacos_fixture :order_status }
   let(:parsed_data) { described_class.parse_abacos_data downloaded_status }
+  
   subject { described_class.new parsed_data }
 
   describe '#integrate' do
