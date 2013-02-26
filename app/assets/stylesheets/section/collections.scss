@@ -1,1 +1,26 @@
-@import "partials/mixins"
+@import "partials/mixins";
+
+
+
+
+ul#products{clear:both;width:763px;margin:0 auto;
+  li.product{width: 235px;height:293px;margin: 0 8px 35px;padding:0;
+    a.product_link {display:block;text-decoration:none;color:#000;font-size:13px;margin:0;
+      img{border-bottom:solid 1px #B9BABD;margin: 0;width: 235px;height: 235px;}
+      p{line-height:18px;
+        &.brand{text-transform:uppercase;font-weight:bold;}
+        .old{text-decoration:line-through;}
+        .txt-pink{color:#E05A8C;}
+        /**** OVERRIDE LABEL PRODUCTS ****/
+        &.warn{left:0;top:60px;}
+        &.warn.sold_out{background: image-url('moments/sprite.png') no-repeat 0 -76px;line-height: 25px;padding-left: 13px;text-align: left;width: 92px;color:#000;}
+        &.warn.quantity{background:none #FFF !important;border: 1px solid #000;color: #000;font-family: 'avenir_medium';font-weight: 600;height: 20px;width: 74px;line-height: 20px !important;text-align: center;word-spacing: -1px;}
+        &.warn.shoe_size{background: none #000;height: 20px;left: 25px !important;line-height: 20px !important;top: 81px !important;width: 55px;word-spacing: -1px;}
+        &.warn.percentage{background: image-url('moments/sprite.png') no-repeat 0 -109px;width:60px;height:60px;font-size:14px;font-family:$avenir;text-align:center;
+          span{font-size:14px;font-weight:normal}
+        }
+      /****** END *****/    
+      } 
+    }
+  }
+}
