@@ -11,3 +11,10 @@ redecard:
   americanexpress: :sitef_amex
   diners: :redecard_diners
   hipercard: :sitef_hipercard
+
+teste:
+  visa: :braspag
+  mastercard: :braspag
+  americanexpress: :braspag
+  diners: :braspag
+  hipercard: :braspag

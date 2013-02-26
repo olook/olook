@@ -1,7 +1,7 @@
 <% content_for :head do %>
   <style type="text/css">
-    .product-map { background: url(<%= @lookbook.icon_url || "/assets/lookbooks/icon_map_default.png" %>); z-index:1; position:relative; background-repeat:no-repeat; width:auto; display:inline-block; padding:5px 0px 5px 30px; height:auto; min-height:20px;}
-    .product-map:hover { background: url(<%= @lookbook.icon_over.url || "/assets/lookbooks/icon_map_default_hover.png" %>); }
+    .product-map { background: url(<%= @lookbook.icon_url || image_path("lookbooks/icon_map_default.png") %>); z-index:1; position:relative; background-repeat:no-repeat; width:auto; display:inline-block; padding:5px 0px 5px 30px; height:auto; min-height:20px;}
+    .product-map:hover { background: url(<%= @lookbook.icon_over.url || image_path("lookbooks/icon_map_default_hover.png") %>); }
     .product-map p, .product-map-example { visibility:hidden; padding:5px; background-color:<%= @lookbook.bg_color %>;}
     .product-map p, .product-map-example { background: <%= @lookbook.bg_color || "#000" %>; color: <%= @lookbook.fg_color || "#FFF" %>; text-shadow:none; text-transform: uppercase; font-weight: bold; padding: 5px 10px; }
     .product-map:hover p, .product-map-example {visibility:visible;}

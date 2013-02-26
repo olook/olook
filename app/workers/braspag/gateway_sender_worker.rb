@@ -7,7 +7,11 @@ module Braspag
       payment = ::CreditCard.find(payment_id)
       strategy = Payments::BraspagSenderStrategy.new(payment)
       strategy.credit_card_number = payment.credit_card_number
-      strategy.process_enqueued_request
+      begin
+        strategy.process_enqueued_request
+      rescue Exception => e
+        ErrorNotifier.send_notifier("GatewaySenderWorker", e.message, strategy.payment)
+      end
     end
 
   end

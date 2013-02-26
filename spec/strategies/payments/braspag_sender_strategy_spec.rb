@@ -9,10 +9,14 @@ describe Payments::BraspagSenderStrategy do
   let(:freight) { FactoryGirl.create(:freight, :address => address) }
   let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
   let(:cart_service) { CartService.new({
-    :cart => cart,
-    :freight => freight,
+    :cart => cart
   }) }
   let(:order_total) { 12.34 }
+
+  before do
+    Address.stub(:find_by_id!).and_return(address)
+    cart_service.stub(:freight).and_return({:address => {:id => address.id}})
+  end
 
   context "with a valid class" do
     subject {Payments::BraspagSenderStrategy.new(credit_card)}
@@ -20,6 +24,7 @@ describe Payments::BraspagSenderStrategy do
     before :each do
       subject.credit_card_number = credit_card.credit_card_number
       OrderAnalysisService.any_instance.stub(:should_send_to_analysis?) {false}
+      subject.cart_service = cart_service
     end
 
     it "should create an order" do
@@ -52,15 +57,14 @@ describe Payments::BraspagSenderStrategy do
     end
 
     it "should return payment successful as TRUE" do
-      Resque.should_receive(:enqueue_in).with(1.minutes, Braspag::GatewaySenderWorker, subject.payment.id)
-      subject.stub(:set_payment_gateway){nil}
+      subject.should_receive(:authorize).and_return({})
+      subject.should_receive(:authorized_and_pending_capture?).and_return(:true)
       subject.send_to_gateway
       subject.payment_successful?.should eq(true)
     end
 
     it "should enqueue request on resque" do
-      Resque.should_receive(:enqueue_in).with(1.minutes, Braspag::GatewaySenderWorker, subject.payment.id)
-      subject.stub(:set_payment_gateway){nil}
+      subject.should_receive(:authorize).and_return(:true)
       subject.send_to_gateway
     end
 

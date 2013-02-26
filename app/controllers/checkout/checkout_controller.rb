@@ -35,8 +35,8 @@ class Checkout::CheckoutController < Checkout::BaseController
       return redirect_to(order_show_path(:number => response.payment.order.number))
     else
       @addresses = @user.addresses
-      error_message = "Erro no pagamento. Verifique os dados de seu cartão ou tente outra forma de pagamento." if payment.is_a? CreditCard
-      display_form(address, payment, payment_method)
+      error_message = "Identificamos um problema com o cartão.<br> Confira os dados ou tente outra forma de pagamento." if payment.is_a? CreditCard
+      display_form(address, payment, payment_method, error_message)
       return
     end
   end
@@ -80,6 +80,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     @checkout = Checkout.new(address: address, payment: payment, payment_method: payment_method)
     if error_message
       @checkout.errors.add(:payment_base, error_message)
+      payment.credit_card_number = ""
     end
 
     unless using_address_form?
