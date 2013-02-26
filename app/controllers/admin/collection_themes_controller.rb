@@ -27,7 +27,6 @@ class Admin::CollectionThemesController < Admin::BaseController
   end
 
   def create
-    generate_slug(params[:collection_theme]["name"])
     @collection_theme = CollectionTheme.new(params[:collection_theme])
 
     if @collection_theme.save
