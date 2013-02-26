@@ -1,22 +1,22 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe MomentsHelper do
+describe CollectionThemesHelper do
 
   describe "#installments" do
-    context "when price is 83,56" do   
+    context "when price is 83,56" do
       it "return '2 x de R$ 40,00'" do
         helper.installments(83.56).should == '2 x de R$ 41,78'
       end
     end
 
-    context "when price is 23,53" do   
+    context "when price is 23,53" do
       it "return '1 x de R$ 23,53'" do
         helper.installments(23.53).should == '1 x de R$ 23,53'
       end
     end
 
-    context "when price is 400" do   
+    context "when price is 400" do
       it "return '10 x de R$ 40,00'" do
         helper.installments(400).should == '10 x de R$ 40,00'
       end
@@ -47,7 +47,7 @@ describe MomentsHelper do
       context "when the actions equals to '/acessorios'" do
         before do
           controller.request.stub(:fullpath).and_return('/acessorios')
-        end        
+        end
         it "returns acessórios" do
           helper.print_section_name.should == "acessórios"
         end
@@ -61,8 +61,8 @@ describe MomentsHelper do
       end
       it "returns nil" do
         helper.print_section_name.should be_nil
-      end 
-    end    
-  end    
+      end
+    end
+  end
 
 end
