@@ -32,7 +32,7 @@ describe SendEnabledCreditsNotificationWorker do
     user_credit.add({amount: 20})
     user_credit.add({amount: 20})
     mock_mail.stub(:from) {"Teste"}
-    Delorean.time_travel_to(user_credit.credits.first.activates_at)
+    Delorean.time_travel_to(user_credit.credits.first.activates_at - 10.minutes)
    
     another_user_credit.add({amount: 20})
     another_user_credit.add({amount: 20})
@@ -86,7 +86,7 @@ describe SendEnabledCreditsNotificationWorker do
 
   
     mock_mail.should_not_receive(:deliver)
-    LoyaltyProgramMailer.should_not_receive(:send_enabled_credits_notification).and_return(mock_mail)
+    LoyaltyProgramMailer.should_not_receive(:send_enabled_credits_notification)
 
     described_class.perform    
     Delorean.back_to_the_present
@@ -106,7 +106,7 @@ describe SendEnabledCreditsNotificationWorker do
     Delorean.time_travel_to(DateTime.now.beginning_of_month + 5.days)
 
     mock_mail.should_not_receive(:deliver)
-    LoyaltyProgramMailer.should_not_receive(:send_enabled_credits_notification).and_return(mock_mail)
+    LoyaltyProgramMailer.should_not_receive(:send_enabled_credits_notification)
 
     described_class.perform    
     Delorean.back_to_the_present

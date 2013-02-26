@@ -10,9 +10,9 @@
 
 <section id="home">
   <ul class="warnings">
-    <li class="freight">FRETE GRÁTIS para o SUL E SUDESTE<br />EM COMPRAS ACIMA DE R$ 60,00</li>
-    <li class="exchange">DEVOLUÇÃO E TROCA<br />GRÁTIS em até 30 DIAS</li>
-    <li class="discount">GANHE 15% DE VOLTA<br />Em crédito para compras acima de R$ 100</li>
+    <li class="freight">FRETE GRÁTIS PARA SUL E SUDESTE <br />em compras acima de R$ 60</li>
+    <li class="exchange">DEVOLUÇÃO E TROCA GRÁTIS <br />até 30 dias para solicitar</li>
+    <li class="discount">GANHE 15% DE VOLTA EM CRÉDITO<br />para compras acima de R$ 100</li>
   </ul>
   <%= render "home/carousel" %>
   <%= render "home/week_highlights" %>
@@ -24,5 +24,6 @@
   <%= render "home/facebook_box" %>
 </section>
 
-<%= render :partial => 'shared/metrics/criteo/home' %>
-<%= render :partial => 'shared/metrics/triggit/home' %>
+<%= render partial: 'shared/metrics/criteo/home' %>
+<%= render partial: 'shared/metrics/triggit/home' %>
+<%= render partial: 'shared/metrics/nextperformance/home' %>

@@ -61,6 +61,15 @@ FactoryGirl.define do
     gateway_return_code 46455
   end
 
+  factory :credit_card_with_response_canceled, :parent => :credit_card do
+    gateway_response_status "Sucesso"
+    gateway_transaction_status "Cancelado"
+    gateway_message "Transação não autorizada"
+    gateway_transaction_code "046457"
+    gateway_return_code 46455
+    state :cancelled
+  end
+
   factory :credit_card_with_response_authorized, :parent => :credit_card do
     state 'authorized'
     gateway_response_status "Sucesso"

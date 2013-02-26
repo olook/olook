@@ -1,8 +1,8 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/lookbooks" %>
   <style type="text/css">
-    .product-map { background: url(<%= @lookbook.icon_url || "/assets/lookbooks/icon_map_default.png" %>) no-repeat; }
-    .product-map:hover { background: url(<%= @lookbook.icon_over.url || "/assets/lookbooks/icon_map_default_hover.png" %>) no-repeat; }
+    .product-map { background: url(<%= @lookbook.icon_url || image_path("lookbooks/icon_map_default.png") %>) no-repeat; }
+    .product-map:hover { background: url(<%= @lookbook.icon_over.url || image_path("lookbooks/icon_map_default_hover.png") %>) no-repeat; }
     .product-map a p { background: <%= @lookbook.bg_color || "#000" %>; color: <%= @lookbook.fg_color || "#FFF" %>; }
   </style>
 

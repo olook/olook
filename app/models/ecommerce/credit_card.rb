@@ -1,7 +1,8 @@
 # -*- encoding : utf-8 -*-
 class CreditCard < Payment
 
-  BANKS_OPTIONS = ["Visa", "Mastercard", "AmericanExpress", "Diners", "Hipercard"]
+  BANKS_OPTIONS = ["Visa", "Mastercard", "Diners"]
+  # BANKS_OPTIONS = ["Visa", "Mastercard", "Diners", "AmericanExpress", "Hipercard"]
   PAYMENT_QUANTITY = 6
   MINIMUM_PAYMENT = 30
   EXPIRATION_IN_MINUTES = 60
@@ -24,6 +25,7 @@ class CreditCard < Payment
   validates_format_of :security_code, :with => SecurityCodeFormat, :on => :create
   validates_format_of :user_birthday, :with => BirthdayFormat, :on => :create
   validates_format_of :expiration_date, :with => ExpirationDateFormat, :on => :create
+  validates_length_of :user_name, maximum: 100
 
   # THIS VALIDATION SHOULD OCCOUR ONLY ON CREATE, BECAUSE WE ENCRYPT THE CREDIT_CARD NUMBER AND SAVE IT
   validates_with CreditCardNumberValidator, :attributes => [:credit_card_number], :on => :create

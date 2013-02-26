@@ -46,6 +46,16 @@ describe CreditCard do
       end
     end
 
+    describe 'user name length' do
+      context "name too long" do
+        it { should_not allow_value("Jonh Doe invalid Jonh Doe invalid Jonh Doe invalid Jonh Doe invalid Jonh Doe invalid Jonh Doe invalid").for(:user_name) }
+      end
+
+      context "regular name" do
+        it { should allow_value("John Doe").for(:user_name) }
+      end
+    end
+
     it { should allow_value("3456").for(:security_code) }
     it { should allow_value("345").for(:security_code) }
     it { should_not allow_value("34567").for(:security_code) }

@@ -36,7 +36,20 @@ $(document).ready(function() {
       items : 4
     }
   });
+  
+  if($('#compartilhar_email').length == 1) {
+     var content = $('#compartilhar_email');
+     $("ul.social li.email").click(function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        initBase.newModal(content);
+     });
+  }
+  $("#compartilhar_email form").submit(function(){
+     $("input#send").addClass("opacidade").delay(300).attr('disabled', true);
+  })
 });
+
 
 initProduct = {
   checkRelatedProducts : function() {

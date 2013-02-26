@@ -7,22 +7,25 @@
   <% end %>
 
   <% content_for :footer do %>
-    <%= javascript_include_tag "endless_scroll" %>
+    <%= javascript_include_tag "moments" %>
     <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => @products_id } %>
-    <% end %>
+  <% end %>
 
   <div id="moments" class="content">
     <%= moment_presenter.display_nav_bar %>
     <%= moment_presenter.render_search_form %>
     <div id="products_container">
-      <%= render "shared/filters/order" %>
+      <%= render "new_header_moments" %>
+      
       <ul id="products">
         <%= render "products", :products => @catalog_products %>
       </ul>
+
       <div class="loading"></div>
       <%= will_paginate @catalog_products %>
     </div>
   </div>
   <%= msn_tags %>
   <%= render "shared/metrics/sociomantic/products", :products => @catalog_products,:categories_id => @categories_id %>
+  <%= render "shared/metrics/nextperformance/category", category_id: @category_id %>
 <% end %>

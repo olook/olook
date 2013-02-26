@@ -28,7 +28,7 @@ $(function(){
 	}
 	$(document).one({
 		click: function(e){
-			$("#modal-campaign,#overlay-campaign").fadeOut();
+		//	$("#modal-campaign,#overlay-campaign").fadeOut();
 			if($("#modal-campaign iframe").contents().find(".dont_show").is(":checked")){
 				dontShow();
 			}	
