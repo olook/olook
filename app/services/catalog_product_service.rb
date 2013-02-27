@@ -1,5 +1,9 @@
 class CatalogProductService
 
+  # Receives:
+  # catalog type Catalog::Catalog
+  # product type ::Product
+  # options type Hash
   def initialize catalog, product, options = {}
     @catalog = catalog
     @product = product
@@ -54,7 +58,7 @@ class CatalogProductService
     }
   end
 
-  def existing_product? options
+  def existing_catalog_product options
     @catalog.products.where(
       :product_id => @product.id,
       :variant_id => options[:variant_id]
@@ -64,15 +68,15 @@ class CatalogProductService
   def create_or_update options=nil
     params = default_params
     params.merge!(options) if options
-    if (product = existing_product?(params))
+    if(catalog_product = existing_catalog_product(params))
       unless @options[:update_price]
         params.delete(:original_price)
         params.delete(:retail_price)
         params.delete(:discount_percent)
       end
 
-      product.update_attributes!(params)
-      product.reload
+      catalog_product.update_attributes!(params)
+      catalog_product.reload
     else
       @catalog.products.create!(params)
     end
