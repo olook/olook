@@ -46,10 +46,9 @@ Olook::Application.routes.draw do
 
   #NEW COLLECTIONS
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
-  get '/colecoes/tropicaliente', to: "collection_themes#show"
+  get '/colecoes/*slug', to: "collection_themes#show", as: "collection_themes_show"
 
   # NEW COLLECTIONS - TODO
-  get '/colecoes/:id', to: "moments#show", as: "moment"
   get '/update_moment', to: "moments#update", as: "update_moment"
 
   #MOMENTS
