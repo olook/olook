@@ -119,7 +119,7 @@ module Abacos
     end
 
     def create_abacos_kit_variant_data
-      Abacos::Variant.parse_abacos_data ({
+      Abacos::Variant.parse_abacos_data({
         :descritor_pre_definido   => keys_to_symbol(self.pre_defined_descriptor),
         :descricao_classe         => keys_to_symbol(self.class_description),
         :protocolo_produto        => self.integration_protocol,
