@@ -15,6 +15,10 @@ class CollectionTheme < ActiveRecord::Base
 
   scope :active, where(active: true)
 
+  def self.find_by_slug_or_id(slug_or_id)
+    self.find_by_slug(slug_or_id) || self.find_by_id(slug_or_id)
+  end
+
   def name=(val)
     self[:slug] = val.parameterize unless val.nil?
     self[:name] = val

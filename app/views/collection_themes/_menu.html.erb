@@ -3,7 +3,6 @@
     <% collection_theme_groups.each do |collections_theme_group| %>
       <dt><%= collections_theme_group.name %></dt>
       <% collections_theme_group.collection_themes.each do |theme| %>
-         
         <dd class="<% if theme ==  collections_theme_group.collection_themes.last %>last<% end %>"><%= link_to theme.name, collection_themes_show_path(theme.slug)%></dd>
       <% end %>
     <% end  %>
