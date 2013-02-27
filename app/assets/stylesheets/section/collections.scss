@@ -3,6 +3,7 @@
 		position: relative;
 	}
 	section#collections_content{float: left;width: 800px;}
+	
 	div#home_collections{
 		padding: 30px 0 0;
 		height: 700px;
@@ -124,7 +125,21 @@
 		}
 	}
 
+/******** INTERNAS *****/
+section{margin-top:35px;
+  &#collections_menu{float:left;width:170px;}
+  &#collections_content{float:left;width:800px;
+    .collections_header{position:relative;
+      a{position:absolute;top:250px;font-size:12px;text-transform:uppercase;color:#000;text-decoration:none;background: image-url('collections/sprite.png') right -38px;
+        &:hover{text-decoration:underline;}
+        &.editorial{left:55px;}
+        &.video{left:210px}  
+      }
+    }
+  
+  }
 
+}
 
 ul#products{clear:both;width:763px;margin:0 auto;
   li.product{width: 235px;height:293px;margin: 0 8px 35px;padding:0;
