@@ -15,7 +15,7 @@ FactoryGirl.define do
     status 1
 
     factory :braspag_capture_response, :parent => :clean_braspag_capture_response do
-      after_create do |braspag_capture_response|
+      after(:create) do |braspag_capture_response|
         braspag_capture_response.update_attribute(:identification_code, "ee0d8edb-12db-455c-a1fa-d0000fc4368d")
       end
     end
