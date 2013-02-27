@@ -64,3 +64,6 @@ Setting.defaults[:featured_accessory_ids] = "13179,14082,13255,13173,13165"
 
 # Image cache settings
 Setting.defaults[:image_expiration_period_in_days] = "1"
+
+# Featured products for the collection section ("Label|id#Label|id")
+Setting.defaults[:collection_section_featured_products] = ""
