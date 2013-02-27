@@ -53,6 +53,7 @@ feature "Orders statuses dashboard", %q{
   end
 
   scenario "Viewing details for a list of authorized orders" do
+    pending
     click_link 'Status dos pedidos'
 
     page.find('tr#0_dias td#authorized a').click

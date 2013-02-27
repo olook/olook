@@ -3,15 +3,10 @@ require 'spec_helper'
 describe OrderStateTransition do
   
   let(:waiting_order) { FactoryGirl.create(:clean_order) }
-  let(:order) { FactoryGirl.create(:order_with_waiting_payment) }
+  let(:order) { FactoryGirl.create(:clean_order_credit_card_authorized) }
   let(:authorized_order) {FactoryGirl.create(:authorized_order)}
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }
-
-  before do
-    Resque.stub(:enqueue)
-    Resque.stub(:enqueue_in)
-  end
 
   it "should audit the transition" do
     order.authorized
