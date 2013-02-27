@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Setting.defaults[:abacos_integrate] = true
 Setting.defaults[:abacos_invetory] = true
 Setting.defaults[:invite_credits_available] = true
@@ -66,4 +67,4 @@ Setting.defaults[:featured_accessory_ids] = "13179,14082,13255,13173,13165"
 Setting.defaults[:image_expiration_period_in_days] = "1"
 
 # Featured products for the collection section ("Label|id#Label|id")
-Setting.defaults[:collection_section_featured_products] = ""
+Setting.defaults[:collection_section_featured_products] = "Teste|8554#|10226#Bla|11445#Categoria 1|11467#Categoria 2|11443#Lançamento!|11463"
