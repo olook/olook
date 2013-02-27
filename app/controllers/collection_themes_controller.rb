@@ -6,6 +6,8 @@ class CollectionThemesController < ApplicationController
 
   def index
     @collection_theme_groups = CollectionThemeGroup.all
+
+    @featured_products = retrieve_featured_products
   end
 
   def show
@@ -25,7 +27,18 @@ class CollectionThemesController < ApplicationController
         @categories_id = params[:id] ? [params[:id]] : @collection_themes.map(&:id).compact.uniq
       else
         redirect_to root_path
-        flash[:notice] = "No momento não existe nenhuma ocasião cadastrada."
+        flash[:notice] = "No momento não existe nenhuma coleção cadastrada."
+      end
+    end
+
+    def retrieve_featured_products
+      Setting.collection_section_featured_products.split('#').map do |pair|
+        values = pair.split('|')
+        product = Product.find(values[1].to_i)
+        {
+          label: values[0],
+          product: product
+        }
       end
     end
 
