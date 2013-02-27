@@ -6,7 +6,7 @@ module Abacos
     attr_reader :integration_protocol,
                 :name, :description, :model_number, :category,
                 :width, :height, :length, :weight, :color_category,
-                :color_name, :collection_id, :how_to, :moments, :details, :profiles,
+                :color_name, :collection_id, :how_to, :collection_themes, :details, :profiles,
                 :is_kit, :pre_defined_descriptor, :class_description
 
     def initialize(parsed_data)
@@ -63,14 +63,14 @@ module Abacos
     end
 
     def integrate_catalogs(product)
-      moments_in_catalog = self.moments.each.map do |item|
+      collection_themes_in_catalog = self.collection_themes.each.map do |item|
         begin
           CollectionTheme.find_by_id!(item.to_i)
         rescue ActiveRecord::RecordNotFound => e
           #todo: tratar
         end
       end
-      CatalogService.save_product product, :collection_themes => moments_in_catalog.compact
+      CatalogService.save_product product, :collection_themes => collection_themes_in_catalog.compact
     end
 
     def integrate_attributes(product)
