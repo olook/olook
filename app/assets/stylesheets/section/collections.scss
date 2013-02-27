@@ -1,4 +1,6 @@
 	@import "partials/mixins";
+
+	/********* HOME ********/
 	.content{
 		position: relative;
 	}
@@ -125,12 +127,25 @@
 		}
 	}
 
-/******** INTERNAS *****/
+/*******  MENU ******/
+#collections_menu{
+  dl{font-family:$avenir;color:#000;}
+  dt{float:left;font-size:15px;text-transform:uppercase;border-bottom:dotted 1px #000;margin-bottom:10px;}
+  dd{font-family:13px;clear:both;margin-bottom:10px;
+    &.last{margin-bottom:25px;}
+    a{text-decoration:none;color:#000;
+      &:hover{color:#EF3742;}
+    }
+    
+  }
+}
+
+/******** INTERNAS *******/
 section{margin-top:35px;
   &#collections_menu{float:left;width:170px;}
   &#collections_content{float:left;width:800px;
     .collections_header{position:relative;
-      a{position:absolute;top:250px;font-size:12px;text-transform:uppercase;color:#000;text-decoration:none;background: image-url('collections/sprite.png') right -38px;
+      a{position:absolute;top:250px;font-size:12px;text-transform:uppercase;color:#000;text-decoration:none;background: image-url('collections/sprite.png') right -35px;padding-right:15px;
         &:hover{text-decoration:underline;}
         &.editorial{left:55px;}
         &.video{left:210px}  
