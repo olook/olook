@@ -1,6 +1,9 @@
 	@import "partials/mixins";
-
-	section#home_collections{
+	.content{
+		position: relative;
+	}
+	section#collections_content{float: left;width: 800px;}
+	div#home_collections{
 		padding: 30px 0 0;
 		height: 700px;
 		.banner_principal{
@@ -47,7 +50,9 @@
 
 	}
 
-	section#amamos{
+	div#amamos{	
+		position: relative;
+		overflow: hidden;
 		border-top: 1px black dotted;
 		width: 800px;
 		margin-top: 45px;
@@ -57,9 +62,12 @@
 	        font-size: 35px;
 		}
 		ul{
-			float: left;margin: 0 10px;
-			li{position: relative;
+			margin: 0 auto;
+			li{
+				position: relative;
 				padding-left: 10px;
+				float: left;
+				margin-right: 15px;
 				.rotulo{
 				 position: absolute;
 				 top: -13px;
@@ -71,10 +79,47 @@
 				a{
 					display: block;
 				}
+				p{font-family: $avenir;
+						font-size: 12px;
+						color: black;
+					line-height: 18px;
+					&.model{
+						
+
+					}
+					&.brand{
+						font-size: 12px;
+						font-family: $avenir;
+						font-weight: bold;
+						text-transform: uppercase;
+						color: black;
+					}
+					&.price{
+						font-family: $avenir;
+						font-size: 12px;
+						color: black;
+					}
+				}
 			}
 		}	
-		
-		button{
-			float: left;border: none;background: no-repeat;cursor: pointer;
+	}
+	button{
+		position: absolute;
+		text-indent: -9999px;
+		float: left;
+		border: none;
+		background: no-repeat;
+		cursor: pointer;
+		background: image-url("collections/sprite.png") no-repeat 1px -55px;
+		height: 65px;
+		width: 40px;
+		top: 1005px;
+		&.bt_left{
+			left: 125px;
+		}
+
+		&.bt_right{
+			background: image-url("collections/sprite.png") no-repeat -40px -55px;
+			right: -2px;
 		}
 	}
