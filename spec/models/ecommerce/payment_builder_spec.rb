@@ -27,6 +27,7 @@ describe PaymentBuilder do
   let(:order_total) { 12.34 }
 
   before :each do
+
     Airbrake.stub(:notify)
     cart_service.stub(:total => 10)
     cart.stub(:total_liquidation_discount => 0)
@@ -153,6 +154,40 @@ describe PaymentBuilder do
       subject.stub(:send_payment!).and_raise(Exception)
       subject.process!.status.should == Payment::FAILURE_STATUS
       subject.process!.payment.should be_nil
+    end
+  end
+
+  describe "should_create_payment_with?" do
+
+    context "when payment is greater that zero" do
+       it "returns true" do
+          expect(subject.should_create_payment_with?(10.0)).to be_true
+       end
+    end
+
+    context "when payment is zero" do
+       it "returns false" do
+          expect(subject.should_create_payment_with?(0)).to be_false
+       end
+    end
+
+  end
+
+  describe "#verify_payment_with" do
+    context "when should create payment" do
+      it "receives create_payment_method" do
+        subject.should_receive(:should_create_payment_with?).and_return(true)
+        subject.should_receive(:create_payment)
+        subject.verify_payment_with(10.0, OlookletPayment)
+      end
+    end
+
+    context "when shouldn't create payment" do
+      it "doesn't receive create_payment_method" do
+        subject.should_receive(:should_create_payment_with?).and_return(false)
+        subject.should_not_receive(:create_payment)
+        subject.verify_payment_with(0, OlookletPayment)
+      end
     end
   end
 
