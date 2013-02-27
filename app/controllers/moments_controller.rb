@@ -15,7 +15,7 @@ class MomentsController < ApplicationController
   def show
     @pixel_information = params[:category_id]
     @chaordic_user = ChaordicInfo.user current_user
-    if current_moment.catalog.products.nil?
+    if CollectionTheme.active.first.try(:catalog).try(:products).nil?
       flash[:notice] = "A coleção não possui produtos disponíveis"
       redirect_to member_showroom_path
     else

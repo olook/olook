@@ -27,7 +27,7 @@ class CollectionThemesController < ApplicationController
         @categories_id = params[:id] ? [params[:id]] : @collection_themes.map(&:id).compact.uniq
       else
         redirect_to root_path
-        flash[:notice] = "No momento não existe nenhuma ocasião cadastrada."
+        flash[:notice] = "No momento não existe nenhuma coleção cadastrada."
       end
     end
 
