@@ -17,17 +17,6 @@ class PaymentBuilder
     value > 0
   end
 
-  def create_payment(payment_class, total_paid)
-    current_payment = payment_class.create!(
-      total_paid: total_paid,
-      order: @order,
-      user_id: @payment_response.user_id,
-      cart_id: @cart_service.cart.id)
-      current_payment.calculate_percentage!
-      current_payment.deliver!
-      current_payment.authorize!
-  end
-
   def process!
     @payment.cart_id = cart_service.cart.id
     @payment.total_paid = cart_service.total(payment)
@@ -119,6 +108,17 @@ class PaymentBuilder
   end
 
   private
+
+  def create_payment(payment_class, total_paid)
+    current_payment = payment_class.create!(
+      total_paid: total_paid,
+      order: @order,
+      user_id: @payment_response.user_id,
+      cart_id: @cart_service.cart.id)
+      current_payment.calculate_percentage!
+      current_payment.deliver!
+      current_payment.authorize!
+  end
 
   def respond_with_failure
     OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
