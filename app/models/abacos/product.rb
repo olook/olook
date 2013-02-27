@@ -3,6 +3,8 @@ module Abacos
   class Product
     extend ::Abacos::Helpers
 
+    PRODUCT_COLOR_FIELDS = ["Cor fornecedor", "Cor produto", "Cor filtro"]
+
     attr_reader :integration_protocol,
                 :name, :description, :model_number, :category,
                 :width, :height, :length, :weight, :color_category,
@@ -199,17 +201,18 @@ module Abacos
       items_to_skip = ['Perfil', 'Como vestir', 'Descrição']
       items = parse_nested_data(data, :dados_caracteristicas_complementares)
 
-      descritor_simples = data_simple_descriptor[:rows][:dados_descritor_simples] if data_simple_descriptor
+      descritor_simples = data_simple_descriptor ? data_simple_descriptor[:rows][:dados_descritor_simples] : []
 
       {}.tap do |result|
-        descritor_simples.each do |descritor|
-          result["descritor_#{descritor[:numero]}"] = descritor[:descricao]
-        end
-
         items.each do |item|
           next if items_to_skip.include?(item[:tipo_nome].strip)
           next if item[:texto].strip.downcase == 'default'
           result[ item[:tipo_nome].strip ] = item[:texto].strip
+        end
+
+        descritor_simples.each do |descritor|
+          index = descritor[:numero].to_i - 1
+          result[PRODUCT_COLOR_FIELDS[index]] = descritor[:descricao]
         end
       end
     end
