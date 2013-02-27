@@ -15,7 +15,6 @@ class ApplicationController < ActionController::Base
                 :show_current_liquidation?,
                 :show_current_liquidation_advertise?,
                 :current_cart,
-                :current_moment,
                 :current_referer
 
   rescue_from CanCan::AccessDenied do  |exception|
@@ -74,10 +73,6 @@ class ApplicationController < ActionController::Base
 
     def show_current_liquidation_advertise?
       current_liquidation.try(:show_advertise?)
-    end
-
-    def current_moment
-      CollectionTheme.active.first
     end
 
     def current_referer
