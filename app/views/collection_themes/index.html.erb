@@ -2,7 +2,8 @@
   <%= stylesheet_link_tag "section/collections" %>
 <% end %>
 
-<section style="width:170px;float:left;">dfs</section>
+<%= render "menu", collection_theme_groups: @collection_theme_groups %>
+
 <section id="collections_content">
 	<div id="home_collections">
 		<div class="banner_principal">
@@ -33,7 +34,7 @@
 				<p></p>
 				<p></p>
 				<p></p>
-			</li>	
+			</li>
 			<li>
 				<p class="rotulo"></p>
 				<a href="#"><img src="/assets/collections/teste.jpg"/></a>
@@ -49,7 +50,7 @@
 				<p></p>
 			</li>
 
-		</ul>	
+		</ul>
 
 	</div>
 	<button type="button" class="bt_right">Próximo</button>
