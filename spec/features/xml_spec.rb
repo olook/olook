@@ -321,7 +321,7 @@ context "in the ilove_ecommerce xml page" do
       #{product.variants.map { |variant|
       '<g:size>' + variant.display_reference + '</g:size>'}.join("\n")}
       <g:item_group_id>#{product.id}</g:item_group_id>
-      <g:color/>
+      <g:color>#{ product.color_name }</g:color>
       <g:material>#{ product.details.first.description }</g:material>
       <g:material>#{ product.details.last.description }</g:material>
       </item>
