@@ -3,6 +3,9 @@
 <% end %>
 
 <%= render "menu", collection_theme_groups: @collection_theme_groups %>
+<% content_for :footer do %>
+  <%= javascript_include_tag "moments" %>
+<% end %>
 
 <section id="collections_content">
   <div class="collections_header"></div>
@@ -14,3 +17,4 @@
     <%= "Nenhum produto disponível" if @catalog_products.empty? %>
   </div>
 </section>
+
