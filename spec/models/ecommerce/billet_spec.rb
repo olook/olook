@@ -6,11 +6,6 @@ describe Billet do
   let(:order) { FactoryGirl.create(:order) }
   subject { FactoryGirl.create(:billet, :order => order) }
 
-  before :each do
-    Resque.stub(:enqueue)
-    Resque.stub(:enqueue_in)
-  end
-
   context "expiration date" do
     subject { FactoryGirl.create(:billet) }
 

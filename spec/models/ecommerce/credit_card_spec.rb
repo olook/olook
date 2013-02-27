@@ -6,11 +6,6 @@ describe CreditCard do
   let(:order) { FactoryGirl.create(:order) }
   subject { FactoryGirl.build(:credit_card, :order => order) }
 
-  before :each do
-    Resque.stub(:enqueue)
-    Resque.stub(:enqueue_in)
-  end
-
   context "attributes validation" do
     it { should validate_presence_of(:bank) }
     it { should validate_presence_of(:user_name) }
