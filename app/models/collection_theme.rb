@@ -20,6 +20,10 @@ class CollectionTheme < ActiveRecord::Base
     self[:name] = val
   end
 
+  def to_params
+    slug
+  end
+
   def video_id
     @video_id ||=
     begin
