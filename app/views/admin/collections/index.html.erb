@@ -1,13 +1,13 @@
-<h2>Listing collections</h2>
+<h2>Listando coleções do mês</h2>
 
 <div class="inner">
   <table class="table">
     <tr>
-      <th>Name</th>
-      <th>Start date</th>
-      <th>End date</th>
-      <th>Active</th>
-      <th>Product Count</th>
+      <th>Nome</th>
+      <th>Data inicial</th>
+      <th>Data final</th>
+      <th>Ativo</th>
+      <th>Contagem de Produtos</th>
       <th></th>
       <th></th>
       <th></th>
@@ -23,20 +23,20 @@
       <td><%= collection.is_active %></td>
       <td><%= collection.products.count %></td>
       <td>
-        <%= link_to 'Make all products visible', admin_collection_display_products_path(collection),
-          confirm: 'Are you sure you want to make all products visible?',
+        <%= link_to 'Marcar todos produtos visíveis', admin_collection_display_products_path(collection),
+          confirm: 'Tem certeza que quer marcar todos produtos como visíveis?',
           :class => 'button warn'
         %>
       </td>
       <td>
-        <%= link_to 'Make all products invisible', admin_collection_hide_products_path(collection),
-          confirm: 'Are you sure you want to make all products invisible?',
+        <%= link_to 'Marcar todos produtos invisíveis', admin_collection_hide_products_path(collection),
+          confirm: 'Tem certeza que quer marcar todos produtos como invisíveis?',
           :class => 'button warn'
         %>
       </td>
-      <td><%= link_to 'Show', admin_collection_path(collection), :class => 'button' %></td>
-      <td> <%= link_to 'Edit', edit_admin_collection_path(collection), :class => 'button' %> </td>
-      <td> <%= link_to 'Destroy', admin_collection_path(collection), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %> </td>
+      <td><%= link_to 'Mostrar', admin_collection_path(collection), :class => 'button' %></td>
+      <td> <%= link_to 'Editar', edit_admin_collection_path(collection), :class => 'button' %> </td>
+      <td> <%= link_to 'Apagar', admin_collection_path(collection), confirm: 'Tem certeza?', method: :delete, :class => 'button danger' %> </td>
     </tr>
   <% end %>
   </table>
@@ -45,5 +45,5 @@
 </div>
 
 <% content_for :secondary_navigation do %>
-  <li><%= link_to 'New Collection', new_admin_collection_path %></li>
+  <li><%= link_to 'Nova Coleção', new_admin_collection_path %></li>
 <% end %>

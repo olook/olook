@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
-module MomentsHelper
+module CollectionThemesHelper
   MIN_INSTALLMENT_VALUE = 30
   MAX_INSTALLMENT_NUMBER = 10
 
   def msn_tags
-    image_tag "http://view.atdmt.com/action/mmn_olook_colecoes#{@moment.id}", size: "1x1"
+    image_tag "http://view.atdmt.com/action/mmn_olook_colecoes#{@collection_theme.id}", size: "1x1"
   end
 
   def installments(price)
@@ -17,7 +17,7 @@ module MomentsHelper
     {shoes_path => "sapatos", accessories_path => "acessórios", bags_path => "bolsas"}[request.fullpath]
   end
 
-  private 
+  private
     def number_of_installments_for price
       return 1 if price <= MIN_INSTALLMENT_VALUE
       return MAX_INSTALLMENT_NUMBER if price >= MIN_INSTALLMENT_VALUE * MAX_INSTALLMENT_NUMBER

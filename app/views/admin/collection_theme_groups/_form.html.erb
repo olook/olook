@@ -1,0 +1,26 @@
+<%= form_for([:admin, @collection_theme_group], :html => { :multipart => true }) do |f| %>
+  <% if @collection_theme_group.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@collection_theme_group.errors.count, "error") %> prohibited this collection from being saved:</h2>
+
+      <ul>
+      <% @collection_theme_group.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label 'Nome' %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label 'Position' %><br />
+    <%= f.text_field :position %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit 'Criar' %>
+  </div>
+<% end %>

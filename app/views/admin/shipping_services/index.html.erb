@@ -1,11 +1,11 @@
-<h2>Listing shipping services</h2>
+<h2>Listando serviços de entrega</h2>
 
 <div class="inner">
   <table class="table">
     <tr>
       <th>Name</th>
-      <th>ERP code</th>
-      <th>Freights</th>
+      <th>Código ERP</th>
+      <th>Fretes</th>
       <th></th>
       <th></th>
       <th></th>
@@ -16,9 +16,9 @@
       <td><%= shipping_service.name %></td>
       <td><%= shipping_service.erp_code %></td>
       <td><%= shipping_service.freight_prices.count %></td>
-      <td><%= link_to 'Show', admin_shipping_service_path(shipping_service), :class => 'button' %></td>
-      <td><%= link_to 'Edit', edit_admin_shipping_service_path(shipping_service), :class => 'button' %></td>
-      <td><%= link_to 'Remove all freight prices', admin_shipping_service_path(shipping_service), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
+      <td><%= link_to 'Mostrar', admin_shipping_service_path(shipping_service), :class => 'button' %></td>
+      <td><%= link_to 'Editar', edit_admin_shipping_service_path(shipping_service), :class => 'button' %></td>
+      <td><%= link_to 'Remover todos preços de frete', admin_shipping_service_path(shipping_service), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
     </tr>
   <% end %>
   </table>
@@ -27,5 +27,5 @@
 </div>
 
 <% content_for :secondary_navigation do %>
-  <li><%= link_to 'New Shipping service', new_admin_shipping_service_path %></li>
+  <li><%= link_to 'Novo serviço de entrega', new_admin_shipping_service_path %></li>
 <% end %>

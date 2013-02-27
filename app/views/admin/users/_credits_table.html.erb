@@ -4,19 +4,19 @@
 
 <table class="table">
   <tr>
-    <th>Order</th>
-    <th>Reason</th>
-    <th>Value</th>
+    <th>Ordem</th>
+    <th>Razão</th>
+    <th>Valor</th>
     <th>Admin</th>
-    <th>Activates at</th>
-    <th>Expires at</th>
-    <th>Created at</th>
+    <th>Ativado em</th>
+    <th>Expirado em</th>
+    <th>Criado em</th>
   </tr>
 <% credits.each do |credit| %>
   <tr>
     <td><%= link_to credit.order.number, admin_order_path(credit.order) if credit.order %></td>
     <td><%= credit.source == "loyalty_program_credit" ? credit.reason : "Estorno de compra" %></td>
-    <%= credit.is_debit ? "<td style='color:red'>-#{number_to_currency(credit.value)}</td>".html_safe : 
+    <%= credit.is_debit ? "<td style='color:red'>-#{number_to_currency(credit.value)}</td>".html_safe :
     "<td style='color:green'>#{number_to_currency(credit.value)}</td>".html_safe %>
     <td><%= Admin.find_by_id(credit.admin_id).try(:name) %></td>
     <td><%= credit.activates_at.try{|date| date.to_s(:short)} %></td>

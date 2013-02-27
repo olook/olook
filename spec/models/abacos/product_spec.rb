@@ -24,12 +24,12 @@ describe Abacos::Product do
 
      before :all do
       Profile.destroy_all
-      Moment.destroy_all
+      CollectionTheme.destroy_all
     end
 
     let!(:sexy_profile) { FactoryGirl.create(:profile, :name => "Sexy", :first_visit_banner => 'sexy') }
     let!(:casual_profile) { FactoryGirl.create(:profile, :name => "Casual", :first_visit_banner => 'casual') }
-    let!(:moment) { FactoryGirl.create(:moment, :id => 1) }
+    let!(:collection_theme) { FactoryGirl.create(:collection_theme, :id => 1) }
 
     it 'should create a new product' do
       expect {
@@ -85,7 +85,7 @@ describe Abacos::Product do
       it "#integrate_catalogs" do
         mock_product = mock_model(::Product)
         CatalogService.should_receive(:save_product)
-                      .with(mock_product, :moments => [moment])
+                      .with(mock_product, :collection_themes => [collection_theme])
 
         subject.integrate_catalogs mock_product
       end
@@ -168,18 +168,18 @@ describe Abacos::Product do
         end
       end
     end
-    
+
     describe "parser moments" do
       describe "when has many moments" do
         it "should return moments" do
           parsed_data[:moments].should == ["1", "2"]
         end
       end
-      
+
       describe "when has only one moment" do
         let(:downloaded_product) { load_abacos_fixture :product_one_category }
         let(:parsed_data) { described_class.parse_abacos_data downloaded_product }
-        
+
         it "should return moment" do
           parsed_data[:moments].should == ["1"]
         end
@@ -338,7 +338,7 @@ describe Abacos::Product do
 
       it "should change sub-hashes keys to symbol" do
         params = {:key => {"string_key" => "value"}}
-        result = subject.send :keys_to_symbol, params 
+        result = subject.send :keys_to_symbol, params
         result.should eq({:key => {:string_key => "value"}})
       end
 

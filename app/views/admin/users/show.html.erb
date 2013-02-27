@@ -1,15 +1,15 @@
 <h2>User</h2>
 <div class="inner">
 
-  <p><%= link_to 'Login', "/admin/users/login/#{@user.id}" %></p>
-  <p><%= link_to 'Destroy', admin_user_path(@user), confirm: 'Are you sure?', method: :delete %></p>
+  <p><%= link_to 'Logar', "/admin/users/login/#{@user.id}" %></p>
+  <p><%= link_to 'Apagar', admin_user_path(@user), confirm: 'Tem certeza?', method: :delete %></p>
 
   <p>
-    <b>First Name:</b>
+    <b>Primeiro Nome:</b>
     <%= @user.first_name %>
   </p>
   <p>
-    <b>Last Name:</b>
+    <b>Último Nome:</b>
     <%= @user.last_name %>
   </p>
   <p>
@@ -21,29 +21,29 @@
     <%= @user.cpf %>
   </p>
   <p>
-    <b>Invite?</b>
-    <%= @user.is_invited? ? 'Yes' : 'No' %>
+    <b>Convidado?</b>
+    <%= @user.is_invited? ? 'Sim' : 'Não' %>
   </p>
   <p>
-    <b>Created At:</b>
+    <b>Criado em:</b>
       <%= @user.created_at %>
   </p>
   <p>
-    <b>Current credits:</b>
+    <b>Créditos atuais:</b>
     <%= number_to_currency @user.current_credit %>
   </p>
   <p>
-    <b>Locked At</b>
+    <b>Bloqueado em</b>
     <%=@user.locked_at %>
     <% if @user.access_locked? %>
-      <%= link_to 'Unlock Access', "/admin/users/unlock_access/#{@user.id}" %>
+      <%= link_to 'Desbloquear Acesso', "/admin/users/unlock_access/#{@user.id}" %>
       <%  else  %>
-      <%= link_to 'Lock Access', "/admin/users/lock_access/#{@user.id}" %>
+      <%= link_to 'Bloquear Acesso', "/admin/users/lock_access/#{@user.id}" %>
     <% end %>
   </p>
 
   <p>
-    <p><b>Addresses:</b></p>
+    <p><b>Endereços:</b></p>
     <% @user.addresses.each do |address| %>
       <p><%= address.street %> <%= address.number %> <%= address.complement if address.complement %><br/>
       <%= address.neighborhood %> <%= address.zip_code %> <br/>
@@ -52,7 +52,7 @@
     <% end %>
   </p>
 
-  <p><b>Telephones:</b></p>
+  <p><b>Telefones:</b></p>
   <% @user.addresses.each do |address| %>
     <p><%= address.telephone if address.telephone %><br>
       <%= address.mobile if address.mobile %></p>
@@ -63,7 +63,7 @@
                                                 redeem_credits: @redeem_credits,
                                                 loyalty_program_credits: @loyalty_program_credits,
                                                 invite_credits: @invite_credits
-                                              } 
+                                              }
   %>
   <%= render partial: 'show_invites', locals: { user: @user }  %>
   <%= render partial: 'show_survey', locals: { survey_answers: @survey_answers, user: @user } if @survey_answers  %>
@@ -72,6 +72,6 @@
 </div>
 
 <% content_for :secondary_navigation do %>
-  <li><%= link_to 'Edit', edit_admin_user_path(@user) %></li>
-  <li><%= link_to 'Back', admin_users_path %></li>
+  <li><%= link_to 'Editar', edit_admin_user_path(@user) %></li>
+  <li><%= link_to 'Voltar', admin_users_path %></li>
 <% end %>
