@@ -3,5 +3,5 @@ class CollectionThemeGroup < ActiveRecord::Base
 
   acts_as_list
 
-  has_many :collection_themes
+  has_many :collection_themes, dependent: :nullify
 end
