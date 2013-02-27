@@ -16,7 +16,7 @@ class CollectionThemesController < ApplicationController
   private
     def load_catalog_products
       @collection_themes = CollectionTheme.active.order(:position)
-      @collection_theme = params[:slug] ? CollectionTheme.find_by_slug(params[:slug]) : @collection_themes.last
+      @collection_theme = params[:slug] ? CollectionTheme.find_by_slug_or_id(params[:slug]) : @collection_themes.last
 
       if @collection_theme
         @catalog_products = CatalogSearchService.new(params.merge({id: @collection_theme.catalog.id})).search_products
