@@ -5,17 +5,12 @@
 <%= render "menu", collection_theme_groups: @collection_theme_groups %>
 
 <section id="collections_content">
-   <div class="collections_header">
-      <img src="/assets/collections/highlight.jpg" />
-      <%= link_to "Veja o editorial", "", class: "editorial" %>
-      <%= link_to "Assista ao vídeo", "", class: "video" %>
-   </div>
-
-   <div class="collections_filters">
-
-   </div>
-
-   <div class="collections_products">
-
-   </div>
+  <div class="collections_header"></div>
+  <div class="collections_filters"></div>
+  <div class="collections_products">
+    <% @catalog_products.each do |cp| %>
+      <%= render "shared/moment_product_item", :product => cp.product %>
+    <% end %>
+    <%= "Nenhum produto disponível" if @catalog_products.empty? %>
+  </div>
 </section>
