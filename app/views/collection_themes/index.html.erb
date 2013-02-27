@@ -26,32 +26,7 @@
 		<button type="button" class="bt_left">Anterior</button>
 	<div id="amamos">
 		<h1>NÓS AMAMOS</h1>
-
-		<ul>
-			<li>
-				<p class="rotulo"></p>
-				<a href="#"><img src="/assets/collections/teste.jpg"/></a>
-				<p></p>
-				<p></p>
-				<p></p>
-			</li>
-			<li>
-				<p class="rotulo"></p>
-				<a href="#"><img src="/assets/collections/teste.jpg"/></a>
-				<p class="model">Sandália Bertha</p>
-				<p class="brand">OLOOK</p>
-				<p class="price">R$ 129,90 ou 4 x de R$ 32,48</p>
-			</li>
-			<li>
-				<p class="rotulo"></p>
-				<a href="#"><img src="/assets/collections/teste.jpg"/></a>
-				<p></p>
-				<p></p>
-				<p></p>
-			</li>
-
-		</ul>
-
+		<%= render "featured_products", featured_products: @featured_products %>
 	</div>
 	<button type="button" class="bt_right">Próximo</button>
 
