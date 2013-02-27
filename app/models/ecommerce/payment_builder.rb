@@ -18,10 +18,10 @@ class PaymentBuilder
   end
 
   def process!
-    @payment.cart_id = cart_service.cart.id
-    @payment.total_paid = cart_service.total(payment)
-    @payment.user_id = cart_service.cart.user.id
-    @payment.save!
+    payment.cart_id = cart_service.cart.id
+    payment.total_paid = cart_service.total(payment)
+    payment.user_id = cart_service.cart.user.id
+    payment.save!
 
 
     ActiveRecord::Base.transaction do
@@ -34,16 +34,16 @@ class PaymentBuilder
       total_credits_invite = cart_service.total_discount_by_type(:credits_by_invite)
       total_credits_redeem = cart_service.total_discount_by_type(:credits_by_redeem)
 
-      @payment_response = @gateway_strategy.send_to_gateway
+      payment = @gateway_strategy.send_to_gateway
 
       if @gateway_strategy.payment_successful?
         tracking_order = payment.user.add_event(EventType::TRACKING, @tracking_params) if @tracking_params
-        @order = cart_service.generate_order!(payment.gateway, tracking_order, payment)
-        @payment_response.order = @order
-        @payment_response.calculate_percentage!
-        @payment_response.deliver! if payment.kind_of?(CreditCard)
-        @payment_response.deliver! if payment.kind_of?(Debit)
-        @payment_response.save!
+        order = cart_service.generate_order!(payment.gateway, tracking_order, payment)
+        payment.order = order
+        payment.calculate_percentage!
+        payment.deliver! if payment.kind_of?(CreditCard)
+        payment.deliver! if payment.kind_of?(Debit)
+        payment.save!
 
         order.line_items.each do |item|
           variant = Variant.lock("LOCK IN SHARE MODE").find(item.variant.id)
@@ -65,8 +65,8 @@ class PaymentBuilder
           credit_payment = CreditPayment.create!(
             :credit_type_id => CreditType.find_by_code!(:loyalty_program).id,
             :total_paid => total_credits,
-            :order => @order,
-            :user_id => @payment_response.user_id,
+            :order => order,
+            :user_id => payment.user_id,
             :cart_id => @cart_service.cart.id)
           credit_payment.calculate_percentage!
           credit_payment.deliver!
@@ -77,8 +77,8 @@ class PaymentBuilder
           credit_payment_invite = CreditPayment.create!(
             :credit_type_id => CreditType.find_by_code!(:invite).id,
             :total_paid => total_credits_invite,
-            :order => @order,
-            :user_id => @payment_response.user_id,
+            :order => order,
+            :user_id => payment.user_id,
             :cart_id => @cart_service.cart.id)
           credit_payment_invite.calculate_percentage!
           credit_payment_invite.deliver!
@@ -89,8 +89,8 @@ class PaymentBuilder
           credit_payment_redeem = CreditPayment.create!(
             :credit_type_id => CreditType.find_by_code!(:redeem).id,
             :total_paid => total_credits_redeem,
-            :order => @order,
-            :user_id => @payment_response.user_id,
+            :order => order,
+            :user_id => payment.user_id,
             :cart_id => @cart_service.cart.id)
           credit_payment_redeem.calculate_percentage!
           credit_payment_redeem.deliver!
@@ -112,8 +112,8 @@ class PaymentBuilder
   def create_payment(payment_class, total_paid)
     current_payment = payment_class.create!(
       total_paid: total_paid,
-      order: @order,
-      user_id: @payment_response.user_id,
+      order: payment.order,
+      user_id: payment.user_id,
       cart_id: @cart_service.cart.id)
       current_payment.calculate_percentage!
       current_payment.deliver!
