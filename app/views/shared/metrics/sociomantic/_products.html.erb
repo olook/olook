@@ -9,7 +9,7 @@
   var categories = {
     category: [
                 <%= categories_id.map{ |id|
-                  "{ COLEÇÃO: '#{moment_url(id)}'}"
+                  "{ COLEÇÃO: '#{collection_themes_show_url(id)}'}"
                 }.join(',') -%>
               ]
   };
