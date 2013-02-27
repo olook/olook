@@ -1,4 +1,4 @@
-<header>
+<!-- <header>
   <% if user_signed_in? %>
     <div class="contact">
       <div class="content">
@@ -21,7 +21,7 @@
               <div class="my_account">
                 <ul>
                   <li><%= link_to "Meus pedidos", user_orders_path %></li>
-                  <!-- <li><%#= link_to "Meus presentes", user_gifts_path %></li> -->
+                  <!-- <li><%#= link_to "Meus presentes", user_gifts_path %></li> 
                   <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
                   <li><%= link_to "Endereços", user_addresses_path %></li>
                   <li class="last"><%= link_to "Meus créditos", user_credits_path %></li>
@@ -46,5 +46,28 @@
         <%= render "users/sessions/form_user" %>
       </div>
     </div>
+  </div>
+</header> -->
+
+<header id="new_header">
+  <div class="new_content">
+    <div class="box_left">
+      <p>SAC (11) 2626-3489 | <a class="contact" href="#">falecom@olook.com.br</a></p>
+      <ul class="social_icons">
+        <li><a href="#" class="social_facebook">Facebook</a></li>
+        <li><a href="#" class="social_twitter">Twitter</a></li>
+        <li><a href="#" class="social_rss">RSS</a></li>
+        <li><a href="#" class="social_instagram">Instagram</a></li>
+      </ul>
+    </div>
+     <div class="box_right">
+      <p class="new_login"><a href="#">Entre  </a> ou <a href="#">  descubra seu estilo</a></p>
+      <p class="new_sacola"><a href="#">MINHA SACOLA <span>(0 itens)</span></a></p>
+    </div>
+    <div class="olook_logo">
+        <a href="#" class="">Olook</a>
+    </div>
+
+   
   </div>
 </header>
