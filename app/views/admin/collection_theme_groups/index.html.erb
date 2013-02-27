@@ -1,0 +1,10 @@
+<h2>Listando Grupos de Temas</h2>
+
+<div class="inner">
+   <%= render(:partial => "list") %>
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Criar Grupo de Temas', new_admin_collection_theme_group_path
+  %></li>
+<% end %>

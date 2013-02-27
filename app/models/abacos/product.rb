@@ -65,12 +65,12 @@ module Abacos
     def integrate_catalogs(product)
       moments_in_catalog = self.moments.each.map do |item|
         begin
-          Moment.find_by_id!(item.to_i)
+          CollectionTheme.find_by_id!(item.to_i)
         rescue ActiveRecord::RecordNotFound => e
           #todo: tratar
         end
       end
-      CatalogService.save_product product, :moments => moments_in_catalog.compact
+      CatalogService.save_product product, :collection_themes => moments_in_catalog.compact
     end
 
     def integrate_attributes(product)
@@ -119,7 +119,7 @@ module Abacos
     end
 
     def create_abacos_kit_variant_data
-      Abacos::Variant.parse_abacos_data ({
+      Abacos::Variant.parse_abacos_data({
         :descritor_pre_definido   => keys_to_symbol(self.pre_defined_descriptor),
         :descricao_classe         => keys_to_symbol(self.class_description),
         :protocolo_produto        => self.integration_protocol,
@@ -264,6 +264,6 @@ module Abacos
           params
       end
     end
-    
+
   end
 end

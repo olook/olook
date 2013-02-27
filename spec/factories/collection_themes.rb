@@ -1,14 +1,14 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
-  factory :moment do
+  factory :collection_theme do
     name "dia-a-dia"
     slug "dia-a-dia"
     article "Para a"
     position 1
     active true
   end
-  
-  factory :moments, :class => Moment do
+
+  factory :collection_themes, :class => CollectionTheme do
     sequence :name do |n|
       "moment#{n}"
     end

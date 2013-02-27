@@ -9,7 +9,7 @@ class MomentsController < ApplicationController
 
   def index
     @chaordic_user = ChaordicInfo.user current_user
-    render :show, id: @moment.id
+    render :show, id: @collection_theme.id
   end
 
   def show
@@ -46,21 +46,21 @@ class MomentsController < ApplicationController
   end
 
   def load_catalog_products
-    @moments = Moment.active.order(:position)
-    @moment = params[:id] ? Moment.find_by_id(params[:id]) : @moments.last
+    @collection_themes = CollectionTheme.active.order(:position)
+    @collection_theme = params[:id] ? CollectionTheme.find_by_id(params[:id]) : @collection_themes.last
 
-    if @moment
-      @catalog_products = CatalogSearchService.new(params.merge({id: @moment.catalog.id})).search_products
+    if @collection_theme
+      @catalog_products = CatalogSearchService.new(params.merge({id: @collection_theme.catalog.id})).search_products
       @products_id = @catalog_products.map{|item| item.product_id }.compact
       # params[:id] is into array for pixel iterator
-      @categories_id = params[:id] ? [params[:id]] : @moments.map(&:id).compact.uniq
+      @categories_id = params[:id] ? [params[:id]] : @collection_themes.map(&:id).compact.uniq
     else
       redirect_to root_path
       flash[:notice] = "No momento não existe nenhuma ocasião cadastrada."
     end
   end
 
-  def add_featured_products   
+  def add_featured_products
     @featured_products = Product.featured_products(@category_id).first(3)
   end
 
