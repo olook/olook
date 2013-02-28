@@ -23,7 +23,7 @@
     </div>
     <div class="exhibition-mode">
       <p>EXIBIÇÃO: <span class="selected product">Produto</span><b>/</b><span class="model">Produto com modelo</span></p>
-      <%= render "shared/filters/order" %>
+      <%= render "search_form" %>
     </div>
   </div>
 
@@ -38,5 +38,5 @@
 </section>
 
 <% content_for :footer do %>
-  <%= javascript_include_tag "moments" %>
+  <%= javascript_include_tag "collection_themes" %>
 <% end %>
