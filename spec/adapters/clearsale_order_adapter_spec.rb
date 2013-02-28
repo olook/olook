@@ -14,7 +14,7 @@ describe ClearsaleOrderAdapter do
       expected_user_data = {:email=>"teste@teste.com",
                             :id=>nil,
                             :cpf=>"600.745.487-86",
-                            :full_name=>"User First Name User Last Name",
+                            :full_name=>"José Ernesto",
                             :birthdate=>"12/09/1976",
                             :phone=>"(35)3456-6849",
                             :gender=>"f",

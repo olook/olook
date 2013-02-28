@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe OrderStatusMailer do
   let(:user) { FactoryGirl.create(:user) }
-  let(:order) { FactoryGirl.create(:order, :user => user) }
+  let(:order) { FactoryGirl.create(:order, :with_billet, :user => user) }
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }
 
@@ -27,10 +27,10 @@ describe OrderStatusMailer do
     context " for CreditCard " do
 
       let(:credit_card) {FactoryGirl.create(:clean_order_credit_card, :user => user)}
-      let(:mail_for_billet) { OrderStatusMailer.order_requested(credit_card) }
+      let(:mail) { OrderStatusMailer.order_requested(credit_card) }
 
       it "sets 'subject' attribute telling the user that we received her order" do
-        mail_for_billet.subject.should == "User First Name, recebemos seu pedido."
+        mail.subject.should == "José, recebemos seu pedido."
       end
     end
 
