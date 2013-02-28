@@ -210,10 +210,8 @@ module Abacos
           result[ item[:tipo_nome].strip ] = item[:texto].strip
         end
 
+        puts " descritor simples inspect #{descritor_simples.inspect}, class #{descritor_simples.class}, descritor #{descritor_simples}"
         descritor_simples.each do |descritor|
-          puts " numero " + descritor[:numero]
-          puts " numero class " + descritor[:numero].class
-          puts " descricao " + descritor[:descricao]
           #index = descritor[:numero].to_i - 1
           #result[PRODUCT_COLOR_FIELDS[index]] = descritor[:descricao]
         end
