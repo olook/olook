@@ -10,7 +10,7 @@ class PaymentBuilder
   end
 
   def verify_payment_for(total_paid, payment_class)
-    create_payment(total_paid, payment_class, payment) if should_create_payment_for?(total_paid)
+    create_payment(total_paid, payment_class) if should_create_payment_for?(total_paid)
   end
 
   def should_create_payment_for?(value)
