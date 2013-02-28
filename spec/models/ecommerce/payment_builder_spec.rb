@@ -157,36 +157,36 @@ describe PaymentBuilder do
     end
   end
 
-  describe "should_create_payment_with?" do
+  describe "should_create_payment_for?" do
 
     context "when payment is greater that zero" do
        it "returns true" do
-          expect(subject.should_create_payment_with?(10.0)).to be_true
+          expect(subject.should_create_payment_for?(10.0)).to be_true
        end
     end
 
     context "when payment is zero" do
        it "returns false" do
-          expect(subject.should_create_payment_with?(0)).to be_false
+          expect(subject.should_create_payment_for?(0)).to be_false
        end
     end
 
   end
 
-  describe "#verify_payment_with" do
+  describe "#verify_payment_for" do
     context "when should create payment" do
       it "receives create_payment_method" do
-        subject.should_receive(:should_create_payment_with?).and_return(true)
+        subject.should_receive(:should_create_payment_for?).and_return(true)
         subject.should_receive(:create_payment)
-        subject.verify_payment_with(10.0, OlookletPayment)
+        subject.verify_payment_for(10.0, OlookletPayment)
       end
     end
 
     context "when shouldn't create payment" do
       it "doesn't receive create_payment_method" do
-        subject.should_receive(:should_create_payment_with?).and_return(false)
+        subject.should_receive(:should_create_payment_for?).and_return(false)
         subject.should_not_receive(:create_payment)
-        subject.verify_payment_with(0, OlookletPayment)
+        subject.verify_payment_for(0, OlookletPayment)
       end
     end
   end

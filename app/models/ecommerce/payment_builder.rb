@@ -9,11 +9,11 @@ class PaymentBuilder
     @tracking_params = opts[:tracking_params]
   end
 
-  def verify_payment_with(total_paid, payment_class)
-    create_payment(total_paid, payment_class, payment) if should_create_payment_with?(total_paid)
+  def verify_payment_for(total_paid, payment_class)
+    create_payment(total_paid, payment_class, payment) if should_create_payment_for?(total_paid)
   end
 
-  def should_create_payment_with?(value)
+  def should_create_payment_for?(value)
     value > 0
   end
 
@@ -50,15 +50,15 @@ class PaymentBuilder
           variant.decrement!(:inventory, item.quantity)
         end
 
-        verify_payment_with(total_liquidation, OlookletPayment)
+        verify_payment_for(total_liquidation, OlookletPayment)
 
-        verify_payment_with(billet_discount, BilletDiscountPayment)
+        verify_payment_for(billet_discount, BilletDiscountPayment)
 
-        verify_payment_with(total_gift, GiftPayment)
+        verify_payment_for(total_gift, GiftPayment)
 
-        verify_payment_with(total_coupon, CouponPayment)
+        verify_payment_for(total_coupon, CouponPayment)
 
-        verify_payment_with(total_promotion, PromotionPayment)
+        verify_payment_for(total_promotion, PromotionPayment)
 
 
         if total_credits > 0
