@@ -13,7 +13,7 @@
 
   <div class="collections_filters">
     <div class="filters">
-       <h1><b>Você está em <%= print_section_name %> <span>//</span></b></h1>
+       <h1><b>Você está em <%= @collection_theme.name %> <span>//</span></b></h1>
        <div id="tags">
           <ul>
              <li class="btn-clean"><button type="button" class="cleanFilter">( limpar filtros )</button></li>
@@ -28,7 +28,7 @@
   </div>
 
   <div class="collections_products">
-    <ul id="products"> 
+    <ul id="products">
        <% @catalog_products.each do |cp| %>
          <%= render "shared/moment_product_item", :product => cp.product %>
        <% end %>
