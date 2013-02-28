@@ -3,8 +3,8 @@ require "spec_helper"
 describe PaymentBuilder do
 
   let(:user) { FactoryGirl.create(:user) }
-  let(:order) { FactoryGirl.create(:order, :user => user) }
-  let(:credit_card) { FactoryGirl.create(:credit_card, :order => order) }
+  let(:order) { FactoryGirl.create(:order, gross_amount: BigDecimal("100.00"), user: user) }
+  let(:credit_card) { FactoryGirl.create(:credit_card, :order => order, user: user) }
   let(:credit_card_with_response) { FactoryGirl.create(:credit_card_with_response) }
   let(:billet) { FactoryGirl.create(:billet, :order => order) }
   let(:debit) { FactoryGirl.create(:debit, :order => order) }
@@ -175,20 +175,59 @@ describe PaymentBuilder do
 
   describe "#verify_payment_for" do
     context "when should create payment" do
-      it "receives create_payment_method" do
-        subject.should_receive(:should_create_payment_for?).and_return(true)
-        subject.should_receive(:create_payment)
-        subject.verify_payment_for(10.0, OlookletPayment)
+
+      context "when payment isn't a credit" do
+
+        it "receives create_payment method" do
+          subject.should_receive(:should_create_payment_for?).and_return(true)
+          subject.should_receive(:create_payment)
+          subject.should_not_receive(:create_credit_payment)
+          subject.verify_payment_for(10.0, OlookletPayment)
+        end
+
       end
+
+      context "when payment is a credit" do
+
+        it "receives create_credit_payment method" do
+          subject.should_receive(:should_create_payment_for?).and_return(true)
+          subject.should_receive(:create_credit_payment)
+          subject.should_not_receive(:create_payment)
+          subject.verify_payment_for(10.0, CreditPayment, :loyalty_program)
+        end
+
+      end
+
     end
 
     context "when shouldn't create payment" do
+
       it "doesn't receive create_payment_method" do
-        subject.should_receive(:should_create_payment_for?).and_return(false)
         subject.should_not_receive(:create_payment)
+        subject.should_not_receive(:create_credit_payment)
         subject.verify_payment_for(0, OlookletPayment)
       end
+
     end
+
+  end
+
+  describe "#create_payment" do
+
+    it "creates a payment" do
+      subject.create_payment(BigDecimal("10.0"), OlookletPayment)
+      OlookletPayment.first.order.should eq(order)
+    end
+
+  end
+
+  describe "#create_credit_payment" do
+  let!(:credit_type) { FactoryGirl.create(:credit_type) }
+    it "creates a credit payment" do
+      subject.create_credit_payment(BigDecimal("10.0"), CreditPayment, :loyalty_program)
+      CreditPayment.first.credit_type.should eq(credit_type)
+    end
+
   end
 
  end
