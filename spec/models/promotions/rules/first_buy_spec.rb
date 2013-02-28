@@ -9,42 +9,38 @@ describe FirstBuy do
 
     it { should respond_to(:matches?).with(1).argument }
 
-    context "should match" do
-
-      it "user discount isn't expired" do
-        subject.matches?(cart).should be_true
-      end
-
-      it "user has no orders" do
-        subject.matches?(cart).should be_true
-      end
-
-      it "user wasn't informed" do
-        cart.should_receive(:user).and_return(nil)
+    context "when user has no authorized orders" do
+      it "matches" do
         subject.matches?(cart).should be_true
       end
     end
 
-    context "should not match" do
-      let(:order) {FactoryGirl.create(:clean_order)}
+    context "when user's discount isn't expired" do
+      it "matches" do
+        subject.matches?(cart).should be_true
+      end
+    end
 
-      it "user's dicount is expired" do
+    context "when user is nil" do
+      it "matches" do
+        subject.matches?(cart).should be_true
+      end
+    end
+
+    context "when user's discount is expired" do
+      it "doesn't match" do
         user.created_at = user.created_at - 10.days
         subject.matches?(cart).should be_false
       end
-
-      it "user has an order" do
-        user.orders << order
-        subject.matches?(cart).should be_false
-      end
-
-      it "user has more than one order" do
-        user.orders << FactoryGirl.create(:clean_order)
-        user.orders << FactoryGirl.create(:clean_order)
-
-        subject.matches?(cart).should be_false
-      end
     end
+
+    context "when user has authorized orders" do
+
+      it "doesn't match" do
+        user.should_receive(:has_purchased_orders?).and_return(true)
+        subject.matches?(cart).should be_false
+      end
+    end   
 
   end
 end

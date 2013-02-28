@@ -55,6 +55,9 @@ Setting.defaults[:default_item_quantity] = 10
 Setting.defaults[:home_top5] = "5044,5017,10022,4350,9406"
 Setting.defaults[:home_selection] = "5044,5017,10022,4350,9406"
 
+#Showroom Settings
+Setting.defaults[:showroom_active_fb_like_buttons] = false
+
 # Featured products
 Setting.defaults[:featured_shoe_label] = "Sapatos mais vendidos"
 Setting.defaults[:featured_shoe_ids] = "12963,12981,12194,12203,8554,8572"

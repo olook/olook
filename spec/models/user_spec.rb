@@ -443,11 +443,11 @@ describe User do
   describe "showroom methods" do
     let(:last_collection) { FactoryGirl.create(:collection, :start_date => 1.month.ago, :end_date => Date.today, :is_active => false) }
     let(:collection) { FactoryGirl.create(:collection) }
-    let!(:product_a) { FactoryGirl.create(:basic_shoe, :name => 'A', :collection => collection, :profiles => [casual_profile]) }
-    let!(:product_b) { FactoryGirl.create(:basic_shoe, :name => 'B', :collection => collection, :profiles => [casual_profile]) }
-    let!(:product_c) { FactoryGirl.create(:basic_shoe, :name => 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
-    let!(:product_d) { FactoryGirl.create(:basic_shoe, :name => 'A', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
-    let!(:invisible_product) { FactoryGirl.create(:basic_shoe, :is_visible => false, :collection => collection, :profiles => [sporty_profile]) }
+    let!(:product_a) { FactoryGirl.create(:shoe, :casual, :name => 'A', :collection => collection) }
+    let!(:product_b) { FactoryGirl.create(:shoe, :casual, :name => 'B', :collection => collection) }
+    let!(:product_c) { FactoryGirl.create(:shoe, :casual, :name => 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
+    let!(:product_d) { FactoryGirl.create(:shoe, :casual, :name => 'A', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
+    let!(:invisible_product) { FactoryGirl.create(:shoe, :casual, :is_visible => false, :collection => collection, :profiles => [sporty_profile]) }
     let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 10) }
     let!(:sporty_points) { FactoryGirl.create(:point, user: subject, profile: sporty_profile, value: 40) }
 
@@ -456,8 +456,8 @@ describe User do
     end
 
     describe "all_profiles_showroom" do
-      it "should return the products ordered by profiles without duplicate names" do
-        subject.all_profiles_showroom.should == [product_c, product_d, product_b]
+      it "returns the products ordered by profiles without duplicate names" do
+        subject.all_profiles_showroom.should == [product_c, product_d]
       end
 
       it 'should return only products of the specified category' do
@@ -492,6 +492,7 @@ describe User do
       end
 
       it "should return only the products for the last collection" do
+        pending("where's this actually used?")
         product_a.update_attributes(:collection => last_collection)
         product_b.update_attributes(:collection => last_collection)
         subject.profile_showroom(casual_profile, nil, last_collection).should == [product_a, product_b]
@@ -500,7 +501,7 @@ describe User do
 
     describe "main_profile_showroom" do
       it "should return the products ordered by profiles without duplicate names" do
-        subject.main_profile_showroom.should == [product_d, product_b, product_c]
+        subject.main_profile_showroom.should == [product_d, product_c]
       end
 
       it 'should return only the products of a given category' do
@@ -680,7 +681,7 @@ describe User do
     end
 
     context "when user has orders" do
-      let(:order) { FactoryGirl.create(:order_with_waiting_payment, :user => subject) }
+      let(:order) { FactoryGirl.create(:order, :user => subject) }
 
       context "when user has 1 authorized order" do
         it "returns true" do
@@ -701,7 +702,7 @@ describe User do
     end
 
     context "when user has orders" do
-      let(:order) { FactoryGirl.create(:order_with_waiting_payment, :user => subject) }
+      let(:order) { FactoryGirl.create(:authorized_order, :user => subject) }
 
       context "when user has one order in the cart" do
         it "returns false" do
@@ -748,7 +749,7 @@ describe User do
       end
 
       context "when user has two orders authorized" do
-        let(:second_order) { FactoryGirl.create(:order_with_waiting_payment, :user => subject) }
+        let(:second_order) { FactoryGirl.create(:authorized_order, :user => subject) }
 
         it "returns false" do
           order.authorized

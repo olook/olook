@@ -111,6 +111,7 @@ describe Invite do
 
   describe "invitation e-mails  " do
     it "should enqueue the invite to be sent when it's created" do
+      Resque.should_receive(:enqueue).with(SignupNotificationWorker, anything)
       Resque.should_receive(:enqueue).with(MailInviteWorker, 8765)
       FactoryGirl.create(:invite, id: 8765)
     end

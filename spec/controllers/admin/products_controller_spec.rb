@@ -9,7 +9,7 @@ describe Admin::ProductsController do
     Collection.destroy_all
   end
 
-  let!(:product) { FactoryGirl.create(:basic_shoe) }
+  let!(:product) { FactoryGirl.create(:shoe, :casual) }
   let(:valid_attributes) do
     product.attributes.clone.tap do |attributes|
       attributes[:model_number] = Random.rand(1000).to_s
