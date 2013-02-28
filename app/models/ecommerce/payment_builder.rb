@@ -9,12 +9,33 @@ class PaymentBuilder
     @tracking_params = opts[:tracking_params]
   end
 
-  def verify_payment_with(total_paid, payment_class)
-    create_payment(total_paid, payment_class, payment) if should_create_payment_with?(total_paid)
+  def verify_payment_for(total_paid, payment_class, credit=nil)
+    if should_create_payment_for?(total_paid)
+      credit ? create_credit_payment(total_paid, payment_class, credit) : create_payment(total_paid, payment_class)
+    end
   end
 
-  def should_create_payment_with?(value)
+  def should_create_payment_for?(value)
     value > 0
+  end
+
+  def create_payment(total_paid, payment_class)
+    current_payment = payment_class.create!(
+      total_paid: total_paid,
+      order: payment.order,
+      user_id: payment.user_id,
+      cart_id: @cart_service.cart.id)
+      change_state_of(current_payment)
+  end
+
+  def create_credit_payment(total_credit, payment_class, credit)
+    credit_payment = payment_class.create!(
+      :credit_type_id => CreditType.find_by_code!(credit).id,
+      :total_paid => total_credit,
+      :order => payment.order,
+      :user_id => payment.user_id,
+      :cart_id => @cart_service.cart.id)
+      change_state_of(credit_payment)
   end
 
   def process!
@@ -50,52 +71,22 @@ class PaymentBuilder
           variant.decrement!(:inventory, item.quantity)
         end
 
-        verify_payment_with(total_liquidation, OlookletPayment)
+        verify_payment_for(total_liquidation, OlookletPayment)
 
-        verify_payment_with(billet_discount, BilletDiscountPayment)
+        verify_payment_for(billet_discount, BilletDiscountPayment)
 
-        verify_payment_with(total_gift, GiftPayment)
+        verify_payment_for(total_gift, GiftPayment)
 
-        verify_payment_with(total_coupon, CouponPayment)
+        verify_payment_for(total_coupon, CouponPayment)
 
-        verify_payment_with(total_promotion, PromotionPayment)
+        verify_payment_for(total_promotion, PromotionPayment)
 
+        verify_payment_for(total_credits, CreditPayment, :loyalty_program )
 
-        if total_credits > 0
-          credit_payment = CreditPayment.create!(
-            :credit_type_id => CreditType.find_by_code!(:loyalty_program).id,
-            :total_paid => total_credits,
-            :order => order,
-            :user_id => payment.user_id,
-            :cart_id => @cart_service.cart.id)
-          credit_payment.calculate_percentage!
-          credit_payment.deliver!
-          credit_payment.authorize!
-        end
+        verify_payment_for(total_credits, CreditPayment, :invite )
 
-        if total_credits_invite > 0
-          credit_payment_invite = CreditPayment.create!(
-            :credit_type_id => CreditType.find_by_code!(:invite).id,
-            :total_paid => total_credits_invite,
-            :order => order,
-            :user_id => payment.user_id,
-            :cart_id => @cart_service.cart.id)
-          credit_payment_invite.calculate_percentage!
-          credit_payment_invite.deliver!
-          credit_payment_invite.authorize!
-        end
+        verify_payment_for(total_credits, CreditPayment, :redeem )
 
-        if total_credits_redeem > 0
-          credit_payment_redeem = CreditPayment.create!(
-            :credit_type_id => CreditType.find_by_code!(:redeem).id,
-            :total_paid => total_credits_redeem,
-            :order => order,
-            :user_id => payment.user_id,
-            :cart_id => @cart_service.cart.id)
-          credit_payment_redeem.calculate_percentage!
-          credit_payment_redeem.deliver!
-          credit_payment_redeem.authorize!
-        end
         respond_with_success
       else
         respond_with_failure
@@ -109,15 +100,10 @@ class PaymentBuilder
 
   private
 
-  def create_payment(payment_class, total_paid)
-    current_payment = payment_class.create!(
-      total_paid: total_paid,
-      order: payment.order,
-      user_id: payment.user_id,
-      cart_id: @cart_service.cart.id)
-      current_payment.calculate_percentage!
-      current_payment.deliver!
-      current_payment.authorize!
+  def change_state_of(current_payment)
+    current_payment.calculate_percentage!
+    current_payment.deliver!
+    current_payment.authorize!
   end
 
   def respond_with_failure
