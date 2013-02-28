@@ -9,7 +9,7 @@ class PaymentBuilder
     @tracking_params = opts[:tracking_params]
   end
 
-  def verify_payment_for(total_paid, payment_class, credit=nil)
+  def create_payment_for(total_paid, payment_class, credit=nil)
     if should_create_payment_for?(total_paid)
       credit ? create_credit_payment(total_paid, payment_class, credit) : create_payment(total_paid, payment_class)
     end
@@ -49,6 +49,7 @@ class PaymentBuilder
       total_liquidation = cart_service.cart.total_liquidation_discount
       total_promotion = cart_service.cart.total_promotion_discount
       billet_discount = cart_service.total_discount_by_type(:billet_discount, payment)
+      facebook_discount = cart_service.total_discount_by_type(:facebook_discount, payment)
       total_gift = cart_service.total_discount_by_type(:gift)
       total_coupon = cart_service.total_discount_by_type(:coupon)
       total_credits = cart_service.total_discount_by_type(:credits_by_loyalty_program)
@@ -71,21 +72,15 @@ class PaymentBuilder
           variant.decrement!(:inventory, item.quantity)
         end
 
-        verify_payment_for(total_liquidation, OlookletPayment)
-
-        verify_payment_for(billet_discount, BilletDiscountPayment)
-
-        verify_payment_for(total_gift, GiftPayment)
-
-        verify_payment_for(total_coupon, CouponPayment)
-
-        verify_payment_for(total_promotion, PromotionPayment)
-
-        verify_payment_for(total_credits, CreditPayment, :loyalty_program )
-
-        verify_payment_for(total_credits, CreditPayment, :invite )
-
-        verify_payment_for(total_credits, CreditPayment, :redeem )
+        create_payment_for(facebook_discount, FacebookShareDiscountPayment)
+        create_payment_for(total_liquidation, OlookletPayment)
+        create_payment_for(billet_discount, BilletDiscountPayment)
+        create_payment_for(total_gift, GiftPayment)
+        create_payment_for(total_coupon, CouponPayment)
+        create_payment_for(total_promotion, PromotionPayment)
+        create_payment_for(total_credits, CreditPayment, :loyalty_program )
+        create_payment_for(total_credits, CreditPayment, :invite )
+        create_payment_for(total_credits, CreditPayment, :redeem )
 
         respond_with_success
       else
