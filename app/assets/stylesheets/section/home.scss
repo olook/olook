@@ -407,3 +407,10 @@ section#home {
     }
   }
 }
+
+/****** IE8 HACK *******/
+html.ie8{
+   section#home{
+      li.iehack{margin:0 !important;}
+   }
+}
