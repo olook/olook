@@ -1314,6 +1314,8 @@ section#payment {
 					@include sprite_checkout(-379px, 3px);
 					height:27px;
 					padding-left:20px;
+					width:350px;
+					margin:0 auto;
 				}
 				&.error{background:#FDADB6 !important;border:solid 1px #F37C8F !important;width:490px !important;
 					p{@include sprite_checkout(-379px, -117px);}
@@ -1586,6 +1588,7 @@ section.checkout{
 			}
 			.box-cartao{float:left;display:none;
 				.cards{overflow:hidden;
+				   &.input_error{border:solid 1px #EA1E40 !important;border-left:solid 5px #EA1E40 !important;padding-top:3px;}
 					li{position:relative;width:47px;height:37px;
 						input,label{opacity:0;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";position:relative;z-index:1}
 						label{font-size:12px;float:left;}
