@@ -1,4 +1,6 @@
 	@import "partials/mixins";
+@import "partials/product";
+	/********* HOME ********/
 	.content{
 		position: relative;
 	}
@@ -125,41 +127,92 @@
 		}
 	}
 
-/******** INTERNAS *****/
+/*******  MENU ******/
+#collections_menu{
+  dl{font-family:$avenir;color:#000;}
+  dt{float:left;font-size:15px;text-transform:uppercase;border-bottom:dotted 1px #000;margin-bottom:10px;}
+  dd{font-family:13px;clear:both;margin-bottom:10px;
+    &.last{margin-bottom:25px;}
+    a{text-decoration:none;color:#000;
+      &:hover{color:#EF3742;}
+    }
+    
+  }
+}
+
+/******** INTERNAS *******/
 section{margin-top:35px;
   &#collections_menu{float:left;width:170px;}
   &#collections_content{float:left;width:800px;
-    .collections_header{position:relative;
-      a{position:absolute;top:250px;font-size:12px;text-transform:uppercase;color:#000;text-decoration:none;background: image-url('collections/sprite.png') right -38px;
+    .collections_header{position:relative;margin-bottom:35px;
+      a{position:absolute;top:250px;font-size:12px;text-transform:uppercase;color:#000;text-decoration:none;background: image-url('collections/sprite.png') right -35px;padding-right:15px;
         &:hover{text-decoration:underline;}
         &.editorial{left:55px;}
         &.video{left:210px}  
       }
     }
-  
-  }
-
-}
-
-ul#products{clear:both;width:763px;margin:0 auto;
-  li.product{width: 235px;height:293px;margin: 0 8px 35px;padding:0;
-    a.product_link {display:block;text-decoration:none;color:#000;font-size:13px;margin:0;
-      img{border-bottom:solid 1px #B9BABD;margin: 0;width: 235px;height: 235px;}
-      p{line-height:18px;
-        &.brand{text-transform:uppercase;font-weight:bold;}
-        .old{text-decoration:line-through;}
-        .txt-pink{color:#E05A8C;}
-        /**** OVERRIDE LABEL PRODUCTS ****/
-        &.warn{left:0;top:60px;}
-        &.warn.sold_out{background: image-url('moments/sprite.png') no-repeat 0 -76px;line-height: 25px;padding-left: 13px;text-align: left;width: 92px;color:#000;}
-        &.warn.quantity{background:none #FFF !important;border: 1px solid #000;color: #000;font-family: 'avenir_medium';font-weight: 600;height: 20px;width: 74px;line-height: 20px !important;text-align: center;word-spacing: -1px;}
-        &.warn.shoe_size{background: none #000;height: 20px;left: 25px !important;line-height: 20px !important;top: 81px !important;width: 55px;word-spacing: -1px;}
-        &.warn.percentage{background: image-url('moments/sprite.png') no-repeat 0 -109px;width:60px;height:60px;font-size:14px;font-family:$avenir;text-align:center;
-          span{font-size:14px;font-weight:normal}
+    .collections_filters{
+      .filters{float:left;margin:10px 0 30px;color:#000;border:solid 1px #A7A9AC;padding:10px 10px;width:779px;line-height:20px;
+        h1 {font-family: $avenir;font-size: 12px;font-weight: lighter;text-transform: uppercase;float:left;margin-right:15px;
+          b{font-weight:bold;
+            span{margin-left:10px;}
+          }
         }
-      /****** END *****/    
-      } 
+      }
+      div.exhibition-mode{clear:both;padding:5px 15px 0;border-bottom:solid 1px #CBCBCB;color:#000;height:25px;margin-bottom:35px;
+        p{text-transform:uppercase;font-size:11px;float:left;
+          span{margin:0 5px;
+            &.selected{font-weight:bold;}
+            &:hover{cursor:pointer;}
+          }
+        }
+        #order_filter{float:left !important;width:225px !important;height:30px;margin-left:55px;
+          label{text-transform:uppercase;font-weight:normal;font-size:11px;margin-right:5px;line-height:22px;}
+          li.select{
+            span.select{background:image-url('moments/sprite.png') right 4px no-repeat !important;font-size:11px;text-transform:uppercase;line-height:18px;width:105px;text-indent:6px;}
+          }
+        }
+      }
+    }
+    .collections_products{
+       ul#products{clear:both;width:763px;margin:0 auto;
+         li.product{width: 235px;height:293px;margin: 0 8px 35px;padding:0;float:left;
+           a.product_link {display:block;text-decoration:none;color:#000;font-size:13px;margin:0;
+             img{border-bottom:solid 1px #B9BABD;margin: 0;width: 235px;height: 235px;}
+             p{line-height:18px;
+               &.brand{text-transform:uppercase;font-weight:bold;}
+               .old{text-decoration:line-through;}
+               .txt-pink{color:#E05A8C;}
+               /**** OVERRIDE LABEL PRODUCTS ****/
+               &.warn{left:0;top:60px;}
+               &.warn.sold_out{background: image-url('moments/sprite.png') no-repeat 0 -76px;line-height: 25px;padding-left: 4px;text-align: left;width: 100px;color:#000;}
+               &.warn.quantity{background:none #FFF !important;border: 1px solid #000;color: #000;font-family: 'avenir_medium';font-weight: 600;height: 20px;width: 74px;line-height: 20px !important;text-align: center;word-spacing: -1px;}
+               &.warn.shoe_size{background: none #000;height: 20px;left: 25px !important;line-height: 20px !important;top: 81px !important;width: 55px;word-spacing: -1px;}
+               &.warn.percentage{background: image-url('moments/sprite.png') no-repeat 0 -109px;width:60px;height:60px;font-size:14px;font-family:$avenir;text-align:center;
+                 span{font-size:14px;font-weight:normal}
+               }
+             /****** END *****/    
+             } 
+           }
+           /***** OVERRIDE HOVER_SUGGESTIVE ****/
+             &:hover{border:0;padding:0}
+             div.hover_suggestive{
+               top:280px;left:0;
+               ul{float:none;
+                 li.spy{margin:0;
+                   a{width:100%;height:54px;position:absolute;left:0;bottom:44px !important;font-size:16px;font-style:italic;line-height:54px;
+                     span{background: image-url('moments/sprite.png') no-repeat right -178px !important;padding:5px 26px 9px 0;}
+                     &:hover{span{color:#000;}}  
+                   }
+                 }
+               }
+             }
+           /***** END ******/
+         }
+       }
     }
   }
 }
+
+
 
