@@ -211,8 +211,11 @@ module Abacos
         end
 
         descritor_simples.each do |descritor|
-          index = descritor[:numero].to_i - 1
-          result[PRODUCT_COLOR_FIELDS[index]] = descritor[:descricao]
+          puts " numero " + descritor[:numero]
+          puts " numero class " + descritor[:numero].class
+          puts " descricao " + descritor[:descricao]
+          #index = descritor[:numero].to_i - 1
+          #result[PRODUCT_COLOR_FIELDS[index]] = descritor[:descricao]
         end
       end
     end
@@ -273,6 +276,6 @@ module Abacos
           params
       end
     end
-    
+
   end
 end
