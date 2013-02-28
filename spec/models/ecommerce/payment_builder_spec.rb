@@ -215,19 +215,21 @@ describe PaymentBuilder do
   describe "#create_payment" do
 
     it "creates a payment" do
+      OlookletPayment.should_receive(:create!)
+      subject.should_receive(:change_state_of)
       subject.create_payment(BigDecimal("10.0"), OlookletPayment)
-      OlookletPayment.first.order.should eq(order)
     end
 
   end
 
   describe "#create_credit_payment" do
-  let!(:credit_type) { FactoryGirl.create(:credit_type) }
+    let!(:credit_type) { FactoryGirl.build(:credit_type) }
     it "creates a credit payment" do
+      CreditPayment.should_receive(:create!)
+      CreditType.should_receive(:find_by_code!).and_return(credit_type)
+      subject.should_receive(:change_state_of)
       subject.create_credit_payment(BigDecimal("10.0"), CreditPayment, :loyalty_program)
-      CreditPayment.first.credit_type.should eq(credit_type)
     end
-
   end
 
  end

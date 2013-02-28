@@ -25,9 +25,7 @@ class PaymentBuilder
       order: payment.order,
       user_id: payment.user_id,
       cart_id: @cart_service.cart.id)
-      current_payment.calculate_percentage!
-      current_payment.deliver!
-      current_payment.authorize!
+      change_state_of(current_payment)
   end
 
   def create_credit_payment(total_credit, payment_class, credit)
@@ -37,9 +35,13 @@ class PaymentBuilder
       :order => payment.order,
       :user_id => payment.user_id,
       :cart_id => @cart_service.cart.id)
-      credit_payment.calculate_percentage!
-      credit_payment.deliver!
-      credit_payment.authorize!
+      change_state_of(credit_payment)
+  end
+
+  def change_state_of(current_payment)
+    current_payment.calculate_percentage!
+    current_payment.deliver!
+    current_payment.authorize!
   end
 
   def process!
