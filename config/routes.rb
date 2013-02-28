@@ -38,6 +38,7 @@ Olook::Application.routes.draw do
   match "/tendencias/:name", :to => "lookbooks#show", :as => "lookbook"
   match "/tendencias", :to => "lookbooks#index", :as => "lookbooks"
 
+
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
