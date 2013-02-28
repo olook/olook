@@ -47,7 +47,7 @@ describe ProductFinderService do
   describe "#products_from_all_profiles" do
     it "should return the products ordered by profiles without duplicate names" do
       # TODO: Manually fixed.
-      subject.products_from_all_profiles.should == [product_f, product_d, product_e, product_c, product_g, product_a, product_b]
+      subject.products_from_all_profiles.should == [product_f, product_e, product_d, product_c, product_g, product_a, product_b]
     end
 
     it "should return the products ordered by profiles without duplicate names" do
@@ -65,8 +65,7 @@ describe ProductFinderService do
 
   describe "#profile_products" do
     it "should return only the products for the given profile" do
-      # TODO: Manually fixed.
-      subject.profile_products(:profile => sporty_profile).should == [product_f, product_d, product_e,product_c, product_g]
+      subject.profile_products(:profile => sporty_profile).should == [product_f, product_c, product_d, product_e, product_g]
     end
 
     it "should return only the products for the given profile" do
@@ -112,8 +111,11 @@ describe ProductFinderService do
     let(:shoe_b_green)  { double :shoe, :name => 'Shoe B', :'sold_out?' => false }
     let(:products)      { [shoe_a_black, shoe_b_green, shoe_a_red] }
 
+
     context 'when no product is sold out' do
       it 'should return only one color for products with the same name' do
+        shoe_a_black.should_receive(:inventory)
+        shoe_b_green.should_receive(:inventory)
         subject.remove_color_variations(products).should == [shoe_a_black, shoe_b_green]
       end
     end
@@ -121,6 +123,8 @@ describe ProductFinderService do
     context 'when the first product in a color set is sold out' do
       before :each do
         shoe_a_black.stub(:'sold_out?').and_return(true)
+        shoe_a_red.should_receive(:inventory)
+        shoe_b_green.should_receive(:inventory)
       end
       it 'should return the second color in the place of the sold out one' do
         subject.remove_color_variations(products).should == [shoe_a_red, shoe_b_green]
@@ -132,6 +136,8 @@ describe ProductFinderService do
         shoe_a_red.stub(:'sold_out?').and_return(true)
       end
       it 'should return the first color and hide the one sold out' do
+        shoe_a_black.should_receive(:inventory)
+        shoe_b_green.should_receive(:inventory)
         subject.remove_color_variations(products).should == [shoe_a_black, shoe_b_green]
       end
     end

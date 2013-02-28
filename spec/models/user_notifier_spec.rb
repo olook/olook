@@ -18,7 +18,7 @@ describe UserNotifier do
 
   describe ".send_in_cart" do
     let(:user) { FactoryGirl.create :user }
-    let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
+    let(:basic_shoe) { FactoryGirl.create(:shoe, :casual) }
     let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
     subject { FactoryGirl.create(:clean_cart, :user => user)}
     let(:mailer) { double(:mailer)}
