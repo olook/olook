@@ -6,11 +6,18 @@ describe Debit do
   let(:order) { FactoryGirl.create(:order) }
   subject { FactoryGirl.create(:debit, :order => order) }
 
+  context "after creation" do
+    #TODO: this is passing even when the scheduling callback isn't there yet :P
+    it "schedules cancellation in 1 business hour from creation" do
+      Resque.should_receive(:enqueue_in).at_least(1).times.with(1.business_hour.from_now, Abacos::CancelOrder, order.number)
+      subject
+    end
+  end
+
   context "expiration date" do
     it "should set payment expiration date after create" do
       Debit.any_instance.stub(:build_payment_expiration_date).and_return(expiration_date = Debit::EXPIRATION_IN_MINUTES.days.from_now)
-      debit = FactoryGirl.create(:debit)
-      debit.payment_expiration_date.should == expiration_date
+      subject.payment_expiration_date.should == expiration_date
     end
   end
 

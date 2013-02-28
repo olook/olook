@@ -7,6 +7,7 @@ describe Billet do
   subject { FactoryGirl.create(:billet, :order => order) }
 
   context "after creation" do
+    #TODO: this test really isn't working...
     it "schedules cancellation in 4 business days from creation" do
       Resque.should_receive(:enqueue_in).at_least(1).times.with(4.business_days.from_now, Abacos::CancelOrder, order.number)
       subject
