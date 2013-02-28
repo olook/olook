@@ -6,11 +6,6 @@ describe Debit do
   let(:order) { FactoryGirl.create(:order) }
   subject { FactoryGirl.create(:debit, :order => order) }
 
-  before :each do
-    Resque.stub(:enqueue)
-    Resque.stub(:enqueue_in)
-  end
-
   context "expiration date" do
     it "should set payment expiration date after create" do
       Debit.any_instance.stub(:build_payment_expiration_date).and_return(expiration_date = Debit::EXPIRATION_IN_MINUTES.days.from_now)

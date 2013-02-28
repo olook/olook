@@ -4,7 +4,7 @@ describe Catalog::Product do
 
   let(:product) do
     collection_theme  = FactoryGirl.create :collection_theme
-    product = FactoryGirl.create :basic_shoe
+    product = FactoryGirl.create(:shoe, :casual)
     Catalog::Product.create :catalog => collection_theme.catalog, :product => product
   end
 
