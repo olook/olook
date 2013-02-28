@@ -35,14 +35,15 @@ _gaq.push(['_addTrans',
   <% end %>
 
   <h1>Minha sacola</h1>
-
-  <% if free_item_promotion_is_active? %>
     <div class="promo-leve3">
-      <p>Promo leve 3, pague 2<br />
-        <span>Na compra de 2 itens, o 3° item de menor valor é grátis</span>
+      <p>Curta no facebook<br />
+        <%= form_for(@cart, :remote => true, html: { :id => "facebook_share" }) do |f| %> 
+          <%= f.hidden_field :facebook_share_discount, value: true %>
+          <%= f.submit "Compartilhar" %>
+        <% end %>
+        <span></span>
       </p>
     </div>
-  <%end%>
 
   <%  if @cart.items.count > 0 %>
     <% if current_user %>
@@ -109,11 +110,17 @@ _gaq.push(['_addTrans',
     </table>
     <% end %>
 
+    <section id="facebook_share_discount">
+      <% if @cart_service.cart.facebook_share_discount? %>
+        <%= render 'facebook_share_discount' %>
+      <% end %>
+    </section>
+
     <table cellpadding="0" cellspacing="0" class="check gift">
       <tbody>
         <tr>
           <td class="check_column">
-            <%= form_for(@cart, :remote => true, html: { :id => "gift_wrap" }) do |f| %>
+            <%= form_for(@cart, :remote => true, :method => :put, html: { :id => "gift_wrap" }) do |f| %>
               <%= f.check_box('gift_wrap', :checked => @cart.gift_wrap) %>
               <h1>Embrulhar pedido para presente. <a href="#" target="_blank" class="txt-conheca">Conheça nossa embalagem de presente</a></h1>
             <% end %>
