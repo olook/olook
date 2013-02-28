@@ -6,9 +6,14 @@ describe Billet do
   let(:order) { FactoryGirl.create(:order) }
   subject { FactoryGirl.create(:billet, :order => order) }
 
-  context "expiration date" do
-    subject { FactoryGirl.create(:billet) }
+  context "after creation" do
+    it "schedules cancellation in 4 business days from creation" do
+      Resque.should_receive(:enqueue_in).at_least(1).times.with(4.business_days.from_now, Abacos::CancelOrder, order.number)
+      subject
+    end
+  end
 
+  context "expiration date" do
     context "expired" do
       before :each do
         subject.stub(:payment_expiration_date).and_return(Date.civil(2012, 2, 6))
@@ -67,8 +72,7 @@ describe Billet do
   context "payment expiration date" do
     it "should set payment expiration date after create" do
       BilletExpirationDate.stub(:expiration_for_two_business_day).and_return(current_date = Date.current)
-      billet = FactoryGirl.create(:billet)
-      billet.payment_expiration_date.to_date.should == BilletExpirationDate.expiration_for_two_business_day
+      subject.payment_expiration_date.to_date.should == BilletExpirationDate.expiration_for_two_business_day
     end
   end
 
