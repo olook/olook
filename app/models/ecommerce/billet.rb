@@ -3,7 +3,7 @@ class Billet < Payment
 
   EXPIRATION_IN_DAYS = 3
   validates :receipt, :presence => true, :on => :create
-  after_create :set_payment_expiration_date
+  after_create :set_payment_expiration_date, :schedule_cancellation
 
   def to_s
     "BoletoBancario"
@@ -22,7 +22,13 @@ class Billet < Payment
   end
 
   private
-  def build_payment_expiration_date
-    BilletExpirationDate.expiration_for_two_business_day
-  end
+
+    def build_payment_expiration_date
+      BilletExpirationDate.expiration_for_two_business_day
+    end
+
+    def schedule_cancellation
+      #TODO: double check whether to plug the 4 biz days rule into BilletExpirationDate
+      Resque.enqueue_in(4.business_days.from_now, Abacos::CancelOrder, self.order.number)
+    end
 end
