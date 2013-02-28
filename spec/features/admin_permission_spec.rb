@@ -21,7 +21,7 @@ feature "Admin user with sac_operator role executing actions on the system", %q{
   scenario "As a sac_operator I want to list all collections" do
     do_admin_login!(@admin)
     visit admin_collections_path
-    page.should have_content("Listando coleções do mês")
+    page.should have_content("Listando coleções mensais")
   end
 
   scenario "As a sac_operator I want to edit a collection" do
