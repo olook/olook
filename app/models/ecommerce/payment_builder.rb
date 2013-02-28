@@ -38,12 +38,6 @@ class PaymentBuilder
       change_state_of(credit_payment)
   end
 
-  def change_state_of(current_payment)
-    current_payment.calculate_percentage!
-    current_payment.deliver!
-    current_payment.authorize!
-  end
-
   def process!
     payment.cart_id = cart_service.cart.id
     payment.total_paid = cart_service.total(payment)
@@ -105,6 +99,12 @@ class PaymentBuilder
   end
 
   private
+
+  def change_state_of(current_payment)
+    current_payment.calculate_percentage!
+    current_payment.deliver!
+    current_payment.authorize!
+  end
 
   def respond_with_failure
     OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
