@@ -9,6 +9,7 @@ module Checkout::CheckoutHelper
   end
 
   def error_class_if_needed(object, field)
+    return "" if object.nil?
     error_message = object.errors.messages[field]
     (error_message.nil? || error_message.empty?) ? "" : "input_error" if object
   end
