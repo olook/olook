@@ -1,6 +1,11 @@
-  # -*- encoding : utf-8 -*-
+    # -*- encoding : utf-8 -*-
 require 'rubygems'
 require 'spork'
+
+module Resque
+  def self.enqueue(*args); end
+  def self.enqueue_in(*args); end
+end
 
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,
@@ -68,15 +73,10 @@ Spork.prefork do
 
     config.after(:each) do
       DatabaseCleaner.clean
+    end
+
+    config.after(:each) do
       Delorean.back_to_the_present
-    end
-
-    config.before(:all) do
-      # DeferredGarbageCollection.start
-    end
-
-    config.after(:all) do
-      # DeferredGarbageCollection.reconsider
     end
 
     config.mock_with :rspec

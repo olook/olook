@@ -10,7 +10,7 @@ feature "Buying products", %q{
 
   let(:user) { FactoryGirl.create(:user) }
   let!(:user_info) { FactoryGirl.create(:user_info, user: user, shoes_size: nil) }
-  let(:product) { FactoryGirl.create :basic_shoe }
+  let(:product) { FactoryGirl.create(:shoe, :casual) }
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
   let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
@@ -38,7 +38,7 @@ feature "Buying products", %q{
 
     context "with the shopping cart" do
       context "and the product is a shoe" do
-        let(:shoe) { FactoryGirl.create :basic_shoe }
+        let(:shoe) { FactoryGirl.create(:shoe, :casual) }
         let!(:shoe_a) { FactoryGirl.create(:basic_shoe_size_35, :product => shoe) }
         let!(:shoe_b) { FactoryGirl.create(:basic_shoe_size_40, :product => shoe) }
 

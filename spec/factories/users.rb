@@ -1,18 +1,5 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
-  
-  factory :db_user do
-    uid "abc"
-    password "123456"
-    password_confirmation "123456"
-    sequence :email do |n|
-      "person#{n}@example.com"
-    end
-    first_name "User First Name"
-    last_name "User Last Name"
-    half_user false
-  end
-
   factory :user do
     uid "abc"
     password "123456"
@@ -20,15 +7,14 @@ FactoryGirl.define do
     sequence :email do |n|
       "person#{n}@example.com"
     end
-    first_name "User First Name"
-    last_name "User Last Name"
+    first_name "José"
+    last_name "Ernesto"
     facebook_permissions []
     half_user false
     created_at 2.days.ago
 
-    after_build do |user|
-      Resque.stub(:enqueue)
-      Resque.stub(:enqueue_in)
+    trait :with_user_info do
+      user_info
     end
 
     factory :member do
@@ -40,16 +26,22 @@ FactoryGirl.define do
       is_invited nil
       cpf nil
 
-      after_build do |user|
-        Resque.stub(:enqueue_in)
-      end
-
-      after_create do |member|
+      after(:create) do |member|
         member.send(:write_attribute, :invite_token, 'OK'*4)
         member.save!
       end
     end
-
   end
 
+  factory :db_user do
+    uid "abc"
+    password "123456"
+    password_confirmation "123456"
+    sequence :email do |n|
+      "person#{n}@example.com"
+    end
+    first_name "User First Name"
+    last_name "User Last Name"
+    half_user false
+  end
 end

@@ -22,7 +22,7 @@ module ProductFinder
         end
       end
     end
-    result
+    result.sort! {|product, product2| product2.inventory <=> product.inventory}
   end  
 
 end
