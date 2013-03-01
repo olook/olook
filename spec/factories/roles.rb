@@ -13,7 +13,7 @@ FactoryGirl.define do
     factory :sac_operator do
       name "sac_operator"
       description "SAC operators"
-      after_create do |sac_operator|
+      after(:create) do |sac_operator|
         sac_operator.permissions = [FactoryGirl.create(:collection_index),
           FactoryGirl.create(:collection_show), FactoryGirl.create(:collection_edit)
         ]
@@ -23,7 +23,7 @@ FactoryGirl.define do
     factory :business1 do
       name "business1"
       description "Business 1 users"
-      after_create do |user|
+      after(:create) do |user|
         user.permissions = [FactoryGirl.create(:collection_index),
           FactoryGirl.create(:collection_show), FactoryGirl.create(:collection_edit),
           FactoryGirl.create(:collection_update), FactoryGirl.create(:collection_destroy)

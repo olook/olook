@@ -6,7 +6,7 @@
 
 #   let(:valid_image)   { File.join fixture_path, 'valid_image.jpg' }
 #   let(:invalid_image) { File.join fixture_path, 'invalid_image.txt' }
-#   let(:product)       { FactoryGirl.create :basic_shoe }
+#   let(:product)       { FactoryGirl.create(:shoe, :casual) }
 
 #   subject { described_class.new(product, :color_sample) }
 

@@ -33,7 +33,7 @@ describe Variant do
     it { should validate_numericality_of(:weight) }
   end
 
-  let(:product) { FactoryGirl.create(:basic_shoe) }
+  let(:product) { FactoryGirl.create(:shoe, :casual) }
   subject { FactoryGirl.create(:basic_shoe_size_35, :product => product) }
 
   describe "#update_initial_inventory_if_needed" do

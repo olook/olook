@@ -3,6 +3,8 @@ module Abacos
   class Product
     extend ::Abacos::Helpers
 
+    PRODUCT_COLOR_FIELDS = ["Cor fornecedor", "Cor produto", "Cor filtro"]
+
     attr_reader :integration_protocol,
                 :name, :description, :model_number, :category,
                 :width, :height, :length, :weight, :color_category,
@@ -141,9 +143,9 @@ module Abacos
         :weight                 => abacos_product[:peso].to_f,
         :color_name             => parse_color( abacos_product[:descritor_pre_definido] ),
         :collection_id          => parse_collection(abacos_product[:descricao_grupo]),
-        :details                => parse_details( abacos_product[:caracteristicas_complementares] ),
+        :details                => parse_details( abacos_product[:caracteristicas_complementares], abacos_product[:descritor_simples] ),
         :how_to                 => parse_how_to( abacos_product[:caracteristicas_complementares] ),
-        :moments                => parse_moments( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
+        :collection_themes      => parse_collection_themes( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
         :profiles               => parse_profiles( abacos_product[:caracteristicas_complementares] ),
         :is_kit                 => abacos_product[:produto_kit].present? ? abacos_product[:produto_kit] : false,
         :pre_defined_descriptor => abacos_product[:descritor_pre_definido],
@@ -152,15 +154,15 @@ module Abacos
     end
   private
 
-    def self.parse_moments(moments)
-      moments_array = if moments.kind_of?(Array)
-        moments.each.map { |item|
+    def self.parse_collection_themes(collection_themes)
+      collection_themes_array = if collection_themes.kind_of?(Array)
+        collection_themes.each.map { |item|
           item.fetch(:codigo_categoria)
         }
       else
-        [moments.fetch(:codigo_categoria)]
+        [collection_themes.fetch(:codigo_categoria)]
       end
-      moments_array.compact
+      collection_themes_array.compact
     end
 
     # def self.parse_color_category(categories)
@@ -195,15 +197,22 @@ module Abacos
       find_in_descritor_pre_definido(data, 'COR')
     end
 
-    def self.parse_details(data)
+    def self.parse_details(data, data_simple_descriptor)
       items_to_skip = ['Perfil', 'Como vestir', 'Descrição']
       items = parse_nested_data(data, :dados_caracteristicas_complementares)
+
+      descritor_simples = data_simple_descriptor ? data_simple_descriptor[:rows][:dados_descritor_simples] : []
 
       {}.tap do |result|
         items.each do |item|
           next if items_to_skip.include?(item[:tipo_nome].strip)
           next if item[:texto].strip.downcase == 'default'
           result[ item[:tipo_nome].strip ] = item[:texto].strip
+        end
+
+        descritor_simples.each do |descritor|
+          index = descritor[:numero].to_i - 1
+          result[PRODUCT_COLOR_FIELDS[index]] = descritor[:descricao]
         end
       end
     end

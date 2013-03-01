@@ -237,7 +237,7 @@ describe Abacos::Product do
       end
 
       it '#details' do
-        subject.details.should == {"Dica da Fernanda"=>"Sapatilha sensaciona impressionantel!", "Altura do salto"=>"n/a", "Aviamento"=>"Preto", "Categoria"=>"Sapatilha", "Material externo"=>"Forro Cacharrel Natural", "Material interno"=>"Palm sint. Ouro light", "Material sola"=>"n/a", "Tipo do salto"=>"Baixo"}
+        subject.details.should == {"Dica da Fernanda"=>"Sapatilha sensaciona impressionantel!", "Altura do salto"=>"n/a", "Aviamento"=>"Preto", "Categoria"=>"Sapatilha", "Material externo"=>"Forro Cacharrel Natural", "Material interno"=>"Palm sint. Ouro light", "Material sola"=>"n/a", "Tipo do salto"=>"Baixo", "Cor fornecedor"=>"Vermelho", "Cor produto"=>"Vermelho Sunset"}
       end
 
       it '#how_to' do
@@ -277,7 +277,7 @@ describe Abacos::Product do
 
     describe "#parse_details" do
       it "should return product details from caracteristicas_complementares" do
-        described_class.parse_details(caracteristicas_complementares).should == {"Dica da Fernanda"=>"Sapatilha sensaciona impressionantel!"}
+        described_class.parse_details(caracteristicas_complementares, nil).should == {"Dica da Fernanda"=>"Sapatilha sensaciona impressionantel!"}
       end
     end
 

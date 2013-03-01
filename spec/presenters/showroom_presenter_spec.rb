@@ -68,7 +68,7 @@ describe ShowroomPresenter do
     describe 'specific methods' do
       let(:range) { (1..10) }
       it "#display_shoes" do
-        subject.should_receive(:display_products).with(range, Category::SHOE, anything, nil)
+        subject.should_receive(:display_products).with(range, Category::SHOE, nil, nil, nil)
         subject.display_shoes(range, nil)
       end
       it "#display_bags" do
@@ -83,8 +83,8 @@ describe ShowroomPresenter do
   end
 
   describe '#change_order_using_inventory' do
-    let(:black_shoe) { FactoryGirl.create(:basic_shoe, :color_name => 'black', :color_sample => 'black_sample') }
-    let(:red_shoe) { FactoryGirl.create(:basic_shoe, :color_name => 'red', :color_sample => 'red_sample') }
+    let(:black_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'black', :color_sample => 'black_sample') }
+    let(:red_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'red', :color_sample => 'red_sample') }
     let(:black_bag) { FactoryGirl.create(:basic_bag) }
 
     it "should order products using inventory" do

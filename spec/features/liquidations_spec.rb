@@ -17,6 +17,7 @@ feature "Liquidation", %q{
 
   describe "Liquidation" do
     background do
+      Delorean.back_to_the_present
       do_login!(user)
     end
 

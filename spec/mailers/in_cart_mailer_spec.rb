@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe InCartMailer do
   let(:user) { FactoryGirl.create(:user) }
-  let(:basic_shoe) { FactoryGirl.create(:basic_shoe) }
+  let(:basic_shoe) { FactoryGirl.create(:shoe, :casual) }
   let(:basic_shoe_35) { FactoryGirl.create(:basic_shoe_size_35, :product => basic_shoe) }
   subject { FactoryGirl.create(:clean_order, :user => user)}
 

@@ -300,8 +300,8 @@
         other: Ordens
 
       collection:
-        one: Coleção do mês
-        other: Coleções do mês
+        one: Coleção mensal
+        other: Coleções mensais
 
       collection_theme:
         one: Coleção temática
@@ -412,7 +412,7 @@
       collection_theme:
         active: Ativo
         collection_theme_group: Grupo
-        header_image: Banner
+        header_image: Banner (Altura 290 x Largura 800)
         header_image_alt: "Alt/title do Banner"
         position: Posição
         video_link: "Link do Vídeo no Youtube"
