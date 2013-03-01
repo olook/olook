@@ -1,5 +1,5 @@
 <% if order.gateway == Payment::GATEWAYS[:braspag] %>
-  <img src='/assets/purchase_timeline/braspag.jpg'>
+  <%= image_tag 'purchase_timeline/braspag.jpg' %>
 <% else %>
-  <img src='/assets/purchase_timeline/moip.png' width='75px'>
+  <%= image_tag 'purchase_timeline/moip.png', width: '75px' %>
 <% end %>

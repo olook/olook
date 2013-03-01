@@ -465,10 +465,10 @@ initBase = {
        /*'margin-left' : ml,
        'margin-top'  : mt*/
     })
-   .append('<a href="#" class="close" role="button">close</a>')
+   .append('<button type="button" class="close" role="button">close</a>')
    .delay(500).fadeIn().children().fadeIn();
    
-   $("#modal a.close").click(function(){
+   $("#modal button.close").click(function(){
       $modal.fadeOut();
       $("#overlay-campaign").fadeOut();
    })
