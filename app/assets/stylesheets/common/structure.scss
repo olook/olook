@@ -850,7 +850,7 @@ body {
                 text-decoration: none;
                 &#info_user {
                   background: image-url('common/arrow-down-pink.png') center right no-repeat;
-                  color: #D95485;
+                  color: #ef3742;
                   text-align: left;
                   width: auto;
                   min-width: 88px;
@@ -947,7 +947,7 @@ body {
             p {
               text-transform: none;
               a {
-                color: #e05789;
+                color: #ef3742;
                 text-decoration: underline;
                 margin: 0;
               }
@@ -970,7 +970,7 @@ body {
             }
             &.last {
               a {
-                color: #E05789;
+                color: #ef3742;
                 margin-right: 0;
                 padding-right: 0;
               }
@@ -1122,7 +1122,7 @@ body {
           }
           &.liquidation {
             a {
-              background: #D95485;
+              background: #ef3742;
               color: #FFF;
               padding: 5px 15px;
               display: inline;
@@ -1217,7 +1217,7 @@ body {
                   padding: 0 0 10px 0;
                 }
                 p.freight {
-                  color: #df5a8b;
+                  color: #ef3742;
                   font-size: 12px;
                   line-height: 18px;
                   text-align: center;
@@ -1389,7 +1389,7 @@ div.contact_fields {
 }
 
 header a {
-  color:#e05789;
+  color:#ef3742;
   text-decoration:underline;
 }
 
@@ -1479,15 +1479,15 @@ header div.contact {
 		.img-niver{display:none;}
 		#session {
 			.login p {color:#CCC !important;
-				a{color:#D95485 !important;}
+				a{color:#ef3742 !important;}
 			}
 			ul li{color:#CCC !important;
-					#info_user{color:#D95485 !important;border:solid 2px #111 !important;
+					#info_user{color:#ef3742 !important;border:solid 2px #111 !important;
 						&:hover,&.hover{border-color:#464243 !important;}
 					}
 				a{color:#CCC !important;}
 				&.last{border-left:dotted 1px #FFF !important;
-					a{color:#E05789 !important;}
+					a{color:#ef3742 !important;}
 				}
 				&.submenu .my_account .last{border:0 !important;
 					a{color:#CCC !important;}
@@ -1520,9 +1520,9 @@ header div.contact {
 #box-ship{
 	position:fixed;bottom:-44px;width:939px;height:63px;background:#000;color:#FFF;border-radius:4px;padding:15px 14px 8px 20px;z-index:8888;font-size:13px;display:none;
 	.box-frase{
-		.title{font-family:$avenir;font-size:22px;margin-bottom:11px;color:#D95485;float:left;}
+		.title{font-family:$avenir;font-size:22px;margin-bottom:11px;color:#ef3742;float:left;}
 		.frase{font-family:$avenir;font-size:13px;color:#FFF;margin:-1px 0 0 18px;float:left;
-			span{color:#D95485;}
+			span{color:#ef3742;}
 		}
 	}
 	.consulta-cep{clear:both;
