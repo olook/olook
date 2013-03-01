@@ -6,12 +6,17 @@ describe Billet do
   let(:order) { FactoryGirl.create(:order) }
   subject { FactoryGirl.create(:billet, :order => order) }
 
-  context "after creation" do
-    #TODO: this test really isn't working...
-    it "schedules cancellation in 4 business days from creation" do
-      Resque.should_receive(:enqueue_at).at_least(1).times.with(4.business_days.from_now, Abacos::CancelOrder, order.number)
-      subject
-    end
+  it "should return to_s version" do
+    subject.to_s.should == "BoletoBancario"
+  end
+
+  it "should return human to_s human version" do
+    subject.human_to_s.should == "Boleto Bancário"
+  end
+
+  it "schedules cancellation in 4 business days from creation" do
+    Resque.should_receive(:enqueue_at).at_least(1).times.with(4.business_days.from_now, Abacos::CancelOrder, order.number)
+    subject
   end
 
   context "expiration date" do
@@ -75,14 +80,6 @@ describe Billet do
       BilletExpirationDate.stub(:expiration_for_two_business_day).and_return(current_date = Date.current)
       subject.payment_expiration_date.to_date.should == BilletExpirationDate.expiration_for_two_business_day
     end
-  end
-
-  it "should return to_s version" do
-    subject.to_s.should == "BoletoBancario"
-  end
-
-  it "should return human to_s human version" do
-    subject.human_to_s.should == "Boleto Bancário"
   end
 
   context "attributes validation" do
