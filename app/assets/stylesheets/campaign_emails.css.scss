@@ -8,7 +8,7 @@ $kepler: "Kepler Std Italic", Times, "Times New Roman", serif;
 $johnston: johnston, arial, sans-serif;
 
 
-input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-family:$avenir;text-shadow:0px 1px 2px #000;color:#FFF;background: image-url("/assets/campaign_emails/sprite.png") no-repeat;}
+input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-family:$avenir;text-shadow:0px 1px 2px #000;color:#FFF;background: image-url('campaign_emails/sprite.png') no-repeat;}
 .close{width:44px;height:44px;border:0;background:image-url("campaign_emails/sprite2.png") -311px -87px no-repeat;position:absolute;top:-10px;right:-13px;font-size:0;font-family:a;cursor:pointer;}
 .box-remember{
 	position:relative;width:500px;/*height:315px;*/border:solid 5px #000;text-align:center;padding:15px 0;margin:10px 0 0;background:#FFF;
@@ -38,12 +38,12 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 			
 		}
 
-		input[type="text"], input[type="password"]{width:282px;height:31px;line-height:31px;border:solid 1px #C1C1C1;background: image-url("/assets/campaign_emails/bg_input.png") 0 2px repeat-x;*vertical-align:middle}
+		input[type="text"], input[type="password"]{width:282px;height:31px;line-height:31px;border:solid 1px #C1C1C1;background: image-url('campaign_emails/bg_input.png') 0 2px repeat-x;*vertical-align:middle}
 	}
-	.facebook a{display:inline-block;width:261px;height:40px;background: image-url("/assets/campaign_emails/sprite.png") 0px -52px no-repeat;font-size:0;font-family:a;margin-top:13px;}
+	.facebook a{display:inline-block;width:261px;height:40px;background: image-url('campaign_emails/sprite.png') 0px -52px no-repeat;font-size:0;font-family:a;margin-top:13px;}
 	
 	.msg{background:#F0FDDF;border:solid 1px #CBD7BC;width:455px;height:32px;margin:15px 0 5px 17px;
-		p{height:21px;background: image-url("/assets/campaign_emails/sprite.png") -260px -53px no-repeat;text-align:left;padding-left:40px;margin-top:5px;line-height:21px;font-size:14px;}
+		p{height:21px;background: image-url('campaign_emails/sprite.png') -260px -53px no-repeat;text-align:left;padding-left:40px;margin-top:5px;line-height:21px;font-size:14px;}
 	}
 	.f14{font-size:14px;}
 	.desconto{font-size:11px;margin-top:15px;}
@@ -54,7 +54,7 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 	h3{font-family:$johnston;font-size:29px;}
 	p{font-family:$avenir;font-size:14px;}
 	.desconto{font-size:11px;margin:10px 0;}
-	.btn-continue{border:0;cursor:pointer;font-size:0;font-family:a;width:195px;height:35px;background:image-url("/assets/campaign_emails/sprite.png") -1px -96px no-repeat;margin-top:10px;}
+	.btn-continue{border:0;cursor:pointer;font-size:0;font-family:a;width:195px;height:35px;background:image-url('campaign_emails/sprite.png') -1px -96px no-repeat;margin-top:10px;}
 }
 
 .box-cadastro{
