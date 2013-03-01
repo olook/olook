@@ -754,7 +754,6 @@ body {
   header {
     width: 100%;
     min-height: 122px;
-    padding: 10px 0 0 0;
     overflow: visible;
     display: block;
 
@@ -1085,9 +1084,10 @@ body {
 
 /*** new header ***/ 
 header#new_header{
-      border-top: 8px black solid;  
-      height: 155px;  
   .new_content{
+     border-top: 8px black solid;  
+     height: 135px;
+     padding-top:15px;
       width: 990px;
       margin: 0 auto;
       .box_left{
@@ -1095,6 +1095,7 @@ header#new_header{
         font-size: 10px;
         color: #b4b5b7;
         float: left;
+        margin-left:10px;
         a.contact{
           text-decoration: none;
           color: #b4b5b7;
@@ -1157,7 +1158,7 @@ header#new_header{
         width: 240px;
         height: 70px;
         margin: 0 auto;
-        padding-top: 30px;
+        padding-top: 20px;
         a{
         width: 240px;
         height: 70px;
@@ -1169,7 +1170,7 @@ header#new_header{
     }
     .box_right{
       float: right;
-      margin-top: 7px;
+      margin: 7px 10px 0 0;
       .new_login{
         width: 162px;
         height: 18px;
