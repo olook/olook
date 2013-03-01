@@ -445,7 +445,7 @@ initBase = {
   },
 
   youtubePlayer : function(yt_id) {
-    return "<iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&autoplay=1' frameborder='0' allowfullscreen></iframe>";
+    return "<iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&autoplay=1&vq=large' frameborder='0' allowfullscreen></iframe>";
   },
   
   newModal : function(content){
