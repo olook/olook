@@ -1,7 +1,18 @@
 $(function() {
 
+    function postCartToFacebookFeed() {
+        var obj = {
+            method: 'feed',
+caption: 'www.olook.com.br',
+link: 'http://www.olook.com.br',
+description: 'Comprei no site da olook e amei! <3 Já conhece?'
+        };
+
+  FB.ui(obj);
+}
+
   $("form#facebook_share").submit(function() {
-    alert("loading!");
+    postCartToFacebookFeed()
   });
 
 
@@ -62,7 +73,7 @@ $(function() {
       }
     });
   }
-  
+
   if($("div#carousel_lookbooks").size() > 0) {
     $("div#carousel_lookbooks ul").carouFredSel({
       auto: false,
@@ -82,7 +93,7 @@ $(function() {
       }
     });
   }
-  
+
   showGiftPackageModal();
 });
 
