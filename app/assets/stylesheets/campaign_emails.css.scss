@@ -61,7 +61,7 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 	float:left;position:relative;width:893px;border:solid 5px #000;background:#FFF;margin-top:10px;
 	img{float:left;}
 	div.content{width:407px;height:347px;padding:0 30px;float:left;
-		.titulo{font-family:$kepler;font-size:46px;color:#E05789;text-align:center;margin:45px 0 32px;text-transform:uppercase;line-height:19px;
+		.titulo{font-family:$kepler;font-size:46px;color:#ef3742;text-align:center;margin:45px 0 32px;text-transform:uppercase;line-height:19px;
 			span{font-family:$avenir;font-size:18px;}
 		}
 		.cadastre{text-transform:uppercase;font-family:$avenir;font-size:14px;color:#050708;text-align:center;margin-left:5px;}
@@ -69,7 +69,7 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 	
 	form{
 		input[type="text"]{float:left;border:solid 1px #D4D4D4;font-family:$avenir;font-size:13px;width:225px;height:30px;padding-left:10px;margin:8px 16px 0 0;line-height:30px;}
-		input[type="submit"]{width:150px;height:49px;background-position: -159px 0;font-family:$avenir;font-size:20px;color:#FFF;}
+		input[type="submit"]{width:150px;height:49px;background-position: -159px 0;font-family:$johnston;font-size:14px;color:#FFF;padding-bottom: 3px; letter-spacing: 2px;}
 	}
 	.texto{font-size:11px;font-family:$avenir;float:right;width:135px;line-height:18px;
 		a{color:#000;}
