@@ -3,12 +3,12 @@ $(function() {
     function postCartToFacebookFeed() {
         var obj = {
             method: 'feed',
-caption: 'www.olook.com.br',
-link: 'http://www.olook.com.br',
-description: 'Comprei no site da olook e amei! <3 Já conhece?'
+            caption: 'www.olook.com.br',
+            link: 'http://www.olook.com.br',
+            description: 'Comprei no site da olook e amei! <3 Já conhece?'
         };
 
-  FB.ui(obj);
+        FB.ui(obj);
 }
 
   $("form#facebook_share").submit(function() {
