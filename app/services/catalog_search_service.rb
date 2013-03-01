@@ -55,7 +55,7 @@ class CatalogSearchService
 
   def add_subcategories_filter_to_query_base
     # Subcategories filter to make possible to have Shoes / Bags / Accessories pages
-    @query_base = @query_base.and(l_products[:category_id].in(params[:category_id])) if params[:category_id]
+    @query_base = @query_base.and(l_products[:category_id].in(params[:category_id])) unless params[:category_id].blank?
   end
 
   def compact_category_queries
