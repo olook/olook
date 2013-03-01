@@ -80,7 +80,13 @@ class Checkout::CheckoutController < Checkout::BaseController
     @checkout = Checkout.new(address: address, payment: payment, payment_method: payment_method)
     if error_message
       @checkout.errors.add(:payment_base, error_message)
+      # TODO => Move these lines to Payment class
+      @checkout.payment.errors.add(:credit_card_number)
+      @checkout.payment.errors.add(:expiration_date)
+      @checkout.payment.errors.add(:security_code)
       payment.credit_card_number = ""
+      payment.expiration_date = ""
+      payment.security_code = ""
     end
 
     unless using_address_form?
