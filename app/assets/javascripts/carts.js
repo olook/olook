@@ -1,5 +1,10 @@
 $(function() {
 
+  $("form#facebook_share").submit(function() {
+    alert("loading!");
+  });
+
+
   $("form#gift_message").bind("ajax:success", function(evt, xhr, settings) {
     document.location = $("a.continue").attr("href");
   });
