@@ -1,7 +1,7 @@
 <% present 'CollectionTheme', {:collection_theme => @collection_theme, :collection_themes => @collection_themes, :category_id => @category_id} do |collection_theme_presenter| %>
 <div id="filters_container">
   <%= form_tag(update_collection_theme_path, :method => :post, :remote => true, :html => {:id => "filter"}) do %>
-    <%= hidden_field_tag('id', @collection_theme ? @collection_theme.catalog.id : nil) %>
+    <%= hidden_field_tag('slug', @collection_theme ? @collection_theme.slug : nil) %>
     <%= select_tag('category_id', options_for_select(Category.to_a.select { |c| c.last != 4 }.map { |v,k| [v.pluralize, k] }+[["Todas", nil]]), onchange: "$(this).parent().submit();") %>
     <%= select_tag('sort_filter', options_for_select({"Relevância" => 0, "Menor preço" => 1, "Maior preço" => 2}), onchange: "$(this).parent().submit();") %>
   <% end %>
