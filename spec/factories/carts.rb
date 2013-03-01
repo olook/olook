@@ -3,25 +3,25 @@ FactoryGirl.define do
   factory :clean_cart, :class => Cart do
 
     factory :cart_with_one_item do
-      after_create do |cart|
+      after(:create) do |cart|
         FactoryGirl.create(:cart_item, :quantity => 1, :cart => cart)
       end
     end
 
     factory :cart_with_items do
-      after_create do |cart|
+      after(:create) do |cart|
         FactoryGirl.create(:cart_item, :cart => cart)
       end
     end
 
     factory :cart_with_gift do
-      after_create do |cart|
+      after(:create) do |cart|
         FactoryGirl.create(:cart_item, :cart => cart, :gift => true)
       end
     end
 
     factory :cart_with_3_items do
-      after_create do |cart|
+      after(:create) do |cart|
         FactoryGirl.create(:cart_item, :cart => cart)
         cart.items << FactoryGirl.create(:cart_item_2, :cart => cart)
         cart.items << FactoryGirl.create(:cart_item_3, :cart => cart)
@@ -29,7 +29,7 @@ FactoryGirl.define do
     end
 
     factory :cart_with_2_items do
-      # after_create do |cart|
+      # after(:create) do |cart|
       #   FactoryGirl.create(:cart_item_2, :cart => cart)
       #   FactoryGirl.create(:cart_item_3, :cart => cart)
       # end

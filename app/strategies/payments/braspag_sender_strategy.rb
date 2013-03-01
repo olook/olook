@@ -12,7 +12,14 @@ module Payments
     def send_to_gateway
       log("Sending transaction to gateway")
       begin
-        send_authorization_request
+        authorize_response = authorize
+        if authorized_and_pending_capture?(authorize_response)
+          Resque.enqueue_in(2.minute, Braspag::GatewaySenderWorker, payment.id)
+          @payment_successful = true
+        else
+          @payment_successful = false
+        end
+
         payment
       rescue Exception => error
         ErrorNotifier.send_notifier("Braspag", error.message, payment)
@@ -31,25 +38,26 @@ module Payments
       payment.gateway_response_status = Payment::SUCCESSFUL_STATUS
     end
 
-    def send_authorization_request
+    def process_enqueued_request
       begin
-        authorize_response = authorize
+        # asure the payment will have an order.
+        self.payment.reload
 
-        if authorized_and_pending_capture?(authorize_response)
-          @payment_successful = true
-          order_analysis_service = OrderAnalysisService.new(self.payment, self.credit_card_number, BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code).created_at)
-          if order_analysis_service.should_send_to_analysis? 
-            log("Sending to analysis")
-            clearsale_order_response = order_analysis_service.send_to_analysis
-          else 
-            log("Capturing transaction")
-            capture(authorize_response)
-          end
-        else
-          @payment_successful = false
+        log("Processing payment request of order #{payment.order}")
+
+        authorize_response = BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code)
+
+        order_analysis_service = OrderAnalysisService.new(self.payment, self.credit_card_number, authorize_response)
+        if order_analysis_service.should_send_to_analysis? 
+          log("Sending to analysis")
+          clearsale_order_response = order_analysis_service.send_to_analysis
+        else 
+          log("Capturing transaction")
+          capture(authorize_response)
         end
+ 
       rescue Exception => error
-        log("[ERROR] Error on authorizing payment: " + error.message)
+        log("[ERROR] Error on processing enqueued request: " + error.message)
         ErrorNotifier.send_notifier("Braspag", error.message, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
         raise error

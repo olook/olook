@@ -57,7 +57,7 @@ $(function() {
       }
     });
   }
-
+  
   if($("div#carousel_lookbooks").size() > 0) {
     $("div#carousel_lookbooks ul").carouFredSel({
       auto: false,
@@ -77,7 +77,19 @@ $(function() {
       }
     });
   }
+  
+  showGiftPackageModal();
 });
+
+function showGiftPackageModal(){
+   content = $(".modal_gift");
+   $("a.txt-conheca").bind("click", function(e){
+      initBase.newModal(content);
+      e.preventDefault();
+      e.stopPropagation();
+   })
+
+}
 
 function changeCartItemQty(cart_item_id) {
   $('form#change_amount_' + cart_item_id).submit();

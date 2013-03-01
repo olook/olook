@@ -49,7 +49,7 @@ class ProductFinderService
     options = args.extract_options!
 
     categories = Category.list_of_all_categories
-    # results = []
+
     results = categories.map do |category|    
       products = profile_products(profile: options[:profile], category: category)
       remove_color_variations(products)[0..4]
@@ -67,12 +67,13 @@ class ProductFinderService
     scope = scope.joins('left outer join variants on products.id = variants.product_id')
                 .select("products.*, if(sum(distinct variants.inventory) > 0, 1, 0) as available_inventory, variants.inventory")
                 .where(collection_id: options[:collection])
-                .order('available_inventory desc, products.category asc')
+                .order('available_inventory desc')
                 .group('products.id').having(options[:not_allow_sold_out_products] ? "available_inventory = 1" : "")
 
     scope = scope.where(:category => options[:category]) if options[:category]
 
     scope = scope.where(variants: {description: options[:description]}) if options[:description] and options[:category] == Category::SHOE
+                
     scope.all
   end
 

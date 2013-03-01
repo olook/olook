@@ -163,7 +163,7 @@
         str: '1'
         attributes: {}
       :descricao: !str
-        str: '1'
+        str: Vermelho
         attributes: {}
     - :codigo_interno: !str
         str: '84'
@@ -172,7 +172,7 @@
         str: '2'
         attributes: {}
       :descricao: !str
-        str: Palm sint. Ouro light
+        str: Vermelho Sunset
         attributes: {}
 :descritor_pre_definido:
   :versao_web_service: !str

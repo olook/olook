@@ -17,7 +17,7 @@ module Checkout::CheckoutHelper
   end
 
   def total_with_freight(freight_value, payment=nil)
-    @cart_service.total(payment) + freight_value
+    @cart_service.total(payment).to_f + freight_value.to_f
   end
 
   def delivery_time_message(delivery_time)
