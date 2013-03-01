@@ -9,7 +9,7 @@ describe Debit do
   context "after creation" do
     #TODO: this is passing even when the scheduling callback isn't there yet :P
     it "schedules cancellation in 1 business hour from creation" do
-      Resque.should_receive(:enqueue_in).at_least(1).times.with(1.business_hour.from_now, Abacos::CancelOrder, order.number)
+      Resque.should_receive(:enqueue_at).at_least(1).times.with(1.business_hour.from_now, Abacos::CancelOrder, order.number)
       subject
     end
   end

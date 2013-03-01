@@ -29,6 +29,6 @@ class Billet < Payment
 
     def schedule_cancellation
       #TODO: double check whether to plug the 4 biz days rule into BilletExpirationDate
-      Resque.enqueue_in(4.business_days.from_now, Abacos::CancelOrder, self.order.number)
+      Resque.enqueue_at(4.business_days.from_now, Abacos::CancelOrder, self.order.number)
     end
 end

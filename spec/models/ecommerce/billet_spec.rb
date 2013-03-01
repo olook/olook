@@ -9,7 +9,7 @@ describe Billet do
   context "after creation" do
     #TODO: this test really isn't working...
     it "schedules cancellation in 4 business days from creation" do
-      Resque.should_receive(:enqueue_in).at_least(1).times.with(4.business_days.from_now, Abacos::CancelOrder, order.number)
+      Resque.should_receive(:enqueue_at).at_least(1).times.with(4.business_days.from_now, Abacos::CancelOrder, order.number)
       subject
     end
   end
