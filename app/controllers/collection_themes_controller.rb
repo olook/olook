@@ -20,7 +20,7 @@ class CollectionThemesController < ApplicationController
   private
     def load_catalog_products
       params.delete(:category_id) unless params[:category_id]
-      # @collection_theme_groups = CollectionThemeGroup.all
+      @collection_theme_groups = CollectionThemeGroup.all
       @collection_themes = CollectionTheme.active.order(:position)
       @collection_theme = params[:slug] ? CollectionTheme.find_by_slug_or_id(params[:slug]) : @collection_themes.last
       if @collection_theme

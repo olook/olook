@@ -1,3 +1,4 @@
+<% present 'CollectionTheme', {:collection_theme => @collection_theme, :collection_themes => @collection_themes, :category_id => @category_id} do |collection_theme_presenter| %>
 <div id="filters_container">
   <%= form_tag(update_collection_theme_path, :method => :post, :remote => true, :html => {:id => "filter"}) do %>
     <%= hidden_field_tag('id', @collection_theme ? @collection_theme.catalog.id : nil) %>
@@ -5,3 +6,4 @@
     <%= select_tag('sort_filter', options_for_select({"Relevância" => 0, "Menor preço" => 1, "Maior preço" => 2}), onchange: "$(this).parent().submit();") %>
   <% end %>
 </div>
+<% end %>
