@@ -6,35 +6,35 @@ class CollectionThemePresenter < BasePresenter
   end
 
   def render_search_form
-    h.render :partial => 'moments/search_form', :locals => {:collection_theme_presenter => self}
+    h.render :partial => 'shared/filters/search_form', :locals => {:collection_theme_presenter => self}
   end
 
   def display_color_filters
-    h.render :partial => 'moments/color_filters', :locals => {:collection_theme_presenter => self} if shoes?
+    h.render :partial => 'shared/filters/color_filters', :locals => {:collection_theme_presenter => self} if shoes?
   end
 
   def display_shoe_filters
-    h.render :partial => 'moments/shoe_filters', :locals => {:collection_theme_presenter => self} if shoes?
+    h.render :partial => 'shared/filters/shoe_filters', :locals => {:collection_theme_presenter => self} if shoes?
   end
 
   def display_shoe_size_filters
-    h.render :partial => 'moments/shoe_size_filters', :locals => {:collection_theme_presenter => self} if shoes?
+    h.render :partial => 'shared/filters/shoe_size_filters', :locals => {:collection_theme_presenter => self} if shoes?
   end
 
   def display_heel_filters
-    h.render :partial => 'moments/heel_filters', :locals => {:collection_theme_presenter => self} if shoes?
+    h.render :partial => 'shared/filters/heel_filters', :locals => {:collection_theme_presenter => self} if shoes?
   end
 
   def display_bag_filters
-    h.render :partial => 'moments/bag_filters', :locals => {:collection_theme_presenter => self} if bags?
+    h.render :partial => 'shared/filters/bag_filters', :locals => {:collection_theme_presenter => self} if bags?
   end
 
   def display_bag_color_filters
-    h.render :partial => 'moments/bag_color_filters', :locals => {:collection_theme_presenter => self} if bags?
+    h.render :partial => 'shared/filters/bag_color_filters', :locals => {:collection_theme_presenter => self} if bags?
   end
 
   def display_accessory_filters
-    h.render :partial => 'moments/accessory_filters', :locals => {:collection_theme_presenter => self} if accessories?
+    h.render :partial => 'shared/filters/accessory_filters', :locals => {:collection_theme_presenter => self} if accessories?
   end
 
   private
