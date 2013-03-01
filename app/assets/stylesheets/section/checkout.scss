@@ -161,7 +161,7 @@ table.check {
 						font-size:13px;
          }
          a {
-           color: #e05789;
+           color: #ef3742;
            margin: 5px 0 0 85px;
          }
          &.value {
@@ -241,7 +241,7 @@ section#cart {
     padding: 10px 15px 5px;
     float: left;
     a {
-      color: #e05789;
+      color: #ef3742;
       float: none;
     }
   }
@@ -252,7 +252,7 @@ section#cart {
 	}
 	ul.link-suggestions{
 		margin-top:7px;
-		li a{color:#D95485;margin-bottom:6px;display:block;}
+		li a{color:#ef3742;margin-bottom:6px;display:block;}
 	}
   div.banner {
     
@@ -465,8 +465,8 @@ section#cart {
 					p{font-size: 17px;font-weight: lighter;margin: 0;text-align:center;color:#000}
 					form{text-align:center}
 			  	input[type="submit"]{
-						@include sprite_checkout(-92px,-200px);
-						width:115px;
+						@include sprite_checkout( 0,-607px);
+						width:129px;
 						height:38px;
 						border:0;
 						cursor:pointer;
@@ -537,7 +537,7 @@ section#cart {
             display: block;
             border: none;
             cursor: pointer;
-						color:#E15687;
+						color:#ef3742;
 						text-decoration:underline;
           }
 				}
@@ -611,7 +611,7 @@ section#cart {
 							font-size:22px;
 							text-transform:uppercase;
 							span{
-								color:#E15687;
+								color:#ef3742;
 							}
               
               &.limit {
@@ -647,7 +647,7 @@ section#cart {
        
         border: none;
         a#show_coupon_field {
-          color: #E15687;
+          color: #ef3742;
           font-size: 14px;
           line-height: 55px;
         }
@@ -690,7 +690,7 @@ section#cart {
   }
 
   a.continue {
-    @include sprite_checkout(-91px, -133px);
+    @include sprite_checkout(-91px, -132px);
     text-indent: -9999px;
     width: 268px;
     height: 63px;
@@ -1475,7 +1475,7 @@ section#payment {
 }
 
 .txt-black{color:#000 !important;}
-.txt-pink{color:#E15789 !important;}
+.txt-pink{color:#ef3742 !important;}
 .fixed{position:fixed !important;}
 /******************************/
 /******** NEW CHECKOUT ********/
@@ -1538,7 +1538,7 @@ section.checkout{
 		.btn_zipcode{float:left;border:0;width:150px;height:32px;font-size:0;font-family:a;@include sprite_checkout(-92px, -244px);margin:2px 0 0 15px;cursor:pointer;}
 		.subtitle{clear:both;margin-top:10px;height:30px;@include sprite_checkout(-109px, -535px);width:293px;color:#000;padding-top:15px;clear:both;}
 		.freight_text{font-size:14px;font-family:$avenir;margin-left:25px;}
-		.freight_value{color:#E15687;}
+		.freight_value{color:#ef3742;}
 		
 		ul.address_data{float:left;margin:0 0 8px 5px;
 			a{color:#DD4978;font-size:13px;}
@@ -1563,7 +1563,7 @@ section.checkout{
 		.credits{float:left;padding-left:5px;
 			label{color:#000;}
 			p{font-size:13px;float:left; 
-				span, a{color:#E15687;}
+				span, a{color:#ef3742;}
 				a{display:block;margin:6px 0 5px;font-size:13px;}
 			}
 		}
@@ -1763,7 +1763,7 @@ section.checkout{
           text-align: center;
           margin: 0;
           strong {
-            color: #e05789;
+            color: #ef3742;
           }
         }
       }
@@ -1839,7 +1839,7 @@ div#modal {
       margin: 0 0 15px;
     }
     h2 {
-      color: #E05789;
+      color: #ef3742;
       font-family: sans-serif;
       letter-spacing: -1px;
       font-size: 16px;
@@ -1873,7 +1873,7 @@ div.credit_details {
           text-align: left;
           padding: 5px 0;
           &.value {
-            color: #e05789;
+            color: #ef3742;
             font-family: $avenir;
             text-transform: uppercase;
             text-align: right;
