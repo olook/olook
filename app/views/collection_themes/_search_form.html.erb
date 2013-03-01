@@ -4,6 +4,15 @@
     <%= hidden_field_tag('slug', @collection_theme ? @collection_theme.slug : nil) %>
     <%= select_tag('category_id', options_for_select(Category.to_a.select { |c| c.last != 4 }.map { |v,k| [v.pluralize, k] }+[["Todas", nil]]), onchange: "$(this).parent().submit();") %>
     <%= select_tag('sort_filter', options_for_select({"Relevância" => 0, "Menor preço" => 1, "Maior preço" => 2}), onchange: "$(this).parent().submit();") %>
+    
+    <%= render "/shared/filters/accessory_filters", collection_theme_presenter: collection_theme_presenter %>
+    <%= render "/shared/filters/bag_color_filters", collection_theme_presenter: collection_theme_presenter %>
+    <%= render "/shared/filters/bag_filters", collection_theme_presenter: collection_theme_presenter %>
+    <%= render "/shared/filters/color_filters", collection_theme_presenter: collection_theme_presenter %>
+    <%= render "/shared/filters/heel_filters", collection_theme_presenter: collection_theme_presenter%>
+    <%= render "/shared/filters/shoe_filters", collection_theme_presenter: collection_theme_presenter %>
+    <%= render "/shared/filters/shoe_size_filters", collection_theme_presenter: collection_theme_presenter %>
   <% end %>
 </div>
+
 <% end %>
