@@ -382,6 +382,7 @@ $(document).ready(function() {
     var url = $(this).attr("rel");
     var title = $("<div>").append($(this).siblings(".video_description").clone()).remove().html();
     var youtube_id = initBase.youtubeParser(url);
+
     content = initBase.youtubePlayer(youtube_id);
     content += title;
 
