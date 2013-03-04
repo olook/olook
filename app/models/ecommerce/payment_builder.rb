@@ -14,8 +14,6 @@ class PaymentBuilder
     payment.total_paid = cart_service.total(payment)
     payment.user_id = cart_service.cart.user.id
     payment.save!
-
-
     ActiveRecord::Base.transaction do
       total_liquidation = cart_service.cart.total_liquidation_discount
       total_promotion = cart_service.cart.total_promotion_discount

@@ -9,7 +9,8 @@ class Debit < Payment
   EXPIRATION_IN_MINUTES = 60
 
   validates :bank, :receipt, :presence => true, :on => :create
-  after_create :set_payment_expiration_date, :schedule_cancellation
+  after_create :set_payment_expiration_date
+  before_update :schedule_cancellation
 
   def to_s
     "DebitoBancario"
@@ -35,6 +36,6 @@ class Debit < Payment
 
     def schedule_cancellation
       #TODO: this is independent of the rest of the expiration settings and calculations
-      Resque.enqueue_at(1.business_hour.from_now, Abacos::CancelOrder, self.order.number)
+      Resque.enqueue_at(1.business_hour.from_now, Abacos::CancelOrder, self.order.number) if first_update_with_order_present
     end
 end
