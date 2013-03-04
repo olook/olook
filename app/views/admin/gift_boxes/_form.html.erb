@@ -22,7 +22,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :thumb_image %><br />
+    <%= f.label :thumb_image, "Thumb image (177px X 221px - somente para hot on Facebook e Top Five)" %><br />
     <%= image_tag(@gift_box.thumb_image.try(:url)) + raw('<br />') if !@gift_box.thumb_image.blank? %>
     <%= f.file_field :thumb_image %><br />
   </div>
