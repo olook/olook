@@ -37,10 +37,7 @@ _gaq.push(['_addTrans',
   <h1>Minha sacola</h1>
     <div class="promo-leve3">
       <p>Curta no facebook<br />
-        <%= form_for(@cart, :remote => true, html: { :id => "facebook_share" }) do |f| %> 
-          <%= f.hidden_field :facebook_share_discount, value: true %>
-          <%= f.submit "Compartilhar" %>
-        <% end %>
+      <%= link_to 'Compartilhar', cart_path, data: {cart_id:  @cart.id }, id: "facebook_share", remote: true %>
         <span></span>
       </p>
     </div>
@@ -131,7 +128,7 @@ _gaq.push(['_addTrans',
             </div>
           </td>
           <td class="value">R$ 5,00</td>
-       
+
         </tr>
       </tbody>
     </table>
