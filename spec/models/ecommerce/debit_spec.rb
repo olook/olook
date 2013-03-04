@@ -14,9 +14,11 @@ describe Debit do
     subject.human_to_s.should == "Débito Bancário"
   end
 
-  it "schedules cancellation in 1 business hour from creation" do
-    Resque.should_receive(:enqueue_at).at_least(1).times.with(1.business_hour.from_now, Abacos::CancelOrder, order.number)
-    subject
+  context "#schedule_cancellation" do
+    it "schedules cancellation in 1 business hour from creation" do
+      Resque.should_receive(:enqueue_at).with(1.business_hour.from_now, Abacos::CancelOrder, order.number)
+      subject.schedule_cancellation
+    end
   end
 
   context "expiration date" do
