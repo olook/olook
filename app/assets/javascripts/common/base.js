@@ -452,7 +452,7 @@ initBase = {
     var $modal = $("div#modal.promo-olook"), h = $(content).outerHeight(), w = $(content).outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2)), heightDoc = $(document).height(), _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()), _left=Math.max(0, (($(window).width() - w) / 2) + $(window).scrollLeft());
 
     $("#overlay-campaign").css({"background-color": "#000", 'height' : heightDoc}).fadeIn().bind("click", function(){
-       $modal.fadeOut();
+       $modal.html("").fadeOut();
        $(this).fadeOut();
     }); 
 
@@ -469,7 +469,7 @@ initBase = {
    .delay(500).fadeIn().children().fadeIn();
    
    $("#modal .close").click(function(){
-      $modal.fadeOut();
+      $modal.html("").fadeOut();
       $("#overlay-campaign").fadeOut();
    })
 
