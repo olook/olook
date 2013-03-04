@@ -84,7 +84,7 @@ Olook::Application.routes.draw do
   match "/criteo", :to => "xml#criteo", :as => "criteo", :defaults => { :format => 'xml' }
   match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
   match "/click_a_porter", :to => "xml#click_a_porter", :as => "click_a_porter", :defaults => { :format => 'xml' }
-  match "/topster", :to => "xml#topster", :as => "topster", :defaults => { :format => 'xml' }
+  match "/topster" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/topster_data.xml")
   match "/ilove_ecommerce", :to => "xml#ilove_ecommerce", :as => "ilove_ecommerce", :defaults => { :format => 'xml' }
   match "/zoom", :to => "xml#zoom", :as => "zoom", :defaults => { :format => 'xml' }
   match "/netaffiliation", :to => "xml#netaffiliation", :as => "netaffiliation", :defaults => { :format => 'xml' }
