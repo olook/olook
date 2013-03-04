@@ -96,7 +96,7 @@ div#modal {
     position:absolute;
     z-index:10001;
     border:none;
-    .close{display:block;position: absolute; background: url("/assets/common/close_dialog.png") no-repeat; right: -12px; top: -10px; width: 30px; margin: -10px 0 0 0; padding: 0; height: 30px; z-index: 10002;text-indent:-9999em;border:none;cursor:pointer;zoom:1;}
+    .close{display:block;position: absolute; background: url("/assets/common/close_dialog.png") no-repeat; right: -30px; top: -20px; width: 30px; margin: -10px 0 0 0; padding: 0; height: 30px; z-index: 10002;text-indent:-9999em;border:none;cursor:pointer;zoom:1;}
   }
   div.video_description {
     background: #FFF;
