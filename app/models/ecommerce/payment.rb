@@ -251,10 +251,6 @@ class Payment < ActiveRecord::Base
 
   private
 
-    def first_update_with_order_present
-      self.order && !self.order_id
-    end
-
     def generate_identification_code
       #TODO: PASSAR A USAR UUID
       code = SecureRandom.uuid.delete("-")
