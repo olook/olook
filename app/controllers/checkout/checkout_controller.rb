@@ -28,6 +28,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
     sender_strategy = PaymentService.create_sender_strategy(@cart_service, payment)
     payment_builder = PaymentBuilder.new({ :cart_service => @cart_service, :payment => payment, :gateway_strategy => sender_strategy, :tracking_params => session[:order_tracking_params] } )
+    
     response = payment_builder.process!
 
     if response.status == Payment::SUCCESSFUL_STATUS

@@ -251,14 +251,17 @@ class Payment < ActiveRecord::Base
 
   private
 
-  def generate_identification_code
-    #TODO: PASSAR A USAR UUID
-    code = SecureRandom.uuid.delete("-")
-    while Payment.find_by_identification_code(code)
-      code = SecureRandom.uuid
+    def first_update_with_order_present
+      self.order && !self.order_id
     end
-    update_attributes(:identification_code => code)
-  end
 
+    def generate_identification_code
+      #TODO: PASSAR A USAR UUID
+      code = SecureRandom.uuid.delete("-")
+      while Payment.find_by_identification_code(code)
+        code = SecureRandom.uuid
+      end
+      update_attributes(:identification_code => code)
+    end
 end
 
