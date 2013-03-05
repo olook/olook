@@ -161,7 +161,7 @@ table.check {
 						font-size:13px;
          }
          a {
-           color: #e05789;
+           color: #D95485;
            margin: 5px 0 0 85px;
          }
          &.value {
@@ -226,16 +226,17 @@ section#cart {
       font-size:12px;
       font-weight: bold;
       margin-left: 5px;
+      &.share-text{
+        display: block;
+        font-weight: normal;
+        }
 			span{
         color:#000;
         font-size:12px;
-        font-weight: normal;
-        &.percent{
-          color: #ef3742;
-          font-weight: bold;
+        font-weight: bold;
+        color: #ef3742;
         }
       }
-		}
   .share{
     background: image-url('cart/share.png') no-repeat;
     text-indent: -9999px;
@@ -244,7 +245,7 @@ section#cart {
     display: block;
     float: right;
     margin-right: 5px;
-    margin-top: 10px;
+    margin-top: -13px;
    }
 	}
   .msg{
@@ -266,7 +267,7 @@ section#cart {
         font-size: 14px;
         font-family: $avenir;
       }
-  
+
   .f14{font-size:14px;}
   .desconto{font-size:11px;margin-top:15px;}
 }
@@ -287,7 +288,7 @@ section#cart {
     padding: 10px 15px 5px;
     float: left;
     a {
-      color: #e05789;
+      color: #D95485;
       float: none;
     }
   }
@@ -511,8 +512,8 @@ section#cart {
 					p{font-size: 17px;font-weight: lighter;margin: 0;text-align:center;color:#000}
 					form{text-align:center}
 			  	input[type="submit"]{
-						@include sprite_checkout(-92px,-200px);
-						width:115px;
+						@include sprite_checkout( 0,-607px);
+						width:129px;
 						height:38px;
 						border:0;
 						cursor:pointer;
@@ -583,7 +584,7 @@ section#cart {
             display: block;
             border: none;
             cursor: pointer;
-						color:#E15687;
+						color:#D95485;
 						text-decoration:underline;
           }
 				}
@@ -657,7 +658,7 @@ section#cart {
 							font-size:22px;
 							text-transform:uppercase;
 							span{
-								color:#E15687;
+								color:#D95485;
 							}
 
               &.limit {
@@ -693,7 +694,7 @@ section#cart {
 
         border: none;
         a#show_coupon_field {
-          color: #E15687;
+          color: #D95485;
           font-size: 14px;
           line-height: 55px;
         }
@@ -736,7 +737,7 @@ section#cart {
   }
 
   a.continue {
-    @include sprite_checkout(-91px, -133px);
+    @include sprite_checkout(-91px, -132px);
     text-indent: -9999px;
     width: 268px;
     height: 63px;
@@ -1360,6 +1361,8 @@ section#payment {
 					@include sprite_checkout(-379px, 3px);
 					height:27px;
 					padding-left:20px;
+					width:350px;
+					margin:0 auto;
 				}
 				&.error{background:#FDADB6 !important;border:solid 1px #F37C8F !important;width:490px !important;
 					p{@include sprite_checkout(-379px, -117px);}
@@ -1521,7 +1524,7 @@ section#payment {
 }
 
 .txt-black{color:#000 !important;}
-.txt-pink{color:#E15789 !important;}
+.txt-pink{color:#D95485 !important;}
 .fixed{position:fixed !important;}
 /******************************/
 /******** NEW CHECKOUT ********/
@@ -1584,7 +1587,7 @@ section.checkout{
 		.btn_zipcode{float:left;border:0;width:150px;height:32px;font-size:0;font-family:a;@include sprite_checkout(-92px, -244px);margin:2px 0 0 15px;cursor:pointer;}
 		.subtitle{clear:both;margin-top:10px;height:30px;@include sprite_checkout(-109px, -535px);width:293px;color:#000;padding-top:15px;clear:both;}
 		.freight_text{font-size:14px;font-family:$avenir;margin-left:25px;}
-		.freight_value{color:#E15687;}
+		.freight_value{color:#D95485;}
 
 		ul.address_data{float:left;margin:0 0 8px 5px;
 			a{color:#DD4978;font-size:13px;}
@@ -1609,7 +1612,7 @@ section.checkout{
 		.credits{float:left;padding-left:5px;
 			label{color:#000;}
 			p{font-size:13px;float:left;
-				span, a{color:#E15687;}
+				span, a{color:#D95485;}
 				a{display:block;margin:6px 0 5px;font-size:13px;}
 			}
 		}
@@ -1632,6 +1635,7 @@ section.checkout{
 			}
 			.box-cartao{float:left;display:none;
 				.cards{overflow:hidden;
+				   &.input_error{border:solid 1px #EA1E40 !important;border-left:solid 5px #EA1E40 !important;padding-top:3px;}
 					li{position:relative;width:47px;height:37px;
 						input,label{opacity:0;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";position:relative;z-index:1}
 						label{font-size:12px;float:left;}
@@ -1809,7 +1813,7 @@ section.checkout{
           text-align: center;
           margin: 0;
           strong {
-            color: #e05789;
+            color: #D95485;
           }
         }
       }
@@ -1885,7 +1889,7 @@ div#modal {
       margin: 0 0 15px;
     }
     h2 {
-      color: #E05789;
+      color: #D95485;
       font-family: sans-serif;
       letter-spacing: -1px;
       font-size: 16px;
@@ -1919,7 +1923,7 @@ div.credit_details {
           text-align: left;
           padding: 5px 0;
           &.value {
-            color: #e05789;
+            color: #D95485;
             font-family: $avenir;
             text-transform: uppercase;
             text-align: right;
