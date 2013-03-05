@@ -120,6 +120,7 @@ function postCartToFacebookFeed(element) {
     data: { cart: { facebook_share_discount: true }  },
     dataType: "script"
     });
+    $("#facebook-share").hide();
     }
   });
 }
