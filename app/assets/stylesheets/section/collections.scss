@@ -1,5 +1,26 @@
-	@import "partials/mixins";
+@import "partials/mixins";
 @import "partials/product";
+
+  /*******COLECAO**********/
+  div.collections_products {
+    div#products_container {
+      div.loading {
+        background: image-url("common/ajax-loader.gif") center no-repeat;
+        width: 770px;
+        height: 30px;
+        margin: 0 auto;
+        display: none;
+        clear: both;
+      }
+      div.pagination {
+        clear: both;
+        a, span, em.current {
+          display: none;
+        }
+      }
+    }
+  }
+
 	/********* HOME ********/
 	.content{
 		position: relative;
@@ -212,6 +233,3 @@ section{margin-top:35px;
     }
   }
 }
-
-
-
