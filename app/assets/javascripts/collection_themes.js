@@ -234,16 +234,23 @@ $(function(){
   }
   filter.init();
 
-  $('#filter_option').change(function() {
+  // $('#filter_option').change(function() {
+  //   //TODO: the following lines are duplicated
+  //   $('.loading').show();
+  //   var selected_sort = $(this).val() ;
+  //   $('#sort_filter').val(selected_sort);
+  //   $("#products").fadeOut("slow", function() {
+  //     $(this).fadeIn("slow").html("");
+  //   });
+  //   $('form#filter').submit();
+  // });
+
+  $('#sort_filter, #category_id').change(function() {
     //TODO: the following lines are duplicated
     $('.loading').show();
-    var selected_sort = $(this).val() ;
-    $('#sort_filter').val(selected_sort);
     $("#products").fadeOut("slow", function() {
       $(this).fadeIn("slow").html("");
     });
-
     $('form#filter').submit();
   });
-
 })

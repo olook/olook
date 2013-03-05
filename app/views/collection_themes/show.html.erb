@@ -30,12 +30,14 @@
   </div>
 
   <div class="collections_products">
-    <ul id="products">
-       <% @catalog_products.each do |cp| %>
-         <%= render "shared/moment_product_item", :product => cp.product %>
-       <% end %>
-       <%= "Nenhum produto disponível" if @catalog_products.empty? %>
-    </ul>
+    <div id="products_container">
+      <ul id="products">
+        <%= render "products", :products => @catalog_products %>
+      </ul>
+
+      <div class="loading"></div>
+      <%= will_paginate @catalog_products %>
+    </div>
   </div>
 </section>
 
