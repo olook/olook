@@ -1,4 +1,0 @@
-<% @catalog_products.each do |cp| %>
-  <%= render "shared/moment_product_item", :product => cp.product %>
-<% end %>
-<%= "Nenhum produto disponível" if @catalog_products.empty? %>
