@@ -34,6 +34,11 @@ _gaq.push(['_addTrans',
   <p class="buying-continue"><%= link_to "Continuar comprando","/colecoes" %></p>
   <% end %>
 
+  <div class="msg">
+    TESTE DE MESSAGEM
+    <%= @cart.id %>
+  </div>
+
   <h1>Minha sacola</h1>
   <% unless @cart.facebook_share_discount? %>
       <div id="facebook-share">
