@@ -236,17 +236,39 @@ section#cart {
         }
       }
 		}
-.share{
-  background: image-url('cart/share.png') no-repeat;
-  text-indent: -9999px;
-  width: 128px;
-  height: 24px;
-  display: block;
-  float: right;
-  margin-right: 5px;
-  margin-top: 10px;
-  }
+  .share{
+    background: image-url('cart/share.png') no-repeat;
+    text-indent: -9999px;
+    width: 128px;
+    height: 24px;
+    display: block;
+    float: right;
+    margin-right: 5px;
+    margin-top: 10px;
+   }
 	}
+  .msg{
+    background:#F0FDDF;
+    border:solid 1px #CBD7BC;
+    width:546px;
+    height:34px;
+    margin-top: -55px;
+    margin: -55px 20px 20px 220px;
+
+      p{
+        height:21px;
+        background: image-url("/assets/campaign_emails/sprite.png") -260px -53px no-repeat;
+        text-align:left;
+        padding-left:40px;
+        margin-top:7px;
+        line-height:21px;
+        font-size: 14px;
+        font-family: $avenir;
+      }
+  
+  .f14{font-size:14px;}
+  .desconto{font-size:11px;margin-top:15px;}
+}
 
 	.buying-continue{
 		margin:20px 0 30px;
