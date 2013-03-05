@@ -211,20 +211,43 @@ section#cart {
 		float:left;
 		margin:10px 0 25px;
   }
-	.promo-leve3{
+	.facebook-share{
 		float:left;
-		border-top:dotted 1px #000;
-		border-bottom:dotted 1px #000;
-		text-align:center;
-		width:410px;
+		border-top:dotted 1px #b3b3b3;
+		border-bottom:dotted 1px #b3b3b3;
+		text-align:left;
+		width:435px;
 		height:50px;
 		padding-top:10px;
-		margin-left:45px;
-		text-transform:uppercase;
-		p{color:#DD4A78;font-size:17px;
-			span{color:#000;font-size:13px;}
+		margin-left:35px;
+		p{
+      font-family: $avenir;
+      color:black;
+      font-size:12px;
+      font-weight: bold;
+      margin-left: 5px;
+			span{
+        color:#000;
+        font-size:12px;
+        font-weight: normal;
+        &.percent{
+          color: #ef3742;
+          font-weight: bold;
+        }
+      }
 		}
+.share{
+  background: image-url('cart/share.png') no-repeat;
+  text-indent: -9999px;
+  width: 128px;
+  height: 24px;
+  display: block;
+  float: right;
+  margin-right: 5px;
+  margin-top: 10px;
+  }
 	}
+
 	.buying-continue{
 		margin:20px 0 30px;
 		font-size:12px;
