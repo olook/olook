@@ -42,7 +42,7 @@ $(function() {
   $("table.check tbody tr td a").live("click", function(e) {
     clone = $('div.credit_details').clone().addClass("clone");
     content = clone[0].outerHTML;
-    initBase.modal(content);
+    initBase.newModal(content);
     e.preventDefault();
   });
 
