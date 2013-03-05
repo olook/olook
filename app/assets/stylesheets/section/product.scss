@@ -4,12 +4,12 @@
 
 #product {
   div.box_carousel {
-    background: url("/assets/product/border-carousel.jpg") center bottom no-repeat;
+    background: image-url('product/border-carousel.jpg') center bottom no-repeat;
     margin: 0 0 25px 0;
     padding: 10px 20px 10px;
     overflow: hidden;
     a.back {
-      background: url('/assets/product/arrow-back.jpg') left center no-repeat;
+      background: image-url('product/arrow-back.jpg') left center no-repeat;
       color: #6d6e71;
       text-decoration: none;
       margin-top: 8px;
@@ -20,7 +20,7 @@
       }
     }
     a.open_carousel {
-      background: url("/assets/product/bt-carousel.jpg") 0 0 no-repeat;
+      background: image-url('product/bt-carousel.jpg') 0 0 no-repeat;
       color: #505050;
       font-size: 13px;
       text-decoration: none;
@@ -66,14 +66,14 @@
       }
       a.arrow {
         position: absolute;
-        background: url("/assets/product/arrows.jpg") 0 no-repeat;
+        background: image-url("product/arrows.jpg") 0 no-repeat;
         text-indent: -9999px;
         width: 42px;
         height: 235px;
         top: 0;
         display: block;
         &.product-prev {
-          background-position: 0;
+          /*background-position: 0;*/
           left: 0;
           &:hover {
             background-position: -42px;
@@ -92,13 +92,13 @@
   div.content {
     div#related {
       position: relative;
-      background: url('/assets/showroom/border-top-product.png') 170px 17px no-repeat;
+      background: image-url('showroom/border-top-product.png') 170px 17px no-repeat;
       width: 100%;
       overflow: auto;
       clear: both;
       a.carousel-prev, a.carousel-next {
         position: absolute;
-        background: url("/assets/product/arrows.jpg") 0 no-repeat;
+        background: image-url("product/arrows.jpg") 0 no-repeat;
         text-indent: -9999px;
         width: 42px;
         height: 360px;
@@ -106,7 +106,7 @@
         display: block;
       }
       a.carousel-prev {
-        background-position: 0px;
+        /* background-position: 0px; */
         left: 0;
         &:hover {
           background-position: -42px;
@@ -151,7 +151,7 @@
         }
       }
       div#related_footer {
-        background: url("/assets/product/bg-footer-carousel.png") top left no-repeat;
+        background: image-url("product/bg-footer-carousel.png") top left no-repeat;
         width: 100%;
         height: 26px;
         display: block;
@@ -202,7 +202,7 @@ div#compartilhar_email {
     &.forgot-msg{font-family:$avenir;font-size:14px;margin:0 !important;display:none;}
   }
   div.msg{background:#F0FDDF;border: 1px solid #CBD7BC;height: 32px;margin: 15px 0 5px 0px;width: 504px;display:none;
-    p{color: #000;font-family: avenir,arial,sans-serif;font-size: 14px;line-height: 24px;margin-top: 4px;min-height: 22px;padding: 0 0 0 38px;background: url("/assets/campaign_emails/sprite.png") no-repeat -260px -53px;}
+    p{color: #000;font-family: avenir,arial,sans-serif;font-size: 14px;line-height: 24px;margin-top: 4px;min-height: 22px;padding: 0 0 0 38px;background: image-url("campaign_emails/sprite.png") no-repeat -260px -53px;}
     
     &.error{background:#FDADB6;border: 1px solid #F37C8F;display: none;height: 32px;padding: 0;
       p{background: url("/assets/campaign_emails/sprite.png") no-repeat -333px 0 !important;padding: 0 0 0 25px;}

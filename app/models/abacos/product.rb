@@ -272,6 +272,6 @@ module Abacos
           params
       end
     end
-    
+
   end
 end

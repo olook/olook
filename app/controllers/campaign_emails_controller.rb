@@ -10,11 +10,13 @@ class CampaignEmailsController < ApplicationController
       redirect_to login_campaign_email_path @user
     else
       if @campaign_email = CampaignEmail.find_by_email(params[:campaign_email][:email])
-        redirect_to remembered_campaign_email_path(@campaign_email)
+        redirect_path =  remembered_campaign_email_path(@campaign_email)
       elsif @campaign_email = CampaignEmail.create!(email: params[:campaign_email][:email])
         @campaign_email.set_utm_info session[:tracking_params]
-        redirect_to campaign_email_path(@campaign_email)
+        redirect_path = campaign_email_path(@campaign_email)
       end
+      cookies['newsletterUser'] = { value: '1', path: '/', expires: 30.years.from_now }
+      redirect_to redirect_path
     end
   end
 
