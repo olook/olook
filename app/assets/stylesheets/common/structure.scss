@@ -1037,16 +1037,13 @@ body {
 
   /*** new menu ***/
   div#wrapper_new_menu{
-    position: relative;
     margin-top: -26px;
     padding-top: 26px;
-    z-index: 999;
     nav.menu_new{
       margin: 0 auto 40px;
-      top: 0;
       width: 990px;
       line-height: 30px;
-      default_new{
+      .default_new{
         width: 990px;
         margin: 0 auto;
         overflow: hidden;
@@ -1080,7 +1077,7 @@ body {
       }
     }
   }
-/*** ende new menu ***/
+/*** end new menu ***/
 
 /*** new header ***/ 
 header#new_header{
@@ -1128,84 +1125,56 @@ header#new_header{
           display: block;
           float: left;
           &:hover{
-            background: url("/assets/common/nav/sprite_header.png") no-repeat -22px -31px;
+            background: image-url("common/nav/sprite_header.png") no-repeat -22px -31px;
           }
         }
         a.social_rss{
-          background: url("/assets/common/nav/sprite_header.png") no-repeat -46px 0;
+          background: image-url("common/nav/sprite_header.png") no-repeat -46px 0;
           width: 22px;
           height: 22px;
           text-indent: -9999px;
           display: block;
           float: left;
           &:hover{
-            background: url("/assets/common/nav/sprite_header.png") no-repeat -46px -31px;
+            background: image-url("common/nav/sprite_header.png") no-repeat -46px -31px;
           }
         }
         a.social_instagram{
-          background: url("/assets/common/nav/sprite_header.png") no-repeat -71px -1px;
+          background: image-url("common/nav/sprite_header.png") no-repeat -71px -1px;
           width: 22px;
           height: 22px;
           text-indent: -9999px;
           display: block;
           float: left;
           &:hover{
-            background: url("/assets/common/nav/sprite_header.png") no-repeat -71px -31px;
+            background: image-url("common/nav/sprite_header.png") no-repeat -71px -31px;
           }
         }
       }
-      .olook_logo{
-        width: 240px;
-        height: 70px;
-        margin: 0 auto;
-        padding-top: 20px;
-        a{
-        width: 240px;
-        height: 70px;
-        display: block;
-        background: url("/assets/common/nav/sprite_header.png") no-repeat 0 -72px;
-        text-indent: -9999px;
-        }
+      .olook_logo{width: 240px;height: 70px;margin: 0 auto;padding-top: 20px;
+        a{width: 240px;height: 70px;display: block;background: image-url("common/nav/sprite_header.png") no-repeat 0 -72px;text-indent: -9999px;}
       }
     }
-    .box_right{
-      float: right;
-      margin: 7px 10px 0 0;
-      .new_login{
-        width: 162px;
-        height: 18px;
-        font-family: $avenir;
-        font-size: 11px;
-        display: block;
-        float: right;
-        text-align: center;
-        line-height: 15px;
-        border-left: 1px #d7d7d7 solid;
-        border-right: 1px #d7d7d7 solid;
-        a{
-          text-decoration: none;
-          color: $pink;
-        }
+    .box_right{float: right;margin: 7px 10px 0 0;position:relative;
+      .new_login{width: 162px;height: 18px;font-family: $avenir;font-size: 11px;display: block;float: right;text-align: center;line-height: 18px;border-left: 1px #d7d7d7 solid;border-right: 1px #d7d7d7 solid;
+        a{text-decoration: none;color: $pink;}
       }
       .new_sacola{ 
-        height: 30px;
-        background: url("/assets/common/nav/sprite_header.png") no-repeat -122px -2px;       
-        font-family: $johnston;
-        font-size: 10px;
-        margin-top: 55px;
-        color: black;
-        letter-spacing: 1px;
-        padding-left: 20px;
-        padding-top: 5px;
-        a{
-          text-decoration: none;
-        }
-        span{
-          font-family: $kepler;
-          font-size: 10px;
-          margin: 0;
-        }
+        height: 30px;background: url("/assets/common/nav/sprite_header.png") no-repeat -122px -2px;font-family: $johnston;font-size: 10px;margin-top: 55px;color: black;letter-spacing: 1px;padding:5px 0 0 20px;clear:both;float:right;
+        a{text-decoration: none;}
+        span{font-family: $kepler;font-size: 10px;margin: 0;}
         
+      }
+      #cart_summary{position:absolute;top:100px;right:0px;z-index:9999;width:295px;min-height:135px;max-height:388px;border:solid 1px #CCC;box-shadow:0px 2px 5px #CCC;background:#FFF;padding:15px 0;
+         li{
+            &.last{text-align:center;
+               hr{height:1px;border:none;width:230px;border-top:solid 1px #CCC;margin-top:3px;}
+               a.finish{display:block;width:145px;height:45px;background: image-url('common/nav/sprite_header.png') 0 -141px no-repeat;font-size:0;line-height:0;margin:17px 0 0 77px;}
+            }
+            p.freight{text-align:center;color:$pink;font-family:$avenir;text-transform:uppercase;font-size:12px;
+               span{color:#000;font-size:10px;text-transform:none;letter-spacing:1px;}
+            }
+         }
       }
     }  
 }   
