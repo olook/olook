@@ -18,6 +18,7 @@ class BilletMailer < ActionMailer::Base
     @billet = billet
     @user = billet.order.user
     @payday_name = billet.payment_expiration_date.monday? ? "Segunda-feira" : "Amanhã"
-    mail(:to => @user.email , :subject => 'Lembramos que seu boleto está pronto para pagamento.')
+    # mail(:to => @user.email , :subject => 'Lembramos que seu boleto está pronto para pagamento.')
+    mail(:to => "oliver.barnes@olook.com.br" , :subject => 'Lembramos que seu boleto está pronto para pagamento.')
   end
 end
