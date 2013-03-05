@@ -47,8 +47,7 @@ Olook::Application.routes.draw do
   #NEW COLLECTIONS
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
   get '/colecoes/*slug', to: "collection_themes#show", as: "collection_theme"
-  post '/colecoes/*slug', to: "collection_themes#update", as: "update_collection_theme"
-
+  
   # NEW COLLECTIONS - TODO
   get '/update_moment', to: "moments#update", as: "update_moment"
 
