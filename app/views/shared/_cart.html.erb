@@ -2,7 +2,7 @@
   <%# link_to "Fechar", "#", class: 'close' %>
   <p>Também queremos te dar um mimo! Você ganhará <span>20% de desconto</span> no segundo presente.</p>
 </div> -->
-<%= link_to "Minha Sacola #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'selected' if @cart && @cart.items_total > 0}" %>
+<p class="new_sacola"><%= link_to "MINHA SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'selected' if @cart && @cart.items_total > 0}" %></p>
 <ul class="submenu" id="cart_summary">
   <li><p class="freight">Frete grátis para sul e sudeste<br/><span>(em compras a partir de R$60)</span></p></li>
   <% @cart.items.each do |item| %>
