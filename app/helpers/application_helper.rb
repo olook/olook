@@ -50,11 +50,16 @@ module ApplicationHelper
   end
 
   def member_type
+    sufix = signed_newsletter? ? '-newsletter' : ''
     if user_signed_in?
-      current_user.half_user ? 'half' : 'quiz'
+      current_user.half_user ? "half#{sufix}" : "quiz#{sufix}"
     else
-      'visitor'
+      "visitor#{sufix}"
     end
+  end
+
+  def signed_newsletter?
+    cookies['newsletterUser'] == '1'
   end
 
   def quantity_status(product, user)

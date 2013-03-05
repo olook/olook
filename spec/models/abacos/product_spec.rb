@@ -7,6 +7,10 @@ describe Abacos::Product do
   subject { described_class.new parsed_data }
   let!(:december_collection) { FactoryGirl.create(:collection) }
 
+  let(:descritor_simples) {
+    {:versao_web_service=>"5.0B.0057", :resultado_operacao=>{:codigo=>"200003", :descricao=>"OK, porém não há dados.", :tipo=>"tdreSucessoSemDados"}, :rows=>{:dados_descritor_simples=>{:codigo_interno=>"0", :numero=>"0", :descricao=>nil}}}
+  }
+
   it '#attributes' do
     subject.attributes.should == {  name:         subject.name,
                                     description:  subject.description,
@@ -277,7 +281,7 @@ describe Abacos::Product do
 
     describe "#parse_details" do
       it "should return product details from caracteristicas_complementares" do
-        described_class.parse_details(caracteristicas_complementares, nil).should == {"Dica da Fernanda"=>"Sapatilha sensaciona impressionantel!"}
+        described_class.parse_details(caracteristicas_complementares, descritor_simples)
       end
     end
 
