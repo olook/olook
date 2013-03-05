@@ -35,13 +35,15 @@ _gaq.push(['_addTrans',
   <% end %>
 
   <h1>Minha sacola</h1>
-  <% unless @cart_service.cart.facebook_share_discount? %>
-      <div class="promo-leve3">
-         <p>Curta no facebook<br />
-         <%= link_to 'Compartilhar', cart_path, data: {cart_id:  @cart.id }, id: "facebook_share", remote: true %>
-         <span></span>
-      </p>
-    </div>
+  <% unless @cart.facebook_share_discount? %>
+      <div class="facebook-share">
+        
+         <p>Que tal ganhar <span class="percent">2%</span> de desconto nesta compra?
+          <%= link_to 'Compartilhar', cart_path, data: {cart_id:  @cart.id }, id: "facebook_share", remote: true , :class => "share", :"data-width" => 128, :"data-height" => 24 %>
+            <span>Compartilhe e veja o desconto na sua sacola. :)</span></p>
+
+      </div>
+
   <% end %>
 
   <%  if @cart.items.count > 0 %>
