@@ -86,14 +86,14 @@ $(document).ready(function() {
     $(this).find('#credits_info').hide();
   });
 
-  $("div.box_invite.clone div.social ul li a").live("click", function() {
+  $("div.box_invite div.social ul li a").live("click", function() {
     type = $(this).parent().attr("class");
     if(type != "email") {
-      $("div.box_invite.clone div.social ul li a").removeClass("selected");
-      $("div.box_invite.clone div.social form").slideUp();
+      $("div.box_invite div.social ul li a").removeClass("selected");
+      $("div.box_invite div.social form").slideUp();
     } else {
       $(this).addClass("selected");
-      $("div.box_invite.clone div.social form").slideDown();
+      $("div.box_invite div.social form").slideDown();
       $("html, body").animate({
         scrollTop: "200px"
       }, 'slow');
@@ -101,7 +101,7 @@ $(document).ready(function() {
     }
   });
 
-  $("div.box_invite.clone div.social ul li.twitter a, div.social ul li.twitter a").live("click", function(e) {
+  $("div.box_invite div.social ul li.twitter a, div.social ul li.twitter a").live("click", function(e) {
     var width  = 575,
         height = 400,
         left   = ($(window).width()  - width)  / 2,
@@ -384,7 +384,7 @@ $(document).ready(function() {
     var youtube_id = initBase.youtubeParser(url);
     content = initBase.youtubePlayer(youtube_id);
     content += title;
-    initBase.modal(content);
+    initBase.newModal(content);
     e.preventDefault();
   });
 
@@ -445,14 +445,14 @@ initBase = {
   },
 
   youtubePlayer : function(yt_id) {
-    return "<iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&autoplay=1&vq=large' frameborder='0' allowfullscreen></iframe>";
+    return "<div style='width:791px;height:445px;'><iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&autoplay=1&vq=large' frameborder='0'></iframe></div>";
   },
   
   newModal : function(content){
-    var $modal = $("div#modal.promo-olook"), h = content.outerHeight(), w = content.outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2)), heightDoc = $(document).height(), _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()), _left=Math.max(0, (($(window).width() - w) / 2) + $(window).scrollLeft());
+    var $modal = $("div#modal.promo-olook"), h = $(content).outerHeight(), w = $(content).outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2)), heightDoc = $(document).height(), _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()), _left=Math.max(0, (($(window).width() - w) / 2) + $(window).scrollLeft());
 
     $("#overlay-campaign").css({"background-color": "#000", 'height' : heightDoc}).fadeIn().bind("click", function(){
-       $modal.fadeOut();
+       $modal.html("").fadeOut();
        $(this).fadeOut();
     }); 
 
@@ -465,11 +465,11 @@ initBase = {
        /*'margin-left' : ml,
        'margin-top'  : mt*/
     })
-   .append('<button type="button" class="close" role="button">close</a>')
+   .append('<button type="button" class="close" role="button">close</button>')
    .delay(500).fadeIn().children().fadeIn();
    
-   $("#modal button.close").click(function(){
-      $modal.fadeOut();
+   $("#modal .close").click(function(){
+      $modal.html("").fadeOut();
       $("#overlay-campaign").fadeOut();
    })
 
@@ -635,7 +635,7 @@ initBase = {
       var youtube_id = initBase.youtubeParser(url);
       content = initBase.youtubePlayer(youtube_id);
       content += title;
-      initBase.modal(content);
+      initBase.newModal(content);
       e.preventDefault();
     });
   },
