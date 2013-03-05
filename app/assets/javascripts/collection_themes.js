@@ -245,7 +245,7 @@ $(function(){
   //   $('form#filter').submit();
   // });
 
-  $('#sort_filter, #category_id').change(function() {
+  $('#sort_filter, #category_filters').change(function() {
     //TODO: the following lines are duplicated
     $('.loading').show();
     $("#products").fadeOut("slow", function() {
@@ -253,4 +253,15 @@ $(function(){
     });
     $('form#filter').submit();
   });
+
+  $('#category_id').change(function() {
+    $("#category_filters").fadeOut("slow").html('');
+    //TODO: the following lines are duplicated
+    $('.loading').show();
+    $("#products").fadeOut("slow", function() {
+      $(this).fadeIn("slow").html("");
+    });
+    $('form#filter').submit();
+  });
+
 })
