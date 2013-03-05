@@ -166,7 +166,7 @@ body {
               margin-top: 7px;
               font-size: 11px;
               input[type="submit"] {
-                background: url("/assets/common/login.png") no-repeat;
+                background: image-url("common/login.png") no-repeat;
                 text-indent: -9999px;
                 width: 74px;
                 height: 31px;
@@ -218,7 +218,7 @@ body {
                   width: 84%;
                 }
                 input[type='submit'] {
-                  background: url("/assets/common/registration.png") no-repeat;
+                  background: image-url("common/registration.png") no-repeat;
                   text-indent: -9999px;
                   width: 126px;
                   height: 37px;
@@ -528,7 +528,7 @@ body {
 												& + li {
 			                      margin-right: 20px;
 			                      input[type='submit'] {
-			                        background: url('/assets/common/login2.png') no-repeat;
+			                        background: image-url('common/login2.png') no-repeat;
 			                        text-indent: -9999px;
 			                        width: 106px;
 			                        height: 42px;
@@ -542,7 +542,7 @@ body {
                   	}
                  
                   input[type='submit'] {
-                    background: url('/assets/common/login2.png') no-repeat;
+                    background: image-url('common/login2.png') no-repeat;
                     text-indent: -9999px;
                     width: 106px;
                     height: 42px;
@@ -982,7 +982,7 @@ body {
             margin-bottom: 15px;
             fieldset.buttons {
               input[type=submit] {
-                background: url('/assets/common/login.png') no-repeat;
+                background: image-url('common/login.png') no-repeat;
                 text-indent: -9999px;
                 width: 74px;
                 height: 31px;
@@ -1116,7 +1116,7 @@ body {
             height: 37px;
             display: block;
             &:hover, &.selected {
-              background: url("/assets/common/nav/arrow-hover.jpg") bottom center no-repeat;
+              background: image-url("common/nav/arrow-hover.jpg") bottom center no-repeat;
               color: $pink;
             }
           }
