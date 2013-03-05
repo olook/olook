@@ -16,17 +16,22 @@
     <% if @cart_service.total_coupon_discount > 0 %>
       <li><span class="txt-black">CUPOM: </span><span id="coupon_discount_value">-<%= number_to_currency(@cart_service.total_coupon_discount) %></span></li>
     <% end %>
+
+    <% if @cart_service.facebook_discount > 0 %>
+      <li><span class="txt-black">DESCONTO FACEBOOK: </span><span id="coupon_discount_value">-<%= number_to_currency(@cart_service.facebook_discount) %></span></li>
+    <% end %>
+
     <% if @checkout %>
     <div id="billet_discount_cart">
       <li><span class="txt-black">BOLETO: </span><span id="billet_discount_value">-<%= number_to_currency(@cart_service.billet_discount) %></span></li>
     </div>
     <% end %>
-  </ul> 
+  </ul>
   <p class="total">
     <span class="txt-black">TOTAL: </span>
     <% if @checkout %>
       <span class="txt-pink" id="total_billet"><%= number_to_currency(@cart_service.total(Billet.new)) %></span>
-    <%end%>    
+    <%end%>
     <span class="txt-pink" id="total"><%= number_to_currency(@cart_service.total) %></span>
 
     <span class="frete" id="delivery_time"><% if address && address.zip_code %><%= delivery_time_message(freight_for(address)[:delivery_time]) %><% end %></span>
