@@ -382,9 +382,11 @@ $(document).ready(function() {
     var url = $(this).attr("rel");
     var title = $("<div>").append($(this).siblings(".video_description").clone()).remove().html();
     var youtube_id = initBase.youtubeParser(url);
+
     content = initBase.youtubePlayer(youtube_id);
     content += title;
-    initBase.modal(content);
+
+    initBase.newModal(content);
     e.preventDefault();
   });
 
@@ -445,14 +447,15 @@ initBase = {
   },
 
   youtubePlayer : function(yt_id) {
-    return "<iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&autoplay=1' frameborder='0' allowfullscreen></iframe>";
+    return "<div style='width:791px;height:445px;'><iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&autoplay=1&vq=large' frameborder='0' allowfullscreen></iframe></div>";
   },
   
   newModal : function(content){
-    var $modal = $("div#modal.promo-olook"), h = content.outerHeight(), w = content.outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2)), heightDoc = $(document).height(), _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()), _left=Math.max(0, (($(window).width() - w) / 2) + $(window).scrollLeft());
+
+    var $modal = $("div#modal.promo-olook"), h = $(content).outerHeight(), w = $(content).outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2)), heightDoc = $(document).height(), _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()), _left=Math.max(0, (($(window).width() - w) / 2) + $(window).scrollLeft());
 
     $("#overlay-campaign").css({"background-color": "#000", 'height' : heightDoc}).fadeIn().bind("click", function(){
-       $modal.fadeOut();
+       $modal.html("").fadeOut();
        $(this).fadeOut();
     }); 
 
@@ -469,7 +472,7 @@ initBase = {
    .delay(500).fadeIn().children().fadeIn();
    
    $("#modal button.close").click(function(){
-      $modal.fadeOut();
+      $modal.html("").fadeOut();
       $("#overlay-campaign").fadeOut();
    })
 
