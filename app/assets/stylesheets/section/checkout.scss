@@ -980,7 +980,7 @@ section#payment {
         font-weight: bold;
       }
       input[type="submit"] {
-        background: url("/assets/cart/print-billet.png") no-repeat;
+        background: image-url("cart/print-billet.png") no-repeat;
         text-indent: -9999px;
         width: 165px;
         height: 46px;
@@ -1005,7 +1005,7 @@ section#payment {
       float: right;
       ol li {
         input[type='submit'] {
-          background: url('/assets/cart/bt-make-payment.png') no-repeat;
+          background: image-url('cart/bt-make-payment.png') no-repeat;
           text-indent: -9999px;
           width: 203px;
           height: 46px;
@@ -1028,7 +1028,7 @@ section#payment {
           margin: 0 5px 5px 0;
           float: left;
           label {
-            background: url("/assets/cart/ico-payments.png") no-repeat;
+            background: image-url("cart/ico-payments.png") no-repeat;
             text-indent: -9999px;
             width: 43px;
             height: 35px;
@@ -1456,7 +1456,7 @@ section#payment {
         margin: 0 0 20px 0;
       }
       a.back {
-        background: url("/assets/my_account/bt-back-showroom.png") no-repeat;
+        background: image-url("my_account/bt-back-showroom.png") no-repeat;
         text-indent: -9999px;
         width: 259px;
         height: 46px;
@@ -1772,7 +1772,7 @@ section.checkout{
       }
     }
     input[type="submit"].continue {
-      background: url('/assets/cart/continue.jpg') no-repeat;
+      background: image-url('cart/continue.jpg') no-repeat;
       text-indent: -9999px;
       width: 183px;
       height: 63px;
@@ -1782,7 +1782,7 @@ section.checkout{
       border: none;
     }
     input[type="submit"].finish, a.finish {
-      background: url('/assets/cart/finish.png') 0 0 no-repeat;
+      background: image-url('cart/finish.png') 0 0 no-repeat;
       text-indent: -9999px;
       width: 116px;
       height: 46px;
@@ -1795,7 +1795,7 @@ section.checkout{
       }
     }
     input[type="submit"].save {
-      background: url('/assets/cart/save-continue.png') 0 0 no-repeat;
+      background: image-url('cart/save-continue.png') 0 0 no-repeat;
       text-indent: -9999px;
       width: 202px;
       height: 46px;
@@ -1808,7 +1808,7 @@ section.checkout{
       }
     }
     input[type="submit"].disabled.continue {
-      background: url('/assets/cart/continue-disabled.png') 0 0 no-repeat;
+      background: image-url('cart/continue-disabled.png') 0 0 no-repeat;
       text-indent: -9999px;
       width: 139px;
       height: 46px;
