@@ -121,6 +121,7 @@ function postCartToFacebookFeed(element) {
     dataType: "script"
     });
     $("#facebook-share").hide();
+    $(".msg").show();
     }
   });
 }
