@@ -7,12 +7,12 @@ module Clearsale
       if Setting.send_to_clearsale || Setting.force_send_to_clearsale
         responses = ClearsaleOrderResponse.to_be_processed
         responses.each do |response|
-          
+
           if response.has_pending_status?
             new_response = OrderAnalysisService.check_results(response.order)
             if new_response.has_pending_status?
               response.update_attribute("last_attempt", Time.now)
-            else 
+            else
               process_response new_response
               response.update_attribute("processed", true)
             end
@@ -46,9 +46,7 @@ module Clearsale
       payments.each do |payment|
         if payment.is_a?(CreditCard)
           payment.set_state(:cancel)
-          if payment.order && payment.order.reload.canceled?
-            Resque.enqueue(Abacos::CancelOrder, payment.order.number)
-          end
+          Resque.enqueue(Abacos::CancelOrder, payment.order.number) if payment.order
         end
       end
     end

@@ -97,10 +97,10 @@ $(document).ready(function() {
 
     var clone = $('.dialog.didi').clone().addClass('clone');
     var content = clone[0].outerHTML;
-    initBase.modal(content);
-    $("html, body").animate({
+    initBase.newModal(content);
+    /*$("html, body").animate({
       scrollTop: 0
-    }, 'slow');
+    }, 'slow');*/
   }
 
   if($('.dialog.liquidation').length == 1) {
