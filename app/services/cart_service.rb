@@ -336,6 +336,11 @@ class CartService
 
     end
 
+    if cart.facebook_share_discount?
+      facebook_discount_value = calculate_facebook_discount_value(retail_value)
+      retail_value -= facebook_discount_value
+    end
+
     if payment && payment.is_a?(Billet) && Setting.billet_discount_available
 
       billet_discount_value = calculate_billet_discount_value(retail_value)
@@ -345,13 +350,6 @@ class CartService
       end
       retail_value -= billet_discount_value
     end
-
-
-    if cart.facebook_share_discount?
-      facebook_discount_value = calculate_facebook_discount_value(retail_value)
-      retail_value -= facebook_discount_value
-    end
-    # discounts << :facebook
 
 
     total_credits = credits_loyality + credits_invite + credits_redeem
