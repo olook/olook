@@ -36,6 +36,10 @@ class ShowroomPresenter < BasePresenter
     h.raw output
   end
 
+  def display_clothes(asked_range, collection = Collection.active, user=nil)
+    display_products(asked_range, Category::CLOTH, collection, user)
+  end
+
   def display_shoes(asked_range, collection = Collection.active, user=nil)
     display_products(asked_range, Category::SHOE, collection, user, user.try(:shoes_size))
   end

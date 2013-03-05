@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class MembersController < ApplicationController
 
-  before_filter :set_collection, :only => [:showroom, :showroom_shoes, :showroom_bags, :showroom_accessories]
-  before_filter :check_url, :only => [:showroom, :showroom_shoes, :showroom_bags, :showroom_accessories]
+  before_filter :set_collection, :only => [:showroom, :showroom_shoes, :showroom_bags, :showroom_accessories, :showroom_clothes]
+  before_filter :check_url, :only => [:showroom, :showroom_shoes, :showroom_bags, :showroom_accessories, :showroom_clothes]
   before_filter :authenticate_user!, :except => [:accept_invitation]
   before_filter :load_facebook_adapter
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
@@ -97,6 +97,9 @@ class MembersController < ApplicationController
     if @facebook_adapter
       @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
     end
+  end
+
+  def showroom_clothes
   end
 
   def showroom_shoes
