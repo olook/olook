@@ -44,7 +44,6 @@ namespace :deploy do
   task :sync_task, :role => :web do
     run "cd #{deploy_to}/shared && scp -P13630 -r assets root@app3.olook.com.br:#{deploy_to}/shared/", :roles => :web
     run "cd #{deploy_to}/shared && scp -P13630 -r assets root@app4.olook.com.br:#{deploy_to}/shared/", :roles => :web
-    run "cd #{deploy_to}/shared && scp -P13630 -r assets root@app5.olook.com.br:#{deploy_to}/shared/", :roles => :web
     run "cd #{deploy_to}/shared && scp -P13630 -r assets app1.olook.com.br:#{deploy_to}/shared/", :roles => :web
   end
 
