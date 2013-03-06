@@ -6,8 +6,8 @@ describe PaymentBuilder do
   let(:order) { FactoryGirl.create(:order, :user => user) }
   let(:credit_card) { FactoryGirl.create(:credit_card, :order => order) }
   let(:credit_card_with_response) { FactoryGirl.create(:credit_card_with_response) }
-  let(:billet) { FactoryGirl.create(:billet, :order => order) }
-  let(:debit) { FactoryGirl.create(:debit, :order => order) }
+  let(:billet) { FactoryGirl.create(:billet) }
+  let(:debit) { FactoryGirl.create(:debit) }
 
   let(:address) { FactoryGirl.create(:address, :user => user) }
   let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
@@ -20,53 +20,44 @@ describe PaymentBuilder do
     mock
   }
 
-  session_params = {"referer"=>"http://localhost:3000/registrar"}
+  let(:session_params) { { "referer" => "http://localhost:3000/registrar" } } 
+  let(:order_total) { 12.34 }
 
   subject { PaymentBuilder.new(:cart_service => cart_service, :payment => credit_card, :gateway_strategy => moip_sender_strategy, :tracking_params => session_params) }
-
-  let(:order_total) { 12.34 }
 
   before :each do
     Airbrake.stub(:notify)
     cart_service.stub(:total => 10)
     cart.stub(:total_liquidation_discount => 0)
     cart.stub(:total_promotion_discount => 0)
-    # order.stub(:total).and_return(10.50)
-    # @order_total = order.amount_paid
   end
 
-  it "should verify if MoIP uri was properly initialized" do
-    moip_uri = MoIP.uri
-    moip_uri.should be_true
-  end
-
-  it "should verify if MoIP token was properly initialized" do
-    moip_token = MoIP.token
-    moip_token.should be_true
-  end
-
-  it "should verify if MoIP key was properly initialized" do
-    moip_key = MoIP.key
-    moip_key.should be_true
-  end
-
-  context "on success" do
-    it "should process the payment" do
+  context "#process!" do
+    it "receives a payment object from the gateway" do
       payment = double(Payment)
       moip_sender_strategy.should_receive(:send_to_gateway).and_return(payment)
       subject.process!
     end
 
-    context "success actions" do
+    context "on success" do
       before :each do
         subject.gateway_strategy.stub(:payment_successful?).and_return(true)
+        subject.gateway_strategy.stub(:send_to_gateway).and_return(subject.payment)
+        moip_sender_strategy.stub(:payment_successful?).and_return(true)
         moip_sender_strategy.stub(:send_to_gateway).and_return(subject.payment)
       end
 
-      it "should set payment order" do
+      it "assigns the order to the payment object" do
         cart_service.should_receive(:generate_order!).and_return(order)
         subject.process!
         subject.payment.order.should == order
+      end
+
+      it "should return a structure with status and a payment" do
+        CartService.any_instance.should_receive(:freight).any_number_of_times.and_return(freight)
+        response = subject.process!
+        response.status.should == Payment::SUCCESSFUL_STATUS
+        response.payment.should == credit_card
       end
 
       xit "should decrement the inventory for each item" do
@@ -98,13 +89,6 @@ describe PaymentBuilder do
         }.to change{Order.count}.by(1)
       end
 
-      it "should return a structure with status and a payment" do
-        CartService.any_instance.should_receive(:freight).any_number_of_times.and_return(freight)
-        response = subject.process!
-        response.status.should == Payment::SUCCESSFUL_STATUS
-        response.payment.should == credit_card
-      end
-
       xit "should invalidate the order coupon" do
         pending "REVIEW THIS"
         Coupon.any_instance.should_receive(:decrement!)
@@ -126,33 +110,69 @@ describe PaymentBuilder do
 
         }.to change{Order.count}.by(1)
       end
-    end
-  end
 
-  context "on failure" do
-    before :each do
-      subject.stub(:send_payment!)
+      context "cancellation pre-scheduling (to automatically free inventory if payment isn't made)" do
+        context "credit card" do
+          it "doesn't pre-schedule order cancellation" do
+            subject.payment.should_not_receive(:schedule_cancellation)
+            subject.process!
+          end
+        end
+
+        # context "debit" do
+        #   before(:each) do
+        #     subject.payment = FactoryGirl.build(:debit)
+        #     Payments::MoipSenderStrategy.any_instance.stub(:payment_successful?).and_return(true)
+        #     subject.gateway_strategy.stub(:payment_successful?).and_return(true)
+        #     subject.gateway_strategy.stub(:send_to_gateway).and_return(subject.payment)
+        #     moip_sender_strategy.stub(:payment_successful?).and_return(true)
+        #     moip_sender_strategy.stub(:send_to_gateway).and_return(subject.payment)
+        #   end
+
+        #   it "pre-schedules order cancellation" do
+        #     subject.payment.should_receive(:schedule_cancellation)
+        #     subject.process!
+        #   end
+        # end
+
+        # context "billet" do
+        #   before(:each) do
+        #     subject.payment = billet
+        #   end
+
+        #   it "pre-schedules order cancellation" do
+        #     subject.payment.should_receive(:schedule_cancellation)
+        #     subject.process!
+        #   end
+        # end
+      end
     end
 
-    it "should return a structure with failure status and without a payment when the gateway comunication fail " do
-      subject.payment.stub(:gateway_response_status).and_return(Payment::FAILURE_STATUS)
-      subject.stub_chain(:set_payment_url!).and_return(subject.payment)
-      subject.process!.status.should == Payment::FAILURE_STATUS
-      subject.process!.payment.should be_nil
-    end
+    context "on failure" do
+      before :each do
+        subject.stub(:send_payment!)
+      end
 
-    it "should return a structure with failure status and without a payment" do
-      subject.payment.stub(:gateway_response_status).and_return(Payment::SUCCESSFUL_STATUS)
-      subject.payment.stub(:gateway_transaction_status).and_return(Payment::CANCELED_STATUS)
-      subject.stub_chain(:set_payment_url!).and_return(subject.payment)
-      subject.process!.status.should == Payment::FAILURE_STATUS
-      subject.process!.payment.should be_nil
-    end
+      it "should return a structure with failure status and without a payment when the gateway comunication fail " do
+        subject.payment.stub(:gateway_response_status).and_return(Payment::FAILURE_STATUS)
+        subject.stub_chain(:set_payment_url!).and_return(subject.payment)
+        subject.process!.status.should == Payment::FAILURE_STATUS
+        subject.process!.payment.should be_nil
+      end
 
-    it "should return a structure with failure status and without a payment" do
-      subject.stub(:send_payment!).and_raise(Exception)
-      subject.process!.status.should == Payment::FAILURE_STATUS
-      subject.process!.payment.should be_nil
+      it "should return a structure with failure status and without a payment" do
+        subject.payment.stub(:gateway_response_status).and_return(Payment::SUCCESSFUL_STATUS)
+        subject.payment.stub(:gateway_transaction_status).and_return(Payment::CANCELED_STATUS)
+        subject.stub_chain(:set_payment_url!).and_return(subject.payment)
+        subject.process!.status.should == Payment::FAILURE_STATUS
+        subject.process!.payment.should be_nil
+      end
+
+      it "should return a structure with failure status and without a payment" do
+        subject.stub(:send_payment!).and_raise(Exception)
+        subject.process!.status.should == Payment::FAILURE_STATUS
+        subject.process!.payment.should be_nil
+      end
     end
   end
 

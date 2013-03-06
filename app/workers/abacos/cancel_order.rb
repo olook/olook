@@ -15,10 +15,9 @@ module Abacos
     end
 
     private
+
       def self.should_cancel? order
         (order.can_be_canceled? && !order.payment_rollback?)
       end
   end
-
-
 end
