@@ -20,7 +20,7 @@ describe PaymentBuilder do
     mock
   }
 
-  let(:session_params) { { "referer" => "http://localhost:3000/registrar" } } 
+  let(:session_params) { { "referer" => "http://localhost:3000/registrar" } }
   let(:order_total) { 12.34 }
 
   subject { PaymentBuilder.new(:cart_service => cart_service, :payment => credit_card, :gateway_strategy => moip_sender_strategy, :tracking_params => session_params) }
@@ -193,7 +193,7 @@ describe PaymentBuilder do
 
   end
 
-  describe "#verify_payment_for" do
+  describe "#create_payment_for" do
     context "when should create payment" do
 
       context "when payment isn't a credit" do
@@ -202,7 +202,7 @@ describe PaymentBuilder do
           subject.should_receive(:should_create_payment_for?).and_return(true)
           subject.should_receive(:create_payment)
           subject.should_not_receive(:create_credit_payment)
-          subject.verify_payment_for(10.0, OlookletPayment)
+          subject.create_payment_for(10.0, OlookletPayment)
         end
 
       end
@@ -213,7 +213,7 @@ describe PaymentBuilder do
           subject.should_receive(:should_create_payment_for?).and_return(true)
           subject.should_receive(:create_credit_payment)
           subject.should_not_receive(:create_payment)
-          subject.verify_payment_for(10.0, CreditPayment, :loyalty_program)
+          subject.create_payment_for(10.0, CreditPayment, :loyalty_program)
         end
 
       end
@@ -225,7 +225,7 @@ describe PaymentBuilder do
       it "doesn't receive create_payment_method" do
         subject.should_not_receive(:create_payment)
         subject.should_not_receive(:create_credit_payment)
-        subject.verify_payment_for(0, OlookletPayment)
+        subject.create_payment_for(0, OlookletPayment)
       end
 
     end
