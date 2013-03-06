@@ -84,6 +84,7 @@ group :development, :test do
   end
   gem "pry"
   gem 'delorean'
+  gem 'timecop'
 end
 
 group :test do
