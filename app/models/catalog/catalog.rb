@@ -29,8 +29,17 @@ class Catalog::Catalog < ActiveRecord::Base
     subcategories(Category::ACCESSORY)
   end
 
+  def clothes
+    subcategories(Category::CLOTH)
+  end
+
   def shoe_sizes
     in_category(Category::SHOE).group(:shoe_size).order("shoe_size asc").map { |p| p.shoe_size }.compact
+  end
+
+  def cloth_sizes
+    in_category(Category::CLOTH).order("shoe_size asc").map { |p| p.shoe_size }.compact
+    # in_category(Category::CLOTH).group(:shoe_size).order("shoe_size asc").map { |p| p.shoe_size }.compact
   end
 
   def heels
