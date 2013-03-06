@@ -114,7 +114,7 @@ module ApplicationHelper
   end
 
   def is_moment_page?
-    params[:controller] == "moments" && params[:action] == "show" && @featured_products
+    params[:controller] == "moments" && ["show", "clothes"].include?(params[:action]) && @featured_products
   end
 
   def protocol

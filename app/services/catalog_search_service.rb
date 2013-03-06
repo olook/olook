@@ -59,7 +59,7 @@ class CatalogSearchService
   end
 
   def compact_category_queries
-    [query_shoes, query_bags, query_accessories].compact
+    [query_shoes, query_bags, query_accessories, query_clothes].compact
   end
 
   def query_shoes
@@ -92,6 +92,11 @@ class CatalogSearchService
   def query_accessories
     query = params[:accessory_subcategories] ? l_products[:subcategory_name].in(params[:accessory_subcategories]) : nil
     query.and(l_products[:category_id].in(Category::ACCESSORY)) if query
+  end
+
+  def query_clothes
+    query = params[:clothes_subcategories] ? l_products[:subcategory_name].in(params[:clothes_subcategories]) : nil
+    query.and(l_products[:category_id].in(Category::CLOTH)) if query
   end
 
   def build_sub_query(current_query, sub_query)
