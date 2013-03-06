@@ -16,8 +16,10 @@ describe Billet do
 
   context "#schedule_cancellation" do
     it "schedules cancellation in 4 business days from creation" do
-      Resque.should_receive(:enqueue_at).at_least(1).times.with(4.business_days.from_now, Abacos::CancelOrder, order.number)
-      subject.schedule_cancellation
+      Timecop.freeze do
+        Resque.should_receive(:enqueue_at).at_least(1).times.with(4.business_days.from_now, Abacos::CancelOrder, order.number)
+        subject.schedule_cancellation
+      end
     end
   end
 
