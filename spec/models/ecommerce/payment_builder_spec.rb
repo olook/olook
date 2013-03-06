@@ -119,32 +119,32 @@ describe PaymentBuilder do
           end
         end
 
-        context "debit" do
-          before(:each) do
-            subject.payment = FactoryGirl.build(:debit)
-            Payments::MoipSenderStrategy.any_instance.stub(:payment_successful?).and_return(true)
-            subject.gateway_strategy.stub(:payment_successful?).and_return(true)
-            subject.gateway_strategy.stub(:send_to_gateway).and_return(subject.payment)
-            moip_sender_strategy.stub(:payment_successful?).and_return(true)
-            moip_sender_strategy.stub(:send_to_gateway).and_return(subject.payment)
-          end
+        # context "debit" do
+        #   before(:each) do
+        #     subject.payment = FactoryGirl.build(:debit)
+        #     Payments::MoipSenderStrategy.any_instance.stub(:payment_successful?).and_return(true)
+        #     subject.gateway_strategy.stub(:payment_successful?).and_return(true)
+        #     subject.gateway_strategy.stub(:send_to_gateway).and_return(subject.payment)
+        #     moip_sender_strategy.stub(:payment_successful?).and_return(true)
+        #     moip_sender_strategy.stub(:send_to_gateway).and_return(subject.payment)
+        #   end
 
-          it "pre-schedules order cancellation" do
-            subject.payment.should_receive(:schedule_cancellation)
-            subject.process!
-          end
-        end
+        #   it "pre-schedules order cancellation" do
+        #     subject.payment.should_receive(:schedule_cancellation)
+        #     subject.process!
+        #   end
+        # end
 
-        context "billet" do
-          before(:each) do
-            subject.payment = billet
-          end
+        # context "billet" do
+        #   before(:each) do
+        #     subject.payment = billet
+        #   end
 
-          it "pre-schedules order cancellation" do
-            subject.payment.should_receive(:schedule_cancellation)
-            subject.process!
-          end
-        end
+        #   it "pre-schedules order cancellation" do
+        #     subject.payment.should_receive(:schedule_cancellation)
+        #     subject.process!
+        #   end
+        # end
       end
     end
 
