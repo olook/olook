@@ -152,20 +152,20 @@ $(document).ready(function() {
 
   $(document).bind('keydown', 'esc',function () {
     $('#sign-in-dropdown').hide();
-    $("div#wrapper_menu nav.menu ul li.cart ul.submenu").hide();
+    $("#cart_summary").hide();
     $('body').removeClass('dialog-opened');
     return false;
   });
 
-  $("div#wrapper_menu nav.menu ul li.cart ul.submenu").live('click', function(e) {
+  $("#cart_summary").live('click', function(e) {
     if($('body').hasClass('cart_submenu_opened')) {
       e.stopPropagation();
     }
   });
 
   $('body.cart_submenu_opened').live("click", function(e) {
-    if($("div#wrapper_menu nav.menu ul li.cart ul.submenu").is(':visible')) {
-      $("div#wrapper_menu nav.menu ul li.cart ul.submenu").hide();
+    if($("#cart_summary").is(':visible')) {
+      $("#cart_summary").hide();
       $(this).removeClass("cart_submenu_opened");
       e.stopPropagation();
     }
@@ -331,11 +331,11 @@ $(document).ready(function() {
     $(this).submit();
   });
 
-  $("div#wrapper_menu nav.menu ul li a.cart, ul.submenu").live("mouseenter", function() {
-    $(this).parent("li").find("ul").show();
+  $("p.new_sacola a.cart,#cart_summary").live("mouseenter", function() {
+    $("#cart_summary").show();
     $("body").addClass('cart_submenu_opened');
   }).live("mouseleave", function() {
-    $(this).parent("li").find("ul").hide();
+    $("#cart_summary").hide();
     $("body").removeClass('cart_submenu_opened');
   });
 
@@ -536,11 +536,11 @@ initBase = {
   },
 
   dialogLogin : function() {
-    $('a.trigger').live('click', function(e){
+    $('p.new_login a.trigger').live('click', function(e){
       el = $(this).attr('rel');
 
-      $(this).parents('#session').find('.' + el).toggle('open');
-      $(this).parents('body').addClass('dialog-opened');
+      $('.' + el).toggle('open');
+      $('body').addClass('dialog-opened');
 
       $("div.sign-in-dropdown form input#user_email").focus();
 
@@ -613,14 +613,15 @@ initBase = {
   },
 
   fixBorderOnMyAccountDropDown : function() {
-    $('#session div.user ul li.submenu').hover(function() {
+    $('div.user ul li.submenu').hover(function() {
       var link = $(this).find('a#info_user');
-      if($(link).outerWidth() >= '125') {
+      var link_width = $(link).outerWidth();
+      /*if($(link).outerWidth() >= '125') {
         var link_width = $(link).outerWidth();
       } else {
         var link_width = 125;
-      }
-      $(this).find('div.my_account').css('width', link_width - 4);
+      }*/
+      $(this).find('div.my_account').css('width', link_width - 2);
       $(link).addClass('hover');
     }, function() {
       var link = $(this).find('a#info_user');

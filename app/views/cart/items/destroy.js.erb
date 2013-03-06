@@ -2,9 +2,10 @@
 <% if @cart.items_total == 0 %>
   <% if request.referer =~ /#{new_checkout_path}/ %>
     window.location.href='<%= "#{cart_path}" %>';
+    $("p.new_sacola a.cart").removeClass("full");
   <% else %>
     $('section#cart').hide().empty().delay(300).append('<h1>MINHA SACOLA</h1>').append('<%= escape_javascript( render partial: "cart/cart/empty_cart") %>').delay(300).fadeIn();
-    $(".menu li#cart a.cart").removeClass("selected");
+    $("p.new_sacola a.cart").removeClass("full");
   <% end %>
 <% end %>
 
@@ -15,7 +16,7 @@
 <% end %>
 
 //update items total on cart summary
-$("#cart_items").hide().delay(200).text('<%= @cart.items_total %>').fadeIn();
+$("#cart_items").hide().delay(200).text("<%= pluralize(@cart.items_total, 'item', 'itens') %>").fadeIn();
 
 //?
 $("#amount_for_loyalty_program").text("<%= number_to_currency @cart_service.amount_for_loyalty_program %>");
