@@ -1,11 +1,12 @@
 # -*- encoding : utf-8 -*-
-class TopsterXml
   require 'builder'
-  extend ActionView::Helpers::XmlHelper
+
+class TopsterXml
+  extend XmlHelper
   extend ActionView::Helpers::NumberHelper
 
   def self.create_xml
-    @products = Product.where(is_visible: true).last(5)
+    @products = Product.first(5)
     xml = Builder::XmlMarkup.new( :indent => 2 )
     xml.instruct! :xml, :encoding => "UTF-8"
     xml.produtos do |xml|
@@ -13,7 +14,7 @@ class TopsterXml
         xml.id_produto { xml.cdata!(product.id.to_s) }
         xml.link_produto { xml.cdata!(product.product_url(:utm_source => "topster").to_s) }
         xml.nome_produto { xml.cdata!(product.name.to_s) }
-        xml.marca { xml.cdata!("Olook") }
+        xml.marca { xml.cdata!("olook") }
         xml.categoria { xml.cdata!(full_category(product).to_s) }
         xml.cores do
           xml.cor { xml.cdata!(product.color_name.to_s) }
@@ -28,12 +29,7 @@ class TopsterXml
           end
         end
         xml.estoque { xml.cdata!(product.inventory > 0 ? "sim" : "não" ) }
-        xml.estoque_baixo { xml.cdata!(product.inventory > 2 ? "não" : "sim" ) }
-        xml.num_tams do
-          product.variants.each do |variant|
-            xml.num_tam { xml.cdata!(variant.description.to_s ) }
-          end
-        end
+        xml.estoque_baixo { xml.cdata!(product.has_less_then_minimum_inventory? ? "não" : "sim" ) }
       end
     end
   end
@@ -50,4 +46,5 @@ class TopsterXml
       "Content-Type" => "application/xml",
       :public => true)
   end
-end
+
+ end
