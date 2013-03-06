@@ -31,7 +31,6 @@ class PaymentBuilder
         tracking_order = payment.user.add_event(EventType::TRACKING, @tracking_params) if @tracking_params
         order = cart_service.generate_order!(payment.gateway, tracking_order, payment)
         payment.order = order
-        #TODO: payment.respond_to?(schedule_cancellation) ? or not...
         payment.schedule_cancellation if [Debit, Billet].include?(payment.class)
         payment.calculate_percentage!
         payment.deliver! if [Debit, CreditCard].include?(payment.class)        
