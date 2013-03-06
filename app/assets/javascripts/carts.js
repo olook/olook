@@ -103,6 +103,7 @@ function changeCartItemQty(cart_item_id) {
 
 function postCartToFacebookFeed(element) {
   var obj = {
+      picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
       method: 'feed',
       caption: 'www.olook.com.br',
       link: 'http://www.olook.com.br',
