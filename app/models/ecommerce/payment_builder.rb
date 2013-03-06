@@ -44,7 +44,6 @@ class PaymentBuilder
     payment.user_id = cart_service.cart.user.id
     payment.save!
 
-
     ActiveRecord::Base.transaction do
       total_liquidation = cart_service.cart.total_liquidation_discount
       total_promotion = cart_service.cart.total_promotion_discount
@@ -62,9 +61,9 @@ class PaymentBuilder
         tracking_order = payment.user.add_event(EventType::TRACKING, @tracking_params) if @tracking_params
         order = cart_service.generate_order!(payment.gateway, tracking_order, payment)
         payment.order = order
+        payment.schedule_cancellation if [Debit, Billet].include?(payment.class)
         payment.calculate_percentage!
-        payment.deliver! if payment.kind_of?(CreditCard)
-        payment.deliver! if payment.kind_of?(Debit)
+        payment.deliver! if [Debit, CreditCard].include?(payment.class)        
         payment.save!
 
         order.line_items.each do |item|
