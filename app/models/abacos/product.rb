@@ -200,8 +200,7 @@ module Abacos
     def self.parse_details(data, data_simple_descriptor)
       items_to_skip = ['Perfil', 'Como vestir', 'Descrição']
       items = parse_nested_data(data, :dados_caracteristicas_complementares)
-
-      descritor_simples = data_simple_descriptor ? data_simple_descriptor[:rows][:dados_descritor_simples] : []
+      descritor_simples = parse_nested_data(data_simple_descriptor, :dados_descritor_simples)
 
       {}.tap do |result|
         items.each do |item|
@@ -273,6 +272,6 @@ module Abacos
           params
       end
     end
-    
+
   end
 end
