@@ -9,10 +9,10 @@ describe FriendsController do
     let(:message) { "my message" }
     let(:facebook_scopes) { "friends_birthday,publish_stream" }
     let(:attachment) do
-      {:picture => "cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app.jpg",
+      {:picture => "cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg",
        :caption => "www.olook.com.br",
        :description => I18n.t('facebook.post_wall', :link => user.invitation_url),
-       :link => "#{user.invitation_url}" }
+       :link => "http://www.olook.com.br/#{ new_survey_path }" }
     end
 
     describe "GET facebook_connect" do
