@@ -165,7 +165,7 @@ describe Order do
         expect(order.expected_delivery_on).to_not be_nil
 
         delivery_date = order.freight.delivery_time.business_days.from_now
-        expect(order.expected_delivery_on.to_s).to eq(delivery_date.to_s)
+        expect(order.expected_delivery_on.to_s).to match(delivery_date.to_s[0 .. -11])
       end
 
       it "sets #shipping_service_name" do
