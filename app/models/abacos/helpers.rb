@@ -36,6 +36,8 @@ module Abacos
     end
 
     def raise_webservice_error(response)
+      #TODO: raise more descriptive error when there's lack of inventory in abacos
+      # this happens frequently on dev and homolog servers, since the db isn't in sync with abacos there
       raise "Error calling webservice #{response[:method]}: (#{response[:codigo]}) #{response[:tipo]} - #{response[:descricao]} - #{response[:exception_message]}"
     end
 
