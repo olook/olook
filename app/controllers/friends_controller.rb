@@ -32,11 +32,13 @@ class FriendsController < ApplicationController
   end
 
   def post_wall
+    binding.pry
     attachment = {
-      :picture => "cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app.jpg",
+      :picture => "cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg",
       :caption => "www.olook.com.br",
       :description => I18n.t('facebook.post_wall', :link => @user.invitation_url),
-      :link => "#{@user.invitation_url}" }
+      #:link => "#{@user.invitation_url}" }
+      link: "http://www.olook.com.br/minhas-amigas/vitrine/#{ @user.id }" }
     @facebook_adapter.post_wall_message(params[:message], :attachment => attachment ) ? (head :ok) : (head :error)
   end
 
