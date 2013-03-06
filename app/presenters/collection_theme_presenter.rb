@@ -6,7 +6,7 @@ class CollectionThemePresenter < BasePresenter
   end
 
   def render_search_form
-    h.render :partial => 'shared/filters/search_form', :locals => {:collection_theme_presenter => self}
+    h.render :partial => 'moments/search_form', :locals => {:collection_theme_presenter => self}
   end
 
   def display_color_filters
