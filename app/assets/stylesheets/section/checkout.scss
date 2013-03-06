@@ -134,15 +134,23 @@ section#credits_explanation{
 section#lookbooks{clear:both;}
 
 table.check {
-
    border-top: 1px #000 dotted;
-   border-bottom: 1px dotted black;
    tbody {
      tr {
        td {
-					&.check_column{width:870px}
+					&.check_column{width:870px; }
          vertical-align: middle;
          padding: 10px 0;
+         &.check_discount{
+            color: #000000;
+            font-family: avenir,arial,sans-serif;
+            font-size: 17px;
+            font-weight: normal;
+            letter-spacing: -1px;
+            text-align: left;
+            vertical-align: top;
+            width: 120px;
+         }
          input[type="checkbox"] {
            margin: 0 17px 0 5px;
            float: left;
