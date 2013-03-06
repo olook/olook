@@ -7,10 +7,7 @@ filter.init = function(){
   */
   filter.visualization_mode = "product";
   filter.endlessScroll(window, document);
-  filter.seeAll();
-  filter.selectedFilter();
   filter.showAllImages(filter.visualization_mode);
-  filter.bindObjects();
   filter.changeVisualization();
   filter.displayCleanCategories();
 }
