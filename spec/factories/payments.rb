@@ -35,14 +35,14 @@ FactoryGirl.define do
     state 'authorized'
   end
 
-  factory :debit do
+  factory :debit, :class => Debit do
     url 'www.payment.com'
     bank 'Visa'
     receipt 'AVista'
     total_paid 12.34
   end
 
-  factory :billet do
+  factory :billet, :class => Billet do
     url 'www.payment.com'
     receipt 'AVista'
     total_paid 12.34
