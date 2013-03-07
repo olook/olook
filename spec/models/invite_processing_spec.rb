@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe InvitesProcessing do
-  let(:yesterday) { Date.today -1.day }
+  let(:yesterday) { Date.today - 1.day }
   let(:last_week) { Date.today - 8.day }
 
   let!(:sent_invite) { FactoryGirl.create :sent_invite }

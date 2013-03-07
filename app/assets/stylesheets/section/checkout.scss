@@ -105,7 +105,7 @@ body div#content {
 
 section#credits_explanation{
 	ul li{clear:both;overflow:hidden;}
-	
+
   ul li div {
     float: left;
     display: block;
@@ -134,14 +134,23 @@ section#credits_explanation{
 section#lookbooks{clear:both;}
 
 table.check {
-   
    border-top: 1px #000 dotted;
    tbody {
      tr {
        td {
-					&.check_column{width:870px}
+					&.check_column{width:870px; }
          vertical-align: middle;
          padding: 10px 0;
+         &.check_discount{
+            color: #000000;
+            font-family: avenir,arial,sans-serif;
+            font-size: 17px;
+            font-weight: normal;
+            letter-spacing: -1px;
+            text-align: left;
+            vertical-align: top;
+            width: 120px;
+         }
          input[type="checkbox"] {
            margin: 0 17px 0 5px;
            float: left;
@@ -161,6 +170,7 @@ table.check {
 						font-size:13px;
          }
          a {
+
            color: #ef3742;
            margin: 5px 0 0 85px;
          }
@@ -202,7 +212,7 @@ section#cart {
     text-transform: uppercase;
     margin: 10px 0 15px 0;
 		float:left;
-    
+
   }
 	h2 {
     font-family: $kepler;
@@ -211,20 +221,68 @@ section#cart {
 		float:left;
 		margin:10px 0 25px;
   }
-	.promo-leve3{
+	div#facebook-share{
 		float:left;
-		border-top:dotted 1px #000;
-		border-bottom:dotted 1px #000;
-		text-align:center;
-		width:410px;
+		border-top:dotted 1px #b3b3b3;
+		border-bottom:dotted 1px #b3b3b3;
+		text-align:left;
+		width:435px;
 		height:50px;
 		padding-top:10px;
-		margin-left:45px;
-		text-transform:uppercase;
-		p{color:#DD4A78;font-size:17px;
-			span{color:#000;font-size:13px;}
-		}
+		margin-left:35px;
+    font-family: $avenir;
+		p{
+      font-family: $avenir;
+      color:black;
+      font-size:12px;
+      font-weight: bold;
+      margin-left: 5px;
+      &.share-text{
+        display: block;
+        font-weight: normal;
+        }
+			span{
+        color:#000;
+        font-size:12px;
+        font-weight: bold;
+        color: #D95485;
+        }
+      }
+  .share{
+    background: image-url('cart/share.png') no-repeat;
+    text-indent: -9999px;
+    width: 128px;
+    height: 24px;
+    display: block;
+    float: right;
+    margin-right: 5px;
+    margin-top: -13px;
+   }
 	}
+  .msg{
+    background:#F0FDDF;
+    border:solid 1px #CBD7BC;
+    width:546px;
+    height:34px;
+    margin-top: -55px;
+    margin: -55px 20px 20px 220px;
+    display: none;
+
+      p{
+        height:21px;
+        background: image-url("/assets/campaign_emails/sprite.png") -260px -53px no-repeat;
+        text-align:left;
+        padding-left:40px;
+        margin-top:7px;
+        line-height:21px;
+        font-size: 14px;
+        font-family: $avenir;
+      }
+
+  .f14{font-size:14px;}
+  .desconto{font-size:11px;margin-top:15px;}
+}
+
 	.buying-continue{
 		margin:20px 0 30px;
 		font-size:12px;
@@ -232,7 +290,7 @@ section#cart {
 		padding-left:13px;
 		a{color:#5E5F61;text-decoration:none;
 			&:hover{text-decoration:underline};
-		}	
+		}
 	}
   p.credits {
     background: #EEE;
@@ -255,7 +313,7 @@ section#cart {
 		li a{color:#ef3742;margin-bottom:6px;display:block;}
 	}
   div.banner {
-    
+
 		border:dotted 1px #000;
     width: 984px;
     height: 100px;
@@ -416,7 +474,7 @@ section#cart {
               padding: 0 0 0 30px;
               border: none;
               cursor: pointer;
-            }         
+            }
           }
           &.cupom {
             text-align: right;
@@ -475,7 +533,7 @@ section#cart {
 				/********** FIM CAMPANHA DO AVC ****************/
         &.item {
           width: 355px;
-          
+
           img {
             margin-right: 20px;
             float: left;
@@ -485,7 +543,7 @@ section#cart {
         }
         &.amount {
           width: 137px;
-          
+
           select {
             width: 55px;
             margin-bottom: 10px;
@@ -510,7 +568,7 @@ section#cart {
               padding:0 12px 0 6px;
             }
           }
-					
+
           a.discount_percent {
             background: image-url('/assets/cart/label_discount2.jpg') center center no-repeat;
             color: #FFF;
@@ -532,7 +590,7 @@ section#cart {
           input[type="submit"] {
             @include sprite_checkout(-381px,-83px);
             width: 70px;
-            height: 26px;        
+            height: 26px;
 						padding-left:30px;
             display: block;
             border: none;
@@ -586,7 +644,7 @@ section#cart {
     }
   }
 
- 
+
   table#total {
 		border-top:dotted 1px #000;
     margin: 0;
@@ -604,7 +662,7 @@ section#cart {
             form.edit_cart{float:left;}
           }
           &.value {
-            
+
             p {
               float: right;
               margin-right: 40px;
@@ -613,7 +671,7 @@ section#cart {
 							span{
 								color:#ef3742;
 							}
-              
+
               &.limit {
                 font-size: 12px;
                 padding: 5px 0;
@@ -644,7 +702,7 @@ section#cart {
 		width:550px;
     tr {
       td {
-       
+
         border: none;
         a#show_coupon_field {
           color: #ef3742;
@@ -1290,7 +1348,7 @@ section#payment {
 							&.num2{background:image-url("/assets/new_checkout/bg_steps.png") -338px -111px no-repeat}
 							&.num3{background:image-url("/assets/new_checkout/bg_steps.png") -640px -111px no-repeat}
 						}
-						
+
 					}
 				}
 				.logo_itau{width:90px;height:100px;float:left;font-size:0;font-family:a;@include sprite_checkout(0px,0px);margin:0 42px 0 220px;}
@@ -1383,9 +1441,9 @@ section#payment {
 				.invite-box{
 					width:472px;text-align:center;margin-bottom:30px;border:solid 1px #DEDEDE;padding-top:15px;
 					h2{font-size:20px}
-				}		
+				}
 			}
-/****** END NEW CONCLUSION PAGE *****/			
+/****** END NEW CONCLUSION PAGE *****/
       div.payment_link {
         position: relative;
         width: 600px;
@@ -1488,14 +1546,14 @@ section.checkout{
 	.box-step-three{float:left;width:325px;}
 
 	h2.step-title{float:left;clear:both;margin-bottom:15px;
-		span{	
-			display:block;float:left;	
+		span{
+			display:block;float:left;
 			&.number{font-family:$kepler;font-size:60px;}
 			&.title{margin-top:8px;font-family:$avenir;font-size:25px;width:200px;}
 			&.phrase{font-family:$kepler;font-size:16px;}
 		}
 	}
-	
+
 	form.new_checkout{float:left;
 		div#checkout_address{float:left;
 				.span_error{float:none !important;display:block;margin-bottom:10px;}
@@ -1504,17 +1562,17 @@ section.checkout{
 		fieldset{margin-bottom:14px;
 			div{float:left;margin:0 10px 3px 0;position:relative;
 				&.fieldset_validate{float:right;}
-			}	
+			}
 		}
-		
+
 		label{display:block;margin-bottom:4px;
 			span{font-size:11px;font-weight:italic;}
 			&.address_label{display:none;}
 			&.frete_label{display:inline;}
 		}
-		
+
 		span.span_error{color:#EA1E40;font-size:12px;clear:both;float:left;width:300px;}
-		
+
 		input{
 			height:30px;line-height:30px;padding-left:7px;font-size:14px;border:solid 1px #C3C3C3;
 
@@ -1534,19 +1592,18 @@ section.checkout{
 			&.user_name, &.credit_card_number{width:280px;}
 			&.security_code{width:120px;}
 			&.expiration_date{width:107px;}
-			
+
 			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;position:absolute;left:685px;display:none;cursor:pointer;}
 		}
 		.btn_zipcode{float:left;border:0;width:150px;height:32px;font-size:0;font-family:a;@include sprite_checkout(-92px, -244px);margin:2px 0 0 15px;cursor:pointer;}
 		.subtitle{clear:both;margin-top:10px;height:30px;@include sprite_checkout(-109px, -535px);width:293px;color:#000;padding-top:15px;clear:both;}
 		.freight_text{font-size:14px;font-family:$avenir;margin-left:25px;}
 		.freight_value{color:#ef3742;}
-		
 		ul.address_data{float:left;margin:0 0 8px 5px;
 			a{color:#DD4978;font-size:13px;}
 		}
-		
-		p.new_address{ 
+
+		p.new_address{
 			clear:both;
 			a{font-size:14px;color:#DD4978;}
 		}
@@ -1554,7 +1611,7 @@ section.checkout{
       clear:both;margin-bottom:10px;
       a{font-size:14px;color:#DD4978;display:block;height:16px;@include sprite_checkout(-394px, -246px);padding-left:10px;text-decoration:none;
 				&:hover{text-decoration:underline;}
-			} 
+			}
     }
 /********** END / START STEP TWO *******/
 		.box-step-two{
@@ -1564,6 +1621,7 @@ section.checkout{
 		}
 		.credits{float:left;padding-left:5px;
 			label{color:#000;}
+
 			p{font-size:13px;float:left; 
 				span, a{color:#ef3742;}
 				a{display:block;margin:6px 0 5px;font-size:13px;}
@@ -1617,7 +1675,7 @@ section.checkout{
 					span{color:#000;}
 				}
 			}
-			
+
 			.box-debito{
 				float:left;position:relative;display:none;
 				input, label{opacity:0;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";z-index:1;position:relative;float:left;}
@@ -1648,7 +1706,7 @@ section.checkout{
 			}
 		}
 	}
-/********** END / START STEP THREE *******/		
+/********** END / START STEP THREE *******/
 	#cart-box{
 		float:left;border:solid 1px #D9D8D8;width:321px;max-height:335px;background:#FFF;
 		.bg-box{display:none;}
