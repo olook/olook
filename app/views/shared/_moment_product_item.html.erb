@@ -6,7 +6,7 @@ shoe_size = params[:shoe_sizes].try(:first).try(:to_i) || current_user.try(:shoe
   <div class="box_product <%= quantity_status_moments(product, shoe_size) %>">
     <%= link_to product, :class => "product_link", :rel => "#{product.id}", :remote => defined?(suggestion) do %>
 
-      <%= image_tag("common/ajax-loader-product.gif", :alt => product.name, :class => "async", "data-product" => product.catalog_picture, "data-backside" => product.backside_picture, "data-wearing" => product.wearing_picture) %>
+      <%= image_tag(product.showroom_picture , :alt => product.name, :class => "async", "data-product" => product.catalog_picture, "data-backside" => product.backside_picture, "data-wearing" => product.wearing_picture) %>
       <p><span class="model"><%= product.model_name %></span> <span class="name"><%= product.name %></span></p>
       <p class="brand">Olook</p>
 
