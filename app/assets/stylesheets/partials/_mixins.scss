@@ -117,5 +117,5 @@ $johnston: johnston, arial, sans-serif;
 }
 
 @mixin sprite_login($left, $top){
-	background:image-url("/assets/login/sprite.png") no-repeat $left $top;
+	background:image-url("login/sprite.png") no-repeat $left $top;
 }
