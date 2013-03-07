@@ -156,7 +156,7 @@ div#my_account {
           text-transform: uppercase;
           padding: 0 17px 0 0;
           &:hover, &.selected {
-            color: #e14d88;
+            color: $pink;
           }
         }
       }
