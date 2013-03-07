@@ -23,8 +23,10 @@ describe Debit do
 
   context "expiration date" do
     it "should set payment expiration date after create" do
-      Debit.any_instance.stub(:build_payment_expiration_date).and_return(expiration_date = Debit::EXPIRATION_IN_MINUTES.days.from_now)
-      subject.payment_expiration_date.should == expiration_date
+      Timecop.freeze do
+        Debit.any_instance.stub(:build_payment_expiration_date).and_return(expiration_date = Debit::EXPIRATION_IN_MINUTES.days.from_now)
+        subject.payment_expiration_date.should == expiration_date
+      end
     end
   end
 
