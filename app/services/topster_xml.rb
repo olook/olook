@@ -6,7 +6,7 @@ class TopsterXml
   extend ActionView::Helpers::NumberHelper
 
   def self.create_xml
-    @products = Product.first(5)
+    @products = Product.all
     xml = Builder::XmlMarkup.new( :indent => 2 )
     xml.instruct! :xml, :encoding => "UTF-8"
     xml.produtos do |xml|
