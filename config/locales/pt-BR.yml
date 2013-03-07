@@ -458,7 +458,7 @@
         body: "Por favor, verifique o(s) seguinte(s) campo(s):"
 
       messages:
-        taken: "Lembramos do e-mail. Já tem cadastro? Então entre ao lado"
+        taken: "já cadastrado! Então é só entrar (informando e-mail e senha)"
         record_invalid: "A validação falhou: %{errors}"
         <<: *errors_messages
 
@@ -487,7 +487,7 @@
     connect_failure: "Você precisa autorizar nosso Site em sua conta do Facebook"
     answer_survey: "Respondi uma pergunta sobre você. Será que eu acertei? Você mesma pode responder o quiz lá no site da olook, ver qual é o seu estilo e receber vitrines personalizadas por stylists. Descubra agora: %{link}."
     invite: "Achei um site de moda que é a sua cara. Você responde um quiz, descobre o seu estilo e recebe vitrines personalizadas por stylists. Pelo link do meu convite, %{link}, você faz o quiz e ainda ganha R$10 na primeira compra! Beijos!"
-    post_wall: "Eu tenho uma vitrine exclusiva. Respondi o style quiz da olook e eles recomendaram uma vitrine que é a minha cara. Adorei! Quer ver a sua também? Por este link, %{link}, você preenche o quiz e ainda ganha R$10 na primeira compra! Me conta se gostou!"
+    post_wall: "Tenho uma vitrine personaliza da olook e adoro! <3 Todos os meses recebo uma seleção de produtos incrível das stylists da olook. Responda o style quiz e tenha uma vitrine tb."
 
 
 

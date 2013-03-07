@@ -72,6 +72,10 @@ class Payment < ActiveRecord::Base
     where(type: ['BilletDiscount', 'CouponPayment', 'GiftPayment', 'OlookletPayment', 'PromotionPayment', 'CreditPayment'])
   end
 
+  def self.for_facebook_share_discount
+    where(type: 'FacebookShareDiscountPayment')
+  end
+
   state_machine :initial => :started do
     #Concluido - 4
     state :completed
@@ -251,14 +255,13 @@ class Payment < ActiveRecord::Base
 
   private
 
-  def generate_identification_code
-    #TODO: PASSAR A USAR UUID
-    code = SecureRandom.uuid.delete("-")
-    while Payment.find_by_identification_code(code)
-      code = SecureRandom.uuid
+    def generate_identification_code
+      #TODO: PASSAR A USAR UUID
+      code = SecureRandom.uuid.delete("-")
+      while Payment.find_by_identification_code(code)
+        code = SecureRandom.uuid
+      end
+      update_attributes(:identification_code => code)
     end
-    update_attributes(:identification_code => code)
-  end
-
 end
 

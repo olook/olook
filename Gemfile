@@ -81,6 +81,10 @@ group :development, :test do
   end
   gem "pry"
   gem 'delorean'
+  gem 'timecop'
+end
+
+group :test do
   gem "equivalent-xml", " ~> 0.2.9"
   gem 'capybara', '2.0.2'
   gem 'capybara-webkit', '0.14.2'

@@ -5,6 +5,7 @@ require 'spork'
 module Resque
   def self.enqueue(*args); end
   def self.enqueue_in(*args); end
+  def self.enqueue_at(*args); end
 end
 
 Spork.prefork do
