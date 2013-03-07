@@ -1139,7 +1139,7 @@ header#new_header{
          }
       }
          p.credits{float:left;font-size:11px;color:$pink;line-height:18px;
-         a{text-decoration:none;
+         a{text-decoration:none;color:$pink;
             &:hover{text-decoration:underline;}
          }
       }
