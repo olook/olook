@@ -8,7 +8,7 @@ initFirstVisit = {
     $(clone).find("li.facebook a").attr("id", "facebook_post_wall");
     $(clone).find("li.orkut #orkut_share").remove();
     content = clone[0].outerHTML;
-    initBase.modal(content);
+    initBase.newModal(content);
     initFirstVisit.copyInviteLink();
     initFirstVisit.createOrkutShareButton();
   },

@@ -14,6 +14,7 @@
         <% @cart.items.each do |item| %>
           <%= render partial: 'shared/cart_line_item', locals: {item: item, hidden: false} %>
         <% end %>
+        <li class="last" style="display:none">&nbsp;</li>
       </ul>
    </div>
    <p class="see_cart"><%= link_to "Ver minha sacola", cart_path, :class => "finish" %></p>
