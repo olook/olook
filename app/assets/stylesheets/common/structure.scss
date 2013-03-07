@@ -862,7 +862,7 @@ body {
           color: #282828;
           font-size: 11px;
           text-align: right;
-          margin: 8px 0 0 3px;
+          margin: 0 0 0 3px;
           padding: 0;
           display: inline-block;
           float: left;
@@ -907,6 +907,7 @@ body {
             ul {
               margin: 0 0 0 5px;
               li {
+                margin-top:8px;
                 text-align: left;
                 width: 100%;
                 display: block;
