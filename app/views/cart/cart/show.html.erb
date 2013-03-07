@@ -34,15 +34,19 @@ _gaq.push(['_addTrans',
   <p class="buying-continue"><%= link_to "Continuar comprando","/colecoes" %></p>
   <% end %>
 
-  <h1>Minha sacola</h1>
+  <div class="msg">
+    <p>Obrigada por compartilhar a olook. Você acaba de ganhar 2% de desconto! :)</p>
+  </div>
 
-  <% if free_item_promotion_is_active? %>
-    <div class="promo-leve3">
-      <p>Promo leve 3, pague 2<br />
-        <span>Na compra de 2 itens, o 3° item de menor valor é grátis</span>
-      </p>
-    </div>
-  <%end%>
+  <h1>Minha sacola</h1>
+  <% unless @cart.facebook_share_discount? || @cart.items.size == 0 %>
+      <div id="facebook-share">
+         <p>Que tal ganhar <span>2%</span> de desconto nesta compra?</p>
+          <%= link_to 'Compartilhar', cart_path, data: {cart_id:  @cart.id }, id: "facebook_share", remote: true , :class => "share", :"data-width" => 128, :"data-height" => 24 %>
+            <p class="share-text">Compartilhe e veja o desconto na sua sacola. :)</p>
+      </div>
+
+  <% end %>
 
   <%  if @cart.items.count > 0 %>
     <% if current_user %>
@@ -109,11 +113,17 @@ _gaq.push(['_addTrans',
     </table>
     <% end %>
 
+    <section id="facebook_share_discount">
+      <% if @cart_service.cart.facebook_share_discount? %>
+        <%= render 'facebook_share_discount' %>
+      <% end %>
+    </section>
+
     <table cellpadding="0" cellspacing="0" class="check gift">
       <tbody>
         <tr>
           <td class="check_column">
-            <%= form_for(@cart, :remote => true, html: { :id => "gift_wrap" }) do |f| %>
+            <%= form_for(@cart, :remote => true, :method => :put, html: { :id => "gift_wrap" }) do |f| %>
               <%= f.check_box('gift_wrap', :checked => @cart.gift_wrap) %>
               <h1>Embrulhar pedido para presente. <a href="#" target="_blank" class="txt-conheca">Conheça nossa embalagem de presente</a></h1>
             <% end %>
@@ -124,7 +134,7 @@ _gaq.push(['_addTrans',
             </div>
           </td>
           <td class="value">R$ 5,00</td>
-       
+
         </tr>
       </tbody>
     </table>
