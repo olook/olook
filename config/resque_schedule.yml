@@ -79,3 +79,9 @@ force_clearsale_callback:
   class: Clearsale::CallbackWorker
   queue: order_status
   description: "Verifica se o status da avaliação da Clearsale mudou para uma determinada compra (order)"
+
+update_topster_xml:
+  cron: "30 3 * * *"
+  class: TopsterXmlWorker
+  queue: topster_xml
+  description: "Atualiza o xml da topster"
