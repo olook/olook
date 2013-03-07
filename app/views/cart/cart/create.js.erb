@@ -4,10 +4,11 @@
 
   $("#cart_summary").show();
   if ($("#cart_summary ul li.product_item[data-id=<%= @variant.id %>]").length == 0) {
-    $("#cart_summary li.last").before("<%= escape_javascript( render partial: 'shared/cart_line_item', locals: {item: @cart.items.last, hidden: true}) %>"); 
-    $("#cart_summary li.product_item:last").fadeIn('slow');
+    $("#cart_summary .submenu li.last").before("<%= escape_javascript( render partial: 'shared/cart_line_item', locals: {item: @cart.items.last, hidden: true}) %>"); 
+    $("#cart_summary .submenu li.product_item:last").fadeIn('slow');
   }
   
   $("#cart_items").text("<%= pluralize(@cart.items_total, 'item', 'itens') %>");
   $("p.new_sacola a.cart").addClass("full");
+  $("p.freight").next().hide();
 

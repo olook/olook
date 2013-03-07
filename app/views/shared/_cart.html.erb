@@ -6,10 +6,9 @@
 <div id="cart_summary">
    <div class="scroll">
       <ul class="submenu">
-        <li><p class="freight">Frete grátis para sul e sudeste<br/><span>(em compras a partir de R$60)</span></p>
-           <% unless @cart.items.any? %>
-           <hr />
-           <% end %>
+        <li>
+            <p class="freight">Frete grátis para sul e sudeste<br/><span>(em compras a partir de R$60)</span></p>
+            <hr />
         </li>
         <% @cart.items.each do |item| %>
           <%= render partial: 'shared/cart_line_item', locals: {item: item, hidden: false} %>

@@ -20,7 +20,7 @@
 
   if ($("#cart_summary li.product_item[data-id=<%= @item.id %>]").length == 0) {
     $("#cart_summary li.last").before("<%= escape_javascript( render partial: 'shared/cart_line_item', locals: {item: @item, hidden: true}) %>"); 
-    $("#cart_summary li.product_item.last").fadeIn('slow');
+    $("#cart_summary li.product_item:last").fadeIn('slow');
   }
   
   $('div.overlay').hide();
@@ -28,3 +28,4 @@
 
   $("#cart_items").text("<%= pluralize(@cart.items_total, 'item', 'itens') %>");
   $("p.new-sacola a.cart").addClass("full");
+  $("p.freight").next().hide();
