@@ -324,7 +324,7 @@ $(document).ready(function() {
 
 
   $("input:text.security_code").setMask({
-    mask: '9999'
+    mask: '999'
   });
 
   $(".form_amount").change(function(){
