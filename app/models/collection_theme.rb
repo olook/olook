@@ -1,7 +1,7 @@
 class CollectionTheme < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
   validates :slug, presence: true, uniqueness: true
-  validates :position, numericality: true
+  validates :header_image, presence: true, uniqueness: true
 
   mount_uploader :header_image, ImageUploader
 
