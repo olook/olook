@@ -1593,23 +1593,23 @@ section.checkout{
 			&.security_code{width:120px;}
 			&.expiration_date{width:107px;}
 
-			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;position:absolute;left:685px;display:none;cursor:pointer;}
+			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;position:absolute;left:685px;display:none;cursor:pointer;z-index:999;}
 		}
 		.btn_zipcode{float:left;border:0;width:150px;height:32px;font-size:0;font-family:a;@include sprite_checkout(-92px, -244px);margin:2px 0 0 15px;cursor:pointer;}
 		.subtitle{clear:both;margin-top:10px;height:30px;@include sprite_checkout(-109px, -535px);width:293px;color:#000;padding-top:15px;clear:both;}
 		.freight_text{font-size:14px;font-family:$avenir;margin-left:25px;}
 		.freight_value{color:#ef3742;}
 		ul.address_data{float:left;margin:0 0 8px 5px;
-			a{color:#DD4978;font-size:13px;}
+			a{color:$pink;font-size:13px;}
 		}
 
 		p.new_address{
 			clear:both;
-			a{font-size:14px;color:#DD4978;}
+			a{font-size:14px;color:$pink;}
 		}
     p.addresses_index{
       clear:both;margin-bottom:10px;
-      a{font-size:14px;color:#DD4978;display:block;height:16px;@include sprite_checkout(-394px, -246px);padding-left:10px;text-decoration:none;
+      a{font-size:14px;color:$pink;display:block;height:16px;@include sprite_checkout(-394px, -246px);padding-left:10px;text-decoration:none;
 				&:hover{text-decoration:underline;}
 			}
     }
