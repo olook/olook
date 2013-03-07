@@ -76,13 +76,13 @@ body {
           text-indent: -9999px;
           display: block;
           &.me {
-            background: url("/assets/common/its-me.jpg") no-repeat;
+            background: image-url("common/its-me.jpg") no-repeat;
             width: 179px;
             height: 59px;
             margin: 0 0 0 20px;
           }
           &.new_survey {
-            background: url("/assets/common/try-again.jpg") no-repeat;
+            background: image-url("common/try-again.jpg") no-repeat;
             width: 301px;
             height: 59px;
             float: right;
