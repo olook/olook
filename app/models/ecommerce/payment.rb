@@ -72,6 +72,10 @@ class Payment < ActiveRecord::Base
     where(type: ['BilletDiscount', 'CouponPayment', 'GiftPayment', 'OlookletPayment', 'PromotionPayment', 'CreditPayment'])
   end
 
+  def self.for_facebook_share_discount
+    where(type: 'FacebookShareDiscountPayment')
+  end
+
   state_machine :initial => :started do
     #Concluido - 4
     state :completed
