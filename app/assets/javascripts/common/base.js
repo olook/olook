@@ -39,6 +39,13 @@ $(document).ready(function() {
   initBase.showSlideToTop();
   initBase.slideToTop();
 
+  /* HIDE <hr/> IN CART BOX */
+  if($("#cart_summary .submenu li.product_item").length > 0){
+     $("p.freight").next().hide();
+  }else{
+     $("p.freight").next().show();
+  }
+     
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if (!msie6 && $('div#wrapper_new_menu').length == 1) {
     var top = $('div#wrapper_new_menu').offset().top - parseFloat($('div#wrapper_new_menu').css('margin-top').replace(/auto/, 0));
@@ -51,6 +58,7 @@ $(document).ready(function() {
       }
     });
   }
+  
 
   if($(window).width() < "1200") {
     $("#wrapper_new_menu .menu_new").addClass("smaller");
