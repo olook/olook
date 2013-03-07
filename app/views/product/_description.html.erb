@@ -1,6 +1,6 @@
 <div class="description">
   <div class="line">
-    <h1><%= @product.name %></h1>
+    <h1><%= @product.model_name %> <%= @product.name %></h1>
   </div>
   <div class="line">
     <div class="fb-like" data-href="http://<%= request.host_with_port %>/produto/<%= @product.id %>" data-send="false" data-layout="button_count" data-width="110" data-show-faces="false"></div>
@@ -22,4 +22,4 @@
   <%# end %>
 
 </div>
- 
+

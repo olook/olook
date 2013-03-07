@@ -210,7 +210,7 @@ div#my_account {
       }
       fieldset.buttons {
         ol li input[type="submit"] {
-          background: url("/assets/common/bt-save.jpg") no-repeat;
+          background: image-url("common/bt-save.jpg") no-repeat;
           text-indent: -9999px;
           width: 125px;
           height: 61px;
@@ -291,7 +291,7 @@ div#my_account {
         ol {
           li {
             input[type="submit"] {
-              background: url("/assets/common/bt-save.jpg") no-repeat;
+              background: image-url("common/bt-save.jpg") no-repeat;
               text-indent: -9999px;
               width: 125px;
               height: 61px;
@@ -361,7 +361,7 @@ div#my_account {
               }
             }
             &.number {
-              color: #df5a8b;
+              color: #ef3742;
               text-align: left;
               padding-left: 10px;
               a {
@@ -389,7 +389,7 @@ div#my_account {
         padding: 0 0 10px 0;
         border-bottom: 1px #e5e5e5 solid;
         span {
-          color: #df5a8b;
+          color: #ef3742;
         }
         a {
           color: #DF5A8A;
@@ -558,7 +558,7 @@ div#my_account {
               }
             }
             &.number {
-              color: #df5a8b;
+              color: #ef3742;
               text-align: left;
               padding-left: 10px;
               a {
@@ -739,7 +739,7 @@ div#my_account {
             }
           }
           input[type="submit"] {
-            background: url("/assets/common/bt-save.jpg") no-repeat;
+            background: image-url("common/bt-save.jpg") no-repeat;
             text-indent: -9999px;
             width: 125px;
             height: 61px;

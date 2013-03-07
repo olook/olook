@@ -139,6 +139,11 @@ for f in $files_modified; do
             echo "File ${f} failed - found 'debugger'"
             exit 1
         fi
+
+        if grep --color -n "save_and_open_page" $f; then
+            echo "File ${f} failed - found 'save_and_open_page'"
+            exit 1
+        fi
     fi
 done
 exit

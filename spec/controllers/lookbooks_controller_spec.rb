@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe LookbooksController do  
   describe "Lookboooks show page" do
-    let!(:product)      { FactoryGirl.create(:basic_shoe) }
+    let!(:product)      { FactoryGirl.create(:shoe, :casual) }
     let!(:lookbook)      { FactoryGirl.create(:basic_lookbook, 
                         :product_list => { "#{product.id}" => "1" }, 
                         :product_criteo => { "#{product.id}" => "1" } ) }

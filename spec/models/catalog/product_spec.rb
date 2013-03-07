@@ -4,7 +4,7 @@ describe Catalog::Product do
   
   let(:product) do
     moment  = FactoryGirl.create :moment
-    product = FactoryGirl.create :basic_shoe
+    product = FactoryGirl.create(:shoe, :casual)
     Catalog::Product.create :catalog => moment.catalog, :product => product
   end
   
