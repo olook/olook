@@ -44,6 +44,7 @@
     <%= render :partial => 'members/showroom_shoes', :locals => {:showroom_presenter => showroom_presenter, :collection => @collection} %>
     <%= render :partial => 'members/showroom_bags', :locals => {:showroom_presenter => showroom_presenter, :collection => @collection} %>
     <%= render :partial => 'members/showroom_accessories', :locals => {:showroom_presenter => showroom_presenter, :collection => @collection} %>
+    <%= render "home/boxes" %>
   </div>
   <% if user_signed_in? %>
     <%= render "shared/invite", :user => current_user %>
