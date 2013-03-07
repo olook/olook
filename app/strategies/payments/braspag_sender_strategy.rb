@@ -22,7 +22,7 @@ module Payments
 
         payment
       rescue Exception => error
-        ErrorNotifier.send_notifier("Braspag", error.message, payment)
+        ErrorNotifier.send_notifier("Braspag", error, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
       ensure
         update_gateway_info
@@ -58,7 +58,7 @@ module Payments
  
       rescue Exception => error
         log("[ERROR] Error on processing enqueued request: " + error.message)
-        ErrorNotifier.send_notifier("Braspag", error.message, payment)
+        ErrorNotifier.send_notifier("Braspag", error, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
         raise error
       ensure
@@ -77,7 +77,7 @@ module Payments
         capture(authorize_response)    
       rescue Exception => error
         log("[ERROR] Error on capturing payment: " + error)
-        ErrorNotifier.send_notifier("Braspag", error.message, payment)
+        ErrorNotifier.send_notifier("Braspag", error, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
         raise error
       ensure

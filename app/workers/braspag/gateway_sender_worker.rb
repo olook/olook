@@ -10,7 +10,7 @@ module Braspag
       begin
         strategy.process_enqueued_request
       rescue Exception => e
-        ErrorNotifier.send_notifier("GatewaySenderWorker", e.message, strategy.payment)
+        ErrorNotifier.send_notifier("GatewaySenderWorker", e, strategy.payment)
       end
     end
 
