@@ -7,12 +7,8 @@ describe Abacos::OrderStatus do
 
   let(:downloaded_status) { load_abacos_fixture :order_status }
   let(:parsed_data) { described_class.parse_abacos_data downloaded_status }
+  
   subject { described_class.new parsed_data }
-
-  before :each do
-    Resque.stub(:enqueue)
-    Resque.stub(:enqueue_in)
-  end
 
   describe '#integrate' do
     before :each do
@@ -87,21 +83,22 @@ describe Abacos::OrderStatus do
       
       context "and the new state is canceled" do
         subject { described_class.new default_order_state.merge(:new_state => 'canceled') }
+        
         it "should change the state to canceled" do
           subject.send :change_order_state, order
           order.reload
           order.canceled?.should be_true
         end
-
       end
     end
 
     context 'when the original order state is authorized' do
-      let(:order) { FactoryGirl.create :order_with_waiting_payment }
+      let(:order) { FactoryGirl.create :authorized_order }
 
       context "and the new state is picking" do
         subject { described_class.new default_order_state.merge(:new_state => :picking) }
-        it "should change the state to picking" do
+        
+        it "changes the state to picking" do
           subject.send :change_order_state, order
           order.reload
           order.picking?.should be_true
@@ -110,6 +107,7 @@ describe Abacos::OrderStatus do
 
       context "and the new state is delivering" do
         subject { described_class.new default_order_state.merge(:new_state => :delivering) }
+        
         it "should change the state to delivering" do
           subject.send :change_order_state, order
           order.reload
@@ -119,6 +117,7 @@ describe Abacos::OrderStatus do
 
       context "and the new state is delivered" do
         subject { described_class.new default_order_state.merge(:new_state => :delivered) }
+        
         it "should change the state to delivered" do
           subject.send :change_order_state, order
           order.reload
@@ -128,7 +127,7 @@ describe Abacos::OrderStatus do
     end
 
     context 'when the original order state is picking' do
-      let(:order) { FactoryGirl.create :order_with_waiting_payment }
+      let(:order) { FactoryGirl.create :authorized_order }
       
       before :each do
         order.picking
@@ -137,6 +136,7 @@ describe Abacos::OrderStatus do
 
       context "and the new state is delivering" do
         subject { described_class.new default_order_state.merge(:new_state => :delivering) }
+        
         it "should change the state to delivering" do
           subject.send :change_order_state, order
           order.reload
@@ -146,6 +146,7 @@ describe Abacos::OrderStatus do
 
       context "and the new state is delivered" do
         subject { described_class.new default_order_state.merge(:new_state => :delivered) }
+        
         it "should change the state to delivered" do
           subject.send :change_order_state, order
           order.reload
@@ -155,7 +156,7 @@ describe Abacos::OrderStatus do
     end
 
     context 'when the original order state is delivering' do
-      let(:order) { FactoryGirl.create :order_with_waiting_payment }
+      let(:order) { FactoryGirl.create :authorized_order }
 
       before :each do
         order.picking

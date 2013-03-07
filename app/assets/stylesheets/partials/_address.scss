@@ -111,7 +111,7 @@ section.main {
       &.buttons {
         margin: 5px 0 0 0;
         a.search {
-          background: url("/assets/cart/search-zip-code.png") no-repeat;
+          background: image-url("cart/search-zip-code.png") no-repeat;
           text-indent: -9999px;
           width: 94px;
           height: 32px;

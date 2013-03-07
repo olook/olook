@@ -168,7 +168,7 @@ body {
               margin-top: 7px;
               font-size: 11px;
               input[type="submit"] {
-                background: url("/assets/common/login.png") no-repeat;
+                background: image-url("common/login.png") no-repeat;
                 text-indent: -9999px;
                 width: 74px;
                 height: 31px;
@@ -220,7 +220,7 @@ body {
                   width: 84%;
                 }
                 input[type='submit'] {
-                  background: url("/assets/common/registration.png") no-repeat;
+                  background: image-url("common/registration.png") no-repeat;
                   text-indent: -9999px;
                   width: 126px;
                   height: 37px;
@@ -530,7 +530,7 @@ body {
 												& + li {
 			                      margin-right: 20px;
 			                      input[type='submit'] {
-			                        background: url('/assets/common/login2.png') no-repeat;
+			                        background: image-url('common/login2.png') no-repeat;
 			                        text-indent: -9999px;
 			                        width: 106px;
 			                        height: 42px;
@@ -544,7 +544,7 @@ body {
                   	}
                  
                   input[type='submit'] {
-                    background: url('/assets/common/login2.png') no-repeat;
+                    background: image-url('common/login2.png') no-repeat;
                     text-indent: -9999px;
                     width: 106px;
                     height: 42px;
@@ -950,74 +950,7 @@ body {
         margin-right: 10px;
         overflow: visible;
         float: right;
-        
-        > ul {
-          margin: 5px 0 0;
-          float: right;
-          clear: both;
-          li {
-            text-transform: none;
-            height: auto;
-            display: inline-block;
-            border-left: 1px #000 dotted;
-            float: left;
-            a {
-              color: #282828;
-              text-decoration: none;
-              margin: 0;
-              padding: 5px 10px;
-              display: block;
-              &:hover {
-                text-decoration: underline;
-              }
-              &.favorites {
-                background: url('/assets/common/ico-heart-off.png') left no-repeat;
-                padding-left: 20px;
-                &:hover {
-                  background: url('/assets/common/ico-heart-on.png') left no-repeat;
-                }
-              }
-              > span {
-                color: $pink;
-                font-size: inherit;
-                width: auto;
-                margin: 0;
-                float: none;
-              }
-            }
-            p {
-              text-transform: none;
-              a {
-                color: #e05789;
-                text-decoration: underline;
-                margin: 0;
-              }
-            }
-            &.login {
-              padding: 0;
-              float: right;
-              border: none;
-              p {
-                a {
-                  color: $pink;
-                  display: inline;
-                  margin: 0;
-                  padding: 0;
-                }
-              }
-            }
-            &.first {
-              border-left: none;
-            }
-            &.last {
-              a {
-                color: #E05789;
-                margin-right: 0;
-                padding-right: 0;
-              }
-            }
-          }
-        }
+
       }
     }
   }
@@ -1235,7 +1168,7 @@ header#new_header{
         float: left;
         li {
           a {
-            background: url("/assets/common/nav/product-anchors.jpg") no-repeat;
+            background: url("common/nav/product-anchors.jpg") no-repeat;
             text-indent: -9999px;
             line-height: normal;
             width: 38px;
@@ -1293,13 +1226,13 @@ header#new_header{
             height: 37px;
             display: block;
             &:hover, &.selected {
-              background: url("/assets/common/nav/arrow-hover.jpg") bottom center no-repeat;
+              background: image-url("common/nav/arrow-hover.jpg") bottom center no-repeat;
               color: $pink;
             }
           }
           &.liquidation {
             a {
-              background: #D95485;
+              background: #ef3742;
               color: #FFF;
               padding: 5px 15px;
               display: inline;
@@ -1394,7 +1327,7 @@ header#new_header{
                   padding: 0 0 10px 0;
                 }
                 p.freight {
-                  color: #df5a8b;
+                  color: #ef3742;
                   font-size: 12px;
                   line-height: 18px;
                   text-align: center;
@@ -1468,7 +1401,7 @@ header#new_header{
                     }
                   }
                   a.finish {
-                    background: url("/assets/common/nav/product-anchors.jpg") -110px 0 no-repeat;
+                    background: image-url('common/nav/product-anchors.jpg') -110px 0 no-repeat;
                     text-indent: -9999px;
                     width: 137px;
                     height: 33px;
@@ -1566,7 +1499,7 @@ div.contact_fields {
 }
 
 header a {
-  color:#e05789;
+  color:#ef3742;
   text-decoration:underline;
 }
 
@@ -1652,7 +1585,7 @@ header div.contact {
 					}
 				a{color:#CCC !important;}
 				&.last{border-left:dotted 1px #FFF !important;
-					a{color:#E05789 !important;}
+					a{color:#ef3742 !important;}
 				}
 				&.submenu .my_account .last{border:0 !important;
 					a{color:#CCC !important;}

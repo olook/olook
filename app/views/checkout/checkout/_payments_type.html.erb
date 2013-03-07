@@ -68,7 +68,7 @@
   <%= fields_for "checkout[payment]", @checkout.payment do |payment_form|%>
   <div class="box-cartao credit_card">
     <p class="subtitle">SELECIONE A BANDEIRA DO CARTÃO:</p>
-    <ol class="cards">
+    <ol class="cards <%= error_class_if_needed(@checkout.payment, :bank) %>">
       <% CreditCard::BANKS_OPTIONS.each do |bank| %>
         <li>
           <%= payment_form.radio_button :bank, bank, checked: (@checkout.payment && (bank == @checkout.payment.bank)) %>

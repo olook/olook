@@ -2,59 +2,52 @@
 require 'spec_helper'
 require 'features/helpers'
 
-feature "Accessing my vitrine", "In order to see the products as a user" do
-  include CarrierWave::Test::Matchers
+feature "Accessing my vitrine", "In order to see a customized list of products according to my profile" do
+  # include CarrierWave::Test::Matchers
 
-  let!(:user) { FactoryGirl.create(:user) }
-  let!(:user_info) { FactoryGirl.create(:user_info, user: user) }
-  let(:casual_profile) { FactoryGirl.create(:casual_profile) }
-  let!(:casual_points) { FactoryGirl.create(:point, user: user, profile: casual_profile, value: 50) }
+  let!(:casual_profile) { FactoryGirl.create(:casual_profile, :with_points, :with_user) }
+  let!(:user) { casual_profile.users.first }
+  let!(:collection) { FactoryGirl.create(:collection) }
+  let!(:shoe) { FactoryGirl.create(:shoe, :in_stock, collection: collection) }
+  let!(:bag)  { FactoryGirl.create(:bag, :in_stock, collection: collection) }
+  let!(:accessory) { FactoryGirl.create(:basic_accessory, :in_stock, collection: collection) }
 
-  let(:collection) { FactoryGirl.create(:collection) }
-  let!(:shoe) { FactoryGirl.create(:basic_shoe, :collection => collection, :color_name => 'Black', :profiles => [casual_profile]) }
-  let!(:shoe_a) { FactoryGirl.create(:basic_shoe_size_35, :product => shoe, :inventory => 1) }
-  let!(:shoe_b) { FactoryGirl.create(:basic_shoe_size_37, :product => shoe, :inventory => 1) }
+  before(:each) do
+    user.update_attribute(:password, '123456')
+    user.update_attribute(:password_confirmation, '123456')
 
-  let(:collection) { FactoryGirl.create(:collection) }
-  let!(:shoe) { FactoryGirl.create(:basic_shoe, :collection => collection, :color_name => 'Black', :profiles => [casual_profile]) }
-  let!(:shoe_a) { FactoryGirl.create(:basic_shoe_size_35, :product => shoe, :inventory => 1) }
-  let!(:shoe_b) { FactoryGirl.create(:basic_shoe_size_37, :product => shoe, :inventory => 1) }
+    casual_profile.products.push(shoe, bag, accessory)
+  end
 
-  let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
-  let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
-  let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
+  scenario "Products list" do
+    do_login!(user) 
 
-  context "My vitrine" do
-    background do
-      do_login!(user) 
+    within("#shoes_container") do
+      expect(page).to have_content('Seus sapatos')
+      expect(page).to have_content(shoe.name)
     end
 
-    context "In my vitrine page" do
-      before :all do
-      end
+    within("#purse_container") do
+      expect(page).to have_content('Suas bolsas')
+      expect(page).to have_content(bag.name)
+    end
 
-      before :each do 
-        visit member_showroom_path
-      end
+    within("#accessories_container") do
+      expect(page).to have_content('Seus acessórios')
+      expect(page).to have_content(accessory.name)
+    end
+  end
 
-      scenario "I want to see the product" do
-        page.should have_content(shoe.name)
-      end
+  let(:sold_out_shoe) { FactoryGirl.create(:shoe, :sold_out) }
+  let(:shoe_with_plenty_of_stock) { FactoryGirl.create(:shoe, :with_plenty_of_stock) }
 
-      scenario "The quantity for each size must be in a hidden field" do
-        # within("ol") do
-          page.should have_xpath("//input[@id='quantity_#{shoe.id}']")
-        # end
-      end
-     scenario "The quantity of the product must be 1" do
-        # within("li") do
-          page.should have_xpath("//input[@value='1']")
-        # end
-      end
-      scenario "The quantity of the product of size 37 must be 0" do
-        # within("li") do
-          page.should have_xpath("//input[@value='0']")
-        # end
+  scenario "Shoes sorting by inventory" do
+    pending
+    do_login!(user) 
+
+    within("#shoes_container .products_list .best ul") do
+      within("li:first") do
+        expect(page).to have_content(shoe_with_plenty_of_stock.name)
       end
     end
   end

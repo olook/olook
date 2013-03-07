@@ -22,7 +22,6 @@ describe Users::RegistrationsController do
   render_views
 
   before :each do
-    Resque.stub(:enqueue)
     request.env['devise.mapping'] = Devise.mappings[:user]
   end
 

@@ -3,7 +3,7 @@ require "spec_helper"
 
 describe ProductPresenter do
   include ActionView::TestCase::Behavior
-  let(:product) { FactoryGirl.create :basic_shoe }
+  let(:product) { FactoryGirl.create(:shoe, :casual) }
   let(:member) { double :user }
   let(:facebook_app_id) { double :facebook_app_id }
   let(:template) { double :template }
@@ -165,7 +165,7 @@ describe ProductPresenter do
     end
 
     context "when the product has some related products " do
-      let(:related_shoe)      { FactoryGirl.create(:basic_shoe) }
+      let(:related_shoe)      { FactoryGirl.create(:shoe, :casual) }
       let(:related_bag)       { FactoryGirl.create(:basic_bag) }
       let(:out_of_stock_bag)  { FactoryGirl.create(:basic_bag) }
 

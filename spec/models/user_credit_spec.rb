@@ -68,25 +68,27 @@ describe UserCredit do
     end
 
     context "when User Credit specific settings change" do
-      it "should not run the method when invite_credits_available is disabled" do
+      context "when invite_credits_available is disabled" do
+        it "doesn't run add_loyalty_program_credits " do
 
-        FactoryGirl.create(:user_credit, :credit_type => loyalty_program_credit_type)
-        FactoryGirl.create(:user_credit, :credit_type => invite_credit_type)
-        
-        Setting.loyalty_program_credits_available = false
+          FactoryGirl.create(:user_credit, :credit_type => loyalty_program_credit_type)
+          FactoryGirl.create(:user_credit, :credit_type => invite_credit_type)
+          
+          Setting.stub(:loyalty_program_credits_available).and_return false
 
-        # UserCredit.should_receive(:add_invite_credits)
-        Resque.should_receive(:enqueue_in).with(1.minute, MailProductPurchasedByInviteeWorker, anything)
-        UserCredit.should_not_receive(:add_loyalty_program_credits)
+          # UserCredit.should_receive(:add_invite_credits)
+          # Resque.should_receive(:enqueue_in).with(1.minute, MailRegisteredInviteeWorker, anything)
+          # Resque.should_receive(:enqueue_in).with(1.minute, Abacos::InsertOrder, anything)
+          # Resque.should_receive(:enqueue_in).with(1.minute, Orders::NotificationOrderRequestedWorker, anything)
+          # Resque.should_receive(:enqueue_in).with(1.minute, MailProductPurchasedByInviteeWorker, anything)
+          UserCredit.should_not_receive(:add_loyalty_program_credits)
 
-        invite.accept_invitation(invitee)
+          invite.accept_invitation(invitee)
 
-        invitee_order = FactoryGirl.create(:order, :user => invitee, :state => 'delivered')
+          invitee_order = FactoryGirl.create(:order, :user => invitee, :state => 'delivered')
 
-        UserCredit.process!(invitee_order)
-
-        Setting.loyalty_program_credits_available = true
-
+          UserCredit.process!(invitee_order)
+        end
       end
 
       it "should not run the add_loyalty_program_credits method when loyalty_program_credits_available is disabled" do

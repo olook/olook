@@ -11,7 +11,7 @@ class Users::OrdersController < ApplicationController
 
   def show
     @current_order = @user.orders.find_by_number(params[:number])
-    @address = @current_order.freight.try(:address)
+    @address = @current_order.freight.address unless @current_order.freight.nil?
     @order_presenter = OrderStatus.new(@current_order)
   end
 
