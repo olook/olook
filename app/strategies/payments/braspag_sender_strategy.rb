@@ -7,14 +7,17 @@ module Payments
     def initialize(payment)
       @payment = payment
       @payment_successful = false
+      log("Initializing BraspagSenderStrategy with payment: #{payment.inspect}")
     end
 
     def send_to_gateway
       log("Sending transaction to gateway")
       begin
         authorize_response = authorize
+        log("Authorize Response: #{authorize_response.inspect}")
         if authorized_and_pending_capture?(authorize_response)
           Resque.enqueue_in(2.minute, Braspag::GatewaySenderWorker, payment.id)
+          log("Enqueued Braspag::GatewaySenderWorker with payment.id: #{payment.try :id}")
           @payment_successful = true
         else
           @payment_successful = false
@@ -34,6 +37,7 @@ module Payments
     end
 
     def update_gateway_info
+      log("Update Gateway Info for payment #{payment}")
       payment.gateway = Payment::GATEWAYS.fetch(:braspag)
       payment.gateway_response_status = Payment::SUCCESSFUL_STATUS
     end
@@ -95,6 +99,7 @@ module Payments
     def authorize
       log("Sending transaction for authorization")
       gateway_response = web_service_data.authorize_transaction(authorize_transaction_data)
+      log("Braspag::Webservice.authorize_transaction_data response: #{gateway_response.inspect}")
       process_authorize_response(gateway_response)      
     end
 
