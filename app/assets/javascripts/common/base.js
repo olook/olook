@@ -40,25 +40,25 @@ $(document).ready(function() {
   initBase.slideToTop();
 
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
-  if (!msie6 && $('nav.menu').length == 1) {
-    var top = $('nav.menu').offset().top - parseFloat($('nav.menu').css('margin-top').replace(/auto/, 0));
+  if (!msie6 && $('div#wrapper_new_menu').length == 1) {
+    var top = $('div#wrapper_new_menu').offset().top - parseFloat($('div#wrapper_new_menu').css('margin-top').replace(/auto/, 0));
     $(window).scroll(function (event) {
       var y = $(this).scrollTop();
       if (y >= top) {
-        $('nav.menu').addClass('fixed');
+        $('div#wrapper_new_menu').addClass('fixed');
       } else {
-        $('nav.menu').removeClass('fixed');
+        $('div#wrapper_new_menu').removeClass('fixed');
       }
     });
   }
 
   if($(window).width() < "1200") {
-    $("#wrapper_menu .menu").addClass("smaller");
+    $("#wrapper_new_menu .menu_new").addClass("smaller");
   }
 
   $(window).resize(function() {
     width = $(this).width();
-    menu = $("#wrapper_menu .menu");
+    menu = $("#wrapper_new_menu .menu_new");
     if(width < "1200") {
       $(menu).addClass("smaller");
     } else {
@@ -391,7 +391,7 @@ $(document).ready(function() {
   $("section#greetings div.facebook div.profile a").live("click", function(e) {
     initBase.showProfileLightbox();
 
-    container = $('div#profile_quiz.clone img');
+    container = $('div#profile_quiz img');
     profile = container.attr('class');
     container.attr('src', 'http://cdn-app-staging-0.olook.com.br/assets/profiles/big_'+profile+'.jpg');
 
@@ -421,10 +421,8 @@ initBase = {
   },
 
   showProfileLightbox : function() {
-    clone = $("div#profile_quiz").clone().addClass("clone");
-    content = clone[0].outerHTML;
-    initBase.modal(content);
-    $(".ui-dialog").css("top", "30px");
+    content = $("div#profile_quiz");
+    initBase.newModal(content);
   },
 
   spyLinkId : function(color) {
