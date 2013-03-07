@@ -4,11 +4,10 @@ $(function() {
 
 initFirstVisit = {
   inviteLightbox : function() {
-    clone = $("div.box_invite").clone().addClass("clone");
+    clone = $("div.box_invite").addClass("clone");
     $(clone).find("li.facebook a").attr("id", "facebook_post_wall");
     $(clone).find("li.orkut #orkut_share").remove();
-    content = clone[0].outerHTML;
-    initBase.newModal(content);
+    initBase.newModal(clone);
     initFirstVisit.copyInviteLink();
     initFirstVisit.createOrkutShareButton();
   },

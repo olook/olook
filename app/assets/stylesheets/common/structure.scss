@@ -1137,10 +1137,7 @@ header#new_header{
             a.finish{display:block;width:145px;height:45px;background: image-url('common/nav/sprite_header.png') 0 -141px no-repeat;font-size:0;line-height:0;margin-top:7px;}
          }
       }
-      @media screen and (-webkit-min-device-pixel-ratio:0) {
-         #cart_summary{top:92px;}
-      }
-      p.credits{float:left;font-size:11px;color:$pink;line-height:18px;margin-top:7px;
+         p.credits{float:left;font-size:11px;color:$pink;line-height:18px;margin-top:7px;
          a{text-decoration:none;
             &:hover{text-decoration:underline;}
          }
@@ -1452,6 +1449,8 @@ header#new_header{
     padding: 20px 40px;
     overflow: auto;
     display: none;
+    background:#FFF;
+    min-height:400px;
     & > h1 {
       font-size: 36px;
       font-weight: lighter;
