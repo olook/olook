@@ -36,6 +36,9 @@ module Abacos
     end
 
     def raise_webservice_error(response)
+      #TODO: raise more descriptive error when there's lack of inventory in abacos
+      #this happens frequently on dev and homolog servers, since the db isn't in sync with abacos there:
+      #   Error calling webservice : (300005) tdreErroDataBase - A execução da rotina gerou uma crítica. Detalhes: * Origem: Incluir itens no pedido * Linha em que ocorreu o erro: 36 * Nome do objeto onde ocorreu o erro: PGEN_P_RAISERROR * Código de erro do banco de dados: 88104 - Interface = 4 Pedido = 2656332 Produto = 13767 Msg = produto não cadastrado Erro ao cadastrar itens
       raise "Error calling webservice #{response[:method]}: (#{response[:codigo]}) #{response[:tipo]} - #{response[:descricao]} - #{response[:exception_message]}"
     end
 

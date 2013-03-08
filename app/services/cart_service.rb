@@ -104,6 +104,10 @@ class CartService
     calculate_discounts(Billet.new).fetch(:billet_discount)
   end
 
+  def facebook_discount
+    calculate_discounts.fetch(:facebook_discount)
+  end
+
   def total_discount(payment=nil)
     calculate_discounts(payment).fetch(:total_discount)
   end
@@ -119,6 +123,7 @@ class CartService
     total_value += calculate_discounts.fetch(:total_credits_by_redeem) if :credits_by_redeem == type
     total_value += calculate_discounts.fetch(:total_credits_by_loyalty_program) if :credits_by_loyalty_program == type
     total_value += calculate_discounts(payment).fetch(:billet_discount) if :billet_discount == type
+    total_value += calculate_discounts.fetch(:facebook_discount) if :facebook_discount == type
 
     cart.items.each do |item|
       if item_discount_origin_type(item) == type
@@ -226,7 +231,7 @@ class CartService
   def get_retail_price_for_item(item)
     origin = ''
     percent = 0
-    final_retail_price = item.retail_price 
+    final_retail_price = item.retail_price
     final_retail_price ||= 0
     price = item.price
     discounts = []
@@ -257,6 +262,11 @@ class CartService
       end
     end
 
+    #if
+    # facebook_discount_value = calculate_facebook_discount_value(final_retail_price)
+    # final_retail_price -= facebook_discount_value
+    # discounts << :facebook
+
     {
       :origin       => origin,
       :price        => price,
@@ -285,6 +295,7 @@ class CartService
     coupon_value = 0.0 if cart.coupon && !should_override_promotion_discount?
     coupon_value ||= 0.0
     billet_discount_value = 0.0
+    facebook_discount_value = 0.0
 
     if coupon_value >= retail_value
       coupon_value = retail_value
@@ -325,6 +336,11 @@ class CartService
 
     end
 
+    if cart.facebook_share_discount?
+      facebook_discount_value = calculate_facebook_discount_value(retail_value)
+      retail_value -= facebook_discount_value
+    end
+
     if payment && payment.is_a?(Billet) && Setting.billet_discount_available
 
       billet_discount_value = calculate_billet_discount_value(retail_value)
@@ -335,6 +351,7 @@ class CartService
       retail_value -= billet_discount_value
     end
 
+
     total_credits = credits_loyality + credits_invite + credits_redeem
 
     discounts << :coupon if coupon_value > 0.0
@@ -343,8 +360,9 @@ class CartService
     {
       :discounts                         => discounts,
       :is_minimum_payment                => (minimum_value > 0 && retail_value <= 0),
-      :total_discount                    => (coupon_value + total_credits + billet_discount_value),
+      :total_discount                    => (coupon_value + total_credits + billet_discount_value + facebook_discount_value ),
       :billet_discount                   => billet_discount_value,
+      :facebook_discount                 => facebook_discount_value,
       :total_coupon                      => coupon_value,
       :total_credits_by_loyalty_program  => credits_loyality,
       :total_credits_by_invite           => credits_invite,
@@ -357,7 +375,13 @@ class CartService
   def calculate_billet_discount_value retail_value
     billet_discount_percent = (Setting.billet_discount_percent.to_i / 100.0).to_d
     billet_discount_value = (retail_value.to_d + minimum_value.to_d) * billet_discount_percent
-    billet_discount_value.round(2, BigDecimal::ROUND_HALF_UP)    
+    billet_discount_value.round(2, BigDecimal::ROUND_HALF_UP)
+  end
+
+  def calculate_facebook_discount_value retail_value
+    facebook_discount_percent = 0.02.to_d
+    facebook_discount_value = (retail_value.to_d + minimum_value.to_d) * facebook_discount_percent
+    facebook_discount_value.round(2, BigDecimal::ROUND_HALF_UP)
   end
 
 end
