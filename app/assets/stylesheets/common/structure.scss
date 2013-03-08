@@ -76,7 +76,7 @@ body {
           text-indent: -9999px;
           display: block;
           &.me {
-            background: image-url("common/its-me.jpg") no-repeat;
+            background: image-url("common/its-me.png") no-repeat;
             width: 179px;
             height: 59px;
             margin: 0 0 0 20px;
@@ -897,7 +897,7 @@ body {
             background: #FFF;
             padding: 5px 0;
             display: none;
-            top: 14px;
+            top: 17px;
             left: 0;
             z-index: 1000;
             border-left: 1px #CCC solid;
