@@ -9,8 +9,6 @@ describe CollectionTheme do
     it { collection_theme.should validate_uniqueness_of(:name) }
     it { should validate_presence_of(:slug) }
     it { collection_theme.should validate_uniqueness_of(:slug) }
-
-    it { should validate_numericality_of(:position) }
     it { should have_one(:catalog) }
   end
 
