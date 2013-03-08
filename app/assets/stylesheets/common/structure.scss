@@ -1009,19 +1009,13 @@ body {
         width: 990px;
         margin: 0 auto;
         overflow: hidden;
-      }
-      ul{
-        li{
-          font-family: $johnston;
-          font-size: 10px;
-          text-transform: uppercase;
-          display: inline;
-          float: left; 
-          height: 38px;
-          background: image-url("common/nav/menu_bar.png") no-repeat right 0;
+        position:relative;
+      
+        li{font-family: $johnston;font-size: 10px;text-transform: uppercase;display: inline;float: left;height: 38px;background: image-url("common/nav/menu_bar.png") no-repeat right 0;
           &.liquidation{
             border-right: none;
           }
+          
           a{display:block;height:28px;text-decoration: none;color: black;margin:0 19px;letter-spacing: 2px;padding-bottom: 7px;
             &:hover, &.selected{background: image-url("common/nav/menu_hover.png") no-repeat center bottom;}
           }
