@@ -84,8 +84,8 @@ class PaymentBuilder
         create_payment_for(total_coupon, CouponPayment)
         create_payment_for(total_promotion, PromotionPayment)
         create_payment_for(total_credits, CreditPayment, :loyalty_program )
-        create_payment_for(total_credits, CreditPayment, :invite )
-        create_payment_for(total_credits, CreditPayment, :redeem )
+        create_payment_for(total_credits_invite, CreditPayment, :invite )
+        create_payment_for(total_credits_redeem, CreditPayment, :redeem )
 
         log("Respond with_success!")
         respond_with_success
