@@ -9,6 +9,6 @@ class Detail < ActiveRecord::Base
   has_enumeration_for :display_on, :with => DisplayDetailOn, :required => true
   
   scope :only_invisible     , where(:display_on => DisplayDetailOn::INVISIBLE)
-  scope :only_specification , where(:display_on => DisplayDetailOn::SPECIFICATION)
+  scope :only_specification , where(:display_on => DisplayDetailOn::SPECIFICATION).where("translation_token not like 'Cor%'")
   scope :only_how_to        , where(:display_on => DisplayDetailOn::HOW_TO)
 end
