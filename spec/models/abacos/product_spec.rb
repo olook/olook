@@ -173,19 +173,19 @@ describe Abacos::Product do
       end
     end
 
-    describe "parser moments" do
-      describe "when has many moments" do
+    describe "parser collection themes" do
+      describe "when has many collection themes" do
         it "should return moments" do
-          parsed_data[:moments].should == ["1", "2"]
+          parsed_data[:collection_themes].should == ["1", "2"]
         end
       end
 
-      describe "when has only one moment" do
+      describe "when has only one collection theme" do
         let(:downloaded_product) { load_abacos_fixture :product_one_category }
         let(:parsed_data) { described_class.parse_abacos_data downloaded_product }
 
-        it "should return moment" do
-          parsed_data[:moments].should == ["1"]
+        it "should return collection theme" do
+          parsed_data[:collection_themes].should == ["1"]
         end
       end
     end
