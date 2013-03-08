@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :collection_theme_group do
-    name "MyString"
+    name "Andre lima"
     position 1
   end
 end
