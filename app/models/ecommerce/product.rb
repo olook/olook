@@ -308,6 +308,10 @@ class Product < ActiveRecord::Base
     self.category == ::Category::SHOE
   end
 
+  def cloth?
+    self.category == ::Category::CLOTH
+  end
+
   def variant_by_size(size)
     case self.category
       when Category::SHOE then
