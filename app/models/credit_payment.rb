@@ -1,14 +1,14 @@
 class CreditPayment < Payment
-	belongs_to :credit_type
+  belongs_to :credit_type
   validates :credit_type_id, :presence => true
 
-	def deliver_payment?
+  def deliver_payment?
     credits = self.user.user_credits_for(credit_type.code).remove({amount: total_paid, order_id: order.try(:id)})
     if credits
       self.update_column(:credit_ids, credits.map{|credit| credit.id.to_s}.join(','))
       super
     end
-	end
+  end
 
   def cancel_order?
     delete_credits
