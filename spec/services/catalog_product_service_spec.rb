@@ -41,6 +41,17 @@ describe CatalogProductService do
     product
   end
 
+  let(:basic_shirt) do
+    product = (FactoryGirl.create :garment_subcategory_name).product
+
+    product.master_variant.price = 100.00
+    product.master_variant.save!
+
+    FactoryGirl.create :yellow_shirt, :product => product
+
+    product
+  end
+
   describe "#save!" do
 
     context "insert a product" do
@@ -104,6 +115,26 @@ describe CatalogProductService do
           ct_product.shoe_size_label.should    be_nil
           ct_product.heel_label.should         be_nil
           ct_product.subcategory_name_label.should eq "Bolsa Azul"
+        }.to change(catalog.products, :count).by(1)
+      end
+
+      it "should insert shirt without discount" do
+        expect {
+          ct_product = CatalogProductService.new(catalog, basic_shirt).save!
+
+          ct_product[0].catalog_id.should         eq catalog.id
+          ct_product[0].product_id.should         eq basic_shirt.id
+          ct_product[0].category_id.should        eq basic_shirt.category
+          ct_product[0].subcategory_name.should   eq "camiseta-amarela"
+          ct_product[0].original_price.should     eq 100.0
+          ct_product[0].retail_price.should       eq 100.0
+          ct_product[0].shoe_size.should          be_nil
+          ct_product[0].heel.should               be_nil
+          ct_product[0].variant_id.should         eq basic_shirt.variants.first.id
+          ct_product[0].inventory.should          eq 10
+          ct_product[0].shoe_size_label.should    be_nil
+          ct_product[0].heel_label.should         be_nil
+          ct_product[0].subcategory_name_label.should eq "Camiseta Amarela"
         }.to change(catalog.products, :count).by(1)
       end
 

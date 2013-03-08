@@ -85,6 +85,13 @@ FactoryGirl.define do
       retail_price 123.45
       inventory 10
     end
+
+    factory :yellow_shirt do
+      description 'garment'
+      price 123.45
+      retail_price 123.45
+      inventory 10
+    end
   end
 end
 
