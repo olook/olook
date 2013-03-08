@@ -2,9 +2,9 @@
 require 'spec_helper'
 require 'features/helpers'
 
-feature "Navigating by moments", %q{
+feature "Navigating by collection themes", %q{
   In order to simulate a user experience
-  I want to be able to see the correct product related to each moment
+  I want to be able to see the correct product related to each collection theme
   } do
 
   let!(:user) { FactoryGirl.create(:user, :user_info => UserInfo.new) }
