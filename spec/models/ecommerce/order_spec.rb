@@ -141,8 +141,10 @@ describe Order do
     end
 
     it "returns the freight delivery_time converted to a date" do
-      expect(order.expected_delivery_on.to_s).
-        to eql(order.freight.delivery_time.business_days.from_now.to_s)
+      Timecop.freeze do
+        expect(order.expected_delivery_on.to_s).
+          to eql(order.freight.delivery_time.business_days.from_now.to_s)
+      end
     end
   end
 
