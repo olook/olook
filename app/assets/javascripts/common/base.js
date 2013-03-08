@@ -40,6 +40,7 @@ $(document).ready(function() {
   initBase.slideToTop();
 
 
+ 
 
 
   /* HIDE <hr/> IN CART BOX */
