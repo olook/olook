@@ -39,6 +39,9 @@ $(document).ready(function() {
   initBase.showSlideToTop();
   initBase.slideToTop();
 
+
+
+
   /* HIDE <hr/> IN CART BOX */
   if($("#cart_summary .submenu li.product_item").length > 0){
      $("p.freight").next().hide();
@@ -645,7 +648,7 @@ initBase = {
       var youtube_id = initBase.youtubeParser(url);
       content = initBase.youtubePlayer(youtube_id);
       content += title;
-      initBase.modal(content);
+      initBase.newModal(content);
       e.preventDefault();
     });
   },

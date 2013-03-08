@@ -69,8 +69,8 @@ section#lookbooks {
       background: url("/assets/lookbooks/arrow-right.png") 0 center no-repeat;
       right: 0;
     }
-	.next-pic:hover{background:url("/assets/lookbooks/arrow-next-hover.png") no-repeat 0 center}
-	.prev-pic:hover{background:url("/assets/lookbooks/arrow-prev-hover.png") no-repeat 0 center}
+	.next-pic:hover{background: image-url("lookbooks/arrow-next-hover.png") no-repeat 0 center;}
+	.prev-pic:hover{background: image-url("lookbooks/arrow-prev-hover.png") no-repeat 0 center;}
 
     ul {
       position: relative;
