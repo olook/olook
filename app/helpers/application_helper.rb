@@ -28,7 +28,7 @@ module ApplicationHelper
   end
 
   def cart_total(cart)
-    content_tag(:span,"(#{content_tag(:div, "#{cart.items_total}", :id => "cart_items")})".html_safe)
+    content_tag(:span,"(#{content_tag(:span, "#{pluralize(cart.items_total, 'item', 'itens')}", :id => "cart_items")})".html_safe)
   end
 
   def discount_percentage(value)
@@ -50,11 +50,16 @@ module ApplicationHelper
   end
 
   def member_type
+    sufix = signed_newsletter? ? '-newsletter' : ''
     if user_signed_in?
-      current_user.half_user ? 'half' : 'quiz'
+      current_user.half_user ? "half#{sufix}" : "quiz#{sufix}"
     else
-      'visitor'
+      "visitor#{sufix}"
     end
+  end
+
+  def signed_newsletter?
+    cookies['newsletterUser'] == '1'
   end
 
   def quantity_status(product, user)

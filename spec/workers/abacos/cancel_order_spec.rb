@@ -2,8 +2,10 @@
 require "spec_helper"
 
 describe Abacos::CancelOrder do
+  
   describe "#perform" do
     let(:fake_order) { mock_model(Order) }
+
     before do
       fake_order.stub(:canceled?).and_return(true)
       Order.stub(:find_by_number).with(123).and_return(fake_order)
@@ -21,9 +23,7 @@ describe Abacos::CancelOrder do
         Abacos::OrderAPI.should_not_receive(:cancel_order)
         described_class.perform(123)
       end
-
     end
-
 
     context "if the order exists, it should try to cancel the order on Abacos" do
       before :each do

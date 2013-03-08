@@ -48,6 +48,8 @@ $(document).ready(function() {
   $("#compartilhar_email form").submit(function(){
      $("input#send").addClass("opacidade").delay(300).attr('disabled', true);
   })
+  
+  $("a.open_loyalty_lightbox").show();
 });
 
 

@@ -21,8 +21,14 @@ class Billet < Payment
     Date.current > BilletExpirationDate.expiration_for_two_business_day(self.payment_expiration_date.to_date) if self.payment_expiration_date
   end
 
-  private
-  def build_payment_expiration_date
-    BilletExpirationDate.expiration_for_two_business_day
+  def schedule_cancellation
+    #TODO: double check whether to plug the 4 biz days rule into BilletExpirationDate
+    Resque.enqueue_at(4.business_days.from_now, Abacos::CancelOrder, self.order.number)
   end
+
+  private
+
+    def build_payment_expiration_date
+      BilletExpirationDate.expiration_for_two_business_day
+    end
 end

@@ -3,5 +3,6 @@
 FactoryGirl.define do
   factory :credit_type do
     type ""
+    code "loyalty_program"
   end
 end

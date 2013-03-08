@@ -1,73 +1,48 @@
-<!-- <header>
-  <% if user_signed_in? %>
-    <div class="contact">
-      <div class="content">
-        <ul>
-          <li>Central de Atendimento (11) 2626-3489</li> |
-          <li><%= link_to "falecom@olook.com.br", contact_path %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
-  <div class="content relative">
-    <h1><%= link_to 'Olook', root_path %></h1>
-    <div id="session">
-      <% if user_signed_in? %>
-        <div class="user">
-          <ul>
-            <li>Olá,</li>
-            <li class="submenu">
-              <%= link_to "#{current_user.name}", "#", :id => "info_user" %>
-              <div class="my_account">
-                <ul>
-                  <li><%= link_to "Meus pedidos", user_orders_path %></li>
-                  <!-- <li><%#= link_to "Meus presentes", user_gifts_path %></li> 
-                  <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
-                  <li><%= link_to "Endereços", user_addresses_path %></li>
-                  <li class="last"><%= link_to "Meus créditos", user_credits_path %></li>
-                </ul>
-              </div>
-            </li>
-            <li><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
-          </ul>
-        </div>
-      <% end %>
-      <ul>
-        <% if user_signed_in? %>
-          <li class="first"><%= link_to "Fidelidade Olook", loyalty_path %></li>
-          <li class="last"><%= link_to "Ganhe créditos!", member_earn_credits_path, :class => "invite" %></li>
-        <% else %>
-          <li class="login">
-            <p>Já faz parte? <%= link_to "Entre", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %> ou <%= link_to "Descubra seu estilo", new_survey_path %></p>
-          </li>
-        <% end %>
-      </ul>
-      <div class="sign-in-dropdown close">
-        <%= render "users/sessions/form_user" %>
-      </div>
-    </div>
-  </div>
-</header> -->
-
 <header id="new_header">
   <div class="new_content">
     <div class="box_left">
-      <p>SAC (11) 2626-3489 | <a class="contact" href="#">falecom@olook.com.br</a></p>
+      <p>SAC (11) 2626-3489 | <a class="contact" href="mailto:falecom@olook.com.br">falecom@olook.com.br</a></p>
       <ul class="social_icons">
-        <li><a href="#" class="social_facebook">Facebook</a></li>
-        <li><a href="#" class="social_twitter">Twitter</a></li>
-        <li><a href="#" class="social_rss">RSS</a></li>
-        <li><a href="#" class="social_instagram">Instagram</a></li>
+        <li><%= link_to "Curta a olook no facebook", "http://facebook.com/olook", target: "_blank", class: "social_facebook" %></li>
+        <li><%= link_to "Siga-nos no twitter", "http://twitter.com/olook", target: "_blank", class: "social_twitter" %></li>
+        <li><%= link_to "Leia nosso blog por RSS", "http://blog.olook.com.br/feed/", target: "_blank", class: "social_rss" %></li>
+        <li><%= link_to "Acompanhe nosso instagram", "http://instagram.com/olook", target: "_blank", class:"social_instagram" %></li>
       </ul>
     </div>
      <div class="box_right">
-      <p class="new_login"><a href="#">Entre  </a> ou <a href="#">  descubra seu estilo</a></p>
-      <p class="new_sacola"><a href="#">MINHA SACOLA <span>(0 itens)</span></a></p>
+      <% if user_signed_in? %> 
+      <div class="user">
+        <ul>
+          <li class="bl">Olá,</li>
+          <li class="submenu">
+            <%= link_to "#{current_user.name}", "#", :id => "info_user" %>
+            <div class="my_account">
+              <ul>
+                <li><%= link_to "Meus pedidos", user_orders_path %></li>
+                <!--li><%#= link_to "Meus presentes", user_gifts_path %></li--> 
+                <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
+                <li><%= link_to "Endereços", user_addresses_path %></li>
+                <li class="last"><%= link_to "Meus créditos", user_credits_path %></li>
+              </ul>
+            </div>
+          </li>
+          <li class="br"><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
+        </ul>
+      </div> 
+      <!-- <p class="first"><%= link_to "Fidelidade Olook", loyalty_path %></p> -->
+      <p class="credits"><%= link_to "Ganhe créditos!", member_earn_credits_path, :class => "invite" %></p>
+
+      <% else %>
+      <p class="new_login"><%= link_to "Entre", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %> ou <%= link_to "Descubra seu estilo", new_survey_path %></p>   
+      <div class="sign-in-dropdown close">
+        <%= render "users/sessions/form_user" %>
+      </div>
+      <% end %>
+      
+      <%= render 'shared/cart', :cart => @cart %>
     </div>
     <div class="olook_logo">
-        <a href="#" class="">Olook</a>
+        <h1><%= link_to 'Olook', root_path %></h1>
     </div>
-
-   
   </div>
 </header>
