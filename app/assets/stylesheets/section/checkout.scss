@@ -170,7 +170,8 @@ table.check {
 						font-size:13px;
          }
          a {
-           color: #D95485;
+
+           color: #ef3742;
            margin: 5px 0 0 85px;
          }
          &.value {
@@ -244,7 +245,7 @@ section#cart {
         color:#000;
         font-size:12px;
         font-weight: bold;
-        color: #D95485;
+        color: $pink;
         }
       }
   .share{
@@ -298,7 +299,7 @@ section#cart {
     padding: 10px 15px 5px;
     float: left;
     a {
-      color: #D95485;
+      color: #ef3742;
       float: none;
     }
   }
@@ -309,7 +310,7 @@ section#cart {
 	}
 	ul.link-suggestions{
 		margin-top:7px;
-		li a{color:#D95485;margin-bottom:6px;display:block;}
+		li a{color:#ef3742;margin-bottom:6px;display:block;}
 	}
   div.banner {
 
@@ -594,7 +595,7 @@ section#cart {
             display: block;
             border: none;
             cursor: pointer;
-						color:#D95485;
+						color:#ef3742;
 						text-decoration:underline;
           }
 				}
@@ -668,7 +669,7 @@ section#cart {
 							font-size:22px;
 							text-transform:uppercase;
 							span{
-								color:#D95485;
+								color:#ef3742;
 							}
 
               &.limit {
@@ -704,7 +705,7 @@ section#cart {
 
         border: none;
         a#show_coupon_field {
-          color: #D95485;
+          color: #ef3742;
           font-size: 14px;
           line-height: 55px;
         }
@@ -1037,7 +1038,7 @@ section#payment {
         font-weight: bold;
       }
       input[type="submit"] {
-        background: url("/assets/cart/print-billet.png") no-repeat;
+        background: image-url("cart/print-billet.png") no-repeat;
         text-indent: -9999px;
         width: 165px;
         height: 46px;
@@ -1062,7 +1063,7 @@ section#payment {
       float: right;
       ol li {
         input[type='submit'] {
-          background: url('/assets/cart/bt-make-payment.png') no-repeat;
+          background: image-url('cart/bt-make-payment.png') no-repeat;
           text-indent: -9999px;
           width: 203px;
           height: 46px;
@@ -1085,7 +1086,7 @@ section#payment {
           margin: 0 5px 5px 0;
           float: left;
           label {
-            background: url("/assets/cart/ico-payments.png") no-repeat;
+            background: image-url("cart/ico-payments.png") no-repeat;
             text-indent: -9999px;
             width: 43px;
             height: 35px;
@@ -1513,7 +1514,7 @@ section#payment {
         margin: 0 0 20px 0;
       }
       a.back {
-        background: url("/assets/my_account/bt-back-showroom.png") no-repeat;
+        background: image-url("my_account/bt-back-showroom.png") no-repeat;
         text-indent: -9999px;
         width: 259px;
         height: 46px;
@@ -1534,7 +1535,7 @@ section#payment {
 }
 
 .txt-black{color:#000 !important;}
-.txt-pink{color:#D95485 !important;}
+.txt-pink{color:#ef3742 !important;}
 .fixed{position:fixed !important;}
 /******************************/
 /******** NEW CHECKOUT ********/
@@ -1592,24 +1593,23 @@ section.checkout{
 			&.security_code{width:120px;}
 			&.expiration_date{width:107px;}
 
-			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;position:absolute;left:685px;display:none;cursor:pointer;}
+			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;position:absolute;left:685px;display:none;cursor:pointer;z-index:999;}
 		}
 		.btn_zipcode{float:left;border:0;width:150px;height:32px;font-size:0;font-family:a;@include sprite_checkout(-92px, -244px);margin:2px 0 0 15px;cursor:pointer;}
 		.subtitle{clear:both;margin-top:10px;height:30px;@include sprite_checkout(-109px, -535px);width:293px;color:#000;padding-top:15px;clear:both;}
 		.freight_text{font-size:14px;font-family:$avenir;margin-left:25px;}
-		.freight_value{color:#D95485;}
-
+		.freight_value{color:#ef3742;}
 		ul.address_data{float:left;margin:0 0 8px 5px;
-			a{color:#DD4978;font-size:13px;}
+			a{color:$pink;font-size:13px;}
 		}
 
 		p.new_address{
 			clear:both;
-			a{font-size:14px;color:#DD4978;}
+			a{font-size:14px;color:$pink;}
 		}
     p.addresses_index{
       clear:both;margin-bottom:10px;
-      a{font-size:14px;color:#DD4978;display:block;height:16px;@include sprite_checkout(-394px, -246px);padding-left:10px;text-decoration:none;
+      a{font-size:14px;color:$pink;display:block;height:16px;@include sprite_checkout(-394px, -246px);padding-left:10px;text-decoration:none;
 				&:hover{text-decoration:underline;}
 			}
     }
@@ -1621,8 +1621,9 @@ section.checkout{
 		}
 		.credits{float:left;padding-left:5px;
 			label{color:#000;}
-			p{font-size:13px;float:left;
-				span, a{color:#D95485;}
+
+			p{font-size:13px;float:left; 
+				span, a{color:#ef3742;}
 				a{display:block;margin:6px 0 5px;font-size:13px;}
 			}
 		}
@@ -1823,13 +1824,13 @@ section.checkout{
           text-align: center;
           margin: 0;
           strong {
-            color: #D95485;
+            color: #ef3742;
           }
         }
       }
     }
     input[type="submit"].continue {
-      background: url('/assets/cart/continue.jpg') no-repeat;
+      background: image-url('cart/continue.jpg') no-repeat;
       text-indent: -9999px;
       width: 183px;
       height: 63px;
@@ -1839,7 +1840,7 @@ section.checkout{
       border: none;
     }
     input[type="submit"].finish, a.finish {
-      background: url('/assets/cart/finish.png') 0 0 no-repeat;
+      background: image-url('cart/finish.png') 0 0 no-repeat;
       text-indent: -9999px;
       width: 116px;
       height: 46px;
@@ -1852,7 +1853,7 @@ section.checkout{
       }
     }
     input[type="submit"].save {
-      background: url('/assets/cart/save-continue.png') 0 0 no-repeat;
+      background: image-url('cart/save-continue.png') 0 0 no-repeat;
       text-indent: -9999px;
       width: 202px;
       height: 46px;
@@ -1865,7 +1866,7 @@ section.checkout{
       }
     }
     input[type="submit"].disabled.continue {
-      background: url('/assets/cart/continue-disabled.png') 0 0 no-repeat;
+      background: image-url('cart/continue-disabled.png') 0 0 no-repeat;
       text-indent: -9999px;
       width: 139px;
       height: 46px;
@@ -1899,7 +1900,7 @@ div#modal {
       margin: 0 0 15px;
     }
     h2 {
-      color: #D95485;
+      color: #ef3742;
       font-family: sans-serif;
       letter-spacing: -1px;
       font-size: 16px;
@@ -1933,7 +1934,7 @@ div.credit_details {
           text-align: left;
           padding: 5px 0;
           &.value {
-            color: #D95485;
+            color: #ef3742;
             font-family: $avenir;
             text-transform: uppercase;
             text-align: right;

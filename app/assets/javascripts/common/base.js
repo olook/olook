@@ -39,26 +39,72 @@ $(document).ready(function() {
   initBase.showSlideToTop();
   initBase.slideToTop();
 
+
+
+  
+  function slideMenuBar(){
+  
+    var $el, leftPos, newWidth; 
+  
+    $(".default_new").append("<li id='magic-line'></li>");
+    var $magicLine = $("#magic-line");
+
+    $magicLine
+    .width($(".default_new li .selected").outerWidth() - 2)
+    .css("left", $(".default_new li .selected").position().left)
+    .data("origLeft", $magicLine.position().left)
+    .data("origWidth", $magicLine.width());
+        
+    $(".default_new li").find("a").hover(function() {
+        $el = $(this);
+        leftPos = $el.position().left;
+        newWidth = $el.parent().width() - 2;
+        
+        $magicLine.stop().animate({
+            left: leftPos,
+            width: newWidth
+        });
+    }, function() {
+        $magicLine.stop().animate({
+            left: $magicLine.data("origLeft"),
+            width: $magicLine.data("origWidth")
+        });    
+    });
+
+    $(".default_new li").eq(-2).css("background", "none");
+  }
+  setTimeout(function(){slideMenuBar();},2000);
+  
+  
+  
+  /* HIDE <hr/> IN CART BOX */
+  if($("#cart_summary .submenu li.product_item").length > 0){
+     $("p.freight").next().hide();
+  }else{
+     $("p.freight").next().show();
+  }
+     
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
-  if (!msie6 && $('nav.menu').length == 1) {
-    var top = $('nav.menu').offset().top - parseFloat($('nav.menu').css('margin-top').replace(/auto/, 0));
+  if (!msie6 && $('div#wrapper_new_menu').length == 1) {
+    var top = $('div#wrapper_new_menu').offset().top - parseFloat($('div#wrapper_new_menu').css('margin-top').replace(/auto/, 0));
     $(window).scroll(function (event) {
       var y = $(this).scrollTop();
       if (y >= top) {
-        $('nav.menu').addClass('fixed');
+        $('div#wrapper_new_menu').addClass('fixed');
       } else {
-        $('nav.menu').removeClass('fixed');
+        $('div#wrapper_new_menu').removeClass('fixed');
       }
     });
   }
+  
 
   if($(window).width() < "1200") {
-    $("#wrapper_menu .menu").addClass("smaller");
+    $("#wrapper_new_menu .menu_new").addClass("smaller");
   }
 
   $(window).resize(function() {
     width = $(this).width();
-    menu = $("#wrapper_menu .menu");
+    menu = $("#wrapper_new_menu .menu_new");
     if(width < "1200") {
       $(menu).addClass("smaller");
     } else {
@@ -152,20 +198,20 @@ $(document).ready(function() {
 
   $(document).bind('keydown', 'esc',function () {
     $('#sign-in-dropdown').hide();
-    $("div#wrapper_menu nav.menu ul li.cart ul.submenu").hide();
+    $("#cart_summary").hide();
     $('body').removeClass('dialog-opened');
     return false;
   });
 
-  $("div#wrapper_menu nav.menu ul li.cart ul.submenu").live('click', function(e) {
+  $("#cart_summary").live('click', function(e) {
     if($('body').hasClass('cart_submenu_opened')) {
       e.stopPropagation();
     }
   });
 
   $('body.cart_submenu_opened').live("click", function(e) {
-    if($("div#wrapper_menu nav.menu ul li.cart ul.submenu").is(':visible')) {
-      $("div#wrapper_menu nav.menu ul li.cart ul.submenu").hide();
+    if($("#cart_summary").is(':visible')) {
+      $("#cart_summary").hide();
       $(this).removeClass("cart_submenu_opened");
       e.stopPropagation();
     }
@@ -331,11 +377,11 @@ $(document).ready(function() {
     $(this).submit();
   });
 
-  $("div#wrapper_menu nav.menu ul li a.cart, ul.submenu").live("mouseenter", function() {
-    $(this).parent("li").find("ul").show();
+  $("p.new_sacola a.cart,#cart_summary").live("mouseenter", function() {
+    $("#cart_summary").show();
     $("body").addClass('cart_submenu_opened');
   }).live("mouseleave", function() {
-    $(this).parent("li").find("ul").hide();
+    $("#cart_summary").hide();
     $("body").removeClass('cart_submenu_opened');
   });
 
@@ -393,7 +439,7 @@ $(document).ready(function() {
   $("section#greetings div.facebook div.profile a").live("click", function(e) {
     initBase.showProfileLightbox();
 
-    container = $('div#profile_quiz.clone img');
+    container = $('div#profile_quiz img');
     profile = container.attr('class');
     container.attr('src', 'http://cdn-app-staging-0.olook.com.br/assets/profiles/big_'+profile+'.jpg');
 
@@ -423,10 +469,8 @@ initBase = {
   },
 
   showProfileLightbox : function() {
-    clone = $("div#profile_quiz").clone().addClass("clone");
-    content = clone[0].outerHTML;
-    initBase.modal(content);
-    $(".ui-dialog").css("top", "30px");
+    content = $("div#profile_quiz");
+    initBase.newModal(content);
   },
 
   spyLinkId : function(color) {
@@ -539,11 +583,11 @@ initBase = {
   },
 
   dialogLogin : function() {
-    $('a.trigger').live('click', function(e){
+    $('p.new_login a.trigger').live('click', function(e){
       el = $(this).attr('rel');
 
-      $(this).parents('#session').find('.' + el).toggle('open');
-      $(this).parents('body').addClass('dialog-opened');
+      $('.' + el).toggle('open');
+      $('body').addClass('dialog-opened');
 
       $("div.sign-in-dropdown form input#user_email").focus();
 
@@ -616,14 +660,15 @@ initBase = {
   },
 
   fixBorderOnMyAccountDropDown : function() {
-    $('#session div.user ul li.submenu').hover(function() {
+    $('div.user ul li.submenu').hover(function() {
       var link = $(this).find('a#info_user');
-      if($(link).outerWidth() >= '125') {
+      var link_width = $(link).outerWidth();
+      /*if($(link).outerWidth() >= '125') {
         var link_width = $(link).outerWidth();
       } else {
         var link_width = 125;
-      }
-      $(this).find('div.my_account').css('width', link_width - 4);
+      }*/
+      $(this).find('div.my_account').css('width', link_width - 2);
       $(link).addClass('hover');
     }, function() {
       var link = $(this).find('a#info_user');
@@ -638,7 +683,7 @@ initBase = {
       var youtube_id = initBase.youtubeParser(url);
       content = initBase.youtubePlayer(youtube_id);
       content += title;
-      initBase.modal(content);
+      initBase.newModal(content);
       e.preventDefault();
     });
   },

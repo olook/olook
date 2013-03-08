@@ -41,7 +41,7 @@
         margin-bottom: 30px;
         overflow: visible;
         float: left;
-        border-bottom: 2px #e05f8f solid;
+        border-bottom: 2px $pink solid;
         p.warn {
           position: absolute;
           color: #FFF;
@@ -194,7 +194,7 @@
             margin: 0 0 0 5px;
           }
           &.price {
-            color: #e05789;
+            color: #ef3742;
             font-size: 45px;
             line-height: 40px;
             text-align: center;
@@ -229,7 +229,7 @@
             width: 175px;
             margin-top: 15px;
             float: left;
-						color:#E05789;
+						color:#ef3742;
           }
 					&.validate{
 						clear:both;
@@ -261,7 +261,7 @@
             margin: 0;
           }
           a {
-            color: #e05789;
+            color: #ef3742;
             display:none;
           }
           &.promotion {
@@ -364,7 +364,7 @@
         }
       }
       input[type="submit"].add_product, a.add_product {
-        background: image-url('product/bt-add-product.jpg') no-repeat;
+        background: image-url('product/bt-add-product.png') no-repeat;
         text-indent: -9999px;
         width: 281px;
         height: 59px;

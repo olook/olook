@@ -11,7 +11,7 @@ section#half_user {
     overflow: hidden;
     float: left;
     h1 {
-      color: #e05789;
+      color: #ef3742;
       font-family: "Open Sans", sans-serif;
       font-size: 50px;
       font-weight: lighter;
@@ -91,7 +91,7 @@ section#half_user {
               width: auto;
               float: right;
               input[type="submit"] {
-                background: url("/assets/half_user/register.jpg") no-repeat;
+                background: image-url("half_user/register.jpg") no-repeat;
                 color: #FFF;
                 font-family: "Open Sans", sans-serif;
                 font-size: 20px;
@@ -115,7 +115,7 @@ section#half_user {
       font-weight: bold;
       text-align: center;
       a {
-        color: #e05789;
+        color: #ef3742;
       }
     }
     form.login {
@@ -143,7 +143,7 @@ section#half_user {
               }
             }
             input[type="submit"] {
-              background: url("/assets/half_user/login.jpg") no-repeat;
+              background: image-url("half_user/login.jpg") no-repeat;
               color: #FFF;
               font-family: "Open Sans", sans-serif;
               font-size: 12px;
