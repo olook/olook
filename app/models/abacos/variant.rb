@@ -54,7 +54,7 @@ module Abacos
     end
     
     def self.parse_display_reference(description, category)
-      category == Category::SHOE ? "size-#{description}" : 'single-size'
+      [Category::SHOE, Category::CLOTH].include?(description) ? "size-#{description}" : 'single-size'
     end
   end
 
