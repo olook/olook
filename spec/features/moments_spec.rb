@@ -8,11 +8,13 @@ feature "Navigating by moments", %q{
   } do
 
   let!(:user) { FactoryGirl.create(:user, :user_info => UserInfo.new) }
-  let!(:work_collection_theme) { FactoryGirl.create(:collection_theme, { :name => "work", :slug => "work" }) }
-  let!(:day_collection_theme) { FactoryGirl.create(:collection_theme) }
+  let!(:collection_theme_group) { FactoryGirl.create(:collection_theme_group) }
+  let!(:work_collection_theme) { FactoryGirl.create(:collection_theme, { :name => "work", :slug => "work", collection_theme_group: collection_theme_group }) }
+  let!(:day_collection_theme) { FactoryGirl.create(:collection_theme, collection_theme_group: collection_theme_group) }
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
   let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
+  let!(:sesstind_product) {FactoryGirl.create(:shoe)}
 
   let(:basic_bag) do
     product = (FactoryGirl.create :bag_subcategory_name).product
@@ -40,34 +42,42 @@ feature "Navigating by moments", %q{
 
   describe "Already user" do
     background do
+      Setting.stub(:collection_section_featured_products).and_return("teste|#{sesstind_product.id}")
       do_login!(user)
     end
 
-    scenario "visiting the moment page/home" do
-      visit moments_path
-      within(".moments") do
+    scenario "visiting the collection theme page/home" do
+      visit collection_themes_path
+      within("#collections_content") do
           page.should have_xpath("//a[@class='selected']")
       end
     end
 
-    describe "checking products at the related moment" do
+    scenario "see collection themes groups on page" do
+      visit collection_themes_path
+      page.should have_content(collection_theme_group.name)
+    end
+
+    scenario "see collection themes groups on page" do
+      visit collection_themes_path
+      page.should have_content(work_collection_theme.name)
+      page.should have_content(day_collection_theme.name)
+    end
+
+    describe "checking products at the related collection theme" do
 
       before :each do
         CatalogProductService.new(day_collection_theme.catalog, basic_bag).save!
         CatalogProductService.new(work_collection_theme.catalog, basic_shoes).save!
-        visit moments_path
+        visit collection_themes_path
       end
 
-      scenario "product should be in the actual moment" do
+      scenario "product should be on specific collection theme " do
+        click_link "dia-a-dia"
         page.should have_content( basic_bag.name )
-      end
-
-      scenario "changing moment and checking if product are being showed" do
         click_link "work"
         page.should have_content( basic_shoes.name )
       end
-
     end
-
   end
 end
