@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module MomentsHelper
   MIN_INSTALLMENT_VALUE = 30
-  MAX_INSTALLMENT_NUMBER = 10
+  MAX_INSTALLMENT_NUMBER = 6
 
   def msn_tags
     image_tag "http://view.atdmt.com/action/mmn_olook_colecoes#{@moment.id}", size: "1x1"
