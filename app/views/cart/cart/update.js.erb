@@ -49,7 +49,7 @@ $('table#total tr.total span').text('<%= number_to_currency(@cart_service.total)
 																							item: item
 																						} ) %>");
 
-	$('section#cart table.check.gift').css('border', '0');
+	//$('section#cart table.check.gift').css('border', '0');
 <% end %>
 
 if($("#cart-box").length > 0){
@@ -91,4 +91,10 @@ var select_options = $("#checkout_payment_payments");
 select_options.empty();
 <% build_installment_options(@cart_service.total, CreditCard.installments_number_for(@cart_service.total)).each do |o| %>
   select_options.append($("<option />").val(<%= "#{o[1]}" %>).text('<%= "#{o[0]}" %>'));
+<% end %>
+
+<% if @cart.facebook_share_discount? %>
+  $("section#facebook_share_discount").html(
+    "<%= escape_javascript(render(:partial => 'facebook_share_discount')) %>"
+  );
 <% end %>

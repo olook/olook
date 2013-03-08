@@ -7,7 +7,7 @@ $(document).ready(function() {
   $("div#my_account.my_gifts table tbody tr td.edit a").on("click", function(e) {
     var clone = $('.dialog.gifted').clone().addClass('clone');
     var content = clone[0].outerHTML;
-    initBase.modal(content);
+    initBase.newModal(content);
     e.preventDefault();
   });
 });

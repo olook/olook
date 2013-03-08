@@ -110,10 +110,6 @@ class MenuPresenter < BasePresenter
     render_item(h.current_liquidation.name, h.liquidations_path(h.current_liquidation.id), "liquidation", ["liquidations#show"]) if h.show_current_liquidation?
   end
 
-  def cart
-    h.content_tag :li, (h.render 'shared/cart', :cart => @cart), :id => "cart", :class => "cart"
-  end
-
   def blog
     h.content_tag :li, h.link_to("Blog", "http://blog.olook.com.br", :target => "_blank"), :class => "blog"
   end

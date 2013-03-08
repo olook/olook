@@ -12,7 +12,7 @@ $(function() {
   });
 
   orkutButton = $("#orkut_share").find("img").first();
-  $("div.box_invite.clone div.social ul li.orkut").append(orkutButton);
+  $("div.box_invite div.social ul li.orkut").append(orkutButton);
 });
 
 initCredits = {

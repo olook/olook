@@ -30,4 +30,9 @@ class Debit < Payment
   def expired?
     Time.now > self.payment_expiration_date if self.payment_expiration_date
   end
+
+  def schedule_cancellation
+    #TODO: this is independent of the rest of the expiration settings and calculations
+    Resque.enqueue_at(1.business_hour.from_now, Abacos::CancelOrder, self.order.number)
+  end
 end
