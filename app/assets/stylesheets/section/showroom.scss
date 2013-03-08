@@ -261,6 +261,27 @@
       padding: 0 20px 0 0;
       margin-bottom: 20px;
       float: left;
+      .star-left{
+        float: left;
+        margin-left: 20px;
+        margin-top: 5px;
+      }
+        .star-right{
+          margin-left: 15px;
+          margin-top: 5px;
+        }
+      span{
+        float: left;
+          &.news{
+          background-color: #000;
+          font-size: 15px;
+          margin-left: 10px;
+          color: #FFF;
+          padding: 5px;
+          margin-top: 3px;
+          font-family: $avenir;
+        }
+      }
     }
   }
 
