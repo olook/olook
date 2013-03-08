@@ -40,9 +40,43 @@ $(document).ready(function() {
   initBase.slideToTop();
 
 
- 
 
+  
+  function slideMenuBar(){
+  
+    var $el, leftPos, newWidth; 
+  
+    $(".default_new").append("<li id='magic-line'></li>");
+    var $magicLine = $("#magic-line");
 
+    $magicLine
+    .width($(".default_new li .selected").outerWidth() - 2)
+    .css("left", $(".default_new li .selected").position().left)
+    .data("origLeft", $magicLine.position().left)
+    .data("origWidth", $magicLine.width());
+        
+    $(".default_new li").find("a").hover(function() {
+        $el = $(this);
+        leftPos = $el.position().left;
+        newWidth = $el.parent().width() - 2;
+        
+        $magicLine.stop().animate({
+            left: leftPos,
+            width: newWidth
+        });
+    }, function() {
+        $magicLine.stop().animate({
+            left: $magicLine.data("origLeft"),
+            width: $magicLine.data("origWidth")
+        });    
+    });
+
+    $(".default_new li").eq(-2).css("background", "none");
+  }
+  setTimeout(function(){slideMenuBar();},2000);
+  
+  
+  
   /* HIDE <hr/> IN CART BOX */
   if($("#cart_summary .submenu li.product_item").length > 0){
      $("p.freight").next().hide();
