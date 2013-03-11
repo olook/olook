@@ -32,36 +32,39 @@ function slideMenuBar(){
   
   var $el, leftPos, newWidth; 
   
-  //$(".default_new").append("<li id='bar'></li>");
-  var $bar = $(".default_new li#bar");
-
-  $bar
-  .width($(".default_new li .selected").outerWidth() - 40)
-  .css("left", parseInt($(".default_new li .selected").position().left) + 19)
-  .data("origLeft", $bar.position().left)
-  .data("origWidth", $bar.width())
-  .fadeIn();      
+  var $magicLine = $("ul.default_new li#bar"), w = $("ul.default_new li .selected").outerWidth(), l = $("ul.default_new li .selected").position().left ;
   
-  $(".default_new li").find("a").hover(function() {
+  $magicLine
+  .width(w - 40)
+  .css("left", l + 19)
+  .data("origLeft", l + 19)
+  .data("origWidth", w - 40);
+  
+  if($("ul.default_new li a").hasClass("selected")){
+    $magicLine.fadeIn();
+  }      
+  $("ul.default_new li").find("a").hover(function() {
       $el = $(this);
       leftPos = $el.position().left + 19;
-      newWidth = $el.outerWidth() - 40;
-        
-      $bar.stop().animate({
+      newWidth = $el.parent().width() - 40;
+      
+      if(!$magicLine.is(":visible")){
+        $magicLine.fadeIn();
+      }  
+      $magicLine.stop().animate({
           left: leftPos,
           width: newWidth
       });
-    },function() {
-        $bar.stop().animate({
-          left: $bar.data("origLeft"),
-          width: $bar.data("origWidth")
-        });    
-    });
+  }, function() {
+      $magicLine.stop().animate({
+          left: $magicLine.data("origLeft"),
+          width: $magicLine.data("origWidth")
+      });    
+  });
 
   $(".default_new li").eq(-2).css("background", "none");
 }
 
-setTimeout(function(){slideMenuBar();},5000);
 
 $(document).ready(function() {	
   initBase.dialogLogin();
@@ -74,6 +77,9 @@ $(document).ready(function() {
   initBase.showSlideToTop();
   initBase.slideToTop();
 
+  setTimeout(function(){slideMenuBar();},3000);
+  
+  
   /* HIDE <hr/> IN CART BOX */
   if($("#cart_summary .submenu li.product_item").length > 0){
      $("p.freight").next().hide();
