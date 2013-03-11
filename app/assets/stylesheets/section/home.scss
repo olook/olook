@@ -286,7 +286,7 @@ section#home {
     }
   }
   div#products_categories {
-    width: 650px;
+    width: 760px;
     height: 140px;
     margin: 0 0 30px;
     padding: 35px 0 0 0;
@@ -297,12 +297,12 @@ section#home {
       font-size: 20px;
       font-weight: 600;
       text-transform: uppercase;
-      margin: 0 0 25px 60px;
+      margin: 0 0 25px 3px;
     }
     ul {
       width: 100%;
       overflow: auto;
-      margin: 0 0 0 60px;
+      margin: 0 0 60px;
       li {
         a {
           background: image-url("home/categories.png") no-repeat;
@@ -310,84 +310,119 @@ section#home {
           font-size: 11px;
           text-align: center;
           text-decoration: none;
-          height: 17px;
-          margin: 0 10px 0 0;
-          padding: 53px 0 0 0;
+          height: 40px;
+          margin: 0 18px 0 0;
+          padding: 75px 0 0 0;
           float: left;
           &:hover {
             color: #939598;
           }
         }
-        &.anabela a {
-          background-position: 6px 0;
+        &.blusa a {
+          background-position: 6px 0px;
           width: 45px;
           &:hover {
-            background-position: 6px -84px;
+            background-position: 6px -189px;
+          }
+        }
+        &.camisa a {
+          background-position: -48px 0;
+          width: 45px;
+          &:hover {
+            background-position: -48px -189px;
+          }
+        }
+        &.calca a {
+          background-position: -99px 0;
+          width: 45px;
+          &:hover {
+            background-position: -99px -189px;
+          }
+        }
+        &.saia a {
+          background-position: -150px 0;
+          width: 45px;
+          &:hover {
+            background-position: -150px -189px;
+          }
+        }
+        &.vestido a {
+          background-position: -200px 0;
+          width: 45px;
+          &:hover {
+            background-position: -200px -189px;
+          }
+        }
+        &.anabela a {
+          background-position: -252px 0;
+          width: 45px;
+          &:hover {
+            background-position: -252px -189px;
           }
         }
         &.rasteira a {
-          background-position: -45px 0;
+          background-position: -312px 0;
           width: 53px;
           &:hover {
-            background-position: -45px -84px;
+            background-position: -312px -189px;
           }
         }
         &.sandalia a {
-          background-position: -100px 0;
+          background-position: -355px 0;
           &:hover {
-            background-position: -100px -84px;
+            background-position: -355px -189px;
           }
         }
         &.sapatilha a {
-          background-position: -154px 0;
+          background-position: -389px 0;
           &:hover {
-            background-position: -154px -84px;
+            background-position: -389px -189px;
           }
         }
         &.scarpin a {
-          background-position: -212px 0;
+          background-position: -458px 0;
           &:hover {
-            background-position: -212px -84px;
+            background-position: -458px -189px;
           }
         }
         &.slipper a {
-          background-position: -262px 0;
+          background-position: -513px 0;
           width: 43px;
           &:hover {
-            background-position: -262px -84px;
+            background-position: -513px -189px;
           }
         }
         &.sneaker a {
-          background-position: -322px 0;
+          background-position: -513px 0;
           &:hover {
-            background-position: -322px -84px;
+            background-position: -513px -189px;
           }
         }
         &.acessorios a {
-          background-position: -371px 0;
+          background-position: -624px 0;
           &:hover {
-            background-position: -371px -84px;
+            background-position: -624px -189px;
           }
         }
         &.bolsas a {
-          background-position: -430px 0;
+          background-position: -572px 0;
           &:hover {
-            background-position: -430px -84px;
+            background-position: -572px -189px;
           }
         }
         &.oculos a {
-          background-position: -475px 0;
+          background-position: -728px 0;
           &:hover {
-            background-position: -475px -84px;
+            background-position: -728px -189px;
           }
         }
       }
     }
   }
   div#facebook_box {
-    width: 295px;
+    width: 196px;
     height: 140px;
-    padding: 35px 0 0 20px;
+    padding: 35px 0 0 10px;
     float: right;
     border-top: 1px #cbcbcb solid;
     img {
