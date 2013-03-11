@@ -1,0 +1,17 @@
+<section class="container_product" id="clothes_container">
+  <h1 class="title"><span>Suas roupas de <%= showroom_presenter.collection_name(collection) %> </span><%= image_tag 'showroom/star.png', class: 'star-left' %>  <span class="news">NOVIDADE! AGORA TEMOS O LOOK COMPLETO: ROUPAS!</span><%= image_tag 'showroom/star.png', class: 'star-right' %></h1>
+  <div class="type_list">
+    <div class="products_list best">
+      <ul>
+        <%= showroom_presenter.display_clothes((0..4), collection, current_user) %>
+      </ul>
+
+      <div class="products_list almost">
+        <ul id="clothes_product"/>
+      </div>
+
+      <%= link_to "Clique e veja mais roupas", "javascript:void(0);", :class => "more shoes", :onclick => track_event("Showroom", "SeeMore", "Clothes"), :rel => "almost", :data => {:url => member_showroom_clothes_path } %>
+    </div>
+
+  </div>
+</section>
