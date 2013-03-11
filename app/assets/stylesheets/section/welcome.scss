@@ -41,7 +41,7 @@ section#welcome {
     width: 860px;
     margin: 0 auto 40px;
     span {
-      color: #df5a8b;
+      color: #ef3742;
     }
   }
   div#profile_quiz {
@@ -211,7 +211,7 @@ section#welcome {
             }
             &.buttons {
               input[type="submit"] {
-                background: url("/assets/welcome/bt-invite.jpg") no-repeat;
+                background: image-url("welcome/bt-invite.jpg") no-repeat;
                 color: #FFF;
                 font-family: 'Open Sans', sans-serif;
                 font-size: 17px;
@@ -232,7 +232,7 @@ section#welcome {
       }
       a.invite {
         background: url("/assets/welcome/arrow.png") left no-repeat;
-        color: #e05789;
+        color: #ef3742;
         font-family: Arial, sans-serif;
         font-size: 14px;
         padding: 0 0 0 13px;

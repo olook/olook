@@ -3,7 +3,7 @@
 $('p#item_subtotal_' + <%= item.id %>).text('<%= number_to_currency(@cart_service.item_price_total(item)) %>');
 
 //update items quantity on cart summary header
-$("#cart_items").text(<%= @cart.items_total %>);
+$("#cart_items").text("<%= pluralize(@cart.items_total, 'item', 'itens') %>");
 
 //update total order value
 $('table#total tr.total span').text('<%= number_to_currency(@cart_service.total) %>');
@@ -26,6 +26,6 @@ $("table#items tbody tr#item_<%= item.id %> td.value").first().append("<%= escap
 																					} ) %>");
 
 //update item quantity on cart summary (pull down)
-$('ul#cart_summary li[data-id=<%= item.id %>] p.qte span').text(<%= item.quantity %>);
+$('#cart_summary ul li[data-id=<%= item.id %>] p.qte span').text(<%= item.quantity %>);
 <% end %>
 

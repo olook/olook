@@ -24,10 +24,6 @@ class XmlController < ApplicationController
     respond_with(@products)
   end
 
-  def topster
-    respond_with(@products)
-  end
-
   def netaffiliation
     respond_with(@products)
   end

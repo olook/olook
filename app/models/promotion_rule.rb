@@ -14,7 +14,7 @@ class PromotionRule < ActiveRecord::Base
   has_many :rule_parameters
   has_many :promotions, :through => :rule_parameters
 
-  def matches? cart, parameter
-    raise "You should call matches? on inherited classes"
-  end
+  protected
+    # This method should be overrided on subclasses
+    def matches? cart, parameter; end
 end

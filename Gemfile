@@ -30,7 +30,6 @@ gem 'haml-rails'
 gem 'i18n', '= 0.6.1'
 gem 'clearsale', :git => 'git://github.com/olook/clearsale.git', :branch => 'master'
 gem 'acts_as_list'
-
 gem 'chaordic-packr', "4.0.0", git: 'git@github.com:olook/chaordic-packr.git', branch: 'master'
 gem 'oj'
 gem 'moip', '>= 1.0.2.3', :git => 'git://github.com/olook/moip-ruby.git', :branch => 'master'
