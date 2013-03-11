@@ -21,10 +21,9 @@ module Olook
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
     config.autoload_paths += %W(#{Rails.root}/app/presenters #{Rails.root}/app/services #{Rails.root}/app/adapters #{Rails.root}/app/workers #{Rails.root}/app/validators #{Rails.root}/app/models/ecommerce #{Rails.root}/lib #{Rails.root}/app/strategies/**/ #{Rails.root}/app/sac )
-    config.autoload_paths += %W(#{Rails.root}/app/models/promotions/**)
     config.autoload_paths += Dir["#{Rails.root}/lib/**/"]
-    config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/actions/*"]
-    config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/rules/*"]
+    config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/actions"]
+    config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/rules"]
 
     config.middleware.delete(ActiveRecord::SessionStore)
     config.middleware.insert_before(Rails::Rack::Logger, ActiveRecord::SessionStore)
