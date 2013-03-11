@@ -21,11 +21,11 @@ class MenuPresenter < BasePresenter
   end
 
   def render_offline_menu
-    [showroom_offline, lookbooks, moments, categories, gift, stylist, liquidation, cart].join.html_safe
+    [showroom_offline, lookbooks, moments, categories, gift, stylist, liquidation].join.html_safe
   end
 
   def render_default_menu
-    [showroom, lookbooks, moments, categories, gift, stylist, liquidation, cart].join.html_safe
+    [showroom, lookbooks, moments, categories, gift, stylist, liquidation].join.html_safe
   end
 
   def render_half_user_menu
@@ -41,7 +41,7 @@ class MenuPresenter < BasePresenter
   end
 
   def render_man_half_user_menu
-    [lookbooks, moments, gift, my_friends, stylist, liquidation, blog, cart].join.html_safe
+    [lookbooks, moments, gift, my_friends, stylist, liquidation, blog].join.html_safe
   end
 
   private
@@ -74,7 +74,11 @@ class MenuPresenter < BasePresenter
   end
 
   def categories
-    [shoes, bags, accessories]
+    [clothes, shoes, bags, accessories]
+  end
+
+  def clothes
+    render_item("Roupas", h.clothes_path, "categories", ["moments#clothes"])
   end
 
   def shoes
@@ -108,10 +112,6 @@ class MenuPresenter < BasePresenter
 
   def liquidation
     render_item(h.current_liquidation.name, h.liquidations_path(h.current_liquidation.id), "liquidation", ["liquidations#show"]) if h.show_current_liquidation?
-  end
-
-  def cart
-    h.content_tag :li, (h.render 'shared/cart', :cart => @cart), :id => "cart", :class => "cart"
   end
 
   def blog

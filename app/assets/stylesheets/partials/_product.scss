@@ -34,7 +34,7 @@ li.product {
           margin: 0 auto;
           display: block;
           span {
-            background: url('/assets/common/icon-spy-on.png') left center no-repeat;
+            background: image-url('common/icon-spy-on.png') left center no-repeat;
             color: #000;
             line-height: 16px;
             display: inline-block;
@@ -86,7 +86,7 @@ li.product {
           height: 30px;
         }
         &.quantity {
-          background: url("/assets/common/quantity.png") no-repeat;
+          background: image-url("common/quantity.png") no-repeat;
           word-spacing: -1px;
           width: 62px;
           height: 30px;

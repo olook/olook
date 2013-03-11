@@ -211,7 +211,7 @@ section#welcome {
             }
             &.buttons {
               input[type="submit"] {
-                background: url("/assets/welcome/bt-invite.jpg") no-repeat;
+                background: image-url("welcome/bt-invite.jpg") no-repeat;
                 color: #FFF;
                 font-family: 'Open Sans', sans-serif;
                 font-size: 17px;

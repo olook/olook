@@ -1,5 +1,10 @@
 # -*- encoding : utf-8 -*-
 class ProductPresenter < BasePresenter
+
+  SIZES_TABLE = {"PP" => 1, "P" =>2, "M" => 3, "G" => 4,
+                 "34" => 5, "36" => 6, "38" => 7, "40" => 8, "42" => 9, "44" => 10,
+                 "Único" => 11}
+
   def collection_name
    Collection.active.try(:name) || I18n.l(Date.today, :format => '%B')
   end
@@ -53,6 +58,7 @@ class ProductPresenter < BasePresenter
       when Category::SHOE then h.render :partial => 'product/form_for_shoe', :locals => {:product_presenter => self}
       when Category::BAG then h.render :partial => 'product/form_for_bag', :locals => {:product_presenter => self}
       when Category::ACCESSORY then h.render :partial => 'product/form_for_accessory', :locals => {:product_presenter => self}
+      when Category::CLOTH then h.render :partial => 'product/form_for_cloth', :locals => {:product_presenter => self}
     end
   end
 
@@ -64,6 +70,11 @@ class ProductPresenter < BasePresenter
   def render_multiple_sizes
     variants = product.variants.sorted_by_description
     h.render :partial => 'product/sizes', :locals => {:variants => variants, :shoe_size => shoe_size}
+  end
+
+  def render_cloth_sizes
+    variants = product.variants.sort{|first, second| SIZES_TABLE[first.description] <=> SIZES_TABLE[second.description]}
+    h.render :partial => 'product/sizes', :locals => {:variants => variants, :shoe_size => nil}
   end
 
   def render_pics

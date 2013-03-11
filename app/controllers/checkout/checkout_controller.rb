@@ -28,6 +28,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
     sender_strategy = PaymentService.create_sender_strategy(@cart_service, payment)
     payment_builder = PaymentBuilder.new({ :cart_service => @cart_service, :payment => payment, :gateway_strategy => sender_strategy, :tracking_params => session[:order_tracking_params] } )
+    
     response = payment_builder.process!
 
     if response.status == Payment::SUCCESSFUL_STATUS
@@ -35,77 +36,87 @@ class Checkout::CheckoutController < Checkout::BaseController
       return redirect_to(order_show_path(:number => response.payment.order.number))
     else
       @addresses = @user.addresses
-      error_message = "Identificamos um problema com o cartão.<br> Confira os dados ou tente outra forma de pagamento." if payment.is_a? CreditCard
-      display_form(address, payment, payment_method, error_message)
+      display_form(address, payment, payment_method, error_message_for(response, payment))
       return
     end
   end
 
   private
 
-  def shipping_address(params)
-    if using_address_form?
-      populate_shipping_address
-    else
-      Address.find_by_id(params[:address][:id]) if params[:address]
-    end
-  end
+    def error_message_for response, payment
+      return "Identificamos um problema com a forma de pagamento escolhida." unless payment.is_a? CreditCard 
 
-  def populate_shipping_address
-    params[:checkout][:address][:country] = 'BRA'
-    address = params[:checkout][:address][:id].blank? ? @user.addresses.build() : @user.addresses.find(params[:checkout][:address][:id])
-    params[:checkout][:address].delete(:id)
-    address.assign_attributes(params[:checkout][:address])
-    address
-  end
-
-  def create_payment(address)
-    params[:checkout][:payment][:receipt] = Payment::RECEIPT
-    params[:checkout][:payment][:telephone] = address.telephone if address
-
-    payment = case params[:checkout][:payment_method]
-    when "billet"
-      Billet.new(params[:checkout][:payment])
-    when "debit"
-      Debit.new(params[:checkout][:payment])
-    when "credit_card"
-      CreditCard.new(params[:checkout][:payment] )
-    else
-      nil
-    end
-  end
-
-  def display_form(address, payment, payment_method, error_message = nil)
-    @report  = CreditReportService.new(@user)
-    @checkout = Checkout.new(address: address, payment: payment, payment_method: payment_method)
-    if error_message
-      @checkout.errors.add(:payment_base, error_message)
-      # TODO => Move these lines to Payment class
-      @checkout.payment.errors.add(:credit_card_number)
-      @checkout.payment.errors.add(:expiration_date)
-      @checkout.payment.errors.add(:security_code)
-      payment.credit_card_number = ""
-      payment.expiration_date = ""
-      payment.security_code = ""
+      if response.error_code == "BP07"
+        error_message = "Tempo de retorno da operadora de cartão excedido.<br>Tente novamente ou escolha outra forma de pagamento."
+      else
+        error_message = "Identificamos um problema com o cartão.<br>Confira os dados ou tente outra forma de pagamento."
+      end
+      error_message  
     end
 
-    unless using_address_form?
-      @addresses = @user.addresses
-      unless address
-        @checkout.address = Address.new
-        @checkout.errors.add(:address_base, "Escolha um endereço!")
+    def shipping_address(params)
+      if using_address_form?
+        populate_shipping_address
+      else
+        Address.find_by_id(params[:address][:id]) if params[:address]
       end
     end
 
-    unless payment
-      @checkout.errors.add(:payment_base, "Como você pretende pagar? Escolha uma das opções")
+    def populate_shipping_address
+      params[:checkout][:address][:country] = 'BRA'
+      address = params[:checkout][:address][:id].blank? ? @user.addresses.build() : @user.addresses.find(params[:checkout][:address][:id])
+      params[:checkout][:address].delete(:id)
+      address.assign_attributes(params[:checkout][:address])
+      address
     end
 
-    render :new
-  end
+    def create_payment(address)
+      params[:checkout][:payment][:receipt] = Payment::RECEIPT
+      params[:checkout][:payment][:telephone] = address.telephone if address
 
-  def using_address_form?
-    !params[:checkout][:address].nil?
-  end
+      payment = case params[:checkout][:payment_method]
+      when "billet"
+        Billet.new(params[:checkout][:payment])
+      when "debit"
+        Debit.new(params[:checkout][:payment])
+      when "credit_card"
+        CreditCard.new(params[:checkout][:payment] )
+      else
+        nil
+      end
+    end
+
+    def display_form(address, payment, payment_method, error_message = nil)
+      @report  = CreditReportService.new(@user)
+      @checkout = Checkout.new(address: address, payment: payment, payment_method: payment_method)
+      if error_message
+        @checkout.errors.add(:payment_base, error_message)
+        # TODO => Move these lines to Payment class
+        @checkout.payment.errors.add(:credit_card_number)
+        @checkout.payment.errors.add(:expiration_date)
+        @checkout.payment.errors.add(:security_code)
+        payment.credit_card_number = ""
+        payment.expiration_date = ""
+        payment.security_code = ""
+      end
+
+      unless using_address_form?
+        @addresses = @user.addresses
+        unless address
+          @checkout.address = Address.new
+          @checkout.errors.add(:address_base, "Escolha um endereço!")
+        end
+      end
+
+      unless payment
+        @checkout.errors.add(:payment_base, "Como você pretende pagar? Escolha uma das opções")
+      end
+
+      render :new
+    end
+
+    def using_address_form?
+      !params[:checkout][:address].nil?
+    end
 
 end

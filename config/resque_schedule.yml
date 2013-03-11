@@ -79,3 +79,15 @@ force_clearsale_callback:
   class: Clearsale::CallbackWorker
   queue: order_status
   description: "Verifica se o status da avaliação da Clearsale mudou para uma determinada compra (order)"
+
+add_expire_carts_worker:
+  cron: "0 0 * * 1"
+  class: ExpireCartsWorker
+  queue: low_priority
+  description: "Expira os Carts sem items com mais de 7 dias toda segunda"
+
+update_topster_xml:
+  cron: "30 3 * * *"
+  class: TopsterXmlWorker
+  queue: topster_xml
+  description: "Atualiza o xml da topster"

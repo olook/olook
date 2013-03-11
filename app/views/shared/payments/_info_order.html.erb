@@ -19,7 +19,7 @@
     if gift_wrap %>
     <li>
       <p><span class="txt-black">EMBALAGEM (PRESENTE):</span><span>+ R$5,00</span></p>
-    </li> 
+    </li>
     <% end %>
 
     <li>
@@ -29,13 +29,13 @@
       %>
       <p><span class="txt-black">SUBTOTAL:</span><span class="txt-pink"><%= number_to_currency(gross_amount)  %></span></p>
     </li>
-    
-    <% 
+
+    <%
     if cart_service.freight_price > 0 %>
     <li>
       <p><span class="txt-black">FRETE:</span><span><%= number_to_currency(@order.freight.price) %></span></p>
     </li>
-    <% end 
+    <% end
     credits = @order.payments.for_credits.sum(:total_paid) if has_payment
     credits ||= cart_service.total_credits_discount
     if credits > 0 %>
@@ -48,37 +48,44 @@
     if olooklet > 0 %>
     <li>
       <p><span class="txt-black">LIQUIDAÇÃO:</span><span>- <%= number_to_currency(olooklet) %></span></p>
-    </li>  
+    </li>
     <% end
     promotion = @order.payments.for_promotion.sum(:total_paid) if has_payment
     promotion ||= cart_service.cart.total_promotion_discount
     if promotion > 0 %>
     <li>
       <p><span class="txt-black">PROMOÇÃO:</span><span>- <%= number_to_currency(promotion) %></span></p>
-    </li>  
+    </li>
     <% end
     gift = @order.payments.for_gift.sum(:total_paid) if has_payment
     gift ||= cart_service.total_discount_by_type(:gift)
     if gift > 0 %>
     <li>
       <p><span class="txt-black">PRESENTE:</span><span>- <%= number_to_currency(gift) %></span></p>
-    </li>  
+    </li>
     <% end
     coupon = @order.payments.for_coupon.sum(:total_paid) if has_payment
     coupon ||= cart_service.total_discount_by_type(:coupon)
     if coupon > 0 %>
     <li>
       <p><span class="txt-black">CUPOM DESCONTO:</span><span>- <%= number_to_currency(coupon) %> <%= discount_percentage(cart_service.cart.coupon.discount_percent)%></span></p>
-    </li>  
-    <% end 
+    </li>
+    <% end
     billet_discount = @order.payments.for_billet_discount.sum(:total_paid) if has_payment
     billet_discount ||= cart_service.billet_discount
     if billet_discount > 0 %>
     <li>
       <p><span class="txt-black">DESCONTO DE BOLETO:</span><span>- <%= number_to_currency(billet_discount) %> </span></p>
-    </li>  
+    </li>
+    <% end
+    facebook_discount = @order.payments.for_facebook_share_discount.sum(:total_paid) if has_payment
+    facebook_discount ||= cart_service.facebook_discount
+    if facebook_discount > 0 %>
+    <li>
+      <p><span class="txt-black">FACEBOOK:</span><span>- <%= number_to_currency(facebook_discount) %> </span></p>
+    </li>
     <% end %>
-  </ul>  
+  </ul>
   <ul class="total">
     <li class="delivery_time"><p><%= delivery_time_message(@order.freight.delivery_time) if @order.freight %></p></li>
     <%
@@ -86,6 +93,6 @@
     total_paid ||= cart_service.total
     %>
     <li><span class="txt-black">TOTAL:</span><span class="txt-pink"><%= number_to_currency(total_paid) %></span></li>
-  </ul>  
+  </ul>
 </div>
 
