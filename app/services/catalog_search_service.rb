@@ -19,6 +19,10 @@ class CatalogSearchService
     @query_base.and(l_products[:shoe_size].in(params[:shoe_sizes])).and(Variant.arel_table[:description].in(params[:shoe_sizes]))
   end
 
+  def filter_by_cloth_size
+    @query_base.and(l_products[:cloth_size].in(params[:cloth_sizes])).and(Variant.arel_table[:description].in(params[:cloth_sizes]))# if params[:cloth_sizes]
+  end
+
   def search_products
     add_categories_filter_to_query_base
 
@@ -50,7 +54,7 @@ class CatalogSearchService
     end
     category_query ||= params[:shoe_sizes] ? filter_by_shoe_size : @query_base
 
-    @query_base = @query_base.and(category_query)  
+    @query_base = @query_base.and(category_query)
   end
 
   def add_category_filter_to_query_base
@@ -69,6 +73,14 @@ class CatalogSearchService
 
   def query_shoe_sizes
     build_sub_query((query_colors || query_heels || query_subcategories || query_base), filter_by_shoe_size) if (query_colors || query_heels || query_subcategories) && params[:shoe_sizes]
+  end
+
+  def query_cloth_sizes
+    build_sub_query(query_cloth_subcategories, filter_by_cloth_size) if query_cloth_subcategories && params[:cloth_sizes]
+  end
+
+  def query_cloth_subcategories
+    params[:cloth_subcategories] ? l_products[:subcategory_name].in(params[:cloth_subcategories]) : nil
   end
 
   def query_colors
@@ -95,7 +107,7 @@ class CatalogSearchService
   end
 
   def query_clothes
-    query = params[:cloth_subcategories] ? l_products[:subcategory_name].in(params[:cloth_subcategories]) : nil
+    query = [query_cloth_sizes, query_cloth_subcategories].detect{|query| !query.nil?}
     query.and(l_products[:category_id].in(Category::CLOTH)) if query
   end
 
