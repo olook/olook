@@ -284,7 +284,7 @@
 		&.almost{background:none !important;margin:0;padding:0;}
       a.more {
         position: absolute;
-        background: #000 url('/assets/showroom/bg-plus.jpg') 8px 9px no-repeat;
+        background: #000 image-url('showroom/bg-plus.jpg') 8px 9px no-repeat;
         color: #FFF;
         font-family: $avenir;
         font-size: 12px;
@@ -295,7 +295,7 @@
         display: block;
         bottom: -15px;
         right: 0;
-		  &.minus{background: #000 url('/assets/showroom/bg-minus.jpg') 8px 9px no-repeat !important;}
+		  &.minus{background: #000 image-url('showroom/bg-minus.jpg') 8px 9px no-repeat !important;}
       }
 		
       ul {
@@ -310,7 +310,7 @@
         }
       }
       div.loading {
-        background: url("/assets/common/ajax-loader.gif") center center no-repeat;
+        background: image-url("common/ajax-loader.gif") center center no-repeat;
         width: 100%;
         height: 30px;
         display: block;

@@ -28,6 +28,41 @@ var LuhnCheck = (function()
 	}
 })();
 
+function slideMenuBar(){
+  
+  var $el, leftPos, newWidth; 
+  
+  //$(".default_new").append("<li id='bar'></li>");
+  var $bar = $(".default_new li#bar");
+
+  $bar
+  .width($(".default_new li .selected").outerWidth() - 40)
+  .css("left", parseInt($(".default_new li .selected").position().left) + 19)
+  .data("origLeft", $bar.position().left)
+  .data("origWidth", $bar.width())
+  .fadeIn();      
+  
+  $(".default_new li").find("a").hover(function() {
+      $el = $(this);
+      leftPos = $el.position().left + 19;
+      newWidth = $el.outerWidth() - 40;
+        
+      $bar.stop().animate({
+          left: leftPos,
+          width: newWidth
+      });
+    },function() {
+        $bar.stop().animate({
+          left: $bar.data("origLeft"),
+          width: $bar.data("origWidth")
+        });    
+    });
+
+  $(".default_new li").eq(-2).css("background", "none");
+}
+
+setTimeout(function(){slideMenuBar();},5000);
+
 $(document).ready(function() {	
   initBase.dialogLogin();
   initBase.loadJailImages();
@@ -39,44 +74,6 @@ $(document).ready(function() {
   initBase.showSlideToTop();
   initBase.slideToTop();
 
-
-
-  
-  function slideMenuBar(){
-  
-    var $el, leftPos, newWidth; 
-  
-    $(".default_new").append("<li id='magic-line'></li>");
-    var $magicLine = $("#magic-line");
-
-    $magicLine
-    .width($(".default_new li .selected").outerWidth() - 2)
-    .css("left", $(".default_new li .selected").position().left)
-    .data("origLeft", $magicLine.position().left)
-    .data("origWidth", $magicLine.width());
-        
-    $(".default_new li").find("a").hover(function() {
-        $el = $(this);
-        leftPos = $el.position().left;
-        newWidth = $el.parent().width() - 2;
-        
-        $magicLine.stop().animate({
-            left: leftPos,
-            width: newWidth
-        });
-    }, function() {
-        $magicLine.stop().animate({
-            left: $magicLine.data("origLeft"),
-            width: $magicLine.data("origWidth")
-        });    
-    });
-
-    $(".default_new li").eq(-2).css("background", "none");
-  }
-  setTimeout(function(){slideMenuBar();},2000);
-  
-  
-  
   /* HIDE <hr/> IN CART BOX */
   if($("#cart_summary .submenu li.product_item").length > 0){
      $("p.freight").next().hide();
@@ -499,11 +496,11 @@ initBase = {
     var $modal = $("div#modal.promo-olook"), h = $(content).outerHeight(), w = $(content).outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2)), heightDoc = $(document).height(), _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()), _left=Math.max(0, (($(window).width() - w) / 2) + $(window).scrollLeft());
 
     $("#overlay-campaign").css({"background-color": "#000", 'height' : heightDoc}).fadeIn().bind("click", function(){
-       $modal.html("").fadeOut();
+       $modal.fadeOut();
        $(this).fadeOut();
     }); 
 
-    $modal.html("").html(content)
+    $modal.html(content)
     .css({
        'height'      : h,
        'width'       : w,
@@ -516,7 +513,7 @@ initBase = {
    .delay(500).fadeIn().children().fadeIn();
    
    $("#modal button.close").click(function(){
-      $modal.html("").fadeOut();
+      $modal.fadeOut();
       $("#overlay-campaign").fadeOut();
    })
 
