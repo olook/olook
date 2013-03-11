@@ -74,7 +74,11 @@ class MenuPresenter < BasePresenter
   end
 
   def categories
-    [shoes, bags, accessories]
+    [clothes, shoes, bags, accessories]
+  end
+
+  def clothes
+    render_item("Roupas", h.clothes_path, "categories", ["moments#clothes"])
   end
 
   def shoes
@@ -108,10 +112,6 @@ class MenuPresenter < BasePresenter
 
   def liquidation
     render_item(h.current_liquidation.name, h.liquidations_path(h.current_liquidation.id), "liquidation", ["liquidations#show"]) if h.show_current_liquidation?
-  end
-
-  def cart
-    h.content_tag :li, (h.render 'shared/cart', :cart => @cart), :id => "cart", :class => "cart"
   end
 
   def blog

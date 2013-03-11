@@ -62,12 +62,12 @@
 					<p style="font-size:16px;">Olá <%= @order.user.first_name %>,</p>
 
 					<p>Obrigada por comprar na olook.<br>
-					Recebemos seu pedido de compra nº <span style="color:#E05789"><%= @order.number %></span> referente ao(s) produto(s) abaixo:</p>
+					Recebemos seu pedido de compra nº <span style="color:#ef3742"><%= @order.number %></span> referente ao(s) produto(s) abaixo:</p>
 
 					<% @order.line_items.each do |item| %>
             <% unless item.is_freebie %>
     					<p>
-    					  - <span style="color:#E05789"><%= item.variant.name %></span>;<br>
+    					  - <span style="color:#ef3742"><%= item.variant.name %></span>;<br>
     					</p>
             <% end %>
 					<% end %>
@@ -78,10 +78,10 @@
 
 					<p>Em breve enviaremos um e-mail com o novo status da sua compra.</p>
 
-					<p>Se você tiver qualquer dúvida em relação ao seu pedido, envie um e-mail para <a href="mailto:falecom@olook.com.br" style="color:#E05789;"> falecom@olook.com.br</a> e a nossa equipe te ajudará.</p>
+					<p>Se você tiver qualquer dúvida em relação ao seu pedido, envie um e-mail para <a href="mailto:falecom@olook.com.br" style="color:#ef3742;"> falecom@olook.com.br</a> e a nossa equipe te ajudará.</p>
 					<p>Abraços,<br>
 					Equipe olook<br>
-					<a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t5_pedido_efetuado" style="color:#E05789; font-size:14px">www.olook.com.br</a>
+					<a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t5_pedido_efetuado" style="color:#ef3742; font-size:14px">www.olook.com.br</a>
 					</p>
 
 					</div>

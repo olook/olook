@@ -24,7 +24,7 @@ class CatalogSearchService
 
     @query = prepare_query_joins
 
-    add_subcategories_filter_to_query_base
+    add_category_filter_to_query_base
     @query.where(@query_base)
       .order(sort_filter, 'name asc')
       .group("catalog_products.product_id")
@@ -53,13 +53,13 @@ class CatalogSearchService
     @query_base = @query_base.and(category_query)  
   end
 
-  def add_subcategories_filter_to_query_base
+  def add_category_filter_to_query_base
     # Subcategories filter to make possible to have Shoes / Bags / Accessories pages
     @query_base = @query_base.and(l_products[:category_id].in(params[:category_id])) unless params[:category_id].blank?
   end
 
   def compact_category_queries
-    [query_shoes, query_bags, query_accessories].compact
+    [query_shoes, query_bags, query_accessories, query_clothes].compact
   end
 
   def query_shoes
@@ -92,6 +92,11 @@ class CatalogSearchService
   def query_accessories
     query = params[:accessory_subcategories] ? l_products[:subcategory_name].in(params[:accessory_subcategories]) : nil
     query.and(l_products[:category_id].in(Category::ACCESSORY)) if query
+  end
+
+  def query_clothes
+    query = params[:cloth_subcategories] ? l_products[:subcategory_name].in(params[:cloth_subcategories]) : nil
+    query.and(l_products[:category_id].in(Category::CLOTH)) if query
   end
 
   def build_sub_query(current_query, sub_query)

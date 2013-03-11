@@ -20,8 +20,8 @@ feature "Handling cart items", %q{
 
     visit product_path(product)
     
-    within('li#cart') do
-      find('a.cart').text.should == 'MINHA SACOLA (0)'
+    within('p.new_sacola') do
+      find('a.cart').text.should == 'MINHA SACOLA (0 itens)'
     end
 
     choose("variant_id_#{product.variants.last.id}")
@@ -32,8 +32,8 @@ feature "Handling cart items", %q{
 
     sleep(1)
     
-    within('li#cart') do
-      find('a.cart').text.should == 'MINHA SACOLA (1)'
+    within('p.new_sacola') do
+      find('a.cart').text.should == 'MINHA SACOLA (1 item)'
     end
   end  
 
