@@ -63,4 +63,14 @@ FactoryGirl.define do
       description "Colar"
     end
   end
+
+  factory :garment_detail, :class => Detail do
+    association :product, :factory => :simple_garment
+    factory :garment_subcategory_name do
+      display_on DisplayDetailOn::SPECIFICATION
+      translation_token 'Categoria'
+      description "Camiseta Amarela"
+    end
+  end
+
 end

@@ -213,7 +213,6 @@ describe PaymentBuilder do
         it "receives create_payment method" do
           subject.should_receive(:should_create_payment_for?).and_return(true)
           subject.should_receive(:create_payment)
-          subject.should_not_receive(:create_credit_payment)
           subject.create_payment_for(10.0, OlookletPayment)
         end
 
@@ -223,8 +222,7 @@ describe PaymentBuilder do
 
         it "receives create_credit_payment method" do
           subject.should_receive(:should_create_payment_for?).and_return(true)
-          subject.should_receive(:create_credit_payment)
-          subject.should_not_receive(:create_payment)
+          subject.should_receive(:create_payment)
           subject.create_payment_for(10.0, CreditPayment, :loyalty_program)
         end
 
@@ -249,7 +247,7 @@ describe PaymentBuilder do
     it "creates a payment" do
       OlookletPayment.should_receive(:create!)
       subject.should_receive(:change_state_of)
-      subject.create_payment(BigDecimal("10.0"), OlookletPayment)
+      subject.create_payment(BigDecimal("10.0"), OlookletPayment, {})
     end
 
   end
@@ -260,7 +258,7 @@ describe PaymentBuilder do
       CreditPayment.should_receive(:create!)
       CreditType.should_receive(:find_by_code!).and_return(credit_type)
       subject.should_receive(:change_state_of)
-      subject.create_credit_payment(BigDecimal("10.0"), CreditPayment, :loyalty_program)
+      subject.create_payment(BigDecimal("10.0"), CreditPayment, {:credit => :loyalty_program})
     end
   end
 
