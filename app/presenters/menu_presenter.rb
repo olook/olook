@@ -21,11 +21,11 @@ class MenuPresenter < BasePresenter
   end
 
   def render_offline_menu
-    [showroom_offline, lookbooks, collection_themes, categories, gift, stylist, liquidation, cart].join.html_safe
+    [showroom_offline, lookbooks, collection_themes, categories, gift, stylist, liquidation].join.html_safe
   end
 
   def render_default_menu
-    [showroom, lookbooks, collection_themes, categories, gift, stylist, liquidation, cart].join.html_safe
+    [showroom, lookbooks, collection_themes, categories, gift, stylist, liquidation].join.html_safe
   end
 
   def render_half_user_menu
@@ -41,7 +41,7 @@ class MenuPresenter < BasePresenter
   end
 
   def render_man_half_user_menu
-    [lookbooks, collection_themes, gift, my_friends, stylist, liquidation, blog, cart].join.html_safe
+    [lookbooks, collection_themes, gift, my_friends, stylist, liquidation, blog].join.html_safe
   end
 
   private
