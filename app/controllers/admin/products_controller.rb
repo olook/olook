@@ -18,7 +18,7 @@ class Admin::ProductsController < Admin::BaseController
       end
     end
 
-    @categories = [["Sapatos", Category::SHOE] , ['Bolsas', Category::BAG], ['Acessórios', Category::ACCESSORY]]
+    @categories = [["Sapatos", Category::SHOE] , ['Bolsas', Category::BAG], ['Acessórios', Category::ACCESSORY], ['Roupas', Category::CLOTH]]
     @profiles = Profile.order(:name)
 
     @products = Product.includes(:profiles).includes(:collection)

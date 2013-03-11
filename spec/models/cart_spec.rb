@@ -14,6 +14,28 @@ describe Cart do
   let(:cart_with_items) { FactoryGirl.create(:cart_with_items) }
   let(:cart_with_gift) { FactoryGirl.create(:cart_with_gift) }
 
+  describe "#facebook_share_discount?" do
+    it { should respond_to :facebook_share_discount? }
+    it { should respond_to(:facebook_share_discount=).with(1).arguments }
+
+    context "when set to true" do
+      before do
+        cart.facebook_share_discount = true
+      end
+
+      it { cart.facebook_share_discount?.should be_true }
+    end
+
+    context "when set to false" do
+      before do
+        cart.facebook_share_discount = false
+      end
+
+      it { cart.facebook_share_discount?.should be_false }
+    end
+
+  end
+
   describe "#sub_total" do
     context "when cart is empty" do
 

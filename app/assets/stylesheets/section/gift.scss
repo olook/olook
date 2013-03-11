@@ -670,7 +670,7 @@ section#banner {
     display: block;
     clear: both;
     &#new_occasion_link {
-      background: url("/assets/gift/bt-start.jpg") no-repeat;
+      background: image-url("gift/bt-start.jpg") no-repeat;
       width: 405px;
       height: 63px;
       margin: 0 0 10px 0;
@@ -747,7 +747,7 @@ section#occasion {
       }
     }
     input[type="submit"] {
-      background: url("/assets/gift/bt-continue.png") no-repeat;
+      background: image-url("gift/bt-continue.png") no-repeat;
       color: #FFF;
       width: 169px;
       height: 59px;

@@ -1,5 +1,5 @@
 require 'spec_helper'
- 
+
 describe XmlController do
   let!(:product_with_variant) { FactoryGirl.create :blue_sliper_with_variants }
   describe "GET criteo" do
@@ -90,24 +90,6 @@ describe XmlController do
     it "assigns all produts for xml to @products" do
       stub_scope_params
       get :zanox
-      assigns(:products).should include(product_with_variant)
-    end
-
-    it "should be success" do
-      response.should be_success
-    end
-  end
-
-  describe "GET topster" do
-
-    it "gets only products for xml" do
-      Product.should_receive(:valid_for_xml)
-      get :topster
-    end
-
-    it "assigns all produts for xml to @products" do
-      stub_scope_params
-      get :topster
       assigns(:products).should include(product_with_variant)
     end
 

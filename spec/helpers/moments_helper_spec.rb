@@ -16,9 +16,9 @@ describe MomentsHelper do
       end
     end
 
-    context "when price is 400" do   
-      it "return '10 x de R$ 40,00'" do
-        helper.installments(400).should == '10 x de R$ 40,00'
+    context "when price is 420" do   
+      it "return '6 x de R$ 70,00'" do
+        helper.installments(420).should == '6 x de R$ 70,00'
       end
     end
   end

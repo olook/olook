@@ -4,7 +4,7 @@ require 'spec_helper'
 describe ApplicationHelper do
   describe "#cart_total" do
     it "returns markup for order total" do
-     expected = "<span>(<div id=\"cart_items\">0</div>)</span>"
+     expected = "<span>(<span id=\"cart_items\">0 itens</span>)</span>"
      helper.cart_total(FactoryGirl.create(:clean_cart)).should eq(expected)
     end
   end
@@ -102,29 +102,76 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#member_type" do
-    it "checks if user is signed in" do
-      helper.should_receive(:'user_signed_in?')
-      helper.member_type
+  describe '#signed_newsletter?' do
+    subject { helper.signed_newsletter? }
+    context 'when cookie newsletterUser = 1' do
+      before { cookies.should_receive(:[]).with('newsletterUser').and_return('1') }
+      it { should be_true }
     end
+
+    context 'when cookie newsletterUser = 0' do
+      before { cookies.should_receive(:[]).with('newsletterUser').and_return('0') }
+      it { should be_false }
+    end
+
+    context 'when there is no cookie newsletterUser' do
+      before { cookies.should_receive(:[]).with('newsletterUser').and_return(nil) }
+      it { should be_false }
+    end
+  end
+
+  describe "#member_type" do
+    subject { helper.member_type }
+
     context "when user is not logged in" do
-      it "returns visitor" do
-        helper.stub(:'user_signed_in?').and_return(false)
-        helper.member_type.should == "visitor"
+      before { helper.stub(:user_signed_in?).and_return(false) }
+
+      context "and signed newsletter" do
+        before { helper.stub(:signed_newsletter?).and_return(true) }
+
+        it { should == "visitor-newsletter" }
+      end
+
+      context "and not signed newsletter" do
+        before { helper.stub(:signed_newsletter?).and_return(false) }
+
+        it { should == "visitor" }
       end
     end
 
     context "when user is logged in" do
-      it "returns half when user is half_user" do
-        helper.stub(:'user_signed_in?').and_return(true)
-        helper.stub_chain('current_user.half_user').and_return(true)
-        helper.member_type.should == "half"
+      before { helper.stub(:'user_signed_in?').and_return(true) }
+
+      context "and not signed newsletter" do
+        before { helper.stub(:signed_newsletter?).and_return(false) }
+
+        context "and user is half_user" do
+          before { helper.stub_chain('current_user.half_user').and_return(true) }
+
+          it { should == "half" }
+        end
+
+        context "and user is not half_user" do
+          before { helper.stub_chain('current_user.half_user').and_return(false) }
+
+          it { should == "quiz" }
+        end
       end
 
-      it "returns full when user is not half_user" do
-        helper.stub(:'user_signed_in?').and_return(true)
-        helper.stub_chain('current_user.half_user').and_return(false)
-        helper.member_type.should == "quiz"
+      context "and signed newsletter" do
+        before { helper.stub(:signed_newsletter?).and_return(true) }
+
+        context "and user is half_user" do
+          before { helper.stub_chain('current_user.half_user').and_return(true) }
+
+          it { should == "half-newsletter" }
+        end
+
+        context "and user is not half_user" do
+          before { helper.stub_chain('current_user.half_user').and_return(false) }
+
+          it { should == "quiz-newsletter" }
+        end
       end
     end
   end

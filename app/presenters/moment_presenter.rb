@@ -36,6 +36,14 @@ class MomentPresenter < BasePresenter
   def display_accessory_filters
     h.render :partial => 'moments/accessory_filters', :locals => {:moment_presenter => self} if accessories?
   end
+  
+  def display_cloth_filters
+    h.render :partial => 'moments/cloth_filters', :locals => {:moment_presenter => self} if clothes?
+  end  
+  
+  def display_cloth_size_filters
+    h.render :partial => 'moments/cloth_size_filters', :locals => {:moment_presenter => self} if clothes?
+  end
 
   private 
     def showing_specific_category?
@@ -52,6 +60,10 @@ class MomentPresenter < BasePresenter
 
     def accessories?
       showing_specific_category? || category_id.to_i == Category::ACCESSORY
+    end
+
+    def clothes?
+      showing_specific_category? || category_id.to_i == Category::CLOTH
     end
 
 

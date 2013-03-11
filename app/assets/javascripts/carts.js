@@ -1,10 +1,16 @@
 $(function() {
 
-  $("form#gift_message").bind("ajax:success", function(evt, xhr, settings) {
-    document.location = $("a.continue").attr("href");
-  });
+  $("#facebook_share").click(function(element) {
 
-  $(".continue").click(function() {
+    postCartToFacebookFeed(element)
+
+  })
+
+  $("form#gift_message").bind("ajax:success", function(evt, xhr, settings) {
+        document.location = $("a.continue").attr("href");
+    });
+
+    $(".continue").click(function() {
     $("form#gift_message").submit();
   })
 
@@ -36,7 +42,7 @@ $(function() {
   $("table.check tbody tr td a").live("click", function(e) {
     clone = $('div.credit_details').clone().addClass("clone");
     content = clone[0].outerHTML;
-    initBase.modal(content);
+    initBase.newModal(content);
     e.preventDefault();
   });
 
@@ -57,7 +63,7 @@ $(function() {
       }
     });
   }
-  
+
   if($("div#carousel_lookbooks").size() > 0) {
     $("div#carousel_lookbooks ul").carouFredSel({
       auto: false,
@@ -77,7 +83,7 @@ $(function() {
       }
     });
   }
-  
+
   showGiftPackageModal();
 });
 
@@ -92,6 +98,31 @@ function showGiftPackageModal(){
 }
 
 function changeCartItemQty(cart_item_id) {
-  $('form#change_amount_' + cart_item_id).submit();
+    $('form#change_amount_' + cart_item_id).submit();
 }
 
+function postCartToFacebookFeed(element) {
+  var obj = {
+      picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
+      method: 'feed',
+      caption: 'www.olook.com.br',
+      link: 'http://www.olook.com.br',
+      description: 'Comprei no site da olook e amei! <3 Já conhece?'
+  }
+
+  FB.ui(obj,
+
+  function(response) {
+  if (response && response.post_id) {
+      var cart = $(element).data("cart-id")
+  $.ajax({
+    url: $(element).attr('href'),
+    type: "PUT",
+    data: { cart: { facebook_share_discount: true }  },
+    dataType: "script"
+    });
+    $("#facebook-share").hide();
+    $(".msg").show();
+    }
+  });
+}

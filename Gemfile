@@ -30,10 +30,6 @@ gem 'haml-rails'
 gem 'i18n', '= 0.6.1'
 gem 'clearsale', :git => 'git://github.com/olook/clearsale.git', :branch => 'master'
 
-group :production, :staging do
-  gem 'asset_sync', '~> 0.5.0'
-  gem 'yui-compressor'
-end
 
 gem 'chaordic-packr', "4.0.0", git: 'git@github.com:olook/chaordic-packr.git', branch: 'master'
 gem 'oj'
@@ -59,23 +55,24 @@ gem 'business_time'
 
 gem "rails-settings-cached"
 
-group :development do
-  gem 'faker'
-  gem 'bullet'
-  gem 'thin'
-  gem 'rb-inotify', :require => false
-  gem 'rb-fsevent', :require => false
-  gem 'rb-fchange', :require => false
+group :production, :staging do
+  gem 'unicorn', '~> 4.1.1'
+  gem 'asset_sync', '~> 0.5.0'
+  gem 'yui-compressor'
 end
 
 group :development, :test do
+  gem 'faker'
+  gem 'bullet'
+  gem 'thin'
+  gem 'rb-inotify', '~> 0.8.8', :require => false
+  gem 'rb-fsevent', :require => false
+  gem 'rb-fchange', :require => false
   gem 'sqlite3', '~> 1.3.6'
   gem 'capistrano'
   gem 'capistrano-maintenance'
   gem 'factory_girl_rails', '~> 4.2.0'
   gem 'rspec-rails', '~> 2.12.0'
-  #not working with current rspec
-  #gem 'rspec-gc-control'
   gem 'watchr'
   gem 'awesome_print'
   gem 'rails-erd'
@@ -84,12 +81,13 @@ group :development, :test do
   end
   gem "pry"
   gem 'delorean'
+  gem 'timecop'
 end
 
 group :test do
   gem "equivalent-xml", " ~> 0.2.9"
   gem 'capybara', '2.0.2'
-  gem "capybara-webkit", git: 'git://github.com/thoughtbot/capybara-webkit.git'
+  gem 'capybara-webkit', '0.14.2'
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'simplecov', '~> 0.5.3', :require => false
@@ -99,8 +97,4 @@ group :test do
   gem 'launchy'
   gem 'vcr', '1.11.3'
   gem 'fakeweb'
-end
-
-group :production do
-  gem 'unicorn', '~> 4.1.1'
 end
