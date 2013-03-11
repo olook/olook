@@ -47,9 +47,6 @@ Spork.prefork do
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-  #Requires libs. Check why I need to do it later
-  Dir[Rails.root.join("lib/**/*.rb")].each {|f| require f}
-
   Savon.configure do |config|
 
     # By default, Savon logs each SOAP request and response to $stdout.
@@ -90,7 +87,7 @@ Spork.prefork do
 
     config.mock_with :rspec
 
-    # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
+    # Used by Image Uploader fixtures
     config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
     # If you're not using ActiveRecord, or you'd prefer not to run each of your
@@ -109,4 +106,8 @@ Spork.each_run do
   Dir[File.expand_path("app/controllers/user/*.rb")].each do |file|
     require file
   end
+
+  #Requires libs. Check why I need to do it later
+  Dir[Rails.root.join("lib/**/*.rb")].each {|f| require f}
+
 end

@@ -22,7 +22,7 @@ body {
     }
 
     .jcarousel-prev, .jcarousel-next {
-      background: url('/assets/quiz/previous_btn.gif') 0 0 no-repeat;
+      background: image-url('quiz/previous_btn.gif') 0 0 no-repeat;
       width: 40px;
       height: 65px;
       cursor: pointer;
@@ -33,7 +33,7 @@ body {
       top: 245px;
 
       &:hover {
-        background: url('/assets/quiz/previous_btn.gif') -42px 0 no-repeat;
+        background: image-url('quiz/previous_btn.gif') -42px 0 no-repeat;
       }
 
       &.jcarousel-prev-disabled {
@@ -302,7 +302,7 @@ body {
                     margin-right: 15px;
                     left: 95px;
                     & + span {
-                      background: url('/assets/common/bg-month.png') no-repeat;
+                      background: image-url('common/bg-month.png') no-repeat;
                       width: 110px;
                       text-indent: 15px;
                       left: 83px;
@@ -312,7 +312,7 @@ body {
                     width: 75px;
                     left: 215px;
                     & + span {
-                      background: url('/assets/common/bg-year.png') no-repeat;
+                      background: image-url('common/bg-year.png') no-repeat;
                       width: 75px;
                       text-indent: 16px;
                       left: 203px;
@@ -327,7 +327,7 @@ body {
               overflow: auto;
               clear: both;
               li {
-                background: url('/assets/common/finish.jpg') 0 0 no-repeat;
+                background: image-url('common/finish.jpg') 0 0 no-repeat;
                 text-indent: -9999px;
                 width: 147px;
                 height: 61px;
@@ -442,7 +442,7 @@ body {
                     margin-left: 53px;
 
                     li {
-                      background: url('/assets/quiz/sprite-stars.png') no-repeat;
+                      background: image-url('quiz/sprite-stars.png') no-repeat;
                       margin-left: 8px;
                       width: 37px;
                       height: 34px;
@@ -452,7 +452,7 @@ body {
                       }
 
                       &.starred {
-                        background: url('/assets/quiz/sprite-stars.png') -37px no-repeat;
+                        background: image-url('quiz/sprite-stars.png') -37px no-repeat;
                       }
 
                       label {
@@ -485,7 +485,7 @@ body {
     clear: both;
 
     li {
-      background: url(/assets/common/sprite-pagination.png) -13px 0 no-repeat;
+      background: image-url("common/sprite-pagination.png") -13px 0 no-repeat;
       float: left;
       display: block;
       margin: 0px 5px 0;

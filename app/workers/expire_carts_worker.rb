@@ -2,7 +2,7 @@ class ExpireCartsWorker
   @queue = 'low_priority'
 
   DEFAULT_UPDATED_AT_LIMIT = 7.days.ago
-  BKP_TABLE_NAME = 'carts_bkp'
+  BKP_TABLE_NAME = 'carts_backup'
 
   def self.perform(updated_at_limit=DEFAULT_UPDATED_AT_LIMIT)
     self.new.perform(updated_at_limit)
