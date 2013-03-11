@@ -268,6 +268,31 @@ describe CatalogProductService do
           ct_product.subcategory_name_label.should eq "Nova Categoria"
         end
 
+        it "should update for product garment" do
+          ct_product = CatalogProductService.new(catalog, basic_shirt).save![0]
+          ct_product_id = ct_product.id
+
+          detail_subcategory = basic_shirt.details.where(:translation_token => Product::SUBCATEGORY_TOKEN).first
+          detail_subcategory.update_attributes!(:description => "Nova Categoria")
+
+          basic_shirt.master_variant.update_attributes!(:price => 50.00)
+          basic_shirt.variants.first.update_attributes!(:inventory => 5)
+
+          ct_product = CatalogProductService.new(catalog, basic_shirt, :discount_percentage => 50, :update_price => true).save![0]
+          ct_product.id.should               eq ct_product_id
+          ct_product.subcategory_name.should eq "nova-categoria"
+          ct_product.original_price.should   eq 50.0
+          ct_product.retail_price.should     eq 25.0
+          ct_product.discount_percent.should eq 50
+          ct_product.shoe_size.should        be_nil
+          ct_product.heel.should             be_nil
+          ct_product.variant_id.should       eq basic_shirt.variants.first.id
+          ct_product.inventory.should        eq 5
+          ct_product.shoe_size_label.should  be_nil
+          ct_product.heel_label.should       be_nil
+          ct_product.subcategory_name_label.should eq "Nova Categoria"
+        end
+
         it "should update one row per variant of shoe" do
           ct_products = CatalogProductService.new(catalog, basic_shoes).save!
           ct_products_id = [ct_products[0].id, ct_products[1].id]
