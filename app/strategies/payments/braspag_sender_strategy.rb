@@ -2,7 +2,7 @@ module Payments
   class BraspagSenderStrategy
     FILE_DIR = "#{Rails.root}/config/braspag.yml"
 
-    attr_accessor :cart_service, :payment, :credit_card_number
+    attr_accessor :cart_service, :payment, :credit_card_number, :return_code
 
     def initialize(payment)
       @payment = payment
@@ -236,6 +236,7 @@ module Payments
           :return_message => authorize_transaction_result[:payment_data_collection][:payment_data_response][:return_message],
           :status => authorize_transaction_result[:payment_data_collection][:payment_data_response][:status],
           :credit_card_token => authorize_transaction_result[:payment_data_collection][:payment_data_response][:credit_card_token]})
+      @return_code = authorization_response[:return_code]
       authorization_response.save
       authorization_response
     end
