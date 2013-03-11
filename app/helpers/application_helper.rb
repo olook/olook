@@ -121,6 +121,11 @@ module ApplicationHelper
     Rails.env.production? ? 'https' : 'http'
   end
 
+  def show_brand_for product
+    [90632,90612,90641,90646,90607,90597,90602,90616,90619,90627,90622,90636].include?(product.id) ? "JULIANA JABOUR" : "OLOOK"
+  end
+
+
   private
 
     def ga_event_referer
