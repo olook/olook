@@ -94,7 +94,7 @@ div#modal {
   
   &.promo-olook{
     position:absolute;
-    z-index:50000;
+    z-index:10001;
     border:none;
     .close{display:block;position: absolute; background: url("/assets/common/close_dialog.png") no-repeat; right: -30px; top: -20px; width: 30px; margin: -10px 0 0 0; padding: 0; height: 30px; z-index: 50001;text-indent:-9999em;border:none;cursor:pointer;}
   }
