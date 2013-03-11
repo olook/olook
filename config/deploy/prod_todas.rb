@@ -11,7 +11,7 @@ role :db,  'app2.olook.com.br'
 set :rails_env, 'production'
 #
 # repo details
-set :branch, fetch(:branch, 'production')
+set :branch, fetch(:branch, 'master')
 
 # tasks
 namespace :deploy do
