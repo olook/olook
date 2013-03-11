@@ -61,7 +61,7 @@ function slideMenuBar(){
   $(".default_new li").eq(-2).css("background", "none");
 }
 
-setTimeout(function(){slideMenuBar();},5000);
+setTimeout(function(){slideMenuBar();},3000);
 
 $(document).ready(function() {	
   initBase.dialogLogin();
