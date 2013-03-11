@@ -17,7 +17,9 @@
     <%= csrf_meta_tags %>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700|Pontano+Sans' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag  "application" %>
-    <meta property="fb:page_id" content="157293541026960" />
+    <%- unless @hide_fb_page_id -%>
+      <meta property="fb:page_id" content="157293541026960" />
+    <%- end -%>
     <meta property="fb:admins" content="100002490760020" />
 
 

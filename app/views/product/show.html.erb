@@ -8,6 +8,7 @@
            :only_view? => @only_view do |product_presenter|
 %>
   <% content_for(:head) do %>
+    <%- @hide_fb_page_id = true -%>
     <meta property="fb:app_id" content="<%= @facebook_app_id %>" />
     <meta property="og:title" content="Olook – <%= @product.name %>" />
     <meta property="og:description" content="<%= @product.description %>" />
