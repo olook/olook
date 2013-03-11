@@ -74,7 +74,11 @@ class MenuPresenter < BasePresenter
   end
 
   def categories
-    [shoes, bags, accessories]
+    [clothes, shoes, bags, accessories]
+  end
+
+  def clothes
+    render_item("Roupas", h.clothes_path, "categories", ["moments#clothes"])
   end
 
   def shoes
