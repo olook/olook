@@ -312,6 +312,15 @@
         background: url('/assets/showroom/border-bottom-more.png') 0 100% no-repeat;
       }
 		&.almost{background:none !important;margin:0;padding:0;}
+      a.catalog_link {
+        color: #EF3742;
+        text-decoration: none;
+      }
+      a.catalog_link:hover {
+        color: #EF3742;
+        text-decoration: underline;
+      }      
+
       a.more {
         position: absolute;
         background: #000 url('/assets/showroom/bg-plus.jpg') 8px 9px no-repeat;
