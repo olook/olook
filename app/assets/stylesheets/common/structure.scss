@@ -1012,12 +1012,10 @@ body {
         overflow: hidden;
         position:relative;
       
-        li{font-family: $johnston;font-size: 10px;text-transform: uppercase;display: inline;float: left;height: 38px;background: image-url("common/nav/menu_bar.png") no-repeat right 0;padding:0 19px;
-          &.liquidation{
-            border-right: none;
-          }
-          &#magic-line {position: absolute;bottom: 0px;left: 0;height: 4px;background: #000;padding:0;}
-          a{display:block;height:28px;text-decoration: none;color: black;padding:0 !important;letter-spacing:2px;}
+        li{font-size: 10px;text-transform: uppercase;display: inline;float: left;height: 38px;background: image-url("common/nav/menu_bar.png") no-repeat right 0;
+          &.liquidation{border-right: none;}
+          &#bar {position: absolute;bottom: 0px;left: 0;height: 4px;background: #000;padding:0;display:none;}
+          a{display:block;font-family: $johnston;height:28px;text-decoration: none;color: black;padding:0 19px;letter-spacing:2px;}
         }
       }
     }
@@ -1127,7 +1125,7 @@ header#new_header{
                hr{height:1px;border:0;color:#CCC;background:#CCC;}
             }
          }   
-         p.see_cart{text-align:center;margin:3px auto;clear:both;width:145px;
+         p.see_cart{text-align:center;margin:12px auto 0;clear:both;width:145px;
             a.finish{display:block;width:145px;height:45px;background: image-url('common/nav/sprite_header.png') 0 -141px no-repeat;font-size:0;line-height:0;margin-top:7px;}
          }
       }

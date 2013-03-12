@@ -323,7 +323,7 @@
 
       a.more {
         position: absolute;
-        background: #000 url('/assets/showroom/bg-plus.jpg') 8px 9px no-repeat;
+        background: #000 image-url('showroom/bg-plus.jpg') 8px 9px no-repeat;
         color: #FFF;
         font-family: $avenir;
         font-size: 12px;
@@ -334,7 +334,7 @@
         display: block;
         bottom: -15px;
         right: 0;
-		  &.minus{background: #000 url('/assets/showroom/bg-minus.jpg') 8px 9px no-repeat !important;}
+		  &.minus{background: #000 image-url('showroom/bg-minus.jpg') 8px 9px no-repeat !important;}
       }
 		
       ul {
@@ -352,7 +352,7 @@
         }
       }
       div.loading {
-        background: url("/assets/common/ajax-loader.gif") center center no-repeat;
+        background: image-url("common/ajax-loader.gif") center center no-repeat;
         width: 100%;
         height: 30px;
         display: block;
@@ -368,7 +368,7 @@
 /******** partial products categories home *******/
 
 div#products_categories {
-    width: 650px;
+    width: 760px;
     height: 140px;
     margin: 0 0 30px;
     padding: 35px 0 0 0;
@@ -379,95 +379,131 @@ div#products_categories {
       font-size: 20px;
       font-weight: 600;
       text-transform: uppercase;
-      margin: 0 0 25px 60px;
+      margin: 0 0 25px 0;
     }
     ul {
       width: 100%;
       overflow: auto;
-      margin: 0 0 0 60px;
+
       li {
-        a {
-          background: image-url("home/categories.png") no-repeat;
-          color: #000;
-          font-size: 11px;
-          text-align: center;
-          text-decoration: none;
-          height: 17px;
-          margin: 0 10px 0 0;
-          padding: 53px 0 0 0;
-          float: left;
-          &:hover {
-            color: #939598;
-          }
-        }
-        &.anabela a {
-          background-position: 6px 0;
-          width: 45px;
-          &:hover {
-            background-position: 6px -84px;
-          }
-        }
-        &.rasteira a {
-          background-position: -45px 0;
-          width: 53px;
-          &:hover {
-            background-position: -45px -84px;
-          }
-        }
-        &.sandalia a {
-          background-position: -100px 0;
-          &:hover {
-            background-position: -100px -84px;
-          }
-        }
-        &.sapatilha a {
-          background-position: -154px 0;
-          &:hover {
-            background-position: -154px -84px;
-          }
-        }
-        &.scarpin a {
-          background-position: -212px 0;
-          &:hover {
-            background-position: -212px -84px;
-          }
-        }
-        &.slipper a {
-          background-position: -262px 0;
-          width: 43px;
-          &:hover {
-            background-position: -262px -84px;
-          }
-        }
-        &.sneaker a {
-          background-position: -322px 0;
-          &:hover {
-            background-position: -322px -84px;
-          }
-        }
-        &.acessorios a {
-          background-position: -371px 0;
-          &:hover {
-            background-position: -371px -84px;
-          }
-        }
-        &.bolsas a {
-          background-position: -430px 0;
-          &:hover {
-            background-position: -430px -84px;
-          }
-        }
-        &.oculos a {
-          background-position: -475px 0;
-          &:hover {
-            background-position: -475px -84px;
-          }
+      a {
+        background: image-url("home/categories.png") no-repeat;
+        color: #000;
+        font-size: 11px;
+        text-align: center;
+        text-decoration: none;
+        height: 40px;
+        margin: 0 18px 0 0;
+        padding: 75px 0 0 0;
+        float: left;
+        &:hover {
+          color: #939598;
         }
       }
+      &.blusa a {
+        background-position: 6px 0px;
+        width: 45px;
+        &:hover {
+          background-position: 6px -189px;
+        }
+      }
+      &.camisa a {
+        background-position: -48px 0;
+        width: 45px;
+        &:hover {
+          background-position: -48px -189px;
+        }
+      }
+      &.calca a {
+        background-position: -99px 0;
+        width: 45px;
+        &:hover {
+          background-position: -99px -189px;
+        }
+      }
+      &.saia a {
+        background-position: -150px 0;
+        width: 45px;
+        &:hover {
+          background-position: -150px -189px;
+        }
+      }
+      &.vestido a {
+        background-position: -200px 0;
+        width: 45px;
+        &:hover {
+          background-position: -200px -189px;
+        }
+      }
+      &.anabela a {
+        background-position: -252px 0;
+        width: 45px;
+        &:hover {
+          background-position: -252px -189px;
+        }
+      }
+      &.rasteira a {
+        background-position: -312px 0;
+        width: 53px;
+        &:hover {
+          background-position: -312px -189px;
+        }
+      }
+      &.sandalia a {
+        background-position: -355px 0;
+        &:hover {
+          background-position: -355px -189px;
+        }
+      }
+      &.sapatilha a {
+        background-position: -389px 0;
+        &:hover {
+          background-position: -389px -189px;
+        }
+      }
+      &.scarpin a {
+        background-position: -458px 0;
+        &:hover {
+          background-position: -458px -189px;
+        }
+      }
+      &.slipper a {
+        background-position: -513px 0;
+        width: 43px;
+        &:hover {
+          background-position: -513px -189px;
+        }
+      }
+      &.sneaker a {
+        background-position: -513px 0;
+        &:hover {
+          background-position: -513px -189px;
+        }
+      }
+      &.acessorios a {
+        background-position: -624px 0;
+        &:hover {
+          background-position: -624px -189px;
+        }
+      }
+      &.bolsas a {
+        background-position: -572px 0;
+        &:hover {
+          background-position: -572px -189px;
+        }
+      }
+      &.oculos a {
+        background-position: -728px 0;
+        &:hover {
+          background-position: -728px -189px;
+        }
+      }
+        
+    }
     }
   }
   div#facebook_box {
-    width: 295px;
+    width: 195px;
     height: 140px;
     padding: 35px 0 0 20px;
     float: right;
@@ -542,131 +578,8 @@ html.ie8{
     }
   }
 
-/****** partial products footer *******/
-    div#products_categories {
-    width: 650px;
-    height: 140px;
-    margin: 0 0 30px;
-    padding: 35px 0 0 0;
-    float: left;
-    border-top: 1px #cbcbcb solid;
-    >h1 {
-      font-family: $avenir;
-      font-size: 20px;
-      font-weight: 600;
-      text-transform: uppercase;
-      margin: 0 0 25px 60px;
-    }
-    ul {
-      width: 100%;
-      overflow: auto;
-      margin: 0 0 0 60px;
-      li {
-        a {
-          background: image-url("home/categories.png") no-repeat;
-          color: #000;
-          font-size: 11px;
-          text-align: center;
-          text-decoration: none;
-          height: 17px;
-          margin: 0 10px 0 0;
-          padding: 53px 0 0 0;
-          float: left;
-          &:hover {
-            color: #939598;
-          }
-        }
-        &.anabela a {
-          background-position: 6px 0;
-          width: 45px;
-          &:hover {
-            background-position: 6px -84px;
-          }
-        }
-        &.rasteira a {
-          background-position: -45px 0;
-          width: 53px;
-          &:hover {
-            background-position: -45px -84px;
-          }
-        }
-        &.sandalia a {
-          background-position: -100px 0;
-          &:hover {
-            background-position: -100px -84px;
-          }
-        }
-        &.sapatilha a {
-          background-position: -154px 0;
-          &:hover {
-            background-position: -154px -84px;
-          }
-        }
-        &.scarpin a {
-          background-position: -212px 0;
-          &:hover {
-            background-position: -212px -84px;
-          }
-        }
-        &.slipper a {
-          background-position: -262px 0;
-          width: 43px;
-          &:hover {
-            background-position: -262px -84px;
-          }
-        }
-        &.sneaker a {
-          background-position: -322px 0;
-          &:hover {
-            background-position: -322px -84px;
-          }
-        }
-        &.acessorios a {
-          background-position: -371px 0;
-          &:hover {
-            background-position: -371px -84px;
-          }
-        }
-        &.bolsas a {
-          background-position: -430px 0;
-          &:hover {
-            background-position: -430px -84px;
-          }
-        }
-        &.oculos a {
-          background-position: -475px 0;
-          &:hover {
-            background-position: -475px -84px;
-          }
-        }
-      }
-    }
-  }
-  div#facebook_box {
-    width: 295px;
-    height: 140px;
-    padding: 35px 0 0 20px;
-    float: right;
-    border-top: 1px #cbcbcb solid;
-    img {
-      margin: 0 7px 20px 0;
-      float: left;
-    }
-    h1 {
-      color: #36569e;
-      font-family: $avenir;
-      font-size: 14px;
-      span {
-        font-size: 17px;
-        font-weight: bold;
-      }
-    }
-    .like {
-      clear: both;
-    }
-  }
 
-
+  
 /****** IE8 HACK *******/
 html.ie8{
    section#home{
