@@ -81,6 +81,14 @@ class Product < ActiveRecord::Base
     products.delete_if { |product| product.shoe_inventory_has_less_than_minimum? }
   end
 
+  def has_less_then_minimum_inventory?
+    if self.shoe?
+      shoe_inventory_has_less_than_minimum?
+    else
+      inventory < MINIMUM_INVENTORY_FOR_XML
+    end
+  end
+
   def self.in_profile profile
     !profile.blank? && !profile.nil? ? scoped.joins('inner join products_profiles on products.id = products_profiles.product_id').where('products_profiles.profile_id' => profile) : scoped
   end
@@ -306,6 +314,10 @@ class Product < ActiveRecord::Base
 
   def shoe?
     self.category == ::Category::SHOE
+  end
+
+  def cloth?
+    self.category == ::Category::CLOTH
   end
 
   def variant_by_size(size)

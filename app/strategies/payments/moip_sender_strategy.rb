@@ -5,16 +5,19 @@ module Payments
 
     def initialize(cart_service, payment)
       @cart_service, @payment = cart_service, payment
+      log("Initializing MoipSenderStrategy with cart_service: #{cart_service.inspect} and payment: #{payment.inspect}")
     end
 
     def send_to_gateway
       begin
+        log("Calling Moip::Client.checkout")
         self.response = MoIP::Client.checkout(payment_data)
+        log("Moip Response: #{self.response.inspect}")
         payment.build_response self.response
         save_payment_url!
         payment
       rescue Exception => error
-        ErrorNotifier.send_notifier("Moip", error.message, payment)
+        ErrorNotifier.send_notifier("Moip", error, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
       ensure
         set_payment_gateway
@@ -104,5 +107,9 @@ module Payments
       phone_number
     end
 
+    private
+      def log(message, level=:info)
+        Rails.logger.send(level, message)
+      end
   end
 end

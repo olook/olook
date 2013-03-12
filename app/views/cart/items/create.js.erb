@@ -26,6 +26,6 @@
   $('div.overlay').hide();
   $('#quick_view').hide();
 
-  $("#cart_items").text(<%= @cart.items_total %>);
-  $("nav.menu ul li.cart a.cart").addClass("selected");
-
+  $("#cart_items").text("<%= pluralize(@cart.items_total, 'item', 'itens') %>");
+  $("p.new-sacola a.cart").addClass("full");
+  $("p.freight").next().hide();

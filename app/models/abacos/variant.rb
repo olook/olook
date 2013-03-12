@@ -11,23 +11,23 @@ module Abacos
         self.instance_variable_set "@#{key}", value
       end
     end
-    
+
     def attributes
       { number:             self.number,
         description:        self.description,
         display_reference:  self.display_reference,
         is_master:          false }
     end
-    
+
     def integrate
       product = ::Product.find_by_model_number(self.model_number)
       raise RuntimeError.new "O produto pai [#{self.model_number}] não foi encontrado, e com isso a variante #{self.number} nao pode ser integrada" if product.nil?
-      
+
       variant = product.variants.find_by_number(self.number) || product.variants.build
       variant.update_attributes(self.attributes)
 
       variant.save!
-      
+
       confirm_variant
     end
 
@@ -41,7 +41,7 @@ module Abacos
         description:          parsed_description,
         display_reference:    parse_display_reference(parsed_description, parsed_category) }
     end
-    
+
     def confirm_variant
       Resque.enqueue(Abacos::ConfirmProduct, self.integration_protocol)
     end
@@ -52,9 +52,9 @@ module Abacos
       description = 'Tamanho único' if description.blank?
       description
     end
-    
+
     def self.parse_display_reference(description, category)
-      category == Category::SHOE ? "size-#{description}" : 'single-size'
+      [Category::SHOE, Category::CLOTH].include?(category) ? "size-#{description}" : 'single-size'
     end
   end
 

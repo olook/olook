@@ -3,7 +3,7 @@
 @import 'common/images';
 
 
-$pink: #D95485;
+$pink: #ef3742;
 $secondary_color: #b8b6b6;
 $third_color: #6d6e71;
 $avenir: avenir, arial, sans-serif;
@@ -77,7 +77,7 @@ $johnston: johnston, arial, sans-serif;
         }
 
         input {
-          background: #FFF url("/assets/common/background-inputs.png") bottom repeat-x;
+          background: #FFF image-url('common/background-inputs.png') bottom repeat-x;
           border: 1px solid #BBB;
           padding: 6px 8px;
           width: 92%;
@@ -117,5 +117,5 @@ $johnston: johnston, arial, sans-serif;
 }
 
 @mixin sprite_login($left, $top){
-	background:image-url("/assets/login/sprite.png") no-repeat $left $top;
+	background:image-url("login/sprite.png") no-repeat $left $top;
 }

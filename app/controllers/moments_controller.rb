@@ -3,18 +3,21 @@ class MomentsController < ApplicationController
   respond_to :html, :js
 
   before_filter :load_products_of_user_size, only: [:show]
+  before_filter :load_chaordic_user, only: [:show, :index]
   before_filter :filter_products_by_category, :unless => lambda{ params[:category_id].nil? }
   before_filter :add_featured_products, :unless => lambda{ params[:category_id].nil? }
   before_filter :load_catalog_products
 
-  def index
+  def load_chaordic_user
     @chaordic_user = ChaordicInfo.user current_user
-    render :show, id: @collection_theme.id
+  end
+
+  def index
+    render :show, id: @moment.id
   end
 
   def show
     @pixel_information = params[:category_id]
-    @chaordic_user = ChaordicInfo.user current_user
     if CollectionTheme.active.first.try(:catalog).try(:products).nil?
       flash[:notice] = "A coleção não possui produtos disponíveis"
       redirect_to member_showroom_path
@@ -27,13 +30,16 @@ class MomentsController < ApplicationController
     respond_with @catalog_products
   end
 
+  def clothes
+    render :show
+  end
+
   #
   # This method exists for the only purpose to achieve the
   # "hover" effect on the 'Oculos' link in the menu bar
   #
   def glasses
     @glasses = "Oculos"
-    @chaordic_user = ChaordicInfo.user current_user
     render :show
   end
 

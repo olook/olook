@@ -7,12 +7,12 @@ describe ErrorNotifier do
 
   it "should call new relic tool" do
     NewRelic::Agent.should_receive(:add_custom_parameters).with({:error_msg => "braspag Request braspag error - Order Number  - Payment Expiration  - User ID "}).and_return(true)
-    ErrorNotifier.send_notifier("braspag", "braspag error", payment).should be_nil
+    ErrorNotifier.send_notifier("braspag", Exception.new("braspag error"), payment).should be_nil
   end
 
   it "should call airbrake tool" do
     Airbrake.notify(error_class: "braspag Request", error_message: "braspag error")
-    ErrorNotifier.send_notifier("braspag", "braspag error", payment).should be_nil
+    ErrorNotifier.send_notifier("braspag", Exception.new("braspag error"), payment).should be_nil
   end
 end
 
