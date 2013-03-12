@@ -15,14 +15,6 @@ class CatalogSearchService
     @params = params
   end
 
-  def filter_by_shoe_size
-    @query_base.and(l_products[:shoe_size].in(params[:shoe_sizes])).and(Variant.arel_table[:description].in(params[:shoe_sizes]))
-  end
-
-  def filter_by_cloth_size
-    @query_base.and(l_products[:cloth_size].in(params[:cloth_sizes])).and(Variant.arel_table[:description].in(params[:cloth_sizes]))
-  end
-
   def search_products
     add_categories_filter_to_query_base
 
@@ -38,6 +30,10 @@ class CatalogSearchService
 
   private
 
+  def filter_product_by(attribute, parameters)
+    @query_base.and(l_products[attribute].in(parameters)).and(Variant.arel_table[:description].in(parameters))
+  end
+
   def prepare_query_joins
     query = Catalog::Product.joins(:product).joins(:variant)
     query = query.joins('left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id') if @liquidation
@@ -52,7 +48,7 @@ class CatalogSearchService
     all_queries.each do |query|
       category_query = category_query ? category_query.or(query) : query
     end
-    category_query ||= params[:shoe_sizes] ? filter_by_shoe_size : @query_base
+    category_query ||= params[:shoe_sizes] ? filter_product_by(:shoe_size, params[:shoe_sizes]) : @query_base
 
     @query_base = @query_base.and(category_query)
   end
@@ -72,11 +68,11 @@ class CatalogSearchService
   end
 
   def query_shoe_sizes
-    build_sub_query((query_colors || query_heels || query_subcategories || query_base), filter_by_shoe_size) if (query_colors || query_heels || query_subcategories) && params[:shoe_sizes]
+    build_sub_query((query_colors || query_heels || query_subcategories || query_base), filter_product_by(:shoe_size, params[:shoe_sizes])) if (query_colors || query_heels || query_subcategories) && params[:shoe_sizes]
   end
 
   def query_cloth_sizes
-    filter_by_cloth_size if params[:cloth_sizes]
+    filter_product_by(:cloth_size, params[:cloth_sizes]) if params[:cloth_sizes]
   end
 
   def query_cloth_subcategories
