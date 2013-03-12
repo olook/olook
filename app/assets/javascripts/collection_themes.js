@@ -177,11 +177,14 @@ filter.toggleFilter = function(event){
 
    if(opened){
       $(event.target).parent().find("ol").show();
+      $(event.target).parent().find("ol").next().show();
+      
       if($(event.target).next().next().find("input[type='checkbox']:checked").length > 0){
          $(event.target).parent().find("button.clear_filter").show();
       }   
    } else {
       $(event.target).parent().find("ol").hide();
+      $(event.target).parent().find("ol").next().hide();
       $(event.target).parent().find("button.clear_filter").hide();
    }
 

@@ -1,6 +1,6 @@
-<div class="filter main color">
-  <p class="filter_type">Cor</p>
-  <button type="button" class="clear_filter">( limpar )</button>
+<div class="filter main_color">
+  <p class="filter_type">Cor <%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
+  <button type="button" class="clear_filter bt_clear_color">[ limpar ]</button>
   <ol class="color_filter">
     <!--li>
       <%= check_box_tag "select_all_colors", 1, params[:select_all_colors], :class => "select_all" %>
@@ -13,4 +13,5 @@
     </li>
   <% end -%>
   </ol>
+  <%= image_tag 'collections/arrow-white.png', :class => 'arrow arrow-cor', style:"display:none" %>
 </div>
