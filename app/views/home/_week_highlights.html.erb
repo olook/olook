@@ -2,32 +2,32 @@
   <h1>Veja os destaques da semana</h1>
   <ul>
     <li id="about">
-      <%= link_to "#", rel: "http://www.youtube.com/watch?v=_yVjTaDzvEE", class: "open_making_of" do %>
+      <%= link_to "#", rel: "http://www.youtube.com/watch?v=_yVjTaDzvEE", class: "open_making_of", onclick: track_event('Destaques','BannerEsquerda') do %>
         <%= image_tag "home/img-thumb-video.jpg", title: "Sobre a Olook" %>
       <% end %>
       <div class="video_description">
         <h1>Conheça mais sobre a olook</h1>
         <%= link_to "Gostou? Descubra o seu estilo e veja a coleção completa", new_survey_path, :class => "home" %>
       </div>
-      <h1><%= link_to "Sobre a olook", our_essence_path %></h1>
+      <h1><%= link_to "Sobre a olook", our_essence_path, onclick: track_event('Destaques','BannerEsquerda') %></h1>
       <p>Saiba como a olook funciona</p>
-      <%= link_to "Veja mais aqui", our_essence_path, class: "more" %>
+      <%= link_to "Veja mais aqui", our_essence_path, class: "more", onclick: track_event('Destaques','BannerEsquerda') %>
     </li>
     <li id="shoes">
-      <%= link_to shoes_path do %>
+      <%= link_to shoes_path, onclick: track_event('Destaques','BannerCentro') do %>
         <%= image_tag "home/sapatos.jpg", title: "Sapatos Hot" %>
       <% end %>      
-      <h1><%= link_to "Sapatos hot", shoes_path %></h1>
+      <h1><%= link_to "Sapatos hot", shoes_path, onclick: track_event('Destaques','BannerCentro') %></h1>
       <p>Veja todos na seção sapatos</p>
-      <%= link_to "Confira aqui", shoes_path, class: "more" %>
+      <%= link_to "Confira aqui", shoes_path, class: "more", onclick: track_event('Destaques','BannerCentro') %>
     </li>
     <li id="olookmovel" class="iehack"> <!-- NAO REMOVER A CLASSE -->
-      <%= link_to olookmovel_path do %>
+      <%= link_to olookmovel_path, onclick: track_event('Destaques','BannerDireita') do %>
         <%= image_tag "home/olookmovel.jpg", title: "Olookmóvel" %>
       <% end %>
-      <h1><%= link_to "Olookmóvel", olookmovel_path %></h1>
+      <h1><%= link_to "Olookmóvel", olookmovel_path, onclick: track_event('Destaques','BannerDireita') %></h1>
       <p>Saiba onde encontrar nossa vitrine móvel</p>
-      <%= link_to "Veja mais aqui", olookmovel_path, class: "more" %>
+      <%= link_to "Veja mais aqui", olookmovel_path, class: "more", onclick: track_event('Destaques','BannerDireita') %>
     </li>
   </ul>
 </section>

@@ -13,7 +13,7 @@ function stopProp(e) {
 }
 function dontShow(){
 	criaCookieAB("modalShow", "sim", 30);
-	_gaq.push(['_trackEvent', 'Modal', 'Excluir', '']);
+	_gaq.push(['_trackEvent', 'Modal', 'Excluir', '', , true]);
 }
 
 $(function(){
@@ -32,7 +32,7 @@ $(function(){
 			if($("#modal-campaign iframe").contents().find(".dont_show").is(":checked")){
 				dontShow();
 			}	
-			_gaq.push(['_trackEvent', 'Modal', 'Close', '']);
+			_gaq.push(['_trackEvent', 'Modal', 'Close', '', , true]);
 			stopProp(e);
 		}, 
 		keyup: function(e) {
@@ -42,7 +42,7 @@ $(function(){
 			if($("#modal-campaign iframe").contents().find(".dont_show").is(":checked")){
 				dontShow();
 			}
-			_gaq.push(['_trackEvent', 'Modal', 'Close', '']);
+			_gaq.push(['_trackEvent', 'Modal', 'Close', '', , true]);
 			stopProp(e);
 		}		
 	})
