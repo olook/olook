@@ -63,32 +63,34 @@ class CatalogSearchService
   end
 
   def query_shoes
-    query = [query_shoe_sizes, query_colors, query_heels, query_subcategories].detect{|query| !query.nil?}
+    query = [query_shoe_sizes, query_colors, query_heels, query_subcategories_for("shoe")].detect{|query| !query.nil?}
     query.and(l_products[:category_id].in(Category::SHOE)) if query
   end
 
   def query_shoe_sizes
-    build_sub_query((query_colors || query_heels || query_subcategories || query_base), filter_product_by(:shoe_size, params[:shoe_sizes])) if (query_colors || query_heels || query_subcategories) && params[:shoe_sizes]
+    build_sub_query((query_colors || query_heels || query_subcategories_for("shoe") || query_base), filter_product_by(:shoe_size, params[:shoe_sizes])) if (query_colors || query_heels || query_subcategories_for("shoe")) && params[:shoe_sizes]
   end
 
   def query_cloth_sizes
     filter_product_by(:cloth_size, params[:cloth_sizes]) if params[:cloth_sizes]
   end
 
-  def query_cloth_subcategories
-    params[:cloth_subcategories] ? l_products[:subcategory_name].in(params[:cloth_subcategories]) : nil
-  end
-
   def query_colors
-    params[:shoe_colors] ? build_sub_query((query_heels || query_subcategories || query_base), Product.arel_table[:color_name].in(params[:shoe_colors])) : nil
+    params[:shoe_colors] ? build_sub_query((query_heels || query_subcategories_for("shoe") || query_base), Product.arel_table[:color_name].in(params[:shoe_colors])) : nil
   end
 
   def query_heels
-    params[:heels] ? build_sub_query((query_subcategories || query_base), l_products[:heel].in(params[:heels])) : nil
+    params[:heels] ? build_sub_query((query_subcategories_for("shoe") || query_base), l_products[:heel].in(params[:heels])) : nil
   end
 
-  def query_subcategories
-    params[:shoe_subcategories] ? l_products[:subcategory_name].in(params[:shoe_subcategories]) : nil
+  def query_subcategories_for(category)
+    if subcategories_for(category)
+      l_products[:subcategory_name].in(subcategories_for(category))
+    end
+  end
+
+  def subcategories_for(category)
+    params["#{category}_subcategories".to_sym]
   end
 
   def query_bags
@@ -103,7 +105,7 @@ class CatalogSearchService
   end
 
   def query_clothes
-    query = [query_cloth_sizes, query_cloth_subcategories].detect{|query| !query.nil?}
+    query = [query_cloth_sizes, query_subcategories_for("cloth")].detect{|query| !query.nil?}
     query.and(l_products[:category_id].in(Category::CLOTH)) if query
   end
 
