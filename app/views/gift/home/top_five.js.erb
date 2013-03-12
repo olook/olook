@@ -1,1 +1,1 @@
-$("section#suggestions_products div.content").html("<%= escape_javascript(render partial: 'products', locals: {products: @suggestion_products}) %>")
+$("section#suggestions_products div.content").html("<%= escape_javascript(render partial: 'products', locals: {products: @suggestion_products, ga_category: 'Top5'}) %>")

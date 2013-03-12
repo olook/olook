@@ -1,7 +1,7 @@
 <ul class="products_list">
   <% products.each_with_index do |product, index| %>
     <li>
-      <%= link_to product, onclick: track_event('Top5', "Product#{index+1}") do %>
+      <%= link_to product, onclick: track_event(ga_category, "Product#{index+1}") do %>
         <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
         <h1><%= product.name %></h1>
         <p><%= number_to_currency product.retail_price %></p>
