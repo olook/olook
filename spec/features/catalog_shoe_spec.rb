@@ -38,7 +38,7 @@ feature "Navigating by Catalog Shoe", %q{
 
     scenario "visiting shoes link" do
       visit home_url
-      within('.menu') do
+      within('.menu_new') do
         click_link "Sapatos"
       end
       expect(page).to have_content("Sapatos mais vendidos")
@@ -49,7 +49,7 @@ feature "Navigating by Catalog Shoe", %q{
 
     scenario "visiting bag link" do
       visit home_url
-      within('.menu') do
+      within('.menu_new') do
         click_link "Bolsas"
       end
       expect(page).to have_content("Bolsas mais vendidas")
@@ -60,7 +60,7 @@ feature "Navigating by Catalog Shoe", %q{
 
     scenario "visiting accessory link" do
       visit home_url
-      within('.menu') do
+      within('.menu_new') do
         click_link "Acessórios"
       end
       expect(page).to have_content("Acessorios mais vendidos")

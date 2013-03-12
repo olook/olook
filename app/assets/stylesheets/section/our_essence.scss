@@ -15,6 +15,7 @@ section#our_essence {
     margin: 0 65px 0 0;
     float: left;
     p {
+      font-family: $avenir;
       color: $third_color;
       font-size: 18px;
       font-weight: lighter;
@@ -23,6 +24,10 @@ section#our_essence {
       span {
         font-family: $kepler;
         font-size: 19px;
+        &.olook-bold{
+          font-weight: bold;
+          font-family: $avenir;
+        }
       }
     }
   }

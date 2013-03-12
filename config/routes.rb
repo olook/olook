@@ -48,13 +48,12 @@ Olook::Application.routes.draw do
   #NEW COLLECTIONS
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
   get '/colecoes/*slug', to: "collection_themes#show", as: "collection_theme"
-  
+
   # NEW COLLECTIONS - TODO
   get '/update_moment', to: "moments#update", as: "update_moment"
 
-  #MOMENTS
-  match '/sapatos', to: "moments#show", as: "shoes", :defaults => {:category_id => Category::SHOE, :id => 1}
   # Friendly urls (ok, I know it is not the best approach...)
+  match '/sapatos', to: "moments#show", as: "shoes", :defaults => {:category_id => Category::SHOE, :id => 1}
   match '/sneaker', to: "moments#show", as: "sneakers", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["sneaker"]}
   match '/rasteira', to: "moments#show", as: "rasteiras", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["rasteira"]}
   # plural
@@ -69,6 +68,7 @@ Olook::Application.routes.draw do
   match '/bolsas', to: "moments#show", as: "bags", :defaults => {:category_id => Category::BAG, :id => 1}
   match '/acessorios', to: "moments#show", as: "accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1}
   match '/oculos', to: "moments#glasses", as: "glasses", :defaults => {:category_id => Category::ACCESSORY, :accessory_subcategories=>["oculos-de-sol"], :id => 1}
+  match '/roupas', to: "moments#clothes", as: "clothes", :defaults => {:category_id => Category::CLOTH, :id => 1}
 
 
   #FRIENDS
@@ -89,7 +89,7 @@ Olook::Application.routes.draw do
   match "/criteo", :to => "xml#criteo", :as => "criteo", :defaults => { :format => 'xml' }
   match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
   match "/click_a_porter", :to => "xml#click_a_porter", :as => "click_a_porter", :defaults => { :format => 'xml' }
-  match "/topster", :to => "xml#topster", :as => "topster", :defaults => { :format => 'xml' }
+  match "/topster" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/topster_data.xml")
   match "/ilove_ecommerce", :to => "xml#ilove_ecommerce", :as => "ilove_ecommerce", :defaults => { :format => 'xml' }
   match "/zoom", :to => "xml#zoom", :as => "zoom", :defaults => { :format => 'xml' }
   match "/netaffiliation", :to => "xml#netaffiliation", :as => "netaffiliation", :defaults => { :format => 'xml' }
@@ -118,6 +118,7 @@ Olook::Application.routes.draw do
   post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
   get "membro/convidadas" => "members#invite_list", :as => 'member_invite_list'
   get "membro/vitrine", :to => "members#showroom", :as => "member_showroom"
+  get "membro/vitrine_roupas", :to => "members#showroom_clothes", :as => "member_showroom_clothes"
   get "membro/vitrine_shoes", :to => "members#showroom_shoes", :as => "member_showroom_shoes"
   get "membro/vitrine_bags", :to => "members#showroom_bags", :as => "member_showroom_bags"
   get "membro/vitrine_accessories", :to => "members#showroom_accessories", :as => "member_showroom_accessories"

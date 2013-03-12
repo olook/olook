@@ -4,7 +4,7 @@ require 'spec_helper'
 describe ApplicationHelper do
   describe "#cart_total" do
     it "returns markup for order total" do
-     expected = "<span>(<div id=\"cart_items\">0</div>)</span>"
+     expected = "<span>(<span id=\"cart_items\">0 itens</span>)</span>"
      helper.cart_total(FactoryGirl.create(:clean_cart)).should eq(expected)
     end
   end

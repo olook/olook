@@ -37,6 +37,7 @@ describe PaymentBuilder do
     it "receives a payment object from the gateway" do
       payment = double(Payment)
       moip_sender_strategy.should_receive(:send_to_gateway).and_return(payment)
+      moip_sender_strategy.should_receive(:return_code).and_return(nil)
       subject.process!
     end
 
@@ -114,6 +115,11 @@ describe PaymentBuilder do
 
       context "cancellation pre-scheduling (to automatically free inventory if payment isn't made)" do
         context "credit card" do
+
+          before do
+            moip_sender_strategy.should_receive(:return_code).and_return(nil)
+          end
+
           it "doesn't pre-schedule order cancellation" do
             subject.payment.should_not_receive(:schedule_cancellation)
             subject.process!
@@ -151,28 +157,34 @@ describe PaymentBuilder do
 
     context "on failure" do
       before :each do
+        moip_sender_strategy.should_receive(:send_to_gateway)
+        moip_sender_strategy.should_receive(:payment_successful?).and_return(false)
+        moip_sender_strategy.should_receive(:return_code).and_return('58')
         subject.stub(:send_payment!)
       end
 
       it "should return a structure with failure status and without a payment when the gateway comunication fail " do
         subject.payment.stub(:gateway_response_status).and_return(Payment::FAILURE_STATUS)
         subject.stub_chain(:set_payment_url!).and_return(subject.payment)
-        subject.process!.status.should == Payment::FAILURE_STATUS
-        subject.process!.payment.should be_nil
+        returned_value = subject.process!
+        returned_value.status.should == Payment::FAILURE_STATUS
+        returned_value.payment.should be_nil
       end
 
       it "should return a structure with failure status and without a payment" do
         subject.payment.stub(:gateway_response_status).and_return(Payment::SUCCESSFUL_STATUS)
         subject.payment.stub(:gateway_transaction_status).and_return(Payment::CANCELED_STATUS)
         subject.stub_chain(:set_payment_url!).and_return(subject.payment)
-        subject.process!.status.should == Payment::FAILURE_STATUS
-        subject.process!.payment.should be_nil
+        returned_value = subject.process!
+        returned_value.status.should == Payment::FAILURE_STATUS
+        returned_value.payment.should be_nil
       end
 
       it "should return a structure with failure status and without a payment" do
         subject.stub(:send_payment!).and_raise(Exception)
-        subject.process!.status.should == Payment::FAILURE_STATUS
-        subject.process!.payment.should be_nil
+        returned_value = subject.process!
+        returned_value.status.should == Payment::FAILURE_STATUS
+        returned_value.payment.should be_nil
       end
     end
   end
@@ -201,7 +213,6 @@ describe PaymentBuilder do
         it "receives create_payment method" do
           subject.should_receive(:should_create_payment_for?).and_return(true)
           subject.should_receive(:create_payment)
-          subject.should_not_receive(:create_credit_payment)
           subject.create_payment_for(10.0, OlookletPayment)
         end
 
@@ -211,8 +222,7 @@ describe PaymentBuilder do
 
         it "receives create_credit_payment method" do
           subject.should_receive(:should_create_payment_for?).and_return(true)
-          subject.should_receive(:create_credit_payment)
-          subject.should_not_receive(:create_payment)
+          subject.should_receive(:create_payment)
           subject.create_payment_for(10.0, CreditPayment, :loyalty_program)
         end
 
@@ -237,7 +247,7 @@ describe PaymentBuilder do
     it "creates a payment" do
       OlookletPayment.should_receive(:create!)
       subject.should_receive(:change_state_of)
-      subject.create_payment(BigDecimal("10.0"), OlookletPayment)
+      subject.create_payment(BigDecimal("10.0"), OlookletPayment, {})
     end
 
   end
@@ -248,7 +258,7 @@ describe PaymentBuilder do
       CreditPayment.should_receive(:create!)
       CreditType.should_receive(:find_by_code!).and_return(credit_type)
       subject.should_receive(:change_state_of)
-      subject.create_credit_payment(BigDecimal("10.0"), CreditPayment, :loyalty_program)
+      subject.create_payment(BigDecimal("10.0"), CreditPayment, {:credit => :loyalty_program})
     end
   end
 

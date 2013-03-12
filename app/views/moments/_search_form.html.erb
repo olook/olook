@@ -3,7 +3,7 @@
       <%= hidden_field_tag('id', @collection_theme ? @collection_theme.id : nil) %>
       <%= hidden_field_tag('category_id', @category_id ? @category_id : nil) %>
       <%= hidden_field_tag('sort_filter') %>
-      
+
       <%= collection_theme_presenter.display_shoe_filters %>
       <%= collection_theme_presenter.display_color_filters %>
       <%= collection_theme_presenter.display_shoe_size_filters %>
