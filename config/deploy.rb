@@ -11,9 +11,10 @@ end
 
 # Use a simple directory tree copy here to make demo easier.
 # You probably want to use your own repository for a real app
-set :scm, :none
-set :repository, "."
-set :deploy_via, :copy
+set :scm, 'git'
+set :repository, "git@github.com:olook/olook.git"
+set :deploy_via, :remote_cache
+set :branch, 'master'
 
 # Easier to do system level config as root - probably should do it through
 # sudo in the future.  We use ssh keys for access, so no passwd needed
@@ -25,7 +26,7 @@ set :password, nil
 set :use_sudo, true
 
 # How many old releases should be kept around when running "cleanup" task
-set :keep_releases, 3
+set :keep_releases, 5
 
 # Lets us work with staging instances without having to checkin config files
 # (instance*.yml + rubber*.yml) for a deploy.  This gives us the
