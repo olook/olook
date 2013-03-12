@@ -10,12 +10,12 @@ namespace :rubber do
     task :install, :roles => :nginx do
       # Setup apt sources for current nginx
       sources = <<-SOURCES
-        deb http://nginx.org/packages/ubuntu/ lucid nginx
-        deb-src http://nginx.org/packages/ubuntu/ lucid nginx
+        deb http://apt.hellobits.com/ precise main
+        deb-src http://apt.hellobits.com/ precise main
       SOURCES
       sources.gsub!(/^ */, '')
       put(sources, "/etc/apt/sources.list.d/nginx.list")
-      rsudo "wget -qO- http://nginx.org/keys/nginx_signing.key | apt-key add -"
+      rsudo "wget -qO- http://apt.hellobits.com/hellobits.key | apt-key add -"
     end
 
     # serial_task can only be called after roles defined - not normally a problem, but
