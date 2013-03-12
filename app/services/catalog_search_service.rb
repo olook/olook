@@ -101,14 +101,18 @@ class CatalogSearchService
   end
 
   def query_clothes
-    query = query_cloth_sizes
-    if query && query_subcategories_for(@params[:cloth_subcategories])
-      query =  query.and(query_subcategories_for(@params[:cloth_subcategories]))
+
+    if cloth_size_and_subcategories_selected?
+      query = query_cloth_sizes.and(query_subcategories_for(@params[:cloth_subcategories]))
     else
-      query =  query_subcategories_for(@params[:cloth_subcategories])
+      query = query_cloth_sizes || query_subcategories_for(@params[:cloth_subcategories])
     end
 
     query.and(l_products[:category_id].in(Category::CLOTH)) if query
+  end
+
+  def cloth_size_and_subcategories_selected?
+    query_cloth_sizes && query_subcategories_for(@params[:cloth_subcategories])
   end
 
   def build_sub_query(current_query, sub_query)
