@@ -164,7 +164,7 @@
 section{margin-top:35px;
   &#collections_menu{float:left;width:170px;}
   &#collections_content{float:left;width:800px;
-    .collections_header{position:relative;margin-bottom:35px;
+    .collections_header{position:relative;margin-bottom:35px;height: 240px;
       a{position:absolute;top:250px;font-size:12px;text-transform:uppercase;color:#000;text-decoration:none;background: image-url('collections/sprite.png') right -35px;padding-right:15px;
         &:hover{text-decoration:underline;}
         &.editorial{left:55px;}
@@ -184,13 +184,126 @@ section{margin-top:35px;
           span{margin:0 5px;
             &.selected{font-weight:bold;}
             &:hover{cursor:pointer;}
-          }
+          }	  
         }
+        #filters_container{
+          	select,#category_filters{
+          		float: left;
+          	}
+
+          }
         #order_filter{float:left !important;width:225px !important;height:30px;margin-left:55px;
           label{text-transform:uppercase;font-weight:normal;font-size:11px;margin-right:5px;line-height:22px;}
           li.select{
             span.select{background:image-url('moments/sprite.png') right 4px no-repeat !important;font-size:11px;text-transform:uppercase;line-height:18px;width:105px;text-indent:6px;}
           }
+        }
+        .filter{
+        	float: left;
+        	font-family: $avenir;
+        	font-size: 12px;
+        	color: #717171;
+        	position: relative;
+        	.arrow{
+        		display: none;
+        		position: absolute;
+        		z-index: 3;
+        		top: 13px;
+        		right: 0;
+        	}
+        	.arrow-size{
+        		left: 70px;
+        	}
+        	.arrow-cor{
+        		left: 39px;
+        	}
+        	.arrow-heel{
+        		left: 47px;
+        	}
+        	.arrow-shoes{
+        		left: 61px;
+        	}
+        	.model{
+        		margin-left: 3px;
+        		margin-bottom: 1px;
+        	}
+        	p{
+        		color: black;
+        		margin-left: 15px;
+        	}
+        	.clear_filter{
+        		background: none;
+        		border: none;
+        		float: right;
+        		color: #717171;
+        		display: none;
+        		position: absolute;
+        		z-index: 4;
+        	}
+        	.bt_clear_size{
+        		left: 0;
+        		top: 142px;
+        	}
+        	.bt_clear_color{
+        		left: -18px;
+        		top: 109px;
+        	}
+        	.bt_clear_heel{
+        		left: -20px;
+        		top: 144px;
+        	}
+        	.bt_clear_model{
+        		left: -20px;
+        		top: 144px;
+        	}
+
+        	h1{
+        		display: none;
+        	}
+        	ol{
+        		z-index: 2;
+        		position: absolute;
+        		display: none;
+        		margin-top: 25px;
+        		background-color: #fff;
+        		padding: 15px;
+        		border: 1px solid #e2e2e2;
+        		box-shadow: 1px 1px 5px 1px #e2e2e2;
+        		-moz-border-radius: 5px;
+				-webkit-border-radius: 5px;
+        		&.color_filter{
+        			width: 285px;
+        			height: 90px;
+        			left: -220px;
+        		}
+        		&.open{
+        			width: 285px;
+        			height: 160px;
+        			left: -200px;
+        		}
+        		&.column{
+        			width: 190px;
+        			height: 125px;
+        			left: -125px;
+        		}
+        		&.column-size{
+        			width: 275px;
+        			height: 125px;
+        			left: -190px;
+        		}
+        		&.open-bags{
+        			li{
+        				width: 110px;
+        			}
+        		}
+        		li{
+        			float: left;
+        			width: 95px;
+        			height: 25px;
+        			margin-bottom: 10px;
+        			position: relative;
+        		}
+        	}
         }
       }
     }

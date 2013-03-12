@@ -1,6 +1,6 @@
 <div class="filter sub shoe_heel">
-  <p class="filter_type">Salto</p>
-  <button type="button" class="clear_filter">( limpar )</button>
+  <p class="filter_type">Salto<%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
+  <button type="button" class="clear_filter bt_clear_heel">[ limpar ]</button>
   <ol class="column">
   <% collection_theme_presenter.collection_theme.catalog.heels.each do |heel, label| %>
     <li>
@@ -9,6 +9,7 @@
     </li>
   <% end %>
   </ol>
+  <%= image_tag 'collections/arrow-white.png', :class => 'arrow arrow-heel', style:"display:none" %>
 </div>
 
 

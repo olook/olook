@@ -1,8 +1,7 @@
 <div class="filter main shoe_size">
-  <p class="filter_type">Tamanho</p>
-  <button type="button" class="clear_filter">( limpar )</button>
-
-    <ol class="column">
+  <p class="filter_type">Tamanho<%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
+  <button type="button" class="clear_filter bt_clear_size">[ limpar ]</button>
+    <ol class="column-size">
       <% collection_theme_presenter.collection_theme.catalog.shoe_sizes.each do |key, value| %>
         <% unless key.zero? %>
           <li>
@@ -16,6 +15,6 @@
         <% end %>
       <% end %>
     </ol>
-
+<%= image_tag 'collections/arrow-white.png', :class => 'arrow arrow-size', style:"display:none" %>
 </div>
 
