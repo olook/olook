@@ -76,7 +76,7 @@ class CatalogSearchService
   end
 
   def query_cloth_sizes
-    build_sub_query(query_cloth_subcategories, filter_by_cloth_size) if query_cloth_subcategories && params[:cloth_sizes]
+    filter_by_cloth_size if params[:cloth_sizes]
   end
 
   def query_cloth_subcategories
