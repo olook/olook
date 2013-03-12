@@ -100,7 +100,7 @@ class CatalogSearchService
   end
 
   def query_accessories
-    query = params[:accessory_subcategories] ? l_products[:subcategory_name].in(params[:accessory_subcategories]) : nil
+    query = query_subcategories_for("accessory")
     query.and(l_products[:category_id].in(Category::ACCESSORY)) if query
   end
 
