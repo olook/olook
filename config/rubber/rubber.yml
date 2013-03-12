@@ -1,5 +1,5 @@
 # REQUIRED: The name of your application
-app_name: your_app_name
+app_name: olook
 
 # REQUIRED: The system user to run your app servers as
 app_user: app
@@ -18,7 +18,7 @@ timezone: US/Eastern
 
 # REQUIRED: the domain all the instances should be associated with
 #
-domain: foo.com
+domain: olook.com.br
 
 # OPTIONAL: See rubber-dns.yml for dns configuration
 # This lets rubber update a dynamic dns service with the instance alias
@@ -55,9 +55,9 @@ cloud_providers:
 
     # REQUIRED The amazon keys and account ID (digits only, no dashes) used to access the AWS API
     #
-    access_key: XXX
-    secret_access_key: YYY
-    account: 'ZZZ'
+    access_key: AKIAJ2WH3XLYA24UTAJQ
+    secret_access_key: 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
+    account: '374668033687'
 
     # REQUIRED:  The name of the amazon keypair and location of its private key
     #
@@ -83,8 +83,8 @@ cloud_providers:
     # Ubuntu 12.04 Precise instance-store 64-bit: ami-eafa5883
     #
     # m1.small or m1.large or m1.xlarge
-    image_type: c1.medium
-    image_id: ami-b6089bdf
+    image_type: c1.xlarge
+    image_id: ami-3fec7956
 
     # OPTIONAL: EC2 spot instance request support.
     #
