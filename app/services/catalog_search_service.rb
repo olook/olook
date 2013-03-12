@@ -20,7 +20,7 @@ class CatalogSearchService
   end
 
   def filter_by_cloth_size
-    @query_base.and(l_products[:cloth_size].in(params[:cloth_sizes])).and(Variant.arel_table[:description].in(params[:cloth_sizes]))# if params[:cloth_sizes]
+    @query_base.and(l_products[:cloth_size].in(params[:cloth_sizes])).and(Variant.arel_table[:description].in(params[:cloth_sizes]))
   end
 
   def search_products
