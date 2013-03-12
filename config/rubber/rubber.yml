@@ -14,7 +14,7 @@ admin_email: "root@#{full_host}"
 # web_tools_password: sekret
 
 # REQUIRED: The timezone the server should be in
-timezone: US/Eastern
+timezone: 'America/Sao_Paulo'
 
 # REQUIRED: the domain all the instances should be associated with
 #
@@ -260,7 +260,7 @@ stop_on_error_cmd: "function error_exit { exit 99; }; trap error_exit ERR"
 #           downtime. You should typically set this on the role/host level
 #           rather than globally.  Use cap rubber:describe_zones to see the list
 #           of zones
-# availability_zone: us-east-1a
+availability_zone: us-east-1b
 
 # OPTIONAL: If you want to use Elastic Block Store (EBS) persistent
 # volumes, add them to host specific overrides and they will get created
