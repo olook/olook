@@ -1,4 +1,5 @@
 # This is a sample Capistrano config file for rubber
+require File.expand_path(File.join(File.dirname(__FILE__), 'deploy/recipes', 'capistrano_database_yml.rb'))
 
 set :rails_env, Rubber.env
 
