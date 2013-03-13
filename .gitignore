@@ -17,15 +17,7 @@ public/admin/*.csv
 .rvmrc
 .rspec
 nohup.out
-config/facebook.yml
-config/analytics.yml
-config/email.yml
-config/yahoo.yml
-config/aws.yml
-config/resque.yml
 config/moip.yml
-config/resque-web.rb
-config/abacos.yml
 *.passwd
 db/schema.rb
 .watchr
