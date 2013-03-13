@@ -127,5 +127,22 @@ FactoryGirl.define do
         end
       end
     end
+
+    factory :simple_garment do
+      name "Simple T-shirt"
+      description "Simple T-shirt"
+      category Category::CLOTH
+
+      sequence :model_number do |n|
+        "TS01#{n}"
+      end
+
+      trait :in_stock do
+        after(:create) do |product|
+          product.variants << FactoryGirl.create(:simple_garment, :in_stock)
+        end
+      end
+
+    end
   end
 end

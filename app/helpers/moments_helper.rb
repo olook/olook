@@ -14,10 +14,10 @@ module MomentsHelper
   end
 
   def print_section_name
-    {shoes_path => "sapatos", accessories_path => "acessórios", bags_path => "bolsas"}[request.fullpath]
+    {shoes_path => "sapatos", accessories_path => "acessórios", bags_path => "bolsas", clothes_path => "Roupas"}[request.fullpath]
   end
 
-  private 
+  private
     def number_of_installments_for price
       return 1 if price <= MIN_INSTALLMENT_VALUE
       return MAX_INSTALLMENT_NUMBER if price >= MIN_INSTALLMENT_VALUE * MAX_INSTALLMENT_NUMBER
