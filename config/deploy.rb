@@ -92,12 +92,10 @@ task :cleanup, :except => { :no_release => true } do
   CMD
 end
 
-if Rubber::Util.has_asset_pipeline?
-  # load asset pipeline tasks, and reorder them to run after
-  # rubber:config so that database.yml/etc has been generated
-  load 'deploy/assets'
-  callbacks[:after].delete_if {|c| c.source == "deploy:assets:precompile"}
-  callbacks[:before].delete_if {|c| c.source == "deploy:assets:symlink"}
-  before "deploy:assets:precompile", "deploy:assets:symlink"
-  after "rubber:config", "deploy:assets:precompile"
-end
+# load asset pipeline tasks, and reorder them to run after
+# rubber:config so that database.yml/etc has been generated
+load 'deploy/assets'
+callbacks[:after].delete_if {|c| c.source == "deploy:assets:precompile"}
+callbacks[:before].delete_if {|c| c.source == "deploy:assets:symlink"}
+before "deploy:assets:precompile", "deploy:assets:symlink"
+after "rubber:config", "deploy:assets:precompile"
