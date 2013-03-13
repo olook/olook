@@ -1,6 +1,6 @@
 class Catalog::Catalog < ActiveRecord::Base
   has_many :products, :class_name => "Catalog::Product", :foreign_key => "catalog_id"
-  
+
   validates :type, :presence => true, :exclusion => ["Catalog::Catalog"]
 
   def in_category(category_id)
@@ -38,7 +38,7 @@ class Catalog::Catalog < ActiveRecord::Base
   end
 
   def cloth_sizes
-    in_category(Category::CLOTH).order("shoe_size asc").map { |p| p.shoe_size }.compact
+    in_category(Category::CLOTH).order("cloth_size asc").map { |p| p.cloth_size }.compact
     # in_category(Category::CLOTH).group(:shoe_size).order("shoe_size asc").map { |p| p.shoe_size }.compact
   end
 
