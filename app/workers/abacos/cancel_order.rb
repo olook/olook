@@ -10,7 +10,11 @@ module Abacos
 
       if order.canceled? && Abacos::OrderAPI.order_exists?(order_number)
         cancelar_pedido = Abacos::CancelarPedido.new order
-        Abacos::OrderAPI.cancel_order cancelar_pedido
+        begin
+          Abacos::OrderAPI.cancel_order cancelar_pedido
+        rescue Exception => error
+          Airbrake.notify(error)
+        end
       end
     end
 
