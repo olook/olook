@@ -18,6 +18,9 @@
   - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
     options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: web
+    options: {}
   instance_id: i-8726daf5
   image_type: c1.xlarge
   image_id: ami-3fec7956
