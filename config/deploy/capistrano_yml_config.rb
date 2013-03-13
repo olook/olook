@@ -118,12 +118,13 @@ Capistrano::Configuration.instance.load do
 
         Dir[fetch(:template_dir, "config/deploy/*.yml.erb")].each do |location|
           template = File.read(location)
+          /.*\/(?<file>.*)\.erb/ =~ location.to_s
 
           config = ERB.new(template)
 
           run "mkdir -p #{shared_path}/db"
           run "mkdir -p #{shared_path}/config"
-          put config.result(binding), "#{shared_path}/config/database.yml"
+          put config.result(binding), "#{shared_path}/config/#{file}"
         end
       end
 
