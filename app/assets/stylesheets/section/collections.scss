@@ -223,6 +223,12 @@ section{margin-top:35px;
         	.arrow-shoes{
         		left: 61px;
         	}
+        	.arrow-bag{
+        		left: 61px;
+        	}
+        	.arrow-bag-color{
+        		left: 36px;
+        	}
         	.model{
         		margin-left: 3px;
         		margin-bottom: 1px;
@@ -256,9 +262,17 @@ section{margin-top:35px;
         		left: -20px;
         		top: 144px;
         	}
+        	.bt_clear_bag_color{
+        		left: -19px;
+        		top: 105px;
+        	}
         	.bt_clear_bag{
-        		left: 2px;
-        		top: 137px;
+        		top: 108px;
+        		left: 1px;
+        	}
+        	.bt_clear_accessory{
+        		left: 63px;
+        		top:105px;
         	}
 
         	h1{
@@ -296,6 +310,8 @@ section{margin-top:35px;
         			left: -190px;
         		}
         		&.open-bags{
+        			width: 230px;
+        			left: -120px;
         			li{
         				width: 110px;
         			}
