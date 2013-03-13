@@ -268,6 +268,24 @@ availability_zone: us-east-1b
 # attached _and_ formatted, but if your host disappears and you recreate
 # it, the volume will only get remounted thereby preserving your data
 #
+hosts:
+  app01:
+    availability_zone: us-east-1b
+  app02:
+    availability_zone: us-east-1d
+  app03:
+    availability_zone: us-east-1b
+  app04:
+    availability_zone: us-east-1d
+
+  homolog:
+    cloud_providers:
+      aws:
+        image_type: m1.large
+  development:
+    cloud_providers:
+      aws:
+        image_type: c1.medium
 # hosts:
 #   my_host:
 #     availability_zone: us-east-1a
