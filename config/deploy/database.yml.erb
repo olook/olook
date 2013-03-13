@@ -1,11 +1,17 @@
 base: &base
-  adapter: sqlite3
+  adapter: mysql2
+  username: root
+  password:
+  host: localhost
   timeout: 5000
 development:
-  database: <%= "#{shared_path}/db/development.sqlite3" %>
+  database: <%= "#{application}_development" %>
   <<: *base
 test:
-  database: <%= "#{shared_path}/db/test.sqlite3" %>
+  database: <%= "#{shared_path}_test" %>
+  <<: *base
+staging:
+  database: <%= "#{shared_path}_staging" %>
   <<: *base
 production:
   adapter: mysql2
