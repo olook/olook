@@ -11,7 +11,6 @@ namespace :rubber do
       # Setup apt sources for current nginx
       sources = <<-SOURCES
         deb http://apt.hellobits.com/ precise main
-        deb-src http://apt.hellobits.com/ precise main
       SOURCES
       sources.gsub!(/^ */, '')
       put(sources, "/etc/apt/sources.list.d/nginx.list")
