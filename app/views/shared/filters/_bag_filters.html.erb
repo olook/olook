@@ -1,9 +1,9 @@
 <div class="filter main bag_models">
   <% unless is_moment_page? %>
-  <h1 class="purse">BOLSAS <%= image_tag 'collections/arrow-black.png', :class => 'model' %></h1>
+  <h1 class="purse">BOLSAS </h1>
   <% end %>
-  <p class="filter_type opened">Modelo</p>
-  <button type="button" class="clear_filter">[ limpar ]</button>
+  <p class="filter_type opened">Modelo<%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
+  <button type="button" class="clear_filter bt_clear_bag">[ limpar ]</button>
   <ol class="open-bags">
     <!--li>
       <%= check_box_tag "select_all_bags", 1, params[:select_all_bags], :class => "select_all" %>
@@ -18,7 +18,7 @@
      <% end %>
    <% end %>
   </ol>
-  <%= image_tag 'collections/arrow-white.png', :class => 'arrow arrow-size', style:"display:none" %>
+  <%= image_tag 'collections/arrow-white.png', :class => 'arrow arrow-bag', style:"display:none" %>
 </div>
 
 
