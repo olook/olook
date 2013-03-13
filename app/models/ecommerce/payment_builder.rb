@@ -65,7 +65,6 @@ class PaymentBuilder
         order = cart_service.generate_order!(payment.gateway, tracking_order, payment)
         log("Order generated: #{order.inspect}")
         payment.order = order
-        payment.schedule_cancellation if [Debit, Billet].include?(payment.class)
         payment.calculate_percentage!
         payment.deliver! if [Debit, CreditCard].include?(payment.class)        
         payment.save!
@@ -86,6 +85,8 @@ class PaymentBuilder
         create_payment_for(total_credits, CreditPayment, {:credit => :loyalty_program} )
         create_payment_for(total_credits_invite, CreditPayment, {:credit => :invite} )
         create_payment_for(total_credits_redeem, CreditPayment, {:credit => :redeem} )
+        
+        payment.schedule_cancellation if [Debit, Billet].include?(payment.class)
 
         log("Respond with_success!")
         respond_with_success
