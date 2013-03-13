@@ -8,10 +8,10 @@ development:
   database: <%= "#{application}_development" %>
   <<: *base
 test:
-  database: <%= "#{shared_path}_test" %>
+  database: <%= "#{application}_test" %>
   <<: *base
 staging:
-  database: <%= "#{shared_path}_staging" %>
+  database: <%= "#{application}_staging" %>
   <<: *base
 production:
   adapter: mysql2
