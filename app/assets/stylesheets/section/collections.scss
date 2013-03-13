@@ -256,6 +256,10 @@ section{margin-top:35px;
         		left: -20px;
         		top: 144px;
         	}
+        	.bt_clear_bag{
+        		left: 2px;
+        		top: 137px;
+        	}
 
         	h1{
         		display: none;
@@ -295,6 +299,15 @@ section{margin-top:35px;
         			li{
         				width: 110px;
         			}
+        		}
+        		&.open-accessory{
+        			width: 330px;
+        			height: 110px;
+        			left: -230px;
+        			li{
+        				width: 110px;
+        			}
+
         		}
         		li{
         			float: left;
