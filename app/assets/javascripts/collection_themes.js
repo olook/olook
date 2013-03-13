@@ -220,7 +220,7 @@ filter.changeVisualization = function(){
 filter.cleanFilter = function(){
    $(".cleanFilter").bind('click', function(){
       $("#tags ul").empty();
-      $("section.filters").fadeOut();
+      $(".filters").fadeOut();
       $(".filter input:checked").attr("checked", false).delay(150).parent().submit();
       $('.clear_filter').fadeOut();
       $("html, body").delay(300).animate({scrollTop: 0}, 'slow');
@@ -251,11 +251,12 @@ $(function(){
     $("#products").fadeOut("slow", function() {
       $(this).fadeIn("slow").html("");
     });
+    $(".filters").show();
     $('form#filter').submit();
   });
 
   $('#category_id').change(function() {
-    $("#tags .cleanFilter").trigger("click")
+    $("#tags .cleanFilter").trigger("click");
     $("#category_filters").fadeOut("slow").html('');
     //TODO: the following lines are duplicated
     $('.loading').show();
