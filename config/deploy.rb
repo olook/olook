@@ -14,7 +14,7 @@ end
 ssh_options[:forward_agent] = true #optional : for deploy from github
 
 set :scm, 'git'
-set :repository, "https://github.com/olook/olook.git"
+set :repository, "git@github.com:olook/olook.git"
 set :deploy_via, :remote_cache
 set :branch, 'master'
 
