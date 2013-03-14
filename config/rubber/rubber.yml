@@ -275,10 +275,10 @@ hosts:
     availability_zone: us-east-1d
   app03:
     availability_zone: us-east-1b
-    ruby-version: 1.9.2-p290
+    ruby_version: 1.9.2-p290
   app04:
     availability_zone: us-east-1d
-    ruby-version: 1.9.2-p290
+    ruby_version: 1.9.2-p290
 
   homolog:
     cloud_providers:
