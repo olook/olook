@@ -66,7 +66,6 @@ filter.submitAndScrollUp = function(){
     var selected_sort = $("select#filter_option").val() ;
     $('#category_filters').find('ol, .arrow, .clear_filter').hide();
     $('#sort_filter').val(selected_sort);
-    // $('#sort_filter').val($("#filter").find("input:checked").val());
     $("#products").fadeOut("slow", function() {
       $(this).fadeIn("slow").html("");
     });
@@ -183,7 +182,8 @@ filter.bindObjects = function(){
      } else {
        clicked_filter.find("ol, .arrow").show();
        if(clicked_filter.find('input:checked').length > 0) {
-         clicked_filter.find(".clear_filter").show();
+         var filter_box_height = clicked_filter.find('ol').height();
+         clicked_filter.find(".clear_filter").css('top', filter_box_height + 20 + 'px').show();
        }
        filters.find('.filter_type').removeClass('clicked');
        clicked_filter.find('.filter_type').addClass('clicked');
