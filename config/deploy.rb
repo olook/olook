@@ -17,7 +17,7 @@ ssh_options[:forward_agent] = true #optional : for deploy from github
 set :scm, 'git'
 set :repository, "git@github.com:olook/olook.git"
 set :deploy_via, :remote_cache
-set :branch, 'rubber2'
+set :branch, 'rubber'
 
 # Easier to do system level config as root - probably should do it through
 # sudo in the future.  We use ssh keys for access, so no passwd needed
