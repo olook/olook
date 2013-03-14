@@ -47,10 +47,14 @@ module XmlHelper
     accessory_subcategories={}
     accessory_subcategories.default=17
 
+    choth_subcategories={}
+    choth_subcategories.default=19
+
     @ilove_categories ||= {
       Category::SHOE       => shoe_subcategories,
       Category::BAG        => bag_subcategories,
-      Category::ACCESSORY  => accessory_subcategories
+      Category::ACCESSORY  => accessory_subcategories,
+      Category::CLOTH  => choth_subcategories
     }
   end
 
@@ -58,7 +62,8 @@ module XmlHelper
     @google_shopping_categories ||= {
       Category::SHOE => 'Vestuário e acessórios > Sapatos',
       Category::BAG => 'Vestuário e acessórios > Bolsas',
-      Category::ACCESSORY => 'Vestuário e acessórios > Acessórios'
+      Category::ACCESSORY => 'Vestuário e acessórios > Acessórios',
+      Category::CLOTH => 'Vestuário e acessórios > Roupas'
     }
   end
 end
