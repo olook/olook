@@ -176,6 +176,7 @@ filter.toggleFilter = function(event){
    opened = (style.indexOf("opened") >= 0);
 
    if(opened){
+      $("#filters_container ol:visible").hide();
       $(event.target).parent().find("ol").show();
       $(event.target).parent().find("ol").next().show();
 
@@ -197,9 +198,13 @@ filter.bindObjects = function(){
    });
 
    $(".filter_type").bind('click', function(event){
+      if($(".opened")){
+        $(".opened").parent().parent().find("ol, .arrow").hide();
+      }
+      $(this).parent().find("ol, .arrow").show();
       event.preventDefault();
       event.stopPropagation();
-      filter.toggleFilter(event);
+      //filter.toggleFilter(event);
    });
 
 }
