@@ -46,7 +46,7 @@ Olook::Application.configure do
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   #config.action_controller.asset_host = "http://cdn-app-staging.olook.com.br.s3.amazonaws.com"
   config.action_controller.asset_host = proc do |x|
-    "//cdn-app-staging-0.olook.com.br"
+    "//d3j8xxu8fm1yad.cloudfront.net"
   end
   # config.action_controller.asset_host = Proc.new do |source, request|
   #   request.ssl? ? "https://cdn-app-staging.olook.com.br.s3.amazonaws.com" : "http://cdn-app-staging.olook.com.br.s3.amazonaws.com"
