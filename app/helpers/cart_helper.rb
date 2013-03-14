@@ -30,6 +30,13 @@ module CartHelper
     @cart_service.item_promotion?(item) || cart_has_percentage_coupon? || item.price != item.retail_price
   end
 
+  def show_checkout_banner?
+    promotion = Promotion.active_and_not_expired(Date.today).order(:updated_at).last
+    return false if promotion.nil?
+
+    ! promotion.matches?(@cart)
+  end
+
   private 
     def calculate_percentage_for item
       # for compatibility reason
