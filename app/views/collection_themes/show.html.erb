@@ -7,7 +7,7 @@
 <section id="collections_content">
   <div class="collections_header">
     <%= image_tag @collection_theme.header_image, alt: @collection_theme.header_image_alt, title: @collection_theme.header_image_alt %>
-    <%= link_to "Assista ao vídeo", "", class: "video" %>
+    <%= link_to "Assista ao vídeo", @collection_theme.video_link, class: "video" %>
   </div>
 
   <div class="collections_filters">
