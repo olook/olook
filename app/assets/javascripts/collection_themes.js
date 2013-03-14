@@ -9,7 +9,6 @@ filter.init = function(){
   filter.endlessScroll(window, document);
   filter.showAllImages(filter.visualization_mode);
   filter.changeVisualization();
-  filter.displayCleanCategories();
 }
 
 filter.spyOverChangeImage = function(){
@@ -65,6 +64,7 @@ filter.submitAndScrollUp = function(){
   $("form#filter").submit(function() {
     $('.loading').show();
     var selected_sort = $("select#filter_option").val() ;
+    $('#category_filters').find('ol, .arrow, .clear_filter').hide();
     $('#sort_filter').val(selected_sort);
     // $('#sort_filter').val($("#filter").find("input:checked").val());
     $("#products").fadeOut("slow", function() {
@@ -163,33 +163,6 @@ filter.cleanCategory = function(event){
 
 }
 
-filter.displayCleanCategories = function(){
-  //TODO: display clean categories if the checkboxes are already checked on reload
-}
-
-filter.toggleFilter = function(event){
-
-   style = $(event.target).attr('class');
-   style = (style.indexOf("opened") >= 0) ? style.replace("opened", "") : style+" opened";
-
-   $(event.target).attr('class', style);
-   opened = (style.indexOf("opened") >= 0);
-
-   if(opened){
-      $("#filters_container ol:visible").hide();
-      $(event.target).parent().find("ol").show();
-      $(event.target).parent().find("ol").next().show();
-
-      if($(event.target).next().next().find("input[type='checkbox']:checked").length > 0){
-         $(event.target).parent().find("button.clear_filter").show();
-      }
-   } else {
-      $(event.target).parent().find("ol").hide();
-      $(event.target).parent().find("ol").next().hide();
-      $(event.target).parent().find("button.clear_filter").hide();
-   }
-
-}
 filter.bindObjects = function(){
    $('.clear_filter').bind('click', function(event){
       event.preventDefault();
@@ -198,13 +171,24 @@ filter.bindObjects = function(){
    });
 
    $(".filter_type").bind('click', function(event){
-      if($(".opened")){
-        $(".opened").parent().parent().find("ol, .arrow").hide();
-      }
-      $(this).parent().find("ol, .arrow").show();
-      event.preventDefault();
-      event.stopPropagation();
-      //filter.toggleFilter(event);
+     event.preventDefault();
+     event.stopPropagation();
+     var filters = $(this).parent().parent();
+     var clicked_filter = $(this).parent();
+
+     filters.find("ol, .arrow, .clear_filter").hide();
+     if(clicked_filter.find('.filter_type').hasClass('clicked')){
+       clicked_filter.find("ol, .arrow, .clear_filter").hide();
+       filters.find('.filter_type').removeClass('clicked');
+     } else {
+       clicked_filter.find("ol, .arrow").show();
+       if(clicked_filter.find('input:checked').length > 0) {
+         clicked_filter.find(".clear_filter").show();
+       }
+       filters.find('.filter_type').removeClass('clicked');
+       clicked_filter.find('.filter_type').addClass('clicked');
+     }
+
    });
 
 }
