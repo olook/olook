@@ -41,18 +41,20 @@ class Promotion < ActiveRecord::Base
     simulate(cart)
   end
 
+  def matches?(cart) 
+    matched_all_rules = true
+    rule_parameters.each do |rule_param|
+      matched_all_rules &&= rule_param.matches?(cart)
+    end
+    matched_all_rules
+  end
+
   private
 
     def self.matched_promotions_for cart
       promotions = []
       active_and_not_expired(Date.today).each do |promotion|
-
-        matched_all_rules = true
-
-        promotion.rule_parameters.each do |rule_param|
-          matched_all_rules &&= rule_param.matches?(cart)
-        end
-        promotions << promotion if matched_all_rules
+        promotions << promotion if promotion.matches?(cart)
       end
       promotions
     end
