@@ -34,4 +34,9 @@ $("li[data-id=<%= @item.id %>]").first().remove();
 
 <%= render "cart/items/update_rows" %>
 
+// Show / hide checkout banner
+$(".checkout_banner").remove();
+$("#items").after("<%= escape_javascript(render 'cart/cart/checkout_banner') %>");
+
+
 
