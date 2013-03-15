@@ -2,9 +2,9 @@
   <% unless is_moment_page? %>
     <h1 class="accessories">ROUPAS</h1>
   <% end %>
-  <p class="filter_type opened">Modelo</p>
+  <p class="filter_type opened">Modelo<%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
   <button type="button" class="clear_filter">( limpar )</button>
-  <ol class="open">
+  <ol class="open_cloth">
     <!--li>
       <%= check_box_tag "select_all_accessories", 1, params[:select_all_accessories], :class => "select_all" %>
       <%= label_tag "select_all_accessories", "Todos os acessórios" %>
@@ -18,4 +18,5 @@
       <% end %>
     <% end %>
   </ol>
+    <%= image_tag 'collections/arrow-white.png', :class => 'arrow arrow-cloth-model', style:"display:none" %>
 </div>
