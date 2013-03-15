@@ -30,8 +30,8 @@
                 <tbody>
                   <% @product.details.only_specification.each do |detail| %>
                     <tr>
-                      <% if detail.translation_token == "Salto/Tamanho" %>
-                        <td><%= @product.category == 2 ? 'Tamanho' : 'Salto' %></td>
+                      <% if detail.translation_token == "Salto" %>
+                        <td><%= [2,4].include?(@product.category) ? 'Tamanho' : 'Salto' %></td>
                       <% else %>
                         <td><%= detail.translation_token %></td>
                       <% end %>

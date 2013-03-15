@@ -71,10 +71,6 @@ _gaq.push(['_addTrans',
       <li class="value">Subtotal</li>
     </ul>
 
-    <% if free_item_promotion_is_active? %>
-      <%= render partial: "free_item_notification", locals: { cart: @cart, promotion: @promotion_free_item } if @promotion_free_item %>
-    <% end %>
-
     <table cellpadding="0" cellspacing="0" class="items_list" id="items">
       <tbody>
         <% @cart.items.each do |item| %>
@@ -82,6 +78,8 @@ _gaq.push(['_addTrans',
         <% end %>
       </tbody>
     </table>
+
+    <%= render "checkout_banner" %>
 
   <% if !@cart.items.map{|item| item.variant.product}.include?(@suggested_product) && @suggested_product%>
 	<table cellpadding="0" cellspacing="0" class="items_list avc-pulseira" id="products">

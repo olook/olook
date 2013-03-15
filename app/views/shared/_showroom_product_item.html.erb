@@ -3,7 +3,7 @@
   <div class="box_product <%= ( current_user ) ? quantity_status(product, current_user) : '' %>">
     <%= link_to product, :class => "product_link", :rel => "#{product.id}", :remote => (defined?(suggestion) || gift), :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}} do %>
       <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
-      <h1><%= product.model_name %> <%= product.name %></h1>
+      <h1><%= product.formatted_name %></h1>
       <p class="warn sold_out">ESGOTADO</p>
       <% if current_user  && current_user.shoes_size && product.shoe? %>
         <p class="warn shoe_size">Tam. <%= current_user.shoes_size %></p>

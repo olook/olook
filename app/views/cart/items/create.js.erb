@@ -18,14 +18,18 @@
 
 <% end %>
 
-  if ($("#cart_summary li.product_item[data-id=<%= @item.id %>]").length == 0) {
-    $("#cart_summary li.last").before("<%= escape_javascript( render partial: 'shared/cart_line_item', locals: {item: @item, hidden: true}) %>"); 
-    $("#cart_summary li.product_item:last").fadeIn('slow');
-  }
-  
-  $('div.overlay').hide();
-  $('#quick_view').hide();
+if ($("#cart_summary li.product_item[data-id=<%= @item.id %>]").length == 0) {
+  $("#cart_summary li.last").before("<%= escape_javascript( render partial: 'shared/cart_line_item', locals: {item: @item, hidden: true}) %>"); 
+  $("#cart_summary li.product_item:last").fadeIn('slow');
+}
 
-  $("#cart_items").text("<%= pluralize(@cart.items_total, 'item', 'itens') %>");
-  $("p.new-sacola a.cart").addClass("full");
-  $("p.freight").next().hide();
+$('div.overlay').hide();
+$('#quick_view').hide();
+
+$("#cart_items").text("<%= pluralize(@cart.items_total, 'item', 'itens') %>");
+$("p.new-sacola a.cart").addClass("full");
+$("p.freight").next().hide();
+
+// Show / hide checkout banner
+$(".checkout_banner").remove();
+$("#items").after("<%= escape_javascript(render 'cart/cart/checkout_banner') %>");

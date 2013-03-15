@@ -2,6 +2,7 @@ class Campaign < ActiveRecord::Base
   validates :title, :presence => true
   validates :start_at, :presence => true
   validates :end_at, :presence => true
+  validates :banner, presence: true, unless: Proc.new { |c| c.pages.blank? }
   validate :only_one_activated?
   mount_uploader :banner, ImageUploader
   mount_uploader :lightbox, ImageUploader
@@ -31,7 +32,7 @@ class Campaign < ActiveRecord::Base
     controller_name = params[:controller]
     action_name = params[:action]
     return false if (action_name && action_name.downcase == "invite") && controller_name.downcase == "members"
-    
+
     matched = pages.select {|page| page.controller_name.downcase == controller_name.downcase}
     matched.any?
   end

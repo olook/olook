@@ -33,32 +33,37 @@ module XmlHelper
   end
 
   private
-  def ilove_categories()
+    def ilove_categories
 
-    shoe_subcategories = {
-      'sandália' => 14,
-      'bota' => 13
-    }
-    shoe_subcategories.default=12
+      shoe_subcategories = {
+        'sandália' => 14,
+        'bota' => 13
+      }
+      shoe_subcategories.default=12
 
-    bag_subcategories={}
-    bag_subcategories.default=18
+      bag_subcategories={}
+      bag_subcategories.default=18
 
-    accessory_subcategories={}
-    accessory_subcategories.default=17
+      accessory_subcategories={}
+      accessory_subcategories.default=17
 
-    @ilove_categories ||= {
-      Category::SHOE       => shoe_subcategories,
-      Category::BAG        => bag_subcategories,
-      Category::ACCESSORY  => accessory_subcategories
-    }
-  end
+      choth_subcategories={}
+      choth_subcategories.default=19
 
-  def google_shopping_categories()
-    @google_shopping_categories ||= {
-      Category::SHOE => 'Vestuário e acessórios > Sapatos',
-      Category::BAG => 'Vestuário e acessórios > Bolsas',
-      Category::ACCESSORY => 'Vestuário e acessórios > Acessórios'
-    }
-  end
+      @ilove_categories ||= {
+        Category::SHOE       => shoe_subcategories,
+        Category::BAG        => bag_subcategories,
+        Category::ACCESSORY  => accessory_subcategories,
+        Category::CLOTH  => choth_subcategories
+      }
+    end
+
+    def google_shopping_categories()
+      @google_shopping_categories ||= {
+        Category::SHOE => 'Vestuário e acessórios > Sapatos',
+        Category::BAG => 'Vestuário e acessórios > Bolsas',
+        Category::ACCESSORY => 'Vestuário e acessórios > Acessórios',
+        Category::CLOTH => 'Vestuário e acessórios > Roupas'
+      }
+    end
 end

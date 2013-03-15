@@ -11,9 +11,8 @@ class PaymentBuilder
   end
 
   def create_payment_for(total_paid, payment_class, opts=nil)
-    options = opts || {}
     if should_create_payment_for?(total_paid)
-      log("Creating Payment for #{payment_class} with total_paid: #{total_paid} and options: #{options}")
+      log("Creating Payment for #{payment_class} with total_paid: #{total_paid} and options: #{opts}")
       create_payment(total_paid, payment_class, opts)
     end
   end
@@ -23,6 +22,8 @@ class PaymentBuilder
   end
 
   def create_payment(total_paid, payment_class, opts)
+    options = opts || {}
+
     attributes = {
       total_paid: total_paid,
       order: payment.order,
@@ -30,8 +31,8 @@ class PaymentBuilder
       cart_id: @cart_service.cart.id
     }
 
-    attributes.merge!({:credit_type_id => CreditType.find_by_code!(opts[:credit]).id}) if opts[:credit]
-    attributes.merge! opts[:coupon_id] if opts[:coupon_id]
+    attributes.merge!({:credit_type_id => CreditType.find_by_code!(options[:credit]).id}) if options[:credit]
+    attributes.merge!({:coupon_id => options[:coupon_id]}) if options[:coupon_id]
 
     current_payment = payment_class.create!(attributes)
     change_state_of(current_payment)
@@ -64,7 +65,6 @@ class PaymentBuilder
         order = cart_service.generate_order!(payment.gateway, tracking_order, payment)
         log("Order generated: #{order.inspect}")
         payment.order = order
-        payment.schedule_cancellation if [Debit, Billet].include?(payment.class)
         payment.calculate_percentage!
         payment.deliver! if [Debit, CreditCard].include?(payment.class)        
         payment.save!
@@ -85,6 +85,8 @@ class PaymentBuilder
         create_payment_for(total_credits, CreditPayment, {:credit => :loyalty_program} )
         create_payment_for(total_credits_invite, CreditPayment, {:credit => :invite} )
         create_payment_for(total_credits_redeem, CreditPayment, {:credit => :redeem} )
+        
+        payment.schedule_cancellation if [Debit, Billet].include?(payment.class)
 
         log("Respond with_success!")
         respond_with_success
