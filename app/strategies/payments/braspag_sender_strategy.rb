@@ -11,7 +11,7 @@ module Payments
     end
 
     def send_to_gateway
-      log("Sending transaction to gateway. Payment ID: #{ payment.id }")
+      log("Sending transaction to gateway. Payment ID: #{ payment.try :id }")
       begin
         authorize_response = authorize
         log("Authorize Response: #{authorize_response.inspect}")
@@ -97,7 +97,7 @@ module Payments
     end
 
     def authorize
-      log("Sending transaction for authorization. Payment ID: #{ payment.id }")
+      log("Sending transaction for authorization. Payment ID: #{ payment.try :id }")
       gateway_response = web_service_data.authorize_transaction(authorize_transaction_data)
       log("Braspag::Webservice.authorize_transaction_data response: #{gateway_response.inspect}")
       process_authorize_response(gateway_response)
