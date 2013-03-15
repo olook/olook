@@ -66,10 +66,10 @@
   - olook_staging_examples
   - olook_staging_graphite_server
   - olook_staging_graphite_web
-  external_host: ec2-54-234-101-223.compute-1.amazonaws.com
-  external_ip: 54.234.101.223
-  internal_host: ip-10-159-24-117.ec2.internal
-  internal_ip: 10.159.24.117
+  external_host: ec2-184-73-58-249.compute-1.amazonaws.com
+  external_ip: 184.73.58.249
+  internal_host: ip-10-157-20-246.ec2.internal
+  internal_ip: 10.157.20.246
   zone: us-east-1b
   platform: linux
   root_device_type: ebs
