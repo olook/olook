@@ -31,21 +31,18 @@
   </div>
 
   <div class="field">
-    <%= f.label :banner_label %><br />
-    <strong class="info" >This field will appear on banner</strong><br/>
-    <%= f.text_field :banner_label %>
-  </div>
+    <%= f.label :checkout_banner %> <br />
+    <%= f.file_field :checkout_banner %>
 
-  <div class="field">
-    <%= f.label :my_order_label %><br />
-    <strong class="info" >This field will appear on the "Meu pedido" area</strong><br/>
-    <%= f.text_field :my_order_label %>
-  </div>
+    <% if @promotion.checkout_banner? %>
+      <%= image_tag @promotion.checkout_banner_url %>
+    <% end %>
 
-  <div class="field">
-    <%= f.label :cart_label %><br />
-    <strong class="info" >This field will appear on "sacola" page</strong><br/>
-    <%= f.text_field :cart_label %>
+    <p>
+      <%= f.check_box :remove_checkout_banner %>
+      Remover
+    </p>
+
   </div>
 
   <div class="field">
