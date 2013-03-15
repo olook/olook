@@ -14,7 +14,7 @@
     <%= @collection_theme.name %>
   </p>
   <p>
-    <b>Link do vídeo: (title: <%= @collection_theme.video_title %>)</b>
+    <b>Link do vídeo:</b>
     <%= @collection_theme.video_link %><br />
     <%- unless @collection_theme.video_link.blank? -%>
       <iframe width="560" height="315" src="<%= "http://www.youtube.com/embed/#{@collection_theme.video_id}?#{ @collection_theme.video_options.to_a.map { |k,v| "#{k}=#{v}" }.join('&') }" %>" frameborder="0" allowfullscreen></iframe>
