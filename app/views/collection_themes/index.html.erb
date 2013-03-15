@@ -5,29 +5,29 @@
 <%= render "menu", collection_theme_groups: @collection_theme_groups %>
 
 <section id="collections_content">
-	<div id="home_collections">
-		<div class="banner_principal">
-			<a href="#"><img alt="Animal Print" src="/assets/collections/full_banner.jpg" title="Neon"></a>
-		</div>
-
-		<div class="tropicaliente">
-			<a href="#"><img alt="Animal Print" src="/assets/collections/tropicaliente_bg.jpg" title="Animal Print"></a>
-			<p class="collection">TROPICALIENTE</p>
-			<P class="resume">Abuse das misturas de estampas tropicais neste verão.</P>
-			<p class="looks"><a href="#" target="_blank">veja os looks</a></p>
-		</div>
-		<div class="andre_lima">
-			<a href="#"><img alt="Animal Print" src="/assets/collections/andre_lima_bg.jpg" title="André Lima"></a>
-			<p class="collection">COLEÇÃO ANDRÉ LIMA</p>
-			<P class="resume">Peças exclusivas do designer mais badalado do momento.</P>
-			<p class="looks"><a href="#" target="_blank">veja os looks</a></p>
-		</div>
-	</div>
-		<button type="button" class="nav bt_left">Anterior</button>
-	<div id="amamos">
-		<h1>NÓS AMAMOS</h1>
-		<%= render "featured_products", featured_products: @featured_products %>
-	</div>
-	<button type="button" class="nav bt_right">Próximo</button>
-
+  <div id="home_collections">
+    <div class="banner_principal">
+      <a href="#"><img alt="Animal Print" src="/assets/collections/full_banner.jpg" title="Neon"></a>
+    </div>
+    <div class="tropicaliente">
+      <a href="#"><img alt="Animal Print" src="/assets/collections/tropicaliente_bg.jpg" title="Animal Print"></a>
+      <p class="collection">TROPICALIENTE</p>
+      <P class="resume">Abuse das misturas de estampas tropicais neste verão.</P>
+      <p class="looks"><a href="#" target="_blank">veja os looks</a></p>
+    </div>
+    <div class="andre_lima">
+      <a href="#"><img alt="Animal Print" src="/assets/collections/andre_lima_bg.jpg" title="André Lima"></a>
+      <p class="collection">COLEÇÃO ANDRÉ LIMA</p>
+      <P class="resume">Peças exclusivas do designer mais badalado do momento.</P>
+      <p class="looks"><a href="#" target="_blank">veja os looks</a></p>
+    </div>
+  </div>
+  <button type="button" class="nav bt_left">Anterior</button>
+  <div id="amamos">
+    <h1>NÓS AMAMOS</h1>
+    <div id="products_amamos">
+      <%= render "featured_products", featured_products: @featured_products %>
+    </div>
+  </div>
+  <button type="button" class="nav bt_right">Próximo</button>
 </section>
