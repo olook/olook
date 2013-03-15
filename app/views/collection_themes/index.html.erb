@@ -26,12 +26,14 @@
   <div id="amamos">
     <h1>NÓS AMAMOS</h1>
     <div id="products_amamos">
+      <ol>
       <%= render "featured_products", featured_products: @featured_products %>
+      </ol>
     </div>
     <div class="pagination"></div>
   </div>
-</section>
   <button type="button" class="nav bt_right next_collection">Próximo</button>
+</section>
 <% content_for :footer do %>
   <%= javascript_include_tag "collection_themes" %>
 <% end %>
