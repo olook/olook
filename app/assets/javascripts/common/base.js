@@ -618,7 +618,7 @@ initBase = {
     if (!$.browser.opera) {
       $('select.custom_select').each(function(){
         var title = $(this).attr('title');
-        if($('option:selected', this).val() != '') {
+        if($('option:selected', this).text() != '') {
           title = $('option:selected',this).text();
         }
         $(this).css({'z-index':10,'opacity':0,'-khtml-appearance':'none'}).after('<span class="select">' + title + '</span>').change(function(){

@@ -220,7 +220,11 @@ section{margin-top:10px;
 
           #category_filters{
             float: left;
+            top: -1px;
+            left: 213px;
+            position: relative;
           }
+
 
           div.select {
             position: relative;
@@ -229,16 +233,18 @@ section{margin-top:10px;
             display: inline;
             span.select {
               position: absolute;
-              background: image-url('moments/select.jpg') no-repeat;
-              text-indent: 12px;
               bottom: 0;
               top: 2px;
               float: left;
-              width: 119px;
               height: 34px;
-              line-height: 32px;
               cursor: default;
               z-index: 1;
+              background:image-url('moments/sprite.png') right 4px no-repeat !important;
+              font-size:11px;
+              text-transform:uppercase;
+              line-height:18px;
+              width:105px;
+              text-indent:6px;
             }
             select.custom_select {
               position: absolute;

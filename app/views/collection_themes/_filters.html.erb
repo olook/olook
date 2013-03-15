@@ -5,7 +5,7 @@
     <div class="select">
       <%= select_tag('category_id', options_for_select([["Todas", nil]]+Category.to_a.map { |v,k| [v.pluralize, k]}), class: 'custom_select') %>
     </div>
-    <div class="select">
+    <div class="select" style="left:115px">
       <%= select_tag('sort_filter', options_for_select({"Relevância" => 0, "Menor preço" => 1, "Maior preço" => 2}), class: 'custom_select') %>
     </div>
     <div id="category_filters"></div>    
