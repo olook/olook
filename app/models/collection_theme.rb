@@ -1,5 +1,5 @@
 class CollectionTheme < ActiveRecord::Base
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
   validates :header_image, presence: true
 
@@ -20,8 +20,12 @@ class CollectionTheme < ActiveRecord::Base
   end
 
   def name=(val)
-    self[:slug] = val.parameterize unless val.nil?
+    self[:slug] ||= val.parameterize unless val.nil?
     self[:name] = val
+  end
+
+  def slug
+    self[:slug] || self[:name].to_s.parameterize
   end
 
   def to_params
