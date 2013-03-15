@@ -3,7 +3,7 @@ class MomentsController < ApplicationController
   respond_to :html, :js
 
   before_filter :load_products_of_user_size, only: [:show]
-  before_filter :load_chaordic_user, only: [:show, :index]
+  before_filter :load_chaordic_user, only: [:show, :index, :clothes]
   before_filter :filter_products_by_category, :unless => lambda{ params[:category_id].nil? }
   before_filter :add_featured_products, :unless => lambda{ params[:category_id].nil? }
   before_filter :load_catalog_products
@@ -31,6 +31,7 @@ class MomentsController < ApplicationController
   end
 
   def clothes
+    @pixel_information = params[:category_id]
     render :show
   end
 

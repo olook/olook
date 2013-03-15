@@ -14,7 +14,7 @@ module CollectionThemesHelper
   end
 
   def print_section_name
-    {shoes_path => "sapatos", accessories_path => "acessórios", bags_path => "bolsas"}[request.fullpath]
+    {shoes_path => "sapatos", accessories_path => "acessórios", bags_path => "bolsas", clothes_path => "Roupas"}[request.fullpath]
   end
 
   private

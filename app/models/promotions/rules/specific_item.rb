@@ -2,21 +2,17 @@
 class SpecificItem < PromotionRule
 
   def matches?(cart, products)
-    (products_for(cart.items) & products_list_for(products)).any?
+    (get_product_ids_from(cart.items) & product_ids_list_for(products)).any?
   end
 
   private
 
-    def products_for(cart_items)
-      products = []
-      cart_items.each do |item|
-        products << item.product.id
-      end
-      products
+    def get_product_ids_from(cart_items)
+      cart_items.map { |item| item.product.id }
     end
 
-    def products_list_for(products)
-      products.delete(",").split.map { |id| id.to_i }
+    def product_ids_list_for(products)
+      products.split(",").map { |id| id.strip.to_i }
     end
 
 end

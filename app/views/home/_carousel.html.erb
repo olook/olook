@@ -1,18 +1,18 @@
 <div id="carousel">
   <ul>
     <li>
-      <%= link_to new_survey_path do %>
+      <%= link_to new_survey_path, onclick: track_event('Carrossel','Banner1')  do %>
         <%= image_tag "home/destaque_botao_melancia.jpg" %>
       <% end %>
     </li>
     <li>
-      <%= link_to "/roupas" do %>
+      <%= link_to "/roupas", onclick: track_event('Carrossel','Banner2') do %>
         <%= image_tag "home/destaques_roupas_home.jpg" %>
       <% end %>
     </li>
     <li>
-      <%= link_to "/tendencias/colecao-andre-lima" do %>
-        <%= image_tag "home/andre-lima.jpg" %>
+      <%= link_to "/rasteiras", onclick: track_event('Carrossel','Banner3') do %>
+        <%= image_tag "home/banner_promo_40.jpg" %>
       <% end %>
     </li>
   </ul>
