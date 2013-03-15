@@ -5,7 +5,7 @@
       <% collection_theme_presenter.collection_theme.catalog.cloth_sizes.each do |key, value| %>
         <% unless key.zero? %>
           <li>
-              <%= check_box_tag('cloth_sizes[]', key, false, :id => "size_#{key}") %>
+            <%= check_box_tag('cloth_sizes[]', key, false, :id => "size_#{key}") %>
             <%= label_tag(key, nil, :for => "size_#{key}") %>
           </li>
         <% end %>
