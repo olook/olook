@@ -22,17 +22,16 @@
       <p class="looks"><a href="#" target="_blank">veja os looks</a></p>
     </div>
   </div>
+  <button type="button" class="nav bt_left prev_collection">Anterior</button>
   <div id="amamos">
     <h1>NÓS AMAMOS</h1>
     <div id="products_amamos">
       <%= render "featured_products", featured_products: @featured_products %>
     </div>
-      <%= link_to "Anterior", "javascript:void(0);", :class => "nav bt_left prev_collection", :type => "button" %>
-      <%= link_to "Próximo", "javascript:void(0);", :class => "nav bt_right next_collection", :type => "button" %>
-      <div class="pagination"></div>
+    <div class="pagination"></div>
   </div>
 </section>
-
+  <button type="button" class="nav bt_right next_collection">Próximo</button>
 <% content_for :footer do %>
   <%= javascript_include_tag "collection_themes" %>
 <% end %>
