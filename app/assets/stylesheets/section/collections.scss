@@ -217,11 +217,25 @@ section{margin-top:10px;
           }
         }
         #filters_container{
-          	select,#category_filters{
-          		float: left;
-          	}
-
+          #category_filters{
+            float: left;
           }
+
+          select.custom-select {
+            float: left;
+            background: none;
+            border:0;
+            font-family: avenir, arial, sans-serif;
+            font-size: 11px;
+            text-transform:uppercase;
+            margin-top: 3px;
+            option {
+              font-family: avenir, arial, sans-serif;
+              font-size: 11px;
+              text-transform:uppercase;
+            }
+          }
+        }
         #order_filter{float:left !important;width:225px !important;height:30px;margin-left:55px;
           label{text-transform:uppercase;font-weight:normal;font-size:11px;margin-right:5px;line-height:22px;}
           li.select{
