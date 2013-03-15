@@ -1,7 +1,7 @@
 <div class="filter main">
-  <p class="filter_type">Tamanho</p>
+  <p class="filter_type">Tamanho<%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
   <button type="button" class="clear_filter">( limpar )</button>
-    <ol class="column">
+    <ol class="column_size">
       <% collection_theme_presenter.collection_theme.catalog.cloth_sizes.each do |key, value| %>
         <% unless key.zero? %>
           <li>
@@ -11,4 +11,5 @@
         <% end %>
       <% end %>
     </ol>
+      <%= image_tag 'collections/arrow-white.png', :class => 'arrow arrow-cloth-size', style:"display:none" %>
 </div>
