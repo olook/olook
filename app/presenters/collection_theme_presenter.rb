@@ -37,6 +37,14 @@ class CollectionThemePresenter < BasePresenter
     h.render :partial => 'shared/filters/accessory_filters', :locals => {:collection_theme_presenter => self} if accessories?
   end
 
+  def display_cloth_filters
+    h.render :partial => 'shared/filters/cloth_filters', :locals => {:moment_presenter => self} if clothes?
+  end
+
+  def display_cloth_size_filters
+    h.render :partial => 'shared/filters/cloth_size_filters', :locals => {:moment_presenter => self} if clothes?
+  end
+
   private
     def showing_specific_category?
       category_id.nil?
@@ -54,6 +62,8 @@ class CollectionThemePresenter < BasePresenter
       showing_specific_category? || category_id.to_i == Category::ACCESSORY
     end
 
-
+    def clothes?
+      showing_specific_category? || category_id.to_i == Category::CLOTH
+    end
 
 end
