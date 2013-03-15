@@ -384,6 +384,10 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def formatted_name
+    cloth? ? name : model_name + " " + name
+  end
+
   private
 
     def self.fetch_all_featured_products_of category
