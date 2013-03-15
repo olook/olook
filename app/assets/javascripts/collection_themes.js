@@ -233,7 +233,6 @@ $(function(){
     h += 105;
   }
   filter.init();
-  alert("asd");
   if($("div#products_amamos").size() > 0) {
     $("div#products_amamos ul").carouFredSel({
       auto: false,
