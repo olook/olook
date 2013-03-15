@@ -15,4 +15,20 @@
     <%= number_to_currency product.price %> ou <span class="plots"><%= installments(product.price) %></span>
   <% end %>
   </p>
+
+  <p class="warn sold_out"><b>ESGOTADO!</b></p>
+  <% if shoe_size && product.shoe? -%>
+    <p class="warn shoe_size">Tam. <%= "#{shoe_size unless shoe_size.nil?}" %></p>
+  <% end -%>
+
+  <% if current_user && current_user.full_user? && product.promotion? == false -%>
+    <p class="warn quantity">Só mais <span><%= "#{product.quantity(shoe_size) unless shoe_size.nil?}" %></span></p>
+    <% if product.shoe? %>
+      <p class="warn shoe_size">Tam. <%= shoe_size %></p>
+    <% end %>
+  <% end -%>
+
+  <% if product.promotion? && !product.sold_out? && product.discount_percent.to_i != 0 %>
+    <p class="warn percentage"><span><%= product.discount_percent.to_i %>%</span><br />off</p>
+  <% end %>
 </li>
