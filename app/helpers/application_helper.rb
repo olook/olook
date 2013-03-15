@@ -102,7 +102,7 @@ module ApplicationHelper
 
   def section_name section
     section_name = Category.t(section)
-    section_name.nil? ? 'Coleções' : section_name.pluralize
+    section_name.nil? ? 'Coleções' : section_name
   end
 
   def is_moment_page?
