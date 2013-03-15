@@ -236,7 +236,7 @@ $(function(){
   if($("div#products_amamos").size() > 0) {
     $("div#products_amamos ul").carouFredSel({
       auto: false,
-      width: 970,
+      width: 780,
       items: 3,
       prev : {
         button : ".prev_collection",
