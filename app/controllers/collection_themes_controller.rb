@@ -6,6 +6,7 @@ class CollectionThemesController < ApplicationController
   before_filter :filter_products_by_category, :unless => lambda{ params[:category_id].nil? }
   before_filter :load_catalog_products
 
+  # Toda a lógica dessa página deve ser refeita para dinamizar os dados dela
   def index
     @featured_products = retrieve_featured_products
   end
@@ -46,8 +47,9 @@ class CollectionThemesController < ApplicationController
       end
     end
 
+    # TODO: Lógica duplicada no model payment onde usa o Product#featured_products
     def retrieve_featured_products
-      Setting.collection_section_featured_products.split('#').map do |pair|
+      products = Setting.collection_section_featured_products.split('#').map do |pair|
         values = pair.split('|')
         product = Product.find(values[1].to_i)
         {
@@ -55,6 +57,7 @@ class CollectionThemesController < ApplicationController
           product: product
         }
       end
+      products.select {|h| h[:product].inventory_without_hiting_the_database > 0}
     end
 
 
