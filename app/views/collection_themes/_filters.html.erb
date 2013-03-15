@@ -2,7 +2,7 @@
 <div id="filters_container">
   <%= form_tag(collection_theme_path(@collection_theme.slug), :method => :get, :remote => true, :id => "filter", :name => "filter") do %>
     <%= hidden_field_tag('slug', @collection_theme ? @collection_theme.slug : nil) %>
-    <%= select_tag('category_id', options_for_select([["Todas", nil]]+Category.to_a.select{ |c| c.last != 4 }.map { |v,k| [v.pluralize, k]})) %>
+    <%= select_tag('category_id', options_for_select([["Todas", nil]]+Category.to_a.map { |v,k| [v.pluralize, k]})) %>
     <%= select_tag('sort_filter', options_for_select({"Relevância" => 0, "Menor preço" => 1, "Maior preço" => 2})) %>
     <div id="category_filters"></div>    
   <% end %>
