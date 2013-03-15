@@ -31,7 +31,7 @@
                   <% @product.details.only_specification.each do |detail| %>
                     <tr>
                       <% if detail.translation_token == "Salto" %>
-                        <td><%= [2,4].includes?(@product.category) ? 'Tamanho' : 'Salto' %></td>
+                        <td><%= [2,4].include?(@product.category) ? 'Tamanho' : 'Salto' %></td>
                       <% else %>
                         <td><%= detail.translation_token %></td>
                       <% end %>
