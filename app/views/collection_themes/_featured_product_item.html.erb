@@ -1,6 +1,6 @@
 <li>
   <% unless label.nil? || label.empty? %>
-  <p class="rotulo"><%= label %></p>
+    <p class="rotulo"><b><%= label %></b></p>
   <% end %>
   <%= link_to product, :class => "product_link", :rel => "#{product.id}" do %>
     <%= image_tag(product.catalog_picture, :alt => product.name) %>
