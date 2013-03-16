@@ -232,7 +232,9 @@ $(function(){
     h = $(".exhibition-mode").position().top;
     h += 105;
   }
+
   filter.init();
+
   if($("div#products_amamos").size() > 0) {
     $("div#products_amamos ul").carouFredSel({
       auto: false,
@@ -252,6 +254,11 @@ $(function(){
       }
     });
   };
+
+  $("a.video_link").live("click", function(e) {
+    $("div#modal").dialog("close");
+    e.preventDefault();
+  })
 
   $('#sort_filter, #category_filters').change(function() {
     //TODO: the following lines are duplicated
