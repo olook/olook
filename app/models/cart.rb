@@ -20,6 +20,11 @@ class Cart < ActiveRecord::Base
     has_empty_adjustments? && has_any_full_price_item?
   end
 
+  def add_variants(variant_ids)
+    variants = Variant.where("id in (?)", variant_ids)
+    variants.each { |v| add_item(v) }
+  end
+
   def add_item(variant, quantity=nil, gift_position=0, gift=false)
     #BLOCK ADD IF IS NOT GIFT AND HAS GIFT IN CART
     return nil if self.has_gift_items? && !gift
