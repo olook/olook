@@ -58,7 +58,7 @@ class MenuPresenter < BasePresenter
   end
 
   def stylist
-    render_item("Stylist", h.helena_linhares_path, "stylist", ['stylists#helena_linhares'])
+    render_item("Stylist News", "http://novo-blog.olook.com.br", "stylist", ['stylists#helena_linhares'])
   end
 
   def my_friends
