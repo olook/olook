@@ -2,8 +2,8 @@
 <div id="filters_container">
   <%= form_tag(collection_theme_path(@collection_theme.slug), :method => :get, :remote => true, :id => "filter", :name => "filter") do %>
     <%= hidden_field_tag('slug', @collection_theme ? @collection_theme.slug : nil) %>
-    <div class="select">
-      <%= select_tag('category_id', options_for_select([["Todas", nil]]+Category.to_a.map { |v,k| [v.pluralize, k]}), class: 'custom_select') %>
+    <div class="select a-bg ">
+      <%= select_tag('category_id', options_for_select([["Todas", nil]]+Category.to_a.map { |v,k| [v.pluralize, k]}), class: 'custom_select select-left') %>
     </div>
     <div class="select" style="left:115px">
       <%= select_tag('sort_filter', options_for_select({"Relevância" => 0, "Menor preço" => 1, "Maior preço" => 2}), class: 'custom_select') %>

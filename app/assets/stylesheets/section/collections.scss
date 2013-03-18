@@ -243,21 +243,28 @@ section{margin-top:10px;
               height: 34px;
               cursor: default;
               z-index: 1;
-              background:image-url('moments/sprite.png') right 4px no-repeat !important;
               font-size:11px;
               text-transform:uppercase;
               line-height:18px;
-              width:105px;
+              width:106px;
               text-indent:6px;
+              background: image-url('moments/sprite.png') right 4px no-repeat !important;
+              &.a-bg{
+                width: 93px !important;
+              }
             }
+
             select.custom_select {
               position: absolute;
               line-height: 26px;
-              width: 119px;
+              width: 90px;
               height: 34px;
               margin-right: 10px;
               top: 0;
               left: 10px;
+            }
+            .select-left{
+              width: 90px;
             }
           }
         }
