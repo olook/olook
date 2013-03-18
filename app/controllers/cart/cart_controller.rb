@@ -3,6 +3,7 @@ class Cart::CartController < ApplicationController
   layout "site"
 
   respond_to :html, :js
+  skip_before_filter :authenticate_user!, :only => :add_variants
 
   def show
     @google_path_pixel_information = "Carrinho"
@@ -19,6 +20,12 @@ class Cart::CartController < ApplicationController
     @cart.destroy
     session[:cart_id] = nil
     redirect_to cart_path, notice: "Sua sacola está vazia"
+  end
+
+  def add_variants
+    cart = Cart.find params[:cart_id]
+    cart.add_variants params[:variant_ids]
+    render :show
   end
 
   def update

@@ -11,7 +11,7 @@ module Payments
     end
 
     def send_to_gateway
-      log("Sending transaction to gateway")
+      log("Sending transaction to gateway. Payment ID: #{ payment.try :id }")
       begin
         authorize_response = authorize
         log("Authorize Response: #{authorize_response.inspect}")
@@ -52,14 +52,14 @@ module Payments
         authorize_response = BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code)
 
         order_analysis_service = OrderAnalysisService.new(self.payment, self.credit_card_number, authorize_response)
-        if order_analysis_service.should_send_to_analysis? 
+        if order_analysis_service.should_send_to_analysis?
           log("Sending to analysis")
           clearsale_order_response = order_analysis_service.send_to_analysis
-        else 
+        else
           log("Capturing transaction")
           capture(authorize_response)
         end
- 
+
       rescue Exception => error
         log("[ERROR] Error on processing enqueued request: " + error.message)
         ErrorNotifier.send_notifier("Braspag", error, payment)
@@ -78,7 +78,7 @@ module Payments
     def process_capture_request
       begin
         authorize_response = BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code)
-        capture(authorize_response)    
+        capture(authorize_response)
       rescue Exception => error
         log("[ERROR] Error on capturing payment: " + error)
         ErrorNotifier.send_notifier("Braspag", error, payment)
@@ -97,14 +97,14 @@ module Payments
     end
 
     def authorize
-      log("Sending transaction for authorization")
+      log("Sending transaction for authorization. Payment ID: #{ payment.try :id }")
       gateway_response = web_service_data.authorize_transaction(authorize_transaction_data)
       log("Braspag::Webservice.authorize_transaction_data response: #{gateway_response.inspect}")
-      process_authorize_response(gateway_response)      
+      process_authorize_response(gateway_response)
     end
 
     def capture(authorize_response)
-      log("Sending to capture")
+      log("Sending to capture #{ authorize_response }")
       capture_response = web_service_data.capture_credit_card_transaction(create_capture_credit_card_request(authorize_response))
       log("Transaction capture response: #{authorize_response}")
       process_capture_response(capture_response,authorize_response)
@@ -190,17 +190,17 @@ module Payments
       else
         update_payment_response(Payment::FAILURE_STATUS, authorize_transaction_result[:error_report_data_collection].to_s)
         create_failure_authorize_response(authorize_transaction_result)
-      end    
+      end
     end
 
     def process_capture_response(capture_response, authorize_response)
-      
+
       log("Processing capture response #{capture_response}")
 
-      if capture_response 
-        capture_transaction_result = capture_response[:capture_credit_card_transaction_response][:capture_credit_card_transaction_result] 
+      if capture_response
+        capture_transaction_result = capture_response[:capture_credit_card_transaction_response][:capture_credit_card_transaction_result]
         if capture_transaction_result[:success]
-          create_capture_response(capture_response, authorize_response.identification_code) # capture_transaction_result[:order_data][:order_id]) 
+          create_capture_response(capture_response, authorize_response.identification_code) # capture_transaction_result[:order_data][:order_id])
           update_payment_response(Payment::SUCCESSFUL_STATUS, capture_transaction_result[:transaction_data_collection][:transaction_data_response][:return_message])
           log("Created capture response on database, and payment status updated to SUCCESS")
         else
@@ -293,7 +293,7 @@ module Payments
         )
     end
 
-    private 
+    private
       def logger
         @@logger ||= Logger.new("#{Rails.root}/log/braspag-sender.log")
         @@logger
