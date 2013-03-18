@@ -3,13 +3,11 @@
   <button type="button" class="clear_filter">( limpar )</button>
     <ol class="column_size">
       <% collection_theme_presenter.collection_theme.catalog.cloth_sizes.each do |key, value| %>
-        <% unless key.zero? %>
           <li>
             <%= check_box_tag('cloth_sizes[]', key, false, :id => "size_#{key}") %>
-            <%= label_tag(key, nil, :for => "size_#{key}") %>
+            <%= label_tag(nil, key, :for => "size_#{key}") %>
           </li>
         <% end %>
-      <% end %>
     </ol>
       <%= image_tag 'collections/arrow-white.png', :class => 'arrow arrow-cloth-size', style:"display:none" %>
 </div>
