@@ -20,16 +20,16 @@ class CollectionThemesController < ApplicationController
     def load_products_of_user_size
       # To show just the shoes of the user size at the
       # first time that the liquidations page is rendered
-      params[:shoe_sizes] = [current_user.shoes_size.to_s] if current_user && current_user.shoes_size
+      params[:shoe_sizes] = [current_user.shoes_size.to_s] if params[:shoe_sizes].blank? && current_user && current_user.shoes_size
     end
 
     def filter_products_by_category
-      if (params[:category_id].nil? || params[:category_id] == "")
-        params.delete :category_id
-      else
-        @category_id = params[:category_id].to_i
-      end
-      params.delete (:shoe_sizes) if @category_id != Category::SHOE
+      @category_id = params[:category_id].blank? ? nil : params[:category_id].to_i
+
+      #TODO: Isto está aqui por causa de um problema na CatalogSearchService em
+      #filtrar por shoe_size mesmo fora da categoria shoe. E isso faz com que
+      #outras categorias voltem vazias
+      params.delete(:shoe_sizes) if @category_id != Category::SHOE
     end
 
     def load_catalog_products
@@ -37,7 +37,12 @@ class CollectionThemesController < ApplicationController
       @collection_themes = CollectionTheme.active.order(:position)
       @collection_theme = params[:slug] ? CollectionTheme.find_by_slug_or_id(params[:slug]) : @collection_themes.last
       if @collection_theme
-        @catalog_products = CatalogSearchService.new(params.merge({id: @collection_theme.catalog.id})).search_products
+        # Não podemos apagar o shoe_sizes do params pois na partial dos filtros checa por eles.
+        # Esse comportamento é necessário para não filtrar pelo número do usuário quando ele
+        # desselecionou no form. E não selecionar no partial.
+        catalog_search_service_params = params.merge({id: @collection_theme.catalog.id})
+        catalog_search_service_params.delete(:shoe_sizes) if params[:shoe_sizes].to_a.all? { |ss| ss.blank? }
+        @catalog_products = CatalogSearchService.new(catalog_search_service_params).search_products
         @products_id = @catalog_products.map{|item| item.product_id }.compact
         # params[:id] is into array for pixel iterator
         @categories_id = params[:id] ? [params[:id]] : @collection_themes.map(&:id).compact.uniq
