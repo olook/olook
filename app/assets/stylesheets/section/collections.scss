@@ -349,7 +349,7 @@ section{margin-top:10px;
         	.bt_clear_bag_color{
         		left: -109px;
         		top: 125px !important;
-            margin-top: 10px !important;
+                margin-top: 10px !important;
         	}
         	.bt_clear_bag{
         		top: 108px !important;
@@ -359,6 +359,15 @@ section{margin-top:10px;
         		left: 1px !important;
         		top: 139px !important;
         	}
+		.bt_clear_cloth{
+			left: 1px !important;
+			top: 144px !important;
+		}
+		.bt_clear_cloth_size{
+                top: 160px !important;
+                left: 18px !important;
+                margin-top: 11px !important;
+		}
 
         	h1{
         		display: none;
@@ -387,6 +396,11 @@ section{margin-top:10px;
         			height: auto;
         			left: -200px;
         		}
+			&.open_cloth{
+				width: 200px;
+				height: auto;
+				left: -110px;
+			}
         		&.column{
         			width: 190px;
         			height: auto;
@@ -397,6 +411,14 @@ section{margin-top:10px;
         			height: auto;
         			left: -190px;
         		}
+			&.column_size_cloth{
+				width: 145px;
+				height: auto;
+				left: -55px;
+                    li{
+                      width: 70px;
+                    }
+			}
         		&.open-bags{
         			width: 230px;
         			left: -120px;
