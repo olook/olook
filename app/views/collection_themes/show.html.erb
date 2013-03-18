@@ -7,9 +7,8 @@
 <section id="collections_content">
   <div class="collections_header">
     <%= image_tag @collection_theme.header_image, alt: @collection_theme.header_image_alt, title: @collection_theme.header_image_alt %>
-    <%= link_to "Assista ao vídeo", "#", :class => "video_link", :rel => "#{@collection_theme.video_link}" %>
-
-    <%= link_to "Assista ao vídeo", @collection_theme.video_link, class: "video" unless @collection_theme.video_link.blank?%>
+    <%= (link_to "Assista ao vídeo", "#", :class => "video_link", :rel => "#{@collection_theme.video_link}") unless @collection_theme.video_link.blank?%>
+    <div class="video_description"></div>
   </div>
 
   <div class="collections_filters">
