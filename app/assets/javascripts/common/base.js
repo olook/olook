@@ -29,28 +29,28 @@ var LuhnCheck = (function()
 })();
 
 function slideMenuBar(){
-  
-  var $el, leftPos, newWidth; 
-  
+
+  var $el, leftPos, newWidth;
+
   var $magicLine = $("ul.default_new li#bar"), w = $("ul.default_new li .selected").outerWidth(), l = $("ul.default_new li .selected").position().left ;
-  
+
   $magicLine
   .width(w - 40)
   .css("left", l + 19)
   .data("origLeft", l + 19)
   .data("origWidth", w - 40);
-  
+
   if($("ul.default_new li a").hasClass("selected")){
     $magicLine.fadeIn();
-  }      
+  }
   $("ul.default_new li").find("a").hover(function() {
       $el = $(this);
       leftPos = $el.position().left + 19;
       newWidth = $el.parent().width() - 40;
-      
+
       if(!$magicLine.is(":visible")){
         $magicLine.fadeIn();
-      }  
+      }
       $magicLine.stop().animate({
           left: leftPos,
           width: newWidth
@@ -59,14 +59,14 @@ function slideMenuBar(){
       $magicLine.stop().animate({
           left: $magicLine.data("origLeft"),
           width: $magicLine.data("origWidth")
-      });    
+      });
   });
 
   $(".default_new li").eq(-2).css("background", "none");
 }
 
 
-$(document).ready(function() {	
+$(document).ready(function() {
   initBase.dialogLogin();
   initBase.loadJailImages();
   initBase.customSelect();
@@ -78,15 +78,15 @@ $(document).ready(function() {
   initBase.slideToTop();
 
   setTimeout(function(){slideMenuBar();},3000);
-  
-  
+
+
   /* HIDE <hr/> IN CART BOX */
   if($("#cart_summary .submenu li.product_item").length > 0){
      $("p.freight").next().hide();
   }else{
      $("p.freight").next().show();
   }
-     
+
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if (!msie6 && $('div#wrapper_new_menu').length == 1) {
     var top = $('div#wrapper_new_menu').offset().top - parseFloat($('div#wrapper_new_menu').css('margin-top').replace(/auto/, 0));
@@ -99,7 +99,7 @@ $(document).ready(function() {
       }
     });
   }
-  
+
 
   if($(window).width() < "1200") {
     $("#wrapper_new_menu .menu_new").addClass("smaller");
@@ -315,12 +315,12 @@ $(document).ready(function() {
   	if(ddd == "11" && dig9 == "9")
   		$(tel).setMask("(99)99999-9999");
     else
-     	$(tel).setMask("(99)9999-9999");	  
+     	$(tel).setMask("(99)9999-9999");
   }
   $("input:text.phone").keyup(function(){
 		maskTel(this);
 	});
-   
+
 
   $("input:text.expiration_date").setMask({
     mask: '19/99'
@@ -427,7 +427,7 @@ $(document).ready(function() {
     $(percentageBox).find("span").text(percentage);
   });
 
-  $("div#mask_carousel_showroom ul li a.video_link, div#carousel_lookbooks_product a.video_link, div#carousel_lookbooks a.video_link").live("click", function(e) {
+  $("div#mask_carousel_showroom ul li a.video_link, div#carousel_lookbooks_product a.video_link, div#carousel_lookbooks a.video_link, div.collections_header a.video_link").live("click", function(e) {
     var url = $(this).attr("rel");
     var title = $("<div>").append($(this).siblings(".video_description").clone()).remove().html();
     var youtube_id = initBase.youtubeParser(url);
@@ -495,14 +495,14 @@ initBase = {
   youtubePlayer : function(yt_id) {
     return "<div style='width:791px;height:445px;'><iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&autoplay=1&vq=large' frameborder='0'></iframe></div>";
   },
-  
+
   newModal : function(content){
     var $modal = $("div#modal.promo-olook"), h = $(content).outerHeight(), w = $(content).outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2)), heightDoc = $(document).height(), _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()), _left=Math.max(0, (($(window).width() - w) / 2) + $(window).scrollLeft());
 
     $("#overlay-campaign").css({"background-color": "#000", 'height' : heightDoc}).fadeIn().bind("click", function(){
        $modal.fadeOut();
        $(this).fadeOut();
-    }); 
+    });
 
     $modal.html(content)
     .css({
@@ -515,14 +515,14 @@ initBase = {
     })
    .append('<button type="button" class="close" role="button">close</button>')
    .delay(500).fadeIn().children().fadeIn();
-   
+
    $("#modal button.close").click(function(){
       $modal.fadeOut();
       $("#overlay-campaign").fadeOut();
    })
 
   },
-  
+
   modal : function(content) {
     $("div#modal").html("");
 
@@ -542,7 +542,7 @@ initBase = {
         $("div#modal").hide();
       }
     });
-	
+
 	setTimeout(function(){$("div#modal").dialog( "open" )},1000)
   },
 
