@@ -8,7 +8,7 @@ shoe_size = params[:shoe_sizes].try(:first).try(:to_i) || current_user.try(:shoe
 
       <%= image_tag("common/ajax-loader-product.gif", :alt => product.name, :class => "async", "data-product" => product.catalog_picture, "data-backside" => product.backside_picture, "data-wearing" => product.wearing_picture) %>
       <p><span class="name"><%= product.formatted_name %></span></p>
-      <p class="brand">Olook</p>
+      <p class="brand"><b><%= show_brand_for product %></b></p>
 
       <p class="price">
       <% if product.promotion? %>
