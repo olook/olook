@@ -24,7 +24,13 @@ class CollectionThemesController < ApplicationController
     end
 
     def filter_products_by_category
-      @category_id = params[:category_id].blank? ? nil : params[:category_id].to_i
+      if params[:category_id].blank?
+        @category_id = nil
+        params.delete(:category_id)
+      else
+        @category_id = params[:category_id].to_i
+      end
+
 
       #TODO: Isto está aqui por causa de um problema na CatalogSearchService em
       #filtrar por shoe_size mesmo fora da categoria shoe. E isso faz com que
