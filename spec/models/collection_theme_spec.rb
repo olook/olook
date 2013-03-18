@@ -6,7 +6,6 @@ describe CollectionTheme do
 
   describe "validation" do
     it { should validate_presence_of(:name) }
-    it { collection_theme.should validate_uniqueness_of(:name) }
     it { should validate_presence_of(:slug) }
     it { collection_theme.should validate_uniqueness_of(:slug) }
     it { should have_one(:catalog) }
