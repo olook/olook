@@ -2,10 +2,8 @@
 <produtos>
 	<% @products.each do |product| %>
 	<produto>
-		<codigo>
-			<%= product.id %></codigo>
-		<nome>
-          <%= "#{product.formatted_name}" %></nome>
+		<codigo><%= product.id %></codigo>
+		<nome><%= product.id == 15769 ? "Juliana Jabour " : "" %><%= product.formatted_name %></nome>
 		<descricao>
 			<%= product.description %></descricao>
 		<preco_de>
