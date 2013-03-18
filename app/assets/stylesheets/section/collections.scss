@@ -330,31 +330,34 @@ section{margin-top:10px;
         	}
         	.bt_clear_size{
         		left: 0;
-        		top: 142px;
+        		top: 143px !important;
         	}
         	.bt_clear_color{
-        		left: -18px;
+        		left: -20px;
         		top: 109px;
+            padding-right: 5px;
+            margin-top: 15px;
         	}
         	.bt_clear_heel{
-        		left: -20px;
+        		left: -18px;
         		top: 144px;
         	}
         	.bt_clear_model{
         		left: 2px;
-        		top: 144px;
+        		top: 178px !important;
         	}
         	.bt_clear_bag_color{
-        		left: -19px;
-        		top: 105px;
+        		left: -109px;
+        		top: 125px !important;
+            margin-top: 10px !important;
         	}
         	.bt_clear_bag{
-        		top: 108px;
+        		top: 108px !important;
         		left: 1px;
         	}
         	.bt_clear_accessory{
-        		left: 63px;
-        		top:105px;
+        		left: 1px !important;
+        		top: 139px !important;
         	}
 
         	h1{
@@ -375,6 +378,9 @@ section{margin-top:10px;
         			width: 285px;
         			height: auto;
         			left: -220px;
+              li{
+                width: 100px !important;
+              }
         		}
         		&.open{
         			width: 285px;
