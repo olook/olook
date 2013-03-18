@@ -173,7 +173,7 @@ div#moments {
     		float:left;
     		cursor:pointer;
     		width:100px;
-            .model{
+            img.model{
               display: none;
             }
     		&.opened{background: image-url('moments/sprite.png') right 8px no-repeat;}
