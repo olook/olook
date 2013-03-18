@@ -255,11 +255,6 @@ $(function(){
     });
   };
 
-  $("a.video_link").live("click", function(e) {
-    $("div#modal").dialog("close");
-    e.preventDefault();
-  })
-
   $('#sort_filter, #category_filters').change(function() {
     //TODO: the following lines are duplicated
     $('.loading').show();
