@@ -38,11 +38,11 @@ class CollectionThemePresenter < BasePresenter
   end
 
   def display_cloth_filters
-    h.render :partial => 'shared/filters/cloth_filters', :locals => {:moment_presenter => self} if clothes?
+    h.render :partial => 'shared/filters/cloth_filters', :locals => {:collection_theme_presenter => self} if clothes?
   end
 
   def display_cloth_size_filters
-    h.render :partial => 'shared/filters/cloth_size_filters', :locals => {:moment_presenter => self} if clothes?
+    h.render :partial => 'shared/filters/cloth_size_filters', :locals => {:collection_theme_presenter => self} if clothes?
   end
 
   private
