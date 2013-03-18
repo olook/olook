@@ -341,7 +341,7 @@ section{margin-top:10px;
         		top: 144px;
         	}
         	.bt_clear_model{
-        		left: -20px;
+        		left: 2px;
         		top: 144px;
         	}
         	.bt_clear_bag_color{
@@ -373,22 +373,22 @@ section{margin-top:10px;
 				-webkit-border-radius: 5px;
         		&.color_filter{
         			width: 285px;
-        			height: 90px;
+        			height: auto;
         			left: -220px;
         		}
         		&.open{
         			width: 285px;
-        			height: 160px;
+        			height: auto;
         			left: -200px;
         		}
         		&.column{
         			width: 190px;
-        			height: 125px;
+        			height: auto;
         			left: -125px;
         		}
         		&.column-size{
         			width: 275px;
-        			height: 125px;
+        			height: auto;
         			left: -190px;
         		}
         		&.open-bags{
