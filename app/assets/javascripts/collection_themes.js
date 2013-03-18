@@ -62,10 +62,15 @@ filter.endlessScroll = function(window, document){
 }
 filter.submitAndScrollUp = function(){
   $("form#filter").submit(function() {
+    if($('input[name="shoe_sizes[]"]:checked').length == 0) {
+      $(this).append('<input type="hidden" name="shoe_sizes[]" value="" class="hidden_shoe_sizes" />');
+    } else {
+      $(this).find('.hidden_shoe_sizes').remove();
+    }
     $('.loading').show();
+    $('#category_filters').find('ol, .arrow, .clear_filter').hide();
     var selected_sort = $("select#filter_option").val() ;
     $('#sort_filter').val(selected_sort);
-    // $('#sort_filter').val($("#filter").find("input:checked").val());
     $("#products").fadeOut("slow", function() {
       $(this).fadeIn("slow").html("");
     });
@@ -162,29 +167,6 @@ filter.cleanCategory = function(event){
 
 }
 
-filter.toggleFilter = function(event){
-
-   style = $(event.target).attr('class');
-   style = (style.indexOf("opened") >= 0) ? style.replace("opened", "") : style+" opened";
-
-   $(event.target).attr('class', style);
-   opened = (style.indexOf("opened") >= 0);
-
-   if(opened){
-      $("#filters_container ol:visible").hide();
-      $(event.target).parent().find("ol").show();
-      $(event.target).parent().find("ol").next().show();
-
-      if($(event.target).next().next().find("input[type='checkbox']:checked").length > 0){
-         $(event.target).parent().find("button.clear_filter").show();
-      }
-   } else {
-      $(event.target).parent().find("ol").hide();
-      $(event.target).parent().find("ol").next().hide();
-      $(event.target).parent().find("button.clear_filter").hide();
-   }
-
-}
 filter.bindObjects = function(){
    $('.clear_filter').bind('click', function(event){
       event.preventDefault();
@@ -193,13 +175,24 @@ filter.bindObjects = function(){
    });
 
    $(".filter_type").bind('click', function(event){
-      if($(".opened")){
-        $(".opened").parent().parent().find("ol, .arrow").hide();
-      }
-      $(this).parent().find("ol, .arrow").show();
-      event.preventDefault();
-      event.stopPropagation();
-      //filter.toggleFilter(event);
+     event.preventDefault();
+     event.stopPropagation();
+     var filters = $(this).parent().parent();
+     var clicked_filter = $(this).parent();
+
+     filters.find("ol, .arrow, .clear_filter").hide();
+     if(clicked_filter.find('.filter_type').hasClass('clicked')){
+       clicked_filter.find("ol, .arrow, .clear_filter").hide();
+       filters.find('.filter_type').removeClass('clicked');
+     } else {
+       clicked_filter.find("ol, .arrow").show();
+       if(clicked_filter.find('input:checked').length > 0) {
+         var filter_box_height = clicked_filter.find('ol').height();
+         clicked_filter.find(".clear_filter").css('top', filter_box_height + 20 + 'px').show();
+       }
+       filters.find('.filter_type').removeClass('clicked');
+       clicked_filter.find('.filter_type').addClass('clicked');
+     }
    });
 
 }
@@ -254,11 +247,6 @@ $(function(){
       }
     });
   };
-
-  $("a.video_link").live("click", function(e) {
-    $("div#modal").dialog("close");
-    e.preventDefault();
-  })
 
   $('#sort_filter, #category_filters').change(function() {
     //TODO: the following lines are duplicated
