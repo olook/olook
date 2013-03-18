@@ -64,7 +64,7 @@ div#moments {
       }
     }
   }
-  
+
   div#order_filter {
     width: 380px;
     height: 45px;
@@ -118,27 +118,27 @@ div#moments {
       }
     }
   }
-  
-  
+
+
   section.filters{float:left;margin:10px 0 30px;color:#000;border:solid 1px #A7A9AC;padding:10px 10px 2px;display:none;width:761px;
      h1 {font-family: $avenir;font-size: 12px;font-weight: lighter;text-transform: uppercase;float:left;margin-right:15px;
         b{font-weight:bold;
           span{margin-left:10px;}
         }
      }
-     
+
 	  div#tags{
      li{float:left;margin-right:10px;text-transform:uppercase;font-size:12px;position:relative;line-height:18px;
          button{border:none;background:none;cursor:pointer;width:27px;height:19px;padding:0;font-size:0;font-family:a;line-height:0;background: image-url('moments/sprite.png') right -157px no-repeat;
           &.cleanFilter{font-size:11px;color:#6D6E71;background:none;border:none;font-family:$avenir;cursor:pointer;width:100%;text-transform:none;}
          }
          span.del-txt{font-size: 11px;position: absolute;right: -3px;text-transform: capitalize;top: -23px;display:none;color:#6D6E71;}
-         
+
          &.btn-clean{margin-top:-3px;}
  	   }
    	}
-   	
-    
+
+
   }
   div.exhibition-mode{clear:both;padding:5px 15px 0;border-bottom:solid 1px #CBCBCB;color:#000;height:25px;margin-bottom:35px;
     p{text-transform:uppercase;font-size:11px;float:left;
@@ -154,7 +154,7 @@ div#moments {
       }
     }
   }
-	
+
   div#filters_container {
     width: 180px;
     float: left;
@@ -181,7 +181,7 @@ div#moments {
     	}
       ol {width: 180px;margin: 15px 0 20px 0;padding-bottom:5px;float: left;clear: both;display:none;
         &.open{display:block;}
-			
+
         li {
           margin: 0 0 10px 0;
           label {
@@ -196,9 +196,6 @@ div#moments {
             float: left;
           }
         }
-      }
-      &.shoe_size {
-        display: none;
       }
     }
 	 div#shoe_size_filter {
@@ -250,7 +247,7 @@ div#moments {
      }
 	 }
   }
-	
+
   div#products_container {
     width: 785px;
     overflow: visible;
@@ -290,8 +287,8 @@ div#moments {
             &.warn.percentage{background: image-url('moments/sprite.png') no-repeat 0 -109px;width:60px;height:60px;font-size:14px;font-family:$avenir;text-align:center;
               span{font-size:14px;font-weight:normal}
             }
-          /****** END *****/    
-          } 
+          /****** END *****/
+          }
         }
       /***** OVERRIDE HOVER_SUGGESTIVE ****/
         &:hover{border:0;padding:0}
@@ -301,18 +298,18 @@ div#moments {
             li.spy{margin:0;
               a{width:100%;height:54px;position:absolute;left:0;bottom:44px !important;font-size:16px;font-style:italic;line-height:54px;
                 span{background: image-url('moments/sprite.png') no-repeat right -178px !important;padding:5px 26px 9px 0;}
-                &:hover{span{color:#000;}}  
+                &:hover{span{color:#000;}}
               }
             }
           }
         }
-      /***** END ******/  
+      /***** END ******/
       }
     }
     div#featured {
       clear: both;
     }
-   
+
 
   }
 	div.loading {
@@ -386,14 +383,14 @@ div#moments {
 }
 
 /**** moments hack to webkit ****/
-html.webkit{ 
-  div#moments{ 
-    section.filters{ 
+html.webkit{
+  div#moments{
+    section.filters{
       div#tags {
         li.btn-clean{margin-top:0 !important;}
       }
     }
-  }      
+  }
 }
 html.chrome.win{
   div#moments{
