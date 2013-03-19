@@ -10,9 +10,9 @@ gem 'omniauth', '= 1.0.3'
 gem 'omniauth-facebook'
 gem 'oa-oauth', '~> 0.3.0', :require => 'omniauth/oauth'
 gem 'therubyracer', '~> 0.9.4'
-gem 'resque', '~> 1.20.0'
+gem 'resque', '~> 1.20.0', :require => 'resque/server'
 gem 'resque_mailer', '~> 2.0.2'
-gem 'resque-scheduler', '~>2.0.0', :require => 'resque_scheduler'
+gem 'resque-scheduler', '~>2.0.0', :require => ['resque_scheduler', 'resque_scheduler/server']
 gem 'brcpfcnpj', '= 3.0.4'
 gem 'hpricot'
 gem 'fastercsv'
@@ -100,3 +100,5 @@ group :development, :test do
 end
 gem 'rubber', '~> 2.0'
 gem 'open4'
+gem 'resque-pool'
+gem 'puma'

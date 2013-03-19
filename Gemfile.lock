@@ -316,6 +316,8 @@ GEM
       slop (~> 3.4)
     pry-nav (0.2.3)
       pry (~> 0.9.10)
+    puma (1.6.3)
+      rack (~> 1.2)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -366,6 +368,10 @@ GEM
       redis-namespace (~> 1.0.2)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
+    resque-pool (0.3.0)
+      rake
+      resque (~> 1.20)
+      trollop (~> 1.16)
     resque-scheduler (2.0.0)
       redis (>= 2.0.1)
       resque (>= 1.20.0)
@@ -456,6 +462,7 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
+    trollop (1.16.2)
     tzinfo (0.3.37)
     uglifier (1.0.3)
       execjs (>= 0.3.0)
@@ -542,6 +549,7 @@ DEPENDENCIES
   parallel_tests
   pry
   pry-nav
+  puma
   rack-mini-profiler
   rails (= 3.2.2)
   rails-erd
@@ -551,6 +559,7 @@ DEPENDENCIES
   rb-fsevent
   rb-inotify (~> 0.8.8)
   resque (~> 1.20.0)
+  resque-pool
   resque-scheduler (~> 2.0.0)
   resque_mailer (~> 2.0.2)
   rspec-rails (~> 2.12.0)
