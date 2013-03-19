@@ -3,7 +3,7 @@ class CollectionThemesController < ApplicationController
   respond_to :html, :js
 
   before_filter :load_products_of_user_size, only: [:show]
-  before_filter :filter_products_by_category, :unless => lambda{ params[:category_id].nil? }
+  before_filter :filter_products_by_category
   before_filter :load_catalog_products
 
   # Toda a lógica dessa página deve ser refeita para dinamizar os dados dela
