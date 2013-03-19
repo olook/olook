@@ -189,7 +189,7 @@ filter.bindObjects = function(){
        clicked_filter.find("ol, .arrow").show();
        if(clicked_filter.find('input:checked').length > 0) {
          var filter_box_height = clicked_filter.find('ol').height();
-         clicked_filter.find(".clear_filter").css('top', filter_box_height + 20 + 'px').show();
+         clicked_filter.find(".clear_filter").show();
        }
        filters.find('.filter_type').removeClass('clicked');
        clicked_filter.find('.filter_type').addClass('clicked');
