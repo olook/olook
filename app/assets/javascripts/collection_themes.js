@@ -62,11 +62,6 @@ filter.endlessScroll = function(window, document){
 }
 filter.submitAndScrollUp = function(){
   $("form#filter").submit(function() {
-    if($('input[name="shoe_sizes[]"]:checked').length == 0) {
-      $(this).append('<input type="hidden" name="shoe_sizes[]" value="" class="hidden_shoe_sizes" />');
-    } else {
-      $(this).find('.hidden_shoe_sizes').remove();
-    }
     $('.loading').show();
     $('#category_filters').find('ol, .arrow, .clear_filter').hide();
     var selected_sort = $("select#filter_option").val() ;
