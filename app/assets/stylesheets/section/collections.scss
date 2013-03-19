@@ -197,7 +197,7 @@ section{margin-top:10px;
       }
     }
     .collections_filters{
-      .filters{float:left;margin:0 0 30px;color:#000;border:solid 1px #A7A9AC;padding:10px 10px;width:779px;line-height:20px;display:none;
+      .filters{float:left;margin:0 0 30px;color:#000;border:solid 1px #A7A9AC;padding:10px 10px 5px;width:779px;line-height:20px;display:none;
         h1 {font-family: $avenir;font-size: 12px;font-weight: lighter;text-transform: uppercase;float:left;margin-right:15px;
           b{font-weight:bold;
             span{margin-left:10px;
@@ -221,7 +221,7 @@ section{margin-top:10px;
           }
         }
         #filters_container{
-
+          height:22px;
           #category_filters{
             float: left;
             top: -1px;
@@ -233,13 +233,12 @@ section{margin-top:10px;
           div.select {
             position: relative;
             width: 250px;
-            overflow: auto;
-            display: inline;
+            float:left;
+            /*overflow: auto;
+            display: inline;*/
             span.select {
-              position: absolute;
-              bottom: 0;
+              position: absolute;              
               top: 2px;
-              float: left;
               height: 34px;
               cursor: default;
               z-index: 1;
@@ -248,7 +247,7 @@ section{margin-top:10px;
               line-height:18px;
               width:106px;
               text-indent:6px;
-              background: image-url('moments/sprite.png') right 4px no-repeat !important;
+              background: image-url('moments/sprite.png') right 6px no-repeat !important;
               &.a-bg{
                 width: 93px !important;
               }
