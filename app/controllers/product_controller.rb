@@ -20,7 +20,7 @@ class ProductController < ApplicationController
     @google_pixel_information = @product
     @chaordic_user = ChaordicInfo.user current_user
     @chaordic_product = ChaordicInfo.product @product
-    @chaordic_category = @product.category_humanize.pluralize
+    @chaordic_category = @product.category_humanize
     @variants = @product.variants
 
     @gift = (params[:gift] == "true")
