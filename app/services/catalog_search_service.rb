@@ -15,20 +15,29 @@ class CatalogSearchService
 
   end
 
+  def filter_without_paginate
+    base_process
+    @query
+  end
+
   def search_products
-    add_categories_filter_to_query_base
-
-    @query = prepare_query_joins
-
-    add_category_filter_to_query_base
-    @query.where(@query_base)
+    base_process
+    @query = @query.group("catalog_products.product_id")
       .order(sort_filter, 'name asc')
-      .group("catalog_products.product_id")
       .paginate(page: @params[:page], per_page: 12)
       .includes(product: :variants)
   end
 
   private
+
+  def base_process
+    add_categories_filter_to_query_base
+
+    @query = prepare_query_joins
+
+    add_category_filter_to_query_base
+    @query = @query.where(@query_base)
+  end
 
   def filter_product_by(attribute, parameters)
     @query_base.and(l_products[attribute].in(parameters)).and(Variant.arel_table[:description].in(parameters))
