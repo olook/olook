@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 class BaseMailer < ActionMailer::Base
   default_url_options[:host] = "www.olook.com.br"
-  default :from => "sac notifications <sac.notifications@olook.com.br>"
 
   def self.smtp_settings
     {
