@@ -17,10 +17,8 @@ class CatalogSearchService
 
   def categories_available_for_options
     categories = Category.to_a
-    if catalog_search_service.respond_to?(:filter_without_paginate)
-      categories_in_query = self.filter_without_paginate.group(:category_id).count.keys
-      categories.select! { |opt| categories_in_query.include?(opt.last) }
-    end
+    categories_in_query = filter_without_paginate.group(:category_id).count.keys
+    categories.select! { |opt| categories_in_query.include?(opt.last) }
     categories.unshift(["Todas", nil])
   end
 
