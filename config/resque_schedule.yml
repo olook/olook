@@ -29,6 +29,7 @@ userbase_with_auth_token_and_credits:
   args:
     - userbase_with_auth_token_and_credits
     - base_atualizada_purchases_auth_token_and_credits.csv
+    - false
   description: "Cria arquivo de importação para allinemail"
 
 campaign_emails:
@@ -38,6 +39,7 @@ campaign_emails:
   args:
     - campaign_emails
     - base_atualizada_emails_promocoes.csv
+    - true
   description: "Cria arquivo de importação de emails do lightbox para allinemail"
 
 send_billet_reminder:
@@ -71,6 +73,7 @@ in_cart_mail:
   args:
     - in_cart_mail
     - abandono-%Y-%m-%d.csv
+    - true
     - exact_target.yml
   description: "Cria e envia arquivo com carrinhos abandonados para ftp do exact target"
 
