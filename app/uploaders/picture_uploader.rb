@@ -65,7 +65,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   end
 
   def filename
-    "image-#{generate_token}.#{file.extension}" if original_filename.present?
+    "image-#{generate_token}.#{File.extname(original_filename)}" if original_filename.present?
   end
 
   private

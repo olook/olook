@@ -1,4 +1,4 @@
-<h2>Listing Users</h2>
+<h2>Listando Usuários</h2>
 
 <% content_for :secondary_navigation do %>
   <%= render 'admin/shared/credits_secondary_navigation' %>
@@ -10,7 +10,7 @@
 
     <div class="content">
        <%= form_for([:admin, @search], :url => admin_user_credits_path, :method => :get, :html => {:class => "form"}) do |f| %>
-        
+
         <div class="group">
           <%= f.label :first_name_contains, :class => "label" %>
           <%= f.text_field :first_name_contains, :class => "text_field" %>

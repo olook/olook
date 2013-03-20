@@ -8,7 +8,7 @@ module Abacos
     attr_reader :integration_protocol,
                 :name, :description, :model_number, :category,
                 :width, :height, :length, :weight, :color_category,
-                :color_name, :collection_id, :how_to, :moments, :details, :profiles,
+                :color_name, :collection_id, :how_to, :collection_themes, :details, :profiles,
                 :is_kit, :pre_defined_descriptor, :class_description
 
     def initialize(parsed_data)
@@ -65,14 +65,14 @@ module Abacos
     end
 
     def integrate_catalogs(product)
-      moments_in_catalog = self.moments.each.map do |item|
+      collection_themes_in_catalog = self.collection_themes.each.map do |item|
         begin
-          Moment.find_by_id!(item.to_i)
+          CollectionTheme.find_by_id!(item.to_i)
         rescue ActiveRecord::RecordNotFound => e
           #todo: tratar
         end
       end
-      CatalogService.save_product product, :moments => moments_in_catalog.compact
+      CatalogService.save_product product, :collection_themes => collection_themes_in_catalog.compact
     end
 
     def integrate_attributes(product)
@@ -121,7 +121,7 @@ module Abacos
     end
 
     def create_abacos_kit_variant_data
-      Abacos::Variant.parse_abacos_data ({
+      Abacos::Variant.parse_abacos_data({
         :descritor_pre_definido   => keys_to_symbol(self.pre_defined_descriptor),
         :descricao_classe         => keys_to_symbol(self.class_description),
         :protocolo_produto        => self.integration_protocol,
@@ -145,7 +145,7 @@ module Abacos
         :collection_id          => parse_collection(abacos_product[:descricao_grupo]),
         :details                => parse_details( abacos_product[:caracteristicas_complementares], abacos_product[:descritor_simples] ),
         :how_to                 => parse_how_to( abacos_product[:caracteristicas_complementares] ),
-        :moments                => parse_moments( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
+        :collection_themes      => parse_collection_themes( abacos_product[:categorias_do_site][:rows][:dados_categorias_do_site]),
         :profiles               => parse_profiles( abacos_product[:caracteristicas_complementares] ),
         :is_kit                 => abacos_product[:produto_kit].present? ? abacos_product[:produto_kit] : false,
         :pre_defined_descriptor => abacos_product[:descritor_pre_definido],
@@ -154,15 +154,15 @@ module Abacos
     end
   private
 
-    def self.parse_moments(moments)
-      moments_array = if moments.kind_of?(Array)
-        moments.each.map { |item|
+    def self.parse_collection_themes(collection_themes)
+      collection_themes_array = if collection_themes.kind_of?(Array)
+        collection_themes.each.map { |item|
           item.fetch(:codigo_categoria)
         }
       else
-        [moments.fetch(:codigo_categoria)]
+        [collection_themes.fetch(:codigo_categoria)]
       end
-      moments_array.compact
+      collection_themes_array.compact
     end
 
     # def self.parse_color_category(categories)

@@ -13,44 +13,44 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :code %><br />
+    <%= f.label :code, "Código" %><br />
     <%= f.text_field :code %>
   </div>
   <div class="field">
-    <%= f.label :percentage %>: <%= f.check_box :is_percentage %><br />
-    <strong class="info" >Mark this field if the coupon is percentage</strong>
+    <%= f.label :percentage, "Porcentagem" %>: <%= f.check_box :is_percentage %><br />
+    <strong class="info" >Marque esse campo se o cupom for de porcentagem</strong>
   </div>
   <div class="field">
-    <%= f.label :value %><br />
+    <%= f.label :value, "Valor" %><br />
     <%= f.text_field :value %>
   </div>
   <div class="field">
-    <%= f.label :start_date %><br />
+    <%= f.label :start_date, "Data de início" %><br />
     <%= f.datetime_select :start_date, :default => Time.now %>
   </div>
   <div class="field">
-    <%= f.label :end_date %><br />
+    <%= f.label :end_date, "Data de término" %><br />
     <%= f.datetime_select :end_date, :default => Time.now %>
   </div>
   <div class="field">
-    <%= f.label :remaining_of_coupons %><br />
+    <%= f.label :remaining_of_coupons, "Cupons remanecentes" %><br />
     <strong class="info" >*If you leave this field empty the coupon will be automatically set as unlimited.</strong><br />
-    <%= f.text_field :remaining_amount %> 
+    <%= f.text_field :remaining_amount %>
   </div>
   <div class="field">
-    <%= f.label :unlimited? %><br />
+    <%= f.label :unlimited?, "Ilimitado?"%><br />
     <%= f.check_box :unlimited %>
   </div>
   <div class="field">
-    <%= f.label :active? %><br />
+    <%= f.label :active?, "Ativo?" %><br />
     <%= f.check_box :active %>
   </div>
   <div class="field">
-    <%= f.label :campaign %><br />
-    <%= f.select :campaign, Coupon::COUPON_CONFIG['campaigns'], :prompt => "Select a campaign" %>
+    <%= f.label :campaign, "Campanha" %><br />
+    <%= f.select :campaign, Coupon::COUPON_CONFIG['campaigns'], :prompt => "Selecione a campanha" %>
   </div>
   <div class="field">
-    <%= f.label :campaign_description %><br />
+    <%= f.label :campaign_description, "Descrição da campanha" %><br />
     <%= f.text_field :campaign_description %>
   </div>
     <% if @coupon.new_record? %>

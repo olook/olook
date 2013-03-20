@@ -1,0 +1,12 @@
+<section id="collections_menu">
+  <dl>
+    <% collection_theme_groups.each do |collections_theme_group| %>
+      <dt><%= collections_theme_group.name %></dt>
+      <% collections = collections_theme_group.collection_themes.sort { |a,b| a.position <=> b.position } %>
+      <% while theme = collections.shift do %>
+        <dd class="<%= "last" if collections.empty? %>"><%= link_to theme.name, collection_theme_path(theme.slug)%></dd>
+      <% end %>
+    <% end %>
+  </dl>
+</section>
+

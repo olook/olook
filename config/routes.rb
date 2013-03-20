@@ -38,16 +38,20 @@ Olook::Application.routes.draw do
   match "/tendencias/:name", :to => "lookbooks#show", :as => "lookbook"
   match "/tendencias", :to => "lookbooks#index", :as => "lookbooks"
 
+
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
   match "/promododia" , :to => "liquidations#index", :as => "promododia"
   match "/olooklet" , :to => "liquidations#index", :as => "olooklet"
 
-  #MOMENTS
-  get '/colecoes', to: "moments#index", as: "moments"
-  get '/colecoes/:id', to: "moments#show", as: "moment"
+  #NEW COLLECTIONS
+  get '/colecoes', to: "collection_themes#index", as: "collection_themes"
+  get '/colecoes/*slug', to: "collection_themes#show", as: "collection_theme"
+
+  # NEW COLLECTIONS - TODO
   get '/update_moment', to: "moments#update", as: "update_moment"
+
   # Friendly urls (ok, I know it is not the best approach...)
   match '/sapatos', to: "moments#show", as: "shoes", :defaults => {:category_id => Category::SHOE, :id => 1}
   match '/sneaker', to: "moments#show", as: "sneakers", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["sneaker"]}
@@ -61,11 +65,11 @@ Olook::Application.routes.draw do
   match '/scarpins', to: "moments#show", as: "scarpins", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["scarpin"]}
   match '/anabelas', to: "moments#show", as: "anabelas", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["anabela"]}
 
-
   match '/bolsas', to: "moments#show", as: "bags", :defaults => {:category_id => Category::BAG, :id => 1}
   match '/acessorios', to: "moments#show", as: "accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1}
   match '/oculos', to: "moments#glasses", as: "glasses", :defaults => {:category_id => Category::ACCESSORY, :accessory_subcategories=>["oculos-de-sol"], :id => 1}
   match '/roupas', to: "moments#clothes", as: "clothes", :defaults => {:category_id => Category::CLOTH, :id => 1}
+
 
   #FRIENDS
   match "/membro/:share/:uid", :to => "home#index"
@@ -196,7 +200,9 @@ Olook::Application.routes.draw do
       get :products, :to => "lookbooks#product"
     end
 
-    resources :moments
+    resources :collection_theme_groups
+
+    resources :collection_themes
 
     resources :users, :except => [:create, :new] do
       collection do
