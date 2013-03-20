@@ -40,7 +40,7 @@ class CollectionThemesController < ApplicationController
 
     def load_catalog_products
       @collection_theme_groups = CollectionThemeGroup.order(:position).all
-      @collection_themes = CollectionTheme.active.order(:position)
+      @collection_themes = CollectionTheme.active.order(:position).all
       @collection_theme = params[:slug] ? CollectionTheme.find_by_slug_or_id(params[:slug]) : @collection_themes.last
       if @collection_theme
         # Não podemos apagar o shoe_sizes do params pois na partial dos filtros checa por eles.
