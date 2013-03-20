@@ -48,7 +48,8 @@ class CollectionThemesController < ApplicationController
         # desselecionou no form. E não selecionar no partial.
         catalog_search_service_params = params.merge({id: @collection_theme.catalog.id})
         catalog_search_service_params.delete(:shoe_sizes) if params[:shoe_sizes].to_a.all? { |ss| ss.blank? }
-        @catalog_products = CatalogSearchService.new(catalog_search_service_params).search_products
+        @catalog_search_service = CatalogSearchService.new(catalog_search_service_params)
+        @catalog_products = @catalog_search_service.search_products
         @products_id = @catalog_products.map{|item| item.product_id }.compact
         # params[:id] is into array for pixel iterator
         @categories_id = params[:id] ? [params[:id]] : @collection_themes.map(&:id).compact.uniq
