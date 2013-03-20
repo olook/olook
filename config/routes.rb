@@ -46,7 +46,8 @@ Olook::Application.routes.draw do
   match "/olooklet" , :to => "liquidations#index", :as => "olooklet"
 
   #NEW COLLECTIONS
-  get '/colecoes', to: "collection_themes#index", as: "collection_themes"
+  #get '/colecoes', to: "collection_themes#index", as: "collection_themes"
+  match '/colecoes' => redirect("/colecoes/casual")
   get '/colecoes/*slug', to: "collection_themes#show", as: "collection_theme"
 
   # NEW COLLECTIONS - TODO
