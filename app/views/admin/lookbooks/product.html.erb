@@ -16,13 +16,13 @@
   </div>
  	<table class="table">
     <tr>
-      <th style="width:100px">Product</th>
-      <th>Collection</th>
+      <th style="width:100px">Produto</th>
+      <th>Coleção</th>
       <th>ID</th>
-      <th>Profile</th>
-      <th style="width:125px">Name</th>
-      <th>Inventory</th>
-      <th>Visible?</th>
+      <th>Perfil</th>
+      <th style="width:125px">Nome</th>
+      <th>Estoque</th>
+      <th>Visível?</th>
       <th>Select</th>
       <th>Criteo</th>
     </tr>
@@ -37,12 +37,12 @@
       <td><%= product.profiles.first.name if product.profiles.size > 0 %></td>
       <td><%= product.name %></td>
       <td><%= product.inventory %></td>
-      <td><%= product.is_visible? ? "Yes" : "No" %></td>
+      <td><%= product.is_visible? ? "Sim" : "Não" %></td>
       <td><%= check_box_tag "lookbook[product_list][#{product.id}]", "1", @lookbook.products.detect{ |d| d == product } %></td>
       <td><%= check_box_tag "lookbook[product_criteo][#{product.id}]", "1", related %></td>
     </tr>
 <% end %>
-  </table>  
+  </table>
   <div class="actions">
     <%= f.submit %>
   </div>

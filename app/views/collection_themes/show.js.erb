@@ -1,0 +1,11 @@
+<%= render "display_products", :catalog_products => @catalog_products %>
+//filter.setMouseOverOnImages();
+filter.showAllImages();
+<% category_symbol = Category.key_for(params[:category_id].to_i) %>
+<% unless category_symbol.blank? %>
+  $("#category_filters").fadeIn("slow").html('<%= escape_javascript( render partial: "#{category_symbol.to_s}_filters") %>');
+<% end %>
+
+filter.seeAll();
+filter.selectedFilter();
+filter.bindObjects();

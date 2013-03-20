@@ -1,0 +1,25 @@
+<div class="filter main bag_models">
+  <% unless is_moment_page? %>
+  <h1 class="purse">BOLSAS </h1>
+  <% end %>
+  <p class="filter_type opened">Modelo<%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
+  <button type="button" class="clear_filter bt_clear_bag">[ limpar ]</button>
+  <ol class="open-bags">
+    <!--li>
+      <%= check_box_tag "select_all_bags", 1, params[:select_all_bags], :class => "select_all" %>
+      <%= label_tag "select_all_bags", "Todas as bolsas" %>
+    </li-->
+    <% collection_theme_presenter.collection_theme.catalog.bags.each do |subcategory,label| %>
+      <% unless subcategory.nil? && label.nil? %>
+        <li>
+          <%= check_box_tag('bag_subcategories[]', subcategory, params[:bag_subcategories] && params[:bag_subcategories].include?(subcategory) || params[:select_all_bags], :id => subcategory) %>
+          <%= label_tag(label, nil, :for => subcategory) %>
+        </li>
+     <% end %>
+   <% end %>
+  </ol>
+  <%= image_tag 'collections/arrow-white.png', :class => 'arrow arrow-bag', style:"display:none" %>
+
+</div>
+
+

@@ -1,0 +1,9 @@
+<h2>Criando um Grupo de Temas</h2>
+
+<div class="inner">
+  <%= render 'form' %>
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Back', admin_collection_theme_groups_path %></li>
+<% end %>

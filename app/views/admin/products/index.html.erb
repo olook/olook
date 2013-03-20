@@ -1,4 +1,4 @@
-<h2>Listing products</h2>
+<h2>Listando produtos</h2>
 <%= form_tag(sync_products_admin_products_path, :id => 'sync_products') do %>
   <% if @sync_event.errors.any? %>
     <div id="error_explanation">
@@ -10,19 +10,19 @@
       </ul>
     </div>
   <% end %>
-  <%= submit_tag('Sync products', class: 'button info') %>
+  <%= submit_tag('Sincronizar produtos', class: 'button info') %>
 <% end %>
 
 <div class="search">
-  <h3>Search options:</h3>
+  <h3>Opções de procura:</h3>
 <%= form_tag(admin_products_path, method: :get) do %>
   <%= hidden_field_tag :s, params[:s] %>
   <%= hidden_field_tag :d, params[:d] %>
-  <%= search_field_tag :q, params[:q], {placeholder: 'Name or Model number'} %>
-  <%= select_tag :col, grouped_options_for_select(@collections, params[:col]), {prompt: 'Collection'} %>
-  <%= select_tag :cat, options_for_select(@categories, params[:cat]), {prompt: 'Category'} %>
-  <%= select_tag :p, options_from_collection_for_select(@profiles, "id", "name", params[:p]), {prompt: 'Profile'} %>
-  <%= button_tag 'Search', name: nil, type: 'submit', :class => 'button' %>
+  <%= search_field_tag :q, params[:q], {placeholder: 'Nome ou número'} %>
+  <%= select_tag :col, grouped_options_for_select(@collections, params[:col]), {prompt: 'Coleção'} %>
+  <%= select_tag :cat, options_for_select(@categories, params[:cat]), {prompt: 'Categoria'} %>
+  <%= select_tag :p, options_from_collection_for_select(@profiles, "id", "name", params[:p]), {prompt: 'Perfil'} %>
+  <%= button_tag 'Procurar', name: nil, type: 'submit', :class => 'button' %>
 <% end %>
 </div>
 
@@ -35,18 +35,18 @@
   <table class="table">
     <tr>
       <th><%= sortable('name') %></th>
-      <th>Model #</th>
-      <th>Liquidation</th>
+      <th>Modelo #</th>
+      <th>Liquidação</th>
       <th><%= sortable('category') %></th>
-      <th>Visible?</th>
-      <th>Price</th>
-      <th>Inventory</th>
-      <th>Initial</th>
-      <th>Color</th>
-      <th>Profile</th>
+      <th>Visível?</th>
+      <th>Preço</th>
+      <th>Estoque</th>
+      <th>Inicial</th>
+      <th>Cor</th>
+      <th>Perfil</th>
       <th><%= sortable('collection_id', 'Collection') %></th>
-      <th style="width:100px">Picture</th>
-      <th>Sample</th>
+      <th style="width:100px">Imagem</th>
+      <th>Amostra</th>
       <th></th>
     </tr>
   <% @products.each do |product| %>
