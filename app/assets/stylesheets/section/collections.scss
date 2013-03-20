@@ -180,6 +180,7 @@
     &.last{margin-bottom:25px;}
     a{text-decoration:none;color:#000;
       &:hover{color:#EF3742;}
+      &.selected{color:#EF3742;}
     }
 
   }
@@ -240,7 +241,7 @@ section{margin-top:10px;
               position: absolute;              
               top: 2px;
               height: 34px;
-              cursor: default;
+              cursor: pointer;
               z-index: 1;
               font-size:11px;
               text-transform:uppercase;
@@ -317,6 +318,7 @@ section{margin-top:10px;
         	p{
         		color: black;
         		margin-left: 15px;
+            cursor:pointer;
         	}
         	.clear_filter{
         		background: none;
