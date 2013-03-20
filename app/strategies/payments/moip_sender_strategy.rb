@@ -9,6 +9,7 @@ module Payments
     end
 
     def send_to_gateway
+      return billet_payment if payment.is_a? Billet
       begin
         log("Calling Moip::Client.checkout")
         self.response = MoIP::Client.checkout(payment_data)
@@ -26,8 +27,22 @@ module Payments
       end
     end
 
+    # Temporary implementation of Santander boleto, just to get it out the door
+    # TODO: move this out to its own strategy
+    def billet_payment
+      payment.url = billet_url
+      payment.gateway_response_status = Payment::SUCCESSFUL_STATUS
+      set_payment_gateway
+      payment.save!
+      payment
+    end
+
+    def billet_url
+      "/pagamentos/boleto/#{payment.id}"
+    end
+
     def payment_successful?
-        payment.gateway_response_status == Payment::SUCCESSFUL_STATUS && payment.gateway_transaction_status != Payment::CANCELED_STATUS
+      payment.gateway_response_status == Payment::SUCCESSFUL_STATUS && payment.gateway_transaction_status != Payment::CANCELED_STATUS
     end
 
     def save_payment_url!
@@ -108,6 +123,7 @@ module Payments
     end
 
     private
+
       def log(message, level=:info)
         Rails.logger.send(level, message)
       end

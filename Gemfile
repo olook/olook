@@ -55,6 +55,7 @@ gem 'business_time'
 gem "rails-settings-cached"
 
 gem 'rack-mini-profiler'
+gem "boleto_bancario", require: false
 
 group :production, :staging do
   gem 'unicorn', '~> 4.1.1'
