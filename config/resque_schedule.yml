@@ -1,3 +1,9 @@
+send_braspag_capture_warn:
+  cron: "0 5 * * *"
+  class: SendCaptureWarnWorker
+  queue: order_status
+  description: "Envia email avisando pagamentos que precisam ser analizados com mais atenção"
+
 update_inventory:
   cron: "*/5 * * * *"
   class: Abacos::UpdateInventory
