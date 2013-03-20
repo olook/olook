@@ -2,16 +2,6 @@ class SearchController < ApplicationController
   respond_to :json
 
   def index
-<<<<<<< HEAD
-  end
-
-  def product_suggestions
-    render json: ProductSearch.terms_for(params[:term]) if params[:term].length >= 3
-  end
-
-=======
-
-  
   end
 
   def show
@@ -20,6 +10,10 @@ class SearchController < ApplicationController
     response = Net::HTTP.get_response(url)
 
     @hits = JSON.parse(response.body)["hits"]
+  end
+
+  def product_suggestions
+    render json: %w[foo bar]
   end
 
   def q
@@ -36,7 +30,4 @@ class SearchController < ApplicationController
     puts suggestions.flatten
     render json: suggestions.flatten
   end
-
-
->>>>>>> search engine: first version
 end
