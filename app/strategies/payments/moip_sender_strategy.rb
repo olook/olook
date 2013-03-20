@@ -9,7 +9,7 @@ module Payments
     end
 
     def send_to_gateway
-      return billet_payment if payment.is_a? Billet
+      return billet_payment if payment_is_billet && (santander_is_active || from_olook_user)
       begin
         log("Calling Moip::Client.checkout")
         self.response = MoIP::Client.checkout(payment_data)
@@ -40,6 +40,19 @@ module Payments
     def billet_url
       "/pagamentos/boleto/#{payment.id}"
     end
+
+    def payment_is_billet
+      payment.is_a? Billet
+    end
+
+    def santander_is_active
+      Setting.santander_billet
+    end
+
+    def from_olook_user
+      payment.user.email =~ /@olook.com/
+    end
+    ## End Santander billet 
 
     def payment_successful?
       payment.gateway_response_status == Payment::SUCCESSFUL_STATUS && payment.gateway_transaction_status != Payment::CANCELED_STATUS

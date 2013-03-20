@@ -113,7 +113,6 @@ describe Payments::MoipSenderStrategy do
 
       subject.payment_data.should == expected
     end
-
   end
 
   context "#payment_successful" do
@@ -150,7 +149,6 @@ describe Payments::MoipSenderStrategy do
     it "should correct a wrong mask" do
       subject.format_telephone("(11)91234-567").should eq("(11)9123-4567")
     end
-
   end
 
 end
