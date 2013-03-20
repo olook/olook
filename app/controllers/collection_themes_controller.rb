@@ -39,7 +39,7 @@ class CollectionThemesController < ApplicationController
     end
 
     def load_catalog_products
-      @collection_theme_groups = CollectionThemeGroup.includes(:collection_themes).order(:position).all
+      @collection_theme_groups = CollectionThemeGroup.order(:position).all
       @collection_themes = CollectionTheme.active.order(:position)
       @collection_theme = params[:slug] ? CollectionTheme.find_by_slug_or_id(params[:slug]) : @collection_themes.last
       if @collection_theme
