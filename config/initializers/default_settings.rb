@@ -70,3 +70,6 @@ Setting.defaults[:image_expiration_period_in_days] = "1"
 
 # Featured products for the collection section ("Label|id#Label|id")
 Setting.defaults[:collection_section_featured_products] = "Teste|8554#|10226#Bla|11445#Categoria 1|11467#Categoria 2|11443#Lançamento!|11463"
+
+# Santander billet
+Settings.defaults[:santander_billet] = false
