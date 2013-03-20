@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <h3>Pedidos que ainda que foram autorizados porém ainda não capturados pela Braspag</h3>
+    <table>
+      <tr>
+        <th>ID do pagamento:</th>
+        <th>Código Braspag:</th>
+        <th>Criado em:</th>
+      </tr>
+      <tr>
+        <% @warn_payments.each do |payment| %>
+          <td><%= payment[:id] %></td>
+          <td><%= payment[:identification_code] %></td>
+          <td><%= payment[:created_at].strftime("%d/%m/%Y") %></td>
+        <% end %>
+      </tr>
+    </table>
+  </body>
+</html>
+
