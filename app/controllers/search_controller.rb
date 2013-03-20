@@ -5,7 +5,7 @@ class SearchController < ApplicationController
   end
 
   def product_suggestions
-    render json: ProductSearch.terms_for(params[:term])
+    render json: ProductSearch.terms_for(params[:term]) if params[:term].length >= 3
   end
 
 end
