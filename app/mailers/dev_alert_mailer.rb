@@ -14,8 +14,8 @@ class DevAlertMailer < ActionMailer::Base
     }
   end
 
-  def braspag_capture_warn
-    @warn_payments = BraspagAuthorizeResponse.find_by_sql("select p.id, a.identification_code, p.state, a.created_at from braspag_authorize_responses a left join braspag_capture_responses c  on a.identification_code = c.identification_code join payments p on a.identification_code = p.identification_code  where c.id is null and a.status = 1 and a.created_at > #{Time.zone.today - 5.days} and p.state <> 'cancelled' order by a.created_at desc")
+  def braspag_capture_warn(warn_payments)
+    @warn_payments = warn_payments
     mail(:to => "incidentes@olook.com.br", :subject => "Pedidos que deveriam ter sido capturados pela braspag")
   end
 end
