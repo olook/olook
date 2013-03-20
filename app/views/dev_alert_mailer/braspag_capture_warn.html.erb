@@ -4,17 +4,17 @@
   </head>
   <body>
     <h3>Pedidos que ainda que foram autorizados porém ainda não capturados pela Braspag</h3>
-    <table>
-      <tr>
+    <table style="font-family:'Lucida Sans Unicode','Lucida Grande',Sans-Serif;font-size: 12px;background: #fff;margin: 45px;width: 480px;border-collapse: collapse;text-align: left;">
+      <tr style="font-size: 14px;font-weight: normal;padding: 10px 8px;border-bottom: 2px solid #6678b1;">
         <th>ID do pagamento:</th>
         <th>Código Braspag:</th>
         <th>Criado em:</th>
       </tr>
-      <tr>
+      <tr style="padding: 9px 8px 0px 8px;">
         <% @warn_payments.each do |payment| %>
-          <td><%= payment[:id] %></td>
-          <td><%= payment[:identification_code] %></td>
-          <td><%= payment[:created_at].strftime("%d/%m/%Y") %></td>
+          <td valign="top" style="padding:15px 0 0 15px"><%= payment[:id] %></td>
+          <td valign="top" style="padding:15px 0 0 15px"><%= payment[:identification_code] %></td>
+          <td valign="top" style="padding:15px 0 0 15px"><%= payment[:created_at].strftime("%d/%m/%Y") %></td>
         <% end %>
       </tr>
     </table>
