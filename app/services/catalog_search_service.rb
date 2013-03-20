@@ -22,9 +22,13 @@ class CatalogSearchService
     categories.unshift(["Todas", nil])
   end
 
+  def cloth_sizes_available
+    filter_without_paginate.group('catalog_products.cloth_size').count.keys
+  end
+
   def search_products
     base_process
-    @query = @query.group("catalog_products.product_id")
+    @query.group("catalog_products.product_id")
       .order(sort_filter, 'name asc')
       .paginate(page: @params[:page], per_page: 12)
       .includes(product: :variants)
@@ -33,6 +37,7 @@ class CatalogSearchService
   private
 
   def filter_without_paginate
+    return @query if @query.respond_to?(:to_sql)
     base_process
     @query
   end

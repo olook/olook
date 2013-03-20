@@ -2,12 +2,16 @@
   <p class="filter_type">Tamanho<%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
   <button type="button" class="clear_filter bt_clear_cloth_size">[ limpar ]</button>
     <ol class="column_size_cloth">
-      <% collection_theme_presenter.collection_theme.catalog.cloth_sizes.each do |key, value| %>
-          <li>
-            <%= check_box_tag('cloth_sizes[]', key,  params[:cloth_sizes] && params[:cloth_sizes].include?(key), :id => "size_#{key}") %>
-            <%= label_tag(nil, key, :for => "size_#{key}") %>
-          </li>
-        <% end %>
+      <%- sizes_available = @catalog_search_service && @catalog_search_service.cloth_sizes_available -%>
+      <% collection_theme_presenter.collection_theme.catalog.cloth_sizes.to_a.sort { |a,b|
+          ProductPresenter::SIZES_TABLE[a.to_s] <=> ProductPresenter::SIZES_TABLE[b.to_s]
+        }.each do |size| %>
+        <%- next unless sizes_available.include?(size) -%>
+        <li>
+          <%= check_box_tag('cloth_sizes[]', size,  params[:cloth_sizes] && params[:cloth_sizes].include?(size), :id => "size_#{size}") %>
+          <%= label_tag(nil, size, :for => "size_#{size}") %>
+        </li>
+      <% end %>
     </ol>
       <%= image_tag 'collections/arrow-white.png', :class => 'arrow arrow-cloth-size', style:"display:none" %>
 </div>
