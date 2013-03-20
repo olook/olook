@@ -1,0 +1,37 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/collections" %>
+<% end %>
+
+<%= render "menu", collection_theme_groups: @collection_theme_groups %>
+
+<section id="collections_content">
+  <div id="home_collections">
+    <div class="banner_principal">
+      <%= link_to image_tag("collections/full_banner.jpg", alt: "Neon", title: "Neon"), collection_theme_path(slug: 'neon') %>
+    </div>
+    <div class="tropicaliente">
+      <%= link_to image_tag("collections/destaque_colecoes_juliana_jabour.jpg", alt: "Juliana Jabour", title: "Juliana Jabour"), collection_theme_path(slug: 'juliana-jabour') %>
+      <p class="collection">COLEÇÃO JULIANA JABOUR</p>
+      <p class="resume">A descolada estilista desenvolveu uma coleção para a olook.</p>
+      <p class="looks"><%= link_to "veja os looks", collection_theme_path('juliana-jabour'), target: "_blank" %></p>
+    </div>
+    <div class="andre_lima">
+      <%= link_to image_tag("collections/andre_lima_bg.jpg", alt: "André Lima", title: "André Lima"), collection_theme_path('andre-lima') %>
+      <p class="collection">COLEÇÃO ANDRÉ LIMA</p>
+      <P class="resume">Sapatos exclusivos do estilista André Lima para a olook.</P>
+      <p class="looks"><%= link_to 'veja os looks', collection_theme_path('andre-lima'), target: "_blank" %></p>
+    </div>
+  </div>
+  <button type="button" class="nav bt_left prev_collection">Anterior</button>
+  <div id="amamos">
+    <h1>NÓS AMAMOS</h1>
+    <div id="products_amamos">
+      <%= render "featured_products", featured_products: @featured_products %>
+    </div>
+    <div class="pagination"></div>
+  </div>
+  <button type="button" class="nav bt_right next_collection">Próximo</button>
+</section>
+<% content_for :footer do %>
+  <%= javascript_include_tag "collection_themes" %>
+<% end %>

@@ -1,0 +1,24 @@
+<div class="filter main accessory_models">
+  <% unless is_moment_page? %>
+    <h1 class="accessories">ACESSÓRIOS</h1>
+  <% end %>
+  <p class="filter_type opened">Modelo<%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
+  <button type="button" class="clear_filter bt_clear_accessory">[ limpar ]</button>
+  <ol class="open-accessory">
+    <!--li>
+      <%= check_box_tag "select_all_accessories", 1, params[:select_all_accessories], :class => "select_all" %>
+      <%= label_tag "select_all_accessories", "Todos os acessórios" %>
+    </li-->
+    <% collection_theme_presenter.collection_theme.catalog.accessories.each do |subcategory, label| %>
+      <% unless subcategory.nil? && label.nil? %>
+        <li>
+          <%= check_box_tag('accessory_subcategories[]', subcategory, params[:accessory_subcategories] && params[:accessory_subcategories].include?(subcategory) || params[:select_all_accessories], :id => subcategory) %>
+          <%= label_tag(label, nil, :for => subcategory) %>
+        </li>
+      <% end %>
+    <% end %>
+  </ol>
+  <%= image_tag 'collections/arrow-white.png', :class => 'arrow arrow-shoes', style:"display:none" %>
+</div>
+
+

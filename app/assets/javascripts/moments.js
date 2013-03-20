@@ -228,8 +228,10 @@ filter.cleanFilter = function(){
 }
 
 $(function(){
-   h = $(".exhibition-mode").position().top;
-   h += 105;
+  if($(".exhibition-mode").position()){
+    h = $(".exhibition-mode").position().top;
+    h += 105;
+  }
   filter.init();
 
   $('#filter_option').change(function() {

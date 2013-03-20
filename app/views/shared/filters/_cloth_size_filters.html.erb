@@ -1,0 +1,13 @@
+<div class="filter main">
+  <p class="filter_type">Tamanho<%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
+  <button type="button" class="clear_filter bt_clear_cloth_size">[ limpar ]</button>
+    <ol class="column_size_cloth">
+      <% collection_theme_presenter.collection_theme.catalog.cloth_sizes.each do |key, value| %>
+          <li>
+            <%= check_box_tag('cloth_sizes[]', key,  params[:cloth_sizes] && params[:cloth_sizes].include?(key), :id => "size_#{key}") %>
+            <%= label_tag(nil, key, :for => "size_#{key}") %>
+          </li>
+        <% end %>
+    </ol>
+      <%= image_tag 'collections/arrow-white.png', :class => 'arrow arrow-cloth-size', style:"display:none" %>
+</div>

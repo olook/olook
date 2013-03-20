@@ -31,7 +31,7 @@
 
     <%# TODO: use a presenter to wrap these both logic %>
     <% if Campaign.activated_campaign && Campaign.activated_campaign.lightbox? %>
-      <%= render :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => Campaign.activated_campaign.link}  %>
+      <%= render :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => collection_themes_path}  %>
     <% end %>
     <%= render "shared/modal/liquidation" if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
 
