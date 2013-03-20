@@ -48,6 +48,7 @@ Olook::Application.routes.draw do
   #NEW COLLECTIONS
   #get '/colecoes', to: "collection_themes#index", as: "collection_themes"
   get '/colecoes/*slug', to: "collection_themes#show", as: "collection_theme"
+  get '/colecoes/*slug', to: "collection_themes#show", as: "collection_themes"
   match '/colecoes' => redirect("/colecoes/andre-lima")
 
   # NEW COLLECTIONS - TODO
