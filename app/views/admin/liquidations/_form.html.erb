@@ -12,22 +12,22 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name, "Nome" %><br />
     <%= f.text_field :name %>
   </div>
 
   <div class="field">
-    <%= f.label :description %><br />
+    <%= f.label :description, "Descrição" %><br />
     <%= f.text_field :description %>
   </div>
 
   <div class="field">
-    <%= f.label :visible %><br />
+    <%= f.label :visible, "Visível" %><br />
     <%= f.check_box :visible %>
   </div>
 
   <div class="field">
-    <%= f.label :show_advertise, "Exibe propaganda padrao?" %><br />
+    <%= f.label :show_advertise, "Exibe propaganda padrão?" %><br />
     <%= f.check_box :show_advertise %>
   </div>
 
@@ -44,7 +44,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :big_banner %>*<br />
+    <%= f.label :big_banner, "Banner grande" %>*<br />
     <% if @liquidation.big_banner? %>
       <%= image_tag(@liquidation.big_banner_url)  %><br />
       <p>
@@ -55,15 +55,15 @@
     <%= f.file_field :big_banner %>
   </div>
 
-  * Big banner tem prioridade sobre teaser_banner + carrossel
+  * Banner grande tem prioridade sobre teaser_banner + carrossel
 
   <div class="field">
-    <%= f.label :starts_at %><br />
+    <%= f.label :starts_at, "Início em" %><br />
     <%= f.datetime_select :starts_at %>
   </div>
 
   <div class="field">
-    <%= f.label :ends_at %><br />
+    <%= f.label :ends_at, "Término em" %><br />
     <%= f.datetime_select :ends_at %>
   </div>
 

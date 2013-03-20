@@ -1,13 +1,13 @@
-<h2>Listing Admins</h2>
+<h2>Listando Administradores</h2>
 
 <div class="inner">
   <table class="table">
     <tr>
       <th>ID</th>
-      <th>First Name</th>
-      <th>Last Name</th>
+      <th>Primeiro nome</th>
+      <th>Último nome</th>
       <th>Email</th>
-      <th>Role</th>
+      <th>Permissão</th>
       <th></th>
       <th></th>
       <th></th>
@@ -20,9 +20,9 @@
       <td><%= admin.last_name%></td>
       <td><%= admin.email%></td>
       <td><%= admin.role.name %></td>
-      <td><%= link_to 'Show', admin_admin_path(admin), :class => 'button' %></td>
-      <td><%= link_to 'Edit', edit_admin_admin_path(admin), :class => 'button' %></td>
-      <td><%= link_to 'Destroy', admin_admin_path(admin), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
+      <td><%= link_to 'Mostrar', admin_admin_path(admin), :class => 'button' %></td>
+      <td><%= link_to 'Editar', edit_admin_admin_path(admin), :class => 'button' %></td>
+      <td><%= link_to 'Apagar', admin_admin_path(admin), confirm: 'Tem certeza?', method: :delete, :class => 'button danger' %></td>
     </tr>
   <% end %>
   </table>
@@ -31,5 +31,5 @@
 </div>
 
 <% content_for :secondary_navigation do %>
-  <li><%= link_to 'New Admin', new_admin_admin_path %></li>
+  <li><%= link_to 'Novo Administrador', new_admin_admin_path %></li>
 <% end %>

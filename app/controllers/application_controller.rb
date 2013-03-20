@@ -15,7 +15,6 @@ class ApplicationController < ActionController::Base
                 :show_current_liquidation?,
                 :show_current_liquidation_advertise?,
                 :current_cart,
-                :current_moment,
                 :current_referer
 
   rescue_from CanCan::AccessDenied do  |exception|
@@ -76,16 +75,12 @@ class ApplicationController < ActionController::Base
       current_liquidation.try(:show_advertise?)
     end
 
-    def current_moment
-      Moment.active.first
-    end
-
     def current_referer
       session[:return_to] = case request.referer
         when /produto|sacola/ then
           session[:return_to] ? session[:return_to] : nil
         when /colecoes/ then
-          { text: "Voltar para coleções", url: moments_path }
+          { text: "Voltar para coleções", url: collection_themes_path }
         when /suggestions/ then
           session[:recipient_id] ? { text: "Voltar para as sugestões", url: gift_recipient_suggestions_path(session[:recipient_id]) } : nil
         when /gift/ then

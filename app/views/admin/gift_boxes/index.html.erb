@@ -1,4 +1,4 @@
-<h2>Listando Gift Boxes</h2>
+<h2>Listando boxes de presentes</h2>
 
 <div class="inner">
   <table class="table">
@@ -15,12 +15,12 @@
       <td><%= gift_box.active ? 'Sim' : 'Não' %></td>
       <td><%= link_to 'Mostrar', admin_gift_box_path(gift_box), :class => 'button' %></td>
       <td><%= link_to 'Editar', edit_admin_gift_box_path(gift_box), :class => 'button' %></td>
-      <td><%= link_to 'Deletar', admin_gift_box_path(gift_box), confirm: 'Tem certeza?', method: :delete, :class => 'button danger' %></td>
+      <td><%= link_to 'Apagar', admin_gift_box_path(gift_box), confirm: 'Tem certeza?', method: :delete, :class => 'button danger' %></td>
     </tr>
   <% end %>
   </table>
  </div>
 
 <% content_for :secondary_navigation do %>
-  <li><%= link_to 'New Gift Box', new_admin_gift_box_path %></li>
+  <li><%= link_to 'Novo Boxe de presente', new_admin_gift_box_path %></li>
 <% end %>

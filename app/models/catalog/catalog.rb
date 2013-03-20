@@ -38,8 +38,7 @@ class Catalog::Catalog < ActiveRecord::Base
   end
 
   def cloth_sizes
-    in_category(Category::CLOTH).order("cloth_size asc").map { |p| p.cloth_size }.compact
-    # in_category(Category::CLOTH).group(:shoe_size).order("shoe_size asc").map { |p| p.shoe_size }.compact
+    in_category(Category::CLOTH).group(:cloth_size).order("cloth_size asc").map { |p| p.cloth_size }.compact
   end
 
   def heels
