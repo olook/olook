@@ -2,8 +2,7 @@ class SearchController < ApplicationController
   respond_to :json
 
   def index
-
-  
+    #render json: %w[foo bar]
   end
 
   def show
@@ -12,6 +11,10 @@ class SearchController < ApplicationController
     response = Net::HTTP.get_response(url)
 
     @hits = JSON.parse(response.body)["hits"]
+  end
+
+  def product_suggestions
+    render json: %w[foo bar]
   end
 
   def q

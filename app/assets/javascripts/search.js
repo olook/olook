@@ -2,8 +2,8 @@
 // All this logic will automatically be available in application.js.
 $(function() {
 
-  $("#q").autocomplete({
-    source: "/search/q"
-  });
+    $("#search_product").autocomplete({
+        source: "/search/product_suggestions"
+    });
 
 });

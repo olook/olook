@@ -1,6 +1,6 @@
 <%= form_tag(search_show_path, method: :get, remote: :true, html: {id: "search_form"}) do  %>
 
-  <%= text_field_tag "q" %>
+  <%= text_field_tag "q",nil, id: "search_product" %>
   <%= submit_tag "Buscar" %>
 <% end %>
 
@@ -9,6 +9,6 @@
 </div>
 
 <%= content_for :footer do %>
-  <%= javascript_include_tag "jquery-ui" %>
+  <%= javascript_include_tag "ui_v1.10/jquery-ui-1.10.2.custom.min" %>
   <%= javascript_include_tag "search" %>
 <% end %>
