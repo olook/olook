@@ -70,7 +70,7 @@ class MenuPresenter < BasePresenter
   end
 
   def collection_themes
-    render_item("Coleções", "/colecoes/andre-lima", "collection_themes", ["collection_themes#index"])
+    render_item("Coleções", h.collection_themes_path, "collection_themes", ["collection_themes#index"])
   end
 
   def categories
