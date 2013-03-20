@@ -14,7 +14,7 @@ class SearchController < ApplicationController
   end
 
   def product_suggestions
-    render json: %w[foo bar]
+    render json: ProductSearch.terms_for(params[:term])
   end
 
   def q
