@@ -62,7 +62,6 @@ function slideMenuBar(){
       });
   });
 
-  $(".default_new li").eq(-2).css("background", "none");
 }
 
 
