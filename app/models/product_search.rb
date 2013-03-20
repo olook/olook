@@ -1,4 +1,5 @@
 class ProductSearch
+<<<<<<< HEAD
 
   def self.terms_for(term)
     REDIS.zrevrange "product-search:#{term.downcase}", 0, 9
@@ -11,4 +12,9 @@ class ProductSearch
     end
   end
 
+=======
+  def self.terms_for(term)
+    Product.where("name like ?", "#{term}_%").limit(10).collect(&:name)
+  end
+>>>>>>> searching by product name
 end
