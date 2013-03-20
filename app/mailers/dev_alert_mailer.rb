@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class DevAlertMailer < ActionMailer::Base
+class DevAlertMailer < BaseMailer
   default_url_options[:host] = "www.olook.com.br"
   default :from => "dev notifications <dev@olook.com.br>"
 
