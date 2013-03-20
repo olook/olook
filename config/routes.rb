@@ -11,8 +11,6 @@ Olook::Application.routes.draw do
   get "index/index"
 
   # Search Lab
-  get "/search/show", :to => "search#show", :as => "search_show"
-  get "/search/q", :to => "search#q", :as => "search_query"
   get "/search", :to => "search#index", :as => "search_index"
   get "/search/product_suggestions", :to => "search#product_suggestions", :as => "search_index"
 
