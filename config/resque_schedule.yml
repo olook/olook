@@ -19,7 +19,7 @@ update_status:
 update_braspag_responses:
   cron: "*/15 * * * *"
   class: ProcessBraspagResponsesWorker
-  queue: order_status
+  queue: payments
   description: "Processa respostas de pagamento Braspag"
 
 userbase_with_auth_token_and_credits:
@@ -77,7 +77,7 @@ in_cart_mail:
 force_clearsale_callback:
   cron: "*/5 * * * *"
   class: Clearsale::CallbackWorker
-  queue: order_status
+  queue: payments
   description: "Verifica se o status da avaliação da Clearsale mudou para uma determinada compra (order)"
 
 add_expire_carts_worker:

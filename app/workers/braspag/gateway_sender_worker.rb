@@ -2,11 +2,11 @@
 module Braspag
   class GatewaySenderWorker
     extend Payments::Logger
-    @queue = :order_status
+    @queue = :payments
 
     def self.perform(payment_id)
       begin
-        log("Got payment [#{payment_id}] for processing")
+        log("Got payment [#{payment_id}] for sending it to analysis processing")
         payment = ::CreditCard.find(payment_id)
         strategy = Payments::BraspagSenderStrategy.new(payment)
         strategy.credit_card_number = payment.credit_card_number

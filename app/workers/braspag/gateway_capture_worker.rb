@@ -3,11 +3,11 @@ module Braspag
   class GatewayCaptureWorker
     extend Payments::Logger
     
-    @queue = :order_status
+    @queue = :payments
 
     def self.perform(payment_id)
       begin
-        log("Got payment [#{payment_id}] for capture")
+        log("Got payment [#{payment_id}] for capture processing")
         payment = ::CreditCard.find(payment_id)
         strategy = Payments::BraspagSenderStrategy.new(payment)
         strategy.credit_card_number = payment.credit_card_number
