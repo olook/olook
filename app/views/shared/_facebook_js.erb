@@ -42,10 +42,10 @@ method: 'feed',
         picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
         <% if member %>
             link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>',
-            description: 'Cadastre-se na olook pelo meu convite, responda o quiz, descubra o seu estilo e ainda ganhe R$10. Ao responder o Style Quiz, a olook descobre o seu estilo e os stylists montarão uma vitrine nova para você a cada mês! <%= accept_invitation_url(:invite_token => member.invite_token) %> #ficaadica'
+            description: 'Tenho uma vitrine personaliza da olook e recebo recomendações incríveis das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= accept_invitation_url(:invite_token => member.invite_token) %> #ficaadica'
         <% else %>
           link: '<%=  root_url %>',
-          description: 'Cadastre-se na olook, responda o quiz, descubra o seu estilo e ainda ganhe R$10. Ao responder o Style Quiz, a olook descobre o seu estilo e os stylists montarão uma vitrine nova para você a cada mês! <%= root_url %> #ficaadica'
+          description: 'Tenho uma vitrine personaliza da olook e recebo recomendações incríveis das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= root_url %> #ficaadica'
 
         <% end %>
 		  };

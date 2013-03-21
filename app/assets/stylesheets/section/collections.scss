@@ -60,7 +60,7 @@
 	      color: black;
 	      text-transform: uppercase;
 	      margin-top: 7px;
-	      background: image-url("collections/sprite.png") no-repeat -182px 3px;
+	      background: image-url("collections/sprite.png") no-repeat -166px 3px;
 	      height: 23px;
 	      a{
 	      	text-decoration: none;
@@ -193,8 +193,7 @@ section{margin-top:10px;
     .collections_header{position:relative;margin-bottom:35px;height: 290px;float: left;
       a{position:absolute;top:250px;font-size:12px;text-transform:uppercase;color:#000;text-decoration:none;background: image-url('collections/sprite.png') right -35px;padding-right:15px;
         &:hover{text-decoration:underline;}
-        &.editorial{left:55px;}
-        &.video_link{left:135px}
+        &.video_link{left:52px}
       }
     }
     .collections_filters{
@@ -239,7 +238,7 @@ section{margin-top:10px;
             /*overflow: auto;
             display: inline;*/
             span.select {
-              position: absolute;              
+              position: absolute;
               top: 2px;
               height: 34px;
               cursor: pointer;
