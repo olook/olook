@@ -199,4 +199,70 @@ describe Payments::MoipSenderStrategy do
     end
   end
 
+  context "santander billet" do
+    before(:each) do 
+      MoIP::Client.stub(:checkout).and_return({ foo: "bar" })
+      subject.stub(:santander_is_active).and_return true
+      subject.payment = billet
+    end
+
+    describe "#send_to_gateway" do
+      it "calls billet_payment" do
+        subject.should_receive(:billet_payment)
+        subject.send_to_gateway
+      end
+
+      it "doesn't hit Moip" do
+        MoIP::Client.should_not_receive(:checkout)
+        subject.send_to_gateway
+      end
+    end
+
+    context "when deactivated" do
+      before(:each) do 
+        subject.stub(:santander_is_active).and_return false
+        subject.stub(:from_olook_user).and_return false
+        subject.payment = billet
+      end
+
+      it "doesn't call billet_payment" do
+        subject.should_not_receive(:billet_payment)
+        subject.send_to_gateway
+      end
+
+      it "hits Moip" do
+        subject.stub(:payment_data)
+        MoIP::Client.should_receive(:checkout)
+        subject.send_to_gateway
+      end
+    end
+
+    describe "#billet_url" do
+      it "returns the path to the billet, passing the payment id" do
+        expect(subject.billet_url).to eql "/pagamentos/boletos/#{subject.payment.id}"
+      end
+    end
+
+    describe "#billet_payment" do
+      it "assigns the billet's url to the payment" do
+        subject.billet_payment
+        expect(subject.payment.url).to eql(subject.billet_url)
+      end
+
+      it "sets the payment's gateway" do
+        subject.billet_payment
+        expect(subject.payment.gateway).to eql(1)
+      end
+
+      it "sets the payment's gateway status to successful" do
+        subject.billet_payment
+        expect(subject.payment.gateway_response_status).to eql(Payment::SUCCESSFUL_STATUS)
+      end
+
+      it "saves the payment" do
+        subject.payment.should_receive(:save!).and_return true
+        subject.billet_payment
+      end
+    end
+  end
 end
