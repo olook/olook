@@ -154,8 +154,15 @@ class Product < ActiveRecord::Base
     picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
   end
 
+  #
+  # I know, it's a weird/crazy logic. Ask Andressa =p
+  #
   def backside_picture
-    picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
+    if cloth?
+      picture = pictures.order(:display_on).second
+    else
+      picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
+    end
     return_catalog_or_suggestion_image(picture)
   end
 
