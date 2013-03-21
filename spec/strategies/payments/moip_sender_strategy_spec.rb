@@ -56,6 +56,21 @@ describe Payments::MoipSenderStrategy do
       MoIP::Client.should_receive(:checkout).with(subject.payment_data)
       subject.send_to_gateway
     end
+
+    context "when exception is thrown" do
+      before(:each) { MoIP::Client.stub(:checkout).and_raise(Exception) }
+
+      it "ensures the payment is saved" do
+        payment.should_receive(:save!).and_return true
+        subject.send_to_gateway
+      end
+
+      it "returns an OpenStruct with failure status" do
+        response = subject.send_to_gateway
+        expect(response.class).to eql(OpenStruct)
+        expect(response.status).to eql(Payment::FAILURE_STATUS)
+      end
+    end
   end
 
   describe "#set_payment_gateway" do
