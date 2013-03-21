@@ -337,8 +337,8 @@ class Product < ActiveRecord::Base
     Setting.checkout_suggested_product_id.to_i != self.id
   end
 
-  def self.load_criteo_config(key)
-    CRITEO_CONFIG[key]
+  def self.xml_blacklist(key)
+    XML_BLACKLIST[key]
   end
 
   def shoe_inventory_has_less_than_minimum?
