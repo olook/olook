@@ -28,7 +28,7 @@ userbase_with_auth_token_and_credits:
   queue: marketing_uploader
   args:
     - userbase_with_auth_token_and_credits
-    - base_atualizada_purchases_auth_token_and_credits.csv
+    - basegeral_atualizada13.csv
     - false
   description: "Cria arquivo de importação para allinemail"
 

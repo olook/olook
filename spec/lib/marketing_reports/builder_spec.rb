@@ -156,7 +156,7 @@ describe MarketingReports::Builder do
 
       csv_body = [user_a].inject("") do |data, user|
         data += "#{user.id};#{user.email.chomp};#{user.created_at.strftime("%d-%m-%Y")};"
-        data += "#{user.invite_token};#{user.first_name};#{user.last_name};#{user.facebook_token};#{user.birthday};#{user.has_purchases?};#{user.authentication_token};0.0;#{user.half_user}\n"
+        data += "#{user.invite_token};#{user.first_name};#{user.last_name};#{user.facebook_token};#{user.birthday};#{user.has_purchases?};#{user.authentication_token};0,00;#{user.half_user}\n"
         data
       end
 
