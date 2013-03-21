@@ -46,7 +46,7 @@ describe MarketingReports::Builder do
       Rails.env.stub(:production) { true }
       MarketingReports::FileUploader.should_receive(:new).with(filename, csv).and_return(mock.as_null_object)
       MarketingReports::FileUploader.should_receive(:copy_file) {nil}
-      subject.save_file(filename, info_ftp)
+      subject.save_file(filename, true, info_ftp)
     end
 
     it "calls save_local_file on the file uploader with the passed filename" do
@@ -54,7 +54,7 @@ describe MarketingReports::Builder do
       MarketingReports::FileUploader.should_receive(:new).with(filename, csv).and_return(uploader)
       uploader.should_receive(:save_local_file)
       MarketingReports::FileUploader.should_receive(:copy_file) {nil}
-      subject.save_file(filename)
+      subject.save_file(filename,true)
     end
 
     it "calls save_local_file on the file uploader with the passed filename and info for ftp" do
@@ -62,7 +62,7 @@ describe MarketingReports::Builder do
       MarketingReports::FileUploader.stub(:new).and_return(uploader)
       uploader.should_receive(:save_local_file)
       MarketingReports::FileUploader.should_receive(:copy_file) {nil}
-      subject.save_file(filename, info_ftp)
+      subject.save_file(filename,true, info_ftp)
     end
 
   end
@@ -137,7 +137,7 @@ describe MarketingReports::Builder do
 
   describe "#generate_userbase_with_auth_token_and_credits" do
     let(:csv_header) do
-      "id,email,created_at,sign_in_count,current_sign_in_at,last_sign_in_at,invite_token,first_name,last_name,facebook_token,birthday,has_purchases,auth_token,credit_balance\n"
+      "id;email;created_at;invite_token;first_name;last_name;facebook_token;birthday;has_purchases;auth_token;credit_balance;half_user\n"
     end
 
     let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
@@ -155,8 +155,8 @@ describe MarketingReports::Builder do
     it "builds a csv file containing all user data" do
 
       csv_body = [user_a].inject("") do |data, user|
-        data += "#{user.id},#{user.email.chomp},#{user.created_at.strftime("%d-%m-%Y")},#{user.sign_in_count},#{user.current_sign_in_at},#{user.last_sign_in_at},"
-        data += "#{user.invite_token},#{user.first_name},#{user.last_name},#{user.facebook_token},#{user.birthday},#{user.has_purchases?},#{user.authentication_token},0.0\n"
+        data += "#{user.id};#{user.email.chomp};#{user.created_at.strftime("%d-%m-%Y")};"
+        data += "#{user.invite_token};#{user.first_name};#{user.last_name};#{user.facebook_token};#{user.birthday};#{user.has_purchases?};#{user.authentication_token};0,00;#{user.half_user}\n"
         data
       end
 
