@@ -79,6 +79,7 @@ group :development, :test do
     gem "ruby-debug19", :require => "ruby-debug", :platform => :ruby_19
   end
   gem "pry"
+  gem "pry-nav"
   gem 'delorean'
   gem 'timecop'
 end

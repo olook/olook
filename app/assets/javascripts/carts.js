@@ -107,7 +107,7 @@ function postCartToFacebookFeed(element) {
       method: 'feed',
       caption: 'www.olook.com.br',
       link: 'http://www.olook.com.br',
-      description: 'Comprei no site da olook e amei! <3 Já conhece?'
+      description: 'Comprei no site da olook e amei! Já conhece? Roupas, sapatos, bolsas e acessórios incríveis. Troca e devolução grátis em até 30 dias. Conheça!'
   }
 
   FB.ui(obj,
