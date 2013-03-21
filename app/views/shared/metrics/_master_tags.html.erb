@@ -62,6 +62,13 @@ var google_remarketing_only = true;
 
 
 <!-- Sociostatic -->
+<% if current_user %>
+  <script type="text/javascript">
+      var customer = {
+        identifier: '<%= current_user.id%>'
+      };
+  </script>
+<% end %>
 <script id="sonar" type="text/javascript">
     (function(){
         var s  = document.createElement( 'script' );
