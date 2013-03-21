@@ -38,7 +38,7 @@ module Payments
     end
 
     def billet_url
-      "/pagamentos/boleto/#{payment.id}"
+      "/pagamentos/boletos/#{payment.id}"
     end
 
     def payment_is_billet
@@ -50,7 +50,7 @@ module Payments
     end
 
     def from_olook_user
-      payment.user.email =~ /@olook.com/
+      payment.user && payment.user.email ? payment.user.email =~ /@olook.com/ : false
     end
     ## End Santander billet 
 
