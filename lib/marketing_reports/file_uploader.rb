@@ -14,7 +14,7 @@ module MarketingReports
       @encoding = "ISO-8859-1" #"UTF-8"
     end
 
-    def save_local_file(adapt_encoding)
+    def save_local_file(adapt_encoding = true)
       file_path = TEMP_PATH+DateTime.now.strftime(@filename)
       File.open(file_path, 'w', :encoding => @encoding) do |file|
         file.write(@file_content) #.encode(@encoding).force_encoding(@encoding))
