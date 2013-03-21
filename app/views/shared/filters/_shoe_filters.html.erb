@@ -10,7 +10,7 @@
       <%= label_tag "select_all_shoes", "VER TODOS" %>
     </li-->
 
-  <% collection_theme_presenter.collection_theme.catalog.subcategories(Category::SHOE).each do |subcategory,label| %>
+  <% collection_theme_presenter.collection_theme.catalog.shoes.each do |subcategory,label| %>
     <% unless subcategory.nil? && label.nil? %>
       <li>
         <%- subcategory_checked = params[:shoe_subcategories] && params[:shoe_subcategories].include?(subcategory) || params[:select_all_shoes] #DEPRECATED: checar se params[:select_all_shoes] está sendo usado -%>

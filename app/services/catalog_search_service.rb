@@ -16,14 +16,11 @@ class CatalogSearchService
   end
 
   def categories_available_for_options
+    base_process
     categories = Category.to_a
-    categories_in_query = filter_without_paginate.group(:category_id).count.keys
+    categories_in_query = @query.group(:category_id).count.keys
     categories.select! { |opt| categories_in_query.include?(opt.last) }
     categories.unshift(["Todas", nil])
-  end
-
-  def cloth_sizes_available
-    filter_without_paginate.group('catalog_products.cloth_size').count.keys
   end
 
   def search_products
@@ -36,13 +33,8 @@ class CatalogSearchService
 
   private
 
-  def filter_without_paginate
-    return @query if @query.respond_to?(:to_sql)
-    base_process
-    @query
-  end
-
   def base_process
+    return @query if @query
     add_categories_filter_to_query_base
 
     @query = prepare_query_joins
