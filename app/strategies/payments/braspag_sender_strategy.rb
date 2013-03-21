@@ -1,11 +1,14 @@
 module Payments
   class BraspagSenderStrategy
+    include Payments::Logger
+
     FILE_DIR = "#{Rails.root}/config/braspag.yml"
 
     attr_accessor :cart_service, :payment, :credit_card_number, :return_code
 
     def initialize(payment)
       @payment = payment
+      @payment_id = payment.id
       @payment_successful = false
       log("Initializing BraspagSenderStrategy with payment: #{payment.inspect}")
     end
@@ -25,6 +28,7 @@ module Payments
 
         payment
       rescue Exception => error
+        log("Error on sending payment [#{payment.id} to Braspag]")
         ErrorNotifier.send_notifier("Braspag", error, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
       ensure
@@ -292,16 +296,5 @@ module Payments
           gateway_message: message
         )
     end
-
-    private
-      def logger
-        @@logger ||= Logger.new("#{Rails.root}/log/braspag-sender.log")
-        @@logger
-      end
-
-      def log text
-        logger.info("#{Time.now} - [#{@payment.id}] - #{text}")
-      end
-
   end
 end

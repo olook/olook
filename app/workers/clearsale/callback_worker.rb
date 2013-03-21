@@ -1,9 +1,12 @@
 # -*- encoding : utf-8 -*-
 module Clearsale
   class CallbackWorker
+    extend Payments::Logger
+
     @queue = :order_status
 
     def self.perform
+      log("testing")
       if Setting.send_to_clearsale || Setting.force_send_to_clearsale
         responses = ClearsaleOrderResponse.to_be_processed
         responses.each do |response|
@@ -37,6 +40,7 @@ module Clearsale
     def self.capture_transaction(payments)
        payments.each do |payment|
         if payment.is_a?(CreditCard)
+          log("Enqueueing payment [#{payment.id}] for capture.")
           Resque.enqueue(Braspag::GatewayCaptureWorker, payment.id)
         end
       end
@@ -46,6 +50,7 @@ module Clearsale
       payments.each do |payment|
         if payment.is_a?(CreditCard)
           payment.set_state(:cancel)
+          log("Enqueueing order [#{payment.order.number}] for cancelation.") if payment.order
           Resque.enqueue(Abacos::CancelOrder, payment.order.number) if payment.order
         end
       end
