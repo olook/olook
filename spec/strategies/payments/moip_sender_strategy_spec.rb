@@ -70,6 +70,11 @@ describe Payments::MoipSenderStrategy do
         expect(response.class).to eql(OpenStruct)
         expect(response.status).to eql(Payment::FAILURE_STATUS)
       end
+
+      it "notifies the error with the payment info" do
+        ErrorNotifier.should_receive(:send_notifier).with("Moip", kind_of(Exception), payment)
+        subject.send_to_gateway
+      end
     end
   end
 
@@ -185,11 +190,11 @@ describe Payments::MoipSenderStrategy do
   end
 
   describe "#format_telephone" do
-    it "should remove the ninth digit of the telephone" do
+    it "removes the ninth digit of the telephone" do
       subject.format_telephone("(11)99123-4567").should eq("(11)9123-4567")
     end
 
-    it "should correct a wrong mask" do
+    it "corrects a wrong mask" do
       subject.format_telephone("(11)91234-567").should eq("(11)9123-4567")
     end
   end
