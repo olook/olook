@@ -1,4 +1,8 @@
+# encoding: utf-8
 class Catalog::Catalog < ActiveRecord::Base
+  CLOTH_SIZES_TABLE = {"PP" => 1, "P" =>2, "M" => 3, "G" => 4,
+                 "34" => 5, "36" => 6, "38" => 7, "40" => 8, "42" => 9, "44" => 10,
+                 "Único" => 11}
   has_many :products, :class_name => "Catalog::Product", :foreign_key => "catalog_id"
 
   validates :type, :presence => true, :exclusion => ["Catalog::Catalog"]
@@ -38,7 +42,7 @@ class Catalog::Catalog < ActiveRecord::Base
   end
 
   def cloth_sizes
-    in_category(Category::CLOTH).group(:cloth_size).order("cloth_size asc").map { |p| p.cloth_size }.compact
+    in_category(Category::CLOTH).group(:cloth_size).count.keys.compact.sort { |a,b| CLOTH_SIZES_TABLE[a.to_s] <=> CLOTH_SIZES_TABLE[b.to_s] }
   end
 
   def heels

@@ -5,8 +5,8 @@ describe XmlController do
   describe "GET criteo" do
 
     it "gets only products for xml" do
-      Product.should_receive(:load_criteo_config).with("products_blacklist").and_return([1,2,3])
-      Product.should_receive(:load_criteo_config).with("collections_blacklist").and_return([4,5,6])
+      Product.should_receive(:xml_blacklist).with("products_blacklist").and_return([1,2,3])
+      Product.should_receive(:xml_blacklist).with("collections_blacklist").and_return([4,5,6])
       Product.should_receive(:valid_criteo_for_xml).with([1,2,3],[4,5,6])
       get :criteo
     end
@@ -171,8 +171,8 @@ describe XmlController do
   end
 
   def stub_scope_params
-    Product.should_receive(:load_criteo_config).with("products_blacklist").and_return([0])
-    Product.should_receive(:load_criteo_config).with("collections_blacklist").and_return([0])
+    Product.should_receive(:xml_blacklist).with("products_blacklist").and_return([0])
+    Product.should_receive(:xml_blacklist).with("collections_blacklist").and_return([0])
   end
 
 end

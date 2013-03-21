@@ -193,8 +193,7 @@ section{margin-top:10px;
     .collections_header{position:relative;margin-bottom:35px;height: 290px;float: left;
       a{position:absolute;top:250px;font-size:12px;text-transform:uppercase;color:#000;text-decoration:none;background: image-url('collections/sprite.png') right -35px;padding-right:15px;
         &:hover{text-decoration:underline;}
-        &.editorial{left:55px;}
-        &.video_link{left:135px}
+        &.video_link{left:52px}
       }
     }
     .collections_filters{
@@ -207,10 +206,11 @@ section{margin-top:10px;
         }
        #tags ul li{
          float: left;
+         margin-left: 5px;
        }
        li{
           button{border:none;background:none;cursor:pointer;width:27px;height:19px;padding:0;font-size:0;font-family:a;line-height:0;background: image-url('moments/sprite.png') right -157px no-repeat;
-          &.cleanFilter{font-size:11px;color:#6D6E71;background:none;border:none;font-family:$avenir;cursor:pointer;width:100%;text-transform:none;}
+          &.cleanFilter{font-size:11px;color:#6D6E71;background:none;border:none;font-family:$avenir;cursor:pointer;width:100%;text-transform:none; margin-left: 5px;}
          }
        }
       }
@@ -238,7 +238,7 @@ section{margin-top:10px;
             /*overflow: auto;
             display: inline;*/
             span.select {
-              position: absolute;              
+              position: absolute;
               top: 2px;
               height: 34px;
               cursor: pointer;
@@ -280,6 +280,7 @@ section{margin-top:10px;
         	font-size: 12px;
         	color: #717171;
         	position: relative;
+          top: 1px;
         	.arrow{
         		display: none;
         		position: absolute;
@@ -312,8 +313,8 @@ section{margin-top:10px;
             left: 61px;
           }
         	.model{
-        		margin-left: 3px;
-        		margin-bottom: 1px;
+        		margin-left: 5px;
+        		margin-bottom: 0;
         	}
         	p{
         		color: black;
