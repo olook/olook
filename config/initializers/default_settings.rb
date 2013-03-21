@@ -85,4 +85,4 @@ Setting.defaults[:cloth_showroom_chic] = "91441,91417,90823,90751,91301"
 Setting.defaults[:cloth_showroom_sexy] = "90863,91293,91349,90947,91381"
 
 # Santander billet
-Settings.defaults[:santander_billet] = false
+Setting.defaults[:santander_billet] = false
