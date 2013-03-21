@@ -117,11 +117,11 @@ group by uc.user_id, ct.code
 ) as credit_balance, (select count(orders.id) from orders where orders.user_id = users.id ) as total_purchases, users.*").where("gender != #{User::Gender[:male]} or gender is null").find_each(batch_size: 50000) do |u|
           unless bounces.include?(u.email)
             credit_balance = u.credit_balance.nil? ? BigDecimal.new("0.0") : u.credit_balance
-            credit_balance = credit_balance.to_s.gsub(".", ",")
+            credit_balance = ('%.2f' % credit_balance).to_s.gsub(".", ",")
             csv << [ u.id, u.email.chomp, u.created_at.strftime("%d-%m-%Y"), u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, (u.total_purchases > 0), u.authentication_token, credit_balance, u.half_user ]
           end
         end
-        emails_seed_list.each { |email| csv << [ nil, email, nil, nil, 'seed list', nil, nil, nil, nil, nil, nil, nil ] }
+        # emails_seed_list.each { |email| csv << [ nil, email, nil, nil, 'seed list', nil, nil, nil, nil, nil, nil, nil ] }
       end
     end
 
