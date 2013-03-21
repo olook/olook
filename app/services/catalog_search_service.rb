@@ -18,7 +18,7 @@ class CatalogSearchService
   def categories_available_for_options
     base_process
     categories = Category.to_a
-    categories_in_query = @query.group(:category_id).count.keys
+    categories_in_query = @query.group('catalog_products.category_id').count.keys
     categories.select! { |opt| categories_in_query.include?(opt.last) }
     categories.unshift(["Todas", nil])
   end
