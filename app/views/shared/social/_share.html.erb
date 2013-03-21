@@ -1,7 +1,7 @@
 <div class="social">
   <ul>
     <li class="facebook"><%= link_to "#", onclick: track_event("#{params[:controller].split("/").join("_").camelize}PostCheckout","clickShareFacebook") do %>Postar no meu mural<% end %></li>
-    <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=Cadastre-se na olook pelo meu convite, descubra o seu estilo e ainda ganhe R$20! #{accept_invitation_url(:invite_token => user.invite_token)}&hashtags=ficaadica", onclick: track_event("#{params[:controller].split("/").join("_").camelize}PostCheckout","clickShareTwitter") %></li>
+    <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=Cadastre-se na olook pelo meu convite, descubra o seu estilo e ainda ganhe R$10! #{accept_invitation_url(:invite_token => user.invite_token)}&hashtags=ficaadica", onclick: track_event("#{params[:controller].split("/").join("_").camelize}PostCheckout","clickShareTwitter") %></li>
     <li class="email"><%= link_to "#" do %>Enviar por email<% end %></li>
   </ul>
   <%= form_tag member_invite_by_email_path do %>
