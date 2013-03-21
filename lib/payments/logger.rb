@@ -3,7 +3,11 @@ module Payments
   module Logger
 
     def log text
-      logger.info("#{Time.now} - [#{@payment_id}] - #{text}")
+      class_name = self.class == Class ? self.name : self.class.name
+      message = "#{Time.now} - #{class_name}"
+      message << " - [PaymentID: #{@payment_id}]" if @payment_id
+      message << " - #{text}"
+      logger.info(message)
     end
 
     private 
