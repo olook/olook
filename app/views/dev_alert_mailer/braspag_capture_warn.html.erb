@@ -4,18 +4,40 @@
   </head>
   <body>
     <h3>Pedidos que ainda que foram autorizados porém ainda não capturados pela Braspag</h3>
-    <table style="font-family:'Lucida Sans Unicode','Lucida Grande',Sans-Serif;font-size: 12px;background: #fff;margin: 45px;width: 480px;border-collapse: collapse;text-align: center;">
-      <tr style="font-size: 14px;font-weight: normal;padding: 10px 8px;border-bottom: 2px solid #6678b1;">
-        <th>ID do pagamento:</th>
-        <th>Código Braspag:</th>
-        <th>Criado em:</th>
-      </tr>
-      <% @warn_payments.each do |payment| %>
-        <tr style="padding: 9px 8px 0px 8px;">
-          <td valign="top" style="padding:15px 0 0 15px"><%= payment[:id] %></td>
-          <td valign="top" style="padding:15px 0 0 15px"><%= payment[:identification_code] %></td>
-          <td valign="top" style="padding:15px 0 0 15px"><%= payment[:created_at].strftime("%d/%m/%Y") %></td>
+    <table style="font-family:'Lucida Sans Unicode','Lucida Grande',Sans-Serif;font-size: 12px;background: #fff;margin: 45px;width: 480px;border-collapse: collapse;text-align: center;border: 1px solid;">
+      <% unless @warn_payments.empty?%>
+        <tr style="font-size: 14px;font-weight: normal;padding: 10px 8px;border-bottom: 2px solid #6678b1;">
+          <th>ID do pagamento:</th>
+          <th>Código Braspag:</th>
+          <th>Criado em:</th>
         </tr>
+        <% @warn_payments.each_with_index do |payment, index| %>
+          <tr style="padding: 9px 8px 0px 8px;background:<%= index.even? ? "#CCC" : "#FFF" %>;">
+            <td style="vertical-align:middle;height: 30px;"><%= payment[:id] %></td>
+            <td style="vertical-align:middle;height: 30px;"><%= payment[:identification_code] %></td>
+            <td style="vertical-align:middle;height: 30px;"><%= payment[:created_at].strftime("%d/%m/%Y") if payment[:created_at] %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        Não existem pedidos nesse caso
+      <% end %>
+    </table>
+
+    <h3>Pedidos que deveriam ter sido integrados no abacos e não foram</h3>
+    <table style="font-family:'Lucida Sans Unicode','Lucida Grande',Sans-Serif;font-size: 12px;background: #fff;margin: 45px;width: 480px;border-collapse: collapse;text-align: center;border: 1px solid;">
+      <% unless @warn_orders.empty? %>
+        <tr style="font-size: 14px;font-weight: normal;padding: 10px 8px;border-bottom: 2px solid #6678b1;">
+          <th>ID do pagamento:</th>
+          <th>Criado em:</th>
+        </tr>
+        <% @warn_orders.each_with_index do |order, index| %>
+          <tr style="padding: 9px 8px 0px 8px;background:<%= index.even? ? "#CCC" : "#FFF" %>;">
+            <td style="vertical-align:middle;height: 30px;"><%= order[:number] %></td>
+            <td style="vertical-align:middle;height: 30px;"><%= order[:created_at].strftime("%d/%m/%Y") if order[:created_at] %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        Não existem pedidos nesse caso
       <% end %>
     </table>
   </body>
