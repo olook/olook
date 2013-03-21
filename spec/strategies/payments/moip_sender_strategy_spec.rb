@@ -2,17 +2,17 @@ require "spec_helper"
 
 describe Payments::MoipSenderStrategy do
 
-  let(:user) { FactoryGirl.create(:user) }
-  let(:payment) {FactoryGirl.create(:payment)}
-  let(:shipping_service) { FactoryGirl.create :shipping_service }
-  let(:order) { FactoryGirl.create(:order, :user => user) }
-  let(:credit_card) { FactoryGirl.create(:credit_card, :order => order) }
-  let(:credit_card_with_response) { FactoryGirl.create(:credit_card_with_response) }
+  let(:user) { FactoryGirl.build(:user) }
+  let(:payment) {FactoryGirl.build(:payment)}
+  let(:shipping_service) { FactoryGirl.build :shipping_service }
+  let(:order) { FactoryGirl.build(:order, :user => user) }
+  let(:credit_card) { FactoryGirl.build(:credit_card, :order => order) }
+  let(:credit_card_with_response) { FactoryGirl.build(:credit_card_with_response) }
   let(:billet) { FactoryGirl.create(:billet, :order => order) }
-  let(:debit) { FactoryGirl.create(:debit, :order => order) }
+  let(:debit) { FactoryGirl.build(:debit, :order => order) }
   let(:address) { FactoryGirl.create(:address, :user => user) }
   let(:freight) { {price: 12.34, cost: 2.34, delivery_time: 2, shipping_service_id: shipping_service.id, address: {id: address.id}} }
-  let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
+  let(:cart) { FactoryGirl.build(:cart_with_items, :user => user) }
   let(:cart_service) { CartService.new({
     :cart => cart
   }) }
@@ -38,6 +38,7 @@ describe Payments::MoipSenderStrategy do
 
   describe "#send_to_gateway" do
     before(:each) do
+      MoIP::Client.stub :checkout
       payment.stub(:build_response)
       payment.stub(:gateway_response_status).and_return(Payment::SUCCESSFUL_STATUS)
       payment.stub(:gateway_transaction_status).and_return(:success)
