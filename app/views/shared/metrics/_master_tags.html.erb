@@ -93,8 +93,12 @@ var google_remarketing_only = true;
 <!-- END Zanox -->
 <script src="//static.chaordicsystems.com/static/loader.js" data-apikey="olook"></script>
 
-<!-- VWO -->
-<%= render :partial => "shared/metrics/vwo/tracking_code" %>
+<% if Setting.use_vwo %>
+  <!-- VWO -->
+  <% content_for :head do %>
+    <%= render :partial => "shared/metrics/vwo/tracking_code" %>
+  <% end %>
+<% end %>
 
 <!-- NAVEGG ANALYTICS -->
 <script id="navegg" type="text/javascript" src="//navdmp.com/lt.js?18321"></script>
