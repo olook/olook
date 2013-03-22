@@ -11,8 +11,6 @@
     <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => @products_id } %>
   <% end %>
 
-  <!-- local onde o mostpopular será exibido -->
-  <div class="chaordic mostpopular"></div>
 
   <!-- local onde o viewpersonalized será exibido -->
   <div class="chaordic viewpersonalized"></div>
@@ -24,6 +22,8 @@
     <%= collection_theme_presenter.display_nav_bar %>
     <%= collection_theme_presenter.render_search_form %>
     <div id="products_container">
+      <!-- local onde o mostpopular será exibido -->
+      <div class="chaordic mostpopular"></div>
       <%= render "new_header_moments" %>
 
       <ul id="products">
