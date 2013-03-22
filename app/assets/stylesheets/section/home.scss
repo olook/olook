@@ -37,7 +37,6 @@ section#home {
     width: 990px;
     height: 486px;
     margin: 0 0 40px;
-    overflow:hidden;
     .caroufredsel_wrapper{overflow:hidden;}
     a.close {
       position: absolute;
@@ -298,12 +297,11 @@ section#home {
       font-size: 20px;
       font-weight: 600;
       text-transform: uppercase;
-      margin: 0 0 25px 3px;
+      margin: 0 0 25px 0;
     }
     ul {
       width: 100%;
       overflow: auto;
-      margin: 0 0 60px;
       li {
         a {
           background: image-url("home/categories.png") no-repeat;
