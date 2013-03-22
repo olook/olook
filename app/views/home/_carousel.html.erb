@@ -1,20 +1,15 @@
 <div id="carousel">
   <ul>
-    <li>
-      <%= link_to new_survey_path, onclick: track_event('Carrossel','Banner1')  do %>
-        <%= image_tag "home/destaque_botao_melancia.jpg" %>
-      <% end %>
-    </li>
-    <li>
-      <%= link_to collection_theme_path("estilista-juliana-jabour"), onclick: track_event('Carrossel','Banner2') do %>
-        <%= image_tag "home/banner_homer_spfw.jpg" %>
-      <% end %>
-    </li>
-    <li>
-      <%= link_to "/rasteiras", onclick: track_event('Carrossel','Banner3') do %>
-        <%= image_tag "home/banner_homer_rasteiras.jpg" %>
-      <% end %>
-    </li>
+    <%- [
+      { link: collection_theme_path("andre-lima"), image: "home/destaque_andre_45_off_ok.jpg" },
+      { link: new_survey_path, image: "home/destaque_botao_melancia.jpg" },
+      { link: collection_theme_path("estilista-juliana-jabour"), image: "home/banner_homer_spfw.jpg" },
+      { link: "/rasteiras", image: "home/banner_homer_rasteiras.jpg" }
+    ].each_with_index do |item, index| %>
+      <li>
+        <%= link_to( image_tag(item[:image]), item[:link], onclick: track_event('Carrossel',"Banner#{index+1}") ) %>
+      </li>
+    <%- end -%>
   </ul>
   <%= link_to "Anterior", "javascript:void(0);", :class => "prev-item" %>
   <%= link_to "Próximo", "javascript:void(0);", :class => "next-item" %>
