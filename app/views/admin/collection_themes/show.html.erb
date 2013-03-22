@@ -2,6 +2,9 @@
 <div class="inner">
   <p id="notice"><%= notice %></p>
   <p>
+    <b>Cor do link do vídeo: <span style="color: <%= @collection_theme.text_color %>;">&nbsp;&nbsp;&nbsp;&nbsp;</span></b>
+  </p>
+  <p>
     <b>Header: (alt: <%= @collection_theme.header_image_alt %>)</b><br />
     <%= image_tag(@collection_theme.header_image.url, alt: @collection_theme.header_image_alt, title: @collection_theme.header_image_alt) unless @collection_theme.header_image.blank? %>
   </p>
