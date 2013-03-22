@@ -239,7 +239,7 @@ describe Payments::MoipSenderStrategy do
 
     describe "#billet_url" do
       it "returns the path to the billet, passing the payment id" do
-        expect(subject.billet_url).to eql "/pagamentos/boletos/#{subject.payment.id}"
+        expect(subject.billet_url).to eql "/pagamento/boletos/#{subject.payment.id}"
       end
     end
 
