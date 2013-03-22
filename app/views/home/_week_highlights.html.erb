@@ -1,4 +1,4 @@
-<section id="week_highlights">
+
   <h1>Veja os destaques da semana</h1>
   <ul>
     <li id="about">
@@ -14,10 +14,10 @@
       <%= link_to "Veja mais aqui", our_essence_path, class: "more", onclick: track_event('Destaques','BannerEsquerda') %>
     </li>
     <li id="shoes">
-      <%= link_to shoes_path, onclick: track_event('Destaques','BannerCentro') do %>
+      <%= link_to "/stylist-news", onclick: track_event('Destaques','BannerCentro') do %>
         <%= image_tag "home/stylist_news.jpg", title: "Sapatos Hot" %>
       <% end %>      
-      <h1><%= link_to "STYLIST NEWS", shoes_path, onclick: track_event('Destaques','BannerCentro') %></h1>
+      <h1><%= link_to "STYLIST NEWS", "/stylist-news", onclick: track_event('Destaques','BannerCentro') %></h1>
       <p>Saiba o que rolou no SPFW</p>
       <%= link_to "Confira aqui", "/stylist-news", class: "more", onclick: track_event('Destaques','BannerCentro') %>
     </li>
