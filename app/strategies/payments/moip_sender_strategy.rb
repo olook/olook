@@ -38,7 +38,7 @@ module Payments
     end
 
     def billet_url
-      "/pagamentos/boletos/#{payment.id}"
+      "/pagamento/boletos/#{payment.id}"
     end
 
     def payment_is_billet

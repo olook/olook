@@ -1,0 +1,19 @@
+default: &default
+  conta_corrente:        '013002564'
+  digito_conta_corrente: '8'
+  agencia:               '3413'
+  carteira:              '102'
+  cedente:               'OLOOK COM ONLINE DE MODA LTDA'
+  codigo_cedente:        '5739454'
+
+development:
+  <<: *default
+
+staging:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
