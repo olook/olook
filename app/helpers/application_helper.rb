@@ -122,6 +122,8 @@ module ApplicationHelper
 
     def ga_event_referer
       case request.referer
+        when /olook.com.br(\/)?$/
+          'FromHome'
         when /vitrine/
           'FromVitrine'
         when /tendencias/
@@ -130,6 +132,8 @@ module ApplicationHelper
           'FromColecoes'
         when /sapatos/
           'FromSapatos'
+        when /roupas/
+          'FromRoupas'
         when /bolsas/
           'FromBolsas'
         when /acessorios/
