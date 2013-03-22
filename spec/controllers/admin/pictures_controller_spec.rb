@@ -5,7 +5,6 @@ describe Admin::PicturesController do
   render_views
   let(:product) { FactoryGirl.create(:shoe, :casual) }
   let!(:picture) { FactoryGirl.create(:main_picture, :product => product) }
-  let!(:valid_attributes) { picture.attributes }
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]
@@ -38,18 +37,18 @@ describe Admin::PicturesController do
     describe "with valid params" do
       it "creates a new Picture" do
         expect {
-          post :create, :picture => valid_attributes, :product_id => product.id
+          post :create, :picture => FactoryGirl.attributes_for(:main_picture, :product => product), :product_id => product.id
         }.to change(Picture, :count).by(1)
       end
 
       it "assigns a newly created picture as @picture" do
-        post :create, :picture => valid_attributes, :product_id => product.id
+        post :create, :picture => FactoryGirl.attributes_for(:main_picture, :product => product), :product_id => product.id
         assigns(:picture).should be_a(Picture)
         assigns(:picture).should be_persisted
       end
 
       it "redirects to the created picture" do
-        post :create, :picture => valid_attributes, :product_id => product.id
+        post :create, :picture => FactoryGirl.attributes_for(:main_picture, :product => product), :product_id => product.id
         response.should redirect_to([:admin, Picture.last.product, Picture.last])
       end
     end
@@ -84,12 +83,12 @@ describe Admin::PicturesController do
       end
 
       it "assigns the requested picture as @picture" do
-        put :update, :id => picture.id, :picture => valid_attributes, :product_id => product.id
+        put :update, :id => picture.id, :picture => FactoryGirl.attributes_for(:main_picture, :product => product), :product_id => product.id
         assigns(:picture).should eq(picture)
       end
 
       it "redirects to the picture" do
-        put :update, :id => picture.id, :picture => valid_attributes, :product_id => product.id
+        put :update, :id => picture.id, :picture => FactoryGirl.attributes_for(:main_picture, :product => product), :product_id => product.id
         response.should redirect_to([:admin, product, picture])
       end
     end
