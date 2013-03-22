@@ -15,11 +15,11 @@
     </li>
     <li id="shoes">
       <%= link_to shoes_path, onclick: track_event('Destaques','BannerCentro') do %>
-        <%= image_tag "home/sapatos.jpg", title: "Sapatos Hot" %>
+        <%= image_tag "home/stylist_news.jpg", title: "Sapatos Hot" %>
       <% end %>      
-      <h1><%= link_to "Sapatos hot", shoes_path, onclick: track_event('Destaques','BannerCentro') %></h1>
-      <p>Veja todos na seção sapatos</p>
-      <%= link_to "Confira aqui", shoes_path, class: "more", onclick: track_event('Destaques','BannerCentro') %>
+      <h1><%= link_to "STYLIST NEWS", shoes_path, onclick: track_event('Destaques','BannerCentro') %></h1>
+      <p>Saiba o que rolou no SPFW</p>
+      <%= link_to "Confira aqui", "/stylist-news", class: "more", onclick: track_event('Destaques','BannerCentro') %>
     </li>
     <li id="olookmovel" class="iehack"> <!-- NAO REMOVER A CLASSE -->
       <%= link_to olookmovel_path, onclick: track_event('Destaques','BannerDireita') do %>
