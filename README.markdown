@@ -1,3 +1,5 @@
+[![Build Status](http://ci:secret4CI@ci.olook.com.br/job/olook/badge/icon)](http://ci.olook.com.br/job/olook/)
+
 Requirements
 ============
 
