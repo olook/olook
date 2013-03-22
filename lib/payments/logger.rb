@@ -4,7 +4,7 @@ module Payments
 
     def log text
       class_name = self.class == Class ? self.name : self.class.name
-      message = "#{Time.now} - #{class_name}"
+      message = "#{class_name}"
       message << " - [PaymentID: #{@payment_id}]" if @payment_id
       message << " - #{text}"
       logger.info(message)
