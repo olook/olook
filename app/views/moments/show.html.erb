@@ -12,16 +12,16 @@
   <% end %>
 
 
-  <!-- local onde o viewpersonalized será exibido -->
-  <div class="chaordic viewpersonalized"></div>
-
-  <!-- local onde o purchasepersonalized será exibido -->
-  <div class="chaordic purchasepersonalized"></div>
-
   <div id="moments" class="content">
     <%= collection_theme_presenter.display_nav_bar %>
     <%= collection_theme_presenter.render_search_form %>
     <div id="products_container">
+      <!-- local onde o viewpersonalized será exibido -->
+      <div class="chaordic viewpersonalized"></div>
+
+      <!-- local onde o purchasepersonalized será exibido -->
+      <div class="chaordic purchasepersonalized"></div>
+      
       <!-- local onde o mostpopular será exibido -->
       <div class="chaordic mostpopular"></div>
       <%= render "new_header_moments" %>
