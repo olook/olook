@@ -54,6 +54,8 @@ gem 'business_time'
 
 gem "rails-settings-cached"
 
+gem 'rack-mini-profiler'
+
 group :production, :staging do
   gem 'unicorn', '~> 4.1.1'
   gem 'asset_sync', '~> 0.5.0'
