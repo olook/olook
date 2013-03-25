@@ -57,7 +57,8 @@ class CatalogProductService
         :retail_price => retail_price,
         :discount_percent => discount_percentage,
         :variant_id => (last_variant.id if last_variant),
-        :inventory => (last_variant.inventory if last_variant)
+        :inventory => (last_variant.inventory if last_variant),
+        :brand => @product.brand
       }
     end
 
