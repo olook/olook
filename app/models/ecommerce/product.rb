@@ -230,7 +230,11 @@ class Product < ActiveRecord::Base
   end
 
   def inventory
-    self.variants.sum(:inventory)
+    if variants.loaded?
+      self.variants.inject(0) { |sum, variant| sum + variant.inventory.to_i }
+    else
+      self.variants.sum(:inventory)
+    end
   end
 
   def initial_inventory
