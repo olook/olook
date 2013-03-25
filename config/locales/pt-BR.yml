@@ -410,13 +410,14 @@
         mobile: "Telefone de contato 2"
         zip_code: CEP
       collection_theme:
-        active: Ativo
-        collection_theme_group: Grupo
-        header_image: Banner (Altura 290 x Largura 800)
+        active: 'Ativo'
+        collection_theme_group: 'Grupo'
+        header_image: 'Banner (Altura 290 x Largura 800)'
         header_image_alt: "Alt/title do Banner"
-        position: Posição
-        video_link: "Link do Vídeo no Youtube"
-        video_title: "Título do Vídeo"
+        position: 'Posição'
+        video_link: 'Link do Vídeo no Youtube'
+        video_title: 'Título do Vídeo'
+        text_color: 'Cor do Texto do link do vídeo no banner'
       credit_card:
         credit_card_number: "Número do cartão"
         expiration_date: "Validade (MM/AA)"

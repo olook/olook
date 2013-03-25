@@ -29,18 +29,6 @@
     <%= javascript_include_tag "product" %>
   <% end %>
 
-  <!-- local onde o mostpopular será exibido -->
-  <div class="chaordic mostpopular"></div>
-
-  <!-- local onde o frequentlyboughttogether será exibido -->
-  <div class="chaordic frequentlyboughttogether"></div>
-
-  <!-- local onde o similaritems será exibido -->
-  <div class="chaordic similaritems"></div>
-
-  <!-- local onde o ultimatebuy será exibido -->
-  <div class="chaordic ultimatebuy"></div>
-
   <div id="product">
     <div class="content">
       <div id="pics_suggestions">
@@ -54,6 +42,19 @@
       </div>
 
       <%= product_presenter.render_related_products %>
+
+      <!-- local onde o mostpopular será exibido -->
+      <div class="chaordic mostpopular"></div>
+
+      <!-- local onde o frequentlyboughttogether será exibido -->
+      <div class="chaordic frequentlyboughttogether"></div>
+
+      <!-- local onde o similaritems será exibido -->
+      <div class="chaordic similaritems"></div>
+
+      <!-- local onde o ultimatebuy será exibido -->
+      <div class="chaordic ultimatebuy"></div>
+
       <%# Banner placeholder %>
     </div>
   </div>
