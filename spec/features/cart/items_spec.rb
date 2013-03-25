@@ -18,7 +18,7 @@ feature "Handling cart items", %q{
     product = FactoryGirl.create(:blue_sliper_with_two_variants)
     product.master_variant.update_attribute(:inventory, 10) 
 
-    visit product_path(product)
+    visit product_path(product.id)
     
     within('p.new_sacola') do
       find('a.cart').text.should == 'MINHA SACOLA (0 itens)'
