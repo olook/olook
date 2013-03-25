@@ -5,31 +5,7 @@ class Admin::ProductsController < Admin::BaseController
   respond_to :html
 
   def index
-    @liquidation = LiquidationService.active
-    @sync_event = SynchronizationEvent.new
-
-    # search params
-    @collections = {}
-    Collection.order(:start_date).each do |collection|
-      year = collection.try(:start_date).try(:year)
-      if year
-        @collections[year] ||= []
-        @collections[year] << [collection.name, collection.id]
-      end
-    end
-
-    @categories = [["Sapatos", Category::SHOE] , ['Bolsas', Category::BAG], ['Acessórios', Category::ACCESSORY], ['Roupas', Category::CLOTH]]
-    @profiles = Profile.order(:name)
-
-    @products = Product.includes(:profiles).includes(:collection)
-                       .search(params[:q])
-                       .in_category(params[:cat])
-                       .in_collection(params[:col])
-                       .in_profile(params[:p])
-                       .order(sort_column + " " + sort_direction)
-                       .order("collection_id desc, category, name")
-                       .paginate(page: params[:page], per_page: 10)
-
+    load_data_for_index
     respond_with :admin, @products
   end
 
@@ -81,6 +57,7 @@ class Admin::ProductsController < Admin::BaseController
     if @sync_event.save
       redirect_to admin_products_path
     else
+      load_data_for_index
       render :index
     end
   end
@@ -164,6 +141,33 @@ class Admin::ProductsController < Admin::BaseController
     products.each do |p|
       p.update_attribute(:is_visible, visibility) unless p.is_visible == visibility
     end
+  end
+  
+  def load_data_for_index
+    @liquidation = LiquidationService.active
+    @sync_event = SynchronizationEvent.new
+
+    # search params
+    @collections = {}
+    Collection.order(:start_date).each do |collection|
+      year = collection.try(:start_date).try(:year)
+      if year
+        @collections[year] ||= []
+        @collections[year] << [collection.name, collection.id]
+      end
+    end
+
+    @categories = [["Sapatos", Category::SHOE] , ['Bolsas', Category::BAG], ['Acessórios', Category::ACCESSORY], ['Roupas', Category::CLOTH]]
+    @profiles = Profile.order(:name)
+
+    @products = Product.includes(:profiles).includes(:collection)
+                       .search(params[:q])
+                       .in_category(params[:cat])
+                       .in_collection(params[:col])
+                       .in_profile(params[:p])
+                       .order(sort_column + " " + sort_direction)
+                       .order("collection_id desc, category, name")
+                       .paginate(page: params[:page], per_page: 10)
   end
 end
 
