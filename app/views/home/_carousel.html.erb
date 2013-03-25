@@ -1,10 +1,9 @@
 <div id="carousel">
   <ul>
     <%- [
-      { link: collection_theme_path("andre-lima"), image: "home/destaque_andre_45_off_ok.jpg" },
       { link: new_survey_path, image: "home/destaque_botao_melancia.jpg" },
+      { link: collection_theme_path("andre-lima"), image: "home/destaque_andre_45_off_ok.jpg" },
       { link: collection_theme_path("estilista-juliana-jabour"), image: "home/banner_homer_spfw.jpg" },
-      { link: "/rasteiras", image: "home/banner_homer_rasteiras.jpg" }
     ].each_with_index do |item, index| %>
       <li>
         <%= link_to( image_tag(item[:image]), item[:link], onclick: track_event('Carrossel',"Banner#{index+1}") ) %>
