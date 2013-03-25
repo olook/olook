@@ -9,7 +9,7 @@ module Abacos
                 :name, :description, :model_number, :category,
                 :width, :height, :length, :weight, :color_category,
                 :color_name, :collection_id, :how_to, :collection_themes, :details, :profiles,
-                :is_kit, :pre_defined_descriptor, :class_description
+                :is_kit, :pre_defined_descriptor, :class_description, :brand
 
     def initialize(parsed_data)
       parsed_data.each do |key, value|
@@ -28,7 +28,8 @@ module Abacos
         :height         => self.height,
         :length         => self.length,
         :weight         => self.weight,
-        :is_kit         => self.is_kit
+        :is_kit         => self.is_kit,
+        :brand          => self.brand
       }
     end
 
@@ -56,7 +57,8 @@ module Abacos
           :category     => self.category,
           :description  => self.description,
           :is_visible   => false,
-          :is_kit       => self.is_kit
+          :is_kit       => self.is_kit,
+          :brand        => self.brand
         )
         product.id = self.model_number.to_i
         product.save!
@@ -149,7 +151,8 @@ module Abacos
         :profiles               => parse_profiles( abacos_product[:caracteristicas_complementares] ),
         :is_kit                 => abacos_product[:produto_kit].present? ? abacos_product[:produto_kit] : false,
         :pre_defined_descriptor => abacos_product[:descritor_pre_definido],
-        :class_description      => abacos_product[:descricao_classe]
+        :class_description      => abacos_product[:descricao_classe],
+        :brand                  => parse_brand( abacos_product[:descritor_pre_definido] )
       }
     end
   private
@@ -195,6 +198,10 @@ module Abacos
 
     def self.parse_color(data)
       find_in_descritor_pre_definido(data, 'COR')
+    end
+
+    def self.parse_brand(data)
+      find_in_descritor_pre_definido(data, 'MARCA')
     end
 
     def self.parse_details(data, data_simple_descriptor)
