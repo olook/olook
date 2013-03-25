@@ -22,6 +22,11 @@
     <%- end -%>
     <meta property="fb:admins" content="100002490760020" />
 
+    <% if Setting.use_vwo %>
+      <!-- VWO -->
+      <%= render :partial => "shared/metrics/vwo/tracking_code" %>
+    <% end %>
+
 
     <%= yield :head %>
 

@@ -176,7 +176,7 @@ div#moments {
             img.model{
               display: none;
             }
-    		&.opened{background: image-url('moments/sprite.png') right 8px no-repeat;}
+            &.opened{ background: image-url('moments/sprite.png') right 8px no-repeat; }
     	}
     	h1{font-family: avenir,arial,sans-serif;font-size: 20px;font-weight: lighter;text-transform: uppercase;margin: 5px 0 20px 0;padding: 0 0 5px;
     	  &.purse{margin-top:25px;}
