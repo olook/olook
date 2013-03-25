@@ -11,7 +11,7 @@ currency: 'BRL'
 };
 
 </script>
-<% if order.tracking && order.tracking.utm_campaign == "produtos" && order.tracking.utm_source == "sociomantic_customer" && order.tracking.utm_medium == "banner"%>
+<% if order.tracking && order.tracking.utm_campaign == "produtos" && order.tracking.utm_source.match(/sociomantic*/) && order.tracking.utm_medium == "banner"%>
   <script type="text/javascript">
     var sale =
     {

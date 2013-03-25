@@ -62,7 +62,7 @@ var google_remarketing_only = true;
 
 
 <!-- Sociostatic -->
-<% if current_user && current_user.try(:has_purchased_orders?)%>
+<% if current_user && current_user.try(:has_purchased_orders?) && current_user.try(:tracking).utm_source.match(/sociomantic*/)%>
   <script type="text/javascript">
       var customer = {
         identifier: '<%= current_user.id%>'
