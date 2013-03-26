@@ -3,7 +3,6 @@
 <% end %>
 
 <%= link_to "Continuar comprando", @referer[:url], :class => "back_link", onclick: track_event("Checkout","clickContinueShopping") %>
-
 <section id="payment" class="checkout">
   <%= form_for(@checkout, url: { action: "create" }) do |checkout_form| %>
     <div class="box-step-one">
