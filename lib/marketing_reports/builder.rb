@@ -168,7 +168,7 @@ group by uc.user_id, ct.code
     def generate_userbase_with_source
       @csv = CSV.generate do |csv|
         csv << %w{email nome sexo tipo_cadastro data_cadastro estilo_quiz data_ultima_compra authentication_token}
-        User.find_each do |u|
+        User.where("created_at > ?", DateTime.parse(Setting.lower_limit_source_csv).to_date).find_each do |u|
           gender = (u.gender == 1) ? "M" : "F"
           profile = u.main_profile ? u.main_profile.name : nil
           last_order_date = u.orders.any? ? u.orders.last.created_at.strftime("%d-%m-%Y") : nil
