@@ -13,10 +13,10 @@ class ConsolidatedSell < ActiveRecord::Base
     where(day: day).order(:category, :subcategory)
   end
 
-  def self.summarize variant, amount
+  def self.summarize date, variant, amount
     product = variant.product
 
-    day = Date.today
+    day = date
     category = product.category
     subcategory = product.subcategory
 
