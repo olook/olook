@@ -10,7 +10,7 @@ Rack::MiniProfiler.config.user_provider = Proc.new do |env|
 end
 
 # set RedisStore
-if Rails.env.production?
+if Rails.env.production? || Rails.env.staging?
   uri = URI.parse("redis://" + YAML.load_file(Rails.root + 'config/resque.yml')[Rails.env])
   Rack::MiniProfiler.config.storage_options = { :host => uri.host, :port => uri.port, :password => uri.password }
   Rack::MiniProfiler.config.storage = Rack::MiniProfiler::RedisStore
