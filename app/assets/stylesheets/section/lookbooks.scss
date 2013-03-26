@@ -126,3 +126,37 @@ section#lookbooks {
     }
   }
 }
+.box_product {
+  h1{
+    font-size: 13px !important;
+    line-height: 18px !important;
+  }
+  .brand{
+    font-size: 13px;
+    font-family: $avenir;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: black;
+    margin-left: 4px;
+    line-height: 18px;
+  }
+  .price{
+    font-family: $avenir;
+    font-size: 13px;
+    color: black;
+    margin-left: 4px;
+    line-height: 18px;
+    }
+  .plots{
+    font-family: $avenir !important;
+    font-size: 13px !important;
+    color: black !important;  
+    padding: 0 !important;
+    margin: 0 !important;
+    float: none !important;
+    line-height: 18px;
+  } 
+}
+
+
+ 
