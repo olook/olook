@@ -85,7 +85,6 @@ function showAboutSecurityCode(){
 		content = $("div.modal_security_code");
 	initBase.newModal(content);
 	})
-
 }
 
 
