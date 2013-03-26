@@ -57,7 +57,7 @@
   <% if billet_discount_enabled %>
     <p class="tip" id="billet_tip" style="<%= @cart_service.billet_discount > 0 ? "" : "display:none;" %>">Pague com boleto e <span>ganhe <%= billet_discount_percentage%>% de desconto.<br /></span> Nesta compra seu desconto será de <span id="billet_discount" class="txt-pink"><%= number_to_currency(@cart_service.billet_discount) %></span>.</p>
   <% end %>
-      
+
   <%= errors_for(@checkout, :payment_base) %>
   <ul class="payment_type">
     <li class="credit_card"><%= checkout_form.radio_button :payment_method, "credit_card", checked: @checkout.payment && @checkout.payment.is_a?(CreditCard), onclick: track_event("CheckoutPayment","clickSelectCreditCard") %> <%= checkout_form.label :payment_method, 'Cartão de Crédito' %></li>
@@ -92,15 +92,15 @@
         <% options = build_installment_options(@cart_service.total, CreditCard.installments_number_for(@cart_service.total)) %>
         <%= payment_form.select :payments, options, onchange: track_event("CheckoutPayment","changeNumberOfInstallments")  %>
       </div>
-    <% end %>  
-    
+    <% end %>
+
     <%= field_set_tag do %>
       <div>
       <%= payment_form.label :user_name, 'Nome (como exibido no cartão)' %>
       <%= payment_form.text_field :user_name,  class: "user_name #{error_class_if_needed(@checkout.payment, :user_name)}", onblur: track_event("CheckoutPayment","fillUserName") %>
       </div>
       <%= errors_for(@checkout.payment, :user_name) %>
-    <% end %>  
+    <% end %>
 
     <%= field_set_tag do %>
       <div>
@@ -113,7 +113,7 @@
       </div>
       <%= errors_for(@checkout.payment, :credit_card_number) %>
       <%= errors_for(@checkout.payment, :expiration_date) %>
-    <% end %>  
+    <% end %>
 
     <%= field_set_tag do %>
       <div>
@@ -125,7 +125,7 @@
       </div>
 
       <%= errors_for(@checkout.payment, :security_code) %>
-    <% end %>  
+    <% end %>
 
     <%= field_set_tag do %>
       <div>
@@ -141,7 +141,7 @@
       <%= payment_form.text_field :user_birthday,  class: "date #{error_class_if_needed(@checkout.payment, :user_birthday)}", onblur: track_event("CheckoutPayment","fillUserBirthday") %>
       </div>
       <%= errors_for(@checkout.payment, :user_birthday) %>
-    <% end %>        
+    <% end %>
   </div>
   <div class="box-boleto billet">
     <p>Você deverá imprimir e realizar o pagamento
@@ -161,7 +161,7 @@
 
     <p>Após clicar em “finalizar compra”, você deverá<br/> clicar em “Realizar pagamento”, na página de confirmação de compra.</p>
     <p><span>Importante:</span> Seu pedido ficará reservado por 48hrs, enquanto aguardamos a confirmação do seu pagamento.</p>
-  </div>      
-  
+  </div>
+
   <% end %>
-</div>  
+</div>
