@@ -8,9 +8,9 @@ Admin.where(:email => "admin@olook.com").first_or_create( :password =>"Difficult
 
 SurveyBuilder.new( SURVEY_DATA, "Registration Survey" ).build
 
-{ "Sexy" => "sexy", 
-	"Elegante" => "chic", 
-	"Básica" => "casual", 
+{ "Sexy" => "sexy",
+	"Elegante" => "chic",
+	"Básica" => "casual",
 	"Fashionista" => "moderna" }.each do |key, value|
 		Profile.find_by_name(key).try :update_attribute, :alternative_name, value
 end
@@ -31,6 +31,7 @@ end
   {type: CartItemsTotalValue, name: "Valor total dos items na sacola"},
   {type: FirstBuy, name: "Primeira Compra"},
   {type: SpecificItem, name: "Items especificos"},
+  {type: SpecificCategory, name: "Items com categoria especifica"},
 
   #Actions
   {type: MinorPriceAdjustment, name: "Produto de menor valor Gratis"},

@@ -62,7 +62,7 @@ class ProductFinderService
     options = args.extract_options!
     options[:collection] = current_collection unless options[:collection]
 
-    scope = (@admin ? Product : options[:profile].products.only_visible)
+    scope = (@admin ? Product.includes(:variants) : options[:profile].products.includes(:variants).only_visible)
     
     scope = scope.joins('left outer join variants on products.id = variants.product_id')
                 .select("products.*, if(sum(distinct variants.inventory) > 0, 1, 0) as available_inventory, variants.inventory")

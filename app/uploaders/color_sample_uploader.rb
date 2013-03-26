@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class ColorSampleUploader < CarrierWave::Uploader::Base
 
+  include CarrierWave::MiniMagick
   # Include RMagick or ImageScience support:
-  # include CarrierWave::MiniMagick
   # include CarrierWave::ImageScience
 
   # Choose what kind of storage to use for this uploader:
@@ -30,6 +30,24 @@ class ColorSampleUploader < CarrierWave::Uploader::Base
   # def scale(width, height)
   #   # do something
   # end
+
+  version :square15 do
+    process resize_to_fill: [15,15]
+    process :strip
+  end
+
+  version :square28 do
+    process resize_to_fill: [28,28]
+    process :strip
+  end
+
+  def strip
+    manipulate! do |img|
+      img.strip
+      img = yield(img) if block_given?
+      img
+    end
+  end
 
   def extension_white_list
     %w(jpg jpeg gif png)
