@@ -15,9 +15,9 @@ feature "Admin deletes a campaign" do
   scenario "in successfully scenario " do
     do_admin_login!(@admin)
     visit "/admin"
-    click_link "Campaigns"
+    click_link "Campanhas"
     expect(page).to have_content('First Campaign')
-    click_link "Destroy"
+    click_link "Apagar"
     expect(page).to_not have_content('First Campaign')
   end
 end
