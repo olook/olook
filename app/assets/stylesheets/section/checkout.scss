@@ -1590,9 +1590,11 @@ section.checkout{
 			&.frete, &.address_recorded{height:auto;}
 			&.address_recorded{float:left;border:none;}
 			&.user_name{width:280px;}
-      &.credit_card_number{width: 150px;}
+      &.credit_card_number{width: 149px;}
 			&.security_code{width:120px;}
 			&.expiration_date{width:107px;}
+      &.user_identification{width: 280px;}
+      &.date{width: 280px;}
 
 			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;position:absolute;left:685px;display:none;cursor:pointer;z-index:999;}
 		}
@@ -1645,41 +1647,6 @@ section.checkout{
 					label{float:left;}
 				}
 			}
-
-/********** modal security code *******/
-  .modal_security_code{
-    width: 600px;
-    height: 255px;
-    background-color: #fff;
-    display: block;
-    position: absolute;
-    z-index: 1000;
-    h1{
-      text-align: center;
-      font-family: avenir, arial, sans-serif;
-      font-size: 20px;
-      font-weight: bold;
-      margin-top: 25px;
-    }
-    h2{
-      font-family: $avenir;
-      font-size: 14px;
-      font-weight: bold;
-      margin-left: 250px;
-      margin-top: 50px;
-      margin-right: 70px;
-      span{
-        font-weight: normal;
-        display: block;
-      }
-    }
-    .img_security{
-      float: left;
-    }
-  }
-
-
-/********** end modal security code *******/
 
 			.box-cartao{float:left;display:none;
 				.cards{overflow:hidden;
@@ -2118,3 +2085,36 @@ a.txt-conheca{
     color: $pink;
     text-transform: none;
     }
+
+/********** modal security code *******/
+  .modal_security_code{
+    width: 600px;
+    height: 255px;
+    background-color: #fff;
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    h1{
+      text-align: center;
+      font-family: avenir, arial, sans-serif;
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 25px;
+    }
+    h2{
+      font-family: $avenir;
+      font-size: 14px;
+      font-weight: bold;
+      margin-left: 250px;
+      margin-top: 50px;
+      margin-right: 70px;
+      span{
+        font-weight: normal;
+        display: block;
+      }
+    }
+    .img_security{
+      float: left;
+    }
+  }
+/********** end modal security code *******/
