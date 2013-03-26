@@ -15,12 +15,16 @@ class Admin::PromotionsController < Admin::BaseController
   end
 
   def new
+    @promotion_actions = PromotionAction.all
+    @promotion_rules = PromotionRule.all
     @promotion = Promotion.new
-    3.times { @promotion.rule_parameters.build }
     @action_parameter = ActionParameter.new
+    3.times { @promotion.rule_parameters.build }
   end
 
   def edit
+    @promotion_actions = PromotionAction.all
+    @promotion_rules = PromotionRule.all
     @promotion = Promotion.find(params[:id])
     3.times { @promotion.rule_parameters.build }
     @action_parameter = @promotion.action_parameter ? @promotion.action_parameter : ActionParameter.new
