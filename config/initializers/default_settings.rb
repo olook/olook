@@ -74,3 +74,6 @@ Setting.defaults[:collection_section_featured_products] = "Teste|8554#|10226#Bla
 Setting.defaults[:use_vwo] = false
 
 Setting.defaults[:profile_users] = "nelson.haraguchi@olook.com.br,luis.daher@olook.com.br,rafael.manoel@olook.com.br,vinicius.monteiro@olook.com.br,tiago.almeida@olook.com.br,rafael.carvalho@olook.com.br,oliver.barnes@olook.com.br,thaiane.gazzi@olook.com.br"
+
+# format: YYYY-MM-DD
+Setting.defaults[:lower_limit_source_csv] = "2013-03-26"
