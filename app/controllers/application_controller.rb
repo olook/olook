@@ -162,7 +162,7 @@ class ApplicationController < ActionController::Base
 
 private
   def load_mini_profiler
-    Rack::MiniProfiler.authorize_request if current_user && Setting.profile_users.include?( current_user.email )
+    Rack::MiniProfiler.authorize_request if current_user && Setting.profile_users.to_s.include?( current_user.email ) rescue false
   end
 end
 
