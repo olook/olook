@@ -69,8 +69,9 @@
 
   <div class="modal_security_code">
     <h1>ENCONTRE O CÓDIGO DE SEGURANÇA DO CARTÃO</h1>
-        <%= image_tag 'new_checkout/codigo_seguranca.jpg', :class => 'img_security', style:"" %>
-        <h2>VISA / MASTERCARD / DINNERS <span>O código de segurança está localizado no verso do cartão e corresponde aos três últimos dígitos da faixa numérica</span>
+        <%= image_tag 'new_checkout/codigo_seguranca.jpg', :class => 'img_security' %>
+        <h2>VISA / MASTERCARD / DINNERS <span>O código de segurança está localizado no verso do cartão e corresponde aos três últimos dígitos da faixa numérica
+        </span></h2>
   </div>
 
   <div class="box-cartao credit_card">
@@ -120,8 +121,7 @@
       <%= payment_form.text_field :security_code,  class: "security_code #{error_class_if_needed(@checkout.payment, :security_code)}", onblur: track_event("CheckoutPayment","fillSecurityCode") %>
       </div>
       <div class="code_link">
-        <a href="" class="find_code">Como encontrar o código de segurança?</a>
-
+        <a href="javascript:void(0);" class="find_code">Como encontrar o código de segurança?</a>
       </div>
 
       <%= errors_for(@checkout.payment, :security_code) %>
