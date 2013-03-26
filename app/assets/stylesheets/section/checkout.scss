@@ -1263,7 +1263,7 @@ section#payment {
               &.credit_card_number {
 								position:relative;
                 input[type="text"] {
-                  width: 219px;
+                  width: 140px !important;
 									&.credit-error{border:solid 1px #F00;}
                 }
 								.span-error{position:absolute;top:60px;left:0;color:#F00;}
@@ -1589,7 +1589,8 @@ section.checkout{
 			&.tel_contato1, &.tel_contato2{width:137px;}
 			&.frete, &.address_recorded{height:auto;}
 			&.address_recorded{float:left;border:none;}
-			&.user_name, &.credit_card_number{width:280px;}
+			&.user_name{width:280px;}
+      &.credit_card_number{width: 150px;}
 			&.security_code{width:120px;}
 			&.expiration_date{width:107px;}
 
@@ -1644,6 +1645,42 @@ section.checkout{
 					label{float:left;}
 				}
 			}
+
+/********** modal security code *******/
+  .modal_security_code{
+    width: 600px;
+    height: 255px;
+    background-color: #fff;
+    display: block;
+    position: absolute;
+    z-index: 1000;
+    h1{
+      text-align: center;
+      font-family: avenir, arial, sans-serif;
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 25px;
+    }
+    h2{
+      font-family: $avenir;
+      font-size: 14px;
+      font-weight: bold;
+      margin-left: 250px;
+      margin-top: 50px;
+      margin-right: 70px;
+      span{
+        font-weight: normal;
+        display: block;
+      }
+    }
+    .img_security{
+      float: left;
+    }
+  }
+
+
+/********** end modal security code *******/
+
 			.box-cartao{float:left;display:none;
 				.cards{overflow:hidden;
 				   &.input_error{border:solid 1px #EA1E40 !important;border-left:solid 5px #EA1E40 !important;padding-top:3px;}
@@ -1669,6 +1706,16 @@ section.checkout{
 						}
 					}
 				}
+        .code_link{
+          float: right;
+          width: 135px;
+          margin-top: 19px;
+        }
+        .find_code{
+          font-family: $avenir;
+          font-size: 12px;
+          color: $pink;
+        }
 			}
 			.box-boleto{float:left;
 				p{font-size:13px;margin-top:15px;
