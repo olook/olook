@@ -78,8 +78,6 @@ class Order < ActiveRecord::Base
     state :under_review
     state :authorized
 
-    # after_transition any => :waiting_payment, :do => [:summarize_sell]
-
     after_transition any => :authorized, :do => [:transition_to_authorized,
                                                  :set_delivery_date_on,
                                                  :set_shipping_service_name,
@@ -291,7 +289,7 @@ class Order < ActiveRecord::Base
     end
 
     def summarize_sell
-      ActiveSupport::Notifications.instrument("summarize.sell", :order => self)
+      Resque.enqueue(StatisticWorker, id)
     end
 
     def calculate_delivery_date
