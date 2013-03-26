@@ -228,5 +228,26 @@ describe MarketingReports::Builder do
 
   end
 
+  describe "#generate_userbase_with_source" do
+    let(:csv_header) do
+      "email,nome,sexo,tipo_cadastro,data_cadastro,estilo_quiz,data_ultima_compra,authentication_token\n"
+    end
+
+    it "builds a csv file containing all user data" do
+      csv_body = [user_a].inject("") do |data, user|
+
+        gender = (user.gender == 1) ? "M" : "F"
+        profile = user.main_profile ? user.main_profile.name : nil
+        last_order_date = user.orders.any? ? user.orders.last.created_at.strftime("%d-%m-%Y") : nil
+
+        data += "#{user.email.chomp},#{user.name},#{gender},#{subject.registration_source(user)},#{subject.registered_at(user).strftime("%d-%m-%Y")},#{profile},#{last_order_date},#{user.authentication_token}\n"
+        data
+      end
+
+      subject.generate_userbase_with_source
+      subject.csv.should match /^#{csv_header}#{csv_body}/
+    end
+  end  
+
 
 end
