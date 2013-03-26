@@ -15,11 +15,11 @@ feature "Admin updates a campaign" do
   scenario "with valid attributes" do
     do_admin_login!(@admin)
     visit "/admin"
-    click_link "Campaigns"
-    click_link "Edit"
-    expect(page).to have_content('Editing Campaign')
+    click_link "Campanhas"
+    click_link "Editar"
+    expect(page).to have_content('Editando Campanha')
     fill_in "campaign_title", with: "Campanha atualizada"
-    click_on("Atualizar Campaign")
+    click_on("Atualizar Campanha")
     expect(page).to have_content('Campanha atualizada')
     expect(page).to have_content('Campaign was successfully updated.')
   end
