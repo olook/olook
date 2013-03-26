@@ -9,15 +9,16 @@ feature "Visitor sees Products", %q{
   To see if a product is present
 } do
 
-  let!(:casual_profile) { FactoryGirl.create(:casual_profile, :with_points, :with_user) }
-  let!(:user) { casual_profile.users.first }
-  let!(:collection) { FactoryGirl.create(:collection) }
-  let!(:shoe) { FactoryGirl.create(:shoe, :in_stock, collection: collection) }
-  let!(:bag)  { FactoryGirl.create(:bag, :in_stock, collection: collection) }
-  let!(:accessory) { FactoryGirl.create(:basic_accessory, :in_stock, collection: collection) }
-  let!(:cloth) { FactoryGirl.create(:simple_garment, :in_stock, collection: collection) }
-
   scenario "Member Showroom" do
+
+    casual_profile  =  FactoryGirl.create(:casual_profile, :with_points, :with_user)
+    user            =  casual_profile.users.first
+    collection      =  FactoryGirl.create(:collection)
+    shoe            =  FactoryGirl.create(:shoe, :in_stock, collection: collection)
+    bag             =  FactoryGirl.create(:bag, :in_stock, collection: collection)
+    accessory       =  FactoryGirl.create(:basic_accessory, :in_stock, collection: collection)
+    cloth           =  FactoryGirl.create(:simple_garment, :in_stock, collection: collection)
+
     user.update_attribute(:password, '123456')
     user.update_attribute(:password_confirmation, '123456')
 
