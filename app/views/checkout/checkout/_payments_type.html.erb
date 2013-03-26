@@ -66,6 +66,13 @@
   </ul>
 
   <%= fields_for "checkout[payment]", @checkout.payment do |payment_form|%>
+
+  <div class="modal_security_code">
+    <h1>ENCONTRE O CÓDIGO DE SEGURANÇA DO CARTÃO</h1>
+        <%= image_tag 'new_checkout/codigo_seguranca.jpg', :class => 'img_security', style:"" %>
+        <h2>VISA / MASTERCARD / DINNERS <span>O código de segurança está localizado no verso do cartão e corresponde aos três últimos dígitos da faixa numérica</span>
+  </div>
+
   <div class="box-cartao credit_card">
     <p class="subtitle">SELECIONE A BANDEIRA DO CARTÃO:</p>
     <ol class="cards <%= error_class_if_needed(@checkout.payment, :bank) %>">
@@ -99,7 +106,12 @@
       <%= payment_form.label :credit_card_number, 'Número do cartão' %>
       <%= payment_form.text_field :credit_card_number,  class: "credit_card_number #{error_class_if_needed(@checkout.payment, :credit_card_number)}", onblur: track_event("CheckoutPayment","fillCreditCardNumber") %>
       </div>
+      <div class="fieldset_validate">
+      <%= payment_form.label :expiration_date, 'Validade (mm/aa)' %>
+      <%= payment_form.text_field :expiration_date,  class: "expiration_date #{error_class_if_needed(@checkout.payment, :expiration_date)}", onblur: track_event("CheckoutPayment","fillExpirationDate") %>
+      </div>
       <%= errors_for(@checkout.payment, :credit_card_number) %>
+      <%= errors_for(@checkout.payment, :expiration_date) %>
     <% end %>  
 
     <%= field_set_tag do %>
@@ -107,12 +119,12 @@
       <%= payment_form.label :security_code, 'Cód. de segurança' %>
       <%= payment_form.text_field :security_code,  class: "security_code #{error_class_if_needed(@checkout.payment, :security_code)}", onblur: track_event("CheckoutPayment","fillSecurityCode") %>
       </div>
-      <div class="fieldset_validate">
-      <%= payment_form.label :expiration_date, 'Validade (mm/aa)' %>
-      <%= payment_form.text_field :expiration_date,  class: "expiration_date #{error_class_if_needed(@checkout.payment, :expiration_date)}", onblur: track_event("CheckoutPayment","fillExpirationDate") %>
+      <div class="code_link">
+        <a href="" class="find_code">Como encontrar o código de segurança?</a>
+
       </div>
+
       <%= errors_for(@checkout.payment, :security_code) %>
-      <%= errors_for(@checkout.payment, :expiration_date) %>
     <% end %>  
 
     <%= field_set_tag do %>
