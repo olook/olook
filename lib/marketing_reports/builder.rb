@@ -167,14 +167,32 @@ group by uc.user_id, ct.code
 
     def generate_userbase_with_source
       @csv = CSV.generate do |csv|
-        csv << %w{email nome sexo tipo_cadastro data_cadastro estilo_quiz data_ultima_compra}
+        csv << %w{email nome sexo tipo_cadastro data_cadastro estilo_quiz data_ultima_compra authentication_token}
         User.find_each do |u|
           gender = (u.gender == 1) ? "M" : "F"
           profile = u.main_profile ? u.main_profile.name : nil
           last_order_date = u.orders.any? ? u.orders.last.created_at.strftime("%d-%m-%Y") : nil
 
-          csv << [ u.email.chomp, u.name, gender, registration_source(u), registered_at(u).strftime("%d-%m-%Y"), profile, last_order_date ]
+          csv << [ u.email.chomp, u.name, gender, registration_source(u), registered_at(u).strftime("%d-%m-%Y"), profile, last_order_date, u.authentication_token ]
         end
+      end
+    end    
+
+    def registration_source user
+      if user.campaign_email_created_at
+        "lightbox"
+      elsif user.events.where(event_type: 22).any? || user.half_user?
+        "half_user"
+      else
+        "full_user"
+      end      
+    end
+
+    def registered_at user
+      if user.campaign_email_created_at && user.campaign_email_created_at < user.created_at
+        user.campaign_email_created_at
+      else
+        user.created_at
       end
     end    
 
@@ -204,24 +222,5 @@ group by uc.user_id, ct.code
     def emails_seed_list
       IO.readlines(Rails.root + "lib/marketing_reports/emails_seed_list.csv").map(&:chomp)
     end
-
-    def registration_source user
-      if user.campaign_email_created_at
-        "lightbox"
-      elsif user.events.where(event_type: 22).any? || user.half_user?
-        "half_user"
-      else
-        "full_user"
-      end      
-    end
-
-    def registered_at user
-      if user.campaign_email_created_at && user.campaign_email_created_at < user.created_at
-        user.campaign_email_created_at
-      else
-        user.created_at
-      end
-    end
-
   end
 end
