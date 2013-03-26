@@ -230,7 +230,11 @@ class Product < ActiveRecord::Base
   end
 
   def inventory
-    self.variants.sum(:inventory)
+    if variants.loaded?
+      self.variants.inject(0) { |sum, variant| sum + variant.inventory.to_i }
+    else
+      self.variants.sum(:inventory)
+    end
   end
 
   def initial_inventory
@@ -378,7 +382,7 @@ class Product < ActiveRecord::Base
   end
 
   def find_suggested_products
-    products = Product.only_visible.joins(:details).where("details.description = '#{ self.subcategory }' AND collection_id <= #{ self.collection_id }").order('collection_id desc')
+    products = Product.only_visible.includes(:variants).joins(:details).where("details.description = '#{ self.subcategory }' AND collection_id <= #{ self.collection_id }").order('collection_id desc')
 
     remove_color_variations(products)
   end
