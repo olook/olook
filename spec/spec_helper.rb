@@ -27,6 +27,7 @@ Spork.prefork do
   require 'rspec/rails'
   require 'capybara/rspec'
   require 'carrierwave/test/matchers'
+  include ActionView::Helpers::NumberHelper
 
   # Since we're using devise, the spork guys recommend us to reload the routes on this step
   # https://github.com/timcharper/spork/wiki/Spork.trap_method-Jujutsu
