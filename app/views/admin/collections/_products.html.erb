@@ -6,7 +6,6 @@
       <th>Nome</th>
       <th style="width:100px">Imagem</th>
       <th>Perfil</th>
-      <th># Modelo</th>
       <th>Preço</th>
       <th>Está visível?</th>
       <th>Categoria</th>
@@ -23,7 +22,6 @@
           <td><%= product.name %></td>
           <td><%= image_tag(product.showroom_picture, size: '100x100') if product.showroom_picture %></td>
           <td><%= product.profiles.collect{ |p| p.name}.join(", ") %></td>
-          <td><%= product.model_number %></td>
           <td><%= number_to_currency product.price %></td>
           <%= hidden_field_tag :collection_id, @collection.id %>
           <td><%= check_box_tag 'visible_products[]', product.id, product.is_visible %></td>
