@@ -29,7 +29,7 @@
           <td><%= product.initial_inventory %></td>
           <td><%= product.inventory %></td>
           <td><%= product.color_name %></td>
-          <td>
+          <td class=manage_products_links>
             <%= link_to "Preview", product_path(product), class: 'button info', target: "_blank" %>
             <%= link_to 'Exibir', admin_product_path(product), class: 'button' %>
             <%= link_to 'Editar', edit_admin_product_path(product), class: 'button' %>
