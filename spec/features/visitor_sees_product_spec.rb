@@ -56,9 +56,6 @@ feature "Visitor sees Products", %q{
     end
   end
 
-  scenario "Lookbooks" do
-  end
-
   scenario "Catalog Clothes" do
   end
 
@@ -71,14 +68,6 @@ feature "Visitor sees Products", %q{
   scenario "Catalog Accessories" do
   end
 
-  scenario "Gift index" do
-  end
-
-  scenario "Gift profiles" do
-  end
-
-  scenario "Gift quiz" do
-  end
 
   scenario "Collection Theme" do
     collection_theme = FactoryGirl.create(:collection_theme)
