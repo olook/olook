@@ -84,9 +84,6 @@ group :development, :test do
   gem "pry-nav"
   gem 'delorean'
   gem 'timecop'
-end
-
-group :test do
   gem "equivalent-xml", " ~> 0.2.9"
   gem 'capybara', '2.0.2'
   gem 'capybara-webkit', '0.14.2'
@@ -99,4 +96,5 @@ group :test do
   gem 'launchy'
   gem 'vcr', '1.11.3'
   gem 'fakeweb'
+  gem 'parallel_tests'
 end
