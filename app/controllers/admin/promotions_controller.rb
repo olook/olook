@@ -37,6 +37,8 @@ class Admin::PromotionsController < Admin::BaseController
     else
       3.times { @promotion.rule_parameters.build }
       @action_parameter = @promotion.action_parameter ? @promotion.action_parameter : ActionParameter.new
+      @promotion_actions = PromotionAction.all
+      @promotion_rules = PromotionRule.all
     end
     respond_with :admin, @promotion
   end
@@ -45,6 +47,9 @@ class Admin::PromotionsController < Admin::BaseController
     @promotion = Promotion.find(params[:id])
     if @promotion.update_attributes(params[:promotion])
       flash[:notice] = 'Promotion was successfully updated.'
+    else
+      @promotion_actions = PromotionAction.all
+      @promotion_rules = PromotionRule.all
     end
     respond_with :admin, @promotion
   end
