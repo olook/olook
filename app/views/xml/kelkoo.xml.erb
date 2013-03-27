@@ -4,7 +4,7 @@
 <product>
 <title><%= product.name %></title>
 <link><%= product.product_url(utm_source: "kelkoo", utm_medium: "merchant") %></link>
-<price><%= number_with_precision(product.price, precision: 2, separator: ".") %></price>
+<price><%= number_with_precision(product.retail_price, precision: 2, separator: ".") %></price>
 <brand>olook</brand>
 <description><%= product.description %></description>
 <image-url><%= first_image_of product %></image-url>
