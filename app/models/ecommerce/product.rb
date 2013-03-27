@@ -422,6 +422,22 @@ class Product < ActiveRecord::Base
       product_ids = Setting.send("cloth_showroom_#{profile}").split(",")
       find_keeping_the_order product_ids
     end
+
+  def supplier_color
+    color = details.find_by_translation_token("Cor fornecedor").try(:description)
+    color.blank? ? "Não informado" : color
+  end
+
+  def product_color
+    product_color_name = details.find_by_translation_token("Cor produto").try(:description)
+    product_color_name = product_color_name.blank? ? self.color_name : "Não informado"
+    product_color_name = product_color_name.blank? ? "Não informado" : product_color_name
+    product_color_name
+  end
+
+  def filter_color
+    color = details.find_by_translation_token("Cor filtro").try(:description)
+    color.blank? ? "Não informado" : color
   end
 
   private
