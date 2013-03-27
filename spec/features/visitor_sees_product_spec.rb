@@ -67,7 +67,6 @@ feature "Visitor sees Products", %q{
     collection_theme.catalog.products << catalog_product
 
     visit '/sapatos'
-    binding.pry
     expect(page).to have_content('Sapatos')
     expect(page).to have_content(product.formatted_name)
     expect(page).to have_content(number_to_currency product.price)
