@@ -56,9 +56,6 @@ feature "Visitor sees Products", %q{
     end
   end
 
-  scenario "Lookbooks" do
-  end
-
   scenario "Catalog Clothes" do
   end
 
@@ -87,9 +84,18 @@ feature "Visitor sees Products", %q{
 
   end
 
-  scenario "Gift profiles" do
-  end
+  scenario "Collection Theme" do
+    collection_theme = FactoryGirl.create(:collection_theme)
+    product = FactoryGirl.create(:shoe, :in_stock)
+    product.variants.first.update_attributes(price: 169.99)
+    catalog_product = FactoryGirl.create(:catalog_product, product: product, variant: product.variants.first)
+    collection_theme.catalog.products << catalog_product
 
-  scenario "Gift quiz" do
+    visit collection_theme_path(slug: collection_theme.slug)
+
+    expect(page).to have_content(product.formatted_name)
+    expect(page).to have_content(number_to_currency product.price)
+    expect(page).to have_content(number_to_currency product.retail_price)
+    expect(page).to have_content(product.brand)
   end
 end
