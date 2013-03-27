@@ -71,7 +71,20 @@ feature "Visitor sees Products", %q{
   scenario "Catalog Accessories" do
   end
 
+  @javascript
   scenario "Gift index" do
+    pending
+
+    gift_box_helena = FactoryGirl.create(:gift_box_helena)
+    gift_box_top_five = FactoryGirl.create(:gift_box_top_five)
+    gift_box_hot_fb = FactoryGirl.create(:gift_box_hot_fb)
+
+    visit "/presentes"
+    #find("Veja as dicas da Helena").click
+    binding.pry
+    click_link("Veja as dicas da Helena")
+    expect(page).to have_content(gift_box_helena.products.first.name)
+
   end
 
   scenario "Gift profiles" do
