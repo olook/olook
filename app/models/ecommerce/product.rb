@@ -209,15 +209,17 @@ class Product < ActiveRecord::Base
   end
 
   def colors(size = nil, admin = false)
-    is_visible = (admin ? [0,1] : true)
-    conditions = {is_visible: is_visible, category: self.category, name: self.name}
-    conditions.merge!(variants: {description: size}) if size and self.category == Category::SHOE
-    Product.select("products.*, variants.inventory, if(sum(distinct variants.inventory) > 0, 1, 0) available_inventory")
-          .joins('left outer join variants on products.id = variants.product_id')
-          .where(conditions)
-          .where("products.id != ?", self.id)
-          .group('products.id')
-          .order('variants.inventory desc, available_inventory desc')
+    Rails.cache.fetch("p:colors:#{id}:#{admin}", expires_in: 30.minutes) do
+      is_visible = (admin ? [0,1] : true)
+      conditions = {is_visible: is_visible, category: self.category, name: self.name}
+      conditions.merge!(variants: {description: size}) if size and self.category == Category::SHOE
+      Product.select("products.*, variants.inventory, if(sum(distinct variants.inventory) > 0, 1, 0) available_inventory")
+            .joins('left outer join variants on products.id = variants.product_id')
+            .where(conditions)
+            .where("products.id != ?", self.id)
+            .group('products.id')
+            .order('variants.inventory desc, available_inventory desc')
+    end
   end
 
 
