@@ -80,12 +80,22 @@ function setButton(){
 		return helpLeft2 = $('input.send_it').offset().left;
 }
 
+function showAboutSecurityCode(){
+	$("a.find_code").click(function(){
+		content = $("div.modal_security_code");
+    	initBase.newModal(content);	
+	})
+	
+}
+
 
 $(function() {
 	masks.card();
 	setButton();
 	masks.tel(".tel_contato1");
 	masks.tel(".tel_contato2");
+
+	showAboutSecurityCode();
 
   $(".credit_card").click(function()
       { $(".box-debito .debit_bank_Itau").removeClass("selected").siblings("input:checked").removeAttr("checked");
