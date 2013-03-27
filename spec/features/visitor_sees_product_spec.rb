@@ -57,6 +57,18 @@ feature "Visitor sees Products", %q{
   end
 
   scenario "Catalog Clothes" do
+    collection_theme = FactoryGirl.create(:collection_theme)
+    product = FactoryGirl.create(:simple_garment, :in_stock)
+    product.variants.first.update_attributes(price: 150.99)
+    catalog_product = FactoryGirl.create(:catalog_product, category_id: product.category, product: product, variant: product.variants.first)
+    collection_theme.catalog.products << catalog_product
+
+    visit '/roupas'
+    expect(page).to have_content('Roupas')
+    expect(page).to have_content(product.formatted_name)
+    expect(page).to have_content(number_to_currency product.price)
+    expect(page).to have_content(number_to_currency product.retail_price)
+    expect(page).to have_content(product.brand)
   end
 
   scenario "Catalog Shoes" do
@@ -75,9 +87,33 @@ feature "Visitor sees Products", %q{
   end
 
   scenario "Catalog Bags" do
+    collection_theme = FactoryGirl.create(:collection_theme)
+    product = FactoryGirl.create(:bag, :in_stock)
+    product.variants.first.update_attributes(price: 150.99)
+    catalog_product = FactoryGirl.create(:catalog_product, category_id: product.category, product: product, variant: product.variants.first)
+    collection_theme.catalog.products << catalog_product
+
+    visit '/bolsas'
+    expect(page).to have_content('Bolsas')
+    expect(page).to have_content(product.formatted_name)
+    expect(page).to have_content(number_to_currency product.price)
+    expect(page).to have_content(number_to_currency product.retail_price)
+    expect(page).to have_content(product.brand)
   end
 
   scenario "Catalog Accessories" do
+    collection_theme = FactoryGirl.create(:collection_theme)
+    product = FactoryGirl.create(:basic_accessory, :in_stock)
+    product.variants.first.update_attributes(price: 150.99)
+    catalog_product = FactoryGirl.create(:catalog_product, category_id: product.category, product: product, variant: product.variants.first)
+    collection_theme.catalog.products << catalog_product
+
+    visit '/acessorios'
+    expect(page).to have_content('Acessorios')
+    expect(page).to have_content(product.formatted_name)
+    expect(page).to have_content(number_to_currency product.price)
+    expect(page).to have_content(number_to_currency product.retail_price)
+    expect(page).to have_content(product.brand)
   end
 
   @javascript
