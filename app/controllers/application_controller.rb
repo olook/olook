@@ -9,8 +9,7 @@ class ApplicationController < ActionController::Base
                 :load_cart_service,
                 :load_facebook_api,
                 :load_referer,
-                :load_tracking_parameters,
-                :load_mini_profiler
+                :load_tracking_parameters
 
   helper_method :current_liquidation,
                 :show_current_liquidation?,
@@ -160,9 +159,5 @@ class ApplicationController < ActionController::Base
       session[:tracking_params] ||= @incoming_params
     end
 
-private
-  def load_mini_profiler
-    Rack::MiniProfiler.authorize_request if current_user && Setting.profile_users.to_s.include?( current_user.email ) rescue false
-  end
 end
 
