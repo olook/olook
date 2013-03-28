@@ -1,12 +1,12 @@
-<h2 class="title">Related products</h2>
+<h2 class="title">Produtos relacionados</h2>
 <div class="inner">
   <table class="table">
     <tr>
-      <th>Model #</th>
-      <th>Name</th>
-      <th>Image</th>
-      <th>Color</th>
-      <th>Category</th>
+      <th>Modelo #</th>
+      <th>Nome</th>
+      <th>Imagem</th>
+      <th>Cor</th>
+      <th>Categoria</th>
       <th></th>
     </tr>
 
@@ -17,18 +17,18 @@
       <td><%= image_tag(related_product.showroom_picture, :size => '100x100') if related_product.showroom_picture %></td>
       <td><%= related_product.color_name %></td>
       <td><%= related_product.category_humanize %></td>
-      <td><%= link_to 'Destroy', remove_related_admin_product_path(product, related_product), confirm: 'Are you sure?', method: :delete %></td>
+      <td><%= link_to 'Apagar', remove_related_admin_product_path(product, related_product), confirm: 'Tem certeza?', method: :delete %></td>
     </tr>
   <% end %>
   </table>
 
   <%= form_for product, :url => add_related_admin_product_path, :method => :post, :as => :related_product, :html => {:class => 'form'} do |f| %>
     <div class="group">
-      <%= f.label :related_product %><br />
+      <%= f.label :related_product, "Produto relacionado" %><br />
       <%= f.select :id, options_from_collection_for_select(product.unrelated_products, :id, :easy_to_find_description) %>
     </div>
     <div class="group navform wat-cf">
-      <%= f.submit 'Add related product' %>
+      <%= f.submit 'Adicionar novo produto relacionado' %>
     </div>
   <% end %>
 </div>
