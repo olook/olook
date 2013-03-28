@@ -193,17 +193,5 @@ describe CatalogSearchService do
         products.should_not include(cp3)
       end
     end
-
-    context "color group filtering" do
-      context "when the colour group filter is being passed" do
-        it "" do
-        end
-      end
-
-      context "when no colour group filter is being passed" do
-        it "" do
-        end
-      end
-    end
   end
 end
