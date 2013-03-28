@@ -110,19 +110,19 @@ function postCartToFacebookFeed(element) {
       description: 'Comprei no site da olook e amei! <3 Já conhece?'
   }
 
-  FB.ui(obj,
-
-  function(response) {
-  if (response && response.post_id) {
-      var cart = $(element).data("cart-id")
-  $.ajax({
-    url: $(element).attr('href'),
-    type: "PUT",
-    data: { cart: { facebook_share_discount: true }  },
-    dataType: "script"
-    });
-    $("#facebook-share").hide();
-    $(".msg").show();
+  FB.ui(obj, function(response) {
+    if (response && response.post_id) {
+        var cart = $(element).data("cart-id")
+      $.ajax({
+        url: $(element).attr('href'),
+        type: "PUT",
+        data: { cart: { facebook_share_discount: true }  },
+        dataType: "script"
+        });
+      _gaq.push(['_trackEvent', 'Sacola', 'FacebookShare', '', , true]);
+      $("#facebook-share").hide();
+      $(".msg").show();
+      }
     }
-  });
+  );
 }
