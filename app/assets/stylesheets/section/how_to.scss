@@ -55,7 +55,7 @@
       right: 0;
     }
     h1 {
-      background: url("/assets/lookbooks/bg-title.png") repeat;
+      background: image-url('lookbooks/bg-title.png') repeat;
       color: #FFF;
       font-family: $kepler;
       font-size: 22px;
@@ -93,19 +93,19 @@
       margin-right: 10px !important;
       float: left;
       &#left_box {
-        background: url('/assets/how_to/box-1.jpg') no-repeat;
+        background: image-url('how_to/box-1.jpg') no-repeat;
       }
 
       &#left_box_mid {
-        background: url('/assets/how_to/box-2.jpg') no-repeat;
+        background: image-url('how_to/box-2.jpg') no-repeat;
       }
 
       &#right_box_mid {
-        background: url('/assets/how_to/box-3.jpg') no-repeat;
+        background: image-url('how_to/box-3.jpg') no-repeat;
       }
 
       &#right_box {
-        background: url('/assets/how_to/box-4.jpg') no-repeat;
+        background: image-url('how_to/box-4.jpg') no-repeat;
         margin-right: none !important;
       }
       h3 {

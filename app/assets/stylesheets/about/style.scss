@@ -40,14 +40,14 @@ padding:20px 20px 0;
 }
 
 #main_describe a {
-  background: url('/assets/about/btn-answer.png') no-repeat;
+  background: image-url('about/btn-answer.png') no-repeat;
   text-indent: -9999px;
   display: block;
   width: 271px;
   height: 65px;
 
   &.logged {
-    background: url('/assets/about/btn-answer-logged.png') no-repeat;
+    background: image-url('about/btn-answer-logged.png') no-repeat;
   }
 }
 
@@ -56,7 +56,7 @@ padding:20px 20px 0;
   overflow: hidden;
   margin: 35px auto 0px;
   h1 {
-    background: url('/assets/how_to/title-how-to.png') no-repeat;
+    background: image-url('how_to/title-how-to.png') no-repeat;
     text-indent: -9999px;
     width: 240px;
     height: 20px;
@@ -95,19 +95,19 @@ padding:20px 20px 0;
   float: left;
 
   &#left_box {
-    background: url('/assets/about/box-1.png') no-repeat;
+    background: image-url('about/box-1.png') no-repeat;
   }
 
   &#left_box_mid {
-    background: url('/assets/about/box-2.png') no-repeat;
+    background: image-url('about/box-2.png') no-repeat;
   }
 
   &#right_box_mid {
-    background: url('/assets/about/box-3.png') no-repeat;
+    background: image-url('about/box-3.png') no-repeat;
   }
 
   &#right_box {
-    background: url('/assets/about/box-4.png') no-repeat;
+    background: image-url('about/box-4.png') no-repeat;
     margin-right: none !important;
   }
 }
@@ -194,7 +194,7 @@ padding:20px 20px 0;
     li {
       float: left;
       &.phone {
-        background: url("/assets/contact/ico-phone.png") left no-repeat;
+        background: image-url('contact/ico-phone.png') left no-repeat;
         color: #3b3b3b;
         font-size: 15px;
         font-weight: bold;
@@ -205,7 +205,7 @@ padding:20px 20px 0;
       &.mail {
         padding: 5px 0 5px 0;
         a {
-          background: url("/assets/contact/ico-mail.png") left no-repeat;
+          background: image-url('contact/ico-mail.png') left no-repeat;
           color: #3b3b3b;
           font-size: 15px;
           font-weight: bold;

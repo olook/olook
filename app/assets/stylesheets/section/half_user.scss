@@ -55,7 +55,7 @@ section#half_user {
               float: left;
             }
             input[type="text"], input[type="email"], input[type="password"] {
-              background: url("/assets/common/bg-inputs.png") repeat-x;
+              background: image-url('common/bg-inputs.png') repeat-x;
               width: 260px;
               border: 1px solid #C1C1C1;
               padding: 7px 8px;
@@ -133,7 +133,7 @@ section#half_user {
               float: left;
             }
             input[type="email"], input[type="password"] {
-              background: url("/assets/common/bg-inputs.png") repeat-x;
+              background: image-url('common/bg-inputs.png') repeat-x;
               width: 140px;
               border: 1px solid #C1C1C1;
               padding: 7px 8px;

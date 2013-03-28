@@ -23,7 +23,7 @@ a.back_link {
 }
 
 h2.moip {
-  background: url('/assets/common/moip.png') no-repeat;
+  background: image-url('common/moip.png') no-repeat;
   text-indent: -9999px;
   width: 70px;
   height: 42px;
@@ -33,7 +33,7 @@ h2.moip {
 }
 
 div#order_status {
-  background: url("/assets/cart/bg-order-status.jpg") top left repeat-x;
+  background: image-url('cart/bg-order-status.jpg') top left repeat-x;
   width: 100%;
   height: 113px;
   overflow: hidden;
@@ -93,7 +93,7 @@ body div#content {
       float: left;
     }
     li.moip {
-      background: url('/assets/common/moip.png') no-repeat;
+      background: image-url('common/moip.png') no-repeat;
       text-indent: -9999px;
       width: 70px;
       height: 42px;
@@ -451,7 +451,7 @@ section#cart {
             display: inline;
             float: left;
             input[type="text"] {
-              background: url('/assets/common/bg-inputs.png') repeat-x;
+              background: image-url('common/bg-inputs.png') repeat-x;
               font-size: 14px;
               font-weight: bold;
               width: 80px;
@@ -464,7 +464,7 @@ section#cart {
               }
             }
             input[type="submit"] {
-              background: url("/assets/cart/bg-update.png") top left no-repeat;
+              background: image-url('cart/bg-update.png') top left no-repeat;
               color: $pink;
               font-family: $avenir;
               font-size: 12px;
@@ -553,7 +553,7 @@ section#cart {
           width: 116px;
           div.discount_origin {
             position: absolute;
-            background: url('/assets/cart/tooltip-discount.png') top center no-repeat;
+            background: image-url('cart/tooltip-discount.png') top center no-repeat;
             width: 151px;
             height: 64px;
             top: 28px;
@@ -604,7 +604,7 @@ section#cart {
             position: relative;
             input[type="submit"] {
               position: absolute;
-              background: url("/assets/cart/delete-item.png") no-repeat;
+              background: image-url('cart/delete-item.png') no-repeat;
               width: 76px;
               height: 20px;
               display: block;
@@ -798,7 +798,7 @@ section#cart {
         }
         a.arrow {
           position: absolute;
-          background: url("/assets/product/arrows.jpg") 0 no-repeat;
+          background: image-url('product/arrows.jpg') 0 no-repeat;
           text-indent: -9999px;
           width: 42px;
           height: 235px;
@@ -913,7 +913,7 @@ section#payment {
       text-align:center;
     }
     span {
-      background: url('/assets/cart/number_background.png') no-repeat;
+      background: image-url('cart/number_background.png') no-repeat;
       font-size: 16px;
       font-weight: 600;
       line-height: 30px;
@@ -989,7 +989,7 @@ section#payment {
           margin: 0 0 5px 0;
         }
         a {
-          background: url("/assets/cart/ico-payments.png") no-repeat;
+          background: image-url('cart/ico-payments.png') no-repeat;
           text-indent: -9999px;
           height: 25px;
           padding: 5px;
@@ -1168,7 +1168,7 @@ section#payment {
             margin: 0 5px 0 0;
             float: left;
             label {
-              background: url("/assets/cart/ico-payments.png") no-repeat;
+              background: image-url('cart/ico-payments.png') no-repeat;
               text-indent: -9999px;
               width: 43px;
               height: 35px;
@@ -1217,7 +1217,7 @@ section#payment {
             overflow: auto;
             span.select {
               position: absolute;
-              background: url('/assets/cart/bg-select-payments.png') no-repeat;
+              background: image-url('cart/bg-select-payments.png') no-repeat;
               text-indent: 22px;
               bottom: 0;
               top: 2px;
@@ -1467,7 +1467,7 @@ section#payment {
         }
         a.bank_flag {
           position: absolute;
-          background: url("/assets/cart/ico-payments.png") left no-repeat;
+          background: image-url('cart/ico-payments.png') left no-repeat;
           text-indent: -9999px;
           width: 38px;
           height: 25px;
@@ -1476,7 +1476,7 @@ section#payment {
           top: 14px;
           left: 15px;
           &.Debito {
-            background: url("/assets/cart/ico-debit.png");
+            background: image-url('cart/ico-debit.png');
           }
           &.Boleto {
             background-position: -5px -5px;
@@ -1523,7 +1523,7 @@ section#payment {
     }
     section.sidebar {
       a.print {
-        background: url("/assets/my_account/bt-print.png") no-repeat;
+        background: image-url('my_account/bt-print.png') no-repeat;
         text-indent: -9999px;
         width: 224px;
         height: 46px;
