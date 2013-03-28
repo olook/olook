@@ -1,7 +1,7 @@
 module LookbooksHelper
   def get_partial(product)
     if product.liquidation?
-      render "shared/promotion_product_item", :liquidation_product => LiquidationProductService.liquidation_product(product)
+      render "shared/product_item", :product => LiquidationProductService.liquidation_product(product)
     else
       render "shared/product_item", :product => product
     end
