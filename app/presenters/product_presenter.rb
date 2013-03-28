@@ -14,7 +14,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_main_profile_showroom
-    h.render :partial => "shared/showroom_product_item", :collection => member.main_profile_showroom, :as => :product
+    h.render :partial => "shared/product_item", :collection => member.main_profile_showroom, :as => :product
   end
 
   def render_related_products

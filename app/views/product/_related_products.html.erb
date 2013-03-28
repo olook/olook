@@ -9,7 +9,7 @@
       %>
     <%= render "shared/promotion_product_item", :liquidation_product => LiquidationProductService.liquidation_product(product), :image_method => 'suggestion_picture' %>
   <% else %>
-    <%= render "shared/showroom_product_item", :product => product, :image_method => 'suggestion_picture' %>
+    <%= render "shared/product_item", :product => product, :image_method => 'suggestion_picture' %>
   <% end
       end
     %>

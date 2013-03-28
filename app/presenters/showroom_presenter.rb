@@ -30,7 +30,7 @@ class ShowroomPresenter < BasePresenter
       if product.liquidation?
         output << h.render("shared/promotion_product_item", :liquidation_product => LiquidationProductService.liquidation_product(product))
       else
-        output << h.render("shared/showroom_product_item", :showroom_presenter => self, :product => product)
+        output << h.render("shared/product_item", :showroom_presenter => self, :product => product)
       end
     end
     h.raw output
