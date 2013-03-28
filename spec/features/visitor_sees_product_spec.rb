@@ -72,7 +72,7 @@ feature "Visitor sees Products", %q{
   end
 
   scenario "Catalog Shoes" do
-    collection_theme = FactoryGirl.create(:collection_theme)
+    collection_theme = FactoryGirl.create(:collection_theme, id: 1)
     product = FactoryGirl.create(:shoe, :in_stock)
     product.variants.first.update_attributes(price: 169.99)
     catalog_product = FactoryGirl.create(:catalog_product, product: product, variant: product.variants.first)
@@ -87,7 +87,7 @@ feature "Visitor sees Products", %q{
   end
 
   scenario "Catalog Bags" do
-    collection_theme = FactoryGirl.create(:collection_theme)
+    collection_theme = FactoryGirl.create(:collection_theme, id: 1)
     product = FactoryGirl.create(:bag, :in_stock)
     product.variants.first.update_attributes(price: 150.99)
     catalog_product = FactoryGirl.create(:catalog_product, category_id: product.category, product: product, variant: product.variants.first)
@@ -102,7 +102,7 @@ feature "Visitor sees Products", %q{
   end
 
   scenario "Catalog Accessories" do
-    collection_theme = FactoryGirl.create(:collection_theme)
+    collection_theme = FactoryGirl.create(:collection_theme, id: 1)
     product = FactoryGirl.create(:basic_accessory, :in_stock)
     product.variants.first.update_attributes(price: 150.99)
     catalog_product = FactoryGirl.create(:catalog_product, category_id: product.category, product: product, variant: product.variants.first)
