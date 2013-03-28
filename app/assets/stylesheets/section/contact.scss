@@ -35,7 +35,7 @@ body {
       li {
         float: left;
         &.phone {
-          background: url("/assets/contact/ico-phone.png") left no-repeat;
+          background: image-url('contact/ico-phone.png') left no-repeat;
           color: #3b3b3b;
           font-size: 15px;
           font-weight: bold;
@@ -46,7 +46,7 @@ body {
         &.mail {
           padding: 5px 0 5px 0;
           a {
-            background: url("/assets/contact/ico-mail.png") left no-repeat;
+            background: image-url('contact/ico-mail.png') left no-repeat;
             color: #3b3b3b;
             font-size: 15px;
             font-weight: bold;
@@ -88,7 +88,7 @@ body {
           }
           span.select {
             position: absolute;
-            background: url('/assets/contact/bg-select.png') no-repeat;
+            background: image-url('contact/bg-select.png') no-repeat;
             line-height: 34px;
             width: 255px;
             height: 34px;
@@ -104,7 +104,7 @@ body {
             float: left;
           }
           input[type="text"], input[type="email"] {
-            background: url('/assets/common/bg-inputs.png') repeat-x;
+            background: image-url('common/bg-inputs.png') repeat-x;
             width: 266px;
             border: 1px solid #C1C1C1;
             padding: 7px 8px;
@@ -114,7 +114,7 @@ body {
             }
           }
           textarea {
-            background: #f3f3f3 url('/assets/common/bg-inputs.png') bottom repeat-x;
+            background: #f3f3f3 image-url('common/bg-inputs.png') bottom repeat-x;
             width: 350px;
             height: 100px;
             padding: 7px 8px;
@@ -127,7 +127,7 @@ body {
       }
       &.buttons {
         input[type="submit"] {
-          background: url("/assets/contact/bt-send-message.jpg") no-repeat;
+          background: image-url('contact/bt-send-message.jpg') no-repeat;
           text-indent: -9999px;
           width: 206px;
           height: 49px;
