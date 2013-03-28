@@ -7,8 +7,26 @@
     <%= link_to product, :class => "product_link", :rel => "#{product.id}", :remote => (defined?(suggestion) || gift), :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}} do %>
       <%= image_tag("common/ajax-loader-product.gif", :alt => product.name, :class => "async", data: { product: product.catalog_picture, backside: product.backside_picture, wearing: product.wearing_picture, showroom: ( product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png" ) } ) %>
 
-      <p><span class="name"><%= product.formatted_name %></span></p>
-      <p class="brand"><b><%= show_brand_for product %></b></p>
+      <h1><p><span class="name"><%= product.formatted_name %></span></p></h1>
+      <p class="warn sold_out"><b>ESGOTADO!</b></p>
+
+      <% if current_user  && current_user.shoes_size && product.shoe? %>
+        <p class="warn shoe_size">Tam. <%= current_user.shoes_size %></p>
+      <% end %>
+      <% if current_user && current_user.shoes_size %>
+        <p class="warn quantity">Só mais <span><%= "#{(current_user.shoes_size.nil?) ? '' : product.quantity( current_user.shoes_size )}" %></span></p>
+        <% if product.shoe? %>
+          <p class="warn shoe_size">Tam. <%= current_user.shoes_size %></p>
+        <% end %>
+      <% end %>
+
+      <% if product.promotion? && !product.sold_out? && product.discount_percent.to_i != 0 %>
+        <p class="warn percentage"><span><%= product.discount_percent.to_i %>%</span><br />off</p>
+      <% end %>
+    <% end %>
+
+    <div class="line">
+      <p class="price brand"><b><%= show_brand_for product %></b></p>
 
       <p class="price">
         <% if product.promotion? %>
@@ -19,45 +37,28 @@
         <% end %>
       </p>
 
-      <p class="warn sold_out"><b>ESGOTADO!</b></p>
-
-      <% if shoe_size && product.shoe? -%>
-        <p class="warn shoe_size">Tam. <%= "#{shoe_size}" %></p>
-      <% end -%>
-
-      <% if current_user && current_user.full_user? && shoe_size && product.promotion? == false -%>
-        <p class="warn quantity">Só mais <span><%= product.quantity(shoe_size) %></span></p>
-        <% if product.shoe? %>
-          <p class="warn shoe_size">Tam. <%= shoe_size %></p>
+      <ol class="color_list">
+        <% unless product.color_name.blank? %>
+          <li>
+            <%= link_to image_tag(product.color_sample.url || 'fake/no-color.png', :title => product.name), product, :'data-href' => "#{product.send(image_method ||= :showroom_picture) || 'fake/showroom-product.png'}", :class => "selected product_color"  %>
+            <%= hidden_field_tag "product_id_#{product.id}", product.id, :class => "product_id" %>
+            <% if current_user  && current_user.full_user? %>
+              <%= hidden_field_tag "sold_out_#{product.id}", "#{( product.sold_out? || (product.quantity(current_user.shoes_size) == 0 && product.shoe?) ) ? 'sold_out' : ''}", :class => "sold_out" %>
+              <%= hidden_field_tag "quantity_#{product.id}", "#{(current_user.shoes_size.nil?) ? '' : product.quantity( current_user.shoes_size )}", :class => "quantity" %>
+            <% end %>
+          </li>
         <% end %>
-      <% end -%>
-
-      <% if product.promotion? && !product.sold_out? && product.discount_percent.to_i != 0 %>
-        <p class="warn percentage"><span><%= product.discount_percent.to_i %>%</span><br />off</p>
-      <% end %>
-    <% end %>
-
-    <ol>
-      <% unless product.color_name.blank? %>
-        <li>
-          <%= link_to image_tag(product.color_sample.url || 'fake/no-color.png', :title => product.name), product, :'data-href' => "#{product.send(image_method ||= :showroom_picture) || 'fake/showroom-product.png'}", :class => "selected product_color"  %>
-          <%= hidden_field_tag "product_id_#{product.id}", product.id, :class => "product_id" %>
-          <% if current_user  && current_user.full_user? %>
-            <%= hidden_field_tag "sold_out_#{product.id}", "#{( product.sold_out? || (product.quantity(current_user.shoes_size) == 0 && product.shoe?) ) ? 'sold_out' : ''}", :class => "sold_out" %>
-            <%= hidden_field_tag "quantity_#{product.id}", "#{(current_user.shoes_size.nil?) ? '' : product.quantity( current_user.shoes_size )}", :class => "quantity" %>
-          <% end %>
-        </li>
-      <% end %>
-      <% product.colors(current_user.try(:shoes_size), !!current_admin).each do |related_product| %>
-        <li>
-          <%= link_to image_tag(related_product.color_sample.url || 'fake/no-color.png', :title => related_product.name), related_product, :'data-href' => "#{related_product.send(image_method ||= :showroom_picture) || 'fake/showroom-product.png'}", :class => "product_color", :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}} %>
-          <%= hidden_field_tag "product_id_#{related_product.id}", related_product.id, :class => "product_id" %>
-          <% if current_user && current_user.full_user? %>
-            <%= hidden_field_tag "sold_out_#{related_product.id}", "#{related_product.sold_out? || (related_product.quantity(current_user.shoes_size) == 0 && related_product.shoe?) ? 'sold_out' : ''}", :class => "sold_out" %>
-            <%= hidden_field_tag "quantity_#{related_product.id}", "#{(current_user.shoes_size.nil?) ? '' : related_product.quantity( current_user.shoes_size )}", :class => "quantity" %>
-          <% end %>
-        </li>
-      <% end %>
-    </ol>
+        <% product.colors(current_user.try(:shoes_size), !!current_admin).each do |related_product| %>
+          <li>
+            <%= link_to image_tag(related_product.color_sample.url || 'fake/no-color.png', :title => related_product.name), related_product, :'data-href' => "#{related_product.send(image_method ||= :showroom_picture) || 'fake/showroom-product.png'}", :class => "product_color", :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}} %>
+            <%= hidden_field_tag "product_id_#{related_product.id}", related_product.id, :class => "product_id" %>
+            <% if current_user && current_user.full_user? %>
+              <%= hidden_field_tag "sold_out_#{related_product.id}", "#{related_product.sold_out? || (related_product.quantity(current_user.shoes_size) == 0 && related_product.shoe?) ? 'sold_out' : ''}", :class => "sold_out" %>
+              <%= hidden_field_tag "quantity_#{related_product.id}", "#{(current_user.shoes_size.nil?) ? '' : related_product.quantity( current_user.shoes_size )}", :class => "quantity" %>
+            <% end %>
+          </li>
+        <% end %>
+      </ol>
+    </div>
   </div>
 </li>

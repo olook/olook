@@ -229,7 +229,7 @@
               }
               h1 {
                 position: absolute;
-                background: url("/assets/lookbooks/bg-title.png") repeat;
+                background: image-url("lookbooks/bg-title.png") repeat;
                 color: #FFF;
                 font-family: $kepler;
                 font-size: 24px;
@@ -248,7 +248,7 @@
     }
   }
   section.container_product {
-    background: url('/assets/showroom/border-top-product.png') 170px 15px no-repeat;
+    background: image-url('showroom/border-top-product.png') 170px 15px no-repeat;
     width: 100%;
     margin-bottom: 20px;
     overflow: auto;
@@ -299,7 +299,7 @@
     clear: both;
     div.products_list {
       position: relative;
-      background: url('/assets/showroom/border-bottom-product.png') 0 bottom no-repeat;
+      background: image-url('showroom/border-bottom-product.png') 0 bottom no-repeat;
       width: 100%;
       margin-bottom: 45px;
       padding: 0 0 30px 0;
@@ -309,7 +309,7 @@
         display: none;
       }
       &.all{
-        background: url('/assets/showroom/border-bottom-more.png') 0 100% no-repeat;
+        background: image-url('showroom/border-bottom-more.png') 0 100% no-repeat;
       }
 		&.almost{background:none !important;margin:0;padding:0;}
       a.catalog_link {
