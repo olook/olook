@@ -66,7 +66,6 @@
   </ul>
 
   <%= fields_for "checkout[payment]", @checkout.payment do |payment_form|%>
-
   <div class="modal_security_code">
     <h1>ENCONTRE O CÓDIGO DE SEGURANÇA DO CARTÃO</h1>
         <%= image_tag 'new_checkout/codigo_seguranca.jpg', :class => 'img_security' %>
@@ -113,8 +112,7 @@
       </div>
       <%= errors_for(@checkout.payment, :credit_card_number) %>
       <%= errors_for(@checkout.payment, :expiration_date) %>
-    <% end %>
-
+    <% end %>  
     <%= field_set_tag do %>
       <div>
       <%= payment_form.label :security_code, 'Cód. de segurança' %>
@@ -123,10 +121,10 @@
       <div class="code_link">
         <a href="javascript:void(0);" class="find_code">Como encontrar o código de segurança?</a>
       </div>
-
       <%= errors_for(@checkout.payment, :security_code) %>
     <% end %>
-
+      <%= errors_for(@checkout.payment, :security_code) %>
+    <% end %>  
     <%= field_set_tag do %>
       <div>
       <%= payment_form.label :user_identification, 'CPF' %>
