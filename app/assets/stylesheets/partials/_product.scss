@@ -192,7 +192,7 @@ li.product {
         padding: 3px 0 0 0;
       }
       .like {
-        background: url('/assets/common/ico-heart-off.png') no-repeat;
+        background: image-url('common/ico-heart-off.png') no-repeat;
         text-indent: -9999px;
         color: #716d68;
         font-family: Arial;
@@ -204,7 +204,7 @@ li.product {
         height: 14px;
         display: block;
         &:hover, &.selected {
-          background: url('/assets/common/ico-heart-on.png') no-repeat;
+          background: image-url('common/ico-heart-on.png') no-repeat;
           color: #ff7db0;
         }
       }
@@ -215,7 +215,7 @@ li.product {
         left: 2px;
         display: block;
         & + p.shoe_size {
-          background: url('/assets/common/number-sold-out.png') no-repeat;
+          background: image-url('common/number-sold-out.png') no-repeat;
           left: 61px !important;
           display: block;
         }
