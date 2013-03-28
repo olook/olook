@@ -100,3 +100,14 @@ update_topster_xml:
   class: TopsterXmlWorker
   queue: topster_xml
   description: "Atualiza o xml da topster"
+
+userbase_with_source_exacttarget:
+  cron: "0 5 * * *"
+  class: MarketingUploaderWorker
+  queue: marketing_uploader
+  args:
+    - userbase_with_source
+    - userbase-with-source-%Y-%m-%d.csv
+    - true
+    - exact_target.yml
+  description: "Cria e envia arquivo com base de usuários para ftp do exact target"

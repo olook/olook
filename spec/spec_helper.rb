@@ -1,4 +1,4 @@
-    # -*- encoding : utf-8 -*-
+# -*- encoding : utf-8 -*-
 require 'rubygems'
 require 'spork'
 
@@ -13,12 +13,14 @@ Spork.prefork do
   # if you change any configuration or code from libraries loaded here, you'll
   # need to restart spork for it take effect.
 
-  require 'simplecov'
-  SimpleCov.start 'rails' do
-    add_group "Long files" do |src_file|
-      src_file.lines.count > 100
+  if ENV['COVERAGE']
+    require 'simplecov'
+    SimpleCov.start 'rails' do
+      add_group "Long files" do |src_file|
+        src_file.lines.count > 100
+      end
+      add_filter "/vendor/"
     end
-    add_filter "/vendor/"
   end
 
   # This file is copied to spec/ when you run 'rails generate rspec:install'
@@ -56,6 +58,7 @@ Spork.prefork do
   end
 
   HTTPI.log = false
+  BCrypt::Engine::DEFAULT_COST = 1
 
   RSpec.configure do |config|
 

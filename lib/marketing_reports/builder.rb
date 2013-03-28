@@ -8,7 +8,8 @@ module MarketingReports
                :userbase_with_auth_token_and_credits,
                :in_cart_mail,
                :line_items_report,
-               :campaign_emails]
+               :campaign_emails,
+               :userbase_with_source]
 
     attr_accessor :csv
 
@@ -164,6 +165,37 @@ group by uc.user_id, ct.code
       emails(responses)
     end
 
+    def generate_userbase_with_source
+      @csv = CSV.generate do |csv|
+        csv << %w{email nome sexo tipo_cadastro data_cadastro estilo_quiz data_ultima_compra authentication_token}
+        User.where("created_at > ?", DateTime.parse(Setting.lower_limit_source_csv).to_date).find_each do |u|
+          gender = (u.gender == 1) ? "M" : "F"
+          profile = u.main_profile ? u.main_profile.name : nil
+          last_order_date = u.orders.any? ? u.orders.last.created_at.strftime("%d-%m-%Y") : nil
+
+          csv << [ u.email.chomp, u.name, gender, registration_source(u), registered_at(u).strftime("%d-%m-%Y"), profile, last_order_date, u.authentication_token ]
+        end
+      end
+    end    
+
+    def registration_source user
+      if user.campaign_email_created_at
+        "lightbox"
+      elsif user.events.where(event_type: 22).any? || user.half_user?
+        "half_user"
+      else
+        "full_user"
+      end      
+    end
+
+    def registered_at user
+      if user.campaign_email_created_at && user.campaign_email_created_at < user.created_at
+        user.campaign_email_created_at
+      else
+        user.created_at
+      end
+    end    
+
     private
 
     def convert_to_iso(file_lines=[])
@@ -190,6 +222,5 @@ group by uc.user_id, ct.code
     def emails_seed_list
       IO.readlines(Rails.root + "lib/marketing_reports/emails_seed_list.csv").map(&:chomp)
     end
-
   end
 end
