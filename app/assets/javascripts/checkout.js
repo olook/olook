@@ -83,9 +83,8 @@ function setButton(){
 function showAboutSecurityCode(){
 	$("a.find_code").click(function(){
 		content = $("div.modal_security_code");
-	initBase.newModal(content);
+    initBase.newModal(content);	
 	})
-
 }
 
 
