@@ -22,7 +22,7 @@ li.product {
         text-align: center;
         margin: 0;
         a {
-          background: url('/assets/common/bg-spy.png') repeat;
+          background: image-url('common/bg-spy.png') repeat;
           color: #101010;
           font-family: $johnston;
           font-size: 13px;
@@ -80,7 +80,7 @@ li.product {
         line-height: 24px;
         display: none;
         &.sold_out {
-          background: url("/assets/common/sold_out.png") no-repeat;
+          background: image-url('common/sold_out.png') no-repeat;
           color: #999;
           width: 72px;
           height: 30px;
@@ -98,7 +98,7 @@ li.product {
           height: 30px;
         }
         &.percentage {
-          background: url("/assets/common/percentage.png") no-repeat;
+          background: image-url('common/percentage.png') no-repeat;
           font-family: "Open Sans", sans-serif;
           font-size: 13px;
           font-weight: normal;
@@ -192,7 +192,7 @@ li.product {
         padding: 3px 0 0 0;
       }
       .like {
-        background: url('/assets/common/ico-heart-off.png') no-repeat;
+        background: image-url('common/ico-heart-off.png') no-repeat;
         text-indent: -9999px;
         color: #716d68;
         font-family: Arial;
@@ -204,7 +204,7 @@ li.product {
         height: 14px;
         display: block;
         &:hover, &.selected {
-          background: url('/assets/common/ico-heart-on.png') no-repeat;
+          background: image-url('common/ico-heart-on.png') no-repeat;
           color: #ff7db0;
         }
       }
@@ -215,7 +215,7 @@ li.product {
         left: 2px;
         display: block;
         & + p.shoe_size {
-          background: url('/assets/common/number-sold-out.png') no-repeat;
+          background: image-url('common/number-sold-out.png') no-repeat;
           left: 61px !important;
           display: block;
         }

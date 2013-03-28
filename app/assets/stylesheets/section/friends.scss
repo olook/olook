@@ -29,7 +29,7 @@ section#friends {
     }
     div.friends_list {
       h2 {
-        background: url("/assets/friends/bg-title-my-friends.jpg") bottom center no-repeat;
+        background: image-url('friends/bg-title-my-friends.jpg') bottom center no-repeat;
         font-family: $johnston;
         font-size: 15px;
         text-transform: uppercase;
@@ -91,7 +91,7 @@ section#friends {
     float: left;
   }
   &.connect {
-    background: url("/assets/friends/background.jpg") top center no-repeat;
+    background: image-url('friends/background.jpg') top center no-repeat;
     height: 540px;
     padding: 25px 0 0 0;
     div.container {
@@ -101,7 +101,7 @@ section#friends {
       padding: 20px 0;
       border: 1px #dbdbdb solid;
       h1 {
-        background: url("/assets/friends/title-home.png") no-repeat;
+        background: image-url('friends/title-home.png') no-repeat;
         text-indent: -9999px;
         width: 549px;
         height: 37px;
@@ -116,7 +116,7 @@ section#friends {
         margin: 0 auto 10px auto;
       }
       a {
-        background: url("/assets/friends/bt-friends-showroom.png") no-repeat;
+        background: image-url('friends/bt-friends-showroom.png') no-repeat;
         text-indent: -9999px;
         width: 250px;
         height: 25px;
@@ -126,7 +126,7 @@ section#friends {
     }
   }
   &.home {
-    background: url("/assets/friends/bg-home.jpg") top right no-repeat;
+    background: image-url('friends/bg-home.jpg') top right no-repeat;
     section#friends_content {
       > h1 {
         font-family: $johnston;
@@ -138,7 +138,7 @@ section#friends {
         display: block;
       }
       div#quiz_container, div#invite_friends, div#share_showroom {
-        background: url("/assets/friends/divisor.png") top left no-repeat;
+        background: image-url('friends/divisor.png') top left no-repeat;
         width: 770px;
         overflow: hidden;
         padding: 30px 0 30px 30px;
@@ -198,7 +198,7 @@ section#friends {
           }
         }
         div.friend {
-          background: url("/assets/friends/divisor-friend.png") top left no-repeat;
+          background: image-url('friends/divisor-friend.png') top left no-repeat;
           height: 220px;
           margin: 10px 0 0 0;
           padding: 30px 0 0 25px;
@@ -232,7 +232,7 @@ section#friends {
                   display: block;
                 }
                 input[type="submit"] {
-                  background: url("/assets/friends/bt-answer-invite.jpg") 0 -34px no-repeat;
+                  background: image-url('friends/bt-answer-invite.jpg') 0 -34px no-repeat;
                   text-indent: -9999px;
                   width: 173px;
                   height: 34px;
@@ -387,11 +387,11 @@ section#friends {
                 }
               }
               &.text {
-                background: url("/assets/friends/divisor-share.png") top left no-repeat;
+                background: image-url('friends/divisor-share.png') top left no-repeat;
                 width: 545px;
                 padding: 30px 0 0 40px;
                 textarea {
-                  background: #FFF url("/assets/friends/bg-textarea.jpg") bottom repeat-x;
+                  background: #FFF image-url('friends/bg-textarea.jpg') bottom repeat-x;
                   width: 535px;
                   height: 75px;
                   margin-bottom: 10px;
@@ -401,7 +401,7 @@ section#friends {
                   }
                 }
                 input[type="submit"] {
-                  background: url("/assets/friends/bg-share.jpg") 0 -34px no-repeat;
+                  background: image-url('friends/bg-share.jpg') 0 -34px no-repeat;
                   text-indent: -9999px;
                   width: 139px;
                   height: 34px;
@@ -443,7 +443,7 @@ section#friends {
           }
         }
         h2 {
-          background: url("/assets/friends/title-user-info.jpg") no-repeat;
+          background: image-url('friends/title-user-info.jpg') no-repeat;
           text-indent: -9999px;
           width: 161px;
           height: 13px;
@@ -458,7 +458,7 @@ section#friends {
           margin: 0 0 5px 0;
         }
         a {
-          background: url("/assets/friends/back-arrow.jpg") left no-repeat;
+          background: image-url('friends/back-arrow.jpg') left no-repeat;
           color: #ef3742;
           text-decoration: none;
           padding: 0 0 0 10px;

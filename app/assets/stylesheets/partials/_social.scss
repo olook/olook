@@ -39,7 +39,7 @@ div.social {
       }
       &.orkut {
         a {
-          background: url("/assets/common/bt-orkut.jpg") center 10px no-repeat;
+          background: image-url('common/bt-orkut.jpg') center 10px no-repeat;
         }
         img {
           position: absolute;
@@ -74,7 +74,7 @@ div.social {
       margin: 0 0 10px;
     }
     textarea {
-      background: #FFF url("/assets/common/bg-textarea-emails.jpg") bottom repeat-x;
+      background: #FFF image-url('common/bg-textarea-emails.jpg') bottom repeat-x;
       width: 425px;
       height: 100px;
       padding: 7px 8px;
@@ -136,7 +136,7 @@ div.link_mail {
   }
   div.box_copy {
     position: absolute;
-    background: url("/assets/common/copy.png") top center no-repeat;
+    background: image-url('common/copy.png') top center no-repeat;
     width: 166px;
     height: 38px;
     padding: 17px 0 0 0;
