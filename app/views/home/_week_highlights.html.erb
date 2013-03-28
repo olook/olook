@@ -14,12 +14,12 @@
       <%= link_to "Veja mais aqui", our_essence_path, class: "more", onclick: track_event('Destaques','BannerEsquerda') %>
     </li>
     <li id="shoes">
-      <%= link_to "/stylist-news", onclick: track_event('Destaques','BannerCentro') do %>
-        <%= image_tag "home/stylist_news.jpg", title: "Sapatos Hot" %>
+      <%= link_to "stylist-news/category/looks/", onclick: track_event('Destaques','BannerCentro') do %>
+        <%= image_tag "home/stylist_news.jpg", title: "Look Inspiração" %>
       <% end %>      
-      <h1><%= link_to "STYLIST NEWS", "/stylist-news", onclick: track_event('Destaques','BannerCentro') %></h1>
-      <p>Saiba o que rolou no SPFW</p>
-      <%= link_to "Confira aqui", "/stylist-news", class: "more", onclick: track_event('Destaques','BannerCentro') %>
+      <h1><%= link_to "LOOK INSPIRAÇÃO", "stylist-news/category/looks/", onclick: track_event('Destaques','BannerCentro') %></h1>
+      <p>O dourado está no auge</p>
+      <%= link_to "Confira aqui", "stylist-news/category/looks/", class: "more", onclick: track_event('Destaques','BannerCentro') %>
     </li>
     <li id="olookmovel" class="iehack"> <!-- NAO REMOVER A CLASSE -->
       <%= link_to olookmovel_path, onclick: track_event('Destaques','BannerDireita') do %>

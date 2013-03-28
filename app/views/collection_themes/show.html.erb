@@ -7,7 +7,7 @@
 <section id="collections_content">
   <div class="collections_header">
     <%= image_tag @collection_theme.header_image, alt: @collection_theme.header_image_alt, title: @collection_theme.header_image_alt %>
-    <%= link_to("Assista ao vídeo", "#",
+    <%= link_to("Assista ao vídeo >", "#",
                 { :class => "video_link", :rel => "#{@collection_theme.video_link}" }.
                 merge(@collection_theme.text_color ? { style: "color: #{@collection_theme.text_color}" } : {})) unless @collection_theme.video_link.blank? %>
     <div class="video_description"></div>
