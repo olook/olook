@@ -45,6 +45,10 @@ class CollectionThemePresenter < BasePresenter
     h.render :partial => 'shared/filters/cloth_size_filters', :locals => {:collection_theme_presenter => self} if clothes?
   end
 
+  def display_cloth_color_filters
+    h.render :partial => 'shared/filters/cloth_color_filters', :locals => {:collection_theme_presenter => self} if clothes?
+  end
+
   private
     def showing_specific_category?
       category_id.nil?
