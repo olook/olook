@@ -114,7 +114,6 @@ class CatalogSearchService
   end
 
   def query_clothes
-
     if cloth_size_and_subcategories_selected?
       query = query_cloth_sizes.and(query_subcategories_for(@params[:cloth_subcategories]))
     else
