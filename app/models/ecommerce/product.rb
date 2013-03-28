@@ -422,6 +422,7 @@ class Product < ActiveRecord::Base
       product_ids = Setting.send("cloth_showroom_#{profile}").split(",")
       find_keeping_the_order product_ids
     end
+  end
 
   def supplier_color
     color = details.find_by_translation_token("Cor fornecedor").try(:description)
