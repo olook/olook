@@ -477,6 +477,18 @@ describe Product do
         expect(product_with_details.supplier_color).to eql("Blue")
       end
     end
+
+    context "when details dont exist" do
+      it "Show filter color" do
+        expect(product.filter_color).to eql("Não informado")
+      end
+      it "Show product color" do
+        expect(product.product_color).to eql("Black")
+      end
+      it "Show supplier color" do
+        expect(product.supplier_color).to eql("Não informado")
+      end
+    end
   end
 
   describe '#variants.sorted_by_description' do
