@@ -54,7 +54,7 @@ section#welcome {
   }
   section#painel {
     position: relative;
-    background: url("/assets/welcome/bg-painel-top.png") center top no-repeat;
+    background: image-url('welcome/bg-painel-top.png') center top no-repeat;
     width: 970px;
     margin: 0 0 30px 0;
     padding: 20px 10px 10px;
@@ -99,7 +99,7 @@ section#welcome {
     }
     div.painel_footer {
       position: absolute;
-      background: url("/assets/welcome/bg-painel-bottom.png") center top no-repeat;
+      background: image-url('welcome/bg-painel-bottom.png') center top no-repeat;
       width: 990px;
       height: 25px;
       display: block;
@@ -109,7 +109,7 @@ section#welcome {
   }
   section#share {
     position: relative;
-    background: url("/assets/welcome/bg-share.png") top no-repeat;
+    background: image-url('welcome/bg-share.png') top no-repeat;
     width: 960px;
     height: 640px;
     display: block;
@@ -172,7 +172,7 @@ section#welcome {
             margin: 12px 10px 0 0;
             float: left;
             input#invite_link {
-              background: url("/assets/common/bg-form-invite.png") bottom repeat-x;
+              background: image-url('common/bg-form-invite.png') bottom repeat-x;
               font-size: 14px;
               letter-spacing: -1px;
               width: 265px;
@@ -195,7 +195,7 @@ section#welcome {
             ol {
               li {
                 textarea {
-                  background: url("/assets/common/bg-textarea.png") bottom repeat-x;
+                  background: image-url('common/bg-textarea.png') bottom repeat-x;
                   color: #3C3C3C;
                   font-size: 14px;
                   letter-spacing: -1px;
@@ -231,7 +231,7 @@ section#welcome {
         }
       }
       a.invite {
-        background: url("/assets/welcome/arrow.png") left no-repeat;
+        background: image-url('welcome/arrow.png') left no-repeat;
         color: #ef3742;
         font-family: Arial, sans-serif;
         font-size: 14px;
@@ -245,7 +245,7 @@ section#welcome {
     margin-bottom: 30px;
   }
   section#products {
-    background: url("/assets/showroom/border-top-product.png") 170px 26px no-repeat;
+    background: image-url('showroom/border-top-product.png') 170px 26px no-repeat;
     width: 100%;
     margin-bottom: 30px;
     overflow: auto;
@@ -261,7 +261,7 @@ section#welcome {
       float: left;
     }
     div.products_list {
-      background: url("/assets/showroom/border-bottom-product.png") bottom left no-repeat;
+      background: image-url('showroom/border-bottom-product.png') bottom left no-repeat;
       width: 100%;
       margin: 10px 0;
       padding: 0 0 20px 0;
@@ -301,7 +301,7 @@ section#welcome {
       background: #ededed;
       padding: 20px 0;
       a {
-        background: url("/assets/welcome/press.jpg") no-repeat;
+        background: image-url('welcome/press.jpg') no-repeat;
         text-indent: -9999px;
         text-decoration: none;
         width: 883px;

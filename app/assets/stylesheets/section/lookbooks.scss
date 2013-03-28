@@ -62,11 +62,11 @@ section#lookbooks {
       cursor: pointer;
     }
     .prev-pic {
-      background: url("/assets/lookbooks/arrow-left.png") 0 center no-repeat;
+      background: image-url('lookbooks/arrow-left.png') 0 center no-repeat;
       left: 0;
     }
     .next-pic {
-      background: url("/assets/lookbooks/arrow-right.png") 0 center no-repeat;
+      background: image-url('lookbooks/arrow-right.png') 0 center no-repeat;
       right: 0;
     }
 	.next-pic:hover{background: image-url("lookbooks/arrow-next-hover.png") no-repeat 0 center;}

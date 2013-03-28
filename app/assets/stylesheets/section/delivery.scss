@@ -3,7 +3,7 @@
 div#delivery_time {
   margin: 35px auto 0 auto;
   section#description {
-    background: url("/assets/delivery/map.png") 745px 20px no-repeat;
+    background: image-url('delivery/map.png') 745px 20px no-repeat;
     width: 705px;
     height: 270px;
     margin: 0 auto;
@@ -53,7 +53,7 @@ div#delivery_time {
         }
         span.select {
           position: absolute;
-          background: url('/assets/delivery/bg-select.png') no-repeat;
+          background: image-url('delivery/bg-select.png') no-repeat;
           line-height: 34px;
           width: 254px;
           height: 34px;
