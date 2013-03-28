@@ -28,7 +28,7 @@ class ShowroomPresenter < BasePresenter
     (products[range] || []).each do |product|
       # product = change_order_using_inventory(product) if user
       if product.liquidation?
-        output << h.render("shared/promotion_product_item", :liquidation_product => LiquidationProductService.liquidation_product(product))
+        output << h.render("shared/product_item", :product => LiquidationProductService.liquidation_product(product))
       else
         output << h.render("shared/product_item", :showroom_presenter => self, :product => product)
       end
