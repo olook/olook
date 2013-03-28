@@ -461,34 +461,14 @@ describe Product do
 
   describe "#product_color" do
     let(:product) {FactoryGirl.create(:shoe, :casual) }
-    let(:product_with_details) {FactoryGirl.create(:shoe, :casual) }
-    let!(:detail_supplier) {FactoryGirl.create(:supplier_color_detail, product: product_with_details)}
-    let!(:detail_product) {FactoryGirl.create(:product_color_detail, product: product_with_details)}
-    let!(:detail_filter) {FactoryGirl.create(:filter_color_detail, product: product_with_details)}
+    let(:detail_supplier) {FactoryGirl.create(:supplier_color_detail, product: product)}
+    let(:detail_product) {FactoryGirl.create(:product_color_detail, product: product)}
+    let(:detail_filter) {FactoryGirl.create(:filter_color_detail, product: product)}
 
-    context "when details exist" do
-      it "Show filter color" do
-        expect(product_with_details.filter_color).to eql("Blue")
-      end
-      it "Show product color" do
-        expect(product_with_details.product_color).to eql("Dark Blue")
-      end
-      it "Show supplier color" do
-        expect(product_with_details.supplier_color).to eql("Blue")
-      end
+    it "use color from details if exist" do
+      expect(product.supplier_color).to eql("Blue")
     end
 
-    context "when details dont exist" do
-      it "Show filter color" do
-        expect(product.filter_color).to eql("Não informado")
-      end
-      it "Show product color" do
-        expect(product.product_color).to eql("Black")
-      end
-      it "Show supplier color" do
-        expect(product.supplier_color).to eql("Não informado")
-      end
-    end
   end
 
   describe '#variants.sorted_by_description' do

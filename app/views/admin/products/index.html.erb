@@ -42,7 +42,9 @@
       <th>Preço</th>
       <th>Estoque</th>
       <th>Inicial</th>
-      <th>Cor</th>
+      <th>Cor do fornecedor</th>
+      <th>Cor do produto</th>
+      <th>Cor do filtro</th>
       <th>Perfil</th>
       <th><%= sortable('collection_id', 'Collection') %></th>
       <th style="width:100px">Imagem</th>
@@ -59,12 +61,14 @@
       <td><%= number_to_currency product.price %></td>
       <td><%= product.inventory %></td>
       <td><%= product.initial_inventory %></td>
-      <td><%= product.color_name %></td>
+      <td><%= product.supplier_color %></td>
+      <td><%= product.product_color %></td>
+      <td><%= product.filter_color %></td>
       <td><%= product.profiles.map(&:name).join(", ") %></td>
       <td><%= "#{product.collection.try(:name)} #{product.collection.try(:start_date).try(:year)}" %></td>
       <td><%= image_tag(product.showroom_picture, size: '100x100') if product.showroom_picture %></td>
       <td><%= image_tag(product.color_sample_url, size: '50x50') unless product.color_sample.blank? %></td>
-      <td>
+      <td class=manage_products_links>
         <%= link_to "Preview", product_path(product), class: 'button info', target: "_blank" %>
         <%= link_to 'Show', admin_product_path(product), class: 'button' %>
         <%= link_to 'Edit', edit_admin_product_path(product), class: 'button' %>
