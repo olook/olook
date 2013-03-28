@@ -3,7 +3,7 @@
               <ol class="colors">
                 <% product.all_colors((shoe_size ||= nil), current_admin).each do |related_product| %>
                   <li>
-                    <%= link_to_unless_current image_tag(related_product.color_sample.url || 'fake/no-color.png', title: related_product.name), related_product, data: {params: {gift: (gift ||= false), shoe_size: shoe_size}} %>
+                    <%= link_to_unless_current image_tag(related_product.color_sample.url || 'fake/no-color.png', title: related_product.product_color), related_product, data: {params: {gift: (gift ||= false), shoe_size: shoe_size}} %>
                   </li>
                 <% end %>
               </ol>
