@@ -459,6 +459,26 @@ describe Product do
     end
   end
 
+  describe "#product_color" do
+    let(:product) {FactoryGirl.create(:shoe, :casual) }
+    let(:product_with_details) {FactoryGirl.create(:shoe, :casual) }
+    let!(:detail_supplier) {FactoryGirl.create(:supplier_color_detail, product: product_with_details)}
+    let!(:detail_product) {FactoryGirl.create(:product_color_detail, product: product_with_details)}
+    let!(:detail_filter) {FactoryGirl.create(:filter_color_detail, product: product_with_details)}
+
+    context "when details exist" do
+      it "Show filter color" do
+        expect(product_with_details.filter_color).to eql("Blue")
+      end
+      it "Show product color" do
+        expect(product_with_details.product_color).to eql("Dark Blue")
+      end
+      it "Show supplier color" do
+        expect(product_with_details.supplier_color).to eql("Blue")
+      end
+    end
+  end
+
   describe '#variants.sorted_by_description' do
     subject { FactoryGirl.create(:shoe, :casual) }
     let!(:last_variant) { FactoryGirl.create(:variant, :product => subject, :description => '36') }
