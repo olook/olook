@@ -18,7 +18,6 @@ FactoryGirl.define do
       display_on DisplayDetailOn::SPECIFICATION
       translation_token "Cor filtro"
       description "Blue"
-
     end
 
     factory :heel_detail do
