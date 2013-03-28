@@ -110,19 +110,19 @@ function postCartToFacebookFeed(element) {
       description: 'Comprei no site da olook e amei! Já conhece? Roupas, sapatos, bolsas e acessórios incríveis. Troca e devolução grátis em até 30 dias. Conheça!'
   }
 
-  FB.ui(obj,
-
-  function(response) {
-  if (response && response.post_id) {
-      var cart = $(element).data("cart-id")
-  $.ajax({
-    url: $(element).attr('href'),
-    type: "PUT",
-    data: { cart: { facebook_share_discount: true }  },
-    dataType: "script"
-    });
-    $("#facebook-share").hide();
-    $(".msg").show();
+  FB.ui(obj, function(response) {
+    if (response && response.post_id) {
+        var cart = $(element).data("cart-id")
+      $.ajax({
+        url: $(element).attr('href'),
+        type: "PUT",
+        data: { cart: { facebook_share_discount: true }  },
+        dataType: "script"
+        });
+      _gaq.push(['_trackEvent', 'Sacola', 'FacebookShare', '', , true]);
+      $("#facebook-share").hide();
+      $(".msg").show();
+      }
     }
-  });
+  );
 }
