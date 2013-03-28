@@ -22,7 +22,7 @@
       <p class="warn sold_out"><b>ESGOTADO!</b></p>
 
       <% if shoe_size && product.shoe? -%>
-        <p class="warn shoe_size">Tam. <%= "#{shoe_size unless shoe_size.nil?}" %></p>
+        <p class="warn shoe_size">Tam. <%= "#{shoe_size}" %></p>
       <% end -%>
 
       <% if current_user && current_user.full_user? && shoe_size && product.promotion? == false -%>
