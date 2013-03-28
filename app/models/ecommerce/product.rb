@@ -408,7 +408,7 @@ class Product < ActiveRecord::Base
 
   def product_color
     product_color_name = details.find_by_translation_token("Cor produto").try(:description)
-    product_color_name =self.color_name if product_color_name.blank?
+    product_color_name = self.color_name if product_color_name.blank?
     product_color_name.blank? ? "Não informado" : product_color_name
   end
 
