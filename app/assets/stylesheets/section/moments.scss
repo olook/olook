@@ -199,6 +199,11 @@ div#moments {
             float: left;
           }
         }
+        &.cloth_color_filter{
+          width: 120px !important;
+          height: 205px !important;
+          overflow: auto !important;
+        }
       }
     }
 	 div#shoe_size_filter {
