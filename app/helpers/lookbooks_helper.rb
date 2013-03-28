@@ -3,7 +3,7 @@ module LookbooksHelper
     if product.liquidation?
       render "shared/promotion_product_item", :liquidation_product => LiquidationProductService.liquidation_product(product)
     else
-      render "shared/showroom_product_item", :product => product
+      render "shared/product_item", :product => product
     end
   end
 end
