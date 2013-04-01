@@ -77,3 +77,9 @@ Setting.defaults[:profile_users] = "nelson.haraguchi@olook.com.br,luis.daher@olo
 
 # format: YYYY-MM-DD
 Setting.defaults[:lower_limit_source_csv] = "2013-03-26"
+
+#Showroom pages (clothes)
+Setting.defaults[:cloth_showroom_moderna] = "91015,91127,90815,91325,90787"
+Setting.defaults[:cloth_showroom_casual] = "91209,91201,91163,90839,90791"
+Setting.defaults[:cloth_showroom_chic] = "91441,91417,90823,90751,91301"
+Setting.defaults[:cloth_showroom_sexy] = "90863,91293,91349,90947,91381"
