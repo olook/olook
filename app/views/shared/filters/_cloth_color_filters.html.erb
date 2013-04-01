@@ -1,4 +1,4 @@
-<div class="filter main_color">
+<div class="filter cloth_main_color">
   <p class="filter_type">Cor <%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
   <button type="button" class="clear_filter bt_clear_color">[ limpar ]</button>
   <ol class="cloth_color_filter">
@@ -8,7 +8,7 @@
     </li-->
     <% {'amarelo' => 'Amarelo', 'azul' => 'Azul', 'bege' => 'Bege', 'branco' => 'Branco', 'cinza' => 'Cinza', 'cobra' => 'Cobra',
         'cobre' => 'Cobre', 'dourado' => 'Dourado', 'floral' => 'Floral', 'laranja' => 'Laranja', 'listras' => 'Listras', 'marrom' => 'Marrom',
-        'multicolorido' => 'Multicolorido', 'nude' => 'Nude', 'onça' => 'Onça', 'onix' => 'Onix', 'poas' => 'Poás', 'prateado' => 'Prateado',
+        'multicolorido' => 'Multicolorido', 'nude' => 'Nude', 'onca' => 'Onça', 'onix' => 'Onix', 'poas' => 'Poás', 'prateado' => 'Prateado',
         'preto' => 'Preto', 'rosa' => 'Rosa', 'rose' => 'Rose', 'roxo' => 'Roxo', 'vaca' => 'Vaca', 'verde' => 'Verde', 'vermelho' => 'Vermelho',
         'xadrez' => 'Xadrez', 'zebra' => 'Zebra'}.sort{|a,b| a[0] <=> b[0]}.each do |subcategory, label| -%>
     <li class="<%= subcategory %>">
