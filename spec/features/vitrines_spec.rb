@@ -20,6 +20,7 @@ feature "Accessing my vitrine", "In order to see a customized list of products a
   end
 
   scenario "Products list" do
+    Setting.stub(:cloth_showroom_casual).and_return('')
     do_login!(user) 
 
     within("#shoes_container") do
