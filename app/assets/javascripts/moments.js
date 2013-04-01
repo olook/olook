@@ -110,7 +110,7 @@ filter.tags = function(name, desc, flag){
    
    if(flag == true) {
       $("section.filters").fadeIn();
-      list.hide().prepend('<li class="'+classname+'">'+desc+'<button type="button" class=" delete del-'+classname+'">( x )</button></li>').delay(100).fadeIn();
+      list.hide().prepend('<li class="'+classname+' header_filter">'+desc+'<button type="button" class=" delete del-'+classname+'">( x )</button></li>').delay(100).fadeIn();
       window.setTimeout('filter.deleteTag("'+classname+'")', 300);
       filter.cleanFilter();   
    }   
@@ -119,7 +119,6 @@ filter.tags = function(name, desc, flag){
       list.find("li."+classname).fadeOut().delay(300).remove();
       list.fadeIn();
    }   
-   
    if($("#tags ul").children().size() < 2){
       $("section.filters").delay(300).fadeOut();
    }
@@ -219,7 +218,9 @@ filter.changeVisualization = function(){
 }
 filter.cleanFilter = function(){
    $(".cleanFilter").bind('click', function(){
-      $("#tags ul").empty();
+      $("#tags ul li.header_filter").each(function(){ 
+        $(this).remove();
+      });
       $("section.filters").fadeOut();
       $(".filter input:checked").attr("checked", false).delay(150).parent().submit();
       $('.clear_filter').fadeOut();
