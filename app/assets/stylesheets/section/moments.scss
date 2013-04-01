@@ -289,8 +289,15 @@ div#moments {
           img{border-bottom:solid 1px #B9BABD;margin: 0;width: 235px;height: 235px;}
           p{line-height:18px;
             &.brand{text-transform:uppercase;font-weight:bold;}
-            .old{text-decoration:line-through;}
-            .txt-pink{color:#E05A8C;}
+            .old {
+              text-decoration:line-through;
+              color: inherit;
+            }
+            .txt-pink{
+              color:#E05A8C;
+              font-size: inherit;
+              font-weight: inherit;
+            }
           /**** OVERRIDE LABEL PRODUCTS ****/
             &.warn{left:0;top:60px;}
             &.warn.sold_out{background: image-url('moments/sprite.png') no-repeat 0 -76px;line-height: 25px;padding-left: 13px;text-align: left;width: 92px;color:#000;}
@@ -316,6 +323,9 @@ div#moments {
           }
         }
       /***** END ******/
+      }
+      li.product.promotion {
+        .quantity, .shoe_size { display:none }
       }
     }
     div#featured {
