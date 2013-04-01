@@ -455,7 +455,7 @@ body div.full_container {
           }
         }
         div.opacity {
-          background: url("/assets/gift/opacity.png") repeat;
+          background: image-url('gift/opacity.png') repeat;
           position: absolute;
           top: 0;
           left: 0;
@@ -539,7 +539,7 @@ body div.full_container {
                   display: none;
                   div.triangle {
                     position: absolute;
-                    background: url("/assets/gift/triangle-pink.png") no-repeat;
+                    background: image-url('gift/triangle-pink.png') no-repeat;
                     width: 13px;
                     height: 13px;
                     display: block;
@@ -601,11 +601,11 @@ body div.full_container {
                 li {
                   height: 32px;
                   a {
-                    background: url("/assets/gift/arrow-pink.png") top center no-repeat;
+                    background: image-url('gift/arrow-pink.png') top center no-repeat;
                     margin-top: 7px;
                     display: block;
                     &:hover, &.selected {
-                      background: url("/assets/gift/arrow-black.png") top center no-repeat;
+                      background: image-url('gift/arrow-black.png') top center no-repeat;
                       color: #080808;
                       font-size: 23px;
                       margin-top: 0;
@@ -616,7 +616,7 @@ body div.full_container {
             }
           }
           a#connect_facebook {
-            background: url("/assets/gift/bt-facebook.jpg") no-repeat;
+            background: image-url('gift/bt-facebook.jpg') no-repeat;
             text-indent: -99999px;
             width: 403px;
             height: 43px;
@@ -676,7 +676,7 @@ section#banner {
       margin: 0 0 10px 0;
     }
     &.facebook {
-      background: url("/assets/gift/bt-facebook.jpg") no-repeat;
+      background: image-url('gift/bt-facebook.jpg') no-repeat;
       width: 403px;
       height: 43px;
       &.disabled {
@@ -879,7 +879,7 @@ section#profile {
       }
     }
     input[type="submit"] {
-      background: url("/assets/gift/bt-recipient.png") no-repeat;
+      background: image-url('gift/bt-recipient.png') no-repeat;
       text-indent: -99999px;
       width: 348px;
       height: 61px;
@@ -914,7 +914,7 @@ section#profile {
           display: inline;
           label {
             position: relative;
-            background: url("/assets/gift/options_profile.png") no-repeat;
+            background: image-url('gift/options_profile.png') no-repeat;
             width: 292px;
             height: 350px;
             margin: 0 10px 10px;
@@ -1007,7 +1007,7 @@ section#profile {
 div.full_container {
   div.shadow {
     position: absolute;
-    background: url("/assets/gift/shadow-signed-out.png") top center no-repeat;
+    background: image-url('gift/shadow-signed-out.png') top center no-repeat;
     width: 1124px;
     height: 26px;
     display: block;
@@ -1017,7 +1017,7 @@ div.full_container {
   }
 
   div.full_bg {
-    background: url("/assets/gift/bg.jpg") repeat;
+    background: image-url('gift/bg.jpg') repeat;
     width: 100%;
     overflow: hidden;
   }
@@ -1028,7 +1028,7 @@ div#calendar_container {
   div.title {
     border-bottom: 1px #949494 solid;
     h1 {
-      background: url("/assets/gift/subtitle-calendar.jpg") 250px 0 no-repeat;
+      background: image-url('gift/subtitle-calendar.jpg') 250px 0 no-repeat;
       color: #101010;
       font-family: "Open Sans", sans-serif;
       font-size: 30px;

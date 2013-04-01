@@ -8,7 +8,7 @@ div#moments {
   overflow-x: hidden;
 
   nav {
-    background: url("/assets/cart/bg-order-status.jpg") top left repeat-x;
+    background: image-url('cart/bg-order-status.jpg') top left repeat-x;
     width: 100%;
     height: 113px;
     overflow: hidden;
@@ -222,7 +222,7 @@ div#moments {
        float: left;
      }
      span {
-       background: url("/assets/common/black_arrow.jpg") center right no-repeat;
+       background: image-url('common/black_arrow.jpg') center right no-repeat;
        text-indent: 12px;
        line-height: 32px;
        height: 32px;

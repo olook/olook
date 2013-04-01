@@ -291,7 +291,7 @@ body {
                     margin-right: 10px;
                     left: 10px;
                     & + span {
-                      background: url('/assets/common/bg-day.png') no-repeat;
+                      background: image-url('common/bg-day.png') no-repeat;
                       width: 74px;
                       text-indent: 22px;
                       left: 0;

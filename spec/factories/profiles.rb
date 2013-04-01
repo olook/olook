@@ -23,6 +23,7 @@ FactoryGirl.define do
 
     factory :casual_profile do
       name "Casual Profile"
+      alternative_name "casual"
       first_visit_banner 'casual'
     end
 
