@@ -122,13 +122,6 @@ $(document).ready(function() {
     $.post("/user_notifications", { 'user_notification[dont_want_to_see_again]': checked });
   });
 
-  replaceImages = function(){
-    $('img.async').each(function(){
-      var image = $(this).data('showroom');
-      $(this).attr('src', image);
-    });
-  }
-  replaceImages();
 });
 
 ShowroomInit = {

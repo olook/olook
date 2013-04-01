@@ -137,6 +137,21 @@ div.full_container {
           margin: 0 auto 30px;
           li.product {
             .box_product {
+              .plots {
+                font-size: inherit;
+                font-weight: inherit;
+                padding-top: 0;
+              }
+              .txt-pink {
+                font-weight: inherit;
+                font-size: inherit;
+              }
+              .line {
+                a.product_link {
+                  margin-left: 0;
+                  color: inherit;
+                }
+              }
               a.product_link {
                 p.warn {
                   top: 2px;
@@ -147,6 +162,11 @@ div.full_container {
                   height: 170px;
                 }
               }
+            }
+          }
+          li.product.promotion {
+            .percentage {
+              display:none;
             }
           }
           &+h1 {

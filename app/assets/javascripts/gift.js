@@ -101,14 +101,6 @@ $(function () {
       $("form.edit_profile").submit();
     }
   });
-
-  replaceImages = function(){
-    $('img.async').each(function(){
-      var image = $(this).data('showroom');
-      $(this).attr('src', image);
-    });
-  }
-  replaceImages();
 });
 
 InitGift = {
