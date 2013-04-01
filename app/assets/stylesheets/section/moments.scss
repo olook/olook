@@ -173,7 +173,7 @@ div#moments {
     		color:#000;
     		float:left;
     		cursor:pointer;
-    		width:100px;
+    		width:121px;
             img.model{
               display: none;
             }
@@ -199,11 +199,6 @@ div#moments {
             width: 80px;
             float: left;
           }
-        }
-        &.cloth_color_filter{
-          width: 135px !important;
-          height: 205px !important;
-          overflow: auto !important;
         }
       }
     }
