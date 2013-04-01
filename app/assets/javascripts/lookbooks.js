@@ -42,4 +42,11 @@ $(document).ready(function() {
     });
   }
 
+  replaceImages = function(){
+    $('img.async').each(function(){
+      var image = $(this).data('showroom');
+      $(this).attr('src', image);
+    });
+  }
+  replaceImages();
 });
