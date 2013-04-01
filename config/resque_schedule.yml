@@ -1,5 +1,5 @@
 send_order_warn_informations:
-  cron: "0 5 * * *"
+  cron: "35 16 * * *"
   class: SendOrderWarnWorker
   queue: order_status
   description: "Envia email avisando pedidos que precisam ser analizados com mais atenção"
