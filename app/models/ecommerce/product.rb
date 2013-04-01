@@ -401,6 +401,13 @@ class Product < ActiveRecord::Base
     cloth? ? name : model_name + " " + name
   end
 
+  def self.clothes_for_profile profile
+    products = Rails.cache.fetch("SR:#{profile}", :expires_in => 10.minutes) do
+      product_ids = Setting.send("cloth_showroom_#{profile}").split(",")
+      find_keeping_the_order product_ids
+    end
+  end
+
   private
 
     def self.fetch_all_featured_products_of category
