@@ -22,7 +22,7 @@ body {
 
       @each $metal-colors in vis-vis-to-tree-poppy, colonial-white-to-koromiko, alto-to-silver-chalice, dusty-gray-to-boulder, mercury-to-silver {
         &.#{$metal-colors} {
-          background-image: url('/assets/quiz/metal-colors.png');
+          background-image: image-url('quiz/metal-colors.png');
         }
       }
 
