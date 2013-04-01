@@ -252,13 +252,16 @@
           p, a {
             font-family: $avenir;
             font-size: 13px;
-            font-weight: 500;
           }
           p {
-            color: #939495;
+            color: black;
             letter-spacing: normal;
             line-height: 15px;
             margin: 0;
+            font-weight: normal;
+            span{
+              font-weight: bold;
+            }
           }
           a {
             color: #ef3742;
