@@ -349,6 +349,17 @@
               }
             }
           }
+          .warn.percentage {
+            display: none;
+          }
+          &.promotion {
+            span.old {
+              text-decoration: none;
+            }
+            .box_product .line span.txt-pink {
+              font-weight: normal;
+            }
+          }
         }
       }
       div.loading {
@@ -577,7 +588,6 @@ html.ie8{
       }
     }
   }
-
 
   
 /****** IE8 HACK *******/
