@@ -203,6 +203,7 @@ describe Payments::MoipSenderStrategy do
     before(:each) do 
       MoIP::Client.stub(:checkout).and_return({ foo: "bar" })
       subject.stub(:santander_is_active).and_return true
+      subject.stub(:from_olook_user).and_return true
       subject.payment = billet
     end
 
