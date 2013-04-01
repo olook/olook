@@ -53,12 +53,14 @@ $(document).ready(function() {
       container_position = $(topBox).position().top;
 		if(click.is(".shoes")){
 			$(click).html("CLIQUE E VEJA MAIS SAPATOS")
-		}else if(click.is(".purses")){
+		} else if(click.is(".purses")){
 			$(click).html("CLIQUE E VEJA MAIS BOLSAS")
-		}
-		else if(click.is(".accessories")){
+		} else if(click.is(".accessories")){
 			$(click).html("CLIQUE E VEJA MAIS ACESSÓRIOS")
-		}
+		} else if(click.is(".clothes")){
+      $(click).html("CLIQUE E VEJA MAIS ROUPAS")
+    }
+
 		$(click).removeClass("minus");
       ShowroomInit.slideToProductsContainer(container_position);
    }
