@@ -3,7 +3,7 @@
 .miniColors-trigger {
   height: 22px;
   width: 22px;
-  background: url(/assets/admin/colorpicker/trigger.png) center no-repeat;
+  background: image-url('admin/colorpicker/trigger.png') center no-repeat;
   vertical-align: middle;
   margin: 0 .25em;
   display: inline-block;
@@ -37,7 +37,7 @@
   left: 5px;
   width: 150px;
   height: 150px;
-  background: url(/assets/admin/colorpicker/gradient.png) center no-repeat;
+  background: image-url('admin/colorpicker/gradient.png') center no-repeat;
   cursor: crosshair;
 }
 
@@ -47,7 +47,7 @@
   left: 160px;
   width: 20px;
   height: 150px;
-  background: url(/assets/admin/colorpicker/rainbow.png) center no-repeat;
+  background: image-url('admin/colorpicker/rainbow.png') center no-repeat;
   cursor: crosshair;
 }
 
@@ -55,7 +55,7 @@
   position: absolute;
   width: 11px;
   height: 11px;
-  background: url(/assets/admin/colorpicker/circle.gif) center no-repeat;
+  background: image-url('admin/colorpicker/circle.gif') center no-repeat;
 }
 
 .miniColors-huePicker {
@@ -63,7 +63,7 @@
   left: -3px;
   width: 26px;
   height: 3px;
-  background: url(/assets/admin/colorpicker/line.gif) center no-repeat;
+  background: image-url('admin/colorpicker/line.gif') center no-repeat;
 }
 
 

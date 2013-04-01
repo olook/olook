@@ -52,7 +52,7 @@
           overflow: auto;
           border: 1px #dbdbdb solid;
           a {
-            background: url('/assets/common/fb-connect-button.png') no-repeat;
+            background: image-url('common/fb-connect-button.png') no-repeat;
             text-indent: -9999px;
             width: 212px;
             height: 25px;
@@ -114,11 +114,11 @@
             z-index: 100;
           }
           .carousel-prev-fb {
-            background: url("/assets/lookbooks/arrow-left.png") 0 center no-repeat;
+            background: image-url('lookbooks/arrow-left.png') 0 center no-repeat;
             left: 0;
           }
           .carousel-next-fb {
-            background: url("/assets/lookbooks/arrow-right.png") 0 center no-repeat;
+            background: image-url('lookbooks/arrow-right.png') 0 center no-repeat;
             right: 0;
           }
           ul {
@@ -182,14 +182,14 @@
           z-index: 100;
         }
         .carousel-prev {
-          background: url("/assets/lookbooks/arrow-left.png") 0 center no-repeat;
+          background: image-url('lookbooks/arrow-left.png') 0 center no-repeat;
           left: 0px;
-		  &:hover{background: url("/assets/lookbooks/arrow-prev-hover.png") 0 center no-repeat;}
+		  &:hover{background: image-url('lookbooks/arrow-prev-hover.png') 0 center no-repeat;}
         }
         .carousel-next {
-          background: url("/assets/lookbooks/arrow-right.png") 0 center no-repeat;
+          background: image-url('lookbooks/arrow-right.png') 0 center no-repeat;
           right: 0;
-		  &:hover{background: url("/assets/lookbooks/arrow-next-hover.png") 0 center no-repeat;}
+		  &:hover{background: image-url('lookbooks/arrow-next-hover.png') 0 center no-repeat;}
         }
         ul {
           position: relative;
@@ -229,7 +229,7 @@
               }
               h1 {
                 position: absolute;
-                background: image-url("lookbooks/bg-title.png") repeat;
+                background: image-url('lookbooks/bg-title.png') repeat;
                 color: #FFF;
                 font-family: $kepler;
                 font-size: 24px;
@@ -347,6 +347,20 @@
               p.price{font-size: 13px;color:#000;margin-left: 3px;
                 span{float: none;color:#000;font-size: 13px;margin: 0;padding: 0;}
               }
+              a.product_link {
+                margin-left: 0;
+              }
+            }
+          }
+          .warn.percentage {
+            display: none;
+          }
+          &.promotion {
+            span.old {
+              text-decoration: none;
+            }
+            .box_product .line span.txt-pink {
+              font-weight: normal;
             }
           }
         }
@@ -577,7 +591,6 @@ html.ie8{
       }
     }
   }
-
 
   
 /****** IE8 HACK *******/

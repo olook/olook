@@ -232,10 +232,10 @@ body {
   padding-right:12px;
 }
 .table th .asc {
-  background-image: url("/assets/admin/up_arrow.gif");
+  background-image: image-url('admin/up_arrow.gif');
 }
 .table th .desc {
-  background-image: url("/assets/admin/down_arrow.gif");
+  background-image: image-url('admin/down_arrow.gif');
 }
 
 .table .checkbox {
