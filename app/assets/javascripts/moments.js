@@ -159,7 +159,7 @@ filter.cleanCategory = function(event){
      $(event.target).hide();
    }
    
-   if($("#tags ul li").length < 1){
+   if($("#tags ul li").length < 2){
       $("section.filters").fadeOut();
    }
 
