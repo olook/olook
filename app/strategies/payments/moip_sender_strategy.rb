@@ -10,6 +10,7 @@ module Payments
 
     def send_to_gateway
       return billet_payment if payment_is_billet && (santander_is_active && from_olook_user)
+
       begin
         log("Calling Moip::Client.checkout")
         self.response = MoIP::Client.checkout(payment_data)
