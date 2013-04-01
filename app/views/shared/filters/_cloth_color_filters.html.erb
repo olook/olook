@@ -12,7 +12,7 @@
         'preto' => 'Preto', 'rosa' => 'Rosa', 'rose' => 'Rose', 'roxo' => 'Roxo', 'vaca' => 'Vaca', 'verde' => 'Verde', 'vermelho' => 'Vermelho',
         'xadrez' => 'Xadrez', 'zebra' => 'Zebra'}.sort{|a,b| a[0] <=> b[0]}.each do |subcategory, label| -%>
     <li class="<%= subcategory %>">
-      <%= check_box_tag('cloth_colors[]', label) %>
+      <%= check_box_tag('cloth_colors[]', label, params[:cloth_colors] && params[:cloth_colors].include?(label) || params[:select_all_colors], id: subcategory) %>
       <%= label_tag(label, nil, for: subcategory) %>
     </li>
   <% end -%>
