@@ -20,7 +20,7 @@ class ShowroomPresenter < BasePresenter
   def display_products(asked_range, category, collection = Collection.active, user=nil, shoes_size=nil)
 
     # Andressa asked by a custom behavior for clothes
-    if category == Category::CLOTH
+    if category == Category::CLOTH && member.try(:main_profile)
       products = Product.clothes_for_profile member.main_profile.alternative_name
     else
 
