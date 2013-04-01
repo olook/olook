@@ -1,4 +1,5 @@
 @import "partials/product";
+@import "section/collections";
 
 div#moments {
   position: relative;
@@ -200,7 +201,7 @@ div#moments {
           }
         }
         &.cloth_color_filter{
-          width: 120px !important;
+          width: 135px !important;
           height: 205px !important;
           overflow: auto !important;
         }
