@@ -18,10 +18,17 @@ class ShowroomPresenter < BasePresenter
   end
 
   def display_products(asked_range, category, collection = Collection.active, user=nil, shoes_size=nil)
-    product_finder_service = ProductFinderService.new member, admin, collection
-    products = product_finder_service.products_from_all_profiles(:category => category,
-                                                                 :description => shoes_size, 
-                                                                 :collection => collection)
+
+    # Andressa asked by a custom behavior for clothes
+    if category == Category::CLOTH
+      products = Product.clothes_for_profile member.main_profile.alternative_name
+    else
+
+      product_finder_service = ProductFinderService.new member, admin, collection
+      products = product_finder_service.products_from_all_profiles(:category => category,
+                                                                   :description => shoes_size, 
+                                                                   :collection => collection)
+    end
 
     range = parse_range(asked_range, products)
     output = ''
