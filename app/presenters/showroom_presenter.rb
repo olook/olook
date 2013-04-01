@@ -21,7 +21,10 @@ class ShowroomPresenter < BasePresenter
 
     # Andressa asked by a custom behavior for clothes
     if category == Category::CLOTH && member.try(:main_profile)
-      products = Product.clothes_for_profile member.main_profile.alternative_name
+      main_profile = member.main_profile.alternative_name
+      main_profile = ['casual', 'chic', 'sexy', 'moderna'].include?(main_profile) ? main_profile : 'casual'
+      products = Product.clothes_for_profile main_profile
+
     else
 
       product_finder_service = ProductFinderService.new member, admin, collection
