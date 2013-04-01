@@ -348,7 +348,7 @@ context "in the ilove_ecommerce xml page" do
       <price>#{product.retail_price}</price>
       <amount>#{product.price}</amount>
       <currency>BRL</currency>
-      <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=sociomantic</url>
+      <url>http://www.olook.com.br/produto/#{product.id}?utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=sociomantic</url>
       <photo>#{product.pictures.last.try(:image)}</photo>
       </product>
       </products>
