@@ -1,5 +1,5 @@
 @mixin logo($left, $top) { 
-	background: url("/assets/campaigns/logos-projetos.jpg") no-repeat $left $top;
+	background: image-url('campaigns/logos-projetos.jpg') no-repeat $left $top;
 	font:0/0 a;
 }
 
