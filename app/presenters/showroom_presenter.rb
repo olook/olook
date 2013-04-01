@@ -29,7 +29,7 @@ class ShowroomPresenter < BasePresenter
 
       product_finder_service = ProductFinderService.new member, admin, collection
       products = product_finder_service.products_from_all_profiles(:category => category,
-                                                                   :description => shoes_size,
+                                                                   :description => shoes_size, 
                                                                    :collection => collection)
     end
 
