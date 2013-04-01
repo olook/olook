@@ -1,6 +1,6 @@
 send_order_warn_informations:
-  cron: "50 16 * * *"
-  class: SendOrderWarnWorker
+  cron: "15 17 * * *"
+  class: Orders::SendOrderWarnWorker
   queue: order_status
   description: "Envia email avisando pedidos que precisam ser analizados com mais atenção"
 
