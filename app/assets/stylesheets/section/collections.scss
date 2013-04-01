@@ -451,8 +451,28 @@ section{margin-top:10px;
     .collections_products{
        ul#products{clear:both;width:763px;margin:0 auto;
          li.product{width: 235px;height:293px;margin: 0 8px 35px;padding:0;float:left;
-           a.product_link {display:block;text-decoration:none;color:#000;font-size:13px;margin:0;
-             img{border-bottom:solid 1px #B9BABD;margin: 0;width: 235px;height: 235px;}
+           span.plots {
+             color: inherit;
+             font-size: inherit;
+             padding-top: 0;
+             float: none;
+           }
+           a.product_link {
+             display:block;
+             text-decoration:none;
+             color:#000;
+             font-size:13px;
+             margin:0;
+             img {
+               border-bottom: solid 1px #B9BABD;
+               margin: 0;
+               width: 235px;
+               height: 235px;
+             }
+             h1{
+               font-size: 13px;
+               margin:0;
+             }
              p{line-height:18px;
                &.brand{text-transform:uppercase;font-weight:bold;}
                .old{text-decoration:line-through;}

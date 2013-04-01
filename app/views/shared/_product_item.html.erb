@@ -21,16 +21,18 @@
     <% end %>
 
     <div class="line">
-      <p class="price brand"><b><%= show_brand_for product %></b></p>
+      <%= link_to product, :class => "product_link", :rel => "#{product.id}", :remote => (defined?(suggestion) || gift), :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}} do %>
+        <p class="price brand"><b><%= show_brand_for product %></b></p>
 
-      <p class="price">
-        <% if product.promotion? %>
-          <span class="old">De <%= number_to_currency product.price %></span>
-          <span class="txt-pink">por <%= number_to_currency product.retail_price %></span>
-        <% else %>
-          <%= number_to_currency product.price %> ou <span class="plots"><%= installments(product.price) %></span>
-        <% end %>
-      </p>
+        <p class="price">
+          <% if product.promotion? %>
+            <span class="old">De <%= number_to_currency product.price %></span>
+            <span class="txt-pink">por <%= number_to_currency product.retail_price %></span>
+          <% else %>
+            <%= number_to_currency product.price %> ou <span class="plots"><%= installments(product.price) %></span>
+          <% end %>
+        </p>
+      <%- end -%>
 
       <ol class="color_list">
         <% unless product.color_name.blank? %>

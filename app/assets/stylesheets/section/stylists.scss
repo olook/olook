@@ -10,7 +10,7 @@ section#stylist {
 	 clear:both;
     margin: 0 0 10px;
     h1.stylist {
-      background: url("/assets/stylist/stylists_convidadas.png") top center no-repeat;
+      background: image-url('stylist/stylists_convidadas.png') top center no-repeat;
       text-indent: -9999px;
       width: 990px;
       height: 58px;
@@ -105,7 +105,7 @@ section#stylist {
     &#helena {
       padding: 18px 0 20px 0;
       div.description {
-        background: url("/assets/stylist/helena_linhares/foto.jpg") top right no-repeat;
+        background: image-url('stylist/helena_linhares/foto.jpg') top right no-repeat;
         h1 {
           margin: 0 0 8px 0;
           &+p {
@@ -117,7 +117,7 @@ section#stylist {
         width: 463px;
         height: 528px;
         h1 {
-          background: url("/assets/stylist/helena_linhares/amo3.png") no-repeat;
+          background: image-url('stylist/helena_linhares/amo3.png') no-repeat;
           width: 96px;
           height: 80px;
           top: 165px;
@@ -125,7 +125,7 @@ section#stylist {
           z-index: 10;
         }
         a#baru{
-          background: url("/assets/stylist/helena_linhares/baru.png") no-repeat;
+          background: image-url('stylist/helena_linhares/baru.png') no-repeat;
           text-align: center;
           width: 243px;
           height: 122px;
@@ -134,7 +134,7 @@ section#stylist {
           p{top:0px;left:95px;}
         }
         a#cottage{
-          background: url("/assets/stylist/helena_linhares/cottage2.png") no-repeat;
+          background: image-url('stylist/helena_linhares/cottage2.png') no-repeat;
           width: 196px;
           height: 212px;
           top: -6px;
@@ -143,7 +143,7 @@ section#stylist {
           p{top:20px;right:0px;}
         }
         a#cashmere{
-          background: url("/assets/stylist/helena_linhares/cashmere.png") no-repeat;
+          background: image-url('stylist/helena_linhares/cashmere.png') no-repeat;
           text-align: left;
           width: 134px;
           height: 119px;
@@ -153,7 +153,7 @@ section#stylist {
           p{top:-13px;right:-25px;}
         }
 		   a#mungo{
-   		background: url("/assets/stylist/helena_linhares/mungo.png") no-repeat;
+   		background: image-url('stylist/helena_linhares/mungo.png') no-repeat;
          width: 221px;
          height: 213px;
          bottom: 0px;
@@ -161,7 +161,7 @@ section#stylist {
    		 p{bottom:15px;left:-50px;}
    		}			
         a#recamo{
-          background: url("/assets/stylist/helena_linhares/recamo.png") no-repeat;
+          background: image-url('stylist/helena_linhares/recamo.png') no-repeat;
           width: 182px;
           height: 234px;
           bottom: 0px;
@@ -169,7 +169,7 @@ section#stylist {
           p{top:27px;left:3px;}
         }
 	    	a#chambray{
-          background: url("/assets/stylist/helena_linhares/chambray.png") no-repeat;
+          background: image-url('stylist/helena_linhares/chambray.png') no-repeat;
           width: 150px;
           height: 141px;
           top: 108px;
@@ -181,7 +181,7 @@ section#stylist {
     &#didi_wagner {
 		&.profile{margin-bottom:40px;}
       div.description {
-        background: url("/assets/stylist/didi_wagner/foto.jpg") top right no-repeat;
+        background: image-url('stylist/didi_wagner/foto.jpg') top right no-repeat;
         h1 {
           margin: 0 0 8px 0;
           &+p {
@@ -193,14 +193,14 @@ section#stylist {
         width: 463px;
         height: 488px;
         h1 {
-          background: url("/assets/stylist/didi_wagner/didi_wagner.png") no-repeat;
+          background: image-url('stylist/didi_wagner/didi_wagner.png') no-repeat;
           width: 125px;
           height: 90px;
           top: 222px;
           left: 133px;
         } 
         a#choli {
-          background: url("/assets/stylist/didi_wagner/choli.png") top center no-repeat;
+          background: image-url('stylist/didi_wagner/choli.png') top center no-repeat;
           text-align: center;
           width: 220px;
           height: 270px;
@@ -209,7 +209,7 @@ section#stylist {
 			 p{top:40px;left:170px;}
         }
         a#madras {
-          background: url("/assets/stylist/didi_wagner/madras.png") top right no-repeat;
+          background: image-url('stylist/didi_wagner/madras.png') top right no-repeat;
           width: 182px;
           height: 195px;
           top: -18px;
@@ -217,7 +217,7 @@ section#stylist {
 			 p{top:175px;right:130px;}
         }
         a#aniagem {
-          background: url("/assets/stylist/didi_wagner/aniagem.png") top left no-repeat;
+          background: image-url('stylist/didi_wagner/aniagem.png') top left no-repeat;
           text-align: right;
           width: 250px;
           height: 320px;
@@ -226,7 +226,7 @@ section#stylist {
 			 p{top:33px;left:173px;}
         }
         a#trench {
-          background: url("/assets/stylist/didi_wagner/trench.png") top center no-repeat;
+          background: image-url('stylist/didi_wagner/trench.png') top center no-repeat;
           text-align: center;
           width: 250px;
           height: 151px;
@@ -236,7 +236,7 @@ section#stylist {
 			 p{top:35px;left:160px;}
         }
         a#modal {
-          background: url("/assets/stylist/didi_wagner/modal.png") top left no-repeat;
+          background: image-url('stylist/didi_wagner/modal.png') top left no-repeat;
           text-align: right;
           width: 89px;
           height: 179px;
@@ -249,7 +249,7 @@ section#stylist {
 	 &#paola_orleans{
 		&.profile{margin-bottom:40px;}
 		div.description {
-        background: url("/assets/stylist/paola_orleans/foto.jpg") top right no-repeat;
+        background: image-url('stylist/paola_orleans/foto.jpg') top right no-repeat;
 		  h1{
 			margin-top:10px;line-height:25px;
 		  	span{font-size:22px;}
@@ -260,14 +260,14 @@ section#stylist {
         width: 463px;
         height: 490px;
 		h1{	
-		 background: url("/assets/stylist/paola_orleans/paola_orleans.png") no-repeat;
+		 background: image-url('stylist/paola_orleans/paola_orleans.png') no-repeat;
          width: 125px;
          height: 90px;
          top: 253px;
          left: 300px;
 		}
 		a#tricotine {
-      background: url("/assets/stylist/paola_orleans/tricotine.png") top center no-repeat;
+      background: image-url('stylist/paola_orleans/tricotine.png') top center no-repeat;
       text-align: center;
       width: 195px;
       height: 179px;
@@ -276,7 +276,7 @@ section#stylist {
 		  p{top:180px;left:40px;}
     }
     a#geta {
-      background: url("/assets/stylist/paola_orleans/geta.png") top right no-repeat;
+      background: image-url('stylist/paola_orleans/geta.png') top right no-repeat;
       width: 145px;
       height: 171px;
       top: -7px;
@@ -285,7 +285,7 @@ section#stylist {
   		p{top:29px;right:46px}
     }
     a#colete {
-      background: url("/assets/stylist/paola_orleans/colete.png") top left no-repeat;
+      background: image-url('stylist/paola_orleans/colete.png') top left no-repeat;
       text-align: right;
       width: 195px;
       height: 213px;
@@ -295,7 +295,7 @@ section#stylist {
 		  p{top:207px;right:35px;}
     }
     a#rabat {
-      background: url("/assets/stylist/paola_orleans/rabat.png") top center no-repeat;
+      background: image-url('stylist/paola_orleans/rabat.png') top center no-repeat;
       text-align: center;
       width: 226px;
       height: 135px;
@@ -305,7 +305,7 @@ section#stylist {
 		  p{top:9px;left:60px;}
     }
     a#dragona {
-     background: url("/assets/stylist/paola_orleans/dragona.png") top left no-repeat;
+     background: image-url('stylist/paola_orleans/dragona.png') top left no-repeat;
      text-align: right;
      width: 197px;
      height: 272px;
@@ -314,7 +314,7 @@ section#stylist {
 		  p{top:120px;left:200px;}
      }
      a#foxing {
-     	background: url("/assets/stylist/paola_orleans/foxing.png") top left no-repeat;
+     	background: image-url('stylist/paola_orleans/foxing.png') top left no-repeat;
 	    text-align: right;
 	    width: 127px;
 	    height: 99px;
