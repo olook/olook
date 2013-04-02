@@ -419,7 +419,7 @@ class Product < ActiveRecord::Base
   end
 
   def item_view_cache_key_for(shoe_size=nil)
-    shoe? ? CACHE_KEYS[:product_item_partial_shoe] % [id, shoe_size] : CACHE_KEYS[:product_item_partial] % id
+    shoe? ? CACHE_KEYS[:product_item_partial_shoe][:key] % [id, shoe_size] : CACHE_KEYS[:product_item_partial][:key] % id
   end
 
   private
