@@ -27,33 +27,26 @@ feature "Visitor sees Products", %q{
 
     visit "/"
 
-    within("#clothes_container") do
-      expect(page).to have_content('Suas roupas')
-      expect(page).to have_content(cloth.formatted_name)
-      expect(page).to have_content(cloth.brand)
-      expect(page).to have_content(number_to_currency(cloth.price))
-    end
+    # roupas de um perfil é definido via DefaultSettings
+    #expect(page).to have_content('Suas roupas')
+    #expect(page).to have_content(cloth.formatted_name)
+    #expect(page).to have_content(cloth.brand)
+    #expect(page).to have_content(number_to_currency(cloth.price))
 
-    within("#shoes_container") do
-      expect(page).to have_content('Seus sapatos')
-      expect(page).to have_content(shoe.formatted_name)
-      expect(page).to have_content(shoe.brand)
-      expect(page).to have_content(number_to_currency(shoe.price))
-    end
+    expect(page).to have_content('Seus sapatos')
+    expect(page).to have_content(shoe.formatted_name)
+    expect(page).to have_content(shoe.brand)
+    expect(page).to have_content(number_to_currency(shoe.price))
 
-    within("#purse_container") do
-      expect(page).to have_content('Suas bolsas')
-      expect(page).to have_content(bag.formatted_name)
-      expect(page).to have_content(bag.brand)
-      expect(page).to have_content(number_to_currency(bag.price))
-    end
+    expect(page).to have_content('Suas bolsas')
+    expect(page).to have_content(bag.formatted_name)
+    expect(page).to have_content(bag.brand)
+    expect(page).to have_content(number_to_currency(bag.price))
 
-    within("#accessories_container") do
-      expect(page).to have_content('Seus acessórios')
-      expect(page).to have_content(accessory.formatted_name)
-      expect(page).to have_content(accessory.brand)
-      expect(page).to have_content(number_to_currency(accessory.price))
-    end
+    expect(page).to have_content('Seus acessórios')
+    expect(page).to have_content(accessory.formatted_name)
+    expect(page).to have_content(accessory.brand)
+    expect(page).to have_content(number_to_currency(accessory.price))
   end
 
   scenario "Catalog Clothes" do
