@@ -25,7 +25,7 @@ describe BilletMailer do
 
     context "when not expiring on monday" do
       before do
-        payment.payment_expiration_date = Time.new(2012,7,3)
+        payment.payment_expiration_date = Time.zone.local(2012,7,3)
       end
 
       subject { BilletMailer.send_reminder_mail(payment) }
@@ -37,7 +37,7 @@ describe BilletMailer do
 
     context "when expiring on monday" do
       before do
-        payment.payment_expiration_date = Time.new(2012,7,2)
+        payment.payment_expiration_date = Time.zone.local(2012,7,2)
       end
 
       subject { BilletMailer.send_reminder_mail(payment) }
