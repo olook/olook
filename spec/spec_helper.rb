@@ -58,7 +58,6 @@ Spork.prefork do
   end
 
   HTTPI.log = false
-  BCrypt::Engine::DEFAULT_COST = 1
 
   RSpec.configure do |config|
 
