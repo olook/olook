@@ -408,6 +408,17 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def expire_cache
+    shoes_sizes = self.variants.collect(&:description) + [""]
+    shoes_sizes.each do |shoe_size|
+      Rails.cache.delete("views/#{product_item_cache_key_for(shoe_size)}")
+    end
+  end
+
+  def item_view_cache_key_for(shoe_size=nil)
+    "product:#{id}|shoes_size:#{shoe_size}"
+  end
+
   private
 
     def self.fetch_all_featured_products_of category

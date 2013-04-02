@@ -671,4 +671,18 @@ describe Product do
     end
   end
 
+  describe "#item_view_cache_key_for" do
+    context "when there's some shoe size" do
+      it "returns key of cache for product with product id and shoes_size" do
+        expect(subject.item_view_cache_key_for("37")).to eq("product:#{subject.id}|shoes_size:37")
+      end
+    end
+
+    context "when there's some shoe size" do
+      it "returns key of cache for product with product id and without shoes_size" do
+        expect(subject.item_view_cache_key_for("")).to eq("product:#{subject.id}|shoes_size:")
+      end
+    end
+  end
+
 end
