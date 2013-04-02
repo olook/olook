@@ -408,15 +408,18 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def expire_cache
-    shoes_sizes = self.variants.collect(&:description) + [""]
-    shoes_sizes.each do |shoe_size|
-      Rails.cache.delete("views/#{product_item_cache_key_for(shoe_size)}")
+  def delete_cache
+    if shoe?
+      shoes_sizes = self.variants.collect(&:description)
+      shoes_sizes.each do |shoe_size|
+        Rails.cache.delete("views/#{item_view_cache_key_for(shoe_size)}")
+      end
     end
+    Rails.cache.delete("views/#{item_view_cache_key_for}")
   end
 
   def item_view_cache_key_for(shoe_size=nil)
-    "product:#{id}|shoes_size:#{shoe_size}"
+    shoe? ? "product:#{id}|shoes_size:#{shoe_size}" : "product:#{id}"
   end
 
   private
