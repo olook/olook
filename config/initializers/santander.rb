@@ -1,0 +1,1 @@
+SANTANDER = YAML.load_file("#{Rails.root}/config/santander.yml")[Rails.env]

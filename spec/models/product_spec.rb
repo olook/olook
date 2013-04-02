@@ -566,7 +566,7 @@ describe Product do
 
     context "without params" do
       it "returns valid url with the product id" do
-        subject.product_url.should == "http://www.olook.com.br/produto/#{subject.id}?utm_campaign=produtos&utm_content=#{subject.id}&utm_medium=vitrine"
+        subject.product_url.should == "http://www.olook.com.br/produto/#{subject.id}?utm_content=#{subject.id}&utm_medium=vitrine"
       end
     end
 
