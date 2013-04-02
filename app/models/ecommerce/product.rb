@@ -7,7 +7,6 @@ class Product < ActiveRecord::Base
   #has_paper_trail :skip => [:pictures_attributes, :color_sample]
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
   MINIMUM_INVENTORY_FOR_XML = 3
-  CACHE_KEY = "C_I_P_"
 
   include ProductFinder
 
@@ -210,7 +209,7 @@ class Product < ActiveRecord::Base
   end
 
   def colors(size = nil, admin = false)
-    Rails.cache.fetch("p:colors:#{id}:#{admin}", expires_in: 30.minutes) do
+    Rails.cache.fetch(CACHE_KEYS[:product_colors][:key] % [id, admin], expires_in: CACHE_KEYS[:product_colors][:expire]) do
       is_visible = (admin ? [0,1] : true)
       conditions = {is_visible: is_visible, category: self.category, name: self.name}
       conditions.merge!(variants: {description: size}) if size and self.category == Category::SHOE
@@ -403,7 +402,7 @@ class Product < ActiveRecord::Base
   end
 
   def self.clothes_for_profile profile
-    products = Rails.cache.fetch("SR:#{profile}", :expires_in => 10.minutes) do
+    products = Rails.cache.fetch(CACHE_KEYS[:product_clothes_for_profile][:key] % profile, :expires_in => CACHE_KEYS[:product_clothes_for_profile][:expire]) do
       product_ids = Setting.send("cloth_showroom_#{profile}").split(",")
       find_keeping_the_order product_ids
     end
@@ -420,13 +419,13 @@ class Product < ActiveRecord::Base
   end
 
   def item_view_cache_key_for(shoe_size=nil)
-    shoe? ? "product:#{id}|shoes_size:#{shoe_size}" : "product:#{id}"
+    shoe? ? CACHE_KEYS[:product_item_partial_shoe] % [id, shoe_size] : CACHE_KEYS[:product_item_partial] % id
   end
 
   private
 
     def self.fetch_all_featured_products_of category
-      products = Rails.cache.fetch("featured_products_#{category}", :expires_in => 10.minutes) do
+      products = Rails.cache.fetch(CACHE_KEYS[:product_fetch_all_featured_products_of][:key] % category, :expires_in => CACHE_KEYS[:product_fetch_all_featured_products_of][:expire]) do
         category_name = Category.key_for(category).to_s
         product_ids = Setting.send("featured_#{category_name}_ids").split(",")
 
@@ -497,7 +496,7 @@ class Product < ActiveRecord::Base
     end
 
     def fetch_cache_for(picture)
-      img = Rails.cache.fetch(CACHE_KEY+"#{id}d#{picture.display_on}", expires_in: Setting.image_expiration_period_in_days.to_i.days) do
+      img = Rails.cache.fetch(CACHE_KEYS[:product_picture_image_catalog][:key] % [id, picture.display_on], expires_in: CACHE_KEYS[:product_picture_image_catalog][:expire]) do
         picture.image.catalog.file.exists? ? picture.try(:image_url, :catalog) : picture.try(:image_url, :suggestion)
       end
       img
