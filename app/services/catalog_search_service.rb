@@ -120,7 +120,6 @@ class CatalogSearchService
     else
       query_cloth_sizes || query_subcategories_for(@params[:cloth_subcategories])
     end
-
     query = cloth_colors(query)
     query.and(l_products[:category_id].in(Category::CLOTH)) if query
   end
@@ -130,7 +129,11 @@ class CatalogSearchService
   end
 
   def cloth_colors query
-    build_sub_query((query || query_base), Detail.arel_table[:translation_token].eq("Cor filtro").and(Detail.arel_table[:description].in(@params[:cloth_colors]))) if @params[:cloth_colors]
+    if @params[:cloth_colors]
+      build_sub_query((query || query_base), Detail.arel_table[:translation_token].eq("Cor filtro").and(Detail.arel_table[:description].in(@params[:cloth_colors])))
+    else
+      query
+    end
   end
 
   def build_sub_query(current_query, sub_query)
