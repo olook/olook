@@ -1,7 +1,8 @@
 <%
     shoe_size = params[:shoe_sizes].to_a.find { |ss| !ss.blank? }.try(:to_i) || current_user.try(:shoes_size).try(:to_i)
   %>
-<%= cache(produc.item_view_cache_key_for(shoes_size), expires_in: Setting.product_item_cache_expiration_time.to_i.minutes) do %>
+
+<%= cache(product.item_view_cache_key_for(shoe_size), expires_in: Setting.product_item_cache_expiration_time.to_i.minutes) do %>
   <li class="product<%= " promotion" if product.promotion? %>" data-id="<%= product.id %>">
     <%= render "shared/product_hover", :product => product, :gift => (gift ||= false), :shoe_size => (shoe_size ||= nil) %>
     <div class="box_product <%= quantity_status_moments(product, shoe_size) %>">
