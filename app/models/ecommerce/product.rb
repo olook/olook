@@ -201,6 +201,7 @@ class Product < ActiveRecord::Base
       img = fetch_cache_for(picture) if picture
     rescue => e
       Rails.logger.info e
+      nil
     end
   end
 
@@ -496,9 +497,10 @@ class Product < ActiveRecord::Base
     end
 
     def fetch_cache_for(picture)
-      Rails.cache.fetch(CACHE_KEY+"#{id}d#{picture.display_on}", expires_in: Setting.image_expiration_period_in_days.to_i.days) do
+      img = Rails.cache.fetch(CACHE_KEY+"#{id}d#{picture.display_on}", expires_in: Setting.image_expiration_period_in_days.to_i.days) do
         picture.image.catalog.file.exists? ? picture.try(:image_url, :catalog) : picture.try(:image_url, :suggestion)
       end
+      img
     end
 
 end
