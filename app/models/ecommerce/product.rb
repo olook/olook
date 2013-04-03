@@ -8,8 +8,11 @@ class Product < ActiveRecord::Base
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
   MINIMUM_INVENTORY_FOR_XML = 3
   CACHE_KEY = "C_I_P_"
+  JULIANA_JABOUR_PRODUCTS = [90632,90612,90641,90646,90607,90597,90602,90616,90619,90627,90622,90636]
 
   include ProductFinder
+
+  attr_accessor :brand
 
   has_enumeration_for :category, :with => Category, :required => true
 
@@ -404,6 +407,14 @@ class Product < ActiveRecord::Base
     products = Rails.cache.fetch("SR:#{profile}", :expires_in => 10.minutes) do
       product_ids = Setting.send("cloth_showroom_#{profile}").split(",")
       find_keeping_the_order product_ids
+    end
+  end
+
+  def brand
+    if self[:brand].blank?
+      self[:brand] = JULIANA_JABOUR_PRODUCTS.include?(id) ? "JULIANA JABOUR" : "OLOOK"
+    else
+      self[:brand]
     end
   end
 
