@@ -675,11 +675,11 @@ describe Product do
     context "when product is shoe" do
       subject { FactoryGirl.build(:shoe, id: 10) }
       context "and has shoe_size 37" do
-        it { expect(subject.item_view_cache_key_for("37")).to eq(CACHE_KEYS[:product_item_partial_shoe][:key] % [subject.id, 37]) }
+        it { expect(subject.item_view_cache_key_for("37")).to eq(CACHE_KEYS[:product_item_partial][:key] % [subject.id, 37]) }
       end
 
       context "and has no shoe_size" do
-        it { expect(subject.item_view_cache_key_for).to eq(CACHE_KEYS[:product_item_partial_shoe][:key] % [subject.id, nil]) }
+        it { expect(subject.item_view_cache_key_for).to eq(CACHE_KEYS[:product_item_partial][:key] % [subject.id, nil]) }
       end
     end
 

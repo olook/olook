@@ -1,5 +1,4 @@
 CACHE_KEYS = {
-  product_item_partial_shoe: { key: '_product_item:%s|shoe_size:%s', expire: 30*60 },
   product_item_partial: { key: '_product_item:%s', expire: 30*60 },
   product_picture_image_catalog: { key: 'C_I_P_%sd%s', expire: 24*3600 },
   product_colors: { key: "p:colors:%s:%s", expire: 30*60 },
