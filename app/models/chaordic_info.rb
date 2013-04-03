@@ -41,15 +41,14 @@ class ChaordicInfo
       chaordic_product.description = product.description
       chaordic_product.installment_count = 1
       chaordic_product.installment_price = product.retail_price.round(2).to_s
-      if product.category == 1
-        product.variants.sort{|x,y| x.description.to_i <=> y.description.to_i}.each do |v|
-          size = v.description
-          sku = v.inventory >= 1 ? v.sku : ""
-          chaordic_product.add_variant size, sku
-        end
-      end
+      product.variants.sort{|x,y| x.description.to_i <=> y.description.to_i}.each do |v|
+        size = v.description
+        sku = v.inventory >= 1 ? v.sku : ""
+        chaordic_product.add_variant size, sku
+      end unless product.variants.empty?
       chaordic_product.status = product.inventory > 1 ? "AVAILABLE" : "UNAVAILABLE"
       chaordic_product.sub_category = product.subcategory
+      chaordic_product.tags << product.brand
       create_chaordic_object.pack(chaordic_product)
     end
 
