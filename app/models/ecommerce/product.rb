@@ -7,8 +7,15 @@ class Product < ActiveRecord::Base
   #has_paper_trail :skip => [:pictures_attributes, :color_sample]
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
   MINIMUM_INVENTORY_FOR_XML = 3
+<<<<<<< HEAD
+=======
+  CACHE_KEY = "C_I_P_"
+  JULIANA_JABOUR_PRODUCTS = [90632,90612,90641,90646,90607,90597,90602,90616,90619,90627,90622,90636]
+>>>>>>> origin/master
 
   include ProductFinder
+
+  attr_accessor :brand
 
   has_enumeration_for :category, :with => Category, :required => true
 
@@ -419,6 +426,14 @@ class Product < ActiveRecord::Base
 
   def item_view_cache_key_for(shoe_size=nil)
     CACHE_KEYS[:product_item_partial][:key] % id
+  end
+
+  def brand
+    if self[:brand].blank?
+      self[:brand] = JULIANA_JABOUR_PRODUCTS.include?(id) ? "JULIANA JABOUR" : "OLOOK"
+    else
+      self[:brand]
+    end
   end
 
   private
