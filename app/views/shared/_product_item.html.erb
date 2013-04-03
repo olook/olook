@@ -12,6 +12,10 @@
         <h1><p><span class="name"><%= product.formatted_name %></span></p></h1>
         <p class="warn sold_out"><b>ESGOTADO!</b></p>
 
+        <% if shoe_size && product.shoe? && product.sold_out? %>
+          <p class="warn shoe_size">Tam. <%= shoe_size %></p>
+        <% end %>
+
         <% if product.promotion? && !product.sold_out? && product.discount_percent.to_i != 0 %>
           <p class="warn percentage"><span><%= product.discount_percent.to_i %>%</span><br />off</p>
         <% end %>
