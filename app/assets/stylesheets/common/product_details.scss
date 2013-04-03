@@ -41,7 +41,7 @@
         margin-bottom: 30px;
         overflow: visible;
         float: left;
-        border-bottom: 2px $pink solid;
+        border-bottom: 2px #b9babd solid;
         p.warn {
           position: absolute;
           color: #FFF;
@@ -240,25 +240,29 @@
 					}
         }
         div.warn_discount {
-          background: image-url('product/bg-warn-discount.jpg') top center no-repeat;
+          background: image-url('product/bg-warn-discount.jpg') top center no-repeat !important;
           font-style: normal;
           font-weight: bold;
           text-align: center;
           width: 390px;
-          height: 41px;
+          height: 70px;
           display: block;
-          padding: 15px 0 0 0;
-          margin: 0 auto 10px;
+          padding: 8px 0 0 0 !important;
+          margin: -15px auto 10px;
           p, a {
             font-family: $avenir;
             font-size: 13px;
-            font-weight: 500;
           }
           p {
-            color: #939495;
+            color: black;
             letter-spacing: normal;
             line-height: 15px;
             margin: 0;
+            margin-top: 10px;
+            font-weight: normal;
+            span{
+              font-weight: bold;
+            }
           }
           a {
             color: #ef3742;

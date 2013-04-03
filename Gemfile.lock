@@ -18,6 +18,18 @@ GIT
       nokogiri (~> 1.5.0)
 
 GIT
+  remote: git@github.com:olook/boleto_bancario.git
+  revision: c210cecbe2834ab0e2834f76c1690d773e5a423d
+  branch: homologacao_santander
+  specs:
+    boleto_bancario (0.0.1.beta)
+      actionpack (~> 3.2)
+      activemodel (~> 3.2)
+      activesupport (~> 3.2)
+      barby (~> 0.5.1)
+      chunky_png (~> 1.2.7)
+
+GIT
   remote: git@github.com:olook/chaordic-packr.git
   revision: 568baf36fe8765eff7d3b58f15617a3840e50712
   branch: master
@@ -97,6 +109,7 @@ GEM
       activemodel
       fog
     awesome_print (1.1.0)
+    barby (0.5.1)
     bcrypt-ruby (3.0.1)
     bourne (1.1.2)
       mocha (= 0.10.5)
@@ -135,6 +148,7 @@ GEM
       ffi (~> 1.0, >= 1.0.6)
     choice (0.1.6)
     chronic (0.9.0)
+    chunky_png (1.2.8)
     coderay (1.0.8)
     columnize (0.3.6)
     connection_pool (1.0.0)
@@ -480,6 +494,7 @@ DEPENDENCIES
   airbrake (~> 3.1.6)
   asset_sync (~> 0.5.0)
   awesome_print
+  boleto_bancario!
   brcpfcnpj (= 3.0.4)
   bullet
   business_time

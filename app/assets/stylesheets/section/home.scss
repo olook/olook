@@ -40,7 +40,6 @@ section#home {
     .caroufredsel_wrapper{overflow:hidden;}
     a.close {
       position: absolute;
-/*<<<<<<< HEAD*/
       background: image-url("lookbooks/close.png") no-repeat;
       text-indent: -99999px;
       top: 0;
@@ -51,25 +50,6 @@ section#home {
       z-index: 101;
       &:hover{
         background: image-url("lookbooks/close-hover.png") no-repeat;
-/*======= */
-/*      width: 405px;
-      padding: 10px 30px 15px;
-      overflow: visible;
-      border: 1px #e8e8e8 solid;
-      top: 540px;
-      left: 315px;
-      float: right;
-
-      p {
-        background: image-url('common/facebook-title.png') top left no-repeat;
-        color: #a2a2a2;
-        font-size: 13px;
-        line-height: 25px;
-        float: left;
-        margin-top:3px;
-        padding: 2px 0 0 133px;*/
-
-/*>>>>>>> master*/
       }
     }
     .jcarousel-container {
