@@ -19,7 +19,7 @@
 
       <div class="line">
         <%= link_to product, :class => "product_link", :rel => "#{product.id}", :remote => (defined?(suggestion) || gift), :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}} do %>
-          <p class="price brand"><b><%= show_brand_for product %></b></p>
+          <p class="price brand"><b><%= product.brand %></b></p>
 
           <p class="price">
             <% if product.promotion? %>
