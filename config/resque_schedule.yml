@@ -5,10 +5,10 @@ send_order_warn_informations:
   description: "Envia email avisando pedidos que precisam ser analizados com mais atenção"
 
 send_orders_alert:
-  cron: "40 14 * * *"
+  cron: "05 16 * * *"
   class: SendOrderAlertWorker
   queue: order_status_alert
-  description: "Envia email avisando pedidos que precisam ser analizados com mais atenção"
+  description: "Envia email avisando pedidos que precisam ser analizados com mais atencao"
 
 update_inventory:
   cron: "*/5 * * * *"
