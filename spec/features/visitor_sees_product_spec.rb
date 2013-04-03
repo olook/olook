@@ -50,7 +50,7 @@ feature "Visitor sees Products", %q{
   end
 
   scenario "Catalog Clothes" do
-    collection_theme = FactoryGirl.create(:collection_theme)
+    collection_theme = FactoryGirl.create(:collection_theme, id: 1)
     product = FactoryGirl.create(:simple_garment, :in_stock)
     product.variants.first.update_attributes(price: 150.99)
     catalog_product = FactoryGirl.create(:catalog_product, category_id: product.category, product: product, variant: product.variants.first)
