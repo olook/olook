@@ -1,10 +1,11 @@
 if($(".box-remember.success").length > 0){
-	w = 525, h = 175, ml = -(w/2), mt = -(h/2);
+	w = 520, h = 360, ml = -(w/2), mt = -(h/2);
 	parent.top.$("#modal-campaign").css({
 		"width"  	  : w +"px",
 		"height" 	  : h +"px",
 		"margin-top"  : mt+"px",
-		"margin-left" : ml+"px"
+		"margin-left" : ml+"px",
+		"overflow"	  : "hidden"	
 	}).delay(250).fadeIn();
 }else if($(".box-cadastro").length > 0){
 	w = 915, h = 420, ml = -(w/2), mt = -(h/2);

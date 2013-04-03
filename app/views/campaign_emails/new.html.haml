@@ -2,17 +2,17 @@
   =image_tag("campaign_emails/listras.jpg")
   %div.content
     %p.titulo GANHE 10% NA PRIMEIRA COMPRA + 15% NA PRÓXIMA*
-    %p.cadastre Cadastre-se e receba por e-mail novidades sobre moda, tendências e promoções exclusivas
+    %p.cadastre Cadastre-se e receba por e-mail novidades </br>sobre moda, tendências e promoções exclusivas
     %div.place-holder
       %div.error 
         %p O e-mail informado não parece correto. Que tal conferir?
       
     =form_for @campaign_email do |f|
       =f.text_field :email, :value => "seunome@email.com.br"
-      =f.submit :value => "CADASTRAR", :class => "bt-enviar"
+      =f.submit :value => "", :class => "bt-enviar"
         
-    %p.texto Aceito os <a href="/termos" target="_blank">termos de uso</a> e a <a href="/privacidade" target="_blank">política de privacidade</a>
-    %p.adendo *Em crédito para compras nos próximos 2 meses. O valor será calculado na sacola. 
+    %p.texto Aceito os <a href="/termos" target="_blank">termos de uso</a>
+    %p.adendo *Você ganhará 15% do valor do seu pedido em créditos para usar a partir do 1º dia do próximo mês.</br>A validade dos créditos é de 2 meses e o valor será calculado na sacola de compras. 
   .nao-exibir
     %input{:type => "checkbox", :name => "dont_show", :class => "dont_show"}
     %label{:for => "dont_show"} Não exibir novamente
