@@ -24,7 +24,9 @@
       
       <!-- local onde o mostpopular será exibido -->
       <div class="chaordic mostpopular"></div>
-      <%= render "new_header_moments" %>
+      <% if Setting.show_featured_products %>
+        <%= render "new_header_moments" %>
+      <% end %>
 
       <ul id="products">
         <%= render "products", :products => @catalog_products %>
