@@ -283,7 +283,6 @@ class Product < ActiveRecord::Base
     {
       :host => "www.olook.com.br",
       :utm_medium => "vitrine",
-      :utm_campaign => "produtos",
       :utm_content => id
     }
     Rails.application.routes.url_helpers.product_url(self, params.merge!(options))
