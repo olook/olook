@@ -7,7 +7,7 @@
     <%= link_to(product, :class => "product_link", :rel => "#{product.id}", :remote => defined?(suggestion)) do %>
       <%= image_tag("common/ajax-loader-product.gif", :alt => product.name, :class => "async", data: { product: product.catalog_picture, backside: product.backside_picture, wearing: product.wearing_picture } ) %>
       <p><span class="name"><%= product.formatted_name %></span></p>
-      <p class="brand"><b><%= show_brand_for product %></b></p>
+      <p class="brand"><b><%= product.brand %></b></p>
 
       <p class="price">
         <% if product.promotion? %>
