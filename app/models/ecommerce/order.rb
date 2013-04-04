@@ -255,7 +255,7 @@ class Order < ActiveRecord::Base
   end
 
   def can_be_canceled?
-    paids = payments.where(:state => :authorized)
+    paids = payments.for_erp.where(:state => :authorized)
 
     return true if ( payments.empty? || paids.empty? )
 
