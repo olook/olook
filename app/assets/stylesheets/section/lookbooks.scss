@@ -156,6 +156,11 @@ section#lookbooks {
     float: none !important;
     line-height: 18px;
   } 
+  .line {
+    a.product_link {
+      margin-left: 0;
+    }
+  }
 }
 
 
