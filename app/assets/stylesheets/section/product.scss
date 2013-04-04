@@ -90,6 +90,11 @@
     }
   }
   div.content {
+  
+    div.chaordic {
+      float:left;
+    }
+
     div#related {
       position: relative;
       background: image-url('showroom/border-top-product.png') 170px 17px no-repeat;
@@ -159,36 +164,39 @@
       }
 
       .box_product {
-  h1{
-    font-size: 13px !important;
-    line-height: 18px !important;
-  }
-  .brand{
-    font-size: 13px;
-    font-family: $avenir;
-    font-weight: bold;
-    text-transform: uppercase;
-    color: black;
-    margin-left: 4px;
-    line-height: 18px;
-  }
-  .price{
-    font-family: $avenir;
-    font-size: 13px;
-    color: black;
-    margin-left: 4px;
-    line-height: 18px;
-    }
-  .plots{
-    font-family: $avenir !important;
-    font-size: 13px !important;
-    color: black !important;  
-    padding: 0 !important;
-    margin: 0 !important;
-    float: none !important;
-    line-height: 18px;
-  } 
-}
+        h1{
+          font-size: 13px !important;
+          line-height: 18px !important;
+        }
+        .brand{
+          font-size: 13px;
+          font-family: $avenir;
+          font-weight: bold;
+          text-transform: uppercase;
+          color: black;
+          margin-left: 4px;
+          line-height: 18px;
+        }
+        .price{
+          font-family: $avenir;
+          font-size: 13px;
+          color: black;
+          margin-left: 4px;
+          line-height: 18px;
+        }
+        .plots{
+          font-family: $avenir !important;
+          font-size: 13px !important;
+          color: black !important;  
+          padding: 0 !important;
+          margin: 0 !important;
+          float: none !important;
+          line-height: 18px;
+        } 
+        .line a.product_link {
+          margin-left: 0;
+        }
+      }
     }
   }
 }
@@ -201,7 +209,7 @@ div#compartilhar_email {
   height:370px;
   border:solid 7px #000;
   fieldset{
-  margin-bottom: 20px;
+    margin-bottom: 20px;
   }
   input{
     background: white image-url("common/background-inputs.png") bottom repeat-x;
@@ -223,7 +231,7 @@ div#compartilhar_email {
   }
   label{
     font-size: 18px;
-     span{font-size:12px;}
+    span{font-size:12px;}
   }
   p{font-family: $johnston;
     font-size: 30px;
@@ -241,5 +249,3 @@ div#compartilhar_email {
     }
   }
 }
-
-

@@ -703,4 +703,43 @@ describe Product do
     end
   end
 
+  describe "#item_view_cache_key_for" do
+    context "when product is shoe" do
+      subject { FactoryGirl.build(:shoe, id: 10) }
+      context "and has shoe_size 37" do
+        it { expect(subject.item_view_cache_key_for("37")).to eq(CACHE_KEYS[:product_item_partial_shoe][:key] % [subject.id, 37]) }
+      end
+
+      context "and has no shoe_size" do
+        it { expect(subject.item_view_cache_key_for).to eq(CACHE_KEYS[:product_item_partial_shoe][:key] % [subject.id, nil]) }
+      end
+    end
+
+    context "when product is not a shoe" do
+      subject { FactoryGirl.build(:bag, id: 10) }
+      it { expect(subject.item_view_cache_key_for).to eq(CACHE_KEYS[:product_item_partial][:key] % subject.id) }
+    end
+  end
+
+  describe "#delete_cache" do
+    context "when product is a shoe" do
+      subject { FactoryGirl.create(:shoe, :in_stock) }
+      it "deletes all product keys cache" do
+        subject.variants.collect(&:description).each do |shoe_size|
+          Rails.cache.should_receive(:delete).with("views/#{subject.item_view_cache_key_for(shoe_size)}")
+        end
+        Rails.cache.should_receive(:delete).with("views/#{subject.item_view_cache_key_for}")
+        subject.delete_cache
+      end
+    end
+
+    context "when product is not a shoe" do
+      subject { FactoryGirl.create(:bag) }
+      it "deletes all product keys cache" do
+        Rails.cache.should_receive(:delete).with("views/#{subject.item_view_cache_key_for}")
+        subject.delete_cache
+      end
+    end
+  end
+
 end
