@@ -119,7 +119,6 @@ feature "Visitor sees Products", %q{
 
     visit "/presentes"
     #find("Veja as dicas da Helena").click
-    binding.pry
     click_link("Veja as dicas da Helena")
     expect(page).to have_content(gift_box_helena.products.first.name)
 
