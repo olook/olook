@@ -75,6 +75,7 @@ $(document).ready(function() {
   initBase.showInfoCredits();
   initBase.showSlideToTop();
   initBase.slideToTop();
+  initBase.replaceImages();
 
   setTimeout(function(){slideMenuBar();},3000);
 
@@ -704,6 +705,14 @@ initBase = {
         scrollTop: 0
       }, 'fast');
       e.preventDefault();
+    });
+  },
+
+  replaceImages: function(imageKind){
+    if(typeof imageKind == 'undefined') imageKind = 'showroom';
+    $('img.async').each(function(){
+      var image = $(this).data(imageKind);
+      $(this).attr('src', image);
     });
   }
 }

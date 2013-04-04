@@ -65,9 +65,6 @@ Setting.defaults[:featured_accessory_ids] = "13179,14082,13255,13173,13165"
 Setting.defaults[:featured_cloth_label] = "Roupas mais vendidas"
 Setting.defaults[:featured_cloth_ids] = "90004,90092,90326"
 
-# Image cache settings
-Setting.defaults[:image_expiration_period_in_days] = "1"
-
 # Featured products for the collection section ("Label|id#Label|id")
 Setting.defaults[:collection_section_featured_products] = "Teste|8554#|10226#Bla|11445#Categoria 1|11467#Categoria 2|11443#Lançamento!|11463"
 
@@ -86,3 +83,4 @@ Setting.defaults[:cloth_showroom_sexy] = "90863,91293,91349,90947,91381"
 
 # Santander billet
 Setting.defaults[:santander_billet] = false
+Setting.defaults[:show_featured_products] = true

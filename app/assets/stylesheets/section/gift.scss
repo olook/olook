@@ -166,6 +166,16 @@ body div.full_container {
             display: block;
             margin: 0 auto;
           }
+          .plots {
+            font-size: inherit;
+            padding-top: 0;
+          }
+          .line {
+            a.product_link {
+              margin-left: 0;
+              color: inherit;
+            }
+          }
         }
       }
     }
