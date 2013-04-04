@@ -194,17 +194,13 @@ class Product < ActiveRecord::Base
   end
 
   def catalog_picture
+    main_picture.try(:image_url, :catalog)
+
     return_catalog_or_suggestion_image(main_picture)
   end
 
   def return_catalog_or_suggestion_image(picture)
-    img = nil
-    begin
-      img = fetch_cache_for(picture) if picture
-    rescue => e
-      Rails.logger.info e
-      nil
-    end
+    picture.try(:image_url, :catalog)
   end
 
   def master_variant
@@ -519,13 +515,6 @@ class Product < ActiveRecord::Base
     def self.valid_for_xml_where_query
       query = "x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id "
       query += "NOT IN (:products_blacklist) AND products.collection_id NOT IN (:collections_blacklist)"
-    end
-
-    def fetch_cache_for(picture)
-      img = Rails.cache.fetch(CACHE_KEYS[:product_picture_image_catalog][:key] % [id, picture.display_on], expires_in: CACHE_KEYS[:product_picture_image_catalog][:expire]) do
-        picture.image.catalog.file.exists? ? picture.try(:image_url, :catalog) : picture.try(:image_url, :suggestion)
-      end
-      img
     end
 
 end
