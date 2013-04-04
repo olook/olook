@@ -74,6 +74,11 @@ filter.submitAndLoad = function(){
       $(this).fadeIn("slow").html("");
     });
   });
+
+  if($(".filters").length != null) {
+    $("html, body").delay(300).animate({scrollTop: h}, 'slow');
+  }
+
 }
 filter.seeAll = function(){
    $("#filter input[type='checkbox'].select_all").each(function(i){
@@ -160,6 +165,8 @@ filter.cleanCategory = function(event){
       $("section.filters").fadeOut();
    }
 
+   filter.submitAndLoad();
+
 }
 
 filter.displayCleanCategories = function(){
@@ -221,6 +228,7 @@ filter.cleanFilter = function(){
       $("section.filters").fadeOut();
       $(".filter input:checked").attr("checked", false).delay(150).parent().submit();
       $('.clear_filter').fadeOut();
+      filter.submitAndLoad();
    })
 }
 
