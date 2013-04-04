@@ -322,7 +322,7 @@ class Order < ActiveRecord::Base
     end
 
     def check_cupon_devolution
-      payment_coupon = payments.map(&:type).include?("CouponPayment")
+      payment_coupon = payments.where(type: 'CouponPayment').first
       if payment_coupon
         coupon = Coupon.find payment_coupon.coupon_id
         coupon.update_attribute(:remaining_amount, coupon.remaining_amount.next) if coupon.unlimited.nil?
