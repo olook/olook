@@ -123,8 +123,6 @@
       </div>
       <%= errors_for(@checkout.payment, :security_code) %>
     <% end %>
-      <%= errors_for(@checkout.payment, :security_code) %>
-    <% end %>  
     <%= field_set_tag do %>
       <div>
       <%= payment_form.label :user_identification, 'CPF' %>
