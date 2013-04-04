@@ -514,12 +514,13 @@ section{margin-top:10px;
         li {
            height: 15px;
            padding-left: 19px;
-           margin-left: 20px !important;
+           margin-left: 30px !important;
+           margin-top: 8px !important;
           label {
             color: $third_color;
             letter-spacing: -1px;
           }
-          input{float: left; margin-left: -39px !important;}
+          input{float: left; margin-left: -40px !important;}
           &.amarelo{
               background: image-url("common/thumbs_cor.png") no-repeat 0px -305px;
           }
@@ -610,7 +611,7 @@ section{margin-top:10px;
         }
         &.cloth_color_filter{
           width: 140px !important;
-          height: 190px !important;
+          height: 200px !important;
           overflow: auto !important;
           border-top: 1px solid #e5e5e5;
           border-left: 1px solid #e5e5e5;
