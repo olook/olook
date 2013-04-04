@@ -399,6 +399,22 @@ class Product < ActiveRecord::Base
     cloth? ? name : model_name + " " + name
   end
 
+  def supplier_color
+    color = details.find_by_translation_token("Cor fornecedor").try(:description)
+    color.blank? ? "Não informado" : color
+  end
+
+  def product_color
+    product_color_name = details.find_by_translation_token("Cor produto").try(:description)
+    product_color_name = self.color_name if product_color_name.blank?
+    product_color_name.blank? ? "Não informado" : product_color_name
+  end
+
+  def filter_color
+    color = details.find_by_translation_token("Cor filtro").try(:description)
+    color.blank? ? "Não informado" : color
+  end
+
   def self.clothes_for_profile profile
     products = Rails.cache.fetch(CACHE_KEYS[:product_clothes_for_profile][:key] % profile, :expires_in => CACHE_KEYS[:product_clothes_for_profile][:expire]) do
       product_ids = Setting.send("cloth_showroom_#{profile}").split(",")

@@ -1,10 +1,10 @@
-<h2>Pictures</h2>
+<h2>Imagens</h2>
 <div class="inner">
   <table class="table" id="sortable_images" data-product-id="<%= product.id %>">
     <tr>
-      <th>Change position?</th>
+      <th>Mudar posição?</th>
       <th>Display On</th>
-      <th>Image</th>
+      <th>Imagem</th>
       <th></th>
     </tr>
 
@@ -14,17 +14,17 @@
       <td><%= picture.display_on_humanize %></td>
       <td><%= image_tag picture.image_url(:showroom).to_s, :size => '100x100' %></td>
       <td>
-        <%= link_to 'Show', admin_product_picture_path(picture.product, picture), class: 'button' %>
-        <%= link_to 'Edit', edit_admin_product_picture_path(picture.product, picture), class: 'button' %>
-        <%= link_to 'Destroy', admin_product_picture_path(picture.product, picture), confirm: 'Are you sure?', method: :delete, class: 'button danger' %>
+        <%= link_to 'Mostrar', admin_product_picture_path(picture.product, picture), class: 'button' %>
+        <%= link_to 'Editar', edit_admin_product_picture_path(picture.product, picture), class: 'button' %>
+        <%= link_to 'Apagar', admin_product_picture_path(picture.product, picture), confirm: 'Are you sure?', method: :delete, class: 'button danger' %>
       </td>
     </tr>
   <% end %>
   </table>
   <div class="action-bar wat-cf">
     <div class="actions">
-      <%= link_to 'Add a new picture', new_admin_product_picture_path(product) %>
-      <%= link_to 'Add multiple pictures', new_multiple_pictures_admin_product_pictures_path(product) if product.pictures.empty? %>
+      <%= link_to 'Adicionar nova imagem', new_admin_product_picture_path(product) %>
+      <%= link_to 'Adicionar multiplas imagens', new_multiple_pictures_admin_product_pictures_path(product) if product.pictures.empty? %>
     </div>
   </div>
 </div>
