@@ -202,7 +202,7 @@ class Product < ActiveRecord::Base
     begin
       img = fetch_cache_for(picture) if picture
     rescue => e
-      Rails.logger.info e
+      Rails.logger.error "Error on Picture[#{picture.try(:id)}].return_catalog_or_suggestion_image: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}"
       nil
     end
   end
