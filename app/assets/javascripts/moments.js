@@ -235,7 +235,7 @@ filter.cleanFilter = function(){
 $(function(){
   if($(".exhibition-mode").position()){
     h = $(".exhibition-mode").position().top;
-    h += 105;
+    h += 505;
   }
   filter.init();
 
