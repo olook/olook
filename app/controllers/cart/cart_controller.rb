@@ -23,8 +23,7 @@ class Cart::CartController < ApplicationController
   end
 
   def add_variants
-    cart = Cart.find params[:cart_id]
-    cart.add_variants params[:variant_ids]
+    current_cart.add_variants params[:variant_ids]
     render :show
   end
 

@@ -40,18 +40,17 @@
         <%= product_presenter.render_add_to_cart %>
         <%= product_presenter.render_details %>
       </div>
-
-      <%= product_presenter.render_related_products %>
+      
+      <% if Setting.show_featured_products %>
+        <%= product_presenter.render_related_products %>
+      <% end %>
 
       <!-- local onde o frequentlyboughttogether será exibido -->
       <div class="chaordic frequentlyboughttogether"></div>
-
       <!-- local onde o similaritems será exibido -->
       <div class="chaordic similaritems"></div>
-
       <!-- local onde o ultimatebuy será exibido -->
       <div class="chaordic ultimatebuy"></div>
-
       <div class="chaordic mostpopular" data-skin="MP-product-detail"></div>
 
       <%# Banner placeholder %>
