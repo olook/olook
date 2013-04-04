@@ -52,7 +52,6 @@ gem 'sass-rails', "~> 3.2.3"
 gem 'uglifier', '~> 1.0.3'
 gem 'business_time'
 gem "rails-settings-cached"
-gem 'rack-mini-profiler'
 
 gem "boleto_bancario", :git => 'git@github.com:olook/boleto_bancario.git', :branch => 'homologacao_santander', require: false
 
@@ -62,7 +61,10 @@ group :production, :staging do
   gem 'yui-compressor'
 end
 
+gem 'rack-mini-profiler', group: :staging
+
 group :development, :test do
+  gem 'rack-mini-profiler'
   gem 'faker'
   gem 'bullet'
   gem 'thin'
