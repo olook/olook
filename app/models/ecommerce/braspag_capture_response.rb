@@ -17,7 +17,7 @@ class BraspagCaptureResponse < ActiveRecord::Base
       event = STATUS[status] || :cancel
       if payment.set_state(event)
         self.update_attribute(:processed, true)
-        if payment.order && payment.order.reload.canceled?
+        if payment.order && payment.order.reload.can_be_canceled?
           Resque.enqueue(Abacos::CancelOrder, payment.order.number)
         end
       else
