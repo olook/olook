@@ -712,7 +712,8 @@ initBase = {
     if(typeof imageKind == 'undefined') imageKind = 'showroom';
     $('img.async').each(function(){
       var image = $(this).data(imageKind);
-      $(this).attr('src', image);
+      if(/http.*/.test(image))
+        $(this).attr('src', image);
     });
   }
 }
