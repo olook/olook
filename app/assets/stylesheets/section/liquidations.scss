@@ -326,6 +326,35 @@ div#liquidation {
         display: none;
       }
     }
+    ul#products {
+      .box_product {
+        h1 {
+          font-size: 12px;
+        }
+        .brand {
+          display: none;
+        }
+        .price {
+          .old {
+            text-transform: downcase;
+          }
+          .old, .txt-pink {
+            display: block;
+          }
+        }
+        .line {
+          a.product_link {
+            margin-left: 0;
+          }
+        }
+        ol.color_list {
+          display: none;
+        }
+        .warn.sold_out, .warn.shoe_size, .warn.quantity {
+          display: none;
+        }
+      }
+    }
   }
   a.banner {
     width: 620px;
