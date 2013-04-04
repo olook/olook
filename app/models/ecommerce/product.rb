@@ -200,7 +200,13 @@ class Product < ActiveRecord::Base
   end
 
   def return_catalog_or_suggestion_image(picture)
-    picture.try(:image_url, :catalog)
+    img = nil
+    begin
+      img = fetch_cache_for(picture) if picture
+    rescue => e
+      Rails.logger.error "Error on Picture[#{picture.try(:id)}].return_catalog_or_suggestion_image: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}"
+      nil
+    end
   end
 
   def master_variant
@@ -517,5 +523,16 @@ class Product < ActiveRecord::Base
       query += "NOT IN (:products_blacklist) AND products.collection_id NOT IN (:collections_blacklist)"
     end
 
+    def fetch_cache_for(picture)
+      img = Rails.cache.fetch(CACHE_KEYS[:product_picture_image_catalog][:key] % [id, picture.display_on], expires_in: CACHE_KEYS[:product_picture_image_catalog][:expire]) do
+        if picture.image.catalog.file.exists?
+          picture.try(:image_url, :catalog)
+        else
+          picture.image.recreate_versions! rescue nil
+          picture.try(:image_url, :suggestion)
+        end
+      end
+      img
+    end
 end
 
