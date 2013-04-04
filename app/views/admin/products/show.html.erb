@@ -1,12 +1,12 @@
-<h2>Product</h2>
+<h2>Produto</h2>
 <div class="inner">
   <p>
-    <b>Name:</b>
+    <b>Nome:</b>
     <%= @product.name %>
   </p>
 
   <p>
-    <b>Model #:</b>
+    <b>Modelo #:</b>
     <%= @product.model_number %>
   </p>
 
@@ -16,27 +16,39 @@
   </p>
 
   <p>
-    <b>Visible?:</b>
+    <b>Visível?:</b>
     <%= @product.is_visible? ? 'Yes' : 'No' %>
   </p>
 
   <p>
-    <b>Inventory:</b>
+    <b>Estoque:</b>
     <%= @product.inventory %>
   </p>
 
   <p>
-    <b>Initial Inventory:</b>
+    <b>Estoque inicial:</b>
     <%= @product.initial_inventory %>
   </p>
 
   <p>
-    <b>Category:</b>
+    <b>Categoria:</b>
     <%= @product.category_humanize %>
   </p>
   <p>
-    <b>Color:</b>
-    <%= @product.color_name %> <%= image_tag(@product.color_sample_url) unless @product.color_sample.blank? %>
+    <b>Cor do fornecedor:</b>
+    <%= @product.supplier_color %>
+  </p>
+  <p>
+    <b>Cor do produto:</b>
+    <%= @product.product_color %>
+  </p>
+  <p>
+    <b>Cor do filtro:</b>
+    <%= @product.filter_color %>
+  </p>
+  <p>
+    <b>Amostra</b>
+    <%= image_tag(@product.color_sample_url) unless @product.color_sample.blank? %>
   </p>
   <p>
     <b>Category:</b>
@@ -44,7 +56,7 @@
   </p>
 
   <p>
-    <b>Description:</b>
+    <b>Descrição:</b>
     <%= @product.description %>
   </p>
 </div>
@@ -57,6 +69,6 @@
 <%= render :partial => 'related_products', :locals => {:product => @product} %>
 
 <% content_for :secondary_navigation do %>
-  <li><%= link_to 'Edit', edit_admin_product_path(@product) %></li>
-  <li><%= link_to 'Back', admin_products_path %></li>
+  <li><%= link_to 'Editar', edit_admin_product_path(@product) %></li>
+  <li><%= link_to 'Voltar', admin_products_path %></li>
 <% end %>
