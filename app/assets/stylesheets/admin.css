@@ -8,6 +8,7 @@
  *= require admin/promotions.css
  *= require admin/orders.css.scss
  *= require admin/dashboard.css.scss
+ *= require admin/collection_themes.css.scss
  *= require admin/multiple_pictures.css.scss
  *= require common/jquery.ui.autocomplete.css
  *= require_self

@@ -1,4 +1,5 @@
 @import "partials/product";
+@import "section/collections";
 
 div#moments {
   position: relative;
@@ -172,7 +173,7 @@ div#moments {
     		color:#000;
     		float:left;
     		cursor:pointer;
-    		width:100px;
+    		width:121px;
             img.model{
               display: none;
             }

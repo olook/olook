@@ -3,6 +3,23 @@ FactoryGirl.define do
   factory :detail do
     association :product, :factory => [:shoe, :casual]
 
+    factory :supplier_color_detail do
+      display_on DisplayDetailOn::SPECIFICATION
+      translation_token "Cor fornecedor"
+      description "Blue"
+    end
+    factory :product_color_detail do
+      display_on DisplayDetailOn::SPECIFICATION
+      translation_token "Cor produto"
+      description "Dark Blue"
+
+    end
+    factory :filter_color_detail do
+      display_on DisplayDetailOn::SPECIFICATION
+      translation_token "Cor filtro"
+      description "Blue"
+    end
+
     factory :heel_detail do
       display_on DisplayDetailOn::SPECIFICATION
       description "High heel"
