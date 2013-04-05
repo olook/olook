@@ -20,6 +20,7 @@
     <meta name="chaordic:user" content="<%= @chaordic_user %>">
     <meta name="chaordic:product" content="<%= @chaordic_product %>" data-pid="<%= @product.id %>" >
     <meta name="chaordic:category" content="<%= @chaordic_category %>">
+    <meta name="chaordic:cart_id" content="<%= current_cart.id %>">
     <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
     <%= stylesheet_link_tag "section/product" %>
   <% end %>
@@ -40,7 +41,7 @@
         <%= product_presenter.render_add_to_cart %>
         <%= product_presenter.render_details %>
       </div>
-      
+
       <% if Setting.show_featured_products %>
         <%= product_presenter.render_related_products %>
       <% end %>
