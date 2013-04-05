@@ -26,7 +26,7 @@ class Cart::CartController < ApplicationController
   # Only used by chaordic
   #
   def add_variants
-    current_cart.add_variants params[:variant_ids]
+    current_cart.add_variants params[:variant_numbers]
     render :show
   end
 
