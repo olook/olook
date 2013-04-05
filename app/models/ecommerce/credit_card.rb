@@ -8,7 +8,6 @@ class CreditCard < Payment
   EXPIRATION_IN_MINUTES = 60
 
   # Credit Card Number formats
-  SixToNineCreditCardNumberFormat = /^[0-9]{16,19}$/
   FourToSevenCreditCardNumberFormat = /^[0-9]{14,17}$/
   OneToFiveCreditCardNumberFormat = /^[0-9]{11,15}$/
 
@@ -68,8 +67,6 @@ class CreditCard < Payment
 
   def apply_bank_number_of_digits
       case bank
-      when /Hipercard/
-        validate_bank_credit_card_number SixToNineCreditCardNumberFormat
       when /Diners/ || /AmericanExpress/
         validate_bank_credit_card_number OneToFiveCreditCardNumberFormat
       else
