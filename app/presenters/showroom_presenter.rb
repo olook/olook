@@ -62,14 +62,6 @@ class ShowroomPresenter < BasePresenter
     display_products(asked_range, Category::ACCESSORY, collection, user)
   end
 
-  def welcome_message(time = Time.now.hour)
-    case
-      when MORNING.cover?(time)   then "Bom dia, #{member.first_name}!"
-      when AFTERNOON.cover?(time) then "Boa tarde, #{member.first_name}!"
-      when EVENING.cover?(time)   then "Boa noite, #{member.first_name}!"
-    end
-  end
-
   def facebook_avatar
     # Visit https://developers.facebook.com/docs/reference/api/ for more info
     h.image_tag "https://graph.facebook.com/#{member.uid}/picture?type=large", :class => 'avatar'
