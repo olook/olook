@@ -29,6 +29,7 @@ class CatalogSearchService
       .order(sort_filter, 'name asc')
       .paginate(page: @params[:page], per_page: 12)
       .includes(product: :variants)
+      .includes(product: :details)
   end
 
   private
@@ -114,18 +115,25 @@ class CatalogSearchService
   end
 
   def query_clothes
-
-    if cloth_size_and_subcategories_selected?
-      query = query_cloth_sizes.and(query_subcategories_for(@params[:cloth_subcategories]))
+    query = if cloth_size_and_subcategories_selected?
+      query_cloth_sizes.and(query_subcategories_for(@params[:cloth_subcategories]))
     else
-      query = query_cloth_sizes || query_subcategories_for(@params[:cloth_subcategories])
+      query_cloth_sizes || query_subcategories_for(@params[:cloth_subcategories])
     end
-
+    query = cloth_colors(query)
     query.and(l_products[:category_id].in(Category::CLOTH)) if query
   end
 
   def cloth_size_and_subcategories_selected?
     query_cloth_sizes && query_subcategories_for(@params[:cloth_subcategories])
+  end
+
+  def cloth_colors query
+    if @params[:cloth_colors]
+      build_sub_query((query || query_base), Detail.arel_table[:translation_token].eq("Cor filtro").and(Detail.arel_table[:description].in(@params[:cloth_colors])))
+    else
+      query
+    end
   end
 
   def build_sub_query(current_query, sub_query)
@@ -135,8 +143,8 @@ class CatalogSearchService
   def sort_filter
     case @params[:sort_filter]
       when "0" then "collection_id desc"
-      when "1" then "price asc"
-      when "2" then "price desc"
+      when "1" then "variants.price asc"
+      when "2" then "variants.price desc"
       else "collection_id desc"
     end
   end

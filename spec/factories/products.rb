@@ -139,7 +139,7 @@ FactoryGirl.define do
 
       trait :in_stock do
         after(:create) do |product|
-          product.variants << FactoryGirl.create(:simple_garment, :in_stock)
+          product.variants << FactoryGirl.create(:yellow_shirt, :in_stock)
         end
       end
 

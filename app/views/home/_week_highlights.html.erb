@@ -14,12 +14,12 @@
       <%= link_to "Veja mais aqui", our_essence_path, class: "more", onclick: track_event('Destaques','BannerEsquerda') %>
     </li>
     <li id="shoes">
-      <%= link_to "stylist-news/amo-salto/", onclick: track_event('Destaques','BannerCentro') do %>
-        <%= image_tag "home/stylist_news.jpg", title: "AMO: SALTOS" %>
+      <%= link_to product_path(15527), onclick: track_event('Destaques','BannerCentro') do %>
+        <%= image_tag "home/sapatos_hot.gif", title: "Slipper Leno" %>
       <% end %>      
-      <h1><%= link_to "AMO: SALTOS", "stylist-news/amo-salto/", onclick: track_event('Destaques','BannerCentro') %></h1>
-      <p>Veja as escolhas da Helena Linhares</p>
-      <%= link_to "Confira aqui", "stylist-news/amo-salto/", class: "more", onclick: track_event('Destaques','BannerCentro') %>
+      <h1><%= link_to "Slipper Leno", product_path(15527), onclick: track_event('Destaques','BannerCentro') %></h1>
+      <p>Um toque cool para suas produções</p>
+      <%= link_to "Confira aqui", product_path(15527), class: "more", onclick: track_event('Destaques','BannerCentro') %>
     </li>
     <li id="olookmovel" class="iehack"> <!-- NAO REMOVER A CLASSE -->
       <%= link_to olookmovel_path, onclick: track_event('Destaques','BannerDireita') do %>

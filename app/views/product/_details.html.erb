@@ -13,8 +13,8 @@
                         <td><%= [2,4].include?(@product.category) ? 'Tamanho' : 'Salto' %></td>
                       <% else %>
                         <td><%= detail.translation_token %></td>
-                      <% end %>
-                      <td><%= detail.description %></td>
+                      <% end %>                     
+                      <td><%= format_detail detail %></td>
                     </tr>
                   <% end %>
                 </tbody>
