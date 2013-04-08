@@ -1,14 +1,14 @@
 <% present 'Showroom', :member => @user, :admin => current_admin, :collection => @collection  do |showroom_presenter| %>
 
   <% content_for :head do %>
-    <%= stylesheet_link_tag "section/showroom" %>
+    <%= stylesheet_link_tag "section/lite_showroom" %>
     <meta name="chaordic:source" content="home/vitrine">
     <meta name="chaordic:user" content="<%= @chaordic_user %>">
     <meta name="chaordic:category" content="Vitrine" >
   <% end %>
 
   <% content_for :footer do %>
-    <%= javascript_include_tag "showroom" %>
+    <%= javascript_include_tag "lite_showroom" %>
     <% if @user.first_visit_for_member? %>
       <%= javascript_include_tag "first_visit" %>
       <%= render "shared/metrics/google/track_signup_page_view" %>
@@ -37,7 +37,7 @@
 
     <section id="greetings">
       <div class="facebook <%= 'connected' if current_user.has_facebook? %>">
-        <%= content_tag :div, image_tag("https://graph.facebook.com/#{current_user.uid}/picture?type=normal", class: 'avatar'), class: 'avatar' if current_user.uid %>
+        <%= content_tag :div, image_tag("https://graph.facebook.com/#{current_user.uid}/picture?type=large", class: 'avatar'), class: 'avatar' if current_user.uid %>
         <h1>Olá, <%= current_user.first_name %>!</h1>
         <p>
           Nossas stylists montaram uma seleção incrível de produtos para você este mês.

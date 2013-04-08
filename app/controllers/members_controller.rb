@@ -97,6 +97,7 @@ class MembersController < ApplicationController
     if @facebook_adapter
       @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
     end
+    render layout: 'lite_application'
   end
 
   def showroom_clothes
