@@ -72,7 +72,6 @@ $(document).ready(function() {
   initBase.showErrorMessages();
   initBase.fixBorderOnMyAccountDropDown();
   initBase.openMakingOfVideo();
-  initBase.showInfoCredits();
   initBase.showSlideToTop();
   initBase.slideToTop();
   initBase.replaceImages();
