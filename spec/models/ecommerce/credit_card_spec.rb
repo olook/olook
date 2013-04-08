@@ -137,4 +137,54 @@ describe CreditCard do
       end
     end
   end
+
+  describe "#apply_bank_number_of_digits" do
+    context "when the bank is Mastercard" do
+      before :each do
+        subject.bank = "Mastercard"
+      end
+
+      it "" do
+      end
+    end
+
+    context "when the bank is Diners" do
+      before :each do
+        subject.bank = "Diners"
+      end
+
+      it "" do
+      end
+    end
+
+    context "when the bank is AmericanExpress" do
+      before :each do
+        subject.bank = "AmericanExpress"
+      end
+
+      it "" do
+      end
+    end
+
+    context "when the bank is Visa" do
+      before :each do
+        subject.bank = "Visa"
+      end
+
+      it "" do
+      end
+    end        
+
+    context "when the bank is blank" do
+      before :each do
+        subject.bank = ""
+      end
+
+      it "returns nil" do
+        subject.should_not_receive(:validate_bank_credit_card_number)
+        subject.apply_bank_number_of_digits
+        expect(subject.errors).to be_empty
+      end
+    end 
+  end
 end
