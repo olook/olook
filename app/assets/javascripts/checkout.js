@@ -89,7 +89,6 @@ function showAboutSecurityCode(){
 
 
 $(function() {
-  showInfoCredits();
 	masks.card();
 	setButton();
 	masks.tel(".tel_contato1");
