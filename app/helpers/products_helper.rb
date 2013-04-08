@@ -27,7 +27,27 @@ module ProductsHelper
     end
   end
 
-  def format_detail detail
+  def print_detail_name_for category, detail 
+
+    name = detail.translation_token.downcase
+
+    if name == 'categoria'
+      'Modelo'
+    elsif name == 'material externo' && category == Category::CLOTH
+      'Composição'
+    elsif name == 'salto' && category == Category::CLOTH
+      'Tamanhos & Medidas'   
+    elsif name == 'salto' && (category == Category::BAG || category == Category::ACESSORY)
+      'Tamanho'
+    elsif 'metal'
+      'Material'
+    else
+      detail.translation_token
+    end
+
+  end
+
+  def print_detail_value detail
     html_sizes = ""
     sizes = detail.description.split(";")
     sizes.each do |size|
