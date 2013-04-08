@@ -1,0 +1,4 @@
+development:
+  COUPON1: "olook"
+test:
+  COUPON1: "olook"
