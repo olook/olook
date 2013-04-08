@@ -17,8 +17,13 @@
   <%= render "home/carousel" %>
   <%= render "home/week_highlights" %>
   <%= link_to "Olook na imprensa", press_path, id: "press" %>
-  <%= render "home/top5" %>
-  <%= render "home/stylists" %>
+  <div class="chaordic mostpopular" data-skin="MP-top-5"></div>
+    <%#= Vamos remover assim que homologarmos chaordic %>
+    <%= render "home/top5" %>
+    <%= render "home/stylists" %>
+    <%#= ------ %>
+
+   <div class="chaordic rec4you"></div>
   <%= render "home/boxes" %>
   <%= render "home/products_categories" %>
   <%= render "home/facebook_box" %>

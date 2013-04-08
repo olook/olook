@@ -72,9 +72,9 @@ $(document).ready(function() {
   initBase.showErrorMessages();
   initBase.fixBorderOnMyAccountDropDown();
   initBase.openMakingOfVideo();
-  initBase.showInfoCredits();
   initBase.showSlideToTop();
   initBase.slideToTop();
+  initBase.replaceImages();
 
   setTimeout(function(){slideMenuBar();},3000);
 
@@ -704,6 +704,15 @@ initBase = {
         scrollTop: 0
       }, 'fast');
       e.preventDefault();
+    });
+  },
+
+  replaceImages: function(imageKind){
+    if(typeof imageKind == 'undefined') imageKind = 'showroom';
+    $('img.async').each(function(){
+      var image = $(this).data(imageKind);
+      if(/http.*/.test(image))
+        $(this).attr('src', image);
     });
   }
 }
