@@ -194,8 +194,6 @@ class Product < ActiveRecord::Base
   end
 
   def catalog_picture
-    main_picture.try(:image_url, :catalog)
-
     return_catalog_or_suggestion_image(main_picture)
   end
 

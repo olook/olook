@@ -20,8 +20,8 @@ class Cart < ActiveRecord::Base
     has_empty_adjustments? && has_any_full_price_item?
   end
 
-  def add_variants(variant_ids)
-    variants = Variant.where("id in (?)", variant_ids)
+  def add_variants(variant_numbers)
+    variants = Variant.where("number in (?)", variant_numbers)
     variants.each { |v| add_item(v) }
   end
 
