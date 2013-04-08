@@ -14,7 +14,7 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 	position:relative;width:500px;height:260px;border:solid 1px #000;text-align:center;padding:15px 0;margin:10px 0 0;background:#FFF;
 	h3{font-family:$johnston;font-size:29px;}
 	p{font-family:$avenir;font-size:13px;
-		&.msg_close{font-size: 14px;margin-top: 70px;margin-bottom: -5px}}
+		&.msg_close{font-size: 14px;margin-top: 70px;margin-bottom: 0}}
 	div.msg{
 		p{font-family:$avenir;font-size:13px;}
 		span{
