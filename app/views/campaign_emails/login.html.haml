@@ -2,9 +2,9 @@
 /   %script
 /     = track_event('Modal', 'LoginPage', @user.id)
 
-.box-remember
+.box-remember-login
   %h3 LEMBRAMOS DE VOCÊ!
-  %p Se você já tem cadastro, não precisa fazer outro, basta informar<br> sua senha abaixo para entrar. ;)
+  %p Se você já tem cadastro, não precisa fazer outro,</br> basta informar sua senha abaixo para entrar. ;)
   =form_for @user, url: session_path(@user), method: 'post', html:{ :target => '_parent' } do |f|
     %fieldset
       =f.label :email, "E-mail:"
@@ -19,6 +19,5 @@
         %p 
           %a{:href => "/conta/password/new", :target => "_blank"} Esqueci minha senha
       =f.submit :value => "ENTRAR", :class => "bt-enter"
-  %p.facebook
-    %a{:href => "/conta/auth/facebook", :target => "_top"}Entrar com Facebook
+  %p.new_user Novo por aqui? <a href="/quiz/new">Então cadastre-se </a>  
   %button{:type => "button", :class => "close"} Fechar
