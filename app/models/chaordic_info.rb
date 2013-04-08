@@ -49,6 +49,9 @@ class ChaordicInfo
       chaordic_product.status = product.inventory > 1 ? "AVAILABLE" : "UNAVAILABLE"
       chaordic_product.sub_category = product.subcategory
       chaordic_product.tags << product.brand
+      # pulseira do avc shouldn't be shown on any chaordic's showroom
+      chaordic_product.tags << "blacklist" if product.id == 12472
+
       create_chaordic_object.pack(chaordic_product)
     end
 
