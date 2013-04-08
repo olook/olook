@@ -5,14 +5,12 @@
     <title>olook</title>
     <%= favicon_link_tag 'olook_favicon.ico' %>
 
-
     <% error = nil unless error %>
     <% if params[:share] %>
       <%= render 'shared/meta_tags' %>
     <% else %>
       <meta name="Description" content="Roupas femininas, sapatos, bolsas, óculos e acessórios incríveis - Olook. Seu look, seu estilo">
     <% end %>
-
 
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag  "lite_application" %>
@@ -26,14 +24,11 @@
       <%= render :partial => "shared/metrics/vwo/tracking_code" %>
     <% end %>
 
-
     <%= yield :head %>
 
     <!--[if IE]>
     <%= javascript_include_tag "html5.js" %>
     <![endif]-->
-
-
   </head>
 
 
@@ -56,11 +51,10 @@
 
 
     <%= yield :site_footer %>
-    <%= render "shared/lightbox_credits" %>
     <%= javascript_include_tag "jquery" %>
     <%= javascript_include_tag "lite_application" %>
     <% unless user_signed_in? %>
-      <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal &&  !['landing_pages','survey', 'users/registrations'].include?(params[:controller]) %>
+      <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal && !['landing_pages','survey', 'users/registrations'].include?(params[:controller]) %>
     <% end %>
 
     <% if content_for? :footer %>
