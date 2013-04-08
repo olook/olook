@@ -23,7 +23,8 @@ class ShowroomPresenter < BasePresenter
     if category == Category::CLOTH && member.try(:main_profile)
       main_profile = member.main_profile.alternative_name
       main_profile = ['casual', 'chic', 'sexy', 'moderna'].include?(main_profile) ? main_profile : 'casual'
-      products = Product.clothes_for_profile main_profile
+      #products = Product.clothes_for_profile main_profile
+      products = collection.products.where(category: Category::CLOTH).last(20)
 
     else
 
