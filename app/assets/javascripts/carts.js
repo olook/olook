@@ -1,4 +1,6 @@
+//= require ./partials/_credits_info
 $(function() {
+  showInfoCredits();
 
   $("#facebook_share").click(function(element) {
 

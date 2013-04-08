@@ -26,4 +26,13 @@ module ProductsHelper
       "Vi o acessório #{product.name} no site da olook e amei! <3 www.olook.com.br/produto/#{product.id}"
     end
   end
+
+  def format_detail detail
+    html_sizes = ""
+    sizes = detail.description.split(";")
+    sizes.each do |size|
+      html_sizes << "#{size.chomp}<br>"
+    end
+    html_sizes.html_safe
+  end
 end

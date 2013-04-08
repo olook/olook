@@ -22,6 +22,7 @@ module Olook
     # config.autoload_paths += %W(#{config.root}/extras)
     config.autoload_paths += %W(#{Rails.root}/app/presenters #{Rails.root}/app/services #{Rails.root}/app/adapters #{Rails.root}/app/workers #{Rails.root}/app/validators #{Rails.root}/app/models/ecommerce #{Rails.root}/lib #{Rails.root}/app/strategies/**/ #{Rails.root}/app/sac )
     config.autoload_paths += Dir["#{Rails.root}/lib/**/"]
+    config.autoload_paths += Dir["#{Rails.root}/app/observers"]
     config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/actions"]
     config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/rules"]
 
@@ -33,7 +34,7 @@ module Olook
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
     config.exceptions_app = self.routes
     # Activate observers that should always be running.
-    #config.active_record.observers = []
+    config.active_record.observers = [:product_observer]
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

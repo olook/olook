@@ -4,6 +4,12 @@ send_order_warn_informations:
   queue: order_status
   description: "Envia email avisando pedidos que precisam ser analizados com mais atenção"
 
+send_orders_alert:
+  cron: "35 * * * *"
+  class: SendOrderAlertWorker
+  queue: order_status_alert
+  description: "Envia email avisando pedidos que precisam ser analizados com mais atencao"
+
 update_inventory:
   cron: "*/5 * * * *"
   class: Abacos::UpdateInventory

@@ -1,4 +1,5 @@
 @import "partials/product";
+@import "section/collections";
 
 div#moments {
   position: relative;
@@ -172,7 +173,7 @@ div#moments {
     		color:#000;
     		float:left;
     		cursor:pointer;
-    		width:100px;
+    		width:121px;
             img.model{
               display: none;
             }
@@ -277,11 +278,27 @@ div#moments {
       clear:both;width:763px;margin:0 auto;
       li.product{width: 235px;height:293px;margin: 0 8px 35px;padding:0;
         a.product_link {display:block;text-decoration:none;color:#000;font-size:13px;margin:0;
+          h1 {
+            margin-bottom: 0;
+          }
+          span.plots {
+            color: inherit;
+            font-size: inherit;
+            padding-top: 0;
+            float: none;
+          }
           img{border-bottom:solid 1px #B9BABD;margin: 0;width: 235px;height: 235px;}
           p{line-height:18px;
             &.brand{text-transform:uppercase;font-weight:bold;}
-            .old{text-decoration:line-through;}
-            .txt-pink{color:#ef3742;}
+            .old {
+              text-decoration:line-through;
+              color: inherit;
+            }
+            .txt-pink{
+              color: inherit;
+              font-size: inherit;
+              font-weight: inherit;
+            }
           /**** OVERRIDE LABEL PRODUCTS ****/
             &.warn{left:0;top:60px;}
             &.warn.sold_out{background: image-url('moments/sprite.png') no-repeat 0 -76px;line-height: 25px;padding-left: 13px;text-align: left;width: 92px;color:#000;}
@@ -307,6 +324,9 @@ div#moments {
           }
         }
       /***** END ******/
+      }
+      li.product.promotion {
+        .quantity, .shoe_size { display:none }
       }
     }
     div#featured {
