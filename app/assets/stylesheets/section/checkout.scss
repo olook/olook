@@ -3,6 +3,7 @@
 @import 'partials/product';
 @import "partials/carousel_lookbooks";
 @import "partials/header_footer_checkout";
+@import 'partials/credits_info';
 
 $border-color: #e5e5e5;
 
@@ -373,6 +374,7 @@ section#cart {
   }
 
   table.items_list {
+    margin: 0 0 25px 0;
 		&.avc-pulseira{
 				border-left:dotted 1px #000;
 				border-right:dotted 1px #000;
