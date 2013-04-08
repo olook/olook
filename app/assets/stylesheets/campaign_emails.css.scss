@@ -13,46 +13,68 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 .box-remember{
 	position:relative;width:500px;height:260px;border:solid 1px #000;text-align:center;padding:15px 0;margin:10px 0 0;background:#FFF;
 	h3{font-family:$johnston;font-size:29px;}
-	p{font-family:$avenir;font-size:13px;}
-
+	p{font-family:$avenir;font-size:13px;
+		&.msg_close{font-size: 14px;margin-top: 70px;margin-bottom: -5px}}
+	div.msg{
+		p{font-family:$avenir;font-size:13px;}
+		span{
+			display: block;
+			font-weight: bold;
+			font-size: 13px;
+		}
+	}	
+	.msg{background:#F0FDDF;border:solid 1px #CBD7BC;width:455px;height:45px;margin:35px 0 5px 21px;
+		p{height:35px;background: image-url('campaign_emails/sprite.png') -260px -48px no-repeat;text-align:left;padding-left:40px;margin-top:5px;line-height:21px;font-size:14px;}
+		span{display: block;font-weight: bold;font-family: $avenir;font-size: 14px;line-height: 8px;}
+	}
+	.close_pink{background: image-url('campaign_emails/new_modal_sprite.png') -6px -117px no-repeat; width: 255px;height:55px;font-size:0;font-family:a;cursor:pointer;border:none;
+	&:hover{background: image-url('campaign_emails/new_modal_sprite.png') -6px -173px no-repeat; width: 255px;height:55px;}}
+	.close{top:-11px !important;right:-11px !important;}
+	.f14{font-size:14px;}
+	.desconto{font-size:11px;margin-top:15px;}
+}
+.box-remember-login{
+	position:relative;width:500px !important;height:345px !important;border:solid 1px #000;text-align:center;padding:15px 0;margin:10px 0 0;background:#FFF;
+	h3{font-family:$johnston;font-size:30px;letter-spacing: 1px;margin-top: 30px;}
+	p{font-family:$avenir;font-size:14px;margin-top: 25px;}
 	form{
-		border:solid 1px #E8E8E8;padding:18px 50px;width:356px;height:150px;margin:0 auto;
+		border:none;padding:25px 50px;width:356px;height:150px;margin:0 auto;
 		fieldset{
-			label{font-family:$avenir;font-size:15px;}
+			label{font-family:$avenir;font-size:13px;color: #5e5f61;}
 			margin-bottom:15px;border:0;
 			&.botoes{
+				margin-top: 25px;
 				text-align:left;
-				div{float:left;width:150px;margin-left:55px;
-					label{font-size:15px;color:#6D6E71;width:60px;display:inline-block;text-align:left;font-family:$avenir;
-						&[for="user_remember_me"]{width:100px;font-size:12px;}
+				div{float:left;width:150px;margin-left:15px;
+					label{font-size:11px;color:#5e5f61;width:60px;display:inline-block;text-align:left;font-family:$avenir;
+						&[for="user_remember_me"]{width:100px;font-size:11px;}
 					}
-					p{float:left;
-						a{text-decoration:none;color:#6D6E71;
+					p{float:left;margin-top:5px !important;
+						a{text-decoration:none;color:#5e5f61;font-family: $avenir;font-size: 11px;
 							&:hover{text-decoration:underline;}
 						}
 					}
 				}
-				input[type="submit"]{width:120px;height:50px;background-position: -36px -1px;}
+				input[type="submit"]{width:120px;height:50px;background-position: -4px -231px;text-indent: 9999px;margin-left: 63px;
+					&:hover{background-position:-4px -287px;text-indent: 9999px;}}
 			}
 			
 		}
 
 		input[type="text"], input[type="password"]{width:282px;height:31px;line-height:31px;border:solid 1px #C1C1C1;background: image-url('campaign_emails/bg_input.png') 0 2px repeat-x;*vertical-align:middle}
 	}
+	.new_user{float: left;margin-left: 85px;margin-top: -5px !important; font-size: 11px;font-family: $avenir;color: #414042; a{font-size: 11px;font-family: $avenir;color: #414042;}}
 	.facebook a{display:inline-block;width:261px;height:40px;background: image-url('campaign_emails/sprite.png') 0px -52px no-repeat;font-size:0;font-family:a;margin-top:13px;}
-	
-	.msg{background:#F0FDDF;border:solid 1px #CBD7BC;width:455px;height:32px;margin:35px 0 5px 21px;
-		p{height:21px;background: image-url('campaign_emails/sprite.png') -260px -53px no-repeat;text-align:left;padding-left:40px;margin-top:5px;line-height:21px;font-size:14px;}
-	}
-	.f14{font-size:14px;}
-	.desconto{font-size:11px;margin-top:15px;}
 }
+	.close{top:-11px !important;right:-11px !important;}
 .box-continue{
-	position:relative;text-align:center;border:solid 5px #000;background:#FFF;width:540px;margin-top:10px;
-	h3{font-family:$johnston;font-size:29px;}
-	p{font-family:$avenir;font-size:14px;}
-	.desconto{font-size:11px;margin:10px 0;}
-	.btn-continue{border:0;cursor:pointer;font-size:0;font-family:a;width:195px;height:35px;background:image-url('campaign_emails/sprite.png') -1px -96px no-repeat;margin-top:10px;}
+	position:relative;text-align:center;border:solid 1px #000;background:#FFF;width:540px;height: 270px;margin-top: 10px;
+	h3{font-family:$johnston;font-size:30px;letter-spacing: 1px;margin-top: 30px;}
+	p{font-family:$avenir;font-size:14px;margin-top: 25px;line-height: 18px;}
+	.desconto{font-family:$avenir;font-size:14px;margin-top: 40px;margin-bottom: 5px !important; line-height: 18px;}
+	.close_pink{background: image-url('campaign_emails/new_modal_sprite.png') -6px -117px no-repeat; width: 255px;height:55px;font-size:0;font-family:a;cursor:pointer;border:none;
+	&:hover{background: image-url('campaign_emails/new_modal_sprite.png') -6px -173px no-repeat; width: 255px;height:55px;}}
+	.close{top:-11px !important;right:-11px !important;}
 }
 
 .box-cadastro{
