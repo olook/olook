@@ -4,6 +4,7 @@ class Coupon < ActiveRecord::Base
 
   COUPON_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/coupons.yml")
   PRODUCT_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/product_coupons.yml")[Rails.env]
+  BRAND_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/brand_coupons.yml")[Rails.env]
 
   validates_presence_of :code, :value, :start_date, :end_date, :campaign, :created_by
   validates_presence_of :remaining_amount, :unless => Proc.new { |a| a.unlimited }
@@ -25,9 +26,16 @@ class Coupon < ActiveRecord::Base
     self.is_percentage? ? self.value : 0
   end
 
-  def apply_discount_to? product_id
-    products_related = PRODUCT_COUPONS_CONFIG[self.code]
-    is_the_product_related = products_related.nil? || products_related.split(",").include?(product_id.to_s)
+  def apply_discount_to? product
+
+    coupon_products = get_coupon_products
+    brand_products = get_brand_products
+
+    if coupon_products.nil? && brand_products.nil?
+      true
+    else
+      coupon_products.try(:include?, product.id.to_s) || brand_products.try(:include?, product.brand.downcase)
+    end
   end
 
   def should_apply_to?(cart)
@@ -36,6 +44,16 @@ class Coupon < ActiveRecord::Base
   end
 
   private
+
+    def get_brand_products
+      brands = BRAND_COUPONS_CONFIG[self.code]
+      brands ? brands.split(",").map(&:downcase) : nil
+    end
+
+    def get_coupon_products
+      product_ids = PRODUCT_COUPONS_CONFIG[self.code]
+      product_ids ? product_ids.split(",") : nil
+    end
 
     def active_and_not_expired?
       if self.active? && !expired?

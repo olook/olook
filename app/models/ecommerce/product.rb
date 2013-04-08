@@ -7,9 +7,11 @@ class Product < ActiveRecord::Base
   #has_paper_trail :skip => [:pictures_attributes, :color_sample]
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
   MINIMUM_INVENTORY_FOR_XML = 3
-  CACHE_KEY = "C_I_P_"
+  JULIANA_JABOUR_PRODUCTS = [90632,90612,90641,90646,90607,90597,90602,90616,90619,90627,90622,90636]
 
   include ProductFinder
+
+  attr_accessor :brand
 
   has_enumeration_for :category, :with => Category, :required => true
 
@@ -200,7 +202,8 @@ class Product < ActiveRecord::Base
     begin
       img = fetch_cache_for(picture) if picture
     rescue => e
-      Rails.logger.info e
+      Rails.logger.error "Error on Picture[#{picture.try(:id)}].return_catalog_or_suggestion_image: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}"
+      nil
     end
   end
 
@@ -209,7 +212,7 @@ class Product < ActiveRecord::Base
   end
 
   def colors(size = nil, admin = false)
-    Rails.cache.fetch("p:colors:#{id}:#{admin}", expires_in: 30.minutes) do
+    Rails.cache.fetch(CACHE_KEYS[:product_colors][:key] % [id, admin], expires_in: CACHE_KEYS[:product_colors][:expire]) do
       is_visible = (admin ? [0,1] : true)
       conditions = {is_visible: is_visible, category: self.category, name: self.name}
       conditions.merge!(variants: {description: size}) if size and self.category == Category::SHOE
@@ -400,17 +403,55 @@ class Product < ActiveRecord::Base
     cloth? ? name : model_name + " " + name
   end
 
+  def supplier_color
+    color = details.find_by_translation_token("Cor fornecedor").try(:description)
+    color.blank? ? "Não informado" : color
+  end
+
+  def product_color
+    product_color_name = details.find_by_translation_token("Cor produto").try(:description)
+    product_color_name = self.color_name if product_color_name.blank?
+    product_color_name.blank? ? "Não informado" : product_color_name
+  end
+
+  def filter_color
+    color = details.find_by_translation_token("Cor filtro").try(:description)
+    color.blank? ? "Não informado" : color
+  end
+
   def self.clothes_for_profile profile
-    products = Rails.cache.fetch("SR:#{profile}", :expires_in => 10.minutes) do
+    products = Rails.cache.fetch(CACHE_KEYS[:product_clothes_for_profile][:key] % profile, :expires_in => CACHE_KEYS[:product_clothes_for_profile][:expire]) do
       product_ids = Setting.send("cloth_showroom_#{profile}").split(",")
       find_keeping_the_order product_ids
+    end
+  end
+
+  def delete_cache
+    if shoe?
+      shoes_sizes = self.variants.collect(&:description)
+      shoes_sizes.each do |shoe_size|
+        Rails.cache.delete("views/#{item_view_cache_key_for(shoe_size)}")
+      end
+    end
+    Rails.cache.delete("views/#{item_view_cache_key_for}")
+  end
+
+  def item_view_cache_key_for(shoe_size=nil)
+    shoe? ? CACHE_KEYS[:product_item_partial_shoe][:key] % [id, shoe_size] : CACHE_KEYS[:product_item_partial][:key] % id
+  end
+
+  def brand
+    if self[:brand].blank?
+      self[:brand] = JULIANA_JABOUR_PRODUCTS.include?(id) ? "JULIANA JABOUR" : "OLOOK"
+    else
+      self[:brand]
     end
   end
 
   private
 
     def self.fetch_all_featured_products_of category
-      products = Rails.cache.fetch("featured_products_#{category}", :expires_in => 10.minutes) do
+      products = Rails.cache.fetch(CACHE_KEYS[:product_fetch_all_featured_products_of][:key] % category, :expires_in => CACHE_KEYS[:product_fetch_all_featured_products_of][:expire]) do
         category_name = Category.key_for(category).to_s
         product_ids = Setting.send("featured_#{category_name}_ids").split(",")
 
@@ -481,10 +522,15 @@ class Product < ActiveRecord::Base
     end
 
     def fetch_cache_for(picture)
-      Rails.cache.fetch(CACHE_KEY+"#{id}d#{picture.display_on}", expires_in: Setting.image_expiration_period_in_days.to_i.days) do
-        picture.image.catalog.file.exists? ? picture.try(:image_url, :catalog) : picture.try(:image_url, :suggestion)
+      img = Rails.cache.fetch(CACHE_KEYS[:product_picture_image_catalog][:key] % [id, picture.display_on], expires_in: CACHE_KEYS[:product_picture_image_catalog][:expire]) do
+        if picture.image.catalog.file.exists?
+          picture.try(:image_url, :catalog)
+        else
+          picture.image.recreate_versions! rescue nil
+          picture.try(:image_url, :suggestion)
+        end
       end
+      img
     end
-
 end
 

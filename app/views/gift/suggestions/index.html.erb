@@ -40,7 +40,7 @@
           <% @products.each_slice(5).with_index do |products_array, index| %>
             <ul>
               <% products_array.each do |product| %>
-                <%= render "shared/showroom_product_item", :product => product, :shoe_size => @gift_recipient.shoe_size %>
+                <%= render "shared/product_item", :product => product, :shoe_size => @gift_recipient.shoe_size %>
               <% end %>
             </ul>
             <% if index == 0 %>

@@ -11,8 +11,7 @@ feature "Navigating by Catalog Shoe", %q{
   describe "Navigating" do
     before(:each) do
       collection_theme = FactoryGirl.create(:collection_theme, { name: "work", slug: "work", id: 1 })
-      shoe = (FactoryGirl.create :shoe_subcategory_name).product
-      shoe.update_attributes(name: "Never SHOE")
+      shoe = (FactoryGirl.create :shoe, :in_stock, name: "Never SHOE")
       FactoryGirl.create :shoe_heel, product: shoe
       FactoryGirl.create :basic_shoe_size_35, product: shoe, :inventory => 7
       FactoryGirl.create :basic_shoe_size_37, product: shoe, :inventory => 5
@@ -41,6 +40,7 @@ feature "Navigating by Catalog Shoe", %q{
       within('.menu_new') do
         click_link "Sapatos"
       end
+
       expect(page).to have_content("Sapatos mais vendidos")
       expect(page).to_not have_content("Mac Lovin BAG")
       expect(page).to have_content("Never SHOE")
