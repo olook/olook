@@ -251,7 +251,7 @@ class CartService
       discounts << :coupon_of_value
     end
 
-    if coupon && coupon.is_percentage? && coupon.apply_discount_to?(item.product.id) && item.product.can_supports_discount?
+    if coupon && coupon.is_percentage? && coupon.apply_discount_to?(item.product) && item.product.can_supports_discount?
       discounts << :coupon
       coupon_value = price - ((coupon.value * price) / 100)
       if coupon_value < final_retail_price && should_override_promotion_discount?
