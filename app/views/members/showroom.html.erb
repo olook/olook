@@ -29,7 +29,6 @@
     <%= render 'shared/banners/olooklet' %>
     <%= render "shared/modal/retake_quiz", :user => @user, :link => "#" %>
 
-    <%# TODO: use a presenter to wrap these both logic %>
     <% if Campaign.activated_campaign && Campaign.activated_campaign.lightbox? %>
       <%= render :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => Campaign.activated_campaign.link}  %>
     <% end %>
