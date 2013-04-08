@@ -423,6 +423,8 @@ class Product < ActiveRecord::Base
     products = Rails.cache.fetch(CACHE_KEYS[:product_clothes_for_profile][:key] % profile, :expires_in => CACHE_KEYS[:product_clothes_for_profile][:expire]) do
       product_ids = Setting.send("cloth_showroom_#{profile}").split(",")
       find_keeping_the_order product_ids
+      # QUICK AND DIRTY. remove this pleeeeeease
+      products = Collection.active.products.where(category: Category::CLOTH).last(20)
     end
   end
 
