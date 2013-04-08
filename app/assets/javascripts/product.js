@@ -1,5 +1,7 @@
+//= require ./partials/_credits_info
 $(document).ready(function() {
   initProduct.showCarousel();
+  showInfoCredits();
 
   $("#product div.box_carousel a.open_carousel").live("click", function () {
     word = $(this).find("span");
