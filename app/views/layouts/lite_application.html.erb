@@ -96,10 +96,7 @@
         <nav class="menu_new">
           <div class="content_new">
             <ul class="default_new">
-              <%#= MenuPresenter.new(:user => current_user).render_menu %>
-              <% present 'Menu', user: current_user do |menu_presenter| %>
-                <%= menu_presenter.render_menu %>
-              <% end %>
+              <%= MenuPresenter.new(self, :user => current_user).render_menu %>
               <li id='bar'>&nbsp;</li>
             </ul>
           </div>
