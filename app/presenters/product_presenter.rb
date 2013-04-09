@@ -134,8 +134,8 @@ class ProductPresenter < BasePresenter
   private
 
   def price_markdown discount_method
-    price_markup(product.price, "price_retail left", "de: ") +
-    price_markup(product.send(discount_method), "price left", "por: ")
+    price_markup(product.price, "price_retail left2", "de: ") +
+    price_markup(product.send(discount_method), "price left2", "por: ")
   end
 
   def price_markup price, css_class, prefix=nil

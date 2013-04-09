@@ -22,8 +22,12 @@ class Cart::CartController < ApplicationController
     redirect_to cart_path, notice: "Sua sacola está vazia"
   end
 
+  #
+  # Only used by chaordic
+  #
   def add_variants
-    current_cart.add_variants params[:variant_ids]
+    cart = Cart.find_by_id(params[:cart_id]) || current_cart
+    cart.add_variants params[:variant_numbers]
     render :show
   end
 
