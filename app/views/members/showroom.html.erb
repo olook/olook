@@ -137,11 +137,13 @@
       <div class="type_list">
         <div class="products_list best">
           <ul>
-            <%= showroom_presenter.display_clothes((0..4), @collection, current_user) %>
+            <%#= showroom_presenter.display_clothes((0..4), @collection, current_user) %>
+            <%= showroom_presenter.display_products(0..4, Category::CLOTH, @collection, current_user) %>
           </ul>
 
           <ul>
-            <%= showroom_presenter.display_clothes((0..4), @collection, current_user) %>
+            <%#= showroom_presenter.display_clothes((0..4), @collection, current_user) %>
+            <%= showroom_presenter.display_products(0..4, Category::CLOTH, @collection, current_user) %>
           </ul>
 
           <div class="products_list almost">
@@ -159,7 +161,8 @@
       <div class="type_list">
         <div class="products_list best">
           <ul>
-            <%= showroom_presenter.display_shoes((0..4), @collection, current_user) %>
+            <%#= showroom_presenter.display_shoes((0..4), @collection, current_user) %>
+            <%= showroom_presenter.display_products(0..4, Category::SHOE, @collection, current_user) %>
           </ul>
 
           <div class="products_list almost">
@@ -178,7 +181,8 @@
       <div class="type_list">
         <div class="products_list best">
           <ul>
-            <%= showroom_presenter.display_bags((0..4), @collection, current_user) %>
+            <%#= showroom_presenter.display_bags((0..4), @collection, current_user) %>
+            <%= showroom_presenter.display_products(0..4, Category::BAG, @collection, current_user) %>
           </ul>
 
           <div class="products_list almost">
@@ -197,7 +201,8 @@
       <div class="type_list">
         <div class="products_list best">
           <ul>
-            <%= showroom_presenter.display_accessories((0..4), @collection, current_user) %>
+            <%#= showroom_presenter.display_accessories((0..4), @collection, current_user) %>
+            <%= showroom_presenter.display_products(0..4, Category::ACCESSORY, @collection, current_user) %>
           </ul>
             <div class="products_list almost">
           <ul id="accessories_product">
