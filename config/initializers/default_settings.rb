@@ -84,3 +84,5 @@ Setting.defaults[:cloth_showroom_sexy] = "90863,91293,91349,90947,91381"
 # Santander billet
 Setting.defaults[:santander_billet] = false
 Setting.defaults[:show_featured_products] = true
+
+Setting.defaults[:lightbox_coupon_code] = "WP1HYH1ABR13"
