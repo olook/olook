@@ -32,9 +32,6 @@ _gaq.push(['_addTrans',
 
 
 <section id="cart">
-  <%  if @cart.items.count > 0 %>
-  <p class="buying-continue"><%= link_to "Continuar comprando","/colecoes" %></p>
-  <% end %>
 
   <div class="msg">
     <p>Obrigada por compartilhar a olook. Você acaba de ganhar 2% de desconto! :)</p>
@@ -48,14 +45,6 @@ _gaq.push(['_addTrans',
             <p class="share-text">Compartilhe e veja o desconto na sua sacola. :)</p>
       </div>
 
-  <% end %>
-
-  <%  if @cart.items.count > 0 %>
-    <% if current_user %>
-        <%= link_to "Continuar", new_checkout_path, :class => "continue"  %>
-    <% else %>
-        <%= link_to "Continuar", checkout_login_index_path, :class => "continue"  %>
-    <% end %>
   <% end %>
 
   <% if @cart_service.has_more_than_one_discount? %>
@@ -223,7 +212,6 @@ _gaq.push(['_addTrans',
                 <tbody>
                   <tr class="discount">
                     <td>
-                      <a href="#" id="show_coupon_field">Quero usar um código promocional</a>
                       <%= form_for(@cart, remote: true,
                                           html: {
                                             :id => "coupon"
