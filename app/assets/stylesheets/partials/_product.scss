@@ -98,20 +98,22 @@ li.product {
           height: 30px;
         }
         &.percentage {
-          background: image-url('common/percentage.png') no-repeat;
-          font-family: "Open Sans", sans-serif;
-          font-size: 13px;
+          top: 65px !important;
+          left: 120px !important;
+          background: image-url('moments/sprite.png') no-repeat 0 -109px;
+          width:60px;
+          height:60px;
+          font-family: $avenir !important;
+          font-size: 14px;
           font-weight: normal;
           font-style: normal;
-          line-height: 10px;
-          width: 50px;
-          height: 40px;
+          line-height: 18px;
           padding-top: 10px;
           display: block;
           span {
-            font-size: 20px;
+            font-size: 14px;
             line-height: 21px;
-            font-weight: 600;
+            font-weight: normal;
           }
         }
       }
@@ -252,7 +254,7 @@ li.product {
           font-weight: bold;
           float: none;
           &.old {
-            color: #818181;
+            color: #000;
             font-size: 12px;
             font-weight: normal;
             line-height: 9px;
@@ -388,9 +390,9 @@ li.product {
         p.warn {
           top: 2px;
           left: -9px;
-          &.percentage {
+          /*&.percentage {
             left: 2px;
-          }
+          }*/
         }
         img {
           width: 150px;
@@ -441,7 +443,7 @@ li.product {
             border-top: 1px #eee solid;
             float: none;
             &.old {
-              color: #818181;
+              color: #000;
               font-size: 12px;
               text-decoration: line-through;
               padding: 0;
