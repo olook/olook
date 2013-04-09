@@ -1,7 +1,9 @@
 <tr id="item_<%= item.id %>">
   <td class="item">
     <% unless item.thumb_picture.nil? %>
-      <%= image_tag item.variant.bag_picture %>
+      <%= link_to product_path(item.product), :class => 'cart_item' do %>
+        <%= image_tag item.variant.bag_picture %>
+      <% end %>
     <% end %>
     <p class="txt-black"><span><%= item.variant.name %></span></p>
     <p>Tamanho: <%= item.variant.description %></p>
