@@ -515,7 +515,7 @@ initBase = {
    .append('<button type="button" class="close" role="button">close</button>')
    .delay(500).fadeIn().children().fadeIn();
 
-   $("#modal button.close").click(function(){
+   $("#modal button.close, #modal a.me").click(function(){
       $modal.fadeOut();
       $("#overlay-campaign").fadeOut();
    })
