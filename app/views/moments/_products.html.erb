@@ -1,4 +1,4 @@
 <% @catalog_products.each do |cp| %>
   <%= render "shared/product_item", :product => cp.product %>
 <% end %>
-<%= "Nenhum produto disponível" if @catalog_products.empty? %>
+<%= raw(I18n.t("product_not_found")) if @catalog_products.empty? %>

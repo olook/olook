@@ -194,13 +194,17 @@ class Product < ActiveRecord::Base
   end
 
   def catalog_picture
-    main_picture.try(:image_url, :catalog)
-
     return_catalog_or_suggestion_image(main_picture)
   end
 
   def return_catalog_or_suggestion_image(picture)
-    picture.try(:image_url, :catalog)
+    img = nil
+    begin
+      img = fetch_cache_for(picture) if picture
+    rescue => e
+      Rails.logger.error "Error on Picture[#{picture.try(:id)}].return_catalog_or_suggestion_image: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}"
+      nil
+    end
   end
 
   def master_variant
@@ -399,6 +403,22 @@ class Product < ActiveRecord::Base
     cloth? ? name : model_name + " " + name
   end
 
+  def supplier_color
+    color = details.find_by_translation_token("Cor fornecedor").try(:description)
+    color.blank? ? "Não informado" : color
+  end
+
+  def product_color
+    product_color_name = details.find_by_translation_token("Cor produto").try(:description)
+    product_color_name = self.color_name if product_color_name.blank?
+    product_color_name.blank? ? "Não informado" : product_color_name
+  end
+
+  def filter_color
+    color = details.find_by_translation_token("Cor filtro").try(:description)
+    color.blank? ? "Não informado" : color
+  end
+
   def self.clothes_for_profile profile
     products = Rails.cache.fetch(CACHE_KEYS[:product_clothes_for_profile][:key] % profile, :expires_in => CACHE_KEYS[:product_clothes_for_profile][:expire]) do
       product_ids = Setting.send("cloth_showroom_#{profile}").split(",")
@@ -501,5 +521,16 @@ class Product < ActiveRecord::Base
       query += "NOT IN (:products_blacklist) AND products.collection_id NOT IN (:collections_blacklist)"
     end
 
+    def fetch_cache_for(picture)
+      img = Rails.cache.fetch(CACHE_KEYS[:product_picture_image_catalog][:key] % [id, picture.display_on], expires_in: CACHE_KEYS[:product_picture_image_catalog][:expire]) do
+        if picture.image.catalog.file.exists?
+          picture.try(:image_url, :catalog)
+        else
+          picture.image.recreate_versions! rescue nil
+          picture.try(:image_url, :suggestion)
+        end
+      end
+      img
+    end
 end
 
