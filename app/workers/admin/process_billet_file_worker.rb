@@ -8,34 +8,42 @@ class Admin::ProcessBilletFileWorker
   end
 
   private
-    def file_path
-      Rails.env.production? ? "to be defined" : Rails.root+"/tmp/"  
+    def self.file_path
+      Rails.env.production? ? "to be defined" : "#{Rails.root}/tmp/"  
     end
 
-    def filename
-      "teste.txt"  
+    def self.filename
+      "teste.txt"  # Maybe we should create a filename using a UUID hash and pass it as a parameter @ perform
     end  
 
-    def read_file
+    def self.read_file
       File.open("#{file_path}#{filename}", "r").read
     end
 
-    def parse_file
+    def self.parse_file
       file_content = read_file
-      # TODO parse file and return the order number lines array
-      { sucessful:[], unsuccesful:[] } 
+      line_array = file_content.split("\r\n")
+      start_line = 0
+      end_line = 0
+
+      line_array.each_with_index do |line, index|
+        start_line = index+1 if line.include? "CUSTAS (C)"
+        end_line = index-1 if line.include? "TOTAL"
+      end
+
+      line_array[start_line..end_line]
     end
 
-    def process_orders order_numbers_array 
+    def self.process_orders order_numbers_array 
       # for each order number line
         # check if valor_titulo, valor_pago == Billet.total_paid for the given order number
         # if so, change order status to paid
 
       # return processed_orders_array
-      []
+      { sucessful:[], unsuccesful:[] }
     end
 
-    def send_notification
+    def self.send_notification processed_orders
       # send summary email
     end
 end
