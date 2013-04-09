@@ -1,77 +1,57 @@
-<% present 'Showroom', :member => @user, :admin => current_admin, :collection => @collection  do |showroom_presenter| %>
+<% @showroom_presenter = ShowroomPresenter.new(self, :member => @user, :admin => current_admin, :collection => @collection) %>
 
-  <% content_for :head do %>
-    <%= stylesheet_link_tag "section/lite_showroom" %>
-    <meta name="chaordic:source" content="home/vitrine">
-    <meta name="chaordic:user" content="<%= @chaordic_user %>">
-    <meta name="chaordic:category" content="Vitrine" >
+<% content_for :head do %>
+  <%= stylesheet_link_tag "section/lite_showroom" %>
+  <meta name="chaordic:source" content="home/vitrine">
+  <meta name="chaordic:user" content="<%= @chaordic_user %>">
+  <meta name="chaordic:category" content="Vitrine" >
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "lite_showroom" %>
+  <% if @user.first_visit_for_member? %>
+    <%= javascript_include_tag "first_visit" %>
+    <%= render "shared/metrics/google/track_signup_page_view" %>
+    <%= render "shared/metrics/metaffiliation/action", :email => current_user.email %>
+    <%= render "shared/metrics/adlead/adlead" %>
+  <% elsif @is_retake %>
+    <script type="text/javascript">
+    setTimeout(function() {
+      initBase.showProfileLightbox();
+    }, 2000);
+    </script>
   <% end %>
+  <div id="fb-root"></div>
 
-  <% content_for :footer do %>
-    <%= javascript_include_tag "lite_showroom" %>
-    <% if @user.first_visit_for_member? %>
-      <%= javascript_include_tag "first_visit" %>
-      <%= render "shared/metrics/google/track_signup_page_view" %>
-      <%= render "shared/metrics/metaffiliation/action", :email => current_user.email %>
-      <%= render "shared/metrics/adlead/adlead" %>
-    <% elsif @is_retake %>
-      <script type="text/javascript">
-      setTimeout(function() {
-        initBase.showProfileLightbox();
-      }, 2000);
-      </script>
-    <% end %>
-    <div id="fb-root"></div>
+<% end %>
 
+<div id="showroom">
+  <%#= render 'shared/banners/olooklet' extraindo o conteudo aqui embaixo %>
+  <% if show_current_liquidation_advertise? %>
+    <%= link_to image_tag('common/olooklet_banner_header.jpg'), liquidations_path(current_liquidation.id), :class => "liquidation_banner" %>
   <% end %>
+  <%# fim do 'shared/banners/olooklet -%>
 
-  <div id="showroom">
-    <%#= render 'shared/banners/olooklet' extraindo o conteudo aqui embaixo %>
-    <% if show_current_liquidation_advertise? %>
-      <%= link_to image_tag('common/olooklet_banner_header.jpg'), liquidations_path(current_liquidation.id), :class => "liquidation_banner" %>
-    <% end %>
-    <%# fim do 'shared/banners/olooklet -%>
-
-    <%#= render "shared/modal/retake_quiz", :user => @user, :link => "#" %>
-    <div id="profile_quiz">
-      <div class="share">
-        <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2F<%= request.host %>/membro/share/<%= @user.id %>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35&amp;appId=<%= @facebook_app_id %>" scrolling="no" frameborder="0" id="fb_iframe" allowTransparency="true"></iframe>
-        <p>Compartilhe seu estilo com suas amigas:</p>
-      </div>
-      <% if @user.profile_name.present? %>
-        <%= image_tag "spacer.png", {:class => "#{@user.profile_name.to_s}"} %>
-      <% end %>
-      <ul>
-        <li><%= link_to "Quero tentar de novo", new_survey_path, :class => "new_survey" %></li>
-        <li><%= link_to "Essa sou eu", '#', :class => 'close me' %></li>
-      </ul>
+  <%#= render "shared/modal/retake_quiz", :user => @user, :link => "#" %>
+  <div id="profile_quiz">
+    <div class="share">
+      <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2F<%= request.host %>/membro/share/<%= @user.id %>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35&amp;appId=<%= @facebook_app_id %>" scrolling="no" frameborder="0" id="fb_iframe" allowTransparency="true"></iframe>
+      <p>Compartilhe seu estilo com suas amigas:</p>
     </div>
-    <%# fim "shared/modal/retake_quiz" %>
-
-    <% if Campaign.activated_campaign && Campaign.activated_campaign.lightbox? %>
-      <%#= render :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => Campaign.activated_campaign.link}  %>
-      <div class="dialog with_confirmation liquidation">
-        <%= link_to image_tag(Campaign.activated_campaign.lightbox_url), Campaign.activated_campaign.link ? Campaign.activated_campaign.link : "#" %>
-        <div class="check">
-          <%= form_tag "#", :remote => true do %>
-            <fieldset>
-              <ul>
-                <li>
-                  <%= check_box_tag "user_liquidation[dont_want_to_see_again]" %>
-                  <%= label_tag "user_liquidation_dont_want_to_see_again", "Não mostrar esse aviso novamente" %>
-                </li>
-              </ul>
-            </fieldset>
-          <% end %>
-        </div>
-      </div>
-      <%#= fim :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => Campaign.activated_campaign.link}  %>
+    <% if @user.profile_name.present? %>
+      <%= image_tag "spacer.png", {:class => "#{@user.profile_name.to_s}"} %>
     <% end %>
+    <ul>
+      <li><%= link_to "Quero tentar de novo", new_survey_path, :class => "new_survey" %></li>
+      <li><%= link_to "Essa sou eu", '#', :class => 'close me' %></li>
+    </ul>
+  </div>
+  <%# fim "shared/modal/retake_quiz" %>
 
-    <%#= render "shared/modal/liquidation" if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
-    <% if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
+  <% if Campaign.activated_campaign && Campaign.activated_campaign.lightbox? %>
+    <%#= render :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => Campaign.activated_campaign.link}  %>
     <div class="dialog with_confirmation liquidation">
-      <%= link_to image_tag(current_liquidation.lightbox_banner_url), liquidations_path(current_liquidation.id) %>
+      <%= link_to image_tag(Campaign.activated_campaign.lightbox_url), Campaign.activated_campaign.link ? Campaign.activated_campaign.link : "#" %>
       <div class="check">
         <%= form_tag "#", :remote => true do %>
           <fieldset>
@@ -85,226 +65,245 @@
         <% end %>
       </div>
     </div>
-    <%- end -%>
-    <%#= fim "shared/modal/liquidation" if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
-
-    <section id="greetings">
-      <div class="facebook <%= 'connected' if current_user.has_facebook? %>">
-        <%= content_tag :div, image_tag("https://graph.facebook.com/#{current_user.uid}/picture?type=large", class: 'avatar'), class: 'avatar' if current_user.uid %>
-        <h1>Olá, <%= current_user.first_name %>!</h1>
-        <p>
-          Nossas stylists montaram uma seleção incrível de produtos para você este mês.
-          Confira e aproveite sem moderação!
-          Confira aqui o seu perfil
-          ou se não gostar do resultado,
-          responda nosso style quiz
-          novamente.
-        </p>
-        <%#= render "shared/mini_profile", :user => @user %>
-        <div class="profile">
-          <% if @user.profile_name.present? %>
-            <%= link_to "#" do %>
-              <%= image_tag "profiles/mini_#{@user.profile_name.to_s}.jpg" %>
-            <% end %>
-          <% end %>
-        </div>
-        <%#= fim "shared/mini_profile", :user => @user %>
-      </div>
-      <% if @friends && @friends.any? %>
-        <div id="mask_carousel_facebook">
-          <%= link_to "Anterior", "javascript:void(0);", :class => "carousel-prev-fb" %>
-          <ul class="<%= 'carousel' if @friends.count > 12 %>">
-            <%- @friends.each do |friend| -%>
-              <li>
-                <%= link_to friend_showroom_path(:friend_id => friend.id) do %>
-                  <div class="mask">
-                    <%= image_tag user_avatar(friend, 'square'), :title => friend.name %>
-                  </div>
-                <%- end -%>
-              </li>
-            <%- end -%>
-          </ul>
-          <%= link_to "Próximo", "javascript:void(0);", :class => "carousel-next-fb" %>
-        </div>
-        <%= link_to "Convide mais amigas e ganhe créditos!", member_invite_path %>
-      <%- else -%>
-        <div id="banner_creditos"><%= link_to 'Banner de R$20 em créditos!', member_invite_path %><!-- apagar esse texto --></div>
-      <%- end -%>
-    </section>
-
-    <section class="container_product" id="clothes_container">
-    <h1 class="title"><span>Suas roupas de <%= showroom_presenter.collection_name(@collection) %> </span></h1>
-      <div class="type_list">
-        <div class="products_list best">
-          <ul>
-            <%#= showroom_presenter.display_clothes((0..4), @collection, current_user) %>
-            <%= showroom_presenter.display_products((0..4), Category::CLOTH, @collection, current_user) %>
-          </ul>
-
-          <ul>
-            <%#= showroom_presenter.display_clothes((0..4), @collection, current_user) %>
-            <%= showroom_presenter.display_products((0..4), Category::CLOTH, @collection, current_user) %>
-          </ul>
-
-          <div class="products_list almost">
-            <ul id="clothes_product"/>
-          </div>
-
-          <%= link_to "Clique e veja mais roupas", "javascript:void(0);", :class => "more clothes", :onclick => track_event("Showroom", "SeeMore", "Clothes"), :rel => "almost", :data => {:url => member_showroom_clothes_path } %>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="container_product" id="shoes_container">
-      <h1 class="title">Seus sapatos de <%= showroom_presenter.collection_name(@collection) %></h1>
-      <div class="type_list">
-        <div class="products_list best">
-          <ul>
-            <%#= showroom_presenter.display_shoes((0..4), @collection, current_user) %>
-            <%= showroom_presenter.display_products((0..4), Category::SHOE, @collection, current_user) %>
-          </ul>
-
-          <div class="products_list almost">
-            <ul id="shoes_product">
-            </ul>
-          </div>
-
-          <%= link_to "Clique e veja mais sapatos", "javascript:void(0);", :class => "more shoes", :onclick => track_event("Showroom", "SeeMore", "Shoes"), :rel => "almost", :data => {:url => member_showroom_shoes_path } %>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="container_product" id="purse_container">
-      <h1 class="title">Suas bolsas de <%= showroom_presenter.collection_name(@collection) %></h1>
-      <div class="type_list">
-        <div class="products_list best">
-          <ul>
-            <%#= showroom_presenter.display_bags((0..4), @collection, current_user) %>
-            <%= showroom_presenter.display_products((0..4), Category::BAG, @collection, current_user) %>
-          </ul>
-
-          <div class="products_list almost">
-            <ul id="bags_product">
-            </ul>
-          </div>
-
-          <%= link_to "Clique e veja mais bolsas", "javascript:void(0);", :class => "more purses",:onclick => track_event("Showroom", "SeeMore", "Bags"), :rel => "almost", :data => {:url => member_showroom_bags_path } %>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="container_product" id="accessories_container">
-      <h1 class="title">Seus acessórios de <%= showroom_presenter.collection_name(@collection) %></h1>
-      <div class="type_list">
-        <div class="products_list best">
-          <ul>
-            <%#= showroom_presenter.display_accessories((0..4), @collection, current_user) %>
-            <%= showroom_presenter.display_products((0..4), Category::ACCESSORY, @collection, current_user) %>
-          </ul>
-            <div class="products_list almost">
-          <ul id="accessories_product">
-          </ul>
-        </div>
-
-          <%= link_to "Clique e veja mais acessórios", "javascript:void(0);", :class => "more accessories", :onclick => track_event("Showroom", "SeeMore", "Acessories") ,:rel => "almost", :data => {:url => member_showroom_accessories_path } %>
-        </div>
-
-      </div>
-    </section>
-
-    <%#= render "home/boxes" %>
-    <section id="boxes">
-    <ul>
-      <li>
-        <%= link_to clothes_path, onclick: track_event('DestaquesRodape', "BannerEsquerda") do %>
-          <%= image_tag "home/picture-1.jpg" %>
-          <h1>Novidades todos os meses</h1>
-          <p>Agora temos o look completo</p>
-        <% end %>
-      </li>
-      <li>
-        <%= link_to shoes_path, onclick: track_event('DestaquesRodape', "BannerCentro") do %>
-          <%= image_tag "home/picture-2.jpg" %>
-          <h1>SAPATOS HOT</h1>
-          <p>Vai ser difícil escolher apenas um</p>
-        <% end %>
-      </li>
-      <li class="iehack"><!-- NAO REMOVER A CLASSE -->
-        <%= link_to accessories_path, onclick: track_event('DestaquesRodape', "BannerDireita") do %>
-          <%= image_tag "home/picture-3.jpg" %>
-          <h1>Pontue com acessórios</h1>
-          <p>Eles valorizam qualquer look</p>
-        <% end %>
-      </li>
-    </ul>
-    </section>
-    <%#= fim "home/boxes" %>
-
-    <%#= render "home/products_categories" %>
-    <div id="products_categories">
-      <h1>O que você quer ver hoje?</h1>
-      <ul>
-        <li class="blusa"><%= link_to "Blusa", "/roupas?cloth_subcategories[]=blusa"%></li>
-        <li class="camisa"><%= link_to "Camisa", "/roupas?cloth_subcategories[]=camisa" %></li>
-        <li class="calca"><%= link_to "Calça", "/roupas?cloth_subcategories[]=calca" %></li>
-        <li class="saia"><%= link_to "Saia", "/roupas?cloth_subcategories[]=saia" %></li>
-        <li class="vestido"><%= link_to "Vestido", "/roupas?cloth_subcategories[]=vestido" %></li>
-        <li class="anabela"><%= link_to "Anabela", anabelas_path %></li>
-        <li class="rasteira"><%= link_to "Rasteira", rasteiras_path %></li>
-        <li class="sapatilha"><%= link_to "Sapatilha", sapatilhas_path %></li>
-        <li class="scarpin"><%= link_to "Scarpin", scarpins_path %></li>
-        <li class="sneaker"><%= link_to "Sneaker", sneakers_path %></li>
-        <li class="acessorios"><%= link_to "Acessórios", accessories_path %></li>
-        <li class="bolsas"><%= link_to "Bolsas", bags_path %></li>
-      </ul>
-    </div>
-    <%#= fim "home/products_categories" %>
-
-    <%#= render "home/facebook_box" %>
-    <div id="facebook_box">
-      <%= image_tag "home/olook.jpg", title: "Olook" %>
-      <h1><span>olook</span> no facebook</h1>
-      <%= render "shared/facebook_like_button" %>
-    </div>
-    <%#= fim "home/facebook_box" %>
-  </div> <%# fecha div#showroom %>
-
-  <% if user_signed_in? %>
-    <%#= render "shared/invite", :user => current_user %>
-    <div class="box_invite">
-      <h1>Convide suas amigas e ganhe créditos</h1>
-      <p>Você ganhará <strong>R$20</strong> na primeira compra de cada amiga que se cadastrar usando seu convite. <strong>Mande para todo mundo!</strong></p>
-      <%#= render "shared/social/share", :user => user %>
-      <div class="social">
-        <ul>
-          <li class="facebook"><%= link_to "#", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","clickShareFacebook") do %>Postar no meu mural<% end %></li>
-          <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=Cadastre-se na olook pelo meu convite, descubra o seu estilo e ainda ganhe R$10! #{accept_invitation_url(:invite_token => current_user.invite_token)}&hashtags=ficaadica", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","clickShareTwitter") %></li>
-          <li class="email"><%= link_to "#" do %>Enviar por email<% end %></li>
-        </ul>
-        <%= form_tag member_invite_by_email_path do %>
-          <p>Digite o email de suas amigas separados por vírgula no campo abaixo:</p>
-          <%= text_area_tag :invite_mail_list %>
-          <%= submit_tag "", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","clickShareEmail") %>
-        <% end %>
-      </div>
-      <div class="link_mail">
-        <p class="txt-copie">Copie o link abaixo e envie por email, MSN ou GTalk:</p>
-        <ul>
-          <li>
-            <%= text_field_tag "link", accept_invitation_url(:invite_token => current_user.invite_token), :readonly => "readonly" %>
-            <%= link_to "Copiar link", "#", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","clickShareLink") %>
-          </li>
-        </ul>
-        <div class="box_copy">
-          <p><strong>Link copiado</strong></p>
-          <p>Aperte CTRL + V para colar.</p>
-        </div>
-      </div>
-      <%#= fim "shared/social/share", :user => user %>
-    </div>
-    <%#= render "shared/invite", :user => current_user %>
+    <%#= fim :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => Campaign.activated_campaign.link}  %>
   <% end %>
+
+  <%#= render "shared/modal/liquidation" if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
+  <% if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
+  <div class="dialog with_confirmation liquidation">
+    <%= link_to image_tag(current_liquidation.lightbox_banner_url), liquidations_path(current_liquidation.id) %>
+    <div class="check">
+      <%= form_tag "#", :remote => true do %>
+        <fieldset>
+          <ul>
+            <li>
+              <%= check_box_tag "user_liquidation[dont_want_to_see_again]" %>
+              <%= label_tag "user_liquidation_dont_want_to_see_again", "Não mostrar esse aviso novamente" %>
+            </li>
+          </ul>
+        </fieldset>
+      <% end %>
+    </div>
+  </div>
+  <%- end -%>
+  <%#= fim "shared/modal/liquidation" if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
+
+  <section id="greetings">
+    <div class="facebook <%= 'connected' if current_user.has_facebook? %>">
+      <%= content_tag :div, image_tag("https://graph.facebook.com/#{current_user.uid}/picture?type=large", class: 'avatar'), class: 'avatar' if current_user.uid %>
+      <h1>Olá, <%= current_user.first_name %>!</h1>
+      <p>
+        Nossas stylists montaram uma seleção incrível de produtos para você este mês.
+        Confira e aproveite sem moderação!
+        Confira aqui o seu perfil
+        ou se não gostar do resultado,
+        responda nosso style quiz
+        novamente.
+      </p>
+      <%#= render "shared/mini_profile", :user => @user %>
+      <div class="profile">
+        <% if @user.profile_name.present? %>
+          <%= link_to "#" do %>
+            <%= image_tag "profiles/mini_#{@user.profile_name.to_s}.jpg" %>
+          <% end %>
+        <% end %>
+      </div>
+      <%#= fim "shared/mini_profile", :user => @user %>
+    </div>
+    <% if @friends && @friends.any? %>
+      <div id="mask_carousel_facebook">
+        <%= link_to "Anterior", "javascript:void(0);", :class => "carousel-prev-fb" %>
+        <ul class="<%= 'carousel' if @friends.count > 12 %>">
+          <%- @friends.each do |friend| -%>
+            <li>
+              <%= link_to friend_showroom_path(:friend_id => friend.id) do %>
+                <div class="mask">
+                  <%= image_tag user_avatar(friend, 'square'), :title => friend.name %>
+                </div>
+              <%- end -%>
+            </li>
+          <%- end -%>
+        </ul>
+        <%= link_to "Próximo", "javascript:void(0);", :class => "carousel-next-fb" %>
+      </div>
+      <%= link_to "Convide mais amigas e ganhe créditos!", member_invite_path %>
+    <%- else -%>
+      <div id="banner_creditos"><%= link_to 'Banner de R$20 em créditos!', member_invite_path %><!-- apagar esse texto --></div>
+    <%- end -%>
+  </section>
+
+  <section class="container_product" id="clothes_container">
+  <h1 class="title"><span>Suas roupas de <%= @showroom_presenter.collection_name(@collection) %> </span></h1>
+    <div class="type_list">
+      <div class="products_list best">
+        <ul>
+          <%#= showroom_presenter.display_clothes((0..4), @collection, current_user) %>
+          <%= @showroom_presenter.display_products((0..4), Category::CLOTH, @collection, current_user) %>
+        </ul>
+
+        <ul>
+          <%#= showroom_presenter.display_clothes((0..4), @collection, current_user) %>
+          <%= @showroom_presenter.display_products((0..4), Category::CLOTH, @collection, current_user) %>
+        </ul>
+
+        <div class="products_list almost">
+          <ul id="clothes_product"/>
+        </div>
+
+        <%= link_to "ver mais roupas", "javascript:void(0);", :class => "more clothes", :onclick => track_event("Showroom", "SeeMore", "Clothes"), :rel => "almost", :data => {:url => member_showroom_clothes_path } %>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="container_product" id="shoes_container">
+    <h1 class="title">Seus sapatos de <%= @showroom_presenter.collection_name(@collection) %></h1>
+    <div class="type_list">
+      <div class="products_list best">
+        <ul>
+          <%#= showroom_presenter.display_shoes((0..4), @collection, current_user) %>
+          <%= @showroom_presenter.display_products((0..4), Category::SHOE, @collection, current_user) %>
+        </ul>
+
+        <div class="products_list almost">
+          <ul id="shoes_product">
+          </ul>
+        </div>
+
+        <%= link_to "ver mais sapatos", "javascript:void(0);", :class => "more shoes", :onclick => track_event("Showroom", "SeeMore", "Shoes"), :rel => "almost", :data => {:url => member_showroom_shoes_path } %>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="container_product" id="purse_container">
+    <h1 class="title">Suas bolsas de <%= @showroom_presenter.collection_name(@collection) %></h1>
+    <div class="type_list">
+      <div class="products_list best">
+        <ul>
+          <%#= showroom_presenter.display_bags((0..4), @collection, current_user) %>
+          <%= @showroom_presenter.display_products((0..4), Category::BAG, @collection, current_user) %>
+        </ul>
+
+        <div class="products_list almost">
+          <ul id="bags_product">
+          </ul>
+        </div>
+
+        <%= link_to "ver mais bolsas", "javascript:void(0);", :class => "more purses",:onclick => track_event("Showroom", "SeeMore", "Bags"), :rel => "almost", :data => {:url => member_showroom_bags_path } %>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="container_product" id="accessories_container">
+    <h1 class="title">Seus acessórios de <%= @showroom_presenter.collection_name(@collection) %></h1>
+    <div class="type_list">
+      <div class="products_list best">
+        <ul>
+          <%#= showroom_presenter.display_accessories((0..4), @collection, current_user) %>
+          <%= @showroom_presenter.display_products((0..4), Category::ACCESSORY, @collection, current_user) %>
+        </ul>
+          <div class="products_list almost">
+        <ul id="accessories_product">
+        </ul>
+      </div>
+
+        <%= link_to "ver mais acessórios", "javascript:void(0);", :class => "more accessories", :onclick => track_event("Showroom", "SeeMore", "Acessories") ,:rel => "almost", :data => {:url => member_showroom_accessories_path } %>
+      </div>
+
+    </div>
+  </section>
+
+  <%#= render "home/boxes" %>
+  <section id="boxes">
+  <ul>
+    <li>
+      <%= link_to clothes_path, onclick: track_event('DestaquesRodape', "BannerEsquerda") do %>
+        <%= image_tag "home/picture-1.jpg" %>
+        <h1>Novidades todos os meses</h1>
+        <p>Agora temos o look completo</p>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to shoes_path, onclick: track_event('DestaquesRodape', "BannerCentro") do %>
+        <%= image_tag "home/picture-2.jpg" %>
+        <h1>SAPATOS HOT</h1>
+        <p>Vai ser difícil escolher apenas um</p>
+      <% end %>
+    </li>
+    <li class="iehack"><!-- NAO REMOVER A CLASSE -->
+      <%= link_to accessories_path, onclick: track_event('DestaquesRodape', "BannerDireita") do %>
+        <%= image_tag "home/picture-3.jpg" %>
+        <h1>Pontue com acessórios</h1>
+        <p>Eles valorizam qualquer look</p>
+      <% end %>
+    </li>
+  </ul>
+  </section>
+  <%#= fim "home/boxes" %>
+
+  <%#= render "home/products_categories" %>
+  <div id="products_categories">
+    <h1>O que você quer ver hoje?</h1>
+    <ul>
+      <li class="blusa"><%= link_to "Blusa", "/roupas?cloth_subcategories[]=blusa"%></li>
+      <li class="camisa"><%= link_to "Camisa", "/roupas?cloth_subcategories[]=camisa" %></li>
+      <li class="calca"><%= link_to "Calça", "/roupas?cloth_subcategories[]=calca" %></li>
+      <li class="saia"><%= link_to "Saia", "/roupas?cloth_subcategories[]=saia" %></li>
+      <li class="vestido"><%= link_to "Vestido", "/roupas?cloth_subcategories[]=vestido" %></li>
+      <li class="anabela"><%= link_to "Anabela", anabelas_path %></li>
+      <li class="rasteira"><%= link_to "Rasteira", rasteiras_path %></li>
+      <li class="sapatilha"><%= link_to "Sapatilha", sapatilhas_path %></li>
+      <li class="scarpin"><%= link_to "Scarpin", scarpins_path %></li>
+      <li class="sneaker"><%= link_to "Sneaker", sneakers_path %></li>
+      <li class="acessorios"><%= link_to "Acessórios", accessories_path %></li>
+      <li class="bolsas"><%= link_to "Bolsas", bags_path %></li>
+    </ul>
+  </div>
+  <%#= fim "home/products_categories" %>
+
+  <%#= render "home/facebook_box" %>
+  <div id="facebook_box">
+    <%= image_tag "home/olook.jpg", title: "Olook" %>
+    <h1><span>olook</span> no facebook</h1>
+    <%= render "shared/facebook_like_button" %>
+  </div>
+  <%#= fim "home/facebook_box" %>
+</div> <%# fecha div#showroom %>
+
+<% if user_signed_in? %>
+  <%#= render "shared/invite", :user => current_user %>
+  <div class="box_invite">
+    <h1>Convide suas amigas e ganhe créditos</h1>
+    <p>Você ganhará <strong>R$20</strong> na primeira compra de cada amiga que se cadastrar usando seu convite. <strong>Mande para todo mundo!</strong></p>
+    <%#= render "shared/social/share", :user => user %>
+    <div class="social">
+      <ul>
+        <li class="facebook"><%= link_to "#", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","clickShareFacebook") do %>Postar no meu mural<% end %></li>
+        <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=Cadastre-se na olook pelo meu convite, descubra o seu estilo e ainda ganhe R$10! #{accept_invitation_url(:invite_token => current_user.invite_token)}&hashtags=ficaadica", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","clickShareTwitter") %></li>
+        <li class="email"><%= link_to "#" do %>Enviar por email<% end %></li>
+      </ul>
+      <%= form_tag member_invite_by_email_path do %>
+        <p>Digite o email de suas amigas separados por vírgula no campo abaixo:</p>
+        <%= text_area_tag :invite_mail_list %>
+        <%= submit_tag "", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","clickShareEmail") %>
+      <% end %>
+    </div>
+    <div class="link_mail">
+      <p class="txt-copie">Copie o link abaixo e envie por email, MSN ou GTalk:</p>
+      <ul>
+        <li>
+          <%= text_field_tag "link", accept_invitation_url(:invite_token => current_user.invite_token), :readonly => "readonly" %>
+          <%= link_to "Copiar link", "#", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","clickShareLink") %>
+        </li>
+      </ul>
+      <div class="box_copy">
+        <p><strong>Link copiado</strong></p>
+        <p>Aperte CTRL + V para colar.</p>
+      </div>
+    </div>
+    <%#= fim "shared/social/share", :user => user %>
+  </div>
+  <%#= render "shared/invite", :user => current_user %>
 <% end %>
