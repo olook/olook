@@ -246,11 +246,9 @@ describe CreditCard do
       before :each do
         subject.bank = ""
       end
-      #TODO maybe we should put an "invalid bank" error, in this case
-      it "returns no errors" do
+      it "won't receive the validate_bank_credit_card_number method call" do
         subject.should_not_receive(:validate_bank_credit_card_number)
         subject.apply_bank_number_of_digits
-        expect(subject.errors).to be_empty
       end
     end 
   end

@@ -24,9 +24,9 @@ class CreditCard < Payment
   validates_format_of :security_code, :with => SecurityCodeFormat, :on => :create
   validates_format_of :user_birthday, :with => BirthdayFormat, :on => :create
   validates_format_of :expiration_date, :with => ExpirationDateFormat, :on => :create
-  validates_length_of :user_name, maximum: 100
+  validates_length_of :user_name, maximum: 100, :on => :create
 
-  # THIS VALIDATION SHOULD OCCOUR ONLY ON CREATE, BECAUSE WE ENCRYPT THE CREDIT_CARD NUMBER AND SAVE IT
+  # THIS VALIDATION SHOULD OCCUR ONLY ON CREATE, BECAUSE WE ENCRYPT THE CREDIT_CARD NUMBER AND SAVE IT
   validates_with CreditCardNumberValidator, :attributes => [:credit_card_number], :on => :create
   validates_with UserIdentificationValidator, :attributes => [:user_identification], :on => :create
 
@@ -66,12 +66,13 @@ class CreditCard < Payment
   end
 
   def apply_bank_number_of_digits
-      case bank
-      when /Diners/ || /AmericanExpress/
+    unless bank.blank?
+      if bank.match /Diners/
         validate_bank_credit_card_number OneToFiveCreditCardNumberFormat
       else
         validate_bank_credit_card_number FourToSevenCreditCardNumberFormat
-      end unless bank.blank?
+      end
+    end 
   end
 
   def cancelled_at_authorization?
