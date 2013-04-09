@@ -37,9 +37,9 @@ module ProductsHelper
       'Composição'
     elsif name == 'salto' && category == Category::CLOTH
       'Tamanhos & Medidas'   
-    elsif name == 'salto' && (category == Category::BAG || category == Category::ACESSORY)
+    elsif name == 'salto' && (category == Category::BAG || category == Category::ACCESSORY)
       'Tamanho'
-    elsif 'metal'
+    elsif name == 'metal' && category == Category::ACCESSORY
       'Material'
     else
       detail.translation_token
