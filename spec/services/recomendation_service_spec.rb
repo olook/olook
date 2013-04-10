@@ -49,6 +49,27 @@ describe RecomendationService do
         it { expect(subject.products(category: category_shoe)).to_not include(@cloth) }
       end
 
+      context 'and I want only bags' do
+        it { expect(subject.products(category: category_bag)).to_not include(@shoe) }
+        it { expect(subject.products(category: category_bag)).to include(@bag) }
+        it { expect(subject.products(category: category_bag)).to_not include(@accessory) }
+        it { expect(subject.products(category: category_bag)).to_not include(@cloth) }
+      end
+
+      context 'and I want only accessories' do
+        it { expect(subject.products(category: category_accessory)).to_not include(@shoe) }
+        it { expect(subject.products(category: category_accessory)).to_not include(@bag) }
+        it { expect(subject.products(category: category_accessory)).to include(@accessory) }
+        it { expect(subject.products(category: category_accessory)).to_not include(@cloth) }
+      end
+
+      context 'and I want only cloth' do
+        it { expect(subject.products(category: category_cloth)).to_not include(@shoe) }
+        it { expect(subject.products(category: category_cloth)).to_not include(@bag) }
+        it { expect(subject.products(category: category_cloth)).to_not include(@accessory) }
+        it { expect(subject.products(category: category_cloth)).to include(@cloth) }
+      end
+
     end
 
     context "when has no category" do
