@@ -9,12 +9,12 @@ class Admin::ProcessBilletFileWorker
 
   private
     def self.file_path
-      Rails.env.production? ? "to be defined" : "#{Rails.root}/tmp/"  
+      Rails.env.production? ? "to be defined" : "#{Rails.root}/tmp/"
     end
 
     def self.filename
       "teste.txt"  # Maybe we should create a filename using a UUID hash and pass it as a parameter @ perform
-    end  
+    end
 
     def self.read_file
       File.open("#{file_path}#{filename}", "r").read
@@ -34,13 +34,24 @@ class Admin::ProcessBilletFileWorker
       line_array[start_line..end_line]
     end
 
-    def self.process_orders order_numbers_array 
+    def self.process_orders order_numbers_array
+      sucessful_array, unsuccesful = [],[]
+      order_numbers_array.each do |line_order|
+        order = Order.find line_order[32..38]
+        if line_order[60..75].gsub(' ','') == line_order[100..110].gsub(' ','')
+          if order && order.try(:amount_paid) == line_order[60..75].gsub(' ','')
+
+          end
+        else
+          # ENVIAR que o boleto não foi pago totalmente
+        end
+      end
       # for each order number line
         # check if valor_titulo, valor_pago == Billet.total_paid for the given order number
         # if so, change order status to paid
 
       # return processed_orders_array
-      { sucessful:[], unsuccesful:[] }
+      { sucessful: [], unsuccesful: [] }
     end
 
     def self.send_notification processed_orders
