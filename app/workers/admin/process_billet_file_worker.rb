@@ -30,28 +30,25 @@ class Admin::ProcessBilletFileWorker
         start_line = index+1 if line.include? "CUSTAS (C)"
         end_line = index-1 if line.include? "TOTAL"
       end
-
       line_array[start_line..end_line]
     end
 
     def self.process_orders order_numbers_array
-      sucessful_array, unsuccesful = [],[]
+      successful_array, unsuccessful_array = [],[]
       order_numbers_array.each do |line_order|
-        order = Order.find line_order[32..38]
-        if line_order[60..75].gsub(' ','') == line_order[100..110].gsub(' ','')
-          if order && order.try(:amount_paid) == line_order[60..75].gsub(' ','')
-
-          end
+        order = Order.find_by_number line_order[32..38]
+        if order.blank?
+          unsuccessful_array << {number: line_order[32..38], message: "Pedido não encontrado"}
+        elsif order && order.try(:amount_paid).to_s != line_order[58..69].gsub(' ','').gsub(',','.')
+          unsuccessful_array << {number: line_order[32..38], message: "Valor pago não confere com o valor do pedido"}
+        elsif line_order[58..69].gsub(' ','') != line_order[98..107].gsub(' ','')
+          unsuccessful_array << {number: line_order[32..38], message: "Valor pago não confere com o valor do título"}
         else
-          # ENVIAR que o boleto não foi pago totalmente
+          # change order and payment state
+          successful_array << {number: line_order[32..38], message: "OK"}
         end
       end
-      # for each order number line
-        # check if valor_titulo, valor_pago == Billet.total_paid for the given order number
-        # if so, change order status to paid
-
-      # return processed_orders_array
-      { sucessful: [], unsuccesful: [] }
+      { successful: successful_array, unsuccessful: unsuccessful_array }
     end
 
     def self.send_notification processed_orders
