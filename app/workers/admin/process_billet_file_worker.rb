@@ -3,8 +3,8 @@ class Admin::ProcessBilletFileWorker
   @queue = :process_billet_file
 
   def self.perform
-    processed_orders = process_orders(parse_file)
-    send_notification processed_orders
+    processed_billets = process_billets(parse_file)
+    send_notification processed_billets
   end
 
   private
@@ -33,25 +33,37 @@ class Admin::ProcessBilletFileWorker
       line_array[start_line..end_line]
     end
 
-    def self.process_orders order_numbers_array
+    def self.process_billets billet_numbers_array
       successful_array, unsuccessful_array = [],[]
-      order_numbers_array.each do |line_order|
-        order = Order.find_by_number line_order[32..38]
-        if order.blank?
-          unsuccessful_array << {number: line_order[32..38], message: "Pedido não encontrado"}
-        elsif order && order.try(:amount_paid).to_s != line_order[58..69].gsub(' ','').gsub(',','.')
-          unsuccessful_array << {number: line_order[32..38], message: "Valor pago não confere com o valor do pedido"}
-        elsif line_order[58..69].gsub(' ','') != line_order[98..107].gsub(' ','')
-          unsuccessful_array << {number: line_order[32..38], message: "Valor pago não confere com o valor do título"}
+      billet_numbers_array.each do |line_billet|
+        billet_id = line_billet[27..38].to_i.to_s
+
+        billet = Billet.find_by_id billet_id
+        if billet.blank?
+          unsuccessful_array << {id: billet_id, message: "Pedido não encontrado"}
+        elsif billet.state != "waiting_payment"
+          unsuccessful_array << {id: billet_id, message: "Estado '#{billet.state}' não elegível para autorização de pagamento"}        
+        elsif billet && billet.try(:total_paid).to_s != line_billet[58..69].gsub(' ','').gsub(',','.')
+          unsuccessful_array << {id: billet_id, message: "Valor pago não confere com o valor do boleto"}
+        elsif line_billet[58..69].gsub(' ','') != line_billet[98..107].gsub(' ','')
+          unsuccessful_array << {id: billet_id, message: "Valor pago não confere com o valor do título"}
         else
-          # change order and payment state
-          successful_array << {number: line_order[32..38], message: "OK"}
+          begin
+            # billet.authorize
+            successful_array << {id: billet_id, message: "OK"}
+          rescue => e
+            Airbrake.notify(
+              :error_class   => "Admin::ProcessBilletFileWorker",
+              :error_message => "process_billets: the following error occurred: #{e.message}"
+            )       
+            unsuccessful_array << {id: billet_id, message: "Problema na transição de status do boleto"}
+          end
         end
       end
       { successful: successful_array, unsuccessful: unsuccessful_array }
     end
 
-    def self.send_notification processed_orders
+    def self.send_notification processed_billets
       # send summary email
     end
 end

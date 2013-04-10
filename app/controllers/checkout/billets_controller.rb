@@ -17,7 +17,7 @@ class Checkout::BilletsController < ApplicationController
         boleto_santander.endereco_cedente      = 'Rua Surubim, 159'
         #TODO: access delivery address through freight
         # boleto_santander.endereco_cedente      = payment.user.delivery_address
-        boleto_santander.numero_documento      = payment.order.number
+        boleto_santander.numero_documento      = payment.id
         boleto_santander.sacado                = "#{payment.user.first_name} #{payment.user.last_name}"
         boleto_santander.documento_sacado      = payment.user.cpf
         boleto_santander.data_vencimento       = 2.business_days.from_now.to_date
