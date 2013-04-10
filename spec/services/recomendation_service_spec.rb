@@ -7,15 +7,12 @@ describe RecomendationService do
   end
 
   describe "#products" do
-    #it { expect(subject.products(category_shoe)).to include(shoe) }
-    #it { expect(subject.products(category_shoe)).to_not include(bag) }
-    #it { expect(subject.products(category_shoe)).to_not include(accessory) }
     context "when product quantity matters" do
       before do
         4.times do
-          FactoryGirl.create(:shoe, profiles: @profiles)
-          FactoryGirl.create(:bag, profiles: @profiles)
-          FactoryGirl.create(:basic_accessory, profiles: @profiles)
+          FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:shoe, profiles: @profiles))
+          FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:bag, profiles: @profiles))
+          FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:basic_accessory, profiles: @profiles))
         end
         #collection = @profiles.first.products.first.collection
         #Collection.stub(:current).and_return(collection)
@@ -36,10 +33,10 @@ describe RecomendationService do
       let(:category_cloth) { Category::CLOTH }
 
       before do
-        @shoe = FactoryGirl.create(:shoe, profiles: @profiles)
-        @bag = FactoryGirl.create(:bag, profiles: @profiles)
-        @accessory = FactoryGirl.create(:basic_accessory, profiles: @profiles)
-        @cloth = FactoryGirl.create(:simple_garment, profiles: @profiles)
+        @shoe = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:shoe, profiles: @profiles)).product
+        @bag = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:bag, profiles: @profiles)).product
+        @accessory = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:basic_accessory, profiles: @profiles)).product
+        @cloth = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:simple_garment, profiles: @profiles)).product
       end
 
       context 'and I want only shoes' do
@@ -84,10 +81,10 @@ describe RecomendationService do
 
       before do
         @profiles << FactoryGirl.create(:sporty_profile)
-        @products_returned = [FactoryGirl.create(:shoe, profiles: [@profiles.first])]
-        @products_returned << FactoryGirl.create(:bag, profiles: [@profiles.last])
-        @products_returned << FactoryGirl.create(:basic_accessory, profiles: [@profiles.last])
-        @products_not_returned = FactoryGirl.create(:simple_garment, profiles: [@profiles.last])
+        @products_returned = [FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:shoe, profiles: [@profiles.first])).product]
+        @products_returned << FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:bag, profiles: [@profiles.last])).product
+        @products_returned << FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:basic_accessory, profiles: [@profiles.last])).product
+        @products_not_returned = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:simple_garment, profiles: [@profiles.last])).product
       end
 
       context "returned products" do
