@@ -20,7 +20,7 @@ class Checkout::BilletsController < ApplicationController
         boleto_santander.numero_documento      = payment.id
         boleto_santander.sacado                = "#{payment.user.first_name} #{payment.user.last_name}"
         boleto_santander.documento_sacado      = payment.user.cpf
-        boleto_santander.data_vencimento       = 2.business_days.from_now.to_date
+        boleto_santander.data_vencimento       = (payment.created_at + 2.business_days).to_date
         boleto_santander.valor_documento       = payment.total_paid
       end
     else

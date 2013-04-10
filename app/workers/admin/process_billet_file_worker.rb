@@ -22,7 +22,8 @@ class Admin::ProcessBilletFileWorker
 
     def self.parse_file
       file_content = read_file
-      line_array = file_content.split("\r\n")
+      file_content.gsub!(/\r\n?/, "\n");
+      line_array = file_content.split("\n")
       start_line = 0
       end_line = 0
 
@@ -49,7 +50,7 @@ class Admin::ProcessBilletFileWorker
           unsuccessful_array << {id: billet_id, message: "Valor pago não confere com o valor do título"}
         else
           begin
-            # billet.authorize
+            billet.authorize
             successful_array << {id: billet_id, message: "OK"}
           rescue => e
             Airbrake.notify(
@@ -64,6 +65,6 @@ class Admin::ProcessBilletFileWorker
     end
 
     def self.send_notification processed_billets
-      # send summary email
+      BilletSummaryMailer.send_billet_summary(processed_billets).deliver
     end
 end

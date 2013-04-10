@@ -6,7 +6,7 @@ class Admin::BilletBatchController < Admin::BaseController
 
   def create
     save_file params[:batch_file].tempfile.read
-    # Resque.enqueue
+    Resque.enqueue(Admin::ProcessBilletFileWorker)
     redirect_to admin_new_billet_batch_path, notice: "Estamos processando o arquivo. Assim que terminar, um e-mail será enviado."
   end
 
