@@ -37,9 +37,12 @@ jQuery(function() {
  });
 
 $(function(){
+  $('.sizes :checkbox').click(function(){
+    $('.sizes').hide();
+  });
   $('#filter_option').change(function() {
     //TODO: the following lines are duplicated
-    $('.filter_option')
+    $('.filter_option');
     $('.loading').show();
     var selected_sort = $(this).val() ;
     $('#sort_filter').val(selected_sort);
@@ -50,6 +53,4 @@ $(function(){
     $('form#filter').submit();
   });
 
-})
-
-
+});

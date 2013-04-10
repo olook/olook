@@ -4,8 +4,10 @@ div.full_container {
   #background: #d2d1d6 image-url('liquidations/bg-top.jpg') bottom repeat-x;
   height: 320px;
   overflow: hidden !important;
+  margin: 13px 0 10px 0 !important;
 
   div.content {
+    padding-top: 0 !important;
     position: relative;
     div.description {
       position: relative;
@@ -339,7 +341,7 @@ div#liquidation {
             text-transform: downcase;
           }
           .old, .txt-pink {
-            display: block;
+            display: inline !important;
           }
         }
         .line {
@@ -352,6 +354,12 @@ div#liquidation {
         }
         .warn.sold_out, .warn.shoe_size, .warn.quantity {
           display: none;
+        }
+        p.warn {
+          &.percentage {
+            top: 65px !important;
+            left: 105px !important;
+          }
         }
       }
     }
