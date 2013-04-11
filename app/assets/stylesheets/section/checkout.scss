@@ -223,7 +223,7 @@ section#cart {
 		margin:10px 0 25px;
   }
 	div#facebook-share{
-		float:left;
+		float:right;
 		border-top:dotted 1px #b3b3b3;
 		border-bottom:dotted 1px #b3b3b3;
 		text-align:left;
@@ -660,7 +660,7 @@ section#cart {
           vertical-align: middle;
 					padding-top:10px;
           &.discount{float:right;margin-right:20px;
-            p#coupon_discount{float:left;width:65px;margin:0;}
+            p#coupon_discount{float:left;width:100px;margin:0;}
             form.edit_cart{float:left;}
           }
           &.value {
@@ -712,7 +712,6 @@ section#cart {
           line-height: 55px;
         }
         form {
-          display: none;
           margin: 15px 0 0 0;
           input[type="text"] {
             background: image-url('cart/bg-input-coupon.jpg') top right no-repeat;
