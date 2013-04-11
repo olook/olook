@@ -31,7 +31,17 @@ describe OrderAnalysisService do
         service.should_send_to_analysis?.should be_true
       end
 
+      context "but user is blacklisted" do
+        before do
+          Setting.stub(:as_list).with(:blacklisted_users).and_return(['teste@teste.com'])
+        end
+
+        it "send to analysis" do
+          service.should_send_to_analysis?.should be_true
+        end
+      end
     end
+
 
     context "user's first buy" do
       it "should have one order" do
