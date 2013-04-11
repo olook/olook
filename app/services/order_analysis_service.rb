@@ -41,8 +41,9 @@ class OrderAnalysisService
   end
  
   def should_send_to_analysis?
+    return true if Setting.force_send_to_clearsale
     return false unless Setting.send_to_clearsale
-    if Setting.force_send_to_clearsale || payment.user.nil? || user_is_blacklisted?
+    if payment.user.nil? || user_is_blacklisted?
       true
     else
       first_credit_card_payment?(payment.user)
