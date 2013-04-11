@@ -492,13 +492,18 @@ initBase = {
   },
 
   youtubePlayer : function(yt_id) {
-    return "<div style='width:791px;height:445px;'><iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&autoplay=1&vq=large' frameborder='0'></iframe></div>";
+    return "<div style='width:791px;height:445px;'><iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&enablejsapi=1&autoplay=1&vq=large' frameborder='0'></iframe></div>";
   },
 
   newModal : function(content){
     var $modal = $("div#modal.promo-olook"), h = $(content).outerHeight(), w = $(content).outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2)), heightDoc = $(document).height(), _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()), _left=Math.max(0, (($(window).width() - w) / 2) + $(window).scrollLeft());
 
     $("#overlay-campaign").css({"background-color": "#000", 'height' : heightDoc}).fadeIn().bind("click", function(){
+      _iframe = $modal.contents().find("iframe");
+      console.log(_iframe);
+      if (_iframe.length > 0){
+        $(_iframe).remove();
+      }
        $modal.fadeOut();
        $(this).fadeOut();
     });
@@ -516,6 +521,11 @@ initBase = {
    .delay(500).fadeIn().children().fadeIn();
 
    $("#modal button.close, #modal a.me").click(function(){
+     _iframe = $modal.contents().find("iframe");
+     console.log(_iframe);
+     if (_iframe.length > 0){
+       $(_iframe).remove();
+     }
       $modal.fadeOut();
       $("#overlay-campaign").fadeOut();
    })
