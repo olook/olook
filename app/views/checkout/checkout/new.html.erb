@@ -53,5 +53,6 @@
 </section>
 
 <% content_for :footer do %>
+  <%= render partial: "shared/metrics/dbm/order" %>
   <%= javascript_include_tag "checkout" %>
 <% end %>
