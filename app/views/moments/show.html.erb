@@ -15,6 +15,11 @@
   <div id="moments" class="content">
     <%= collection_theme_presenter.display_nav_bar %>
     <%= collection_theme_presenter.render_search_form %>
+    <div id="invite_friends">
+      <%= link_to member_invite_path do %>
+        <%= image_tag 'moments/invite_friends.gif', :class => '' %>
+      <% end %>
+    </div>
     <div id="products_container">
       <!-- local onde o viewpersonalized será exibido -->
       <div class="chaordic viewpersonalized"></div>
