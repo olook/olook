@@ -1,4 +1,3 @@
-<% showroom_presenter = ShowroomPresenter.new(self, :admin => current_admin, :member => @friend) %>
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/friends" %>
 <% end %>
@@ -29,9 +28,9 @@
     </div>
     <div class="product_list">
       <ul>
-        <%= showroom_presenter.display_shoes (0..4) %>
-        <%= showroom_presenter.display_bags (0..4) %>
-        <%= showroom_presenter.display_accessories(0..4) %>
+        <% @friend_products.each do |product| %>
+          <%= render 'shared/product_item', product: product %>
+        <%- end -%>
       </ul>
     </div>
   </section>

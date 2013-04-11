@@ -524,6 +524,7 @@ class Product < ActiveRecord::Base
     end
 
     def fetch_cache_for(picture)
+      return picture.try(:image_url, :catalog) unless Rails.env.production?
       img = Rails.cache.fetch(CACHE_KEYS[:product_picture_image_catalog][:key] % [id, picture.display_on], expires_in: CACHE_KEYS[:product_picture_image_catalog][:expire]) do
         if picture.image.catalog.file.exists?
           picture.try(:image_url, :catalog)
