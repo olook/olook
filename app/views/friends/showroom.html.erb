@@ -1,4 +1,4 @@
-<% present 'Showroom', :admin => current_admin, :member => @friend  do |showroom_presenter| %>
+<% showroom_presenter = ShowroomPresenter.new(self, :admin => current_admin, :member => @friend) %>
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/friends" %>
 <% end %>
@@ -36,4 +36,3 @@
     </div>
   </section>
 </section>
-<% end %>
