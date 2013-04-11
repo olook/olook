@@ -80,6 +80,7 @@ class MembersController < ApplicationController
   def showroom
     @google_path_pixel_information = "Home"
     @chaordic_user = ChaordicInfo.user current_user
+
     if @user.half_user
       if @user.female?
         prepare_for_home
@@ -97,6 +98,7 @@ class MembersController < ApplicationController
     if @facebook_adapter
       @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
     end
+    @recommended = RecomendationService.new(profiles: current_user.profiles)
 
     render layout: 'lite_application'
   end

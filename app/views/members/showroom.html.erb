@@ -133,17 +133,15 @@
   </section>
 
   <section class="container_product" id="clothes_container">
-  <h1 class="title"><span>Suas roupas de <%= @showroom_presenter.collection_name(@collection) %> </span></h1>
+  <h1 class="title"><span>Suas roupas de <%= current_collection_name %> </span></h1>
     <div class="type_list">
       <div class="products_list best">
         <ul>
-          <%#= showroom_presenter.display_clothes((0..4), @collection, current_user) %>
-          <%= @showroom_presenter.display_products((0..4), Category::CLOTH, @collection, current_user) %>
+          <%= render partial: 'shared/product_item', collection: @recommended.products( category: Category::CLOTH, collection: @collection) %>
         </ul>
 
         <ul>
-          <%#= showroom_presenter.display_clothes((0..4), @collection, current_user) %>
-          <%= @showroom_presenter.display_products((0..4), Category::CLOTH, @collection, current_user) %>
+          <%= render partial: 'shared/product_item', collection: @recommended.products( category: Category::CLOTH, collection: @collection) %>
         </ul>
 
         <div class="products_list almost">
@@ -157,12 +155,11 @@
   </section>
 
   <section class="container_product" id="shoes_container">
-    <h1 class="title">Seus sapatos de <%= @showroom_presenter.collection_name(@collection) %></h1>
+    <h1 class="title">Seus sapatos de <%= current_collection_name %></h1>
     <div class="type_list">
       <div class="products_list best">
         <ul>
-          <%#= showroom_presenter.display_shoes((0..4), @collection, current_user) %>
-          <%= @showroom_presenter.display_products((0..4), Category::SHOE, @collection, current_user) %>
+          <%= render partial: 'shared/product_item', collection: @recommended.products( category: Category::SHOE, collection: @collection) %>
         </ul>
 
         <div class="products_list almost">
@@ -177,12 +174,11 @@
   </section>
 
   <section class="container_product" id="purse_container">
-    <h1 class="title">Suas bolsas de <%= @showroom_presenter.collection_name(@collection) %></h1>
+    <h1 class="title">Suas bolsas de <%= current_collection_name %></h1>
     <div class="type_list">
       <div class="products_list best">
         <ul>
-          <%#= showroom_presenter.display_bags((0..4), @collection, current_user) %>
-          <%= @showroom_presenter.display_products((0..4), Category::BAG, @collection, current_user) %>
+          <%= render partial: 'shared/product_item', collection: @recommended.products( category: Category::BAG, collection: @collection) %>
         </ul>
 
         <div class="products_list almost">
@@ -197,12 +193,11 @@
   </section>
 
   <section class="container_product" id="accessories_container">
-    <h1 class="title">Seus acessórios de <%= @showroom_presenter.collection_name(@collection) %></h1>
+    <h1 class="title">Seus acessórios de <%= current_collection_name %></h1>
     <div class="type_list">
       <div class="products_list best">
         <ul>
-          <%#= showroom_presenter.display_accessories((0..4), @collection, current_user) %>
-          <%= @showroom_presenter.display_products((0..4), Category::ACCESSORY, @collection, current_user) %>
+          <%= render partial: 'shared/product_item', collection: @recommended.products( category: Category::ACCESSORY, collection: @collection) %>
         </ul>
           <div class="products_list almost">
         <ul id="accessories_product">
