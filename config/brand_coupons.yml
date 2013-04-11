@@ -1,4 +1,12 @@
 development:
   COUPON1: "olook"
+
 test:
   COUPON1: "olook"
+
+staging:
+  COUPON1: "olook"
+
+production:
+  COUPON1: "olook"
+
