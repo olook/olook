@@ -41,11 +41,12 @@ class OrderAnalysisService
   end
  
   def should_send_to_analysis?
-    return true if Setting.force_send_to_clearsale
     return false unless Setting.send_to_clearsale
-    return true if payment.user.nil?
-
-    return first_credit_card_payment?(payment.user)
+    if Setting.force_send_to_clearsale || payment.user.nil? || user_is_blacklisted?
+      true
+    else
+      first_credit_card_payment?(payment.user)
+    end
   end
 
   def self.generate_sample_response
@@ -55,6 +56,11 @@ class OrderAnalysisService
   end
 
   private
+
+    def user_is_blacklisted?
+      blacklist = Setting.as_list(:blacklisted_users)
+      blacklist.include?(payment.user.email)
+    end
 
     def first_credit_card_payment?(user)
       CreditCard.where(user_id: user.id, state: ['authorized','completed']).empty?
