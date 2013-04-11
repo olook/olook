@@ -2,8 +2,8 @@
 class Admin::ProcessBilletFileWorker
   @queue = :process_billet_file
 
-  def self.perform
-    processed_billets = BilletService.process_billets
+  def self.perform(file_name)
+    processed_billets = BilletService.process_billets(file_name)
     send_notification processed_billets
   end
 
