@@ -1,5 +1,4 @@
 <% shoe_size = params[:shoe_sizes].to_a.find { |ss| !ss.blank? }.try(:to_i) || current_user.try(:shoes_size).try(:to_i) %>
-<% product = product_item if defined?(product_item) %>
 
 <%= cache(product.item_view_cache_key_for(shoe_size), expires_in: CACHE_KEYS[:product_item_partial][:expire]) do %>
   <li class="product<%= " promotion" if product.promotion? %>" data-id="<%= product.id %>">
