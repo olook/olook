@@ -16,11 +16,6 @@ $(function() {
     $("form#gift_message").submit();
   })
 
-  $("#coupon a#show_coupon_field").live("click", function(e) {
-    $(this).hide();
-    $(this).siblings("form").show();
-    e.preventDefault();
-  });
 
   $('section#cart a.continue.login').live('click', function(e) {
     clone = $('.dialog.product_login').clone().addClass("clone");
