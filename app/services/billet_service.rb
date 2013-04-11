@@ -7,10 +7,6 @@ class BilletService
     @billet_numbers_array = parse_file
   end
 
-  def self.test(f)
-    new(f)
-  end
-
   def self.process_billets(file_name)
     new(file_name)
     @billet_numbers_array.each do |line_billet|
