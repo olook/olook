@@ -36,5 +36,13 @@ module CarrierWave
         img
       end
     end
+
+    def strip
+      manipulate! do |img|
+        img.strip
+        img = yield(img) if block_given?
+        img
+      end
+    end
   end
 end
