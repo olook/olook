@@ -10,12 +10,10 @@ describe RecomendationService do
     context "when product quantity matters" do
       before do
         4.times do
-          FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:shoe, profiles: @profiles))
-          FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:bag, profiles: @profiles))
-          FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:basic_accessory, profiles: @profiles))
+          FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:shoe, name: "#shoe_#{ rand }", profiles: @profiles))
+          FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:bag, name: "#bag_#{ rand }", profiles: @profiles))
+          FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:basic_accessory, name: "#accessory_#{ rand }", profiles: @profiles))
         end
-        #collection = @profiles.first.products.first.collection
-        #Collection.stub(:current).and_return(collection)
       end
 
       context 'and limit 10 was passed' do
