@@ -12,7 +12,7 @@ class BilletService
         unsuccessful_array << {id: billet_id, message: "Pedido não encontrado"}
       elsif billet.state != "waiting_payment"
         unsuccessful_array << {id: billet_id, message: "Estado '#{billet.state}' não elegível para autorização de pagamento"}
-      elsif billet && billet.try(:total_paid).to_s != line_billet[58..69].gsub(' ','').gsub(',','.')
+      elsif billet && billet.try(:total_paid) != line_billet[58..69].gsub(' ','').gsub(',','.').to_d
         unsuccessful_array << {id: billet_id, message: "Valor pago não confere com o valor do boleto"}
       elsif line_billet[58..69].gsub(' ','') != line_billet[98..107].gsub(' ','')
         unsuccessful_array << {id: billet_id, message: "Valor pago não confere com o valor do título"}
