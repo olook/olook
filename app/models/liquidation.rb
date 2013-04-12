@@ -31,7 +31,7 @@ class Liquidation < ActiveRecord::Base
   end
 
   def subcategories(category_id)
-    in_category(category_id).group(:subcategory_name).order("subcategory_name asc").map { |p| [p.subcategory_name, p.subcategory_name_label] }.compact
+    in_category(category_id).group(:subcategory_name).order("subcategory_name asc").map { |p| [p.subcategory_name, p.subcategory_name_label] if valid? p.subcategory_name }.compact
   end
 
   def shoes
@@ -53,4 +53,9 @@ class Liquidation < ActiveRecord::Base
   def heels
     in_category(Category::SHOE).group(:heel).order("heel asc").map { |p| [p.heel, p.heel_label] if p.heel }.compact.sort{ |a,b| a[0].to_i <=> b[0].to_i }
   end
+
+  private 
+    def valid? value
+      !value.nil? && value != '_' 
+    end
 end
