@@ -51,7 +51,7 @@ class Liquidation < ActiveRecord::Base
   end
 
   def heels
-    in_category(Category::SHOE).group(:heel).order("heel asc").map { |p| [p.heel, p.heel_label] if p.heel }.compact.sort{ |a,b| a[0].to_i <=> b[0].to_i }
+    in_category(Category::SHOE).group(:heel).order("heel asc").map { |p| [p.heel, p.heel_label] if valid? p.heel }.compact.sort{ |a,b| a[0].to_i <=> b[0].to_i }
   end
 
   private 
