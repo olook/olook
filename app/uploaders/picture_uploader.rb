@@ -32,6 +32,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   # end
 
   process :quality => 80
+  process :strip
 
   version :thumb do
     process :resize_to_limit => [50, 50], :quality => 100
@@ -70,8 +71,8 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   private
 
-  def generate_token
-    var = :"@#{mounted_as}_secure_token"
-    model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.hex(64/2))
-  end
+    def generate_token
+      var = :"@#{mounted_as}_secure_token"
+      model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.hex(64/2))
+    end
 end
