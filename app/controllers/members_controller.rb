@@ -107,18 +107,6 @@ class MembersController < ApplicationController
     render layout: 'lite_application'
   end
 
-  def showroom_clothes
-  end
-
-  def showroom_shoes
-  end
-
-  def showroom_bags
-  end
-
-  def showroom_accessories
-  end
-
   def earn_credits
   end
 
