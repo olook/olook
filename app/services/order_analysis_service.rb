@@ -64,7 +64,12 @@ class OrderAnalysisService
     end
 
     def first_credit_card_payment?(user)
-      CreditCard.where(user_id: user.id, state: ['authorized','completed']).empty?
+      credit_card_payments = CreditCard.where(user_id: user.id, state: ['authorized','completed'])
+      approved_credit_card_numbers = credit_card_payments.map {|c| c.credit_card_number[-4,4] } 
+
+      credit_card_last_numbers = payment.credit_card_number[-4,4]
+      ! approved_credit_card_numbers.include?(credit_card_last_numbers)
+
     end
 
 end
