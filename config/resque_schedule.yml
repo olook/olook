@@ -1,9 +1,3 @@
-send_order_warn_informations:
-  cron: "10 5 * * *"
-  class: Orders::SendOrderWarnWorker
-  queue: order_status
-  description: "Envia email avisando pedidos que precisam ser analizados com mais atenção"
-
 send_orders_alert:
   cron: "35 * * * *"
   class: SendOrderAlertWorker
