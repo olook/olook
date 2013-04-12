@@ -87,6 +87,7 @@ Olook::Application.routes.draw do
   match "/zanox", :to => "xml#zanox", :as => "zanox", :defaults => { :format => 'xml' }
   match "/sociomantic", :to => "xml#sociomantic", :as => "sociomantic", :defaults => { :format => 'xml' }
   match "/criteo", :to => "xml#criteo", :as => "criteo", :defaults => { :format => 'xml' }
+  match "/groovinads", :to => "xml#groovinads", :as => "groovinads", :defaults => { :format => 'xml' }
   match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
   match "/click_a_porter", :to => "xml#click_a_porter", :as => "click_a_porter", :defaults => { :format => 'xml' }
   match "/topster" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/topster_data.xml")
@@ -109,7 +110,7 @@ Olook::Application.routes.draw do
   post "/produto/share" => "product#share_by_email", as: 'product_share_by_email'
 
   #VITRINE / INVITE
-  get "convite" => "members#invite", :as => 'member_invite'
+  get "membro/convite" => "members#invite", :as => 'member_invite'
   get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
   post "membro/convite_por_email" => 'members#invite_by_email', :as => 'member_invite_by_email'
   post "membro/novo_usuario_convite_por_email" => 'members#new_member_invite_by_email', :as => 'new_member_invite_by_email'
@@ -301,6 +302,10 @@ Olook::Application.routes.draw do
     end
 
     get '/discounts' => 'discounts#index', as: :discounts
+
+    get "billet_batch/new", as: :new_billet_batch 
+
+    post "billet_batch/create", as: :create_billet_batch
 
   end
 

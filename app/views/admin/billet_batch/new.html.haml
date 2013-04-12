@@ -1,0 +1,7 @@
+#error-messages
+.batch_form
+  %h1 Adicione o arquivo de conciliação do Santander
+  .batch_form_content
+    = form_tag admin_create_billet_batch_path, multipart: true do
+      = file_field_tag :batch_file
+      = submit_tag "Enviar"
