@@ -303,6 +303,10 @@ Olook::Application.routes.draw do
 
     get '/discounts' => 'discounts#index', as: :discounts
 
+    get "billet_batch/new", as: :new_billet_batch 
+
+    post "billet_batch/create", as: :create_billet_batch
+
   end
 
   #USER / SIGN IN
