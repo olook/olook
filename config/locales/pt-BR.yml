@@ -16,6 +16,10 @@
       "5": "2"
       "6": ">= 3"
 
+  admin:
+    billet:
+      santander: "Conciliação Santander"
+
   #Carrinho
   cart:
     discounts:
