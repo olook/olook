@@ -86,4 +86,5 @@ Setting.defaults[:santander_billet] = false
 Setting.defaults[:show_featured_products] = true
 
 Setting.defaults[:lightbox_coupon_code] = "WP1HYH1ABR13"
+Setting.defaults[:billet_summary_email] = "tiago.almeida@olook.com.br"
 Setting.defaults[:blacklisted_users] = "arte-1818@hotmail.com"
