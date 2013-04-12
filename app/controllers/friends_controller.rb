@@ -10,7 +10,8 @@ class FriendsController < ApplicationController
 
   def showroom
     @friend = User.find(params[:friend_id])
-    @friend_products = RecomendationService.new(profiles: @friend.profiles, shoe_size: @friend.shoes_size).products(limit: 12)
+    @colletion = Collection.active
+    @friend_products = RecomendationService.new(profiles: @friend.profiles, shoe_size: @friend.shoes_size).products(limit: 12, colletion: @colletion)
   end
 
   def facebook_connect
