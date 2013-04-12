@@ -1,6 +1,7 @@
 describe ProductSearch do
   describe ".terms_for" do
     let!(:product) { FactoryGirl.create(:basic_shoe) }
+
     context "when has terms for given parameter" do
       let!(:another_product) { FactoryGirl.create(:basic_shoe, name: "Scarpin") }
       it "returns only names like 'Chan'" do
@@ -13,6 +14,11 @@ describe ProductSearch do
       it "returns an empty array" do
         expect(described_class.terms_for("Something")).to eq([])
       end
+
+
+    it "Redis receives zrevrange method " do
+      Redis.any_instance.should_receive(:zrevrange)
+      described_class.terms_for("Foo")
     end
   end
 end

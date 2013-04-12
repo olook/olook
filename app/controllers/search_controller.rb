@@ -32,5 +32,4 @@ class SearchController < ApplicationController
     render json: suggestions.flatten
   end
 
-
 end
