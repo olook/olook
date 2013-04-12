@@ -38,6 +38,8 @@ class CatalogSearchService
     return @query if @query
     add_categories_filter_to_query_base
 
+    add_price_range_to_query_base
+
     @query = prepare_query_joins
 
     add_category_filter_to_query_base
@@ -141,11 +143,22 @@ class CatalogSearchService
   end
 
   def sort_filter
+    order_by_price_sql = "CASE WHEN ifnull(catalog_products.retail_price, 0.00) = 0.00 THEN catalog_products.original_price WHEN ifnull(catalog_products.retail_price, 0.00) > 0.00 THEN catalog_products.retail_price END"
     case @params[:sort_filter]
       when "0" then "collection_id desc"
-      when "1" then "variants.retail_price asc"
-      when "2" then "variants.retail_price desc"
+      when "1" then  "#{order_by_price_sql} ASC"
+      when "2" then "#{order_by_price_sql} DESC"
       else "collection_id desc"
     end
+  end
+
+  def add_price_range_to_query_base
+    if query
+      if @params[:lowest_price]
+        # query.and("IF ifnull(catalog_products.retail_price, 0.00) = 0.00 THEN catalog_products.retail_price >= ")
+      end
+      if @params[:highest_price]
+      end
+    end    
   end
 end
