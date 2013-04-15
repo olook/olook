@@ -1,10 +1,12 @@
 # -*- encoding : utf-8 -*-
 class OrderAnalysisService
+  include Payments::Logger
 
   attr_accessor :payment, :credit_card_number, :paid_at
 
   def initialize(payment, credit_card_number, paid_at)
     self.payment = payment
+    @payment_id = payment.id
     self.credit_card_number = credit_card_number
   end
 
@@ -41,11 +43,17 @@ class OrderAnalysisService
   end
  
   def should_send_to_analysis?
+    log("force_clearsale? [#{Setting.force_send_to_clearsale}], send_to_clearsale? [#{Setting.send_to_clearsale}] ")
     return true if Setting.force_send_to_clearsale
     return false unless Setting.send_to_clearsale
-    return true if payment.user.nil?
-
-    return first_credit_card_payment?(payment.user)
+    if payment.user.nil? || user_is_blacklisted?
+      log("user [#{payment.user.email}] is blacklisted") if payment.user
+      true
+    else
+      first_used = first_credit_card_payment?(payment.user)
+      log("credit_card was already used? [#{first_used}]")
+      first_used
+    end
   end
 
   def self.generate_sample_response
@@ -56,8 +64,18 @@ class OrderAnalysisService
 
   private
 
+    def user_is_blacklisted?
+      blacklist = Setting.as_list(:blacklisted_users)
+      blacklist.include?(payment.user.email)
+    end
+
     def first_credit_card_payment?(user)
-      CreditCard.where(user_id: user.id, state: ['authorized','completed']).empty?
+      credit_card_payments = CreditCard.where(user_id: user.id, state: ['authorized','completed'])
+      approved_credit_card_numbers = credit_card_payments.map {|c| c.credit_card_number[-4,4] } 
+
+      credit_card_last_numbers = payment.credit_card_number[-4,4]
+      ! approved_credit_card_numbers.include?(credit_card_last_numbers)
+
     end
 
 end
