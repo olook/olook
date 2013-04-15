@@ -15,7 +15,7 @@
 <% credits.each do |credit| %>
   <tr>
     <td><%= link_to credit.order.number, admin_order_path(credit.order) if credit.order %></td>
-    <td><%= credit.source == "loyalty_program_credit" ? credit.reason : "Estorno de compra" %></td>
+    <td><%= reason_for credit %></td>
     <%= credit.is_debit ? "<td style='color:red'>-#{number_to_currency(credit.value)}</td>".html_safe :
     "<td style='color:green'>#{number_to_currency(credit.value)}</td>".html_safe %>
     <td><%= Admin.find_by_id(credit.admin_id).try(:name) %></td>
