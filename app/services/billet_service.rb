@@ -35,7 +35,7 @@ class BilletService
 
   def self.save_file(file_content, file_name)
     MarketingReports::FileUploader.new(file_name, file_content).save_local_file
-    MarketingReports::FileUploader.copy_file(file_name, "/home/allinmail/retorno_santander") if Rails.env.production?
+    MarketingReports::FileUploader.copy_file(file_name, "/tmp") if Rails.env.production?
   end
 
   def self.file_name
