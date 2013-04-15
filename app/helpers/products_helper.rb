@@ -55,4 +55,8 @@ module ProductsHelper
     end
     html_sizes.html_safe
   end
+
+  def sku_for product
+    product.master_variant.sku
+  end
 end
