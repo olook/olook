@@ -31,7 +31,7 @@ describe CatalogSearchService do
     product = (FactoryGirl.create :shoe_subcategory_name, description: "Melissa").product
     FactoryGirl.create :shoe_heel, :product => product, :description => "Alto"
     FactoryGirl.create :basic_shoe_size_40, :product => product, :inventory => 8
-    product.master_variant.price = 100.00
+    product.master_variant.price = 10.00
     product.master_variant.save!
     product
   end
@@ -39,10 +39,26 @@ describe CatalogSearchService do
   let(:basic_shoe_3) do
     product = (FactoryGirl.create :shoe_subcategory_name, description: "Bota").product
     FactoryGirl.create :basic_shoe_size_37, :product => product, :inventory => 5
-    product.master_variant.price = 100.00
+    product.master_variant.price = 50.00
     product.master_variant.save!
     product
   end
+
+  let(:basic_shoe_4) do
+    product = (FactoryGirl.create :shoe_subcategory_name, description: "Bota").product
+    FactoryGirl.create :basic_shoe_size_37, :product => product, :inventory => 5
+    product.master_variant.price = 10.00
+    product.master_variant.save!
+    product
+  end  
+
+  let(:basic_shoe_5) do
+    product = (FactoryGirl.create :shoe_subcategory_name, description: "Bota").product
+    FactoryGirl.create :basic_shoe_size_37, :product => product, :inventory => 5
+    product.master_variant.price = 30.00
+    product.master_variant.save!
+    product
+  end  
 
   let(:sold_out_shoe) do
     product = (FactoryGirl.create :shoe_subcategory_name, description: "Galocha").product
@@ -140,7 +156,7 @@ describe CatalogSearchService do
        end
      end
 
-     context "ordering" do
+    context "ordering" do
       it "should return the order: shoes, bags and acessories" do
         cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
         cp2 = CatalogProductService.new(catalog, basic_accessory).save!
@@ -192,6 +208,38 @@ describe CatalogSearchService do
         products.should include(cp5)
         products.should_not include(cp3)
       end
+    end
+    context "price range" do
+      it "returns values greater than the floor value" do
+        cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
+        cp2 = CatalogProductService.new(catalog, basic_shoe_2).save!.first
+        cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
+        params = {price: "20-*", id: catalog.id}
+        products = CatalogSearchService.new(params).search_products
+        products.should include(cp1)
+        products.should_not include(cp2)
+        products.should include(cp3)
+      end
+      it "returns values lower than the ceil value" do
+        cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
+        cp2 = CatalogProductService.new(catalog, basic_shoe_2).save!.first
+        cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
+        params = {price: "*-90", id: catalog.id}
+        products = CatalogSearchService.new(params).search_products
+        products.should_not include(cp1)
+        products.should include(cp2)
+        products.should include(cp3)
+      end        
+      it "returns values between the floor and ceil value" do
+        cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
+        cp2 = CatalogProductService.new(catalog, basic_shoe_2).save!.first
+        cp3 = CatalogProductService.new(catalog, basic_shoe_3).save!.first
+        params = {price: "40-90", id: catalog.id}
+        products = CatalogSearchService.new(params).search_products
+        products.should_not include(cp1)
+        products.should_not include(cp2)
+        products.should include(cp3)        
+      end                
     end
   end
 end
