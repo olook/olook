@@ -117,10 +117,17 @@ body {
               &.cpf {
                 border: 1px solid #C1C1C1;
                 padding: 16px;
-                width: 385px;
-                margin-left: 10px;
+                width: 250px;
                 margin-top: 7px;
-                float: right;
+                input[type='text'], input[type='email'], input[type='password'] {
+                background: image-url('common/bg-inputs.png') repeat-x;
+                width: 230px;
+                border: 1px solid #C1C1C1;
+                margin: 0 0 7px;
+                padding: 7px 8px;
+                height: 17px;
+                float: left;
+              }
 
                 span {
                   font-size: 10px;
@@ -133,7 +140,7 @@ body {
                 }
                 label {
                   width: 56px;
-                  margin-left: 35px;
+                  margin-left: 18px;
                 }
               }
 

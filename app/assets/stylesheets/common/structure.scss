@@ -1043,6 +1043,12 @@ header#new_header{
             color:$pink;
           }
         }
+        a.invite{
+          color: $pink;
+          text-decoration: none;
+          float: left;
+          margin-top: 2px;
+        }
       }
 
       .social_icons{
