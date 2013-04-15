@@ -54,9 +54,27 @@
         <li>
           <input type="text" value="<%= accept_invitation_url(:invite_token => @user.invite_token) %>" readonly="readonly">
           <ul class="share">
-            <li><a href="https://twitter.com/share" class="twitter-share-button" data-text="<%= twitte_message(@user) %>" data-url="www.olook.com.br" data-count="none" data-counturl="www.olook.com.br">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></li>
             <li>
-              <a href="#" id="facebook_post_wall"><%= image_tag 'common/fb-post-to-wall.png' %></a>
+              <a href="https://twitter.com/share" class="twitter-share-button" data-text="<%= twitte_message(@user) %>" data-url="www.olook.com.br" data-count="none" data-counturl="www.olook.com.br">Tweet</a>
+              <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+              <script type="text/javascript" charset="utf-8">
+                window.twttr = (function (d,s,id) {
+                  var t, js, fjs = d.getElementsByTagName(s)[0];
+                  if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+                  js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+                  return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+                }(document, "script", "twitter-wjs"));
+              </script>
+              <script type="text/javascript" charset="utf-8">
+                twttr.ready(function (twttr) {
+                  twttr.events.bind('click', function(event){
+                    <%= track_event('MemberInvite', 'TwitterPost') %>
+                  });
+                });
+              </script>
+            </li>
+            <li>
+              <%= link_to image_tag('common/fb-post-to-wall.png'), 'javascript:void', id: 'facebook_post_wall', onclick: track_event('MemberInvite', 'FacebookPost') %>
             </li>
           </ul>
         </li>
@@ -81,7 +99,9 @@
     </fieldset>
     <fieldset class="buttons">
       <ol>
-        <li><input name="commit" type="submit" value="" id="invite_email"></input></li>
+        <li>
+          <%= submit_tag value: '', id: 'invite_email', onclick: track_event('MemberInvite', 'EmailInvite') %>
+        </li>
       </ol>
     </fieldset>
   <% end %>
@@ -93,7 +113,7 @@
     <h2>Para convidar, selecione suas amigas<br />na caixa ao lado
     </h2>
   </hgroup>
-  <%= link_to image_tag('common/bt-face-send-messages.png'), '', :id => 'facebook_invite_friends' %>
+  <%= link_to image_tag('common/bt-face-send-messages.png'), 'javascript:void;', :id => 'facebook_invite_friends', onclick: track_event("MemberInvite","FacebookMessage") %>
 </section>
 
 <section id="import-contacts" style="background:none;">
@@ -103,9 +123,9 @@
   </hgroup>
 
   <ul class="services">
-    <li><%= link_to 'Gmail', member_import_contacts_path, :class => 'gmail' %></li>
+    <li><%= link_to 'Gmail', member_import_contacts_path, :class => 'gmail', onclick: track_event('MemberInvite', 'GmailImport') %></li>
     <% if @yahoo_oauth_url %>
-      <li><%= link_to 'Yahoo', @yahoo_oauth_url, :class => 'yahoo' %></li>
+      <li><%= link_to 'Yahoo', @yahoo_oauth_url, :class => 'yahoo', onclick: track_event('MemberInvite', 'YahooImport') %></li>
     <% else %>
       <li>Serviço Yahoo indisponível no momento</li>
     <% end %>
