@@ -7,98 +7,27 @@
   <meta name="chaordic:category" content="Vitrine" >
 <% end %>
 
-<% content_for :footer do %>
-  <%= javascript_include_tag "sections/lite_showroom" %>
-  <% if @user.first_visit_for_member? %>
-    <%= javascript_include_tag "first_visit" %>
-    <%= render "shared/metrics/google/track_signup_page_view" %>
-    <%= render "shared/metrics/metaffiliation/action", :email => current_user.email %>
-    <%= render "shared/metrics/adlead/adlead" %>
-  <% elsif @is_retake %>
-    <script type="text/javascript">
-    setTimeout(function() {
-      initBase.showProfileLightbox();
-    }, 2000);
-    </script>
-  <% end %>
-  <div id="fb-root"></div>
 
-<% end %>
 
 <div id="showroom">
-  <%#= render 'shared/banners/olooklet' extraindo o conteudo aqui embaixo %>
-  <% if show_current_liquidation_advertise? %>
-    <%= link_to image_tag('common/olooklet_banner_header.jpg'), liquidations_path(current_liquidation.id), :class => "liquidation_banner" %>
-  <% end %>
-  <%# fim do 'shared/banners/olooklet -%>
+  <div id="fb-root"></div>
 
-  <%#= render "shared/modal/retake_quiz", :user => @user, :link => "#" %>
-  <div id="profile_quiz">
-    <div class="share">
-      <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2F<%= request.host %>/membro/share/<%= @user.id %>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35&amp;appId=<%= @facebook_app_id %>" scrolling="no" frameborder="0" id="fb_iframe" allowTransparency="true"></iframe>
-      <p>Compartilhe seu estilo com suas amigas:</p>
-    </div>
-    <% if @user.profile_name.present? %>
-      <%= image_tag "spacer.png", {:class => "#{@user.profile_name.to_s}"} %>
+  <div id="profile">
+    <div class="photo">
+    <% if current_user.has_facebook? %>
+      <%= content_tag :div, image_tag("https://graph.facebook.com/#{current_user.uid}/picture?type=normal", class: 'avatar'), class: 'avatar' if current_user.uid %>
+    <% else %>  
+      <p>Que tal sua foto aqui?</p>
+      <a href="#" clas="btn-connect-face">Conectar no Facebook</a>
     <% end %>
-    <ul>
-      <li><%= link_to "Quero tentar de novo", new_survey_path, :class => "new_survey" %></li>
-      <li><%= link_to "Essa sou eu", '#', :class => 'close me' %></li>
-    </ul>
-  </div>
-  <%# fim "shared/modal/retake_quiz" %>
-
-  <% if Campaign.activated_campaign && Campaign.activated_campaign.lightbox? %>
-    <%#= render :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => Campaign.activated_campaign.link}  %>
-    <div class="dialog with_confirmation liquidation">
-      <%= link_to image_tag(Campaign.activated_campaign.lightbox_url), Campaign.activated_campaign.link ? Campaign.activated_campaign.link : "#" %>
-      <div class="check">
-        <%= form_tag "#", :remote => true do %>
-          <fieldset>
-            <ul>
-              <li>
-                <%= check_box_tag "user_liquidation[dont_want_to_see_again]" %>
-                <%= label_tag "user_liquidation_dont_want_to_see_again", "Não mostrar esse aviso novamente" %>
-              </li>
-            </ul>
-          </fieldset>
-        <% end %>
-      </div>
     </div>
-    <%#= fim :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => Campaign.activated_campaign.link}  %>
-  <% end %>
 
-  <%#= render "shared/modal/liquidation" if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
-  <% if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
-  <div class="dialog with_confirmation liquidation">
-    <%= link_to image_tag(current_liquidation.lightbox_banner_url), liquidations_path(current_liquidation.id) %>
-    <div class="check">
-      <%= form_tag "#", :remote => true do %>
-        <fieldset>
-          <ul>
-            <li>
-              <%= check_box_tag "user_liquidation[dont_want_to_see_again]" %>
-              <%= label_tag "user_liquidation_dont_want_to_see_again", "Não mostrar esse aviso novamente" %>
-            </li>
-          </ul>
-        </fieldset>
-      <% end %>
-    </div>
-  </div>
-  <%- end -%>
-  <%#= fim "shared/modal/liquidation" if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
-
-  <section id="greetings">
-    <div class="facebook <%= 'connected' if current_user.has_facebook? %>">
-      <%= content_tag :div, image_tag("https://graph.facebook.com/#{current_user.uid}/picture?type=large", class: 'avatar'), class: 'avatar' if current_user.uid %>
-      <h1>Olá, <%= current_user.first_name %>!</h1>
+    <div class="excerpt">
+      <p class="name">Olá, <%= current_user.first_name %>!</p>
       <p>
         Nossas stylists montaram uma seleção incrível de produtos para você este mês.
         Confira e aproveite sem moderação!
-        Confira aqui o seu perfil
-        ou se não gostar do resultado,
-        responda nosso style quiz
-        novamente.
+        <%= link_to "Confira aqui o seu perfil",'#' %> ou se não gostar do resultado,<%= link_to "responda nosso style quiz", new_survey_path %> novamente.
       </p>
       <%#= render "shared/mini_profile", :user => @user %>
       <div class="profile">
@@ -108,8 +37,35 @@
           <% end %>
         <% end %>
       </div>
-      <%#= fim "shared/mini_profile", :user => @user %>
+    </div>  
+  
+    <div class="share">
+      <!--iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2F<%= request.host %>/membro/share/<%= @user.id %>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35&amp;appId=<%= @facebook_app_id %>" scrolling="no" frameborder="0" id="fb_iframe" allowTransparency="true"></iframe-->
+      <p>Compartilhe seu estilo com suas amigas:</p>
     </div>
+    
+  </div>
+  
+     
+  <%#= render 'shared/banners/olooklet' extraindo o conteudo aqui embaixo %>
+  <% if show_current_liquidation_advertise? %>
+    <%= link_to image_tag('common/olooklet_banner_header.jpg'), liquidations_path(current_liquidation.id), :class => "liquidation_banner" %>
+  <% end %>
+  <%# fim do 'shared/banners/olooklet -%>
+
+
+  <% if Campaign.activated_campaign && Campaign.activated_campaign.lightbox? %>
+    <%= render :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => Campaign.activated_campaign.link}  %>
+  <% end %>
+
+  
+  <% if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
+  <%= render "shared/modal/liquidation" %>
+  <% end %>
+  
+
+  <section id="greetings">
+    
     <% if @friends && @friends.any? %>
       <div id="mask_carousel_facebook">
         <%= link_to "Anterior", "javascript:void(0);", :class => "carousel-prev-fb" %>
@@ -306,4 +262,21 @@
     <%#= fim "shared/social/share", :user => user %>
   </div-->
   <%#= render "shared/invite", :user => current_user %>
+<% end %>
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "sections/lite_showroom" %>
+  <% if @user.first_visit_for_member? %>
+    <%= javascript_include_tag "first_visit" %>
+    <%= render "shared/metrics/google/track_signup_page_view" %>
+    <%= render "shared/metrics/metaffiliation/action", :email => current_user.email %>
+    <%= render "shared/metrics/adlead/adlead" %>
+  <% elsif @is_retake %>
+    <script type="text/javascript">
+    setTimeout(function() {
+      initBase.showProfileLightbox();
+    }, 2000);
+    </script>
+  <% end %>
+
 <% end %>
