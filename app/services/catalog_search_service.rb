@@ -154,6 +154,7 @@ class CatalogSearchService
 
   def add_price_range_to_query_base
     gt, lt = @params[:price].split('-')
-    @query_base = query_base.and(@l_products[:retail_price].gt(gt)).and(@l_products[:retail_price].lt(lt))
+    @query_base = query_base.and(@l_products[:retail_price].gt(gt)) unless gt == "*"
+    @query_base = query_base.and(@l_products[:retail_price].lt(lt)) unless lt == "*"
   end
 end
