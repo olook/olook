@@ -104,7 +104,7 @@ class MembersController < ApplicationController
     @bags = @recommended.products( category: Category::BAG, collection: @collection)
     @accessories = @recommended.products( category: Category::ACCESSORY, collection: @collection)
 
-    render layout: 'lite_application'
+    render layout: 'site'
   end
 
   def earn_credits
