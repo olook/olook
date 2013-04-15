@@ -193,5 +193,21 @@ describe CatalogSearchService do
         products.should_not include(cp3)
       end
     end
+
+    context "by active collection" do
+      before do
+        collection = FactoryGirl.create(:collection, :active)
+        inative_collection = FactoryGirl.create(:collection, :inactive)
+        basic_bag.update_attributes(collection: inative_collection)
+        @active_product = CatalogProductService.new(catalog, basic_shoe).save!.first
+        @inactive_product = CatalogProductService.new(catalog, basic_bag.reload).save!
+        params = {:id => catalog.id, news: true}
+        @products = CatalogSearchService.new(params).search_products
+      end
+
+      it { expect(@products).to include(@active_product) }
+      it { expect(@products).to_not include(@inactive_product) }
+
+    end
   end
 end
