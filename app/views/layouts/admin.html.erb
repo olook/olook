@@ -41,6 +41,7 @@
                 <li><%= access_link("Braspag Authorize Responses") %></li>
                 <li><%= access_link("Braspag Capture Responses") %></li>
                 <li><%= access_link("Payments") %></li>
+                <li><%= link_to I18n.t("admin.billet.santander"), admin_new_billet_batch_path %></li>
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /collections|moments|products/ %>">

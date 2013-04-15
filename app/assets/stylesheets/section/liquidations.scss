@@ -4,8 +4,10 @@ div.full_container {
   #background: #d2d1d6 image-url('liquidations/bg-top.jpg') bottom repeat-x;
   height: 320px;
   overflow: hidden !important;
+  margin: 13px 0 10px 0 !important;
 
   div.content {
+    padding-top: 0 !important;
     position: relative;
     div.description {
       position: relative;
@@ -303,6 +305,7 @@ div#liquidation {
                   width: 119px;
                   height: 34px;
                   margin-right: 10px;
+                  margin-top: 10px;
                   top: 0;
                   left: 10px;
                 }
@@ -339,10 +342,13 @@ div#liquidation {
             text-transform: downcase;
           }
           .old, .txt-pink {
-            display: block;
+            display: inline !important;
           }
         }
         .line {
+          span {
+            font-size: 12px;
+          }
           a.product_link {
             margin-left: 0;
           }
@@ -352,6 +358,12 @@ div#liquidation {
         }
         .warn.sold_out, .warn.shoe_size, .warn.quantity {
           display: none;
+        }
+        p.warn {
+          &.percentage {
+            top: 65px !important;
+            left: 105px !important;
+          }
         }
       }
     }
