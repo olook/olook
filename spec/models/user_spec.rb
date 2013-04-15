@@ -815,4 +815,31 @@ describe User do
       end
     end
   end
+
+  describe '#valid_password?' do
+    subject { FactoryGirl.build(:user, @attrs).valid_password?(@password) }
+    context 'when user has_fraud' do
+      before do
+        @attrs = { has_fraud: true, password: 'asdfasdf', password_confirmation: 'asdfasdf' }
+        @password = 'asdfasdf'
+      end
+      it { should be_false }
+      it 'should call Rails.logger.info with block info' do
+        Rails.logger.should_receive(:info)
+        subject
+      end
+    end
+
+    context 'when user has not fraud' do
+      before do
+        @attrs = { has_fraud: false, password: 'asdfasdf', password_confirmation: 'asdfasdf' }
+        @password = 'asdfasdf'
+      end
+      it { should be_true }
+      it 'should not call Rails.logger.info with block info' do
+        Rails.logger.should_not_receive(:info)
+        subject
+      end
+    end
+  end
 end

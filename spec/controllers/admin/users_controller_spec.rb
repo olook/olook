@@ -111,18 +111,18 @@ describe Admin::UsersController do
   end
 
   describe 'GET lock_access' do
-    it 'should lock user access' do
+    it 'should set has_fraud to true' do
       get :lock_access, :id => user.id
       user.reload
-      user.locked_at.should_not be_nil
+      user.has_fraud.should be_true
     end
   end
 
   describe 'GET unlock_access' do
-    it 'should unlock user access' do
+    it 'should set has_fraud to false' do
       get :lock_access, :id => user.id.to_s
       get :unlock_access, :id => user.id.to_s
-      user.locked_at.should be_nil
+      user.has_fraud.should be_false
     end
   end
 
