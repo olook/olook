@@ -36,6 +36,35 @@ class FacebookDataService
     save_file(format_to_csv(birthdays), "#{users.first.id}-#{users.last.id}.csv") unless birthdays.empty?
   end
 
+  # Retrieves all facebook friends' birthdays of the given users
+  def user_with_friends_birthdays users, date = DateTime.now
+    birthdays = []
+    users.each do |user|
+      # puts "processing #{user.name}"
+      adapter = FacebookAdapter.new(user.facebook_token)
+      friends = adapter.facebook_friends_with_birthday(date.month)
+      user_hash = {}
+      user_hash["email"] = user.email
+      user_hash["first_name"] = user.first_name
+      friend_data = []
+      friends.each do |friend|
+        birthday_arr = friend.birthday.split("/")
+        friend.birthday = "#{birthday_arr[1]}/#{birthday_arr[0]}"
+        friend_hash = JSON.parse(friend.to_json)["table"]
+        friend_hash["picture"] = "https://graph.facebook.com/#{friend_hash['uid']}/picture"
+
+        # first_name|picture|birthday
+        friend_data.push("#{friend_hash['first_name']}|#{friend_hash['picture']}|#{friend_hash['birthday']}")
+      end
+      user_hash["friend_data"] = friend_data.join("#")
+      birthdays.push user_hash
+      puts "(#{user.id}) #{user.name} => success! #{friends.size} friends!"
+    end
+
+    puts "Saving file - #{users.first.id}-#{users.last.id}.csv"
+    save_file(format_to_csv(birthdays), "#{users.first.id}-#{users.last.id}.csv") unless birthdays.empty?
+  end
+
   def format_to_csv hashes
     fields = hashes.first.keys
 
