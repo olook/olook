@@ -8,6 +8,7 @@
         <li><%= link_to "Acompanhe por RSS", "http://blog.olook.com.br/feed/", title: "Acompanhe por RSS", target: "_blank", class: "social_rss" %></li>
         <li><%= link_to "Acompanhe pelo Instagram", "http://instagram.com/olook", title: "Acompanhe pelo Instagram", target: "_blank", class:"social_instagram" %></li>
       </ul>
+      <p><%= link_to "Convide amigas e ganhe créditos", member_invite_path, class:"invite" %></p>
     </div>
      <div class="box_right">
       <% if user_signed_in? %> 
