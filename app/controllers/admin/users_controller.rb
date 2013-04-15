@@ -60,15 +60,15 @@ class Admin::UsersController < Admin::BaseController
 
   def lock_access
     @user = User.find(params[:id])
-    @user.lock_access!
+    @user.has_fraud = true
+    @user.save
     redirect_to :action => :show
   end
 
   def unlock_access
     @user = User.find(params[:id])
-    if @user.access_locked?
-      @user.unlock_access!
-    end
+    @user.has_fraud = false
+    @user.save
     redirect_to :action => :show
   end
 
