@@ -148,6 +148,7 @@ class ApplicationController < ActionController::Base
     def prepare_for_home
       @top5 = Product.fetch_products :top5
       @stylist = Product.fetch_products :selection
+      @concept = Product.fetch_products :concept
 
       if params[:share]
         @user = User.find(params[:uid])
