@@ -70,6 +70,11 @@ Olook::Application.routes.draw do
   match '/oculos', to: "moments#glasses", as: "glasses", :defaults => {:category_id => Category::ACCESSORY, :accessory_subcategories=>["oculos-de-sol"], :id => 1}
   match '/roupas', to: "moments#clothes", as: "clothes", :defaults => {:category_id => Category::CLOTH, :id => 1}
 
+  # Novidades
+  match '/novidades/sapatos', to: "moments#show", as: "news_shoes", :defaults => {:category_id => Category::SHOE, :id => 1, news: true }
+  match '/novidades/roupas', to: "moments#show", as: "news_clothes", :defaults => {:category_id => Category::CLOTH, :id => 1, news: true }
+  match '/novidades/bolsas', to: "moments#show", as: "news_bags", :defaults => {:category_id => Category::BAG, :id => 1, news: true }
+  match '/novidades/accessorios', to: "moments#show", as: "news_accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1, news: true }
 
   #FRIENDS
   match "/membro/:share/:uid", :to => "home#index"

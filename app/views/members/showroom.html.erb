@@ -144,6 +144,7 @@
           <%- @cloth.shift(5).each do |product| %>
             <%= render 'shared/product_item', product: product %>
           <%- end -%>
+          <li><%= link_to "VEJA MAIS ROUPAS", news_clothes_path %></li>
         </ul>
 
         <div class="products_list almost">
@@ -164,6 +165,7 @@
           <%- @shoes.each do |product| -%>
             <%= render 'shared/product_item', product: product %>
           <%- end -%>
+          <li><%= link_to "VEJA MAIS SAPATOS", news_shoes_path %></li>
         </ul>
 
         <div class="products_list almost">
@@ -185,6 +187,7 @@
           <%- @bags.each do |product| -%>
             <%= render 'shared/product_item', product: product %>
           <%- end -%>
+          <li><%= link_to "VEJA MAIS BOLSAS", news_bags_path %></li>
         </ul>
 
         <div class="products_list almost">
@@ -205,6 +208,7 @@
         <ul>
           <%- @accessories.each do |product| -%>
             <%= render 'shared/product_item', product: product %>
+            <li><%= link_to "VEJA MAIS ACCESSÓRIOS", news_accessories_path %></li>
           <%- end -%>
         </ul>
           <div class="products_list almost">
