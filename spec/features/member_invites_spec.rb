@@ -91,7 +91,7 @@ feature "Member can send invites", %q{
         build_survey
         inviting_member = FactoryGirl.create(:member)
         visit accept_invitation_path(:invite_token => inviting_member.invite_token)
-        current_path.should == root_path
+        current_path.should == new_survey_path
       end
     end
   end
