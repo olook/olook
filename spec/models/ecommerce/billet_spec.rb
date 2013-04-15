@@ -3,10 +3,7 @@ require "spec_helper"
 
 describe Billet do
 
-  let(:order) { Timecop.freeze(Date.civil(2012, 01, 17)) do
-      FactoryGirl.create(:order)
-    end 
-  }
+  let(:order) { FactoryGirl.create(:order) }
   subject { FactoryGirl.create(:billet, :order => order) }
 
   it "should return to_s version" do
@@ -84,10 +81,8 @@ describe Billet do
 
   context "payment expiration date" do
     it "should set payment expiration date after create" do
-      Timecop.freeze(Date.civil(2012, 01, 17)) do
-        BilletExpirationDate.stub(:expiration_for_two_business_day).and_return(current_date = Time.zone.now.to_date)
-        subject.payment_expiration_date.to_date.should == BilletExpirationDate.expiration_for_two_business_day
-      end
+      BilletExpirationDate.stub!(:expiration_for_two_business_day).and_return(Time.zone.local(2012, 2, 17))
+      expect(I18n.l(subject.payment_expiration_date, format: '%Y-%m-%d')).to eq '2012-02-17'
     end
   end
 

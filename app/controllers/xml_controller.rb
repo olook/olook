@@ -16,6 +16,11 @@ class XmlController < ApplicationController
     respond_with(@products)
   end
 
+  def groovinads
+    @products = Product.valid_criteo_for_xml(Product.xml_blacklist("products_blacklist"), Product.xml_blacklist("collections_blacklist"))
+    respond_with(@products)
+  end
+
   def mt_performance
     respond_with(@products)
   end
