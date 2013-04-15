@@ -46,6 +46,7 @@ class FacebookDataService
       user_hash = {}
       user_hash["email"] = user.email
       user_hash["first_name"] = user.first_name
+      user_hash["auth_token"] = user.authentication_token
       friend_data = []
       friends.each do |friend|
         birthday_arr = friend.birthday.split("/")
