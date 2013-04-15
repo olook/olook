@@ -38,7 +38,7 @@ class CatalogSearchService
     return @query if @query
     add_categories_filter_to_query_base
 
-    add_price_range_to_query_base
+    add_price_range_to_query_base if @params[:price]
 
     @query = prepare_query_joins
 
@@ -153,12 +153,7 @@ class CatalogSearchService
   end
 
   def add_price_range_to_query_base
-    if query
-      if @params[:lowest_price]
-        # query.and("IF ifnull(catalog_products.retail_price, 0.00) = 0.00 THEN catalog_products.retail_price >= ")
-      end
-      if @params[:highest_price]
-      end
-    end    
+    gt, lt = @params[:price].split('-')
+    @query_base = query_base.and(@l_products[:retail_price].gt(gt)).and(@l_products[:retail_price].lt(lt))
   end
 end
