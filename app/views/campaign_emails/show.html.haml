@@ -1,6 +1,5 @@
 - content_for :footer do
-  :javascript
-    = track_event('Modal', 'SuccessPage', @campaign_email.id, no_interactive: true)
+    #{track_event('Modal', 'SuccessPage', @campaign_email.id, no_interactive: true)}
 
 .box-remember.success
   %div.msg
