@@ -23,6 +23,7 @@ class Checkout::BilletsController < ApplicationController
         boleto_santander.data_vencimento       = 2.business_days.after(payment.created_at).to_date
         boleto_santander.valor_documento       = payment.total_paid
       end
+      payment.deliver
     else
       render :status => :not_found
     end
