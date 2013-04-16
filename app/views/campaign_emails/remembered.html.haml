@@ -1,6 +1,6 @@
 - content_for :footer do
   :javascript
-    = track_event('Modal', 'RememberedPage', @campaign_email.id, no_interactive: true)
+    #{track_event('Modal', 'RememberedPage', @campaign_email.id, no_interactive: true)}
 
 .box-continue
   %h3 Lembramos de você!
