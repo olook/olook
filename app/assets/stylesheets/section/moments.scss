@@ -7,6 +7,8 @@ div#moments {
   padding: 20px 0 0;
   overflow-y: auto;
   overflow-x: hidden;
+  min-height: 1140px;
+  height: auto;
 
   nav {
     background: image-url('cart/bg-order-status.jpg') top left repeat-x;
