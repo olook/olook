@@ -1,7 +1,7 @@
 <div class="filter main care_shoes_models">
-  <p class="filter_type opened">Acessórios<%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
+  <p class="filter_type">Acessórios<%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
   <button type="button" class="clear_filter bt_clear_model">[ limpar ]</button>
-  <ol class="open">
+  <ol>
     <% collection_theme_presenter.collection_theme.catalog.care_shoes.each do |subcategory,label| %>
       <% unless subcategory.nil? && label.nil? %>
         <li>
