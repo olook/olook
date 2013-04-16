@@ -17,6 +17,8 @@ class FacebookDataService
   def friends_birthdays users, date = DateTime.now
     birthdays = []
     users.each do |user|
+      next unless user.facebook_permissions.include?("friends_birthday")
+
       # puts "processing #{user.name}"
       adapter = FacebookAdapter.new(user.facebook_token)
       friends = adapter.facebook_friends_with_birthday(date.month)
@@ -58,7 +60,7 @@ class FacebookDataService
         friend_data.push("#{friend_hash['first_name']}|#{friend_hash['picture']}|#{friend_hash['birthday']}")
       end
       user_hash["friend_data"] = friend_data.join("#")
-      birthdays.push user_hash
+      birthdays.push user_hash unless friend_data.empty?
       puts "(#{user.id}) #{user.name} => success! #{friends.size} friends!"
     end
 
