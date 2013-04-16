@@ -9,7 +9,9 @@
     _gaq.push(['_setCustomVar',4,'Purchases','<%= current_user.orders.purchased.size %>',1]);
     _gaq.push(['_setCustomVar',5,'Facebook','<%= !current_user.facebook_token.blank? ? "FB" : "NOFB" %>',1]);
   <% end %>
-  _gaq.push(['_trackPageview']);
+  <%- if !defined?(track_page_view) || track_page_view -%>
+    _gaq.push(['_trackPageview']);
+  <%- end -%>
 </script>
   <%= yield :ecommerce_tracking %>
 <script type="text/javascript">
