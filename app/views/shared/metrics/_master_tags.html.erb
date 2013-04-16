@@ -84,3 +84,7 @@ var google_remarketing_only = true;
 <!-- ALL IN BTG -->
 <%= render 'shared/metrics/all_in/master_tag' %>
 
+<% if user_signed_in? %>
+  <%= render partial: "shared/metrics/all_in/user", :locals => { user: current_user } %>
+<% end %>
+
