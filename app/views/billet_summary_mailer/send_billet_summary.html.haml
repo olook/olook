@@ -8,6 +8,7 @@
       %tr
         %th id do pagamento
         %th mensagem
+        %th pagamento
       - @billet_hash[:successful].each_with_index do |billet, i|
         %tr.success{"style" => "background:#{ i.even? ? '#BFB' : '#DFD'};"}
           %td= billet[:id]
@@ -19,6 +20,7 @@
       %tr
         %th id do pagamento
         %th mensagem
+        %th pagamento
       - @billet_hash[:unsuccessful].each_with_index do |billet, i|
         %tr.fail{"style" => "background:#{ i.even? ? '#FBB' : '#FDD'};"}
           %td= billet[:id]
