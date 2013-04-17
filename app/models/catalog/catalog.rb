@@ -7,7 +7,7 @@ class Catalog::Catalog < ActiveRecord::Base
 
   validates :type, :presence => true, :exclusion => ["Catalog::Catalog"]
 
-  CARE_PRODUCTS = ['Amaciante', 'Apoio plantar', 'Impermeabilizante', 'palmilha', 'Proteção para calcanhar']
+  CARE_PRODUCTS = ['Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar']
 
   def in_category(category_id)
     @liquidation = LiquidationService.active
