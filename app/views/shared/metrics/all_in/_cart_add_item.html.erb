@@ -1,0 +1,12 @@
+<script src="//i.btg360.com.br/bs.js" type="text/javascript"></script>
+<script type="text/javascript">
+    try{
+        __bsd["id"]="8:1";
+        bs.setaPagina('<%= "#{ params[:controller] } #{ params[:action] }"%>');
+        <% cart.items.each do |item| %>
+          bs.addProdutoCarrinho("<%= item.id %>","<%= item.name %>","<%= item.retail_price %>", "<%= item.price - item.retail_price %>", "<%= item.quantity %>","","<%= item.product.category_humanize %>", "<%= item.product.subcategory %>", "", "", "<%= item.product.brand %>");
+        <% end %>
+    }catch(e){
+    }
+</script>
+
