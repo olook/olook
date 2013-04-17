@@ -45,6 +45,14 @@ class User < ActiveRecord::Base
   Gender = {:female => 0, :male => 1}
   RegisteredVia = {:quiz => 0, :gift => 1, :thin => 2}
 
+  def valid_password?(password)
+    if has_fraud?
+      Rails.logger.info("User ##{id}[#{email}] access was blocked because it has fraud!")
+      return false
+    end
+    super
+  end
+
   def name
     "#{first_name} #{last_name}".strip
   end

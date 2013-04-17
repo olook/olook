@@ -51,6 +51,7 @@ Setting.defaults[:recommended_products] = "11101"
 Setting.defaults[:default_item_quantity] = 10
 Setting.defaults[:home_top5] = "5044,5017,10022,4350,9406"
 Setting.defaults[:home_selection] = "5044,5017,10022,4350,9406"
+Setting.defaults[:home_concept] = "15930,8203,15894,16092,16098"
 
 #Showroom Settings
 Setting.defaults[:showroom_active_fb_like_buttons] = false
