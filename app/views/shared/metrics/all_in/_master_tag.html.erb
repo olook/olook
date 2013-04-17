@@ -3,6 +3,8 @@
     try{
         __bsd["id"]="8:1";
         bs.setaPagina('<%= "#{ params[:controller] } #{ params[:action] }"%>');
+        __bsd['utms'] = new Object();
+        __bsd['utms']["utm_source"] = "<%= request.referer %>";
     }catch(e){
     }
 </script>
