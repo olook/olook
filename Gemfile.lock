@@ -19,10 +19,11 @@ GIT
 
 GIT
   remote: git@github.com:olook/boleto_bancario.git
-  revision: c210cecbe2834ab0e2834f76c1690d773e5a423d
+  revision: ba8f64ecb541bdd398e4377d52f71ca75a0f5905
+  ref: ba8f64ecb541bdd398e4377d52f71ca75a0f5905
   branch: homologacao_santander
   specs:
-    boleto_bancario (0.0.1.beta)
+    boleto_bancario (0.0.2.beta)
       actionpack (~> 3.2)
       activemodel (~> 3.2)
       activesupport (~> 3.2)
@@ -221,7 +222,7 @@ GEM
       railties (>= 3.1, < 4.1)
     hashie (1.2.0)
     highline (1.6.15)
-    hike (1.2.1)
+    hike (1.2.2)
     hpricot (0.8.6)
     httparty (0.8.3)
       multi_json (~> 1.0)
@@ -314,7 +315,7 @@ GEM
       slop (~> 3.3.1)
     pry-nav (0.2.3)
       pry (~> 0.9.10)
-    rack (1.4.4)
+    rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-mini-profiler (0.1.23)
@@ -441,7 +442,7 @@ GEM
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
     thor (0.14.6)
-    tilt (1.3.3)
+    tilt (1.3.7)
     timecop (0.5.9.2)
     treetop (1.4.12)
       polyglot
