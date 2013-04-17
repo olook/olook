@@ -3,8 +3,13 @@
     try{
         __bsd["id"]="8:1";
         bs.setaPagina('<%= "#{ params[:controller] } #{ params[:action] }"%>');
-        __bsd['utms'] = new Object();
-        __bsd['utms']["utm_source"] = "<%= request.referer %>";
+          <% if request.url =~ /utm_source/ %>
+              __bsd['utms'] = new Object();
+              __bsd['utms']["utm_source"] = "olook";
+              __bsd['utms']["utm_medium"] = "email";
+              __bsd['utms']["utm_campaign"] = "<%= request.url.match(/utm_campaign=([^&]*)/) %>";
+              __bsd['utms']["utm_content"] = "<%= request.url.match(/utm_content=([^&]*)/) %>";
+          <% end %>
     }catch(e){
     }
 </script>
