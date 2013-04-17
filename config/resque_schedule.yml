@@ -111,3 +111,25 @@ userbase_with_source_exacttarget:
     - true
     - exact_target.yml
   description: "Cria e envia arquivo com base de usuários para ftp do exact target"
+
+facebook_friends_birthday_middle_exacttarget:
+  cron: "0 5 * * 14"
+  class: MarketingUploaderWorker
+  queue: marketing_uploader
+  args:
+    - facebook_friends_middle_of_the_month
+    - facebook_friends-%Y-%m-%d.csv
+    - true
+    - exact_target.yml
+  description: "Cria e envia arquivo com base de usuários e amigas aniversariantes para ftp do exact target"
+
+facebook_friends_birthday_middle_exacttarget:
+  cron: "0 5 * * 27"
+  class: MarketingUploaderWorker
+  queue: marketing_uploader
+  args:
+    - facebook_friends_end_of_the_month
+    - facebook_friends-%Y-%m-%d.csv
+    - true
+    - exact_target.yml
+  description: "Cria e envia arquivo com base de usuários e amigas aniversariantes para ftp do exact target"
