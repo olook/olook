@@ -1,16 +1,8 @@
 # -*- encoding : utf-8 -*-
 class FacebookDataService
   def self.facebook_users
-    User.where("facebook_token IS NOT NULL")
+    User.where("facebook_token IS NOT NULL AND facebook_permissions LIKE '%birthday%'")
   end
-
-  def generate_csv(month, middle_of_the_month = false)
-    response_array = [["email","first_name","auth_token","friend_data"]]
-    FacebookDataService.facebook_users.each{|user| response_array << format_user_data(user, month, middle_of_the_month) }
-    response_array.compact
-  end
-
-  private  
 
   def format_user_data(user, month, middle_of_the_month)
     adapter = FacebookAdapter.new(user.facebook_token)
@@ -23,6 +15,8 @@ class FacebookDataService
     user_hash["friend_data"] = friend_data.empty? ? "" : friend_data.join("#")
     friend_data.empty? ? nil : [user_hash['email'],user_hash['first_name'],user_hash['auth_token'],user_hash['friend_data']] 
   end
+
+  private  
 
   def format_fb_friend_data(friend, middle_of_the_month)
     birthday_arr = friend.birthday.split("/")

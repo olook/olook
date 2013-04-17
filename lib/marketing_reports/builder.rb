@@ -95,16 +95,12 @@ group by uc.user_id, ct.code
     end
 
     def generate_facebook_friends_end_of_the_month
-      @csv = CSV.generate do |csv|
-        @csv = FacebookDataService.new.generate_csv(DateTime.now.month + 1)
-      end
+      gather_facebook_friends(DateTime.now.month+1, false)
     end
 
     def generate_facebook_friends_middle_of_the_month
-      @csv = CSV.generate do |csv|
-        @csv = FacebookDataService.new.generate_csv(DateTime.now.month, true)
-      end      
-    end    
+      gather_facebook_friends(DateTime.now.month, true)
+    end 
 
     def generate_userbase_with_auth_token_and_credits
       bounces = bounced_list
@@ -211,6 +207,16 @@ group by uc.user_id, ct.code
     end    
 
     private
+
+    def gather_facebook_friends(month, middle_of_the_month) 
+      @csv = CSV.generate do |csv|
+        csv << %w{ email first_name auth_token friend_data }
+        FacebookDataService.facebook_users.each do |user|
+          user_hash = FacebookDataService.new.format_user_data(user, month, middle_of_the_month) 
+          csv << user_hash unless user_hash.blank?
+        end
+      end      
+    end
 
     def convert_to_iso(file_lines=[])
       file_lines.map do | line |
