@@ -12,6 +12,7 @@
         %tr.success{"style" => "background:#{ i.even? ? '#BFB' : '#DFD'};"}
           %td= billet[:id]
           %td= billet[:message]
+          %td= billet[:order_number]
     %br
     %h1 Falhas
     %table
@@ -21,4 +22,5 @@
       - @billet_hash[:unsuccessful].each_with_index do |billet, i|
         %tr.fail{"style" => "background:#{ i.even? ? '#FBB' : '#FDD'};"}
           %td= billet[:id]
-          %td= billet[:message]            
+          %td= billet[:message]
+          %td= billet[:order_number]
