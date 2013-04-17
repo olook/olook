@@ -1,8 +1,8 @@
-send_orders_alert:
-  cron: "35 * * * *"
-  class: SendOrderAlertWorker
-  queue: order_status_alert
-  description: "Envia email avisando pedidos que precisam ser analizados com mais atencao"
+# send_orders_alert:
+#   cron: "35 * * * *"
+#   class: SendOrderAlertWorker
+#   queue: order_status_alert
+#   description: "Envia email avisando pedidos que precisam ser analizados com mais atencao"
 
 update_inventory:
   cron: "*/5 * * * *"
@@ -16,98 +16,98 @@ update_order_status:
   queue: order_status
   description: "Atualiza o status dos Pedidos"
 
-update_status:
-  cron: "*/15 * * * *"
-  class: ProcessPaymentCallbacksWorker
-  queue: order_status
-  description: "Processa callbacks de Pagamento Moip"
+# update_status:
+#   cron: "*/15 * * * *"
+#   class: ProcessPaymentCallbacksWorker
+#   queue: order_status
+#   description: "Processa callbacks de Pagamento Moip"
 
-update_braspag_responses:
-  cron: "*/15 * * * *"
-  class: ProcessBraspagResponsesWorker
-  queue: payments
-  description: "Processa respostas de pagamento Braspag"
+# update_braspag_responses:
+#   cron: "*/15 * * * *"
+#   class: ProcessBraspagResponsesWorker
+#   queue: payments
+#   description: "Processa respostas de pagamento Braspag"
 
-userbase_with_auth_token_and_credits:
-  cron: "0 2 * * *"
-  class: MarketingUploaderWorker
-  queue: marketing_uploader
-  args:
-    - userbase_with_auth_token_and_credits
-    - basegeral_atualizada13.csv
-    - false
-  description: "Cria arquivo de importação para allinemail"
+# userbase_with_auth_token_and_credits:
+#   cron: "0 2 * * *"
+#   class: MarketingUploaderWorker
+#   queue: marketing_uploader
+#   args:
+#     - userbase_with_auth_token_and_credits
+#     - basegeral_atualizada13.csv
+#     - false
+#   description: "Cria arquivo de importação para allinemail"
 
-campaign_emails:
-  cron: "0 2 * * *"
-  class: MarketingUploaderWorker
-  queue: marketing_uploader
-  args:
-    - campaign_emails
-    - base_atualizada_emails_promocoes.csv
-    - true
-  description: "Cria arquivo de importação de emails do lightbox para allinemail"
+# campaign_emails:
+#   cron: "0 2 * * *"
+#   class: MarketingUploaderWorker
+#   queue: marketing_uploader
+#   args:
+#     - campaign_emails
+#     - base_atualizada_emails_promocoes.csv
+#     - true
+#   description: "Cria arquivo de importação de emails do lightbox para allinemail"
 
-send_billet_reminder:
-  cron: "0 5 * * 1-5"
-  class: SendBilletReminderWorker
-  queue: send_billet_reminder
-  description: "Dispara emails de aviso p/ vencimento do boleto"
+# send_billet_reminder:
+#   cron: "0 5 * * 1-5"
+#   class: SendBilletReminderWorker
+#   queue: send_billet_reminder
+#   description: "Dispara emails de aviso p/ vencimento do boleto"
 
-send_enabled_credits_notification:
-  cron: "0 5 1 * *"
-  class: SendEnabledCreditsNotificationWorker
-  queue: notification_sender
-  description: "Dispara emails avisando que os créditos de fidelidade estão disponíveis"
+# send_enabled_credits_notification:
+#   cron: "0 5 1 * *"
+#   class: SendEnabledCreditsNotificationWorker
+#   queue: notification_sender
+#   description: "Dispara emails avisando que os créditos de fidelidade estão disponíveis"
 
-send_seven_days_to_expiration_warning:
-  cron: "40 4 23 * *"
-  class: SendExpirationWarningWorker
-  queue: notification_sender
-  description: "Dispara emails avisando que os créditos de fidelidade irão expirar"
+# send_seven_days_to_expiration_warning:
+#   cron: "40 4 23 * *"
+#   class: SendExpirationWarningWorker
+#   queue: notification_sender
+#   description: "Dispara emails avisando que os créditos de fidelidade irão expirar"
 
-send_one_day_to_expiration_warning:
-  cron: "15 3 27 * *"
-  class: SendExpirationTomorrowWarningWorker
-  queue: notification_sender
-  description: "Dispara emails avisando que os créditos de fidelidade irão expirar amanhã"
+# send_one_day_to_expiration_warning:
+#   cron: "15 3 27 * *"
+#   class: SendExpirationTomorrowWarningWorker
+#   queue: notification_sender
+#   description: "Dispara emails avisando que os créditos de fidelidade irão expirar amanhã"
 
-in_cart_mail:
-  cron: "0 10 * * *"
-  class: MarketingUploaderWorker
-  queue: marketing_uploader
-  args:
-    - in_cart_mail
-    - abandono-%Y-%m-%d.csv
-    - true
-    - exact_target.yml
-  description: "Cria e envia arquivo com carrinhos abandonados para ftp do exact target"
+# in_cart_mail:
+#   cron: "0 10 * * *"
+#   class: MarketingUploaderWorker
+#   queue: marketing_uploader
+#   args:
+#     - in_cart_mail
+#     - abandono-%Y-%m-%d.csv
+#     - true
+#     - exact_target.yml
+#   description: "Cria e envia arquivo com carrinhos abandonados para ftp do exact target"
 
-force_clearsale_callback:
-  cron: "*/5 * * * *"
-  class: Clearsale::CallbackWorker
-  queue: payments
-  description: "Verifica se o status da avaliação da Clearsale mudou para uma determinada compra (order)"
+# force_clearsale_callback:
+#   cron: "*/5 * * * *"
+#   class: Clearsale::CallbackWorker
+#   queue: payments
+#   description: "Verifica se o status da avaliação da Clearsale mudou para uma determinada compra (order)"
 
-add_expire_carts_worker:
-  cron: "0 0 * * 1"
-  class: ExpireCartsWorker
-  queue: low_priority
-  description: "Expira os Carts sem items com mais de 7 dias toda segunda"
+# add_expire_carts_worker:
+#   cron: "0 0 * * 1"
+#   class: ExpireCartsWorker
+#   queue: low_priority
+#   description: "Expira os Carts sem items com mais de 7 dias toda segunda"
 
-update_topster_xml:
-  cron: "30 3 * * *"
-  class: TopsterXmlWorker
-  queue: topster_xml
-  description: "Atualiza o xml da topster"
+# update_topster_xml:
+#   cron: "30 3 * * *"
+#   class: TopsterXmlWorker
+#   queue: topster_xml
+#   description: "Atualiza o xml da topster"
 
-userbase_with_source_exacttarget:
-  cron: "0 5 * * *"
-  class: MarketingUploaderWorker
-  queue: marketing_uploader
-  args:
-    - userbase_with_source
-    - userbase-with-source-%Y-%m-%d.csv
-    - true
-    - exact_target.yml
-  description: "Cria e envia arquivo com base de usuários para ftp do exact target"
+# userbase_with_source_exacttarget:
+#   cron: "0 5 * * *"
+#   class: MarketingUploaderWorker
+#   queue: marketing_uploader
+#   args:
+#     - userbase_with_source
+#     - userbase-with-source-%Y-%m-%d.csv
+#     - true
+#     - exact_target.yml
+#   description: "Cria e envia arquivo com base de usuários para ftp do exact target"
