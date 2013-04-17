@@ -1,0 +1,12 @@
+<script src="//i.btg360.com.br/bs.js" type="text/javascript"></script>
+<script type="text/javascript">
+    try{
+        __bsd["id"]="8:1";
+        bs.setaPagina('<%= "#{ params[:controller] } #{ params[:action] }"%>');
+        <% order.payments.each do |payment| %>
+          bs.finalizaCompra("<%= order.amount_paid %>","<%= order.freight_price %>","4","<%= payment.type %>","<%= payment.bank %>","","","","","","","");
+        <% end %>
+    }catch(e){
+    }
+</script>
+
