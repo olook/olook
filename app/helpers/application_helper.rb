@@ -17,6 +17,7 @@ module ApplicationHelper
       subs = item.split("#")
       category = subs[2]
       return 'selected' if (subs[0] == params[:controller]) && (subs[1] == params[:action]) && (category==nil || category.to_i==params[:category_id])
+      return nil
     end
   end
 
