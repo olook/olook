@@ -15,7 +15,7 @@ $.each(new_products, function(index, product){
 });
 
 <% if @liquidation_products.any? %>
-  $('#products').append('<%= j render "products", :liquidation_products => @liquidation_products %>');
+  $('#products').append('<%= j(@liquidation_products.map { |lp| render("shared/product_item", :product => lp.product) }.join).html_safe %>');
 <% else %>
   $("#products").html("Nenhum produto encontrado");
 <% end %>
