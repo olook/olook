@@ -2,16 +2,16 @@
   <h1>Veja os destaques da semana</h1>
   <ul>
     <li id="about">
-      <%= link_to ('/stylist-news/amo-spike/'), class: "open_making_of", onclick: track_event('Destaques','BannerEsquerda') do %>
-        <%= image_tag "home/amo_spike.jpg", title: "AMO: SPIKE" %>
+      <%= link_to ('/stylist-news/editorial-padronagem-2/'), class: "open_making_of", onclick: track_event('Destaques','BannerEsquerda') do %>
+        <%= image_tag "home/destaque_padronagem.jpg", title: "EDITORIAL PADRONAGEM" %>
       <% end %>
       <div class="video_description">
         <h1>Conheça mais sobre a olook</h1>
         <%= link_to "Gostou? Descubra o seu estilo e veja a coleção completa", new_survey_path, :class => "home" %>
       </div>
-      <h1><%= link_to "AMO: SPIKE", ('/stylist-news/amo-spike/'), onclick: track_event('Destaques','BannerEsquerda') %></h1>
-      <p>Let's rock! Abuse desta tendência</p>
-      <%= link_to "Veja mais aqui", ('/stylist-news/amo-spike/'), class: "more", onclick: track_event('Destaques','BannerEsquerda') %>
+      <h1><%= link_to "PADRONAGEM", ('/stylist-news/editorial-padronagem-2/'), onclick: track_event('Destaques','BannerEsquerda') %></h1>
+      <p>Confira o editorial e estampe seu look</p>
+      <%= link_to "Veja mais aqui", ('/stylist-news/editorial-padronagem-2/'), class: "more", onclick: track_event('Destaques','BannerEsquerda') %>
     </li>
     <li id="shoes">
       <%= link_to product_path(15769), onclick: track_event('Destaques','BannerCentro') do %>
