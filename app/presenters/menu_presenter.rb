@@ -2,7 +2,8 @@
 class MenuPresenter < BasePresenter
 
   def render_item label, path, css_klass, hightlight_when
-   h.content_tag(:li, h.link_to(label, path, :class => h.selected_if_current(hightlight_when))+(css_klass == "stylist" ? h.image_tag("home/only_balaozinho.png") : ""),:class => css_klass)
+   #+(css_klass == "stylist" ? h.image_tag("home/only_balaozinho.png") : "")
+   h.content_tag(:li, h.link_to(label, path, :class => h.selected_if_current(hightlight_when)),:class => css_klass)
   end
 
   def render_item_with_label label, path, css_klass, hightlight_when
