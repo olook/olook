@@ -13,7 +13,9 @@
     <% end %>
 
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag  "lite_application" %>
+    
+    <%= stylesheet_link_tag  "new_structure/lite_application" %>
+    
     <%- unless @hide_fb_page_id -%>
       <meta property="fb:page_id" content="157293541026960" />
     <%- end -%>
@@ -110,14 +112,18 @@
     
        <%= render(:partial => "shared/footer") %>
        <%#= javascript_include_tag "jquery" %>
+       
        <%= javascript_include_tag "lite_application" %>
+       
        <% unless user_signed_in? %>
          <%#= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal && !['landing_pages','survey', 'users/registrations'].include?(params[:controller]) %>
        <% end %>
     
+       <!-- Modals --> 
        <div id="modal" class="promo-olook"></div>
        <div id="overlay-campaign">&nbsp;</div>
        <div id="modal-campaign">&nbsp;</div>
+       <!-- End Modals --> 
     
        <% if content_for? :footer %>
          <%= yield :footer %>
