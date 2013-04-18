@@ -208,14 +208,8 @@ group by uc.user_id, ct.code
 
     private
 
-    def gather_facebook_friends(month, middle_of_the_month) 
-      @csv = CSV.generate do |csv|
-        csv << %w{ email first_name auth_token friend_data }
-        FacebookDataService.facebook_users.each do |user|
-          user_hash = FacebookDataService.new.format_user_data(user, month, middle_of_the_month) 
-          csv << user_hash unless user_hash.blank?
-        end
-      end      
+    def gather_facebook_friends(month, middle_of_the_month)
+      @csv = convert_to_iso(FacebookDataService.new.generate_csv_lines(month, middle_of_the_month)).join("\n")      
     end
 
     def convert_to_iso(file_lines=[])
