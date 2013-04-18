@@ -1,11 +1,23 @@
+.content
+  %section#register
+    %div.header_login
+      %h1 
+        Já faz parte?
+        %span Entre
+      %h2= image_tag "landing_page/olook_logo.png", title: "Olook"
+    %div.bg
+      %div.register_content
+        %h2= image_tag "landing_page/landing_maes_full.jpg", title: "Dia das Mães na Olook"
+        %ul
+          %li.first
+            %p UM MIMO
+            = link_to((image_tag "landing_page/mimo.jpg"), "/colecoes/diadasmaes?price=50-100", title: "Um Mimo", target: "_blank")
+          %li
+            %p UM PRESENTE BEM LEGAL
+            = link_to((image_tag "landing_page/presente_legal.jpg"), "/colecoes/diadasmaes?price=50-100", title: "Um presente bem legal", target: "_blank")
+          %li
+            %p UM BIG PRESENTE
+            = link_to((image_tag "landing_page/big_presente.jpg"), "/colecoes/diadasmaes?price=50-100",title: "Um big presente", target: "_blank")
+    =render :partial =>'home/products_categories'
+    =render :partial => 'home/facebook_box'
 
-%section#register
-  %div.header_login
-    %h1 
-      Já faz parte?
-      %span Entre
-    %h2= image_tag "landing_page/olook-landing-logo.png", :title => "Olook"
-  %div.bg
-    %div.register-content.content-area-A
-      %p.bt-acesse
-        = link_to "Quiz", "#"
