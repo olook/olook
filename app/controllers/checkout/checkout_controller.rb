@@ -15,6 +15,10 @@ class Checkout::CheckoutController < Checkout::BaseController
     address = shipping_address(params)
     payment = create_payment(address)
     payment_method = params[:checkout][:payment_method]
+    if current_user.has_fraud?
+      display_form(address, payment, payment_method)
+      return
+    end
 
     payment_valid = payment && payment.valid?
     address_valid = address && address.valid?
