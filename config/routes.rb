@@ -372,6 +372,7 @@ Olook::Application.routes.draw do
   post "freight_price", :to => "freight_lookup#show"
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
+  get '/maes' , :controller =>'landing_pages', :action => 'mother_day' , :as => 'mother_day'
   get ":page_url", :to => "landing_pages#show"
 
 end
