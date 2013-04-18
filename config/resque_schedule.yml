@@ -121,7 +121,7 @@ facebook_friends_birthday_middle_exacttarget:
     - facebook_friends-%Y-%m-%d.csv
     - true
     - exact_target.yml
-  description: "Cria e envia arquivo com base de usuários e amigas aniversariantes para ftp do exact target"
+  description: "Cria e envia arquivo com base de usuários e amigas aniversariantes para ftp do exact target, no meio do mês"
 
 facebook_friends_birthday_middle_exacttarget:
   cron: "0 5 * * 27"
@@ -132,4 +132,4 @@ facebook_friends_birthday_middle_exacttarget:
     - facebook_friends-%Y-%m-%d.csv
     - true
     - exact_target.yml
-  description: "Cria e envia arquivo com base de usuários e amigas aniversariantes para ftp do exact target"
+  description: "Cria e envia arquivo com base de usuários e amigas aniversariantes para ftp do exact target, no fim do mês"
