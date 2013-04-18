@@ -11,8 +11,6 @@ class Product < ActiveRecord::Base
 
   include ProductFinder
 
-  attr_accessor :brand
-
   has_enumeration_for :category, :with => Category, :required => true
 
   after_create :create_master_variant
