@@ -58,6 +58,9 @@ class ApplicationController < ActionController::Base
       cart.update_attribute("user_id", @user.id) if cart.user.nil?
     end
 
+    coupon = Coupon.find_by_code(params[:coupon_code])
+    cart.update_attribute("coupon_id", coupon.id) if coupon
+
     cart
   end
 
