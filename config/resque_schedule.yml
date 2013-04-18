@@ -118,7 +118,7 @@ facebook_friends_birthday_middle_exacttarget:
   queue: marketing_uploader
   args:
     - facebook_friends_middle_of_the_month
-    - facebook_friends-%Y-%m-%d.csv
+    - facebook_friends.csv
     - true
     - exact_target.yml
   description: "Cria e envia arquivo com base de usuários e amigas aniversariantes para ftp do exact target, no meio do mês"
@@ -129,7 +129,7 @@ facebook_friends_birthday_end_exacttarget:
   queue: marketing_uploader
   args:
     - facebook_friends_end_of_the_month
-    - facebook_friends-%Y-%m-%d.csv
+    - facebook_friends.csv
     - true
     - exact_target.yml
   description: "Cria e envia arquivo com base de usuários e amigas aniversariantes para ftp do exact target, no fim do mês"
