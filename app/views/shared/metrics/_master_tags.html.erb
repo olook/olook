@@ -80,8 +80,3 @@ var google_remarketing_only = true;
 
 <!-- NAVEGG ANALYTICS -->
 <script id="navegg" type="text/javascript" src="//navdmp.com/lt.js?18321"></script>
-
-<% if user_signed_in? %>
-  <%= render partial: "shared/metrics/all_in/user", :locals => { user: current_user } %>
-<% end %>
-
