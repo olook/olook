@@ -9,11 +9,7 @@ class LandingPagesController < ApplicationController
   end
 
   def mother_day
-    render :layout => 'customlanding'
-  end
 
-  private 
-  def custom_layout
   end
 
 end
