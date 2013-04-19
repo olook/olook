@@ -26,3 +26,5 @@
           %td= billet[:id]
           %td= billet[:message]
           %td= billet[:order_number]
+    - unless @billet_hash[:successful_value]
+      %h1 Algum pagamento não foi processado, favor checar
