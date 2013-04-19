@@ -398,7 +398,8 @@ class Product < ActiveRecord::Base
   end
 
   def formatted_name
-    cloth? ? name : model_name + " " + name
+    formated_name = cloth? ? name : model_name + " " + name
+    formated_name = "#{formated_name[0..35]}..." if formated_name.size > 35
   end
 
   def supplier_color
