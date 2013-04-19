@@ -22,9 +22,9 @@
         </span>
       </p>  
       
-      <%# if product.sold_out? %>
+      <% if product.sold_out? %>
         <p class="warn sold_out"><b>ESGOTADO!</b></p>
-      <%# end %>
+      <% end %>
 
       <% if shoe_size && product.shoe? && product.sold_out? %>
         <p class="warn shoe_size">Tam. <%= shoe_size %></p>
