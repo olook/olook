@@ -49,17 +49,31 @@ class ApplicationController < ActionController::Base
 
     cart ||= Cart.find_by_id(cart_id_session) if cart_id_session
 
-    if cart
-      if @user
-        cart.update_attribute("user_id", @user.id) if cart.user.nil?
-      end
-      coupon = Coupon.find_by_code(params[:coupon_code]) if params[:coupon_code]
-      cart.update_attribute("coupon_id", coupon.id) if coupon
-    end
+    cart = assign_coupon_to_cart(cart, params[:coupon_code]) if params[:coupon_code]
+
+    assign_cart_to_user(cart) if cart
+
     cart
   end
 
   protected
+
+    def assign_coupon_to_cart(cart, coupon_code)
+      coupon = Coupon.find_by_code(coupon_code)
+      if coupon
+        cart ||= create_cart 
+        cart.update_attribute("coupon_id", coupon.id)
+      end
+      cart
+    end
+
+    def assign_cart_to_user(cart)
+      if cart
+        if @user
+          cart.update_attribute("user_id", @user.id) if cart.user.nil?
+        end
+      end      
+    end
 
     def log_start_end_action_processing
       Rails.logger.debug("START #{params[:controller].camelize}Controller##{params[:action]}")
