@@ -41,10 +41,7 @@
         <span class="title">REVISÃO</span>
         <span class="phrase">Revise e finalize seu pedido.</span>
       </h2>
-      <% 
-        address = @checkout.address
-       %>  
-      <%= render "cart_details", address: address %>
+      <%= render "cart_details", address: @checkout.address %>
       
   
     </div>
