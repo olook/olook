@@ -6,6 +6,11 @@
         <% order.payments.each do |payment| %>
           bs.finalizaCompra("<%= order.amount_paid %>","<%= order.freight_price %>","4","<%= payment.type %>","<%= payment.bank %>","","","","","","","");
         <% end %>
+
+          <% order.line_items.each do |item| %>
+        bs.addProdutoComprado("<%= order.number %>","<%= item.variant.product_id %>","<%= item.variant.name %>","<%= item.retail_price %>", "", "<%= item.quantity %>","", "<%= item.variant.product.category_humanize %>", "<%= item.variant.product.subcategory %>", "", "<%= item.variant.product.brand %>",
+            "", "", "", "", "");
+          <% end %>
     }catch(e){
     }
 </script>
