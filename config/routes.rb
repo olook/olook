@@ -110,7 +110,7 @@ Olook::Application.routes.draw do
   post "/produto/share" => "product#share_by_email", as: 'product_share_by_email'
 
   #VITRINE / INVITE
-  get "membro/convite" => "members#invite", :as => 'member_invite'
+  get "convite" => "members#invite", :as => 'member_invite'
   get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
   post "membro/convite_por_email" => 'members#invite_by_email', :as => 'member_invite_by_email'
   post "membro/novo_usuario_convite_por_email" => 'members#new_member_invite_by_email', :as => 'new_member_invite_by_email'
@@ -303,7 +303,7 @@ Olook::Application.routes.draw do
 
     get '/discounts' => 'discounts#index', as: :discounts
 
-    get "billet_batch/new", as: :new_billet_batch 
+    get "billet_batch/new", as: :new_billet_batch
 
     post "billet_batch/create", as: :create_billet_batch
 

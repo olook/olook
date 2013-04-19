@@ -1,0 +1,42 @@
+<section id="import-contacts" style="background:none;">
+  <hgroup>
+    <h1>Importe sua lista de contatos</h1>
+    <h2>Importe sua lista de contatos <br /> do Gmail ou Yahoo!</h2>
+  </hgroup>
+
+  <ul class="services">
+    <li><%= link_to 'Gmail', member_import_contacts_path, :class => 'gmail', onclick: track_event('MemberInvite', 'GmailImport') %></li>
+    <% if @yahoo_oauth_url %>
+      <li><%= link_to 'Yahoo', @yahoo_oauth_url, :class => 'yahoo', onclick: track_event('MemberInvite', 'YahooImport') %></li>
+    <% else %>
+      <li>Serviço Yahoo indisponível no momento</li>
+    <% end %>
+  </ul>
+
+  <div class="import-dropdown">
+    <%= link_to 'X', '', :class => 'close' %>
+    <span>Service</span>
+
+    <%= form_tag(member_show_imported_contacts_path) do %>
+      <%= hidden_field_tag(:email_provider, '', :id => "email_provider") %>
+      <fieldset class="inputs">
+        <ol>
+          <li>
+            <label for="login">Email:</label>
+            <%= text_field_tag(:login) %>
+          </li>
+          <li>
+            <label for="password">Senha:</label>
+            <%= password_field_tag(:password) %>
+          </li>
+        <li><span class="hint">A olook não guarda suas informações</span></li>
+    </fieldset>
+
+    <fieldset class="buttons">
+      <ol>
+        <li><%= image_submit_tag('common/bt-import.png') %></li>
+      </ol>
+    </fieldset>
+    <% end %>
+  </div>
+</section>
