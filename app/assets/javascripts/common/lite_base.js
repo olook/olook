@@ -8,7 +8,9 @@ olook = o = {
   init: function(){
       o.menu();
       o.cart();
-      o.myAccountMenu();  
+      o.myAccountMenu(); 
+      o.showSlideToTop();
+      o.slideToTop();  
   },
   
   menu: function(){
@@ -111,6 +113,25 @@ olook = o = {
     }).on("mouseleave", function() {
       var link = $(this).find('a#info_user');
       $(link).removeClass('hover');
+    });
+  },
+  
+  showSlideToTop : function() {
+    $(window).scroll(function() {
+      if($(window).scrollTop() > 440) {
+        $('a#go_top').fadeIn();
+      } else {
+        $('a#go_top').fadeOut();
+      }
+    });
+  },
+
+  slideToTop :function() {
+    $('a#go_top').live('click', function(e) {
+      $("html, body").animate({
+        scrollTop: 0
+      }, 'fast');
+      e.preventDefault();
     });
   }
   
