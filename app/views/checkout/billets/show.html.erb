@@ -188,7 +188,7 @@
                 <b>
                   <div align="right">
                     <font size="2" face="Arial, Helvetica, sans-serif">
-                      <b>R$ <%= @boleto.valor_documento.to_s.gsub('.',',') %>0</b>
+                      <b><%= number_to_currency(@boleto.valor_documento) %></b>
                     </font>
                     <font size="3" face="Arial">
                       <b>
@@ -250,7 +250,7 @@
     <table width="640" border="0" cellpadding="0" cellspacing="0">
       <tbody><tr>
         <td valign="bottom" width="112"><font size="3" face="Arial, Helvetica, sans-serif"><img src="/assets/boleto/logo.png" vspace="0" width="125" align="absbottom" height="37" hspace="1"></font></td>
-        <td valign="bottom" width="66" align="center"> <font size="3" face="Arial, Helvetica, sans-serif"><b><img src="img/traco.htm" width="3" align="absbottom" height="23">&nbsp;<font color="#999999">033</font>&nbsp;</b></font><img src="img/traco_002.htm" width="3" align="absbottom" height="23">
+        <td valign="bottom" width="66" align="center"> <font size="3" face="Arial, Helvetica, sans-serif"><b>&nbsp;<font color="#999999">033</font>&nbsp;</b></font>
         </td>
         <td valign="bottom" width="462" align="right" nowrap="nowrap"><font size="3" face="Arial"><%= @boleto.linha_digitavel %>&nbsp;</font></td>
       </tr>
@@ -404,7 +404,7 @@
                 Valor do Documento </font></td>
             </tr>
             <tr>
-              <td align="right" bgcolor="lightgrey" height="50%"><font face="Arial, Helvetica, sans-serif"><b><font size="2">R$ <%= @boleto.valor_documento.to_s.gsub('.',',') %>0</font></b></font><font size="3" face="Arial"><b><font size="2" face="Arial, Helvetica, sans-serif">&nbsp;</font></b></font></td>
+              <td align="right" bgcolor="lightgrey" height="50%"><font face="Arial, Helvetica, sans-serif"><b><font size="2"><%= number_to_currency(@boleto.valor_documento)%></font></b></font><font size="3" face="Arial"><b><font size="2" face="Arial, Helvetica, sans-serif">&nbsp;</font></b></font></td>
             </tr>
           </tbody></table></td>
       </tr>
@@ -462,8 +462,6 @@
                 </font><font face="Arial, Helvetica, sans-serif"><br>
                 </font></td>
               <td valign="top" width="100%" height="40"><font size="1" face="Arial, Helvetica, sans-serif">&nbsp;<%= @boleto.sacado %><br>
-                &nbsp;Fern&atilde;o Dias, 251/ - Pinheiros<br>
-                &nbsp;05427-010 - S&atilde;o Paulo, S&atilde;o Paulo</font></td>
             </tr>
           </tbody></table></td>
         <td colspan="2" valign="bottom" align="middle"><b><font size="3" face="Arial">&nbsp;Ficha

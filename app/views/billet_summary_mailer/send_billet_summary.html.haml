@@ -8,17 +8,23 @@
       %tr
         %th id do pagamento
         %th mensagem
+        %th número do pagamento
       - @billet_hash[:successful].each_with_index do |billet, i|
-        %tr.success{"style" => "background:#{ i.even? ? '#BFB' : '#DFD'};"}
+        %tr.success{"style" => "background:#{ i.even? ? '#BFB' : '#DFD'};text-align: center;"}
           %td= billet[:id]
           %td= billet[:message]
+          %td= billet[:order_number]
     %br
     %h1 Falhas
     %table
       %tr
         %th id do pagamento
         %th mensagem
+        %th número do pagamento
       - @billet_hash[:unsuccessful].each_with_index do |billet, i|
-        %tr.fail{"style" => "background:#{ i.even? ? '#FBB' : '#FDD'};"}
+        %tr.fail{"style" => "background:#{ i.even? ? '#FBB' : '#FDD'};text-align: center;"}
           %td= billet[:id]
-          %td= billet[:message]            
+          %td= billet[:message]
+          %td= billet[:order_number]
+    - unless @billet_hash[:successful_value]
+      %h1 Algum pagamento não foi processado, favor checar

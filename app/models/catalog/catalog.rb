@@ -7,6 +7,8 @@ class Catalog::Catalog < ActiveRecord::Base
 
   validates :type, :presence => true, :exclusion => ["Catalog::Catalog"]
 
+  CARE_PRODUCTS = ['Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar']
+
   def in_category(category_id)
     @liquidation = LiquidationService.active
     @query = products.joins(:product)
@@ -18,11 +20,15 @@ class Catalog::Catalog < ActiveRecord::Base
   end
 
   def subcategories(category_id)
-    in_category(category_id).group(:subcategory_name).order("subcategory_name asc").map { |p| [p.subcategory_name, p.subcategory_name_label] }.compact
+    in_category(category_id).group(:subcategory_name).order("subcategory_name asc").map { |p| [p.subcategory_name, p.subcategory_name_label]}.compact
   end
 
   def shoes
-    subcategories(Category::SHOE)
+    subcategories(Category::SHOE).reject{ |sub| CARE_PRODUCTS.include? sub[1] }
+  end
+  
+  def care_shoes
+    subcategories(Category::SHOE).reject{ |sub| ! CARE_PRODUCTS.include?(sub[1]) }
   end
 
   def bags
