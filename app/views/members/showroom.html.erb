@@ -229,7 +229,8 @@
 <% end %>
 
 <% content_for :footer do %>
-  <%= javascript_include_tag "sections/lite_showroom" %>
+  <%= javascript_include_tag "section/lite_showroom" %>
+ 
   <% if @user.first_visit_for_member? %>
     <%= javascript_include_tag "first_visit" %>
     <%= render "shared/metrics/google/track_signup_page_view" %>
