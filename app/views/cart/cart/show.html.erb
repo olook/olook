@@ -24,6 +24,7 @@ _gaq.push(['_addTrans',
   <%= render partial: "shared/metrics/ve_interactive/get_user" %>
   <%= render partial: "shared/metrics/criteo/basket_tracker", :locals => {:cart => @cart, :cart_service => @cart_service } %>
   <%= render partial: "shared/metrics/sociomantic/basket", :locals => {:cart => @cart, :cart_service => @cart_service } %>
+  <%= render partial: "shared/metrics/all_in/cart_add_item", :locals => {:cart => @cart } %>
   <%= render partial: "shared/metrics/triggit/cart" %>
   <%= render partial: "shared/metrics/nextperformance/cart" %>
   <%= render partial: "shared/metrics/dbm/cart" %>
@@ -185,11 +186,13 @@ _gaq.push(['_addTrans',
                     <td>
                       <%= form_for(@cart, remote: true,
                                           html: {
+                                            onsubmit: track_event("Sacola", "ClickCupom", ''),
                                             :id => "coupon"
                                           }) do |f| %>
                         <fieldset class="inputs">
                           <ol>
                             <li>
+              <input type="text" id="rafael"></input>
                               <%= f.text_field('coupon_code', :value => @cart.coupon.try(:code)) %>
                             </li>
                             <li class="cupom">
