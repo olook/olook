@@ -27,14 +27,12 @@ class Coupon < ActiveRecord::Base
   end
 
   def apply_discount_to? product
+    product_ids = product_ids_allowed_to_have_discount
 
-    coupon_products = get_coupon_products
-    brand_products = get_brand_products
-
-    if coupon_products.nil? && brand_products.nil?
+    if product_ids.nil? && brand.nil?
       true
     else
-      coupon_products.try(:include?, product.id.to_s) || brand_products.try(:include?, product.brand.downcase)
+      product_ids.try(:include?, product.id.to_s) || product.brand.try(:downcase) == brand.try(:downcase)
     end
   end
 
@@ -45,12 +43,7 @@ class Coupon < ActiveRecord::Base
 
   private
 
-    def get_brand_products
-      brands = BRAND_COUPONS_CONFIG[self.code]
-      brands ? brands.split(",").map(&:downcase) : nil
-    end
-
-    def get_coupon_products
+    def product_ids_allowed_to_have_discount
       product_ids = PRODUCT_COUPONS_CONFIG[self.code]
       product_ids ? product_ids.split(",") : nil
     end
