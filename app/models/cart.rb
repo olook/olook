@@ -106,6 +106,13 @@ class Cart < ActiveRecord::Base
     items.inject(0) { |total, item| total += (item.quantity * item.retail_price) }
   end
 
+  def remove_coupon!
+    self.coupon_id = nil
+    self.coupon_code = nil
+    self.save!
+    self.reload
+  end
+
   private
 
     def update_coupon
