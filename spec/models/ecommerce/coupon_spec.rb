@@ -65,22 +65,17 @@ describe Coupon do
     end
 
     context "coupon for an specific brand" do
-      let(:product) { double(id: 1000, brand: 'Olook') }
-      let(:brand_coupon) { FactoryGirl.create(:product_coupon) }
+      let(:brand_coupon) { FactoryGirl.create(:brand_coupon) }
 
       context "product is not from configured brand" do
-        before do 
-          brand_coupon.should_receive(:get_brand_products).and_return(["juliana jabour"])
-        end
+        let(:product) { double(id: 1000, brand: 'Olook Concept') }
         it "returns false" do
           brand_coupon.apply_discount_to?(product).should be_false
         end
       end
 
       context "product is not from configured brand" do
-        before do 
-          brand_coupon.should_receive(:get_brand_products).and_return(["olook", "juliana jabour"])
-        end
+        let(:product) { double(id: 1000, brand: 'Olook') }
         it "returns true" do
           brand_coupon.apply_discount_to?(product).should be_true
         end
