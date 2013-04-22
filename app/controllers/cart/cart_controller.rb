@@ -14,6 +14,12 @@ class Cart::CartController < ApplicationController
     @lookbooks = Lookbook.active.all
     @suggested_product = find_suggested_product
     @chaordic_cart = ChaordicInfo.cart @cart, current_user
+    if @cart && @cart.coupon
+      unless should_apply?(@cart.coupon, @cart)
+        @cart.remove_coupon!
+        flash.now[:notice] = "A promoção é mais vantajosa que o cupom"
+      end
+    end
   end
 
   def destroy
