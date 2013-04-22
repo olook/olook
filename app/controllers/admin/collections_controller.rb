@@ -11,6 +11,7 @@ class Admin::CollectionsController < Admin::BaseController
 
   def show
     @collection = Collection.find(params[:id])
+    @products = @collection.products.paginate(page: params[:page], per_page: 50)
     respond_with :admin, @collection
   end
 
