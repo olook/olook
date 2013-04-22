@@ -3,7 +3,7 @@ $(function() {
   showInfoCredits();
 
   $("form#coupon input").focus(function() {
-    _gaq.push(['_trackEvent', 'Sacola', 'FocusOnCoupon', '', , true]);
+    _gaq.push(['_trackEvent', 'Sacola', 'FillCupom', '', , true]);
   });
 
 
