@@ -2,10 +2,13 @@
 $(function() {
   showInfoCredits();
 
+  $("form#coupon input").focus(function() {
+    _gaq.push(['_trackEvent', 'Sacola', 'FocusOnCoupon', '', , true]);
+  });
+
+
   $("#facebook_share").click(function(element) {
-
     postCartToFacebookFeed(element)
-
   })
 
   $("form#gift_message").bind("ajax:success", function(evt, xhr, settings) {
