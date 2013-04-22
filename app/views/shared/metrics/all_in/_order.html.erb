@@ -3,10 +3,9 @@
     try{
         __bsd["id"]="8:1";
         bs.setaPagina('<%= "#{ params[:controller] } #{ params[:action] }"%>');
-        bs.setaCliente("<%= current_user.id %>","<%= current_user.email %>"
-        <% order.payments.each do |payment| %>
-          bs.finalizaCompra("<%= order.amount_paid %>","<%= order.freight_price %>","4","<%= payment.type %>","<%= payment.bank %>","","","","","","","");
-        <% end %>
+        bs.setEtapaCarrinho("Confirmacao da Compra","","","","","");
+        bs.setaCliente("<%= current_user.id %>","<%= current_user.email %>");
+        bs.finalizaCompra("<%= order.amount_paid %>","<%= order.freight_price %>","4","<%= order.erp_payment.type %>","<%= order.erp_payment.bank %>","","<%= order.number %>", <%= order.payments.with_discount.map { |payment| "'#{ payment.type }'"}.join(", ") %>);
 
           <% order.line_items.each do |item| %>
         bs.addProdutoComprado("<%= order.number %>","<%= item.variant.product_id %>","<%= item.variant.name %>","<%= item.retail_price %>", "", "<%= item.quantity %>","", "<%= item.variant.product.category_humanize %>", "<%= item.variant.product.subcategory %>", "", "<%= item.variant.product.brand %>",
