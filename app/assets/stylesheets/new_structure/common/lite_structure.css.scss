@@ -244,7 +244,7 @@ div#wrapper_new_menu{background:#FFF;width:100%;opacity:0.9;*filter: alpha(opaci
        }
      }
      &.fixed {
-       position: fixed;top: 0;z-index:999;padding-top:5px;
+       position: fixed;top: 0;left:0;z-index:999;padding-top:5px;
      }
     nav.menu_new{
       margin: 0 auto 5px;width: 990px;
@@ -264,160 +264,57 @@ div#wrapper_new_menu{background:#FFF;width:100%;opacity:0.9;*filter: alpha(opaci
 /*------------------
 ====== FOOTER ======
 ------------------*/
-footer {
-  height:300px;
-  clear:both;
-  margin-top:60px;
-  border-top: 1px #cbcbcb solid;
-  section {
-    margin:0px auto;
-    width:970px;
-    padding-top:40px;
-    div.box_newsletter {
-      display: none;
-      width: 100%;
-      overflow: auto;
-      margin: 0 0 20px;
-      form {
-        width: 650px;
-        overflow: auto;
-        margin: 0 50px 0 0;
-        float: left;
-        > * {
-          float: left;
+footer {height:300px;clear:both;margin-top:60px;border-top: 1px #cbcbcb solid;
+  section {margin:0px auto;width:970px;padding-top:40px;
+    div.box_newsletter {display: none;width: 100%;overflow: auto;margin: 0 0 20px;
+      form {width: 650px;overflow: auto;margin: 0 50px 0 0;float: left;
+        > * {float: left;}
+        label {font-size: 17px;line-height: 38px;text-transform: uppercase;margin: 0 20px 0 0;}
+        input[type="text"] {color: #939598;font-family: $avenir;font-size: 13px;width: 150px;margin: 0 15px 0 0;padding: 9px 15px;border: 1px #959595 solid;
+          &:focus {outline: none;}
         }
-        label {
-          font-size: 17px;
-          line-height: 38px;
-          text-transform: uppercase;
-          margin: 0 20px 0 0;
-        }
-        input[type="text"] {
-          color: #939598;
-          font-family: $avenir;
-          font-size: 13px;
-          width: 150px;
-          margin: 0 15px 0 0;
-          padding: 9px 15px;
-          border: 1px #959595 solid;
-          &:focus {
-            outline: none;
-          }
-        }
-        input[type="submit"] {
-          background: image-url("home/bt-register.png") no-repeat;
-          text-indent: -99999px;
-          width: 122px;
-          height: 33px;
-          margin: 3px 0 0 0;
-          display: block;
-          border: none;
-          cursor: pointer;
-        }
-        p {
-          color: #6d6e71;
-          clear: both;
-          float: right;
-          a {
-            color: #6d6e71;
-            text-decoration: none;
-            &:hover {
-              text-decoration: underline;
-            }
+        input[type="submit"] {background: image-url("home/bt-register.png") no-repeat;text-indent: -99999px;width: 122px;height: 33px;margin: 3px 0 0 0;display: block;border: none;cursor: pointer;}
+        p {color: #6d6e71;clear: both;float: right;
+          a {color: #6d6e71;text-decoration: none;
+            &:hover {text-decoration: underline;}
           }
         }
       }
-      h2 {
-        color: #6d6e71;
-        font-size: 12px;
-        font-weight: 600;
-        text-transform: uppercase;
-        margin: 2px 0 0;
-      }
+      h2 {color: #6d6e71;font-size: 12px;font-weight: 600;text-transform: uppercase;margin: 2px 0 0;}
     }
-    dl {
-      margin: 0 95px 35px 0;
-      float: left;
-      dt {
-        color: #6d6e71;
-        font-size: 12px;
-        font-weight: 700;
-        text-transform: uppercase;
-        margin: 0 0 20px;
-      }
-      dd, dd a {
-        color: #939598;
-        font-size: 12px;
-        text-decoration: none;
-        margin: 0 0 4px;
-      }
+    dl {margin: 0 95px 35px 0;float: left;
+      dt {color: #6d6e71;font-size: 12px;font-weight: 700;text-transform: uppercase;margin: 0 0 20px;}
+      dd, dd a {color: #939598;font-size: 12px;text-decoration: none;margin: 0 0 4px;}
       dd a {
-        &:hover {
-          color: #bcbec0;
-        }
+        &:hover {color: #bcbec0;}
       }
       dd {
-        ul.social {
-          width: 100%;
-          overflow: auto;
-          margin: 15px 0 0 0;
+        ul.social {width: 100%;overflow: auto;margin: 15px 0 0 0;
           li {
-            a {
-              background: image-url("home/social.png") no-repeat;
-              text-indent: -99999px;
-              width: 24px;
-              height: 24px;
-              margin: 0 6px 0 0;
-              display: block;
-              float: left;
-
+            a {background: image-url("home/social.png") no-repeat;text-indent: -99999px;width: 24px;height: 24px;margin: 0 6px 0 0;display: block;float: left;}
+            &.facebook a {background-position: 0 -34px;
+              &:hover {background-position: 0 0px;}
             }
-            &.facebook a {
-              background-position: 0 -34px;
-              &:hover {
-                background-position: 0 0px;
-              }
+            &.twitter a {background-position: -28px -34px;
+              &:hover {background-position: -28px 0px;}
             }
-            &.twitter a {
-              background-position: -28px -34px;
-              &:hover {
-                background-position: -28px 0px;
-              }
+            &.rss a {background-position: -58px -34px;
+              &:hover {background-position: -58px 0px;}
             }
-            &.rss a {
-              background-position: -58px -34px;
-              &:hover {
-                background-position: -58px 0px;
-              }
-            }
-            &.instagram a {
-              background-position: -89px -35px;
-              &:hover {
-                background-position: -89px 0px;
-              }
+            &.instagram a {background-position: -89px -35px;
+              &:hover {background-position: -89px 0px;}
             }
           }
         }
       }
-      &.double {
-        margin: 0 95px 0 0;
-        &.payment {
-          clear: both;
-        }
+      &.double {margin: 0 95px 0 0;
+        &.payment {clear: both;}
         &.security {
-          dd {
-            float: left;
-          }
+          dd {float: left;}
         }
       }
     }
-    p {
-      color:#767676;
-      font-size:11px;
-      line-height: 13px;
-      clear: both;
-      padding: 0 0 20px;
-    }
+    p {color:#767676;font-size:11px;line-height: 13px;clear: both;padding: 0 0 20px;}
   }
 }
 
