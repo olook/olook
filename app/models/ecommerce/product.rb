@@ -398,7 +398,9 @@ class Product < ActiveRecord::Base
   end
 
   def formatted_name
-    cloth? ? name : model_name + " " + name
+    _formated_name = cloth? ? name : "#{model_name} #{name}"
+    _formated_name = "#{_formated_name[0..30]}&hellip;".html_safe if _formated_name.size > 35
+    _formated_name
   end
 
   def supplier_color

@@ -15,7 +15,7 @@ describe BilletService do
     end
     context "with correct payment" do
       it "fill successful payment on hash" do
-        BilletService.should_receive(:parse_file).with('text.txt').and_return(["                           000000#{@payment1.id}6 220313 220313           #{@payment1.total_paid.to_s.gsub('.',',')}       0,00       0,00           #{@payment1.total_paid.to_s.gsub('.',',')}      0,92T LIQ COMPENS", "                           000000#{@payment2.id}6 220313 220313          116,30       0,00       0,00          116,30      0,92T LIQ COMPENS"])
+        BilletService.should_receive(:parse_file).with('text.txt').and_return([["                           000000#{@payment1.id}6 220313 220313           #{@payment1.total_paid.to_s.gsub('.',',')}       0,00       0,00           #{@payment1.total_paid.to_s.gsub('.',',')}      0,92T LIQ COMPENS", "                           000000#{@payment2.id}6 220313 220313          116,30       0,00       0,00          116,30      0,92T LIQ COMPENS"], true])
         hash = BilletService.process_billets('text.txt')
         expect(hash[:successful]).to_not be_empty
       end

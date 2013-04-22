@@ -8,7 +8,7 @@ class Checkout::CheckoutController < Checkout::BaseController
   def new
     @addresses = @user.addresses
     @report  = CreditReportService.new(@user)
-    @checkout = Checkout.new
+    @checkout = Checkout.new(address: @addresses.find { |a| a.id == current_user.orders.last.freight.address_id rescue false } || @addresses.first )
   end
 
   def create
