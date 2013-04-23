@@ -82,12 +82,13 @@ div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;ma
   border: 10px solid #000;
   width:1000px;
   /*height:620px;*/
-  position: absolute;
+  position: relative;
   top:100px;
   left:50%;
   margin: 0 0 0 -480px;
   display:none;
   z-index:100000;
+  overflow:hidden;
 
   #close_quick_view{
     cursor: pointer;
