@@ -251,7 +251,7 @@ describe CatalogSearchService do
         @products = CatalogSearchService.new(params).search_products
       end
 
-      context "when a brand was given" do
+      context "when a brand was give the returned products" do
         it { expect(@products).to include(@first_product) }
         it { expect(@products).to_not include(@second_product) }
       end
