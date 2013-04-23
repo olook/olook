@@ -154,6 +154,7 @@ describe Abacos::Pedido do
                   'DadosPedidos' => {
                     'NumeroDoPedido' => order.number,
                     'CodigoCliente' => "F#{order.user.id}",
+                    'RepresentanteVendas' => 'SITE',
                     'CPFouCNPJ' => '98765432198',
                     'DataVenda' => '01122011',
                     'DestNome' => 'Jéssica Maíra',

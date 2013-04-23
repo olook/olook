@@ -245,24 +245,30 @@ describe Payments::MoipSenderStrategy do
     end
 
     describe "#billet_payment" do
-      it "assigns the billet's url to the payment" do
-        subject.billet_payment
-        expect(subject.payment.url).to eql(subject.billet_url)
-      end
+      context "Santander billet is enabled" do 
+        before do
+          subject.stub(:santander_is_active).and_return(true)
+        end
 
-      it "sets the payment's gateway" do
-        subject.billet_payment
-        expect(subject.payment.gateway).to eql(1)
-      end
+        it "assigns the billet's url to the payment" do
+          subject.billet_payment
+          expect(subject.payment.url).to eql(subject.billet_url)
+        end
 
-      it "sets the payment's gateway status to successful" do
-        subject.billet_payment
-        expect(subject.payment.gateway_response_status).to eql(Payment::SUCCESSFUL_STATUS)
-      end
+        it "sets Olook (id=3) as gateway" do
+          subject.billet_payment
+          expect(subject.payment.gateway).to eql(3)
+        end        
 
-      it "saves the payment" do
-        subject.payment.should_receive(:save!).and_return true
-        subject.billet_payment
+        it "sets the payment's gateway status to successful" do
+          subject.billet_payment
+          expect(subject.payment.gateway_response_status).to eql(Payment::SUCCESSFUL_STATUS)
+        end
+
+        it "saves the payment" do
+          subject.payment.should_receive(:save!).and_return true
+          subject.billet_payment
+        end
       end
     end
   end
