@@ -186,7 +186,7 @@ _gaq.push(['_addTrans',
                     <td>
                       <%= form_for(@cart, remote: true,
                                           html: {
-                                            onsubmit: track_event("Sacola", "ClickCupom", ''),
+                                            onsubmit: track_event("Checkout", "ClickCupom", ''),
                                             :id => "coupon"
                                           }) do |f| %>
                         <fieldset class="inputs">
