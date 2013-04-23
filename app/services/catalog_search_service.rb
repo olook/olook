@@ -76,7 +76,7 @@ class CatalogSearchService
   end
 
   def add_brand_filter_to_query_base
-    @query_base = @query_base.and(Product.arel_table[:brand].eq(@params[:brand])) if @params[:brand]
+    @query_base = @query_base.and(Product.arel_table[:brand].in(@params[:brands])) if @params[:brands]
   end
 
   def compact_category_queries

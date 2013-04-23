@@ -245,14 +245,17 @@ describe CatalogSearchService do
     context "filtering by brand" do
        before do
         basic_shoe.update_attributes(brand: "Some brand")
+        basic_accessory.update_attributes(brand: "Other Brand")
         @first_product = CatalogProductService.new(catalog, basic_shoe.reload).save!.first
+        @third_product = CatalogProductService.new(catalog, basic_accessory.reload).save!
         @second_product = CatalogProductService.new(catalog, basic_bag).save!
-        params = {:id => catalog.id, brand: "Some brand"}
+        params = {:id => catalog.id, brands: ["Some brand", "Other Brand"]}
         @products = CatalogSearchService.new(params).search_products
       end
 
       context "when a brand was give the returned products" do
         it { expect(@products).to include(@first_product) }
+        it { expect(@products).to include(@third_product) }
         it { expect(@products).to_not include(@second_product) }
       end
 
