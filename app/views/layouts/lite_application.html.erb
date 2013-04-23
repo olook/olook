@@ -123,15 +123,16 @@
        <!-- End Modals --> 
 
        
-       <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" %>
+       <%= javascript_include_tag "jquery" %>
+       
        <%= javascript_include_tag "lite_application" %>
        
-    
+       
        <% if content_for? :footer %>
          <%= yield :footer %>
        <% end %>
 
-       <%= render :partial => "shared/metrics/master_tags" %>
+       <%#= render :partial => "shared/metrics/master_tags" %>
     </div>
   </body>
 </html>

@@ -17,7 +17,7 @@
         <%= content_tag :div, image_tag("https://graph.facebook.com/#{current_user.uid}/picture?type=normal", class: 'avatar'), class: 'avatar' if current_user.uid %>
       <% else %>  
         <p>Que tal sua foto aqui?</p>
-        <a href="#" clas="btn-connect-face">Conectar no Facebook</a>
+        <a href="/conta/auth/facebook" clas="btn-connect-face">Conectar no Facebook</a>
       <% end %>
       </div>
 

@@ -52,6 +52,8 @@ olook = o = {
       } else {
         $('div#wrapper_new_menu').removeClass('fixed');
       }
+      event.preventDefault();
+      event.stopPropagation();
     });
   },
   
@@ -83,7 +85,6 @@ olook = o = {
    
     $("#modal button.close, #modal a.me").click(function(){
        _iframe = $modal.contents().find("iframe");
-       console.log(_iframe);
        if (_iframe.length > 0){
          $(_iframe).remove();
        }
@@ -127,7 +128,7 @@ olook = o = {
   },
 
   slideToTop :function() {
-    $('a#go_top').live('click', function(e) {
+    $('a#go_top').on('click', function(e) {
       $("html, body").animate({
         scrollTop: 0
       }, 'fast');
