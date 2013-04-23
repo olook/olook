@@ -119,7 +119,7 @@ function postCartToFacebookFeed(element) {
         data: { cart: { facebook_share_discount: true }  },
         dataType: "script"
         });
-      _gaq.push(['_trackEvent', 'Sacola', 'FacebookShare', '', , true]);
+      _gaq.push(['_trackEvent', 'Checkout', 'FacebookShare', '', , true]);
       $("#facebook-share").hide();
       $(".msg").show();
       }
