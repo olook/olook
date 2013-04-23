@@ -8,6 +8,11 @@ class Product < ActiveRecord::Base
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
   MINIMUM_INVENTORY_FOR_XML = 3
   JULIANA_JABOUR_PRODUCTS = [90632,90612,90641,90646,90607,90597,90602,90616,90619,90627,90622,90636]
+  COLORS = {'amarelo' => 'Amarelo', 'azul' => 'Azul', 'bege' => 'Bege', 'branco' => 'Branco', 'cinza' => 'Cinza', 'cobra' => 'Cobra',
+        'cobre' => 'Cobre', 'dourado' => 'Dourado', 'floral' => 'Floral', 'laranja' => 'Laranja', 'listras' => 'Listras', 'marrom' => 'Marrom',
+        'multicolorido' => 'Multicolorido', 'nude' => 'Nude', 'onca' => 'Onça', 'onix' => 'Onix', 'poas' => 'Poás', 'prateado' => 'Prateado',
+        'preto' => 'Preto', 'rosa' => 'Rosa', 'rose' => 'Rose', 'roxo' => 'Roxo', 'vaca' => 'Vaca', 'verde' => 'Verde', 'vermelho' => 'Vermelho',
+        'xadrez' => 'Xadrez', 'zebra' => 'Zebra'}
 
   include ProductFinder
 
