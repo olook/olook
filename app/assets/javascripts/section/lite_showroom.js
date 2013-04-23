@@ -60,22 +60,20 @@ showroom = s = {
   modalEspiar: function(){
     var _link;
     $("li.product a.spy").on("mouseenter", function(){
-      _link = $(this).attr('href');
-      
+      _link = $(this).attr('data-id');
     }).on("click", function(){
-      $(this).attr('href', '#');
-      $("#modal").append('<iframe width="1000" height="735" src="http://olook.com.br'+_link +'">').fadeIn();
-
+      $("div#overlay-campaign").css("height", $(document).height()).fadeIn();
+      
+      $("#modal")
+      .append('<iframe width="1000" border="0" height="735" src="http://localhost:3000/produto/'+_link +'/spy/">').css("top", $(window).scrollTop()  + 35)
+      .append('<div id="close_quick_view">x</div>')
+      .fadeIn();
     });
     
-    if($("div#quick_view").size() == 0) {
-      $("body").prepend("<div id='quick_view'></div>");
-    }
-    
 
-    $('#close_quick_view, div.overlay').on("click", function() {
-      $('#quick_view').fadeOut(300);
-      $("div.overlay").remove();
+    $('#close_quick_view, div#overlay-campaign').on("click", function() {
+      $('#modal, div#overlay-campaign').fadeOut(300);
+      $("#modal").html('');
     });
   },
   
