@@ -39,7 +39,7 @@ class Coupon < ActiveRecord::Base
   end
 
   def should_apply_to?(cart)
-    discounts_sum = cart.total_promotion_discount + cart.total_liquidation_discount
+    discounts_sum = cart.total_promotion_discount + cart.total_liquidation_discount(ignore_coupon: true)
     calculated_value(cart.total_price) > discounts_sum
   end
 
