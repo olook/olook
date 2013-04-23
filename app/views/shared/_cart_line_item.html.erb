@@ -5,6 +5,6 @@
   <h1><%= item.name %></h1>
   <p class="size">Tamanho: <%= item.description %></p>
   <p class="qte">Quantidade: <span><%= item.quantity %></span></p>
-  <p class="price"><%= number_to_currency(@cart_service.item_retail_price(item)) %></p>
+  <p class="price"><%= number_to_currency(item.product.promotion? ? item.product.retail_price : item.product.price) %></p>
 </li>
 <%= render partial: 'shared/metrics/fb/cart' %>
