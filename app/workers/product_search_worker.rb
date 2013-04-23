@@ -16,5 +16,4 @@ class ProductSearchWorker
       ProductSearch.index_term(product.name)
       product.name.split.each { |t| ProductSearch.index_term(t) }
     end
-
 end
