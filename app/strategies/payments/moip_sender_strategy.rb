@@ -33,7 +33,7 @@ module Payments
     def billet_payment
       payment.url = billet_url
       payment.gateway_response_status = Payment::SUCCESSFUL_STATUS
-      set_payment_gateway
+      payment.gateway = Payment::GATEWAYS.fetch(:olook)
       payment.save!
       payment
     end
