@@ -1,0 +1,24 @@
+= stylesheet_link_tag  "customlanding"
+.content
+  %section#register
+    %div.header_login
+      %h2=link_to((image_tag "landing_page/olook_logo.png"), root_path, title: "Dia das Mães na Olook")
+    %div.bg
+      %div.register_content
+        %h2= image_tag "landing_page/landing_maes_full.jpg", title: "Dia das Mães na Olook"
+        %ul
+          %li.first
+            %p UM MIMO
+            %p.preco R$ 39,90 a R$ 79,90  
+            = link_to((image_tag "landing_page/mimo.jpg"), "/colecoes/diadasmaes?price=39-80", title: "Um Mimo", target: "_blank", onclick: track_event('DiaDasMaes', 'Box1', '') )
+          %li
+            %p UM PRESENTE BEM LEGAL
+            %p.preco R$ 84,90 a R$ 159,90 
+            = link_to((image_tag "landing_page/presente_legal.jpg"), "/colecoes/diadasmaes?price=84-160", title: "Um presente bem legal", target: "_blank", onclick: track_event('DiaDasMaes', 'Box2', ''))
+          %li
+            %p UM BIG PRESENTE
+            %p.preco.last_preco A partir de R$ 164,90  
+            = link_to((image_tag "landing_page/big_presente.jpg"), "/colecoes/diadasmaes?price=164-*",title: "Um big presente", target: "_blank", onclick: track_event('DiaDasMaes', 'Box3', ''))
+    =render :partial =>'home/products_categories'
+    =render :partial => 'home/facebook_box'
+    =render :partial => 'shared/footer' 
