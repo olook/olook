@@ -78,8 +78,8 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   private
 
-  def generate_token
-    var = :"@#{mounted_as}_secure_token"
-    model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.hex(64/2))
-  end
+    def generate_token
+      var = :"@#{mounted_as}_secure_token"
+      model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.hex(64/2))
+    end
 end

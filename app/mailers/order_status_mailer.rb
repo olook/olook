@@ -26,7 +26,7 @@ class OrderStatusMailer < ActionMailer::Base
   def build_subject(order)
     if order.waiting_payment?
       if order.has_a_billet_payment?
-        subject = "Lembrete: seu boleto expira em: #{order.get_billet_expiration_date.strftime("%d/%m/%Y")}. Garanta seu pedido!"
+        subject = "Lembrete: seu boleto expira em: #{I18n.l(order.get_billet_expiration_date, format: "%d/%m/%Y")}. Garanta seu pedido!"
       else
         subject = "#{order.user.first_name}, recebemos seu pedido."
       end

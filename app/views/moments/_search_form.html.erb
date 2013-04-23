@@ -4,6 +4,7 @@
       <%= hidden_field_tag('category_id', @category_id ? @category_id : nil) %>
       <%= hidden_field_tag('sort_filter') %>
 
+      <%= collection_theme_presenter.display_news_filters %>
       <%= collection_theme_presenter.display_shoe_filters %>
       <%= collection_theme_presenter.display_color_filters %>
       <%= collection_theme_presenter.display_shoe_size_filters %>
@@ -15,4 +16,10 @@
       <%= collection_theme_presenter.display_cloth_size_filters %>
       <%= collection_theme_presenter.display_cloth_color_filters %>
     <% end %>
+    <div id="invite_friends">
+      <%= link_to member_invite_path do %>
+        <%= image_tag 'moments/invite_friends.gif', :class => '', onclick: track_event('BannerInvite', "ClickBannerFrom#{Category.key_for(@category_id).to_s.camelize}") %>
+      <% end %>
+    </div>
 </div>
+

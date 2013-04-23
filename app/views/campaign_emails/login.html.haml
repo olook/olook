@@ -1,6 +1,6 @@
-/ - content_for :footer do
-/   %script
-/     = track_event('Modal', 'LoginPage', @user.id)
+- content_for :footer do
+  :javascript
+    = track_event('Modal', 'LoginPage', @user.id, no_interactive: true)
 
 .box-remember-login
   %h3 LEMBRAMOS DE VOCÊ!

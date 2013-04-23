@@ -110,7 +110,7 @@ jQuery(function() {
 
 initMoment = {
   scrollToList : function() {
-    var topHeight = 0;
+    var topHeight = $("#content").offset().top - 150;
     $("html, body").animate({
       scrollTop: topHeight
     }, 'slow');
