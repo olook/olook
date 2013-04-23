@@ -37,8 +37,20 @@ module ApplicationHelper
     end
   end
 
-  def track_event(category, action, item = '')
-    "_gaq.push(['_trackEvent', '#{category}', '#{action}', '#{item}']);"
+  def track_event(*args)
+    options = args.last.is_a?(Hash) ? args.last : {}
+    category = args[0]
+    raise ArgumentError.new('You should pass "category" first argument') unless category
+    action = args[1]
+    raise ArgumentError.new('You should pass "action" second argument') unless action
+    item = args[2] || ''
+    no_interactive = !!options[:no_interactive]
+
+    if no_interactive
+      "_gaq.push(['_trackEvent', '#{category}', '#{action}', '#{item}', '', true]);"
+    else
+      "_gaq.push(['_trackEvent', '#{category}', '#{action}', '#{item}']);"
+    end
   end
 
   def track_add_to_cart_event(product_id = '')

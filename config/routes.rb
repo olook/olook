@@ -70,6 +70,11 @@ Olook::Application.routes.draw do
   match '/oculos', to: "moments#glasses", as: "glasses", :defaults => {:category_id => Category::ACCESSORY, :accessory_subcategories=>["oculos-de-sol"], :id => 1}
   match '/roupas', to: "moments#clothes", as: "clothes", :defaults => {:category_id => Category::CLOTH, :id => 1}
 
+  # Novidades
+  match '/novidades/sapatos', to: "moments#show", as: "news_shoes", :defaults => {:category_id => Category::SHOE, :id => 1, news: true }
+  match '/novidades/roupas', to: "moments#show", as: "news_clothes", :defaults => {:category_id => Category::CLOTH, :id => 1, news: true }
+  match '/novidades/bolsas', to: "moments#show", as: "news_bags", :defaults => {:category_id => Category::BAG, :id => 1, news: true }
+  match '/novidades/accessorios', to: "moments#show", as: "news_accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1, news: true }
 
   #FRIENDS
   match "/membro/:share/:uid", :to => "home#index"
@@ -87,6 +92,7 @@ Olook::Application.routes.draw do
   match "/zanox", :to => "xml#zanox", :as => "zanox", :defaults => { :format => 'xml' }
   match "/sociomantic", :to => "xml#sociomantic", :as => "sociomantic", :defaults => { :format => 'xml' }
   match "/criteo", :to => "xml#criteo", :as => "criteo", :defaults => { :format => 'xml' }
+  match "/groovinads", :to => "xml#groovinads", :as => "groovinads", :defaults => { :format => 'xml' }
   match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
   match "/click_a_porter", :to => "xml#click_a_porter", :as => "click_a_porter", :defaults => { :format => 'xml' }
   match "/topster" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/topster_data.xml")
@@ -297,6 +303,10 @@ Olook::Application.routes.draw do
     end
 
     get '/discounts' => 'discounts#index', as: :discounts
+
+    get "billet_batch/new", as: :new_billet_batch 
+
+    post "billet_batch/create", as: :create_billet_batch
 
   end
 

@@ -23,8 +23,8 @@ module MarketingReports
       `iconv -c --from-code=utf-8 --to-code=#{@encoding}//IGNORE #{file_path} > #{file_path}.iso;mv #{file_path}.iso #{file_path}` if adapt_encoding
     end
 
-    def self.copy_file(filename)
-      report_path = Rails.env.production? ? '/home/allinmail' : Rails.root
+    def self.copy_file(filename, file_path = '/home/allinmail')
+      report_path = Rails.env.production? ? file_path : Rails.root
       FileUtils.copy(TEMP_PATH+DateTime.now.strftime(filename), "#{report_path}/#{DateTime.now.strftime(filename)}")
     end
   end

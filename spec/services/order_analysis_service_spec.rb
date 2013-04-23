@@ -31,7 +31,17 @@ describe OrderAnalysisService do
         service.should_send_to_analysis?.should be_true
       end
 
+      context "but user is blacklisted" do
+        before do
+          Setting.stub(:as_list).with(:blacklisted_users).and_return(['teste@teste.com'])
+        end
+
+        it "send to analysis" do
+          service.should_send_to_analysis?.should be_true
+        end
+      end
     end
+
 
     context "user's first buy" do
       it "should have one order" do
@@ -49,25 +59,42 @@ describe OrderAnalysisService do
     end
 
     context "user's second buy" do
-
       before do
         Order.any_instance.stub(:transition_to_authorized)
-        FactoryGirl.create(:clean_order_credit_card_authorized, :user => user )
+        @order = FactoryGirl.create(:clean_order_credit_card_authorized, :user => user )
+      end
+      
+      context "with the same credit card" do
+        it "should have two orders" do
+          user.should have(2).orders
+        end
+
+        it "should have two credit card payment" do
+          payments = Payment.where("type = 'CreditCard' and user_id = ?", user.id)
+          payments.size.should == 2
+        end
+
+        it "should skip analysis" do
+          service.should_send_to_analysis?.should be_false
+        end
       end
 
-      it "should have two orders" do
-        user.should have(2).orders
-      end
+      context "with a different credit card" do
 
-      it "should have two credit card payment" do
-        payments = Payment.where("type = 'CreditCard' and user_id = ?", user.id)
-        payments.size.should == 2
-      end
+        before do
+          @order.payments.first.update_attribute(:credit_card_number, 'XXXXXXXXXXXX7894')
+        end
 
-      it "should NOT send to analysis" do
-        service.should_send_to_analysis?.should be_false
+        it " nada " do
+          current_payment.credit_card_number.should_not == @order.payments.first.credit_card_number
+        end
+
+        it "should send to analysis" do
+          service.should_send_to_analysis?.should be_true
+        end
       end
     end
+
 
   end
 

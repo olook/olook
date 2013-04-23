@@ -202,6 +202,13 @@ div#moments {
         }
       }
     }
+
+    .news {
+      color: #FF465E;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
 	 div#shoe_size_filter {
 	  position: absolute;
      width: 380px;
@@ -348,6 +355,10 @@ div#moments {
     a, span, em.current {
       display: none;
     }
+  }
+  div#invite_friends{
+    width: 152px;
+    height: 450px;
   }
 }
 

@@ -84,6 +84,7 @@
   </section>
 
   <section class="container_product" id="shoes_container">
+
     <ul>
       <%- @shoes.each do |product| -%>
         <%= render 'shared/lite_product_item', product: product %>
@@ -93,16 +94,17 @@
     <%= content_tag(:p, link_to("+ ver mais sapatos +", "/sapatos", :class => "more shoes", :onclick => track_event("Showroom", "SeeMore", "Shoes"), :rel => "follow"), class:"see-more")%>
   </section>
 
+ 
   <section class="container_product" id="purse_container">
     <ul>
       <%- @bags.each do |product| -%>
-        <%= render 'shared/lite_product_item', product: product %>
+        <%= render 'shared/product_item', product: product %>
       <%- end -%>
     </ul>
- 
 
     <%= content_tag(:p, link_to("+ ver mais bolsas +", "/bolsas", :class => "more purses", :onclick => track_event("Showroom", "SeeMore", "Bags"), :rel => "follow"), class:"see-more")%>
   </section>
+
 
   <section class="container_product" id="accessories_container">    
     <ul>
@@ -111,7 +113,6 @@
       <%- end -%>
     </ul>
     
-
     <%= content_tag(:p, link_to("+ ver mais acessórios +", "/acessórios", :class => "more accessories", :onclick => track_event("Showroom", "SeeMore", "Acessories"), :rel => "follow"), class:"see-more")%>
   </section>
 
