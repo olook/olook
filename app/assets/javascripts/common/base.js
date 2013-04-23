@@ -191,6 +191,7 @@ $(document).ready(function() {
   $("#facebook_invite_friends").click(function(event) {
     event.preventDefault();
     sendFacebookMessage();
+    return false;
   });
 
   $("#facebook_post_wall").live("click", function() {

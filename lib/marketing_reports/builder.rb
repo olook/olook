@@ -9,7 +9,9 @@ module MarketingReports
                :in_cart_mail,
                :line_items_report,
                :campaign_emails,
-               :userbase_with_source]
+               :userbase_with_source,
+               :facebook_friends_end_of_the_month,
+               :facebook_friends_middle_of_the_month]
 
     attr_accessor :csv
 
@@ -91,6 +93,14 @@ group by uc.user_id, ct.code
         }
       end
     end
+
+    def generate_facebook_friends_end_of_the_month
+      gather_facebook_friends(DateTime.now.month+1, false)
+    end
+
+    def generate_facebook_friends_middle_of_the_month
+      gather_facebook_friends(DateTime.now.month, true)
+    end 
 
     def generate_userbase_with_auth_token_and_credits
       bounces = bounced_list
@@ -197,6 +207,10 @@ group by uc.user_id, ct.code
     end    
 
     private
+
+    def gather_facebook_friends(month, middle_of_the_month)
+      @csv = convert_to_iso(FacebookDataService.new.generate_csv_lines(month, middle_of_the_month)).join("\n")      
+    end
 
     def convert_to_iso(file_lines=[])
       file_lines.map do | line |
