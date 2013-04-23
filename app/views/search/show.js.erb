@@ -1,4 +1,4 @@
-$("#result").html("")
+$("#result").html("Nenhum produto encontrado.")
 <% @hits["hit"].each do |hit| %>
   $("#result").append("<li>")
   <% if hit['data']['image'] %>

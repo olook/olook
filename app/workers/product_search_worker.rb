@@ -8,9 +8,13 @@ class ProductSearchWorker
 
     def self.index_products
       Product.where(is_visible: true).each do |product|
-        ProductSearch.index_term(product.name)
-        product.name.split.each { |t| ProductSearch.index_term(t) }
+        index product
       end
+    end
+
+    def index product
+      ProductSearch.index_term(product.name)
+      product.name.split.each { |t| ProductSearch.index_term(t) }
     end
 
 end
