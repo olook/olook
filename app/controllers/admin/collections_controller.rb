@@ -14,7 +14,7 @@ class Admin::CollectionsController < Admin::BaseController
     @products = if params[:category] && params[:category][:id].present?
                     @collection.products.where(category: params[:category][:id]).paginate(page: params[:page], per_page: 50)
                 else
-                    @collection.products.paginate(page: params[:page], per_page: 50)
+                    @collection.products.paginate(page: params[:page], per_page: 100)
                 end
     respond_with :admin, @collection
   end
