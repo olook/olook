@@ -47,6 +47,10 @@ class Catalog::Catalog < ActiveRecord::Base
     in_category(Category::SHOE).group(:shoe_size).order("shoe_size asc").map { |p| p.shoe_size }.compact
   end
 
+  def brands_for category
+    in_category(category).group(:brand).order('brand asc').map { |p| p.brand }.compact
+  end
+
   def cloth_sizes
     in_category(Category::CLOTH).group(:cloth_size).count.keys.compact.sort { |a,b| CLOTH_SIZES_TABLE[a.to_s] <=> CLOTH_SIZES_TABLE[b.to_s] }
   end
