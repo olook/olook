@@ -7,5 +7,4 @@ $("#result").html("Nenhum produto encontrado.")
   $("#result").append('<%= link_to hit["data"]["name"].first, product_path(hit["id"]) %>')
   $("#result").append(" - <%= hit['data']['categoria'].first %>")
   $("#result").append("</li>")
-
 <% end %>
