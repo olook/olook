@@ -9,12 +9,6 @@ class Checkout::CheckoutController < Checkout::BaseController
     @addresses = @user.addresses
     @report  = CreditReportService.new(@user)
     @checkout = Checkout.new(address: @addresses.find { |a| a.id == current_user.orders.last.freight.address_id rescue false } || @addresses.first )
-    if @cart && @cart.coupon
-      unless should_apply?(@cart.coupon, @cart)
-        @cart.remove_coupon!
-        return redirect_to cart_path, notice: "A promoção é mais vantajosa que o cupom"
-      end
-    end
   end
 
   def create
