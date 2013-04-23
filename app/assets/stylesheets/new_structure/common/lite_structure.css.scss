@@ -12,17 +12,8 @@
 				}
         label {display: block;font-size: 11px;font-weight: bold;margin: 2px 0;}
 
-<<<<<<< HEAD:app/assets/stylesheets/new_structure/common/lite_structure.css.scss
         input {background: #FFF image-url('common/background-inputs.png') bottom repeat-x;border: 1px solid #BBB;padding: 6px 8px;width: 92%;
 					&#user_remember_me_login{width:auto;float:left;}	
-=======
-        input {
-          background: #FFF image-url('common/background-inputs.png') bottom repeat-x;
-          border: 1px solid #BBB;
-          padding: 6px 8px;
-          width: 92%;
-					&#user_remember_me_login{width:auto;float:left;}
->>>>>>> 72f5a4c599b1713df0dcaaa4a61292fbd9cc44fd:app/assets/stylesheets/common/lite_structure.css.scss
 					&#login{float:right;margin:-17px 0 0 65px;}
 					&#user_password{margin-bottom:10px;}
           &:focus {outline: none;}
