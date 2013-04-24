@@ -10,7 +10,7 @@ class CollectionThemePresenter < BasePresenter
   end
 
   def display_color_filters
-    h.render :partial => 'shared/filters/color_filters', :locals => {:collection_theme_presenter => self} if shoes?
+    h.render :partial => 'shared/filters/color_filters', :locals => {:collection_theme_presenter => self, product_type: category_type} if shoes? || clothes? || bags?
   end
 
   def display_shoe_filters
@@ -33,10 +33,6 @@ class CollectionThemePresenter < BasePresenter
     h.render :partial => 'shared/filters/bag_filters', :locals => {:collection_theme_presenter => self} if bags?
   end
 
-  def display_bag_color_filters
-    h.render :partial => 'shared/filters/bag_color_filters', :locals => {:collection_theme_presenter => self} if bags?
-  end
-
   def display_accessory_filters
     h.render :partial => 'shared/filters/accessory_filters', :locals => {:collection_theme_presenter => self} if accessories?
   end
@@ -49,11 +45,21 @@ class CollectionThemePresenter < BasePresenter
     h.render :partial => 'shared/filters/cloth_size_filters', :locals => {:collection_theme_presenter => self} if clothes?
   end
 
-  def display_cloth_color_filters
-    h.render :partial => 'shared/filters/cloth_color_filters', :locals => {:collection_theme_presenter => self} if clothes?
-  end
-
   private
+
+    def category_type
+      case !category_id.blank?
+      when category_id.to_i == Category::SHOE then
+        "shoe"
+      when category_id.to_i == Category::BAG then
+        "bag"
+      when category_id.to_i == Category::ACCESSORY then
+        "accessory"
+      else
+        "cloth"
+      end
+    end
+
     def showing_specific_category?
       category_id.nil?
     end
