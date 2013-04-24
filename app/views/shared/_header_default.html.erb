@@ -37,13 +37,13 @@
       <div class="sign-in-dropdown close">
         <%= render "users/sessions/form_user" %>
       </div>
-      <% end %>
-      
-      <%= form_tag(search_show_path, method: :get, html: {id: "search_form"}) do  %>
-        <%= text_field_tag "q",nil, id: "search_product" %>
-        <%= submit_tag "Buscar" %>
-      <% end %>      
-
+      <div class="search_box">
+        <% end %>
+        <%= form_tag(search_show_path, method: :get, html: {id: "search_form"}) do  %>
+          <%= text_field_tag "q",nil, id: "search_product", value: "BUSCAR" %>
+          <%= submit_tag "Buscar" %>
+        <% end %>      
+      </div>
       <%= render 'shared/cart', :cart => @cart %>
     </div>
     <div class="olook_logo">
