@@ -33,6 +33,7 @@ class Cart::CartController < ApplicationController
   # Only used by chaordic
   #
   def add_variants
+    @report  = CreditReportService.new(@user) unless @report
     cart = Cart.find_by_id(params[:cart_id]) || current_cart
     cart.add_variants params[:variant_numbers]
     render :show
