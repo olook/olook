@@ -8,7 +8,7 @@
     </li-->
   <% Product::COLORS.sort{|a,b| b[0] <=> a[0]}.each do |subcategory, label| -%>
     <li class="<%= subcategory %>">
-      <%= check_box_tag('shoe_colors[]', label, params[:shoe_colors] && params[:shoe_colors].include?(label) || params[:select_all_colors], id: subcategory) %>
+      <%= check_box_tag("#{product_type}_colors[]", label, params["#{product_type}_colors".to_sym] && params["#{product_type}_colors".to_sym].include?(label) || params[:select_all_colors], id: subcategory) %>
       <%= label_tag(label, nil, for: subcategory) %>
     </li>
   <% end -%>
