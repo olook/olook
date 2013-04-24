@@ -20,7 +20,7 @@
     <meta name="chaordic:user" content="<%= @chaordic_user %>">
     <meta name="chaordic:product" content="<%= @chaordic_product %>" data-pid="<%= @product.id %>" >
     <meta name="chaordic:category" content="<%= @chaordic_category %>">
-    <meta name="chaordic:cart_id" content="<%= current_cart.id %>">
+    <meta name="chaordic:cart_id" content="<%= current_cart.try(:id) %>">
     <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
     <%= stylesheet_link_tag "section/product" %>
   <% end %>
