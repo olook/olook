@@ -75,7 +75,7 @@ describe Cart do
         first_item.stub(:price => BigDecimal("10"))
         first_item.stub(:retail_price => BigDecimal("10"))
       end
-      
+
       context "and it is NOT in a liquidation" do
         it "returns 0" do
           cart_with_one_item.total_liquidation_discount.should == 0
@@ -91,7 +91,7 @@ describe Cart do
           cart_with_one_item.total_liquidation_discount.should == 3
         end
       end
-    end 
+    end
 
     context "when cart has 2 items (item1.price = 100, item2.price = 80)" do
       let(:cart_2_items) {cart_with_one_item}
@@ -111,7 +111,7 @@ describe Cart do
           second_item.stub(:adjustment_value => 16)
         end
 
-        it "returns 30" do 
+        it "returns 30" do
           cart_2_items.total_liquidation_discount.should == 30
         end
       end
@@ -166,13 +166,51 @@ describe Cart do
     end
   end
 
-  context "#allow_credit_policy?" do
-    it "should allow when cart has one item with full price" do
-      cart_with_one_item.allow_credit_payment?.should be_true
+  describe "#allow_credit_payment?" do
+    before do
+      cart_with_one_item.stub(:sub_total).and_return(BigDecimal("110,00"))
     end
 
-    it "should not allow when no cart item has full price" do
-      cart.allow_credit_payment?.should be_false
+    context "when cart has one item with full price" do
+      it { expect(cart_with_one_item.allow_credit_payment?).to be_true }
+    end
+
+    context "when cart has no items with full price" do
+      it { expect(cart.allow_credit_payment?).to be_false }
+    end
+
+    context "when some item of cart has adjustment" do
+      before do
+        cart_with_one_item.items.first.stub(:has_adjustment?).and_return(true)
+      end
+      it { expect(cart_with_one_item.allow_credit_payment?).to be_false }
+    end
+
+    context "when all items of cart has no adjustment" do
+      before do
+        cart_with_one_item.items.first.stub(:has_adjustment?).and_return(false)
+      end
+      it { expect(cart_with_one_item.allow_credit_payment?).to be_true }
+    end
+
+    context "when cart#subtotal is greater than R$ 100" do
+      it "returns true" do
+        expect(cart_with_one_item.allow_credit_payment?).to be_true
+      end
+    end
+
+    context "when cart#subtotal is equals R$ 100" do
+      it "returns true" do
+        cart_with_one_item.stub(:sub_total).and_return(BigDecimal("100,00"))
+        expect(cart_with_one_item.allow_credit_payment?).to be_true
+      end
+    end
+
+    context "when cart#subtotal is lower than R$ 100" do
+      it "returns true" do
+        cart_with_one_item.stub(:sub_total).and_return(BigDecimal("99,00"))
+        expect(cart_with_one_item.allow_credit_payment?).to be_false
+      end
     end
   end
 
