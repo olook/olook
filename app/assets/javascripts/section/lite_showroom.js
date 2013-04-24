@@ -13,6 +13,7 @@ showroom = s = {
     s.replaceImages();
     s.modalEspiar();
     s.facebookCarousel();
+    s.showProfile();
   },
   
   openModal: function(){
@@ -43,6 +44,14 @@ showroom = s = {
         }
       });
     }catch(e){}
+  },
+  
+  showProfile: function(){
+    $(".description .show-profile").on("mouseenter",function() {
+      $("img.profile-quiz").show();
+    }).on("mouseleave", function() {
+      $("img.profile-quiz").hide();
+    });
   },
   
   changeImage: function(){

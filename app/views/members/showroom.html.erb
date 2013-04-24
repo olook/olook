@@ -26,20 +26,13 @@
         <p>
           Nossas stylists montaram uma seleção incrível de produtos para você este mês.
           Confira e aproveite sem moderação!
-          <%= link_to "Confira aqui o seu perfil",'#', class:"profile" %> ou se não gostar do resultado, <%= link_to "responda nosso style quiz", new_survey_path %> novamente.
+          <%= link_to "Confira aqui o seu perfil",'#', class:"show-profile" %> ou se não gostar do resultado, <%= link_to "responda nosso style quiz", new_survey_path %> novamente.
         </p>
 
-        <%= render "shared/mini_profile", :user => @user %>
-        
-
-        <% if @user.profile_name.present? %>
-          <%= link_to "#" do %>
-            <%= image_tag "profiles/mini_#{@user.profile_name.to_s}.jpg", class: "profile-quiz" %>
-          <% end %>
-        <% end %>
-
       </div>  
+  
     </div>  
+    
     <% if @friends && @friends.any? %>
       <div id="mask_carousel_facebook">
         <%= link_to "Anterior", "javascript:void(0);", :class => "carousel-prev-fb" %>
@@ -61,7 +54,10 @@
       <div id="banner_creditos"><%= link_to (image_tag('showroom/banner.png')), member_invite_path, :title => "Convide amigas e ganhe R$ 20 quando elas fizerem a primeira compra" %></div>
     <%- end -%>
   </section>
-    
+  
+  <% if @user.profile_name.present? %>
+    <%= image_tag "profiles/mini_#{@user.profile_name.to_s}.jpg", class: "profile-quiz" %>
+  <% end %>  
   
   <div class="showroom-title">
     <p><span>Sua vitrine de <%= current_collection_name %></span></p>
