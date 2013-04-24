@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   layout "site"
 
   before_filter :load_user,
+                :create_cart,
                 :load_cart,
                 :load_coupon,
                 :load_cart_service,
