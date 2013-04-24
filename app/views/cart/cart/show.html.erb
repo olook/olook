@@ -59,7 +59,8 @@ _gaq.push(['_addTrans',
 
   <% if @promo_over_coupon %>
   <div class="warning-msg">
-    <p><b>Ops, os descontos não são cumulativos</b><br/>Então escolhemos o desconto mais vantajoso para você neste momento.<br/>Abaixo, indicamos os descontos concedidos:</p>
+    <%= image_tag 'cart/warning_coupon.png', :class => '' %>
+    <p><span>Ops, os descontos não são cumulativos</span><br/>Então escolhemos o desconto mais vantajoso para você neste momento.<br/>Abaixo, indicamos os descontos concedidos:</p>
   </div>
   <% end %>    
 
