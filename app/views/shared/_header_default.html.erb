@@ -20,17 +20,16 @@
             <div class="my_account">
               <ul>
                 <li><%= link_to "Meus pedidos", user_orders_path %></li>
-                <!--li><%#= link_to "Meus presentes", user_gifts_path %></li--> 
                 <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
                 <li><%= link_to "Endereços", user_addresses_path %></li>
                 <li class="last"><%= link_to "Meus créditos", user_credits_path %></li>
               </ul>
             </div>
           </li>
-          <li class="br"><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
+          <li class="br"><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>       
         </ul>
       </div> 
-      <!-- <p class="first"><%= link_to "Fidelidade Olook", loyalty_path %></p> -->
+
       <p class="credits"><%= link_to "Ganhe créditos!", member_earn_credits_path, :class => "invite" %></p>
 
       <% else %>
@@ -40,6 +39,11 @@
       </div>
       <% end %>
       
+      <%= form_tag(search_show_path, method: :get, html: {id: "search_form"}) do  %>
+        <%= text_field_tag "q",nil, id: "search_product" %>
+        <%= submit_tag "Buscar" %>
+      <% end %>      
+
       <%= render 'shared/cart', :cart => @cart %>
     </div>
     <div class="olook_logo">
@@ -47,3 +51,8 @@
     </div>
   </div>
 </header>
+
+<%= content_for :footer do %>
+  <%= javascript_include_tag "ui_v1.10/jquery-ui-1.10.2.custom.min" %>
+  <%= javascript_include_tag "search" %>
+<% end %>
