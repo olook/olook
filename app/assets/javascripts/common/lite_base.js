@@ -14,8 +14,8 @@ olook = o = {
   },
   
   menu: function(){
-    var $el, leftPos, newWidth, $magicLine = $("ul.default_new li#bar"), w = $("ul.default_new li .selected").outerWidth(), l = $("ul.default_new li .selected").position().left,
-    top = $('div#wrapper_new_menu').offset().top - parseFloat($('div#wrapper_new_menu').css('margin-top').replace(/auto/, 0));
+    var $el, leftPos, newWidth, $magicLine = $("ul.default_new li#bar"), w = $("ul.default_new li .selected").outerWidth(), l = $("ul.default_new li .selected").position() && $("ul.default_new li .selected").position().left,
+    top = ( $('div#wrapper_new_menu').offset() && $('div#wrapper_new_menu').offset().top ) - parseFloat(( $('div#wrapper_new_menu').css('margin-top') && $('div#wrapper_new_menu').css('margin-top') || '0' ).replace(/auto/, 0));
     
     $magicLine
     .width(w - 40)
