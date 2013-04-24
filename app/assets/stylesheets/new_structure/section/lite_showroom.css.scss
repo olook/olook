@@ -10,14 +10,34 @@
   #profile{float:left;color:#000;
     .photo{float:left;margin-right:11px;
       p{width:105px;height:105px;background: image-url('showroom/sprite.png') no-repeat 0 0;text-indent:-9999em;}
-      a.btn-connect-face{display:block;width:100px;height:30px;background: image-url('showroom/sprite.png') no-repeat -106px 0;text-indent:-9999em;}  
+
+      a{display:block;width:100px;height:30px;background: image-url('showroom/sprite.png') no-repeat -106px 0;text-indent:-9999em;margin:5px 0 0 2px;} 
     }
 
     .description{float:left;width:430px;margin-right:20px;position:relative;
       p{font-size:13px;
         &.name{font-size:19px;text-transform:uppercase;margin-bottom:10px;line-height:25px;}
+        a{color:$base_color;text-decoration:underline;}
       }
       img.profile-quiz{position:absolute;display:none;}
+    }
+  }
+  
+  #banner_creditos{float:left;margin-top:15px;
+    a{display:block;width:400px;height:80px;}
+  }
+  
+  #mask_carousel_facebook{width:429px;height:86px;float:left;margin-top:40px;text-align:center;
+    .caroufredsel_wrapper{float:left !important;margin:0 5px !important;
+      li{float:left;margin-right:10px !important;}
+    }
+    a{
+      &.invite-more{clear:both;font-family:$avenir-medium;text-transform:uppercase;font-size:12px;font-weight:bold;display:block;
+        &:hover{color:$base_color;}
+      }
+      &.carousel-prev-fb, &.carousel-next-fb{float:left;font-size:0;margin-top:10px;line-height:0;display:block;width:22px;height:25px;
+      background: image-url('showroom/sprite.png') no-repeat -104px -56px;}
+      &.carousel-next-fb{background: image-url('showroom/sprite.png') no-repeat -105px -79px;}
     }
   }
 }
@@ -26,44 +46,56 @@ div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;ma
     span{background:#000;font-family:$avenir_medium;font-size:23px;text-transform:uppercase;color:#FFF;padding:7px 7px 0;}
   }
 }
-.container_product{clear:both;
-  ul li{display:inline-block;width:180px;margin:15px 15px 0 0;position:relative;
-    &:nth-child(5n){margin-right:0;}
-    &:hover{.spy{visibility:visible;}}
 
-    a{font-size:13px;display:inline-block;
-      &.spy{visibility:hidden;position:absolute;bottom:80px;left:0;height:32px;width:100%;background:image-url('common/bg-spy.png');font-size:13px;text-transform:uppercase;text-align:center;
-        font-weight:bold;letter-spacing:1px;line-height:32px;z-index:10;
-        span{display:inline-block;height:30px;line-height:30px;padding-right:30px;background:image-url('moments/sprite.png') no-repeat right -178px;
-          &:hover{color:$base_color;}
-        }
-      }
-      
-      p{
-        span,strong{overflow:hidden;/*display:inline-block;*/height:18px;
-          &.name{float:left;clear:both;}
-        }
-        &.warn {position: absolute;color: #FFF;font-size: 11px;font-style: oblique;text-align: center;text-transform: uppercase;line-height: 18px;/*display: none;*/
-          &.sold_out {left:0;top:60px;background: image-url('moments/sprite.png') no-repeat 0 -76px;line-height:25px;padding-left:13px;text-align:left;width:92px;color:#000;}
-          &.quantity{background:none #FFF !important;border: 1px solid #000;color: #000;font-family: 'avenir_medium';font-weight: 600;height: 20px;width: 74px;line-height: 20px !important;text-align: center;word-spacing: -1px;}
-          &.shoe_size{background: none #000;height: 20px;left: 25px !important;line-height: 20px !important;top: 81px !important;width: 55px;word-spacing: -1px;}
-          &.percentage{right:15px;top:70px; background: image-url('moments/sprite.png') no-repeat 0 -109px;width:60px;height:47px;font-size:14px;font-family:$avenir;text-align:center;
-          padding-top:13px;
-            span{font-size:14px;font-weight:normal;}
+#clothes_container{position:relative;margin-top:40px;
+  .fb_share{position:absolute;top:-60px;right:10px;font-size:11px;
+    p{float:left;text-align:right;width:135px;line-height:15px;margin-right:10px;}
+    a#facebook_share{float:left;font-size:0;line-height:0;display:block;width:125px;height:25px;background: image-url('showroom/sprite.png') no-repeat -108px -32px;margin-top:5px;}
+  }
+}
+
+.container_product{clear:both;
+  ul{
+    &.second_line{
+      li{margin-top:65px;}
+    }
+    li{display:inline-block;width:180px;margin:25px 15px 0 0;position:relative;
+      &:nth-child(5n){margin-right:0;}
+      &:hover{.spy{visibility:visible;}}
+
+      a{font-size:13px;display:inline-block;
+        &.spy{visibility:hidden;position:absolute;bottom:80px;left:0;height:32px;width:100%;background:image-url('common/bg-spy.png');font-size:13px;text-transform:uppercase;text-align:center;
+          font-weight:bold;letter-spacing:1px;line-height:32px;z-index:10;
+          span{display:inline-block;height:30px;line-height:30px;padding-right:30px;background:image-url('moments/sprite.png') no-repeat right -178px;
+            &:hover{color:$base_color;}
           }
         }
-      }  
-      img{width:100%;height:auto;}
-    }
+      
+        p{
+          span,strong{overflow:hidden;/*display:inline-block;*/height:18px;
+            &.name{float:left;clear:both;}
+          }
+          &.warn {position: absolute;color: #FFF;font-size: 11px;font-style: oblique;text-align: center;text-transform: uppercase;line-height: 18px;/*display: none;*/
+            &.sold_out {left:0;top:60px;background: image-url('moments/sprite.png') no-repeat 0 -76px;line-height:25px;padding-left:13px;text-align:left;width:92px;color:#000;}
+            &.quantity{background:none #FFF !important;border: 1px solid #000;color: #000;font-family: 'avenir_medium';font-weight: 600;height: 20px;width: 74px;line-height: 20px !important;text-align: center;word-spacing: -1px;}
+            &.shoe_size{background: none #000;height: 20px;left: 25px !important;line-height: 20px !important;top: 81px !important;width: 55px;word-spacing: -1px;}
+            &.percentage{right:15px;top:70px; background: image-url('moments/sprite.png') no-repeat 0 -109px;width:60px;height:47px;font-size:14px;font-family:$avenir;text-align:center;
+            padding-top:13px;
+              span{font-size:14px;font-weight:normal;}
+            }
+          }
+        }  
+        img{width:100%;height:auto;}
+      }
     
-    ul.color_list li{width:15px;display:inline-block;margin:5px 3px 0 0;
-      a{
-        img{border:solid 2px #C2C2C2;}
-        &.selected img{border:solid 2px #000;}
-      }  
+      ul.color_list li{width:15px;display:inline-block;margin:5px 3px 0 0;
+        a{
+          img{border:solid 2px #C2C2C2;}
+          &.selected img{border:solid 2px #000;}
+        }  
+      }
     }
   }
-  
   .see-more{border-top:solid 1px #CBCBCB;text-align:center;margin:50px 0 40px;position:relative;
     a{position:absolute;top:-9px;background:#FFF;padding:0 10px;font-size:20px;font-weight:bold;text-transform:uppercase;
       &.clothes,&.shoes{left:360px;}
