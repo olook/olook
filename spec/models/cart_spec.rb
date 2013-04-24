@@ -207,7 +207,7 @@ describe Cart do
     end
 
     context "when cart#subtotal is lower than R$ 100" do
-      it "returns true" do
+      it "returns false" do
         cart_with_one_item.stub(:sub_total).and_return(BigDecimal("99,00"))
         expect(cart_with_one_item.allow_credit_payment?).to be_false
       end
