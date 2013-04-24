@@ -75,6 +75,7 @@ $(document).ready(function() {
   initBase.showSlideToTop();
   initBase.slideToTop();
   initBase.replaceImages();
+  headerSearch();
 
   setTimeout(function(){slideMenuBar();},3000);
 
@@ -726,4 +727,13 @@ initBase = {
         $(this).attr('src', image);
     });
   }
+}
+function headerSearch (){
+$('#search_product').focus(function(){
+    if($(this).val() == 'BUSCAR')
+      $(this).val('');
+  }).focusout(function(){
+    if($(this).val() == '')
+      $(this).val('BUSCAR')
+  });
 }
