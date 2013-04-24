@@ -29,6 +29,9 @@
           <%= link_to "Confira aqui o seu perfil",'#', class:"profile" %> ou se não gostar do resultado, <%= link_to "responda nosso style quiz", new_survey_path %> novamente.
         </p>
 
+        <%= render "shared/mini_profile", :user => @user %>
+        
+
         <% if @user.profile_name.present? %>
           <%= link_to "#" do %>
             <%= image_tag "profiles/mini_#{@user.profile_name.to_s}.jpg", class: "profile-quiz" %>
