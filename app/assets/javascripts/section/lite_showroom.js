@@ -12,6 +12,7 @@ showroom = s = {
     s.changeImage();
     s.replaceImages();
     s.modalEspiar();
+    s.facebookCarousel();
   },
   
   openModal: function(){
@@ -25,6 +26,23 @@ showroom = s = {
       $.post("/user_liquidations", { 'user_liquidation[dont_want_to_see_again]': checked });
     });
 
+  },
+  
+  facebookCarousel: function(){
+    try{
+      $("div#mask_carousel_facebook ul").carouFredSel({
+        auto: false,
+        height: 55,
+        width: 350,
+        align: 'left',
+        prev : {
+          button : ".carousel-prev-fb"
+        },
+        next : {
+          button : ".carousel-next-fb"
+        }
+      });
+    }catch(e){}
   },
   
   changeImage: function(){

@@ -5,8 +5,8 @@
 // the compiled file.
 //
 //= require jquery_ujs
-//= require_tree ./plugins
-
+//= require ./plugins/jquery.jqzoom-core
+//= require ./plugins/carouFredSel-5.4.1/jquery.carouFredSel-5.4.1
 //= require ./common/product_view
 //= require ./common/lite_base
 

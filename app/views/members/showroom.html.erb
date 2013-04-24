@@ -26,7 +26,7 @@
         <p>
           Nossas stylists montaram uma seleção incrível de produtos para você este mês.
           Confira e aproveite sem moderação!
-          <%= link_to "Confira aqui o seu perfil",'#' %> ou se não gostar do resultado,<%= link_to "responda nosso style quiz", new_survey_path %> novamente.
+          <%= link_to "Confira aqui o seu perfil",'#', class:"profile" %> ou se não gostar do resultado, <%= link_to "responda nosso style quiz", new_survey_path %> novamente.
         </p>
 
         <% if @user.profile_name.present? %>
@@ -52,29 +52,32 @@
           <%- end -%>
         </ul>
         <%= link_to "Próximo", "javascript:void(0);", :class => "carousel-next-fb" %>
+        <%= link_to "Convide mais amigas e ganhe créditos!", member_invite_path, class: "invite-more" %>
       </div>
-      <%= link_to "Convide mais amigas e ganhe créditos!", member_invite_path %>
     <%- else -%>
-      <div id="banner_creditos"><%= link_to 'Banner de R$20 em créditos!', member_invite_path %><!-- apagar esse texto --></div>
+      <div id="banner_creditos"><%= link_to (image_tag('showroom/banner.png')), member_invite_path, :title => "Convide amigas e ganhe R$ 20 quando elas fizerem a primeira compra" %></div>
     <%- end -%>
   </section>
     
-  <div class="share">
-    <!--iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2F<%= request.host %>/membro/share/<%= @user.id %>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35&amp;appId=<%= @facebook_app_id %>" scrolling="no" frameborder="0" id="fb_iframe" allowTransparency="true"></iframe-->
-  </div>
   
   <div class="showroom-title">
     <p><span>Sua vitrine de <%= current_collection_name %></span></p>
   </div>
       
   <section class="container_product" id="clothes_container">
+    
+    <div class="fb_share">
+      <p>Gostou da sua vitrine Então compartilhe!</p>
+      <%= link_to 'Compartilhar', "/quiz/new", data: {cart_id:  @cart.id }, id: "facebook_share", remote: true , :class => "share", :"data-width" => 128, :"data-height" => 24 %>
+    </div>
+      
     <ul>
       <%- @cloth.shift(5).each do |product| -%>
           <%= render 'shared/lite_product_item', product: product  %>
       <%- end -%>
     </ul>
 
-    <ul>
+    <ul class="second_line">
       <%- @cloth.shift(5).each do |product| %>
         <%= render 'shared/lite_product_item', product: product %>
       <%- end -%>
@@ -193,44 +196,10 @@
 <!-- END MODALS -->
 
 
-<% if user_signed_in? %>
-  <%#= render "shared/invite", :user => current_user %>
-  <!--div class="box_invite">
-    <h1>Convide suas amigas e ganhe créditos</h1>
-    <p>Você ganhará <strong>R$20</strong> na primeira compra de cada amiga que se cadastrar usando seu convite. <strong>Mande para todo mundo!</strong></p>
-    <%#= render "shared/social/share", :user => user %>
-    <div class="social">
-      <ul>
-        <li class="facebook"><%= link_to "#", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","clickShareFacebook") do %>Postar no meu mural<% end %></li>
-        <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=Cadastre-se na olook pelo meu convite, descubra o seu estilo e ainda ganhe R$10! #{accept_invitation_url(:invite_token => current_user.invite_token)}&hashtags=ficaadica", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","clickShareTwitter") %></li>
-        <li class="email"><%= link_to "#" do %>Enviar por email<% end %></li>
-      </ul>
-      <%= form_tag member_invite_by_email_path do %>
-        <p>Digite o email de suas amigas separados por vírgula no campo abaixo:</p>
-        <%= text_area_tag :invite_mail_list %>
-        <%= submit_tag "", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","clickShareEmail") %>
-      <% end %>
-    </div>
-    <div class="link_mail">
-      <p class="txt-copie">Copie o link abaixo e envie por email, MSN ou GTalk:</p>
-      <ul>
-        <li>
-          <%= text_field_tag "link", accept_invitation_url(:invite_token => current_user.invite_token), :readonly => "readonly" %>
-          <%= link_to "Copiar link", "#", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","clickShareLink") %>
-        </li>
-      </ul>
-      <div class="box_copy">
-        <p><strong>Link copiado</strong></p>
-        <p>Aperte CTRL + V para colar.</p>
-      </div>
-    </div>
-    <%#= fim "shared/social/share", :user => user %>
-  </div-->
-  <%#= render "shared/invite", :user => current_user %>
-<% end %>
-
 <% content_for :footer do %>
   <%= javascript_include_tag "section/lite_showroom" %>
+ 
+  <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
  
   <% if @user.first_visit_for_member? %>
     <%= javascript_include_tag "first_visit" %>
