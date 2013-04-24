@@ -18,7 +18,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         redirect user
       else
         session["devise.facebook_data"] = request.env["omniauth.auth"]
-        if @cart.items.any?
+        if @cart && @cart.items.any?
           redirect_to new_half_user_session_path(:checkout_registration => "true")
         else
           redirect_to new_user_registration_url
@@ -42,15 +42,15 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # Clearly this isn't the best place to put this code, but the problem is that putting this
     # logic in ApplicationController#current_referer doesn't work because the user is not 
     # loaded yet on that point
-    #        
+    #
     def redirect user
-      if @cart.items.any?
+      if @cart && @cart.items.any?
         redirect_to new_checkout_path
       elsif !user.half_user?
         redirect_to member_showroom_path
       else
         redirect_to lookbooks_path
-      end      
+      end
     end
 
     def facebook_redirect_paths
