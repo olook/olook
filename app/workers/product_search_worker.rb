@@ -12,8 +12,8 @@ class ProductSearchWorker
       end
     end
 
-    def index product
-      ProductSearch.index_term(product.name)
+    def self.index product
+      ProductSearch.index_term(product.formatted_name(false))
       product.name.split.each { |t| ProductSearch.index_term(t) }
     end
 end
