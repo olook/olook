@@ -62,18 +62,24 @@ class ApplicationController < ActionController::Base
     def assign_coupon_to_cart(cart, coupon_code)
       coupon = Coupon.find_by_code(coupon_code)
       if coupon
-        cart ||= create_cart 
-        cart.update_attribute("coupon_id", coupon.id)
+        cart ||= create_cart
+        cart.coupon_code = coupon.code
+        if cart.valid?
+          cart.update_attributes(:coupon_id => coupon.id)
+        else
+          flash.now[:notice] = cart.errors[:coupon_code].join('<br />'.html_safe)
+          cart.remove_coupon!
+        end
+      else
+        flash.now[:notice] = 'Cupom Inválido'
       end
       cart
     end
 
     def assign_cart_to_user(cart)
-      if cart
-        if @user
-          cart.update_attribute("user_id", @user.id) if cart.user.nil?
-        end
-      end      
+      if cart && @user
+        cart.update_attribute("user_id", @user.id) if cart.user.nil?
+      end
     end
 
     def log_start_end_action_processing
