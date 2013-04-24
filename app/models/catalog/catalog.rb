@@ -26,9 +26,9 @@ class Catalog::Catalog < ActiveRecord::Base
   def shoes
     subcategories(Category::SHOE).reject{ |sub| CARE_PRODUCTS.include? sub[1] }
   end
-  
+
   def care_shoes
-    subcategories(Category::SHOE).reject{ |sub| ! CARE_PRODUCTS.include?(sub[1]) }
+    subcategories(Category::SHOE).select { |sub| CARE_PRODUCTS.include?(sub[1]) }
   end
 
   def bags
