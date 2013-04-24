@@ -57,6 +57,12 @@ _gaq.push(['_addTrans',
     </div>
   <% end %>
 
+  <% if @promo_over_coupon %>
+  <div class="warning-msg">
+    <p><b>Ops, os descontos não são cumulativos</b><br/>Então escolhemos o desconto mais vantajoso para você neste momento.<br/>Abaixo, indicamos os descontos concedidos:</p>
+  </div>
+  <% end %>    
+
   <% if @cart.items.count > 0 %>
     <ul id="titles" class="border">
       <li class="item">Item</li>

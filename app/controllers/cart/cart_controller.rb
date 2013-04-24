@@ -15,10 +15,11 @@ class Cart::CartController < ApplicationController
     @suggested_product = find_suggested_product
     @chaordic_cart = ChaordicInfo.cart @cart, current_user
 
+    @promo_over_coupon = false
     if @cart && @cart.coupon
       unless @cart.coupon.should_apply_to? @cart
         @cart.remove_coupon!
-        flash.now[:notice] = "A promoção é mais vantajosa que o cupom"
+        @promo_over_coupon = true
       end
     end
   end
