@@ -30,7 +30,7 @@ describe LiquidationsController do
 
     describe "GET 'update'" do
       it "assigns @liquidation" do
-        get :update, :format => :js,  :id => liquidation.id
+        get :update, :format => :js, :id => liquidation.id
         assigns(:liquidation).should eql(liquidation)
       end
 
