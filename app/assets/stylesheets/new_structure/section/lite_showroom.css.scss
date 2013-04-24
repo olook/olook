@@ -2,24 +2,23 @@
 @import 'new_structure/partials/lite_boxes_home';
 
 
-#showroom{margin-bottom:50px;display:inline-block;
+#showroom{margin-bottom:50px;display:inline-block;position:relative;
   a{color:#000;text-decoration:none;}
 }
 
 .user-info{overflow:hidden;
-  #profile{float:left;color:#000;
+  #profile{float:left;color:#000;position:relative;
     .photo{float:left;margin-right:11px;
       p{width:105px;height:105px;background: image-url('showroom/sprite.png') no-repeat 0 0;text-indent:-9999em;}
 
       a{display:block;width:100px;height:30px;background: image-url('showroom/sprite.png') no-repeat -106px 0;text-indent:-9999em;margin:5px 0 0 2px;} 
     }
 
-    .description{float:left;width:430px;margin-right:20px;position:relative;
+    .description{float:left;width:430px;margin-right:20px;
       p{font-size:13px;
         &.name{font-size:19px;text-transform:uppercase;margin-bottom:10px;line-height:25px;}
         a{color:$base_color;text-decoration:underline;}
       }
-      img.profile-quiz{position:absolute;display:none;}
     }
   }
   
@@ -41,6 +40,9 @@
     }
   }
 }
+
+img.profile-quiz{position:absolute;display:none;top:70px;left:300px;z-index:999;}
+
 div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;margin-top:50px;clear:both;text-align:center;
   p{background:#FFF;padding:10px;display:inline-block;position:absolute;left:33%;top:-18px;
     span{background:#000;font-family:$avenir_medium;font-size:23px;text-transform:uppercase;color:#FFF;padding:7px 7px 0;}
