@@ -16,7 +16,7 @@ class Cart::CartController < ApplicationController
     @chaordic_cart = ChaordicInfo.cart @cart, current_user
 
     @promo_over_coupon = false
-    if @cart && @cart.coupon
+    if @cart && @cart.coupon && !@cart.items.empty?
       unless @cart.coupon.should_apply_to? @cart
         @cart.remove_coupon!
         @promo_over_coupon = true
