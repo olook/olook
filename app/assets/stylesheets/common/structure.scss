@@ -1129,15 +1129,15 @@ header#new_header{
          .scroll{max-height:297px;overflow-y:auto;padding:0 32px;
             li{
               &.coupon_info{
-                p{font-family: $avenir; font-size: 11px;color: #000;
-                  img{float: left; margin-top: 20px; margin-right: 15px;}}
+                p{font-family: $avenir; font-size: 12px;color: #000;
+                  img{float: left; margin-top: 13px; margin-right: 10px;}}
                }
                &.product_item{border-top:solid 1px #CCC;margin-top:10px;color:#000;font-size:12px;padding-top:10px;
-                  p {line-height:17px;overflow:hidden; white-space: nowrap;}
+                  p {line-height:17px;overflow:hidden;}
                   img{float:left;margin-right:14px;}
                   h1{font-family:$avenir;text-transform:uppercase;font-size:11px;font-weight:bold;}
                }
-               p.freight{text-align:center;color:$pink;font-family:$avenir;text-transform:uppercase;font-size:12px;
+               p.freight{text-align:center;color:$pink;font-family:$avenir;text-transform:uppercase;font-size:12px; line-height: 18px;
                   span{color:#000;font-size:10px;text-transform:none;letter-spacing:1px;}
                }
                hr{height:1px;border:0;color:#CCC;background:#CCC;}
