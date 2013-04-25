@@ -165,7 +165,9 @@ _gaq.push(['_addTrans',
     <table cellpadding="0" cellspacing="0" id="total">
       <tbody>
           <tr id="coupon_info" <%= "style=display:none;" unless @cart.coupon %> >
-            <td>Código Promocional</td>
+            <td>
+              Cupom Promocional
+            </td>
             <td class="value discount">
               <p id="coupon_discount">
                 <% if @cart.coupon %>
@@ -187,6 +189,7 @@ _gaq.push(['_addTrans',
           </tr>
         <tr class="total">
           <td>
+            <%- unless @cart.coupon -%>
               <table id="coupon" cellpadding="0" cellspacing="0">
                 <tbody>
                   <tr class="discount">
@@ -211,6 +214,7 @@ _gaq.push(['_addTrans',
                   </tr>
                 </tbody>
               </table>
+            <%- end -%>
           </td>
           <td class="value">
             <p>Total: <span id="total_value"><%= number_to_currency(@cart_service.total) %></span></p>
