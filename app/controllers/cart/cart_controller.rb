@@ -17,7 +17,9 @@ class Cart::CartController < ApplicationController
 
     @promo_over_coupon = false
     if @cart && @cart.coupon && !@cart.items.empty?
-      unless @cart.coupon.should_apply_to? @cart
+      if @cart.coupon.should_apply_to? @cart
+        @promo_over_coupon = true if @cart.items.any? { |i| i.liquidation? }
+      else
         @cart.remove_coupon!
         @promo_over_coupon = true
       end
