@@ -92,7 +92,7 @@ showroom = s = {
       $("div#overlay-campaign").css("height", $(document).height()).fadeIn();
       
       $("#modal")
-      .append('<iframe width="1000" border="0" height="735" src="http://localhost:3000/produto/'+_link +'/spy/">').css("top", $(window).scrollTop()  + 35)
+      .append('<iframe width="1000" border="0" height="735" src="http://localhost:3000/produto/'+_link+'/spy/">').css("top", $(window).scrollTop()  + 35)
       .append('<div id="close_quick_view">x</div>')
       .fadeIn();
     });
