@@ -1,6 +1,6 @@
 <% shoe_size = params[:shoe_sizes].to_a.find { |ss| !ss.blank? }.try(:to_i) || current_user.try(:shoes_size).try(:to_i) %>
 
-<%= cache(product.item_view_cache_key_for(shoe_size), expires_in: CACHE_KEYS[:product_item_partial][:expire]) do %>
+<%= cache(product.lite_item_view_cache_key_for(shoe_size), expires_in: CACHE_KEYS[:lite_product_item_partial][:expire]) do %>
   <li class="product<%= " promotion" if product.promotion? %>" data-id="<%= product.id %>">
     <%= render "shared/lite_product_hover", :product => product, :gift => (gift ||= false), :shoe_size => (shoe_size ||= nil) %>
     

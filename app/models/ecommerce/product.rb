@@ -433,13 +433,19 @@ class Product < ActiveRecord::Base
       shoes_sizes = self.variants.collect(&:description)
       shoes_sizes.each do |shoe_size|
         Rails.cache.delete("views/#{item_view_cache_key_for(shoe_size)}")
+        Rails.cache.delete("views/#{lite_item_view_cache_key_for(shoe_size)}")
       end
     end
     Rails.cache.delete("views/#{item_view_cache_key_for}")
+    Rails.cache.delete("views/#{lite_item_view_cache_key_for}")
   end
 
   def item_view_cache_key_for(shoe_size=nil)
     shoe? ? CACHE_KEYS[:product_item_partial_shoe][:key] % [id, shoe_size] : CACHE_KEYS[:product_item_partial][:key] % id
+  end
+
+  def lite_item_view_cache_key_for(shoe_size=nil)
+    shoe? ? CACHE_KEYS[:lite_product_item_partial_shoe][:key] % [id, shoe_size] : CACHE_KEYS[:lite_product_item_partial][:key] % id
   end
 
   def brand
