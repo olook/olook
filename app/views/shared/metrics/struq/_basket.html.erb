@@ -10,7 +10,7 @@ _struqPI.push(['injectTrackingPixel', {
     IF THERE ARE SEVERAL PRODUCTS (eg. a category product list): replace the variable STQ123 below with the a comma (,) separated list of up to 3 product IDs from the page, e.g. "id1,id2,id3"
   */
   data: [
-    { title: "si", pid: "<%= cart.items.sort_by{|cp| cp.product.price}.reverse.map{ |item| "#{item.product_id}"}.first(3).join(', ') -%>" },
+    { title: "si", pid: "<%= cart.items.sort_by{|cp| cp.product.price}.reverse.map{ |item| "#{item.product.id}"}.first(3).join(', ') -%>" },
   ],
   options: { timeoutMs: 2000 }}]);
 (function() {
