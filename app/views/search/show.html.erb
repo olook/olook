@@ -1,15 +1,11 @@
 <% if @hits["found"] == 0 %>
   <h2>"Nenhum produto encontrado."</h2>
 <% else %>
-  <ul>
-    <% @hits["hit"].each do |hit| %>
-      <li>
-        <% if hit['data']['image'] %>
-          <p class="image"><img src="<%= hit['data']['image'].first %>"></img></p>
-        <% end %>
-        <p class="product_category"><%= hit['data']['categoria'].first %></p>
-        <p class="product_name"><%= link_to hit["data"]["name"].first, product_path(hit["id"]) %></p>
-      </li>
-    <% end %>
-  </ul>
+  <h2>Encontramos <%= @hits["found"] %> produtos para você.</h2>
+  <% @products.each do |product| %>
+    <%= render "shared/searched_product_item", product: product%>
+  <% end %>
 <% end %>
+
+
+
