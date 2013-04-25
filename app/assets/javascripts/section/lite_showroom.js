@@ -66,7 +66,7 @@ showroom = s = {
       quantity = $(this).parent().find("input[type='hidden'].quantity").val();
       $(productBox).removeClass("sold_out");
       $(productBox).removeClass("stock_down");
-      s.spyLinkId($(this));
+
       s.updateProductImage(productBox, newLink, newImg);
   
       if(!s.isProductSoldOut(productBox, soldOut)) {
@@ -76,13 +76,7 @@ showroom = s = {
 
   },
   
-  spyLinkId: function(color) {
-    productId = $(color).siblings(".product_id").val();
-    hoverBox = $(color).parents("li.product");
-    spyLink = $(hoverBox).find("a.spy").attr("href");
-    $(hoverBox).find("a.spy").attr("href", spyLink.replace(/\d+$/, productId));
- 
-  },
+
   
   modalEspiar: function(){
     $("li.product a.spy").click(function(e){
