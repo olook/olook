@@ -17,6 +17,7 @@ class MomentsController < ApplicationController
   end
 
   def show
+    @colors = products_colors
     @pixel_information = params[:category_id]
     if CollectionTheme.active.first.try(:catalog).try(:products).nil?
       flash[:notice] = "A coleção não possui produtos disponíveis"
@@ -31,6 +32,7 @@ class MomentsController < ApplicationController
   end
 
   def clothes
+    @colors = products_colors
     @pixel_information = params[:category_id]
     render :show
   end
@@ -80,5 +82,8 @@ class MomentsController < ApplicationController
     params.delete (:shoe_sizes) if @category_id != Category::SHOE
   end
 
-
+  private
+    def products_colors
+      colors ||= Detail.colors(params[:category_id]).map{|a| a.description.parameterize}.compact.uniq
+    end
 end
