@@ -10,7 +10,7 @@ class CollectionThemePresenter < BasePresenter
   end
 
   def display_color_filters
-    h.render :partial => 'shared/filters/color_filters', :locals => {:collection_theme_presenter => self, product_type: category_type} if shoes? || clothes? || bags?
+    h.render :partial => 'shared/filters/color_filters', :locals => {:collection_theme_presenter => self, product_type: category_type}
   end
 
   def display_shoe_filters
