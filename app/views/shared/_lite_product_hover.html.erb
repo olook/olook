@@ -1,4 +1,4 @@
-<%= link_to  content_tag(:span, "Espiar"), "#", :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}, :id => "#{product.id}"}, :rel => "nofollow", :remote => true, class: "spy" %>
+<%= link_to  content_tag(:span, "Espiar"), "#", :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}, :href => "#{spy_product_url(product.id)}"}, :rel => "nofollow", :remote => true, class: "spy" %>
 
 <% if (gift) %>
 <!--li class="add"><%= link_to "Adicionar às sugestões", "suggestions/select_gift/#{product.id}", :remote => true, :rel => "#{product.id}", :class => "add_suggestion_#{product.id}" %></li-->

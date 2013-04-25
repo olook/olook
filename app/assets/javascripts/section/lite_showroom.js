@@ -85,14 +85,13 @@ showroom = s = {
   },
   
   modalEspiar: function(){
-    var _link;
-    $("li.product a.spy").on("mouseenter", function(){
-      _link = $(this).attr('data-id');
-    }).on("click", function(){
+    $("li.product a.spy").click(function(e){
+      e.preventDefault();
+      var _link = $(this).data('href');
       $("div#overlay-campaign").css("height", $(document).height()).fadeIn();
       
       $("#modal")
-      .append('<iframe width="1000" border="0" height="735" src="http://localhost:3000/produto/'+_link +'/spy/">').css("top", $(window).scrollTop()  + 35)
+      .append('<iframe width="1000" border="0" height="735" src="'+_link+'">').css("top", $(window).scrollTop()  + 35)
       .append('<div id="close_quick_view">x</div>')
       .fadeIn();
     });
