@@ -6,7 +6,7 @@
       <%= check_box_tag "select_all_colors", 1, params[:select_all_colors], :class => "select_all" %>
       <%= label_tag "select_all_colors", "Todas as cores" %>
     </li-->
-  <% Product::COLORS.sort{|a,b| b[0] <=> a[0]}.each do |subcategory, label| -%>
+  <% Product::COLORS.sort{|a,b| a[0] <=> b[0]}.each do |subcategory, label| -%>
     <li class="<%= subcategory %>">
       <%= check_box_tag("#{product_type}_colors[]", label, params["#{product_type}_colors".to_sym] && params["#{product_type}_colors".to_sym].include?(label) || params[:select_all_colors], id: subcategory) %>
       <%= label_tag(label, nil, for: subcategory) %>
