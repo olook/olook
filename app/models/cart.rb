@@ -17,7 +17,7 @@ class Cart < ActiveRecord::Base
   after_update :notify_listener
 
   def allow_credit_payment?
-    has_empty_adjustments? && has_any_full_price_item?
+    has_empty_adjustments? && has_any_full_price_item? && self.sub_total >= 100
   end
 
   def add_variants(variant_numbers)
