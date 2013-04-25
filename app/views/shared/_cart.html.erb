@@ -13,7 +13,7 @@
           <hr />
         </li>
         <% if @cart and @cart.coupon %>
-          <li class="coupon_info">
+          <li class="coupon_info product_item">
             <p class="coupon_tag"><%= image_tag 'common/nav/big_coupon.png', :class => '' %>Sua sacola agora tem um cupom de <%= coupon_value_for(@cart.coupon) %> de desconto.<br />Aproveite! ;)</p>
           </li>
         <% end %>
