@@ -44,7 +44,7 @@ Olook::Application.configure do
   config.cache_store = :dalli_store, 'appcache.o2ltwu.0001.use1.cache.amazonaws.com',{ :namespace => 'olook', :expires_in => 1.day , :compress => true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = proc do |x| 
+  config.action_controller.asset_host = proc do |x|
     "//d22zjnmu4464ds.cloudfront.net"
     # "//cdn-app-#{rand(3)}.olook.com.br"
   end
@@ -57,7 +57,7 @@ Olook::Application.configure do
 
   # config.assets.paths << "#{Rails.root}/public/assets/admin #{Rails.root}/public/assets/common #{Rails.root}/public/assets/gift #{Rails.root}/public/assets/plugins #{Rails.root}/public/assets/ui #{Rails.root}/public/assets/section"
 
-  config.assets.precompile += %w(*.js admin.css campaign_emails.css admin/*.css admin/*.js about/*.css common/*.js gift/*.js plugins/*.js ui/*.js section/*.css utilities/*.css )
+  config.assets.precompile += %w(*.js admin.css campaign_emails.css admin/*.css admin/*.js about/*.css common/*.js gift/*.js plugins/*.js ui/*.js section/*.css utilities/*.css new_structure/*.css )
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
