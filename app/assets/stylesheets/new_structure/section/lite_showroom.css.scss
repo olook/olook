@@ -7,7 +7,7 @@
 }
 
 .user-info{overflow:hidden;
-  #profile{float:left;color:#000;position:relative;
+  #profile{display:inline-block;color:#000;position:relative;
     .photo{float:left;margin-right:11px;
       p{width:105px;height:105px;background: image-url('showroom/sprite.png') no-repeat 0 0;text-indent:-9999em;}
       
@@ -30,15 +30,15 @@
     a{display:block;width:400px;height:80px;}
   }
   
-  #mask_carousel_facebook{display:inline-block;width:429px;height:86px;margin-top:40px;text-align:center;
-   .caroufredsel_wrapper{/* float:left !important;margin:0 5px !important;*/
+  #mask_carousel_facebook{display:inline-block;margin-top:40px;/*width:429px;height:86px;text-align:center;*/
+   .caroufredsel_wrapper{ display:inline-block;/*float:left !important;*/margin:0 5px !important;
       li{display:inline-block;margin-right:5px !important;}
     }
     a{
       &.invite-more{clear:both;font-family:$avenir-medium;text-transform:uppercase;font-size:12px;font-weight:bold;display:block;
         &:hover{color:$base_color;}
       }
-      &.carousel-prev-fb, &.carousel-next-fb{/*float:left;*/font-size:0;margin-top:10px;line-height:0;display:block;width:22px;height:25px;
+      &.carousel-prev-fb, &.carousel-next-fb{/*float:left;*/display:inline-block !important;font-size:0;margin-top:10px;line-height:0;display:block;width:22px;height:25px;
       background: image-url('showroom/sprite.png') no-repeat -104px -56px;}
       &.carousel-next-fb{background: image-url('showroom/sprite.png') no-repeat -105px -79px;}
     }
@@ -47,7 +47,7 @@
 
 img.profile-quiz{position:absolute;display:none;top:70px;left:300px;z-index:999;}
 
-div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;margin-top:50px;clear:both;text-align:center;
+div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;margin-top:60px;clear:both;text-align:center;
   p{background:#FFF;padding:10px;display:inline-block;position:absolute;left:33%;top:-18px;
     span{background:#000;font-family:$avenir_medium;font-size:23px;text-transform:uppercase;color:#FFF;padding:7px 7px 0;}
   }
