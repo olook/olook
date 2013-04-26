@@ -10,6 +10,7 @@
     <name><%= product.name %></name>
     <price>R$ <%= number_with_precision(product.price, :precision => 2, :separator => ',') %></price>
     <rrp>R$ <%= number_with_precision(product.retail_price, :precision => 2, :separator => ',') %></rrp>
+    <saving><%= calculate_discount_for product %>%</saving>
     <installments><%= installments_number(product.price) %></installments>
     <installmentprice>R$ <%= installments_value(product.price, :separator => ',') %></installmentprice>
     <category><%= product.category_humanize %></category>
