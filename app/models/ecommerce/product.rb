@@ -79,6 +79,7 @@ class Product < ActiveRecord::Base
                                                   where("(products.category <> 1 or x.count_variants > 3)").
                                                   order("collection_id desc")
     products.delete_if { |product| product.shoe_inventory_has_less_than_minimum? }
+    products.delete_if { |product| product.cloth_inventory_has_less_than_minimum? }
   end
 
   def has_less_then_minimum_inventory?
