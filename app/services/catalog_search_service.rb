@@ -43,6 +43,7 @@ class CatalogSearchService
     @query = prepare_query_joins
 
     add_category_filter_to_query_base
+    add_collection_filter_to_query_base
     @query = @query.where(@query_base)
   end
 
@@ -72,6 +73,10 @@ class CatalogSearchService
   def add_category_filter_to_query_base
     # Subcategories filter to make possible to have Shoes / Bags / Accessories pages
     @query_base = @query_base.and(l_products[:category_id].in(@params[:category_id])) if @params[:category_id]
+  end
+
+  def add_collection_filter_to_query_base
+    @query_base = @query_base.and(Product.arel_table[:collection_id].eq(Collection.active.id)) if @params[:news]
   end
 
   def compact_category_queries

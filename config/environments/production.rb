@@ -44,7 +44,7 @@ Olook::Application.configure do
   config.cache_store = :dalli_store, 'appcache.o2ltwu.0001.use1.cache.amazonaws.com',{ :namespace => 'olook', :expires_in => 1.day , :compress => true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = proc do |x| 
+  config.action_controller.asset_host = proc do |x|
     "//d22zjnmu4464ds.cloudfront.net"
     # "//cdn-app-#{rand(3)}.olook.com.br"
   end

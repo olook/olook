@@ -32,7 +32,7 @@ function slideMenuBar(){
 
   var $el, leftPos, newWidth;
 
-  var $magicLine = $("ul.default_new li#bar"), w = $("ul.default_new li .selected").outerWidth(), l = $("ul.default_new li .selected").position().left ;
+  var $magicLine = $("ul.default_new li#bar"), w = $("ul.default_new li .selected").outerWidth(), l = $("ul.default_new li .selected").position() && $("ul.default_new li .selected").position().left ;
 
   $magicLine
   .width(w - 40)

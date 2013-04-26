@@ -209,6 +209,7 @@ describe CatalogSearchService do
         products.should_not include(cp3)
       end
     end
+<<<<<<< HEAD
     context "price range" do
       it "returns values greater than the floor value" do
         cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
@@ -240,6 +241,23 @@ describe CatalogSearchService do
         products.should_not include(cp2)
         products.should include(cp3)        
       end                
+=======
+
+    context "by active collection" do
+      before do
+        collection = FactoryGirl.create(:collection, :active)
+        inative_collection = FactoryGirl.create(:collection, :inactive)
+        basic_bag.update_attributes(collection: inative_collection)
+        @active_product = CatalogProductService.new(catalog, basic_shoe).save!.first
+        @inactive_product = CatalogProductService.new(catalog, basic_bag.reload).save!
+        params = {:id => catalog.id, news: true}
+        @products = CatalogSearchService.new(params).search_products
+      end
+
+      it { expect(@products).to include(@active_product) }
+      it { expect(@products).to_not include(@inactive_product) }
+
+>>>>>>> new_showroom
     end
   end
 end

@@ -5,6 +5,7 @@
     <%= render "shared/lite_product_hover", :product => product, :gift => (gift ||= false), :shoe_size => (shoe_size ||= nil) %>
     
     <%= link_to product, :class => "product_link", :rel => "#{product.id}", :remote => (defined?(suggestion) || gift), :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}} do %>
+
       
       <%= image_tag("common/ajax-loader-product-smaller.gif", :alt => product.name, :class => "async", data: { product: product.catalog_picture, backside: product.backside_picture, wearing: product.wearing_picture, showroom: product.send(image_method ||= :showroom_picture) } ) %>
 
@@ -25,7 +26,6 @@
       <% if product.sold_out? %>
         <p class="warn sold_out"><b>ESGOTADO!</b></p>
       <% end %>
-
 
       <% if product.promotion? && !product.sold_out? && product.discount_percent.to_i != 0 %>
         <p class="warn percentage"><span><%= product.discount_percent.to_i %>%</span><br />off</p>
