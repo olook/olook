@@ -1,6 +1,9 @@
 @import "partials/product";
 @import "section/collections";
 
+.brand label {
+  text-transform: uppercase;
+}
 div#moments {
   position: relative;
   width: 100%;
