@@ -20,12 +20,12 @@ var masks = {
 		});
 	},
   card_brands: {
-    "Visa":"99999999999999999",
-    "Mastercard":"99999999999999999",
-    "Diners":"999999999999999"
+    "Visa":"9999999999999999",
+    "Mastercard":"9999999999999999",
+    "Diners":"9999999999999999"
   },
-	card: function(){
-		$("input.credit_card_number").setMask('9999999999999999999')
+  card: function(){
+	$("input.credit_card_number").setMask('9999999999999999')
   }
 }
 
@@ -88,7 +88,7 @@ function setButton(){
 function showAboutSecurityCode(){
 	$("a.find_code").click(function(){
 		content = $("div.modal_security_code");
-    initBase.newModal(content);	
+    initBase.newModal(content);
 	})
 }
 
