@@ -6,8 +6,11 @@ class CatalogSearchService
     @l_products = Catalog::Product.arel_table
     @query_base = @l_products[:catalog_id].eq(@params[:id])
                   .and(@l_products[:inventory].gt(0))
-                  .and(Product.arel_table[:is_visible].eq(true))
                   .and(Variant.arel_table[:inventory].gt(0))
+
+    unless params[:admin]
+      @query_base = @query_base.and(Product.arel_table[:is_visible].eq(true))
+    end
 
     if @liquidation = LiquidationService.active
       @query_base = @query_base.and(LiquidationProduct.arel_table[:product_id].eq(nil))
