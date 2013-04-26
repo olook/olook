@@ -12,7 +12,7 @@
 <discount><%= (100-(product.retail_price*100/product.price)).to_i %></discount>
 <recommendable>1</recommendable>
 <instock><%= product.instock %></instock>
-<category><%= product.subcategory %></category>
+<category><%= @liquidation_products.include?(product.id) ? "olooklet" : product.subcategory %></category>
 </product>
 <% end %>
 </products>
