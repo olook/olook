@@ -45,6 +45,10 @@ class XmlController < ApplicationController
     respond_with(@products)
   end
 
+  def struq
+    respond_with(@products)
+  end
+
   private
 
   def load_products
