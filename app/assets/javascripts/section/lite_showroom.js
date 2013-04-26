@@ -30,10 +30,10 @@ showroom = s = {
   },
   
   facebookCarousel: function(){
-    try{
+
       $("div#mask_carousel_facebook ul").carouFredSel({
         auto: false,
-        height: 55,
+        height: 45,
         width: 350,
         align: 'left',
         prev : {
@@ -43,7 +43,7 @@ showroom = s = {
           button : ".carousel-next-fb"
         }
       });
-    }catch(e){}
+    
   },
   
   showProfile: function(){
