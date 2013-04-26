@@ -13,6 +13,7 @@ class XmlController < ApplicationController
 
   def criteo
     @products = Product.valid_criteo_for_xml(Product.xml_blacklist("products_blacklist"), Product.xml_blacklist("collections_blacklist"))
+    liquidation_products
     respond_with(@products)
   end
 
