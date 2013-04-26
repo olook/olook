@@ -12,7 +12,7 @@ class CollectionThemesController < ApplicationController
   end
 
   def show
-    return redirect_to collection_themes_url unless @collection_theme.active
+    return redirect_to collection_themes_url if !current_admin && !@collection_theme.active
     @chaordic_user = ChaordicInfo.user current_user
   end
 

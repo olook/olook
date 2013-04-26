@@ -1,0 +1,21 @@
+<script id="struqPixelInjectorScript" type="text/javascript">
+var _struqPI = _struqPI || [];
+_struqPI.push(['injectTrackingPixel', {
+  trackingPixelId: 'mDDHA9h7XE-dKkcrlmuByA',
+  route: '/s/s/',
+  collectData: false,
+  /* If you'd like to use JavaScript to pass the dynamic data use the instructions below. Otherwise, change "collectData" above to true and see Implementation guide for the alternative HTML DIV tags.
+     Data required:
+    IF IT'S A SINGLE PRODUCT (eg. in a Product Page): replace the variable STQ123 below with the product ID on this page 
+    IF THERE ARE SEVERAL PRODUCTS (eg. a category product list): replace the variable STQ123 below with the a comma (,) separated list of up to 3 product IDs from the page, e.g. "id1,id2,id3"
+  */
+  data: [
+    { title: "si", pid: "<%= cart.items.sort_by{|cp| cp.product.price}.reverse.map{ |item| "#{item.product.id}"}.first(3).join(', ') -%>" },
+  ],
+  options: { timeoutMs: 2000 }}]);
+(function() {
+  var struq = document.createElement('script'); struq.type = 'text/javascript'; struq.async = true;
+  struq.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'media.struq.com/content/scripts/Struq_Us_Pixel_Injector' + (window.jQuery ? (1.7 <= parseFloat($.fn.jquery.substring(0, 3)) ? '_Jquery' : '') : '') + '_min_v1-5.js';
+  var s = document.getElementById('struqPixelInjectorScript'); s.parentNode.insertBefore(struq, s);
+})();
+</script>
