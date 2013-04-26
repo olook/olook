@@ -9,11 +9,11 @@ showroom = s = {
   init: function(){
     s.openModal();
     s.changeImage();
-    s.changeImage();
     s.replaceImages();
     s.modalEspiar();
     s.facebookCarousel();
     s.showProfile();
+    s.attachFacebookShareCLick();
   },
   
   openModal: function(){
@@ -124,6 +124,26 @@ showroom = s = {
         $(this).attr('src', image);
     });
 
+  },
+
+  attachFacebookShareCLick = function() {
+    $('#facebook_share').click(s.postShowroomToFacebookFeed);
+  },
+
+  postShowroomToFacebookFeed = function(element) {
+    var obj = {
+        picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
+        method: 'feed',
+        caption: 'www.olook.com.br',
+        link: 'http://www.olook.com.br',
+        description: 'Preencha o quiz e veja os looks que a Olook recomenda pra você!'
+    }
+
+    FB.ui(obj, function(response) {
+      if (response && response.post_id) {
+        _gaq.push(['_trackEvent', 'Showroom', 'FacebookShare', '', , true]);
+      }
+    });
   }
-  
+
 }
