@@ -423,6 +423,8 @@ class Product < ActiveRecord::Base
     products = Rails.cache.fetch(CACHE_KEYS[:product_clothes_for_profile][:key] % profile, :expires_in => CACHE_KEYS[:product_clothes_for_profile][:expire]) do
       product_ids = Setting.send("cloth_showroom_#{profile}").split(",")
       find_keeping_the_order product_ids
+      # QUICK AND DIRTY. remove this pleeeeeease
+      products = Collection.active.products.where(category: Category::CLOTH).last(20)
     end
   end
 
@@ -431,13 +433,19 @@ class Product < ActiveRecord::Base
       shoes_sizes = self.variants.collect(&:description)
       shoes_sizes.each do |shoe_size|
         Rails.cache.delete("views/#{item_view_cache_key_for(shoe_size)}")
+        Rails.cache.delete("views/#{lite_item_view_cache_key_for(shoe_size)}")
       end
     end
     Rails.cache.delete("views/#{item_view_cache_key_for}")
+    Rails.cache.delete("views/#{lite_item_view_cache_key_for}")
   end
 
   def item_view_cache_key_for(shoe_size=nil)
     shoe? ? CACHE_KEYS[:product_item_partial_shoe][:key] % [id, shoe_size] : CACHE_KEYS[:product_item_partial][:key] % id
+  end
+
+  def lite_item_view_cache_key_for(shoe_size=nil)
+    shoe? ? CACHE_KEYS[:lite_product_item_partial_shoe][:key] % [id, shoe_size] : CACHE_KEYS[:lite_product_item_partial][:key] % id
   end
 
   def brand
@@ -522,6 +530,7 @@ class Product < ActiveRecord::Base
     end
 
     def fetch_cache_for(picture)
+      return picture.try(:image_url, :catalog) unless Rails.env.production?
       img = Rails.cache.fetch(CACHE_KEYS[:product_picture_image_catalog][:key] % [id, picture.display_on], expires_in: CACHE_KEYS[:product_picture_image_catalog][:expire]) do
         if picture.image.catalog.file.exists?
           picture.try(:image_url, :catalog)
