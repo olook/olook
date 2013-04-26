@@ -38,6 +38,10 @@ module XmlHelper
     product.picture_at_position(position).try(:image)
   end
 
+  def calculate_discount_for product
+    (100-((product.retail_price / product.price)*100)).ceil
+  end
+
   private
     def ilove_categories
 

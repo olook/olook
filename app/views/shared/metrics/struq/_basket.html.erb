@@ -12,7 +12,7 @@ _struqPI.push(['injectTrackingPixel', {
   data: [
     { title: "si", pid: "<%= cart.items.sort_by{|cp| cp.product.price}.reverse.map{ |item| "#{item.product.id}"}.first(3).join(', ') -%>" },
   ],
-  options: { timeoutMs: 2000 }}]);
+  options: { timeoutMs: 3000 }}]);
 (function() {
   var struq = document.createElement('script'); struq.type = 'text/javascript'; struq.async = true;
   struq.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'media.struq.com/content/scripts/Struq_Us_Pixel_Injector' + (window.jQuery ? (1.7 <= parseFloat($.fn.jquery.substring(0, 3)) ? '_Jquery' : '') : '') + '_min_v1-5.js';
