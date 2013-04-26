@@ -6,7 +6,7 @@
 //
 //= require jquery_ujs
 //= require ./plugins/jquery.jqzoom-core
-//= require ./plugins/carouFredSel-5.4.1/jquery.carouFredSel-5.4.1
+//= require ./plugins/jquery.carouFredSel-6.2.1-packed
 //= require ./common/product_view
 //= require ./common/lite_base
 
