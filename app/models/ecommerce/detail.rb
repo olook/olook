@@ -12,5 +12,13 @@ class Detail < ActiveRecord::Base
   scope :only_specification , where(:display_on => DisplayDetailOn::SPECIFICATION).where("translation_token not like 'Cor%'")
   scope :with_valid_values  , where("description <> '_'")
   scope :only_how_to        , where(:display_on => DisplayDetailOn::HOW_TO)
-  scope :colors, lambda {|product_category| Detail.joins(:product).where("details.translation_token = 'Cor filtro'").where('products.is_visible = true').where("products.category = #{product_category}")}
+
+  def self.colors(product_category)
+    Rails.cache.fetch(CACHE_KEYS[:detail_color][:key] % product_category, expires_in: CACHE_KEYS[:detail_color][:expire]) do
+      joins(:product).where("details.translation_token = 'Cor filtro'").
+        where('products.is_visible = true').
+        where("products.category = #{product_category}").
+        map{|a| a.description.parameterize}.compact.uniq
+    end
+  end
 end
