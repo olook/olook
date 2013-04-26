@@ -63,7 +63,6 @@ olook = o = {
 
     $("#overlay-campaign").css({"background-color": "#000", 'height' : heightDoc}).fadeIn().bind("click", function(){
       _iframe = $modal.contents().find("iframe");
-      console.log(_iframe);
       if (_iframe.length > 0){
         $(_iframe).remove();
       }
