@@ -79,9 +79,6 @@ group :development, :test do
   gem 'watchr'
   gem 'awesome_print'
   gem 'rails-erd'
-  if RUBY_VERSION <= "1.9.2"
-    gem "ruby-debug19", :require => "ruby-debug", :platform => :ruby_19
-  end
   gem "pry"
   gem "pry-nav"
   gem 'delorean'
