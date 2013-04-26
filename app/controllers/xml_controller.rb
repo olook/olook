@@ -1,8 +1,7 @@
 class XmlController < ApplicationController
 
   respond_to :xml
-  before_filter :load_products, except: [:criteo]
-  before_filter :liquidation_products, except: [:criteo]
+  before_filter :prepare_products, except: [:criteo, :groovinads]
 
   def sociomantic
     remove_liquidation_products
@@ -62,18 +61,24 @@ class XmlController < ApplicationController
 
   private
 
-  def load_products
-    @products = Product.valid_for_xml(Product.xml_blacklist("products_blacklist"), Product.xml_blacklist("collections_blacklist"))
-  end
+    def prepare_products
+      load_products
+      liquidation_products
+      remove_liquidation_products
+    end
 
-  def liquidation_products
-    @liquidation_products = []
-    active_liquidation = LiquidationService.active
-    @liquidation_products = active_liquidation.resume[:products_ids] if active_liquidation
-  end
+    def load_products
+      @products = Product.valid_for_xml(Product.xml_blacklist("products_blacklist"), Product.xml_blacklist("collections_blacklist"))
+    end
 
-  def remove_liquidation_products
-    @products.delete_if{|product| @liquidation_products.include?(product.id)}
-  end
+    def liquidation_products
+      @liquidation_products = []
+      active_liquidation = LiquidationService.active
+      @liquidation_products = active_liquidation.resume[:products_ids] if active_liquidation
+    end
+
+    def remove_liquidation_products
+      @products.delete_if{|product| @liquidation_products.include?(product.id)}
+    end
 
 end
