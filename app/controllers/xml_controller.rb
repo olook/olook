@@ -4,12 +4,10 @@ class XmlController < ApplicationController
   before_filter :prepare_products, except: [:criteo, :groovinads]
 
   def sociomantic
-    remove_liquidation_products
     respond_with(@products)
   end
 
   def zanox
-    remove_liquidation_products
     respond_with(@products)
   end
 
@@ -19,43 +17,37 @@ class XmlController < ApplicationController
   end
 
   def groovinads
+    liquidation_products
     remove_liquidation_products
     @products = Product.valid_criteo_for_xml(Product.xml_blacklist("products_blacklist"), Product.xml_blacklist("collections_blacklist"))
     respond_with(@products)
   end
 
   def mt_performance
-    remove_liquidation_products
     respond_with(@products)
   end
 
   def click_a_porter
-    remove_liquidation_products
     respond_with(@products)
   end
 
   def netaffiliation
-    remove_liquidation_products
     respond_with(@products)
   end
 
   def shopping_uol
-    remove_liquidation_products
     respond_with(@products)
   end
 
   def triggit
-    remove_liquidation_products
     respond_with(@products)
   end
 
   def google_shopping
-    remove_liquidation_products
     respond_with(@products)
   end
 
   def struq
-    remove_liquidation_products
     respond_with(@products)
   end
 
@@ -78,7 +70,7 @@ class XmlController < ApplicationController
     end
 
     def remove_liquidation_products
-      @products.delete_if{|product| @liquidation_products.include?(product.id)}
+      @products.delete_if{|product| @liquidation_products.include?(product.id)} if @products
     end
 
 end
