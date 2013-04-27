@@ -68,7 +68,7 @@ Olook::Application.routes.draw do
   match '/acessorios', to: "moments#show", as: "accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1}
   match '/oculos', to: "moments#glasses", as: "glasses", :defaults => {:category_id => Category::ACCESSORY, :accessory_subcategories=>["oculos-de-sol"], :id => 1}
   match '/roupas', to: "moments#clothes", as: "clothes", :defaults => {:category_id => Category::CLOTH, :id => 1}
-  match '/novas-marcas', to: "moments#show", as: "brands", :defaults => {id: 1, :brands => ["COLCCI","DOUGLAS HARRIS","ECLECTIC","ESPACO FASHION","FORUM","Iodice","Juliana Jabour","OLLI","OLOOK","Olook Concept","SHOP 126","THELURE","TRITON"]}
+  match '/novas-marcas', to: "moments#clothes", as: "brands", :defaults => {id: 1, :brands => ["COLCCI","DOUGLAS HARRIS","ECLECTIC","ESPACO FASHION","FORUM","Iodice","OLLI","SHOP 126","THELURE","TRITON"]}
 
 
   #FRIENDS
