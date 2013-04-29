@@ -37,6 +37,14 @@ module CartHelper
     return false
   end
 
+  def coupon_value_for coupon
+    if coupon.is_percentage?
+      number_to_percentage @cart.coupon.value, precision: 0
+    else
+      number_to_currency @cart.coupon.value
+    end
+  end
+
   private
     def calculate_percentage_for item
       # for compatibility reason

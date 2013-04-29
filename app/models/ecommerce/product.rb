@@ -397,9 +397,9 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def formatted_name
+  def formatted_name(size=35)
     _formated_name = cloth? ? name : "#{model_name} #{name}"
-    _formated_name = "#{_formated_name[0..30]}&hellip;".html_safe if _formated_name.size > 35
+    _formated_name = "#{_formated_name[0..size-5]}&hellip;".html_safe if _formated_name.size > size
     _formated_name
   end
 
@@ -522,6 +522,7 @@ class Product < ActiveRecord::Base
     end
 
     def fetch_cache_for(picture)
+      return picture.try(:image_url, :catalog) unless Rails.env.production?
       img = Rails.cache.fetch(CACHE_KEYS[:product_picture_image_catalog][:key] % [id, picture.display_on], expires_in: CACHE_KEYS[:product_picture_image_catalog][:expire]) do
         if picture.image.catalog.file.exists?
           picture.try(:image_url, :catalog)

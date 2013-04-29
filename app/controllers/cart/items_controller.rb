@@ -1,12 +1,13 @@
 # -*- encoding : utf-8 -*-
 class Cart::ItemsController < ApplicationController
-	respond_to :js
-	before_filter :ensure_params!
+  respond_to :js
+  before_filter :ensure_params!
+  prepend_before_filter :create_cart
 
-  def create  
+  def create
     ensure_a_variant_is_found!
     add_item_or_show_errors
-  	update_cart_summary_on_view
+    update_cart_summary_on_view
   end
 
   def update
