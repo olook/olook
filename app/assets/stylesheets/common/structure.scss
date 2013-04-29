@@ -1142,10 +1142,25 @@ header#new_header{
                }
                hr{height:1px;border:0;color:#CCC;background:#CCC;}
             }
-         }   
-         p.see_cart{text-align:center;margin:12px auto 0;clear:both;width:145px;
-            a.finish{display:block;width:145px;height:45px;background: image-url('common/nav/sprite_header.png') 0 -141px no-repeat;font-size:0;line-height:0;margin-top:7px;}
          }
+         p.see_cart {
+           text-align:center;
+           margin:12px auto 0;
+           clear:both;
+           width: 80%;
+           border-top: 1px solid #ccc;
+          a.finish {
+            display:block;
+            width:145px;
+            height:45px;
+            background: image-url('common/nav/sprite_header.png') 0 -141px no-repeat;
+            font-size:0;
+            line-height:0;
+            margin-top:7px;
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
       }
          p.credits{float:left;font-size:11px;color:$pink;line-height:18px;
          a{text-decoration:none;color:$pink;
