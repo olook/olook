@@ -73,7 +73,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_cloth_sizes
-    variants = product.variants.sort{|first, second| SIZES_TABLE[first.description] <=> SIZES_TABLE[second.description]}
+    variants = product.variants.sort{|first, second| SIZES_TABLE[first.description].to_i <=> SIZES_TABLE[second.description].to_i }
     h.render :partial => 'product/sizes', :locals => {:variants => variants, :shoe_size => nil}
   end
 
