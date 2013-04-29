@@ -223,6 +223,26 @@ section#home {
       left: 75px;
     }
   }
+  section#brands{
+    position: relative;
+    min-height: 270px;
+    margin: 0 0 30px;
+    padding: 10px 0 30px;
+    border-bottom: 1px #cbcbcb solid;
+    h1 {
+      font-family: $kepler;
+      font-size: 27px;
+      text-align: center;
+      text-transform: uppercase;
+      margin: 0 0 30px;
+    }
+    h2{
+      font-family: "Kepler Std Italic",Times,"Times New Roman",serif;
+      font-size: 18px;
+      text-align: center;
+      display: block;
+    }
+  }
   section#boxes {
     width: 100%;
     overflow: auto;
