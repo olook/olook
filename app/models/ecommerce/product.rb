@@ -69,8 +69,6 @@ class Product < ActiveRecord::Base
                                                                   :collections_blacklist => collections_blacklist).
                                                                  order("collection_id desc")
     products.delete_if { |product| product.has_inventory_less_than_minimum_for_xml? }
-   #products.delete_if { |product| product.shoe_inventory_has_less_than_minimum? }
-   #products.delete_if { |product| product.cloth_inventory_has_less_than_minimum? }
   end
 
   def self.valid_criteo_for_xml(products_blacklist, collections_blacklist)
@@ -79,8 +77,6 @@ class Product < ActiveRecord::Base
                                                     :collections_blacklist => collections_blacklist ).
                                                   where("(products.category <> 1 or x.count_variants >= 3)").
                                                   order("collection_id desc")
-    #products.delete_if { |product| product.shoe_inventory_has_less_than_minimum? }
-    #products.delete_if { |product| product.cloth_inventory_has_less_than_minimum? }
     products.delete_if { |product| product.has_inventory_less_than_minimum_for_xml? }
   end
 
