@@ -52,29 +52,43 @@ describe Coupon do
   end
 
   context "#apply_discount_to?" do
-    let(:product_coupon) { FactoryGirl.create(:product_coupon) }
+    context "when coupon is product specific" do
+      let(:product_coupon) { FactoryGirl.create(:product_coupon) }
 
-    it "should be true for product 9640" do
-      product = double(id: 9640)
-      product_coupon.apply_discount_to?(product).should be_true
-    end
+      it "returns true for product 9640" do
+        product = double(id: 9640, brand: nil)
+        product_coupon.apply_discount_to?(product).should be_true
+      end
 
-    it "should be false for product 9641" do
-      product = double(id: 9641, brand: '')
-      product_coupon.apply_discount_to?(product).should be_false
+      it "returns false for product 9641" do
+        product = double(id: 9641, brand: '')
+        product_coupon.apply_discount_to?(product).should be_false
+      end
+
+      it "returns false for product 9641" do
+        product = double(id: 9641, brand: nil)
+        product_coupon.apply_discount_to?(product).should be_false
+      end
+
+      context "and product has a brand" do
+        before do
+          @product = double(id: 9640, brand: 'Olook')
+        end
+        it { expect(product_coupon.apply_discount_to?(@product)).to be_true }
+      end
     end
 
     context "coupon for an specific brand" do
       let(:brand_coupon) { FactoryGirl.create(:brand_coupon) }
 
-      context "product is not from configured brand" do
+      context "when product is not from configured brand" do
         let(:product) { double(id: 1000, brand: 'Olook Concept') }
         it "returns false" do
           brand_coupon.apply_discount_to?(product).should be_false
         end
       end
 
-      context "product is not from configured brand" do
+      context "when product is from configured brand" do
         let(:product) { double(id: 1000, brand: 'Olook') }
         it "returns true" do
           brand_coupon.apply_discount_to?(product).should be_true

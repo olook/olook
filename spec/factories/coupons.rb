@@ -71,7 +71,7 @@ FactoryGirl.define do
     end
 
     factory :brand_coupon do
-      code 'PRODUCT_COUPON1'
+      code 'BRAND_COUPON1'
       brand 'OLOOK'
       value 20.00
       remaining_amount 1

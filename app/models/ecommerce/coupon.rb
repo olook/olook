@@ -27,13 +27,16 @@ class Coupon < ActiveRecord::Base
   end
 
   def apply_discount_to? product
-    product_ids = product_ids_allowed_to_have_discount
 
-    if product_ids.nil? && brand.nil?
-      true
+    if coupon_specific_for_product?
+      product_ids = product_ids_allowed_to_have_discount
+      product_ids.include?(product.id.to_s)
+    elsif coupon_specific_for_brand?
+      product.brand.downcase == brand.downcase
     else
-      product_ids.try(:include?, product.id.to_s) || product.brand.try(:downcase) == brand.try(:downcase)
+      true
     end
+
   end
 
   def should_apply_to?(cart)
@@ -42,6 +45,13 @@ class Coupon < ActiveRecord::Base
   end
 
   private
+    def coupon_specific_for_product?
+      !product_ids_allowed_to_have_discount.nil?
+    end
+
+    def coupon_specific_for_brand?
+      !brand.nil?
+    end
 
     def product_ids_allowed_to_have_discount
       product_ids = PRODUCT_COUPONS_CONFIG[self.code]
