@@ -30,7 +30,17 @@ showroom = s = {
   },
   
   facebookCarousel: function(){
-
+    $("#friends-face").carouFredSel({
+        auto  : false,
+        prev  : "#prev-button",
+        next  : "#next-button",
+        items	: {
+        	width	: 55,
+        	height	: 55
+        }
+    
+    });
+    /*
       $("div#mask_carousel_facebook ul").carouFredSel({
         auto: false,
         height: 45,
@@ -43,7 +53,7 @@ showroom = s = {
           button : ".carousel-next-fb"
         }
       });
-    
+      */
   },
   
   showProfile: function(){

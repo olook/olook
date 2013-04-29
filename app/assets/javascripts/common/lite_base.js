@@ -66,29 +66,37 @@ olook = o = {
       if (_iframe.length > 0){
         $(_iframe).remove();
       }
-       $modal.fadeOut();
-       $(this).fadeOut();
+      
+      $("button.close").remove();
+      $modal.fadeOut();
+      $(this).fadeOut();
     });
     
     $modal.html(content)
       .css({
          'height'      : h,
          'width'       : w,
-         'top'         : _top,
-         'left'        : _left,
-         /*'margin-left' : ml,
-         'margin-top'  : mt*/
+         'top'         : '50%',
+         'left'        : '50%',
+         'margin-left' : ml,
+         'margin-top'  : mt
       })
-     .append('<button type="button" class="close" role="button">close</button>')
      .delay(500).fadeIn().children().fadeIn();
-   
-    $("#modal button.close, #modal a.me").click(function(){
+    
+     $('<button type="button" class="close" role="button">close</button>').css({
+       'top'   : _top - 15,
+       'right' : _left - 40
+     }).insertAfter($modal)
+     
+    $("button.close, #modal a.me").click(function(){
        _iframe = $modal.contents().find("iframe");
        if (_iframe.length > 0){
          $(_iframe).remove();
        }
-        $modal.fadeOut();
-        $("#overlay-campaign").fadeOut();
+       
+       $("button.close").remove();
+       $modal.fadeOut();
+       $("#overlay-campaign").fadeOut();
     })
 
   },
