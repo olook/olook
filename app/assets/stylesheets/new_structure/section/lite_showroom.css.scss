@@ -40,13 +40,23 @@
       }
       &.carousel-prev-fb, &.carousel-next-fb{position:absolute;top:10px;font-size:0;line-height:0;display:block;width:22px;height:25px;
       background: image-url('showroom/sprite.png') no-repeat -104px -56px;}
-      &.carousel-prev-fb{left:0;}
+      &.carousel-prev-fb{left:-2px;}
       &.carousel-next-fb{right:0;background: image-url('showroom/sprite.png') no-repeat -105px -79px;}
     }
   }
 }
 
-img.profile-quiz{position:absolute;display:none;top:291px;left:735px;z-index:999;}
+img.profile-quiz{position:absolute;display:none;top:291px;left:735px;z-index:999;cursor:pointer;}
+
+#profile_quiz{background: #FFFFFF;display: none;height: 546px;width:930px;overflow: hidden;
+  .share{overflow:hidden;height:20px;font-size: 13px;float:right;color:#000;text-transform:uppercase;margin:15px 0;
+    p,iframe{float:left;margin-right:10px;}
+    iframe{width:80px;}
+  }
+  .new_survey, .me{display:block;float:left;text-indent:-9999em;margin-top:20px;}
+  .new_survey{background: image-url('common/try-again.jpg') no-repeat;width: 301px;height: 59px;margin-left:200px;}
+  .me{display:block;background: image-url('common/its-me.png') no-repeat;width: 179px;height: 59px;margin-left: 20px;}
+}
 
 div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;margin-top:60px;clear:both;text-align:center;
   p{background:#FFF;padding:10px;display:inline-block;position:absolute;left:33%;top:-18px;

@@ -27,7 +27,7 @@
         <p>
           Nossas stylists montaram uma seleção incrível de produtos para você este mês.
           Confira e aproveite sem moderação!
-          <%= link_to "Confira aqui o seu perfil",'#', class:"show-profile" %> ou se não gostar do resultado, <%= link_to "responda nosso style quiz", new_survey_path %> novamente.
+          <%= link_to "Confira aqui o seu perfil",'javascript:void(0);', class:"show-profile" %> ou se não gostar do resultado, <%= link_to "responda nosso style quiz", new_survey_path %> novamente.
         </p>
 
       </div>  
@@ -58,7 +58,7 @@
   
   <% if @user.profile_name.present? %>
     <%= image_tag "profiles/mini_#{@user.profile_name.to_s}.jpg", class: "profile-quiz" %>
-    <%= render "shared/modal/retake_quiz" %>
+    <%= render "shared/modal/retake_quiz", :user => @user, :link => "#"  %>
   <% end %>  
   
   <div class="showroom-title">
