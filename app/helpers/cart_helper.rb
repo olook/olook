@@ -31,10 +31,10 @@ module CartHelper
   end
 
   def show_checkout_banner?
-    promotion = Promotion.active_and_not_expired(Date.today).order(:updated_at).last
-    return false if promotion.nil?
-
-    ! promotion.matches?(@cart)
+    #promotion = Promotion.active_and_not_expired(Date.today).order(:updated_at).last
+    #return false if promotion.nil?
+    #! promotion.matches?(@cart)
+    return false
   end
 
   def coupon_value_for coupon
@@ -45,7 +45,7 @@ module CartHelper
     end
   end
 
-  private 
+  private
     def calculate_percentage_for item
       # for compatibility reason
 
