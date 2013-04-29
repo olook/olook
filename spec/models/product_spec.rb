@@ -188,8 +188,7 @@ describe Product do
           # leave only 3 variants on factory
           shoe_for_xml.variants.first.destroy
           shoe_for_xml.update_attributes(collection: collection)
-          shoe_for_xml.variants.each {|v| v.update_attribute(:inventory, 4)}
-          # the implementation shouldn't return shoes
+          shoe_for_xml.variants.each {|v| v.update_attributes(:inventory => 4, price: BigDecimal("100,00"))}
           described_class.valid_criteo_for_xml([0],[0]).should include(shoe_for_xml)
         end
 
