@@ -398,7 +398,7 @@ class Product < ActiveRecord::Base
   end
 
   def formatted_name
-    _formated_name = cloth? ? name : "#{model_name} #{name}"
+    _formated_name = cloth? || is_a_shoe_accessory? ? name : "#{model_name} #{name}"
     _formated_name = "#{_formated_name[0..30]}&hellip;".html_safe if _formated_name.size > 35
     _formated_name
   end
@@ -446,6 +446,10 @@ class Product < ActiveRecord::Base
     else
       self[:brand]
     end
+  end
+
+  def is_a_shoe_accessory?
+    ['Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar'].include? self.subcategory
   end
 
   private
