@@ -11,4 +11,13 @@ module Fixes
     puts "Pedido #{order_number} integrado com sucesso!"
   end
 
+  def remove_product_item_view_cache product_id
+    Rails.cache.delete(CACHE_KEYS[:product_picture_image_catalog][:key] % [product_id, 1])
+    puts "cache da url removido"
+    p = Product.find product_id
+    p.catalog_picture
+    p.delete_cache
+    puts "cache de view removido"
+  end
+
 end
