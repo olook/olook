@@ -9,8 +9,8 @@
         <tbody>
           <% @product.details.only_specification.with_valid_values.each do |detail| -%>
             <tr>
-              <% unless @product.heel == "0 cm" && detail.translation_token == "Salto" %>
-                <td><%= print_detail_name_for @product.category, detail %></td>
+              <% unless @product.is_a_shoe_accessory? && detail.translation_token == "Salto" %>
+                <td><%= print_detail_name_for @product, detail %></td>
                 <td><%= print_detail_value detail %></td>
               <% end %>
             </tr>
