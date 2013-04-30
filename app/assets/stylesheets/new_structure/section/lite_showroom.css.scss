@@ -34,9 +34,9 @@
    .caroufredsel_wrapper{ display:inline-block;/*float:left !important;*/margin:0 5px !important;
       li{float:left;;margin-right:5px !important;}
     }
-    p{font-family:$avenir_medium;text-transform:uppercase;font-size:12px;font-weight:bold;display:inline-block !important;margin-bottom:4px;color:#000;text-align:left !important;}
+    p{float:left;font-family:$avenir_medium;text-transform:uppercase;font-size:12px;font-weight:bold;display:inline-block !important;margin:0 0 4px 20px;color:#000;}
     a{
-      &.invite-more{clear:both;font-family:$avenir;font-size:12px;display:inline-block !important;text-decoration:underline;color:$base_color;text-align: left !important;}
+      &.invite-more{clear:both;font-family:$avenir;font-size:12px;display:inline-block !important;text-decoration:underline;color:$base_color;float:left;margin-left:20px;}
       &.carousel-prev-fb, &.carousel-next-fb{position:absolute;top:40px;font-size:0;line-height:0;display:block;width:22px;height:25px;
       background: image-url('showroom/sprite.png') no-repeat -104px -56px;}
       &.carousel-prev-fb{left:-2px;}
