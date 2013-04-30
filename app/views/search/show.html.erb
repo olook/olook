@@ -2,6 +2,27 @@
   <h2>"Nenhum produto encontrado."</h2>
 <% else %>
   <h2>Encontramos <%= @hits["found"] %> produtos para você.</h2>
+
+
+<% if @show_filters -%>
+
+  <div id="filters">
+    <p>Categorias</p>
+    <ul>
+    <% @categories.each do |category,amount| -%>
+      <li><%= link_to category, "show?q=#{@q}&category=#{category}" %>(<%= amount %>)</li>
+    <% end -%>
+    </ul>
+
+    <p>Marcas</p>
+    <ul>
+    <% @brands.each do |brand,amount| -%>
+      <li><%= link_to brand, "show?q=#{@q}&brand=#{brand}" %>(<%= amount %>)</li>
+    <% end -%>
+    </ul>
+  </div>
+<% end %>
+
   <% @products.each do |product| %>
     <%= render "shared/searched_product_item", product: product%>
   <% end %>
