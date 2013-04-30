@@ -47,6 +47,7 @@ class CatalogSearchService
 
     add_category_filter_to_query_base
     add_brand_filter_to_query_base
+
     @query = @query.where(@query_base)
   end
 
