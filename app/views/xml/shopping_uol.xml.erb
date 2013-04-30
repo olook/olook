@@ -8,7 +8,8 @@
         <preco><%= sprintf("%.02f", product.price).gsub('.', ',').to_s %></preco>
         <nparcela><%= build_installment_text(product.retail_price).chars.first %></nparcela>
         <vparcela><%= build_installment_text(product.retail_price, separator: ",").split("x").last %></vparcela>
-        <url><%= product.product_url(:utm_source =>"shopping_uol", :utm_campaign => "produtos") %></url>
+        <marca><%= product.brand %></marca>
+        <url><%= product.product_url(:utm_source =>"shopping_uol", :utm_campaign => "Produtos", :utm_medium => "Remarketing") %></url>
         <url_imagem><%= first_image_of product %></url_imagem>
         <Frete>Sim</Frete>
         <departamento></departamento>
