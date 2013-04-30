@@ -164,7 +164,7 @@ section#home {
     width: 990px;
     height: 65px;
     display: block;
-    margin: 0 0 30px;
+    margin: 0 0 15px;
   }
   section ul.products_list {
     width: 100%;
@@ -245,24 +245,102 @@ section#home {
     ul{
       width: 100%;
       overflow: auto;
-      margin-top: 10px;
+      margin-top: 25px;
       li{
         a{
           background: image-url("home/new_brands_off.jpg") no-repeat;
           width: 252px;
           height: 90px;
           float: left;
+          cursor: pointer;
+          &:hover{background: image-url("home/new_brands.jpg") no-repeat;}
         }
         &.olook a {
-          background-position: 252px 0px;
+          background-position: 0px 0px;
           &:hover {
-            background-position: 252px -90px;
+            background-position: 0px 0px;
           }
         } 
         &.concept a {
-          background-position: 504px 0px;
+          background-position: -252px 0px;
           &:hover {
-            background-position: 504px -90px;
+            background-position: -252px 0px;
+          }
+        }
+        &.jabour a {
+          background-position: -504px 0px;
+          &:hover {
+            background-position: -504px 0px;
+          }
+        } 
+        &.forum a {
+          width: 234px;
+          background-position: -756px 0px;
+          &:hover {
+            background-position: -756px 0px;
+          }
+        } 
+        &.iodice a {
+          background-position: 0px -90px;
+          &:hover {
+            background-position: 0px -90px;
+          }
+        } 
+        &.shop a {
+          background-position: -252px -90px;
+          &:hover {
+            background-position: -252px -90px;
+          }
+        }
+        &.harris a {
+          background-position: -504px -90px;
+          &:hover {
+            background-position: -504px -90px;
+          }
+        } 
+        &.olli a {
+          width: 234px;
+          background-position: -756px -90px;
+          &:hover {
+            background-position: -756px -90px;
+          }
+        }  
+        &.colcci a {
+          background-position: 0px -180px;
+          &:hover {
+            background-position: 0px -180px;
+          }
+        } 
+        &.eclectic a {
+          background-position: -252px -180px;
+          &:hover {
+            background-position: -252px -180px;
+          }
+        } 
+        &.triton a {
+          background-position: -504px -180px;
+          &:hover {
+            background-position: -504px -180px;
+          }
+        }
+        &.thelure a {
+          width: 234px;
+          background-position: -756px -180px;
+          &:hover {
+            background-position: -756px -180px;
+          }
+        } 
+        &.manzini a {
+          background-position: 0px -270px;
+          &:hover {
+            background-position: 0px -270px;
+          }
+        } 
+        &.fashion a {
+          width: 234px;
+          background-position: -252px -270px;
+          &:hover {
+            background-position: -252px -270px;
           }
         } 
       }
