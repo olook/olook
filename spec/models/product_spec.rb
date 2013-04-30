@@ -742,4 +742,44 @@ describe Product do
     end
   end
 
+  describe "#is_a_shoe_accessory?" do
+    let(:product) { FactoryGirl.build(:product) }
+    context "when is a shoe accessory" do
+      before do
+        product.stub(:subcategory).and_return("Amaciante")
+      end
+      subject { product.is_a_shoe_accessory? }
+      it { should be_true }
+    end
+
+    context "when isn't a shoe accessory" do
+      before do
+        product.stub(:subcategory).and_return("Blusa")
+      end
+      subject { product.is_a_shoe_accessory? }
+
+      it { should be_false }
+    end
+  end
+
+  describe "#sort_details_by_relevance" do
+    before do
+      category_detail = FactoryGirl.build(:shoe_subcategory_name)
+      heel_detail = FactoryGirl.build(:shoe_heel)
+      shoe_with_leather_detail = FactoryGirl.build(:shoe_with_leather)
+      metal_detail = FactoryGirl.build(:shoe_with_metal)
+      @details = [ category_detail, metal_detail, heel_detail, shoe_with_leather_detail ]
+    end
+
+    context "when there'no any unexpected detail" do
+      it { expect(subject.sort_details_by_relevance(@details.shuffle)).to eq(@details) }
+    end
+
+    context "when there's any expected detail" do
+      before do
+        @details << FactoryGirl.build(:detail, translation_token: "Unexpected")
+      end
+      it { expect(subject.sort_details_by_relevance(@details.shuffle)).to eq(@details) }
+    end
+  end
 end
