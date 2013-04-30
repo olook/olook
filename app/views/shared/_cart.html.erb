@@ -3,16 +3,22 @@
   <p>Também queremos te dar um mimo! Você ganhará <span>20% de desconto</span> no segundo presente.</p>
 </div> -->
 <% unless params[:controller].include? "survey" %>
-<p class="new_sacola"><%= link_to "MINHA SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart && @cart.items_total > 0}" %></p>
+  <p class="new_sacola"><%= link_to "#{content_tag(:span, '', class: 'mini_coupon_tag') if @cart && @cart.coupon}MINHA SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %></p>
 <% end %>
 <div id="cart_summary">
    <div class="scroll">
       <ul class="submenu">
         <li>
-            <p class="freight">Frete grátis para sul e sudeste<br/><span>(em compras a partir de R$60)</span></p>
-            <hr />
+          <p class="freight">Frete grátis para sul e sudeste<br/><span>(em compras a partir de R$60)</span></p>
+          <hr />
         </li>
-        <% @cart.items.each do |item| %>
+        <% if @cart and @cart.coupon %>
+          <li class="coupon_info product_item">
+            <p class="coupon_tag"><%= image_tag 'common/nav/big_coupon.png', :class => '' %>Sua sacola agora<br />tem um cupom de <br /><%= coupon_value_for(@cart.coupon) %> de desconto.<br />Aproveite! ;)</p>
+          </li>
+        <% end %>
+
+        <% @cart && @cart.items.each do |item| %>
           <%= render partial: 'shared/cart_line_item', locals: {item: item, hidden: false} %>
         <% end %>
         <li class="last" style="display:none">&nbsp;</li>

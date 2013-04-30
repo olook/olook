@@ -8,8 +8,8 @@ class CreditCard < Payment
   EXPIRATION_IN_MINUTES = 60
 
   # Credit Card Number formats
-  FourToSevenCreditCardNumberFormat = /^[0-9]{14,17}$/
-  OneToFiveCreditCardNumberFormat = /^[0-9]{11,15}$/
+  SixCreditCardNumberFormat = /^[0-9]{16}$/
+  FourToSixCreditCardNumberFormat = /^[0-9]{14,16}$/
 
 
   PhoneFormat = /^(?:\(11\)9\d{4}-\d{3,4}|\(\d{2}\)\d{4}-\d{4})$/
@@ -68,11 +68,11 @@ class CreditCard < Payment
   def apply_bank_number_of_digits
     unless bank.blank?
       if bank.match /Diners/
-        validate_bank_credit_card_number OneToFiveCreditCardNumberFormat
+        validate_bank_credit_card_number FourToSixCreditCardNumberFormat
       else
-        validate_bank_credit_card_number FourToSevenCreditCardNumberFormat
+        validate_bank_credit_card_number SixCreditCardNumberFormat
       end
-    end 
+    end
   end
 
   def cancelled_at_authorization?

@@ -34,11 +34,12 @@ feature "Show products on xml format" do
       <name>#{product.name}</name>
       <smallimage></smallimage>
       <bigimage></bigimage>
-      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=criteo</producturl>
+      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=Produtos&amp;utm_content=#{product.id}&amp;utm_medium=Remarketing&amp;utm_source=criteo</producturl>
       <description>#{product.description}</description>
       <price>#{number_with_precision(product.price, :precision => 2)}</price>
       <retailprice>#{number_with_precision(product.retail_price, :precision => 2)}</retailprice>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
+      <brand>OLOOK</brand>
       <recommendable>1</recommendable>
       <instock>#{product.instock}</instock>
       <category>#{product.subcategory}</category>
@@ -46,7 +47,6 @@ feature "Show products on xml format" do
       </products>
       END
       equivalent_content = Nokogiri::XML(content)
-
       EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
     end
 
@@ -61,11 +61,12 @@ feature "Show products on xml format" do
       <name>#{product.name}</name>
       <smallimage></smallimage>
       <bigimage></bigimage>
-      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=remessaging&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=criteo</producturl>
+      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=Produtos&amp;utm_content=#{product.id}&amp;utm_medium=Remarketing&amp;utm_source=criteo</producturl>
       <description>#{product.description}</description>
       <price>#{number_with_precision(product.price, :precision => 2)}</price>
       <retailprice>#{number_with_precision(product.retail_price, :precision => 2)}</retailprice>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
+      <brand>OLOOK</brand>
       <recommendable>1</recommendable>
       <instock>#{product.instock}</instock>
       <category>#{product.subcategory}</category>
@@ -94,7 +95,7 @@ feature "Show products on xml format" do
         <descricao><![CDATA[#{product.description}]]></descricao>
         <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=mt_performance</url>
         <imagem></imagem>
-        <marca>olook</marca>
+        <marca>OLOOK</marca>
         <preco>#{ActionController::Base.helpers.number_with_precision(product.retail_price, :precision => 2)}</preco>
         <preco_original>#{ActionController::Base.helpers.number_with_precision(product.price, :precision => 2)}</preco_original>
         <categoria>#{Category.t(product.category)}</categoria>
@@ -143,7 +144,7 @@ feature "Show products on xml format" do
         <id_produto><![CDATA[#{product.id}]]></id_produto>
         <link_produto><![CDATA[http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=click_a_porter]]></link_produto>
         <nome_produto><![CDATA[#{product.name}]]></nome_produto>
-        <marca><![CDATA[olook]]></marca>
+        <marca><![CDATA[OLOOK]]></marca>
         <categoria><![CDATA[#{Category.t(product.category)}]]></categoria>
         <cores><cor><![CDATA[#{ product.color_name}]]></cor></cores>
         <descricao><![CDATA[#{ product.description}]]></descricao>
@@ -183,6 +184,7 @@ feature "Show products on xml format" do
       <price>#{number_with_precision(product.retail_price, precision: 2, separator: ",")}</price>
       <retailprice>#{number_with_precision(product.price, precision: 2, separator: ",")}</retailprice>
       <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
+      <brand>OLOOK</brand>
       <recommendable>1</recommendable>
       <instock>#{product.instock}</instock>
       <category>#{product.category_humanize}</category>
@@ -211,7 +213,7 @@ context "in the ilove_ecommerce xml page" do
       <preco_real>99.9</preco_real>
       <preco_desconto>99.9</preco_desconto>
       <specific>
-      <marca>olook</marca>
+      <marca>OLOOK</marca>
       <cor></cor>
       <tamanho></tamanho>
       <autor></autor>
@@ -243,7 +245,8 @@ context "in the ilove_ecommerce xml page" do
       <preco>99,90</preco>
       <nparcela>#{ build_installment_text(product.retail_price).chars.first }</nparcela>
       <vparcela>#{ build_installment_text(product.retail_price, separator: ",").split("x").last }</vparcela>
-      <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=shopping_uol</url>
+      <marca>OLOOK</marca>
+      <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=Produtos&amp;utm_content=#{product.id}&amp;utm_medium=Remarketing&amp;utm_source=shopping_uol</url>
       <url_imagem></url_imagem>
       <Frete>Sim</Frete>
       <departamento></departamento>
@@ -280,7 +283,7 @@ context "in the ilove_ecommerce xml page" do
       <g:condition>new</g:condition>
       <g:price>#{number_with_precision(product.price, precision: 2, separator: ".")}</g:price>
       <g:sale_price>#{number_with_precision(product.retail_price, precision: 2, separator: ".")}</g:sale_price>
-      <g:brand>olook</g:brand>
+      <g:brand>OLOOK</g:brand>
       <g:gender>female</g:gender>
       <g:age_group>adult</g:age_group>
       #{product.variants.map { |variant|
@@ -315,6 +318,7 @@ context "in the ilove_ecommerce xml page" do
         <descricao>#{product.subcategory} #{product.name}</descricao>
         <preco>#{ number_to_currency(product.price).delete("R$ ") }</preco>
         <id_produto>#{ product.id }</id_produto>
+        <marca>OLOOK</marca>
         <codigo_barra></codigo_barra>
         <isbn></isbn>
         <link_prod>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=buscape</link_prod>
@@ -344,11 +348,11 @@ context "in the ilove_ecommerce xml page" do
       <fn>#{product.name}</fn>
       <description>#{product.description}</description>
       <category>#{product.category_humanize}</category>
-      <brand>olook</brand>
+      <brand>OLOOK</brand>
       <price>#{product.retail_price}</price>
       <amount>#{product.price}</amount>
       <currency>BRL</currency>
-      <url>http://www.olook.com.br/produto/#{product.id}?utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=sociomantic</url>
+      <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=Produtos&amp;utm_content=#{product.id}&amp;utm_medium=Remarketing&amp;utm_source=sociomantic</url>
       <photo>#{product.pictures.last.try(:image)}</photo>
       </product>
       </products>
@@ -375,6 +379,7 @@ context "in the ilove_ecommerce xml page" do
       <PROD_DESCRIPTION>#{product.description[0..512]}</PROD_DESCRIPTION>
       <PROD_DESCRIPTION_LONG>#{product.description}</PROD_DESCRIPTION_LONG>
       <PROD_URL>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=xml&amp;utm_source=zanox</PROD_URL>
+      <BRAND>OLOOK</BRAND>
       <CATEGORY>#{product.category_humanize}</CATEGORY>
       <FOTO_URL>#{product.main_picture.try(:image)}</FOTO_URL>
       </producto>
