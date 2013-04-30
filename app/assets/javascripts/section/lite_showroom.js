@@ -30,15 +30,17 @@ showroom = s = {
   },
   
   facebookCarousel: function(){
-    $("#friends-face").carouFredSel({
-      auto  : false,
-      prev  : "#prev-button",
-      next  : "#next-button",
-      items	: {
-      	width	 : 55,
-      	height : 55
-      }
-    });
+    if($("#friends-face").length > 0){
+      $("#friends-face").carouFredSel({
+        auto  : false,
+        prev  : "#prev-button",
+        next  : "#next-button",
+        items	: {
+        	width	 : 55,
+        	height : 55
+        }
+      });
+    }
   },
   
   showProfile: function(){
