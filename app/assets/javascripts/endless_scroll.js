@@ -16,13 +16,10 @@ jQuery(function() {
   var submit_moments_form;
   var url;
 
-  $('form#filter').submit(function() {
+  $('form#filter').on('ajax:before', function(xhr, settings) {
     $('.loading').show();
+    $('#products').hide();
     $('#sort_filter').val($("#order_filter").find("option:selected").val());
-    $("#products").fadeOut("slow", function() {
-      $(this).fadeIn("slow");
-      $(this).html("");
-    });
     initMoment.scrollToList();
   });
 
@@ -65,7 +62,7 @@ jQuery(function() {
     });
   });
   $('#order_filter').change(function() {
-    $("form	#filter").submit();
+    $("form#filter").submit();
   });
 
   $("#filter").find("input[type='checkbox'].select_all").each(function(i){
@@ -91,7 +88,6 @@ jQuery(function() {
     $(this).parents(".filter").find("input[type='checkbox']").not(".select_all").attr("checked", this.checked);
     clearTimeout(submit_moments_form);
     $("form#filter").submit();
-		
   });
 
   $('#filter').find("input[type='checkbox']").not(".select_all").bind("click", function() {

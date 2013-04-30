@@ -65,6 +65,7 @@
   <div class="showroom-title">
     <p><span>Sua vitrine de <%= current_collection_name %></span></p>
   </div>
+
       
   <section class="container_product" id="clothes_container">
     
@@ -215,6 +216,11 @@
       $("img.profile-quiz").trigger('click');
     }, 2000);
     </script>
+
+  <% if user_signed_in? %>
+    <%= render "shared/invite", :user => current_user %>
+    <%= render 'shared/metrics/all_in/showroom', :user => current_user  %>
+
   <% end %>
 
 <% end %>

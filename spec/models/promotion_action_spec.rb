@@ -3,7 +3,7 @@ require 'spec_helper'
 describe PromotionAction do
 
   describe "#apply" do
-    it { should respond_to(:apply).with(2).arguments }
+    it { should respond_to(:apply).with(3).arguments }
   end
 
   describe "#simulate" do

@@ -64,7 +64,7 @@ module Abacos
     end
 
     def parse_cpf(cpf)
-      cpf.gsub(/-|\.|\s/, '')[0..10]
+      cpf.gsub(/-|\.|\s/, '')[0..10] unless cpf.nil?
     end
 
     def parse_data(birthday)

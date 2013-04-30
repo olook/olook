@@ -7,6 +7,8 @@ class Catalog::Catalog < ActiveRecord::Base
 
   validates :type, :presence => true, :exclusion => ["Catalog::Catalog"]
 
+  CARE_PRODUCTS = ['Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar']
+
   def in_category(category_id)
     @liquidation = LiquidationService.active
     @query = products.joins(:product)
@@ -18,11 +20,15 @@ class Catalog::Catalog < ActiveRecord::Base
   end
 
   def subcategories(category_id)
-    in_category(category_id).group(:subcategory_name).order("subcategory_name asc").map { |p| [p.subcategory_name, p.subcategory_name_label] }.compact
+    in_category(category_id).group(:subcategory_name).order("subcategory_name asc").map { |p| [p.subcategory_name, p.subcategory_name_label]}.compact
   end
 
   def shoes
-    subcategories(Category::SHOE)
+    subcategories(Category::SHOE).reject{ |sub| CARE_PRODUCTS.include? sub[1] }
+  end
+
+  def care_shoes
+    subcategories(Category::SHOE).select { |sub| CARE_PRODUCTS.include?(sub[1]) }
   end
 
   def bags
@@ -41,8 +47,12 @@ class Catalog::Catalog < ActiveRecord::Base
     in_category(Category::SHOE).group(:shoe_size).order("shoe_size asc").map { |p| p.shoe_size }.compact
   end
 
+  def brands_for category
+    in_category(category).group(:brand).order('brand asc').map { |p| p.brand }.compact
+  end
+
   def cloth_sizes
-    in_category(Category::CLOTH).group(:cloth_size).count.keys.compact.sort { |a,b| CLOTH_SIZES_TABLE[a.to_s] <=> CLOTH_SIZES_TABLE[b.to_s] }
+    in_category(Category::CLOTH).group(:cloth_size).count.keys.compact.sort { |a,b| CLOTH_SIZES_TABLE[a.to_s].to_i <=> CLOTH_SIZES_TABLE[b.to_s].to_i }
   end
 
   def heels

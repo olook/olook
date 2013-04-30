@@ -36,13 +36,12 @@ describe CreditCard do
         it { should allow_value("4111111111111111").for(:credit_card_number) }
         it { should_not allow_value("4111 1111 1111 1111").for(:credit_card_number) }
       end
-      context 'numbers for Amex and Diners' do
+      context 'numbers for Diners' do
+        before :each do
+          subject.bank = "Diners"
+        end
         it { should allow_value("370000000000002").for(:credit_card_number) }
         it { should_not allow_value("3700 0000 0000 002").for(:credit_card_number) }
-      end
-      context 'numbers for Hypercard' do
-        it { should allow_value("11112222333344445").for(:credit_card_number) }
-        it { should_not allow_value("1111 2222 3333 4444 5").for(:credit_card_number) }
       end
     end
 
@@ -145,8 +144,8 @@ describe CreditCard do
         subject.bank = "Diners"
       end
 
-      it "calls the validate_bank_credit_card_number method using the OneToFiveCreditCardNumberFormat validator" do
-        subject.should_receive(:validate_bank_credit_card_number).with(CreditCard::OneToFiveCreditCardNumberFormat)
+      it "calls the validate_bank_credit_card_number method using the FourToSixCreditCardNumberFormat validator" do
+        subject.should_receive(:validate_bank_credit_card_number).with(CreditCard::FourToSixCreditCardNumberFormat)
         subject.apply_bank_number_of_digits
       end
 
@@ -166,21 +165,21 @@ describe CreditCard do
         end
 
         it "returns an error when the number length is greater than the given boundary" do
-          subject.credit_card_number = "1234123412341234"
+          subject.credit_card_number = "12341234123412342"
           subject.apply_bank_number_of_digits
           expect(subject).to have(1).errors
         end
 
-      end      
-    end        
+      end
+    end
 
     context "when the bank is Visa" do
       before :each do
         subject.bank = "Visa"
       end
 
-      it "calls the validate_bank_credit_card_number method using the FourToSevenCreditCardNumberFormat validator" do
-        subject.should_receive(:validate_bank_credit_card_number).with(CreditCard::FourToSevenCreditCardNumberFormat)
+      it "calls the validate_bank_credit_card_number method using the SixCreditCardNumberFormat validator" do
+        subject.should_receive(:validate_bank_credit_card_number).with(CreditCard::SixCreditCardNumberFormat)
         subject.apply_bank_number_of_digits
       end
 
@@ -205,16 +204,16 @@ describe CreditCard do
           expect(subject).to have(1).errors
         end
 
-      end      
-    end        
+      end
+    end
 
     context "when the bank is Mastercard" do
       before :each do
         subject.bank = "Mastercard"
       end
 
-      it "calls the validate_bank_credit_card_number method using the FourToSevenCreditCardNumberFormat validator" do
-        subject.should_receive(:validate_bank_credit_card_number).with(CreditCard::FourToSevenCreditCardNumberFormat)
+      it "calls the validate_bank_credit_card_number method using the SixCreditCardNumberFormat validator" do
+        subject.should_receive(:validate_bank_credit_card_number).with(CreditCard::SixCreditCardNumberFormat)
         subject.apply_bank_number_of_digits
       end
 
@@ -239,8 +238,8 @@ describe CreditCard do
           expect(subject).to have(1).errors
         end
 
-      end      
-    end        
+      end
+    end
 
     context "when the bank is blank" do
       before :each do
@@ -250,6 +249,6 @@ describe CreditCard do
         subject.should_not_receive(:validate_bank_credit_card_number)
         subject.apply_bank_number_of_digits
       end
-    end 
+    end
   end
 end

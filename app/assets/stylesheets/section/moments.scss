@@ -1,12 +1,13 @@
 @import "partials/product";
 @import "section/collections";
 
+.brand label {
+  text-transform: uppercase;
+}
 div#moments {
   position: relative;
   width: 100%;
   padding: 20px 0 0;
-  overflow-y: auto;
-  overflow-x: hidden;
 
   nav {
     background: image-url('cart/bg-order-status.jpg') top left repeat-x;
@@ -359,6 +360,8 @@ div#moments {
   div#invite_friends{
     width: 152px;
     height: 450px;
+    clear: both;
+    float: left;
   }
 }
 

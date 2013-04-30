@@ -7,11 +7,8 @@ class Product < ActiveRecord::Base
   #has_paper_trail :skip => [:pictures_attributes, :color_sample]
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
   MINIMUM_INVENTORY_FOR_XML = 3
-  JULIANA_JABOUR_PRODUCTS = [90632,90612,90641,90646,90607,90597,90602,90616,90619,90627,90622,90636]
 
   include ProductFinder
-
-  attr_accessor :brand
 
   has_enumeration_for :category, :with => Category, :required => true
 
@@ -265,7 +262,7 @@ class Product < ActiveRecord::Base
 
   def liquidation?
     active_liquidation = LiquidationService.active
-     active_liquidation.has_product?(self) if active_liquidation
+    active_liquidation.has_product?(self) if active_liquidation
   end
 
   def promotion?
@@ -399,8 +396,10 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def formatted_name
-    cloth? ? name : model_name + " " + name
+  def formatted_name(size=35)
+    _formated_name = cloth? ? name : "#{model_name} #{name}"
+    _formated_name = "#{_formated_name[0..size-5]}&hellip;".html_safe if _formated_name.size > size
+    _formated_name
   end
 
   def supplier_color
@@ -450,7 +449,7 @@ class Product < ActiveRecord::Base
 
   def brand
     if self[:brand].blank?
-      self[:brand] = JULIANA_JABOUR_PRODUCTS.include?(id) ? "JULIANA JABOUR" : "OLOOK"
+      self[:brand] = "OLOOK"
     else
       self[:brand]
     end

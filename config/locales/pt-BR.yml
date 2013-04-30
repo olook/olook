@@ -259,6 +259,9 @@
       odd: "deve ser ímpar"
       even: "deve ser par"
       invalid_date: "a data informada é inválida"
+      wrong_size: "tamanho errado (deveria ser %{file_size})"
+      size_too_small: "tamanho muito pequeno (deveria ser pelo menos %{file_size})"
+      size_too_big: "tamanho muito grande (deveria ser até %{file_size})"
 
   activerecord:
     state_machines:

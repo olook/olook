@@ -8,13 +8,17 @@ class Checkout::CheckoutController < Checkout::BaseController
   def new
     @addresses = @user.addresses
     @report  = CreditReportService.new(@user)
-    @checkout = Checkout.new
+    @checkout = Checkout.new(address: @addresses.find { |a| a.id == current_user.orders.last.freight.address_id rescue false } || @addresses.first )
   end
 
   def create
     address = shipping_address(params)
     payment = create_payment(address)
     payment_method = params[:checkout][:payment_method]
+    if current_user.has_fraud?
+      display_form(address, payment, payment_method)
+      return
+    end
 
     payment_valid = payment && payment.valid?
     address_valid = address && address.valid?

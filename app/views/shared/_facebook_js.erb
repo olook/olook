@@ -24,10 +24,10 @@ $(function(){
 		    caption: 'www.olook.com.br',
 		    picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
         <% if member %>
-		      description: 'Oie! Achei um site de moda chamado olook que é a sua cara. Você responde um quiz, descobre o seu estilo e os stylists montam uma vitrine exclusiva para você todo mês. Pelo link do meu convite, <%= accept_invitation_url(:invite_token => member.invite_token) %>, você consegue se cadastrar e ainda ganha R$10 na primeira compra! Beijos!',
+		      description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= accept_invitation_url(:invite_token => member.invite_token) %> #ficaadica',
 		      link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>'
         <% else %>
-          description: 'Oie! Achei um site de moda chamado olook que é a sua cara. Você responde um quiz, descobre o seu estilo e os stylists montam uma vitrine exclusiva para você todo mês.',
+          description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10!',
 		      link: '<%=  root_url %>'
         <% end %>
 		  });

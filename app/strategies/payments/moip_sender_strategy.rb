@@ -9,7 +9,7 @@ module Payments
     end
 
     def send_to_gateway
-      return billet_payment if payment_is_billet && (santander_is_active && from_olook_user)
+      return billet_payment if payment_is_billet && santander_is_active
 
       begin
         log("Calling Moip::Client.checkout")
@@ -33,7 +33,7 @@ module Payments
     def billet_payment
       payment.url = billet_url
       payment.gateway_response_status = Payment::SUCCESSFUL_STATUS
-      set_payment_gateway
+      payment.gateway = Payment::GATEWAYS.fetch(:olook)
       payment.save!
       payment
     end
@@ -50,9 +50,6 @@ module Payments
       Setting.santander_billet
     end
 
-    def from_olook_user
-      payment.user && payment.user.email ? payment.user.email =~ /@olook.com/ : false
-    end
     ## End Santander billet 
 
     def payment_successful?
