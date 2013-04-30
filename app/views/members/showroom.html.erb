@@ -58,7 +58,7 @@
   </section>
   
   <% if @user.profile_name.present? %>
-    <%= image_tag "profiles/mini_#{@user.profile_name.to_s}.jpg", class: "profile-quiz" %>
+    <%#= image_tag "profiles/mini_#{@user.profile_name.to_s}.jpg", class: "profile-quiz" %>
     <%= render "shared/modal/retake_quiz", :user => @user, :link => "#"  %>
   <% end %>  
   
