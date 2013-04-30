@@ -1,0 +1,18 @@
+@import "new_structure/common/global_stuffs";
+@import "new_structure/partials/lite_boxes_home";
+
+.search{margin-top: 15px;margin-left: 15px;
+	h1{font-size: 22px;font-family: $avenir;color: #58595b;font-weight: 500;letter-spacing: 2px;margin-bottom: 10px;border-bottom: 1px solid #b7b7b7;width: 275px;}
+	h2{font-size: 15px;font-family: $avenir;color: #767779;letter-spacing: 1px;font-weight: lighter;
+		span{font-weight: bold;color: $base_color;}
+	}
+	.hints{font-size: 15px;font-family: $avenir;color: #58595b;text-transform: uppercase;font-weight: 600;margin-top: 20px;}
+	ul{width: 100%;overflow: auto;margin-top: 15px;
+		li{padding-left: 25px; height: 22px;display: block;font-size: 15px;font-family: $avenir;color: #767779;letter-spacing: 1px;font-weight: lighter;background: image-url('search/number_icon.jpg') no-repeat;
+			&.hint_one{background-position: 0 0;}
+			&.hint_two{background-position: 0 -22px;}
+			&.hint_three{background-position: 0 -44px;}
+			&.hint_four{background-position: 0 -66px;}
+		}
+	}
+}
