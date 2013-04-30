@@ -63,21 +63,20 @@ class Product < ActiveRecord::Base
   end
 
   def self.valid_for_xml(products_blacklist, collections_blacklist)
-    products = only_visible.joins(valid_for_xml_join_query).where(valid_for_xml_where_query,
+    products = only_visible.joins(valid_for_xml_join_query).includes(:variants).where(valid_for_xml_where_query,
                                                                   :products_blacklist => products_blacklist ,
                                                                   :collections_blacklist => collections_blacklist).
                                                                  order("collection_id desc")
-
-    products.delete_if { |product| product.shoe_inventory_has_less_than_minimum? }
+    products.delete_if { |product| product.has_inventory_less_than_minimum_for_xml? }
   end
 
   def self.valid_criteo_for_xml(products_blacklist, collections_blacklist)
-    products = only_visible.joins(criteo_join_query).where(criteo_where_query,
+    products = only_visible.joins(criteo_join_query).includes(:variants).where(criteo_where_query,
                                                     :products_blacklist => products_blacklist ,
                                                     :collections_blacklist => collections_blacklist ).
-                                                  where("(products.category <> 1 or x.count_variants > 3)").
+                                                  where("(products.category <> 1 or x.count_variants >= 3)").
                                                   order("collection_id desc")
-    products.delete_if { |product| product.shoe_inventory_has_less_than_minimum? }
+    products.delete_if { |product| product.has_inventory_less_than_minimum_for_xml? }
   end
 
   def has_less_then_minimum_inventory?
@@ -357,6 +356,20 @@ class Product < ActiveRecord::Base
     (self.shoe? && self.variants.where("inventory >=  3").count < 3)
   end
 
+  def cloth_inventory_has_less_than_minimum?
+    self.cloth? && self.variants.collect(&:inventory).include?(0)
+  end
+
+  def has_inventory_less_than_minimum_for_xml?
+    if self.shoe?
+      shoe_inventory_has_less_than_minimum?
+    elsif self.cloth?
+      cloth_inventory_has_less_than_minimum?
+    else
+      false
+    end
+  end
+
   def add_freebie product
     variant_for_freebie = product.variants.first
     variants.each do |variant|
@@ -397,7 +410,7 @@ class Product < ActiveRecord::Base
   end
 
   def formatted_name(size=35)
-    _formated_name = cloth? ? name : "#{model_name} #{name}"
+    _formated_name = cloth? || is_a_shoe_accessory? ? name : "#{model_name} #{name}"
     _formated_name = "#{_formated_name[0..size-5]}&hellip;".html_safe if _formated_name.size > size
     _formated_name
   end
@@ -447,7 +460,22 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def is_a_shoe_accessory?
+    Catalog::Catalog::CARE_PRODUCTS.include? self.subcategory
+  end
+
+  def sort_details_by_relevance(details)
+     details.sort{|first, second| details_relevance[first.translation_token.to_s.downcase] <=> details_relevance[second.translation_token.to_s.downcase]}
+  end
+
   private
+
+    def details_relevance
+      h = { "categoria" => 1, "detalhe" => 2, "metal" => 3, "salto" => 4, "material interno" => 5, "material externo" => 6, "material da sola" => 7 }
+
+      h.default = 1.0/0.0 # infinity
+      h
+    end
 
     def self.fetch_all_featured_products_of category
       products = Rails.cache.fetch(CACHE_KEYS[:product_fetch_all_featured_products_of][:key] % category, :expires_in => CACHE_KEYS[:product_fetch_all_featured_products_of][:expire]) do

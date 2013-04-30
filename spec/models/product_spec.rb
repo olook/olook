@@ -147,9 +147,29 @@ describe Product do
           shoe_for_xml.variants.each {|v| v.update_attribute(:inventory, 4)}
           described_class.valid_for_xml([0],[0]).should include(shoe_for_xml)
         end
+
+        context "when product is a cloth and" do
+          let!(:collection) { FactoryGirl.create(:collection) }
+          let!(:cloth_with_all_sizes) { FactoryGirl.create(:simple_garment, collection: collection) }
+          let!(:variant) { FactoryGirl.create(:yellow_shirt, product: cloth_with_all_sizes, is_master: false, description: "35") }
+          let!(:cloth_without_one_size) { FactoryGirl.create(:simple_garment, collection: collection) }
+          let!(:variant_sold_out) { FactoryGirl.create(:yellow_shirt, inventory: 0, product: cloth_without_one_size, is_master: false, description: "40") }
+          let!(:avalaible) { FactoryGirl.create(:yellow_shirt, product: cloth_without_one_size, is_master: false, description: "40") }
+          subject { described_class.valid_for_xml([0],[0]) }
+
+          context "when cloth has no variants with invetory eq 0" do
+            it { expect(subject).to include cloth_with_all_sizes }
+          end
+
+          context "when cloth has any variant with inventory eq 0" do
+            it { expect(subject).to_not include cloth_without_one_size }
+          end
+
+        end
       end
 
       describe ".valid_criteo_for_xml" do
+        let!(:collection) { FactoryGirl.create(:collection) }
         it "returns products valid for criteo" do
           products = [shoe, bag, accessory, shoe_for_xml]
           shoe_for_xml.master_variant.update_attribute(:price, 1.0)
@@ -161,14 +181,33 @@ describe Product do
           shoe_for_xml.variants.first.destroy
           # set inventory to less than 3 on each variant
           shoe_for_xml.variants.each {|v| v.update_attribute(:inventory, 2)}
-          described_class.valid_for_xml([0],[0]).should_not include(shoe_for_xml)
+          described_class.valid_criteo_for_xml([0],[0]).should_not include(shoe_for_xml)
         end
 
         it "returns shoes with 3 or more variants with 3 or more inventory each" do
           # leave only 3 variants on factory
           shoe_for_xml.variants.first.destroy
-          shoe_for_xml.variants.each {|v| v.update_attribute(:inventory, 4)}
-          described_class.valid_for_xml([0],[0]).should include(shoe_for_xml)
+          shoe_for_xml.update_attributes(collection: collection)
+          shoe_for_xml.variants.each {|v| v.update_attributes(:inventory => 4, price: BigDecimal("100,00"))}
+          described_class.valid_criteo_for_xml([0],[0]).should include(shoe_for_xml)
+        end
+
+        context "when product is a cloth and" do
+          let!(:cloth_with_all_sizes) { FactoryGirl.create(:simple_garment, collection: collection) }
+          let!(:variant) { FactoryGirl.create(:yellow_shirt, product: cloth_with_all_sizes, is_master: false, description: "35") }
+          let!(:cloth_without_one_size) { FactoryGirl.create(:simple_garment, collection: collection) }
+          let!(:variant_sold_out) { FactoryGirl.create(:yellow_shirt, inventory: 0, product: cloth_without_one_size, is_master: false, description: "40") }
+          let!(:avalaible) { FactoryGirl.create(:yellow_shirt, product: cloth_without_one_size, is_master: false, description: "40") }
+          subject { described_class.valid_criteo_for_xml([0],[0]) }
+
+          context "when cloth has no variants with invetory eq 0" do
+            it { expect(subject).to include cloth_with_all_sizes }
+          end
+
+          context "when cloth has any variant with inventory eq 0" do
+            it { expect(subject).to_not include cloth_without_one_size }
+          end
+
         end
       end
 
@@ -742,4 +781,44 @@ describe Product do
     end
   end
 
+  describe "#is_a_shoe_accessory?" do
+    let(:product) { FactoryGirl.build(:product) }
+    context "when is a shoe accessory" do
+      before do
+        product.stub(:subcategory).and_return("Amaciante")
+      end
+      subject { product.is_a_shoe_accessory? }
+      it { should be_true }
+    end
+
+    context "when isn't a shoe accessory" do
+      before do
+        product.stub(:subcategory).and_return("Blusa")
+      end
+      subject { product.is_a_shoe_accessory? }
+
+      it { should be_false }
+    end
+  end
+
+  describe "#sort_details_by_relevance" do
+    before do
+      category_detail = FactoryGirl.build(:shoe_subcategory_name)
+      heel_detail = FactoryGirl.build(:shoe_heel)
+      shoe_with_leather_detail = FactoryGirl.build(:shoe_with_leather)
+      metal_detail = FactoryGirl.build(:shoe_with_metal)
+      @details = [ category_detail, metal_detail, heel_detail, shoe_with_leather_detail ]
+    end
+
+    context "when there'no any unexpected detail" do
+      it { expect(subject.sort_details_by_relevance(@details.shuffle)).to eq(@details) }
+    end
+
+    context "when there's any expected detail" do
+      before do
+        @details << FactoryGirl.build(:detail, translation_token: "Unexpected")
+      end
+      it { expect(subject.sort_details_by_relevance(@details.shuffle)).to eq(@details) }
+    end
+  end
 end
