@@ -52,7 +52,7 @@ class Catalog::Catalog < ActiveRecord::Base
   end
 
   def cloth_sizes
-    in_category(Category::CLOTH).group(:cloth_size).count.keys.compact.sort { |a,b| CLOTH_SIZES_TABLE[a.to_s] <=> CLOTH_SIZES_TABLE[b.to_s] }
+    in_category(Category::CLOTH).group(:cloth_size).count.keys.compact.sort { |a,b| CLOTH_SIZES_TABLE[a.to_s].to_i <=> CLOTH_SIZES_TABLE[b.to_s].to_i }
   end
 
   def heels
