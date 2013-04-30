@@ -50,7 +50,7 @@ showroom = s = {
   },
   
   showModalProfile: function(){
-    $("img.profile-quiz").on("click", function(e){
+    $("img.profile-quiz, a.show-profile").on("click", function(e){
       container = $('div#profile_quiz img');
       profile = container.attr('class');
       container.attr('src', 'http://cdn-app-staging-0.olook.com.br/assets/profiles/big_'+profile+'.jpg');

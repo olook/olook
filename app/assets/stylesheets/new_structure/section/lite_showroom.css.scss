@@ -30,15 +30,16 @@
     a{display:block;width:400px;height:80px;}
   }
   
-  #mask_carousel_facebook{display:inline-block;margin-top:40px;position:relative;width:427px;height:86px;text-align:center;
+  #mask_carousel_facebook{display:inline-block;margin-top:10px;position:relative;width:427px;height:86px;text-align:center;
    .caroufredsel_wrapper{ display:inline-block;/*float:left !important;*/margin:0 5px !important;
       li{float:left;;margin-right:5px !important;}
     }
+    p{font-family:$avenir-medium;text-transform:uppercase;font-size:12px;font-weight:bold;display:inline-block !important;margin-bottom:4px;color:#000;}
     a{
       &.invite-more{clear:both;font-family:$avenir-medium;text-transform:uppercase;font-size:12px;font-weight:bold;display:inline-block !important;
         &:hover{color:$base_color;}
       }
-      &.carousel-prev-fb, &.carousel-next-fb{position:absolute;top:10px;font-size:0;line-height:0;display:block;width:22px;height:25px;
+      &.carousel-prev-fb, &.carousel-next-fb{position:absolute;top:40px;font-size:0;line-height:0;display:block;width:22px;height:25px;
       background: image-url('showroom/sprite.png') no-repeat -104px -56px;}
       &.carousel-prev-fb{left:-2px;}
       &.carousel-next-fb{right:0;background: image-url('showroom/sprite.png') no-repeat -105px -79px;}
@@ -51,7 +52,7 @@ img.profile-quiz{position:absolute;display:none;top:284px;left:735px;z-index:999
 #profile_quiz{background: #FFFFFF;display: none;height: 546px;width:930px;overflow: hidden;
   .share{overflow:hidden;height:20px;font-size: 13px;float:right;color:#000;text-transform:uppercase;margin:15px 0;
     p,iframe{float:left;margin-right:10px;}
-    iframe{width:80px;}
+    iframe{width:90px;}
   }
   .new_survey, .me{display:block;float:left;text-indent:-9999em;margin-top:20px;}
   .new_survey{background: image-url('common/try-again.jpg') no-repeat;width: 301px;height: 59px;margin-left:200px;}
@@ -106,9 +107,6 @@ div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;ma
         }  
         img{width:100%;height:auto;
           &.async{widht:170px;height:170px;}
-        }
-        &:hover{
-          p{color:$base_color;}
         }
       }
     
