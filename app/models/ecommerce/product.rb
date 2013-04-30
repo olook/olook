@@ -452,7 +452,20 @@ class Product < ActiveRecord::Base
     ['Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar'].include? self.subcategory
   end
 
+  def sort_details_by_relevance(details)
+    begin
+     details.sort{|first, second| details_relevance[first.translation_token.downcase] <=> details_relevance[second.translation_token.downcase]}
+    rescue
+      details
+    end
+
+  end
+
   private
+
+    def details_relevance
+      { "categoria" => 1, "detalhe" => 2, "metal" => 3, "salto" => 4, "material interno" => 5, "material externo" => 6, "material da sola" => 7 }
+    end
 
     def self.fetch_all_featured_products_of category
       products = Rails.cache.fetch(CACHE_KEYS[:product_fetch_all_featured_products_of][:key] % category, :expires_in => CACHE_KEYS[:product_fetch_all_featured_products_of][:expire]) do

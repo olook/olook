@@ -760,4 +760,16 @@ describe Product do
       it { expect(subject.is_a_shoe_accessory?).to be_false }
     end
   end
+
+  describe "#sort_details_by_relevance" do
+    before do
+      category_detail = FactoryGirl.build(:shoe_subcategory_name)
+      heel_detail = FactoryGirl.build(:shoe_heel)
+      shoe_with_leather_detail = FactoryGirl.build(:shoe_with_leather)
+      metal_detail = FactoryGirl.build(:shoe_with_metal)
+      @details = [ category_detail, metal_detail, heel_detail, shoe_with_leather_detail ]
+    end
+
+    it { expect(subject.sort_details_by_relevance(@details.shuffle)).to eq(@details) }
+  end
 end
