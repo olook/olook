@@ -113,6 +113,7 @@ class CatalogSearchService
 
   def query_accessories
     query = query_subcategories_for(@params[:accessory_subcategories])
+    query = build_sub_query((query || query_base), Detail.arel_table[:translation_token].eq("Cor filtro").and(Detail.arel_table[:description].in(@params[:accessory_colors]))) if @params[:accessory_colors]
     query.and(l_products[:category_id].in(Category::ACCESSORY)) if query
   end
 
