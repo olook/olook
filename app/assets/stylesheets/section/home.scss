@@ -267,7 +267,7 @@ section#home {
             background-position: -252px 0px;
           }
         }
-        &.jabour a {
+        &.essential a {
           background-position: -504px 0px;
           &:hover {
             background-position: -504px 0px;
@@ -280,7 +280,7 @@ section#home {
             background-position: -756px 0px;
           }
         } 
-        &.iodice a {
+        &.jabour a {
           background-position: 0px -90px;
           &:hover {
             background-position: 0px -90px;
@@ -341,6 +341,13 @@ section#home {
           background-position: -252px -270px;
           &:hover {
             background-position: -252px -270px;
+          }
+        } 
+        &.iodice a {
+          width: 234px;
+          background-position: -504px -270px;
+          &:hover {
+            background-position: -504px -270px;
           }
         } 
       }
