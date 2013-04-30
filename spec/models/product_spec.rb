@@ -743,21 +743,22 @@ describe Product do
   end
 
   describe "#is_a_shoe_accessory?" do
-    subject { FactoryGirl.build(:product) }
+    let(:product) { FactoryGirl.build(:product) }
     context "when is a shoe accessory" do
       before do
-        subject.stub(:subcategory).and_return("Amaciante")
+        product.stub(:subcategory).and_return("Amaciante")
       end
-
-      it { expect(subject.is_a_shoe_accessory?).to be_true }
+      subject { product.is_a_shoe_accessory? }
+      it { should be_true }
     end
 
     context "when isn't a shoe accessory" do
       before do
-        subject.stub(:subcategory).and_return("Blusa")
+        product.stub(:subcategory).and_return("Blusa")
       end
+      subject { product.is_a_shoe_accessory? }
 
-      it { expect(subject.is_a_shoe_accessory?).to be_false }
+      it { expect(subject).to be_false }
     end
   end
 
