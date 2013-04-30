@@ -10,6 +10,7 @@
 <PROD_DESCRIPTION><%= product.description[0..512] %></PROD_DESCRIPTION>
 <PROD_DESCRIPTION_LONG><%= product.description %></PROD_DESCRIPTION_LONG>
 <PROD_URL><%= product.product_url(:utm_source => "zanox", :utm_medium => "xml", :utm_campaign => "produtos") %></PROD_URL>
+<BRAND><%= product.brand %></BRAND>
 <CATEGORY><%= product.category_humanize %></CATEGORY>
 <FOTO_URL><%= product.main_picture.try(:image) %></FOTO_URL>
 </producto>

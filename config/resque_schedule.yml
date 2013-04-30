@@ -113,7 +113,7 @@ userbase_with_source_exacttarget:
   description: "Cria e envia arquivo com base de usuários para ftp do exact target"
 
 facebook_friends_birthday_middle_exacttarget:
-  cron: "0 5 * * 14"
+  cron: "0 5 14 * *"
   class: MarketingUploaderWorker
   queue: marketing_uploader
   args:
@@ -124,7 +124,7 @@ facebook_friends_birthday_middle_exacttarget:
   description: "Cria e envia arquivo com base de usuários e amigas aniversariantes para ftp do exact target, no meio do mês"
 
 facebook_friends_birthday_end_exacttarget:
-  cron: "0 5 * * 27"
+  cron: "0 5 27 * *"
   class: MarketingUploaderWorker
   queue: marketing_uploader
   args:

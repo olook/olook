@@ -17,6 +17,11 @@
     <%= f.text_field :code %>
   </div>
   <div class="field">
+    <%= f.label :brand, "Marca" %><br />
+    <%= f.text_field :brand %>
+  </div>
+  <p>* Marque este campo apenas se desejar que o cupom seja aplicado apenas para items de determinada marca.</p>
+  <div class="field">
     <%= f.label :percentage, "Porcentagem" %>: <%= f.check_box :is_percentage %><br />
     <strong class="info" >Marque esse campo se o cupom for de porcentagem</strong>
   </div>

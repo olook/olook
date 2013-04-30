@@ -31,6 +31,7 @@ class PaymentBuilder
       cart_id: @cart_service.cart.id
     }
 
+    attributes.merge!({:source => options[:promotion]}) if options[:promotion]
     attributes.merge!({:credit_type_id => CreditType.find_by_code!(options[:credit]).id}) if options[:credit]
     attributes.merge!({:coupon_id => options[:coupon_id]}) if options[:coupon_id]
 
@@ -66,7 +67,7 @@ class PaymentBuilder
         log("Order generated: #{order.inspect}")
         payment.order = order
         payment.calculate_percentage!
-        payment.deliver! if [Debit, CreditCard].include?(payment.class)        
+        payment.deliver! if [Debit, CreditCard].include?(payment.class)
         payment.save!
 
         order.line_items.each do |item|
@@ -81,11 +82,11 @@ class PaymentBuilder
         create_payment_for(billet_discount, BilletDiscountPayment)
         create_payment_for(total_gift, GiftPayment)
         create_payment_for(total_coupon, CouponPayment, coupon_opts)
-        create_payment_for(total_promotion, PromotionPayment)
+        create_payment_for(total_promotion, PromotionPayment, {promotion: cart_service.cart.items.first.cart_item_adjustment.source})
         create_payment_for(total_credits, CreditPayment, {:credit => :loyalty_program} )
         create_payment_for(total_credits_invite, CreditPayment, {:credit => :invite} )
         create_payment_for(total_credits_redeem, CreditPayment, {:credit => :redeem} )
-        
+
         payment.schedule_cancellation if [Debit, Billet].include?(payment.class)
 
         log("Respond with_success!")

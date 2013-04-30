@@ -6,9 +6,10 @@
 <name><%= product.name %></name>
 <image><%= product.main_picture.try(:image) %></image>
 <url>
-  <%= product.product_url(:utm_source => "triggit", :utm_medium => "facebook", :utm_campaign => "remessaging", :utm_content => product.id) %>
+  <%= product.product_url(:utm_source => "triggit", :utm_medium => "Remarketing", :utm_campaign => "Produtos", :utm_content => product.id) %>
 </url>
 <price><%= number_with_precision(product.retail_price, precision: 2, separator: ".") %></price>
+<brand> <%= product.brand %> </brand>
 <description> <%= product.description %> </description>
 <category><%= product.subcategory %></category>
 </product>
