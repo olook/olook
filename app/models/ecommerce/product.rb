@@ -397,7 +397,7 @@ class Product < ActiveRecord::Base
   end
 
   def formatted_name(size=35)
-    _formated_name = cloth? ? name : "#{model_name} #{name}"
+    _formated_name = cloth? || is_a_shoe_accessory? ? name : "#{model_name} #{name}"
     _formated_name = "#{_formated_name[0..size-5]}&hellip;".html_safe if _formated_name.size > size
     _formated_name
   end
@@ -447,7 +447,22 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def is_a_shoe_accessory?
+    Catalog::Catalog::CARE_PRODUCTS.include? self.subcategory
+  end
+
+  def sort_details_by_relevance(details)
+     details.sort{|first, second| details_relevance[first.translation_token.to_s.downcase] <=> details_relevance[second.translation_token.to_s.downcase]}
+  end
+
   private
+
+    def details_relevance
+      h = { "categoria" => 1, "detalhe" => 2, "metal" => 3, "salto" => 4, "material interno" => 5, "material externo" => 6, "material da sola" => 7 }
+
+      h.default = 1.0/0.0 # infinity
+      h
+    end
 
     def self.fetch_all_featured_products_of category
       products = Rails.cache.fetch(CACHE_KEYS[:product_fetch_all_featured_products_of][:key] % category, :expires_in => CACHE_KEYS[:product_fetch_all_featured_products_of][:expire]) do
