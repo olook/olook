@@ -758,7 +758,7 @@ describe Product do
       end
       subject { product.is_a_shoe_accessory? }
 
-      it { expect(subject).to be_false }
+      it { should be_false }
     end
   end
 
