@@ -692,7 +692,7 @@
 						orgW = opts.items[opts.d['width']];
 					hiddenitems.each(function() {
 						var hi = $(this);
-						hi.data('isHidden', hi.is(':hidden')).hide();
+					//	hi.data('isHidden', hi.is(':hidden')).hide();
 					});
 					opts.items[opts.d['width']] = 'variable';
 				} else {

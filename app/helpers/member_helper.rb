@@ -51,4 +51,11 @@ module MemberHelper
   def first_visit_profile
     profile = current_user.profile_scores.first.try(:profile).first_visit_banner
   end
+
+  # Busca o nome da coleção ativa ou a data atual
+  # A data atual ocorre nas viradas de coleção quando a coleção ativa é
+  # desativada e a coleção nova é ativada.
+  def current_collection_name
+    @current_collection_name ||= Collection.active.try(:name) || I18n.l(Date.today, :format => '%B')
+  end
 end

@@ -23,6 +23,6 @@ module ProductFinder
       end
     end
     result.sort! {|product, product2| product2.inventory <=> product.inventory}
-  end  
+  end
 
 end
