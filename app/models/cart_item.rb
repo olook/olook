@@ -27,16 +27,17 @@ class CartItem < ActiveRecord::Base
   #
   # A lot of badsmels in this code !!!!
   # TODO => Refactor as soon as possilbe
+  # To refactor we need to rethink the promotion and liquidation
   #
-  def retail_price
+  def retail_price(options={})
     # coupon discount is calculated by cart service
-    if cart.coupon
+    if !options[:ignore_coupon] && cart.coupon
       cart.coupon.is_percentage? ? price - (price * cart.coupon.value / 100) : price
     else
       olooklet_value = variant.product.retail_price == 0 ? price : variant.product.retail_price
       promotional_value = price - adjustment_value / quantity.to_f if has_adjustment?
 
-      min_value_excluding_nil = [promotional_value, olooklet_value].delete_if{|value| value.nil? }.min
+      min_value_excluding_nil = [promotional_value, olooklet_value].compact.min
       min_value_excluding_nil || 0
     end
   end
