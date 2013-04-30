@@ -68,6 +68,7 @@ Olook::Application.routes.draw do
   match '/acessorios', to: "moments#show", as: "accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1}
   match '/oculos', to: "moments#glasses", as: "glasses", :defaults => {:category_id => Category::ACCESSORY, :accessory_subcategories=>["oculos-de-sol"], :id => 1}
   match '/roupas', to: "moments#clothes", as: "clothes", :defaults => {:category_id => Category::CLOTH, :id => 1}
+  match '/novas-marcas', to: "moments#clothes", as: "brands", :defaults => {id: 1, category_id: Category::CLOTH, brands: ["COLCCI","DOUGLAS HARRIS","ECLECTIC","ESPACO FASHION","FORUM","Iodice","OLLI","SHOP 126","THELURE","TRITON"]}
 
 
   #FRIENDS
@@ -97,6 +98,7 @@ Olook::Application.routes.draw do
   match "/google_shopping", :to => "xml#google_shopping", :as => "google_shopping", :defaults => { :format => 'xml' }
   match "/buscape", :to => "xml#buscape", :as => "buscape", :defaults => { :format => 'xml' }
   match "/kelkoo", :to => "xml#kelkoo", :as => "kelkoo", :defaults => { :format => 'xml' }
+  match "/struq", :to => "xml#struq", :as => "struq", :defaults => { :format => 'xml' }
   match "/kuanto_kusta", :to => "xml#kuanto_kusta", :as => "kuanto_kusta", :defaults => { :format => 'xml' }
   match "/nextperformance", :to => "xml#nextperformance", :as => "nextperformance", :defaults => { :format => 'xml' }
 

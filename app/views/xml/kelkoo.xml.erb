@@ -5,7 +5,7 @@
   <title><![CDATA[<%= product.name %>]]></title>
   <product-url><![CDATA[<%= product.product_url(utm_source: "kelkoo", utm_medium: "merchant", :utm_campaign => "produtos") %>]]></product-url>
   <price><%= number_with_precision(product.retail_price, precision: 2, separator: ".") %></price>
-  <brand><![CDATA[olook]]></brand>
+  <brand><![CDATA[<%= product.brand %>]]></brand>
   <description><![CDATA[<%= product.description %>]]></description>
   <image-url><![CDATA[<%= first_image_of product %>]]></image-url>
   <ean></ean>

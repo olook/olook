@@ -2,10 +2,16 @@
 module XmlHelper
 
   def build_installment_text(price, options = {})
+    "#{installments_number(price)} x #{installments_value(price, options)}"
+  end
+
+  def installments_number(price)
+    CreditCard.installments_number_for(price)
+  end
+
+  def installments_value(price, options = {})
     options[:separator] ||= '.'
-    installments_number = CreditCard.installments_number_for(price)
-    installment_value = price / installments_number
-    "#{installments_number} x #{number_with_precision(installment_value, precision: 2, separator: options[:separator])}"
+    number_with_precision(price / installments_number(price), precision: 2, separator: options[:separator])
   end
 
   def full_category(product)
@@ -30,6 +36,10 @@ module XmlHelper
 
   def image_at_position(product, position)
     product.picture_at_position(position).try(:image)
+  end
+
+  def calculate_discount_for product
+    (100-((product.retail_price / product.price)*100)).ceil
   end
 
   private

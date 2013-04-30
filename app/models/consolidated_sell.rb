@@ -16,7 +16,7 @@ class ConsolidatedSell < ActiveRecord::Base
   def self.summarize date, variant, amount
     product = variant.product
 
-    day = date
+    day = date.to_date
     category = product.category
     subcategory = product.subcategory
 

@@ -27,12 +27,11 @@ class LiquidationsController < ApplicationController
   private
 
   def load_liquidation_products
-      @liquidation = Liquidation.find(params[:id])
-      @liquidation_products = LiquidationSearchService.new(params).search_products
+    @liquidation = Liquidation.find(params[:id])
+    @liquidation_products = LiquidationSearchService.new(params).search_products
   end
 
   def verify_if_active
-
     if current_liquidation.nil?
       flash[:notice] = "A liquidação não está ativa"
       redirect_to member_showroom_path

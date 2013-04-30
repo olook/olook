@@ -1,10 +1,15 @@
 class LiquidationService
   attr_accessor :denied_products_ids, :nonexisting_products_ids
+  @@active = nil
+  @@active_expire = nil
 
   def self.active
-    Liquidation.all.detect do |liquidation|
-      Time.now >= liquidation.starts_at && Time.now <= liquidation.ends_at
-    end
+    return @@active if Rails.application.config.cache_classes && !Rails.env.test? && @@active && @@active_expire > Time.zone.now
+    @@active = Liquidation.where('? BETWEEN liquidations.starts_at AND liquidations.ends_at', Time.zone.now).first
+    @@active_expire = 5.minutes.from_now
+    Rails.logger.info('========= CACHING IN MEMORY for 5 minnutes LiquidationService.active =============')
+    Rails.logger.info('========= TO clean must restart server  =============')
+    @@active
   end
 
   def initialize liquidation_id

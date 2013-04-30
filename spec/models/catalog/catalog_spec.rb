@@ -30,4 +30,22 @@ describe Catalog::Catalog do
       it { should eql([ 'PP', 'P', 'M', 'G', '36', '38', '40', '42', '44', 'Único' ])}
     end
   end
+
+  describe "#brands_for" do
+    before do
+      @collection_theme = FactoryGirl.create(:collection_theme)
+      ['Olook', "Something", "Brand"].shuffle.each do |brand|
+        FactoryGirl.create(:catalog_product,
+                           catalog: @collection_theme.catalog,
+                           category_id: Category::CLOTH,
+                           brand: brand)
+      end
+    end
+
+    subject { @collection_theme.catalog.brands_for(Category::CLOTH) }
+
+    context "ordering brands" do
+      it { expect(subject).to eq([ 'Brand','Olook', 'Something' ]) }
+    end
+  end
 end
