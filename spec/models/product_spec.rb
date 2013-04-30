@@ -777,9 +777,8 @@ describe Product do
     context "when there's any expected detail" do
       before do
         @details << FactoryGirl.build(:detail, translation_token: "Unexpected")
-        @random_details = @details.shuffle
       end
-      it { expect(subject.sort_details_by_relevance(@random_details)).to eq(@random_details) }
+      it { expect(subject.sort_details_by_relevance(@details.shuffle)).to eq(@details) }
     end
   end
 end

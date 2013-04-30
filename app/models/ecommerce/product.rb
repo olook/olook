@@ -453,18 +453,16 @@ class Product < ActiveRecord::Base
   end
 
   def sort_details_by_relevance(details)
-    begin
-     details.sort{|first, second| details_relevance[first.translation_token.downcase] <=> details_relevance[second.translation_token.downcase]}
-    rescue
-      details
-    end
-
+     details.sort{|first, second| details_relevance[first.translation_token.to_s.downcase] <=> details_relevance[second.translation_token.to_s.downcase]}
   end
 
   private
 
     def details_relevance
-      { "categoria" => 1, "detalhe" => 2, "metal" => 3, "salto" => 4, "material interno" => 5, "material externo" => 6, "material da sola" => 7 }
+      h = { "categoria" => 1, "detalhe" => 2, "metal" => 3, "salto" => 4, "material interno" => 5, "material externo" => 6, "material da sola" => 7 }
+
+      h.default = 1.0/0.0 # infinity
+      h
     end
 
     def self.fetch_all_featured_products_of category
