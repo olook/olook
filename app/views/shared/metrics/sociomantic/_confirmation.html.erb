@@ -11,7 +11,7 @@ currency: 'BRL'
 };
 
 </script>
-<% if order.tracking && order.tracking.utm_source.match(/sociomantic.*/) %>
+<% if order.tracking && order.tracking.utm_source.to_s.match(/sociomantic.*/) %>
   <script type="text/javascript">
     var sale =
     {
