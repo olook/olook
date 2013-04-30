@@ -770,6 +770,16 @@ describe Product do
       @details = [ category_detail, metal_detail, heel_detail, shoe_with_leather_detail ]
     end
 
-    it { expect(subject.sort_details_by_relevance(@details.shuffle)).to eq(@details) }
+    context "when there'no any unexpected detail" do
+      it { expect(subject.sort_details_by_relevance(@details.shuffle)).to eq(@details) }
+    end
+
+    context "when there's any expected detail" do
+      before do
+        @details << FactoryGirl.build(:detail, translation_token: "Unexpected")
+        @random_details = @details.shuffle
+      end
+      it { expect(subject.sort_details_by_relevance(@random_details)).to eq(@random_details) }
+    end
   end
 end
