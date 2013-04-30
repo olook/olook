@@ -64,7 +64,7 @@ class Product < ActiveRecord::Base
   end
 
   def self.valid_for_xml(products_blacklist, collections_blacklist)
-    products = only_visible.joins(valid_for_xml_join_query).where(valid_for_xml_where_query,
+    products = only_visible.joins(valid_for_xml_join_query).includes(:variants).where(valid_for_xml_where_query,
                                                                   :products_blacklist => products_blacklist ,
                                                                   :collections_blacklist => collections_blacklist).
                                                                  order("collection_id desc")
@@ -72,7 +72,7 @@ class Product < ActiveRecord::Base
   end
 
   def self.valid_criteo_for_xml(products_blacklist, collections_blacklist)
-    products = only_visible.joins(criteo_join_query).where(criteo_where_query,
+    products = only_visible.joins(criteo_join_query).includes(:variants).where(criteo_where_query,
                                                     :products_blacklist => products_blacklist ,
                                                     :collections_blacklist => collections_blacklist ).
                                                   where("(products.category <> 1 or x.count_variants >= 3)").
