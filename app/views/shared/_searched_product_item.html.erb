@@ -1,7 +1,3 @@
-<% content_for :head do %>
-  <%= stylesheet_link_tag "section/showroom" %>
-<% end %>
-
 <li class="product<%= " promotion" if product.promotion? %>" data-id="<%= product.id %>">
   <%#= render "shared/product_hover", :product => product %>
   <div class="box_product">
