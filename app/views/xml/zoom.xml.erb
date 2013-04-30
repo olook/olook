@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <produtos>
-	<% @products.each do |product| %>
-	<produto>
-		<codigo><%= product.id %></codigo>
-		<nome><%= product.id == 15769 ? "Juliana Jabour " : "" %><%= product.formatted_name %></nome>
-		<descricao>
-			<%= product.description %></descricao>
-		<preco_de>
-			<%= product.price %></preco_de>
-		<preco>
-			<%= product.retail_price %></preco>
-		<nparcela></nparcela>
-		<vparcela></vparcela>
-		<url>
-			<%= product.product_url(:utm_source =>"zoom", :utm_campaign => "produtos") %></url>
-		<url_imagem>
-			<%= first_image_of product %></url_imagem>
-		<departamento><%= product.category_humanize %></departamento>
-		<subdepartamento><%= product.subcategory_name %></subdepartamento>
-		<isbn/>
-		<editora/>
-		<autor/>
-		<mpc></mpc>
-		<ean></ean>
-		<sku></sku>
+  <% @products.each do |product| %>
+    <produto>
+      <codigo><%= product.id %></codigo>
+      <nome><%= product.id == 15769 ? "Juliana Jabour " : "" %><%= product.formatted_name %></nome>
+      <descricao><%= product.description %></descricao>
+      <preco_de><%= product.price %></preco_de>
+      <preco><%= product.retail_price %></preco>
+      <nparcela></nparcela>
+      <vparcela></vparcela>
+      <url><%= product.product_url(:utm_source =>"zoom", :utm_campaign => "produtos") %></url>
+      <url_imagem><%= first_image_of product %></url_imagem>
+      <departamento><%= product.category_humanize %></departamento>
+      <subdepartamento><%= product.subcategory_name %></subdepartamento>
+      <marca><%= product.brand %></marca>
+      <isbn/>
+      <editora/>
+      <autor/>
+      <mpc></mpc>
+      <ean></ean>
+      <sku></sku>
 	</produto>
-	<% end %></produtos>
+  <% end %>
+</produtos>

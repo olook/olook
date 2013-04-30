@@ -14,7 +14,7 @@
 <g:condition>new</g:condition>
 <g:price><%= number_with_precision(product.price, precision: 2, separator: ".") %></g:price>
 <g:sale_price><%= number_with_precision(product.retail_price, precision: 2, separator: ".") %></g:sale_price>
-<g:brand>olook</g:brand>
+<g:brand><%= product.brand %></g:brand>
 <g:gender>female</g:gender>
 <g:age_group>adult</g:age_group>
 <% product.variants.each do |variant| %>

@@ -17,6 +17,7 @@ module ApplicationHelper
       subs = item.split("#")
       category = subs[2]
       return 'selected' if (subs[0] == params[:controller]) && (subs[1] == params[:action]) && (category==nil || category.to_i==params[:category_id])
+      return nil
     end
   end
 
@@ -28,7 +29,7 @@ module ApplicationHelper
   end
 
   def cart_total(cart)
-    content_tag(:span,"(#{content_tag(:span, "#{pluralize(cart.items_total, 'item', 'itens')}", :id => "cart_items")})".html_safe)
+    content_tag(:span,"(#{content_tag(:span, "#{pluralize(cart.try(:items_total).to_i, 'item', 'itens')}", :id => "cart_items")})".html_safe)
   end
 
   def discount_percentage(value)

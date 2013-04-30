@@ -28,29 +28,32 @@ class Coupon < ActiveRecord::Base
 
   def apply_discount_to? product
 
-    coupon_products = get_coupon_products
-    brand_products = get_brand_products
-
-    if coupon_products.nil? && brand_products.nil?
-      true
+    if coupon_specific_for_product?
+      product_ids = product_ids_allowed_to_have_discount
+      product_ids.include?(product.id.to_s)
+    elsif coupon_specific_for_brand?
+      product.brand.downcase == brand.downcase
     else
-      coupon_products.try(:include?, product.id.to_s) || brand_products.try(:include?, product.brand.downcase)
+      true
     end
+
   end
 
   def should_apply_to?(cart)
-    discounts_sum = cart.total_promotion_discount + cart.total_liquidation_discount
+    discounts_sum = cart.total_promotion_discount + cart.total_liquidation_discount(ignore_coupon: true)
     calculated_value(cart.total_price) > discounts_sum
   end
 
   private
-
-    def get_brand_products
-      brands = BRAND_COUPONS_CONFIG[self.code]
-      brands ? brands.split(",").map(&:downcase) : nil
+    def coupon_specific_for_product?
+      !product_ids_allowed_to_have_discount.nil?
     end
 
-    def get_coupon_products
+    def coupon_specific_for_brand?
+      !brand.nil?
+    end
+
+    def product_ids_allowed_to_have_discount
       product_ids = PRODUCT_COUPONS_CONFIG[self.code]
       product_ids ? product_ids.split(",") : nil
     end

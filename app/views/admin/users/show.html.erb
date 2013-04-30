@@ -33,11 +33,11 @@
     <%= number_to_currency @user.current_credit %>
   </p>
   <p>
-    <b>Bloqueado em</b>
-    <%=@user.locked_at %>
-    <% if @user.access_locked? %>
+    <b>Bloqueado?</b>
+    <%= @user.has_fraud ? 'Sim' : 'Não' %>
+    <% if @user.has_fraud? %>
       <%= link_to 'Desbloquear Acesso', "/admin/users/unlock_access/#{@user.id}" %>
-      <%  else  %>
+    <%  else  %>
       <%= link_to 'Bloquear Acesso', "/admin/users/lock_access/#{@user.id}" %>
     <% end %>
   </p>

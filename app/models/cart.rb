@@ -17,7 +17,7 @@ class Cart < ActiveRecord::Base
   after_update :notify_listener
 
   def allow_credit_payment?
-    has_empty_adjustments? && has_any_full_price_item?
+    has_empty_adjustments? && has_any_full_price_item? && self.sub_total >= 100
   end
 
   def add_variants(variant_numbers)
@@ -79,13 +79,12 @@ class Cart < ActiveRecord::Base
     items.inject(0) {|sum, item| sum + item.adjustment_value}
   end
 
-  def total_liquidation_discount
+  def total_liquidation_discount(options={})
     items.inject(0) do |sum, item|
       # TODO => maybe this rule should be in the cart_item
-      liquidation_discount = item.adjustment_value > 0 ? 0 : item.price - item.retail_price
+      liquidation_discount = item.adjustment_value > 0 ? 0 : item.price - item.retail_price(options)
       sum + liquidation_discount
     end
-
   end
 
   def total_coupon_discount
@@ -104,6 +103,13 @@ class Cart < ActiveRecord::Base
 
   def sub_total
     items.inject(0) { |total, item| total += (item.quantity * item.retail_price) }
+  end
+
+  def remove_coupon!
+    self.coupon_id = nil
+    self.coupon_code = nil
+    self.save!
+    self.reload
   end
 
   private

@@ -6,8 +6,11 @@ class CatalogSearchService
     @l_products = Catalog::Product.arel_table
     @query_base = @l_products[:catalog_id].eq(@params[:id])
                   .and(@l_products[:inventory].gt(0))
-                  .and(Product.arel_table[:is_visible].eq(true))
                   .and(Variant.arel_table[:inventory].gt(0))
+
+    unless params[:admin]
+      @query_base = @query_base.and(Product.arel_table[:is_visible].eq(true))
+    end
 
     if @liquidation = LiquidationService.active
       @query_base = @query_base.and(LiquidationProduct.arel_table[:product_id].eq(nil))
@@ -38,10 +41,13 @@ class CatalogSearchService
     return @query if @query
     add_categories_filter_to_query_base
 
+    add_price_range_to_query_base if @params[:price]
+
     @query = prepare_query_joins
 
     add_category_filter_to_query_base
-    add_collection_filter_to_query_base
+    add_brand_filter_to_query_base
+
     @query = @query.where(@query_base)
   end
 
@@ -73,8 +79,8 @@ class CatalogSearchService
     @query_base = @query_base.and(l_products[:category_id].in(@params[:category_id])) if @params[:category_id]
   end
 
-  def add_collection_filter_to_query_base
-    @query_base = @query_base.and(Product.arel_table[:collection_id].eq(Collection.active.id)) if @params[:news]
+  def add_brand_filter_to_query_base
+    @query_base = @query_base.and(Product.arel_table[:brand].in(@params[:brands])) if @params[:brands]
   end
 
   def compact_category_queries
@@ -146,11 +152,18 @@ class CatalogSearchService
   end
 
   def sort_filter
+    order_by_price_sql = "CASE WHEN ifnull(catalog_products.retail_price, 0.00) = 0.00 THEN catalog_products.original_price WHEN ifnull(catalog_products.retail_price, 0.00) > 0.00 THEN catalog_products.retail_price END"
     case @params[:sort_filter]
       when "0" then "collection_id desc"
-      when "1" then "variants.price asc"
-      when "2" then "variants.price desc"
+      when "1" then  "#{order_by_price_sql} ASC"
+      when "2" then "#{order_by_price_sql} DESC"
       else "collection_id desc"
     end
+  end
+
+  def add_price_range_to_query_base
+    gt, lt = @params[:price].split('-')
+    @query_base = query_base.and(@l_products[:retail_price].gt(gt)) unless gt == "*"
+    @query_base = query_base.and(@l_products[:retail_price].lt(lt)) unless lt == "*"
   end
 end

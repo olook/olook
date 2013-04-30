@@ -31,7 +31,6 @@ Olook::Application.routes.draw do
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
   match "/fidelidade", :to => "pages#loyalty", :as => "loyalty"
-  match "/festas", :to => "moments#show", :as => "festas", :defaults => {:id => 4}
   match "/olookmovel", to: "pages#olookmovel", as: "olookmovel"
 
   #LOOKBOOKS
@@ -69,6 +68,7 @@ Olook::Application.routes.draw do
   match '/acessorios', to: "moments#show", as: "accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1}
   match '/oculos', to: "moments#glasses", as: "glasses", :defaults => {:category_id => Category::ACCESSORY, :accessory_subcategories=>["oculos-de-sol"], :id => 1}
   match '/roupas', to: "moments#clothes", as: "clothes", :defaults => {:category_id => Category::CLOTH, :id => 1}
+  match '/novas-marcas', to: "moments#clothes", as: "brands", :defaults => {id: 1, category_id: Category::CLOTH, brands: ["COLCCI","DOUGLAS HARRIS","ECLECTIC","ESPACO FASHION","FORUM","Iodice","OLLI","SHOP 126","THELURE","TRITON"]}
 
   # Novidades
   match '/novidades/sapatos', to: "moments#show", as: "news_shoes", :defaults => {:category_id => Category::SHOE, :id => 1, news: true }
@@ -103,6 +103,7 @@ Olook::Application.routes.draw do
   match "/google_shopping", :to => "xml#google_shopping", :as => "google_shopping", :defaults => { :format => 'xml' }
   match "/buscape", :to => "xml#buscape", :as => "buscape", :defaults => { :format => 'xml' }
   match "/kelkoo", :to => "xml#kelkoo", :as => "kelkoo", :defaults => { :format => 'xml' }
+  match "/struq", :to => "xml#struq", :as => "struq", :defaults => { :format => 'xml' }
   match "/kuanto_kusta", :to => "xml#kuanto_kusta", :as => "kuanto_kusta", :defaults => { :format => 'xml' }
   match "/nextperformance", :to => "xml#nextperformance", :as => "nextperformance", :defaults => { :format => 'xml' }
 
@@ -305,7 +306,7 @@ Olook::Application.routes.draw do
 
     get '/discounts' => 'discounts#index', as: :discounts
 
-    get "billet_batch/new", as: :new_billet_batch 
+    get "billet_batch/new", as: :new_billet_batch
 
     post "billet_batch/create", as: :create_billet_batch
 
@@ -374,6 +375,7 @@ Olook::Application.routes.draw do
   post "freight_price", :to => "freight_lookup#show"
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
+  get '/diadasmaes' , :controller =>'landing_pages', :action => 'mother_day' , :as => 'mother_day'
   get ":page_url", :to => "landing_pages#show"
 
 end

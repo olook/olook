@@ -17,6 +17,10 @@ class CollectionThemePresenter < BasePresenter
     h.render :partial => 'shared/filters/shoe_filters', :locals => {:collection_theme_presenter => self} if shoes?
   end
 
+  def display_care_shoe_filters
+    h.render :partial => 'shared/filters/care_shoe_filters', :locals => {:collection_theme_presenter => self} if shoes?
+  end
+
   def display_shoe_size_filters
     h.render :partial => 'shared/filters/shoe_size_filters', :locals => {:collection_theme_presenter => self} if shoes?
   end
@@ -39,6 +43,10 @@ class CollectionThemePresenter < BasePresenter
 
   def display_accessory_filters
     h.render :partial => 'shared/filters/accessory_filters', :locals => {:collection_theme_presenter => self} if accessories?
+  end
+
+  def display_brand_filters
+    h.render :partial => 'shared/filters/brand_filters', :locals => {:collection_theme_presenter => self} if accessories? || clothes?
   end
 
   def display_cloth_filters

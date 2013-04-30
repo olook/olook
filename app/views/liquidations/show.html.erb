@@ -22,7 +22,9 @@
 
       <%= render "shared/filters/order" %>
       <ul id="products">
-        <%= render "products", :products => @liquidation_products %>
+        <% @liquidation_products.each do |liquidation_product| %>
+          <%= render "shared/product_item", :product => liquidation_product.product %>
+        <% end %>
       </ul>
       <div class="loading"></div>
       <%= will_paginate @liquidation_products %>

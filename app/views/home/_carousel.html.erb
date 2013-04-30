@@ -1,9 +1,10 @@
 <div id="carousel">
   <ul>
     <%- [
-      { link: new_survey_path, image: "home/destaque_botao_melancia.jpg" },
-      { link: collection_theme_path("estilista-juliana-jabour"), image: "home/banner_homer_spfw.jpg" },
-      { link: lookbook_path("olook-concept"), image: "home/destaque_olookconcept.jpg" },
+      { link: new_survey_path, image: "home/destaques_quiz_carol_ribeiro.jpg" },
+      { link: collection_theme_path("diadasmaes"), image: "home/destaque_home_dia_das_maes_2013.jpg" },
+      { link: "http://www.olook.com.br/colecoes/mix-pulseiras", image: "home/destaque_mixpulseiras.jpg"},
+      { link: brands_path, image: "home/destaques_novas_marcas_2.jpg"}
     ].each_with_index do |item, index| %>
       <li>
         <%= link_to( image_tag(item[:image]), item[:link], onclick: track_event('Carrossel',"Banner#{index+1}") ) %>

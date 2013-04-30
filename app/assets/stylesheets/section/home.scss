@@ -5,12 +5,12 @@ div#content {
 }
 
 section#home {
-  padding: 20px 0 0;
+  padding: 18px 0 0;
   ul.warnings {
     background: image-url('home/bg-warnings.jpg') no-repeat;
     width: 990px;
     height: 65px;
-    margin: 0 0 20px;
+    margin: 0 0 13px;
     padding: 12px 0 0;
     li {
       color: #939598;
@@ -294,7 +294,7 @@ section#home {
           padding: 75px 0 0 0;
           float: left;
           &:hover {
-            color: #939598;
+            color: #ef3742;
           }
         }
         &.blusa a {
@@ -405,13 +405,14 @@ section#home {
     float: right;
     border-top: 1px #cbcbcb solid;
     img {
-      margin: 0 7px 20px 0;
+      margin: 37px 7px 20px 0;
       float: left;
     }
     h1 {
       color: #36569e;
       font-family: $avenir;
       font-size: 14px;
+      margin-top: 35px;
       span {
         font-size: 17px;
         font-weight: bold;
