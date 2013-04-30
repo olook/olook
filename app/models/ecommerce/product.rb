@@ -449,7 +449,7 @@ class Product < ActiveRecord::Base
   end
 
   def is_a_shoe_accessory?
-    ['Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar'].include? self.subcategory
+    Catalog::Catalog::CARE_PRODUCTS.include? self.subcategory
   end
 
   def sort_details_by_relevance(details)
