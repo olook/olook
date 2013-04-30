@@ -36,6 +36,7 @@
     
     <% if @friends && @friends.any? %>
       <div id="mask_carousel_facebook">
+        <p>Últimas amigas que se registraram</p>
         <%= link_to "Anterior", "javascript:void(0);", :class => "carousel-prev-fb", :id=> "prev-button" %>
         <ul id="friends-face" class="<%= 'carousel' if @friends.count > 12 %>">
           <%- @friends.each do |friend| -%>
@@ -68,7 +69,7 @@
   <section class="container_product" id="clothes_container">
     
     <div class="fb_share">
-      <p>Gostou da sua vitrine Então compartilhe!</p>
+      <p>Gostou da sua vitrine? Então compartilhe!</p>
       <%= link_to 'Compartilhar', "javascript:void(0);", id: "facebook_share", :class => "share", :"data-width" => 128, :"data-height" => 24 %>
     </div>
       
@@ -211,7 +212,7 @@
   <% elsif @is_retake %>
     <script type="text/javascript">
     setTimeout(function() {
-      initBase.showProfileLightbox();
+      $("img.profile-quiz").trigger('click');
     }, 2000);
     </script>
   <% end %>

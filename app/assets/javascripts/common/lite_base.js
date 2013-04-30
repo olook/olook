@@ -83,10 +83,14 @@ olook = o = {
       })
      .delay(500).fadeIn().children().fadeIn();
     
+     if($("button.close").length > 0){
+       $("button.close").remove();
+     }
+     
      $('<button type="button" class="close" role="button">close</button>').css({
        'top'   : _top - 15,
        'right' : _left - 40
-     }).insertAfter($modal)
+     }).insertAfter($modal);
      
     $("button.close, #modal a.me").click(function(){
        _iframe = $modal.contents().find("iframe");
