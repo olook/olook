@@ -26,4 +26,37 @@ module ProductsHelper
       "Vi o acessório #{product.name} no site da olook e amei! <3 www.olook.com.br/produto/#{product.id}"
     end
   end
+
+  def print_detail_name_for category, detail 
+
+    name = detail.translation_token.downcase
+
+    if name == 'categoria'
+      'Modelo'
+    elsif name == 'material externo' && category == Category::CLOTH
+      'Composição'
+    elsif name == 'salto' && category == Category::CLOTH
+      'Tamanhos & Medidas'   
+    elsif name == 'salto' && (category == Category::BAG || category == Category::ACCESSORY)
+      'Tamanho'
+    elsif name == 'metal' && category == Category::ACCESSORY
+      'Material'
+    else
+      detail.translation_token
+    end
+
+  end
+
+  def print_detail_value detail
+    html_sizes = ""
+    sizes = detail.description.split(";")
+    sizes.each do |size|
+      html_sizes << "#{size.chomp}<br>"
+    end
+    html_sizes.html_safe
+  end
+
+  def sku_for product
+    product.master_variant.sku
+  end
 end

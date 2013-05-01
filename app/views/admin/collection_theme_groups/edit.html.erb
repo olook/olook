@@ -1,0 +1,10 @@
+<h2>Alterando um grupo de tema</h2>
+
+<div class="inner">
+  <%= render 'form' %>
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Show', admin_collection_theme_group_path(@collection) %></li>
+  <li><%= link_to 'Back', admin_collection_theme_groups_path %></li>
+<% end %>

@@ -16,6 +16,10 @@
       "5": "2"
       "6": ">= 3"
 
+  admin:
+    billet:
+      santander: "Conciliação Santander"
+
   #Carrinho
   cart:
     discounts:
@@ -255,6 +259,9 @@
       odd: "deve ser ímpar"
       even: "deve ser par"
       invalid_date: "a data informada é inválida"
+      wrong_size: "tamanho errado (deveria ser %{file_size})"
+      size_too_small: "tamanho muito pequeno (deveria ser pelo menos %{file_size})"
+      size_too_big: "tamanho muito grande (deveria ser até %{file_size})"
 
   activerecord:
     state_machines:
@@ -282,14 +289,112 @@
             not_delivered: "Não entregue"
 
     models:
-      promotion: Promoção
-      address: Endereço
-      credit_card: Cartão de crédito
-      user: Usuário
+
+      user:
+        one: Usuário
+        other: Usuários
+
+      credit:
+        one: Crédito
+        other: Créditos
+
+      discount:
+        one: Desconto
+        other: Descontos
+
+      order:
+        one: Ordem
+        other: Ordens
+
+      collection:
+        one: Coleção mensal
+        other: Coleções mensais
+
+      collection_theme:
+        one: Coleção temática
+        other: Coleções temáticas
+
+      product:
+        one: Produto
+        other: Produtos
+
+      shipping_service:
+        one: Serviço de entrega
+        other: Serviços de entrega
+
+      moip_callback:
+        one: Retorno do Moip
+        other: Retornos do Moip
+
+      braspag_authorize_response:
+        one: Resposta de autorização da Braspag
+        other: Respostas de autorização da Braspag
+
+      braspag_capture_response:
+        one: Resposta de captura da Braspag
+        other: Respostas de captura da Braspag
+
+      payment:
+        one: Pagamento
+        other: Pagamentos
+
+      promotion:
+        one: Promoção
+        other: Promoções
+
+      liquidation:
+        one: Liquidação
+        other: Liquidações
+
+      campaign:
+        one: Campanha
+        other: Campanhas
+
+      coupon:
+        one: Cupom
+        other: Cupons
+
+      landing_page:
+        one: Landing Page
+        other: Landing Pages
+
+      lookbook:
+        one: Lookbook
+        other: Lookbooks
+
+      admin:
+        one: Administrador
+        other: Administradores
+
+      role:
+        one: Permissão
+        other: Permissões
+
+      setting:
+        one: Configuração
+        other: Configurações
+
+      holiday:
+        one: Feriado
+        other: Feriados
+
+      gift_occasion_type:
+        one: "Tipo de ocasião"
+        other: "Tipos de ocasiões"
+
+      gift_recipient_relation:
+        one: Relacionamento
+        other: Relacionamentos
+
+      gift_box:
+        one: Box de presente
+        other: Box de presentes
+
       gift_recipient: presenteado
       gift_occasion: "ocasião"
-      gift_occasion_type: "tipo de ocasião"
-      gift_recipient_relation: "relacionamento"
+      address: Endereço
+      credit_card: Cartão de crédito
+
     attributes:
       promotion:
         name: Nome
@@ -311,6 +416,15 @@
         telephone: "Telefone de contato 1"
         mobile: "Telefone de contato 2"
         zip_code: CEP
+      collection_theme:
+        active: 'Ativo'
+        collection_theme_group: 'Grupo'
+        header_image: 'Banner (Altura 290 x Largura 800)'
+        header_image_alt: "Alt/title do Banner"
+        position: 'Posição'
+        video_link: 'Link do Vídeo no Youtube'
+        video_title: 'Título do Vídeo'
+        text_color: 'Cor do Texto do link do vídeo no banner'
       credit_card:
         credit_card_number: "Número do cartão"
         expiration_date: "Validade (MM/AA)"
@@ -381,8 +495,9 @@
     connect_failure: "Você precisa autorizar nosso Site em sua conta do Facebook"
     answer_survey: "Respondi uma pergunta sobre você. Será que eu acertei? Você mesma pode responder o quiz lá no site da olook, ver qual é o seu estilo e receber vitrines personalizadas por stylists. Descubra agora: %{link}."
     invite: "Achei um site de moda que é a sua cara. Você responde um quiz, descobre o seu estilo e recebe vitrines personalizadas por stylists. Pelo link do meu convite, %{link}, você faz o quiz e ainda ganha R$10 na primeira compra! Beijos!"
-    post_wall: "Tenho uma vitrine personaliza da olook e adoro! <3 Todos os meses recebo uma seleção de produtos incrível das stylists da olook. Responda o style quiz e tenha uma vitrine tb."
+    post_wall: "Tenho uma vitrine personalizada da olook e adoro! <3 Todos os meses recebo uma seleção de produtos incrível das stylists da olook. Responda o style quiz e tenha uma vitrine tb."
 
+  product_not_found: "Poxa, ainda não temos o que você está procurando :( <br/><-- Use os filtros ao lado e descubra outras coisas bacanas"
 
 
 

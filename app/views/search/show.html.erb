@@ -1,0 +1,45 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag "new_structure/section/search" %>
+<% end %>
+
+<div class="search">
+  <h1>RESULTADO DE BUSCA</h1>
+  <% if @hits["found"] == 0 %>
+    <h2>Poxa, ainda não temos <span><%= @q%></span> :( </br>Como sempre chegam novidades, logo mais devemos ter o que você procura por aqui. Fique ligada! ;)</h2>
+    <p class="hints">Sugestões para uma próxima busca:</p>
+    <ul>
+      <li class="hint_one">Verifique se a ortografia está correta;</li>
+      <li class="hint_two">Tente palavras mais genéricas;</li>
+      <li class="hint_three">Ou palavras diferentes, com o mesmo significado;</li>
+      <li class="hint_four">E remova aspas ou sinais de mais: isso restringe a possibilidade de resultados.</li>
+    </ul>
+  <% else %>
+    <h2>Encontramos <%= @hits["found"] %> produtos para você.</h2>
+
+
+  <% if @show_filters -%>
+
+    <div id="filters">
+      <p>Categorias</p>
+      <ul>
+      <% @categories.each do |category,amount| -%>
+        <li><%= link_to category, "show?q=#{@q}&category=#{category}" %>(<%= amount %>)</li>
+      <% end -%>
+      </ul>
+
+      <p>Marcas</p>
+      <ul>
+      <% @brands.each do |brand,amount| -%>
+        <li><%= link_to brand, "show?q=#{@q}&brand=#{brand}" %>(<%= amount %>)</li>
+      <% end -%>
+      </ul>
+    </div>
+  <% end %>
+
+    <% @products.each do |product| %>
+      <%= render "shared/searched_product_item", product: product%>
+    <% end %>
+  <% end %>
+</div>
+
+

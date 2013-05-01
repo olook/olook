@@ -235,7 +235,7 @@ describe Variant do
 
   describe "inventory changes updates the catalog product" do
     let(:catalog) do
-      moment  = FactoryGirl.create :moment
+      moment  = FactoryGirl.create :collection_theme
       moment.catalog
     end
 

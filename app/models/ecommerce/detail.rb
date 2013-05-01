@@ -10,5 +10,6 @@ class Detail < ActiveRecord::Base
   
   scope :only_invisible     , where(:display_on => DisplayDetailOn::INVISIBLE)
   scope :only_specification , where(:display_on => DisplayDetailOn::SPECIFICATION).where("translation_token not like 'Cor%'")
+  scope :with_valid_values  , where("description <> '_'")
   scope :only_how_to        , where(:display_on => DisplayDetailOn::HOW_TO)
 end

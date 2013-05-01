@@ -41,7 +41,7 @@
         margin-bottom: 30px;
         overflow: visible;
         float: left;
-        border-bottom: 2px $pink solid;
+        border-bottom: 2px #b9babd solid;
         p.warn {
           position: absolute;
           color: #FFF;
@@ -58,7 +58,7 @@
           display: none;
           z-index: 100;
           &.sold_out {
-            background: url("/assets/common/sold_out_big.png") no-repeat;
+            background: image-url('common/sold_out_big.png') no-repeat;
             font-size: 18px;
             line-height: 18px;
             height: 50px;
@@ -66,7 +66,7 @@
             display: block;
           }
           &.percentage, &.quantity {
-            background: url("/assets/common/quantity_big.png") no-repeat;
+            background: image-url('common/quantity_big.png') no-repeat;
             height: 54px;
             padding-top: 10px;
             display: block;
@@ -211,11 +211,15 @@
             text-decoration: line-through;
             text-align: center;
             margin-bottom: 0;
-            &.left {
+            &.left, &.left2 {
               font-size: 20px;
               width: 210px;
               clear: both;
             }
+          }
+          &.left2{
+            text-align: left;
+            font-size: 30px;
           }
           &.left {
             text-align: left;
@@ -240,25 +244,29 @@
 					}
         }
         div.warn_discount {
-          background: url('/assets/product/bg-warn-discount.jpg') top center no-repeat;
+          background: image-url('product/bg-warn-discount.jpg') top center no-repeat !important;
           font-style: normal;
           font-weight: bold;
           text-align: center;
           width: 390px;
-          height: 41px;
+          height: 70px;
           display: block;
-          padding: 15px 0 0 0;
-          margin: 0 auto 10px;
+          padding: 8px 0 0 0 !important;
+          margin: -15px auto 10px;
           p, a {
             font-family: $avenir;
             font-size: 13px;
-            font-weight: 500;
           }
           p {
-            color: #939495;
+            color: black;
             letter-spacing: normal;
             line-height: 15px;
             margin: 0;
+            margin-top: 10px;
+            font-weight: normal;
+            span{
+              font-weight: bold;
+            }
           }
           a {
             color: #ef3742;
@@ -374,11 +382,11 @@
         cursor: pointer;
         clear: both;
         &.disabled {
-          background: url("/assets/product/bt-add-product-disabled.jpg") no-repeat;
+          background: image-url('product/bt-add-product-disabled.jpg') no-repeat;
         }
       }
       input[type="submit"].add_product_to_suggestions {
-        background: url('/assets/product/bt-add-product-to-suggestions.jpg') no-repeat;
+        background: image-url('product/bt-add-product-to-suggestions.jpg') no-repeat;
         text-indent: -9999px;
         width: 305px;
         height: 65px;
@@ -388,7 +396,7 @@
         cursor: pointer;
         clear: both;
         &.disabled {
-          background: url("/assets/product/bt-add-product-to-suggestions-disabled.jpg") no-repeat;
+          background: image-url('product/bt-add-product-to-suggestions-disabled.jpg') no-repeat;
         }
       }
       div#box_tabs {
@@ -438,7 +446,7 @@
                   padding-bottom: 10px;
                   &:first-child {
                     font-weight: bold;
-                    width: 115px;
+                    width: 100px;
                   }
                 }
               }
@@ -459,7 +467,7 @@
             }
             &.tab_1 {
               p {
-                background: url('/assets/product/bg-stylist-phrase.jpg') top center no-repeat;
+                background: image-url('product/bg-stylist-phrase.jpg') top center no-repeat;
                 text-align: center;
                 width: 195px;
                 padding-top: 40px;

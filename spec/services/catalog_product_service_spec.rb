@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe CatalogProductService do
   let(:catalog) do
-    moment  = FactoryGirl.create :moment
-    moment.catalog
+    collection_theme  = FactoryGirl.create :collection_theme
+    collection_theme.catalog
   end
 
   let(:basic_bag) do

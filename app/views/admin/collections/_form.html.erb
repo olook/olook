@@ -12,21 +12,21 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name, "Nome" %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :start_date %><br />
+    <%= f.label :start_date, "Data de início" %><br />
     <%= f.date_select :start_date %>
   </div>
   <div class="field">
-    <%= f.label :end_date %><br />
+    <%= f.label :end_date, "Data de término" %><br />
     <%= f.date_select :end_date %>
   </div>
   <div class="field">
-    <%= f.label :is_active %><br />
+    <%= f.label :is_active, "Ativo?"%><br />
     <%= f.check_box :is_active %>
-  </div>  
+  </div>
 
 
   <div class="actions">

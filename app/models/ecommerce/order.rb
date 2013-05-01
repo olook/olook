@@ -82,7 +82,9 @@ class Order < ActiveRecord::Base
                                                  :set_delivery_date_on,
                                                  :set_shipping_service_name]
 
-    after_transition any => :canceled, :do => :enqueue_cancelation_notification
+    after_transition any => :canceled, :do => [:enqueue_cancelation_notification,
+                                               :check_cupon_devolution
+                                              ]
 
     state :reversed do
       after_save do |order|
@@ -255,7 +257,7 @@ class Order < ActiveRecord::Base
   end
 
   def can_be_canceled?
-    paids = payments.where(:state => :authorized)
+    paids = payments.for_erp.where(:state => :authorized)
 
     return true if ( payments.empty? || paids.empty? )
 
@@ -317,6 +319,14 @@ class Order < ActiveRecord::Base
 
     def enqueue_cancelation_notification
       Resque.enqueue_in(1.minute, Orders::NotificationPaymentRefusedWorker, self.id)
+    end
+
+    def check_cupon_devolution
+      payment_coupon = payments.where(type: 'CouponPayment').first
+      if payment_coupon
+        coupon = Coupon.find payment_coupon.coupon_id
+        coupon.update_attribute(:remaining_amount, coupon.remaining_amount.next) if coupon.unlimited.nil?
+      end
     end
 
     def refused_order?

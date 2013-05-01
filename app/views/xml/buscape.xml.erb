@@ -3,7 +3,7 @@
 <% @products.each do |product| %>
 <produto>
   <descricao><%= product.subcategory %> <%= product.name %></descricao>
-  <preco><%= number_to_currency(product.price).delete("R$ ") %></preco>
+  <preco><%= number_to_currency(product.retail_price).delete("R$ ") %></preco>
   <id_produto><%= product.id %></id_produto>
   <codigo_barra></codigo_barra>
   <isbn></isbn>

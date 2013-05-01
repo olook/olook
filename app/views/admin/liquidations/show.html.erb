@@ -1,16 +1,16 @@
-<h2>Liquidation</h2>
+<h2>Liquidação</h2>
 
 
 <div class="inner">
-  <p><%= link_to 'Liquidation Products', admin_liquidation_products_path(@liquidation)%></p>
+  <p><%= link_to 'Produtos da liquidação', admin_liquidation_products_path(@liquidation)%></p>
 
   <p>
-    <b>Name:</b>
+    <b>Nome:</b>
     <%= @liquidation.name %>
   </p>
 
   <p>
-    <b>Description:</b>
+    <b>Descrição:</b>
     <%= @liquidation.description %>
   </p>
 
@@ -20,9 +20,9 @@
   </p>
 
   <p>
-    <b>Exibe propaganda pradao ?: <%= @liquidation.show_advertise? %></b>
+    <b>Exibe propaganda padrão?: <%= @liquidation.show_advertise? %></b>
   </p>
- 
+
 
   <p>
     <b>Teaser:</b>
@@ -32,19 +32,19 @@
   </p>
 
   <p>
-    <b>Big Banner:</b>
+    <b>Banner Grande:</b>
     <% if @liquidation.big_banner_url %>
       <%= image_tag @liquidation.big_banner_url %>
     <% end %>
   </p>
 
   <p>
-    <b>Starts at:</b>
+    <b>Início em:</b>
     <%= @liquidation.starts_at.strftime("%d/%m/%Y %H:%M") %>
   </p>
 
   <p>
-    <b>Ends at:</b>
+    <b>Término em:</b>
     <%= @liquidation.ends_at.strftime("%d/%m/%Y %H:%M") %>
   </p>
 
@@ -65,7 +65,7 @@
   </p>
 
 
-  <%= link_to 'Edit', edit_admin_liquidation_path(@admin_liquidation) %> |
-  <%= link_to 'Back', admin_liquidations_path %>
+  <%= link_to 'Editar', edit_admin_liquidation_path(@admin_liquidation) %> |
+  <%= link_to 'Voltar', admin_liquidations_path %>
 
 </div>

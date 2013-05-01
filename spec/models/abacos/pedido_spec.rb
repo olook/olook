@@ -12,7 +12,7 @@ describe Abacos::Pedido do
     order = (FactoryGirl.create :clean_order, 
       :user => member, 
       :freight => freight, 
-      :created_at => Date.civil(2011, 12, 01),
+      :created_at => Time.zone.local(2011, 12, 01),
       :amount_discount => 11,
       :subtotal => 70,
       :amount_paid => 81,
@@ -154,6 +154,7 @@ describe Abacos::Pedido do
                   'DadosPedidos' => {
                     'NumeroDoPedido' => order.number,
                     'CodigoCliente' => "F#{order.user.id}",
+                    'RepresentanteVendas' => 'SITE',
                     'CPFouCNPJ' => '98765432198',
                     'DataVenda' => '01122011',
                     'DestNome' => 'Jéssica Maíra',

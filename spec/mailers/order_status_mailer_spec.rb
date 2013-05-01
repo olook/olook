@@ -3,7 +3,9 @@ require 'spec_helper'
 
 describe OrderStatusMailer do
   let(:user) { FactoryGirl.create(:user) }
-  let(:order) { FactoryGirl.create(:order, :with_billet, :user => user) }
+  let(:order) {
+    FactoryGirl.create(:order, :with_billet, :user => user)
+  }
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }
 
@@ -14,7 +16,9 @@ describe OrderStatusMailer do
       order.save!
     end
 
-    let!(:mail) { OrderStatusMailer.order_requested(order) }
+    let!(:mail) {
+      OrderStatusMailer.order_requested(order)
+    }
 
     it "sets 'from' attribute to olook <avisos@olook.com.br>" do
       mail.from.should include("avisos@olook.com.br")
@@ -24,7 +28,7 @@ describe OrderStatusMailer do
       mail.to.should include(user.email)
     end
 
-    context " for CreditCard " do
+    context "for CreditCard" do
 
       let(:credit_card) {FactoryGirl.create(:clean_order_credit_card, :user => user)}
       let(:mail) { OrderStatusMailer.order_requested(credit_card) }
@@ -34,12 +38,9 @@ describe OrderStatusMailer do
       end
     end
 
-    context " for Billet " do
-
-      expiration_date =  BilletExpirationDate.expiration_for_two_business_day.strftime("%d/%m/%Y")
-
+    context "for Billet" do
       it "sets 'subject' attribute telling the expiration date" do
-
+        expiration_date =  I18n.l(order.get_billet_expiration_date, format: "%d/%m/%Y")
         mail.subject.should == "Lembrete: seu boleto expira em: #{expiration_date}. Garanta seu pedido!"
       end
     end

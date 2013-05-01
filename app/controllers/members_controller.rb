@@ -24,7 +24,7 @@ class MembersController < ApplicationController
     return redirect_to(root_path, :alert => "Convite inválido") unless valid_format && @inviting_member
     session[:invite] = {:invite_token => params[:invite_token], :invited_by => @inviting_member.name}
     incoming_params = params.clone.delete_if { |key| ['controller', 'action','invite_token'].include?(key) }
-    redirect_to root_path(incoming_params)
+    redirect_to new_survey_path(incoming_params)
   end
 
   def invite_by_email
@@ -80,6 +80,7 @@ class MembersController < ApplicationController
   def showroom
     @google_path_pixel_information = "Home"
     @chaordic_user = ChaordicInfo.user current_user
+
     if @user.half_user
       if @user.female?
         prepare_for_home
@@ -97,18 +98,13 @@ class MembersController < ApplicationController
     if @facebook_adapter
       @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
     end
-  end
+    @recommended = RecomendationService.new(profiles: current_user.profiles)
+    @cloth = @recommended.products( category: Category::CLOTH, collection: @collection, limit: 10)
+    @shoes = @recommended.products( category: Category::SHOE, collection: @collection)
+    @bags = @recommended.products( category: Category::BAG, collection: @collection)
+    @accessories = @recommended.products( category: Category::ACCESSORY, collection: @collection)
 
-  def showroom_clothes
-  end
-
-  def showroom_shoes
-  end
-
-  def showroom_bags
-  end
-
-  def showroom_accessories
+    render layout: 'lite_application'
   end
 
   def earn_credits

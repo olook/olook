@@ -18,7 +18,7 @@ class MomentsController < ApplicationController
 
   def show
     @pixel_information = params[:category_id]
-    if current_moment.catalog.products.nil?
+    if CollectionTheme.active.first.try(:catalog).try(:products).nil?
       flash[:notice] = "A coleção não possui produtos disponíveis"
       redirect_to member_showroom_path
     else
@@ -53,14 +53,14 @@ class MomentsController < ApplicationController
   end
 
   def load_catalog_products
-    @moments = Moment.active.order(:position)
-    @moment = params[:id] ? Moment.find_by_id(params[:id]) : @moments.last
+    @collection_themes = CollectionTheme.active.order(:position)
+    @collection_theme = params[:id] ? CollectionTheme.find_by_id(params[:id]) : @collection_themes.last
 
-    if @moment
-      @catalog_products = CatalogSearchService.new(params.merge({id: @moment.catalog.id})).search_products
+    if @collection_theme
+      @catalog_products = CatalogSearchService.new(params.merge({id: @collection_theme.catalog.id})).search_products
       @products_id = @catalog_products.map{|item| item.product_id }.compact
       # params[:id] is into array for pixel iterator
-      @categories_id = params[:id] ? [params[:id]] : @moments.map(&:id).compact.uniq
+      @categories_id = params[:id] ? [params[:id]] : @collection_themes.map(&:id).compact.uniq
     else
       redirect_to root_path
       flash[:notice] = "No momento não existe nenhuma ocasião cadastrada."

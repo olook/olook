@@ -2,7 +2,7 @@
 module Admin::IndexHelper
 
   def access_link(object)
-    link_to(object.humanize.to_s, eval("admin_#{object.split.join.tableize}_path")) if can?(:index, object.singularize.split.join.constantize)
+    link_to(I18n.t("activerecord.models.#{object.parameterize('_').singularize}.other"), eval("admin_#{object.split.join.tableize}_path")) if can?(:index, object.singularize.split.join.constantize)
   end
 
   def show_link(object, content = "Show")

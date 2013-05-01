@@ -17,6 +17,7 @@ module ApplicationHelper
       subs = item.split("#")
       category = subs[2]
       return 'selected' if (subs[0] == params[:controller]) && (subs[1] == params[:action]) && (category==nil || category.to_i==params[:category_id])
+      return nil
     end
   end
 
@@ -37,8 +38,20 @@ module ApplicationHelper
     end
   end
 
-  def track_event(category, action, item = '')
-    "_gaq.push(['_trackEvent', '#{category}', '#{action}', '#{item}']);"
+  def track_event(*args)
+    options = args.last.is_a?(Hash) ? args.last : {}
+    category = args[0]
+    raise ArgumentError.new('You should pass "category" first argument') unless category
+    action = args[1]
+    raise ArgumentError.new('You should pass "action" second argument') unless action
+    item = args[2] || ''
+    no_interactive = !!options[:no_interactive]
+
+    if no_interactive
+      "_gaq.push(['_trackEvent', '#{category}', '#{action}', '#{item}', '', true]);"
+    else
+      "_gaq.push(['_trackEvent', '#{category}', '#{action}', '#{item}']);"
+    end
   end
 
   def track_add_to_cart_event(product_id = '')
@@ -113,15 +126,12 @@ module ApplicationHelper
     Rails.env.production? ? 'https' : 'http'
   end
 
-  def show_brand_for product
-    [90632,90612,90641,90646,90607,90597,90602,90616,90619,90627,90622,90636].include?(product.id) ? "JULIANA JABOUR" : "OLOOK"
-  end
-
-
   private
 
     def ga_event_referer
       case request.referer
+        when /olook.com.br(\/)?$/
+          'FromHome'
         when /vitrine/
           'FromVitrine'
         when /tendencias/
@@ -130,6 +140,8 @@ module ApplicationHelper
           'FromColecoes'
         when /sapatos/
           'FromSapatos'
+        when /roupas/
+          'FromRoupas'
         when /bolsas/
           'FromBolsas'
         when /acessorios/

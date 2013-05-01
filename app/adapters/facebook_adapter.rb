@@ -55,6 +55,7 @@ class FacebookAdapter
         friends.sort_by{|f| f.birthday}
       end
     rescue => e
+      Rails.logger.warn(e.message)
     end
     friends
   end

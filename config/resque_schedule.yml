@@ -1,3 +1,9 @@
+send_orders_alert:
+  cron: "35 * * * *"
+  class: SendOrderAlertWorker
+  queue: order_status_alert
+  description: "Envia email avisando pedidos que precisam ser analizados com mais atencao"
+
 update_inventory:
   cron: "*/5 * * * *"
   class: Abacos::UpdateInventory
@@ -19,7 +25,7 @@ update_status:
 update_braspag_responses:
   cron: "*/15 * * * *"
   class: ProcessBraspagResponsesWorker
-  queue: order_status
+  queue: payments
   description: "Processa respostas de pagamento Braspag"
 
 userbase_with_auth_token_and_credits:
@@ -28,7 +34,8 @@ userbase_with_auth_token_and_credits:
   queue: marketing_uploader
   args:
     - userbase_with_auth_token_and_credits
-    - base_atualizada_purchases_auth_token_and_credits.csv
+    - basegeral_atualizada13.csv
+    - false
   description: "Cria arquivo de importação para allinemail"
 
 campaign_emails:
@@ -38,6 +45,7 @@ campaign_emails:
   args:
     - campaign_emails
     - base_atualizada_emails_promocoes.csv
+    - true
   description: "Cria arquivo de importação de emails do lightbox para allinemail"
 
 send_billet_reminder:
@@ -71,13 +79,14 @@ in_cart_mail:
   args:
     - in_cart_mail
     - abandono-%Y-%m-%d.csv
+    - true
     - exact_target.yml
   description: "Cria e envia arquivo com carrinhos abandonados para ftp do exact target"
 
 force_clearsale_callback:
   cron: "*/5 * * * *"
   class: Clearsale::CallbackWorker
-  queue: order_status
+  queue: payments
   description: "Verifica se o status da avaliação da Clearsale mudou para uma determinada compra (order)"
 
 add_expire_carts_worker:
@@ -91,3 +100,36 @@ update_topster_xml:
   class: TopsterXmlWorker
   queue: topster_xml
   description: "Atualiza o xml da topster"
+
+userbase_with_source_exacttarget:
+  cron: "0 5 * * *"
+  class: MarketingUploaderWorker
+  queue: marketing_uploader
+  args:
+    - userbase_with_source
+    - userbase-with-source-%Y-%m-%d.csv
+    - true
+    - exact_target.yml
+  description: "Cria e envia arquivo com base de usuários para ftp do exact target"
+
+facebook_friends_birthday_middle_exacttarget:
+  cron: "0 5 * * 14"
+  class: MarketingUploaderWorker
+  queue: marketing_uploader
+  args:
+    - facebook_friends_middle_of_the_month
+    - facebook_friends.csv
+    - true
+    - exact_target.yml
+  description: "Cria e envia arquivo com base de usuários e amigas aniversariantes para ftp do exact target, no meio do mês"
+
+facebook_friends_birthday_end_exacttarget:
+  cron: "0 5 * * 27"
+  class: MarketingUploaderWorker
+  queue: marketing_uploader
+  args:
+    - facebook_friends_end_of_the_month
+    - facebook_friends.csv
+    - true
+    - exact_target.yml
+  description: "Cria e envia arquivo com base de usuários e amigas aniversariantes para ftp do exact target, no fim do mês"

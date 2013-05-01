@@ -40,3 +40,4 @@ vendor/bundle
 olook.sublime-project
 olook.sublime-workspace
 *.swl
+*.swk

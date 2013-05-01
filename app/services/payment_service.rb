@@ -1,11 +1,11 @@
 class PaymentService
 
   def self.create_sender_strategy(cart_service, payment)
-
     if ((payment.is_a? CreditCard) && (payment.bank == "Hipercard" || payment.bank == "AmericanExpress")) || (!payment.is_a? CreditCard)
       return Payments::MoipSenderStrategy.new(cart_service, payment)
     end
 
+    payment.save
     braspag_sender_strategy_for payment, cart_service
   end
 

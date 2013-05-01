@@ -29,8 +29,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'i18n', '= 0.6.1'
 gem 'clearsale', :git => 'git://github.com/olook/clearsale.git', :branch => 'master'
-
-
+gem 'acts_as_list'
 gem 'chaordic-packr', "4.0.0", git: 'git@github.com:olook/chaordic-packr.git', branch: 'master'
 gem 'oj'
 gem 'moip', '>= 1.0.2.3', :git => 'git://github.com/olook/moip-ruby.git', :branch => 'master'
@@ -52,8 +51,9 @@ gem 'dalli', '2.0.2'
 gem 'sass-rails', "~> 3.2.3"
 gem 'uglifier', '~> 1.0.3'
 gem 'business_time'
-
 gem "rails-settings-cached"
+
+gem "boleto_bancario", :git => 'git@github.com:olook/boleto_bancario.git', :branch => 'homologacao_santander', ref: "ba8f64ecb541bdd398e4377d52f71ca75a0f5905" , require: false
 
 group :production, :staging do
   gem 'unicorn', '~> 4.1.1'
@@ -61,7 +61,10 @@ group :production, :staging do
   gem 'yui-compressor'
 end
 
+gem 'rack-mini-profiler', group: :staging
+
 group :development, :test do
+  gem 'rack-mini-profiler'
   gem 'faker'
   gem 'bullet'
   gem 'thin'
@@ -76,15 +79,10 @@ group :development, :test do
   gem 'watchr'
   gem 'awesome_print'
   gem 'rails-erd'
-  if RUBY_VERSION <= "1.9.2"
-    gem "ruby-debug19", :require => "ruby-debug", :platform => :ruby_19
-  end
   gem "pry"
+  gem "pry-nav"
   gem 'delorean'
   gem 'timecop'
-end
-
-group :test do
   gem "equivalent-xml", " ~> 0.2.9"
   gem 'capybara', '2.0.2'
   gem 'capybara-webkit', '0.14.2'
@@ -97,4 +95,5 @@ group :test do
   gem 'launchy'
   gem 'vcr', '1.11.3'
   gem 'fakeweb'
+  gem 'parallel_tests'
 end

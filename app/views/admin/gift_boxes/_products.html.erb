@@ -1,14 +1,14 @@
-<h2>Products</h2>
+<h2>Produtos</h2>
 <div class="inner">
   <table class="table">
     <tr>
-      <th style="width:100px">Product</th>
-      <th>Collection</th>
+      <th style="width:100px">Produto</th>
+      <th>Coleção</th>
       <th>ID</th>
-      <th>Profile</th>
-      <th>Name</th>
-      <th>Inventory</th>
-      <th>Visible?</th>
+      <th>Perfil</th>
+      <th>Nome</th>
+      <th>Estoque</th>
+      <th>Visível?</th>
       <th></th>
       <th></th>
     </tr>
@@ -21,7 +21,7 @@
       <td><%= gp.product.profiles.first.name if gp.product.profiles.size > 0 %></td>
       <td><%= gp.product.name %></td>
       <td><%= gp.product.inventory %></td>
-      <td><%= gp.product.is_visible? ? "Yes" : "No" %></td>
+      <td><%= gp.product.is_visible? ? "Sim" : "Não" %></td>
       <td><%= link_to 'Mostrar', admin_product_path(gp.product) %></td>
       <td><%= link_to 'Editar', edit_admin_product_path(gp.product) %></td>
     </tr>
@@ -29,7 +29,7 @@
   </table>
   <div class="action-bar wat-cf">
     <div class="actions">
-      <%= link_to 'Editar products', admin_gift_box_products_path(gift_box) %>
+      <%= link_to 'Editar produtos', admin_gift_box_products_path(gift_box) %>
     </div>
   </div>
 </div>

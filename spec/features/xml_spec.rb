@@ -5,8 +5,8 @@ include ActionView::Helpers::NumberHelper
 include XmlHelper
 
   def stub_scope_params
-    Product.should_receive(:load_criteo_config).with("products_blacklist").and_return([0])
-    Product.should_receive(:load_criteo_config).with("collections_blacklist").and_return([0])
+    Product.should_receive(:xml_blacklist).with("products_blacklist").and_return([0])
+    Product.should_receive(:xml_blacklist).with("collections_blacklist").and_return([0])
   end
 
 feature "Show products on xml format" do
@@ -348,7 +348,7 @@ context "in the ilove_ecommerce xml page" do
       <price>#{product.retail_price}</price>
       <amount>#{product.price}</amount>
       <currency>BRL</currency>
-      <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=sociomantic</url>
+      <url>http://www.olook.com.br/produto/#{product.id}?utm_content=#{product.id}&amp;utm_medium=banner&amp;utm_source=sociomantic</url>
       <photo>#{product.pictures.last.try(:image)}</photo>
       </product>
       </products>

@@ -1,5 +1,5 @@
 <% if is_moment_page? %>
-  <% if @featured_products %>
+  <% if @featured_products && Setting.show_featured_products %>
     <%= render "shared/featured_products", :products => @featured_products, :category_id => @category_id %>
   <% end %>
 
@@ -18,6 +18,10 @@
 
 
 <div class="exhibition-mode">
-  <p>EXIBIÇÃO: <span class="selected product">Produto</span><b>/</b><span class="model">Produto com modelo</span></p>
+  <p>EXIBIÇÃO: <span class="selected product">Produto</span>
+    <% if @category_id != Category::CLOTH -%>
+      <b>/</b><span class="model">Produto com modelo</span> 
+    <% end %>
+  </p>
   <%= render "shared/filters/order" %>
 </div>

@@ -5,6 +5,7 @@ defaults: &defaults
     - 778
     - 823
     - 1174
+    - 12472
   collections_blacklist:
     - 1
     - 2

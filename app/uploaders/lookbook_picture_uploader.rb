@@ -19,6 +19,8 @@ class LookbookPictureUploader < CarrierWave::Uploader::Base
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
 
+  process :strip
+
   # Create different versions of your uploaded files:
   version :movie_thumb do
     process :resize_to_limit => [165, 114]

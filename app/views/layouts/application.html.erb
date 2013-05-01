@@ -22,6 +22,11 @@
     <%- end -%>
     <meta property="fb:admins" content="100002490760020" />
 
+    <% if Setting.use_vwo %>
+      <!-- VWO -->
+      <%= render :partial => "shared/metrics/vwo/tracking_code" %>
+    <% end %>
+
 
     <%= yield :head %>
 
@@ -30,6 +35,7 @@
     <![endif]-->
 
 
+    <%= render 'shared/metrics/google/universal_analytics' %>
   </head>
 
 
@@ -55,10 +61,11 @@
 
 
     <%= yield :site_footer %>
-    <%= render "shared/lightbox_credits" %>
     <%= javascript_include_tag "jquery" %>
     <%= javascript_include_tag "application" %>
+    
     <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
+    
     <% unless user_signed_in? %>
       <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal &&  !['landing_pages','survey', 'users/registrations'].include?(params[:controller]) %>
     <% end %>

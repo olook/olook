@@ -1,3 +1,6 @@
+[![Build Status](http://ci.olook.com.br/job/olook/badge/icon)](http://ci.olook.com.br/job/olook/)
+[![Semaphose Build Status](https://semaphoreapp.com/api/v1/projects/b43dc7c082a6815c45e5bc1e4c4f9d6995aa7172/35473/badge.png)](https://semaphoreapp.com/projects/1813/branches/35473)
+
 Requirements
 ============
 
@@ -50,9 +53,19 @@ Installing capybara-webkit on Ubuntu
 - sudo apt-get install qt4-dev-tools libqt4-dev libqt4-core libqt4-gui
 - bundle
 
+Installing MemCached on Ubuntu
+============
+- sudo apt-get install memcached
+- bundle
+
 Installing capybara-webkit on a Mac
 ============
 - brew install qt
+- bundle
+
+Installing MemCached on a Mac via HomeBrew
+============
+- brew install memcached
 - bundle
 
 Deploy with Capistrano
@@ -123,9 +136,9 @@ Optional config files
 ```
 #!/bin/bash
 ## START PRECOMMIT HOOK
-  
+
 files_modified=`git status --porcelain | egrep "^(A |M |R ).*" | awk ' { if ($3 == "->") print $4; else print $2 } '`
-  
+
 for f in $files_modified; do
     echo "Checking ${f}..."
 

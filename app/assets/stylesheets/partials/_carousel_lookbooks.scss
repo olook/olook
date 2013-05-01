@@ -13,11 +13,11 @@ div#carousel_lookbooks {
     cursor: pointer;
   }
   .prev-lookbook {
-    background: url("/assets/lookbooks/arrow-left.png") 0 center no-repeat;
+    background: image-url('lookbooks/arrow-left.png') 0 center no-repeat;
     left: 0px;
   }
   .next-lookbook {
-    background: url("/assets/lookbooks/arrow-right.png") 0 center no-repeat;
+    background: image-url('lookbooks/arrow-right.png') 0 center no-repeat;
     right: 0px;
   }
   .next-lookbook:hover{background:url("/assets/lookbooks/arrow-next-hover.png") no-repeat 0 center}
@@ -45,7 +45,7 @@ div#carousel_lookbooks {
         }
         h1 {
           position: absolute;
-          background: url("/assets/lookbooks/bg-title.png") repeat;
+          background: image-url('lookbooks/bg-title.png') repeat;
           color: #FFF;
           font-family: $kepler;
           font-size: 24px;
@@ -77,7 +77,7 @@ div#carousel_lookbooks {
     height: auto;
     margin: 10px 0 0;
     a {
-      background: url('/assets/common/sprite-pagination.png') -13px 0 no-repeat transparent;
+      background: image-url('common/sprite-pagination.png') -13px 0 no-repeat transparent;
       width: 13px;
       height: 13px;
       margin: 0 10px 0 0;

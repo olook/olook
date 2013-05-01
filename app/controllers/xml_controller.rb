@@ -12,7 +12,12 @@ class XmlController < ApplicationController
   end
 
   def criteo
-    @products = Product.valid_criteo_for_xml(Product.load_criteo_config("products_blacklist"), Product.load_criteo_config("collections_blacklist"))
+    @products = Product.valid_criteo_for_xml(Product.xml_blacklist("products_blacklist"), Product.xml_blacklist("collections_blacklist"))
+    respond_with(@products)
+  end
+
+  def groovinads
+    @products = Product.valid_criteo_for_xml(Product.xml_blacklist("products_blacklist"), Product.xml_blacklist("collections_blacklist"))
     respond_with(@products)
   end
 
@@ -43,7 +48,7 @@ class XmlController < ApplicationController
   private
 
   def load_products
-    @products = Product.valid_for_xml(Product.load_criteo_config("products_blacklist"), Product.load_criteo_config("collections_blacklist"))
+    @products = Product.valid_for_xml(Product.xml_blacklist("products_blacklist"), Product.xml_blacklist("collections_blacklist"))
   end
 
 end

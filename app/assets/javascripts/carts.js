@@ -1,9 +1,14 @@
+//= require ./partials/_credits_info
 $(function() {
+  showInfoCredits();
+
+  $("form#coupon input").focus(function() {
+    _gaq.push(['_trackEvent', 'Checkout', 'FillCupom', '', , true]);
+  });
+
 
   $("#facebook_share").click(function(element) {
-
     postCartToFacebookFeed(element)
-
   })
 
   $("form#gift_message").bind("ajax:success", function(evt, xhr, settings) {
@@ -14,11 +19,6 @@ $(function() {
     $("form#gift_message").submit();
   })
 
-  $("#coupon a#show_coupon_field").live("click", function(e) {
-    $(this).hide();
-    $(this).siblings("form").show();
-    e.preventDefault();
-  });
 
   $('section#cart a.continue.login').live('click', function(e) {
     clone = $('.dialog.product_login').clone().addClass("clone");
@@ -107,22 +107,22 @@ function postCartToFacebookFeed(element) {
       method: 'feed',
       caption: 'www.olook.com.br',
       link: 'http://www.olook.com.br',
-      description: 'Comprei no site da olook e amei! <3 Já conhece?'
+      description: 'Comprei no site da olook e amei! Já conhece? Roupas, sapatos, bolsas e acessórios incríveis. Troca e devolução grátis em até 30 dias. Conheça!'
   }
 
-  FB.ui(obj,
-
-  function(response) {
-  if (response && response.post_id) {
-      var cart = $(element).data("cart-id")
-  $.ajax({
-    url: $(element).attr('href'),
-    type: "PUT",
-    data: { cart: { facebook_share_discount: true }  },
-    dataType: "script"
-    });
-    $("#facebook-share").hide();
-    $(".msg").show();
+  FB.ui(obj, function(response) {
+    if (response && response.post_id) {
+        var cart = $(element).data("cart-id")
+      $.ajax({
+        url: $(element).attr('href'),
+        type: "PUT",
+        data: { cart: { facebook_share_discount: true }  },
+        dataType: "script"
+        });
+      _gaq.push(['_trackEvent', 'Checkout', 'FacebookShare', '', , true]);
+      $("#facebook-share").hide();
+      $(".msg").show();
+      }
     }
-  });
+  );
 }

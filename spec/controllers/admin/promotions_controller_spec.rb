@@ -9,7 +9,7 @@ describe Admin::PromotionsController do
     end
 
     let!(:promotion) { FactoryGirl.create(:first_time_buyers) }
-    let!(:valid_attributes) { FactoryGirl.build(:second_time_buyers).attributes }
+    let!(:valid_attributes) { FactoryGirl.attributes_for(:second_time_buyers) }
     let!(:invalid_attributes) { {:name => nil } }
 
     describe "GET index" do

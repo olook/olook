@@ -1,8 +1,10 @@
+# -*- encoding : utf-8 -*-
 module Admin::ApplicationHelper
   
   HUMANIZED_GATEWAYS = {
     1 => "Moip",
-    2 => "Braspag"
+    2 => "Braspag",
+    3 => "Olook"
   }
 
   def payment_with_origin(payment)
@@ -23,6 +25,18 @@ module Admin::ApplicationHelper
 
   def humanize_gateway(gateway)
     HUMANIZED_GATEWAYS[gateway]
+  end
+
+  def reason_for credit
+
+    case credit.source
+      when "loyalty_program_refund_debit"
+        "Estorno de compra"
+      when "loyalty_program_debit"
+        "Crédito usado"
+      else
+        credit.reason
+    end
   end
 
 end

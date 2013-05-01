@@ -2,7 +2,8 @@
 class MenuPresenter < BasePresenter
 
   def render_item label, path, css_klass, hightlight_when
-    h.content_tag(:li, h.link_to(label, path, :class => h.selected_if_current(hightlight_when)), :class => css_klass)
+   #+(css_klass == "stylist" ? h.image_tag("home/only_balaozinho.png") : "")
+    h.content_tag(:li, h.link_to(label, path, :class => h.selected_if_current(hightlight_when)),:class => css_klass)
   end
 
   def render_item_with_label label, path, css_klass, hightlight_when
@@ -21,11 +22,11 @@ class MenuPresenter < BasePresenter
   end
 
   def render_offline_menu
-    [showroom_offline, lookbooks, moments, categories, gift, stylist, liquidation].join.html_safe
+    [showroom_offline, stylist, collection_themes, categories, gift, liquidation].join.html_safe
   end
 
   def render_default_menu
-    [showroom, lookbooks, moments, categories, gift, stylist, liquidation].join.html_safe
+    [showroom, stylist, collection_themes, categories, gift, liquidation].join.html_safe
   end
 
   def render_half_user_menu
@@ -41,7 +42,7 @@ class MenuPresenter < BasePresenter
   end
 
   def render_man_half_user_menu
-    [lookbooks, moments, gift, my_friends, stylist, liquidation, blog].join.html_safe
+    [lookbooks, collection_themes, my_friends, stylist, liquidation, blog].join.html_safe
   end
 
   private
@@ -58,7 +59,7 @@ class MenuPresenter < BasePresenter
   end
 
   def stylist
-    render_item("Stylist", h.helena_linhares_path, "stylist", ['stylists#helena_linhares'])
+    render_item("Stylist News", "/stylist-news", "stylist", ['stylists#helena_linhares'])
   end
 
   def my_friends
@@ -69,8 +70,8 @@ class MenuPresenter < BasePresenter
     render_item("Convidar amigas", h.member_invite_path, "invite", ["members#invite"])
   end
 
-  def moments
-    render_item("Coleções", h.moments_path, "moments", ["moments#index"])
+  def collection_themes
+    render_item("Coleções", h.collection_themes_path, "collection_themes", ["collection_themes#index"])
   end
 
   def categories
