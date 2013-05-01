@@ -1,31 +1,31 @@
 @mixin logo($left, $top) { 
-	background: url("/assets/campaigns/logos-projetos.jpg") no-repeat $left $top;
+	background: image-url('campaigns/logos-projetos.jpg') no-repeat $left $top;
 	font:0/0 a;
 }
 
 #content.content{width:1011px !important;}
 #avc{
 	h1{margin:20px 0 30px;}
-	.txt-about{font:normal 18px 'avenir', arial, sans-serif;color:#6D6E71;margin-bottom:25px;}
-	.txt-projetos{font:20px 'johnston',arial,sans-serif;margin-bottom:40px;color:#000;text-transform:uppercase;}
+	.txt-about{font-weight: normal;font-family: avenir, Times, "Times New Roman", sans-serif; font-size: 16px; color:#000;margin-bottom:25px;}
+	.txt-projetos{margin-top: 45px; font:20px 'johnston',arial,sans-serif;margin-bottom:40px;color:#000;text-transform:uppercase;}
 	
 	section{
 		float:left;margin-right:30px;min-height:435px;width:100%;
 		
-		p{margin-bottom:25px;line-height:20px;color:#000;letter-spacing:-0.5px;}
+		p{margin-bottom:15px;line-height:20px;color:#000;letter-spacing:-0.5px;}
 		a{color:#ef3742;}
 		.f16{font-size:16px;}
 		
 		&#tv-cinema{
-			width:371px;
+			width:335px;
 			h2{@include logo(0,0);width:106px;height:136px;margin:0 0 19px 115px;}
 		}
 		&#rede-brasil{
-			width:359px;
+			width:340px;
 			h2{@include logo(-115px,-26px);width:166px;height:113px;margin:23px 0 19px 62px;}
 		}
 		&#que-tal{
-			width:174px;
+			width:245px;
 			h2{@include logo(-284px,-46px);width:172px;height:91px;margin:43px 0 19px;}
 		}
 		&#campanha{

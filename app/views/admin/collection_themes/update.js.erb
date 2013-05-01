@@ -1,0 +1,1 @@
+$('#collection_theme_group_<%= @collection_theme.collection_theme_group_id %>').html('<%= escape_javascript(render 'admin/collection_themes/group_table', group: @collection_theme.collection_theme_group, groups_size: CollectionThemeGroup.count) %>');

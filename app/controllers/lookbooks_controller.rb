@@ -18,7 +18,7 @@ class LookbooksController < ApplicationController
     @lookbook = params[:name] ? Lookbook.where(:slug => params[:name]).active.first : Lookbook.active.first
     raise ActiveRecord::RecordNotFound.new("Lookbook not found #{params[:name]}") if @lookbook.nil?
     @products = []
-    products = @lookbook.products.only_visible.order('category asc')
+    products = @lookbook.products.includes(:variants).only_visible.order('category asc')
     products.each do |product|
       @products << Product.remove_color_variations(product.all_colors)[0]
     end

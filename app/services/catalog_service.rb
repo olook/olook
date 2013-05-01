@@ -5,9 +5,9 @@ class CatalogService
       ct_product_service = CatalogProductService.new catalog, product, options
       ct_product_service.save!
     end
-    
-    unless options[:moments].nil?
-      Catalogs::MomentStrategy.new(product, options).seek_and_destroy!
+
+    unless options[:collection_themes].nil?
+      Catalogs::CollectionThemeStrategy.new(product, options).seek_and_destroy!
     end
   end
 end

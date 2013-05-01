@@ -15,9 +15,9 @@ describe Billet do
   end
 
   context "#schedule_cancellation" do
-    it "schedules cancellation in 4 business days from creation" do
+    it "schedules cancellation in the beginning of 5th business day from creation" do
       Timecop.freeze do
-        Resque.should_receive(:enqueue_at).at_least(1).times.with(4.business_days.from_now, Abacos::CancelOrder, order.number)
+        Resque.should_receive(:enqueue_at).at_least(1).times.with(5.business_days.from_now.beginning_of_day, Abacos::CancelOrder, order.number)
         subject.schedule_cancellation
       end
     end
@@ -81,8 +81,8 @@ describe Billet do
 
   context "payment expiration date" do
     it "should set payment expiration date after create" do
-      BilletExpirationDate.stub(:expiration_for_two_business_day).and_return(current_date = Date.current)
-      subject.payment_expiration_date.to_date.should == BilletExpirationDate.expiration_for_two_business_day
+      BilletExpirationDate.stub!(:expiration_for_two_business_day).and_return(Time.zone.local(2012, 2, 17))
+      expect(I18n.l(subject.payment_expiration_date, format: '%Y-%m-%d')).to eq '2012-02-17'
     end
   end
 

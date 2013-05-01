@@ -137,4 +137,119 @@ describe CreditCard do
       end
     end
   end
+
+  describe "#apply_bank_number_of_digits" do
+
+    context "when the bank is Diners" do
+      before :each do
+        subject.bank = "Diners"
+      end
+
+      it "calls the validate_bank_credit_card_number method using the OneToFiveCreditCardNumberFormat validator" do
+        subject.should_receive(:validate_bank_credit_card_number).with(CreditCard::OneToFiveCreditCardNumberFormat)
+        subject.apply_bank_number_of_digits
+      end
+
+      context "when the credit card number is valid" do
+        it "returns no errors" do
+          subject.should_receive(:validate_bank_credit_card_number)
+          subject.apply_bank_number_of_digits
+          expect(subject.errors).to be_empty
+        end
+      end
+
+      context "when the credit card number is invalid" do
+        it "returns an error when the number length is lower than the given boundary" do
+          subject.credit_card_number = "1234123412"
+          subject.apply_bank_number_of_digits
+          expect(subject).to have(1).errors
+        end
+
+        it "returns an error when the number length is greater than the given boundary" do
+          subject.credit_card_number = "1234123412341234"
+          subject.apply_bank_number_of_digits
+          expect(subject).to have(1).errors
+        end
+
+      end      
+    end        
+
+    context "when the bank is Visa" do
+      before :each do
+        subject.bank = "Visa"
+      end
+
+      it "calls the validate_bank_credit_card_number method using the FourToSevenCreditCardNumberFormat validator" do
+        subject.should_receive(:validate_bank_credit_card_number).with(CreditCard::FourToSevenCreditCardNumberFormat)
+        subject.apply_bank_number_of_digits
+      end
+
+      context "when the credit card number is valid" do
+        it "returns no errors" do
+          subject.should_receive(:validate_bank_credit_card_number)
+          subject.apply_bank_number_of_digits
+          expect(subject.errors).to be_empty
+        end
+      end
+
+      context "when the credit card number is invalid" do
+        it "returns an error when the number length is lower than the given boundary" do
+          subject.credit_card_number = "1234123412341"
+          subject.apply_bank_number_of_digits
+          expect(subject).to have(1).errors
+        end
+
+        it "returns an error when the number length is greater than the given boundary" do
+          subject.credit_card_number = "123412341234123412"
+          subject.apply_bank_number_of_digits
+          expect(subject).to have(1).errors
+        end
+
+      end      
+    end        
+
+    context "when the bank is Mastercard" do
+      before :each do
+        subject.bank = "Mastercard"
+      end
+
+      it "calls the validate_bank_credit_card_number method using the FourToSevenCreditCardNumberFormat validator" do
+        subject.should_receive(:validate_bank_credit_card_number).with(CreditCard::FourToSevenCreditCardNumberFormat)
+        subject.apply_bank_number_of_digits
+      end
+
+      context "when the credit card number is valid" do
+        it "returns no errors" do
+          subject.should_receive(:validate_bank_credit_card_number)
+          subject.apply_bank_number_of_digits
+          expect(subject.errors).to be_empty
+        end
+      end
+
+      context "when the credit card number is invalid" do
+        it "returns an error when the number length is lower than the given boundary" do
+          subject.credit_card_number = "1234123412341"
+          subject.apply_bank_number_of_digits
+          expect(subject).to have(1).errors
+        end
+
+        it "returns an error when the number length is greater than the given boundary" do
+          subject.credit_card_number = "123412341234123412"
+          subject.apply_bank_number_of_digits
+          expect(subject).to have(1).errors
+        end
+
+      end      
+    end        
+
+    context "when the bank is blank" do
+      before :each do
+        subject.bank = ""
+      end
+      it "won't receive the validate_bank_credit_card_number method call" do
+        subject.should_not_receive(:validate_bank_credit_card_number)
+        subject.apply_bank_number_of_digits
+      end
+    end 
+  end
 end

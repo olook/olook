@@ -7,7 +7,7 @@ class Product < ActiveRecord::Base
   #has_paper_trail :skip => [:pictures_attributes, :color_sample]
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
   MINIMUM_INVENTORY_FOR_XML = 3
-  CACHE_KEY = "C_I_P_"
+  JULIANA_JABOUR_PRODUCTS = [90632,90612,90641,90646,90607,90597,90602,90616,90619,90627,90622,90636]
 
   include ProductFinder
 
@@ -154,8 +154,15 @@ class Product < ActiveRecord::Base
     picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
   end
 
+  #
+  # I know, it's a weird/crazy logic. Ask Andressa =p
+  #
   def backside_picture
-    picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
+    if cloth?
+      picture = pictures.order(:display_on).second
+    else
+      picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
+    end
     return_catalog_or_suggestion_image(picture)
   end
 
@@ -193,7 +200,8 @@ class Product < ActiveRecord::Base
     begin
       img = fetch_cache_for(picture) if picture
     rescue => e
-      Rails.logger.info e
+      Rails.logger.error "Error on Picture[#{picture.try(:id)}].return_catalog_or_suggestion_image: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}"
+      nil
     end
   end
 
@@ -202,15 +210,17 @@ class Product < ActiveRecord::Base
   end
 
   def colors(size = nil, admin = false)
-    is_visible = (admin ? [0,1] : true)
-    conditions = {is_visible: is_visible, category: self.category, name: self.name}
-    conditions.merge!(variants: {description: size}) if size and self.category == Category::SHOE
-    Product.select("products.*, variants.inventory, if(sum(distinct variants.inventory) > 0, 1, 0) available_inventory")
-          .joins('left outer join variants on products.id = variants.product_id')
-          .where(conditions)
-          .where("products.id != ?", self.id)
-          .group('products.id')
-          .order('variants.inventory desc, available_inventory desc')
+    Rails.cache.fetch(CACHE_KEYS[:product_colors][:key] % [id, admin], expires_in: CACHE_KEYS[:product_colors][:expire]) do
+      is_visible = (admin ? [0,1] : true)
+      conditions = {is_visible: is_visible, category: self.category, name: self.name}
+      conditions.merge!(variants: {description: size}) if size and self.category == Category::SHOE
+      Product.select("products.*, variants.inventory, if(sum(distinct variants.inventory) > 0, 1, 0) available_inventory")
+            .joins('left outer join variants on products.id = variants.product_id')
+            .where(conditions)
+            .where("products.id != ?", self.id)
+            .group('products.id')
+            .order('variants.inventory desc, available_inventory desc')
+    end
   end
 
 
@@ -223,7 +233,11 @@ class Product < ActiveRecord::Base
   end
 
   def inventory
-    self.variants.sum(:inventory)
+    if variants.loaded?
+      self.variants.inject(0) { |sum, variant| sum + variant.inventory.to_i }
+    else
+      self.variants.sum(:inventory)
+    end
   end
 
   def initial_inventory
@@ -270,7 +284,6 @@ class Product < ActiveRecord::Base
     {
       :host => "www.olook.com.br",
       :utm_medium => "vitrine",
-      :utm_campaign => "produtos",
       :utm_content => id
     }
     Rails.application.routes.url_helpers.product_url(self, params.merge!(options))
@@ -337,8 +350,8 @@ class Product < ActiveRecord::Base
     Setting.checkout_suggested_product_id.to_i != self.id
   end
 
-  def self.load_criteo_config(key)
-    CRITEO_CONFIG[key]
+  def self.xml_blacklist(key)
+    XML_BLACKLIST[key]
   end
 
   def shoe_inventory_has_less_than_minimum?
@@ -371,7 +384,7 @@ class Product < ActiveRecord::Base
   end
 
   def find_suggested_products
-    products = Product.only_visible.joins(:details).where("details.description = '#{ self.subcategory }' AND collection_id <= #{ self.collection_id }").order('collection_id desc')
+    products = Product.only_visible.includes(:variants).joins(:details).where("details.description = '#{ self.subcategory }' AND collection_id <= #{ self.collection_id }").order('collection_id desc')
 
     remove_color_variations(products)
   end
@@ -384,14 +397,69 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def formatted_name
-    cloth? ? name : model_name + " " + name
+  def formatted_name(for_html=true)
+    _formated_name = cloth? ? name : "#{model_name} #{name}"
+    _formated_name = "#{_formated_name[0..30]}&hellip;".html_safe if for_html && _formated_name.size > 35 
+    _formated_name
+  end
+
+  def supplier_color
+    color = details.find_by_translation_token("Cor fornecedor").try(:description)
+    color.blank? ? "Não informado" : color
+  end
+
+  def product_color
+    product_color_name = details.find_by_translation_token("Cor produto").try(:description)
+    product_color_name = self.color_name if product_color_name.blank?
+    product_color_name.blank? ? "Não informado" : product_color_name
+  end
+
+  def filter_color
+    color = details.find_by_translation_token("Cor filtro").try(:description)
+    color.blank? ? "Não informado" : color
+  end
+
+  def self.clothes_for_profile profile
+    products = Rails.cache.fetch(CACHE_KEYS[:product_clothes_for_profile][:key] % profile, :expires_in => CACHE_KEYS[:product_clothes_for_profile][:expire]) do
+      product_ids = Setting.send("cloth_showroom_#{profile}").split(",")
+      find_keeping_the_order product_ids
+      # QUICK AND DIRTY. remove this pleeeeeease
+      products = Collection.active.products.where(category: Category::CLOTH).last(20)
+    end
+  end
+
+  def delete_cache
+    if shoe?
+      shoes_sizes = self.variants.collect(&:description)
+      shoes_sizes.each do |shoe_size|
+        Rails.cache.delete("views/#{item_view_cache_key_for(shoe_size)}")
+        Rails.cache.delete("views/#{lite_item_view_cache_key_for(shoe_size)}")
+      end
+    end
+    Rails.cache.delete("views/#{item_view_cache_key_for}")
+    Rails.cache.delete("views/#{lite_item_view_cache_key_for}")
+  end
+
+  def item_view_cache_key_for(shoe_size=nil)
+    shoe? ? CACHE_KEYS[:product_item_partial_shoe][:key] % [id, shoe_size] : CACHE_KEYS[:product_item_partial][:key] % id
+  end
+
+  def lite_item_view_cache_key_for(shoe_size=nil)
+    shoe? ? CACHE_KEYS[:lite_product_item_partial_shoe][:key] % [id, shoe_size] : CACHE_KEYS[:lite_product_item_partial][:key] % id
+  end
+
+  def brand
+    if self[:brand].blank?
+      self[:brand] = JULIANA_JABOUR_PRODUCTS.include?(id) ? "JULIANA JABOUR" : "OLOOK"
+    else
+      self[:brand]
+    end
   end
 
   private
 
     def self.fetch_all_featured_products_of category
-      products = Rails.cache.fetch("featured_products_#{category}", :expires_in => 10.minutes) do
+      products = Rails.cache.fetch(CACHE_KEYS[:product_fetch_all_featured_products_of][:key] % category, :expires_in => CACHE_KEYS[:product_fetch_all_featured_products_of][:expire]) do
         category_name = Category.key_for(category).to_s
         product_ids = Setting.send("featured_#{category_name}_ids").split(",")
 
@@ -462,10 +530,16 @@ class Product < ActiveRecord::Base
     end
 
     def fetch_cache_for(picture)
-      Rails.cache.fetch(CACHE_KEY+"#{id}d#{picture.display_on}", expires_in: Setting.image_expiration_period_in_days.to_i.days) do
-        picture.image.catalog.file.exists? ? picture.try(:image_url, :catalog) : picture.try(:image_url, :suggestion)
+      return picture.try(:image_url, :catalog) unless Rails.env.production?
+      img = Rails.cache.fetch(CACHE_KEYS[:product_picture_image_catalog][:key] % [id, picture.display_on], expires_in: CACHE_KEYS[:product_picture_image_catalog][:expire]) do
+        if picture.image.catalog.file.exists?
+          picture.try(:image_url, :catalog)
+        else
+          picture.image.recreate_versions! rescue nil
+          picture.try(:image_url, :suggestion)
+        end
       end
+      img
     end
-
 end
 

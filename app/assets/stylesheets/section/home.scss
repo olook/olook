@@ -5,12 +5,12 @@ div#content {
 }
 
 section#home {
-  padding: 20px 0 0;
+  padding: 18px 0 0;
   ul.warnings {
     background: image-url('home/bg-warnings.jpg') no-repeat;
     width: 990px;
     height: 65px;
-    margin: 0 0 20px;
+    margin: 0 0 13px;
     padding: 12px 0 0;
     li {
       color: #939598;
@@ -37,11 +37,9 @@ section#home {
     width: 990px;
     height: 486px;
     margin: 0 0 40px;
-    overflow:hidden;
     .caroufredsel_wrapper{overflow:hidden;}
     a.close {
       position: absolute;
-/*<<<<<<< HEAD*/
       background: image-url("lookbooks/close.png") no-repeat;
       text-indent: -99999px;
       top: 0;
@@ -52,25 +50,6 @@ section#home {
       z-index: 101;
       &:hover{
         background: image-url("lookbooks/close-hover.png") no-repeat;
-/*======= */
-/*      width: 405px;
-      padding: 10px 30px 15px;
-      overflow: visible;
-      border: 1px #e8e8e8 solid;
-      top: 540px;
-      left: 315px;
-      float: right;
-
-      p {
-        background: url('/assets/common/facebook-title.png') top left no-repeat;
-        color: #a2a2a2;
-        font-size: 13px;
-        line-height: 25px;
-        float: left;
-        margin-top:3px;
-        padding: 2px 0 0 133px;*/
-
-/*>>>>>>> master*/
       }
     }
     .jcarousel-container {
@@ -298,12 +277,11 @@ section#home {
       font-size: 20px;
       font-weight: 600;
       text-transform: uppercase;
-      margin: 0 0 25px 3px;
+      margin: 0 0 25px 0;
     }
     ul {
       width: 100%;
       overflow: auto;
-      margin: 0 0 60px;
       li {
         a {
           background: image-url("home/categories.png") no-repeat;
@@ -316,7 +294,7 @@ section#home {
           padding: 75px 0 0 0;
           float: left;
           &:hover {
-            color: #939598;
+            color: #ef3742;
           }
         }
         &.blusa a {
@@ -427,13 +405,14 @@ section#home {
     float: right;
     border-top: 1px #cbcbcb solid;
     img {
-      margin: 0 7px 20px 0;
+      margin: 37px 7px 20px 0;
       float: left;
     }
     h1 {
       color: #36569e;
       font-family: $avenir;
       font-size: 14px;
+      margin-top: 35px;
       span {
         font-size: 17px;
         font-weight: bold;

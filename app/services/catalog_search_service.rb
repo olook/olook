@@ -15,20 +15,37 @@ class CatalogSearchService
 
   end
 
+  def categories_available_for_options
+    base_process
+    categories = Category.to_a
+    categories_in_query = @query.group('catalog_products.category_id').count.keys
+    categories.select! { |opt| categories_in_query.include?(opt.last) }
+    categories.unshift(["Todas", nil])
+  end
+
   def search_products
+    base_process
+    @query.group("catalog_products.product_id")
+      .order(sort_filter, 'name asc')
+      .paginate(page: @params[:page], per_page: 12)
+      .includes(product: :variants)
+      .includes(product: :details)
+  end
+
+  private
+
+  def base_process
+    return @query if @query
     add_categories_filter_to_query_base
+
+    add_price_range_to_query_base if @params[:price]
 
     @query = prepare_query_joins
 
     add_category_filter_to_query_base
-    @query.where(@query_base)
-      .order(sort_filter, 'name asc')
-      .group("catalog_products.product_id")
-      .paginate(page: @params[:page], per_page: 12)
-      .includes(product: :variants)
+    add_collection_filter_to_query_base
+    @query = @query.where(@query_base)
   end
-
-  private
 
   def filter_product_by(attribute, parameters)
     @query_base.and(l_products[attribute].in(parameters)).and(Variant.arel_table[:description].in(parameters))
@@ -56,6 +73,10 @@ class CatalogSearchService
   def add_category_filter_to_query_base
     # Subcategories filter to make possible to have Shoes / Bags / Accessories pages
     @query_base = @query_base.and(l_products[:category_id].in(@params[:category_id])) if @params[:category_id]
+  end
+
+  def add_collection_filter_to_query_base
+    @query_base = @query_base.and(Product.arel_table[:collection_id].eq(Collection.active.id)) if @params[:news]
   end
 
   def compact_category_queries
@@ -101,13 +122,12 @@ class CatalogSearchService
   end
 
   def query_clothes
-
-    if cloth_size_and_subcategories_selected?
-      query = query_cloth_sizes.and(query_subcategories_for(@params[:cloth_subcategories]))
+    query = if cloth_size_and_subcategories_selected?
+      query_cloth_sizes.and(query_subcategories_for(@params[:cloth_subcategories]))
     else
-      query = query_cloth_sizes || query_subcategories_for(@params[:cloth_subcategories])
+      query_cloth_sizes || query_subcategories_for(@params[:cloth_subcategories])
     end
-
+    query = cloth_colors(query)
     query.and(l_products[:category_id].in(Category::CLOTH)) if query
   end
 
@@ -115,16 +135,31 @@ class CatalogSearchService
     query_cloth_sizes && query_subcategories_for(@params[:cloth_subcategories])
   end
 
+  def cloth_colors query
+    if @params[:cloth_colors]
+      build_sub_query((query || query_base), Detail.arel_table[:translation_token].eq("Cor filtro").and(Detail.arel_table[:description].in(@params[:cloth_colors])))
+    else
+      query
+    end
+  end
+
   def build_sub_query(current_query, sub_query)
     current_query == query_base ? sub_query : current_query.and(sub_query)
   end
 
   def sort_filter
+    order_by_price_sql = "CASE WHEN ifnull(catalog_products.retail_price, 0.00) = 0.00 THEN catalog_products.original_price WHEN ifnull(catalog_products.retail_price, 0.00) > 0.00 THEN catalog_products.retail_price END"
     case @params[:sort_filter]
       when "0" then "collection_id desc"
-      when "1" then "price asc"
-      when "2" then "price desc"
+      when "1" then  "#{order_by_price_sql} ASC"
+      when "2" then "#{order_by_price_sql} DESC"
       else "collection_id desc"
     end
+  end
+
+  def add_price_range_to_query_base
+    gt, lt = @params[:price].split('-')
+    @query_base = query_base.and(@l_products[:retail_price].gt(gt)) unless gt == "*"
+    @query_base = query_base.and(@l_products[:retail_price].lt(lt)) unless lt == "*"
   end
 end

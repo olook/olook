@@ -16,7 +16,7 @@
   <%= product_presenter.render_price %>
   <%# if @user && !@promotion %>
     <div class="warn_discount <%= product_presenter.is_promotion? ? 'promotion' : '' %>">
-      <p>Compre e ganhe até <%= number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price) %> em compras nos próximos 2 meses</p>
+      <p>Compre e ganhe até <span><%= number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price) %></span> em créditos </br> para usar nos próximos 2 meses</p>
       <%= link_to "Saiba mais", "#", :class => "open_loyalty_lightbox" %>
     </div>
   <%# end %>

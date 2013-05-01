@@ -1,7 +1,13 @@
+# encoding: utf-8
 class Catalog::Catalog < ActiveRecord::Base
+  CLOTH_SIZES_TABLE = {"PP" => 1, "P" =>2, "M" => 3, "G" => 4,
+                 "34" => 5, "36" => 6, "38" => 7, "40" => 8, "42" => 9, "44" => 10,
+                 "Único" => 11}
   has_many :products, :class_name => "Catalog::Product", :foreign_key => "catalog_id"
 
   validates :type, :presence => true, :exclusion => ["Catalog::Catalog"]
+
+  CARE_PRODUCTS = ['Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar']
 
   def in_category(category_id)
     @liquidation = LiquidationService.active
@@ -14,11 +20,15 @@ class Catalog::Catalog < ActiveRecord::Base
   end
 
   def subcategories(category_id)
-    in_category(category_id).group(:subcategory_name).order("subcategory_name asc").map { |p| [p.subcategory_name, p.subcategory_name_label] }.compact
+    in_category(category_id).group(:subcategory_name).order("subcategory_name asc").map { |p| [p.subcategory_name, p.subcategory_name_label]}.compact
   end
 
   def shoes
-    subcategories(Category::SHOE)
+    subcategories(Category::SHOE).reject{ |sub| CARE_PRODUCTS.include? sub[1] }
+  end
+
+  def care_shoes
+    subcategories(Category::SHOE).select { |sub| CARE_PRODUCTS.include?(sub[1]) }
   end
 
   def bags
@@ -38,8 +48,7 @@ class Catalog::Catalog < ActiveRecord::Base
   end
 
   def cloth_sizes
-    in_category(Category::CLOTH).order("cloth_size asc").map { |p| p.cloth_size }.compact
-    # in_category(Category::CLOTH).group(:shoe_size).order("shoe_size asc").map { |p| p.shoe_size }.compact
+    in_category(Category::CLOTH).group(:cloth_size).count.keys.compact.sort { |a,b| CLOTH_SIZES_TABLE[a.to_s] <=> CLOTH_SIZES_TABLE[b.to_s] }
   end
 
   def heels

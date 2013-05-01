@@ -8,7 +8,10 @@ module MarketingReports
                :userbase_with_auth_token_and_credits,
                :in_cart_mail,
                :line_items_report,
-               :campaign_emails]
+               :campaign_emails,
+               :userbase_with_source,
+               :facebook_friends_end_of_the_month,
+               :facebook_friends_middle_of_the_month]
 
     attr_accessor :csv
 
@@ -17,8 +20,8 @@ module MarketingReports
       self.send("generate_#{type}") if ACTIONS.include? type
     end
 
-    def save_file(filename = "untitled.csv", info_ftp = nil)
-      FileUploader.new(filename, @csv).save_local_file
+    def save_file(filename, adapt_encoding, info_ftp = nil)
+      FileUploader.new(filename, @csv).save_local_file(adapt_encoding)
       FileUploader.copy_file(filename)
       FtpUploader.new(filename, info_ftp).upload_to_ftp if info_ftp && Rails.env.production?
     end
@@ -91,10 +94,18 @@ group by uc.user_id, ct.code
       end
     end
 
+    def generate_facebook_friends_end_of_the_month
+      gather_facebook_friends(DateTime.now.month+1, false)
+    end
+
+    def generate_facebook_friends_middle_of_the_month
+      gather_facebook_friends(DateTime.now.month, true)
+    end 
+
     def generate_userbase_with_auth_token_and_credits
       bounces = bounced_list
-      @csv = CSV.generate do |csv|
-        csv << %w{id email created_at sign_in_count current_sign_in_at last_sign_in_at invite_token first_name last_name facebook_token birthday has_purchases auth_token credit_balance}
+      @csv = CSV.generate(col_sep: ";") do |csv|
+        csv << %w{id email created_at invite_token first_name last_name facebook_token birthday has_purchases auth_token credit_balance half_user}
         User.select("(select sum(total_agora) from (
  select
   uc.user_id,
@@ -117,10 +128,11 @@ group by uc.user_id, ct.code
 ) as credit_balance, (select count(orders.id) from orders where orders.user_id = users.id ) as total_purchases, users.*").where("gender != #{User::Gender[:male]} or gender is null").find_each(batch_size: 50000) do |u|
           unless bounces.include?(u.email)
             credit_balance = u.credit_balance.nil? ? BigDecimal.new("0.0") : u.credit_balance
-            csv << [ u.id, u.email.chomp, u.created_at.strftime("%d-%m-%Y"), u.sign_in_count, u.current_sign_in_at, u.last_sign_in_at, u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, (u.total_purchases > 0), u.authentication_token, credit_balance ]
+            credit_balance = ('%.2f' % credit_balance).to_s.gsub(".", ",")
+            csv << [ u.id, u.email.chomp, u.created_at.strftime("%d-%m-%Y"), u.invite_token, u.first_name.chomp, u.last_name.chomp, u.facebook_token, u.birthday, (u.total_purchases > 0), u.authentication_token, credit_balance, u.half_user ]
           end
         end
-        emails_seed_list.each { |email| csv << [ nil, email, nil, nil, nil, nil, nil, 'seed list', nil, nil, nil, nil, nil, nil ] }
+        # emails_seed_list.each { |email| csv << [ nil, email, nil, nil, 'seed list', nil, nil, nil, nil, nil, nil, nil ] }
       end
     end
 
@@ -163,7 +175,42 @@ group by uc.user_id, ct.code
       emails(responses)
     end
 
+    def generate_userbase_with_source
+      @csv = CSV.generate do |csv|
+        csv << %w{email nome sexo tipo_cadastro data_cadastro estilo_quiz data_ultima_compra authentication_token}
+        User.where("created_at > ?", DateTime.parse(Setting.lower_limit_source_csv).to_date).find_each do |u|
+          gender = (u.gender == 1) ? "M" : "F"
+          profile = u.main_profile ? u.main_profile.name : nil
+          last_order_date = u.orders.any? ? u.orders.last.created_at.strftime("%d-%m-%Y") : nil
+
+          csv << [ u.email.chomp, u.name, gender, registration_source(u), registered_at(u).strftime("%d-%m-%Y"), profile, last_order_date, u.authentication_token ]
+        end
+      end
+    end    
+
+    def registration_source user
+      if user.campaign_email_created_at
+        "lightbox"
+      elsif user.events.where(event_type: 22).any? || user.half_user?
+        "half_user"
+      else
+        "full_user"
+      end      
+    end
+
+    def registered_at user
+      if user.campaign_email_created_at && user.campaign_email_created_at < user.created_at
+        user.campaign_email_created_at
+      else
+        user.created_at
+      end
+    end    
+
     private
+
+    def gather_facebook_friends(month, middle_of_the_month)
+      @csv = convert_to_iso(FacebookDataService.new.generate_csv_lines(month, middle_of_the_month)).join("\n")      
+    end
 
     def convert_to_iso(file_lines=[])
       file_lines.map do | line |
@@ -189,6 +236,5 @@ group by uc.user_id, ct.code
     def emails_seed_list
       IO.readlines(Rails.root + "lib/marketing_reports/emails_seed_list.csv").map(&:chomp)
     end
-
   end
 end

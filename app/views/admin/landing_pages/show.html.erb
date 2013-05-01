@@ -2,7 +2,7 @@
   <p id="notice"><%= notice %></p>
 
   <p>
-    <b>Title:</b>
+    <b>Título:</b>
     <%= @landing_page.page_title %>
   </p>
 
@@ -12,7 +12,7 @@
   </p>
 
   <p>
-    <b>Image:</b>
+    <b>Imagem:</b>
     <%= image_tag @landing_page.page_image.thumb.try(:url) %>
   </p>
 
@@ -32,20 +32,20 @@
   </p>
 
   <p>
-    <b>Enabled:</b>
-    <%= @landing_page.enabled %>
+    <b>Habilitado:</b>
+    <%= @landing_page.enabled ? "Sim" : "Não"%>
   </p>
 
   <p>
-    <b>Show header:</b>
-    <%= @landing_page.show_header %>
+    <b>Mostrar header:</b>
+    <%= @landing_page.show_header ? "Sim" : "Não" %>
   </p>
 
   <p>
-    <b>Show footer:</b>
-    <%= @landing_page.show_footer %>
+    <b>Mostrar footer:</b>
+    <%= @landing_page.show_footer ? "Sim" : "Não"%>
   </p>
 
-  <%= link_to 'Edit', edit_admin_landing_page_path(@anding_page) %> |
-  <%= link_to 'Back', admin_landing_pages_path %>
+  <%= link_to 'Editar', edit_admin_landing_page_path(@anding_page) %> |
+  <%= link_to 'Voltar', admin_landing_pages_path %>
 </div>

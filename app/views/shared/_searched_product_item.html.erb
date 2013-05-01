@@ -1,0 +1,25 @@
+<li class="product<%= " promotion" if product.promotion? %>" data-id="<%= product.id %>">
+  <%#= render "shared/product_hover", :product => product %>
+  <div class="box_product">
+
+    <%= link_to product_path(product.id), :class => "product_link", :rel => "#{product.id}" do %>
+      <%= image_tag(product.catalog_image, :alt => product.formatted_name, :class => "async", :data => {:backside_picture => product.backside_picture} ) %>
+
+      <h1><p><span class="name"><%= product.formatted_name %></span></p></h1>
+      <p class="warn sold_out"><b>ESGOTADO!</b></p>
+
+
+    <% end %>
+
+    <div class="line">
+      <%= link_to product_path(product.id), :class => "product_link", :rel => "#{product.id}" do %>
+        <p class="price brand"><b><%= product.brand %></b></p>
+        <p class="price">
+          <%= number_to_currency product.price %> ou <span class="plots"><%= installments(product.price) %></span>
+        </p>
+      <%- end -%>
+
+    </div>
+  </div>
+</li>
+

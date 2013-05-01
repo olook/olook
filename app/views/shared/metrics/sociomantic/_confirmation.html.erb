@@ -11,3 +11,20 @@ currency: 'BRL'
 };
 
 </script>
+<% if order.tracking && order.tracking.utm_campaign == "produtos" && order.tracking.utm_source.match(/sociomantic*/) && order.tracking.utm_medium == "banner"%>
+  <script type="text/javascript">
+    var sale =
+    {
+        confirmed : true
+    };
+
+    if ( typeof sociomantic === 'object' &&
+         typeof sociomantic.sonar === 'object' &&
+         typeof sociomantic.sonar.adv === 'object' &&
+         typeof sociomantic.sonar.adv['olook-br'] === 'object' &&
+         typeof sociomantic.sonar.adv['olook-br'].getConfirmed === 'function' )
+    {
+        sociomantic.sonar.adv['olook-br'].getConfirmed();
+    }
+  </script>
+<% end %>

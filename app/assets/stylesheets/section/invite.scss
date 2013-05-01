@@ -29,7 +29,7 @@ body {
             float: left;
           }
           .fb-connect {
-            background: url('/assets/common/fb-connect-button.png') no-repeat;
+            background: image-url('common/fb-connect-button.png') no-repeat;
             text-indent: -9999px;
             display: block;
             width: 212px;
@@ -84,7 +84,7 @@ body {
 
         > h1 {
           position: relative;
-          background: url("/assets/common/banner/bg-banner-pink.png") no-repeat;
+          background: image-url('common/banner/bg-banner-pink.png') no-repeat;
           color: #FFF;
           font-family: $avenir;
           font-size: 19px;
@@ -105,7 +105,7 @@ body {
 
             & + h3 {
               position: absolute;
-              background: url("/assets/common/banner/bg-banner-black.png") no-repeat;
+              background: image-url('common/banner/bg-banner-black.png') no-repeat;
               font-family: $kepler;
               font-size: 25px;
               text-transform: uppercase;
@@ -162,7 +162,7 @@ body {
 
     nav.invite {
       position: relative;
-      background: url('/assets/common/bg-menu.jpg') top repeat-x;
+      background: image-url('common/bg-menu.jpg') top repeat-x;
       width: 100%;
       height: 44px;
       overflow: hidden;
@@ -194,7 +194,7 @@ body {
 
     section {
       &#share-mail, &#invite-mail, &#import-contacts, &#post-to-wall {
-        background: url('/assets/common/division.png') center bottom no-repeat;
+        background: image-url('common/division.png') center bottom no-repeat;
         width: 990px;
         padding: 40px 0;
         overflow: hidden;
@@ -214,7 +214,7 @@ body {
           padding-top: 15px;
 
           input[type='text'], textarea {
-            background: url('/assets/common/bg-form-invite.png') bottom repeat-x;
+            background: image-url('common/bg-form-invite.png') bottom repeat-x;
             padding: 12px 13px;
             border: 1px solid #BBB;
             width: 415px;
@@ -223,7 +223,7 @@ body {
           }
 
           textarea {
-            background: url('/assets/common/bg-textarea.png') bottom repeat-x;
+            background: image-url('common/bg-textarea.png') bottom repeat-x;
             height: 73px;
             resize: none;
             color:#3c3c3c;
@@ -265,7 +265,7 @@ body {
             margin-left: 70px;
 
             a {
-              background: url('/assets/common/mail-services-icons.png') no-repeat;
+              background: image-url('common/mail-services-icons.png') no-repeat;
               width: 119px;
               height: 151px;
               text-indent: -99999px;
@@ -324,7 +324,7 @@ body {
           padding: 15px 50px;
 
           > span {
-            background: url('/assets/common/mail-services-icons.png') no-repeat;
+            background: image-url('common/mail-services-icons.png') no-repeat;
             display: block;
             width: 55px;
             height: 60px;
@@ -367,7 +367,7 @@ body {
 
                     input {
                       &[type='text'], &[type='password'] {
-                        background: url('/assets/common/background-inputs.png') repeat-x;
+                        background: image-url('common/background-inputs.png') repeat-x;
                         width: 93%;
                         padding: 6px 8px;
                         border: 1px solid #BBB;

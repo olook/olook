@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
   var stringDesc = $("div#infos div.description p.description").text();
   initQuickView.sliceDesc(stringDesc);
   initQuickView.productZoom();

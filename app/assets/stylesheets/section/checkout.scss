@@ -3,6 +3,7 @@
 @import 'partials/product';
 @import "partials/carousel_lookbooks";
 @import "partials/header_footer_checkout";
+@import 'partials/credits_info';
 
 $border-color: #e5e5e5;
 
@@ -23,7 +24,7 @@ a.back_link {
 }
 
 h2.moip {
-  background: url('/assets/common/moip.png') no-repeat;
+  background: image-url('common/moip.png') no-repeat;
   text-indent: -9999px;
   width: 70px;
   height: 42px;
@@ -33,7 +34,7 @@ h2.moip {
 }
 
 div#order_status {
-  background: url("/assets/cart/bg-order-status.jpg") top left repeat-x;
+  background: image-url('cart/bg-order-status.jpg') top left repeat-x;
   width: 100%;
   height: 113px;
   overflow: hidden;
@@ -93,7 +94,7 @@ body div#content {
       float: left;
     }
     li.moip {
-      background: url('/assets/common/moip.png') no-repeat;
+      background: image-url('common/moip.png') no-repeat;
       text-indent: -9999px;
       width: 70px;
       height: 42px;
@@ -222,7 +223,7 @@ section#cart {
 		margin:10px 0 25px;
   }
 	div#facebook-share{
-		float:left;
+		float:right;
 		border-top:dotted 1px #b3b3b3;
 		border-bottom:dotted 1px #b3b3b3;
 		text-align:left;
@@ -373,6 +374,7 @@ section#cart {
   }
 
   table.items_list {
+    margin: 0 0 25px 0;
 		&.avc-pulseira{
 				border-left:dotted 1px #000;
 				border-right:dotted 1px #000;
@@ -451,7 +453,7 @@ section#cart {
             display: inline;
             float: left;
             input[type="text"] {
-              background: url('/assets/common/bg-inputs.png') repeat-x;
+              background: image-url('common/bg-inputs.png') repeat-x;
               font-size: 14px;
               font-weight: bold;
               width: 80px;
@@ -464,7 +466,7 @@ section#cart {
               }
             }
             input[type="submit"] {
-              background: url("/assets/cart/bg-update.png") top left no-repeat;
+              background: image-url('cart/bg-update.png') top left no-repeat;
               color: $pink;
               font-family: $avenir;
               font-size: 12px;
@@ -553,7 +555,7 @@ section#cart {
           width: 116px;
           div.discount_origin {
             position: absolute;
-            background: url('/assets/cart/tooltip-discount.png') top center no-repeat;
+            background: image-url('cart/tooltip-discount.png') top center no-repeat;
             width: 151px;
             height: 64px;
             top: 28px;
@@ -604,7 +606,7 @@ section#cart {
             position: relative;
             input[type="submit"] {
               position: absolute;
-              background: url("/assets/cart/delete-item.png") no-repeat;
+              background: image-url('cart/delete-item.png') no-repeat;
               width: 76px;
               height: 20px;
               display: block;
@@ -658,7 +660,7 @@ section#cart {
           vertical-align: middle;
 					padding-top:10px;
           &.discount{float:right;margin-right:20px;
-            p#coupon_discount{float:left;width:65px;margin:0;}
+            p#coupon_discount{float:left;width:100px;margin:0;}
             form.edit_cart{float:left;}
           }
           &.value {
@@ -710,7 +712,6 @@ section#cart {
           line-height: 55px;
         }
         form {
-          display: none;
           margin: 15px 0 0 0;
           input[type="text"] {
             background: image-url('cart/bg-input-coupon.jpg') top right no-repeat;
@@ -798,7 +799,7 @@ section#cart {
         }
         a.arrow {
           position: absolute;
-          background: url("/assets/product/arrows.jpg") 0 no-repeat;
+          background: image-url('product/arrows.jpg') 0 no-repeat;
           text-indent: -9999px;
           width: 42px;
           height: 235px;
@@ -913,7 +914,7 @@ section#payment {
       text-align:center;
     }
     span {
-      background: url('/assets/cart/number_background.png') no-repeat;
+      background: image-url('cart/number_background.png') no-repeat;
       font-size: 16px;
       font-weight: 600;
       line-height: 30px;
@@ -989,7 +990,7 @@ section#payment {
           margin: 0 0 5px 0;
         }
         a {
-          background: url("/assets/cart/ico-payments.png") no-repeat;
+          background: image-url('cart/ico-payments.png') no-repeat;
           text-indent: -9999px;
           height: 25px;
           padding: 5px;
@@ -1168,7 +1169,7 @@ section#payment {
             margin: 0 5px 0 0;
             float: left;
             label {
-              background: url("/assets/cart/ico-payments.png") no-repeat;
+              background: image-url('cart/ico-payments.png') no-repeat;
               text-indent: -9999px;
               width: 43px;
               height: 35px;
@@ -1217,7 +1218,7 @@ section#payment {
             overflow: auto;
             span.select {
               position: absolute;
-              background: url('/assets/cart/bg-select-payments.png') no-repeat;
+              background: image-url('cart/bg-select-payments.png') no-repeat;
               text-indent: 22px;
               bottom: 0;
               top: 2px;
@@ -1263,7 +1264,7 @@ section#payment {
               &.credit_card_number {
 								position:relative;
                 input[type="text"] {
-                  width: 219px;
+                  width: 140px !important;
 									&.credit-error{border:solid 1px #F00;}
                 }
 								.span-error{position:absolute;top:60px;left:0;color:#F00;}
@@ -1467,7 +1468,7 @@ section#payment {
         }
         a.bank_flag {
           position: absolute;
-          background: url("/assets/cart/ico-payments.png") left no-repeat;
+          background: image-url('cart/ico-payments.png') left no-repeat;
           text-indent: -9999px;
           width: 38px;
           height: 25px;
@@ -1476,7 +1477,7 @@ section#payment {
           top: 14px;
           left: 15px;
           &.Debito {
-            background: url("/assets/cart/ico-debit.png");
+            background: image-url('cart/ico-debit.png');
           }
           &.Boleto {
             background-position: -5px -5px;
@@ -1523,7 +1524,7 @@ section#payment {
     }
     section.sidebar {
       a.print {
-        background: url("/assets/my_account/bt-print.png") no-repeat;
+        background: image-url('my_account/bt-print.png') no-repeat;
         text-indent: -9999px;
         width: 224px;
         height: 46px;
@@ -1589,9 +1590,12 @@ section.checkout{
 			&.tel_contato1, &.tel_contato2{width:137px;}
 			&.frete, &.address_recorded{height:auto;}
 			&.address_recorded{float:left;border:none;}
-			&.user_name, &.credit_card_number{width:280px;}
+			&.user_name{width:280px;}
+      &.credit_card_number{width: 149px;}
 			&.security_code{width:120px;}
 			&.expiration_date{width:107px;}
+      &.user_identification{width: 280px;}
+      &.date{width: 280px;}
 
 			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;position:absolute;left:685px;display:none;cursor:pointer;z-index:999;}
 		}
@@ -1622,7 +1626,7 @@ section.checkout{
 		.credits{float:left;padding-left:5px;
 			label{color:#000;}
 
-			p{font-size:13px;float:left; 
+			p{font-size:13px;float:left;
 				span, a{color:#ef3742;}
 				a{display:block;margin:6px 0 5px;font-size:13px;}
 			}
@@ -1669,6 +1673,16 @@ section.checkout{
 						}
 					}
 				}
+        .code_link{
+          float: right;
+          width: 135px;
+          margin-top: 19px;
+        }
+        .find_code{
+          font-family: $avenir;
+          font-size: 12px;
+          color: $pink;
+        }
 			}
 			.box-boleto{float:left;
 				p{font-size:13px;margin-top:15px;
@@ -2048,19 +2062,20 @@ div.credit_details {
     font-size: 20px;
     font-weight: bold;
     margin-top: 35px;
+    margin-bottom: 10px;
 
   }
 
   h2{
     font-family: $avenir !important;
-    font-size: 18px !important;
+    font-size: 17px !important;
     padding: 5px;
     clear: both;
-    margin: 20px 40px !important;
+    margin: 10px 35px !important;
   }
   .img_modal{
     width: 600px;
-    height: 298px;
+    height: 333px;
     background: image-url('loyalty/modal-gift.jpg') no-repeat;
 
   }
@@ -2071,3 +2086,36 @@ a.txt-conheca{
     color: $pink;
     text-transform: none;
     }
+
+/********** modal security code *******/
+  .modal_security_code{
+    width: 600px;
+    height: 255px;
+    background-color: #fff;
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    h1{
+      text-align: center;
+      font-family: avenir, arial, sans-serif;
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 25px;
+    }
+    h2{
+      font-family: $avenir;
+      font-size: 14px;
+      font-weight: bold;
+      margin-left: 250px;
+      margin-top: 50px;
+      margin-right: 70px;
+      span{
+        font-weight: normal;
+        display: block;
+      }
+    }
+    .img_security{
+      float: left;
+    }
+  }
+/********** end modal security code *******/

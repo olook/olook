@@ -1,20 +1,14 @@
 <div id="carousel">
   <ul>
-    <li>
-      <%= link_to new_survey_path, onclick: track_event('Carrossel','Banner1')  do %>
-        <%= image_tag "home/destaque_botao_melancia.jpg" %>
-      <% end %>
-    </li>
-    <li>
-      <%= link_to "/roupas", onclick: track_event('Carrossel','Banner2') do %>
-        <%= image_tag "home/destaques_roupas_home.jpg" %>
-      <% end %>
-    </li>
-    <li>
-      <%= link_to "/rasteiras", onclick: track_event('Carrossel','Banner3') do %>
-        <%= image_tag "home/banner_promo_40.jpg" %>
-      <% end %>
-    </li>
+    <%- [
+      { link: new_survey_path, image: "home/destaques_quiz_carol_ribeiro.jpg" },
+      { link: collection_theme_path("diadasmaes"), image: "home/destaque_home_dia_das_maes_2013.jpg" },
+      { link: lookbook_path("olook-concept"), image: "home/destaque_olookconcept.jpg" },
+    ].each_with_index do |item, index| %>
+      <li>
+        <%= link_to( image_tag(item[:image]), item[:link], onclick: track_event('Carrossel',"Banner#{index+1}") ) %>
+      </li>
+    <%- end -%>
   </ul>
   <%= link_to "Anterior", "javascript:void(0);", :class => "prev-item" %>
   <%= link_to "Próximo", "javascript:void(0);", :class => "next-item" %>

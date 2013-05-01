@@ -9,9 +9,9 @@ class FriendsController < ApplicationController
   rescue_from Koala::Facebook::APIError, :with => :facebook_api_error
 
   def showroom
-    @url = request.protocol + request.host
     @friend = User.find(params[:friend_id])
-    @products = @friend.all_profiles_showroom
+    @colletion = Collection.active
+    @friend_products = RecomendationService.new(profiles: @friend.profiles, shoe_size: @friend.shoes_size).products(limit: 12, colletion: @colletion)
   end
 
   def facebook_connect

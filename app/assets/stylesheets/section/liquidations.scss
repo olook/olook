@@ -1,11 +1,13 @@
 @import "partials/product";
 
 div.full_container {
-  #background: #d2d1d6 url("/assets/liquidations/bg-top.jpg") bottom repeat-x;
+  #background: #d2d1d6 image-url('liquidations/bg-top.jpg') bottom repeat-x;
   height: 320px;
   overflow: hidden !important;
+  margin: 13px 0 10px 0 !important;
 
   div.content {
+    padding-top: 0 !important;
     position: relative;
     div.description {
       position: relative;
@@ -81,7 +83,7 @@ div.full_container {
       }
       a.arrow {
         position: absolute;
-        background: url("/assets/liquidations/arrows.png") 0 no-repeat;
+        background: image-url('liquidations/arrows.png') 0 no-repeat;
         text-indent: -9999px;
         width: 40px;
         height: 46px;
@@ -125,15 +127,15 @@ div#liquidation {
         padding: 0 0 5px 5px;
         border-bottom: 1px #dedede solid;
         &.shoes {
-          background: url("/assets/liquidations/shoes.png") no-repeat top left;
+          background: image-url('liquidations/shoes.png') no-repeat top left;
           padding-left: 23px;
         }
         &.purse {
-          background: url("/assets/liquidations/purse.png") no-repeat top left;
+          background: image-url('liquidations/purse.png') no-repeat top left;
           padding-left: 23px;
         }
         &.acessories {
-          background: url("/assets/liquidations/acessories.png") no-repeat top left;
+          background: image-url('liquidations/acessories.png') no-repeat top left;
           padding-left: 26px;
         }
         &.subtitle {
@@ -170,7 +172,7 @@ div#liquidation {
         }
         &.color_filter_ {
           li {
-            background: url('/assets/moments/color-filter.jpg') no-repeat;
+            background: image-url('moments/color-filter.jpg') no-repeat;
             &.neutras {
               background-position: 97px 2px;
             }
@@ -218,7 +220,7 @@ div#liquidation {
     }
     
     span {
-      background: url("/assets/common/black_arrow.jpg") center right no-repeat;
+      background: image-url('common/black_arrow.jpg') center right no-repeat;
       text-indent: 12px;
       line-height: 32px;
       height: 32px;
@@ -285,7 +287,7 @@ div#liquidation {
               display: inline;
               span.select {
                 position: absolute;
-                background: url('/assets/liquidations/select.jpg') no-repeat;
+                background: image-url('liquidations/select.jpg') no-repeat;
                 text-indent: 12px;
                 bottom: 0;
                 top: 2px;
@@ -303,6 +305,7 @@ div#liquidation {
                   width: 119px;
                   height: 34px;
                   margin-right: 10px;
+                  margin-top: 10px;
                   top: 0;
                   left: 10px;
                 }
@@ -313,7 +316,7 @@ div#liquidation {
       }
     }
     div.loading {
-      background: url("/assets/common/ajax-loader.gif") center no-repeat;
+      background: image-url('common/ajax-loader.gif') center no-repeat;
       width: 770px;
       height: 30px;
       margin: 0 auto;
@@ -324,6 +327,44 @@ div#liquidation {
       clear: both;
       a, span, em.current {
         display: none;
+      }
+    }
+    ul#products {
+      .box_product {
+        h1 {
+          font-size: 12px;
+        }
+        .brand {
+          display: none;
+        }
+        .price {
+          .old {
+            text-transform: downcase;
+          }
+          .old, .txt-pink {
+            display: inline !important;
+          }
+        }
+        .line {
+          span {
+            font-size: 12px;
+          }
+          a.product_link {
+            margin-left: 0;
+          }
+        }
+        ol.color_list {
+          display: none;
+        }
+        .warn.sold_out, .warn.shoe_size, .warn.quantity {
+          display: none;
+        }
+        p.warn {
+          &.percentage {
+            top: 65px !important;
+            left: 105px !important;
+          }
+        }
       }
     }
   }

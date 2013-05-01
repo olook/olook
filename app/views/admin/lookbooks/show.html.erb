@@ -14,7 +14,7 @@
   <p id="notice"><%= notice %></p>
 
   <p>
-    <b>Name:</b>
+    <b>Nome:</b>
     <%= @lookbook.name %>
   </p>
   <p>
@@ -31,7 +31,7 @@
     <%= image_tag @lookbook.icon_over.try(:url) if !@lookbook.icon_over.blank? %>
   </p>
   <p>
-    <b>Foreground and background colors:</b>
+    <b>Cores foreground e background:</b>
     <div class="product-map-example">Texto de exemplo</div>
   </p>
   <p>
@@ -43,7 +43,7 @@
   <%= render :partial => 'products', :locals => {:lookbook => @lookbook} %>
 
 <% content_for :secondary_navigation do %>
-  <li><%= link_to 'Edit', edit_admin_lookbook_path(@lookbook) %></li>
-  <li><%= link_to 'Back', admin_lookbooks_path %></li>
+  <li><%= link_to 'Editar', edit_admin_lookbook_path(@lookbook) %></li>
+  <li><%= link_to 'Voltar', admin_lookbooks_path %></li>
 <% end %>
 </div>

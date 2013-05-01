@@ -1,10 +1,10 @@
-<h2>Listing Roles</h2>
+<h2>Listando Permissões</h2>
 
 <div class="inner">
   <table class="table">
     <tr>
-      <th>Name</th>
-      <th>Description</th>
+      <th>Nome</th>
+      <th>Descrição</th>
       <th></th>
       <th></th>
       <th></th>
@@ -14,9 +14,9 @@
     <tr>
       <td><%= role.name %></td>
       <td><%= role.description %></td>
-      <td><%= link_to 'Show', admin_role_path(role), :class => 'button' %></td>
-      <td><%= link_to 'Edit', edit_admin_role_path(role), :class => 'button' %></td>
-      <td><%= link_to 'Destroy', admin_role_path(role), confirm: 'Are you sure?', method: :delete, :class => 'button danger' %></td>
+      <td><%= link_to 'Mostrar', admin_role_path(role), :class => 'button' %></td>
+      <td><%= link_to 'Editar', edit_admin_role_path(role), :class => 'button' %></td>
+      <td><%= link_to 'Apagar', admin_role_path(role), confirm: 'Tem certeza?', method: :delete, :class => 'button danger' %></td>
     </tr>
   <% end %>
   </table>

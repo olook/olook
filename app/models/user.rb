@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   attr_protected :invite_token
 
   has_many :points, :dependent => :destroy
+  has_many :profiles, through: :points, order: Point.arel_table[:value].desc
   has_one :survey_answer, :dependent => :destroy
   has_one :user_info, :dependent => :destroy
   has_many :invites, :dependent => :destroy
@@ -44,6 +45,14 @@ class User < ActiveRecord::Base
 
   Gender = {:female => 0, :male => 1}
   RegisteredVia = {:quiz => 0, :gift => 1, :thin => 2}
+
+  def valid_password?(password)
+    if has_fraud?
+      Rails.logger.info("User ##{id}[#{email}] access was blocked because it has fraud!")
+      return false
+    end
+    super
+  end
 
   def name
     "#{first_name} #{last_name}".strip

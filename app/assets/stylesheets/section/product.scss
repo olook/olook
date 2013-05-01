@@ -1,6 +1,7 @@
 @import 'partials/colors';
 @import 'partials/product';
 @import 'partials/mixins';
+@import 'partials/credits_info';
 
 #product {
   div.box_carousel {
@@ -90,6 +91,11 @@
     }
   }
   div.content {
+  
+    div.chaordic {
+      float:left;
+    }
+
     div#related {
       position: relative;
       background: image-url('showroom/border-top-product.png') 170px 17px no-repeat;
@@ -157,6 +163,41 @@
         display: block;
         clear: both;
       }
+
+      .box_product {
+        h1{
+          font-size: 13px !important;
+          line-height: 18px !important;
+        }
+        .brand{
+          font-size: 13px;
+          font-family: $avenir;
+          font-weight: bold;
+          text-transform: uppercase;
+          color: black;
+          margin-left: 4px;
+          line-height: 18px;
+        }
+        .price{
+          font-family: $avenir;
+          font-size: 13px;
+          color: black;
+          margin-left: 4px;
+          line-height: 18px;
+        }
+        .plots{
+          font-family: $avenir !important;
+          font-size: 13px !important;
+          color: black !important;  
+          padding: 0 !important;
+          margin: 0 !important;
+          float: none !important;
+          line-height: 18px;
+        } 
+        .line a.product_link {
+          margin-left: 0;
+        }
+      }
     }
   }
 }
@@ -169,7 +210,7 @@ div#compartilhar_email {
   height:370px;
   border:solid 7px #000;
   fieldset{
-  margin-bottom: 20px;
+    margin-bottom: 20px;
   }
   input{
     background: white image-url("common/background-inputs.png") bottom repeat-x;
@@ -191,7 +232,7 @@ div#compartilhar_email {
   }
   label{
     font-size: 18px;
-     span{font-size:12px;}
+    span{font-size:12px;}
   }
   p{font-family: $johnston;
     font-size: 30px;
@@ -203,12 +244,9 @@ div#compartilhar_email {
   }
   div.msg{background:#F0FDDF;border: 1px solid #CBD7BC;height: 32px;margin: 15px 0 5px 0px;width: 504px;display:none;
     p{color: #000;font-family: avenir,arial,sans-serif;font-size: 14px;line-height: 24px;margin-top: 4px;min-height: 22px;padding: 0 0 0 38px;background: image-url("campaign_emails/sprite.png") no-repeat -260px -53px;}
-    
+
     &.error{background:#FDADB6;border: 1px solid #F37C8F;display: none;height: 32px;padding: 0;
       p{background: image-url('campaign_emails/sprite.png') no-repeat -333px 0 !important;padding: 0 0 0 25px;}
     }
-  }    
+  }
 }
- 
-
-

@@ -1,5 +1,5 @@
 class Promotion < ActiveRecord::Base
-  validates_presence_of :name, :banner_label
+  validates_presence_of :name
 
   scope :active, where(:active => true)
   scope :active_and_not_expired, lambda {|date| active.where('starts_at <= :date AND ends_at >= :date', date: date)}
@@ -16,6 +16,7 @@ class Promotion < ActiveRecord::Base
   accepts_nested_attributes_for :action_parameter, reject_if: lambda { |rule| rule[:promotion_action_id].blank? }
 
   validates_presence_of :rule_parameters, :action_parameter
+  mount_uploader :checkout_banner, ImageUploader
 
   def apply cart
     if should_apply_for? cart
@@ -41,7 +42,7 @@ class Promotion < ActiveRecord::Base
     simulate(cart)
   end
 
-  def matches?(cart) 
+  def matches?(cart)
     matched_all_rules = true
     rule_parameters.each do |rule_param|
       matched_all_rules &&= rule_param.matches?(cart)

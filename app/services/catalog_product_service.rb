@@ -1,5 +1,9 @@
 class CatalogProductService
 
+  # Receives:
+  # catalog type Catalog::Catalog
+  # product type ::Product
+  # options type Hash
   def initialize catalog, product, options = {}
     @catalog = catalog
     @product = product
@@ -23,7 +27,7 @@ class CatalogProductService
   end
 
   private
-  
+
     def retail_price
       if @options[:discount_percentage] > 0
         (@product.price * (100 - @options[:discount_percentage].to_f)) / 100
@@ -53,7 +57,8 @@ class CatalogProductService
         :retail_price => retail_price,
         :discount_percent => discount_percentage,
         :variant_id => (last_variant.id if last_variant),
-        :inventory => (last_variant.inventory if last_variant)
+        :inventory => (last_variant.inventory if last_variant),
+        :brand => @product.brand
       }
     end
 
@@ -102,13 +107,13 @@ class CatalogProductService
       end
     end
 
-    def create_or_update_cloth  
+    def create_or_update_cloth
       cloth_sizes.inject([]) do |products, variant|
         products << create_or_update(
           :cloth_size => variant[:cloth_size],
           :inventory => variant[:inventory],
           :variant_id => variant[:id]
         )
-      end    
+      end
     end
 end

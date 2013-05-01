@@ -20,7 +20,8 @@ class Payment < ActiveRecord::Base
 
   GATEWAYS = {
     :moip => 1,
-    :braspag => 2
+    :braspag => 2,
+    :olook => 3
   }
 
   attr_accessor :receipt, :user_identification
@@ -69,7 +70,7 @@ class Payment < ActiveRecord::Base
   end
 
   def self.with_discount
-    where(type: ['BilletDiscount', 'CouponPayment', 'GiftPayment', 'OlookletPayment', 'PromotionPayment', 'CreditPayment'])
+    where(type: ['BilletDiscountPayment', 'CouponPayment', 'GiftPayment', 'OlookletPayment', 'PromotionPayment', 'CreditPayment', "FacebookShareDiscountPayment"])
   end
 
   def self.for_facebook_share_discount

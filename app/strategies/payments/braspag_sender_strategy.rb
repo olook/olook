@@ -1,23 +1,26 @@
 module Payments
   class BraspagSenderStrategy
+    include Payments::Logger
+
     FILE_DIR = "#{Rails.root}/config/braspag.yml"
 
     attr_accessor :cart_service, :payment, :credit_card_number, :return_code
 
     def initialize(payment)
       @payment = payment
+      @payment_id = payment.id
       @payment_successful = false
-      log("Initializing BraspagSenderStrategy with payment: #{payment.inspect}")
+      log("Initializing BraspagSenderStrategy [#{payment.inspect}]")
     end
 
     def send_to_gateway
-      log("Sending transaction to gateway")
+      log("Sending transaction to gateway. Payment ID: #{ payment.try :id }")
       begin
         authorize_response = authorize
         log("Authorize Response: #{authorize_response.inspect}")
         if authorized_and_pending_capture?(authorize_response)
           Resque.enqueue_in(2.minute, Braspag::GatewaySenderWorker, payment.id)
-          log("Enqueued Braspag::GatewaySenderWorker with payment.id: #{payment.try :id}")
+          log("Enqueued Braspag::GatewaySenderWorker")
           @payment_successful = true
         else
           @payment_successful = false
@@ -25,6 +28,7 @@ module Payments
 
         payment
       rescue Exception => error
+        log("Error on sending payment [#{payment.id}] to Braspag")
         ErrorNotifier.send_notifier("Braspag", error, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
       ensure
@@ -37,7 +41,7 @@ module Payments
     end
 
     def update_gateway_info
-      log("Update Gateway Info for payment #{payment}")
+      log("Updating Gateway Info for payment")
       payment.gateway = Payment::GATEWAYS.fetch(:braspag)
       payment.gateway_response_status = Payment::SUCCESSFUL_STATUS
     end
@@ -47,19 +51,19 @@ module Payments
         # asure the payment will have an order.
         self.payment.reload
 
-        log("Processing payment request of order #{payment.order}")
+        log("Processing enqueued request for order #{payment.order.try(:id)}")
 
         authorize_response = BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code)
 
         order_analysis_service = OrderAnalysisService.new(self.payment, self.credit_card_number, authorize_response)
-        if order_analysis_service.should_send_to_analysis? 
-          log("Sending to analysis")
+        if order_analysis_service.should_send_to_analysis?
+          log("Sending to clearsale analysis")
           clearsale_order_response = order_analysis_service.send_to_analysis
-        else 
+        else
           log("Capturing transaction")
           capture(authorize_response)
         end
- 
+
       rescue Exception => error
         log("[ERROR] Error on processing enqueued request: " + error.message)
         ErrorNotifier.send_notifier("Braspag", error, payment)
@@ -78,7 +82,7 @@ module Payments
     def process_capture_request
       begin
         authorize_response = BraspagAuthorizeResponse.find_by_identification_code(self.payment.identification_code)
-        capture(authorize_response)    
+        capture(authorize_response)
       rescue Exception => error
         log("[ERROR] Error on capturing payment: " + error)
         ErrorNotifier.send_notifier("Braspag", error, payment)
@@ -97,14 +101,14 @@ module Payments
     end
 
     def authorize
-      log("Sending transaction for authorization")
+      log("Sending transaction for authorization.")
       gateway_response = web_service_data.authorize_transaction(authorize_transaction_data)
       log("Braspag::Webservice.authorize_transaction_data response: #{gateway_response.inspect}")
-      process_authorize_response(gateway_response)      
+      process_authorize_response(gateway_response)
     end
 
     def capture(authorize_response)
-      log("Sending to capture")
+      log("Sending to capture [AuthorizeId: #{ authorize_response.id }]")
       capture_response = web_service_data.capture_credit_card_transaction(create_capture_credit_card_request(authorize_response))
       log("Transaction capture response: #{authorize_response}")
       process_capture_response(capture_response,authorize_response)
@@ -181,7 +185,7 @@ module Payments
     end
 
     def process_authorize_response(authorize_response)
-      log("Processing authorize response #{authorize_response}")
+      log("Processing the authorize response")
 
       authorize_transaction_result = authorize_response[:authorize_transaction_response][:authorize_transaction_result]
       if authorize_transaction_result[:success]
@@ -190,17 +194,17 @@ module Payments
       else
         update_payment_response(Payment::FAILURE_STATUS, authorize_transaction_result[:error_report_data_collection].to_s)
         create_failure_authorize_response(authorize_transaction_result)
-      end    
+      end
     end
 
     def process_capture_response(capture_response, authorize_response)
-      
-      log("Processing capture response #{capture_response}")
 
-      if capture_response 
-        capture_transaction_result = capture_response[:capture_credit_card_transaction_response][:capture_credit_card_transaction_result] 
+      log("Processing the capture response #{capture_response}")
+
+      if capture_response
+        capture_transaction_result = capture_response[:capture_credit_card_transaction_response][:capture_credit_card_transaction_result]
         if capture_transaction_result[:success]
-          create_capture_response(capture_response, authorize_response.identification_code) # capture_transaction_result[:order_data][:order_id]) 
+          create_capture_response(capture_response, authorize_response.identification_code) # capture_transaction_result[:order_data][:order_id])
           update_payment_response(Payment::SUCCESSFUL_STATUS, capture_transaction_result[:transaction_data_collection][:transaction_data_response][:return_message])
           log("Created capture response on database, and payment status updated to SUCCESS")
         else
@@ -292,16 +296,5 @@ module Payments
           gateway_message: message
         )
     end
-
-    private 
-      def logger
-        @@logger ||= Logger.new("#{Rails.root}/log/braspag-sender.log")
-        @@logger
-      end
-
-      def log text
-        logger.info("#{Time.now} - [#{@payment.id}] - #{text}")
-      end
-
   end
 end

@@ -1,13 +1,13 @@
-<h2>Invites</h2>
+<h3>Convites</h3>
 <table class="table">
   <tr>
     <th>E-mail</th>
-    <th>Created at</th>
-    <th>Sent/resent at</th>
-    <th>Resubmitted?</th>
-    <th>Accepted at</th>
-    <th>Accepting user</th>
-    <th>IP address</th>
+    <th>Criado em</th>
+    <th>Enviado em</th>
+    <th>Reenviado?</th>
+    <th>Aceito em</th>
+    <th>Usuário aceitando</th>
+    <th>Endereço IP</th>
   </tr>
 
 <% user.invites.each do |invite| %>
@@ -15,7 +15,7 @@
     <td><%= invite.email %></td>
     <td><%= invite.created_at.to_s(:short) %></td>
     <td><%= invite.sent_at.try :to_s, :short %></td>
-    <td><%= invite.resubmitted ? 'Yes' : 'No' %></td>
+    <td><%= invite.resubmitted ? 'Sim' : 'Não' %></td>
     <td><%= invite.accepted_at.try :to_s, :short %></td>
     <td><%= invite.invited_member.nil? ? '-' : link_to(invite.invited_member.name, admin_user_path(invite.invited_member)) %></td>
     <td><%= invite.invited_member.try(:last_sign_in_ip)%></td>

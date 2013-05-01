@@ -1,9 +1,9 @@
 <% if params['from_sacola'] %>
 
-	$("table#items tbody").first().append("<%= escape_javascript( render partial: 'cart/items/row', 
-																							locals: { 
-																								cart_service: @cart_service, 
-																								item: @cart.items.last 
+	$("table#items tbody").first().append("<%= escape_javascript( render partial: 'cart/items/row',
+																							locals: {
+																								cart_service: @cart_service,
+																								item: @cart.items.last
 																							} ) %>");
 	$("table#products").last().fadeOut('slow');
 
@@ -13,13 +13,13 @@
   $('section#cart table.check.gift').css('border-top', 0);
 
 <% else %>
-  
+
   $("#cart_summary").show();
 
 <% end %>
 
 if ($("#cart_summary li.product_item[data-id=<%= @item.id %>]").length == 0) {
-  $("#cart_summary li.last").before("<%= escape_javascript( render partial: 'shared/cart_line_item', locals: {item: @item, hidden: true}) %>"); 
+  $("#cart_summary li.last").before("<%= escape_javascript( render partial: 'shared/cart_line_item', locals: {item: @item, hidden: true}) %>");
   $("#cart_summary li.product_item:last").fadeIn('slow');
 }
 
@@ -32,4 +32,5 @@ $("p.freight").next().hide();
 
 // Show / hide checkout banner
 $(".checkout_banner").remove();
+$("html, body").delay(300).animate({scrollTop: 0}, 'slow');
 $("#items").after("<%= escape_javascript(render 'cart/cart/checkout_banner') %>");

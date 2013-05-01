@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Setting.defaults[:abacos_integrate] = true
 Setting.defaults[:abacos_invetory] = true
 Setting.defaults[:invite_credits_available] = true
@@ -50,6 +51,7 @@ Setting.defaults[:recommended_products] = "11101"
 Setting.defaults[:default_item_quantity] = 10
 Setting.defaults[:home_top5] = "5044,5017,10022,4350,9406"
 Setting.defaults[:home_selection] = "5044,5017,10022,4350,9406"
+Setting.defaults[:home_concept] = "15930,8203,15894,16092,16098"
 
 #Showroom Settings
 Setting.defaults[:showroom_active_fb_like_buttons] = false
@@ -64,5 +66,26 @@ Setting.defaults[:featured_accessory_ids] = "13179,14082,13255,13173,13165"
 Setting.defaults[:featured_cloth_label] = "Roupas mais vendidas"
 Setting.defaults[:featured_cloth_ids] = "90004,90092,90326"
 
-# Image cache settings
-Setting.defaults[:image_expiration_period_in_days] = "1"
+# Featured products for the collection section ("Label|id#Label|id")
+Setting.defaults[:collection_section_featured_products] = "Teste|8554#|10226#Bla|11445#Categoria 1|11467#Categoria 2|11443#Lançamento!|11463"
+
+Setting.defaults[:use_vwo] = false
+
+Setting.defaults[:profile_users] = "nelson.haraguchi@olook.com.br,luis.daher@olook.com.br,rafael.manoel@olook.com.br,vinicius.monteiro@olook.com.br,tiago.almeida@olook.com.br,rafael.carvalho@olook.com.br,oliver.barnes@olook.com.br,thaiane.gazzi@olook.com.br"
+
+# format: YYYY-MM-DD
+Setting.defaults[:lower_limit_source_csv] = "2013-03-26"
+
+#Showroom pages (clothes)
+Setting.defaults[:cloth_showroom_moderna] = "91015,91127,90815,91325,90787"
+Setting.defaults[:cloth_showroom_casual] = "91209,91201,91163,90839,90791"
+Setting.defaults[:cloth_showroom_chic] = "91441,91417,90823,90751,91301"
+Setting.defaults[:cloth_showroom_sexy] = "90863,91293,91349,90947,91381"
+
+# Santander billet
+Setting.defaults[:santander_billet] = false
+Setting.defaults[:show_featured_products] = true
+
+Setting.defaults[:lightbox_coupon_code] = "WP1HYH1ABR13"
+Setting.defaults[:billet_summary_email] = "tiago.almeida@olook.com.br"
+Setting.defaults[:blacklisted_users] = "arte-1818@hotmail.com"

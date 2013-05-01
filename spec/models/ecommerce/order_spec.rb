@@ -142,6 +142,7 @@ describe Order do
 
     it "returns the freight delivery_time converted to a date" do
       Timecop.freeze do
+        order = FactoryGirl.create :order, :with_authorized_credit_card
         expect(order.expected_delivery_on.to_s).
           to eql(order.freight.delivery_time.business_days.from_now.to_s)
       end

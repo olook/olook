@@ -14,6 +14,7 @@ Olook::Application.routes.draw do
   get "/search/show", :to => "search#show", :as => "search_show"
   get "/search/q", :to => "search#q", :as => "search_query"
   get "/search", :to => "search#index", :as => "search_index"
+  get "/search/product_suggestions", :to => "search#product_suggestions", :as => "search_index"
 
   match '/404', :to => "application#render_public_exception"
   match '/500', :to => "application#render_public_exception"
@@ -43,16 +44,20 @@ Olook::Application.routes.draw do
   match "/tendencias/:name", :to => "lookbooks#show", :as => "lookbook"
   match "/tendencias", :to => "lookbooks#index", :as => "lookbooks"
 
+
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
   match "/promododia" , :to => "liquidations#index", :as => "promododia"
   match "/olooklet" , :to => "liquidations#index", :as => "olooklet"
 
-  #MOMENTS
-  get '/colecoes', to: "moments#index", as: "moments"
-  get '/colecoes/:id', to: "moments#show", as: "moment"
+  #NEW COLLECTIONS
+  get '/colecoes', to: "collection_themes#index", as: "collection_themes"
+  get '/colecoes/*slug', to: "collection_themes#show", as: "collection_theme"
+
+  # NEW COLLECTIONS - TODO
   get '/update_moment', to: "moments#update", as: "update_moment"
+
   # Friendly urls (ok, I know it is not the best approach...)
   match '/sapatos', to: "moments#show", as: "shoes", :defaults => {:category_id => Category::SHOE, :id => 1}
   match '/sneaker', to: "moments#show", as: "sneakers", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["sneaker"]}
@@ -66,11 +71,16 @@ Olook::Application.routes.draw do
   match '/scarpins', to: "moments#show", as: "scarpins", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["scarpin"]}
   match '/anabelas', to: "moments#show", as: "anabelas", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["anabela"]}
 
-
   match '/bolsas', to: "moments#show", as: "bags", :defaults => {:category_id => Category::BAG, :id => 1}
   match '/acessorios', to: "moments#show", as: "accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1}
   match '/oculos', to: "moments#glasses", as: "glasses", :defaults => {:category_id => Category::ACCESSORY, :accessory_subcategories=>["oculos-de-sol"], :id => 1}
   match '/roupas', to: "moments#clothes", as: "clothes", :defaults => {:category_id => Category::CLOTH, :id => 1}
+
+  # Novidades
+  match '/novidades/sapatos', to: "moments#show", as: "news_shoes", :defaults => {:category_id => Category::SHOE, :id => 1, news: true }
+  match '/novidades/roupas', to: "moments#show", as: "news_clothes", :defaults => {:category_id => Category::CLOTH, :id => 1, news: true }
+  match '/novidades/bolsas', to: "moments#show", as: "news_bags", :defaults => {:category_id => Category::BAG, :id => 1, news: true }
+  match '/novidades/accessorios', to: "moments#show", as: "news_accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1, news: true }
 
   #FRIENDS
   match "/membro/:share/:uid", :to => "home#index"
@@ -88,6 +98,7 @@ Olook::Application.routes.draw do
   match "/zanox", :to => "xml#zanox", :as => "zanox", :defaults => { :format => 'xml' }
   match "/sociomantic", :to => "xml#sociomantic", :as => "sociomantic", :defaults => { :format => 'xml' }
   match "/criteo", :to => "xml#criteo", :as => "criteo", :defaults => { :format => 'xml' }
+  match "/groovinads", :to => "xml#groovinads", :as => "groovinads", :defaults => { :format => 'xml' }
   match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
   match "/click_a_porter", :to => "xml#click_a_porter", :as => "click_a_porter", :defaults => { :format => 'xml' }
   match "/topster" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/topster_data.xml")
@@ -107,6 +118,7 @@ Olook::Application.routes.draw do
 
   #PRODUCT
   get "/produto/:id" => "product#show", :as => "product"
+  get "/produto/:id/spy" => "product#spy", as: 'spy_product'
   post "/produto/share" => "product#share_by_email", as: 'product_share_by_email'
 
   #VITRINE / INVITE
@@ -119,10 +131,6 @@ Olook::Application.routes.draw do
   post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
   get "membro/convidadas" => "members#invite_list", :as => 'member_invite_list'
   get "membro/vitrine", :to => "members#showroom", :as => "member_showroom"
-  get "membro/vitrine_roupas", :to => "members#showroom_clothes", :as => "member_showroom_clothes"
-  get "membro/vitrine_shoes", :to => "members#showroom_shoes", :as => "member_showroom_shoes"
-  get "membro/vitrine_bags", :to => "members#showroom_bags", :as => "member_showroom_bags"
-  get "membro/vitrine_accessories", :to => "members#showroom_accessories", :as => "member_showroom_accessories"
   get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"
   get "membro/ganhe-creditos", :to => "members#earn_credits", :as => "member_earn_credits"
   #get "membro/creditos", :to => "members#credits", :as => "member_credits"
@@ -201,7 +209,9 @@ Olook::Application.routes.draw do
       get :products, :to => "lookbooks#product"
     end
 
-    resources :moments
+    resources :collection_theme_groups
+
+    resources :collection_themes
 
     resources :users, :except => [:create, :new] do
       collection do
@@ -301,6 +311,10 @@ Olook::Application.routes.draw do
 
     get '/discounts' => 'discounts#index', as: :discounts
 
+    get "billet_batch/new", as: :new_billet_batch
+
+    post "billet_batch/create", as: :create_billet_batch
+
   end
 
   #USER / SIGN IN
@@ -341,6 +355,7 @@ Olook::Application.routes.draw do
   resource :cart, :path => 'sacola', :controller => "cart/cart", :except => [:create] do
     resources :items, :to => 'cart/items'
   end
+  # => Used by chaordic
   put 'sacola/:cart_id' => 'cart/cart#add_variants'
 
   resource :checkout, :path => 'pagamento', :controller => 'checkout/checkout' do
@@ -348,6 +363,7 @@ Olook::Application.routes.draw do
     get "preview_by_zipcode", :to => "checkout/addresses#preview", :as => :preview_zipcode
     resources :addresses, :path => 'endereco', :controller => "checkout/addresses"
     resources :login, :path=> "login", :controller => "checkout/login", :only => [:index]
+    resources :billets, path: "boletos", :controller => "checkout/billets", only: [:show]
   end
 
   #FINISH
@@ -364,6 +380,7 @@ Olook::Application.routes.draw do
   post "freight_price", :to => "freight_lookup#show"
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
+  get '/diadasmaes' , :controller =>'landing_pages', :action => 'mother_day' , :as => 'mother_day'
   get ":page_url", :to => "landing_pages#show"
 
 end

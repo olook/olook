@@ -9,7 +9,7 @@ function maskTel(tel){
 }
 
 var masks = {
-	cep: function(){
+  cep: function(){
 		$("input.zip_code").setMask({
 		  mask: '99999-999'
 		});
@@ -19,9 +19,14 @@ var masks = {
 			maskTel(tel);
 		});
 	},
+  card_brands: {
+    "Visa":"99999999999999999",
+    "Mastercard":"99999999999999999",
+    "Diners":"999999999999999"
+  },
 	card: function(){
 		$("input.credit_card_number").setMask('9999999999999999999')
-	}
+  }
 }
 
 
@@ -80,12 +85,21 @@ function setButton(){
 		return helpLeft2 = $('input.send_it').offset().left;
 }
 
+function showAboutSecurityCode(){
+	$("a.find_code").click(function(){
+		content = $("div.modal_security_code");
+    initBase.newModal(content);	
+	})
+}
+
 
 $(function() {
 	masks.card();
 	setButton();
 	masks.tel(".tel_contato1");
 	masks.tel(".tel_contato2");
+
+	showAboutSecurityCode();
 
   $(".credit_card").click(function()
       { $(".box-debito .debit_bank_Itau").removeClass("selected").siblings("input:checked").removeAttr("checked");
@@ -186,6 +200,7 @@ $(function() {
 	$.each(cards, function(){
 		$(this).bind('click',function(){
 			$("ol.cards li span, .box-debito .debit_bank_Itau").removeClass("selected").siblings("input:checked").removeAttr("checked");
+      $("input.credit_card_number").setMask(masks.card_brands[$(this).attr("class")]);
 			$(this).addClass("selected").siblings("input").attr('checked','checked');
 		});
 	});

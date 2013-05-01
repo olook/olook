@@ -1,10 +1,11 @@
 if($(".box-remember.success").length > 0){
-	w = 525, h = 175, ml = -(w/2), mt = -(h/2);
+	w = 520, h = 360, ml = -(w/2), mt = -(h/2);
 	parent.top.$("#modal-campaign").css({
 		"width"  	  : w +"px",
 		"height" 	  : h +"px",
 		"margin-top"  : mt+"px",
-		"margin-left" : ml+"px"
+		"margin-left" : ml+"px",
+		"overflow"	  : "hidden"	
 	}).delay(250).fadeIn();
 }else if($(".box-cadastro").length > 0){
 	w = 915, h = 420, ml = -(w/2), mt = -(h/2);
@@ -15,7 +16,7 @@ if($(".box-remember.success").length > 0){
 		"margin-left" : ml+"px"
 	}).delay(250).fadeIn();
 }else if($(".box-continue").length > 0){
-	w = 600, h = 185, ml = -(w/2), mt = -(h/2);
+	w = 600, h = 320, ml = -(w/2), mt = -(h/2);
 	parent.top.$("#modal-campaign").css({
 		"width"  	  : w +"px",
 		"height" 	  : h +"px",
@@ -23,7 +24,7 @@ if($(".box-remember.success").length > 0){
 		"margin-left" : ml+"px"
 	}).delay(200).fadeIn();
 }else{
-	w = 535, h = 385, ml = -(w/2), mt = -(h/2);
+	w = 535, h = 420, ml = -(w/2), mt = -(h/2);
 	parent.top.$("#modal-campaign").css({
 		"width"  	  : w +"px",
 		"height" 	  : h +"px",
@@ -60,7 +61,7 @@ $(function(){
 			checkEmail(e);
 	})
 	
-	$(".close, .btn-continue").bind("click", function(){
+	$(".close, .btn-continue, .close_pink").bind("click", function(){
 		parent.top.$("#modal-campaign,#overlay-campaign").fadeOut();
 		// _gaq.push(['_trackEvent', 'Modal', 'Close', '']);
 		if($(".dont_show").is(":checked")){
@@ -70,7 +71,7 @@ $(function(){
 	
 		
 	$("input[type=submit]").click(function(){
-		// _gaq.push(['_trackEvent', 'Modal', 'Submit', '']);
+		_gaq.push(['_trackEvent', 'Modal', 'Submit', '', , true]);
 		if(flag==true)
 			parent.top.$("#modal-campaign").fadeOut();
 		if($(".dont_show").is(":checked")){

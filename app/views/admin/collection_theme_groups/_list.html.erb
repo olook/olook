@@ -1,0 +1,22 @@
+  <table class="table" id="group_table">
+    <tr>
+      <th>id</th>
+      <th>Posição</th>
+      <th>Nome</th>
+      <th></th>
+      <th></th>
+    </tr>
+    <% @collection_theme_groups.each do |collection_theme_group| %>
+    <tr>
+      <td><%= "#{collection_theme_group.id}" %></td>
+      <td>
+        <%= form_for(collection_theme_group, method: :put, url: admin_collection_theme_group_path(collection_theme_group), remote: true) do |f| %>
+          <%= f.select(:position, options_for_select((1..10).to_a, selected: collection_theme_group.position),{}, onchange: "$(this).parents('form').submit();") %>
+        <% end %>
+      </td>
+      <td><%= "#{collection_theme_group.name}" %></td>
+      <td> <%= link_to 'Alterar', edit_admin_collection_theme_group_path(collection_theme_group), :class => 'button' %> </td>
+      <td> <%= link_to 'Destruir', admin_collection_theme_group_path(collection_theme_group), confirm: 'Tem certeza?', method: :delete, class: 'button danger', remote: true %>
+    </tr>
+    <% end %>
+  </table>
