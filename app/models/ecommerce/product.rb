@@ -436,7 +436,7 @@ class Product < ActiveRecord::Base
       product_ids = Setting.send("cloth_showroom_#{profile}").split(",")
       find_keeping_the_order product_ids
       # QUICK AND DIRTY. remove this pleeeeeease
-      products = Collection.active.products.where(category: Category::CLOTH).last(20)
+      # products = Collection.active.products.where(category: Category::CLOTH).last(20)
     end
   end
 
