@@ -1,6 +1,6 @@
 <% shoe_size = params[:shoe_sizes].to_a.find { |ss| !ss.blank? }.try(:to_i) || current_user.try(:shoes_size).try(:to_i) %>
 
-<%= cache(product.item_view_cache_key_for(shoe_size), expires_in: CACHE_KEYS[:product_item_partial][:expire]) do %>
+<%= cache(product.lite_item_view_cache_key_for(shoe_size), expires_in: CACHE_KEYS[:lite_product_item_partial][:expire]) do %>
   <li class="product<%= " promotion" if product.promotion? %>" data-id="<%= product.id %>">
     
     <%= link_to product, :class => "product_link", :rel => "#{product.id}", :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}}, :remote => (defined?(suggestion) || gift)  do %>
@@ -22,9 +22,10 @@
         </span>
       </p>  
       
-      <% if product.sold_out? %>
-        <p class="warn sold_out"><b>ESGOTADO!</b></p>
-      <% end %>
+      <%# if product.sold_out? %>
+        <!--p class="warn sold_out"><b>ESGOTADO!</b></p-->
+      <%# end %>
+      
       <% if product.promotion? && !product.sold_out? && product.discount_percent.to_i != 0 %>
         <p class="warn percentage"><span><%= product.discount_percent.to_i %>%</span><br />off</p>
       <% end %>
