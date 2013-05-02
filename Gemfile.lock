@@ -397,9 +397,7 @@ GEM
     rubinius-core-api (0.0.1)
     ruby-graphviz (1.0.8)
     ruby-hmac (0.4.0)
-
     ruby-progressbar (1.0.2)
-
     rubyzip (0.9.9)
     rufus-scheduler (2.0.17)
       tzinfo (>= 0.3.23)
