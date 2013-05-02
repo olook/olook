@@ -27,6 +27,8 @@
       <%= render :partial => "shared/metrics/vwo/tracking_code" %>
     <% end %>
 
+    <!-- Struq navigation pixel -->
+    <%= render :partial => "shared/metrics/struq/homepage" %>
 
     <%= yield :head %>
 
@@ -43,6 +45,9 @@
     <%= render 'shared/admin_label' if current_admin %>
 
     <div id="modal" class="promo-olook"></div>
+    <div id="modal-campaign"></div>
+    <div id="overlay-campaign"></div>
+
     <div id="error-messages">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
