@@ -21,12 +21,12 @@
 
     <div id="filters">
 
-      <% @models_by_category.each do |category, models| %>
+      <% @model_names.each do |category, models| %>
 
         <p><%= category %></p>
         <ul>
         <% models.each do |model,amount| -%>
-          <li><%= link_to model, "show?q=#{@q}&category=#{model}" %>(<%= @amount_by_model[model] %>)</li>
+          <li><%= link_to model, "show?q=#{@q}&category=#{model}" %>(<%= amount %>)</li>
         <% end -%>
         </ul> 
 
