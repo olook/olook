@@ -13,25 +13,19 @@ class SearchController < ApplicationController
     response = Net::HTTP.get_response(url)
     @hits = JSON.parse(response.body)["hits"]  
 
-    #### PROTOTYPE
-    @amount_by_model = {}
+
+    @model_names = {}
     @brands = {}
-    @models_by_category = {}
 
     @products = @hits["hit"].map do |hit| 
       data = hit["data"]
       brand = data["brand"][0].strip.capitalize
       model = data["categoria"][0].strip.capitalize
+      category = data["category"][0].strip.capitalize
 
       @brands[brand] = @brands[brand].to_i + 1
-      @amount_by_model[model] = @amount_by_model[model].to_i + 1
-     
-     
-      category = data["category"][0]
-      if category
-        @models_by_category[category] ||= Set.new
-        @models_by_category[category] << model
-      end
+      @model_names[category] ||= {}
+      @model_names[category][model] = @model_names[category][model].to_i + 1
 
       SearchedProduct.new(hit["id"].to_i, data)
     end
@@ -49,8 +43,8 @@ class SearchController < ApplicationController
   end
 
   class SearchUrlBuilder
-    # move it to a yml file
-    BASE_URL = Rails.env.production? ? "http://busca.olook.com.br/2011-02-01/search" : "http://search-test-olook-products-2ykpfrclwbu55oirdfgjmvuvsu.us-east-1.cloudsearch.amazonaws.com/2011-02-01/search"
+    SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
+    BASE_URL = SEARCH_CONFIG["search_domain"]
 
     def initialize term
       @term = term
@@ -60,8 +54,8 @@ class SearchController < ApplicationController
       query = "q=#{CGI.escape @term}"
       query += "&bq=categoria%3A'#{CGI.escape attributes[:category]}'" if attributes[:category]
       query += "&bq=brand%3A'#{CGI.escape attributes[:brand]}'" if attributes[:brand]
-      query += "&size=50"
-      URI.parse("#{BASE_URL}?#{query}&return-fields=categoria,name,brand,description,image,price,backside_image,category,text_relevance")
+      query += "&size=100"
+      URI.parse("http://#{BASE_URL}/2011-02-01/search?#{query}&return-fields=categoria,name,brand,description,image,price,backside_image,category,text_relevance")
     end
 
   end
