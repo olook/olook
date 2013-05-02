@@ -1,6 +1,7 @@
 class SearchController < ApplicationController
   respond_to :html
-
+  layout "lite_application"
+  
   def index
 
   end
