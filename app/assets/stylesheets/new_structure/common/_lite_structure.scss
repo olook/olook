@@ -116,14 +116,45 @@ header#new_header{border-top: 8px black solid;
         }
       }
       /*------ END USER MENU ----*/
+      
+      /*------ BOX LOGIN -------*/
+      .sign-in-dropdown {position: absolute;right: 0;top: 30px;z-index: 9999;background: #FFF;border: 1px solid #BBB;padding: 12px;width: 244px;
+       /* &.close {display: none;}*/
+        &.open {display: block;}
+      
+        form {margin-bottom: 15px;
+          fieldset {
+            label{display: block;font-size: 11px;font-weight: bold;margin: 2px 0;}
+            input {background: #FFF image-url('common/background-inputs.png') bottom repeat-x;border: 1px solid #BBB;padding: 6px 8px;width: 92%;
+            
+    					&#user_remember_me_login{width:auto;float:left;}	
+    					&#login{float:right;margin:-17px 0 0 65px;}
+    					&#user_password{margin-bottom:10px;}
+              &:focus {outline: none;}
+            }
+            
+      			&.buttons{
+    					label{font-weight:normal !important;width:103px;}
+    					a{font-size:11px;float:left;}
+              input[type=submit]{background: image-url('common/login.png') no-repeat;text-indent: -9999px;width: 74px;height: 31px;display: block;border: none;cursor: pointer;}
+              #user_remember_me_login{background:none;margin-right:5px;}  
+    				}
+          }
+        }
+        .login_with_facebook {padding: 10px 0 0 0;border-top: 1px #cfcfcf solid;
+          a.fb_login_button{background: image-url('common/fb-loggin-button.png') no-repeat;text-indent: -9999px;width: 194px;height: 25px;margin: 0 auto;display: block;}
+        }
+      }
+      /*------ END BOX LOGIN -------*/
+      
       .new_sacola{
-        a{text-decoration: none;display:block;height: 20px;background: image-url("common/nav/sprite_header.png") -119px -1px no-repeat;font-family: $johnston;font-size: 10px;margin-top: 45px;color: black;letter-spacing: 1px;padding:5px 0 5px 20px;clear:both;float:right;
+        a{text-decoration: none;display:block;height: 20px;background: image-url("common/nav/sprite_header.png") -119px -1px no-repeat;font-family: $johnston;font-size: 10px;margin-top: 15px;color: black;letter-spacing: 1px;padding:5px 0 5px 20px;clear:both;float:right;
            &.full{background: image-url("common/nav/sprite_header.png") -219px -32px no-repeat;}
         }
         span{font-family: $kepler;font-size: 10px;margin: 0;}
 
       }
-      #cart_summary{position:absolute;display:none;top:95px;right:0px;z-index:9999;width:304px;min-height:135px;max-height:388px;border:solid 1px #CCC;box-shadow:0 2px 5px #CCC;background:#FFF;padding:15px 0;
+      #cart_summary{position:absolute;display:none;top:105px;right:0px;z-index:9999;width:304px;min-height:135px;max-height:388px;border:solid 1px #CCC;box-shadow:0 2px 5px #CCC;background:#FFF;padding:15px 0;
          .scroll{max-height:297px;overflow-y:auto;padding:0 32px;
             li{
                &.product_item{border-top:solid 1px #CCC;margin-top:10px;color:#000;font-size:12px;padding-top:10px;
@@ -141,10 +172,15 @@ header#new_header{border-top: 8px black solid;
             a.finish{display:block;width:145px;height:45px;background: image-url('common/nav/sprite_header.png') 0 -141px no-repeat;font-size:0;line-height:0;margin-top:7px;}
          }
       }
-         p.credits{float:left;font-size:11px;color:$base_color;line-height:18px;
+      p.credits{float:left;font-size:11px;color:$base_color;line-height:18px;
          a{text-decoration:none;color:$base_color;
             &:hover{text-decoration:underline;}
          }
+      }
+      
+      .search_box{position: relative;float:right;margin-top: 15px;clear:both;
+        input[type="submit"]{position: absolute;background: image-url('common/nav/magnifier.png') no-repeat;width: 20px;height: 15px;left: 190px;text-indent: 9999px;border:none;margin-top: 7px;cursor: pointer;}
+        #search_product{float: left;border: solid 1px #cacaca;font-family: avenir, arial, sans-serif;font-size: 10px;width: 165px;height: 25px;line-height: 30px;color: #a7a9ab;text-align: left;padding-left: 10px;padding-right: 40px;text-transform: uppercase;}
       }
     }
 }
