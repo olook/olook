@@ -6,13 +6,11 @@ class IndexProductsWorker
   @queue = :product
 
   def self.perform
-    all_products=products_to_index.map do |product|
-      create_sdf_entry_for product
-    end
+    all_products = products_to_index.map { |product| create_sdf_entry_for product, 'add' }
+    all_products += products_to_remove.map {|product| create_sdf_entry_for product, 'delete'}
 
     flush_to_sdf_file all_products
-    upload_sdf_file
-  
+    upload_sdf_file 
   end
 
   private
@@ -24,35 +22,37 @@ class IndexProductsWorker
     end
 
 
-    def self.create_sdf_entry_for product
+    def self.create_sdf_entry_for product, type
 
       values = {
-        'type' => "add",
+        'type' => type,
         'version' => 1,
         'lang' => 'pt',
         'id' => product.id
       }
 
-      fields = {}
+      if type == 'add'
+        fields = {}
 
-      product.delete_cache
+        product.delete_cache
 
-      fields['name'] = product.name
-      fields['description'] = product.description
-      fields['image'] = product.main_picture.image_url(:catalog)
-      fields['backside_image'] = product.backside_picture
-      fields['brand'] = product.brand
-      fields['price'] = product.retail_price
-      fields['inventory'] = product.inventory
-      fields['category'] = product.category_humanize
+        fields['name'] = product.name
+        fields['description'] = product.description
+        fields['image'] = product.main_picture.image_url(:catalog)
+        fields['backside_image'] = product.backside_picture
+        fields['brand'] = product.brand
+        fields['price'] = product.retail_price
+        fields['inventory'] = product.inventory
+        fields['category'] = product.category_humanize
 
-      details = product.details.delete_if { |d| d.translation_token.downcase == 'salto/tamanho'}
+        details = product.details.delete_if { |d| d.translation_token.downcase == 'salto/tamanho'}
 
-      details.each do |detail|
-        fields[detail.translation_token.downcase.gsub(" ","_")] = detail.description
+        details.each do |detail|
+          fields[detail.translation_token.downcase.gsub(" ","_")] = detail.description
+        end
+
+        values['fields'] = fields
       end
-
-      values['fields'] = fields
       values      
     end
 
@@ -62,7 +62,11 @@ class IndexProductsWorker
     end
 
     def self.products_to_index
-      Product.where("collection_id = 20 and is_visible = 1").limit(10).select{|p| p.inventory > 0 && p.price > 0 && p.main_picture.try(:image_url)}
+      Product.where("collection_id = 20 and is_visible = 1").select{|p| p.inventory > 0 && p.price > 0 && p.main_picture.try(:image_url)}
+    end
+
+    def self.products_to_remove
+      Product.where("collection_id = 20 and is_visible = 0")
     end
 
 end
