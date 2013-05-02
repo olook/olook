@@ -99,7 +99,12 @@ class MembersController < ApplicationController
       @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
     end
     @recommended = RecomendationService.new(profiles: current_user.profiles)
-    @cloth = @recommended.products( category: Category::CLOTH, collection: @collection, limit: 10)
+    
+    # @cloth = @recommended.products( category: Category::CLOTH, collection: @collection, limit: 10)
+
+    # meia noite e nao tem roupas, entao improvisei
+    @cloth = Product.clothes_for_profile :casual
+
     @shoes = @recommended.products( category: Category::SHOE, collection: @collection)
     @bags = @recommended.products( category: Category::BAG, collection: @collection)
     @accessories = @recommended.products( category: Category::ACCESSORY, collection: @collection)
