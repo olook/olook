@@ -23,6 +23,7 @@ class IndexProductsWorker
 
 
     def self.create_sdf_entry_for product, type
+      type = "delete" if product.inventory == 0
 
       values = {
         'type' => type,
@@ -62,7 +63,7 @@ class IndexProductsWorker
     end
 
     def self.products_to_index
-      Product.where("collection_id = 20 and is_visible = 1").select{|p| p.inventory > 0 && p.price > 0 && p.main_picture.try(:image_url)}
+      Product.where("collection_id = 20 and is_visible = 1").select{|p| p.price > 0 && p.main_picture.try(:image_url)}
     end
 
     def self.products_to_remove
