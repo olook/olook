@@ -766,8 +766,10 @@ describe Product do
       it "deletes all product keys cache" do
         subject.variants.collect(&:description).each do |shoe_size|
           Rails.cache.should_receive(:delete).with("views/#{subject.item_view_cache_key_for(shoe_size)}")
+          Rails.cache.should_receive(:delete).with("views/#{subject.lite_item_view_cache_key_for(shoe_size)}")
         end
         Rails.cache.should_receive(:delete).with("views/#{subject.item_view_cache_key_for}")
+        Rails.cache.should_receive(:delete).with("views/#{subject.lite_item_view_cache_key_for}")
         subject.delete_cache
       end
     end
@@ -776,6 +778,7 @@ describe Product do
       subject { FactoryGirl.create(:bag) }
       it "deletes all product keys cache" do
         Rails.cache.should_receive(:delete).with("views/#{subject.item_view_cache_key_for}")
+        Rails.cache.should_receive(:delete).with("views/#{subject.lite_item_view_cache_key_for}")
         subject.delete_cache
       end
     end
