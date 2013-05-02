@@ -3,6 +3,9 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or ImageScience support:
   include CarrierWave::MiniMagick
+  # To optimize jpg images using jpegoptm
+  include Piet::CarrierWaveExtension
+
   # include CarrierWave::ImageScience
 
   # Choose what kind of storage to use for this uploader:
@@ -32,6 +35,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   # end
 
   process :strip
+  process :optimize
 
   version :thumb do
     process :quality => 80

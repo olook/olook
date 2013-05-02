@@ -11,11 +11,12 @@ class Admin::CollectionsController < Admin::BaseController
 
   def show
     @collection = Collection.find(params[:id])
-    @products = if params[:category] && params[:category][:id].present?
-                    @collection.products.where(category: params[:category][:id]).paginate(page: params[:page], per_page: 50)
-                else
-                    @collection.products.paginate(page: params[:page], per_page: 100)
-                end
+    @products = @collection.products
+  # @products = if params[:category] && params[:category][:id].present?
+  #                 @collection.products.where(category: params[:category][:id]).paginate(page: params[:page], per_page: 50)
+  #             else
+  #                 @collection.products.paginate(page: params[:page], per_page: 100)
+  #             end
     respond_with :admin, @collection
   end
 

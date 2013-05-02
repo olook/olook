@@ -50,7 +50,7 @@ describe CatalogSearchService do
     product.master_variant.price = 10.00
     product.master_variant.save!
     product
-  end  
+  end
 
   let(:basic_shoe_5) do
     product = (FactoryGirl.create :shoe_subcategory_name, description: "Bota").product
@@ -58,7 +58,7 @@ describe CatalogSearchService do
     product.master_variant.price = 30.00
     product.master_variant.save!
     product
-  end  
+  end
 
   let(:sold_out_shoe) do
     product = (FactoryGirl.create :shoe_subcategory_name, description: "Galocha").product
@@ -209,7 +209,7 @@ describe CatalogSearchService do
         products.should_not include(cp3)
       end
     end
-<<<<<<< HEAD
+
     context "price range" do
       it "returns values greater than the floor value" do
         cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
@@ -230,7 +230,7 @@ describe CatalogSearchService do
         products.should_not include(cp1)
         products.should include(cp2)
         products.should include(cp3)
-      end        
+      end
       it "returns values between the floor and ceil value" do
         cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
         cp2 = CatalogProductService.new(catalog, basic_shoe_2).save!.first
@@ -239,25 +239,27 @@ describe CatalogSearchService do
         products = CatalogSearchService.new(params).search_products
         products.should_not include(cp1)
         products.should_not include(cp2)
-        products.should include(cp3)        
-      end                
-=======
+        products.should include(cp3)
+      end
+    end
 
-    context "by active collection" do
-      before do
-        collection = FactoryGirl.create(:collection, :active)
-        inative_collection = FactoryGirl.create(:collection, :inactive)
-        basic_bag.update_attributes(collection: inative_collection)
-        @active_product = CatalogProductService.new(catalog, basic_shoe).save!.first
-        @inactive_product = CatalogProductService.new(catalog, basic_bag.reload).save!
-        params = {:id => catalog.id, news: true}
+    context "filtering by brand" do
+       before do
+        basic_shoe.update_attributes(brand: "Some brand")
+        basic_accessory.update_attributes(brand: "Other Brand")
+        @first_product = CatalogProductService.new(catalog, basic_shoe.reload).save!.first
+        @third_product = CatalogProductService.new(catalog, basic_accessory.reload).save!
+        @second_product = CatalogProductService.new(catalog, basic_bag).save!
+        params = {:id => catalog.id, brands: ["Some brand", "Other Brand"]}
         @products = CatalogSearchService.new(params).search_products
       end
 
-      it { expect(@products).to include(@active_product) }
-      it { expect(@products).to_not include(@inactive_product) }
+      context "when a brand was give the returned products" do
+        it { expect(@products).to include(@first_product) }
+        it { expect(@products).to include(@third_product) }
+        it { expect(@products).to_not include(@second_product) }
+      end
 
->>>>>>> new_showroom
     end
   end
 end

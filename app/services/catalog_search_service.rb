@@ -6,8 +6,11 @@ class CatalogSearchService
     @l_products = Catalog::Product.arel_table
     @query_base = @l_products[:catalog_id].eq(@params[:id])
                   .and(@l_products[:inventory].gt(0))
-                  .and(Product.arel_table[:is_visible].eq(true))
                   .and(Variant.arel_table[:inventory].gt(0))
+
+    unless params[:admin]
+      @query_base = @query_base.and(Product.arel_table[:is_visible].eq(true))
+    end
 
     if @liquidation = LiquidationService.active
       @query_base = @query_base.and(LiquidationProduct.arel_table[:product_id].eq(nil))
@@ -43,7 +46,8 @@ class CatalogSearchService
     @query = prepare_query_joins
 
     add_category_filter_to_query_base
-    add_collection_filter_to_query_base
+    add_brand_filter_to_query_base
+
     @query = @query.where(@query_base)
   end
 
@@ -75,8 +79,8 @@ class CatalogSearchService
     @query_base = @query_base.and(l_products[:category_id].in(@params[:category_id])) if @params[:category_id]
   end
 
-  def add_collection_filter_to_query_base
-    @query_base = @query_base.and(Product.arel_table[:collection_id].eq(Collection.active.id)) if @params[:news]
+  def add_brand_filter_to_query_base
+    @query_base = @query_base.and(Product.arel_table[:brand].in(@params[:brands])) if @params[:brands]
   end
 
   def compact_category_queries
