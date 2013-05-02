@@ -68,7 +68,15 @@ filter.endlessScroll = function(window, document){
    }
 }
 filter.submitAndLoad = function(){
-  $("form#filter").submit(function() {
+  $("form#filter").bind('ajax:before', function() {
+    var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?';
+    newURL += $(this).serialize();
+    if(window.history.pushState) {
+      window.history.pushState('', '', newURL);
+    } else {
+      window.location = newURL;
+      return false;
+    }
     $('.loading').show();
     var selected_sort = $("select#filter_option").val() ;
     $('#sort_filter').val(selected_sort);
