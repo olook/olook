@@ -259,8 +259,6 @@ describe CatalogSearchService do
         it { expect(@products).to include(@third_product) }
         it { expect(@products).to_not include(@second_product) }
       end
-
-
     end
   end
 end
