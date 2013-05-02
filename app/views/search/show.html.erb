@@ -20,12 +20,17 @@
   <% if @show_filters -%>
 
     <div id="filters">
-      <p>Categorias</p>
-      <ul>
-      <% @categories.each do |category,amount| -%>
-        <li><%= link_to category, "show?q=#{@q}&category=#{category}" %>(<%= amount %>)</li>
-      <% end -%>
-      </ul>
+
+      <% @models_by_category.each do |category, models| %>
+
+        <p><%= category %></p>
+        <ul>
+        <% models.each do |model,amount| -%>
+          <li><%= link_to model, "show?q=#{@q}&category=#{model}" %>(<%= @amount_by_model[model] %>)</li>
+        <% end -%>
+        </ul> 
+
+      <% end %>
 
       <p>Marcas</p>
       <ul>
@@ -36,9 +41,11 @@
     </div>
   <% end %>
 
+    <div id="search_result">
     <% @products.each do |product| %>
       <%= render "shared/searched_product_item", product: product%>
     <% end %>
+    </div>
   <% end %>
 </div>
 

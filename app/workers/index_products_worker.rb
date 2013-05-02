@@ -3,14 +3,7 @@ class IndexProductsWorker
   @queue = :product
 
   def self.perform
-    products = Product.where("collection_id = 20 and is_visible = 1").select{|p| p.inventory > 0}
-
-    all_products=[]
-    products.each do |product|
-      main_pic = product.main_picture
-      if main_pic.nil?
-        next
-      end
+    all_products=products_to_index.map do |product|
 
       values = {
         'type' => "add",
@@ -40,21 +33,22 @@ class IndexProductsWorker
       end
 
       values['fields'] = fields
-
-      all_products << values
+      values
     end
 
     File.open("base.sdf", "w:UTF-8") do |file| 
-
-      # all_products.each do |prod|
-      #   file << prod.to_json
-      # end
-
       file << all_products.to_json
     end
 
     puts "Finished"
+    # TODO: upload base.sdf to amazon 
   
   end
+
+  private
+
+    def self.products_to_index
+      Product.where("collection_id = 20 and is_visible = 1").select{|p| p.inventory > 0 && p.price > 0 && p.main_picture.try(:image_url)}
+    end
 
 end
