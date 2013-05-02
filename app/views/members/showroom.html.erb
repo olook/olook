@@ -95,7 +95,7 @@
         <%= render 'shared/lite_product_item', product: product %>
       <%- end -%>
     </ul>
-    
+
     <%= content_tag(:p, link_to("+ ver mais sapatos +", news_shoes_path, :class => "more shoes", :onclick => track_event("Showroom", "SeeMore", "Shoes"), :rel => "follow"), class:"see-more")%>
   </section>
 
@@ -213,7 +213,7 @@
     <script type="text/javascript">
     setTimeout(function() {
       $("img.profile-quiz").trigger('click');
-    }, 2000);
+    }, 1500);
     </script>
   <% end %>  
 
