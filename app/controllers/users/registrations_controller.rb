@@ -103,7 +103,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if !resource.half_user
       resource.registered_via = User::RegisteredVia[:quiz]
     else
-      if @cart.has_gift_items?
+      if @cart.try(:has_gift_items?)
         resource.registered_via = User::RegisteredVia[:gift]
       else
         resource.registered_via = User::RegisteredVia[:thin]
@@ -133,16 +133,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
     session["devise.facebook_data"] = nil
     session[:invite] = nil
 
-    @cart.update_attributes(:user_id => resource.id)
+    if @cart
+      @cart.update_attributes(:user_id => resource.id)
 
-    if @cart.has_gift_items?
-      GiftOccasion.find(session[:occasion_id]).update_attributes(:user_id => resource.id) if session[:occasion_id]
-      GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => resource.id) if session[:recipient_id]
+      if @cart.has_gift_items?
+        GiftOccasion.find(session[:occasion_id]).update_attributes(:user_id => resource.id) if session[:occasion_id]
+        GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => resource.id) if session[:recipient_id]
+      end
+
+      return new_checkout_path if @cart.items_total > 0
     end
 
-    if @cart.items_total > 0
-      new_checkout_path
-    elsif resource.half_user && resource.male?
+    if resource.half_user && resource.male?
       gift_root_path
     else
       member_welcome_path

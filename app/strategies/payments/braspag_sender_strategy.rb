@@ -23,6 +23,7 @@ module Payments
           log("Enqueued Braspag::GatewaySenderWorker")
           @payment_successful = true
         else
+          encrypt_credit_card_number
           @payment_successful = false
         end
 
@@ -89,8 +90,7 @@ module Payments
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => payment)
         raise error
       ensure
-        payment.encrypt_credit_card
-        payment.save!
+        encrypt_credit_card_number
       end
     end
 
@@ -296,5 +296,12 @@ module Payments
           gateway_message: message
         )
     end
+
+    private
+      def encrypt_credit_card_number
+        payment.encrypt_credit_card
+        payment.save!
+      end
+
   end
 end

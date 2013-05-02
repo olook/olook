@@ -61,6 +61,7 @@ group :production, :staging do
   gem 'yui-compressor'
 end
 
+gem 'piet'
 gem 'rack-mini-profiler', group: :staging
 
 group :development, :test do
@@ -92,6 +93,7 @@ group :development, :test do
   gem 'spork', '~> 0.9.2'
   gem 'guard-rspec'
   gem 'guard-spork'
+  gem 'fuubar'
   gem 'launchy'
   gem 'vcr', '1.11.3'
   gem 'fakeweb'

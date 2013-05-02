@@ -2,20 +2,24 @@
 @import 'new_structure/partials/lite_boxes_home';
 
 
-#showroom{margin-bottom:50px;display:inline-block;position:relative;
+#showroom{margin-bottom:50px;display:inline-block;/*position:relative;*/
   a{color:#000;text-decoration:none;}
 }
 
-.user-info{overflow:hidden;
-  #profile{float:left;color:#000;position:relative;
+.user-info{overflow:hidden;position:relative;
+  #profile{display:inline-block;color:#000;position:relative;float:left;
     .photo{float:left;margin-right:11px;
       p{width:105px;height:105px;background: image-url('showroom/sprite.png') no-repeat 0 0;text-indent:-9999em;}
-
+      
       a{display:block;width:100px;height:30px;background: image-url('showroom/sprite.png') no-repeat -106px 0;text-indent:-9999em;margin:5px 0 0 2px;} 
+      
+      .avatar{border:solid 1px #000;width:90px;height:90px;padding:5px;
+        img{width:90px;height:90px;}
+      }
     }
 
-    .description{float:left;width:430px;margin-right:20px;
-      p{font-size:13px;
+    .description{float:left;width:430px;margin-right:16px;
+      p{font-size:13px;line-height:24px;
         &.name{font-size:19px;text-transform:uppercase;margin-bottom:10px;line-height:25px;}
         a{color:$base_color;text-decoration:underline;}
       }
@@ -26,24 +30,34 @@
     a{display:block;width:400px;height:80px;}
   }
   
-  #mask_carousel_facebook{width:429px;height:86px;float:left;margin-top:40px;text-align:center;
-    .caroufredsel_wrapper{float:left !important;margin:0 5px !important;
-      li{float:left;margin-right:10px !important;}
+  #mask_carousel_facebook{display:inline-block;margin-top:2px;position:relative;width:427px;height:86px;text-align:center;
+   .caroufredsel_wrapper{ display:inline-block;/*float:left !important;*/margin:0 5px !important;
+      li{float:left;;margin-right:5px !important;}
     }
+    p{float:left;font-family:$avenir_medium;text-transform:uppercase;font-size:12px;font-weight:bold;display:inline-block !important;margin:0 0 4px 20px;color:#000;}
     a{
-      &.invite-more{clear:both;font-family:$avenir-medium;text-transform:uppercase;font-size:12px;font-weight:bold;display:block;
-        &:hover{color:$base_color;}
-      }
-      &.carousel-prev-fb, &.carousel-next-fb{float:left;font-size:0;margin-top:10px;line-height:0;display:block;width:22px;height:25px;
+      &.invite-more{clear:both;font-family:$avenir;font-size:12px;display:inline-block !important;text-decoration:underline;color:$base_color;float:left;margin-left:20px;}
+      &.carousel-prev-fb, &.carousel-next-fb{position:absolute;top:35px;font-size:0;line-height:0;display:block;width:22px;height:25px;
       background: image-url('showroom/sprite.png') no-repeat -104px -56px;}
-      &.carousel-next-fb{background: image-url('showroom/sprite.png') no-repeat -105px -79px;}
+      &.carousel-prev-fb{left:-2px;}
+      &.carousel-next-fb{right:0;background: image-url('showroom/sprite.png') no-repeat -105px -79px;}
     }
   }
 }
 
-img.profile-quiz{position:absolute;display:none;top:70px;left:300px;z-index:999;}
+img.profile-quiz{position:absolute;display:none;top:284px;left:735px;z-index:999;cursor:pointer;}
 
-div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;margin-top:50px;clear:both;text-align:center;
+#profile_quiz{background: #FFFFFF;display: none;height: 546px;width:930px;overflow: hidden;
+  .share{overflow:hidden;height:20px;font-size: 13px;float:right;color:#000;text-transform:uppercase;margin:15px 0;
+    p,iframe{float:left;margin-right:10px;}
+    iframe{width:90px;}
+  }
+  .new_survey, .me{display:block;float:left;text-indent:-9999em;margin-top:20px;}
+  .new_survey{background: image-url('common/try-again.jpg') no-repeat;width: 301px;height: 59px;margin-left:200px;}
+  .me{display:block;background: image-url('common/its-me.png') no-repeat;width: 179px;height: 59px;margin-left: 20px;}
+}
+
+div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;margin-top:60px;clear:both;text-align:center;
   p{background:#FFF;padding:10px;display:inline-block;position:absolute;left:33%;top:-18px;
     span{background:#000;font-family:$avenir_medium;font-size:23px;text-transform:uppercase;color:#FFF;padding:7px 7px 0;}
   }
@@ -65,7 +79,7 @@ div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;ma
       &:nth-child(5n){margin-right:0;}
       &:hover{.spy{visibility:visible;}}
 
-      a{font-size:13px;display:inline-block;
+      a{font-size:13px;/*display:inline-block;*/
         &.spy{visibility:hidden;position:absolute;bottom:80px;left:0;height:32px;width:100%;background:image-url('common/bg-spy.png');font-size:13px;text-transform:uppercase;text-align:center;
           font-weight:bold;letter-spacing:1px;line-height:32px;z-index:10;
           span{display:inline-block;height:30px;line-height:30px;padding-right:30px;background:image-url('moments/sprite.png') no-repeat right -178px;
@@ -73,7 +87,7 @@ div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;ma
           }
         }
       
-        p{
+        p{margin-top:20px;
           span,strong{overflow:hidden;/*display:inline-block;*/height:18px;
             &.brand{text-transform:uppercase;}
             &.name{float:left;clear:both;}
@@ -87,10 +101,11 @@ div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;ma
               span{font-size:14px;font-weight:normal;}
             }
           }
-          &:hover{color:$base_color;}
+          
         }  
-        img{width:100%;height:auto;}
-        
+        img{width:100%;height:auto;
+          &.async{widht:170px;height:170px;}
+        }
       }
     
       ul.color_list li{width:15px;display:inline-block;margin:5px 3px 0 0;
@@ -110,33 +125,7 @@ div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;ma
   }
 }
 
-/*************** 
-= MODAL ESPIAR =
-***************/
-
-#modal{
-  background-color: #fff;
-  border: 10px solid #000;
-  width:1000px;
-  /*height:620px;*/
-  position: absolute;
-  top:100px;
-  left:50%;
-  margin: 0 0 0 -480px;
+.box_invite {
   display:none;
-  z-index:100000;
-  overflow:hidden;
-
-  #close_quick_view{
-    cursor: pointer;
-    font-size: 20px;
-    position: absolute;
-    background: image-url('common/close_dialog.png') no-repeat;
-    text-indent: -9999px;
-    width: 30px;
-    height: 30px;
-    top: -17px;
-    right: -17px;
-    z-index: 100;
-  }
 }
+

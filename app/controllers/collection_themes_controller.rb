@@ -12,7 +12,7 @@ class CollectionThemesController < ApplicationController
   end
 
   def show
-    return redirect_to collection_themes_url unless @collection_theme.active
+    return redirect_to collection_themes_url if !current_admin && !@collection_theme.active
     @chaordic_user = ChaordicInfo.user current_user
   end
 
@@ -47,7 +47,7 @@ class CollectionThemesController < ApplicationController
         # Não podemos apagar o shoe_sizes do params pois na partial dos filtros checa por eles.
         # Esse comportamento é necessário para não filtrar pelo número do usuário quando ele
         # desselecionou no form. E não selecionar no partial.
-        catalog_search_service_params = params.merge({id: @collection_theme.catalog.id})
+        catalog_search_service_params = params.merge({id: @collection_theme.catalog.id, admin: !current_admin.nil?})
         catalog_search_service_params.delete(:shoe_sizes) if params[:shoe_sizes].to_a.all? { |ss| ss.blank? }
         @catalog_search_service = CatalogSearchService.new(catalog_search_service_params)
         @catalog_products = @catalog_search_service.search_products
