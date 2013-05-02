@@ -2,18 +2,19 @@ showroom = s = {} || null;
 
 $(function(){
   s.init();
-})
+});
 
 showroom = s = {
 
   init: function(){
     s.openModal();
     s.changeImage();
-    s.changeImage();
     s.replaceImages();
     s.modalEspiar();
     s.facebookCarousel();
     s.showProfile();
+    s.attachFacebookShareCLick();
+    s.showModalProfile();
   },
   
   openModal: function(){
@@ -26,32 +27,44 @@ showroom = s = {
       checked = $(this).is(":checked");
       $.post("/user_liquidations", { 'user_liquidation[dont_want_to_see_again]': checked });
     });
-
   },
   
   facebookCarousel: function(){
-    try{
-      $("div#mask_carousel_facebook ul").carouFredSel({
-        auto: false,
-        height: 55,
-        width: 350,
-        align: 'left',
-        prev : {
-          button : ".carousel-prev-fb"
-        },
-        next : {
-          button : ".carousel-next-fb"
+    if($("#friends-face").length > 0){
+      $("#friends-face").carouFredSel({
+        auto  : false,
+        prev  : "#prev-button",
+        next  : "#next-button",
+        items	: {
+        	width	 : 55,
+        	height : 55
         }
       });
-    }catch(e){}
+    }
   },
   
   showProfile: function(){
-    $(".description .show-profile").on("mouseenter",function() {
+    $(".description .show-profile, img.profile-quiz").on("mouseenter", function() {
       $("img.profile-quiz").show();
     }).on("mouseleave", function() {
       $("img.profile-quiz").hide();
     });
+  },
+  
+  showModalProfile: function(){
+    $("img.profile-quiz, a.show-profile").on("click", function(e){
+      container = $('div#profile_quiz img');
+      profile = container.attr('class');
+      container.attr('src', 'http://cdn-app-staging-0.olook.com.br/assets/profiles/big_'+profile+'.jpg');
+      
+      var content = $("div.box-profile");
+      var clone = content.clone().addClass('clone');
+      
+      $("#showroom").append(clone);
+      
+      o.newModal(content);
+      e.preventDefault();
+    })
   },
   
   changeImage: function(){
@@ -73,10 +86,7 @@ showroom = s = {
         s.checkProductQuantity(productBox, quantityBox, quantity);
       }
     });
-
   },
-  
-
   
   modalEspiar: function(){
     $("li.product a.spy").click(function(e){
@@ -124,6 +134,10 @@ showroom = s = {
         $(this).attr('src', image);
     });
 
+  },
+
+  attachFacebookShareCLick: function() {
+    $('#facebook_share').click(postToFacebookFeed);
   }
-  
+
 }

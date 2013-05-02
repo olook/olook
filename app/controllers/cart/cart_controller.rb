@@ -14,6 +14,16 @@ class Cart::CartController < ApplicationController
     @lookbooks = Lookbook.active.all
     @suggested_product = find_suggested_product
     @chaordic_cart = ChaordicInfo.cart @cart, current_user
+
+    @promo_over_coupon = false
+    if @cart && @cart.coupon && !@cart.items.empty?
+      if @cart.coupon.should_apply_to? @cart
+        @promo_over_coupon = true if @cart.items.any? { |i| i.liquidation? }
+      else
+        @cart.remove_coupon!
+        @promo_over_coupon = true
+      end
+    end
   end
 
   def destroy
@@ -35,9 +45,11 @@ class Cart::CartController < ApplicationController
   def update
     coupon = Coupon.find_by_code(params[:cart][:coupon_code])
 
-    unless should_apply?(coupon, @cart)
-      params[:cart].delete(:coupon_code)
-      render :error, :locals => { :notice => "A promoção é mais vantajosa que o cupom" }
+    if coupon
+      unless coupon.should_apply_to? @cart
+        params[:cart].delete(:coupon_code)
+        render :error, :locals => { :notice => "A promoção é mais vantajosa que o cupom" }
+      end
     end
 
     unless @cart.update_attributes(params[:cart])
@@ -58,11 +70,4 @@ class Cart::CartController < ApplicationController
       products = Product.find ids
       products.delete_if {|product| product.inventory < 1}
     end
-
-
-    def should_apply?(coupon, cart)
-      return true if coupon.nil?
-      coupon.should_apply_to? cart
-    end
-
 end

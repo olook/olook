@@ -11,7 +11,7 @@
     <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => @products_id } %>
   <% end %>
   <div id="moments" class="content">
-    <%= collection_theme_presenter.display_nav_bar %>
+    <%#= collection_theme_presenter.display_nav_bar %>
     <%= collection_theme_presenter.render_search_form %>
     <div id="products_container">
       <!-- local onde o viewpersonalized será exibido -->
@@ -34,5 +34,6 @@
   </div>
   <%= msn_tags %>
   <%= render "shared/metrics/sociomantic/products", :products => @catalog_products,:categories_id => @categories_id %>
+  <%= render "shared/metrics/struq/product_list", :products => @catalog_products %>  
   <%= render "shared/metrics/nextperformance/category", category_id: @category_id %>
 <% end %>

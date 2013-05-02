@@ -3,7 +3,8 @@
     <%- [
       { link: new_survey_path, image: "home/destaques_quiz_carol_ribeiro.jpg" },
       { link: collection_theme_path("diadasmaes"), image: "home/destaque_home_dia_das_maes_2013.jpg" },
-      { link: lookbook_path("olook-concept"), image: "home/destaque_olookconcept.jpg" },
+      { link: brands_path, image: "home/destaques_novas_marcas_2.jpg"},
+      { link: collection_theme_path("spike"), image: "home/destaque_spikes.jpg" },
     ].each_with_index do |item, index| %>
       <li>
         <%= link_to( image_tag(item[:image]), item[:link], onclick: track_event('Carrossel',"Banner#{index+1}") ) %>

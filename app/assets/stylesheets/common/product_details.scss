@@ -308,12 +308,15 @@
                 font-weight: normal;
                 line-height: 28px;
                 text-align: center;
-                width: 29px;
+                min-width: 29px;
                 height: 28px;
                 display: inline-block;
                 cursor: pointer;
                 input[type="radio"] {
                   display: none;
+                }
+                span {
+                  font-size: 10px;
                 }
               }
             }
