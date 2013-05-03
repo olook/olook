@@ -1,4 +1,7 @@
-<% @catalog_products.each do |cp| %>
+<% @catalog_products.each_with_index do |cp,index| %>
   <%= render "shared/product_item", :product => cp.product %>
+  <% if generate_separator?(params,cp,@catalog_products,index) %>
+  <div>separador</div>
+  <% end %>
 <% end %>
 <%= raw(I18n.t("product_not_found")) if @catalog_products.empty? %>
