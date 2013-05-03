@@ -25,6 +25,10 @@
 		position: relative;
 	}
     section#stylist_selection{
+      .product{
+        margin-left: 5px;
+        width: 235px;
+      }
       a{
         color: #000;
         text-decoration: none;
