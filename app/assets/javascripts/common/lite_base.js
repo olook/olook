@@ -11,6 +11,7 @@ olook = o = {
       o.myAccountMenu(); 
       o.showSlideToTop();
       o.slideToTop();  
+      o.boxLogin();
   },
   
   menu: function(){
@@ -54,6 +55,27 @@ olook = o = {
       }
       event.preventDefault();
       event.stopPropagation();
+    });
+  },
+  
+  boxLogin: function() {
+    $('p.new_login a.trigger').click(function(e){
+      $("div.sign-in-dropdown").fadeIn();
+      $("div.sign-in-dropdown form input#user_email").focus();
+    
+      $('body').on('click', function(e){
+        if($('.sign-in-dropdown').is(':visible')){
+          $('.sign-in-dropdown').fadeOut();
+        }
+        e.stopPropagation();
+      });
+      
+      $('.sign-in-dropdown').on('click', function(e){
+        e.stopPropagation();
+      })
+
+      e.stopPropagation();
+      e.preventDefault();  
     });
   },
   

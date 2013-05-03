@@ -1,7 +1,7 @@
 @import 'new_structure/common/global_stuffs';
 /*--------------
 ==== MIXINS ====
-----------------*/
+----------------*//*
 @mixin sign-in($position: absolute) {
   .sign-in-dropdown {background: #FFF;border: 1px solid #BBB;padding: 12px;position: $position;right: 0;top: 30px;z-index: 9999;width: 244px;
 
@@ -32,7 +32,7 @@
     @extend .sign-in-dropdown;
   }
 }
-
+*/
 /*------------------
 ==== CSS RESET ====
 ------------------*/
@@ -118,8 +118,8 @@ header#new_header{border-top: 8px black solid;
       /*------ END USER MENU ----*/
       
       /*------ BOX LOGIN -------*/
-      .sign-in-dropdown {position: absolute;right: 0;top: 30px;z-index: 9999;background: #FFF;border: 1px solid #BBB;padding: 12px;width: 244px;
-       /* &.close {display: none;}*/
+      .sign-in-dropdown {display: none;position: absolute;right: 0;top: 30px;z-index: 9999;background: #FFF;border: 1px solid #BBB;padding: 12px;width: 244px;
+        /*&.close {display: none;}*/
         &.open {display: block;}
       
         form {margin-bottom: 15px;

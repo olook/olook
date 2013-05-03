@@ -3,18 +3,19 @@
 <% end %>
 
 <div class="search">
-  <h1>RESULTADO DE BUSCA</h1>
+  
   <% if @hits["found"] == 0 %>
+    <h1>RESULTADO DE BUSCA</h1>
     <h2>Poxa, ainda não temos <span><%= @q%></span> :( </br>Como sempre chegam novidades, logo mais devemos ter o que você procura por aqui. Fique ligada! ;)</h2>
     <p class="hints">Sugestões para uma próxima busca:</p>
-    <ul>
+    <ul class="hint-list">
       <li class="hint_one">Verifique se a ortografia está correta;</li>
       <li class="hint_two">Tente palavras mais genéricas;</li>
       <li class="hint_three">Ou palavras diferentes, com o mesmo significado;</li>
       <li class="hint_four">E remova aspas ou sinais de mais: isso restringe a possibilidade de resultados.</li>
     </ul>
   <% else %>
-    <h2>Encontramos <%= @hits["found"] %> produtos para você.</h2>
+    <h2 class="title-founded">Legal! Temos <span><%= @hits["found"] %></span> opções de <span><%= @q%></span> para você :)</h2>
 
 
   <% if @show_filters -%>
@@ -23,28 +24,30 @@
 
       <% @model_names.each do |category, models| %>
 
-        <p><%= category %></p>
-        <ul>
+        <p class="title-category"><%= category %></p>
+        <ul class="subcategory-list">
         <% models.each do |model,amount| -%>
-          <li><%= link_to model, "show?q=#{@q}&category=#{model}" %>(<%= amount %>)</li>
+          <li><%= link_to "#{model} (#{amount})", "show?q=#{@q}&category=#{model}" %></li>
         <% end -%>
         </ul> 
 
       <% end %>
 
-      <p>Marcas</p>
-      <ul>
+      <p class="title-category">Marcas</p>
+      <ul class="subcategory-list">
       <% @brands.each do |brand,amount| -%>
-        <li><%= link_to brand, "show?q=#{@q}&brand=#{brand}" %>(<%= amount %>)</li>
+        <li><%= link_to "#{brand} (#{amount})", "show?q=#{@q}&brand=#{brand}" %></li>
       <% end -%>
       </ul>
     </div>
   <% end %>
 
     <div id="search_result">
-    <% @products.each do |product| %>
-      <%= render "shared/searched_product_item", product: product%>
-    <% end %>
+      <ul class="search-results-list">  
+        <% @products.each do |product| %>
+          <%= render "shared/searched_product_item", product: product%>
+        <% end %>
+      </ul>
     </div>
   <% end %>
 </div>
