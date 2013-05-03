@@ -1,4 +1,4 @@
- # -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 module ProductsHelper
   def variant_classes(variant, shoe_size = nil)
     classes = []
@@ -61,5 +61,19 @@ module ProductsHelper
 
   def sku_for product
     product.master_variant.sku
+  end
+
+  def generate_separator?(params, product, catalog_products, index)
+    page = catalog_products.current_page
+    if params[:brands] && params[:brands].include?(product.brand)
+      if index < 11
+        return true unless params[:brands].include?(catalog_products[index+1].brand)        
+      elsif page == catalog_products.total_pages
+        return true
+      else
+        return true unless params[:brands].include?(catalog_products.page(page+1).first.brand)
+      end      
+    end
+    false
   end
 end
