@@ -64,12 +64,20 @@ filter.endlessScroll = function(window, document){
    }
 }
 filter.submitAndScrollUp = function(){
-  $("form#filter").submit(function() {
+  $("form#filter").bind('ajax:before', function() {
     if($('input[name="shoe_sizes[]"]:checked').length == 0) {
       if($(this).find('.hidden_shoe_sizes').length == 0)
         $(this).append('<input type="hidden" name="shoe_sizes[]" value="" class="hidden_shoe_sizes" />');
     } else {
       $(this).find('.hidden_shoe_sizes').remove();
+    }
+    var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?';
+    newURL += $(this).serialize();
+    if(window.history.pushState) {
+      window.history.pushState('', '', newURL);
+    } else {
+      window.location = newURL;
+      return false;
     }
     $('.loading').show();
     $('#category_filters').find('ol, .arrow, .clear_filter').hide();
@@ -91,7 +99,6 @@ filter.seeAll = function(){
          $(this).parent().submit();
          filter.submitAndScrollUp();
       })
-
    });
 }
 filter.selectedFilter = function(){
