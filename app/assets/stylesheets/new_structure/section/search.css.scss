@@ -1,21 +1,40 @@
 @import "new_structure/common/global_stuffs";
 @import "new_structure/partials/lite_boxes_home";
 
-#filters{float:left;}
-#search_result{float:right;}
+#filters{float:left;width:194px;}
+#search_result{float:left;width:785px;}
 
 .search{margin-top: 15px;margin-left: 15px;
 	h1{font-size: 22px;font-family: $avenir;color: #58595b;font-weight: 500;letter-spacing: 2px;margin-bottom: 10px;border-bottom: 1px solid #b7b7b7;width: 275px;}
 	h2{font-size: 15px;font-family: $avenir;color: #767779;letter-spacing: 1px;font-weight: lighter;
 		span{font-weight: bold;color: $base_color;}
-	}
+	  &.title-founded{font-size:21px;color:#58595B;border-bottom:solid 1px #B7B7B7;padding-bottom:5px;display:inline-block;margin-bottom:30px;
+      span{font-weight:normal;}
+    }
+  }
+  .title-category{text-transform:uppercase;color:#000;font-size:12px;font-weight:bold;}
+  
 	.hints{font-size: 15px;font-family: $avenir;color: #58595b;text-transform: uppercase;font-weight: 600;margin-top: 20px;}
-	ul{width: 100%;overflow: auto;margin-top: 15px;
-		li{padding-left: 25px; height: 22px;display: block;font-size: 15px;font-family: $avenir;color: #767779;letter-spacing: 1px;font-weight: lighter;background: image-url('search/number_icon.jpg') no-repeat;
-			&.hint_one{background-position: 0 0;}
-			&.hint_two{background-position: 0 -22px;}
-			&.hint_three{background-position: 0 -44px;}
-			&.hint_four{background-position: 0 -66px;}
-		}
+	
+  ul{width: 100%;overflow: auto;
+    &.hint-list{margin-top: 15px;
+  		li{padding-left:25px;height:22px;display:block;font-size:15px;font-family:$avenir;color:#767779;letter-spacing:1px;font-weight:lighter;background: image-url('search/number_icon.jpg') no-repeat;
+  			&.hint_one{background-position: 0 0;}
+  			&.hint_two{background-position: 0 -22px;}
+  			&.hint_three{background-position: 0 -44px;}
+  			&.hint_four{background-position: 0 -66px;}
+  		}
+    }
+    &.subcategory-list{color:#000;margin-bottom:30px;
+      li{margin-top:4px;
+        &:hover{color:$base_color;}
+        a{color:#000;text-decoration:none;margin-right:3px;
+          &:hover{color:$base_color;}
+        }
+      }  
+    }
+    &.search-results-list{
+    li{display:inline-block;width:245px;margin-right:10px;}
+    }
 	}
 }
