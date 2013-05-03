@@ -6,6 +6,7 @@ class LiquidationSearchService
     @query_base = @l_products[:liquidation_id].eq(params[:id])
                   .and(@l_products[:inventory].gt(0))
                   .and(Product.arel_table[:is_visible].eq(true))
+                  .and(Variant.arel_table[:price].gt(0))
 
     @params = params
   end
@@ -33,9 +34,9 @@ class LiquidationSearchService
     query_colors = params[:colors] ? Product.arel_table[:color_name].in(params[:colors]) : nil
     @query_base = @query_base.and(query_colors) if query_colors
 
-    LiquidationProduct.joins(:product).where(query_base)
+    LiquidationProduct.joins(:product).joins(:variant).where(query_base)
                                       .order(sort_filter, 'name asc')
-                                      .group("product_id")
+                                      .group("liquidation_products.product_id")
                                       .paginate(page: params[:page], per_page: 12)
   end
 

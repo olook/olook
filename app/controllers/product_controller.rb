@@ -31,7 +31,9 @@ class ProductController < ApplicationController
     @product = if current_admin
       Product.find(params[:id])
     else
-      Product.only_visible.find(params[:id])
+      p = Product.only_visible.find(params[:id])
+      raise ActiveRecord::RecordNotFound unless p.price > 0
+      p
     end
 
     @google_pixel_information = @product
