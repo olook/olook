@@ -13,6 +13,7 @@ filter.init = function(){
   filter.bindObjects();
   filter.changeVisualization();
   filter.displayCleanCategories();
+  $('.filter ol').show();
 }
 
 filter.spyOverChangeImage = function(){

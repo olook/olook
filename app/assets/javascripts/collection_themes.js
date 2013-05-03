@@ -184,7 +184,7 @@ filter.bindObjects = function(){
      var filters = $(this).parent().parent();
      var clicked_filter = $(this).parent();
 
-     filters.find("ol, .arrow, .clear_filter").hide();
+     filters.find(".clear_filter").hide();
      if(clicked_filter.find('.filter_type').hasClass('clicked')){
        clicked_filter.find("ol, .arrow, .clear_filter").hide();
        filters.find('.filter_type').removeClass('clicked');
