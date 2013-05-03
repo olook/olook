@@ -1,3 +1,7 @@
+test:
+  search_domain: search-test-olook-products-2ykpfrclwbu55oirdfgjmvuvsu.us-east-1.cloudsearch.amazonaws.com
+  docs_domain: doc-test-olook-products-2ykpfrclwbu55oirdfgjmvuvsu.us-east-1.cloudsearch.amazonaws.com
+
 development:
   search_domain: search-test-olook-products-2ykpfrclwbu55oirdfgjmvuvsu.us-east-1.cloudsearch.amazonaws.com
   docs_domain: doc-test-olook-products-2ykpfrclwbu55oirdfgjmvuvsu.us-east-1.cloudsearch.amazonaws.com
