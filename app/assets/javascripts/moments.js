@@ -79,6 +79,7 @@ filter.submitAndLoad = function(){
       window.location = newURL;
       return false;
     }
+    $('.chaordic.mostpopular').hide();
     $('.loading').show();
     var selected_sort = $("select#filter_option").val() ;
     $('#sort_filter').val(selected_sort);
@@ -87,10 +88,6 @@ filter.submitAndLoad = function(){
       $(this).fadeIn("slow").html("");
     });
   });
-
-  if($(".filters").length != null) {
-    $("html, body").delay(300).animate({scrollTop: h}, 'slow');
-  }
 
 }
 filter.seeAll = function(){

@@ -3,6 +3,7 @@ class ImportFreightPricesWorker
   @queue = :import_freight
 
   def self.perform(shipping_service_id, temp_filename)
+    Rails.logger.info("Updating FreightPrices for ShippingService#id = #{shipping_service_id} AND temp_filename = #{temp_filename}")
     shipping_service = ShippingService.find shipping_service_id
     
     shipping_service.freight_prices.destroy_all
