@@ -141,7 +141,12 @@ describe Admin::CollectionsController do
       post :mark_specific_products_as_visible, :collection_id => collection.id, products: [ { id: shoe.id, visibility: "true" }, { id: another_shoe.id } ]
     end
 
-    it { expect(shoe.reload.is_visible).to be_true }
-    it { expect(another_shoe.reload.is_visible).to be_false }
+    context "when given product should has visibility parameter" do
+      it { expect(shoe.reload.is_visible).to be_true }
+    end
+
+    context "when given product should has no visibility parameter" do
+      it { expect(another_shoe.reload.is_visible).to be_false }
+    end
   end
 end
