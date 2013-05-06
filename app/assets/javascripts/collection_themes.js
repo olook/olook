@@ -10,6 +10,8 @@ filter.init = function(){
   filter.showAllImages(filter.visualization_mode);
   filter.changeVisualization();
   filter.submitAndScrollUp();
+  filter.fillFilterTags();
+  filter.bindObjects();
 }
 
 filter.spyOverChangeImage = function(){
@@ -101,19 +103,23 @@ filter.seeAll = function(){
       })
    });
 }
+filter.placeTag = function(el){
+  if(!$(el).is(":checked")) {
+    $(el).parent().siblings("li").find("input[type='checkbox'].select_all").attr("checked", false);
+    if($(el).parent().parent().find("li input[type='checkbox']:checked").length == 0){
+      $(el).parent().parent().parent().find("button.clear_filter").hide();
+    }
+  } else if($(el).parent().parent().find("li input[type='checkbox']:checked").length > 0){
+    $(el).parent().parent().parent().find("button.clear_filter").show();
+  }
+  filter.tags($(el).attr('id'),$(el).next().text() ,$(el).is(":checked"));
+}
 filter.selectedFilter = function(){
    $("#filter input[type='checkbox']").not(".select_all").bind("click", function() {
-      if(!$(this).is(":checked")) {
-         $(this).parent().siblings("li").find("input[type='checkbox'].select_all").attr("checked", false);
-         if($(this).parent().parent().find("li input[type='checkbox']:checked").length == 0){
-          $(this).parent().parent().parent().find("button.clear_filter").hide();
-         }
-      } else if($(this).parent().parent().find("li input[type='checkbox']:checked").length > 0){
-        $(this).parent().parent().parent().find("button.clear_filter").show();
-      }
-      filter.tags($(this).attr('id'),$(this).next().text() ,$(this).is(":checked"));
-      $(this).parent().submit();
-      $('form#filter').find("input[type='checkbox']").attr("disabled", "true");
+     filter.placeTag(this);
+
+     $(this).parent().submit();
+     $('form#filter').find("input[type='checkbox']").attr("disabled", "true");
    });
 }
 filter.tags = function(name, desc, flag){
@@ -134,6 +140,11 @@ filter.tags = function(name, desc, flag){
    if($("#tags ul").children().size() < 2){
       $("section.filters").delay(300).fadeOut();
    }
+}
+filter.fillFilterTags = function() {
+  $("#filter input[type'checkbox']:checked").each(function(idx, el){
+    filter.placeTag(el);
+  });
 }
 filter.deleteTag = function(classname){
    $("button.del-"+classname).bind("click", function(){
