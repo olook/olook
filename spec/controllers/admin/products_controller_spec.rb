@@ -159,24 +159,4 @@ describe Admin::ProductsController do
       response.should redirect_to([:admin, product])
     end
   end
-
-
-  describe "POST mark_specific_products_as_visible" do
-    let(:collection) { FactoryGirl.create(:active_collection) }
-    it "product.is_visible shoud be false" do
-      collection.products << product
-      post :mark_specific_products_as_visible, :collection_id => collection.id
-      product.reload
-      product.is_visible.should eq(false)
-    end
-
-    it "product.is_visible shoud be true" do
-      product.is_visible = false
-      product.save
-      post :mark_specific_products_as_visible, collection_id: collection.id, visible_products: [product.id]
-      product.reload
-      product.is_visible.should eq(true)
-    end
-
-  end
 end
