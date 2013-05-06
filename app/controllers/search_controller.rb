@@ -36,7 +36,9 @@ class SearchController < ApplicationController
     @products.compact!
     @q=params[:q]
     #####END
-
+    
+    ### to render home partials ###
+    @stylist = Product.fetch_products :selection
   end
 
   def product_suggestions
