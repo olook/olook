@@ -13,7 +13,7 @@ class ProductSearchWorker
     end
 
     def self.index product
-      ProductSearch.index_term(product.formatted_name(false))
+      ProductSearch.index_term(product.formatted_name(100))
       product.name.split.each { |t| ProductSearch.index_term(t) }
     end
 end
