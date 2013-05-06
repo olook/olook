@@ -46,6 +46,7 @@ Olook::Application.routes.draw do
 
   #NEW COLLECTIONS
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
+  put '/colecoes/*slug', to: "collection_themes#filter", as: "collection_theme_filter"
   get '/colecoes/*slug', to: "collection_themes#show", as: "collection_theme"
 
   # NEW COLLECTIONS - TODO

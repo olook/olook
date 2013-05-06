@@ -72,7 +72,6 @@ filter.submitAndScrollUp = function(){
     } else {
       $(this).find('.hidden_shoe_sizes').remove();
     }
-    debugger;
     var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?';
     newURL += $(this).serialize();
     if(window.history.pushState) {
@@ -265,7 +264,6 @@ $(function(){
       $(this).fadeIn("slow").html("");
     });
     $(".filters").show();
-    debugger;
     $('form#filter').submit();
   });
 
@@ -277,7 +275,6 @@ $(function(){
     $("#products").fadeOut("slow", function() {
       $(this).fadeIn("slow").html("");
     });
-    debugger;
     $('form#filter').submit();
   });
 

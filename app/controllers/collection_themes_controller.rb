@@ -1,8 +1,6 @@
 # -*- encoding : utf-8 -*-
 class CollectionThemesController < ApplicationController
-  respond_to :html, :js
-
-  before_filter :load_products_of_user_size, only: [:show]
+  before_filter :load_products_of_user_size, only: [:show, :filter]
   before_filter :filter_products_by_category
   before_filter :load_catalog_products
 
@@ -14,6 +12,13 @@ class CollectionThemesController < ApplicationController
   def show
     return redirect_to collection_themes_url if !current_admin && !@collection_theme.active
     @chaordic_user = ChaordicInfo.user current_user
+    respond_to :html
+  end
+
+  def filter
+    return redirect_to collection_themes_url if !current_admin && !@collection_theme.active
+    @chaordic_user = ChaordicInfo.user current_user
+    respond_to :js
   end
 
   private
