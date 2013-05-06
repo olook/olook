@@ -5,7 +5,9 @@ class ProductController < ApplicationController
 
 
   rescue_from ActiveRecord::RecordNotFound do
-    render :template => "/errors/404.html.erb", :layout => 'error', :status => 404
+    ### to render home partials ###
+    @stylist = Product.fetch_products :selection
+    render :template => "/errors/404.html.erb", :layout => 'error', :status => 404, :layout => "lite_application"
   end
 
   def show
