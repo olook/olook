@@ -55,6 +55,9 @@ class CollectionThemesController < ApplicationController
         catalog_search_service_params = params.merge({id: @collection_theme.catalog.id, admin: !current_admin.nil?})
         catalog_search_service_params.delete(:shoe_sizes) if params[:shoe_sizes].to_a.all? { |ss| ss.blank? }
         @catalog_search_service = CatalogSearchService.new(catalog_search_service_params)
+        if @catalog_search_service.categories_available_for_options(ignore_category: true).size == 2
+          params[:category_id] = @catalog_search_service.categories_available_for_options(ignore_category: true).last.last
+        end
         @catalog_products = @catalog_search_service.search_products
         @products_id = @catalog_products.map{|item| item.product_id }.compact
         # params[:id] is into array for pixel iterator

@@ -1,6 +1,6 @@
 <% present 'CollectionTheme', {:collection_theme => @collection_theme, :collection_themes => @collection_themes, :category_id => @category_id} do |collection_theme_presenter| %>
 <div id="filters_container">
-  <%= form_tag(collection_theme_filter_path(@collection_theme.slug), :method => :put, :remote => true, :id => "filter", :name => "filter") do %>
+  <%= form_tag(collection_theme_filter_path(@collection_theme.slug), :method => :get, :remote => true, :id => "filter", :name => "filter") do %>
     <%= hidden_field_tag('slug', @collection_theme ? @collection_theme.slug : nil) %>
     <div class="select a-bg ">
       <%= select_tag('category_id', options_for_select(@catalog_search_service.categories_available_for_options(ignore_category: true), params[:category_id]), class: 'custom_select select-left') %>
