@@ -58,9 +58,14 @@ olook = o = {
   },
   
   newModal: function(content){
-    var $modal = $("div#modal.promo-olook"), h = $(content).outerHeight(), w = $(content).outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2)), 
-    heightDoc = $(document).height(), _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()), _left=Math.max(0, (($(window).width() - w) / 2) + $(window).scrollLeft());
-
+    var $modal = $("div#modal.promo-olook"), 
+    h = $("img", content).length > 0 ? $("img",content).outerHeight() + 40 : $(content).outerHeight(), 
+    w = $("img", content).length > 0 ? $("img",content).outerWidth() : $(content).outerWidth(), 
+    ml = -parseInt((w/2)), mt = -parseInt((h/2)), 
+    heightDoc = $(document).height(), 
+    _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()), 
+    _left=Math.max(0, (($(window).width() - w) / 2) + $(window).scrollLeft());
+    
     $("#overlay-campaign").css({"background-color": "#000", 'height' : heightDoc}).fadeIn().bind("click", function(){
       _iframe = $modal.contents().find("iframe");
       if (_iframe.length > 0){

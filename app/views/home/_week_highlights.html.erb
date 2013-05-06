@@ -2,24 +2,24 @@
   <h1>Veja os destaques da semana</h1>
   <ul>
     <li id="about">
-      <%= link_to ('/stylist-news/amo-ankle-boot/'), class: "open_making_of", onclick: track_event('Destaques','BannerEsquerda') do %>
-        <%= image_tag "home/destaque_ankle.jpg", title: "AMO: ANKLE BOOT" %>
+      <%= link_to ('/stylist-news/amo-maxi-colar/'), class: "open_making_of", onclick: track_event('Destaques','BannerEsquerda') do %>
+        <%= image_tag "home/maxi_colar.jpg", title: "AMO: MAXI COLAR" %>
       <% end %>
       <div class="video_description">
         <h1>Conheça mais sobre a olook</h1>
         <%= link_to "Gostou? Descubra o seu estilo e veja a coleção completa", new_survey_path, :class => "home" %>
       </div>
-      <h1><%= link_to "AMO: ANKLE BOOT", ('/stylist-news/amo-ankle-boot/'), onclick: track_event('Destaques','BannerEsquerda') %></h1>
-      <p>Ela veio pra ficar e é a queridinha da vez</p>
-      <%= link_to "Veja mais aqui", ('/stylist-news/amo-ankle-boot/'), class: "more", onclick: track_event('Destaques','BannerEsquerda') %>
+      <h1><%= link_to "AMO: MAXI COLAR", ('/stylist-news/amo-maxi-colar/'), onclick: track_event('Destaques','BannerEsquerda') %></h1>
+      <p>Arremate seu look com um</p>
+      <%= link_to "Veja mais aqui", ('/stylist-news/amo-maxi-colar/'), class: "more", onclick: track_event('Destaques','BannerEsquerda') %>
     </li>
     <li id="shoes">
-      <%= link_to product_path(15769), onclick: track_event('Destaques','BannerCentro') do %>
-        <%= image_tag "home/slipper_yayoi.gif", title: "Slipper Yayoi" %>
+      <%= link_to product_path(17364), onclick: track_event('Destaques','BannerCentro') do %>
+        <%= image_tag "home/slipper_spike.gif", title: "Slipper Cianita" %>
       <% end %>      
-      <h1><%= link_to "Slipper Yayoi", product_path(15769), onclick: track_event('Destaques','BannerCentro') %></h1>
-      <p>Uma pegada cool por R$ 79,90</p>
-      <%= link_to "Confira aqui", product_path(15769), class: "more", onclick: track_event('Destaques','BannerCentro') %>
+      <h1><%= link_to "Slipper Cianita", product_path(17364), onclick: track_event('Destaques','BannerCentro') %></h1>
+      <p>Spikes, Spikes e mais Spikes </p>
+      <%= link_to "Confira aqui", product_path(17364), class: "more", onclick: track_event('Destaques','BannerCentro') %>
     </li>
     <li id="olookmovel" class="iehack"> <!-- NAO REMOVER A CLASSE -->
       <%= link_to olookmovel_path, onclick: track_event('Destaques','BannerDireita') do %>

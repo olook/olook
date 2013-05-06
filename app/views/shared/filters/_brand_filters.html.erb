@@ -1,6 +1,6 @@
 <% category = params[:category_id] %>
 <div class="filter main brand">
-  <p class="filter_type">Marcas<%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
+  <p class="filter_type opened">Marcas<%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
   <button type="button" class="clear_filter bt_clear_size">[ limpar ]</button>
     <ol class="column-size">
       <% collection_theme_presenter.collection_theme.catalog.brands_for(category).each do |brand| %>
