@@ -74,7 +74,6 @@ class ProductPresenter < BasePresenter
 
   def render_cloth_sizes
     variants = product.variants.sort{|first, second| SIZES_TABLE[first.description].to_i <=> SIZES_TABLE[second.description].to_i }
-    binding.pry
     h.render :partial => 'product/sizes', :locals => {:variants => variants, :shoe_size => nil, :show_cloth_size_table => true}
   end
 
