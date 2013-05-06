@@ -1,3 +1,15 @@
+index_suggested_terms:
+  cron: "0 * * * *"
+  class: ProductSearchWorker
+  queue: search
+  description: "Indexa os termos sugeridos para buscas"
+
+index_products_for_searching:
+  cron: "0 * * * *"
+  class: IndexProductsWorker
+  queue: search
+  description: "Gera a base (arquivo .sdf) para a busca e faz o upload para amazon CloudSearch"
+
 send_orders_alert:
   cron: "35 * * * *"
   class: SendOrderAlertWorker

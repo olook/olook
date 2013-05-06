@@ -1,5 +1,7 @@
 class ProductSearchWorker
 
+  @queue = :search
+
   def self.perform
     clean_indexed_terms
     index_products

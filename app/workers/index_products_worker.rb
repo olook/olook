@@ -3,7 +3,7 @@ class IndexProductsWorker
 
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
 
-  @queue = :product
+  @queue = :search
 
   def self.perform
     all_products = products_to_index.map { |product| create_sdf_entry_for product, 'add' }
@@ -63,11 +63,15 @@ class IndexProductsWorker
     end
 
     def self.products_to_index
-      Product.where("collection_id = 20 and is_visible = 1").select{|p| p.price > 0 && p.main_picture.try(:image_url)}
+      products.select{|p| p.price > 0 && p.main_picture.try(:image_url)}
     end
 
     def self.products_to_remove
-      Product.where("collection_id = 20 and is_visible = 0")
+      products.select{|p| !p.is_visible || p.price == 0 || p.main_picture.try(:image_url).nil?}
+    end
+
+    def self.products
+      Product.all
     end
 
 end
