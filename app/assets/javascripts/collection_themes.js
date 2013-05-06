@@ -89,7 +89,6 @@ filter.submitAndScrollUp = function(){
   });
 
   $("html, body").delay(300).animate({scrollTop: $(".filters").length ? h : 0}, 'slow');
-
 }
 filter.seeAll = function(){
    $("#filter input[type='checkbox'].select_all").each(function(i){
