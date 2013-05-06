@@ -130,4 +130,18 @@ describe Admin::CollectionsController do
       response.should redirect_to(admin_collections_url)
     end
   end
+
+  describe "POST mark_specific_products_as_visible" do
+    let(:collection) { FactoryGirl.create(:active_collection) }
+    let(:shoe) { FactoryGirl.create(:shoe, is_visible: false) }
+    let(:another_shoe) { FactoryGirl.create(:shoe) }
+    before do
+      collection.products << shoe
+      collection.products << another_shoe
+      post :mark_specific_products_as_visible, :collection_id => collection.id, products: [ { id: shoe.id, visibility: "true" }, { id: another_shoe.id } ]
+    end
+
+    it { expect(shoe.reload.is_visible).to be_true }
+    it { expect(another_shoe.reload.is_visible).to be_false }
+  end
 end
