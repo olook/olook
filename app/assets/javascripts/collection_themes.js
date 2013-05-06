@@ -9,6 +9,7 @@ filter.init = function(){
   filter.endlessScroll(window, document);
   filter.showAllImages(filter.visualization_mode);
   filter.changeVisualization();
+  filter.submitAndScrollUp();
 }
 
 filter.spyOverChangeImage = function(){
@@ -71,6 +72,7 @@ filter.submitAndScrollUp = function(){
     } else {
       $(this).find('.hidden_shoe_sizes').remove();
     }
+    debugger;
     var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?';
     newURL += $(this).serialize();
     if(window.history.pushState) {
@@ -86,9 +88,10 @@ filter.submitAndScrollUp = function(){
     $("#products").fadeOut("slow", function() {
       $(this).fadeIn("slow").html("");
     });
+  }).bind('ajax:complete', function(){
+    $('#category_filters .opened').removeClass('opened');
+    $("html, body").delay(300).animate({scrollTop: $(".filters").length ? h : 0}, 'slow');
   });
-
-  $("html, body").delay(300).animate({scrollTop: $(".filters").length ? h : 0}, 'slow');
 }
 filter.seeAll = function(){
    $("#filter input[type='checkbox'].select_all").each(function(i){
@@ -96,7 +99,6 @@ filter.seeAll = function(){
          $(this).parents(".filter").find("input[type='checkbox']").not(".select_all").attr("checked", this.checked);
 
          $(this).parent().submit();
-         filter.submitAndScrollUp();
       })
    });
 }
@@ -111,7 +113,6 @@ filter.selectedFilter = function(){
         $(this).parent().parent().parent().find("button.clear_filter").show();
       }
       filter.tags($(this).attr('id'),$(this).next().text() ,$(this).is(":checked"));
-      filter.submitAndScrollUp();
       $(this).parent().submit();
       $('form#filter').find("input[type='checkbox']").attr("disabled", "true");
    });
@@ -142,7 +143,6 @@ filter.deleteTag = function(classname){
       flag = filterId.is(":checked");
       filter.tags(classname,null,flag);
       filterId.parent().submit();
-      filter.submitAndScrollUp();
    }).hover(
       function(){
          $(this).next().fadeIn();
@@ -265,6 +265,7 @@ $(function(){
       $(this).fadeIn("slow").html("");
     });
     $(".filters").show();
+    debugger;
     $('form#filter').submit();
   });
 
@@ -276,6 +277,7 @@ $(function(){
     $("#products").fadeOut("slow", function() {
       $(this).fadeIn("slow").html("");
     });
+    debugger;
     $('form#filter').submit();
   });
 
