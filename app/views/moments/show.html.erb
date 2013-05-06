@@ -19,7 +19,7 @@
 
       <!-- local onde o purchasepersonalized será exibido -->
       <div class="chaordic purchasepersonalized"></div>
-      
+
       <!-- local onde o mostpopular será exibido -->
       <div class="chaordic mostpopular"></div>
       <%= render "new_header_moments" %>
@@ -33,10 +33,11 @@
 
       <div class="loading"></div>
       <%= will_paginate @catalog_products %>
+      <%= render 'collection_themes/stylist_products' %>
     </div>
   </div>
   <%= msn_tags %>
   <%= render "shared/metrics/sociomantic/products", :products => @catalog_products,:categories_id => @categories_id %>
-  <%= render "shared/metrics/struq/product_list", :products => @catalog_products %>  
+  <%= render "shared/metrics/struq/product_list", :products => @catalog_products %>
   <%= render "shared/metrics/nextperformance/category", category_id: @category_id %>
 <% end %>
