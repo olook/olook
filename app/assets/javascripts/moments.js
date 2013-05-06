@@ -14,6 +14,7 @@ filter.init = function(){
   filter.changeVisualization();
   filter.displayCleanCategories();
   filter.fillFilterTags();
+  $('.filter ol').show();
 }
 
 filter.spyOverChangeImage = function(){
