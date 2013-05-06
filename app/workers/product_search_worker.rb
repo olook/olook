@@ -1,14 +1,21 @@
 class ProductSearchWorker
 
   def self.perform
+    clean_indexed_terms
     index_products
   end
 
   private
 
+    def self.clean_indexed_terms
+      REDIS.keys do |key|
+        REDIS.del key if key.start_with? (CACHE_KEYS[:product_search][:key] % '')
+      end
+    end
+
     def self.index_products
       Product.where(is_visible: true).each do |product|
-        index product
+        index product if product.inventory && product.price > 0
       end
     end
 
