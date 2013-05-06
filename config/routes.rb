@@ -177,7 +177,6 @@ Olook::Application.routes.draw do
     resources :products do
       collection do
         post 'sync_products' => 'products#sync_products', :as => 'sync_products'
-        post "mark_specific_products_as_visible" => "products#mark_specific_products_as_visible", :as => "mark_specific_products_as_visible"
       end
       post 'sort_pictures' => 'pictures#sort', as: 'sort_pictures'
 
@@ -230,6 +229,7 @@ Olook::Application.routes.draw do
     resources :collections do
       get 'mark_all_products_as_visible' => 'collections#mark_all_products_as_visible', as: 'display_products'
       get 'mark_all_products_as_invisible' => 'collections#mark_all_products_as_invisible', as: 'hide_products'
+      post "mark_specific_products_as_visible" => "collections#mark_specific_products_as_visible", :as => "mark_specific_products_as_visible"
     end
 
     post 'integrate_orders' => "orders#integrate_orders"
