@@ -9,4 +9,5 @@
 //= require ./plugins/jquery.carouFredSel-6.2.1-packed
 //= require ./common/product_view
 //= require ./common/lite_base
-
+//= require ./ui_v1.10/jquery-ui-1.10.2.custom.min
+//= require ./search
