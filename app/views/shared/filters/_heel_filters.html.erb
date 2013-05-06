@@ -1,6 +1,6 @@
 <%- if collection_theme_presenter.collection_theme.catalog.heels.size > 0 -%>
   <div class="filter sub shoe_heel">
-    <p class="filter_type">Salto<%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
+    <p class="filter_type opened">Salto<%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
     <button type="button" class="clear_filter bt_clear_heel">[ limpar ]</button>
     <ol class="column">
     <% collection_theme_presenter.collection_theme.catalog.heels.each do |heel, label| %>
