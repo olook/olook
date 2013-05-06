@@ -8,6 +8,12 @@ $(function() {
       e.preventDefault();
       return false;
     }
+  }).focus(function(){
+    $(this).val('');
+  }).focusout(function(){
+    if($(this).val() == ''){
+      $(this).val('BUSCAR')
+    }
   });
 
   $("#search_product").autocomplete({
