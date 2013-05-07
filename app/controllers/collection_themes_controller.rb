@@ -46,13 +46,12 @@ class CollectionThemesController < ApplicationController
       @collection_themes = CollectionTheme.active.order(:position).all
       @collection_theme = params[:slug] ? CollectionTheme.find_by_slug_or_id(params[:slug]) : @collection_themes.last
       if @collection_theme
-
         # Não podemos apagar o shoe_sizes do params pois na partial dos filtros checa por eles.
         # Esse comportamento é necessário para não filtrar pelo número do usuário quando ele
         # desselecionou no form. E não selecionar no partial.
         # @collection_theme.catalog.id
-        params[:brands] = [@collection_theme.name.upcase]
-        catalog_search_service_params = params.merge({id: 1, admin: !current_admin.nil?})
+        params[:brands] = [@collection_theme.name.upcase] if brand_query?
+        catalog_search_service_params = params.merge({id: brand_query? ? 1 : @collection_theme.catalog.id, admin: !current_admin.nil?})
         catalog_search_service_params.delete(:shoe_sizes) if params[:shoe_sizes].to_a.all? { |ss| ss.blank? }
         @catalog_search_service = CatalogSearchService.new(catalog_search_service_params)
         @catalog_products = @catalog_search_service.search_products
@@ -65,22 +64,6 @@ class CollectionThemesController < ApplicationController
         flash[:notice] = "No momento não existe nenhuma coleção cadastrada."
       end
     end
-
-    # def load_catalog_products
-    #   @collection_themes = CollectionTheme.active.order(:position)
-    #   @collection_theme = params[:id] ? CollectionTheme.find_by_id(params[:id]) : @collection_themes.last
-
-    #   if @collection_theme
-    #     @catalog_products = CatalogSearchService.new(params.merge({id: @collection_theme.catalog.id})).search_products
-
-    #     @products_id = @catalog_products.map{|item| item.product_id }.compact
-    #     # params[:id] is into array for pixel iterator
-    #     @categories_id = params[:id] ? [params[:id]] : @collection_themes.map(&:id).compact.uniq
-    #   else
-    #     redirect_to root_path
-    #     flash[:notice] = "No momento não existe nenhuma ocasião cadastrada."
-    #   end
-    # end    
 
     # TODO: Lógica duplicada no model payment onde usa o Product#featured_products
     def retrieve_featured_products
@@ -102,5 +85,8 @@ class CollectionThemesController < ApplicationController
       products.select {|h| h[:product].inventory_without_hiting_the_database > 0}
     end
 
+    def brand_query?
+      @collection_theme.collection_theme_group.name == "MARCAS"
+    end
 
 end
