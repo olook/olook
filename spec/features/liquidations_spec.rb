@@ -1,4 +1,4 @@
- # -*- encoding : utf-8 -*-
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 require 'features/helpers'
 
@@ -30,6 +30,7 @@ feature "Liquidation", %q{
       LiquidationProduct.create(
         :liquidation => liquidation,
         :product_id => basic_shoe_size_35.product.id,
+        :variant_id => basic_shoe_size_35.id,
         :subcategory_name => "rasteira",
         :subcategory_name_label => "Rasteira",
         :inventory => 1

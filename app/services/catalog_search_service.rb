@@ -9,7 +9,7 @@ class CatalogSearchService
                   .and(Variant.arel_table[:inventory].gt(0))
 
     unless params[:admin]
-      @query_base = @query_base.and(Product.arel_table[:is_visible].eq(true))
+      @query_base = @query_base.and(Product.arel_table[:is_visible].eq(true)).and(Variant.arel_table[:price].gt(0))
     end
 
     if @liquidation = LiquidationService.active
