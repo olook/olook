@@ -72,4 +72,17 @@ class Admin::CollectionsController < Admin::BaseController
     end
     redirect_to admin_collection_path(@collection)
   end
+
+  def mark_specific_products_as_visible
+    @collection = Collection.find(params[:collection_id])
+
+    visible_product_ids = params[:products].select { |p| p[:visibility].present? }.map {|p| p[:id] }.uniq.compact
+    invisible_product_ids = params[:products].select { |p| p[:visibility].nil? }.map {|p| p[:id] }.uniq.compact
+
+    @collection.products.where(id: visible_product_ids).update_all(is_visible: true)
+    @collection.products.where(id: invisible_product_ids).update_all(is_visible: false)
+
+    flash[:notice] = "Marked selected products as visible."
+    respond_with :admin, @collection
+  end
 end

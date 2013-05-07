@@ -209,6 +209,7 @@ describe CatalogSearchService do
         products.should_not include(cp3)
       end
     end
+
     context "price range" do
       it "returns values greater than the floor value" do
         cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
@@ -245,7 +246,10 @@ describe CatalogSearchService do
     context "filtering by brand" do
        before do
         basic_shoe.update_attributes(brand: "Some brand")
-        basic_accessory.update_attributes(brand: "Other Brand")
+        basic_accessory.brand = "Other Brand"
+        basic_accessory.price = 29.90
+        basic_accessory.save!
+
         @first_product = CatalogProductService.new(catalog, basic_shoe.reload).save!.first
         @third_product = CatalogProductService.new(catalog, basic_accessory.reload).save!
         @second_product = CatalogProductService.new(catalog, basic_bag).save!
@@ -258,6 +262,7 @@ describe CatalogSearchService do
         it { expect(@products).to include(@third_product) }
         it { expect(@products).to_not include(@second_product) }
       end
+
 
     end
   end

@@ -80,6 +80,7 @@ class MembersController < ApplicationController
   def showroom
     @google_path_pixel_information = "Home"
     @chaordic_user = ChaordicInfo.user current_user
+
     if @user.half_user
       if @user.female?
         prepare_for_home
@@ -97,18 +98,18 @@ class MembersController < ApplicationController
     if @facebook_adapter
       @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
     end
-  end
+    @recommended = RecomendationService.new(profiles: current_user.profiles)
+    
+    # @cloth = @recommended.products( category: Category::CLOTH, collection: @collection, limit: 10)
 
-  def showroom_clothes
-  end
+    # meia noite e nao tem roupas, entao improvisei
+    @cloth = Product.clothes_for_profile :casual
 
-  def showroom_shoes
-  end
+    @shoes = @recommended.products( category: Category::SHOE, collection: @collection)
+    @bags = @recommended.products( category: Category::BAG, collection: @collection)
+    @accessories = @recommended.products( category: Category::ACCESSORY, collection: @collection)
 
-  def showroom_bags
-  end
-
-  def showroom_accessories
+    render layout: 'lite_application'
   end
 
   def earn_credits
