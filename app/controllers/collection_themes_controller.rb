@@ -1,8 +1,6 @@
 # -*- encoding : utf-8 -*-
 class CollectionThemesController < ApplicationController
-  respond_to :html, :js
-
-  before_filter :load_products_of_user_size, only: [:show]
+  before_filter :load_products_of_user_size, only: [:show, :filter]
   before_filter :filter_products_by_category
   before_filter :load_catalog_products
 
@@ -13,7 +11,15 @@ class CollectionThemesController < ApplicationController
 
   def show
     return redirect_to collection_themes_url if !current_admin && !@collection_theme.active
+    @stylist_products = Product.fetch_stylists_products
     @chaordic_user = ChaordicInfo.user current_user
+    respond_to :html
+  end
+
+  def filter
+    return redirect_to collection_themes_url if !current_admin && !@collection_theme.active
+    @chaordic_user = ChaordicInfo.user current_user
+    respond_to :js
   end
 
   private
@@ -50,6 +56,9 @@ class CollectionThemesController < ApplicationController
         catalog_search_service_params = params.merge({id: @collection_theme.catalog.id, admin: !current_admin.nil?})
         catalog_search_service_params.delete(:shoe_sizes) if params[:shoe_sizes].to_a.all? { |ss| ss.blank? }
         @catalog_search_service = CatalogSearchService.new(catalog_search_service_params)
+        if @catalog_search_service.categories_available_for_options(ignore_category: true).size == 2
+          params[:category_id] = @catalog_search_service.categories_available_for_options(ignore_category: true).last.last
+        end
         @catalog_products = @catalog_search_service.search_products
         @products_id = @catalog_products.map{|item| item.product_id }.compact
         # params[:id] is into array for pixel iterator

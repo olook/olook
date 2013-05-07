@@ -17,7 +17,9 @@ $.each(new_products, function(index, id){
 });
 
 <% if @catalog_products.any? %>
-  $('#products').append('<%= j render "products", catalog_products: @catalog_products %>');
+  <%- @catalog_products.each do |cp| %>
+    $('#products').append('<%= j render "shared/product_item", product: cp.product %>');
+  <%- end -%>
 <% else %>
   $("#products").html('<%= raw(I18n.t("product_not_found")) %>');
 <% end %>

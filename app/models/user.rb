@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   attr_protected :invite_token
 
   has_many :points, :dependent => :destroy
+  has_many :profiles, through: :points, order: Point.arel_table[:value].desc
   has_one :survey_answer, :dependent => :destroy
   has_one :user_info, :dependent => :destroy
   has_many :invites, :dependent => :destroy

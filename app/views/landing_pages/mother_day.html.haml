@@ -8,15 +8,15 @@
         %h2= link_to((image_tag "landing_page/landing_maes_full.jpg"), "/colecoes/diadasmaes", title: "Dia das Mães na Olook")
         %ul
           %li.first
-            %p=link_to("UM MIMO", "/colecoes/diadasmaes?price=39-80&sort_filter=1", title: "Um Mimo", target: "_blank", onclick: track_event('DiaDasMaes', 'Box1', ''))
+            %p=link_to("UM MIMO", "/colecoes/diadasmaes?price=39-80&sort_filter=1", title: "Um Mimo", target: "_blank", onclick: track_event('DiaDasMaes', 'Box1', ''), class: "box-title")
             %p.preco=link_to("R$ 39,90 a R$ 79,90", "/colecoes/diadasmaes?price=39-80&sort_filter=1", title: "Um Mimo", target: "_blank", onclick: track_event('DiaDasMaes', 'Box1', ''))
             = link_to((image_tag "landing_page/mimo.jpg"), "/colecoes/diadasmaes?price=39-80&sort_filter=1", title: "Um Mimo", target: "_blank", onclick: track_event('DiaDasMaes', 'Box1', ''))
           %li
-            %p=link_to("UM PRESENTE BEM LEGAL", "/colecoes/diadasmaes?price=84-160&sort_filter=1", title: "Um presente bem legal", target: "_blank", onclick: track_event('DiaDasMaes', 'Box2', ''))
+            %p=link_to("UM PRESENTE BEM LEGAL", "/colecoes/diadasmaes?price=84-160&sort_filter=1", title: "Um presente bem legal", target: "_blank", onclick: track_event('DiaDasMaes', 'Box2', ''), class: "box-title")
             %p.preco=link_to("R$ 84,90 a R$ 159,90", "/colecoes/diadasmaes?price=84-160&sort_filter=1", title: "Um presente bem legal", target: "_blank", onclick: track_event('DiaDasMaes', 'Box2', ''))
             = link_to((image_tag "landing_page/presente_legal.jpg"), "/colecoes/diadasmaes?price=84-160&sort_filter=1", title: "Um presente bem legal", target: "_blank", onclick: track_event('DiaDasMaes', 'Box2', ''))
           %li
-            %p=link_to("UM BIG PRESENTE", "/colecoes/diadasmaes?price=164-*&sort_filter=1", title: "Um big presente", target: "_blank", onclick: track_event('DiaDasMaes', 'Box3', ''))
+            %p=link_to("UM BIG PRESENTE", "/colecoes/diadasmaes?price=164-*&sort_filter=1", title: "Um big presente", target: "_blank", onclick: track_event('DiaDasMaes', 'Box3', ''), class: "box-title")
             %p.preco.last_preco=link_to("A partir de R$ 164,90", "/colecoes/diadasmaes?price=164-*&sort_filter=1",title: "Um big presente", target: "_blank", onclick: track_event('DiaDasMaes', 'Box3', ''))
             = link_to((image_tag "landing_page/big_presente.jpg"), "/colecoes/diadasmaes?price=164-*&sort_filter=1",title: "Um big presente", target: "_blank", onclick: track_event('DiaDasMaes', 'Box3', ''))
     =render :partial =>'home/products_categories'

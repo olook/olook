@@ -1,0 +1,84 @@
+@import 'new_structure/common/global_stuffs';
+
+div#products_categories {width: 760px;height: 140px;margin: 0 0 30px;padding: 35px 0 0 0;float: left;border-top: 1px #cbcbcb solid;
+    >h1 {font-family: $avenir;font-size: 20px;font-weight: 600;text-transform: uppercase;margin: 0 0 25px 0;color:#000;}
+    ul {width: 100%;overflow: auto;
+
+      li {
+        a {background: image-url("home/categories.png") no-repeat;color: #000;font-size: 11px;text-align: center;text-decoration: none;height: 40px;margin: 0 18px 0 0;padding: 75px 0 0 0;float: left;
+          &:hover {color: #939598;}
+        }
+        &.blusa a {background-position: 6px 0px;width: 45px;
+          &:hover {background-position: 6px -189px;}
+        }
+        &.camisa a {background-position: -56px 0;width: 45px;
+          &:hover {background-position: -56px -189px;}
+        }
+        &.calca a {background-position: -105px 0;width: 45px;
+          &:hover {background-position: -105px -189px;}
+        }
+        &.saia a {background-position: -150px 0;width: 45px;
+          &:hover {background-position: -150px -189px;}
+        }
+        &.vestido a {background-position: -165px 0;width: 45px;
+          &:hover {background-position: -165px -189px;}
+        }
+        &.anabela a {background-position: -219px 0;width: 45px;
+          &:hover {background-position: -219px -189px;}
+        }
+        &.bota a {background-position: -275px 0;width: 53px;
+          &:hover {background-position: -275px -189px;}
+        }
+        &.sapatilha a {background-position: -346px 0;
+          &:hover {background-position: -346px -189px;}
+        }
+        &.scarpin a {background-position: -415px 0;
+          &:hover {background-position: -415px -189px;}
+        }
+        &.slipper a {background-position: -513px 0;width: 43px;
+          &:hover {background-position: -513px -189px;}
+        }
+        &.sneaker a {background-position: -472px 0;
+          &:hover {background-position: -472px -189px;}
+        }
+        &.acessorios a {background-position: -580px 0;
+          &:hover {background-position: -580px -189px;}
+        }
+        &.bolsas a {background-position: -529px 0;
+          &:hover {background-position: -529px -189px;}
+        } 
+        
+      }
+    }
+  }
+  div#facebook_box {width: 195px;height: 140px;padding: 35px 0 0 20px;float: right;border-top: 1px #cbcbcb solid;
+    img {margin: 0 7px 20px 0;float: left;}
+    h1 {color: #36569e;font-family: $avenir;font-size: 14px;font-weight:lighter;
+      span {font-size: 17px;font-weight: bold;}
+    }
+    .like {clear: both;}
+  }
+/****** IE8 HACK *******/
+html.ie8{
+   section#home{
+      li.iehack{margin:0 !important;}
+   }
+}
+
+
+
+
+section#boxes {width: 100%;overflow: auto;margin: 0 0 55px;
+  ul {
+    li {background: #f8f8f8;width: 314px;height: 287px;display: block;margin: 0 21px 0 0;float: left;border: 1px #c2c2c2 solid;
+      a {color: #231f20;text-decoration: none;
+        h1 {font-family: $avenir;font-size: 17px;text-transform: uppercase;margin: 16px 0 3px 24px;font-weight:lighter;}
+        p {background: image-url("home/arrows-pink.png") right center no-repeat;font-size: 15px;display: inline;margin: 0 0 0 24px;padding: 0 20px 0 0;}
+        &:hover {
+          p {color: #ef3742;}
+        }
+      }
+      &:last-child {margin: 0;float: right;}
+    }
+  }
+}

@@ -3,6 +3,9 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or ImageScience support:
   include CarrierWave::MiniMagick
+  # To optimize jpg images using jpegoptm
+  include Piet::CarrierWaveExtension
+
   # include CarrierWave::ImageScience
 
   # Choose what kind of storage to use for this uploader:
@@ -31,33 +34,41 @@ class PictureUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
-  process :quality => 80
   process :strip
+  process :optimize
 
   version :thumb do
+    process :quality => 80
     process :resize_to_limit => [50, 50], :quality => 100
   end
   version :bag do
+    process :quality => 80
     process :resize_to_limit => [70, 70], :quality => 100
   end
   #adjustment thumb size picture on sacola page
   version :checkout, :from_version => :showroom do
+    process :quality => 80
     process :resize_to_fill => [90, 90]
   end
   #end
   version :catalog, from_version: :suggestion do
+    process :quality => 80
     process :resize_to_fill => [235, 235]
   end
   version :showroom do
+    process :quality => 80
     process :resize_to_limit => [170, 170], :quality => 100
   end
   version :suggestion do
+    process :quality => 80
     process :resize_to_limit => [260, 260], :quality => 100
   end
   version :main do
+    process :quality => 80
     process :resize_to_limit => [500, 500], :quality => 100
   end
   version :zoom_out do
+    process :quality => 80
     process :resize_to_limit => [1000, 1000], :quality => 100
   end
 
