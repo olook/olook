@@ -48,7 +48,7 @@ class Catalog::Catalog < ActiveRecord::Base
   end
 
   def brands_for category
-    in_category(category).group(:brand).order('brand asc').map { |p| p.brand }.compact
+    in_category(category).group(:brand).order("IF(UPPER(products.brand) in ('OLOOK', 'OLOOK CONCEPT'),1,2), brand asc").map { |p| p.brand }.compact
   end
 
   def cloth_sizes

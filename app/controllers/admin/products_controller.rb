@@ -67,7 +67,7 @@ class Admin::ProductsController < Admin::BaseController
     freebie = Product.find(params[:freebie_id])
 
     @product.add_freebie freebie
-    redirect_to admin_product_path(@product)    
+    redirect_to admin_product_path(@product)
   end
 
   def remove_freebie
@@ -112,19 +112,6 @@ class Admin::ProductsController < Admin::BaseController
     }
   end
 
-  def mark_specific_products_as_visible
-    @collection = Collection.find(params[:collection_id])
-    visible_products = params[:visible_products] ? params[:visible_products].collect { |i| i.to_i } : []
-    invisible_products = @collection.products.collect { |p| p.id } - visible_products
-    visible_products
-
-    if update_all_products(visible_products, true) && update_all_products(invisible_products, false)
-      flash[:notice] = "Marked selected products as visible."
-    else
-      flash[:error] = "Could not execute your request!"
-    end
-    respond_with :admin, @collection
-  end
 
   private
   helper_method :sort_column, :sort_direction
@@ -136,13 +123,6 @@ class Admin::ProductsController < Admin::BaseController
     %w[asc desc].include?(params[:d]) ? params[:d] : "desc"
   end
 
-  def update_all_products(product_list, visibility)
-    products = Product.find(product_list)
-    products.each do |p|
-      p.update_attribute(:is_visible, visibility) unless p.is_visible == visibility
-    end
-  end
-  
   def load_data_for_index
     @liquidation = LiquidationService.active
     @sync_event = SynchronizationEvent.new
