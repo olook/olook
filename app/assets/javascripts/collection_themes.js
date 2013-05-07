@@ -12,6 +12,7 @@ filter.init = function(){
   filter.submitAndScrollUp();
   filter.fillFilterTags();
   filter.bindObjects();
+  filter.selectedFilter();
 }
 
 filter.spyOverChangeImage = function(){
@@ -89,9 +90,9 @@ filter.submitAndScrollUp = function(){
     $("#products").fadeOut("slow", function() {
       $(this).fadeIn("slow").html("");
     });
+    $("html, body").delay(300).animate({scrollTop: $(".filters").length ? h : 0}, 'slow');
   }).bind('ajax:complete', function(){
     $('#category_filters .opened').removeClass('opened');
-    $("html, body").delay(300).animate({scrollTop: $(".filters").length ? h : 0}, 'slow');
   });
 }
 filter.seeAll = function(){
