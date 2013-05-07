@@ -2,7 +2,7 @@
   <%#= render "shared/product_hover", :product => product %>
   
   <%= link_to product_path(product.id), :class => "product_link", :rel => "#{product.id}" do %>
-    <%= image_tag(product.catalog_image, :alt => product.formatted_name, :class => "async", :data => {:backside_picture => product.backside_picture} ) %>
+    <%= image_tag(product.catalog_image, :alt => product.formatted_name, :class => "async", :data => {:backside_picture => product.backside_picture, :product => product.catalog_image} ) %>
 
     <h2 class="name"><%= product.formatted_name %></h2>
 
