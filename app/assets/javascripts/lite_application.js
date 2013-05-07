@@ -8,5 +8,5 @@
 //= require ./plugins/jquery.jqzoom-core
 //= require ./plugins/jquery.carouFredSel-6.2.1-packed
 //= require ./common/product_view
-//= require ./common/lite_base
+//= require ./lite_base
 
