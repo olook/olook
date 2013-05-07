@@ -87,6 +87,9 @@ filter.submitAndLoad = function(){
     $("#products").fadeOut("slow", function() {
       $(this).fadeIn("slow").html("");
     });
+    if($(".filters").length != null) {
+      $("html, body").delay(300).animate({scrollTop: h}, 'slow');
+    }
   });
 
 }
