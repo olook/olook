@@ -63,7 +63,7 @@ class IndexProductsWorker
     end
 
     def self.products_to_index
-      products.select{|p| p.price > 0 && p.main_picture.try(:image_url)}
+      products.select{|p| p.is_visible && p.price > 0 && p.main_picture.try(:image_url)}
     end
 
     def self.products_to_remove
