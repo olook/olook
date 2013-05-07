@@ -20,9 +20,9 @@ class SearchController < ApplicationController
 
     @products = @hits["hit"].map do |hit| 
       data = hit["data"]
-      brand = data["brand"][0].strip.capitalize
-      model = data["categoria"][0].strip.capitalize
-      category = data["category"][0].strip.capitalize
+      brand = data["brand"][0].nil? ? "" : data["brand"][0].strip.capitalize
+      model = data["categoria"][0].nil? ? "" : data["categoria"][0].strip.capitalize
+      category = data["category"][0].nil? ? "" : data["category"][0].strip.capitalize
 
       @brands[brand] = @brands[brand].to_i + 1
       @model_names[category] ||= {}
