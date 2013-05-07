@@ -5,8 +5,7 @@
 <div class="search">
   
   <% if @hits["found"] == 0 %>
-    <h1>RESULTADO DE BUSCA</h1>
-    <h2>Poxa, ainda não temos <span><%= @q%></span> :( </br>Como sempre chegam novidades, logo mais devemos ter o que você procura por aqui. Fique ligada! ;)</h2>
+    <h2><b>Poxa, ainda não temos <span><%= @q%></span> :( </b></br>Como sempre chegam novidades, logo mais devemos ter o que você procura por aqui. Fique ligada! ;)</h2>
     <p class="hints">Sugestões para uma próxima busca:</p>
     <ul class="hint-list">
       <li class="hint_one">Verifique se a ortografia está correta;</li>
@@ -54,16 +53,17 @@
 </div>
 
 <% if @hits["found"] == 0 %>
-<div class="other-products">
-  <p>Enquanto isso, porque você não dá uma olhada em...</p>
-</div>
-<div class="chaordic mostpopular" data-skin="MP-top-5"></div>
-<%= render "home/stylists" %>
+  <div class="other-products">
+    <p>Enquanto isso, porque você não dá uma olhada em...</p>
+  </div>
+  <div class="chaordic mostpopular" data-skin="MP-top-5"></div>
+  <%= render "home/stylists" %>
+<% end %>
 <%= render "home/boxes" %>
 <%= render "home/products_categories" %>
 <%= render "home/facebook_box" %>
 
-<% end %>
+
 
 
 
