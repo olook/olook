@@ -61,6 +61,7 @@ group :production, :staging do
   gem 'yui-compressor'
 end
 
+gem 'piet'
 gem 'rack-mini-profiler', group: :staging
 
 group :development, :test do

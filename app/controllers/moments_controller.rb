@@ -34,6 +34,7 @@ class MomentsController < ApplicationController
   def clothes
     @colors = Detail.colors(params[:category_id])
     @pixel_information = params[:category_id]
+    @stylist_products = Product.fetch_stylists_products
     render :show
   end
 

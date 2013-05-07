@@ -46,10 +46,11 @@ Olook::Application.routes.draw do
 
   #NEW COLLECTIONS
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
+  get '/colecoes/filter/*slug', to: "collection_themes#filter", as: "collection_theme_filter"
   get '/colecoes/*slug', to: "collection_themes#show", as: "collection_theme"
 
   # NEW COLLECTIONS - TODO
-  get '/update_moment', to: "moments#update", as: "update_moment"
+  get '/update_moment', to: "moments#update", as: "update_moment", constraints: { format: 'js' }
 
   # Friendly urls (ok, I know it is not the best approach...)
   match '/sapatos', to: "moments#show", as: "shoes", :defaults => {:category_id => Category::SHOE, :id => 1}
@@ -69,7 +70,13 @@ Olook::Application.routes.draw do
   match '/oculos', to: "moments#glasses", as: "glasses", :defaults => {:category_id => Category::ACCESSORY, :accessory_subcategories=>["oculos-de-sol"], :id => 1}
   match '/roupas', to: "moments#clothes", as: "clothes", :defaults => {:category_id => Category::CLOTH, :id => 1}
   match '/novas-marcas', to: "moments#clothes", as: "brands", :defaults => {id: 1, category_id: Category::CLOTH, brands: ["COLCCI","DOUGLAS HARRIS","ECLECTIC","ESPACO FASHION","FORUM","Iodice","OLLI","SHOP 126","THELURE","TRITON"]}
+  match '/acessorios-sapatos', to: "moments#show", as: "shoe_accessories", :defaults => {id: 1, category_id: Category::SHOE, shoe_subcategories: ["amaciante","apoio-plantar","impermeabilizante","palmilha","protecao-para-calcanhar"]}
 
+  # Novidades
+  match '/novidades/sapatos', to: "moments#show", as: "news_shoes", :defaults => {:category_id => Category::SHOE, :id => 1, news: true }
+  match '/novidades/roupas', to: "moments#show", as: "news_clothes", :defaults => {:category_id => Category::CLOTH, :id => 1, news: true }
+  match '/novidades/bolsas', to: "moments#show", as: "news_bags", :defaults => {:category_id => Category::BAG, :id => 1, news: true }
+  match '/novidades/accessorios', to: "moments#show", as: "news_accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1, news: true }
 
   #FRIENDS
   match "/membro/:share/:uid", :to => "home#index"
@@ -108,6 +115,7 @@ Olook::Application.routes.draw do
 
   #PRODUCT
   get "/produto/:id" => "product#show", :as => "product"
+  get "/produto/:id/spy" => "product#spy", as: 'spy_product'
   post "/produto/share" => "product#share_by_email", as: 'product_share_by_email'
 
   #VITRINE / INVITE
@@ -120,10 +128,6 @@ Olook::Application.routes.draw do
   post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
   get "membro/convidadas" => "members#invite_list", :as => 'member_invite_list'
   get "membro/vitrine", :to => "members#showroom", :as => "member_showroom"
-  get "membro/vitrine_roupas", :to => "members#showroom_clothes", :as => "member_showroom_clothes"
-  get "membro/vitrine_shoes", :to => "members#showroom_shoes", :as => "member_showroom_shoes"
-  get "membro/vitrine_bags", :to => "members#showroom_bags", :as => "member_showroom_bags"
-  get "membro/vitrine_accessories", :to => "members#showroom_accessories", :as => "member_showroom_accessories"
   get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"
   get "membro/ganhe-creditos", :to => "members#earn_credits", :as => "member_earn_credits"
   #get "membro/creditos", :to => "members#credits", :as => "member_credits"
@@ -174,7 +178,6 @@ Olook::Application.routes.draw do
     resources :products do
       collection do
         post 'sync_products' => 'products#sync_products', :as => 'sync_products'
-        post "mark_specific_products_as_visible" => "products#mark_specific_products_as_visible", :as => "mark_specific_products_as_visible"
       end
       post 'sort_pictures' => 'pictures#sort', as: 'sort_pictures'
 
@@ -227,6 +230,7 @@ Olook::Application.routes.draw do
     resources :collections do
       get 'mark_all_products_as_visible' => 'collections#mark_all_products_as_visible', as: 'display_products'
       get 'mark_all_products_as_invisible' => 'collections#mark_all_products_as_invisible', as: 'hide_products'
+      post "mark_specific_products_as_visible" => "collections#mark_specific_products_as_visible", :as => "mark_specific_products_as_visible"
     end
 
     post 'integrate_orders' => "orders#integrate_orders"

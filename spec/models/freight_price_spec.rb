@@ -39,7 +39,7 @@ describe FreightPrice do
     describe 'delivery_time' do
       it { should validate_presence_of(:delivery_time) }
       it { should_not allow_value(1.1).for(:delivery_time) }
-      it { should_not allow_value(-1).for(:delivery_time) }
+      it { should allow_value(-1).for(:delivery_time) }
     end
 
     it { should validate_presence_of(:price) }

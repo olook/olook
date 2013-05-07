@@ -24,6 +24,35 @@
 	.content{
 		position: relative;
 	}
+    section#stylist_selection{
+      .product{
+        margin-left: 5px;
+        width: 235px;
+      }
+      a{
+        color: #000;
+        text-decoration: none;
+      }
+      .container_product ul li{
+        height: 295px;
+      }
+      width: 800px;
+      float: right;
+      margin-right: 20px;
+      #stylist_title{
+        background: image-url("collections/bg-title-selection.png") center repeat-x;
+        margin-top: 25px;
+        height: 30px;
+        text-align: center;
+        text-transform: uppercase;
+        #title{
+          padding: 5px;
+          background: #FFF;
+          font-family: $kepler;
+          font-size: 27px;
+        }
+      }
+    }
 	section#collections_content{float: left;width: 800px;}
 
 	div#home_collections{
@@ -377,8 +406,8 @@ section{margin-top:10px;
         	ol{
         		z-index: 2;
         		position: absolute;
-        		display: none;
         		margin-top: 25px;
+                        display: none;
         		background-color: #fff;
         		padding: 15px;
         		border: 1px solid #e2e2e2;

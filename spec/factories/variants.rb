@@ -1,5 +1,22 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
+  factory :variant_without_association, class: Variant do
+    is_master false
+    number { "number#{Random.rand 10000}" }
+    description 'size X'
+    display_reference 'size-X'
+
+    width 1
+    height 1
+    length 1
+    weight 1.0
+
+    price 0.0
+    retail_price 0.0
+    inventory 0
+    initial_inventory 0
+  end
+
   factory :variant do
     association :product, :factory => [:shoe, :casual]
     is_master false
@@ -12,7 +29,7 @@ FactoryGirl.define do
     length 1
     weight 1.0
 
-    price 0.0
+    price 19.90
     retail_price 0.0
     inventory 0
     initial_inventory 0

@@ -34,7 +34,7 @@ module CartHelper
     #promotion = Promotion.active_and_not_expired(Date.today).order(:updated_at).last
     #return false if promotion.nil?
     #! promotion.matches?(@cart)
-    return false
+    return Setting.show_checkout_banner
   end
 
   def coupon_value_for coupon
