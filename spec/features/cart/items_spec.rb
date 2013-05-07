@@ -16,6 +16,8 @@ feature "Handling cart items", %q{
 
   scenario "Adding an item to the cart" do
     product = FactoryGirl.create(:blue_sliper_with_two_variants)
+    product.price = 79.90
+    product.save!
     product.master_variant.update_attribute(:inventory, 10) 
 
 
