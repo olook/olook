@@ -103,9 +103,10 @@ class Product < ActiveRecord::Base
   end
 
   def related_products
+    return @related_products if @related_products
     products_a = RelatedProduct.select(:product_a_id).where(:product_b_id => self.id).map(&:product_a_id)
     products_b = RelatedProduct.select(:product_b_id).where(:product_a_id => self.id).map(&:product_b_id)
-    Product.where(:id => (products_a + products_b))
+    @related_products = Product.where(:id => (products_a + products_b))
   end
 
   def unrelated_products
