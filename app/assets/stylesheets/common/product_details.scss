@@ -1,11 +1,24 @@
 @import 'partials/mixins';
 
+/*** MODAL GUIA DE MEDIDAS ***/
+div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px solid #a7a9ac; position: absolute;z-index: 3000;padding-left: 50px;display: none;
+  h1{font-size: 20px;font-weight: 600;color: #58585a;margin-top: 50px; float: left;}
+  p{font-size: 14px;color: #58585a;margin-top: 5px;float: left;}
+  ul{margin-top: 65px;float: left;
+    li{font-size: 14px;color: #58585a;margin-bottom: 25px;
+      span{font-weight: 700;}
+    }
+  }
+  img{float: right;margin-right: 25px;}
+}
+
 #product {
   padding: 10px 0 0 0;
   div.content {
     div#pics_suggestions, div#infos {
       margin-bottom: 40px;
     }
+    
     div#pics_suggestions {
       width: 575px;
       float: left;
@@ -296,13 +309,18 @@
             float: left;
           }
           ol {
-            width: 288px;
+            width: 270px;
             float: left;
             li {
-              margin: 0 1px 0 0;
-              display: inline-block;
+              margin: 0 8px 0 0;
+              float: left;
               &:first-child {
                 margin-left: 0;
+              }
+              &.size_guide,&.size_guide.selected{background: image-url('common/guide.png') no-repeat !important; height: 28px;padding-left:15px;width:60px;line-height: 13px;
+                a{font-size: 12px;color: #6d6e71;text-decoration: none;
+                  
+                } 
               }
               label {
                 font-weight: normal;
