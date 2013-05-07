@@ -111,7 +111,7 @@ class CatalogSearchService
   end
 
   def query_colors
-    build_sub_query((query_heels || query_subcategories_for(@params[:shoe_subcategories]) || query_base), Product.arel_table[:color_name].in(@params[:shoe_colors])) if @params[:shoe_colors]
+    build_sub_query((query_heels || query_subcategories_for(@params[:shoe_subcategories]) || query_base), Detail.arel_table[:translation_token].eq("Cor filtro").and(Detail.arel_table[:description].in(@params[:shoe_colors]))) if @params[:shoe_colors]
   end
 
   def query_heels
@@ -126,12 +126,13 @@ class CatalogSearchService
 
   def query_bags
     query = query_subcategories_for(@params[:bag_subcategories])
-    query = build_sub_query((query || query_base), Product.arel_table[:color_name].in(@params[:bag_colors])) if @params[:bag_colors]
+    query = build_sub_query((query || query_base), Detail.arel_table[:translation_token].eq("Cor filtro").and(Detail.arel_table[:description].in(@params[:bag_colors]))) if @params[:bag_colors]
     query.and(l_products[:category_id].in(Category::BAG)) if query
   end
 
   def query_accessories
     query = query_subcategories_for(@params[:accessory_subcategories])
+    query = build_sub_query((query || query_base), Detail.arel_table[:translation_token].eq("Cor filtro").and(Detail.arel_table[:description].in(@params[:accessory_colors]))) if @params[:accessory_colors]
     query.and(l_products[:category_id].in(Category::ACCESSORY)) if query
   end
 
