@@ -10,8 +10,8 @@
       <ul class="submenu">
         <li>
           <p class="freight">Frete grátis para sul e sudeste<br/><span>(em compras a partir de R$60)</span></p>
-          <hr />
         </li>
+        <%= content_tag(:li, content_tag(:p, "Sua sacola está vazia :(<br />Navegue em nosso site e mude isso já!".html_safe, class: 'empty_cart'), class: "product_item") if !@cart || @cart.items.blank? %>
         <% if @cart and @cart.coupon %>
           <li class="coupon_info product_item">
             <p class="coupon_tag"><%= image_tag 'common/nav/big_coupon.png', :class => '' %>Sua sacola agora<br />tem um cupom de <br /><%= coupon_value_for(@cart.coupon) %> de desconto.<br />Aproveite! ;)</p>
