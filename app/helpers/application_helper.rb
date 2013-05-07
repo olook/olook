@@ -48,7 +48,7 @@ module ApplicationHelper
     no_interactive = !!options[:no_interactive]
 
     if no_interactive
-      "_gaq.push(['_trackEvent', '#{category}', '#{action}', '#{item}', '', true]);"
+      "_gaq.push(['_trackEvent', '#{category}', '#{action}', '#{item}', , true]);"
     else
       "_gaq.push(['_trackEvent', '#{category}', '#{action}', '#{item}']);"
     end

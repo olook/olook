@@ -29,7 +29,7 @@ FactoryGirl.define do
     length 1
     weight 1.0
 
-    price 0.0
+    price 19.90
     retail_price 0.0
     inventory 0
     initial_inventory 0
