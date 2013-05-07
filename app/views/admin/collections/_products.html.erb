@@ -17,7 +17,7 @@
       <th></th>
     </tr>
 
-    <%= form_tag(mark_specific_products_as_visible_admin_products_path) do %>
+    <%= form_tag(admin_collection_mark_specific_products_as_visible_path(@collection.id)) do %>
       <% products.each do |product| %>
         <tr>
           <td><%= product.id %></td>
@@ -25,8 +25,8 @@
           <td><%= image_tag(product.showroom_picture, size: '100x100') if product.showroom_picture %></td>
           <td><%= product.profiles.collect{ |p| p.name}.join(", ") %></td>
           <td><%= number_to_currency product.price %></td>
-          <%= hidden_field_tag :collection_id, @collection.id %>
-          <td><%= check_box_tag 'visible_products[]', product.id, product.is_visible %></td>
+          <%= hidden_field_tag 'products[][id]', product.id %>
+          <td><%= check_box_tag 'products[][visibility]', 'true', product.is_visible %></td>
           <td><%= product.category_humanize %></td>
           <td><%= product.initial_inventory %></td>
           <td><%= product.inventory %></td>

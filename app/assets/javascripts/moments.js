@@ -13,6 +13,7 @@ filter.init = function(){
   filter.bindObjects();
   filter.changeVisualization();
   filter.displayCleanCategories();
+  $('.filter ol').show();
 }
 
 filter.spyOverChangeImage = function(){
@@ -69,6 +70,7 @@ filter.endlessScroll = function(window, document){
 }
 filter.submitAndLoad = function(){
   $("form#filter").submit(function() {
+    $('.chaordic.mostpopular').hide();
     $('.loading').show();
     var selected_sort = $("select#filter_option").val() ;
     $('#sort_filter').val(selected_sort);
@@ -78,9 +80,9 @@ filter.submitAndLoad = function(){
     });
   });
 
-  if($(".filters").length != null) {
-    $("html, body").delay(300).animate({scrollTop: h}, 'slow');
-  }
+  //if($(".filters").length != null) {
+  //  $("html, body").delay(300).animate({scrollTop: h}, 'slow');
+  //}
 
 }
 filter.seeAll = function(){

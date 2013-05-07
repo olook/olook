@@ -7,6 +7,17 @@ FactoryGirl.define do
     start_date Date.civil(2011, 11, 20)
     end_date Date.civil(2011, 12, 31)
 
+    trait :active do
+      name { I18n.l(Time.now, format: '%B') }
+      is_active true
+      start_date { Time.now.beginning_of_day }
+      end_date { 2.days.from_now.end_of_day }
+    end
+
+    trait :inactive do
+      is_active false
+    end
+
     factory :inactive_collection do
       is_active false
     end

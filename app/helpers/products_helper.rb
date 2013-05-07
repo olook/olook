@@ -27,20 +27,23 @@ module ProductsHelper
     end
   end
 
-  def print_detail_name_for category, detail 
+  def print_detail_name_for product, detail
 
     name = detail.translation_token.downcase
+    category = product.category
 
     if name == 'categoria'
       'Modelo'
     elsif name == 'material externo' && category == Category::CLOTH
       'Composição'
     elsif name == 'salto' && category == Category::CLOTH
-      'Tamanhos & Medidas'   
+      'Tamanhos & Medidas'
     elsif name == 'salto' && (category == Category::BAG || category == Category::ACCESSORY)
       'Tamanho'
     elsif name == 'metal' && category == Category::ACCESSORY
       'Material'
+    elsif name == 'detalhe' && product.is_a_shoe_accessory?
+      'Instruções'
     else
       detail.translation_token
     end

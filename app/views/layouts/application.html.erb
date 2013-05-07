@@ -45,6 +45,9 @@
     <%= render 'shared/admin_label' if current_admin %>
 
     <div id="modal" class="promo-olook"></div>
+    <div id="modal-campaign"></div>
+    <div id="overlay-campaign"></div>
+
     <div id="error-messages">
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
@@ -65,8 +68,10 @@
     <%= yield :site_footer %>
     <%= javascript_include_tag "jquery" %>
     <%= javascript_include_tag "application" %>
+
     <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
-    <% unless user_signed_in? %>
+
+    <% unless user_signed_in? || request.url.include?("gclid") %>
       <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal &&  !['landing_pages','survey', 'users/registrations'].include?(params[:controller]) %>
     <% end %>
 
