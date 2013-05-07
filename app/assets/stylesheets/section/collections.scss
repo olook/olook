@@ -24,6 +24,35 @@
 	.content{
 		position: relative;
 	}
+    section#stylist_selection{
+      .product{
+        margin-left: 5px;
+        width: 235px;
+      }
+      a{
+        color: #000;
+        text-decoration: none;
+      }
+      .container_product ul li{
+        height: 295px;
+      }
+      width: 800px;
+      float: right;
+      margin-right: 20px;
+      #stylist_title{
+        background: image-url("collections/bg-title-selection.png") center repeat-x;
+        margin-top: 25px;
+        height: 30px;
+        text-align: center;
+        text-transform: uppercase;
+        #title{
+          padding: 5px;
+          background: #FFF;
+          font-family: $kepler;
+          font-size: 27px;
+        }
+      }
+    }
 	section#collections_content{float: left;width: 800px;}
 
 	div#home_collections{
@@ -377,7 +406,6 @@ section{margin-top:10px;
         	ol{
         		z-index: 2;
         		position: absolute;
-        		display: none;
         		margin-top: 25px;
         		background-color: #fff;
         		padding: 15px;
@@ -529,7 +557,7 @@ section{margin-top:10px;
           }
           &.bege{
               background: image-url("common/thumbs_cor.png") no-repeat 0px -241px;
-          } 
+          }
           &.branco{
               background: image-url("common/thumbs_cor.png") no-repeat 0px -418px;
           }
@@ -538,7 +566,7 @@ section{margin-top:10px;
           }
           &.cobra{
               background: image-url("common/thumbs_cor.png") no-repeat 0px -96px;
-          } 
+          }
           &.cobre{
               background: image-url("common/thumbs_cor.png") no-repeat 0px 0px;
           }
@@ -556,7 +584,7 @@ section{margin-top:10px;
           }
           &.marrom{
               background: image-url("common/thumbs_cor.png") no-repeat 0px -257px;
-          }  
+          }
           &.multicolorido{
               background: image-url("common/thumbs_cor.png") no-repeat 0px -128px;
           }
@@ -565,7 +593,7 @@ section{margin-top:10px;
           }
           &.onix{
               background: image-url("common/thumbs_cor.png") no-repeat 0px -32px;
-          } 
+          }
           &.onca{
               background: image-url("common/thumbs_cor.png") no-repeat 0px -144px;
           }
@@ -574,7 +602,7 @@ section{margin-top:10px;
           }
           &.prateado{
               background: image-url("common/thumbs_cor.png") no-repeat 0px -48px;
-          } 
+          }
           &.preto{
               background: image-url("common/thumbs_cor.png") no-repeat 0px -289px;
           }
@@ -583,7 +611,7 @@ section{margin-top:10px;
           }
           &.rose{
               background: image-url("common/thumbs_cor.png") no-repeat 0px -64px;
-          } 
+          }
           &.roxo{
               background: image-url("common/thumbs_cor.png") no-repeat 0px -369px;
           }
@@ -592,7 +620,7 @@ section{margin-top:10px;
           }
           &.verde{
               background: image-url("common/thumbs_cor.png") no-repeat 0px -401px;
-          } 
+          }
           &.vermelho{
               background: image-url("common/thumbs_cor.png") no-repeat 0px -337px;
           }
@@ -601,7 +629,7 @@ section{margin-top:10px;
           }
           &.zebra{
               background: image-url("common/thumbs_cor.png") no-repeat 0px -208px;
-          }                    
+          }
         }
         &.column {
           li {

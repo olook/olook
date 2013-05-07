@@ -13,6 +13,7 @@ class CollectionThemesController < ApplicationController
 
   def show
     return redirect_to collection_themes_url if !current_admin && !@collection_theme.active
+    @stylist_products = Product.fetch_stylists_products
     @chaordic_user = ChaordicInfo.user current_user
   end
 
