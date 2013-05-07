@@ -173,9 +173,8 @@ class CatalogSearchService
   end
 
   def generate_order_by_array
-    brands = @params[:brands] || ([@params[:slug]] if @params[:slug])
     order = []
-    order << order_by_brands(brands) if brands
+    order << order_by_brands(@params[:brands]) if @params[:brands]
     order << sort_filter
     order << 'name asc'
     order

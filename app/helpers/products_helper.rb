@@ -63,17 +63,15 @@ module ProductsHelper
     product.master_variant.sku
   end
 
-  def generate_separator?(params, product, catalog_products, index)
+  def generate_separator?(brands, product, catalog_products, index)
     page = catalog_products.current_page
-    brands = params[:brands] || [params[:slug]] 
-    return false if brands.join(",").upcase.include?("OLOOK")
-    if brands && brands.include?(product.brand)
+    if brands && brands.include?(product.brand.upcase)
       if index < 11
-        return true unless brands.include?(catalog_products[index+1].brand)        
+        return true unless brands.include?(catalog_products[index+1].brand.upcase)        
       elsif page == catalog_products.total_pages
         return true
       else
-        return true unless brands.include?(catalog_products.page(page+1).first.brand)
+        return true unless brands.include?(catalog_products.page(page+1).first.brand.upcase)
       end      
     end
     false
