@@ -2,7 +2,7 @@
 @import "new_structure/partials/lite_boxes_home";
 @import "new_structure/partials/home_stylist_box";
 
-.message{margin-top:45px;text-align: center;color:#000;
+.message{padding:45px 0 20px;text-align: center;color:#000;background: image-url('common/pattern_404.jpg') repeat;
   p{font-size:18px;
     &.subtitle{font-size:20px;margin-bottom:25px;}
     &.opsss{font-size:130px;margin-bottom:20px;line-height:130px;}
