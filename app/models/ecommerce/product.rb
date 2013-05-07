@@ -392,11 +392,11 @@ class Product < ActiveRecord::Base
   end
 
   def self.fetch_products label
-    find_keeping_the_order Setting.send("home_#{label}").split(",")
+    find_keeping_the_order Setting.send("home_#{label}").to_s.split(",")
   end
 
   def self.fetch_stylists_products
-    find_keeping_the_order Setting.send("stylist_products").split(",")
+    find_keeping_the_order Setting.send("stylist_products").to_s.split(",")
   end
 
   def find_suggested_products
