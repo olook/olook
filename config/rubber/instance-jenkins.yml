@@ -25,7 +25,7 @@
   - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
     options: {}
-  instance_id: i-d6a87db3
+  instance_id: i-008bea6b
   image_type: c1.medium
   image_id: ami-3fec7956
   security_groups:
@@ -38,10 +38,10 @@
   - olook_jenkins_mysql_master
   - olook_jenkins_collectd
   - olook_jenkins_monit
-  external_host: ec2-54-224-199-60.compute-1.amazonaws.com
-  external_ip: 54.224.199.60
-  internal_host: ip-10-29-46-77.ec2.internal
-  internal_ip: 10.29.46.77
+  external_host: ec2-184-73-122-195.compute-1.amazonaws.com
+  external_ip: 184.73.122.195
+  internal_host: ip-10-28-166-218.ec2.internal
+  internal_ip: 10.28.166.218
   zone: us-east-1b
   platform: linux
   root_device_type: ebs
