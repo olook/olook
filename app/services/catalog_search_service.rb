@@ -27,7 +27,7 @@ class CatalogSearchService
       # Refazer a classe e deixar a seleção de quais filtros vão ser aplicados muito mais simples.
       categories_in_query = @query.group('catalog_products.category_id')
       ws = categories_in_query.where_values.map {|an| an.to_sql}.join(' AND ')
-      categories_in_query.where_values = [ws.gsub(/(?:|AND )`catalog_products`.`category_id` IN \([^\)]*\)/, '')]
+      categories_in_query.where_values = [ws.gsub(/(?:|AND )`catalog_products`.`(?:category_id|subcategory_name)` IN \([^\)]*\)/, '')]
       categories_in_query = categories_in_query.count.keys
     else
       categories_in_query = @query.group('catalog_products.category_id').count.keys
