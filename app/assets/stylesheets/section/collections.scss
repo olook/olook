@@ -536,116 +536,139 @@ section{margin-top:10px;
     }
   }
 }
-.cloth_main_color{margin: 0 0 10px 0;float:left;clear:both;
-     button{float:right;border:none;background:none;line-height:18px;cursor:pointer;color:#141414;display:none;padding:0;}
-      ol {width: 180px;margin: 15px 0 20px 0;padding-bottom:5px;float: left;clear: both;display:none;
-        &.open{display:block;}
-        li {
-           height: 15px;
-           padding-left: 19px;
-           margin-left: 30px !important;
-           margin-top: 8px !important;
-          label {
-            color: $third_color;
-            letter-spacing: -1px;
-          }
-          input{float: left; margin-left: -40px !important;}
-          &.amarelo{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -305px;
-          }
-          &.azul{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -385px;
-          }
-          &.bege{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -241px;
-          }
-          &.branco{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -418px;
-          }
-          &.cinza{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -273px;
-          }
-          &.cobra{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -96px;
-          }
-          &.cobre{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px 0px;
-          }
-          &.dourado{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -16px;
-          }
-          &.floral{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -80px;
-          }
-          &.laranja{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -321px;
-          }
-          &.listras{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -112px;
-          }
-          &.marrom{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -257px;
-          }
-          &.multicolorido{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -128px;
-          }
-          &.nude{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -225px;
-          }
-          &.onix{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -32px;
-          }
-          &.onca{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -144px;
-          }
-          &.poas{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -160px;
-          }
-          &.prateado{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -48px;
-          }
-          &.preto{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -289px;
-          }
-          &.rosa{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -353px;
-          }
-          &.rose{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -64px;
-          }
-          &.roxo{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -369px;
-          }
-          &.vaca{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -176px;
-          }
-          &.verde{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -401px;
-          }
-          &.vermelho{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -337px;
-          }
-          &.xadrez{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -192px;
-          }
-          &.zebra{
-              background: image-url("common/thumbs_cor.png") no-repeat 0px -208px;
-          }
-        }
-        &.column {
-          li {
-            width: 80px;
-            float: left;
-          }
-        }
-        &.cloth_color_filter{
-          width: 140px !important;
-          height: 200px !important;
-          overflow: auto !important;
-          border-top: 1px solid #e5e5e5;
-          border-left: 1px solid #e5e5e5;
-          border-right: 1px solid #e5e5e5;
-          border-bottom: 1px solid #e5e5e5;
-        }
+.main_color{
+  margin: 0 0 10px 0;
+  float:left;
+  clear:both;
+  button{
+    float:right;
+    border:none;
+    background:none;
+    line-height:18px;
+    cursor:pointer;
+    color:#141414;
+    display:none;
+    padding:0;
+  }
+  ol {
+    width: 180px;
+    margin: 15px 0 20px 0;
+    padding-bottom:5px;
+    float: left;
+    clear: both;
+    display:none;
+    &.open{
+      display:block;
+    }
+    li {
+       height: 15px;
+       padding-left: 19px;
+       margin-left: 30px !important;
+       margin-top: 8px !important;
+      label {
+        color: $third_color;
+        letter-spacing: -1px;
+      }
+      input{
+        float: left;
+        margin-left: -40px !important;
+      }
+      &.amarelo{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -305px;
+      }
+      &.azul{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -385px;
+      }
+      &.bege{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -241px;
+      }
+      &.branco{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -418px;
+      }
+      &.cinza{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -273px;
+      }
+      &.cobra{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -96px;
+      }
+      &.cobre{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px 0px;
+      }
+      &.dourado{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -16px;
+      }
+      &.floral{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -80px;
+      }
+      &.laranja{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -321px;
+      }
+      &.listras{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -112px;
+      }
+      &.marrom{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -257px;
+      }
+      &.multicolorido{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -128px;
+      }
+      &.nude{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -225px;
+      }
+      &.onix{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -32px;
+      }
+      &.onca{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -144px;
+      }
+      &.poas{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -160px;
+      }
+      &.prateado{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -48px;
+      }
+      &.preto{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -289px;
+      }
+      &.rosa{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -353px;
+      }
+      &.rose{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -64px;
+      }
+      &.roxo{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -369px;
+      }
+      &.vaca{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -176px;
+      }
+      &.verde{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -401px;
+      }
+      &.vermelho{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -337px;
+      }
+      &.xadrez{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -192px;
+      }
+      &.zebra{
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -208px;
       }
     }
+    &.column {
+      li {
+        width: 80px;
+        float: left;
+      }
+    }
+    &.color_filter{
+      width: 140px !important;
+      height: 200px !important;
+      overflow: auto !important;
+      border-top: 1px solid #e5e5e5;
+      border-left: 1px solid #e5e5e5;
+      border-right: 1px solid #e5e5e5;
+      border-bottom: 1px solid #e5e5e5;
+    }
+  }
+}
