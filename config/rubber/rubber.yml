@@ -286,7 +286,7 @@ hosts:
     cloud_providers:
       aws:
         image_type: c1.medium
-  test:
+  jenkins:
     cloud_providers:
       aws:
         image_type: c1.medium
