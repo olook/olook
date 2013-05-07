@@ -19,8 +19,8 @@ class RecomendationService
     products = []
 
     @profiles.each do |profile|
-      products_arel = profile.products.group('products.name').includes(:variants).
-        where(_vAt[:inventory].gt(0).and(_pAt[:is_visible].eq true))
+      products_arel = profile.products.only_visible.group('products.name').includes(:variants).
+        where(_vAt[:inventory].gt(0).and(_vAt[:price].gt(0)))
       products_arel = products_arel.
         where(_pAt[:collection_id].eq(collection.id)) if collection
 

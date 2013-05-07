@@ -246,7 +246,10 @@ describe CatalogSearchService do
     context "filtering by brand" do
        before do
         basic_shoe.update_attributes(brand: "Some brand")
-        basic_accessory.update_attributes(brand: "Other Brand")
+        basic_accessory.brand = "Other Brand"
+        basic_accessory.price = 29.90
+        basic_accessory.save!
+
         @first_product = CatalogProductService.new(catalog, basic_shoe.reload).save!.first
         @third_product = CatalogProductService.new(catalog, basic_accessory.reload).save!
         @second_product = CatalogProductService.new(catalog, basic_bag).save!
