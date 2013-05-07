@@ -6,11 +6,12 @@
 #search_result{float:left;width:780px;}
 .cb{clear:both;width:100%;}
 
-.search{margin-top: 15px;margin-left: 15px;
+.search{margin-left: 15px;
 	h1{font-size: 22px;font-family: $avenir;color: #58595b;font-weight: 500;letter-spacing: 2px;margin-bottom: 10px;border-bottom: 1px solid #b7b7b7;width: 277px;}
-	h2{font-size: 15px;font-family: $avenir;color: #767779;letter-spacing: 1px;font-weight: lighter;
+	h2{font-size: 17px;font-family: $avenir;color: #58595B;letter-spacing: 1px;font-weight: lighter;
+    b{font-size:21px;font-family: $avenir_medium;}
 		span{font-weight: bold;color: $base_color;}
-	  &.title-founded{font-size:21px;color:#58595B;border-bottom:solid 1px #B7B7B7;padding-bottom:5px;display:inline-block;margin-bottom:30px;
+	  &.title-founded{font-size:21px;color:#58595B;display:inline-block;margin-bottom:30px;
       span{font-weight:normal;}
     }
   }
