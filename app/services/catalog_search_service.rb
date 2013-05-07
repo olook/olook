@@ -9,7 +9,7 @@ class CatalogSearchService
                   .and(Variant.arel_table[:inventory].gt(0))
 
     unless params[:admin]
-      @query_base = @query_base.and(Product.arel_table[:is_visible].eq(true))
+      @query_base = @query_base.and(Product.arel_table[:is_visible].eq(true)).and(Variant.arel_table[:price].gt(0))
     end
 
     if @liquidation = LiquidationService.active
@@ -18,10 +18,20 @@ class CatalogSearchService
 
   end
 
-  def categories_available_for_options
+  def categories_available_for_options(opts={})
     base_process
     categories = Category.to_a
-    categories_in_query = @query.group('catalog_products.category_id').count.keys
+    if opts[:ignore_category]
+      # Removendo a condição das categories
+      # POG ALERT: Foi mais fácil que remover a adição já que os filtros dela são muito atrelados
+      # Refazer a classe e deixar a seleção de quais filtros vão ser aplicados muito mais simples.
+      categories_in_query = @query.group('catalog_products.category_id')
+      ws = categories_in_query.where_values.map {|an| an.to_sql}.join(' AND ')
+      categories_in_query.where_values = [ws.gsub(/(?:|AND )`catalog_products`.`(?:category_id|subcategory_name)` IN \([^\)]*\)/, '')]
+      categories_in_query = categories_in_query.count.keys
+    else
+      categories_in_query = @query.group('catalog_products.category_id').count.keys
+    end
     categories.select! { |opt| categories_in_query.include?(opt.last) }
     categories.unshift(["Todas", nil])
   end
@@ -101,7 +111,7 @@ class CatalogSearchService
   end
 
   def query_colors
-    build_sub_query((query_heels || query_subcategories_for(@params[:shoe_subcategories]) || query_base), Product.arel_table[:color_name].in(@params[:shoe_colors])) if @params[:shoe_colors]
+    build_sub_query((query_heels || query_subcategories_for(@params[:shoe_subcategories]) || query_base), Detail.arel_table[:translation_token].eq("Cor filtro").and(Detail.arel_table[:description].in(@params[:shoe_colors]))) if @params[:shoe_colors]
   end
 
   def query_heels
@@ -116,12 +126,13 @@ class CatalogSearchService
 
   def query_bags
     query = query_subcategories_for(@params[:bag_subcategories])
-    query = build_sub_query((query || query_base), Product.arel_table[:color_name].in(@params[:bag_colors])) if @params[:bag_colors]
+    query = build_sub_query((query || query_base), Detail.arel_table[:translation_token].eq("Cor filtro").and(Detail.arel_table[:description].in(@params[:bag_colors]))) if @params[:bag_colors]
     query.and(l_products[:category_id].in(Category::BAG)) if query
   end
 
   def query_accessories
     query = query_subcategories_for(@params[:accessory_subcategories])
+    query = build_sub_query((query || query_base), Detail.arel_table[:translation_token].eq("Cor filtro").and(Detail.arel_table[:description].in(@params[:accessory_colors]))) if @params[:accessory_colors]
     query.and(l_products[:category_id].in(Category::ACCESSORY)) if query
   end
 
