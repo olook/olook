@@ -483,7 +483,7 @@ class Product < ActiveRecord::Base
   private
 
     def details_relevance
-      h = { "categoria" => 1, "detalhe" => 2, "metal" => 3, "salto" => 4, "material interno" => 5, "material externo" => 6, "material da sola" => 7 }
+      h = { "categoria" => 1, "detalhe" => 2, "metal" => 3, "salto" => 4, "material externo" => 5, "material interno" => 6, "material da sola" => 7 }
 
       h.default = 1.0/0.0 # infinity
       h

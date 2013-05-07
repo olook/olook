@@ -449,7 +449,7 @@
                   padding-bottom: 10px;
                   &:first-child {
                     font-weight: bold;
-                    width: 100px;
+                    width: 150px;
                   }
                 }
               }
@@ -506,4 +506,10 @@
 
 li a.hide {
   display: none;
+}
+
+.tabs_content li table tr td {
+  float: left;
+  margin-left: 10px;
+  width: 170px;
 }
