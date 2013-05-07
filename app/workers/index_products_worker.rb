@@ -37,8 +37,8 @@ class IndexProductsWorker
 
         fields['name'] = product.name
         fields['description'] = product.description
-        fields['image'] = product.main_picture.image_url(:catalog)
-        fields['backside_image'] = product.backside_picture if product.backside_picture
+        fields['image'] = product.catalog_picture
+        fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
         fields['brand'] = product.brand
         fields['price'] = product.retail_price
         fields['inventory'] = product.inventory
