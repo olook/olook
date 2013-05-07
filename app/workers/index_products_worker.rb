@@ -3,7 +3,7 @@ class IndexProductsWorker
 
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
 
-  @queue = :product
+  @queue = :search
 
   def self.perform
     all_products = products_to_index.map { |product| create_sdf_entry_for product, 'add' }
@@ -23,8 +23,6 @@ class IndexProductsWorker
 
 
     def self.create_sdf_entry_for product, type
-      type = "delete" if product.inventory == 0
-
       values = {
         'type' => type,
         'version' => 1,
@@ -40,13 +38,13 @@ class IndexProductsWorker
         fields['name'] = product.name
         fields['description'] = product.description
         fields['image'] = product.main_picture.image_url(:catalog)
-        fields['backside_image'] = product.backside_picture
+        fields['backside_image'] = product.backside_picture if product.backside_picture
         fields['brand'] = product.brand
         fields['price'] = product.retail_price
         fields['inventory'] = product.inventory
         fields['category'] = product.category_humanize
 
-        details = product.details.delete_if { |d| d.translation_token.downcase == 'salto/tamanho'}
+        details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno'].include?(d.translation_token.downcase) }
 
         details.each do |detail|
           fields[detail.translation_token.downcase.gsub(" ","_")] = detail.description
@@ -63,11 +61,15 @@ class IndexProductsWorker
     end
 
     def self.products_to_index
-      Product.where("collection_id = 20 and is_visible = 1").select{|p| p.price > 0 && p.main_picture.try(:image_url)}
+      products.select{|p| p.is_visible && p.price > 0 && p.main_picture.try(:image_url) && p.inventory > 0}
     end
 
     def self.products_to_remove
-      Product.where("collection_id = 20 and is_visible = 0")
+      products.select{|p| !p.is_visible || p.price == 0 || p.main_picture.try(:image_url).nil? || p.inventory == 0}
+    end
+
+    def self.products
+      Product.all
     end
 
 end
