@@ -57,7 +57,7 @@ filter.endlessScroll = function(window, document){
    if ($('.pagination').length) {
       $(window).scroll(function() {
          url = $('.pagination .next_page').attr('href');
-         var canPaginate =  url && ($(window).scrollTop() > ($(document).height() - 1250)) && !$('.loading').is(':visible');
+         var canPaginate =  url && ($(window).scrollTop() > ($(document).height() - 1750 /* 1250 without the banner */)) && !$('.loading').is(':visible');
          if (canPaginate) {
             $('.loading').show();
             $('.pagination .next_page').remove();
