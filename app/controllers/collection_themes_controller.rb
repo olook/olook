@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class CollectionThemesController < ApplicationController
+  respond_to :html, :js
   before_filter :load_products_of_user_size, only: [:show, :filter]
   before_filter :filter_products_by_category
   before_filter :load_catalog_products
@@ -13,7 +14,7 @@ class CollectionThemesController < ApplicationController
     return redirect_to collection_themes_url if !current_admin && !@collection_theme.active
     @stylist_products = Product.fetch_stylists_products
     @chaordic_user = ChaordicInfo.user current_user
-    respond_to :html
+    respond_with @catalog_products
   end
 
   def filter
