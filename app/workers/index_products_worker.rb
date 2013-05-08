@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class IndexProductsWorker
+  extend Fixes
 
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
 
@@ -33,7 +34,7 @@ class IndexProductsWorker
       if type == 'add'
         fields = {}
 
-        product.delete_cache
+        remove_product_item_view_cache product.id
 
         fields['name'] = product.name
         fields['description'] = product.description
