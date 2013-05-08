@@ -2,7 +2,9 @@
 
 class LookbookPictureUploader < CarrierWave::Uploader::Base
 
- include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
+  # To optimize jpg images using jpegoptm
+  include Piet::CarrierWaveExtension
 
   # Choose what kind of storage to use for this uploader:
   storage :fog

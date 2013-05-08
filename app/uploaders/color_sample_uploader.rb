@@ -5,6 +5,9 @@ class ColorSampleUploader < CarrierWave::Uploader::Base
   # Include RMagick or ImageScience support:
   # include CarrierWave::ImageScience
 
+  # To optimize jpg images using jpegoptm
+  include Piet::CarrierWaveExtension
+
   # Choose what kind of storage to use for this uploader:
   # storage :file
   storage :fog
