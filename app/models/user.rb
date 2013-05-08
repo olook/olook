@@ -63,6 +63,7 @@ class User < ActiveRecord::Base
   end
 
   def set_facebook_data(omniauth)
+    self.add_event(EventType::FACEBOOK_CONNECT) unless self.has_facebook?
     attributes = {:uid => omniauth["uid"], :facebook_token => omniauth["credentials"]["token"]}
     attributes.merge!(:facebook_permissions => (self.facebook_permissions.concat ALL_FACEBOOK_PERMISSIONS.gsub(" ", "").split(",")).uniq)
     update_attributes(attributes)
@@ -218,7 +219,7 @@ class User < ActiveRecord::Base
 
   def has_purchased_orders?
     self.orders.purchased.size > 0
-  end  
+  end
 
   def tracking_params(param_name)
     first_event = events(:where => EventType::TRACKING).first
