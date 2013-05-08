@@ -19,7 +19,6 @@ public/admin/*.csv
 nohup.out
 config/moip.yml
 *.passwd
-db/schema.rb
 .watchr
 public/assets
 public/admin/users.csv

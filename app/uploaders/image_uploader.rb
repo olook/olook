@@ -2,6 +2,8 @@
 
 class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
+  # To optimize jpg images using jpegoptm
+  include Piet::CarrierWaveExtension
 
   # Choose what kind of storage to use for this uploader:
   storage :fog
@@ -21,7 +23,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Process files as they are uploaded:
   # process :scale => [200, 300]
   #
-  process :strip
+  process :optimize
 
   #def scale(width, height)
   #  # do something

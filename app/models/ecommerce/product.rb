@@ -103,10 +103,9 @@ class Product < ActiveRecord::Base
   end
 
   def related_products
-    return @related_products if @related_products
     products_a = RelatedProduct.select(:product_a_id).where(:product_b_id => self.id).map(&:product_a_id)
     products_b = RelatedProduct.select(:product_b_id).where(:product_a_id => self.id).map(&:product_b_id)
-    @related_products = Product.where(:id => (products_a + products_b))
+    Product.where(:id => (products_a + products_b))
   end
 
   def unrelated_products
@@ -484,7 +483,7 @@ class Product < ActiveRecord::Base
   private
 
     def details_relevance
-      h = { "categoria" => 1, "detalhe" => 2, "metal" => 3, "salto" => 4, "material interno" => 5, "material externo" => 6, "material da sola" => 7 }
+      h = { "categoria" => 1, "detalhe" => 2, "metal" => 3, "salto" => 4, "material externo" => 5, "material interno" => 6, "material da sola" => 7 }
 
       h.default = 1.0/0.0 # infinity
       h
