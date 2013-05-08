@@ -1,6 +1,6 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "new_structure/section/lite_showroom" %>
-  
+
   <meta name="chaordic:source" content="home/vitrine">
   <meta name="chaordic:user" content="<%= @chaordic_user %>">
   <meta name="chaordic:category" content="Vitrine" >
@@ -16,7 +16,7 @@
       <div class="photo">
       <% if current_user.has_facebook? %>
         <%= content_tag :div, image_tag("https://graph.facebook.com/#{current_user.uid}/picture?width=90&height=85", class: 'avatar-photo'), class: 'avatar' if current_user.uid %>
-      <% else %>  
+      <% else %>
         <p>Que tal sua foto aqui?</p>
         <a href="/conta/auth/facebook" clas="btn-connect-face">Conectar no Facebook</a>
       <% end %>
@@ -27,13 +27,13 @@
         <p>
           Nossas stylists montaram uma seleção incrível de produtos para você este mês.
           Confira e aproveite sem moderação!
-          <%= link_to "Confira aqui o seu perfil",'javascript:void(0);', class:"show-profile" %> ou se não gostar do resultado, <%= link_to "responda nosso style quiz", new_survey_path %> novamente.
+          <%= link_to "Confira aqui o seu perfil",'javascript:void(0);', class:"show-profile", onclick: track_event("Showroom","ShowProfile") %> ou se não gostar do resultado, <%= link_to "responda nosso style quiz", new_survey_path, onclick: track_event("Showroom","RestartQuiz") %> novamente.
         </p>
 
-      </div>  
-  
-    </div>  
-    
+      </div>
+
+    </div>
+
     <% if @friends && @friends.any? %>
       <div id="mask_carousel_facebook">
         <p>Últimas amigas que se registraram</p>
@@ -41,7 +41,7 @@
         <ul id="friends-face" class="<%= 'carousel' if @friends.count > 12 %>">
           <%- @friends.each do |friend| -%>
             <li>
-              <%= link_to friend_showroom_path(:friend_id => friend.id) do %>
+              <%= link_to friend_showroom_path(:friend_id => friend.id), onclick: track_event("Showroom","ShowFriendShowroom") do %>
                 <div class="mask">
                   <%= image_tag user_avatar(friend, 'square'), :title => friend.name %>
                 </div>
@@ -50,29 +50,29 @@
           <%- end -%>
         </ul>
         <%= link_to "Próximo", "javascript:void(0);", :class => "carousel-next-fb", :id=> "next-button" %>
-        <%= link_to "Convide mais amigas e ganhe créditos!", member_invite_path, class: "invite-more" %>
+        <%= link_to "Convide mais amigas e ganhe créditos!", member_invite_path, class: "invite-more", onclick: track_event("Showroom","ShowroomMemberInvite") %>
       </div>
     <%- else -%>
       <div id="banner_creditos"><%= link_to (image_tag('showroom/banner.png')), member_invite_path, :title => "Convide amigas e ganhe R$ 20 quando elas fizerem a primeira compra" %></div>
     <%- end -%>
   </section>
-  
+
   <% if @user.profile_name.present? %>
     <%#= image_tag "profiles/mini_#{@user.profile_name.to_s}.jpg", class: "profile-quiz" %>
     <%= render "shared/modal/retake_quiz", :user => @user, :link => "#"  %>
-  <% end %>  
-  
+  <% end %>
+
   <div class="showroom-title">
     <p><span>Sua vitrine de <%= current_collection_name %></span></p>
   </div>
-      
+
   <section class="container_product" id="clothes_container">
-    
+
     <div class="fb_share">
       <p>Gostou da sua vitrine? Então compartilhe!</p>
-      <%= link_to 'Compartilhar', "javascript:void(0);", id: "facebook_share", :class => "share", :"data-width" => 128, :"data-height" => 24 %>
+      <%= link_to 'Compartilhar', "javascript:void(0);", id: "facebook_share", :class => "share", :"data-width" => 128, :"data-height" => 24, onclick: track_event("Showroom","ShowroomShareFacebook") %>
     </div>
-      
+
     <ul>
       <%- @cloth.shift(5).each do |product| -%>
           <%= render 'shared/lite_product_item', product: product  %>
@@ -99,7 +99,7 @@
     <%= content_tag(:p, link_to("+ ver mais sapatos +", news_shoes_path, :class => "more shoes", :onclick => track_event("Showroom", "SeeMore", "Shoes"), :rel => "follow"), class:"see-more")%>
   </section>
 
- 
+
   <section class="container_product" id="purse_container">
     <ul>
       <%- @bags.each do |product| -%>
@@ -111,13 +111,13 @@
   </section>
 
 
-  <section class="container_product" id="accessories_container">    
+  <section class="container_product" id="accessories_container">
     <ul>
       <%- @accessories.each do |product| -%>
         <%= render 'shared/lite_product_item', product: product %>
       <%- end -%>
     </ul>
-    
+
     <%= content_tag(:p, link_to("+ ver mais acessórios +", news_accessories_path, :class => "more accessories", :onclick => track_event("Showroom", "SeeMore", "Acessories"), :rel => "follow"), class:"see-more")%>
   </section>
 
@@ -201,9 +201,9 @@
 
 <% content_for :footer do %>
   <%= javascript_include_tag "section/lite_showroom" %>
-  
-  <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>  
-  
+
+  <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
+
   <% if @user.first_visit_for_member? %>
     <%= javascript_include_tag "first_visit" %>
     <%= render "shared/metrics/google/track_signup_page_view" %>
@@ -215,7 +215,7 @@
       $("img.profile-quiz").trigger('click');
     }, 1500);
     </script>
-  <% end %>  
+  <% end %>
 
   <% if user_signed_in? %>
     <%= render "shared/invite", :user => current_user %>
