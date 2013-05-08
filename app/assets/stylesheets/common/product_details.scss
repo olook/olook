@@ -467,7 +467,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
                   padding-bottom: 10px;
                   &:first-child {
                     font-weight: bold;
-                    width: 100px;
+                    width: 150px;
                   }
                 }
               }
@@ -524,4 +524,10 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
 
 li a.hide {
   display: none;
+}
+
+.tabs_content li table tr td {
+  float: left;
+  margin-left: 10px;
+  width: 170px;
 }

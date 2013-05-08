@@ -2,7 +2,9 @@
 
 class LookbookPictureUploader < CarrierWave::Uploader::Base
 
- include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
+  # To optimize jpg images using jpegoptm
+  include Piet::CarrierWaveExtension
 
   # Choose what kind of storage to use for this uploader:
   storage :fog
@@ -19,7 +21,7 @@ class LookbookPictureUploader < CarrierWave::Uploader::Base
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
   # end
 
-  process :strip
+  process :optimize
 
   # Create different versions of your uploaded files:
   version :movie_thumb do
