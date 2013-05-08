@@ -30,7 +30,7 @@ class ColorSampleUploader < CarrierWave::Uploader::Base
   # def scale(width, height)
   #   # do something
   # end
-  process :strip
+  process :optimize
 
   version :square15 do
     process resize_to_fill: [15,15]
