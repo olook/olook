@@ -1141,6 +1141,11 @@ header#new_header{
                   span{color:#000;font-size:10px;text-transform:none;letter-spacing:1px;}
                }
                hr{height:1px;border:0;color:#CCC;background:#CCC;}
+               .empty_cart{
+                 text-align:center;
+                 font-size:11px;
+                 color:#000;
+               }
             }
          }
          p.see_cart {
@@ -1571,7 +1576,7 @@ header div.contact {
   margin: 0 0 0 -480px;
   display:none;
   z-index:100000;
-
+  .size_guide{display:none;}
   #close_quick_view{
     cursor: pointer;
     font-size: 20px;

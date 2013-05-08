@@ -1,5 +1,4 @@
 [![Build Status](http://ci.olook.com.br/job/olook/badge/icon)](http://ci.olook.com.br/job/olook/)
-[![Semaphose Build Status](https://semaphoreapp.com/api/v1/projects/b43dc7c082a6815c45e5bc1e4c4f9d6995aa7172/35473/badge.png)](https://semaphoreapp.com/projects/1813/branches/35473)
 
 Requirements
 ============

@@ -6,6 +6,13 @@ $(function() {
   initQuickView.pinProduct();
   initQuickView.shareProductOnFacebook();
 
+  /** MODAL GUIA DE MEDIDAS **/
+  $(".size_guide a").click(function(e){
+    initBase.newModal($("#modal_guide"));
+    e.preventDefault();
+    
+  })
+
   $("div#infos div.description p[class!='price'] a.more").live("click", function() {
     el = $(this).parent();
     el.text(stringDesc);
