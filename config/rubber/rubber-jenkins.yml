@@ -12,7 +12,7 @@ jenkins_build_home: /var/lib/jenkins
 # typically the persistence layer is sufficient, and apache
 # for proxying to java server
 role_dependencies:
-  jenkins: [apache, mysql]
+  jenkins: [apache, mysql, redis]
 
 security_groups:
   jenkins_web:
