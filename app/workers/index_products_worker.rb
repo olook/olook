@@ -41,7 +41,6 @@ class IndexProductsWorker
         fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
         fields['brand'] = product.brand
         fields['price'] = product.retail_price
-        fields['inventory'] = product.inventory
         fields['category'] = product.category_humanize
 
         details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno'].include?(d.translation_token.downcase) }
