@@ -8,6 +8,7 @@ class EventType < EnumerateIt::Base
     first_visit:            [20, 'First visit'],
     early_access:           [21, 'Early access'],
     upgrade_to_full_user:   [22, 'Upgrade to full user'],
+    facebook_connect:       [23, 'Facebook Connect'],
 
     send_invite:            [30, 'Send invites'],
     send_imported_contacts: [34, 'Send imported contacts'],
