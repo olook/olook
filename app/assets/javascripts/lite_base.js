@@ -11,6 +11,7 @@ olook = o = {
       o.myAccountMenu(); 
       o.showSlideToTop();
       o.slideToTop();  
+      o.showFlash();
   },
   
   menu: function(){
@@ -150,6 +151,16 @@ olook = o = {
       }, 'fast');
       e.preventDefault();
     });
+  },
+
+  showFlash: function() {
+    if( error = $('#error-messages').html() ){
+      if( error.length >= '73' ){
+        $('.alert').parent().slideDown('1000', function() {
+          $('.alert').parent().delay(5000).slideUp();
+        })
+      }
+    }
   }
   
 }

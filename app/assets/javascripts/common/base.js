@@ -498,14 +498,15 @@ initBase = {
 
   newModal : function(content){
     var $modal = $("div#modal.promo-olook"), h = $(content).outerHeight(), w = $(content).outerWidth(), ml = -parseInt((w/2)), mt = -parseInt((h/2)), heightDoc = $(document).height(), _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()), _left=Math.max(0, (($(window).width() - w) / 2) + $(window).scrollLeft());
-
+h2 = content.height(), w2 = content.width();console.log(h,w,h2,w2);
     $("#overlay-campaign").css({"background-color": "#000", 'height' : heightDoc}).fadeIn().bind("click", function(){
-      _iframe = $modal.contents().find("iframe");
-      console.log(_iframe);
+     _iframe = $modal.contents().find("iframe") || null;
+
       if (_iframe.length > 0){
         $(_iframe).remove();
       }
-       $modal.fadeOut();
+
+       $("#modal").hide();
        $(this).fadeOut();
     });
 
@@ -522,12 +523,13 @@ initBase = {
    .delay(500).fadeIn().children().fadeIn();
 
    $("#modal button.close, #modal a.me").click(function(){
-     _iframe = $modal.contents().find("iframe");
-     console.log(_iframe);
+     _iframe = $modal.contents().find("iframe") || null;
+
      if (_iframe.length > 0){
        $(_iframe).remove();
      }
-      $modal.fadeOut();
+
+      $("#modal").hide();
       $("#overlay-campaign").fadeOut();
    })
 

@@ -1,17 +1,19 @@
-<div class="filter main_color">
-  <p class="filter_type opened">Cor <%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
-  <button type="button" class="clear_filter bt_clear_color">[ limpar ]</button>
-  <ol class="color_filter">
-    <!--li>
-      <%= check_box_tag "select_all_colors", 1, params[:select_all_colors], :class => "select_all" %>
-      <%= label_tag "select_all_colors", "Todas as cores" %>
-    </li-->
-  <% @colors.sort{|a,b| a[0] <=> b[0]}.each do |label| -%>
-    <li class="<%= label %>">
-      <%= check_box_tag("#{product_type}_colors[]", label, params["#{product_type}_colors".to_sym] && params["#{product_type}_colors".to_sym].include?(label) || params[:select_all_colors], id: label) %>
-      <%= label_tag(label, nil, for: label) %>
-    </li>
-  <% end -%>
-  </ol>
-  <%= image_tag 'collections/arrow-white.png', :class => 'arrow arrow-cor', style:"display:none" %>
-</div>
+<% unless @colors.blank? %>
+  <div class="filter main_color">
+    <p class="filter_type opened">Cor <%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
+    <button type="button" class="clear_filter bt_clear_color">[ limpar ]</button>
+    <ol class="color_filter">
+      <!--li>
+        <%= check_box_tag "select_all_colors", 1, params[:select_all_colors], :class => "select_all" %>
+        <%= label_tag "select_all_colors", "Todas as cores" %>
+      </li-->
+    <% @colors.sort{|a,b| a[0] <=> b[0]}.each do |label| -%>
+      <li class="<%= label %>">
+        <%= check_box_tag("#{product_type}_colors[]", label, params["#{product_type}_colors".to_sym] && params["#{product_type}_colors".to_sym].include?(label) || params[:select_all_colors], id: label) %>
+        <%= label_tag(label, nil, for: label) %>
+      </li>
+    <% end -%>
+    </ol>
+    <%= image_tag 'collections/arrow-white.png', :class => 'arrow arrow-cor', style:"display:none" %>
+  </div>
+<% end %>
