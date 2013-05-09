@@ -64,6 +64,16 @@ function slideMenuBar(){
 
 }
 
+function showBalloon(){
+  var t=$(".menu_new .stylist").position().top, l=$(".menu_new .stylist").position().left;
+  $("img.balloon").css({"top": t -5, "left": l+20});
+  
+  $(".menu_new .stylist").on("mouseenter", function(){
+    $("img.balloon").show();
+  }).on("mouseleave", function(){
+    $("img.balloon").hide();
+  })
+}
 
 $(document).ready(function() {
   initBase.dialogLogin();
@@ -75,6 +85,8 @@ $(document).ready(function() {
   initBase.showSlideToTop();
   initBase.slideToTop();
   initBase.replaceImages();
+
+  showBalloon();
 
   setTimeout(function(){slideMenuBar();},3000);
 
