@@ -16,6 +16,10 @@
         -webkit-appearance: button;
       }
 
+      table {
+        clear: both;
+      }
+
       .btn_print {
         display: inline-block;
         *display: inline;
@@ -59,7 +63,7 @@
       }
 
       .editable_line{
-        float:right;text-align:right;padding-right:5px;margin-top:15px;margin-bottom:9px;width:400px;
+        float:right;text-align:right;margin-top:15px;margin-bottom:9px;width:400px;font-size: 13px;
       }
     </style>
   </head>
@@ -83,11 +87,13 @@
           <strong>Pague pelo internet banking</strong><br/>
           utilize a linha edit&aacute;vel ao lado
         </div>
-        <input type="text" value="<%= @boleto.linha_digitavel %>" class="editable_line">
+        <p class="editable_line">
+          <%= @boleto.linha_digitavel %>
+        </p>
       </div>
     </div>
 
-    <table width="640" border="0" cellpadding="0" cellspacing="0">
+    <table width="640" border="0" cellpadding="0" cellspacing="0" class="tesoura-table">
       <tbody>
         <tr>
           <td>
