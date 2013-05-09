@@ -10,6 +10,6 @@ staging:
   search_domain: search-test-olook-products-2ykpfrclwbu55oirdfgjmvuvsu.us-east-1.cloudsearch.amazonaws.com
   docs_domain: doc-test-olook-products-2ykpfrclwbu55oirdfgjmvuvsu.us-east-1.cloudsearch.amazonaws.com
 
-# production:
-#   docs_domain: search-test-olook-products-2ykpfrclwbu55oirdfgjmvuvsu.us-east-1.cloudsearch.amazonaws.com
-#   search_domain: doc-test-olook-products-2ykpfrclwbu55oirdfgjmvuvsu.us-east-1.cloudsearch.amazonaws.com
+production:
+  docs_domain: doc-olook-products-m7cmewyo4k3ih7na2nzixh5jae.us-east-1.cloudsearch.amazonaws.com
+  search_domain: busca.olook.com.br
