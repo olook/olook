@@ -14,6 +14,7 @@ filter.init = function(){
   filter.changeVisualization();
   filter.displayCleanCategories();
   filter.fillFilterTags();
+  filter.hide_chaordic();
   $('.filter ol').show();
 }
 
@@ -30,6 +31,13 @@ filter.spyOverChangeImage = function(){
        }
    });
 }
+
+filter.hide_chaordic = function() {
+    if ($("#filter input[type=checkbox]").is(":checked")) {
+        $('.chaordic.mostpopular').remove();
+    };
+}
+
 filter.setMouseOverOnImages = function() {
      $('img.async').mouseover(function () {
        var backside_image = $(this).attr('data-backside');
