@@ -244,7 +244,7 @@ describe CatalogSearchService do
     end
 
     context "filtering by brand" do
-       before do
+      before do
         basic_shoe.update_attributes(brand: "Some brand")
         basic_accessory.brand = "Other Brand"
         basic_accessory.price = 29.90
@@ -253,17 +253,26 @@ describe CatalogSearchService do
         @first_product = CatalogProductService.new(catalog, basic_shoe.reload).save!.first
         @third_product = CatalogProductService.new(catalog, basic_accessory.reload).save!
         @second_product = CatalogProductService.new(catalog, basic_bag).save!
-        params = {:id => catalog.id, brands: ["Some brand", "Other Brand"]}
-        @products = CatalogSearchService.new(params).search_products
       end
 
-      context "when a brand was give the returned products" do
-        it { expect(@products).to include(@first_product) }
-        it { expect(@products).to include(@third_product) }
-        it { expect(@products).to_not include(@second_product) }
+      context "when 'Some Brand' and 'Other Brand' are selected" do
+        before do
+          params = {:id => catalog.id, brands: ["Some brand", "Other Brand"]}
+          @products = CatalogSearchService.new(params).search_products
+        end
+
+        it { expect(@products.first).to eq(@first_product) }
+        it { expect(@products.second).to eq(@third_product) }
+        it { expect(@products.third).to eq(@second_product) }
       end
 
-
+      context "when 'Other Brand' is selected" do
+        before do
+          params = {:id => catalog.id, brands: ["Other Brand"]}
+          @products = CatalogSearchService.new(params).search_products
+        end        
+        it { expect(@products.first).to eq(@third_product) }
+      end      
     end
   end
 end
