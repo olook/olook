@@ -61,7 +61,7 @@ class CollectionThemesController < ApplicationController
           params[:category_id] = @catalog_search_service.categories_available_for_options(ignore_category: true).last.last
         end
         @catalog_products = @catalog_search_service.search_products
-        @products_id = @catalog_products.map{|item| item.product_id }.compact
+        @products_id = @catalog_products.first(3).map{|item| item.product_id }.compact
         # params[:id] is into array for pixel iterator
         @categories_id = params[:id] ? [params[:id]] : @collection_themes.map(&:id).compact.uniq
       else
