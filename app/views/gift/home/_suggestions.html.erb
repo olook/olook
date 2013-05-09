@@ -8,7 +8,7 @@
           <% if @helena_tips.thumb_image? %>
             <%= image_tag @helena_tips.thumb_image.try(:url), :title => "Helena Linhares" %>
           <% end %>
-          <p>As rasteiras são a cara do verão. Confortáveis e  atuais, são ótimas para o dia-a-dia e também para compor looks mais elaborados.</p>
+          <%= simple_format @helena_tips.description %>
           <span>Veja as dicas da Helena</span>
         <% end %>
       </li>
@@ -18,7 +18,7 @@
           <% if @top_five.thumb_image? %>
             <%= image_tag @top_five.thumb_image.try(:url), :title => "TOP 5" %>
           <% end %>
-          <span>Conheça os 5 mais vendidos</span>
+          <span class="gift_box_link">Conheça os 5 mais vendidos</span>
         <% end %>
       </li>
       <li id="face">
@@ -27,7 +27,7 @@
           <% if @hot_on_facebook.thumb_image? %>
             <%= image_tag @hot_on_facebook.thumb_image.try(:url), :title => "Hot no Face" %>
           <% end %>
-          <span>Veja o que é sucesso no facebook</span>
+          <span class="gift_box_link">Veja o que é sucesso no facebook</span>
         <% end %>
       </li>
     </ul>

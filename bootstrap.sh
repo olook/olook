@@ -1,7 +1,4 @@
 #!/bin/bash
-
-bundle install
-
 for filename in config/*.sample 
 do
   echo -n "$filename => ";
@@ -9,6 +6,3 @@ do
   cp -vn $filename config/$file_without_ext;
   echo ""
 done
-
-bundle exec rake db:create db:migrate olook:seed_admin db:seed olook:create_permissions
-bundle exec rake db:create db:migrate olook:seed_admin db:seed olook:create_permissions RAILS_ENV=test

@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class IndexProductsWorker
+  extend Fixes
 
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
 
@@ -33,7 +34,7 @@ class IndexProductsWorker
       if type == 'add'
         fields = {}
 
-        product.delete_cache
+        remove_product_item_view_cache product.id
 
         fields['name'] = product.name
         fields['description'] = product.description
@@ -41,7 +42,6 @@ class IndexProductsWorker
         fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
         fields['brand'] = product.brand
         fields['price'] = product.retail_price
-        fields['inventory'] = product.inventory
         fields['category'] = product.category_humanize
 
         details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno'].include?(d.translation_token.downcase) }
