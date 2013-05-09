@@ -73,7 +73,12 @@ module ProductsHelper
       else
         return true unless brands.include?(catalog_products.page(page+1).first.brand.upcase)
       end      
-    end
-    false
+    else
+      return false
+    end      
+  end
+
+  def first_product_doesnt_belong_to_selected_brands?(product, catalog_products, brands)
+    brands && !brands.include?(product.brand.upcase) && product == catalog_products.first && catalog_products.current_page == 1
   end
 end
