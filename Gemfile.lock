@@ -157,7 +157,7 @@ GEM
     database_cleaner (0.9.1)
     delorean (2.1.0)
       chronic
-    devise (1.5.3)
+    devise (1.5.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
       warden (~> 1.1)
