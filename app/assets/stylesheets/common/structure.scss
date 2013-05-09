@@ -109,7 +109,8 @@ body {
 
   div#content {
     padding-top: 10px;
-    margin-top: -16px;
+    margin-top: -19px;
+    position:relative;
   }
 
   div#login_modal {
@@ -1014,10 +1015,6 @@ body {
       
         li{font-size: 10px;text-transform: uppercase;display: inline;float: left;height: 38px;background: image-url("common/nav/menu_bar.png") no-repeat right 0;
           &.liquidation{border-right: none;}
-          &.stylist{ 
-            img{display: none;display: none;position: absolute;width: 174px;height: 185px;z-index: 200;top: 30px;margin-left: 30px;}
-            &:hover{img{display: block;}}
-           }
           &#bar {position: absolute;bottom: 0px;left: 0;height: 4px;background: #000;padding:0;display:none;}
           &:nth-child(9){background:none;}
           a{display:block;font-family: $johnston;height:28px;text-decoration: none;color: black;padding:0 17px;letter-spacing:2px;}
@@ -1141,6 +1138,11 @@ header#new_header{
                   span{color:#000;font-size:10px;text-transform:none;letter-spacing:1px;}
                }
                hr{height:1px;border:0;color:#CCC;background:#CCC;}
+               .empty_cart{
+                 text-align:center;
+                 font-size:11px;
+                 color:#000;
+               }
             }
          }
          p.see_cart {
@@ -1173,31 +1175,35 @@ header#new_header{
           input[type="submit"]{
             position: absolute;
             background: image-url('common/nav/magnifier.png') no-repeat;
-            width: 20px;
-            height: 15px;
+            width: 28px;
+            height: 27px;
             left: 190px;
             text-indent: 9999px;
             border:none;
-            margin-top: 7px;
+            margin-top: 1px;
             cursor: pointer;
           }
           #search_product{
           float: left;
-          border: solid 1px #cacaca;
-          font-family: avenir, arial, sans-serif;
+          border: solid 1px #000;
+          font-family: $johnston;
           font-size: 10px;
           width: 165px;
           height: 25px;
-          line-height: 30px;
-          color: #a7a9ab;
+          line-height: 29px;
+          color: #000;
           text-align: left;
           padding-left: 10px;
           padding-right: 40px;
           text-transform: uppercase;
+          letter-spacing: 1px;
           }
         } 
       } 
 }   
+
+img.balloon{display:none;position: absolute;width: 174px;height: 185px;z-index:8888;}
+
   /*** end new header ***/
   div#wrapper_menu {
     position: relative;
@@ -1600,7 +1606,7 @@ header div.contact {
   margin: 0 0 0 -480px;
   display:none;
   z-index:100000;
-
+  .size_guide{display:none;}
   #close_quick_view{
     cursor: pointer;
     font-size: 20px;

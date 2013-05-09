@@ -1,6 +1,6 @@
 class ProductSearch
   def self.terms_for(term)
-    return [] if term.size < 3
+    return [] if term.size < 1
     REDIS.zrevrange CACHE_KEYS[:product_search][:key] % term.downcase, 0, 9
   end
 
