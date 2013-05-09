@@ -36,9 +36,9 @@ $(function() {
   $("#search_product").autocomplete({
       source: "/search/product_suggestions",
       select: function(event, ui) { 
-          $("input##search_product").val(ui.item.value);
-          $("#search_form").submit();
-        }
+        $("input##search_product").val(ui.item.value);
+        $("#search_form").submit();
+      }
   });
   
 });
