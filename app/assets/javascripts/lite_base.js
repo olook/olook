@@ -71,7 +71,7 @@ olook = o = {
   
   newModal: function(content){
     var $modal = $("div#modal.promo-olook"), 
-    h = $("img", content).length > 0 ? $("img",content).outerHeight() + 40 : $(content).outerHeight(), 
+    h = $("img", content).length > 0 ? $("img",content).outerHeight() : $(content).outerHeight(), 
     w = $("img", content).length > 0 ? $("img",content).outerWidth() : $(content).outerWidth(), 
     ml = -parseInt((w/2)), mt = -parseInt((h/2)), 
     heightDoc = $(document).height(), 
