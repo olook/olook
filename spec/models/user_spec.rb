@@ -212,6 +212,28 @@ describe User do
       subject.facebook_permissions.should == ["publish_stream", "friends_birthday"]
     end
 
+    context "when user is not connected with facebook yet" do
+      before do
+        subject.stub(:has_facebook?).and_return(false)
+      end
+
+      it "receive add_event method" do
+        subject.should_receive(:add_event).with(EventType::FACEBOOK_CONNECT)
+        subject.set_facebook_data(omniauth)
+      end
+    end
+
+    context "when user is connected with facebook already" do
+      before do
+        subject.stub(:has_facebook?).and_return(true)
+      end
+
+      it "doesn't receive add_event method" do
+        subject.should_not_receive(:add_event)
+        subject.set_facebook_data(omniauth)
+      end
+    end
+
   end
 
   context "facebook accounts" do
