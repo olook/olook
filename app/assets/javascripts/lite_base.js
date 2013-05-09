@@ -166,7 +166,7 @@ olook = o = {
 
   showFlash: function() {
     if( error = $('#error-messages').html() ){
-      if( error.length >= '73' ){
+      if( error.length >= '82' ){
         $('.alert').parent().slideDown('1000', function() {
           $('.alert').parent().delay(5000).slideUp();
         })
