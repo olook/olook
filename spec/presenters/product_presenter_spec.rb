@@ -152,7 +152,7 @@ describe ProductPresenter do
       subject.product.stub_chain(:variants, :sorted_by_description).and_return(sizes)
     end
     it 'should render all variants to select' do
-      template.should_receive(:render).with(:partial => 'product/sizes', :locals => {:variants => sizes, :shoe_size => 35})
+      template.should_receive(:render).with(:partial => 'product/sizes', :locals => {:variants => sizes, :shoe_size => 35, :show_cloth_size_table => false})
       subject.render_multiple_sizes
     end
   end

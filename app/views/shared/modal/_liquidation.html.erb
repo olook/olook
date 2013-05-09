@@ -1,8 +1,9 @@
 <div class="dialog with_confirmation liquidation">
   <%= link_to image_tag(current_liquidation.lightbox_banner_url), liquidations_path(current_liquidation.id) %>
   
-    <%= form_tag "#", :remote => true do %>
-       <%= check_box_tag "user_liquidation[dont_want_to_see_again]" %>
-       <%= label_tag "user_liquidation_dont_want_to_see_again", "Não mostrar esse aviso novamente" %>
-    <% end %>
+    <%#= form_tag "#", :remote => true do %>
+       <%#= check_box_tag "user_liquidation[dont_want_to_see_again]" %>
+       <%#= label_tag "user_liquidation_dont_want_to_see_again", "Não mostrar esse aviso novamente" %>
+    <%# end %>
+  
 </div>
