@@ -1,7 +1,6 @@
 class Admin::BaseController < ActionController::Base
-	protect_from_forgery
-  before_filter :authenticate_admin!
- 
+  protect_from_forgery
+
   layout "admin"
 
   rescue_from CanCan::AccessDenied do  |exception|
@@ -22,7 +21,7 @@ class Admin::BaseController < ActionController::Base
 
   private
 
-	  def current_ability
-	    @current_ability ||= ::Ability.new(current_admin)
-	  end
+  def current_ability
+    @current_ability ||= ::Ability.new(current_admin)
+  end
 end
