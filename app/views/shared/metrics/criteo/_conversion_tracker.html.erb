@@ -5,9 +5,9 @@ pageType: 'confirmation',
 'Transaction ID': "<%= order.number %>",
 'Deduplication': "<%= criteo_conversion %>",
 'New Customer': "<%= order.user.first_buy? ? 1 : 0 %>",
-'Product IDs': "<%= order.line_items.map{|p| p.variant.product_id.to_s} %>",
-'Prices': "<%= order.line_items.map{|p| p.retail_price.to_s} %>",
-'Quantities': "<%= order.line_items.map{|p| p.quantity.to_s} %>"
+'Product IDs': "<%= raw order.line_items.map{|p| p.variant.product_id.to_s} %>",
+'Prices': "<%= raw order.line_items.map{|p| p.retail_price.to_s} %>",
+'Quantities': "<%= raw order.line_items.map{|p| p.quantity.to_s} %>"
 }], [4299,'pmo','us.','010',[[7716407, 7716408]],{'Customer ID':['ci',0], 'Site Type':['site_type',0], 'Deduplication':['dd',0],'New
 Customer':['nc',0], 'Transaction ID':['t',0], 'Product IDs':['i',1], 'Prices':['p',1], 'Quantities':['q',1]}]];
 if (typeof (CRITEO) != "undefined") { CRITEO.Load(false); }
