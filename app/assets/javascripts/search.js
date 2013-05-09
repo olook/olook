@@ -40,5 +40,6 @@ $(function() {
         $("#search_form").submit();
       }
   });
+
   
 });
