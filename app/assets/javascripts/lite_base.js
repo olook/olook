@@ -11,7 +11,18 @@ olook = o = {
       o.myAccountMenu(); 
       o.showSlideToTop();
       o.slideToTop();  
-      o.showFlash();
+      o.showBalloon();
+  },
+  
+  showBalloon: function(){
+    var t=$(".menu_new .stylist").position().top, l=$(".menu_new .stylist").position().left;
+    $("img.balloon").css({"top": t -11, "left": l +20});
+  
+    $(".menu_new .stylist").on("mouseenter", function(){
+      $("img.balloon").show();
+    }).on("mouseleave", function(){
+      $("img.balloon").hide();
+    })
   },
   
   menu: function(){
@@ -60,7 +71,7 @@ olook = o = {
   
   newModal: function(content){
     var $modal = $("div#modal.promo-olook"), 
-    h = $("img", content).length > 0 ? $("img",content).outerHeight() + 40 : $(content).outerHeight(), 
+    h = $("img", content).length > 0 ? $("img",content).outerHeight() : $(content).outerHeight(), 
     w = $("img", content).length > 0 ? $("img",content).outerWidth() : $(content).outerWidth(), 
     ml = -parseInt((w/2)), mt = -parseInt((h/2)), 
     heightDoc = $(document).height(), 
@@ -155,7 +166,7 @@ olook = o = {
 
   showFlash: function() {
     if( error = $('#error-messages').html() ){
-      if( error.length >= '73' ){
+      if( error.length >= '82' ){
         $('.alert').parent().slideDown('1000', function() {
           $('.alert').parent().delay(5000).slideUp();
         })

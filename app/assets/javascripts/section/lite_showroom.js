@@ -22,11 +22,6 @@ showroom = s = {
      var content = $('.dialog.liquidation');
      o.newModal(content);
     }
-
-    $(".dialog.liquidation :checkbox").on("change", function() {
-      checked = $(this).is(":checked");
-      $.post("/user_liquidations", { 'user_liquidation[dont_want_to_see_again]': checked });
-    });
   },
   
   facebookCarousel: function(){
