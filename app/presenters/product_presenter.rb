@@ -69,12 +69,12 @@ class ProductPresenter < BasePresenter
 
   def render_multiple_sizes
     variants = product.variants.sorted_by_description
-    h.render :partial => 'product/sizes', :locals => {:variants => variants, :shoe_size => shoe_size}
+    h.render :partial => 'product/sizes', :locals => {:variants => variants, :shoe_size => shoe_size, :show_cloth_size_table => false}
   end
 
   def render_cloth_sizes
     variants = product.variants.sort{|first, second| SIZES_TABLE[first.description].to_i <=> SIZES_TABLE[second.description].to_i }
-    h.render :partial => 'product/sizes', :locals => {:variants => variants, :shoe_size => nil}
+    h.render :partial => 'product/sizes', :locals => {:variants => variants, :shoe_size => nil, :show_cloth_size_table => true}
   end
 
   def render_pics

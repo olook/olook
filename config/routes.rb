@@ -52,10 +52,11 @@ Olook::Application.routes.draw do
 
   #NEW COLLECTIONS
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
+  get '/colecoes/filter/*slug', to: "collection_themes#filter", as: "collection_theme_filter"
   get '/colecoes/*slug', to: "collection_themes#show", as: "collection_theme"
 
   # NEW COLLECTIONS - TODO
-  get '/update_moment', to: "moments#update", as: "update_moment"
+  get '/update_moment', to: "moments#update", as: "update_moment", constraints: { format: 'js' }
 
   # Friendly urls (ok, I know it is not the best approach...)
   match '/sapatos', to: "moments#show", as: "shoes", :defaults => {:category_id => Category::SHOE, :id => 1}

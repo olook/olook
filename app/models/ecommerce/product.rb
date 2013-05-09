@@ -392,11 +392,11 @@ class Product < ActiveRecord::Base
   end
 
   def self.fetch_products label
-    find_keeping_the_order Setting.send("home_#{label}").split(",")
+    find_keeping_the_order Setting.send("home_#{label}").to_s.split(",")
   end
 
   def self.fetch_stylists_products
-    find_keeping_the_order Setting.send("stylist_products").split(",")
+    find_keeping_the_order Setting.send("stylist_products").to_s.split(",")
   end
 
   def find_suggested_products
@@ -483,7 +483,7 @@ class Product < ActiveRecord::Base
   private
 
     def details_relevance
-      h = { "categoria" => 1, "detalhe" => 2, "metal" => 3, "salto" => 4, "material interno" => 5, "material externo" => 6, "material da sola" => 7 }
+      h = { "categoria" => 1, "detalhe" => 2, "metal" => 3, "salto" => 4, "material externo" => 5, "material interno" => 6, "material da sola" => 7 }
 
       h.default = 1.0/0.0 # infinity
       h
