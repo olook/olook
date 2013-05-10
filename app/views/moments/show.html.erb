@@ -26,15 +26,11 @@
       <%= render "new_header_moments" %>
 
       <ul id="products">
-        <% @catalog_products.each do |cp| %>
-          <%= render "shared/product_item", :product => cp.product %>
-        <% end %>
-        <%= raw(I18n.t("product_not_found")) if @catalog_products.empty? %>
+        <%= render "shared/products", :products => @catalog_products %>
       </ul>
 
       <div class="loading"></div>
       <%= will_paginate @catalog_products %>
-      <%= render 'collection_themes/stylist_products' %>
     </div>
   </div>
   <%= msn_tags %>

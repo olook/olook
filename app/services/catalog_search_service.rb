@@ -39,7 +39,7 @@ class CatalogSearchService
   def search_products
     base_process
     @query.group("catalog_products.product_id")
-      .order(sort_filter, 'name asc')
+      .order(generate_order_by_array)
       .paginate(page: @params[:page], per_page: 12)
       .includes(product: :variants)
       .includes(product: :details)
@@ -49,6 +49,7 @@ class CatalogSearchService
 
   def base_process
     return @query if @query
+
     add_categories_filter_to_query_base
 
     add_price_range_to_query_base if @params[:price]
@@ -56,7 +57,7 @@ class CatalogSearchService
     @query = prepare_query_joins
 
     add_category_filter_to_query_base
-    add_brand_filter_to_query_base
+    #add_brand_filter_to_query_base
 
     @query = @query.where(@query_base)
   end
@@ -176,5 +177,17 @@ class CatalogSearchService
     gt, lt = @params[:price].split('-')
     @query_base = query_base.and(@l_products[:retail_price].gt(gt)) unless gt == "*"
     @query_base = query_base.and(@l_products[:retail_price].lt(lt)) unless lt == "*"
+  end
+
+  def order_by_brands(brands)
+    "IF(products.brand IN(#{brands.collect{|b| "'#{b}'"}.join(',')}),1,2)"
+  end
+
+  def generate_order_by_array
+    order = []
+    order << order_by_brands(@params[:brands]) if @params[:brands]
+    order << sort_filter
+    order << 'name asc'
+    order
   end
 end
