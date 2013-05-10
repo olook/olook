@@ -14,7 +14,7 @@ class Billet < Payment
   end
 
   def expired_and_waiting_payment?
-    (self.expired? && self.order.waiting_payment?) ? true : false
+    self.expired? && self.order.waiting_payment?
   end
 
   def expired?
