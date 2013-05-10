@@ -312,7 +312,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
             width: 270px;
             float: left;
             li {
-              margin: 0 8px 0 0;
+              margin: 0 2px 0 0;
               float: left;
               &:first-child {
                 margin-left: 0;
@@ -442,6 +442,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
                 border-right: 1px #dddddd solid;
                 border-bottom: 1px #fff solid;
               }
+              &.border_last{width: 264px;}
             }
             &.first {
               a.selected {
@@ -467,7 +468,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
                   padding-bottom: 10px;
                   &:first-child {
                     font-weight: bold;
-                    width: 150px;
+                    width: 130px;
                   }
                 }
               }
@@ -527,7 +528,6 @@ li a.hide {
 }
 
 .tabs_content li table tr td {
-  float: left;
   margin-left: 10px;
-  width: 170px;
+  width: 190px;
 }
