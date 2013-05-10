@@ -43,4 +43,5 @@
 </section>
 <% content_for :footer do %>
   <%= javascript_include_tag "collection_themes" %>
+  <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => @products_id } %>
 <% end %>
