@@ -2,7 +2,7 @@
 # Be sure to restart your server when you modify this file.
 
 if Rails.env.production?
-  Olook::Application.config.session_store :dalli_store, 'appcache.o2ltwu.0001.use1.cache.amazonaws.com',{ :namespace => 'olook', :expires_in => 1.day , :compress => true }
+  Olook::Application.config.session_store :active_record_store
 else
   Olook::Application.config.session_store :cookie_store, key: '_olook_session'
 end
