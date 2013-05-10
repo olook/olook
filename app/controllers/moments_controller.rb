@@ -9,7 +9,7 @@ class MomentsController < ApplicationController
   before_filter :load_catalog_products
 
   def load_chaordic_user
-    @chaordic_user = ChaordicInfo.user current_user
+    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
   end
 
   def index
