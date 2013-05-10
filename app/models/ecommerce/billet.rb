@@ -26,6 +26,11 @@ class Billet < Payment
     Resque.enqueue_at(5.business_days.from_now.beginning_of_day, Abacos::CancelOrder, self.order.number)
   end
 
+  def self.to_expire
+    expiration_date = 1.business_day.before(Time.zone.now) - 1.day
+    self.where(expiration_date: expiration_date.beginning_of_day..expiration_date.end_of_day, state: "waiting_payment")
+  end
+
   private
 
     def build_payment_expiration_date
