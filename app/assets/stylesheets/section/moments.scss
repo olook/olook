@@ -265,6 +265,10 @@ div#moments {
     width: 785px;
     overflow: visible;
     float: right;
+    .new_brands{font-weight: bold;font-size: 18px;font-family: $avenir; color: #000;float: left;text-align: center;border-top: 2px solid #cdcdcd;padding-top: 20px;padding-bottom: 55px;margin-top: 5px;
+      .star_left{margin-right: 7px;}
+      .star_right{margin-left: 7px;}
+    }
     div.title-news{background:transparent;position: relative;width: 100%;height:40px;margin-bottom:10px;
       hr{border-style: solid none none;border-width: 1px 0 0 0;height: 3px;width: 100%;position:absolute;top:10px;left:0px;border-color:#000;margin:5px 0 0;z-index:1;}
       h2{color: #000;font-size: 35px;font-family:$kepler;position: absolute;text-align: center;top:-6px;left:0;width:100%;z-index:2;text-transform:uppercase;
