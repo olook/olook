@@ -67,7 +67,7 @@ _gaq.push(['_addTrans',
 
 <% content_for :footer do %>
   <%= render :partial => "shared/metrics/ve_interactive/get_user" %>
-  <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {:order => @order, :cart => @order.cart } %>
+  <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {order: @order, cart: @order.cart, criteo_conversion: @criteo } %>
   <%= render :partial => "shared/metrics/metaffiliation/order", :locals => {:order => @order } %>
   <%= render :partial => "shared/metrics/all_in/order", :locals => {:order => @order } %>
   <%= render "shared/metrics/zanox/order", :user_id => @user.id, :order => @order, :zanpid => @zanpid %>

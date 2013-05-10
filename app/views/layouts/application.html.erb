@@ -41,7 +41,10 @@
   </head>
 
 
-  <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %> <%= "moments" if is_moment_page? %>">
+  <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>
+    <%= "moments" if is_moment_page? %>">
+    
+    <%= render :partial => "shared/tag/google_tag_manager" %>
     <%= render 'shared/admin_label' if current_admin %>
 
     <div id="modal" class="promo-olook"></div>
@@ -57,7 +60,8 @@
 
     <%= yield :top_my_account %>
     <div id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
-
+    
+    <%= image_tag("home/only_balaozinho.png", :class => "balloon") %>  
     <%= render_promotion_banner unless error %>
 
     <%= content_for?(:content) ? yield(:content) : yield %>

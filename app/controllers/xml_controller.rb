@@ -18,9 +18,8 @@ class XmlController < ApplicationController
   end
 
   def groovinads
-    liquidation_products
-    remove_liquidation_products
     @products = Product.valid_criteo_for_xml(Product.xml_blacklist("products_blacklist"), Product.xml_blacklist("collections_blacklist"))
+    liquidation_products
     respond_with(@products)
   end
 
@@ -57,7 +56,7 @@ class XmlController < ApplicationController
     def prepare_products
       load_products
       liquidation_products
-      remove_liquidation_products
+      # remove_liquidation_products
     end
 
     def load_products
