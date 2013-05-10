@@ -42,9 +42,9 @@
 
 
   <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>
-    <%= render :partial => "shared/tag/google_tag_manager" %>
-
     <%= "moments" if is_moment_page? %>">
+    
+    <%= render :partial => "shared/tag/google_tag_manager" %>
     <%= render 'shared/admin_label' if current_admin %>
 
     <div id="modal" class="promo-olook"></div>
