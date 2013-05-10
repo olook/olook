@@ -47,12 +47,7 @@ class PaymentBuilder
     log("Saving Payment data on payment ##{payment.try :id}")
 
     ActiveRecord::Base.transaction do
-      total_liquidation = cart_service.cart.total_liquidation_discount
-      total_promotion = cart_service.cart.total_promotion_discount
-      billet_discount = cart_service.total_discount_by_type(:billet_discount, payment)
-      facebook_discount = cart_service.total_discount_by_type(:facebook_discount, payment)
       total_gift = cart_service.total_discount_by_type(:gift)
-      total_coupon = cart_service.total_discount_by_type(:coupon)
       total_credits = cart_service.total_discount_by_type(:credits_by_loyalty_program)
       total_credits_invite = cart_service.total_discount_by_type(:credits_by_invite)
       total_credits_redeem = cart_service.total_discount_by_type(:credits_by_redeem)
@@ -75,14 +70,8 @@ class PaymentBuilder
           variant.decrement!(:inventory, item.quantity)
         end
 
-        coupon_opts = cart_service.cart.coupon.nil? ? {} : {:coupon_id => cart_service.cart.coupon.id}
-
-        create_payment_for(facebook_discount, FacebookShareDiscountPayment)
-        create_payment_for(total_liquidation, OlookletPayment)
-        create_payment_for(billet_discount, BilletDiscountPayment)
+        create_discount_payments
         create_payment_for(total_gift, GiftPayment)
-        create_payment_for(total_coupon, CouponPayment, coupon_opts)
-        create_payment_for(total_promotion, PromotionPayment, {promotion: cart_service.cart.items.first.cart_item_adjustment.source})
         create_payment_for(total_credits, CreditPayment, {:credit => :loyalty_program} )
         create_payment_for(total_credits_invite, CreditPayment, {:credit => :invite} )
         create_payment_for(total_credits_redeem, CreditPayment, {:credit => :redeem} )
@@ -104,22 +93,47 @@ class PaymentBuilder
 
   private
 
-  def change_state_of(current_payment)
-    current_payment.calculate_percentage!
-    current_payment.deliver!
-    current_payment.authorize!
-  end
+    def create_discount_payments
+      total_promotion = cart_service.cart.total_promotion_discount
+      billet_discount = cart_service.total_discount_by_type(:billet_discount, payment)
+      facebook_discount = cart_service.total_discount_by_type(:facebook_discount, payment)
 
-  def respond_with_failure
-    OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil, :error_code => @gateway_strategy.return_code)
-  end
+      if cart_service.cart.coupon
+        # This is valid because we only allow 1 kind of discount. 
+        # IT IS NOT POSSIBLE TO HAVE BOTH: OLOOKLET AND COUPON DISCOUNTS
+        total_liquidation = 0
+        total_coupon = cart_service.total_discount_by_type(:coupon) + cart_service.cart.total_liquidation_discount
+        coupon_opts = {:coupon_id => cart_service.cart.coupon.id}
+      else
+        total_liquidation = cart_service.cart.total_liquidation_discount
+        total_coupon = cart_service.total_discount_by_type(:coupon)
+        coupon_opts = {}
+      end
 
-  def respond_with_success
-    OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => payment)
-  end
+      create_payment_for(total_liquidation, OlookletPayment)
+      create_payment_for(total_coupon, CouponPayment, coupon_opts)
+      create_payment_for(total_promotion, PromotionPayment, {promotion: cart_service.cart.items.first.cart_item_adjustment.source})
+      create_payment_for(facebook_discount, FacebookShareDiscountPayment)
+      create_payment_for(billet_discount, BilletDiscountPayment)
+    end
 
-  def log(message, level = :info)
-    Rails.logger.send(level, message)
-  end
+
+    def change_state_of(current_payment)
+      current_payment.calculate_percentage!
+      current_payment.deliver!
+      current_payment.authorize!
+    end
+
+    def respond_with_failure
+      OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil, :error_code => @gateway_strategy.return_code)
+    end
+
+    def respond_with_success
+      OpenStruct.new(:status => Payment::SUCCESSFUL_STATUS, :payment => payment)
+    end
+
+    def log(message, level = :info)
+      Rails.logger.send(level, message)
+    end
 end
 
