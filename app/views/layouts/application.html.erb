@@ -38,11 +38,13 @@
 
 
     <%= render 'shared/metrics/google/universal_analytics' %>
-    <%= render 'shared/opentag' %>
   </head>
 
 
-  <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %> <%= "moments" if is_moment_page? %>">
+  <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>
+    <%= "moments" if is_moment_page? %>">
+    
+    <%= render :partial => "shared/tag/google_tag_manager" %>
     <%= render 'shared/admin_label' if current_admin %>
 
     <div id="modal" class="promo-olook"></div>
