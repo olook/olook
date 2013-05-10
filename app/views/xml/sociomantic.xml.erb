@@ -10,7 +10,7 @@
 <price><%= product.retail_price %></price>
 <amount><%= product.price %></amount>
 <installmenttimes><%= installments_number(product.price) %></installmenttimes>
-<installmentvalue><%= installments_value(product.price, separador: ',') %></installmentvalue>
+<installmentvalue><%= installments_value(product.price, separator: ',') %></installmentvalue>
 <currency>BRL</currency>
 <url><%= product.product_url(:utm_source => "sociomantic", :utm_medium => "Remarketing", :utm_campaign => "Produtos") %></url>
 <photo><%= product.main_picture.try(:image) %></photo>
