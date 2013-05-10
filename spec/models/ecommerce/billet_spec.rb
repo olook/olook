@@ -140,4 +140,31 @@ describe Billet do
       it { should be_false }
     end
   end
+
+  describe ".to_expire" do
+
+    context "billet expired and waiting payment" do
+      let(:billet) { FactoryGirl.create(:billet, :waiting_payment, :to_expire) }
+      subject { described_class.to_expire }
+
+      it { should include billet }
+    end
+
+    context "billet with old date but with another state" do
+      let(:billet) { FactoryGirl.create(:billet, created_at: 5.business_days.ago) }
+
+      subject { described_class.to_expire }
+
+      it { should_not include billet }
+    end
+
+    context "billet waiting payment but not old" do
+      let(:billet) { FactoryGirl.create(:billet, :waiting_payment) }
+
+      subject { described_class.to_expire }
+
+      it { should_not include billet }
+    end
+
+  end
 end
