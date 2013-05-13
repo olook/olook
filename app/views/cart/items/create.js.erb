@@ -34,3 +34,4 @@ $("p.freight").next().hide();
 $(".checkout_banner").remove();
 $("html, body").delay(300).animate({scrollTop: 0}, 'slow');
 $("#items").after("<%= escape_javascript(render 'cart/cart/checkout_banner') %>");
+$('.empty_cart').parent().remove();
