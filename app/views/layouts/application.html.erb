@@ -36,6 +36,7 @@
     <%= javascript_include_tag "html5.js" %>
     <![endif]-->
 
+    <%= yield :data_layer %>
 
     <%= render 'shared/metrics/google/universal_analytics' %>
   </head>
