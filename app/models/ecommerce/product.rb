@@ -395,10 +395,6 @@ class Product < ActiveRecord::Base
     find_keeping_the_order Setting.send("home_#{label}").to_s.split(",")
   end
 
-  def self.fetch_stylists_products
-    find_keeping_the_order Setting.send("stylist_products").to_s.split(",")
-  end
-
   def find_suggested_products
     products = Product.only_visible.includes(:variants).joins(:details).where("details.description = '#{ self.subcategory }' AND collection_id <= #{ self.collection_id }").order('collection_id desc')
 

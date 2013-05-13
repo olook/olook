@@ -31,10 +31,10 @@ describe RecomendationService do
       let(:category_cloth) { Category::CLOTH }
 
       before do
-        @shoe = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:shoe, profiles: @profiles)).product
-        @bag = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:bag, profiles: @profiles)).product
-        @accessory = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:basic_accessory, profiles: @profiles)).product
-        @cloth = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:simple_garment, profiles: @profiles)).product
+        @shoe = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:shoe, name: "#shoe #{ rand }", profiles: @profiles)).product
+        @bag = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:bag, name: "#bag #{ rand }", profiles: @profiles)).product
+        @accessory = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:basic_accessory, name: "#accessory #{ rand }", profiles: @profiles)).product
+        @cloth = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:simple_garment, name: "#cloth #{ rand }", profiles: @profiles)).product
       end
 
       context 'and I want only shoes' do

@@ -47,6 +47,25 @@ FactoryGirl.define do
     receipt 'AVista'
     total_paid 12.34
     identification_code 'abcd1234'
+
+      trait :waiting_payment do
+        before(:create) do |billet|
+          billet.state = "waiting_payment"
+        end
+      end
+
+      trait :to_expire do
+        before(:create) do |payment|
+          expiration_date = (1.business_day.before(Time.zone.now) - 1.day) + 1.hour
+          payment.payment_expiration_date = expiration_date
+        end
+      end
+  end
+
+  trait :with_order do
+    before(:create) do |payment|
+      payment.order = FactoryGirl.create(:order)
+    end
   end
 
   factory :payment do

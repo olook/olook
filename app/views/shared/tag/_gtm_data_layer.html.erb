@@ -1,0 +1,10 @@
+<script type="text/javascript">
+  dataLayer = [];
+  dataLayer.push({
+    'zanpid': '<%= @zanpid %>',
+    'customerId': '<%= @user.id %>',
+    'orderNumber': '<%= @order.number %>',
+    'orderTotal': '<%= "%.02f" % @order.amount_paid %>',
+    'paymentType': '<%= @payment.type %>'
+  });
+</script>
