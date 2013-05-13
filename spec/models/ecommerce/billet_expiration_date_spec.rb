@@ -42,12 +42,12 @@ describe BilletExpirationDate do
     end
   end
 
-  context "when today is friday" do
-    let(:friday) { Date.civil(2012, 01, 18).to_time_in_current_zone }
-    let(:wednesday) { friday + 2.days }
-    it "returns wednesday" do
-      Timecop.freeze(friday) do
-        expect(described_class.expiration_for_two_business_day).to eq wednesday
+  context "when today is wednesday" do
+    let(:wednesday) { Date.civil(2012, 01, 18).to_time_in_current_zone }
+    let(:friday) { wednesday + 2.days }
+    it "returns friday" do
+      Timecop.freeze(wednesday) do
+        expect(described_class.expiration_for_two_business_day).to eq friday
       end
     end
   end
