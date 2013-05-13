@@ -65,7 +65,7 @@ module ProductsHelper
 
   def generate_separator?(brands, product, catalog_products, index)
     page = catalog_products.current_page
-    if brands && brands.include?(product.brand.upcase)
+    if brands && brands.include?(product.brand.to_s.upcase)
       if index < 11
         return true unless brands.include?(catalog_products[index+1].brand.upcase)        
       elsif page == catalog_products.total_pages
