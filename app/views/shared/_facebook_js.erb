@@ -6,7 +6,8 @@ $(function(){
 	    appId: '<%= facebook_app_id %>',
 	    status: true,
 	    cookie: true,
-	    oauth: true
+	    oauth: true,
+      frictionlessRequests : true
 	  });
         FB.Event.subscribe('edge.create', function(href, widget) {
           _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);
@@ -17,7 +18,14 @@ $(function(){
 
 
 	}
+  teste();
 });
+function teste(){
+  FB.api('/me', function(response) {
+    console.log(response.name)
+    console.dir(response);
+  });
+}
 		function sendFacebookMessage() {
       FB.ui({
         method: 'send',
