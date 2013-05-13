@@ -92,5 +92,6 @@ Setting.defaults[:blacklisted_users] = "arte-1818@hotmail.com"
 Setting.defaults[:stylist_products] = "17364,90959,14920"
 
 Setting.defaults[:show_checkout_banner] = true
+Setting.defaults[:show_search_field] = false
 
 
