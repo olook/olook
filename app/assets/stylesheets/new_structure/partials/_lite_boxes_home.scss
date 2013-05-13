@@ -1,12 +1,11 @@
 @import 'new_structure/common/global_stuffs';
 
-div#products_categories {width: 760px;height: 140px;margin: 0 0 30px;padding: 35px 0 0 0;float: left;border-top: 1px #cbcbcb solid;
-    >h1 {font-family: $avenir;font-size: 20px;font-weight: 600;text-transform: uppercase;margin: 0 0 25px 0;color:#000;}
+  div#products_categories {width: 760px;height: 140px;margin: 0 0 30px;padding: 35px 0 0 0;float: left;border-top: 1px #cbcbcb solid;
+    >h1 {font-family: $avenir;font-size: 20px;font-weight: 600;text-transform: uppercase;margin: 0 0 25px 0;}
     ul {width: 100%;overflow: auto;
-
       li {
         a {background: image-url("home/categories.png") no-repeat;color: #000;font-size: 11px;text-align: center;text-decoration: none;height: 40px;margin: 0 18px 0 0;padding: 75px 0 0 0;float: left;
-          &:hover {color: #939598;}
+          &:hover {color: #ef3742;}
         }
         &.blusa a {background-position: 6px 0px;width: 45px;
           &:hover {background-position: 6px -189px;}
@@ -30,24 +29,23 @@ div#products_categories {width: 760px;height: 140px;margin: 0 0 30px;padding: 35
           &:hover {background-position: -275px -189px;}
         }
         &.sapatilha a {background-position: -346px 0;
-          &:hover {background-position: -346px -189px;}
-        }
-        &.scarpin a {background-position: -415px 0;
-          &:hover {background-position: -415px -189px;}
-        }
-        &.slipper a {background-position: -513px 0;width: 43px;
-          &:hover {background-position: -513px -189px;}
-        }
-        &.sneaker a {background-position: -472px 0;
-          &:hover {background-position: -472px -189px;}
-        }
-        &.acessorios a {background-position: -580px 0;
-          &:hover {background-position: -580px -189px;}
-        }
-        &.bolsas a {background-position: -529px 0;
-          &:hover {background-position: -529px -189px;}
+        &:hover {background-position: -346px -189px;}
+      }
+      &.scarpin a {background-position: -415px 0;
+        &:hover {background-position: -415px -189px;}
+      }
+      &.slipper a {background-position: -513px 0;width: 43px;
+        &:hover {background-position: -513px -189px;}
+      }
+      &.sneaker a {background-position: -472px 0;
+        &:hover {background-position: -472px -189px;}
+      }
+      &.acessorios a {background-position: -580px 0;
+        &:hover {background-position: -580px -189px;}
+      }
+      &.bolsas a {background-position: -529px 0;
+        &:hover {background-position: -529px -189px;}
         } 
-        
       }
     }
   }
