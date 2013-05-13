@@ -3,7 +3,7 @@ class Billet < Payment
 
   EXPIRATION_IN_DAYS = 3
   validates :receipt, :presence => true, :on => :create
-  after_create :set_payment_expiration_date
+  before_create :set_payment_expiration_date
 
   def to_s
     "BoletoBancario"
@@ -14,7 +14,7 @@ class Billet < Payment
   end
 
   def expired_and_waiting_payment?
-    (self.expired? && self.order.waiting_payment?) ? true : false
+    self.expired? && self.order.waiting_payment?
   end
 
   def expired?
@@ -24,6 +24,11 @@ class Billet < Payment
   def schedule_cancellation
     #TODO: double check whether to plug the 4 biz days rule into BilletExpirationDate
     Resque.enqueue_at(5.business_days.from_now.beginning_of_day, Abacos::CancelOrder, self.order.number)
+  end
+
+  def self.to_expire
+    expiration_date = 1.business_day.before(Time.zone.now) - 1.day
+    self.where(payment_expiration_date: expiration_date.beginning_of_day..expiration_date.end_of_day, state: "waiting_payment")
   end
 
   private
