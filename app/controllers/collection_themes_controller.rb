@@ -12,7 +12,6 @@ class CollectionThemesController < ApplicationController
 
   def show
     return redirect_to collection_themes_url if !current_admin && !@collection_theme.active
-    @stylist_products = Product.fetch_stylists_products
     @chaordic_user = ChaordicInfo.user current_user
     respond_with @catalog_products
   end
@@ -47,6 +46,7 @@ class CollectionThemesController < ApplicationController
     end
 
     def load_catalog_products
+
       @collection_theme_groups = CollectionThemeGroup.order(:position).all
       @collection_themes = CollectionTheme.active.order(:position).all
       @collection_theme = params[:slug] ? CollectionTheme.find_by_slug_or_id(params[:slug]) : @collection_themes.last
@@ -54,14 +54,16 @@ class CollectionThemesController < ApplicationController
         # Não podemos apagar o shoe_sizes do params pois na partial dos filtros checa por eles.
         # Esse comportamento é necessário para não filtrar pelo número do usuário quando ele
         # desselecionou no form. E não selecionar no partial.
-        catalog_search_service_params = params.merge({id: @collection_theme.catalog.id, admin: !current_admin.nil?})
+        # @collection_theme.catalog.id
+        params[:brands] = [@collection_theme.name.upcase] if brand_query?
+        catalog_search_service_params = params.merge({id: brand_query? ? 1 : @collection_theme.catalog.id, admin: !current_admin.nil?})
         catalog_search_service_params.delete(:shoe_sizes) if params[:shoe_sizes].to_a.all? { |ss| ss.blank? }
         @catalog_search_service = CatalogSearchService.new(catalog_search_service_params)
         if @catalog_search_service.categories_available_for_options(ignore_category: true).size == 2
           params[:category_id] = @catalog_search_service.categories_available_for_options(ignore_category: true).last.last
         end
         @catalog_products = @catalog_search_service.search_products
-        @products_id = @catalog_products.map{|item| item.product_id }.compact
+        @products_id = @catalog_products.first(3).map{|item| item.product_id }.compact
         # params[:id] is into array for pixel iterator
         @categories_id = params[:id] ? [params[:id]] : @collection_themes.map(&:id).compact.uniq
       else
@@ -90,5 +92,8 @@ class CollectionThemesController < ApplicationController
       products.select {|h| h[:product].inventory_without_hiting_the_database > 0}
     end
 
+    def brand_query?
+      @collection_theme.collection_theme_group.name == "MARCAS"
+    end
 
 end
