@@ -4,6 +4,7 @@
       { link: new_survey_path, image: "home/destaques_quiz_carol_ribeiro.jpg" },
       { link: brands_path, image: "home/destaques_novas_marcas_2.jpg"},
       { link: collection_theme_path("spike"), image: "home/destaque_spikes.jpg" },
+      { link: "/stylist-news/carol-ribeiro-para-olook/ ", image: "home/destaques_carol_ribeiro_para_olook.jpg" },   
     ].each_with_index do |item, index| %>
       <li>
         <%= link_to( image_tag(item[:image]), item[:link], onclick: track_event('Carrossel',"Banner#{index+1}") ) %>
