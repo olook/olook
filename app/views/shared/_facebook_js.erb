@@ -7,7 +7,8 @@ $(function(){
 	    status: true,
 	    cookie: true,
 	    oauth: true,
-      frictionlessRequests : true
+      frictionlessRequests : true,
+      user:'<%= member %>'
 	  });
         FB.Event.subscribe('edge.create', function(href, widget) {
           _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);
@@ -18,12 +19,12 @@ $(function(){
 
 
 	}
-  teste();
+
 });
 function teste(){
   FB.api('/me', function(response) {
     console.log(response.name)
-    console.dir(response);
+ 
   });
 }
 		function sendFacebookMessage() {
