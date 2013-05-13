@@ -84,9 +84,9 @@ class ApplicationController < ActionController::Base
     end
 
     def log_start_end_action_processing
-      Rails.logger.debug("START #{params[:controller].camelize}Controller##{params[:action]}")
+      Rails.logger.debug("START #{params[:controller].to_s.camelize}Controller##{params[:action]}")
       yield
-      Rails.logger.debug("END #{params[:controller].camelize}Controller##{params[:action]}")
+      Rails.logger.debug("END #{params[:controller].to_s.camelize}Controller##{params[:action]}")
     end
 
     def create_cart
