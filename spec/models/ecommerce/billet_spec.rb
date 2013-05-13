@@ -167,30 +167,4 @@ describe Billet do
     end
 
   end
-
-  context "callbacks" do
-
-    describe "#set_payment_expiration_date" do
-      context "when billet has no payment_expiration_date" do
-        subject { FactoryGirl.create(:billet, :with_order) }
-
-        it "sets an expiration date" do
-          Timecop.freeze do
-            expect(subject.payment_expiration_date).to eq(subject.send(:build_payment_expiration_date))
-          end
-        end
-      end
-
-      context "when billet has payment_expiration_date already" do
-        let(:expiration_date) { Time.zone.now - 1.day }
-        subject { FactoryGirl.create(:billet, :with_order, payment_expiration_date: expiration_date) }
-
-        context "keeps the expiration date" do
-          it { expect(subject.payment_expiration_date).to eq(expiration_date) }
-        end
-      end
-
-    end
-
-  end
 end
