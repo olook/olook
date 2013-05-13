@@ -3,7 +3,7 @@ class Billet < Payment
 
   EXPIRATION_IN_DAYS = 3
   validates :receipt, :presence => true, :on => :create
-  after_create :set_payment_expiration_date
+  before_create :set_payment_expiration_date
 
   def to_s
     "BoletoBancario"
@@ -28,7 +28,7 @@ class Billet < Payment
 
   def self.to_expire
     expiration_date = 1.business_day.before(Time.zone.now) - 1.day
-    self.where(expiration_date: expiration_date.beginning_of_day..expiration_date.end_of_day, state: "waiting_payment")
+    self.where(payment_expiration_date: expiration_date.beginning_of_day..expiration_date.end_of_day, state: "waiting_payment")
   end
 
   private

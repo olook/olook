@@ -57,7 +57,7 @@ FactoryGirl.define do
       trait :to_expire do
         before(:create) do |payment|
           expiration_date = (1.business_day.before(Time.zone.now) - 1.day) + 1.hour
-          payment.expiration_date = expiration_date
+          payment.payment_expiration_date = expiration_date
         end
       end
   end
