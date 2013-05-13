@@ -92,9 +92,10 @@ class ChaordicInfo
       elsif ceid
         ce = CampaignEmail.find(ceid)
         chaordic_user.uid = "CS_ANONYMOUSUSER"
-        chaordic_user.add_info('Name', "")
-        chaordic_user.add_info('Email', ce.email)
+        chaordic_user.add_info('userName', "")
+        chaordic_user.add_info('userEmail', ce.email)
         chaordic_user.add_info('optOut', false)
+        chaordic_user.add_info('AuthToken',"")
       else
         chaordic_user.uid = "CS_ANONYMOUSUSER"
       end
