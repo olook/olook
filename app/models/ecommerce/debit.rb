@@ -9,7 +9,7 @@ class Debit < Payment
   EXPIRATION_IN_MINUTES = 60
 
   validates :bank, :receipt, :presence => true, :on => :create
-  after_create :set_payment_expiration_date
+  before_create :set_payment_expiration_date
 
   def to_s
     "DebitoBancario"
