@@ -18,7 +18,7 @@
     <% end %>
     <div id="invite_friends">
       <%= link_to member_invite_path do %>
-        <%= image_tag 'moments/invite_friends.gif', :class => '', onclick: track_event('BannerInvite', "ClickBannerFrom#{Category.key_for(@category_id).to_s.camelize}") %>
+        <%= image_tag banner_for(@category_id), :class => '', onclick: track_event('BannerInvite', "ClickBannerFrom#{Category.key_for(@category_id).to_s.camelize}") %>
       <% end %>
     </div>
 </div>
