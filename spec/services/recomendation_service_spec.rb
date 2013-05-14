@@ -9,7 +9,6 @@ describe RecomendationService do
   describe "#products" do
     context "when product quantity matters" do
       before do
-        Variant.destroy_all
         4.times do
           FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:shoe, name: "#shoe_#{ rand }", profiles: @profiles))
           FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:bag, name: "#bag_#{ rand }", profiles: @profiles))
