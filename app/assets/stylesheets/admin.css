@@ -10,7 +10,7 @@
  *= require admin/dashboard.css.scss
  *= require admin/collection_themes.css.scss
  *= require admin/multiple_pictures.css.scss
- *= require common/jquery.ui.autocomplete.css
+ *= require common/jquery.ui.autocomplete_slider.css
  *= require_self
  */
 
