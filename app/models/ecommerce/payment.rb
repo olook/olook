@@ -198,7 +198,7 @@ class Payment < ActiveRecord::Base
   end
 
   def set_payment_expiration_date
-    update_attributes(:payment_expiration_date => build_payment_expiration_date)
+    self.payment_expiration_date = build_payment_expiration_date if self.payment_expiration_date.nil?
   end
 
   def set_state(event)

@@ -1,11 +1,18 @@
-.error_content{
-  background-color: #784534;
-  overflow: hidden;
-  z-index: 1;
-  text-align: center;
+@import 'new_structure/common/global_stuffs';
+@import "new_structure/partials/lite_boxes_home";
+@import "new_structure/partials/home_stylist_box";
+
+.message{padding:45px 0 20px;text-align: center;color:#000;background: image-url('common/pattern_404.jpg') repeat;
+  p{font-size:18px;
+    &.subtitle{font-size:20px;margin-bottom:25px;}
+    &.opsss{font-size:130px;margin-bottom:20px;line-height:130px;}
+    &.mb10{margin-bottom:10px;}
+  }
+  a{display:block;color:#000;font-size:18px;text-decoration:none;
+    &:hover{color:$base_color;}
+  }
 }
 
-footer {
-  margin-top:0px;
-}
+
+footer {margin-top:0px;}
 

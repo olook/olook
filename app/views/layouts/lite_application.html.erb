@@ -76,7 +76,7 @@
                  <li class="br"><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>
                </ul>
              </div>
-             <!-- <p class="first"><%= link_to "Fidelidade Olook", loyalty_path %></p> -->
+             
              <p class="credits"><%= link_to "Ganhe créditos!", member_earn_credits_path, :class => "invite" %></p>
 
              <% else %>
@@ -85,6 +85,16 @@
                <%= render "users/sessions/form_user" %>
              </div>
              <% end %>
+                         
+             <% if Setting.show_search_field %>      
+             <div class="search_box">
+               <%= form_tag(search_show_path, method: :get, id: "search_form") do  %>
+                 <%= text_field_tag "q",nil, id: "search_product", value: "BUSCAR" %>
+                 <%= submit_tag "Buscar" %>
+               <% end %>      
+             </div>
+             <% end %>
+             
              <%= render 'shared/cart', :cart => @cart %>
            </div>
            <div class="olook_logo">
@@ -115,10 +125,6 @@
     
        <%= render(:partial => "shared/footer") %>
        
-       <% unless user_signed_in? %>
-         <%#= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal && !['landing_pages','survey', 'users/registrations'].include?(params[:controller]) %>
-       <% end %>
-    
        <!-- Modals -->
        <div id="modal" class="promo-olook"></div>
        <div id="overlay-campaign">&nbsp;</div>
@@ -128,7 +134,11 @@
        
        <%= javascript_include_tag "jquery" %>
        <%= javascript_include_tag "lite_application" %>
-       
+      
+       <% unless user_signed_in? %>
+         <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal && !['landing_pages','survey', 'users/registrations'].include?(params[:controller]) %>
+       <% end %>
+         
        
        <% if content_for? :footer %>
          <%= yield :footer %>

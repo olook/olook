@@ -87,6 +87,7 @@ $(document).ready(function() {
   initBase.showSlideToTop();
   initBase.slideToTop();
   initBase.replaceImages();
+  
 
   showBalloon();
 
@@ -743,3 +744,4 @@ h2 = content.height(), w2 = content.width();console.log(h,w,h2,w2);
     });
   }
 }
+

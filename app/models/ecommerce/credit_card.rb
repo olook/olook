@@ -30,7 +30,7 @@ class CreditCard < Payment
   validates_with CreditCardNumberValidator, :attributes => [:credit_card_number], :on => :create
   validates_with UserIdentificationValidator, :attributes => [:user_identification], :on => :create
 
-  after_create :set_payment_expiration_date
+  before_create :set_payment_expiration_date
 
   def to_s
     "CartaoCredito"
