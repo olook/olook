@@ -84,6 +84,7 @@ group :development, :test do
   gem "pry-nav"
   gem 'delorean'
   gem 'timecop'
+  gem 'shoulda-matchers'
   gem "equivalent-xml", " ~> 0.2.9"
   gem 'capybara', '2.0.2'
   gem 'capybara-webkit', '0.14.2'
