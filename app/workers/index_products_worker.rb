@@ -38,7 +38,7 @@ class IndexProductsWorker
 
       values = {
         'type' => type,
-        'version' => 1,
+        'version' => version,
         'id' => product.id
       }
 
