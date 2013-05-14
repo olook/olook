@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::ShippingServicesController do
+describe Admin::ShippingServicesController, admin: true do
   render_views
 
   let!(:shipping_service) { FactoryGirl.create(:shipping_service) }

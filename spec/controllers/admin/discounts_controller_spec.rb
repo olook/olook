@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::DiscountsController do
+describe Admin::DiscountsController, admin: true do
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]

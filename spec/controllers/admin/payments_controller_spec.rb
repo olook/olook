@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::PaymentsController do
+describe Admin::PaymentsController, admin: true do
   render_views
   let!(:credit) { FactoryGirl.create(:credit)}
   let!(:credit_card) { FactoryGirl.create(:credit_card, :credit_ids => credit.id)}

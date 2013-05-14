@@ -3,7 +3,7 @@ require 'features/helpers'
 
 feature "Admin user with business 1 role manages gift boxes", %q{
   As a business 1 I can create, edit and delete gift boxes
-} do
+}, feature: true, admin: true do
 
   let(:gift_box) { FactoryGirl.create(:gift_box) }
 

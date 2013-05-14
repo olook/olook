@@ -2,7 +2,7 @@
 require 'spec_helper'
 require 'features/helpers'
 
-feature "Admin creates a campanha" do
+feature "Admin creates a campanha", feature: true, admin: true do
 
   before :each do
 	@admin = FactoryGirl.create(:admin_superadministrator)

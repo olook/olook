@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::BraspagCaptureResponsesController do
+describe Admin::BraspagCaptureResponsesController, admin: true do
   render_views
   let!(:clean_braspag_capture_response) { FactoryGirl.create(:clean_braspag_capture_response)}
   let!(:braspag_capture_response) { FactoryGirl.create(:braspag_capture_response)}
