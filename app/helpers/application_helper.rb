@@ -126,6 +126,16 @@ module ApplicationHelper
     Rails.env.production? ? 'https' : 'http'
   end
 
+  def banner_for category_id
+    return 'moments/invite_friends.gif' if current_user
+
+    if category_id == Category::SHOE
+      'moments/invite_friends.gif'
+    elsif category_id == Category::CLOTH
+      'moments/invite_friends.gif'
+    end
+  end
+
   private
 
     def ga_event_referer
