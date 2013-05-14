@@ -13,7 +13,7 @@
     </ul>
   </div>
   <p class="description"><%= @product.description %></p>
-  <%= product_presenter.render_price_for @cart %>
+  <%= product_presenter.render_price_for @cart_service %>
   <%# if @user && !@promotion %>
     <div class="warn_discount <%= product_presenter.is_promotion? ? 'promotion' : '' %>">
       <p>Compre e ganhe até <span><%= number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price) %></span> em créditos </br> para usar nos próximos 2 meses</p>
