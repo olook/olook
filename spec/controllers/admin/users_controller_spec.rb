@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::UsersController do
+describe Admin::UsersController, admin: true do
   render_views
   let!(:user) { FactoryGirl.create(:user) }
   let!(:valid_attributes) { user.attributes }

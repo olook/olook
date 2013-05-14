@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::CampaignsController do
+describe Admin::CampaignsController, admin: true do
 
   render_views
 

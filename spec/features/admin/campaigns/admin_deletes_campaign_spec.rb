@@ -2,7 +2,7 @@
 require 'spec_helper'
 require 'features/helpers'
 
-feature "Admin deletes a campaign" do
+feature "Admin deletes a campaign", feature: true, admin: true do
 
   before :each do
 	@admin = FactoryGirl.create(:admin_superadministrator)

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::MoipCallbacksController do
+describe Admin::MoipCallbacksController, admin: true do
   render_views
   let!(:moip_callback) { FactoryGirl.create(:moip_callback)}
   let!(:clean_moip_callback) { FactoryGirl.create(:clean_moip_callback)}
