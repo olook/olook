@@ -2,6 +2,7 @@ class CampaignEmailsController < ApplicationController
   layout "campaign_emails"
 
   def new
+    @campaign_text = @cart.coupon.try(:modal) || 1
     @campaign_email = CampaignEmail.new
   end
 
@@ -25,11 +26,11 @@ class CampaignEmailsController < ApplicationController
   end
 
   def show
-    @campaign_email = CampaignEmail.find(params[:id])    
+    @campaign_email = CampaignEmail.find(params[:id])
   end
 
   def remembered
-    @campaign_email = CampaignEmail.find(params[:id])    
+    @campaign_email = CampaignEmail.find(params[:id])
   end
 
 end
