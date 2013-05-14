@@ -14,7 +14,7 @@ def do_login!(user)
 end
 
 def do_admin_login!(admin)
-  visit "/admins/sign_in"
+  visit "/admin"
   fill_in "admin_email", :with => admin.email
   fill_in "admin_password", :with => admin.password
   within('form#new_admin') do
