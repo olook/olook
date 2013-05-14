@@ -187,27 +187,31 @@ describe ProductPresenter do
 
   describe "#price" do
     subject { described_class.new view, :product => product, :member => member, :facebook_app_id => facebook_app_id }
-    let(:guest) { described_class.new view, :product => product, :member => nil, :facebook_app_id => facebook_app_id }
-    let!(:promotion) { FactoryGirl.create(:first_time_buyers) }
 
-    it "should render the price when no discount" do
-      pending "REVIEW THIS"
+    context "when product has promotion" do
+
+      let(:cart) { mock_model Cart }
+      before do
+        product.stub(:promotion?).and_return(true)
+        cart.stub(:total_coupon_discount).and_return(0)
+      end
+
+      it { expect(subject.render_price_for cart).to include("de: ") }
+      it { expect(subject.render_price_for cart).to include("por: ") }
+
     end
 
-    it "should render the price with markdown when for first time buyers" do
-      pending "REVIEW THIS"
-      member.stub(:first_time_buyer?).and_return(true)
-      subject.render_price.should include("de:")
-      subject.render_price.should include("por:")
-      subject.render_price.should include("em sua primeira compra")
-    end
+    context "when cart has cupon with value greater than 0" do
+      let(:cart) { mock_model Cart }
 
-    it "should render the price with markdown when discount is detected" do
-      product.stub(:retail_price).and_return(49.99)
-      member.stub(:first_time_buyer?).and_return(false)
-      subject.render_price.should include("de:")
-      subject.render_price.should include("por:")
-      subject.render_price.should_not include("em sua primeira compra")
+      before do
+        product.stub(:promotion?).and_return(false)
+        cart.stub(:total_coupon_discount).and_return(10)
+      end
+
+      it { expect(subject.render_price_for cart).to include("de: ") }
+      it { expect(subject.render_price_for cart).to include("por: ") }
+
     end
 
   end
