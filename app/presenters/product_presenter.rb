@@ -111,8 +111,8 @@ class ProductPresenter < BasePresenter
     end
   end
 
-  def render_price
-    if product.promotion? #discount
+  def render_price_for cart
+    if product.promotion? || cart.total_coupon_discount > 0
       price_markdown(:retail_price)
     else
       price_markup(product.price, "price")
