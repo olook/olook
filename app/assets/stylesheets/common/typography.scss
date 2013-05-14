@@ -272,47 +272,6 @@ body {
 
   section {
     &#user-info {
-      .info {
-        > h1 {
-          font-weight: normal;
-          font-style: italic;
-          letter-spacing:-2px;
-          font-size:35px;
-
-          span {
-            color: $secondary_color;
-          }
-
-        }
-
-        >h2 {
-          font-style: italic;
-          font-weight: bold;
-          text-align: center;
-          font-size:38px;
-        }
-      }
-      .banner {
-        > h1 {
-          color: #FFF;
-          font-size: 18px;
-
-          & + h2 {
-            & + h3 {
-              span {
-                sup {
-                  font-size: 10px;
-                }
-              }
-            }
-          }
-        }
-        a {
-          color: $secondary_color;
-          font-size: 10px;
-        }
-      }
-
       #about {
         h1 {
           font-family: Times, "Times New Roman", Georgia, serif;
@@ -332,18 +291,18 @@ body {
       hgroup {
         h1 {
           font-family: $avenir;
-          font-size: 32px;
+          font-size: 25px;
           font-weight: lighter;
-          line-height: 38px;
+          line-height: 30px;
           text-transform: uppercase;
           display: block;
         }
 
         h2 {
-          font-size: 16px;
+          font-size: 14px;
           text-transform: none;
           font-weight: normal;
-          font-family: $kepler;
+          font-family: $avenir;
           line-height: normal;
           margin-top: 5px;
         }
