@@ -214,6 +214,19 @@ describe ProductPresenter do
 
     end
 
+    context "when cart has no cupon and product has no promotion" do
+      let(:cart) { mock_model Cart }
+
+      before do
+        product.stub(:promotion?).and_return(false)
+        cart.stub(:total_coupon_discount).and_return(0)
+      end
+
+      it { expect(subject.render_price_for cart).to_not include("de: ") }
+      it { expect(subject.render_price_for cart).to_not include("por: ") }
+
+    end
+
   end
 
   context "#user_expiration_month" do
