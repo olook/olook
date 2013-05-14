@@ -187,13 +187,14 @@ describe ProductPresenter do
 
   describe "#price" do
     subject { described_class.new view, :product => product, :member => member, :facebook_app_id => facebook_app_id }
+    let(:cart) { FactoryGirl.create(:cart_with_items) }
+    let(:cart_service) { CartService.new({ cart: cart }) }
 
     context "when product has promotion" do
 
-      let(:cart) { mock_model Cart }
       before do
         product.stub(:promotion?).and_return(true)
-        cart.stub(:total_coupon_discount).and_return(0)
+        cart_service.stub(:has_coupon?).and_return(false)
       end
 
       it { expect(subject.render_price_for cart).to include("de: ") }
@@ -202,28 +203,24 @@ describe ProductPresenter do
     end
 
     context "when cart has cupon with value greater than 0" do
-      let(:cart) { mock_model Cart }
-
       before do
         product.stub(:promotion?).and_return(false)
-        cart.stub(:total_coupon_discount).and_return(10)
+        cart_service.stub(:has_coupon?).and_return(true)
       end
 
-      it { expect(subject.render_price_for cart).to include("de: ") }
-      it { expect(subject.render_price_for cart).to include("por: ") }
+      it { expect(subject.render_price_for cart_service).to include("de: ") }
+      it { expect(subject.render_price_for cart_service).to include("por: ") }
 
     end
 
     context "when cart has no cupon and product has no promotion" do
-      let(:cart) { mock_model Cart }
-
       before do
         product.stub(:promotion?).and_return(false)
-        cart.stub(:total_coupon_discount).and_return(0)
+        cart_service.stub(:has_coupon?).and_return(false)
       end
 
-      it { expect(subject.render_price_for cart).to_not include("de: ") }
-      it { expect(subject.render_price_for cart).to_not include("por: ") }
+      it { expect(subject.render_price_for cart_service).to_not include("de: ") }
+      it { expect(subject.render_price_for cart_service).to_not include("por: ") }
 
     end
 
