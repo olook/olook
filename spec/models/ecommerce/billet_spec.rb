@@ -90,4 +90,81 @@ describe Billet do
     subject { Billet.new }
     it{ should validate_presence_of :receipt }
   end
+
+  describe "#expired_and_waiting_payment?" do
+    before do
+      @boleto = described_class.new
+    end
+    context "when is expired and waiting payment" do
+      before do
+        @boleto.stub(:expired?).and_return(true)
+        @boleto.stub_chain("order.waiting_payment?").and_return(true)
+      end
+
+      subject { @boleto.expired_and_waiting_payment? }
+
+      it { should be_true }
+
+    end
+
+    context "when is expired but is not waiting payment" do
+      before do
+        @boleto.stub(:expired?).and_return(true)
+        @boleto.stub_chain("order.waiting_payment?").and_return(false)
+      end
+
+      subject { @boleto.expired_and_waiting_payment? }
+
+      it { should be_false }
+    end
+
+    context "when is not expired but is waiting payment" do
+      before do
+        @boleto.stub(:expired?).and_return(false)
+        @boleto.stub_chain("order.waiting_payment?").and_return(true)
+      end
+
+      subject { @boleto.expired_and_waiting_payment? }
+
+      it { should be_false }
+    end
+
+    context "when is not expired and is not waiting payment" do
+      before do
+        @boleto.stub(:expired?).and_return(false)
+        @boleto.stub_chain("order.waiting_payment?").and_return(false)
+      end
+
+      subject { @boleto.expired_and_waiting_payment? }
+
+      it { should be_false }
+    end
+  end
+
+  describe ".to_expire" do
+
+    context "billet expired and waiting payment" do
+      let(:billet) { FactoryGirl.create(:billet, :waiting_payment, :to_expire) }
+      subject { described_class.to_expire }
+
+      it { should include billet }
+    end
+
+    context "billet with old date but with another state" do
+      let(:billet) { FactoryGirl.create(:billet, created_at: 5.business_days.ago) }
+
+      subject { described_class.to_expire }
+
+      it { should_not include billet }
+    end
+
+    context "billet waiting payment but not old" do
+      let(:billet) { FactoryGirl.create(:billet, :waiting_payment) }
+
+      subject { described_class.to_expire }
+
+      it { should_not include billet }
+    end
+
+  end
 end

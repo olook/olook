@@ -272,7 +272,7 @@ describe CatalogSearchService do
           @products = CatalogSearchService.new(params).search_products
         end        
         it { expect(@products.first).to eq(@third_product) }
-      end      
+      end
     end
   end
 end

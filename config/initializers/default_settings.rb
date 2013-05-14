@@ -91,5 +91,6 @@ Setting.defaults[:billet_summary_email] = "tiago.almeida@olook.com.br"
 Setting.defaults[:blacklisted_users] = "arte-1818@hotmail.com"
 
 Setting.defaults[:show_checkout_banner] = true
+Setting.defaults[:show_search_field] = false
 
 
