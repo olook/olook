@@ -79,8 +79,15 @@ class Admin::CollectionsController < Admin::BaseController
     visible_product_ids = params[:products].select { |p| p[:visibility].present? }.map {|p| p[:id] }.uniq.compact
     invisible_product_ids = params[:products].select { |p| p[:visibility].nil? }.map {|p| p[:id] }.uniq.compact
 
-    @collection.products.where(id: visible_product_ids).update_all(is_visible: true)
-    @collection.products.where(id: invisible_product_ids).update_all(is_visible: false)
+    @visible_products = @collection.products.where(id: visible_product_ids)
+    @invisible_products = @collection.products.where(id: invisible_product_ids)
+
+    @visible_products.update_all(is_visible: true)
+    @invisible_products.update_all(is_visible: false)
+    @products = @visible_products + @invisible_products
+
+
+    ProductListener.notify_about_visibility(@products, current_admin)
 
     flash[:notice] = "Marked selected products as visible."
     respond_with :admin, @collection
