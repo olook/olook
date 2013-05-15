@@ -17,9 +17,7 @@
       <%= collection_theme_presenter.display_color_filters %>
     <% end %>
     <div id="invite_friends">
-      <%= link_to member_invite_path do %>
-        <%= image_tag banner_for(@category_id), :class => '', onclick: track_event('BannerInvite', "ClickBannerFrom#{Category.key_for(@category_id).to_s.camelize}") %>
-      <% end %>
+      <%= banner_for(@category_id) %> 
     </div>
 </div>
 
