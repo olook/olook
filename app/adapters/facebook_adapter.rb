@@ -78,4 +78,9 @@ class FacebookAdapter
     friends_not_registred = facebook_friends_not_registered_at_olook
     [friends_not_registred, facebook_friends_registered_at_olook, friends_not_registred.shuffle.first]
   end
+  
+  def retrieve_user_data
+    user_data = adapter.get_object("me")
+    OpenStruct.new(picture: "https://graph.facebook.com/#{user_data['id']}/picture?type=large", name: user_data['name'])
+  end  
 end
