@@ -390,13 +390,17 @@ class CartService
 
   def price_with_coupon_for product
     coupon = self.cart.coupon
-    return product.retail_price if coupon.nil? || !coupon.is_percentage? || product.promotion?
+    return product.retail_price if should_not_calculate? product, coupon
     calculate_percentage_discount_for product, coupon
   end
 
   private
     def calculate_percentage_discount_for product, coupon
       product.price - ((product.price * coupon.value) / 100)
+    end
+
+    def should_not_calculate? product, coupon
+      coupon.nil? || !coupon.is_percentage? || product.promotion?
     end
 
 end
