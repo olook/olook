@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
                 :load_cart_service,
                 :load_facebook_api,
                 :load_referer,
-                :load_tracking_parameters
+                :load_tracking_parameters,
+                :set_modal_show
 
   helper_method :current_liquidation,
                 :show_current_liquidation?,
@@ -55,6 +56,10 @@ class ApplicationController < ActionController::Base
     assign_cart_to_user(cart) if cart
 
     cart
+  end
+
+  def set_modal_show
+    @modal_show = params[:modal].blank? ? "0" : "1"
   end
 
   protected
