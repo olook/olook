@@ -59,7 +59,11 @@ class ApplicationController < ActionController::Base
   end
 
   def set_modal_show
-    @modal_show = params[:modal].blank? ? "0" : "1"
+    if params[:modal]
+      @modal_show = params[:modal] != "0" ? "1" : "0"
+    else
+      @modal_show = cookies[:ms].blank? ? "1" : "0"
+    end
   end
 
   protected
