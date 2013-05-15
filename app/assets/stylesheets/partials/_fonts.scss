@@ -1,79 +1,77 @@
-$base_font_url: "http://www.olook.com.br";
-
 @font-face {
     font-family: 'QuicksandBold';
-    src: url('#{$base_font_url}/assets/quicksand/quicksand-bold-webfont.eot');
-    src: url('#{$base_font_url}/assets/quicksand/quicksand-bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('#{$base_font_url}/assets/quicksand/quicksand-bold-webfont.woff') format('woff'),
-         url('#{$base_font_url}/assets/quicksand/quicksand-bold-webfont.ttf') format('truetype'),
-         url('#{$base_font_url}/assets/quicksand/quicksand-bold-webfont.svg#QuicksandBold') format('svg');
+    src: asset-url('quicksand/quicksand-bold-webfont.eot', 'fonts');
+    src: asset-url('quicksand/quicksand-bold-webfont.eot?#iefix', 'fonts') format('embedded-opentype'),
+         asset-url('quicksand/quicksand-bold-webfont.woff', 'fonts') format('woff'),
+         asset-url('quicksand/quicksand-bold-webfont.ttf', 'fonts') format('truetype'),
+         asset-url('quicksand/quicksand-bold-webfont.svg#QuicksandBold', 'fonts') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'QuicksandLight';
-    src: url('#{$base_font_url}/assets/quicksand/quicksand-light-webfont.eot');
-    src: url('#{$base_font_url}/assets/quicksand/quicksand-light-webfont.eot?#iefix') format('embedded-opentype'),
-         url('#{$base_font_url}/assets/quicksand/quicksand-light-webfont.woff') format('woff'),
-         url('#{$base_font_url}/assets/quicksand/quicksand-light-webfont.ttf') format('truetype'),
-         url('#{$base_font_url}/assets/quicksand/quicksand-light-webfont.svg#QuicksandLight') format('svg');
+    src: asset-url('quicksand/quicksand-light-webfont.eot', 'fonts');
+    src: asset-url('quicksand/quicksand-light-webfont.eot?#iefix', 'fonts') format('embedded-opentype'),
+         asset-url('quicksand/quicksand-light-webfont.woff', 'fonts') format('woff'),
+         asset-url('quicksand/quicksand-light-webfont.ttf', 'fonts') format('truetype'),
+         asset-url('quicksand/quicksand-light-webfont.svg#QuicksandLight', 'fonts') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'QuicksandRegular';
-    src: url('#{$base_font_url}/assets/quicksand/quicksand-regular-webfont.eot');
-    src: url('#{$base_font_url}/assets/quicksand/quicksand-regular-webfont.eot?#iefix') format('embedded-opentype'),
-         url('#{$base_font_url}/assets/quicksand/quicksand-regular-webfont.woff') format('woff'),
-         url('#{$base_font_url}/assets/quicksand/quicksand-regular-webfont.ttf') format('truetype'),
-         url('#{$base_font_url}/assets/quicksand/quicksand-regular-webfont.svg#QuicksandRegular') format('svg');
+    src: asset-url('quicksand/quicksand-regular-webfont.eot', 'fonts');
+    src: asset-url('quicksand/quicksand-regular-webfont.eot?#iefix', 'fonts') format('embedded-opentype'),
+         asset-url('quicksand/quicksand-regular-webfont.woff', 'fonts') format('woff'),
+         asset-url('quicksand/quicksand-regular-webfont.ttf', 'fonts') format('truetype'),
+         asset-url('quicksand/quicksand-regular-webfont.svg#QuicksandRegular', 'fonts') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Kepler Std Italic';
-    src: url('#{$base_font_url}/assets/kepler/adobe_-_keplerstd-italic-webfont.eot');
-    src: url('#{$base_font_url}/assets/kepler/adobe_-_keplerstd-italic-webfont.eot?#iefix') format('embedded-opentype'),
-         url('#{$base_font_url}/assets/kepler/adobe_-_keplerstd-italic-webfont.woff') format('woff'),
-         url('#{$base_font_url}/assets/kepler/adobe_-_keplerstd-italic-webfont.ttf') format('truetype'),
-         url('#{$base_font_url}/assets/kepler/adobe_-_keplerstd-italic-webfont.svg#Kepler Std Italic') format('svg');
+    src: asset-url('kepler/adobe_-_keplerstd-italic-webfont.eot', 'fonts');
+    src: asset-url('kepler/adobe_-_keplerstd-italic-webfont.eot?#iefix', 'fonts') format('embedded-opentype'),
+         asset-url('kepler/adobe_-_keplerstd-italic-webfont.woff', 'fonts') format('woff'),
+         asset-url('kepler/adobe_-_keplerstd-italic-webfont.ttf', 'fonts') format('truetype'),
+         asset-url('kepler/adobe_-_keplerstd-italic-webfont.svg#Kepler Std Italic', 'fonts') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'avenir';
-    src: url('#{$base_font_url}/assets/avenir/avenir-book-webfont.eot');
-    src: url('#{$base_font_url}/assets/avenir/avenir-book-webfont.eot?#iefix') format('embedded-opentype'),
-         url('#{$base_font_url}/assets/avenir/avenir-book-webfont.woff') format('woff'),
-         url('#{$base_font_url}/assets/avenir/avenir-book-webfont.ttf') format('truetype'),
-         url('#{$base_font_url}/assets/avenir/avenir-book-webfont.svg#avenir') format('svg');
+    src: asset-url('avenir/avenir-book-webfont.eot', 'fonts');
+    src: asset-url('avenir/avenir-book-webfont.eot?#iefix', 'fonts') format('embedded-opentype'),
+         asset-url('avenir/avenir-book-webfont.woff', 'fonts') format('woff'),
+         asset-url('avenir/avenir-book-webfont.ttf', 'fonts') format('truetype'),
+         asset-url('avenir/avenir-book-webfont.svg#avenir', 'fonts') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'johnston';
-    src: url('#{$base_font_url}/assets/johnston/johnston_itc_bold_0-webfont.eot');
-    src: url('#{$base_font_url}/assets/johnston/johnston_itc_bold_0-webfont.eot?#iefix') format('embedded-opentype'),
-         url('#{$base_font_url}/assets/johnston/johnston_itc_bold_0-webfont.woff') format('woff'),
-         url('#{$base_font_url}/assets/johnston/johnston_itc_bold_0-webfont.ttf') format('truetype'),
-         url('#{$base_font_url}/assets/johnston/johnston_itc_bold_0-webfont.svg#johnston') format('svg');
+    src: asset-url('johnston/johnston_itc_bold_0-webfont.eot', 'fonts');
+    src: asset-url('johnston/johnston_itc_bold_0-webfont.eot?#iefix', 'fonts') format('embedded-opentype'),
+         asset-url('johnston/johnston_itc_bold_0-webfont.woff', 'fonts') format('woff'),
+         asset-url('johnston/johnston_itc_bold_0-webfont.ttf', 'fonts') format('truetype'),
+         asset-url('johnston/johnston_itc_bold_0-webfont.svg#johnston', 'fonts') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'avenir_medium';
-    src: url('#{$base_font_url}/assets/avenir_medium/avenir-medium.eot');
-    src: url('#{$base_font_url}/assets/avenir_medium/avenir-medium.eot?#iefix') format('embedded-opentype'),
-         url('#{$base_font_url}/assets/avenir_medium/avenir-medium.otf') format('opentype'),
-         url('#{$base_font_url}/assets/avenir_medium/avenir-medium.woff') format('woff'),
-         url('#{$base_font_url}/assets/avenir_medium/avenir-medium.ttf') format('truetype'),
-         url('#{$base_font_url}/assets/avenir_medium/avenir-medium.svg#avenir_medium') format('svg');
+    src: asset-url('avenir_medium/avenir-medium.eot', 'fonts');
+    src: asset-url('avenir_medium/avenir-medium.eot?#iefix', 'fonts') format('embedded-opentype'),
+         asset-url('avenir_medium/avenir-medium.otf', 'fonts') format('opentype'),
+         asset-url('avenir_medium/avenir-medium.woff', 'fonts') format('woff'),
+         asset-url('avenir_medium/avenir-medium.ttf', 'fonts') format('truetype'),
+         asset-url('avenir_medium/avenir-medium.svg#avenir_medium', 'fonts') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -81,42 +79,42 @@ $base_font_url: "http://www.olook.com.br";
 
 @font-face {
 	font-family: 'FuturaStd-Book';
-	src: url('#{$base_font_url}/assets/futura-std-book/futurastd-book.eot');
-	src: url('#{$base_font_url}/assets/futura-std-book/futurastd-book.eot?#iefix') format('embedded-opentype'),
-			 url('#{$base_font_url}/assets/futura-std-book/futurastd-book.woff') format('woff'),
-			 url('#{$base_font_url}/assets/futura-std-book/futurastd-book.ttf') format('truetype'),
-			 url('#{$base_font_url}/assets/futura-std-book/futurastd-book.svg#futurastd-book') format('svg');
+	src: asset-url('futura-std-book/futurastd-book.eot', 'fonts');
+	src: asset-url('futura-std-book/futurastd-book.eot?#iefix', 'fonts') format('embedded-opentype'),
+			 asset-url('futura-std-book/futurastd-book.woff', 'fonts') format('woff'),
+			 asset-url('futura-std-book/futurastd-book.ttf', 'fonts') format('truetype'),
+			 asset-url('futura-std-book/futurastd-book.svg#futurastd-book', 'fonts') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 @font-face {
 	font-family: 'FuturaStd-Bold';
-	src: url('#{$base_font_url}/assets/futura-std-bold/futurastd-bold.eot');
-	src: url('#{$base_font_url}/assets/futura-std-bold/futurastd-bold.eot?#iefix') format('embedded-opentype'),
-			 url('#{$base_font_url}/assets/futura-std-bold/futurastd-bold.woff') format('woff'),
-			 url('#{$base_font_url}/assets/futura-std-bold/futurastd-bold.ttf') format('truetype'),
-			 url('#{$base_font_url}/assets/futura-std-bold/futurastd-bold.svg#futurastd-bold') format('svg');
+	src: asset-url('futura-std-bold/futurastd-bold.eot', 'fonts');
+	src: asset-url('futura-std-bold/futurastd-bold.eot?#iefix', 'fonts') format('embedded-opentype'),
+			 asset-url('futura-std-bold/futurastd-bold.woff', 'fonts') format('woff'),
+			 asset-url('futura-std-bold/futurastd-bold.ttf', 'fonts') format('truetype'),
+			 asset-url('futura-std-bold/futurastd-bold.svg#futurastd-bold', 'fonts') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 @font-face {
     font-family: 'Futura-medium';
-    src: url('#{$base_font_url}/assets/futura-medium/futura_medium-webfont.eot');
-    src: url('#{$base_font_url}/assets/futura-medium/futura_medium-webfont.eot?#iefix') format('embedded-opentype'),
-         url('#{$base_font_url}/assets/futura-medium/futura_medium-webfont.woff') format('woff'),
-         url('#{$base_font_url}/assets/futura-medium/futura_medium-webfont.ttf') format('truetype'),
-         url('#{$base_font_url}/assets/futura-medium/futura_medium-webfont.svg#Futura-medium') format('svg');
+    src: asset-url('futura-medium/futura_medium-webfont.eot', 'fonts');
+    src: asset-url('futura-medium/futura_medium-webfont.eot?#iefix', 'fonts') format('embedded-opentype'),
+         asset-url('futura-medium/futura_medium-webfont.woff', 'fonts') format('woff'),
+         asset-url('futura-medium/futura_medium-webfont.ttf', 'fonts') format('truetype'),
+         asset-url('futura-medium/futura_medium-webfont.svg#Futura-medium', 'fonts') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'bodoni_stdbold';
-    src: url('#{$base_font_url}/assets/bodoni-std-bold/bodonistd-bold-webfont.eot');
-    src: url('#{$base_font_url}/assets/bodoni-std-bold/bodonistd-bold-webfont.eot?#iefix') format('embedded-opentype'),
-         url('#{$base_font_url}/assets/bodoni-std-bold/bodonistd-bold-webfont.woff') format('woff'),
-         url('#{$base_font_url}/assets/bodoni-std-bold/bodonistd-bold-webfont.ttf') format('truetype'),
-         url('#{$base_font_url}/assets/bodoni-std-bold/bodonistd-bold-webfont.svg#bodoni_stdbold') format('svg');
+    src: asset-url('bodoni-std-bold/bodonistd-bold-webfont.eot', 'fonts');
+    src: asset-url('bodoni-std-bold/bodonistd-bold-webfont.eot?#iefix', 'fonts') format('embedded-opentype'),
+         asset-url('bodoni-std-bold/bodonistd-bold-webfont.woff', 'fonts') format('woff'),
+         asset-url('bodoni-std-bold/bodonistd-bold-webfont.ttf', 'fonts') format('truetype'),
+         asset-url('bodoni-std-bold/bodonistd-bold-webfont.svg#bodoni_stdbold', 'fonts') format('svg');
     font-weight: normal;
     font-style: normal;
 
