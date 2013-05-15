@@ -402,6 +402,7 @@ $(document).ready(function() {
     $("#cart_summary").hide();
     $("body").removeClass('cart_submenu_opened');
   });
+  $('.coupon_warn').delay(6000).fadeOut();
 
   $("ul.submenu li form.delete").live("ajax:success", function(evt, xhr, settings){
     var defaultQuantity = 1;
