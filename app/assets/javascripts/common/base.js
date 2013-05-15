@@ -65,6 +65,7 @@ function slideMenuBar(){
 }
 
 function showBalloon(){
+  if($(".menu_new .stylist").length > 0){
   var t=$(".menu_new .stylist").position().top, l=$(".menu_new .stylist").position().left;
   $("img.balloon").css({"top": t -5, "left": l+20});
   
@@ -73,6 +74,7 @@ function showBalloon(){
   }).on("mouseleave", function(){
     $("img.balloon").hide();
   })
+  }
 }
 
 $(document).ready(function() {

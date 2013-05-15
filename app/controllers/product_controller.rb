@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ProductController < ApplicationController
   respond_to :html
-  before_filter :load_show_product, only: [:show, :spy]
+  before_filter :load_show_product, only: [:show, :spy, :product_facebook]
 
 
   rescue_from ActiveRecord::RecordNotFound do
@@ -11,6 +11,11 @@ class ProductController < ApplicationController
   end
 
   def show
+  end
+  
+  def product_facebook
+    girlfriend = User.find_by_authentication_token(params[:authentication])
+    @user_data = FacebookAdapter.new(girlfriend.facebook_token).retrieve_user_data
   end
 
   def spy

@@ -1,64 +1,98 @@
 <script type="text/javascript">
-
+var x;
 $(function(){
-	 window.fbAsyncInit = function(){
+	window.fbAsyncInit = function(){
   	FB.init({
-	    appId: '<%= facebook_app_id %>',
+	    appId: '332084506918689',
 	    status: true,
 	    cookie: true,
 	    oauth: true,
+      xfbml: true,
       frictionlessRequests : true,
-      user:'<%= member %>'
+  
 	  });
-        FB.Event.subscribe('edge.create', function(href, widget) {
-          _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);
-        });
+    
+    FB.Event.subscribe('edge.create', function(href, widget) {
+      _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);
+    });
+    
+    FB.Event.subscribe('xfbml.render',function(){
+
+      window.setTimeout(function(){teste()},1000);
+    })
+    
 	  try {
 	    FB.XFBML.parse();
 	  } catch(ex){}
-
-
+    
 	}
-
+  
+  
+  $("button.face").click(function(){sendTeste()})
 });
+
+
 function teste(){
+
   FB.api('/me', function(response) {
-    console.log(response.name)
- 
+    x = response.significant_other.id;
+    console.log(x);
+    return;
   });
 }
-		function sendFacebookMessage() {
-      FB.ui({
-        method: 'send',
-		    caption: 'www.olook.com.br',
-		    picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
-        <% if member %>
-		      description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= accept_invitation_url(:invite_token => member.invite_token) %> #ficaadica',
-		      link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>'
-        <% else %>
-          description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10!',
-		      link: '<%=  root_url %>'
-        <% end %>
-		  });
-    }
 
-    function postToFacebookFeed() {
-      var obj = {
+function sendTeste() {
+  FB.ui({
+    method: 'feed',
+    caption: 'Ronaldo',
+    name: 'titulo do ronaldo',
+    picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
+    to: x,
+    <% if member %>
+      description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= "#{root_url}dia_dos_namorados/#{current_user.authentication_token}/91173" %> #ficaadica',
+      link: '<%= "#{root_url}dia_dos_namorados/#{current_user.authentication_token}/91173" %>'
+    <% else %>
+      description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10!',
+      link: '<%=  root_url %>'
+    <% end %>   
+  });
+}
+
+
+
+function sendFacebookMessage() {
+  FB.ui({
+    method: 'send',
+    caption: 'www.olook.com.br',
+    picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
+    <% if member %>
+      description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= accept_invitation_url(:invite_token => member.invite_token) %> #ficaadica',
+      link: 'http://olook.com.br'
+    <% else %>
+      description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10!',
+      link: '<%=  root_url %>'
+    <% end %>   
+  });
+}
+
+function postToFacebookFeed() {
+  var obj = {
 method: 'feed',
-        caption: 'www.olook.com.br',
-        picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
-        <% if member %>
-            link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>',
-            description: 'Tenho uma vitrine personalizada da olook e recebo recomendações incríveis das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= accept_invitation_url(:invite_token => member.invite_token) %> #ficaadica'
-        <% else %>
-          link: '<%=  root_url %>',
-          description: 'Tenho uma vitrine personalizada da olook e recebo recomendações incríveis das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= root_url %> #ficaadica'
+    caption: 'www.olook.com.br',
+    picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
+    <% if member %>
+        link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>',
+        description: 'Tenho uma vitrine personalizada da olook e recebo recomendações incríveis das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= accept_invitation_url(:invite_token => member.invite_token) %> #ficaadica'
+    <% else %>
+      link: '<%=  root_url %>',
+      description: 'Tenho uma vitrine personalizada da olook e recebo recomendações incríveis das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= root_url %> #ficaadica'
 
-        <% end %>
-		  };
+    <% end %>
+  };
 
-		  FB.ui(obj);
-		}
+  FB.ui(obj);
+}
+
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
