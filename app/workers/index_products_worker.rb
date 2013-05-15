@@ -7,31 +7,44 @@ class IndexProductsWorker
   @queue = :search
 
   def self.perform
-    all_products = products_to_index.map { |product| create_sdf_entry_for product, 'add' }
-    all_products += products_to_remove.map {|product| create_sdf_entry_for product, 'delete'}
-
-    flush_to_sdf_file all_products
-    upload_sdf_file 
+    add_products
+    remove_products
   end
 
   private
 
-    def self.flush_to_sdf_file all_products
-      File.open("base.sdf", "w:UTF-8") do |file| 
+    def self.add_products
+      add_products = products_to_index.map { |product| create_sdf_entry_for product, 'add' }
+      flush_to_sdf_file "base-add.sdf", add_products
+      upload_sdf_file "base-add.sdf"
+    end
+
+    def self.remove_products
+      remove_products = products_to_remove.map {|product| create_sdf_entry_for product, 'delete'}
+      flush_to_sdf_file "base-remove.sdf", remove_products
+      upload_sdf_file "base-remove.sdf"      
+    end
+
+    def self.flush_to_sdf_file file_name, all_products
+      File.open("#{file_name}", "w:UTF-8") do |file| 
         file << all_products.to_json
       end
     end
 
 
     def self.create_sdf_entry_for product, type
+
+      version = version_based_on_timestamp
+
       values = {
         'type' => type,
-        'version' => 1,
-        'lang' => 'pt',
+        'version' => version,
         'id' => product.id
       }
 
       if type == 'add'
+        values['lang'] = 'pt'
+        
         fields = {}
 
         remove_product_item_view_cache product.id
@@ -55,9 +68,9 @@ class IndexProductsWorker
       values      
     end
 
-    def self.upload_sdf_file
+    def self.upload_sdf_file file_name
       docs_domain =  SEARCH_CONFIG["docs_domain"]
-      `curl -X POST --upload-file base.sdf "#{docs_domain}"/2011-02-01/documents/batch --header "Content-Type:application/json"`
+      `curl -X POST --upload-file "#{file_name}" "#{docs_domain}"/2011-02-01/documents/batch --header "Content-Type:application/json"`
     end
 
     def self.products_to_index
@@ -70,6 +83,10 @@ class IndexProductsWorker
 
     def self.products
       Product.all
+    end
+
+    def self.version_based_on_timestamp
+      Time.zone.now.to_i / 60
     end
 
 end

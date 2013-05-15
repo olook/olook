@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::PaymentsController do
+describe Admin::PaymentsController, admin: true do
   render_views
   let!(:credit) { FactoryGirl.create(:credit)}
   let!(:credit_card) { FactoryGirl.create(:credit_card, :credit_ids => credit.id)}
@@ -16,16 +16,16 @@ describe Admin::PaymentsController do
   describe "GET index" do
     let (:search_param) { {"user_name_eq" => credit_card.user_name} }
 
-  	it "should find all moip callbacks using no parameter" do
+	it "should find all moip callbacks using no parameter" do
       get :index
       assigns(:payments).should include(credit_card)
       assigns(:payments).should include(debit)
-  	end
+	end
 
-  	it "should find only processed using the search parameter" do
+	it "should find only processed using the search parameter" do
       get :index, :search => search_param
       assigns(:payments).should eq([credit_card])
-  	end
+	end
   end
 
   describe "GET show" do
