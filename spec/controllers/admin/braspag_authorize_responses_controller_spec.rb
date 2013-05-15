@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::BraspagAuthorizeResponsesController do
+describe Admin::BraspagAuthorizeResponsesController, admin: true do
   render_views
   let!(:clean_braspag_authorize_response) { FactoryGirl.create(:clean_braspag_authorize_response)}
   let!(:braspag_authorize_response) { FactoryGirl.create(:braspag_authorize_response)}

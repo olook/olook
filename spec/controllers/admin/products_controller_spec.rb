@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::ProductsController do
+describe Admin::ProductsController, admin: true do
   render_views
 
   before :all do
