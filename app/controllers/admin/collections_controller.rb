@@ -53,10 +53,12 @@ class Admin::CollectionsController < Admin::BaseController
 
   def mark_all_products_as_visible
     @collection = Collection.find(params[:collection_id])
-    update_products = Product.update_all({:is_visible => true}, {collection_id: @collection.id})
+    @products = @collection.products
+    update_products = @products.update_all(is_visible: true)
     if !update_products
       flash[:error] = "Could not execute your request!"
     else
+      ProductListener.notify_about_visibility(@products, current_admin)
       flash[:notice] = "Marked all products as visible."
     end
     redirect_to admin_collection_path(@collection)
@@ -64,10 +66,12 @@ class Admin::CollectionsController < Admin::BaseController
 
   def mark_all_products_as_invisible
     @collection = Collection.find(params[:collection_id])
-    update_products = Product.update_all({:is_visible => false}, {collection_id: @collection.id})
+    @products = @collection.products
+    update_products = @products.update_all(is_visible: false)
     if !update_products
       flash[:error] = "Could not execute your request!"
     else
+      ProductListener.notify_about_visibility(@products, current_admin)
       flash[:notice] = "Marked all products as invisible."
     end
     redirect_to admin_collection_path(@collection)
