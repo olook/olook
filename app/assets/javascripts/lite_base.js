@@ -153,6 +153,7 @@ olook = o = {
       $("#cart_summary").hide();
       $("body").removeClass('cart_submenu_opened');
     });
+    $('.coupon_warn').delay(6000).fadeOut();
   },
   
   myAccountMenu: function(){
