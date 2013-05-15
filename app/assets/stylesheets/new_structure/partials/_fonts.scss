@@ -34,12 +34,12 @@ $base_font_url: "http://www.olook.com.br";
 }
 
 @font-face {
-    font-family: 'Kepler Std Italic';
+    font-family: 'KeplerStdItalic';
     src: url('#{$base_font_url}/assets/kepler/adobe_-_keplerstd-italic-webfont.eot');
     src: url('#{$base_font_url}/assets/kepler/adobe_-_keplerstd-italic-webfont.eot?#iefix') format('embedded-opentype'),
          url('#{$base_font_url}/assets/kepler/adobe_-_keplerstd-italic-webfont.woff') format('woff'),
          url('#{$base_font_url}/assets/kepler/adobe_-_keplerstd-italic-webfont.ttf') format('truetype'),
-         url('#{$base_font_url}/assets/kepler/adobe_-_keplerstd-italic-webfont.svg#Kepler Std Italic') format('svg');
+         url('#{$base_font_url}/assets/kepler/adobe_-_keplerstd-italic-webfont.svg#KeplerStdItalic') format('svg');
     font-weight: normal;
     font-style: normal;
 }
