@@ -188,6 +188,36 @@ header#new_header{border-top: 8px black solid;
             margin-right: auto;
           }
         }
+        .coupon_warn {
+          display: block;
+          position: absolute;
+          background-color: #c1e2be;
+          border-top: 1px #ccc solid;
+          border-left: 1px #ccc solid;
+          border-bottom: 1px #ccc solid;
+          padding: 5px 5px 5px 5px;
+          left: -338px;
+          width: 325px;
+          top: 85px;
+          line-height: 23px;
+          .check {
+            background: image-url('common/check-circle.png') no-repeat top left;
+            display:block;
+            float:left;
+            margin-right: 5px;
+            width: 22px;
+            height: 22px;
+          }
+          .seta {
+            background: image-url('common/seta-verde.png') no-repeat top left;
+            display:block;
+            position: absolute;
+            width: 14px;
+            height: 36px;
+            top: -2px;
+            left: 335px;
+          }
+        }
       }
       p.credits{float:left;font-size:11px;color:$base_color;line-height:18px;
          a{text-decoration:none;color:$base_color;
