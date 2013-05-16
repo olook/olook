@@ -22,7 +22,8 @@
                 Seu cupom já está garantido em sua sacola de compras
               </span>
             <%- end %>
-            <p class="coupon_tag"><%= image_tag 'common/nav/big_coupon.png', :class => '' %>Sua sacola agora<br />tem um cupom de <br /><%= coupon_value_for(@cart.coupon) %> de desconto.<br />Aproveite! ;)</p>
+            <%= image_tag 'common/nav/big_coupon.png', :class => '' %>
+            <p class="coupon_tag">Sua sacola agora<br />tem um cupom de <br /><%= coupon_value_for(@cart.coupon) %> de desconto.<br />Aproveite! ;)</p>
           </li>
         <% end %>
         <%= content_tag(:li, content_tag(:p, "Sua sacola está vazia :(<br />Navegue em nosso site e mude isso já!".html_safe, class: 'empty_cart'), class: "product_item") if !@cart || @cart.items.blank? %>
