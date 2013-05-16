@@ -1,7 +1,7 @@
 .box-cadastro
   =image_tag("campaign_emails/modal_image.jpg")
   %div.content
-    = render "campaign_text_#{@campaign_text}"
+    = (render "campaign_text_#{@campaign_text}") rescue render 'campaign_text_1'
     %p.cadastre Cadastre-se e receba por e-mail novidades </br>sobre moda, tendências e promoções exclusivas
     %div.place-holder
       %div.error
