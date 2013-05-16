@@ -114,7 +114,7 @@ class ProductPresenter < BasePresenter
   def render_price_for cart_service
     if product.promotion?
       price_markdown(product.retail_price)
-    elsif cart_service.has_coupon?
+    elsif cart_service.has_percentage_coupon?
       price_markdown cart_service.price_with_coupon_for product
     else
       price_markup(product.price, "price")
