@@ -1,5 +1,5 @@
 <script type="text/javascript">
-var x = "";
+var boyfriend = "";
 $(function(){
 	window.fbAsyncInit = function(){
   	FB.init({
@@ -18,7 +18,7 @@ $(function(){
     
     FB.Event.subscribe('xfbml.render',function(){
 
-      window.setTimeout(function(){teste()},1000);
+      window.setTimeout(function(){getBoyfriendName()},1000);
     })
     
 	  try {
@@ -28,32 +28,32 @@ $(function(){
 	}
   
   
-  $("button.face").click(function(){sendTeste()})
+  $("a.face-message").click(function(){sendMessageToBoyfriend()})
 });
 
 
-function teste(){
+function getBoyfriendName(){
 
   FB.api('/me', function(response) {
     significant_other = response.significant_other;
     if(significant_other){
-      x = significant_other.id;
+      boyfriend = significant_other.id;
     }
     return;
   });
 }
 
-function sendTeste() {
+function sendMessageToBoyfriend() {
   ui_hash = {
     method: 'feed',
     caption: 'Ronaldo',
     name: 'titulo do ronaldo',
-    to: x,
+    to: boyfriend,
 
     <% if member && @product %>
       description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= valentine_link_for(member, @product) %> #ficaadica',
-      link: '<%= valentine_link_for(member, @product) %>'
-      picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
+      link: '<%= valentine_link_for(member, @product) %>',
+      picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg'
     <% else %>
       description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10!',
       link: '<%=  root_url %>'
