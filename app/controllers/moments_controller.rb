@@ -9,7 +9,7 @@ class MomentsController < ApplicationController
   before_filter :load_catalog_products
 
   def load_chaordic_user
-    @chaordic_user = ChaordicInfo.user current_user
+    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
   end
 
   def index
@@ -34,7 +34,6 @@ class MomentsController < ApplicationController
   def clothes
     @colors = Detail.colors(params[:category_id])
     @pixel_information = params[:category_id]
-    @stylist_products = Product.fetch_stylists_products
     render :show
   end
 
@@ -61,7 +60,7 @@ class MomentsController < ApplicationController
 
     if @collection_theme
       @catalog_products = CatalogSearchService.new(params.merge({id: @collection_theme.catalog.id})).search_products
-      @products_id = @catalog_products.map{|item| item.product_id }.compact
+      @products_id = @catalog_products.first(3).map{|item| item.product_id }.compact
       # params[:id] is into array for pixel iterator
       @categories_id = params[:id] ? [params[:id]] : @collection_themes.map(&:id).compact.uniq
     else

@@ -44,7 +44,7 @@ class ProductController < ApplicationController
     end
 
     @google_pixel_information = @product
-    @chaordic_user = ChaordicInfo.user current_user
+    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     @chaordic_product = ChaordicInfo.product @product
     @chaordic_category = @product.category_humanize
     @variants = @product.variants

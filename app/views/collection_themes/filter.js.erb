@@ -1,4 +1,4 @@
-<%= render "display_products", :catalog_products => @catalog_products %>
+<%= render "shared/display_products", :catalog_products => @catalog_products %>
 //filter.setMouseOverOnImages();
 filter.showAllImages();
 <% category_symbol = Category.key_for(params[:category_id].to_i) %>

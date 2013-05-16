@@ -6,7 +6,7 @@ feature "Deliveries dashboard", %q{
   As any admin user
   I can view orders by their delivery dates
   So I can better manage late deliveries
-} do
+}, feature: true, admin: true do
 
   background do
     Delorean.time_travel_to("February 5, 2013")
@@ -16,7 +16,7 @@ feature "Deliveries dashboard", %q{
   end
 
   let(:admin) { FactoryGirl.create(:admin_superadministrator) }
-  let!(:order) { FactoryGirl.create(:delivered_order,  
+  let!(:order) { FactoryGirl.create(:delivered_order,
                                     expected_delivery_on: 2.business_days.after(Time.now),
                                     shipping_service_name: 'PAC',
                                     freight_state: 'RJ') }
@@ -75,7 +75,7 @@ feature "Deliveries dashboard", %q{
 
     expect(page).to have_content(order.created_at.strftime('%A, %e %B %Y'))
     expect(page).to have_content(order.payments.for_erp.first.created_at.strftime('%A, %e %B %Y'))
-    
+
     expect(page).to have_content("PAC")
     expect(page).to have_content("Rio de Janeiro")
     expect(page).to have_content("RJ")
@@ -83,7 +83,7 @@ feature "Deliveries dashboard", %q{
   end
 
   scenario 'Transportation filter' do
-    FactoryGirl.create(:delivered_order, 
+    FactoryGirl.create(:delivered_order,
                         expected_delivery_on: 2.business_days.after(Time.now),
                         shipping_service_name: 'TEX')
 
@@ -105,7 +105,7 @@ feature "Deliveries dashboard", %q{
   end
 
   scenario 'Freight state filter' do
-    FactoryGirl.create(:delivered_order, 
+    FactoryGirl.create(:delivered_order,
                         expected_delivery_on: 2.business_days.after(Time.now),
                         freight_state: 'SP')
 

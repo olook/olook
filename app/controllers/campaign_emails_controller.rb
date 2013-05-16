@@ -16,6 +16,7 @@ class CampaignEmailsController < ApplicationController
         redirect_path = campaign_email_path(@campaign_email)
       end
       cookies['newsletterUser'] = { value: '1', path: '/', expires: 30.years.from_now }
+      cookies['ceid'] = { value: "#{@campaign_email.id}", path: '/', expires: 30.years.from_now }
       redirect_to redirect_path
     end
   end
