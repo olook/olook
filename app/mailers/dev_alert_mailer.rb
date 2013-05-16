@@ -20,4 +20,8 @@ class DevAlertMailer < ActionMailer::Base
     @warn_orders = warn_order
     mail(:to => "tech@olook.com.br", :subject => "Pedidos que deveriam ter sido capturados pela braspag")
   end
+
+  def notify_about_cancelled_billets
+    mail(:to => "tech@olook.com.br", :subject => "Cancelamento de boletos rodado com sucesso!")
+  end
 end
