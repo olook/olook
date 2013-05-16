@@ -14,7 +14,7 @@ class ProductController < ApplicationController
   end
   
   def product_facebook
-    girlfriend = User.find_by_authentication_token(params[:authentication])
+    girlfriend = User.find_by_id(ParameterEncryptor.decrypt(params[:encrypted_id]))
     @user_data = FacebookAdapter.new(girlfriend.facebook_token).retrieve_user_data
   end
 
