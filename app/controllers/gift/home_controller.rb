@@ -12,6 +12,7 @@ class Gift::HomeController < Gift::BaseController
   end
 
   def index
+    @google_path_pixel_information = "Presentes"
     @profiles = profiles
     @profiles_products = fetch_profiles_products
     @recipient_relations = GiftRecipientRelation.ordered_by_name
