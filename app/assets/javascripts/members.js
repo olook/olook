@@ -37,8 +37,8 @@ $(document).ready(function() {
 });
   $("#share-email a.copy_link").zclip({
     path: "/assets/ZeroClipboard.swf",
-    copy: function() { return $("section#share-email input").val(); },
+    copy: function() { return $("section#share-mail input#link").val(); },
     afterCopy: function(){
-      $("section#share-email div.box_copy").fadeIn().delay(2000).fadeOut();
+      $("section#share-mail div.box_copy").fadeIn().delay(2000).fadeOut();
     }
-  }).click(function(){console.log("da")});
+  });
