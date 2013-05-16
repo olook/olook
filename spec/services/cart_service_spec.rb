@@ -662,8 +662,8 @@ describe CartService do
     end
   end
 
-  describe "#has_coupon?" do
-    context "when cart_service#cart has coupon" do
+  describe "#has_percentage_coupon?" do
+    context "when cart_service#cart has coupon and coupon is percentage" do
       let(:cart) { FactoryGirl.build(:clean_cart) }
       let(:cart_service) { described_class.new ({ cart: cart }) }
       let(:coupon) { FactoryGirl.build(:coupon) }
@@ -672,8 +672,21 @@ describe CartService do
         cart.stub(:coupon).and_return(coupon)
       end
 
-      subject { cart_service.has_coupon? }
-      it { should be_true }
+      context "and coupon is percentage" do
+
+        before do
+          coupon.stub(:is_percentage?).and_return(true)
+        end
+
+        subject { cart_service.has_percentage_coupon? }
+        it { should be_true }
+      end
+
+      context "but coupon is not percentage" do
+
+        subject { cart_service.has_percentage_coupon? }
+        it { should be_false }
+      end
     end
 
     context "when cart_service#cart hasn't coupon" do
@@ -681,7 +694,7 @@ describe CartService do
       let(:cart) { FactoryGirl.build(:clean_cart) }
       let(:cart_service) { described_class.new ({ cart: cart }) }
 
-      subject { cart_service.has_coupon? }
+      subject { cart_service.has_percentage_coupon? }
 
       it { should be_false }
     end
