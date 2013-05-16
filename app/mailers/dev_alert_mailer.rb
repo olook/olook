@@ -21,9 +21,7 @@ class DevAlertMailer < ActionMailer::Base
     mail(:to => "tech@olook.com.br", :subject => "Pedidos que deveriam ter sido capturados pela braspag")
   end
 
-  def product_visibility_notification(products, admin)
-    @admin = admin
-    @products = products
-    mail(:to => %[rafael.manoel@olook.com.br, nelson.haraguchi@olook.com.br], :subject => "Produtos com visibilidade alterada")
+  def notify_about_cancelled_billets
+    mail(:to => "tech@olook.com.br", :subject => "Cancelamento de boletos rodado com sucesso!")
   end
 end
