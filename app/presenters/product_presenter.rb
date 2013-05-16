@@ -1,9 +1,8 @@
 # -*- encoding : utf-8 -*-
 class ProductPresenter < BasePresenter
 
-  SIZES_TABLE = {"PP" => 1, "P" =>2, "M" => 3, "G" => 4, "GG" => 5,
-                 "34" => 6, "36" => 7, "38" => 8, "40" => 9, "42" => 10, "44" => 11,
-                 "Único" => 12}
+  SIZES_TABLE = Catalog::Catalog::CLOTH_SIZES_TABLE
+
 
   def collection_name
    Collection.active.try(:name) || I18n.l(Date.today, :format => '%B')
