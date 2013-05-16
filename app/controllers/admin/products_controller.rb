@@ -39,6 +39,7 @@ class Admin::ProductsController < Admin::BaseController
     @product = Product.find(params[:id])
 
     if @product.update_attributes(params[:product])
+      ProductListener.notify_about_visibility([@product], current_admin)
       flash[:notice] = 'Product was successfully updated.'
     end
 
