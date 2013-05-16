@@ -663,7 +663,7 @@ describe CartService do
   end
 
   describe "#has_percentage_coupon?" do
-    context "when cart_service#cart has coupon and coupon is percentage" do
+    context "when cart_service#cart has coupon" do
       let(:cart) { FactoryGirl.build(:clean_cart) }
       let(:cart_service) { described_class.new ({ cart: cart }) }
       let(:coupon) { FactoryGirl.build(:coupon) }
