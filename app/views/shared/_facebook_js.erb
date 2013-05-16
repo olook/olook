@@ -48,9 +48,10 @@ function sendTeste() {
     name: 'titulo do ronaldo',
     picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
     to: x,
-    <% if member %>
-      description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= "#{root_url}dia_dos_namorados/#{current_user.authentication_token}/91173" %> #ficaadica',
-      link: '<%= "#{root_url}dia_dos_namorados/#{current_user.authentication_token}/91173" %>'
+    <% if member && @product %>
+      <% binding.pry %>
+      description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= valentine_link_for(member, @product) %> #ficaadica',
+      link: '<%= valentine_link_for(member, @product) %>'
     <% else %>
       description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10!',
       link: '<%=  root_url %>'
