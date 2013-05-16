@@ -33,5 +33,14 @@ $(document).ready(function() {
       scrollTop: 0
     }, 'slow');
   });
+
 });
 
+
+  $("#share-email a.copy_link").zclip({
+    path: "/assets/ZeroClipboard.swf",
+    copy: function() { return $("section#share-email input").val(); },
+    afterCopy: function(){
+      $("section#share-email div.box_copy").fadeIn().delay(2000).fadeOut();
+    }
+  }).click(function(){console.log("da")});

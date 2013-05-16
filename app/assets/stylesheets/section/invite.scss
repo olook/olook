@@ -109,21 +109,22 @@ body {
 
       &#invite-mail {
         form {
-          padding-top: 0;
+          padding-top: 12px;
           fieldset.buttons {
             ol li {
               margin: 15px 0 0;
               input {
                 background: image-url('common/invite.png') no-repeat;
                 text-indent: -9999px;
-                width: 92px;
-                height: 34px;
+                width: 115px;
+                height: 43px;
                 display: block;
                 border: none;
                 cursor: pointer;
               }
             }
           }
+          fieldset.invite{position: absolute;top: 39px;right: -140px;}
         }
       }
 
