@@ -145,3 +145,9 @@ facebook_friends_birthday_end_exacttarget:
     - true
     - exact_target.yml
   description: "Cria e envia arquivo com base de usuários e amigas aniversariantes para ftp do exact target, no fim do mês"
+
+cancel_old_billets:
+  cron: "0 4 * * *"
+  class: Abacos::CancelExpiredBillet
+  queue: cancel_old_billets
+  description: "Cancela todos os boletos com data de expicacao de um dia antes do ultimo dia util"

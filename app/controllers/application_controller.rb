@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
                 :load_cart_service,
                 :load_facebook_api,
                 :load_referer,
-                :load_tracking_parameters
+                :load_tracking_parameters,
+                :set_modal_show
 
   helper_method :current_liquidation,
                 :show_current_liquidation?,
@@ -57,6 +58,14 @@ class ApplicationController < ActionController::Base
     cart
   end
 
+  def set_modal_show
+    if params[:modal]
+      @modal_show = params[:modal] != "0" ? "1" : "0"
+    else
+      @modal_show = cookies[:ms].blank? ? "1" : "0"
+    end
+  end
+
   protected
 
     def assign_coupon_to_cart(cart, coupon_code)
@@ -66,8 +75,7 @@ class ApplicationController < ActionController::Base
         cart.coupon_code = coupon.code
         if cart.valid?
           cart.update_attributes(:coupon_id => coupon.id)
-          flash.now[:notice] = "Cupom ativado em sua sacola com sucesso!"
-          @show_cart_summary = true
+          @show_coupon_warn = true
         else
           flash.now[:notice] = cart.errors[:coupon_code].join('<br />'.html_safe)
           cart.remove_coupon!
