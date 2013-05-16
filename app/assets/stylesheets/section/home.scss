@@ -225,9 +225,9 @@ section#home {
   }
   section#brands{
     position: relative;
-    min-height: 400px;
+    min-height: 300px;
     margin: 0 0 10px;
-    padding: 10px 0 30px;
+    padding: 10px 0 20px;
     border-bottom: 1px #cbcbcb solid;
     h1 {
       font-family: $kepler;
@@ -237,7 +237,7 @@ section#home {
       margin: 0 0 10px;
     }
     h2{
-      font-family: "Kepler Std Italic",Times,"Times New Roman",serif;
+      font-family: KeplerStdItalic,Times,"Times New Roman",serif;
       font-size: 18px;
       text-align: center;
       display: block;
@@ -249,8 +249,8 @@ section#home {
       li{
         a{
           background: image-url("home/new_brands_off.jpg") no-repeat;
-          width: 252px;
-          height: 90px;
+          width: 144px;
+          height: 72px;
           float: left;
           cursor: pointer;
           &:hover{background: image-url("home/new_brands.jpg") no-repeat;}
@@ -261,93 +261,91 @@ section#home {
             background-position: 0px 0px;
           }
         } 
-        &.concept a {
-          background-position: -252px 0px;
+        &.essential a {
+          background-position: -144px 0px;
           &:hover {
-            background-position: -252px 0px;
+            background-position: -144px 0px;
           }
         }
-        &.essential a {
-          background-position: -504px 0px;
+        &.harris a {
+          background-position: -288px 0px;
           &:hover {
-            background-position: -504px 0px;
+            background-position: -288px 0px;
+          }
+        } 
+        &.jabour a {
+          background-position: -432px 0px;
+          &:hover {
+            background-position: -432px 0px;
+          }
+        } 
+        &.iodice a {
+          background-position: -576px 0px;
+          &:hover {
+            background-position: -576px 0px;
+          }
+        } 
+        &.eclectic a {
+          background-position: -720px 0px;
+          &:hover {
+            background-position: -720px 0px;
+          }
+        }
+        &.triton a {
+          width: 126px;
+          background-position: -864px 0px;
+          &:hover {
+            background-position: -864px 0px;
+          }
+        } 
+        &.concept a {
+          background-position: 0px -72px;
+          &:hover {
+            background-position: 0px -72px;
+          }
+        }  
+        &.manzini a {
+          background-position: -144px -72px;
+          &:hover {
+            background-position: -144px -72px;
+          }
+        } 
+        &.thelure a {
+          background-position: -288px -72px;
+          &:hover {
+            background-position: -288px -72px;
+          }
+        } 
+        &.fashion a {
+          background-position: -432px -72px;
+          &:hover {
+            background-position: -432px -72px;
+          }
+        }
+        &.shop a {
+          background-position: -576px -72px;
+          &:hover {
+            background-position: -576px -72px;
+          }
+        } 
+        &.olli a {
+          background-position: -720px -72px;
+          &:hover {
+            background-position: -720px -72px;
+          }
+        } 
+        &.colcci a {
+          width: 126px;
+          background-position: -864px -72px;
+          &:hover {
+            background-position: -864px -72px;
           }
         } 
         &.forum a {
           width: 234px;
-          background-position: -756px 0px;
+          background-position: 0px -144px;
           &:hover {
-            background-position: -756px 0px;
-          }
-        } 
-        &.jabour a {
-          background-position: 0px -90px;
-          &:hover {
-            background-position: 0px -90px;
-          }
-        } 
-        &.shop a {
-          background-position: -252px -90px;
-          &:hover {
-            background-position: -252px -90px;
-          }
-        }
-        &.harris a {
-          background-position: -504px -90px;
-          &:hover {
-            background-position: -504px -90px;
-          }
-        } 
-        &.olli a {
-          width: 234px;
-          background-position: -756px -90px;
-          &:hover {
-            background-position: -756px -90px;
-          }
-        }  
-        &.colcci a {
-          background-position: 0px -180px;
-          &:hover {
-            background-position: 0px -180px;
-          }
-        } 
-        &.eclectic a {
-          background-position: -252px -180px;
-          &:hover {
-            background-position: -252px -180px;
-          }
-        } 
-        &.triton a {
-          background-position: -504px -180px;
-          &:hover {
-            background-position: -504px -180px;
-          }
-        }
-        &.thelure a {
-          width: 234px;
-          background-position: -756px -180px;
-          &:hover {
-            background-position: -756px -180px;
-          }
-        } 
-        &.manzini a {
-          background-position: 0px -270px;
-          &:hover {
-            background-position: 0px -270px;
-          }
-        } 
-        &.fashion a {
-          width: 234px;
-          background-position: -252px -270px;
-          &:hover {
-            background-position: -252px -270px;
-          }
-        } 
-        &.iodice a {
-          width: 234px;
-          background-position: -504px -270px;
-          &:hover {
-            background-position: -504px -270px;
+            background-position: 0px -144px;
           }
         } 
       }

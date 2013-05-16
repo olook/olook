@@ -14,6 +14,7 @@ filter.init = function(){
   filter.changeVisualization();
   filter.displayCleanCategories();
   filter.fillFilterTags();
+  filter.hide_chaordic();
   $('.filter ol').show();
 }
 
@@ -30,6 +31,13 @@ filter.spyOverChangeImage = function(){
        }
    });
 }
+
+filter.hide_chaordic = function() {
+    if ($("#filter input[type=checkbox]").is(":checked")) {
+        $('.chaordic.mostpopular').remove();
+    };
+}
+
 filter.setMouseOverOnImages = function() {
      $('img.async').mouseover(function () {
        var backside_image = $(this).attr('data-backside');
@@ -59,7 +67,7 @@ filter.endlessScroll = function(window, document){
    if ($('.pagination').length) {
       $(window).scroll(function() {
          url = $('.pagination .next_page').attr('href');
-         var canPaginate =  url && ($(window).scrollTop() > ($(document).height() - 1250)) && !$('.loading').is(':visible');
+         var canPaginate =  url && ($(window).scrollTop() > ($(document).height() - 1750)) && !$('.loading').is(':visible');
          if (canPaginate) {
             $('.loading').show();
             $('.pagination .next_page').remove();

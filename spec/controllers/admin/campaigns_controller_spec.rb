@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::CampaignsController do
+describe Admin::CampaignsController, admin: true do
 
   render_views
 
@@ -13,18 +13,18 @@ describe Admin::CampaignsController do
   let!(:campaign) { FactoryGirl.create(:campaign) }
   describe "GET index" do
     let!(:second_campaign) { FactoryGirl.create(:second_campaign) }
-  	let (:search_param) { {"title_contains" => campaign.title} }
+	let (:search_param) { {"title_contains" => campaign.title} }
 
-  	it "should find all campaigns using no parameter" do
-  		get :index
-  		assigns(:campaigns).should include(campaign)
+	it "should find all campaigns using no parameter" do
+		get :index
+		assigns(:campaigns).should include(campaign)
       assigns(:campaigns).should include(second_campaign)
-  	end
+	end
 
-  	it "should find only one campaign using the search parameter" do
-  		get :index, :search => search_param
-  		assigns(:campaigns).should eq([campaign])
-  	end
+	it "should find only one campaign using the search parameter" do
+		get :index, :search => search_param
+		assigns(:campaigns).should eq([campaign])
+	end
   end
 
   describe "GET 'new'" do

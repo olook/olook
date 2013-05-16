@@ -65,12 +65,15 @@ _gaq.push(['_addTrans',
   <%= render :partial => "shared/metrics/triggit/confirmation", :locals => {:order => @order, :cart => @order.cart } %>
 <% end %>
 
+<% content_for :data_layer do %>
+  <%= render :partial => "shared/tag/gtm_data_layer" %>  
+<% end %>
+
 <% content_for :footer do %>
   <%= render :partial => "shared/metrics/ve_interactive/get_user" %>
-  <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {:order => @order, :cart => @order.cart } %>
+  <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {order: @order, cart: @order.cart, criteo_conversion: @criteo } %>
   <%= render :partial => "shared/metrics/metaffiliation/order", :locals => {:order => @order } %>
   <%= render :partial => "shared/metrics/all_in/order", :locals => {:order => @order } %>
-  <%= render "shared/metrics/zanox/order", :user_id => @user.id, :order => @order, :zanpid => @zanpid %>
   <%= render :partial => "shared/metrics/struq/conversion", :locals => {:order => @order } %>
   <%= render "shared/metrics/google/buy_done" %>
   <%= render "shared/metrics/dbm/transaction", order: @order %>

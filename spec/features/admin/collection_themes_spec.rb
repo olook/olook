@@ -6,7 +6,7 @@ feature "Admin user manages collection_themes", %q{
   In order to publish collections for my ecommerce clients
   As a business 1 admin user
   I want to manage Collection Themes
-} do
+}, feature: true, admin: true do
 
   before :each do
     @admin = FactoryGirl.create(:admin_business1)
