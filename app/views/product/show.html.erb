@@ -31,8 +31,8 @@
   <% end %>
 
   <div id="product">
+    <%= link_to image_tag("promotion_banners/valentines_day_facebook.jpg", style:"margin-bottom:20px"), "javascript:void(0);", class: "face-message" %>
     <div class="content">
-      <button type="button" class="face">facebook</button>
       <div id="pics_suggestions">
         <%= product_presenter.render_pics %>
         <%= product_presenter.render_facebook_comments %>
@@ -57,7 +57,7 @@
 
       <div id="modal_guide">
         <h1>GUIA DE MEDIDAS</h1>
-        <%= image_tag 'common/body.jpg', :class => '', style:"" %>
+        <%= image_tag 'common/body.jpg', :class => '' %>
         <p>Na página do produto, você poderá </br>consultar as medidas da peça em "Tamanhos & Medidas".</br> Aqui indicamos como fazemos a medição, </br>para que você faça o mesmo ai, ok? ;)</p>
         <ul>
           <li>
