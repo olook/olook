@@ -43,6 +43,7 @@ function teste(){
   });
 }
 
+
 function sendTeste() {
   ui_hash = {
     method: 'feed',
@@ -52,8 +53,8 @@ function sendTeste() {
 
     <% if member && @product %>
       description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= valentine_link_for(member, @product) %> #ficaadica',
-      link: '<%= valentine_link_for(member, @product) %>'
-      picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
+      link: '<%= valentine_link_for(member, @product) %>',
+      picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg'
     <% else %>
       description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10!',
       link: '<%=  root_url %>'
