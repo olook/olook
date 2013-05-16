@@ -12,6 +12,6 @@ module ParameterEncryptor
     unescaped_encrypted_id = CGI.unescape(str)
     secret = Digest::SHA1.hexdigest(PASS)
     c = ActiveSupport::MessageEncryptor.new(secret)
-    c.decrypt(unescaped_encrypted_id)    
+    c.decrypt(unescaped_encrypted_id) 
   end
 end
