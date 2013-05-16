@@ -75,7 +75,6 @@ class ApplicationController < ActionController::Base
         cart.coupon_code = coupon.code
         if cart.valid?
           cart.update_attributes(:coupon_id => coupon.id)
-          flash.now[:notice] = "Cupom ativado em sua sacola com sucesso!"
           @show_cart_summary = true
         else
           flash.now[:notice] = cart.errors[:coupon_code].join('<br />'.html_safe)
