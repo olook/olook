@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130506224333) do
+ActiveRecord::Schema.define(:version => 20130516170617) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -180,8 +180,8 @@ ActiveRecord::Schema.define(:version => 20130506224333) do
   create_table "carts", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "notified",                :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.integer  "legacy_id"
     t.boolean  "gift_wrap",               :default => false
     t.boolean  "use_credits",             :default => false
@@ -317,6 +317,7 @@ ActiveRecord::Schema.define(:version => 20130506224333) do
     t.string   "created_by"
     t.string   "updated_by"
     t.string   "brand"
+    t.string   "modal"
   end
 
   add_index "coupons", ["code"], :name => "index_coupons_on_code"
@@ -823,6 +824,7 @@ ActiveRecord::Schema.define(:version => 20130506224333) do
     t.string   "color_category"
     t.boolean  "is_kit",         :default => false
     t.string   "brand"
+    t.string   "producer_code"
   end
 
   add_index "products", ["category"], :name => "index_products_on_category"
