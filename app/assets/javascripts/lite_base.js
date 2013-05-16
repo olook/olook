@@ -15,14 +15,16 @@ olook = o = {
   },
   
   showBalloon: function(){
-    var t=$(".menu_new .stylist").position().top, l=$(".menu_new .stylist").position().left;
-    $("img.balloon").css({"top": t -11, "left": l +20});
+    if($(".menu_new .stylist").length > 0){
+      var t=$(".menu_new .stylist").position().top, l=$(".menu_new .stylist").position().left;
+      $("img.balloon").css({"top": t -11, "left": l +20});
   
-    $(".menu_new .stylist").on("mouseenter", function(){
-      $("img.balloon").show();
-    }).on("mouseleave", function(){
-      $("img.balloon").hide();
-    })
+      $(".menu_new .stylist").on("mouseenter", function(){
+        $("img.balloon").show();
+      }).on("mouseleave", function(){
+        $("img.balloon").hide();
+      })
+    }  
   },
   
   menu: function(){

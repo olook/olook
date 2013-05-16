@@ -126,6 +126,19 @@ module ApplicationHelper
     Rails.env.production? ? 'https' : 'http'
   end
 
+def banner_for category_id
+  return link_to(image_tag('moments/invite_friends.gif'), member_invite_path)if current_user
+
+  if category_id == Category::SHOE
+    link_to(image_tag('moments/botas.gif'), "/sapatos?shoe_subcategories[]=bota", onclick: track_event('BannerInvite', "ClickBannerFrom#{Category.key_for(Category::SHOE).to_s.camelize}"))
+  elsif category_id == Category::ACCESSORY
+    link_to(image_tag('moments/cintos.jpg'), "/acessorios?accessory_subcategories[]=cinto", onclick: track_event('BannerInvite', "ClickBannerFrom#{Category.key_for(Category::ACCESSORY).to_s.camelize}"))
+  elsif category_id == Category::CLOTH
+    link_to(image_tag('moments/vestidos.gif'), "/roupas?cloth_subcategories[]=vestido", onclick: track_event('BannerInvite', "ClickBannerFrom#{Category.key_for(Category::CLOTH).to_s.camelize}"))
+  end
+end
+  
+
   private
 
     def ga_event_referer

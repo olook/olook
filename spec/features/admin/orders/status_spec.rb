@@ -6,7 +6,7 @@ feature "Orders statuses dashboard", %q{
   As any admin user
   I can view orders by their statuses
   So I can better manage them
-} do
+}, feature: true, admin: true do
 
   background do
     Delorean.time_travel_to("February 5, 2013")
