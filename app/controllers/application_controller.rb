@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
         cart.coupon_code = coupon.code
         if cart.valid?
           cart.update_attributes(:coupon_id => coupon.id)
-          @show_cart_summary = true
+          @show_coupon_warn = true
         else
           flash.now[:notice] = cart.errors[:coupon_code].join('<br />'.html_safe)
           cart.remove_coupon!
