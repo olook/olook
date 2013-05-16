@@ -77,6 +77,16 @@ function showBalloon(){
   }
 }
 
+function showCartSummary() {
+  $("#cart_summary").show();
+  $('.coupon_warn').delay(6000).fadeOut();
+  $("body").addClass('cart_submenu_opened');
+}
+function hideCartSummary() {
+  $("#cart_summary").hide();
+  $("body").removeClass('cart_submenu_opened');
+}
+
 $(document).ready(function() {
   initBase.dialogLogin();
   initBase.loadJailImages();
@@ -396,13 +406,10 @@ $(document).ready(function() {
   });
 
   $("p.new_sacola a.cart,#cart_summary").live("mouseenter", function() {
-    $("#cart_summary").show();
-    $("body").addClass('cart_submenu_opened');
+    showCartSummary();
   }).live("mouseleave", function() {
-    $("#cart_summary").hide();
-    $("body").removeClass('cart_submenu_opened');
+    hideCartSummary();
   });
-  $('.coupon_warn').delay(6000).fadeOut();
 
   $("ul.submenu li form.delete").live("ajax:success", function(evt, xhr, settings){
     var defaultQuantity = 1;
