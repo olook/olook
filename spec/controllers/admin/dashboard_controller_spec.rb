@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::DashboardController do
+describe Admin::DashboardController, admin: true do
 
   before :each do
     request.env['devise.mapping'] = Devise.mappings[:admin]

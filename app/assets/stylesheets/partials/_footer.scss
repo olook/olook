@@ -149,10 +149,15 @@ footer {
     }
     p {
       color:#767676;
-      font-size:11px;
+      font-size:10px;
       line-height: 13px;
       clear: both;
-      padding: 0 0 20px;
+      padding:15px 0 25px 0;
+      text-align: center;
+      a{
+        text-decoration: none;
+        color: #ef3742;
+      }
     }
   }
 }

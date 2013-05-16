@@ -13,7 +13,7 @@ class Cart::CartController < ApplicationController
     @url += ":" + request.port.to_s if request.port != 80
     @lookbooks = Lookbook.active.all
     @suggested_product = find_suggested_product
-    @chaordic_cart = ChaordicInfo.cart @cart, current_user
+    @chaordic_cart = ChaordicInfo.cart(@cart, current_user, cookies[:ceid])
 
     @promo_over_coupon = false
     if @cart && @cart.coupon && !@cart.items.empty?

@@ -1,15 +1,15 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::RolesController do
-  
+describe Admin::RolesController, admin: true do
+
   render_views
 
   let!(:role) { FactoryGirl.create(:sac_operator) }
 
   let(:valid_attributes) do
     role.attributes.clone.tap do |attributes|
-      attributes[:name] = "superadmin" 
+      attributes[:name] = "superadmin"
     end
   end
 
@@ -93,7 +93,7 @@ describe Admin::RolesController do
         put :update, :id => role.id, :role => valid_attributes
         assigns(:role).should eq(role)
       end
-      
+
       it "redirects to the role" do
         put :update, :id => role.id, :role => valid_attributes
         response.should redirect_to(admin_role_path(role))
