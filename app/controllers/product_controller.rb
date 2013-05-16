@@ -13,8 +13,8 @@ class ProductController < ApplicationController
   def show
   end
   
-  def product_valentines_day
-    girlfriend = User.find_by_id(ParameterEncryptor.decrypt(params[:encrypted_id]))
+  def product_facebook
+    girlfriend = User.find_by_id(ParameterEncoder.decode(params[:encrypted_id]).to_i)
     @user_data = FacebookAdapter.new(girlfriend.facebook_token).retrieve_user_data
   end
 
