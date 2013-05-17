@@ -59,7 +59,7 @@ FactoryGirl.define do
         FactoryGirl.create(:credit_card_with_response, :order => order, :user => order.user)
       end
       after(:create) do |order|
-        FactoryGirl.create(:authorized, :order => order, :user => order.user)
+        FactoryGirl.create(:authorized, :order => order)
       end
     end  
 
