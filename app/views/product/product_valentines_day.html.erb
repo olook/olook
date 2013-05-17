@@ -26,7 +26,6 @@
   <% end %>
 
   <% content_for :footer do %>
-    <%#= javascript_include_tag "api_fb" %>
     <%= javascript_include_tag "product" %>
   <% end %>
 
@@ -35,7 +34,7 @@
 
       <div id="user_data">
         <%= image_tag "#{@user_data.picture}" %>
-        <%= "#{@user_data.name}" %>
+        <p>A <%= "#{@user_data.name}" %>, sua namorada amou este produto e adoraria ganhá-lo no dias namorados.</p>
       </div>
 
       <div id="pics_suggestions">
@@ -47,11 +46,36 @@
         <%= product_presenter.render_add_to_cart %>
         <%= product_presenter.render_details %>
       </div>
-
+      
+      <div id="benefits">
+        <div class="fl">
+          <p>Vantagens Olook</p>
+          <ul class="vantagens">
+            <li class="embalagem"><b>EMBALAGEM DE PRESENTE DE GRAÇA</b><br/>Para a campanha do dia dos namorados</li>
+            <li class="frete"><b>FRETE GRÁTIS para o SUL E SUDESTE</b><br/>Em compras acima DE R$ 60,00</li>
+            <li class="desconto"><b>10% DE DESCONTO</b><br/>Para presentear sua namorada</li>
+            <li class="cartao"><b>EM ATÉ 6 VEZES NO CARTÃO</b><br/>Parcela mínima de R$ 30,00</li>
+            <li class="devolucao"><b>DEVOLUÇÃO E TROCA GRÁTIS</b><br/>Em até 30 DIAS</li>
+            <li class="credito"><b>15% DE VOLTA EM CRÉDITOS</b><br/>Para usar nos próximos 2 meses</li>
+          </ul>
+        </div>  
+        <div class="fl">
+          <p class="txt-center">Formas de pagamento</p>
+          <%= image_tag("valentine/cartoes.jpg", class: "cartoes") %>
+        </div>
+        <div class="fl">
+          <p class="txt-center">Segurança</p>  
+          <%= link_to image_tag("common/ico_security.png", width: "90", height: "40"), "http://www.trustlogo.com/ttb_searcher/trustlogo?v_querytype=W&v_shortname=SC4&v_search=http://www.olook.com.br/&x=6&y=5", target: '_blank', class:"mt" %>
+         
+         <%= link_to image_tag("https://a248.e.akamai.net/f/248/52872/0s/img.ebit.com.br/ebitBR/selo/img_19329.png"), "http://www.ebit.com.br/#/selo", target: '_blank', class: "mt" %>
+        </div>  
+      </div>
+      
       <% if Setting.show_featured_products %>
         <%= product_presenter.render_related_products %>
       <% end %>
-
+      
+      <p class="gift-title">QUE TAL SURPREENDÊ-LA COM MAIS UM PRESENTINHO?</p>
       <!-- local onde o frequentlyboughttogether será exibido -->
       <div class="chaordic frequentlyboughttogether"></div>
       <!-- local onde o similaritems será exibido -->

@@ -81,6 +81,6 @@ class FacebookAdapter
   
   def retrieve_user_data
     user_data = adapter.get_object("me")
-    OpenStruct.new(picture: "https://graph.facebook.com/#{user_data['id']}/picture?type=large", name: user_data['name'])
+    OpenStruct.new(picture: "https://graph.facebook.com/#{user_data['id']}/picture?width=65&height=60", name: user_data['name'])
   end  
 end
