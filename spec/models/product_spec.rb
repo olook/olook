@@ -541,16 +541,18 @@ describe Product do
     end
   end
 
-  describe "color variations" do
+  describe "#colors" do
     let(:black_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'black', :color_sample => 'black_sample', producer_code: "A1B2C3") }
     let(:red_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'red', :color_sample => 'red_sample', producer_code: "A1B2C3" ) }
+    let!(:blue_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'blue', :color_sample => 'blue_sample', producer_code: "A1B2C3" ) }
     let(:other_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'red', :color_sample => 'red_sample', producer_code: "4D5E6F" ) }
 
-    describe '#colors' do
+    describe "color variations" do
       context "when product has other products with the same producer_code" do
         subject { black_shoe.colors }
         it "returns other products with the same producer_code" do
           should include red_shoe
+          should include blue_shoe
         end
         it "doesn't return product with a different producer_code" do
           should_not include other_shoe
@@ -561,9 +563,16 @@ describe Product do
       end
     end
 
+    describe "ordering by variant inventory" do
+      let(:variant) { FactoryGirl.create(:variant, inventory: 5, product: black_shoe) }
+      let(:variant_with_more_inventory) { FactoryGirl.create(:variant, inventory: 10, product: black_shoe) }
+      let(:variant_with_less_inventory) { FactoryGirl.create(:variant, inventory: 1, product: black_shoe) }
+
+    end
+
     describe "#all_colors" do
       it "returns a list of related products of the same category including the current product and orderd by product id" do
-        black_shoe.all_colors.should == [black_shoe, red_shoe]
+        #black_shoe.all_colors.should == [black_shoe, red_shoe]
       end
     end
   end
