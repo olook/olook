@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'boleto_bancario'
 class Checkout::BilletsController < ApplicationController
-  before_filter :authenticate_user!
   layout false
 
   def show
