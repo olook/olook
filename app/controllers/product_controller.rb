@@ -14,9 +14,8 @@ class ProductController < ApplicationController
   end
   
   def product_valentines_day
-    girlfriend = User.find_by_id(ParameterEncoder.decode(params[:encrypted_id]).to_i)
+    girlfriend = User.find_by_id(IntegerEncoder.decode(params[:encrypted_id]))
     @user_data = FacebookAdapter.new(girlfriend.facebook_token).retrieve_user_data
-    render layout: 'valentines_day'
   end
 
   def spy
