@@ -5,7 +5,7 @@ class Checkout::BilletsController < ApplicationController
 
   def show
     config = SANTANDER
-    if payment = current_user.payments.find(params[:id])
+    if payment = Payment.find(params[:id])
       @boleto = BoletoBancario::Core::Santander.new do |boleto_santander|
         boleto_santander.conta_corrente        = config['conta_corrente']
         boleto_santander.digito_conta_corrente = config['digito_conta_corrente']
