@@ -60,7 +60,7 @@
 
 		<p><%= @payday_name %>, dia <span style="color:#ef3742"><%= l @billet.payment_expiration_date.to_date %></span>, é o <b>último dia</b> para você pagar o seu boleto e garantir sua compra.</p>
 
-		<p>Para imprimir o boleto, <a href="<%= @billet.url %>" style="color:#ef3742;">clique aqui</a>.</p>
+		<p>Para imprimir o boleto, <a href='<%= root_url + @billet.url + "?auth_token=" + @billet.user.authentication_token  %>' style="color:#ef3742;">clique aqui</a>.</p>
 
 		<p>Não se preocupe, seus produtos continuam reservados na sua sacola.</p>
 
