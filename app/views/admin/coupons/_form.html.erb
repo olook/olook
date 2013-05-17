@@ -58,6 +58,12 @@
     <%= f.label :campaign_description, "Descrição da campanha" %><br />
     <%= f.text_field :campaign_description %>
   </div>
+
+  <div class="field">
+    <%= f.label :modal %><br />
+    <%= f.select :modal, [['Padrão', 1], ["10% em todo site", 3], ["20% apenas marca olook", 2]], prompt: "Selecione o modal" %>
+  </div>
+
     <% if @coupon.new_record? %>
       <%= f.hidden_field :created_by, :value => current_admin.name %>
     <% else %>
