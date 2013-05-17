@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" dir="ltr" lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <title>olook</title>
+    <%= favicon_link_tag 'olook_favicon.ico' %>
+
+
+    <% error = nil unless error %>
+    <% if params[:share] %>
+      <%= render 'shared/meta_tags' %>
+    <% else %>
+      <meta name="Description" content="Roupas femininas, sapatos, bolsas, óculos e acessórios incríveis - Olook. Seu look, seu estilo">
+    <% end %>
+
+
+    <%= csrf_meta_tags %>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700|Pontano+Sans' rel='stylesheet' type='text/css'>
+    <%= stylesheet_link_tag  "application" %>
+    <%- unless @hide_fb_page_id -%>
+      <meta property="fb:page_id" content="157293541026960" />
+    <%- end -%>
+    <meta property="fb:admins" content="100002490760020" />
+
+    <% if Setting.use_vwo %>
+      <!-- VWO -->
+      <%= render :partial => "shared/metrics/vwo/tracking_code" %>
+    <% end %>
+
+    <!-- Struq navigation pixel -->
+    <%= render :partial => "shared/metrics/struq/homepage" %>
+
+    <%= yield :head %>
+
+    <!--[if IE]>
+    <%= javascript_include_tag "html5.js" %>
+    <![endif]-->
+
+
+    <%= render 'shared/metrics/google/universal_analytics' %>
+    <%= yield :data_layer %>
+  </head>
+
+
+  <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>
+    <%= "moments" if is_moment_page? %>">
+    
+    <%= render :partial => "shared/tag/google_tag_manager" %>
+
+    <%= render 'shared/admin_label' if current_admin %>
+
+    <div id="modal" class="promo-olook"></div>
+    <div id="modal-campaign"></div>
+    <div id="overlay-campaign"></div>
+
+    <div id="error-messages">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= yield :errors %>
+    </div>
+    <%= link_to "Ir para o topo", "#", :id => "go_top" %>
+
+    <%= yield :top_my_account %>
+    <div id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
+    
+    <%= image_tag("home/only_balaozinho.png", :class => "balloon") %>  
+    <%= render_promotion_banner unless error %>
+
+    <%= content_for?(:content) ? yield(:content) : yield %>
+
+    </div>
+
+
+    <%= yield :site_footer %>
+    <%= javascript_include_tag "jquery" %>
+    <%= javascript_include_tag "application" %>
+
+    <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
+
+    <% unless user_signed_in? || request.url.include?("gclid") %>
+      <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal &&  !['landing_pages','survey', 'users/registrations'].include?(params[:controller]) %>
+    <% end %>
+
+    <% if content_for? :footer %>
+      <%= yield :footer %>
+    <% end %>
+
+    <%#= render :partial => "shared/metrics/master_tags" %>
+  </body>
+</html>
