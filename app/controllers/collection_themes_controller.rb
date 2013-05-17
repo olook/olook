@@ -93,7 +93,7 @@ class CollectionThemesController < ApplicationController
     end
 
     def brand_query?
-      @collection_theme.collection_theme_group.name == "MARCAS"
+      @collection_theme.collection_theme_group.name == "MARCAS" if @collection_theme.collection_theme_group
     end
 
 end

@@ -1,8 +1,8 @@
 # encoding: utf-8
 class Catalog::Catalog < ActiveRecord::Base
-  CLOTH_SIZES_TABLE = {"PP" => 1, "P" =>2, "M" => 3, "G" => 4,
-                 "34" => 5, "36" => 6, "38" => 7, "40" => 8, "42" => 9, "44" => 10,
-                 "Único" => 11}
+  CLOTH_SIZES_TABLE = {"PP" => 1, "P" =>2, "M" => 3, "G" => 4, "GG" => 5,
+                 "34" => 6, "36" => 7, "38" => 8, "40" => 9, "42" => 10, "44" => 11, "46" => 12,
+                 "Único" => 13}
   has_many :products, :class_name => "Catalog::Product", :foreign_key => "catalog_id"
 
   validates :type, :presence => true, :exclusion => ["Catalog::Catalog"]
