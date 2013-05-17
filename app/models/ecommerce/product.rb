@@ -208,7 +208,7 @@ class Product < ActiveRecord::Base
   end
 
   def colors(size = nil, admin = false)
-   Product.where(producer_code: self.producer_code)
+   Product.where("producer_code = '#{ self.producer_code }' AND id != #{ self.id }")
    # old implementation
    #Rails.cache.fetch(CACHE_KEYS[:product_colors][:key] % [id, admin], expires_in: CACHE_KEYS[:product_colors][:expire]) do
    #  is_visible = (admin ? [0,1] : true)
