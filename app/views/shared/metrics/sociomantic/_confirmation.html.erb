@@ -1,12 +1,12 @@
 <script type="text/javascript">
 var basket = {
 products: [
-<%= cart.items.map { |item|
+<%= raw cart.items.map { |item|
   "{ identifier:'#{item.id}', amount:'#{number_with_precision(item.variant.retail_price, separator: ".", precision: 2)}', currency:'BRL', quantity:'#{item.quantity}' }"
 }.join(', ') -%>
 ],
-transaction : '<%= order.number %>',
-amount: '<%= number_with_precision(order.amount_paid, separator: ".", precision: 2) %>',
+transaction : '<%= raw order.number %>',
+amount: '<%= raw number_with_precision(order.amount_paid, separator: ".", precision: 2) %>',
 currency: 'BRL'
 };
 
