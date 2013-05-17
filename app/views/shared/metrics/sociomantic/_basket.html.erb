@@ -1,7 +1,7 @@
 <script type="text/javascript">
 var basket = {
 	products: [
-<%= cart.items.map { |item|
+<%= raw cart.items.map { |item|
 	"{ identifier:'#{item.product.id}', amount:#{number_with_precision(item.variant.retail_price, separator: ".", precision: 2)}, currency:'BRL', quantity:'#{item.quantity}' }"
 }.join(', ') -%>
 	]
