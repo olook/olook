@@ -13,19 +13,19 @@ FactoryGirl.define do
     
     trait :with_billet do
       after(:create) do |order|
-        FactoryGirl.create(:billet, :order => order)
+        FactoryGirl.create(:billet, :order => order, :user => order.user)
       end 
     end
   
     trait :with_authorized_credit_card do
       after(:create) do |order|
-        FactoryGirl.create(:credit_card_with_response_authorized, :order => order)
+        FactoryGirl.create(:credit_card_with_response_authorized, :order => order, :user => order.user)
       end
     end   
   
     factory :clean_order, :class => Order do
       after(:create) do |order|
-        FactoryGirl.create(:billet, :order => order)
+        FactoryGirl.create(:billet, :order => order, :user => order.user)
       end
     end
 
@@ -33,13 +33,13 @@ FactoryGirl.define do
       restricted true
 
       after(:create) do |order|
-        FactoryGirl.create(:billet, :order => order)
+        FactoryGirl.create(:billet, :order => order, :user => order.user)
       end    
     end
 
     factory :clean_order_credit_card, :class => Order do
       after(:create) do |order|
-        FactoryGirl.create(:credit_card, :order => order)
+        FactoryGirl.create(:credit_card, :order => order, :user => order.user)
       end
     end
 
@@ -56,10 +56,10 @@ FactoryGirl.define do
       state "authorized"
 
       after(:create) do |order|
-        FactoryGirl.create(:credit_card_with_response, :order => order)
+        FactoryGirl.create(:credit_card_with_response, :order => order, :user => order.user)
       end
       after(:create) do |order|
-        FactoryGirl.create(:authorized, :order => order)
+        FactoryGirl.create(:authorized, :order => order, :user => order.user)
       end
     end  
 
@@ -69,7 +69,7 @@ FactoryGirl.define do
       amount_paid BigDecimal.new("99.90")
       
       after(:create) do |order|
-        FactoryGirl.create(:billet, :order => order)
+        FactoryGirl.create(:billet, :order => order, :user => order.user)
       end    
     end
 
