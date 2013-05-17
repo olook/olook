@@ -4,7 +4,7 @@
 ==== CSS RESET ====
 ------------------*/
 *{margin:0;padding:0;outline:none;font-size:100%;line-height:18px;}
-body{color:#5E5F61;font-size:14px;font-family:$avenir;}
+body{font-size:14px;font-family:$avenir;}
 a{color:$base_color;}
 li{list-style-type:none;}
 
@@ -297,7 +297,7 @@ footer {height:480px;clear:both;margin-top:60px;border-top: 1px #cbcbcb solid;
 /*------------------
 =====  CONTENT =====
 ------------------*/
-#container{width:1025px;margin:0 auto;overflow:hidden;border-right:solid 1px #C9CACB;border-left:solid 1px #C9CACB;background:#FFF;box-shadow:0 2px 10px #AAA;}
+#container{width:990px;margin:0 auto;overflow:hidden;}
 #content{width:990px;overflow:hidden;margin:10px auto 0;padding-top:10px;position:relative;}
 
 /***** MODAL STYLE ****/
