@@ -541,20 +541,27 @@ describe Product do
     end
   end
 
-  context "color variations" do
-    let(:black_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'black', :color_sample => 'black_sample') }
-    let(:red_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'red', :color_sample => 'red_sample') }
-    let(:black_bag) { FactoryGirl.create(:basic_bag) }
+  describe "color variations" do
+    let(:black_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'black', :color_sample => 'black_sample', producer_code: "A1B2C3") }
+    let(:red_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'red', :color_sample => 'red_sample', producer_code: "A1B2C3" ) }
+    let(:other_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'red', :color_sample => 'red_sample', producer_code: "4D5E6F" ) }
 
-    before :each do
-      black_shoe.relate_with_product black_bag
-      black_shoe.relate_with_product red_shoe
-    end
+    #before :each do
+    #  black_shoe.relate_with_product black_bag
+    #  black_shoe.relate_with_product red_shoe
+    #end
+    #
 
     describe '#colors' do
-      it 'returns a list of related products of the same category of the product' do
-        black_shoe.colors.should == [red_shoe]
+      context "when product has other products with the same producer_code" do
+      subject { black_shoe.colors }
+      it { should include red_shoe }
+      it { should_not include other_shoe }
+
       end
+     #it 'returns a list of related products of the same category of the product' do
+     #  black_shoe.colors.should == [red_shoe]
+     #end
     end
 
     describe "#all_colors" do
