@@ -2,7 +2,7 @@
 class ProductController < ApplicationController
   respond_to :html
   before_filter :load_show_product, only: [:show, :spy, :product_valentines_day]
-
+  prepend_before_filter :assign_valentines_day_parameters, only: [:product_valentines_day]
 
   rescue_from ActiveRecord::RecordNotFound do
     ### to render home partials ###
@@ -30,6 +30,12 @@ class ProductController < ApplicationController
   end
 
   private
+
+  def assign_valentines_day_parameters
+    params[:coupon_code] = Setting.valentines_day_coupon_code
+    params[:modal] = Setting.valentines_day_show_modal
+  end
+
   def load_show_product
     @google_path_pixel_information = "Produto"
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
