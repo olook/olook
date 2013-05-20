@@ -142,7 +142,7 @@ class ApplicationController < ActionController::Base
       elsif @user && !@user.half_user?
         session[:return_to] ||= { text: "Voltar para a minha vitrine", url: member_showroom_path }
       else
-        session[:return_to] ||= { text: "Voltar para tendências", url: lookbooks_path }
+        session[:return_to] ||= { text: "Voltar para coleções", url: collection_themes_path }
       end
     end
 
