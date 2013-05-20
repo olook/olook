@@ -18,7 +18,7 @@
         <% if @addresses.nil? || @addresses.empty? %>
           <%= render "shipping_address_form", address: @checkout.address %>
         <% else %>
-          <%= render "address_list", addresses: @addresses, selected_address: @checkout.address %>
+          <%= render "address_list", addresses: @addresses %>
         <% end %>
       </div>
     </div>  
