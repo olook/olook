@@ -543,13 +543,14 @@ describe Product do
 
   describe "#colors" do
     let(:black_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'black', :color_sample => 'black_sample', producer_code: "A1B2C3") }
-    let(:red_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'red', :color_sample => 'red_sample', producer_code: "A1B2C3" ) }
     let!(:blue_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'blue', :color_sample => 'blue_sample', producer_code: "A1B2C3" ) }
+    let(:red_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'red', :color_sample => 'red_sample', producer_code: "A1B2C3" ) }
     let(:other_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'red', :color_sample => 'red_sample', producer_code: "4D5E6F" ) }
+
+    subject { black_shoe.colors }
 
     describe "color variations" do
       context "when product has other products with the same producer_code" do
-        subject { black_shoe.colors }
         it "returns other products with the same producer_code" do
           should include red_shoe
           should include blue_shoe
@@ -564,10 +565,42 @@ describe Product do
     end
 
     describe "ordering by variant inventory" do
-      let(:variant) { FactoryGirl.create(:variant, inventory: 5, product: black_shoe) }
-      let(:variant_with_more_inventory) { FactoryGirl.create(:variant, inventory: 10, product: black_shoe) }
-      let(:variant_with_less_inventory) { FactoryGirl.create(:variant, inventory: 1, product: black_shoe) }
+      let!(:variant) { FactoryGirl.create(:variant, inventory: 5, product: blue_shoe, description: "37") }
+      let!(:variant_with_more_inventory) { FactoryGirl.create(:variant, inventory: 10, product: red_shoe, description: "38") }
+      let!(:variant_with_less_inventory) { FactoryGirl.create(:variant, inventory: 1, product: blue_shoe, description: "39") }
 
+      context "without shoe size given" do
+        it "retuns products with variants ordered by desc inventory" do
+          should eq([red_shoe, blue_shoe])
+        end
+      end
+
+      context "with shoe size given" do
+
+        subject { black_shoe.colors("37") }
+
+        it "returns products with user's shoe size first and others products last" do
+          should eq([blue_shoe, red_shoe])
+        end
+
+      end
+      describe "products visibility" do
+        let(:invisible_product) { FactoryGirl.create(:shoe, is_visible: false, producer_code: "A1B2C3") }
+        context "when given user is admin" do
+          subject { black_shoe.colors("", true) }
+          it "returns all products including invisible" do
+            should include invisible_product
+          end
+
+        end
+
+        context "when given user is not admin" do
+          subject { black_shoe.colors }
+          it "returns only visible products" do
+            should_not include invisible_product
+          end
+        end
+      end
     end
 
     describe "#all_colors" do

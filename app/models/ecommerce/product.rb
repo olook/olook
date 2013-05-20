@@ -208,19 +208,23 @@ class Product < ActiveRecord::Base
   end
 
   def colors(size = nil, admin = false)
-   Product.where("producer_code = '#{ self.producer_code }' AND id != #{ self.id }")
-   # old implementation
-   #Rails.cache.fetch(CACHE_KEYS[:product_colors][:key] % [id, admin], expires_in: CACHE_KEYS[:product_colors][:expire]) do
-   #  is_visible = (admin ? [0,1] : true)
-   #  conditions = {is_visible: is_visible, category: self.category, name: self.name}
-   #  conditions.merge!(variants: {description: size}) if size and self.category == Category::SHOE
-   #  Product.select("products.*, variants.inventory, if(sum(distinct variants.inventory) > 0, 1, 0) available_inventory")
-   #        .joins('left outer join variants on products.id = variants.product_id')
-   #        .where(conditions)
-   #        .where("products.id != ?", self.id)
-   #        .group('products.id')
-   #        .order('variants.inventory desc, available_inventory desc')
-   #end
+    Rails.cache.fetch(CACHE_KEYS[:product_colors][:key] % [id, admin], expires_in: CACHE_KEYS[:product_colors][:expire]) do
+      is_visible = (admin ? [0,1] : true)
+      conditions = {is_visible: is_visible, category: self.category, producer_code: self.producer_code}
+      #conditions.merge!(variants: {description: size}) if size and self.category == Category::SHOE
+      Product.select("products.*, sum(variants.inventory) as sum_inventory, if(sum(distinct variants.inventory) > 0, 1, 0) available_inventory, sum(IF(variants.description = '#{size}', variants.inventory, 0)) description_inventory")
+            .joins('left outer join variants on products.id = variants.product_id')
+            .where(conditions)
+            .where("products.id != ?", self.id)
+            .group('products.id')
+            .order('description_inventory desc, sum_inventory desc, available_inventory desc')
+    end
+  end
+
+  def prioritize_by shoe_size
+    h = { shoe_size => 1 }
+    h.default = 1.0/0.0 # infinity
+    h
   end
 
 
