@@ -2,16 +2,16 @@
   <h1>Veja os destaques da semana</h1>
   <ul>
     <li id="about">
-      <%= link_to ('/stylist-news/tendencia-jaqueta-bomber/'), class: "open_making_of", onclick: track_event('Destaques','BannerEsquerda') do %>
-        <%= image_tag "home/jaqueta_bomber.jpg", title: "JAQUETA BOMBER" %>
+      <%= link_to ('/stylist-news/como-usar-botas/'), class: "open_making_of", onclick: track_event('Destaques','BannerEsquerda') do %>
+        <%= image_tag "home/bota_poderosa.jpg", title: "COMO USAR: BOTAS" %>
       <% end %>
       <div class="video_description">
         <h1>Conheça mais sobre a olook</h1>
         <%= link_to "Gostou? Descubra o seu estilo e veja a coleção completa", new_survey_path, :class => "home" %>
       </div>
-      <h1><%= link_to "JAQUETA BOMBER", ('/stylist-news/tendencia-jaqueta-bomber/'), onclick: track_event('Destaques','BannerEsquerda') %></h1>
-      <p>Ela está em alta em diversas releituras</p>
-      <%= link_to "Veja mais aqui", ('/stylist-news/tendencia-jaqueta-bomber/'), class: "more", onclick: track_event('Destaques','BannerEsquerda') %>
+      <h1><%= link_to "COMO USAR: BOTAS", ('/stylist-news/como-usar-botas/'), onclick: track_event('Destaques','BannerEsquerda') %></h1>
+      <p>Descubra o modelo ideal para você</p>
+      <%= link_to "Veja mais aqui", ('/stylist-news/como-usar-botas/'), class: "more", onclick: track_event('Destaques','BannerEsquerda') %>
     </li>
     <li id="shoes">
       <%= link_to product_path(16110), onclick: track_event('Destaques','BannerCentro') do %>
