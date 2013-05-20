@@ -67,7 +67,7 @@ class CatalogSearchService
   end
 
   def prepare_query_joins
-    query = Catalog::Product.joins(:product => :details).joins(:variant)
+    query = Catalog::Product.joins(:product).joins(:variant)
     query = query.joins('left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id') if @liquidation
     query
   end
