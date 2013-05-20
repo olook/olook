@@ -12,15 +12,15 @@ $(function(){
   
 	  });
     
-    FB.Event.subscribe('edge.create', function(href, widget) {
-      _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);
+    FB.Event.subscribe('xfbml.render',function(){
+      window.setTimeout(function(){getBoyfriendName()},1000);
     });
     
-    FB.Event.subscribe('xfbml.render',function(){
+    FB.Event.subscribe('edge.create', function(href, widget) {
+      _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);
+      $('.fb_edge_comment_widget.fb_iframe_widget').remove();
+    });
 
-      window.setTimeout(function(){getBoyfriendName()},1000);
-    })
-    
 	  try {
 	    FB.XFBML.parse();
 	  } catch(ex){}
