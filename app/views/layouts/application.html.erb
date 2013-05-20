@@ -54,7 +54,7 @@
     <div id="overlay-campaign"></div>
 
     <div id="error-messages">
-      <p class="notice"><%= notice %></p>
+      <p class="notice"><%= notice unless params[:action] == "product_valentines_day" %></p>
       <p class="alert"><%= alert %></p>
       <%= yield :errors %>
     </div>
