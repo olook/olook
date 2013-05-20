@@ -180,8 +180,8 @@ ActiveRecord::Schema.define(:version => 20130516170617) do
   create_table "carts", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "notified",                :default => false, :null => false
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "legacy_id"
     t.boolean  "gift_wrap",               :default => false
     t.boolean  "use_credits",             :default => false
@@ -317,7 +317,7 @@ ActiveRecord::Schema.define(:version => 20130516170617) do
     t.string   "created_by"
     t.string   "updated_by"
     t.string   "brand"
-    t.string   "modal"
+    t.integer  "modal",                                              :default => 1
   end
 
   add_index "coupons", ["code"], :name => "index_coupons_on_code"

@@ -28,7 +28,7 @@ class Billet < Payment
 
   def self.to_expire
     expiration_date = 1.business_day.before(Time.zone.now) - 1.day
-    self.where(payment_expiration_date: expiration_date.beginning_of_day..expiration_date.end_of_day, state: "waiting_payment")
+    self.where(payment_expiration_date: expiration_date.beginning_of_day..expiration_date.end_of_day, state: ["waiting_payment", "started"])
   end
 
   private

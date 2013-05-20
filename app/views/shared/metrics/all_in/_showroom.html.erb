@@ -2,15 +2,15 @@
 <script type="text/javascript">
     try{
         __bsd["id"]="8:1";
-        bs.setaPagina('<%= "#{ params[:controller] } #{ params[:action] }"%>');
+        bs.setaPagina('<%= raw "#{ params[:controller] } #{ params[:action] }"%>');
 
-          bs.setaCliente("<%= user.id %>","<%= user.email %>");
+          bs.setaCliente("<%= raw user.id %>","<%= raw user.email %>");
           <% if request.url =~ /utm_source/ %>
               __bsd['utms'] = new Object();
               __bsd['utms']["utm_source"] = "olook";
               __bsd['utms']["utm_medium"] = "email";
-              __bsd['utms']["utm_campaign"] = "<%= request.url.match(/utm_campaign=([^&]*)/) %>";
-              __bsd['utms']["utm_content"] = "<%= request.url.match(/utm_content=([^&]*)/) %>";
+              __bsd['utms']["utm_campaign"] = "<%= raw request.url.match(/utm_campaign=([^&]*)/) %>";
+              __bsd['utms']["utm_content"] = "<%= raw request.url.match(/utm_content=([^&]*)/) %>";
           <% end %>
     }catch(e){
     }

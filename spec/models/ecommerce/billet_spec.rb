@@ -150,6 +150,13 @@ describe Billet do
       it { should include billet }
     end
 
+    context "billet expired and started" do
+      let(:billet) { FactoryGirl.create(:billet, :to_expire, state: "started") }
+      subject { described_class.to_expire }
+
+      it { should include billet }
+    end
+
     context "billet with old date but with another state" do
       let(:billet) { FactoryGirl.create(:billet, created_at: 5.business_days.ago) }
 

@@ -5,6 +5,7 @@ class Coupon < ActiveRecord::Base
   COUPON_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/coupons.yml")
   PRODUCT_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/product_coupons.yml")[Rails.env]
   BRAND_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/brand_coupons.yml")[Rails.env]
+  MODAL_POSSIBLE_VALUES = [1,2,3]
 
   validates_presence_of :code, :value, :start_date, :end_date, :campaign, :created_by
   validates_presence_of :remaining_amount, :unless => Proc.new { |a| a.unlimited }
@@ -13,6 +14,14 @@ class Coupon < ActiveRecord::Base
   has_many :carts
 
   before_save :set_limited_or_unlimited
+
+  def modal=(val)
+    if MODAL_POSSIBLE_VALUES.include?(val.to_i)
+      write_attribute(:modal, val.to_i)
+    else
+      write_attribute(:modal, 1)
+    end
+  end
 
   def available?
     (active_and_not_expired?) ? true : false
