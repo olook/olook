@@ -39,11 +39,6 @@ Olook::Application.routes.draw do
   match "/fidelidade", :to => "pages#loyalty", :as => "loyalty"
   match "/olookmovel", to: "pages#olookmovel", as: "olookmovel"
 
-  #LOOKBOOKS
-  match "/tendencias/:name", :to => "lookbooks#show", :as => "lookbook"
-  match "/tendencias", :to => "lookbooks#index", :as => "lookbooks"
-
-
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
@@ -202,13 +197,6 @@ Olook::Application.routes.draw do
         delete 'remove_related/:related_product_id' => "products#remove_related", :as => "remove_related"
         delete 'remove_freebie/:freebie_id' => "products#remove_freebie", :as => "remove_freebie"
       end
-    end
-
-    resources :lookbooks do
-      resources :images do
-        resources :lookbook_image_maps
-      end
-      get :products, :to => "lookbooks#product"
     end
 
     resources :collection_theme_groups
