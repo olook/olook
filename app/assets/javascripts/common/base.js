@@ -75,6 +75,7 @@ function showBalloon(){
       $("img.balloon").hide();
     })
   }
+  
 }
 
 function showCartSummary() {

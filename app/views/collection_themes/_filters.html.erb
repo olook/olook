@@ -11,9 +11,12 @@
     <div id="category_filters">
       <%- if params[:category_id].present? && !Category.key_for(params[:category_id].to_i).blank? -%>
         <%= render partial: "#{Category.key_for(params[:category_id].to_i).to_s}_filters" %>
+
       <%- end -%>
     </div>
+
   <% end %>
+
 </div>
 
 <% end %>
