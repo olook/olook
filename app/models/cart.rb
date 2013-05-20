@@ -1,9 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Cart < ActiveRecord::Base
   DEFAULT_QUANTITY = 1
-
-  FREE_WRAP_COUPONS_LIST = ['OLOOK77VSE']
-
+  
   belongs_to :user
   belongs_to :coupon
   belongs_to :address
@@ -121,7 +119,7 @@ class Cart < ActiveRecord::Base
 
   def free_gift_wrap?
     coupon_code = coupon.try(:code)
-    FREE_WRAP_COUPONS_LIST.include?(coupon_code)
+    Setting.valentines_day_coupon_code == (coupon_code)
   end
 
   private
