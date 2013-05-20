@@ -187,27 +187,41 @@ describe ProductPresenter do
 
   describe "#price" do
     subject { described_class.new view, :product => product, :member => member, :facebook_app_id => facebook_app_id }
-    let(:guest) { described_class.new view, :product => product, :member => nil, :facebook_app_id => facebook_app_id }
-    let!(:promotion) { FactoryGirl.create(:first_time_buyers) }
+    let(:cart) { FactoryGirl.create(:cart_with_items) }
+    let(:cart_service) { CartService.new({ cart: cart }) }
 
-    it "should render the price when no discount" do
-      pending "REVIEW THIS"
+    context "when product has promotion" do
+
+      before do
+        product.stub(:promotion?).and_return(true)
+        cart_service.stub(:has_coupon?).and_return(false)
+      end
+
+      it { expect(subject.render_price_for cart).to include("de: ") }
+      it { expect(subject.render_price_for cart).to include("por: ") }
+
     end
 
-    it "should render the price with markdown when for first time buyers" do
-      pending "REVIEW THIS"
-      member.stub(:first_time_buyer?).and_return(true)
-      subject.render_price.should include("de:")
-      subject.render_price.should include("por:")
-      subject.render_price.should include("em sua primeira compra")
+    context "when cart has cupon with value greater than 0" do
+      before do
+        product.stub(:promotion?).and_return(false)
+        cart_service.stub(:has_percentage_coupon?).and_return(true)
+      end
+
+      it { expect(subject.render_price_for cart_service).to include("de: ") }
+      it { expect(subject.render_price_for cart_service).to include("por: ") }
+
     end
 
-    it "should render the price with markdown when discount is detected" do
-      product.stub(:retail_price).and_return(49.99)
-      member.stub(:first_time_buyer?).and_return(false)
-      subject.render_price.should include("de:")
-      subject.render_price.should include("por:")
-      subject.render_price.should_not include("em sua primeira compra")
+    context "when cart has no cupon and product has no promotion" do
+      before do
+        product.stub(:promotion?).and_return(false)
+        cart_service.stub(:has_coupon?).and_return(false)
+      end
+
+      it { expect(subject.render_price_for cart_service).to_not include("de: ") }
+      it { expect(subject.render_price_for cart_service).to_not include("por: ") }
+
     end
 
   end

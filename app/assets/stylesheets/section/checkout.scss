@@ -1005,7 +1005,7 @@ section#payment {
           cursor: pointer;
           &:hover, &.selected {
             margin: -5px;
-            border: 5px #df5a8a solid;
+            border: 5px #ef3742 solid;
           }
         }
         &.billet {
@@ -1033,7 +1033,7 @@ section#payment {
     }
     p {
       a {
-        color: #df5a8a;
+        color: #ef3742;
       }
     }
     p.generate_billet {
@@ -1769,7 +1769,7 @@ section.checkout{
     margin-bottom: 15px;
     padding-bottom: 3px;
     a {
-      color: #df5a8a;
+      color: #ef3742;
       font-family: Arial;
       font-size: 12px;
       letter-spacing: 0;
