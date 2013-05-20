@@ -23,9 +23,6 @@ describe GiftBox do
       subject.products.should == [product_a, product_b]
     end
 
-    it "sets product_a and product_b as lookbook products" do
-      subject.products.map(&:product_id).should == [product_a.id, product_b.id]
-    end
   end
 
   describe "#suggestion_products" do
@@ -43,7 +40,7 @@ describe GiftBox do
       subject.products = products_array
 
       subject.should_receive(:remove_color_variations).and_return(products_array)
-      
+
       products_array.shift
       subject.suggestion_products.should eq(products_array.reverse)
     end
