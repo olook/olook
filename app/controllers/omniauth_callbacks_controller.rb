@@ -40,7 +40,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     #
     # Clearly this isn't the best place to put this code, but the problem is that putting this
-    # logic in ApplicationController#current_referer doesn't work because the user is not 
+    # logic in ApplicationController#current_referer doesn't work because the user is not
     # loaded yet on that point
     #
     def redirect user
@@ -49,7 +49,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       elsif !user.half_user?
         redirect_to member_showroom_path
       else
-        redirect_to lookbooks_path
+        redirect_to gift_root_path
       end
     end
 
