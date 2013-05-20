@@ -1,7 +1,7 @@
 module Payments
   class MoipSenderStrategy
 
-    attr_accessor :cart_service, :payment, :credit_card_number, :response
+    attr_accessor :cart_service, :payment, :credit_card_number, :response, :return_code
 
     def initialize(cart_service, payment)
       @cart_service, @payment = cart_service, payment
