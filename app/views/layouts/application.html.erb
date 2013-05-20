@@ -44,7 +44,7 @@
 
   <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>
     <%= "moments" if is_moment_page? %>">
-    
+
     <%= render :partial => "shared/tag/google_tag_manager" %>
 
     <%= render 'shared/admin_label' if current_admin %>
@@ -62,8 +62,8 @@
 
     <%= yield :top_my_account %>
     <div id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
-    
-    <%= image_tag("home/only_balaozinho.png", :class => "balloon") %>  
+
+    <%= image_tag("home/only_balaozinho.png", :class => "balloon") %>
     <%= render_promotion_banner unless error %>
 
     <%= content_for?(:content) ? yield(:content) : yield %>
@@ -74,6 +74,9 @@
     <%= yield :site_footer %>
     <%= javascript_include_tag "jquery" %>
     <%= javascript_include_tag "application" %>
+    <script>
+      show_modal = '<%= j @modal_show %>';
+    </script>
 
     <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
 
