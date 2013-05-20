@@ -342,12 +342,29 @@ section#home {
           }
         } 
         &.forum a {
-          width: 234px;
           background-position: 0px -144px;
           &:hover {
             background-position: 0px -144px;
           }
+        }
+        &.mofficer a {
+          background-position: -144px -144px;
+          &:hover {
+            background-position: -144px -144px;
+          }
         } 
+        &.coke a {
+          background-position: -288px -144px;
+          &:hover {
+            background-position: -288px -144px;
+          }
+        } 
+        &.botswana a {
+          background-position: -432px -144px;
+          &:hover {
+            background-position: -432px -144px;
+          }
+        }  
       }
     }
   }

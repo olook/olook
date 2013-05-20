@@ -10,6 +10,7 @@ $(function(){
 	  });
         FB.Event.subscribe('edge.create', function(href, widget) {
           _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);
+          $('.fb_edge_comment_widget.fb_iframe_widget').remove();
         });
 	  try {
 	    FB.XFBML.parse();
