@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::CollectionThemesController do
+describe Admin::CollectionThemesController, admin: true do
   render_views
   let!(:collection_theme_day) { FactoryGirl.create(:collection_theme) }
 

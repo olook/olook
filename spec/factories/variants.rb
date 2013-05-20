@@ -1,8 +1,13 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
+
+  sequence :number do |n|
+    "number#{n}"
+  end
+
   factory :variant_without_association, class: Variant do
     is_master false
-    number { "number#{Random.rand 10000}" }
+    number
     description 'size X'
     display_reference 'size-X'
 
@@ -20,7 +25,7 @@ FactoryGirl.define do
   factory :variant do
     association :product, :factory => [:shoe, :casual]
     is_master false
-    number { "number#{Random.rand 10000}" }
+    number
     description 'size X'
     display_reference 'size-X'
 

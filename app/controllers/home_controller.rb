@@ -3,7 +3,7 @@ class HomeController < ApplicationController
 
   def index
     @google_path_pixel_information = "Home"
-    @chaordic_user = ChaordicInfo.user current_user
+    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
 
     prepare_for_home
     if user_signed_in?

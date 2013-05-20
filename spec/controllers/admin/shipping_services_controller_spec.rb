@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::ShippingServicesController do
+describe Admin::ShippingServicesController, admin: true do
   render_views
 
   let!(:shipping_service) { FactoryGirl.create(:shipping_service) }
@@ -94,7 +94,7 @@ describe Admin::ShippingServicesController do
         put :update, :id => shipping_service.id, :shipping_service => valid_attributes
         assigns(:shipping_service).should eq(shipping_service)
       end
-      
+
       it "redirects to the shipping_service" do
         put :update, :id => shipping_service.id, :shipping_service => valid_attributes
         response.should redirect_to(admin_shipping_service_path(shipping_service))
@@ -130,7 +130,7 @@ describe Admin::ShippingServicesController do
       response.should redirect_to(admin_shipping_service_path(shipping_service))
     end
   end
-  
+
   describe "#upload_freight_prices" do
     context 'when the user provides a file' do
       it "uploads freight price file when supplied by the user and schedule process" do
@@ -143,12 +143,12 @@ describe Admin::ShippingServicesController do
         TempFileUploader.stub(:new).and_return(temp_uploader)
 
         subject.stub(:params).and_return(:id => shipping_service.id.to_s, :shipping_service => valid_attributes, :freight_prices => 'freight_file')
-        
+
         subject.instance_variable_set(:@shipping_service, shipping_service)
         subject.send :upload_freight_prices
       end
     end
-    
+
     context "when the user doesn't provide a file" do
       it "doesn't do anything" do
         ::TempFileUploader.should_not_receive(:new)

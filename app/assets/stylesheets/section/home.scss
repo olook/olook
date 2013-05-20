@@ -237,7 +237,7 @@ section#home {
       margin: 0 0 10px;
     }
     h2{
-      font-family: "Kepler Std Italic",Times,"Times New Roman",serif;
+      font-family: KeplerStdItalic,Times,"Times New Roman",serif;
       font-size: 18px;
       text-align: center;
       display: block;
@@ -342,12 +342,29 @@ section#home {
           }
         } 
         &.forum a {
-          width: 234px;
           background-position: 0px -144px;
           &:hover {
             background-position: 0px -144px;
           }
+        }
+        &.mofficer a {
+          background-position: -144px -144px;
+          &:hover {
+            background-position: -144px -144px;
+          }
         } 
+        &.coke a {
+          background-position: -288px -144px;
+          &:hover {
+            background-position: -288px -144px;
+          }
+        } 
+        &.botswana a {
+          background-position: -432px -144px;
+          &:hover {
+            background-position: -432px -144px;
+          }
+        }  
       }
     }
   }
