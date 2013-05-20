@@ -42,7 +42,7 @@ class MenuPresenter < BasePresenter
   end
 
   def render_man_half_user_menu
-    [lookbooks, collection_themes, my_friends, stylist, liquidation, blog].join.html_safe
+    [collection_themes, my_friends, stylist, liquidation, blog].join.html_safe
   end
 
   private
@@ -52,10 +52,6 @@ class MenuPresenter < BasePresenter
 
   def showroom
     render_item("Minha Vitrine", h.member_showroom_path, "showroom", ["members#showroom"])
-  end
-
-  def lookbooks
-    render_item("Tendências", h.lookbooks_path, "lookbooks", ["lookbooks#index","lookbooks#show"])
   end
 
   def stylist
