@@ -23,7 +23,7 @@
           <%= text_field_tag "link", accept_invitation_url(:invite_token => @user.invite_token), :readonly => "readonly" %>
           <%= link_to "Copiar link", "#", :class =>"copy_link" %>
           <ul class="share">
-            <!-- <li>
+            <li class="share_msg"> ou compartilhe
               <a href="https://twitter.com/share" class="twitter-share-button" data-text="<%= twitte_message(@user) %>" data-url="www.olook.com.br" data-count="none" data-counturl="www.olook.com.br">Tweet</a>
               <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
               <script type="text/javascript" charset="utf-8">
@@ -41,7 +41,7 @@
                   });
                 });
               </script>
-            </li> -->
+            </li>
             <li>
               <%= link_to image_tag('common/fb-post-to-wall.png'), 'javascript:void', id: 'facebook_post_wall', onclick: track_event('MemberInvite', 'FacebookPost') %>
             </li>
