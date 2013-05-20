@@ -55,6 +55,7 @@ class MomentsController < ApplicationController
   end
 
   def load_catalog_products
+    params[:brands] = params[:brands].values if params[:brands].is_a?(Hash)
     @collection_themes = CollectionTheme.active.order(:position)
     @collection_theme = params[:id] ? CollectionTheme.find_by_id(params[:id]) : @collection_themes.last
 
