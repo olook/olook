@@ -30,11 +30,8 @@ class Product < ActiveRecord::Base
   belongs_to :collection
   has_and_belongs_to_many :profiles
 
-  has_many :lookbooks_products, :dependent => :destroy
-  has_many :lookbooks, :through => :lookbooks_products
   has_many :gift_boxes_product, :dependent => :destroy
   has_many :gift_boxes, :through => :gift_boxes_product
-  has_many :lookbook_image_maps, :dependent => :destroy
   has_many :liquidation_products
   has_many :liquidations, :through => :liquidation_products
   has_many :catalog_products, :class_name => "Catalog::Product", :foreign_key => "product_id"
