@@ -19,6 +19,9 @@ module Payments
         save_payment_url!
         payment
       rescue Exception => error
+        _data = payment_data
+        _data.delete(:numero)
+        log("OrderNumber ##{payment.try(:order).try(:number)} Gateway Strategy ERROR: #{_data.inspect}", :error)
         ErrorNotifier.send_notifier("Moip", error, payment)
         OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil)
       ensure
