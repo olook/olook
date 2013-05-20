@@ -12,10 +12,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
   img{float: right;margin-right: 25px;}
 }
 
-/*** ADJUST LIKE BUTTON FACEBOOK ****/
-.fb_edge_widget_with_comment span.fb_edge_comment_widget iframe.fb_ltr {
-  display: none !important;
-}
+
 
 #product {
   padding: 10px 0 0 0;
@@ -149,16 +146,18 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
             font-family: $kepler;
             font-size: 33px;
           }
-          div.fb-like {
+          
+
+          div.fb-like,.fb_edge_widget_with_comment {
             width: 90px;
             margin: 3px 0 0;
             float: left;
-            .fb_edge_comment_widget {
+            .fb_edge_comment_widget,.-cx-PRIVATE-pluginPostFlyout__core {
               display: none;
             }
             iframe {
               height: 20px !important;
-			  overflow:hidden !important;
+              overflow:hidden !important;
             }
           }
           ul.social {
