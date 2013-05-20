@@ -125,7 +125,7 @@ class PaymentBuilder
     end
 
     def respond_with_failure
-      OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil, :error_code => ( @gateway_strategy.repond_to?(:return_code) ? @gateway_strategy.return_code : nil ))
+      OpenStruct.new(:status => Payment::FAILURE_STATUS, :payment => nil, :error_code => ( @gateway_strategy.respond_to?(:return_code) ? @gateway_strategy.return_code : nil ))
     end
 
     def respond_with_success
