@@ -156,8 +156,8 @@ body {
                 display: block;
                 border: none;
                 cursor: pointer;
+                  &:hover{background: image-url('common/invite.png') no-repeat 0 -43px;}
               }
-              &.input.submit:hover{background: image-url('common/invite.png') no-repeat 0 -43px;}
             }
           }
           fieldset.invite{position: absolute;top: 39px;right: -140px;}
