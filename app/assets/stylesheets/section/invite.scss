@@ -46,11 +46,16 @@ body {
             font-size:15px;
           }
           .copy_link{
-            background: image-url('common/bt_send.png') no-repeat 0 -43px ;
+            background: image-url('common/bt_send.png') no-repeat 0 0px ;
             width: 115px;
-            height: 43px;
+            height: 45px;
             text-indent: -9999px;
-            display: inline-block;
+            display: block;
+            position: absolute;
+            top: 56px;
+            right: 33px;
+            cursor: pointer;
+              &:hover{background: image-url('common/bt_send.png') no-repeat 0 -46px ;}
           }
         }
 
@@ -66,15 +71,21 @@ body {
         }
 
         .share {
-          margin-top: 20px;
+          margin-top: 15px;
 
           li {
+            font-size: 15px;
+            font-family: $avenir;
+            text-transform: lowercase;
             float: left;
-            margin-left: 10px;
+            color: #000;
+            margin-left: 10px !important;
+            .twitter-share-button{margin-bottom: -4px !important;margin-left: 5px !important;}
 
             &:first-child {
               margin-left: 0;
             }
+            &.share_msg{margin-left: 55px !important;}
           }
         }
         .services {
@@ -138,7 +149,7 @@ body {
             ol li {
               margin: 15px 0 0;
               input {
-                background: image-url('common/invite.png') no-repeat;
+                background: image-url('common/invite.png') no-repeat 0 0;
                 text-indent: -9999px;
                 width: 115px;
                 height: 43px;
@@ -146,6 +157,7 @@ body {
                 border: none;
                 cursor: pointer;
               }
+              &.input.submit:hover{background: image-url('common/invite.png') no-repeat 0 -43px;}
             }
           }
           fieldset.invite{position: absolute;top: 39px;right: -140px;}
