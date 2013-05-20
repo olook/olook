@@ -377,7 +377,7 @@ class Product < ActiveRecord::Base
   def find_suggested_products
     products = Product.only_visible.includes(:variants).joins(:details).where("details.description = '#{ self.subcategory }' AND collection_id <= #{ self.collection_id }").order('collection_id desc')
 
-    remove_color_variations(products)
+    Product.remove_color_variations(products)
   end
 
   def share_by_email( informations = { } )
