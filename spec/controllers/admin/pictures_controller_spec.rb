@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::PicturesController do
+describe Admin::PicturesController, admin: true do
   render_views
   let(:product) { FactoryGirl.create(:shoe, :casual) }
   let!(:picture) { FactoryGirl.create(:main_picture, :product => product) }

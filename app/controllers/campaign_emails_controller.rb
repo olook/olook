@@ -2,6 +2,7 @@ class CampaignEmailsController < ApplicationController
   layout "campaign_emails"
 
   def new
+    @campaign_text = @cart.coupon.try(:modal) || 1
     @campaign_email = CampaignEmail.new
   end
 
@@ -16,6 +17,7 @@ class CampaignEmailsController < ApplicationController
         redirect_path = campaign_email_path(@campaign_email)
       end
       cookies['newsletterUser'] = { value: '1', path: '/', expires: 30.years.from_now }
+      cookies['ceid'] = { value: "#{@campaign_email.id}", path: '/', expires: 30.years.from_now }
       redirect_to redirect_path
     end
   end
@@ -25,11 +27,11 @@ class CampaignEmailsController < ApplicationController
   end
 
   def show
-    @campaign_email = CampaignEmail.find(params[:id])    
+    @campaign_email = CampaignEmail.find(params[:id])
   end
 
   def remembered
-    @campaign_email = CampaignEmail.find(params[:id])    
+    @campaign_email = CampaignEmail.find(params[:id])
   end
 
 end

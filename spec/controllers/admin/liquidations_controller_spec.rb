@@ -1,5 +1,5 @@
 require 'spec_helper'
-describe Admin::LiquidationsController do
+describe Admin::LiquidationsController, admin: true do
   render_views
   let!(:liquidation)   { FactoryGirl.create(:liquidation) }
   let!(:valid_attributes) { FactoryGirl.build(:liquidation).attributes }

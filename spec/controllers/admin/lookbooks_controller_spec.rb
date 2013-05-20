@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::LookbooksController do
+describe Admin::LookbooksController, admin: true do
   render_views
   let!(:product)      { FactoryGirl.create(:shoe, :casual) }
   let!(:lookbook)      { FactoryGirl.create(:basic_lookbook,
