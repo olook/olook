@@ -74,7 +74,6 @@ class MembersController < ApplicationController
   def welcome
     session[:facebook_redirect_paths] = "showroom"
     @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
-    @lookbooks = Lookbook.where("active = 1").order("created_at DESC")
   end
 
   def showroom
@@ -86,7 +85,7 @@ class MembersController < ApplicationController
         prepare_for_home
         return render "/home/index"
       else
-        return redirect_to lookbooks_path, :alert => flash[:notice]
+        return redirect_to gift_root_path, :alert => flash[:notice]
       end
     end
 
@@ -94,7 +93,6 @@ class MembersController < ApplicationController
     @is_retake = session[:profile_retake] ? true : false
     session[:profile_retake] = false
     @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
-    @lookbooks = Lookbook.where("active = 1").order("created_at DESC")
     if @facebook_adapter
       @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
     end
