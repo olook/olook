@@ -8,17 +8,17 @@ module ProductFinder
 
     products.each do |product|
       # Only add to the list the products that aren't already shown
-      unless already_displayed.include?(product.name)
+      unless already_displayed.include?(product.producer_code)
         result << product
-        already_displayed << product.name
-        displayed_and_sold_out[product.name] = result.length - 1 if product.sold_out?
+        already_displayed << product.producer_code
+        displayed_and_sold_out[product.producer_code] = result.length - 1 if product.sold_out?
       else
         # If a product of the same color was already displayed but was sold out
         # and the algorithm find another color that isn't, replace the sold out one
         # by the one that's not sold out
-        if displayed_and_sold_out[product.name] && !product.sold_out?
-          result[displayed_and_sold_out[product.name]] = product
-          displayed_and_sold_out.delete product.name
+        if displayed_and_sold_out[product.producer_code] && !product.sold_out?
+          result[displayed_and_sold_out[product.producer_code]] = product
+          displayed_and_sold_out.delete product.producer_code
         end
       end
     end
