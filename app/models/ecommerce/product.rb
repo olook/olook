@@ -457,7 +457,7 @@ class Product < ActiveRecord::Base
   end
 
   def lite_item_view_cache_key_for(shoe_size=nil)
-    shoe? ? CACHE_KEYS[:lite_product_item_partial_shoe][:key] % [id, shoe_size] : CACHE_KEYS[:lite_product_item_partial][:key] % id
+    shoe? ? CACHE_KEYS[:lite_product_item_partial_shoe][:key] % [id, shoe_size.to_s.parameterize] : CACHE_KEYS[:lite_product_item_partial][:key] % id
   end
 
   def brand
@@ -563,6 +563,7 @@ class Product < ActiveRecord::Base
           picture.try(:image_url, :catalog)
         else
           picture.image.recreate_versions! rescue nil
+          picture.save!
           picture.try(:image_url, :suggestion)
         end
       end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::LiquidationCarouselsController do
+describe Admin::LiquidationCarouselsController, admin: true do
   render_views
   let!(:product)   {  FactoryGirl.create(:shoe, :casual, :id => 10) }
   let!(:liquidation)   { FactoryGirl.create(:liquidation) }

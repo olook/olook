@@ -57,8 +57,17 @@ module XmlHelper
       accessory_subcategories={}
       accessory_subcategories.default=17
 
-      choth_subcategories={}
-      choth_subcategories.default=19
+      choth_subcategories={
+        'saia' => 9,
+        'shorts' => 9,
+        'calça' => 8,
+        'vestido' => 5,
+        'casaco' => 7,
+        'jaqueta' => 7,
+        'blusa' => 6
+      }
+
+      choth_subcategories.default=4
 
       @ilove_categories ||= {
         Category::SHOE       => shoe_subcategories,

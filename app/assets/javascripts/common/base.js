@@ -77,6 +77,16 @@ function showBalloon(){
   }
 }
 
+function showCartSummary() {
+  $("#cart_summary").show();
+  $('.coupon_warn').delay(6000).fadeOut();
+  $("body").addClass('cart_submenu_opened');
+}
+function hideCartSummary() {
+  $("#cart_summary").hide();
+  $("body").removeClass('cart_submenu_opened');
+}
+
 $(document).ready(function() {
   initBase.dialogLogin();
   initBase.loadJailImages();
@@ -87,6 +97,7 @@ $(document).ready(function() {
   initBase.showSlideToTop();
   initBase.slideToTop();
   initBase.replaceImages();
+  
 
   showBalloon();
 
@@ -395,11 +406,9 @@ $(document).ready(function() {
   });
 
   $("p.new_sacola a.cart,#cart_summary").live("mouseenter", function() {
-    $("#cart_summary").show();
-    $("body").addClass('cart_submenu_opened');
+    showCartSummary();
   }).live("mouseleave", function() {
-    $("#cart_summary").hide();
-    $("body").removeClass('cart_submenu_opened');
+    hideCartSummary();
   });
 
   $("ul.submenu li form.delete").live("ajax:success", function(evt, xhr, settings){
@@ -743,3 +752,4 @@ h2 = content.height(), w2 = content.width();console.log(h,w,h2,w2);
     });
   }
 }
+

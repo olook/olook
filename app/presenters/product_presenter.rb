@@ -1,9 +1,8 @@
 # -*- encoding : utf-8 -*-
 class ProductPresenter < BasePresenter
 
-  SIZES_TABLE = {"PP" => 1, "P" =>2, "M" => 3, "G" => 4, "GG" => 5,
-                 "34" => 6, "36" => 7, "38" => 8, "40" => 9, "42" => 10, "44" => 11,
-                 "Único" => 12}
+  SIZES_TABLE = Catalog::Catalog::CLOTH_SIZES_TABLE
+
 
   def collection_name
    Collection.active.try(:name) || I18n.l(Date.today, :format => '%B')
@@ -111,9 +110,11 @@ class ProductPresenter < BasePresenter
     end
   end
 
-  def render_price
-    if product.promotion? #discount
-      price_markdown(:retail_price)
+  def render_price_for cart_service
+    if product.promotion?
+      price_markdown(product.retail_price)
+    elsif cart_service.has_percentage_coupon?
+      price_markdown cart_service.price_with_coupon_for product
     else
       price_markup(product.price, "price")
     end
@@ -133,9 +134,9 @@ class ProductPresenter < BasePresenter
 
   private
 
-  def price_markdown discount_method
+  def price_markdown retail_price
     price_markup(product.price, "price_retail left2", "de: ") +
-    price_markup(product.send(discount_method), "price left2", "por: ")
+    price_markup(retail_price, "price left2", "por: ")
   end
 
   def price_markup price, css_class, prefix=nil
