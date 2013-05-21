@@ -33,8 +33,8 @@
     <div class="content">
 
       <div id="user_data">
-        <%= image_tag "#{@user_data.picture}" %>
-        <p>A <%= "#{@user_data.name}" %>, sua namorada, amou este produto e adoraria ganhá-lo no dias namorados.</p>
+        <%= image_tag "https://graph.facebook.com/#{@uid}/picture?width=65&height=60" %>
+        <p>A <span></span>, sua namorada, amou este produto e adoraria ganhá-lo no dias namorados.</p>
       </div>
 
       <div id="pics_suggestions">
@@ -136,6 +136,19 @@
          <% end %>
      <% end %>
    </div>
+
+  <script type="text/javascript">
+    $(function(){
+      $.ajax({
+          url      : 'https://graph.facebook.com/<%= @uid %>',
+          dataType : 'json',
+          success  : function (response) {
+            $('#user_data p span').html(response["name"]);
+            $('#user_data').slideDown(600);
+          }
+      });
+    });
+  </script>
 
   <!-- Begin: Groovinads Behavioral-->
   <img src="http://ads01.groovinads.com/grv/track/bhpx.os?idc=90&sku=<%= "#{sku_for(@product)}" %>&idcategory=<%= "#{@product.category}" %>" height="1">
