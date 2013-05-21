@@ -6,7 +6,7 @@ namespace :coupons do
     begin
       check_csv_syntax(csv.headers.collect {|h| h.downcase})
       csv.each do |row|
-        Coupon.create(:code => row[:code], :is_percentage => row[:is_percentage], :value => row[:value], :start_date => row[:start_date], :end_date => row[:end_date].to_s, :remaining_amount => row[:remaining_amount], :unlimited => row[:unlimited], :active => row[:active], :campaign => row[:campaign], :campaign_description => row[:campaign_description], :created_by => row[:created_by], :brand => row[:brand] )
+        Coupon.create(:code => row[:code], :is_percentage => row[:is_percentage], :value => row[:value], :start_date => row[:start_date], :end_date => row[:end_date].to_s, :remaining_amount => row[:remaining_amount], :unlimited => row[:unlimited], :active => row[:active], :campaign => row[:campaign], :campaign_description => row[:campaign_description], :created_by => row[:created_by], :brand => row[:brand], :modal => row[:modal] )
       end
     rescue Exception => e
       puts "Unable to process your request: #{e.message}"

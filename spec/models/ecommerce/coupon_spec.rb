@@ -23,6 +23,20 @@ describe Coupon do
     end
   end
 
+  describe "#initialize" do
+    context "by default" do
+      it "set 1 on modal" do
+        expect(standard_coupon.modal).to eql(1)
+      end
+    end
+    context "using modal with nil" do
+      let!(:standard_coupon) { FactoryGirl.create(:standard_coupon, modal: nil) }
+      it "set 1 on modal" do
+        expect(standard_coupon.modal).to eql(1)
+      end
+    end
+  end
+
   context 'methods' do
     it 'should be true if coupon is available' do
       standard_coupon.available?.should be_true
