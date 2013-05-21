@@ -8,9 +8,16 @@ $(function(){
 	    cookie: true,
 	    oauth: true
 	  });
-        FB.Event.subscribe('edge.create', function(href, widget) {
-          _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);
-        });
+
+    FB.Event.subscribe('xfbml.render',function(){
+      window.setTimeout(function(){getBoyfriendName()},1000);
+    });
+    
+    FB.Event.subscribe('edge.create', function(href, widget) {
+      _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);
+    });
+
+
 	  try {
 	    FB.XFBML.parse();
 	  } catch(ex){}
@@ -33,9 +40,47 @@ $(function(){
 		  });
     }
 
-    function postToFacebookFeed() {
-      var obj = {
-method: 'feed',
+
+function sendMessageToBoyfriend() {
+  ui_hash = {
+    method: 'feed',
+    caption: 'Subtitulo do texto (precisa ser alterado)',
+    name: 'Titulo do texto (precisa ser alterado)',
+    to: boyfriend,
+
+    <% if member && @product %>
+      description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= valentine_link_for(member, @product) %> #ficaadica',
+      link: '<%= valentine_link_for(member, @product) %>',
+      picture: '<%= @product.suggestion_picture.to_s %>'
+    <% else %>
+      description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10!',
+      link: '<%=  root_url %>'
+    <% end %>   
+  }; 
+  
+  FB.ui(ui_hash);
+}
+
+
+
+function sendFacebookMessage() {
+  FB.ui({
+    method: 'send',
+    caption: 'www.olook.com.br',
+    picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
+    <% if member %>
+      description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= accept_invitation_url(:invite_token => member.invite_token) %> #ficaadica',
+      link: 'http://olook.com.br'
+    <% else %>
+      description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10!',
+      link: '<%=  root_url %>'
+    <% end %>   
+  });
+}
+
+function postToFacebookFeed() {
+  var obj = {
+        method: 'feed',
         caption: 'www.olook.com.br',
         picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
         <% if member %>
