@@ -88,7 +88,7 @@
                          
              <% if Setting.show_search_field %>      
              <div class="search_box">
-               <%= form_tag(search_show_path, method: :get, id: "search_form", onsubmit: track_event("SearchBar", "ClickSubmitWhenLoggedIn", '')) do  %>
+               <%= form_tag(search_show_path, method: :get, id: "search_form", onsubmit: "return perform_search();") do  %>
                  <%= text_field_tag "q",nil, id: "search_product", value: "BUSCAR" %>
                  <%= submit_tag "Buscar" %>
                <% end %>      
