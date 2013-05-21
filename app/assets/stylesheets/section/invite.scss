@@ -15,6 +15,7 @@ body {
         background: image-url('common/division.png') center bottom no-repeat;
         width: 990px;
         padding: 40px 0;
+        padding-top: 60px;
         overflow: hidden;
         position: relative;
 
@@ -52,8 +53,8 @@ body {
             text-indent: -9999px;
             display: block;
             position: absolute;
-            top: 56px;
-            right: 33px;
+            top: 75px;
+            right: 32px;
             cursor: pointer;
               &:hover{background: image-url('common/bt_send.png') no-repeat 0 -46px ;}
           }
@@ -62,7 +63,7 @@ body {
         .buttons {
           li {
             width: 285px;
-            margin: 15px auto 0;
+            margin: 34px auto 0 !important;
 
             input[type='image'] {
               margin-left: 15px;
@@ -117,19 +118,22 @@ body {
         div.box_copy {
           position: absolute;
           background: image-url('common/copy.png') top center no-repeat;
-          width: 166px;
-          height: 38px;
-          padding: 17px 0 0 0;
+          width: 240px;
+          height: 60px;
+          padding: 10px 0 0 0;
           display: none;
-          top: 95px;
-          left:790px;
+          top: 10px;
+          left:720px;
           p {
-            color: #666;
-            font-size: 12px;
+            color: #000;
+            font-family: $avenir;
+            font-size: 13px;
             line-height: 16px;
-            text-align: center;
-            strong {
-              color: #666;
+            text-align: left;
+            margin-left: 45px;
+            span {
+              color: #000;
+              font-weight: bold;
             }
           }
         }
