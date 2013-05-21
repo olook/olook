@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130506224333) do
+ActiveRecord::Schema.define(:version => 20130514180149) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -317,6 +317,7 @@ ActiveRecord::Schema.define(:version => 20130506224333) do
     t.string   "created_by"
     t.string   "updated_by"
     t.string   "brand"
+    t.integer  "modal",                                              :default => 1
   end
 
   add_index "coupons", ["code"], :name => "index_coupons_on_code"

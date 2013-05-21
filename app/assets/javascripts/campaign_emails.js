@@ -49,34 +49,40 @@ function checkEmail(e) {
 }
 
 $(function(){
-	$('#campaign_email_email').focus(function(){
-		if($(this).val() == 'seunome@email.com.br')
-			$(this).val('');
-	}).focusout(function(){
-		if($(this).val() == '')
-			$(this).val('seunome@email.com.br')
-	});
-	
-	$('.bt-enviar').bind("click", function(e){
-			checkEmail(e);
-	})
-	
-	$(".close, .btn-continue, .close_pink").bind("click", function(){
-		parent.top.$("#modal-campaign,#overlay-campaign").fadeOut();
-		// _gaq.push(['_trackEvent', 'Modal', 'Close', '']);
-		if($(".dont_show").is(":checked")){
-			parent.top.dontShow();
-		}
-	})
-	
-		
-	$("input[type=submit]").click(function(){
-		_gaq.push(['_trackEvent', 'Modal', 'Submit', '', , true]);
-		if(flag==true)
-			parent.top.$("#modal-campaign").fadeOut();
-		if($(".dont_show").is(":checked")){
-			parent.top.dontShow();
-		}	
-	})
-	
+    $('#campaign_email_email').focus(function(){
+	if($(this).val() == 'seunome@email.com.br')
+	$(this).val('');
+    }).focusout(function(){
+	if($(this).val() == '')
+	$(this).val('seunome@email.com.br')
+    });
+
+    $('.bt-enviar').bind("click", function(e){
+	checkEmail(e);
+    })
+
+    $(".close, .btn-continue, .close_pink").bind("click", function(){
+	parent.top.$("#modal-campaign,#overlay-campaign").fadeOut();
+
+	if(typeof parent.top.showCartSummary == 'function') {
+	    parent.top.showCartSummary();
+	} else if(typeof parent.top.o == 'object' && typeof parent.top.o.cartShow == 'function') {
+	    parent.top.o.cartShow();
+	}
+	// _gaq.push(['_trackEvent', 'Modal', 'Close', '']);
+	if($(".dont_show").is(":checked")){
+	    parent.top.dontShow();
+	}
+    })
+
+
+    $("input[type=submit]").click(function(){
+	_gaq.push(['_trackEvent', 'Modal', 'Submit', '', , true]);
+	if(flag==true)
+	parent.top.$("#modal-campaign").fadeOut();
+    if($(".dont_show").is(":checked")){
+	parent.top.dontShow();
+    }
+    })
+
 });
