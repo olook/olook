@@ -2,11 +2,11 @@
 <script type="text/javascript">
 var CRITEO_CONF = [[{
 pageType: 'basket',
-'Customer ID': '<%= current_user.try(:id) %>',
+'Customer ID': '<%= raw current_user.try(:id) %>',
 'Site Type': '',
-'Product IDs': ['<%= cart.items.map{|item| item.variant.id }.join("','") %>'],
-'Prices': ['<%= cart.items.map{|item| item.retail_price.to_s}.join("','") %>'],
-'Quantities': ['<%= cart.items.map{|item| item.quantity.to_s}.join("','") %>']
+'Product IDs': ['<%= raw cart.items.map{|item| item.variant.id }.join("','") %>'],
+'Prices': ['<%= raw cart.items.map{|item| item.retail_price.to_s}.join("','") %>'],
+'Quantities': ['<%= raw cart.items.map{|item| item.quantity.to_s}.join("','") %>']
 }], [4299,'pmo','us.','010',[[7716407, 7716408]],{'Customer ID':['ci',0], 'Site Type':['site_type',0], 'Product IDs':['i',1],'Prices':['p',1], 'Quantities':['q',1]}]];
 if (typeof (CRITEO) != "undefined") { CRITEO.Load(false); }
 </script>

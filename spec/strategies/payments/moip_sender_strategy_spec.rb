@@ -58,7 +58,10 @@ describe Payments::MoipSenderStrategy do
     end
 
     context "when exception is thrown" do
-      before(:each) { MoIP::Client.stub(:checkout).and_raise(Exception) }
+      before(:each) do
+        CartService.any_instance.stub(:freight).and_return(freight)
+        MoIP::Client.stub(:checkout).and_raise(Exception)
+      end
 
       it "ensures the payment is saved" do
         payment.should_receive(:save!).and_return true
@@ -227,12 +230,13 @@ describe Payments::MoipSenderStrategy do
       end
 
       it "doesn't call billet_payment" do
+        CartService.any_instance.stub(:freight).and_return(freight)
         subject.should_not_receive(:billet_payment)
         subject.send_to_gateway
       end
 
       it "hits Moip" do
-        subject.stub(:payment_data)
+        subject.stub(:payment_data).and_return({})
         MoIP::Client.should_receive(:checkout)
         subject.send_to_gateway
       end

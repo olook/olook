@@ -3,7 +3,7 @@
     <h1><%= @product.formatted_name(200) %></h1>
   </div>
   <div class="line">
-    <div class="fb-like" data-href="http://<%= request.host_with_port %>/produto/<%= @product.id %>" data-send="false" data-layout="button_count" data-width="110" data-show-faces="false"></div>
+    <fb:like href="http://<%= request.host_with_port %>/produto/<%= @product.id %>" send="false" layout="button_count" width="110" show_faces="false" font="arial"></fb:like>
     <ul class="social">
       <li class="first">compartilhe:</li>
       <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=#{share_description(@product)}&hashtags=ficaadica" %></li>
@@ -13,7 +13,7 @@
     </ul>
   </div>
   <p class="description"><%= @product.description %></p>
-  <%= product_presenter.render_price %>
+  <%= product_presenter.render_price_for @cart_service %>
   <%# if @user && !@promotion %>
     <div class="warn_discount <%= product_presenter.is_promotion? ? 'promotion' : '' %>">
       <p>Compre e ganhe até <span><%= number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price) %></span> em créditos </br> para usar nos próximos 2 meses</p>

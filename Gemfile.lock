@@ -18,6 +18,13 @@ GIT
       nokogiri (~> 1.5.0)
 
 GIT
+  remote: git://github.com/olook/piet.git
+  revision: 0412aa8943e37ceab321d4df20f858eb90dc5b01
+  specs:
+    piet (0.1.3)
+      png_quantizator
+
+GIT
   remote: git@github.com:olook/boleto_bancario.git
   revision: ba8f64ecb541bdd398e4377d52f71ca75a0f5905
   ref: ba8f64ecb541bdd398e4377d52f71ca75a0f5905
@@ -307,8 +314,6 @@ GEM
     parallel (0.6.3)
     parallel_tests (0.10.4)
       parallel
-    piet (0.1.3)
-      png_quantizator
     png_quantizator (0.1.0)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
@@ -552,7 +557,7 @@ DEPENDENCIES
   open4
   paper_trail (~> 2)
   parallel_tests
-  piet
+  piet!
   pry
   pry-nav
   puma

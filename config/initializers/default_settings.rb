@@ -86,10 +86,11 @@ Setting.defaults[:cloth_showroom_sexy] = "90863,91293,91349,90947,91381"
 Setting.defaults[:santander_billet] = false
 Setting.defaults[:show_featured_products] = true
 
-Setting.defaults[:lightbox_coupon_code] = "WP1HYH1ABR13"
+Setting.defaults[:lightbox_coupon_code] = "WP1HYHMAI13"
 Setting.defaults[:billet_summary_email] = "tiago.almeida@olook.com.br"
 Setting.defaults[:blacklisted_users] = "arte-1818@hotmail.com"
 
 Setting.defaults[:show_checkout_banner] = true
+Setting.defaults[:show_search_field] = false
 
 
