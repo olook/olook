@@ -15,9 +15,10 @@ describe PaymentBuilder do
   let(:freight) { { :price => 12.34, :cost => 2.34, :delivery_time => 2, :shipping_service_id => shipping_service.id, :address_id => address.id} }
   let(:cart_service) { CartService.new({ :cart => cart }) }
   let(:moip_sender_strategy) {
-    mock = double(Payments::MoipSenderStrategy)
-    mock.stub(:payment_successful?).and_return(true)
-    mock
+    _mock = double(Payments::MoipSenderStrategy)
+    _mock.stub(:respond_to?).and_return(true)
+    _mock.stub(:payment_successful?).and_return(true)
+    _mock
   }
 
   let(:session_params) { { "referer" => "http://localhost:3000/registrar" } }
