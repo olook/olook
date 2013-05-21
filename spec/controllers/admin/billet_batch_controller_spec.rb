@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::BilletBatchController do
+describe Admin::BilletBatchController, admin: true do
   render_views
 
   before :each do

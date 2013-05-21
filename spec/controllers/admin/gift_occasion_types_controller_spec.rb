@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::GiftOccasionTypesController do
+describe Admin::GiftOccasionTypesController, admin: true do
   render_views
   let!(:occasion_type) { FactoryGirl.create(:gift_occasion_type) }
   let!(:valid_attributes) { occasion_type.attributes }
@@ -85,7 +85,7 @@ describe Admin::GiftOccasionTypesController do
         put :update, :id => occasion_type.id, :gift_occasion_type => valid_attributes
         assigns(:gift_occasion_type).should eq(occasion_type)
       end
-      
+
       it "redirects to the occasion type" do
         put :update, :id => occasion_type.id, :gift_occasion_type => valid_attributes
         response.should redirect_to(admin_gift_occasion_type_path(occasion_type))

@@ -563,6 +563,7 @@ class Product < ActiveRecord::Base
           picture.try(:image_url, :catalog)
         else
           picture.image.recreate_versions! rescue nil
+          picture.save!
           picture.try(:image_url, :suggestion)
         end
       end

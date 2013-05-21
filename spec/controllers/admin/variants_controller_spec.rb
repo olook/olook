@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::VariantsController do
+describe Admin::VariantsController, admin: true do
   render_views
   let!(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
   let!(:product) { variant.product }
