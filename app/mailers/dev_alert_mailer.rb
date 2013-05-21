@@ -2,7 +2,7 @@
 class DevAlertMailer < ActionMailer::Base
   default_url_options[:host] = "www.olook.com.br"
 
-  default :from => "olook notification <tiago.almeida@olook.com.br>"
+  default :from => "olook notification <dev.notifications@olook.com.br>"
 
     def self.smtp_settings
     {
@@ -29,5 +29,13 @@ class DevAlertMailer < ActionMailer::Base
 
   def notify_about_cancelled_billets
     mail(:to => "tech@olook.com.br", :subject => "Cancelamento de boletos rodado com sucesso!")
+  end
+
+  def notify_about_products_search_worker
+   mail(to: "vinicius.monteiro@olook.com.br", subject: "ProductSearchWorker executado com sucesso!")
+  end
+
+  def notify_about_products_index
+   mail(to: "vinicius.monteiro@olook.com.br", subject: "IndexProductsWorker executado com sucesso!")
   end
 end
