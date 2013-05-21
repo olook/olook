@@ -67,15 +67,15 @@ module ProductsHelper
     page = catalog_products.current_page
     if brands && brands.include?(product.brand.to_s.upcase)
       if index < 11
-        return true unless brands.include?(catalog_products[index+1].brand.to_s.upcase)        
+        return true unless brands.include?(catalog_products[index+1].try(:brand).to_s.upcase)
       elsif page == catalog_products.total_pages
         return true
       else
-        return true unless brands.include?(catalog_products.page(page+1).first.brand.to_s.upcase)
-      end      
+        return true unless brands.include?(catalog_products.page(page+1).first.try(:brand).to_s.upcase)
+      end
     else
       return false
-    end      
+    end
   end
 
   def first_product_doesnt_belong_to_selected_brands?(product, catalog_products, brands)

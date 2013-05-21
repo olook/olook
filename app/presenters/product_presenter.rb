@@ -110,9 +110,11 @@ class ProductPresenter < BasePresenter
     end
   end
 
-  def render_price
-    if product.promotion? #discount
-      price_markdown(:retail_price)
+  def render_price_for cart_service
+    if product.promotion?
+      price_markdown(product.retail_price)
+    elsif cart_service.has_percentage_coupon?
+      price_markdown cart_service.price_with_coupon_for product
     else
       price_markup(product.price, "price")
     end
@@ -132,9 +134,9 @@ class ProductPresenter < BasePresenter
 
   private
 
-  def price_markdown discount_method
+  def price_markdown retail_price
     price_markup(product.price, "price_retail left2", "de: ") +
-    price_markup(product.send(discount_method), "price left2", "por: ")
+    price_markup(retail_price, "price left2", "por: ")
   end
 
   def price_markup price, css_class, prefix=nil

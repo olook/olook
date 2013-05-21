@@ -12,7 +12,7 @@
 		 <td align="center" height="30">
 		 </td>
 	 </tr>
-	 
+
 	 <tr>
         <td>
           <table cellpadding="0" cellspacing="0" width="100%">
@@ -25,22 +25,22 @@
 
               <!-- instagram -->
               <td>
-                <a href="http://statigr.am/olook">                
+                <a href="http://statigr.am/olook">
                 <img src="http://cdn.olook.com.br/assets/emailmkt/topo/ico_in.jpg" alt="Instagram" border="0" title="Instagram" style="display:block"></a>
               </td>
               <!-- twitter -->
               <td>
-                <a href="https://twitter.com/olook">                
+                <a href="https://twitter.com/olook">
                 <img src="http://cdn.olook.com.br/assets/emailmkt/topo/ico_tw.jpg" alt="twitter" border="0" title="twitter" style="display:block"></a>
               </td>
               <!-- facebook -->
               <td>
-                <a href="http://www.facebook.com/olook">                
+                <a href="http://www.facebook.com/olook">
                 <img src="http://cdn.olook.com.br/assets/emailmkt/topo/ico_fb.jpg" alt="Facebook" border="0" title="Facebook" style="display:block"></a>
               </td>
               <!-- blog -->
               <td>
-                <a href="http://blog.olook.com.br">                
+                <a href="http://blog.olook.com.br">
                 <img src="http://cdn.olook.com.br/assets/emailmkt/topo/ico_bg.jpg" alt="Blog" border="0" title="Blog" style="display:block"></a>
               </td>
             </tr>
@@ -60,7 +60,7 @@
 
 		<p><%= @payday_name %>, dia <span style="color:#ef3742"><%= l @billet.payment_expiration_date.to_date %></span>, é o <b>último dia</b> para você pagar o seu boleto e garantir sua compra.</p>
 
-		<p>Para imprimir o boleto, <a href='<%= root_url + @billet.url + "?auth_token=" + @billet.user.authentication_token  %>' style="color:#ef3742;">clique aqui</a>.</p>
+        <p>Para imprimir o boleto, <a href='<%= root_url + @billet.url %>' style="color:#ef3742;">clique aqui</a>.</p>
 
 		<p>Não se preocupe, seus produtos continuam reservados na sua sacola.</p>
 
@@ -76,7 +76,7 @@
 
 		</div>
 	 <br><br></td>
-	 
+
 	 </table>
 	 </td>
 	 </tr>
