@@ -384,4 +384,23 @@ class CartService
     facebook_discount_value.round(2, BigDecimal::ROUND_HALF_UP)
   end
 
+  def has_percentage_coupon?
+    self.cart.coupon.present? && self.cart.coupon.is_percentage?
+  end
+
+  def price_with_coupon_for product
+    coupon = self.cart.coupon
+    return product.retail_price if should_not_calculate? product, coupon
+    calculate_percentage_discount_for product, coupon
+  end
+
+  private
+    def calculate_percentage_discount_for product, coupon
+      product.price - ((product.price * coupon.value) / 100)
+    end
+
+    def should_not_calculate? product, coupon
+      coupon.nil? || !coupon.is_percentage? || product.promotion?
+    end
+
 end
