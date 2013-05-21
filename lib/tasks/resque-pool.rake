@@ -1,6 +1,6 @@
 require 'resque/pool/tasks'
 
-task "resque:pool:setup" do
+task "resque:pool:setup" => :environment do
   # close any sockets or files in pool manager
   ActiveRecord::Base.connection.disconnect!
 
