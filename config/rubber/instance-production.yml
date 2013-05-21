@@ -15,6 +15,12 @@
   - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
     options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque_web
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque_worker
+    options: {}
   instance_id: i-7a3e6313
   image_type: m1.xlarge
   image_id: ami-3fec7956
