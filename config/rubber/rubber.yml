@@ -277,6 +277,14 @@ hosts:
     availability_zone: us-east-1b
   app04:
     availability_zone: us-east-1d
+  resque01:
+    cloud_providers:
+      aws:
+        image_type: m1.xlarge
+  resque02:
+    cloud_providers:
+      aws:
+        image_type: m1.large
 
   homolog:
     cloud_providers:
