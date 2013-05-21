@@ -40,9 +40,9 @@ function getBoyfriendName(){
   FB.api('/me', function(response) {
     significant_other = response.significant_other;
     if(significant_other){
-      boyfriend = significant_other.id;
-      sendMessageToBoyfriend();
+      boyfriend = significant_other.id;      
     }
+    sendMessageToBoyfriend();
     return;
   });
 }
