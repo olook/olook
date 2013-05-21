@@ -11,7 +11,7 @@ $(function(){
   
 	  });
 
-   
+    
     FB.Event.subscribe('edge.create', function(href, widget) {
       _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);      
     });
@@ -36,6 +36,7 @@ $(function(){
 
 
 function getBoyfriendName(){
+  console.log("aqui");
   FB.api('/me', function(response) {
     sendMessageToBoyfriend(response);
   });
