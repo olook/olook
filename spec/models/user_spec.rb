@@ -478,7 +478,7 @@ describe User do
     end
 
     describe "all_profiles_showroom" do
-      it "returns the products ordered by profiles without duplicate names" do
+      it "returns the products ordered by profiles without duplicate producer_codes" do
         subject.all_profiles_showroom.should == [product_c, product_d]
       end
 
@@ -522,7 +522,7 @@ describe User do
     end
 
     describe "main_profile_showroom" do
-      it "should return the products ordered by profiles without duplicate names" do
+      it "should return the products ordered by profiles without duplicate producer_codes" do
         subject.main_profile_showroom.should == [product_d, product_c]
       end
 
