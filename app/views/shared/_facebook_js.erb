@@ -25,20 +25,14 @@ $(function(){
   
   
   $("a.face-message").click(function(){
-    FB.getLoginStatus(function(response) {
-      if (response.status === 'connected') {
+    FB.login(function(login_response) {
+      if (login_response.authResponse) {
         getBoyfriendName();
       } else {
-        FB.login(function(login_response) {
-          if (login_response.authResponse) {
-            getBoyfriendName();
-          } else {
-            console.log('User cancelled login or did not fully authorize.');
-          }
-        }, {scope: 'friends_birthday,publish_stream,user_relationships,user_relationship_details'});        
+        console.log('User cancelled login or did not fully authorize.');
       }
-    });
-  })
+    }, {scope: 'friends_birthday,publish_stream,user_relationships,user_relationship_details'});
+  });
 });
 
 
