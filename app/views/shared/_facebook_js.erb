@@ -8,14 +8,13 @@ $(function(){
 	    cookie: true,
 	    oauth: true,
       xfbml: true,
-      frictionlessRequests : true,
+      frictionlessRequests : true
   
 	  });
 
     
     FB.Event.subscribe('edge.create', function(href, widget) {
-      _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);
-      
+      _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);      
     });
 
 	  try {
@@ -26,9 +25,14 @@ $(function(){
   
   
   $("a.face-message").click(function(){
-    getBoyfriendName();
-    window.setTimeout(function(){sendMessageToBoyfriend()}, 500);
-  })
+    FB.login(function(login_response) {
+      if (login_response.authResponse) {
+        getBoyfriendName();
+      } else {
+        console.log('User cancelled login or did not fully authorize.');
+      }
+    }, {scope: 'friends_birthday,publish_stream,user_relationships,user_relationship_details'});
+  });
 });
 
 
@@ -37,8 +41,9 @@ function getBoyfriendName(){
   FB.api('/me', function(response) {
     significant_other = response.significant_other;
     if(significant_other){
-      boyfriend = significant_other.id;
+      boyfriend = significant_other.id;      
     }
+    sendMessageToBoyfriend();
     return;
   });
 }
@@ -50,6 +55,7 @@ function sendMessageToBoyfriend() {
     caption: 'Subtitulo do texto (precisa ser alterado)',
     name: 'Titulo do texto (precisa ser alterado)',
     to: boyfriend,
+    display: "iframe",
     <% if @product %>
     picture: '<%= @product.suggestion_picture.to_s %>',
     <% end %>
