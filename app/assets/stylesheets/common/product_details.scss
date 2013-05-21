@@ -12,6 +12,11 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
   img{float: right;margin-right: 25px;}
 }
 
+/*** ADJUST LIKE BUTTON FACEBOOK ****/
+.fb_edge_widget_with_comment span.fb_edge_comment_widget iframe.fb_ltr {
+  display: none !important;
+}
+
 #product {
   padding: 10px 0 0 0;
   div.content {
@@ -203,7 +208,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
           color: #999;
           margin-bottom: 20px;
           a {
-            color: #df5a8a;
+            color: #ef3742;
             margin: 0 0 0 5px;
           }
           &.price {

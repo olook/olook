@@ -3,32 +3,32 @@
 
 @font-face {
     font-family: 'QuicksandBold';
-	 src:url('http://wwww.olook.com.br/assets/quicksand/quicksand-bold-webfont.eot'),
-    url('http://wwww.olook.com.br/assets/quicksand/quicksand-bold-webfont.eot?#iefix') format('embedded-opentype'),
-    url('http://wwww.olook.com.br/assets/quicksand/quicksand-bold-webfont.ttf') format('truetype');
+	 src:asset-url('quicksand/quicksand-bold-webfont.eot', 'fonts'),
+    asset-url('quicksand/quicksand-bold-webfont.eot?#iefix', 'fonts') format('embedded-opentype'),
+    asset-url('quicksand/quicksand-bold-webfont.ttf', 'fonts') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
     font-family: 'QuicksandLight';
-	 src:	url('http://wwww.olook.com.br/assets/quicksand/quicksand-light-webfont.eot'),
-    url('http://wwww.olook.com.br/assets/quicksand/quicksand-light-webfont.eot?#iefix') format('embedded-opentype'),
-    url('http://wwww.olook.com.br/assets/quicksand/quicksand-light-webfont.ttf') format('embedded-opentype');
+	 src:	asset-url('quicksand/quicksand-light-webfont.eot', 'fonts'),
+    asset-url('quicksand/quicksand-light-webfont.eot?#iefix', 'fonts') format('embedded-opentype'),
+    asset-url('quicksand/quicksand-light-webfont.ttf', 'fonts') format('embedded-opentype');
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
     font-family: 'QuicksandRegular';
- 	 src:url('http://wwww.olook.com.br/assets/quicksand/quicksand-regular-webfont.eot'),
-    url('http://wwww.olook.com.br/assets/quicksand/quicksand-regular-webfont.eot?#iefix') format('embedded-opentype'),
-    url('http://wwww.olook.com.br/assets/quicksand/quicksand-regular-webfont.ttf') format('truetype');
+	 src:asset-url('quicksand/quicksand-regular-webfont.eot', 'fonts'),
+    asset-url('quicksand/quicksand-regular-webfont.eot?#iefix', 'fonts') format('embedded-opentype'),
+    asset-url('quicksand/quicksand-regular-webfont.ttf', 'fonts') format('truetype');
 	font-weight: normal;
 }
 
 @font-face {
-    font-family: 'Kepler Std Italic';
+    font-family: 'KeplerStdItalic';
     src:url('/fonts/kepler/adobe_-_keplerstd-italic-webfont.eot'),
     url('/fonts/kepler/adobe_-_keplerstd-italic-webfont.eot?#iefix') format('embedded-opentype'),
     url('/fonts/kepler/adobe_-_keplerstd-italic-webfont.ttf') format('truetype');
@@ -47,18 +47,18 @@
 
 @font-face {
     font-family: 'johnston'; 
- 	 src:url('http://www.olook.com.br/assets/johnston/johnston_itc_bold_0-webfont.eot'),
-    url('http://www.olook.com.br/assets/johnston/johnston_itc_bold_0-webfont.eot?#iefix') format('embedded-opentype'),
-    url('http://www.olook.com.br/assets/johnston/johnston_itc_bold_0-webfont.ttf') format('truetype');
+	 src:asset-url('johnston/johnston_itc_bold_0-webfont.eot', 'fonts'),
+    asset-url('johnston/johnston_itc_bold_0-webfont.eot?#iefix', 'fonts') format('embedded-opentype'),
+    asset-url('johnston/johnston_itc_bold_0-webfont.ttf', 'fonts') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
     font-family: 'avenir_medium';
-    src:url('http://www.olook.com.br/assets/avenir_medium/avenir-medium.eot'),
-    url('http://www.olook.com.br/assets/avenir_medium/avenir-medium.eot?#iefix') format('embedded-opentype'),
-    url('http://www.olook.com.br/assets/avenir_medium/avenir-medium.ttf') format('truetype');
+    src:asset-url('avenir_medium/avenir-medium.eot', 'fonts'),
+    asset-url('avenir_medium/avenir-medium.eot?#iefix', 'fonts') format('embedded-opentype'),
+    asset-url('avenir_medium/avenir-medium.ttf', 'fonts') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }

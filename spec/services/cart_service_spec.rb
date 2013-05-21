@@ -661,4 +661,92 @@ describe CartService do
 
     end
   end
+
+  describe "#has_percentage_coupon?" do
+    context "when cart_service#cart has coupon" do
+      let(:cart) { FactoryGirl.build(:clean_cart) }
+      let(:cart_service) { described_class.new ({ cart: cart }) }
+      let(:coupon) { FactoryGirl.build(:coupon) }
+
+      before do
+        cart.stub(:coupon).and_return(coupon)
+      end
+
+      context "and coupon is percentage" do
+
+        before do
+          coupon.stub(:is_percentage?).and_return(true)
+        end
+
+        subject { cart_service.has_percentage_coupon? }
+        it { should be_true }
+      end
+
+      context "but coupon is not percentage" do
+
+        subject { cart_service.has_percentage_coupon? }
+        it { should be_false }
+      end
+    end
+
+    context "when cart_service#cart hasn't coupon" do
+
+      let(:cart) { FactoryGirl.build(:clean_cart) }
+      let(:cart_service) { described_class.new ({ cart: cart }) }
+
+      subject { cart_service.has_percentage_coupon? }
+
+      it { should be_false }
+    end
+  end
+
+  describe "#price_with_coupon_for" do
+    let(:product) { FactoryGirl.build(:shoe) }
+    let(:cart) { FactoryGirl.build(:clean_cart) }
+    subject { described_class.new({ cart: cart }) }
+
+    before do
+      product.stub(:retail_price).and_return(BigDecimal('130.00'))
+    end
+
+    context "when there's no applied coupon" do
+      it { expect(subject.price_with_coupon_for product).to eq(product.retail_price) }
+    end
+
+    context "when coupon there's coupon" do
+      let(:coupon) { FactoryGirl.build(:coupon, value: 50.00) }
+
+      before do
+        cart.stub(:coupon).and_return(coupon)
+      end
+
+      context "and coupon is not percentage" do
+        before do
+          coupon.stub(:is_percentage?).and_return(false)
+        end
+        it { expect(subject.price_with_coupon_for product).to eq(product.retail_price) }
+      end
+
+      context "and coupon is percentage" do
+        before do
+          coupon.stub(:is_percentage?).and_return(true)
+          product.stub(:price).and_return(BigDecimal('130.00'))
+        end
+
+        let(:value_with_discount) { BigDecimal("65.00") }
+
+        it { expect(subject.price_with_coupon_for product).to eq(value_with_discount) }
+
+      end
+
+    end
+
+    context "when given product has promotion" do
+      before do
+        product.stub(:promotion?).and_return(true)
+      end
+
+      it { expect(subject.price_with_coupon_for product).to eq(product.retail_price) }
+    end
+  end
 end

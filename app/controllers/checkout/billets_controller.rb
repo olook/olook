@@ -1,12 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'boleto_bancario'
 class Checkout::BilletsController < ApplicationController
-  before_filter :authenticate_user!
   layout false
 
   def show
     config = SANTANDER
-    if payment = current_user.payments.find(params[:id])
+    if payment = Payment.find(params[:id])
       @boleto = BoletoBancario::Core::Santander.new do |boleto_santander|
         boleto_santander.conta_corrente        = config['conta_corrente']
         boleto_santander.digito_conta_corrente = config['digito_conta_corrente']

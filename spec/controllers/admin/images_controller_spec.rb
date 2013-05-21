@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::ImagesController do
+describe Admin::ImagesController, admin: true do
   render_views
   let(:lookbook) { FactoryGirl.create(:basic_lookbook) }
   let!(:image) { FactoryGirl.create(:image, :lookbook => lookbook) }

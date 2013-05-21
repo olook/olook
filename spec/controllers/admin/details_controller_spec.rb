@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::DetailsController do
+describe Admin::DetailsController, admin: true do
   render_views
   let!(:detail) { FactoryGirl.create(:heel_detail) }
   let!(:product) { detail.product }
