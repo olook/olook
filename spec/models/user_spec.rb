@@ -465,10 +465,10 @@ describe User do
   describe "showroom methods" do
     let(:last_collection) { FactoryGirl.create(:collection, :start_date => 1.month.ago, :end_date => Date.today, :is_active => false) }
     let(:collection) { FactoryGirl.create(:collection) }
-    let!(:product_a) { FactoryGirl.create(:shoe, :casual, :name => 'A', :collection => collection) }
-    let!(:product_b) { FactoryGirl.create(:shoe, :casual, :name => 'B', :collection => collection) }
-    let!(:product_c) { FactoryGirl.create(:shoe, :casual, :name => 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
-    let!(:product_d) { FactoryGirl.create(:shoe, :casual, :name => 'A', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
+    let!(:product_a) { FactoryGirl.create(:shoe, :casual, producer_code: 'A', :collection => collection) }
+    let!(:product_b) { FactoryGirl.create(:shoe, :casual, producer_code: 'B', :collection => collection) }
+    let!(:product_c) { FactoryGirl.create(:shoe, :casual, producer_code: 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
+    let!(:product_d) { FactoryGirl.create(:shoe, :casual, producer_code: 'A', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
     let!(:invisible_product) { FactoryGirl.create(:shoe, :casual, :is_visible => false, :collection => collection, :profiles => [sporty_profile]) }
     let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 10) }
     let!(:sporty_points) { FactoryGirl.create(:point, user: subject, profile: sporty_profile, value: 40) }
@@ -592,9 +592,9 @@ describe User do
     end
 
     describe 'remove_color_variations' do
-      let(:shoe_a_black)  { double :shoe, :name => 'Shoe A', :'sold_out?' => false }
-      let(:shoe_a_red)    { double :shoe, :name => 'Shoe A', :'sold_out?' => false }
-      let(:shoe_b_green)  { double :shoe, :name => 'Shoe B', :'sold_out?' => false }
+      let(:shoe_a_black)  { double :shoe, producer_code: 'Shoe A', :'sold_out?' => false, inventory: 10 }
+      let(:shoe_a_red)    { double :shoe, producer_code: 'Shoe A', :'sold_out?' => false, inventory: 5 }
+      let(:shoe_b_green)  { double :shoe, producer_code: 'Shoe B', :'sold_out?' => false, inventory: 4 }
       let(:products)      { [shoe_a_black, shoe_b_green, shoe_a_red] }
 
       context 'when no product is sold out' do
