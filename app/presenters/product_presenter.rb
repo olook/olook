@@ -20,8 +20,8 @@ class ProductPresenter < BasePresenter
     h.render :partial => 'product/related_products', :locals => {:related_products => related_products.first(6)}
   end
 
-  def render_description
-    h.render :partial => 'product/description', :locals => {:product_presenter => self}
+  def render_description(show_facebook_button = false)
+    h.render :partial => 'product/description', :locals => {:product_presenter => self, :show_facebook_button => show_facebook_button}
   end
 
   def display_main_picture
