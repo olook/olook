@@ -1005,7 +1005,7 @@ section#payment {
           cursor: pointer;
           &:hover, &.selected {
             margin: -5px;
-            border: 5px #df5a8a solid;
+            border: 5px #ef3742 solid;
           }
         }
         &.billet {
@@ -1033,7 +1033,7 @@ section#payment {
     }
     p {
       a {
-        color: #df5a8a;
+        color: #ef3742;
       }
     }
     p.generate_billet {
@@ -1751,7 +1751,7 @@ section.checkout{
 				span{width:109px;color:#6D6E71;display:inline-block;}
 			}
 		}
-		p.total{font-size:17px;margin-left:27px;line-height:18px;overflow:hidden;margin-bottom:5px;
+		p.total{font-size:17px;margin-left:27px;line-height:18px;overflow:hidden;margin-bottom:10px;
 			span{width:109px;display:inline-block;float:left;
 				&.frete{font-size:12px;width:150px;margin-left:109px;}
 				&#total_billet{display:none;}
@@ -1769,7 +1769,7 @@ section.checkout{
     margin-bottom: 15px;
     padding-bottom: 3px;
     a {
-      color: #df5a8a;
+      color: #ef3742;
       font-family: Arial;
       font-size: 12px;
       letter-spacing: 0;
