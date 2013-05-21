@@ -33,7 +33,6 @@ $(function(){
 
 
 function getBoyfriendName(){
-  console.log("aqui");
   FB.api('/me', function(response) {
     significant_other = response.significant_other;
     if(significant_other){
