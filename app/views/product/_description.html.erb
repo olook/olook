@@ -3,7 +3,7 @@
     <h1><%= @product.formatted_name(200) %></h1>
   </div>
   <div class="line">
-    <div class="fb-like" data-href="http://<%= request.host_with_port %>/produto/<%= @product.id %>" data-send="false" data-layout="button_count" data-width="110" data-show-faces="false"></div>
+    <fb:like href="http://<%= request.host_with_port %>/produto/<%= @product.id %>" send="false" layout="button_count" width="110" show_faces="false" font="arial"></fb:like>
     <ul class="social">
       <li class="first">compartilhe:</li>
       <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=#{share_description(@product)}&hashtags=ficaadica" %></li>

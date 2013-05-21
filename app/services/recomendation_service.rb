@@ -1,5 +1,4 @@
 class RecomendationService
-  include ProductFinder
 
   def initialize(opts = {})
     @profiles = opts[:profiles]
