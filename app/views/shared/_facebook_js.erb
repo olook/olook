@@ -36,7 +36,6 @@ $(function(){
 
 
 function getBoyfriendName(){
-  console.log("aqui");
   FB.api('/me', function(response) {
     sendMessageToBoyfriend(response);
   });
@@ -45,9 +44,11 @@ function getBoyfriendName(){
 
 function sendMessageToBoyfriend(me_response) {
   var boyfriend = "";
+  var link_suffix = "?single=1";
   var significant_other = me_response.significant_other;
   if(significant_other){
-    boyfriend = significant_other.id;      
+    boyfriend = significant_other.id;
+    link_suffix = "";      
   }
 
   ui_hash = {
@@ -68,7 +69,7 @@ function sendMessageToBoyfriend(me_response) {
           else            
             "Vi a roupa"            
           end %>  <%= @product.name %> no site da Olook e amei! Comprando o meu presente na Olook você terá 10% de desconto e embalagem de presente grátis. #ficaadica <3 <%= root_url %>dia_dos_namorados/'+me_response.id+'/<%= @product.id.to_s %>',
-      link: '<%= "#{root_url}dia_dos_namorados/" %>'+me_response.id+'<%= "/#{@product.id.to_s}" %>'
+      link: '<%= "#{root_url}dia_dos_namorados/" %>'+me_response.id+'<%= "/#{@product.id.to_s}" %>'+link_suffix
     <% end %>     
   }; 
   
