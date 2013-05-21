@@ -27,22 +27,34 @@ describe GiftBox do
 
   describe "#suggestion_products" do
 
+    let(:product_1)   { FactoryGirl.build(:shoe, producer_code: rand.to_s) }
+    let(:product_2)   { FactoryGirl.build(:shoe, producer_code: rand.to_s) }
+    let(:product_3)   { FactoryGirl.build(:shoe, producer_code: rand.to_s) }
+    let(:product_4)   { FactoryGirl.build(:shoe, producer_code: rand.to_s) }
+    let(:product_5)   { FactoryGirl.build(:shoe, producer_code: rand.to_s) }
+    let(:product_6)   { FactoryGirl.build(:shoe, producer_code: rand.to_s) }
+    let(:all_products) { [product_1, product_2, product_3, product_4, product_5, product_6] }
+    let(:products_inventory_desc) { [ product_6, product_5, product_4, product_3, product_2 ] }
 
-    it "should return 5 products ordering by inventory" do
-      product_1 = mock_model("Product", id: 25, inventory: 1)
-      product_2 = mock_model("Product", id: 26, inventory: 2)
-      product_3 = mock_model("Product", id: 27, inventory: 3)
-      product_4 = mock_model("Product", id: 28, inventory: 4)
-      product_5 = mock_model("Product", id: 29, inventory: 5)
-      product_6 = mock_model("Product", id: 30, inventory: 6)
-      products_array = [ product_1, product_2, product_3, product_4, product_5, product_6 ]
-      subject.products = []
-      subject.products = products_array
+    before do
+      product_1.stub(:inventory).and_return(1)
+      product_2.stub(:inventory).and_return(2)
+      product_3.stub(:inventory).and_return(3)
+      product_4.stub(:inventory).and_return(4)
+      product_5.stub(:inventory).and_return(5)
+      product_6.stub(:inventory).and_return(6)
 
-      subject.should_receive(:remove_color_variations).and_return(products_array)
+      subject.stub(:products).and_return(all_products)
+    end
 
-      products_array.shift
-      subject.suggestion_products.should eq(products_array.reverse)
+    it "receives method remove_color_variations" do
+      subject.should_receive(:remove_color_variations).and_return(products_inventory_desc)
+      subject.suggestion_products
+    end
+
+
+    it "returns 5 products ordering by inventory desc" do
+      expect(subject.suggestion_products).to eq(products_inventory_desc)
     end
   end
 
