@@ -1,5 +1,4 @@
 <script type="text/javascript">
-var boyfriend = "";
 $(function(){
 	window.fbAsyncInit = function(){
   	FB.init({
@@ -38,35 +37,38 @@ $(function(){
 
 function getBoyfriendName(){
   FB.api('/me', function(response) {
-    significant_other = response.significant_other;
-    if(significant_other){
-      boyfriend = significant_other.id;      
-    }
-    sendMessageToBoyfriend();
-    return;
+    sendMessageToBoyfriend(response);
   });
 }
 
 
-function sendMessageToBoyfriend() {
+function sendMessageToBoyfriend(me_response) {
+  var boyfriend = "";
+  var significant_other = me_response.significant_other;
+  if(significant_other){
+    boyfriend = significant_other.id;      
+  }
+
   ui_hash = {
     method: 'feed',
-    caption: 'Subtitulo do texto (precisa ser alterado)',
-    name: 'Titulo do texto (precisa ser alterado)',
+    name: 'No Dia dos Namorados...',
+    caption: 'Peça Olook de presente!',
     to: boyfriend,
     display: "iframe",
     <% if @product %>
-    picture: '<%= @product.suggestion_picture.to_s %>',
-    <% end %>
-
-    <% if member && @product %>
-      description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= valentine_link_for(member, @product) %> #ficaadica',
-      link: '<%= valentine_link_for(member, @product) %>'
-    <% else %>
-      description: 'Tenho uma vitrine personaliza da olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10!',
-      link: '<%=  root_url %>'
-    <% end %>   
-    
+      picture: '<%= @product.suggestion_picture.to_s %>',
+      description: '<%= case @product.category
+          when Category::SHOE 
+            "Vi o sapato"
+          when Category::BAG
+            "Vi a bolsa"
+          when Category::ACCESSORY
+            "Vi o acessório"
+          else            
+            "Vi o"            
+          end %>  <%= @product.name %> no site da Olook e amei! Comprando o meu presente na Olook você terá 10% de desconto e embalagem de presente grátis. #ficaadica <3 <%= root_url %>dia_dos_namorados/'+me_response.id+'/<%= @product.id.to_s %>',
+      link: '<%= "#{root_url}dia_dos_namorados/" %>'+me_response.id+'<%= "/#{@product.id.to_s}" %>'
+    <% end %>     
   }; 
   
   FB.ui(ui_hash);
