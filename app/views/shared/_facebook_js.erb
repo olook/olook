@@ -11,7 +11,7 @@ $(function(){
 
     FB.Event.subscribe('xfbml.render',function(){
       window.setTimeout(function(){getBoyfriendName()},1000);
-    });
+    }); 
     
     FB.Event.subscribe('edge.create', function(href, widget) {
       _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);
