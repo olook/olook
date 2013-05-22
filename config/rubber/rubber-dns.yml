@@ -16,9 +16,9 @@ dns_providers:
     type: A
     ttl: 300
   zerigo:
-    email: foo@bar.com
+    email: peter@olook.com.br
     token: b754a2c492eb38cfc55a001cfaf2fa30
-    type: CNAME
+    type: A
     ttl: 300
   dyndns:
     user: joe
