@@ -142,6 +142,8 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
           margin: 0 0 10px;
           padding-bottom: 10px;
           border-bottom: 1px #EBEBEB solid;
+          position:relative;
+          &.has_bt_face{height:55px;}
           h1 {
             font-family: $kepler;
             font-size: 33px;
@@ -161,6 +163,10 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
               overflow:hidden !important;
             }
           }
+          .fb_edge_widget_with_comment{width:85px;
+            &.bt_face{position:absolute;top:35px;right:0;}
+          }
+          
           ul.social {
             float: right;
             li {

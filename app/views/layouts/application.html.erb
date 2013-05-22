@@ -54,7 +54,7 @@
     <div id="overlay-campaign"></div>
 
     <div id="error-messages">
-      <p class="notice"><%= notice %></p>
+      <p class="notice"><%= notice unless params[:action] == "product_valentines_day" %></p>
       <p class="alert"><%= alert %></p>
       <%= yield :errors %>
     </div>
@@ -69,7 +69,7 @@
     <%= content_for?(:content) ? yield(:content) : yield %>
 
     </div>
-
+    <div id="fb-root"></div>
 
     <%= yield :site_footer %>
     <%= javascript_include_tag "jquery" %>
@@ -81,7 +81,7 @@
     <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
 
     <% unless user_signed_in? || request.url.include?("gclid") %>
-      <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal &&  !['landing_pages','survey', 'users/registrations'].include?(params[:controller]) %>
+      <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal &&  !['landing_pages','survey', 'users/registrations', 'cart/cart' ].include?(params[:controller]) %>
     <% end %>
 
     <% if content_for? :footer %>
