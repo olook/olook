@@ -69,7 +69,7 @@ function sendMessageToBoyfriend(me_response) {
       display: "iframe",
     
       picture: '<%= @product.suggestion_picture.to_s %>',
-      description: 'Comprando através deste link você terá 10% de desconto e embalagem de presente grátis. #ficaadica <%= root_url %>dia_dos_namorados/'+me_response.id+'/<%= @product.id.to_s %>',
+      description: 'Comprando através deste link você terá 10% de desconto e embalagem de presente grátis. #ficaadica',
       link: '<%= "#{root_url}dia_dos_namorados/" %>'+me_response.id+'<%= "/#{@product.id.to_s}" %>'+link_suffix
     <% end %>     
   }; 
