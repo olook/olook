@@ -114,7 +114,7 @@ class Cart < ActiveRecord::Base
 
   # CONSIDER to change this method name
   def increment_from_gift_wrap
-    gift_wrap && !free_gift_wrap? ? CartService.gift_wrap_price : 0
+    gift_wrap ? CartService.gift_wrap_price : 0
   end
 
   def free_gift_wrap?
