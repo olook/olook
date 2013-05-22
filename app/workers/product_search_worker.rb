@@ -5,6 +5,9 @@ class ProductSearchWorker
   def self.perform
     clean_indexed_terms
     index_products
+
+    mail = DevAlertMailer.notify_about_products_search_worker
+    mail.deliver
   end
 
   private
