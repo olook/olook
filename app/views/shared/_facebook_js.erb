@@ -53,13 +53,9 @@ function sendMessageToBoyfriend(me_response) {
 
   ui_hash = {
     method: 'feed',
-    name: 'No Dia dos Namorados... Peça Olook de presente!',
-    caption: 'Ganhe 10% de desconto e embalagem de presente grátis.',
-    to: boyfriend,
-    display: "iframe",
+    name: 'No Dia dos Namorados... Quero Olook de presente!',
     <% if @product %>
-      picture: '<%= @product.suggestion_picture.to_s %>',
-      description: '<%= case @product.category
+    caption: '<%= case @product.category
           when Category::SHOE 
             "Vi o sapato"
           when Category::BAG
@@ -68,7 +64,12 @@ function sendMessageToBoyfriend(me_response) {
             "Vi o acessório"
           else            
             "Vi a roupa"            
-          end %>  <%= @product.name %> no site da Olook e amei! Comprando o meu presente na Olook você terá 10% de desconto e embalagem de presente grátis. #ficaadica <3 <%= root_url %>dia_dos_namorados/'+me_response.id+'/<%= @product.id.to_s %>',
+          end %> <%= @product.name %> e amei! <3',
+    to: boyfriend,
+    display: "iframe",
+    
+      picture: '<%= @product.suggestion_picture.to_s %>',
+      description: 'Comprando através deste link você terá 10% de desconto e embalagem de presente grátis. #ficaadica <%= root_url %>dia_dos_namorados/'+me_response.id+'/<%= @product.id.to_s %>',
       link: '<%= "#{root_url}dia_dos_namorados/" %>'+me_response.id+'<%= "/#{@product.id.to_s}" %>'+link_suffix
     <% end %>     
   }; 
