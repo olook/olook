@@ -112,6 +112,27 @@ ActiveRecord::Schema.define(:version => 20130514180149) do
 
   add_index "braspag_capture_responses", ["identification_code"], :name => "index_braspag_capture_responses_on_order_id"
 
+  create_table "braspag_responses", :force => true do |t|
+    t.string   "type"
+    t.string   "correlation_id"
+    t.boolean  "success"
+    t.string   "error_message"
+    t.string   "order_id"
+    t.string   "braspag_order_id"
+    t.string   "braspag_transaction_id"
+    t.string   "amount"
+    t.integer  "payment_method"
+    t.string   "acquirer_transaction_id"
+    t.string   "authorization_code"
+    t.string   "return_code"
+    t.string   "return_message"
+    t.integer  "transaction_status"
+    t.boolean  "processed",               :default => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.string   "credit_card_token"
+  end
+
   create_table "campaign_emails", :force => true do |t|
     t.string   "email"
     t.datetime "created_at",                        :null => false

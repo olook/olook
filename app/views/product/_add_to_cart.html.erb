@@ -1,4 +1,4 @@
-<%= form_tag(cart_items_path, onsubmit: track_add_to_cart_event(product.id), 
+<%= form_tag(cart_items_path, onsubmit: params[:action] == "product_valentines_day" ? track_add_to_cart_valentines_day_event(product.id) : track_add_to_cart_event(product.id), 
                               id: "product_add_to_cart", 
                               remote: true) do %>
 
