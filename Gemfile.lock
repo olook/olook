@@ -1,4 +1,18 @@
 GIT
+  remote: git://github.com/nelsonmhjr/rubber.git
+  revision: 7671e0fc5e32460e2ef24bc9e002955cf5e69df0
+  branch: newrelic
+  specs:
+    rubber (2.3.1)
+      capistrano (~> 2.12)
+      clamp
+      fog (~> 1.6)
+      json
+      net-ssh (~> 2.6)
+      open4
+      thor
+
+GIT
   remote: git://github.com/olook/clearsale.git
   revision: 753e9e24103859f7a10e242caa05fb18ff7c6c38
   branch: master
@@ -157,7 +171,7 @@ GEM
     choice (0.1.6)
     chronic (0.9.0)
     chunky_png (1.2.8)
-    clamp (0.5.1)
+    clamp (0.6.1)
     coderay (1.0.9)
     curb (0.8.3)
     daemons (1.1.9)
@@ -404,14 +418,6 @@ GEM
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
-    rubber (2.2.4)
-      capistrano (~> 2.12)
-      clamp
-      fog (~> 1.6)
-      json
-      net-ssh (~> 2.6)
-      open4
-      thor
     ruby-graphviz (1.0.8)
     ruby-hmac (0.4.0)
     ruby-progressbar (1.0.2)
@@ -574,7 +580,7 @@ DEPENDENCIES
   resque-scheduler (~> 2.0.0)
   resque_mailer (~> 2.0.2)
   rspec-rails (~> 2.12.0)
-  rubber (~> 2.0)
+  rubber (~> 2.0)!
   sass-rails (~> 3.2.3)
   savon (= 0.9.9)
   shoulda-matchers
