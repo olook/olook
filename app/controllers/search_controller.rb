@@ -9,7 +9,7 @@ class SearchController < ApplicationController
   def show
 
     url_builder = SearchUrlBuilder.new params[:q]
-    url = url_builder.build_url_with({category: params[:category], brand: params[:brand]})
+    url = url_builder.build_url_with({category: params[:category], brand: params[:brand], rank: "cor_e_marca"})
 
     response = Net::HTTP.get_response(url)
     @hits = JSON.parse(response.body)["hits"]
