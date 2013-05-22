@@ -58,6 +58,10 @@ module ApplicationHelper
     track_event("Shopping", "AddToCart#{ga_event_referer}", product_id)
   end
 
+  def track_add_to_cart_valentines_day_event(product_id = '')
+    track_event("Shopping", "AddToCartValentinesDay#{ga_event_referer}", product_id)
+  end
+
   def user_avatar(user, type = "large")
     "https://graph.facebook.com/#{user.uid}/picture?type=#{type}"
   end
