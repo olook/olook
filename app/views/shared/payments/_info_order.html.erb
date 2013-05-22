@@ -18,7 +18,9 @@
     gift_wrap ||= cart_service.cart.gift_wrap
     if gift_wrap %>
     <li>
-      <p><span class="txt-black">EMBALAGEM (PRESENTE):</span><span>+ R$5,00</span></p>
+      <p><span class="txt-black">EMBALAGEM (PRESENTE):</span>
+        <span><%= cart_service.cart.free_gift_wrap? ? 'GRÁTIS' : '+ R$5,00' %></span>
+      </p>
     </li>
     <% end %>
 
