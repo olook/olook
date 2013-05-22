@@ -38,38 +38,5 @@
   zone: us-east-1b
   platform: linux
   root_device_type: ebs
-- !ruby/object:Rubber::Configuration::InstanceItem
-  name: resque02
-  domain: olook.com.br
-  roles:
-  - !ruby/object:Rubber::Configuration::RoleItem
-    name: resque
-    options: {}
-  - !ruby/object:Rubber::Configuration::RoleItem
-    name: resque_worker
-    options: {}
-  - !ruby/object:Rubber::Configuration::RoleItem
-    name: collectd
-    options: {}
-  - !ruby/object:Rubber::Configuration::RoleItem
-    name: monit
-    options: {}
-  instance_id: i-4f899a2d
-  image_type: m1.large
-  image_id: ami-3fec7956
-  security_groups:
-  - olook_production_default
-  - olook_production_resque02
-  - olook_production_resque
-  - olook_production_resque_worker
-  - olook_production_collectd
-  - olook_production_monit
-  external_host: ec2-54-226-8-119.compute-1.amazonaws.com
-  external_ip: 54.226.8.119
-  internal_host: ip-10-232-7-236.ec2.internal
-  internal_ip: 10.232.7.236
-  zone: us-east-1b
-  platform: linux
-  root_device_type: ebs
 - volumes: {}
   static_ips: {}
