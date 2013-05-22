@@ -211,6 +211,9 @@ Olook::Application.routes.draw do
       get :products, :to => "lookbooks#product"
     end
 
+    # reports
+    resources :reports
+
     resources :collection_theme_groups
 
     resources :collection_themes
