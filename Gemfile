@@ -69,7 +69,7 @@ group :development, :test do
   gem 'faker'
   gem 'bullet'
   gem 'thin'
-  gem 'rb-inotify', '~> 0.8.8', :require => false
+  gem 'rb-inotify', '~> 0.9', :require => false
   gem 'rb-fsevent', :require => false
   gem 'rb-fchange', :require => false
   gem 'sqlite3', '~> 1.3.6'
