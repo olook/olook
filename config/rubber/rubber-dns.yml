@@ -1,5 +1,5 @@
 # OPTIONAL: The dns provider to use.  Need to exist in dns_providers below
-# dns_provider: nettica
+dns_provider: zerigo
 
 # OPTIONAL: The configuration for each dns provider (nettica|zerigo|dyndns)
 #          This lets rubber update a dynamic dns service with the instance alias and ip
@@ -17,8 +17,8 @@ dns_providers:
     ttl: 300
   zerigo:
     email: foo@bar.com
-    token: hexxy
-    type: A
+    token: b754a2c492eb38cfc55a001cfaf2fa30
+    type: CNAME
     ttl: 300
   dyndns:
     user: joe
