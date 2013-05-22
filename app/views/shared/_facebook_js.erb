@@ -73,7 +73,7 @@ function sendMessageToBoyfriend(me_response) {
       link: '<%= "#{root_url}dia_dos_namorados/" %>'+me_response.id+'<%= "/#{@product.id.to_s}" %>'+link_suffix
     <% end %>     
   }; 
-  
+  FB.ui(ui_hash);
 }
  
 
