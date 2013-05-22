@@ -124,6 +124,9 @@ Olook::Application.routes.draw do
   get "/produto/:id/spy" => "product#spy", as: 'spy_product'
   post "/produto/share" => "product#share_by_email", as: 'product_share_by_email'
 
+  get "/dia_dos_namorados/:encrypted_id/:id" => "product#product_valentines_day"
+
+
   #VITRINE / INVITE
   get "membro/convite" => "members#invite", :as => 'member_invite'
   get "convite/(:invite_token)" => 'members#accept_invitation', :as => "accept_invitation"
@@ -331,8 +334,9 @@ Olook::Application.routes.draw do
     delete '/logout' => 'users/sessions#destroy', :as => :destroy_user_session
     get '/registrar' => "users/registrations#new_half", :as => :new_half_user_session
     post '/registrar' => "users/registrations#create_half", :as => :create_half_user
-    get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
+    get '/users/auth/:provider' => 'omniauth_callbacks#passthru' # TODO change to "conta" instead of user
     delete '/conta/remover_facebook' => 'users/registrations#destroy_facebook_account', :as => :destroy_facebook_account
+    match '/conta/auth/facebook/setup', :to => 'omniauth_callbacks#setup'
   end
 
   get '/conta/pedidos/:number', :controller =>'users/orders', :action => 'show' , :as => "user_order"
