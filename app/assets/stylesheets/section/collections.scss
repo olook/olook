@@ -208,14 +208,13 @@
 /*******  MENU ******/
 #collections_menu{
   dl{font-family:$avenir;color:#000;}
-  dt{float:left;font-size:15px;text-transform:uppercase;border-bottom:dotted 1px #000;margin-bottom:10px;}
-  dd{font-family:13px;clear:both;margin-bottom:10px;
+  dt{float:left;font-size:11px;text-transform:uppercase;margin-bottom:5px;font-weight:bold;}
+  dd{clear:both;
     &.last{margin-bottom:25px;}
-    a{text-decoration:none;color:#000;
+    a{text-decoration:none;color:#000;font-size:13px;
       &:hover{color:#EF3742;}
       &.selected{color:#EF3742;}
     }
-
   }
 }
 
@@ -271,11 +270,8 @@ section{margin-top:10px;
             /*overflow: auto;
             display: inline;*/
             span.select {
-              position: absolute;
-              top: 2px;
               height: 34px;
               cursor: pointer;
-              z-index: 1;
               font-size:11px;
               text-transform:uppercase;
               line-height:18px;
