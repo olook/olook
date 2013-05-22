@@ -24,7 +24,7 @@ class DevAlertMailer < ActionMailer::Base
   def product_visibility_notification(products, admin)
     @admin = admin
     @products = products
-    mail(:to => %[rafael.manoel@olook.com.br, nelson.haraguchi@olook.com.br, andressa.vieira@olook.com.br, luiza.bet@olook.com.br, suzane.dirami@olook.com.br, caroline.passos@olook.com.br], :subject => "Produtos com visibilidade alterada")
+    mail(:to => %[rafael.manoel@olook.com.br, nelson.haraguchi@olook.com.br, andressa.vieira@olook.com.br, luiza.bet@olook.com.br, suzane.dirami@olook.com.br, caroline.passos@olook.com.br, katarine.brandao@olook.com.br], :subject => "Produtos com visibilidade alterada")
   end
 
   def notify_about_cancelled_billets
@@ -32,10 +32,10 @@ class DevAlertMailer < ActionMailer::Base
   end
 
   def notify_about_products_search_worker
-   mail(to: "vinicius.monteiro@olook.com.br", subject: "ProductSearchWorker executado com sucesso!")
+   mail(to: "rafael.manoel@olook.com.br", subject: "ProductSearchWorker executado com sucesso!")
   end
 
   def notify_about_products_index
-   mail(to: "vinicius.monteiro@olook.com.br", subject: "IndexProductsWorker executado com sucesso!")
+   mail(to: "rafael.manoel@olook.com.br", subject: "IndexProductsWorker executado com sucesso!")
   end
 end

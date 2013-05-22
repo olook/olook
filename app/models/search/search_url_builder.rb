@@ -11,6 +11,7 @@ class SearchUrlBuilder
     query += "&bq=categoria%3A'#{CGI.escape attributes[:category]}'" if attributes[:category]
     query += "&bq=brand%3A'#{CGI.escape attributes[:brand]}'" if attributes[:brand]
     query += "&size=100"
+    query += "&rank=-#{attributes[:rank]}" if attributes[:rank]
     URI.parse("http://#{BASE_URL}/2011-02-01/search?#{query}&return-fields=categoria,name,brand,description,image,price,backside_image,category,text_relevance")
   end
 
