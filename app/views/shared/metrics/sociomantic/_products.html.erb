@@ -14,4 +14,17 @@
               ]
   };
 </script>
-
+<script type="text/javascript">
+  dataLayer = [];
+  dataLayer.push({
+    'SociomanticProducts': {
+      var moments_products = {
+        products: [
+          <% products.each do |item| %>
+            {identifier: "<%= item.id %>"}
+          <% end %>
+        ]
+      }
+    }
+  });
+</script>
