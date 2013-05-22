@@ -15,9 +15,8 @@ class AdminReportMailer < ActionMailer::Base
     }
   end
 
-  def send_report(filepath, admin)
-    @admin = admin
-    @email = @admin.email
+  def send_report(filepath, email)
+    @email = email
     attachments["clear_sale_report.csv"] = File.read(filepath)
     mail(to: @email, subject: "Relatório Clear Sale")
   end
