@@ -1633,14 +1633,14 @@ section.checkout{
 			label{color:#000;}
 
 			p{font-size:13px;float:left;
-				span, a{color:#ef3742;}
+				span, a{color:#000; font-weight: 500;}
 				a{display:block;margin:6px 0 5px;font-size:13px;}
 			}
 		}
 		.payment{float:left;padding-left:5px;
 			.span_error{float:none !important;display:block;margin-bottom:10px;}
       p{font-size:13px;margin-top:15px;
-        span{color:#000;}
+        span{font-weight: 500;}
 				&.tip{margin:0 0 10px !important;}
       }
 			li{float:left;height:auto
@@ -1687,7 +1687,7 @@ section.checkout{
         .find_code{
           font-family: $avenir;
           font-size: 12px;
-          color: $pink;
+          color: #000;
         }
 			}
 			.box-boleto{float:left;
@@ -1713,7 +1713,7 @@ section.checkout{
 			.about_title{font-size:18px;font-family:$avenir;color:#000;margin-bottom:15px;}
 			table.check{border:0;
 				p{margin:0;width:620px;
-					span{color:#DD4A78;}
+					span{color:#000;}
 				}
 				#credits_explanation{
 					p{color:#000;font-size:14px;margin-top:15px;
@@ -1752,7 +1752,7 @@ section.checkout{
 			}
 		}
 		p.total{color: #000 !important;font-size:17px;margin-left:27px;line-height:18px;overflow:hidden;margin-bottom:10px;
-			span{width:109px;display:inline-block;float:left;
+			span{width:109px;display:inline-block;float:left;font-weight: 500;
 				&.frete{font-size:12px;width:150px;margin-left:109px;}
 				&#total_billet{display:none;}
 			}
