@@ -280,14 +280,17 @@ hosts:
   app05:
     availability_zone: us-east-1d
   resque01:
+    resque_worker_count: 30
     cloud_providers:
       aws:
         image_type: m1.xlarge
   resque02:
+    resque_worker_count: 20
     cloud_providers:
       aws:
         image_type: m1.large
   resque03:
+    resque_worker_count: 20
     cloud_providers:
       aws:
         image_type: m1.large
