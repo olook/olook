@@ -30,18 +30,52 @@
   <% end %>
 
   <div id="product">
-    <%= link_to image_tag("valentine/valentines_day_facebook.jpg", style:"margin-bottom:20px"), "#", class: "face-message", onclick:  track_event('ValentinesDay', "ClickValentinesDayBanner") %>
     <div class="content">
+
+      <div id="user_data">
+        <%= image_tag "https://graph.facebook.com/#{@uid}/picture?width=65&height=60" %>
+        <p><span></span><%= ", sua namorada," unless params["single"] == "1" %> amou este produto e adoraria ganhá-lo no dias namorados.</p>
+      </div>
+
       <div id="pics_suggestions">
         <%= product_presenter.render_pics %>
-        <%= product_presenter.render_facebook_comments %>
+        <%#= product_presenter.render_facebook_comments %>
       </div>
       <div id="infos">
-        <%= product_presenter.render_description %>
+        <%= product_presenter.render_description(false) %>
         <%= product_presenter.render_add_to_cart %>
         <%= product_presenter.render_details %>
       </div>
-
+      
+      <div id="benefits">
+        <div class="fl">
+          <p>Vantagens Olook</p>
+          <ul class="vantagens">
+            <li class="embalagem"><b>EMBALAGEM DE PRESENTE DE GRAÇA</b><br/>Para a campanha do dia dos namorados</li>
+            <li class="frete"><b>FRETE GRÁTIS para o SUL E SUDESTE</b><br/>Em compras acima DE R$ 60,00</li>
+            <li class="desconto"><b>10% DE DESCONTO</b><br/>Para presentear sua namorada</li>
+            <li class="cartao"><b>EM ATÉ 6 VEZES NO CARTÃO</b><br/>Parcela mínima de R$ 30,00</li>
+            <li class="devolucao"><b>DEVOLUÇÃO E TROCA GRÁTIS</b><br/>Em até 30 DIAS</li>
+            <li class="credito"><b>15% DE VOLTA EM CRÉDITOS</b><br/>Para usar nos próximos 2 meses</li>
+          </ul>
+        </div>  
+        <div class="fl">
+          <p class="txt-center">Formas de pagamento</p>
+          <%= image_tag("valentine/cartoes.jpg", class: "cartoes") %>
+        </div>
+        <div class="fl">
+          <p class="txt-center">Segurança</p>  
+          <%= link_to image_tag("common/ico_security.png", width: "90", height: "40"), "http://www.trustlogo.com/ttb_searcher/trustlogo?v_querytype=W&v_shortname=SC4&v_search=http://www.olook.com.br/&x=6&y=5", target: '_blank', class:"mt" %>
+         
+         <%= link_to image_tag("https://a248.e.akamai.net/f/248/52872/0s/img.ebit.com.br/ebitBR/selo/img_19329.png"), "http://www.ebit.com.br/#/selo", target: '_blank', class: "mt" %>
+        </div>  
+      </div>
+      
+      <% if Setting.show_featured_products %>
+        <%= product_presenter.render_related_products %>
+      <% end %>
+      
+      <p class="gift-title">QUE TAL SURPREENDÊ-LA COM MAIS UM PRESENTINHO?</p>
       <!-- local onde o frequentlyboughttogether será exibido -->
       <div class="chaordic frequentlyboughttogether"></div>
       <!-- local onde o similaritems será exibido -->
@@ -52,7 +86,7 @@
 
       <div id="modal_guide">
         <h1>GUIA DE MEDIDAS</h1>
-        <%= image_tag 'common/body.jpg', :class => '' %>
+        <%= image_tag 'common/body.jpg', :class => '', style:"" %>
         <p>Na página do produto, você poderá </br>consultar as medidas da peça em "Tamanhos & Medidas".</br> Aqui indicamos como fazemos a medição, </br>para que você faça o mesmo ai, ok? ;)</p>
         <ul>
           <li>
@@ -103,7 +137,18 @@
      <% end %>
    </div>
 
-  <% if Setting.show_product_partner_tags %>
+  <script type="text/javascript">
+    $(function(){
+      $.ajax({
+          url      : 'https://graph.facebook.com/<%= @uid %>',
+          dataType : 'jsonp',
+          success  : function (response) {
+            $('#user_data p span').html(response.name);
+            $('#user_data').slideDown(600);
+          }
+      });
+    });
+  </script>
 
   <!-- Begin: Groovinads Behavioral-->
   <img src="http://ads01.groovinads.com/grv/track/bhpx.os?idc=90&sku=<%= "#{sku_for(@product)}" %>&idcategory=<%= "#{@product.category}" %>" height="1">
@@ -116,9 +161,6 @@
   <%= render partial: "shared/metrics/nextperformance/product", :locals => { product_id: @product.id } %>
   <%= render partial: "shared/metrics/nextperformance/category", :locals => { category_id: @product.category } %>
   <%= render partial: "shared/metrics/all_in/product", :locals => { product: @product } %>
-
-  <% end %>
-  
   <%= render "facebook_js", :facebook_app_id => @facebook_app_id, :product => @product %>
   <%= render "shared/lightbox_credits" %>
 <% end %>
