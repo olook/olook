@@ -1,5 +1,7 @@
 # This is a sample Capistrano config file for rubber
 require File.expand_path(File.join(File.dirname(__FILE__), 'deploy', 'capistrano_yml_config.rb'))
+require 'airbrake/capistrano'
+require 'new_relic/recipes'
 
 set :rails_env, Rubber.env
 
