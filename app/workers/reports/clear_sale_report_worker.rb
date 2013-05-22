@@ -2,9 +2,12 @@ class ClearSaleReportWorker
 
   @queue = :generate_clear_sale_report
 
-  def self.perform(start_date, end_date, admin)
-    filepath = report_file(start_date, end_date)
-    mail = AdminReportMailer.send_report(filepath, admin)
+  def self.perform(start_date, end_date, admin_email)
+    parsed_start_date = Date.parse start_date
+    parsed_end_date = Date.parse end_date
+
+    filepath = report_file(parsed_start_date, parsed_end_date)
+    mail = AdminReportMailer.send_report(filepath, admin_email)
     mail.deliver
   end
 

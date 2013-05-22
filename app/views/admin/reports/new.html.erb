@@ -4,7 +4,7 @@
   <%= form_tag admin_reports_path, method: "post" do %>
     <div class="field">
       <%= label_tag :start_date, "Data de inicio" %><br />
-      <%= date_select :start_date, "" %>
+      <%= date_select :start_date, "", end_date: Date.today %>
     </div>
 
     <div class="field">
