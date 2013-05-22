@@ -73,22 +73,6 @@ function sendMessageToBoyfriend(me_response) {
     <% end %>     
   }; 
   
-  FB.ui(ui_hash,
-  function(response) {
-    if (response && response.post_id) {
-      // $( "#dialog-message" ).dialog({
-      //   modal: true,
-      //   buttons: {
-      //     Ok: function() {
-      //       $( this ).dialog( "fechar" );
-      //     }
-      //   }
-      // });      
-      console.log('Post was published.');
-    } else {
-      console.log('Post was not published.');
-    }
-  });
 }
 
 
