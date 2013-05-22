@@ -39,7 +39,7 @@
 
       <div id="pics_suggestions">
         <%= product_presenter.render_pics %>
-        <%= product_presenter.render_facebook_comments %>
+        <%#= product_presenter.render_facebook_comments %>
       </div>
       <div id="infos">
         <%= product_presenter.render_description(false) %>
@@ -141,9 +141,9 @@
     $(function(){
       $.ajax({
           url      : 'https://graph.facebook.com/<%= @uid %>',
-          dataType : 'json',
+          dataType : 'jsonp',
           success  : function (response) {
-            $('#user_data p span').html(response["name"]);
+            $('#user_data p span').html(response.name);
             $('#user_data').slideDown(600);
           }
       });
