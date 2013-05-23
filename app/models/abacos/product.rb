@@ -144,7 +144,7 @@ module Abacos
         :height                 => abacos_product[:espessura].to_f,
         :length                 => abacos_product[:comprimento].to_f,
         :weight                 => abacos_product[:peso].to_f,
-        :producer_code          => parse_producer_code(abacos_product[:codigo_fabricante]),
+        :producer_code          => abacos_product[:codigo_fabricante],
         :color_name             => parse_color( abacos_product[:descritor_pre_definido] ),
         :collection_id          => parse_collection(abacos_product[:descricao_grupo]),
         :details                => parse_details( abacos_product[:caracteristicas_complementares], abacos_product[:descritor_simples] ),
@@ -204,10 +204,6 @@ module Abacos
 
     def self.parse_brand(data)
       find_in_descritor_pre_definido(data, 'MARCA')
-    end
-
-    def self.parse_producer_code(data)
-      data.split("/").first
     end
 
     def self.parse_details(data, data_simple_descriptor)
