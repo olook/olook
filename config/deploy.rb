@@ -80,7 +80,7 @@ Dir["#{File.dirname(__FILE__)}/rubber/deploy-*.rb"].each do |deploy_file|
   load deploy_file
 end
 
-after "deploy:update", "newrelic:notice_deployment"
+after "deploy", "newrelic:notice_deployment"
 
 # capistrano's deploy:cleanup doesn't play well with FILTER
 after "deploy", "cleanup"
