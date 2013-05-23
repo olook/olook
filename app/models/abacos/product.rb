@@ -9,7 +9,7 @@ module Abacos
                 :name, :description, :model_number, :category,
                 :width, :height, :length, :weight, :color_category,
                 :color_name, :collection_id, :how_to, :collection_themes, :details, :profiles,
-                :is_kit, :pre_defined_descriptor, :class_description, :brand
+                :is_kit, :pre_defined_descriptor, :class_description, :brand, :producer_code
 
     def initialize(parsed_data)
       parsed_data.each do |key, value|
@@ -29,6 +29,7 @@ module Abacos
         :length         => self.length,
         :weight         => self.weight,
         :is_kit         => self.is_kit,
+        :producer_code  => self.producer_code,
         :brand          => self.brand
       }
     end
@@ -143,6 +144,7 @@ module Abacos
         :height                 => abacos_product[:espessura].to_f,
         :length                 => abacos_product[:comprimento].to_f,
         :weight                 => abacos_product[:peso].to_f,
+        :producer_code          => abacos_product[:codigo_fabricante],
         :color_name             => parse_color( abacos_product[:descritor_pre_definido] ),
         :collection_id          => parse_collection(abacos_product[:descricao_grupo]),
         :details                => parse_details( abacos_product[:caracteristicas_complementares], abacos_product[:descritor_simples] ),
