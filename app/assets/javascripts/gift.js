@@ -127,6 +127,7 @@ InitGift = {
 }
 
 share = function() {
-  var sharer = "https://www.facebook.com/sharer/sharer.php?u=" + location.href;
+  var coupon = "?coupon_code=" + $('#banner').data('couponCode');
+  var sharer = "https://www.facebook.com/sharer/sharer.php?u=" + location.href + coupon;
   window.open(sharer, 'sharer', 'width=626,height=436');
 }
