@@ -779,11 +779,9 @@ describe Product do
         subject.stub(:collection_id).and_return(1)
       end
 
-      it "returns suggested products" do
-        subject.find_suggested_products.should_not include (first_shoe)
-        subject.find_suggested_products.should include (second_shoe)
-        subject.find_suggested_products.should include (third_shoe)
-      end
+      it { subject.find_suggested_products.should_not include (first_shoe) }
+      it { subject.find_suggested_products.should include (second_shoe) }
+      it { subject.find_suggested_products.should include (third_shoe) }
 
     end
   end
