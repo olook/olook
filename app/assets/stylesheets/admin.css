@@ -4,7 +4,6 @@
  *= require admin/base
  *= require admin/themes/default/style.css
  *= require admin/liquidation_products.css
- *= require admin/lookbooks.css
  *= require admin/promotions.css
  *= require admin/orders.css.scss
  *= require admin/dashboard.css.scss
