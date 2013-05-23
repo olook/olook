@@ -1,6 +1,5 @@
 $(function() {
   var stringDesc = $("div#infos div.description p.description").text();
-  initQuickView.sliceDesc(stringDesc);
   initQuickView.productZoom();
   initQuickView.twitProduct();
   initQuickView.pinProduct();
@@ -17,10 +16,6 @@ $(function() {
     el = $(this).parent();
     el.text(stringDesc);
     el.append("<a href='javascript:void(0);' class='less'>Esconder</a>");
-  });
-
-  $("div#infos div.description p[class!='price'] a.less").live("click", function() {
-    initQuickView.sliceDesc(stringDesc);
   });
 
   $("div#pics_suggestions ul#thumbs li a").live("click", function() {
@@ -87,13 +82,6 @@ $(function() {
 
 initQuickView = {
   inQuickView : false,
-  sliceDesc : function(string) {
-    if(string.length > 190) {
-      el = $("div#infos div.description p.description");
-      descSliced = el.text(string.slice(0,190)+"...");
-      el.append("<a href='javascript:void(0);' class='more'>Ler tudo</a>");
-    }
-  },
 
   productZoom : function() {
     $("div#pics_suggestions div#full_pic ul li a.image_zoom").jqzoom({

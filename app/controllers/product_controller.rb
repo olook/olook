@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class ProductController < ApplicationController
   respond_to :html
-  before_filter :load_show_product, only: [:show, :spy]
-
+  before_filter :load_show_product, only: [:show, :spy, :product_valentines_day]
+  prepend_before_filter :assign_valentines_day_parameters, only: [:product_valentines_day]
 
   rescue_from ActiveRecord::RecordNotFound do
     ### to render home partials ###
@@ -11,6 +11,12 @@ class ProductController < ApplicationController
   end
 
   def show
+  end
+  
+  def product_valentines_day
+    @uid = params[:encrypted_id]
+    # girlfriend = User.find_by_id(IntegerEncoder.decode(params[:encrypted_id]))
+    # @user_data = FacebookAdapter.new(girlfriend.facebook_token).retrieve_user_data
   end
 
   def spy
@@ -25,6 +31,12 @@ class ProductController < ApplicationController
   end
 
   private
+
+  def assign_valentines_day_parameters
+    params[:coupon_code] = Setting.valentines_day_coupon_code
+    params[:modal] = Setting.valentines_day_show_modal
+  end
+
   def load_show_product
     @google_path_pixel_information = "Produto"
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]

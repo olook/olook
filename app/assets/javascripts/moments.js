@@ -33,7 +33,7 @@ filter.spyOverChangeImage = function(){
 }
 
 filter.hide_chaordic = function() {
-    if ($("#filter input[type=checkbox]").is(":checked")) {
+    if ($("#filter input[type=checkbox]:checked").length > 0 && /shoe_sizes/.test( window.location.search || "")) {
         $('.chaordic.mostpopular').remove();
     };
 }

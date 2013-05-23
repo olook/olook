@@ -12,10 +12,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
   img{float: right;margin-right: 25px;}
 }
 
-/*** ADJUST LIKE BUTTON FACEBOOK ****/
-.fb_edge_widget_with_comment span.fb_edge_comment_widget iframe.fb_ltr {
-  display: none !important;
-}
+
 
 #product {
   padding: 10px 0 0 0;
@@ -145,22 +142,31 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
           margin: 0 0 10px;
           padding-bottom: 10px;
           border-bottom: 1px #EBEBEB solid;
+          position:relative;
+          &.has_bt_face{height:55px;}
           h1 {
             font-family: $kepler;
             font-size: 33px;
           }
-          div.fb-like {
+          
+
+          div.fb-like,.fb_edge_widget_with_comment {
             width: 90px;
             margin: 3px 0 0;
             float: left;
-            .fb_edge_comment_widget {
+            height:20px;
+            .fb_edge_comment_widget,.-cx-PRIVATE-pluginPostFlyout__core {
               display: none;
             }
             iframe {
               height: 20px !important;
-			  overflow:hidden !important;
+              overflow:hidden !important;
             }
           }
+          .fb_edge_widget_with_comment{width:85px;
+            &.bt_face{position:absolute;top:35px;right:0;}
+          }
+          
           ul.social {
             float: right;
             li {
@@ -308,13 +314,12 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
           p {
             font-size: 12px;
             line-height: 30px;
-            text-align: right;
-            width: 70px;
-            margin-right: 10px;
+            text-align: left;
+            width: 65px;
             float: left;
           }
           ol {
-            width: 270px;
+            width: 290px;
             float: left;
             li {
               margin: 0 2px 0 0;
