@@ -9,6 +9,9 @@ class IndexProductsWorker
   def self.perform
     add_products
     remove_products
+
+    mail = DevAlertMailer.notify_about_products_index
+    mail.deliver
   end
 
   private
@@ -22,11 +25,11 @@ class IndexProductsWorker
     def self.remove_products
       remove_products = products_to_remove.map {|product| create_sdf_entry_for product, 'delete'}
       flush_to_sdf_file "base-remove.sdf", remove_products
-      upload_sdf_file "base-remove.sdf"      
+      upload_sdf_file "base-remove.sdf"
     end
 
     def self.flush_to_sdf_file file_name, all_products
-      File.open("#{file_name}", "w:UTF-8") do |file| 
+      File.open("#{file_name}", "w:UTF-8") do |file|
         file << all_products.to_json
       end
     end
@@ -44,12 +47,12 @@ class IndexProductsWorker
 
       if type == 'add'
         values['lang'] = 'pt'
-        
+
         fields = {}
 
         remove_product_item_view_cache product.id
 
-        fields['name'] = product.name
+        fields['name'] = product.formatted_name(100)
         fields['description'] = product.description
         fields['image'] = product.catalog_picture
         fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
@@ -65,7 +68,7 @@ class IndexProductsWorker
 
         values['fields'] = fields
       end
-      values      
+      values
     end
 
     def self.upload_sdf_file file_name

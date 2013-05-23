@@ -132,6 +132,7 @@ $(document).ready(function() {
   $(window).resize(function() {
     width = $(this).width();
     menu = $("#wrapper_new_menu .menu_new");
+
     if(width < "1200") {
       $(menu).addClass("smaller");
     } else {
