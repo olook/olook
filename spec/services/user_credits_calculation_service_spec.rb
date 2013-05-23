@@ -10,30 +10,16 @@ describe UserCreditsCalculationService do
 
   context "having user" do
     let(:user) { FactoryGirl.create(:member) }
-    #let(:credit_type){ mock_model(CreditType, :total => 25.03, :add => true, :remove => true) }
     let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
     let(:user_credit) { FactoryGirl.create(:user_credit, :user => user, :credit_type => loyalty_program_credit_type) }
-    #let(:user_credit) { FactoryGirl.create(:user_credit, :user => user, :credit_type => credit_type) }
     let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
     let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
     let(:order) {FactoryGirl.create(:order, :user => user)}
     let(:amount) { BigDecimal.new("33.33") }
     let(:credits_attrs) {{:amount => amount, :order => order}}
-    #let(:order) { FactoryGirl.create(:order, :user => user) }
-    #let(:invite) { FactoryGirl.create(:invite, :user => user) }
-    #let(:amount) { BigDecimal.new('22.03')}
-    #let(:credit_attrs) {{:amount => amount,:order => order}}
-    #let(:merged_credit_attrs) do
-    #  {
-    #    :order => order,
-    #    :user_credit => user_credit,
-    #    :value => amount
-    #  }
-    #end
     let(:user_without_credits){ FactoryGirl.create(:member) }
     context "without credits" do
       it "returns '0' on total" do
-        #user_without_credits.user_credits_for(:invite).add(:amount => 10.0)
         user_credit = UserCreditsCalculationService.new(user_without_credits)
         expect(user_credit.user_credits_sum.to_s).to eql("0.0")
       end
