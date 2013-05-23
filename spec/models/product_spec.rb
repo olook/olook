@@ -541,25 +541,71 @@ describe Product do
     end
   end
 
-  context "color variations" do
-    let(:black_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'black', :color_sample => 'black_sample') }
-    let(:red_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'red', :color_sample => 'red_sample') }
-    let(:black_bag) { FactoryGirl.create(:basic_bag) }
+  describe "#colors" do
+    let(:black_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'black', :color_sample => 'black_sample', producer_code: "A1B2C3") }
+    let!(:blue_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'blue', :color_sample => 'blue_sample', producer_code: "A1B2C3" ) }
+    let(:red_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'red', :color_sample => 'red_sample', producer_code: "A1B2C3" ) }
+    let(:other_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'red', :color_sample => 'red_sample', producer_code: "4D5E6F" ) }
 
-    before :each do
-      black_shoe.relate_with_product black_bag
-      black_shoe.relate_with_product red_shoe
+    subject { black_shoe.colors }
+
+    describe "color variations" do
+      context "when product has other products with the same producer_code" do
+        it "returns other products with the same producer_code" do
+          should include red_shoe
+          should include blue_shoe
+        end
+        it "doesn't return product with a different producer_code" do
+          should_not include other_shoe
+        end
+        it "exludes the current product" do
+          should_not include black_shoe
+        end
+      end
     end
 
-    describe '#colors' do
-      it 'returns a list of related products of the same category of the product' do
-        black_shoe.colors.should == [red_shoe]
+    describe "ordering by variant inventory" do
+      let!(:variant) { FactoryGirl.create(:variant, inventory: 5, product: blue_shoe, description: "37") }
+      let!(:variant_with_more_inventory) { FactoryGirl.create(:variant, inventory: 10, product: red_shoe, description: "38") }
+      let!(:variant_with_less_inventory) { FactoryGirl.create(:variant, inventory: 1, product: blue_shoe, description: "39") }
+
+      context "without shoe size given" do
+        it "retuns products with variants ordered by desc inventory" do
+          should eq([red_shoe, blue_shoe])
+        end
+      end
+
+      context "with shoe size given" do
+
+        subject { black_shoe.colors("37") }
+
+        it "returns products with user's shoe size first and others products last" do
+          should eq([blue_shoe, red_shoe])
+        end
+
+      end
+      describe "products visibility" do
+        let(:invisible_product) { FactoryGirl.create(:shoe, is_visible: false, producer_code: "A1B2C3") }
+        context "when given user is admin" do
+          subject { black_shoe.colors("", true) }
+          it "returns all products including invisible" do
+            should include invisible_product
+          end
+
+        end
+
+        context "when given user is not admin" do
+          subject { black_shoe.colors }
+          it "returns only visible products" do
+            should_not include invisible_product
+          end
+        end
       end
     end
 
     describe "#all_colors" do
       it "returns a list of related products of the same category including the current product and orderd by product id" do
-        black_shoe.all_colors.should == [black_shoe, red_shoe]
+        #black_shoe.all_colors.should == [black_shoe, red_shoe]
       end
     end
   end
@@ -719,11 +765,11 @@ describe Product do
 
   describe 'find_suggested_products' do
     context "when product has suggested products" do
-      let!(:first_shoe) { FactoryGirl.create(:shoe) }
-      let!(:second_shoe) { FactoryGirl.create(:red_slipper, collection_id: 1) }
-      let!(:third_shoe) { FactoryGirl.create(:silver_slipper, collection_id: 1) }
-      let!(:subcategory) { FactoryGirl.create(:shoe_subcategory_name, product: second_shoe) }
-      let!(:another_subcategory) { FactoryGirl.create(:shoe_subcategory_name, product: third_shoe) }
+      let(:first_shoe) { FactoryGirl.create(:shoe) }
+      let(:second_shoe) { FactoryGirl.create(:red_slipper, collection_id: 1) }
+      let(:third_shoe) { FactoryGirl.create(:silver_slipper, collection_id: 1) }
+      let(:subcategory) { FactoryGirl.create(:shoe_subcategory_name, product: second_shoe) }
+      let(:another_subcategory) { FactoryGirl.create(:shoe_subcategory_name, product: third_shoe) }
 
       before do
         first_shoe.stub(:subcategory).and_return("Scarpin")
@@ -733,11 +779,9 @@ describe Product do
         subject.stub(:collection_id).and_return(1)
       end
 
-      it "returns suggested products" do
-        subject.find_suggested_products.should_not include (first_shoe)
-        subject.find_suggested_products.should include (second_shoe)
-        subject.find_suggested_products.should include (third_shoe)
-      end
+      it { subject.find_suggested_products.should_not include (first_shoe) }
+      it { subject.find_suggested_products.should include (second_shoe) }
+      it { subject.find_suggested_products.should include (third_shoe) }
 
     end
   end

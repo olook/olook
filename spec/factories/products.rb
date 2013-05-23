@@ -9,6 +9,14 @@ FactoryGirl.define do
       end
     end
 
+    trait :yellow do
+      producer_code 'A1B2C3'
+    end
+
+    trait :blue do
+      producer_code 'D4E5F6'
+    end
+
     trait :in_collection do
       association :collection
     end
