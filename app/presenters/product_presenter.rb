@@ -20,8 +20,8 @@ class ProductPresenter < BasePresenter
     h.render :partial => 'product/related_products', :locals => {:related_products => related_products.first(6)}
   end
 
-  def render_description
-    h.render :partial => 'product/description', :locals => {:product_presenter => self}
+  def render_description(show_facebook_button = true)
+    h.render :partial => 'product/description', :locals => {:product_presenter => self, :show_facebook_button => show_facebook_button}
   end
 
   def display_main_picture
@@ -35,7 +35,7 @@ class ProductPresenter < BasePresenter
     if gift?
       h.render :partial => 'product/add_to_suggestions', :locals => {:product_presenter => self, :product => product}
     else
-        h.render :partial => 'product/add_to_cart', :locals => {:product_presenter => self, :product => product}
+      h.render :partial => 'product/add_to_cart', :locals => {:product_presenter => self, :product => product}
     end
   end
 
@@ -69,6 +69,10 @@ class ProductPresenter < BasePresenter
   def render_multiple_sizes
     variants = product.variants.sorted_by_description
     h.render :partial => 'product/sizes', :locals => {:variants => variants, :shoe_size => shoe_size, :show_cloth_size_table => false}
+  end
+
+  def render_accessory_sizes
+    product.variants.size > 1 ? render_cloth_sizes : render_single_size
   end
 
   def render_cloth_sizes
