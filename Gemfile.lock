@@ -33,7 +33,8 @@ GIT
 
 GIT
   remote: git://github.com/olook/piet.git
-  revision: 0412aa8943e37ceab321d4df20f858eb90dc5b01
+  revision: 3dd7efcd8d13b13844bd116440b7080af8b64910
+  ref: 3dd7efc
   specs:
     piet (0.1.3)
       png_quantizator
