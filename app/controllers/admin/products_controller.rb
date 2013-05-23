@@ -54,7 +54,8 @@ class Admin::ProductsController < Admin::BaseController
 
   def sync_products
     @products = Product.all
-    @sync_event = SynchronizationEvent.new(:name => 'products')
+    @sync_event = SynchronizationEvent.new(name: 'products', user: current_admin.email)
+    
     if @sync_event.save
       redirect_to admin_products_path
     else

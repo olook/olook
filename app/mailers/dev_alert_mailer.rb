@@ -4,7 +4,7 @@ class DevAlertMailer < ActionMailer::Base
 
   default :from => "olook notification <dev.notifications@olook.com.br>"
 
-    def self.smtp_settings
+  def self.smtp_settings
     {
       :user_name => "AKIAJJO4CTAEHYW34HGQ",
       :password => "AkYlOmgbIpISW33XVzQq8d9J4GnAgtQlEJuwgIxOFXmU",
@@ -32,10 +32,14 @@ class DevAlertMailer < ActionMailer::Base
   end
 
   def notify_about_products_search_worker
-   mail(to: "rafael.manoel@olook.com.br", subject: "ProductSearchWorker executado com sucesso!")
+    mail(to: "rafael.manoel@olook.com.br", subject: "ProductSearchWorker executado com sucesso!")
   end
 
   def notify_about_products_index
-   mail(to: "rafael.manoel@olook.com.br", subject: "IndexProductsWorker executado com sucesso!")
+    mail(to: "rafael.manoel@olook.com.br", subject: "IndexProductsWorker executado com sucesso!")
+  end
+
+  def notify(opts={})
+    mail(opts)
   end
 end
