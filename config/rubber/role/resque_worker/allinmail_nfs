@@ -3,4 +3,5 @@
   @post = "umount /home/allinmail; mkdir /home/allinmail 2>/dev/null; mount -a"
   @additive = ["# allinmail_nfs-start", "# allinmail_nfs-end"]
 %>
+
 10.90.47.245:/home/allinmail  /home/allinmail nfs rsize=8192,wsize=8192,timeo=14,intr
