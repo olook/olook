@@ -51,7 +51,7 @@
                 <li><%= access_link("Products") %></li>
               </ul>
             </li>
-            <li class="submenu<%= ' active' if params[:controller] =~ /promotions|liquidation|coupons|landing|lookbooks/ %>">
+            <li class="submenu<%= ' active' if params[:controller] =~ /promotions|liquidation|coupons|landing/ %>">
               <span>Promo</span>
               <ul>
                 <li><%= access_link("Promotions")%></li>
@@ -59,7 +59,6 @@
                 <li><%= access_link("Campaigns")%></li>
                 <li><%= access_link("Coupons") %></li>
                 <li><%= access_link("Landing Pages") %></li>
-                <li><%= access_link("Lookbooks") %></li>
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /admins|roles|settings/ %>">
