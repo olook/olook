@@ -24,9 +24,13 @@
 
 <% content_for :full do %>
   
-  <%= link_to image_tag("gift/presentes_full_banner__indecisos_dia_dos_namos.jpg"), "#", onclick: "share();" %>
-  
   <div id="fb-root"></div>
+
+  <div id="banner">
+      <%= link_to image_tag("gift/presentes_full_banner__indecisos_dia_dos_namos.jpg"), "#", {onclick: "share();"}%>
+  </div>
+
+
   <%= render "profiles" %>
 
   <% @profiles.each do |profile| %>
