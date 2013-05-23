@@ -192,17 +192,20 @@ group by uc.user_id, ct.code
 
 
     def generate_userbase_with_source_and_credits
-      @csv = CSV.generate do |csv|
-        csv << %w{email nome sexo tipo_cadastro data_cadastro estilo_quiz data_ultima_compra authentication_token credito_fidelidade outros_creditos credito_fidelidade_ativado_em credito_fidelidade_expira_em}
+      @csv = CSV.generate(col_sep: ";") do |csv|
+        csv << %w{email nome sexo tipo_cadastro data_cadastro estilo_quiz data_ultima_compra authentication_token credito_fidelidade outros_creditos todos_creditos credito_fidelidade_ativado_em credito_fidelidade_expira_em}
         User.joins(:orders).group("orders.user_id").having("count(orders.user_id) > 0").where("orders.state in ('delivered', 'authorized', 'delivering', 'picking')").find_each do |u|
           gender = (u.gender == 1) ? "M" : "F"
           profile = u.main_profile ? u.main_profile.name : nil
           last_order_date = u.orders.any? ? u.orders.last.created_at.strftime("%d-%m-%Y") : nil
           loyalty_credits = UserCreditsCalculationService.new(u).user_credits_sum(types: ["loyalty_program"])
-          other_credits = UserCreditsCalculationService.new(u).user_credits_sum(types: ["invite", "redeem"]).to_s
+          formated_loyalty_credits =  ('%.2f' % loyalty_credits).to_s.gsub(".", ",")
+          other_credits = UserCreditsCalculationService.new(u).user_credits_sum(types: ["invite", "redeem"])
+          formated_other_credits =  ('%.2f' % other_credits).to_s.gsub(".", ",")
+          formated_all_credits = ('%.2f' % u.current_credit).to_s.gsub(".", ",")
           last_loyalty_credit = u.user_credits_for(:loyalty_program).last_credit
           if loyalty_credits > 0.0
-            csv << [ u.email.chomp, u.name, gender, registration_source(u), registered_at(u).strftime("%d-%m-%Y"), profile, last_order_date, u.authentication_token, loyalty_credits.to_s , other_credits, last_loyalty_credit.try(:activates_at), last_loyalty_credit.try(:expires_at) ]
+            csv << [ u.email.chomp, u.first_name, gender, registration_source(u), registered_at(u).strftime("%d-%m-%Y"), profile, last_order_date, u.authentication_token, formated_loyalty_credits , formated_other_credits, formated_all_credits, last_loyalty_credit.try(:activates_at).try(:strftime, "%d-%m-%Y"), last_loyalty_credit.try(:expires_at).try(:strftime, "%d-%m-%Y") ]
           end
         end
       end
