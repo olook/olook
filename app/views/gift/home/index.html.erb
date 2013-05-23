@@ -5,11 +5,27 @@
     <meta name="chaordic:category" content="Presentes" >
 <% end %>
 
+<script>
+
+  share = function() {
+    // var landing_page = "http://www.olook.com.br/colecoes/diadosnamorados";
+    var landing_page = "http://homolog.olook.com.br/colecoes/diadosnamorados";
+    var sharer = "https://www.facebook.com/sharer/sharer.php?u=" + landing_page;
+    window.open(sharer, 'sharer', 'width=626,height=436');
+  }
+
+</script>
+
+
+
 <% content_for :footer do %>
   <%= javascript_include_tag "gift" %>
 <% end %>
 
 <% content_for :full do %>
+  
+  <%= link_to image_tag("gift/presentes_full_banner__indecisos_dia_dos_namos.jpg"), "#", onclick: "share();" %>
+  
   <div id="fb-root"></div>
   <%= render "profiles" %>
 

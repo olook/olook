@@ -2,6 +2,11 @@
   <%= stylesheet_link_tag "section/collections" %>
 <% end %>
 
+    <meta property="fb:app_id" content="<%= FACEBOOK_CONFIG["app_id"] %>" />
+    <meta property="og:title" content="Olook – <%= @collection_theme.name %>" />
+    <meta property="og:description" content="Teste rafael!" />
+    <meta property="og:image" content="<%= @collection_theme.header_image %>" />
+
 <%= render "menu", collection_theme_groups: @collection_theme_groups %>
 
 <section id="collections_content">
