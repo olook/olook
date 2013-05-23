@@ -7,7 +7,7 @@ class ClearSaleReport
   end
 
   def schedule_generation
-    Resque.enqueue(ClearSaleReport, @start_date, @end_date, @admin.email)
+    Resque.enqueue(ClearSaleReportWorker, @start_date, @end_date, @admin.email)
   end
 
   def self.report_file(start_date, end_date)
