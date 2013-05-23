@@ -246,7 +246,7 @@ section{margin-top:10px;
          }
        }
       }
-      div.exhibition-mode{clear:both;padding:5px 15px 0;border-bottom:solid 1px #CBCBCB;color:#000;height:25px;margin-bottom:35px;
+      div.exhibition-mode{clear:both;padding-top:5px;color:#000;height:25px;margin-bottom:35px;
         p{text-transform:uppercase;font-size:11px;float:left;
           span{margin:0 5px;
             &.selected{font-weight:bold;}
@@ -265,36 +265,35 @@ section{margin-top:10px;
 
           div.select {
             position: relative;
-            width: 250px;
             float:left;
+            margin-right:19px;
             /*overflow: auto;
             display: inline;*/
             span.select {
-              height: 34px;
+              display:inline-block;
+              height: 19px;
               cursor: pointer;
-              font-size:11px;
+              font-size:10px;
               text-transform:uppercase;
-              line-height:18px;
-              width:106px;
+              font-weight:bold;
+              line-height:20px;
+              padding:0 35px 0 0;
               text-indent:6px;
-              background: image-url('moments/sprite.png') right 6px no-repeat !important;
-              &.a-bg{
-                width: 93px !important;
-              }
+              border-top:solid 1px #D7D7D7;border-bottom:solid 1px #D7D7D7;border-left:solid 1px #D7D7D7;
+              background: image-url('collections/bullet_arrow.png') right -1px no-repeat;
+              
             }
 
             select.custom_select {
               position: absolute;
               line-height: 26px;
               width: 90px;
-              height: 34px;
               margin-right: 10px;
               top: 0;
-              left: 10px;
+              left: 0;
+              border:solid 1px #D7D7D7;
             }
-            .select-left{
-              width: 90px;
-            }
+            
           }
         }
         #order_filter{float:left !important;width:225px !important;height:30px;margin-left:55px;
