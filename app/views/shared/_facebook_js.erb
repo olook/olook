@@ -24,14 +24,20 @@ $(function(){
   
   
   $("a.face-message").click(function(){
-    FB.login(function(login_response) {
-      if (login_response.authResponse) {
-        getBoyfriendName();
-      } else {
-        console.log('User cancelled login or did not fully authorize.');
-      }
-    }, {scope: 'friends_birthday,publish_stream,user_relationships,user_relationship_details'});
+    if($("div.line.size ol").find("li input[type='radio']:checked").length > 0){    
+      FB.login(function(login_response) {
+        if (login_response.authResponse) {
+          getBoyfriendName();
+        } else {
+          console.log('User cancelled login or did not fully authorize.');
+        }
+      }, {scope: 'friends_birthday,publish_stream,user_relationships,user_relationship_details'});
+    }
+    else{
+      showAlert();
+    }
   });
+  
 });
 
 function getBoyfriendName(){
@@ -44,6 +50,7 @@ function getBoyfriendName(){
 function sendMessageToBoyfriend(me_response) {
   var boyfriend = "";
   var link_suffix = "?single=1";
+  var size = $.trim($("div.line.size ol").find("li input[type='radio']:checked").prev().prev().text());
   var significant_other = me_response.significant_other;
   if(significant_other){
     boyfriend = significant_other.id;
@@ -69,7 +76,7 @@ function sendMessageToBoyfriend(me_response) {
     
       picture: '<%= @product.suggestion_picture.to_s %>',
       description: 'Comprando através deste link você terá 10% de desconto e embalagem de presente grátis. #ficaadica',
-      link: '<%= "#{root_url}dia_dos_namorados/" %>'+me_response.id+'<%= "/#{@product.id.to_s}" %>'+link_suffix
+      link: '<%= "#{root_url}dia_dos_namorados/" %>'+me_response.id+'<%= "/#{@product.id.to_s}" %>'+link_suffix+'&size='+size
     <% end %>     
   }; 
   FB.ui(ui_hash);
