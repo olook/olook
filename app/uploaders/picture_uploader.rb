@@ -34,7 +34,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
-  process :optimize
+  process optimize: [{quality: 85}]
 
   version :thumb do
     process :resize_to_limit => [50, 50]
