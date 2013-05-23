@@ -2,8 +2,14 @@
   <div class="line">
     <h1><%= @product.formatted_name(200) %></h1>
   </div>
-  <div class="line">
-    <div class="fb-like" data-href="http://<%= request.host_with_port %>/produto/<%= @product.id %>" data-send="false" data-layout="button_count" data-width="110" data-show-faces="false"></div>
+  <div class="line <%= "has_bt_face" if show_facebook_button %>">
+    
+    <% if show_facebook_button %>
+      <%= link_to image_tag("valentine/bt_ask_to_him.png", style:"float:left;margin-top:13px"), "#", class: "face-message", onclick:  track_event('ValentinesDay', "ClickValentinesDayButton") %>
+    <%end%>
+    
+    <fb:like class="<%= "bt_face" if show_facebook_button %>" href="http://<%= request.host_with_port %>/produto/<%= @product.id %>" send="false" layout="button_count" width="110" show_faces="false" font="arial"></fb:like>
+    
     <ul class="social">
       <li class="first">compartilhe:</li>
       <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=#{share_description(@product)}&hashtags=ficaadica" %></li>
@@ -11,6 +17,7 @@
       <li class="pinterest"><%= link_to "Pinterest", product_presenter.display_main_picture, :class => "pin-it-button", :"count-layout" => "none" %></li>
       <li class="email last"><%= link_to "Email", "#" %></li>
     </ul>
+    
   </div>
   <p class="description"><%= @product.description %></p>
   <%= product_presenter.render_price_for @cart_service %>
