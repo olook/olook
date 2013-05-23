@@ -3,16 +3,17 @@
   <ol>
     <% variants.each do |variant| %>
       <% classes = variant_classes(variant, shoe_size) %>
-      <li class="<%= classes %>">
-        <label for="size_1">
+      <li class="size_<%= variant.description %> <%= classes %>">
+        <label for="variant_id_<%= variant.id %>">
           <% if variant.description == "Único" %>
             <span><%= variant.description %></span>
           <% else %>
             <%= variant.description %>
           <% end %>
+        </label>  
         <%= hidden_field_tag("inventory_#{variant.id}",variant.inventory) %>
-        <%= radio_button_tag('variant[id]', variant.id, ( classes.include? 'selected' ) ? true : false ) %>
-      </label>
+        <%= radio_button_tag('variant[id]', variant.id, ( classes.include? 'selected' ) ? true : false, :disabled => variant.inventory < 1 ) %>
+      
     </li>
   <% end %>
   <% if show_cloth_size_table %>
