@@ -36,6 +36,11 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     redirect_to(member_showroom_path, :alert => I18n.t("facebook.connect_failure"))
   end
 
+  def setup
+    request.env['omniauth.strategy'].options[:scope] = User::ALL_FACEBOOK_PERMISSIONS # session[:facebook_scopes]
+    render :text => "Setup complete.", :status => 404
+  end
+
   private
 
     #

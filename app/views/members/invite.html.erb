@@ -7,40 +7,8 @@
 <% end %>
 
 <section id="user-info">
-<hgroup class='info'>
-    <% if current_user.has_facebook? %>
-      <% if @user.has_fraud %>
-        <p class="warn"><span>Atenção:</span> Os créditos que estavam atrelados a convidadas com CPFs inválidos, foram inabilitados.</p>
-      <% end %>
-    <% else %>
-      <div class="connect">
-        <p>Conecte-se com o facebook<br /> e veja sua vitrine antes de todas</p>
-        <%= link_to "Conectar com o Facebook", user_omniauth_authorize_path(:facebook), :class => "fb-connect popup", :"data-width" => 410, :"data-height" => 300 %>
-      </div>
-    <% end %>
-    <h2 class="<%= 'no_facebook' if current_user.has_facebook? %>"><%= display_member_credit(current_user) %></h2>
-  </hgroup>
-
-  <div class="banner">
-    <h1>Quer ganhar</h1>
-    <h2>R$20?</h2>
-    <h3>
-      <p>Convide suas amigas e ganhe R$20</p>
-      <p>quando elas fizerem a 1ª compra.</p>
-    </h3>
-    <%= link_to 'Veja o regulamento', terms_path %>
-    <%= image_tag('common/model-banner.png') %>
-  </div>
+  <%= image_tag 'common/convide_amigas.jpg', :class => 'full_banner' %>
 </section>
-
-<nav class="invite">
-  <ul>
-    <li class='personal_link'><%= link_to 'Link pessoal', 'javascript:void(0);', :class => 'share-mail' %></li>
-    <li class='invite_mail'><%= link_to 'Email', 'javascript:void(0);', :class => 'invite-mail' %></li>
-    <li class='facebook'><%= link_to  'Facebook', 'javascript:void(0);', :class => 'post-to-wall' %></li>
-    <li class='import_contacts'><%= link_to 'Lista de contatos', 'javascript:void(0);', :class => 'import-contacts' %></li>
-  </ul>
-</nav>
 
 <section id="share-mail">
   <hgroup>
@@ -52,9 +20,10 @@
     <fieldset>
       <ol>
         <li>
-          <input type="text" value="<%= accept_invitation_url(:invite_token => @user.invite_token) %>" readonly="readonly">
+          <%= text_field_tag "link", accept_invitation_url(:invite_token => @user.invite_token), :readonly => "readonly" %>
+          <%= link_to "Copiar link", "#", :class =>"copy_link" %>
           <ul class="share">
-            <li>
+            <li class="share_msg"> ou compartilhe
               <a href="https://twitter.com/share" class="twitter-share-button" data-text="<%= twitte_message(@user) %>" data-url="www.olook.com.br" data-count="none" data-counturl="www.olook.com.br">Tweet</a>
               <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
               <script type="text/javascript" charset="utf-8">
@@ -81,6 +50,10 @@
       </ol>
     </fieldset>
   </form>
+  <div class="box_copy" style="display: none">
+    <p>Link copiado com sucesso!</p>
+    <p><span>Aperte CTRL + V para colar.</span></p>
+  </div>
 </section>
 
 <section id="invite-mail">
@@ -97,7 +70,7 @@
         </li>
       </ol>
     </fieldset>
-    <fieldset class="buttons">
+    <fieldset class="buttons invite">
       <ol>
         <li>
           <%= submit_tag value: '', id: 'invite_email', onclick: track_event('MemberInvite', 'EmailInvite') %>
@@ -109,7 +82,7 @@
 
 <section id="post-to-wall", style="background:none;">
   <hgroup>
-    <h1>Convide amigas<br /> do Facebook</h1>
+    <h1>Convide amigas do Facebook</h1>
     <h2>Para convidar, selecione suas amigas<br />na caixa ao lado
     </h2>
   </hgroup>

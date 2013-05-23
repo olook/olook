@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130520201533) do
+ActiveRecord::Schema.define(:version => 20130523133754) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -919,6 +919,7 @@ ActiveRecord::Schema.define(:version => 20130520201533) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "user"
   end
 
   create_table "trackings", :force => true do |t|

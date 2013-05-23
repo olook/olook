@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module MemberHelper
   def twitte_message(member)
-    "Cadastre-se na olook pelo meu convite: #{accept_invitation_url(:invite_token => member.invite_token)}, descubra o seu estilo e ainda ganhe R$10! #ficaadica"
+    "Cadastre-se na Olook pelo meu convite: #{accept_invitation_url(:invite_token => member.invite_token)}, descubra o seu estilo e ainda ganhe R$10! #ficaadica"
   end
 
   def link_to_invitation(member)
@@ -13,7 +13,7 @@ module MemberHelper
   end
 
   def invite_message
-    message = "Venha ver minha vitrine na olook! Entre no link."
+    message = "Venha ver minha vitrine na Olook! Entre no link."
   end
   
   def display_member_credit(member)
