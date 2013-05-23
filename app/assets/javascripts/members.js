@@ -33,5 +33,12 @@ $(document).ready(function() {
       scrollTop: 0
     }, 'slow');
   });
-});
 
+});
+  $("#share-mail a.copy_link").zclip({
+    path: "/assets/ZeroClipboard.swf",
+    copy: function() { return $("section#share-mail input#link").val(); },
+    afterCopy: function(){
+      $("section#share-mail div.box_copy").fadeIn().delay(2000).fadeOut();
+    }
+  });

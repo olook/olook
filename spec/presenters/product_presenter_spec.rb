@@ -60,7 +60,7 @@ describe ProductPresenter do
 
   describe '#render_description' do
     it "should render the partial with the product's description" do
-      template.should_receive(:render).with(:partial => 'product/description', :locals => {:product_presenter => subject}).and_return('description')
+      template.should_receive(:render).with(:partial => 'product/description', :locals => {:product_presenter => subject, :show_facebook_button => true}).and_return('description')
       subject.render_description.should == 'description'
     end
   end
