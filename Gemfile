@@ -61,7 +61,7 @@ group :production, :staging do
   gem 'yui-compressor'
 end
 
-gem 'piet', :git => 'git://github.com/olook/piet.git'
+gem 'piet', :git => 'git://github.com/olook/piet.git', ref: "3dd7efc"
 gem 'rack-mini-profiler', group: :staging
 
 group :development, :test do
@@ -69,7 +69,7 @@ group :development, :test do
   gem 'faker'
   gem 'bullet'
   gem 'thin'
-  gem 'rb-inotify', '~> 0.8.8', :require => false
+  gem 'rb-inotify', '~> 0.9', :require => false
   gem 'rb-fsevent', :require => false
   gem 'rb-fchange', :require => false
   gem 'sqlite3', '~> 1.3.6'

@@ -10,7 +10,7 @@
     </table>
   </div>
   <ul class="subtotal">
-    <li><span class="txt-black">SUBTOTAL: </span><span class="txt-pink"><%= number_to_currency(@cart_service.subtotal) %></span></li>
+    <li><span class="txt-black">SUBTOTAL: </span><span class="txt-black"><%= number_to_currency(@cart_service.subtotal) %></span></li>
     <li class="frete">
       <span class="txt-black">FRETE: </span>
       <span id="freight_price"><%= number_to_currency(freight_for(address)[:price]) if address && address.zip_code %></span>
@@ -33,9 +33,9 @@
   <p class="total">
     <span class="txt-black">TOTAL: </span>
     <% if @checkout %>
-      <span class="txt-pink" id="total_billet"><%= number_to_currency(@cart_service.total(Billet.new)) %></span>
+      <span class="txt-black" id="total_billet"><%= number_to_currency(@cart_service.total(Billet.new)) %></span>
     <%end%>
-    <span class="txt-pink" id="total"><%= number_to_currency(@cart_service.total) %></span>
+    <span class="txt-black" id="total"><%= number_to_currency(@cart_service.total) %></span>
 
     <span class="frete" id="delivery_time"><% if address && address.zip_code %><%= delivery_time_message(freight_for(address)[:delivery_time]) %><% end %></span>
   </p>
