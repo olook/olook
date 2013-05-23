@@ -1,6 +1,6 @@
 <%
   @path = "/etc/fstab"
-  @post = "umount /home/allinmail; mkdir /home/allinmail 2>/dev/null; mount -a"
+  @post = "mkdir /home/allinmail 2>/dev/null; mount -a"
   @additive = ["# allinmail_nfs-start", "# allinmail_nfs-end"]
 %>
 
