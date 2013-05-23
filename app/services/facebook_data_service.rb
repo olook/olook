@@ -6,7 +6,7 @@ class FacebookDataService
 
   def generate_csv_lines(start_date)
       csv_lines = ["email,first_name,auth_token,friend_data"]
-      FacebookDataService.facebook_users.last(20).each do |user|
+      FacebookDataService.facebook_users.each do |user|
         user_hash = format_user_data(user, start_date) 
         csv_lines << user_hash unless user_hash.blank?
       end
