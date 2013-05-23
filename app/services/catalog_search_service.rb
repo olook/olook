@@ -33,7 +33,7 @@ class CatalogSearchService
       categories_in_query = @query.group('catalog_products.category_id').count.keys
     end
     categories.select! { |opt| categories_in_query.include?(opt.last) }
-    categories.unshift(["Todas", nil])
+    categories.unshift(["Categoria", nil])
   end
 
   def search_products
