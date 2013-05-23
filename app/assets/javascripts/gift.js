@@ -1,4 +1,9 @@
 $(function () {
+
+  $("#banner").click(function(){
+    share();
+  ;})
+
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if(!msie6 && $('#help').length == 1) {
     var helpLeft = $('#help').offset().left;
@@ -119,4 +124,9 @@ InitGift = {
   createLoader : function(container) {
     $(container).html("<p class='loading'></p>");
   }
+}
+
+share = function() {
+  var sharer = "https://www.facebook.com/sharer/sharer.php?u=" + location.href;
+  window.open(sharer, 'sharer', 'width=626,height=436');
 }

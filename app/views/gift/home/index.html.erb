@@ -3,20 +3,15 @@
     <meta name="chaordic:source" content="home/presentes">
     <meta name="chaordic:user" content= <%= @chaordic_user %>>
     <meta name="chaordic:category" content="Presentes" >
+
+
+    <meta property="fb:app_id" content="<%= FACEBOOK_CONFIG["app_id"] %>" />
+    <meta property="og:title" content="ACERTE EM CHEIO NO PRESENTE" />
+    <meta property="og:description" content="Encontre o presente ideal para as mulheres da sua vida através da nossa ferramenta de presentes." />
+    <meta name="Description" content="Comprando o presente através deste link você terá 10% de desconto e embalagem de presente grátis. #ficaadica">
+    <meta property="og:image" content="gift/presentes_full_banner__indecisos_dia_dos_namos.jpg" />
+
 <% end %>
-
-<script>
-
-  share = function() {
-    // var landing_page = "http://www.olook.com.br/colecoes/diadosnamorados";
-    var landing_page = "http://homolog.olook.com.br/colecoes/diadosnamorados";
-    var sharer = "https://www.facebook.com/sharer/sharer.php?u=" + landing_page;
-    window.open(sharer, 'sharer', 'width=626,height=436');
-  }
-
-</script>
-
-
 
 <% content_for :footer do %>
   <%= javascript_include_tag "gift" %>
@@ -27,7 +22,7 @@
   <div id="fb-root"></div>
 
   <div id="banner">
-      <%= link_to image_tag("gift/presentes_full_banner__indecisos_dia_dos_namos.jpg"), "#", {onclick: "share();"}%>
+    <%= link_to image_tag("gift/presentes_full_banner__indecisos_dia_dos_namos.jpg"), "#" %>
   </div>
 
 

@@ -2,14 +2,6 @@
   <%= stylesheet_link_tag "section/collections" %>
 <% end %>
 
-  <% if @collection_theme.slug == 'diadosnamorados' %>
-    <meta property="fb:app_id" content="<%= FACEBOOK_CONFIG["app_id"] %>" />
-    <meta property="og:title" content="Dia dos namorados" />
-    <meta property="og:description" content="Dia dos namorados." />
-    <meta name="Description" content="Dia dos namorados Olook. Peça o seu presente.">
-    <meta property="og:image" content="<%= @collection_theme.header_image %>" />
-  <% end %>
-
 <%= render "menu", collection_theme_groups: @collection_theme_groups %>
 
 <section id="collections_content">
