@@ -134,6 +134,7 @@ share = function() {
   opt.name = 'ACERTE EM CHEIO NO PRESENTE';
   opt.caption = 'Encontre o presente ideal para as mulheres da sua vida através da nossa ferramenta de presentes.';
   opt.description = 'Comprando o presente através deste link você terá 10% de desconto e embalagem de presente grátis. #ficaadica';
+  opt.picture = 'http://d3j8xxu8fm1yad.cloudfront.net/assets/gift/imagem_presentes_facebook.jpg';
   opt.link = sharer;
   FB.ui(opt);
 }
