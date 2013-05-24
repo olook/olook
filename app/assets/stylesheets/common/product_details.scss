@@ -340,12 +340,12 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
                 height: 28px;
                 display: inline-block;
                 cursor: pointer;
-                input[type="radio"] {
-                  display: none;
-                }
                 span {
                   font-size: 10px;
                 }
+              }
+              input[type="radio"] {
+                display: none;
               }
             }
           }

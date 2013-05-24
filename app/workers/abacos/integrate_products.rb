@@ -9,14 +9,13 @@ module Abacos
       products_amount = process_products
       process_prices
 
-
       opts = {
         to: user, 
         subject: 'Sincronização de produtos concluída', 
         body: "Quantidade de produtos integrados: #{products_amount}"
       }
-
-      DevAlertMailer.notify(opts).deliver
+     
+      Resque.enqueue_in(5.minutes, NotificationWorker, opts)
     end
 
   private
