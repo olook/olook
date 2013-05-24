@@ -127,7 +127,13 @@ InitGift = {
 }
 
 share = function() {
+  var opt = {}
   var coupon = "?coupon_code=" + $('#banner').data('couponCode');
-  var sharer = "https://www.facebook.com/sharer/sharer.php?u=" + location.href + coupon;
-  window.open(sharer, 'sharer', 'width=626,height=436');
+  var sharer = location.href + coupon;
+  opt.method  = 'feed';
+  opt.name = 'ACERTE EM CHEIO NO PRESENTE';
+  opt.caption = 'Encontre o presente ideal para as mulheres da sua vida através da nossa ferramenta de presentes.';
+  opt.description = 'Comprando o presente através deste link você terá 10% de desconto e embalagem de presente grátis. #ficaadica';
+  opt.link = sharer;
+  FB.ui(opt);
 }
