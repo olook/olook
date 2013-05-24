@@ -8,7 +8,7 @@ class Product < ActiveRecord::Base
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
   MINIMUM_INVENTORY_FOR_XML = 3
 
-  include ProductFinder
+  extend ProductFinder
 
   has_enumeration_for :category, :with => Category, :required => true
 
@@ -30,11 +30,8 @@ class Product < ActiveRecord::Base
   belongs_to :collection
   has_and_belongs_to_many :profiles
 
-  has_many :lookbooks_products, :dependent => :destroy
-  has_many :lookbooks, :through => :lookbooks_products
   has_many :gift_boxes_product, :dependent => :destroy
   has_many :gift_boxes, :through => :gift_boxes_product
-  has_many :lookbook_image_maps, :dependent => :destroy
   has_many :liquidation_products
   has_many :liquidations, :through => :liquidation_products
   has_many :catalog_products, :class_name => "Catalog::Product", :foreign_key => "product_id"
@@ -210,15 +207,21 @@ class Product < ActiveRecord::Base
   def colors(size = nil, admin = false)
     Rails.cache.fetch(CACHE_KEYS[:product_colors][:key] % [id, admin], expires_in: CACHE_KEYS[:product_colors][:expire]) do
       is_visible = (admin ? [0,1] : true)
-      conditions = {is_visible: is_visible, category: self.category, name: self.name}
-      conditions.merge!(variants: {description: size}) if size and self.category == Category::SHOE
-      Product.select("products.*, variants.inventory, if(sum(distinct variants.inventory) > 0, 1, 0) available_inventory")
+      conditions = {is_visible: is_visible, category: self.category, producer_code: self.producer_code}
+      #conditions.merge!(variants: {description: size}) if size and self.category == Category::SHOE
+      Product.select("products.*, sum(variants.inventory) as sum_inventory, if(sum(distinct variants.inventory) > 0, 1, 0) available_inventory, sum(IF(variants.description = '#{size}', variants.inventory, 0)) description_inventory")
             .joins('left outer join variants on products.id = variants.product_id')
             .where(conditions)
             .where("products.id != ?", self.id)
             .group('products.id')
-            .order('variants.inventory desc, available_inventory desc')
+            .order('description_inventory desc, sum_inventory desc, available_inventory desc')
     end
+  end
+
+  def prioritize_by shoe_size
+    h = { shoe_size => 1 }
+    h.default = 1.0/0.0 # infinity
+    h
   end
 
 
@@ -285,30 +288,6 @@ class Product < ActiveRecord::Base
       :utm_content => id
     }
     Rails.application.routes.url_helpers.product_url(self, params.merge!(options))
-  end
-
-  def self.remove_color_variations(products)
-    result = []
-    already_displayed = []
-    displayed_and_sold_out = {}
-
-    products.each do |product|
-      # Only add to the list the products that aren't already shown
-      unless already_displayed.include?(product.name)
-        result << product
-        already_displayed << product.name
-        displayed_and_sold_out[product.name] = result.length - 1 if product.sold_out?
-      else
-        # If a product of the same color was already displayed but was sold out
-        # and the algorithm find another color that isn't, replace the sold out one
-        # by the one that's not sold out
-        if displayed_and_sold_out[product.name] && !product.sold_out?
-          result[displayed_and_sold_out[product.name]] = product
-          displayed_and_sold_out.delete product.name
-        end
-      end
-    end
-    result
   end
 
   def subcategory
@@ -398,7 +377,7 @@ class Product < ActiveRecord::Base
   def find_suggested_products
     products = Product.only_visible.includes(:variants).joins(:details).where("details.description = '#{ self.subcategory }' AND collection_id <= #{ self.collection_id }").order('collection_id desc')
 
-    remove_color_variations(products)
+    Product.remove_color_variations(products)
   end
 
   def share_by_email( informations = { } )
@@ -562,7 +541,11 @@ class Product < ActiveRecord::Base
         if picture.image.catalog.file.exists?
           picture.try(:image_url, :catalog)
         else
-          picture.image.recreate_versions! rescue nil
+          begin
+            picture.image.recreate_versions! 
+          rescue
+            Resque.enqueue(NotificationWorker, {to: 'rafael.manoel@olook.com.br', subject: "Erro ao recriar imagens do produto #{id}, pic #{picture.id}"})
+          end
           picture.save!
           picture.try(:image_url, :suggestion)
         end

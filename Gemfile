@@ -61,7 +61,7 @@ group :production, :staging do
   gem 'yui-compressor'
 end
 
-gem 'piet', :git => 'git://github.com/olook/piet.git'
+gem 'piet', :git => 'git://github.com/albertbellonch/piet.git', ref: "630a98bef1595fb2a138e98ff9aaefbca987a999"
 gem 'rack-mini-profiler', group: :staging
 
 group :development, :test do
