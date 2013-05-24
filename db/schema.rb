@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130514180149) do
+ActiveRecord::Schema.define(:version => 20130523133754) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -180,8 +180,8 @@ ActiveRecord::Schema.define(:version => 20130514180149) do
   create_table "carts", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "notified",                :default => false, :null => false
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "legacy_id"
     t.boolean  "gift_wrap",               :default => false
     t.boolean  "use_credits",             :default => false
@@ -494,15 +494,6 @@ ActiveRecord::Schema.define(:version => 20130514180149) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "images", :force => true do |t|
-    t.string   "image"
-    t.integer  "lookbook_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "images", ["lookbook_id"], :name => "index_images_on_lookbook_id"
-
   create_table "invites", :force => true do |t|
     t.integer  "user_id"
     t.string   "email"
@@ -597,42 +588,6 @@ ActiveRecord::Schema.define(:version => 20130514180149) do
     t.boolean  "visible",         :default => true
     t.boolean  "show_advertise",  :default => true
     t.string   "big_banner"
-  end
-
-  create_table "lookbook_image_maps", :force => true do |t|
-    t.integer  "lookbook_id"
-    t.integer  "image_id"
-    t.integer  "product_id"
-    t.integer  "coord_x"
-    t.integer  "coord_y"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "lookbook_image_maps", ["image_id"], :name => "index_lookbook_image_maps_on_image_id"
-  add_index "lookbook_image_maps", ["lookbook_id"], :name => "index_lookbook_image_maps_on_lookbook_id"
-  add_index "lookbook_image_maps", ["product_id"], :name => "index_lookbook_image_maps_on_product_id"
-
-  create_table "lookbooks", :force => true do |t|
-    t.string   "name"
-    t.string   "thumb_image"
-    t.boolean  "active",      :default => true
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.string   "slug"
-    t.string   "icon"
-    t.string   "icon_over"
-    t.string   "fg_color"
-    t.string   "bg_color"
-    t.string   "movie_image"
-  end
-
-  create_table "lookbooks_products", :force => true do |t|
-    t.integer  "lookbook_id"
-    t.integer  "product_id"
-    t.boolean  "criteo",      :default => false
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
   end
 
   create_table "moip_callbacks", :force => true do |t|
@@ -824,6 +779,7 @@ ActiveRecord::Schema.define(:version => 20130514180149) do
     t.string   "color_category"
     t.boolean  "is_kit",         :default => false
     t.string   "brand"
+    t.string   "producer_code"
   end
 
   add_index "products", ["category"], :name => "index_products_on_category"
@@ -963,6 +919,7 @@ ActiveRecord::Schema.define(:version => 20130514180149) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "user"
   end
 
   create_table "trackings", :force => true do |t|

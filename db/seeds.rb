@@ -16,7 +16,6 @@ SurveyBuilder.new( SURVEY_DATA, "Registration Survey" ).build
 end
 
 [ {:controller_name => 'moments', :description => 'Coleções e Catálogos'},
-  {:controller_name => 'lookbooks', :description => 'Tendências'},
   {:controller_name => 'home', :description => 'Home não logada'},
   {:controller_name => 'members', :description => 'Minha vitrine'}
 ].each do |page_attributes|

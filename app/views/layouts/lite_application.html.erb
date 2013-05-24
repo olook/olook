@@ -31,6 +31,15 @@
     <!--[if IE]>
     <%= javascript_include_tag "html5.js" %>
     <![endif]-->
+  
+    <!-- Predicta SiteApps -->
+    <script type="text/javascript">
+       //<![CDATA[[
+       $SA={s:18120};
+       document.write(unescape("%3Cscript src='" + ("https:" == document.location.protocol ? "https://" + $SA.s + ".sa" : "http://" + $SA.s + ".a") + ".siteapps.com/" + $SA.s + ".js' type='text/javascript'%3E%3C/script%3E"));
+       //]]>
+    </script>
+    
   </head>
 
 
@@ -88,7 +97,7 @@
                          
              <% if Setting.show_search_field %>      
              <div class="search_box">
-               <%= form_tag(search_show_path, method: :get, id: "search_form") do  %>
+               <%= form_tag(search_show_path, method: :get, id: "search_form", onsubmit: "return perform_search();") do  %>
                  <%= text_field_tag "q",nil, id: "search_product", value: "BUSCAR" %>
                  <%= submit_tag "Buscar" %>
                <% end %>      

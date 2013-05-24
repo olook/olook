@@ -34,11 +34,6 @@ describe MembersController do
       assigns(:user).should eq(user)
     end
 
-    it "should assign @lookbooks" do
-      get :showroom
-      assigns(:lookbooks).should eq(Lookbook.where("active = 1").order("created_at DESC"))
-    end
-
     it "should set retake logic" do
       session[:profile_retake] = true
       get :showroom

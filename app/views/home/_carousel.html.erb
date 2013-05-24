@@ -2,9 +2,10 @@
   <ul>
     <%- [
       { link: new_survey_path, image: "home/destaques_quiz_carol_ribeiro.jpg" },
-      { link: brands_path, image: "home/destaques_novas_marcas_2.jpg"},
-      { link: collection_theme_path("spike"), image: "home/destaque_spikes.jpg" },
-      { link: "/stylist-news/be-power/ ", image: "home/destaques_rock_poderosa_ok.jpg" },   
+      { link: collection_theme_path("diadosnamorados"), image: "home/destaques_dia_dos_namos_teste_2.jpg" }, 
+      { link: collection_theme_path("carol-ribeiro"), image: "home/destaques_carol_ribeiro_para_olook_novo.jpg" },
+      { link: "/sapatos?shoe_subcategories[]=bota", image: "home/destaques_botas.jpg" }, 
+       
     ].each_with_index do |item, index| %>
       <li>
         <%= link_to( image_tag(item[:image]), item[:link], onclick: track_event('Carrossel',"Banner#{index+1}") ) %>

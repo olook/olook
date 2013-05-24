@@ -39,11 +39,6 @@ Olook::Application.routes.draw do
   match "/fidelidade", :to => "pages#loyalty", :as => "loyalty"
   match "/olookmovel", to: "pages#olookmovel", as: "olookmovel"
 
-  #LOOKBOOKS
-  match "/tendencias/:name", :to => "lookbooks#show", :as => "lookbook"
-  match "/tendencias", :to => "lookbooks#index", :as => "lookbooks"
-
-
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
   get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
@@ -207,12 +202,8 @@ Olook::Application.routes.draw do
       end
     end
 
-    resources :lookbooks do
-      resources :images do
-        resources :lookbook_image_maps
-      end
-      get :products, :to => "lookbooks#product"
-    end
+    # reports
+    resources :reports
 
     resources :collection_theme_groups
 
@@ -331,8 +322,9 @@ Olook::Application.routes.draw do
     delete '/logout' => 'users/sessions#destroy', :as => :destroy_user_session
     get '/registrar' => "users/registrations#new_half", :as => :new_half_user_session
     post '/registrar' => "users/registrations#create_half", :as => :create_half_user
-    get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
+    get '/users/auth/:provider' => 'omniauth_callbacks#passthru' # TODO change to "conta" instead of user
     delete '/conta/remover_facebook' => 'users/registrations#destroy_facebook_account', :as => :destroy_facebook_account
+    match '/conta/auth/facebook/setup', :to => 'omniauth_callbacks#setup'
   end
 
   get '/conta/pedidos/:number', :controller =>'users/orders', :action => 'show' , :as => "user_order"

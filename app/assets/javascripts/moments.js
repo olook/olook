@@ -33,7 +33,7 @@ filter.spyOverChangeImage = function(){
 }
 
 filter.hide_chaordic = function() {
-    if ($("#filter input[type=checkbox]").is(":checked")) {
+    if ($("#filter input[type=checkbox]:checked").length > 0 && /shoe_sizes/.test( window.location.search || "")) {
         $('.chaordic.mostpopular').remove();
     };
 }
@@ -55,7 +55,7 @@ filter.showAllImages = function() {
 
   $('img.async').each(function(){
     var image = $(this).attr(field_name);
-    if(/http.*/.test(image))
+    // if(/http.*/.test(image))
       $(this).attr('src', image);
   });
 
