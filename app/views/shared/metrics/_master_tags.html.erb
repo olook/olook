@@ -42,9 +42,7 @@ var google_remarketing_only = true;
 <!-- Sociomantic -->
 <% if current_user && current_user.try(:has_purchased_orders?) %>
   <script type="text/javascript">
-      var customer = {
-        identifier: '<%= current_user.id %>'
-      };
+    dataLayer.push({'customerId': '<%= current_user.id %>'});
   </script>
 <% end %>
 <!-- END Sociomantic -->
