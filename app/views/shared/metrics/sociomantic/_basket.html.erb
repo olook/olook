@@ -1,9 +1,4 @@
 <script type="text/javascript">
-var basket = {
-	products: [
-<%= raw cart.items.map { |item|
-	"{ identifier:'#{item.product.id}', amount:#{number_with_precision(item.variant.retail_price, separator: ".", precision: 2)}, currency:'BRL', quantity:'#{item.quantity}' }"
-}.join(', ') -%>
-	]
-};
+  dataLayer.push({'Basket': <%= raw cart.items.map { |item|
+	"{ identifier:'#{item.product.id}', amount:#{number_with_precision(item.variant.retail_price, separator: ".", precision: 2)}, currency:'BRL', quantity:'#{item.quantity}' }"}.join(', ') -%>})
 </script>

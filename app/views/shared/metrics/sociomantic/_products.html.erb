@@ -1,20 +1,4 @@
 <script type="text/javascript">
-  var moments_products = {
-  products: [
-              <%= raw products.map{ |item|
-                "{identifier: '#{item.id}'}"
-              }.join(', ') -%>
-            ]
-  };
-  var categories = {
-    category: [
-                <%= raw categories_id.map{ |id|
-                  "{ COLEÇÃO: '#{collection_theme_url(id)}'}"
-                }.join(',') -%>
-              ]
-  };
-</script>
-<script type="text/javascript">
   dataLayer = [];
   dataLayer.push({
     'SociomanticProducts': {
