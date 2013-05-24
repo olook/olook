@@ -1,4 +1,9 @@
 $(function () {
+
+  $("#banner").click(function(){
+    share();
+  ;})
+
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if(!msie6 && $('#help').length == 1) {
     var helpLeft = $('#help').offset().left;
@@ -119,4 +124,17 @@ InitGift = {
   createLoader : function(container) {
     $(container).html("<p class='loading'></p>");
   }
+}
+
+share = function() {
+  var opt = {}
+  var coupon = "?coupon_code=" + $('#banner').data('couponCode');
+  var sharer = location.href + coupon;
+  opt.method  = 'feed';
+  opt.name = 'ACERTE EM CHEIO NO PRESENTE';
+  opt.caption = 'Encontre o presente ideal para as mulheres da sua vida através da nossa ferramenta de presentes.';
+  opt.description = 'Comprando o presente através deste link você terá 10% de desconto e embalagem de presente grátis. #ficaadica';
+  opt.picture = 'http://d3j8xxu8fm1yad.cloudfront.net/assets/gift/imagem_presentes_facebook.jpg';
+  opt.link = sharer;
+  FB.ui(opt);
 }
