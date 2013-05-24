@@ -2,16 +2,16 @@
 require 'spec_helper.rb'
 
 describe ProductFinder do
-  
+
   class Dummy
     include ProductFinder
   end
 
   subject { Dummy.new }
 
-  let!(:sold_out)  { FactoryGirl.create(:shoe, :sold_out) }
-  let!(:in_stock)  { FactoryGirl.create(:shoe, :in_stock) }
-  let!(:duplicate_in_stock) { FactoryGirl.create(:shoe, :in_stock) }
+  let!(:sold_out)  { FactoryGirl.create(:shoe, :sold_out, :blue) }
+  let!(:in_stock)  { FactoryGirl.create(:shoe, :in_stock, :blue) }
+  let!(:duplicate_in_stock) { FactoryGirl.create(:shoe, :in_stock, :blue) }
   let!(:products)  { [sold_out, in_stock, duplicate_in_stock] }
 
   context "#remove_color_variations" do
@@ -21,14 +21,14 @@ describe ProductFinder do
 	    end
   	end
 
-    context "when passed two or more products with the same name" do
+    context "when passed two or more products with the same producer_code" do
     	it "removes repeated products" do
     		expect(subject.remove_color_variations(products)).to_not include(duplicate_in_stock)
     	end
     end
 
   	context "when passed a product that was already displayed and sold out" do
-  		it "replaces it with another product by the same name, presumably with a different color" do
+  		it "replaces it with another product by the same producer_code, presumably with a different color" do
   			expect(subject.remove_color_variations(products)).to include(in_stock)
         expect(subject.remove_color_variations(products)).to_not include(sold_out)
   		end

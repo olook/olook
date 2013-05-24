@@ -33,16 +33,16 @@
     <div class="content">
 
       <div id="user_data">
-        <%= image_tag "#{@user_data.picture}" %>
-        <p>A <%= "#{@user_data.name}" %>, sua namorada, amou este produto e adoraria ganhá-lo no dias namorados.</p>
+        <%= image_tag "https://graph.facebook.com/#{@uid}/picture?width=65&height=60" %>
+        <p><span></span><%= ", sua namorada," unless params["single"] == "1" %> amou este produto e adoraria ganhá-lo no dias namorados.</p>
       </div>
 
       <div id="pics_suggestions">
         <%= product_presenter.render_pics %>
-        <%= product_presenter.render_facebook_comments %>
+        <%#= product_presenter.render_facebook_comments %>
       </div>
       <div id="infos">
-        <%= product_presenter.render_description %>
+        <%= product_presenter.render_description(false) %>
         <%= product_presenter.render_add_to_cart %>
         <%= product_presenter.render_details %>
       </div>
@@ -136,6 +136,19 @@
          <% end %>
      <% end %>
    </div>
+
+  <script type="text/javascript">
+    $(function(){
+      $.ajax({
+          url      : 'https://graph.facebook.com/<%= @uid %>',
+          dataType : 'jsonp',
+          success  : function (response) {
+            $('#user_data p span').html(response.name);
+            $('#user_data').slideDown(600);
+          }
+      });
+    });
+  </script>
 
   <!-- Begin: Groovinads Behavioral-->
   <img src="http://ads01.groovinads.com/grv/track/bhpx.os?idc=90&sku=<%= "#{sku_for(@product)}" %>&idcategory=<%= "#{@product.category}" %>" height="1">
