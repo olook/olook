@@ -11,7 +11,9 @@ module MarketingReports
                :campaign_emails,
                :userbase_with_source,
                :facebook_friends_end_of_the_month,
-               :facebook_friends_middle_of_the_month]
+               :facebook_friends_middle_of_the_month,
+               :userbase_with_source_and_credits
+               ]
 
     attr_accessor :csv
 
@@ -100,7 +102,7 @@ group by uc.user_id, ct.code
 
     def generate_facebook_friends_middle_of_the_month
       gather_facebook_friends(DateTime.now.month, true)
-    end 
+    end
 
     def generate_userbase_with_auth_token_and_credits
       bounces = bounced_list
@@ -186,7 +188,28 @@ group by uc.user_id, ct.code
           csv << [ u.email.chomp, u.name, gender, registration_source(u), registered_at(u).strftime("%d-%m-%Y"), profile, last_order_date, u.authentication_token ]
         end
       end
-    end    
+    end
+
+
+    def generate_userbase_with_source_and_credits
+      @csv = CSV.generate(col_sep: ";") do |csv|
+        csv << %w{email nome sexo tipo_cadastro data_cadastro estilo_quiz data_ultima_compra authentication_token credito_fidelidade outros_creditos todos_creditos credito_fidelidade_ativado_em credito_fidelidade_expira_em}
+        User.joins(:orders).group("orders.user_id").having("count(orders.user_id) > 0").where("orders.state in ('delivered', 'authorized', 'delivering', 'picking')").find_each do |u|
+          gender = (u.gender == 1) ? "M" : "F"
+          profile = u.main_profile ? u.main_profile.name : nil
+          last_order_date = u.orders.any? ? u.orders.last.created_at.strftime("%d-%m-%Y") : nil
+          loyalty_credits = UserCreditsCalculationService.new(u).user_credits_sum(types: ["loyalty_program"])
+          formated_loyalty_credits =  ('%.2f' % loyalty_credits).to_s.gsub(".", ",")
+          other_credits = UserCreditsCalculationService.new(u).user_credits_sum(types: ["invite", "redeem"])
+          formated_other_credits =  ('%.2f' % other_credits).to_s.gsub(".", ",")
+          formated_all_credits = ('%.2f' % u.current_credit).to_s.gsub(".", ",")
+          last_loyalty_credit = u.user_credits_for(:loyalty_program).last_credit
+          if loyalty_credits > 0.0
+            csv << [ u.email.chomp, u.first_name, gender, registration_source(u), registered_at(u).strftime("%d-%m-%Y"), profile, last_order_date, u.authentication_token, formated_loyalty_credits , formated_other_credits, formated_all_credits, last_loyalty_credit.try(:activates_at).try(:strftime, "%d-%m-%Y"), last_loyalty_credit.try(:expires_at).try(:strftime, "%d-%m-%Y") ]
+          end
+        end
+      end
+    end
 
     def registration_source user
       if user.campaign_email_created_at
@@ -195,7 +218,7 @@ group by uc.user_id, ct.code
         "half_user"
       else
         "full_user"
-      end      
+      end
     end
 
     def registered_at user
@@ -204,12 +227,12 @@ group by uc.user_id, ct.code
       else
         user.created_at
       end
-    end    
+    end
 
     private
 
     def gather_facebook_friends(month, middle_of_the_month)
-      @csv = convert_to_iso(FacebookDataService.new.generate_csv_lines(month, middle_of_the_month)).join("\n")      
+      @csv = convert_to_iso(FacebookDataService.new.generate_csv_lines(month, middle_of_the_month)).join("\n")
     end
 
     def convert_to_iso(file_lines=[])
