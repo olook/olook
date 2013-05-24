@@ -55,7 +55,7 @@ filter.showAllImages = function() {
 
   $('img.async').each(function(){
     var image = $(this).attr(field_name);
-    if(/http.*/.test(image))
+    // if(/http.*/.test(image))
       $(this).attr('src', image);
   });
 
