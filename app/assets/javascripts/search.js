@@ -5,13 +5,11 @@ var visualization_mode = "product";
 function setMouseOverOnImages() {
    $('img.async').on("mouseenter", function () {
      var backside_image = $(this).attr('data-backside-picture');
-     if(/http.*/.test(backside_image))
-       $(this).attr('src', backside_image);
+     $(this).attr('src', backside_image);
    }).on("mouseleave", function () {
      var field_name = 'data-' + visualization_mode;
      var showroom_image = $(this).attr(field_name);
-     if(/http.*/.test(showroom_image))
-       $(this).attr('src', showroom_image);
+     $(this).attr('src', showroom_image);
    });
 };
 
