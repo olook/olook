@@ -38,12 +38,6 @@
 
 
     <%= render 'shared/metrics/google/universal_analytics' %>
-    <script type="text/javascript">
-      dataLayer = [];
-      dataLayer.push({
-          'SociomanticProduct': "<%= @product.id %>"
-         });
-      </script>
     <%= yield :data_layer %>
   </head>
 
