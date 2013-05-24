@@ -130,7 +130,7 @@ showroom = s = {
     if(typeof imageKind == 'undefined') imageKind = 'showroom';
     $('img.async').each(function(){
       var image = $(this).data(imageKind);
-      if(/http.*/.test(image))
+      // if(/http.*/.test(image))
         $(this).attr('src', image);
     });
 
