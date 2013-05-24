@@ -18,7 +18,7 @@ class SynchronizationEvent < ActiveRecord::Base
   end
 
   def enqueue
-    Resque.enqueue(Abacos::IntegrateProducts) if self.name == 'products'
+    Resque.enqueue(Abacos::IntegrateProducts, user) if self.name == 'products'
   end
 
   def locked?

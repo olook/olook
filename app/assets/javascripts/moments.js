@@ -41,13 +41,11 @@ filter.hide_chaordic = function() {
 filter.setMouseOverOnImages = function() {
      $('img.async').mouseover(function () {
        var backside_image = $(this).attr('data-backside');
-       if(/http.*/.test(backside_image))
-         $(this).attr('src', backside_image);
+       $(this).attr('src', backside_image);
      }).mouseout(function () {
        var field_name = 'data-' + filter.visualization_mode;
        var showroom_image = $(this).attr(field_name);
-       if(/http.*/.test(showroom_image))
-         $(this).attr('src', showroom_image);
+       $(this).attr('src', showroom_image);
      });
 }
 filter.showAllImages = function() {
@@ -55,8 +53,7 @@ filter.showAllImages = function() {
 
   $('img.async').each(function(){
     var image = $(this).attr(field_name);
-    if(/http.*/.test(image))
-      $(this).attr('src', image);
+    $(this).attr('src', image);
   });
 
   filter.setMouseOverOnImages();

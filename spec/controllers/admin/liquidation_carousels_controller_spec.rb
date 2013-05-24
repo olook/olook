@@ -81,11 +81,6 @@ describe Admin::LiquidationCarouselsController, admin: true do
         delete :destroy, :liquidation_id => liquidation.id, :id => liquidation_carousel.id
       }.to change(LiquidationCarousel, :count).by(-1)
     end
-
-    it "redirects to the lookbooks list" do
-      delete :destroy, :liquidation_id => liquidation.id, :id => liquidation_carousel.id
-      response.should redirect_to(admin_liquidation_carousels_path(liquidation.id))
-    end
   end
 
 end

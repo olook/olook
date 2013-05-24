@@ -5,7 +5,12 @@ class Ability
       can :manage, :all
     else
       admin.role.permissions.each do |permission|
-        can permission.action_name.to_sym, permission.model_name.constantize
+        begin
+          can permission.action_name.to_sym, permission.model_name.constantize
+        rescue NameError => e
+          Rails.log.error("#{e.class}: #{e.message}\n#{e.backtrace.join("\n")}")
+          next
+        end
       end
     end
   end

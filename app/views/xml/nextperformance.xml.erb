@@ -11,8 +11,8 @@
 <retailprice><%= number_with_precision(product.price, precision: 2, separator: ",") %></retailprice>
 <discount><%= (100-(product.retail_price*100/product.price)).to_i %></discount>
 <quantidadeparcelas><%= installments(product.retail_price).first %></quantidadeparcelas>
-<valorparcelas><%= product.brand %></brand>
-<brand><%= installments(product.retail_price).split(" ").last %></valorparcelas>
+<valorparcelas><%= product.brand %></valorparcelas>
+<brand><%= installments(product.retail_price).split(" ").last %></brand>
 <recommendable>1</recommendable>
 <instock><%= product.instock %></instock>
 <category><%= product.subcategory %></category>
