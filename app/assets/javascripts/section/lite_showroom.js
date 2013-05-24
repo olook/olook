@@ -130,8 +130,7 @@ showroom = s = {
     if(typeof imageKind == 'undefined') imageKind = 'showroom';
     $('img.async').each(function(){
       var image = $(this).data(imageKind);
-      // if(/http.*/.test(image))
-        $(this).attr('src', image);
+      $(this).attr('src', image);
     });
 
   },
@@ -143,13 +142,11 @@ showroom = s = {
   setMouseOverOnImages: function() {
     $('img.async').on('mouseenter', function () {
       var backside_image = $(this).attr('data-backside');
-      if(/http.*/.test(backside_image))
-        $(this).attr('src', backside_image);
+      $(this).attr('src', backside_image);
       }).on('mouseleave', function () {
         var field_name = 'data-product';
         var showroom_image = $(this).attr(field_name);
-        if(/http.*/.test(showroom_image))
-          $(this).attr('src', showroom_image);
+        $(this).attr('src', showroom_image);
       });
   }
 }
