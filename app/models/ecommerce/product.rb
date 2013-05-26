@@ -544,7 +544,7 @@ class Product < ActiveRecord::Base
           begin
             picture.image.recreate_versions! 
           rescue
-            Resque.enqueue(NotificationWorker, {to: 'rafael.manoel@olook.com.br', subject: "Erro ao recriar imagens do produto #{id}, pic #{picture.id}"})
+            Resque.enqueue(NotificationWorker, {to: 'rafael.manoel@olook.com.br', subject: "Falha ao recriar imagens", body: "Erro ao recriar imagens do produto #{id}, pic #{picture.id}"})
           end
           picture.save!
           picture.try(:image_url, :suggestion)
