@@ -28,7 +28,7 @@
     <% end %>
 
     <!-- Struq navigation pixel -->
-    <%= render :partial => "shared/metrics/struq/homepage" %>
+    <%#= render :partial => "shared/metrics/struq/homepage" %>
 
     <%= yield :head %>
 
@@ -37,16 +37,16 @@
     <![endif]-->
 
 
-    <%= render 'shared/metrics/google/universal_analytics' %>
-    <%= yield :data_layer %>
+    <%#= render 'shared/metrics/google/universal_analytics' %>
+    <%#= yield :data_layer %>
 
     <!-- Predicta SiteApps -->
-    <script type="text/javascript">
+    <!--script type="text/javascript">
        //<![CDATA[[
        $SA={s:18120};
        document.write(unescape("%3Cscript src='" + ("https:" == document.location.protocol ? "https://" + $SA.s + ".sa" : "http://" + $SA.s + ".a") + ".siteapps.com/" + $SA.s + ".js' type='text/javascript'%3E%3C/script%3E"));
        //]]>
-    </script>
+    </script-->
     
   </head>
 
@@ -54,7 +54,7 @@
   <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>
     <%= "moments" if is_moment_page? %>">
 
-    <%= render :partial => "shared/tag/google_tag_manager" %>
+    <%#= render :partial => "shared/tag/google_tag_manager" %>
 
     <%= render 'shared/admin_label' if current_admin %>
 
