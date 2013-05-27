@@ -3,7 +3,7 @@
 <% @products.each do |product| %>
 <product>
 <identifier><%= product.id %></identifier>
-<fn><%= product.name %></fn>
+<fn><%= product.formatted_name(200) %></fn>
 <description><%= product.description %></description>
 <category><%= product.category_humanize %></category>
 <brand><%= product.brand %></brand>
