@@ -37,9 +37,11 @@ class Admin::ProductsController < Admin::BaseController
 
   def update
     @product = Product.find(params[:id])
+    # I know this is not the best approach, but after update_attributes I can't know is visibility was change or not
+    old_visibility = @product.is_visible
 
     if @product.update_attributes(params[:product])
-      ProductListener.notify_about_visibility([@product], current_admin)
+      ProductListener.notify_about_visibility([@product], current_admin) if @product.is_visible != old_visibility
       flash[:notice] = 'Product was successfully updated.'
     end
 
@@ -54,7 +56,8 @@ class Admin::ProductsController < Admin::BaseController
 
   def sync_products
     @products = Product.all
-    @sync_event = SynchronizationEvent.new(:name => 'products')
+    @sync_event = SynchronizationEvent.new(name: 'products', user: current_admin.email)
+    
     if @sync_event.save
       redirect_to admin_products_path
     else

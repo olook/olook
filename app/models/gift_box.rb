@@ -9,8 +9,7 @@ class GiftBox < ActiveRecord::Base
   after_save :update_products
 
   def suggestion_products
-    products_to_show = remove_color_variations(products)
-    products_to_show.sort_by{|p| p.inventory}.reverse.first(5)
+    remove_color_variations(products).first(5)
   end
 
   private
