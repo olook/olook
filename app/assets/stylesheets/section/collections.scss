@@ -263,38 +263,17 @@ section{margin-top:10px;
           }
 
 
-          div.select {
-            position: relative;
-            float:left;
-            margin-right:19px;
-            /*overflow: auto;
-            display: inline;*/
-            span.select {
-              display:inline-block;
-              height: 19px;
-              cursor: pointer;
-              font-size:10px;
-              text-transform:uppercase;
-              font-weight:bold;
-              line-height:20px;
-              padding:0 35px 0 0;
-              text-indent:6px;
-              border-top:solid 1px #D7D7D7;border-bottom:solid 1px #D7D7D7;border-left:solid 1px #D7D7D7;
-              background: image-url('collections/bullet_arrow.png') right -1px no-repeat;
-              
-            }
-
-            select.custom_select {
-              position: absolute;
-              line-height: 26px;
-              width: 90px;
-              margin-right: 10px;
-              top: 0;
-              left: 0;
-              border:solid 1px #D7D7D7;
-            }
+          div.select {position: relative;float:left;margin-right:19px;/*overflow: auto;display: inline;*/
             
+            select.custom_select{position: absolute;line-height: 26px;width: 110px;margin-right: 10px;top: 0;left: 0;border:solid 1px #D7D7D7;}
+            span.select{width:79px;}
           }
+          span.select{display:inline-block;height: 19px;cursor: pointer;font-size:10px;text-transform:uppercase;font-weight:bold;line-height:20px;padding:0 35px 0 0;text-indent:6px;border-top:solid 1px #D7D7D7;border-bottom:solid 1px #D7D7D7;border-left:solid 1px #D7D7D7;background: image-url('collections/bullet_arrow.png') right -1px no-repeat;color:#000;
+            &.cloth_size{width:59px;}
+            &.cloth_model{width:50px;}
+            &.filter_selected{color:#EF3742 !important;}
+          }
+          
         }
         #order_filter{float:left !important;width:225px !important;height:30px;margin-left:55px;
           label{text-transform:uppercase;font-weight:normal;font-size:11px;margin-right:5px;line-height:22px;}
@@ -302,176 +281,51 @@ section{margin-top:10px;
             span.select{background:image-url('moments/sprite.png') right 4px no-repeat !important;font-size:11px;text-transform:uppercase;line-height:18px;width:105px;text-indent:6px;}
           }
         }
-        .filter{
-        	float: left;
-        	font-family: $avenir;
-        	font-size: 12px;
-        	color: #717171;
-        	position: relative;
-          top: 1px;
-        	.arrow{
-        		display: none;
-        		position: absolute;
-        		z-index: 3;
-        		top: 13px;
-        		right: 0;
-        	}
-        	.arrow-size{
-        		left: 70px;
-        	}
-        	.arrow-cor{
-        		left: 39px;
-        	}
-        	.arrow-heel{
-        		left: 47px;
-        	}
-        	.arrow-shoes{
-        		left: 61px;
-        	}
-        	.arrow-bag{
-        		left: 61px;
-        	}
-        	.arrow-bag-color{
-        		left: 36px;
-        	}
-          .arrow-cloth-size{
-            left: 70px;
+        .filter{float: left;font-family: $avenir;font-size: 12px;color: #717171;position: relative;top: 1px;margin-right:19px;
+          .tab_bg{display:none;position:absolute;z-index:4;border-left:solid 1px #E2E2E2;border-right:solid 1px #E2E2E2;background:#FFF;height:17px;
+            &.tab_model{width:84px;}
+            &.tab_color{width:61px;}
+            &.tab_cloth_size{width:86px;}
+            &.tab_cloth_model{width:84px;}
+            &.tab_cloth_size,&.tab_shoe_size{width:93px;}
+            &.tab_shoe_heel{width:72px;}
           }
-          .arrow-cloth-model{
-            left: 61px;
-          }
-        	.model{
-        		margin-left: 5px;
-        		margin-bottom: 0;
-        	}
-        	p{
-        		color: black;
-        		margin-left: 15px;
-            cursor:pointer;
-        	}
-        	.clear_filter{
-        		background: none;
-        		border: none;
-        		float: right;
-        		color: #717171;
-        		display: none;
-        		position: absolute;
-        		z-index: 4;
-        	}
-        	.bt_clear_size{
-        		left: 0;
-        		top: 143px !important;
-        	}
-        	.bt_clear_color{
-        		left: -20px;
-        		top: 109px;
-            padding-right: 5px;
-            margin-top: 15px;
-        	}
-        	.bt_clear_heel{
-        		left: -18px;
-        		top: 166px;
-        	}
-        	.bt_clear_model{
-        		left: 2px;
-        		top: 215px !important;
-        	}
-        	.bt_clear_bag_color{
-        		left: -109px;
-        		top: 125px !important;
-                margin-top: 10px !important;
-        	}
-        	.bt_clear_bag{
-        		top: 108px !important;
-        		left: 1px;
-        	}
-        	.bt_clear_accessory{
-        		left: 1px !important;
-        		top: 139px !important;
-        	}
-      		.bt_clear_cloth{
-      			left: -3px !important;
-      			top: 202px !important;
-      		}
-      		.bt_clear_cloth_size{
-            top: 170px !important;
-            left: 18px !important;
-            margin-top: 11px !important;
-      		}
+        
+        	.model{margin-left: 5px;margin-bottom: 0;}
+        	p{color: black;margin-left: 15px;cursor:pointer;}
+        	.clear_filter{background: none;border: none;float: right;color: #717171;display: none;cursor:pointer;}
+          
+        	.bt_clear_size{left: 0;top: 143px !important;}
+        	.bt_clear_color{left: -20px;top: 109px;padding-right: 5px;margin-top: 15px;}
+        	.bt_clear_heel{left: -18px;top: 166px;}
+        	.bt_clear_model{left: 2px;top: 215px !important;}
+        	.bt_clear_bag_color{left: -109px;top: 125px !important;margin-top: 10px !important;}
+        	.bt_clear_bag{top: 140px !important;right: -160px;}
+        	.bt_clear_accessory{left: 1px !important;top: 139px !important;}
+      		.bt_clear_cloth{right: -165px !important;top: 180px !important;}
+      		.bt_clear_cloth_size{top: 150px !important;right: -110px !important;}
 
-        	h1{
-        		display: none;
-        	}
-        	ol{
-        		z-index: 2;
-        		position: absolute;
-        		margin-top: 25px;
-                        display: none;
-        		background-color: #fff;
-        		padding: 15px;
-        		border: 1px solid #e2e2e2;
-        		box-shadow: 1px 1px 5px 1px #e2e2e2;
-        		-moz-border-radius: 5px;
-				-webkit-border-radius: 5px;
-        		&.color_filter{
-        			width: 285px;
-        			height: auto;
-        			left: -220px;
-              li{
-                width: 100px !important;
-              }
+        	h1{display: none;}
+        	ol{overflow:hidden;z-index: 2;position: absolute;top:37px;background-color: #FFF;padding: 15px;border: 1px solid #E2E2E2;display:none;
+        		&.color_filter{width: 285px;height: auto;left: 0;
+              li{width: 100px !important;}
         		}
-        		&.open{
-        			width: 285px;
-        			height: auto;
-        			left: -200px;
-        		}
-			     &.open_cloth{
-				    width: 200px;
-				    height: auto;
-				    left: -110px;
+        		&.open{width: 285px;height: auto;}
+			      &.open_cloth{width: 220px;height: auto;}
+        		&.column{width: 190px;height: auto;}
+        		&.column-size{width: 275px;height: auto;}
+            &.column_size_cloth{width: 175px;height: auto;
+              li{width: 70px;}
 			      }
-        		&.column{
-        			width: 190px;
-        			height: auto;
-        			left: -125px;
+        		&.open-bags{width: 230px;
+        			li{width: 110px;}
         		}
-        		&.column-size{
-        			width: 275px;
-        			height: auto;
-        			left: -190px;
+        		&.open-accessory{width: 330px;height: 120px;
+        			li{width: 110px;}
         		}
-			&.column_size_cloth{
-				width: 145px;
-				height: auto;
-				left: -55px;
-                    li{
-                      width: 70px;
-                    }
-			}
-        		&.open-bags{
-        			width: 230px;
-        			left: -120px;
-        			li{
-        				width: 110px;
-        			}
-        		}
-        		&.open-accessory{
-        			width: 330px;
-        			height: 120px;
-        			left: -230px;
-        			li{
-        				width: 110px;
-        			}
-
-        		}
-        		li{
-        			float: left;
-        			width: 95px;
-        			height: 25px;
-        			margin-bottom: 10px;
-        			position: relative;
-        		}
+        		li{float: left;width: 95px;height: 25px;margin-bottom: 10px;position: relative;
+              &.clear_choice{position:absolute;bottom:-10px;right:0;}
+            }
         	}
         }
       }

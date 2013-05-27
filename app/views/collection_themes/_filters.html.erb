@@ -12,8 +12,16 @@
       <%- if params[:category_id].present? && !Category.key_for(params[:category_id].to_i).blank? -%>
         <%= render partial: "#{Category.key_for(params[:category_id].to_i).to_s}_filters" %>
       <%- end -%>
+      <div class="price-range">
+        <p id="min-value-label">0</p>
+        <input type="text" id="min-value" />
+        <div class="slider"><div id="slider-range"></div></div>
+        <p id="max-value-label">0</p>
+        <input type="text" id="max-value" />
+      </div>  
     </div>
-
+    
+    
   <% end %>
 
 </div>

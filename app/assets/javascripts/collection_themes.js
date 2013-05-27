@@ -84,13 +84,13 @@ filter.submitAndScrollUp = function(){
       return false;
     }
     $('.loading').show();
-    $('#category_filters').find('ol, .arrow, .clear_filter').hide();
+    $('#category_filters').find('ol, .tab_bg, .clear_filter').hide();
     var selected_sort = $("select#filter_option").val() ;
     $('#sort_filter').val(selected_sort);
     $("#products").fadeOut("slow", function() {
       $(this).fadeIn("slow").html("");
     });
-    $("html, body").delay(300).animate({scrollTop: $(".filters").length ? h : 0}, 'slow');
+    //$("html, body").delay(300).animate({scrollTop: $(".filters").length ? h : 0}, 'slow');
   }).bind('ajax:complete', function(){
     $('#category_filters .opened').removeClass('opened');
   });
@@ -99,7 +99,6 @@ filter.seeAll = function(){
    $("#filter input[type='checkbox'].select_all").each(function(i){
       $(this).bind("click",function(){
          $(this).parents(".filter").find("input[type='checkbox']").not(".select_all").attr("checked", this.checked);
-
          $(this).parent().submit();
       })
    });
@@ -108,14 +107,18 @@ filter.placeTag = function(el){
   if(!$(el).is(":checked")) {
     $(el).parent().siblings("li").find("input[type='checkbox'].select_all").attr("checked", false);
     if($(el).parent().parent().find("li input[type='checkbox']:checked").length == 0){
-      $(el).parent().parent().parent().find("button.clear_filter").hide();
+      $(el).siblings().find("button.clear_filter").hide();
     }
   } else if($(el).parent().parent().find("li input[type='checkbox']:checked").length > 0){
-    $(el).parent().parent().parent().find("button.clear_filter").show();
+    $(el).siblings().find("button.clear_filter").show();
   }
   filter.tags($(el).attr('id'),$(el).next().text() ,$(el).is(":checked"));
 }
 filter.selectedFilter = function(){
+   if($("#filter input[type='checkbox']").is(":checked")){
+     $("#filter input[type='checkbox']:checked").parent().parent().parent().find("span.select").addClass("filter_selected");
+   }
+   
    $("#filter input[type='checkbox']").not(".select_all").bind("click", function() {
      filter.placeTag(this);
 
@@ -168,7 +171,7 @@ filter.cleanCategory = function(event){
    event.stopPropagation();
    canSubmit = false;
 
-   $(event.target).parent().find("li").each(function(){
+   $(event.target).parent().parent().find("li").each(function(){
       checked = $(this).find("input[type='checkbox']:checked");
       if(checked.attr("checked")){
         canSubmit = true;
@@ -201,12 +204,12 @@ filter.bindObjects = function(){
      var filters = $(this).parent().parent();
      var clicked_filter = $(this).parent();
 
-     filters.find(".clear_filter").hide();
+     filters.parent().parent().find("ol:visible,.tab_bg:visible").hide();  
      if(clicked_filter.find('.filter_type').hasClass('clicked')){
-       clicked_filter.find("ol, .arrow, .clear_filter").hide();
+       clicked_filter.find("ol, .tab_bg, .clear_filter").hide();
        filters.find('.filter_type').removeClass('clicked');
      } else {
-       clicked_filter.find("ol, .arrow").show();
+       clicked_filter.find("ol, .tab_bg").show();
        if(clicked_filter.find('input:checked').length > 0) {
          var filter_box_height = clicked_filter.find('ol').height();
          clicked_filter.find(".clear_filter").show();
@@ -241,12 +244,43 @@ filter.cleanFilter = function(){
    })
 }
 
+filter.sliderRange = function(){
+  $("#slider-range").slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 0, 500 ],
+      slide: function( event, ui ) {
+        $("#min-value").val("R$ " + ui.values[ 0 ]);
+        $("#max-value").val("R$ " + ui.values[ 1 ]);
+        $("#min-value-label").text("R$ " + ui.values[ 0 ]);
+        $("#max-value-label").text("R$ " + ui.values[ 1 ]);
+      }
+  });
+    
+  $("#min-value").val("R$ " + $("#slider-range").slider("values", 0 ));
+  $("#max-value").val("R$ " + $("#slider-range").slider("values", 1));
+  $("#min-value-label").text($("#min-value").val());
+  $("#max-value-label").text($("#max-value").val());
+}
+
 $(function(){
+  
+  filter.sliderRange();
+  
   if($(".exhibition-mode").position()){
     h = $(".exhibition-mode").position().top;
     h += 105;
   }
 
+  $("body").on("click", function(){
+    if($("#category_filters div.filter ol").is(":visible")){
+      $("#category_filters div.filter ol:visible, #category_filters div.filter .tab_bg:visible").hide();
+      $("#category_filters div.filter span.select.clicked").removeClass("clicked");
+    }
+  });
+
+  
   filter.init();
 
   if($("div#products_amamos").size() > 0) {
