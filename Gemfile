@@ -10,16 +10,18 @@ gem 'omniauth', '= 1.0.3'
 gem 'omniauth-facebook'
 gem 'oa-oauth', '~> 0.3.0', :require => 'omniauth/oauth'
 gem 'therubyracer', '~> 0.9.4'
-gem 'resque', '~> 1.20.0'
+gem 'resque', '~> 1.20.0', :require => 'resque/server'
 gem 'resque_mailer', '~> 2.0.2'
-gem 'resque-scheduler', '~>2.0.0', :require => 'resque_scheduler'
+gem 'resque-scheduler', '~>2.0.0', :require => ['resque_scheduler', 'resque_scheduler/server']
+gem 'resque-pool'
+gem 'puma', require: false #for resque web in rubber
 gem 'brcpfcnpj', '= 3.0.4'
 gem 'hpricot'
 gem 'fastercsv'
 gem 'glennfu-contacts', '= 1.2.6', :path => "vendor/gems", :require => "contacts"
 gem 'cancan', '~> 1.6.7'
 gem 'enumerate_it', '~> 0.7.14'
-gem 'fog', '~> 1.1.1'
+gem 'fog', '~> 1.2'
 gem 'carrierwave', '~> 0.6.0'
 gem 'mini_magick', '= 3.3'
 gem 'zipruby'
@@ -99,3 +101,5 @@ group :development, :test do
   gem 'fakeweb'
   gem 'parallel_tests'
 end
+gem 'rubber', '~> 2.0', git: 'git://github.com/nelsonmhjr/rubber.git', branch: 'newrelic'
+gem 'open4'
