@@ -12,7 +12,6 @@ class FacebookDataService
       end
       csv_lines    
   end
-
   private  
 
   def format_user_data(user, month, middle_of_the_month)

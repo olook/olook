@@ -11,6 +11,10 @@ class CreditType < ActiveRecord::Base
     total = (positive - negative)
   end
 
+  def last_credit(user_credit, date = DateTime.now, is_debit=false, source=nil)
+    user_credit.credits.where("is_debit = ?", is_debit).last
+  end
+
   #NOTICE: FOR ALL NORMAL CREDITS DOESN'T HAVE HOLDING
   def credit_sum(user_credit, date, is_debit, kind, source=nil)
     if (kind == :holding)
@@ -23,7 +27,7 @@ class CreditType < ActiveRecord::Base
       end
     end
   end
-  
+
   def add(opts={})
     user_credit = opts.delete(:user_credit)
     user_credit.credits.create!(opts)
@@ -31,7 +35,7 @@ class CreditType < ActiveRecord::Base
 
   def remove(opts={})
     user_credit, amount = opts.delete(:user_credit), opts[:value]
-    
+
     if user_credit.total >= amount
       [user_credit.credits.create!(opts.merge({
         :is_debit => true

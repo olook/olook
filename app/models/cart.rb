@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Cart < ActiveRecord::Base
   DEFAULT_QUANTITY = 1
-
+  
   belongs_to :user
   belongs_to :coupon
   belongs_to :address
@@ -112,11 +112,22 @@ class Cart < ActiveRecord::Base
     self.reload
   end
 
+  # CONSIDER to change this method name
+  def increment_from_gift_wrap
+    gift_wrap ? CartService.gift_wrap_price : 0
+  end
+
+  def free_gift_wrap?
+    coupon_code = coupon.try(:code)
+    Setting.valentines_day_coupon_code == (coupon_code)
+  end
+
   private
 
     def update_coupon
       coupon = Coupon.find_by_code(self.coupon_code)
       self.coupon = coupon
+      self.gift_wrap = true if free_gift_wrap?
     end
 
     def update_coupon_code

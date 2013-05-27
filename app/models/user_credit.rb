@@ -8,6 +8,10 @@ class UserCredit < ActiveRecord::Base
   TRANSACTION_LIMIT = 150.0
   CREDIT_CODES = {invite: 'MGM', loyalty_program: 'Fidelidade', redeem: 'Reembolso'}
 
+  def last_credit(date = DateTime.now, is_debit=false, source=nil)
+    credit_type.last_credit(self, date, is_debit, source)
+  end
+
   def total(date = DateTime.now, kind = :available, source=nil)
     credit_type.total(self, date, kind, source)
   end
@@ -29,7 +33,7 @@ class UserCredit < ActiveRecord::Base
   #Set total in the remotion.
   def remove(opts)
     raise ArgumentError.new('Amount is required!') if opts[:amount].nil?
-    
+
     amount = BigDecimal.new(opts.delete(:amount).to_s)
 
     credit_type.remove(opts.merge!({

@@ -9,6 +9,11 @@ body #tracker + p {
   display: none;
 }
 
+div#banner {
+  margin: 0 auto;
+  width: 990px;
+}
+
 body div.full_container {
   section {
     background: image-url('gift/border-sections.jpg') bottom repeat-x;

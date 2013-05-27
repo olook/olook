@@ -61,6 +61,18 @@ FactoryGirl.define do
       description "Couro"
     end
 
+    factory :sandalia do
+      display_on DisplayDetailOn::SPECIFICATION
+      translation_token 'Categoria'
+      description "Sandalia"
+    end    
+
+    factory :scarpin do
+      display_on DisplayDetailOn::SPECIFICATION
+      translation_token 'Categoria'
+      description "Scarpin"
+    end
+
   end
 
   factory :bag_detail, :class => Detail do

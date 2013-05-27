@@ -36,11 +36,16 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     redirect_to(member_showroom_path, :alert => I18n.t("facebook.connect_failure"))
   end
 
+  def setup
+    request.env['omniauth.strategy'].options[:scope] = User::ALL_FACEBOOK_PERMISSIONS # session[:facebook_scopes]
+    render :text => "Setup complete.", :status => 404
+  end
+
   private
 
     #
     # Clearly this isn't the best place to put this code, but the problem is that putting this
-    # logic in ApplicationController#current_referer doesn't work because the user is not 
+    # logic in ApplicationController#current_referer doesn't work because the user is not
     # loaded yet on that point
     #
     def redirect user
@@ -49,7 +54,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       elsif !user.half_user?
         redirect_to member_showroom_path
       else
-        redirect_to lookbooks_path
+        redirect_to gift_root_path
       end
     end
 
