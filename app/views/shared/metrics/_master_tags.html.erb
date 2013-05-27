@@ -8,11 +8,28 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 var google_tag_params = {
-      prodid:"<%= google_ids @google_pixel_information %>",
-      et:"<%= @google_path_pixel_information if @google_path_pixel_information %>",
-      pname:"<%= google_name @google_pixel_information %>",
-      pcat:"<%= google_cat @google_pixel_information %>",
-      pvalues:"<%= google_value @google_pixel_information %>"
+  <% if @user.present? %>
+      user_created_at: "<%= @user.created_at.strftime('%d/%m/%y') %>",
+      user_profile: "<%= @user.profile_name %>",
+      user_gender: "<%= @user.gender %>",
+      user_birthdate: "<%= @user.birthday %>",
+      user_shoes_size: "<%= @user.shoes_size %>",
+      user_city: "<%= @user.addresses.first.try(:city) %>",
+      user_current_credit: "<%= @user.current_credit %>",
+
+      <% if @order.present? %>
+        order_number:  "<%= @order.number %>",
+        order_date: "<%= @order.created_at.strftime('%d/%m/%y') %>",
+        order_quantity: "<%= @order.line_items.count %>",
+        order_installments: "<%= @order.installments %>",
+        order_value: "<%= @order.amount_paid %>",
+      <% end %>
+  <% end %>
+  prodid:"<%= google_ids @google_pixel_information %>",
+  et:"<%= @google_path_pixel_information if @google_path_pixel_information %>",
+  pname:"<%= google_name @google_pixel_information %>",
+  pcat:"<%= google_cat @google_pixel_information %>",
+  pvalues:"<%= google_value @google_pixel_information %>"
 };
 /* ]]> */
 </script>
