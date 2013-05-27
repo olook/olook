@@ -191,13 +191,7 @@ class Product < ActiveRecord::Base
   end
 
   def return_catalog_or_suggestion_image(picture)
-    img = nil
-    begin
-      img = fetch_cache_for(picture) if picture
-    rescue => e
-      Rails.logger.error "Error on Picture[#{picture.try(:id)}].return_catalog_or_suggestion_image: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}"
-      nil
-    end
+    picture.try(:image_url, :catalog)
   end
 
   def master_variant
@@ -533,24 +527,6 @@ class Product < ActiveRecord::Base
     def self.valid_for_xml_where_query
       query = "x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id "
       query += "NOT IN (:products_blacklist) AND products.collection_id NOT IN (:collections_blacklist)"
-    end
-
-    def fetch_cache_for(picture)
-      return picture.try(:image_url, :catalog) unless Rails.env.production?
-      img = Rails.cache.fetch(CACHE_KEYS[:product_picture_image_catalog][:key] % [id, picture.display_on], expires_in: CACHE_KEYS[:product_picture_image_catalog][:expire]) do
-        if picture.image.catalog.file.exists?
-          picture.try(:image_url, :catalog)
-        else
-          begin
-            picture.image.recreate_versions! 
-          rescue
-            Resque.enqueue(NotificationWorker, {to: 'rafael.manoel@olook.com.br', subject: "Falha ao recriar imagens", body: "Erro ao recriar imagens do produto #{id}, pic #{picture.id}"})
-          end
-          picture.save!
-          picture.try(:image_url, :suggestion)
-        end
-      end
-      img
     end
 end
 
