@@ -6,7 +6,7 @@
 /* <![CDATA[ */
 var google_tag_params = {
   <% if @user.present? %>
-      user_created_at: "<%= @user.created_at.strftime('%d/%m/%y') %>",
+      user_created_at: "<%= @user.created_at.try(:strftime, ('%d/%m/%y')) %>",
       user_profile: "<%= @user.profile_name %>",
       user_gender: "<%= @user.gender %>",
       user_birthdate: "<%= @user.birthday %>",
