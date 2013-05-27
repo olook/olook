@@ -30,24 +30,16 @@
     <!-- Struq navigation pixel -->
     <%= render :partial => "shared/metrics/struq/homepage" %>
 
+    <%= render :partial => "shared/tag/siteapps" %>
+
     <%= yield :head %>
 
     <!--[if IE]>
     <%= javascript_include_tag "html5.js" %>
     <![endif]-->
 
-
     <%= render 'shared/metrics/google/universal_analytics' %>
-    <%= yield :data_layer %>
-
-    <!-- Predicta SiteApps -->
-    <script type="text/javascript">
-       //<![CDATA[[
-       $SA={s:18120};
-       document.write(unescape("%3Cscript src='" + ("https:" == document.location.protocol ? "https://" + $SA.s + ".sa" : "http://" + $SA.s + ".a") + ".siteapps.com/" + $SA.s + ".js' type='text/javascript'%3E%3C/script%3E"));
-       //]]>
-    </script>
-    
+    <%= yield :data_layer %> 
   </head>
 
 
