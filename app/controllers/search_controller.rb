@@ -7,9 +7,17 @@ class SearchController < ApplicationController
   end
 
   def show
+    @brand = params[:brand].humanize if params[:brand]
 
-    url_builder = SearchUrlBuilder.new params[:q]
-    url = url_builder.build_url_with({category: params[:category], brand: params[:brand], rank: "cor_e_marca"})
+    url_builder = SearchUrlBuilder.new 
+
+    url = url_builder
+      .for_term(params[:q])
+      .with_category(params[:category])
+      .with_brand(@brand)
+      .build_url
+
+    # .build_url_with({category: params[:category], brand: params[:brand], rank: "cor_e_marca"})
 
     response = Net::HTTP.get_response(url)
     @hits = JSON.parse(response.body)["hits"]

@@ -14,34 +14,25 @@ class SearchUrlBuilder
     self
   end
 
-  def build_url_with attributes={}
-    query = "q=#{CGI.escape @term}"
-    query += "&bq=categoria%3A'#{CGI.escape attributes[:category]}'" if attributes[:category]
-    query += "&bq=brand%3A'#{CGI.escape attributes[:brand]}'" if attributes[:brand]
-    query += "&size=100"
-    query += "&rank=-#{attributes[:rank]}" if attributes[:rank]
-    URI.parse("http://#{BASE_URL}/2011-02-01/search?#{query}&return-fields=categoria,name,brand,description,image,price,backside_image,category,text_relevance")
-  end
-
   def with_category category
-    @expressions << "categoria:'#{CGI.escape category}'"
+    @expressions << "categoria:'#{CGI.escape category}'" unless category.nil? || category.empty?
     self
   end
 
   def with_brand brand
-    @expressions << "brand:'#{CGI.escape brand}'"
+    @expressions << "brand:'#{CGI.escape brand}'" unless brand.nil? || brand.empty?
     self
   end
 
   def build_url
-    bq = build_boolean_query
+    bq = build_boolean_expression
     q = @query ? "?#{@query}&" : "?"
-    URI.parse("http://#{@base_url}#{q}#{bq}return-fields=categoria,name,brand,description,image,price,backside_image,category,text_relevance&size=100")
+    URI.parse("http://#{@base_url}#{q}#{bq}return-fields=categoria,name,brand,description,image,price,backside_image,category,text_relevance&size=100&rank=-cor_e_marca")
   end
 
   private
 
-    def build_boolean_query
+    def build_boolean_expression
       if @expressions.size == 1
         "bq=#{url_encode(@expressions.first)}&"
       elsif @expressions.size > 1
