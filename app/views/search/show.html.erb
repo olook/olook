@@ -16,30 +16,19 @@
     
   <% else %>
     <div class="cb">
-      <h2 class="title-founded">Legal! Temos <span><%= @hits["found"] %></span> opções de <span><%= @q%></span> para você :)</h2>
+      <% unless @dont_show_message %>
+        <h2 class="title-founded">Legal! Temos <span><%= @hits["found"] %></span> opções de <span><%= @q%></span> para você :)</h2>
+      <% end %>
     </div>
 
-    <% if @show_filters -%>
-      <div id="filters">
-        
-        <% @model_names.each do |category, models| %>
-          <p class="title-category"><%= category %></p>
-          <ul class="subcategory-list">
-          <% models.each do |model,amount| -%>
-            <li><%= search_link_to @q, @brand, model, amount %></li>
-          <% end -%>
-          </ul> 
-        <% end %>
+    <div id="filters">
 
-        <p class="title-category">Marcas</p>
-        <ul class="subcategory-list">
-        <% @brands.each do |brand,amount| -%>
-          <li><%= brand_link_to @q, brand, amount %></li>
-        <% end -%>
-        </ul>
-      
-      </div>
-    <% end %>
+      <%= render :partial => "grouped_products", :locals => {title: "Marca", list: @brands, field: :brand} %>
+      <%= render :partial => "grouped_products", :locals => {title: "Roupas", list: @model_names, field: :category} %>
+      <%= render :partial => "grouped_products", :locals => {title: "Cores", list: @colors, field: :color} %>
+    
+    </div>
+
 
     <div id="search_result">
       <ul class="search-results-list">  
