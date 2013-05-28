@@ -1,23 +1,8 @@
-base: &base
+<%= "#{Rubber.env}" %>:
   adapter: mysql2
-  username: root
-  password:
-  host: localhost
-  timeout: 5000
-development:
-  database: <%= "#{application}_development" %>
-  <<: *base
-test:
-  database: <%= "#{application}_test" %>
-  <<: *base
-staging:
-  database: <%= "#{application}_staging" %>
-  <<: *base
-production:
-  adapter: mysql2
-  database: <%= "#{application}_production" %>
+  database: <%= "#{application}_#{Rubber.env}" %>
   username: <%= "#{Capistrano::CLI.ui.ask("Enter MySQL database user: ")}" %>
   password: <%= "#{Capistrano::CLI.ui.ask("Enter MySQL database password: ")}" %>
   encoding: utf8
-  timeout: 5000
+    timeout: 5000
   host: olookdb1.ct2t45qjbvrd.us-east-1.rds.amazonaws.com
