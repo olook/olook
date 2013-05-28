@@ -118,7 +118,7 @@ filter.selectedFilter = function(){
    if($("#filter input[type='checkbox']").is(":checked")){
      $("#filter input[type='checkbox']:checked").parent().parent().parent().find("span.select").addClass("filter_selected");
    }
-   
+
    $("#filter input[type='checkbox']").not(".select_all").bind("click", function() {
      filter.placeTag(this);
 
@@ -204,7 +204,7 @@ filter.bindObjects = function(){
      var filters = $(this).parent().parent();
      var clicked_filter = $(this).parent();
 
-     filters.parent().parent().find("ol:visible,.tab_bg:visible").hide();  
+     filters.parent().parent().find("ol:visible,.tab_bg:visible").hide();
      if(clicked_filter.find('.filter_type').hasClass('clicked')){
        clicked_filter.find("ol, .tab_bg, .clear_filter").hide();
        filters.find('.filter_type').removeClass('clicked');
@@ -244,25 +244,25 @@ filter.cleanFilter = function(){
    })
 }
 
-filter.sliderRange = function(){
+filter.sliderRange = function(start_range, final_range){
   $("#slider-range").slider({
       range: true,
-      min: 0,
-      max: 500,
-      values: [ 0, 500 ],
+      min: start_range || 0,
+      max: final_range || 500,
+      values: [ start_range, final_range ],
       slide: function( event, ui ) {
         $("#min-value").val("R$ " + ui.values[ 0 ]);
         $("#max-value").val("R$ " + ui.values[ 1 ]);
         $("#min-value-label").text("R$ " + ui.values[ 0 ]);
         $("#max-value-label").text("R$ " + ui.values[ 1 ]);
       },
-      
+
       stop: function(event,ui){
         $.ajax({})
       }
-      
+
   });
-    
+
   $("#min-value").val("R$ " + $("#slider-range").slider("values", 0 ));
   $("#max-value").val("R$ " + $("#slider-range").slider("values", 1));
   $("#min-value-label").text($("#min-value").val());
@@ -270,9 +270,9 @@ filter.sliderRange = function(){
 }
 
 $(function(){
-  
+
   filter.sliderRange();
-  
+
   if($(".exhibition-mode").position()){
     h = $(".exhibition-mode").position().top;
     h += 105;
@@ -285,7 +285,7 @@ $(function(){
     }
   });
 
-  
+
   filter.init();
 
   if($("div#products_amamos").size() > 0) {
