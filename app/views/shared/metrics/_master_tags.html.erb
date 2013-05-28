@@ -32,12 +32,10 @@ var google_remarketing_only = true;
 </div>
 </noscript>
 <!-- END Google -->
-
-
 <!-- Sociomantic -->
 <% if current_user && current_user.try(:has_purchased_orders?) %>
   <script type="text/javascript">
-    dataLayer.push({'customerId': '<%= current_user.id %>'});
+    dataLayer.push({'CustomerId': '<%= current_user.id %>'});
   </script>
 <% end %>
 <!-- END Sociomantic -->
@@ -54,3 +52,5 @@ var google_remarketing_only = true;
 <div class="zx_5571F3A060448F6BED32 zx_mediaslot">
 </div>
 <!-- End -->
+
+
