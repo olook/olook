@@ -1,80 +1,81 @@
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>olook</title>
-  </head>
-  <body>
-    <div>
-      <table border="0" align="center" cellpadding="0" cellspacing="0" width="620">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head><META http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>
+  <div bgcolor="#ffffff" style="font-family:Verdana,Helvetica,Arial,sans-serif;font-size:14px">
+  <table border="0" align="center" cellpadding="0" cellspacing="0" width="620">
+  <tr>
+    <td align="center" height="5"></td>
+  </tr>
+  <tr>
+    <td>
+      <table cellpadding="0" cellspacing="0" width="100%">
         <tr>
-          <td align="center" height="30">
+          <td>
+            <a href="http://www.olook.com.br/?utm_source=olook&amp;utm_medium=email&amp;utm_campaign=lookbook_navy_fevereiro&amp;utm_content=compradoras_topo_logo&amp;auth_token=<%= @order.user.authentication_token %>" target="_blank">
+            <img src="http://cdn.olook.com.br/assets/emailmkt/topo/topo2013/menu_01.jpg" alt="Todos os meses uma nova coleção para você." border="0" title="Todos os meses uma nova coleção para você." style="display:block"></a>
+          </td>
+          <td>
+            <a href="http://statigr.am/olook" target="_blank">                
+            <img src="http://cdn.olook.com.br/assets/emailmkt/topo/topo2013/menu_02.jpg" alt="Instagram" border="0" title="Instagram" style="display:block"></a>
+          </td>
+          <td>
+            <a href="https://twitter.com/olook" target="_blank">                
+            <img src="http://cdn.olook.com.br/assets/emailmkt/topo/topo2013/menu_03.jpg" alt="twitter" border="0" title="twitter" style="display:block"></a>
+          </td>
+          <td>
+            <a href="http://www.facebook.com/olook" target="_blank">                
+            <img src="http://cdn.olook.com.br/assets/emailmkt/topo/topo2013/menu_04.jpg" alt="Facebook" border="0" title="Facebook" style="display:block"></a>
+          </td>
+          <td>
+            <a href="http://www.olook.com.br/stylist-news" target="_blank">             
+            <img src="http://cdn.olook.com.br/assets/emailmkt/topo/topo2013/revista1.png" alt="Stylist News" border="0" title="Blog" style="display:block"></a>
           </td>
         </tr>
-
-        <tr>
-        <td>
-          <table cellpadding="0" cellspacing="0" width="100%">
-            <tr>
-              <!-- logo -->
-              <td>
-                <a href="http://www.olook.com.br/?utm_source=olook&amp;utm_medium=email&amp;utm_campaign=transacional&amp;utm_content=t12_entrega_realizada">
-                <img src="http://cdn.olook.com.br/assets/emailmkt/topo/logo_barra.jpg" alt="Todos os meses uma nova coleção para você." border="0" title="Todos os meses uma nova coleção para você." style="display:block"></a>
-              </td>
-
-              <!-- instagram -->
-              <td>
-                <a href="http://statigr.am/olook">                
-                <img src="http://cdn.olook.com.br/assets/emailmkt/topo/ico_in.jpg" alt="Instagram" border="0" title="Instagram" style="display:block"></a>
-              </td>
-              <!-- twitter -->
-              <td>
-                <a href="https://twitter.com/olook">                
-                <img src="http://cdn.olook.com.br/assets/emailmkt/topo/ico_tw.jpg" alt="twitter" border="0" title="twitter" style="display:block"></a>
-              </td>
-              <!-- facebook -->
-              <td>
-                <a href="http://www.facebook.com/olook">                
-                <img src="http://cdn.olook.com.br/assets/emailmkt/topo/ico_fb.jpg" alt="Facebook" border="0" title="Facebook" style="display:block"></a>
-              </td>
-              <!-- blog -->
-              <td>
-                <a href="http://blog.olook.com.br">                
-                <img src="http://cdn.olook.com.br/assets/emailmkt/topo/ico_bg.jpg" alt="Blog" border="0" title="Blog" style="display:block"></a>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-
+      </table>
+    </td>
+  </tr>
+<tr>
+  <td>
+    <table>
       <tr>
-        <td align="center"><br>
-          <div style="font-family:Verdana,Helvetica,Arial, sans-serif; font-size:14px; width:540px; text-align:left">
-
-            <p style="font-size:16px">Olá <b><%= @order.user.first_name %></b>,</p>
+        <td style="font-family:Verdana,Helvetica,Arial,sans-serif;font-size:14px;width:540px;text-align:left">
 
 
-            <p>Temos uma ótima notícia!
-            <br>Seu pedido nº<span style="color:#ef3742"><%= @order.number %></span> foi entregue!</p>
+            <p style="font-size:16px"><br>Olá <%= @order.user.first_name %>,</p>
 
-            <p>Esperamos que a sua experiência de compra tenha sido ótima.</p>
+            <p>Seu pedido nº <b><span style="color:#e82e3a"><%= @order.number %></span></b> foi entregue!<br><br>
 
-            <p>Agora é aproveitar e arrasar no seu look! Tire uma foto usando a sua comprinha, poste no <a href="http://www.facebook.com.br/olook" style="color:#ef3742" target="_blank">Facebook</a> e tag a olook! ;)</p>
+Esperamos que você tenha gostado :) <br><br>
+
+Agora é aproveitar e arrasar no look! Tire uma foto usando a sua comprinha, poste nas redes sociais e marque a Olook ;) Vamos adorar!<br><br>
+
+Não serviu ou não gostou? Pode solicitar a troca ou devolução do seu dinheiro em até 30 dias, sem custo. Fale com a gente: <a href="mailto:falecom@olook.com.br" style="color:#e82e3a" target="_blank">falecom@olook.com.br</a>.<br>
+
+<p style="text-align:center">Que tal compartilhar a Olook com as amigas?<p style="text-align:center">Convide suas amigas e <b>ganhe R$ 20</b> em cada primeira compra delas!</p><br>
+
+<center><a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=ordershipped" style="text-decoration:none"><input name="botao" type="button" value="CONVIDAR AGORA" style="color:white;font-size:17px;background:#e82e3a;width:220px;height:50px;border:none"></a></center>
+<br><br>      
+
+Até mais ;)<br>
+Equipe Olook<br>
+<a href="http://www.olook.com.br" style="color:#e82e3a">www.olook.com.br</a>
+
       
-            <p>Não serviu ou não gostou? Solicite a troca ou devolução do seu dinheiro em até 30 dias, sem custo.<p>Envie um e-mail para <a "falecom@olook.com.br" style="color:#ef3742" target="_blank">falecom@olook.com.br</a> e a nossa equipe vai te ajudar.<p>
-        <center>
-              <a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t12_entrega_realizada" style="color:#ef3742; font-size:14px"><img src="http://cdn.olook.com.br/assets/emailmkt/topo/btn_irparaolook.jpg" border="0" alt="Convide mais amigas, clique aqui"></a>
-            </center>
-      <p>Até mais,<br>
-            Equipe olook<br>
-            <a href="http://www.olook.com.br/?utm_source=olook&amp;utm_medium=email&amp;utm_campaign=transacional&amp;utm_content=t12_entrega_realizada" style="color:#ef3742;font-size:14px" target="_blank">www.olook.com.br</a>
-            
 
-          </div>
-          <br><br></td>
-      </tr>
-    </table>
-    </div>
-  </body>
-</html>
+      <tr><td><hr color="#eeeeee" border="0"></td></tr>
 
+
+
+
+
+    </p></p></td></tr></table>
+  </td>
+</tr>
+  <tr>
+    <td><br>
+      <center><img src="http://cdn.olook.com.br/assets/base/bandeiras.jpg" alt="bandeiras" border="0" style="display:block"></center>        
+  </td></tr>
+       
+
+
+  </table>
+  </div>
+</body></html>

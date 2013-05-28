@@ -1,96 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head><META http-equiv="Content-Type" content="text/html; charset=utf-8"></head><body>
+  
+  
+  
+      
+  <div bgcolor="#ffffff" style="font-family:Verdana,Helvetica,Arial,sans-serif;font-size:14px">
+  <table border="0" align="center" cellpadding="0" cellspacing="0" width="620">
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>olook</title>
-  </head>
-  <body>
-    <div>
-      <table border="0" align="center" cellpadding="0" cellspacing="0" width="620">
+  
+
+
+
+
+
+
+    
+
+
+
+
+  <tr>
+    <td align="center" height="5"></td>
+  </tr>
+
+
+  <tr>
+    <td>
+      <table cellpadding="0" cellspacing="0" width="100%">
         <tr>
-          <td align="center" height="30">
+          <td>
+            <a href="http://www.olook.com.br/?utm_source=olook&amp;utm_medium=email&amp;utm_campaign=transacional&amp;utm_content=new_t1_pedido_recebido_topo_logo&amp;auth_token=<%= @order.user.authentication_token %>" target="_blank">
+            <img src="http://cdn.olook.com.br/assets/emailmkt/topo/topo2013/menu_01.jpg" alt="Todos os meses uma nova coleção para você." border="0" title="Todos os meses uma nova coleção para você." style="display:block"></a>
+          </td>
+          <td>
+            <a href="http://statigr.am/olook" target="_blank">                
+            <img src="http://cdn.olook.com.br/assets/emailmkt/topo/topo2013/menu_02.jpg" alt="Instagram" border="0" title="Instagram" style="display:block"></a>
+          </td>
+          <td>
+            <a href="https://twitter.com/olook" target="_blank">                
+            <img src="http://cdn.olook.com.br/assets/emailmkt/topo/topo2013/menu_03.jpg" alt="twitter" border="0" title="twitter" style="display:block"></a>
+          </td>
+          <td>
+            <a href="http://www.facebook.com/olook" target="_blank">                
+            <img src="http://cdn.olook.com.br/assets/emailmkt/topo/topo2013/menu_04.jpg" alt="Facebook" border="0" title="Facebook" style="display:block"></a>
+          </td>
+          <td>
+            <a href="http://www.olook.com.br/stylist-news" target="_blank">             
+            <img src="http://cdn.olook.com.br/assets/emailmkt/topo/topo2013/revista1.png" alt="Stylist News" border="0" title="Blog" style="display:block"></a>
           </td>
         </tr>
+      </table>
+    </td>
+  </tr>
 
-        <tr>
+
+
+
+
+    
+
+<tr>
+  <td>
+    <table>
+      <tr>
+        <td style="font-family:Verdana,Helvetica,Arial,sans-serif;font-size:14px;width:540px;text-align:left">
+
+
+            <p style="font-size:16px"><br>Olá <%= @order.user.first_name %>,</p>
+
+            <p>Obrigada por comprar na olook!<br>
+            Recebemos seu pedido de compra nº <span style="color:#e82e3a"><%= @order.number %></span>. Confira seu pedido:</p>
+
+
+          <p style="font-size:13px;text-transform:uppercase;font-weight:bold"><br>Detalhes do pedido:
+
+              <hr color="#eeeeee" border="0"></p>
+
+          <% @order.line_items.each do |item| %>
+            <% unless item.is_freebie %>
+
+      <tr>
         <td>
-          <table cellpadding="0" cellspacing="0" width="100%">
+          <table style="font-family:Verdana,Helvetica,Arial,sans-serif">
             <tr>
-              <!-- logo -->
-              <td>
-                <a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t5_pedido_efetuado">
-                <img src="http://cdn.olook.com.br/assets/emailmkt/topo/logo_barra.jpg" alt="Todos os meses uma nova coleção para você." border="0" title="Todos os meses uma nova coleção para você." style="display:block"></a>
-              </td>
-
-              <!-- instagram -->
-              <td>
-                <a href="http://statigr.am/olook">                
-                <img src="http://cdn.olook.com.br/assets/emailmkt/topo/ico_in.jpg" alt="Instagram" border="0" title="Instagram" style="display:block"></a>
-              </td>
-              <!-- twitter -->
-              <td>
-                <a href="https://twitter.com/olook">                
-                <img src="http://cdn.olook.com.br/assets/emailmkt/topo/ico_tw.jpg" alt="twitter" border="0" title="twitter" style="display:block"></a>
-              </td>
-              <!-- facebook -->
-              <td>
-                <a href="http://www.facebook.com/olook">                
-                <img src="http://cdn.olook.com.br/assets/emailmkt/topo/ico_fb.jpg" alt="Facebook" border="0" title="Facebook" style="display:block"></a>
-              </td>
-              <!-- blog -->
-              <td>
-                <a href="http://blog.olook.com.br">                
-                <img src="http://cdn.olook.com.br/assets/emailmkt/topo/ico_bg.jpg" alt="Blog" border="0" title="Blog" style="display:block"></a>
-              </td>
+                  <td width="500" style="font-size:13px"><%= item.variant.product.formatted_name %></td>
+                  <td width="100" align="right"><%= number_to_currency item.retail_price %></td>  
             </tr>
           </table>
         </td>
-      </tr>			
-			<tr>
-				<td>
-					<table cellpadding="0" cellspacing="0">
-					
-					</table>
-					</td>
-					</tr>
-					
-					<tr>
-					<td align="center"><br>
-					<div style="font-family:Verdana,Helvetica,Arial, sans-serif; font-size:14px; width:540px; text-align:left">
+      </tr>
 
-
-					<p style="font-size:16px;">Olá <%= @order.user.first_name %>,</p>
-
-					<p>Obrigada por comprar na olook.<br>
-					Recebemos seu pedido de compra nº <span style="color:#ef3742"><%= @order.number %></span> referente ao(s) produto(s) abaixo:</p>
-
-					<% @order.line_items.each do |item| %>
-            <% unless item.is_freebie %>
-    					<p>
-    					  - <span style="color:#ef3742"><%= item.variant.name %></span>;<br>
-    					</p>
             <% end %>
-					<% end %>
+          <% end %>
 
+      <tr>
+        <td>
+          <table style="font-family:Verdana,Helvetica,Arial,sans-serif">
+
+             <td><hr color="#eeeeee" border="0">
+
+
+            <tr>
+                  <td align="right" width="450" style="font-size:13px">
+                    Desconto cupom<br>
+                    Frete<br>
+                    Embalagem presente<br>
+                    <span style="color:#e82e3a;font-size:14px;font-weight:bold;text-transform:uppercase">total</span>
+                  </td>
+                  <td width="150" align="right" style="font-size:13px">
+                    -<%= number_to_currency @order.amount_discount %><br>
+                    <%= number_to_currency @order.freight_price %><br>
+                    <%= number_to_currency @order.gift_wrap? ? CartService.gift_wrap_price : 0 %><br>
+                    <span style="color:#e82e3a;font-size:14px;font-weight:bold;text-transform:uppercase"><%= number_to_currency @order.amount_paid %></span>
+                  </td>
+            </tr>   
+
+
+
+          </td></table>
+      </td>
+      </tr>
+
+     <tr><td><hr color="#eeeeee" border="0"></td></tr>
+
+     <tr style="font-family:Verdana,Helvetica,Arial,sans-serif;font-size:14px">
+        <td>
+    
 					<%= render :partial => 'order_status_mailer/requested_credit_card' if @order.erp_payment.is_a? CreditCard %>
 					<%= render :partial => 'order_status_mailer/requested_billet', :locals => {:payment => @order.erp_payment} if @order.erp_payment.is_a? Billet %>
 					<%= render :partial => 'order_status_mailer/requested_debit' if @order.erp_payment.is_a? Debit %>
 
-					<p>Em breve enviaremos um e-mail com o novo status da sua compra.</p>
+  <tr>
+    <td align="center">       
+       <br><br><img src="http://cdn.olook.com.br/assets/emailmkt/lookbooks/fevereiro2013/20130206_cordas/div.jpg" border="0" alt="divisória" style="display:block">
+      </td>
+    </tr>
 
-					<p>Se você tiver qualquer dúvida em relação ao seu pedido, envie um e-mail para <a href="mailto:falecom@olook.com.br" style="color:#ef3742;"> falecom@olook.com.br</a> e a nossa equipe te ajudará.</p>
-					<p>Abraços,<br>
-					Equipe olook<br>
-					<a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t5_pedido_efetuado" style="color:#ef3742; font-size:14px">www.olook.com.br</a>
-					</p>
 
-					</div>
-					<br><br></td>
-					
-					</table>
-				</td>
-			</tr>
-		</table>
-	</body>
-</html>
+  <tr>
+    <td><br>
+      <center><img src="http://cdn.olook.com.br/assets/base/bandeiras.jpg" alt="bandeiras" border="0" style="display:block"></center>        
+  </td></tr>
+       
 
+
+  </table>
+  </div>
+</body></html>
