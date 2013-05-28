@@ -1,15 +1,3 @@
-<script type="text/javascript">
-var basket = {
-products: [
-<%= raw cart.items.map { |item|
-  "{ identifier:'#{item.id}', amount:'#{number_with_precision(item.variant.retail_price, separator: ".", precision: 2)}', currency:'BRL', quantity:'#{item.quantity}' }"
-}.join(', ') -%>
-],
-transaction : '<%= raw order.number %>',
-amount: '<%= raw number_with_precision(order.amount_paid, separator: ".", precision: 2) %>',
-currency: 'BRL'
-};
-
 </script>
 <script type="text/javascript">
   dataLayer.push({'Basket': <%= raw cart.items.map { |item|
