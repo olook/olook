@@ -50,9 +50,6 @@
     name: monit
     options: {}
   - !ruby/object:Rubber::Configuration::RoleItem
-    name: newrelic
-    options: {}
-  - !ruby/object:Rubber::Configuration::RoleItem
     name: redis_master
     options: {}
   instance_id: i-af81cacd
@@ -135,9 +132,6 @@
     options: {}
   - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
-    options: {}
-  - !ruby/object:Rubber::Configuration::RoleItem
-    name: newrelic
     options: {}
   - !ruby/object:Rubber::Configuration::RoleItem
     name: redis_master
