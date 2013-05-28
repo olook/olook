@@ -1,7 +1,5 @@
 # This is a sample Capistrano config file for rubber
 require File.expand_path(File.join(File.dirname(__FILE__), 'deploy', 'capistrano_yml_config.rb'))
-require 'airbrake/capistrano'
-require 'new_relic/recipes'
 
 set :rails_env, Rubber.env
 
@@ -80,7 +78,11 @@ Dir["#{File.dirname(__FILE__)}/rubber/deploy-*.rb"].each do |deploy_file|
   load deploy_file
 end
 
-after "deploy", "newrelic:notice_deployment"
+if Rubber.env == 'production'
+  require 'airbrake/capistrano'
+  require 'new_relic/recipes'
+  after "deploy", "newrelic:notice_deployment"
+end
 
 # capistrano's deploy:cleanup doesn't play well with FILTER
 after "deploy", "cleanup"
