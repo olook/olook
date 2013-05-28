@@ -1,0 +1,11 @@
+<p class="title-category"><%= title %></p>
+<ul class="subcategory-list">
+<% list.each do |text, amount| -%>
+  <li><%= brand_link_to field, text, amount %></li>
+<% end -%>
+</ul>
+
+
+  <%# models.each do |model,amount| -%>
+    <!-- <li><%#= search_link_to @q, @brand, model, amount %></li> -->
+  <%# end -%> 

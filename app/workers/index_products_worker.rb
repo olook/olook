@@ -50,7 +50,7 @@ class IndexProductsWorker
 
         fields = {}
 
-        remove_product_item_view_cache product.id
+        # remove_product_item_view_cache product.id
 
         fields['name'] = product.formatted_name(100)
         # fields['description'] = product.description
