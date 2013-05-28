@@ -255,7 +255,12 @@ filter.sliderRange = function(){
         $("#max-value").val("R$ " + ui.values[ 1 ]);
         $("#min-value-label").text("R$ " + ui.values[ 0 ]);
         $("#max-value-label").text("R$ " + ui.values[ 1 ]);
+      },
+      
+      stop: function(event,ui){
+        $.ajax({})
       }
+      
   });
     
   $("#min-value").val("R$ " + $("#slider-range").slider("values", 0 ));

@@ -6,21 +6,15 @@
       <%= select_tag('category_id', options_for_select(@catalog_search_service.categories_available_for_options(ignore_category: true), params[:category_id]), class: 'custom_select') %>
     </div>
     <div class="select">
-      <%= select_tag('sort_filter', options_for_select({"Relevância" => 0, "Menor preço" => 1, "Maior preço" => 2}), class: 'custom_select') %>
+      <%= select_tag('sort_filter', options_for_select({"Nossa Seleção" => 0, "Menor preço" => 1, "Maior preço" => 2}), class: 'custom_select') %>
     </div>
     <div id="category_filters">
       <%- if params[:category_id].present? && !Category.key_for(params[:category_id].to_i).blank? -%>
         <%= render partial: "#{Category.key_for(params[:category_id].to_i).to_s}_filters" %>
+             <%= render  "shared/filters/price_range" %>
       <%- end -%>
-      <div class="price-range">
-        <p id="min-value-label">0</p>
-        <input type="text" id="min-value" />
-        <div class="slider"><div id="slider-range"></div></div>
-        <p id="max-value-label">0</p>
-        <input type="text" id="max-value" />
-      </div>  
+ 
     </div>
-    
     
   <% end %>
 
