@@ -46,7 +46,7 @@
 .ui-menu .ui-menu-item a.ui-state-focus, .ui-menu .ui-menu-item a.ui-state-active {color:#EF3742;}
 
 .price-range{float:left;margin-top:2px;}
-.price-range .slider{float:left;width:70px;}
+.price-range .slider{float:left;width:60px;}
 .price-range p{float:left;font-family:$avenir;font-size:10px;font-weight:bold;}
 .price-range p#min-value-label{margin-right:10px;}
 .price-range p#max-value-label{margin-left:10px;}

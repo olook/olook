@@ -247,9 +247,9 @@ filter.cleanFilter = function(){
 filter.sliderRange = function(start_range, final_range){
   $("#slider-range").slider({
       range: true,
-      min: start_range || 0,
-      max: final_range || 500,
-      values: [ start_range, final_range ],
+      min: isNaN(start_range) ? 0 : start_range,
+      max: isNaN(final_range) ? 500 : final_range,
+      values: [ isNaN(start_range) ? 0 : start_range, isNaN(final_range) ? 500 : final_range ],
       slide: function( event, ui ) {
         $("#min-value").val("R$ " + ui.values[ 0 ]);
         $("#max-value").val("R$ " + ui.values[ 1 ]);
@@ -258,12 +258,13 @@ filter.sliderRange = function(start_range, final_range){
       },
 
       stop: function(event,ui){
-        $.ajax({})
+        url = window.location.href;
+        url += '&price='+ui.values[0] + '-' + ui.values[1];
+        console.log(url);
       }
-
   });
 
-  $("#min-value").val("R$ " + $("#slider-range").slider("values", 0 ));
+  $("#min-value").val("R$ " + $("#slider-range").slider("values", 0));
   $("#max-value").val("R$ " + $("#slider-range").slider("values", 1));
   $("#min-value-label").text($("#min-value").val());
   $("#max-value-label").text($("#max-value").val());
