@@ -8,7 +8,7 @@ class IndexProductsWorker
 
   def self.perform
     add_products
-    remove_products
+    # remove_products
 
     mail = DevAlertMailer.notify_about_products_index
     mail.deliver
@@ -19,7 +19,7 @@ class IndexProductsWorker
     def self.add_products
       add_products = products_to_index.map { |product| create_sdf_entry_for product, 'add' }
       flush_to_sdf_file "base-add.sdf", add_products
-      upload_sdf_file "base-add.sdf"
+      # upload_sdf_file "base-add.sdf"
     end
 
     def self.remove_products
@@ -53,11 +53,14 @@ class IndexProductsWorker
         remove_product_item_view_cache product.id
 
         fields['name'] = product.formatted_name(100)
-        fields['description'] = product.description
+        # fields['description'] = product.description
         fields['image'] = product.catalog_picture
         fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
         fields['brand'] = product.brand
-        fields['price'] = product.retail_price
+        fields['brand_facet'] = product.brand
+        fields['price'] = product.price
+        fields['retail_price'] = product.retail_price
+        fields['in_promotion'] = product.price != product.retail_price
         fields['category'] = product.category_humanize
 
         details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno'].include?(d.translation_token.downcase) }
