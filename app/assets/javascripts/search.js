@@ -14,8 +14,9 @@ function setMouseOverOnImages() {
 };
 
 perform_search = function() {
-  _gaq.push(['_trackEvent', 'SearchBar', 'ClickSubmit']);
-  returning_value = $("#search_product").val() == 'BUSCAR' ? false : true;
+  var term = $("#search_product").val(); 
+  _gaq.push(['_trackEvent', 'SearchBar', 'ClickSubmit', term]);
+  returning_value = term == 'BUSCAR' ? false : true;
   return returning_value;
 };
 
