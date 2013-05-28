@@ -162,6 +162,7 @@ namespace :rubber do
         cd s3_dump_downloader\/
         sed -i 's\/password:.*\/password: #{pass}\/' aws_s3.yml
         ruby s3_db_downloader.rb
+        exit 1
       BASH
     end
   end
