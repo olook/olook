@@ -444,7 +444,6 @@ describe Product do
         mock_picture.stub(:image_url).with(:catalog).and_return(:valid_image)
         mock_picture.stub(:display_on).and_return(1)
         subject.stub(:main_picture).and_return(mock_picture)
-        subject.stub(:fetch_cache_for).and_return(:valid_image)
         subject.catalog_picture.should == :valid_image
       end
       it "should return nil if it doesn't exist" do
@@ -454,21 +453,11 @@ describe Product do
 
     describe '#return_catalog_or_suggestion_image' do
       context "when product has picture" do
-        before :each do
+        it "returns catalog picture" do
           mock_picture.stub(:image_url).with(:catalog).and_return(:valid_image)
           mock_picture.stub(:display_on).and_return(1)
           subject.stub(:main_picture).and_return(mock_picture)
-        end
-
-        it "returns catalog picture" do
-          subject.stub(:fetch_cache_for).and_return(:valid_image)
           subject.return_catalog_or_suggestion_image(mock_picture).should eq(:valid_image)
-        end
-
-        it "returns suggestion picture" do
-          mock_picture.stub(:image_url).with(:suggestion).and_return(:suggestion_image)
-          subject.stub(:fetch_cache_for).and_return(:suggestion_image)
-          subject.return_catalog_or_suggestion_image(mock_picture).should eq(:suggestion_image)
         end
       end
 
