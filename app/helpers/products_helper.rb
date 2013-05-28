@@ -78,7 +78,7 @@ module ProductsHelper
     end
   end
 
-  def first_product_doesnt_belong_to_selected_brands?(product, catalog_products, brands)
-    brands && !brands.map(&:upcase).include?(product.brand.to_s.upcase) && product == catalog_products.first && catalog_products.current_page == 1
+  def product_doesnt_belong_to_selected_brands?(product, catalog_products, brands)
+    brands && !brands.map(&:upcase).include?(product.brand.to_s.upcase) && product == catalog_products.first
   end
 end
