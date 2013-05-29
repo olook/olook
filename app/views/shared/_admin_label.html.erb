@@ -10,6 +10,6 @@ end
 
   <%= form_tag('/membro/vitrine', id: "formc", method: 'get') do %>
     <%= label_tag "c", "Coleções" %><br />
-    <%= select_tag "c", grouped_options_for_select(grouped_options, params[:c] || Collection.active.id), onchange: "$('#formc').submit()" %>
+    <%= select_tag "c", grouped_options_for_select(grouped_options, params[:c] || session[:c] || Collection.active.id), onchange: "$('#formc').submit()" %>
   <% end %>
 </p>
