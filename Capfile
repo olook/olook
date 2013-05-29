@@ -6,8 +6,14 @@ end
 
 load 'deploy' if respond_to?(:namespace) # cap2 differentiator
 
-env = ENV['RUBBER_ENV'] ||= (ENV['RAILS_ENV'] || 'production')
+env = ENV['RUBBER_ENV'] ||= (ENV['RAILS_ENV'] || 'staging')
 root = File.dirname(__FILE__)
+
+if env == 'production'
+  puts "\e[1;31mYou are going to deploy in production! Are you sure?(y/N)\e[0m"
+  ans = STDIN.gets.strip
+  exit if ans !~ /^y$/i
+end
 
 # this tries first as a rails plugin then as a gem
 $:.unshift "#{root}/vendor/plugins/rubber/lib/"
