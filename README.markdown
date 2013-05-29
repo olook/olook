@@ -79,27 +79,46 @@ check if ssh-agent is running. It should be running since most OSes start them o
 ssh-agent
 ```
 
--Deploy Development
+Run to config keys in your machine
+```
+bash bootstrap.sh development
+```
+
+-Deploy staging env
 -Default branch set to master
+```
 cap deploy
+```
 
 development:
-RUBBER_ENV=development cap deploy
+```
+FILTER=development cap deploy
+```
 
 homolog:
-RUBBER_ENV=homolog cap deploy
+```
+FILTER=homolog cap deploy
+```
 
 production app01:
-FILTER=app01 cap deploy
+```
+RUBBER_ENV=production FILTER=app01 cap deploy
+```
 
 production app2:
-FILTER=app02 cap deploy
+```
+RUBBER_ENV=production FILTER=app02 cap deploy
+```
 
 production only resques:
-ROLES=resque cap deploy
+```
+RUBBER_ENV=production ROLES=resque cap deploy
+```
 
 If you need to deploy a different branch:
+```
 cap -S branch=<your_branch_name> deploy
+```
 
 Optional config files
 ============
