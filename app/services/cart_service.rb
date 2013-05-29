@@ -87,7 +87,7 @@ class CartService
 
   def total_increase
     increase = 0
-    increase += increment_from_gift_wrap
+    increase += cart.increment_from_gift_wrap
     increase += freight_price
     increase
   end
@@ -109,7 +109,9 @@ class CartService
   end
 
   def total_discount(payment=nil)
-    calculate_discounts(payment).fetch(:total_discount)
+    discounts_value = calculate_discounts(payment).fetch(:total_discount)
+    discounts_value += CartService.gift_wrap_price if cart.free_gift_wrap?
+    discounts_value
   end
 
   def is_minimum_payment?
@@ -277,10 +279,6 @@ class CartService
     }
   end
 
-  def increment_from_gift_wrap
-    cart.gift_wrap ? CartService.gift_wrap_price : 0
-  end
-
   def minimum_value
     return 0.0 if freight_price > Payment::MINIMUM_VALUE
     Payment::MINIMUM_VALUE
@@ -360,7 +358,7 @@ class CartService
     {
       :discounts                         => discounts,
       :is_minimum_payment                => (minimum_value > 0 && retail_value <= 0),
-      :total_discount                    => (coupon_value + total_credits + billet_discount_value + facebook_discount_value ),
+      :total_discount                    => (coupon_value + total_credits + billet_discount_value + facebook_discount_value),
       :billet_discount                   => billet_discount_value,
       :facebook_discount                 => facebook_discount_value,
       :total_coupon                      => coupon_value,
@@ -383,5 +381,24 @@ class CartService
     facebook_discount_value = (retail_value.to_d + minimum_value.to_d) * facebook_discount_percent
     facebook_discount_value.round(2, BigDecimal::ROUND_HALF_UP)
   end
+
+  def has_percentage_coupon?
+    self.cart.coupon.present? && self.cart.coupon.is_percentage?
+  end
+
+  def price_with_coupon_for product
+    coupon = self.cart.coupon
+    return product.retail_price if should_not_calculate? product, coupon
+    calculate_percentage_discount_for product, coupon
+  end
+
+  private
+    def calculate_percentage_discount_for product, coupon
+      product.price - ((product.price * coupon.value) / 100)
+    end
+
+    def should_not_calculate? product, coupon
+      coupon.nil? || !coupon.is_percentage? || product.promotion?
+    end
 
 end

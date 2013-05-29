@@ -74,19 +74,18 @@ class MembersController < ApplicationController
   def welcome
     session[:facebook_redirect_paths] = "showroom"
     @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
-    @lookbooks = Lookbook.where("active = 1").order("created_at DESC")
   end
 
   def showroom
     @google_path_pixel_information = "Home"
-    @chaordic_user = ChaordicInfo.user current_user
+    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
 
     if @user.half_user
       if @user.female?
         prepare_for_home
         return render "/home/index"
       else
-        return redirect_to lookbooks_path, :alert => flash[:notice]
+        return redirect_to gift_root_path, :alert => flash[:notice]
       end
     end
 
@@ -94,13 +93,18 @@ class MembersController < ApplicationController
     @is_retake = session[:profile_retake] ? true : false
     session[:profile_retake] = false
     @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
-    @lookbooks = Lookbook.where("active = 1").order("created_at DESC")
     if @facebook_adapter
       @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
     end
     @recommended = RecomendationService.new(profiles: current_user.profiles)
 
-    @cloth = @recommended.products( category: Category::CLOTH, collection: @collection, limit: 10)
+    # This is needed becase when we turn the month collection we never have cloth
+    if Setting.cloth_showroom_casual.empty?
+      @cloth = @recommended.products( category: Category::CLOTH, collection: @collection, limit: 10)
+    else
+      @cloth = Product.where("id in (?)", Setting.cloth_showroom_casual)
+    end
+
     @shoes = @recommended.products( category: Category::SHOE, collection: @collection)
     @bags = @recommended.products( category: Category::BAG, collection: @collection)
     @accessories = @recommended.products( category: Category::ACCESSORY, collection: @collection)

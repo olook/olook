@@ -1,13 +1,13 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::LandingPagesController do
+describe Admin::LandingPagesController, admin: true do
 
   before(:all) do
     LandingPage.destroy_all
     FactoryGirl.create :landing_page
   end
-  
+
   let!(:landing_page) do
     LandingPage.first
   end

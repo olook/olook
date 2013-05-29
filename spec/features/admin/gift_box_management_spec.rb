@@ -3,14 +3,14 @@ require 'features/helpers'
 
 feature "Admin user with business 1 role manages gift boxes", %q{
   As a business 1 I can create, edit and delete gift boxes
-} do
+}, feature: true, admin: true do
 
   let(:gift_box) { FactoryGirl.create(:gift_box) }
 
   #TODO: figure out how to give the business1 role the correct permissions
   # to get the menu to render
   before :each do
-  	@admin = FactoryGirl.create(:admin_superadministrator)
+	@admin = FactoryGirl.create(:admin_superadministrator)
     @collection = FactoryGirl.create(:inactive_collection)
     Collection.stub_chain(:active, :id)
   end
@@ -18,7 +18,7 @@ feature "Admin user with business 1 role manages gift boxes", %q{
   # Leaving js testing for later, same issues as with turnip (vcr/webmock conflicts)
   pending scenario "As a business1 user I should be allowed to see a list of gift boxes", :js => true do
   #scenario "As a business1 user I should be allowed to see a list of gift boxes" do
-  	do_admin_login!(@admin)
+	do_admin_login!(@admin)
     gift_box
     # save_and_open_page
     # page.find('li', text: "Gift Project").trigger(:mouseover)
@@ -33,7 +33,7 @@ feature "Admin user with business 1 role manages gift boxes", %q{
   end
 
   scenario "As a business1 user I should be denied to create a gift box if the form is not correct" do
-  	do_admin_login!(@admin)
+	do_admin_login!(@admin)
     visit "/admin/gift_boxes"
     click_link "Novo Boxe de presente"
     page.should have_content "Novo Tipo de Gift Box"
@@ -44,7 +44,7 @@ feature "Admin user with business 1 role manages gift boxes", %q{
   end
 
   scenario "As a business1 user I should be allowed to create a gift box if the form is correct" do
-  	do_admin_login!(@admin)
+	do_admin_login!(@admin)
     visit "/admin/gift_boxes"
 
     click_link "Novo Boxe de presente"
@@ -58,7 +58,7 @@ feature "Admin user with business 1 role manages gift boxes", %q{
   end
 
   scenario "As a business1 user I should be denied to update a gift box if the form is not correct" do
-  	do_admin_login!(@admin)
+	do_admin_login!(@admin)
     visit "/admin/gift_boxes/#{ gift_box.id }/edit"
     page.should have_content "Editar tipo de box de presentes"
     page.should have_content "Nome"
@@ -69,7 +69,7 @@ feature "Admin user with business 1 role manages gift boxes", %q{
   end
 
   scenario "As a business1 user I should be allowed to update a gift box if the form is correct" do
-  	do_admin_login!(@admin)
+	do_admin_login!(@admin)
     visit "/admin/gift_boxes/#{ gift_box.id }/edit"
     page.should have_content "Editar tipo de box de presentes"
     page.should have_content "Nome"
@@ -82,7 +82,7 @@ feature "Admin user with business 1 role manages gift boxes", %q{
   end
 
   scenario "As a business1 user I should be allowed to destroy a gift box" do
-  	do_admin_login!(@admin)
+	do_admin_login!(@admin)
     gift_box
     visit "/admin/gift_boxes"
     page.should have_content "Listando boxes de presentes"
@@ -92,4 +92,3 @@ feature "Admin user with business 1 role manages gift boxes", %q{
     page.should have_content "Gift Box Type deletada com sucesso."
   end
 end
-

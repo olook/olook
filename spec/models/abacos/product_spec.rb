@@ -12,17 +12,18 @@ describe Abacos::Product do
   }
 
   it '#attributes' do
-    subject.attributes.should == {  name:         subject.name,
-                                    description:  subject.description,
-                                    model_number: subject.model_number,
-                                    category:     subject.category,
-                                    color_name:   subject.color_name,
-                                    width:        subject.width,
-                                    height:       subject.height,
-                                    length:       subject.length,
-                                    weight:       subject.weight,
-                                    is_kit:       subject.is_kit,
-                                    brand:        subject.brand }
+    subject.attributes.should == {  name:          subject.name,
+                                    description:   subject.description,
+                                    model_number:  subject.model_number,
+                                    category:      subject.category,
+                                    color_name:    subject.color_name,
+                                    width:         subject.width,
+                                    height:        subject.height,
+                                    length:        subject.length,
+                                    weight:        subject.weight,
+                                    is_kit:        subject.is_kit,
+                                    producer_code: subject.producer_code,
+                                    brand:         subject.brand }
   end
 
   describe '#integrate' do

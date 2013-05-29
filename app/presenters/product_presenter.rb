@@ -1,9 +1,8 @@
 # -*- encoding : utf-8 -*-
 class ProductPresenter < BasePresenter
 
-  SIZES_TABLE = {"PP" => 1, "P" =>2, "M" => 3, "G" => 4, "GG" => 5,
-                 "34" => 6, "36" => 7, "38" => 8, "40" => 9, "42" => 10, "44" => 11,
-                 "Único" => 12}
+  SIZES_TABLE = Catalog::Catalog::CLOTH_SIZES_TABLE
+
 
   def collection_name
    Collection.active.try(:name) || I18n.l(Date.today, :format => '%B')
@@ -21,8 +20,8 @@ class ProductPresenter < BasePresenter
     h.render :partial => 'product/related_products', :locals => {:related_products => related_products.first(6)}
   end
 
-  def render_description
-    h.render :partial => 'product/description', :locals => {:product_presenter => self}
+  def render_description(show_facebook_button = true)
+    h.render :partial => 'product/description', :locals => {:product_presenter => self, :show_facebook_button => show_facebook_button}
   end
 
   def display_main_picture
@@ -36,7 +35,7 @@ class ProductPresenter < BasePresenter
     if gift?
       h.render :partial => 'product/add_to_suggestions', :locals => {:product_presenter => self, :product => product}
     else
-        h.render :partial => 'product/add_to_cart', :locals => {:product_presenter => self, :product => product}
+      h.render :partial => 'product/add_to_cart', :locals => {:product_presenter => self, :product => product}
     end
   end
 
@@ -70,6 +69,10 @@ class ProductPresenter < BasePresenter
   def render_multiple_sizes
     variants = product.variants.sorted_by_description
     h.render :partial => 'product/sizes', :locals => {:variants => variants, :shoe_size => shoe_size, :show_cloth_size_table => false}
+  end
+
+  def render_accessory_sizes
+    product.variants.size > 1 ? render_cloth_sizes : render_single_size
   end
 
   def render_cloth_sizes
@@ -111,9 +114,11 @@ class ProductPresenter < BasePresenter
     end
   end
 
-  def render_price
-    if product.promotion? #discount
-      price_markdown(:retail_price)
+  def render_price_for cart_service
+    if product.promotion?
+      price_markdown(product.retail_price)
+    elsif cart_service.has_percentage_coupon?
+      price_markdown cart_service.price_with_coupon_for product
     else
       price_markup(product.price, "price")
     end
@@ -133,9 +138,9 @@ class ProductPresenter < BasePresenter
 
   private
 
-  def price_markdown discount_method
+  def price_markdown retail_price
     price_markup(product.price, "price_retail left2", "de: ") +
-    price_markup(product.send(discount_method), "price left2", "por: ")
+    price_markup(retail_price, "price left2", "por: ")
   end
 
   def price_markup price, css_class, prefix=nil

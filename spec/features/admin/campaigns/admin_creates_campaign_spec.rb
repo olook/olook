@@ -2,10 +2,10 @@
 require 'spec_helper'
 require 'features/helpers'
 
-feature "Admin creates a campanha" do
+feature "Admin creates a campanha", feature: true, admin: true do
 
   before :each do
-  	@admin = FactoryGirl.create(:admin_superadministrator)
+	@admin = FactoryGirl.create(:admin_superadministrator)
     @collection = FactoryGirl.create(:inactive_collection)
     Collection.stub_chain(:active, :id)
     do_admin_login!(@admin)

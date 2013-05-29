@@ -63,6 +63,21 @@ function slideMenuBar(){
   });
 
 }
+/**** TO VALENTINES DAY ****/
+function showAlert(){
+  $("html, body").animate({ scrollTop: 0 }, "slow");
+  $('#error-messages').css("height", "40px").slideDown('1000', function() {
+    $('p.alert', this).text("Por favor, antes de pedir, selecione o tamanho do produto");
+  }).delay(5000).slideUp();  
+}
+
+function getSize(){
+  if(window.location.href.indexOf('size') > 0){
+    var size = window.location.href.slice(window.location.href.indexOf('size')).split('=');
+    $("div.line.size ol li.size_"+size[1]).addClass("selected").find("input[type='radio']").prop('checked', true);
+  }
+}
+/**** END TO VALENTINES DAY ****/
 
 function showBalloon(){
   if($(".menu_new .stylist").length > 0){
@@ -77,6 +92,16 @@ function showBalloon(){
   }
 }
 
+function showCartSummary() {
+  $("#cart_summary").show();
+  $('.coupon_warn').delay(6000).fadeOut();
+  $("body").addClass('cart_submenu_opened');
+}
+function hideCartSummary() {
+  $("#cart_summary").hide();
+  $("body").removeClass('cart_submenu_opened');
+}
+
 $(document).ready(function() {
   initBase.dialogLogin();
   initBase.loadJailImages();
@@ -87,7 +112,9 @@ $(document).ready(function() {
   initBase.showSlideToTop();
   initBase.slideToTop();
   initBase.replaceImages();
-
+  
+  getSize();
+  
   showBalloon();
 
   setTimeout(function(){slideMenuBar();},3000);
@@ -121,6 +148,7 @@ $(document).ready(function() {
   $(window).resize(function() {
     width = $(this).width();
     menu = $("#wrapper_new_menu .menu_new");
+
     if(width < "1200") {
       $(menu).addClass("smaller");
     } else {
@@ -395,11 +423,9 @@ $(document).ready(function() {
   });
 
   $("p.new_sacola a.cart,#cart_summary").live("mouseenter", function() {
-    $("#cart_summary").show();
-    $("body").addClass('cart_submenu_opened');
+    showCartSummary();
   }).live("mouseleave", function() {
-    $("#cart_summary").hide();
-    $("body").removeClass('cart_submenu_opened');
+    hideCartSummary();
   });
 
   $("ul.submenu li form.delete").live("ajax:success", function(evt, xhr, settings){
@@ -738,8 +764,8 @@ h2 = content.height(), w2 = content.width();console.log(h,w,h2,w2);
     if(typeof imageKind == 'undefined') imageKind = 'showroom';
     $('img.async').each(function(){
       var image = $(this).data(imageKind);
-      if(/http.*/.test(image))
-        $(this).attr('src', image);
+      $(this).attr('src', image);
     });
   }
 }
+

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::PromotionsController do
+describe Admin::PromotionsController, admin: true do
   with_a_logged_admin do
     render_views
 

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::MoipCallbacksController do
+describe Admin::MoipCallbacksController, admin: true do
   render_views
   let!(:moip_callback) { FactoryGirl.create(:moip_callback)}
   let!(:clean_moip_callback) { FactoryGirl.create(:clean_moip_callback)}
@@ -13,18 +13,18 @@ describe Admin::MoipCallbacksController do
   end
 
   describe "GET index" do
-  	let (:search_param) { {"payment_id_eq" => moip_callback.payment_id} }
+	let (:search_param) { {"payment_id_eq" => moip_callback.payment_id} }
 
-  	it "should find all moip callbacks using no parameter" do
-  		get :index
-  		assigns(:moip_callbacks).should include(moip_callback)
+	it "should find all moip callbacks using no parameter" do
+		get :index
+		assigns(:moip_callbacks).should include(moip_callback)
       assigns(:moip_callbacks).should include(clean_moip_callback)
-  	end
+	end
 
-  	it "should find only processed using the search parameter" do
-  		get :index, :search => search_param
-  		assigns(:moip_callbacks).should eq([moip_callback])
-  	end
+	it "should find only processed using the search parameter" do
+		get :index, :search => search_param
+		assigns(:moip_callbacks).should eq([moip_callback])
+	end
   end
 
   describe "GET show" do

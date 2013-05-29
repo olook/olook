@@ -158,10 +158,9 @@
     <li class="blusa"><%= link_to "Blusa", "/roupas?cloth_subcategories[]=blusa"%></li>
     <li class="camisa"><%= link_to "Camisa", "/roupas?cloth_subcategories[]=camisa" %></li>
     <li class="calca"><%= link_to "Calça", "/roupas?cloth_subcategories[]=calca" %></li>
-    <li class="saia"><%= link_to "Saia", "/roupas?cloth_subcategories[]=saia" %></li>
     <li class="vestido"><%= link_to "Vestido", "/roupas?cloth_subcategories[]=vestido" %></li>
     <li class="anabela"><%= link_to "Anabela", anabelas_path %></li>
-    <li class="rasteira"><%= link_to "Rasteira", rasteiras_path %></li>
+    <li class="bota"><%= link_to "Bota", "/sapatos?shoe_subcategories[]=bota" %></li>
     <li class="sapatilha"><%= link_to "Sapatilha", sapatilhas_path %></li>
     <li class="scarpin"><%= link_to "Scarpin", scarpins_path %></li>
     <li class="sneaker"><%= link_to "Sneaker", sneakers_path %></li>
@@ -221,5 +220,4 @@
     <%= render "shared/invite", :user => current_user %>
     <%= render 'shared/metrics/all_in/showroom', :user => current_user  %>
   <% end %>
-
 <% end %>

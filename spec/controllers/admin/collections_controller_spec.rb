@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::CollectionsController do
+describe Admin::CollectionsController, admin: true do
 
   render_views
 

@@ -2,10 +2,10 @@
 require 'spec_helper'
 require 'features/helpers'
 
-feature "Admin deletes a campaign" do
+feature "Admin deletes a campaign", feature: true, admin: true do
 
   before :each do
-  	@admin = FactoryGirl.create(:admin_superadministrator)
+	@admin = FactoryGirl.create(:admin_superadministrator)
     @collection = FactoryGirl.create(:inactive_collection)
     Collection.stub_chain(:active, :id)
   end
@@ -21,4 +21,3 @@ feature "Admin deletes a campaign" do
     expect(page).to_not have_content('First Campaign')
   end
 end
-
