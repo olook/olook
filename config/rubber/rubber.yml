@@ -296,10 +296,12 @@ hosts:
         image_type: m1.large
 
   homolog:
+    unicorn_workers: 4
     cloud_providers:
       aws:
         image_type: m1.large
   development:
+    unicorn_workers: 4
     cloud_providers:
       aws:
         image_type: c1.medium

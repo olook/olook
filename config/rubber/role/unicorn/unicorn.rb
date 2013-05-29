@@ -2,7 +2,7 @@
   @path = "#{Rubber.root}/config/unicorn.rb"
   current_path = "/mnt/#{rubber_env.app_name}-#{Rubber.env}/current"
 %>
-worker_processes 15
+worker_processes <%= rubber_env.unicorn_workers %>
 working_directory "<%= Rubber.root %>"
 
 # This loads the application in the master process before forking
@@ -11,7 +11,7 @@ working_directory "<%= Rubber.root %>"
 # http://unicorn.bogomips.org/Unicorn/Configurator.html
 preload_app true
 
-timeout 30
+timeout 120
 
 # This is where we specify the socket.
 # We will point the upstream Nginx module to this socket later on
