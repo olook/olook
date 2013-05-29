@@ -92,7 +92,13 @@ class CatalogSearchService
   end
 
   def add_collection_filter_to_query_base
-    @query_base = @query_base.and(Product.arel_table[:collection_id].eq(Collection.active.id)) if @params[:news]
+    if @params[:news]
+      if @params[:admin]
+        c_id = Collection.find(@params[:news].to_i) rescue Collection.active.id if @params[:news]
+      end
+      c_id ||= Collection.active.id
+      @query_base = @query_base.and(Product.arel_table[:collection_id].eq(c_id))
+    end
   end
 
   def add_brand_filter_to_query_base
