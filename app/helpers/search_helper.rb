@@ -1,8 +1,14 @@
 module SearchHelper
 
   def brand_link_to field, text, amount
-    sanitized_brand = @brand.parameterize('_') if @brand   
-    path = "/marcas/#{sanitized_brand}?" + create_query_string(field => text)
+    sanitized_brand = @brand.parameterize('_') if @brand 
+
+    prefix = if sanitized_brand
+      "/marcas/#{sanitized_brand}?" 
+    else
+      "/search/show?"
+    end
+    path = prefix + create_query_string(field => text)
     link_to "#{text} (#{amount})", path
   end
 
