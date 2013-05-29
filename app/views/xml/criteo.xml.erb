@@ -2,7 +2,7 @@
 <products>
 <% @products.each do |product| %>
 <product id="<%= product.id %>">
-<name><%= product.name %></name>
+<name><%= product.formatted_name(200) %></name>
 <smallimage><%= product.thumb_picture %></smallimage>
 <bigimage><%= product.main_picture.try(:image) %></bigimage>
 <producturl><%= product.product_url(:utm_source => "criteo", :utm_medium => "Remarketing", :utm_campaign => "Produtos") %></producturl>

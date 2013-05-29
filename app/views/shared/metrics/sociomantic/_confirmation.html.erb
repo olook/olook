@@ -1,30 +1,13 @@
+</script>
 <script type="text/javascript">
-var basket = {
-products: [
-<%= raw cart.items.map { |item|
-  "{ identifier:'#{item.id}', amount:'#{number_with_precision(item.variant.retail_price, separator: ".", precision: 2)}', currency:'BRL', quantity:'#{item.quantity}' }"
-}.join(', ') -%>
-],
-transaction : '<%= raw order.number %>',
-amount: '<%= raw number_with_precision(order.amount_paid, separator: ".", precision: 2) %>',
-currency: 'BRL'
-};
-
+  dataLayer.push({'Basket': <%= raw cart.items.map { |item|
+    "{ identifier:'#{item.id}', amount:'#{number_with_precision(item.variant.retail_price, separator: ".", precision: 2)}', currency:'BRL', quantity:'#{item.quantity}' }"}.join(', ') -%>},
+    'orderNumber': <%= raw order.number %>,
+    'orderTotal': <%= raw number_with_precision(order.amount_paid, separator: ".", precision: 2) %>
+    )
 </script>
 <% if order.tracking && order.tracking.utm_source.to_s.match(/sociomantic.*/) %>
   <script type="text/javascript">
-    var sale =
-    {
-        confirmed : true
-    };
-
-    if ( typeof sociomantic === 'object' &&
-         typeof sociomantic.sonar === 'object' &&
-         typeof sociomantic.sonar.adv === 'object' &&
-         typeof sociomantic.sonar.adv['olook-br'] === 'object' &&
-         typeof sociomantic.sonar.adv['olook-br'].getConfirmed === 'function' )
-    {
-        sociomantic.sonar.adv['olook-br'].getConfirmed();
-    }
+    dataLayer.push({'ConfirmedBuy': 'true'})
   </script>
 <% end %>

@@ -444,7 +444,6 @@ describe Product do
         mock_picture.stub(:image_url).with(:catalog).and_return(:valid_image)
         mock_picture.stub(:display_on).and_return(1)
         subject.stub(:main_picture).and_return(mock_picture)
-        subject.stub(:fetch_cache_for).and_return(:valid_image)
         subject.catalog_picture.should == :valid_image
       end
       it "should return nil if it doesn't exist" do
@@ -454,21 +453,11 @@ describe Product do
 
     describe '#return_catalog_or_suggestion_image' do
       context "when product has picture" do
-        before :each do
+        it "returns catalog picture" do
           mock_picture.stub(:image_url).with(:catalog).and_return(:valid_image)
           mock_picture.stub(:display_on).and_return(1)
           subject.stub(:main_picture).and_return(mock_picture)
-        end
-
-        it "returns catalog picture" do
-          subject.stub(:fetch_cache_for).and_return(:valid_image)
           subject.return_catalog_or_suggestion_image(mock_picture).should eq(:valid_image)
-        end
-
-        it "returns suggestion picture" do
-          mock_picture.stub(:image_url).with(:suggestion).and_return(:suggestion_image)
-          subject.stub(:fetch_cache_for).and_return(:suggestion_image)
-          subject.return_catalog_or_suggestion_image(mock_picture).should eq(:suggestion_image)
         end
       end
 
@@ -765,11 +754,11 @@ describe Product do
 
   describe 'find_suggested_products' do
     context "when product has suggested products" do
-      let(:first_shoe) { FactoryGirl.create(:shoe) }
-      let(:second_shoe) { FactoryGirl.create(:red_slipper, collection_id: 1) }
-      let(:third_shoe) { FactoryGirl.create(:silver_slipper, collection_id: 1) }
-      let(:subcategory) { FactoryGirl.create(:shoe_subcategory_name, product: second_shoe) }
-      let(:another_subcategory) { FactoryGirl.create(:shoe_subcategory_name, product: third_shoe) }
+      let!(:first_shoe) { FactoryGirl.create(:shoe, producer_code: "234") }
+      let!(:second_shoe) { FactoryGirl.create(:red_slipper, collection_id: 1, producer_code: "234a") }
+      let!(:third_shoe) { FactoryGirl.create(:silver_slipper, collection_id: 1, producer_code: "234b") }
+      let!(:subcategory) { FactoryGirl.create(:shoe_subcategory_name, product: second_shoe) }
+      let!(:another_subcategory) { FactoryGirl.create(:shoe_subcategory_name, product: third_shoe) }
 
       before do
         first_shoe.stub(:subcategory).and_return("Scarpin")
