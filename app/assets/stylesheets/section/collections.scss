@@ -283,6 +283,7 @@ section{margin-top:10px;
           }
         }
         .filter{float: left;font-family: $avenir;font-size: 12px;color: #717171;position: relative;top: 1px;margin-right:19px;
+         
           .tab_bg{display:none;position:absolute;z-index:101;border-left:solid 1px #E2E2E2;border-right:solid 1px #E2E2E2;background:#FFF;height:17px;
             &.tab_model{width:114px;}
             &.tab_color{width:61px;}

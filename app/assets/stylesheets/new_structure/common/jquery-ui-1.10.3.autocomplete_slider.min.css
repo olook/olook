@@ -28,7 +28,7 @@
 .ui-menu .ui-icon{position:absolute;top:.2em;left:.2em}
 .ui-menu .ui-menu-icon{position:static;float:right}
 .ui-slider{position:relative;text-align:left;top:9px;}
-.ui-slider .ui-slider-handle{position:absolute;z-index:2;width:7px;height:11px;cursor:default;background:url('../collections/bullet_range_price.png') -1px 0 no-repeat;}
+.ui-slider .ui-slider-handle{position:absolute;z-index:2;width:7px;height:11px;cursor:default;background:url('../collections/bullet_range_price.png') -1px 0 no-repeat;cursor:pointer;}
 .ui-slider .ui-slider-handle:last-child{background-position:-15px 0 !important;margin-left:0;}
 .ui-slider .ui-slider-range{position:absolute;z-index:1;font-size:.7em;display:block;border:0;background-position:0 0}
 .ui-slider .ui-widget-header{background:#000;}
@@ -46,8 +46,8 @@
 .ui-menu .ui-menu-item a.ui-state-focus, .ui-menu .ui-menu-item a.ui-state-active {color:#EF3742;}
 
 .price-range{float:left;margin-top:2px;}
-.price-range .slider{float:left;width:60px;}
-.price-range p{float:left;font-family:$avenir;font-size:10px;font-weight:bold;}
-.price-range p#min-value-label{margin-right:10px;width:48px;}
-.price-range p#max-value-label{margin-left:10px;}
-.price-range input{display:none;width:50px;}
+.price-range .slider{float:left;width:60px;margin-right:20px;}
+.price-range p{font-family:$avenir;font-weight:bold;width:48px;}
+.price-range p#min-value-label{float:left;}
+.price-range p#max-value-label{float:right;}
+.price-range input{display:none;width:45px;}
