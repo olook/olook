@@ -5,11 +5,11 @@ class CatalogSearchService
     @params = params
     @l_products = Catalog::Product.arel_table
     @query_base = @l_products[:catalog_id].eq(@params[:id])
-                  .and(@l_products[:inventory].gt(0))
-                  .and(Variant.arel_table[:inventory].gt(0))
 
     Rails.logger.debug(params.inspect)
     unless params[:admin]
+      @query_base = @query_base.and(@l_products[:inventory].gt(0))
+      @query_base = @query_base.and(Variant.arel_table[:inventory].gt(0))
       @query_base = @query_base.and(Product.arel_table[:is_visible].eq(true)).and(Variant.arel_table[:price].gt(0))
     end
 
@@ -75,7 +75,6 @@ class CatalogSearchService
   end
 
   def add_categories_filter_to_query_base
-    return if @params[:admin]
 
     all_queries = compact_category_queries
 
@@ -84,7 +83,9 @@ class CatalogSearchService
     all_queries.each do |query|
       category_query = category_query ? category_query.or(query) : query
     end
-    category_query ||= @params[:shoe_sizes] ? filter_product_by(:shoe_size, @params[:shoe_sizes]) : @query_base
+    unless @params[:admin]
+      category_query ||= @params[:shoe_sizes] ? filter_product_by(:shoe_size, @params[:shoe_sizes]) : @query_base
+    end
 
     @query_base = @query_base.and(category_query)
   end
