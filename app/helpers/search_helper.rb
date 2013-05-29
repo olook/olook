@@ -1,9 +1,9 @@
 module SearchHelper
-
+  # TODO: Refactor this to improve readability
   def brand_link_to field, text, amount
-    sanitized_brand = @brand.parameterize('_') if @brand 
 
-    prefix = if sanitized_brand
+    prefix = if field == :brand || @brand   
+      sanitized_brand = (@brand ? @brand : text).parameterize('_')
       "/marcas/#{sanitized_brand}?" 
     else
       "/search/show?"
@@ -15,8 +15,7 @@ module SearchHelper
   private
     def create_query_string hash
       params = {q: @q, color: @color, category: @category}
-      params.delete_if{|k,v| v.nil?}
-      params.merge! hash
+      params.delete_if{|k,v| v.nil? || k.to_s == 'brand'}
       params.to_query   
     end
 
