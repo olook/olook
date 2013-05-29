@@ -107,7 +107,7 @@
                     <span style="color:#e82e3a;font-size:14px;font-weight:bold;text-transform:uppercase">total</span>
                   </td>
                   <td width="150" align="right" style="font-size:13px">
-                    -<%= number_to_currency @order.amount_discount %><br>
+                    <%= "-" if @order.amount_discount > 0 %> <%= number_to_currency @order.amount_discount %><br>
                     <%= number_to_currency @order.freight_price %><br>
                     <%= number_to_currency @order.gift_wrap? ? CartService.gift_wrap_price : 0 %><br>
                     <span style="color:#e82e3a;font-size:14px;font-weight:bold;text-transform:uppercase"><%= number_to_currency @order.amount_paid %></span>
