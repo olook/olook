@@ -67,7 +67,7 @@ filter.endlessScroll = function(window, document){
       });
    }
 }
-filter.submitAndScrollUp = function(){
+filter.submitAndScrollUp = function(start_range, final_range){
   $("form#filter").bind('ajax:before', function() {
     if($('input[name="shoe_sizes[]"]:checked').length == 0) {
       if($(this).find('.hidden_shoe_sizes').length == 0)
@@ -95,6 +95,43 @@ filter.submitAndScrollUp = function(){
     $('#category_filters .opened').removeClass('opened');
   });
 }
+
+filter.sliderRange = function(start_range, final_range){
+  $("#slider-range").slider({
+      range: true,
+      min: isNaN(start_range) ? 0 : start_range,
+      max: isNaN(final_range) ? 500 : final_range,
+      values: [ isNaN(start_range) ? 0 : start_range, isNaN(final_range) ? 500 : final_range ],
+      slide: function( event, ui ) {
+        $("#min-value").val("R$ " + ui.values[ 0 ]);
+        $("#max-value").val("R$ " + ui.values[ 1 ]);
+        $("#min-value-label").text("R$ " + ui.values[ 0 ]);
+        $("#max-value-label").text("R$ " + ui.values[ 1 ]);
+      },
+
+      stop: function(event,ui){
+        url = window.location.href;
+        if (url.indexOf('price') > 0){
+          newURL = url.split('price=');
+          //qs = (!newURL[0].match(/\?/)) ? '?' : '&';
+          newURL = newURL[0] + 'price='+ ui.values[0] + '-' + ui.values[1];
+          //window.location.href = newURL;
+        }else{
+          qs = (!url.match(/\?/)) ? '?' : '&';
+          newURL = url + qs + 'price='+ ui.values[0] + '-' + ui.values[1];
+         // window.location.href = newURL;
+        }
+        //url += '&price='+ ui.values[0] + '-' + ui.values[1];
+        console.log(newURL);
+      }
+  });
+
+  $("#min-value").val("R$ " + $("#slider-range").slider("values", 0));
+  $("#max-value").val("R$ " + $("#slider-range").slider("values", 1));
+  $("#min-value-label").text($("#min-value").val());
+  $("#max-value-label").text($("#max-value").val());
+}
+
 filter.seeAll = function(){
    $("#filter input[type='checkbox'].select_all").each(function(i){
       $(this).bind("click",function(){
@@ -103,6 +140,7 @@ filter.seeAll = function(){
       })
    });
 }
+
 filter.placeTag = function(el){
   if(!$(el).is(":checked")) {
     $(el).parent().siblings("li").find("input[type='checkbox'].select_all").attr("checked", false);
@@ -244,31 +282,6 @@ filter.cleanFilter = function(){
    })
 }
 
-filter.sliderRange = function(start_range, final_range){
-  $("#slider-range").slider({
-      range: true,
-      min: isNaN(start_range) ? 0 : start_range,
-      max: isNaN(final_range) ? 500 : final_range,
-      values: [ isNaN(start_range) ? 0 : start_range, isNaN(final_range) ? 500 : final_range ],
-      slide: function( event, ui ) {
-        $("#min-value").val("R$ " + ui.values[ 0 ]);
-        $("#max-value").val("R$ " + ui.values[ 1 ]);
-        $("#min-value-label").text("R$ " + ui.values[ 0 ]);
-        $("#max-value-label").text("R$ " + ui.values[ 1 ]);
-      },
-
-      stop: function(event,ui){
-        url = window.location.href;
-        url += '&price='+ui.values[0] + '-' + ui.values[1];
-        console.log(url);
-      }
-  });
-
-  $("#min-value").val("R$ " + $("#slider-range").slider("values", 0));
-  $("#max-value").val("R$ " + $("#slider-range").slider("values", 1));
-  $("#min-value-label").text($("#min-value").val());
-  $("#max-value-label").text($("#max-value").val());
-}
 
 $(function(){
 
