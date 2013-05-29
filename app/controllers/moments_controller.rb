@@ -61,6 +61,7 @@ class MomentsController < ApplicationController
 
     if @collection_theme
       params[:news] = session[:c] if session[:c]
+      params[:admin] = true if current_admin
       @catalog_products = CatalogSearchService.new(params.merge({id: @collection_theme.catalog.id})).search_products
       @products_id = @catalog_products.first(3).map{|item| item.product_id }.compact
       # params[:id] is into array for pixel iterator
