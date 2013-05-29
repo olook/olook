@@ -50,30 +50,13 @@ var google_remarketing_only = true;
 </div>
 </noscript>
 <!-- END Google -->
-
-
 <!-- Sociomantic -->
 <% if current_user && current_user.try(:has_purchased_orders?) %>
   <script type="text/javascript">
-      var customer = {
-        identifier: '<%= current_user.id %>'
-      };
+    dataLayer.push({'CustomerId': '<%= current_user.id %>'});
   </script>
 <% end %>
-<script id="sonar" type="text/javascript">
-    (function(){
-        var s  = document.createElement( 'script' );
-        s.id   = 'sonar-adpan';
-        s.type = 'text/javascript';
-        s.async;
-        s.src  = ( 'https:' == document.location.protocol? 'https://' : 'http://' )
-               + 'us-sonar.sociomantic.com/js/2010-07-01/adpan/olook-br';
-        var x  = document.getElementById( 'sonar' );
-        x.parentNode.insertBefore( s, x );
-    })();
-</script>
-
-<!-- END Sociostatic -->
+<!-- END Sociomantic -->
 
 <script src="//static.chaordicsystems.com/static/loader.js" data-apikey="olook"></script>
 

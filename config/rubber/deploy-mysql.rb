@@ -151,6 +151,20 @@ namespace :rubber do
       rsudo "service mysql restart"
     end
 
+    desc "load database dump from production backup"
+    task :restore_backup, roles => [:mysql_master] do
+      puts "Please input the root passwd: "
+      pass = STDIN.gets.strip
+
+      sudo_script 'load_dump', <<-BASH
+        cd ~/
+        [[ ! -d .\/s3_dump_downloader ]] && git clone git@github.com:olook/s3_dump_downloader.git
+        cd s3_dump_downloader\/
+        sed -i 's\/password:.*\/password: #{pass}\/' aws_s3.yml
+        ruby s3_db_downloader.rb
+        exit 1
+      BASH
+    end
   end
 
 end
