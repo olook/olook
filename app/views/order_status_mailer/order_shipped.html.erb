@@ -51,7 +51,7 @@
 
             <p style="font-size:16px"><br>Olá <%= @order.user.first_name %>,</p>
 
-            <p>Oba! Seu pedido nº <b><span style="color:#e82e3a"><%= @order.number %></span></b> já está a caminho do endereço de entrega. O prazo é de <span style="color:#e82e3a">1</span> dia útil. [SE FOR MAIS 1 DIA, FICAR &quot;DIAS ÚTEIS&quot;] <br><br>
+            <p>Oba! Seu pedido nº <b><span style="color:#e82e3a"><%= @order.number %></span></b> já está a caminho do endereço de entrega. A data estimada é <span style="color:#e82e3a"><%= @order.expected_delivery_on.strftime("%d/%m/%Y") %></span>.<br><br>
 
 Quer acompanhar a entrega? <a style="color:#e82e3a"><%= link_to "Clique aqui", link_to_tracking_code(@order) %></a>.<br><br>
 
