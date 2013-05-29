@@ -17,11 +17,11 @@
 		.f16{font-size:16px;}
 		
 		&#tv-cinema{
-			width:335px;
+			width:315px;
 			h2{@include logo(0,0);width:106px;height:136px;margin:0 0 19px 115px;}
 		}
 		&#rede-brasil{
-			width:340px;
+			width:325px; margin-right:20px;
 			h2{@include logo(-115px,-26px);width:166px;height:113px;margin:23px 0 19px 62px;}
 		}
 		&#que-tal{
