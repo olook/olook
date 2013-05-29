@@ -8,6 +8,7 @@ class CatalogSearchService
                   .and(@l_products[:inventory].gt(0))
                   .and(Variant.arel_table[:inventory].gt(0))
 
+    Rails.logger.debug(params.inspect)
     unless params[:admin]
       @query_base = @query_base.and(Product.arel_table[:is_visible].eq(true)).and(Variant.arel_table[:price].gt(0))
     end
@@ -74,6 +75,8 @@ class CatalogSearchService
   end
 
   def add_categories_filter_to_query_base
+    return if @params[:admin]
+
     all_queries = compact_category_queries
 
     category_query = nil
@@ -94,7 +97,7 @@ class CatalogSearchService
   def add_collection_filter_to_query_base
     if @params[:news]
       if @params[:admin]
-        c_id = Collection.find(@params[:news].to_i) rescue Collection.active.id if @params[:news]
+        c_id = Collection.find(@params[:news].to_i).id rescue nil
       end
       c_id ||= Collection.active.id
       @query_base = @query_base.and(Product.arel_table[:collection_id].eq(c_id))
