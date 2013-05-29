@@ -6,6 +6,10 @@ describe OrderStatusMailer do
   let(:order) {
     FactoryGirl.create(:order, :with_billet, :user => user)
   }
+  let!(:line_item_1){FactoryGirl.create(:line_item, order: order)}
+  let!(:variant_1){FactoryGirl.create(:basic_shoe_size_37_with_discount)}
+  let!(:line_item_2){FactoryGirl.create(:line_item, order: order)}
+
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type) }
 
@@ -28,6 +32,9 @@ describe OrderStatusMailer do
       mail.to.should include(user.email)
     end
 
+    it { mail.body.should include(order.number)}
+    it { mail.body.should include("Olá #{order.user.first_name}")}
+
     context "for CreditCard" do
 
       let(:credit_card) {FactoryGirl.create(:clean_order_credit_card, :user => user)}
@@ -42,7 +49,7 @@ describe OrderStatusMailer do
       it "sets 'subject' attribute telling the expiration date" do
         expiration_date =  I18n.l(order.get_billet_expiration_date, format: "%d/%m/%Y")
         mail.subject.should == "Lembrete: seu boleto expira em: #{expiration_date}. Garanta seu pedido!"
-      end
+      end            
     end
 
 
