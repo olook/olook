@@ -6,11 +6,10 @@ filter.showAllImages();
   $("#category_filters").fadeIn("slow").html('<%= escape_javascript( render partial: "#{category_symbol.to_s}_filters") %>');
 <% end %>
 
-start_range = <%= Product.only_visible.bags.joins(:variants).order("variants.retail_price ASC").first.retail_price.to_s %>;
-final_range = <%= Product.only_visible.bags.joins(:variants).order("variants.retail_price DESC").first.retail_price.to_s %>;
+start_position = <%= params[:price].split("-").first%>;
+final_position = <%= params[:price].split("-").last %>;
 
-
-filter.sliderRange(start_range, final_range);
+filter.sliderRange(start_position, final_position);
 
 filter.seeAll();
 filter.selectedFilter();

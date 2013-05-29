@@ -64,7 +64,7 @@ filter.endlessScroll = function(window, document){
       });
    }
 }
-filter.submitAndScrollUp = function(start_range, final_range){
+filter.submitAndScrollUp = function(){
   $("form#filter").bind('ajax:before', function() {
     if($('input[name="shoe_sizes[]"]:checked').length == 0) {
       if($(this).find('.hidden_shoe_sizes').length == 0)
@@ -72,8 +72,9 @@ filter.submitAndScrollUp = function(start_range, final_range){
     } else {
       $(this).find('.hidden_shoe_sizes').remove();
     }
-    var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?';
+    var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname + '?', url = window.location.href;
     newURL += $(this).serialize();
+    
     if(window.history.pushState) {
       window.history.pushState('', '', newURL);
     } else {
@@ -93,12 +94,13 @@ filter.submitAndScrollUp = function(start_range, final_range){
   });
 }
 
-filter.sliderRange = function(start_range, final_range){
+filter.sliderRange = function(start_position, final_position){
+
   $("#slider-range").slider({
       range: true,
-      min: isNaN(start_range) ? 0 : start_range,
-      max: isNaN(final_range) ? 500 : final_range,
-      values: [ isNaN(start_range) ? 0 : start_range, isNaN(final_range) ? 500 : final_range ],
+      min: 0,
+      max: 500,
+      values: [ isNaN(start_position) ? 0 : start_position, isNaN(final_position) ? 500 : final_position ],
       slide: function( event, ui ) {
         $("#min-value").val("R$ " + ui.values[ 0 ]);
         $("#max-value").val("R$ " + ui.values[ 1 ]);
@@ -107,19 +109,9 @@ filter.sliderRange = function(start_range, final_range){
       },
 
       stop: function(event,ui){
-        url = window.location.href;
-        if (url.indexOf('price') > 0){
-          newURL = url.split('price=');
-          //qs = (!newURL[0].match(/\?/)) ? '?' : '&';
-          newURL = newURL[0] + 'price='+ ui.values[0] + '-' + ui.values[1];
-          //window.location.href = newURL;
-        }else{
-          qs = (!url.match(/\?/)) ? '?' : '&';
-          newURL = url + qs + 'price='+ ui.values[0] + '-' + ui.values[1];
-         // window.location.href = newURL;
-        }
-        //url += '&price='+ ui.values[0] + '-' + ui.values[1];
-        console.log(newURL);
+        $("input#price").val(ui.values[ 0 ]+'-'+ui.values[ 1 ]);
+        filter.submitAndScrollUp();
+        $(this).parent().submit();
       }
   });
 
@@ -281,8 +273,9 @@ filter.cleanFilter = function(){
 
 
 $(function(){
-
-  filter.sliderRange();
+  $("input#price").val(start_position+'-'+final_position);
+  
+  filter.sliderRange(start_position, final_position);
 
   if($(".exhibition-mode").position()){
     h = $(".exhibition-mode").position().top;
