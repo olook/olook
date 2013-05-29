@@ -60,6 +60,10 @@ class MomentsController < ApplicationController
     @collection_theme = params[:id] ? CollectionTheme.find_by_id(params[:id]) : @collection_themes.last
 
     if @collection_theme
+      params[:news] = session[:c] if session[:c]
+      if current_admin
+        params[:admin] = true
+      end
       @catalog_products = CatalogSearchService.new(params.merge({id: @collection_theme.catalog.id})).search_products
       @products_id = @catalog_products.first(3).map{|item| item.product_id }.compact
       # params[:id] is into array for pixel iterator

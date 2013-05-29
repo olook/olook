@@ -130,8 +130,10 @@ class MembersController < ApplicationController
   end
 
   def set_collection
-    if current_admin && params[:c]
-      @collection = Collection.find_by_id(params[:c].to_s.to_i)
+    if current_admin && (params[:c] || session[:c])
+      c = (params[:c] || session[:c]).to_s.to_i
+      @collection = Collection.find_by_id(c)
+      session[:c] = c
     else
       @collection = Collection.active
     end
