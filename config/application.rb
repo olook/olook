@@ -20,14 +20,13 @@ module Olook
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-    config.autoload_paths += %W(#{Rails.root}/app/presenters #{Rails.root}/app/services #{Rails.root}/app/adapters #{Rails.root}/app/workers #{Rails.root}/app/validators #{Rails.root}/app/models/ecommerce #{Rails.root}/lib #{Rails.root}/app/strategies/**/ #{Rails.root}/app/sac )
+    config.autoload_paths += %W(#{Rails.root}/app/presenters #{Rails.root}/app/services #{Rails.root}/app/adapters #{Rails.root}/app/workers #{Rails.root}/app/validators #{Rails.root}/app/models/ecommerce #{Rails.root}/app/models/reports #{Rails.root}/app/models/search #{Rails.root}/lib #{Rails.root}/app/strategies/**/ #{Rails.root}/app/sac )
     config.autoload_paths += Dir["#{Rails.root}/lib/**/"]
+    config.autoload_paths += Dir["#{Rails.root}/app/workers/**/"]
     config.autoload_paths += Dir["#{Rails.root}/app/observers"]
+    config.autoload_paths += Dir["#{Rails.root}/app/listeners"]
     config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/actions"]
     config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/rules"]
-
-    config.middleware.delete(ActiveRecord::SessionStore)
-    config.middleware.insert_before(Rails::Rack::Logger, ActiveRecord::SessionStore)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -55,7 +54,7 @@ module Olook
     config.assets.initialize_on_precompile = false
     # config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
-    config.assets.precompile += %w(*.js admin.css campaign_emails.css admin/*.css admin/*.js about/*.css common/*.js gift/*.js plugins/*.js ui/*.js section/*.css utilities/*.css new_structure/lite_application.css new_structure/section/*.css )
+    config.assets.precompile += %w(*.js admin.js admin.css campaign_emails.css admin/*.css admin/*.js about/*.css common/*.js gift/*.js plugins/*.js ui/*.js section/*.css utilities/*.css new_structure/lite_application.css new_structure/section/*.css )
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'

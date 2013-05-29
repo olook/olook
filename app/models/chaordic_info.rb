@@ -1,7 +1,7 @@
 class ChaordicInfo
 
-  def self.user user
-    user_pack user
+  def self.user(user, ceid = nil)
+    user_pack(user, ceid)
   end
 
   def self.buy_order order
@@ -12,14 +12,14 @@ class ChaordicInfo
     product_pack product
   end
 
-  def self.cart cart, user
-    cart_pack cart, user
+  def self.cart(cart, user, ceid = nil)
+    cart_pack cart, user, ceid
   end
 
   private
 
-    def self.user_pack user
-      chaordic_user_info = set_user user
+    def self.user_pack(user, ceid = nil)
+      chaordic_user_info = set_user(user, ceid)
       create_chaordic_object.pack(chaordic_user_info)
     end
 
@@ -49,14 +49,16 @@ class ChaordicInfo
       chaordic_product.status = product.inventory > 1 ? "AVAILABLE" : "UNAVAILABLE"
       chaordic_product.sub_category = product.subcategory
       chaordic_product.tags << product.brand
+      
       # pulseira do avc shouldn't be shown on any chaordic's showroom
-      chaordic_product.tags << "blacklist" if product.id == 12472
+      # We want to avoid showing liquidation and/or marked down products on chaordics showrooms
+      chaordic_product.tags << "blacklist" if product.id == 12472 || product.price != product.retail_price
 
       create_chaordic_object.pack(chaordic_product)
     end
 
-    def self.cart_pack cart, user
-      add_to_card_user = set_user user
+    def self.cart_pack(cart, user, ceid = nil)
+      add_to_card_user = set_user(user, ceid)
       add_to_card_cart = set_cart cart
       add_to_card_cart.user = add_to_card_user
       create_chaordic_object.pack(add_to_card_cart)
@@ -81,14 +83,21 @@ class ChaordicInfo
       chaordic_order
     end
 
-    def self.set_user user
+    def self.set_user(user, ceid = nil)
       chaordic_user = Chaordic::Packr::User.new
-      unless user.nil?
+      if user
         chaordic_user.uid = user.id
         chaordic_user.add_info('Name', user.name)
         chaordic_user.add_info('Email', user.email)
         chaordic_user.add_info('optOut', false)
         chaordic_user.add_info('AuthToken', user.authentication_token)
+      elsif ceid
+        ce = CampaignEmail.find(ceid)
+        chaordic_user.uid = "CS_ANONYMOUSUSER"
+        chaordic_user.add_info('userName', "")
+        chaordic_user.add_info('userEmail', ce.email)
+        chaordic_user.add_info('optOut', false)
+        chaordic_user.add_info('AuthToken',"")
       else
         chaordic_user.uid = "CS_ANONYMOUSUSER"
       end

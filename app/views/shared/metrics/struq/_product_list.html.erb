@@ -6,11 +6,11 @@ _struqPI.push(['injectTrackingPixel', {
   collectData: false,
   /* If you'd like to use JavaScript to pass the dynamic data use the instructions below. Otherwise, change "collectData" above to true and see Implementation guide for the alternative HTML DIV tags.
      Data required:
-    IF IT'S A SINGLE PRODUCT (eg. in a Product Page): replace the variable STQ123 below with the product ID on this page 
+    IF IT'S A SINGLE PRODUCT (eg. in a Product Page): replace the variable STQ123 below with the product ID on this page
     IF THERE ARE SEVERAL PRODUCTS (eg. a category product list): replace the variable STQ123 below with the a comma (,) separated list of up to 3 product IDs from the page, e.g. "id1,id2,id3"
   */
     data: [
-    { title: "si", pid: "<%= products.map{ |item| "#{item.product_id}" }.first(3).join(', ') -%>"},
+    { title: "si", pid: "<%= raw products.map{ |item| "#{item.product_id}" }.first(3).join(', ') -%>"},
   ],
   options: { timeoutMs: 3000 }}]);
 (function() {

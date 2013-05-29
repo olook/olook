@@ -71,6 +71,27 @@ olook = o = {
     });
   },
   
+  boxLogin: function() {
+    $('p.new_login a.trigger').click(function(e){
+      $("div.sign-in-dropdown").fadeIn();
+      $("div.sign-in-dropdown form input#user_email").focus();
+    
+      $('body').on('click', function(e){
+        if($('.sign-in-dropdown').is(':visible')){
+          $('.sign-in-dropdown').fadeOut();
+        }
+        e.stopPropagation();
+      });
+      
+      $('.sign-in-dropdown').on('click', function(e){
+        e.stopPropagation();
+      })
+
+      e.stopPropagation();
+      e.preventDefault();  
+    });
+  },
+  
   newModal: function(content){
     var $modal = $("div#modal.promo-olook"), 
     h = $("img", content).length > 0 ? $("img",content).outerHeight() : $(content).outerHeight(), 
@@ -126,12 +147,21 @@ olook = o = {
   
   cart: function(){
     $("p.new_sacola a.cart,#cart_summary").on("mouseenter", function() {
-      $("#cart_summary").show();
-      $("body").addClass('cart_submenu_opened');
+      o.cartShow();
     }).on("mouseleave", function() {
-      $("#cart_summary").hide();
-      $("body").removeClass('cart_submenu_opened');
-    });
+      o.cartHide();
+   });
+  },
+
+  cartShow: function() {
+    $("#cart_summary").show();
+    $('.coupon_warn').delay(6000).fadeOut();
+    $("body").addClass('cart_submenu_opened');
+  },
+
+  cartHide: function(){
+    $("#cart_summary").hide();
+    $("body").removeClass('cart_submenu_opened');
   },
   
   myAccountMenu: function(){

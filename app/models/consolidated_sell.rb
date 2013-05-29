@@ -23,7 +23,7 @@ class ConsolidatedSell < ActiveRecord::Base
     consolidated = get_consolidated_record category, subcategory, day
     consolidated.amount += amount
     consolidated.total += amount * product.price
-    consolidated.total_retail += amount * product.price
+    consolidated.total_retail += amount * product.retail_price
     consolidated.save!
   end
 

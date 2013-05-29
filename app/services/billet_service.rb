@@ -12,7 +12,7 @@ class BilletService
         unsuccessful_array << {id: billet_id, message: "Pedido não encontrado", order_number: ""}
       elsif billet.state != "waiting_payment"
         unsuccessful_array << {id: billet_id, message: "Estado '#{billet.state}' não elegível para autorização de pagamento", order_number: billet.try(:order).try(:number)}
-      elsif billet && billet.try(:total_paid) != line_billet[58..69].gsub(' ','').gsub(',','.').to_d
+      elsif billet && billet.try(:total_paid) != line_billet[58..69].gsub(' ','').gsub('.', '').gsub(',','.').to_d
         unsuccessful_array << {id: billet_id, message: "Valor pago não confere com o valor do boleto", order_number: billet.try(:order).try(:number)}
       elsif line_billet[58..69].gsub(',','.').to_d > line_billet[98..107].gsub(',','.').to_d
         unsuccessful_array << {id: billet_id, message: "Valor pago é menor que o valor do título", order_number: billet.try(:order).try(:number)}
@@ -34,8 +34,9 @@ class BilletService
 
 
   def self.save_file(file_content, file_name)
-    MarketingReports::FileUploader.new(file_name, file_content).save_local_file
-    MarketingReports::FileUploader.copy_file(file_name, "/home/allinmail/retorno_santander") if Rails.env.production?
+    fog_dir.files.create(key: file_name, body: file_content, public: false)
+
+    File.open(File.expand_path(File.join("/tmp/", file_name)), 'w') { |f| f.write file_content }
   end
 
   def self.file_name
@@ -54,7 +55,9 @@ class BilletService
     end
 
     def self.read_file(billet_file_name)
-      File.open("#{file_path}#{billet_file_name}", "r").read
+      file = fog_dir.files.get(billet_file_name)
+      raise ArgumentError.new("File not Found on S3 #{billet_file_name}") unless file
+      file.body
     end
 
     def self.file_path
@@ -63,5 +66,12 @@ class BilletService
 
     def self.change_comma_to_dot(value)
       value.gsub('.','').gsub(',','.').to_d
+    end
+
+    def self.fog_dir
+      connection = Fog::Storage.new provider: 'AWS'
+      dir = connection.directories.get('olook-batch-process')
+      dir = connection.directories.create(key: 'olook-batch-process') unless dir
+      dir
     end
 end

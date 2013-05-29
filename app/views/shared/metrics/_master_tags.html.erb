@@ -1,11 +1,3 @@
-<!-- Predicta SiteApps -->
-<script type="text/javascript">
-   //<![CDATA[[
-   $SA={s:18120};
-   document.write(unescape("%3Cscript src='" + ("https:" == document.location.protocol ? "https://" + $SA.s + ".sa" : "http://" + $SA.s + ".a") + ".siteapps.com/" + $SA.s + ".js' type='text/javascript'%3E%3C/script%3E"));
-   //]]>
-</script>
-
 <!-- Google -->
 <%= render 'shared/metrics/google/analytics' %>
 <!-- Google Code for Smart Pixel - Todo o site -->
@@ -13,11 +5,32 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 var google_tag_params = {
-      prodid:"<%= google_ids @google_pixel_information %>",
-      et:"<%= @google_path_pixel_information if @google_path_pixel_information %>",
-      pname:"<%= google_name @google_pixel_information %>",
-      pcat:"<%= google_cat @google_pixel_information %>",
-      pvalues:"<%= google_value @google_pixel_information %>"
+  <% if @user.present? %>
+      user_created_at: "<%= @user.created_at.try(:strftime, ('%d/%m/%y')) %>",
+      user_profile: "<%= @user.profile_name %>",
+      user_gender: "<%= @user.gender %>",
+      user_birthdate: "<%= @user.birthday %>",
+      user_shoes_size: "<%= @user.shoes_size %>",
+      user_city: "<%= @user.addresses.first.try(:city) %>",
+      user_current_credit: "<%= @user.current_credit %>",
+
+      <% if @order.present? %>
+        order_number:  "<%= @order.number %>",
+        order_date: "<%= @order.created_at.strftime('%d/%m/%y') %>",
+        order_quantity: "<%= @order.line_items.count %>",
+        order_installments: "<%= @order.installments %>",
+        order_value: "<%= @order.amount_paid %>",
+      <% end %>
+  <% end %>
+
+  <% if @product %>
+    product_brand: "<%= @product.brand %>",
+  <% end %>
+  prodid:"<%= google_ids @google_pixel_information %>",
+  et:"<%= @google_path_pixel_information if @google_path_pixel_information %>",
+  pname:"<%= google_name @google_pixel_information %>",
+  pcat:"<%= google_cat @google_pixel_information %>",
+  pvalues:"<%= google_value @google_pixel_information %>"
 };
 /* ]]> */
 </script>
@@ -37,45 +50,14 @@ var google_remarketing_only = true;
 </div>
 </noscript>
 <!-- END Google -->
-
-
 <!-- Sociomantic -->
 <% if current_user && current_user.try(:has_purchased_orders?) %>
   <script type="text/javascript">
-      var customer = {
-        identifier: '<%= current_user.id %>'
-      };
+    dataLayer.push({'CustomerId': '<%= current_user.id %>'});
   </script>
 <% end %>
-<script id="sonar" type="text/javascript">
-    (function(){
-        var s  = document.createElement( 'script' );
-        s.id   = 'sonar-adpan';
-        s.type = 'text/javascript';
-        s.async;
-        s.src  = ( 'https:' == document.location.protocol? 'https://' : 'http://' )
-               + 'us-sonar.sociomantic.com/js/2010-07-01/adpan/olook-br';
-        var x  = document.getElementById( 'sonar' );
-        x.parentNode.insertBefore( s, x );
-    })();
-</script>
+<!-- END Sociomantic -->
 
-<!-- END Sociostatic -->
-
-<!-- Zanox -->
-<!-- Start of Product Page Mastertag Code: -->
-<div class="zx_5571F3A060448F6BED32 zx_mediaslot">
-  <script type="text/javascript">
-	window._zx = window._zx || [];
-	window._zx.push({"id":"5571F3A060448F6BED32"});
-	(function(d) {
-	  var s = d.createElement('script'); s.async = true;
-	  s.src = (d.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.zanox.com/scripts/zanox.js';
-	  var a = d.getElementsByTagName('script')[0]; a.parentNode.insertBefore(s, a);
-	}(document));
-	</script>
-</div>
-<!-- END Zanox -->
 <script src="//static.chaordicsystems.com/static/loader.js" data-apikey="olook"></script>
 
 <!-- NAVEGG ANALYTICS -->
@@ -83,3 +65,8 @@ var google_remarketing_only = true;
 
 <!-- VE INTERACTIVE -->
 <script src="//configusa.veinteractive.com/tags/5d2cc174/deef/4624/a3b9/2df786b4e3ae/tag.js" type="text/javascript" async></script>
+
+<!-- Zanox -->
+<div class="zx_5571F3A060448F6BED32 zx_mediaslot">
+</div>
+<!-- End -->

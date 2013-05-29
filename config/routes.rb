@@ -10,6 +10,12 @@ Olook::Application.routes.draw do
   get "home/index"
   get "index/index"
 
+  # Search Lab
+  get "/search/show", :to => "search#show", :as => "search_show"
+  get "/search/q", :to => "search#q", :as => "search_query"
+  get "/search", :to => "search#index", :as => "search_index"
+  get "/search/product_suggestions", :to => "search#product_suggestions", :as => "search_index"
+
   match '/404', :to => "application#render_public_exception"
   match '/500', :to => "application#render_public_exception"
   match "/home", :to => "home#index"
@@ -32,11 +38,6 @@ Olook::Application.routes.draw do
   post  "/contato" => "pages#send_contact", :as => "send_contact"
   match "/fidelidade", :to => "pages#loyalty", :as => "loyalty"
   match "/olookmovel", to: "pages#olookmovel", as: "olookmovel"
-
-  #LOOKBOOKS
-  match "/tendencias/:name", :to => "lookbooks#show", :as => "lookbook"
-  match "/tendencias", :to => "lookbooks#index", :as => "lookbooks"
-
 
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
@@ -104,7 +105,6 @@ Olook::Application.routes.draw do
   match "/shopping_uol", :to => "xml#shopping_uol", :as => "shopping_uol", :defaults => { :format => 'xml' }
   match "/google_shopping", :to => "xml#google_shopping", :as => "google_shopping", :defaults => { :format => 'xml' }
   match "/buscape", :to => "xml#buscape", :as => "buscape", :defaults => { :format => 'xml' }
-  match "/kelkoo", :to => "xml#kelkoo", :as => "kelkoo", :defaults => { :format => 'xml' }
   match "/struq", :to => "xml#struq", :as => "struq", :defaults => { :format => 'xml' }
   match "/kuanto_kusta", :to => "xml#kuanto_kusta", :as => "kuanto_kusta", :defaults => { :format => 'xml' }
   match "/nextperformance", :to => "xml#nextperformance", :as => "nextperformance", :defaults => { :format => 'xml' }
@@ -117,6 +117,9 @@ Olook::Application.routes.draw do
   get "/produto/:id" => "product#show", :as => "product"
   get "/produto/:id/spy" => "product#spy", as: 'spy_product'
   post "/produto/share" => "product#share_by_email", as: 'product_share_by_email'
+
+  get "/dia_dos_namorados/:encrypted_id/:id" => "product#product_valentines_day"
+
 
   #VITRINE / INVITE
   get "membro/convite" => "members#invite", :as => 'member_invite'
@@ -198,12 +201,8 @@ Olook::Application.routes.draw do
       end
     end
 
-    resources :lookbooks do
-      resources :images do
-        resources :lookbook_image_maps
-      end
-      get :products, :to => "lookbooks#product"
-    end
+    # reports
+    resources :reports
 
     resources :collection_theme_groups
 
@@ -322,8 +321,9 @@ Olook::Application.routes.draw do
     delete '/logout' => 'users/sessions#destroy', :as => :destroy_user_session
     get '/registrar' => "users/registrations#new_half", :as => :new_half_user_session
     post '/registrar' => "users/registrations#create_half", :as => :create_half_user
-    get '/users/auth/:provider' => 'omniauth_callbacks#passthru'
+    get '/users/auth/:provider' => 'omniauth_callbacks#passthru' # TODO change to "conta" instead of user
     delete '/conta/remover_facebook' => 'users/registrations#destroy_facebook_account', :as => :destroy_facebook_account
+    match '/conta/auth/facebook/setup', :to => 'omniauth_callbacks#setup'
   end
 
   get '/conta/pedidos/:number', :controller =>'users/orders', :action => 'show' , :as => "user_order"

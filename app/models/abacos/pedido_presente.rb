@@ -15,6 +15,7 @@ module Abacos
           'DadosPedidos' => {
             'NumeroDoPedido'           => @numero,
             'CodigoCliente'            => @codigo_cliente,
+            'RepresentanteVendas'      => 'SITE',
             'CPFouCNPJ'                => @cpf,
             'DataVenda'                => @data_venda,
             'DestNome'                 => @nome,

@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
                 :load_cart_service,
                 :load_facebook_api,
                 :load_referer,
-                :load_tracking_parameters
+                :load_tracking_parameters,
+                :set_modal_show
 
   helper_method :current_liquidation,
                 :show_current_liquidation?,
@@ -57,6 +58,14 @@ class ApplicationController < ActionController::Base
     cart
   end
 
+  def set_modal_show
+    if params[:modal]
+      @modal_show = params[:modal] != "0" ? "1" : "0"
+    else
+      @modal_show = cookies[:ms].blank? ? "1" : "0"
+    end
+  end
+
   protected
 
     def assign_coupon_to_cart(cart, coupon_code)
@@ -66,7 +75,7 @@ class ApplicationController < ActionController::Base
         cart.coupon_code = coupon.code
         if cart.valid?
           cart.update_attributes(:coupon_id => coupon.id)
-          flash.now[:notice] = "Cupom ativado em sua sacola com sucesso!"
+          @show_coupon_warn = true
         else
           flash.now[:notice] = cart.errors[:coupon_code].join('<br />'.html_safe)
           cart.remove_coupon!
@@ -84,9 +93,9 @@ class ApplicationController < ActionController::Base
     end
 
     def log_start_end_action_processing
-      Rails.logger.debug("START #{params[:controller].camelize}Controller##{params[:action]}")
+      Rails.logger.debug("START #{params[:controller].to_s.camelize}Controller##{params[:action]}")
       yield
-      Rails.logger.debug("END #{params[:controller].camelize}Controller##{params[:action]}")
+      Rails.logger.debug("END #{params[:controller].to_s.camelize}Controller##{params[:action]}")
     end
 
     def create_cart
@@ -133,7 +142,7 @@ class ApplicationController < ActionController::Base
       elsif @user && !@user.half_user?
         session[:return_to] ||= { text: "Voltar para a minha vitrine", url: member_showroom_path }
       else
-        session[:return_to] ||= { text: "Voltar para tendências", url: lookbooks_path }
+        session[:return_to] ||= { text: "Voltar para coleções", url: collection_themes_path }
       end
     end
 

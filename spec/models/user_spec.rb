@@ -174,25 +174,25 @@ describe User do
     let(:omniauth) {{"uid" => id, "extra" => {"raw_info" => {"id" => id}}, "credentials" => {"token" => token}}}
 
     it "should always set all facebook permissions" do
-      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday", "publish_stream"])
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday", "publish_stream", "user_relationships", "user_relationship_details"])
       subject.set_facebook_data(omniauth)
     end
 
     it "should set all facebook permissions when user has publish stream permission" do
       session = {:facebook_scopes => "publish_stream"}
-      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday", "publish_stream"])
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday", "publish_stream", "user_relationships", "user_relationship_details"])
       subject.set_facebook_data(omniauth)
     end
 
     it "should set facebook data with friends birthday permission" do
       session = {:facebook_scopes => "friends_birthday"}
-      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday", "publish_stream"])
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday", "publish_stream", "user_relationships", "user_relationship_details"])
       subject.set_facebook_data(omniauth)
     end
 
     it "should set facebook data with friends birthday and publish stream permissions" do
       session = {:facebook_scopes => "publish_stream, friends_birthday"}
-      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday", "publish_stream"])
+      subject.should_receive(:update_attributes).with(:uid => id, :facebook_token => token, :facebook_permissions => ["friends_birthday", "publish_stream", "user_relationships", "user_relationship_details"])
       subject.set_facebook_data(omniauth)
     end
 
@@ -201,7 +201,7 @@ describe User do
       subject.save
       session = {:facebook_scopes => "friends_birthday"}
       subject.set_facebook_data(omniauth)
-      subject.facebook_permissions.should == ["publish_stream", "friends_birthday"]
+      subject.facebook_permissions.should == ["publish_stream", "friends_birthday", "user_relationships", "user_relationship_details"]
     end
 
     it "should not duplicate permissions" do
@@ -209,7 +209,7 @@ describe User do
       subject.save
       session = {:facebook_scopes => "publish_stream"}
       subject.set_facebook_data(omniauth)
-      subject.facebook_permissions.should == ["publish_stream", "friends_birthday"]
+      subject.facebook_permissions.should == ["publish_stream", "friends_birthday", "user_relationships", "user_relationship_details"]
     end
 
     context "when user is not connected with facebook yet" do
@@ -465,10 +465,10 @@ describe User do
   describe "showroom methods" do
     let(:last_collection) { FactoryGirl.create(:collection, :start_date => 1.month.ago, :end_date => Date.today, :is_active => false) }
     let(:collection) { FactoryGirl.create(:collection) }
-    let!(:product_a) { FactoryGirl.create(:shoe, :casual, :name => 'A', :collection => collection) }
-    let!(:product_b) { FactoryGirl.create(:shoe, :casual, :name => 'B', :collection => collection) }
-    let!(:product_c) { FactoryGirl.create(:shoe, :casual, :name => 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
-    let!(:product_d) { FactoryGirl.create(:shoe, :casual, :name => 'A', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
+    let!(:product_a) { FactoryGirl.create(:shoe, :casual, producer_code: 'A', :collection => collection) }
+    let!(:product_b) { FactoryGirl.create(:shoe, :casual, producer_code: 'B', :collection => collection) }
+    let!(:product_c) { FactoryGirl.create(:shoe, :casual, producer_code: 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
+    let!(:product_d) { FactoryGirl.create(:shoe, :casual, producer_code: 'A', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
     let!(:invisible_product) { FactoryGirl.create(:shoe, :casual, :is_visible => false, :collection => collection, :profiles => [sporty_profile]) }
     let!(:casual_points) { FactoryGirl.create(:point, user: subject, profile: casual_profile, value: 10) }
     let!(:sporty_points) { FactoryGirl.create(:point, user: subject, profile: sporty_profile, value: 40) }
@@ -478,7 +478,7 @@ describe User do
     end
 
     describe "all_profiles_showroom" do
-      it "returns the products ordered by profiles without duplicate names" do
+      it "returns the products ordered by profiles without duplicate producer_codes" do
         subject.all_profiles_showroom.should == [product_c, product_d]
       end
 
@@ -522,7 +522,7 @@ describe User do
     end
 
     describe "main_profile_showroom" do
-      it "should return the products ordered by profiles without duplicate names" do
+      it "should return the products ordered by profiles without duplicate producer_codes" do
         subject.main_profile_showroom.should == [product_d, product_c]
       end
 
@@ -592,9 +592,9 @@ describe User do
     end
 
     describe 'remove_color_variations' do
-      let(:shoe_a_black)  { double :shoe, :name => 'Shoe A', :'sold_out?' => false }
-      let(:shoe_a_red)    { double :shoe, :name => 'Shoe A', :'sold_out?' => false }
-      let(:shoe_b_green)  { double :shoe, :name => 'Shoe B', :'sold_out?' => false }
+      let(:shoe_a_black)  { double :shoe, producer_code: 'Shoe A', :'sold_out?' => false, inventory: 10 }
+      let(:shoe_a_red)    { double :shoe, producer_code: 'Shoe A', :'sold_out?' => false, inventory: 5 }
+      let(:shoe_b_green)  { double :shoe, producer_code: 'Shoe B', :'sold_out?' => false, inventory: 4 }
       let(:products)      { [shoe_a_black, shoe_b_green, shoe_a_red] }
 
       context 'when no product is sold out' do

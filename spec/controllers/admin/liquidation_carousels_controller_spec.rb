@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::LiquidationCarouselsController do
+describe Admin::LiquidationCarouselsController, admin: true do
   render_views
   let!(:product)   {  FactoryGirl.create(:shoe, :casual, :id => 10) }
   let!(:liquidation)   { FactoryGirl.create(:liquidation) }
@@ -80,11 +80,6 @@ describe Admin::LiquidationCarouselsController do
       expect {
         delete :destroy, :liquidation_id => liquidation.id, :id => liquidation_carousel.id
       }.to change(LiquidationCarousel, :count).by(-1)
-    end
-
-    it "redirects to the lookbooks list" do
-      delete :destroy, :liquidation_id => liquidation.id, :id => liquidation_carousel.id
-      response.should redirect_to(admin_liquidation_carousels_path(liquidation.id))
     end
   end
 

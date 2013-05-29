@@ -1,12 +1,11 @@
 # -*- encoding : utf-8 -*-
 require 'boleto_bancario'
 class Checkout::BilletsController < ApplicationController
-  before_filter :authenticate_user!
   layout false
 
   def show
     config = SANTANDER
-    if payment = current_user.payments.find(params[:id])
+    if payment = Payment.find(params[:id])
       @boleto = BoletoBancario::Core::Santander.new do |boleto_santander|
         boleto_santander.conta_corrente        = config['conta_corrente']
         boleto_santander.digito_conta_corrente = config['digito_conta_corrente']
@@ -20,7 +19,7 @@ class Checkout::BilletsController < ApplicationController
         boleto_santander.numero_documento      = payment.id
         boleto_santander.sacado                = "#{payment.user.first_name} #{payment.user.last_name}"
         boleto_santander.documento_sacado      = payment.user.cpf
-        boleto_santander.data_vencimento       = 2.business_days.after(payment.created_at).to_date
+        boleto_santander.data_vencimento       = payment.payment_expiration_date.to_date
         boleto_santander.valor_documento       = payment.total_paid.round(2)
       end
       payment.deliver

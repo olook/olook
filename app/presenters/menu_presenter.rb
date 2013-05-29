@@ -42,7 +42,7 @@ class MenuPresenter < BasePresenter
   end
 
   def render_man_half_user_menu
-    [lookbooks, collection_themes, my_friends, stylist, liquidation, blog].join.html_safe
+    [collection_themes, my_friends, stylist, liquidation, blog].join.html_safe
   end
 
   private
@@ -54,12 +54,8 @@ class MenuPresenter < BasePresenter
     render_item("Minha Vitrine", h.member_showroom_path, "showroom", ["members#showroom"])
   end
 
-  def lookbooks
-    render_item("Tendências", h.lookbooks_path, "lookbooks", ["lookbooks#index","lookbooks#show"])
-  end
-
   def stylist
-    render_item("Stylist News", "/stylist-news", "stylist", ['stylists#helena_linhares'])
+    render_item("Stylist News", "http://www.olook.com.br/stylist-news", "stylist", ['stylists#helena_linhares'])
   end
 
   def my_friends

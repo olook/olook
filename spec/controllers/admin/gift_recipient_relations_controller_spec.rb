@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe Admin::GiftRecipientRelationsController do
+describe Admin::GiftRecipientRelationsController, admin: true do
   render_views
   let!(:relation) { FactoryGirl.create(:gift_recipient_relation) }
   let!(:valid_attributes) { relation.attributes }
@@ -86,7 +86,7 @@ describe Admin::GiftRecipientRelationsController do
         put :update, :id => relation.id, :gift_recipient_relation => valid_attributes
         assigns(:gift_recipient_relation).should eq(relation)
       end
-      
+
       it "redirects to the relation" do
         put :update, :id => relation.id, :gift_recipient_relation => valid_attributes
         response.should redirect_to(admin_gift_recipient_relation_path(relation))
