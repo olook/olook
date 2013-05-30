@@ -1,7 +1,9 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/welcome" %>
 <% end %>
-
+<% content_for :data_layer do %>
+  <%= render "shared/metrics/adlead/adlead" %>
+<% end %>
 <% content_for :footer do %>
   <%= javascript_include_tag "welcome" %>
   <%= render "shared/metrics/google/track_signup_page_view" %>
