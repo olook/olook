@@ -293,7 +293,6 @@ feature "Show products on xml format" do
       </rss>
     END
       equivalent_content = Nokogiri::XML(content)
-      #result.should be_equivalent_to(content)
       EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
     end
   end
