@@ -12,7 +12,7 @@
         <span class="title">ENTREGA</span>
         <span class="phrase">Como devemos enviar sua compra?</span>
       </h2>
-    
+
       <div id="checkout_address">
         <%= errors_for(@checkout, :address_base) %>
         <% if @addresses.nil? || @addresses.empty? %>
@@ -21,7 +21,7 @@
           <%= render "address_list", addresses: @addresses %>
         <% end %>
       </div>
-    </div>  
+    </div>
 
     <div class="box-step-two">
       <h2 class="step-title">
@@ -34,7 +34,7 @@
     </div>
     <%= checkout_form.submit '', class: "send_it", disable_with: "", onclick: track_event("Checkout","clickSubmit") %>
   <% end %>
-  
+
     <div class="box-step-three">
       <h2 class="step-title">
         <span class="number">3.</span>
@@ -42,8 +42,8 @@
         <span class="phrase">Revise e finalize seu pedido.</span>
       </h2>
       <%= render "cart_details", address: @checkout.address %>
-      
-  
+
+
     </div>
 
 
@@ -51,6 +51,6 @@
 
 <% content_for :footer do %>
   <%= render partial: "shared/metrics/dbm/order" %>
-  <%= render partial: 'shared/metrics/fb/checkout' %>
+  <%#= render partial: 'shared/metrics/fb/checkout' %>
   <%= javascript_include_tag "checkout" %>
 <% end %>
