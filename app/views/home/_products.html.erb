@@ -4,7 +4,7 @@
       <li>
         <%= link_to product, onclick: (track_event(ga_category, "Product#{index+1}", product.id) unless ga_category.nil?) do %>
           <%= image_tag(product.send(image_method ||= :showroom_picture) || "fake/showroom-product.png", :alt => product.name) %>
-          <h1><%= product.formatted_name(21) %></h1>
+          <h1><%= product.formatted_name(19) %></h1>
           <p><%= number_to_currency product.retail_price %></p>
         <% end %>
       </li>
