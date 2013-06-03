@@ -1,2 +1,3 @@
-<img src="http://new6adleadbrazil.solution.weborama.fr/fcgi-bin/performance.fcgi?ID=440381&A=2&TR=14560&CL=<%= current_user.try(:email) %>&AC=&MA=0.0&AR=1&AV=0" border="0" width="1" height="1"/>
-<%= current_user.email %>
+<script>
+  dataLayer.push({'UserEmail': '<%= current_user.try(:email) %>'});
+</script>
