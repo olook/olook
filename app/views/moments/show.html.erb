@@ -11,6 +11,7 @@
 
   <% content_for :footer do %>
     <%= javascript_include_tag "moments" %>
+    <%= render "shared/metrics/struq/product_list", :products => @catalog_products %>
     <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => @products_id } %>
   <% end %>
   <div id="moments" class="content">
@@ -37,6 +38,5 @@
     </div>
   </div>
   <%= msn_tags %>
-  <%= render "shared/metrics/struq/product_list", :products => @catalog_products %>
   <%#= render "shared/metrics/nextperformance/category", category_id: @category_id %>
 <% end %>
