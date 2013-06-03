@@ -33,7 +33,7 @@
 .ui-slider .ui-slider-range{position:absolute;z-index:1;font-size:.7em;display:block;border:0;background-position:0 0}
 .ui-slider .ui-widget-header{background:#000;}
 .ui-slider.ui-state-disabled .ui-slider-handle,.ui-slider.ui-state-disabled .ui-slider-range{filter:inherit}
-.ui-slider-horizontal{height:.2em}
+.ui-slider-horizontal{height:.2em;background:#CCC;}
 .ui-slider-horizontal .ui-slider-handle{top:-.3em;margin-left:-.5em}
 .ui-slider-horizontal .ui-slider-range{top:0;height:100%}
 .ui-slider-horizontal .ui-slider-range-min{left:0}
