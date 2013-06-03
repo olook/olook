@@ -50,9 +50,7 @@ class IndexProductsWorker
 
         fields = {}
 
-        remove_product_item_view_cache product.id
-
-        fields['name'] = product.formatted_name(100)
+        fields['name'] = product.formatted_name(150)
         fields['description'] = product.description
         fields['image'] = product.catalog_picture
         fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
