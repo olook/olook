@@ -100,7 +100,7 @@ filter.sliderRange = function(start_position, final_position){
       range: true,
       min: 0,
       max: 500,
-      values: [ isNaN(start_position) ? 0 : start_position, isNaN(final_position) ? 500 : final_position ],
+      values: [ isNaN(start_position) ? 0 : start_position, isNaN(final_position) ? 600 : final_position ],
       slide: function( event, ui ) {
         $("#min-value").val("R$ " + ui.values[ 0 ]);
         $("#max-value").val("R$ " + ui.values[ 1 ]);
