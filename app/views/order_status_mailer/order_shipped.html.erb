@@ -53,7 +53,7 @@
 
             <p>Oba! Seu pedido nº <b><span style="color:#e82e3a"><%= @order.number %></span></b> já está a caminho do endereço de entrega. A data estimada é <span style="color:#e82e3a"><%= @order.expected_delivery_on.strftime("%d/%m/%Y") %></span>.<br><br>
 
-Quer acompanhar a entrega? <a style="color:#e82e3a"><%= link_to "Clique aqui", link_to_tracking_code(@order) %></a>.<br><br>
+Quer acompanhar a entrega? <a style="color:#e82e3a"><%= link_to "Clique aqui", link_to_tracking_code(@order), style: "color:#e82e3a" %></a>.<br><br>
 
 Se tiver qualquer dúvida, pode falar com a gente pelo e-mail <a style="color:#e82e3a" href="mailto:falecom@olook.com.br">falecom@olook.com.br</a>.<br><br>
 
@@ -61,13 +61,13 @@ Mais uma vez, obrigada!<br><br>
 
 <p style="text-align:center">Que tal compartilhar a Olook com as suas amigas?<br> <p style="text-align:center">Convide e <b>ganhe R$20</b> em cada primeira compra delas!</p></p>
 
-<center><a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=ordershipped" style="text-decoration:none"><input name="botao" type="button" value="CONVIDAR AGORA" style="color:white;font-size:17px;background:#e82e3a;width:220px;height:50px;border:none"></a></center>
+<center><a href="http://www.olook.com.br/membro/convite?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t_pedidodespachado_botaoconvidaramigas&auth_token=<%= @order.user.authentication_token %>" style="text-decoration:none"><input name="botao" type="button" value="CONVIDAR AGORA" style="color:white;font-size:17px;background:#e82e3a;width:220px;height:50px;border:none"></a></center>
 <br><br>      
 
 Até mais ;)<br>
 Equipe Olook<br>
 
-<a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=ordershipped" style="color:#e82e3a">www.olook.com.br</a>
+<a href="http://www.olook.com.br/?utm_source=olook&utm_medium=email&utm_campaign=transacional&utm_content=t_pedidodespachado_urlassinatura" style="color:#e82e3a">www.olook.com.br</a>
 
 
     </p></td></tr></table>
