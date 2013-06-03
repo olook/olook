@@ -7,4 +7,4 @@
   <p class="qte">Quantidade: <span><%= item.quantity %></span></p>
   <p class="price"><%= number_to_currency(item.product.promotion? ? item.product.retail_price : item.product.price) %></p>
 </li>
-<%= render partial: 'shared/metrics/fb/cart' %>
+<%#= render partial: 'shared/metrics/fb/cart' %>
