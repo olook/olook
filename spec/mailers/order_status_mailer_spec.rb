@@ -104,7 +104,7 @@ describe OrderStatusMailer do
     end
 
     it "sets 'subject' attribute telling the user that the payment was confirmed" do
-      mail.subject.should == "Seu pedido n#{order.number} foi confirmado!"
+      mail.subject.should == "#{order.user.first_name}, seu pedido nº #{order.number} foi confirmado!"
     end
 
   end
@@ -130,7 +130,7 @@ describe OrderStatusMailer do
 
     context "and order is canceled" do
       it "sets 'subject' attribute telling the user that the payment was confirmed" do
-        OrderStatusMailer.payment_refused(order).subject.should == "Seu pedido n#{order.number} foi cancelado."
+        OrderStatusMailer.payment_refused(order).subject.should == "#{order.user.first_name}, seu pedido nº #{order.number} foi cancelado."
       end
     end
 
@@ -140,7 +140,7 @@ describe OrderStatusMailer do
         order.save!
       end
       it "sets 'subject' attribute telling the user that the payment was confirmed" do
-        OrderStatusMailer.payment_refused(order).subject.should == "Seu pedido n#{order.number} foi cancelado."
+        OrderStatusMailer.payment_refused(order).subject.should == "#{order.user.first_name}, seu pedido nº #{order.number} foi cancelado."
       end
     end
 
@@ -158,7 +158,7 @@ describe OrderStatusMailer do
     let(:mail) {OrderStatusMailer.order_shipped(order)}
 
     it { mail.body.should include(order.user.first_name)}
-    it { mail.subject.should eq("Seu pedido n#{order.number} foi enviado!")}
+    it { mail.subject.should eq("#{order.user.first_name}, seu pedido nº #{order.number} foi enviado!")}
     it { mail.body.should include("CONVIDAR AGORA")}
     it { mail.body.should include("#{order.number}")}
     it { mail.body.should include(order.expected_delivery_on.strftime("%d/%m/%Y"))}
@@ -175,7 +175,7 @@ describe OrderStatusMailer do
 
     let(:mail) {OrderStatusMailer.order_delivered(order)}
     it { mail.body.should include(order.user.first_name)}
-    it { mail.subject.should eq("Seu pedido n#{order.number} foi entregue!")}
+    it { mail.subject.should eq("#{order.user.first_name}, seu pedido nº #{order.number} foi entregue!")}
     it { mail.body.should include("CONVIDAR AGORA")}
     it { mail.body.should include("#{order.number}")}
   end
