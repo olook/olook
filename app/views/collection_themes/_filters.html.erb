@@ -2,10 +2,10 @@
 <div id="filters_container">
   <%= form_tag(collection_theme_filter_path(@collection_theme.slug), :method => :get, :remote => true, :id => "filter", :name => "filter") do %>
     <%= hidden_field_tag('slug', @collection_theme ? @collection_theme.slug : nil) %>
-    <div class="select">
+    <div class="select category_type">
       <%= select_tag('category_id', options_for_select(@catalog_search_service.categories_available_for_options(ignore_category: true), params[:category_id]), class: 'custom_select') %>
     </div>
-    <div class="select">
+    <div class="select sort_filter">
       <%= select_tag('sort_filter', options_for_select({"Nossa Seleção" => 0, "Menor preço" => 1, "Maior preço" => 2}), class: 'custom_select') %>
     </div>
     <div id="category_filters">
