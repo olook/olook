@@ -13,6 +13,7 @@ filter.init = function(){
   filter.fillFilterTags();
   filter.bindObjects();
   filter.selectedFilter();
+  filter.changeColorSelectBox();
 }
 
 filter.spyOverChangeImage = function(){
@@ -271,6 +272,24 @@ filter.cleanFilter = function(){
    })
 }
 
+filter.changeColorSelectBox = function(){
+  var category = $(".category_type span.select").text(), sort_filter = $(".sort_filter span.select").text();
+  $(".category_type select").change(function(){
+      if(category != "Ver tudo"){
+        console.log("aqui 2");
+        $(".category_type span.select").addClass("filter_selected");
+      }else{
+        $(".category_type span.select.filter_selected").removeClass("filter_selected");
+      }
+  });
+  $(".sort_filter select").change(function(){
+    if(sort_filter != "Nossa Seleção"){
+      $(".sort_filter span.select").addClass("filter_selected");
+    }else{
+      $(".sort_filter span.select.filter_selected").removeClass("filter_selected");
+    }
+  });
+}
 
 $(function(){
   $("input#price").val(start_position+'-'+final_position);
