@@ -4,7 +4,7 @@
 
 <div class="search">
     
-  <% if @hits["found"] == 0 %>
+  <% if @result.found_products == 0 %>
     <h2><b>Poxa, ainda não temos <span><%= @q%></span> :( </b></br>Como sempre chegam novidades, logo mais devemos ter o que você procura por aqui. Fique ligada! ;)</h2>
     <p class="hints">Sugestões para uma próxima busca:</p>
     <ul class="hint-list">
@@ -17,22 +17,22 @@
   <% else %>
     <div class="cb">
       <% unless @dont_show_message %>
-        <h2 class="title-founded">Legal! Temos <span><%= @hits["found"] %></span> opções de <span><%= @q%></span> para você :)</h2>
+        <h2 class="title-founded">Legal! Temos <span><%= @result.found_products %></span> opções de <span><%= @q%></span> para você :)</h2>
       <% end %>
     </div>
 
     <div id="filters">
 
-      <%= render :partial => "grouped_products", :locals => {title: "Marcas", list: @brands, field: :brand} %>
-      <%= render :partial => "grouped_products", :locals => {title: "Categorias", list: @model_names, field: :category} %>
-      <%= render :partial => "grouped_products", :locals => {title: "Cores", list: @colors, field: :color} %>
+      <%= render :partial => "grouped_products", :locals => {title: "Marcas", list: @result.grouped_products("brand_facet"), field: :brand} %>
+      <%= render :partial => "grouped_products", :locals => {title: "Categorias", list: @result.grouped_products("categoria"), field: :category} %>
+      <%= render :partial => "grouped_products", :locals => {title: "Cores", list: @result.grouped_products("cor_filtro"), field: :color} %>
     
     </div>
 
 
     <div id="search_result">
       <ul class="search-results-list">  
-        <% @products.each do |product| %>
+        <% @result.products.each do |product| %>
           <%= render "shared/searched_product_item", product: product%>
         <% end %>
       </ul>
@@ -41,7 +41,7 @@
   <% end %>
 </div>
 
-<% if @hits["found"] == 0 %>
+<% if @result.found_products == 0 %>
   <div class="other-products">
     <p>Enquanto isso, porque você não dá uma olhada em...</p>
   </div>
