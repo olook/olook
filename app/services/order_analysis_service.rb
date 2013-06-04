@@ -51,7 +51,7 @@ class OrderAnalysisService
       true
     else
       first_used = first_credit_card_payment?(payment.user)
-      log("credit_card was already used? [#{first_used}]")
+      log("First use of this card ? [#{first_used}]")
       first_used
     end
   end

@@ -1,5 +1,4 @@
 <script type="text/javascript">
-var product = {
-category : [ 'COLEÇÕES', 'Casual']
-};
+  dataLayer.push({'Category': '<%= section_name @pixel_information %>'});
+  dataLayer.push({'CatalogProductsIds': '<%= @catalog_products.map{ |item| "#{item.product_id}" }.first(3).join(', ') %>'});
 </script>

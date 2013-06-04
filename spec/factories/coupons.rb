@@ -41,6 +41,15 @@ FactoryGirl.define do
       active false
     end
 
+    factory :unavailable_coupon do
+      code 'FOOBAR010'
+      value 50.00
+      remaining_amount 1
+      start_date 6.days.ago
+      end_date 25.years.from_now
+      active false
+    end
+
     factory :unlimited_coupon do
       code 'FOOBAR001'
       value 50.00

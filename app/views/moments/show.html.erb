@@ -5,9 +5,13 @@
     <meta name="chaordic:user" content="<%= @chaordic_user %>">
     <meta name="chaordic:category" content="<%= @glasses ? "#{@glasses}" : "#{section_name @pixel_information}"%>">
   <% end %>
+  <% content_for :data_layer do %>
+    <%= render "shared/metrics/sociomantic/category" %>
+  <% end %>
 
   <% content_for :footer do %>
     <%= javascript_include_tag "moments" %>
+    <%#= render "shared/metrics/struq/product_list", :products => @catalog_products %>
     <%= render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => @products_id } %>
   <% end %>
   <div id="moments" class="content">
@@ -34,7 +38,5 @@
     </div>
   </div>
   <%= msn_tags %>
-  <%= render "shared/metrics/sociomantic/products", :products => @catalog_products,:categories_id => @categories_id %>
-  <%= render "shared/metrics/struq/product_list", :products => @catalog_products %>
-  <%= render "shared/metrics/nextperformance/category", category_id: @category_id %>
+  <%#= render "shared/metrics/nextperformance/category", category_id: @category_id %>
 <% end %>

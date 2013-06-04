@@ -5,10 +5,11 @@ class CatalogSearchService
     @params = params
     @l_products = Catalog::Product.arel_table
     @query_base = @l_products[:catalog_id].eq(@params[:id])
-                  .and(@l_products[:inventory].gt(0))
-                  .and(Variant.arel_table[:inventory].gt(0))
 
+    Rails.logger.debug(params.inspect)
     unless params[:admin]
+      @query_base = @query_base.and(@l_products[:inventory].gt(0))
+      @query_base = @query_base.and(Variant.arel_table[:inventory].gt(0))
       @query_base = @query_base.and(Product.arel_table[:is_visible].eq(true)).and(Variant.arel_table[:price].gt(0))
     end
 
@@ -57,6 +58,7 @@ class CatalogSearchService
     @query = prepare_query_joins
 
     add_category_filter_to_query_base
+    add_collection_filter_to_query_base
     #add_brand_filter_to_query_base
 
     @query = @query.where(@query_base)
@@ -73,6 +75,7 @@ class CatalogSearchService
   end
 
   def add_categories_filter_to_query_base
+
     all_queries = compact_category_queries
 
     category_query = nil
@@ -80,14 +83,26 @@ class CatalogSearchService
     all_queries.each do |query|
       category_query = category_query ? category_query.or(query) : query
     end
-    category_query ||= @params[:shoe_sizes] ? filter_product_by(:shoe_size, @params[:shoe_sizes]) : @query_base
+    unless @params[:admin]
+      category_query ||= @params[:shoe_sizes] ? filter_product_by(:shoe_size, @params[:shoe_sizes]) : @query_base
+    end
 
-    @query_base = @query_base.and(category_query)
+    @query_base = @query_base.and(category_query) if category_query
   end
 
   def add_category_filter_to_query_base
     # Subcategories filter to make possible to have Shoes / Bags / Accessories pages
     @query_base = @query_base.and(l_products[:category_id].in(@params[:category_id])) if @params[:category_id]
+  end
+
+  def add_collection_filter_to_query_base
+    if @params[:news]
+      if @params[:admin]
+        c_id = Collection.find(@params[:news].to_i).id rescue nil
+      end
+      c_id ||= Collection.active.id
+      @query_base = @query_base.and(Product.arel_table[:collection_id].eq(c_id))
+    end
   end
 
   def add_brand_filter_to_query_base

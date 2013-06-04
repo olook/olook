@@ -1,0 +1,7 @@
+unicorn_workers: 20
+
+role_dependencies:
+  unicorn: [nginx]
+roles:
+  unicorn:
+    gems: [unicorn]

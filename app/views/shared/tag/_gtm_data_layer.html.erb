@@ -1,10 +1,18 @@
 <script type="text/javascript">
-  dataLayer = [];
   dataLayer.push({
     'zanpid': '<%= @zanpid %>',
-    'customerId': '<%= @user.id %>',
+    'CustomerId': '<%= @user.id %>',
     'orderNumber': '<%= @order.number %>',
     'orderTotal': '<%= "%.02f" % @order.amount_paid %>',
-    'paymentType': '<%= @payment.type %>'
+    'paymentType': '<%= @payment.type %>',
+
+    // Universal Analytics variables
+    'transactionId': '<%= @order.number %>',
+    'transactionDate': '<%= @order.created_at.strftime("%d/%m/%Y") %>',
+    'transactionPaymentType': '<%= @payment.type %>',
+    'transactionTotal': '<%= "%.02f" % @order.gross_amount %>'
+    'PrimeiraCompraDoUsuario': '<%= @order.user.try(:first_buy?) ? "1" : "0" %>'
+
+
   });
 </script>
