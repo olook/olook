@@ -669,7 +669,7 @@ h2 = content.height(), w2 = content.width();console.log(h,w,h2,w2);
 
   customSelect : function() {
     if (!$.browser.opera) {
-      $('select.custom_select').each(function(){
+      $('.select select').each(function(){
         var title = $(this).attr('title');
         if($('option:selected', this).text() != '') {
           title = $('option:selected',this).text();
@@ -678,6 +678,24 @@ h2 = content.height(), w2 = content.width();console.log(h,w,h2,w2);
           val = $('option:selected',this).text();
           $(this).next().remove();
           $(this).after("<span class='select'>"+val+"</span>");
+          
+          txt=$(this).next().text();
+          console.log("5 "+txt);
+          if(txt != "Ver tudo"){
+            console.log("2 "+txt);
+            $(this).next().addClass("filter_selected");
+          }else if(txt == "Ver tudo"){
+            console.log("1 "+txt);
+            $(this).next().removeClass("filter_selected");
+          }
+          if(txt != "Nossa Seleção"){
+            console.log("6 "+txt);
+            $(this).next().addClass("filter_selected");
+          }else if(txt == "Nossa Seleção"){
+            console.log("7 "+txt);
+            $(this).next().removeClass("filter_selected");
+          }
+          
         });
       });
     };

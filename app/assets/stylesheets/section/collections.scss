@@ -267,7 +267,7 @@ section{margin-top:10px;
             &.category_type{
               span.select{width:82px;}
             }
-            select.custom_select{position: absolute;line-height: 26px;width: 125px;top: 0;left: 0;border:solid 1px #D7D7D7;}
+            select{position: absolute;line-height: 26px;width: 125px;top: 0;left: 0;border:solid 1px #D7D7D7;}
             span.select{width:94px;}
           }
           span.select{display:inline-block;height: 19px;cursor: pointer;font-size:10px;text-transform:uppercase;font-weight:bold;line-height:20px;padding:0 35px 0 0;text-indent:6px;border-top:solid 1px #D7D7D7;border-bottom:solid 1px #D7D7D7;border-left:solid 1px #D7D7D7;background: image-url('collections/bullet_arrow.png') right -1px no-repeat;color:#000;
@@ -530,4 +530,9 @@ section{margin-top:10px;
       border-bottom: 1px solid #e5e5e5;
     }
   }
+}
+
+/* fix Webkit to windows */
+html.win.webkit{
+  #filters_container .sort_filter span.select{width:102px !important;}
 }
