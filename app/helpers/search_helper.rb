@@ -15,6 +15,7 @@ module SearchHelper
   private
     def create_query_string hash
       params = {q: @q, color: @color, category: @category}
+      params.merge! hash
       params.delete_if{|k,v| v.nil? || k.to_s == 'brand'}
       params.to_query   
     end

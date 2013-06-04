@@ -16,6 +16,7 @@ Olook::Application.routes.draw do
   get "/search", :to => "search#index", :as => "search_index"
   get "/search/product_suggestions", :to => "search#product_suggestions", :as => "search_index"
   match "/marcas/:brand", :to => "search#show"
+  match "/marcas", :to => "search#index"
 
   match '/404', :to => "application#render_public_exception"
   match '/500', :to => "application#render_public_exception"
