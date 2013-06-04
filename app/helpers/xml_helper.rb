@@ -1,6 +1,10 @@
 # -*- encoding : utf-8 -*-
 module XmlHelper
 
+  def full_image_path path
+    "http:#{path}"
+  end
+
   def build_installment_text(price, options = {})
     "#{installments_number(price)} x #{installments_value(price, options)}"
   end
