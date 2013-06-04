@@ -51,3 +51,6 @@
 .price-range p#min-value-label{float:left;}
 .price-range p#max-value-label{float:right;}
 .price-range input{display:none;width:45px;}
+
+/* fix to windows */
+html.win .price-range p{width:40px !important;}
