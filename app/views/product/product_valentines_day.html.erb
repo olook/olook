@@ -46,7 +46,7 @@
         <%= product_presenter.render_add_to_cart %>
         <%= product_presenter.render_details %>
       </div>
-      
+
       <div id="benefits">
         <div class="fl">
           <p>Vantagens Olook</p>
@@ -58,23 +58,19 @@
             <li class="devolucao"><b>DEVOLUÇÃO E TROCA GRÁTIS</b><br/>Em até 30 DIAS</li>
             <li class="credito"><b>15% DE VOLTA EM CRÉDITOS</b><br/>Para usar nos próximos 2 meses</li>
           </ul>
-        </div>  
+        </div>
         <div class="fl">
           <p class="txt-center">Formas de pagamento</p>
           <%= image_tag("valentine/cartoes.jpg", class: "cartoes") %>
         </div>
         <div class="fl">
-          <p class="txt-center">Segurança</p>  
+          <p class="txt-center">Segurança</p>
           <%= link_to image_tag("common/ico_security.png", width: "90", height: "40"), "http://www.trustlogo.com/ttb_searcher/trustlogo?v_querytype=W&v_shortname=SC4&v_search=http://www.olook.com.br/&x=6&y=5", target: '_blank', class:"mt" %>
-         
+
          <%= link_to image_tag("https://a248.e.akamai.net/f/248/52872/0s/img.ebit.com.br/ebitBR/selo/img_19329.png"), "http://www.ebit.com.br/#/selo", target: '_blank', class: "mt" %>
-        </div>  
+        </div>
       </div>
-      
-      <% if Setting.show_featured_products %>
-        <%= product_presenter.render_related_products %>
-      <% end %>
-      
+
       <p class="gift-title">QUE TAL SURPREENDÊ-LA COM MAIS UM PRESENTINHO?</p>
       <!-- local onde o frequentlyboughttogether será exibido -->
       <div class="chaordic frequentlyboughttogether"></div>
@@ -157,7 +153,7 @@
   <%= render partial: "shared/metrics/sociomantic/product", :locals => { product_id: @product.id } %>
   <%= render partial: "shared/metrics/criteo/product_page_tracker", :locals => { product_id: @product.id } %>
   <%= render partial: "shared/metrics/triggit/product", :locals => { product_id: @product.id } %>
-  <%= render partial: "shared/metrics/struq/product_details", :locals => { product_id: @product.id } %>
+  <%#= render partial: "shared/metrics/struq/product_details", :locals => { product_id: @product.id } %>
   <%= render partial: "shared/metrics/nextperformance/product", :locals => { product_id: @product.id } %>
   <%= render partial: "shared/metrics/nextperformance/category", :locals => { category_id: @product.category } %>
   <%= render partial: "shared/metrics/all_in/product", :locals => { product: @product } %>

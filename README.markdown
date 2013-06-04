@@ -3,7 +3,7 @@
 Requirements
 ============
 
-- Ruby 1.9.2p290
+- Ruby 1.9.3p392
 - Redis 2.4.2 (brew install redis (OS X only))
 - MySQL 5.1.49 on Ubuntu 11.04
 - libmysqlclient-dev
@@ -13,8 +13,6 @@ Requirements
 
 Setup
 ============
-
-Make sure mysql is running before you run this:
 
 run ./bootstrap.sh
 
@@ -70,59 +68,71 @@ Installing MemCached on a Mac via HomeBrew
 Deploy with Capistrano
 ============
 
--Deploy Development
--Default branch set to development
-cap --set-before branch=YOUR_BRNCH_NAME dev deploy
+Set ssh-agent
+```
+ssh-add
+```
 
-Cronjobs
-============
-This cron will generate a csv file with the user data to be used for email marketing. It will run everyday at 3 AM.
+check if ssh-agent is running. It should be running since most OSes start them on ssh connection.
 
-0  3    * * *   root    cd /srv/olook/current; RAILS_ENV=production bundle exec rake marketing_uploader:copy_userbase_to_ftp >> /var/log/userbase_uploader_rake.log 2>&1
+```
+ssh-agent
+```
 
-This cron will generate a csv file with the user data, credits and orders data. It will run everyday at 1 AM.
+Run to config keys in your machine
+```
+bash bootstrap.sh development
+```
 
-0  1    * * *   root    cd cd /srv/olook/current; RAILS_ENV=production bundle exec rake marketing_uploader:copy_userbase_orders_to_ftp >> /var/log/userbase_orders_uploader_rake.log 2>&1
-
-This cron will generate a csv file with the user data, bonus credits and revenues per user (with users with an accepted order) It will run everyday at 2 AM.
-
-0  2    * * *   root    cd cd /srv/olook/current; RAILS_ENV=production bundle exec rake marketing_uploader:copy_userbase_revenue_to_ftp >> /var/log/userbase_revenue_uploader_rake.log 2>&1
-
-0  0    * * 1   root    cd cd /srv/olook/current; RAILS_ENV=production bundle exec rake marketing_uploader:copy_paid_marketing_revenue_to_ftp >> /var/log/paid_online_marketing_uploader_rake.log 2>&1
-
-Check the log files to verify if any issue happens.
-
-Deployment with Capistrano
-============
+-Deploy staging env
+-Default branch set to master
+```
+cap deploy
+```
 
 development:
-cap dev deploy
+```
+FILTER=development cap deploy
+```
 
 homolog:
-cap hmg deploy
+```
+FILTER=homolog cap deploy
+```
 
-production app1:
-cap prod1 deploy
+production app01:
+```
+RUBBER_ENV=production FILTER=app01 cap deploy
+```
 
 production app2:
-cap prod2 deploy
+```
+RUBBER_ENV=production FILTER=app02 cap deploy
+```
+
+production only resques:
+```
+RUBBER_ENV=production ROLES=resque cap deploy
+```
 
 If you need to deploy a different branch:
-cap -S branch=<your_branch_name> SERVER deploy
+```
+cap -S branch=<your_branch_name> deploy
+```
 
 Optional config files
 ============
 - .rvmrc
   - run the following command inside the project directory
   ```
-  rvm --rvmrc --create 1.9.2@olook
+  rvm --rvmrc --create 1.9.3@olook
   ```
 
 - .rspec
   - create a file named .rspec inside the project directory with the following content:
   ```
   --color
-  --format documentation
+  --format Fuubar
   --drb
   ```
   The parameter color will color the output, format 'documentation' shows the tests description instead of dots and
@@ -138,24 +148,39 @@ Optional config files
 
 files_modified=`git status --porcelain | egrep "^(A |M |R ).*" | awk ' { if ($3 == "->") print $4; else print $2 } '`
 
+[ -s "$HOME/.rvm/scripts/rvm" ] && . "$HOME/.rvm/scripts/rvm"
+## use ruby defined in project
+[ -s ".rvmrc" ] && source .rvmrc
+if [ -s ".ruby-version" ]; then
+  _rvmrc="$(cat .ruby-version)"
+  [ -s ".ruby-gemset" ] && _rvmrc="$_rvmrc@$(cat .ruby-gemset)"
+  rvm use $_rvmrc
+fi
+
 for f in $files_modified; do
     echo "Checking ${f}..."
-
     if [[ $f == *.rb ]]; then
+        ruby -c -w $f
+        if [ $? != 0 ]; then
+            echo "File ${f} failed"
+            exit 1
+        fi
         if grep --color -n "binding.pry" $f; then
             echo "File ${f} failed - found 'binding.pry'"
             exit 1
         fi
-
         if grep --color -n "debugger" $f; then
             echo "File ${f} failed - found 'debugger'"
             exit 1
         fi
-
-        if grep --color -n "save_and_open_page" $f; then
-            echo "File ${f} failed - found 'save_and_open_page'"
-            exit 1
-        fi
+    elif [[ $f == *.haml ]]; then
+        bundle exec haml --check $f
+    elif [[ $f == *.sass ]]; then
+        bundle exec sass --check $f
+    fi
+    if [ $? != 0 ]; then
+        echo "File ${f} failed"
+        exit 1
     fi
 done
 exit

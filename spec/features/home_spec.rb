@@ -8,6 +8,11 @@ feature "Half User accessing home", %q{
   I want to correctly see the home page
 } do
 
+  before do
+    FactoryGirl.create(:credit_type, code: "invite")
+    FactoryGirl.create(:credit_type, code: "loyalty_program")
+    FactoryGirl.create(:credit_type, code: "redeem")
+  end
   scenario "Access home page (being redirect to members#showroom) as a female half user" do
     half_user = FactoryGirl.create(:user, half_user: true, gender: 0)
     do_login!(half_user)
