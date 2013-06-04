@@ -50,17 +50,15 @@ class IndexProductsWorker
 
         fields = {}
 
-        # remove_product_item_view_cache product.id
-
-        fields['name'] = product.formatted_name(100)
-        # fields['description'] = product.description
+        fields['name'] = product.formatted_name(150)
+        fields['description'] = product.description
         fields['image'] = product.catalog_picture
         fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
         fields['brand'] = product.brand
         fields['brand_facet'] = product.brand
         fields['price'] = product.price
         fields['retail_price'] = product.retail_price
-        fields['in_promotion'] = product.price != product.retail_price
+        fields['in_promotion'] = product.promotion?
         fields['category'] = product.category_humanize
 
         details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno'].include?(d.translation_token.downcase) }

@@ -2,11 +2,12 @@
   <%= stylesheet_link_tag "section/gift" %>
   <%= stylesheet_link_tag "section/suggestions" %>
 <% end %>
-
+<% content_for :data_layer do %>
+  <%= render "shared/metrics/adlead/adlead_gift"%>
+  <%= render "shared/metrics/metaffiliation/action"%>
+<% end %>
 <% content_for :footer do %>
   <%= javascript_include_tag "gift/suggestions" %>
-  <%= render "shared/metrics/metaffiliation/action", :email => current_user ? current_user.email : 1 %>
-  <%= render "shared/metrics/adlead/adlead_gift", :email => current_user ? current_user.email : 1%>
 <% end %>
 
 <div id="fb-root"></div>

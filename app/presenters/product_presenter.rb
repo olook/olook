@@ -72,12 +72,11 @@ class ProductPresenter < BasePresenter
   end
 
   def render_accessory_sizes
-    product.variants.size > 1 ? render_cloth_sizes : render_single_size
+    h.render :partial => 'product/sizes', :locals => {:variants => variants_sorted_by_size, :shoe_size => nil, :show_cloth_size_table => false}
   end
 
   def render_cloth_sizes
-    variants = product.variants.sort{|first, second| SIZES_TABLE[first.description].to_i <=> SIZES_TABLE[second.description].to_i }
-    h.render :partial => 'product/sizes', :locals => {:variants => variants, :shoe_size => nil, :show_cloth_size_table => true}
+    h.render :partial => 'product/sizes', :locals => {:variants => variants_sorted_by_size, :shoe_size => nil, :show_cloth_size_table => true}
   end
 
   def render_pics
@@ -149,4 +148,7 @@ class ProductPresenter < BasePresenter
     h.content_tag(:p, content ,:class => css_class)
   end
 
+  def variants_sorted_by_size
+    product.variants.sort{|first, second| SIZES_TABLE[first.description].to_i <=> SIZES_TABLE[second.description].to_i }
+  end
 end

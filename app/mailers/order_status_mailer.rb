@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class OrderStatusMailer < ActionMailer::Base
   default_url_options[:host] = "www.olook.com.br"
-  default :from => "olook <avisos@olook.com.br>"
+  default :from => "Equipe Olook <avisos@olook.com.br>"
 
   def self.smtp_settings
     {
@@ -31,13 +31,13 @@ class OrderStatusMailer < ActionMailer::Base
         subject = "#{order.user.first_name}, recebemos seu pedido."
       end
     elsif order.authorized?
-      subject = "Seu pedido n#{order.number} foi confirmado!"
+      subject = "#{order.user.first_name}, seu pedido nº #{order.number} foi confirmado!"
     elsif order.delivering?
-      subject = "Seu pedido n#{order.number} foi enviado!"
+      subject = "#{order.user.first_name}, seu pedido nº #{order.number} foi enviado!"
     elsif order.delivered?
-      subject = "Seu pedido n#{order.number} foi entregue!"
+      subject = "#{order.user.first_name}, seu pedido nº #{order.number} foi entregue!"
     elsif order.canceled? || order.reversed?
-      subject = "Seu pedido n#{order.number} foi cancelado."
+      subject = "#{order.user.first_name}, seu pedido nº #{order.number} foi cancelado."
     end
   end
 
