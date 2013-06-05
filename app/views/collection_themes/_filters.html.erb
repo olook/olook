@@ -10,7 +10,9 @@
     </div>
    
     <div id="category_filters">
+      
       <%- if params[:category_id].present? && !Category.key_for(params[:category_id].to_i).blank? -%>
+        <%= render "/shared/filters/color_filters", product_type: category_symbol.to_s  %>
         <%= render partial: "#{Category.key_for(params[:category_id].to_i).to_s}_filters" %>
       <%- end -%>
 

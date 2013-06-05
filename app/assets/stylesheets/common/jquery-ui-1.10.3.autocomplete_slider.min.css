@@ -48,9 +48,9 @@
 .price-range{float:left;margin-top:2px;}
 .price-range .slider{float:left;width:60px;margin-right:20px;}
 .price-range p{font-family:$avenir;font-weight:bold;width:40px;font-size:10px;}
-.price-range p#min-value-label{float:left;}
+.price-range p#min-value-label{float:left;margin-right:10px;}
 .price-range p#max-value-label{float:right;}
 .price-range input{display:none;width:45px;}
 
 /* fix to windows */
-html.win .price-range p{width:40px !important;}
+html.win .price-range .slider{width:39px !important;}
