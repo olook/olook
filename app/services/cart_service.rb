@@ -354,10 +354,10 @@ class CartService
 
       debit_discount_value = calculate_debit_discount_value(retail_value)
 
-      if billet_discount_value > retail_value
-        billet_discount_value = retail_value
+      if debit_discount_value > retail_value
+        debit_discount_value = retail_value
       end
-      retail_value -= billet_discount_value
+      retail_value -= debit_discount_value
     end
 
     total_credits = credits_loyality + credits_invite + credits_redeem
@@ -369,9 +369,9 @@ class CartService
     {
       :discounts                         => discounts,
       :is_minimum_payment                => (minimum_value > 0 && retail_value <= 0),
-      :total_discount                    => (coupon_value + total_credits + billet_discount_value + debit_discount + facebook_discount_value),
+      :total_discount                    => (coupon_value + total_credits + billet_discount_value + debit_discount_value + facebook_discount_value),
       :billet_discount                   => billet_discount_value,
-      :debit_discount                    => debit_discount,
+      :debit_discount                    => debit_discount_value,
       :facebook_discount                 => facebook_discount_value,
       :total_coupon                      => coupon_value,
       :total_credits_by_loyalty_program  => credits_loyality,
