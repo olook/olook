@@ -68,12 +68,12 @@ header#new_header{border-top: 8px black solid;
     }
     .box_right{float: right;margin: 0px 10px 0 0;position:relative;
       .new_login{width: 162px;height: 18px;font-family: $avenir;font-size: 11px;display: block;float: right;text-align: center;line-height: 18px;border-left: 1px #d7d7d7 solid;border-right: 1px #d7d7d7 solid;
-        a{text-decoration: none;color: $base_color;
-        &:hover{text-decoration:underline;}
+        a{text-decoration: none;color: #000;
+        &:hover{text-decoration:underline;color: #ef3742;}
         }
       }
       /*------ USER MENU ----*/
-      div.user {margin: 0 10px 0 0;float: left;
+      div.user {margin: 0;float: left;
         ul {
           > li {
              &.bl{border-left:solid 1px #D7D7D7;padding-left:8px;line-height:17px;}
@@ -84,17 +84,20 @@ header#new_header{border-top: 8px black solid;
             a {
               color: #282828;
               text-decoration: none;
-              &#info_user {
-                background: image-url('common/arrow-down-pink.png') right 7px no-repeat;color: #ef3742;text-align: left;width: auto;min-width: 88px;height: 17px;margin: -6px 0 0;padding: 5px 20px 5px 8px;display: inline-block;border: 1px #FFF solid;float: none;line-height:17px;
-                &:hover, &.hover {text-decoration: none;border-color: #CCC;box-shadow:0px 2px 5px #CCC;}
+              &#info_user {color:#000;}
+              &#account {
+                  background: image-url('common/arrow-down-pink.png') right 7px no-repeat;color: #000;text-align: left;width: auto;min-width: 70px;height: 17px;margin: -6px 0 0;padding: 5px 20px 5px 8px;display: inline-block;border: 1px #FFF solid;float: none;line-height:17px;
+                  &:hover, &.hover {text-decoration: none;border-color: #CCC;box-shadow:0px 2px 5px #CCC;color: #ef3742;}
+                &:hover {color: #ef3742;}
               }
-              &:hover {text-decoration: underline;}
-            }
+            }  
             div.my_account {position: absolute;background: #FFF;padding: 5px 0;display: none;top: 17px;left: 0;z-index: 1000;border-left: 1px #CCC solid;border-right: 1px #CCC solid;border-bottom: 1px #CCC solid;box-shadow:0px 4px 5px #CCC;
               ul {
                 margin: 0 0 0 5px;
-                li {margin-top:8px;text-align: left;width: 100%;display: block;clear: both;
-                  a {color: #000;letter-spacing: 0;margin: 0;display: block;clear: both;}
+                li {margin-top:8px;text-align: left;width: 100%;display: block;clear: both;width: 90px !important;
+                  a {color: #000;letter-spacing: 0;margin: 0;display: block;clear: both;
+                    &:hover {color: #ef3742;}
+                  }
                   &:last-child, &.last {
                     a {margin: 0;}
                   }
@@ -219,9 +222,9 @@ header#new_header{border-top: 8px black solid;
           }
         }
       }
-      p.credits{float:left;font-size:11px;color:$base_color;line-height:18px;
-         a{text-decoration:none;color:$base_color;
-            &:hover{text-decoration:underline;}
+      p.trade{background: image-url('common/trade_arrows.png') no-repeat top left;float:left;font-size:11px;color:#000;line-height:18px;margin-left: 10px;
+         a{text-decoration:none;color:#000;padding-left: 30px;
+            &:hover{text-decoration:none; color: $base_color;}
          }
       } 
       .ui-helper-hidden-accessible{display:none;}
