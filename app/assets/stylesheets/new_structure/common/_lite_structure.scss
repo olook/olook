@@ -76,6 +76,8 @@ header#new_header{border-top: 8px black solid;
       div.user {margin: 0;float: left;
         ul {
           > li {
+             &.username{border-right:1px solid #cdcdcd;height: 15px;}
+             &.first{border-left: 1px solid #cdcdcd;padding-left: 10px;height: 15px;}
              &.bl{border-left:solid 1px #D7D7D7;padding-left:8px;line-height:17px;}
              &.br{border-right:solid 1px #D7D7D7;padding-right:8px;
                a{color:$base_color;line-height:17px;}
@@ -84,7 +86,7 @@ header#new_header{border-top: 8px black solid;
             a {
               color: #282828;
               text-decoration: none;
-              &#info_user {color:#000;}
+              &#info_user {color:#000;padding-right: 10px;}
               &#account {
                   background: image-url('common/arrow-down-pink.png') right 7px no-repeat;color: #000;text-align: left;width: auto;min-width: 70px;height: 17px;margin: -6px 0 0;padding: 5px 20px 5px 8px;display: inline-block;border: 1px #FFF solid;float: none;line-height:17px;
                   &:hover, &.hover {text-decoration: none;border-color: #CCC;box-shadow:0px 2px 5px #CCC;color: #ef3742;}

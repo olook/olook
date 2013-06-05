@@ -14,8 +14,8 @@
       <% if user_signed_in? %> 
         <div class="user">
           <ul>
-            <li>Olá,</li>
-            <li class="submenu">
+            <li class="first">Olá,</li>
+            <li class="username">
               <%= link_to "#{current_user.first_name}", "#", :id => "info_user" %>
             </li>
             <p class="trade"><%= link_to "Troca Fácil", troca_path, :class => "invite" %></p>  
