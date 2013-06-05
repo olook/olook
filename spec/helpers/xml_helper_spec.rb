@@ -2,6 +2,16 @@
 require 'spec_helper'
 
 describe XmlHelper do
+
+  describe "#full_image_path" do
+
+    context "when product have image" do
+      it "returns http: before string " do
+        expect(helper.full_image_path "//teste.clouldfront/pictures/test.jpg").to eql("http://teste.clouldfront/pictures/test.jpg")
+      end
+    end
+  end
+
   describe "build_installment_text" do
 
     context "when the product price is equal to 24.90" do

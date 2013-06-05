@@ -79,8 +79,9 @@ var helpLeft2 = 0;
 function setButton(){
 	el = $("#cart-box").height();
 	h = el + 120;
-	$("#new_checkout .send_it").css("top", h).fadeIn();
-
+	 
+	$("#new_checkout .send_it").css("top", h).fadeIn();  
+  
 	if($('input.send_it').size() > 0)
 		return helpLeft2 = $('input.send_it').offset().left;
 }
@@ -95,7 +96,7 @@ function showAboutSecurityCode(){
 
 $(function() {
 	masks.card();
-	setButton();
+	window.setTimeout(setButton,600);
 	masks.tel(".tel_contato1");
 	masks.tel(".tel_contato2");
 

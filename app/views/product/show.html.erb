@@ -77,6 +77,9 @@
     </div>
   </div>
 <% end %>
+<% content_for :data_layer do %>
+  <%= render partial: "shared/metrics/nextperformance/product", :locals => { product_id: @product.id } %>
+<% end %>
 <% content_for :footer do %>
 
    <div id="compartilhar_email">
@@ -113,8 +116,6 @@
   <%= render partial: "shared/metrics/criteo/product_page_tracker", :locals => { product_id: @product.id } %>
   <%#= render partial: "shared/metrics/triggit/product", :locals => { product_id: @product.id } %>
   <%#= render partial: "shared/metrics/struq/product_details", :locals => { product_id: @product.id } %>
-  <%#= render partial: "shared/metrics/nextperformance/product", :locals => { product_id: @product.id } %>
-  <%= render partial: "shared/metrics/nextperformance/category", :locals => { category_id: @product.category } %>
   <%= render partial: "shared/metrics/all_in/product", :locals => { product: @product } %>
 
   <% end %>
