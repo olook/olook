@@ -1,4 +1,8 @@
 <script type="text/javascript">
+  <% if cart.items.any? %>
   dataLayer.push({'Basket': <%= raw cart.items.map { |item|
 	"{ identifier:'#{item.product.id}', amount:#{number_with_precision(item.variant.retail_price, separator: ".", precision: 2)}, currency:'BRL', quantity:'#{item.quantity}' }"}.join(', ') -%>})
+  <% else %>
+    dataLayer.push({'Basket': ""})
+  <% end %>
 </script>

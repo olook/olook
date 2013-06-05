@@ -19,7 +19,7 @@ feature "Show products on xml format" do
     stub_scope_params
   end
 
-  context "in the criteo xml page" do
+  context "on criteo" do
 
     scenario "I dont want to see products of criteo if has less variants" do
       product2 = FactoryGirl.create(:blue_sliper_with_two_variants)
@@ -32,8 +32,8 @@ feature "Show products on xml format" do
       <products>
       <product id="#{product.id}">
       <name>#{product.name}</name>
-      <smallimage></smallimage>
-      <bigimage></bigimage>
+      <smallimage/>
+      <bigimage/>
       <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=Produtos&amp;utm_content=#{product.id}&amp;utm_medium=Remarketing&amp;utm_source=criteo</producturl>
       <description>#{product.description}</description>
       <price>#{number_with_precision(product.price, :precision => 2)}</price>
@@ -78,7 +78,7 @@ feature "Show products on xml format" do
     end
   end
 
-  context "in the mt_performance xml page" do
+  context "on mt_performance" do
     context "when product is in stock" do
       before do
         Product.any_instance.stub(:sold_out?).and_return(false)
@@ -120,20 +120,17 @@ feature "Show products on xml format" do
         <produtos>
         </produtos>
         END
-      equivalent_content = Nokogiri::XML(content)
-      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
+        equivalent_content = Nokogiri::XML(content)
+        EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
       end
     end
-
   end
 
-  context "in the click a porter xml page" do
-
+  context "on click a porter" do
     context "when product is in stock" do
       before do
         Product.any_instance.stub(:sold_out?).and_return(false)
       end
-
       scenario "I want to see products of click a porter" do
         visit click_a_porter_path
         result = Nokogiri::XML(page.source)
@@ -160,15 +157,13 @@ feature "Show products on xml format" do
         </produto>
         </produtos>
         END
-      equivalent_content = Nokogiri::XML(content)
-      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
+        equivalent_content = Nokogiri::XML(content)
+        EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
       end
     end
+  end
 
-  context "in the topster xml page" do
-
-
-  context "in the netaffiliation xml page" do
+  context "on netaffiliation" do
     scenario "I want to see products of netaffiliation" do
       visit netaffiliation_path
       result = Nokogiri::XML(page.source)
@@ -196,7 +191,7 @@ feature "Show products on xml format" do
     end
   end
 
-context "in the ilove_ecommerce xml page" do
+  context "on ilove_ecommerce" do
     scenario "I want to see products of ilove ecommerce" do
       visit ilove_ecommerce_path
       result = Nokogiri::XML(page.source)
@@ -232,7 +227,7 @@ context "in the ilove_ecommerce xml page" do
     end
   end
 
-  context "in the shopping uol page " do
+  context "on shopping uol" do
     scenario "I want to see products of shopping uol" do
       visit shopping_uol_path
       result = Nokogiri::XML(page.source)
@@ -258,13 +253,14 @@ context "in the ilove_ecommerce xml page" do
     end
   end
 
-  context "in the google shopping" do
+  context "on google shopping" do
     before do
       product.details << FactoryGirl.create(:shoe_with_metal)
+      product.details << FactoryGirl.create(:sandalia)
       product.details << FactoryGirl.create(:shoe_with_leather)
     end
 
-    scenario "I want to see products of google shopping" do
+    scenario "I want to see products" do
       visit google_shopping_path
       result = Nokogiri::XML(page.source)
       content = <<-END.gsub(/^ {6}/, '')
@@ -297,12 +293,11 @@ context "in the ilove_ecommerce xml page" do
       </rss>
     END
       equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(content)
-      #EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
     end
   end
 
-  context "in the buscape page " do
+  context "on buscape" do
     before do
       product.details << FactoryGirl.create(:shoe_with_metal)
       product.details << FactoryGirl.create(:shoe_with_leather)
@@ -336,7 +331,7 @@ context "in the ilove_ecommerce xml page" do
     end
   end
 
-  context "in the sociomantic page " do
+  context "on sociomantic" do
     scenario "I want to see products of sociomantic" do
       visit sociomantic_path
       result = Nokogiri::XML(page.source)
@@ -365,7 +360,7 @@ context "in the ilove_ecommerce xml page" do
   end
 
 
-  context "in the zanox page " do
+  context "on zanox" do
     scenario "I want to see products of zanox" do
       visit zanox_path
       result = Nokogiri::XML(page.source)
@@ -392,27 +387,23 @@ context "in the ilove_ecommerce xml page" do
     end
   end
 
+  context "when product is out of stock" do
+    before do
+      Product.any_instance.stub(:sold_out?).and_return(true)
+    end
+
+    scenario "I see an empty XML" do
+      visit click_a_porter_path
+      result = Nokogiri::XML(page.source)
+      content = <<-END.gsub(/^ {8}/, '')
+      <?xml version="1.0" encoding="UTF-8"?>
+      <produtos>
+      </produtos>
+      END
+      equivalent_content = Nokogiri::XML(content)
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
+    end
   end
-
-    context "when product is out of stock" do
-      before do
-        Product.any_instance.stub(:sold_out?).and_return(true)
-      end
-
-      scenario "I see an empty XML" do
-        visit click_a_porter_path
-        result = Nokogiri::XML(page.source)
-        content = <<-END.gsub(/^ {8}/, '')
-        <?xml version="1.0" encoding="UTF-8"?>
-        <produtos>
-        </produtos>
-        END
-        equivalent_content = Nokogiri::XML(content)
-        EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
-      end
-    end
-
-    end
 end
 feature "Show products on xml format for topster" do
   pending
