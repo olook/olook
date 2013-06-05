@@ -32,8 +32,8 @@ feature "Show products on xml format" do
       <products>
       <product id="#{product.id}">
       <name>#{product.name}</name>
-      <smallimage></smallimage>
-      <bigimage></bigimage>
+      <smallimage/>
+      <bigimage/>
       <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=Produtos&amp;utm_content=#{product.id}&amp;utm_medium=Remarketing&amp;utm_source=criteo</producturl>
       <description>#{product.description}</description>
       <price>#{number_with_precision(product.price, :precision => 2)}</price>
