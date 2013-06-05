@@ -3,7 +3,9 @@
 
 
 #showroom{margin-bottom:50px;display:inline-block;/*position:relative;*/
-  a{color:#000;text-decoration:none;}
+  a{color:#000;text-decoration:none;
+    &:hover{color:$base_color;}
+  }
 }
 
 .user-info{overflow:hidden;position:relative;
