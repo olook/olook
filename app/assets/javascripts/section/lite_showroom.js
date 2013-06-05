@@ -152,7 +152,6 @@ showroom = s = {
 }
 
 FB.Event.subscribe('edge.create', function(href, widget) {
-  alert("teste");
   _gaq.push(['_trackEvent', 'Showroom', 'ClickFacebookLike', '']);
 });
 
