@@ -166,13 +166,13 @@ olook = o = {
   
   myAccountMenu: function(){
     $('div.user ul li.submenu').on("mouseenter", function() {
-      var link = $(this).find('a#info_user');
+      var link = $(this).find('a#account');
       var link_width = $(link).outerWidth();
       
       $(this).find('div.my_account').css('width', link_width - 2);
       $(link).addClass('hover');
     }).on("mouseleave", function() {
-      var link = $(this).find('a#info_user');
+      var link = $(this).find('a#account');
       $(link).removeClass('hover');
     });
   },
