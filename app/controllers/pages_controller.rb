@@ -31,11 +31,13 @@ class PagesController < ApplicationController
   def umanomuito
     render :um_ano_muito
   end
+
+  def troca
+    
+  end
+  private
+
+  def get_contact_infos
+    @contact_infos = ContactInformation.all
+  end
 end
-
-private
-
-def get_contact_infos
-  @contact_infos = ContactInformation.all
-end
-
