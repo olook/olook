@@ -17,6 +17,7 @@ class CollectionThemesController < ApplicationController
   end
 
   def filter
+    @colors = Detail.colors(params[:category_id])
     return redirect_to collection_themes_url if !current_admin && !@collection_theme.active
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     respond_to :js

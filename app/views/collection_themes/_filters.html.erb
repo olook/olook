@@ -8,6 +8,7 @@
     <div class="select sort_filter">
       <%= select_tag('sort_filter', options_for_select({"Nossa Seleção" => 0, "Menor preço" => 1, "Maior preço" => 2})) %>
     </div>
+   
     <div id="category_filters">
       <%- if params[:category_id].present? && !Category.key_for(params[:category_id].to_i).blank? -%>
         <%= render partial: "#{Category.key_for(params[:category_id].to_i).to_s}_filters" %>

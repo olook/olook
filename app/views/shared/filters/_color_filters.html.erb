@@ -1,6 +1,9 @@
 <% unless @colors.blank? %>
-  <div class="filter main_color">
-    <span class="select filter_type opened">Cor</span>
+  <div class="filter main main_color">
+    <span class="selected-type filter_type opened">Cor</span>
+    <% unless is_moment_page? %>
+    <div class="tab_bg tab_color">&nbsp;</div>
+    <% end %>
     <ol class="color_filter">
       <!--li>
         <%= check_box_tag "select_all_colors", 1, params[:select_all_colors], :class => "select_all" %>
