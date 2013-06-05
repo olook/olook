@@ -514,4 +514,13 @@ section{margin-top:10px;
 /* fix Webkit to windows */
 html.win.webkit{
   #filters_container .sort_filter span.selected-type{width:102px !important;}
+  #filters_container .category_id span.selected-type{width:63px !important;}
+  
+  #filters_container div.select{margin-right:12px;}
+  div.exhibition-mode .filter{margin-right:12px;}
+}
+html.win.ff2{
+  #filters_container div.select{width:102px !important;margin-right:12px;}
+  
+  div.exhibition-mode .filter{margin-right:12px;}
 }

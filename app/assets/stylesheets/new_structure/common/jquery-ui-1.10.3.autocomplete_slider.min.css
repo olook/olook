@@ -53,4 +53,4 @@
 .price-range input{display:none;width:45px;}
 
 /* fix to windows */
-html.win .price-range p{width:40px !important;}
+html.win .price-range .slider{width:39px !important;}
