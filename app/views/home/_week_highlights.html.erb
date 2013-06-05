@@ -2,16 +2,16 @@
   <h1>Veja os destaques da semana</h1>
   <ul>
     <li id="about">
-      <%= link_to collection_theme_path('musthave_inverno'), class: "open_making_of", onclick: track_event('Destaques','BannerEsquerda') do %>
-        <%= image_tag "home/bota_must_have.jpg", title: "MUST HAVE: INVERNO" %>
+      <%= link_to "/stylist-news/amarre-se/", class: "open_making_of", onclick: track_event('Destaques','BannerEsquerda') do %>
+        <%= image_tag "home/amarre-se_3.jpg", title: "MUST HAVE: INVERNO" %>
       <% end %>
       <div class="video_description">
         <h1>Conheça mais sobre a olook</h1>
         <%= link_to "Gostou? Descubra o seu estilo e veja a coleção completa", new_survey_path, :class => "home" %>
       </div>
-      <h1><%= link_to "MUST HAVE: INVERNO", collection_theme_path('musthave_inverno'), onclick: track_event('Destaques','BannerEsquerda') %></h1>
-      <p>Abuse deste acessório indispensável</p>
-      <%= link_to "Veja mais aqui", collection_theme_path('musthave_inverno'), class: "more", onclick: track_event('Destaques','BannerEsquerda') %>
+      <h1><%= link_to "AMARRE-SE", "/stylist-news/amarre-se/", onclick: track_event('Destaques','BannerEsquerda') %></h1>
+      <p>Sandália de amarração: o hit deste inverno</p>
+      <%= link_to "Veja mais aqui", "/stylist-news/amarre-se/", class: "more", onclick: track_event('Destaques','BannerEsquerda') %>
     </li>
     <li id="shoes">
       <%= link_to "/roupas?cloth_subcategories[]=vestido", onclick: track_event('Destaques','BannerCentro') do %>

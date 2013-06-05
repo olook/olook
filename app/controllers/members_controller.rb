@@ -102,7 +102,7 @@ class MembersController < ApplicationController
     # This is needed becase when we turn the month collection we never have cloth
     @cloth = @recommended.products( category: Category::CLOTH, collection: @collection, limit: 10, admin: admin)
     if @cloth.size < 10
-      @cloth += Product.where("id in (?)", Setting.cloth_showroom_casual)
+      @cloth += Product.where("id in (?)", Setting.cloth_showroom_casual.split(","))
       @cloth = @cloth.first(10)
     end
 

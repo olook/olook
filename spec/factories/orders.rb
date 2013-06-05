@@ -16,7 +16,13 @@ FactoryGirl.define do
         FactoryGirl.create(:billet, :order => order, :user => order.user)
       end 
     end
-  
+
+    trait :with_debit do
+      after(:create) do |order|
+        FactoryGirl.create(:debit, :order => order, :user => order.user)
+      end 
+    end
+    
     trait :with_authorized_credit_card do
       after(:create) do |order|
         FactoryGirl.create(:credit_card_with_response_authorized, :order => order, :user => order.user)

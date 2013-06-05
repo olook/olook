@@ -114,10 +114,15 @@ div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;ma
           &.selected img{border:solid 2px #000;}
         }  
       }
+
+      p.facebook_like_button {
+        padding-top: 7px;
+      }      
     }
   }
   .see-more{border-top:solid 1px #CBCBCB;text-align:center;margin:50px 0 40px;position:relative;
     a{position:absolute;top:-9px;background:#FFF;padding:0 10px;font-size:20px;font-weight:bold;text-transform:uppercase;
+      &:hover{color:$base_color !important;}
       &.clothes,&.shoes{left:360px;}
       &.purses{left:362px;}
       &.accessories{left:347px;}
