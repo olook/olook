@@ -254,7 +254,8 @@ section{margin-top:10px;
           }
         }
         #filters_container{
-          height:22px;
+          height:37px;
+          border-bottom:solid 1px #CCC;
           #category_filters{
             float: left;
             top: -1px;
@@ -263,28 +264,33 @@ section{margin-top:10px;
           }
 
 
-          div.select {position: relative;float:left;margin-right:19px;/*overflow: auto;display: inline;*/
-            &.category_type{
-              span.select{width:82px;}
-            }
-            select{position: absolute;line-height: 26px;width: 125px;top: 0;left: 0;border:solid 1px #D7D7D7;}
-            span.select{width:94px;}
-          }
-          span.select{display:inline-block;height: 19px;cursor: pointer;font-size:10px;text-transform:uppercase;font-weight:bold;line-height:20px;padding:0 35px 0 0;text-indent:6px;border-top:solid 1px #D7D7D7;border-bottom:solid 1px #D7D7D7;border-left:solid 1px #D7D7D7;background: image-url('collections/bullet_arrow.png') right -1px no-repeat;color:#000;
+          span.selected-type{display:inline-block;height: 19px;cursor: pointer;font-size:10px;text-transform:uppercase;font-weight:bold;line-height:20px;padding:0 35px 0 0;text-indent:6px;border-top:solid 1px #D7D7D7;border-bottom:solid 1px #D7D7D7;border-left:solid 1px #D7D7D7;background: image-url('collections/bullet_arrow.png') right -1px no-repeat;color:#000;
             &.cloth_size{width:59px;}
-            &.cloth_model,&.model{width:80px;}
+            &.cloth_model{width:80px;}
+            &.model{width:60px;}
             &.filter_selected{color:#EF3742 !important;}
             
           }
+          
+          div.select {position: relative;float:left;margin-right:14px;/*overflow: auto;display: inline;*/
+            select{position: absolute;line-height: 26px;width: 125px;top: 0;left: 0;border:solid 1px #D7D7D7;}
+            span.selected-type{width:94px;}
+            &.category_type{
+              select{width:97px;}
+              span.selected-type{width:60px;}
+            }
+            
+          }
+          
           
         }
         #order_filter{float:left !important;width:225px !important;height:30px;margin-left:55px;
           label{text-transform:uppercase;font-weight:normal;font-size:11px;margin-right:5px;line-height:22px;}
           li.select{
-            span.select{background:image-url('moments/sprite.png') right 4px no-repeat !important;font-size:11px;text-transform:uppercase;line-height:18px;width:105px;text-indent:6px;}
+            span.selected-type{background:image-url('moments/sprite.png') right 4px no-repeat !important;font-size:11px;text-transform:uppercase;line-height:18px;width:105px;text-indent:6px;}
           }
         }
-        .filter{float: left;font-family: $avenir;font-size: 12px;color: #717171;position: relative;top: 1px;margin-right:19px;
+        .filter{float: left;font-family: $avenir;font-size: 12px;color: #717171;position: relative;top: 1px;margin-right:14px;
          
           .tab_bg{display:none;position:absolute;z-index:101;border-left:solid 1px #E2E2E2;border-right:solid 1px #E2E2E2;background:#FFF;height:17px;
             &.tab_model{width:114px;}
@@ -311,7 +317,7 @@ section{margin-top:10px;
         	h1{display: none;}
         	ol{overflow:hidden;z-index: 100;position: absolute;top:37px;background-color: #FFF;padding:0 15px 10px;border: 1px solid #E2E2E2;display:none;
         		&.color_filter{width: 175px;height: auto;left: 0;
-              li{width: 100px !important;}
+              li{width: 90px !important;height:18px;}
         		}
         		&.open{width: 185px;height: auto;}
 			      &.open_cloth{width: 220px;height: auto;}
@@ -392,126 +398,99 @@ section{margin-top:10px;
     }
   }
 }
-.main_color{
-  margin: 0 0 10px 0;
-  float:left;
-  clear:both;
-  button{
-    float:right;
-    border:none;
-    background:none;
-    line-height:18px;
-    cursor:pointer;
-    color:#141414;
-    display:none;
-    padding:0;
-  }
-  ol {
-    width: 180px;
-    margin: 15px 0 20px 0;
-    padding-bottom:5px;
-    float: left;
-    clear: both;
-    display:none;
-    &.open{
-      display:block;
-    }
-    li {
-       height: 15px;
-       padding-left: 19px;
-       margin-left: 30px !important;
-       margin-top: 8px !important;
-      label {
-        color: $third_color;
-        letter-spacing: -1px;
-      }
-      input{
-        float: left;
-        margin-left: -40px !important;
-      }
+.main_color{margin: 0 0 10px 0;float:left;clear:both;
+  button{float:right;border:none;background:none;line-height:18px;cursor:pointer;color:#141414;display:none;padding:0;}
+  ol {width: 180px;padding-bottom:5px;float: left;clear: both;display:none;
+    &.open{display:block;}
+    li {height: 15px;padding-left: 19px;margin:8px 0 0 30px !important;
+      &.clear_choice{margin-top:0 !important;}
+      button{margin-top:0 !important;}
+      label {color: $third_color;letter-spacing: -1px;line-height:22px;}
+      input{float: left;margin-left: -40px !important;}
+      
       &.amarelo{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -305px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -302px;
       }
       &.azul{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -385px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -382px;
       }
       &.bege{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -241px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -239px;
       }
       &.branco{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -418px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -415px;
       }
       &.cinza{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -273px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -270px;
       }
       &.cobra{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -96px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -93px;
       }
       &.cobre{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px 0px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px 2px;
       }
       &.dourado{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -16px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -13px;
       }
       &.floral{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -80px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -77px;
       }
       &.laranja{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -321px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -318px;
       }
       &.listras{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -112px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -109px;
       }
       &.marrom{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -257px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -254px;
       }
       &.multicolorido{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -128px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -125px;
       }
       &.nude{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -225px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -222px;
       }
       &.off-white{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -435px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -432px;
       }
       &.onix{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -32px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -29px;
       }
       &.onca{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -144px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -141px;
       }
       &.poas{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -160px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -157px;
       }
       &.prateado{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -48px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -45px;
       }
       &.preto{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -289px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -286px;
       }
       &.rosa{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -353px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -350px;
       }
       &.rose{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -64px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -61px;
       }
       &.roxo{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -369px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -366px;
       }
       &.vaca{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -176px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -173px;
       }
       &.verde{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -401px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -398px;
       }
       &.vermelho{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -337px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -334px;
       }
       &.xadrez{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -192px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -189px;
       }
       &.zebra{
-        background: image-url("common/thumbs_cor.png") no-repeat 0px -208px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0px -205px;
       }
     }
     &.column {
@@ -521,7 +500,7 @@ section{margin-top:10px;
       }
     }
     &.color_filter{
-      width: 140px !important;
+      width: 200px !important;
       height: 200px !important;
       overflow: auto !important;
       border-top: 1px solid #e5e5e5;
@@ -534,5 +513,5 @@ section{margin-top:10px;
 
 /* fix Webkit to windows */
 html.win.webkit{
-  #filters_container .sort_filter span.select{width:102px !important;}
+  #filters_container .sort_filter span.selected-type{width:102px !important;}
 }

@@ -83,8 +83,6 @@ filter.submitAndScrollUp = function(){
     }
     $('.loading').show();
     $('#category_filters').find('ol, .tab_bg, .clear_filter').hide();
-    var selected_sort = $("select#filter_option").val() ;
-    $('#sort_filter').val(selected_sort);
     $("#products").fadeOut("slow", function() {
       $(this).fadeIn("slow").html("");
     });
@@ -143,7 +141,7 @@ filter.placeTag = function(el){
 }
 filter.selectedFilter = function(){
    if($("#filter input[type='checkbox']").is(":checked")){
-     $("#filter input[type='checkbox']:checked").parent().parent().parent().find("span.select").addClass("filter_selected");
+     $("#filter input[type='checkbox']:checked").parent().parent().parent().find("span.selected-type").addClass("filter_selected");
    }
 
    $("#filter input[type='checkbox']").not(".select_all").bind("click", function() {
@@ -271,23 +269,6 @@ filter.cleanFilter = function(){
    })
 }
 
-filter.changeColorSelectBox = function(){
-  var category = $(".category_type span.select").text(), sort_filter = $(".sort_filter span.select").text();
-  $(".category_type select").change(function(){
-      if(category != "Ver tudo"){
-        $(".category_type span.select").addClass("filter_selected");
-      }else{
-        $(".category_type span.select.filter_selected").removeClass("filter_selected");
-      }
-  });
-  $(".sort_filter select").change(function(){
-    if(sort_filter != "Nossa Seleção"){
-      $(".sort_filter span.select").addClass("filter_selected");
-    }else{
-      $(".sort_filter span.select.filter_selected").removeClass("filter_selected");
-    }
-  });
-}
 
 $(function(){
   $("input#price").val(start_position+'-'+final_position);
