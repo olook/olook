@@ -512,17 +512,12 @@ section{margin-top:10px;
 }
 
 /* fix Webkit to windows */
-html.win.webkit{
-  #filters_container div.sort_filter span.selected-type{width:102px !important;}
+html.win.webkit,html.win.ff2{
+  #filters_container div.select.category_type select,#filters_container div.sort_filter span.selected-type{width:102px !important;}
   #filters_container div.category_type span.selected-type{width:68px !important;}
   
   #filters_container div.select,div.exhibition-mode .filter{margin-right:11px !important;}
 
-}
-html.win.ff2{
-  #filters_container div.select,div.exhibition-mode .filter{margin-right:11px !important;}
-
-  #filters_container div.sort_filter span.selected-type{width:102px !important;}
-  #filters_container div.category_type span.selected-type{width:68px !important;}
+  #filters_container div.select select{width:137px !important;}
 
 }
