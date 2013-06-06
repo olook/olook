@@ -22,7 +22,7 @@
 <g:size><%= variant.display_reference %></g:size>
 <% end %>
 <g:item_group_id><%= product.id %></g:item_group_id>
-<g:mpn></g:mpn>
+<g:mpn><%= product.producer_code %></g:mpn>
 <g:color><%= product.color_name %></g:color>
 <% product.details.each do |detail| %>
   <% if ["Metal", "Material externo"].include?(detail.translation_token) %>

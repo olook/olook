@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130606225103) do
+ActiveRecord::Schema.define(:version => 20130523133754) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -812,10 +812,9 @@ ActiveRecord::Schema.define(:version => 20130606225103) do
     t.integer  "collection_id"
     t.boolean  "is_visible"
     t.string   "color_category"
-    t.boolean  "is_kit",            :default => false
+    t.boolean  "is_kit",         :default => false
     t.string   "brand"
     t.string   "producer_code"
-    t.string   "model_part_number"
   end
 
   add_index "products", ["category"], :name => "index_products_on_category"
