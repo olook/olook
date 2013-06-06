@@ -64,12 +64,12 @@ _gaq.push(['_addTrans',
 
 <% content_for :data_layer do %>
   <%= render :partial => "shared/tag/gtm_data_layer" %>
-  <%= render :partial => "shared/metrics/sociomantic/confirmation", :locals => {:order => @order, :cart => @order.cart} %>
+  <%= render "shared/data_layer/order" %>
 <% end %>
 
 <% content_for :footer do %>
-  <%= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {order: @order, cart: @order.cart, criteo_conversion: @criteo } %>
-  <%= render :partial => "shared/metrics/metaffiliation/order", :locals => {:order => @order } %>
+  <%#= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {order: @order, cart: @order.cart, criteo_conversion: @criteo } %>
+  <%#= render :partial => "shared/metrics/metaffiliation/order", :locals => {:order => @order } %>
   <%= render :partial => "shared/metrics/all_in/order", :locals => {:order => @order } %>
   <%#= render :partial => "shared/metrics/struq/conversion", :locals => {:order => @order } %>
   <%= render "shared/metrics/google/buy_done" %>
