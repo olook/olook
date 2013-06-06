@@ -3,7 +3,7 @@
   <% @products.each do |product| %>
     <produto>
       <codigo><%= product.id %></codigo>
-      <nome><%= product.id == 15769 ? "Juliana Jabour " : "" %><%= product.formatted_name %></nome>
+      <nome><%= product.formatted_name(200) %></nome>
       <descricao><%= product.description %></descricao>
       <preco_de><%= product.price %></preco_de>
       <preco><%= product.retail_price %></preco>
