@@ -18,14 +18,14 @@ class IndexProductsWorker
 
     def self.add_products
       add_products = products_to_index.map { |product| create_sdf_entry_for product, 'add' }
-      flush_to_sdf_file "base-add.sdf", add_products
-      upload_sdf_file "base-add.sdf"
+      flush_to_sdf_file "/tmp/base-add.sdf", add_products
+      upload_sdf_file "/tmp/base-add.sdf"
     end
 
     def self.remove_products
       remove_products = products_to_remove.map {|product| create_sdf_entry_for product, 'delete'}
-      flush_to_sdf_file "base-remove.sdf", remove_products
-      upload_sdf_file "base-remove.sdf"
+      flush_to_sdf_file "/tmp/base-remove.sdf", remove_products
+      upload_sdf_file "/tmp/base-remove.sdf"
     end
 
     def self.flush_to_sdf_file file_name, all_products
