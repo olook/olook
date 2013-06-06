@@ -263,13 +263,11 @@ section{margin-top:10px;
             position: relative;
           }
 
-
           span.selected-type{display:inline-block;height: 19px;cursor: pointer;font-size:10px;text-transform:uppercase;font-weight:bold;line-height:20px;padding:0 35px 0 0;text-indent:6px;border-top:solid 1px #D7D7D7;border-bottom:solid 1px #D7D7D7;border-left:solid 1px #D7D7D7;background: image-url('collections/bullet_arrow.png') right -1px no-repeat;color:#000;
             &.cloth_size{width:59px;}
             &.cloth_model{width:80px;}
             &.model{width:60px;}
             &.filter_selected{color:#EF3742 !important;}
-            
           }
           
           div.select {position: relative;float:left;margin-right:14px;/*overflow: auto;display: inline;*/
@@ -290,7 +288,7 @@ section{margin-top:10px;
             span.selected-type{background:image-url('moments/sprite.png') right 4px no-repeat !important;font-size:11px;text-transform:uppercase;line-height:18px;width:105px;text-indent:6px;}
           }
         }
-        .filter{float: left;font-family: $avenir;font-size: 12px;color: #717171;position: relative;top: 1px;margin-right:14px;
+        .filter{float: left;font-family: $avenir;font-size: 12px;color: #717171;position: relative;top: 1px;margin-right:12px;
          
           .tab_bg{display:none;position:absolute;z-index:101;border-left:solid 1px #E2E2E2;border-right:solid 1px #E2E2E2;background:#FFF;height:17px;
             &.tab_model{width:94px;}
