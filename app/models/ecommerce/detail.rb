@@ -17,7 +17,7 @@ class Detail < ActiveRecord::Base
     Rails.cache.fetch(CACHE_KEYS[:detail_color][:key] % product_category, expires_in: CACHE_KEYS[:detail_color][:expire]) do
       joins(:product).where("details.translation_token = 'Cor filtro'").
         where('products.is_visible = true').
-        where("products.category = #{product_category}").
+        where("products.category IN (#{product_category})").
         map{|a| a.description.parameterize}.compact.uniq
     end
   end
