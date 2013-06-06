@@ -1,6 +1,9 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class Variant
+
+    M_OFFICER_TABLE_SIZE = {"1" => "P", "2" => "M", "3" => "G"}
+
     extend ::Abacos::Helpers
 
     attr_reader :integration_protocol,
@@ -48,14 +51,23 @@ module Abacos
 
   private
     def self.parse_description(abacos_descritor_pre_definido)
-      description = find_in_descritor_pre_definido(abacos_descritor_pre_definido, 'TAMANHO')
-      description = 'Tamanho único' if description.blank?
-      description
+      size = find_in_descritor_pre_definido(abacos_descritor_pre_definido, 'TAMANHO')
+      sanitize_product_size(size)
     end
 
     def self.parse_display_reference(description, category)
       [Category::SHOE, Category::CLOTH].include?(category) ? "size-#{description}" : 'single-size'
     end
+
+
+    def self.sanitize_product_size size
+      return 'Único' if size.blank?
+
+      if M_OFFICER_TABLE_SIZE.keys.include?(size) 
+        M_OFFICER_TABLE_SIZE[size]
+      end
+    end
+
   end
 
 end
