@@ -851,7 +851,7 @@ body {
     div.user {margin: 0;float: left;
       ul {
         > li {
-           &.username{border-right:1px solid #cdcdcd;height: 15px;}
+           &.username{border-right:1px solid #cdcdcd;height: 15px;padding-right: 10px !important;}
            &.first{border-left: 1px solid #cdcdcd;padding-left: 10px;height: 15px;}
            &.bl{border-left:solid 1px #D7D7D7;padding-left:8px;line-height:17px;}
            &.br{border-right:solid 1px #D7D7D7;padding-right:8px;
