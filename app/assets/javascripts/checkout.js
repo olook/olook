@@ -166,42 +166,48 @@ $(function() {
 
 	//SHOW TOTAL
 	function showTotal(){
-		if($("div.billet").is(":visible")){
+		if($("div.billet").is(':visible')){
 			$("span#total").fadeOut('fast');
+			$("span#total_debit").fadeOut('fast');
+			$("#debit_discount_cart").fadeOut('fast');
+
 			$("span#total_billet").delay(200).fadeIn();
-      $("#cart-box #billet_discount_cart").delay(200).fadeIn();
-		}else{
+			$("#billet_discount_cart").delay(200).fadeIn();
+		} else if($('div.debit').is(':visible')) {
+			$("span#total").fadeOut('fast');
+			$("span#total_billet").fadeOut('fast');
+			$("#billet_discount_cart").fadeOut('fast');
+
+			$("span#total_debit").delay(200).fadeIn();
+			$("#debit_discount_cart").delay(200).fadeIn();
+		} else {
+			$("#billet_discount_cart").fadeOut('fast');
+			$("#debit_discount_cart").fadeOut('fast');
+
+			$("span#total_debit").fadeOut('fast');
 			$("span#total_billet").fadeOut('fast');
 			$("span#total").delay(200).fadeIn();
-      $("#cart-box #billet_discount_cart").hide();
 		}
 	}
 
 	// SHOW PAYMENT TYPE
-	(function showPaymentType(){
+	function showPaymentType(){
 		var payment_type_checked = $(".payment_type input:checked");
 		$(".payment_type").siblings('div').hide();
 		elem=$(payment_type_checked).val();
-    $("div."+elem).show();
+		$("div."+elem).show();
 		showTotal();
-	})();
+	};
+	showPaymentType();
 
-	var payment_type = $(".payment_type input");
-	$.each(payment_type,function(){
-	    $(this).click(function(){
-	        $(".payment_type").siblings('div').hide();
-	        elem=$(this).val();
-	        $("div."+elem).show();
-					showTotal();
-	    });
-	});
+	$(".payment_type input").click(showPaymentType);
 
 	//SELECT CARD
 	var cards = $("ol.cards li span");
 	$.each(cards, function(){
 		$(this).bind('click',function(){
 			$("ol.cards li span, .box-debito .debit_bank_Itau").removeClass("selected").siblings("input:checked").removeAttr("checked");
-      $("input.credit_card_number").setMask(masks.card_brands[$(this).attr("class")]);
+			$("input.credit_card_number").setMask(masks.card_brands[$(this).attr("class")]);
 			$(this).addClass("selected").siblings("input").attr('checked','checked');
 		});
 	});

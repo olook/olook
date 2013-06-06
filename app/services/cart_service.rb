@@ -104,6 +104,10 @@ class CartService
     calculate_discounts(Billet.new).fetch(:billet_discount)
   end
 
+  def debit_discount
+    calculate_discounts(Debit.new).fetch(:debit_discount)
+  end
+
   def facebook_discount
     calculate_discounts.fetch(:facebook_discount)
   end
