@@ -75,14 +75,14 @@ header#new_header{border-top: 8px black solid;
       /*------ USER MENU ----*/
       div.user {margin: 0;float: left;
         ul {
-          > li {
-             &.username{border-right:1px solid #cdcdcd;height: 15px;}
+           li {position: relative;color: #282828;font-size: 11px;text-align: right;margin: 0 0 0 3px;padding: 0;display: inline-block;float: left;
+             &.username{border-right:1px solid #cdcdcd;height: 15px;padding-right: 10px}
              &.first{border-left: 1px solid #cdcdcd;padding-left: 10px;height: 15px;}
              &.bl{border-left:solid 1px #D7D7D7;padding-left:8px;line-height:17px;}
              &.br{border-right:solid 1px #D7D7D7;padding-right:8px;
                a{color:$base_color;line-height:17px;}
              }
-            position: relative;color: #282828;font-size: 11px;text-align: right;margin: 0 0 0 3px;padding: 0;display: inline-block;float: left;
+            
             a {
               color: #282828;
               text-decoration: none;
