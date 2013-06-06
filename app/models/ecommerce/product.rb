@@ -201,7 +201,7 @@ class Product < ActiveRecord::Base
   def colors(size = nil, admin = false)
     Rails.cache.fetch(CACHE_KEYS[:product_colors][:key] % [id, admin], expires_in: CACHE_KEYS[:product_colors][:expire]) do
       is_visible = (admin ? [0,1] : true)
-      conditions = {is_visible: is_visible, category: self.category, producer_code: self.producer_code}
+      conditions = {is_visible: is_visible, category: self.category, name: self.name}
       #conditions.merge!(variants: {description: size}) if size and self.category == Category::SHOE
       Product.select("products.*, sum(variants.inventory) as sum_inventory, if(sum(distinct variants.inventory) > 0, 1, 0) available_inventory, sum(IF(variants.description = '#{size}', variants.inventory, 0)) description_inventory")
             .joins('left outer join variants on products.id = variants.product_id')
