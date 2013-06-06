@@ -10,7 +10,7 @@
     'transactionId': '<%= @order.number %>',
     'transactionDate': '<%= @order.created_at.strftime("%d/%m/%Y") %>',
     'transactionPaymentType': '<%= @payment.type %>',
-    'transactionTotal': '<%= "%.02f" % @order.gross_amount %>'
+    'transactionTotal': '<%= "%.02f" % @order.gross_amount %>',
     'PrimeiraCompraDoUsuario': '<%= @order.user.try(:first_buy?) ? "1" : "0" %>'
 
 

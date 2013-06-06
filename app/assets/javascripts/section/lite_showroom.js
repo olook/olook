@@ -150,3 +150,8 @@ showroom = s = {
       });
   }
 }
+
+FB.Event.subscribe('edge.create', function(href, widget) {
+  _gaq.push(['_trackEvent', 'Showroom', 'ClickFacebookLike', '']);
+});
+

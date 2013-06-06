@@ -5,6 +5,9 @@ Olook::Application.routes.draw do
 
   mount Resque::Server => "/admin/resque"
 
+  #temp route to fix a wrong email
+  match "/olook-no-qbazar" => redirect("http://www.olook.com.br/stylist-news/olook-no-qbazar/")
+
   root :to => "home#index"
   get "/quiz", :to => "home#index"
   get "home/index"
