@@ -8,8 +8,7 @@
     <meta property="fb:app_id" content="<%= FACEBOOK_CONFIG["app_id"] %>" />
     <meta property="og:title" content="ACERTE EM CHEIO NO PRESENTE" />
     <meta property="og:caption" content="Encontre o presente ideal para as mulheres da sua vida através da nossa ferramenta de presentes." />
-    <meta property="og:description" content="Comprando o presente através deste link você terá 10% de desconto e embalagem de presente grátis. #ficaadica" />
-    <meta name="Description" content="Comprando o presente através deste link você terá 10% de desconto e embalagem de presente grátis. #ficaadica">
+    <meta property="og:description" content="#ficaadica" />
     <meta property="og:image" content="http:<%= image_path('gift/imagem_presentes_facebook.jpg') %>" />
 
 <% end %>
@@ -22,9 +21,9 @@
   
   <div id="fb-root"></div>
 
-  <div id="banner" data-coupon-code="<%= Setting.valentines_day_coupon_code %>">
-    <%= link_to image_tag("gift/full_banner__indecisos_dia_dos_namos_ok.jpg"), "#" %>
-  </div>
+<!--   <div id="banner">
+    <%#= link_to image_tag("gift/full_banner_presente_2.jpg"), "#" %>
+  </div> -->
 
 
   <%= render "profiles" %>
