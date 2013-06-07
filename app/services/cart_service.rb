@@ -128,6 +128,7 @@ class CartService
     total_value += calculate_discounts.fetch(:total_credits_by_invite) if :credits_by_invite == type
     total_value += calculate_discounts.fetch(:total_credits_by_redeem) if :credits_by_redeem == type
     total_value += calculate_discounts.fetch(:total_credits_by_loyalty_program) if :credits_by_loyalty_program == type
+    total_value += calculate_discounts(payment).fetch(:debit_discount) if :debit_discount == type
     total_value += calculate_discounts(payment).fetch(:billet_discount) if :billet_discount == type
     total_value += calculate_discounts.fetch(:facebook_discount) if :facebook_discount == type
 
