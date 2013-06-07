@@ -1,7 +1,8 @@
 <%- if collection_theme_presenter.collection_theme.catalog.heels.size > 0 -%>
   <div class="filter sub shoe_heel">
-    <p class="filter_type opened">Salto<%= image_tag 'collections/arrow-black.png', :class => 'model' %></p>
-    <button type="button" class="clear_filter bt_clear_heel">[ limpar ]</button>
+    <span class="selected-type filter_type opened">Salto</span>
+    <div class="tab_bg tab_shoe_heel">&nbsp;</div>
+  
     <ol class="column">
     <% collection_theme_presenter.collection_theme.catalog.heels.each do |heel, label| %>
       <% unless heel == "_" %>
@@ -11,7 +12,9 @@
         </li>
       <% end %>
     <% end %>
+    <% unless is_moment_page? %>
+      <li class="clear_choice"><button type="button" class="clear_filter bt_clear_heel">[ limpar ]</button></li>
+    <% end %>  
     </ol>
-    <%= image_tag 'collections/arrow-white.png', :class => 'arrow arrow-heel', style:"display:none" %>
   </div>
 <%- end -%>
