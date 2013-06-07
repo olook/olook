@@ -90,6 +90,7 @@ function showBalloon(){
       $("img.balloon").hide();
     })
   }
+  
 }
 
 function showCartSummary() {
@@ -668,15 +669,29 @@ h2 = content.height(), w2 = content.width();console.log(h,w,h2,w2);
 
   customSelect : function() {
     if (!$.browser.opera) {
-      $('select.custom_select').each(function(){
+      $('.select select').each(function(){
         var title = $(this).attr('title');
         if($('option:selected', this).text() != '') {
           title = $('option:selected',this).text();
         }
-        $(this).css({'z-index':10,'opacity':0,'-khtml-appearance':'none'}).after('<span class="select">' + title + '</span>').change(function(){
+        $(this).css({'z-index':10,'opacity':0,'-khtml-appearance':'none'}).after('<span class="selected-type">' + title + '</span>').change(function(){
           val = $('option:selected',this).text();
           $(this).next().remove();
-          $(this).after("<span class='select'>"+val+"</span>");
+          $(this).after("<span class='selected-type'>"+val+"</span>");
+          
+          txt=$(this).next().text();
+          
+          if(txt != "Ver tudo"){
+            $(this).next().addClass("filter_selected");
+          }else if(txt == "Ver tudo"){
+            $(this).next().removeClass("filter_selected");
+          }
+          if(txt != "Nossa Seleção"){
+            $(this).next().addClass("filter_selected");
+          }else if(txt == "Nossa Seleção"){
+            $(this).next().removeClass("filter_selected");
+          }
+          
         });
       });
     };
