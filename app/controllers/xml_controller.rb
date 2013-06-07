@@ -1,7 +1,7 @@
 class XmlController < ApplicationController
 
   respond_to :xml
-  before_filter :prepare_products, except: [:criteo, :groovinads, :google_shopping]
+  before_filter :prepare_products, except: [:criteo, :groovinads]
 
   def sociomantic
     respond_with(@products)
@@ -44,7 +44,7 @@ class XmlController < ApplicationController
   end
 
   def google_shopping
-    @products = Product.where("producer_code IS NOT NULL")
+    @products = @products.delete_if { |product| !product.producer_code }
     respond_with(@products)
   end
 
