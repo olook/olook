@@ -27,14 +27,15 @@ class CatalogSearchService
       # POG ALERT: Foi mais fácil que remover a adição já que os filtros dela são muito atrelados
       # Refazer a classe e deixar a seleção de quais filtros vão ser aplicados muito mais simples.
       categories_in_query = @query.group('catalog_products.category_id')
+      
       ws = categories_in_query.where_values.map {|an| an.to_sql}.join(' AND ')
       categories_in_query.where_values = [ws.gsub(/(?:|AND )`catalog_products`.`(?:category_id|subcategory_name)` IN \([^\)]*\)/, '')]
-      categories_in_query = categories_in_query.count.keys
+      categories_in_query = categories_in_query.includes(:product => [ :variants, :details ]).count.keys
     else
-      categories_in_query = @query.group('catalog_products.category_id').count.keys
+      categories_in_query = @query.group('catalog_products.category_id').includes(:product => [ :variants, :details ]).count.keys
     end
     categories.select! { |opt| categories_in_query.include?(opt.last) }
-    categories.unshift(["Todas", nil])
+    categories.unshift(["Ver tudo", nil])
   end
 
   def search_products
@@ -42,8 +43,7 @@ class CatalogSearchService
     @query.group("catalog_products.product_id")
       .order(generate_order_by_array)
       .paginate(page: @params[:page], per_page: 12)
-      .includes(product: :variants)
-      .includes(product: :details)
+      .includes(:product => [ :variants, :details ])
   end
 
   private

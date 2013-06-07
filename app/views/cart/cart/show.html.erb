@@ -19,15 +19,24 @@ _gaq.push(['_addTrans',
 </script>
   <%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :cart => @cart, :cart_service => @cart_service} %>
 <% end %>
-<% content_for :footer do %>
+
+<% content_for :data_layer do %>
+  <script>
+    dataLayer.push({'UserEmail': '<%= current_user.try(:email) %>'});
+    dataLayer.push({'AllInCart': '<% @cart.items.each do |item| %>bs.addProdutoCarrinho("<%= raw item.id %>","<%= raw item.name %>","<%= raw item.retail_price %>", "<%= raw item.price - item.retail_price %>", "<%= raw item.quantity %>","","<%= raw item.product.category_humanize %>", "<%= raw item.product.subcategory %>", "", "", "<%= raw item.product.brand %>");<% end %>'});
+    dataLayer.push({'AllInCustomer': "bs.setaCliente('<%= raw current_user.try(:id) %>','<%= raw current_user.try(:email) %>');"});
+    dataLayer.push({'AllInPage':"bs.setaPagina('cart/cart/show');"});
+  </script>
+
   <%= render "shared/lightbox_credits" %>
   <%= render partial: "shared/metrics/criteo/basket_tracker", :locals => {:cart => @cart, :cart_service => @cart_service } %>
+  <%= render partial: "shared/metrics/all_in/cart_add_item", :locals => {:cart => @cart } %>
   <%= render partial: "shared/metrics/sociomantic/basket", :locals => {:cart => @cart, :cart_service => @cart_service } %>
   <%#= render partial: "shared/metrics/struq/basket", :locals => {:cart => @cart, :cart_service => @cart_service } %>
-  <%= render partial: "shared/metrics/all_in/cart_add_item", :locals => {:cart => @cart } %>
   <%#= render partial: "shared/metrics/triggit/cart" %>
-  <%#= render partial: "shared/metrics/nextperformance/cart" %>
-  <%= render partial: "shared/metrics/dbm/cart" %>
+  <%#= render partial: "shared/metrics/dbm/cart" %>
+<% end %>
+<% content_for :footer do %>
   <%= javascript_include_tag "carts" %>
 <% end %>
 
