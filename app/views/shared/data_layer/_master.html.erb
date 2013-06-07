@@ -1,0 +1,19 @@
+ <% content_for :data_layer do %>
+<script type="text/javascript">
+  dataLayer.push({
+      'AnalyticAccount' : "<%= ANALYTICS_CONFIG['analytics_id'] %>",
+      'MemberType' : '<%= member_type %>'
+      });
+  <% if user_signed_in? %>
+    dataLayer.push({
+      // MASTER DATA LAYERS
+      'CustomerId': '<%= current_user.id %>',
+      'UserAge': '<%= raw current_user.age %>',
+      'UserProfile': '<%= raw current_user.profile_name %>',
+      'UserPurchases': '<%= raw current_user.orders.purchased.size %>',
+      'UserFacebook' : '<%= current_user.has_facebook? ? "FB" : "NOFB" %>'
+    });
+  <% end %>
+</script>
+<% end %>
+
