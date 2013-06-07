@@ -1,31 +1,33 @@
 # -*- encoding : utf-8 -*-
 class CollectionThemesController < ApplicationController
   respond_to :html, :js
-  before_filter :load_products_of_user_size, only: [:show, :filter]
+  before_filter :load_products_of_user_size, :load_colors, only: [:show, :filter]
   before_filter :filter_products_by_category
   before_filter :load_catalog_products
-
+  
   # Toda a lógica dessa página deve ser refeita para dinamizar os dados dela
   def index
     @featured_products = retrieve_featured_products
   end
 
   def show
-    @colors = Detail.colors(params[:category_id] || Category.list.join(',')) 
     return redirect_to collection_themes_url if !current_admin && !@collection_theme.active
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     respond_with @catalog_products
   end
 
   def filter
-    @colors = Detail.colors(params[:category_id])
     return redirect_to collection_themes_url if !current_admin && !@collection_theme.active
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     respond_to :js
   end
 
   private
-
+  
+    def load_colors
+      @colors = Detail.colors(params[:category_id])
+    end
+          
     def load_products_of_user_size
       # To show just the shoes of the user size at the
       # first time that the liquidations page is rendered
