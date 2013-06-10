@@ -1,0 +1,18 @@
+<script type="text/javascript" src="/assets/criteo.js" async="true"></script>
+<script type="text/javascript">
+  <% if @cart.items.any? %>
+    dataLayer.push({
+        // All in
+        //'AllInCart': '<% @cart.items.each do |item| %>bs.addProdutoCarrinho("<%= raw item.id %>","<%= raw item.name %>","<%= raw item.retail_price %>", "<%= raw item.price - item.retail_price %>", "<%= raw item.quantity %>","","<%= raw item.product.category_humanize %>", "<%= raw item.product.subcategory %>", "", "", "<%= raw item.product.brand %>");<% end %>',
+        //'AllInPage':"bs.setaPagina('cart/cart/show');",
+        //General
+        'ProductsList': [<%= @cart.items.map{|item| item.product.id.to_s }.join(",") %>],
+        'PriceList': [<%= raw @cart.items.map{|item| item.retail_price.to_s}.join(",") %>],
+        'QuantityList':  [<%= raw @cart.items.map{|item| item.quantity.to_s}.join(",") %>],
+        'Basket': [<%= raw @cart.items.map { |item|
+	"{ identifier:'#{item.product.id}', amount:#{number_with_precision(item.variant.retail_price, separator: ".", precision: 2)}, currency:'BRL', quantity:'#{item.quantity}' }"}.join(', ') -%>]})
+    })
+  <% else %>
+    dataLayer.push({'Basket': ""})
+  <% end %>
+</script>
