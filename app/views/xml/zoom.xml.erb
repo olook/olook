@@ -10,6 +10,7 @@
       <nparcela></nparcela>
       <vparcela></vparcela>
       <url><%= product.product_url(:utm_source =>"zoom", :utm_campaign => "produtos") %></url>
+      <url_imagem><%= full_image_path product.main_picture.try(:image) %></url>
       <departamento><%= product.category_humanize %></departamento>
       <subdepartamento><%= product.subcategory_name %></subdepartamento>
       <marca><%= product.brand %></marca>
@@ -19,6 +20,6 @@
       <mpc></mpc>
       <ean></ean>
       <sku></sku>
-	</produto>
+    </produto>
   <% end %>
 </produtos>
