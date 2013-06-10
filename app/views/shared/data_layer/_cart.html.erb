@@ -10,7 +10,7 @@
         'PriceList': [<%= raw @cart.items.map{|item| item.retail_price.to_s}.join(",") %>],
         'QuantityList':  [<%= raw @cart.items.map{|item| item.quantity.to_s}.join(",") %>],
         'Basket': [<%= raw @cart.items.map { |item|
-	"{ identifier:'#{item.product.id}', amount:#{number_with_precision(item.variant.retail_price, separator: ".", precision: 2)}, currency:'BRL', quantity:'#{item.quantity}' }"}.join(', ') -%>]})
+	"{ identifier:'#{item.product.id}', amount:#{number_with_precision(item.variant.retail_price, separator: ".", precision: 2)}, currency:'BRL', quantity:'#{item.quantity}' }"}.join(', ') -%>]
     })
   <% else %>
     dataLayer.push({'Basket': ""})
