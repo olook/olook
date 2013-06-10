@@ -109,11 +109,6 @@
 
   <% if Setting.show_product_partner_tags %>
 
-  <!-- Begin: Groovinads Behavioral-->
-  <img src="http://ads01.groovinads.com/grv/track/bhpx.os?idc=90&sku=<%= "#{sku_for(@product)}" %>&idcategory=<%= "#{@product.category}" %>" height="1">
-  <!--End: Groovinads Behavioral -->
-
-
   <% end %>
 
   <%= render "facebook_js", :facebook_app_id => @facebook_app_id, :product => @product %>
