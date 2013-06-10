@@ -531,10 +531,10 @@ describe Product do
   end
 
   describe "#colors" do
-    let(:black_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'black', :color_sample => 'black_sample', producer_code: "A1B2C3") }
-    let!(:blue_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'blue', :color_sample => 'blue_sample', producer_code: "A1B2C3" ) }
-    let(:red_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'red', :color_sample => 'red_sample', producer_code: "A1B2C3" ) }
-    let(:other_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'red', :color_sample => 'red_sample', producer_code: "4D5E6F" ) }
+    let(:black_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'black', :color_sample => 'black_sample', name: "A1B2C3") }
+    let!(:blue_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'blue', :color_sample => 'blue_sample', name: "A1B2C3" ) }
+    let(:red_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'red', :color_sample => 'red_sample', name: "A1B2C3" ) }
+    let(:other_shoe) { FactoryGirl.create(:shoe, :casual, :color_name => 'red', :color_sample => 'red_sample', name: "4D5E6F" ) }
 
     subject { black_shoe.colors }
 
@@ -574,7 +574,7 @@ describe Product do
 
       end
       describe "products visibility" do
-        let(:invisible_product) { FactoryGirl.create(:shoe, is_visible: false, producer_code: "A1B2C3") }
+        let(:invisible_product) { FactoryGirl.create(:shoe, is_visible: false, name: "A1B2C3") }
         context "when given user is admin" do
           subject { black_shoe.colors("", true) }
           it "returns all products including invisible" do
@@ -754,9 +754,9 @@ describe Product do
 
   describe 'find_suggested_products' do
     context "when product has suggested products" do
-      let!(:first_shoe) { FactoryGirl.create(:shoe, producer_code: "234") }
-      let!(:second_shoe) { FactoryGirl.create(:red_slipper, collection_id: 1, producer_code: "234a") }
-      let!(:third_shoe) { FactoryGirl.create(:silver_slipper, collection_id: 1, producer_code: "234b") }
+      let!(:first_shoe) { FactoryGirl.create(:shoe, name: "234") }
+      let!(:second_shoe) { FactoryGirl.create(:red_slipper, collection_id: 1, name: "234a") }
+      let!(:third_shoe) { FactoryGirl.create(:silver_slipper, collection_id: 1, name: "234b") }
       let!(:subcategory) { FactoryGirl.create(:shoe_subcategory_name, product: second_shoe) }
       let!(:another_subcategory) { FactoryGirl.create(:shoe_subcategory_name, product: third_shoe) }
 

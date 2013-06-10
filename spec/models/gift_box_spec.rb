@@ -27,12 +27,12 @@ describe GiftBox do
 
   describe "#suggestion_products" do
 
-    let(:product_1)   { FactoryGirl.build(:shoe, producer_code: rand.to_s) }
-    let(:product_2)   { FactoryGirl.build(:shoe, producer_code: rand.to_s) }
-    let(:product_3)   { FactoryGirl.build(:shoe, producer_code: rand.to_s) }
-    let(:product_4)   { FactoryGirl.build(:shoe, producer_code: rand.to_s) }
-    let(:product_5)   { FactoryGirl.build(:shoe, producer_code: rand.to_s) }
-    let(:product_6)   { FactoryGirl.build(:shoe, producer_code: rand.to_s) }
+    let(:product_1)   { FactoryGirl.build(:shoe, name: rand.to_s) }
+    let(:product_2)   { FactoryGirl.build(:shoe, name: rand.to_s) }
+    let(:product_3)   { FactoryGirl.build(:shoe, name: rand.to_s) }
+    let(:product_4)   { FactoryGirl.build(:shoe, name: rand.to_s) }
+    let(:product_5)   { FactoryGirl.build(:shoe, name: rand.to_s) }
+    let(:product_6)   { FactoryGirl.build(:shoe, name: rand.to_s) }
     let(:all_products) { [product_1, product_2, product_3, product_4, product_5, product_6] }
     let(:products_inventory_desc) { [ product_6, product_5, product_4, product_3, product_2 ] }
 
