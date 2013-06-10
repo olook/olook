@@ -29,12 +29,8 @@ _gaq.push(['_addTrans',
   </script>
 
   <%= render "shared/lightbox_credits" %>
-  <%= render partial: "shared/metrics/criteo/basket_tracker", :locals => {:cart => @cart, :cart_service => @cart_service } %>
   <%= render partial: "shared/metrics/all_in/cart_add_item", :locals => {:cart => @cart } %>
-  <%= render partial: "shared/metrics/sociomantic/basket", :locals => {:cart => @cart, :cart_service => @cart_service } %>
-  <%#= render partial: "shared/metrics/struq/basket", :locals => {:cart => @cart, :cart_service => @cart_service } %>
-  <%#= render partial: "shared/metrics/triggit/cart" %>
-  <%#= render partial: "shared/metrics/dbm/cart" %>
+  <%= render partial: "shared/data_layer/cart" %>
 <% end %>
 <% content_for :footer do %>
   <%= javascript_include_tag "carts" %>
