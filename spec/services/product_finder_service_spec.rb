@@ -9,17 +9,17 @@ describe ProductFinderService do
   let!(:sporty_profile) { FactoryGirl.create(:sporty_profile) }
   let!(:collection) { FactoryGirl.create(:collection) }
   let!(:last_collection) { FactoryGirl.create(:collection, :start_date => 1.month.ago, :end_date => Date.today, :is_active => false) }
-  let!(:product_a) { FactoryGirl.create(:blue_slipper, :producer_code => 'A', :collection => collection, :profiles => [casual_profile]) }
-  let!(:product_b) { FactoryGirl.create(:blue_slipper, :producer_code => 'B', :collection => collection, :profiles => [casual_profile]) }
-  let!(:product_c) { FactoryGirl.create(:blue_slipper, :producer_code => 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
-  let!(:product_d) { FactoryGirl.create(:blue_slipper, :producer_code => 'D', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
-  let!(:product_e) { FactoryGirl.create(:blue_slipper, :producer_code => 'E', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
+  let!(:product_a) { FactoryGirl.create(:blue_slipper, :name => 'A', :collection => collection, :profiles => [casual_profile]) }
+  let!(:product_b) { FactoryGirl.create(:blue_slipper, :name => 'B', :collection => collection, :profiles => [casual_profile]) }
+  let!(:product_c) { FactoryGirl.create(:blue_slipper, :name => 'C', :collection => collection, :profiles => [sporty_profile], :category => Category::BAG) }
+  let!(:product_d) { FactoryGirl.create(:blue_slipper, :name => 'D', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
+  let!(:product_e) { FactoryGirl.create(:blue_slipper, :name => 'E', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
   let!(:variant_product_e) { FactoryGirl.create(:basic_shoe_size_35, :product => product_e, :inventory => 0) }
 
-  let!(:product_f) { FactoryGirl.create(:blue_slipper, :producer_code => 'F', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
+  let!(:product_f) { FactoryGirl.create(:blue_slipper, :name => 'F', :collection => collection, :profiles => [casual_profile, sporty_profile]) }
   let!(:variant_product_f) { FactoryGirl.create(:basic_shoe_size_37, :product => product_f, :inventory => 1) }
 
-  let!(:product_g) { FactoryGirl.create(:basic_accessory, :producer_code => 'G', :collection => collection, :profiles => [sporty_profile], :category => Category::ACCESSORY) }
+  let!(:product_g) { FactoryGirl.create(:basic_accessory, :name => 'G', :collection => collection, :profiles => [sporty_profile], :category => Category::ACCESSORY) }
 
   let!(:invisible_product) { FactoryGirl.create(:blue_slipper, :is_visible => false, :collection => collection, :profiles => [sporty_profile]) }
   let!(:casual_points) { FactoryGirl.create(:point, user: user, profile: casual_profile, value: 10) }
@@ -30,7 +30,7 @@ describe ProductFinderService do
   end
 
   describe "#showroom_products" do
-    it "should return the products ordered by profiles without duplicate producer_codes" do
+    it "should return the products ordered by profiles without duplicate names" do
       # TODO: Manually fixed.
       subject.showroom_products(:not_allow_sold_out_products => true).should == [product_f,product_d, product_e, product_a, product_b]
     end
@@ -45,12 +45,12 @@ describe ProductFinderService do
   end
 
   describe "#products_from_all_profiles" do
-    it "should return the products ordered by profiles without duplicate producer_codes" do
+    it "should return the products ordered by profiles without duplicate names" do
       # TODO: Manually fixed.
       subject.products_from_all_profiles.should == [product_f, product_e, product_d, product_c, product_g, product_a, product_b]
     end
 
-    it "should return the products ordered by profiles without duplicate producer_codes" do
+    it "should return the products ordered by profiles without duplicate names" do
       subject.products_from_all_profiles(:description => "37", :category => Category::SHOE).should == [product_f]
     end
 
@@ -106,14 +106,14 @@ describe ProductFinderService do
   end
 
   describe '#remove_color_variations' do
-    let(:shoe_a_black)  { double :shoe, :producer_code => 'Shoe A', :'sold_out?' => false }
-    let(:shoe_a_red)    { double :shoe, :producer_code => 'Shoe A', :'sold_out?' => false }
-    let(:shoe_b_green)  { double :shoe, :producer_code => 'Shoe B', :'sold_out?' => false }
+    let(:shoe_a_black)  { double :shoe, :name => 'Shoe A', :'sold_out?' => false }
+    let(:shoe_a_red)    { double :shoe, :name => 'Shoe A', :'sold_out?' => false }
+    let(:shoe_b_green)  { double :shoe, :name => 'Shoe B', :'sold_out?' => false }
     let(:products)      { [shoe_a_black, shoe_b_green, shoe_a_red] }
 
 
     context 'when no product is sold out' do
-      it 'should return only one color for products with the same producer_code' do
+      it 'should return only one color for products with the same name' do
         shoe_a_black.should_receive(:inventory)
         shoe_b_green.should_receive(:inventory)
         subject.remove_color_variations(products).should == [shoe_a_black, shoe_b_green]
