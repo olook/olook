@@ -11,7 +11,7 @@ body {
     }
 
     section {
-      &#share-mail, &#invite-mail, &#import-contacts, &#post-to-wall {
+      &#share-mail, &#invite-mail, &#import-contacts, &#post-to-wall, {
         background: image-url('common/division.png') center bottom no-repeat;
         width: 990px;
         padding: 40px 0;
@@ -167,7 +167,20 @@ body {
           fieldset.invite{position: absolute;top: 39px;right: -140px;}
         }
       }
-
+      &#credits{
+        margin-top: 30px;
+        h1{font-family: $avenir;color: $pink;font-size: 27px;}
+        ul{
+          margin-top: 25px;
+          height: 220px;
+          li{width: 205px;height: 220px;float: left;text-align: center;color: #000;margin-right: 120px;
+            p{padding-top: 155px;font-family: $avenir;font-size: 13px;}
+            &.first{background: image-url('common/earn_credits.jpg') no-repeat 50px 0px;margin-left: 20px;}
+            &.earn{background: image-url('common/earn_credits.jpg') no-repeat -265px 0px;}
+            &.last{background: image-url('common/earn_credits.jpg') no-repeat -600px 0px;margin-right: 0 !important;}
+          }
+        }
+      }
       &#import-contacts {
         .import-dropdown {
           background: #FFF;
