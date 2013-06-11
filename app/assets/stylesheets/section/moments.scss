@@ -91,7 +91,7 @@ div#moments {
             width: 250px;
             overflow: auto;
             display: inline;
-            span.select {
+            span.selected-type {
               position: absolute;
               background: image-url('moments/select.jpg') no-repeat;
               text-indent: 12px;
@@ -152,7 +152,7 @@ div#moments {
     #order_filter{float:left !important;width:225px !important;height:30px;margin-left:55px;
       label{text-transform:uppercase;font-weight:normal;font-size:11px;margin-right:5px;line-height:22px;}
       li.select{
-        span.select{background:image-url('moments/sprite.png') right 4px no-repeat !important;font-size:11px;text-transform:uppercase;line-height:18px;width:105px;text-indent:6px;}
+        span.selected-type{background:image-url('moments/sprite.png') right 4px no-repeat !important;font-size:11px;text-transform:uppercase;line-height:18px;width:105px;text-indent:6px;}
       }
     }
   }
