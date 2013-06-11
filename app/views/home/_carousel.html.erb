@@ -1,14 +1,8 @@
 <div id="carousel">
   <ul>
-    <%- [
-      { link: new_survey_path, image: "home/destaques_quiz_carol_ribeiro_3.jpg" },
-      { link: collection_theme_path("estilista-juliana-jabour"), image: "home/destaque_JJ_para_olook_ok_ok.jpg" },
-      { link: "/stylist-news/formas-geometricas-voltam-aos-cortes/", image: "home/destaque_cortes_geometricos.jpg" }, 
-      { link: "/stylist-news/blackandgold/", image: "home/destaque_black_gold.jpg" },
-       
-    ].each_with_index do |item, index| %>
+    <%- @highlights.each_with_index do |highlight, index| -%>
       <li>
-        <%= link_to( image_tag(item[:image]), item[:link], onclick: track_event('Carrossel',"Banner#{index+1}") ) %>
+        <%= link_to( image_tag(highlight.image), highlight.link, onclick: track_event('Carrossel',"Banner#{index+1}") ) %>
       </li>
     <%- end -%>
   </ul>
