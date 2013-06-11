@@ -92,12 +92,18 @@ cap deploy
 
 development:
 ```
-FILTER=development cap deploy
+cap deploy dev
 ```
 
 homolog:
 ```
-FILTER=homolog cap deploy
+cap deploy hmg
+```
+
+homolog or development specific branch:
+```
+cap -S branch=nova_feature deploy hmg
+cap -S branch=nova_feature deploy dev
 ```
 
 production app01:
