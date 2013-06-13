@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130523133754) do
+ActiveRecord::Schema.define(:version => 20130611211121) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -111,27 +111,6 @@ ActiveRecord::Schema.define(:version => 20130523133754) do
   end
 
   add_index "braspag_capture_responses", ["identification_code"], :name => "index_braspag_capture_responses_on_order_id"
-
-  create_table "braspag_responses", :force => true do |t|
-    t.string   "type"
-    t.string   "correlation_id"
-    t.boolean  "success"
-    t.string   "error_message"
-    t.string   "order_id"
-    t.string   "braspag_order_id"
-    t.string   "braspag_transaction_id"
-    t.string   "amount"
-    t.integer  "payment_method"
-    t.string   "acquirer_transaction_id"
-    t.string   "authorization_code"
-    t.string   "return_code"
-    t.string   "return_message"
-    t.integer  "transaction_status"
-    t.boolean  "processed",               :default => false
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
-    t.string   "credit_card_token"
-  end
 
   create_table "campaign_emails", :force => true do |t|
     t.string   "email"
@@ -521,6 +500,14 @@ ActiveRecord::Schema.define(:version => 20130523133754) do
     t.text     "ranked_profile_ids"
   end
 
+  create_table "highlights", :force => true do |t|
+    t.string   "link"
+    t.string   "image"
+    t.integer  "position"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "holidays", :force => true do |t|
     t.date     "event_date"
     t.string   "name"
@@ -622,6 +609,20 @@ ActiveRecord::Schema.define(:version => 20130523133754) do
     t.boolean  "visible",         :default => true
     t.boolean  "show_advertise",  :default => true
     t.string   "big_banner"
+  end
+
+  create_table "lookbooks", :force => true do |t|
+    t.string   "name"
+    t.string   "thumb_image"
+    t.boolean  "active",      :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "slug"
+    t.string   "icon"
+    t.string   "icon_over"
+    t.string   "fg_color"
+    t.string   "bg_color"
+    t.string   "movie_image"
   end
 
   create_table "moip_callbacks", :force => true do |t|
