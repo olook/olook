@@ -10,4 +10,8 @@ class Category < EnumerateIt::Base
   def self.list_of_all_categories
     [Category::SHOE,Category::BAG,Category::ACCESSORY,Category::CLOTH]
   end
+
+  def self.with_name name
+    to_a.select{|category_array| category_array.first.pluralize.parameterize.match(name.parameterize)}.flatten.last
+  end
 end
