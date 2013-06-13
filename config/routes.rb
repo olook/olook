@@ -3,13 +3,11 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
-  get "/novo_sapatos", to: "catalogs#shoe"
-
-  get "/novo_bolsas", to: "catalogs#bag"
-
-  get "/novo_roupas", to: "catalogs#cloth"
-
-  get "/novo_acessorios", to: "catalogs#accessory"
+  scope "/catalogo" do
+    ["sapatos", "bolsas", "acessorios", "roupas"].each_with_index do |category, index|
+    get "/#{category}", to: "catalogs#show", :defaults => {:category_id => index + 1 ,:id => 1}
+    end
+  end
 
   mount Resque::Server => "/admin/resque"
 
