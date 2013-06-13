@@ -2,7 +2,7 @@ olook = o = {} || null;
 
 $(function(){
   o.init();
-})
+});
 
 olook = o = {
   init: function(){

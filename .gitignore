@@ -31,3 +31,5 @@ olook.sublime-project
 olook.sublime-workspace
 *.swl
 *.swk
+.ruby-gemset
+.ruby-version
