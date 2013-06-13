@@ -5,7 +5,7 @@ Olook::Application.routes.draw do
 
   scope "/catalogo" do
     ["sapatos", "bolsas", "acessorios", "roupas"].each_with_index do |category, index|
-    get "/#{category}", to: "catalogs#show", :defaults => {:category_id => index + 1 ,:id => 1}
+      get "/#{category}", to: "catalogs#show", defaults: {category: category}
     end
   end
 
