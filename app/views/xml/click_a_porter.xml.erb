@@ -15,7 +15,7 @@
 <parcelamento><![CDATA[<%= build_installment_text(product.retail_price) %>]]></parcelamento>
 <imagens>
 <% product.pictures.order(:position).each do |picture| %>
-<imagem><![CDATA[<%= picture.image %>]]></imagem>
+<imagem><![CDATA[<%= full_image_path picture.image %>]]></imagem>
 <% end %>
 </imagens>
 <num_tams>

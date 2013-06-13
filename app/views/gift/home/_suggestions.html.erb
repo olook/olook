@@ -3,7 +3,7 @@
     <h1>Não deixe de <strong>conferir</strong> também:</h1>
     <ul>
       <li id="helena">
-        <%= link_to gift_helena_tips_path, :remote => true do %>
+        <%= link_to gift_helena_tips_path, onclick: track_event("GiftIndex", "LeftBox"), :remote => true do %>
           <h1>Dica da Helena</h1>
           <% if @helena_tips.thumb_image? %>
             <%= image_tag @helena_tips.thumb_image.try(:url), :title => "Helena Linhares" %>
@@ -13,7 +13,7 @@
         <% end %>
       </li>
       <li id="bestsellers">
-        <%= link_to gift_top_five_path, :remote => true do %>
+        <%= link_to gift_top_five_path, onclick: track_event("GiftIndex", "CenterBox"), :remote => true do %>
           <h1>Top 5</h1>
           <% if @top_five.thumb_image? %>
             <%= image_tag @top_five.thumb_image.try(:url), :title => "TOP 5" %>
@@ -22,7 +22,7 @@
         <% end %>
       </li>
       <li id="face">
-        <%= link_to gift_hot_on_facebook_path, :remote => true do %>
+        <%= link_to gift_hot_on_facebook_path, onclick: track_event("GiftIndex", "RightBox"), :remote => true do %>
           <h1>Hot no Face</h1>
           <% if @hot_on_facebook.thumb_image? %>
             <%= image_tag @hot_on_facebook.thumb_image.try(:url), :title => "Hot no Face" %>
