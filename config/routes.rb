@@ -3,6 +3,14 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+  get "catalogs/shoe"
+
+  get "catalogs/bag"
+
+  get "catalogs/cloth"
+
+  get "catalogs/accessory"
+
   mount Resque::Server => "/admin/resque"
 
   root :to => "home#index"
