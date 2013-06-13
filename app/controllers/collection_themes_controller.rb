@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 class CollectionThemesController < ApplicationController
   respond_to :html, :js
-  before_filter :load_products_of_user_size, only: [:show, :filter]
+  before_filter :load_products_of_user_size, :load_colors, only: [:show, :filter]
   before_filter :filter_products_by_category
   before_filter :load_catalog_products
-
+  
   # Toda a lógica dessa página deve ser refeita para dinamizar os dados dela
   def index
     @featured_products = retrieve_featured_products
@@ -23,7 +23,11 @@ class CollectionThemesController < ApplicationController
   end
 
   private
-
+  
+    def load_colors
+      @colors = Detail.colors(params[:category_id])
+    end
+          
     def load_products_of_user_size
       # To show just the shoes of the user size at the
       # first time that the liquidations page is rendered
