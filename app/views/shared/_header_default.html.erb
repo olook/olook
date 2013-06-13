@@ -12,42 +12,35 @@
     </div>
      <div class="box_right">
       <% if user_signed_in? %> 
-      <div class="user">
-        <ul>
-          <li class="bl">Olá,</li>
-          <li class="submenu">
-            <%= link_to "#{current_user.name}", "#", :id => "info_user" %>
-            <div class="my_account">
-              <ul>
-                <li><%= link_to "Meus pedidos", user_orders_path %></li>
-                <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
-                <li><%= link_to "Endereços", user_addresses_path %></li>
-                <li class="last"><%= link_to "Meus créditos", user_credits_path %></li>
-              </ul>
-            </div>
-          </li>
-          <li class="br"><%= link_to "Sair", destroy_user_session_path, :method => :delete %></li>       
-        </ul>
-      </div> 
-
-      <p class="credits"><%= link_to "Ganhe créditos!", member_earn_credits_path, :class => "invite" %></p>
-
+        <div class="user">
+          <ul>
+            <li class="first">Olá,</li>
+            <li class="username">
+              <%= current_user.first_name %>
+            </li>
+            <p class="trade"><%= link_to "Troca Fácil", troca_path, :class => "invite" %></p>  
+            <li class="submenu">
+              <%= link_to "Minha Conta", "#", :id => "account" %>
+              <div class="my_account">
+                <ul>
+                  <li><%= link_to "Meus pedidos", user_orders_path %></li>
+                  <!-- <li><%#= link_to "Meus presentes", user_gifts_path %></li> -->
+                  <li class="last"><%= link_to "Meus créditos", user_credits_path %></li>
+                  <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
+                  <li><%= link_to "Endereços", user_addresses_path %></li>
+                  <li><%= link_to "Sair", destroy_user_session_path, :method => :delete, onclick: track_event("Checkout","clickSignOut") %></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
       <% else %>
       <p class="new_login"><%= link_to "Entre", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %> ou <%= link_to "Descubra seu estilo", new_survey_path %></p>   
       <div class="sign-in-dropdown close">
         <%= render "users/sessions/form_user" %>
       </div>
-
       <% end %>
-      <% if Setting.show_search_field %>
-        <div class="search_box">
-          <%= form_tag(search_show_path, method: :get, id: "search_form", onsubmit: "return perform_search();") do  %>
-            <%= text_field_tag "q",nil, id: "search_product", value: "BUSCAR" %>
-            <%= submit_tag "Buscar" %>
-          <% end %>      
-        </div>
-      <% end %>
-
+      <%= render 'shared/search_bar' %>
       <%= render 'shared/cart', :cart => @cart %>
     </div>
     <div class="olook_logo">
