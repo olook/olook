@@ -258,6 +258,7 @@ feature "Show products on xml format" do
       product.details << FactoryGirl.create(:shoe_with_metal)
       product.details << FactoryGirl.create(:sandalia)
       product.details << FactoryGirl.create(:shoe_with_leather)
+      product.update_attribute(:producer_code, "1233123")
     end
 
     scenario "I want to see products" do
@@ -285,6 +286,7 @@ feature "Show products on xml format" do
       #{product.variants.map { |variant|
       '<g:size>' + variant.display_reference + '</g:size>'}.join("\n")}
       <g:item_group_id>#{product.id}</g:item_group_id>
+      <g:mpn>#{product.producer_code}</g:mpn>
       <g:color>#{ product.color_name }</g:color>
       <g:material>#{ product.details.first.description }</g:material>
       <g:material>#{ product.details.last.description }</g:material>
