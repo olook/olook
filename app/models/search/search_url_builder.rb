@@ -15,8 +15,8 @@ class SearchUrlBuilder
     self
   end
 
-  def with_category category
-    @expressions << "categoria:'#{CGI.escape category}'" unless category.nil? || category.empty?
+  def with_model_name model_name
+    @expressions << "categoria:'#{CGI.escape model_name}'" unless model_name.nil? || model_name.empty?
     self
   end
 
