@@ -8,8 +8,15 @@ body {
       overflow: visible;
       z-index: 10;
       ul{
-        width: 970px; height: 265px;
-        li{width: 485px;height: 265px;}
+        width: 990px; height: 265px;
+        li{
+          a{width: 485px;height: 265px;float: left;display: inline-block;
+            &.convide,&.convide_desativado{background: image-url('common/convide_ativado.jpg') no-repeat;margin-right: 10px;}
+            &.convide_desativado{background-position:-506px 1px !important; }
+            &.fidelidade,&.fidelidade_desativado{background: image-url('common/fidelidade_olook.jpg') no-repeat -507px 1px;}        
+            &.fidelidade{background-position: 0 0 !important;}
+          }
+        }
       }
     }
 
