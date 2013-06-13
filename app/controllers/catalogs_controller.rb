@@ -5,8 +5,6 @@ class CatalogsController < ApplicationController
   before_filter :load_catalog_products
 
   def show
-    #category_id = Category.with_name(params[:category_name])
-    @colors = Detail.colors(params[:category_id])
     @pixel_information = params[:category_id]
     if CollectionTheme.active.first.try(:catalog).try(:products).nil?
       flash[:notice] = "A coleção não possui produtos disponíveis"
@@ -17,23 +15,29 @@ class CatalogsController < ApplicationController
   end
 
   def load_catalog_products
-    params[:brands] = params[:brands].values if params[:brands].is_a?(Hash)
-    @collection_themes = CollectionTheme.active.order(:position)
-    @collection_theme = params[:id] ? CollectionTheme.find_by_id(params[:id]) : @collection_themes.last
 
-    if @collection_theme
-      params[:news] = session[:c] if session[:c]
-      if current_admin
-        params[:admin] = true
-      end
-      @catalog_products = CatalogSearchService.new(params.merge({id: @collection_theme.catalog.id})).search_products
-      @products_id = @catalog_products.first(3).map{|item| item.product_id }.compact
-      # params[:id] is into array for pixel iterator
-      @categories_id = params[:id] ? [params[:id]] : @collection_themes.map(&:id).compact.uniq
-    else
-      redirect_to root_path
-      flash[:notice] = "No momento não existe nenhuma ocasião cadastrada."
-    end
+    @category = params[:category]
+    @category = "roupa"
+    @category_id = Category.with_name @category
+    @colors = Detail.colors(@category_id)
+
+    url = SearchUrlBuilder.new
+      .with_category(@category)
+      .grouping_by
+      .build_url
+
+    # .build_url_with({category: params[:category], brand: params[:brand], rank: "cor_e_marca"})
+    @result = fetch_products url
+    @catalog_products = @result.products
+    @products_id = @catalog_products.first(3).map{|item| item.id }.compact
+    @collection_theme = CollectionTheme.find 1
   end
+
+  private
+
+    def fetch_products url
+      response = Net::HTTP.get_response(url)
+      SearchResult.new response
+    end
 
 end
