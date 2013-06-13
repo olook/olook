@@ -1,4 +1,26 @@
+(function changeImg(){
+  console.log("das");
+  $("#user-info li a.convide").click(function(){
+    $(this).removeClass("convide_desativado");
+    fidelidade = $("#user-info li a.fidelidade_desativado");
+    if (fidelidade.hasClass("fidelidade")){
+      fidelidade.removeClass("fidelidade");
+    }
+  });
+
+  $("#user-info li a.fidelidade_desativado").click(function(){
+    $(this).addClass("fidelidade");
+    convide = $("#user-info li a.convide");
+    if (!convide.hasClass("convide_desativado")){
+      convide.addClass("convide_desativado");
+    }
+  });
+})();
+
+
 $(document).ready(function() {
+ 
+
   $('.import-dropdown').hide();
   $("#import-contacts .gmail").click(function(event){
     event.preventDefault();

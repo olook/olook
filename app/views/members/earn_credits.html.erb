@@ -8,8 +8,8 @@
 
 <section id="user-info">
   <ul>
-    <li></li>
-    <li></li>
+    <li><a class="convide" href="#share-mail"></a></li>
+    <li><a class="fidelidade_desativado" href="#post-to-wall"></a></li>
   </ul>
 </section>
 
@@ -40,7 +40,7 @@
               <script type="text/javascript" charset="utf-8">
                 twttr.ready(function (twttr) {
                   twttr.events.bind('click', function(event){
-                    <%= track_event('MemberInvite', 'TwitterPost') %>
+                    <%# = track_event('MemberInvite', 'TwitterPost') %>
                   });
                 });
               </script>
