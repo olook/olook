@@ -1,4 +1,6 @@
 class CatalogsController < ApplicationController
+  layout "lite_application"
+
   def shoe
   end
 
