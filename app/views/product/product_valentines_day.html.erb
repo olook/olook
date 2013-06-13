@@ -32,10 +32,10 @@
   <div id="product">
     <div class="content">
 
-      <div id="user_data">
-        <%= image_tag "https://graph.facebook.com/#{@uid}/picture?width=65&height=60" %>
-        <p><span></span><%= ", sua namorada," unless params["single"] == "1" %> amou este produto e adoraria ganhá-lo no dias namorados.</p>
-      </div>
+      <!-- <div id="user_data"> -->
+        <%#= image_tag "https://graph.facebook.com/#{@uid}/picture?width=65&height=60" %>
+        <!-- <p><span></span><%= ", sua namorada," unless params["single"] == "1" %> amou este produto e adoraria ganhá-lo no dias namorados.</p> -->
+      <!-- </div> -->
 
       <div id="pics_suggestions">
         <%= product_presenter.render_pics %>

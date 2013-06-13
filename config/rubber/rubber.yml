@@ -300,6 +300,11 @@ hosts:
     cloud_providers:
       aws:
         image_type: m1.large
+  stage:
+    unicorn_workers: 4
+    cloud_providers:
+      aws:
+        image_type: m1.medium
   development:
     unicorn_workers: 4
     cloud_providers:

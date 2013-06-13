@@ -64,8 +64,10 @@ group :production, :staging do
 end
 
 gem 'piet', :git => 'git://github.com/albertbellonch/piet.git', ref: "630a98bef1595fb2a138e98ff9aaefbca987a999"
-gem 'rack-mini-profiler', group: :staging
 
+group :development do
+  gem 'better_errors'
+end
 group :development, :test do
   gem 'rack-mini-profiler'
   gem 'faker'
