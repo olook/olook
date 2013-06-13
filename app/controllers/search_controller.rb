@@ -17,7 +17,7 @@ class SearchController < ApplicationController
 
     url = SearchUrlBuilder.new
       .for_term(@q)
-      .with_category(@category)
+      .with_model_name(@category)
       .with_brand(@brand)
       .with_color(@color)
       .grouping_by
@@ -39,6 +39,6 @@ class SearchController < ApplicationController
       response = Net::HTTP.get_response(url)
       SearchResult.new response
     end
-  
+
 
 end
