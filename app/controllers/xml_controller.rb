@@ -44,6 +44,7 @@ class XmlController < ApplicationController
   end
 
   def google_shopping
+    @products = @products.delete_if { |product| !product.producer_code }
     respond_with(@products)
   end
 
