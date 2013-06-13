@@ -2,8 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "new_structure/common/global_stuffs";
-.search_box{position: relative;margin-top: 15px;clear:both;float:right;
-  	input[type="submit"]{position: absolute;background: image-url('common/nav/magnifier_b.png') no-repeat;width: 26px;height: 26px;left: 210px;text-indent: 9999px;border:none;margin-top: 4px;cursor: pointer;}
-  	#search_product{border-radius: 3px;background-color:#fff;-moz-box-shadow:inset 1px 1px 5px #cdcdcd;-webkit-box-shadow:inset 1px 1px 5px #cdcdcd;box-shadow:inset 1px 1px 5px #cdcdcd;float: left;border: solid 1px #cdcdcd;font-family: $johnston;font-size: 10px;width: 190px;height: 29px;line-height: 32px;color: #ef3742;text-align: left;padding-left: 10px;padding-right: 40px;text-transform: uppercase;letter-spacing: 1px;}
-  } 
-
+.search_box{
+  position: relative;margin-top: 15px;clear:both;float:right;
+  input[type="submit"]{
+    position: absolute;background: image-url('common/nav/magnifier.png') no-repeat;width: 28px;height: 27px;left: 190px;text-indent: 9999px;border:none;margin-top: 1px;cursor: pointer;
+  }
+  #search_product{
+    float: left;border: solid 1px #000;font-family: $johnston;font-size: 10px;width: 165px;height: 25px;line-height: 29px;color: #000;text-align: left;padding-left: 10px;padding-right: 40px;text-transform: uppercase;letter-spacing: 1px;
+  }
+}
