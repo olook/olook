@@ -8,7 +8,8 @@
       <%= link_to image_tag("product/ask_gift_button.jpg", style:"float:left;margin-top:13px"), "javascript:void(0)", class: "face-message", onclick:  track_event('AskGiftButton', "ClickAskGiftButton") %>
     <%end%>
     
-    <fb:like class="<%= "bt_face" if show_facebook_button %>" href="http://<%= request.host_with_port %>/produto/<%= @product.id %>" send="false" layout="button_count" width="110" show_faces="false" font="arial"></fb:like>
+      <fb:like class="<%= "bt_face" if show_facebook_button %>" href="http://<%= request.host_with_port %>/produto/<%= @product.id %>" send="false" layout="button_count" width="110" show_faces="false" font="arial"></fb:like>
+    
     
     <ul class="social">
       <li class="first">compartilhe:</li>
