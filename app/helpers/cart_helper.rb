@@ -27,7 +27,7 @@ module CartHelper
   end
 
   def has_discount?(item)
-    @cart_service.item_promotion?(item) || cart_has_percentage_coupon? || item.price != item.retail_price
+    @cart_service.item_promotion?(item) || @cart.has_appliable_percentage_coupon? || item.price != item.retail_price
   end
 
   def show_checkout_banner?
@@ -49,16 +49,12 @@ module CartHelper
     def calculate_percentage_for item
       # for compatibility reason
 
-      if cart_has_percentage_coupon? && @cart.total_coupon_discount > @cart.total_promotion_discount
+      if @cart.has_appliable_percentage_coupon? && @cart.total_coupon_discount > @cart.total_promotion_discount
         @cart.coupon.value
       else
         item_retail_price = @cart_service.item_retail_price(item)
         (item.price - item_retail_price) / item.price * BigDecimal("100.0")
       end
-    end
-
-    def cart_has_percentage_coupon?
-      @cart.coupon && @cart.coupon.is_percentage?
     end
 
 end
