@@ -1,0 +1,7 @@
+<script type="text/javascript">
+  dataLayer.push({
+      'ProductID': '<%= @product.id %>',
+      'Sku': '<%= sku_for(@product) %>',
+      'Category': '<%= @product.category %>'
+  });
+</script>

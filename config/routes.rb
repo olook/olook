@@ -2,7 +2,6 @@ require 'resque/server'
 
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
-
   mount Resque::Server => "/admin/resque"
 
   #temp route to fix a wrong email
@@ -41,6 +40,7 @@ Olook::Application.routes.draw do
   post  "/contato" => "pages#send_contact", :as => "send_contact"
   match "/fidelidade", :to => "pages#loyalty", :as => "loyalty"
   match "/olookmovel", to: "pages#olookmovel", as: "olookmovel"
+  match "/troca_e_devolucao", to: "pages#troca", as: "troca"
 
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
@@ -209,8 +209,8 @@ Olook::Application.routes.draw do
     resources :reports
 
     resources :collection_theme_groups
-
     resources :collection_themes
+    resources :highlights
 
     resources :users, :except => [:create, :new] do
       collection do

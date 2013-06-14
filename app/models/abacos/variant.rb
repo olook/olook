@@ -65,6 +65,8 @@ module Abacos
 
       if M_OFFICER_TABLE_SIZE.keys.include?(size) 
         M_OFFICER_TABLE_SIZE[size]
+      else
+        size
       end
     end
 
