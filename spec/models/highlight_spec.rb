@@ -1,4 +1,5 @@
 require 'spec_helper'
+# require '../factories/highlights'
 
 describe Highlight do
 
@@ -11,8 +12,12 @@ describe Highlight do
   describe ".highlights_to_show" do
     
     it "should sort the Highlights by position" do
-      Highlight.should_receive(:all).with({order: :position})
+      first = FactoryGirl.create(:highlight, :at_position_1)
+      second = FactoryGirl.create(:highlight, :at_position_2)
+      third = FactoryGirl.create(:highlight, :at_position_3)
+
       sorted_by_position = Highlight.highlights_to_show
+      expect(sorted_by_position).to eql [first, second, third]
     end
 
   end
