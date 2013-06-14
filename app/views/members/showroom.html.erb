@@ -15,7 +15,7 @@
     <div id="profile">
       <div class="photo">
       <% if current_user.has_facebook? %>
-        <%= content_tag :div, image_tag("https://graph.facebook.com/#{current_user.uid}/picture?width=90&height=85", class: 'avatar-photo'), class: 'avatar' if current_user.uid %>
+        <%= content_tag :div, image_tag("http://graph.facebook.com/#{current_user.uid}/picture?width=90&height=85", class: 'avatar-photo'), class: 'avatar' if current_user.uid %>
       <% else %>
         <p>Que tal sua foto aqui?</p>
         <%= link_to "Conectar no Facebook", "/conta/auth/facebook", class: "btn-connect-face", onclick: track_event("FacebookConnect", "ConnectFromLoggedShowRoom") %>
@@ -186,7 +186,9 @@
 <%# fim do 'shared/banners/olooklet -%>
 
 
-
+<% if Campaign.activated_campaign && Campaign.activated_campaign.lightbox? %>
+  <%= render :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => Campaign.activated_campaign.link}  %>
+<% end %>
 
 
 <% if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>

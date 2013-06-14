@@ -11,10 +11,30 @@ $(function(){
   
 	  });
 
-    
     FB.Event.subscribe('edge.create', function(href, widget) {
-      _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);      
+
+    <% if params[:controller] == "members" && params[:action] =="showroom" && params[:lbp] == "1" %>
+      // A/B test rules: 
+      // if the user is
+      // - accessing members#showroom and the lbp param is "1"
+      // - clicking on a showroom product (which means that the "www.facebook.com/Olook" like link is excluded)
+      // then the ClickFacebookLike event is going to be fired
+      // for any other cases, the ClickFacebookLike is going to be fired
+      // (if you re reading this, please ask someone if you can take out those rules, only firing the ClickFacebookLike for all cases)
+
+      if( href == "www.facebook.com/Olook") {
+        _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);
+      } else {
+        _gaq.push(['_trackEvent', 'Showroom', 'ClickFacebookLike', href]);
+      }        
+    <% else %>
+      _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);
+    <% end %>      
     });
+
+    // FB.Event.subscribe('edge.create', function(href, widget) {
+    //   _gaq.push(['_trackEvent', 'Showroom', 'ClickFacebookLike', '']);
+    // });
 
 	  try {
 	    FB.XFBML.parse();
