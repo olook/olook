@@ -20,14 +20,20 @@ class CatalogsController < ApplicationController
     @category = "roupa"
     @category_id = Category.with_name @category
     @colors = Detail.colors(@category_id)
+    @current_page = params[:page].present? ? params[:page].to_i : 1
+    @next_page = (@current_page + 1).to_s
+    @previous_page = (@current_page - 1).to_s
 
-    url = SearchUrlBuilder.new
+    @search = SearchUrlBuilder.new
       .with_category(@category)
+      .with_limit(100)
       .grouping_by
-      .build_url
+      .for_page(@current_page)
 
-    # .build_url_with({category: params[:category], brand: params[:brand], rank: "cor_e_marca"})
+    url = @search.build_url
+
     @result = fetch_products url
+    @pages = (@result.hits["found"] / 100.0).ceil
     @catalog_products = @result.products
     @products_id = @catalog_products.first(3).map{|item| item.id }.compact
     @collection_theme = CollectionTheme.find 1
