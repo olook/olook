@@ -59,7 +59,8 @@ class CollectionThemesController < ApplicationController
         # Esse comportamento é necessário para não filtrar pelo número do usuário quando ele
         # desselecionou no form. E não selecionar no partial.
         # @collection_theme.catalog.id
-        params[:brands] = [@collection_theme.name.parameterize] if brand_query?
+        params[:brands] = [@collection_theme.name.to_s.upcase] if brand_query?
+        @brands = [@collection_theme.name.parameterize] if brand_query?
         catalog_search_service_params = params.merge({id: brand_query? ? 1 : @collection_theme.catalog.id, admin: !current_admin.nil?})
         catalog_search_service_params.delete(:shoe_sizes) if params[:shoe_sizes].to_a.all? { |ss| ss.blank? }
         @catalog_search_service = CatalogSearchService.new(catalog_search_service_params)
