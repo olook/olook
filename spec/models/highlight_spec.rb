@@ -11,7 +11,7 @@ describe Highlight do
   describe ".highlights_to_show" do
     
     it "should sort the Highlights by position" do
-      Highlight.should_receive(:all).with(order: :position)
+      Highlight.should_receive(:all).with({order: :position})
       sorted_by_position = Highlight.highlights_to_show
     end
 
