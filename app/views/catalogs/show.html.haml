@@ -20,7 +20,7 @@
       .chaordic.mostpopular
       = render "moments/new_header_moments"
       %ul#products
-        = render "shared/products", :products => @catalog_products
+        = render "shared/searched_products", :products => @catalog_products
       .loading
       / = will_paginate @catalog_products
   = msn_tags
