@@ -1,14 +1,8 @@
 <div id="carousel">
   <ul>
-    <%- [
-      { link: new_survey_path, image: "home/destaques_quiz_carol_ribeiro_3.jpg" },
-      { link: collection_theme_path("espaco-fashion"), image: "home/espacofashion2.jpg" },
-      { link: "/stylist-news/blackandgold/", image: "home/destaque_black_gold.jpg" },
-      { link: collection_theme_path("colcci"), image: "home/colcci.jpg" },
-       
-    ].each_with_index do |item, index| %>
+    <%- @highlights.each_with_index do |highlight, index| -%>
       <li>
-        <%= link_to( image_tag(item[:image]), item[:link], onclick: track_event('Carrossel',"Banner#{index+1}") ) %>
+        <%= link_to( image_tag(highlight.image), highlight.link, onclick: track_event('Carrossel',"Banner#{index+1}") ) %>
       </li>
     <%- end -%>
   </ul>
