@@ -7,6 +7,9 @@ Olook::Application.routes.draw do
 
   mount Resque::Server => "/admin/resque"
 
+  #temp route to fix a wrong email
+  match "/olook-no-qbazar" => redirect("http://www.olook.com.br/stylist-news/olook-no-qbazar/")
+
   root :to => "home#index"
   get "/quiz", :to => "home#index"
   get "home/index"
@@ -122,7 +125,8 @@ Olook::Application.routes.draw do
   get "/produto/:id/spy" => "product#spy", as: 'spy_product'
   post "/produto/share" => "product#share_by_email", as: 'product_share_by_email'
 
-  get "/dia_dos_namorados/:encrypted_id/:id" => "product#product_valentines_day"
+  # get "/dia_dos_namorados/:encrypted_id/:id" => "product#product_valentines_day"
+  get "/quero_ganhar/:encrypted_id/:id" => "product#product_valentines_day"
 
 
   #VITRINE / INVITE

@@ -71,9 +71,9 @@ describe Abacos::Variant do
         described_class.should_receive(:find_in_descritor_pre_definido).with({}, 'TAMANHO')
         described_class.parse_description({})
       end
-      it "should return 'Tamanho único' when TAMANHO doesn't exist" do
+      it "should return 'Único' when TAMANHO doesn't exist" do
         described_class.stub(:find_in_descritor_pre_definido).and_return('')
-        described_class.parse_description({}).should == 'Tamanho único'
+        described_class.parse_description({}).should == 'Único'
       end
     end
 
