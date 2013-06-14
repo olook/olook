@@ -25,15 +25,17 @@ class SearchResult
 
   private
 
-    def parse_facets 
+    def parse_facets
       @groups = {}
       @facets.map do |group_name, constraints|
         @groups[group_name] = {}
-        constraints["constraints"].each do |c|
-          @groups[group_name][c["value"]] = c['count']
+        if constraints["constraints"]
+          constraints["constraints"].each do |c|
+            @groups[group_name][c["value"]] = c['count']
+          end
         end
       end
-    end  
+    end
 
     def parse_products
       @products = @hits["hit"].map do |hit|
