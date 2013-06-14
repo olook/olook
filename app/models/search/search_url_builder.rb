@@ -4,7 +4,7 @@ class SearchUrlBuilder
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
   # BASE_URL = SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
 
-  def initialize base_url=SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
+  def initialize(base_url=SEARCH_CONFIG["search_domain"] + "/2011-02-01/search")
     @base_url = base_url
     @expressions = []
     @facets = []
@@ -35,6 +35,11 @@ class SearchUrlBuilder
     self
   end
 
+  def with_limit limit
+    @limit = limit
+    self
+  end
+
   def grouping_by
     @facets << "brand_facet"
     @facets << "categoria"
@@ -42,14 +47,22 @@ class SearchUrlBuilder
     self
   end
 
+  def for_page page
+    @page = page
+    self
+  end
+
   def build_url
     bq = build_boolean_expression
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
     q = @query ? "?#{@query}&" : "?"
-    URI.parse("http://#{@base_url}#{q}#{bq}return-fields=categoria,name,brand,description,image,price,backside_image,category,text_relevance&size=100&rank=-cor_e_marca")
+    URI.parse("http://#{@base_url}#{q}#{bq}return-fields=categoria,name,brand,description,image,price,backside_image,category,text_relevance&size=100&start=#{ start_product.to_i }&rank=-cor_e_marca&size=#{ @limit }")
   end
 
-
+  def start_product
+    @page = @page || 1
+    (@page - 1) * @limit
+  end
 
   private
 
