@@ -35,9 +35,9 @@ class SearchController < ApplicationController
 
   private
 
-    def fetch_products url
+    def fetch_products(url, options = {})
       response = Net::HTTP.get_response(url)
-      SearchResult.new response
+      SearchResult.new(response, options)
     end
 
 
