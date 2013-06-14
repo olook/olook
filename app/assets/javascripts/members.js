@@ -1,25 +1,44 @@
 (function changeImg(){
-  console.log("das");
-  $("#user-info li a.convide").click(function(){
-    $(this).removeClass("convide_desativado");
-    fidelidade = $("#user-info li a.fidelidade_desativado");
-    if (fidelidade.hasClass("fidelidade")){
-      fidelidade.removeClass("fidelidade");
-    }
-  });
+  $("#user-info li a.fidelidade_desativado").click(function(e){
 
-  $("#user-info li a.fidelidade_desativado").click(function(){
+    $('html, body').animate({
+      scrollTop: $("#post-to-wall").offset().top - 380
+    }, 2000, 'linear');
+    $("#user-info ul").addClass("fixed");
+    
+
     $(this).addClass("fidelidade");
     convide = $("#user-info li a.convide");
     if (!convide.hasClass("convide_desativado")){
       convide.addClass("convide_desativado");
     }
+    
+    $("#user-info li a.convide").on("click",function(){
+      $(this).removeClass("convide_desativado");
+      fidelidade = $("#user-info li a.fidelidade_desativado");
+      if (fidelidade.hasClass("fidelidade")){
+        fidelidade.removeClass("fidelidade");
+      }
+      
+      $('html, body, #user-info').animate({
+        scrollTop: 0
+      },{
+        duration: 2000,
+        complete:function(){
+          $('#user-info ul.fixed').removeClass("fixed");
+        } 
+      });
+      
+    });
+    
+    e.preventDefault();
+    e.stopPropagation();
+    
   });
 })();
 
 
 $(document).ready(function() {
- 
 
   $('.import-dropdown').hide();
   $("#import-contacts .gmail").click(function(event){

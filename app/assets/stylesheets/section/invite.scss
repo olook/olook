@@ -8,6 +8,7 @@ body {
       overflow: visible;
       z-index: 10;
       ul{
+        &.fixed{position:fixed;}
         width: 990px; height: 265px;
         li{
           a{width: 485px;height: 265px;float: left;display: inline-block;
