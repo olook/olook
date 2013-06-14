@@ -7,6 +7,7 @@ class CatalogsController < ApplicationController
   def show
     #category_id = Category.with_name(params[:category_name])
     @colors = Detail.colors(params[:category_id])
+    @subcategories = Detail.subcategories(params[:category_id])
     @pixel_information = params[:category_id]
     if CollectionTheme.active.first.try(:catalog).try(:products).nil?
       flash[:notice] = "A coleção não possui produtos disponíveis"
