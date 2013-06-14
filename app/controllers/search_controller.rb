@@ -13,11 +13,11 @@ class SearchController < ApplicationController
     @q = params[:q]
     @brand = params[:brand].humanize if params[:brand]
     @color = params[:color]
-    @category = params[:category].parameterize if params[:category]
+    @subcategory = params[:category].parameterize if params[:category]
 
     url = SearchUrlBuilder.new
       .for_term(@q)
-      .with_category(@category)
+      .with_subcategory(@subcategory)
       .with_brand(@brand)
       .with_color(@color)
       .grouping_by
@@ -39,6 +39,6 @@ class SearchController < ApplicationController
       response = Net::HTTP.get_response(url)
       SearchResult.new response
     end
-  
+
 
 end
