@@ -1,0 +1,20 @@
+<script type="text/javascript" src="/assets/criteo.js" async="true"></script>
+<script type="text/javascript">
+  dataLayer.push({
+    // CRITEO
+    'PrimeiraCompraDoUsuario': '<%= raw @order.user.first_buy? ? 1 : 0 %>',
+    'CriteoSource': '<%= raw @criteo_conversion %>',
+    'ProductsList': ['<%= raw @order.line_items.map{|p| p.variant.product_id.to_s}.join("','") %>'],
+    'PriceList': ['<%= raw @order.line_items.map{|p| p.retail_price.to_s}.join("','") %>'],
+    'QuantityList': ['<%= raw @order.line_items.map{|p| p.quantity.to_s}.join("','") %>'],
+
+
+    'Basket': [<%= raw @order.cart.items.map { |item|
+      "{ identifier:'#{item.id}', amount:'#{number_with_precision(item.variant.retail_price, separator: ".", precision: 2)}', currency:'BRL', quantity:'#{item.quantity}' }"}.join(', ') -%>],
+    'orderNumber': '<%= raw @order.number %>',
+    'orderTotal': '<%= raw number_with_precision(@order.amount_paid, separator: ".", precision: 2) %>'
+  });
+  <% if @order.tracking && @order.tracking.utm_source.to_s.match(/sociomantic.*/) %>
+    dataLayer.push({'ConfirmedBuy': 'true'})
+  <% end %>
+</script>
