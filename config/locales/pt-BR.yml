@@ -350,6 +350,10 @@
         one: Campanha
         other: Campanhas
 
+      highlight:
+        one: Destaque
+        other: Destaques
+
       coupon:
         one: Cupom
         other: Cupons
