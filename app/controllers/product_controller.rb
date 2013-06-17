@@ -59,6 +59,6 @@ class ProductController < ApplicationController
 
     @gift = (params[:gift] == "true")
     @only_view = (params[:only_view] == "true")
-    @shoe_size = params[:shoe_size].to_i
+    @shoe_size = @user.try(:shoes_size) || params[:shoe_size].to_i
   end
 end
