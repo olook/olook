@@ -28,8 +28,8 @@ class CatalogsController < SearchController
       .build_url
 
     @result = fetch_products(url, {parse_products: true})
-
     @pages = (@result.hits["found"] / 100.0).ceil
+    @catalog_products = @result.products
   end
 
 end
