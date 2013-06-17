@@ -41,6 +41,7 @@ Olook::Application.routes.draw do
   match "/fidelidade", :to => "pages#loyalty", :as => "loyalty"
   match "/olookmovel", to: "pages#olookmovel", as: "olookmovel"
   match "/troca_e_devolucao", to: "pages#troca", as: "troca"
+  match "/half_newsletter", to: "landing_pages#half_newsletter", as: "newsletter"
 
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
