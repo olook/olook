@@ -13,14 +13,12 @@ $("#total_user_credits").html("<%= number_to_currency(total_user_credits) %>");
 
   $("li#loyalty_credit div.message").html("<%= print_credit_message %>");
   $("li#mgm_credit div.message").html("<%= print_credit_message %>");
-  
 <% else %>
   $("#coupon_discount").html("");
   $("#coupon_info").hide();
 
   $("li#loyalty_credit div.message").html("");
   $("li#mgm_credit div.message").html("");
-
 <% end %>
 
 $("#coupon a#show_coupon_field").show();
@@ -32,23 +30,23 @@ $('table#total tr.total span').text('<%= number_to_currency(@cart_service.total)
 // update item rows discounts and subtotals
 // usually when using coupons on cart show
 <% @cart.items.each do |item| %>
-	$("table#items tbody tr#item_<%= item.id %> td.discount").empty();
+  $("table#items tbody tr#item_<%= item.id %> td.discount").empty();
 
-	$("table#items tbody tr#item_<%= item.id %> td.discount").first().append("<%= escape_javascript( render partial: 'cart/items/discount', 
-																					locals: { 
-																						cart_service: @cart_service, 
-																						item: item
-																					} ) %>");
+  $("table#items tbody tr#item_<%= item.id %> td.discount").first().append("<%= escape_javascript( render partial: 'cart/items/discount', 
+    locals: {
+    cart_service: @cart_service,
+    item: item
+  } ) %>");
 
-	$("table#items tbody tr#item_<%= item.id %> td.value").empty();
+$("table#items tbody tr#item_<%= item.id %> td.value").empty();
 
-	$("table#items tbody tr#item_<%= item.id %> td.value").first().append("<%= escape_javascript( render partial: 'cart/items/subtotal', 
-																						locals: { 
-																							cart_service: @cart_service, 
-																							item: item
-																						} ) %>");
+$("table#items tbody tr#item_<%= item.id %> td.value").first().append("<%= escape_javascript( render partial: 'cart/items/subtotal', 
+  locals: {
+  cart_service: @cart_service,
+  item: item
+} ) %>");
 
-	//$('section#cart table.check.gift').css('border', '0');
+//$('section#cart table.check.gift').css('border', '0');
 <% end %>
 
 if($("#cart-box").length > 0){
@@ -56,35 +54,15 @@ if($("#cart-box").length > 0){
   $("#cart-box #credits_used").text('-<%= number_to_currency(@cart_service.total_credits_discount) %>');
   $("#cart-box #total").text('<%= number_to_currency(total_with_freight(freight_value)) %>');
   $("#cart-box #total_billet").text('<%= number_to_currency(total_with_freight(freight_value, Billet.new)) %>');
+  $("#cart-box #total_debit").text('<%= number_to_currency(total_with_freight(freight_value, Debit.new)) %>');
   $("#cart-box #credits_used").delay(200).fadeIn();
 
   $("#cart-box #billet_discount_value").text("-<%= number_to_currency(@cart_service.billet_discount) %>");
-
-  if($("li.boleto #checkout_payment_method_billet").is(":checked")) {
-    <% if @cart_service.billet_discount > 0 %>
-      $("#cart-box #total_billet").delay(200).fadeIn();
-      $("#cart-box #billet_discount_cart").delay(200).fadeIn();
-    <% else %>
-      $("#cart-box #total").delay(200).fadeIn();
-    <% end %>
-  }
-  else {
-    $("#cart-box #total").delay(200).fadeIn();
-    $("#cart-box #billet_discount_cart").hide();
-  }
-
-  <% if @cart_service.billet_discount > 0 %>
-    $("#billet_tip").show();
-  <% else %>
-    $("#billet_tip").hide();
-  <% end %>
-
-
+  $("#cart-box #debit_discount_value").text("-<%= number_to_currency(@cart_service.debit_discount) %>");
 }
 
-if($("#payment #billet_discount").length > 0){
-  $("#payment #billet_discount").text('<%= number_to_currency(@cart_service.billet_discount) %>');
-}
+$("#payment #billet_discount").text('<%= number_to_currency(@cart_service.billet_discount) %>');
+$("#payment #debit_discount").text('<%= number_to_currency(@cart_service.debit_discount) %>');
 
 var select_options = $("#checkout_payment_payments");
 select_options.empty();
@@ -97,3 +75,4 @@ select_options.empty();
     "<%= escape_javascript(render(:partial => 'facebook_share_discount')) %>"
   );
 <% end %>
+showTotal();
