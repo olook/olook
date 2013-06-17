@@ -4,9 +4,11 @@ class SearchEngine
 
   def initialize attributes = {}
     self.search = SearchUrlBuilder.new
+    .for_term(attributes[:term])
     .with_category(attributes[:category])
     .with_subcategory(attributes[:subcategory])
     .with_color(attributes[:color])
+    .with_brand(attributes[:brand])
     .grouping_by
   end
 
