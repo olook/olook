@@ -123,7 +123,7 @@ olook = o = {
          'margin-top'  : mt
       })
      .delay(500).fadeIn().children().fadeIn();
-     console.log(h,w);
+
      if($("button.close").length > 0){
        $("button.close").remove();
      }
