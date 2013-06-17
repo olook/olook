@@ -21,10 +21,9 @@ class CatalogsController < SearchController
       .with_subcategory(@subcategory)
       .grouping_by
       .build_url
+
     @result = fetch_products(url, {parse_products: true})
     @catalog_products = @result.products
-    @products_id = @catalog_products.first(3).map{|item| item.id }.compact
-    @collection_theme = CollectionTheme.find 1
   end
 
 end
