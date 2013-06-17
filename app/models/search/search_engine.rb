@@ -53,6 +53,14 @@ class SearchEngine
     (self.result.hits["found"] / 100.0).ceil
   end
 
+  def has_next_page?
+    self.current_page.to_i < self.pages
+  end
+
+  def has_previous_page?
+    self.current_page.to_i > 1
+  end
+
   private
 
     def fetch_result(url, options = {})
