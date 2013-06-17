@@ -67,12 +67,11 @@ module ProductsHelper
     page = catalog_products.current_page
     if brands && brands.include?(product.brand.parameterize)
       if index < 11
-        return true unless brands.include?(catalog_products[index+1].try(:brand).parameterize)
+        return true unless brands.include?(catalog_products[index+1].try(:brand).try(:parameterize))
       elsif page == catalog_products.total_pages
         return true
       else
-        return true unless brands.include?(catalog_products.page(page+1).first.try(:brand).parameterize)
-      end
+        return true unless brands.include?(catalog_products.page(page+1).first.try(:brand).try(:parameterize))      end
     else
       return false
     end
