@@ -31,7 +31,7 @@ class SearchUrlBuilder
   end
 
   def with_heel heel
-    @expressions << "heel:'#{CGI.escape heel}'" unless heel.nil? || heel.empty?
+    @expressions << "salto:#{CGI.escape heel}" unless heel.nil? || heel.empty?
     self
   end
 
@@ -49,6 +49,7 @@ class SearchUrlBuilder
     @facets << "brand_facet"
     @facets << "categoria"
     @facets << "cor_filtro"
+    @facets << "salto"
     self
   end
 
@@ -76,5 +77,4 @@ class SearchUrlBuilder
         ""
       end
     end
-
 end
