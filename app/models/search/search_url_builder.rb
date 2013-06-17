@@ -15,13 +15,13 @@ class SearchUrlBuilder
     self
   end
 
-  def with_category category
-    @expressions << "category:'#{CGI.escape category}'" unless category.nil? || category.empty?
+  def with_subcategory subcategory
+    @expressions << "categoria:'#{CGI.escape subcategory}'" unless subcategory.nil? || subcategory.empty?
     self
   end
 
-  def with_model_name model_name
-    @expressions << "categoria:'#{CGI.escape model_name}'" unless model_name.nil? || model_name.empty?
+  def with_category category
+    @expressions << "category:'#{CGI.escape category}'" unless category.nil? || category.empty?
     self
   end
 
@@ -62,6 +62,12 @@ class SearchUrlBuilder
   def start_product
     @page = @page || 1
     (@page - 1) * @limit
+  end
+
+  def build_filters_url
+    bq = build_boolean_expression
+    bq += "facet=#{@facets.join(',')}&" if @facets.any?
+    URI.parse("http://#{@base_url}?#{bq}")
   end
 
   private
