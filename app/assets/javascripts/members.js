@@ -5,9 +5,9 @@
         
     $('html, body').animate({
       scrollTop: h
-    }, 1000, 'linear');
+    }, 500, 'linear');
     $("#user-info ul").addClass("fixed");
-    
+
 
     $(this).addClass("fidelidade");
     convide = $("#user-info li a.convide");
@@ -15,8 +15,8 @@
       convide.addClass("convide_desativado");
     }
     
-    $("#user-info li a.convide").on("click",function(){
-      $(this).removeClass("convide_desativado");
+    $("#user-info li a.convide").on("click",function(e){
+      $(this).removeClass("convide_desativado").off("click");
       fidelidade = $("#user-info li a.fidelidade_desativado");
       if (fidelidade.hasClass("fidelidade")){
         fidelidade.removeClass("fidelidade");
@@ -25,12 +25,15 @@
       $('html, body, #user-info').animate({
         scrollTop: 0
       },{
-        duration: 1000,
+        duration: 500,
         complete:function(){
           $('#user-info ul.fixed').removeClass("fixed");
+
         } 
       });
-      
+
+      e.preventDefault();
+      e.stopPropagation();  
     });
     
     e.preventDefault();
