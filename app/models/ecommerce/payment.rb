@@ -69,6 +69,10 @@ class Payment < ActiveRecord::Base
     where(type: 'BilletDiscountPayment')
   end
 
+  def self.for_debit_discount
+    where(type: 'DebitDiscountPayment')
+  end
+
   def self.with_discount
     where(type: ['BilletDiscountPayment', 'CouponPayment', 'GiftPayment', 'OlookletPayment', 'PromotionPayment', 'CreditPayment', "FacebookShareDiscountPayment"])
   end
