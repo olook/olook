@@ -1,0 +1,116 @@
+div#profile_quiz ul li {
+width: 475px;
+overflow: auto;
+margin: 20px 0;
+float: left;
+
+div#profile_quiz ul li a {
+text-indent: -9999px;display: block;} 
+
+div#profile_quiz ul li a.new_survey {
+background: url(/assets/common/try-again.jpg) no-repeat;width: 301px;
+height: 59px;
+float: right;
+
+
+div#profile_quiz ul li a.me {
+background: url(/assets/common/its-me.png) no-repeat;
+width: 179px;height: 59px;
+margin: 0 0 0 20px;
+
+
+
+div.box_invite {
+    width: 815px;
+    padding: 20px 40px;
+    overflow: auto;
+    display: none;
+    background:#FFF;
+    min-height:400px;
+    & > h1 {
+      font-size: 36px;
+      font-weight: lighter;
+      letter-spacing: -1px;
+      margin: 0 0 10px 0;
+      &+p {
+        color: #666;
+        font-size: 15px;
+        margin: 0 0 35px;
+        strong {
+          color: #666;
+          font-weight: 500;
+        }
+      }
+    }
+    div.social {
+      float: left;
+    }
+    div.link_mail {
+      width: 314px;
+      float: right;
+    }
+    &.clone {
+      display: block;
+    }
+  }
+
+div.link_mail {
+  position: relative;
+  padding: 20px 0 10px 30px;
+border-top:solid 1px #DEDEDE;
+text-align:left;
+
+  h2 {
+    font-family: $avenir;
+    font-size: 16px;
+    font-weight: lighter;
+    margin: 0 0 10px;
+  }
+p.txt-copie{color:#000;margin-bottom:15px;}
+  ul {
+    overflow: hidden;
+    li {
+      position: relative;
+      input[type="text"] {
+        color: #666;
+        font-size: 14px;
+        width: 286px;
+        margin: 0 10px 10px 0;
+        padding: 8px 10px;
+        border: 1px #CCC solid;
+ float:left;
+      }
+      a {
+@include sprite_checkout(-211px, -200px);
+        text-indent: -9999px;
+        width: 98px;
+        height: 34px;
+        display: block;
+float:left;
+      }
+      div.zclip {
+        z-index: 10000 !important;
+      }
+    }
+  }
+  div.box_copy {
+    position: absolute;
+    background: image-url('common/copy.png') top center no-repeat;
+    width: 166px;
+    height: 38px;
+    padding: 17px 0 0 0;
+    display: none;
+    top: 95px;
+    left:35px;
+    p {
+      color: #666;
+      font-size: 12px;
+      line-height: 16px;
+      text-align: center;
+      strong {
+        color: #666;
+      }
+    }
+  }
+}
+
