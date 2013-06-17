@@ -104,6 +104,10 @@ class CartService
     calculate_discounts(Billet.new).fetch(:billet_discount)
   end
 
+  def debit_discount
+    calculate_discounts(Debit.new).fetch(:debit_discount)
+  end
+
   def facebook_discount
     calculate_discounts.fetch(:facebook_discount)
   end
@@ -124,6 +128,7 @@ class CartService
     total_value += calculate_discounts.fetch(:total_credits_by_invite) if :credits_by_invite == type
     total_value += calculate_discounts.fetch(:total_credits_by_redeem) if :credits_by_redeem == type
     total_value += calculate_discounts.fetch(:total_credits_by_loyalty_program) if :credits_by_loyalty_program == type
+    total_value += calculate_discounts(payment).fetch(:debit_discount) if :debit_discount == type
     total_value += calculate_discounts(payment).fetch(:billet_discount) if :billet_discount == type
     total_value += calculate_discounts.fetch(:facebook_discount) if :facebook_discount == type
 
@@ -293,6 +298,7 @@ class CartService
     coupon_value = 0.0 if cart.coupon && !should_override_promotion_discount?
     coupon_value ||= 0.0
     billet_discount_value = 0.0
+    debit_discount_value = 0.0
     facebook_discount_value = 0.0
 
     if coupon_value >= retail_value
@@ -349,17 +355,28 @@ class CartService
       retail_value -= billet_discount_value
     end
 
+    if payment && payment.is_a?(Debit) && Setting.debit_discount_available
+
+      debit_discount_value = calculate_debit_discount_value(retail_value)
+
+      if debit_discount_value > retail_value
+        debit_discount_value = retail_value
+      end
+      retail_value -= debit_discount_value
+    end
 
     total_credits = credits_loyality + credits_invite + credits_redeem
 
     discounts << :coupon if coupon_value > 0.0
     discounts << :billet_discount if billet_discount_value > 0
+    discounts << :debit_discount if billet_discount_value > 0
 
     {
       :discounts                         => discounts,
       :is_minimum_payment                => (minimum_value > 0 && retail_value <= 0),
-      :total_discount                    => (coupon_value + total_credits + billet_discount_value + facebook_discount_value),
+      :total_discount                    => (coupon_value + total_credits + billet_discount_value + debit_discount_value + facebook_discount_value),
       :billet_discount                   => billet_discount_value,
+      :debit_discount                    => debit_discount_value,
       :facebook_discount                 => facebook_discount_value,
       :total_coupon                      => coupon_value,
       :total_credits_by_loyalty_program  => credits_loyality,
@@ -369,6 +386,12 @@ class CartService
     }
   end
 
+
+  def calculate_debit_discount_value retail_value
+    debit_discount_percent = (Setting.debit_discount_percent.to_i / 100.0).to_d
+    debit_discount_value = (retail_value.to_d + minimum_value.to_d) * debit_discount_percent
+    debit_discount_value.round(2, BigDecimal::ROUND_HALF_UP)
+  end
 
   def calculate_billet_discount_value retail_value
     billet_discount_percent = (Setting.billet_discount_percent.to_i / 100.0).to_d
