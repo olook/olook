@@ -35,6 +35,7 @@ class PagesController < ApplicationController
   def troca
     
   end
+
   private
 
   def get_contact_infos
