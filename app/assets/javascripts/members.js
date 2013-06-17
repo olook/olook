@@ -5,7 +5,7 @@
         
     $('html, body').animate({
       scrollTop: h
-    }, 2000, 'linear');
+    }, 1000, 'linear');
     $("#user-info ul").addClass("fixed");
     
 
@@ -25,7 +25,7 @@
       $('html, body, #user-info').animate({
         scrollTop: 0
       },{
-        duration: 2000,
+        duration: 1000,
         complete:function(){
           $('#user-info ul.fixed').removeClass("fixed");
         } 
