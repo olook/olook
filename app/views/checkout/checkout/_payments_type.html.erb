@@ -27,13 +27,13 @@
                   <li>
                     <div class="description">Créditos por compras realizadas:</div>
                     <div class="value"><%= number_to_currency @report.amount_of_loyalty_credits %></div>
-                    <div class="message"> (não podem ser utilizados em pedidos com desconto)</div>
+                    <div class="message"> (disponível apenas em pedidos acima de R$ 100 e sem desconto)</div>
                   </li>
 
                  <li>
                     <div class="description">Créditos por indicação:</div>
                     <div class="value"><%= number_to_currency @report.amount_of_invite_credits %></div>
-                    <div class="message"> (não podem ser utilizados em pedidos com desconto)</div>
+                    <div class="message"> (disponível apenas em pedidos acima de R$ 100 e sem desconto)</div>
                   </li>
 
                  <li>

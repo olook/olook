@@ -3,7 +3,7 @@ module CartHelper
 
   # TODO USER AND CART AS PARAMETER AND NOT AS INSTANCE VARIABLE, IT'S NOT MY FAULT
   def print_credit_message
-    "(não podem ser utilizados em pedidos com desconto)" unless @cart_service.allow_credit_payment?
+    "(disponível apenas em pedidos acima de R$ 100 e sem desconto)" unless @cart_service.allow_credit_payment?
   end
 
   def total_user_credits
