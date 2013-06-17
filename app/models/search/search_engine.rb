@@ -7,6 +7,7 @@ class SearchEngine
     .with_category(attributes[:category])
     .with_subcategory(attributes[:subcategory])
     .with_color(attributes[:color])
+    .with_heel(attributes[:heel])
     .grouping_by
   end
 
