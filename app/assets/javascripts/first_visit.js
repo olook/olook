@@ -9,7 +9,7 @@ initFirstVisit = {
     $(clone).find("li.orkut #orkut_share").remove();
     //content = clone[0].outerHTML;
 
-    o.newModal(clone);
+    o.newModal(clone, 600, 816);
     initFirstVisit.copyInviteLink();
     initFirstVisit.createOrkutShareButton();
   },
