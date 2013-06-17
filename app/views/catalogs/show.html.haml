@@ -6,8 +6,6 @@
     %meta{:content => @glasses ? "#{@glasses}" : "#{section_name @pixel_information}", :name => "chaordic:category"}/
   - content_for :data_layer do
     = render "shared/metrics/sociomantic/category"
-  - content_for :footer do
-    = render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => @products_id }
   #moments.content
     = render "filters"
     #products_container
@@ -21,4 +19,3 @@
       %ul#products
         = render "shared/searched_products", :products => @catalog_products
       .loading
-  = msn_tags
