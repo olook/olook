@@ -93,9 +93,10 @@ olook = o = {
   },
   
   newModal: function(content, a, l){
+
     var $modal = $("div#modal.promo-olook"), 
-    h = $("img", content).length > 0 ? a : $("img",content).outerHeight(), 
-    w = $("img", content).length > 0 ? l : $("img",content).outerWidth(), 
+    h = a > 0 ? a : $("img",content).outerHeight(), 
+    w = l > 0 ? l : $("img",content).outerWidth(), 
     ml = -parseInt((w/2)), mt = -parseInt((h/2)), 
     heightDoc = $(document).height(), 
     _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()), 
@@ -111,18 +112,18 @@ olook = o = {
       $modal.fadeOut();
       $(this).fadeOut();
     });
-    
+
     $modal.html(content)
       .css({
-         'height'      : h,
-         'width'       : w,
+         'height'      : h+"px",
+         'width'       : w+"px",
          'top'         : '50%',
          'left'        : '50%',
          'margin-left' : ml,
          'margin-top'  : mt
       })
      .delay(500).fadeIn().children().fadeIn();
-    
+
      if($("button.close").length > 0){
        $("button.close").remove();
      }

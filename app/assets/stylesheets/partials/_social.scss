@@ -64,9 +64,9 @@ div.social {
     }
   }
   form {
-    background: #e4e4e4;
-    padding: 20px 15px;
-    clear: both;
+    background: #e4e4e4 !important;
+    padding: 20px 15px !important;
+    clear: both !important;
     display: none;
     p {
       color: #000;
@@ -84,14 +84,14 @@ div.social {
       border: 1px solid #C1C1C1;
     }
     input[type="submit"] {
-      background: image-url("common/invite.png") no-repeat;
+      background: image-url("common/invite.png") no-repeat !important;
       text-indent: -9999px;
-      width: 92px;
-      height: 34px;
-      display: block;
+      width: 115px !important;
+      height: 34px !important;
+      display: block !important;
       margin: 0 auto;
-      border: none;
-      cursor: pointer;
+      border: none !important;
+      cursor: pointer !important;
     }
   }
 }
@@ -119,7 +119,7 @@ div.link_mail {
         margin: 0 10px 10px 0;
         padding: 8px 10px;
         border: 1px #CCC solid;
-		  float:left;
+		    float:left;
       }
       a {
 				@include sprite_checkout(-211px, -200px);
