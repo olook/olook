@@ -12,12 +12,6 @@ module SearchHelper
     link_to "#{text} (#{amount})", path
   end
 
-  def filter_link_to(path, field, text, amount=nil)
-    filter_link = create_query_string(field => text.parameterize)
-    text += " (#{amount})" if amount
-    link_to text, path + "?#{filter_link}"
-  end
-
   private
     def create_query_string hash
       params = {q: @q, color: @color, category: @category}
