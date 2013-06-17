@@ -30,6 +30,11 @@ class SearchUrlBuilder
     self
   end
 
+  def with_heel heel
+    @expressions << "heel:'#{CGI.escape heel}'" unless heel.nil? || heel.empty?
+    self
+  end
+
   def with_size size
     @expressions << "size:'#{CGI.escape size}'" unless size.nil? || size.empty?
     self
