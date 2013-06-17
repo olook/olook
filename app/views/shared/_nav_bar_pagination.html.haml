@@ -1,0 +1,7 @@
+- if search.current_page.to_i < search.pages
+  = link_to "proximo", catalog_path(page: search.next_page)
+- if search.current_page.to_i > 1
+  = link_to "anterior", catalog_path(page: search.previous_page)
+
+- search.pages.times do |page|
+  = link_to "#{ page + 1 }", catalog_path(page: page + 1)
