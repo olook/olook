@@ -1,0 +1,6 @@
+%p.title-category
+  Modelo
+%ul.subcategory-list
+  - filters_by("categoria").each do |text, amount|
+    %li
+      = filter_link_to(build_link_path, :categoria, text.chomp, amount)

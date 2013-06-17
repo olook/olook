@@ -1,0 +1,6 @@
+%p.title-category
+  Cores
+%ul.subcategory-list
+  - filters_by("cor_filtro").each do |text, amount|
+    %li
+      = filter_link_to(build_link_path, :color, text.chomp, amount)

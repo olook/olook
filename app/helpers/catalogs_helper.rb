@@ -9,6 +9,10 @@ module CatalogsHelper
     params[:category]
   end
 
+  def filters_by filter
+    @filters.grouped_products(filter)
+  end
+
   private
     def create_query_string_catalog hash
       params = {q: @q, color: @color}

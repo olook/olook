@@ -1,8 +1,3 @@
 //= render :partial => "search/grouped_products", :locals => {title: "Categorias", list: @result.grouped_products("categoria"), field: :category}
-%p.title-category
-  Categorias
-%ul.subcategory-list
-  - @filters.grouped_products("categoria").each do |text, amount|
-    %li
-      = filter_link_to(build_link_path, :categoria, text.chomp, amount)
-= render :partial => "search/grouped_products", :locals => {title: "Cores", list: @filters.grouped_products("cor_filtro"), field: :color}
+= render "category"
+= render "colors"

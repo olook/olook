@@ -6,7 +6,7 @@ class CatalogsController < SearchController
   def show
     @category = params[:category].parameterize.singularize if params[:category]
     @subcategory = params[:categoria] if params[:categoria]
-
+    @color = params[:color] if params[:color]
 
     filter_url = SearchUrlBuilder.new
       .with_category(@category)
@@ -22,6 +22,7 @@ class CatalogsController < SearchController
       url = SearchUrlBuilder.new
       .with_category(@category)
       .with_subcategory(@subcategory)
+      .with_color(@color)
       .grouping_by
       .with_limit(100)
       .for_page(@current_page)
