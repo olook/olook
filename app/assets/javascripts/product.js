@@ -52,8 +52,23 @@ $(document).ready(function() {
   })
   
   $("a.open_loyalty_lightbox").show();
+
+  $("form#product_add_to_cart").submit(function() {
+    if ($('[name="variant[id]"]:checked').size() == 0) {
+      showAlert();
+      return false; 
+    }
+    return true;
+  });
 });
 
+
+function showAlert(){
+  $("html, body").animate({ scrollTop: 0 }, "slow");
+  $('#error-messages').css("height", "40px").slideDown('1000', function() {
+    $('p.alert', this).text("Por favor, selecione o tamanho do produto.");
+  }).delay(3000).slideUp();  
+}
 
 initProduct = {
   checkRelatedProducts : function() {
