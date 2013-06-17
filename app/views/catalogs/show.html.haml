@@ -1,10 +1,10 @@
 - present 'CollectionTheme', {:collection_theme => @collection_theme, :collection_themes => @collection_themes, :category_id => @category_id} do |collection_theme_presenter|
-  - if @current_page.to_i < @pages
-    = link_to "proximo", catalog_path(page: @next_page)
-  - if @current_page.to_i > 1
-    = link_to "anterior", catalog_path(page: @previous_page)
+  - if @search.current_page.to_i < @search.pages
+    = link_to "proximo", catalog_path(page: @search.next_page)
+  - if @search.current_page.to_i > 1
+    = link_to "anterior", catalog_path(page: @search.previous_page)
 
-  - @pages.times do |page|
+  - @search.pages.times do |page|
     = link_to "#{ page + 1 }", catalog_path(page: page + 1)
 
   - content_for :head do
