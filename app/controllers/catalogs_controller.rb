@@ -23,13 +23,13 @@ class CatalogsController < SearchController
       .with_category(@category)
       .with_subcategory(@subcategory)
       .grouping_by
-      .build_url
       .with_limit(100)
       .for_page(@current_page)
+      .build_url
+
+    @result = fetch_products(url, {parse_products: true})
 
     @pages = (@result.hits["found"] / 100.0).ceil
-    @products_id = @catalog_products.first(3).map{|item| item.id }.compact
-    @collection_theme = CollectionTheme.find 1
   end
 
 end

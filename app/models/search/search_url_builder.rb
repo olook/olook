@@ -61,7 +61,7 @@ class SearchUrlBuilder
 
   def start_product
     @page = @page || 1
-    (@page - 1) * @limit
+    (@page - 1) * @limit if @limit
   end
 
   def build_filters_url
