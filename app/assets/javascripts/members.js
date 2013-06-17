@@ -1,8 +1,10 @@
 (function changeImg(){
   $("#user-info li a.fidelidade_desativado").click(function(e){
-
+    var h;
+    $("section.banner").length > 0 ? h = $("#post-to-wall").offset().top - 380 : h = $("#post-to-wall").offset().top - 280;
+        
     $('html, body').animate({
-      scrollTop: $("#post-to-wall").offset().top - 380
+      scrollTop: h
     }, 2000, 'linear');
     $("#user-info ul").addClass("fixed");
     
