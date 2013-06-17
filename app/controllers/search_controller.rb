@@ -15,17 +15,8 @@ class SearchController < ApplicationController
     @color = params[:color]
     @subcategory = params[:category].parameterize if params[:category]
 
-    url = SearchUrlBuilder.new
-      .for_term(@q)
-      .with_subcategory(@subcategory)
-      .with_brand(@brand)
-      .with_color(@color)
-      .grouping_by
-      .build_url
-
-    # .build_url_with({category: params[:category], brand: params[:brand], rank: "cor_e_marca"})
-    @result = fetch_products url
-
+    @search = SearchEngine.new(term: @q, brand: @brand, subcategory: @subcategory, color: @color).for_page(params[:page]).with_limit(100)
+    @products = @search.products
     @stylist = Product.fetch_products :selection
   end
 

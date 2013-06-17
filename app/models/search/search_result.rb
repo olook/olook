@@ -15,7 +15,7 @@ class SearchResult
   end
 
   def grouped_products key
-    @groups[key]
+    @groups[key] if @groups
   end
 
   # TEMP
