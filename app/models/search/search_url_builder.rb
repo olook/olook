@@ -30,6 +30,11 @@ class SearchUrlBuilder
     self
   end
 
+  def with_size size
+    @expressions << "size:'#{CGI.escape size}'" unless size.nil? || size.empty?
+    self
+  end
+
   def with_color color
     @expressions << "cor_filtro:'#{CGI.escape color}'" unless color.nil? || color.empty?
     self
