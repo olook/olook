@@ -1,0 +1,31 @@
+@import 'new_structure/common/global_stuffs';
+
+#lsidebar {
+  width: 240px;
+  display:inline-block;
+  vertical-align: top;
+}
+#result {
+  display:inline-block;
+  width: 740px;
+}
+ul#products {
+  li{
+    display:inline-block;
+    width:225px;
+    margin:25px 15px 0 0;
+    position:relative;
+    &:nth-child(5n){margin-right:0;}
+    &:hover{
+      .spy{visibility:visible;}
+    }
+  }
+}
+.see-more{border-top:solid 1px #CBCBCB;text-align:center;margin:50px 0 40px;position:relative;
+  a{position:absolute;top:-9px;background:#FFF;padding:0 10px;font-size:20px;font-weight:bold;text-transform:uppercase;
+    &:hover{color:$base_color !important;}
+    &.clothes,&.shoes{left:360px;}
+    &.purses{left:362px;}
+    &.accessories{left:347px;}
+  }
+}
