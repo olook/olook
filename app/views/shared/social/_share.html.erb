@@ -15,7 +15,7 @@
   <ul>
     <li>
       <%= text_field_tag "link", accept_invitation_url(:invite_token => user.invite_token), :readonly => "readonly" %>
-      <%= link_to "Copiar link", "#", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","#{params[:controller].split("/").join("_").camelize}ShareLink") %>
+      <%= link_to "Copiar link", "javascript:void(0);", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","#{params[:controller].split("/").join("_").camelize}ShareLink") %>
     </li>
   </ul>
   <div class="box_copy">

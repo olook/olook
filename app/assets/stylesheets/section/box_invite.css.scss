@@ -1,0 +1,38 @@
+@import 'partials/mixins';
+@import 'partials/social';
+
+div.box_invite {
+  width: 815px;
+  padding: 20px 0px;
+  overflow: auto;
+  display: none;
+  background:#FFF;
+  min-height:400px;
+  & > h1 {
+    font-size: 36px;
+    font-weight: lighter;
+    letter-spacing: -1px;
+    margin: 0 0 10px 10px;
+    &+p {
+      color: #666;
+      font-size: 15px;
+      margin: 0 0 35px 10px;
+      strong {
+        color: #666;
+        font-weight: 500;
+      }
+    }
+  }
+  div.social {
+    float: left;
+  }
+  div.link_mail {
+    width: 314px;
+    float: right;
+  }
+  &.clone {
+    display: block;
+  }
+}
+
+div.box_copy {top:108px !important;left:136px !important;}
