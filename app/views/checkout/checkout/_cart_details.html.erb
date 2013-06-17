@@ -25,15 +25,19 @@
     <% end %>
 
     <% if @checkout %>
-    <div id="billet_discount_cart">
-      <li><span class="txt-black">BOLETO: </span><span id="billet_discount_value">-<%= number_to_currency(@cart_service.billet_discount) %></span></li>
-    </div>
+      <div id="billet_discount_cart">
+        <li><span class="txt-black">BOLETO: </span><span id="billet_discount_value">-<%= number_to_currency(@cart_service.billet_discount) %></span></li>
+      </div>
+      <div id="debit_discount_cart">
+        <li><span class="txt-black">DÉBITO: </span><span id="debit_discount_value">-<%= number_to_currency(@cart_service.debit_discount) %></span></li>
+      </div>
     <% end %>
   </ul>
   <p class="total">
     <span class="txt-black">TOTAL: </span>
     <% if @checkout %>
       <span class="txt-black" id="total_billet"><%= number_to_currency(@cart_service.total(Billet.new)) %></span>
+      <span class="txt-black" id="total_debit"><%= number_to_currency(@cart_service.total(Debit.new)) %></span>
     <%end%>
     <span class="txt-black" id="total"><%= number_to_currency(@cart_service.total) %></span>
 

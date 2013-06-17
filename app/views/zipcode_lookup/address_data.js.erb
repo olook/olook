@@ -13,4 +13,6 @@ $("#delivery_time").html("<%= delivery_time_message(freight[:delivery_time]) %>"
 $("#delivery_time").delay(300).fadeIn();
 
 $("#total").html("<%= number_to_currency(total_with_freight(freight[:price])) %>");
-$("#total").delay(300).fadeIn();
+$("#total_billet").html("<%= number_to_currency(total_with_freight(freight[:price], Billet.new)) %>");
+$("#total_debit").html("<%= number_to_currency(total_with_freight(freight[:price], Debit.new)) %>");
+showTotal();
