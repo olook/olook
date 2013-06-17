@@ -1,30 +1,28 @@
-- present 'CollectionTheme', {:collection_theme => @collection_theme, :collection_themes => @collection_themes, :category_id => @category_id} do |collection_theme_presenter|
-  - if @search.current_page.to_i < @search.pages
-    = link_to "proximo", catalog_path(page: @search.next_page)
-  - if @search.current_page.to_i > 1
-    = link_to "anterior", catalog_path(page: @search.previous_page)
+- content_for :head do
+  = stylesheet_link_tag "new_structure/section/lite_catalog"
+  %meta{:content => @glasses ? "home/#{@glasses}": "home/#{section_name @pixel_information}", :name => "chaordic:source"}/
+  %meta{:content => @chaordic_user, :name => "chaordic:user"}/
+  %meta{:content => @glasses ? "#{@glasses}" : "#{section_name @pixel_information}", :name => "chaordic:category"}/
+- content_for :data_layer do
+  = render "shared/metrics/sociomantic/category"
+#catalog.content
+  #lsidebar= render "filters"
+  #result
+    / local onde o viewpersonalized será exibido
+    .chaordic.viewpersonalized
+    / local onde o purchasepersonalized será exibido
+    .chaordic.purchasepersonalized
+    / local onde o mostpopular será exibido
+    .chaordic.mostpopular
+    = render "moments/new_header_moments"
+    .pagination
+      - if @search.current_page.to_i < @search.pages
+        = link_to "proximo", catalog_path(page: @search.next_page)
+      - if @search.current_page.to_i > 1
+        = link_to "anterior", catalog_path(page: @search.previous_page)
 
-  - @search.pages.times do |page|
-    = link_to "#{ page + 1 }", catalog_path(page: page + 1)
-
-  - content_for :head do
-    = stylesheet_link_tag "new_structure/section/lite_catalog"
-    %meta{:content => @glasses ? "home/#{@glasses}": "home/#{section_name @pixel_information}", :name => "chaordic:source"}/
-    %meta{:content => @chaordic_user, :name => "chaordic:user"}/
-    %meta{:content => @glasses ? "#{@glasses}" : "#{section_name @pixel_information}", :name => "chaordic:category"}/
-  - content_for :data_layer do
-    = render "shared/metrics/sociomantic/category"
-  #moments.content
-    = render "filters"
-    #products_container
-      / local onde o viewpersonalized será exibido
-      .chaordic.viewpersonalized
-      / local onde o purchasepersonalized será exibido
-      .chaordic.purchasepersonalized
-      / local onde o mostpopular será exibido
-      .chaordic.mostpopular
-      = render "moments/new_header_moments"
-      %ul#products
-        = render "shared/searched_products", :products => @catalog_products
-      .loading
-
+      - @search.pages.times do |page|
+        = link_to "#{ page + 1 }", catalog_path(page: page + 1)
+    %ul#products
+      = render "shared/searched_products", :products => @catalog_products
+    .loading
