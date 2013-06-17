@@ -60,11 +60,14 @@ class IndexProductsWorker
         fields['retail_price'] = product.retail_price
         fields['in_promotion'] = product.promotion?
         fields['category'] = product.category_humanize
+        fields['size'] = product.variants.map(&:description).map{|b| "-#{b}-"}
 
-        details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno'].include?(d.translation_token.downcase) }
+        details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno', 'salto'].include?(d.translation_token.downcase) }
 
         details.each do |detail|
-          fields[detail.translation_token.downcase.gsub(" ","_")] = detail.description
+          if detail.translation_token.downcase == 'salto' && product.shoe?
+            fields[detail.translation_token.downcase.gsub(" ","_")] = detail.description.split(" ").first.to_i
+          end
         end
 
         values['fields'] = fields
