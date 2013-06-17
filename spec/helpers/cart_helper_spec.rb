@@ -9,7 +9,7 @@ describe CartHelper do
       @cart = Cart.new
       @cart.stub(:allow_credit_payment?).and_return(false)
       @cart_service = CartService.new({cart: @cart})
-      helper.print_credit_message.should eq("(não podem ser utilizados em pedidos com desconto)")
+      helper.print_credit_message.should eq("(disponível apenas em pedidos acima de R$ 100 e sem desconto)")
     end
 
     it "returns nil" do
