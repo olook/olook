@@ -5,10 +5,10 @@ $(function() {
   initFirstVisit.shareByEmail();
   
 });
-window.setTimeout('initFirstVisit.copyInviteLink()', 1000);
+window.setTimeout('initFirstVisit.copyInviteLink()', 2000);
 
 initFirstVisit = {
-  inviteLightbox: function() {
+  inviteLightbox: function() {console.log("aqui");
     clone = $("div.box_invite").addClass("clone");
     $(clone).find("li.facebook a").attr("id", "facebook_post_wall");
     $(clone).find("li.orkut #orkut_share").remove();
