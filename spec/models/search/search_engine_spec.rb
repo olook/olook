@@ -89,4 +89,72 @@ describe SearchEngine do
     pending
   end
 
+  describe "#has_next_page?" do
+    let(:search) { described_class.new(category: "SomeCategory", subcategory: "SomeSubcategory", color: "SomeColor") }
+    context "when current page is lower than pages" do
+
+      before do
+        search.stub(:current_page).and_return(1)
+        search.stub(:pages).and_return(10)
+      end
+
+      subject { search.has_next_page? }
+
+      it { should be_true }
+    end
+    context "when current page is eq than pages" do
+      before do
+        search.stub(:current_page).and_return(10)
+        search.stub(:pages).and_return(10)
+      end
+
+      subject { search.has_next_page? }
+
+      it { should be_false }
+    end
+
+    context "when current page is greater than pages" do
+      before do
+        search.stub(:current_page).and_return(11)
+        search.stub(:pages).and_return(10)
+      end
+
+      subject { search.has_next_page? }
+
+      it { should be_false }
+    end
+  end
+
+  describe "#has_previous_page?" do
+    let(:search) { described_class.new(category: "SomeCategory", subcategory: "SomeSubcategory", color: "SomeColor") }
+    context "when current page is lower than 1" do
+      before do
+        search.stub(:current_page).and_return(0)
+      end
+
+      subject { search.has_previous_page? }
+
+      it { should be_false }
+    end
+    context "when current page is eq than 1" do
+       before do
+        search.stub(:current_page).and_return(1)
+      end
+
+      subject { search.has_previous_page? }
+
+      it { should be_false }
+    end
+
+    context "when current page is greater than 1" do
+       before do
+        search.stub(:current_page).and_return(11)
+      end
+
+      subject { search.has_previous_page? }
+
+      it { should be_true }
+    end
+  end
+
 end
