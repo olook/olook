@@ -380,7 +380,7 @@ describe CartService do
     it "returns discounts = billet_discount when payment type is billet" do
       Setting.should_receive(:billet_discount_available).and_return(true)
       Setting.should_receive(:billet_discount_percent).and_return("5")
-      cart_service.calculate_discounts(Billet.new).fetch(:discounts).should eq([:billet_discount])
+      cart_service.calculate_discounts(Billet.new).fetch(:discounts).should eq([:billet_discount, :debit_discount])
     end
 
     it "applies billet_discount on the retail_value" do
