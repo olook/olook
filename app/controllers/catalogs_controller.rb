@@ -7,9 +7,14 @@ class CatalogsController < SearchController
     @category = params[:category].parameterize.singularize if params[:category]
     @subcategory = params[:categoria] if params[:categoria]
     @color = params[:color] if params[:color]
+    @heel = params[:salto] if params[:salto]
     @filters = SearchEngine.new(category: @category).filters
-    @search = SearchEngine.new(category: @category, subcategory: @subcategory, color: @color).for_page(params[:page]).with_limit(100)
+    @search = SearchEngine.new(category: @category, subcategory: @subcategory, color: @color, heel: @heel).for_page(params[:page]).with_limit(100)
     @catalog_products = @search.products
+
+    # TODO => Mover para outro lugar
+    whitelist = ["salto", "category", "color", "categoria"]
+    @querystring = params.select{|k,v| whitelist.include?(k) }.to_query
   end
 
 end

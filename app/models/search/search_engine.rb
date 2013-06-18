@@ -9,6 +9,7 @@ class SearchEngine
     .with_subcategory(attributes[:subcategory])
     .with_color(attributes[:color])
     .with_brand(attributes[:brand])
+    .with_heel(attributes[:heel])
     .grouping_by
   end
 

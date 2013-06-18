@@ -8,7 +8,7 @@ class IndexProductsWorker
 
   def self.perform
     add_products
-    # remove_products
+    remove_products
 
     mail = DevAlertMailer.notify_about_products_index
     mail.deliver
@@ -60,11 +60,16 @@ class IndexProductsWorker
         fields['retail_price'] = product.retail_price
         fields['in_promotion'] = product.promotion?
         fields['category'] = product.category_humanize
+        fields['size'] = product.variants.map(&:description).map{|b| "-#{b}-"}
 
-        details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno'].include?(d.translation_token.downcase) }
+        details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno', 'salto'].include?(d.translation_token.downcase) }
 
         details.each do |detail|
-          fields[detail.translation_token.downcase.gsub(" ","_")] = detail.description
+          if detail.translation_token.downcase == 'salto' && product.shoe?
+            fields['salto'] = heel_range(detail.description.to_i)
+          else
+            fields[detail.translation_token.downcase.gsub(" ","_")] = detail.description.split(" ").first.to_i
+          end
         end
 
         values['fields'] = fields
@@ -86,11 +91,23 @@ class IndexProductsWorker
     end
 
     def self.products
+      # Product.joins(:variants).joins(:details).joins(:pictures).all
       Product.all
     end
 
     def self.version_based_on_timestamp
       Time.zone.now.to_i / 60
     end
+
+    def self.heel_range index
+      case index
+      when index < 5
+        '0-4'
+      when index >= 5 && index < 10
+        '5-9'
+      else
+        '10-15'
+      end
+    end    
 
 end
