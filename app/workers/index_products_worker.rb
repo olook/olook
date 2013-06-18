@@ -7,23 +7,31 @@ class IndexProductsWorker
   @queue = :search
 
   def self.perform
-    add_products
-    remove_products
+    products = all_products 
+    brands = get_brands(products)
+    Rails.cache.write(CACHE_KEYS[:all_brands][:key], brands, expires_in: CACHE_KEYS[:all_brands][:expire])
 
-    mail = DevAlertMailer.notify_about_products_index
-    mail.deliver
+    add_products(products)
+    remove_products(products)
+
+    # mail = DevAlertMailer.notify_about_products_index
+    # mail.deliver
   end
 
   private
 
-    def self.add_products
-      add_products = products_to_index.map { |product| create_sdf_entry_for product, 'add' }
+    def self.get_brands(products)
+      Set.new(products.map(&:brand).map(&:titleize).uniq)
+    end
+
+    def self.add_products(products)
+      add_products = products_to_index(products).map { |product| create_sdf_entry_for product, 'add' }
       flush_to_sdf_file "/tmp/base-add.sdf", add_products
       upload_sdf_file "/tmp/base-add.sdf"
     end
 
-    def self.remove_products
-      remove_products = products_to_remove.map {|product| create_sdf_entry_for product, 'delete'}
+    def self.remove_products(products)
+      remove_products = products_to_remove(products).map {|product| create_sdf_entry_for product, 'delete'}
       flush_to_sdf_file "/tmp/base-remove.sdf", remove_products
       upload_sdf_file "/tmp/base-remove.sdf"
     end
@@ -73,6 +81,7 @@ class IndexProductsWorker
         end
 
         values['fields'] = fields
+
       end
       values
     end
@@ -82,15 +91,15 @@ class IndexProductsWorker
       `curl -X POST --upload-file "#{file_name}" "#{docs_domain}"/2011-02-01/documents/batch --header "Content-Type:application/json"`
     end
 
-    def self.products_to_index
+    def self.products_to_index(products)
       products.select{|p| p.is_visible && p.price > 0 && p.main_picture.try(:image_url) && p.inventory > 0}
     end
 
-    def self.products_to_remove
+    def self.products_to_remove(products)
       products.select{|p| !p.is_visible || p.price == 0 || p.main_picture.try(:image_url).nil? || p.inventory == 0}
     end
 
-    def self.products
+    def self.all_products
       # Product.joins(:variants).joins(:details).joins(:pictures).all
       Product.all
     end
@@ -111,3 +120,5 @@ class IndexProductsWorker
     end    
 
 end
+
+IndexProductsWorker.perform
