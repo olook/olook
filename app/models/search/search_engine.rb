@@ -26,7 +26,7 @@ class SearchEngine
   end
 
   def start_product
-    (self.current_page - 1) * limit
+    limit ? (self.current_page - 1) * limit : 0
   end
 
   def with_limit limit=50

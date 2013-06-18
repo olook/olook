@@ -15,7 +15,7 @@ class SearchController < ApplicationController
     @color = params[:color]
     @subcategory = params[:category].parameterize if params[:category]
 
-    @search = SearchEngine.new(term: @q, brand: @brand, subcategory: @subcategory, color: @color).for_page(params[:page]).with_limit(100)
+    @search = SearchEngine.new(term: @q, brand: @brand, subcategory: @subcategory, color: @color).for_page(params[:page])
     @products = @search.products
     @stylist = Product.fetch_products :selection
   end

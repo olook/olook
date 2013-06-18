@@ -59,12 +59,25 @@ describe SearchEngine do
   end
 
   describe "#start_product" do
+    context "when there's limit" do
     before do
       subject.stub(:current_page).and_return(5)
       subject.stub(:limit).and_return(50)
     end
 
     it { expect(subject.start_product).to eq(200) }
+    end
+
+    context "when there's no limit" do
+    before do
+      subject.stub(:limit).and_return(nil)
+    end
+
+    it { expect(subject.start_product).to eq(0) }
+
+
+
+    end
   end
 
   describe "#url" do
