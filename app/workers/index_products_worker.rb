@@ -60,7 +60,7 @@ class IndexProductsWorker
         fields['retail_price'] = product.retail_price
         fields['in_promotion'] = product.promotion?
         fields['category'] = product.category_humanize
-        fields['size'] = product.variants.map(&:description).map{|b| "-#{b}-"}
+        fields['size'] = product.variants.select{|v| v.inventory > 0}.map{|b| "-#{b.description}-"}
 
         details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno', 'salto'].include?(d.translation_token.downcase) }
 
@@ -68,7 +68,8 @@ class IndexProductsWorker
           if detail.translation_token.downcase == 'salto' && product.shoe?
             fields['salto'] = heel_range(detail.description.to_i)
           else
-            fields[detail.translation_token.downcase.gsub(" ","_")] = detail.description.split(" ").first.to_i
+
+            fields[detail.translation_token.downcase.gsub(" ","_")] = detail.description.split(" ").first
           end
         end
 
@@ -100,14 +101,16 @@ class IndexProductsWorker
     end
 
     def self.heel_range index
-      case index
+      case
       when index < 5
         '0-4'
       when index >= 5 && index < 10
         '5-9'
+      when index >= 10 && index < 15
+        '5-9'
       else
-        '10-15'
+        ''
       end
-    end    
+    end
 
 end
