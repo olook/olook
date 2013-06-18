@@ -5,8 +5,8 @@
   %meta{:content => @glasses ? "#{@glasses}" : "#{section_name @pixel_information}", :name => "chaordic:category"}/
 - content_for :data_layer do
   = render "shared/metrics/sociomantic/category"
-#catalog.content
-  #lsidebar= render "filters"
+#catalog
+  %aside= render "filters"
   #result
     / local onde o viewpersonalized será exibido
     .chaordic.viewpersonalized
