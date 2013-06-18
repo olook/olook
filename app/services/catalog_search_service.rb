@@ -59,7 +59,7 @@ class CatalogSearchService
 
     add_category_filter_to_query_base
     add_collection_filter_to_query_base
-    #add_brand_filter_to_query_base
+    add_brand_filter_to_query_base
 
     @query = @query.where(@query_base)
   end
@@ -194,13 +194,13 @@ class CatalogSearchService
     @query_base = query_base.and(@l_products[:retail_price].lt(lt)) unless lt == "*"
   end
 
-  def order_by_brands(brands)
-    "IF(products.brand IN(#{brands.collect{|b| "'#{b}'"}.join(',')}),1,2)"
-  end
+  # def order_by_brands(brands)
+  #   "IF(products.brand IN(#{brands.collect{|b| "'#{b}'"}.join(',')}),1,2)"
+  # end
 
   def generate_order_by_array
     order = []
-    order << order_by_brands(@params[:brands]) if @params[:brands]
+    # order << order_by_brands(@params[:brands]) if @params[:brands]
     order << sort_filter
     order << 'name asc'
     order
