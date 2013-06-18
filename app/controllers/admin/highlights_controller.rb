@@ -31,14 +31,14 @@ class Admin::HighlightsController <  Admin::BaseController
 
   def update
     @highlight = Highlight.find(params[:id])
+binding.pry
 
-    respond_to do |format|
-      if @highlight.update_attributes(params[:highlight])
-        redirect_to @highlight, notice: 'Highlight was successfully updated.'
-      else
-        render action: "edit"
-      end
+    if @highlight.update_attributes(params[:highlight])
+      redirect_to [:admin, @highlight], notice: 'Destaque atualizado com sucesso'
+    else
+      render action: "edit"
     end
+
   end
 
   def destroy
