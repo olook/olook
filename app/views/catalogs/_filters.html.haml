@@ -2,22 +2,20 @@
   Modelo
 %ul.subcategory-list
   - filters_by("categoria").each do |text, amount|
-    %li
-      = filter_link_to(build_link_path, :categoria, text.chomp, amount)
+    %li= filter_link_to(build_link_path, :categoria, text.chomp, amount)
 
 %p.title-category
   Cores
 %ul.subcategory-list
   - filters_by("cor_filtro").each do |text, amount|
-    %li
-      = filter_link_to(build_link_path, :color, text.chomp, amount)
-
+    %li= filter_link_to(build_link_path, :color, text.chomp, amount)
 %p.title-category
-  Salto
-%ul.subcategory-list
-  %li
-    = link_to("0-4cm", "/catalogo/sapato?#{@querystring}&salto=0..4" )
-  %li
-    = link_to("5-9cm","/catalogo/sapatos/?salto=5..9")
-  %li
-    = link_to("10-15cm", "/catalogo/sapatos/?salto=10..")
+  Preço
+
+- if category == 'sapato'
+  %p.title-category
+    Salto
+  %ul.subcategory-list
+    %li= link_to("0-4cm", "/catalogo/sapato?#{@querystring}&salto=0..4" )
+    %li= link_to("5-9cm","/catalogo/sapatos/?salto=5..9")
+    %li= link_to("10-15cm", "/catalogo/sapatos/?salto=10..")
