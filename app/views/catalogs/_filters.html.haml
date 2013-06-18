@@ -11,6 +11,14 @@
     %li= filter_link_to(build_link_path, :color, text.chomp, amount)
 %p.title-category
   Preço
+.price-range
+  #min-value-label 0
+  %input{type: "text", id: "min-value"}
+  .slider
+    #slider-range
+  #max-value-label 0
+  %input{type:"text", id:"max-value"}
+  %input{type:"hidden", name:"price", id:"price"}
 
 - if category == 'sapato'
   %p.title-category
