@@ -1,0 +1,41 @@
+- content_for :head do
+  = stylesheet_link_tag "new_structure/section/search"
+.search
+  - if @products.size == 0
+    %h2
+      %b
+        Poxa, ainda não temos
+        %span= @q
+        \:(
+      Como sempre chegam novidades, logo mais devemos ter o que você procura por aqui. Fique ligada! ;)
+    %p.hints Sugestões para uma próxima busca:
+    %ul.hint-list
+      %li.hint_one Verifique se a ortografia está correta;
+      %li.hint_two Tente palavras mais genéricas;
+      %li.hint_three Ou palavras diferentes, com o mesmo significado;
+      %li.hint_four E remova aspas ou sinais de mais: isso restringe a possibilidade de resultados.
+  - else
+    .cb
+      - unless @dont_show_message
+        %h2.title-founded
+          Legal! Temos
+          %span= @search.result.found_products
+          opções de
+          %span= @q
+          para você :)
+    #filters
+      = render :partial => "grouped_products", :locals => {title: "Marcas", list: @search.result.grouped_products("brand_facet"), field: :brand}
+      = render :partial => "grouped_products", :locals => {title: "Categorias", list: @search.result.grouped_products("categoria"), field: :category}
+      = render :partial => "grouped_products", :locals => {title: "Cores", list: @search.result.grouped_products("cor_filtro"), field: :color}
+    #search_result
+      %ul.search-results-list
+        - @products.each do |product|
+          = render "shared/searched_product_item", product: product
+- if @products.size == 0
+  .other-products
+    %p Enquanto isso, porque você não dá uma olhada em...
+  .chaordic.mostpopular{"data-skin" => "MP-top-5"}
+  = render "home/stylists"
+= render "home/boxes"
+= render "home/products_categories"
+= render "home/facebook_box"
