@@ -6,7 +6,7 @@
 - content_for :data_layer do
   = render "shared/metrics/sociomantic/category"
 #catalog.content
-  #lsidebar= render "filters"
+  #lsidebar= render "filters", category: @category
   #result
     / local onde o viewpersonalized será exibido
     .chaordic.viewpersonalized
