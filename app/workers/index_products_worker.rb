@@ -66,6 +66,9 @@ class IndexProductsWorker
 
         details.each do |detail|
           if detail.translation_token.downcase == 'salto' && product.shoe?
+            binding.pry if product.shoe?
+            fields['salto'] = heel_range(detail.description.to_i)
+          else
             fields[detail.translation_token.downcase.gsub(" ","_")] = detail.description.split(" ").first.to_i
           end
         end
@@ -89,11 +92,22 @@ class IndexProductsWorker
     end
 
     def self.products
-      Product.all
+      Product.joins(:variants).joins(:details).all
     end
 
     def self.version_based_on_timestamp
       Time.zone.now.to_i / 60
     end
+
+    def self.heel_range index
+      case index
+      when index < 5
+        '0-4'
+      when index >= 5 && index < 10
+        '5-9'
+      else
+        '10-15'
+      end
+    end    
 
 end

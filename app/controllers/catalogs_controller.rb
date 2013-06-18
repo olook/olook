@@ -11,6 +11,10 @@ class CatalogsController < SearchController
     @filters = SearchEngine.new(category: @category).filters
     @search = SearchEngine.new(category: @category, subcategory: @subcategory, color: @color, heel: @heel).for_page(params[:page]).with_limit(100)
     @catalog_products = @search.products
+
+    # TODO => Mover para outro lugar
+    whitelist = ["salto", "category", "color", "categoria"]
+    @querystring = params.select{|k,v| whitelist.include?(k) }.to_query
   end
 
 end
