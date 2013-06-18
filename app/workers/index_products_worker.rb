@@ -8,7 +8,7 @@ class IndexProductsWorker
 
   def self.perform
     add_products
-    # remove_products
+    remove_products
 
     mail = DevAlertMailer.notify_about_products_index
     mail.deliver
@@ -66,7 +66,6 @@ class IndexProductsWorker
 
         details.each do |detail|
           if detail.translation_token.downcase == 'salto' && product.shoe?
-            binding.pry if product.shoe?
             fields['salto'] = heel_range(detail.description.to_i)
           else
             fields[detail.translation_token.downcase.gsub(" ","_")] = detail.description.split(" ").first.to_i
@@ -92,7 +91,7 @@ class IndexProductsWorker
     end
 
     def self.products
-      Product.joins(:variants).joins(:details).all
+      Product.joins(:variants).joins(:details).joins(:pictures).all
     end
 
     def self.version_based_on_timestamp
