@@ -91,7 +91,8 @@ class IndexProductsWorker
     end
 
     def self.products
-      Product.joins(:variants).joins(:details).joins(:pictures).all
+      # Product.joins(:variants).joins(:details).joins(:pictures).all
+      Product.all
     end
 
     def self.version_based_on_timestamp
