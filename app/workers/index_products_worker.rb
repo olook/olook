@@ -14,8 +14,8 @@ class IndexProductsWorker
     add_products(products)
     remove_products(products)
 
-    # mail = DevAlertMailer.notify_about_products_index
-    # mail.deliver
+    mail = DevAlertMailer.notify_about_products_index
+    mail.deliver
   end
 
   private
@@ -100,7 +100,6 @@ class IndexProductsWorker
     end
 
     def self.all_products
-      # Product.joins(:variants).joins(:details).joins(:pictures).all
       Product.all
     end
 
@@ -109,13 +108,15 @@ class IndexProductsWorker
     end
 
     def self.heel_range index
-      case index
-      when index < 5
-        '0-4'
-      when index >= 5 && index < 10
-        '5-9'
-      else
-        '10-15'
+      case 
+        when index < 5
+          '0-4 cm'
+        when index >= 5 && index < 10
+          '5-9 cm'
+        when index > 10
+          '10-15 cm'
+        else
+          ''
       end
     end    
 
