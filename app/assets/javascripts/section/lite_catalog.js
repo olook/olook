@@ -20,8 +20,6 @@ filter.sliderRange = function(start_position, final_position){
 
       stop: function(event,ui){
         $("input#price").val(ui.values[ 0 ]+'-'+ui.values[ 1 ]);
-        filter.submitAndScrollUp();
-        $(this).parent().submit();
       }
   });
 

@@ -36,7 +36,7 @@ class SearchEngine
   end
 
   def url
-    self.search.build_url_for(self)
+    self.search.build_url_for(limit: 50, start: self.start_product)
   end
 
   def filters_url
@@ -67,6 +67,7 @@ class SearchEngine
   private
 
     def fetch_result(url, options = {})
+      Rails.logger.debug("GET cloudsearch URL: #{url}")
       _response = Net::HTTP.get_response(url)
       SearchResult.new(_response, options)
     end

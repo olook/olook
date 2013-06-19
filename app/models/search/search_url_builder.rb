@@ -1,12 +1,13 @@
 class SearchUrlBuilder
   include ERB::Util
+  MULTISELECTION_SEPARATOR = '-'
 
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
   # BASE_URL = SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
 
   def initialize(base_url=SEARCH_CONFIG["search_domain"] + "/2011-02-01/search")
     @base_url = base_url
-    @expressions = []
+    @expressions = {}
     @facets = []
   end
 
@@ -16,32 +17,38 @@ class SearchUrlBuilder
   end
 
   def with_subcategory subcategory
-    @expressions << "categoria:'#{CGI.escape subcategory}'" unless subcategory.nil? || subcategory.empty?
+    @expressions["categoria"] ||= []
+    @expressions["categoria"] = subcategory.to_s.split(MULTISELECTION_SEPARATOR)
     self
   end
 
   def with_category category
-    @expressions << "category:'#{CGI.escape category}'" unless category.nil? || category.empty?
+    @expressions["category"] ||= []
+    @expressions["category"] = category.to_s.split(MULTISELECTION_SEPARATOR)
     self
   end
 
   def with_brand brand
-    @expressions << "brand:'#{CGI.escape brand}'" unless brand.nil? || brand.empty?
+    @expressions["brand"] ||= []
+    @expressions["brand"] = brand.to_s.split(MULTISELECTION_SEPARATOR)
     self
   end
 
   def with_heel heel
-    @expressions << "salto:#{CGI.escape heel}" unless heel.nil? || heel.empty?
+    @expressions["heel"] ||= []
+    @expressions["heel"] = heel.to_s.split(MULTISELECTION_SEPARATOR)
     self
   end
 
   def with_size size
-    @expressions << "size:'#{CGI.escape size}'" unless size.nil? || size.empty?
+    @expressions["size"] ||= []
+    @expressions["size"] = size.to_s.split(MULTISELECTION_SEPARATOR)
     self
   end
 
   def with_color color
-    @expressions << "cor_filtro:'#{CGI.escape color}'" unless color.nil? || color.empty?
+    @expressions["color"] ||= []
+    @expressions["color"] = color.to_s.split(MULTISELECTION_SEPARATOR)
     self
   end
 
@@ -53,11 +60,13 @@ class SearchUrlBuilder
     self
   end
 
-  def build_url_for(search)
+  def build_url_for(options={})
+    options[:start] ||= 0
+    options[:limit] ||= 50
     bq = build_boolean_expression
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
     q = @query ? "?#{@query}&" : "?"
-    URI.parse("http://#{@base_url}#{q}#{bq}return-fields=categoria,name,brand,description,image,price,backside_image,category,text_relevance&size=100&start=#{ search.start_product.to_i }&rank=-cor_e_marca&size=#{ search.limit }")
+    URI.parse("http://#{@base_url}#{q}#{bq}return-fields=categoria,name,brand,description,image,price,backside_image,category,text_relevance&size=100&start=#{ options[:start] }&rank=-cor_e_marca&size=#{ options[:limit] }")
   end
 
   def build_filters_url
@@ -69,10 +78,15 @@ class SearchUrlBuilder
   private
 
     def build_boolean_expression
-      if @expressions.size == 1
-        "bq=#{url_encode(@expressions.first)}&"
+      bq = []
+      @expressions.each do |field, values|
+        vals = values.map { |v| "(field #{field} '#{CGI.escape v}')" }
+        bq << ( vals.size > 1 ? "(or #{vals.join(' ')})" : vals.first )
+      end
+      if bq.size == 1
+        "bq=#{url_encode bq.first}&"
       elsif @expressions.size > 1
-        "bq=#{url_encode('(and ' + @expressions.join(" ") + ')')}&"
+        "bq=#{url_encode "(and #{bq.join(' ')})"}&"
       else
         ""
       end

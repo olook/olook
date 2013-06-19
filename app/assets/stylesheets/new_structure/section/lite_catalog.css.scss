@@ -1,15 +1,10 @@
 @import 'new_structure/common/global_stuffs';
 
-#lsidebar {
-  width: 240px;
-  display:inline-block;
-  vertical-align: top;
-}
-#result {
-  display:inline-block;
-  width: 740px;
-}
-ul#products {
+aside{float:left;width:185px;}
+
+#result{display:inline-block;width: 740px;}
+  
+ul#products{
   li{
     display:inline-block;
     width:225px;
