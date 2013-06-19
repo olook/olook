@@ -1,0 +1,6 @@
+= stylesheet_link_tag  "section/landing"
+%content#newsletter
+  %div.header_login
+    %h2= link_to((image_tag "landing_page/olook_logo.png"), root_path, title: "Olook")
+  %h1= link_to((image_tag "landing_page/destaque_quiz_textao.jpg"), "/quiz/new", title: "Responder ao Quiz")
+=render :partial => 'shared/footer' 

@@ -1,11 +1,11 @@
-<% content_for :head do %>
-  <%= stylesheet_link_tag "section/checkout" %>
-  <meta name="chaordic:source" content="cart">
-  <meta name="chaordic:cart" content="<%= @chaordic_cart %>">
-  <meta name="chaordic:cart_id" content="<%= current_cart.id %>">
-<% end %>
-<% content_for :ecommerce_tracking do %>
-<script type="text/javascript">
+  <% content_for :head do %>
+    <%= stylesheet_link_tag "section/checkout" %>
+    <meta name="chaordic:source" content="cart">
+    <meta name="chaordic:cart" content="<%= @chaordic_cart %>">
+    <meta name="chaordic:cart_id" content="<%= current_cart.id %>">
+  <% end %>
+  <% content_for :ecommerce_tracking do %>
+  <script type="text/javascript">
 _gaq.push(['_addTrans',
    '<%= @cart.id %>',
    'olook',
@@ -169,7 +169,7 @@ _gaq.push(['_addTrans',
             </td>
             <td class="value discount">
               <p id="coupon_discount">
-                <% if @cart.coupon %>
+                <% if @cart.has_coupon? %>
                   <%= number_to_currency(@cart.total_coupon_discount) unless @cart.coupon.is_percentage? %>
                   <%= discount_percentage(@cart.coupon.discount_percent) %>
                 <% end %>
@@ -188,7 +188,7 @@ _gaq.push(['_addTrans',
           </tr>
         <tr class="total">
           <td>
-            <%- unless @cart.coupon -%>
+            <%- unless @cart.has_coupon? -%>
               <table id="coupon" cellpadding="0" cellspacing="0">
                 <tbody>
                   <tr class="discount">

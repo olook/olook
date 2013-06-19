@@ -9,8 +9,10 @@
     <% unless user.profile_name.nil? %>
       <%= image_tag "spacer.png", {:class => "#{user.profile_name.to_s}"} %>
     <% end %>
-  
-    <%= link_to "Quero tentar de novo", new_survey_path, :class => "new_survey" %>
-    <%= link_to "Essa sou eu", link, :class => "me" %>
+    
+    <ul>
+      <li><%= link_to "Quero tentar de novo", new_survey_path, :class => "new_survey" %></li>
+      <li><%= link_to "Essa sou eu", link, :class => "me" %></li>
+    </ul>
 
 </div>

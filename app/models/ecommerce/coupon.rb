@@ -59,7 +59,7 @@ class Coupon < ActiveRecord::Base
     end
 
     def coupon_specific_for_brand?
-      !brand.nil?
+      !brand.blank?
     end
 
     def product_ids_allowed_to_have_discount

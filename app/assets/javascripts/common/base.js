@@ -729,7 +729,7 @@ h2 = content.height(), w2 = content.width();console.log(h,w,h2,w2);
 
   fixBorderOnMyAccountDropDown : function() {
     $('div.user ul li.submenu').hover(function() {
-      var link = $(this).find('a#info_user');
+      var link = $(this).find('a#account');
       var link_width = $(link).outerWidth();
       /*if($(link).outerWidth() >= '125') {
         var link_width = $(link).outerWidth();
@@ -739,7 +739,7 @@ h2 = content.height(), w2 = content.width();console.log(h,w,h2,w2);
       $(this).find('div.my_account').css('width', link_width - 2);
       $(link).addClass('hover');
     }, function() {
-      var link = $(this).find('a#info_user');
+      var link = $(this).find('a#account');
       $(link).removeClass('hover');
     });
   },
