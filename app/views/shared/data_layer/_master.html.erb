@@ -14,6 +14,7 @@
         'UserShoeSize' : 'current_user.shoes_size',
         'UserCity' : '<%= current_user.addresses.first.try(:city) %>',
         'UserCreditValue' : '<%= current_user.current_credit %>',
+        'UserEmail': '<%= current_user.try(:email) %>',
 
         <% if @order.present? %>
           'orderNumber' :  "<%= @order.number %>",

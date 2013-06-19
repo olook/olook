@@ -72,7 +72,10 @@ class ProductPresenter < BasePresenter
   end
 
   def render_accessory_sizes
-    h.render :partial => 'product/sizes', :locals => {:variants => variants_sorted_by_size, :shoe_size => nil, :show_cloth_size_table => false}
+    if variants_sorted_by_size.size == 1
+      single_size = variants_sorted_by_size.first.description
+    end
+    h.render :partial => 'product/sizes', :locals => {:variants => variants_sorted_by_size, :shoe_size => single_size, :show_cloth_size_table => false}
   end
 
   def render_cloth_sizes

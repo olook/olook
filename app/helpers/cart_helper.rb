@@ -3,7 +3,7 @@ module CartHelper
 
   # TODO USER AND CART AS PARAMETER AND NOT AS INSTANCE VARIABLE, IT'S NOT MY FAULT
   def print_credit_message
-    "(não podem ser utilizados em pedidos com desconto)" unless @cart_service.allow_credit_payment?
+    "(disponível apenas em pedidos acima de R$ 100 e sem desconto)" unless @cart_service.allow_credit_payment?
   end
 
   def total_user_credits
@@ -27,7 +27,7 @@ module CartHelper
   end
 
   def has_discount?(item)
-    @cart_service.item_promotion?(item) || cart_has_percentage_coupon? || item.price != item.retail_price
+    @cart_service.item_promotion?(item) || @cart.has_appliable_percentage_coupon? || item.price != item.retail_price
   end
 
   def show_checkout_banner?
@@ -49,16 +49,12 @@ module CartHelper
     def calculate_percentage_for item
       # for compatibility reason
 
-      if cart_has_percentage_coupon? && @cart.total_coupon_discount > @cart.total_promotion_discount
+      if @cart.has_appliable_percentage_coupon? && @cart.total_coupon_discount > @cart.total_promotion_discount
         @cart.coupon.value
       else
         item_retail_price = @cart_service.item_retail_price(item)
         (item.price - item_retail_price) / item.price * BigDecimal("100.0")
       end
-    end
-
-    def cart_has_percentage_coupon?
-      @cart.coupon && @cart.coupon.is_percentage?
     end
 
 end
