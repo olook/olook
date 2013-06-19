@@ -46,6 +46,15 @@ header#new_header{border-top: 8px black solid;
         a.contact{text-decoration: none;color: #b4b5b7;
             &:hover{color:$base_color;}
         }
+        p{
+          .earn_credits{
+            color: #ef3742;
+            text-decoration: none;
+            float: left;
+            margin-top: 3px;
+            font-size: 11px;
+          }
+        }
       }
 
       .social_icons{width: 150px;float: left;clear: both;
