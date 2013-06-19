@@ -15,7 +15,7 @@
     Marcas
   %ul.subcategory-list
     - filters_by("brand_facet").each do |text, amount|
-      %li= filter_link_to(build_link_path, :color, text.chomp.split(" ").map{|w| w.upcase}.join(" "), amount)
+      %li= filter_link_to(build_link_path, :brand, text.chomp.split(" ").map{|w| w.upcase}.join(" "), amount)
 
 %p.title-category
   Preço
