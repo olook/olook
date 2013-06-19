@@ -111,14 +111,19 @@ production app01:
 RUBBER_ENV=production FILTER=app01 cap deploy
 ```
 
-production app2:
+production app02:
 ```
-RUBBER_ENV=production FILTER=app02 cap deploy
+RAILS_ENV=production FILTER=app02 cap deploy
 ```
 
 production only resques:
 ```
 RUBBER_ENV=production ROLES=resque cap deploy
+```
+
+Deploy with migrations:
+```
+RUBBER_ENV=production cap deploy:migrations
 ```
 
 If you need to deploy a different branch:

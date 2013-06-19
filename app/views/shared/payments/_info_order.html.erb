@@ -80,6 +80,13 @@
       <p><span class="txt-black">DESCONTO DE BOLETO:</span><span>- <%= number_to_currency(billet_discount) %> </span></p>
     </li>
     <% end
+    debit_discount = @order.payments.for_debit_discount.sum(:total_paid) if has_payment
+    debit_discount ||= cart_service.debit_discount
+    if debit_discount > 0 %>
+    <li>
+      <p><span class="txt-black">DESCONTO DE DÉBITO:</span><span>- <%= number_to_currency(debit_discount) %> </span></p>
+    </li>
+    <% end
     facebook_discount = @order.payments.for_facebook_share_discount.sum(:total_paid) if has_payment
     facebook_discount ||= cart_service.facebook_discount
     if facebook_discount > 0 %>
