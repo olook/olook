@@ -16,7 +16,7 @@ class SearchUrlBuilder
     self
   end
 
-  def with_subcategory subcategory
+  def with_subcategories subcategories
     @expressions["categoria"] ||= []
     @expressions["categoria"] = subcategory.to_s.split(MULTISELECTION_SEPARATOR)
     self
