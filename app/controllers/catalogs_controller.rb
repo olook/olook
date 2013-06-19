@@ -8,8 +8,9 @@ class CatalogsController < SearchController
     @subcategory = params[:categoria] if params[:categoria]
     @color = params[:color] if params[:color]
     @heel = params[:salto] if params[:salto]
+    @care = params[:care] if params[:care]
     @filters = SearchEngine.new(category: @category).filters
-    @search = SearchEngine.new(category: @category, subcategory: @subcategory, color: @color, heel: @heel).for_page(params[:page]).with_limit(100)
+    @search = SearchEngine.new(category: @category, subcategory: @subcategory, color: @color, heel: @heel, care: @care).for_page(params[:page]).with_limit(100)
     @catalog_products = @search.products
 
     # TODO => Mover para outro lugar
