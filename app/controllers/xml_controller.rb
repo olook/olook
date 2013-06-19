@@ -11,6 +11,10 @@ class XmlController < ApplicationController
     respond_with(@products)
   end
 
+  def afilio
+    respond_with(@products)
+  end
+
   def criteo
     @products = Product.valid_criteo_for_xml(Product.xml_blacklist("products_blacklist"), Product.xml_blacklist("collections_blacklist"))
     liquidation_products

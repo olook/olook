@@ -10,7 +10,7 @@
   = javascript_include_tag 'section/lite_catalog'
 
 #catalog
-  %aside= render "filters"
+  %aside= render "filters", category: @category
 
   #result
     / local onde o viewpersonalized será exibido

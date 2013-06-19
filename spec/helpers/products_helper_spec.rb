@@ -21,10 +21,6 @@ describe ProductsHelper do
       helper.variant_classes( not_size_variant ).should == ""
     end
 
-    it "should return a string with selected class when force size is zero" do
-      helper.variant_classes( normal_variant, 0 ).should == "selected"
-    end
-
     it "should return a empty string when force size is zero" do
       helper.variant_classes( not_size_variant, 0 ).should == ""
     end
