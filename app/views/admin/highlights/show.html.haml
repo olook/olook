@@ -1,0 +1,19 @@
+%p#notice= notice
+
+%h2 Listagem de pedidos
+
+- content_for :secondary_navigation do
+  %li= link_to 'Voltar', admin_path
+
+.inner
+  %p= image_tag @highlight.image
+  %p 
+    Link:
+    = @highlight.link
+  %p 
+    Posição: 
+    =@highlight.position
+
+= link_to 'Edit', edit_admin_highlight_path(@highlight)
+\|
+= link_to 'Back', admin_highlights_path

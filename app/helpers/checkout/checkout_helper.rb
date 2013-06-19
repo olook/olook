@@ -34,6 +34,14 @@ module Checkout::CheckoutHelper
     Setting.billet_discount_percent
   end
 
+  def debit_discount_enabled
+    Setting.debit_discount_available
+  end
+
+  def debit_discount_percentage
+    Setting.debit_discount_percent
+  end
+
   def gift_wrap_price(cart)
     cart.free_gift_wrap? ? "GRÁTIS" : number_to_currency(CartService.gift_wrap_price)
   end

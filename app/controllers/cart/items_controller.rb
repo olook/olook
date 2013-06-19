@@ -7,8 +7,8 @@ class Cart::ItemsController < ApplicationController
   def create
     ensure_a_variant_is_found!
     add_item_or_show_errors
-    @redirect_to_cart_page = params[:redirect] == "1" ? true : false
-    update_cart_summary_on_view
+
+    redirect_to cart_path
   end
 
   def update
@@ -34,11 +34,6 @@ class Cart::ItemsController < ApplicationController
   end
 
   private
-
-  def update_cart_summary_on_view
-    # renders create.js.erb
-    respond_with { |format| format.js {} }
-  end
 
   def add_item_or_show_errors
     @cart ||= create_cart

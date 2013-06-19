@@ -122,6 +122,14 @@ class Cart < ActiveRecord::Base
     Setting.valentines_day_coupon_code == (coupon_code)
   end
 
+  def has_appliable_percentage_coupon?
+    coupon && coupon.is_percentage? && items.select{|item| coupon.apply_discount_to?(item.product)}.any?
+  end
+
+  def has_coupon?
+    coupon && (!coupon.is_percentage? || has_appliable_percentage_coupon?)
+  end
+
   private
 
     def update_coupon
