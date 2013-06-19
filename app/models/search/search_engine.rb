@@ -10,6 +10,7 @@ class SearchEngine
     .with_color(attributes[:color])
     .with_brand(attributes[:brand])
     .with_heel(attributes[:heel])
+    .with_care(attributes[:care])
     .grouping_by
   end
 

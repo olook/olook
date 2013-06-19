@@ -28,6 +28,12 @@ class SearchUrlBuilder
     self
   end
 
+  def with_care care
+    @expressions["care"] ||= []
+    @expressions["care"] = care.to_s.split(MULTISELECTION_SEPARATOR)
+    self
+  end
+
   def with_brand brand
     @expressions["brand"] ||= []
     @expressions["brand"] = brand.to_s.split(MULTISELECTION_SEPARATOR)
@@ -57,6 +63,7 @@ class SearchUrlBuilder
     @facets << "categoria"
     @facets << "cor_filtro"
     @facets << "salto"
+    @facets << "care"
     self
   end
 
