@@ -96,6 +96,7 @@ class PaymentBuilder
     def create_discount_payments
       total_promotion = cart_service.cart.total_promotion_discount
       billet_discount = cart_service.total_discount_by_type(:billet_discount, payment)
+      debit_discount = cart_service.total_discount_by_type(:debit_discount, payment)
       facebook_discount = cart_service.total_discount_by_type(:facebook_discount, payment)
 
       if cart_service.cart.coupon
@@ -115,6 +116,7 @@ class PaymentBuilder
       create_payment_for(total_promotion, PromotionPayment, {promotion: cart_service.cart.items.first.cart_item_adjustment.source})
       create_payment_for(facebook_discount, FacebookShareDiscountPayment)
       create_payment_for(billet_discount, BilletDiscountPayment)
+      create_payment_for(debit_discount, DebitDiscountPayment)
     end
 
 

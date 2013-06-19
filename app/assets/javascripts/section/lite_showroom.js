@@ -21,7 +21,7 @@ showroom = s = {
   openModal: function(){
    if($('.dialog.liquidation').length == 1) {
      var content = $('.dialog.liquidation');
-     o.newModal(content);
+     o.newModal(content, 550, 550);
     }
   },
 
@@ -58,7 +58,7 @@ showroom = s = {
 
       $("#showroom").append(clone);
 
-      o.newModal(content);
+      o.newModal(content,546,930);
       e.preventDefault();
     })
   },

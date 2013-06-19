@@ -1,0 +1,22 @@
+= form_for [:admin, @highlight] do |f|
+  - if @highlight.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@highlight.errors.count, "error")} prohibited this highlight from being saved:"
+      %ul
+        - @highlight.errors.full_messages.each do |msg|
+          %li= msg
+
+  %fieldset
+    =f.label :image, "Imagem"
+    =f.file_field :image
+  
+  %fieldset
+    =f.label :link, "Link (url completa, com 'http://')"
+    =f.text_field :link
+  
+  %fieldset
+    =f.label :position, "Posição"
+    =f.text_field :position
+
+  .actions
+    = f.submit 'Save'

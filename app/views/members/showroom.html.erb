@@ -15,7 +15,7 @@
     <div id="profile">
       <div class="photo">
       <% if current_user.has_facebook? %>
-        <%= content_tag :div, image_tag("https://graph.facebook.com/#{current_user.uid}/picture?width=90&height=85", class: 'avatar-photo'), class: 'avatar' if current_user.uid %>
+        <%= content_tag :div, image_tag("http://graph.facebook.com/#{current_user.uid}/picture?width=90&height=85", class: 'avatar-photo'), class: 'avatar' if current_user.uid %>
       <% else %>
         <p>Que tal sua foto aqui?</p>
         <%= link_to "Conectar no Facebook", "/conta/auth/facebook", class: "btn-connect-face", onclick: track_event("FacebookConnect", "ConnectFromLoggedShowRoom") %>
@@ -195,7 +195,8 @@
 <%= render "shared/modal/liquidation" %>
 <% end %>
 <!-- END MODALS -->
-<% if @user.first_visit_for_member? %>
+<% first_visit = @user.first_visit_for_member? %>
+<% if first_visit %>
   <% content_for :data_layer do %>
     <%= render "shared/metrics/adlead/adlead" %>
   <% end %>
@@ -206,7 +207,20 @@
 
   <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
 
-  <% if @user.first_visit_for_member? %>
+  <% if user_signed_in? %>
+    <% content_for :head do %>
+      <%= stylesheet_link_tag "section/invite" %>
+      <%= stylesheet_link_tag "section/box_invite" %>
+    <% end %>
+    
+    <%= javascript_include_tag "common/jquery.zclip.min" %>  
+    
+    <%= render "shared/invite", :user => current_user %>
+    <%= render 'shared/metrics/all_in/showroom', :user => current_user  %>
+  <% end %>
+  
+  <% if first_visit %>
+
     <%= javascript_include_tag "first_visit" %>
     <%= render "shared/metrics/google/track_signup_page_view" %>
     <%= render "shared/metrics/metaffiliation/action", :email => current_user.email %>
@@ -218,9 +232,6 @@
     }, 1500);
     </script>
   <% end %>
-
-  <% if user_signed_in? %>
-    <%= render "shared/invite", :user => current_user %>
-    <%= render 'shared/metrics/all_in/showroom', :user => current_user  %>
-  <% end %>
+  
+  
 <% end %>

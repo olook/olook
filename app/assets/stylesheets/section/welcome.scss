@@ -312,3 +312,26 @@ section#welcome {
     }
   }
 }
+
+
+div#profile_quiz ul li {
+width: 475px;
+overflow: auto;
+margin: 20px 0;
+float: left;
+}
+
+div#profile_quiz ul li a {
+text-indent: -9999px;display: block;} 
+
+div#profile_quiz ul li a.new_survey {
+background: url(/assets/common/try-again.jpg) no-repeat;width: 301px;
+height: 59px;
+float: right;
+}
+
+div#profile_quiz ul li a.me {
+background: url(/assets/common/its-me.png) no-repeat;
+width: 179px;height: 59px;
+margin: 0 0 0 20px;
+}

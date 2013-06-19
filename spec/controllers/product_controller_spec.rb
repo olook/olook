@@ -6,7 +6,7 @@ describe ProductController do
     render_views
     let(:variant) { FactoryGirl.create(:basic_shoe_size_35) }
     let(:product) { variant.product }
-    let!(:user_info) { FactoryGirl.create(:user_info, :user => user) }
+    # let!(:user_info) { FactoryGirl.create(:user_info, :user => user) }
     let(:order) { FactoryGirl.create(:order, :user => user).id }
     let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
     let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
