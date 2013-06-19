@@ -57,6 +57,7 @@ class SearchUrlBuilder
     @facets << "categoria"
     @facets << "cor_filtro"
     @facets << "salto"
+    @facets << "care"
     self
   end
 
