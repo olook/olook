@@ -6,8 +6,6 @@ class SearchedProduct
   def initialize id, data
     self.id = id
     self.formatted_name = data["name"][0]
-    self.model_name = data["categoria"][0]
-    self.category = data["category"][0]
     self.catalog_image = data["image"][0]
     self.backside_picture = data["backside_image"][0]
     self.brand = data["brand"][0]
