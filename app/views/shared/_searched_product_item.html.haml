@@ -1,6 +1,8 @@
 %li{:class => "product#{" promotion" if product.promotion?}", "data-id" => product.id}
   = link_to product_path(product.id), :class => "product_link", :rel => "#{product.id}" do
     = image_tag(product.catalog_image, :alt => product.formatted_name, :class => "async", :data => {:backside_picture => product.backside_picture, :product => product.catalog_image} )
+    %p.hover_suggestive
+      = content_tag(:span, "ESPIAR", :data => {:url => product_path(product), :gift => (gift ||= false), :shoe_size => (shoe_size ||= nil)}, :rel => "#{product.id}", :remote => true)
     %p.info-product
       %span.name= product.formatted_name 
       %br/
@@ -22,4 +24,5 @@
           %span= product.discount_percent.to_i
           %br/ 
           off
+          
           
