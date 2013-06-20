@@ -4,7 +4,7 @@ class IndexProductsWorker
 
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
 
-  CARE_PRODUCTS = ['Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar']
+
 
   @queue = :search
 
@@ -68,7 +68,6 @@ class IndexProductsWorker
         fields = {}
 
         fields['name'] = product.formatted_name(150)
-        fields['description'] = product.description
         fields['image'] = product.catalog_picture
         fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
         fields['brand'] = product.brand
@@ -78,19 +77,23 @@ class IndexProductsWorker
         fields['in_promotion'] = product.promotion?
         fields['category'] = product.category_humanize
         fields['size'] = product.variants.select{|v| v.inventory > 0}.map{|b| "-#{b.description}-"}
-        fields['care'] = product.subcategory if CARE_PRODUCTS.include?(product.subcategory)
+        fields['care'] = product.subcategory if Product::CARE_PRODUCTS.include?(product.subcategory)
 
         details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno', 'salto'].include?(d.translation_token.downcase) }
-
+        translation_hash = {
+          'categoria' => 'subcategory',
+          'cor filtro' => 'color',
+          'salto' => 'heel'
+        }
         details.each do |detail|
           if detail.translation_token.downcase == 'salto' && product.shoe?
-            fields['salto'] = heel_range(detail.description.to_i)
+            fields['heel'] = heel_range(detail.description.to_i)
           else
-
-            fields[detail.translation_token.downcase.gsub(" ","_")] = detail.description.split(" ").first
+            field_key = translation_hash.include?(detail.translation_token) ? translation_hash[detail.translation_token] : detail.translation_token.downcase.gsub(" ","_")
+            fields[field_key] = detail.description.split(" ").first
           end
         end
-
+        fields['keywords'] = fields.select{|k,v| ['category', 'subcategory', 'color', 'size', 'name', 'brand', 'material externo', 'material interno', 'material da sola'].include?(k)}.values.join(" ")
         values['fields'] = fields
 
       end
