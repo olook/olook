@@ -1,4 +1,5 @@
 @import 'new_structure/common/global_stuffs';
+@import 'new_structure/partials/thumb_product_catalog';
 
 aside{float:left;width:185px;
   .filter{margin-bottom:25px;}
@@ -40,9 +41,9 @@ aside{float:left;width:185px;
   a{display:inline-block;height:15px;font-size:13px;text-decoration:none;color:#000;background:image-url('catalog/sprite.png') no-repeat 0 -50px;padding-left:13px;text-transform:capitalize;}
 }
 
-#result{display:inline-block;width: 740px;}
+.container_product{float:left;}
   
-ul#products{
+/*ul#products{
   li{
     display:inline-block;
     width:225px;
@@ -61,4 +62,4 @@ ul#products{
     &.purses{left:362px;}
     &.accessories{left:347px;}
   }
-}
+}*/

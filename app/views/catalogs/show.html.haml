@@ -22,6 +22,7 @@
     = render "moments/new_header_moments"
     .pagination
     = render "/shared/nav_bar_pagination", search: @search
-    %ul#products
-      = render "shared/searched_products", :products => @catalog_products
-    .loading
+    %section.container_product
+      %ul#products
+        = render "shared/searched_products", :products => @catalog_products
+      .loading
