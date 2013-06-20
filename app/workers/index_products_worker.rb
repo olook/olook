@@ -9,9 +9,12 @@ class IndexProductsWorker
   @queue = :search
 
   def self.perform
-    products = all_products 
+    products = all_products
     brands = get_brands(products)
     Rails.cache.write(CACHE_KEYS[:all_brands][:key], brands, expires_in: CACHE_KEYS[:all_brands][:expire])
+
+    subcategories = get_subcategories(products)
+    Rails.cache.write(CACHE_KEYS[:all_subcategories][:key], subcategories, expires_in: CACHE_KEYS[:all_subcategories][:expire])
 
     add_products(products)
     remove_products(products)
@@ -24,6 +27,10 @@ class IndexProductsWorker
 
     def self.get_brands(products)
       Set.new(products.map(&:brand).map(&:titleize).uniq)
+    end
+
+    def self.get_subcategories(products)
+      Set.new(products.map(&:subcategory).compact.map(&:titleize).uniq)
     end
 
     def self.add_products(products)
@@ -112,7 +119,7 @@ class IndexProductsWorker
     end
 
     def self.heel_range index
-      case 
+      case
         when index < 5
           '0-4 cm'
         when index >= 5 && index < 10
