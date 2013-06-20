@@ -89,7 +89,7 @@ class IndexProductsWorker
           if detail.translation_token.downcase == 'salto' && product.shoe?
             fields['heel'] = heel_range(detail.description.to_i)
           else
-            field_key = translation_hash.include?(detail.translation_token) ? translation_hash[detail.translation_token] : detail.translation_token.downcase.gsub(" ","_")
+            field_key = translation_hash.include?(detail.translation_token.downcase) ? translation_hash[detail.translation_token.downcase] : detail.translation_token.downcase.gsub(" ","_")
             fields[field_key] = detail.description.split(" ").first
           end
         end
@@ -124,11 +124,11 @@ class IndexProductsWorker
     def self.heel_range index
       case
         when index < 5
-          '0-4 cm'
+          '0..4 cm'
         when index >= 5 && index < 10
-          '5-9 cm'
+          '5..9 cm'
         when index > 10
-          '10-15 cm'
+          '10..15 cm'
         else
           ''
       end
