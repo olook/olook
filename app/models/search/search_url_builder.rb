@@ -69,10 +69,11 @@ class SearchUrlBuilder
 
   def grouping_by
     @facets << "brand_facet"
-    @facets << "categoria"
-    @facets << "cor_filtro"
+    @facets << "subcategory"
+    @facets << "color"
     @facets << "heel"
     @facets << "care"
+    @facets << "size"
     self
   end
 
