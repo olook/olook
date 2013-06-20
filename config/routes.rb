@@ -4,6 +4,7 @@ require 'resque/server'
 Olook::Application.routes.draw do
 
   match "/catalogo/:category/*params", to: "catalogs#show", as: "catalog"
+  match "/catalogo/:category", to: "catalogs#show", as: "catalog"
 
   mount Resque::Server => "/admin/resque"
 
