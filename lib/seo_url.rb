@@ -23,13 +23,13 @@ class SeoUrl
     end
 
     subcategories_and_brands.each do |sub|
-      if _all_subcategories.include?(sub.camelize)
+      if _all_subcategories.include?(sub.titlecase)
         subcategories << sub
       end
     end
 
     subcategories_and_brands.each do |sub|
-      if _all_brands.include?(sub.camelize)
+      if _all_brands.include?(sub.titlecase)
         brands << sub
       end
     end
