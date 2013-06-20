@@ -5,6 +5,7 @@ class CatalogsController < SearchController
 
   def show
     @category = params[:category].parameterize.singularize if params[:category]
+    params.merge!(SeoUrl.parse(params[:params]))
     @subcategories = params[:subcategories] if params[:subcategories]
     @color = params[:color] if params[:color]
     @heel = params[:salto] if params[:salto]
