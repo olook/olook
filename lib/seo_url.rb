@@ -8,8 +8,8 @@ class SeoUrl
   def self.parse parameters
     parsed_values = HashWithIndifferentAccess.new
 
-    _all_brands = self.all_brands
-    _all_subcategories = self.all_subcategories
+    _all_brands = self.all_brands || []
+    _all_subcategories = self.all_subcategories || []
 
     all_parameters = parameters.split("/")
     subcategories_and_brands = all_parameters.first.split("-")
