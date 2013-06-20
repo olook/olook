@@ -8,7 +8,7 @@
   %p.title-category Cores
   %ul.category-list.cores
     - filters_by("color").each do |text, amount|
-      %li{:class => text.chomp.downcase}= filter_link_to(build_link_path, :cor, text.chomp, amount)
+      %li{:class => text.chomp.downcase}= filter_link_to(build_link_path, :color, text.chomp, amount)
 
 .filter
   %p.title-category Preço
