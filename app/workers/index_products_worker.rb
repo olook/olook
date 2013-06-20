@@ -9,7 +9,7 @@ class IndexProductsWorker
   @queue = :search
 
   def self.perform
-    products = all_products 
+    products = all_products
     brands = get_brands(products)
     Rails.cache.write(CACHE_KEYS[:all_brands][:key], brands, expires_in: CACHE_KEYS[:all_brands][:expire])
 
@@ -61,7 +61,6 @@ class IndexProductsWorker
         fields = {}
 
         fields['name'] = product.formatted_name(150)
-        fields['description'] = product.description
         fields['image'] = product.catalog_picture
         fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
         fields['brand'] = product.brand
@@ -74,16 +73,20 @@ class IndexProductsWorker
         fields['care'] = product.subcategory if CARE_PRODUCTS.include?(product.subcategory)
 
         details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno', 'salto'].include?(d.translation_token.downcase) }
-
+        translation_hash = {
+          'categoria' => 'subcategory',
+          'cor filtro' => 'color',
+          'salto' => 'heel'
+        }
         details.each do |detail|
           if detail.translation_token.downcase == 'salto' && product.shoe?
-            fields['salto'] = heel_range(detail.description.to_i)
+            fields['heel'] = heel_range(detail.description.to_i)
           else
-
-            fields[detail.translation_token.downcase.gsub(" ","_")] = detail.description.split(" ").first
+            field_key = translation_hash.include?(detail.translation_token) ? translation_hash[detail.translation_token] : detail.translation_token.downcase.gsub(" ","_")
+            fields[field_key] = detail.description.split(" ").first
           end
         end
-
+        fields['keywords'] = fields.select{|k,v| ['category', 'subcategory', 'color', 'size', 'name', 'brand', 'material externo', 'material interno', 'material da sola'].include?(k)}.values.join(" ")
         values['fields'] = fields
 
       end
@@ -112,7 +115,7 @@ class IndexProductsWorker
     end
 
     def self.heel_range index
-      case 
+      case
         when index < 5
           '0-4 cm'
         when index >= 5 && index < 10
