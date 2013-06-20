@@ -4,6 +4,27 @@ filter.init = function(){
   if(typeof final_position == 'undefined') final_position = 400;
   filter.sliderRange(start_position, final_position);
 }
+filter.parseURL = function() {
+  var l = window.location;
+  filter.baseURL = l.protocol + '//' + l.host + l.pathname;
+  filter.searchURL = l.search;
+  var s = l.search;
+  s = s.replace(/^\?/, '').split('&');
+  filter.searchQuery = {};
+  $.each(s, function(idx, item) {
+    var h = item.split('=');
+    if(h[1] && h[0]) filter.searchQuery[h[0]] = h[1]
+  });
+}
+filter.mountURL = function(othermaps) {
+  if(!filter.searchURL) filter.parseURL();
+  if(!othermaps) othermaps = {};
+
+  var url = filter.baseURL;
+  var query = $.extend(true, {}, filter.searchQuery, othermaps);
+  url = url + '?' + $.param(query);
+  return url;
+}
 filter.sliderRange = function(start_position, final_position){
 
   $("#slider-range").slider({
@@ -19,7 +40,7 @@ filter.sliderRange = function(start_position, final_position){
       },
 
       stop: function(event,ui){
-        $("input#price").val(ui.values[ 0 ]+'-'+ui.values[ 1 ]);
+        window.location = filter.mountURL({price: (ui.values[ 0 ]+'-'+ui.values[ 1 ])});
       }
   });
 
