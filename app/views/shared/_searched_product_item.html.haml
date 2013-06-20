@@ -1,10 +1,25 @@
 %li{:class => "product#{" promotion" if product.promotion?}", "data-id" => product.id}
   = link_to product_path(product.id), :class => "product_link", :rel => "#{product.id}" do
     = image_tag(product.catalog_image, :alt => product.formatted_name, :class => "async", :data => {:backside_picture => product.backside_picture, :product => product.catalog_image} )
-    %h2.name= product.formatted_name
-    %p.price.brand
-      %b= product.brand
-    %p.price
-      = number_to_currency product.price
-      ou
-      %span.plots= installments(product.price)
+    %p.info-product
+      %span.name= product.formatted_name 
+      %br/
+      %strong.brand= product.brand
+      %br/
+      
+      - if product.promotion?
+        %span.price
+          %span.old De = number_to_currency product.price
+          %span.txt-black por = number_to_currency product.retail_price
+      - else  
+        %span.price
+          = number_to_currency product.price 
+          ou
+          %span.plots= installments(product.price)
+      
+      - if product.promotion? && !product.sold_out? && product.discount_percent.to_i != 0
+        %p.warn.percentage
+          %span= product.discount_percent.to_i
+          %br/ 
+          off
+          
