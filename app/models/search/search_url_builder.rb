@@ -62,7 +62,7 @@ class SearchUrlBuilder
     @facets << "brand_facet"
     @facets << "categoria"
     @facets << "cor_filtro"
-    @facets << "salto"
+    @facets << "heel"
     @facets << "care"
     self
   end
