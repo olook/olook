@@ -1,0 +1,38 @@
+.filter
+  %p.title-category Modelo
+  %ul.category-list
+    - filters_by("subcategory").each do |text, amount|
+      %li= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(subcategory: text.chomp))), text.chomp, amount)
+
+.filter
+  %p.title-category Cores
+  %ul.category-list.cores
+    - filters_by("color").each do |text, amount|
+      %li{:class => text.chomp.downcase}= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(color: text.chomp))), text.chomp, amount)
+
+.filter
+  %p.title-category Preço
+  .price-range
+    #min-value-label 0
+    %input{type: "text", id: "min-value"}
+    .slider
+      #slider-range
+    #max-value-label 0
+    %input{type:"text", id:"max-value"}
+    %input{type:"hidden", name:"price", id:"price"}
+- if ['sapato', 'roupa'].include?(category)
+  .filter
+    %p.title-category Tamanho
+    %ul.category-list
+      - filters_by('size').each do |text, amount| val = text.chomp.gsub(/^-/, '').gsub(/-$/,'')
+        %li= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(size: text.chomp))), val, amount)
+- if category == 'sapato'
+  .filter
+    %p.title-category Salto
+    %ul.category-list
+    - filters_by("heel").each do |text, amount|
+      %li= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(heel: text.chomp))), text.chomp, amount)
+    %p.title-category Conforto & Proteção
+    %ul.subcategory-list
+      - filters_by("care").each do |text, amount|
+        %li= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(care: text.chomp))), text.chomp, amount)
