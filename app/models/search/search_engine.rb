@@ -3,6 +3,7 @@ class SearchEngine
   attr_reader :current_page, :result
 
   def initialize attributes = {}
+    @current_page = 1
     @search = SearchUrlBuilder.new
     .for_term(attributes[:term])
     .with_category(attributes[:category])
@@ -15,8 +16,36 @@ class SearchEngine
     .grouping_by
   end
 
-  def for_page page=nil
-    @current_page = page.try(:to_i) || 1
+  def filters_applied(other_values={})
+    filter_params = HashWithIndifferentAccess.new
+
+    @search.expressions.each do |k, v|
+      filter_params[k] ||= []
+      if v.respond_to?(:join)
+        filter_params[k].concat v
+      else
+        /(?<min>\d+)\.\.(?<max>\d+)/ =~ v.to_s
+        filter_params[k] = "#{min}-#{max}"
+      end
+    end
+
+    other_values.each do |k,v|
+      if filter_params[k]
+        if filter_params[k].respond_to?(:join)
+          filter_params[k] << v
+          filter_params[k].uniq!
+        else
+          /(?<min>\d+)\.\.(?<max>\d+)/ =~ v.to_s
+          filter_params[k] = "#{min}-#{max}"
+        end
+      end
+    end
+
+    filter_params
+  end
+
+  def for_page page
+    @current_page = (page || 1).to_i
     self
   end
 
