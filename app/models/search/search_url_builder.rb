@@ -89,7 +89,8 @@ class SearchUrlBuilder
   def build_filters_url
     bq = build_boolean_expression
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
-    URI.parse("http://#{@base_url}?#{bq}")
+    q = @query ? "#{@query}&" : ""
+    URI.parse("http://#{@base_url}?#{q}#{bq}")
   end
 
   private

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class SearchResult
 
-  attr_reader :products
+  attr_reader :products, :facets
 
   def initialize(response, options = {})
    @hits = JSON.parse(response.body)["hits"]
