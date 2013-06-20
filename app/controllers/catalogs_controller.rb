@@ -11,7 +11,7 @@ class CatalogsController < SearchController
     @care = params[:care] if params[:care]
     @brand = params[:brand] if params[:brand]
     @filters = SearchEngine.new(category: @category).filters
-
+    @filters.grouped_products('categoria').delete_if{|c| Product::CARE_PRODUCTS.include?(c) }
     @search = SearchEngine.new(category: @category, subcategories: @subcategories, color: @color, heel: @heel, care: @care, brand: @brand).for_page(params[:page]).with_limit(100)
     @catalog_products = @search.products
 
