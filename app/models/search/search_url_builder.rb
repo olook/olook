@@ -98,14 +98,14 @@ class SearchUrlBuilder
       @expressions.each do |field, values|
         if values.is_a?(String)
           bq << values
-        else
-          vals = values.map { |v| "(field #{field} '#{CGI.escape v}')" }
+        elsif values.is_a?(Array) && values.any?
+          vals = values.map { |v| "(field #{field} '#{CGI.escape v}')" } unless values.empty?
           bq << ( vals.size > 1 ? "(or #{vals.join(' ')})" : vals.first )
         end
       end
       if bq.size == 1
         "bq=#{url_encode bq.first}&"
-      elsif @expressions.size > 1
+      elsif @expressions.reject{|k,v| v.empty?}.size > 1
         "bq=#{url_encode "(and #{bq.join(' ')})"}&"
       else
         ""
