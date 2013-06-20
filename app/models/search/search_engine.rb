@@ -29,12 +29,17 @@ class SearchEngine
   end
 
   def start_product
-    limit ? (@current_page - 1) * @limit : 0
+    @limit ? (@current_page - 1) * @limit : 0
   end
 
   def with_limit limit=50
     @limit = limit.to_i
     self
+  end
+
+  def filters_and_products
+    url = @search.build_url_for(limit: 50, start: self.start_product)
+    @result = fetch_result(url, parse_facets: true, parse_products: true)
   end
 
   def filters
