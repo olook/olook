@@ -40,7 +40,7 @@ filter.sliderRange = function(start_position, final_position){
       },
 
       stop: function(event,ui){
-        window.location = filter.mountURL({price: (ui.values[ 0 ]+'-'+ui.values[ 1 ])});
+        window.location = filter.mountURL({preco: (ui.values[ 0 ]+'-'+ui.values[ 1 ])});
       }
   });
 

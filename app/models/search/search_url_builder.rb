@@ -4,10 +4,12 @@ class SearchUrlBuilder
 
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
   # BASE_URL = SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
+  #
+  attr_reader :expressions
 
   def initialize(base_url=SEARCH_CONFIG["search_domain"] + "/2011-02-01/search")
     @base_url = base_url
-    @expressions = {}
+    @expressions = HashWithIndifferentAccess.new
     @facets = []
   end
 
@@ -58,11 +60,18 @@ class SearchUrlBuilder
     self
   end
 
+  def with_price price
+    if price =~ /^\d+-\d+$/
+      @expressions["price"] = "price:#{price.to_s.gsub('-', '..')}"
+    end
+    self
+  end
+
   def grouping_by
     @facets << "brand_facet"
     @facets << "categoria"
     @facets << "cor_filtro"
-    @facets << "salto"
+    @facets << "heel"
     @facets << "care"
     self
   end
@@ -87,12 +96,16 @@ class SearchUrlBuilder
     def build_boolean_expression
       bq = []
       @expressions.each do |field, values|
-        vals = values.map { |v| "(field #{field} '#{CGI.escape v}')" }
-        bq << ( vals.size > 1 ? "(or #{vals.join(' ')})" : vals.first )
+        if values.is_a?(String)
+          bq << values
+        elsif values.is_a?(Array) && values.any?
+          vals = values.map { |v| "(field #{field} '#{CGI.escape v}')" } unless values.empty?
+          bq << ( vals.size > 1 ? "(or #{vals.join(' ')})" : vals.first )
+        end
       end
       if bq.size == 1
         "bq=#{url_encode bq.first}&"
-      elsif @expressions.size > 1
+      elsif @expressions.reject{|k,v| v.empty?}.size > 1
         "bq=#{url_encode "(and #{bq.join(' ')})"}&"
       else
         ""

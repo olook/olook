@@ -11,6 +11,7 @@ class SearchEngine
     .with_brand(attributes[:brand])
     .with_heel(attributes[:heel])
     .with_care(attributes[:care])
+    .with_price(attributes[:price])
     .grouping_by
   end
 
@@ -63,6 +64,12 @@ class SearchEngine
 
   def has_previous_page?
     self.current_page.to_i > 1
+  end
+
+  def range_values_for(filter)
+    if /(?<min>\d+)\.\.(?<max>\d+)/ =~ self.search.expressions[filter].to_s
+      { min: min, max: max }
+    end
   end
 
   private
