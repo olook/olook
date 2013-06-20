@@ -18,9 +18,9 @@ class SearchUrlBuilder
     self
   end
 
-  def with_subcategories subcategories
-    @expressions["categoria"] ||= []
-    @expressions["categoria"] = subcategories.to_s.split(MULTISELECTION_SEPARATOR)
+  def with_subcategories subcategory
+    @expressions["subcategory"] ||= []
+    @expressions["subcategory"] = subcategory.to_s.split(MULTISELECTION_SEPARATOR)
     self
   end
 
@@ -69,10 +69,11 @@ class SearchUrlBuilder
 
   def grouping_by
     @facets << "brand_facet"
-    @facets << "categoria"
-    @facets << "cor_filtro"
+    @facets << "subcategory"
+    @facets << "color"
     @facets << "heel"
     @facets << "care"
+    @facets << "size"
     self
   end
 
@@ -82,7 +83,7 @@ class SearchUrlBuilder
     bq = build_boolean_expression
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
     q = @query ? "?#{@query}&" : "?"
-    URI.parse("http://#{@base_url}#{q}#{bq}return-fields=categoria,name,brand,description,image,price,backside_image,category,text_relevance&size=100&start=#{ options[:start] }&rank=-cor_e_marca&size=#{ options[:limit] }")
+    URI.parse("http://#{@base_url}#{q}#{bq}return-fields=subcategory,name,brand,image,price,backside_image,category,text_relevance&size=100&start=#{ options[:start] }&rank=-cor_e_marca&size=#{ options[:limit] }")
   end
 
   def build_filters_url
