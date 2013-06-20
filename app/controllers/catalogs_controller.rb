@@ -14,7 +14,6 @@ class CatalogsController < SearchController
     @filters = SearchEngine.new(category: @category).filters
     @filters.grouped_products('categoria').delete_if{|c| Product::CARE_PRODUCTS.include?(c) }
     @search = SearchEngine.new(category: @category, subcategories: @subcategories, color: @color, heel: @heel, care: @care, brand: @brand, price: params[:preco]).for_page(params[:page]).with_limit(100)
-    binding.pry
     @catalog_products = @search.products
 
     # TODO => Mover para outro lugar
