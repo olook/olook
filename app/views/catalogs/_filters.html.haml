@@ -24,9 +24,8 @@
   .filter
     %p.title-category Salto
     %ul.category-list
-      %li= link_to("0-4cm", "/catalogo/sapato?#{@querystring}&salto=0..4" )
-      %li= link_to("5-9cm","/catalogo/sapatos/?salto=5..9")
-      %li= link_to("10-15cm", "/catalogo/sapatos/?salto=10..")
+    - filters_by("heel").each do |text, amount|
+      %li= filter_link_to(build_link_path, :care, text.chomp, amount)
     %p.title-category Conforto & Proteção
     %ul.subcategory-list
     - filters_by("care").each do |text, amount|
