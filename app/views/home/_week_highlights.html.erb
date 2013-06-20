@@ -14,12 +14,12 @@
       <%= link_to "Veja mais aqui", "/stylist-news/valentino-inspired/", class: "more", onclick: track_event('Destaques','BannerEsquerda') %>
     </li>
     <li id="shoes">
-      <%= link_to "/roupas?cloth_subcategories[]=vestido", onclick: track_event('Destaques','BannerCentro') do %>
-        <%= image_tag "home/vestidos.gif", title: "VESTIDO PARA TODAS" %>
+      <%= link_to "/sapatos?shoe_subcategories[]=slipper", onclick: track_event('Destaques','BannerCentro') do %>
+        <%= image_tag "home/sapatilhas.gif", title: "SLIPPERS PARA TODAS" %>
       <% end %>      
-      <h1><%= link_to "VESTIDO PARA TODAS", "/roupas?cloth_subcategories[]=vestido", onclick: track_event('Destaques','BannerCentro') %></h1>
-      <p>Confira e escolha o seu modelo </p>
-      <%= link_to "Confira aqui", "/roupas?cloth_subcategories[]=vestido", class: "more", onclick: track_event('Destaques','BannerCentro') %>
+      <h1><%= link_to "SLIPPERS PARA TODAS", "/sapatos?shoe_subcategories[]=slipper", onclick: track_event('Destaques','BannerCentro') %></h1>
+      <p>Confira e escolha o seu modelo</p>
+      <%= link_to "Confira aqui", "/sapatos?shoe_subcategories[]=slipper", class: "more", onclick: track_event('Destaques','BannerCentro') %>
     </li>
     <li id="olookmovel" class="iehack"> <!-- NAO REMOVER A CLASSE -->
       <%= link_to olookmovel_path, onclick: track_event('Destaques','BannerDireita') do %>
