@@ -3,8 +3,8 @@ require 'spec_helper'
 describe SeoUrl do
   describe ".parse" do
     before do
-      described_class.stub(:all_subcategories).and_return(["amaciante","bota"])
-      described_class.stub(:all_brands).and_return(["colcci","olook"])
+      described_class.stub(:all_subcategories).and_return(["Amaciante","Bota"])
+      described_class.stub(:all_brands).and_return(["Colcci","Olook"])
     end
     context "when given parameters has subcategory and filters" do
       subject { SeoUrl.parse("amaciante/tamanho-36-p_cor-azul-vermelho") }

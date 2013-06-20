@@ -6,7 +6,7 @@ class CatalogsController < SearchController
   def show
     @category = params[:category].parameterize.singularize if params[:category]
     params.merge!(SeoUrl.parse(params[:params]))
-    @subcategories = params[:subcategories] if params[:subcategories]
+    @subcategories = params[:subcategory] if params[:subcategory]
     @color = params[:color] if params[:color]
     @heel = params[:salto] if params[:salto]
     @care = params[:care] if params[:care]
@@ -14,6 +14,7 @@ class CatalogsController < SearchController
     @filters = SearchEngine.new(category: @category).filters
     @filters.grouped_products('categoria').delete_if{|c| Product::CARE_PRODUCTS.include?(c) }
     @search = SearchEngine.new(category: @category, subcategories: @subcategories, color: @color, heel: @heel, care: @care, brand: @brand, price: params[:preco]).for_page(params[:page]).with_limit(100)
+    binding.pry
     @catalog_products = @search.products
 
     # TODO => Mover para outro lugar
