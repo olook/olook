@@ -4,7 +4,7 @@ class IndexProductsWorker
 
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
 
-  CARE_PRODUCTS = ['Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar']
+
 
   @queue = :search
 
@@ -70,7 +70,7 @@ class IndexProductsWorker
         fields['in_promotion'] = product.promotion?
         fields['category'] = product.category_humanize
         fields['size'] = product.variants.select{|v| v.inventory > 0}.map{|b| "-#{b.description}-"}
-        fields['care'] = product.subcategory if CARE_PRODUCTS.include?(product.subcategory)
+        fields['care'] = product.subcategory if Product::CARE_PRODUCTS.include?(product.subcategory)
 
         details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno', 'salto'].include?(d.translation_token.downcase) }
         translation_hash = {

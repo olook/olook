@@ -2,6 +2,7 @@
 class Product < ActiveRecord::Base
 
   SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto"
+  CARE_PRODUCTS = ['Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar']
   UNAVAILABLE_ITEMS = :unavailable_items
   # TODO: Temporarily disabling paper_trail for app analysis
   #has_paper_trail :skip => [:pictures_attributes, :color_sample]
