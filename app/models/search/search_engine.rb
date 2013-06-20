@@ -6,7 +6,7 @@ class SearchEngine
     @search = SearchUrlBuilder.new
     .for_term(attributes[:term])
     .with_category(attributes[:category])
-    .with_subcategories(attributes[:subcategories])
+    .with_subcategories(attributes[:subcategory])
     .with_color(attributes[:color])
     .with_brand(attributes[:brand])
     .with_heel(attributes[:heel])

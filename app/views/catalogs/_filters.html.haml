@@ -2,7 +2,7 @@
   %p.title-category Modelo
   %ul.category-list
     - filters_by("subcategory").each do |text, amount|
-      %li= filter_link_to(build_link_path, :subcategoria, text.chomp, amount)
+      %li= filter_link_to(build_link_path, :subcategory, text.chomp, amount)
 
 .filter
   %p.title-category Cores
@@ -30,8 +30,8 @@
   .filter
     %p.title-category Salto
     %ul.category-list
-      - filters_by("heel").each do |text, amount|
-        %li= filter_link_to(build_link_path, :salto, text.chomp, amount)
+    - filters_by("heel").each do |text, amount|
+      %li= filter_link_to(build_link_path, :heel, text.chomp, amount)
     %p.title-category Conforto & Proteção
     %ul.subcategory-list
       - filters_by("care").each do |text, amount|
