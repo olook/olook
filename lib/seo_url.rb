@@ -89,13 +89,13 @@ class SeoUrl
       Product.all.map(&:brand).compact
     end
 
-    def all_categories
+    def self.all_categories
       Rails.cache.fetch CACHE_KEYS[:all_categories][:key], expire_in: CACHE_KEYS[:all_categories][:expire] do
         db_categories.map{ |s| [s.titleize, ActiveSupport::Inflector.transliterate(s.titleize)] }.flatten.uniq
       end
     end
 
-    def self.db_category
-      Product.all.map(&:brand).compact
+    def self.db_categories
+      Product.all.map(&:category_humanize).compact
     end
 end
