@@ -1,19 +1,30 @@
 class SearchController < ApplicationController
   respond_to :html
   layout "lite_application"
-  
+
   def show
-    @q = params[:q]
-    @brand = params[:brand].humanize if params[:brand]
-    @color = params[:color]
-    @subcategory = params[:category].parameterize if params[:category]
+    params.merge!(SeoUrl.parse(params[:parameters]))
+    Rails.logger.debug("New params: #{params.inspect}")
+    @q = params[:q] || ""
 
-    @search = SearchEngine.new(term: @q, brand: @brand, subcategory: @subcategory, color: @color).for_page(params[:page])
-    @products = @search.products
+    @singular_word = @q.singularize
+    if catalogs_pages.include?(@singular_word)
+      redirect_to catalog_path(parameters: @singular_word)
+    else
 
-    @filters = SearchEngine.new(term: @q).filters
-    @filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.include?(c) } if @filters.grouped_products('subcategory')
-    @stylist = Product.fetch_products :selection
+      @brand = params[:brand].humanize if params[:brand]
+      @color = params[:color]
+      @subcategory = params[:category].parameterize if params[:category]
+
+      @search = SearchEngine.new(term: @q, brand: @brand, subcategory: @subcategory, color: @color).for_page(params[:page])
+      @products = @search.products
+
+      @filters = SearchEngine.new(term: @q).filters
+      @filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.include?(c) } if @filters.grouped_products('subcategory')
+      @stylist = Product.fetch_products :selection
+
+    end
+
   end
 
   def product_suggestions
@@ -25,6 +36,10 @@ class SearchController < ApplicationController
     def fetch_products(url, options = {})
       response = Net::HTTP.get_response(url)
       SearchResult.new(response, options)
+    end
+
+    def catalogs_pages
+      %w[roupa acessorio sapato bolsa]
     end
 
 
