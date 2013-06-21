@@ -67,6 +67,11 @@ describe SeoUrl do
 
     context "when there's no parameters and subcategories" do
       subject { SeoUrl.parse("sapatos") }
+
+      it { expect(subject.keys).to include('category')  }
+      it { expect(subject['category']).to eq 'sapatos' }
+      it { expect(subject[:category]).to eq 'sapatos' }
+
       it { expect(subject['subcategory']).to be_nil }
       it { expect(subject[:subcategory]).to be_nil }
 
