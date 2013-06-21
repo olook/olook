@@ -7,6 +7,18 @@
           %li= msg
 
   %fieldset
+    =f.label :highlight_type, "Tipo"
+    =f.select(:highlight_type, HighlightType.to_a)
+
+  %fieldset
+    =f.label :title, "Título (apenas para tipo Semanal)"
+    =f.text_field :title
+
+  %fieldset
+    =f.label :subtitle, "Subtítulo (apenas para tipo Semanal)"
+    =f.text_field :subtitle
+
+  %fieldset
     =f.label :image, "Imagem"
     =f.file_field :image
   

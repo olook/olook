@@ -210,7 +210,8 @@ class ApplicationController < ActionController::Base
       @top5 = Product.fetch_products :top5
       @stylist = Product.fetch_products :selection
       @concept = Product.fetch_products :concept
-      @highlights = Highlight.highlights_to_show
+      @highlights = Highlight.highlights_to_show HighlightType::CAROUSEL
+      @weekly_highlights = Highlight.highlights_to_show HighlightType::WEEKLY
 
       if params[:share]
         @user = User.find(params[:uid])
