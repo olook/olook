@@ -12,6 +12,7 @@ olook = o = {
       o.showSlideToTop();
       o.slideToTop();  
       o.showBalloon();
+      o.boxLogin();
   },
   
   showBalloon: function(){

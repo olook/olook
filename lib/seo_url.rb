@@ -1,3 +1,4 @@
+require 'active_support/inflector'
 class SeoUrl
 
   VALUES = {
@@ -14,32 +15,29 @@ class SeoUrl
     _all_brands = self.all_brands || []
     _all_subcategories = self.all_subcategories || []
 
-    all_parameters = parameters.split("/")
+    all_parameters = parameters.to_s.split("/")
     parsed_values[:category] = all_parameters.shift
+    # _all_categories = self.all_categories || []
 
     subcategories_and_brands = all_parameters.first.split("-") rescue []
     subcategories = []
     brands = []
 
     subcategories_and_brands.each do |sub|
-      if _all_subcategories.include?(sub.camelize)
+      if _all_subcategories.include?(sub.titlecase)
         subcategories << sub
       end
     end
 
     subcategories_and_brands.each do |sub|
-      if _all_brands.include?(sub.camelize)
+      if _all_brands.include?(sub.titlecase)
         brands << sub
       end
     end
     parsed_values[:subcategory] = subcategories.join("-") if subcategories.any?
     parsed_values[:brand] = brands.join("-") if brands.any?
 
-    if all_parameters.size > 1
-      filter_params = all_parameters.last
-    else
-      filter_params = parameters
-    end
+    filter_params = all_parameters.last || []
 
     filter_params.split('_').each do |item|
       auxs = item.split('-')
@@ -53,17 +51,17 @@ class SeoUrl
 
   def self.build params
     parameters = params.dup
-    category = parameters.delete(:category).first
+    category = ActiveSupport::Inflector.transliterate(parameters.delete(:category).first.to_s).downcase
     subcategory = parameters.delete(:subcategory)
     brand = parameters.delete(:brand)
 
-    path = [ subcategory, brand ].select {|p| p.present? }.uniq.join('-')
+    path = [ subcategory, brand ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join('-')
     filter_params = []
     parameters.each do |k, v|
       if v.respond_to?(:join)
-        filter_params << "#{VALUES.invert[k.to_s]}-#{v.join('-')}" if v.present?
+        filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| ActiveSupport::Inflector.transliterate(_v).downcase}.join('-')}" if v.present?
       else
-        filter_params << "#{VALUES.invert[k.to_s]}-#{v}" if v.present?
+        filter_params << "#{VALUES.invert[k.to_s]}-#{ActiveSupport::Inflector.transliterate(v).downcase}" if v.present?
       end
     end
     filter_params = filter_params.join('_')
@@ -72,14 +70,32 @@ class SeoUrl
 
   private
     def self.all_subcategories
-      Rails.cache.fetch CACHE_KEYS[:all_subcategories][:key] do
-        Set.new(Product.includes(:details).all.map(&:subcategory).compact.map(&:titleize).uniq)
+      Rails.cache.fetch CACHE_KEYS[:all_subcategories][:key], expire_in: CACHE_KEYS[:all_subcategories][:expire] do
+        db_subcategories.map{ |s| [s.titleize, ActiveSupport::Inflector.transliterate(s.titleize)] }.flatten.uniq
       end
     end
 
+    def self.db_subcategories
+      Product.includes(:details).all.map(&:subcategory).compact
+    end
+
     def self.all_brands
-      Rails.cache.fetch CACHE_KEYS[:all_brands][:key] do
-        Set.new(Product.all.map(&:brand).map(&:titleize).uniq)
+      Rails.cache.fetch CACHE_KEYS[:all_brands][:key], expire_in: CACHE_KEYS[:all_brands][:expire] do
+        db_brands.map{ |b| [b.titleize, ActiveSupport::Inflector.transliterate(b.titleize)] }.flatten.uniq
       end
     end
+
+    def self.db_brands
+      Product.all.map(&:brand).compact
+    end
+
+    # def self.all_categories
+    #   Rails.cache.fetch CACHE_KEYS[:all_categories][:key], expire_in: CACHE_KEYS[:all_categories][:expire] do
+    #     db_categories.map{ |s| [s.titleize, ActiveSupport::Inflector.transliterate(s.titleize)] }.flatten.uniq
+    #   end
+    # end
+
+    # def self.db_categories
+    #   Product.all.map(&:category_humanize).compact
+    # end
 end
