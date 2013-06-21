@@ -1,14 +1,7 @@
 class SearchController < ApplicationController
   respond_to :html
   layout "lite_application"
-
-  def index
-    url = SearchUrlBuilder.new
-      .for_term("a*").grouping_by.build_url
-    @result = fetch_products url
-    render :show
-  end
-
+  
   def show
     @q = params[:q]
     @brand = params[:brand].humanize if params[:brand]

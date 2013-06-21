@@ -65,12 +65,7 @@ class SearchEngine
     @limit = limit.to_i
     self
   end
-
-  def filters_and_products
-    url = @search.build_url_for(limit: 50, start: self.start_product)
-    @result = fetch_result(url, parse_facets: true, parse_products: true)
-  end
-
+  
   def filters
     url = @search.build_filters_url
     @result = fetch_result(url, parse_facets: true)
