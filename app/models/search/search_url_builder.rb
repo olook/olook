@@ -14,7 +14,7 @@ class SearchUrlBuilder
   end
 
   def for_term term
-    @query = "q=#{CGI.escape term}" if term
+    @query = "q=#{URI.encode term}" if term
     self
   end
 
@@ -101,7 +101,7 @@ class SearchUrlBuilder
         if values.is_a?(String)
           bq << values
         elsif values.is_a?(Array) && values.any?
-          vals = values.map { |v| "(field #{field} '#{CGI.escape v}')" } unless values.empty?
+          vals = values.map { |v| "(field #{field} '#{URI.encode v}')" } unless values.empty?
           bq << ( vals.size > 1 ? "(or #{vals.join(' ')})" : vals.first )
         end
       end
