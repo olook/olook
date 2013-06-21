@@ -3,8 +3,8 @@ require 'spec_helper'
 
 describe SeoUrl do
   before do
-    described_class.stub(:all_subcategories).and_return(["Amaciante","Bota"])
-    described_class.stub(:all_brands).and_return(["Colcci","Olook"])
+    described_class.stub(:db_subcategories).and_return(["Amaciante","Bota"])
+    described_class.stub(:db_brands).and_return(["Colcci","Olook"])
   end
   describe ".parse" do
     context "when given parameters has subcategory and filters" do
@@ -80,6 +80,15 @@ describe SeoUrl do
       it { expect(subject[:subcategory]).to be_nil }
       it { expect(subject[:size]).to eq '36' }
       it { expect(subject[:color]).to eq 'azul-preto' }
+    end
+
+    context "when there's subcategory with space and accent" do
+      before do
+        described_class.stub(:db_subcategories).and_return(["Bolsa Média"])
+      end
+      subject { SeoUrl.parse("sapato/bolsa media") }
+
+      it { expect(subject[:subcategory]).to eq 'bolsa media' }
     end
   end
 
