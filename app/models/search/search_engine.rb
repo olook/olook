@@ -1,3 +1,4 @@
+require 'active_support/inflector'
 class SearchEngine
 
   attr_reader :current_page, :result
@@ -16,8 +17,9 @@ class SearchEngine
     .grouping_by
   end
 
-  def filters_applied(other_values={})
+  def filters_applied(filter_key, filter_value)
     filter_params = HashWithIndifferentAccess.new
+    filter_value = ActiveSupport::Inflector.transliterate(filter_value).downcase
 
     @search.expressions.each do |k, v|
       filter_params[k] ||= []
@@ -29,15 +31,17 @@ class SearchEngine
       end
     end
 
-    other_values.each do |k,v|
-      if filter_params[k]
-        if filter_params[k].respond_to?(:join)
-          filter_params[k] << v
-          filter_params[k].uniq!
+    if filter_params[filter_key]
+      if filter_params[filter_key].respond_to?(:join)
+        if filter_selected?(filter_key, filter_value)
+          filter_params[filter_key] -= [ filter_value ]
         else
-          /(?<min>\d+)\.\.(?<max>\d+)/ =~ v.to_s
-          filter_params[k] = "#{min}-#{max}"
+          filter_params[filter_key] << filter_value
         end
+        filter_params[filter_key].uniq!
+      else
+        /(?<min>\d+)\.\.(?<max>\d+)/ =~ filter_value.to_s
+        filter_params[filter_key] = "#{min}-#{max}"
       end
     end
 
@@ -97,7 +101,7 @@ class SearchEngine
 
   def filter_selected?(filter_key, filter_value)
     if values = @search.expressions[filter_key]
-      values.include?(filter_value)
+      values.include?(ActiveSupport::Inflector.transliterate(filter_value).downcase)
     else
       false
     end
