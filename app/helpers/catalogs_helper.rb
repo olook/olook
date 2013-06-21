@@ -1,8 +1,9 @@
 module CatalogsHelper
-  def filter_link_to(link, text, amount=nil)
+  def filter_link_to(link, text, selected=false, amount=nil)
     span_class = text.downcase
     text += " (#{amount})" if amount
-    link_to link do
+    class_hash = selected ? {class: "selected"} : {}
+    link_to(link, class_hash) do
       content_tag(:span, text, class:"txt-#{span_class}")
     end
   end
@@ -10,4 +11,5 @@ module CatalogsHelper
   def filters_by filter
     @filters.grouped_products(filter)
   end
+
 end

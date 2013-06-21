@@ -95,6 +95,14 @@ class SearchEngine
     end
   end
 
+  def filter_selected?(filter_key, filter_value)
+    if values = @search.expressions[filter_key]
+      values.include?(filter_value)
+    else
+      false
+    end
+  end  
+
   private
     def fetch_result(url, options = {})
       Rails.logger.debug("GET cloudsearch URL: #{url}")
