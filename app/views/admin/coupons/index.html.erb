@@ -44,6 +44,7 @@
       <th>Expirado</th>
       <th>Campanha</th>
       <th>Descrição da campanha</th>
+      <th>Marca</th>
       <th>Criado por</th>
       <th>Atualizado por</th>
       <th></th>
@@ -64,6 +65,7 @@
       <td><%= coupon.expired? ? 'Sim' : 'Não' %></td>
       <td><%= coupon.campaign %></td>
       <td><%= coupon.campaign_description %></td>
+      <td><%= coupon.brand %></td>
       <td><%= coupon.created_by %></td>
       <td><%= coupon.updated_by %></td>
       <td><%= link_to 'Mostrar', admin_coupon_path(coupon), :class => 'button' %></td>

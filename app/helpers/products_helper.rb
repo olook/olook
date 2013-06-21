@@ -63,21 +63,4 @@ module ProductsHelper
     product.master_variant.sku
   end
 
-  def generate_separator?(brands, product, catalog_products, index)
-    page = catalog_products.current_page
-    if brands && brands.include?(product.brand.parameterize)
-      if index < 11
-        return true unless brands.include?(catalog_products[index+1].try(:brand).try(:parameterize))
-      elsif page == catalog_products.total_pages
-        return true
-      else
-        return true unless brands.include?(catalog_products.page(page+1).first.try(:brand).try(:parameterize))      end
-    else
-      return false
-    end
-  end
-
-  def product_doesnt_belong_to_selected_brands?(product, catalog_products, brands)
-    brands && !brands.include?(product.brand.parameterize) && product == catalog_products.first
-  end
 end
