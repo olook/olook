@@ -69,7 +69,6 @@ class SeoUrl
 
   private
     def self.all_subcategories
-      if Rails.env.test?
       Rails.cache.fetch CACHE_KEYS[:all_subcategories][:key], expire_in: CACHE_KEYS[:all_subcategories][:expire] do
         db_subcategories.map{ |s| [s.titleize, ActiveSupport::Inflector.transliterate(s.titleize)] }.flatten.uniq
       end
