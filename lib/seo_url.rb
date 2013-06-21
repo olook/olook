@@ -1,3 +1,4 @@
+require 'active_support/inflector'
 class SeoUrl
 
   VALUES = {
@@ -49,17 +50,17 @@ class SeoUrl
 
   def self.build params
     parameters = params.dup
-    category = parameters.delete(:category).first
+    category = ActiveSupport::Inflector.transliterate(parameters.delete(:category).first.to_s).downcase
     subcategory = parameters.delete(:subcategory)
     brand = parameters.delete(:brand)
 
-    path = [ subcategory, brand ].select {|p| p.present? }.uniq.join('-')
+    path = [ subcategory, brand ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join('-')
     filter_params = []
     parameters.each do |k, v|
       if v.respond_to?(:join)
-        filter_params << "#{VALUES.invert[k.to_s]}-#{v.join('-')}" if v.present?
+        filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| ActiveSupport::Inflector.transliterate(_v).downcase}.join('-')}" if v.present?
       else
-        filter_params << "#{VALUES.invert[k.to_s]}-#{v}" if v.present?
+        filter_params << "#{VALUES.invert[k.to_s]}-#{ActiveSupport::Inflector.transliterate(v).downcase}" if v.present?
       end
     end
     filter_params = filter_params.join('_')
