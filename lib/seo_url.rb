@@ -69,13 +69,13 @@ class SeoUrl
 
   private
     def self.all_subcategories
-      Rails.cache.fetch CACHE_KEYS[:all_subcategories][:key] do
+      Rails.cache.fetch CACHE_KEYS[:all_subcategories][:key], expire_in: CACHE_KEYS[:all_subcategories][:expire] do
         Set.new(Product.includes(:details).all.map(&:subcategory).compact.map(&:titleize).uniq)
       end
     end
 
     def self.all_brands
-      Rails.cache.fetch CACHE_KEYS[:all_brands][:key] do
+      Rails.cache.fetch CACHE_KEYS[:all_brands][:key], expire_in: CACHE_KEYS[:all_brands][:expire] do
         Set.new(Product.all.map(&:brand).map(&:titleize).uniq)
       end
     end
