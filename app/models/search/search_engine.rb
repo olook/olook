@@ -54,22 +54,22 @@ class SearchEngine
   end
 
   def next_page
-    @current_page + 1
+    current_page + 1
   end
 
   def previous_page
-    @current_page - 1
+    current_page - 1
   end
 
   def start_product
-    @limit ? (@current_page - 1) * @limit : 0
+    @limit ? (current_page - 1) * @limit : 0
   end
 
   def with_limit limit=50
     @limit = limit.to_i
     self
   end
-  
+
   def filters
     url = @search.build_filters_url
     @result = fetch_result(url, parse_facets: true)
@@ -86,11 +86,11 @@ class SearchEngine
   end
 
   def has_next_page?
-    @current_page.to_i < self.pages
+    current_page.to_i < self.pages
   end
 
   def has_previous_page?
-    @current_page.to_i > 1
+    current_page.to_i > 1
   end
 
   def range_values_for(filter)
@@ -105,12 +105,16 @@ class SearchEngine
     else
       false
     end
-  end  
+  end
 
   private
     def fetch_result(url, options = {})
       Rails.logger.debug("GET cloudsearch URL: #{url}")
       _response = Net::HTTP.get_response(url)
       SearchResult.new(_response, options)
+    end
+
+    def current_page
+      @current_page
     end
 end
