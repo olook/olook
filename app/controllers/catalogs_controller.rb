@@ -8,13 +8,15 @@ class CatalogsController < SearchController
     Rails.logger.debug("New params: #{params.inspect}")
 
     @filters = SearchEngine.new(category: params[:category]).filters
-    @filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.include?(c) }
+    @filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.include?(c) } if @filters.grouped_products('subcategory')
+
     @search = SearchEngine.new(category: params[:category],
                                subcategory: params[:subcategory],
                                color: params[:color],
                                heel: params[:heel],
                                care: params[:care],
                                brand: params[:brand]).for_page(params[:page]).with_limit(100)
+    
     @catalog_products = @search.products
 
     # TODO => Mover para outro lugar
