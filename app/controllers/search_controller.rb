@@ -11,7 +11,7 @@ class SearchController < ApplicationController
     @search = SearchEngine.new(term: @q, brand: @brand, subcategory: @subcategory, color: @color).for_page(params[:page])
     @products = @search.products
 
-    @filters = SearchEngine.new(term: @q, brand: @brand, subcategory: @subcategory, color: @color).filters
+    @filters = SearchEngine.new(term: @q).filters
     @filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.include?(c) } if @filters.grouped_products('subcategory')
     @stylist = Product.fetch_products :selection
   end

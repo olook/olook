@@ -16,7 +16,7 @@ Olook::Application.routes.draw do
   get "index/index"
 
   # Search Lab
-  match "/busca/(.*parameters)", :to => "search#show", :as => "search"
+  match "/busca(/*parameters)", :to => "search#show", :as => "search"
   # match "/busca", :to => "search#show", :as => "search"
   match "/marcas/:brand", :to => "search#show"
 
