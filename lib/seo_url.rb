@@ -15,7 +15,7 @@ class SeoUrl
     _all_brands = self.all_brands || []
     _all_subcategories = self.all_subcategories || []
 
-    all_parameters = parameters.split("/")
+    all_parameters = parameters.to_s.split("/")
     parsed_values[:category] = all_parameters.shift
 
     subcategories_and_brands = all_parameters.first.split("-") rescue []
