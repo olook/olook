@@ -2,24 +2,24 @@
   <h1>Veja os destaques da semana</h1>
   <ul>
     <li id="about">
-      <%= link_to "/stylist-news/valentino-inspired/", class: "open_making_of", onclick: track_event('Destaques','BannerEsquerda') do %>
-        <%= image_tag "home/montagem.jpg", title: "VALENTINO INSPIRED" %>
+      <%= link_to "/stylist-news/mar-de-camisas/", class: "open_making_of", onclick: track_event('Destaques','BannerEsquerda') do %>
+        <%= image_tag "home/crop-camisas.jpg", title: "CAMISAS HOT" %>
       <% end %>
       <div class="video_description">
         <h1>Conheça mais sobre a olook</h1>
         <%= link_to "Gostou? Descubra o seu estilo e veja a coleção completa", new_survey_path, :class => "home" %>
       </div>
-      <h1><%= link_to "VALENTINO INSPIRED", "/stylist-news/valentino-inspired/", onclick: track_event('Destaques','BannerEsquerda') %></h1>
-      <p>Confira a seleção hot de nossas stylists</p>
-      <%= link_to "Veja mais aqui", "/stylist-news/valentino-inspired/", class: "more", onclick: track_event('Destaques','BannerEsquerda') %>
+      <h1><%= link_to "CAMISAS HOT", "/stylist-news/mar-de-camisas/", onclick: track_event('Destaques','BannerEsquerda') %></h1>
+      <p>Use e abuse desta peça-chave</p>
+      <%= link_to "Veja mais aqui", "/stylist-news/mar-de-camisas/", class: "more", onclick: track_event('Destaques','BannerEsquerda') %>
     </li>
     <li id="shoes">
-      <%= link_to "/sapatos?shoe_subcategories[]=slipper", onclick: track_event('Destaques','BannerCentro') do %>
-        <%= image_tag "home/sapatilhas.gif", title: "SLIPPERS PARA TODAS" %>
+      <%= link_to product_path(16324), onclick: track_event('Destaques','BannerCentro') do %>
+        <%= image_tag "home/apatita.gif", title: "SLIPPERS PARA TODAS" %>
       <% end %>      
-      <h1><%= link_to "SLIPPERS PARA TODAS", "/sapatos?shoe_subcategories[]=slipper", onclick: track_event('Destaques','BannerCentro') %></h1>
-      <p>Confira e escolha o seu modelo</p>
-      <%= link_to "Confira aqui", "/sapatos?shoe_subcategories[]=slipper", class: "more", onclick: track_event('Destaques','BannerCentro') %>
+      <h1><%= link_to "SAPATILHA APATITA", product_path(16324), onclick: track_event('Destaques','BannerCentro') %></h1>
+      <p>Uma flat estilosa e super confortável</p>
+      <%= link_to "Confira aqui", product_path(16324), class: "more", onclick: track_event('Destaques','BannerCentro') %>
     </li>
     <li id="olookmovel" class="iehack"> <!-- NAO REMOVER A CLASSE -->
       <%= link_to olookmovel_path, onclick: track_event('Destaques','BannerDireita') do %>
