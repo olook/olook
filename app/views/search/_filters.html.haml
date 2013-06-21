@@ -2,7 +2,7 @@
   %p.title-category Modelo
   %ul.category-list
     - filters_by("subcategory").each do |text, amount|
-      %li= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(:subcategory, text.chomp))), text.chomp, search.filter_selected?(:subcategory, text.chomp))
+      %li= filter_link_to(search_path(SeoUrl.build(search.filters_applied(:subcategory, text.chomp))), text.chomp, search.filter_selected?(:subcategory, text.chomp))
 
 .filter
   %p.title-category Cores

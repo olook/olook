@@ -499,7 +499,11 @@ class Product < ActiveRecord::Base
     end
 
     def detail_by_token token
-      detail = self.details.where(:translation_token => token).last
+      if details.loaded?
+        detail = self.details.select { |d| d.translation_token == token }.last
+      else
+        detail = self.details.where(:translation_token => token).last
+      end
       detail.description if detail
     end
 

@@ -23,10 +23,9 @@
           opções de
           %span= @q
           para você :)
-    #filters
-      = render :partial => "grouped_products", :locals => {title: "Marcas", list: @search.result.grouped_products("brand_facet"), field: :brand}
-      = render :partial => "grouped_products", :locals => {title: "Categorias", list: @search.result.grouped_products("categoria"), field: :category}
-      = render :partial => "grouped_products", :locals => {title: "Cores", list: @search.result.grouped_products("cor_filtro"), field: :color}
+    %filters= render "filters", category: @category, search: @search
+
+
     #search_result
       %ul.search-results-list
         - @products.each do |product|
