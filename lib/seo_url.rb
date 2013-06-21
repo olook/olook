@@ -35,7 +35,7 @@ class SeoUrl
     parsed_values[:subcategory] = subcategories.join("-") if subcategories.any?
     parsed_values[:brand] = brands.join("-") if brands.any?
 
-    filter_params = all_parameters.last
+    filter_params = all_parameters.last || []
 
     filter_params.split('_').each do |item|
       auxs = item.split('-')

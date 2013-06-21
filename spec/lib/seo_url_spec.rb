@@ -64,5 +64,21 @@ describe SeoUrl do
       it { expect(subject[:brand]).to eq 'colcci-olook' }
 
     end
+
+    context "when there's no parameters and subcategories" do
+      subject { SeoUrl.parse("sapatos") }
+      it { expect(subject['subcategory']).to be_nil }
+      it { expect(subject[:subcategory]).to be_nil }
+
+      it { expect(subject['brand']).to be_nil }
+      it { expect(subject[:brand]).to be_nil }
+
+      it { expect(subject['size']).to be_nil }
+      it { expect(subject[:size]).to be_nil }
+
+      it { expect(subject['color']).to be_nil }
+      it { expect(subject[:color]).to be_nil }
+
+    end
   end
 end
