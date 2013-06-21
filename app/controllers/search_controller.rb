@@ -3,6 +3,8 @@ class SearchController < ApplicationController
   layout "lite_application"
 
   def show
+    params.merge!(SeoUrl.parse(params[:parameters]))
+    Rails.logger.debug("New params: #{params.inspect}")
     @q = params[:q] || ""
 
     @singular_word = @q.singularize
