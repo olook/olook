@@ -16,7 +16,8 @@ class SeoUrl
     _all_subcategories = self.all_subcategories || []
 
     all_parameters = parameters.to_s.split("/")
-    parsed_values[:category] = all_parameters.shift
+    #parsed_values[:category] = all_parameters.shift
+    _all_categories = self.all_categories || []
 
     subcategories_and_brands = all_parameters.first.split("-") rescue []
     subcategories = []
@@ -85,6 +86,16 @@ class SeoUrl
     end
 
     def self.db_brands
+      Product.all.map(&:brand).compact
+    end
+
+    def all_categories
+      Rails.cache.fetch CACHE_KEYS[:all_categories][:key], expire_in: CACHE_KEYS[:all_categories][:expire] do
+        db_categories.map{ |s| [s.titleize, ActiveSupport::Inflector.transliterate(s.titleize)] }.flatten.uniq
+      end
+    end
+
+    def self.db_category
       Product.all.map(&:brand).compact
     end
 end
