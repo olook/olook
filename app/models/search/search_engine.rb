@@ -107,6 +107,10 @@ class SearchEngine
     end
   end
 
+  def selected_filters_for category
+    @search.expressions[category.to_sym]
+  end
+
   private
     def fetch_result(url, options = {})
       Rails.logger.debug("GET cloudsearch URL: #{url}")
