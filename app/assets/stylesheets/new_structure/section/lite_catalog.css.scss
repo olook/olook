@@ -1,8 +1,14 @@
 @import 'new_structure/common/global_stuffs';
 @import 'new_structure/partials/thumb_product_catalog';
+@import 'new_structure/common/jquery.jqzoom';
+/*** PRODUTO DENTRO DO MODAL ESPIAR ***/
+@import 'common/product_details';
 
 aside{float:left;width:185px;
-  .filter{margin-bottom:25px;}
+  .filter{
+    margin-bottom:25px;
+    clear: both;
+  }
   ul.cores{width:145px;height:200px;overflow-y:auto;border:solid 1px #CCC;padding-left:5px;
     li span{display:inline-block;height:15px;padding-left:19px;background: image-url("common/thumbs_cor.png") no-repeat 0 1px;
       &.txt-amarelo{background-position: 0 -302px;}
@@ -52,4 +58,30 @@ aside{float:left;width:185px;
     p{float:left;border-left:solid 1px #D7D7D7;border-top:solid 1px #D7D7D7;border-bottom:solid 1px #D7D7D7;font-size:10px;font-weight:bold; text-transform:uppercase; padding-left:5px;background: image-url("collections/bullet_arrow.png") no-repeat right -1px;letter-spacing:1px;padding-right:30px;}
   }
 }
-  
+
+/**************** 
+BOX MODAL ESPIAR 
+****************/
+
+#quick_view {position:absolute;top:100px;left:50%;background-color: #FFF;border: 10px solid #000;width:1000px;/*height:620px;*/margin: 0 0 0 -480px;display:none;z-index:10002;
+  .size_guide{display:none;}
+  #close_quick_view{cursor: pointer;font-size: 20px;position: absolute;background: image-url('common/close_dialog.png') no-repeat;text-indent: -9999px;width: 30px;height: 30px;top: -17px;right: -17px;z-index: 100;}
+}  
+
+/**************************
+BOX DE FILTROS SELECIONADOS
+**************************/
+section.filters{float:left;width:741px;margin:10px 0 30px;color:#000;border:solid 1px #A7A9AC;padding:10px 10px 2px;/*display:none;*/
+ p{font-family:$avenir;font-size: 12px;font-weight: bold;text-transform: uppercase;float:left;margin-right:10px;
+   span{margin-left:10px;}
+ }
+   
+ li{float:left;margin-right:10px;text-transform:uppercase;font-size:12px;position:relative;line-height:18px;
+     button{border:none;background:none;cursor:pointer;width:27px;height:19px;padding:0;font-size:0;font-family:a;line-height:0;background: image-url('moments/sprite.png') right -157px no-repeat;
+      &.cleanFilter{font-size:11px;color:#6D6E71;background:none;border:none;font-family:$avenir;cursor:pointer;width:100%;text-transform:none;}
+     }
+     span.del-txt{font-size: 11px;position: absolute;right: -3px;text-transform: capitalize;top: -23px;display:none;color:#6D6E71;}
+
+     &.btn-clean{margin-top:-3px;}
+ }
+}

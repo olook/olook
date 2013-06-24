@@ -13,13 +13,19 @@
 .filter
   %p.title-category Preço
   .price-range
-    #min-value-label 0
-    %input{type: "text", id: "min-value"}
+    %p#min-value-label{style:'background-image: none'} 0
+    %p#max-value-label{style:'background-image: none'} 0
     .slider
       #slider-range
-    #max-value-label 0
+    %input{type: "text", id: "min-value"}
     %input{type:"text", id:"max-value"}
     %input{type:"hidden", name:"price", id:"price"}
+- if search.filter_value('category').to_a.include?('roupa')
+  .filter
+    %p.title-category Marca
+    %ul.category-list
+      - filters_by('brand_facet').each do |text, amount|
+        %li= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(:brand, text.chomp))), text.chomp, search.filter_selected?(:brand, text.chomp))
 - if (['sapato', 'roupa'] & search.filter_value('category').to_a).present?
   .filter
     %p.title-category Tamanho

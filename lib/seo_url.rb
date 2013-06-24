@@ -9,7 +9,7 @@ class SeoUrl
     "colecao" => "collection"
   }
 
-  def self.parse parameters
+  def self.parse parameters, other_parameters={}
     parsed_values = HashWithIndifferentAccess.new
 
     _all_brands = self.all_brands || []
@@ -20,7 +20,6 @@ class SeoUrl
 
     all_parameters = parameters.to_s.split("/")
     parsed_values[:category] = all_parameters.shift
-    # _all_categories = self.all_categories || []
 
     subcategories_and_brands = all_parameters.first.split("-") rescue []
     subcategories = []
@@ -47,6 +46,12 @@ class SeoUrl
       key = auxs.shift
       vals = auxs.join('-')
       parsed_values[VALUES[key]] = vals
+    end
+
+    other_parameters.each do |k, v|
+      if VALUES[k]
+        parsed_values[VALUES[k]] = v
+      end
     end
 
     parsed_values
