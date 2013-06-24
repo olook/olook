@@ -1,6 +1,7 @@
 - filters.each do |k, v|
-  .filter
-    %p.title-category= k
-    %ul.subcategory-list
-      - v.each do |text|
-        %li= link_to(text.chomp,search_path(search.filters_applied(:subcategory, text.chomp)))
+  - unless v.blank?
+    .filter
+      %p.title-category= k
+      %ul.subcategory-list
+        - v.each do |text|
+          %li= link_to(text.chomp,search_path(search.filters_applied(:subcategory, text.chomp)))
