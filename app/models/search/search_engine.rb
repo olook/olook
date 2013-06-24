@@ -62,7 +62,7 @@ class SearchEngine
   end
 
   def start_product
-    @limit ? (current_page - 1) * @limit : 0
+    @limit ? (@current_page - 1) * @limit : 0
   end
 
   def with_limit limit=50
@@ -94,7 +94,7 @@ class SearchEngine
   end
 
   def range_values_for(filter)
-    if /(?<min>\d+)\.\.(?<max>\d+)/ =~ self.search.expressions[filter].to_s
+    if /(?<min>\d+)\.\.(?<max>\d+)/ =~ @search.expressions[filter].to_s
       { min: min, max: max }
     end
   end
