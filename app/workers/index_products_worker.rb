@@ -74,7 +74,7 @@ class IndexProductsWorker
         fields['retail_price'] = product.retail_price
         fields['in_promotion'] = product.promotion?
         fields['category'] = product.category_humanize.downcase
-        fields['size'] = product.variants.select{|v| v.inventory > 0}.map{|b| "|#{b.description}|"}
+        fields['size'] = product.variants.select{|v| v.inventory > 0}
         fields['care'] = product.subcategory.titleize if Product::CARE_PRODUCTS.include?(product.subcategory)
 
         details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno', 'salto'].include?(d.translation_token.downcase) }

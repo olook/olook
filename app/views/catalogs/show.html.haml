@@ -13,10 +13,9 @@
   = javascript_include_tag 'section/lite_catalog'
 
 #catalog
-
   = render 'current_section', search: @search
 
-  %aside= render "filters", category: @category, search: @search
+  %aside= render "filters", search: @search
 
   #result
     / local onde o viewpersonalized será exibido
