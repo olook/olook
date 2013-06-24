@@ -12,6 +12,11 @@ module SearchHelper
     link_to "#{text} (#{amount})", path
   end
 
+  def search_params(key, value, q)
+    param_name = (key.downcase == "marcas") ? "brand" : "subcategory"
+    {"#{param_name}" => "#{value}", "q" => q}.to_query
+  end
+
   private
     def create_query_string hash
       params = {q: @q, color: @color, category: @category}

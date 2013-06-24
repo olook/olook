@@ -13,10 +13,9 @@ class SearchController < ApplicationController
     else
 
       @brand = params[:brand].humanize if params[:brand]
-      @color = params[:color]
-      @subcategory = params[:category].parameterize if params[:category]
+      @subcategory = params[:subcategory].parameterize if params[:subcategory]
 
-      @search = SearchEngine.new(term: @q, brand: @brand, subcategory: @subcategory, color: @color)
+      @search = SearchEngine.new(term: @q, brand: @brand, subcategory: @subcategory)
       @products = @search.products(false)
 
       @model_names = {}
@@ -50,7 +49,10 @@ class SearchController < ApplicationController
       category_tree = SeoUrl.all_categories
 
       filters = SearchEngine.new(term: @q, brand: @brand, subcategory: @subcategory, color: @color).filters
-      filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.include?(c) } if filters.grouped_products('subcategory')
+
+      return nil unless filters.grouped_products('subcategory')
+
+      filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.include?(c) }
       
       category_tree.each{|k,v| v.delete_if{|subcategory| !filters.grouped_products('subcategory').include?(subcategory)} }
 
