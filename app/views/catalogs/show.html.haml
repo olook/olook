@@ -14,8 +14,6 @@
   
   
 #catalog
-  = render 'current_section', search: @search
-
   %aside= render "filters", search: @search
 
   #result
@@ -29,6 +27,7 @@
       = render "/shared/nav_bar_pagination", search: @search
 
     = render "moments/new_header_moments"
+    = render 'current_section', search: @search
     %section.container_product
       %ul#products
         = render "shared/searched_products", :products => @catalog_products
