@@ -4,7 +4,7 @@ class CatalogsController < SearchController
   respond_to :html, :js
 
   def show
-    params.merge!(SeoUrl.parse(params[:parameters]))
+    params.merge!(SeoUrl.parse(params[:parameters], params))
     Rails.logger.debug("New params: #{params.inspect}")
 
     @filters = SearchEngine.new(category: params[:category]).filters
