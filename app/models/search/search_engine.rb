@@ -76,8 +76,8 @@ class SearchEngine
     @result = fetch_result(url, parse_facets: true)
   end
 
-  def products
-    url = @search.build_url_for(limit: 50, start: self.start_product)
+  def products(pagination = true)
+    url = @search.build_url_for(pagination ? {limit: 50, start: self.start_product} : {})
     @result = fetch_result(url, {parse_products: true})
     @result.products
   end
