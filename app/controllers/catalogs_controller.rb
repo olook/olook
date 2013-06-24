@@ -15,6 +15,7 @@ class CatalogsController < SearchController
                                color: params[:color],
                                heel: params[:heel],
                                care: params[:care],
+                               size: params[:size],
                                brand: params[:brand]).for_page(params[:page]).with_limit(100)
     
     @catalog_products = @search.products

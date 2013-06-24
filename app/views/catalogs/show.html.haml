@@ -14,7 +14,9 @@
   
   
 #catalog
-  %aside= render "filters", category: @category, search: @search
+  = render 'current_section', search: @search
+
+  %aside= render "filters", search: @search
 
   #result
     / local onde o viewpersonalized será exibido
@@ -25,8 +27,8 @@
     .chaordic.mostpopular
     .pagination
       = render "/shared/nav_bar_pagination", search: @search
-    
-    = render "moments/new_header_moments"  
+
+    = render "moments/new_header_moments"
     %section.container_product
       %ul#products
         = render "shared/searched_products", :products => @catalog_products

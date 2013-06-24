@@ -4,7 +4,10 @@
 @import 'new_structure/common/jquery.jqzoom';
 
 aside{float:left;width:185px;
-  .filter{margin-bottom:25px;}
+  .filter{
+    margin-bottom:25px;
+    clear: both;
+  }
   ul.cores{width:145px;height:200px;overflow-y:auto;border:solid 1px #CCC;padding-left:5px;
     li span{display:inline-block;height:15px;padding-left:19px;background: image-url("common/thumbs_cor.png") no-repeat 0 1px;
       &.txt-amarelo{background-position: 0 -302px;}
