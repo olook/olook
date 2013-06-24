@@ -16,7 +16,7 @@
         }
       
         p{margin-top:20px;
-          span,strong{overflow:hidden;/*display:inline-block;*/height:18px;
+          span,strong{white-space:no-wrap;overflow:hidden;/*display:inline-block;*/height:18px;
             &.brand{text-transform:uppercase;}
             &.name{float:left;clear:both;}
           }

@@ -14,6 +14,7 @@ class SearchEngine
     .with_heel(attributes[:heel])
     .with_care(attributes[:care])
     .with_price(attributes[:price])
+    .with_size(attributes[:size])
     .grouping_by
   end
 
@@ -54,11 +55,11 @@ class SearchEngine
   end
 
   def next_page
-    @current_page + 1
+    current_page + 1
   end
 
   def previous_page
-    @current_page - 1
+    current_page - 1
   end
 
   def start_product
@@ -69,7 +70,7 @@ class SearchEngine
     @limit = limit.to_i
     self
   end
-  
+
   def filters
     url = @search.build_filters_url
     @result = fetch_result(url, parse_facets: true)
@@ -86,17 +87,21 @@ class SearchEngine
   end
 
   def has_next_page?
-    @current_page.to_i < self.pages
+    current_page.to_i < self.pages
   end
 
   def has_previous_page?
-    @current_page.to_i > 1
+    current_page.to_i > 1
   end
 
   def range_values_for(filter)
-    if /(?<min>\d+)\.\.(?<max>\d+)/ =~ self.search.expressions[filter].to_s
+    if /(?<min>\d+)\.\.(?<max>\d+)/ =~ @search.expressions[filter].to_s
       { min: min, max: max }
     end
+  end
+
+  def filter_value(filter)
+    @search.expressions[filter]
   end
 
   def filter_selected?(filter_key, filter_value)
@@ -105,12 +110,26 @@ class SearchEngine
     else
       false
     end
-  end  
+  end
+
+  def selected_filters_for category
+    @search.expressions[category.to_sym]
+  end
+
+  def has_any_filter_selected?
+    _filters = @search.expressions.dup
+    _filters.delete(:category)
+    _filters.values.flatten.any?
+  end
 
   private
     def fetch_result(url, options = {})
       Rails.logger.debug("GET cloudsearch URL: #{url}")
       _response = Net::HTTP.get_response(url)
       SearchResult.new(_response, options)
+    end
+
+    def current_page
+      @current_page
     end
 end
