@@ -170,4 +170,37 @@ describe SearchEngine do
     end
   end
 
+  describe "#has_any_filter_selected?" do
+    let(:search) { described_class.new }
+    context "when all filters was selected" do
+      before do
+        search.instance_variable_get("@search")
+        .should_receive(:expressions)
+        .and_return({ category: ["sapato"], subcategory: ["bar"], color: ["foo"], heel: ["foo"], care: ["bar"] })
+      end
+      subject { search.has_any_filter_selected? }
+      it { should be_true }
+    end
+
+    context "when one filter was selected" do
+      before do
+        search.instance_variable_get("@search")
+        .should_receive(:expressions)
+        .and_return({ category: ["sapato"], subcategory: ["bar"], color: [], heel: [], care: [] })
+      end
+      subject { search.has_any_filter_selected? }
+      it { should be_true }
+    end
+
+    context "when all filters wasn't selected" do
+      before do
+        search.instance_variable_get("@search")
+        .should_receive(:expressions)
+        .and_return({ category: ["sapato"], subcategory: [], color: [], heel: [], care: [] })
+      end
+      subject { search.has_any_filter_selected? }
+      it { should be_false }
+    end
+  end
+
 end

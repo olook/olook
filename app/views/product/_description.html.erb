@@ -14,7 +14,7 @@
     <ul class="social">
       <li class="first">compartilhe:</li>
       <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=#{share_description(@product)}&hashtags=ficaadica" %></li>
-      <li class="facebook"><%= link_to "Facebook", "#" %></li>
+      <li class="facebook"><%= link_to "Facebook", "javascript:void(0)" %></li>
       <li class="pinterest"><%= link_to "Pinterest", product_presenter.display_main_picture, :class => "pin-it-button", :"count-layout" => "none" %></li>
       <li class="email last"><%= link_to "Email", "#" %></li>
     </ul>

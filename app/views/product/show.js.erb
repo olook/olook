@@ -1,19 +1,25 @@
 initQuickView.inQuickView = true;
 
-$('.content').first().append("<%= escape_javascript(render('shared/modal_login')) %>");
-$('#quick_view').html("<%= escape_javascript(render(:partial => 'product/quick_view',:locals => { :product => @product, :gift => @gift, :shoe_size => @shoe_size, :only_view => @only_view})) %>");
-//$('#quick_view').append("<%= escape_javascript(render(:partial => 'product/facebook_js', :locals => { :facebook_app_id => @facebook_app_id, :product => @product })) %>");
+if($("div#quick_view").size() == 0) {
+  $("body").prepend("<div id='quick_view'></div>");
+}
 
-$('#quick_view').fadeIn(300);
+var width = $(document).width(), height = $(document).height();
+$('#overlay-campaign').width(width).height(height).fadeIn();
 
-$('#quick_view').css("top", $(window).scrollTop()  + 35);
-var width = $(document).width();
-var height = $(document).height();
-$('body').prepend("<div class='overlay'></div>");
-$('.overlay').width(width).height(height);
+/*$('.content').first().append("<%= escape_javascript(render('shared/modal_login')) %>");*/
+$('#quick_view')
+.html("<%= escape_javascript(render(:partial => 'product/quick_view',:locals => { :product => @product, :gift => @gift, :shoe_size => @shoe_size, :only_view => @only_view})) %>")
+.css("top", $(window).scrollTop()  + 35)
+.fadeIn(100);
 
 $('#quick_view ol.colors li a').attr('data-remote', true);
 $("ul.social li.email").hide();
+
+
+$('#close_quick_view, #overlay-campaign').on("click", function() {
+  $('#quick_view, #overlay-campaign').fadeOut(300);
+});
 
 if (typeof initSuggestion != 'undefined') {
   initSuggestion.checkIfProductIsAlreadySelected();

@@ -4,7 +4,7 @@ class CatalogsController < SearchController
   respond_to :html, :js
 
   def show
-    params.merge!(SeoUrl.parse(params[:parameters]))
+    params.merge!(SeoUrl.parse(params[:parameters], params))
     Rails.logger.debug("New params: #{params.inspect}")
 
     @filters = SearchEngine.new(category: params[:category]).filters
@@ -17,8 +17,9 @@ class CatalogsController < SearchController
                                care: params[:care],
                                size: params[:size],
                                brand: params[:brand]).for_page(params[:page]).with_limit(100)
-    
+
     @catalog_products = @search.products
+    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
 
     # TODO => Mover para outro lugar
     whitelist = ["salto", "category", "color", "categoria"]

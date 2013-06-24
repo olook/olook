@@ -4,6 +4,7 @@ filter.init = function(){
   if(typeof final_position == 'undefined') final_position = 400;
   filter.sliderRange(start_position, final_position);
   filter.showSelectBoxText();
+  filter.spy();
 }
 filter.parseURL = function() {
   var l = window.location;
@@ -57,5 +58,20 @@ filter.showSelectBoxText = function(){
       $(this).prev().children("span").text(txt);
     })
   })
+}
+filter.spy = function(){
+  $("p.hover_suggestive").each(function(){
+    $(this).on("click", function(e){
+      id = $("span", this).attr("rel");
+      $.ajax({
+        url: '/produto/'+id,
+        cache: 'true',
+        dataType: 'script'
+      });
+      e.stopPropagation();
+      e.preventDefault();
+    });
+
+  });
 }
 $(filter.init);
