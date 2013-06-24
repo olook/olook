@@ -1,0 +1,13 @@
+= "Voce está em"
+- search.selected_filters_for("subcategory").each do |sub|
+  %li= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(:subcategory, sub))), sub, search.filter_selected?(:subcategory, sub), "X")
+
+- search.selected_filters_for("color").each do |col|
+  %li= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(:color, col))), col, search.filter_selected?(:color, col), "X")
+
+- search.selected_filters_for("heel").each do |hee|
+  %li= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(:heel, hee))), hee, search.filter_selected?(:heel, hee), "X")
+
+- search.selected_filters_for("care").each do |car|
+  %li= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(:care, car))), car, search.filter_selected?(:care, car), "X")
+
