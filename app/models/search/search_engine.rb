@@ -14,6 +14,7 @@ class SearchEngine
     .with_heel(attributes[:heel])
     .with_care(attributes[:care])
     .with_price(attributes[:price])
+    .with_size(attributes[:size])
     .grouping_by
   end
 
@@ -97,6 +98,10 @@ class SearchEngine
     if /(?<min>\d+)\.\.(?<max>\d+)/ =~ @search.expressions[filter].to_s
       { min: min, max: max }
     end
+  end
+
+  def filter_value(filter)
+    @search.expressions[filter]
   end
 
   def filter_selected?(filter_key, filter_value)
