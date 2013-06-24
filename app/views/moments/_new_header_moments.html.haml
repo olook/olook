@@ -1,0 +1,26 @@
+- if is_moment_page?
+  - if @featured_products && Setting.show_featured_products
+    = render "shared/featured_products", :products => @featured_products, :category_id => @category_id
+  %section.filters
+    %h1
+      %b
+        Você está em #{print_section_name}
+        %span //
+    #tags
+      %ul
+        %li.btn-clean
+          %button.cleanFilter{:type => "button"} ( limpar filtros )
+          
+.exhibition-mode
+  = form_for "" do
+    %fieldset
+      %p.selected_type
+        EXIBIÇÃO:
+        %span Produto
+      = select_tag('exhibition', options_for_select({"Produto" => 0, "Produto com a modelo" => 1}), :class => "custom_select")
+    
+    %fieldset
+      %p.selected_relevance
+        ORDENAÇÃO:
+        %span Relevância
+      = select_tag('filter_option', options_for_select({"Relevância" => 0, "Menor preço" => 1, "Maior preço" => 2}), :class => "custom_select")
