@@ -13,6 +13,9 @@
   = javascript_include_tag 'section/lite_catalog'
 
 #catalog
+
+  = render 'current_section', search: @search
+
   %aside= render "filters", category: @category, search: @search
 
   #result
@@ -24,8 +27,8 @@
     .chaordic.mostpopular
     .pagination
       = render "/shared/nav_bar_pagination", search: @search
-    
-    = render "moments/new_header_moments"  
+
+    = render "moments/new_header_moments"
     %section.container_product
       %ul#products
         = render "shared/searched_products", :products => @catalog_products
