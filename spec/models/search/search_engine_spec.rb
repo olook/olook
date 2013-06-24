@@ -5,21 +5,21 @@ describe SearchEngine do
   subject { described_class.new(category: "SomeCategory", subcategory: "SomeSubcategory", color: "SomeColor") }
 
   describe "#initialize" do
-    it { expect(subject.search).to_not be_nil }
+    it { expect(subject.instance_variable_get("@search")).to_not be_nil }
   end
 
   describe "#for_page" do
     context "when page is nil" do
       it "sets current page as 1" do
         subject.for_page(nil)
-        expect(subject.current_page).to eq(1)
+        expect(subject.instance_variable_get("@current_page")).to eq(1)
       end
     end
 
     context "when page was passed" do
       it "sets current page as passed value" do
         subject.for_page("3")
-        expect(subject.current_page).to eq(3)
+        expect(subject.instance_variable_get("@current_page")).to eq(3)
       end
     end
   end
@@ -35,7 +35,7 @@ describe SearchEngine do
 
   describe "#previous_page" do
     before do
-      subject.stub(:current_page).and_return(10)
+      subject.instance_variable_set("@current_page", 10)
     end
     it "returns current_page - 1" do
       expect(subject.previous_page).to eq(9)
@@ -46,59 +46,55 @@ describe SearchEngine do
     context "when limit was passed" do
       it "sets limit as given parameter" do
         subject.with_limit("100")
-        expect(subject.limit).to eq(100)
+        expect(subject.instance_variable_get("@limit")).to eq(100)
       end
     end
 
     context "when limit wasn't passed" do
       it "sets limit as 50 (default)" do
         subject.with_limit
-        expect(subject.limit).to eq(50)
+        expect(subject.instance_variable_get("@limit")).to eq(50)
       end
     end
   end
 
   describe "#start_product" do
     context "when there's limit" do
-    before do
-      subject.stub(:current_page).and_return(5)
-      subject.stub(:limit).and_return(50)
-    end
+      before do
+        subject.instance_variable_set("@current_page", 5)
+        subject.instance_variable_set("@limit", 50)
+      end
 
-    it { expect(subject.start_product).to eq(200) }
+      it { expect(subject.start_product).to eq(200) }
     end
 
     context "when there's no limit" do
-    before do
-      subject.stub(:limit).and_return(nil)
-    end
+      before do
+        subject.stub(:limit).and_return(nil)
+      end
 
-    it { expect(subject.start_product).to eq(0) }
+      it { expect(subject.start_product).to eq(0) }
 
 
 
     end
   end
 
-  describe "#url" do
+  describe "#products" do
     it "SearchEngine#search receives Search#build_url_for" do
-      subject.search.should_receive(:build_url_for).with(subject)
-      subject.url
-    end
-  end
-
-  describe "#filters_url" do
-    it "SearchEngine#search receives Search#build_filters_url" do
-      subject.search.should_receive(:build_filters_url)
-      subject.filters_url
+      subject.instance_variable_get("@search").should_receive(:build_url_for).with(limit: 50, start: subject.start_product)
+      subject.products
     end
   end
 
   describe "#filters" do
-    pending
+    it "SearchEngine#search receives Search#build_filters" do
+      subject.instance_variable_get("@search").should_receive(:build_filters_url)
+      subject.filters
+    end
   end
 
-  describe "#products" do
+  describe "#filters" do
     pending
   end
 
