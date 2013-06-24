@@ -15,6 +15,9 @@ class SeoUrl
     _all_brands = self.all_brands || []
     _all_subcategories = self.all_subcategories || []
 
+    # for search only
+    self.all_categories
+
     all_parameters = parameters.to_s.split("/")
     parsed_values[:category] = all_parameters.shift
     # _all_categories = self.all_categories || []
@@ -68,6 +71,12 @@ class SeoUrl
     { parameters: [category, path, filter_params].reject { |p| p.blank? }.join('/') }
   end
 
+  def self.all_categories
+    Rails.cache.fetch CACHE_KEYS[:all_categories][:key], expire_in: CACHE_KEYS[:all_categories][:expire] do
+      db_categories
+    end
+  end
+
   private
     def self.all_subcategories
       Rails.cache.fetch CACHE_KEYS[:all_subcategories][:key], expire_in: CACHE_KEYS[:all_subcategories][:expire] do
@@ -89,13 +98,8 @@ class SeoUrl
       Product.all.map(&:brand).compact
     end
 
-    # def self.all_categories
-    #   Rails.cache.fetch CACHE_KEYS[:all_categories][:key], expire_in: CACHE_KEYS[:all_categories][:expire] do
-    #     db_categories.map{ |s| [s.titleize, ActiveSupport::Inflector.transliterate(s.titleize)] }.flatten.uniq
-    #   end
-    # end
 
-    # def self.db_categories
-    #   Product.all.map(&:category_humanize).compact
-    # end
+    def self.db_categories
+      Product.includes(:details).all.inject({}){|k,v| k[v.category_humanize] ||= []; k[v.category_humanize].push(v.subcategory).uniq!; k[v.category_humanize].compact!; k }
+    end
 end
