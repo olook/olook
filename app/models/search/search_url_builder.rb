@@ -74,6 +74,7 @@ class SearchUrlBuilder
     @facets << "heel"
     @facets << "care"
     @facets << "size"
+    @facets << "category"
     self
   end
 
