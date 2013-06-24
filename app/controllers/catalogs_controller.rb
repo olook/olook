@@ -17,8 +17,9 @@ class CatalogsController < SearchController
                                care: params[:care],
                                size: params[:size],
                                brand: params[:brand]).for_page(params[:page]).with_limit(100)
-    
+
     @catalog_products = @search.products
+    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
 
     # TODO => Mover para outro lugar
     whitelist = ["salto", "category", "color", "categoria"]
