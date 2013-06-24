@@ -11,6 +11,11 @@ class XmlController < ApplicationController
     respond_with(@products)
   end
 
+  def zoom
+    # Asked by Suzane
+    @products.delete_if{|p| p.id == 14231 || p.category == Category::CLOTH}
+  end
+
   def afilio
     respond_with(@products)
   end

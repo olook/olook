@@ -16,7 +16,7 @@ function setMouseOverOnImages() {
 perform_search = function() {
   var term = $("#search_product").val(); 
   _gaq.push(['_trackEvent', 'SearchBar', 'ClickSubmit', term]);
-  returning_value = term == 'HOJE QUERO VER...' ? false : true;
+  returning_value = term == '' ? false : true;
   return returning_value;
 };
 
@@ -34,7 +34,7 @@ $(function() {
     $(this).val('');
   }).focusout(function(){
     if($(this).val() == ''){
-      $(this).val('HOJE QUERO VER...')
+      $(this).val('')
     }
   });
 
