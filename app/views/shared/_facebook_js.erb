@@ -58,6 +58,11 @@ $(function(){
     }
   });
   
+  if($("#quick_view ul.social li.facebook").length > 0){
+    $("#quick_view ul.social li.facebook a").click(function(){postProductToFacebookFeed()})
+  }
+
+  
 });
 
 /**
@@ -94,8 +99,13 @@ function sendMessageToBoyfriend(me_response) {
       // link: '<%= "#{root_url}dia_dos_namorados/" %>'+me_response.id+'<%= "/#{@product.id.to_s}" %>'+link_suffix+'&size='+size
       link: '<%= "#{root_url}quero_ganhar/" %>'+me_response.id+'<%= "/#{@product.id.to_s}" %>'+link_suffix+'&size='+size
     <% end %>     
-  }; 
-  FB.ui(ui_hash);
+  };
+  
+  function callback(response) {
+    $(window).scrollTop($("#quick_view").position().top - 10)
+  }
+   
+  FB.ui(ui_hash, callback);
 }
  
 
@@ -128,6 +138,18 @@ method: 'feed',
       description: 'Tenho uma vitrine personalizada da Olook e recebo recomendações incríveis das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= root_url %> #ficaadica'
 
     <% end %>
+  };
+
+  FB.ui(obj);
+}
+
+function postProductToFacebookFeed() {
+  var obj = {
+    method: 'feed',
+    caption: 'www.olook.com.br',
+    link: '<%= request.host_with_port %>/produto/<%= product.id %>',
+    picture: '<%= product.suggestion_picture.to_s %>',
+    description: '<%= share_description(product) %>'
   };
 
   FB.ui(obj);
