@@ -74,9 +74,6 @@ describe SearchEngine do
       end
 
       it { expect(subject.start_product).to eq(0) }
-
-
-
     end
   end
 
@@ -146,7 +143,7 @@ describe SearchEngine do
       it { should be_false }
     end
     context "when current page is eq than 1" do
-       before do
+      before do
         search.stub(:current_page).and_return(1)
       end
 
@@ -156,13 +153,20 @@ describe SearchEngine do
     end
 
     context "when current page is greater than 1" do
-       before do
+      before do
         search.stub(:current_page).and_return(11)
       end
 
       subject { search.has_previous_page? }
 
       it { should be_true }
+    end
+  end
+
+  describe "#selected_filters_for" do
+    it "delegates to @search#expressions" do
+      subject.instance_variable_get("@search").should_receive(:expressions).and_return(Hash.new)
+      subject.selected_filters_for("filter")
     end
   end
 
