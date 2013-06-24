@@ -21,7 +21,6 @@ class SearchEngine
   def filters_applied(filter_key, filter_value)
     filter_params = HashWithIndifferentAccess.new
     filter_value = ActiveSupport::Inflector.transliterate(filter_value).downcase
-
     @search.expressions.each do |k, v|
       filter_params[k] ||= []
       if v.respond_to?(:join)
