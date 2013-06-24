@@ -116,6 +116,12 @@ class SearchEngine
     @search.expressions[category.to_sym]
   end
 
+  def has_any_filter_selected?
+    _filters = @search.expressions.dup
+    _filters.delete(:category)
+    _filters.values.flatten.any?
+  end
+
   private
     def fetch_result(url, options = {})
       Rails.logger.debug("GET cloudsearch URL: #{url}")
