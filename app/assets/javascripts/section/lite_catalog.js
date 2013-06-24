@@ -3,6 +3,7 @@ filter.init = function(){
   if(typeof start_position == 'undefined') start_position = 0;
   if(typeof final_position == 'undefined') final_position = 400;
   filter.sliderRange(start_position, final_position);
+  filter.showSelectBoxText();
 }
 filter.parseURL = function() {
   var l = window.location;
@@ -48,5 +49,13 @@ filter.sliderRange = function(start_position, final_position){
   $("#max-value").val("R$ " + $("#slider-range").slider("values", 1));
   $("#min-value-label").text($("#min-value").val());
   $("#max-value-label").text($("#max-value").val());
+}
+filter.showSelectBoxText = function(){
+  $(".custom_select").each(function(){
+    $(this).change(function(){
+      txt = $('option:selected', this).text();
+      $(this).prev().children("span").text(txt);
+    })
+  })
 }
 $(filter.init);
