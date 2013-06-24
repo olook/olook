@@ -78,8 +78,5 @@ section.filters{float:left;width:741px;margin:10px 0 30px;color:#000;border:soli
      button{border:none;background:none;cursor:pointer;width:27px;height:19px;padding:0;font-size:0;font-family:a;line-height:0;background: image-url('moments/sprite.png') right -157px no-repeat;
       &.cleanFilter{font-size:11px;color:#6D6E71;background:none;border:none;font-family:$avenir;cursor:pointer;width:100%;text-transform:none;}
      }
-     span.del-txt{font-size: 11px;position: absolute;right: -3px;text-transform: capitalize;top: -23px;display:none;color:#6D6E71;}
-
-     &.btn-clean{margin-top:-3px;}
  }
 }
