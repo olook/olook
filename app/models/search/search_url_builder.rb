@@ -19,43 +19,36 @@ class SearchUrlBuilder
   end
 
   def with_subcategories subcategory
-    @expressions["subcategory"] ||= []
     @expressions["subcategory"] = subcategory.to_s.split(MULTISELECTION_SEPARATOR)
     self
   end
 
   def with_category category
-    @expressions["category"] ||= []
     @expressions["category"] = category.to_s.split(MULTISELECTION_SEPARATOR)
     self
   end
 
   def with_care care
-    @expressions["care"] ||= []
     @expressions["care"] = care.to_s.split(MULTISELECTION_SEPARATOR)
     self
   end
 
   def with_brand brand
-    @expressions["brand"] ||= []
     @expressions["brand"] = brand.to_s.split(MULTISELECTION_SEPARATOR)
     self
   end
 
   def with_heel heel
-    @expressions["heel"] ||= []
     @expressions["heel"] = heel.to_s.split(MULTISELECTION_SEPARATOR)
     self
   end
 
   def with_size size
-    @expressions["size"] ||= []
     @expressions["size"] = size.to_s.split(MULTISELECTION_SEPARATOR)
     self
   end
 
   def with_color color
-    @expressions["color"] ||= []
     @expressions["color"] = color.to_s.split(MULTISELECTION_SEPARATOR)
     self
   end
