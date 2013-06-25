@@ -6,7 +6,10 @@ class SeoUrl
     "cor" => "color",
     "preco" => "price",
     "salto" => "heel",
-    "colecao" => "collection"
+    "colecao" => "collection",
+    "por" => "sort_price",
+    "menor-preco" => "price",
+    "maior-preco" => "-price"
   }
 
   def self.parse parameters, other_parameters={}
@@ -54,6 +57,8 @@ class SeoUrl
         parsed_values[VALUES[k]] = v
       end
     end
+
+    parsed_values[:sort_price] = VALUES[other_parameters["por"]]
 
     parsed_values
   end

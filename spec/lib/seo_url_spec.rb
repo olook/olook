@@ -90,6 +90,18 @@ describe SeoUrl do
 
       it { expect(subject[:subcategory]).to eq 'bolsa media' }
     end
+
+    context "when is ordering by minor price" do
+      subject { SeoUrl.parse("sapato",{ "por" => "menor-preco" }) }
+
+      it { expect(subject[:sort_price]).to eq 'price' }
+    end
+
+    context "when is ordering by desc price" do
+      subject { SeoUrl.parse("sapato",{ "por" => "maior-preco" }) }
+
+      it { expect(subject[:sort_price]).to eq '-price' }
+    end
   end
 
   describe '.build' do
