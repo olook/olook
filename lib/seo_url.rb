@@ -10,7 +10,7 @@ class SeoUrl
     "por" => "sort_price",
     "menor-preco" => "price",
     "maior-preco" => "-price",
-    "protecao" => "care",
+    "conforto" => "care",
     "colecao" => "collection"
   }
 
@@ -30,13 +30,9 @@ class SeoUrl
     subcategories = []
     brands = []
 
-    subcategories_and_brands.each do |sub|
-      if _all_subcategories.include?(sub.parameterize)
-        subcategories << sub
-      end
-    end
+    subcategories = ((_all_subcategories - Product::CARE_PRODUCTS.map(&:parameterize)) & subcategories_and_brands.map(&:parameterize))
 
-
+    brands = (_all_brands & subcategories_and_brands.map(&:parameterize) )
     subcategories_and_brands.each do |sub|
       if _all_brands.include?(sub.parameterize)
         brands << sub
@@ -76,8 +72,6 @@ class SeoUrl
     parameters.each do |k, v|
       if v.respond_to?(:join)
         filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| ActiveSupport::Inflector.transliterate(_v).downcase}.join('-')}" if v.present?
-      else
-        filter_params << "#{VALUES.invert[k.to_s]}-#{ActiveSupport::Inflector.transliterate(v).downcase}" if v.present?
       end
     end
     filter_params = filter_params.join('_')
