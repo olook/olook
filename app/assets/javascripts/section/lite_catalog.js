@@ -5,6 +5,7 @@ filter.init = function(){
   filter.sliderRange(start_position, final_position);
   filter.showSelectBoxText();
   filter.spy();
+  filter.hideShow();
 }
 filter.parseURL = function() {
   var l = window.location;
@@ -59,17 +60,18 @@ filter.showSelectBoxText = function(){
   })
 }
 filter.spy = function(){
-  $("p.hover_suggestive").each(function(){
-    $(this).on("click", function(e){
-      id = $("span", this).attr("rel");
-      $.ajax({
-        url: '/produto/'+id,
-        cache: 'true',
-        dataType: 'script'
-      });
-      e.stopPropagation();
-      e.preventDefault();
-    }).on({
+  $("p.spy").each(function(){
+    $(this).on({
+      click: function(e){
+        id = $("span", this).attr("rel");
+        $.ajax({
+          url: '/produto/'+id,
+          cache: 'true',
+          dataType: 'script'
+        });
+        e.stopPropagation();
+        e.preventDefault();
+      },
       mouseover: function() {
         var backside_image = $(this).next().children("img").attr('data-backside-picture');
         $(this).next().children("img").attr('src', backside_image);
@@ -81,4 +83,12 @@ filter.spy = function(){
     });
   });
 }
+filter.hideShow = function(){
+  $(".title-category").each(function(){
+    $(this).on("click", function(){
+      $(this).toggleClass("close").next().slideToggle();
+    })
+  })
+}
+
 $(filter.init);
