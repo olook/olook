@@ -18,18 +18,18 @@
 
   #result
     / local onde o viewpersonalized será exibido
-    ///.chaordic.viewpersonalized
+    .chaordic.viewpersonalized
     / local onde o purchasepersonalized será exibido
-    ///.chaordic.purchasepersonalized
+    .chaordic.purchasepersonalized
     / local onde o mostpopular será exibido
-    ///.chaordic.mostpopular
+    .chaordic.mostpopular
     .pagination
       = render "/shared/nav_bar_pagination", search: @search
 
 
     =# render "moments/new_header_moments"
     = render 'current_section', search: @search
-  
+
     %section.container_product
       %ul#products
         = render "searched_products", :products => @catalog_products
