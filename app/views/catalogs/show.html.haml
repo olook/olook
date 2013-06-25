@@ -17,19 +17,20 @@
   %aside= render "filters", search: @search
 
   #result
-    / local onde o viewpersonalized será exibido
-    .chaordic.viewpersonalized
-    / local onde o purchasepersonalized será exibido
-    .chaordic.purchasepersonalized
-    / local onde o mostpopular será exibido
-    .chaordic.mostpopular
+    - unless @search.has_any_filter_selected?
+      / local onde o viewpersonalized será exibido
+      .chaordic.viewpersonalized
+      / local onde o purchasepersonalized será exibido
+      .chaordic.purchasepersonalized
+      / local onde o mostpopular será exibido
+      .chaordic.mostpopular
 
     .pagination
       = render "/shared/nav_bar_pagination", search: @search
 
     = render "ordenation_filters"
     = render 'current_section', search: @search
-    
+
     %section.container_product
       %ul#products
         = render "searched_products", :products => @catalog_products
