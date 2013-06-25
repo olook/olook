@@ -76,8 +76,6 @@ class SeoUrl
     parameters.each do |k, v|
       if v.respond_to?(:join)
         filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| ActiveSupport::Inflector.transliterate(_v).downcase}.join('-')}" if v.present?
-      else
-        filter_params << "#{VALUES.invert[k.to_s]}-#{ActiveSupport::Inflector.transliterate(v).downcase}" if v.present?
       end
     end
     filter_params = filter_params.join('_')
