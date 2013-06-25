@@ -72,12 +72,12 @@ class SearchEngine
   end
 
   def filters
-    url = @search.build_filters_url
+    url = build_filters_url
     @result = fetch_result(url, parse_facets: true)
   end
 
   def products(pagination = true)
-    url = @search.build_url_for(pagination ? {limit: @limit, start: self.start_product} : {})
+    url = build_url_for(pagination ? {limit: @limit, start: self.start_product} : {})
     @result = fetch_result(url, {parse_products: true})
     @result.products
   end
@@ -129,6 +129,15 @@ class SearchEngine
   end
 
   private
+
+    def build_filters_url
+      @search.build_filters_url
+    end
+
+    def build_url_for(options)
+      @search.build_url_for(options)
+    end
+
     def fetch_result(url, options = {})
       Rails.logger.debug("GET cloudsearch URL: #{url}")
       _response = Net::HTTP.get_response(url)
