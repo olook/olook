@@ -10,6 +10,7 @@ class SeoUrl
     "por" => "sort_price",
     "menor-preco" => "retail_price",
     "maior-preco" => "-retail_price",
+    "maior-desconto" => "-desconto",
     "conforto" => "care",
     "colecao" => "collection"
   }
@@ -51,7 +52,7 @@ class SeoUrl
       end
     end
 
-    parsed_values[:sort_price] = VALUES[other_parameters["por"]]
+    parsed_values[:sort] = VALUES[other_parameters["por"]]
 
     parsed_values
   end
