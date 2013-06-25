@@ -10,14 +10,10 @@ module CatalogsHelper
     end
   end
 
-  def current_seaction_link_to(link, text, selected=false, content_tag=nil)
-    span_class = text.downcase
+  def current_section_link_to(link, selected=false)
     search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
-    class_hash = selected ? {class: "selected"} : {}
     link+=search_param
-    link_to(link, class_hash) do
-      content_tag(:span, "#{text}(X)", class:"txt-#{span_class}")
-    end
+    link_to("X", link)
   end
 
   def filters_by filter
