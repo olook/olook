@@ -6,7 +6,7 @@ class SearchUrlBuilder
   # BASE_URL = SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
   #
   attr_reader :expressions
-  RANGED_FIELDS = ['price', 'heeluint']
+  RANGED_FIELDS = HashWithIndifferentAccess.new({'price' => '', 'heeluint' => ''})
 
   def initialize(base_url=SEARCH_CONFIG["search_domain"] + "/2011-02-01/search")
     @base_url = base_url
@@ -105,7 +105,7 @@ class SearchUrlBuilder
     def build_boolean_expression
       bq = []
       @expressions.each do |field, values|
-        if RANGED_FIELDS.include?(field)
+        if RANGED_FIELDS[field]
           bq << "(or #{values.join(' ')})"
         elsif values.is_a?(Array) && values.any?
           vals = values.map { |v| "(field #{field} '#{v}')" } unless values.empty?
