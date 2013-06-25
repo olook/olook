@@ -6,6 +6,7 @@ class SearchUrlBuilder
   # BASE_URL = SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
   #
   attr_reader :expressions
+  RANGED_FIELDS = ['price', 'heeluint']
 
   def initialize(base_url=SEARCH_CONFIG["search_domain"] + "/2011-02-01/search")
     @base_url = base_url
@@ -39,8 +40,13 @@ class SearchUrlBuilder
   end
 
   def with_heel heel
-    if heel =~ /^\d+-\d+$/
-      @expressions["heel"] = "heeluint:#{heel.to_s.gsub('-', '..')}"
+    if heel =~ /^(-?\d+-\d+)+$/
+      hvals = heel.split('-')
+      @expressions["heel"] = []
+      while hvals.present?
+        val = hvals.shift(2).join('..')
+        @expressions["heel"] << "heeluint:#{val}"
+      end
     end
     self
   end
@@ -57,7 +63,7 @@ class SearchUrlBuilder
 
   def with_price price
     if price =~ /^\d+-\d+$/
-      @expressions["price"] = "price:#{price.to_s.gsub('-', '..')}"
+      @expressions["price"] = ["price:#{price.to_s.gsub('-', '..')}"]
     end
     self
   end
@@ -99,8 +105,8 @@ class SearchUrlBuilder
     def build_boolean_expression
       bq = []
       @expressions.each do |field, values|
-        if values.is_a?(String)
-          bq << values
+        if RANGED_FIELDS.include?(field)
+          bq << "(or #{values.join(' ')})"
         elsif values.is_a?(Array) && values.any?
           vals = values.map { |v| "(field #{field} '#{v}')" } unless values.empty?
           bq << ( vals.size > 1 ? "(or #{vals.join(' ')})" : vals.first )
