@@ -21,7 +21,7 @@ class SeoUrl
     _all_subcategories = self.all_subcategories || []
 
     unless other_parameters[:search]
-      _all_subcategories -= Product::CARE_PRODUCTS.map(&:parameterize)
+      _all_subcategories -= Product::CARE_PRODUCTS.map { |s| ActiveSupport::Inflector.transliterate(s) }
       self.all_categories
     end
 
@@ -30,8 +30,8 @@ class SeoUrl
 
     subcategories_and_brands = all_parameters.first.split("-") rescue []
 
-    subcategories = (_all_subcategories & subcategories_and_brands.map(&:parameterize))
-    brands = (_all_brands & subcategories_and_brands.map(&:parameterize))
+    subcategories = (_all_subcategories & subcategories_and_brands.map { |s| ActiveSupport::Inflector.transliterate(s).titleize })
+    brands = (_all_brands & subcategories_and_brands.map { |s| ActiveSupport::Inflector.transliterate(s).titleize })
 
     parsed_values[:subcategory] = subcategories.join("-") if subcategories.any?
     parsed_values[:brand] = brands.join("-") if brands.any?
@@ -84,7 +84,7 @@ class SeoUrl
   private
     def self.all_subcategories
       Rails.cache.fetch CACHE_KEYS[:all_subcategories][:key], expire_in: CACHE_KEYS[:all_subcategories][:expire] do
-        db_subcategories.map{ |s| [s.parameterize, ActiveSupport::Inflector.transliterate(s.parameterize)] }.flatten.uniq
+        db_subcategories.map{ |s| [s.titleize, ActiveSupport::Inflector.transliterate(s).titleize] }.flatten.uniq
       end
     end
 
@@ -94,7 +94,7 @@ class SeoUrl
 
     def self.all_brands
       Rails.cache.fetch CACHE_KEYS[:all_brands][:key], expire_in: CACHE_KEYS[:all_brands][:expire] do
-        db_brands.map{ |b| [b.parameterize, ActiveSupport::Inflector.transliterate(b.parameterize)] }.flatten.uniq
+        db_brands.map{ |b| [b.titleize, ActiveSupport::Inflector.transliterate(b).titleize] }.flatten.uniq
       end
     end
 

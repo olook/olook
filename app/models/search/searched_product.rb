@@ -1,6 +1,6 @@
 class SearchedProduct
 
-  attr_accessor :id, :formatted_name, :model_name, :category, :catalog_image, :backside_picture, :price, :brand
+  attr_accessor :id, :formatted_name, :model_name, :category, :catalog_image, :backside_picture, :price, :brand, :retail_price
   attr_writer :promotion
 
   def initialize id, data
@@ -9,7 +9,8 @@ class SearchedProduct
     self.catalog_image = data["image"][0]
     self.backside_picture = data["backside_image"][0]
     self.brand = data["brand"][0]
-    self.price = BigDecimal.new(data["price"][0])
+    self.price = BigDecimal.new(data["price"][0].to_d/100.0.to_d)
+    self.retail_price = BigDecimal.new(data["retail_price"][0].to_d/100.0.to_d)
     self.promotion = false
   end
 
