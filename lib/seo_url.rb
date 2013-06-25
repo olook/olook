@@ -35,6 +35,7 @@ class SeoUrl
     brands = (_all_brands & subcategories_and_brands.map { |s| ActiveSupport::Inflector.transliterate(s).titleize })
 
     parsed_values[:subcategory] = subcategories.join("-") if subcategories.any?
+
     parsed_values[:brand] = brands.join("-") if brands.any?
 
     filter_params = all_parameters.last || []

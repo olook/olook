@@ -57,12 +57,12 @@ describe SeoUrl do
     end
 
     context "when given parameters has brand and subcategory together" do
-      subject { SeoUrl.parse("roupa/bota/colcci-olook") }
+      subject { SeoUrl.parse("roupa/bota-colcci-olook") }
       it { expect(subject.keys).to include('subcategory')  }
       it { expect(subject[:subcategory]).to eq 'Bota' }
 
       it { expect(subject.keys).to include('brand')  }
-      it { expect(subject[:brand]).to eq 'colcci-olook' }
+      it { expect(subject[:brand]).to eq 'Colcci-Olook' }
     end
 
     context "when there's no parameters and subcategories" do
@@ -125,7 +125,7 @@ describe SeoUrl do
 
     context "when given parameters has brand and subcategory together" do
       subject { SeoUrl.build(category: [ 'roupa' ], subcategory: ['bota'], brand: ['colcci', 'olook'], care:['amaciante']) }
-      it { expect(subject).to eq({ parameters: "roupa/bota/colcci-olook_conforto-amaciante" }) }
+      it { expect(subject).to eq({ parameters: "roupa/bota-colcci-olook/conforto-amaciante" }) }
     end
 
     context "when there's no parameters and subcategories" do
