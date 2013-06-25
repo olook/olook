@@ -4,6 +4,7 @@ class SearchEngine
   attr_reader :current_page, :result
 
   def initialize attributes = {}
+    Rails.logger.debug("SearchEngine received these params: #{attributes.inspect}")
     @current_page = 1
     @search = SearchUrlBuilder.new
     .for_term(attributes[:term])
@@ -15,6 +16,7 @@ class SearchEngine
     .with_care(attributes[:care])
     .with_price(attributes[:price])
     .with_size(attributes[:size])
+    .sort_by_price(attributes[:sort_price])
     .grouping_by
   end
 
@@ -23,26 +25,25 @@ class SearchEngine
     filter_value = ActiveSupport::Inflector.transliterate(filter_value).downcase
     @search.expressions.each do |k, v|
       filter_params[k] ||= []
-      if v.respond_to?(:join)
-        filter_params[k].concat v
+      if SearchUrlBuilder::RANGED_FIELDS[k]
+        v.each do |_v|
+          /(?<min>\d+)\.\.(?<max>\d+)/ =~ _v.to_s
+          filter_params[k] << "#{min}-#{max}"
+        end
       else
-        /(?<min>\d+)\.\.(?<max>\d+)/ =~ v.to_s
-        filter_params[k] = "#{min}-#{max}"
+        filter_params[k].concat v
       end
     end
 
     if filter_params[filter_key]
-      if filter_params[filter_key].respond_to?(:join)
-        if filter_selected?(filter_key, filter_value)
-          filter_params[filter_key] -= [ filter_value ]
-        else
-          filter_params[filter_key] << filter_value
-        end
-        filter_params[filter_key].uniq!
+      if filter_selected?(filter_key, filter_value)
+        filter_params[filter_key] -= [ filter_value ]
       else
-        /(?<min>\d+)\.\.(?<max>\d+)/ =~ filter_value.to_s
-        filter_params[filter_key] = "#{min}-#{max}"
+        filter_params[filter_key] << filter_value
       end
+      filter_params[filter_key].uniq!
+    else
+      filter_params[filter_key] = [filter_value]
     end
 
     filter_params
@@ -105,14 +106,20 @@ class SearchEngine
 
   def filter_selected?(filter_key, filter_value)
     if values = @search.expressions[filter_key]
-      values.include?(ActiveSupport::Inflector.transliterate(filter_value).downcase)
+      if SearchUrlBuilder::RANGED_FIELDS[filter_key]
+        values.any? do |v|
+          /#{filter_value.gsub('-', '..')}/ =~ v
+        end
+      else
+        values.include?(ActiveSupport::Inflector.transliterate(filter_value).downcase)
+      end
     else
       false
     end
   end
 
   def selected_filters_for category
-    @search.expressions[category.to_sym]
+    @search.expressions[category.to_sym] || []
   end
 
   def has_any_filter_selected?

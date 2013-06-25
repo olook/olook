@@ -14,9 +14,10 @@ class CatalogsController < SearchController
                                color: params[:color],
                                heel: params[:heel],
                                care: params[:care],
+                               price: params[:price],
                                size: params[:size],
-                               brand: params[:brand]).for_page(params[:page]).with_limit(99)
-
+                               brand: params[:brand],
+                               sort_price: params[:sort_price]).for_page(params[:page]).with_limit(99)
     @catalog_products = @search.products
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
   end
@@ -30,7 +31,7 @@ class CatalogsController < SearchController
 
     def remove_care_products_from(filters)
       if filters.grouped_products('subcategory')
-        filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) } 
+        filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) }
       end
     end
 end
