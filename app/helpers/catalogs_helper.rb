@@ -20,7 +20,7 @@ module CatalogsHelper
   def current_section_link_to(link, selected=false)
     search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
     link+=search_param
-    link_to("X", link)
+    link_to("( x )", link)
   end
 
   def filters_by filter
