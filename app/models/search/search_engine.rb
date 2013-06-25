@@ -42,6 +42,8 @@ class SearchEngine
         filter_params[filter_key] << filter_value
       end
       filter_params[filter_key].uniq!
+    else
+      filter_params[filter_key] = [filter_value]
     end
 
     filter_params
