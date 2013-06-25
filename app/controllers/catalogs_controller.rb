@@ -7,8 +7,7 @@ class CatalogsController < SearchController
     params.merge!(SeoUrl.parse(params[:parameters], params))
     Rails.logger.debug("New params: #{params.inspect}")
 
-    @filters = SearchEngine.new(category: params[:category]).filters
-    @filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.include?(c) } if @filters.grouped_products('subcategory')
+    @filters = create_filters
 
     @search = SearchEngine.new(category: params[:category],
                                subcategory: params[:subcategory],
@@ -16,14 +15,22 @@ class CatalogsController < SearchController
                                heel: params[:heel],
                                care: params[:care],
                                size: params[:size],
-                               brand: params[:brand]).for_page(params[:page]).with_limit(100)
+                               brand: params[:brand]).for_page(params[:page]).with_limit(99)
 
     @catalog_products = @search.products
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
-
-    # TODO => Mover para outro lugar
-    whitelist = ["salto", "category", "color", "categoria"]
-    @querystring = params.select{|k,v| whitelist.include?(k) }.to_query
   end
 
+  private
+    def create_filters
+      filters = SearchEngine.new(category: params[:category]).filters
+      remove_care_products_from(filters)
+      filters
+    end
+
+    def remove_care_products_from(filters)
+      if filters.grouped_products('subcategory')
+        filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) } 
+      end
+    end
 end
