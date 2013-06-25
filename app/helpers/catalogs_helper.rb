@@ -10,6 +10,12 @@ module CatalogsHelper
     end
   end
 
+  def current_section_link_to(link, selected=false)
+    search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
+    link+=search_param
+    link_to("X", link)
+  end
+
   def filters_by filter
     @filters.grouped_products(filter)
   end
