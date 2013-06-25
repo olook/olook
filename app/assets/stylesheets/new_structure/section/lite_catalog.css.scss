@@ -38,6 +38,7 @@ aside{float:left;width:185px;
       &.txt-zebra{background-position: 0 -205px;}
     }
   }
+  
   p{font-size:11px;text-transform:uppercase;font-weight:bold;height:15px;background:image-url('catalog/sprite.png') no-repeat 0 6px;padding-left:13px;margin-bottom:5px;cursor:pointer;
     &.close{background-position:0 -25px !important;}
   }
@@ -45,6 +46,7 @@ aside{float:left;width:185px;
     &:hover{color:$base_color;}
     &.selected{background-position:0 -86px !important;}
   }
+  .clean_filter a{font-size:11px;text-decoration:underline;background:none;padding-left:0;}
 }
 
 #result{float:left;width:785px;}
