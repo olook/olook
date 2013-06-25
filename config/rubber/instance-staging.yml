@@ -1,104 +1,5 @@
---- 
-- !ruby/object:Rubber::Configuration::InstanceItem 
-  domain: olook.com.br
-  external_host: ec2-107-20-75-29.compute-1.amazonaws.com
-  external_ip: 107.20.75.29
-  image_id: ami-3fec7956
-  image_type: m1.large
-  instance_id: i-af81cacd
-  internal_host: ip-10-170-29-138.ec2.internal
-  internal_ip: 10.170.29.138
-  name: homolog
-  platform: linux
-  provider: aws
-  roles: 
-  - !ruby/object:Rubber::Configuration::RoleItem 
-    name: app
-    options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
-    name: unicorn
-    options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
-    name: nginx
-    options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
-    name: db
-    options: 
-      primary: true
-  - !ruby/object:Rubber::Configuration::RoleItem 
-    name: mysql
-    options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
-    name: mysql_master
-    options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
-    name: memcached
-    options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
-    name: redis
-    options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
-    name: resque
-    options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
-    name: resque_scheduler
-    options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
-    name: resque_worker
-    options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
-    name: web
-    options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
-    name: common
-    options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
-    name: collectd
-    options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
-    name: monit
-    options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
-    name: redis_master
-    options: {}
-
-  root_device_type: ebs
-  security_groups: 
-  - olook_staging_default
-  - olook_staging_web
-  - olook_staging_homolog
-  - olook_staging_app
-  - olook_staging_unicorn
-  - olook_staging_nginx
-  - olook_staging_db
-  - olook_staging_mysql
-  - olook_staging_mysql_master
-  - olook_staging_memcached
-  - olook_staging_redis
-  - olook_staging_resque
-  - olook_staging_resque_scheduler
-  - olook_staging_resque_worker
-  - olook_staging_common
-  - olook_staging_collectd
-  - olook_staging_monit
-  - olook_staging_newrelic
-  - olook_staging_redis_master
-  zone: us-east-1b
-- !ruby/object:Rubber::Configuration::InstanceItem 
+---
+- !ruby/object:Rubber::Configuration::InstanceItem
   domain: olook.com.br
   external_host: ec2-54-224-45-237.compute-1.amazonaws.com
   external_ip: 54.224.45.237
@@ -110,73 +11,58 @@
   name: development
   platform: linux
   provider: aws
-  roles: 
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: app
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: unicorn
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: nginx
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: db
-    options: 
+    options:
       primary: true
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: mysql
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: mysql_master
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: memcached
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: redis
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: resque
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: resque_scheduler
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: resque_worker
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: web
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: common
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: collectd
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: redis_master
     options: {}
-
   root_device_type: ebs
-  security_groups: 
+  security_groups:
   - olook_staging_default
   - olook_staging_web
   - olook_staging_development
@@ -197,7 +83,7 @@
   - olook_staging_newrelic
   - olook_staging_redis_master
   zone: us-east-1b
-- !ruby/object:Rubber::Configuration::InstanceItem 
+- !ruby/object:Rubber::Configuration::InstanceItem
   domain: olook.com.br
   external_host: ec2-54-224-184-120.compute-1.amazonaws.com
   external_ip: 54.224.184.120
@@ -209,53 +95,43 @@
   name: stage
   platform: linux
   provider: aws
-  roles: 
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: web
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: app
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: unicorn
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: nginx
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: db
-    options: 
+    options:
       primary: true
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: mysql
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: mysql_master
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: memcached
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: redis
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: collectd
     options: {}
-
-  - !ruby/object:Rubber::Configuration::RoleItem 
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
     options: {}
-
   root_device_type: ebs
-  security_groups: 
+  security_groups:
   - olook_staging_default
   - olook_staging_web
   - olook_staging_stage
@@ -271,6 +147,4 @@
   - olook_staging_monit
   zone: us-east-1b
 - volumes: {}
-
   static_ips: {}
-
