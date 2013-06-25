@@ -115,7 +115,6 @@ class SearchUrlBuilder
         end
       end
 
-      binding.pry
       if bq.size == 1
         "bq=#{url_encode bq.first}&"
       elsif bq.size > 1
