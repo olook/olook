@@ -125,7 +125,7 @@ class IndexProductsWorker
         when index < 5
           '0-4 cm'
         when index >= 5 && index < 10
-          '50-9 cm'
+          '5-9 cm'
         when index > 10
           '10-15 cm'
         else
