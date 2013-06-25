@@ -6,6 +6,7 @@ class SeoUrl
     "cor" => "color",
     "preco" => "price",
     "salto" => "heel",
+    "protecao" => "care",
     "colecao" => "collection"
   }
 
