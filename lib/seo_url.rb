@@ -20,24 +20,19 @@ class SeoUrl
     _all_brands = self.all_brands || []
     _all_subcategories = self.all_subcategories || []
 
-    # for search only
-    self.all_categories
+    unless other_parameters[:search]
+      _all_subcategories -= Product::CARE_PRODUCTS.map(&:parameterize) 
+      self.all_categories
+    end
 
     all_parameters = parameters.to_s.split("/")
     parsed_values[:category] = all_parameters.shift
 
     subcategories_and_brands = all_parameters.first.split("-") rescue []
-    subcategories = []
-    brands = []
 
-    subcategories = ((_all_subcategories - Product::CARE_PRODUCTS.map(&:parameterize)) & subcategories_and_brands.map(&:parameterize))
+    subcategories = (_all_subcategories & subcategories_and_brands.map(&:parameterize))
+    brands = (_all_brands & subcategories_and_brands.map(&:parameterize))
 
-    brands = (_all_brands & subcategories_and_brands.map(&:parameterize) )
-    subcategories_and_brands.each do |sub|
-      if _all_brands.include?(sub.parameterize)
-        brands << sub
-      end
-    end
     parsed_values[:subcategory] = subcategories.join("-") if subcategories.any?
     parsed_values[:brand] = brands.join("-") if brands.any?
 
