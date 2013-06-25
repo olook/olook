@@ -10,6 +10,8 @@ class SeoUrl
     "por" => "sort_price",
     "menor-preco" => "price",
     "maior-preco" => "-price"
+    "protecao" => "care",
+    "colecao" => "collection"
   }
 
   def self.parse parameters, other_parameters={}
