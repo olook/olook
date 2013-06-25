@@ -143,8 +143,7 @@ method: 'feed',
   FB.ui(obj);
 }
 
-
-<% if product.present? %>
+<% if defined?(product) && product.present? %>
 
 function postProductToFacebookFeed() {
   var obj = {
