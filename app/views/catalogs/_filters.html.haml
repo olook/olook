@@ -40,9 +40,9 @@
   .filter
     %p.title-category Salto
     %ul.category-list
-      - filters_by("heel").each do |text, amount|
-        %li= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(:heel, text.chomp), params)), text.chomp, search.filter_selected?(:heel, text.chomp))
-
+      %li= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(:heel, '0-4'), params)), '0..4 cm', search.filter_selected?(:heel, '0-4'))
+      %li= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(:heel, '5-9'), params)), '5..9 cm', search.filter_selected?(:heel, '5-9'))
+      %li= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(:heel, '10-15'), params)), '10..15 cm', search.filter_selected?(:heel, '10-15'))
 
   .filter
     %p.title-category Conforto & Proteção
