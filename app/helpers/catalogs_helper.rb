@@ -17,7 +17,7 @@ module CatalogsHelper
   end
 
   def filters_by filter
-    @filters.grouped_products(filter)
+    @filters.grouped_products(filter).sort
   end
 
 end
