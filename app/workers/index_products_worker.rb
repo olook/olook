@@ -24,11 +24,11 @@ class IndexProductsWorker
   private
 
     def self.get_brands(products)
-      Set.new(products.map(&:brand).map(&:titleize).uniq)
+      Set.new(products.map(&:brand).map(&:parameterize).uniq)
     end
 
     def self.get_subcategories(products)
-      Set.new(products.map(&:subcategory).compact.map(&:titleize).uniq)
+      Set.new(products.map(&:subcategory).compact.map(&:parameterize).uniq)
     end
 
     def self.add_products(products)

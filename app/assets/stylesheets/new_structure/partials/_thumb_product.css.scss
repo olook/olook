@@ -1,3 +1,4 @@
+@import 'new_structure/common/global_stuffs';
 .container_product{clear:both;
   ul{
     &.second_line{
@@ -14,7 +15,7 @@
             &:hover{color:$base_color;}
           }
         }
-      
+
         p{margin-top:20px;
           span,strong{white-space:no-wrap;overflow:hidden;/*display:inline-block;*/height:18px;
             &.brand{text-transform:uppercase;}
@@ -29,23 +30,23 @@
               span{font-size:14px;font-weight:normal;}
             }
           }
-          
-        }  
+
+        }
         img{width:100%;height:auto;
           &.async{width:170px;height:170px;}
         }
       }
-    
+
       ul.color_list li{width:15px;display:inline-block;margin:5px 3px 0 0;
         a{
           img{border:solid 2px #C2C2C2;}
           &.selected img{border:solid 2px #000;}
-        }  
+        }
       }
 
       p.facebook_like_button {
         padding-top: 7px;
-      }      
+      }
     }
   }
   .see-more{border-top:solid 1px #CBCBCB;text-align:center;margin:50px 0 40px;position:relative;
