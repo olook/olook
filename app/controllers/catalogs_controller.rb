@@ -17,7 +17,7 @@ class CatalogsController < SearchController
                                price: params[:price],
                                size: params[:size],
                                brand: params[:brand],
-                               sort_price: params[:sort_price]).for_page(params[:page]).with_limit(99)
+                               sort: params[:sort]).for_page(params[:page]).with_limit(99)
     @catalog_products = @search.products
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
   end
