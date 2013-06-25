@@ -39,7 +39,9 @@ class SearchUrlBuilder
   end
 
   def with_heel heel
-    @expressions["heel"] = heel.to_s.split(MULTISELECTION_SEPARATOR)
+    if heel =~ /^\d+-\d+$/
+      @expressions["heel"] = "heeluint:#{heel.to_s.gsub('-', '..')}"
+    end
     self
   end
 
