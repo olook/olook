@@ -1,16 +1,3 @@
-- if is_moment_page?
-  - if @featured_products && Setting.show_featured_products
-    = render "shared/featured_products", :products => @featured_products, :category_id => @category_id
-  %section.filters
-    %h1
-      %b
-        Você está em #{print_section_name}
-        %span //
-    #tags
-      %ul
-        %li.btn-clean
-          %button.cleanFilter{:type => "button"} ( limpar filtros )
-          
 .exhibition-mode
   = form_for "" do
     %fieldset
