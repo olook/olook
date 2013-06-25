@@ -4,6 +4,7 @@ class SearchEngine
   attr_reader :current_page, :result
 
   def initialize attributes = {}
+    Rails.logger.debug("SearchEngine received these params: #{attributes.inspect}")
     @current_page = 1
     @search = SearchUrlBuilder.new
     .for_term(attributes[:term])
