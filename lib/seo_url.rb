@@ -9,7 +9,7 @@ class SeoUrl
     "colecao" => "collection",
     "por" => "sort_price",
     "menor-preco" => "price",
-    "maior-preco" => "-price"
+    "maior-preco" => "-price",
     "protecao" => "care",
     "colecao" => "collection"
   }
