@@ -28,7 +28,6 @@ filter.mountURL = function(othermaps) {
   return url;
 }
 filter.sliderRange = function(start_position, final_position){
-
   $("#slider-range").slider({
       range: true,
       min: 0,
@@ -70,8 +69,16 @@ filter.spy = function(){
       });
       e.stopPropagation();
       e.preventDefault();
+    }).on({
+      mouseover: function() {
+        var backside_image = $(this).next().children("img").attr('data-backside-picture');
+        $(this).next().children("img").attr('src', backside_image);
+      },
+      mouseout: function() {
+        var product_image = $(this).next().children("img").attr('data-product');
+        $(this).next().children("img").attr('src', product_image);
+      }
     });
-
   });
 }
 $(filter.init);
