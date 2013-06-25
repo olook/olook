@@ -94,13 +94,13 @@ describe SeoUrl do
     context "when is ordering by minor price" do
       subject { SeoUrl.parse("sapato",{ "por" => "menor-preco" }) }
 
-      it { expect(subject[:sort_price]).to eq 'price' }
+      it { expect(subject[:sort_price]).to eq 'retail_price' }
     end
 
     context "when is ordering by desc price" do
       subject { SeoUrl.parse("sapato",{ "por" => "maior-preco" }) }
 
-      it { expect(subject[:sort_price]).to eq '-price' }
+      it { expect(subject[:sort_price]).to eq '-retail_price' }
     end
   end
 
