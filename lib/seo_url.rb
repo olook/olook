@@ -8,8 +8,8 @@ class SeoUrl
     "salto" => "heel",
     "colecao" => "collection",
     "por" => "sort_price",
-    "menor-preco" => "price",
-    "maior-preco" => "-price",
+    "menor-preco" => "retail_price",
+    "maior-preco" => "-retail_price",
     "conforto" => "care",
     "colecao" => "collection"
   }
@@ -21,7 +21,7 @@ class SeoUrl
     _all_subcategories = self.all_subcategories || []
 
     unless other_parameters[:search]
-      _all_subcategories -= Product::CARE_PRODUCTS.map(&:parameterize) 
+      _all_subcategories -= Product::CARE_PRODUCTS.map(&:parameterize)
       self.all_categories
     end
 
