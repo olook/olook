@@ -114,7 +114,7 @@ class SearchEngine
   end
 
   def selected_filters_for category
-    @search.expressions[category.to_sym]
+    @search.expressions[category.to_sym] || []
   end
 
   def has_any_filter_selected?
