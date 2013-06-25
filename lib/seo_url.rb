@@ -26,13 +26,14 @@ class SeoUrl
     brands = []
 
     subcategories_and_brands.each do |sub|
-      if _all_subcategories.include?(sub.titlecase)
+      if _all_subcategories.include?(sub.parameterize)
         subcategories << sub
       end
     end
 
+
     subcategories_and_brands.each do |sub|
-      if _all_brands.include?(sub.titlecase)
+      if _all_brands.include?(sub.parameterize)
         brands << sub
       end
     end
@@ -85,7 +86,7 @@ class SeoUrl
   private
     def self.all_subcategories
       Rails.cache.fetch CACHE_KEYS[:all_subcategories][:key], expire_in: CACHE_KEYS[:all_subcategories][:expire] do
-        db_subcategories.map{ |s| [s.titleize, ActiveSupport::Inflector.transliterate(s.titleize)] }.flatten.uniq
+        db_subcategories.map{ |s| [s.parameterize, ActiveSupport::Inflector.transliterate(s.parameterize)] }.flatten.uniq
       end
     end
 
@@ -95,7 +96,7 @@ class SeoUrl
 
     def self.all_brands
       Rails.cache.fetch CACHE_KEYS[:all_brands][:key], expire_in: CACHE_KEYS[:all_brands][:expire] do
-        db_brands.map{ |b| [b.titleize, ActiveSupport::Inflector.transliterate(b.titleize)] }.flatten.uniq
+        db_brands.map{ |b| [b.parameterize, ActiveSupport::Inflector.transliterate(b.parameterize)] }.flatten.uniq
       end
     end
 
