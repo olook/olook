@@ -8,8 +8,8 @@ class SeoUrl
     "salto" => "heel",
     "colecao" => "collection",
     "por" => "sort_price",
-    "menor-preco" => "price",
-    "maior-preco" => "-price",
+    "menor-preco" => "retail_price",
+    "maior-preco" => "-retail_price",
     "conforto" => "care",
     "colecao" => "collection"
   }
@@ -21,7 +21,7 @@ class SeoUrl
     _all_subcategories = self.all_subcategories || []
 
     unless other_parameters[:search]
-      _all_subcategories -= Product::CARE_PRODUCTS.map(&:parameterize) 
+      _all_subcategories -= Product::CARE_PRODUCTS.map(&:parameterize)
       self.all_categories
     end
 
@@ -56,10 +56,12 @@ class SeoUrl
     parsed_values
   end
 
-  def self.build params
+  def self.build params, other_params={  }
     parameters = params.dup
+    other_parameters = other_params.dup
     category = ActiveSupport::Inflector.transliterate(parameters.delete(:category).first.to_s).downcase
     subcategory = parameters.delete(:subcategory)
+    order_params = other_parameters[:por].present? ? { por: other_parameters.delete(:por) } : {}
     brand = parameters.delete(:brand)
 
     path = [ subcategory, brand ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join('-')
@@ -70,7 +72,7 @@ class SeoUrl
       end
     end
     filter_params = filter_params.join('_')
-    { parameters: [category, path, filter_params].reject { |p| p.blank? }.join('/') }
+    { parameters: [category, path, filter_params].reject { |p| p.blank? }.join('/') }.merge(order_params)
   end
 
   def self.all_categories

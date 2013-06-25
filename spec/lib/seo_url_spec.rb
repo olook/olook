@@ -94,13 +94,13 @@ describe SeoUrl do
     context "when is ordering by minor price" do
       subject { SeoUrl.parse("sapato",{ "por" => "menor-preco" }) }
 
-      it { expect(subject[:sort_price]).to eq 'price' }
+      it { expect(subject[:sort_price]).to eq 'retail_price' }
     end
 
     context "when is ordering by desc price" do
       subject { SeoUrl.parse("sapato",{ "por" => "maior-preco" }) }
 
-      it { expect(subject[:sort_price]).to eq '-price' }
+      it { expect(subject[:sort_price]).to eq '-retail_price' }
     end
   end
 
@@ -142,6 +142,11 @@ describe SeoUrl do
            to eq({ parameters: "sapato/rasteira/tamanho-36-p_cor-azul-onca" }) }
       it { expect(SeoUrl.build(category: ['Acessório'], subcategory: ['rasteira'], size: ['36', 'p'], color: ['azul', 'Onça'])).
            to eq({ parameters: "acessorio/rasteira/tamanho-36-p_cor-azul-onca" }) }
+    end
+
+    context "when paramter price order was passed" do
+      it { expect(SeoUrl.build({ category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'vermelho']}, por: 'menor-preco')).
+          to eq({ parameters: "sapato/sandalia/tamanho-36-p_cor-azul-vermelho", por: 'menor-preco'} ) }
     end
   end
 end
