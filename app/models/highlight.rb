@@ -15,7 +15,8 @@ class Highlight < ActiveRecord::Base
 
   def self.highlights_to_show type
     Rails.cache.fetch("highlights-#{type}", :expires_in => 30.minutes) do 
-      where(highlight_type: type).order(:position)
+      highlights = where(highlight_type: type).order(:position)
+      highlights || []
     end
   end
 
