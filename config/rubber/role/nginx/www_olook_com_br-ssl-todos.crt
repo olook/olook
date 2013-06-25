@@ -35,9 +35,6 @@ FdvcikJZ3UgSbmNRo+Q7D6QDv7z3TL+MiDffAP09S6hvq3RZXCYwla8hPluqQNa5
 d3NCk2YRe8E54EAZ/KA8EDqnJn1cPo7wxeteHDGm2jJWOcoAyLJinIXY6Dd9T6so
 O5D8107Mkum+1ndEdNXAzA==
 -----END CERTIFICATE-----
-<%
-  @path = "/etc/nginx/www_olook_com_br-ssl-bundle.crt"
-%>
 -----BEGIN CERTIFICATE-----
 MIIF8jCCBNqgAwIBAgIRAJHnUbanhpAGLmQwEbgHTsAwDQYJKoZIhvcNAQEFBQAw
 gYkxCzAJBgNVBAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAO
