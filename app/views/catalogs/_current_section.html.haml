@@ -16,5 +16,5 @@
       - search.selected_filters_for("care").each do |car|
         %li= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(:care, car))), car, search.filter_selected?(:care, car), "X")
 
-      %li= link_to "Limpar Filtros", catalog_path(parameters: search.filter_value("category").first.to_s)
+      %li.clean= link_to "(limpar filtros)", catalog_path(parameters: search.filter_value("category").first.to_s)
 
