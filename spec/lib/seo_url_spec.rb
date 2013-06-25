@@ -143,5 +143,10 @@ describe SeoUrl do
       it { expect(SeoUrl.build(category: ['Acessório'], subcategory: ['rasteira'], size: ['36', 'p'], color: ['azul', 'Onça'])).
            to eq({ parameters: "acessorio/rasteira/tamanho-36-p_cor-azul-onca" }) }
     end
+
+    context "when paramter price order was passed" do
+      it { expect(SeoUrl.build({ category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'vermelho']}, por: 'menor-preco')).
+          to eq({ parameters: "sapato/sandalia/tamanho-36-p_cor-azul-vermelho", por: 'menor-preco'} ) }
+    end
   end
 end
