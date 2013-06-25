@@ -10,8 +10,9 @@
       - search.selected_filters_for("color").each do |col|
         %li= %( #{ col } #{ current_section_link_to(catalog_path(SeoUrl.build(search.filters_applied(:color, col))))}).html_safe
 
-      - search.selected_filters_for("heel").each do |hee|
-        %li= %( #{ hee } #{ current_section_link_to(catalog_path(SeoUrl.build(search.filters_applied(:heel, hee))))}).html_safe
+      - search.selected_filters_for("heel").each do |_hee|
+        - hee = _hee.gsub('heeluint:', '')
+        %li= %( #{ hee } cm #{ current_section_link_to(catalog_path(SeoUrl.build(search.filters_applied(:heel, hee.gsub('..', '-')))))}).html_safe
 
       - search.selected_filters_for("care").each do |car|
         %li= %( #{ car } #{ current_section_link_to(catalog_path(SeoUrl.build(search.filters_applied(:care, car))))}).html_safe
