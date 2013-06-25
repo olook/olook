@@ -8,8 +8,8 @@ class SeoUrl
     "salto" => "heel",
     "colecao" => "collection",
     "por" => "sort_price",
-    "menor-preco" => "price",
-    "maior-preco" => "-price",
+    "menor-preco" => "retail_price",
+    "maior-preco" => "-retail_price",
     "conforto" => "care",
     "colecao" => "collection"
   }
@@ -20,24 +20,19 @@ class SeoUrl
     _all_brands = self.all_brands || []
     _all_subcategories = self.all_subcategories || []
 
-    # for search only
-    self.all_categories
+    unless other_parameters[:search]
+      _all_subcategories -= Product::CARE_PRODUCTS.map(&:parameterize)
+      self.all_categories
+    end
 
     all_parameters = parameters.to_s.split("/")
     parsed_values[:category] = all_parameters.shift
 
     subcategories_and_brands = all_parameters.first.split("-") rescue []
-    subcategories = []
-    brands = []
 
-    subcategories = ((_all_subcategories - Product::CARE_PRODUCTS.map(&:parameterize)) & subcategories_and_brands.map(&:parameterize))
+    subcategories = (_all_subcategories & subcategories_and_brands.map(&:parameterize))
+    brands = (_all_brands & subcategories_and_brands.map(&:parameterize))
 
-    brands = (_all_brands & subcategories_and_brands.map(&:parameterize) )
-    subcategories_and_brands.each do |sub|
-      if _all_brands.include?(sub.parameterize)
-        brands << sub
-      end
-    end
     parsed_values[:subcategory] = subcategories.join("-") if subcategories.any?
     parsed_values[:brand] = brands.join("-") if brands.any?
 
@@ -61,10 +56,12 @@ class SeoUrl
     parsed_values
   end
 
-  def self.build params
+  def self.build params, other_params={  }
     parameters = params.dup
+    other_parameters = other_params.dup
     category = ActiveSupport::Inflector.transliterate(parameters.delete(:category).first.to_s).downcase
     subcategory = parameters.delete(:subcategory)
+    order_params = other_parameters[:por].present? ? { por: other_parameters.delete(:por) } : {}
     brand = parameters.delete(:brand)
 
     path = [ subcategory, brand ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join('-')
@@ -75,7 +72,7 @@ class SeoUrl
       end
     end
     filter_params = filter_params.join('_')
-    { parameters: [category, path, filter_params].reject { |p| p.blank? }.join('/') }
+    { parameters: [category, path, filter_params].reject { |p| p.blank? }.join('/') }.merge(order_params)
   end
 
   def self.all_categories
