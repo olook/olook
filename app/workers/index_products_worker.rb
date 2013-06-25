@@ -70,8 +70,8 @@ class IndexProductsWorker
         fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
         fields['brand'] = product.brand.titleize
         fields['brand_facet'] = product.brand.titleize
-        fields['price'] = product.price
-        fields['retail_price'] = product.retail_price
+        fields['price'] = (product.price.to_d * 100).round
+        fields['retail_price'] = (product.retail_price.to_d * 100).round
         fields['in_promotion'] = product.promotion?
         fields['category'] = product.category_humanize.downcase
         fields['size'] = product.variants.select{|v| v.inventory > 0}.map{|b| b.description}

@@ -78,15 +78,25 @@ describe SearchEngine do
   end
 
   describe "#products" do
+    before do
+      subject.instance_variable_set("@limit", 50)
+    end    
+
     it "SearchEngine#search receives Search#build_url_for" do
-      subject.instance_variable_get("@search").should_receive(:build_url_for).with(limit: 50, start: subject.start_product)
+      subject.should_receive(:fetch_result).with(nil, {parse_products: true}).and_return(OpenStruct.new(products:nil))
+      subject.should_receive(:build_url_for).with(limit: 50, start: subject.start_product)
       subject.products
     end
   end
 
   describe "#filters" do
+    before do
+      subject.instance_variable_set("@limit", 50)
+    end    
+
     it "SearchEngine#search receives Search#build_filters" do
-      subject.instance_variable_get("@search").should_receive(:build_filters_url)
+      subject.should_receive(:fetch_result).and_return(OpenStruct.new(facets:nil))
+      subject.should_receive(:build_filters_url)
       subject.filters
     end
   end
