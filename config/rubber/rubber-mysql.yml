@@ -1,8 +1,8 @@
 
 # REQUIRED: The credentials for creating/accessong your app's database
 #
-db_user: "#{app_name[0,16]}"
-db_pass:
+db_user: "root" #"#{app_name[0,16]}"
+db_pass: "olook123abc"
 db_name: "#{app_name}_#{Rubber.env}"
 
 db_slave_user: "#{('slave_' + db_user)[0,16]}"
