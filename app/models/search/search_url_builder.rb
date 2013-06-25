@@ -78,13 +78,18 @@ class SearchUrlBuilder
     self
   end
 
+  def sort_by_price sort_price
+    @sort_price = "#{ sort_price }&" || ""
+    self
+  end
+
   def build_url_for(options={})
     options[:start] ||= 0
     options[:limit] ||= 50
     bq = build_boolean_expression
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
     q = @query ? "?#{@query}&" : "?"
-    URI.parse("http://#{@base_url}#{q}#{bq}return-fields=subcategory,name,brand,image,price,backside_image,category,text_relevance&size=100&start=#{ options[:start] }&rank=-cor_e_marca&size=#{ options[:limit] }")
+    URI.parse("http://#{@base_url}#{q}#{bq}return-fields=subcategory,name,brand,image,price,backside_image,category,text_relevance&size=100&start=#{ options[:start] }&rank=#{ @sort_price }-cor_e_marca&size=#{ options[:limit] }")
   end
 
   def build_filters_url
