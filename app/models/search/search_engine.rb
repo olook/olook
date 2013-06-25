@@ -31,19 +31,19 @@ class SearchEngine
           filter_params[k] << "#{min}-#{max}"
         end
       else
-        filter_params[k].concat v
+        filter_params[k].concat v.map { |_v| _v.downcase }
       end
     end
 
     if filter_params[filter_key]
       if filter_selected?(filter_key, filter_value)
-        filter_params[filter_key] -= [ filter_value ]
+        filter_params[filter_key] -= [ filter_value.downcase ]
       else
-        filter_params[filter_key] << filter_value
+        filter_params[filter_key] << filter_value.downcase
       end
       filter_params[filter_key].uniq!
     else
-      filter_params[filter_key] = [filter_value]
+      filter_params[filter_key] = [filter_value.downcase]
     end
 
     filter_params
