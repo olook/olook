@@ -3,7 +3,7 @@ class Admin::HighlightsController <  Admin::BaseController
   respond_to :haml
 
   def index
-    @highlights = Highlight.all(order: :position)
+    @highlights = Highlight.grouped_by_type   
   end
 
   def show
@@ -20,7 +20,6 @@ class Admin::HighlightsController <  Admin::BaseController
 
   def create
     @highlight = Highlight.new(params[:highlight])
-
     if @highlight.save
       redirect_to [:admin, @highlight], notice: 'Destaque criado com sucesso.'
     else

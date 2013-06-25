@@ -14,6 +14,7 @@ class CatalogsController < SearchController
                                color: params[:color],
                                heel: params[:heel],
                                care: params[:care],
+                               price: params[:price],
                                size: params[:size],
                                brand: params[:brand],
                                sort_price: params[:sort_price]).for_page(params[:page]).with_limit(99)

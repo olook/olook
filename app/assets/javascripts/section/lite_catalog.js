@@ -1,7 +1,7 @@
 var filter = {};
 filter.init = function(){
   if(typeof start_position == 'undefined') start_position = 0;
-  if(typeof final_position == 'undefined') final_position = 400;
+  if(typeof final_position == 'undefined') final_position = 600;
   filter.sliderRange(start_position, final_position);
   filter.showSelectBoxText();
   filter.spy();
@@ -90,5 +90,6 @@ filter.hideShow = function(){
     })
   })
 }
+
 
 $(filter.init);

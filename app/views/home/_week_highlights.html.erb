@@ -1,33 +1,19 @@
 <section id="week_highlights">
   <h1>Veja os destaques da semana</h1>
   <ul>
+  <% @weekly_highlights.each_with_index do |weekly_highlight, index| %>
     <li id="about">
-      <%= link_to "/stylist-news/mar-de-camisas/", class: "open_making_of", onclick: track_event('Destaques','BannerEsquerda') do %>
-        <%= image_tag "home/crop-camisas.jpg", title: "CAMISAS HOT" %>
+      <%= link_to weekly_highlight.link, class: "open_making_of", onclick: track_event('Destaques',"Banner#{index + 1}") do %>
+        <%= image_tag weekly_highlight.image, title: "destaque semanal" %>
       <% end %>
       <div class="video_description">
         <h1>Conheça mais sobre a olook</h1>
         <%= link_to "Gostou? Descubra o seu estilo e veja a coleção completa", new_survey_path, :class => "home" %>
       </div>
-      <h1><%= link_to "CAMISAS HOT", "/stylist-news/mar-de-camisas/", onclick: track_event('Destaques','BannerEsquerda') %></h1>
-      <p>Use e abuse desta peça-chave</p>
-      <%= link_to "Veja mais aqui", "/stylist-news/mar-de-camisas/", class: "more", onclick: track_event('Destaques','BannerEsquerda') %>
+      <h1><%= link_to weekly_highlight.title, weekly_highlight.link, onclick: track_event('Destaques',"Banner#{index + 1}") %></h1>
+      <p><%= weekly_highlight.subtitle %></p>
+      <%= link_to "Veja mais aqui", weekly_highlight.link, class: "more", onclick: track_event('Destaques',"Banner#{index + 1}") %>
     </li>
-    <li id="shoes">
-      <%= link_to product_path(16324), onclick: track_event('Destaques','BannerCentro') do %>
-        <%= image_tag "home/apatita.gif", title: "SLIPPERS PARA TODAS" %>
-      <% end %>      
-      <h1><%= link_to "SAPATILHA APATITA", product_path(16324), onclick: track_event('Destaques','BannerCentro') %></h1>
-      <p>Uma flat estilosa e super confortável</p>
-      <%= link_to "Confira aqui", product_path(16324), class: "more", onclick: track_event('Destaques','BannerCentro') %>
-    </li>
-    <li id="olookmovel" class="iehack"> <!-- NAO REMOVER A CLASSE -->
-      <%= link_to olookmovel_path, onclick: track_event('Destaques','BannerDireita') do %>
-        <%= image_tag "home/olookmovel.jpg", title: "Olookmóvel" %>
-      <% end %>
-      <h1><%= link_to "Olookmóvel", olookmovel_path, onclick: track_event('Destaques','BannerDireita') %></h1>
-      <p>Saiba onde encontrar nossa vitrine móvel</p>
-      <%= link_to "Veja mais aqui", olookmovel_path, class: "more", onclick: track_event('Destaques','BannerDireita') %>
-    </li>
+  <% end %>
   </ul>
 </section>
