@@ -23,11 +23,11 @@
     .chaordic.purchasepersonalized
     / local onde o mostpopular será exibido
     .chaordic.mostpopular
-    
+
     .pagination
       = render "/shared/nav_bar_pagination", search: @search
 
-    =# render "moments/new_header_moments"
+    = render "ordenation_filters"
     = render 'current_section', search: @search
     
     %section.container_product

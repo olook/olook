@@ -1,0 +1,9 @@
+.exhibition-mode
+  = form_tag catalog_path(parameters: params[:parameters]), method: 'get' do
+    %fieldset
+      %p.selected_relevance
+        ORDENAÇÃO:
+        %span Relevância
+      = select_tag('por', options_for_select({"Relevância" => 0, "Menor preço" => "menor-preco", "Maior preço" => "maior-preco"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
+
+NOVOS FILTROS
