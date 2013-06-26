@@ -6,4 +6,6 @@
         %span Relevância
       = select_tag('por', options_for_select({"Relevância" => 0, "Menor preço" => "menor-preco", "Maior preço" => "maior-preco", "Maior Desconto" => "maior-desconto"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
 
-NOVOS FILTROS
+  .pagination.topo
+    = render "/shared/nav_bar_pagination", search: @search
+
