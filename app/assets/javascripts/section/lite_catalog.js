@@ -52,12 +52,16 @@ filter.sliderRange = function(start_position, final_position){
   $("#max-value-label").text($("#max-value").val());
 }
 filter.showSelectBoxText = function(){
+  var setText = function(e) {
+    var txt = $('option:selected', e).text();
+    $(e).prev().children("span").text(txt);
+  }
   $(".custom_select").each(function(){
+    setText(this);
     $(this).change(function(){
-      txt = $('option:selected', this).text();
-      $(this).prev().children("span").text(txt);
-    })
-  })
+      setText(this);
+    });
+  });
 }
 filter.spy = function(){
   $("p.spy").each(function(){
