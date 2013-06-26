@@ -20,9 +20,7 @@ class SearchController < ApplicationController
 
       @model_names = {}
 
-
       @filters = parse_filters
-
 
       @stylist = Product.fetch_products :selection
 
