@@ -111,7 +111,7 @@ class SearchUrlBuilder
           bq << "(or #{values.join(' ')})"
         elsif values.is_a?(Array) && values.any?
           vals = values.map { |v| "(field #{field} '#{v}')" } unless values.empty?
-          vals += @expressions["care"].map{|v| "(field care '#{v}')"} if @expressions["care"].any? && @expressions["category"].include?("sapato") && field == "subcategory"
+          vals += @expressions["care"].map{|v| "(field care '#{v}')"} if (!@expressions["care"].blank?) && @expressions["category"].include?("sapato") && field == "subcategory"
           bq << ( vals.size > 1 ? "(or #{vals.join(' ')})" : vals.first )
         end
       end
