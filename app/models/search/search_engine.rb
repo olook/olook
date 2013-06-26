@@ -178,6 +178,7 @@ class SearchEngine
   def has_any_filter_selected?
     _filters = @search.expressions.dup
     _filters.delete(:category)
+    _filters.delete_if{|k,v| SearchUrlBuilder::IGNORE_ON_URL[k]}
     _filters.values.flatten.any?
   end
 

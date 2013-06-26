@@ -22,6 +22,7 @@ module CatalogsHelper
 
   def filters_by filter
     facets = @filters.grouped_products(filter)
+    return [] if facets.nil?
 
     if filter == 'size'
       facets.keys.sort{|a,b| CLOTH_SIZES_TABLE.index(a.to_s).to_i <=> CLOTH_SIZES_TABLE.index(b.to_s).to_i}
