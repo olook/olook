@@ -32,13 +32,13 @@ class IndexProductsWorker
     end
 
     def self.add_products(products)
-      add_products = products_to_index(products).map { |product| create_sdf_entry_for product, 'add' }
+      add_products = products_to_index(products).map { |product| create_sdf_entry_for(product, 'add') }.compact
       flush_to_sdf_file "/tmp/base-add.sdf", add_products
       upload_sdf_file "/tmp/base-add.sdf"
     end
 
     def self.remove_products(products)
-      remove_products = products_to_remove(products).map {|product| create_sdf_entry_for product, 'delete'}
+      remove_products = products_to_remove(products).map { |product| create_sdf_entry_for(product, 'delete') }.compact
       flush_to_sdf_file "/tmp/base-remove.sdf", remove_products
       upload_sdf_file "/tmp/base-remove.sdf"
     end
@@ -67,6 +67,7 @@ class IndexProductsWorker
 
         fields['name'] = product.formatted_name(150).titleize
         fields['is_visible'] = product.is_visible ? 1 : 0
+        fields['inventory'] = p.inventory.to_i
         fields['image'] = product.catalog_picture
         fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
         fields['brand'] = product.brand.titleize
@@ -98,6 +99,9 @@ class IndexProductsWorker
 
       end
       values
+    rescue => e
+      Rails.logger.error("Failed to generate sdf of product: #{product.inspect}. Error: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}")
+      nil
     end
 
     def self.upload_sdf_file file_name
@@ -106,11 +110,11 @@ class IndexProductsWorker
     end
 
     def self.products_to_index(products)
-      products.select{|p| p.is_visible && p.price > 0 && p.main_picture.try(:image_url) && p.inventory > 0}
+      products.select{|p| p.price > 0 && p.main_picture.try(:image_url)}
     end
 
     def self.products_to_remove(products)
-      products.select{|p| !p.is_visible || p.price == 0 || p.main_picture.try(:image_url).nil? || p.inventory == 0}
+      products.select{|p| p.price == 0 || p.main_picture.try(:image_url).nil?}
     end
 
     def self.all_products
