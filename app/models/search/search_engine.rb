@@ -127,6 +127,10 @@ class SearchEngine
     _filters.delete(:category)
     _filters.values.flatten.any?
   end
+  
+  def current_page
+    @current_page
+  end
 
   private
 
@@ -142,9 +146,5 @@ class SearchEngine
       Rails.logger.debug("GET cloudsearch URL: #{url}")
       _response = Net::HTTP.get_response(url)
       SearchResult.new(_response, options)
-    end
-
-    def current_page
-      @current_page
     end
 end
