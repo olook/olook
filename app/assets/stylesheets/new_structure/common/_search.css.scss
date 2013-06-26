@@ -15,8 +15,19 @@
   }  
 }
 
+.pagination{text-align:center;clear:both;
+  &.topo{clear:none;float:right;margin:4px 3px 0 0;}
+  a{display:inline-block;font-family:$avenir_medium;text-decoration:none;color:#A7A9AB;font-size:12px;height:19px;line-height:22px;
+    &.anterior, &.proximo{width:10px;background:image-url('catalog/sprite.png') no-repeat 2px -112px;font-size:0;}
+    &.proximo{background-position:0 -137px;}
+    &.current{color:#58595B;}
+    &:hover{color:$base_color;}
+  }
+}
+
+
 #filters{float:left;width:194px;}
-#search_result{float:left;width:780px;}
+#search_result{float:left;width:780px;margin-bottom:20px;}
 .cb{clear:both;width:100%;}
 
 .search{margin-left: 15px;
