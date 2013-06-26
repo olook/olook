@@ -25,9 +25,6 @@
       / local onde o mostpopular será exibido
       .chaordic.mostpopular
 
-    .pagination
-      = render "/shared/nav_bar_pagination", search: @search, link: catalog_path, other_parameters: "por=#{ params[:por]}"
-
     = render "ordenation_filters"
     = render 'current_section', search: @search
 
@@ -35,3 +32,7 @@
       %ul#products
         = render "searched_products", :products => @catalog_products
       .loading
+
+    .pagination
+      = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: catalog_path, other_parameters: "por=#{ params[:por]}" }
+
