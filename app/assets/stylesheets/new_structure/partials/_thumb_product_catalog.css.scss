@@ -17,14 +17,13 @@ ul#products{
         .name{font-size:14px;height:18px;overflow:hidden;}
         .brand{text-transform:uppercase;font-weight:bold;}
         .old {text-decoration:line-through;}
-        .txt-pink{color: $base_color;}
-
+        .txt-pink{color: $base_color;font-size: 15px;font-weight: bold;}
         &.warn{left:0;top:60px;}
         &.warn.sold_out{background: image-url('moments/sprite.png') no-repeat 0 -76px;line-height: 25px;padding-left: 13px;text-align: left;width: 92px;color:#000;}
         &.warn.quantity{background:none #FFF !important;border: 1px solid #000;color: #000;font-family: 'avenir_medium';font-weight: 600;height: 20px;width: 74px;line-height: 20px !important;text-align: center;word-spacing: -1px;}
         &.warn.shoe_size{background: none #000;height: 20px;left: 25px !important;line-height: 20px !important;top: 81px !important;width: 55px;word-spacing: -1px;}
-        &.warn.percentage{left: 155px !important; top: 122px !important; background: image-url('moments/sprite.png') no-repeat 0 -109px;width:60px;height:60px;font-size:14px;font-family:$avenir;text-align:center;
-          span{font-size:14px;font-weight:normal}
+        &.warn.percentage{position:absolute;left: 0; top: 0; background: image-url('moments/sprite.png') no-repeat 0 -109px;width:60px;height:48px;padding-top:12px;font-size:14px;font-family:$avenir;text-align:center;color:#FFF;
+          span{display:inline-block;width:40px;}
         }
       }
     }
