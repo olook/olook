@@ -47,6 +47,9 @@ aside{float:left;width:175px;margin-right:10px;
     &.selected{background-position:0 -86px !important;}
   }
   .clean_filter a{font-size:11px;text-decoration:underline;background:none;padding-left:0;}
+  .invite_friends {
+    a {background: none; padding: 0};
+  }
 }
 
 #result{float:left;width:785px;}

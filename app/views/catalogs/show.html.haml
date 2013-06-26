@@ -14,7 +14,11 @@
 
 
 #catalog
-  %aside= render "filters", search: @search
+  %aside
+    = render "filters", search: @search
+    - if params[:category]
+      .invite_friends
+        =banner_for Category.with_name params[:category]
 
   #result
     - unless @search.has_any_filter_selected?
