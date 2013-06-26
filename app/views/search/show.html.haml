@@ -25,6 +25,9 @@
           para você :)
     #filters= render "filters", search: @search, filters: @filters
 
+    .pagination
+      = render "/shared/nav_bar_pagination", search: @search, link: search_path, other_parameters: "q=#{ params[:q]}"
+
 
     #search_result
       %ul.search-results-list

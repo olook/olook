@@ -83,7 +83,7 @@ class SearchEngine
   end
 
   def pages
-    (@result.hits["found"] / 100.0).ceil
+    (@result.hits["found"] / @limit.to_f).ceil
   end
 
   def has_next_page?
