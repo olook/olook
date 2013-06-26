@@ -11,11 +11,18 @@ class SearchUrlBuilder
   def initialize(base_url=SEARCH_CONFIG["search_domain"] + "/2011-02-01/search")
     @base_url = base_url
     @expressions = HashWithIndifferentAccess.new
+    @expressions['is_visible'] = [1]
+
     @facets = []
   end
 
   def for_term term
     @query = "q=#{URI.encode term}" if term
+    self
+  end
+
+  def for_admin
+    @expressions['is_visible'] = [0,1]
     self
   end
 
