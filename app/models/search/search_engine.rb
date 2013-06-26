@@ -35,6 +35,10 @@ class SearchEngine
       if SearchUrlBuilder::RANGED_FIELDS[k]
         v.each do |_v|
           /(?<min>\d+)\.\.(?<max>\d+)/ =~ _v.to_s
+          if k.to_s == 'price'
+            min = (min.to_d / 100.0).round
+            max = (max.to_d / 100.0).round
+          end
           filter_params[k] << "#{min}-#{max}"
         end
       else
