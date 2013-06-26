@@ -18,6 +18,12 @@ class SearchEngine
     .with_size(attributes[:size])
     .sort_by(attributes[:sort])
     .grouping_by
+
+    @search
+  end
+
+  def for_admin
+    @search.for_admin
   end
 
   def filters_applied(filter_key, filter_value)
