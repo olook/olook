@@ -96,7 +96,7 @@ class SearchEngine
 
   def range_values_for(filter)
     if /(?<min>\d+)\.\.(?<max>\d+)/ =~ @search.expressions[filter].to_s
-      { min: min, max: max }
+      { min: (min.to_d/100.0).round.to_s, max: (max.to_d/100.0).round.to_s }
     end
   end
 
@@ -127,6 +127,10 @@ class SearchEngine
     _filters.delete(:category)
     _filters.values.flatten.any?
   end
+  
+  def current_page
+    @current_page
+  end
 
   private
 
@@ -142,9 +146,5 @@ class SearchEngine
       Rails.logger.debug("GET cloudsearch URL: #{url}")
       _response = Net::HTTP.get_response(url)
       SearchResult.new(_response, options)
-    end
-
-    def current_page
-      @current_page
     end
 end

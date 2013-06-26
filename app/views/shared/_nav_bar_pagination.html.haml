@@ -1,7 +1,13 @@
-- if search.has_next_page?
-  = link_to "proximo", "#{link}?#{ other_parameters}&page=#{ search.next_page}"
 - if search.has_previous_page?
-  = link_to "anterior", "#{link}?#{ other_parameters}&page=#{ search.previous_page}"
+  = link_to "Página Anterior", "#{link}?#{ other_parameters}&page=#{ search.previous_page}", title: "Página Anterior", class: "anterior"
 
 - search.pages.times do |page|
-  = link_to "#{ page + 1 }", "#{link}?#{ other_parameters}&page=#{ page + 1}"
+  - page = page + 1
+  - if search.current_page == page
+    = link_to "#{ page }", "#{link}?#{ other_parameters}&page=#{ page}", class: "current"
+  - else
+    = link_to "#{ page }", "#{link}?#{ other_parameters}&page=#{ page }"
+
+- if search.has_next_page?
+  = link_to "Próxima Página", "#{link}?#{ other_parameters}&page=#{ search.next_page}", title: "Próxima Página", class: "proximo"
+
