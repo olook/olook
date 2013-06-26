@@ -6,16 +6,26 @@ class SearchUrlBuilder
   # BASE_URL = SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
   #
   attr_reader :expressions
-  RANGED_FIELDS = HashWithIndifferentAccess.new({'price' => '', 'heel' => ''})
+  RANGED_FIELDS = HashWithIndifferentAccess.new({'price' => '', 'heel' => '', 'inventory' => ''})
+  IGNORE_ON_URL = HashWithIndifferentAccess.new({'inventory' => '', 'is_visible' => ''})
 
   def initialize(base_url=SEARCH_CONFIG["search_domain"] + "/2011-02-01/search")
     @base_url = base_url
     @expressions = HashWithIndifferentAccess.new
+    @expressions['is_visible'] = [1]
+    @expressions['inventory'] = ['inventory:1..']
+
     @facets = []
   end
 
   def for_term term
     @query = "q=#{URI.encode term}" if term
+    self
+  end
+
+  def for_admin
+    @expressions['is_visible'] = [0,1]
+    @expressions['inventory'] = ['inventory:0..']
     self
   end
 
