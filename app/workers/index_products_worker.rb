@@ -67,7 +67,7 @@ class IndexProductsWorker
 
         fields['name'] = product.formatted_name(150).titleize
         fields['is_visible'] = product.is_visible ? 1 : 0
-        fields['inventory'] = p.inventory.to_i
+        fields['inventory'] = product.inventory.to_i
         fields['image'] = product.catalog_picture
         fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
         fields['brand'] = product.brand.titleize
