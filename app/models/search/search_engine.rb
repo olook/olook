@@ -96,7 +96,7 @@ class SearchEngine
 
   def range_values_for(filter)
     if /(?<min>\d+)\.\.(?<max>\d+)/ =~ @search.expressions[filter].to_s
-      { min: min, max: max }
+      { min: (min.to_d/100.0).round.to_s, max: (max.to_d/100.0).round.to_s }
     end
   end
 
