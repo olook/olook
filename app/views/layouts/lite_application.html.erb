@@ -141,7 +141,7 @@
          show_modal = '<%= j @modal_show %>';
        </script>
        
-       <% unless user_signed_in? %>
+       <% unless user_signed_in? || request.url.include?("gclid") %>
          <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal && !['landing_pages','survey', 'users/registrations'].include?(params[:controller]) %>
        <% end %>
 
