@@ -23,52 +23,15 @@ class SearchedProduct
   end
 
   def sold_out?
-    product.sold_out?
-  end
-
-  def shoe?
-    product.shoe?
-  end
-
-  def name
-    product.name?
+    false
   end
 
   def catalog_picture
     catalog_image
   end
 
-  def showroom_picture
-    product.showroom_picture
-  end
-
-  def wearing_picture
-    product.wearing_picture
-  end
-
-  def color_name
-    product.color_name
-  end
-
-  def colors
-    product.colors
-  end
-
-  def color_sample
-    product.color_sample
-  end
-
   def discount_percent
-    product.discount_percent
-  end
-
-  # gambiarra temporaria
-  def product
-    Product.find id
-  end
-
-  def self.model_name
-
+    ((price - retail_price) / price * 100.0.to_d).to_d
   end
 
 end

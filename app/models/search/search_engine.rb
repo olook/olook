@@ -86,12 +86,54 @@ class SearchEngine
     (@result.hits["found"] / @limit.to_f).ceil
   end
 
+  def next_pages
+    _page = @current_page
+    pages = []
+    2.times do |page|
+      page = _page + 1
+      pages << page
+      _page = _page + 1
+    end
+    pages.delete_if {|v| v >= self.pages}
+  end
+
+  def previous_pages
+    _page = @current_page
+    pages = []
+    2.times do |page|
+      page = _page - 1
+      pages << page
+      _page = _page - 1
+    end
+    pages.reverse.delete_if {|v| v <= 0}
+  end
+
+  def current_page_greater_than_limit_link_pages?
+    current_page > 4
+  end
+
+  def current_page_greater_or_eq_than_limit_link_pages?
+    current_page >= 4
+  end
+
+  def last_three_pages
+    current_page - 3
+  end
+
+  def next_three_pages
+    current_page + 3
+  end
+
   def has_next_page?
     current_page.to_i < self.pages
   end
 
   def has_previous_page?
     current_page.to_i > 1
+  end
+
+  def has_at_least_three_more_pages?
+    current_page < (self.pages - 3)
   end
 
   def range_values_for(filter)
@@ -127,7 +169,7 @@ class SearchEngine
     _filters.delete(:category)
     _filters.values.flatten.any?
   end
-  
+
   def current_page
     @current_page
   end
