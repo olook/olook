@@ -1,7 +1,12 @@
-- if search.has_next_page?
-  = link_to "proximo", catalog_path(page: search.next_page)
 - if search.has_previous_page?
-  = link_to "anterior", catalog_path(page: search.previous_page)
+  = link_to "Página Anterior", catalog_path(page: search.previous_page), title: "Página Anterior", class: "anterior"
 
 - search.pages.times do |page|
-  = link_to "#{ page + 1 }", catalog_path(page: page + 1)
+  - page = page + 1
+  - if search.current_page == page
+    = link_to "#{ page }", catalog_path(page: page), class: "current"
+  - else
+    = link_to "#{ page }", catalog_path(page: page)
+
+- if search.has_next_page?
+  = link_to "Próxima Página", catalog_path(page: search.next_page), title: "Próxima Página", class: "proximo"
