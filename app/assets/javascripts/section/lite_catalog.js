@@ -63,11 +63,18 @@ filter.spy = function(){
   $("p.spy").each(function(){
     $(this).on({
       click: function(e){
-        id = $("span", this).attr("rel");
         $.ajax({
-          url: '/produto/'+id,
+          url: $('span', this).data('url'),
           cache: 'true',
-          dataType: 'script'
+          dataType: 'script',
+          beforeSend: function() {
+            var width = $(document).width(), height = $(document).height();
+            $('#overlay-campaign').width(width).height(height).fadeIn();
+            $('#ajax-loader').fadeIn();
+          },
+          complete: function() {
+            $('#ajax-loader').hide();
+          }
         });
         e.stopPropagation();
         e.preventDefault();
