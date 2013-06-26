@@ -194,7 +194,7 @@ class SearchEngine
     def fetch_result(url, options = {})
       tstart = Time.zone.now.to_f
       _response = Net::HTTP.get_response(url)
-      Rails.logger.info("GET cloudsearch URL (#{'%0.5f' % ( Time.zone.now.to_f - tstart )}): #{url}")
+      Rails.logger.info("GET cloudsearch URL (#{'%0.5fs' % ( Time.zone.now.to_f - tstart )}): #{url}")
       SearchResult.new(_response, options)
     end
 end
