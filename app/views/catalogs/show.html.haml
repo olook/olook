@@ -26,7 +26,7 @@
       .chaordic.mostpopular
 
     .pagination
-      = render "/shared/nav_bar_pagination", search: @search
+      = render "/shared/nav_bar_pagination", search: @search, link: catalog_path, other_parameters: "por=#{ params[:por]}"
 
     = render "ordenation_filters"
     = render 'current_section', search: @search
