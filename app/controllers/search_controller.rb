@@ -24,6 +24,10 @@ class SearchController < ApplicationController
 
       @stylist = Product.fetch_products :selection
 
+      @parameters = "q=#{ params[:q] }"
+      @parameters << "&subcategory=#{ params[:subcategory] }"
+      @parameters << "&brand=#{ params[:brand] }"
+
     end
 
   end
