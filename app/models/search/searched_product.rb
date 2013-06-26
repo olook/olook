@@ -15,7 +15,7 @@ class SearchedProduct
   end
 
   def promotion?
-    @promotion
+    retail_price < price
   end
 
   def item_view_cache_key_for shoe_size
@@ -56,6 +56,10 @@ class SearchedProduct
 
   def color_sample
     product.color_sample
+  end
+
+  def discount_percent
+    product.discount_percent
   end
 
   # gambiarra temporaria
