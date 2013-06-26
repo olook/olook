@@ -18,16 +18,27 @@ class SearchEngine
     .with_size(attributes[:size])
     .sort_by(attributes[:sort])
     .grouping_by
+
+    @search
+  end
+
+  def for_admin
+    @search.for_admin
   end
 
   def filters_applied(filter_key, filter_value)
     filter_params = HashWithIndifferentAccess.new
     filter_value = ActiveSupport::Inflector.transliterate(filter_value).downcase
     @search.expressions.each do |k, v|
+      next if SearchUrlBuilder::IGNORE_ON_URL[k]
       filter_params[k] ||= []
       if SearchUrlBuilder::RANGED_FIELDS[k]
         v.each do |_v|
           /(?<min>\d+)\.\.(?<max>\d+)/ =~ _v.to_s
+          if k.to_s == 'price'
+            min = (min.to_d / 100.0).round
+            max = (max.to_d / 100.0).round
+          end
           filter_params[k] << "#{min}-#{max}"
         end
       else
@@ -185,8 +196,9 @@ class SearchEngine
     end
 
     def fetch_result(url, options = {})
-      Rails.logger.debug("GET cloudsearch URL: #{url}")
+      tstart = Time.zone.now.to_f
       _response = Net::HTTP.get_response(url)
+      Rails.logger.info("GET cloudsearch URL (#{'%0.5fs' % ( Time.zone.now.to_f - tstart )}): #{url}")
       SearchResult.new(_response, options)
     end
 end
