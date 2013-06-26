@@ -63,8 +63,8 @@ class SearchUrlBuilder
 
   def with_price price
     @expressions["price"] = []
-    if price =~ /^\d+-\d+$/
-      @expressions["price"] = ["price:#{price.to_s.gsub('-', '..')}"]
+    if /^(?<min>\d+)-(?<max>\d+)$/ =~ price.to_s
+      @expressions["price"] = ["price:#{min.to_i*100}..#{max.to_i*100}"]
     end
     self
   end
