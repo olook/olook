@@ -80,7 +80,7 @@ describe SearchEngine do
   describe "#products" do
     before do
       subject.instance_variable_set("@limit", 50)
-    end    
+    end
 
     it "SearchEngine#search receives Search#build_url_for" do
       subject.should_receive(:fetch_result).with(nil, {parse_products: true}).and_return(OpenStruct.new(products:nil))
@@ -92,7 +92,7 @@ describe SearchEngine do
   describe "#filters" do
     before do
       subject.instance_variable_set("@limit", 50)
-    end    
+    end
 
     it "SearchEngine#search receives Search#build_filters" do
       subject.should_receive(:fetch_result).and_return(OpenStruct.new(facets:nil))
@@ -209,6 +209,116 @@ describe SearchEngine do
         .and_return({ category: ["sapato"], subcategory: [], color: [], heel: [], care: [] })
       end
       subject { search.has_any_filter_selected? }
+      it { should be_false }
+    end
+  end
+
+  describe "#current_page_greater_than_limit_link_pages?" do
+    let(:search) { described_class.new }
+    context "when current_page is greater than 4" do
+      before do
+        search.stub(:current_page).and_return(5)
+      end
+      subject { search.current_page_greater_than_limit_link_pages? }
+      it { should be_true }
+    end
+
+    context "when current_page is eq than 4" do
+      before do
+        search.stub(:current_page).and_return(4)
+      end
+      subject { search.current_page_greater_than_limit_link_pages? }
+      it { should be_false }
+    end
+
+    context "when current_page is lower than 4" do
+      before do
+        search.stub(:current_page).and_return(3)
+      end
+      subject { search.current_page_greater_than_limit_link_pages? }
+      it { should be_false }
+    end
+  end
+
+  describe "#current_page_greater_or_eq_than_limit_link_pages?" do
+    let(:search) { described_class.new }
+    context "when current_page is greater than 4" do
+      before do
+        search.stub(:current_page).and_return(5)
+      end
+      subject { search.current_page_greater_or_eq_than_limit_link_pages? }
+      it { should be_true }
+    end
+
+    context "when current_page is eq than 4" do
+      before do
+        search.stub(:current_page).and_return(4)
+      end
+      subject { search.current_page_greater_or_eq_than_limit_link_pages? }
+      it { should be_true }
+    end
+
+    context "when current_page is lower than 4" do
+      before do
+        search.stub(:current_page).and_return(3)
+      end
+      subject { search.current_page_greater_or_eq_than_limit_link_pages? }
+      it { should be_false }
+    end
+  end
+
+  describe "#last_three_pages" do
+    let(:search) { described_class.new }
+    before do
+      search.stub(:current_page).and_return(4)
+    end
+
+    subject { search.last_three_pages }
+
+    it { should eq(1) }
+  end
+
+  describe "#next_three_pages" do
+    let(:search) { described_class.new }
+    before do
+      search.stub(:current_page).and_return(4)
+    end
+
+    subject { search.next_three_pages }
+
+    it { should eq(7) }
+  end
+
+  describe "#has_at_least_three_more_pages?" do
+    let(:search) { described_class.new }
+    context "when search has at least more than 3 pages ahead" do
+      before do
+        search.stub(:current_page).and_return(4)
+        search.stub(:pages).and_return(8)
+      end
+
+      subject { search.has_at_least_three_more_pages? }
+
+      it { should be_true }
+    end
+    context "when search has only 3 pages ahead" do
+      before do
+        search.stub(:current_page).and_return(4)
+        search.stub(:pages).and_return(7)
+      end
+
+      subject { search.has_at_least_three_more_pages? }
+
+      it { should be_false }
+    end
+    context "when search has no 3 pages ahead" do
+      before do
+        search.stub(:current_page).and_return(4)
+        search.stub(:pages).and_return(5)
+      end
+
+      subject { search.has_at_least_three_more_pages? }
+
       it { should be_false }
     end
   end
