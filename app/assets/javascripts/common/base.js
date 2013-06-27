@@ -28,41 +28,6 @@ var LuhnCheck = (function()
 	}
 })();
 
-function slideMenuBar(){
-
-  var $el, leftPos, newWidth;
-
-  var $magicLine = $("ul.default_new li#bar"), w = $("ul.default_new li .selected").outerWidth(), l = $("ul.default_new li .selected").position() && $("ul.default_new li .selected").position().left ;
-
-  $magicLine
-  .width(w - 40)
-  .css("left", l + 19)
-  .data("origLeft", l + 19)
-  .data("origWidth", w - 40);
-
-  if($("ul.default_new li a").hasClass("selected")){
-    $magicLine.fadeIn();
-  }
-  $("ul.default_new li").find("a").hover(function() {
-      $el = $(this);
-      leftPos = $el.position().left + 19;
-      newWidth = $el.parent().width() - 40;
-
-      if(!$magicLine.is(":visible")){
-        $magicLine.fadeIn();
-      }
-      $magicLine.stop().animate({
-          left: leftPos,
-          width: newWidth
-      });
-  }, function() {
-      $magicLine.stop().animate({
-          left: $magicLine.data("origLeft"),
-          width: $magicLine.data("origWidth")
-      });
-  });
-
-}
 /**** TO VALENTINES DAY ****/
 function showAlert(){
   $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -78,20 +43,6 @@ function getSize(){
   }
 }
 /**** END TO VALENTINES DAY ****/
-
-function showBalloon(){
-  if($(".menu_new .stylist").length > 0){
-    var t=$(".menu_new .stylist").position().top, l=$(".menu_new .stylist").position().left;
-    $("img.balloon").css({"top": t -5, "left": l+20});
-  
-    $(".menu_new .stylist").on("mouseenter", function(){
-      $("img.balloon").show();
-    }).on("mouseleave", function(){
-      $("img.balloon").hide();
-    })
-  }
-  
-}
 
 function showCartSummary() {
   $("#cart_summary").show();
@@ -116,11 +67,6 @@ $(document).ready(function() {
   
   getSize();
   
-  showBalloon();
-
-  setTimeout(function(){slideMenuBar();},3000);
-
-
   /* HIDE <hr/> IN CART BOX */
   if($("#cart_summary .submenu li.product_item").length > 0){
      $("p.freight").next().hide();
