@@ -66,6 +66,10 @@ Installing MemCached on a Mac via HomeBrew
 - brew install memcached
 - bundle
 
+How connect to Homolog
+============
+- ssh -i ~/.ec2/gsg-keypair root@homolog.olook.com.br -A
+
 Deploy with Capistrano
 ============
 
