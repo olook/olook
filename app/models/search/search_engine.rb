@@ -22,6 +22,13 @@ class SearchEngine
     @search
   end
 
+  def cache_key
+    tstart = Time.zone.now.to_f * 1000.0
+    key = build_url_for(limit: @limit, start: self.start_product)
+    Rails.logger.debug "Calculated SearchEngine#cache_key (#{'%0.5f' % (( Time.zone.now.to_f * 1000 ) - tstart)}): #{key}"
+    key
+  end
+
   def for_admin
     @search.for_admin
   end

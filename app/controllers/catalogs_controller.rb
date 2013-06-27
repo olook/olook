@@ -3,11 +3,11 @@ class CatalogsController < SearchController
   layout "lite_application"
   respond_to :html, :js
 
+  helper_method :create_filters
+
   def show
     params.merge!(SeoUrl.parse(params[:parameters], params))
     Rails.logger.debug("New params: #{params.inspect}")
-
-    @filters = create_filters
 
     @search = SearchEngine.new(category: params[:category],
                                care: params[:care],
@@ -20,7 +20,6 @@ class CatalogsController < SearchController
                                brand: params[:brand],
                                sort: params[:sort]).for_page(params[:page]).with_limit(48)
     @search.for_admin if current_admin
-    @catalog_products = @search.products
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
   end
 

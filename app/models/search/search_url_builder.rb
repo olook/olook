@@ -5,7 +5,7 @@ class SearchUrlBuilder
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
   # BASE_URL = SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
   #
-  attr_reader :expressions
+  attr_reader :expressions, :sort_field
   RANGED_FIELDS = HashWithIndifferentAccess.new({'price' => '', 'heel' => '', 'inventory' => ''})
   IGNORE_ON_URL = HashWithIndifferentAccess.new({'inventory' => '', 'is_visible' => ''})
 
