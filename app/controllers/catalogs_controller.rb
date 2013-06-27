@@ -10,6 +10,7 @@ class CatalogsController < SearchController
     @filters = create_filters
 
     @search = SearchEngine.new(category: params[:category],
+                               care: params[:care],
                                subcategory: params[:subcategory],
                                color: params[:color],
                                heel: params[:heel],
