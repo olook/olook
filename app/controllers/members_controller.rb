@@ -77,7 +77,7 @@ class MembersController < ApplicationController
   end
 
   def showroom
-    @google_path_pixel_information = "Home"
+    @google_path_pixel_information = "home"
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
 
     if @user.half_user
