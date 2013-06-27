@@ -10,6 +10,7 @@ $("#total_user_credits").html("<%= number_to_currency(total_user_credits) %>");
 <% if @cart.coupon %>
   $("#coupon_discount").html("<%= number_to_currency(@cart_service.total_coupon_discount) if !@cart.coupon.is_percentage? %><%= discount_percentage(@cart.coupon.discount_percent) %>");
   $("#coupon_info").show();
+  $("#coupon").hide();
 
   $("li#loyalty_credit div.message").html("<%= print_credit_message %>");
   $("li#mgm_credit div.message").html("<%= print_credit_message %>");
@@ -19,6 +20,7 @@ $("#total_user_credits").html("<%= number_to_currency(total_user_credits) %>");
 
   $("li#loyalty_credit div.message").html("");
   $("li#mgm_credit div.message").html("");
+  $("#coupon").show();
 <% end %>
 
 $("#coupon a#show_coupon_field").show();
@@ -32,7 +34,7 @@ $('table#total tr.total span').text('<%= number_to_currency(@cart_service.total)
 <% @cart.items.each do |item| %>
   $("table#items tbody tr#item_<%= item.id %> td.discount").empty();
 
-  $("table#items tbody tr#item_<%= item.id %> td.discount").first().append("<%= escape_javascript( render partial: 'cart/items/discount', 
+  $("table#items tbody tr#item_<%= item.id %> td.discount").first().append("<%= escape_javascript( render partial: 'cart/items/discount',
     locals: {
     cart_service: @cart_service,
     item: item
@@ -40,7 +42,7 @@ $('table#total tr.total span').text('<%= number_to_currency(@cart_service.total)
 
 $("table#items tbody tr#item_<%= item.id %> td.value").empty();
 
-$("table#items tbody tr#item_<%= item.id %> td.value").first().append("<%= escape_javascript( render partial: 'cart/items/subtotal', 
+$("table#items tbody tr#item_<%= item.id %> td.value").first().append("<%= escape_javascript( render partial: 'cart/items/subtotal',
   locals: {
   cart_service: @cart_service,
   item: item

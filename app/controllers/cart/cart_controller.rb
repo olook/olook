@@ -6,7 +6,7 @@ class Cart::CartController < ApplicationController
   skip_before_filter :authenticate_user!, :only => :add_variants
 
   def show
-    @google_path_pixel_information = "Carrinho"
+    @google_path_pixel_information = "cart"
     @google_pixel_information = @cart
     @report  = CreditReportService.new(@user)
     @url = request.protocol + request.host

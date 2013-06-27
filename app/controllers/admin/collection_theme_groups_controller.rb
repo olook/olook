@@ -24,6 +24,11 @@ class Admin::CollectionThemeGroupsController < Admin::BaseController
     redirect_if_called_remotely
   end
 
+  def edit
+    @collection_theme_group = CollectionThemeGroup.find(params[:id])
+    respond_with :admin, @collection_theme_group
+  end
+
   def update
     @collection_theme_group = CollectionThemeGroup.find(params[:id])
 
