@@ -11,7 +11,7 @@
         'UserPurchases': '<%= raw current_user.orders.purchased.size %>',
         'UserFacebook' : '<%= current_user.has_facebook? ? "FB" : "NOFB" %>',
         'UserBirthDate' : '<%= current_user.birthday %>',
-        'UserShoeSize' : 'current_user.shoes_size',
+        'UserShoeSize' : '<%= current_user.shoes_size %>',
         'UserCity' : '<%= current_user.addresses.first.try(:city) %>',
         'UserCreditValue' : '<%= current_user.current_credit %>',
         'UserEmail': '<%= current_user.try(:email) %>',
@@ -33,7 +33,6 @@
       'GoogleProdid' : "<%= google_ids @google_pixel_information %>",
       'GoogleEt' : "<%= @google_path_pixel_information if @google_path_pixel_information %>",
       'GooglePname' : "<%= google_name @google_pixel_information %>",
-      'GooglePcat' : "<%= google_cat @google_pixel_information %>",
       'GooglePValues' :"<%= google_value @google_pixel_information %>"
       });
     </script>

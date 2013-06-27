@@ -13,7 +13,7 @@ class ProductController < ApplicationController
   def show
     @ab_test_parameter = params[:s] == "1" ? 1 : 0
   end
-  
+
   def product_valentines_day
     @uid = params[:encrypted_id]
     # girlfriend = User.find_by_id(IntegerEncoder.decode(params[:encrypted_id]))
@@ -39,7 +39,7 @@ class ProductController < ApplicationController
   end
 
   def load_show_product
-    @google_path_pixel_information = "Produto"
+    @google_path_pixel_information = "product"
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @url = request.protocol + request.host
 
