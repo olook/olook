@@ -86,7 +86,7 @@ class SeoUrl
   private
     def self.all_subcategories
       Rails.cache.fetch CACHE_KEYS[:all_subcategories][:key], expire_in: CACHE_KEYS[:all_subcategories][:expire] do
-        db_subcategories.map{ |s| [s.titleize, ActiveSupport::Inflector.transliterate(s).titleize] }.flatten.uniq
+        db_subcategories.map{ |s| [s.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize, ActiveSupport::Inflector.transliterate(s).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize] }.flatten.uniq
       end
     end
 
@@ -96,7 +96,7 @@ class SeoUrl
 
     def self.all_brands
       Rails.cache.fetch CACHE_KEYS[:all_brands][:key], expire_in: CACHE_KEYS[:all_brands][:expire] do
-        db_brands.map{ |b| [b.titleize.gsub('.', ' '), ActiveSupport::Inflector.transliterate(b).titleize.gsub('.', ' ')] }.flatten.uniq
+        db_brands.map{ |b| [b.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize, ActiveSupport::Inflector.transliterate(b).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize] }.flatten.uniq
       end
     end
 
