@@ -13,7 +13,7 @@ ul#products{
     }
     a.product_link{display:block;text-decoration:none;color:#000;font-size:13px;margin:0;
       img{border-bottom:solid 1px #B9BABD;margin: 0 0 3px;width: 235px;height: 235px;}
-      p{line-height:18px;
+      p{float:left;line-height:18px;
         .name{font-size:14px;height:16px;overflow:hidden;display:inline-block;}
         .brand{text-transform:uppercase;font-weight:bold;}
         .old {text-decoration:line-through;}
