@@ -91,7 +91,7 @@ class IndexProductsWorker
             fields['heeluint'] = detail.description.to_i
           else
             field_key = translation_hash.include?(detail.translation_token.downcase) ? translation_hash[detail.translation_token.downcase] : detail.translation_token.downcase.gsub(" ","_")
-            fields[field_key] = detail.description.titleize
+            fields[field_key] = detail.description.gsub('.', ' ').titleize
           end
         end
         fields['keywords'] = fields.select{|k,v| ['category', 'subcategory', 'color', 'size', 'name', 'brand', 'material externo', 'material interno', 'material da sola'].include?(k)}.values.join(" ")

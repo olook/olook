@@ -96,7 +96,7 @@ class SeoUrl
 
     def self.all_brands
       Rails.cache.fetch CACHE_KEYS[:all_brands][:key], expire_in: CACHE_KEYS[:all_brands][:expire] do
-        db_brands.map{ |b| [b.titleize, ActiveSupport::Inflector.transliterate(b).titleize] }.flatten.uniq
+        db_brands.map{ |b| [b.titleize.gsub('.', ' '), ActiveSupport::Inflector.transliterate(b).titleize.gsub('.', ' ')] }.flatten.uniq
       end
     end
 
