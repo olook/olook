@@ -71,7 +71,6 @@
     <%= yield :top_my_account %>
     <div id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
 
-    <%= image_tag("home/only_balaozinho.png", :class => "balloon") %>
     <%= render_promotion_banner unless error %>
 
     <%= content_for?(:content) ? yield(:content) : yield %>
