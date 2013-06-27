@@ -1,5 +1,8 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/collections" %>
+  <script type="text/javascript">
+    var start_position = 0, final_position = 600;
+  </script>
 <% end %>
 
 <%= render "menu", collection_theme_groups: @collection_theme_groups %>
