@@ -11,56 +11,14 @@ olook = o = {
       o.myAccountMenu(); 
       o.showSlideToTop();
       o.slideToTop();  
-      o.showBalloon();
       o.boxLogin();
   },
-  
-  showBalloon: function(){
-    if($(".menu_new .stylist").length > 0){
-      var t=$(".menu_new .stylist").position().top, l=$(".menu_new .stylist").position().left;
-      $("img.balloon").css({"top": t -11, "left": l +20});
-  
-      $(".menu_new .stylist").on("mouseenter", function(){
-        $("img.balloon").show();
-      }).on("mouseleave", function(){
-        $("img.balloon").hide();
-      })
-    }  
-  },
-  
+    
   menu: function(){
-    var $el, leftPos, newWidth, $magicLine = $("ul.default_new li#bar"), w = $("ul.default_new li .selected").outerWidth(), l = $("ul.default_new li .selected").position() && $("ul.default_new li .selected").position().left,
+    var $el, leftPos, newWidth, w = $("ul.default_new li .selected").outerWidth(), l = $("ul.default_new li .selected").position() && $("ul.default_new li .selected").position().left,
     top = ( $('div#wrapper_new_menu').offset() && $('div#wrapper_new_menu').offset().top ) - parseFloat(( $('div#wrapper_new_menu').css('margin-top') && $('div#wrapper_new_menu').css('margin-top') || '0' ).replace(/auto/, 0));
     
-    $magicLine
-    .width(w - 40)
-    .css("left", l + 19)
-    .data("origLeft", l + 19)
-    .data("origWidth", w - 40);
-
-    if($("ul.default_new li a").hasClass("selected")){
-      $magicLine.fadeIn();
-    }
-    $("ul.default_new li").find("a").hover(function() {
-        $el = $(this);
-        leftPos = $el.position().left + 19;
-        newWidth = $el.parent().width() - 40;
-
-        if(!$magicLine.is(":visible")){
-          $magicLine.fadeIn();
-        }
-        $magicLine.stop().animate({
-            left: leftPos,
-            width: newWidth
-        });
-    }, function() {
-        $magicLine.stop().animate({
-            left: $magicLine.data("origLeft"),
-            width: $magicLine.data("origWidth")
-        });
-    });
-    
-    $(window).scroll(function (event) {
+      $(window).scroll(function (event) {
       var y = $(this).scrollTop();
       if (y >= top) {
         $('div#wrapper_new_menu').addClass('fixed');
