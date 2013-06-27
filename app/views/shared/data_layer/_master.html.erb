@@ -11,7 +11,7 @@
         'UserPurchases': '<%= raw current_user.orders.purchased.size %>',
         'UserFacebook' : '<%= current_user.has_facebook? ? "FB" : "NOFB" %>',
         'UserBirthDate' : '<%= current_user.birthday %>',
-        'UserShoeSize' : 'current_user.shoes_size',
+        'UserShoeSize' : '<%= current_user.shoes_size %>',
         'UserCity' : '<%= current_user.addresses.first.try(:city) %>',
         'UserCreditValue' : '<%= current_user.current_credit %>',
         'UserEmail': '<%= current_user.try(:email) %>',
