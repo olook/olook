@@ -26,7 +26,7 @@
     %p.title-category Marca
     %ul.category-list
       - filters_by('brand_facet').each do |text, amount|
-        %li= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(:brand, text.chomp), params)), text.chomp, search.filter_selected?(:brand, text.chomp))
+        %li= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(:brand, text.chomp), params)), text.chomp.gsub('Ç', 'ç').downcase.titleize, search.filter_selected?(:brand, text.chomp))
 
 - if (['sapato', 'roupa'] & search.filter_value('category').to_a).present?
   .filter
