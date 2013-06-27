@@ -70,8 +70,8 @@ class IndexProductsWorker
         fields['inventory'] = product.inventory.to_i
         fields['image'] = product.catalog_picture
         fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
-        fields['brand'] = product.brand.titleize
-        fields['brand_facet'] = product.brand.titleize
+        fields['brand'] = product.brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
+        fields['brand_facet'] = product.brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
         fields['price'] = (product.price.to_d * 100).round
         fields['retail_price'] = (product.retail_price.to_d * 100).round
         fields['in_promotion'] = product.promotion?
@@ -91,7 +91,7 @@ class IndexProductsWorker
             fields['heeluint'] = detail.description.to_i
           else
             field_key = translation_hash.include?(detail.translation_token.downcase) ? translation_hash[detail.translation_token.downcase] : detail.translation_token.downcase.gsub(" ","_")
-            fields[field_key] = detail.description.gsub('.', ' ').titleize
+            fields[field_key] = detail.description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
           end
         end
         fields['keywords'] = fields.select{|k,v| ['category', 'subcategory', 'color', 'size', 'name', 'brand', 'material externo', 'material interno', 'material da sola'].include?(k)}.values.join(" ")
