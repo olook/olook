@@ -3,6 +3,10 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+  get "brands/index"
+
+  get "brands/show"
+
   match "/catalogo/*parameters", to: "catalogs#show", as: "catalog"
 
   mount Resque::Server => "/admin/resque"
