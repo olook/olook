@@ -25,8 +25,8 @@ class SearchEngine
   def cache_key
     tstart = Time.zone.now.to_f * 1000.0
     key = build_url_for(limit: @limit, start: self.start_product)
-    Rails.logger.debug "Calculated SearchEngine#cache_key (#{'%0.5f' % (( Time.zone.now.to_f * 1000 ) - tstart)}): #{key}"
-    key
+    Rails.logger.debug "Calculated SearchEngine#cache_key (#{'%0.5f' % (( Time.zone.now.to_f * 1000 ) - tstart)}): #{key} => #{Digest::SHA1.hexdigest(key)}"
+    Digest::SHA1.hexdigest(key)
   end
 
   def for_admin
