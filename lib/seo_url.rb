@@ -58,23 +58,16 @@ class SeoUrl
     parsed_values
   end
 
-  def self.build params, other_params={  }
-    parameters = params.dup
-    other_parameters = other_params.dup
-    category = ActiveSupport::Inflector.transliterate(parameters.delete(:category).first.to_s).downcase
-    subcategory = parameters.delete(:subcategory)
-    order_params = other_parameters[:por].present? ? { por: other_parameters.delete(:por) } : {}
-    brand = parameters.delete(:brand)
+  def self.build_for_catalogs params, other_params={  }
+    return_hash = build(params, other_params)
+    path = [ return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join('-')
 
-    path = [ subcategory, brand ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join('-')
-    filter_params = []
-    parameters.each do |k, v|
-      if v.respond_to?(:join)
-        filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| ActiveSupport::Inflector.transliterate(_v).downcase}.join('-')}" if v.present?
-      end
-    end
-    filter_params = filter_params.join('_')
-    { parameters: [category, path, filter_params].reject { |p| p.blank? }.join('/') }.merge(order_params)
+    { parameters: [return_hash[:category], path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/') }.merge(return_hash[:order_params])
+  end
+
+  def self.build_for_brands params, other_params={  }
+    return_hash = build(params, other_params)
+    { parameters: [return_hash[:brand], return_hash[:category], return_hash[:subcategory], return_hash[:filter_params]].reject { |p| p.blank? }.join('/') }.merge(return_hash[:order_params])
   end
 
   def self.all_categories
@@ -84,6 +77,28 @@ class SeoUrl
   end
 
   private
+
+    def self.build params, other_params = {  }
+      parameters = params.dup
+      other_parameters = other_params.dup
+      return_hash = {}
+      return_hash[:brand] = ActiveSupport::Inflector.transliterate(parameters.delete(:brand).join("-")).downcase if parameters[:brand].present?
+      return_hash[:subcategory] = ActiveSupport::Inflector.transliterate(parameters.delete(:subcategory).first.to_s).downcase if parameters[:subcategory].present?
+      return_hash[:category] = ActiveSupport::Inflector.transliterate(parameters.delete(:category).first.to_s).downcase if parameters[:category].present?
+
+      return_hash[:order_params] = other_parameters[:por].present? ? { por: other_parameters.delete(:por) } : {}
+
+      filter_params = []
+      parameters.each do |k, v|
+        if v.respond_to?(:join)
+          filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| ActiveSupport::Inflector.transliterate(_v).downcase}.join('-')}" if v.present?
+        end
+      end
+      return_hash[:filter_params] = filter_params.join('_')
+
+      return_hash
+    end
+
     def self.all_subcategories
       Rails.cache.fetch CACHE_KEYS[:all_subcategories][:key], expire_in: CACHE_KEYS[:all_subcategories][:expire] do
         db_subcategories.map{ |s| [s.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize, ActiveSupport::Inflector.transliterate(s).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize] }.flatten.uniq
