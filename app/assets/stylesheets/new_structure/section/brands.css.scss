@@ -1,0 +1,31 @@
+@import 'new_structure/common/global_stuffs';
+
+.banner-brands{position:relative;margin-bottom:45px;
+  button{position:absolute;top:125px;width:8px;height:33px;font-size:0;border:none;background:image-url('home/arrows.jpg') no-repeat 0 0;cursor:pointer;
+    &.anterior{left:0;
+      &:hover{background-position:0 -33px;}
+    }  
+    &.proximo{right:0;background-position:-8px 0;
+      &:hover{background-position:-8px -33px;}
+    }
+  }
+  .container-imgs{position:relative;width:950px;height:290px;overflow:hidden;margin:0 auto;
+    ul{overflow:auto;width:5000px;
+      li{float:left;width:950px;height:290px;}
+    }
+  }
+}
+.brands{
+  .box{float:left;width:235px;margin-left:43px;
+    &:last-child{width:70px;}
+  }
+  .letter{font-family:$avenir_medium;font-size:31px;line-height:31px;}
+  ul{overflow:hidden;
+    li{margin-bottom:2px;padding-left:2px;
+      &:last-child{margin-bottom:30px;}
+      a{text-decoration:none;color:#000;font-size:13px;
+        &:hover{color:$base_color;}
+      }
+    }
+  }
+}
