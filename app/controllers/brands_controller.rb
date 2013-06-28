@@ -1,4 +1,5 @@
 class BrandsController < ApplicationController
+  layout "lite_application"
   def index
   end
 

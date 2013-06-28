@@ -3,10 +3,6 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
-  get "brands/index"
-
-  get "brands/show"
-
   match "/catalogo/*parameters", to: "catalogs#show", as: "catalog"
 
   mount Resque::Server => "/admin/resque"
@@ -24,8 +20,7 @@ Olook::Application.routes.draw do
   get "/busca/product_suggestions", :to => "search#product_suggestions", :as => "search_index"
 
   # match "/busca", :to => "search#show", :as => "search"
-  match "/marcas/:brand", :to => "search#show"
-
+  
   match '/404', :to => "application#render_public_exception"
   match '/500', :to => "application#render_public_exception"
   match "/home", :to => "home#index"
@@ -50,6 +45,10 @@ Olook::Application.routes.draw do
   match "/olookmovel", to: "pages#olookmovel", as: "olookmovel"
   match "/troca_e_devolucao", to: "pages#troca", as: "troca"
   match "/half_newsletter", to: "landing_pages#half_newsletter", as: "newsletter"
+  
+  # BRANDS
+  match "/marcas", :to => "brands#index", :as => "brands"
+  match "/marcas/:brand", :to => "search#show"
 
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
