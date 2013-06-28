@@ -161,14 +161,14 @@ describe SeoUrl do
         it { expect(subject.keys).to include('brand')  }
         it { expect(subject[:brand]).to eq 'colcci' }
 
-        it { expect(subject.keys.size).to eq 3}
+        it { expect(subject.keys.size).to eq 5}
       end
 
       context "when given parameters has brand, category, subcategory and filters together" do
         subject { SeoUrl.parse_brands("colcci/roupa/bota/conforto-amaciante_tamanho-36-p_cor-azul-vermelho") }
 
         it { expect(subject.keys).to include('category')  }
-        it { expect(subject[:subcategory]).to eq 'roupa' }
+        it { expect(subject[:category]).to eq 'roupa' }
 
         it { expect(subject.keys).to include('subcategory')  }
         it { expect(subject[:subcategory]).to eq 'bota' }
@@ -183,9 +183,9 @@ describe SeoUrl do
         it { expect(subject[:color]).to eq 'azul-vermelho' }
 
         it { expect(subject.keys).to include('care')  }
-        it { expect(subject[:care]).to eq 'amaciante' }        
+        it { expect(subject[:care]).to eq 'amaciante' }
 
-      end      
+      end
     end
   end
 
