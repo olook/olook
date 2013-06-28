@@ -2,7 +2,6 @@
   = form_tag catalog_path(parameters: params[:parameters]), method: 'get' do
     %fieldset
       %p{class: unless params[:por] == '0' then 'selected_relevance watermelon' else 'selected_relevance' end}
-        ORDENAÇÃO:
         %span NOSSA SELEÇÃO
       = select_tag('por', options_for_select({"NOSSA SELEÇÃO" => 0, "MENOR PREÇO" => "menor-preco", "MAIOR PREÇO" => "maior-preco", "MAIOR DESCONTO" => "maior-desconto"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
 
