@@ -21,7 +21,7 @@
   }
   .letter{font-family:$avenir_medium;font-size:31px;line-height:31px;}
   ul{overflow:hidden;
-    li{margin-bottom:9px;padding-left:2px;
+    li{margin-bottom:2px;padding-left:2px;
       &:last-child{margin-bottom:30px;}
       a{text-decoration:none;color:#000;font-size:13px;
         &:hover{color:$base_color;}
