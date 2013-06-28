@@ -4,7 +4,11 @@
 /*** PRODUTO DENTRO DO MODAL ESPIAR ***/
 @import 'common/product_details';
 
-aside{float:left;width:175px;margin-right:10px;
+aside{
+  float:left;
+  width:175px;
+  margin-right:0px;
+  margin-left:14px;
   .filter{margin-bottom:25px;clear: both;overflow:hidden;}
   ul.cores{width:145px;height:200px;overflow-y:auto;border:solid 1px #CCC;padding-left:5px;
     li span{display:inline-block;height:15px;padding-left:19px;background: image-url("common/thumbs_cor.png") no-repeat 0 1px;
