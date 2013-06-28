@@ -354,6 +354,10 @@
         one: Destaque
         other: Destaques
 
+      highlight_campaign:
+        one: Campanha com destaque
+        other: Campanha com destaques
+
       coupon:
         one: Cupom
         other: Cupons
