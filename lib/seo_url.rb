@@ -64,7 +64,7 @@ class SeoUrl
 
     all_parameters = parameters.to_s.split("/")
     parsed_values[:brand] = all_parameters.shift
-    parsed_values[:category] = all_parameters.shift if all_parameters.any? && all_categories.keys.map(&:parameterize).include?(ActiveSupport::Inflector.transliterate(all_parameters.first).titleize)
+    parsed_values[:category] = all_parameters.shift if all_parameters.any? && all_categories.keys.map(&:parameterize).include?(ActiveSupport::Inflector.transliterate(all_parameters.first))
     parsed_values[:subcategory] = all_parameters.shift if all_parameters.any? && _all_subcategories.include?(ActiveSupport::Inflector.transliterate(all_parameters.first).titleize)
 
     filter_params = all_parameters.last || []
@@ -84,7 +84,7 @@ class SeoUrl
 
     parsed_values[:sort] = VALUES[other_parameters["por"]]
 
-    parsed_values    
+    parsed_values
   end
 
   def self.build_for_catalogs params, other_params={  }
