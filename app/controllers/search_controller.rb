@@ -2,47 +2,66 @@ class SearchController < ApplicationController
   respond_to :html
   layout "lite_application"
 
-  def index
-
-  end
-
   def show
+    params.merge!(SeoUrl.parse(params[:parameters], search: true))
+    Rails.logger.debug("New params: #{params.inspect}")
+    @q = params[:q] || ""
 
-    url_builder = SearchUrlBuilder.new params[:q]
-    url = url_builder.build_url_with({category: params[:category], brand: params[:brand], rank: "cor_e_marca"})
+    @singular_word = @q.singularize
+    if catalogs_pages.include?(@singular_word)
+      redirect_to catalog_path(parameters: @singular_word)
+    else
 
-    response = Net::HTTP.get_response(url)
-    @hits = JSON.parse(response.body)["hits"]
+      @brand = params[:brand].humanize if params[:brand]
+      @subcategory = params[:subcategory].parameterize if params[:subcategory]
 
+      @search = SearchEngine.new(term: @q, brand: @brand, subcategory: @subcategory).for_page(params[:page]).with_limit(48)
+      @products = @search.products
 
-    @model_names = {}
-    @brands = {}
+      @model_names = {}
 
-    @products = @hits["hit"].map do |hit|
-      data = hit["data"]
-      brand = data["brand"][0].nil? ? "" : data["brand"][0].strip.capitalize
-      model = data["categoria"][0].nil? ? "" : data["categoria"][0].strip.capitalize
-      category = data["category"][0].nil? ? "" : data["category"][0].strip.capitalize
+      @filters = parse_filters
 
-      @brands[brand] = @brands[brand].to_i + 1
-      @model_names[category] ||= {}
-      @model_names[category][model] = @model_names[category][model].to_i + 1
+      @stylist = Product.fetch_products :selection
 
-      SearchedProduct.new(hit["id"].to_i, data)
+      @parameters = "q=#{ params[:q] }"
+      @parameters << "&subcategory=#{ params[:subcategory] }"
+      @parameters << "&brand=#{ params[:brand] }"
+
     end
 
-    # @show_filters = wanted_category.nil? && wanted_brand.nil?
-    @show_filters = true
-    @products.compact!
-    @q=params[:q]
-    #####END
-
-    ### to render home partials ###
-    @stylist = Product.fetch_products :selection
   end
 
   def product_suggestions
     render json: ProductSearch.terms_for(params[:term].downcase)
   end
+
+  private
+
+    def fetch_products(url, options = {})
+      response = Net::HTTP.get_response(url)
+      SearchResult.new(response, options)
+    end
+
+    def catalogs_pages
+      %w[roupa acessorio sapato bolsa]
+    end
+
+    def parse_filters
+      category_tree = SeoUrl.all_categories
+
+      filters = SearchEngine.new(term: @q, brand: @brand, subcategory: @subcategory, color: @color).filters
+
+      return nil unless filters.grouped_products('subcategory')
+
+      filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.include?(c) }
+
+      category_tree.each{|k,v| v.delete_if{|subcategory| !filters.grouped_products('subcategory').include?(subcategory)} }
+
+      category_tree["Marcas"] = filters.grouped_products('brand_facet').keys
+
+      category_tree
+    end
+
 
 end

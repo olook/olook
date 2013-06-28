@@ -19,7 +19,7 @@
 .ui-menu .ui-menu{margin-top:-3px;position:absolute}
 .ui-menu .ui-menu-item{margin:0;padding:0;width:100%;list-style-image:url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7)}
 .ui-menu .ui-menu-divider{margin:5px -2px 5px -2px;height:0;font-size:0;line-height:0;border-width:1px 0 0}
-.ui-menu .ui-menu-item a{font-family: $avenir;font-size: 12px;text-decoration:none;display:block;padding:2px .4em;line-height:1.5;min-height:0;font-weight:400;color:#ef3742 !important;margin-top: 2px;}
+.ui-menu .ui-menu-item a{font-family: $avenir;font-size: 12px;text-decoration:none;display:block;padding:2px .4em;line-height:1.5;min-height:0;font-weight:400;color:#000 !important;}
 .ui-menu .ui-menu-item a.ui-state-focus,.ui-menu .ui-menu-item a.ui-state-active{font-weight:400;/*margin:-1px*/}
 .ui-menu .ui-state-disabled{font-weight:400;margin:.4em 0 .2em;line-height:1.5}
 .ui-menu .ui-state-disabled a{cursor:default}
@@ -28,7 +28,7 @@
 .ui-menu .ui-icon{position:absolute;top:.2em;left:.2em}
 .ui-menu .ui-menu-icon{position:static;float:right}
 .ui-slider{position:relative;text-align:left;top:9px;}
-.ui-slider .ui-slider-handle{position:absolute;z-index:2;width:7px;height:11px;cursor:default;background:url('collections/bullet_range_price.png') -1px 0 no-repeat;cursor:pointer;}
+.ui-slider .ui-slider-handle{position:absolute;z-index:2;width:4px;height:11px;cursor:default;background:image-url('collections/bullet_range_price.png') -1px 0 no-repeat;cursor:pointer;}
 .ui-slider .ui-slider-handle:last-child{background-position:-15px 0 !important;margin-left:0;}
 .ui-slider .ui-slider-range{position:absolute;z-index:1;font-size:.7em;display:block;border:0;background-position:0 0}
 .ui-slider .ui-widget-header{background:#000;}
@@ -47,8 +47,8 @@
 
 .price-range{float:left;margin-top:2px;}
 .price-range .slider{float:left;width:50px;margin-right:20px;}
-.price-range p{font-family:$avenir;font-weight:bold;width:40px;font-size:10px;}
-.price-range p#min-value-label{float:left;margin-right:10px;}
+.price-range p{font-family:$avenir;font-weight:bold;width:40px;font-size:11px;padding-left:0;}
+.price-range p#min-value-label{float:left;}
 .price-range p#max-value-label{float:right;}
 .price-range input{display:none;width:45px;}
 

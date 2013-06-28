@@ -1,0 +1,96 @@
+@import 'new_structure/common/global_stuffs';
+@import 'new_structure/partials/thumb_product_catalog';
+@import 'new_structure/common/jquery.jqzoom';
+/*** PRODUTO DENTRO DO MODAL ESPIAR ***/
+@import 'common/product_details';
+
+aside{float:left;width:175px;margin-right:10px;
+  .filter{margin-bottom:25px;clear: both;overflow:hidden;}
+  ul.cores{width:145px;height:200px;overflow-y:auto;border:solid 1px #CCC;padding-left:5px;
+    li span{display:inline-block;height:15px;padding-left:19px;background: image-url("common/thumbs_cor.png") no-repeat 0 1px;
+      &.txt-amarelo{background-position: 0 -302px;}
+      &.txt-azul{background-position: 0 -382px;}
+      &.txt-bege{background-position: 0 -239px;}
+      &.txt-branco{background-position: 0 -415px;}
+      &.txt-cinza{background-position: 0 -270px;}
+      &.txt-cobra{background-position: 0 -93px;}
+      &.txt-cobre{background-position: 0 2px;}
+      &.txt-dourado{background-position: 0 -13px;}
+      &.txt-floral{background-position: 0 -77px;}
+      &.txt-laranja{background-position: 0 -318px;}
+      &.txt-listras{background-position: 0 -109px;}
+      &.txt-marrom{background-position: 0 -254px;}
+      &.txt-multicolorido{background-position: 0 -125px;}
+      &.txt-nude{background-position: 0 -222px;}
+      &.txt-off-white{background-position: 0 -432px;}
+      &.txt-onix{background-position: 0 -29px;}
+      &.txt-onca{background-position: 0 -141px;}
+      &.txt-poas{background-position: 0 -157px;}
+      &.txt-prateado{background-position: 0 -45px;}
+      &.txt-preto{background-position: 0 -286px;}
+      &.txt-rosa{background-position: 0 -350px;}
+      &.txt-rose{background-position: 0 -61px;}
+      &.txt-roxo{background-position: 0 -366px;}
+      &.txt-vaca{background-position: 0 -173px;}
+      &.txt-verde{background-position: 0 -398px;}
+      &.txt-vermelho{background-position: 0 -334px;}
+      &.txt-xadrez{background-position: 0 -189px;}
+      &.txt-zebra{background-position: 0 -205px;}
+    }
+  }
+
+  p{font-size:11px;text-transform:uppercase;font-weight:bold;height:15px;background:image-url('catalog/sprite.png') no-repeat 0 6px;padding-left:13px;margin-bottom:5px;cursor:pointer;
+    &.close{background-position:0 -25px !important;}
+  }
+  a{display:inline-block;height:15px;font-size:13px;text-decoration:none;color:#000;background:image-url('catalog/sprite.png') no-repeat 0 -50px;padding-left:13px;text-transform:capitalize;
+    &:hover{color:$base_color;}
+    &.selected{background-position:0 -86px !important;}
+  }
+  .clean_filter a{font-size:11px;text-decoration:underline;background:none;padding-left:0;}
+  .invite_friends {
+    a {background: none; padding: 0;height:100%;}
+  }
+}
+
+#result{float:left;width:785px;}
+/*.container_product{float:left;}*/
+
+.exhibition-mode{float:left;width:785px;border-bottom:solid 1px #D7D7D7;padding-bottom:7px;margin-bottom:15px;
+  fieldset{position:relative;float:left;margin-right:20px;
+    select{position:absolute;left:0;top:0;opacity:0;width:100%;}
+    p{float:left;border-left:solid 1px #D7D7D7;border-top:solid 1px #D7D7D7;border-bottom:solid 1px #D7D7D7;font-size:10px;font-weight:bold; text-transform:uppercase; padding-left:5px;background: image-url("collections/bullet_arrow.png") no-repeat right -1px;letter-spacing:1px;padding-right:30px;}
+  }
+}
+
+.pagination{text-align:center;clear:both;
+  &.topo{clear:none;float:right;margin:4px 3px 0 0;}
+  a{display:inline-block;font-family:$avenir_medium;text-decoration:none;color:#A7A9AB;font-size:12px;height:19px;line-height:22px;
+    &.anterior, &.proximo{width:10px;background:image-url('catalog/sprite.png') no-repeat 2px -112px;font-size:0;}
+    &.proximo{background-position:0 -137px;}
+    &.current{color:#58595B;}
+    &:hover{color:$base_color;}
+  }
+}
+.watermelon {color:#ef3742;}
+/****************
+BOX MODAL ESPIAR
+****************/
+
+#quick_view {position:absolute;top:100px;left:50%;background-color: #FFF;border: 10px solid #000;width:1000px;/*height:620px;*/margin: 0 0 0 -480px;display:none;z-index:10002;
+  .size_guide{display:none;}
+  #close_quick_view{cursor: pointer;font-size: 20px;position: absolute;background: image-url('common/close_dialog.png') no-repeat;text-indent: -9999px;width: 30px;height: 30px;top: -17px;right: -17px;z-index: 100;}
+}
+
+/**************************
+BOX DE FILTROS SELECIONADOS
+**************************/
+section.filters{float:left;width:763px;margin:10px 0 30px;color:#000;border:solid 1px #A7A9AC;padding:10px 10px 2px;/*display:none;*/
+ p{font-family:$avenir;font-size: 12px;font-weight: bold;text-transform: uppercase;float:left;margin-right:10px;
+   span{margin-left:10px;}
+ }
+
+ li{float:left;margin-right:10px;text-transform:uppercase;font-size:12px;position:relative;line-height:18px;
+   a{color:#000;text-decoration:none;text-transform:none;display:inline-table;margin-top:-1px;}
+   &.clean{a{color:#6D6E71;text-transform:none;font-family:$avenir}}
+ }
+}

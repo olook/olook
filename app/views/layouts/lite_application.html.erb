@@ -129,15 +129,18 @@
 
        <!-- Modals -->
        <div id="modal" class="promo-olook"></div>
-       <div id="overlay-campaign">&nbsp;</div>
+       <div id="overlay-campaign"><%= image_tag 'common/ajax-loader.gif', id: 'ajax-loader', style: 'position:fixed;top:50%;left:50%' %></div>
        <div id="modal-campaign">&nbsp;</div>
        <!-- End Modals -->
 
 
        <%= javascript_include_tag "jquery" %>
        <%= javascript_include_tag "lite_application" %>
-
-       <% unless user_signed_in? %>
+       <script>
+         show_modal = '<%= j @modal_show %>';
+       </script>
+       
+       <% unless user_signed_in? || request.url.include?("gclid") %>
          <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal && !['landing_pages','survey', 'users/registrations'].include?(params[:controller]) %>
        <% end %>
 

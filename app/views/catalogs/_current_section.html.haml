@@ -1,0 +1,26 @@
+- if search.has_any_filter_selected?
+  %section.filters
+    %p
+      Você está em
+      %span //
+    %ul
+      - search.selected_filters_for("subcategory").sort.each do |sub|
+        %li= %( #{ sub } #{ current_section_link_to(catalog_path(SeoUrl.build(search.filters_applied(:subcategory, sub))))}).html_safe
+
+      - search.selected_filters_for("color").sort.each do |col|
+        %li= %( #{ col } #{ current_section_link_to(catalog_path(SeoUrl.build(search.filters_applied(:color, col))))}).html_safe
+
+      - search.selected_filters_for("heel").map{|h|h.gsub('heeluint:', '')}.sort.each do |hee|
+        %li= %( #{ formated_heel hee } #{ current_section_link_to(catalog_path(SeoUrl.build(search.filters_applied(:heel, hee.gsub('..', '-')))))}).html_safe
+
+      - search.selected_filters_for("care").sort.each do |car|
+        %li= %( #{ car } #{ current_section_link_to(catalog_path(SeoUrl.build(search.filters_applied(:care, car))))}).html_safe
+
+      - search.selected_filters_for("size").sort.each do |size|
+        %li= %( #{ size } #{ current_section_link_to(catalog_path(SeoUrl.build(search.filters_applied(:size, size))))}).html_safe
+
+      - search.selected_filters_for("brand").sort.each do |brand|
+        %li= %( #{ brand } #{ current_section_link_to(catalog_path(SeoUrl.build(search.filters_applied(:brand, brand))))}).html_safe
+
+      %li.clean= link_to "( limpar filtros )", catalog_path(parameters: search.filter_value("category").first.to_s)
+
