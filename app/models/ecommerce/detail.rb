@@ -22,4 +22,11 @@ class Detail < ActiveRecord::Base
         map{|a| a.description.parameterize}.compact.uniq
     end
   end
+
+  def self.subcategories(product_category)
+    joins(:product).where("details.translation_token = 'Categoria'").
+    where('products.is_visible = true').
+    where("products.category = #{product_category}").
+    map{|a| a.description.parameterize}.compact.uniq
+  end
 end

@@ -1,0 +1,8 @@
+<p class="title-category"><%= title %></p>
+<ul class="subcategory-list">
+  <% if list -%>
+    <% list.each do |text, amount| -%>
+      <li><%= brand_link_to field, text, amount %></li>
+    <% end -%>
+  <% end -%>
+</ul>

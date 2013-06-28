@@ -1,0 +1,60 @@
+@import 'new_structure/common/global_stuffs';
+.container_product{clear:both;
+  ul{
+    &.second_line{
+      li{margin-top:65px;}
+    }
+    li{display:inline-block;width:180px;margin:25px 15px 0 0;position:relative;
+      &:nth-child(5n){margin-right:0;}
+      &:hover{.spy{visibility:visible;}}
+
+      a{color:#000;text-decoration:none;font-size:13px;/*display:inline-block;*/
+        &.spy{visibility:hidden;position:absolute;bottom:80px;left:0;height:32px;width:100%;background:image-url('common/bg-spy.png');font-size:13px;text-transform:uppercase;text-align:center;
+          font-weight:bold;letter-spacing:1px;line-height:32px;z-index:10;
+          span{display:inline-block;height:30px;line-height:30px;padding-right:30px;background:image-url('moments/sprite.png') no-repeat right -178px;
+            &:hover{color:$base_color;}
+          }
+        }
+
+        p{margin-top:20px;
+          span,strong{white-space:no-wrap;overflow:hidden;/*display:inline-block;*/height:18px;
+            &.brand{text-transform:uppercase;}
+            &.name{float:left;clear:both;}
+          }
+          &.warn {position: absolute;color: #FFF;font-size: 11px;font-style: oblique;text-align: center;text-transform: uppercase;line-height: 18px;/*display: none;*/
+            &.sold_out {left:0;top:60px;background: image-url('moments/sprite.png') no-repeat 0 -76px;line-height:25px;padding-left:13px;text-align:left;width:92px;color:#000;}
+            &.quantity{background:none #FFF !important;border: 1px solid #000;color: #000;font-family: 'avenir_medium';font-weight: 600;height: 20px;width: 74px;line-height: 20px !important;text-align: center;word-spacing: -1px;}
+            &.shoe_size{background: none #000;height: 20px;left: 25px !important;line-height: 20px !important;top: 81px !important;width: 55px;word-spacing: -1px;}
+            &.percentage{right:15px;top:70px; background: image-url('moments/sprite.png') no-repeat 0 -109px;width:60px;height:47px;font-size:14px;font-family:$avenir;text-align:center;
+            padding-top:13px;
+              span{font-size:14px;font-weight:normal;}
+            }
+          }
+
+        }
+        img{width:100%;height:auto;
+          &.async{width:170px;height:170px;}
+        }
+      }
+
+      ul.color_list li{width:15px;display:inline-block;margin:5px 3px 0 0;
+        a{
+          img{border:solid 2px #C2C2C2;}
+          &.selected img{border:solid 2px #000;}
+        }
+      }
+
+      p.facebook_like_button {
+        padding-top: 7px;
+      }
+    }
+  }
+  .see-more{border-top:solid 1px #CBCBCB;text-align:center;margin:50px 0 40px;position:relative;
+    a{position:absolute;top:-9px;background:#FFF;padding:0 10px;font-size:20px;font-weight:bold;text-transform:uppercase;
+      &:hover{color:$base_color !important;}
+      &.clothes,&.shoes{left:360px;}
+      &.purses{left:362px;}
+      &.accessories{left:347px;}
+    }
+  }
+}

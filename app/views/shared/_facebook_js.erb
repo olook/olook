@@ -8,13 +8,13 @@ $(function(){
 	    oauth: true,
       xfbml: true,
       frictionlessRequests : true
-  
+
 	  });
 
     FB.Event.subscribe('edge.create', function(href, widget) {
 
     <% if params[:controller] == "members" && params[:action] =="showroom" && params[:lbp] == "1" %>
-      // A/B test rules: 
+      // A/B test rules:
       // if the user is
       // - accessing members#showroom and the lbp param is "1"
       // - clicking on a showroom product (which means that the "www.facebook.com/Olook" like link is excluded)
@@ -26,10 +26,10 @@ $(function(){
         _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);
       } else {
         _gaq.push(['_trackEvent', 'Showroom', 'ClickFacebookLike', href]);
-      }        
+      }
     <% else %>
       _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);
-    <% end %>      
+    <% end %>
     });
 
     // FB.Event.subscribe('edge.create', function(href, widget) {
@@ -39,12 +39,12 @@ $(function(){
 	  try {
 	    FB.XFBML.parse();
 	  } catch(ex){}
-    
+
 	}
-  
-  
+
+
   $("a.face-message").click(function(){
-    if($("div.line.size ol").find("li input[type='radio']:checked").length > 0){    
+    if($("div.line.size ol").find("li input[type='radio']:checked").length > 0){
       FB.login(function(login_response) {
         if (login_response.authResponse) {
           getBoyfriendName();
@@ -57,7 +57,12 @@ $(function(){
       showAlert();
     }
   });
-  
+
+  if($("#quick_view ul.social li.facebook").length > 0){
+    $("#quick_view ul.social li.facebook a").click(function(){postProductToFacebookFeed()})
+  }
+
+
 });
 
 /**
@@ -78,7 +83,7 @@ function sendMessageToBoyfriend(me_response) {
   var significant_other = me_response.significant_other;
   if(significant_other){
     boyfriend = significant_other.id;
-    link_suffix = "";      
+    link_suffix = "";
   }
 
   ui_hash = {
@@ -88,16 +93,21 @@ function sendMessageToBoyfriend(me_response) {
       caption: 'Vi este produto no site da Olook e amei! <3',
       to: me_response.id,
       display: "iframe",
-    
+
       picture: 'http:'+'<%= @product.suggestion_picture.to_s %>',
       description: 'Além de acertar em cheio no presente, a troca e devolução é grátis.',
       // link: '<%= "#{root_url}dia_dos_namorados/" %>'+me_response.id+'<%= "/#{@product.id.to_s}" %>'+link_suffix+'&size='+size
       link: '<%= "#{root_url}quero_ganhar/" %>'+me_response.id+'<%= "/#{@product.id.to_s}" %>'+link_suffix+'&size='+size
-    <% end %>     
-  }; 
-  FB.ui(ui_hash);
+    <% end %>
+  };
+
+  function callback(response) {
+    $(window).scrollTop($("#quick_view").position().top - 10)
+  }
+
+  FB.ui(ui_hash, callback);
 }
- 
+
 
 
 function sendFacebookMessage() {
@@ -111,7 +121,7 @@ function sendFacebookMessage() {
     <% else %>
       description: 'Tenho uma vitrine personaliza da Olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10!',
       link: '<%=  root_url %>'
-    <% end %>   
+    <% end %>
   });
 }
 
@@ -132,6 +142,21 @@ method: 'feed',
 
   FB.ui(obj);
 }
+
+<% if defined?(product) && product.present? %>
+
+function postProductToFacebookFeed() {
+  var obj = {
+    method: 'feed',
+    caption: 'www.olook.com.br',
+    link: '<%= request.host_with_port %>/produto/<%= product.id %>',
+    picture: '<%= product.suggestion_picture.to_s %>',
+    description: '<%= share_description(product) %>'
+  };
+
+  FB.ui(obj);
+}
+<% end %>
 
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];

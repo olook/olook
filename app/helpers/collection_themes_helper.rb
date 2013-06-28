@@ -3,10 +3,6 @@ module CollectionThemesHelper
   MIN_INSTALLMENT_VALUE = 30
   MAX_INSTALLMENT_NUMBER = 6
 
-  def msn_tags
-    image_tag "http://view.atdmt.com/action/mmn_olook_colecoes#{@collection_theme.id}", size: "1x1"
-  end
-
   def installments(price)
     installments = number_of_installments_for(price)
     installment_price = price / installments

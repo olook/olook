@@ -1,0 +1,7 @@
+- filters.each do |k, v|
+  - unless v.blank?
+    .filter
+      %p.title-category= k
+      %ul.subcategory-list
+        - v.each do |text|
+          %li= link_to(text.chomp,search_path(search_params(k,text.chomp,params[:q])))
