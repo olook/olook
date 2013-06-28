@@ -3,7 +3,7 @@ class Admin::HighlightCampaignsController < Admin::BaseController
   respond_to :html
 
   def index
-    @highlight_campaigns = HighlightCampaign.grouped_by_type
+    @highlight_campaigns = HighlightCampaign.all
   end
 
   def show
