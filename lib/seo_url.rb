@@ -58,6 +58,35 @@ class SeoUrl
     parsed_values
   end
 
+  def self.parse_brands parameters, other_parameters={}
+    parsed_values = HashWithIndifferentAccess.new
+    _all_subcategories = self.all_subcategories || []
+
+    all_parameters = parameters.to_s.split("/")
+    parsed_values[:brand] = all_parameters.shift
+    parsed_values[:category] = all_parameters.shift if all_parameters.any? && all_categories.keys.map(&:parameterize).include?(ActiveSupport::Inflector.transliterate(all_parameters.first).titleize)
+    parsed_values[:subcategory] = all_parameters.shift if all_parameters.any? && _all_subcategories.include?(ActiveSupport::Inflector.transliterate(all_parameters.first).titleize)
+
+    filter_params = all_parameters.last || []
+
+    filter_params.split('_').each do |item|
+      auxs = item.split('-')
+      key = auxs.shift
+      vals = auxs.join('-')
+      parsed_values[VALUES[key]] = vals
+    end
+
+    other_parameters.each do |k, v|
+      if VALUES[k]
+        parsed_values[VALUES[k]] = v
+      end
+    end
+
+    parsed_values[:sort] = VALUES[other_parameters["por"]]
+
+    parsed_values    
+  end
+
   def self.build_for_catalogs params, other_params={  }
     return_hash = build(params, other_params)
     path = [ return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join('-')
