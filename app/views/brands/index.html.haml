@@ -1,2 +1,75 @@
-%h1 Brands#index
-%p Find me in app/views/brands/index.html.haml
+- content_for :head do
+  = stylesheet_link_tag "new_structure/section/brands"
+
+
+- content_for :footer do
+  = javascript_include_tag 'section/brands'
+  
+%section.banner-brands
+  %button.anterior{type: "button"} Imagem Anterior
+  
+  .container-imgs
+    %ul
+      %li
+        =image_tag "brands/marca1.jpg"
+      %li
+        =image_tag "brands/marca2.jpg"  
+  
+  %button.proximo{type: "button"} Próxima Imagem 
+
+%section.brands
+  .box
+    %p.letter B
+    %ul.brands-list
+      %li= link_to("Botswana", "#")
+
+    %p.letter C
+    %ul.brands-list
+      %li= link_to("Coca Cola", "#")
+      %li= link_to("Colcci", "#")
+      
+    %p.letter D
+    %ul.brands-list
+      %li= link_to("Douglas Harris", "#")
+
+  .box
+    %p.letter E
+    %ul.brands-list
+      %li= link_to("Ecletic", "#")
+      %li= link_to("Espaço Fashion", "#")
+
+    %p.letter F
+    %ul.brands-list
+      %li= link_to("Forum", "#")
+      
+    %p.letter I
+    %ul.brands-list
+      %li= link_to("Iódice", "#")
+
+  .box
+    %p.letter J
+    %ul.brands-list
+      %li= link_to("Juliana Jabour", "#")
+      %li= link_to("Juliana Manzini", "#")
+
+    %p.letter M
+    %ul.brands-list
+      %li= link_to("M. Officer", "#")
+      
+    %p.letter O
+    %ul.brands-list
+      %li= link_to("Olli", "#")
+      %li= link_to("Olook", "#")
+      %li= link_to("Olook Concept", "#")
+      %li= link_to("Olook Essentials", "#")
+      
+  .box
+    %p.letter S
+    %ul.brands-list
+      %li= link_to("Shop 126", "#")
+
+    %p.letter T
+    %ul.brands-list
+      %li= link_to("Thelure", "#")
+      %li= link_to("Triton", "#")
+      
