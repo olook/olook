@@ -38,7 +38,7 @@ aside{float:left;width:175px;margin-right:10px;
       &.txt-zebra{background-position: 0 -205px;}
     }
   }
-  
+
   p{font-size:11px;text-transform:uppercase;font-weight:bold;height:15px;background:image-url('catalog/sprite.png') no-repeat 0 6px;padding-left:13px;margin-bottom:5px;cursor:pointer;
     &.close{background-position:0 -25px !important;}
   }
@@ -71,15 +71,15 @@ aside{float:left;width:175px;margin-right:10px;
     &:hover{color:$base_color;}
   }
 }
-
-/**************** 
-BOX MODAL ESPIAR 
+.watermelon{color:#ef3742;}
+/****************
+BOX MODAL ESPIAR
 ****************/
 
 #quick_view {position:absolute;top:100px;left:50%;background-color: #FFF;border: 10px solid #000;width:1000px;/*height:620px;*/margin: 0 0 0 -480px;display:none;z-index:10002;
   .size_guide{display:none;}
   #close_quick_view{cursor: pointer;font-size: 20px;position: absolute;background: image-url('common/close_dialog.png') no-repeat;text-indent: -9999px;width: 30px;height: 30px;top: -17px;right: -17px;z-index: 100;}
-}  
+}
 
 /**************************
 BOX DE FILTROS SELECIONADOS
@@ -88,9 +88,9 @@ section.filters{float:left;width:763px;margin:10px 0 30px;color:#000;border:soli
  p{font-family:$avenir;font-size: 12px;font-weight: bold;text-transform: uppercase;float:left;margin-right:10px;
    span{margin-left:10px;}
  }
-   
+
  li{float:left;margin-right:10px;text-transform:uppercase;font-size:12px;position:relative;line-height:18px;
-   a{color:#000;text-decoration:none;font-size:11px;text-transform:none;font-family:$kepler;display:inline-table;margin-top:-2px;}
-   &.clean{a{color:#6D6E71;text-transform:none;font-family:$avenir}}   
+   a{color:blue;text-decoration:none;font-size:11px;text-transform:none;font-family:$kepler;display:inline-table;margin-top:-2px;}
+   &.clean{a{color:#6D6E71;text-transform:none;font-family:$avenir}}
  }
 }
