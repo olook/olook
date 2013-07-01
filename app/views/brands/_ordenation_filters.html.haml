@@ -9,7 +9,7 @@
     %fieldset
       TAMANHO:
       %span Tamanho:
-    = select_tag('tamanho', options_for_select(filters_by('size').map {|size| [size, brand_path(SeoUrl.build_for_catalogs(@search.filters_applied(:size, size.chomp), params))]}), :class => "custom_select", :onchange => ("location = this.options[this.selectedIndex].value;"))
+    = select_tag('tamanho', options_for_select(filters_by('size').map {|size| [size, brand_path(SeoUrl.build_for_brands(@search.filters_applied(:size, size.chomp), params))]}), :class => "custom_select", :onchange => ("location = this.options[this.selectedIndex].value;"))
 
 
   .pagination.topo
