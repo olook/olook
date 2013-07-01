@@ -65,6 +65,7 @@ class IndexProductsWorker
 
         fields = {}
 
+        fields['product_id'] = product.id
         fields['name'] = product.formatted_name(150).titleize
         fields['is_visible'] = product.is_visible ? 1 : 0
         fields['inventory'] = product.inventory.to_i
