@@ -1,4 +1,4 @@
-%h1 Destaques
+%h1 Campanhas com produtos
 
 %div.inner
   %table.table
@@ -10,14 +10,11 @@
 
     - @highlight_campaigns.each do |highlight_campaign|
       %tr
-        %td= highlight.label
-        %td= highlight.subtitle
-        %td= highlight.link
-        %td= highlight.position
-        %td= link_to 'Exibir', [:admin, highlight]
-        %td= link_to 'Editar', edit_admin_highlight_path(highlight)
-        %td= link_to 'Apagar', [:admin, highlight], :method => :delete, :data => { :confirm => 'Tem certeza ?' }
+        %td= highlight_campaign.label
+        %td= link_to 'Exibir', [:admin, highlight_campaign]
+        %td= link_to 'Editar', edit_admin_highlight_campaign_path(highlight_campaign)
+        %td= link_to 'Apagar', [:admin, highlight_campaign], :method => :delete, :data => { :confirm => 'Tem certeza ?' }
 
   %br
 
-= link_to 'Novo destaque', new_admin_highlight_path
+= link_to 'Novo destaque', new_admin_highlight_campaign_path
