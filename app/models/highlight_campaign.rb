@@ -1,5 +1,6 @@
 class HighlightCampaign < ActiveRecord::Base
   attr_accessible :label, :product_ids
+  attr_accessor :product_ids
   validates :label, presence: true
   has_and_belongs_to_many :products
 
