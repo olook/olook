@@ -1,5 +1,5 @@
 class Admin::HighlightCampaignsController < Admin::BaseController
-
+  include Admin::ApplicationHelper
   respond_to :html
 
   def index
@@ -20,8 +20,9 @@ class Admin::HighlightCampaignsController < Admin::BaseController
 
   def create
     @highlight_campaign = HighlightCampaign.new(params[:highlight_campaign])
+     hash_returned = @highlight_campaign.add_products(@highlight_campaign.product_ids)
     if @highlight_campaign.save
-      redirect_to [:admin, @highlight_campaign], notice: ''
+      redirect_to [:admin, @highlight_campaign], notice: "#{prepare_message hash_returned}"
     else
       render action: "new"
     end
