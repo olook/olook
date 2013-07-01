@@ -48,7 +48,8 @@ Olook::Application.routes.draw do
 
   # BRANDS
   match "/marcas", :to => "brands#index", :as => "brands"
-  match "/marcas/*parameters", :to => "brands#show", :as => "show_brand"
+
+  match "/marcas/*parameters", :to => "brands#show", as: "brand"
 
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
