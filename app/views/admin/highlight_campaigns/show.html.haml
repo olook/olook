@@ -10,9 +10,12 @@
     Campanha:
     =@highlight_campaign.label
   %p
-    Ids dos produtos dessa campanha:
-    =@highlight_campaign.products.empty? ? "Não existem produtos" : @highlight_campaign.products.map(&:id)
-
+    Produtos:
+    %br
+    -unless @campaign_products.products.blank?
+      -@campaign_products.products.each do |product|
+        =image_tag(product.catalog_image)
+        %br
 = link_to 'Editar', edit_admin_highlight_campaign_path(@highlight_campaign)
 \|
 = link_to 'Voltar', admin_highlight_campaigns_path
