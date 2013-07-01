@@ -48,6 +48,7 @@ Olook::Application.routes.draw do
 
   # BRANDS
   match "/marcas", :to => "brands#index", :as => "brands"
+
   match "/marcas/*parameters", :to => "brands#show", as: "brand"
 
   #LIQUIDATIONS

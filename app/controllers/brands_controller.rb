@@ -1,4 +1,4 @@
-class BrandsController < ApplicationController
+class BrandsController < SearchController
   layout "lite_application"
   def index
   end
@@ -8,6 +8,7 @@ class BrandsController < ApplicationController
     Rails.logger.debug("New params: #{params.inspect}")
 
     @filters = create_filters
+    
     @search = SearchEngine.new(category: params[:category],
                                care: params[:care],
                                subcategory: params[:subcategory],
