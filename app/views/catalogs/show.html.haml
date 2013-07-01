@@ -33,6 +33,9 @@
 
       %section.container_product
         %ul#products
+          - if @campaign_products && !@campaign_products.products.empty?
+            - @campaign_products.products.each do |cp|
+              = render "catalogs/searched_product_item", :product => cp
           = render "searched_products", :products => @search.products
         .loading
 

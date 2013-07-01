@@ -92,12 +92,20 @@ class SearchEngine
 
   def filters
     url = build_filters_url
-    @result = fetch_result(url, parse_facets: true)
+    if @last_url == url && @result
+      return @result
+    end
+    @last_url = url
+    @result = fetch_result(@last_url, parse_facets: true)
   end
 
   def products(pagination = true)
     url = build_url_for(pagination ? {limit: @limit, start: self.start_product} : {})
-    @result = fetch_result(url, {parse_products: true})
+    if @last_url == url && @result.products
+      return @result.products
+    end
+    @last_url = url
+    @result = fetch_result(@last_url, {parse_products: true})
     @result.products
   end
 
