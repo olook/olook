@@ -1,11 +1,29 @@
 .exhibition-mode
-  = form_tag catalog_path(parameters: params[:parameters]), method: 'get' do
+  = form_tag brand_path(parameters: params[:parameters]), method: 'get' do
     %fieldset
       %p.selected_relevance
         ORDENAÇÃO:
         %span Relevância
       = select_tag('por', options_for_select({"Relevância" => 0, "Menor preço" => "menor-preco", "Maior preço" => "maior-preco", "Maior Desconto" => "maior-desconto"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
 
+    %fieldset
+      %p.selected_relevance
+        TAMANHO:
+        %span Tamanho:
+      = select_tag('tamanho', options_for_select(filters_by('size').map {|size| [size, brand_path(SeoUrl.build_for_brands(@search.filters_applied(:size, size.chomp), params))]}), :class => "custom_select", :onchange => ("location = this.options[this.selectedIndex].value;"))
+
+
   .pagination.topo
     = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: catalog_path, other_parameters: "por=#{ params[:por]}" }
+
+.filter
+  %p.title-category Preço
+  .price-range
+    %p#min-value-label{style:'background-image: none'} 0
+    %p#max-value-label{style:'background-image: none'} 0
+    .slider
+      #slider-range
+    %input{type: "text", id: "min-value"}
+    %input{type:"text", id:"max-value"}
+    %input{type:"hidden", name:"price", id:"price"}
 
