@@ -20,7 +20,7 @@ Olook::Application.routes.draw do
   get "/busca/product_suggestions", :to => "search#product_suggestions", :as => "search_index"
 
   # match "/busca", :to => "search#show", :as => "search"
-  
+
   match '/404', :to => "application#render_public_exception"
   match '/500', :to => "application#render_public_exception"
   match "/home", :to => "home#index"
@@ -45,10 +45,10 @@ Olook::Application.routes.draw do
   match "/olookmovel", to: "pages#olookmovel", as: "olookmovel"
   match "/troca_e_devolucao", to: "pages#troca", as: "troca"
   match "/half_newsletter", to: "landing_pages#half_newsletter", as: "newsletter"
-  
+
   # BRANDS
   match "/marcas", :to => "brands#index", :as => "brands"
-  match "/marcas/:brand", :to => "search#show"
+  match "/marcas/:brand", :to => "brands#show"
 
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
