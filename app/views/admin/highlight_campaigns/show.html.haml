@@ -1,19 +1,18 @@
 %p#notice= notice
 
-%h2 Listagem de pedidos
+%h2 Campanha com produtos
 
 - content_for :secondary_navigation do
   %li= link_to 'Voltar', admin_path
 
 .inner
-  %p= image_tag @highlight.image
-  %p 
-    Link:
-    = @highlight.link
-  %p 
-    Posição: 
-    =@highlight.position
+  %p
+    Campanha:
+    =@highlight_campaign.label
+  %p
+    Ids dos produtos dessa campanha:
+    =@highlight_campaign.products.empty? ? "Não existem produtos" : @highlight_campaign.products.map(&:id)
 
-= link_to 'Edit', edit_admin_highlight_path(@highlight)
+= link_to 'Editar', edit_admin_highlight_campaign_path(@highlight_campaign)
 \|
-= link_to 'Back', admin_highlights_path
+= link_to 'Voltar', admin_highlight_campaigns_path
