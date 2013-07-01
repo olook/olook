@@ -8,6 +8,7 @@ class Admin::HighlightCampaignsController < Admin::BaseController
 
   def show
     @highlight_campaign = HighlightCampaign.find(params[:id])
+    @campaign_products = SearchEngine.new(product_ids: @highlight_campaign.product_ids).with_limit(1000)
   end
 
   def new
@@ -20,9 +21,8 @@ class Admin::HighlightCampaignsController < Admin::BaseController
 
   def create
     @highlight_campaign = HighlightCampaign.new(params[:highlight_campaign])
-     hash_returned = @highlight_campaign.add_products(@highlight_campaign.product_ids)
     if @highlight_campaign.save
-      redirect_to [:admin, @highlight_campaign], notice: "#{prepare_message hash_returned}"
+      redirect_to [:admin, @highlight_campaign], notice: "Campanha criada com sucesso"
     else
       render action: "new"
     end

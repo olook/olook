@@ -39,16 +39,5 @@ module Admin::ApplicationHelper
     end
   end
 
-  def prepare_message hash
-    case hash.fetch(:code)
-    when "0"
-      "Produtos adicionados a campanha com sucesso"
-    when "1"
-      "Alguns produtos não foram encontrados: #{hash.fetch(:fail_product_ids).join(',')}"
-    when "2"
-      "Não foram adicionados nenhum produto a campanha"
-    end
-  end
-
 end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130628123339) do
+ActiveRecord::Schema.define(:version => 20130701212111) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -502,13 +502,9 @@ ActiveRecord::Schema.define(:version => 20130628123339) do
 
   create_table "highlight_campaigns", :force => true do |t|
     t.string   "label"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "highlight_campaigns_products", :id => false, :force => true do |t|
-    t.integer "highlight_campaign_id"
-    t.integer "product_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "product_ids"
   end
 
   create_table "highlights", :force => true do |t|
