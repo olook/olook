@@ -1,5 +1,5 @@
 .exhibition-mode
-  = form_tag catalog_path(parameters: params[:parameters]), method: 'get' do
+  = form_tag brand_path(parameters: params[:parameters]), method: 'get' do
     %fieldset
       %p.selected_relevance
         ORDENAÇÃO:
@@ -8,4 +8,15 @@
 
   .pagination.topo
     = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: catalog_path, other_parameters: "por=#{ params[:por]}" }
+
+.filter
+  %p.title-category Preço
+  .price-range
+    %p#min-value-label{style:'background-image: none'} 0
+    %p#max-value-label{style:'background-image: none'} 0
+    .slider
+      #slider-range
+    %input{type: "text", id: "min-value"}
+    %input{type:"text", id:"max-value"}
+    %input{type:"hidden", name:"price", id:"price"}
 
