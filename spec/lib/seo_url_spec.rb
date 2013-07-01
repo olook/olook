@@ -259,6 +259,11 @@ describe SeoUrl do
            .to eq({ parameters: "colcci/jaqueta"} ) }
     end
 
+    context "and more than one subcategory were passed without category" do
+      it { expect(SeoUrl.build_for_brands({ brand: ['colcci'], subcategory: ['Jaqueta','camiseta'] }))
+           .to eq({ parameters: "colcci/jaqueta-camiseta"} ) }
+    end
+
     context "and any category was passed without subcategory" do
       it { expect(SeoUrl.build_for_brands({ brand: ['colcci'], category: ['Roupa'] }))
            .to eq({ parameters: "colcci/roupa"} ) }

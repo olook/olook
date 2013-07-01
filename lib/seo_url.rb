@@ -112,7 +112,7 @@ class SeoUrl
       other_parameters = other_params.dup
       return_hash = {}
       return_hash[:brand] = ActiveSupport::Inflector.transliterate(parameters.delete(:brand).join("-")).downcase if parameters[:brand].present?
-      return_hash[:subcategory] = ActiveSupport::Inflector.transliterate(parameters.delete(:subcategory).first.to_s).downcase if parameters[:subcategory].present?
+      return_hash[:subcategory] = ActiveSupport::Inflector.transliterate(parameters.delete(:subcategory).join("-").downcase) if parameters[:subcategory].present?
       return_hash[:category] = ActiveSupport::Inflector.transliterate(parameters.delete(:category).first.to_s).downcase if parameters[:category].present?
 
       return_hash[:order_params] = other_parameters[:por].present? ? { por: other_parameters.delete(:por) } : {}
