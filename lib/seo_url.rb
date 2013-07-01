@@ -96,7 +96,7 @@ class SeoUrl
 
   def self.build_for_brands params, other_params={  }
     return_hash = build(params, other_params)
-    { parameters: [return_hash[:brand], return_hash[:category], return_hash[:subcategory], return_hash[:filter_params]].reject { |p| p.blank? }.join('/') }.merge(return_hash[:order_params])
+    { parameters: [ params[:brand].empty? ? other_params[:brand] : params[:brand].last, return_hash[:category], return_hash[:subcategory], return_hash[:filter_params]].reject { |p| p.blank? }.join('/') }.merge(return_hash[:order_params])
   end
 
   def self.all_categories
