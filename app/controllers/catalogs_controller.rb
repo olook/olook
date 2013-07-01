@@ -9,6 +9,8 @@ class CatalogsController < SearchController
     params.merge!(SeoUrl.parse(params[:parameters], params))
     Rails.logger.debug("New params: #{params.inspect}")
 
+    @search2 = SearchEngine.new(product_ids: params[:product_ids])
+
     @search = SearchEngine.new(category: params[:category],
                                care: params[:care],
                                subcategory: params[:subcategory],
