@@ -1,4 +1,4 @@
-class BrandsController < ApplicationController
+class BrandsController < SearchController
   layout "lite_application"
   def index
   end
@@ -6,6 +6,8 @@ class BrandsController < ApplicationController
   def show
     params.merge!(SeoUrl.parse_brands(params[:parameters], params))
     Rails.logger.debug("New params: #{params.inspect}")
+
+    @filters = create_filters
 
     @search = SearchEngine.new(category: params[:category],
                                care: params[:care],

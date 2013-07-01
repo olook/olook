@@ -23,17 +23,4 @@ class CatalogsController < SearchController
     @catalog_products = @search.products
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
   end
-
-  private
-    def create_filters
-      filters = SearchEngine.new(category: params[:category]).filters
-      remove_care_products_from(filters)
-      filters
-    end
-
-    def remove_care_products_from(filters)
-      if filters.grouped_products('subcategory')
-        filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) }
-      end
-    end
 end

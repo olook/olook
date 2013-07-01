@@ -106,7 +106,6 @@ class SeoUrl
   end
 
   private
-
     def self.build params, other_params = {  }
       parameters = params.dup
       other_parameters = other_params.dup
