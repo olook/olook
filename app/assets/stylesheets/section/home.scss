@@ -226,148 +226,188 @@ section#home {
     margin: 0 0 10px;
     padding: 10px 0 20px;
     border-bottom: 1px #cbcbcb solid;
-    h1 {
-      font-family: $kepler;
-      font-size: 27px;
-      text-align: center;
-      text-transform: uppercase;
-      margin: 0 0 10px;
-    }
-    h2{
-      font-family: KeplerStdItalic,Times,"Times New Roman",serif;
-      font-size: 18px;
-      text-align: center;
-      display: block;
-    }
-    ul{
-      width: 100%;
-      overflow: auto;
-      margin-top: 25px;
-      li{
-        a{
-          background: image-url("home/new_brands_off.jpg") no-repeat;
-          width: 144px;
-          height: 72px;
-          float: left;
-          cursor: pointer;
-          &:hover{background: image-url("home/new_brands.jpg") no-repeat;}
-        }
-        &.olook a {
-          background-position: 0px 0px;
-          &:hover {
+    .box_brand{width: 580px; height: 450px; float: left;
+      h1 {
+        font-family: $johnston;
+        font-size: 26px;
+        text-align: center;
+        text-transform: uppercase;
+        margin: 0 0 10px;
+      }
+      h2{
+        font-family: KeplerStdItalic,Times,"Times New Roman",serif;
+        font-size: 18px;
+        text-align: center;
+        display: block;
+      }
+      ul{
+        width: 580px;
+        overflow: auto;
+        margin-top: 25px;
+        li{
+          a{
+            background: image-url("home/new_brands_off.jpg") no-repeat;
+            width: 144px;
+            height: 72px;
+            float: left;
+            cursor: pointer;
+            &:hover{background: image-url("home/new_brands.jpg") no-repeat;}
+          }
+          &.olook a {
             background-position: 0px 0px;
-          }
-        } 
-        &.essential a {
-          background-position: -144px 0px;
-          &:hover {
+            &:hover {
+              background-position: 0px 0px;
+            }
+          } 
+          &.essential a {
             background-position: -144px 0px;
+            &:hover {
+              background-position: -144px 0px;
+            }
           }
-        }
-        &.harris a {
-          background-position: -288px 0px;
-          &:hover {
+          &.harris a {
             background-position: -288px 0px;
-          }
-        } 
-        &.jabour a {
-          background-position: -432px 0px;
-          &:hover {
+            &:hover {
+              background-position: -288px 0px;
+            }
+          } 
+          &.jabour a {
             background-position: -432px 0px;
-          }
-        } 
-        &.iodice a {
-          background-position: -576px 0px;
-          &:hover {
-            background-position: -576px 0px;
-          }
-        } 
-        &.eclectic a {
-          background-position: -720px 0px;
-          &:hover {
-            background-position: -720px 0px;
-          }
-        }
-        &.triton a {
-          width: 126px;
-          background-position: -864px 0px;
-          &:hover {
-            background-position: -864px 0px;
-          }
-        } 
-        &.concept a {
-          background-position: 0px -72px;
-          &:hover {
+            &:hover {
+              background-position: -432px 0px;
+            }
+          } 
+          &.concept a {
             background-position: 0px -72px;
-          }
-        }  
-        &.manzini a {
-          background-position: -144px -72px;
-          &:hover {
+            &:hover {
+              background-position: 0px -72px;
+            }
+          }  
+          &.manzini a {
             background-position: -144px -72px;
-          }
-        } 
-        &.thelure a {
-          background-position: -288px -72px;
-          &:hover {
+            &:hover {
+              background-position: -144px -72px;
+            }
+          } 
+          &.thelure a {
             background-position: -288px -72px;
-          }
-        } 
-        &.fashion a {
-          background-position: -432px -72px;
-          &:hover {
+            &:hover {
+              background-position: -288px -72px;
+            }
+          } 
+          &.fashion a {
             background-position: -432px -72px;
+            &:hover {
+              background-position: -432px -72px;
+            }
           }
-        }
-        &.shop a {
-          background-position: -576px -72px;
-          &:hover {
-            background-position: -576px -72px;
-          }
-        } 
-        &.olli a {
-          background-position: -720px -72px;
-          &:hover {
-            background-position: -720px -72px;
-          }
-        } 
-        &.colcci a {
-          width: 126px;
-          background-position: -864px -72px;
-          &:hover {
-            background-position: -864px -72px;
-          }
-        } 
-        &.forum a {
-          background-position: 0px -144px;
-          &:hover {
+          &.forum a {
             background-position: 0px -144px;
+            &:hover {
+              background-position: 0px -144px;
+            }
+          }
+          &.mofficer a {
+            background-position: -144px -144px;
+            &:hover {
+              background-position: -144px -144px;
+            }
+          } 
+          &.coke a {
+            background-position: -288px -144px;
+            &:hover {
+              background-position: -288px -144px;
+            }
+          } 
+          &.botswana a {
+            background-position: -432px -144px;
+            &:hover {
+              background-position: -432px -144px;
+            }
+          } 
+          &.iodice a {
+            background-position: 0px -216px;
+            &:hover {
+              background-position: 0px -216px;
+            }
+          } 
+          &.eclectic a {
+            background-position: -144px -216px;
+            &:hover {
+              background-position: -144px -216px;
+            }
+          }
+          &.triton a {
+            width: 126px;
+            background-position: -288px -216px;
+            &:hover {
+              background-position: -288px -216px;
+            }
+          } 
+          &.mercatto a {
+            width: 126px;
+            background-position: -413px -216px;
+            &:hover {
+              background-position: -413px -216px;
+            }
+          }
+          &.shop a {
+            background-position: 0px -288px;
+            &:hover {
+              background-position: 0px -288px;
+            }
+          } 
+          &.olli a {
+            background-position: -144px -288px;
+            &:hover {
+              background-position: -144px -288px;
+            }
+          } 
+          &.colcci a {
+            width: 126px;
+            background-position: -288px -288px;
+            &:hover {
+              background-position: -288px -288px;
+            }
+          } 
+          
+          &.leeloo a {
+            background-position: -432px -288px;
+            &:hover {
+              background-position: -432px -288px;
+            }
+          } 
+          &.mandi a {
+            background-position: 0px -360px;
+            &:hover {
+              background-position: 0px -360px;
+            }
+          }  
+        }
+      }
+    }
+    .parcerias{
+      text-align: center;
+      overflow: auto;
+      width: 380px;
+      height: 450px;
+      h1 {
+        font-family: $johnston;
+        font-size: 26px;
+        text-align: center;
+        text-transform: uppercase;
+        margin: 0 0 10px;
+      }
+      ul{
+        width: 378px;
+        li{
+          border:1px solid #a7a9ac;
+          height: 116px;
+          &.stylist{height: 35px;border:1px solid #000;}
+          a{font-family: $johnston; font-size: 19px;background-color: #000; text-decoration: none;color: #fff;font-size: 16px;
+            &:hover{background-color: #fff; color: #000;}
           }
         }
-        &.mofficer a {
-          background-position: -144px -144px;
-          &:hover {
-            background-position: -144px -144px;
-          }
-        } 
-        &.coke a {
-          background-position: -288px -144px;
-          &:hover {
-            background-position: -288px -144px;
-          }
-        } 
-        &.botswana a {
-          background-position: -432px -144px;
-          &:hover {
-            background-position: -432px -144px;
-          }
-        } 
-        &.leeloo a {
-          background-position: -576px -144px;
-          &:hover {
-            background-position: -576px -144px;
-          }
-        }  
       }
     }
   }
