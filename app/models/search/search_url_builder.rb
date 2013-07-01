@@ -63,6 +63,7 @@ class SearchUrlBuilder
 
   def with_product_ids ids
     @expressions["product_id"] = ids.to_s.split(MULTISELECTION_SEPARATOR)
+    self
   end
 
   def with_size size
