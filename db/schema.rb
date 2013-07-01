@@ -268,7 +268,6 @@ ActiveRecord::Schema.define(:version => 20130621152537) do
   end
 
   add_index "collection_themes", ["collection_theme_group_id"], :name => "index_collection_themes_on_collection_theme_group_id"
-  add_index "collection_themes", ["name"], :name => "index_moments_on_name", :unique => true
   add_index "collection_themes", ["slug"], :name => "index_moments_on_slug", :unique => true
 
   create_table "collections", :force => true do |t|
