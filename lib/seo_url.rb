@@ -90,20 +90,19 @@ class SeoUrl
       end
     end
 
-    def self.db_subcategories
-      Product.includes(:details).all.map(&:subcategory).compact
-    end
-
     def self.all_brands
       Rails.cache.fetch CACHE_KEYS[:all_brands][:key], expire_in: CACHE_KEYS[:all_brands][:expire] do
         db_brands.map{ |b| [b.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize, ActiveSupport::Inflector.transliterate(b).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize] }.flatten.uniq
       end
     end
 
+    def self.db_subcategories
+      Product.includes(:details).all.map(&:subcategory).compact
+    end
+
     def self.db_brands
       Product.all.map(&:brand).compact
     end
-
 
     def self.db_categories
       Product.includes(:details).all.inject({}){|k,v| k[v.category_humanize] ||= []; k[v.category_humanize].push(v.subcategory).uniq!; k[v.category_humanize].compact!; k }
