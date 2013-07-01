@@ -61,6 +61,10 @@ class SearchUrlBuilder
     self
   end
 
+  def with_product_ids ids
+    @expressions["product_id"] = ids.to_s.split(MULTISELECTION_SEPARATOR)
+  end
+
   def with_size size
     @expressions["size"] = size.to_s.split(MULTISELECTION_SEPARATOR)
     self
@@ -91,7 +95,8 @@ class SearchUrlBuilder
   end
 
   def sort_by sort_field
-    @sort_field = "#{ sort_field }&" || ""
+    @sort_field = "#{ sort_field }&" if sort_field.present?
+    @sort_field ||= ""
     self
   end
 

@@ -16,6 +16,7 @@ class SearchEngine
     .with_care(attributes[:care])
     .with_price(attributes[:price])
     .with_size(attributes[:size])
+    .with_product_ids(attributes[:product_ids])
     .sort_by(attributes[:sort])
     .grouping_by
 
