@@ -7,29 +7,14 @@ class IndexProductsWorker
   @queue = :search
 
   def self.perform
-    products = all_products
-    brands = get_brands(products)
-    Rails.cache.write(CACHE_KEYS[:all_brands][:key], brands, expires_in: CACHE_KEYS[:all_brands][:expire])
-
-    subcategories = get_subcategories(products)
-    Rails.cache.write(CACHE_KEYS[:all_subcategories][:key], subcategories, expires_in: CACHE_KEYS[:all_subcategories][:expire])
-
-    add_products(products)
-    remove_products(products)
+    add_products(Product.all)
+    remove_products(Product.all)
 
     mail = DevAlertMailer.notify_about_products_index
     mail.deliver
   end
 
   private
-
-    def self.get_brands(products)
-      Set.new(products.map(&:brand).map(&:parameterize).uniq)
-    end
-
-    def self.get_subcategories(products)
-      Set.new(products.map(&:subcategory).compact.map(&:parameterize).uniq)
-    end
 
     def self.add_products(products)
       add_products = products_to_index(products).map { |product| create_sdf_entry_for(product, 'add') }.compact
@@ -51,7 +36,6 @@ class IndexProductsWorker
 
 
     def self.create_sdf_entry_for product, type
-
       version = version_based_on_timestamp
 
       values = {
@@ -115,10 +99,6 @@ class IndexProductsWorker
 
     def self.products_to_remove(products)
       products.select{|p| p.price == 0 || p.main_picture.try(:image_url).nil?}
-    end
-
-    def self.all_products
-      Product.all
     end
 
     def self.version_based_on_timestamp
