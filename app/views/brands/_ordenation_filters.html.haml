@@ -7,9 +7,10 @@
       = select_tag('por', options_for_select({"Relevância" => 0, "Menor preço" => "menor-preco", "Maior preço" => "maior-preco", "Maior Desconto" => "maior-desconto"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
 
     %fieldset
-      TAMANHO:
-      %span Tamanho:
-    = select_tag('tamanho', options_for_select(filters_by('size').map {|size| [size, brand_path(SeoUrl.build_for_brands(@search.filters_applied(:size, size.chomp), params))]}), :class => "custom_select", :onchange => ("location = this.options[this.selectedIndex].value;"))
+      %p.selected_relevance
+        TAMANHO:
+        %span Tamanho:
+      = select_tag('tamanho', options_for_select(filters_by('size').map {|size| [size, brand_path(SeoUrl.build_for_brands(@search.filters_applied(:size, size.chomp), params))]}), :class => "custom_select", :onchange => ("location = this.options[this.selectedIndex].value;"))
 
 
   .pagination.topo
