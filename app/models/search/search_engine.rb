@@ -164,7 +164,7 @@ class SearchEngine
           /#{filter_value.gsub('-', '..')}/ =~ v
         end
       else
-        values.map{|_v| _v.titleize}.include?(ActiveSupport::Inflector.transliterate(filter_value).downcase.titleize)
+        values.map{|_v| ActiveSupport::Inflector.transliterate(_v).downcase.titleize}.include?(ActiveSupport::Inflector.transliterate(filter_value).downcase.titleize)
       end
     else
       false
