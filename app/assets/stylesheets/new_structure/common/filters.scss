@@ -1,0 +1,100 @@
+@import 'new_structure/common/global_stuffs';
+
+#filters_container{height:37px;border-bottom:solid 1px #CCC;clear:both;padding-top:5px;color:#000;margin-bottom:35px;
+  .filter{float: left;font-family: $avenir;font-size: 12px;color: #717171;position: relative;top: 1px;margin-right:12px;
+
+    .tab_bg{display:none;position:absolute;z-index:101;border-left:solid 1px #E2E2E2;border-right:solid 1px #E2E2E2;background:#FFF;height:17px;width:98%;
+
+      &.tab_model{width:94px;}
+      &.tab_color{width:61px;}
+      &.tab_cloth_size{width:86px;}
+      &.tab_cloth_model{width:114px;}
+      &.tab_cloth_size,&.tab_shoe_size{width:93px;}
+      &.tab_shoe_heel{width:72px;}
+    }
+
+    span.selected-type{display:inline-block;height: 19px;cursor: pointer;font-size:10px;text-transform:uppercase;font-weight:bold;line-height:20px;padding:0 35px 0 0;text-indent:6px;border-top:solid 1px #D7D7D7;border-bottom:solid 1px #D7D7D7;border-left:solid 1px #D7D7D7;background: image-url('collections/bullet_arrow.png') right -1px no-repeat;color:#000;
+      &.cloth_size{width:59px;}
+      &.cloth_model{width:80px;}
+      &.model{width:60px;}
+      &.filter_selected{color:#EF3742 !important;}
+    }
+
+    fieldset {float:left;position:relative;
+      &.first_child{margin-right:12px;} 
+      select{position: absolute;line-height: 26px;top: 0;left: 0;border:solid 1px #D7D7D7;opacity:0;cursor:pointer;
+        &.custom_select{width:125px;}
+      }
+    }
+
+  	.clear_filter{background:none;border:none;float:right;color:#717171;display:none;cursor:pointer;text-transform:uppercase;}
+
+  	.bt_clear_size{left: 0;top: 143px !important;}
+  	.bt_clear_color{left: -20px;top: 109px;padding-right: 5px;margin-top: 15px;}
+  	.bt_clear_heel{left: -18px;top: 166px;}
+  	.bt_clear_model{left: 2px;top: 215px !important;}
+  	.bt_clear_bag_color{left: -109px;top: 125px !important;margin-top: 10px !important;}
+  	.bt_clear_bag{top: 140px !important;right: -160px;}
+  	.bt_clear_accessory{left: 1px !important;top: 139px !important;}
+		.bt_clear_cloth{right: -165px !important;top: 180px !important;}
+		.bt_clear_cloth_size{top: 150px !important;right: -110px !important;}
+
+
+  	ul{overflow:hidden;z-index: 100;position: absolute;top:37px;background-color: #FFF;padding:0 15px 10px;border: 1px solid #E2E2E2;display:none;
+  		&.color_filter{width: 175px;height: auto;left: 0;
+        li{width: 90px !important;height:18px;}
+  		}
+  		&.open{width: 185px;height: auto;}
+      &.open_cloth{width: 220px;height: auto;}
+  		&.column{width: 130px;height: auto;}
+  		&.column-size{width: 130px;height: auto;}
+      &.column_size_cloth{width: 175px;height: auto;
+        li{width: 70px;}
+      }
+  		&.open-bags{width: 230px;
+  			li{width: 110px;}
+  		}
+  		&.open-accessory{width: 330px;height: 120px;
+  			li{width: 110px;}
+  		}
+  		li{width:120px;height:20px;;position:relative;
+        a{display: inline-block;height: 15px;font-size: 13px;text-decoration: none;color: #000;background: url(/assets/catalog/sprite.png) no-repeat 0 -50px;padding-left: 13px;text-transform: capitalize;
+          &.selected{background-position: 0 -86px !important;}
+        }
+        &.clear_choice{position:absolute;top:10px;right:0;}
+      }
+      &.cores{width:145px;height:200px;overflow-y:auto;border:solid 1px #CCC;padding-left:5px;
+        li span{display:inline-block;height:15px;padding-left:19px;background: image-url("common/thumbs_cor.png") no-repeat 0 1px;
+          &.txt-amarelo{background-position: 0 -302px;}
+          &.txt-azul{background-position: 0 -382px;}
+          &.txt-bege{background-position: 0 -239px;}
+          &.txt-branco{background-position: 0 -415px;}
+          &.txt-cinza{background-position: 0 -270px;}
+          &.txt-cobra{background-position: 0 -93px;}
+          &.txt-cobre{background-position: 0 2px;}
+          &.txt-dourado{background-position: 0 -13px;}
+          &.txt-floral{background-position: 0 -77px;}
+          &.txt-laranja{background-position: 0 -318px;}
+          &.txt-listras{background-position: 0 -109px;}
+          &.txt-marrom{background-position: 0 -254px;}
+          &.txt-multicolorido{background-position: 0 -125px;}
+          &.txt-nude{background-position: 0 -222px;}
+          &.txt-off-white{background-position: 0 -432px;}
+          &.txt-onix{background-position: 0 -29px;}
+          &.txt-onca{background-position: 0 -141px;}
+          &.txt-poas{background-position: 0 -157px;}
+          &.txt-prateado{background-position: 0 -45px;}
+          &.txt-preto{background-position: 0 -286px;}
+          &.txt-rosa{background-position: 0 -350px;}
+          &.txt-rose{background-position: 0 -61px;}
+          &.txt-roxo{background-position: 0 -366px;}
+          &.txt-vaca{background-position: 0 -173px;}
+          &.txt-verde{background-position: 0 -398px;}
+          &.txt-vermelho{background-position: 0 -334px;}
+          &.txt-xadrez{background-position: 0 -189px;}
+          &.txt-zebra{background-position: 0 -205px;}
+        }
+      }
+  	}
+  }
+}
