@@ -400,6 +400,9 @@
       credit_card: Cartão de crédito
 
     attributes:
+      highlight_campaign:
+        label: Nome da campanha
+        product_ids: Ids dos produtos
       promotion:
         name: Nome
         starts_at: Inicia em
