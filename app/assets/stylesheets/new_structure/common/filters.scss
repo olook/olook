@@ -1,10 +1,10 @@
 @import 'new_structure/common/global_stuffs';
 
 #filters_container{height:37px;border-bottom:solid 1px #CCC;clear:both;padding-top:5px;color:#000;margin-bottom:35px;
-  
   .filter{float: left;font-family: $avenir;font-size: 12px;color: #717171;position: relative;top: 1px;margin-right:12px;
-   
-    .tab_bg{display:none;position:absolute;z-index:101;border-left:solid 1px #E2E2E2;border-right:solid 1px #E2E2E2;background:#FFF;height:17px;width:98%;
+
+    .tab_bg{display:none;position:absolute;z-index:101;border-left:solid 1px #E2E2E2;border-right:solid 1px #E2E2E2;background:#FFF;height:17px;
+
       &.tab_model{width:94px;}
       &.tab_color{width:61px;}
       &.tab_cloth_size{width:86px;}
@@ -12,18 +12,20 @@
       &.tab_cloth_size,&.tab_shoe_size{width:93px;}
       &.tab_shoe_heel{width:72px;}
     }
-    
+
     span.selected-type{display:inline-block;height: 19px;cursor: pointer;font-size:10px;text-transform:uppercase;font-weight:bold;line-height:20px;padding:0 35px 0 0;text-indent:6px;border-top:solid 1px #D7D7D7;border-bottom:solid 1px #D7D7D7;border-left:solid 1px #D7D7D7;background: image-url('collections/bullet_arrow.png') right -1px no-repeat;color:#000;
       &.cloth_size{width:59px;}
       &.cloth_model{width:80px;}
       &.model{width:60px;}
       &.filter_selected{color:#EF3742 !important;}
     }
-    
+
+    fieldset { float: left; position: relative; }
+
     select{position: absolute;line-height: 26px;top: 0;left: 0;border:solid 1px #D7D7D7;opacity:0;width:125px;cursor:pointer;}
-    
+
   	.clear_filter{background:none;border:none;float:right;color:#717171;display:none;cursor:pointer;text-transform:uppercase;}
-    
+
   	.bt_clear_size{left: 0;top: 143px !important;}
   	.bt_clear_color{left: -20px;top: 109px;padding-right: 5px;margin-top: 15px;}
   	.bt_clear_heel{left: -18px;top: 166px;}
