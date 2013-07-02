@@ -29,3 +29,7 @@
     }
   }
 }
+
+/* fix filter price */
+.ui-slider .ui-slider-handle{width:5px !important;}
+.ui-slider .ui-slider-handle:last-child {background-position: -18px 0 !important;margin-left: 1px !important;}
