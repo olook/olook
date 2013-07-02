@@ -221,6 +221,7 @@ Olook::Application.routes.draw do
     resources :collection_theme_groups
     resources :collection_themes
     resources :highlights
+    resources :highlight_campaigns
 
     resources :users, :except => [:create, :new] do
       collection do

@@ -1,10 +1,8 @@
 - content_for :head do
   = stylesheet_link_tag "new_structure/section/lite_catalog"
-  %meta{:content => @glasses ? "#{@glasses}" : "home/#{@search.filter_value("category").first}", :name => "chaordic:source"}/
+  %meta{:content => @glasses ? "#{@glasses}" : "home/#{@search.filter_value("category").first.titleize}", :name => "chaordic:source"}/
   %meta{:content => @chaordic_user, :name => "chaordic:user"}/
-  %meta{:content => @glasses ? "#{@glasses}" : @search.filter_value("category").first, :name => "chaordic:category"}/
-- content_for :data_layer do
-  = render "shared/metrics/sociomantic/category"
+  %meta{:content => @glasses ? "#{@glasses}" : @search.filter_value("category").first.titleize, :name => "chaordic:category"}/
 
 - content_for :footer do
   :javascript
@@ -12,31 +10,38 @@
     final_position = #{@search.range_values_for(:price)[:max] rescue 600};
   = javascript_include_tag 'section/lite_catalog'
 
+= cache "#{@search.cache_key}#{@campaign_products.cache_key if @campaign_products}", expire_in: 30.minutes  do
+  = render "shared/metrics/sociomantic/category", pixel_information: @pixel_information, catalog_products: @search.products
+  #catalog
+    %aside
+      = render "filters", search: @search
+      - if params[:category]
+        .invite_friends
+          =banner_for Category.with_name params[:category]
 
-#catalog
-  %aside
-    = render "filters", search: @search
-    - if params[:category]
-      .invite_friends
-        =banner_for Category.with_name params[:category]
+    #result
+      - unless @search.has_any_filter_selected?
+        / local onde o viewpersonalized será exibido
+        .chaordic.viewpersonalized
+        / local onde o purchasepersonalized será exibido
+        .chaordic.purchasepersonalized
+        / local onde o mostpopular será exibido
+        .chaordic.mostpopular
 
-  #result
-    - unless @search.has_any_filter_selected?
-      / local onde o viewpersonalized será exibido
-      .chaordic.viewpersonalized
-      / local onde o purchasepersonalized será exibido
-      .chaordic.purchasepersonalized
-      / local onde o mostpopular será exibido
-      .chaordic.mostpopular
+      = render "ordenation_filters"
+      = render 'current_section', search: @search
 
-    = render "ordenation_filters"
-    = render 'current_section', search: @search
+      %section.container_product
+        %ul#products
+          - if @campaign_products && !@campaign_products.products.empty?
+            - @campaign_products.products.each do |cp|
+              = render "catalogs/searched_product_item", :product => cp
+            = render "searched_products", :products => @search.products, campaign_products: @campaign_products.products
+          - else
+            = render "searched_products", :products => @search.products
 
-    %section.container_product
-      %ul#products
-        = render "searched_products", :products => @catalog_products
-      .loading
+        .loading
 
-    .pagination
-      = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: catalog_path, other_parameters: "por=#{ params[:por]}" }
+      .pagination
+        = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: catalog_path, other_parameters: "por=#{ params[:por]}" }
 

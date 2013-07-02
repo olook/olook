@@ -22,9 +22,3 @@
           = number_to_currency product.price
           ou
           %span.plots= installments(product.price)
-
-      - if product.promotion? && !product.sold_out? && product.discount_percent.to_i != 0
-        %p.warn.percentage
-          %span
-            = "#{product.discount_percent.to_i} %"
-            OFF
