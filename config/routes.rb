@@ -47,7 +47,7 @@ Olook::Application.routes.draw do
   match "/half_newsletter", to: "landing_pages#half_newsletter", as: "newsletter"
 
   # BRANDS
-  match "/marcas", :to => "brands#index", :as => "brands"
+  match "/marcas", :to => "brands#index", :as => "new_brands"
 
   match "/marcas/*parameters", :to => "brands#show", as: "brand"
 
