@@ -1,5 +1,4 @@
 class Admin::HighlightCampaignsController < Admin::BaseController
-  include Admin::ApplicationHelper
   respond_to :html
 
   def index
