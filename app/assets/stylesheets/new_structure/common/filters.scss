@@ -60,6 +60,7 @@
   		li{width:120px;height:20px;;position:relative;
         a{display: inline-block;height: 15px;font-size: 13px;text-decoration: none;color: #000;background: url(/assets/catalog/sprite.png) no-repeat 0 -50px;padding-left: 13px;text-transform: capitalize;
           &.selected{background-position: 0 -86px !important;}
+          &:hover{color:$base_color;}
         }
         &.clear_choice{position:absolute;top:10px;right:0;}
       }
