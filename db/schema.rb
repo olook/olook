@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130701212111) do
+ActiveRecord::Schema.define(:version => 20130702172226) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -67,6 +67,14 @@ ActiveRecord::Schema.define(:version => 20130701212111) do
     t.datetime "updated_at"
     t.integer  "order"
     t.string   "picture_name"
+  end
+
+  create_table "brands", :force => true do |t|
+    t.string   "name"
+    t.string   "header_image"
+    t.string   "header_image_alt"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "braspag_authorize_responses", :force => true do |t|
