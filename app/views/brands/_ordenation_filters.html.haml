@@ -31,6 +31,7 @@
       - filters_by("color").each do |text, amount|
         %li= filter_link_to(brand_path(SeoUrl.build_for_brands(@search.filters_applied(:color, text.chomp), params)), text.chomp, @search.filter_selected?(:color, text.chomp))
 
+
   - if search.filter_value('category').to_a.include?('sapato')
     .filter
       %span.selected-type SALTO
@@ -40,8 +41,9 @@
         %li= filter_link_to(catalog_path(SeoUrl.build_for_catalogs(search.filters_applied(:heel, '5-9'), params)), '5..9 cm', search.filter_selected?(:heel, '5-9'))
         %li= filter_link_to(catalog_path(SeoUrl.build_for_catalogs(search.filters_applied(:heel, '10-15'), params)), '10..15 cm', search.filter_selected?(:heel, '10-15'))
 
+
   .pagination.topo
-    -# render partial: "/shared/nav_bar_pagination", locals: { search: search, link: catalog_path, other_parameters: "por=#{ params[:por]}" }
+    -# render partial: "/shared/nav_bar_pagination", locals: { search: search, link: brand_path, other_parameters: "por=#{ params[:por]}" }
 
 
   .price-range
