@@ -3,4 +3,3 @@
     %dt Marcas
     - filters_by('brand_facet').each do |text, amount|
       %dd= link_to(text.chomp.gsub('Ç', 'ç').downcase.titleize, brand_path(SeoUrl.build_for_brands(search.filters_applied(:brand, text.chomp), params)), class: search.filter_selected?(:brand, text.chomp) ? "selected" : "")
-      / %li= filter_link_to(brand_path(:parameters => text.chomp.gsub('Ç', 'ç').downcase.titleize),text.chomp.gsub('Ç', 'ç').downcase.titleize, search.filter_selected?(:brand, text.chomp))

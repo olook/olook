@@ -103,6 +103,10 @@ class SeoUrl
     YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_categories.yml' ) ) ) )
   end
 
+  def self.all_brands
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_brands.yml' ) ) ) )
+  end  
+
   private
     def self.build params, other_params = {  }
       parameters = params.dup
@@ -127,9 +131,5 @@ class SeoUrl
 
     def self.all_subcategories
       YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_subcategories.yml' ) ) ) )
-    end
-
-    def self.all_brands
-      YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_brands.yml' ) ) ) )
     end
 end
