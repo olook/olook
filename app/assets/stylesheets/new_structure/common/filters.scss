@@ -21,10 +21,12 @@
     }
 
     fieldset {float:left;position:relative;
-      &.first_child{margin-right:12px;} 
-      select{position: absolute;line-height: 26px;top: 0;left: 0;border:solid 1px #D7D7D7;opacity:0;cursor:pointer;
-        &.custom_select{width:125px;}
+      span{width:99px;}
+      &.first_child{margin-right:12px;
+        span{width:70px;}
       }
+       
+      select{position: absolute;width:100%;line-height: 26px;top: 0;left: 0;border:solid 1px #D7D7D7;opacity:0;cursor:pointer;}
     }
 
   	.clear_filter{background:none;border:none;float:right;color:#717171;display:none;cursor:pointer;text-transform:uppercase;}
@@ -62,7 +64,9 @@
           &.selected{background-position: 0 -86px !important;}
           &:hover{color:$base_color;}
         }
-        &.clear_choice{position:absolute;top:10px;right:0;}
+        &.clear_choice{position:absolute;top:5px;right:0;width:50px;
+          a{background:none;text-transform:none;padding:0;}
+        }
       }
       &.cores{width:145px;height:200px;overflow-y:auto;padding-left:5px;
         li span{display:inline-block;height:15px;padding-left:19px;background: image-url("common/thumbs_cor.png") no-repeat 0 1px;
