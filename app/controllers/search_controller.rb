@@ -63,8 +63,8 @@ class SearchController < ApplicationController
       category_tree
     end
     
-    def create_filters
-      filters = SearchEngine.new(category: params[:category]).filters
+    def create_filters(ignore_categories = false)
+      filters = SearchEngine.new(category: ignore_categories ? nil : params[:category]).filters
       remove_care_products_from(filters)
       filters
     end
