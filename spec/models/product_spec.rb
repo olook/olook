@@ -17,10 +17,6 @@ describe Product do
     it { should respond_to :backside_picture }
     it { should respond_to :wearing_picture }
     it { should respond_to :remove_freebie }
-
-    describe "Association" do
-      it { should have_and_belong_to_many(:highlight_campaigns) }
-    end
   end
 
   describe ".featured_products" do
