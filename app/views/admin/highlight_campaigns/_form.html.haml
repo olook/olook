@@ -1,0 +1,18 @@
+= form_for [:admin, @highlight_campaign] do |f|
+  - if @highlight_campaign.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@highlight_campaign.errors.count, "error")} prohibited this highlight from being saved:"
+      %ul
+        - @highlight_campaign.errors.full_messages.each do |msg|
+          %li= msg
+
+  %fieldset
+    =f.label :label
+    =f.text_field :label
+  %br
+  %p Os produtos devem estar separados por hifem ex: 123-321-132-122
+  %fieldset
+    =f.label :product_ids
+    =f.text_field :product_ids
+  .actions
+    = f.submit 'Save'
