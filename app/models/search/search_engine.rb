@@ -101,7 +101,7 @@ class SearchEngine
 
   def products(pagination = true)
     url = build_url_for(pagination ? {limit: @limit, start: self.start_product} : {})
-    if @last_url == url && @result.products
+    if @last_url == url && @result.try(:products)
       return @result.products
     end
     @last_url = url
