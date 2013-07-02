@@ -40,7 +40,7 @@
 		.bt_clear_cloth_size{top: 150px !important;right: -110px !important;}
 
 
-  	ul{overflow:hidden;z-index: 100;position: absolute;top:37px;background-color: #FFF;padding:0 15px 10px;border: 1px solid #E2E2E2;display:none;
+  	ul{overflow:hidden;z-index: 100;position: absolute;top:36px;background-color: #FFF;padding:0 15px 10px;border: 1px solid #E2E2E2;display:none;
   		&.color_filter{width: 175px;height: auto;left: 0;
         li{width: 90px !important;height:18px;}
   		}
@@ -63,7 +63,7 @@
         }
         &.clear_choice{position:absolute;top:10px;right:0;}
       }
-      &.cores{width:145px;height:200px;overflow-y:auto;border:solid 1px #CCC;padding-left:5px;
+      &.cores{width:145px;height:200px;overflow-y:auto;padding-left:5px;
         li span{display:inline-block;height:15px;padding-left:19px;background: image-url("common/thumbs_cor.png") no-repeat 0 1px;
           &.txt-amarelo{background-position: 0 -302px;}
           &.txt-azul{background-position: 0 -382px;}
