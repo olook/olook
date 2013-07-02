@@ -1,11 +1,13 @@
 - content_for :head do
   = stylesheet_link_tag "new_structure/section/lite_catalog"
   = stylesheet_link_tag "new_structure/common/filters"
+  
   %meta{:content => @glasses ? "#{@glasses}" : "home/#{@search.filter_value("category").first}", :name => "chaordic:source"}/
   %meta{:content => @chaordic_user, :name => "chaordic:user"}/
   %meta{:content => @glasses ? "#{@glasses}" : @search.filter_value("category").first, :name => "chaordic:category"}/
+
 - content_for :data_layer do
-  = render "shared/metrics/sociomantic/category"
+  =# render "shared/metrics/sociomantic/category"
 
 - content_for :footer do
   :javascript
