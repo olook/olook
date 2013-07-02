@@ -136,14 +136,8 @@ describe SeoUrl do
         subject { SeoUrl.parse_brands("colcci") }
         it { expect(subject.keys.size).to eq 3}
 
-<<<<<<< HEAD
         it { expect(subject[:brand]).to eq 'colcci' }
       end
-=======
-      it { expect(subject.keys).to include('brand')  }
-      it { expect(subject[:brand]).to eq "Olook-Colcci" }
-    end
->>>>>>> master
 
       context "when given parameters has subcategory and brand, but not other filters" do
         subject { SeoUrl.parse_brands("colcci/bota") }
