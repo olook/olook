@@ -1,33 +1,41 @@
-.exhibition-mode
-  = form_tag brand_path(parameters: params[:parameters]), method: 'get' do
-    %fieldset
-      %p.selected_relevance
-        ORDENAÇÃO:
-        %span Relevância
-      = select_tag('por', options_for_select({"Relevância" => 0, "Menor preço" => "menor-preco", "Maior preço" => "maior-preco", "Maior Desconto" => "maior-desconto"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
+#filters_container
+  .filter
+    = form_tag brand_path(parameters: params[:parameters]), method: 'get' do
+      %fieldset
+        %span.selected-type NOSSA SELEÇÃO
+        = select_tag('por', options_for_select({"Nossa Seleção" => 0, "Menor preço" => "menor-preco", "Maior preço" => "maior-preco", "Maior Desconto" => "maior-desconto"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
 
-  TAMANHO:
-  - filters_by("size").each do |text, amount|
-    %li= filter_link_to(brand_path(SeoUrl.build_for_brands(@search.filters_applied(:size, text.chomp), params)), text.chomp, @search.filter_selected?(:size, text.chomp))
+  .filter
+    %span.selected-type TAMANHO
+    .tab_bg &nbsp;
+    %ul
+      - filters_by("size").each do |text, amount|
+        %li= filter_link_to(brand_path(SeoUrl.build_for_brands(@search.filters_applied(:size, text.chomp), params)), text.chomp, @search.filter_selected?(:size, text.chomp))
+  
+  .filter
+    %span.selected-type MODELO
+    .tab_bg &nbsp;
+    %ul        
+      - filters_by("subcategory").each do |text, amount|
+        %li= filter_link_to(brand_path(SeoUrl.build_for_brands(@search.filters_applied(:subcategory, text.chomp), params)), text.chomp, @search.filter_selected?(:subcategory, text.chomp))
 
-  MODELO:
-  - filters_by("subcategory").each do |text, amount|
-    %li= filter_link_to(brand_path(SeoUrl.build_for_brands(@search.filters_applied(:subcategory, text.chomp), params)), text.chomp, @search.filter_selected?(:subcategory, text.chomp))
-
-  COR:
-  - filters_by("color").each do |text, amount|
-    %li= filter_link_to(brand_path(SeoUrl.build_for_brands(@search.filters_applied(:color, text.chomp), params)), text.chomp, @search.filter_selected?(:color, text.chomp))
+  .filter
+    %span.selected-type COR
+    .tab_bg &nbsp;
+    %ul
+      - filters_by("color").each do |text, amount|
+        %li= filter_link_to(brand_path(SeoUrl.build_for_brands(@search.filters_applied(:color, text.chomp), params)), text.chomp, @search.filter_selected?(:color, text.chomp))
 
   .pagination.topo
     -# render partial: "/shared/nav_bar_pagination", locals: { @search: @search, link: catalog_path, other_parameters: "por=#{ params[:por]}" }
 
-.filter
-  %p.title-category Preço
+
   .price-range
     %p#min-value-label{style:'background-image: none'} 0
     %p#max-value-label{style:'background-image: none'} 0
     .slider
       #slider-range
+    
     %input{type: "text", id: "min-value"}
     %input{type:"text", id:"max-value"}
     %input{type:"hidden", name:"price", id:"price"}

@@ -1,0 +1,67 @@
+@import 'new_structure/common/global_stuffs';
+
+#filters_container{height:37px;border-bottom:solid 1px #CCC;clear:both;padding-top:5px;color:#000;margin-bottom:35px;
+  
+  
+  #order_filter{float:left !important;width:225px !important;height:30px;margin-left:55px;
+    label{text-transform:uppercase;font-weight:normal;font-size:11px;margin-right:5px;line-height:22px;}
+    li.select{
+      span.selected-type{background:image-url('moments/sprite.png') right 4px no-repeat !important;font-size:11px;text-transform:uppercase;line-height:18px;width:105px;text-indent:6px;}
+    }
+  }
+  .filter{float: left;font-family: $avenir;font-size: 12px;color: #717171;position: relative;top: 1px;margin-right:12px;
+   
+    .tab_bg{display:none;position:absolute;z-index:101;border-left:solid 1px #E2E2E2;border-right:solid 1px #E2E2E2;background:#FFF;height:17px;
+      &.tab_model{width:94px;}
+      &.tab_color{width:61px;}
+      &.tab_cloth_size{width:86px;}
+      &.tab_cloth_model{width:114px;}
+      &.tab_cloth_size,&.tab_shoe_size{width:93px;}
+      &.tab_shoe_heel{width:72px;}
+    }
+    
+    span.selected-type{display:inline-block;height: 19px;cursor: pointer;font-size:10px;text-transform:uppercase;font-weight:bold;line-height:20px;padding:0 35px 0 0;text-indent:6px;border-top:solid 1px #D7D7D7;border-bottom:solid 1px #D7D7D7;border-left:solid 1px #D7D7D7;background: image-url('collections/bullet_arrow.png') right -1px no-repeat;color:#000;
+      &.cloth_size{width:59px;}
+      &.cloth_model{width:80px;}
+      &.model{width:60px;}
+      &.filter_selected{color:#EF3742 !important;}
+    }
+    
+    select{position: absolute;line-height: 26px;top: 0;left: 0;border:solid 1px #D7D7D7;opacity:0;width:125px;cursor:pointer;}
+    
+  	.clear_filter{background:none;border:none;float:right;color:#717171;display:none;cursor:pointer;text-transform:uppercase;}
+    
+  	.bt_clear_size{left: 0;top: 143px !important;}
+  	.bt_clear_color{left: -20px;top: 109px;padding-right: 5px;margin-top: 15px;}
+  	.bt_clear_heel{left: -18px;top: 166px;}
+  	.bt_clear_model{left: 2px;top: 215px !important;}
+  	.bt_clear_bag_color{left: -109px;top: 125px !important;margin-top: 10px !important;}
+  	.bt_clear_bag{top: 140px !important;right: -160px;}
+  	.bt_clear_accessory{left: 1px !important;top: 139px !important;}
+		.bt_clear_cloth{right: -165px !important;top: 180px !important;}
+		.bt_clear_cloth_size{top: 150px !important;right: -110px !important;}
+
+
+  	ul{overflow:hidden;z-index: 100;position: absolute;top:37px;background-color: #FFF;padding:0 15px 10px;border: 1px solid #E2E2E2;display:none;
+  		&.color_filter{width: 175px;height: auto;left: 0;
+        li{width: 90px !important;height:18px;}
+  		}
+  		&.open{width: 185px;height: auto;}
+      &.open_cloth{width: 220px;height: auto;}
+  		&.column{width: 130px;height: auto;}
+  		&.column-size{width: 130px;height: auto;}
+      &.column_size_cloth{width: 175px;height: auto;
+        li{width: 70px;}
+      }
+  		&.open-bags{width: 230px;
+  			li{width: 110px;}
+  		}
+  		&.open-accessory{width: 330px;height: 120px;
+  			li{width: 110px;}
+  		}
+  		li{width:120px;height:20px;;position:relative;
+        &.clear_choice{position:absolute;top:10px;right:0;}
+      }
+  	}
+  }
+}
