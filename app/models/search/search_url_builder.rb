@@ -5,7 +5,7 @@ class SearchUrlBuilder
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
   # BASE_URL = SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
   #
-  attr_reader :expressions
+  attr_reader :expressions, :sort_field
   RANGED_FIELDS = HashWithIndifferentAccess.new({'price' => '', 'heel' => '', 'inventory' => ''})
   IGNORE_ON_URL = HashWithIndifferentAccess.new({'inventory' => '', 'is_visible' => ''})
 
@@ -61,6 +61,11 @@ class SearchUrlBuilder
     self
   end
 
+  def with_product_ids ids
+    @expressions["product_id"] = ids.to_s.split(MULTISELECTION_SEPARATOR)
+    self
+  end
+
   def with_size size
     @expressions["size"] = size.to_s.split(MULTISELECTION_SEPARATOR)
     self
@@ -91,7 +96,8 @@ class SearchUrlBuilder
   end
 
   def sort_by sort_field
-    @sort_field = "#{ sort_field }&" || ""
+    @sort_field = "#{ sort_field }&" if sort_field.present?
+    @sort_field ||= ""
     self
   end
 
@@ -101,7 +107,7 @@ class SearchUrlBuilder
     bq = build_boolean_expression
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
     q = @query ? "?#{@query}&" : "?"
-    URI.parse("http://#{@base_url}#{q}#{bq}return-fields=subcategory,name,brand,image,retail_price,price,backside_image,category,text_relevance&size=99&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }")
+    URI.parse("http://#{@base_url}#{q}#{bq}return-fields=subcategory,name,brand,image,retail_price,price,backside_image,category,text_relevance&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }")
   end
 
   def build_filters_url

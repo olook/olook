@@ -184,7 +184,14 @@ $(function() {
   };
   showPaymentType();
 
-  $(".payment_type input").click(showPaymentType);
+  $(".payment_type input").click(function(){  	
+	  showPaymentType();
+	  $(".payment_type").siblings("div").find("input:checked").removeAttr("checked");
+	  $(".payment_type").siblings("div").find("input[type='text']").val('');
+	  $(".payment_type").siblings("div").find("span.selected").removeClass("selected");
+
+  })
+	
 
   //SELECT CARD
   var cards = $("ol.cards li span");
