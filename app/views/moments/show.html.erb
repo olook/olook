@@ -6,7 +6,7 @@
     <meta name="chaordic:category" content="<%= @glasses ? "#{@glasses}" : "#{section_name @pixel_information}"%>">
   <% end %>
   <% content_for :data_layer do %>
-    <%= render "shared/metrics/sociomantic/category" %>
+    <%= render "shared/metrics/sociomantic/category", pixel_information: @pixel_information, catalog_products: @catalog_products %>
   <% end %>
 
   <% content_for :footer do %>
