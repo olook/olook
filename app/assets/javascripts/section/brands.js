@@ -4,6 +4,7 @@ brands = b = {
   init: function(){
     b.changeText();
     b.selectedFilter();
+    //b.hideFilterByBody();
   },
   
   changeText: function(){
@@ -24,6 +25,16 @@ brands = b = {
         $(this).toggleClass('clicked').siblings().toggle();
       })
     })
+  },
+  
+  hideFilterByBody: function(){
+    $("body").on("click", function(){
+      if($(".filter ul").is(":visible")){
+        $(".filter ul:visible, .filter .tab_bg:visible").hide();
+        $(".fiilter span.txt-filter.clicked").removeClass("clicked");
+      }
+    });
+    
   }
 }
 
