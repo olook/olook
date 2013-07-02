@@ -105,6 +105,9 @@ class SearchEngine
     @last_url = url
     @result = fetch_result(@last_url, {parse_products: true})
     @result.products
+  rescue => e
+    Rails.logger.error("ERROR #{e.class} (#{e.message}) on searching in cloud search url: #{url || ''}\n#{e.backtrace.join("\n")}")
+    []
   end
 
   def pages
