@@ -62,7 +62,7 @@ describe SeoUrl do
         it { expect(subject[:subcategory]).to eq 'Bota' }
 
         it { expect(subject.keys).to include('brand')  }
-        it { expect(subject[:brand]).to eq 'Colcci-Olook' }
+        it { expect(subject[:brand]).to eq "Olook-Colcci" }
       end
 
       context "when there's no parameters and subcategories" do
@@ -135,20 +135,23 @@ describe SeoUrl do
       context "when given parameters hasn't got any parameters but brand" do
         subject { SeoUrl.parse_brands("colcci") }
         it { expect(subject.keys.size).to eq 3}
-
-<<<<<<< HEAD
         it { expect(subject[:brand]).to eq 'colcci' }
       end
-=======
-      it { expect(subject.keys).to include('brand')  }
-      it { expect(subject[:brand]).to eq "Olook-Colcci" }
-    end
->>>>>>> master
 
       context "when given parameters has subcategory and brand, but not other filters" do
         subject { SeoUrl.parse_brands("colcci/bota") }
         it { expect(subject.keys).to include('subcategory')  }
         it { expect(subject[:subcategory]).to eq 'bota' }
+        it { expect(subject.keys).to include('brand')  }
+        it { expect(subject[:brand]).to eq 'colcci' }
+
+        it { expect(subject.keys.size).to eq 4}
+      end
+
+      context "when given parameters has many subcategories and brand, but not other filters" do
+        subject { SeoUrl.parse_brands("colcci/bota-scarpin") }
+        it { expect(subject.keys).to include('subcategory')  }
+        it { expect(subject[:subcategory]).to eq 'bota-scarpin' }
         it { expect(subject.keys).to include('brand')  }
         it { expect(subject[:brand]).to eq 'colcci' }
 
@@ -168,6 +171,35 @@ describe SeoUrl do
         it { expect(subject[:brand]).to eq 'colcci' }
 
         it { expect(subject.keys.size).to eq 5}
+      end
+
+      context "when given parameters has brand, category and many subcategories together" do
+        subject { SeoUrl.parse_brands("colcci/roupa/bota-scarpin") }
+
+        it { expect(subject.keys).to include('category')  }
+        it { expect(subject[:category]).to eq 'roupa' }
+
+        it { expect(subject.keys).to include('subcategory')  }
+        it { expect(subject[:subcategory]).to eq 'bota-scarpin' }
+
+        it { expect(subject.keys).to include('brand')  }
+        it { expect(subject[:brand]).to eq 'colcci' }
+
+        it { expect(subject.keys.size).to eq 5}
+      end
+
+
+      context "when given parameters has brand, category and many subcategories together" do
+        subject { SeoUrl.parse_brands("olook/bolsa/carteira-bolsa") }
+
+        it { expect(subject.keys).to include('category')  }
+        it { expect(subject[:category]).to eq 'bolsa' }
+
+        it { expect(subject.keys).to include('subcategory')  }
+        it { expect(subject[:subcategory]).to eq 'carteira-bolsa' }
+
+        it { expect(subject.keys).to include('brand')  }
+        it { expect(subject[:brand]).to eq 'olook' }
       end
 
       context "when given parameters has brand, category, subcategory and filters together" do

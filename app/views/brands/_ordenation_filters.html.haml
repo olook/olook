@@ -3,30 +3,31 @@
     = form_tag brand_path(parameters: params[:parameters]), method: 'get' do
 
       %fieldset.first_child
-        %span.selected-type VER TUDO
-        = select_tag('category', options_for_select({"Ver Tudo" => brand_path(parameters: params[:brand]), "Sapatos" => brand_path(parameters: "#{ params[:brand] }/sapato"), "Bolsas" => brand_path(parameters: "#{ params[:brand] }/bolsa"), "Acessórios" => brand_path(parameters: "#{ params[:brand] }/acessorio"), "Roupas" => brand_path(parameters: "#{ params[:brand] }/roupa")}, selected: brand_path(parameters: "#{ params[:brand]}/#{ params[:category] }")), :onchange => ("location = this.options[this.selectedIndex].value;"))
+        %span.selected-type{ class: ("filter_selected" if params[:category].present?) }= params[:category].present? ? params[:category] : "VER TUDO"
+        = select_tag('category', options_for_select({"Ver Tudo" => brand_path(parameters: params[:brand]), "Sapatos" => brand_path(parameters: "#{ params[:brand] }/sapato"), "Bolsas" => brand_path(parameters: "#{ params[:brand] }/bolsa"), "Acessórios" => brand_path(parameters: "#{ params[:brand] }/acessório"), "Roupas" => brand_path(parameters: "#{ params[:brand] }/roupa")}, selected: brand_path(parameters: "#{ params[:brand]}/#{ params[:category] }")), :onchange => ("location = this.options[this.selectedIndex].value;"))
 
       %fieldset
-        %span.selected-type NOSSA SELEÇÃO
-        = select_tag('por', options_for_select({"Nossa Seleção" => 0, "Menor preço" => "menor-preco", "Maior preço" => "maior-preco", "Maior Desconto" => "maior-desconto"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
+        %span.selected-type{ class: ("filter_selected" if params[:por].present?) }= params[:por].present? ? params[:por].gsub("-", " ").titleize : "NOSSA SELEÇÃO"
+        = select_tag('por', options_for_select({"Nossa Seleção" => "", "Menor preço" => "menor-preco", "Maior preço" => "maior-preco", "Maior Desconto" => "maior-desconto"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
   - if params[:category].present?
 
-    .filter.tamanho
-      %span.selected-type.txt-filter TAMANHO
+
+    .filter
+      %span.selected-type{ class: ("filter_selected" if params[:size].present?) } TAMANHO
       .tab_bg &nbsp;
       %ul
         - filters_by("size").each do |text, amount|
           %li= filter_link_to(brand_path(SeoUrl.build_for_brands(@search.filters_applied(:size, text.chomp), params)), text.chomp, @search.filter_selected?(:size, text.chomp))
 
-    .filter.modelo
-      %span.selected-type.txt-filter MODELO
+    .filter
+      %span.selected-type{ class: ("filter_selected" if params[:subcategory].present?) } MODELO
       .tab_bg &nbsp;
       %ul
         - filters_by("subcategory").each do |text, amount|
           %li= filter_link_to(brand_path(SeoUrl.build_for_brands(@search.filters_applied(:subcategory, text.chomp), params)), text.chomp, @search.filter_selected?(:subcategory, text.chomp))
 
-    .filter.cor
-      %span.selected-type.txt-filter COR
+    .filter
+      %span.selected-type{ class: ("filter_selected" if params[:color].present?) } COR
       .tab_bg &nbsp;
       %ul.cores
         - filters_by("color").each do |text, amount|
@@ -34,17 +35,12 @@
 
   - if search.filter_value('category').to_a.include?('sapato')
     .filter
-      %span.selected-type.txt-filter SALTO
+      %span.selected-type{ class: ("filter_selected" if params[:heel].present?) } SALTO
       .tab_bg &nbsp;
       %ul
         %li= filter_link_to(brand_path(SeoUrl.build_for_brands(search.filters_applied(:heel, '0-4'), params)), '0..4 cm', search.filter_selected?(:heel, '0-4'))
         %li= filter_link_to(brand_path(SeoUrl.build_for_brands(search.filters_applied(:heel, '5-9'), params)), '5..9 cm', search.filter_selected?(:heel, '5-9'))
         %li= filter_link_to(brand_path(SeoUrl.build_for_brands(search.filters_applied(:heel, '10-15'), params)), '10..15 cm', search.filter_selected?(:heel, '10-15'))
-
-
-  .pagination.topo
-    -# render partial: "/shared/nav_bar_pagination", locals: { search: search, link: brand_path, other_parameters: "por=#{ params[:por]}" }
-
 
   .price-range
     %p#min-value-label{style:'background-image: none'} 0
