@@ -1,10 +1,9 @@
 .exhibition-mode
   = form_tag catalog_path(parameters: params[:parameters]), method: 'get' do
     %fieldset
-      %p.selected_relevance
-        ORDENAÇÃO:
-        %span Relevância
-      = select_tag('por', options_for_select({"Relevância" => 0, "Menor preço" => "menor-preco", "Maior preço" => "maior-preco", "Maior Desconto" => "maior-desconto"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
+      %p{class: unless params[:por] == '0' then 'selected_relevance watermelon' else 'selected_relevance' end}
+        %span NOSSA SELEÇÃO
+      = select_tag('por', options_for_select({"NOSSA SELEÇÃO" => 0, "MENOR PREÇO" => "menor-preco", "MAIOR PREÇO" => "maior-preco", "MAIOR DESCONTO" => "maior-desconto"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
 
   .pagination.topo
     = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: catalog_path, other_parameters: "por=#{ params[:por]}" }

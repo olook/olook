@@ -16,10 +16,16 @@ class SearchEngine
     .with_care(attributes[:care])
     .with_price(attributes[:price])
     .with_size(attributes[:size])
+    .with_product_ids(attributes[:product_ids])
     .sort_by(attributes[:sort])
     .grouping_by
 
     @search
+  end
+
+  def cache_key
+    key = build_url_for(limit: @limit, start: self.start_product)
+    Digest::SHA1.hexdigest(key.to_s)
   end
 
   def for_admin
@@ -84,12 +90,20 @@ class SearchEngine
 
   def filters
     url = build_filters_url
-    @result = fetch_result(url, parse_facets: true)
+    if @last_url == url && @result
+      return @result
+    end
+    @last_url = url
+    @result = fetch_result(@last_url, parse_facets: true)
   end
 
   def products(pagination = true)
     url = build_url_for(pagination ? {limit: @limit, start: self.start_product} : {})
-    @result = fetch_result(url, {parse_products: true})
+    if @last_url == url && @result.try(:products)
+      return @result.products
+    end
+    @last_url = url
+    @result = fetch_result(@last_url, {parse_products: true})
     @result.products
   end
 
