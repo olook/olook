@@ -62,7 +62,7 @@ describe SeoUrl do
       it { expect(subject[:subcategory]).to eq 'Bota' }
 
       it { expect(subject.keys).to include('brand')  }
-      it { expect(subject[:brand]).to eq 'Colcci-Olook' }
+      it { expect(subject[:brand]).to eq "Olook-Colcci" }
     end
 
     context "when there's no parameters and subcategories" do
