@@ -1,4 +1,34 @@
+brands = b = {} || null;
+
+brands = b = {
+  init: function(){
+    b.changeText();
+    b.selectedFilter();
+  },
+  
+  changeText: function(){
+    $(".filter select").each(function(){
+      $(this).change(function(){
+        var txt = $('option:selected', this).text();
+        $(this).prev().text(txt);
+      })
+    })
+  },
+  
+  selectedFilter: function(){
+    var txt = $("span.txt-filter");
+    txt.each(function(){ 
+      $(this).on("click", function(){
+        $(this).parent().siblings().find("ul, .tab_bg").hide();
+        $(this).parent().siblings().find("span.txt-filter.clicked").removeClass("clicked");
+        $(this).toggleClass('clicked').siblings().toggle();
+      })
+    })
+  }
+}
+
 $(document).ready(function() {
+  b.init();
   $(".container-imgs ul").carouFredSel({
     auto: {
       duration: 1000
@@ -13,3 +43,4 @@ $(document).ready(function() {
     }
   });
 });
+
