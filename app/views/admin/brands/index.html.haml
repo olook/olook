@@ -1,0 +1,29 @@
+%h1 Marcas
+
+
+-@brands.each do |type_id, brands|
+
+  %h2=BrandType.t(type_id)
+
+  %div.inner
+    %table.table
+      %tr
+        %th Imagem
+        %th Nome
+        %th Alt da imagem
+        %th
+        %th
+        %th
+
+      - brands.each do |brand|
+        %tr
+          %td= image_tag brand.header_image_url(:thumb)
+          %td= brand.name
+          %td= brand.header_image_alt
+          %td= link_to 'Exibir', [:admin, brand]
+          %td= link_to 'Editar', edit_admin_brand_path(brand)
+          %td= link_to 'Apagar', [:admin, brand], :method => :delete, :data => { :confirm => 'Tem certeza ?' }
+
+    %br
+
+= link_to 'Nova Marca', new_admin_brand_path

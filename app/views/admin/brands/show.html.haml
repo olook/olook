@@ -1,0 +1,19 @@
+%p#notice= notice
+
+%h2 Listagem de pedidos
+
+- content_for :secondary_navigation do
+  %li= link_to 'Voltar', admin_path
+
+.inner
+  %p= image_tag @brand.header_image
+  %p 
+    Nome:
+    = @brand.name
+  %p 
+    Alt da imagem: 
+    =@brand.header_image_alt
+
+= link_to 'Edit', edit_admin_brand_path(@brand)
+\|
+= link_to 'Back', admin_brands_path
