@@ -20,7 +20,19 @@ module CatalogsHelper
     link_to("( x )", link)
   end
 
+  def formated_heel heel
+    case
+    when heel == '0..4'
+      "Baixo (0cm - 4cm)"
+    when heel == '5..10'
+      "Médio (5cm - 9cm)"
+    else
+      "Alto (10cm - 18cm)"
+    end
+  end
+
   def filters_by filter
+    @filters ||= create_filters
     facets = @filters.grouped_products(filter)
     return [] if facets.nil?
 

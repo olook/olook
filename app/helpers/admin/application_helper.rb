@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 module Admin::ApplicationHelper
-  
+
   HUMANIZED_GATEWAYS = {
     1 => "Moip",
     2 => "Braspag",
