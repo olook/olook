@@ -11,7 +11,7 @@
         %li= %( #{ col } #{ current_section_link_to(catalog_path(SeoUrl.build(search.filters_applied(:color, col))))}).html_safe
 
       - search.selected_filters_for("heel").map{|h|h.gsub('heeluint:', '')}.sort.each do |hee|
-        %li= %( #{ hee } cm #{ current_section_link_to(catalog_path(SeoUrl.build(search.filters_applied(:heel, hee.gsub('..', '-')))))}).html_safe
+        %li= %( #{ formated_heel hee } #{ current_section_link_to(catalog_path(SeoUrl.build(search.filters_applied(:heel, hee.gsub('..', '-')))))}).html_safe
 
       - search.selected_filters_for("care").sort.each do |car|
         %li= %( #{ car } #{ current_section_link_to(catalog_path(SeoUrl.build(search.filters_applied(:care, car))))}).html_safe
