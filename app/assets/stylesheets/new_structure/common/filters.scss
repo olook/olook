@@ -3,7 +3,7 @@
 #filters_container{height:37px;border-bottom:solid 1px #CCC;clear:both;padding-top:5px;color:#000;margin-bottom:35px;
   .filter{float: left;font-family: $avenir;font-size: 12px;color: #717171;position: relative;top: 1px;margin-right:12px;
 
-    .tab_bg{display:none;position:absolute;z-index:101;border-left:solid 1px #E2E2E2;border-right:solid 1px #E2E2E2;background:#FFF;height:17px;
+    .tab_bg{/*display:none;*/position:absolute;z-index:101;border-left:solid 1px #E2E2E2;border-right:solid 1px #E2E2E2;background:#FFF;height:17px;width:98%;
 
       &.tab_model{width:94px;}
       &.tab_color{width:61px;}
@@ -20,9 +20,10 @@
       &.filter_selected{color:#EF3742 !important;}
     }
 
-    fieldset { float: left; position: relative; }
-
-    select{position: absolute;line-height: 26px;top: 0;left: 0;border:solid 1px #D7D7D7;opacity:0;width:125px;cursor:pointer;}
+    fieldset {float:left;position:relative;
+      &.first_child{margin-right:12px;} 
+      select{position: absolute;line-height: 26px;top: 0;left: 0;border:solid 1px #D7D7D7;opacity:0;width:125px;cursor:pointer;}
+    }
 
   	.clear_filter{background:none;border:none;float:right;color:#717171;display:none;cursor:pointer;text-transform:uppercase;}
 
