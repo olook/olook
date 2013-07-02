@@ -31,7 +31,7 @@ class Admin::HighlightCampaignsController < Admin::BaseController
   def update
     @highlight_campaign = HighlightCampaign.find(params[:id])
     if @highlight_campaign.update_attributes(params[:highlight_campaign])
-      redirect_to [:admin, @highlight_campaign], notice: ''
+      redirect_to [:admin, @highlight_campaign], notice: 'Campanha alterada com sucesso'
     else
       render action: "edit"
     end
