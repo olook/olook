@@ -3,17 +3,6 @@ class OrderStatusMailer < ActionMailer::Base
   default_url_options[:host] = "www.olook.com.br"
   default :from => "Equipe Olook <avisos@olook.com.br>"
 
-  def self.smtp_settings
-    {
-      :user_name => "AKIAJJO4CTAEHYW34HGQ",
-      :password => "AkYlOmgbIpISW33XVzQq8d9J4GnAgtQlEJuwgIxOFXmU",
-      :address => "email-smtp.us-east-1.amazonaws.com",
-      :port => 587,
-      :authentication => :plain,
-      :enable_starttls_auto => true
-    }
-  end
-
   [:order_requested, :payment_confirmed, :payment_refused, :order_shipped, :order_delivered].each do |method|
     define_method method do |order|
       @order = order
