@@ -65,5 +65,72 @@
   - olook_staging_collectd
   - olook_staging_monit
   zone: us-east-1b
+- !ruby/object:Rubber::Configuration::InstanceItem
+  domain: olook.com.br
+  external_host: ec2-54-227-55-91.compute-1.amazonaws.com
+  external_ip: 54.227.55.91
+  image_id: ami-3fec7956
+  image_type: c1.medium
+  instance_id: i-f63ef697
+  internal_host: ip-10-159-19-66.ec2.internal
+  internal_ip: 10.159.19.66
+  name: development
+  platform: linux
+  provider: aws
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: db
+    options:
+      primary: true
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: mysql
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: mysql_master
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: nginx
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: redis
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: redis_master
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: unicorn
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: web
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: app
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: collectd
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: monit
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: memcached
+    options: {}
+  root_device_type: ebs
+  security_groups:
+  - olook_staging_default
+  - olook_staging_web
+  - olook_staging_development
+  - olook_staging_db
+  - olook_staging_mysql
+  - olook_staging_mysql_master
+  - olook_staging_nginx
+  - olook_staging_redis
+  - olook_staging_redis_master
+  - olook_staging_unicorn
+  - olook_staging_app
+  - olook_staging_collectd
+  - olook_staging_monit
+  - olook_staging_memcached
+  zone: us-east-1b
 - volumes: {}
   static_ips: {}
