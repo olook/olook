@@ -53,3 +53,9 @@ section{margin-top:10px;
   &#brands_menu{float:left;width:160px;padding-left:10px;}
 }
 
+/* fix for windows */
+html.win.gecko #filters_container select.first-child, html.win.gecko #filters_container .filter,
+html.win.webkit #filters_container select.first-child, html.win.webkit #filters_container .filter{margin-right:6px;}
+
+html.win.gecko #filters_container .filter fieldset span, html.win.chrome #filters_container .filter fieldset span {width: 112px;}
+
