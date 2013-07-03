@@ -206,6 +206,9 @@
   - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
     options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: newrelic
+    options: {}
   instance_id: i-fb3cc093
   image_type: c1.xlarge
   image_id: ami-3fec7956
@@ -247,6 +250,9 @@
     options: {}
   - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: newrelic
     options: {}
   instance_id: i-d0f9c4be
   image_type: c1.xlarge
