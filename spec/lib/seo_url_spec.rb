@@ -276,7 +276,7 @@ describe SeoUrl do
 
       context "when paramter price order was passed" do
         it { expect(SeoUrl.build_for_catalogs({ category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'vermelho']}, por: 'menor-preco')).
-             to eq({ parameters: "sapato/sandalia/tamanho-36-p_cor-azul-vermelho", por: 'menor-preco'} ) }
+             to eq({ parameters: "sapato/sandalia/tamanho-36-p_cor-azul-vermelho?por=menor-preco"} ) }
       end
 
     end
@@ -325,6 +325,11 @@ describe SeoUrl do
     context "when given parameters has subcategory and filters" do
       subject { SeoUrl.build_for_brands(brand: ['colcci'], subcategory: ["camiseta"], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho']) }
       it { expect(subject).to eq({ parameters: "colcci/camiseta/conforto-amaciante_tamanho-36-p_cor-azul-vermelho" }) }
+    end
+
+    context "when given parameters has subcategory and filters and price" do
+      subject { SeoUrl.build_for_brands({ brand: ['colcci'], subcategory: ["camiseta"], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho']} , { price: ['0', '309'], "por" => 'menor-preco'} ) }
+      it { expect(subject).to eq({ parameters: "colcci/camiseta/conforto-amaciante_tamanho-36-p_cor-azul-vermelho?preco=0-309&por=menor-preco" }) }
     end
 
     context "when given parameters has category, subcategory and filters" do
