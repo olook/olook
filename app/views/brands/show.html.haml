@@ -1,7 +1,6 @@
 - content_for :head do
   = stylesheet_link_tag "new_structure/section/lite_catalog"
   = stylesheet_link_tag "new_structure/section/brands"
-  = stylesheet_link_tag "new_structure/common/filters"
 
   %meta{:content => @glasses ? "#{@glasses}" : "home/#{@search.filter_value("category").first}", :name => "chaordic:source"}/
   %meta{:content => @chaordic_user, :name => "chaordic:user"}/
