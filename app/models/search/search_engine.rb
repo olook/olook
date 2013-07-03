@@ -66,6 +66,13 @@ class SearchEngine
     filter_params
   end
 
+  def remove_filter filter
+    parameters = @search.expressions.dup
+    parameters.delete_if {|k| SearchUrlBuilder::IGNORE_ON_URL.include? k }
+    parameters[filter.to_sym] = []
+    parameters
+  end
+
   def for_page page
     @current_page = (page || 1).to_i
     self
