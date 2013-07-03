@@ -350,9 +350,17 @@ describe SearchEngine do
       search.instance_variable_get("@search").stub(:expressions).and_return(expressions)
     end
 
-    subject { search.remove_filter "category" }
+    context "when given parameter is a String" do
+      subject { search.remove_filter "category" }
 
-    it { should eq(expected_parameters) }
+      it { should eq(expected_parameters) }
+    end
+
+    context "when given parameter is a Symbol" do
+      subject { search.remove_filter :category }
+
+      it { should eq(expected_parameters) }
+    end
   end
 
 end
