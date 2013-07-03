@@ -54,35 +54,14 @@ class Product < ActiveRecord::Base
   scope :in_collection, lambda { |value| { :conditions => ({ collection_id: value } unless value.blank? || value.nil?) } }
   scope :search, lambda { |value| { :conditions => ([ "name like ? or model_number = ?", "%#{value}%", value ] unless value.blank? || value.nil?) } }
 
+
+  scope :valid_for_xml, lambda{|black_list| only_visible.where("variants.inventory >= 1").where("variants.price > 0.0").group("products.id").joins(:variants).having("(category = 1 and count(distinct variants.id) >= 4) or (category = 4 and count(distinct variants.id) >= 2) or category NOT IN (1,4) and products.id NOT IN (#{black_list})")}
+  scope :valid_for_xml_without_cloth, lambda { |black_list| only_visible.where("variants.inventory >= 1").group("products.id").joins(:variants).having("(category = 1 and count(distinct variants.id) >= 4) or category NOT IN (1,4) and products.id NOT IN (#{XML_BLACKLIST["products_blacklist"].join(",")})")}
+
   def self.featured_products category
     products = fetch_all_featured_products_of category
     remove_sold_out products
     # TODO => it is still missing the removal of sold out specifc variants (shoe number)
-  end
-
-  def self.valid_for_xml(products_blacklist, collections_blacklist)
-    products = only_visible.joins(valid_for_xml_join_query).includes(:variants).where(valid_for_xml_where_query,
-                                                                  :products_blacklist => products_blacklist ,
-                                                                  :collections_blacklist => collections_blacklist).
-                                                                 order("collection_id desc")
-    products.delete_if { |product| product.has_inventory_less_than_minimum_for_xml? }
-  end
-
-  def self.valid_criteo_for_xml(products_blacklist, collections_blacklist)
-    products = only_visible.joins(criteo_join_query).includes(:variants).where(criteo_where_query,
-                                                    :products_blacklist => products_blacklist ,
-                                                    :collections_blacklist => collections_blacklist ).
-                                                  where("(products.category <> 1 or x.count_variants >= 3)").
-                                                  order("collection_id desc")
-    products.delete_if { |product| product.has_inventory_less_than_minimum_for_xml? }
-  end
-
-  def has_less_then_minimum_inventory?
-    if self.shoe?
-      shoe_inventory_has_less_than_minimum?
-    else
-      inventory < MINIMUM_INVENTORY_FOR_XML
-    end
   end
 
   def self.in_profile profile
@@ -334,16 +313,6 @@ class Product < ActiveRecord::Base
     self.cloth? && self.variants.collect(&:inventory).include?(0)
   end
 
-  def has_inventory_less_than_minimum_for_xml?
-    if self.shoe?
-      shoe_inventory_has_less_than_minimum?
-    elsif self.cloth?
-      cloth_inventory_has_less_than_minimum?
-    else
-      false
-    end
-  end
-
   def add_freebie product
     variant_for_freebie = product.variants.first
     variants.each do |variant|
@@ -505,33 +474,6 @@ class Product < ActiveRecord::Base
         detail = self.details.where(:translation_token => token).last
       end
       detail.description if detail
-    end
-
-    #TODO: find a more descriptive name
-    def self.criteo_join_query
-      query = "INNER JOIN( "
-      query += "SELECT product_id, SUM(inventory) AS \"sum_inventory\",  COUNT(id) as \"count_variants\" "
-      query += "FROM variants WHERE variants.price > 0.0  GROUP BY product_id"
-      query += ") AS x ON products.id = x.product_id"
-    end
-
-    #TODO: find a more descriptive name
-    def self.criteo_where_query
-      query = "x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id NOT IN (:products_blacklist) "
-      query += "AND products.collection_id NOT IN (:collections_blacklist)"
-    end
-
-    #TODO: find a more descriptive name
-    def self.valid_for_xml_join_query
-      query = " INNER JOIN("
-      query += "SELECT product_id, SUM(inventory) AS \"sum_inventory\" from variants WHERE variants.price > 0.0 GROUP BY product_id"
-      query += ") AS x ON products.id = x.product_id"
-    end
-
-    #TODO: find a more descriptive name
-    def self.valid_for_xml_where_query
-      query = "x.sum_inventory > #{MINIMUM_INVENTORY_FOR_XML} AND products.id "
-      query += "NOT IN (:products_blacklist) AND products.collection_id NOT IN (:collections_blacklist)"
     end
 end
 
