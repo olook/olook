@@ -7,7 +7,7 @@ class SeoUrl
     "preco" => "price",
     "salto" => "heel",
     "colecao" => "collection",
-    "por" => "sort_price",
+    "por" => "sort",
     "menor-preco" => "retail_price",
     "maior-preco" => "-retail_price",
     "maior-desconto" => "-desconto",
@@ -16,7 +16,7 @@ class SeoUrl
   }
 
   PARAMETERS_BLACKLIST = [ "price" ]
-  PARAMETERS_WHITELIST = [ "price", "sort_price" ]
+  PARAMETERS_WHITELIST = [ "price", "sort" ]
 
   def self.parse parameters, other_parameters={}
     parsed_values = HashWithIndifferentAccess.new
@@ -126,7 +126,7 @@ class SeoUrl
 
       post_parameters = {}
 
-      other_parameters.select{|k,v| PARAMETERS_WHITELIST.include?(k) }.each do |k,v|
+      other_parameters.select{|k,v| PARAMETERS_WHITELIST.include?(k.to_s) }.each do |k,v|
         post_parameters[VALUES.invert[k.to_s]] = v.respond_to?(:join) ? v.join('-') : v
       end
 
