@@ -7,7 +7,9 @@ class BrandsController < SearchController
     params.merge!(SeoUrl.parse_brands(params[:parameters], params))
     Rails.logger.debug("New params: #{params.inspect}")
 
-    @filters = create_filters(true)
+    @filters = create_filters
+
+    @side_filters = create_filters(true)
     
     @search = SearchEngine.new(category: params[:category],
                                care: params[:care],

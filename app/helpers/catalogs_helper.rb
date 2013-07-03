@@ -31,9 +31,9 @@ module CatalogsHelper
     end
   end
 
-  def filters_by filter
-    @filters ||= create_filters
-    facets = @filters.grouped_products(filter)
+  def filters_by filter, filters = @filters
+    filters ||= create_filters
+    facets = filters.grouped_products(filter)
     return [] if facets.nil?
 
     if filter == 'size'
