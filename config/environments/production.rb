@@ -61,16 +61,6 @@ Olook::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
 
-  config.action_mailer.default_url_options[:host] = 'www.olook.com.br'
-  config.action_mailer.smtp_settings = {
-    :user_name => "AKIAJJO4CTAEHYW34HGQ",
-    :password => "AkYlOmgbIpISW33XVzQq8d9J4GnAgtQlEJuwgIxOFXmU",
-    :address => "email-smtp.us-east-1.amazonaws.com",
-    :port => 587,
-    :authentication => :plain,
-    :enable_starttls_auto => true
-  }
-
   # Enable threaded mode
   # config.threadsafe!
 
