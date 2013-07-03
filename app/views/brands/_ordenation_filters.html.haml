@@ -3,7 +3,7 @@
     = form_tag brand_path(parameters: params[:parameters]), method: 'get' do
 
       %fieldset.first_child
-        %span.selected-type{ class: ("filter_selected" if params[:category].present?) }= params[:category].present? ? params[:category] : "VER TUDO"
+        %span.selected-type{ class: ("filter_selected" if params[:category].present?) }= params[:category].present? ? params[:category].pluralize : "VER TUDO"
         = select_tag('category', options_for_select({"Ver Tudo" => brand_path(parameters: params[:brand]), "Sapatos" => brand_path(parameters: "#{ params[:brand] }/sapato"), "Bolsas" => brand_path(parameters: "#{ params[:brand] }/bolsa"), "Acessórios" => brand_path(parameters: "#{ params[:brand] }/acessório"), "Roupas" => brand_path(parameters: "#{ params[:brand] }/roupa")}, selected: brand_path(parameters: "#{ params[:brand]}/#{ params[:category] }")), :onchange => ("location = this.options[this.selectedIndex].value;"))
 
       %fieldset
