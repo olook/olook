@@ -143,6 +143,7 @@ div#moments {
 
   }
   div.exhibition-mode{clear:both;padding:5px 15px 0;border-bottom:solid 1px #CBCBCB;color:#000;height:25px;margin-bottom:35px;
+    fieldset{float: left;}
     p{text-transform:uppercase;font-size:11px;float:left;
       span{margin:0 5px;
         &.selected{font-weight:bold;}
