@@ -20,7 +20,7 @@
 
 #catalog
   %aside
-    = render "filters", search: @search, filters: @filters
+    = render "filters", search: @search, filters: @side_filters
 
   #result
     - unless @search.has_any_filter_selected?
