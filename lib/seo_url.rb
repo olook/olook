@@ -16,6 +16,7 @@ class SeoUrl
   }
 
   PARAMETERS_BLACKLIST = [ "price" ]
+  PARAMETERS_WHITELIST = [ "price", "sort_price" ]
 
   def self.parse parameters, other_parameters={}
     parsed_values = HashWithIndifferentAccess.new
@@ -92,13 +93,18 @@ class SeoUrl
   def self.build_for_catalogs params, other_params={  }
     return_hash = build(params, other_params)
     path = [ return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join('-')
-
-    { parameters: [return_hash[:category], path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/') << return_hash[:order_params] }#.merge(return_hash[:order_params])
+    { parameters: [return_hash[:category], path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/') << return_hash[:order_params] }
   end
 
   def self.build_for_brands params, other_params={  }
     return_hash = build(params, other_params)
-    { parameters: [ params[:brand].empty? ? other_params[:brand] : params[:brand].last, return_hash[:category], return_hash[:subcategory], return_hash[:filter_params]].reject { |p| p.blank? }.join('/') << return_hash[:order_params] }#.merge(return_hash[:order_params])
+    { parameters: [ 
+      params[:brand].empty? ? other_params[:brand] : params[:brand].last,
+      return_hash[:category],
+      return_hash[:subcategory], 
+      return_hash[:filter_params]
+      ].reject { |p| p.blank? }.join('/')
+    }.merge(return_hash[:order_params])
   end
 
   def self.all_categories
@@ -118,18 +124,11 @@ class SeoUrl
       return_hash[:subcategory] = ActiveSupport::Inflector.transliterate(parameters.delete(:subcategory).join("-").downcase) if parameters[:subcategory].present?
       return_hash[:category] = ActiveSupport::Inflector.transliterate(parameters.delete(:category).first.to_s).downcase if parameters[:category].present?
 
-      #return_hash[:order_params] = other_parameters[:por].present? ? { por: other_parameters.delete(:por) } : {}
+      post_parameters = {}
 
-      post_parameters = []
-      other_parameters.each do |k,v|
-        if v.respond_to?(:join)
-          post_parameters << "#{ VALUES.invert[k.to_s] }=#{v.join('-')}"
-        else
-          post_parameters << "#{ k.to_s }=#{v}"
-        end
+      other_parameters.select{|k,v| PARAMETERS_WHITELIST.include?(k) }.each do |k,v|
+        post_parameters[VALUES.invert[k.to_s]] = v.respond_to?(:join) ? v.join('-') : v
       end
-
-      post_parameters = post_parameters.any? ? "?#{post_parameters.join('&')}" : ""
 
       filter_params = []
       parameters.each do |k, v|
@@ -137,6 +136,7 @@ class SeoUrl
           filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| ActiveSupport::Inflector.transliterate(_v).downcase}.join('-')}" if v.present? && PARAMETERS_BLACKLIST.exclude?(k.to_s)
         end
       end
+
       return_hash[:filter_params] = filter_params.join('_')
       return_hash[:order_params] = post_parameters
 

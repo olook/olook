@@ -1,6 +1,6 @@
 #filters_container
   .filter
-    = form_tag brand_path(parameters: params[:parameters]), method: 'get' do
+    = form_tag brand_path(SeoUrl.build_for_brands(search.current_filters)), method: 'get' do
 
       %fieldset.first_child
         %span.selected-type{ class: ("filter_selected" if params[:category].present?) }= params[:category].present? ? params[:category].pluralize : "VER TUDO"
