@@ -12,6 +12,7 @@
 
 = cache "#{@search.cache_key}#{@campaign_products.cache_key if @campaign_products}", expire_in: 30.minutes  do
   = render "shared/metrics/sociomantic/category", pixel_information: @pixel_information, catalog_products: @search.products
+  = render "shared/liquida_banner"
   #catalog
     %aside
       = render "filters", search: @search
