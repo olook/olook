@@ -104,10 +104,14 @@
   }
 }
 
+/* adjust slider price filter */
+.price-range p#min-value-label{margin-right:5px;}
 
 
 /* fix for windows */
 html.win.gecko #filters_container select.first_child, html.win.gecko #filters_container .filter,
 html.win.webkit #filters_container select.first_child, html.win.webkit #filters_container .filter{margin-right:6px;}
 
-html.win.gecko #filters_container .filter fieldset span.order, html.win.chrome #filters_container .filter fieldset span.order {width: 112px;}
+html.win.gecko #filters_container .filter fieldset span.order, html.win.chrome #filters_container .filter fieldset span.order{width:112px;}
+
+html.win.gecko #filters_container .filter fieldset.first_child span, html.win.chrome #filters_container .filter fieldset.first_child span{width:73px;}
