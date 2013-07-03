@@ -260,41 +260,44 @@ $(document).ready(function() {
     set_price_for_zipcode($("input#address_zip_code").val());
   });
 
-  $("input#address_zip_code").focusout(function(){
-    if ($("input#address_zip_code").val().length < 9) {
-      return true;
-    }
-    $.ajax({
-      url: '/get_address_by_zipcode',
-      dataType: 'json',
-      data: 'zipcode=' + $("input#address_zip_code").val(),
-      beforeSend: function(){
-        $("input#address_zip_code").parents('.zip_code').prepend('<div class="preloader" style="float:right;width:30px;"></div>');
-        $('form div.address_fields input').attr('disabled','disabled');
-        $('form div.address_fields select').attr('disabled','disabled');
-      },
-      complete: function(){
-        $('form div.address_fields input').removeAttr('disabled');
-        $('form div.address_fields select').removeAttr('disabled');
-        $(".main div.preloader").remove();
-      },
-      success: function(rs){
-        $('form input#address_number, form input#address_complement').val('');
-        if(rs['result_type'] >= 1){
-          $('form input#address_city').val(rs['city']);
-          $('form select#address_state').val(rs['state']);
-          $('span.select').text(rs['state']);
-        }
-        if(rs['result_type'] == 1){
-          $('form #address_street').val(rs['street']);
-          $('form #address_neighborhood').val(rs['neighborhood']);
-          $('form #address_number').removeAttr('disabled').focus();
-        }else{
-          $('form #address_street').removeAttr('disabled').focus();
-        }
-      }
-    });
-  });
+  //
+  // Comentado porque começamos a ter problemas ao obter o CEP.
+  //
+  // $("input#address_zip_code").focusout(function(){
+  //   if ($("input#address_zip_code").val().length < 9) {
+  //     return true;
+  //   }
+  //   $.ajax({
+  //     url: '/get_address_by_zipcode',
+  //     dataType: 'json',
+  //     data: 'zipcode=' + $("input#address_zip_code").val(),
+  //     beforeSend: function(){
+  //       $("input#address_zip_code").parents('.zip_code').prepend('<div class="preloader" style="float:right;width:30px;"></div>');
+  //       $('form div.address_fields input').attr('disabled','disabled');
+  //       $('form div.address_fields select').attr('disabled','disabled');
+  //     },
+  //     complete: function(){
+  //       $('form div.address_fields input').removeAttr('disabled');
+  //       $('form div.address_fields select').removeAttr('disabled');
+  //       $(".main div.preloader").remove();
+  //     },
+  //     success: function(rs){
+  //       $('form input#address_number, form input#address_complement').val('');
+  //       if(rs['result_type'] >= 1){
+  //         $('form input#address_city').val(rs['city']);
+  //         $('form select#address_state').val(rs['state']);
+  //         $('span.select').text(rs['state']);
+  //       }
+  //       if(rs['result_type'] == 1){
+  //         $('form #address_street').val(rs['street']);
+  //         $('form #address_neighborhood').val(rs['neighborhood']);
+  //         $('form #address_number').removeAttr('disabled').focus();
+  //       }else{
+  //         $('form #address_street').removeAttr('disabled').focus();
+  //       }
+  //     }
+  //   });
+  // });
 
   // For now both fone field will acept nine digits
   function maskTel(tel){
