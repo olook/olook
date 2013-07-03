@@ -4,7 +4,7 @@ brands = b = {
   init: function(){
     b.changeText();
     b.selectedFilter();
-    b.hideFilterByBody();
+    //b.hideFilterByBody();
   },
   
   changeText: function(){
@@ -19,11 +19,10 @@ brands = b = {
   selectedFilter: function(){
     var txt = $("span.txt-filter");
     txt.each(function(){ 
-      $(this).on("click", function(e){
+      $(this).on("click", function(){
         $(this).parent().siblings().find("ul, .tab_bg").hide();
         $(this).parent().siblings().find("span.txt-filter.clicked").removeClass("clicked");
         $(this).toggleClass('clicked').siblings().toggle();
-        //e.stopPropagation();
       })
     })
     
