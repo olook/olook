@@ -65,6 +65,16 @@ module Olook
 
     config.middleware.delete Rack::Cache
 
+    config.action_mailer.default_url_options[:host] = 'www.olook.com.br'
+    config.action_mailer.smtp_settings = {
+      :user_name => "AKIAJJO4CTAEHYW34HGQ",
+      :password => "AkYlOmgbIpISW33XVzQq8d9J4GnAgtQlEJuwgIxOFXmU",
+      :address => "email-smtp.us-east-1.amazonaws.com",
+      :port => 587,
+      :authentication => :plain,
+      :enable_starttls_auto => true
+    }
+
     config.action_view.field_error_proc = Proc.new { |html_tag, instance|
       "#{html_tag}".html_safe
     }
