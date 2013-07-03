@@ -30,7 +30,7 @@ class TopsterXml
             end
           end
           xml.estoque { xml.cdata!(product.inventory > 0 ? "sim" : "não" ) }
-          xml.estoque_baixo { xml.cdata!(product.has_less_then_minimum_inventory? ? "não" : "sim" ) }
+          xml.estoque_baixo { xml.cdata!(product.inventory >= 2 ? "não" : "sim" ) }
         end
       end
     end
