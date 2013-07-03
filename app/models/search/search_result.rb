@@ -24,7 +24,6 @@ class SearchResult
   end
 
   private
-
     def parse_facets
       @groups = {}
       @facets.map do |group_name, constraints|
