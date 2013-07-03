@@ -34,7 +34,7 @@
       %section.container_product
         %ul#products
           - if @campaign_products && !@campaign_products.products.empty?
-            - @campaign_products.products.each do |cp|
+            - @campaign.product_ids.split('-').map { |pid| @campaign_products.products.find { |p| p.id.to_i == pid.to_i } }.compact.each do |cp|
               = render "catalogs/searched_product_item", :product => cp
             = render "searched_products", :products => @search.products, campaign_products: @campaign_products.products
           - else
