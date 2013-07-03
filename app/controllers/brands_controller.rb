@@ -10,7 +10,7 @@ class BrandsController < SearchController
     @filters = create_filters
 
     @side_filters = create_filters(true)
-    
+
     @search = SearchEngine.new(category: params[:category],
                                care: params[:care],
                                subcategory: params[:subcategory],
