@@ -8,7 +8,7 @@
 
       %fieldset
         %span.selected-type.order{ class: ("filter_selected" if params[:por].present?) }= params[:por].present? ? params[:por].gsub("-", " ").titleize : "NOSSA SELEÇÃO"
-        = select_tag('por', options_for_select({"Nossa Seleção" => "", "Menor preço" => "menor-preco", "Maior preço" => "maior-preco", "Maior Desconto" => "maior-desconto"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
+        = select_tag('', options_for_select({"Nossa Seleção" => "#{ brand_path(parameters: params[:parameters], preco: params[:preco]) }", "Menor preço" => "#{ brand_path(parameters: params[:parameters], por: "menor-preco", preco: params[:preco]) }", "Maior preço" => "#{ brand_path(parameters: params[:parameters], por: "maior-preco", preco: params[:preco]) }", "Maior Desconto" => "#{ brand_path(parameters: params[:parameters], por: "maior-desconto", preco: params[:preco]) }"}, "#{ brand_path(parameters: params[:parameters], por: params[:por], preco: params[:preco]) }"), :class => "custom_select", :onchange => ("location = this.options[this.selectedIndex].value;"))
   - if params[:category].present?
 
 
@@ -38,17 +38,6 @@
           %li= filter_link_to(brand_path(SeoUrl.build_for_brands(search.filters_applied(:color, text.chomp), params)), text.chomp, search.filter_selected?(:color, text.chomp))
         - if params[:color].present?
           %li.clear_choice= link_to '[limpar]', brand_path(SeoUrl.build_for_brands(search.remove_filter(:color), params))
-
-  - if search.filter_value('category').to_a.include?('sapato')
-    .filter
-      %span.selected-type.txt-filter{ class: ("filter_selected" if params[:heel].present?) } SALTO
-      .tab_bg &nbsp;
-      %ul
-        %li= filter_link_to(brand_path(SeoUrl.build_for_brands(search.filters_applied(:heel, '0-4'), params)), '0..4 cm', search.filter_selected?(:heel, '0-4'))
-        %li= filter_link_to(brand_path(SeoUrl.build_for_brands(search.filters_applied(:heel, '5-9'), params)), '5..9 cm', search.filter_selected?(:heel, '5-9'))
-        %li= filter_link_to(brand_path(SeoUrl.build_for_brands(search.filters_applied(:heel, '10-15'), params)), '10..15 cm', search.filter_selected?(:heel, '10-15'))
-      - if params[:heel].present?
-        %li.clear_choice= link_to '[limpar]', brand_path(SeoUrl.build_for_brands(search.remove_filter(:heel), params))
 
   .price-range
     %p#min-value-label{style:'background-image: none'} 0

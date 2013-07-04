@@ -52,11 +52,9 @@ class SeoUrl
 
     other_parameters.each do |k, v|
       if VALUES[k]
-        parsed_values[VALUES[k]] = v
+        parsed_values[VALUES[k]] = VALUES[v].present? ? VALUES[v] : v
       end
     end
-
-    parsed_values[:sort] = VALUES[other_parameters["por"]]
 
     parsed_values
   end
@@ -81,11 +79,9 @@ class SeoUrl
 
     other_parameters.each do |k, v|
       if VALUES[k]
-        parsed_values[VALUES[k]] = v
+        parsed_values[VALUES[k]] = VALUES[v].present? ? VALUES[v] : v
       end
     end
-
-    parsed_values[:sort] = VALUES[other_parameters["por"]]
 
     parsed_values
   end
@@ -125,8 +121,10 @@ class SeoUrl
       return_hash[:category] = ActiveSupport::Inflector.transliterate(parameters.delete(:category).first.to_s).downcase if parameters[:category].present?
 
       post_parameters = {}
-
       other_parameters.select{|k,v| PARAMETERS_WHITELIST.include?(k.to_s) }.each do |k,v|
+        if k.to_s == "sort"
+          v = VALUES.invert[v]
+        end
         post_parameters[VALUES.invert[k.to_s]] = v.respond_to?(:join) ? v.join('-') : v
       end
 
