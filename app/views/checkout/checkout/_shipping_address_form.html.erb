@@ -3,22 +3,22 @@
   <%= field_set_tag do %>
     <%= address_form.label :zip_code, "CEP*" %>
     <%= address_form.text_field :zip_code, class: "zip_code  #{error_class_if_needed(address, :zip_code)}", onblur: track_event("CheckoutAddress","fillCep") %>
-    <%= button_tag(type: "button", class: "btn_zipcode", id:"zip_code_btn", name:"zip_code_btn", onclick:"retrieve_zip_data($('#checkout_address_zip_code').val());#{track_event('CheckoutAddress','clickCep')}") do %>
-      <%= "Encontrar endereço" %>
-    <% end %>
+    <%#= button_tag(type: "button", class: "btn_zipcode", id:"zip_code_btn", name:"zip_code_btn", onclick:"retrieve_zip_data($('#checkout_address_zip_code').val());#{track_event('CheckoutAddress','clickCep')}") do %>
+      <%#= "Encontrar endereço" %>
+    <%# end %>
       <%= errors_for(address, :zip_code) %>
   <% end %> 
 
-  <div id="address_fields" name="address_fields" <%= 'style= opacity:0;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);display:none;' unless address && (address.id || !address.zip_code.blank?) %>>
+  <div id="address_fields" name="address_fields" <%#= 'style= opacity:0;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);display:none;' unless address && (address.id || !address.zip_code.blank?) %>>
     <%= address_form.hidden_field :id %>
     
     <%= field_set_tag do %>
       <div>
-        <%= address_form.label :street, "Rua, Avenida, Praça etc"%>
+        <%= address_form.label :street, "Rua, Avenida, Praça etc*"%>
         <%= address_form.text_field :street,  class: "endereco #{error_class_if_needed(address, :street)}", onblur: track_event("CheckoutAddress","fillStreet") %>
       </div>
       <div>
-        <%= address_form.label :number, "Número" %>
+        <%= address_form.label :number, "Número*" %>
         <%= address_form.text_field :number,  class: "numero #{error_class_if_needed(address, :number)}", onblur: track_event("CheckoutAddress","fillNumber") %>
       </div>
       <%= errors_for(address, :street) %>      
@@ -31,7 +31,7 @@
         <%= address_form.text_field :complement,  class: "compl #{error_class_if_needed(address, :complement)}", onblur: track_event("CheckoutAddress","fillComplement") %>
       </div>
       <div>
-        <%= address_form.label :neighborhood, "Bairro" %>
+        <%= address_form.label :neighborhood, "Bairro*" %>
         <%= address_form.text_field :neighborhood,  class: "bairro #{error_class_if_needed(address, :neighborhood)}", onblur: track_event("CheckoutAddress","fillNeighborhood") %>
       </div>
       <%= errors_for(address, :complement) %>
@@ -40,11 +40,11 @@
     
     <%= field_set_tag do %>
       <div>
-        <%= address_form.label :city, "Cidade" %>
+        <%= address_form.label :city, "Cidade*" %>
         <%= address_form.text_field :city,  class: "cidade #{error_class_if_needed(address, :city)}", onblur: track_event("CheckoutAddress","fillCity") %>
       </div>
       <div>
-        <%= address_form.label :state, "UF" %>
+        <%= address_form.label :state, "UF*" %>
         <%= address_form.text_field :state,  class: "uf #{error_class_if_needed(address, :state)}", onblur: track_event("CheckoutAddress","fillState") %>
       </div>
         <%= errors_for(address, :city) %>
