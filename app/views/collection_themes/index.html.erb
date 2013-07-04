@@ -1,3 +1,4 @@
+<%= render "shared/liquida_banner" %>
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/collections" %>
   <script type="text/javascript">
@@ -6,7 +7,6 @@
 <% end %>
 
 <%= render "menu", collection_theme_groups: @collection_theme_groups %>
-
 <section id="collections_content">
   <div id="home_collections">
     <div class="banner_principal">
