@@ -38,7 +38,7 @@ describe MGMMailer do
     end
 
     it "sets 'to' attribute to passed member's email" do
-      mail.to.should include(member.email)
+      mail.to.should include(inviter.email)
     end
 
     it "sets 'title' attribute welcoming the new member" do
