@@ -21,7 +21,7 @@
           =banner_for Category.with_name params[:category]
 
     #result
-      - unless @search.has_any_filter_selected?
+      - unless @search.has_any_filter_selected? || params[:cmp].present?
         / local onde o viewpersonalized será exibido
         .chaordic.viewpersonalized
         / local onde o purchasepersonalized será exibido
