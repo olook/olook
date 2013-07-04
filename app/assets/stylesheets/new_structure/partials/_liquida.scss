@@ -1,0 +1,26 @@
+/************* Banner temporário liquida *************/
+.flash_promo{width: 990px;height: 99px;margin-bottom: 20px;
+  ul{
+    width: 990px;height: 98px;
+    li{float: left; margin-right: 15px;
+      &.static{width: 582px;margin-right: 0;}
+      p{
+        a{display: inline-block; height: 98px;font-family: $avenir; color: #000; font-size: 12px; text-align: center;text-decoration: none;text-indent: 99999px;
+          &.cloth{width: 76px;background:image-url('common/full_categorias.jpg') no-repeat -11px 0;
+            &:hover{background:image-url('common/full_categorias_hover.jpg') no-repeat -11px 0;}
+          }
+          &.shoes{width: 76px;background:image-url('common/full_categorias.jpg') no-repeat -113px 0;
+            &:hover{background:image-url('common/full_categorias_hover.jpg') no-repeat -113px 0;}
+          }
+          &.bags{width: 76px;background:image-url('common/full_categorias.jpg') no-repeat -215px 0;
+            &:hover{background:image-url('common/full_categorias_hover.jpg') no-repeat -215px 0;}
+          }  
+          &.accessory{margin-right:0; width: 76px;background:image-url('common/full_categorias.jpg') no-repeat -317px 0;
+            &:hover{background:image-url('common/full_categorias_hover.jpg') no-repeat -317px 0;}
+          }
+        }
+      }
+    }
+  }
+}
+/************* Fim Banner temporário liquida *************/
