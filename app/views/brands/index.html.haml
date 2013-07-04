@@ -4,73 +4,73 @@
 
 - content_for :footer do
   = javascript_include_tag 'section/brands'
-  
+
 %section.banner-brands
   %button.anterior{type: "button"} Imagem Anterior
-  
+
   .container-imgs
     %ul
       %li
         =image_tag "brands/marca1.jpg"
       %li
-        =image_tag "brands/marca2.jpg"  
-  
-  %button.proximo{type: "button"} Próxima Imagem 
+        =image_tag "brands/marca2.jpg"
+
+  %button.proximo{type: "button"} Próxima Imagem
 
 %section.brands
   .box
     %p.letter B
     %ul.brands-list
-      %li= link_to("Botswana", brand_path("botswana"))
+      %li= link_to("Botswana", brand_path("botswana/roupa"))
 
     %p.letter C
     %ul.brands-list
-      %li= link_to("Coca Cola", brand_path("coca cola clothing"))
-      %li= link_to("Colcci", brand_path("colcci"))
-      
+      %li= link_to("Coca Cola", brand_path("coca cola clothing/roupa"))
+      %li= link_to("Colcci", brand_path("colcci/roupa"))
+
     %p.letter D
     %ul.brands-list
-      %li= link_to("Douglas Harris", brand_path("douglas harris"))
+      %li= link_to("Douglas Harris", brand_path("douglas harris/roupa"))
 
   .box
     %p.letter E
     %ul.brands-list
-      %li= link_to("Eclectic", brand_path("eclectic"))
-      %li= link_to("Espaço Fashion", brand_path("espaco fashion"))
+      %li= link_to("Eclectic", brand_path("eclectic/roupa"))
+      %li= link_to("Espaço Fashion", brand_path("espaco fashion/roupa"))
 
     %p.letter F
     %ul.brands-list
-      %li= link_to("Forum", brand_path("forum"))
-      
+      %li= link_to("Forum", brand_path("forum/roupa"))
+
     %p.letter I
     %ul.brands-list
-      %li= link_to("Iódice", brand_path("iodice"))
+      %li= link_to("Iódice", brand_path("iodice/roupa"))
 
   .box
     %p.letter J
     %ul.brands-list
-      %li= link_to("Juliana Jabour", brand_path("juliana jabour"))
-      %li= link_to("Juliana Manzini", brand_path("juliana manzini"))
+      %li= link_to("Juliana Jabour", brand_path("juliana jabour/roupa"))
+      %li= link_to("Juliana Manzini", brand_path("juliana manzini/acessório"))
 
     %p.letter M
     %ul.brands-list
-      %li= link_to("M. Officer", brand_path("m officer"))
-      %li= link_to("Mandi", brand_path("mandi"))
-      %li= link_to("Mercatto", brand_path("mercatto"))
-      
+      %li= link_to("M. Officer", brand_path("m officer/roupa"))
+      %li= link_to("Mandi", brand_path("mandi/roupa"))
+      %li= link_to("Mercatto", brand_path("mercatto/roupa"))
+
     %p.letter O
     %ul.brands-list
-      %li= link_to("Olli", brand_path("olli"))
+      %li= link_to("Olli", brand_path("olli/roupa"))
       %li= link_to("Olook", brand_path("olook"))
-      %li= link_to("Olook Concept", brand_path("olook concept"))
-      %li= link_to("Olook Essentials", brand_path("olook essentials"))
-      
+      %li= link_to("Olook Concept", brand_path("olook concept/sapato"))
+      %li= link_to("Olook Essentials", brand_path("olook essentials/sapato"))
+
   .box
     %p.letter S
     %ul.brands-list
-      %li= link_to("Shop 126", brand_path("shop 126"))
+      %li= link_to("Shop 126", brand_path("shop 126/roupa"))
 
     %p.letter T
     %ul.brands-list
-      %li= link_to("Thelure", brand_path("thelure"))
-      %li= link_to("Triton", brand_path("triton"))
+      %li= link_to("Thelure", brand_path("thelure/roupa"))
+      %li= link_to("Triton", brand_path("triton/roupa"))
