@@ -24,7 +24,7 @@ module CatalogsHelper
     case
     when heel == '0..4'
       "Baixo (0cm - 4cm)"
-    when heel == '5..10'
+    when heel == '5..9'
       "Médio (5cm - 9cm)"
     else
       "Alto (10cm - 18cm)"
