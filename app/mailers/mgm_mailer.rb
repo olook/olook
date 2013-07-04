@@ -14,7 +14,7 @@ class MGMMailer < ActionMailer::Base
     @inviter = invitee.try(:inviter)
     @invitee = invitee    
     #@credits = Setting.invite_credits_bonus_for_inviter
-    mail(:to => invitee.email, :subject => "#{invitee.first_name} fez uma compra e você ganhou R$ 20.")
+    mail(:to => @inviter.email, :subject => "#{invitee.first_name} fez uma compra e você ganhou R$ 20.")
   end
 
   
