@@ -8,7 +8,7 @@
 
       %fieldset
         %span.selected-type.order{ class: ("filter_selected" if params[:por].present?) }= params[:por].present? ? params[:por].gsub("-", " ").titleize : "NOSSA SELEÇÃO"
-        = select_tag('', options_for_select({"Nossa Seleção" => "", "Menor preço" => "#{ brand_path(parameters: params[:parameters], por: "menor-preco", preco: params[:preco]) }", "Maior preço" => "#{ brand_path(parameters: params[:parameters], por: "maior-preco", preco: params[:preco]) }", "Maior Desconto" => "#{ brand_path(parameters: params[:parameters], por: "maior-desconto", preco: params[:preco]) }"}, :selected => params[:por]), :class => "custom_select", :onchange => ("location = this.options[this.selectedIndex].value;"))
+        = select_tag('', options_for_select({"Nossa Seleção" => "#{ brand_path(parameters: params[:parameters], preco: params[:preco]) }", "Menor preço" => "#{ brand_path(parameters: params[:parameters], por: "menor-preco", preco: params[:preco]) }", "Maior preço" => "#{ brand_path(parameters: params[:parameters], por: "maior-preco", preco: params[:preco]) }", "Maior Desconto" => "#{ brand_path(parameters: params[:parameters], por: "maior-desconto", preco: params[:preco]) }"}, "#{ brand_path(parameters: params[:parameters], por: params[:por], preco: params[:preco]) }"), :class => "custom_select", :onchange => ("location = this.options[this.selectedIndex].value;"))
   - if params[:category].present?
 
 
