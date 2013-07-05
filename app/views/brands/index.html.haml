@@ -11,9 +11,12 @@
   .container-imgs
     %ul
       %li
-        =image_tag "brands/marca1.jpg"
+        =link_to image_tag("brands/olook2.jpg"), brand_path("olook")
       %li
-        =image_tag "brands/marca2.jpg"
+        =link_to image_tag("brands/triton.jpg"), brand_path("triton/roupa")
+      %li
+        =link_to image_tag("brands/mercatto.jpg"), brand_path("mercatto/roupa")
+        
 
   %button.proximo{type: "button"} Próxima Imagem
 

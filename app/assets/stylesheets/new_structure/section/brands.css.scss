@@ -1,6 +1,7 @@
 @import 'new_structure/common/global_stuffs';
 @import 'new_structure/common/filters';
 
+#content{min-height:700px;}
 .banner-brands{position:relative;margin-bottom:45px;
   button{position:absolute;top:125px;width:8px;height:33px;font-size:0;border:none;background:image-url('home/arrows.jpg') no-repeat 0 0;cursor:pointer;
     &.anterior{left:0;
@@ -31,6 +32,7 @@
   }
 }
 
+.collections_header{margin:10px 0 25px;}
 
 /* fix filter price */
 .ui-slider .ui-slider-handle{width:5px !important;}
