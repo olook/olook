@@ -1,0 +1,4 @@
+%h1 Importação de coleções temáticas
+= form_tag(import_association_admin_collection_themes_path, multipart: true) do
+  = file_field_tag "collection_products_csv"
+  = submit_tag "Importar"
