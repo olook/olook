@@ -57,6 +57,11 @@ class CollectionTheme < ActiveRecord::Base
     end
   end
 
+  def associate_ids
+   ids_array = self.product_associate_ids.split(/[^a-zA-Z0-9]/)
+   self.products = ids_array
+  end
+
   private
 
   def generate_catalog
