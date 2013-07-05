@@ -59,7 +59,7 @@ class CollectionTheme < ActiveRecord::Base
 
   def associate_ids
    ids_array = self.product_associate_ids.split(/[^a-zA-Z0-9]/)
-   self.products = ids_array
+   self.product_ids = ids_array
   end
 
   private
