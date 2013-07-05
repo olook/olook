@@ -62,4 +62,22 @@ describe CollectionTheme do
       it { should == { 'list' => 'UUjPbOLQD7X5ef0T29IkkXzQ' } }
     end
   end
+
+  describe "#associate_ids" do
+    context "when dont have products" do
+      let(:product1)
+      let(:product2)
+      let(:product3)
+      it "associate ids" do
+        subject.product_associate_ids = "123 321 121"
+        subject.associate_ids
+        expect(subject.products.size).to
+      end
+    end
+    context "when already have products" do
+      it "erase ids and make new association" do
+
+      end
+    end
+  end
 end
