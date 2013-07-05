@@ -63,23 +63,20 @@ describe CollectionTheme do
     end
   end
 
-  describe "#associate_ids" do
+  describe "#product_associate_ids=" do
     let(:product1) {FactoryGirl.create(:shoe)}
     let(:product2) {FactoryGirl.create(:shoe)}
     let(:product3) {FactoryGirl.create(:shoe)}
     context "when dont have products" do
       it "associate ids" do
         subject.product_associate_ids = "#{product1.id} #{product2.id} #{product3.id}"
-        subject.associate_ids
         expect(subject.products.size).to eql(3)
       end
     end
     context "when already have products" do
       before do
         subject.product_associate_ids = "#{product1.id}"
-        subject.associate_ids
         subject.product_associate_ids = "#{product2.id} #{product3.id}"
-        subject.associate_ids
       end
       it "make new associations" do
         expect(subject.product_ids).to include(product2.id, product3.id)
