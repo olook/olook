@@ -252,5 +252,13 @@
   - olook_production_newrelic
   - olook_production_collectd
   - olook_production_monit
+  external_host: ec2-54-234-164-90.compute-1.amazonaws.com
+  external_ip: 54.234.164.90
+  internal_host: ip-10-232-77-200.ec2.internal
+  internal_ip: 10.232.77.200
+  zone: us-east-1b
+  platform: linux
+  root_device_type: ebs
+  provider: aws
 - volumes: {}
   static_ips: {}
