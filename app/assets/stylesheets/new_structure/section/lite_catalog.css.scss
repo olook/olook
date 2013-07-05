@@ -46,7 +46,7 @@ aside{
   p{font-size:11px;text-transform:uppercase;font-weight:bold;height:15px;background:image-url('catalog/sprite.png') no-repeat 0 6px;padding-left:13px;margin-bottom:5px;cursor:pointer;
     &.close{background-position:0 -25px !important;}
   }
-  a{display:inline-block;height:15px;font-size:13px;text-decoration:none;color:#000;background:image-url('catalog/sprite.png') no-repeat 0 -50px;padding-left:13px;text-transform:capitalize;
+  a{display:inline-block;height:15px;font-size:13px;text-decoration:none;color:#000;background:image-url('catalog/sprite.png') no-repeat 0 -50px;padding-left:13px;
     &:hover{color:$base_color;}
     &.selected{background-position:0 -86px !important;}
   }
