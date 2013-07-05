@@ -1,4 +1,6 @@
 class CollectionTheme < ActiveRecord::Base
+  attr_accessible :product_associate_ids
+  attr_accessor :product_associate_ids
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
   validates :header_image, presence: true
