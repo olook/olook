@@ -8,6 +8,7 @@ class CollectionTheme < ActiveRecord::Base
   has_one :catalog, class_name: "Catalog::CollectionTheme", foreign_key: "association_id"
   belongs_to :collection_theme_group
   accepts_nested_attributes_for :collection_theme_group, reject_if: :all_blank
+  has_and_belongs_to_many :products
 
   acts_as_list scope: :collection_theme_group
 
