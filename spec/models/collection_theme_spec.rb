@@ -64,10 +64,10 @@ describe CollectionTheme do
   end
 
   describe "#associate_ids" do
+    let(:product1) {FactoryGirl.create(:shoe)}
+    let(:product2) {FactoryGirl.create(:shoe)}
+    let(:product3) {FactoryGirl.create(:shoe)}
     context "when dont have products" do
-      let(:product1) {FactoryGirl.create(:shoe)}
-      let(:product2) {FactoryGirl.create(:shoe)}
-      let(:product3) {FactoryGirl.create(:shoe)}
       it "associate ids" do
         subject.product_associate_ids = "#{product1.id} #{product2.id} #{product3.id}"
         subject.associate_ids
@@ -75,8 +75,18 @@ describe CollectionTheme do
       end
     end
     context "when already have products" do
-      it "erase ids and make new association" do
+      before do
+        subject.product_associate_ids = "#{product1.id}"
+        subject.associate_ids
+        subject.product_associate_ids = "#{product2.id} #{product3.id}"
+        subject.associate_ids
+      end
+      it "make new associations" do
+        expect(subject.product_ids).to include(product2.id, product3.id)
+      end
 
+      it "remove old association" do
+        expect(subject.product_ids).to_not include(product1.id)
       end
     end
   end
