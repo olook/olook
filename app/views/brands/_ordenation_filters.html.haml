@@ -4,7 +4,8 @@
 
       %fieldset.first_child
         %span.selected-type{ class: ("filter_selected" if params[:category].present?) }= params[:category].present? ? params[:category].pluralize : "VER TUDO"
-        = select_tag('', options_for_select({"Ver Tudo" => brand_path(parameters: params[:brand]), "Sapatos" => brand_path(parameters: "#{ params[:brand] }/sapato"), "Bolsas" => brand_path(parameters: "#{ params[:brand] }/bolsa"), "Acessórios" => brand_path(parameters: "#{ params[:brand] }/acessório"), "Roupas" => brand_path(parameters: "#{ params[:brand] }/roupa")}, selected: brand_path(parameters: "#{ params[:brand]}/#{ params[:category] }")), :onchange => ("location = this.options[this.selectedIndex].value;"))
+        - categories =  [["Ver Tudo", brand_path(parameters: params[:brand])]] | Brand.categories(params[:brand]).map{|c| [c, brand_path(parameters: "#{ params[:brand]}/#{ c.singularize }")]}
+        = select_tag('', options_for_select(categories, selected: brand_path(parameters: "#{ params[:brand]}/#{ params[:category] }")), :onchange => ("location = this.options[this.selectedIndex].value;"))
 
       %fieldset
         %span.selected-type.order{ class: ("filter_selected" if params[:por].present?) }= params[:por].present? ? params[:por].gsub("-", " ").titleize : "NOSSA SELEÇÃO"
