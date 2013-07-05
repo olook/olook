@@ -4,7 +4,7 @@
 
       %fieldset.first_child
         %span.selected-type{ class: ("filter_selected" if params[:category].present?) }= params[:category].present? ? params[:category].pluralize : "VER TUDO"
-        - categories =  [["Ver Tudo", brand_path(parameters: params[:brand])]] | Brand.categories(params[:brand]).map{|c| [c, brand_path(parameters: "#{ params[:brand]}/#{ c.singularize }")]}
+        - categories =  [["Ver Tudo", brand_path(parameters: params[:brand])]] | Brand.categories(params[:brand]).map{|c| [c, brand_path(parameters: "#{ params[:brand]}/#{ c.singularize.titleize }")]}
         = select_tag('', options_for_select(categories, selected: brand_path(parameters: "#{ params[:brand]}/#{ params[:category] }")), :onchange => ("location = this.options[this.selectedIndex].value;"))
 
       %fieldset
