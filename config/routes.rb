@@ -3,7 +3,6 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
-  match "/catalogo/*parameters", to: "catalogs#show", as: "catalog"
 
   mount Resque::Server => "/admin/resque"
 
@@ -60,26 +59,6 @@ Olook::Application.routes.draw do
 
   # NEW COLLECTIONS - TODO
   get '/update_moment', to: "moments#update", as: "update_moment", constraints: { format: 'js' }
-
-  # Friendly urls (ok, I know it is not the best approach...)
-  match '/sapatos', to: "moments#show", as: "shoes", :defaults => {:category_id => Category::SHOE, :id => 1}
-  match '/sneaker', to: "moments#show", as: "sneakers", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["sneaker"]}
-  match '/rasteira', to: "moments#show", as: "rasteiras", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["rasteira"]}
-  # plural
-  match '/sneakers', to: "moments#show", as: "sneakers", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["sneaker"]}
-  match '/rasteiras', to: "moments#show", as: "rasteiras", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["rasteira"]}
-  match '/sapatilhas', to: "moments#show", as: "sapatilhas", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["sapatilha"]}
-  match '/slippers', to: "moments#show", as: "slippers", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["slipper"]}
-  match '/sandalias', to: "moments#show", as: "sandalias", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["sandalia"]}
-  match '/scarpins', to: "moments#show", as: "scarpins", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["scarpin"]}
-  match '/anabelas', to: "moments#show", as: "anabelas", :defaults => {:category_id => Category::SHOE, :id => 1, :shoe_subcategories => ["anabela"]}
-
-  match '/bolsas', to: "moments#show", as: "bags", :defaults => {:category_id => Category::BAG, :id => 1}
-  match '/acessorios', to: "moments#show", as: "accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1}
-  match '/oculos', to: "moments#glasses", as: "glasses", :defaults => {:category_id => Category::ACCESSORY, :accessory_subcategories=>["oculos-de-sol"], :id => 1}
-  match '/roupas', to: "moments#clothes", as: "clothes", :defaults => {:category_id => Category::CLOTH, :id => 1}
-  match '/novas-marcas', to: "moments#clothes", as: "brands", :defaults => {id: 1, category_id: Category::CLOTH, brands: ["COLCCI","DOUGLAS HARRIS","ECLECTIC","ESPACO FASHION","FORUM","Iodice","OLLI","SHOP 126","THELURE","TRITON"]}
-  match '/acessorios-sapatos', to: "moments#show", as: "shoe_accessories", :defaults => {id: 1, category_id: Category::SHOE, shoe_subcategories: ["amaciante","apoio-plantar","impermeabilizante","palmilha","protecao-para-calcanhar"]}
 
   # Novidades
   match '/novidades/sapatos', to: "moments#show", as: "news_shoes", :defaults => {:category_id => Category::SHOE, :id => 1, news: true }
@@ -389,7 +368,30 @@ Olook::Application.routes.draw do
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get '/diadasmaes' , :controller =>'landing_pages', :action => 'mother_day' , :as => 'mother_day'
-  get ":page_url", :to => "landing_pages#show"
+  get "/cadastro", :to => "landing_pages#show", defaults: { page_url: 'cadastro' }
+
+  # Friendly urls (ok, I know it is not the best approach...)
+  match '/sapatos' => redirect('/sapato')
+  match '/sneaker' => redirect('/sapato/sneaker')
+  match '/rasteira' => redirect('/sapato/rasteira')
+  # plural
+  match '/sneakers' => redirect('/sapato/sneaker')
+  match '/rasteiras' => redirect('/sapato/rasterira')
+  match '/sapatilhas' => redirect('/sapato/slipper-sapatilha')
+  match '/slippers' => redirect('/sapato/slipper-sapatilha')
+  match '/sandalias' => redirect('/sapato/sandalia')
+  match '/scarpins' => redirect('/sapato/scarpin')
+  match '/anabelas' => redirect('/sapato/anabela')
+
+  match '/bolsas' => redirect('/bolsa')
+  match '/acessorios' => redirect('/acessorio')
+  match '/oculos' => redirect('/acessorio/oculos%20de%20sol')
+  match '/roupas' => redirect('/roupa')
+  match '/novas-marcas' => redirect('/roupa/colcci-douglas%20harris-eclectic-espaco%20fashion-forum-iodice-olli-shop%20126-thelure-triton')
+  match '/acessorios-sapatos' => redirect('/sapato/conforto-amaciante-apoio%20plantar-impermeabilizante-palmilha-protecao%20para%20calcanhar')
+
+  # CATALOGO
+  match "/*parameters", to: "catalogs#show", as: "catalog"
 
 end
 
