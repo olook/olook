@@ -65,13 +65,13 @@ describe CollectionTheme do
 
   describe "#associate_ids" do
     context "when dont have products" do
-      let(:product1)
-      let(:product2)
-      let(:product3)
+      let(:product1) {FactoryGirl.create(:shoe)}
+      let(:product2) {FactoryGirl.create(:shoe)}
+      let(:product3) {FactoryGirl.create(:shoe)}
       it "associate ids" do
-        subject.product_associate_ids = "123 321 121"
+        subject.product_associate_ids = "#{product1.id} #{product2.id} #{product3.id}"
         subject.associate_ids
-        expect(subject.products.size).to
+        expect(subject.products.size).to eql(3)
       end
     end
     context "when already have products" do
