@@ -11,6 +11,10 @@ describe CollectionTheme do
     it { should have_one(:catalog) }
   end
 
+  describe "association" do
+    it { should have_and_belong_to_many(:products) }
+  end
+
   describe "default" do
     it { CollectionTheme.new.active.should be_false }
     it { expect(CollectionTheme.new(name: 'Super teste').slug).to eql('super-teste') }

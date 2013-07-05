@@ -19,6 +19,10 @@ describe Product do
     it { should respond_to :remove_freebie }
   end
 
+  describe "association" do
+    it { should have_and_belong_to_many(:collection_themes) }
+  end
+
   describe ".featured_products" do
 
     context "when there is no featured products configured" do
