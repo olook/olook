@@ -28,7 +28,7 @@ class Admin::CollectionThemesController < Admin::BaseController
 
   def create
     @collection_theme = CollectionTheme.new(params[:collection_theme])
-
+    @collection_theme.associate_ids
     if @collection_theme.save
       flash[:notice] = 'Coleção Temática foi criada com sucesso.'
     end
