@@ -384,7 +384,7 @@ Olook::Application.routes.draw do
   match '/anabelas' => redirect('/sapato/anabela'), as: 'anabelas'
 
   match '/bolsas' => redirect('/bolsa'), as: 'bags'
-  match '/acessorios' => redirect('/acessorio'), as: 'acessories'
+  match '/acessorios' => redirect('/acessorio'), as: 'accessories'
   match '/oculos' => redirect('/acessorio/oculos%20de%20sol'), as: 'glasses'
   match '/roupas' => redirect('/roupa'), as: 'clothes'
   match '/novas-marcas' => redirect('/roupa/colcci-douglas%20harris-eclectic-espaco%20fashion-forum-iodice-olli-shop%20126-thelure-triton'), as: 'brands'
