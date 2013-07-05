@@ -53,4 +53,8 @@ class Admin::CollectionThemesController < Admin::BaseController
     respond_with :admin, @collection_theme
   end
 
+  def import
+
+  end
+
 end
