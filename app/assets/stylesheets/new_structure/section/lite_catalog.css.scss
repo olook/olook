@@ -94,13 +94,13 @@ BOX MODAL ESPIAR
 /**************************
 BOX DE FILTROS SELECIONADOS
 **************************/
-section.filters{float:left;width:763px;margin:10px 0 30px;color:#000;border:solid 1px #A7A9AC;padding:5px 10px 2px;/*display:none;*/
- p{font-family:$avenir;font-size: 12px;font-weight: bold;text-transform: uppercase;float:left;margin-right:10px;
+section.filters{float:left;width:763px;margin:10px 0 30px;color:#000;border:solid 1px #A7A9AC;padding:10px 10px 7px;/*display:none;*/
+ p{font-family:$avenir;font-size: 12px;font-weight: bold;text-transform:uppercase;float:left;margin-right:10px;line-height:22px;
    span{margin-left:10px;}
  }
 
- li{float:left;margin-right:10px;text-transform:uppercase;font-size:12px;position:relative;line-height:18px;
-   a{color:#000;text-decoration:none;text-transform:none;display:inline-table;margin-top:-1px;}
-   &.clean{a{color:#6D6E71;text-transform:none;font-family:$avenir}}
+ li{float:left;height:17px;margin-right:10px;text-transform:capitalize;font-size:12px;position:relative;line-height:18px;border:solid 1px #D9D9D9;padding:0 4px;
+   a{text-decoration:none;font-size:0;line-height:0;display:inline-table;width:10px;height:10px;background:image-url('collections/sprite.png') -270px -119px no-repeat;margin-left:3px;}
+   &.clean a{display:inline-block;height:14px;overflow:hidden;width:75px;font-size:12px;line-height:14px;color:#000;text-transform:none;background-position: right -119px;padding-right:3px;}
  }
 }
