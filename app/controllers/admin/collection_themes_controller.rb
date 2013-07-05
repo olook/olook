@@ -28,7 +28,6 @@ class Admin::CollectionThemesController < Admin::BaseController
 
   def create
     @collection_theme = CollectionTheme.new(params[:collection_theme])
-    @collection_theme.associate_ids
     if @collection_theme.save
       flash[:notice] = 'Coleção Temática foi criada com sucesso.'
     end
@@ -40,6 +39,9 @@ class Admin::CollectionThemesController < Admin::BaseController
 
     if @collection_theme.update_attributes(params[:collection_theme])
       flash[:notice] = 'Coleção Temática foi atualizada com sucesso.'
+      flash[:blablabla] = {message: "123123", ids: [1,2,3]}
+    else
+      render "show"
     end
     respond_with :admin, @collection_theme do |format|
       format.js { render :update }
@@ -54,7 +56,9 @@ class Admin::CollectionThemesController < Admin::BaseController
   end
 
   def import
+  end
 
+  def import_create
   end
 
 end

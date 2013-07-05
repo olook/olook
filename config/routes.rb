@@ -217,8 +217,8 @@ Olook::Application.routes.draw do
     resources :collection_theme_groups
     resources :collection_themes do
       collection do
-        get 'import'
-        post 'import_association'
+        get 'import' => "collection_themes#import", :as => "import_index"
+        post 'import_create'
       end
     end
     resources :highlights

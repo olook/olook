@@ -1,6 +1,6 @@
 class CollectionTheme < ActiveRecord::Base
-  attr_accessible :product_associate_ids, :name, :slug, :video_link, :header_image_alt, :text_color, :active, :header_image, :position, :collection_theme_group_id
-  attr_accessor :product_associate_ids
+  attr_accessible :product_associate_ids, :product_associate_ids_file, :name, :slug, :video_link, :header_image_alt, :text_color, :active, :header_image, :position, :collection_theme_group_id
+  attr_reader :product_associate_ids, :product_associate_ids_file
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
   validates :header_image, presence: true
@@ -57,9 +57,16 @@ class CollectionTheme < ActiveRecord::Base
     end
   end
 
-  def associate_ids
-   ids_array = self.product_associate_ids.split(/[^a-zA-Z0-9]/)
-   self.product_ids = ids_array
+  def product_associate_ids= value
+    @product_associate_ids = value
+    ids_array = value.split(/\D/).compact
+    self.product_ids = ids_array
+  end
+
+  def product_associate_ids_file= file
+    ids_array = file.tempfile.read.split(/\D/).compact
+    errors.add(:product_associate_ids_file, "bla not fount #{ids_array}")
+    #self.product_ids = ids_array
   end
 
   private
