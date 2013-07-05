@@ -391,6 +391,7 @@ Olook::Application.routes.draw do
   match '/acessorios-sapatos' => redirect('/sapato/conforto-amaciante-apoio%20plantar-impermeabilizante-palmilha-protecao%20para%20calcanhar'), as: 'shoe_accessories'
 
   # CATALOGO
+  match "/catalogo/*parameters", to: "catalogs#show"
   match "/*parameters", to: "catalogs#show", as: "catalog"
 
 end
