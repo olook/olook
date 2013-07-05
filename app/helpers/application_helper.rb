@@ -16,9 +16,9 @@ module ApplicationHelper
     controller_action.each do |item|
       subs = item.split("#")
       category = subs[2]
-      return 'selected' if (subs[0] == params[:controller]) && (subs[1] == params[:action]) && (category==nil || category.to_i==params[:category_id])
-      return nil
+      return 'selected' if (subs[0] == params[:controller]) && (subs[1] == params[:action])
     end
+    return nil
   end
 
   def present(presenter_class, objects)
@@ -152,7 +152,7 @@ module ApplicationHelper
   # def valentine_link_for(user, product)
   #   "#{root_url}dia_dos_namorados/#{IntegerEncoder.encode(user.id)}/#{product.id.to_s}"
   # end
-  
+
   private
 
     def ga_event_referer
