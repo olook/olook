@@ -1,5 +1,5 @@
 class CollectionTheme < ActiveRecord::Base
-  attr_accessible :product_associate_ids
+  attr_accessible :product_associate_ids, :name, :slug, :video_link, :header_image_alt, :text_color, :active, :header_image, :position, :collection_theme_group_id
   attr_accessor :product_associate_ids
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
