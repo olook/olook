@@ -6,7 +6,7 @@ class Brand < ActiveRecord::Base
   before_save :format_name
 
   CATEGORIES = {
-    "olook" => %w[sapatos bolsas acessórios roupas],
+    "olook" => %w[roupas sapatos bolsas acessórios],
     "juliana manzini" => %w[acessórios],
     "olook concept" => %w[sapatos],
     "olook essentials" => %w[sapatos]
