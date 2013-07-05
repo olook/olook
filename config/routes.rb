@@ -371,24 +371,24 @@ Olook::Application.routes.draw do
   get "/cadastro", :to => "landing_pages#show", defaults: { page_url: 'cadastro' }
 
   # Friendly urls (ok, I know it is not the best approach...)
-  match '/sapatos' => redirect('/sapato')
-  match '/sneaker' => redirect('/sapato/sneaker')
-  match '/rasteira' => redirect('/sapato/rasteira')
+  match '/sapatos' => redirect('/sapato'), as: 'shoes'
+  match '/sneaker' => redirect('/sapato/sneaker'), as: 'sneakers'
+  match '/rasteira' => redirect('/sapato/rasteira'), as: 'rasteiras'
   # plural
-  match '/sneakers' => redirect('/sapato/sneaker')
-  match '/rasteiras' => redirect('/sapato/rasterira')
-  match '/sapatilhas' => redirect('/sapato/slipper-sapatilha')
-  match '/slippers' => redirect('/sapato/slipper-sapatilha')
-  match '/sandalias' => redirect('/sapato/sandalia')
-  match '/scarpins' => redirect('/sapato/scarpin')
-  match '/anabelas' => redirect('/sapato/anabela')
+  match '/sneakers' => redirect('/sapato/sneaker'), as: 'sneakers'
+  match '/rasteiras' => redirect('/sapato/rasterira'), as: 'rasteiras'
+  match '/sapatilhas' => redirect('/sapato/slipper-sapatilha'), as: 'sapatilhas'
+  match '/slippers' => redirect('/sapato/slipper-sapatilha'), as: 'slippers'
+  match '/sandalias' => redirect('/sapato/sandalia'), as: 'sandalias'
+  match '/scarpins' => redirect('/sapato/scarpin'), as: 'scarpins'
+  match '/anabelas' => redirect('/sapato/anabela'), as: 'anabelas'
 
-  match '/bolsas' => redirect('/bolsa')
-  match '/acessorios' => redirect('/acessorio')
-  match '/oculos' => redirect('/acessorio/oculos%20de%20sol')
-  match '/roupas' => redirect('/roupa')
-  match '/novas-marcas' => redirect('/roupa/colcci-douglas%20harris-eclectic-espaco%20fashion-forum-iodice-olli-shop%20126-thelure-triton')
-  match '/acessorios-sapatos' => redirect('/sapato/conforto-amaciante-apoio%20plantar-impermeabilizante-palmilha-protecao%20para%20calcanhar')
+  match '/bolsas' => redirect('/bolsa'), as: 'bags'
+  match '/acessorios' => redirect('/acessorio'), as: 'acessories'
+  match '/oculos' => redirect('/acessorio/oculos%20de%20sol'), as: 'glasses'
+  match '/roupas' => redirect('/roupa'), as: 'clothes'
+  match '/novas-marcas' => redirect('/roupa/colcci-douglas%20harris-eclectic-espaco%20fashion-forum-iodice-olli-shop%20126-thelure-triton'), as: 'brands'
+  match '/acessorios-sapatos' => redirect('/sapato/conforto-amaciante-apoio%20plantar-impermeabilizante-palmilha-protecao%20para%20calcanhar'), as: 'shoe_accessories'
 
   # CATALOGO
   match "/*parameters", to: "catalogs#show", as: "catalog"
