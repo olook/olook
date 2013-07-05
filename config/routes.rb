@@ -215,7 +215,12 @@ Olook::Application.routes.draw do
     resources :reports
 
     resources :collection_theme_groups
-    resources :collection_themes
+    resources :collection_themes do
+      collection do
+        get 'import'
+        post 'import_association'
+      end
+    end
     resources :highlights
     resources :highlight_campaigns
 
