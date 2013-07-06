@@ -84,7 +84,7 @@
       <%- end -%>
     </ul>
 
-    <%= content_tag(:p, link_to("+ ver mais roupas +", catalog_, :class => "more clothes", :onclick => track_event("Showroom", "SeeMore", "Clothes"), :rel => "follow"), class:"see-more")%>
+    <%= content_tag(:p, link_to("+ ver mais roupas +", clothes_path, :class => "more clothes", :onclick => track_event("Showroom", "SeeMore", "Clothes"), :rel => "follow"), class:"see-more")%>
   </section>
 
   <section class="container_product" id="shoes_container">
