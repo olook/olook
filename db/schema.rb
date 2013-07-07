@@ -188,8 +188,8 @@ ActiveRecord::Schema.define(:version => 20130702172226) do
   create_table "carts", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "notified",                :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.integer  "legacy_id"
     t.boolean  "gift_wrap",               :default => false
     t.boolean  "use_credits",             :default => false
