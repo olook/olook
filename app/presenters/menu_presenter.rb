@@ -55,7 +55,7 @@ class MenuPresenter < BasePresenter
   end
 
   def brands
-    render_item("Marcas", h.new_brands_path, "brands", ["brands#index"])
+    render_item("Marcas", h.new_brands_path, "brands", ["brands#index", "brands#show"])
   end
 
   def stylist

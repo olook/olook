@@ -29,9 +29,10 @@
       .chaordic.purchasepersonalized
       / local onde o mostpopular será exibido
       .chaordic.mostpopular
-
-    %div.collections_header
-      = image_tag(@brand.header_image, alt: @brand.header_image_alt, title: @brand.header_image_alt) if @brand
+    
+    - if @brand.present? && @brand.header_image.present?
+      %div.collections_header
+        = image_tag(@brand.header_image, alt: @brand.header_image_alt, title: @brand.header_image_alt) if @brand
 
     = render "ordenation_filters", search: @search
 
