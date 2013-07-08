@@ -141,7 +141,7 @@ div#my_account {
   overflow: auto;
   div#box_menu {
     background: image-url('common/bg-divisor.jpg') top right no-repeat;
-    width: 230px;
+    width: 200px;
     height: 515px;
     display: block;
     float: left;
@@ -163,9 +163,9 @@ div#my_account {
     }
   }
   div#data {
-    width: 745px;
+    width: 780px;
     margin: 0 0 0 10px;
-    overflow: auto;
+    overflow: hidden;
     float: left;
     div.box_title {
       width: 715px;
@@ -313,7 +313,7 @@ div#my_account {
   }
   &.orders {
     table {
-      width: 735px;
+      width: 770px;
       margin: 25px 0 30px 10px;
       thead {
         tr {
@@ -360,17 +360,18 @@ div#my_account {
                 display: block;
               }
             }
+            a {
+              color:#ef3742;
+              text-decoration: none;
+              &:hover {
+                text-decoration: underline;
+              }
+            }
             &.number {
               color: #ef3742;
               text-align: left;
               padding-left: 10px;
-              a {
-                color: #6d6e71;
-                text-decoration: none;
-                &:hover {
-                  text-decoration: underline;
-                }
-              }
+              
             }
           }
         }
