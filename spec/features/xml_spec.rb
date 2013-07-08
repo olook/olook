@@ -6,7 +6,6 @@ include XmlHelper
 
   def stub_scope_params
     Product.should_receive(:xml_blacklist).with("products_blacklist").and_return([0])
-    Product.should_receive(:xml_blacklist).with("collections_blacklist").and_return([0])
   end
 
 feature "Show products on xml format" do

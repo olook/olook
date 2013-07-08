@@ -78,34 +78,15 @@ class SeoUrl
   end
 
   def self.all_categories
-    Rails.cache.fetch CACHE_KEYS[:all_categories][:key], expire_in: CACHE_KEYS[:all_categories][:expire] do
-      db_categories
-    end
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_categories.yml' ) ) ) )
   end
 
   private
     def self.all_subcategories
-      Rails.cache.fetch CACHE_KEYS[:all_subcategories][:key], expire_in: CACHE_KEYS[:all_subcategories][:expire] do
-        db_subcategories.map{ |s| [s.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize, ActiveSupport::Inflector.transliterate(s).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize] }.flatten.uniq
-      end
-    end
-
-    def self.db_subcategories
-      Product.includes(:details).all.map(&:subcategory).compact
+      YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_subcategories.yml' ) ) ) )
     end
 
     def self.all_brands
-      Rails.cache.fetch CACHE_KEYS[:all_brands][:key], expire_in: CACHE_KEYS[:all_brands][:expire] do
-        db_brands.map{ |b| [b.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize, ActiveSupport::Inflector.transliterate(b).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize] }.flatten.uniq
-      end
-    end
-
-    def self.db_brands
-      Product.all.map(&:brand).compact
-    end
-
-
-    def self.db_categories
-      Product.includes(:details).all.inject({}){|k,v| k[v.category_humanize] ||= []; k[v.category_humanize].push(v.subcategory).uniq!; k[v.category_humanize].compact!; k }
+      YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_brands.yml' ) ) ) )
     end
 end
