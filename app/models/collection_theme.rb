@@ -1,6 +1,8 @@
 class CollectionTheme < ActiveRecord::Base
-  attr_accessible :product_associate_ids, :product_associate_ids_file, :name, :slug, :video_link, :header_image_alt, :text_color, :active, :header_image, :position, :collection_theme_group_id
+  attr_accessible :product_associate_ids, :product_associate_ids_file, :name, :slug, :video_link, :header_image_alt, :text_color, :active, :header_image, :position, :collection_theme_group_id, :fail_product_ids
   attr_reader :product_associate_ids, :product_associate_ids_file
+  attr_accessor :fail_product_ids
+
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
   validates :header_image, presence: true
@@ -60,7 +62,8 @@ class CollectionTheme < ActiveRecord::Base
   def product_associate_ids= value
     @product_associate_ids = value
     ids_array = value.split(/\D/).compact
-    self.product_ids = ids_array
+    products_hash = sanitize_products(ids_array)
+    self.product_ids = products_hash.fetch(:successful)
   end
 
   def product_associate_ids_file= file
@@ -69,9 +72,28 @@ class CollectionTheme < ActiveRecord::Base
     #self.product_ids = ids_array
   end
 
+
+  def sanitize_products ids
+    products_hash = {not_found: [], not_inventory: [], not_visible: [], successful: []}
+    ids.each do |id|
+      product = Product.find_by_id(id)
+      case
+      when product.nil?
+        products_hash[:not_found] << id
+      when !product.is_visible?
+        products_hash[:not_visible] << product.id
+      when product.inventory.zero?
+        products_hash[:not_inventory] << product.id
+      else
+        products_hash[:successful] << product.id
+      end
+    end
+    products_hash
+  end
+
   private
 
-  def generate_catalog
-    self.build_catalog.save!
-  end
+    def generate_catalog
+      self.build_catalog.save!
+    end
 end
