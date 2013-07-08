@@ -1,7 +1,8 @@
 class XmlController < ApplicationController
 
   respond_to :xml
-  before_filter :prepare_products, except: [:criteo, :groovinads]
+  before_filter :prepare_products, except: [:zoom, :buscape]
+  before_filter :prepare_products_without_cloth, only: [:zoom, :buscape]
 
   def sociomantic
     respond_with(@products)
@@ -21,14 +22,10 @@ class XmlController < ApplicationController
   end
 
   def criteo
-    @products = Product.valid_criteo_for_xml(Product.xml_blacklist("products_blacklist"), Product.xml_blacklist("collections_blacklist"))
-    liquidation_products
     respond_with(@products)
   end
 
   def groovinads
-    @products = Product.valid_criteo_for_xml(Product.xml_blacklist("products_blacklist"), Product.xml_blacklist("collections_blacklist"))
-    liquidation_products
     respond_with(@products)
   end
 
@@ -69,8 +66,17 @@ class XmlController < ApplicationController
       # remove_liquidation_products
     end
 
+    def prepare_products_without_cloth
+      load_products_without_cloth
+      liquidation_products
+    end
+
     def load_products
-      @products = Product.valid_for_xml(Product.xml_blacklist("products_blacklist"), Product.xml_blacklist("collections_blacklist"))
+      @products = Product.valid_for_xml(Product.xml_blacklist("products_blacklist").join(','))
+    end
+
+    def load_products_without_cloth
+      @products = Product.valid_for_xml_without_cloth(Product.xml_blacklist("products_blacklist").join(','))
     end
 
     def liquidation_products

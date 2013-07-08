@@ -48,7 +48,7 @@ describe TopsterXml do
             <![CDATA[não]]>
           </estoque>
           <estoque_baixo>
-            <![CDATA[não]]>
+            <![CDATA[sim]]>
           </estoque_baixo>
         </produto>
       </produtos>
