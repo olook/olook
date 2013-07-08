@@ -67,6 +67,9 @@ describe CollectionTheme do
     let(:product1) {FactoryGirl.create(:shoe)}
     let(:product2) {FactoryGirl.create(:shoe)}
     let(:product3) {FactoryGirl.create(:shoe)}
+    let!(:basic_shoe_size_35) { FactoryGirl.create :basic_shoe_size_35, :product => product1 }
+    let!(:basic_shoe_size_40) { FactoryGirl.create :basic_shoe_size_40, :product => product2 }
+    let!(:basic_shoe_size_37) { FactoryGirl.create :basic_shoe_size_37, :product => product3 }
     context "when dont have products" do
       it "associate ids" do
         subject.product_associate_ids = "#{product1.id} #{product2.id} #{product3.id}"
@@ -84,6 +87,41 @@ describe CollectionTheme do
 
       it "remove old association" do
         expect(subject.product_ids).to_not include(product1.id)
+      end
+    end
+  end
+  describe "#sanitize_products" do
+    let!(:product) {FactoryGirl.create(:shoe)}
+
+    it "returns hash" do
+      expect(subject.sanitize_products(Hash.new)).to be_kind_of(Hash)
+    end
+
+    context "When dont find products" do
+      it "returns product id on not_found key" do
+        Product.should_receive(:find_by_id).and_return(nil)
+        product_hash = subject.sanitize_products([product.id])
+        expect(product_hash.fetch(:not_found)).to eql([product.id])
+      end
+    end
+    context "When product dont have inventory" do
+      it "returns product id on not_inventory key" do
+        product_hash = subject.sanitize_products([product.id])
+        expect(product_hash.fetch(:not_inventory)).to eql([product.id])
+      end
+    end
+    context "When product is not visible" do
+      it "returns product id on not_visible key" do
+        product.update_attributes(is_visible: false)
+        product_hash = subject.sanitize_products([product.id])
+        expect(product_hash.fetch(:not_visible)).to eql([product.id])
+      end
+    end
+    context "When product is avaliable" do
+      it "returns product id on successful key" do
+        Product.any_instance.should_receive(:inventory).and_return(2)
+        product_hash = subject.sanitize_products([product.id])
+        expect(product_hash.fetch(:successful)).to eql([product.id])
       end
     end
   end
