@@ -205,7 +205,7 @@ describe ProductPresenter do
     context "when cart has cupon with value greater than 0" do
       before do
         product.stub(:promotion?).and_return(false)
-        cart_service.stub(:has_percentage_coupon?).and_return(true)
+        subject.stub(:has_valid_coupon_for?).and_return(true)
       end
 
       it { expect(subject.render_price_for cart_service).to include("de: ") }

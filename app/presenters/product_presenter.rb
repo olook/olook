@@ -119,7 +119,7 @@ class ProductPresenter < BasePresenter
   def render_price_for cart_service
     if product.promotion?
       price_markdown(product.retail_price)
-    elsif cart_service.has_percentage_coupon?
+    elsif has_valid_coupon_for?(cart_service, product)
       price_markdown cart_service.price_with_coupon_for product
     else
       price_markup(product.price, "price")
@@ -140,18 +140,22 @@ class ProductPresenter < BasePresenter
 
   private
 
-  def price_markdown retail_price
-    price_markup(product.price, "price_retail left2", "de: ") +
-    price_markup(retail_price, "price left2", "por: ")
-  end
+    def price_markdown retail_price
+      price_markup(product.price, "price_retail left2", "de: ") +
+      price_markup(retail_price, "price left2", "por: ")
+    end
 
-  def price_markup price, css_class, prefix=nil
-    content = h.number_to_currency(price)
-    content = prefix + content if prefix
-    h.content_tag(:p, content ,:class => css_class)
-  end
+    def price_markup price, css_class, prefix=nil
+      content = h.number_to_currency(price)
+      content = prefix + content if prefix
+      h.content_tag(:p, content ,:class => css_class)
+    end
 
-  def variants_sorted_by_size
-    product.variants.sort{|first, second| SIZES_TABLE[first.description].to_i <=> SIZES_TABLE[second.description].to_i }
-  end
+    def variants_sorted_by_size
+      product.variants.sort{|first, second| SIZES_TABLE[first.description].to_i <=> SIZES_TABLE[second.description].to_i }
+    end
+
+    def has_valid_coupon_for? cart_service, product
+      cart_service.has_percentage_coupon? && cart_service.cart.coupon.apply_discount_to?(product)
+    end
 end
