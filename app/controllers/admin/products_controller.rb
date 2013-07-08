@@ -159,9 +159,7 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def brands
-    Rails.cache.fetch CACHE_KEYS[:all_brands][:key], expire_in: CACHE_KEYS[:all_brands][:expire] do
-      Product.all.map(&:brand).compact.map{ |b| [b.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize, ActiveSupport::Inflector.transliterate(b).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize] }.flatten.uniq
-    end
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_brands.yml' ) ) ) )
   end
 end
 
