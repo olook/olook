@@ -19,6 +19,18 @@ describe Product do
     it { should respond_to :remove_freebie }
   end
 
+  describe 'scopes' do
+    describe ".with_brand" do
+      let!(:product_with_given_brand) { FactoryGirl.create(:product, brand: "Some Brand") }
+      let!(:product_without_given_brand) { FactoryGirl.create(:product, brand: "Other Brand") }
+
+      subject { described_class.with_brand("Some Brand") }
+
+      it { should include product_with_given_brand }
+      it { should_not include product_without_given_brand }
+    end
+  end
+
   describe ".featured_products" do
 
     context "when there is no featured products configured" do
