@@ -92,8 +92,8 @@ filter.submitAndLoad = function(){
     $("#products").fadeOut("slow", function() {
       $(this).fadeIn("slow").html("");
     });
-    if($(".filters").length != null) {
-      h = $('.filters').offset().top - 90;
+    if($(".exhibition-mode").length != null) {
+      h = $('.exhibition-mode').offset().top - 90;
       $("html, body").delay(300).animate({scrollTop: h}, 'slow');
     }
   });

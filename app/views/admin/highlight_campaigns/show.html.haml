@@ -1,0 +1,23 @@
+%p#notice= notice
+
+%h2 Campanha de produtos com destaque
+
+- content_for :secondary_navigation do
+  %li= link_to 'Voltar', admin_path
+
+.inner
+  %p
+    ="Deve-se utilizar o parametro campanha na url ex: olook.com.br/sapatos?cmp=<nome da campanha>"
+  %p
+    Campanha:
+    =@highlight_campaign.label
+  %p
+    Produtos:
+    %br
+    -unless @campaign_products.products.blank?
+      -@campaign_products.products.each do |product|
+        =image_tag(product.catalog_image)
+        %br
+= link_to 'Editar', edit_admin_highlight_campaign_path(@highlight_campaign)
+\|
+= link_to 'Voltar', admin_highlight_campaigns_path

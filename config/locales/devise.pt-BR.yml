@@ -41,6 +41,6 @@ pt-BR:
       confirmation_instructions:
         subject: 'Instruções de confirmação'
       reset_password_instructions:
-        subject: 'Instruções de reinicialização de senha'
+        subject: 'Recuperação de senha Olook'
       unlock_instructions:
         subject: 'Instruções de desbloqueio'

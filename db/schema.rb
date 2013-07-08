@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130621152537) do
+ActiveRecord::Schema.define(:version => 20130702172226) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -67,6 +67,14 @@ ActiveRecord::Schema.define(:version => 20130621152537) do
     t.datetime "updated_at",   :null => false
     t.integer  "order"
     t.string   "picture_name"
+  end
+
+  create_table "brands", :force => true do |t|
+    t.string   "name"
+    t.string   "header_image"
+    t.string   "header_image_alt"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "braspag_authorize_responses", :force => true do |t|
@@ -268,7 +276,6 @@ ActiveRecord::Schema.define(:version => 20130621152537) do
   end
 
   add_index "collection_themes", ["collection_theme_group_id"], :name => "index_collection_themes_on_collection_theme_group_id"
-  add_index "collection_themes", ["name"], :name => "index_moments_on_name", :unique => true
   add_index "collection_themes", ["slug"], :name => "index_moments_on_slug", :unique => true
 
   create_table "collections", :force => true do |t|
@@ -486,6 +493,13 @@ ActiveRecord::Schema.define(:version => 20130621152537) do
     t.datetime "updated_at",                 :null => false
     t.integer  "profile_id"
     t.text     "ranked_profile_ids"
+  end
+
+  create_table "highlight_campaigns", :force => true do |t|
+    t.string   "label"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "product_ids"
   end
 
   create_table "highlights", :force => true do |t|
