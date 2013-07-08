@@ -145,9 +145,10 @@ class Admin::ProductsController < Admin::BaseController
     @profiles = Profile.order(:name)
     @brands = brands
 
-    @products = Product.includes(:profiles).includes(:collection)
+    @products = Product.includes(:details).includes(:profiles).includes(:collection)
                        .search(params[:q])
                        .in_category(params[:cat])
+                       .in_subcategory(params[:subcat])
                        .in_collection(params[:col])
                        .in_profile(params[:p])
                        .with_brand(params[:brand])
