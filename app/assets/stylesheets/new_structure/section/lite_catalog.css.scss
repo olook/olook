@@ -105,3 +105,5 @@ section.filters{float:left;width:763px;margin:10px 0 30px;color:#000;border:soli
    &.clean a{display:inline-block;height:14px;overflow:hidden;width:75px;font-size:12px;line-height:14px;color:#000;text-transform:none;background-position: right -119px;padding-right:3px;}
  }
 }
+/* adjust IE */
+html.win.ie section.filters li a{margin-top:3px;}
