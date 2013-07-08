@@ -57,7 +57,7 @@ class Admin::ProductsController < Admin::BaseController
   def sync_products
     @products = Product.all
     @sync_event = SynchronizationEvent.new(name: 'products', user: current_admin.email)
-    
+
     if @sync_event.save
       redirect_to admin_products_path
     else
@@ -143,15 +143,23 @@ class Admin::ProductsController < Admin::BaseController
 
     @categories = [["Sapatos", Category::SHOE] , ['Bolsas', Category::BAG], ['Acessórios', Category::ACCESSORY], ['Roupas', Category::CLOTH]]
     @profiles = Profile.order(:name)
+    @brands = brands
 
     @products = Product.includes(:profiles).includes(:collection)
                        .search(params[:q])
                        .in_category(params[:cat])
                        .in_collection(params[:col])
                        .in_profile(params[:p])
+                       .with_brand(params[:brand])
                        .order(sort_column + " " + sort_direction)
                        .order("collection_id desc, category, name")
                        .paginate(page: params[:page], per_page: 10)
+  end
+
+  def brands
+    Rails.cache.fetch CACHE_KEYS[:all_brands][:key], expire_in: CACHE_KEYS[:all_brands][:expire] do
+      Product.all.map(&:brand).compact.map{ |b| [b.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize, ActiveSupport::Inflector.transliterate(b).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize] }.flatten.uniq
+    end
   end
 end
 

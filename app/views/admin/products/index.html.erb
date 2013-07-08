@@ -21,6 +21,7 @@
   <%= search_field_tag :q, params[:q], {placeholder: 'Nome ou número'} %>
   <%= select_tag :col, grouped_options_for_select(@collections, params[:col]), {prompt: 'Coleção'} %>
   <%= select_tag :cat, options_for_select(@categories, params[:cat]), {prompt: 'Categoria'} %>
+  <%= select_tag :brand, options_for_select(@brands, params[:brand]), {prompt: 'Marca'} %>
   <%= select_tag :p, options_from_collection_for_select(@profiles, "id", "name", params[:p]), {prompt: 'Perfil'} %>
   <%= button_tag 'Procurar', name: nil, type: 'submit', :class => 'button' %>
 <% end %>
