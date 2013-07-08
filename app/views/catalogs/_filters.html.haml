@@ -8,7 +8,7 @@
   %p.title-category Cores
   %ul.category-list.cores
     - filters_by("color").each do |text, amount|
-      %li{:class => text.chomp.parameterize}= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(:color, text.chomp), params)), text.chomp,search.filter_selected?(:color, text.chomp))
+      %li{:class => text.chomp.parameterize}= filter_link_to(catalog_path(SeoUrl.build(search.filters_applied(:color, text.chomp), params)), text.chomp, search.filter_selected?(:color, text.chomp))
 
 .filter
   %p.title-category Preço
