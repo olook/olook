@@ -6,8 +6,6 @@ describe XmlController do
 
     it "gets only products for xml" do
       Product.should_receive(:xml_blacklist).with("products_blacklist").and_return([1,2,3])
-      Product.should_receive(:xml_blacklist).with("collections_blacklist").and_return([4,5,6])
-      Product.should_receive(:valid_criteo_for_xml).with([1,2,3],[4,5,6])
       get :criteo
     end
 
@@ -28,7 +26,7 @@ describe XmlController do
 
     it "gets only products for xml" do
       stub_scope_params
-      Product.should_receive(:valid_for_xml).with([0],[0])
+      Product.should_receive(:valid_for_xml).with("0")
       get :mt_performance
     end
 
@@ -167,7 +165,6 @@ describe XmlController do
 
   def stub_scope_params
     Product.should_receive(:xml_blacklist).with("products_blacklist").and_return([0])
-    Product.should_receive(:xml_blacklist).with("collections_blacklist").and_return([0])
   end
 
 end

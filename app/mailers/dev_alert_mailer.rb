@@ -4,17 +4,6 @@ class DevAlertMailer < ActionMailer::Base
 
   default :from => "olook notification <dev.notifications@olook.com.br>"
 
-  def self.smtp_settings
-    {
-      :user_name => "AKIAJJO4CTAEHYW34HGQ",
-      :password => "AkYlOmgbIpISW33XVzQq8d9J4GnAgtQlEJuwgIxOFXmU",
-      :address => "email-smtp.us-east-1.amazonaws.com",
-      :port => 587,
-      :authentication => :plain,
-      :enable_starttls_auto => true
-    }
-  end
-
   def order_warns(warn_payments, warn_order)
     @warn_payments = warn_payments
     @warn_orders = warn_order

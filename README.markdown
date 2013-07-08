@@ -105,10 +105,9 @@ homolog:
 cap deploy hmg
 ```
 
-homolog or development specific branch:
+homolog specific branch:
 ```
-cap -S branch=nova_feature deploy hmg
-cap -S branch=nova_feature deploy dev
+cap -S branch=YOUR_BRANCH deploy FILTER=homolog
 ```
 
 production app01:

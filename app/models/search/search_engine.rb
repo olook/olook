@@ -16,6 +16,7 @@ class SearchEngine
     .with_care(attributes[:care])
     .with_price(attributes[:price])
     .with_size(attributes[:size])
+    .with_product_ids(attributes[:product_ids])
     .sort_by(attributes[:sort])
     .grouping_by
 
@@ -23,9 +24,7 @@ class SearchEngine
   end
 
   def cache_key
-    tstart = Time.zone.now.to_f * 1000.0
     key = build_url_for(limit: @limit, start: self.start_product)
-    Rails.logger.debug "Calculated SearchEngine#cache_key (#{'%0.5f' % (( Time.zone.now.to_f * 1000 ) - tstart)}): #{key} => #{Digest::SHA1.hexdigest(key.to_s)}"
     Digest::SHA1.hexdigest(key.to_s)
   end
 
@@ -91,13 +90,24 @@ class SearchEngine
 
   def filters
     url = build_filters_url
-    @result = fetch_result(url, parse_facets: true)
+    if @last_url == url && @result
+      return @result
+    end
+    @last_url = url
+    @result = fetch_result(@last_url, parse_facets: true)
   end
 
   def products(pagination = true)
     url = build_url_for(pagination ? {limit: @limit, start: self.start_product} : {})
-    @result = fetch_result(url, {parse_products: true})
+    if @last_url == url && @result.try(:products)
+      return @result.products
+    end
+    @last_url = url
+    @result = fetch_result(@last_url, {parse_products: true})
     @result.products
+  rescue => e
+    Rails.logger.error("ERROR #{e.class} (#{e.message}) on searching in cloud search url: #{url || ''}\n#{e.backtrace.join("\n")}")
+    []
   end
 
   def pages
