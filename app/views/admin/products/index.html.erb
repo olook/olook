@@ -19,6 +19,7 @@
   <%= hidden_field_tag :s, params[:s] %>
   <%= hidden_field_tag :d, params[:d] %>
   <%= search_field_tag :q, params[:q], {placeholder: 'Nome ou número'} %>
+  <%= search_field_tag :subcat, params[:subcat], {placeholder: 'Subcategoria'} %>
   <%= select_tag :col, grouped_options_for_select(@collections, params[:col]), {prompt: 'Coleção'} %>
   <%= select_tag :cat, options_for_select(@categories, params[:cat]), {prompt: 'Categoria'} %>
   <%= select_tag :brand, options_for_select(@brands, params[:brand]), {prompt: 'Marca'} %>
