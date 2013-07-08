@@ -23,6 +23,7 @@
   <%= select_tag :cat, options_for_select(@categories, params[:cat]), {prompt: 'Categoria'} %>
   <%= select_tag :brand, options_for_select(@brands, params[:brand]), {prompt: 'Marca'} %>
   <%= select_tag :p, options_from_collection_for_select(@profiles, "id", "name", params[:p]), {prompt: 'Perfil'} %>
+  <%= select_tag :is_visible, options_for_select([["Visível", 1],["Invisível",0]], params[:is_visible]), {prompt: 'Visibilidade'} %>
   <%= button_tag 'Procurar', name: nil, type: 'submit', :class => 'button' %>
 <% end %>
 </div>

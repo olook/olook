@@ -21,14 +21,33 @@ describe Product do
 
   describe 'scopes' do
     describe ".with_brand" do
-      let!(:product_with_given_brand) { FactoryGirl.create(:product, brand: "Some Brand") }
-      let!(:product_without_given_brand) { FactoryGirl.create(:product, brand: "Other Brand") }
+      let!(:product_with_given_brand) { FactoryGirl.create(:shoe, :casual, brand: "Some Brand") }
+      let!(:product_without_given_brand) { FactoryGirl.create(:shoe, :casual, brand: "Other Brand") }
 
       subject { described_class.with_brand("Some Brand") }
 
       it { should include product_with_given_brand }
       it { should_not include product_without_given_brand }
     end
+
+    describe ".with_visibility" do
+      let(:visible_product) { FactoryGirl.create(:shoe, :casual, is_visible: true) }
+      let(:invisible_product) { FactoryGirl.create(:shoe, :casual, is_visible: false) }
+
+      context "when looking for visible products" do
+        subject { described_class.with_visibility(true) }
+
+        it { should include visible_product }
+        it { should_not include invisible_product }        
+      end
+
+      context "when looking for invisible products" do
+        subject { described_class.with_visibility(false) }
+
+        it { should include invisible_product }
+        it { should_not include visible_product }        
+      end      
+    end    
   end
 
   describe ".featured_products" do
