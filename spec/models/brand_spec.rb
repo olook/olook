@@ -5,7 +5,7 @@ describe Brand do
   describe ".categories" do
     context "brand with all categories" do
       subject { described_class.categories "olook" }
-      it { should eq %w[sapatos bolsas acessórios roupas] }
+      it { should eq %w[roupas sapatos bolsas acessórios] }
     end
 
 
