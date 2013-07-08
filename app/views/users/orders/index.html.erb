@@ -29,10 +29,11 @@
             <td><%= number_to_currency(order.freight_price) %></td>
             <td><%= order.installments %>x</td>
             <td><%= order.status %>
-              <% if order.has_a_billet_payment? %>
+            <% #TODO please MOVE THIS LOGIC BELOW TO ORDER MODEL %>
+              <% if order.has_a_billet_payment? && order.payments.first.state == "waiting_payment" %>
                 <br />
-                <span>Boleto Bancário </span><%= link_to("imprimir", order.payments.first.url) %>
-              <% end %>  
+                <span>Boleto Bancário </span>(<%= link_to("imprimir", order.payments.first.url) %>)
+              <% end %>
             </td>
           </tr>
         <% end %>
