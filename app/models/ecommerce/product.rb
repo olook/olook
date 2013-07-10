@@ -53,6 +53,7 @@ class Product < ActiveRecord::Base
   scope :in_category, lambda { |value| { :conditions => ({ category: value } unless value.blank? || value.nil?) } }
   scope :in_collection, lambda { |value| { :conditions => ({ collection_id: value } unless value.blank? || value.nil?) } }
   scope :with_brand, lambda { |value| { :conditions => ({ brand: value } unless value.blank? || value.nil?) } }
+  scope :by_inventory, lambda { |value| joins(:variants).group("products.id").order("sum(variants.inventory) #{ value }") if ["asc","desc"].include?(value) }
   scope :with_visibility, lambda { |value| { :conditions => ({ is_visible: value } unless value.nil? ) } }
   scope :search, lambda { |value| { :conditions => ([ "name like ? or model_number = ?", "%#{value}%", value ] unless value.blank? || value.nil?) } }
 
