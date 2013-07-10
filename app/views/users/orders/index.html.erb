@@ -11,7 +11,7 @@
       <thead>
         <tr>
           <th class="number">Pedido</th>
-          <th class="date">Data do pedido</th>
+          <th class="date">Realizado em</th>
           <th class="amount">Qtde.</th>
           <th class="value">Valor</th>
           <th class="freight">Frete</th>
@@ -23,12 +23,18 @@
         <% @orders.each do |order| %>
           <tr>
             <td class="number"><%= link_to order.number, user_order_path(order[:number]) %></td>
-            <td><%= l order.created_at, :format => :short %></td>
+            <td><%= order.created_at.strftime('%d/%m/%y %H:%M') %></td>
             <td><%= order.items_quantity %></td>
             <td><%= number_to_currency(order.amount_paid) %></td>
             <td><%= number_to_currency(order.freight_price) %></td>
             <td><%= order.installments %>x</td>
-            <td><%= order.status  %></td>
+            <td><%= order.status %>
+            <% #TODO please MOVE THIS LOGIC BELOW TO ORDER MODEL %>
+              <% if order.has_a_billet_payment? && order.state == "waiting_payment" %>
+                <br />
+                <span>Boleto Bancário </span>(<%= link_to("imprimir", order.payments.first.url) %>)
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>
