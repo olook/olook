@@ -1,0 +1,22 @@
+= form_for [:admin, @brand] do |f|
+  - if @brand.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@brand.errors.count, "error")} prohibited this brand from being saved:"
+      %ul
+        - @brand.errors.full_messages.each do |msg|
+          %li= msg
+
+  %fieldset
+    =f.label :name, "Nome"
+    =f.text_field :name
+
+  %fieldset
+    =f.label :header_image_alt, "Alt da imagem"
+    =f.text_field :header_image_alt
+
+  %fieldset
+    =f.label :header_image, "Imagem"
+    =f.file_field :header_image
+  
+  .actions
+    = f.submit 'Save'
