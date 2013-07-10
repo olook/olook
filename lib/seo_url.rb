@@ -12,11 +12,12 @@ class SeoUrl
     "maior-preco" => "-retail_price",
     "maior-desconto" => "-desconto",
     "conforto" => "care",
-    "colecao" => "collection"
+    "colecao" => "collection",
+    "por_pagina" => "per_page"
   }
 
   PARAMETERS_BLACKLIST = [ "price" ]
-  PARAMETERS_WHITELIST = [ "price", "sort" ]
+  PARAMETERS_WHITELIST = [ "price", "sort", "per_page" ]
 
   def self.parse parameters, other_parameters={}
     parsed_values = HashWithIndifferentAccess.new
