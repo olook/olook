@@ -13,7 +13,7 @@ module CatalogsHelper
     textarr = text.split(' ')
     if textarr.size > 1
       f = textarr.shift
-      textarr.map! { |w| w.downcase if STOP_WORDS.include?(w) }
+      textarr.map! { |w| STOP_WORDS.include?(w) ? w.downcase : w  }
       text = [f, textarr].flatten.join(' ')
     end
     link_to(link, class_hash) do
