@@ -12,6 +12,7 @@
 
 = cache "#{@search.cache_key}#{@campaign_products.cache_key if @campaign_products}", expire_in: 30.minutes  do
   = render "shared/metrics/sociomantic/category", pixel_information: @pixel_information, catalog_products: @search.products
+  = render "shared/liquida_banner"
   #catalog
     %aside
       = render "filters", search: @search
@@ -20,7 +21,7 @@
           =banner_for Category.with_name params[:category]
 
     #result
-      - unless @search.has_any_filter_selected?
+      - unless @search.has_any_filter_selected? || params[:cmp].present?
         / local onde o viewpersonalized será exibido
         .chaordic.viewpersonalized
         / local onde o purchasepersonalized será exibido
