@@ -38,16 +38,30 @@ describe Product do
         subject { described_class.with_visibility(true) }
 
         it { should include visible_product }
-        it { should_not include invisible_product }        
+        it { should_not include invisible_product }
       end
 
       context "when looking for invisible products" do
         subject { described_class.with_visibility(false) }
 
         it { should include invisible_product }
-        it { should_not include visible_product }        
-      end      
-    end    
+        it { should_not include visible_product }
+      end
+    end
+
+    describe "'.by_inventory" do
+      let!(:product_in_stock) { FactoryGirl.create(:shoe_variant, :in_stock).product }
+      let!(:product_sold_out) { FactoryGirl.create(:shoe_variant, :sold_out).product }
+      context "when order is decreasing" do
+        subject { described_class.by_inventory("desc") }
+        it { should eq([product_in_stock, product_sold_out]) }
+      end
+
+      context "when order is ascendant" do
+        subject { described_class.by_inventory("asc") }
+        it { should eq([product_sold_out, product_in_stock]) }
+      end
+    end
   end
 
   describe ".featured_products" do
