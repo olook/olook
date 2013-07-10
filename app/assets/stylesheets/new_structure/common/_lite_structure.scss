@@ -1,4 +1,5 @@
 @import 'new_structure/common/global_stuffs';
+@import 'new_structure/partials/liquida';
 
 /*------------------
 ==== CSS RESET ====
@@ -259,6 +260,7 @@ div#wrapper_new_menu{background:#FFF;width:100%;opacity:0.9;*filter: alpha(opaci
      &.fixed {
        position: fixed;top: 0;left:0;z-index:999;padding-top:5px;
      }
+
     nav.menu_new{
       margin: 0 auto 5px;width: 990px;
       .default_new{width: 990px;margin: 0 auto;overflow: hidden;position:relative;
@@ -271,7 +273,7 @@ div#wrapper_new_menu{background:#FFF;width:100%;opacity:0.9;*filter: alpha(opaci
           }
         }
       }
-    }
+    }    
   }
 
 
@@ -338,7 +340,7 @@ footer {height:480px;clear:both;margin-top:60px;border-top: 1px #cbcbcb solid;
 =====  CONTENT =====
 ------------------*/
 #container{width:990px;margin:0 auto;overflow:hidden;}
-#content{width:990px;overflow:hidden;margin:10px auto 0;padding-top:10px;position:relative;}
+#content{width:990px;overflow:hidden;margin:0 auto 0;position:relative;}
 
 /***** MODAL STYLE ****/
 

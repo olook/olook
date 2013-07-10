@@ -16,9 +16,9 @@ module ApplicationHelper
     controller_action.each do |item|
       subs = item.split("#")
       category = subs[2]
-      return 'selected' if (subs[0] == params[:controller]) && (subs[1] == params[:action])
+      return 'selected' if (subs[0] == params[:controller]) && (subs[1] == params[:action]) && (category==nil || category.to_s == params[:category])
+      return nil
     end
-    return nil
   end
 
   def present(presenter_class, objects)
@@ -136,17 +136,17 @@ module ApplicationHelper
   #
   def banner_for category_id
 
-    return link_to(image_tag('moments/j3.gif'), collection_theme_path("estilista-juliana-jabour"), onclick: track_event('Catalog', "ClickSideBannerFrom#{Category.key_for(@category_id).to_s.camelize}")) if category_id.blank?
+    return link_to(image_tag('moments/banner_marca_olook.jpg'), '/colecoes/olook?utf8=%E2%9C%93&slug=olook&category_id=4&sort_filter=1&price=0-600&shoe_sizes[]=', onclick: track_event('Catalog', "ClickSideBannerFrom#{Category.key_for(@category_id).to_s.camelize}")) #if category_id.blank?
 
-     if category_id == Category::SHOE
-       link_to(image_tag('moments/j3.gif'), collection_theme_path("estilista-juliana-jabour"), onclick: track_event('Catalog', "ClickSideBannerFrom#{Category.key_for(Category::SHOE).to_s.camelize}", "Juliana Jabour"))
-     elsif category_id == Category::ACCESSORY
-       link_to(image_tag('moments/c2.jpg'), collection_theme_path("carol-ribeiro"), onclick: track_event('Catalog', "ClickSideBannerFrom#{Category.key_for(Category::ACCESSORY).to_s.camelize}", "Carol Ribeiro"))
-     elsif category_id == Category::CLOTH
-       link_to(image_tag('moments/c1.gif'), collection_theme_path("carol-ribeiro"), onclick: track_event('Catalog', "ClickSideBannerFrom#{Category.key_for(Category::CLOTH).to_s.camelize}", "Carol Ribeiro"))
-     elsif category_id == Category::BAG
-       link_to(image_tag('moments/j2.jpg'), collection_theme_path("estilista-juliana-jabour"), onclick: track_event('Catalog', "ClickSideBannerFrom#{Category.key_for(Category::CLOTH).to_s.camelize}", "Juliana Jabour"))
-     end
+     # if category_id == Category::SHOE
+     #   link_to(image_tag('moments/j3.gif'), collection_theme_path("estilista-juliana-jabour"), onclick: track_event('Catalog', "ClickSideBannerFrom#{Category.key_for(Category::SHOE).to_s.camelize}", "Juliana Jabour"))
+     # elsif category_id == Category::ACCESSORY
+     #   link_to(image_tag('moments/c2.jpg'), collection_theme_path("carol-ribeiro"), onclick: track_event('Catalog', "ClickSideBannerFrom#{Category.key_for(Category::ACCESSORY).to_s.camelize}", "Carol Ribeiro"))
+     # elsif category_id == Category::CLOTH
+     #   link_to(image_tag('moments/c1.gif'), collection_theme_path("carol-ribeiro"), onclick: track_event('Catalog', "ClickSideBannerFrom#{Category.key_for(Category::CLOTH).to_s.camelize}", "Carol Ribeiro"))
+     # elsif category_id == Category::BAG
+     #   link_to(image_tag('moments/j2.jpg'), collection_theme_path("estilista-juliana-jabour"), onclick: track_event('Catalog', "ClickSideBannerFrom#{Category.key_for(Category::CLOTH).to_s.camelize}", "Juliana Jabour"))
+     # end
   end
 
   # def valentine_link_for(user, product)

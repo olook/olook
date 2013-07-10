@@ -15,7 +15,7 @@ aside{
       &.txt-amarelo{background-position: 0 -302px;}
       &.txt-azul{background-position: 0 -382px;}
       &.txt-bege{background-position: 0 -239px;}
-      &.txt-branco{background-position: 0 -415px;}
+      &.txt-branco{background-position: 0 -416px;}
       &.txt-cinza{background-position: 0 -270px;}
       &.txt-cobra{background-position: 0 -93px;}
       &.txt-cobre{background-position: 0 2px;}
@@ -46,7 +46,7 @@ aside{
   p{font-size:11px;text-transform:uppercase;font-weight:bold;height:15px;background:image-url('catalog/sprite.png') no-repeat 0 6px;padding-left:13px;margin-bottom:5px;cursor:pointer;
     &.close{background-position:0 -25px !important;}
   }
-  a{display:inline-block;height:15px;font-size:13px;text-decoration:none;color:#000;background:image-url('catalog/sprite.png') no-repeat 0 -50px;padding-left:13px;text-transform:capitalize;
+  a{display:inline-block;height:15px;font-size:13px;text-decoration:none;color:#000;background:image-url('catalog/sprite.png') no-repeat 0 -50px;padding-left:13px;
     &:hover{color:$base_color;}
     &.selected{background-position:0 -86px !important;}
   }
@@ -69,6 +69,12 @@ aside{
     select{position:absolute;left:0;top:0;opacity:0;width:100%;}
     p{float:left;border-left:solid 1px #D7D7D7;border-top:solid 1px #D7D7D7;border-bottom:solid 1px #D7D7D7;font-size:10px;font-weight:bold; text-transform:uppercase; padding-left:5px;background: image-url("collections/bullet_arrow.png") no-repeat right -1px;letter-spacing:1px;padding-right:30px;}
   }
+  span.label {
+    float: left;
+    margin-right: 5px;
+    margin-top: 2px;
+    font-size: 12px;
+  }
 }
 
 .pagination{text-align:center;clear:both;
@@ -81,6 +87,7 @@ aside{
   }
 }
 .watermelon {color:#ef3742;}
+
 
 /****************
 BOX MODAL ESPIAR

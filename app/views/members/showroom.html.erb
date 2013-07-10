@@ -7,7 +7,7 @@
 <% end %>
 
 
-
+<%= render "shared/liquida_banner" %>
 <div id="showroom">
 
   <section class="user-info">
@@ -155,17 +155,17 @@
 <div id="products_categories">
   <h1>O que você quer ver hoje?</h1>
   <ul>
-    <li class="blusa"><%= link_to "Blusa", "/roupas?cloth_subcategories[]=blusa"%></li>
-    <li class="camisa"><%= link_to "Camisa", "/roupas?cloth_subcategories[]=camisa" %></li>
-    <li class="calca"><%= link_to "Calça", "/roupas?cloth_subcategories[]=calca" %></li>
-    <li class="vestido"><%= link_to "Vestido", "/roupas?cloth_subcategories[]=vestido" %></li>
-    <li class="anabela"><%= link_to "Anabela", anabelas_path %></li>
-    <li class="bota"><%= link_to "Bota", "/sapatos?shoe_subcategories[]=bota" %></li>
-    <li class="sapatilha"><%= link_to "Sapatilha", sapatilhas_path %></li>
-    <li class="scarpin"><%= link_to "Scarpin", scarpins_path %></li>
-    <li class="sneaker"><%= link_to "Sneaker", sneakers_path %></li>
-    <li class="acessorios"><%= link_to "Acessórios", accessories_path %></li>
-    <li class="bolsas"><%= link_to "Bolsas", bags_path %></li>
+    <li class="blusa"><%= link_to "Blusa", catalog_path(parameters: 'roupa/blusa') %></li>
+    <li class="camisa"><%= link_to "Camisa", catalog_path(parameters: 'roupa/camisa') %></li>
+      <li class="calca"><%= link_to "Calça", catalog_path(parameters: 'roupa/calca') %></li>
+    <li class="vestido"><%= link_to "Vestido", catalog_path(parameters: 'roupa/vestido') %></li>
+    <li class="anabela"><%= link_to "Anabela", catalog_path(parameters: 'sapato/anabela') %></li>
+    <li class="bota"><%= link_to "Bota", catalog_path(parameters: 'sapato/bota') %></li>
+    <li class="sapatilha"><%= link_to "Sapatilha", catalog_path(parameters: 'sapato/sapatilha') %></li>
+    <li class="scarpin"><%= link_to "Scarpin", catalog_path(parameters: 'sapato/scarpin') %></li>
+    <li class="sneaker"><%= link_to "Sneaker", catalog_path(parameters: 'sapato/sneaker') %></li>
+    <li class="acessorios"><%= link_to "Acessórios", catalog_path(parameters: 'acessorio') %></li>
+    <li class="bolsas"><%= link_to "Bolsas", catalog_path(parameters: 'bolsa') %></li>
   </ul>
 </div>
 <%#= fim "home/products_categories" %>

@@ -129,8 +129,8 @@ describe Product do
         it "returns shoes with variants and doesn't return shoes without variants" do
           shoe_for_xml.master_variant.update_attribute(:price, 1.0)
           #about the factories: shoe_for_xml includes variants, shoe doesn't
-          described_class.valid_for_xml([0],[0]).should include(shoe_for_xml)
-          described_class.valid_for_xml([0],[0]).should_not include(shoe)
+          described_class.valid_for_xml("0").should include(shoe_for_xml)
+          described_class.valid_for_xml("0").should_not include(shoe)
         end
 
         it "doesn't return shoes with less than 3 variants with 3 inventory each" do
@@ -138,67 +138,25 @@ describe Product do
           shoe_for_xml.variants.first.destroy
           # set inventory to less than 3 on each variant
           shoe_for_xml.variants.each {|v| v.update_attribute(:inventory, 2)}
-          described_class.valid_for_xml([0],[0]).should_not include(shoe_for_xml)
+          described_class.valid_for_xml("0").should_not include(shoe_for_xml)
         end
 
         it "returns shoes with 3 or more variants with 3 or more inventory each" do
           # leave only 3 variants on factory
-          shoe_for_xml.variants.first.destroy
+          shoe_for_xml.master_variant.update_attribute(:price, 1.0)
           shoe_for_xml.variants.each {|v| v.update_attribute(:inventory, 4)}
-          described_class.valid_for_xml([0],[0]).should include(shoe_for_xml)
+          described_class.valid_for_xml("0").should include(shoe_for_xml)
         end
 
         context "when product is a cloth and" do
           let!(:collection) { FactoryGirl.create(:collection) }
           let!(:cloth_with_all_sizes) { FactoryGirl.create(:simple_garment, collection: collection) }
-          let!(:variant) { FactoryGirl.create(:yellow_shirt, product: cloth_with_all_sizes, is_master: false, description: "35") }
+          let!(:variant1) { FactoryGirl.create(:yellow_shirt, product: cloth_with_all_sizes, is_master: false, description: "35") }
+          let!(:variant2) { FactoryGirl.create(:yellow_shirt, product: cloth_with_all_sizes, is_master: false, description: "36") }
           let!(:cloth_without_one_size) { FactoryGirl.create(:simple_garment, collection: collection) }
           let!(:variant_sold_out) { FactoryGirl.create(:yellow_shirt, inventory: 0, product: cloth_without_one_size, is_master: false, description: "40") }
           let!(:avalaible) { FactoryGirl.create(:yellow_shirt, product: cloth_without_one_size, is_master: false, description: "40") }
-          subject { described_class.valid_for_xml([0],[0]) }
-
-          context "when cloth has no variants with invetory eq 0" do
-            it { expect(subject).to include cloth_with_all_sizes }
-          end
-
-          context "when cloth has any variant with inventory eq 0" do
-            it { expect(subject).to_not include cloth_without_one_size }
-          end
-
-        end
-      end
-
-      describe ".valid_criteo_for_xml" do
-        let!(:collection) { FactoryGirl.create(:collection) }
-        it "returns products valid for criteo" do
-          products = [shoe, bag, accessory, shoe_for_xml]
-          shoe_for_xml.master_variant.update_attribute(:price, 1.0)
-          (described_class.valid_criteo_for_xml([0],[0]) & products).should == [shoe_for_xml]
-        end
-
-        it "doesn't return shoes with less than 3 variants with 3 inventory each" do
-          # leave only 3 variants on factory
-          shoe_for_xml.variants.first.destroy
-          # set inventory to less than 3 on each variant
-          shoe_for_xml.variants.each {|v| v.update_attribute(:inventory, 2)}
-          described_class.valid_criteo_for_xml([0],[0]).should_not include(shoe_for_xml)
-        end
-
-        it "returns shoes with 3 or more variants with 3 or more inventory each" do
-          # leave only 3 variants on factory
-          shoe_for_xml.variants.first.destroy
-          shoe_for_xml.update_attributes(collection: collection)
-          shoe_for_xml.variants.each {|v| v.update_attributes(:inventory => 4, price: BigDecimal("100,00"))}
-          described_class.valid_criteo_for_xml([0],[0]).should include(shoe_for_xml)
-        end
-
-        context "when product is a cloth and" do
-          let!(:cloth_with_all_sizes) { FactoryGirl.create(:simple_garment, collection: collection) }
-          let!(:variant) { FactoryGirl.create(:yellow_shirt, product: cloth_with_all_sizes, is_master: false, description: "35") }
-          let!(:cloth_without_one_size) { FactoryGirl.create(:simple_garment, collection: collection) }
-          let!(:variant_sold_out) { FactoryGirl.create(:yellow_shirt, inventory: 0, product: cloth_without_one_size, is_master: false, description: "40") }
-          let!(:avalaible) { FactoryGirl.create(:yellow_shirt, product: cloth_without_one_size, is_master: false, description: "40") }
-          subject { described_class.valid_criteo_for_xml([0],[0]) }
+          subject { described_class.valid_for_xml("0") }
 
           context "when cloth has no variants with invetory eq 0" do
             it { expect(subject).to include cloth_with_all_sizes }
