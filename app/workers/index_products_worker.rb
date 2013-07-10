@@ -63,6 +63,7 @@ class IndexProductsWorker
         fields['category'] = product.category_humanize.downcase
         fields['size'] = product.variants.select{|v| v.inventory > 0}.map{|b| b.description}
         fields['care'] = product.subcategory.titleize if Product::CARE_PRODUCTS.include?(product.subcategory)
+        fields['collection'] = product.collection.start_date.strftime('%Y%m').to_i
 
         details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno', 'salto'].include?(d.translation_token.downcase) }
         translation_hash = {

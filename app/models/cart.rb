@@ -127,7 +127,7 @@ class Cart < ActiveRecord::Base
   end
 
   def has_coupon?
-    coupon && (!coupon.is_percentage? || has_appliable_percentage_coupon?)
+    coupon.present? && (!coupon.is_percentage? || has_appliable_percentage_coupon?)
   end
 
   private
