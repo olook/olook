@@ -13,7 +13,7 @@ module CatalogsHelper
     textarr = text.split(' ')
     if textarr.size > 1
       f = textarr.shift
-      textarr.map! { |w| w.downcase if STOP_WORDS.include?(w) }
+      textarr.map! { |w| STOP_WORDS.include?(w) ? w.downcase : w  }
       text = [f, textarr].flatten.join(' ')
     end
     link_to(link, class_hash) do
@@ -24,7 +24,7 @@ module CatalogsHelper
   def current_section_link_to(link, selected=false)
     search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
     link+=search_param
-    link_to("( x )", link)
+    link_to("x", link)
   end
 
   def formated_heel heel
@@ -38,9 +38,9 @@ module CatalogsHelper
     end
   end
 
-  def filters_by filter
-    @filters ||= create_filters
-    facets = @filters.grouped_products(filter)
+  def filters_by filter, filters = @filters
+    filters ||= create_filters
+    facets = filters.grouped_products(filter)
     return [] if facets.nil?
 
     if filter == 'size'

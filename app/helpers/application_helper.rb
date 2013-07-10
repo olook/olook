@@ -152,7 +152,7 @@ module ApplicationHelper
   # def valentine_link_for(user, product)
   #   "#{root_url}dia_dos_namorados/#{IntegerEncoder.encode(user.id)}/#{product.id.to_s}"
   # end
-  
+
   private
 
     def ga_event_referer

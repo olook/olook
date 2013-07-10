@@ -1,17 +1,15 @@
-# -*- encoding : utf-8 -*-
-class CatalogsController < SearchController
+class BrandsController < SearchController
   layout "lite_application"
-  respond_to :html, :js
-
-  helper_method :create_filters
+  def index
+  end
 
   def show
-    params.merge!(SeoUrl.parse(params[:parameters], params))
+    params.merge!(SeoUrl.parse_brands(params[:parameters], params))
     Rails.logger.debug("New params: #{params.inspect}")
 
-    if @campaign = HighlightCampaign.find_by_label(params[:cmp])
-      @campaign_products = SearchEngine.new(product_ids: @campaign.product_ids).with_limit(1000)
-    end
+    @filters = create_filters
+
+    @side_filters = create_filters(true)
 
     @search = SearchEngine.new(category: params[:category],
                                care: params[:care],
@@ -23,7 +21,9 @@ class CatalogsController < SearchController
                                size: params[:size],
                                brand: params[:brand],
                                sort: params[:sort]).for_page(params[:page]).with_limit(48)
+    @brand = Brand.find_by_name(ActiveSupport::Inflector.transliterate(params[:brand]).downcase.titleize)
     @search.for_admin if current_admin
+    @catalog_products = @search.products
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
   end
 end
