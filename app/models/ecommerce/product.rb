@@ -226,6 +226,10 @@ class Product < ActiveRecord::Base
     self.variants.sum(:initial_inventory)
   end
 
+  def quantity_alredy_sold
+    initial_inventory - inventory
+  end
+
   def sold_out?
     inventory < 1
   end
