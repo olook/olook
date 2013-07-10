@@ -62,6 +62,17 @@ class SearchController < ApplicationController
 
       category_tree
     end
+    
+    def create_filters(ignore_categories = false)
+      filters = SearchEngine.new(category: ignore_categories ? nil : params[:category]).filters
+      remove_care_products_from(filters)
+      filters
+    end
 
+    def remove_care_products_from(filters)
+      if filters.grouped_products('subcategory')
+        filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) }
+      end
+    end
 
 end

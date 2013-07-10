@@ -24,7 +24,7 @@ module CatalogsHelper
   def current_section_link_to(link, selected=false)
     search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
     link+=search_param
-    link_to("( x )", link)
+    link_to("x", link)
   end
 
   def formated_heel heel
@@ -38,9 +38,9 @@ module CatalogsHelper
     end
   end
 
-  def filters_by filter
-    @filters ||= create_filters
-    facets = @filters.grouped_products(filter)
+  def filters_by filter, filters = @filters
+    filters ||= create_filters
+    facets = filters.grouped_products(filter)
     return [] if facets.nil?
 
     if filter == 'size'
