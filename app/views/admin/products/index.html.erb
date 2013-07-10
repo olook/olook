@@ -46,7 +46,7 @@
       <th>Preço</th>
       <th>Estoque</th>
       <th>Inicial</th>
-      <th>Cor do fornecedor</th>
+      <th>Quantidade Já Vendida</th>
       <th>Cor do produto</th>
       <th>Cor do filtro</th>
       <th>Perfil</th>
@@ -65,7 +65,7 @@
       <td><%= number_to_currency product.price %></td>
       <td><%= product.inventory %></td>
       <td><%= product.initial_inventory %></td>
-      <td><%= product.supplier_color %></td>
+      <td><%= product.quantity_alredy_sold %></td>
       <td><%= product.product_color %></td>
       <td><%= product.filter_color %></td>
       <td><%= product.profiles.map(&:name).join(", ") %></td>

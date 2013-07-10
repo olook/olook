@@ -64,6 +64,18 @@ describe Product do
     end
   end
 
+  describe "#already_sold" do
+    let(:product) { described_class.new }
+    before do
+      product.stub(:initial_inventory).and_return(9)
+      product.stub(:inventory).and_return(3)
+    end
+
+    subject { product.quantity_alredy_sold }
+
+    it { should eq(6) }
+  end
+
   describe ".featured_products" do
 
     context "when there is no featured products configured" do
