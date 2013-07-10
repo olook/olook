@@ -22,7 +22,7 @@ class CatalogsController < SearchController
                                price: params[:price],
                                size: params[:size],
                                brand: params[:brand],
-                               sort: params[:sort]).for_page(params[:page]).with_limit(48)
+                               sort: params[:sort]).for_page(params[:page]).with_limit(params[:per_page])
     @search.for_admin if current_admin
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
   end

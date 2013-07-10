@@ -96,8 +96,8 @@ class SearchEngine
     @limit ? (@current_page - 1) * @limit : 0
   end
 
-  def with_limit limit=50
-    @limit = limit.to_i
+  def with_limit limit=48
+    @limit = limit ? limit.to_i : 48
     self
   end
 
