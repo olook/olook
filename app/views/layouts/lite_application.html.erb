@@ -77,7 +77,7 @@
                 </li>
                 <p class="trade"><%= link_to "Troca Fácil", troca_path, :class => "invite" %></p>  
                 <li class="submenu">
-                  <%= link_to "Minha Conta", "#", :id => "account" %>
+                  <%= link_to "Minha Conta", user_orders_path, :id => "account" %>
                   <div class="my_account">
                     <ul>
                       <li><%= link_to "Meus pedidos", user_orders_path %></li>
