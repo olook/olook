@@ -46,3 +46,6 @@
       .pagination
         = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: catalog_path, other_parameters: "por=#{ params[:por]}" }
 
+      .banner
+        = link_to new_survey_path, onclick: track_event("Catalogo#{params[:category].try(:capitalize)}", 'BottomBanner', '') do
+          = image_tag 'catalog/banner_quiz.jpg'
