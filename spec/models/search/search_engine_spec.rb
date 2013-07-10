@@ -323,4 +323,44 @@ describe SearchEngine do
     end
   end
 
+  describe "#remove_filter" do
+    let(:search) { described_class.new }
+    let(:expressions) { {is_visible: [1],
+                         inventory: ["inventory:1.."],
+                         category: ["Some Category"],
+                         subcategory:["Some Subcategory"],
+                         color: [],
+                         brand: ["Some Brand"],
+                         heel: [],
+                         care: [],
+                         price: [],
+                         size: [],
+                         product_id: []} }
+
+    let(:expected_parameters) { { category: [],
+                         subcategory:["Some Subcategory"],
+                         color: [],
+                         brand: ["Some Brand"],
+                         heel: [],
+                         care: [],
+                         price: [],
+                         size: [],
+                         product_id: []} }
+    before do
+      search.instance_variable_get("@search").stub(:expressions).and_return(expressions)
+    end
+
+    context "when given parameter is a String" do
+      subject { search.remove_filter "category" }
+
+      it { should eq(expected_parameters) }
+    end
+
+    context "when given parameter is a Symbol" do
+      subject { search.remove_filter :category }
+
+      it { should eq(expected_parameters) }
+    end
+  end
+
 end

@@ -7,6 +7,7 @@
 //= require jquery_ujs
 //= require ./plugins/jquery.jqzoom-core
 //= require ./plugins/jquery.carouFredSel-6.2.1-packed
+//= require ./plugins/css_browser_selector
 //= require ./common/product_view
 //= require ./common/jquery.cookie
 //= require ./lite_base

@@ -1,0 +1,52 @@
+#filters_container
+  .filter
+    = form_tag brand_path(SeoUrl.build_for_brands(search.current_filters)), method: 'get' do
+
+      %fieldset.first_child
+        %span.selected-type{ class: ("filter_selected" if params[:category].present?) }= params[:category].present? ? params[:category].pluralize : "VER TUDO"
+        - categories =  [["Ver Tudo", brand_path(parameters: params[:brand])]] | Brand.categories(params[:brand]).map{|c| [c.titleize, brand_path(parameters: "#{ params[:brand]}/#{ c.singularize }")]}
+        = select_tag('', options_for_select(categories, selected: brand_path(parameters: "#{ params[:brand]}/#{ params[:category] }")), :onchange => ("location = this.options[this.selectedIndex].value;"))
+
+      %fieldset
+        %span.selected-type.order{ class: ("filter_selected" if params[:por].present?) }= params[:por].present? ? params[:por].gsub("-", " ").titleize : "NOSSA SELEÇÃO"
+        = select_tag('', options_for_select({"Nossa Seleção" => "#{ brand_path(parameters: params[:parameters], preco: params[:preco]) }", "Menor preço" => "#{ brand_path(parameters: params[:parameters], por: "menor-preco", preco: params[:preco]) }", "Maior preço" => "#{ brand_path(parameters: params[:parameters], por: "maior-preco", preco: params[:preco]) }", "Maior Desconto" => "#{ brand_path(parameters: params[:parameters], por: "maior-desconto", preco: params[:preco]) }"}, "#{ brand_path(parameters: params[:parameters], por: params[:por], preco: params[:preco]) }"), :class => "custom_select", :onchange => ("location = this.options[this.selectedIndex].value;"))
+  - if params[:category].present?
+
+    .filter
+      %span.selected-type.txt-filter{ class: ("filter_selected" if params[:subcategory].present?) } MODELO
+      .tab_bg &nbsp;
+      %ul
+        - filters_by("subcategory").each do |text, amount|
+          %li= filter_link_to(brand_path(SeoUrl.build_for_brands(search.filters_applied(:subcategory, text.chomp), params)), text.chomp, search.filter_selected?(:subcategory, text.chomp))
+        - if params[:subcategory].present?
+          %li.clear_choice= link_to '[limpar]', brand_path(SeoUrl.build_for_brands(search.remove_filter(:subcategory), params))
+
+    - unless filters_by("category").flatten.include? "acessório"
+      .filter
+        %span.selected-type.txt-filter{ class: ("filter_selected" if params[:size].present?) } TAMANHO
+        .tab_bg &nbsp;
+        %ul
+          - filters_by("size").each do |text, amount|
+            %li= filter_link_to(brand_path(SeoUrl.build_for_brands(search.filters_applied(:size, text.chomp), params)), text.chomp, search.filter_selected?(:size, text.chomp))
+          - if params[:size].present?
+            %li.clear_choice= link_to '[limpar]', brand_path(SeoUrl.build_for_brands(search.remove_filter(:size), params))
+
+    .filter
+      %span.selected-type.txt-filter{ class: ("filter_selected" if params[:color].present?) } COR
+      .tab_bg &nbsp;
+      %ul.cores
+        - filters_by("color").each do |text, amount|
+          %li= filter_link_to(brand_path(SeoUrl.build_for_brands(search.filters_applied(:color, text.chomp), params)), text.chomp, search.filter_selected?(:color, text.chomp))
+        - if params[:color].present?
+          %li.clear_choice= link_to '[limpar]', brand_path(SeoUrl.build_for_brands(search.remove_filter(:color), params))
+
+  .price-range
+    %p#min-value-label{style:'background-image: none'} 0
+    %p#max-value-label{style:'background-image: none'} 0
+    .slider
+      #slider-range
+
+    %input{type: "text", id: "min-value"}
+    %input{type:"text", id:"max-value"}
+    %input{type:"hidden", name:"price", id:"price"}
+
