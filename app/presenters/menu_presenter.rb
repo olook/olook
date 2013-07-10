@@ -22,11 +22,11 @@ class MenuPresenter < BasePresenter
   end
 
   def render_offline_menu
-    [showroom_offline, stylist, collection_themes, categories, gift, brands, liquidation].join.html_safe
+    [showroom_offline, stylist, collection_themes, categories, brands, gift, liquidation].join.html_safe
   end
 
   def render_default_menu
-    [showroom, stylist, collection_themes, categories, gift, brands, liquidation].join.html_safe
+    [showroom, stylist, collection_themes, categories, brands, gift, liquidation].join.html_safe
   end
 
   def render_half_user_menu
