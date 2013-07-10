@@ -314,6 +314,10 @@
         one: Coleção temática
         other: Coleções temáticas
 
+      brand:
+        one: Marca
+        other: Marcas
+
       product:
         one: Produto
         other: Produtos
