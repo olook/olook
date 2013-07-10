@@ -2,6 +2,7 @@
 module CatalogsHelper
   CLOTH_SIZES_TABLE = ["PP","P","M","G","GG","33","34","35","36","37","38","39","40","42","44","46","Único","Tamanho único"]
   HIGHLIGHT_BRANDS = {"olook" => 1, "olook concept" => 2}
+  STOP_WORDS = Set.new( %w{ e de do da } )
 
   def filter_link_to(link, text, selected=false, amount=nil)
     span_class = text.downcase
@@ -9,6 +10,12 @@ module CatalogsHelper
     text += " (#{amount})" if amount
     class_hash = selected ? {class: "selected"} : {}
     link+=search_param
+    textarr = text.split(' ')
+    if textarr.size > 1
+      f = textarr.shift
+      textarr.map! { |w| STOP_WORDS.include?(w) ? w.downcase : w  }
+      text = [f, textarr].flatten.join(' ')
+    end
     link_to(link, class_hash) do
       content_tag(:span, text, class:"txt-#{span_class}")
     end
