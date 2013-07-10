@@ -155,11 +155,11 @@ class Admin::ProductsController < Admin::BaseController
                        .with_visibility(params[:is_visible])
                        .order(sort_column + " " + sort_direction)
                        .order("collection_id desc, category, name")
-                       .paginate(page: params[:page], per_page: 10)                       
+                       .paginate(page: params[:page], per_page: 10)
   end
 
   def brands
-    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_brands.yml' ) ) ) )
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../../config/seo_url_brands.yml' ) ) ) )
   end
 end
 
