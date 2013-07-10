@@ -66,6 +66,19 @@ class SearchEngine
     filter_params
   end
 
+  def remove_filter filter
+    parameters = @search.expressions.dup
+    parameters.delete_if {|k| SearchUrlBuilder::IGNORE_ON_URL.include? k }
+    parameters[filter.to_sym] = []
+    parameters
+  end
+
+  def current_filters
+    parameters = @search.expressions.dup
+    parameters.delete_if {|k| SearchUrlBuilder::IGNORE_ON_URL.include? k }
+    parameters
+  end
+
   def for_page page
     @current_page = (page || 1).to_i
     self
@@ -181,7 +194,7 @@ class SearchEngine
           /#{filter_value.gsub('-', '..')}/ =~ v
         end
       else
-        values.map{|_v| _v.titleize}.include?(ActiveSupport::Inflector.transliterate(filter_value).downcase.titleize)
+        values.map{|_v| ActiveSupport::Inflector.transliterate(_v).downcase.titleize}.include?(ActiveSupport::Inflector.transliterate(filter_value).downcase.titleize)
       end
     else
       false
