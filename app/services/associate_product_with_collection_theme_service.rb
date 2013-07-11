@@ -3,13 +3,13 @@ class AssociateProductWithCollectionThemeService
   attr_accessor :response_keys, :product_ids
 
   def initialize(collection_theme_id, product_ids)
-    @response_keys = {not_found: [], not_inventory: [], not_visible: [], successfull: []}
+    @response_keys = {not_found: [], not_inventory: [], not_visible: [], success: []}
     @collection_theme_id = collection_theme_id
     @product_ids = product_ids.split(/\D/).compact
   end
 
   def associate_collection_themes_and_products
-    fill_hash_info
+    process!
     associate_ids
   end
 
@@ -17,7 +17,7 @@ class AssociateProductWithCollectionThemeService
 
   end
 
-  def process
+  def process!
     product_ids.each do |id|
       product = Product.find_by_id(id)
       case
@@ -28,7 +28,7 @@ class AssociateProductWithCollectionThemeService
       when product.inventory.zero?
         response_keys[:not_inventory] << product.id
       else
-        response_keys[:successful] << product.id
+        response_keys[:success] << product.id
       end
     end
   end
