@@ -1,7 +1,8 @@
 - if search.has_any_filter_selected?
   %section.filters
     %p
-      Você está em
+      Você está em 
+      =params[:category].try(:capitalize).try(:pluralize)
       %span //
     %ul
       - search.selected_filters_for("subcategory").sort.each do |sub|
