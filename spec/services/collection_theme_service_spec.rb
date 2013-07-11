@@ -3,6 +3,9 @@ require "spec_helper"
 describe CollectionThemeService do
   subject {CollectionThemeService.new("","")}
   describe "#initialize" do
+    it "returns hash" do
+      expect(subject.response_keys).to be_kind_of(Hash)
+    end
     it "have hash with not found key" do
       expect(subject.response_keys).to have_key(:not_found)
     end
@@ -17,43 +20,39 @@ describe CollectionThemeService do
     end
   end
 
-  describe "#associate_collection_themes_and_products=" do
-    let(:product1) {FactoryGirl.create(:shoe)}
-    let(:product2) {FactoryGirl.create(:shoe)}
-    let(:product3) {FactoryGirl.create(:shoe)}
-    let!(:basic_shoe_size_35) { FactoryGirl.create :basic_shoe_size_35, :product => product1 }
-    let!(:basic_shoe_size_40) { FactoryGirl.create :basic_shoe_size_40, :product => product2 }
-    let!(:basic_shoe_size_37) { FactoryGirl.create :basic_shoe_size_37, :product => product3 }
-    context "when dont have products" do
-      it "associate ids" do
-      end
-    end
-    context "when already have products" do
-      it "make new associations" do
-      end
-
-      it "remove old association" do
-      end
-    end
-  end
-  describe "#sanitize_products" do
+  #describe "#associate_collection_themes_and_products=" do
+  #  let(:product1) {FactoryGirl.create(:shoe)}
+  #  let(:product2) {FactoryGirl.create(:shoe)}
+  #  let(:product3) {FactoryGirl.create(:shoe)}
+  #  let!(:basic_shoe_size_35) { FactoryGirl.create :basic_shoe_size_35, :product => product1 }
+  #  let!(:basic_shoe_size_40) { FactoryGirl.create :basic_shoe_size_40, :product => product2 }
+  #  let!(:basic_shoe_size_37) { FactoryGirl.create :basic_shoe_size_37, :product => product3 }
+  #  context "when dont have products" do
+  #    it "associate ids" do
+  #    end
+  #  end
+  #  context "when already have products" do
+  #    it "make new associations" do
+  #    end
+  #
+  #    it "remove old association" do
+  #    end
+  #  end
+  #end
+  describe "#fill_hash_info" do
     let!(:product) {FactoryGirl.create(:shoe)}
-
-    it "returns hash" do
-      expect(subject.associate_collection_themes_and_products(Hash.new)).to be_kind_of(Hash)
-    end
-
+    subject {CollectionThemeService.new("",product.id.to_s)}
     context "When dont find products" do
       it "returns product id on not_found key" do
         Product.should_receive(:find_by_id).and_return(nil)
-        product_hash = subject.associate_collection_themes_and_products
-        expect(product_hash.fetch(:not_found)).to eql([product.id])
+        subject.fill_hash_info
+        expect(subject.response_keys.fetch(:not_found)).to eql([product.id.to_s])
       end
     end
     context "When product dont have inventory" do
       it "returns product id on not_inventory key" do
-        product_hash = subject.associate_collection_themes_and_products
-        expect(product_hash.fetch(:not_inventory)).to eql([product.id])
+        subject.fill_hash_info
+        expect(subject.response_keys.fetch(:not_inventory)).to eql([product.id])
       end
     end
     context "When product is not visible" do

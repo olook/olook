@@ -90,39 +90,4 @@ describe CollectionTheme do
       end
     end
   end
-  describe "#sanitize_products" do
-    let!(:product) {FactoryGirl.create(:shoe)}
-
-    it "returns hash" do
-      expect(subject.sanitize_products(Hash.new)).to be_kind_of(Hash)
-    end
-
-    context "When dont find products" do
-      it "returns product id on not_found key" do
-        Product.should_receive(:find_by_id).and_return(nil)
-        product_hash = subject.sanitize_products([product.id])
-        expect(product_hash.fetch(:not_found)).to eql([product.id])
-      end
-    end
-    context "When product dont have inventory" do
-      it "returns product id on not_inventory key" do
-        product_hash = subject.sanitize_products([product.id])
-        expect(product_hash.fetch(:not_inventory)).to eql([product.id])
-      end
-    end
-    context "When product is not visible" do
-      it "returns product id on not_visible key" do
-        product.update_attributes(is_visible: false)
-        product_hash = subject.sanitize_products([product.id])
-        expect(product_hash.fetch(:not_visible)).to eql([product.id])
-      end
-    end
-    context "When product is avaliable" do
-      it "returns product id on successful key" do
-        Product.any_instance.should_receive(:inventory).and_return(2)
-        product_hash = subject.sanitize_products([product.id])
-        expect(product_hash.fetch(:successful)).to eql([product.id])
-      end
-    end
-  end
 end
