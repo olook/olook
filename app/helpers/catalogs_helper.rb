@@ -5,7 +5,7 @@ module CatalogsHelper
   STOP_WORDS = Set.new( %w{ e de do da } )
 
   def filter_link_to(link, text, selected=false, amount=nil)
-    span_class = text.downcase
+    span_class = text.downcase.parameterize
     search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
     text += " (#{amount})" if amount
     class_hash = selected ? {class: "selected"} : {}
