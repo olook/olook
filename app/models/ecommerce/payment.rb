@@ -45,6 +45,10 @@ class Payment < ActiveRecord::Base
     where(type: 'CreditPayment').joins(:credit_type).where(:credit_types => {code: 'redeem'})
   end
 
+  def self.for_invite
+    where(type: 'CreditPayment').joins(:credit_type).where(:credit_types => {code: 'invite'})
+  end
+
   def self.for_credits
     where(type: 'CreditPayment')
   end
