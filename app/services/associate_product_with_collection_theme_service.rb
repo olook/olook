@@ -8,7 +8,7 @@ class AssociateProductWithCollectionThemeService
     @product_ids = product_ids.split(/\D/).compact
   end
 
-  def associate_collection_themes_and_products
+  def associate
     process!
     associate_ids
   end
