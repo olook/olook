@@ -62,6 +62,21 @@ describe Product do
         it { should eq([product_sold_out, product_in_stock]) }
       end
     end
+
+    describe "'.by_sold" do
+      let!(:product_with_more_orders) { FactoryGirl.create(:shoe_variant, :in_stock, initial_inventory: 20, inventory: 1).product }
+      let!(:product_with_less_orders) { FactoryGirl.create(:shoe_variant, :in_stock, initial_inventory: 20, inventory: 10).product }
+      context "when order is decreasing" do
+        subject { described_class.by_sold("desc") }
+        it { should eq([product_with_more_orders, product_with_less_orders]) }
+      end
+
+      context "when order is ascendant" do
+        subject { described_class.by_sold("asc") }
+        it { should eq([product_with_less_orders, product_with_more_orders]) }
+      end
+    end
+
   end
 
   describe "#already_sold" do
