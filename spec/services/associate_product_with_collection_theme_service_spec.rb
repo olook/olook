@@ -20,26 +20,20 @@ describe AssociateProductWithCollectionThemeService do
     end
   end
 
-  #describe "#associate_collection_themes_and_products=" do
-  #  let(:product1) {FactoryGirl.create(:shoe)}
-  #  let(:product2) {FactoryGirl.create(:shoe)}
-  #  let(:product3) {FactoryGirl.create(:shoe)}
-  #  let!(:basic_shoe_size_35) { FactoryGirl.create :basic_shoe_size_35, :product => product1 }
-  #  let!(:basic_shoe_size_40) { FactoryGirl.create :basic_shoe_size_40, :product => product2 }
-  #  let!(:basic_shoe_size_37) { FactoryGirl.create :basic_shoe_size_37, :product => product3 }
-  #  context "when dont have products" do
-  #    it "associate ids" do
-  #    end
-  #  end
-  #  context "when already have products" do
-  #    it "make new associations" do
-  #    end
-  #
-  #    it "remove old association" do
-  #    end
-  #  end
-  #end
-  describe "#process" do
+  describe "#associate" do
+    before do
+      @product = mock_model(Product)
+      Product.should_receive(:find_by_id).with("123").and_return(@product)
+      @collection_theme = mock_model(CollectionTheme)
+      CollectionTheme.should_receive(:find_by_id).with("1").and_return(@collection_theme)
+    end
+    subject { AssociateProductWithCollectionThemeService.new("1", "123") }
+    it "should call product_ids on collection" do
+      pending "Fazer uma discussão de funcionalidade com o Tiago"
+    end
+  end
+
+  describe "#process!" do
     let!(:product) {FactoryGirl.create(:shoe)}
     subject {AssociateProductWithCollectionThemeService.new("",product.id.to_s)}
     context "When dont find products" do
