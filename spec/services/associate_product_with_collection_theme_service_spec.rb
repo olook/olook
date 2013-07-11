@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe AssociateProductWithCollectionThemeService do
-  subject {CollectionThemeService.new("","")}
+  subject {AssociateProductWithCollectionThemeService.new("","")}
   describe "#initialize" do
     it "returns hash" do
       expect(subject.response_keys).to be_kind_of(Hash)
@@ -16,7 +16,7 @@ describe AssociateProductWithCollectionThemeService do
       expect(subject.response_keys).to have_key(:not_visible)
     end
     it "have hash with successfull key" do
-      expect(subject.response_keys).to have_key(:successfull)
+      expect(subject.response_keys).to have_key(:success)
     end
   end
 
@@ -41,32 +41,32 @@ describe AssociateProductWithCollectionThemeService do
   #end
   describe "#process" do
     let!(:product) {FactoryGirl.create(:shoe)}
-    subject {CollectionThemeService.new("",product.id.to_s)}
+    subject {AssociateProductWithCollectionThemeService.new("",product.id.to_s)}
     context "When dont find products" do
       it "returns product id on not_found key" do
         Product.should_receive(:find_by_id).and_return(nil)
-        subject.fill_hash_info
+        subject.process!
         expect(subject.response_keys.fetch(:not_found)).to eql([product.id.to_s])
       end
     end
     context "When product dont have inventory" do
       it "returns product id on not_inventory key" do
-        subject.fill_hash_info
+        subject.process!
         expect(subject.response_keys.fetch(:not_inventory)).to eql([product.id])
       end
     end
     context "When product is not visible" do
       it "returns product id on not_visible key" do
         product.update_attributes(is_visible: false)
-        product_hash = subject.associate_collection_themes_and_products
-        expect(product_hash.fetch(:not_visible)).to eql([product.id])
+        subject.process!
+        expect(subject.response_keys.fetch(:not_visible)).to eql([product.id])
       end
     end
     context "When product is avaliable" do
       it "returns product id on successful key" do
         Product.any_instance.should_receive(:inventory).and_return(2)
-        product_hash = subject.associate_collection_themes_and_products
-        expect(product_hash.fetch(:successfull)).to eql([product.id])
+        subject.process!
+        expect(subject.response_keys.fetch(:success)).to eql([product.id])
       end
     end
   end
