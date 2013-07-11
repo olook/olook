@@ -19,6 +19,9 @@
       - if params[:category]
         .invite_friends
           =banner_for Category.with_name params[:category]
+        .promo_brands
+          =link_to "/roupa/eclectic-leeloo-mandi?utf8=✓&por=menor-preco" do
+            =image_tag 'catalog/marcas_160X600.gif'
 
     #result
       - unless @search.has_any_filter_selected? || params[:cmp].present?
