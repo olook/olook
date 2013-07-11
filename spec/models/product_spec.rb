@@ -19,6 +19,63 @@ describe Product do
     it { should respond_to :remove_freebie }
   end
 
+  describe 'scopes' do
+    describe ".with_brand" do
+      let!(:product_with_given_brand) { FactoryGirl.create(:shoe, :casual, brand: "Some Brand") }
+      let!(:product_without_given_brand) { FactoryGirl.create(:shoe, :casual, brand: "Other Brand") }
+
+      subject { described_class.with_brand("Some Brand") }
+
+      it { should include product_with_given_brand }
+      it { should_not include product_without_given_brand }
+    end
+
+    describe ".with_visibility" do
+      let(:visible_product) { FactoryGirl.create(:shoe, :casual, is_visible: true) }
+      let(:invisible_product) { FactoryGirl.create(:shoe, :casual, is_visible: false) }
+
+      context "when looking for visible products" do
+        subject { described_class.with_visibility(true) }
+
+        it { should include visible_product }
+        it { should_not include invisible_product }
+      end
+
+      context "when looking for invisible products" do
+        subject { described_class.with_visibility(false) }
+
+        it { should include invisible_product }
+        it { should_not include visible_product }
+      end
+    end
+
+    describe "'.by_inventory" do
+      let!(:product_in_stock) { FactoryGirl.create(:shoe_variant, :in_stock).product }
+      let!(:product_sold_out) { FactoryGirl.create(:shoe_variant, :sold_out).product }
+      context "when order is decreasing" do
+        subject { described_class.by_inventory("desc") }
+        it { should eq([product_in_stock, product_sold_out]) }
+      end
+
+      context "when order is ascendant" do
+        subject { described_class.by_inventory("asc") }
+        it { should eq([product_sold_out, product_in_stock]) }
+      end
+    end
+  end
+
+  describe "#already_sold" do
+    let(:product) { described_class.new }
+    before do
+      product.stub(:initial_inventory).and_return(9)
+      product.stub(:inventory).and_return(3)
+    end
+
+    subject { product.quantity_alredy_sold }
+
+    it { should eq(6) }
+  end
+
   describe ".featured_products" do
 
     context "when there is no featured products configured" do

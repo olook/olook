@@ -21,6 +21,12 @@ FactoryGirl.define do
       association :collection
     end
 
+    trait :with_detail do
+      after(:create) do |product|
+        product.details << FactoryGirl.create(:product_color_detail)
+      end
+    end
+
     factory :shoe do
       name "Chanelle"
       description "Elegant black high-heeled shoe for executives"

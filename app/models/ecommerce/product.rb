@@ -52,6 +52,9 @@ class Product < ActiveRecord::Base
 
   scope :in_category, lambda { |value| { :conditions => ({ category: value } unless value.blank? || value.nil?) } }
   scope :in_collection, lambda { |value| { :conditions => ({ collection_id: value } unless value.blank? || value.nil?) } }
+  scope :with_brand, lambda { |value| { :conditions => ({ brand: value } unless value.blank? || value.nil?) } }
+  scope :by_inventory, lambda { |value| joins(:variants).group("products.id").order("sum(variants.inventory) #{ value }") if ["asc","desc"].include?(value) }
+  scope :with_visibility, lambda { |value| { :conditions => ({ is_visible: value } unless value.nil? ) } }
   scope :search, lambda { |value| { :conditions => ([ "name like ? or model_number = ?", "%#{value}%", value ] unless value.blank? || value.nil?) } }
 
 
@@ -66,6 +69,10 @@ class Product < ActiveRecord::Base
 
   def self.in_profile profile
     !profile.blank? && !profile.nil? ? scoped.joins('inner join products_profiles on products.id = products_profiles.product_id').where('products_profiles.profile_id' => profile) : scoped
+  end
+
+  def self.in_subcategory subcategory
+    subcategory.present? ? scoped.joins('inner join details on products.id = details.product_id').where('details.description' => subcategory) : scoped
   end
 
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
@@ -217,6 +224,10 @@ class Product < ActiveRecord::Base
 
   def initial_inventory
     self.variants.sum(:initial_inventory)
+  end
+
+  def quantity_alredy_sold
+    initial_inventory - inventory
   end
 
   def sold_out?
