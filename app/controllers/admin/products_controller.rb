@@ -154,6 +154,7 @@ class Admin::ProductsController < Admin::BaseController
                        .with_brand(params[:brand])
                        .with_visibility(params[:is_visible])
                        .by_inventory(params[:inventory_ordenation])
+                       .by_sold(params[:sale_ordenation])
                        .order(sort_column + " " + sort_direction)
                        .order("collection_id desc, category, name")
                        .paginate(page: params[:page], per_page: 10)
