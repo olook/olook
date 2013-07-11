@@ -266,6 +266,26 @@ class Order < ActiveRecord::Base
     not order_was_fully_paid
   end
 
+  def coupon_discount
+    CouponPayment.where(order_id: id).sum(&:total_paid)
+  end
+
+  def markdown_discount
+    OlookletPayment.where(order_id: id).sum(&:total_paid)
+  end
+
+  def loyalty_credits_discount
+    payments.for_loyalty.sum(&:total_paid)
+  end
+
+  def redeem_credits_discount
+    payments.for_redeem.sum(&:total_paid)
+  end
+
+  def invite_credits_discount
+    payments.for_invite.sum(&:total_paid)
+  end
+
   private
 
     def set_delivery_date_on

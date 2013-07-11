@@ -97,10 +97,13 @@
       <th>Produto</th>
       <th>Quantidade</th>
       <th>Preço unitário</th>
-      <th>Total</th>
-      <th>Desconto</th>
-      <th>Créditos de Fidelidade</th>
-      <th>Créditos a serem descontados<br/>(em caso de estorno)</th>
+      <th>Total Pago</th>
+      <th>Markdown</th>
+      <th>Cupom</th>
+      <th>Fidelidade</th>
+      <th>MGM</th>
+      <th>Reembolso</th>
+      <th>Créditos de Fidelidade<br/>(ganhos)</th>
       <th></th>
     </tr>
 
@@ -112,9 +115,14 @@
       <td><%= link_to line_item.variant.name, admin_product_path(line_item.variant.product) %></td>
       <td><%= line_item.quantity  %></td>
       <td><%= number_to_currency(line_item.price) %></td>
-      <td><%= number_to_currency(line_item.total_price) %></td>
-      <td><%= number_to_currency((line_item.price - line_item.retail_price) * line_item.quantity) %></td>
-      <td><%= number_to_currency(line_item.calculate_loyalty_credit_amount) %> </td>
+      <td><%= number_to_currency(line_item.total_paid) %></td>
+      <td><%= number_to_currency(line_item.calculate_markdown_discount) %></td>
+      <td><%= number_to_currency(line_item.calculate_coupon_discount) %></td>
+
+      <td><%= number_to_currency(line_item.calculate_loyalty_credits_discount) %></td>
+      <td><%= number_to_currency(line_item.calculate_invite_credits_discount) %></td>
+      <td><%= number_to_currency(line_item.calculate_redeem_credits_discount) %></td>
+
       <td><%= number_to_currency(line_item.calculate_available_credits) %></td>
       <td><% if line_item.debits.empty? && !line_item.is_freebie %>
         <%= form_tag(remove_loyalty_credits_admin_order_path(@order)) do -%>
