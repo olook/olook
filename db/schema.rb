@@ -69,6 +69,14 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
     t.string   "picture_name"
   end
 
+  create_table "brands", :force => true do |t|
+    t.string   "name"
+    t.string   "header_image"
+    t.string   "header_image_alt"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
   create_table "braspag_authorize_responses", :force => true do |t|
     t.string   "correlation_id"
     t.boolean  "success"

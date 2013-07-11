@@ -51,9 +51,16 @@ describe SearchEngine do
     end
 
     context "when limit wasn't passed" do
-      it "sets limit as 50 (default)" do
+      it "sets limit as 49 (default)" do
         subject.with_limit
-        expect(subject.instance_variable_get("@limit")).to eq(50)
+        expect(subject.instance_variable_get("@limit")).to eq(48)
+      end
+    end
+
+    context "when given limit is nil" do
+      it "sets limit as 49 (default)" do
+        subject.with_limit
+        expect(subject.instance_variable_get("@limit")).to eq(48)
       end
     end
   end
@@ -320,6 +327,46 @@ describe SearchEngine do
       subject { search.has_at_least_three_more_pages? }
 
       it { should be_false }
+    end
+  end
+
+  describe "#remove_filter" do
+    let(:search) { described_class.new }
+    let(:expressions) { {is_visible: [1],
+                         inventory: ["inventory:1.."],
+                         category: ["Some Category"],
+                         subcategory:["Some Subcategory"],
+                         color: [],
+                         brand: ["Some Brand"],
+                         heel: [],
+                         care: [],
+                         price: [],
+                         size: [],
+                         product_id: []} }
+
+    let(:expected_parameters) { { category: [],
+                         subcategory:["Some Subcategory"],
+                         color: [],
+                         brand: ["Some Brand"],
+                         heel: [],
+                         care: [],
+                         price: [],
+                         size: [],
+                         product_id: []} }
+    before do
+      search.instance_variable_get("@search").stub(:expressions).and_return(expressions)
+    end
+
+    context "when given parameter is a String" do
+      subject { search.remove_filter "category" }
+
+      it { should eq(expected_parameters) }
+    end
+
+    context "when given parameter is a Symbol" do
+      subject { search.remove_filter :category }
+
+      it { should eq(expected_parameters) }
     end
   end
 

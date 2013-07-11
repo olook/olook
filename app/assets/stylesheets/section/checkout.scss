@@ -1347,12 +1347,12 @@ section#payment {
 				}
 				.txt-instrucao{clear:both;text-align:center;margin-bottom:10px}
 				.steps{
-					width:920px;height:86px;background:image-url("/assets/new_checkout/bg_steps.png") no-repeat;margin:0 auto 25px;
+					width:920px;height:86px;background:image-url("new_checkout/bg_steps.png") no-repeat;margin:0 auto 25px;
 					li{float:left;font-size:12px;color:#BBB;width:290px;margin:20px 0 0 15px;
 						.numero{display:block;float:left;width:36px;height:36px;font-size:0;font-family:a;margin-top:7px;
-							&.num1{background:image-url("/assets/new_checkout/bg_steps.png") 0 -111px no-repeat}
-							&.num2{background:image-url("/assets/new_checkout/bg_steps.png") -338px -111px no-repeat}
-							&.num3{background:image-url("/assets/new_checkout/bg_steps.png") -640px -111px no-repeat}
+							&.num1{background:image-url("new_checkout/bg_steps.png") 0 -111px no-repeat}
+							&.num2{background:image-url("new_checkout/bg_steps.png") -338px -111px no-repeat}
+							&.num3{background:image-url("new_checkout/bg_steps.png") -640px -111px no-repeat}
 						}
 
 					}
