@@ -59,36 +59,15 @@ class CollectionTheme < ActiveRecord::Base
     end
   end
 
-  def product_associate_ids= value
-    @product_associate_ids = value
-    ids_array = value.split(/\D/).compact
-    products_hash = sanitize_products(ids_array)
-    self.product_ids = products_hash.fetch(:successful)
+  def product_associate_ids= ids
+    ids_array = ids.split(/\D/).compact
+    self.product_ids = ids_array
   end
 
-  def product_associate_ids_file= file
-    ids_array = file.tempfile.read.split(/\D/).compact
-    errors.add(:product_associate_ids_file, "bla not fount #{ids_array}")
-    #self.product_ids = ids_array
-  end
-
-
-  def sanitize_products ids
-    products_hash = {not_found: [], not_inventory: [], not_visible: [], successful: []}
-    ids.each do |id|
-      product = Product.find_by_id(id)
-      case
-      when product.nil?
-        products_hash[:not_found] << id
-      when !product.is_visible?
-        products_hash[:not_visible] << product.id
-      when product.inventory.zero?
-        products_hash[:not_inventory] << product.id
-      else
-        products_hash[:successful] << product.id
-      end
-    end
-    products_hash
+  def product_associate_ids_file= ids
+    ids_array = ids.split(/\D/).compact
+    #errors.add(:product_associate_ids_file, "bla not fount #{ids_array}")
+    self.product_ids = ids_array
   end
 
   private
