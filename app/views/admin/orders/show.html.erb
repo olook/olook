@@ -100,6 +100,7 @@
       <th>Total Pago</th>
       <th>Markdown</th>
       <th>Cupom</th>
+      <th>Outros Descontos</th>      
       <th>Fidelidade</th>
       <th>MGM</th>
       <th>Reembolso</th>
@@ -118,6 +119,7 @@
       <td><%= number_to_currency(line_item.total_paid) %></td>
       <td><%= number_to_currency(line_item.calculate_markdown_discount) %></td>
       <td><%= number_to_currency(line_item.calculate_coupon_discount) %></td>
+      <td><%= number_to_currency(line_item.calculate_other_credits_discount) %></td>
 
       <td><%= number_to_currency(line_item.calculate_loyalty_credits_discount) %></td>
       <td><%= number_to_currency(line_item.calculate_invite_credits_discount) %></td>

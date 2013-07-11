@@ -286,6 +286,10 @@ class Order < ActiveRecord::Base
     payments.for_invite.sum(&:total_paid)
   end
 
+  def other_credits_discount
+    (payments.for_facebook_share_discount + payments.for_billet_discount).sum(&:total_paid)
+  end
+
   private
 
     def set_delivery_date_on

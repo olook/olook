@@ -77,6 +77,10 @@ class LineItem < ActiveRecord::Base
     (order.invite_credits_discount*percentage).round(2)
   end  
 
+  def calculate_other_credits_discount
+    (order.other_credits_discount*percentage).round(2)
+  end  
+
   def total_paid
     (order.amount_paid*percentage).round(2)
   end
