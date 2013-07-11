@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe CollectionThemeService do
+describe AssociateProductWithCollectionThemeService do
   subject {CollectionThemeService.new("","")}
   describe "#initialize" do
     it "returns hash" do
@@ -39,7 +39,7 @@ describe CollectionThemeService do
   #    end
   #  end
   #end
-  describe "#fill_hash_info" do
+  describe "#process" do
     let!(:product) {FactoryGirl.create(:shoe)}
     subject {CollectionThemeService.new("",product.id.to_s)}
     context "When dont find products" do

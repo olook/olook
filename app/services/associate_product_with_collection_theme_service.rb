@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CollectionThemeService
+class AssociateProductWithCollectionThemeService
   attr_accessor :response_keys, :product_ids
 
   def initialize(collection_theme_id, product_ids)
@@ -17,7 +17,7 @@ class CollectionThemeService
 
   end
 
-  def fill_hash_info
+  def process
     product_ids.each do |id|
       product = Product.find_by_id(id)
       case
