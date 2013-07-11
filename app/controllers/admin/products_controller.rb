@@ -57,7 +57,7 @@ class Admin::ProductsController < Admin::BaseController
   def sync_products
     @products = Product.all
     @sync_event = SynchronizationEvent.new(name: 'products', user: current_admin.email)
-    
+
     if @sync_event.save
       redirect_to admin_products_path
     else
@@ -143,15 +143,24 @@ class Admin::ProductsController < Admin::BaseController
 
     @categories = [["Sapatos", Category::SHOE] , ['Bolsas', Category::BAG], ['Acessórios', Category::ACCESSORY], ['Roupas', Category::CLOTH]]
     @profiles = Profile.order(:name)
+    @brands = brands
 
-    @products = Product.includes(:profiles).includes(:collection)
+    @products = Product.includes(:details).includes(:profiles).includes(:collection)
                        .search(params[:q])
                        .in_category(params[:cat])
+                       .in_subcategory(params[:subcat])
                        .in_collection(params[:col])
                        .in_profile(params[:p])
+                       .with_brand(params[:brand])
+                       .with_visibility(params[:is_visible])
+                       .by_inventory(params[:inventory_ordenation])
                        .order(sort_column + " " + sort_direction)
                        .order("collection_id desc, category, name")
                        .paginate(page: params[:page], per_page: 10)
+  end
+
+  def brands
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../../config/seo_url_brands.yml' ) ) ) )
   end
 end
 
