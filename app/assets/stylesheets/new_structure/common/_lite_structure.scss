@@ -78,7 +78,7 @@ header#new_header{border-top: 8px black solid;
     }
     .box_right{float: right;margin: 0px 10px 0 0;position:relative;
       .new_login{width: 162px;height: 18px;font-family: $avenir;font-size: 11px;display: block;float: right;text-align: center;line-height: 18px;border-left: 1px #d7d7d7 solid;border-right: 1px #d7d7d7 solid;
-        a{text-decoration: none;color: #000;
+        a{text-decoration: none;color: #ef3742;
         &:hover{text-decoration:underline;color: #ef3742;}
         }
       }
@@ -260,18 +260,20 @@ div#wrapper_new_menu{background:#FFF;width:100%;opacity:0.9;*filter: alpha(opaci
      &.fixed {
        position: fixed;top: 0;left:0;z-index:999;padding-top:5px;
      }
+
     nav.menu_new{
       margin: 0 auto 5px;width: 990px;
       .default_new{width: 990px;margin: 0 auto;overflow: hidden;position:relative;
 
         li{font-size: 10px;text-transform: uppercase;display: inline;float: left;height: 38px;background: image-url("common/nav/menu_bar.png") no-repeat right 0;
           &.liquidation{border-right: none;}
-          &#bar {position: absolute;bottom: 0px;left: 0;height: 4px;background: #000;padding:0;display:none;}
-          &:nth-child(9){background:none;}
-          a{display:block;font-family: $johnston;height:28px;text-decoration: none;color: black;padding:0 17px;letter-spacing:2px;line-height: 30px;}
+          &:nth-child(10){background:none;}
+          a{display:block;font-family: $johnston;height:28px;text-decoration: none;color: black;padding:0 13px;letter-spacing:2px;line-height: 30px;
+            &:hover,&.selected{color:$base_color;}
+          }
         }
       }
-    }
+    }    
   }
 
 

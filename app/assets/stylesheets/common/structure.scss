@@ -730,7 +730,7 @@ body {
         display: none;
       }
       em.current {
-        background: #df5a8b;
+        background: #ef3742;
         color: #FFF;
         font-size: 12px;
         padding: 5px 7px;
@@ -746,7 +746,7 @@ body {
         display: inline-block;
         cursor: pointer;
         &:hover {
-          background: #df5a8b;
+          background: #ef3742;
           color: #FFF;
         }
       }
@@ -967,8 +967,8 @@ body {
       
         li{font-size: 10px;text-transform: uppercase;display: inline;float: left;height: 30px;background: image-url("common/nav/menu_bar.png") no-repeat right 0;
           &.liquidation{border-right: none;}
-          &:nth-child(9){background:none;}
-          a{display:block;font-family: $johnston;height:28px;text-decoration: none;color: black;padding:0 17px;letter-spacing:2px;
+          &:nth-child(10){background:none;}
+          a{display:block;font-family: $johnston;height:28px;text-decoration: none;color: black;padding:0 14px;letter-spacing:2px;
             &:hover,&.selected{color:$pink;}
 
           }

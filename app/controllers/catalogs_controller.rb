@@ -22,21 +22,10 @@ class CatalogsController < SearchController
                                price: params[:price],
                                size: params[:size],
                                brand: params[:brand],
-                               sort: params[:sort]).for_page(params[:page]).with_limit(48)
+                               sort: params[:sort]).for_page(params[:page]).with_limit(params[:per_page])
     @search.for_admin if current_admin
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
+    @cache_key = "#{@search.cache_key}#{@campaign_products.cache_key if @campaign_products}"
+    expire_fragment(@cache_key) if params[:force_cache].to_i == 1
   end
-
-  private
-    def create_filters
-      filters = SearchEngine.new(category: params[:category]).filters
-      remove_care_products_from(filters)
-      filters
-    end
-
-    def remove_care_products_from(filters)
-      if filters.grouped_products('subcategory')
-        filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) }
-      end
-    end
 end

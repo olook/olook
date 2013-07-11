@@ -15,5 +15,5 @@ test:
 
 production:
   uri: "https://www.moip.com.br"
-  token: <%= "#{Capistrano::CLI.ui.ask("Enter MoIP token: ")}" %>
-  key: <%= "#{Capistrano::CLI.ui.ask("Enter MoIP key: ")}" %>
+  token: <%= "#{Capistrano::CLI.ui.ask("Enter MoIP token: ")}" if Rubber.env == 'production' %>
+  key: <%= "#{Capistrano::CLI.ui.ask("Enter MoIP key: ")}" if Rubber.env == 'production' %>

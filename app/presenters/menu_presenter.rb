@@ -22,11 +22,11 @@ class MenuPresenter < BasePresenter
   end
 
   def render_offline_menu
-    [showroom_offline, stylist, collection_themes, categories, gift, liquidation].join.html_safe
+    [showroom_offline, stylist, collection_themes, categories, brands, gift, liquidation].join.html_safe
   end
 
   def render_default_menu
-    [showroom, stylist, collection_themes, categories, gift, liquidation].join.html_safe
+    [showroom, stylist, collection_themes, categories, brands, gift, liquidation].join.html_safe
   end
 
   def render_half_user_menu
@@ -54,6 +54,10 @@ class MenuPresenter < BasePresenter
     render_item("Minha Vitrine", h.member_showroom_path, "showroom", ["members#showroom"])
   end
 
+  def brands
+    render_item("Marcas", h.new_brands_path, "brands", ["brands#index", "brands#show"])
+  end
+
   def stylist
     render_item("Stylist News", "http://www.olook.com.br/stylist-news", "stylist", ['stylists#helena_linhares'])
   end
@@ -75,19 +79,19 @@ class MenuPresenter < BasePresenter
   end
 
   def clothes
-    render_item("Roupas", h.clothes_path, "categories", ["moments#clothes"])
+    render_item("Roupas",  h.catalog_path(parameters: 'roupa'), "categories", ["catalogs#show#roupa"])
   end
 
   def shoes
-    render_item("Sapatos", h.shoes_path, "categories", ["moments#show#1"])
+    render_item("Sapatos", h.catalog_path(parameters: 'sapato'), "categories", ["catalogs#show#sapato"])
   end
 
   def bags
-    render_item("Bolsas", h.bags_path, "categories", ["moments#show#2"])
+    render_item("Bolsas", h.catalog_path(parameters: 'bolsa'), "categories", ["catalogs#show#bolsa"])
   end
 
   def accessories
-    render_item("Acessórios", h.accessories_path, "categories", ["moments#show#3"])
+    render_item("Acessórios", h.catalog_path(parameters: 'acessorio'), "categories", ["catalogs#show#acessorio"])
   end
 
   def glasses
