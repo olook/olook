@@ -147,7 +147,7 @@ facebook_friends_list:
   description: "Cria e envia arquivo com base de usuários e amigas aniversariantes para ftp do exact target"
 
 cancel_old_billets:
-  cron: "0 7 * * *"
+  cron: "0 12 * * *"
   class: Abacos::CancelExpiredBillet
   queue: cancel_old_billets
   description: "Cancela todos os boletos com data de expicacao de um dia antes do ultimo dia util"
