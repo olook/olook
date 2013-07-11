@@ -20,9 +20,6 @@ class LineItem < ActiveRecord::Base
 
   def calculate_loyalty_credit_amount
     return 0 if is_freebie
-
-    # calcular retail_price/line_item_sum para saber a porcentagem do produto na quantia paga.
-    percentage = retail_price/line_item_sum
     
     # buscar crédito gerado pela order
     total_credit_amount = find_original_loyalty_credit.try(:value)
@@ -58,6 +55,34 @@ class LineItem < ActiveRecord::Base
       end
     end
     debits
+  end
+
+  def calculate_markdown_discount
+    (order.markdown_discount*percentage).round(2)
+  end
+
+  def calculate_coupon_discount
+    (order.coupon_discount*percentage).round(2)
+  end  
+
+  def calculate_loyalty_credits_discount
+    (order.loyalty_credits_discount*percentage).round(2)
+  end  
+
+  def calculate_redeem_credits_discount
+    (order.redeem_credits_discount*percentage).round(2)
+  end  
+
+  def calculate_invite_credits_discount
+    (order.invite_credits_discount*percentage).round(2)
+  end  
+
+  def calculate_other_credits_discount
+    (order.other_credits_discount*percentage).round(2)
+  end  
+
+  def total_paid
+    (order.amount_paid*percentage).round(2)
   end
 
   private
@@ -97,5 +122,10 @@ class LineItem < ActiveRecord::Base
           })
       end
       amount_to_remove
+    end
+
+    def percentage
+      # calcular retail_price/line_item_sum para saber a porcentagem do produto na quantia paga.
+      retail_price/line_item_sum
     end
 end
