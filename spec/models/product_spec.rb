@@ -35,14 +35,14 @@ describe Product do
       let(:invisible_product) { FactoryGirl.create(:shoe, :casual, is_visible: false) }
 
       context "when looking for visible products" do
-        subject { described_class.with_visibility(true) }
+        subject { described_class.with_visibility(1) }
 
         it { should include visible_product }
         it { should_not include invisible_product }
       end
 
       context "when looking for invisible products" do
-        subject { described_class.with_visibility(false) }
+        subject { described_class.with_visibility(0) }
 
         it { should include invisible_product }
         it { should_not include visible_product }
