@@ -18,7 +18,7 @@
       input{width:570px;height:48px;border:solid 1px #A7A9AB;font-size:20px;text-align:center;color:#BCBEC0;}
     }  
     button{border: none;text-indent: -99999px;position: absolute;cursor: pointer;
-      &.register{width: 152px;height: 37px;background: image-url('common/sprite_modal_footer.png') 0 -36px;bottom:35px;right:40px;
+      &.register,&.register2{width: 152px;height: 37px;background: image-url('common/sprite_modal_footer.png') 0 -36px;bottom:35px;right:40px;
         &:hover{background: image-url('common/sprite_modal_footer.png') 0 -82px;}
       }
       &.close{width: 20px;height: 20px;background: image-url('common/sprite_modal_footer.png') 0 0;bottom:105px;right: 0;}

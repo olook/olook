@@ -1,6 +1,6 @@
 #modal_footer
   .modal
-    %button.register{type: "button"} Cadastre-se
+    %button.register{type: "button", style:"display:none"} Cadastre-se
     =image_tag "common/footer_girl.png"
     %button.close{type: "button"} Close
     .presentation{style:"display:none"}
@@ -10,6 +10,7 @@
       %form{method:"post", action: ""}
         %p Informe seu email
         %input{type:"text", value:"seunomeaqui@email.com.br"}  
+        %button.register2{type: "button"} Cadastre-se
       
     
   
