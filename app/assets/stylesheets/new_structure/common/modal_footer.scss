@@ -14,9 +14,20 @@
       h1{font-family: 'johnston', arial, sans-serif;font-size: 27px;}
       h2{font-family: 'avenir', arial, sans-serif;font-size: 14px;font-weight: lighter;}
     }
-    .form{width:580px;margin-left:150px;text-align:center;font-family:$avenir_medium;font-size:17px;color:#000;padding-top:10px;
-      input{width:570px;height:48px;border:solid 1px #A7A9AB;font-size:20px;text-align:center;color:#BCBEC0;}
-    }  
+    .form{width:580px;margin-left:150px;text-align:center;font-family:$avenir_medium;color:#000;padding-top:10px;display:none;
+      p{height:25px;line-height:25px;font-size:17px;
+        &.error{background:image-url('common/sprite_modal_footer.png') no-repeat -45px 0;}
+        .error-msg{font-size:14px;display:none;}
+      }
+      input{width:570px;height:48px;border:solid 1px #A7A9AB;font-size:20px;text-align:center;color:#BCBEC0;
+        &.txt-black{color:#000;}
+        &.error{border:solid 1px #F00;}  
+      }
+    }
+    .ok-msg{float:left;width:509px;height:29px;border:solid 1px #B2D079;background:#D9F99F;padding:10px 0 10px 20px;margin:30px 0 0 260px;display:none;
+      p{height:30px;font-size:15px;background: image-url('common/sprite_modal_footer.png') no-repeat 0 -165px;padding-left:40px;}
+    }
+      
     button{border: none;text-indent: -99999px;position: absolute;cursor: pointer;
       &.register,&.register2{width: 152px;height: 37px;background: image-url('common/sprite_modal_footer.png') 0 -36px;bottom:35px;right:40px;
         &:hover{background: image-url('common/sprite_modal_footer.png') 0 -82px;}
