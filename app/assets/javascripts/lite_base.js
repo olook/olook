@@ -164,6 +164,52 @@ olook = o = {
         })
       }
     }
+  },
+  
+  validateEmail: function(email) { 
+      var regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return regex.test(email);
+  },
+  
+  registerEmail: function(){
+    $("button.register").on("click", function(){
+      $(".presentation, button.register").fadeOut().next().delay(500).fadeIn();
+      var email_field = $("#modal_footer input.email");
+      
+      email_field.on({
+        focus: function(){
+          $(this).addClass("txt-black").val("");
+        },
+        focusout: function(){
+          if( $.trim($(this).val()) == "" ){
+            $(this).removeClass("txt-black").val("seunomeaqui@email.com.br");
+          }
+        }
+      });
+      
+      $("button.register2").on("click", function(){
+        var email = email_field.val();
+        if(o.validateEmail(email) && email != "seunomeaqui@email.com.br"){
+          $(this).parents(".form").fadeOut().next().delay(300).fadeIn().delay(2500).fadeOut();
+          email_field.off("focusout");
+          
+          $(".presentation, button.register").delay(4000).fadeIn(function(){
+            email_field.removeClass("txt-black error").val("seunomeaqui@email.com.br")
+
+            if(email_field.prev().hasClass("error")){
+              $("p.error").removeClass("error").children("span.error-msg").fadeOut();
+              $("p span.txt").fadeIn();
+            }
+          });
+        
+        }else{
+          $(this).prev().prev().addClass("error");
+          $("p span.txt").fadeOut("fast").next().fadeIn().prev().addClass("error");
+        }
+      });
+    })
   }
+  
+  
   
 }
