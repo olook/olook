@@ -12,6 +12,8 @@
       <parcelamento><![CDATA[<%= build_installment_text(product.retail_price) %>]]></parcelamento>
       <cor><![CDATA[<%= product.color_name %>]]></cor>
       <marca><![CDATA[<%= product.brand %>]]></marca>
+      <sexo><![CDATA[Feminino]]></sexo>
+      <tamanho><![CDATA[<%= product.variants.map(&:description).join(', ').gsub('_', 'Único') %>]]></tamanho>
     </produto>
   <% end %>
 </loja>
