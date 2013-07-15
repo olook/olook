@@ -1,5 +1,6 @@
 class CampaignEmailsController < ApplicationController
   layout "campaign_emails"
+  respond_to :html, :js
 
   def new
     @campaign_text = @cart.coupon.try(:modal) || 1
@@ -18,7 +19,11 @@ class CampaignEmailsController < ApplicationController
       end
       cookies['newsletterUser'] = { value: '1', path: '/', expires: 30.years.from_now }
       cookies['ceid'] = { value: "#{@campaign_email.id}", path: '/', expires: 30.years.from_now }
-      redirect_to redirect_path
+      if params[:campaign_email][:from_footer].present?
+        respond_to :js
+      else
+        redirect_to redirect_path
+      end
     end
   end
 
