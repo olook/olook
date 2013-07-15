@@ -12,7 +12,7 @@ function stopProp(e) {
     if (e.stopPropagation) e.stopPropagation();
 }
 function dontShow(){
-	criaCookieAB("ms", "1", 30);
+	criaCookieAB("ms", "1", 1);
 	_gaq.push(['_trackEvent', 'Modal', 'Excluir', '', , true]);
 }
 
