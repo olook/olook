@@ -85,6 +85,8 @@
       show_modal = '<%= j @modal_show %>';
     </script>
 
+    <%= render(:partial => "shared/footer_bar") %>
+
     <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
 
     <% unless user_signed_in? || request.url.include?("gclid") %>
