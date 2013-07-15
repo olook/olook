@@ -1,19 +1,21 @@
 #modal_footer
   .modal
-    %button.register{type: "button"} Cadastre-se
     =image_tag "common/footer_girl.png"
     %button.close{type: "button"} Close
-    .presentation
-      %h1 GANHE 10% NA PRIMEIRA COMPRA + 15% NA PRÓXIMA*
-      %h2 Cadastre-se e receba por e-mail novidades sobre moda, tendências e promoções exclusivas
-    .form
-      %form{method:"post", action: ""}
-        %p
-          %span.txt Informe seu email
-          %span.error-msg O e-mail informado não parece correto. Que tal conferir?
-        %input{type:"text", value:"seunomeaqui@email.com.br", class: "email"}  
-        %button.register2{type: "button"} Cadastre-se
-      
+    
+    .modal_container
+      .presentation
+        %h1 GANHE 10% NA PRIMEIRA COMPRA + 15% NA PRÓXIMA*
+        %h2 Cadastre-se e receba por e-mail novidades sobre moda, tendências e promoções exclusivas
+       
+      .form
+        %form{method:"post", action: ""}
+          %p
+            %span.txt Informe seu email
+            %span.error-msg O e-mail informado não parece correto. Que tal conferir?
+          %input{type:"text", value:"seunomeaqui@email.com.br", class: "email"}  
+          %button.register2{type: "button"} Cadastre-se
+    %button.register{type: "button"} Cadastre-se   
     .ok-msg
       %p 
         Cadastro realizado com sucesso! 
