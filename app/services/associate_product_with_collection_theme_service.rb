@@ -2,34 +2,39 @@
 class AssociateProductWithCollectionThemeService
   attr_accessor :response_keys, :product_ids
 
-  def initialize(collection_theme_id, product_ids)
-    @response_keys = {not_found: [], not_inventory: [], not_visible: [], success: []}
-    @collection_theme_id = collection_theme_id
-    @product_ids = product_ids.split(/\D/).compact
-  end
-
-  def associate
-    process!
-    associate_ids
-  end
-
-  def associate_ids
-
+  def initialize(file)
+    @lines = file.tempfile.readlines.map{ |r| r.strip}
+    header_row = @lines.shift
+    header = header_row.split("\t")
+    @product_index = header.index('CodigoProduto')
+    @categorias_site_index = header.index('CategoriasSite')
+    @input = {}
+    @lines.each do |l|
+      line = l.split("\t")
+      @input[line.at(@product_index)] = line.at(@categorias_site_index).split(/\D/)
+    end
   end
 
   def process!
-    product_ids.each do |id|
-      product = Product.find_by_id(id)
-      case
-      when product.nil?
-        response_keys[:not_found] << id
-      when !product.is_visible?
-        response_keys[:not_visible] << product.id
-      when product.inventory.zero?
-        response_keys[:not_inventory] << product.id
-      else
-        response_keys[:success] << product.id
-      end
+    @input.each do |product_id, collection_theme_ids|
+      product = products[product_id.to_i]
+      next unless product
+      cts = collection_theme_ids.map { |id| collection_themes[id.to_i] }.compact
+      product.collection_themes = cts
+    end
+  end
+
+  def products
+    @products ||= Product.where(id: @input.keys.uniq).all.inject({}) do |h, item|
+      h[item.id] = item
+      h
+    end
+  end
+
+  def collection_themes
+    @collection_themes ||= CollectionTheme.where(id: @input.values.flatten.uniq).all.inject({}) do |h, item|
+      h[item.id] = item
+      h
     end
   end
 end
