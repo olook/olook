@@ -61,12 +61,11 @@ class CollectionTheme < ActiveRecord::Base
 
   def product_associate_ids= ids
     ids_array = ids.split(/\D/).compact
-    self.product_ids = ids_array
+    self.products = Product.where(id: ids_array).all
   end
 
   def product_associate_ids_file= ids
     ids_array = ids.split(/\D/).compact
-    #errors.add(:product_associate_ids_file, "bla not fount #{ids_array}")
     self.product_ids = ids_array
   end
 

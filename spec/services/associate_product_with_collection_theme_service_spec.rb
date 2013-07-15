@@ -1,3 +1,4 @@
+# encoding: utf-8
 require "spec_helper"
 
 describe AssociateProductWithCollectionThemeService do
@@ -23,13 +24,13 @@ describe AssociateProductWithCollectionThemeService do
   describe "#associate" do
     before do
       @product = mock_model(Product)
-      Product.should_receive(:find_by_id).with("123").and_return(@product)
       @collection_theme = mock_model(CollectionTheme)
-      CollectionTheme.should_receive(:find_by_id).with("1").and_return(@collection_theme)
     end
     subject { AssociateProductWithCollectionThemeService.new("1", "123") }
     it "should call product_ids on collection" do
       pending "Fazer uma discussão de funcionalidade com o Tiago"
+      CollectionTheme.should_receive(:find_by_id).with("1").and_return(@collection_theme)
+      Product.should_receive(:find_by_id).with("123").and_return(@product)
     end
   end
 
