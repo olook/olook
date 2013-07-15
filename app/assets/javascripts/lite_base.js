@@ -175,11 +175,11 @@ olook = o = {
   registerEmail: function(){
     $("#modal_footer button.close").on("click", function(){
       criaCookieAB("email_bar", "1", 1);
-      $("#modal_footer").parent().fadeOut();
+      $("#modal_footer").fadeOut();
     })
    
     $("p.nao-exibir input").click(function(){
-      criaCookieAB("email_bar", "1", 100);
+      criaCookieAB("email_bar", "2", 100);
       $("#modal_footer").fadeOut();
     });
       
@@ -206,11 +206,10 @@ olook = o = {
   },
   
   showEmailBar: function(){
-  	if(lerCookie("newsletterUser") == null && lerCookie("email_bar") == null && show_modal == '0'){
+  	if(lerCookie("newsletterUser") == null && lerCookie("ms") == "1"){
       $("#modal_footer").fadeIn();
   		o.registerEmail()
   	}
-	
   }
 
 }
