@@ -1,1 +1,42 @@
-console.log("asd");
+var email_field=$("#modal_footer input.email"), email = email_field.val();
+  
+if(o.validateEmail(email) && email != "seunomeaqui@email.com.br"){
+  
+  <% if @remembered %>
+    $("#overlay-campaign").show();
+    $("#modal").html('<%= escape_javascript( render "remembered") %>').show();
+  
+  <% else %>
+  
+    criaCookieAB("email_bar", "1", 200);
+   
+    $("#modal_footer .form, .register2, .termos").fadeOut();
+    $("#modal_footer .ok-msg").delay(300).fadeIn().delay(3500).fadeOut();
+  
+    email_field.off("focusout");
+
+    $(".presentation, .register").delay(4200).fadeIn(function(){
+      email_field.removeClass("txt-black error").val("seunomeaqui@email.com.br")
+    
+      $(".presentation").animate({"left": "0"},"slow");
+      $("#modal_footer img").animate({"right": '160px'},"slow");   
+      $("#modal_footer .form").animate({"right": '-576px'},"slow").fadeIn(); 
+    
+      $("span.error-msg").hide();
+      $("p span.txt").fadeIn();
+  
+      if(email_field.prev().hasClass("error")){
+        $("p.error").removeClass("error")
+      
+      }
+    });
+  
+    $("#modal_footer").delay(4800).fadeOut();
+  
+  <% end %>
+
+}else{
+  email_field.addClass("error");
+  $("#modal_footer .form p span.txt").hide().next().fadeIn().parent().addClass("error");
+}
+  
