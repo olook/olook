@@ -2,67 +2,25 @@
 require "spec_helper"
 
 describe AssociateProductWithCollectionThemeService do
-  subject {AssociateProductWithCollectionThemeService.new("","")}
-  describe "#initialize" do
-    it "returns hash" do
-      expect(subject.response_keys).to be_kind_of(Hash)
-    end
-    it "have hash with not found key" do
-      expect(subject.response_keys).to have_key(:not_found)
-    end
-    it "have hash with not inventory key" do
-      expect(subject.response_keys).to have_key(:not_inventory)
-    end
-    it "have hash with not visible key" do
-      expect(subject.response_keys).to have_key(:not_visible)
-    end
-    it "have hash with successfull key" do
-      expect(subject.response_keys).to have_key(:success)
-    end
-  end
-
-  describe "#associate" do
-    before do
-      @product = mock_model(Product)
-      @collection_theme = mock_model(CollectionTheme)
-    end
-    subject { AssociateProductWithCollectionThemeService.new("1", "123") }
-    it "should call product_ids on collection" do
-      pending "Fazer uma discussão de funcionalidade com o Tiago"
-      CollectionTheme.should_receive(:find_by_id).with("1").and_return(@collection_theme)
-      Product.should_receive(:find_by_id).with("123").and_return(@product)
-    end
+  before do
+    @content = [ %{CodigoProduto	CodigoProdutoPai	Codigobarras	CodigoFabricante	TipoProduto	NomeProduto	Descricao	Classe	Marca	Familia	Grupo	SubGrupo	Peso	Comprimento	Largura	Espessura	QtdePorEmbalagem	QtdeMinimaEstoque	QtdeMaximaEstoque	UnidadeMedidaNome	UnidadeMedidaAbrev	CodigoCategoriaFiscal	ClassificacaoFiscal	DescritorSimples1	DescritorSimples2	DescritorSimples3	DescritorPreDefinido1	DescritorPreDefinido2	DescritorPreDefinido3	DescricaoComplementar1	DescricaoComplementar2	DescricaoComplementar3	DescricaoComplementar4	DescricaoComplementar5	DescricaoComplementar6	DescricaoComplementar7	DescricaoComplementar8	DescricaoComplementar9	DescricaoComplementar10	PrecoTabela1	PrecoPromocao1	InicioPromocao1	TerminoPromocao1	PrecoTabela2	PrecoPromocao2	InicioPromocao2	TerminoPromocao2	DiasGarantia	PrazoEntregaDias	ControlaEstoque	ProdutoSerBrinde	CategoriasSite	Interfaces	AtributoEstendido1	AtributoEstendido2	AtributoEstendido3	AtributoEstendido4	AtributoEstendido5	AtributoEstendido6	AtributoEstendido7	AtributoEstendido8	AtributoEstendido9	AtributoEstendido10	OrigemMercadoria\n},
+                 %{91558			4907/SAIA PAETE COM BABADINHO EMBAIXO	P	SAIA PAETE COM BABADINHO EMBAIXO	Saia de paetê com babados	Roupa	HAES	Saia	Coleção Maio 2013	Default	0.1	1	1	1	1			UNIDADE	UNI		62045300	Dourado	Dourado	Dourado	Dourado		OLOOK	"P: Cós: 37cm / Quadril: 94cm / Comprimento: 36cm; M: Cós: 39cm / Quadril: 96cm / Comprimento: 36cm; G: Cós: 41cm / Quadril: 98cm / Comprimento: 36cm "			Saia	Minissaia paetê dourado com detalhe fluido na barra transparente.	100% POLIESTER			Fashionista, Sexy, Elegante		229.9												60	5											}
+    ]
+    @upload = mock
+    file = mock
+    file.stub!(:readlines).and_return(@content)
+    @upload.stub!(:tempfile).and_return(file)
   end
 
   describe "#process!" do
-    let!(:product) {FactoryGirl.create(:shoe)}
-    subject {AssociateProductWithCollectionThemeService.new("",product.id.to_s)}
-    context "When dont find products" do
-      it "returns product id on not_found key" do
-        Product.should_receive(:find_by_id).and_return(nil)
-        subject.process!
-        expect(subject.response_keys.fetch(:not_found)).to eql([product.id.to_s])
-      end
+    before do
+      @product = FactoryGirl.create(:shoe, id: '91558')
+      @collection_theme = FactoryGirl.create(:collection_theme, id: '60')
     end
-    context "When product dont have inventory" do
-      it "returns product id on not_inventory key" do
-        subject.process!
-        expect(subject.response_keys.fetch(:not_inventory)).to eql([product.id])
-      end
-    end
-    context "When product is not visible" do
-      it "returns product id on not_visible key" do
-        product.update_attributes(is_visible: false)
-        subject.process!
-        expect(subject.response_keys.fetch(:not_visible)).to eql([product.id])
-      end
-    end
-    context "When product is avaliable" do
-      it "returns product id on successful key" do
-        Product.any_instance.should_receive(:inventory).and_return(2)
-        subject.process!
-        expect(subject.response_keys.fetch(:success)).to eql([product.id])
-      end
+    it 'should associate product with collection theme' do
+      service = AssociateProductWithCollectionThemeService.new(@upload)
+      service.process!
+      expect(@product.collection_theme_ids).to include(60)
     end
   end
 end

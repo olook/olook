@@ -59,6 +59,8 @@ class Admin::CollectionThemesController < Admin::BaseController
   end
 
   def import_create
+    AssociateProductWithCollectionThemeService.new(params[:collection_products_csv]).process!
+    redirect_to import_index_admin_collection_themes_path, notice: 'Adicionado as coleções com sucesso'
   end
 
 end
