@@ -64,9 +64,8 @@ class CollectionTheme < ActiveRecord::Base
     self.products = Product.where(id: ids_array).all
   end
 
-  def product_associate_ids_file= ids
-    ids_array = ids.split(/\D/).compact
-    self.product_ids = ids_array
+  def product_associate_ids_file= file
+    self.product_associate_ids = file.read
   end
 
   private
