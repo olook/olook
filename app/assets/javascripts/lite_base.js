@@ -198,7 +198,7 @@ olook = o = {
         }
       });
       
-      $(".register2").on("submit", function(e){
+      $(".register2").on("click", function(e){
         e.preventDefault();
         var email = email_field.val();
         if(o.validateEmail(email) && email != "seunomeaqui@email.com.br"){
@@ -217,8 +217,8 @@ olook = o = {
           $("form").submit();
         
         }else{
-          $(this).prev().prev().addClass("error");
-          $("p span.txt").fadeOut("fast").next().fadeIn().prev().addClass("error");
+          email_field.addClass("error");
+          $("#modal_footer .form p span.txt").hide().next().fadeIn().parent().addClass("error");
         }
       });
     })
