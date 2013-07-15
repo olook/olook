@@ -13,6 +13,7 @@ class CampaignEmailsController < ApplicationController
     else
       if @campaign_email = CampaignEmail.find_by_email(params[:campaign_email][:email])
         redirect_path =  remembered_campaign_email_path(@campaign_email)
+        @remembered = true
       elsif @campaign_email = CampaignEmail.create!(email: params[:campaign_email][:email])
         @campaign_email.set_utm_info session[:tracking_params]
         redirect_path = campaign_email_path(@campaign_email)

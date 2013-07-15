@@ -12,7 +12,7 @@ olook = o = {
       o.showSlideToTop();
       o.slideToTop();
       o.boxLogin();
-      o.registerEmail();
+      o.showEmailBar();
   },
 
   menu: function(){
@@ -173,6 +173,16 @@ olook = o = {
   },
 
   registerEmail: function(){
+    $("#modal_footer button.close").on("click", function(){
+      criaCookieAB("email_bar", "1", 1);
+      $("#modal_footer").parent().fadeOut();
+    })
+   
+    $("p.nao-exibir input").click(function(){
+      criaCookieAB("email_bar", "1", 100);
+      $("#modal_footer").fadeOut();
+    });
+      
     $("button.register").on("click", function(){
       var email_field = $("#modal_footer input.email"), elem = $("#modal_footer .presentation");
 
@@ -192,36 +202,15 @@ olook = o = {
           }
         }
       });
-
-      
-      $(".register2").on("submit", function(e){
-        e.preventDefault();
-        
-        var email = email_field.val();
-        
-        if(o.validateEmail(email) && email != "seunomeaqui@email.com.br"){
-          $("#modal_footer .form").fadeOut();
-          $("#modal_footer .ok-msg").delay(300).fadeIn().delay(2500).fadeOut();
-          email_field.off("focusout");
-
-          $(".presentation, button.register").delay(4000).fadeIn(function(){
-            email_field.removeClass("txt-black error").val("seunomeaqui@email.com.br")
-
-            if(email_field.prev().hasClass("error")){
-              $("p.error").removeClass("error").children("span.error-msg").fadeOut();
-              $("p span.txt").fadeIn();
-            }
-          });
-          $("form").submit();
-
-        }else{
-          email_field.addClass("error");
-          $("#modal_footer .form p span.txt").hide().next().fadeIn().parent().addClass("error");
-        }
-      });
     })
+  },
+  
+  showEmailBar: function(){
+  	if(lerCookie("ms") == "1" && lerCookie("email_bar") == null){
+      $("#modal_footer").fadeIn();
+  		o.registerEmail()
+  	}
+	
   }
-
-
 
 }
