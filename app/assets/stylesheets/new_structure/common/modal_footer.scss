@@ -35,7 +35,11 @@
       &:hover{background: image-url('common/sprite_modal_footer.png') 0 -82px;}
     }
     .register2{display:none;}
-    .close{width: 20px;height: 20px;background: image-url('common/sprite_modal_footer.png') 0 0;bottom:105px;right: 0;}
+    .close{width: 20px;height: 20px;background: image-url('common/sprite_modal_footer.png') 0 0;bottom:105px;right:20px;}
+    
+    .termos{position:absolute;right:55px;bottom:13px;font-size:11px;display:none;
+      a{color:#000;font-size:11px;}
+    }
     
     img{position:absolute;bottom:-1px;right:160px;}
   }
