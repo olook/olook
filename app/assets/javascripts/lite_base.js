@@ -12,6 +12,7 @@ olook = o = {
       o.showSlideToTop();
       o.slideToTop();  
       o.boxLogin();
+      o.registerEmail();
   },
     
   menu: function(){
@@ -173,6 +174,16 @@ olook = o = {
   
   registerEmail: function(){
     $("button.register").on("click", function(){
+      
+      
+          var $lefty = $(this).next();
+          $lefty.animate({
+            left: parseInt($lefty.css('left'),10) == 0 ?
+              -$lefty.outerWidth() :
+              0
+          });
+      
+        
       $(".presentation, button.register").fadeOut().next().delay(500).fadeIn();
       var email_field = $("#modal_footer input.email");
       
