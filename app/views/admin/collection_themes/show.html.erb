@@ -13,9 +13,6 @@
     <%= @collection_theme.id %>
   </p>
   <p>
-    <%= flash[:blablabla].inspect %>
-  </p>
-  <p>
     <b>Tema:</b>
     <%= @collection_theme.name %>
   </p>
@@ -30,6 +27,15 @@
     <b>Posição no Grupo:</b>
     <%= @collection_theme.position %>
   </p>
+
+  <p>
+    <b>Produtos da coleção</b>
+  </p>
+  <ul>
+    <% @collection_theme.products.each do |product| %>
+      <li><%= product.id %></li>
+    <% end %>
+  </ul>
 
   <% content_for :secondary_navigation do %>
     <li><%= link_to 'Alterar', edit_admin_collection_theme_path(@collection_theme) %></li>
