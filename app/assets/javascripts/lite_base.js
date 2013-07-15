@@ -174,19 +174,14 @@ olook = o = {
   
   registerEmail: function(){
     $("button.register").on("click", function(){
-      elem = $("#modal_footer .presentation");
+      var email_field = $("#modal_footer input.email"), elem = $("#modal_footer .presentation");
       
       elem.animate({"left": -elem.width()},"slow");
-     
-      $("#modal_footer img").animate({"right": '900px'},"slow");
-      
+      $("#modal_footer img").animate({"right": '900px'},"slow");    
       $("#modal_footer .form").animate({"right": '0'},"slow");
          
-      
-        
-      $("button.register").fadeOut().next().delay(500).fadeIn();
-      var email_field = $("#modal_footer input.email");
-      
+      $(this).fadeOut().next().delay(300).fadeIn();
+            
       email_field.on({
         focus: function(){
           $(this).addClass("txt-black").val("");
