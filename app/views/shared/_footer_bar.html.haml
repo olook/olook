@@ -20,7 +20,9 @@
 
         %button.register{type: "button"} Cadastre-se
         = f.submit "Cadastra-se", class: "register2"
-
+        %p.termos 
+          Aceito os
+          = link_to("termos de uso", terms_path)
       .ok-msg
         %p
           Cadastro realizado com sucesso!

@@ -180,7 +180,7 @@ olook = o = {
       $("#modal_footer img").animate({"right": '900px'},"slow");    
       $("#modal_footer .form").animate({"right": '0'},"slow");
          
-      $(this).fadeOut().next().delay(300).fadeIn();
+      $(this).fadeOut().next().delay(200).fadeIn().next().fadeIn();
             
       email_field.on({
         focus: function(){
