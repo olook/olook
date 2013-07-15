@@ -174,17 +174,17 @@ olook = o = {
   
   registerEmail: function(){
     $("button.register").on("click", function(){
+      elem = $("#modal_footer .presentation");
       
+      elem.animate({"left": -elem.width()},"slow");
+     
+      $("#modal_footer img").animate({"right": '900px'},"slow");
       
-          var $lefty = $(this).next();
-          $lefty.animate({
-            left: parseInt($lefty.css('left'),10) == 0 ?
-              -$lefty.outerWidth() :
-              0
-          });
+      $("#modal_footer .form").animate({"right": '0'},"slow");
+         
       
         
-      $(".presentation, button.register").fadeOut().next().delay(500).fadeIn();
+      $("button.register").fadeOut().next().delay(500).fadeIn();
       var email_field = $("#modal_footer input.email");
       
       email_field.on({
@@ -198,10 +198,12 @@ olook = o = {
         }
       });
       
-      $("button.register2").on("click", function(){
+      $(".register2").on("submit", function(e){
+        e.preventDefault();
         var email = email_field.val();
         if(o.validateEmail(email) && email != "seunomeaqui@email.com.br"){
-          $(this).parents(".form").fadeOut().next().delay(300).fadeIn().delay(2500).fadeOut();
+          $("#modal_footer .form").fadeOut();
+          $("#modal_footer .ok-msg").delay(300).fadeIn().delay(2500).fadeOut();
           email_field.off("focusout");
           
           $(".presentation, button.register").delay(4000).fadeIn(function(){
@@ -212,6 +214,7 @@ olook = o = {
               $("p span.txt").fadeIn();
             }
           });
+          $("form").submit();
         
         }else{
           $(this).prev().prev().addClass("error");

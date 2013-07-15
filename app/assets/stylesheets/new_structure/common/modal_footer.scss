@@ -10,11 +10,13 @@
   bottom: 0;
   left: 0;
   .modal{position:relative;width:1025px;height:115px;margin:0 auto;
+    .modal_container{position:relative;overflow:hidden;width:750px;height:115px;}
+    
     .presentation{position:absolute;top:32px;left:0;z-index:1;
       h1{font-family: 'johnston', arial, sans-serif;font-size: 27px;}
       h2{font-family: 'avenir', arial, sans-serif;font-size: 14px;font-weight: lighter;}
     }
-    .form{width:580px;margin-left:150px;text-align:center;font-family:$avenir_medium;color:#000;padding-top:10px;display:none;
+    .form{position:absolute;top:0px;right:-576px;width:580px;margin-left:150px;text-align:center;font-family:$avenir_medium;color:#000;padding-top:10px;/*display:none;*/
       p{height:25px;line-height:25px;font-size:17px;
         &.error{background:image-url('common/sprite_modal_footer.png') no-repeat -45px 0;}
         .error-msg{font-size:14px;display:none;}
@@ -28,14 +30,15 @@
       p{height:30px;font-size:15px;background: image-url('common/sprite_modal_footer.png') no-repeat 0 -165px;padding-left:40px;}
     }
       
-    button{border: none;text-indent: -99999px;position: absolute;cursor: pointer;
-      &.register,&.register2{width: 152px;height: 37px;background: image-url('common/sprite_modal_footer.png') 0 -36px;bottom:35px;right:40px;
-        &:hover{background: image-url('common/sprite_modal_footer.png') 0 -82px;}
-      }
-      &.close{width: 20px;height: 20px;background: image-url('common/sprite_modal_footer.png') 0 0;bottom:105px;right: 0;}
+    .register,.register2{position: absolute;cursor: pointer;bottom:35px;right:40px;border: none;text-indent: -99999px;width: 152px;height: 37px;
+      background: image-url('common/sprite_modal_footer.png') 0 -36px;
+      &:hover{background: image-url('common/sprite_modal_footer.png') 0 -82px;}
     }
+    .register2{display:none;}
+    .close{width: 20px;height: 20px;background: image-url('common/sprite_modal_footer.png') 0 0;bottom:105px;right: 0;}
+    
     img{position:absolute;bottom:-1px;right:160px;}
   }
-  .modal_container{position:relative;overflow:hidden;width:750px;height:115px;}
+  
 }
 
