@@ -1,5 +1,4 @@
-- if @user.nil?
-  - @campaign_email = CampaignEmail.new #TODO please move me to some controller
+- if @campaign_email.present?
   #modal_footer
     .modal
       =image_tag "common/footer_girl.png"
