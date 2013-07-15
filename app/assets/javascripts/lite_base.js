@@ -194,9 +194,11 @@ olook = o = {
       });
 
       
-      $(".register2").on("click", function(e){
+      $(".register2").on("submit", function(e){
         e.preventDefault();
+        
         var email = email_field.val();
+        
         if(o.validateEmail(email) && email != "seunomeaqui@email.com.br"){
           $("#modal_footer .form").fadeOut();
           $("#modal_footer .ok-msg").delay(300).fadeIn().delay(2500).fadeOut();
