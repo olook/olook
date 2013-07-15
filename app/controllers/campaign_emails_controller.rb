@@ -1,5 +1,6 @@
 class CampaignEmailsController < ApplicationController
   layout "campaign_emails"
+  respond_to :html, :js
 
   def new
     @campaign_text = @cart.coupon.try(:modal) || 1
