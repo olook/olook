@@ -2,11 +2,11 @@ var email_field=$("#modal_footer input.email"), email = email_field.val();
 
 if(o.validateEmail(email) && email != "seunomeaqui@email.com.br"){
 
-  <% if @remembered %>
-    $("#overlay-campaign").show();
-    $("#modal").html('<%= escape_javascript( render "remembered") %>').show();
+  <%# if @remembered %>
+    //$("#overlay-campaign").show();
+    //$("#modal").html('<%= escape_javascript( render "remembered") %>').show();
 
-  <% else %>
+  <%# else %>
 
     criaCookieAB("email_bar", "2", 200);
 
@@ -31,9 +31,9 @@ if(o.validateEmail(email) && email != "seunomeaqui@email.com.br"){
       $("p.error").removeClass("error")
     }
 
-    $("#modal_footer").delay(3000).fadeOut();
+    $("#modal_footer").delay(3500).fadeOut();
 
-  <% end %>
+  <%# end %>
 
 }else{
   email_field.addClass("error");
