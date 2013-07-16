@@ -10,7 +10,7 @@ class CollectionThemesController < ApplicationController
   def show
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     @search = SearchEngine.new(params).for_page(params[:page]).with_limit(48)
-    @collection_theme = CollectionTheme.find_by_name(params[:collection_theme])
+    @collection_theme = CollectionTheme.find_by_slug(params[:collection_theme])
     @collection_theme_groups = CollectionThemeGroup.order(:position).includes(:collection_themes)
   end
 
