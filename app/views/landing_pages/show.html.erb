@@ -12,17 +12,16 @@
 	<h2><%= image_tag "landing_page/olook_logo.png", :title => "Olook" %></a></h2>
 </div>
 <section class="landing-content">
-
-  <% if params[:ab_t].present? %>
-	<div class="registration-form">
-	  <% campaign_email = CampaignEmail.new %>
+  <div class="registration-form">
+  	<% campaign_email = CampaignEmail.new %>
+  	<% if params[:ab_t].present? %>
 	  <%= form_for campaign_email, :method => :post do |f| %>
 	  	<%= f.text_field :email, value:"seunome@email.com.br", class: "email" %>
 	  	<%= hidden_field_tag :ab_t, true %>
-	  	<%= f.submit "Cadastre-se" %>  		
+	  	<%= f.submit "Cadastre-se", class: "bt-enviar" %>  		
 	  <% end %>
-	</div>	
-  <% end %>
+  	<% end %>
+  </div>	
   <%= link_to @landing_page.button_url, :class => "action", :title => @landing_page.button_alt, :style => button_position(@landing_page) do %>
     <%= image_tag @landing_page.button_image.try(:url), :alt => @landing_page.button_alt,  data_src: @landing_page.button_hover_image.try(:url) %>
   <% end %>
@@ -30,6 +29,6 @@
 <% content_for :site_footer do %> 
   <%= render(:partial => "shared/footer") if @landing_page.show_footer? %>
   <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>  
-  <% #= javascript_include_tag "campaign_emails" if params[:ab_t].present? %>
+  <%= javascript_include_tag "campaign_emails" if params[:ab_t].present? %>
 <% end %>
 
