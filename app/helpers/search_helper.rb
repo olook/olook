@@ -17,6 +17,12 @@ module SearchHelper
     {"#{param_name}" => "#{value}", "q" => q}.to_query
   end
 
+  def cache_search_result_page &page
+    cache(@search, expires_in: 20.minutes) do 
+      yield page
+    end
+  end
+
   private
     def create_query_string hash
       params = {q: @q, color: @color, category: @category}
