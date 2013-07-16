@@ -39,15 +39,16 @@
         %ul#products
           - if @campaign_products && !@campaign_products.products.empty?
             - @campaign.product_ids.split('-').map { |pid| @campaign_products.products.find { |p| p.id.to_i == pid.to_i } }.compact.each do |cp|
-              = render "catalogs/searched_product_item", :product => cp
-            = render "searched_products", :products => @search.products, campaign_products: @campaign_products.products
+              = render "shared/searched_product_item", :product => cp
+            = render "shared/searched_products", :products => @search.products, campaign_products: @campaign_products.products
           - else
-            = render "searched_products", :products => @search.products
+            = render "shared/searched_products", :products => @search.products
 
         .loading
 
       .pagination
         = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: catalog_path, other_parameters: "por=#{ params[:por]}" }
+
 
       .banner
         = link_to new_survey_path, onclick: track_event("Catalogo#{params[:category].try(:capitalize)}", 'BottomBanner', '') do

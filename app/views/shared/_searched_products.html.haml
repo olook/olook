@@ -2,5 +2,5 @@
 - cpids = Set.new(campaign_products.map {|p| p.id})
 - products.each_with_index do |cp,index|
   - next if cpids.include?(cp.id)
-  = render "catalogs/searched_product_item", :product => cp
+  = render "shared/searched_product_item", :product => cp
 = raw(I18n.t("product_not_found")) if products.empty?
