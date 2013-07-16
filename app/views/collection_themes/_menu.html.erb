@@ -1,7 +1,7 @@
 <section id="collections_menu">
   <dl>
     <% collection_theme_groups.each do |collection_theme_group| %>
-      <% collections = @collection_themes.select{ |ct| ct.collection_theme_group_id == collection_theme_group.id }.to_a.sort { |a,b| a.position <=> b.position } %>
+      <% collections = collection_theme_group.collection_themes.select{ |ct| ct.active}.to_a.sort { |a,b| a.position <=> b.position } %>
       <% next if collections.blank? %>
       <dt><%= collection_theme_group.name %></dt>
       <% while theme = collections.shift do %>

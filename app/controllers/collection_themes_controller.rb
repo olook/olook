@@ -1,15 +1,17 @@
 # -*- encoding : utf-8 -*-
-class CollectionThemesController < SearchController
+class CollectionThemesController < ApplicationController
+  respond_to :html
   layout "lite_application"
+
   def index
     @featured_products = retrieve_featured_products
-    @collection_theme_groups = [] #will be remove
-    @collection_names = create_filters.facets["collection_themes"]["constraints"]
+    @collection_theme_groups = CollectionThemeGroup.order(:position).includes(:collection_themes)
   end
 
   def show
+    return redirect_to collection_themes_url if !current_admin && !@collection_theme.active
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
-    @collection_theme_groups = []
+    respond_with @catalog_products
   end
 
   private
@@ -33,4 +35,5 @@ class CollectionThemesController < SearchController
       products.compact!
       products.select {|h| h[:product].inventory_without_hiting_the_database > 0}
     end
+
 end
