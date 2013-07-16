@@ -206,7 +206,7 @@ olook = o = {
   },
   
   showEmailBar: function(){
-  	if(lerCookie("newsletterUser") == null && lerCookie("ms") == "1"){
+  	if(lerCookie("newsletterUser") == null && lerCookie("ms") == "1" && lerCookie("email_bar") == null){
       $("#modal_footer").fadeIn();
   		o.registerEmail()
   	}
