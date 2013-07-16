@@ -31,7 +31,7 @@
     #search_result
       %ul.search-results-list
         - @products.each do |product|
-          = render "shared/searched_product_item", product: product
+          = render "searched_product_item", product: product
 
       .pagination
         = render "/shared/nav_bar_pagination", search: @search, link: search_path, other_parameters: @parameters
