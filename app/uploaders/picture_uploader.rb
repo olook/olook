@@ -37,30 +37,30 @@ class PictureUploader < CarrierWave::Uploader::Base
   process optimize: [{quality: 85}]
 
   version :thumb do
-    process :resize_to_limit => [50, 50]
+    process :resize_to_limit => [45, 68]
   end
   version :bag do
     process :resize_to_limit => [70, 70]
   end
   #adjustment thumb size picture on sacola page
   version :checkout, :from_version => :showroom do
-    process :resize_to_fill => [90, 90]
+    process :resize_to_fill => [45, 68]
   end
   #end
   version :catalog, from_version: :suggestion do
-    process :resize_to_fill => [235, 235]
+    process :resize_to_fill => [200, 300]
   end
   version :showroom do
-    process :resize_to_limit => [170, 170]
+    process :resize_to_limit => [146, 220]
   end
   version :suggestion do
-    process :resize_to_limit => [260, 260]
+    process :resize_to_limit => [146, 220]
   end
   version :main do
-    process :resize_to_limit => [500, 500]
+    process :resize_to_limit => [365, 550]
   end
   version :zoom_out do
-    process :resize_to_limit => [1000, 1000]
+    process :resize_to_limit => [730, 1100]
   end
 
 
