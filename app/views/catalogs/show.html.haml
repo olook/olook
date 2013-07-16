@@ -10,42 +10,45 @@
     final_position = #{@search.range_values_for(:price)[:max] rescue 600};
   = javascript_include_tag 'section/lite_catalog'
 
-= cache @cache_key, expire_in: 30.minutes do
-  = render "shared/metrics/sociomantic/category", pixel_information: @pixel_information, catalog_products: @search.products
-  = render "shared/liquida_banner"
-  #catalog
-    %aside
-      = render "filters", search: @search
-      - if params[:category]
-        .invite_friends
-          =banner_for Category.with_name params[:category]
 
-    #result
-      - unless @search.has_any_filter_selected? || params[:cmp].present?
-        / local onde o viewpersonalized será exibido
-        .chaordic.viewpersonalized
-        / local onde o purchasepersonalized será exibido
-        .chaordic.purchasepersonalized
-        / local onde o mostpopular será exibido
-        .chaordic.mostpopular
+= render "shared/metrics/sociomantic/category", pixel_information: @pixel_information, catalog_products: @search.products
+= render "shared/liquida_banner"
+#catalog
+  %aside
+    = render "filters", search: @search
+    - if params[:category]
+      .invite_friends
+        =banner_for Category.with_name params[:category]
+      .promo_brands
+        =link_to "/roupa/eclectic-leeloo-mandi?utf8=✓&por=menor-preco" do
+          =image_tag 'catalog/marcas_160X600.gif'
 
-      = render "ordenation_filters"
-      = render 'current_section', search: @search
+  #result
+    - unless @search.has_any_filter_selected? || params[:cmp].present?
+      / local onde o viewpersonalized será exibido
+      .chaordic.viewpersonalized
+      / local onde o purchasepersonalized será exibido
+      .chaordic.purchasepersonalized
+      / local onde o mostpopular será exibido
+      .chaordic.mostpopular
 
-      %section.container_product
-        %ul#products
-          - if @campaign_products && !@campaign_products.products.empty?
-            - @campaign.product_ids.split('-').map { |pid| @campaign_products.products.find { |p| p.id.to_i == pid.to_i } }.compact.each do |cp|
-              = render "catalogs/searched_product_item", :product => cp
-            = render "searched_products", :products => @search.products, campaign_products: @campaign_products.products
-          - else
-            = render "searched_products", :products => @search.products
+    = render "ordenation_filters"
+    = render 'current_section', search: @search
 
-        .loading
+    %section.container_product
+      %ul#products
+        - if @campaign_products && !@campaign_products.products.empty?
+          - @campaign.product_ids.split('-').map { |pid| @campaign_products.products.find { |p| p.id.to_i == pid.to_i } }.compact.each do |cp|
+            = render "catalogs/searched_product_item", :product => cp
+          = render "searched_products", :products => @search.products, campaign_products: @campaign_products.products
+        - else
+          = render "searched_products", :products => @search.products
 
-      .pagination
-        = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: catalog_path, other_parameters: "por=#{ params[:por]}" }
+      .loading
 
-      .banner
-        = link_to new_survey_path, onclick: track_event("Catalogo#{params[:category].try(:capitalize)}", 'BottomBanner', '') do
-          = image_tag 'catalog/banner_quiz.jpg'
+    .pagination
+      = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: catalog_path, other_parameters: "por=#{ params[:por]}" }
+
+    .banner
+      = link_to new_survey_path, onclick: track_event("Catalogo#{params[:category].try(:capitalize)}", 'BottomBanner', '') do
+        = image_tag 'catalog/banner_quiz.jpg'
