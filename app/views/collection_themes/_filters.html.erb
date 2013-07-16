@@ -1,6 +1,6 @@
 <% present 'CollectionTheme', {:collection_theme => @collection_theme, :collection_themes => @collection_themes, :category_id => @category_id} do |collection_theme_presenter| %>
 <div id="filters_container">
-  <%= form_tag(collection_theme_path(@collection_theme.search_name), :method => :get, :remote => true, :id => "filter", :name => "filter") do %>
+  <%= form_tag(collection_theme_path(@collection_theme.slug), :method => :get, :remote => true, :id => "filter", :name => "filter") do %>
     <div class="select category_type">
       <%= select_tag('category_id', options_for_select([], params[:category_id])) %>
     </div>
