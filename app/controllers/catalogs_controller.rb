@@ -26,8 +26,6 @@ class CatalogsController < SearchController
                                sort: params[:sort]).for_page(params[:page]).with_limit(params[:per_page])
     @search.for_admin if current_admin
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
-    @cache_key = "#{@search.cache_key}#{@campaign_products.cache_key if @campaign_products}"
-    expire_fragment(@cache_key) if params[:force_cache].to_i == 1
   end
 
   private

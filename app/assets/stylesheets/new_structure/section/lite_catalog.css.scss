@@ -52,8 +52,10 @@ aside{
   }
   .clean_filter a{font-size:11px;text-decoration:underline;background:none;padding-left:0;}
   .invite_friends {
-    a {background: none; padding: 0;height:100%;}
+    a {background: none; padding: 0;height:100%;margin-bottom: 20px;}
   }
+  .promo_brands
+  a {background: none; padding: 0;height:100%;margin-bottom: 20px;}
 }
 
 #result{float:left;width:785px;}
