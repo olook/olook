@@ -63,6 +63,7 @@ class PictureUploader < CarrierWave::Uploader::Base
     process :resize_to_limit => [1000, 1000]
   end
 
+
   def extension_white_list
     %w(jpg jpeg gif png)
   end
