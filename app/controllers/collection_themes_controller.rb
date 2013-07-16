@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class CollectionThemesController < ApplicationController
-  respond_to :html
   layout "lite_application"
 
   def index
@@ -9,9 +8,10 @@ class CollectionThemesController < ApplicationController
   end
 
   def show
-    return redirect_to collection_themes_url if !current_admin && !@collection_theme.active
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
-    respond_with @catalog_products
+    @search = SearchEngine.new(params).for_page(params[:page]).with_limit(48)
+    @collection_theme = CollectionTheme.find_by_name(params[:collection_theme])
+    @collection_theme_groups = CollectionThemeGroup.order(:position).includes(:collection_themes)
   end
 
   private
