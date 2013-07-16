@@ -90,6 +90,12 @@ class SeoUrl
     }.merge(return_hash[:order_params])
   end
 
+  def self.build_for current_key, params, other_params={  }
+    return_hash = build(params, other_params).delete(current_key.to_sym)
+    path = [ return_hash[:category], return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join('-')
+    { parameters: [path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/') }.merge(return_hash[:order_params])
+  end
+
   def self.all_categories
     YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_categories.yml' ) ) ) )
   end
@@ -100,7 +106,7 @@ class SeoUrl
 
   private
 
-    def self.parse_filters(filter_params) 
+    def self.parse_filters(filter_params)
       parsed_values = {}
       filter_params.to_s.split('_').each do |item|
         auxs = item.split('-')
