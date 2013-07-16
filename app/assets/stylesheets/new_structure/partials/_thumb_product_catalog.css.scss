@@ -1,7 +1,7 @@
 @import 'new_structure/common/global_stuffs';
 ul#products{
   clear:both;width:763px;margin:0 auto;
-  li.product{position:relative;display:inline-block;width: 235px;height:305px;margin: 0 8px 35px;padding:0;
+  li.product{position:relative;display:inline-block;width:200px;height:auto;margin: 0 23px 35px;padding:0;
     &.promotion {
       .quantity, .shoe_size{display:none;}
     }
@@ -12,7 +12,7 @@ ul#products{
       .spy{display:block;}
     }
     a.product_link{display:block;text-decoration:none;color:#000;font-size:13px;margin:0;
-      img{border-bottom:solid 1px #B9BABD;margin: 0 0 3px;width: 235px;height: 235px;}
+      img{border-bottom:solid 1px #B9BABD;margin: 0 0 3px;width: 200px;height: auto;/* new size photo */}
       p{float:left;line-height:18px;
         .name{font-size:14px;height:16px;overflow:hidden;display:inline-block;}
         .brand{text-transform:uppercase;font-weight:bold;}

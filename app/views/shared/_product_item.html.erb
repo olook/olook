@@ -32,7 +32,7 @@
           </p>
         <%- end -%>
 
-        <ol class="color_list">
+        <!--ol class="color_list">
           <% unless product.color_name.blank? %>
             <li>
               <%= link_to image_tag(product.color_sample.square15.url || 'fake/no-color.png', :title => product.name), product, :'data-href' => "#{product.send(image_method ||= :showroom_picture) || 'fake/showroom-product.png'}", :class => "selected product_color"  %>
@@ -53,7 +53,7 @@
               <% end %>
             </li>
           <% end %>
-        </ol>
+        </ol-->
       </div>
     </div>
   </li>
