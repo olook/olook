@@ -42,14 +42,7 @@ class SeoUrl
 
     parsed_values[:brand] = brands.join("-") if brands.any?
 
-    filter_params = all_parameters.last || []
-
-    filter_params.split('_').each do |item|
-      auxs = item.split('-')
-      key = auxs.shift
-      vals = auxs.join('-')
-      parsed_values[VALUES[key]] = vals
-    end
+    parsed_values.merge!(parse_filters(all_parameters.last))
 
     other_parameters.each do |k, v|
       if VALUES[k]
@@ -69,14 +62,7 @@ class SeoUrl
     parsed_values[:category] = all_parameters.shift if all_parameters.any? && all_categories.keys.map(&:parameterize).include?(ActiveSupport::Inflector.transliterate(all_parameters.first))
     parsed_values[:subcategory] = all_parameters.shift if all_parameters.any? && (_all_subcategories & all_parameters.first.split("-").map { |s| ActiveSupport::Inflector.transliterate(s).titleize }).any?
 
-    filter_params = all_parameters.last || []
-
-    filter_params.split('_').each do |item|
-      auxs = item.split('-')
-      key = auxs.shift
-      vals = auxs.join('-')
-      parsed_values[VALUES[key]] = vals
-    end
+    parsed_values.merge!(parse_filters(all_parameters.last))
 
     other_parameters.each do |k, v|
       if VALUES[k]
@@ -113,6 +99,18 @@ class SeoUrl
   end
 
   private
+
+    def self.parse_filters(filter_params) 
+      parsed_values = {}
+      filter_params.to_s.split('_').each do |item|
+        auxs = item.split('-')
+        key = auxs.shift
+        vals = auxs.join('-')
+        parsed_values[VALUES[key]] = vals
+      end
+      parsed_values
+    end
+
     def self.build params, other_params = {  }
       parameters = params.dup
       other_parameters = other_params.dup
