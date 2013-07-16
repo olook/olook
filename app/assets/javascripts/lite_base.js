@@ -196,7 +196,10 @@ olook = o = {
 
       email_field.on({
         focus: function(){
-          $(this).addClass("txt-black").val("");
+          $(this).addClass("txt-black");
+          if(email_field.val() == "seunomeaqui@email.com.br"){
+            $(this).val("");
+          } 
         },
         focusout: function(){
           if( $.trim($(this).val()) == "" ){
