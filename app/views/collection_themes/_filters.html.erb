@@ -1,16 +1,15 @@
 <% present 'CollectionTheme', {:collection_theme => @collection_theme, :collection_themes => @collection_themes, :category_id => @category_id} do |collection_theme_presenter| %>
 <div id="filters_container">
-  <%= form_tag(collection_theme_filter_path(@collection_theme.slug), :method => :get, :remote => true, :id => "filter", :name => "filter") do %>
-    <%= hidden_field_tag('slug', @collection_theme ? @collection_theme.slug : nil) %>
+  <%= form_tag(collection_theme_path(@collection_theme.search_name), :method => :get, :remote => true, :id => "filter", :name => "filter") do %>
     <div class="select category_type">
-      <%= select_tag('category_id', options_for_select(@catalog_search_service.categories_available_for_options(ignore_category: true), params[:category_id])) %>
+      <%= select_tag('category_id', options_for_select([], params[:category_id])) %>
     </div>
     <div class="select sort_filter">
       <%= select_tag('sort_filter', options_for_select({"Nossa Seleção" => 0, "Menor preço" => 1, "Maior preço" => 2})) %>
     </div>
-   
+
     <div id="category_filters">
-      
+
       <%- if params[:category_id].present? && !Category.key_for(params[:category_id].to_i).blank? -%>
         <%= render "/shared/filters/color_filters", product_type: Category.key_for(params[:category_id].to_i).to_s  %>
         <%= render partial: "#{Category.key_for(params[:category_id].to_i).to_s}_filters" %>

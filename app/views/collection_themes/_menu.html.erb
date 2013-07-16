@@ -5,7 +5,7 @@
       <% next if collections.blank? %>
       <dt><%= collection_theme_group.name %></dt>
       <% while theme = collections.shift do %>
-        <dd class="<%= "last" if collections.empty? %>"><%= link_to theme.name, collection_theme_path(theme.slug), class: ("selected" if params[:slug] && theme.slug.to_s == params[:slug]), onclick: track_event("Colecoes", "link_to_#{theme.slug}") %></dd>
+        <dd class="<%= "last" if collections.empty? %>"><%= link_to theme.name, collection_theme_path(theme.search_name), class: ("selected" if params[:collection_theme] && theme.search_name.to_s == params[:collection_theme]), onclick: track_event("Colecoes", "link_to_#{theme.slug}") %></dd>
       <% end %>
     <% end %>
   </dl>

@@ -33,6 +33,10 @@ class CollectionTheme < ActiveRecord::Base
     self[:slug] || self[:name].to_s.parameterize
   end
 
+  def search_name
+    ActiveSupport::Inflector.transliterate(name.downcase).gsub('.', ' ')
+  end
+
   def to_params
     slug
   end
