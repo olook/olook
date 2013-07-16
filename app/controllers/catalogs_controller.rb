@@ -26,6 +26,7 @@ class CatalogsController < SearchController
                                sort: params[:sort]).for_page(params[:page]).with_limit(params[:per_page])
     @search.for_admin if current_admin
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
+    @pixel_information = params[:category]
   end
 
   private
