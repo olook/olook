@@ -237,60 +237,56 @@ describe SeoUrl do
     end
   end
 
-  describe '.build_for_catalogs' do
+  describe '.build_for' do
     context "when catalogs is being passed as a parameter" do
       subject { described_class }
-      it "delegates to build_for_catalogs" do
-        subject.should_receive(:build_for_catalogs)
-        subject.build_for_catalogs(category: ["sapato"])
-      end
 
       context "when given parameters has subcategory and filters" do
-        subject { SeoUrl.build_for_catalogs(category: ['sapato'], subcategory: ['Bota'], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho']) }
-        it { expect(subject).to eq({ parameters: "sapato/bota/conforto-amaciante_tamanho-36-p_cor-azul-vermelho" }) }
+        subject { SeoUrl.build_for("category", { category: ['sapato'], subcategory: ['Bota'], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho']}) }
+        it { expect(subject).to eq({ parameters: "bota/conforto-amaciante_tamanho-36-p_cor-azul-vermelho" }) }
       end
 
       context "when given parameters has no subcategory" do
-        subject { SeoUrl.build_for_catalogs(category: ["sapato"], size: ['36', 'p'], color: ['azul','vermelho']) }
-        it { expect(subject).to eq({ parameters: "sapato/tamanho-36-p_cor-azul-vermelho" }) }
+        subject { SeoUrl.build_for("category", { category: ["sapato"], size: ['36', 'p'], color: ['azul','vermelho']}) }
+        it { expect(subject).to eq({ parameters: "tamanho-36-p_cor-azul-vermelho" }) }
       end
 
       context "when given parameters has subcategory, but not other filters" do
-        subject { SeoUrl.build_for_catalogs(category: ['sapato'], care: ['amaciante'], subcategory: ['bota']) }
-        it { expect(subject).to eq({ parameters: "sapato/bota/conforto-amaciante" }) }
+        subject { SeoUrl.build_for("category", { category: ['sapato'], care: ['amaciante'], subcategory: ['bota']}) }
+        it { expect(subject).to eq({ parameters: "bota/conforto-amaciante" }) }
       end
 
       context "when given parameters has brand and subcategory together" do
-        subject { SeoUrl.build_for_catalogs(category: [ 'roupa' ], subcategory: ['bota'], brand: ['colcci', 'olook'], care:['amaciante']) }
-        it { expect(subject).to eq({ parameters: "roupa/colcci-olook-bota/conforto-amaciante" }) }
+        subject { SeoUrl.build_for("category", { category: [ 'roupa' ], subcategory: ['bota'], brand: ['colcci', 'olook'], care:['amaciante']} ) }
+        it { expect(subject).to eq({ parameters: "colcci-olook-bota/conforto-amaciante" }) }
       end
 
       context "when there's no parameters and subcategories" do
-        subject { SeoUrl.build_for_catalogs(category: ["sapato"]) }
-        it { expect(subject).to eq({ parameters: "sapato" }) }
+        subject { SeoUrl.build_for("category", { category: ["sapato"] }) }
+        it { expect(subject).to eq({ parameters: "" }) }
       end
 
       context "when there's no subcategories but has filters" do
-        subject { SeoUrl.build_for_catalogs(category: ['sapato'], size: ['36'], color: ['azul', 'preto']) }
-        it { expect(subject).to eq({ parameters: "sapato/tamanho-36_cor-azul-preto" }) }
+        subject { SeoUrl.build_for("category", { category: ['sapato'], size: ['36'], color: ['azul', 'preto'] }) }
+        it { expect(subject).to eq({ parameters: "tamanho-36_cor-azul-preto" }) }
       end
 
       context "when has accents" do
-        it { expect(SeoUrl.build_for_catalogs(category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'vermelho'])).
-             to eq({ parameters: "sapato/sandalia/tamanho-36-p_cor-azul-vermelho" }) }
-        it { expect(SeoUrl.build_for_catalogs(category: ['sapato'], subcategory: ['rasteira'], size: ['36', 'p'], color: ['azul', 'Onça'])).
+        it { expect(SeoUrl.build_for("category", { category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'vermelho'] } )).
+             to eq({ parameters: "sandalia/tamanho-36-p_cor-azul-vermelho" }) }
+        it { expect(SeoUrl.build_for("category", { category: ['sapato'], subcategory: ['rasteira'], size: ['36', 'p'], color: ['azul', 'Onça'] } )).
              to eq({ parameters: "sapato/rasteira/tamanho-36-p_cor-azul-onca" }) }
-        it { expect(SeoUrl.build_for_catalogs(category: ['Acessório'], subcategory: ['rasteira'], size: ['36', 'p'], color: ['azul', 'Onça'])).
+        it { expect(SeoUrl.build_for("category", { category: ['Acessório'], subcategory: ['rasteira'], size: ['36', 'p'], color: ['azul', 'Onça'] })).
              to eq({ parameters: "acessorio/rasteira/tamanho-36-p_cor-azul-onca" }) }
       end
 
       context "when paramter price order was passed" do
-        it { expect(SeoUrl.build_for_catalogs({ category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'vermelho']}, sort: 'retail_price')).
+        it { expect(SeoUrl.build_for("categpry", { category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'vermelho']}, sort: 'retail_price')).
              to eq({ parameters: "sapato/sandalia/tamanho-36-p_cor-azul-vermelho", "por" => "menor-preco"} ) }
       end
 
       context "when parameter per-page was passed" do
-        it { expect(SeoUrl.build_for_catalogs({ category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'vermelho']}, sort: 'retail_price', per_page: '30')).
+        it { expect(SeoUrl.build_for("category", { category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'vermelho']}, sort: 'retail_price', per_page: '30')).
              to eq({ parameters: "sapato/sandalia/tamanho-36-p_cor-azul-vermelho", "por" => "menor-preco", "por_pagina" => "30"} ) }
       end
     end
