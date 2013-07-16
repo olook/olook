@@ -188,8 +188,8 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
   create_table "carts", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "notified",                :default => false, :null => false
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "legacy_id"
     t.boolean  "gift_wrap",               :default => false
     t.boolean  "use_credits",             :default => false
@@ -505,11 +505,6 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "product_ids"
-  end
-
-  create_table "highlight_campaigns_products", :force => true do |t|
-    t.integer "highlight_campaigns_id"
-    t.integer "products_id"
   end
 
   create_table "highlights", :force => true do |t|
