@@ -21,7 +21,7 @@
       }
     }
     .ok-msg{position:absolute;top:30px;left:220px;width:509px;height:29px;border:solid 1px #B2D079;background:#D9F99F;padding:10px 0 10px 20px;display:none;
-      p{height:30px;font-size:15px;background: image-url('common/sprite_modal_footer.png') no-repeat 0 -165px;padding-left:40px;}
+      p{height:30px;font-size:15px;background: image-url('common/sprite_modal_footer.png') no-repeat 0 -165px;padding-left:40px;color:#000;line-height:18px;}
     }
       
     .register, .register2, .close{position: absolute;cursor: pointer;border: none;text-indent: -99999px;bottom:35px;right:40px;}

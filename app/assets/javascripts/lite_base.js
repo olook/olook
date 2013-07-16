@@ -174,8 +174,10 @@ olook = o = {
 
   registerEmail: function(){
     $("#modal_footer button.close").on("click", function(){
-      criaCookieAB("email_bar", "1", 1);
-      $("#modal_footer").fadeOut();
+      if(lerCookie("email_bar") < "2"){
+        criaCookieAB("email_bar", "1", 1);
+        $("#modal_footer").fadeOut();
+      }
     })
    
     $("p.nao-exibir input").click(function(){
