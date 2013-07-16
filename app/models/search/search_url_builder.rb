@@ -49,6 +49,11 @@ class SearchUrlBuilder
     self
   end
 
+  def with_collection_theme collection_theme
+    @expressions["collection_themes"] = collection_theme.to_s.split(MULTISELECTION_SEPARATOR)
+    self
+  end
+
   def with_heel heel
     @expressions["heel"] = []
     if heel =~ /^(-?\d+-\d+)+$/
@@ -92,6 +97,7 @@ class SearchUrlBuilder
     @facets << "care"
     @facets << "size"
     @facets << "category"
+    @facets << 'collection_themes'
     self
   end
 
