@@ -40,7 +40,7 @@ class PictureUploader < CarrierWave::Uploader::Base
     process :resize_to_limit => [45, 68]
   end
   version :bag do
-    process :resize_to_limit => [70, 70]
+    process :resize_to_limit => [70, 107]
   end
   #adjustment thumb size picture on sacola page
   version :checkout, :from_version => :showroom do
