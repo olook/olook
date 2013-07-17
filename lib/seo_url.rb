@@ -76,8 +76,7 @@ class SeoUrl
   def self.build_for current_key, params, other_params={  }
     return_hash = build(params, other_params)
     return_hash.delete(current_key.to_sym)
-    separator = current_key.to_sym == :category ? '-' : '/' #TODO improve this
-    path = [ return_hash[:category], return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join(separator)
+    path = [ return_hash[:category], return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join('-')
     { parameters: [path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/') }.merge(return_hash[:order_params])
   end
 
