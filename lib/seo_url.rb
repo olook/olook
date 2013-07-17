@@ -22,24 +22,18 @@ class SeoUrl
   def self.parse parameters, other_parameters={}
     parsed_values = HashWithIndifferentAccess.new
 
-    _all_brands = self.all_brands || []
-    _all_subcategories = self.all_subcategories || []
-
-    unless other_parameters[:search]
-      _all_subcategories -= Product::CARE_PRODUCTS.map { |s| ActiveSupport::Inflector.transliterate(s) }
-      self.all_categories
-    end
-
     all_parameters = parameters.to_s.split("/")
     parsed_values[:category] = all_parameters.shift
-
     subcategories_and_brands = all_parameters.first.split("-") rescue []
 
+    _all_subcategories = self.all_subcategories || []
+    unless other_parameters[:search]
+      _all_subcategories -= Product::CARE_PRODUCTS.map { |s| ActiveSupport::Inflector.transliterate(s) }
+    end
     subcategories = (_all_subcategories & subcategories_and_brands.map { |s| ActiveSupport::Inflector.transliterate(s).titleize })
-    brands = (_all_brands & subcategories_and_brands.map { |s| ActiveSupport::Inflector.transliterate(s).titleize })
-
     parsed_values[:subcategory] = subcategories.join("-") if subcategories.any?
 
+    brands = (all_brands & subcategories_and_brands.map { |s| ActiveSupport::Inflector.transliterate(s).titleize })
     parsed_values[:brand] = brands.join("-") if brands.any?
 
     parsed_values.merge!(parse_filters(all_parameters.last))
