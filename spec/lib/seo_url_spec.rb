@@ -7,11 +7,12 @@ describe SeoUrl do
     described_class.stub(:db_subcategories).and_return(["Amaciante","Bota", "Camiseta"])
     described_class.stub(:db_brands).and_return(["Colcci","Olook"])
   end
-  describe ".parse" do
-    context "when given parameters has subcategory and filters" do
-      subject { SeoUrl.parse("sapato/conforto-amaciante_tamanho-36-p_cor-azul-vermelho") }
+  describe ".parse with category as other_parameter" do
+    context "when given parameters has care and filters" do
+      subject { SeoUrl.parse("conforto-amaciante_tamanho-36-p_cor-azul-vermelho", category: 'sapato') }
 
       it { expect(subject).to be_a(Hash)  }
+      it { expect(subject[:category]).to eq 'sapato' }
       it { expect(subject.keys).to include('size')  }
       it { expect(subject[:size]).to eq '36-p' }
 
@@ -25,13 +26,10 @@ describe SeoUrl do
         it { expect(subject['care']).to eq 'amaciante' }
         it { expect(subject['color']).to eq 'azul-vermelho' }
         it { expect(subject['size']).to eq '36-p' }
-
       end
 
-
       context "when given parameters has no subcategory" do
-        subject { SeoUrl.parse("sapato/tamanho-36-p_cor-azul-vermelho") }
-        it { expect(subject.keys).to_not include('subcategory')  }
+        subject { SeoUrl.parse("tamanho-36-p_cor-azul-vermelho", category: 'sapato') }
         it { expect(subject[:subcategory]).to be_nil }
 
         it { expect(subject.keys).to include('size')  }
@@ -42,9 +40,9 @@ describe SeoUrl do
       end
 
       context "when given parameters has subcategory, but not other filters" do
-        subject { SeoUrl.parse("sapato/bota/conforto-amaciante") }
+        subject { SeoUrl.parse("bota/conforto-amaciante", category: 'sapato') }
         it { expect(subject.keys).to include('subcategory')  }
-        it { expect(subject[:subcategory]).to eq 'Bota' }
+        it { expect(subject[:subcategory]).to eq 'bota' }
 
         it { expect(subject.keys).to include('care')  }
         it { expect(subject[:care]).to eq 'amaciante' }
@@ -57,16 +55,16 @@ describe SeoUrl do
       end
 
       context "when given parameters has brand and subcategory together" do
-        subject { SeoUrl.parse("roupa/bota-colcci-olook") }
+        subject { SeoUrl.parse("bota-colcci-olook", category: 'roupa') }
         it { expect(subject.keys).to include('subcategory')  }
-        it { expect(subject[:subcategory]).to eq 'Bota' }
+        it { expect(subject[:subcategory]).to eq 'bota' }
 
         it { expect(subject.keys).to include('brand')  }
         it { expect(subject[:brand]).to eq "Olook-Colcci" }
       end
 
       context "when there's no parameters and subcategories" do
-        subject { SeoUrl.parse("sapatos") }
+        subject { SeoUrl.parse(nil, category: 'sapatos') }
 
         it { expect(subject.keys).to include('category')  }
         it { expect(subject[:category]).to eq 'sapatos' }
@@ -77,7 +75,7 @@ describe SeoUrl do
       end
 
       context "when there's no subcategories but has filters" do
-        subject { SeoUrl.parse("sapato/tamanho-36_cor-azul-preto") }
+        subject { SeoUrl.parse("tamanho-36_cor-azul-preto", category: 'sapato') }
 
         it { expect(subject[:category]).to eq 'sapato' }
         it { expect(subject[:subcategory]).to be_nil }
@@ -86,7 +84,7 @@ describe SeoUrl do
       end
 
       context "when there's no subcategories but has filters and number of results per page" do
-        subject { SeoUrl.parse("sapato/tamanho-36_cor-azul-preto", { "por_pagina" => "10" }) }
+        subject { SeoUrl.parse("tamanho-36_cor-azul-preto", category: 'sapato', por_pagina: "10" ) }
 
         it { expect(subject[:category]).to eq 'sapato' }
         it { expect(subject[:subcategory]).to be_nil }
@@ -99,28 +97,28 @@ describe SeoUrl do
         before do
           described_class.stub(:db_subcategories).and_return(["Bolsa Média"])
         end
-        subject { SeoUrl.parse("sapato/bolsa media") }
+        subject { SeoUrl.parse("bolsa media", category: 'sapato') }
 
-        it { expect(subject[:subcategory]).to eq 'Bolsa Media' }
+        it { expect(subject[:subcategory]).to eq 'bolsa media' }
       end
 
       context "when is ordering by minor price" do
-        subject { SeoUrl.parse("sapato",{ "por" => "menor-preco" }) }
+        subject { SeoUrl.parse("", category: 'sapato', por: "menor-preco" ) }
 
         it { expect(subject[:sort]).to eq 'retail_price' }
       end
 
       context "when is ordering by desc price" do
-        subject { SeoUrl.parse("sapato",{ "por" => "maior-preco" }) }
+        subject { SeoUrl.parse("", category: 'sapato', por: "maior-preco" ) }
 
         it { expect(subject[:sort]).to eq '-retail_price' }
       end
     end
   end
 
-  describe ".parse_brands" do
+  describe ".parse with brand as other_parameter" do
     context "when given parameters has subcategory and filters" do
-      subject { SeoUrl.parse_brands("colcci/camiseta/conforto-amaciante_tamanho-36-p_cor-azul-vermelho") }
+      subject { SeoUrl.parse("camiseta/conforto-amaciante_tamanho-36-p_cor-azul-vermelho", brand: 'colcci') }
 
       it { expect(subject).to be_a(Hash)  }
       it { expect(subject.keys).to include('size')  }
@@ -143,33 +141,28 @@ describe SeoUrl do
 
 
       context "when given parameters hasn't got any parameters but brand" do
-        subject { SeoUrl.parse_brands("colcci") }
-        it { expect(subject.keys.size).to eq 1}
+        subject { SeoUrl.parse("", brand: 'colcci') }
         it { expect(subject[:brand]).to eq 'colcci' }
       end
 
       context "when given parameters has subcategory and brand, but not other filters" do
-        subject { SeoUrl.parse_brands("colcci/bota") }
+        subject { SeoUrl.parse("bota", brand: 'colcci') }
         it { expect(subject.keys).to include('subcategory')  }
         it { expect(subject[:subcategory]).to eq 'bota' }
         it { expect(subject.keys).to include('brand')  }
         it { expect(subject[:brand]).to eq 'colcci' }
-
-        it { expect(subject.keys.size).to eq 2}
       end
 
       context "when given parameters has many subcategories and brand, but not other filters" do
-        subject { SeoUrl.parse_brands("colcci/bota-scarpin") }
+        subject { SeoUrl.parse("bota-scarpin", brand: 'colcci') }
         it { expect(subject.keys).to include('subcategory')  }
         it { expect(subject[:subcategory]).to eq 'bota-scarpin' }
         it { expect(subject.keys).to include('brand')  }
         it { expect(subject[:brand]).to eq 'colcci' }
-
-        it { expect(subject.keys.size).to eq 2}
       end
 
       context "when given parameters has brand, category and subcategory together" do
-        subject { SeoUrl.parse_brands("colcci/roupa/bota") }
+        subject { SeoUrl.parse("roupa-bota", brand: 'colcci') }
 
         it { expect(subject.keys).to include('category')  }
         it { expect(subject[:category]).to eq 'roupa' }
@@ -179,12 +172,10 @@ describe SeoUrl do
 
         it { expect(subject.keys).to include('brand')  }
         it { expect(subject[:brand]).to eq 'colcci' }
-
-        it { expect(subject.keys.size).to eq 3}
       end
 
       context "when given parameters has brand, category and many subcategories together" do
-        subject { SeoUrl.parse_brands("colcci/roupa/bota-scarpin") }
+        subject { SeoUrl.parse("roupa-bota-scarpin", brand: 'colcci') }
 
         it { expect(subject.keys).to include('category')  }
         it { expect(subject[:category]).to eq 'roupa' }
@@ -194,26 +185,24 @@ describe SeoUrl do
 
         it { expect(subject.keys).to include('brand')  }
         it { expect(subject[:brand]).to eq 'colcci' }
-
-        it { expect(subject.keys.size).to eq 3}
       end
 
 
       context "when given parameters has brand, category and many subcategories together" do
-        subject { SeoUrl.parse_brands("olook/bolsa/carteira-bolsa") }
+        subject { SeoUrl.parse("bolsa-carteira-bolsa media", brand: 'olook') }
 
-        it { expect(subject.keys).to include('category')  }
+        it { expect(subject.keys).to include('category') }
         it { expect(subject[:category]).to eq 'bolsa' }
 
-        it { expect(subject.keys).to include('subcategory')  }
-        it { expect(subject[:subcategory]).to eq 'carteira-bolsa' }
+        it { expect(subject.keys).to include('subcategory') }
+        it { expect(subject[:subcategory]).to eq 'carteira-bolsa media' }
 
-        it { expect(subject.keys).to include('brand')  }
+        it { expect(subject.keys).to include('brand') }
         it { expect(subject[:brand]).to eq 'olook' }
       end
 
       context "when given parameters has brand, category, subcategory and filters together" do
-        subject { SeoUrl.parse_brands("colcci/roupa/bota/conforto-amaciante_tamanho-36-p_cor-azul-vermelho") }
+        subject { SeoUrl.parse("roupa-bota/conforto-amaciante_tamanho-36-p_cor-azul-vermelho", brand: 'colcci') }
 
         it { expect(subject.keys).to include('category')  }
         it { expect(subject[:category]).to eq 'roupa' }
