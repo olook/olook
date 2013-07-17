@@ -21,11 +21,11 @@
             = f.hidden_field :from_footer, value: true
 
         %button.register{type: "button"} Cadastre-se
-        = f.submit "Cadastra-se", class: "register2"
-        %p.termos 
+        = f.submit "Cadastra-se", class: "register2", onclick: track_event("EmailFooterBar", "CampaignEmailRegistered")
+        %p.termos
           Aceito os
           = link_to("termos de uso", terms_path)
-      
+
       .ok-msg
         %p
           Cadastro realizado com sucesso!
