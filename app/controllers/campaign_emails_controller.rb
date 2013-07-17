@@ -4,7 +4,7 @@ class CampaignEmailsController < ApplicationController
 
   def new
     @campaign_text = @cart.coupon.try(:modal) || 1
-    @campaign_email = CampaignEmail.new
+    @campaign_email = @campaign_email || CampaignEmail.new
   end
 
   def create
