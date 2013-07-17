@@ -61,11 +61,11 @@
       }  
     }
     &.search-results-list{
-      li{display:inline-block;width:245px;margin:0 10px 25px 0;
+      li{display:inline-block;width:200px;margin:0 50px 25px 0;
         a{color:#000;text-decoration:none;font-size:13px !important;
           .name{color:#000;font-size:13px !important;height:18px;overflow:hidden;}
           b{text-transform:uppercase;}
-          img{border-bottom:solid 1px #B9BABE;margin-bottom:5px;}
+          img{border-bottom:solid 1px #B9BABE;margin-bottom:5px;width:200px;height:auto;}
           .old {text-decoration:line-through;}
           .txt-pink{color: $base_color;font-size: 15px;font-weight: bold;}
           

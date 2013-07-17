@@ -175,6 +175,7 @@ section#home {
         text-decoration: none;
         text-transform: uppercase;
         float: left;
+        img{width:146px;height:auto;}/* new size photo */
         h1 {
           font-family: $avenir;
           font-size: 15px;
