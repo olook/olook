@@ -1,0 +1,14 @@
+@import 'new_structure/common/global_stuffs';
+@import 'new_structure/common/filters';
+
+#side_bar_menu{
+  dl{font-family:$avenir;color:#000;}
+  dt{float:left;font-size:11px;text-transform:uppercase;margin-bottom:5px;font-weight:bold;}
+  dd{clear:both; margin: 0;
+    &.last{margin-bottom:25px;}
+    a{text-decoration:none;color:#000;font-size:13px;
+      &:hover{color:#EF3742;}
+      &.selected{color:#EF3742;}
+    }
+  }
+}

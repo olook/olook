@@ -1,0 +1,25 @@
+- content_for :head do
+  = stylesheet_link_tag "new_structure/section/lite_catalog"
+  = stylesheet_link_tag "new_structure/common/side_bar_menu"
+  :javascript
+    final_position = #{@search.range_values_for(:price)[:max] rescue 600};
+    = javascript_include_tag 'section/lite_catalog'
+    = javascript_include_tag 'section/brands'
+
+#catalog
+  = render "menu", collection_theme_groups: @collection_theme_groups
+  #result
+    .collections_header
+      = image_tag @collection_theme.header_image, alt: @collection_theme.header_image_alt, title: @collection_theme.header_image_alt
+      = link_to("Assista ao vídeo >", "#",                                                                                                         |
+        { :class => "video_link", :rel => "#{@collection_theme.video_link}" }.                                                                     |
+        merge(@collection_theme.text_color ? { style: "color: #{@collection_theme.text_color}" } : {})) unless @collection_theme.video_link.blank? |
+      .video_description
+    = render "filters", search: @search
+
+    %section.container_product
+      %ul#products
+        = render "catalogs/searched_products", :products => @search.products
+      .loading
+
+    .pagination
