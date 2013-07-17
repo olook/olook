@@ -3,8 +3,16 @@ var email_field=$("#modal_footer input.email"), email = email_field.val();
 if(o.validateEmail(email) && email != "seunomeaqui@email.com.br"){
 
   <% if @remembered %>
-    $("#overlay-campaign").show();
-    $("#modal").html('<%= escape_javascript( render "remembered") %>').show();
+    h = $(document).outerHeight();
+    $("#overlay-campaign").height(h).show();
+    $("#modal")
+    .css({"top" : "50%", "left" : "50%", "width" : "540px", "height" : "270px", "margin-top" : "-135px", "margin-left" : "-270px"})
+    .html('<%= escape_javascript(render "remembered") %>')
+    .show();
+    
+    $(".box-continue").children("button").on("click", function(){
+      $("#modal.promo-olook, #overlay-campaign, #modal_footer").fadeOut()
+    });
 
   <% else %>
 
