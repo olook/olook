@@ -13,23 +13,36 @@ class CampaignEmailsController < ApplicationController
     else
       if @campaign_email = CampaignEmail.find_by_email(params[:campaign_email][:email])
         redirect_path =  remembered_campaign_email_path(@campaign_email)
-        @remembered = true
       elsif @campaign_email = CampaignEmail.create!(email: params[:campaign_email][:email])
         @campaign_email.set_utm_info session[:tracking_params]
         redirect_path = campaign_email_path(@campaign_email)
       end
       cookies['newsletterUser'] = { value: '1', path: '/', expires: 30.years.from_now }
       cookies['ceid'] = { value: "#{@campaign_email.id}", path: '/', expires: 30.years.from_now }
-      if params[:campaign_email][:from_footer].present?
-        respond_to :js
-      else
-        redirect_to redirect_path
-      end
+      redirect_to redirect_path
     end
   end
 
+  def subscribe
+    email = params[:email]
+
+    @user = User.find_by_email(email)
+    @campaign_email = CampaignEmail.find_by_email(email)
+
+    if @user || @campaign_email
+      status = "error"
+      message = "Usuario ja cadastrado"
+    else
+      @campaign_email = CampaignEmail.create!(email: email)
+      status = "ok"
+      message = "NewsLetter ja cadastrado"
+    end
+
+    render json: {status: status, message: message}.to_json
+  end
+
   def login
-      @user = User.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   def show
