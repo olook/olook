@@ -1,11 +1,10 @@
 #filters_container
   .filter
-    = form_tag collection_theme_path(SeoUrl.build_for_brands(search.current_filters)), method: 'get' do
-
+    = form_tag collection_theme_path , method: 'get' do
       %fieldset.first_child
         %span.selected-type{ class: ("filter_selected" if params[:category].present?) }= params[:category].present? ? params[:category].pluralize : "VER TUDO"
-        - categories =  [["Ver Tudo", collection_theme_path(parameters: params[:brand])]] | Brand.categories(params[:brand]).map{|c| [c.titleize, collection_theme_path(parameters: "#{ params[:brand]}/#{ c.singularize }")]}
-        = select_tag('', options_for_select(categories, selected: collection_theme_path(parameters: "#{ params[:brand]}/#{ params[:category] }")), :onchange => ("location = this.options[this.selectedIndex].value;"))
+        - categories =  [["Ver Tudo", collection_theme_path(collection_theme: params[:collection_theme])]] | search.filters.facets['category']['constraints'].map{|c| [c["value"].titleize, collection_theme_path(parameters: c["value"].singularize)]}
+        = select_tag('', options_for_select(categories, selected:collection_theme_path(collection_theme: params[:collection_theme])), :onchange => ("location = this.options[this.selectedIndex].value;"))
 
       %fieldset
         %span.selected-type.order{ class: ("filter_selected" if params[:por].present?) }= params[:por].present? ? params[:por].gsub("-", " ").titleize : "NOSSA SELEÇÃO"

@@ -1,4 +1,4 @@
-<section id="collections_menu">
+<section id="side_bar_menu">
   <dl>
     <% collection_theme_groups.each do |collection_theme_group| %>
       <% collections = collection_theme_group.collection_themes.select{ |ct| ct.active}.to_a.sort { |a,b| a.position <=> b.position } %>
