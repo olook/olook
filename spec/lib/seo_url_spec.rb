@@ -144,7 +144,7 @@ describe SeoUrl do
 
       context "when given parameters hasn't got any parameters but brand" do
         subject { SeoUrl.parse_brands("colcci") }
-        it { expect(subject.keys.size).to eq 2}
+        it { expect(subject.keys.size).to eq 1}
         it { expect(subject[:brand]).to eq 'colcci' }
       end
 
@@ -155,7 +155,7 @@ describe SeoUrl do
         it { expect(subject.keys).to include('brand')  }
         it { expect(subject[:brand]).to eq 'colcci' }
 
-        it { expect(subject.keys.size).to eq 3}
+        it { expect(subject.keys.size).to eq 2}
       end
 
       context "when given parameters has many subcategories and brand, but not other filters" do
@@ -165,7 +165,7 @@ describe SeoUrl do
         it { expect(subject.keys).to include('brand')  }
         it { expect(subject[:brand]).to eq 'colcci' }
 
-        it { expect(subject.keys.size).to eq 3}
+        it { expect(subject.keys.size).to eq 2}
       end
 
       context "when given parameters has brand, category and subcategory together" do
@@ -180,7 +180,7 @@ describe SeoUrl do
         it { expect(subject.keys).to include('brand')  }
         it { expect(subject[:brand]).to eq 'colcci' }
 
-        it { expect(subject.keys.size).to eq 4}
+        it { expect(subject.keys.size).to eq 3}
       end
 
       context "when given parameters has brand, category and many subcategories together" do
@@ -195,7 +195,7 @@ describe SeoUrl do
         it { expect(subject.keys).to include('brand')  }
         it { expect(subject[:brand]).to eq 'colcci' }
 
-        it { expect(subject.keys.size).to eq 4}
+        it { expect(subject.keys.size).to eq 3}
       end
 
 
@@ -238,37 +238,91 @@ describe SeoUrl do
   end
 
   describe '.build_for' do
-    context "when catalogs is being passed as a parameter" do
       subject { described_class }
 
-      context "when given parameters has subcategory and filters" do
-        subject { SeoUrl.build_for("category", { category: ['sapato'], subcategory: ['Bota'], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho']}) }
-        it { expect(subject).to eq({ parameters: "bota/conforto-amaciante_tamanho-36-p_cor-azul-vermelho" }) }
+      context "when catalogs is being passed as a current_key" do
+        context "when given parameters has subcategory and filters" do
+          subject { SeoUrl.build_for("category", { category: ['sapato'], subcategory: ['Bota'], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho']}) }
+          it { expect(subject).to eq({ parameters: "bota/conforto-amaciante_tamanho-36-p_cor-azul-vermelho" }) }
+        end
+
+        context "when given parameters has no subcategory" do
+          subject { SeoUrl.build_for("category", { category: ["sapato"], size: ['36', 'p'], color: ['azul','vermelho']}) }
+          it { expect(subject).to eq({ parameters: "tamanho-36-p_cor-azul-vermelho" }) }
+        end
+
+        context "when given parameters has subcategory, but not other filters" do
+          subject { SeoUrl.build_for("category", { category: ['sapato'], care: ['amaciante'], subcategory: ['bota']}) }
+          it { expect(subject).to eq({ parameters: "bota/conforto-amaciante" }) }
+        end
+
+        context "when given parameters has brand and subcategory together" do
+          subject { SeoUrl.build_for("category", { category: [ 'roupa' ], subcategory: ['bota'], brand: ['colcci', 'olook'], care:['amaciante']} ) }
+          it { expect(subject).to eq({ parameters: "colcci-olook-bota/conforto-amaciante" }) }
+        end
+
+        context "when there's no parameters and subcategories" do
+          subject { SeoUrl.build_for("category", { category: ["sapato"] }) }
+          it { expect(subject).to eq({ parameters: "" }) }
+        end
+
+        context "when there's no subcategories but has filters" do
+          subject { SeoUrl.build_for("category", { category: ['sapato'], size: ['36'], color: ['azul', 'preto'] }) }
+          it { expect(subject).to eq({ parameters: "tamanho-36_cor-azul-preto" }) }
+        end
       end
 
-      context "when given parameters has no subcategory" do
-        subject { SeoUrl.build_for("category", { category: ["sapato"], size: ['36', 'p'], color: ['azul','vermelho']}) }
-        it { expect(subject).to eq({ parameters: "tamanho-36-p_cor-azul-vermelho" }) }
-      end
+      context "when brand is being passed as a current_key" do
+        context "and any subcategory wasn't passed" do
+          it { expect(SeoUrl.build_for("brand", { brand: ['colcci'] }))
+               .to eq({ parameters: ""} ) }
+        end
 
-      context "when given parameters has subcategory, but not other filters" do
-        subject { SeoUrl.build_for("category", { category: ['sapato'], care: ['amaciante'], subcategory: ['bota']}) }
-        it { expect(subject).to eq({ parameters: "bota/conforto-amaciante" }) }
-      end
+        context "and any subcategory was passed without category" do
+          it { expect(SeoUrl.build_for("brand", { brand: ['colcci'], subcategory: ['Jaqueta'] }))
+               .to eq({ parameters: "jaqueta"} ) }
+        end
 
-      context "when given parameters has brand and subcategory together" do
-        subject { SeoUrl.build_for("category", { category: [ 'roupa' ], subcategory: ['bota'], brand: ['colcci', 'olook'], care:['amaciante']} ) }
-        it { expect(subject).to eq({ parameters: "colcci-olook-bota/conforto-amaciante" }) }
-      end
+        context "and more than one subcategory were passed without category" do
+          it { expect(SeoUrl.build_for("brand", { brand: ['colcci'], subcategory: ['Jaqueta','camiseta'] }))
+               .to eq({ parameters: "jaqueta-camiseta"} ) }
+        end
 
-      context "when there's no parameters and subcategories" do
-        subject { SeoUrl.build_for("category", { category: ["sapato"] }) }
-        it { expect(subject).to eq({ parameters: "" }) }
-      end
+        context "and any category was passed without subcategory" do
+          it { expect(SeoUrl.build_for("brand", { brand: ['colcci'], category: ['Roupa'] }))
+               .to eq({ parameters: "roupa"} ) }
+        end
 
-      context "when there's no subcategories but has filters" do
-        subject { SeoUrl.build_for("category", { category: ['sapato'], size: ['36'], color: ['azul', 'preto'] }) }
-        it { expect(subject).to eq({ parameters: "tamanho-36_cor-azul-preto" }) }
+        context "and category, subcategory was passed" do
+          it { expect(SeoUrl.build_for("brand", { brand: ['colcci'], category: ["roupa"], subcategory: ['Jaqueta'] }))
+               .to eq({ parameters: "roupa/jaqueta"} ) }
+        end
+
+        context "when given parameters has only filters" do
+          subject { SeoUrl.build_for("brand", { brand: ['colcci'], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho'] }) }
+          it { expect(subject).to eq({ parameters: "conforto-amaciante_tamanho-36-p_cor-azul-vermelho" }) }
+        end
+
+        context "when given parameters has category and filters" do
+          subject { SeoUrl.build_for("brand", { brand: ['colcci'], category: ["roupa"], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho'] }) }
+          it { expect(subject).to eq({ parameters: "roupa/conforto-amaciante_tamanho-36-p_cor-azul-vermelho" }) }
+        end
+
+        context "when given parameters has subcategory and filters" do
+          subject { SeoUrl.build_for("brand", { brand: ['colcci'], subcategory: ["camiseta"], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho'] }) }
+          it { expect(subject).to eq({ parameters: "camiseta/conforto-amaciante_tamanho-36-p_cor-azul-vermelho" }) }
+        end
+
+        context "when given parameters has subcategory and filters and price" do
+          subject { SeoUrl.build_for("brand", { brand: ['colcci'], subcategory: ["camiseta"], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho']} , { price: ['0', '309'], "sort" => 'retail_price'} ) }
+          it { expect(subject).to eq({ parameters: "camiseta/conforto-amaciante_tamanho-36-p_cor-azul-vermelho", "preco" => "0-309", "por"=>"menor-preco" }) }
+        end
+
+        context "when given parameters has category, subcategory and filters" do
+          subject { SeoUrl.build_for("brand", brand: ['colcci'], category: ["roupa"], subcategory: ["camiseta"], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho']) }
+          it { expect(subject).to eq({ parameters: "roupa/camiseta/conforto-amaciante_tamanho-36-p_cor-azul-vermelho" }) }
+        end
+
       end
 
       context "when has accents" do
@@ -289,62 +343,5 @@ describe SeoUrl do
         it { expect(SeoUrl.build_for("category", { category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'vermelho']}, sort: 'retail_price', per_page: '30')).
              to eq({ parameters: "sandalia/tamanho-36-p_cor-azul-vermelho", "por" => "menor-preco", "por_pagina" => "30"} ) }
       end
-    end
-  end
-
-  describe ".build_for_brands"
-
-  context "when brands is being passed as a parameter" do
-    subject { described_class }
-
-    context "and any subcategory wasn't passed" do
-      it { expect(SeoUrl.build_for_brands({ brand: ['colcci'] }))
-           .to eq({ parameters: "colcci"} ) }
-    end
-
-    context "and any subcategory was passed without category" do
-      it { expect(SeoUrl.build_for_brands({ brand: ['colcci'], subcategory: ['Jaqueta'] }))
-           .to eq({ parameters: "colcci/jaqueta"} ) }
-    end
-
-    context "and more than one subcategory were passed without category" do
-      it { expect(SeoUrl.build_for_brands({ brand: ['colcci'], subcategory: ['Jaqueta','camiseta'] }))
-           .to eq({ parameters: "colcci/jaqueta-camiseta"} ) }
-    end
-
-    context "and any category was passed without subcategory" do
-      it { expect(SeoUrl.build_for_brands({ brand: ['colcci'], category: ['Roupa'] }))
-           .to eq({ parameters: "colcci/roupa"} ) }
-    end
-
-    context "and category, subcategory was passed" do
-      it { expect(SeoUrl.build_for_brands({ brand: ['colcci'], category: ["roupa"], subcategory: ['Jaqueta'] }))
-           .to eq({ parameters: "colcci/roupa/jaqueta"} ) }
-    end
-
-    context "when given parameters has only filters" do
-      subject { SeoUrl.build_for_brands(brand: ['colcci'], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho']) }
-      it { expect(subject).to eq({ parameters: "colcci/conforto-amaciante_tamanho-36-p_cor-azul-vermelho" }) }
-    end
-
-    context "when given parameters has category and filters" do
-      subject { SeoUrl.build_for_brands(brand: ['colcci'], category: ["roupa"], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho']) }
-      it { expect(subject).to eq({ parameters: "colcci/roupa/conforto-amaciante_tamanho-36-p_cor-azul-vermelho" }) }
-    end
-
-    context "when given parameters has subcategory and filters" do
-      subject { SeoUrl.build_for_brands(brand: ['colcci'], subcategory: ["camiseta"], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho']) }
-      it { expect(subject).to eq({ parameters: "colcci/camiseta/conforto-amaciante_tamanho-36-p_cor-azul-vermelho" }) }
-    end
-
-    context "when given parameters has subcategory and filters and price" do
-      subject { SeoUrl.build_for_brands({ brand: ['colcci'], subcategory: ["camiseta"], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho']} , { price: ['0', '309'], "sort" => 'retail_price'} ) }
-      it { expect(subject).to eq({ parameters: "colcci/camiseta/conforto-amaciante_tamanho-36-p_cor-azul-vermelho", "preco" => "0-309", "por"=>"menor-preco" }) }
-    end
-
-    context "when given parameters has category, subcategory and filters" do
-      subject { SeoUrl.build_for_brands(brand: ['colcci'], category: ["roupa"], subcategory: ["camiseta"], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho']) }
-      it { expect(subject).to eq({ parameters: "colcci/roupa/camiseta/conforto-amaciante_tamanho-36-p_cor-azul-vermelho" }) }
-    end
   end
 end

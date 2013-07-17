@@ -73,27 +73,11 @@ class SeoUrl
     parsed_values
   end
 
-  def self.build_for_catalogs params, other_params={  }
-    return_hash = build(params, other_params)
-    path = [ return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join('-')
-    { parameters: [return_hash[:category], path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/') }.merge(return_hash[:order_params])
-  end
-
-  def self.build_for_brands params, other_params={  }
-    return_hash = build(params, other_params)
-    { parameters: [
-      params[:brand].empty? ? other_params[:brand] : params[:brand].last,
-      return_hash[:category],
-      return_hash[:subcategory],
-      return_hash[:filter_params]
-      ].reject { |p| p.blank? }.join('/')
-    }.merge(return_hash[:order_params])
-  end
-
   def self.build_for current_key, params, other_params={  }
     return_hash = build(params, other_params)
     return_hash.delete(current_key.to_sym)
-    path = [ return_hash[:category], return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join('-')
+    separator = current_key.to_sym == :category ? '-' : '/' #TODO improve this
+    path = [ return_hash[:category], return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join(separator)
     { parameters: [path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/') }.merge(return_hash[:order_params])
   end
 
