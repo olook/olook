@@ -18,12 +18,12 @@ function dontShow(){
 
 $(function(){
 
-	if(show_modal == "1" && lerCookie("newsletterUser") == null){
+	if(show_modal == "1" && lerCookie("newsletterUser") == null && lerCookie("ms1") == null){
 		$("#overlay-campaign").delay(100).show();
 		$("#modal-campaign").append('<iframe src="/campaign_emails/new" border="0" frameborder="0" height="100%" width="100%"></iframe>');
 		window.setTimeout(function(){
 				if($("#overlay-campaign").is(":visible"))
-					criaCookieAB("ms","1", 1);
+          criaCookieAB("ms","1", 1);
 		},500)
 
 	}
@@ -34,11 +34,13 @@ $(function(){
 				dontShow();
 			}
 			_gaq.push(['_trackEvent', 'Modal', 'Close', '', , true]);
-			stopProp(e);
+			criaCookieAB("ms1","1", 200);
+      stopProp(e);    
 		},
 		keyup: function(e) {
 			if (e.keyCode == 27) { //ESC
 	   		$("#modal-campaign,#overlay-campaign").fadeOut();
+				criaCookieAB("ms1","1", 200);
 			}
 			if($("#modal-campaign iframe").contents().find(".dont_show").is(":checked")){
 				dontShow();
