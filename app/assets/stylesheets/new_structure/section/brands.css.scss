@@ -6,7 +6,7 @@
   button{position:absolute;top:125px;width:8px;height:33px;font-size:0;border:none;background:image-url('home/arrows.jpg') no-repeat 0 0;cursor:pointer;
     &.anterior{left:0;
       &:hover{background-position:0 -33px;}
-    }  
+    }
     &.proximo{right:0;background-position:-8px 0;
       &:hover{background-position:-8px -33px;}
     }
@@ -37,22 +37,3 @@
 /* fix filter price */
 .ui-slider .ui-slider-handle{width:5px !important;}
 .ui-slider .ui-slider-handle:last-child {background-position: -17px 0 !important;margin-left: 1px !important;}
-
-/*******  MENU ******/
-#brands_menu{
-  dl{font-family:$avenir;color:#000;}
-  dt{float:left;font-size:11px;text-transform:uppercase;margin-bottom:5px;font-weight:bold;}
-  dd{clear:both; margin: 0;
-    a{text-decoration:none;color:#000;font-size:13px;background:none;padding-left:0;
-      &:hover{color:#EF3742;}
-      &.selected{color:#EF3742;}
-    }
-  }
-}
-
-/******** INTERNAS *******/
-section{margin-top:10px;
-  &#brands_menu{float:left;width:160px;}
-}
-
-
