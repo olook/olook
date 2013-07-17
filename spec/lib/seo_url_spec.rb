@@ -295,7 +295,7 @@ describe SeoUrl do
 
         context "and category, subcategory was passed" do
           it { expect(SeoUrl.build_for("brand", { brand: ['colcci'], category: ["roupa"], subcategory: ['Jaqueta'] }))
-               .to eq({ parameters: "roupa/jaqueta"} ) }
+               .to eq({ parameters: "roupa-jaqueta"} ) }
         end
 
         context "when given parameters has only filters" do
@@ -320,7 +320,7 @@ describe SeoUrl do
 
         context "when given parameters has category, subcategory and filters" do
           subject { SeoUrl.build_for("brand", brand: ['colcci'], category: ["roupa"], subcategory: ["camiseta"], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho']) }
-          it { expect(subject).to eq({ parameters: "roupa/camiseta/conforto-amaciante_tamanho-36-p_cor-azul-vermelho" }) }
+          it { expect(subject).to eq({ parameters: "roupa-camiseta/conforto-amaciante_tamanho-36-p_cor-azul-vermelho" }) }
         end
 
       end
