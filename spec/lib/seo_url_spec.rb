@@ -275,19 +275,19 @@ describe SeoUrl do
         it { expect(SeoUrl.build_for("category", { category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'vermelho'] } )).
              to eq({ parameters: "sandalia/tamanho-36-p_cor-azul-vermelho" }) }
         it { expect(SeoUrl.build_for("category", { category: ['sapato'], subcategory: ['rasteira'], size: ['36', 'p'], color: ['azul', 'Onça'] } )).
-             to eq({ parameters: "sapato/rasteira/tamanho-36-p_cor-azul-onca" }) }
+             to eq({ parameters: "rasteira/tamanho-36-p_cor-azul-onca" }) }
         it { expect(SeoUrl.build_for("category", { category: ['Acessório'], subcategory: ['rasteira'], size: ['36', 'p'], color: ['azul', 'Onça'] })).
-             to eq({ parameters: "acessorio/rasteira/tamanho-36-p_cor-azul-onca" }) }
+             to eq({ parameters: "rasteira/tamanho-36-p_cor-azul-onca" }) }
       end
 
       context "when paramter price order was passed" do
-        it { expect(SeoUrl.build_for("categpry", { category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'vermelho']}, sort: 'retail_price')).
-             to eq({ parameters: "sapato/sandalia/tamanho-36-p_cor-azul-vermelho", "por" => "menor-preco"} ) }
+        it { expect(SeoUrl.build_for("category", { category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'vermelho']}, sort: 'retail_price')).
+             to eq({ parameters: "sandalia/tamanho-36-p_cor-azul-vermelho", "por" => "menor-preco"} ) }
       end
 
       context "when parameter per-page was passed" do
         it { expect(SeoUrl.build_for("category", { category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'vermelho']}, sort: 'retail_price', per_page: '30')).
-             to eq({ parameters: "sapato/sandalia/tamanho-36-p_cor-azul-vermelho", "por" => "menor-preco", "por_pagina" => "30"} ) }
+             to eq({ parameters: "sandalia/tamanho-36-p_cor-azul-vermelho", "por" => "menor-preco", "por_pagina" => "30"} ) }
       end
     end
   end
