@@ -756,8 +756,8 @@ olook = o = {
       $("#modal_footer").fadeOut();
     });
     
+    var email_field = $("#modal_footer input.email"), elem = $("#modal_footer .presentation");
     $("button.register").on("click", function(){
-      var email_field = $("#modal_footer input.email"), elem = $("#modal_footer .presentation");
 
       elem.animate({"left": -elem.width()},"slow");
       $("#modal_footer img").animate({"right": '900px'},"slow");    
