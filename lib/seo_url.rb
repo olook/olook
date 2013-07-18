@@ -40,7 +40,7 @@ class SeoUrl
 
   def self.build_for current_key, params, other_params={  }
     return_hash = build(params, other_params)
-    return_hash.delete(current_key.to_sym)
+    return_hash.delete(current_key.to_s)
     path = [ return_hash[:category], return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join('-')
     { parameters: [path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/') }.merge(return_hash[:order_params])
   end
@@ -122,11 +122,11 @@ class SeoUrl
       filter_params = []
       parameters.each do |k, v|
         if v.respond_to?(:join)
-          filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| ActiveSupport::Inflector.transliterate(_v).downcase}.join('-')}" if v.present? && PARAMETERS_BLACKLIST.exclude?(k.to_s)
+          filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| ActiveSupport::Inflector.transliterate(_v).downcase}.join('-')}" if v.present? && PARAMETERS_BLACKLIST.exclude?(k.to_s) && VALUES.invert[k.to_s]
         end
       end
 
-      return_hash[:filter_params] = filter_params.join('_')
+      return_hash[:filter_params] = filter_params.join('_') 
       return_hash[:order_params] = post_parameters
 
       return_hash
