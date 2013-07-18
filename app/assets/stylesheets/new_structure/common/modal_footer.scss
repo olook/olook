@@ -5,7 +5,7 @@
   .modal{position:relative;width:1025px;height:115px;margin:0 auto;
     .modal_container{position:relative;overflow:hidden;width:750px;height:115px;}
     
-    .presentation{position:absolute;top:28px;left:0;z-index:1;
+    .presentation{position:absolute;top:28px;left:20px;z-index:1;
       h1{font-family: 'johnston', arial, sans-serif;font-size: 27px;line-height:18px;}
       h2{font-family: 'avenir', arial, sans-serif;font-size: 14px;font-weight: lighter;margin-top:8px;}
       p{margin-top:8px;font-size:12px;color:#000;}
@@ -24,6 +24,7 @@
     .ok-msg{position:absolute;top:30px;left:220px;width:509px;height:29px;border:solid 1px #B2D079;background:#D9F99F;padding:10px 0 10px 20px;display:none;
       p{height:30px;font-size:15px;background: image-url('common/sprite_modal_footer.png') no-repeat 0 -165px;padding-left:40px;color:#000;line-height:18px;}
     }
+    #ok-msg2 p{background:none;width:480px;}
       
     .register, .register2, .close{position: absolute;cursor: pointer;border: none;text-indent: -99999px;bottom:35px;right:40px;}
     
@@ -37,7 +38,7 @@
       a{color:#000;font-size:11px;}
     }
     
-    img{position:absolute;bottom:-1px;right:160px;}
+    img{position:absolute;bottom:-1px;right:250px;}
   }
   
 }
