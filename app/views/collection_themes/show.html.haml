@@ -1,6 +1,7 @@
 - content_for :head do
   = stylesheet_link_tag "new_structure/section/lite_catalog"
   = stylesheet_link_tag "new_structure/common/side_bar_menu"
+  = stylesheet_link_tag "new_structure/section/collection_themes"
   :javascript
     start_position = #{@search.range_values_for(:price)[:min] rescue 0};
     final_position = #{@search.range_values_for(:price)[:max] rescue 600};
@@ -20,7 +21,7 @@
 
     %section.container_product
       %ul#products
-        = render "catalogs/searched_products", :products => @search.products
+        = render "shared/searched_products", :products => @search.products
       .loading
 
     .pagination
