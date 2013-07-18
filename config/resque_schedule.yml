@@ -135,6 +135,17 @@ userbase_with_source_and_credits_exacttarget:
     - exact_target.yml
   description: "Cria e envia arquivo com base de usuários com creditos para ftp do exact target"
 
+post_sale_userbase:
+  cron: "0 5 * * *"
+  class: MarketingUploaderWorker
+  queue: marketing_uploader
+  args:
+    - post_sale_userbase
+    - post_sale_userbase-%Y-%m-%d.csv
+    - true
+    - exact_target.yml
+  description: "Cria e envia arquivo com base de usuários com compras entregues para ftp do exact target"
+
 facebook_friends_list:
   cron: "0 2 * * 0"
   class: MarketingUploaderWorker

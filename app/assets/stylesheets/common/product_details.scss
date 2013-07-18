@@ -160,13 +160,12 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
               display: none;
             }
             iframe {
-              height: 20px !important;
+              /*height: 20px !important;*/
               overflow:hidden !important;
             }
+            &.bt_face{position:absolute;top:41px;right:8px;}
           }
-          .fb_edge_widget_with_comment{width:85px;
-            &.bt_face{position:absolute;top:35px;right:0;}
-          }
+          
           
           ul.social {
             float: right;
