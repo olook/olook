@@ -15,8 +15,8 @@
 
           .form
             %p
-              %span.txt Informe seu email
-              %span.error-msg O e-mail informado não parece correto. Que tal conferir?
+              %span.txt Cadastra-se e receba novidades no seu e-mail:
+              %span.error-msg O e-mail informado parece estranho. Que tal conferir?
             = f.text_field :email, value:"seunomeaqui@email.com.br", class: "email"
             = f.hidden_field :from_footer, value: true
 
