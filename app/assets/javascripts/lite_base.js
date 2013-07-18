@@ -174,7 +174,7 @@ olook = o = {
 
   registerEmail: function(){
     $("#modal_footer button.close").on("click", function(){
-      if(lerCookie("email_bar") < "2"){
+      if(lerCookie("email_bar") != "2"){
         criaCookieAB("email_bar", "1", 1);
         $("#modal_footer").fadeOut();
       }
@@ -211,7 +211,7 @@ olook = o = {
   },
   
   showEmailBar: function(){
-  	if(lerCookie("newsletterUser") == null && lerCookie("ms") == "1" && lerCookie("email_bar") == null){
+  	if(lerCookie("newsletterUser") == null && lerCookie("ms") == null && lerCookie("email_bar") == null){
       $("#modal_footer").fadeIn();
   		o.registerEmail()
   	}
