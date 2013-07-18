@@ -35,7 +35,7 @@
         %div.collections_header
           = image_tag(@brand.header_image, alt: @brand.header_image_alt, title: @brand.header_image_alt) if @brand
 
-      = render "ordenation_filters", search: @search
+      = render "ordenation_filters", search: @search, filters: create_filters(true)
 
       %section.container_product
         %ul#products
