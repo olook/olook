@@ -9,11 +9,10 @@ class CollectionThemesController < SearchController
 
   def show
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
-
-    @filters = create_filters(true)
-
     params.merge!(SeoUrl.parse(params[:parameters], params))
     Rails.logger.debug("New params: #{params.inspect}")
+
+    @filters = create_filters #TODO use SearchEngine#filters instead create new filters
 
     @search = SearchEngine.new(category: params[:category],
                                care: params[:care],
