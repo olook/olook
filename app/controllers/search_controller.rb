@@ -9,7 +9,7 @@ class SearchController < ApplicationController
 
     @singular_word = @q.singularize
     if catalogs_pages.include?(@singular_word)
-      redirect_to catalog_path(parameters: @singular_word)
+      redirect_to catalog_path(category: @singular_word)
     else
 
       @brand = params[:brand].humanize if params[:brand]
