@@ -4,11 +4,7 @@
       =image_tag "common/footer_girl.png"
       %button.close{type: "button"} Close
 
-      :javascript
-        $(function(){
-          $('#subscribe_form').on('ajax:success', function(evt, data, status, xhr) {
-          });
-        });
+        
       = form_tag subscribe_campaign_email_path, id: "subscribe_form", remote: true do
         .modal_container
           .presentation
@@ -36,3 +32,9 @@
           %br/
           %b Enviaremos em instantes o cupom de desconto por e-mail
 
+  :javascript
+    $('#subscribe_form').on('ajax:success', function(evt, data, status, xhr) {
+    
+      console.dir(data);
+    });
+  
