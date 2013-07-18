@@ -234,7 +234,7 @@ olook = o = {
           email_field.off("focusout").removeClass("txt-black error").val("seunomeaqui@email.com.br");
 
           if(email_field.prev().hasClass("error")){$("p.error").removeClass("error")}
-          $("#modal_footer").delay(4000).fadeOut();
+          $("#modal_footer").delay(5500).fadeOut();
           
         });
       }else{
