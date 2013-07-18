@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CollectionThemesController < ApplicationController
+class CollectionThemesController < SearchController
   layout "lite_application"
 
   def index
@@ -9,6 +9,8 @@ class CollectionThemesController < ApplicationController
 
   def show
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
+
+    @filters = create_filters
 
     params.merge!(SeoUrl.parse(params[:parameters], params))
     Rails.logger.debug("New params: #{params.inspect}")
