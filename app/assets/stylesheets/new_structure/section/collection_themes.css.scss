@@ -132,3 +132,23 @@
     }
   }
 }
+button.nav{
+    position: absolute;
+    text-indent: -9999px;
+    float: left;
+    border: none;
+    background: no-repeat;
+    cursor: pointer;
+    background: image-url("collections/sprite.png") no-repeat 1px -55px;
+    height: 65px;
+    width: 40px;
+    top: 1023px;
+    &.bt_left{
+        left: 133px;
+    }
+
+    &.bt_right{
+        background: image-url("collections/sprite.png") no-repeat -40px -55px;
+        right: -2px;
+    }
+}
