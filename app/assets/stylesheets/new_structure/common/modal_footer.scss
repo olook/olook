@@ -9,6 +9,7 @@
       h1{font-family: 'johnston', arial, sans-serif;font-size: 27px;line-height:18px;}
       h2{font-family: 'avenir', arial, sans-serif;font-size: 14px;font-weight: lighter;margin-top:8px;}
       p{margin-top:8px;font-size:12px;color:#000;}
+      input{margin:0;}
     }
     .form{position:absolute;top:0px;right:-577px;width:580px;margin-left:150px;text-align:center;font-family:$avenir_medium;color:#000;padding-top:10px;/*display:none;*/
       p{height:25px;line-height:25px;font-size:17px;
@@ -26,8 +27,8 @@
       
     .register, .register2, .close{position: absolute;cursor: pointer;border: none;text-indent: -99999px;bottom:35px;right:40px;}
     
-    .register, .register2{width: 152px;height: 37px;background: image-url('common/sprite_modal_footer.png') 0 -36px;
-      &:hover{background: image-url('common/sprite_modal_footer.png') 0 -82px;}
+    .register, .register2{width: 152px;height: 37px;background: image-url('common/sprite_modal_footer.png') 0 -82px;
+      &:hover{background: image-url('common/sprite_modal_footer.png') 0 -36px;}
     }
     .register2{display:none;}
     .close{width: 20px;height: 20px;background: image-url('common/sprite_modal_footer.png') 0 0;bottom:105px;right:20px;}
