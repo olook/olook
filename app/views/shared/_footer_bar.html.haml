@@ -4,7 +4,12 @@
       =image_tag "common/footer_girl.png"
       %button.close{type: "button"} Close
 
-      = form_for @campaign_email, remote: true do |f|
+      :javascript
+        $(function(){
+          $('#subscribe_form').on('ajax:success', function(evt, data, status, xhr) {
+          });
+        });
+      = form_tag subscribe_campaign_email_path, id: "subscribe_form", remote: true do
         .modal_container
           .presentation
             %h1 GANHE 10% NA PRIMEIRA COMPRA + 15% NA PRÓXIMA*
@@ -17,11 +22,10 @@
             %p
               %span.txt Cadastra-se e receba novidades no seu e-mail:
               %span.error-msg O e-mail informado parece estranho. Que tal conferir?
-            = f.text_field :email, value:"seunomeaqui@email.com.br", class: "email"
-            = f.hidden_field :from_footer, value: true
+            = text_field_tag :email, "", value:"seunomeaqui@email.com.br", class: "email"
 
         %button.register{type: "button"} Cadastre-se
-        = f.submit "Cadastra-se", class: "register2", onclick: track_event("EmailFooterBar", "CampaignEmailRegistered")
+        = submit_tag "Cadastra-se", class: "register2", onclick: track_event("EmailFooterBar", "CampaignEmailRegistered")
         %p.termos
           Aceito os
           = link_to("termos de uso", terms_path)
