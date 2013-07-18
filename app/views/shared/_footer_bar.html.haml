@@ -7,7 +7,6 @@
       :javascript
         $(function(){
           $('#subscribe_form').on('ajax:success', function(evt, data, status, xhr) {
-            debugger;
           });
         });
       = form_tag subscribe_campaign_email_path, id: "subscribe_form", remote: true do
