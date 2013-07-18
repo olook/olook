@@ -185,11 +185,11 @@ olook = o = {
       $("#modal_footer").fadeOut();
     });
       
+    var email_field = $("#modal_footer input.email"), elem = $("#modal_footer .presentation");
+    
     $("button.register").on("click", function(){
-      var email_field = $("#modal_footer input.email"), elem = $("#modal_footer .presentation");
-
       elem.animate({"left": -elem.width()},"slow");
-      $("#modal_footer img").animate({"right": '900px'},"slow");    
+      $("#modal_footer img").animate({"right": '865px'},"slow");    
       $("#modal_footer .form").animate({"right": '0'},"slow");
          
       $(this).fadeOut().next().delay(200).fadeIn().next().fadeIn();
@@ -207,11 +207,40 @@ olook = o = {
           }
         }
       });
-    })
+    });
+    
+    $('form#subscribe_form').submit(function(event){
+      email = email_field.val();  
+      event.preventDefault();
+      if(o.validateEmail(email) && email != "seunomeaqui@email.com.br"){
+        $(this).on('ajax:success', function(evt, data, status, xhr){
+          $("#modal_footer .form, .register2, .termos").fadeOut();
+          
+          if(data.status == "ok"){
+            criaCookieAB("email_bar", "2", 200);
+            $("#modal_footer #ok-msg1").delay(300).fadeIn();
+            
+          }else if(data.status == "error"){
+            $("#modal_footer #ok-msg2").delay(300).fadeIn();
+          }
+          
+          email_field.off("focusout").removeClass("txt-black error").val("seunomeaqui@email.com.br")
+
+          if(email_field.prev().hasClass("error")){$("p.error").removeClass("error")}
+          $("#modal_footer").delay(4500).fadeOut();
+          
+        });
+      }else{
+        email_field.addClass("error");
+        $("#modal_footer .form p span.txt").hide().next().fadeIn().parent().addClass("error");
+        
+      }  
+    });
+    
   },
-  
+
   showEmailBar: function(){
-  	if(lerCookie("newsletterUser") == null && lerCookie("ms") == null && lerCookie("email_bar") == null){
+  	if(lerCookie("newsletterUser") == null && lerCookie("ms") == null && lerCookie("ms1") == "1" && lerCookie("email_bar") == null){
       $("#modal_footer").fadeIn();
   		o.registerEmail()
   	}
