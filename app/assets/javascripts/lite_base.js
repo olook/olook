@@ -209,9 +209,16 @@ olook = o = {
       });
     });
     
+    $("#modal_footer button.close").on("click", function(){
+      $("#modal_footer").fadeOut();
+      criaCookieAB("email_bar", "1", 1);
+    });
+    
     $('form#subscribe_form').submit(function(event){
       email = email_field.val();  
       event.preventDefault();
+      $("#modal_footer button.close").off("click");
+      
       if(o.validateEmail(email) && email != "seunomeaqui@email.com.br"){
         $(this).on('ajax:success', function(evt, data, status, xhr){
           $("#modal_footer .form, .register2, .termos").fadeOut();
@@ -224,16 +231,15 @@ olook = o = {
             $("#modal_footer #ok-msg2").delay(300).fadeIn();
           }
           
-          email_field.off("focusout").removeClass("txt-black error").val("seunomeaqui@email.com.br")
+          email_field.off("focusout").removeClass("txt-black error").val("seunomeaqui@email.com.br");
 
           if(email_field.prev().hasClass("error")){$("p.error").removeClass("error")}
-          $("#modal_footer").delay(4500).fadeOut();
+          $("#modal_footer").delay(4000).fadeOut();
           
         });
       }else{
         email_field.addClass("error");
         $("#modal_footer .form p span.txt").hide().next().fadeIn().parent().addClass("error");
-        
       }  
     });
     
