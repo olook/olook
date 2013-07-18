@@ -26,6 +26,9 @@ class CatalogsController < SearchController
                                sort: params[:sort]).for_page(params[:page]).with_limit(params[:per_page])
     @search.for_admin if current_admin
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
+    @pixel_information = params[:category]
+    @cache_key = "#{@search.cache_key}#{@campaign_products.cache_key if @campaign_products}"
+    expire_fragment(@cache_key) if params[:force_cache].to_i == 1
   end
 
   private
@@ -33,7 +36,7 @@ class CatalogsController < SearchController
       #TODO Please remove me when update Rails version
       #We can use constraints but this version has a bug
 
-      if (/^(sapato|bolsa|acessorio|roupa)/ =~ params[:parameters]).nil?
+      if (/^(sapato|bolsa|acessorio|roupa)/ =~ params[:category]).nil?
         render :template => "/errors/404.html.erb", :layout => 'error', :status => 404, :layout => "lite_application"
       end
     end
