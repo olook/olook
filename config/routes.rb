@@ -58,7 +58,7 @@ Olook::Application.routes.draw do
 
   #NEW COLLECTIONS
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
-  get '/colecoes/:collection_theme(/?*parameters)', to: "collection_themes#show", as: "collection_theme"
+  get '/colecoes/:collection_theme(/*parameters)', to: "collection_themes#show", as: "collection_theme"
 
   # NEW COLLECTIONS - TODO
   get '/update_moment', to: "moments#update", as: "update_moment", constraints: { format: 'js' }
