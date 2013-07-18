@@ -26,18 +26,14 @@ class CampaignEmailsController < ApplicationController
   def subscribe
     email = params[:email]
 
-    @user = User.find_by_email(email)
-    @campaign_email = CampaignEmail.find_by_email(email)
-
-    if @user || @campaign_email
-      status = "error"
-      message = "Usuario ja cadastrado"
-    else
-      @campaign_email = CampaignEmail.create!(email: email)
+    @campaign_email = CampaignEmail.new(email: params[:email])
+    if @campaign_email.save
       status = "ok"
       message = "NewsLetter ja cadastrado"
+    else
+      status = "error"
+      message = "Usuario ja cadastrado"
     end
-
     render json: {status: status, message: message}.to_json
   end
 
