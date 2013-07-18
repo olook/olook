@@ -166,16 +166,17 @@ section#home {
   section ul.products_list {
     width: 100%;
     overflow: auto;
-    li {
-      margin: 0 0 0 25px;
-      float: left;
+    li {margin: 0 0 0 25px;display:inline-block;position:relative;z-index:1;width:146px;height:267px;/* new size photo */
       a {
         color: #000;
         text-align: center;
         text-decoration: none;
         text-transform: uppercase;
-        float: left;
-        img{width:146px;height:auto;}/* new size photo */
+        /* new size photo */
+        display:inline-block;
+        position:absolute;
+        bottom:0;
+        left:0;
         h1 {
           font-family: $avenir;
           font-size: 15px;
@@ -219,6 +220,7 @@ section#home {
       display: block;
       top: 0;
       left: 75px;
+      z-index:90;
     }
   }
   section#brands{
