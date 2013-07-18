@@ -3,7 +3,7 @@
     = form_tag collection_theme_path , method: 'get' do
       %fieldset.first_child
         %span.selected-type{ class: ("filter_selected" if params[:category].present?) }= params[:category].present? ? params[:category].pluralize : "VER TUDO"
-        - categories =  [["Ver Tudo", collection_theme_path(params[:collection_theme])]] | search.filters.facets['category']['constraints'].map{|c| [c["value"].titleize, collection_theme_path(parameters: c["value"].singularize)]}
+        - categories =  [["Ver Tudo", collection_theme_path(params[:collection_theme])]] | filters_by("category").map{|text, amount| [text.titleize.pluralize, collection_theme_path(parameters: text.singularize)]}
         = select_tag('', options_for_select(categories, selected:collection_theme_path("#{ params[:collection_theme]}/#{ params[:category]}")), :onchange => ("location = this.options[this.selectedIndex].value;"))
 
       %fieldset
