@@ -1,6 +1,6 @@
 #filters_container
   .filter
-    = form_tag collection_theme_path , method: 'get' do
+    = form_tag collection_theme_path(params[:collection_theme], SeoUrl.build_for("collection_theme", search.current_filters)), method: 'get' do
       %fieldset.first_child
         %span.selected-type{ class: ("filter_selected" if params[:category].present?) }= params[:category].present? ? params[:category].pluralize : "VER TUDO"
         - categories =  [["Ver Tudo", collection_theme_path(params[:collection_theme])]] | filters_by("category").map{|text, amount| [text.titleize.pluralize, collection_theme_path(parameters: text.singularize)]}
