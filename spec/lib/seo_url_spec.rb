@@ -7,6 +7,92 @@ describe SeoUrl do
     described_class.stub(:db_subcategories).and_return(["Amaciante","Bota", "Camiseta"])
     described_class.stub(:db_brands).and_return(["Colcci","Olook"])
   end
+
+  describe ".new_parse" do
+    it { expect(described_class.new({}).new_parse).to be_a(Hash)  }
+    context "Main keys" do
+      context "that include collection themes" do
+        subject { described_class.new({collection_theme: 'p&b'}) }
+        it { expect(subject.new_parse).to have_key(:collection_theme)  }
+        it { expect(subject.new_parse[:collection_theme]).to eq('p&b') }
+      end
+      context "that includes brands" do
+        subject { described_class.new({brand: 'olook'}) }
+        it { expect(subject.new_parse).to have_key(:brand)  }
+        it { expect(subject.new_parse[:brand]).to eq('olook') }
+      end
+      context "that includes brands" do
+        subject { described_class.new({category: 'sapato'}) }
+        it { expect(subject.new_parse).to have_key(:category)  }
+        it { expect(subject.new_parse[:category]).to eq('sapato') }
+      end
+    end
+    context "Main keys and filters" do
+      context "that includes brands as main category as filter" do
+        subject { described_class.new({brand: 'olook', parameters: 'sapato'}) }
+        it { expect(subject.new_parse[:brand]).to eq('olook') }
+        it { expect(subject.new_parse[:category]).to eq('sapato') }
+      end
+      context "that includes category as main brands as filter" do
+        context "one brand" do
+          subject { described_class.new({category: 'sapato', parameters: 'olook'}) }
+          it { expect(subject.new_parse[:category]).to eq('sapato') }
+          it { expect(subject.new_parse[:brand]).to eq('Olook') }
+        end
+        context "multiple brands" do
+          subject { described_class.new({category: 'sapato', parameters: 'olook-colcci'}) }
+          it { expect(subject.new_parse[:category]).to eq('sapato') }
+          it { expect(subject.new_parse[:brand]).to eq('Olook-Colcci') }
+        end
+      end
+      context "filtering by subcategory" do
+        context "one subcategory" do
+          subject { described_class.new({category: 'sapato', parameters: 'bota'}) }
+          it { expect(subject.new_parse[:subcategory]).to eq('bota') }
+        end
+        context "multiple subcategories" do
+          subject { described_class.new({category: 'sapato', parameters: 'bota-scarpin'}) }
+          it { expect(subject.new_parse[:category]).to eq('sapato') }
+          it { expect(subject.new_parse[:subcategory]).to eq('bota-scarpin') }
+        end
+      end
+      context "filtering by colors and size" do
+        context "one color" do
+          subject { described_class.new({category: 'sapato', parameters: 'bota/cor-azul'}) }
+          it { expect(subject.new_parse[:subcategory]).to eq('bota') }
+          it { expect(subject.new_parse[:color]).to eq('azul') }
+        end
+        context "one size" do
+          subject { described_class.new({category: 'sapato', parameters: 'bota/tamanho-37'}) }
+          it { expect(subject.new_parse[:subcategory]).to eq('bota') }
+          it { expect(subject.new_parse[:size]).to eq('37') }
+        end
+        context "multiple colors" do
+          subject { described_class.new({category: 'sapato', parameters: 'bota/cor-azul-amarelo'}) }
+          it { expect(subject.new_parse[:subcategory]).to eq('bota') }
+          it { expect(subject.new_parse[:color]).to eq('azul-amarelo') }
+        end
+        context "multiple sizes" do
+          subject { described_class.new({category: 'sapato', parameters: 'bota/tamanho-37-40'}) }
+          it { expect(subject.new_parse[:subcategory]).to eq('bota') }
+          it { expect(subject.new_parse[:size]).to eq('37-40') }
+        end
+        context "colors and sizes" do
+          subject { described_class.new({category: 'sapato', parameters: 'bota/cor-azul_tamanho-37'}) }
+          it { expect(subject.new_parse[:subcategory]).to eq('bota') }
+          it { expect(subject.new_parse[:color]).to eq('azul') }
+          it { expect(subject.new_parse[:size]).to eq('37') }
+        end
+      end
+    end
+  end
+
+
+
+
+
+
+
   describe ".parse with category as other_parameter" do
     context "when given parameters has care and filters" do
       subject { SeoUrl.parse("conforto-amaciante_tamanho-36-p_cor-azul-vermelho", category: 'sapato') }
