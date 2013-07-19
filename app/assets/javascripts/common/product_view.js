@@ -84,7 +84,11 @@ initQuickView = {
   inQuickView : false,
 
   productZoom : function() {
-    $("div#pics_suggestions div#full_pic ul li a.image_zoom").jqzoom({
+    $("div#pics_suggestions div#full_pic ul li a.image_zoom").each(function(){
+       var _url = "http:" + $(this).attr('href');
+       $(this).zoom({url: _url})
+    });
+    /*$("div#pics_suggestions div#full_pic ul li a.image_zoom").jqzoom({
       zoomType: 'innerzoom',
       zoomWidth: 415,
       zoomHeight: 500,
@@ -92,7 +96,7 @@ initQuickView = {
       title: false,
       preloadImages: false,
       fadeoutSpeed: 'fast'
-    });
+    });*/
   },
 
   twitProduct : function() {
