@@ -22,5 +22,4 @@ $(function() {
         $("#search_form").submit();
       }
   }).parents('form').submit(olook.perform_search);
-  
 });
