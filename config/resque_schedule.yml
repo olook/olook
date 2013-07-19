@@ -135,6 +135,17 @@ userbase_with_source_and_credits_exacttarget:
     - exact_target.yml
   description: "Cria e envia arquivo com base de usuários com creditos para ftp do exact target"
 
+post_sale_userbase:
+  cron: "0 5 * * *"
+  class: MarketingUploaderWorker
+  queue: marketing_uploader
+  args:
+    - post_sale_userbase
+    - post_sale_userbase-%Y-%m-%d.csv
+    - true
+    - exact_target.yml
+  description: "Cria e envia arquivo com base de usuários com compras entregues para ftp do exact target"
+
 facebook_friends_list:
   cron: "0 2 * * 0"
   class: MarketingUploaderWorker
@@ -147,7 +158,7 @@ facebook_friends_list:
   description: "Cria e envia arquivo com base de usuários e amigas aniversariantes para ftp do exact target"
 
 cancel_old_billets:
-  cron: "0 7 * * *"
+  cron: "0 12 * * *"
   class: Abacos::CancelExpiredBillet
   queue: cancel_old_billets
   description: "Cancela todos os boletos com data de expicacao de um dia antes do ultimo dia util"

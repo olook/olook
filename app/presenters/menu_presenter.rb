@@ -79,19 +79,19 @@ class MenuPresenter < BasePresenter
   end
 
   def clothes
-    render_item("Roupas",  h.catalog_path(parameters: 'roupa'), "categories", ["catalogs#show#roupa"])
+    render_item("Roupas",  h.catalog_path(category: 'roupa'), "categories", ["catalogs#show#roupa"])
   end
 
   def shoes
-    render_item("Sapatos", h.catalog_path(parameters: 'sapato'), "categories", ["catalogs#show#sapato"])
+    render_item("Sapatos", h.catalog_path(category: 'sapato'), "categories", ["catalogs#show#sapato"])
   end
 
   def bags
-    render_item("Bolsas", h.catalog_path(parameters: 'bolsa'), "categories", ["catalogs#show#bolsa"])
+    render_item("Bolsas", h.catalog_path(category: 'bolsa'), "categories", ["catalogs#show#bolsa"])
   end
 
   def accessories
-    render_item("Acessórios", h.catalog_path(parameters: 'acessorio'), "categories", ["catalogs#show#acessorio"])
+    render_item("Acessórios", h.catalog_path(category: 'acessorio'), "categories", ["catalogs#show#acessorio"])
   end
 
   def glasses

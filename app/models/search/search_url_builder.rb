@@ -97,7 +97,7 @@ class SearchUrlBuilder
 
   def sort_by sort_field
     @sort_field = "#{ sort_field }&" if sort_field.present?
-    @sort_field ||= ""
+    @sort_field ||= "-collection,-inventory,-text_relevance"
     self
   end
 

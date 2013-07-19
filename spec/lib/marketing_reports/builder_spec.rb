@@ -262,9 +262,56 @@ describe MarketingReports::Builder do
         subject.csv.should match /^#{csv_header}#{csv_body}/
       end
     end
+  end  
+
+  describe "#generate_post_sale_userbase" do
+    let(:csv_header) do
+      "email,order_number,first_name,last_name,delivery_type,delivered_at,expected_delivery_on,auth_token\n"
+    end
+
+    it "has the correct header" do
+      subject.generate_post_sale_userbase      
+      subject.csv.should match /^#{csv_header}/      
+    end
+
+    context "when the order status is set to 'delivered' " do
+      let(:delivered_order) {FactoryGirl.create(:delivered_order, shipping_service_name: "TEX", expected_delivery_on: DateTime.now - 2.days)}
+
+      it "displays the delivered order in the csv" do
+
+        csv_body = [delivered_order].inject("") do |data, order|
+          data += "#{order.user.email.chomp},#{order.id},#{order.user.first_name},#{order.user.last_name},#{::MarketingReports::Builder::SHIPPING_SERVICES[order.shipping_service_name]},#{order.updated_at.strftime("%d-%m-%Y")},#{order.expected_delivery_on ? order.expected_delivery_on.strftime("%d-%m-%Y") : ''},#{order.user.authentication_token}\n"
+          data
+        end
+        subject.generate_post_sale_userbase      
+        subject.csv.should match /^#{csv_header}#{csv_body}/
+      end
+    end
+
+    context "when the order status is set to 'delivering' " do
+      let(:delivering_order) {FactoryGirl.create(:delivered_order, shipping_service_name: "TEX", expected_delivery_on: DateTime.now - 2.days, state: "delivering")}
+
+      it "displays the delivered order in the csv" do
+
+        csv_body = [delivering_order].inject("") do |data, order|
+          data += "#{order.user.email.chomp},#{order.id},#{order.user.first_name},#{order.user.last_name},#{::MarketingReports::Builder::SHIPPING_SERVICES[order.shipping_service_name]},#{order.updated_at.strftime("%d-%m-%Y")},#{order.expected_delivery_on ? order.expected_delivery_on.strftime("%d-%m-%Y") : ''},#{order.user.authentication_token}\n"
+          data
+        end
+        subject.generate_post_sale_userbase      
+        subject.csv.should match /^#{csv_header}#{csv_body}/
+      end
+    end
+
+    context "when the order status is set to any other state" do
+      let(:picking_order) {FactoryGirl.create(:delivered_order, shipping_service_name: "TEX", expected_delivery_on: DateTime.now - 2.days, state: "picking")}
+
+      it "displays the header only " do
+        subject.generate_post_sale_userbase      
+        subject.csv.should match /^#{csv_header}/
+      end
+    end
 
 
   end  
-
 
 end
