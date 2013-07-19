@@ -47,12 +47,32 @@ class SeoUrl
   end
 
   def build_url_for(filter, filter_text)
-    SeoUrl.build_for(@current_key, @search.filters_applied(filter.to_sym, filter_text.chomp))
-  end
+    parameters = HashWithIndifferentAccess.new(@search.filters_applied(filter.to_sym, filter_text.chomp).dup)
+    other_parameters = @params.dup
+    return_hash = {}
+    return_hash[:brand] = ActiveSupport::Inflector.transliterate(parameters.delete(:brand).join("-")).downcase if parameters[:brand].present?
+    return_hash[:subcategory] = ActiveSupport::Inflector.transliterate(parameters.delete(:subcategory).join("-").downcase) if parameters[:subcategory].present?
+    return_hash[:category] = ActiveSupport::Inflector.transliterate(parameters.delete(:category).first.to_s).downcase if parameters[:category].present?
 
-  def self.build_for current_key, params, other_params={  }
-    return_hash = build(params, other_params)
-    return_hash.delete(current_key.to_sym)
+    post_parameters = {}
+    other_parameters.select{|k,v| PARAMETERS_WHITELIST.include?(k.to_s) }.each do |k,v|
+      if k.to_s == "sort"
+        v = VALUES.invert[v]
+      end
+      post_parameters[VALUES.invert[k.to_s]] = v.respond_to?(:join) ? v.join('-') : v
+    end
+
+    filter_params = []
+    parameters.each do |k, v|
+      if v.respond_to?(:join)
+        filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| ActiveSupport::Inflector.transliterate(_v).downcase}.join('-')}" if v.present? && PARAMETERS_BLACKLIST.exclude?(k.to_s) && VALUES.invert[k.to_s]
+      end
+    end
+
+    return_hash[:filter_params] = filter_params.join('_')
+    return_hash[:order_params] = post_parameters
+
+    return_hash.delete(@current_key.to_sym)
     path = [ return_hash[:category], return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join('-')
     { parameters: [path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/') }.merge(return_hash[:order_params])
   end
@@ -114,34 +134,5 @@ class SeoUrl
       subs.concat( subs.map{ |s| s.downcase } )
       subs.concat( subs.map{ |s| ActiveSupport::Inflector.transliterate(s) } )
       subs.concat( subs.map{ |s| s.parameterize } )
-    end
-
-    def self.build params, other_params = {  }
-      parameters = params.dup
-      other_parameters = other_params.dup
-      return_hash = {}
-      return_hash[:brand] = ActiveSupport::Inflector.transliterate(parameters.delete(:brand).join("-")).downcase if parameters[:brand].present?
-      return_hash[:subcategory] = ActiveSupport::Inflector.transliterate(parameters.delete(:subcategory).join("-").downcase) if parameters[:subcategory].present?
-      return_hash[:category] = ActiveSupport::Inflector.transliterate(parameters.delete(:category).first.to_s).downcase if parameters[:category].present?
-
-      post_parameters = {}
-      other_parameters.select{|k,v| PARAMETERS_WHITELIST.include?(k.to_s) }.each do |k,v|
-        if k.to_s == "sort"
-          v = VALUES.invert[v]
-        end
-        post_parameters[VALUES.invert[k.to_s]] = v.respond_to?(:join) ? v.join('-') : v
-      end
-
-      filter_params = []
-      parameters.each do |k, v|
-        if v.respond_to?(:join)
-          filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| ActiveSupport::Inflector.transliterate(_v).downcase}.join('-')}" if v.present? && PARAMETERS_BLACKLIST.exclude?(k.to_s) && VALUES.invert[k.to_s]
-        end
-      end
-
-      return_hash[:filter_params] = filter_params.join('_')
-      return_hash[:order_params] = post_parameters
-
-      return_hash
     end
 end
