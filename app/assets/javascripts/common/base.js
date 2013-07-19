@@ -786,7 +786,7 @@ olook = o = {
       if(o.validateEmail(email) && email != "seunomeaqui@email.com.br"){
         $(this).on('ajax:success', function(evt, data, status, xhr){
           $("#modal_footer .form, .register2, .termos").fadeOut();
-          $.cookie("email_bar", "2", { expires: 200, path: '/' };  
+          $.cookie("email_bar", "2", { expires: 200, path: '/' });  
           
           if(data.status == "ok"){
             $("#modal_footer #ok-msg1").delay(300).fadeIn();
