@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
                 :load_facebook_api,
                 :load_referer,
                 :load_tracking_parameters,
-                :set_modal_show
+                :set_modal_show,
+                :load_campaign_email_if_user_is_not_logged
 
   helper_method :current_liquidation,
                 :show_current_liquidation?,
@@ -176,6 +177,10 @@ class ApplicationController < ActionController::Base
       @user = current_user
     end
 
+    def load_campaign_email_if_user_is_not_logged
+      @campaign_email = CampaignEmail.new if @user.nil?
+    end
+
     def load_cart
       Rails.logger.debug('ApplicationController#load_cart')
       @cart = current_cart
@@ -222,6 +227,5 @@ class ApplicationController < ActionController::Base
       @incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
       session[:tracking_params] ||= @incoming_params
     end
-
 end
 

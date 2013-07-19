@@ -344,6 +344,8 @@ Olook::Application.routes.draw do
     end
   end
 
+  match 'campaign_email_subscribe', to: "campaign_emails#subscribe", as: :subscribe_campaign_email
+
   #CHECKOUT
   resource :cart, :path => 'sacola', :controller => "cart/cart", :except => [:create] do
     resources :items, :to => 'cart/items'

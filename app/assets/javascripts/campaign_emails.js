@@ -61,20 +61,21 @@ $(function(){
 	checkEmail(e);
     })
 
-    $(".close, .btn-continue, .close_pink").bind("click", function(){
-	parent.top.$("#modal-campaign,#overlay-campaign").fadeOut();
-
-	if(typeof parent.top.showCartSummary == 'function') {
-	    parent.top.showCartSummary();
-	} else if(typeof parent.top.o == 'object' && typeof parent.top.o.cartShow == 'function') {
-	    parent.top.o.cartShow();
-	}
-	// _gaq.push(['_trackEvent', 'Modal', 'Close', '']);
-	if($(".dont_show").is(":checked")){
-	    parent.top.dontShow();
-	}
+    $(".close, .btn-continue, .close_pink").on("click", function(){
+    	parent.top.$("#modal-campaign,#overlay-campaign").fadeOut();
+      parent.top.criaCookieAB("ms1","1", 200);
+      
+    	if(typeof parent.top.showCartSummary == 'function') {
+    	    parent.top.showCartSummary();
+    	} else if(typeof parent.top.o == 'object' && typeof parent.top.o.cartShow == 'function') {
+    	    parent.top.o.cartShow();
+    	}
+    	// _gaq.push(['_trackEvent', 'Modal', 'Close', '']);
+    	if($(".dont_show").is(":checked")){
+    	    parent.top.dontShow();
+    	}
     })
-
+    
 
     $("input[type=submit]").click(function(){
 	_gaq.push(['_trackEvent', 'Modal', 'Submit', '', , true]);

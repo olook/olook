@@ -65,6 +65,8 @@ $(document).ready(function() {
   initBase.slideToTop();
   initBase.replaceImages();
   
+  o.showEmailBar();
+  
   getSize();
   
   /* HIDE <hr/> IN CART BOX */
@@ -730,5 +732,88 @@ initBase = {
       $(this).attr('src', image);
     });
   }
+  
 }
 
+/*** EMAIL BAR FUNCTIONS ***/
+olook = o = {} || null;
+
+olook = o = {
+  
+  validateEmail: function(email) {
+      var regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return regex.test(email);
+  },
+
+  registerEmail: function(){
+    $("#modal_footer button.close").on("click", function(){
+      criaCookieAB("email_bar", "1", 1);
+      $("#modal_footer").fadeOut();
+    })
+ 
+    $("p.nao-exibir input").click(function(){
+      criaCookieAB("email_bar", "2", 100);
+      $("#modal_footer").fadeOut();
+    });
+    
+    var email_field = $("#modal_footer input.email"), elem = $("#modal_footer .presentation");
+    $("button.register").on("click", function(){
+
+      elem.animate({"left": -elem.width()},"slow");
+      $("#modal_footer img").animate({"right": '900px'},"slow");    
+      $("#modal_footer .form").animate({"right": '-1px'},"slow");
+       
+      $(this).fadeOut().next().delay(200).fadeIn().next().fadeIn();
+
+      email_field.on({
+        focus: function(){
+          $(this).addClass("txt-black");
+          if(email_field.val() == "seunomeaqui@email.com.br"){
+            $(this).val("");
+          }
+        },
+        focusout: function(){
+          if( $.trim($(this).val()) == "" ){
+            $(this).removeClass("txt-black").val("seunomeaqui@email.com.br");
+          }
+        }
+      });
+    });
+    
+    $('form#subscribe_form').submit(function(event){
+      email = email_field.val();  
+      event.preventDefault();
+      if(o.validateEmail(email) && email != "seunomeaqui@email.com.br"){
+        $(this).on('ajax:success', function(evt, data, status, xhr){
+          $("#modal_footer .form, .register2, .termos").fadeOut();
+          criaCookieAB("email_bar", "2", 200);  
+          
+          if(data.status == "ok"){
+            $("#modal_footer #ok-msg1").delay(300).fadeIn();
+            
+          }else if(data.status == "error"){
+            $("#modal_footer #ok-msg2").delay(300).fadeIn();
+          }
+          
+          email_field.off("focusout").removeClass("txt-black error").val("seunomeaqui@email.com.br");
+
+          if(email_field.prev().hasClass("error")){$("p.error").removeClass("error")}
+          $("#modal_footer").delay(5500).fadeOut();
+          
+        });
+      }else{
+        email_field.addClass("error");
+        $("#modal_footer .form p span.txt").hide().next().fadeIn().parent().addClass("error");
+      }  
+    });
+    
+  },
+
+  showEmailBar: function(){
+  	if(lerCookie("newsletterUser") == null && lerCookie("ms") == null && lerCookie("ms1") == "1" && lerCookie("email_bar") == null){
+      $("#modal_footer").fadeIn();
+  		o.registerEmail()
+  	}
+  }
+}
+/*** END EMAIL BAR FUNCTIONS ***/
