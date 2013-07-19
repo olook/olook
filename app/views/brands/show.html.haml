@@ -16,30 +16,31 @@
   = javascript_include_tag 'section/lite_catalog'
   = javascript_include_tag 'section/brands'
 
-#catalog
-  %aside
-    = render "filters", search: @search, filters: @side_filters
 
-  #result
-    - unless @search.has_any_filter_selected?
-      / local onde o viewpersonalized será exibido
-      .chaordic.viewpersonalized
-      / local onde o purchasepersonalized será exibido
-      .chaordic.purchasepersonalized
-      / local onde o mostpopular será exibido
-      .chaordic.mostpopular
-    
-    - if @brand.present? && @brand.header_image.present?
-      %div.collections_header
-        = image_tag(@brand.header_image, alt: @brand.header_image_alt, title: @brand.header_image_alt) if @brand
+= cache "#{@search.cache_key}", expire_in: 15.minutes  do
+  #catalog
+    %aside
+      = render "filters", search: @search, filters: @side_filters
 
-    = render "ordenation_filters", search: @search
+    #result
+      - unless @search.has_any_filter_selected?
+        / local onde o viewpersonalized será exibido
+        .chaordic.viewpersonalized
+        / local onde o purchasepersonalized será exibido
+        .chaordic.purchasepersonalized
+        / local onde o mostpopular será exibido
+        .chaordic.mostpopular
+      
+      - if @brand.present? && @brand.header_image.present?
+        %div.collections_header
+          = image_tag(@brand.header_image, alt: @brand.header_image_alt, title: @brand.header_image_alt) if @brand
 
-    %section.container_product
-      %ul#products
-        = render "searched_products", :products => @catalog_products
-      .loading
+      = render "ordenation_filters", search: @search
 
-    .pagination
-      = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: brand_path, other_parameters: "por=#{ params[:por]}" }
+      %section.container_product
+        %ul#products
+          = render "shared/searched_products", :products => @catalog_products
+        .loading
 
+      .pagination
+        = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: brand_path }

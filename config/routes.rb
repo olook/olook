@@ -48,7 +48,7 @@ Olook::Application.routes.draw do
   # BRANDS
   match "/marcas", :to => "brands#index", :as => "new_brands"
 
-  match "/marcas/*parameters", :to => "brands#show", as: "brand"
+  match "/marcas/:brand(/*parameters)", :to => "brands#show", as: "brand"
 
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
@@ -344,6 +344,8 @@ Olook::Application.routes.draw do
     end
   end
 
+  match 'campaign_email_subscribe', to: "campaign_emails#subscribe", as: :subscribe_campaign_email
+
   #CHECKOUT
   resource :cart, :path => 'sacola', :controller => "cart/cart", :except => [:create] do
     resources :items, :to => 'cart/items'
@@ -397,8 +399,8 @@ Olook::Application.routes.draw do
   match '/acessorios-sapatos' => redirect('/sapato/conforto-amaciante-apoio%20plantar-impermeabilizante-palmilha-protecao%20para%20calcanhar'), as: 'shoe_accessories'
 
   # CATALOGO
-  match "/catalogo/*parameters", to: "catalogs#show"
-  match "/*parameters", to: "catalogs#show", as: "catalog"
+  match "/catalogo/:category(/*parameters)", to: "catalogs#show"
+  match "/:category(/*parameters)", to: "catalogs#show", as: "catalog"
 
 end
 

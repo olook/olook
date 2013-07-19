@@ -3,6 +3,12 @@
     <%= stylesheet_link_tag "section/liquidations" %>
   <% end %>
 
+  <% content_for :data_layer do %>
+    <script type="text/javascript">
+      dataLayer.push({'Category': '<%= current_liquidation.name %>'});
+    </script>
+  <% end %>
+
   <% content_for :footer do %>
     <%= javascript_include_tag "liquidations" %>
     <%= javascript_include_tag "endless_scroll" %>
