@@ -1,9 +1,11 @@
 class CampaignEmail < ActiveRecord::Base
   after_create :enqueue_notification
   scope :uncoverted_users , where(converted_user: false)
+  validates_with CampaignEmailValidator, :attributes => [:email]
+  validates :email, presence: true, uniqueness: true
 
   def enqueue_notification
-	Resque.enqueue(CampaignEmailNotificationWorker, self.email)
+	  Resque.enqueue(CampaignEmailNotificationWorker, self.email)
   end
 
   def set_utm_info utm_info
