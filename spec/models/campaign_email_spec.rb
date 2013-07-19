@@ -6,6 +6,11 @@ describe CampaignEmail do
    let(:user) {FactoryGirl.create(:user, email: 'meu@email.com')}
    let(:utm_params) {{utm_source: "source", utm_medium: "medium", utm_content: "content", utm_campaign: "campaign"}}
 
+   describe "#validations" do
+     it { should validate_presence_of :email }
+     it { should validate_uniqueness_of(:email) }
+   end
+
   describe "after create" do
 	it "enqueues a CampaignEmailNotificationWorker in resque" do
       Resque.should_receive(:enqueue).with(CampaignEmailNotificationWorker, 'meu@email.com')
