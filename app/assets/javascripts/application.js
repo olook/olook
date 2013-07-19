@@ -12,4 +12,4 @@
 //= require_tree ./plugins
 //= require_tree ./common
 //= require ./ui_v1.10/jquery-ui-1.10.3.autocomplete_slider.min
-//= require ./search
+//= require _search_bar
