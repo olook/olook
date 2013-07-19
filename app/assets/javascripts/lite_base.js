@@ -174,14 +174,14 @@ olook = o = {
 
   registerEmail: function(){
     $("#modal_footer button.close").on("click", function(){
-      if(lerCookie("email_bar") != "2"){
-        criaCookieAB("email_bar", "1", 1);
+      if($.cookie("email_bar") != "2"){
+        $.cookie("email_bar", "1", 1);
         $("#modal_footer").fadeOut();
       }
     })
    
     $("p.nao-exibir input").click(function(){
-      criaCookieAB("email_bar", "2", 100);
+      $.cookie("email_bar", "2", 100);
       $("#modal_footer").fadeOut();
     });
       
@@ -211,7 +211,7 @@ olook = o = {
     
     $("#modal_footer button.close").on("click", function(){
       $("#modal_footer").fadeOut();
-      criaCookieAB("email_bar", "1", 1);
+      $.cookie("email_bar", "1", 1);
     });
     
     $('form#subscribe_form').submit(function(event){
@@ -222,7 +222,7 @@ olook = o = {
       if(o.validateEmail(email) && email != "seunomeaqui@email.com.br"){
         $(this).on('ajax:success', function(evt, data, status, xhr){
           $("#modal_footer .form, .register2, .termos").fadeOut();
-          criaCookieAB("email_bar", "2", 200);
+          $.cookie("email_bar", "2", 200);
             
           if(data.status == "ok"){
             $("#modal_footer #ok-msg1").delay(300).fadeIn();
@@ -246,7 +246,7 @@ olook = o = {
   },
 
   showEmailBar: function(){
-  	if(lerCookie("newsletterUser") == null && lerCookie("ms") == null && lerCookie("ms1") == "1" && lerCookie("email_bar") == null){
+  	if($.cookie("newsletterUser") == null && $.cookie("ms") == null && $.cookie("ms1") == "1" && $.cookie("email_bar") == null){
       $("#modal_footer").fadeIn();
   		o.registerEmail()
   	}
