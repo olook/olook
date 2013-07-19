@@ -3,7 +3,7 @@ class SearchController < ApplicationController
   layout "lite_application"
 
   def show
-    params.merge!(SeoUrl.parse(params[:parameters], search: true))
+    # params.merge!(SeoUrl.parse(params[:parameters], search: true))
     Rails.logger.debug("New params: #{params.inspect}")
     @q = params[:q] || ""
 
@@ -14,8 +14,10 @@ class SearchController < ApplicationController
 
       @brand = params[:brand].humanize if params[:brand]
       @subcategory = params[:subcategory].parameterize if params[:subcategory]
-
-      @search = SearchEngine.new(term: @q, brand: @brand, subcategory: @subcategory).for_page(params[:page]).with_limit(48)
+      @search = SearchEngine.new(term: @q, brand: @brand, subcategory: @subcategory)
+        .for_page(params[:page])
+        .with_limit(48)
+      
       @products = @search.products
 
       @model_names = {}
