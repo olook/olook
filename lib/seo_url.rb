@@ -1,7 +1,8 @@
+# encoding: utf-8
 require 'active_support/inflector'
 class SeoUrl
 
-  VALUES = {
+  VALUES = HashWithIndifferentAccess.new({
     "tamanho" => "size",
     "cor" => "color",
     "preco" => "price",
@@ -12,106 +13,100 @@ class SeoUrl
     "maior-preco" => "-retail_price",
     "maior-desconto" => "-desconto",
     "conforto" => "care",
-    "colecao" => "collection"
-  }
+    "colecao" => "collection",
+    "por_pagina" => "per_page"
+  })
+  CARE_PRODUCTS = [
+    'Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar',
+    'amaciante', 'apoio plantar', 'impermeabilizante', 'palmilha', 'proteção para calcanhar',
+    'amaciante', 'apoio-plantar', 'impermeabilizante', 'palmilha', 'protecao-para-calcanhar'
+  ]
 
   PARAMETERS_BLACKLIST = [ "price" ]
-  PARAMETERS_WHITELIST = [ "price", "sort" ]
+  PARAMETERS_WHITELIST = [ "price", "sort", "per_page" ]
 
   def self.parse parameters, other_parameters={}
     parsed_values = HashWithIndifferentAccess.new
 
-    _all_brands = self.all_brands || []
-    _all_subcategories = self.all_subcategories || []
+    parsed_values[:category] = extract_category(parameters, other_parameters)
+    parsed_values[:brand] = extract_brand(parameters, other_parameters)
+    parsed_values[:subcategory] = extract_subcategories(parameters, other_parameters)
 
-    unless other_parameters[:search]
-      _all_subcategories -= Product::CARE_PRODUCTS.map { |s| ActiveSupport::Inflector.transliterate(s) }
-      self.all_categories
-    end
-
-    all_parameters = parameters.to_s.split("/")
-    parsed_values[:category] = all_parameters.shift
-
-    subcategories_and_brands = all_parameters.first.split("-") rescue []
-
-    subcategories = (_all_subcategories & subcategories_and_brands.map { |s| ActiveSupport::Inflector.transliterate(s).titleize })
-    brands = (_all_brands & subcategories_and_brands.map { |s| ActiveSupport::Inflector.transliterate(s).titleize })
-
-    parsed_values[:subcategory] = subcategories.join("-") if subcategories.any?
-
-    parsed_values[:brand] = brands.join("-") if brands.any?
-
-    filter_params = all_parameters.last || []
-
-    filter_params.split('_').each do |item|
-      auxs = item.split('-')
-      key = auxs.shift
-      vals = auxs.join('-')
-      parsed_values[VALUES[key]] = vals
-    end
-
-    other_parameters.each do |k, v|
-      if VALUES[k]
-        parsed_values[VALUES[k]] = VALUES[v].present? ? VALUES[v] : v
-      end
-    end
+    parsed_values.merge!(parse_filters(parameters))
+    parsed_values.merge!(translate_other_parameters(other_parameters))
 
     parsed_values
   end
 
-  def self.parse_brands parameters, other_parameters={}
-    parsed_values = HashWithIndifferentAccess.new
-    _all_subcategories = self.all_subcategories || []
-
-    all_parameters = parameters.to_s.split("/")
-    parsed_values[:brand] = all_parameters.shift
-    parsed_values[:category] = all_parameters.shift if all_parameters.any? && all_categories.keys.map(&:parameterize).include?(ActiveSupport::Inflector.transliterate(all_parameters.first))
-    parsed_values[:subcategory] = all_parameters.shift if all_parameters.any? && (_all_subcategories & all_parameters.first.split("-").map { |s| ActiveSupport::Inflector.transliterate(s).titleize }).any?
-
-    filter_params = all_parameters.last || []
-
-    filter_params.split('_').each do |item|
-      auxs = item.split('-')
-      key = auxs.shift
-      vals = auxs.join('-')
-      parsed_values[VALUES[key]] = vals
-    end
-
-    other_parameters.each do |k, v|
-      if VALUES[k]
-        parsed_values[VALUES[k]] = VALUES[v].present? ? VALUES[v] : v
-      end
-    end
-
-    parsed_values
-  end
-
-  def self.build_for_catalogs params, other_params={  }
+  def self.build_for current_key, params, other_params={  }
     return_hash = build(params, other_params)
-    path = [ return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join('-')
-    { parameters: [return_hash[:category], path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/') }.merge(return_hash[:order_params])
-  end
-
-  def self.build_for_brands params, other_params={  }
-    return_hash = build(params, other_params)
-    { parameters: [
-      params[:brand].empty? ? other_params[:brand] : params[:brand].last,
-      return_hash[:category],
-      return_hash[:subcategory],
-      return_hash[:filter_params]
-      ].reject { |p| p.blank? }.join('/')
-    }.merge(return_hash[:order_params])
+    return_hash.delete(current_key.to_sym)
+    path = [ return_hash[:category], return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join('-')
+    { parameters: [path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/') }.merge(return_hash[:order_params])
   end
 
   def self.all_categories
     YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_categories.yml' ) ) ) )
   end
 
-  def self.all_brands
-    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_brands.yml' ) ) ) )
-  end
-
   private
+
+    def self.all_brands
+      YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_brands.yml' ) ) ) )
+    end
+
+    def self.translate_other_parameters(other_parameters)
+      parsed_values = {}
+      other_parameters.each do |k, v|
+        if VALUES[k]
+          parsed_values[VALUES[k]] = VALUES[v].present? ? VALUES[v] : v
+        end
+      end
+      parsed_values
+    end
+
+    def self.extract_category(parameters, other_parameters={})
+      return other_parameters[:category] if other_parameters[:category]
+      (parameters.to_s.split('/').first.to_s.split('-') & categories).join('-')
+    end
+
+    def self.extract_brand(parameters, other_parameters)
+      return other_parameters[:brand] if other_parameters[:brand]
+      brands = (all_brands & parameters.to_s.split('/').first.to_s.split('-').map { |s| ActiveSupport::Inflector.transliterate(s).titleize })
+      brands.join("-") if brands.any?
+    end
+
+    def self.extract_subcategories(parameters, other_parameters)
+      subcategories_and_brands = parameters.to_s.split("/").first.split("-") rescue []
+      _all_subcategories = self.all_subcategories || []
+      unless other_parameters[:search]
+        _all_subcategories -= CARE_PRODUCTS.map { |s| ActiveSupport::Inflector.transliterate(s) }
+      end
+      subcategories = (subcategories_and_brands.map { |s| ActiveSupport::Inflector.transliterate(s) } & _all_subcategories)
+      subcategories.join("-") if subcategories.any?
+    end
+
+    def self.categories
+      cat = YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_categories.yml' ) ) ) )
+      cat = cat.keys
+      cat.concat( cat.map{ |s| s.downcase } )
+      cat.concat( cat.map{ |s| ActiveSupport::Inflector.transliterate(s) } )
+      cat.concat( cat.map{ |s| s.parameterize } )
+      cat
+    end
+
+    def self.parse_filters(parameters)
+      filter_params = parameters.to_s.split("/").last
+      parsed_values = {}
+      filter_params.to_s.split('_').each do |item|
+        auxs = item.split('-')
+        key = auxs.shift
+        vals = auxs.join('-')
+        parsed_values[VALUES[key]] = vals
+      end
+      parsed_values
+    end
+
     def self.build params, other_params = {  }
       parameters = params.dup
       other_parameters = other_params.dup
@@ -142,6 +137,9 @@ class SeoUrl
     end
 
     def self.all_subcategories
-      YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_subcategories.yml' ) ) ) )
+      subs = YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_subcategories.yml' ) ) ) )
+      subs.concat( subs.map{ |s| s.downcase } )
+      subs.concat( subs.map{ |s| ActiveSupport::Inflector.transliterate(s) } )
+      subs.concat( subs.map{ |s| s.parameterize } )
     end
 end

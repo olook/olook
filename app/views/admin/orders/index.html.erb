@@ -71,7 +71,6 @@
       <th>Preço do frete</th>
       <th>Total</th>
       <th>x</th>
-      <th></th>
     </tr>
 
   <% @orders.each do |order| %>
@@ -88,6 +87,7 @@
       <td><%= order.items_quantity %></td>
       <td><%= number_to_currency(order.subtotal) %></td>
       <td><%= number_to_currency(order.credits) %></td>
+      <td><%= number_to_currency(order.coupon_discount) %></td>
       <td><%= number_to_currency(order.freight_price) %></td>
       <td><%= number_to_currency(order.amount_paid) %></td>
       <td><%= order.installments %>x</td>

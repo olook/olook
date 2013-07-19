@@ -4,6 +4,7 @@ class CatalogsController < SearchController
   respond_to :html, :js
 
   helper_method :create_filters
+  prepend_before_filter :verify_if_is_catalog
 
   def show
     params.merge!(SeoUrl.parse(params[:parameters], params))
@@ -22,8 +23,21 @@ class CatalogsController < SearchController
                                price: params[:price],
                                size: params[:size],
                                brand: params[:brand],
-                               sort: params[:sort]).for_page(params[:page]).with_limit(48)
+                               sort: params[:sort]).for_page(params[:page]).with_limit(params[:per_page])
     @search.for_admin if current_admin
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
+    @pixel_information = params[:category]
+    @cache_key = "#{@search.cache_key}#{@campaign_products.cache_key if @campaign_products}"
+    expire_fragment(@cache_key) if params[:force_cache].to_i == 1
   end
+
+  private
+    def verify_if_is_catalog
+      #TODO Please remove me when update Rails version
+      #We can use constraints but this version has a bug
+
+      if (/^(sapato|bolsa|acessorio|roupa)/ =~ params[:category]).nil?
+        render :template => "/errors/404.html.erb", :layout => 'error', :status => 404, :layout => "lite_application"
+      end
+    end
 end

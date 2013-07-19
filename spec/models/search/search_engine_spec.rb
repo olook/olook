@@ -51,9 +51,16 @@ describe SearchEngine do
     end
 
     context "when limit wasn't passed" do
-      it "sets limit as 50 (default)" do
+      it "sets limit as 49 (default)" do
         subject.with_limit
-        expect(subject.instance_variable_get("@limit")).to eq(50)
+        expect(subject.instance_variable_get("@limit")).to eq(48)
+      end
+    end
+
+    context "when given limit is nil" do
+      it "sets limit as 49 (default)" do
+        subject.with_limit
+        expect(subject.instance_variable_get("@limit")).to eq(48)
       end
     end
   end

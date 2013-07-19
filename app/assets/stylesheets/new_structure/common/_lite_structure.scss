@@ -269,7 +269,7 @@ div#wrapper_new_menu{background:#FFF;width:100%;opacity:0.9;*filter: alpha(opaci
         li{font-size: 10px;text-transform: uppercase;display: inline;float: left;height: 38px;background: image-url("common/nav/menu_bar.png") no-repeat right 0;
           &.liquidation{border-right: none;}
           &:nth-child(10){background:none;}
-          a{display:block;font-family: $johnston;height:28px;text-decoration: none;color: black;padding:0 14px;letter-spacing:2px;line-height: 30px;
+          a{display:block;font-family: $johnston;height:28px;text-decoration: none;color: black;padding:0 13px;letter-spacing:2px;line-height: 30px;
             &:hover,&.selected{color:$base_color;}
           }
         }
