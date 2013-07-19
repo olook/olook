@@ -4,8 +4,10 @@
 
       %fieldset.first_child
         %span.selected-type{ class: ("filter_selected" if params[:category].present?) }= params[:category].present? ? params[:category].pluralize : "VER TUDO"
-        - categories =  [["Ver Tudo", brand_path]] | Brand.categories(params[:brand]).map{|c| [c.titleize, brand_path(parameters: "#{ c.singularize }")]}
-        = select_tag('', options_for_select(categories, selected: brand_path(parameters: "#{ params[:category] }")), :onchange => ("location = this.options[this.selectedIndex].value;"))
+        %select{ :onchange => ("window.location = $(this.options[this.selectedIndex]).data('href');")}
+          %option{ 'data-href' => brand_path(params[:brand]) } VER TUDO
+          - filters_by('category', filters).each do |text, amount|
+            %option{'data-href' => brand_path(params[:brand], parameters: text.chomp), selected: false}= text.chomp.titleize
 
       %fieldset
         %span.selected-type.order{ class: ("filter_selected" if params[:por].present?) }= params[:por].present? ? params[:por].gsub("-", " ").titleize : "NOSSA SELEÇÃO"

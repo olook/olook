@@ -5,11 +5,19 @@
 // the compiled file.
 //
 //= require jquery_ujs
-//= require ./plugins/jquery.jqzoom-core
-//= require ./plugins/jquery.carouFredSel-6.2.1-packed
-//= require ./plugins/css_browser_selector
-//= require ./common/product_view
-//= require ./common/jquery.cookie
-//= require ./lite_base
-//= require ./ui_v1.10/jquery-ui-1.10.3.autocomplete_slider.min
-//= require ./search
+//= require ui/jquery.ui.core
+//= require ui/jquery.ui.widget
+//= require ui/jquery.ui.mouse
+//= require ui/jquery.ui.position
+//= require ui/jquery.ui.menu
+//= require ui/jquery.ui.autocomplete
+//= require ui/jquery.ui.slider
+//= require plugins/jquery.jqzoom-core
+//= require plugins/jquery.carouFredSel-6.2.1-packed
+//= require plugins/css_browser_selector
+//= require plugins/change_picture_onhover
+//= require common/product_view
+//= require common/jquery.cookie
+//= require lite_base
+//= require _search_bar
+
