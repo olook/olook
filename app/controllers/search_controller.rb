@@ -2,6 +2,8 @@ class SearchController < ApplicationController
   respond_to :html
   layout "lite_application"
 
+  helper_method :create_filters
+
   def show
     # params.merge!(SeoUrl.parse(params[:parameters], search: true))
     Rails.logger.debug("New params: #{params.inspect}")
