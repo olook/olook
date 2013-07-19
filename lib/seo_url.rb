@@ -25,8 +25,10 @@ class SeoUrl
   PARAMETERS_BLACKLIST = [ "price" ]
   PARAMETERS_WHITELIST = [ "price", "sort", "per_page" ]
 
-  def initialize(params)
+  def initialize(params, current_key=nil, search=nil)
     @params = params.dup
+    @search = search
+    @current_key = current_key
   end
 
   def parse_params
@@ -42,6 +44,10 @@ class SeoUrl
 
   def self.parse parameters
     self.new(parameters).parse_params
+  end
+
+  def build_url_for(filter, filter_text)
+    SeoUrl.build_for(@current_key, @search.filters_applied(filter.to_sym, filter_text.chomp))
   end
 
   def self.build_for current_key, params, other_params={  }

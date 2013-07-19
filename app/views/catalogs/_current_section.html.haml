@@ -8,31 +8,31 @@
       - search.selected_filters_for("subcategory").sort.each do |sub|
         %li
           %span #{ sub }
-          = %( #{ current_section_link_to(catalog_path(params[:category], SeoUrl.build_for("category",search.filters_applied(:subcategory, sub))))}).html_safe
+          = %( #{ current_section_link_to(catalog_path(params[:category], @url_builder.build_url_for(:subcategory, sub)))}).html_safe
 
       - search.selected_filters_for("color").sort.each do |col|
         %li
           %span #{ col }
-          = %( #{ current_section_link_to(catalog_path(params[:category], SeoUrl.build_for("category",search.filters_applied(:color, col))))}).html_safe
+          = %( #{ current_section_link_to(catalog_path(params[:category], @url_builder.build_url_for(:color, col)))}).html_safe
 
       - search.selected_filters_for("heel").map{|h|h.gsub('heeluint:', '')}.sort.each do |hee|
         %li
           %span #{ formated_heel hee }
-          = %( #{ current_section_link_to(catalog_path(params[:category], SeoUrl.build_for("category",search.filters_applied(:heel, hee.gsub('..', '-')))))}).html_safe
+          = %( #{ current_section_link_to(catalog_path(params[:category], @url_builder.build_url_for(:heel, hee.gsub("..","-"))))}).html_safe
 
       - search.selected_filters_for("care").sort.each do |car|
         %li
           %span #{ car }
-          = %( #{ current_section_link_to(catalog_path(params[:category], SeoUrl.build_for("category",search.filters_applied(:care, car))))}).html_safe
+          = %( #{ current_section_link_to(catalog_path(params[:category], @url_builder.build_url_for(:care, car)))}).html_safe
 
       - search.selected_filters_for("size").sort.each do |size|
         %li
           %span #{ size }
-          = %( #{ current_section_link_to(catalog_path(params[:category], SeoUrl.build_for("category",search.filters_applied(:size, size))))}).html_safe
+          = %( #{ current_section_link_to(catalog_path(params[:category], @url_builder.build_url_for(:size, size)))}).html_safe
 
       - search.selected_filters_for("brand").sort.each do |brand|
         %li
           %span #{ brand }
-          = %( #{ current_section_link_to(catalog_path(params[:category], SeoUrl.build_for("category",search.filters_applied(:brand, brand))))}).html_safe
+          = %( #{ current_section_link_to(catalog_path(params[:category], @url_builder.build_url_for(:brand, brand)))}).html_safe
       %li.clean= link_to "Limpar tudo", catalog_path(params[:category])
 
