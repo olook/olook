@@ -62,9 +62,9 @@
 .cart_details{float:left;
 	p.title{color:#6D6E71;font-size:14px;text-transform:uppercase;}
 	#cart-box{
-		float:left;border:solid 1px #D9D8D8;width:321px;max-height:335px;position:relative;margin-top:30px;
+		float:left;border:solid 1px #D9D8D8;width:321px;max-height:345px;position:relative;margin-top:30px;
 		.bg-box{@include sprite_login(-342px,-2px);width:25px;height:25px;position:absolute;top:-19px;left:10px;}
-		.products{max-height:185px;overflow-y:auto;}
+		.products{max-height:217px;overflow-y:auto;}
 		#items{width:100%;
 			tr{border-bottom:1px solid #D9D8D8;padding-bottom:5px;}
 			td{vertical-align:middle;padding-bottom:5px;
@@ -73,7 +73,7 @@
 					input{float:right;background: image-url("new_checkout/sprite.png") no-repeat -381px -83px;border:none;color: #6D6E71;cursor:pointer;display:block;height:26px;width:70px;padding-left:20px;text-decoration:underline;font-weight:bold;}
 				}
 			}
-			img{float:left;margin:0 50px 0 15px;width:46px;}
+			img{float:left;margin:10px 50px 5px 15px;width:46px;}
 			ul{float:left;margin-top:10px;
 				li{font-size:13px;
 					&.txt-black{text-transform:uppercase;}
