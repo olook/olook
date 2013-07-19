@@ -1,17 +1,17 @@
-olook = o = {} || null;
-
+//= require _search_bar
+if(!olook) var olook = {};
 $(function(){
-  o.init();
+  olook.init();
 });
 
-olook = o = {
+olook = {
   init: function(){
-      o.menu();
-      o.cart();
-      o.myAccountMenu(); 
-      o.showSlideToTop();
-      o.slideToTop();  
-      o.boxLogin();
+      olook.menu();
+      olook.cart();
+      olook.myAccountMenu(); 
+      olook.showSlideToTop();
+      olook.slideToTop();  
+      olook.boxLogin();
   },
     
   menu: function(){
