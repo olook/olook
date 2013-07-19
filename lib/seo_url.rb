@@ -25,6 +25,20 @@ class SeoUrl
   PARAMETERS_BLACKLIST = [ "price" ]
   PARAMETERS_WHITELIST = [ "price", "sort", "per_page" ]
 
+  def initialize(params)
+    @params = params.dup
+  end
+
+  def new_parse
+    parsed_values = HashWithIndifferentAccess.new
+    parsed_values[:collection_theme] = @params[:collection_theme]
+    parsed_values[:brand] = @params[:brand] || extract_brand
+    parsed_values[:category] = @params[:category] || ((@params[:parameters].to_s.split('/').first.to_s.split('-') & categories).join('-'))
+    parsed_values[:subcategory] = extract_subcategories
+    parsed_values.merge!(parse_filters)
+    parsed_values
+  end
+
   def self.parse parameters, other_parameters={}
     parsed_values = HashWithIndifferentAccess.new
 
@@ -51,6 +65,10 @@ class SeoUrl
       YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_brands.yml' ) ) ) )
     end
 
+    def all_brands
+      YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_brands.yml' ) ) ) )
+    end
+
     def self.translate_other_parameters(other_parameters)
       parsed_values = {}
       other_parameters.each do |k, v|
@@ -72,10 +90,25 @@ class SeoUrl
       brands.join("-") if brands.any?
     end
 
+    def extract_brand
+      brands = (all_brands & @params[:parameters].to_s.split('/').first.to_s.split('-').map { |s| ActiveSupport::Inflector.transliterate(s).titleize })
+      brands.join("-") if brands.any?
+    end
+
     def self.extract_subcategories(parameters, other_parameters)
       subcategories_and_brands = parameters.to_s.split("/").first.split("-") rescue []
       _all_subcategories = self.all_subcategories || []
       unless other_parameters[:search]
+        _all_subcategories -= CARE_PRODUCTS.map { |s| ActiveSupport::Inflector.transliterate(s) }
+      end
+      subcategories = (subcategories_and_brands.map { |s| ActiveSupport::Inflector.transliterate(s) } & _all_subcategories)
+      subcategories.join("-") if subcategories.any?
+    end
+
+    def extract_subcategories
+      subcategories_and_brands = @params[:parameters].to_s.split("/").first.split("-") rescue []
+      _all_subcategories = all_subcategories || []
+      unless @params[:search]
         _all_subcategories -= CARE_PRODUCTS.map { |s| ActiveSupport::Inflector.transliterate(s) }
       end
       subcategories = (subcategories_and_brands.map { |s| ActiveSupport::Inflector.transliterate(s) } & _all_subcategories)
@@ -91,8 +124,29 @@ class SeoUrl
       cat
     end
 
+    def categories
+      cat = YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_categories.yml' ) ) ) )
+      cat = cat.keys
+      cat.concat( cat.map{ |s| s.downcase } )
+      cat.concat( cat.map{ |s| ActiveSupport::Inflector.transliterate(s) } )
+      cat.concat( cat.map{ |s| s.parameterize } )
+      cat
+    end
+
     def self.parse_filters(parameters)
       filter_params = parameters.to_s.split("/").last
+      parsed_values = {}
+      filter_params.to_s.split('_').each do |item|
+        auxs = item.split('-')
+        key = auxs.shift
+        vals = auxs.join('-')
+        parsed_values[VALUES[key]] = vals
+      end
+      parsed_values
+    end
+
+    def parse_filters
+      filter_params = @params[:parameters].to_s.split("/").last
       parsed_values = {}
       filter_params.to_s.split('_').each do |item|
         auxs = item.split('-')
@@ -126,13 +180,20 @@ class SeoUrl
         end
       end
 
-      return_hash[:filter_params] = filter_params.join('_') 
+      return_hash[:filter_params] = filter_params.join('_')
       return_hash[:order_params] = post_parameters
 
       return_hash
     end
 
     def self.all_subcategories
+      subs = YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_subcategories.yml' ) ) ) )
+      subs.concat( subs.map{ |s| s.downcase } )
+      subs.concat( subs.map{ |s| ActiveSupport::Inflector.transliterate(s) } )
+      subs.concat( subs.map{ |s| s.parameterize } )
+    end
+
+    def all_subcategories
       subs = YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_subcategories.yml' ) ) ) )
       subs.concat( subs.map{ |s| s.downcase } )
       subs.concat( subs.map{ |s| ActiveSupport::Inflector.transliterate(s) } )
