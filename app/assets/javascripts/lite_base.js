@@ -175,13 +175,13 @@ olook = o = {
   registerEmail: function(){
     $("#modal_footer button.close").on("click", function(){
       if($.cookie("email_bar") != "2"){
-        $.cookie("email_bar", "1", 1);
+        $.cookie("email_bar", "1", { expires: 1, path: '/' });
         $("#modal_footer").fadeOut();
       }
     })
    
     $("p.nao-exibir input").click(function(){
-      $.cookie("email_bar", "2", 100);
+      $.cookie("email_bar", "2", { expires: 100, path: '/' });
       $("#modal_footer").fadeOut();
     });
       
@@ -211,7 +211,7 @@ olook = o = {
     
     $("#modal_footer button.close").on("click", function(){
       $("#modal_footer").fadeOut();
-      $.cookie("email_bar", "1", 1);
+      $.cookie("email_bar", "1", { expires: 1, path: '/' });
     });
     
     $('form#subscribe_form').submit(function(event){
@@ -222,7 +222,7 @@ olook = o = {
       if(o.validateEmail(email) && email != "seunomeaqui@email.com.br"){
         $(this).on('ajax:success', function(evt, data, status, xhr){
           $("#modal_footer .form, .register2, .termos").fadeOut();
-          $.cookie("email_bar", "2", 200);
+          $.cookie("email_bar", "2", { expires: 200, path: '/' });
             
           if(data.status == "ok"){
             $("#modal_footer #ok-msg1").delay(300).fadeIn();
