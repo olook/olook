@@ -9,5 +9,9 @@ olook.customSelect = function(selector){
     var txt = it.find('option:selected').text();
     it.prev().children("span").text(txt);
   }
-  $(selector).each(setText).change(setText);
+  var els = $(selector).change(setText);
+  for (var i = 0, l = els.length; i < l; i ++) {
+    var el = els[i];
+    setText(el);
+  }
 }
