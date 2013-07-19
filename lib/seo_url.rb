@@ -29,7 +29,7 @@ class SeoUrl
     @params = params.dup
   end
 
-  def new_parse
+  def parse_params
     parsed_values = HashWithIndifferentAccess.new
     parsed_values[:collection_theme] = @params[:collection_theme]
     parsed_values[:brand] = @params[:brand] || extract_brand
@@ -41,7 +41,7 @@ class SeoUrl
   end
 
   def self.parse parameters
-    self.new(parameters).new_parse
+    self.new(parameters).parse_params
   end
 
   def self.build_for current_key, params, other_params={  }

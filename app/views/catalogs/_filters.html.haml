@@ -2,6 +2,7 @@
   %p.title-category Modelo
   %ul.category-list
     - filters_by("subcategory").each do |text, amount|
+      - binding.pry
       %li= filter_link_to(catalog_path(params[:category], SeoUrl.build_for("category",search.filters_applied(:subcategory, text.chomp), params)), text.chomp, search.filter_selected?(:subcategory, text.chomp))
 
 .filter
