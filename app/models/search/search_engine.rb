@@ -23,6 +23,11 @@ class SearchEngine
     @search
   end
 
+  def cache_key
+    key = build_url_for(limit: @limit, start: self.start_product)
+    Digest::SHA1.hexdigest(key.to_s)
+  end
+
   def for_admin
     @search.for_admin
   end

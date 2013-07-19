@@ -4,7 +4,7 @@ class CampaignEmailsController < ApplicationController
 
   def new
     @campaign_text = @cart.coupon.try(:modal) || 1
-    @campaign_email = CampaignEmail.new
+    @campaign_email = @campaign_email || CampaignEmail.new
   end
 
   def create
@@ -30,8 +30,22 @@ class CampaignEmailsController < ApplicationController
     end
   end
 
+  def subscribe
+    email = params[:email]
+
+    @campaign_email = CampaignEmail.new(email: params[:email])
+    if @campaign_email.save
+      status = "ok"
+      message = "NewsLetter ja cadastrado"
+    else
+      status = "error"
+      message = "Usuario ja cadastrado"
+    end
+    render json: {status: status, message: message}.to_json
+  end
+
   def login
-      @user = User.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   def show

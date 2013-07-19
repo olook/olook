@@ -61,4 +61,12 @@ module CatalogsHelper
     end
   end
 
+  def format_search_query_parameters
+    arr = []
+    arr << "por=#{ params[:por]}" if params[:por].present? 
+    arr << "preco=#{params[:preco]}" if params[:preco].present?
+    arr << "por_pagina=#{params[:por_pagina]}" if params[:por_pagina].present?
+    arr.join('&')
+  end
+
 end

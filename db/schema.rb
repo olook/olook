@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130705134540) do
+ActiveRecord::Schema.define(:version => 20130702172226) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -188,8 +188,8 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
   create_table "carts", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "notified",                :default => false, :null => false
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "legacy_id"
     t.boolean  "gift_wrap",               :default => false
     t.boolean  "use_credits",             :default => false
@@ -277,11 +277,6 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
 
   add_index "collection_themes", ["collection_theme_group_id"], :name => "index_collection_themes_on_collection_theme_group_id"
   add_index "collection_themes", ["slug"], :name => "index_moments_on_slug", :unique => true
-
-  create_table "collection_themes_products", :id => false, :force => true do |t|
-    t.integer "collection_theme_id"
-    t.integer "product_id"
-  end
 
   create_table "collections", :force => true do |t|
     t.string   "name"
@@ -505,11 +500,6 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "product_ids"
-  end
-
-  create_table "highlight_campaigns_products", :force => true do |t|
-    t.integer "highlight_campaigns_id"
-    t.integer "products_id"
   end
 
   create_table "highlights", :force => true do |t|

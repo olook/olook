@@ -1,30 +1,40 @@
-- if @user.nil?
-  - @campaign_email = CampaignEmail.new #TODO please move me to some controller
+- if @campaign_email.present?
   #modal_footer
     .modal
       =image_tag "common/footer_girl.png"
       %button.close{type: "button"} Close
 
-
-      = form_for @campaign_email, remote: true do |f|
+        
+      = form_tag subscribe_campaign_email_path, id: "subscribe_form", remote: true do
         .modal_container
           .presentation
-            %h1 GANHE 10% NA PRIMEIRA COMPRA + 15% NA PRÓXIMA*
+            %h1 FIQUE POR DENTRO!
             %h2 Cadastre-se e receba por e-mail novidades sobre moda, tendências e promoções exclusivas
+            %p.nao-exibir
+              %input{type:"checkbox", value: "nao"}
+              %label Não exibir novamente
 
           .form
             %p
-              %span.txt Informe seu email
-              %span.error-msg O e-mail informado não parece correto. Que tal conferir?
-            = f.text_field :email, value:"seunomeaqui@email.com.br", class: "email"
-            = f.hidden_field :from_footer, value: true
+              %span.txt Cadastra-se e receba novidades no seu e-mail:
+              %span.error-msg O e-mail informado parece estranho. Que tal conferir?
+            = text_field_tag :email, "", value:"seunomeaqui@email.com.br", class: "email"
 
         %button.register{type: "button"} Cadastre-se
-        = f.submit "Cadastra-se", class: "register2"
+        = submit_tag "Cadastra-se", class: "register2", onclick: track_event("EmailFooterBar", "CampaignEmailRegistered")
+        %p.termos
+          Aceito os
+          = link_to("termos de uso", terms_path)
 
-      .ok-msg
+      #ok-msg1.ok-msg
         %p
           Cadastro realizado com sucesso!
           %br/
-          %b Enviaremos em instantes o cupom de desconto por e-mail
-
+          %b Aproveite e escolha o que mais ama na Olook.
+      
+      #ok-msg2.ok-msg
+        %p
+          Como você já tem cadastro, não precisa fazer outro.
+          %br/
+          Aproveite e escolha o que mais ama na Olook.
+        
