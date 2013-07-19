@@ -1,0 +1,24 @@
+var email_field=$("#modal_footer input.email"), email = email_field.val();
+
+if(o.validateEmail(email) && email != "seunomeaqui@email.com.br"){
+
+
+    criaCookieAB("email_bar", "2", 200);
+
+    $("#modal_footer .form, .register2, .termos").fadeOut();
+    $("#modal_footer .ok-msg").delay(300).fadeIn()
+
+    email_field.off("focusout").removeClass("txt-black error").val("seunomeaqui@email.com.br")
+
+    if(email_field.prev().hasClass("error")){
+      $("p.error").removeClass("error")
+    }
+
+    $("#modal_footer").delay(4000).fadeOut();
+
+
+}else{
+  email_field.addClass("error");
+  $("#modal_footer .form p span.txt").hide().next().fadeIn().parent().addClass("error");
+}
+
