@@ -45,6 +45,10 @@ class SeoUrl
     { parameters: [path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/') }.merge(return_hash[:order_params])
   end
 
+  def self.all_categories
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_categories.yml' ) ) ) )
+  end
+
   private
 
     def self.all_brands
