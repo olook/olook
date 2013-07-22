@@ -34,8 +34,7 @@ class SearchEngine
   end
 
   def term= term
-    @query = "q=#{URI.encode term}" if term
-    self
+    @query = URI.encode(term) if term
   end
 
   def cache_key
