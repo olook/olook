@@ -1,5 +1,0 @@
-class SearchUrlBuilder
-
-  private
-
-end
