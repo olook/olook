@@ -119,6 +119,9 @@ class SearchEngine
     end
     @last_url = url
     @result = fetch_result(@last_url, parse_facets: true)
+
+    remove_care_products_from(@result)
+    @result
   end
 
   def products(pagination = true)
@@ -231,7 +234,7 @@ class SearchEngine
   def build_filters_url(options={})
     bq = build_boolean_expression(options)
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
-    q = @query ? "#{@query}&" : ""
+    q = @query ? "q=#{@query}&" : ""
     "http://#{BASE_URL}?#{q}#{bq}"
   end
 
@@ -285,7 +288,7 @@ class SearchEngine
     options[:limit] ||= 50
     bq = build_boolean_expression
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
-    q = @query ? "?#{@query}&" : "?"
+    q = @query ? "?q=#{@query}&" : "?"
     "http://#{BASE_URL}#{q}#{bq}return-fields=subcategory,name,brand,image,retail_price,price,backside_image,category,text_relevance&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }"
   end
 
@@ -324,6 +327,12 @@ class SearchEngine
       "bq=#{ERB::Util.url_encode "(and #{bq.join(' ')})"}&"
     else
       ""
+    end
+  end
+
+  def remove_care_products_from(filters)
+    if filters.grouped_products('subcategory')
+      filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) }
     end
   end
 end
