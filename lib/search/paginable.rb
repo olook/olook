@@ -21,12 +21,12 @@ module Search
       @current_page - 1
     end
 
-    def start_product
+    def start_item
       @limit ? (@current_page - 1) * @limit : 0
     end
 
     def with_limit limit
-      @limit = limit
+      @limit = limit || 30
       self
     end
 
