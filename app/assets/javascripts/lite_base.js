@@ -1,4 +1,3 @@
-//= require _search_bar
 olook = o = {} || null;
 
 $(function(){
