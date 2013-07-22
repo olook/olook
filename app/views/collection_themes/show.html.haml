@@ -7,8 +7,7 @@
     final_position = #{@search.range_values_for(:price)[:max] rescue 600};
 
 - content_for :footer do
-  = javascript_include_tag 'section/lite_catalog'
-  = javascript_include_tag 'section/brands'
+  = javascript_include_tag 'section/lite_collection_theme'
 
 #catalog
   = render "menu", collection_theme_groups: @collection_theme_groups
