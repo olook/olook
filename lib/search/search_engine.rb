@@ -120,6 +120,19 @@ class SearchEngine
     parameters
   end
 
+  def filters(options={})
+    url = build_filters_url(options)
+    @result = fetch_result(url, parse_facets: true)
+    remove_care_products_from(@result)
+    @result
+  end
+
+  def products(pagination = true)
+    url = build_url_for(pagination ? {limit: @limit, start: self.start_product} : {})
+    @result = fetch_result(url, {parse_products: true})
+    @result.products
+  end
+
   def for_page page
     @current_page = (page || 1).to_i
     self
@@ -140,19 +153,6 @@ class SearchEngine
   def with_limit limit=48
     @limit = limit ? limit.to_i : 48
     self
-  end
-
-  def filters(options={})
-    url = build_filters_url(options)
-    @result = fetch_result(url, parse_facets: true)
-    remove_care_products_from(@result)
-    @result
-  end
-
-  def products(pagination = true)
-    url = build_url_for(pagination ? {limit: @limit, start: self.start_product} : {})
-    @result = fetch_result(url, {parse_products: true})
-    @result.products
   end
 
   def pages
@@ -243,10 +243,6 @@ class SearchEngine
     _filters.delete(:price)
     _filters.delete_if{|k,v| IGNORE_ON_URL[k]}
     _filters.values.flatten.any?
-  end
-
-  def current_page
-    @current_page
   end
 
   def build_filters_url(options={})
