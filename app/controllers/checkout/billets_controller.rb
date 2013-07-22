@@ -13,7 +13,7 @@ class Checkout::BilletsController < ApplicationController
         boleto_santander.carteira              = config['carteira']
         boleto_santander.cedente               = config['cedente']
         boleto_santander.codigo_cedente        = config['codigo_cedente']
-        boleto_santander.endereco_cedente      = 'Rua Surubim, 159'
+        boleto_santander.endereco_cedente      = 'Rua Natividade, 72'
         #TODO: access delivery address through freight
         # boleto_santander.endereco_cedente      = payment.user.delivery_address
         boleto_santander.numero_documento      = payment.id
