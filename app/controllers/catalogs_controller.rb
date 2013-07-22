@@ -14,7 +14,7 @@ class CatalogsController < SearchController
       @campaign_products = SearchEngine.new(product_ids: @campaign.product_ids).with_limit(1000)
     end
 
-    @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(params[:per_page])
+    @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
     @url_builder = SeoUrl.new(search_params, "category", @search)
 
     @search.for_admin if current_admin

@@ -25,7 +25,7 @@ module Search
       @limit ? (@current_page - 1) * @limit : 0
     end
 
-    def limit limit
+    def with_limit limit
       @limit = limit
       self
     end
