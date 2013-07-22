@@ -56,7 +56,7 @@ class SeoUrl
     build_link_for parameters
   end
 
-  def build_url_for(filter, filter_text)
+  def add_filter(filter, filter_text)
     parameters = HashWithIndifferentAccess.new(@search.filters_applied(filter.to_sym, filter_text.chomp).dup)
     build_link_for parameters
   end
