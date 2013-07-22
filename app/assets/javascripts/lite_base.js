@@ -1,10 +1,11 @@
 //= require _search_bar
-if(!olook) var olook = {};
+olook = o = {} || null;
+
 $(function(){
   olook.init();
 });
 
-olook = {
+olook = o = {
   init: function(){
       olook.menu();
       olook.cart();
