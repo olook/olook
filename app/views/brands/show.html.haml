@@ -14,7 +14,6 @@
   :javascript
     start_position = #{@search.range_values_for(:price)[:min] rescue 0};
     final_position = #{@search.range_values_for(:price)[:max] rescue 600};
-  = javascript_include_tag 'section/lite_catalog'
   = javascript_include_tag 'section/brands'
 
 = cache "#{@search.cache_key}", expire_in: 15.minutes  do
@@ -35,7 +34,7 @@
         %div.collections_header
           = image_tag(@brand.header_image, alt: @brand.header_image_alt, title: @brand.header_image_alt) if @brand
 
-      = render "ordenation_filters", search: @search
+      = render "ordenation_filters", search: @search, filters: create_filters(true)
 
       %section.container_product
         %ul#products
@@ -43,4 +42,4 @@
         .loading
 
       .pagination
-        = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: brand_path, other_parameters: "por=#{ params[:por]}" }
+        = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: brand_path }

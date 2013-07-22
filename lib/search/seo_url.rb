@@ -61,6 +61,10 @@ class SeoUrl
     build_link_for parameters
   end
 
+  def self.all_categories
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_categories.yml' ) ) ) )
+  end
+
   private
 
     def build_link_for parameters

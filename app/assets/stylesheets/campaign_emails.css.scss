@@ -50,7 +50,7 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 	h3{font-family:$johnston;font-size:30px;letter-spacing: 1px;margin-top: 10px;text-transform: uppercase;}
 	p{font-family:$avenir;font-size:14px;margin-top: 0px;}
 	form{
-		border:none;padding:5px 50px;width:356px;height:150px;margin:0 auto;
+		border:none;padding:5px 50px;width:358px;height:150px;margin:0 auto;
 		fieldset{
 			label{font-family:$avenir;font-size:13px;color: #5e5f61;}
 			margin-bottom:5px;border:0;
@@ -78,7 +78,7 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 	.new_user{float: left;margin-left: 85px;margin-top: -5px !important; font-size: 11px;font-family: $avenir;color: #414042; a{font-size: 11px;font-family: $avenir;color: #414042;}}
 	.facebook a{display:inline-block;width:261px;height:40px;background: image-url('campaign_emails/sprite.png') 0px -52px no-repeat;font-size:0;font-family:a;margin-top:13px;}
 }
-	.close{top:-11px !important;right:-11px !important;}
+.close{top:-11px !important;right:-11px !important;}
 .box-continue{
 	position:relative;text-align:center;border:solid 1px #000;background:#FFF;width:540px;height: 270px;margin-top: 10px;
 	h3{font-family:$johnston;font-size:30px;letter-spacing: 1px;margin-top: 30px;text-transform: uppercase;}

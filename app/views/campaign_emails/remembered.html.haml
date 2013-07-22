@@ -1,12 +1,1 @@
-- content_for :footer do
-  :javascript
-    #{track_event('Modal', 'RememberedPage', @campaign_email.id, no_interactive: true)}
-
-.box-continue
-  %h3 Lembramos de você!
-  %p Você já ganhou 10% de desconto para usar em sua primeira compra. <br/>Já enviamos o cupom de desconto para o seu e-mail. Dá uma olhada lá. ;)
-  %p.desconto Aproveite e escolha o que mais ama na olook.
-  %button{:type => "button", :class => "close_pink"} Continuar Navegando
-
-  
-  %button{:type => "button", :class => "close"} Fechar
+=render 'remembered'

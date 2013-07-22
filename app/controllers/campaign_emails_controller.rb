@@ -1,9 +1,10 @@
 class CampaignEmailsController < ApplicationController
   layout "campaign_emails"
+  respond_to :html, :js
 
   def new
     @campaign_text = @cart.coupon.try(:modal) || 1
-    @campaign_email = CampaignEmail.new
+    @campaign_email = @campaign_email || CampaignEmail.new
   end
 
   def create
@@ -18,12 +19,33 @@ class CampaignEmailsController < ApplicationController
       end
       cookies['newsletterUser'] = { value: '1', path: '/', expires: 30.years.from_now }
       cookies['ceid'] = { value: "#{@campaign_email.id}", path: '/', expires: 30.years.from_now }
-      redirect_to redirect_path
+
+      if params["ab_t"].present?
+        choose_redirect_for_survey
+      elsif params[:campaign_email][:from_footer].present?
+        respond_to :js
+      else
+        redirect_to redirect_path
+      end
     end
   end
 
+  def subscribe
+    email = params[:email]
+
+    @campaign_email = CampaignEmail.new(email: params[:email])
+    if @campaign_email.save
+      status = "ok"
+      message = "NewsLetter ja cadastrado"
+    else
+      status = "error"
+      message = "Usuario ja cadastrado"
+    end
+    render json: {status: status, message: message}.to_json
+  end
+
   def login
-      @user = User.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   def show
@@ -33,5 +55,15 @@ class CampaignEmailsController < ApplicationController
   def remembered
     @campaign_email = CampaignEmail.find(params[:id])
   end
+
+  private
+
+    def choose_redirect_for_survey
+      if @user = User.find_by_email(params[:campaign_email][:email])
+        redirect_to new_user_session_path 
+      else
+        redirect_to new_survey_path
+      end      
+    end
 
 end
