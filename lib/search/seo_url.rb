@@ -98,7 +98,7 @@ class SeoUrl
     end
 
     def all_brands
-      YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_brands.yml' ) ) ) )
+      YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_brands.yml' ) ) ) )
     end
 
     def parse_order
@@ -127,7 +127,7 @@ class SeoUrl
     end
 
     def categories
-      cat = YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_categories.yml' ) ) ) )
+      cat = YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_categories.yml' ) ) ) )
       cat = cat.keys
       cat.concat( cat.map{ |s| s.downcase } )
       cat.concat( cat.map{ |s| ActiveSupport::Inflector.transliterate(s) } )
@@ -148,7 +148,7 @@ class SeoUrl
     end
 
     def all_subcategories
-      subs = YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_subcategories.yml' ) ) ) )
+      subs = YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_subcategories.yml' ) ) ) )
       subs.concat( subs.map{ |s| s.downcase } )
       subs.concat( subs.map{ |s| ActiveSupport::Inflector.transliterate(s) } )
       subs.concat( subs.map{ |s| s.parameterize } )
