@@ -11,8 +11,6 @@ class CollectionThemesController < SearchController
     search_params = SeoUrl.parse(params)
     Rails.logger.debug("New params: #{params.inspect}")
 
-    @filters = create_filters #TODO use SearchEngine#filters instead create new filters
-
     @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
     params.merge!(search_params)
     @url_builder = SeoUrl.new(search_params, "collection_theme", @search)
@@ -41,5 +39,4 @@ class CollectionThemesController < SearchController
       products.compact!
       products.select {|h| h[:product].inventory_without_hiting_the_database > 0}
     end
-
 end
