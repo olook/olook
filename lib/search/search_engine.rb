@@ -1,16 +1,19 @@
 require 'active_support/inflector'
 class SearchEngine
-  MULTISELECTION_SEPARATOR = '-'
-
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
   BASE_URL = SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
+
+  MULTISELECTION_SEPARATOR = '-'
   RANGED_FIELDS = HashWithIndifferentAccess.new({'price' => '', 'heel' => '', 'inventory' => ''})
   IGNORE_ON_URL = HashWithIndifferentAccess.new({'inventory' => '', 'is_visible' => ''})
-  FIELDS_FOR = [:category, :subcategory, :color, :brand, :heel,
+  PERMANENT_FIELDS_ON_URL = Set.new([:is_visible, :inventory])
+
+  RETURN_FIELDS = [:subcategory,:name,:brand,:image,:retail_price,:price,:backside_image,:category,:text_relevance]
+
+  SEARCHABLE_FIELDS = [:category, :subcategory, :color, :brand, :heel,
                 :care, :price, :size, :product_ids, :collection_theme,
                 :sort, :term]
-  PERMANENT_FIELDS_ON_SEARCH = Set.new([:is_visible, :inventory])
-  FIELDS_FOR.each do |attr|
+  SEARCHABLE_FIELDS.each do |attr|
     define_method "#{attr}=" do |v|
       @expressions[attr] = v.to_s.split(MULTISELECTION_SEPARATOR)
     end
@@ -28,6 +31,7 @@ class SearchEngine
 
     Rails.logger.debug("SearchEngine received these params: #{attributes.inspect}")
     @current_page = 1
+
     attributes.each do |k, v|
       next if k.blank?
       self.send("#{k}=", v)
@@ -36,6 +40,32 @@ class SearchEngine
 
   def term= term
     @query = URI.encode(term) if term
+  end
+
+  def heel= heel
+    @expressions["heel"] = []
+    if heel =~ /^(-?\d+-\d+)+$/
+      hvals = heel.split('-')
+      while hvals.present?
+        val = hvals.shift(2).join('..')
+        @expressions["heel"] << "heeluint:#{val}"
+      end
+    end
+    self
+  end
+
+  def price= price
+    @expressions["price"] = []
+    if /^(?<min>\d+)-(?<max>\d+)$/ =~ price.to_s
+      @expressions["price"] = ["retail_price:#{min.to_i*100}..#{max.to_i*100}"]
+    end
+    self
+  end
+
+  def sort= sort_field
+    @sort_field = "#{ sort_field }&" if sort_field.present?
+    @sort_field ||= "-collection,-inventory,-text_relevance"
+    self
   end
 
   def cache_key
@@ -114,27 +144,15 @@ class SearchEngine
 
   def filters(options={})
     url = build_filters_url(options)
-    if @last_url == url && @result
-      return @result
-    end
-    @last_url = url
-    @result = fetch_result(@last_url, parse_facets: true)
-
+    @result = fetch_result(url, parse_facets: true)
     remove_care_products_from(@result)
     @result
   end
 
   def products(pagination = true)
     url = build_url_for(pagination ? {limit: @limit, start: self.start_product} : {})
-    if @last_url == url && @result.try(:products)
-      return @result.products
-    end
-    @last_url = url
-    @result = fetch_result(@last_url, {parse_products: true})
+    @result = fetch_result(url, {parse_products: true})
     @result.products
-  rescue => e
-    Rails.logger.error("ERROR #{e.class} (#{e.message}) on searching in cloud search url: #{url || ''}\n#{e.backtrace.join("\n")}")
-    []
   end
 
   def pages
@@ -245,26 +263,6 @@ class SearchEngine
     self
   end
 
-  def heel= heel
-    @expressions["heel"] = []
-    if heel =~ /^(-?\d+-\d+)+$/
-      hvals = heel.split('-')
-      while hvals.present?
-        val = hvals.shift(2).join('..')
-        @expressions["heel"] << "heeluint:#{val}"
-      end
-    end
-    self
-  end
-
-  def price= price
-    @expressions["price"] = []
-    if /^(?<min>\d+)-(?<max>\d+)$/ =~ price.to_s
-      @expressions["price"] = ["retail_price:#{min.to_i*100}..#{max.to_i*100}"]
-    end
-    self
-  end
-
   def default_facets
     @facets << "brand_facet"
     @facets << "subcategory"
@@ -277,19 +275,13 @@ class SearchEngine
     self
   end
 
-  def sort= sort_field
-    @sort_field = "#{ sort_field }&" if sort_field.present?
-    @sort_field ||= "-collection,-inventory,-text_relevance"
-    self
-  end
-
   def build_url_for(options={})
     options[:start] ||= 0
     options[:limit] ||= 50
     bq = build_boolean_expression
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
     q = @query ? "?q=#{@query}&" : "?"
-    "http://#{BASE_URL}#{q}#{bq}return-fields=subcategory,name,brand,image,retail_price,price,backside_image,category,text_relevance&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }"
+    "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }"
   end
 
   def fetch_result(url, options = {})
@@ -312,7 +304,7 @@ class SearchEngine
     end
 
     expressions.each do |field, values|
-      next if options[:use_fields] && !options[:use_fields].include?(field.to_sym) && PERMANENT_FIELDS_ON_SEARCH.exclude?(field.to_sym)
+      next if options[:use_fields] && !options[:use_fields].include?(field.to_sym) && PERMANENT_FIELDS_ON_URL.exclude?(field.to_sym)
       next if values.empty?
       if RANGED_FIELDS[field]
         bq << "(or #{values.join(' ')})"
