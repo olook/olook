@@ -10,13 +10,11 @@ class SearchUrlBuilder
   IGNORE_ON_URL = HashWithIndifferentAccess.new({'inventory' => '', 'is_visible' => ''})
   FIELDS_FOR = [:category]
 
-  def initialize(attributes = {},base_url=SEARCH_CONFIG["search_domain"] + "/2011-02-01/search")
+  def initialize(base_url=SEARCH_CONFIG["search_domain"] + "/2011-02-01/search")
     @base_url = base_url
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
-    @attributes = attributes
-    define_fields_for
     @facets = []
   end
 
