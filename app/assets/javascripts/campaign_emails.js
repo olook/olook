@@ -1,3 +1,4 @@
+if($("#ab_t").val() == null) {
 if($(".box-remember.success").length > 0){
 	w = 520, h = 360, ml = -(w/2), mt = -(h/2);
 	parent.top.$("#modal-campaign").css({
@@ -31,6 +32,7 @@ if($(".box-remember.success").length > 0){
 		"margin-top"  : mt+"px",
 		"margin-left" : ml+"px"
 	}).delay(200).fadeIn();
+}
 }
 var flag;
 function checkEmail(e) {
