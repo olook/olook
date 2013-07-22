@@ -12,6 +12,8 @@ class BrandsController < SearchController
     @side_filters = create_filters(true)
 
     @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
+    @url_builder = SeoUrl.new(search_params, "brand", @search)
+    params.merge!(search_params)
 
     @brand = Brand.find_by_name(ActiveSupport::Inflector.transliterate(params[:brand]).downcase.titleize)
     @search.for_admin if current_admin
