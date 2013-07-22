@@ -9,12 +9,13 @@ class CollectionThemesController < SearchController
 
   def show
     search_params = SeoUrl.parse(params)
-    params.merge!(SeoUrl.parse(params[:parameters], params))
     Rails.logger.debug("New params: #{params.inspect}")
 
     @filters = create_filters #TODO use SearchEngine#filters instead create new filters
 
     @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
+    params.merge!(search_params)
+    @url_builder = SeoUrl.new(search_params, "collection_theme", @search)
     @collection_theme = CollectionTheme.find_by_slug(params[:collection_theme])
     @collection_theme_groups = CollectionThemeGroup.order(:position).includes(:collection_themes)
   end

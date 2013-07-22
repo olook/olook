@@ -15,7 +15,7 @@ class CatalogsController < SearchController
     end
 
     @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(params[:per_page])
-    @url_builder = SeoUrl.new(params, "category", @search)
+    @url_builder = SeoUrl.new(search_params, "category", @search)
 
     @search.for_admin if current_admin
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
