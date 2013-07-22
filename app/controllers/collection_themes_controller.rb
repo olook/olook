@@ -39,4 +39,5 @@ class CollectionThemesController < SearchController
       products.compact!
       products.select {|h| h[:product].inventory_without_hiting_the_database > 0}
     end
+
 end

@@ -1,27 +1,39 @@
 require 'active_support/inflector'
 class SearchEngine
+  MULTISELECTION_SEPARATOR = '-'
+
+  SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
+  # BASE_URL = SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
+  #
+  RANGED_FIELDS = HashWithIndifferentAccess.new({'price' => '', 'heel' => '', 'inventory' => ''})
+  IGNORE_ON_URL = HashWithIndifferentAccess.new({'inventory' => '', 'is_visible' => ''})
+  FIELDS_FOR = [:category]
 
   attr_reader :current_page, :result
+  attr_reader :expressions, :sort_field
 
   def initialize attributes = {}
+    @base_url = SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
+    @expressions = HashWithIndifferentAccess.new
+    @expressions['is_visible'] = [1]
+    @expressions['inventory'] = ['inventory:1..']
+    @facets = []
+
     Rails.logger.debug("SearchEngine received these params: #{attributes.inspect}")
     @current_page = 1
-    @search = SearchUrlBuilder.new
-    .for_term(attributes[:term])
-    .with_category(attributes[:category])
-    .with_subcategories(attributes[:subcategory])
-    .with_color(attributes[:color])
-    .with_brand(attributes[:brand])
-    .with_heel(attributes[:heel])
-    .with_care(attributes[:care])
-    .with_price(attributes[:price])
-    .with_size(attributes[:size])
-    .with_product_ids(attributes[:product_ids])
-    .with_collection_theme(attributes[:collection_theme])
-    .sort_by(attributes[:sort])
-    .grouping_by
-
-    @search
+    for_term(attributes[:term])
+    with_category(attributes[:category])
+    with_subcategories(attributes[:subcategory])
+    with_color(attributes[:color])
+    with_brand(attributes[:brand])
+    with_heel(attributes[:heel])
+    with_care(attributes[:care])
+    with_price(attributes[:price])
+    with_size(attributes[:size])
+    with_product_ids(attributes[:product_ids])
+    with_collection_theme(attributes[:collection_theme])
+    sort_by(attributes[:sort])
+    grouping_by
   end
 
   def cache_key
@@ -29,17 +41,13 @@ class SearchEngine
     Digest::SHA1.hexdigest(key.to_s)
   end
 
-  def for_admin
-    @search.for_admin
-  end
-
   def filters_applied(filter_key, filter_value)
     filter_params = HashWithIndifferentAccess.new
     filter_value = ActiveSupport::Inflector.transliterate(filter_value).downcase
-    @search.expressions.each do |k, v|
-      next if SearchUrlBuilder::IGNORE_ON_URL[k]
+    expressions.each do |k, v|
+      next if IGNORE_ON_URL[k]
       filter_params[k] ||= []
-      if SearchUrlBuilder::RANGED_FIELDS[k]
+      if RANGED_FIELDS[k]
         v.each do |_v|
           /(?<min>\d+)\.\.(?<max>\d+)/ =~ _v.to_s
           if k.to_s == 'price'
@@ -68,15 +76,15 @@ class SearchEngine
   end
 
   def remove_filter filter
-    parameters = @search.expressions.dup
-    parameters.delete_if {|k| SearchUrlBuilder::IGNORE_ON_URL.include? k }
+    parameters = expressions.dup
+    parameters.delete_if {|k| IGNORE_ON_URL.include? k }
     parameters[filter.to_sym] = []
     parameters
   end
 
   def current_filters
-    parameters = @search.expressions.dup
-    parameters.delete_if {|k| SearchUrlBuilder::IGNORE_ON_URL.include? k }
+    parameters = expressions.dup
+    parameters.delete_if {|k| IGNORE_ON_URL.include? k }
     parameters
   end
 
@@ -102,7 +110,7 @@ class SearchEngine
     self
   end
 
-  def filters
+  def filters(options={})
     url = build_filters_url
     if @last_url == url && @result
       return @result
@@ -179,18 +187,18 @@ class SearchEngine
   end
 
   def range_values_for(filter)
-    if /(?<min>\d+)\.\.(?<max>\d+)/ =~ @search.expressions[filter].to_s
+    if /(?<min>\d+)\.\.(?<max>\d+)/ =~ expressions[filter].to_s
       { min: (min.to_d/100.0).round.to_s, max: (max.to_d/100.0).round.to_s }
     end
   end
 
   def filter_value(filter)
-    @search.expressions[filter]
+    expressions[filter]
   end
 
   def filter_selected?(filter_key, filter_value)
-    if values = @search.expressions[filter_key]
-      if SearchUrlBuilder::RANGED_FIELDS[filter_key]
+    if values = expressions[filter_key]
+      if RANGED_FIELDS[filter_key]
         values.any? do |v|
           /#{filter_value.gsub('-', '..')}/ =~ v
         end
@@ -203,14 +211,14 @@ class SearchEngine
   end
 
   def selected_filters_for category
-    @search.expressions[category.to_sym] || []
+    expressions[category.to_sym] || []
   end
 
   def has_any_filter_selected?
-    _filters = @search.expressions.dup
+    _filters = expressions.dup
     _filters.delete(:category)
     _filters.delete(:price)
-    _filters.delete_if{|k,v| SearchUrlBuilder::IGNORE_ON_URL[k]}
+    _filters.delete_if{|k,v| IGNORE_ON_URL[k]}
     _filters.values.flatten.any?
   end
 
@@ -218,20 +226,146 @@ class SearchEngine
     @current_page
   end
 
-  private
+  def build_filters_url(options={})
+    bq = build_boolean_expression(options)
+    bq += "facet=#{@facets.join(',')}&" if @facets.any?
+    q = @query ? "#{@query}&" : ""
+    "http://#{@base_url}?#{q}#{bq}"
+  end
 
-    def build_filters_url
-      @search.build_filters_url
+  def for_term term
+    @query = "q=#{URI.encode term}" if term
+    self
+  end
+
+  def for_admin
+    @expressions['is_visible'] = [0,1]
+    @expressions['inventory'] = ['inventory:0..']
+    self
+  end
+
+  def with_subcategories subcategory
+    @expressions["subcategory"] = subcategory.to_s.split(MULTISELECTION_SEPARATOR)
+    self
+  end
+
+  def with_category category
+    @expressions["category"] = category.to_s.split(MULTISELECTION_SEPARATOR)
+    self
+  end
+
+  def with_care care
+    @expressions["care"] = care.to_s.split(MULTISELECTION_SEPARATOR)
+    self
+  end
+
+  def with_brand brand
+    @expressions["brand"] = brand.to_s.split(MULTISELECTION_SEPARATOR)
+    self
+  end
+
+  def with_collection_theme collection_theme
+    @expressions["collection_themes"] = collection_theme.to_s.split(MULTISELECTION_SEPARATOR)
+    self
+  end
+
+  def with_heel heel
+    @expressions["heel"] = []
+    if heel =~ /^(-?\d+-\d+)+$/
+      hvals = heel.split('-')
+      while hvals.present?
+        val = hvals.shift(2).join('..')
+        @expressions["heel"] << "heeluint:#{val}"
+      end
+    end
+    self
+  end
+
+  def with_product_ids ids
+    @expressions["product_id"] = ids.to_s.split(MULTISELECTION_SEPARATOR)
+    self
+  end
+
+  def with_size size
+    @expressions["size"] = size.to_s.split(MULTISELECTION_SEPARATOR)
+    self
+  end
+
+  def with_color color
+    @expressions["color"] = color.to_s.split(MULTISELECTION_SEPARATOR)
+    self
+  end
+
+  def with_price price
+    @expressions["price"] = []
+    if /^(?<min>\d+)-(?<max>\d+)$/ =~ price.to_s
+      @expressions["price"] = ["retail_price:#{min.to_i*100}..#{max.to_i*100}"]
+    end
+    self
+  end
+
+  def grouping_by
+    @facets << "brand_facet"
+    @facets << "subcategory"
+    @facets << "color"
+    @facets << "heel"
+    @facets << "care"
+    @facets << "size"
+    @facets << "category"
+    @facets << 'collection_themes'
+    self
+  end
+
+  def sort_by sort_field
+    @sort_field = "#{ sort_field }&" if sort_field.present?
+    @sort_field ||= "-collection,-inventory,-text_relevance"
+    self
+  end
+
+  def build_url_for(options={})
+    options[:start] ||= 0
+    options[:limit] ||= 50
+    bq = build_boolean_expression
+    bq += "facet=#{@facets.join(',')}&" if @facets.any?
+    q = @query ? "?#{@query}&" : "?"
+    URI.parse("http://#{@base_url}#{q}#{bq}return-fields=subcategory,name,brand,image,retail_price,price,backside_image,category,text_relevance&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }")
+  end
+
+  def fetch_result(url, options = {})
+    url = URI.parse(url)
+    tstart = Time.zone.now.to_f * 1000.0
+    _response = Net::HTTP.get_response(url)
+    Rails.logger.info("GET cloudsearch URL (#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
+    SearchResult.new(_response, options)
+  end
+
+  def build_boolean_expression(options={})
+    bq = []
+    expressions = @expressions.dup
+    cares = expressions.delete('care')
+    if cares.present?
+      subcategories = expressions.delete('subcategory')
+      vals = cares.map { |v| "(field care '#{v}')" }
+      vals.concat(subcategories.map { |v| "(field subcategory '#{v}')" }) if subcategories.present?
+      bq << ( vals.size > 1 ? "(or #{vals.join(' ')})" : vals.first )
+    end
+    expressions.each do |field, values|
+      next if options[:use_fields] && !options[:use_fields].include?(field.to_sym)
+      next if values.empty?
+      if RANGED_FIELDS[field]
+        bq << "(or #{values.join(' ')})"
+      elsif values.is_a?(Array) && values.any?
+        vals = values.map { |v| "(field #{field} '#{v}')" } unless values.empty?
+        bq << ( vals.size > 1 ? "(or #{vals.join(' ')})" : vals.first )
+      end
     end
 
-    def build_url_for(options)
-      @search.build_url_for(options)
+    if bq.size == 1
+      "bq=#{ERB::Util.url_encode bq.first}&"
+    elsif bq.size > 1
+      "bq=#{ERB::Util.url_encode "(and #{bq.join(' ')})"}&"
+    else
+      ""
     end
-
-    def fetch_result(url, options = {})
-      tstart = Time.zone.now.to_f * 1000.0
-      _response = Net::HTTP.get_response(url)
-      Rails.logger.info("GET cloudsearch URL (#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
-      SearchResult.new(_response, options)
-    end
+  end
 end
