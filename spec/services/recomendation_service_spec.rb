@@ -153,5 +153,19 @@ describe RecomendationService do
       it { should include @product }
       it { should_not include @sec_product }
     end
+
+    context 'when the same product is being called twice' do
+      before do
+        @shoe = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:shoe, name: "#shoe #{ rand }", profiles: @profiles)).product
+        @bag = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:bag, name: "#bag #{ rand }", profiles: @profiles)).product
+        @accessory = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:basic_accessory, name: "#accessory #{ rand }", profiles: @profiles)).product
+        @cloth = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:simple_garment, name: "#cloth #{ rand }", profiles: @profiles)).product
+      end      
+      it "includes unique product occurrences only" do
+        described_class.any_instance.should_receive(:filtered_list_for_profile).and_return([@shoe, @shoe, @bag, @accessory, @cloth])
+
+        described_class.new({ profiles: @profiles }).products.count(@shoe).should eq(1)
+      end
+    end
   end
 end
