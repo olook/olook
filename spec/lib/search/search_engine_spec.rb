@@ -4,10 +4,6 @@ describe SearchEngine do
 
   subject { described_class.new(category: "SomeCategory", subcategory: "SomeSubcategory", color: "SomeColor") }
 
-  describe "#initialize" do
-    it { expect(subject.instance_variable_get("@search")).to_not be_nil }
-  end
-
   describe "#for_page" do
     context "when page is nil" do
       it "sets current page as 1" do
@@ -96,20 +92,16 @@ describe SearchEngine do
     end
   end
 
-  describe "#filters" do
-    before do
-      subject.instance_variable_set("@limit", 50)
-    end
+  describe "#build_filters_url" do
+    context "using category" do
+      before do
+        @search = SearchEngine.new(category: 'sapato', subcategory: 'anabela')
+      end
 
-    it "SearchEngine#search receives Search#build_filters" do
-      subject.should_receive(:fetch_result).and_return(OpenStruct.new(facets:nil))
-      subject.should_receive(:build_filters_url)
-      subject.filters
+      it "should ignore subcategory filter" do
+        expect(@search.build_filters_url(use_fields: [:category])).to_not match(/bq=[^&]*subcategory/)
+      end
     end
-  end
-
-  describe "#filters" do
-    pending
   end
 
   describe "#has_next_page?" do
@@ -180,19 +172,11 @@ describe SearchEngine do
     end
   end
 
-  describe "#selected_filters_for" do
-    it "delegates to @search#expressions" do
-      subject.instance_variable_get("@search").should_receive(:expressions).and_return(Hash.new)
-      subject.selected_filters_for("filter")
-    end
-  end
-
   describe "#has_any_filter_selected?" do
     let(:search) { described_class.new }
     context "when all filters was selected" do
       before do
-        search.instance_variable_get("@search")
-        .should_receive(:expressions)
+        search.should_receive(:expressions)
         .and_return({ category: ["sapato"], subcategory: ["bar"], color: ["foo"], heel: ["foo"], care: ["bar"] })
       end
       subject { search.has_any_filter_selected? }
@@ -201,8 +185,7 @@ describe SearchEngine do
 
     context "when one filter was selected" do
       before do
-        search.instance_variable_get("@search")
-        .should_receive(:expressions)
+        search.should_receive(:expressions)
         .and_return({ category: ["sapato"], subcategory: ["bar"], color: [], heel: [], care: [] })
       end
       subject { search.has_any_filter_selected? }
@@ -211,8 +194,7 @@ describe SearchEngine do
 
     context "when all filters wasn't selected" do
       before do
-        search.instance_variable_get("@search")
-        .should_receive(:expressions)
+        search.should_receive(:expressions)
         .and_return({ category: ["sapato"], subcategory: [], color: [], heel: [], care: [] })
       end
       subject { search.has_any_filter_selected? }
@@ -354,7 +336,7 @@ describe SearchEngine do
                          size: [],
                          product_id: []} }
     before do
-      search.instance_variable_get("@search").stub(:expressions).and_return(expressions)
+      search.stub(:expressions).and_return(expressions)
     end
 
     context "when given parameter is a String" do
@@ -369,5 +351,4 @@ describe SearchEngine do
       it { should eq(expected_parameters) }
     end
   end
-
 end
