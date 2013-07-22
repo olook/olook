@@ -117,44 +117,44 @@ describe SeoUrl do
   end
 
 
-  describe 'build_url_for' do
+  describe 'add_filter' do
     let(:search_engine) { SearchEngine.new({ }) }
     subject { described_class.new({ }, "category", search_engine) }
     context "when given params has subcategory" do
 
       it "@search receives SearchEngine#filters_applied" do
         search_engine.should_receive(:filters_applied).and_return({"category"=>["roupa"], "subcategory"=>["blusa"]})
-        subject.build_url_for(:subject, "blusa")
+        subject.add_filter(:subject, "blusa")
       end
 
-      it { expect(subject.build_url_for(:subcategory, 'blusa')).to eq({ parameters: 'blusa' }) }
+      it { expect(subject.add_filter(:subcategory, 'blusa')).to eq({ parameters: 'blusa' }) }
 
       context "and filters and care products" do
         before do
           search_engine.stub(:filters_applied).and_return({ category: ['sapato'], subcategory: ['Bota'], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho']})
         end
-        it { expect(subject.build_url_for(:subcategory, 'blusa')).to eq(parameters: "bota/conforto-amaciante_tamanho-36-p_cor-azul-vermelho") }
+        it { expect(subject.add_filter(:subcategory, 'blusa')).to eq(parameters: "bota/conforto-amaciante_tamanho-36-p_cor-azul-vermelho") }
       end
 
       context "and only filters" do
         before do
           search_engine.stub(:filters_applied).and_return({ category: ['sapato'], subcategory: ['Bota'], size: ['36', 'p'], color: ['azul', 'vermelho']})
         end
-        it { expect(subject.build_url_for(:subcategory, 'blusa')).to eq(parameters: "bota/tamanho-36-p_cor-azul-vermelho") }
+        it { expect(subject.add_filter(:subcategory, 'blusa')).to eq(parameters: "bota/tamanho-36-p_cor-azul-vermelho") }
       end
 
       context "and only care products" do
         before do
           search_engine.stub(:filters_applied).and_return({ category: ['sapato'], subcategory: ['Bota'], care: ['amaciante']})
         end
-        it { expect(subject.build_url_for(:subcategory, 'blusa')).to eq(parameters: "bota/conforto-amaciante") }
+        it { expect(subject.add_filter(:subcategory, 'blusa')).to eq(parameters: "bota/conforto-amaciante") }
       end
 
       context "and brand together" do
         before do
           search_engine.stub(:filters_applied).and_return({ category: [ 'roupa' ], subcategory: ['bota'], brand: ['colcci', 'olook'], care:['amaciante']})
         end
-        it { expect(subject.build_url_for(:subcategory, 'blusa')).to eq(parameters: "colcci-olook-bota/conforto-amaciante") }
+        it { expect(subject.add_filter(:subcategory, 'blusa')).to eq(parameters: "colcci-olook-bota/conforto-amaciante") }
       end
     end
 
@@ -162,15 +162,15 @@ describe SeoUrl do
       before do
         search_engine.stub(:filters_applied).and_return({ category: ['sapato'], size: ['36'], color: ['azul', 'preto'] })
       end
-      it { expect(subject.build_url_for(:size, '36')).to eq(parameters: "tamanho-36_cor-azul-preto") }
+      it { expect(subject.add_filter(:size, '36')).to eq(parameters: "tamanho-36_cor-azul-preto") }
     end
 
     context "when has accents" do
       before do
         search_engine.stub(:filters_applied).and_return({ category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'onça'] })
       end
-      it { expect(subject.build_url_for(:subcategory, 'Sandália')).to eq({ parameters: "sandalia/tamanho-36-p_cor-azul-onca" }) }
-      it { expect(subject.build_url_for(:color, 'Onça' )).to eq({ parameters: "sandalia/tamanho-36-p_cor-azul-onca" }) }
+      it { expect(subject.add_filter(:subcategory, 'Sandália')).to eq({ parameters: "sandalia/tamanho-36-p_cor-azul-onca" }) }
+      it { expect(subject.add_filter(:color, 'Onça' )).to eq({ parameters: "sandalia/tamanho-36-p_cor-azul-onca" }) }
     end
 
     context "when paramter price order was passed" do
@@ -178,7 +178,7 @@ describe SeoUrl do
       before do
         search_engine.stub(:filters_applied).and_return({ category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'onça'] })
       end
-      it { expect(subject.build_url_for(:color, 'Onça' )).to eq({ parameters: "sandalia/tamanho-36-p_cor-azul-onca", "por" => 'menor-preco' }) }
+      it { expect(subject.add_filter(:color, 'Onça' )).to eq({ parameters: "sandalia/tamanho-36-p_cor-azul-onca", "por" => 'menor-preco' }) }
     end
 
     context "when parameter per-page was passed" do
@@ -186,7 +186,7 @@ describe SeoUrl do
       before do
         search_engine.stub(:filters_applied).and_return({ category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'onça'] })
       end
-      it { expect(subject.build_url_for(:color, 'Onça' )).to eq({ parameters: "sandalia/tamanho-36-p_cor-azul-onca", "por_pagina" => '30' }) }
+      it { expect(subject.add_filter(:color, 'Onça' )).to eq({ parameters: "sandalia/tamanho-36-p_cor-azul-onca", "por_pagina" => '30' }) }
     end
   end
 
