@@ -3,37 +3,39 @@ class SearchEngine
   MULTISELECTION_SEPARATOR = '-'
 
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
-  # BASE_URL = SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
-  #
+  BASE_URL = SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
   RANGED_FIELDS = HashWithIndifferentAccess.new({'price' => '', 'heel' => '', 'inventory' => ''})
   IGNORE_ON_URL = HashWithIndifferentAccess.new({'inventory' => '', 'is_visible' => ''})
-  FIELDS_FOR = [:category]
+  FIELDS_FOR = [:category, :subcategory, :color, :brand, :heel,
+                :care, :price, :size, :product_ids, :collection_theme,
+                :sort, :term]
+  FIELDS_FOR.each do |attr|
+    define_method "#{attr}=" do |v|
+      @expressions[attr] = v.to_s.split(MULTISELECTION_SEPARATOR)
+    end
+  end
 
   attr_reader :current_page, :result
   attr_reader :expressions, :sort_field
 
   def initialize attributes = {}
-    @base_url = SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
     @facets = []
+    default_facets
 
     Rails.logger.debug("SearchEngine received these params: #{attributes.inspect}")
     @current_page = 1
-    for_term(attributes[:term])
-    with_category(attributes[:category])
-    with_subcategories(attributes[:subcategory])
-    with_color(attributes[:color])
-    with_brand(attributes[:brand])
-    with_heel(attributes[:heel])
-    with_care(attributes[:care])
-    with_price(attributes[:price])
-    with_size(attributes[:size])
-    with_product_ids(attributes[:product_ids])
-    with_collection_theme(attributes[:collection_theme])
-    sort_by(attributes[:sort])
-    grouping_by
+    attributes.each do |k, v|
+      next if k.blank?
+      self.send("#{k}=", v)
+    end
+  end
+
+  def term= term
+    @query = "q=#{URI.encode term}" if term
+    self
   end
 
   def cache_key
@@ -230,13 +232,9 @@ class SearchEngine
     bq = build_boolean_expression(options)
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
     q = @query ? "#{@query}&" : ""
-    "http://#{@base_url}?#{q}#{bq}"
+    "http://#{BASE_URL}?#{q}#{bq}"
   end
 
-  def for_term term
-    @query = "q=#{URI.encode term}" if term
-    self
-  end
 
   def for_admin
     @expressions['is_visible'] = [0,1]
@@ -244,32 +242,7 @@ class SearchEngine
     self
   end
 
-  def with_subcategories subcategory
-    @expressions["subcategory"] = subcategory.to_s.split(MULTISELECTION_SEPARATOR)
-    self
-  end
-
-  def with_category category
-    @expressions["category"] = category.to_s.split(MULTISELECTION_SEPARATOR)
-    self
-  end
-
-  def with_care care
-    @expressions["care"] = care.to_s.split(MULTISELECTION_SEPARATOR)
-    self
-  end
-
-  def with_brand brand
-    @expressions["brand"] = brand.to_s.split(MULTISELECTION_SEPARATOR)
-    self
-  end
-
-  def with_collection_theme collection_theme
-    @expressions["collection_themes"] = collection_theme.to_s.split(MULTISELECTION_SEPARATOR)
-    self
-  end
-
-  def with_heel heel
+  def heel= heel
     @expressions["heel"] = []
     if heel =~ /^(-?\d+-\d+)+$/
       hvals = heel.split('-')
@@ -281,22 +254,7 @@ class SearchEngine
     self
   end
 
-  def with_product_ids ids
-    @expressions["product_id"] = ids.to_s.split(MULTISELECTION_SEPARATOR)
-    self
-  end
-
-  def with_size size
-    @expressions["size"] = size.to_s.split(MULTISELECTION_SEPARATOR)
-    self
-  end
-
-  def with_color color
-    @expressions["color"] = color.to_s.split(MULTISELECTION_SEPARATOR)
-    self
-  end
-
-  def with_price price
+  def price= price
     @expressions["price"] = []
     if /^(?<min>\d+)-(?<max>\d+)$/ =~ price.to_s
       @expressions["price"] = ["retail_price:#{min.to_i*100}..#{max.to_i*100}"]
@@ -304,7 +262,7 @@ class SearchEngine
     self
   end
 
-  def grouping_by
+  def default_facets
     @facets << "brand_facet"
     @facets << "subcategory"
     @facets << "color"
@@ -316,7 +274,7 @@ class SearchEngine
     self
   end
 
-  def sort_by sort_field
+  def sort= sort_field
     @sort_field = "#{ sort_field }&" if sort_field.present?
     @sort_field ||= "-collection,-inventory,-text_relevance"
     self
@@ -328,7 +286,7 @@ class SearchEngine
     bq = build_boolean_expression
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
     q = @query ? "?#{@query}&" : "?"
-    URI.parse("http://#{@base_url}#{q}#{bq}return-fields=subcategory,name,brand,image,retail_price,price,backside_image,category,text_relevance&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }")
+    "http://#{BASE_URL}#{q}#{bq}return-fields=subcategory,name,brand,image,retail_price,price,backside_image,category,text_relevance&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }"
   end
 
   def fetch_result(url, options = {})
