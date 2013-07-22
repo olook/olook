@@ -4,6 +4,20 @@ describe SearchUrlBuilder do
 
   URL_BASE = "searchdomain.com"
 
+  describe "#initialize" do
+    context "When receive attributes" do
+      subject {described_class.new({category: 'sapato'})}
+      it "fill respective fields" do
+        expect(subject.expressions).to include(category: ['sapato'])
+      end
+
+      it "not fill strange keys" do
+        subject {described_class.new({strange: 'sapato'})}
+        expect(subject.expressions).to_not include(strange: ['sapato'])
+      end
+    end
+  end
+
 
   context "with simple term" do
     subject {SearchUrlBuilder.new(URL_BASE).for_term("term")}
