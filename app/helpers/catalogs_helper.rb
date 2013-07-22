@@ -38,8 +38,8 @@ module CatalogsHelper
     end
   end
 
-  def filters_by filter, filters = @filters
-    filters ||= create_filters
+  def filters_by filter, search, options={}
+    filters = search.filters(options)
     facets = filters.grouped_products(filter)
     return [] if facets.nil?
 
