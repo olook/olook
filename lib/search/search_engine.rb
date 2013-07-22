@@ -74,7 +74,7 @@ class SearchEngine
   end
 
   def cache_key
-    key = build_url_for(limit: @limit, start: self.start_product)
+    key = build_url_for(limit: @limit, start: self.start_item)
     Digest::SHA1.hexdigest(key.to_s)
   end
 
@@ -133,7 +133,7 @@ class SearchEngine
   end
 
   def products(pagination = true)
-    url = build_url_for(pagination ? {limit: @limit, start: self.start_product} : {})
+    url = build_url_for(pagination ? {limit: @limit, start: self.start_item} : {})
     @result = fetch_result(url, {parse_products: true})
     @result.products
   end
