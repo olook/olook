@@ -38,6 +38,6 @@
 </div>
 
 <% content_for :footer do %>
- <%= javascript_include_tag "campaign_emails" %>
+ <%= javascript_include_tag "campaign_emails" if params[:ab_t].present? %>
 <% end %>
 <%= content_for :site_footer, render(:partial => "shared/footer") if @landing_page.show_footer? %>
