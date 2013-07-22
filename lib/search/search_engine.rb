@@ -9,6 +9,7 @@ class SearchEngine
   FIELDS_FOR = [:category, :subcategory, :color, :brand, :heel,
                 :care, :price, :size, :product_ids, :collection_theme,
                 :sort, :term]
+  PERMANENT_FIELDS_ON_SEARCH = Set.new([:is_visible, :inventory])
   FIELDS_FOR.each do |attr|
     define_method "#{attr}=" do |v|
       @expressions[attr] = v.to_s.split(MULTISELECTION_SEPARATOR)
@@ -112,7 +113,7 @@ class SearchEngine
   end
 
   def filters(options={})
-    url = build_filters_url
+    url = build_filters_url(options)
     if @last_url == url && @result
       return @result
     end
@@ -307,7 +308,7 @@ class SearchEngine
       bq << ( vals.size > 1 ? "(or #{vals.join(' ')})" : vals.first )
     end
     expressions.each do |field, values|
-      next if options[:use_fields] && !options[:use_fields].include?(field.to_sym)
+      next if options[:use_fields] && !options[:use_fields].include?(field.to_sym) && PERMANENT_FIELDS_ON_SEARCH.exclude?(field.to_sym)
       next if values.empty?
       if RANGED_FIELDS[field]
         bq << "(or #{values.join(' ')})"

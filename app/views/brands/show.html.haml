@@ -19,7 +19,7 @@
 = cache "#{@search.cache_key}", expire_in: 15.minutes  do
   #catalog
     %aside
-      = render "filters", search: @search, filters: @side_filters
+      = render "side_filters", search: @search
 
     #result
       - unless @search.has_any_filter_selected?
@@ -34,7 +34,7 @@
         %div.collections_header
           = image_tag(@brand.header_image, alt: @brand.header_image_alt, title: @brand.header_image_alt) if @brand
 
-      = render "ordenation_filters", search: @search, filters: create_filters(true)
+      = render "ordenation_filters", search: @search
 
       %section.container_product
         %ul#products
