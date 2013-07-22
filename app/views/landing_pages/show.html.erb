@@ -19,7 +19,7 @@
   	<% campaign_email = CampaignEmail.new %>
   	<% if params[:ab_t].present? %>
 	  <div class="error" style="display:none;">
-  	  	<p> O e-mail informado não parece correto. Que tal conferir? </p>
+  	  	<p class="mail_error"> O e-mail informado não parece correto. Que tal conferir? </p>
   	  </div>  	
 	  <%= form_for campaign_email, :method => :post do |f| %>
 	  	<%= f.text_field :email, value:"Informe seu email aqui", class: "email" %>
