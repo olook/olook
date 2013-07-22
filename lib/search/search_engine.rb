@@ -273,7 +273,7 @@ class SearchEngine
     @facets << "care"
     @facets << "size"
     @facets << "category"
-    @facets << 'collection_themes'
+    @facets << 'collection_theme'
     self
   end
 
@@ -310,6 +310,7 @@ class SearchEngine
       vals.concat(subcategories.map { |v| "(field subcategory '#{v}')" }) if subcategories.present?
       bq << ( vals.size > 1 ? "(or #{vals.join(' ')})" : vals.first )
     end
+
     expressions.each do |field, values|
       next if options[:use_fields] && !options[:use_fields].include?(field.to_sym) && PERMANENT_FIELDS_ON_SEARCH.exclude?(field.to_sym)
       next if values.empty?
