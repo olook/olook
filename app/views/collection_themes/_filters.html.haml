@@ -8,7 +8,7 @@
 
       %fieldset
         %span.selected-type.order{ class: ("filter_selected" if params[:por].present?) }= params[:por].present? ? params[:por].gsub("-", " ").titleize : "NOSSA SELEÇÃO"
-        = select_tag('', options_for_select({"Nossa Seleção" => "#{ collection_theme_path(parameters: params[:parameters], preco: params[:preco]) }", "Menor preço" => "#{ collection_theme_path(parameters: params[:parameters], por: "menor-preco", preco: params[:preco]) }", "Maior preço" => "#{ collection_theme_path(parameters: params[:parameters], por: "maior-preco", preco: params[:preco]) }", "Maior Desconto" => "#{ collection_theme_path(parameters: params[:parameters], por: "maior-desconto", preco: params[:preco]) }"}, "#{ collection_theme_path(parameters: params[:parameters], por: params[:por], preco: params[:preco]) }"), :class => "custom_select", :onchange => ("location = this.options[this.selectedIndex].value;"))
+        = select_tag('por', options_for_select({"Nossa Seleção" => 0, "Menor Preço" => "menor-preco", "Maior Preço" => "maior-preco", "Maior Desconto" => "maior-desconto"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
   - if params[:category].present?
 
     .filter
