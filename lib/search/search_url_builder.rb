@@ -8,14 +8,20 @@ class SearchUrlBuilder
   attr_reader :expressions, :sort_field
   RANGED_FIELDS = HashWithIndifferentAccess.new({'price' => '', 'heel' => '', 'inventory' => ''})
   IGNORE_ON_URL = HashWithIndifferentAccess.new({'inventory' => '', 'is_visible' => ''})
+  FIELDS_FOR = [:category]
 
-  def initialize(base_url=SEARCH_CONFIG["search_domain"] + "/2011-02-01/search")
+  def initialize(attributes = {},base_url=SEARCH_CONFIG["search_domain"] + "/2011-02-01/search")
     @base_url = base_url
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
-
+    @attributes = attributes
+    define_fields_for
     @facets = []
+  end
+
+  def define_fields_for
+    @attributes.each{ |k,v| @expressions[k] = v.to_s.split(MULTISELECTION_SEPARATOR) if FIELDS_FOR.include?(k)} unless @attributes.nil?
   end
 
   def for_term term
