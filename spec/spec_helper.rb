@@ -112,12 +112,7 @@ Spork.each_run do
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-  #Requires libs. Check why I need to do it later
-  Dir[Rails.root.join("lib/**/*.rb")].each {|f| require f}
   FactoryGirl.reload
-  Dir[File.expand_path("app/controllers/user/*.rb")].each do |file|
-    require file
-  end
 
   RSpec.configure do |config|
     config.include Abacos::TestHelpers
