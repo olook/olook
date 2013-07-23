@@ -18,7 +18,7 @@
       = render "filters", search: @search
       - if params[:category]
         .invite_friends
-          =banner_for Category.with_name params[:category]
+          =banner_for params[:category]
         .promo_brands
           =link_to "/roupa/eclectic-leeloo-mandi?utf8=✓&por=menor-preco" do
             =image_tag 'catalog/marcas_160X600.gif'
