@@ -2,6 +2,8 @@
 //= require plugins/slider
 //= require plugins/spy
 //= require plugins/change_picture_onhover
+//= require plugins/video_modal
+
 var cts = {} || null;
 cts = {
   init: function(){
@@ -11,6 +13,7 @@ cts = {
     olook.customSelect('.filter select');
     olook.spy('p.spy');
     olook.changePictureOnhover('img.async');
+    olook.videoModal('.video_link');
     cts.showSelectUl();
     cts.hideSelectUlOnBodyClick();
   },
