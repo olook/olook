@@ -3,8 +3,10 @@
     = form_tag collection_theme_path(params[:collection_theme], @url_builder.current_filters), method: 'get' do
       %fieldset.first_child
         %span.selected-type{ class: ("filter_selected" if params[:category].present?) }= params[:category].present? ? params[:category].pluralize : "VER TUDO"
-        - categories =  [["Ver Tudo", collection_theme_path(params[:collection_theme])]] | filters_by("category", search, use_fields: [:collection_theme]).map{|text, amount| [text.titleize.pluralize, collection_theme_path(parameters: text.singularize)]}
-        = select_tag('', options_for_select(categories, selected:collection_theme_path("#{ params[:collection_theme]}/#{ params[:category]}")), :onchange => ("location = this.options[this.selectedIndex].value;"))
+        %select{ :onchange => ("window.location = $(this.options[this.selectedIndex]).data('href');")}
+          %option{ 'data-href' => collection_theme_path(params[:collection_theme]) } VER TUDO
+          - filters_by('category', search, use_fields: [:collection_theme_]).each do |text, amount|
+            %option{'data-href' => collection_theme_path(params[:collection_theme], parameters: text.chomp), selected: params[:category].to_s == text}= text.chomp.titleize.pluralize
 
       %fieldset
         %span.selected-type.order{ class: ("filter_selected" if params[:por].present?) }= params[:por].present? ? params[:por].gsub("-", " ").titleize : "NOSSA SELEÇÃO"
