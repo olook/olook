@@ -9,6 +9,7 @@
 
 #catalog
   = render "menu", collection_theme_groups: @collection_theme_groups
+
   #result
     .collections_header
       = image_tag @collection_theme.header_image, alt: @collection_theme.header_image_alt, title: @collection_theme.header_image_alt
@@ -24,3 +25,4 @@
       .loading
 
     .pagination
+      = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: collection_theme_path }
