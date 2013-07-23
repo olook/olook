@@ -53,7 +53,7 @@
 
             <p>Oba! Seu pedido nº <b><span style="color:#e82e3a"><%= @order.number %></span></b> já está a caminho do endereço de entrega. A data estimada é <span style="color:#e82e3a"><%= @order.expected_delivery_on.strftime("%d/%m/%Y") %></span>.<br><br>
 
-Quer acompanhar a entrega? <a style="color:#e82e3a"><%= link_to "Clique aqui", link_to_tracking_code(@order), style: "color:#e82e3a" %></a>.<br><br>
+Quer acompanhar a entrega? <%= link_to "Clique aqui", link_to_tracking_code(@order), style: "color:#e82e3a" %>.<br><br>
 
 Se tiver qualquer dúvida, pode falar com a gente pelo e-mail <a style="color:#e82e3a" href="mailto:falecom@olook.com.br">falecom@olook.com.br</a>.<br><br>
 
