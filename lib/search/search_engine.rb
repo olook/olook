@@ -43,6 +43,14 @@ class SearchEngine
     @query = URI.encode(term) if term
   end
 
+  # TODO: Mudar a forma que o recebe o collection_theme pois
+  # o ideal é modificar o MULTISELECTION_SEPARATOR para ','
+  # e passar a usar parameterize na indexação e mudar as urls.
+  # Depende de fazer um tradutor dos links antigos para os novos.
+  def collection_theme=(val)
+    @expressions['collection_theme'] = val
+  end
+
   def heel= heel
     @expressions["heel"] = []
     if heel =~ /^(-?\d+-\d+)+$/
