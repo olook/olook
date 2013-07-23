@@ -17,7 +17,7 @@
       %span.selected-type.txt-filter{ class: ("filter_selected" if params[:subcategory].present?) } MODELO
       .tab_bg &nbsp;
       %ul
-        - filters_by("subcategory", search, use_fields: [:collection_theme]).each do |text, amount|
+        - filters_by("subcategory", search, use_fields: [:collection_theme, :category]).each do |text, amount|
           %li= filter_link_to(collection_theme_path(@url_builder.add_filter(:subcategory, text)), text.chomp, search.filter_selected?(:subcategory, text.chomp))
         - if params[:subcategory].present?
           %li.clear_choice= link_to '[limpar]', collection_theme_path(@url_builder.remove_filter_of(:subcategory))
