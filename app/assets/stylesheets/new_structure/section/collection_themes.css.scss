@@ -1,17 +1,11 @@
 @import 'new_structure/common/global_stuffs';
-@import 'new_structure/common/filters';
+@import 'new_structure/common/side_bar_menu';
+@import 'new_structure/partials/thumb_product_catalog';
+@import 'new_structure/partials/spy';
+@import 'new_structure/partials/pagination';
 
-#side_bar_menu{
-  dl{font-family:$avenir;color:#000;}
-  dt{float:left;font-size:11px;text-transform:uppercase;margin-bottom:5px;font-weight:bold;}
-  dd{clear:both; margin: 0;
-    &.last{margin-bottom:25px;}
-    a{text-decoration:none;color:#000;font-size:13px;
-      &:hover{color:#EF3742;}
-      &.selected{color:#EF3742;}
-    }
-  }
-}
+#result{float:left;width:785px;}
+
 #collection_theme_content{
   float:left;
 }
