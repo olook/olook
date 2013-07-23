@@ -12,7 +12,7 @@ class BrandsController < SearchController
 
     params.merge!(search_params)
 
-    @brand = Brand.find_by_name(ActiveSupport::Inflector.transliterate(params[:brand]).downcase.titleize)
+    @brand = Brand.where(name: ActiveSupport::Inflector.transliterate(params[:brand]).downcase.titleize)
 
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     @url_builder = SeoUrl.new(search_params, "brand", @search)
