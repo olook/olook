@@ -10,7 +10,7 @@ class CatalogsController < SearchController
     search_params = SeoUrl.parse(params)
     Rails.logger.debug("New params: #{params.inspect}")
 
-    if @campaign = HighlightCampaign.find_by_label(params[:cmp])
+    if params[:cmp].present? && @campaign = HighlightCampaign.find_by_label(params[:cmp])
       @campaign_products = SearchEngine.new(product_ids: @campaign.product_ids).with_limit(1000)
     end
 
