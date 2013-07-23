@@ -7,7 +7,7 @@
         %select{ :onchange => ("window.location = $(this.options[this.selectedIndex]).data('href');")}
           %option{ 'data-href' => brand_path(params[:brand]) } VER TUDO
           - filters_by('category', search, use_fields: [:brand]).each do |text, amount|
-            %option{'data-href' => brand_path(params[:brand], parameters: text.chomp), selected: false}= text.chomp.titleize
+            %option{'data-href' => brand_path(params[:brand], parameters: text.chomp), selected: params[:category].to_s == text}= text.chomp.titleize.pluralize
 
       %fieldset
         %span.selected-type.order{ class: ("filter_selected" if params[:por].present?) }= params[:por].present? ? params[:por].gsub("-", " ").titleize : "NOSSA SELEÇÃO"
