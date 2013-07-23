@@ -1,3 +1,4 @@
+if($("#ab_t").val() == null) {
 if($(".box-remember.success").length > 0){
 	w = 520, h = 360, ml = -(w/2), mt = -(h/2);
 	parent.top.$("#modal-campaign").css({
@@ -32,11 +33,12 @@ if($(".box-remember.success").length > 0){
 		"margin-left" : ml+"px"
 	}).delay(200).fadeIn();
 }
+}
 var flag;
 function checkEmail(e) {
 	var email = $('#campaign_email_email').val();
 	var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-	if (!filter.test(email) || email === 'seunome@email.com.br'){
+	if (!filter.test(email) || email === 'seunome@email.com.br' || email === 'Informe seu email aqui'){
 		e.preventDefault();
 		$('.error').fadeIn();
 		email.focus;
@@ -50,7 +52,7 @@ function checkEmail(e) {
 
 $(function(){
     $('#campaign_email_email').focus(function(){
-	if($(this).val() == 'seunome@email.com.br')
+	if($(this).val() == 'seunome@email.com.br' || $(this).val() == 'Informe seu email aqui')
 	$(this).val('');
     }).focusout(function(){
 	if($(this).val() == '')
