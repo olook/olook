@@ -7,7 +7,7 @@ class DevAlertMailer < ActionMailer::Base
   def order_warns(warn_payments, warn_order)
     @warn_payments = warn_payments
     @warn_orders = warn_order
-    mail(:to => "tech@olook.com.br", :subject => "Pedidos que deveriam ter sido capturados pela braspag")
+    mail(:to => "tech@olook.com.br,cristina.logiodice@olook.com.br,diogo.silva@olook.com.br", :subject => "Pedidos que deveriam ter sido capturados pela braspag")
   end
 
   def product_visibility_notification(products, admin)
