@@ -18,8 +18,7 @@
 
 = cache "#{@search.cache_key}", expire_in: 15.minutes  do
   #catalog
-    %aside
-      = render "side_filters", search: @search
+    = render "side_filters", search: @search
 
     #result
       - unless @search.has_any_filter_selected?
