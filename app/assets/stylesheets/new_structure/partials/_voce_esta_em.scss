@@ -1,6 +1,7 @@
 /**************************
 BOX DE FILTROS SELECIONADOS
  **************************/
+@import 'new_structure/common/global_stuffs';
 section.filters{
   float:left;
   width:763px;
@@ -37,7 +38,7 @@ section.filters{
 
     span{
       float:left;
-    }   
+    }
     a{
       float:left;
       text-decoration:none;
