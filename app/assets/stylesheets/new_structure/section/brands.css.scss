@@ -1,5 +1,9 @@
 @import 'new_structure/common/global_stuffs';
-@import 'new_structure/common/filters';
+@import 'new_structure/common/side_bar_menu';
+@import 'new_structure/partials/thumb_product_catalog';
+@import 'new_structure/partials/spy';
+
+#result{float:left;width:785px;}
 
 #content{min-height:700px;}
 .banner-brands{position:relative;margin-bottom:45px;

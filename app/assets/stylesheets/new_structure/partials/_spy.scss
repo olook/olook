@@ -1,0 +1,36 @@
+/*** PRODUTO DENTRO DO MODAL ESPIAR ***/
+@import 'new_structure/common/jquery.jqzoom';
+@import 'common/product_details';
+
+/****************
+BOX MODAL ESPIAR
+****************/
+
+#quick_view {
+  position:absolute;
+  top:100px;
+  left:50%;
+  background-color: #FFF;
+  border: 10px solid #000;
+  width:1000px;
+  /*height:620px;
+   */margin: 0 0 0 -480px;
+  display:none;
+  z-index:10002;
+
+  .size_guide{
+    display:none;
+  }
+  #close_quick_view{cursor: pointer;
+    font-size: 20px;
+    position: absolute;
+    background: image-url('common/close_dialog.png') no-repeat;
+    text-indent: -9999px;
+    width: 30px;
+    height: 30px;
+    top: -17px;
+    right: -17px;
+    z-index: 100;
+  }
+}
+
