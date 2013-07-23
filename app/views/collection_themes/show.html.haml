@@ -7,20 +7,21 @@
 - content_for :footer do
   = javascript_include_tag 'section/lite_collection_theme'
 
-#catalog
-  = render "menu", collection_theme_groups: @collection_theme_groups
-  #result
-    .collections_header
-      = image_tag @collection_theme.header_image, alt: @collection_theme.header_image_alt, title: @collection_theme.header_image_alt
-      = link_to("Assista ao vídeo >", "#",                                                                                                         |
-        { :class => "video_link", :rel => "#{@collection_theme.video_link}" }.                                                                     |
-        merge(@collection_theme.text_color ? { style: "color: #{@collection_theme.text_color}" } : {})) unless @collection_theme.video_link.blank? |
-      .video_description
-    = render "filters", search: @search
+= cache @search.cache_key do
+  #catalog
+    = render "menu", collection_theme_groups: @collection_theme_groups
+    #result
+      .collections_header
+        = image_tag @collection_theme.header_image, alt: @collection_theme.header_image_alt, title: @collection_theme.header_image_alt
+        = link_to("Assista ao vídeo >", "#",                                                                                                         |
+          { :class => "video_link", :rel => "#{@collection_theme.video_link}" }.                                                                     |
+          merge(@collection_theme.text_color ? { style: "color: #{@collection_theme.text_color}" } : {})) unless @collection_theme.video_link.blank? |
+        .video_description
+      = render "filters", search: @search
 
-    %section.container_product
-      %ul#products
-        = render "shared/searched_products", :products => @search.products
-      .loading
+      %section.container_product
+        %ul#products
+          = render "shared/searched_products", :products => @search.products
+        .loading
 
-    .pagination
+      .pagination
