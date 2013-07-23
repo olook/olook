@@ -14,4 +14,9 @@ class Category < EnumerateIt::Base
   def self.with_name name
     to_a.select{|category_array| category_array.first.pluralize.parameterize.match(name.parameterize)}.flatten.last
   end
+
+  def self.with_translate_name name
+    result_array = self.to_a.select{ |category| category.first.parameterize == name}.flatten
+    result_array.last
+  end
 end
