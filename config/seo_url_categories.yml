@@ -19,7 +19,6 @@ Sapato:
 - Sneaker
 - Sneacker
 - Bolsa Média
-- Sapato
 - Alpargata
 - Necessaire
 - Tênis
@@ -55,13 +54,11 @@ Acessório:
 - Necessaire
 - Cinto
 - Maxi Brinco
-- Acessório
 Bolsa:
 - Bolsa Grande
 - Bolsa Média
 - Bolsa Pequena
 - Maxi Bag
-- Bolsa
 - Média
 - Pasta
 - Bolsa Festa
@@ -83,7 +80,6 @@ Roupa:
 - Vestido
 - Saia
 - Shorts
-- Regata 
 - Regata
 - vestido
 - calça
@@ -97,7 +93,4 @@ Roupa:
 - Jaqueta
 - Sutiã
 - camisa
-- regata
 - camiseta
-- teste
-- '0'
