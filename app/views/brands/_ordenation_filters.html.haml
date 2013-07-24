@@ -1,4 +1,5 @@
 #filters_container
+  - params[:category] = filters_by('category', search, use_fields: [:brand])[0][0] if filters_by('category', search, use_fields: [:brand]).size == 1
   .filter
     = form_tag brand_path(parameters: params[:parameters]), method: 'get' do
 
