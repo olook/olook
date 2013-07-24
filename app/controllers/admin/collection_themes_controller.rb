@@ -58,8 +58,12 @@ class Admin::CollectionThemesController < Admin::BaseController
   end
 
   def import_create
-    AssociateProductWithCollectionThemeService.new(params[:collection_products_csv]).process!
-    redirect_to import_index_admin_collection_themes_path, notice: 'Adicionado as coleções com sucesso'
+    if params[:collection_products_csv].respond_to?(:read)
+      AssociateProductWithCollectionThemeService.new(params[:collection_products_csv].read).process!
+      redirect_to import_index_admin_collection_themes_path, notice: 'Adicionado as coleções com sucesso'
+    else
+      redirect_to import_index_admin_collection_themes_path, error: 'Arquivo não enviado!'
+    end
   end
 
 end
