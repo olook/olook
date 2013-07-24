@@ -49,9 +49,9 @@
       <dd><%= link_to image_tag("common/ico_security.png"), "http://www.trustlogo.com/ttb_searcher/trustlogo?v_querytype=W&v_shortname=SC4&v_search=http://www.olook.com.br/&x=6&y=5", target: '_blank' %></dd>
       <dd><%= render "shared/ebit/seal_footer" %></dd>
     </dl>
-    <p>© <%= Time.now.year %> - Olook. Todos os direitos reservados. A Olook respeita sua privacidade e de todos os seus clientes. Leia mais sobre a nossa <%= link_to "Política de Privacidade", terms_path %>.<br />
-Escritório: Rua Natividade, 72 - Vl. Nova Conceição, São Paulo - SP. Centro de distribuição: Avenida Ribeirão dos Cristais, 800, Jordanésia, Cajamar - SP. Galpão 10, módulo C e D<br />
-Olook Comércio Online de Moda Ltda  /  CNPJ 011.216.478/0001-70</p>
+    <p>© <%= Time.now.year %> - Olook. Todos os direitos reservados. A Olook respeita sua privacidade e de todos os seus clientes. Leia mais sobre a nossa <%= link_to "Política de Privacidade", terms_path %>.</p>
+<address>Escritório: Rua Natividade, 72 - Vl. Nova Conceição, São Paulo - SP. Centro de distribuição: Avenida Ribeirão dos Cristais, 800, Jordanésia, Cajamar - SP. Galpão 10, módulo C e D</address>
+<p>Olook Comércio Online de Moda Ltda  /  CNPJ 011.216.478/0001-70</p>
 
     <% unless ['home', 'survey'].include? params[:controller] || Rails.env.development? %>
                  <script data-cfasync="false" type='text/javascript'>/*{literal}<![CDATA[*/
