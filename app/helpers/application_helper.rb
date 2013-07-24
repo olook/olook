@@ -134,9 +134,9 @@ module ApplicationHelper
   # => ATTENTION
   # IF YOU NEED TO CHANGE ANY LINK DON'T (DONT!!!!!!!) FORGET ABOUT UPDATING THE G.A. TRACKING!!!!!
   #
-  def banner_for category_id
-
-    return link_to(image_tag('moments/banner_marca_olook.jpg'), '/colecoes/olook?utf8=%E2%9C%93&slug=olook&category_id=4&sort_filter=1&price=0-600&shoe_sizes[]=', onclick: track_event('Catalog', "ClickSideBannerFrom#{Category.key_for(@category_id).to_s.camelize}")) #if category_id.blank?
+  def banner_for category_name
+    category_id = Category.with_translate_name category_name
+    return link_to(image_tag('moments/banner_marca_olook.jpg'), '/colecoes/olook?utf8=%E2%9C%93&slug=olook&category_id=4&sort_filter=1&price=0-600&shoe_sizes[]=', onclick: track_event('Catalog', "ClickSideBannerFrom#{Category.key_for(category_id).to_s.camelize}")) #if category_id.blank?
 
      # if category_id == Category::SHOE
      #   link_to(image_tag('moments/j3.gif'), collection_theme_path("estilista-juliana-jabour"), onclick: track_event('Catalog', "ClickSideBannerFrom#{Category.key_for(Category::SHOE).to_s.camelize}", "Juliana Jabour"))
