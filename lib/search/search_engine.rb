@@ -12,7 +12,7 @@ class SearchEngine
   RETURN_FIELDS = [:subcategory,:name,:brand,:image,:retail_price,:price,:backside_image,:category,:text_relevance]
 
   SEARCHABLE_FIELDS = [:category, :subcategory, :color, :brand, :heel,
-                :care, :price, :size, :product_ids, :collection_theme,
+                :care, :price, :size, :product_id, :collection_theme,
                 :sort, :term]
   SEARCHABLE_FIELDS.each do |attr|
     define_method "#{attr}=" do |v|
