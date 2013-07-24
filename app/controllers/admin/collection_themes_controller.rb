@@ -39,7 +39,6 @@ class Admin::CollectionThemesController < Admin::BaseController
 
     if @collection_theme.update_attributes(params[:collection_theme])
       flash[:notice] = 'Coleção Temática foi atualizada com sucesso.'
-      flash[:blablabla] = {message: "123123", ids: [1,2,3]}
     else
       render "show"
     end
