@@ -22,7 +22,7 @@
         - if params[:subcategory].present?
           %li.clear_choice= link_to '[limpar]', collection_theme_path(@url_builder.remove_filter_of(:subcategory))
 
-    - unless filters_by("category", search, use_fields: [:collection_theme]).flatten.include? "acessório"
+    - unless filters_by("category", search, use_fields: [:collection_theme, :category]).flatten.include? "acessório"
       .filter
         %span.selected-type.txt-filter{ class: ("filter_selected" if params[:size].present?) } TAMANHO
         .tab_bg &nbsp;
