@@ -58,8 +58,7 @@ Olook::Application.routes.draw do
 
   #NEW COLLECTIONS
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
-  get '/colecoes/filter/*slug', to: "collection_themes#filter", as: "collection_theme_filter"
-  get '/colecoes/*slug', to: "collection_themes#show", as: "collection_theme"
+  get '/colecoes/:collection_theme(/*parameters)', to: "collection_themes#show", as: "collection_theme"
 
   # NEW COLLECTIONS - TODO
   get '/update_moment', to: "moments#update", as: "update_moment", constraints: { format: 'js' }
@@ -199,7 +198,12 @@ Olook::Application.routes.draw do
     resources :reports
 
     resources :collection_theme_groups
-    resources :collection_themes
+    resources :collection_themes do
+      collection do
+        get 'import' => "collection_themes#import", :as => "import_index"
+        post 'import_create'
+      end
+    end
     resources :highlights
     resources :highlight_campaigns
     resources :brands

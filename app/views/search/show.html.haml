@@ -1,7 +1,7 @@
 - content_for :head do
   = stylesheet_link_tag "new_structure/section/search"
 .search
-  - if @products.size == 0
+  - if @search.products.size == 0
     %h2
       %b
         Poxa, ainda não temos
@@ -27,16 +27,16 @@
       .pagination.topo
         = render "/shared/nav_bar_pagination", search: @search, link: search_path, other_parameters: @parameters
 
-    #filters= render "filters", search: @search, filters: @filters
+    #filters= render "filters", filters: parse_filters
     #search_result
       %ul.search-results-list
-        - @products.each do |product|
+        - @search.products.each do |product|
           = render "searched_product_item", product: product
 
       .pagination
         = render "/shared/nav_bar_pagination", search: @search, link: search_path, other_parameters: @parameters
 
-- if @products.size == 0
+- if @search.products.size == 0
   .other-products
     %p Enquanto isso, porque você não dá uma olhada em...
   .chaordic.mostpopular{"data-skin" => "MP-top-5"}

@@ -1,3 +1,4 @@
+@import 'new_structure/common/global_stuffs';
 /*! jQuery UI - v1.10.3 - 2013-05-09
 * http://jqueryui.com
 * Includes: jquery.ui.core.css, jquery.ui.autocomplete.css, jquery.ui.menu.css, jquery.ui.slider.css
@@ -46,6 +47,7 @@ box-shadow: 3px 3px #000; }
 .ui-slider-vertical .ui-slider-range-max{top:0}
 .ui-menu .ui-menu-item a.ui-state-focus, .ui-menu .ui-menu-item a.ui-state-active {color:#000;}
 
+.horizontal-slider .ui-slider-handle { width: 10px; }
 .price-range{float:left;margin-top:2px;}
 /* Fiquei na duvida em relacao ao merge, entao deixei comentado (Rafael)*/
 /* >>>>>>>>>HEAD */

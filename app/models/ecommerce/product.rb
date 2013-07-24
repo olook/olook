@@ -30,6 +30,7 @@ class Product < ActiveRecord::Base
 
   belongs_to :collection
   has_and_belongs_to_many :profiles
+  has_and_belongs_to_many :collection_themes
 
   has_many :gift_boxes_product, :dependent => :destroy
   has_many :gift_boxes, :through => :gift_boxes_product
