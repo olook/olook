@@ -330,9 +330,10 @@ footer {height:480px;clear:both;margin-top:60px;border-top: 1px #cbcbcb solid;
         }
       }
     }
-    p {color:#767676;font-size:10px;line-height: 13px;clear: both;padding:15px 0 0 0;text-align: center;
+    p {color:#767676;font-size:10px;line-height: 13px;clear: both;padding:0 0 5px;text-align: center;
       a{text-decoration: none;color: #ef3742;}
     }
+    address{margin-bottom:5px;font-size:10px;font-style:normal;text-align:center;color:#767676;}
   }
 }
 
