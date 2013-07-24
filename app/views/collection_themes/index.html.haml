@@ -1,8 +1,6 @@
 = render "shared/liquida_banner"
 - content_for :head do
-  = stylesheet_link_tag "new_structure/common/side_bar_menu"
   = stylesheet_link_tag "new_structure/section/collection_themes"
-  = stylesheet_link_tag "new_structure/section/lite_catalog"
   :javascript
     start_position = #{@search.range_values_for(:price)[:min] rescue 0};
     final_position = #{@search.range_values_for(:price)[:max] rescue 600};
