@@ -1,0 +1,70 @@
+/**************************
+BOX DE FILTROS SELECIONADOS
+ **************************/
+@import 'new_structure/common/global_stuffs';
+section.filters{
+  float:left;
+  width:763px;
+  margin:10px 0 30px;
+  color:#000;
+  border:solid 1px #A7A9AC;
+  padding:10px 10px 7px;
+  /*display:none;
+   */
+  p{
+    font-family:$avenir;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform:uppercase;
+    float:left;
+    margin-right:10px;
+    line-height:22px;
+
+    span{
+      margin-left:10px;
+    }
+  }
+
+  li{
+    float:left;
+    height:17px;
+    margin-right:10px;
+    text-transform:capitalize;
+    font-size:12px;
+    position:relative;
+    line-height:18px;
+    border:solid 1px #D9D9D9;
+    padding:0 4px;
+
+    span{
+      float:left;
+    }
+    a{
+      float:left;
+      text-decoration:none;
+      font-size:0;
+      line-height:0;
+      display:inline-block;
+      width:10px;
+      height:10px;
+      background:image-url('collections/sprite.png') -270px -119px no-repeat;
+      margin:2px 0 0 5px;
+    }
+    &.clean a{
+      display:inline-block;
+      height:14px;
+      overflow:hidden;
+      width:75px;
+      font-size:12px;
+      line-height:14px;
+      color:#000;
+      text-transform:none;
+      background-position: right -119px;
+      padding-right:3px;
+    }
+  }
+}
+/* adjust IE */
+html.win.ie section.filters li a{
+  margin-top:3px;
+}

@@ -436,6 +436,7 @@
         video_link: 'Link do Vídeo no Youtube'
         video_title: 'Título do Vídeo'
         text_color: 'Cor do Texto do link do vídeo no banner'
+        product_associate_ids: 'Ids dos produtos associados'
       credit_card:
         credit_card_number: "Número do cartão"
         expiration_date: "Validade (MM/AA)"

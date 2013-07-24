@@ -1,4 +1,4 @@
-<%= form_for([:admin,@collection_theme]) do |f| %>
+<%= form_for([:admin,@collection_theme], multipart: true) do |f| %>
   <% if @collection_theme.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@collection_theme.errors.count, "error") %> impediram essa coleção de ser salva:</h2>
@@ -49,6 +49,14 @@
   <div class="field">
     <%= f.label :video_link %><br />
     <%= f.text_field :video_link %>
+  </div>
+  <div class="field">
+    <%= f.label :product_associate_ids %><br />
+    <%= f.text_area :product_associate_ids, value: @collection_theme.product_ids.join(', ') %>
+  </div>
+  <div class="field">
+    <%= f.label :product_associate_ids_file %><br />
+    <%= f.file_field :product_associate_ids_file %>
   </div>
   <div class="actions">
     <%= f.submit %>

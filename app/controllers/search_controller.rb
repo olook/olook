@@ -2,7 +2,7 @@ class SearchController < ApplicationController
   respond_to :html
   layout "lite_application"
 
-  helper_method :create_filters
+  helper_method :parse_filters
 
   def show
     # params.merge!(SeoUrl.parse(params[:parameters], search: true))
@@ -20,11 +20,7 @@ class SearchController < ApplicationController
         .for_page(params[:page])
         .with_limit(48)
       
-      @products = @search.products
-
       @model_names = {}
-
-      @filters = parse_filters
 
       @stylist = Product.fetch_products :selection
 
@@ -54,7 +50,7 @@ class SearchController < ApplicationController
     def parse_filters
       category_tree = SeoUrl.all_categories
 
-      filters = SearchEngine.new(term: @q, brand: @brand, subcategory: @subcategory, color: @color).filters
+      filters = @search.filters
 
       return nil unless filters.grouped_products('subcategory')
 
@@ -66,17 +62,4 @@ class SearchController < ApplicationController
 
       category_tree
     end
-    
-    def create_filters(ignore_categories = false)
-      filters = SearchEngine.new(category: ignore_categories ? nil : params[:category]).filters
-      remove_care_products_from(filters)
-      filters
-    end
-
-    def remove_care_products_from(filters)
-      if filters.grouped_products('subcategory')
-        filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) }
-      end
-    end
-
 end

@@ -7,23 +7,16 @@ class CatalogsController < SearchController
   prepend_before_filter :verify_if_is_catalog
 
   def show
-    params.merge!(SeoUrl.parse(params[:parameters], params))
+    search_params = SeoUrl.parse(params)
     Rails.logger.debug("New params: #{params.inspect}")
 
-    if @campaign = HighlightCampaign.find_by_label(params[:cmp])
+    if params[:cmp].present? && @campaign = HighlightCampaign.find_by_label(params[:cmp])
       @campaign_products = SearchEngine.new(product_ids: @campaign.product_ids).with_limit(1000)
     end
 
-    @search = SearchEngine.new(category: params[:category],
-                               care: params[:care],
-                               subcategory: params[:subcategory],
-                               color: params[:color],
-                               heel: params[:heel],
-                               care: params[:care],
-                               price: params[:price],
-                               size: params[:size],
-                               brand: params[:brand],
-                               sort: params[:sort]).for_page(params[:page]).with_limit(params[:per_page])
+    @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
+    @url_builder = SeoUrl.new(search_params, "category", @search)
+
     @search.for_admin if current_admin
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     @pixel_information = params[:category]

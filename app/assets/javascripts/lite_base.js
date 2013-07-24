@@ -57,7 +57,8 @@ olook = o = {
     var $modal = $("div#modal.promo-olook"),
     h = a > 0 ? a : $("img",content).outerHeight(),
     w = l > 0 ? l : $("img",content).outerWidth(),
-    ml = -parseInt((w/2)), mt = -parseInt((h/2)),
+    ml = -parseInt((w/2)),
+    mt = -parseInt((h/2)),
     heightDoc = $(document).height(),
     _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()),
     _left=Math.max(0, (($(window).width() - w) / 2) + $(window).scrollLeft());
