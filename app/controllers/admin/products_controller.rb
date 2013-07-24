@@ -143,7 +143,7 @@ class Admin::ProductsController < Admin::BaseController
 
     @categories = [["Sapatos", Category::SHOE] , ['Bolsas', Category::BAG], ['Acessórios', Category::ACCESSORY], ['Roupas', Category::CLOTH]]
     @profiles = Profile.order(:name)
-    @brands = brands
+    @brands = Product.all.map(&:brand).compact.uniq
 
     @products = Product.includes(:details).includes(:profiles).includes(:collection)
                        .search(params[:q])
@@ -158,10 +158,6 @@ class Admin::ProductsController < Admin::BaseController
                        .order(sort_column + " " + sort_direction)
                        .order("collection_id desc, category, name")
                        .paginate(page: params[:page], per_page: 10)
-  end
-
-  def brands
-    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../../config/seo_url_brands.yml' ) ) ) )
   end
 end
 
