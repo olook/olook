@@ -2,8 +2,8 @@
 class AssociateProductWithCollectionThemeService
   attr_accessor :response_keys, :product_ids
 
-  def initialize(file)
-    @lines = file.tempfile.readlines.map{ |r| r.strip}
+  def initialize(filecontent)
+    @lines = filecontent.split(/[\n\r]/).map{ |r| r.strip}
     header_row = @lines.shift
     header = header_row.split("\t")
     @product_index = header.index('CodigoProduto')
@@ -20,7 +20,7 @@ class AssociateProductWithCollectionThemeService
       product = products[product_id.to_i]
       next unless product
       cts = collection_theme_ids.map { |id| collection_themes[id.to_i] }.compact
-      product.collection_themes = cts
+      product.collection_themes = (cts.to_a | product.collection_themes.to_a)
     end
   end
 
