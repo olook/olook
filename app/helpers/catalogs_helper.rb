@@ -10,15 +10,22 @@ module CatalogsHelper
     text += " (#{amount})" if amount
     class_hash = selected ? {class: "selected"} : {}
     link+=search_param
+    text = titleize_without_pronoum(text)
+    link_to(link, class_hash) do
+      content_tag(:span, text, class:"txt-#{span_class}")
+    end
+  end
+
+  def titleize_without_pronoum(text)
     textarr = text.split(' ')
     if textarr.size > 1
       f = textarr.shift.capitalize
       textarr.map! { |w| DOWNCASE_WORDS.include?(w.downcase) ? w.downcase : w.capitalize  }
       text = [f, textarr].flatten.join(' ')
+    else
+      text.capitalize!
     end
-    link_to(link, class_hash) do
-      content_tag(:span, text, class:"txt-#{span_class}")
-    end
+    text
   end
 
   def current_section_link_to(link, selected=false)
