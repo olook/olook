@@ -31,7 +31,7 @@
         / local onde o mostpopular será exibido
         .chaordic.mostpopular
 
-      = render "ordenation_filters"
+      = render "ordenation_filters", search: @search, url_builer: @url_builder
       = render 'current_section', search: @search
 
       %section.container_product
