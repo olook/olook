@@ -10,7 +10,6 @@
 <div class="header_login">
 	<!-- <h1>Já faz parte? <span>Entre</span></h1> -->
 	<h2><%= image_tag "landing_page/olook_logo.png", :title => "Olook" %></h2>
-	<%= image_tag "landing_page/top_infos.jpg", :title => "Olook", :class => "bonus" %>
 </div>
 <section class="landing-content">
   <div class="registration-form">
@@ -33,9 +32,9 @@
   <% end %>
   </div>	
 </section>
-<div class="tv">
+<!-- <div class="tv">
 <%=link_to (image_tag "landing_page/imprensa.jpg"), "/olook-na-imprensa", :title => "Olook" %>
-</div>
+</div> -->
 
 <% content_for :footer do %>
  <%= javascript_include_tag "campaign_emails" if params[:ab_t].present? %>
