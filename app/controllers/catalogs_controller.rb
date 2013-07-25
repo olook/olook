@@ -1,9 +1,6 @@
 # -*- encoding : utf-8 -*-
-class CatalogsController < SearchController
+class CatalogsController < ApplicationController
   layout "lite_application"
-  respond_to :html, :js
-
-  helper_method :create_filters
   prepend_before_filter :verify_if_is_catalog
 
   def show
@@ -27,7 +24,7 @@ class CatalogsController < SearchController
   private
     def verify_if_is_catalog
       #TODO Please remove me when update Rails version
-      #We can use constraints but this version has a bug
+      #We can use constraints but this version (3.2.13) has a bug
 
       if (/^(sapato|bolsa|acessorio|roupa)/ =~ params[:category]).nil?
         render :template => "/errors/404.html.erb", :layout => 'error', :status => 404, :layout => "lite_application"
