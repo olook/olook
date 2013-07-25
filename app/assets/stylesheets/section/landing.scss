@@ -20,6 +20,7 @@
   width: 990px;
   height: 485px;
   margin: 0 auto;
+  margin-top: 20px;
   background: image-url('landing_page/blue_olook.jpg') no-repeat;
   
   .infos{display:none;position:absolute;top:58px;right:74px;}
@@ -63,7 +64,7 @@
       text-align: center;
       &.bt-enviar{
         background: image-url('landing_page/bt_quiz_entre.png') no-repeat 0 0;
-        width: 144px;
+        width: 204px;
         height: 37px;
         border: none;
         &:hover{
