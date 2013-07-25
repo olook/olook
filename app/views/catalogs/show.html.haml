@@ -18,10 +18,9 @@
       = render "filters", search: @search
       - if params[:category]
         .invite_friends
-          =banner_for params[:category]
+          = banner_for(params[:category], position: :sidetop)
         .promo_brands
-          =link_to "/roupa/eclectic-leeloo-mandi?utf8=✓&por=menor-preco" do
-            =image_tag 'catalog/marcas_160X600.gif'
+          = banner_for(params[:category], position: :sidebotton)
 
     #result
       - unless @search.has_any_filter_selected? || params[:cmp].present?
@@ -51,5 +50,4 @@
 
 
       .banner
-        = link_to new_survey_path, onclick: track_event("Catalogo#{params[:category].try(:capitalize)}", 'BottomBanner', '') do
-          = image_tag 'catalog/banner_quiz.jpg'
+        = banner_for(params[:category], position: :botton)
