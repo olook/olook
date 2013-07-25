@@ -6,6 +6,10 @@ module BannersHelper
     link_to('Roupas', "/catalogo/#{catalog}?utf8=%E2%9C%93&por=maior-desconto&cmp=liquida_#{catalog}", class: Category.for_class_name(catalog), onclick: track_event('Catalog', action_event, catalog))
   end
 
+  #
+  # => ATTENTION
+  # IF YOU NEED TO CHANGE ANY LINK DON'T (DONT!!!!!!!) FORGET ABOUT UPDATING THE G.A. TRACKING!!!!!
+  #
   def banner_for(category_name, options={})
     category_id = Category.with_name category_name
     if options[:position] == :sidetop
@@ -13,7 +17,7 @@ module BannersHelper
       link_to(image_tag('moments/banner_marca_olook.jpg'), path, onclick: track_event('Catalog', "SideBanner1From#{Category.key_for(category_id).to_s.camelize}", path))
     elsif options[:position] == :sidebotton
       path = '/roupa/eclectic-leeloo-mandi?utf8=✓&por=menor-preco'
-      link_to(image_tag('catalog/marcas_160X600.gif'), '/roupa/eclectic-leeloo-mandi?utf8=✓&por=menor-preco', onclick: track_event('Catalog', "SideBanner2From#{Category.key_for(category_id).to_s.camelize}", path))
+      link_to(image_tag('catalog/marcas_160X600.gif'), path, onclick: track_event('Catalog', "SideBanner2From#{Category.key_for(category_id).to_s.camelize}", path))
     elsif options[:position] == :botton
       link_to(image_tag('catalog/banner_quiz.jpg'), new_survey_path , onclick: track_event('Catalog', "BottomBannerFrom#{Category.key_for(category_id).to_s.camelize}", new_survey_path))
     else
