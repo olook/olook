@@ -19,6 +19,7 @@ Sapato:
 - Sneaker
 - Sneacker
 - Bolsa Média
+- Sapato
 - Alpargata
 - Necessaire
 - Tênis
@@ -54,11 +55,13 @@ Acessório:
 - Necessaire
 - Cinto
 - Maxi Brinco
+- Acessório
 Bolsa:
 - Bolsa Grande
 - Bolsa Média
 - Bolsa Pequena
 - Maxi Bag
+- Bolsa
 - Média
 - Pasta
 - Bolsa Festa
@@ -86,7 +89,6 @@ Roupa:
 - Top cropped
 - Macacão
 - Colete
-- Lingerie
 - Blazer
 - Top Cropped
 - Casaco
@@ -94,3 +96,7 @@ Roupa:
 - Sutiã
 - camisa
 - camiseta
+- teste
+- '0'
+Lingerie:
+- Lingerie
