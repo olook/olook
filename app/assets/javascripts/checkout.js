@@ -89,7 +89,6 @@ function showAboutSecurityCode(){
 
 //SHOW TOTAL
 function showTotal(){
-
   if($("div.billet").is(':visible')){
     $("span#total,#debit_discount_cart").fadeOut('fast');
     $("span#total_billet").delay(200).fadeIn();
