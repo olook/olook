@@ -2,24 +2,23 @@
 @import 'partials/fonts';
 
 #how_to{
-  min-height: 370px;
-  margin: 20px auto 50px;
+  min-height: 280px;
+  margin: 20px auto 0 10px;
   div#description {
-    width: 480px;
+    width: 100%;
     overflow: auto;
     float: left;
     > h1 {
       font-family: $johnston;
       font-size: 34px;
       text-transform: uppercase;
-      width: 410px;
       display: block;
       margin: 0 0 20px;
     }
     h2 {
       font-family: $kepler;
       font-size: 20px;
-      width: 440px;
+      width: 100%;
       margin: 0 0 25px;
       .txtpink{color: $pink;
       }
@@ -75,7 +74,7 @@
 #steps {
   width: 100%;
   overflow: hidden;
-  margin: 0 auto;
+  margin: 0 auto 0 10px;
   h1 {
     font-family: $avenir;
     font-size: 29px;
