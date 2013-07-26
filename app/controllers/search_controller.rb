@@ -5,7 +5,7 @@ class SearchController < ApplicationController
   helper_method :parse_filters
 
   def show
-    # params.merge!(SeoUrl.parse(params[:parameters], search: true))
+    params.merge!(SeoUrl.parse(params))
     Rails.logger.debug("New params: #{params.inspect}")
     @q = params[:q] || ""
 
@@ -19,15 +19,11 @@ class SearchController < ApplicationController
       @search = SearchEngine.new(term: @q, brand: @brand, subcategory: @subcategory)
         .for_page(params[:page])
         .with_limit(48)
-      
+      @url_builder = SeoUrl.new(params, "term", @search)
+
       @model_names = {}
 
       @stylist = Product.fetch_products :selection
-
-      @parameters = "q=#{ params[:q] }"
-      @parameters << "&subcategory=#{ params[:subcategory] }"
-      @parameters << "&brand=#{ params[:brand] }"
-
     end
 
   end
@@ -45,21 +41,5 @@ class SearchController < ApplicationController
 
     def catalogs_pages
       %w[roupa acessorio sapato bolsa]
-    end
-
-    def parse_filters
-      category_tree = SeoUrl.all_categories
-
-      filters = @search.filters
-
-      return nil unless filters.grouped_products('subcategory')
-
-      filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.include?(c) }
-
-      category_tree.each{|k,v| v.delete_if{|subcategory| !filters.grouped_products('subcategory').include?(subcategory)} }
-
-      category_tree["Marcas"] = filters.grouped_products('brand_facet').keys
-
-      category_tree
     end
 end
