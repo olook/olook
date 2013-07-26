@@ -102,6 +102,21 @@ describe SearchEngine do
       it { expect(subject["subcategory"]).to eq(['somesubcategory', 'other_sub']) }
       it { expect(subject["color"]).to eq(['somecolor']) }
 
+      context "removing filter" do
+
+        let(:search) { described_class.new(category: "SomeCategory", subcategory: "SomeSubcategory-OtherSubcategory", color: "SomeColor") }
+        subject { search.filters_applied(:subcategory, "SomeSubcategory") }
+
+        it { expect(subject[:category]).to eq(['somecategory']) }
+        it { expect(subject[:subcategory]).to eq(["othersubcategory"]) }
+        it { expect(subject[:color]).to eq(['somecolor']) }
+
+        it { expect(subject["category"]).to eq(['somecategory']) }
+        it { expect(subject["subcategory"]).to eq(["othersubcategory"]) }
+        it { expect(subject["color"]).to eq(['somecolor']) }
+
+      end
+
       context "with accents" do
         subject { search.filters_applied(:subcategory, "óculos") }
         it { expect(subject[:subcategory]).to eq(['somesubcategory', 'oculos']) }
