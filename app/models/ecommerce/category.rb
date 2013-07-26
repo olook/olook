@@ -5,7 +5,8 @@ class Category < EnumerateIt::Base
     :bag        => 2,
     :accessory  => 3,
     :cloth      => 4,
-    :lingerie   => 5
+    :lingerie   => 5,
+    :beachwear  => 6
   )
 
   def self.list_of_all_categories

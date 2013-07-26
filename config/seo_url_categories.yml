@@ -18,8 +18,6 @@ Sapato:
 - Mocassim
 - Sneaker
 - Sneacker
-- Bolsa Média
-- Sapato
 - Alpargata
 - Necessaire
 - Tênis
@@ -55,13 +53,11 @@ Acessório:
 - Necessaire
 - Cinto
 - Maxi Brinco
-- Acessório
 Bolsa:
 - Bolsa Grande
 - Bolsa Média
 - Bolsa Pequena
 - Maxi Bag
-- Bolsa
 - Média
 - Pasta
 - Bolsa Festa
@@ -93,10 +89,14 @@ Roupa:
 - Top Cropped
 - Casaco
 - Jaqueta
-- Sutiã
 - camisa
 - camiseta
-- teste
-- '0'
 Lingerie:
 - Lingerie
+- Sutiã
+"Moda Praia":
+- Biquini
+- Maios
+- Saída de Praia
+- Shorts
+- Vestido
