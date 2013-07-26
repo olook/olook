@@ -40,6 +40,7 @@
   .other-products
     %p Enquanto isso, porque você não dá uma olhada em...
   .chaordic.mostpopular{"data-skin" => "MP-top-5"}
+  - @stylist = Product.fetch_products :selection
   = render "home/stylists"
 = render "home/boxes"
 = render "home/products_categories"
