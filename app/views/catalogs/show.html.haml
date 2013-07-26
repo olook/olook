@@ -31,7 +31,7 @@
         / local onde o mostpopular será exibido
         .chaordic.mostpopular
 
-      = render "ordenation_filters", search: @search, url_builer: @url_builder
+      = render "ordenation_filters", search: @search, url_builder: @url_builder
       = render 'current_section', search: @search
 
       %section.container_product
@@ -46,8 +46,7 @@
         .loading
 
       .pagination
-        = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: catalog_path }
-
+        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(params[:category], @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
 
       .banner
         = banner_for(params[:category], position: :botton)

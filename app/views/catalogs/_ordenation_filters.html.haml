@@ -7,5 +7,6 @@
       = select_tag('por', options_for_select({"NOSSA SELEÇÃO" => 0, "MENOR PREÇO" => "menor-preco", "MAIOR PREÇO" => "maior-preco", "MAIOR DESCONTO" => "maior-desconto"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
 
   .pagination.topo
-  = render "shared/nav_bar_pagination", search: search, link: lambda{ |hash| catalog_path(params[:category], url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
+    - binding.pry
+    = render "shared/nav_bar_pagination", search: search, url_builder: url_builder, link: lambda{ |hash| catalog_path(params[:category], url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
 
