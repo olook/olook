@@ -72,7 +72,7 @@ function setButton(){
   el = $("#cart-box").height();
   h = el + 120;
 
-  $("#new_checkout .send_it").css("top", h).fadeIn();  
+  $("#new_checkout .send_it").css("top", h).fadeIn();
 
   if($('input.send_it').size() > 0)
     return helpLeft2 = $('input.send_it').offset().left;
@@ -184,14 +184,14 @@ $(function() {
   };
   showPaymentType();
 
-  $(".payment_type input").click(function(){  	
+  $(".payment_type input").click(function(){
 	  showPaymentType();
 	  $(".payment_type").siblings("div").find("input:checked").removeAttr("checked");
 	  $(".payment_type").siblings("div").find("input[type='text']").val('');
 	  $(".payment_type").siblings("div").find("span.selected").removeClass("selected");
 
   })
-	
+
 
   //SELECT CARD
   var cards = $("ol.cards li span");
