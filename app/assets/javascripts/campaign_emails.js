@@ -1,3 +1,4 @@
+if($("#ab_t").val() == null) {
 if($(".box-remember.success").length > 0){
 	w = 520, h = 360, ml = -(w/2), mt = -(h/2);
 	parent.top.$("#modal-campaign").css({
@@ -32,11 +33,12 @@ if($(".box-remember.success").length > 0){
 		"margin-left" : ml+"px"
 	}).delay(200).fadeIn();
 }
+}
 var flag;
 function checkEmail(e) {
 	var email = $('#campaign_email_email').val();
 	var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-	if (!filter.test(email) || email === 'seunome@email.com.br'){
+	if (!filter.test(email) || email === 'seunome@email.com.br' || email === 'Informe seu email aqui'){
 		e.preventDefault();
 		$('.error').fadeIn();
 		email.focus;
@@ -50,7 +52,7 @@ function checkEmail(e) {
 
 $(function(){
     $('#campaign_email_email').focus(function(){
-	if($(this).val() == 'seunome@email.com.br')
+	if($(this).val() == 'seunome@email.com.br' || $(this).val() == 'Informe seu email aqui')
 	$(this).val('');
     }).focusout(function(){
 	if($(this).val() == '')
@@ -61,24 +63,25 @@ $(function(){
 	checkEmail(e);
     })
 
-    $(".close, .btn-continue, .close_pink").bind("click", function(){
-	parent.top.$("#modal-campaign,#overlay-campaign").fadeOut();
-
-	if(typeof parent.top.showCartSummary == 'function') {
-	    parent.top.showCartSummary();
-	} else if(typeof parent.top.o == 'object' && typeof parent.top.o.cartShow == 'function') {
-	    parent.top.o.cartShow();
-	}
-	// _gaq.push(['_trackEvent', 'Modal', 'Close', '']);
-	if($(".dont_show").is(":checked")){
-	    parent.top.dontShow();
-	}
+    $(".close, .btn-continue, .close_pink").on("click", function(){
+    	parent.top.$("#modal-campaign,#overlay-campaign").fadeOut();
+      parent.top.criaCookieAB("ms1","1", 200);
+      
+    	if(typeof parent.top.showCartSummary == 'function') {
+    	    parent.top.showCartSummary();
+    	} else if(typeof parent.top.o == 'object' && typeof parent.top.o.cartShow == 'function') {
+    	    parent.top.o.cartShow();
+    	}
+    	// _gaq.push(['_trackEvent', 'Modal', 'Close', '']);
+    	if($(".dont_show").is(":checked")){
+    	    parent.top.dontShow();
+    	}
     })
-
+    
 
     $("input[type=submit]").click(function(){
 	_gaq.push(['_trackEvent', 'Modal', 'Submit', '', , true]);
-	if(flag==true)
+	if(flag==true )
 	parent.top.$("#modal-campaign").fadeOut();
     if($(".dont_show").is(":checked")){
 	parent.top.dontShow();

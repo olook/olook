@@ -1,0 +1,36 @@
+@import 'new_structure/common/global_stuffs';
+.pagination{
+  text-align:center;
+  clear:both;
+
+  &.topo{
+    clear:none;
+    float:right;
+    margin:4px 3px 0 0;
+  }
+  a{
+    display:inline-block;
+    font:normal 13px Verdana, Arial, sans-serif;
+    text-decoration:none;
+    color:#A7A9AB;
+    height:19px;
+    line-height:22px;
+    margin:0 3px;
+
+    &.anterior, &.proximo{
+      width:10px;
+      background:image-url('catalog/sprite.png') no-repeat 2px -112px;
+      font-size:0;
+    }
+    &.proximo{
+      background-position:0 -137px;
+    }
+    &.current{
+      color:#000 !important;
+    }
+    &:hover{
+      color:$base_color;
+    }
+  }
+}
+

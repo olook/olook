@@ -28,7 +28,6 @@ class Admin::CollectionThemesController < Admin::BaseController
 
   def create
     @collection_theme = CollectionTheme.new(params[:collection_theme])
-
     if @collection_theme.save
       flash[:notice] = 'Coleção Temática foi criada com sucesso.'
     end
@@ -40,6 +39,8 @@ class Admin::CollectionThemesController < Admin::BaseController
 
     if @collection_theme.update_attributes(params[:collection_theme])
       flash[:notice] = 'Coleção Temática foi atualizada com sucesso.'
+    else
+      render "show"
     end
     respond_with :admin, @collection_theme do |format|
       format.js { render :update }
@@ -51,6 +52,18 @@ class Admin::CollectionThemesController < Admin::BaseController
     @collection_theme.destroy
     flash[:notice] = 'Coleção Temática destruída com sucesso.'
     respond_with :admin, @collection_theme
+  end
+
+  def import
+  end
+
+  def import_create
+    if params[:collection_products_csv].respond_to?(:read)
+      AssociateProductWithCollectionThemeService.new(params[:collection_products_csv].read).process!
+      redirect_to import_index_admin_collection_themes_path, notice: 'Adicionado as coleções com sucesso'
+    else
+      redirect_to import_index_admin_collection_themes_path, error: 'Arquivo não enviado!'
+    end
   end
 
 end

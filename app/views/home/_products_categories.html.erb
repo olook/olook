@@ -1,12 +1,12 @@
 <div id="products_categories">
   <h1>O que você quer ver hoje?</h1>
   <ul>
-    <li class="blusa"><%= link_to "Blusa", "/roupas?cloth_subcategories[]=blusa"%></li>
-    <li class="camisa"><%= link_to "Camisa", "/roupas?cloth_subcategories[]=camisa" %></li>
-    <li class="calca"><%= link_to "Calça", "/roupas?cloth_subcategories[]=calca" %></li>
-    <li class="vestido"><%= link_to "Vestido", "/roupas?cloth_subcategories[]=vestido" %></li>
+    <li class="blusa"><%= link_to "Blusa", catalog_path('roupa', parameters: "blusa") %></li>
+    <li class="camisa"><%= link_to "Camisa", catalog_path('roupa', parameters: "camisa") %></li>
+    <li class="calca"><%= link_to "Calça", catalog_path('roupa', parameters: "calca") %></li>
+    <li class="vestido"><%= link_to "Vestido", catalog_path("roupa", parameters: "vestido") %></li>
     <li class="anabela"><%= link_to "Anabela", anabelas_path %></li>
-    <li class="bota"><%= link_to "Bota", "/sapatos?shoe_subcategories[]=bota" %></li>
+    <li class="bota"><%= link_to "Bota", catalog_path('sapato', parameters: 'bota') %></li>
     <li class="sapatilha"><%= link_to "Sapatilha", sapatilhas_path %></li>
     <li class="scarpin"><%= link_to "Scarpin", scarpins_path %></li>
     <li class="sneaker"><%= link_to "Sneaker", sneakers_path %></li>

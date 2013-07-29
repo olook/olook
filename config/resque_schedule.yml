@@ -40,15 +40,15 @@ update_braspag_responses:
   queue: payments
   description: "Processa respostas de pagamento Braspag"
 
-userbase_with_auth_token_and_credits:
-  cron: "0 2 * * *"
-  class: MarketingUploaderWorker
-  queue: marketing_uploader
-  args:
-    - userbase_with_auth_token_and_credits
-    - basegeral_atualizada13.csv
-    - false
-  description: "Cria arquivo de importação para allinemail"
+# userbase_with_auth_token_and_credits:
+#   cron: "0 2 * * *"
+#   class: MarketingUploaderWorker
+#   queue: marketing_uploader
+#   args:
+#     - userbase_with_auth_token_and_credits
+#     - basegeral_atualizada13.csv
+#     - false
+#   description: "Cria arquivo de importação para allinemail"
 
 campaign_emails:
   cron: "0 2 * * *"
@@ -134,6 +134,17 @@ userbase_with_source_and_credits_exacttarget:
     - true
     - exact_target.yml
   description: "Cria e envia arquivo com base de usuários com creditos para ftp do exact target"
+
+post_sale_userbase:
+  cron: "0 5 * * *"
+  class: MarketingUploaderWorker
+  queue: marketing_uploader
+  args:
+    - post_sale_userbase
+    - post_sale_userbase-%Y-%m-%d.csv
+    - true
+    - exact_target.yml
+  description: "Cria e envia arquivo com base de usuários com compras entregues para ftp do exact target"
 
 facebook_friends_list:
   cron: "0 2 * * 0"

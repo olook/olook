@@ -4,6 +4,7 @@
 @import 'partials/social';
 @import 'partials/footer';
 @import 'new_structure/partials/liquida';
+@import 'new_structure/common/modal_footer';
 
 body {
   #error_explanation {
@@ -338,7 +339,16 @@ body {
       }
 
       .form_content {
-        margin: 0 0 0 85px;
+        margin: 0 0 0 0;
+        input[type='submit']{
+          text-indent: 9999px;
+          background: image-url('common/resend_pass.png') no-repeat 0 0px;
+          width: 295px;
+          height: 69px;
+          border: 0;
+          margin-left: 20px;
+          &:hover{background: image-url('common/resend_pass.png') no-repeat 0 -72px;}
+        }
       }
 
       form {

@@ -19,7 +19,6 @@
     <%- unless @hide_fb_page_id -%>
       <meta property="fb:page_id" content="157293541026960" />
     <%- end -%>
-    <meta property="fb:admins" content="100002490760020" />
 
     <% if Setting.use_vwo %>
       <!-- VWO -->
@@ -125,6 +124,7 @@
        </div>
 
        <%= render(:partial => "shared/footer") %>
+       <%= render(:partial => "shared/footer_bar") %>
 
        <!-- Modals -->
        <div id="modal" class="promo-olook"></div>

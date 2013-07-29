@@ -1,5 +1,6 @@
 @import 'new_structure/common/global_stuffs';
 @import 'new_structure/partials/liquida';
+@import 'new_structure/common/modal_footer';
 
 /*------------------
 ==== CSS RESET ====
@@ -358,3 +359,5 @@ button.close{position:absolute;cursor:pointer;font-size:20px;background: image-u
 
 /* AJUSTE FACEBOOK IFRAME */
 .fb-button{height:20px !important;overflow:hidden !important;}
+
+.watermelon {color:#ef3742;}

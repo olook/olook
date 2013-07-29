@@ -3,13 +3,13 @@
     %li=image_tag "common/sale.jpg"
     %li
       %p
-        = link_to 'Roupas', '/catalogo/roupa?utf8=%E2%9C%93&por=maior-desconto&cmp=liquida_roupa', :class => "cloth"
+        = top_banner 'roupa', params[:category]
     %li
-      %p 
-        = link_to 'Sapatos', '/catalogo/sapato?utf8=%E2%9C%93&por=maior-desconto&cmp=liquida_sapato', :class => "shoes"
+      %p
+        = top_banner 'sapato', params[:category]
     %li
-      %p 
-        = link_to 'Bolsas', '/catalogo/bolsa?utf8=%E2%9C%93&por=maior-desconto&cmp=liquida_bolsa', :class => "bags"
+      %p
+        = top_banner 'bolsa', params[:category]
     %li
-      %p 
-        = link_to 'Acessórios', '/catalogo/acessorio?utf8=%E2%9C%93&por=maior-desconto&cmp=liquida_acessorio', :class => "accessory"
+      %p
+        = top_banner 'acessorio', params[:category]

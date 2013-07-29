@@ -19,6 +19,9 @@ describe Product do
     it { should respond_to :remove_freebie }
   end
 
+  describe "association" do
+    it { should have_and_belong_to_many(:collection_themes) }
+  end
   describe 'scopes' do
     describe ".with_brand" do
       let!(:product_with_given_brand) { FactoryGirl.create(:shoe, :casual, brand: "Some Brand") }
