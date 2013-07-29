@@ -93,7 +93,7 @@ class SeoUrl
       return_hash[:filter_params] = filter_params.join(FIELD_SEPARATOR)
       return_hash[:order_params] = post_parameters
 
-      return_hash.delete(@current_key.to_sym)
+      return_hash.delete(@current_key.to_sym) if @current_key
       path = [ return_hash[:category], return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join(SearchEngine::MULTISELECTION_SEPARATOR)
       { parameters: [path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/') }.merge(return_hash[:order_params])
     end
