@@ -45,6 +45,15 @@ module CatalogsHelper
     end
   end
 
+  def subcategory_filters_by category, search, options={}
+    filters = search.filters(options)
+    facets = filters.grouped_products('subcategory')
+    return [] if facets.nil?
+    subs = Set.new(SeoUrl.all_categories[category].map {|s| s.parameterize })
+    facets.select! { |f| subs.include?(f.parameterize) }
+    facets.sort
+  end
+
   def filters_by filter, search, options={}
     filters = search.filters(options)
     facets = filters.grouped_products(filter)
