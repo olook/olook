@@ -1,7 +1,14 @@
-- filters.each do |k, v|
-  - unless v.blank?
+- Category.each_translation do |category_human|
+  - if (_filters = subcategory_filters_by(category_human, search)) && _filters.present?
     .filter
-      %p.title-category= k
+      %p.title-category= category_human
       %ul.subcategory-list
-        - v.each do |text|
-          %li= link_to(text.chomp.gsub('Ç', 'ç').downcase.titleize,search_path(search_params(k,text.chomp,params[:q])))
+        - _filters.each do |text, amount|
+          %li= filter_link_to(search_path(@url_builder.add_filter(:subcategory, text)), text.chomp, search.filter_selected?(:subcategory, text.chomp))
+
+- if (_filters = filters_by("brand_facet", search)) && _filters.present?
+  .filter
+    %p.title-category Marcas
+    %ul.subcategory-list
+      - _filters.each do |text, amount|
+        %li= filter_link_to(search_path(@url_builder.add_filter(:brand, text)), text.chomp, search.filter_selected?(:brand, text.chomp))

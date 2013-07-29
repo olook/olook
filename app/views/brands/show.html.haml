@@ -32,7 +32,7 @@
           %div.collections_header
             = image_tag(@brand.header_image, alt: @brand.header_image_alt, title: @brand.header_image_alt) if @brand
 
-      = render "ordenation_filters", search: @search
+      = render "ordenation_filters", search: @search, url_builder: @url_builder
 
       %section.container_product
         %ul#products
@@ -40,4 +40,4 @@
         .loading
 
       .pagination
-        = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: brand_path }
+        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| brand_path(params[:brand], @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
