@@ -1,0 +1,5 @@
+%section#side_bar_menu
+  %dl
+    %dt Marcas
+    - filters_by('brand_facet', search, use_fields: []).each do |text, amount|
+      %dd= link_to(text.chomp.gsub('Ç', 'ç').downcase.titleize, brand_path(text), class: search.filter_selected?(:brand, text.chomp) ? "selected" : "")

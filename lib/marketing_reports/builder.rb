@@ -11,8 +11,16 @@ module MarketingReports
                :campaign_emails,
                :userbase_with_source,
                :facebook_friends_list,
-               :userbase_with_source_and_credits
+               :userbase_with_source_and_credits,
+               :post_sale_userbase
                ]
+
+    SHIPPING_SERVICES = {
+        "TEX" => "Total Express",
+        "PAC" => "Correios",
+        "DLV" => "DLV",
+        nil => "Correios"
+      }               
 
     attr_accessor :csv
 
@@ -202,6 +210,15 @@ group by uc.user_id, ct.code
           if loyalty_credits > 0.0
             csv << [ u.email.chomp, u.first_name, gender, registration_source(u), registered_at(u).strftime("%d-%m-%Y"), profile, last_order_date, u.authentication_token, formated_loyalty_credits , formated_other_credits, formated_all_credits, last_loyalty_credit.try(:activates_at).try(:strftime, "%d-%m-%Y"), last_loyalty_credit.try(:expires_at).try(:strftime, "%d-%m-%Y") ]
           end
+        end
+      end
+    end
+
+    def generate_post_sale_userbase
+      @csv = CSV.generate do |csv|
+        csv << %w{email order_number first_name last_name delivery_type delivered_at expected_delivery_on auth_token}
+        Order.joins(:user).where("orders.state IN ('delivered', 'delivering')").find_each do |order|
+          csv << [order.user.email, order.id.to_s, order.user.first_name, order.user.last_name, SHIPPING_SERVICES[order.shipping_service_name], order.updated_at.strftime("%d-%m-%Y"), order.expected_delivery_on ? order.expected_delivery_on.strftime("%d-%m-%Y") : "", order.user.authentication_token]
         end
       end
     end

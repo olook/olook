@@ -14,4 +14,8 @@ class Category < EnumerateIt::Base
   def self.with_name name
     to_a.select{|category_array| category_array.first.pluralize.parameterize.match(name.parameterize)}.flatten.last
   end
+
+  def self.for_class_name name
+    key_for(self.with_name(name)).to_s.pluralize
+  end
 end

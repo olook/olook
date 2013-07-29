@@ -12,13 +12,18 @@
     <meta property="og:image" content="http:<%= image_path('gift/imagem_presentes_facebook.jpg') %>" />
 
 <% end %>
+<% content_for :data_layer do %>
+  <script type="text/javascript">
+    dataLayer.push({'Category': '<%= section_name @google_path_pixel_information %>'});
+  </script>
+<% end %>
 
 <% content_for :footer do %>
   <%= javascript_include_tag "gift" %>
 <% end %>
 
 <% content_for :full do %>
-  
+
   <div id="fb-root"></div>
 
 <!--   <div id="banner">

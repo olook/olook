@@ -7,7 +7,7 @@ class Admin::HighlightCampaignsController < Admin::BaseController
 
   def show
     @highlight_campaign = HighlightCampaign.find(params[:id])
-    @campaign_products = SearchEngine.new(product_ids: @highlight_campaign.product_ids).with_limit(1000)
+    @campaign_products = SearchEngine.new(product_id: @highlight_campaign.product_ids).with_limit(1000)
   end
 
   def new

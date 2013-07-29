@@ -2,36 +2,9 @@
 class BilletService
 
   def self.process_billets(file_name)
-    successful_array, unsuccessful_array = [],[]
     billet_numbers_array, successful_value = parse_file(file_name)
-    billet_numbers_array.each do |line_billet|
-    billet_id = line_billet[27..38].to_i.to_s
-
-      billet = Billet.find_by_id billet_id
-      if billet.blank?
-        unsuccessful_array << {id: billet_id, message: "Pedido não encontrado", order_number: ""}
-      elsif billet.state != "waiting_payment"
-        unsuccessful_array << {id: billet_id, message: "Estado '#{billet.state}' não elegível para autorização de pagamento", order_number: billet.try(:order).try(:number)}
-      elsif billet && billet.try(:total_paid) != line_billet[58..69].gsub(' ','').gsub('.', '').gsub(',','.').to_d
-        unsuccessful_array << {id: billet_id, message: "Valor pago não confere com o valor do boleto", order_number: billet.try(:order).try(:number)}
-      elsif line_billet[58..69].gsub(',','.').to_d > line_billet[98..107].gsub(',','.').to_d
-        unsuccessful_array << {id: billet_id, message: "Valor pago é menor que o valor do título", order_number: billet.try(:order).try(:number)}
-      else
-        begin
-          billet.authorize
-          successful_array << {id: billet_id, message: "OK", order_number: billet.try(:order).try(:number)}
-        rescue => e
-          Airbrake.notify(
-            :error_class   => "Admin::ProcessBilletFileWorker",
-            :error_message => "process_billets: the following error occurred: #{e.message}"
-          )
-          unsuccessful_array << {id: billet_id, message: "Problema na transição de status do boleto"}
-        end
-      end
-    end
-    { successful: successful_array, unsuccessful: unsuccessful_array, successful_value: successful_value }
+    sanitize_billets(billet_numbers_array, successful_value)
   end
-
 
   def self.save_file(file_content, file_name)
     fog_dir.files.create(key: file_name, body: file_content, public: false)
@@ -44,6 +17,42 @@ class BilletService
   end
 
   private
+
+    def self.sanitize_billets billets_array, successful_value
+      successful_array, unsuccessful_array = [],[]
+      billets_array.each do |line_billet|
+        billet_id = billet_info_id(line_billet)
+        billet = Billet.find_by_id billet_id
+        if billet.blank?
+          unsuccessful_array << {id: billet_id, message: "Pedido não encontrado", order_number: ""}
+        elsif billet.state != "waiting_payment"
+          unsuccessful_array << {id: billet_id, message: "Estado '#{billet.state}' não elegível para autorização de pagamento", order_number: billet.try(:order).try(:number)}
+        elsif billet && billet.try(:total_paid) != billet_info_value(line_billet)
+          unsuccessful_array << {id: billet_id, message: "Valor pago não confere com o valor do boleto", order_number: billet.try(:order).try(:number)}
+        else
+          begin
+            billet.authorize
+            successful_array << {id: billet_id, message: "OK", order_number: billet.try(:order).try(:number)}
+          rescue => e
+            Airbrake.notify(
+              :error_class   => "Admin::ProcessBilletFileWorker",
+              :error_message => "process_billets: the following error occurred: #{e.message}"
+            )
+            unsuccessful_array << {id: billet_id, message: "Problema na transição de status do boleto"}
+          end
+        end
+      end
+      { successful: successful_array, unsuccessful: unsuccessful_array, successful_value: successful_value }
+    end
+
+    def self.billet_info_id billet_info
+      billet_info[27..38].to_i.to_s
+    end
+
+    def self.billet_info_value billet_info
+      billet_info[98..107].gsub(' ','').gsub('.', '').gsub(',','.').to_d
+    end
+
     def self.parse_file(billet_file_name)
       file_content = read_file(billet_file_name)
       file_content.gsub!(/\r\n?/, "\n");

@@ -4,7 +4,7 @@
     <produto>
       <link><![CDATA[olook.com.br/produto/<%= product.id %>]]></link>
       <imagem><![CDATA[<%= full_image_path product.main_picture.try(:image) %>]]></imagem>
-      <nome><![CDATA[<%= product.name %>]]></nome>
+      <nome><![CDATA[<%= product.formatted_name %>]]></nome>
       <categoria><![CDATA[<%= full_category(product) %>]]></categoria>
       <descricao><![CDATA[<%= product.description %>]]></descricao>
       <valor><![CDATA[<%= number_with_precision(product.price, :precision => 2) %>]]></valor>

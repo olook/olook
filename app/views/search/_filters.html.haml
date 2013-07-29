@@ -4,4 +4,4 @@
       %p.title-category= k
       %ul.subcategory-list
         - v.each do |text|
-          %li= link_to(text.chomp,search_path(search_params(k,text.chomp,params[:q])))
+          %li= link_to(text.chomp.gsub('Ç', 'ç').downcase.titleize,search_path(search_params(k,text.chomp,params[:q])))

@@ -26,8 +26,9 @@ Olook::Application.routes.draw do
   match "/nossa-essencia", :to => "pages#our_essence", :as => "our_essence"
   match "/responsabilidade-social" => "pages#avc_campaign", :as => "responsabilidade_social"
 
-  match "/1anomuito" => "pages#um_ano_muito", :as => "um_ano_muito"
-
+  #match "/1anomuito" => "pages#um_ano_muito", :as => "um_ano_muito"
+  match "/1anomuito", :to => "pages#how_to", :as => "how_to"
+  
   #match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/duvidasfrequentes", :to => "pages#faq", :as => "duvidasfrequentes"
@@ -48,7 +49,7 @@ Olook::Application.routes.draw do
   # BRANDS
   match "/marcas", :to => "brands#index", :as => "new_brands"
 
-  match "/marcas/*parameters", :to => "brands#show", as: "brand"
+  match "/marcas/:brand(/*parameters)", :to => "brands#show", as: "brand"
 
   #LIQUIDATIONS
   get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
@@ -58,8 +59,7 @@ Olook::Application.routes.draw do
 
   #NEW COLLECTIONS
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
-  get '/colecoes/filter/*slug', to: "collection_themes#filter", as: "collection_theme_filter"
-  get '/colecoes/*slug', to: "collection_themes#show", as: "collection_theme"
+  get '/colecoes/:collection_theme(/*parameters)', to: "collection_themes#show", as: "collection_theme"
 
   # NEW COLLECTIONS - TODO
   get '/update_moment', to: "moments#update", as: "update_moment", constraints: { format: 'js' }
@@ -199,7 +199,12 @@ Olook::Application.routes.draw do
     resources :reports
 
     resources :collection_theme_groups
-    resources :collection_themes
+    resources :collection_themes do
+      collection do
+        get 'import' => "collection_themes#import", :as => "import_index"
+        post 'import_create'
+      end
+    end
     resources :highlights
     resources :highlight_campaigns
     resources :brands
@@ -344,6 +349,8 @@ Olook::Application.routes.draw do
     end
   end
 
+  match 'campaign_email_subscribe', to: "campaign_emails#subscribe", as: :subscribe_campaign_email
+
   #CHECKOUT
   resource :cart, :path => 'sacola', :controller => "cart/cart", :except => [:create] do
     resources :items, :to => 'cart/items'
@@ -397,8 +404,8 @@ Olook::Application.routes.draw do
   match '/acessorios-sapatos' => redirect('/sapato/conforto-amaciante-apoio%20plantar-impermeabilizante-palmilha-protecao%20para%20calcanhar'), as: 'shoe_accessories'
 
   # CATALOGO
-  match "/catalogo/*parameters", to: "catalogs#show"
-  match "/*parameters", to: "catalogs#show", as: "catalog"
+  match "/catalogo/:category(/*parameters)", to: "catalogs#show"
+  match "/:category(/*parameters)", to: "catalogs#show", as: "catalog"
 
 end
 

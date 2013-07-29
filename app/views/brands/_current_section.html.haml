@@ -5,23 +5,23 @@
       %span //
     %ul
       - search.selected_filters_for("subcategory").each do |sub|
-        %li= %( #{ sub } #{ current_section_link_to(catalog_path(SeoUrl.build_for_catalogs(search.filters_applied(:subcategory, sub))))}).html_safe
+        %li= %( #{ sub } #{ current_section_link_to(brand_path(params[:brand], SeoUrl.build_for('brand',search.filters_applied(:subcategory, sub))))}).html_safe
 
       - search.selected_filters_for("color").each do |col|
-        %li= %( #{ col } #{ current_section_link_to(catalog_path(SeoUrl.build_for_catalogs(search.filters_applied(:color, col))))}).html_safe
+        %li= %( #{ col } #{ current_section_link_to(brand_path(params[:brand], SeoUrl.build_for('brand',search.filters_applied(:color, col))))}).html_safe
 
       - search.selected_filters_for("heel").each do |_hee|
         - hee = _hee.gsub('heeluint:', '')
-        %li= %( #{ hee } cm #{ current_section_link_to(catalog_path(SeoUrl.build_for_catalogs(search.filters_applied(:heel, hee.gsub('..', '-')))))}).html_safe
+        %li= %( #{ hee } cm #{ current_section_link_to(brand_path(params[:brand], SeoUrl.build_for('brand',search.filters_applied(:heel, hee.gsub('..', '-')))))}).html_safe
 
       - search.selected_filters_for("care").each do |car|
-        %li= %( #{ car } #{ current_section_link_to(catalog_path(SeoUrl.build_for_catalogs(search.filters_applied(:care, car))))}).html_safe
+        %li= %( #{ car } #{ current_section_link_to(brand_path(params[:brand], SeoUrl.build_for('brand',search.filters_applied(:care, car))))}).html_safe
 
       - search.selected_filters_for("size").each do |size|
-        %li= %( #{ size } #{ current_section_link_to(catalog_path(SeoUrl.build_for_catalogs(search.filters_applied(:size, size))))}).html_safe
+        %li= %( #{ size } #{ current_section_link_to(brand_path(params[:brand], SeoUrl.build_for('brand',search.filters_applied(:size, size))))}).html_safe
 
       - search.selected_filters_for("brand").each do |brand|
-        %li= %( #{ brand } #{ current_section_link_to(catalog_path(SeoUrl.build_for_catalogs(search.filters_applied(:brand, brand))))}).html_safe
+        %li= %( #{ brand } #{ current_section_link_to(brand_path(params[:brand], SeoUrl.build_for('brand',search.filters_applied(:brand, brand))))}).html_safe
 
-      %li.clean= link_to "Limpar tudo", catalog_path(parameters: search.filter_value("category").first.to_s)
+      %li.clean= link_to "Limpar tudo", brand_path(params[:brand])
 
