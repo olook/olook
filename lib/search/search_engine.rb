@@ -88,9 +88,7 @@ class SearchEngine
 
   def filters_applied(filter_key, filter_value)
     filter_value = ActiveSupport::Inflector.transliterate(filter_value).downcase
-    filter_params = formatted_filters
-    filter_params[filter_key] ||= [filter_value.downcase]
-    filter_params = append_or_remove_filter(filter_key, filter_value, filter_params)
+    filter_params = append_or_remove_filter(filter_key, filter_value, formatted_filters)
     filter_params
   end
 
@@ -239,6 +237,7 @@ class SearchEngine
 
   private
     def append_or_remove_filter(filter_key, filter_value, filter_params)
+      filter_params[filter_key] ||= [filter_value.downcase]
       if filter_selected?(filter_key, filter_value)
         filter_params[filter_key] -= [ filter_value.downcase ]
       else
