@@ -1,4 +1,4 @@
-class BrandsController < SearchController
+class BrandsController < ApplicationController
   layout "lite_application"
   def index
   end

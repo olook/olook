@@ -87,36 +87,8 @@ class SearchEngine
   end
 
   def filters_applied(filter_key, filter_value)
-    filter_params = HashWithIndifferentAccess.new
     filter_value = ActiveSupport::Inflector.transliterate(filter_value).downcase
-    expressions.each do |k, v|
-      next if IGNORE_ON_URL[k]
-      filter_params[k] ||= []
-      if RANGED_FIELDS[k]
-        v.each do |_v|
-          /(?<min>\d+)\.\.(?<max>\d+)/ =~ _v.to_s
-          if k.to_s == 'price'
-            min = (min.to_d / 100.0).round
-            max = (max.to_d / 100.0).round
-          end
-          filter_params[k] << "#{min}-#{max}"
-        end
-      else
-        filter_params[k].concat v.map { |_v| _v.downcase }
-      end
-    end
-
-    if filter_params[filter_key]
-      if filter_selected?(filter_key, filter_value)
-        filter_params[filter_key] -= [ filter_value.downcase ]
-      else
-        filter_params[filter_key] << filter_value.downcase
-      end
-      filter_params[filter_key].uniq!
-    else
-      filter_params[filter_key] = [filter_value.downcase]
-    end
-
+    filter_params = append_or_remove_filter(filter_key, filter_value, formatted_filters)
     filter_params
   end
 
@@ -262,4 +234,38 @@ class SearchEngine
       filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) }
     end
   end
+
+  private
+    def append_or_remove_filter(filter_key, filter_value, filter_params)
+      filter_params[filter_key] ||= [filter_value.downcase]
+      if filter_selected?(filter_key, filter_value)
+        filter_params[filter_key] -= [ filter_value.downcase ]
+      else
+        filter_params[filter_key] << filter_value.downcase
+      end
+      filter_params[filter_key].uniq!
+      filter_params
+    end
+
+    def formatted_filters
+      filter_params = HashWithIndifferentAccess.new
+      expressions.each do |k, v|
+        next if IGNORE_ON_URL[k]
+        filter_params[k] ||= []
+        if RANGED_FIELDS[k]
+          v.each do |_v|
+            /(?<min>\d+)\.\.(?<max>\d+)/ =~ _v.to_s
+            if k.to_s == 'price'
+              min = (min.to_d / 100.0).round
+              max = (max.to_d / 100.0).round
+            end
+            filter_params[k] << "#{min}-#{max}"
+          end
+        else
+          filter_params[k].concat v.map { |_v| _v.downcase }
+        end
+      end
+
+      filter_params
+    end
 end
