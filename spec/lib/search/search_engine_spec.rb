@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe SearchEngine do
@@ -83,6 +84,43 @@ describe SearchEngine do
       subject { search.remove_filter :category }
 
       it { should eq(expected_parameters) }
+    end
+  end
+
+  describe '#filters_applied' do
+    it { expect(subject.filters_applied(:subcategory, "sub")).to be_a(Hash) }
+
+    context "adding a new value for a given key" do
+      let(:search) { described_class.new(category: "SomeCategory", subcategory: "SomeSubcategory", color: "SomeColor") }
+      subject { search.filters_applied(:subcategory, "Other_Sub") }
+
+      it { expect(subject[:category]).to eq(['somecategory']) }
+      it { expect(subject[:subcategory]).to eq(['somesubcategory', 'other_sub']) }
+      it { expect(subject[:color]).to eq(['somecolor']) }
+
+      it { expect(subject["category"]).to eq(['somecategory']) }
+      it { expect(subject["subcategory"]).to eq(['somesubcategory', 'other_sub']) }
+      it { expect(subject["color"]).to eq(['somecolor']) }
+
+      context "removing filter" do
+
+        let(:search) { described_class.new(category: "SomeCategory", subcategory: "SomeSubcategory-OtherSubcategory", color: "SomeColor") }
+        subject { search.filters_applied(:subcategory, "SomeSubcategory") }
+
+        it { expect(subject[:category]).to eq(['somecategory']) }
+        it { expect(subject[:subcategory]).to eq(["othersubcategory"]) }
+        it { expect(subject[:color]).to eq(['somecolor']) }
+
+        it { expect(subject["category"]).to eq(['somecategory']) }
+        it { expect(subject["subcategory"]).to eq(["othersubcategory"]) }
+        it { expect(subject["color"]).to eq(['somecolor']) }
+
+      end
+
+      context "with accents" do
+        subject { search.filters_applied(:subcategory, "óculos") }
+        it { expect(subject[:subcategory]).to eq(['somesubcategory', 'oculos']) }
+      end
     end
   end
 end
