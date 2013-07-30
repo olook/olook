@@ -1,25 +1,24 @@
 - if search.pages > 1
   - if search.has_previous_page?
-    = link_to "Página Anterior", "#{link}/#{params[:parameters]}?#{ format_search_query_parameters}&page=#{ search.previous_page}", title: "Página Anterior", class: "anterior"
+    = link_to "Página Anterior", link.call({page: search.previous_page}), title: "Página Anterior", class: "anterior"
 
   - if search.current_page_greater_or_eq_than_limit_link_pages?
-    = link_to "1", "#{link}/#{params[:parameters]}?#{ format_search_query_parameters }&page=1"
+    = link_to "1", link.call({page: 1})
 
   - if search.current_page_greater_than_limit_link_pages?
-    = link_to "...", "#{link}/#{params[:parameters]}?#{ format_search_query_parameters}&page=#{ search.last_three_pages }"
+    = link_to "...", link.call({page: search.last_three_pages})
 
   - search.previous_pages.each do |page|
-    = link_to page, "#{link}/#{params[:parameters]}?#{ format_search_query_parameters}&page=#{ page }"
+    = link_to page, link.call({page: page})
 
-  = link_to search.current_page, "#{link}/#{params[:parameters]}?#{ format_search_query_parameters}&page=#{ search.current_page }", class: "current"
+  = link_to search.current_page, link.call({page: search.current_page}), class: "current"
 
   - search.next_pages.each do |page|
-    = link_to page, "#{link}/#{params[:parameters]}?#{ format_search_query_parameters}&page=#{ page }"
-
+    = link_to page, link.call({page: page})
   - if search.has_at_least_three_more_pages?
-    = link_to "...", "#{link}/#{params[:parameters]}?#{ format_search_query_parameters}&page=#{ search.next_three_pages }"
+    = link_to "...", link.call({page: search.next_three_pages})
 
   - if search.has_next_page?
-    = link_to search.pages, "#{link}/#{params[:parameters]}?#{ format_search_query_parameters}&page=#{ search.pages }"
-    = link_to "Próxima Página", "#{link}/#{params[:parameters]}?#{ format_search_query_parameters}&page=#{ search.next_page}", title: "Próxima Página", class: "proximo"
+    = link_to search.pages, link.call({page: search.pages})
+    = link_to "Próxima Página", link.call({page: search.next_page}), title: "Próxima Página", class: "proximo"
 
