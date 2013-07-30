@@ -10,12 +10,13 @@ module Quiz
     private
 
     def url
+      binding.pry
       URI.parse "http://whatsyourstyle.olook.com.br:9000/v1/quizzes/1?api_token=#{auth_token}"
     end
 
     def auth_token
       config = YAML::load(File.open(FILE_DIR))
-      env = config[Rails.env]["environment"]
+      env = config[Rails.env]["auth_token"]
     end
   end
 end

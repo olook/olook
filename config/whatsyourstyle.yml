@@ -1,12 +1,8 @@
 development:
-  environment: "development"
   auth_token: "wmy47jY9_5ZwRWJKUHJ1ng"
 test:
-  environment: "test"
   auth_token: "wmy47jY9_5ZwRWJKUHJ1ng"
 staging:
-  environment: "staging"
   auth_token: "wmy47jY9_5ZwRWJKUHJ1ng"
 production:
-  environment: "production"
   auth_token: "wmy47jY9_5ZwRWJKUHJ1ng"
