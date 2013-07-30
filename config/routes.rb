@@ -4,6 +4,8 @@ require 'resque/server'
 Olook::Application.routes.draw do
 
 
+  get "whats_your_style/new"
+
   mount Resque::Server => "/admin/resque"
 
   #temp route to fix a wrong email
