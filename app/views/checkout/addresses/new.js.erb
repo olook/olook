@@ -4,4 +4,8 @@ $("#checkout_address").html("<%= escape_javascript(
 masks.cep();
 masks.tel(".tel_contato1");
 masks.tel(".tel_contato2");
+
+$('.uf').keyup(function(){
+    this.value = this.value.toUpperCase();
+});
 $("html, body").animate({scrollTop: 0}, 'fast');

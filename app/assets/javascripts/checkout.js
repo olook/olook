@@ -141,9 +141,7 @@ $(function() {
     });
   }
 
-  $('.uf').keyup(function(){
-      this.value = this.value.toUpperCase();
-  });
+ 
   
   $("div.box-step-two #checkout_credits_use_credits").change(function() {
     $("#cart-box #credits_used").hide();
