@@ -1,7 +1,8 @@
 require 'spec_helper'
 
-describe Quiz::WhatsYourStyle do
+describe WhatsYourStyle do
   describe "#quiz" do
-    it { expect(subject.quiz).to be_a(JSON) }
+     use_vcr_cassette "whats_your_style"
+    it { expect(subject.quiz).to be_a(Hash) }
   end
 end
