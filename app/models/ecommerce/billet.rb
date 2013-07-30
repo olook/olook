@@ -5,6 +5,10 @@ class Billet < Payment
   validates :receipt, :presence => true, :on => :create
   before_create :set_payment_expiration_date
 
+  def payments=(val)
+    write_attribute(:payments, "1" )
+  end
+
   def to_s
     "BoletoBancario"
   end
