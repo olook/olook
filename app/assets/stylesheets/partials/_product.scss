@@ -11,7 +11,7 @@ li.product {
     position: absolute;
     background: none;
     width: 100%;
-    top: 145px;
+    bottom: 25px;
     left: 0;
     display: none;
     z-index: 10;
@@ -65,7 +65,7 @@ li.product {
       }
     }
   }
-  .box_product {
+  .box_product {position:absolute;bottom:0;left:0;/* new size photo */
     display: inline-block;
     clear: left;
     a.product_link {

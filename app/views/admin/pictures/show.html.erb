@@ -5,7 +5,7 @@
     <%= @picture.display_on_humanize %>
   </p>
 
-<% [:thumb, :bag, :showroom, :suggestion, :main, :zoom_out].each do |picture_size| %>
+<% [:thumb, :bag, :catalog, :showroom, :main, :zoom_out].each do |picture_size| %>
   <p>
     <b><%= picture_size.capitalize %>:</b><br />
     <%= image_tag @picture.image_url(picture_size).to_s %>
