@@ -384,6 +384,7 @@ Olook::Application.routes.draw do
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get '/diadasmaes' , :controller =>'landing_pages', :action => 'mother_day' , :as => 'mother_day'
   get "/cadastro", :to => "landing_pages#show", defaults: { page_url: 'cadastro' }
+  get "/cadastro_email", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: 1 }
 
   # Friendly urls (ok, I know it is not the best approach...)
   match '/sapatos' => redirect('/sapato'), as: 'shoes'
