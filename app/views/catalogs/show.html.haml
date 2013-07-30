@@ -32,6 +32,8 @@
         .chaordic.mostpopular
 
       = render "ordenation_filters", search: @search, url_builder: @url_builder
+      .pagination.topo
+        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(params[:category], @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
       = render 'current_section', search: @search
 
       %section.container_product
@@ -42,7 +44,6 @@
             = render "shared/searched_products", :products => @search.products, campaign_products: @campaign_products.products
           - else
             = render "shared/searched_products", :products => @search.products
-
         .loading
 
       .pagination
