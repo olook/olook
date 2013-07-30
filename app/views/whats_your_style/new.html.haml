@@ -1,2 +1,14 @@
-%h1 WhatsYourStyle#new
-%p Find me in app/views/whats_your_style/new.html.haml
+%p
+  = @quiz[:name]
+%p
+  = @quiz[:description]
+
+- @quiz[:questions].each do |question|
+  %p
+    = question[:text]
+    - question[:answers].each do |answer|
+      %li
+        = answer[:id]
+        = image_tag answer[:image]
+        = answer[:text]
+
