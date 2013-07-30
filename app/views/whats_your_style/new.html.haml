@@ -1,14 +1,14 @@
+#survey
 %p
   = @quiz[:name]
 %p
   = @quiz[:description]
-
-- @quiz[:questions].each do |question|
-  %p
-    = question[:text]
+.jcarousel-prev.jcarousel-prev-horizontal
+- @quiz[:questions].each_with_index do |question, index|
+  %h2= "#{ index + 1 } #{ question[:text]}"
+  %ol.options
     - question[:answers].each do |answer|
       %li
-        = answer[:id]
         = image_tag answer[:image]
         = answer[:text]
 
