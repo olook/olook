@@ -4,7 +4,7 @@ describe WhatsYourStyleController do
 
   describe "GET 'new'" do
     before do
-      Quiz::WhatsYourStyle.any_instance.stub(:quiz).and_return({ })
+      WhatsYourStyle.any_instance.stub(:quiz).and_return({ })
     end
     it "returns http success" do
       get 'new'
