@@ -1,1 +1,64 @@
-= yield
+<!DOCTYPE html>
+<html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" dir="ltr" lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <title>olook</title>
+    <%= favicon_link_tag 'olook_favicon.ico' %>
+
+
+    <% error = nil unless error %>
+    <% if params[:share] %>
+      <%= render 'shared/meta_tags' %>
+    <% else %>
+      <meta name="Description" content="Roupas femininas, sapatos, bolsas, óculos e acessórios incríveis - Olook. Seu look, seu estilo">
+    <% end %>
+
+
+    <%= csrf_meta_tags %>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700|Pontano+Sans' rel='stylesheet' type='text/css'>
+    
+    <%= stylesheet_link_tag  "/new_structure/section/survey" %>
+
+
+    <%- unless @hide_fb_page_id -%>
+      <meta property="fb:page_id" content="157293541026960" />
+    <%- end -%>
+
+    <% if Setting.use_vwo %>
+      <!-- VWO -->
+      <%= render :partial => "shared/metrics/vwo/tracking_code" %>
+    <% end %>
+
+    <!-- Struq navigation pixel -->
+    <%#= render :partial => "shared/metrics/struq/homepage" %>
+
+    <%#= render :partial => "shared/tag/siteapps" %>
+    <%= render :partial => "shared/metrics/header_tags" %>
+    <%= yield :head %>
+
+    <!--[if IE]>
+    <%= javascript_include_tag "html5.js" %>
+    <![endif]-->
+
+
+    <%= render 'shared/metrics/google/universal_analytics' %>
+
+    <script>
+      dataLayer = [];
+    </script>
+
+    <%= render 'shared/data_layer/master' %>
+    <%= yield :data_layer %>
+
+  </head>
+  <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %> <%= "moments" if is_moment_page? %>">
+
+    <%= render :partial => "shared/tag/google_tag_manager" %>
+
+    <HEADER>
+
+    <%= content_for?(:content) ? yield(:content) : yield %>
+
+    <FOOTER>
+  </body>
+</html>  
