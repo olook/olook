@@ -107,9 +107,9 @@ class SearchEngine
 
   def filters(options={})
     url = build_filters_url(options)
-    @result = fetch_result(url, parse_facets: true)
-    remove_care_products_from(@result)
-    @result
+    @filters_result = fetch_result(url, parse_facets: true)
+    remove_care_products_from(@filters_result)
+    @filters_result
   end
 
   def products(pagination = true)
