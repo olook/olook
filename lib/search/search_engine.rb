@@ -27,6 +27,7 @@ class SearchEngine
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
+    @expressions['in_promotion'] = [0]
     @facets = []
     default_facets
 
@@ -165,6 +166,7 @@ class SearchEngine
 
   def for_admin
     @expressions['is_visible'] = [0,1]
+    @expressions['in_promotion'] = [0,1]
     @expressions['inventory'] = ['inventory:0..']
     self
   end
