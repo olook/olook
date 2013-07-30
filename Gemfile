@@ -99,9 +99,9 @@ group :development, :test do
   gem 'guard-spork'
   gem 'fuubar'
   gem 'launchy'
-  gem 'vcr', '1.11.3'
   gem 'fakeweb'
   gem 'parallel_tests'
+  gem "vcr", "~> 2.5.0"
 end
 gem 'rubber', '~> 2.0', git: 'git://github.com/nelsonmhjr/rubber.git', branch: 'newrelic'
 gem 'open4'
