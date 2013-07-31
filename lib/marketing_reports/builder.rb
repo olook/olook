@@ -12,7 +12,8 @@ module MarketingReports
                :userbase_with_source,
                :facebook_friends_list,
                :userbase_with_source_and_credits,
-               :post_sale_userbase
+               :post_sale_userbase,
+               :userbase_with_style
                ]
 
     SHIPPING_SERVICES = {
@@ -221,6 +222,16 @@ group by uc.user_id, ct.code
           csv << [order.user.email, order.id.to_s, order.user.first_name, order.user.last_name, SHIPPING_SERVICES[order.shipping_service_name], order.updated_at.strftime("%d-%m-%Y"), order.expected_delivery_on ? order.expected_delivery_on.strftime("%d-%m-%Y") : "", order.user.authentication_token]
         end
       end
+    end
+
+    def generate_userbase_with_style
+      @csv = CSV.generate do |csv|
+        csv << %w{email first_name auth_token style}
+        User.includes(:profiles).find_each do |user|
+          main_style = user.profiles.map{|p| p.alternative_name}.compact.first
+          csv << [user.email, user.first_name, user.authentication_token, main_style] if main_style
+        end
+      end      
     end
 
     def registration_source user
