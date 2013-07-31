@@ -77,6 +77,15 @@ class SearchEngine
     self
   end
 
+
+  def category= cat
+    if cat == "roupa"
+      @expressions["category"] = ["roupa","moda praia"]
+    else
+      @expressions["category"] = cat.to_s.split(MULTISELECTION_SEPARATOR)
+    end
+  end  
+
   def total_results
     @result.hits["found"]
   end
