@@ -45,6 +45,7 @@ module CatalogsHelper
     end
   end
 
+
   def subcategory_filters_by category, search, options={}
     filters = search.filters(options)
     facets = filters.grouped_products('subcategory')
