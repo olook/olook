@@ -461,17 +461,6 @@ describe Product do
       end
     end
 
-    describe '#suggestion_picture' do
-      it "should return the suggestion sized image if it exists" do
-        mock_picture.stub(:image_url).with(:suggestion).and_return(:valid_image)
-        subject.stub(:main_picture).and_return(mock_picture)
-        subject.suggestion_picture.should == :valid_image
-      end
-      it "should return nil if it doesn't exist" do
-        subject.suggestion_picture.should be_nil
-      end
-    end
-
     describe '#catalog_picture' do
       it "should return the picture sized image if it exists" do
         mock_picture.stub(:image_url).with(:catalog).and_return(:valid_image)

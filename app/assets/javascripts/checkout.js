@@ -31,6 +31,7 @@ var masks = {
 
 
 function retrieve_freight_price(zip_code) {
+
   $.ajax({
     url: '/shippings/' + zip_code,
     type: 'GET',
@@ -45,6 +46,7 @@ function retrieve_freight_price(zip_code) {
   });
 }
 function retrieve_zip_data(zip_code) {
+  
   $.ajax({
     url: '/address_data',
   type: 'POST',
@@ -72,7 +74,7 @@ function setButton(){
   el = $("#cart-box").height();
   h = el + 120;
 
-  $("#new_checkout .send_it").css("top", h).fadeIn();  
+  $("#new_checkout .send_it").css("top", h).fadeIn();
 
   if($('input.send_it').size() > 0)
     return helpLeft2 = $('input.send_it').offset().left;
@@ -87,20 +89,27 @@ function showAboutSecurityCode(){
 
 //SHOW TOTAL
 function showTotal(){
-  $("span#total").fadeOut('fast');
-  $("span#total_debit").fadeOut('fast');
-  $("#debit_discount_cart").fadeOut('fast');
-  $("span#total_billet").fadeOut('fast');
-  $("#billet_discount_cart").fadeOut('fast');
   if($("div.billet").is(':visible')){
+    $("span#total,#debit_discount_cart").fadeOut('fast');
     $("span#total_billet").delay(200).fadeIn();
     $("#billet_discount_cart").delay(200).fadeIn();
   } else if($('div.debit').is(':visible')) {
+    $("span#total, #billet_discount_cart").fadeOut('fast');
     $("span#total_debit").delay(200).fadeIn();
     $("#debit_discount_cart").delay(200).fadeIn();
   } else {
+    $("#billet_discount_cart,#debit_discount_cart").fadeOut('fast');
     $("span#total").delay(200).fadeIn();
   }
+}
+
+function freightCalc(){
+  zip_code = $("#checkout_address_zip_code").val();
+
+  $("#checkout_address_street").on("focus", function(){
+    zip_code = $("#checkout_address_zip_code").val();
+    retrieve_freight_price(zip_code)
+  });
 }
 
 $(function() {
@@ -108,7 +117,8 @@ $(function() {
   window.setTimeout(setButton,600);
   masks.tel(".tel_contato1");
   masks.tel(".tel_contato2");
-
+  
+  freightCalc();
   showAboutSecurityCode();
 
   $(".credit_card").click(function() {
@@ -131,7 +141,8 @@ $(function() {
     });
   }
 
-
+ 
+  
   $("div.box-step-two #checkout_credits_use_credits").change(function() {
     $("#cart-box #credits_used").hide();
     $("#cart-box #total").hide();
@@ -184,14 +195,14 @@ $(function() {
   };
   showPaymentType();
 
-  $(".payment_type input").click(function(){  	
+  $(".payment_type input").click(function(){
 	  showPaymentType();
 	  $(".payment_type").siblings("div").find("input:checked").removeAttr("checked");
 	  $(".payment_type").siblings("div").find("input[type='text']").val('');
 	  $(".payment_type").siblings("div").find("span.selected").removeClass("selected");
 
   })
-	
+
 
   //SELECT CARD
   var cards = $("ol.cards li span");

@@ -15,7 +15,7 @@ Olook::Application.routes.draw do
   get "index/index"
 
   # Search Lab
-  match "/busca(/?*parameters)", :to => "search#show", :as => "search"
+  match "/busca(/*parameters)", :to => "search#show", :as => "search"
   get "/busca/product_suggestions", :to => "search#product_suggestions", :as => "search_index"
 
   # match "/busca", :to => "search#show", :as => "search"
@@ -26,8 +26,9 @@ Olook::Application.routes.draw do
   match "/nossa-essencia", :to => "pages#our_essence", :as => "our_essence"
   match "/responsabilidade-social" => "pages#avc_campaign", :as => "responsabilidade_social"
 
-  match "/1anomuito" => "pages#um_ano_muito", :as => "um_ano_muito"
-
+  #match "/1anomuito" => "pages#um_ano_muito", :as => "um_ano_muito"
+  match "/1anomuito", :to => "pages#how_to", :as => "how_to"
+  
   #match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/duvidasfrequentes", :to => "pages#faq", :as => "duvidasfrequentes"
@@ -381,6 +382,7 @@ Olook::Application.routes.draw do
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get '/diadasmaes' , :controller =>'landing_pages', :action => 'mother_day' , :as => 'mother_day'
   get "/cadastro", :to => "landing_pages#show", defaults: { page_url: 'cadastro' }
+  get "/cadastro_email", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: 1 }
 
   # Friendly urls (ok, I know it is not the best approach...)
   match '/sapatos' => redirect('/sapato'), as: 'shoes'
