@@ -15,12 +15,12 @@
   = render "shared/liquida_banner"
   #catalog
     %aside
-      = render "filters", search: @search
-      - if params[:category]
+      = render "filters", search: @search, category: @category
+      - if @category
         .invite_friends
-          = banner_for(params[:category], position: :sidetop)
+          = banner_for(@category, position: :sidetop)
         .promo_brands
-          = banner_for(params[:category], position: :sidebotton)
+          = banner_for(@category, position: :sidebotton)
 
     #result
       - unless @search.has_any_filter_selected? || params[:cmp].present?
@@ -33,7 +33,7 @@
 
       = render "ordenation_filters", search: @search, url_builder: @url_builder
       .pagination.topo
-        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(params[:category], @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
+        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
       = render 'current_section', search: @search
 
       %section.container_product
@@ -47,7 +47,7 @@
         .loading
 
       .pagination
-        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(params[:category], @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
+        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
 
       .banner
-        = banner_for(params[:category], position: :botton)
+        = banner_for(@category, position: :botton)
