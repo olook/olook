@@ -111,7 +111,7 @@ group by uc.user_id, ct.code
       bounces = bounced_list
       @csv = CSV.generate(col_sep: ";") do |csv|
         csv << %w{id email created_at invite_token first_name last_name facebook_token birthday has_purchases auth_token credit_balance half_user}
-        User.select("(select sum(total_agora) from (
+        User.where("created_at >= '2013-07-16'").select("(select sum(total_agora) from (
  select
   uc.user_id,
   (CASE ct.code
