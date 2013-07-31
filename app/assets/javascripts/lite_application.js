@@ -5,6 +5,8 @@
 // the compiled file.
 //
 //= require jquery_ujs
+
+//= require ./plugins/jquery.zoom-min
 //= require ui/jquery.ui.core
 //= require ui/jquery.ui.widget
 //= require ui/jquery.ui.mouse
@@ -12,7 +14,6 @@
 //= require ui/jquery.ui.menu
 //= require ui/jquery.ui.autocomplete
 //= require ui/jquery.ui.slider
-//= require plugins/jquery.jqzoom-core
 //= require plugins/jquery.carouFredSel-6.2.1-packed
 //= require plugins/css_browser_selector
 //= require plugins/change_picture_onhover

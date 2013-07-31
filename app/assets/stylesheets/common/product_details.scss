@@ -31,32 +31,20 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         float: left;
         li {
           margin-bottom: 10px;
-          display: block;
-          a {
-            width: 50px;
-            margin: 2px;
-            float: left;
-            img {
-              width: 50px;
-              height: 50px;
-            }
-            &:hover, &.selected {
-              img {
-                margin: -2px;
-                border: 2px #a3a3a3 solid;
-              }
-            }
+          overflow:hidden;
+          a {/*width: 50px;*/margin: 2px;float: left;border:solid 2px #FFF;
+            &:hover, &.selected {border: 2px #a3a3a3 solid;}
+            img {width:45px;height:auto;}/* new size photo */  
           }
         }
       }
       div#full_pic {
         position: relative;
-        width: 500px;
-        height: 500px;
+        width: 500px;/* new size photo */
+        height: auto;
         margin-bottom: 30px;
         overflow: visible;
         float: left;
-        border-bottom: 2px #b9babd solid;
         p.warn {
           position: absolute;
           color: #FFF;
@@ -102,20 +90,12 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         }
         ul {
           li {
-            width: 500px;
+            width: 365px;margin:0 auto;/* new size photo */ 
             overflow: visible;
             display: none;
-            &:first-child {
-              margin-right: 1000px;
-              display: block;
-            }
-            a {
-              width: 500px;
-              float: left;
-              img.full {
-                width: 500px;
-                height: 500px;
-              }
+            &:first-child {display: block;}
+            a {display:inline-block;
+              img.full{width:365px;}
             }
           }
         }

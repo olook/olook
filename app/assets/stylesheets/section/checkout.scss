@@ -539,12 +539,12 @@ section#cart {
 				/********** FIM CAMPANHA DO AVC ****************/
         &.item {
           width: 355px;
-
+          p.txt-black{margin-top:12px;}
           img {
             margin-right: 20px;
             float: left;
-						width:90px;
-						height:90px;
+						width:70px;/* new size photo */
+						height:auto;/* new size photo */
           }
         }
         &.amount {
@@ -1725,9 +1725,9 @@ section.checkout{
 	}
 /********** END / START STEP THREE *******/
 	#cart-box{
-		float:left;border:solid 1px #D9D8D8;width:321px;max-height:335px;background:#FFF;
+		float:left;border:solid 1px #D9D8D8;width:321px;max-height:345px;background:#FFF;
 		.bg-box{display:none;}
-		.products{max-height:185px;overflow-y:auto;}
+		.products{max-height:217px;overflow-y:auto;}
 		#items{width:100%;
 			tr{border-bottom:1px solid #D9D8D8;padding-bottom:5px;}
 			td{vertical-align:middle;padding-bottom:5px;
@@ -1736,7 +1736,7 @@ section.checkout{
 					input{float:right;background: image-url("new_checkout/sprite.png") no-repeat -381px -83px;border:none;color: #6D6E71;cursor:pointer;display:block;height:26px;width:70px;padding-left:20px;text-decoration:underline;font-weight:bold;}
 				}
 			}
-			img{float:left;margin:0 25px 0 10px;}
+			img{float:left;margin:10px 15px 5px;}
 			ul{float:left;margin:10px 0 0 15px;
 				li{font-size:13px;
 					&.txt-black{text-transform:uppercase;}
@@ -1747,6 +1747,7 @@ section.checkout{
 			li{font-size:13px;margin-bottom:5px;
 				span{width:109px;color:#6D6E71;display:inline-block;}
 			}
+      #billet_discount_cart,#debit_discount_cart{display:none;}
 		}
 		p.total{color: #000 !important;font-size:17px;margin-left:27px;line-height:18px;overflow:hidden;margin-bottom:10px;
 			span{width:109px;display:inline-block;float:left;font-weight: 500;
