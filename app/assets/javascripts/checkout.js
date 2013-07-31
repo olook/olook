@@ -141,7 +141,8 @@ $(function() {
     });
   }
 
-
+ 
+  
   $("div.box-step-two #checkout_credits_use_credits").change(function() {
     $("#cart-box #credits_used").hide();
     $("#cart-box #total").hide();

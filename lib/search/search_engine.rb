@@ -78,6 +78,15 @@ class SearchEngine
     self
   end
 
+
+  def category= cat
+    if cat == "roupa"
+      @expressions["category"] = ["roupa","moda praia"]
+    else
+      @expressions["category"] = cat.to_s.split(MULTISELECTION_SEPARATOR)
+    end
+  end  
+
   def total_results
     @result.hits["found"]
   end
@@ -108,9 +117,9 @@ class SearchEngine
 
   def filters(options={})
     url = build_filters_url(options)
-    @result = fetch_result(url, parse_facets: true)
-    remove_care_products_from(@result)
-    @result
+    @filters_result = fetch_result(url, parse_facets: true)
+    remove_care_products_from(@filters_result)
+    @filters_result
   end
 
   def products(pagination = true)

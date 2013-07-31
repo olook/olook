@@ -40,15 +40,15 @@ update_braspag_responses:
   queue: payments
   description: "Processa respostas de pagamento Braspag"
 
-# userbase_with_auth_token_and_credits:
-#   cron: "0 2 * * *"
-#   class: MarketingUploaderWorker
-#   queue: marketing_uploader
-#   args:
-#     - userbase_with_auth_token_and_credits
-#     - basegeral_atualizada13.csv
-#     - false
-#   description: "Cria arquivo de importação para allinemail"
+userbase_with_auth_token_and_credits:
+  cron: "0 2 * * *"
+  class: MarketingUploaderWorker
+  queue: marketing_uploader
+  args:
+    - userbase_with_auth_token_and_credits
+    - basegeral_novos_usuarios.csv
+    - false
+  description: "Cria arquivo de importação para allinemail com os usuarios criados a partir de 16/7/13"
 
 campaign_emails:
   cron: "0 2 * * *"
