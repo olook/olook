@@ -70,6 +70,11 @@ How connect to Homolog
 ============
 - ssh -i ~/.ec2/gsg-keypair root@homolog.olook.com.br -A
 
+
+How connect to Resque 01
+============
+- ssh -i ~/.ec2/gsg-keypair root@resque01.olook.com.br -A
+
 Deploy with Capistrano
 ============
 
