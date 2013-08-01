@@ -1,6 +1,6 @@
 class QuizController < ApplicationController
   layout 'quiz'
   def new
-    @quiz = WhatsYourStyle.new.quiz
+    @quiz = Quiz.new.questions
   end
 end
