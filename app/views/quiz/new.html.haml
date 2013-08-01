@@ -6,6 +6,7 @@
     =# @quiz[:description]
   - @quiz.questions.each_with_index do |question, index|
     %div{class: "question#{' first' if index == 0}"}
+      =image_tag "quiz/style.png", :class => "img_style"
       %h2
         %span= "#{ index + 1 }"
         = "#{ question.text}"
