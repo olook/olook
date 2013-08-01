@@ -38,6 +38,8 @@ class SearchEngine
       next if k.blank?
       self.send("#{k}=", v)
     end
+
+    @sort_field = "-collection,-inventory,-text_relevance" if @sort_field.to_i == 0
   end
 
   def term= term
@@ -73,8 +75,7 @@ class SearchEngine
   end
 
   def sort= sort_field
-    @sort_field = "#{ sort_field }&" if sort_field.present?
-    @sort_field ||= "-collection,-inventory,-text_relevance"
+    @sort_field = "#{ sort_field }" if sort_field.present?
     self
   end
 
