@@ -4,7 +4,7 @@ require 'resque/server'
 Olook::Application.routes.draw do
 
 
-  get "/cadastro", to: "quiz/new"
+  get "/cadastro", to: "quiz#new"
 
   mount Resque::Server => "/admin/resque"
 
