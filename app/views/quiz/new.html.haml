@@ -5,12 +5,11 @@
   =# @quiz[:description]
 .jcarousel-prev.jcarousel-prev-horizontal
 - @quiz[:questions].each_with_index do |question, index|
-  %h2 
-    %span= "#{ index + 1 }" 
+  %h2
+    %span= "#{ index + 1 }"
     = "#{ question[:text]}"
   %ol.options
     - question[:answers].each do |answer|
       %li
         = image_tag answer[:image]
         = answer[:text]
-
