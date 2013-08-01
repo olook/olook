@@ -1,9 +1,5 @@
 = stylesheet_link_tag  "new_structure/section/survey"
 #survey
-  %p
-    =# @quiz[:name]
-  %p
-    =# @quiz[:description]
   - @quiz.questions.each_with_index do |question, index|
     %div{class: "question#{' first' if index == 0}"}
       %h2
