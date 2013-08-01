@@ -59,6 +59,11 @@ footer{
     margin: 0 auto;
   .question{display: none;
     &.first{display: block;}
+    .img_style{
+      position: absolute;
+      right: 530px;
+      top: 60px;
+    }
     h2{
       font-size: 18px;
       font-family: $johnston;
@@ -82,13 +87,16 @@ footer{
         height: 345px;
         float: left;
         input{display: none;}
-        img{width: 175px;height: 290px;}
+        img{width: 175px;height: 263px;}
         p{
           font-family: $avenir;
-          font-size: 14px;
+          font-size: 13px;
           width: 165px;
           text-align: center;
-          height: 27px;
+          height: 55px;
+          margin-top: -6px;
+          padding: 10px;
+
         }
       }
     }
