@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe WhatsYourStyleController do
+describe QuizController do
 
   describe "GET 'new'" do
     before do
-      WhatsYourStyle.any_instance.stub(:quiz).and_return({ })
+      WhatsYourStyle::Quiz.any_instance.stub(:quiz).and_return({ })
     end
     it "returns http success" do
       get 'new'
