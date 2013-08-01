@@ -98,4 +98,5 @@ Setting.defaults[:show_checkout_banner] = true
 Setting.defaults[:show_search_field] = false
 Setting.defaults[:show_product_partner_tags] = true
 
-
+#Antibounce settings
+Setting.defaults[:antibounce_product_lines] = 4
