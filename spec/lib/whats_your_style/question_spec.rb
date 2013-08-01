@@ -5,7 +5,7 @@ describe WhatsYourStyle::Question do
   describe '#initialize' do
 
     it "creates new answers" do
-      Answer.should_receive(:new).twice
+      WhatsYourStyle::Answer.should_receive(:new).twice
       described_class.new(answers)
     end
 
