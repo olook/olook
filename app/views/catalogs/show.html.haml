@@ -16,8 +16,6 @@
     %aside
       = render "filters", search: @search, category: @category
       - if @category
-        .invite_friends
-          = banner_for(@category, position: :sidetop)
         .promo_brands
           = banner_for(@category, position: :sidebotton)
 
