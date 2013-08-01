@@ -20,10 +20,10 @@ olook.spy = function(selector){
       }
     });
   }).mouseover(function() {
-    var img = $(this).next().children("img");
+    var img = $(this).parent(".product").find("img");
     img.attr('src', img.data('backside-picture'));
   }).mouseout(function() {
-    var img = $(this).next().children("img");
+    var img = $(this).parent(".product").find("img");
     img.attr('src', img.data('product'));
   });
 };

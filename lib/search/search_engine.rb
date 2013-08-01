@@ -6,7 +6,7 @@ class SearchEngine
 
   MULTISELECTION_SEPARATOR = '-'
   RANGED_FIELDS = HashWithIndifferentAccess.new({'price' => '', 'heel' => '', 'inventory' => ''})
-  IGNORE_ON_URL = HashWithIndifferentAccess.new({'inventory' => '', 'is_visible' => ''})
+  IGNORE_ON_URL = Set.new(['inventory', :inventory, 'is_visible', :is_visible, 'in_promotion', :in_promotion])
   PERMANENT_FIELDS_ON_URL = Set.new([:is_visible, :inventory])
 
   RETURN_FIELDS = [:subcategory,:name,:brand,:image,:retail_price,:price,:backside_image,:category,:text_relevance]
@@ -27,6 +27,7 @@ class SearchEngine
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
+    @expressions['in_promotion'] = [0]
     @facets = []
     default_facets
 
@@ -159,7 +160,7 @@ class SearchEngine
     _filters = expressions.dup
     _filters.delete(:category)
     _filters.delete(:price)
-    _filters.delete_if{|k,v| IGNORE_ON_URL[k]}
+    _filters.delete_if{|k,v| IGNORE_ON_URL.include?( k )}
     _filters.delete_if{|k,v| v.empty?}
     _filters.values.flatten.any?
   end
@@ -174,6 +175,7 @@ class SearchEngine
 
   def for_admin
     @expressions['is_visible'] = [0,1]
+    @expressions['in_promotion'] = [0,1]
     @expressions['inventory'] = ['inventory:0..']
     self
   end
@@ -259,7 +261,7 @@ class SearchEngine
     def formatted_filters
       filter_params = HashWithIndifferentAccess.new
       expressions.each do |k, v|
-        next if IGNORE_ON_URL[k]
+        next if IGNORE_ON_URL.include?(k)
         filter_params[k] ||= []
         if RANGED_FIELDS[k]
           v.each do |_v|
