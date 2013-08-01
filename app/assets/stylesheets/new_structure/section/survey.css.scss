@@ -54,7 +54,7 @@ footer{
 }
 
 #survey{
-  width: 815px;
+  width: 830px;
   height: 615px;
     margin: 0 auto;
   .question{display: none;
@@ -64,6 +64,7 @@ footer{
       font-family: $johnston;
       font-weight: 500;
       text-transform: uppercase;
+      text-align: center;
       span{
         font-size: 120px;
         font-family: $kepler;
@@ -74,10 +75,21 @@ footer{
     ol{
       text-align: center;
       li{
+        margin-right: 20px;
+        list-style: none;
         border: solid 1px #000;
         width: 175px;
         height: 345px;
         float: left;
+        input{display: none;}
+        img{width: 175px;height: 290px;}
+        p{
+          font-family: $avenir;
+          font-size: 14px;
+          width: 165px;
+          text-align: center;
+          height: 27px;
+        }
       }
     }
   }
