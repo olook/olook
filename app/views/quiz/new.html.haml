@@ -4,16 +4,16 @@
     =# @quiz[:name]
   %p
     =# @quiz[:description]
-  - @quiz[:questions].each_with_index do |question, index|
-    %div{class: "question#{' first' if index == 0}"} 
+  - @questions.each_with_index do |question, index|
+    %div{class: "question#{' first' if index == 0}"}
       %h2
         %span= "#{ index + 1 }"
-        = "#{ question[:text]}"
-      %ol.options 
-        - question[:answers].each do |answer| 
-          %li    
+        = "#{ question.text}"
+      %ol.options
+        - question.answers.each do |answer|
+          %li
             %p
-              = answer[:text]
-            %input{type:"radio", value: answer[:id]}      
-            = image_tag answer[:image]
-            
+              = answer.text
+            %input{type:"radio", value: answer.id}
+            = image_tag answer.image
+
