@@ -4,9 +4,13 @@ module WhatsYourStyle
 
     def initialize(answers)
       @answers = []
-      answers.each do
-        Answer.new()
+      answers.each do |answer|
+        @answers << Answer.new(answer)
       end
+    end
+
+    def answers
+      @answers
     end
 
   end
