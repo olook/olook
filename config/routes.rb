@@ -4,7 +4,7 @@ require 'resque/server'
 Olook::Application.routes.draw do
 
 
-  get "whats_your_style/new"
+  get "/cadastro", to: "quiz#new"
 
   mount Resque::Server => "/admin/resque"
 
@@ -30,7 +30,7 @@ Olook::Application.routes.draw do
 
   #match "/1anomuito" => "pages#um_ano_muito", :as => "um_ano_muito"
   match "/1anomuito", :to => "pages#how_to", :as => "how_to"
-  
+
   #match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/duvidasfrequentes", :to => "pages#faq", :as => "duvidasfrequentes"
