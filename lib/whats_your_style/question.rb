@@ -12,6 +12,5 @@ module WhatsYourStyle
     def answers
       @answers
     end
-
   end
 end
