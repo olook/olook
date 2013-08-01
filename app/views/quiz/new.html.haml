@@ -4,7 +4,7 @@
     =# @quiz[:name]
   %p
     =# @quiz[:description]
-  - @questions.each_with_index do |question, index|
+  - @quiz.questions.each_with_index do |question, index|
     %div{class: "question#{' first' if index == 0}"}
       %h2
         %span= "#{ index + 1 }"
