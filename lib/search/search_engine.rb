@@ -39,7 +39,7 @@ class SearchEngine
       self.send("#{k}=", v)
     end
 
-    @sort_field = "-collection,-inventory,-text_relevance" if @sort_field.to_i == 0
+    validate_sort_field
   end
 
   def term= term
@@ -279,5 +279,11 @@ class SearchEngine
       end
 
       filter_params
+    end
+
+    def validate_sort_field
+      if @sort_field.nil? || @sort_field == "" || @sort_field == 0 || @sort_field == "0"
+        @sort_field = "-collection,-inventory,-text_relevance"
+      end
     end
 end
