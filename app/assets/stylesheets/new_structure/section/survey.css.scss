@@ -1,0 +1,54 @@
+@import 'new_structure/common/global_stuffs';
+
+header{
+  .quiz_header{
+      border-top: 8px black solid;  
+      height: 120px;
+      width: 990px;
+      margin: 0 auto;
+
+    .olook_logo{width: 240px;height: 70px;margin: 0 auto;padding-top: 20px;
+      h1 a{width: 240px;height: 70px;display:block;background: image-url("common/nav/sprite_header.png") no-repeat 0 -72px;text-indent: -9999px;}
+    }
+  }
+}  
+
+footer{
+  margin-top: 30px;
+  ul{
+    width: 775px;
+    height: 155px;
+    border: solid 1px #d7d7d7;
+    margin: 0 auto;
+    li{
+      list-style: none;
+      margin-top: 25px;
+      p{
+        font-family: $avenir;
+        font-size: 13px;
+        color: #939598;
+        span{font-weight: 500;}
+      }
+      &.about{width: 410px; float: left;margin-right: 65px;}
+      &.about_quiz{width: 265px; float: left;}
+    }
+  }
+  .infos{
+    width: 817px;
+    height: 100px;
+    border-top: solid 1px #d7d7d7;
+    margin: 0 auto;
+    margin-top: 45px;
+    p{
+      margin-top: 25px;
+      text-align: center;
+      font-family: $avenir;
+      font-size: 13px;
+      color: #939598;
+      span{white-space: nowrap;}
+      a{text-decoration: none;color: #939598;
+        &:hover{color: $pink;}
+      }
+    }
+  }
+}
