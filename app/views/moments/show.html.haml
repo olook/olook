@@ -10,7 +10,6 @@
     = javascript_include_tag "moments"
     = render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => @products_id }
   #moments.content
-    = render "shared/liquida_banner"
     = collection_theme_presenter.render_search_form
     #products_container
       / local onde o viewpersonalized será exibido
