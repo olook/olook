@@ -4,7 +4,11 @@ module WhatsYourStyle
     AUTH_TOKEN = YAML::load(File.open(FILE_DIR))[Rails.env]["auth_token"]
 
     def questions
-      quiz[:questions]
+      @questions = []
+      quiz[:questions].each do |question|
+        @questions << Question.new({ id: question[:id], text: question[:text] }, question[:answers])
+      end
+      @questions
     end
 
     private
