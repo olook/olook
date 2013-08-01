@@ -4,7 +4,7 @@ module WhatsYourStyle
     AUTH_TOKEN = YAML::load(File.open(FILE_DIR))[Rails.env]["auth_token"]
 
     def questions
-      quiz
+      quiz[:questions]
     end
 
     private
