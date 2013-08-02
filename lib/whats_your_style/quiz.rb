@@ -1,5 +1,9 @@
 module WhatsYourStyle
   class Quiz
+    include ActiveModel::Validations
+    include ActiveModel::Conversion
+    extend ActiveModel::Naming
+
     FILE_DIR = "#{Rails.root}/config/whatsyourstyle.yml"
     AUTH_TOKEN = YAML::load(File.open(FILE_DIR))[Rails.env]["auth_token"]
 
@@ -14,6 +18,10 @@ module WhatsYourStyle
         @questions << Question.new({ id: question[:id], text: question[:text] }, question[:answers])
       end
       @questions
+    end
+
+    def persisted?
+      false
     end
 
     private

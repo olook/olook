@@ -4,6 +4,8 @@
   =image_tag "quiz/style.png", :class => "img_style"
   #content
     .content-survey
+    = form_for(@quiz) do |f|
+      = f.hidden_field :name, value: @quiz.name
       - @quiz.questions.each_with_index do |question, index|
         .question
           %h2
@@ -13,7 +15,9 @@
             - question.answers.each do |answer|
               %li
                 %p
-                  %span= answer.text
-                %input{type:"radio", value: answer.id}
-                = image_tag answer.image
+                  = f.label answer.text
+                  = f.radio_button "questions[#{ question.id }]", "#{ answer.id }"
+                  = image_tag answer.image
+      = f.submit 'Finalizar'
+
 

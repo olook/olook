@@ -5,6 +5,7 @@ Olook::Application.routes.draw do
 
 
   get "/seu-estilo", to: "quiz#new", as: "wysquiz"
+  post "/resultado", to: "quiz#create", as: 'whats_your_style_quizzes'
 
   mount Resque::Server => "/admin/resque"
 
