@@ -10,9 +10,9 @@
     - else
       %meta{:content => "Roupas femininas, sapatos, bolsas, óculos e acessórios incríveis - Olook. Seu look, seu estilo", :name => "Description"}/
     = csrf_meta_tags
-       
+
     = stylesheet_link_tag  "new_structure/section/survey"
-    
+
     - unless @hide_fb_page_id
       %meta{:content => "157293541026960", :property => "fb:page_id"}/
     - if Setting.use_vwo
@@ -30,30 +30,32 @@
     = yield :data_layer
   %body{:class => "#{user_signed_in? ? 'logged' : ''} #{Campaign.activated_campaign.background if Campaign.activated_campaign} #{"moments" if is_moment_page?}"}
     = render :partial => "shared/tag/google_tag_manager"
-   
+
     %header
       .quiz_header
         .olook_logo
           =link_to((image_tag "landing_page/olook_logo.png"), root_path, title: "Olook")
-    
+
     = content_for?(:content) ? yield(:content) : yield
-    
+
     %footer
       %ul
         %li.about
-          %p 
-            %span Sobre o uso de imagens e reprodução 
-            %br Usamos imagens de celebridades, modelos e até mesmo anônimas para ilustrar nossas recomendações de moda, look e comportamento. 
+          %p
+            %span Sobre o uso de imagens e reprodução
+            %br Usamos imagens de celebridades, modelos e até mesmo anônimas para ilustrar nossas recomendações de moda, look e comportamento.
             As pessoas retratadas não estão associadas ou recomendam a Olook.
         %li.about_quiz
-          %p 
+          %p
             %span Porque responder este quiz?
             %br A partir de suas respostas, identificaremos seu estilo e todos os meses você receberá recomendações de nossas Stylists.
       .infos
         %p
           %span © 2013 - Olook. Todos os direitos reservados.
-          %br 
-          A Olook respeita sua privacidade e de todos os seus clientes. Leia mais sobre a nossa 
+          %br
+          A Olook respeita sua privacidade e de todos os seus clientes. Leia mais sobre a nossa
           =link_to "Política de Privacidade.", "/privacidade"
           %br
-          Escritório: Rua Natividade, 72 - Vl. Nova Conceição, São Paulo - SP Centro de distribuição: Avenida Ribeirão dos Cristais, 800, Jordanésia, Cajamar - SP. Galpão 10, módulo C e D / Olook Comércio Online de Moda Ltda  / CNPJ 011.216.478/0001-70        
+          Escritório: Rua Natividade, 72 - Vl. Nova Conceição, São Paulo - SP Centro de distribuição: Avenida Ribeirão dos Cristais, 800, Jordanésia, Cajamar - SP. Galpão 10, módulo C e D / Olook Comércio Online de Moda Ltda  / CNPJ 011.216.478/0001-70
+
+= javascript_include_tag "jquery"
