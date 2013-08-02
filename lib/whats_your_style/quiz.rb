@@ -3,6 +3,10 @@ module WhatsYourStyle
     FILE_DIR = "#{Rails.root}/config/whatsyourstyle.yml"
     AUTH_TOKEN = YAML::load(File.open(FILE_DIR))[Rails.env]["auth_token"]
 
+    def name
+      quiz[:name]
+    end
+
     def questions
       @questions = []
       quiz[:questions].each do |question|
@@ -13,8 +17,9 @@ module WhatsYourStyle
 
     private
       def quiz
+        return @quiz if @quiz
         response = Net::HTTP.get_response(url)
-        HashWithIndifferentAccess.new(JSON.parse response.body)
+        @quiz = HashWithIndifferentAccess.new(JSON.parse response.body)
       end
 
       def url
