@@ -26,6 +26,10 @@ class QuizResponder
     redis.del(self.class.redis_key(uuid))
   end
 
+  def update_profile(user)
+    user.update_attributes(profile: @profile)
+  end
+
   private
 
   def self.redis
