@@ -35,4 +35,13 @@ describe QuizResponder do
 
     end
   end
+
+  describe '#update_profile' do
+    let(:user) { FactoryGirl.create(:user) }
+
+    it "updates user's profile" do
+      user.should_receive(:update_attributes)
+      subject.update_profile(user)
+    end
+  end
 end
