@@ -16,7 +16,7 @@
               %li
                 %p
                   = f.label answer.text
-                  = f.radio_button "questions[#{ question.id }]", "#{ answer.id }"
+                  = radio_button_tag "questions[#{ question.id }]", "#{ answer.id }" #TODO try using f block
                   = image_tag answer.image
       = f.submit 'Finalizar'
 
