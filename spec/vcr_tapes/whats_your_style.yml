@@ -190,4 +190,36 @@ http_interactions:
         fV19XX0=
     http_version: '1.1'
   recorded_at: Tue, 30 Jul 2013 21:22:03 GMT
+- request:
+    method: post
+    uri: http://whatsyourstyle.olook.com.br:9000/v1/challenges/create?api_token=wmy47jY9_5ZwRWJKUHJ1ng
+    body:
+      encoding: UTF-8
+      string: ! '{"":{"answers":null}}'
+    headers:
+      content-type:
+      - application/json
+      accept:
+      - ! '*/*'
+      user-agent:
+      - Ruby
+  response:
+    status:
+      code: 406
+      message: Not Acceptable
+    headers:
+      content-type:
+      - application/json
+      content-length:
+      - '75'
+      server:
+      - Goliath
+      date:
+      - Fri, 02 Aug 2013 19:37:08 GMT
+    body:
+      encoding: US-ASCII
+      string: ! '{"error":"The requested content-type ''application/json'' is not
+        supported."}'
+    http_version: '1.1'
+  recorded_at: Fri, 02 Aug 2013 19:37:00 GMT
 recorded_with: VCR 2.5.0

@@ -15,8 +15,8 @@
               - question.answers.each do |answer|
                 %li
                   %p
-                    = f.label answer.text
-                    = radio_button_tag "questions[#{ question.id }]", "#{ answer.id }" #TODO try using f block
+                    = label_tag "quiz[questions][#{question.id}][#{answer.id}]", answer.text
+                    = radio_button_tag "quiz[questions][#{ question.id }]", "#{ answer.id }"
                   = image_tag answer.image
         = f.submit 'Finalizar'
 
