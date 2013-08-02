@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe WhatsYourStyle::Quiz do
-  use_vcr_cassette 'whats_your_style'
+  use_vcr_cassette 'whats_your_style', record: :new_episodes
   describe "#questions" do
     subject { described_class.new.questions }
     it { should be_a(Array) }
@@ -22,7 +22,8 @@ describe WhatsYourStyle::Quiz do
     it { expect{subject.profile_from}.to raise_error(ArgumentError) }
 
     it "should have a profile and uuid" do
-      subject.profile_from()
+      hash = {"cool quiz" => {"1" => "3", "2" => "3"}}
+      subject.profile_from(hash)
 
     end
   end
