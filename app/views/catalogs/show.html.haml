@@ -44,6 +44,7 @@
           - else
             = render "shared/searched_products", :products => @search.products
         .loading
+      = render "shared/antibounce_box", products: @antibounce_search.products if params[:category] == "roupa" && @search.pages == @search.current_page && @antibounce_search.present?        
 
       .pagination
         = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
