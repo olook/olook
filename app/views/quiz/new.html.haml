@@ -4,20 +4,20 @@
   =image_tag "quiz/style.png", :class => "img_style"
   #content
     .content-survey
-    = form_for(@quiz) do |f|
-      = f.hidden_field :name, value: @quiz.name
-      - @quiz.questions.each_with_index do |question, index|
-        .question
-          %h2
-            %span= "#{ index + 1 }"
-            = "#{ question.text}"
-          %ol.options
-            - question.answers.each do |answer|
-              %li
-                %p
-                  = f.label answer.text
-                  = radio_button_tag "questions[#{ question.id }]", "#{ answer.id }" #TODO try using f block
+      = form_for(@quiz) do |f|
+        = f.hidden_field :name, value: @quiz.name
+        - @quiz.questions.each_with_index do |question, index|
+          .question
+            %h2
+              %span= "#{ index + 1 }"
+              = "#{ question.text}"
+            %ol.options
+              - question.answers.each do |answer|
+                %li
+                  %p
+                    = label_tag "quiz[questions][#{question.id}][#{answer.id}]", answer.text
+                    = radio_button_tag "quiz[questions][#{ question.id }]", "#{ answer.id }"
                   = image_tag answer.image
-      = f.submit 'Finalizar'
+        = f.submit 'Finalizar'
 
 
