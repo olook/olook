@@ -1,8 +1,10 @@
 = stylesheet_link_tag  "new_structure/section/survey"
 #survey
-  - @quiz.questions.each_with_index do |question, index|
-    %div{class: "question#{' first' if index == 0}"}
-      =image_tag "quiz/style.png", :class => "img_style"
+  = form_for(@quiz) do |f|
+    = f.hidden_field :name, value: @quiz.name
+    - @quiz.questions.each_with_index do |question, index|
+      %div{class: "question#{' first' if index == 0}"}
+        =image_tag "quiz/style.png", :class => "img_style"
       %h2
         %span= "#{ index + 1 }"
         = "#{ question.text}"
@@ -10,7 +12,8 @@
         - question.answers.each do |answer|
           %li
             %p
-              = answer.text
-            %input{type:"radio", value: answer.id}
-            = image_tag answer.image
+              = f.label answer.text
+              = f.radio_button "questions[#{ question.id }]", "#{ answer.id }", :checked => true
+              = image_tag answer.image
+    = f.submit 'Finalizar'
 
