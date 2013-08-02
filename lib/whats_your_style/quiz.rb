@@ -33,8 +33,9 @@ module WhatsYourStyle
     def profile_from(answers)
       @name = answers[:name] || answers['name']
       @answers = answers[:answers] || answers['answers']
-      raise ArgumentError.new("missing :answers key") if !answers || !name
+      raise ArgumentError.new("missing :answers or :name key") if !answers || !name
       challenge
+      { uuid: @uuid, profile: @profile }
     end
 
     private
@@ -47,7 +48,7 @@ module WhatsYourStyle
 
       def challenge
         path = "/v1/challenges/create?api_token=#{AUTH_TOKEN}"
-        req = Net::HTTP::Post.new(path, {'Content-Type' =>'application/json'})
+        req = Net::HTTP::Post.new(path)
         req.body = challenge_payload
         response = Net::HTTP.new(HOST, PORT).start { |http| http.request(req) }
         j_response = JSON.parse(response.body)
