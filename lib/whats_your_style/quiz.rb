@@ -14,7 +14,7 @@ module WhatsYourStyle
     attr_reader :profile, :uuid
 
     def name
-      quiz[:name]
+      quiz['name']
     end
 
     def questions
