@@ -104,12 +104,17 @@ function showTotal(){
 }
 
 function freightCalc(){
-  zip_code = $("#checkout_address_zip_code").val();
-
   $("#checkout_address_street").on("focus", function(){
     zip_code = $("#checkout_address_zip_code").val();
     retrieve_freight_price(zip_code)
   });
+}
+
+function updateFreightValue() {
+  zip_code = $('input.address_recorded:checked').val();
+  if (zip_code != undefined) {
+    retrieve_freight_price(zip_code);
+  }
 }
 
 $(function() {
@@ -118,7 +123,7 @@ $(function() {
   masks.tel(".tel_contato1");
   masks.tel(".tel_contato2");
   
-  freightCalc();
+  updateFreightValue();
   showAboutSecurityCode();
 
   $(".credit_card").click(function() {
@@ -225,8 +230,4 @@ $(function() {
     retrieve_freight_price($("#checkout_address_zip_code").val(),null);
     return true;
   });
-
 });
-
-
-
