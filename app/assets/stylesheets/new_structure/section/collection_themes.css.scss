@@ -91,18 +91,12 @@
       margin-right: 15px;
       width:200px;
       height:300px;
-      .content-amo{position:absolute;z-index:98;top:0;left:10px;}
-      img{
-        width:200px;height:auto;
-        border-top: 1px solid #e5e5e5;
-        border-left: 1px solid #e5e5e5;
-        border-right: 1px solid #e5e5e5;
-        border-bottom: 1px solid #3e3e3e;
-      }
+      .content-amo{position:absolute;z-index:98;bottom:0;left:10px;}
+      img{width:200px;height:auto;}
       .rotulo{
        position: absolute;
        z-index:100;
-       top: -13px;
+       top: -49px;
        left: -3px;
        background: image-url("collections/sprite.png") no-repeat -100px -72px;
        height: 36px;
