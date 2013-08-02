@@ -4,6 +4,8 @@ require 'resque/server'
 Olook::Application.routes.draw do
 
 
+  get "profiles/:user_id", to: "profiles#show", as: 'profile'
+
   get "/seu-estilo", to: "quiz#new", as: "wysquiz"
   post "/resultado", to: "quiz#create", as: 'whats_your_style_quizzes'
 
