@@ -9,6 +9,7 @@ module WhatsYourStyle
 
     def questions
       @questions = []
+
       quiz[:questions].each do |question|
         @questions << Question.new({ id: question[:id], text: question[:text] }, question[:answers])
       end

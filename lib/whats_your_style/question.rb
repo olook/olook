@@ -6,6 +6,7 @@ module WhatsYourStyle
       self.id = self_parameters[:id]
       self.text = self_parameters[:text]
       @answers = []
+
       answers.each do |answer|
         @answers << Answer.new(answer)
       end

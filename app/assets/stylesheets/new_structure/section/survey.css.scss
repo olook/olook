@@ -54,16 +54,19 @@ footer{
 }
 
 #survey{
+  #content{
   width: 830px;
   height: 615px;
-    margin: 0 auto;
-  .question{display: none;
-    &.first{display: block;}
-    .img_style{
-      position: absolute;
-      right: 530px;
-      top: 60px;
+  margin: 0 auto;
+  overflow: hidden;
+    .content-survey{width: 11000px}
+  }
+  .img_style{
+    position: absolute;
+    right: 530px;
+    top: 60px;
     }
+  .question{float:left;overflow: hidden;
     h2{
       font-size: 18px;
       font-family: $johnston;
@@ -94,8 +97,7 @@ footer{
           width: 165px;
           text-align: center;
           height: 55px;
-          margin-top: -6px;
-          padding: 10px;
+          vertical-align: middle;
 
         }
       }
