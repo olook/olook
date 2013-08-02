@@ -4,7 +4,7 @@ module WhatsYourStyle
 
     def initialize(params)
       params.each do |key, value|
-        self.send("#{ key }=", value) if self.respond_to?(key.to_sym)
+        self.send("#{ key }=", value) if self.respond_to?(key.to_s)
       end
     end
 

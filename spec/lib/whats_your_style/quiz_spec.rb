@@ -5,6 +5,7 @@ describe WhatsYourStyle::Quiz do
   describe "#questions" do
     subject { described_class.new.questions }
     it { should be_a(Array) }
+    it { expect(subject.first).to respond_to(:answers) }
     it { expect(subject.first.answers).to_not be_nil }
 
     it "creates questions" do
@@ -15,6 +16,15 @@ describe WhatsYourStyle::Quiz do
 
   describe "#name" do
     it { expect(subject.name).to eql("Whats your style?") }
+  end
+
+  describe "#profile_from" do
+    it { expect{subject.profile_from}.to raise_error(ArgumentError) }
+
+    it "should have a profile and uuid" do
+      subject.profile_from()
+
+    end
   end
 
 end
