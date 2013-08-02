@@ -24,7 +24,6 @@ describe WhatsYourStyle::Quiz do
     it "should have a profile and uuid" do
       hash = {"cool quiz" => {"1" => "3", "2" => "3"}}
       subject.profile_from(hash)
-
     end
   end
 
