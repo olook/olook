@@ -24,6 +24,9 @@ module WhatsYourStyle
         @questions << Question.new({ 'id' => question['id'], 'text' => question['text'] }, question['answers'])
       end
       @questions
+    rescue => e
+      Rails.log.error(quiz.inspect)
+      raise e
     end
 
     def persisted?
