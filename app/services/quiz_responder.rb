@@ -26,6 +26,18 @@ class QuizResponder
     redis.del(self.class.redis_key(uuid))
   end
 
+  def update_profile(user)
+    user.update_attributes(profile: @profile)
+  end
+
+  def retrieve_profile
+    api = WhatsYourStyle::Quiz.new
+    result = api.profile_from(name: @name, answers: @questions)
+
+    @uuid = result[:uuid]
+    @profile = result[:profile]
+  end
+
   private
 
   def self.redis

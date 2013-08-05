@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130705134540) do
+ActiveRecord::Schema.define(:version => 20130802204854) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -1034,6 +1034,7 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
     t.integer  "gender"
     t.integer  "registered_via",                                  :default => 0
     t.datetime "campaign_email_created_at"
+    t.string   "profile"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token"
