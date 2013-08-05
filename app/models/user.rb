@@ -55,6 +55,10 @@ class User < ActiveRecord::Base
     super
   end
 
+  # TODO: change to field in DB
+  def zip_code
+  end
+
   def name
     "#{first_name} #{last_name}".strip
   end

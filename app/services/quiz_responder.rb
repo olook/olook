@@ -30,7 +30,7 @@ class QuizResponder
   end
 
   def update_profile
-    @user.update_attributes(profile: @profile)
+    @user.update_attributes(profile: @profile, wys_uuid: @uuid)
   end
 
   def retrieve_profile
@@ -89,7 +89,9 @@ class QuizResponder
   end
 
   def api
-    WhatsYourStyle::Quiz.new
+    @api = WhatsYourStyle::Quiz.new
+    @api.logger = Rails.logger
+    @api
   end
 
   def self.redis

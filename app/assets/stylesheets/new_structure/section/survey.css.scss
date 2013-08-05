@@ -2,7 +2,7 @@
 
 header{
   .quiz_header{
-      border-top: 8px black solid;  
+      border-top: 8px black solid;
       height: 120px;
       width: 990px;
       margin: 0 auto;
@@ -11,7 +11,7 @@ header{
       h1 a{width: 240px;height: 70px;display:block;background: image-url("common/nav/sprite_header.png") no-repeat 0 -72px;text-indent: -9999px;}
     }
   }
-}  
+}
 
 footer{
   margin-top: 30px;
@@ -72,8 +72,9 @@ footer{
     }
     ol{/*text-align: center;*/
       li{margin-right: 20px;list-style: none;border: solid 1px #000;width: 175px;height: 345px;float: left;position:relative;
-        input{display: none;}
+        /* input{display: none;} TODO back it */
         img{width: 175px;height: 263px;position:absolute;bottom:0;}
+        .selected { border: solid red; }
         p{position:absolute;font-family: $avenir;font-size: 13px;width: 175px;height: 80px;display:table;margin:0;
           label{display: table-cell;vertical-align: middle;text-align: center;}
         }
@@ -81,7 +82,6 @@ footer{
     }
   }
 }
-
 #stylist{
   margin-top: 20px;
   img{

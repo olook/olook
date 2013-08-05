@@ -4,8 +4,9 @@
   =image_tag "quiz/style.png", :class => "img_style"
   #content
     .content-survey
-      = form_for(@quiz) do |f|
-        = f.hidden_field :name, value: @quiz.name
+      = link_to "Voltar", "#", id: "back"
+      = form_tag(wysquiz_path) do
+        = hidden_field_tag 'quiz[name]', @quiz.name
         - @quiz.questions.each_with_index do |question, index|
           .question
             %h2
@@ -18,6 +19,6 @@
                     = label_tag "quiz[questions][#{question.id}][#{answer.id}]", answer.text
                     = radio_button_tag "quiz[questions][#{ question.id }]", "#{ answer.id }"
                   = image_tag answer.image
-        = f.submit 'Finalizar'
+        = submit_tag 'Finalizar'
 
 
