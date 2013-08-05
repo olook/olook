@@ -6,7 +6,7 @@ class SearchEngine
 
   MULTISELECTION_SEPARATOR = '-'
   RANGED_FIELDS = HashWithIndifferentAccess.new({'price' => '', 'heel' => '', 'inventory' => ''})
-  IGNORE_ON_URL = HashWithIndifferentAccess.new({'inventory' => '', 'is_visible' => ''})
+  IGNORE_ON_URL = Set.new(['inventory', :inventory, 'is_visible', :is_visible, 'in_promotion', :in_promotion])
   PERMANENT_FIELDS_ON_URL = Set.new([:is_visible, :inventory])
 
   RETURN_FIELDS = [:subcategory,:name,:brand,:image,:retail_price,:price,:backside_image,:category,:text_relevance]
@@ -27,6 +27,7 @@ class SearchEngine
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
+    @expressions['in_promotion'] = [0]
     @facets = []
     default_facets
 
@@ -37,6 +38,8 @@ class SearchEngine
       next if k.blank?
       self.send("#{k}=", v)
     end
+
+    validate_sort_field
   end
 
   def term= term
@@ -72,10 +75,18 @@ class SearchEngine
   end
 
   def sort= sort_field
-    @sort_field = "#{ sort_field }&" if sort_field.present?
-    @sort_field ||= "-collection,-inventory,-text_relevance"
+    @sort_field = "#{ sort_field }" if sort_field.present?
     self
   end
+
+
+  def category= cat
+    if cat == "roupa"
+      @expressions["category"] = ["roupa","moda praia"]
+    else
+      @expressions["category"] = cat.to_s.split(MULTISELECTION_SEPARATOR)
+    end
+  end  
 
   def total_results
     @result.hits["found"]
@@ -150,7 +161,7 @@ class SearchEngine
     _filters = expressions.dup
     _filters.delete(:category)
     _filters.delete(:price)
-    _filters.delete_if{|k,v| IGNORE_ON_URL[k]}
+    _filters.delete_if{|k,v| IGNORE_ON_URL.include?( k )}
     _filters.delete_if{|k,v| v.empty?}
     _filters.values.flatten.any?
   end
@@ -165,6 +176,7 @@ class SearchEngine
 
   def for_admin
     @expressions['is_visible'] = [0,1]
+    @expressions['in_promotion'] = [0,1]
     @expressions['inventory'] = ['inventory:0..']
     self
   end
@@ -250,7 +262,7 @@ class SearchEngine
     def formatted_filters
       filter_params = HashWithIndifferentAccess.new
       expressions.each do |k, v|
-        next if IGNORE_ON_URL[k]
+        next if IGNORE_ON_URL.include?(k)
         filter_params[k] ||= []
         if RANGED_FIELDS[k]
           v.each do |_v|
@@ -267,5 +279,11 @@ class SearchEngine
       end
 
       filter_params
+    end
+
+    def validate_sort_field
+      if @sort_field.nil? || @sort_field == "" || @sort_field == 0 || @sort_field == "0"
+        @sort_field = "-collection,-inventory,-text_relevance"
+      end
     end
 end

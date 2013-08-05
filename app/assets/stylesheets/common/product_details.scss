@@ -16,6 +16,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
 
 #product {
   padding: 10px 0 0 0;
+  .content{width:970px;}
   div.content {
     div#pics_suggestions, div#infos {
       margin-bottom: 40px;
@@ -32,9 +33,9 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         li {
           margin-bottom: 10px;
           overflow:hidden;
-          a {/*width: 50px;*/margin: 2px;float: left;border:solid 2px #FFF;
-            &:hover, &.selected {border: 2px #a3a3a3 solid;}
-            img {width:45px;height:auto;}/* new size photo */  
+          a {/*width: 50px;*/margin: 2px;float: left;
+            &:hover img, &.selected {border: 2px #a3a3a3 solid;}
+            img {width:45px;height:auto;border:solid 2px #FFF;}/* new size photo */  
           }
         }
       }

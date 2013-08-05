@@ -104,12 +104,17 @@ function showTotal(){
 }
 
 function freightCalc(){
-  zip_code = $("#checkout_address_zip_code").val();
-
   $("#checkout_address_street").on("focus", function(){
     zip_code = $("#checkout_address_zip_code").val();
     retrieve_freight_price(zip_code)
   });
+}
+
+function updateFreightValue() {
+  zip_code = $('input.address_recorded:checked').val();
+  if (zip_code != undefined) {
+    retrieve_freight_price(zip_code);
+  }
 }
 
 $(function() {
@@ -118,14 +123,18 @@ $(function() {
   masks.tel(".tel_contato1");
   masks.tel(".tel_contato2");
   
-  freightCalc();
+  updateFreightValue();
   showAboutSecurityCode();
 
+  if($(".box-step-one input[type=radio]").size() == 1){
+    $(".box-step-one input[type=radio]").trigger('click');
+  }
+  
   $(".credit_card").click(function() {
     $(".box-debito .debit_bank_Itau").removeClass("selected").siblings("input:checked").removeAttr("checked");
   });
 
-    var msie6 = $.browser == 'msie' && $.browser.version < 7;
+  var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if(!msie6 && $('.box-step-three').length == 1) {
     var helpLeft = $('.box-step-three').offset().left;
 
@@ -141,7 +150,8 @@ $(function() {
     });
   }
 
-
+ 
+  
   $("div.box-step-two #checkout_credits_use_credits").change(function() {
     $("#cart-box #credits_used").hide();
     $("#cart-box #total").hide();
@@ -224,8 +234,4 @@ $(function() {
     retrieve_freight_price($("#checkout_address_zip_code").val(),null);
     return true;
   });
-
 });
-
-
-
