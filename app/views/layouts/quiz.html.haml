@@ -39,16 +39,17 @@
     = content_for?(:content) ? yield(:content) : yield
 
     %footer
-      %ul
-        %li.about
-          %p
-            %span Sobre o uso de imagens e reprodução
-            %br Usamos imagens de celebridades, modelos e até mesmo anônimas para ilustrar nossas recomendações de moda, look e comportamento.
-            As pessoas retratadas não estão associadas ou recomendam a Olook.
-        %li.about_quiz
-          %p
-            %span Porque responder este quiz?
-            %br A partir de suas respostas, identificaremos seu estilo e todos os meses você receberá recomendações de nossas Stylists.
+      - if !@hide_about_quiz
+        %ul
+          %li.about
+            %p
+              %span Sobre o uso de imagens e reprodução
+              %br Usamos imagens de celebridades, modelos e até mesmo anônimas para ilustrar nossas recomendações de moda, look e comportamento.
+              As pessoas retratadas não estão associadas ou recomendam a Olook.
+          %li.about_quiz
+            %p
+              %span Porque responder este quiz?
+              %br A partir de suas respostas, identificaremos seu estilo e todos os meses você receberá recomendações de nossas Stylists.
       .infos
         %p
           %span © 2013 - Olook. Todos os direitos reservados.

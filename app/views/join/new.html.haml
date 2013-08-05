@@ -1,0 +1,53 @@
+.col
+  %h2
+    Só mais um passinho...
+    %br
+    E você descobrirá seu estilo!
+  %p
+    Cadastre-se e receba por email novidades
+    %br
+    sobre moda, tendências e promoções exclusivas
+
+  %h2 Cadastro Olook
+  %p Queremos saber mais de você.
+
+  = form_for(@user, url: join_path) do |f|
+    .first_name.field
+      = f.label :first_name
+      = f.text_field :first_name
+    .last_name.field
+      = f.label :last_name
+      = f.text_field :first_name
+    .email.field
+      = f.label :email
+      = f.text_field :email
+    .password.field
+      = f.label :pasword, "Senha #{content_tag("span", '(min. 6 caracteres)', class: 'hint')}".html_safe
+      = f.password_field :pasword
+    .password_confirmation.field
+      = f.label :pasword_confirmation, "Confirmar senha"
+      = f.password_field :pasword_confirmation
+    .gender.field
+      = f.label :gender, "Você é"
+      = f.select :gender, { 'Mulher' => 0, 'Homem' => 1 }
+    .cep.field
+      = f.label :zip_code, 'CEP'
+      = f.text_field :zip_code
+
+
+.col
+  .qty
+    %p
+      %span#num_qty 122273
+      pessoas já responderam nosso style quiz
+    .avatars
+      .prev
+      .faces
+      .next
+
+  %h2 Já tenho cadastro
+  %p Então é só entrar ;)
+
+
+
+
