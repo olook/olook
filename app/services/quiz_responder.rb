@@ -89,7 +89,9 @@ class QuizResponder
   end
 
   def api
-    WhatsYourStyle::Quiz.new
+    @api = WhatsYourStyle::Quiz.new
+    @api.logger = Rails.logger
+    @api
   end
 
   def self.redis

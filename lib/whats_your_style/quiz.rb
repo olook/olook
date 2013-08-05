@@ -12,6 +12,11 @@ module WhatsYourStyle
     PREFIX_URL = '/v1'
 
     attr_reader :profile, :uuid
+    attr_accessor :logger
+
+    def initialize
+      @logger = Logger.new(STDOUT)
+    end
 
     def name
       quiz['name']
@@ -36,16 +41,27 @@ module WhatsYourStyle
     def profile_from(answers)
       @name = answers[:name] || answers['name']
       @answers = answers[:answers] || answers['answers']
-      raise ArgumentError.new("missing :answers or :name key") if !answers || !name
+      raise ArgumentError.new("missing :answers or :name key") if !@answers || !@name
       challenge
       { uuid: @uuid, profile: @profile }
     end
 
     private
+
+      def logger_time(text, &block)
+        start = Time.now.to_f
+        yield
+        time = (Time.now.to_f - start) * 1000
+        logger.info("[#{ '%0.2f' % time } ms] #{text}")
+      end
+
       def quiz
         return @quiz if @quiz
         url = URI.parse "#{SCHEMA}://#{HOST}:#{PORT}#{PREFIX_URL}/quizzes/1?api_token=#{AUTH_TOKEN}"
-        response = Net::HTTP.get_response(url)
+        response = nil
+        logger_time("NET::HTTP.get_response(#{url})") do
+          response = Net::HTTP.get_response(url)
+        end
         @quiz = JSON.parse(response.body)
       end
 
@@ -53,7 +69,10 @@ module WhatsYourStyle
         path = "/v1/challenges/create?api_token=#{AUTH_TOKEN}"
         req = Net::HTTP::Post.new(path)
         req.body = challenge_payload
-        response = Net::HTTP.new(HOST, PORT).start { |http| http.request(req) }
+        response = nil
+        logger_time("NET::HTTP.post(#{path})") do
+          response = Net::HTTP.new(HOST, PORT).start { |http| http.request(req) }
+        end
         j_response = JSON.parse(response.body)
         @profile = j_response['classification_label']
         @uuid = j_response['uuid']
