@@ -81,3 +81,44 @@ footer{
     }
   }
 }
+
+#stylist{
+  margin-top: 20px;
+  img{
+    float: left;
+  }
+  .go_quiz{
+    margin-left: 60px;
+  }
+  .content-stylist{
+    height: 950px;
+    width: 990px;
+    margin-top: 100px;
+    ul{
+      width: 990px;
+      li{
+        float: left;
+        p{
+          font-size: 20px;
+          font-family: $avenir;
+          line-height: 25px;
+        }
+        &.bordoux{
+          width: 578px;
+          margin-right: 65px;
+          img{
+            margin-top: 20px;
+          }
+        }
+        &.second{
+          margin-top: 30px;
+          margin-right: 47px;
+        }
+        &.deco{
+          margin-top: 30px;
+          margin-right: 0 !important;
+        }
+      }
+    }
+  }
+}
