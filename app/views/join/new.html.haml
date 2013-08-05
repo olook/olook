@@ -34,6 +34,14 @@
       = f.label :zip_code, 'CEP'
       = f.text_field :zip_code
 
+    %p.notes
+      Concluindo o cadastro você aceita nossos
+      = link_to terms_path, 'termos de uso'
+      e a nossa
+      = link_to privacy_path, 'política de privacidade'
+
+    = f.submit 'Cadastrar'
+
 
 .col
   .qty
