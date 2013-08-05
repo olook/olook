@@ -126,11 +126,15 @@ $(function() {
   updateFreightValue();
   showAboutSecurityCode();
 
+  if($(".box-step-one input[type=radio]").size() == 1){
+    $(".box-step-one input[type=radio]").trigger('click');
+  }
+  
   $(".credit_card").click(function() {
     $(".box-debito .debit_bank_Itau").removeClass("selected").siblings("input:checked").removeAttr("checked");
   });
 
-    var msie6 = $.browser == 'msie' && $.browser.version < 7;
+  var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if(!msie6 && $('.box-step-three').length == 1) {
     var helpLeft = $('.box-step-three').offset().left;
 
