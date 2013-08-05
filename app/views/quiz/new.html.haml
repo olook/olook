@@ -4,6 +4,7 @@
   =image_tag "quiz/style.png", :class => "img_style"
   #content
     .content-survey
+      = link_to "Voltar", "#", id: "back"
       = form_for(@quiz) do |f|
         = f.hidden_field :name, value: @quiz.name
         - @quiz.questions.each_with_index do |question, index|

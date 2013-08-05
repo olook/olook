@@ -1,4 +1,11 @@
 quiz = {} || null;
+previous_button = { } || null;
+
+previous_button = {
+  back: function() {
+    $(this).prev().parent().parent().parent().animate({ "margin-left": "850px" }, "slow" );
+  }
+}
 quiz = {
     respond_question: function(el) {
         el = $(el);
@@ -11,4 +18,7 @@ quiz = {
 }
 $(function(){
     quiz.respond_question("img");
+    $("#back").on("click", function(){
+        $("img.selected").prev().parent().parent().parent().animate({ "margin-left": "0px" }, "slow" );
+    });
 });
