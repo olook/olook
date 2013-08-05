@@ -1,1 +1,29 @@
-LAYOUT DO STYLIST NEWS
+= stylesheet_link_tag  "new_structure/section/survey"
+%section#stylist
+  #content
+    =image_tag "quiz/stylist/title.png", :class => ""
+    =link_to (image_tag("quiz/stylist/go_stylist.jpg",:class => "go_quiz")), "/stylist-news/" 
+    .content-stylist
+      %ul
+        %li.bordoux
+          %p
+            Conheça o canal das nossas Stylists em nosso site! 
+            %br Moda, decoração, celebridades, entretenimento e lifestyle
+            =link_to (image_tag("quiz/stylist/q_1.jpg")), "/stylist-news/"
+        %li 
+          =link_to (image_tag("quiz/stylist/q_2.jpg")), "/stylist-news/"
+        %li.second 
+          =link_to (image_tag("quiz/stylist/q_3.jpg")), "/stylist-news/"
+        %li.second 
+          =link_to (image_tag("quiz/stylist/q_4.jpg")), "/stylist-news/" 
+        %li.deco
+          =link_to (image_tag("quiz/stylist/q_5.jpg")), "/stylist-news/" 
+%footer
+  .infos
+    %p
+      %span © 2013 - Olook. Todos os direitos reservados.
+      %br
+      A Olook respeita sua privacidade e de todos os seus clientes. Leia mais sobre a nossa
+      =link_to "Política de Privacidade.", "/privacidade"
+      %br
+      Escritório: Rua Natividade, 72 - Vl. Nova Conceição, São Paulo - SP Centro de distribuição: Avenida Ribeirão dos Cristais, 800, Jordanésia, Cajamar - SP. Galpão 10, módulo C e D / Olook Comércio Online de Moda Ltda  / CNPJ 011.216.478/0001-70
