@@ -5,8 +5,8 @@
   #content
     .content-survey
       = link_to "Voltar", "#", id: "back"
-      = form_for(@quiz) do |f|
-        = f.hidden_field :name, value: @quiz.name
+      = form_tag(wysquiz_path) do
+        = hidden_field_tag 'quiz[name]', @quiz.name
         - @quiz.questions.each_with_index do |question, index|
           .question
             %h2
@@ -19,6 +19,6 @@
                     = label_tag "quiz[questions][#{question.id}][#{answer.id}]", answer.text
                     = radio_button_tag "quiz[questions][#{ question.id }]", "#{ answer.id }"
                   = image_tag answer.image
-        = f.submit 'Finalizar'
+        = submit_tag 'Finalizar'
 
 
