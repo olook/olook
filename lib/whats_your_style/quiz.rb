@@ -25,7 +25,7 @@ module WhatsYourStyle
       end
       @questions
     rescue => e
-      Rails.log.error(quiz.inspect)
+      Rails.logger.error(quiz.inspect)
       raise e
     end
 
