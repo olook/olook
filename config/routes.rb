@@ -4,9 +4,10 @@ require 'resque/server'
 Olook::Application.routes.draw do
 
 
-  get "profile", to: "profiles#show", as: 'profile'
+  get "/voce", to: "profiles#show", as: 'profile'
 
   get "/seu-estilo", to: "quiz#new", as: "wysquiz"
+  get "/join", to: 'join#new', as: 'join'
   post "/resultado", to: "quiz#create", as: 'whats_your_style_quizzes'
 
   mount Resque::Server => "/admin/resque"

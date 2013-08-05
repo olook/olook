@@ -7,10 +7,10 @@ class QuizController < ApplicationController
   def create
     @quiz_responder = QuizResponder.new(params[:quiz])
     @quiz_responder.user = current_user
-    if @quiz_responder.next_step == 'profile'
-      redirect_to profile_path
-    else
-      render text: 'NEED USER LOGIN OR SIGN UP PATH'
+    @quiz_responder.validate!
+    if @quiz_responder.save_session?
+      session[:qr] = @quiz_responder.session_data
     end
+    redirect_to @quiz_responder.next_step
   end
 end
