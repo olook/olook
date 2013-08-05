@@ -18,6 +18,6 @@
                     = label_tag "quiz[questions][#{question.id}][#{answer.id}]", answer.text
                     = radio_button_tag "quiz[questions][#{ question.id }]", "#{ answer.id }"
                   = image_tag answer.image
-        = f.submit 'Finalizar'
+        = submit_tag 'Finalizar'
 
 
