@@ -37,6 +37,8 @@
       bag: Bolsa
       accessory: Acessório
       cloth: Roupa
+      beachwear: "Moda Praia"
+      lingerie: Lingerie
 
   # formatos de data e hora
   date:

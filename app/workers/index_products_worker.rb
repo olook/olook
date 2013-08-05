@@ -56,10 +56,11 @@ class IndexProductsWorker
         fields['image'] = product.catalog_picture
         fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
         fields['brand'] = product.brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
-        fields['brand_facet'] = product.brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
+        fields['brand_facet'] = ActiveSupport::Inflector.transliterate(product.brand).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
         fields['price'] = (product.price.to_d * 100).round
         fields['retail_price'] = (product.retail_price.to_d * 100).round
-        fields['in_promotion'] = product.promotion?
+        fields['discount'] = (fields['retail_price'].to_i * 100) / fields['price'].to_i
+        fields['in_promotion'] = product.liquidation? ? 1 : 0
         fields['category'] = product.category_humanize.downcase
         fields['size'] = product.variants.select{|v| v.inventory > 0}.map{|b| b.description}
         fields['care'] = product.subcategory.titleize if Product::CARE_PRODUCTS.include?(product.subcategory)
