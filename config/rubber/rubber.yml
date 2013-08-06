@@ -301,12 +301,18 @@ hosts:
         image_type: m1.large
 
   homolog:
-    unicorn_workers: 4
+    unicorn_workers: 2
     cloud_providers:
       aws:
-        image_type: m1.large
+        image_type: m1.medium
+      volumes:
+        - size: 50 # size of vol in GBs
+          zone: us-east-1b # zone to create volume in, needs to match host's zone
+          device: /dev/sdh # OS device to attach volume to
+          mount: /mnt/ # The directory to mount this volume to
+          filesystem: ext3 # the filesystem to create on volume
   homolog2:
-    unicorn_workers: 4
+    unicorn_workers: 2
     cloud_providers:
       aws:
         image_type: m1.medium
@@ -317,15 +323,27 @@ hosts:
           mount: /mnt/ # The directory to mount this volume to
           filesystem: ext3 # the filesystem to create on volume
   stage:
-    unicorn_workers: 4
+    unicorn_workers: 2
     cloud_providers:
       aws:
         image_type: m1.medium
+      volumes:
+        - size: 50 # size of vol in GBs
+          zone: us-east-1b # zone to create volume in, needs to match host's zone
+          device: /dev/sdh # OS device to attach volume to
+          mount: /mnt/ # The directory to mount this volume to
+          filesystem: ext3 # the filesystem to create on volume
   development:
-    unicorn_workers: 4
+    unicorn_workers: 2
     cloud_providers:
       aws:
-        image_type: c1.medium
+        image_type: m1.medium
+      volumes:
+        - size: 50 # size of vol in GBs
+          zone: us-east-1b # zone to create volume in, needs to match host's zone
+          device: /dev/sdh # OS device to attach volume to
+          mount: /mnt/ # The directory to mount this volume to
+          filesystem: ext3 # the filesystem to create on volume
   jenkins:
     cloud_providers:
       aws:
