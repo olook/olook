@@ -1,5 +1,5 @@
 # OPTIONAL: The dns provider to use.  Need to exist in dns_providers below
-dns_provider: zerigo
+# dns_provider: zerigo
 
 # OPTIONAL: The configuration for each dns provider (nettica|zerigo|dyndns)
 #          This lets rubber update a dynamic dns service with the instance alias and ip
