@@ -2,11 +2,7 @@
 
 header{
   .quiz_header{
-      border-top: 8px black solid;
-      height: 120px;
-      width: 990px;
-      margin: 0 auto;
-
+      border-top: 8px black solid;height: 120px;width: 990px;margin: 0 auto;
     .olook_logo{width: 240px;height: 70px;margin: 0 auto;padding-top: 20px;
       h1 a{width: 240px;height: 70px;display:block;background: image-url("common/nav/sprite_header.png") no-repeat 0 -72px;text-indent: -9999px;}
     }
@@ -15,36 +11,17 @@ header{
 
 footer{
   margin-top: 30px;
-  ul{
-    width: 775px;
-    height: 155px;
-    border: solid 1px #d7d7d7;
-    margin: 0 auto;
-    li{
-      list-style: none;
-      margin-top: 25px;
-      p{
-        font-family: $avenir;
-        font-size: 13px;
-        color: #939598;
+  ul{width: 775px;height: 155px;border: solid 1px #d7d7d7;margin: 0 auto;
+    li{list-style: none;margin-top: 25px;
+      p{font-family: $avenir;font-size: 13px;color: #939598;
         span{font-weight: 500;}
       }
       &.about{width: 410px; float: left;margin-right: 65px;}
       &.about_quiz{width: 265px; float: left;}
     }
   }
-  .infos{
-    width: 817px;
-    height: 100px;
-    border-top: solid 1px #d7d7d7;
-    margin: 0 auto;
-    margin-top: 45px;
-    p{
-      margin-top: 25px;
-      text-align: center;
-      font-family: $avenir;
-      font-size: 13px;
-      color: #939598;
+  .infos{width: 817px;height: 100px;border-top: solid 1px #d7d7d7;margin: 0 auto;margin-top: 45px;
+    p{margin-top: 25px;text-align: center;font-family: $avenir;font-size: 13px;color: #939598;
       span{white-space: nowrap;}
       a{text-decoration: none;color: #939598;
         &:hover{color: $pink;}
@@ -54,18 +31,10 @@ footer{
 }
 
 #survey{
-  #content{
-  width: 830px;
-  height: 615px;
-  margin: 0 auto;
-  overflow: hidden;
+  #content{width: 830px;height: 615px;margin: 0 auto;overflow: hidden;
     .content-survey{width: 12000px}
   }
-  .img_style{
-    position: absolute;
-    right: 530px;
-    top: 60px;
-    }
+  .img_style{position: absolute;right: 530px;top: 60px;}
   .question{float:left;overflow: hidden;
     h2{font-size: 18px;font-family: $johnston;font-weight: 500;text-transform: uppercase;text-align: center;
       span{font-size: 120px;font-family: $kepler;font-weight: normal;font-style: italic;}
@@ -90,35 +59,36 @@ footer{
   .go_quiz{
     margin-left: 60px;
   }
-  .content-stylist{
-    height: 950px;
-    width: 990px;
-    margin-top: 100px;
-    ul{
-      width: 990px;
-      li{
-        float: left;
-        p{
-          font-size: 20px;
-          font-family: $avenir;
-          line-height: 25px;
+  .content-stylist{height: 950px;width: 990px;margin-top: 100px;
+    ul{width: 990px;
+      li{float: left;
+        p{font-size: 20px;font-family: $avenir;line-height: 25px;}
+        &.bordoux{width: 578px;margin-right: 65px;
+          img{margin-top: 10px;}
         }
-        &.bordoux{
-          width: 578px;
-          margin-right: 65px;
-          img{
-            margin-top: 10px;
-          }
-        }
-        &.second{
-          margin-top: 30px;
-          margin-right: 43px;
-        }
-        &.deco{
-          margin-top: 30px;
-          margin-right: 0 !important;
-        }
+        &.second{margin-top: 30px;margin-right: 43px;}
+        &.deco{margin-top: 30px;margin-right: 0 !important;}
       }
     }
+  }
+}
+
+#profiles{width: 990px;margin: 0 auto;margin-left: 12px;
+  .content-basic{width: 940px;height: 560px;background: image-url('quiz/profiles/b_1.jpg') center no-repeat;position: relative;
+    .style{background: image-url('quiz/profiles/b_0.png') center no-repeat;position: absolute;width: 271px; height: 264px;left: 173px;top: 93px;
+      p{color: #fff; font-family: $johnston; font-size: 30px; text-transform: uppercase;padding-top: 80px;margin-left: -11px;font-weight: lighter;text-align: center;}
+    }
+  }
+  ul{margin-top: 30px;height: 485px;
+    li{float: left;width: 268px; height:285px;margin-right: 65px;
+      h1{font-size: 20px; font-family: $johnston;color: #000; text-align: center;margin-bottom: 5px;}
+      p{font-family: $avenir; font-size: 13px;color: #000; text-align: center;}
+      img{margin-top: 10px;}
+      &.party{margin-right: 0 !important;}
+  }
+}
+  .share{top:-60px;right:10px;font-size:12px;
+    p{float:left;text-align:left;width:360px;line-height:34px;background-color: #fff;font-weight: 500;margin-left: 572px; margin-top: 13px;height: 31px;}
+    a#facebook_share{float:right;font-size:0;line-height:0;display:block;width:125px;height:25px;background: image-url('showroom/sprite.png') no-repeat -108px -32px;margin-top:5px;margin-right: 4px;}
   }
 }
