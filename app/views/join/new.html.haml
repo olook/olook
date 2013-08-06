@@ -18,7 +18,7 @@
         %ul
           - @user.errors.full_messages.each do |msg|
             %li= msg
-      %fieldset
+      
       .first_name.field
         = f.label :first_name
         = f.text_field :first_name
@@ -35,8 +35,10 @@
         = f.label :password_confirmation, "Confirmar senha"
         = f.password_field :password_confirmation
       .gender.field
-        = f.label :gender, "Você é"
-        = f.select :gender, { 'Mulher' => 0, 'Homem' => 1 }
+        = f.label :gender, "Você é:"
+        %p.sex
+          Selecione
+        = f.select :gender, {'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 }
       .cep.field
         = f.label :zip_code, 'CEP'
         = f.text_field :zip_code
