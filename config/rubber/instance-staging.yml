@@ -20,31 +20,31 @@
     options:
       primary: 
   - !ruby/object:Rubber::Configuration::RoleItem
-    name: memcached
-    options: {}
-  - !ruby/object:Rubber::Configuration::RoleItem
     name: redis_master
     options: {}
   - !ruby/object:Rubber::Configuration::RoleItem
     name: redis
     options: {}
   - !ruby/object:Rubber::Configuration::RoleItem
-    name: mysql_master
-    options: {}
-  - !ruby/object:Rubber::Configuration::RoleItem
-    name: mysql
+    name: memcached
     options: {}
   - !ruby/object:Rubber::Configuration::RoleItem
     name: db
     options:
       primary: true
   - !ruby/object:Rubber::Configuration::RoleItem
+    name: mysql
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: mysql_master
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: collectd
     options: {}
   - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
     options: {}
-  instance_id: i-7256a018
+  instance_id: i-2c67bd4d
   image_type: m1.medium
   image_id: ami-3fec7956
   security_groups:
@@ -55,17 +55,17 @@
   - olook_staging_unicorn
   - olook_staging_nginx
   - olook_staging_db
-  - olook_staging_memcached
   - olook_staging_redis_master
   - olook_staging_redis
-  - olook_staging_mysql_master
+  - olook_staging_memcached
   - olook_staging_mysql
+  - olook_staging_mysql_master
   - olook_staging_collectd
   - olook_staging_monit
-  external_host: ec2-23-22-22-219.compute-1.amazonaws.com
-  external_ip: 23.22.22.219
-  internal_host: ip-10-170-38-49.ec2.internal
-  internal_ip: 10.170.38.49
+  external_host: ec2-54-226-229-10.compute-1.amazonaws.com
+  external_ip: 54.226.229.10
+  internal_host: ip-10-234-22-163.ec2.internal
+  internal_ip: 10.234.22.163
   zone: us-east-1b
   provider: aws
   platform: linux
