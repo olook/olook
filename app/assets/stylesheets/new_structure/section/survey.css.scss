@@ -37,6 +37,7 @@ footer{
 }
 #survey{
   #content{width: 830px;height: 615px;margin: 0 auto;overflow: hidden;
+    button#back { background: image-url("quiz/back_arrow.png") no-repeat; width: 19px; height: 109px; border: none; position: absolute; top: 410px; left: 400px;}
     .content-survey{width: 12000px}
   }
   .img_style{position: absolute;right: 530px;top: 60px;}
