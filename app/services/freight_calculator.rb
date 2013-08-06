@@ -1,20 +1,23 @@
 # -*- encoding : utf-8 -*-
 module FreightCalculator
   VALID_ZIP_FORMAT = /\A(\d{8})\z/
+  VALID_SHIPPING_SERVICES_ID_LIST = /^(\d+,?)*$/
+
 
   DEFAULT_FREIGHT_PRICE   = 0.0
   DEFAULT_FREIGHT_COST    = 0.0
   DEFAULT_INVENTORY_TIME  = 2
   DEFAULT_FREIGHT_SERVICE = 1
 
-  def self.freight_for_zip(zip_code, order_value)
+
+  def self.freight_for_zip(zip_code, order_value, shipping_service_ids=nil)
     clean_zip_code = clean_zip(zip_code)
     return {} unless valid_zip?(clean_zip_code)
 
     freight_price = nil
-    ShippingService.order('priority').each do |shipping_service|
-      freight_price = shipping_service.find_freight_for_zip(clean_zip_code, order_value)
 
+    shipping_services(shipping_service_ids).each do |shipping_service|
+      freight_price = shipping_service.find_freight_for_zip(clean_zip_code, order_value)
       break if freight_price
     end
 
@@ -32,4 +35,20 @@ module FreightCalculator
   def self.clean_zip(dirty_zip)
     return dirty_zip.gsub /\D/, ''
   end
+
+  private
+    def self.shipping_services(shipping_service_ids)
+
+      sanitized_list = sanitize(shipping_service_ids)
+      if sanitized_list 
+        ShippingService.where(id: sanitized_list)
+      else
+        ShippingService.order('priority')
+      end
+    end
+
+    def self.sanitize list
+      VALID_SHIPPING_SERVICES_ID_LIST =~ list ? list : nil
+    end
+
 end
