@@ -11,7 +11,7 @@ class AssociateProductWithCollectionThemeService
     @input = {}
     @lines.each do |l|
       line = l.split("\t")
-      @input[line.at(@product_index)] = line.at(@categorias_site_index).split(/\D/)
+      @input[line.at(@product_index)] = line.at(@categorias_site_index).to_s.split(/\D/)
     end
   end
 
