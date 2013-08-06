@@ -8,24 +8,24 @@
       = form_tag(wysquiz_path) do
         = hidden_field_tag 'quiz[name]', @quiz.name
         - @quiz.questions.each_with_index do |question, index|
-          .question
+          .step
             %h2
               %span= "#{ index + 1 }"
               = "#{ question.text}"
             %ol.options
               - question.answers.each do |answer|
-                %li
+                %li.next-step-on-click.check-input
                   %p
                     = label_tag "quiz[questions][#{question.id}][#{answer.id}]", answer.text
                     = radio_button_tag "quiz[questions][#{ question.id }]", "#{ answer.id }"
                   = image_tag answer.image
 
-        .question.last_step
+        .last_step
           %fieldset
             = label_tag "quiz[user_data][shoe_size]", "Qual tamanho do seu pezinho?"
             %ol.options
               - (33..40).each do |size|
-                %li
+                %li.check-input
                   = size
                   = radio_button_tag "quiz[user_data][shoe_size]", "#{ size }"
 
@@ -33,7 +33,7 @@
             = label_tag "quiz[user_data][dress_size]", "E o tamanho do vestido?"
             %ol.options
               - ["PP", "P", "M", "G", "GG"].each do |size|
-                %li
+                %li.check-input
                   = size
                   = radio_button_tag "quiz[user_data][dress_size]", "#{ size }"
 
@@ -41,7 +41,7 @@
             = label_tag "quiz[user_data][t_shirt_size]", "Blusinha?"
             %ol.options
               - ["PP", "P", "M", "G", "GG"].each do |size|
-                %li
+                %li.check-input
                   = size
                   = radio_button_tag "quiz[user_data][t_shirt_size]", "#{ size }"
 
@@ -49,7 +49,7 @@
             = label_tag "quiz[user_data][pants_size]", "E o tamanho da sua calça jeans?"
             %ol.options
               - ["34", "36", "38", "40", "42", "44", "46"].each do |size|
-                %li
+                %li.check-input
                   = size
                   = radio_button_tag "quiz[user_data][pants_size]", "#{ size }"
           = submit_tag 'Finalizar'

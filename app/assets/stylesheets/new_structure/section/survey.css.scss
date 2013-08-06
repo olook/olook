@@ -35,7 +35,7 @@ footer{
     .content-survey{width: 12000px}
   }
   .img_style{position: absolute;right: 530px;top: 60px;}
-  .question{float:left;overflow: hidden;
+  .step, .last_step {float:left;overflow: hidden;
     &.current_section { h2 { background: red; } }
     h2{font-size: 18px;font-family: $johnston;font-weight: 500;text-transform: uppercase;text-align: center; width: 800px;
       span{font-size: 120px;font-family: $kepler;font-weight: normal;font-style: italic;}
@@ -50,15 +50,16 @@ footer{
         }
       }
     }
-    &.last_step { text-align: center;
-      fieldset { margin-left: 100px; border: none; }
-        ol.options{
-          li{width: 40px; height: 40px;float:none;display:inline-block;line-height: 40px;
-          }
-        }
+  }
+
+  .last_step { text-align: center;
+    fieldset { margin-left: 100px; border: none; }
+    ol.options{
+      li{width: 40px; height: 40px;float:none;display:inline-block;line-height: 40px;
       }
     }
   }
+}
 
 #stylist{
   margin-top: 20px;
