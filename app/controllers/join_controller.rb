@@ -1,3 +1,4 @@
+#encoding: utf-8
 class JoinController < ApplicationController
   layout 'quiz'
 
@@ -25,6 +26,8 @@ class JoinController < ApplicationController
       sign_in(:user, @user)
       redirect_to set_user_profile(@user).next_step, notice: I18n.t("join_controller.create.success")
     else
+      @user = User.new
+      @user.errors.add(:base, "Email ou Senha inválidos")
       render :new
     end
   end
