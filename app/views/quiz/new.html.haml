@@ -3,8 +3,8 @@
 %section#survey
   =image_tag "quiz/style.png", :class => "img_style"
   #content
+    %button{ type: "button", id: "back"  }
     .content-survey
-      = link_to "Voltar", "#", id: "back"
       = form_tag(wysquiz_path) do
         = hidden_field_tag 'quiz[name]', @quiz.name
         - @quiz.questions.each_with_index do |question, index|
