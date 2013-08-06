@@ -1,7 +1,7 @@
 # encoding: utf-8
 module CatalogsHelper
   CLOTH_SIZES_TABLE = ["PP","P","M","G","GG","33","34","35","36","37","38","39","40","42","44","46","Único","Tamanho único"]
-  HIGHLIGHT_BRANDS = {"olook" => 1, "olook concept" => 2}
+  HIGHLIGHT_BRANDS = {"olook" => 1, "olook concept" => 2, "olook essential" => 3}
   DOWNCASE_WORDS = Set.new( %w{ e de do da } )
 
   def filter_link_to(link, text, selected=false, amount=nil)
@@ -63,11 +63,14 @@ module CatalogsHelper
     if filter == 'size'
       facets.keys.sort{|a,b| CLOTH_SIZES_TABLE.index(a.to_s).to_i <=> CLOTH_SIZES_TABLE.index(b.to_s).to_i}
     elsif filter == 'brand_facet'
+
       # Olook and Olook Concept must be shown at the top
       facets.keys.sort do |a,b|
-        if !HIGHLIGHT_BRANDS[a.downcase].nil?
+        if HIGHLIGHT_BRANDS.keys.include?(a.downcase) && HIGHLIGHT_BRANDS.keys.include?(b.downcase)
+          HIGHLIGHT_BRANDS[a.downcase] <=> HIGHLIGHT_BRANDS[b.downcase]
+        elsif HIGHLIGHT_BRANDS.keys.include? a.downcase
           -1
-        elsif !HIGHLIGHT_BRANDS[b.downcase].nil?
+        elsif HIGHLIGHT_BRANDS.keys.include? b.downcase
           1
         else
           a <=> b

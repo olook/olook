@@ -38,7 +38,8 @@ class SearchEngine
       next if k.blank?
       self.send("#{k}=", v)
     end
-    @sort_field = "-collection,-inventory,-text_relevance" if @sort_field.to_i == 0
+
+    validate_sort_field
   end
 
   def term= term
@@ -288,5 +289,11 @@ class SearchEngine
       expressions.delete("excluded_brand")
       vals = excluded_brands.map { |v| "(field brand '#{v}')" } unless excluded_brands.empty?
       bq << ( "(not #{vals.join(' ')})" )
+    end
+
+    def validate_sort_field
+      if @sort_field.nil? || @sort_field == "" || @sort_field == 0 || @sort_field == "0"
+        @sort_field = "-collection,-inventory,-text_relevance"
+      end
     end
 end
