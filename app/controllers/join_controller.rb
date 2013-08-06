@@ -26,13 +26,23 @@ class JoinController < ApplicationController
       sign_in(:user, @user)
       redirect_to set_user_profile(@user).next_step, notice: I18n.t("join_controller.create.success")
     else
-      @user = User.new
-      @user.errors.add(:base, "Email ou Senha inválidos")
+      user_from_newsletter? params[:email]
       render :new
     end
   end
 
   private
+
+    def user_from_newsletter? email
+      newsletter_user = CampaignEmail.where(converted_user: false, email: params[:email]).first
+      @user = User.new
+      if newsletter_user
+        @user.errors.add(:base, I18n.t("join_controller.create.newsletter_fail"))
+      else
+        @user.errors.add(:base, I18n.t("join_controller.create.fail"))
+      end
+    end
+
     def load_quiz_responder
       @quiz_responder = session[:qr]
     end
