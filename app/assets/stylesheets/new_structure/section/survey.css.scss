@@ -67,21 +67,30 @@ footer{
     top: 60px;
     }
   .question{float:left;overflow: hidden;
-    h2{font-size: 18px;font-family: $johnston;font-weight: 500;text-transform: uppercase;text-align: center;
+    &.current_section { h2 { background: red; } }
+    h2{font-size: 18px;font-family: $johnston;font-weight: 500;text-transform: uppercase;text-align: center; width: 800px;
       span{font-size: 120px;font-family: $kepler;font-weight: normal;font-style: italic;}
     }
     ol{/*text-align: center;*/
       .selected { border: solid red; background: red; }
       li{margin-right: 20px;list-style: none;border: solid 1px #000;width: 175px;height: 345px;float: left;position:relative;
-        /* input{display: none;} TODO back it */
+        input{display: none;}
         img{width: 175px;height: 263px;position:absolute;bottom:0;}
         p{position:absolute;font-family: $avenir;font-size: 13px;width: 175px;height: 80px;display:table;margin:0;
           label{display: table-cell;vertical-align: middle;text-align: center;}
         }
       }
     }
+    &.last_step { text-align: center;
+      fieldset { margin-left: 100px; border: none; }
+        ol.options{
+          li{width: 40px; height: 40px;float:none;display:inline-block;line-height: 40px;
+          }
+        }
+      }
+    }
   }
-}
+
 #stylist{
   margin-top: 20px;
   img{
