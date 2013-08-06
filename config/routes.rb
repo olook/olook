@@ -6,8 +6,8 @@ Olook::Application.routes.draw do
   get "/seu-estilo", to: "quiz#new", as: "wysquiz"
   post "/seu-estilo", to: "quiz#create", as: 'wysquiz'
   get "/join", to: 'join#new', as: 'join'
-  post "/join", to: 'join#create', as: 'join'
-  put '/join', to: 'join#update', as: 'join'
+  post "/join", to: 'join#register', as: 'join'
+  put '/join', to: 'join#login', as: 'join'
   get "/voce", to: "profiles#show", as: 'profile'
 
   mount Resque::Server => "/admin/resque"

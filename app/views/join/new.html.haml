@@ -12,13 +12,11 @@
   %p Queremos saber mais de você.
 
   %p
-    = @user.errors.full_messages.join("<br/>").html_safe
   = form_for(@user, url: join_path) do |f|
-    - if @user.errors.any?
-      #error_explanation
-        %ul
-          - @user.errors.full_messages.each do |msg|
-            %li= msg
+    #error_explanation
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
     .first_name.field
       = f.label :first_name
       = f.text_field :first_name
@@ -43,9 +41,9 @@
 
     %p.notes
       Concluindo o cadastro você aceita nossos
-      = link_to terms_path, 'termos de uso'
+      = link_to 'termos de uso', terms_path
       e a nossa
-      = link_to privacy_path, 'política de privacidade'
+      = link_to 'política de privacidade', privacy_path
 
     = f.submit 'Cadastrar'
 
@@ -63,6 +61,14 @@
   %h2 Já tenho cadastro
   %p Então é só entrar ;)
 
-
-
-
+  = form_tag(join_path, method: :put) do
+    = label_tag "email", "Email"
+    = text_field_tag "email"
+    = label_tag "password", "Senha"
+    = password_field_tag "password"
+    %p.remember-me
+      =check_box_tag "remember_me", "1", true
+      = label_tag "remember_me", "Lembrar de mim"
+    %p.forgot_password
+      = link_to 'Esqueci minha senha', new_user_password_path, :class => "forgot_password"
+    = submit_tag "Entrar", :id => "login"
