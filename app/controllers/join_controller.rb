@@ -1,5 +1,6 @@
 #encoding: utf-8
 class JoinController < ApplicationController
+  include Devise::Controllers::Rememberable
   layout 'quiz'
 
   before_filter do
@@ -24,6 +25,7 @@ class JoinController < ApplicationController
     @user = User.find_for_authentication(:email => params[:email])
     if @user && @user.valid_password?(params[:password])
       sign_in(:user, @user)
+      remember_me(@user) unless params[:remeber_me].blank?
       redirect_to set_user_profile(@user).next_step, notice: I18n.t("join_controller.create.success")
     else
       user_from_newsletter? params[:email]
