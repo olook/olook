@@ -13,11 +13,10 @@
 
   %p
   = form_for(@user, url: join_path) do |f|
-    - if @user.try(:errors).try(:any?)
-      #error_explanation
-        %ul
-          - @user.errors.full_messages.each do |msg|
-            %li= msg
+    #error_explanation
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
     .first_name.field
       = f.label :first_name
       = f.text_field :first_name
