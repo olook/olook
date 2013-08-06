@@ -11,22 +11,29 @@
   %h2 Cadastro Olook
   %p Queremos saber mais de você.
 
+  %p
+    = @user.errors.full_messages.join("<br/>").html_safe
   = form_for(@user, url: join_path) do |f|
+    - if @user.errors.any?
+      #error_explanation
+        %ul
+          - @user.errors.full_messages.each do |msg|
+            %li= msg
     .first_name.field
       = f.label :first_name
       = f.text_field :first_name
     .last_name.field
       = f.label :last_name
-      = f.text_field :first_name
+      = f.text_field :last_name
     .email.field
       = f.label :email
       = f.text_field :email
     .password.field
-      = f.label :pasword, "Senha #{content_tag("span", '(min. 6 caracteres)', class: 'hint')}".html_safe
-      = f.password_field :pasword
+      = f.label :password, "Senha #{content_tag("span", '(min. 6 caracteres)', class: 'hint')}".html_safe
+      = f.password_field :password
     .password_confirmation.field
-      = f.label :pasword_confirmation, "Confirmar senha"
-      = f.password_field :pasword_confirmation
+      = f.label :password_confirmation, "Confirmar senha"
+      = f.password_field :password_confirmation
     .gender.field
       = f.label :gender, "Você é"
       = f.select :gender, { 'Mulher' => 0, 'Homem' => 1 }
