@@ -4,6 +4,9 @@ class Checkout::CheckoutController < Checkout::BaseController
   before_filter :authenticate_user!
   before_filter :check_order
   before_filter :check_cpf
+  
+  #TODO Remove this after Freight AB test has finished
+  before_filter :prepare_for_freight_ab_testing
 
   def new
     @addresses = @user.addresses
@@ -46,6 +49,13 @@ class Checkout::CheckoutController < Checkout::BaseController
   end
 
   private
+    # this is used for freight AB-Test
+    def prepare_for_freight_ab_testing
+      @endpoint_url = params[:freight_service_ids].present? ? 'shipping_updated_freight_table' : 'shippings'
+      # Force to always use TOTAL EXPRESS
+      @cart_service.prefered_shipping_services = params[:freight_service_ids]
+    end
+
 
     def error_message_for response, payment
       return "Identificamos um problema com a forma de pagamento escolhida." unless payment.is_a? CreditCard 

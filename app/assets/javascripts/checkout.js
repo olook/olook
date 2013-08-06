@@ -31,9 +31,17 @@ var masks = {
 
 
 function retrieve_freight_price(zip_code) {
+  retrieve_freight_price_for_checkout('shipping', zip_code);
+}
+
+function retrieve_freight_price_for_variation(zip_code) {
+  retrieve_freight_price_for_checkout('shipping_updated_freight_table', zip_code);
+}
+
+function retrieve_freight_price_for_checkout(url_base, zip_code) {
 
   $.ajax({
-    url: '/shippings/' + zip_code,
+    url: '/' + url_base + '/' + zip_code,
     type: 'GET',
     beforeSend: function(){
       $("#freight_price").hide();
@@ -45,6 +53,9 @@ function retrieve_freight_price(zip_code) {
     success: showTotal
   });
 }
+
+
+
 function retrieve_zip_data(zip_code) {
   
   $.ajax({
