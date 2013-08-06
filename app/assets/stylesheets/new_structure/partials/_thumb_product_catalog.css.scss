@@ -9,7 +9,7 @@ ul#products{
       }
     }
     .spy{position:absolute;
-      bottom:61px;
+      bottom:58px;
       left:0;
       width:100%;
       height:54px;
@@ -32,7 +32,7 @@ ul#products{
       }
     }
     a.product_link{display:block;text-decoration:none;color:#000;font-size:13px;margin:0;
-      img{border-bottom:solid 1px #B9BABD;margin: 0 0 3px;width: 200px;height: auto;/* new size photo */}
+      img{margin: 0 0 3px;width: 200px;height: auto;/* new size photo */}
       p{float:left;line-height:18px;
         .name{font-size:14px;height:16px;overflow:hidden;display:inline-block;}
         .brand{text-transform:uppercase;font-weight:bold;}
