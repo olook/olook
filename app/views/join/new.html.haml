@@ -41,9 +41,9 @@
 
     %p.notes
       Concluindo o cadastro você aceita nossos
-      = link_to terms_path, 'termos de uso'
+      = link_to 'termos de uso', terms_path
       e a nossa
-      = link_to privacy_path, 'política de privacidade'
+      = link_to 'política de privacidade', privacy_path
 
     = f.submit 'Cadastrar'
 
@@ -64,7 +64,9 @@
   = form_tag(join_path, method: :put) do
     = text_field_tag "email"
     = password_field_tag "password"
-    = submit_tag "IR"
-
-
-
+    %p.remember-me
+      =check_box_tag ":remember_me", :checked => true
+      = label :remember_me, "Lembrar de mim"
+    %p.forgot_password
+      = link_to 'Esqueci minha senha', new_user_password_path, :class => "forgot_password"
+    = submit_tag "IR", :id => "login"
