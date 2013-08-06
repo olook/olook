@@ -12,9 +12,8 @@
   %p Queremos saber mais de você.
 
   %p
-    = @user.errors.full_messages.join("<br/>").html_safe
   = form_for(@user, url: join_path) do |f|
-    - if @user.errors.any?
+    - if @user.try(:errors).try(:any?)
       #error_explanation
         %ul
           - @user.errors.full_messages.each do |msg|
@@ -63,6 +62,10 @@
   %h2 Já tenho cadastro
   %p Então é só entrar ;)
 
+  = form_tag(join_path, method: :put) do
+    = text_field_tag "email"
+    = password_field_tag "password"
+    = submit_tag "IR"
 
 
 
