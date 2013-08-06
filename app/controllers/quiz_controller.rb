@@ -5,6 +5,7 @@ class QuizController < ApplicationController
   end
 
   def create
+    binding.pry
     params[:quiz] = {
       name: "Whats your style?",
       questions: {"3"=>"9", "1"=>"3", "21"=>"84", "10"=>"38", "20"=>"79", "7"=>"25", "11"=>"44", "13"=>"50", "12"=>"46", "8"=>"32", "18"=>"69", "5"=>"18"}

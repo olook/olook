@@ -516,4 +516,6 @@
   join_controller:
     create:
       success: "Bem vinda à Olook"
+      newsletter_fail: "Voce ainda não possui senha, complete o cadastro ;)"
+      fail: "Email ou Senha inválidos"
 
