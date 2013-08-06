@@ -305,6 +305,17 @@ hosts:
     cloud_providers:
       aws:
         image_type: m1.large
+  homolog2:
+    unicorn_workers: 4
+    cloud_providers:
+      aws:
+        image_type: m1.medium
+      volumes:
+        - size: 50 # size of vol in GBs
+          zone: us-east-1b # zone to create volume in, needs to match host's zone
+          device: /dev/sdh # OS device to attach volume to
+          mount: /mnt/ # The directory to mount this volume to
+          filesystem: ext3 # the filesystem to create on volume
   stage:
     unicorn_workers: 4
     cloud_providers:
