@@ -1,74 +1,81 @@
-.col
-  %h2
-    Só mais um passinho...
-    %br
-    E você descobrirá seu estilo!
-  %p
-    Cadastre-se e receba por email novidades
-    %br
-    sobre moda, tendências e promoções exclusivas
-
-  %h2 Cadastro Olook
-  %p Queremos saber mais de você.
-
-  %p
-  = form_for(@user, url: join_path) do |f|
-    #error_explanation
-      %ul
-        - @user.errors.full_messages.each do |msg|
-          %li= msg
-    .first_name.field
-      = f.label :first_name
-      = f.text_field :first_name
-    .last_name.field
-      = f.label :last_name
-      = f.text_field :last_name
-    .email.field
-      = f.label :email
-      = f.text_field :email
-    .password.field
-      = f.label :password, "Senha #{content_tag("span", '(min. 6 caracteres)', class: 'hint')}".html_safe
-      = f.password_field :password
-    .password_confirmation.field
-      = f.label :password_confirmation, "Confirmar senha"
-      = f.password_field :password_confirmation
-    .gender.field
-      = f.label :gender, "Você é"
-      = f.select :gender, { 'Mulher' => 0, 'Homem' => 1 }
-    .cep.field
-      = f.label :zip_code, 'CEP'
-      = f.text_field :zip_code
-
-    %p.notes
-      Concluindo o cadastro você aceita nossos
-      = link_to 'termos de uso', terms_path
-      e a nossa
-      = link_to 'política de privacidade', privacy_path
-
-    = f.submit 'Cadastrar'
-
-
-.col
-  .qty
+#user_manager
+  .left_box
+    %h2
+      Só mais um passinho...
+      %br
+      E você descobrirá seu estilo!
     %p
-      %span#num_qty 122273
-      pessoas já responderam nosso style quiz
-    .avatars
-      .prev
-      .faces
-      .next
+      Cadastre-se e receba por email novidades
+      %br
+      sobre moda, tendências e promoções exclusivas
 
-  %h2 Já tenho cadastro
-  %p Então é só entrar ;)
+    %h2 Cadastro Olook
+    %p Queremos saber mais de você.
 
-  = form_tag(join_path, method: :put) do
-    = label_tag "email", "Email"
-    = text_field_tag "email"
-    = label_tag "password", "Senha"
-    = password_field_tag "password"
-    %p.remember-me
-      =check_box_tag "remember_me", "1", true
-      = label_tag "remember_me", "Lembrar de mim"
-    %p.forgot_password
-      = link_to 'Esqueci minha senha', new_user_password_path, :class => "forgot_password"
-    = submit_tag "Entrar", :id => "login"
+    %p
+    = form_for(@user, url: join_path) do |f|
+      #error_explanation
+        %ul
+          - @user.errors.full_messages.each do |msg|
+            %li= msg
+      %fieldset
+      .first_name.field
+        = f.label :first_name
+        = f.text_field :first_name
+      .last_name.field
+        = f.label :last_name
+        = f.text_field :last_name
+      .email.field
+        = f.label :email
+        = f.text_field :email
+      .password.field
+        = f.label :password, "Senha #{content_tag("span", '(min. 6 caracteres)', class: 'hint')}".html_safe
+        = f.password_field :password
+      .password_confirmation.field
+        = f.label :password_confirmation, "Confirmar senha"
+        = f.password_field :password_confirmation
+      .gender.field
+        = f.label :gender, "Você é"
+        = f.select :gender, { 'Mulher' => 0, 'Homem' => 1 }
+      .cep.field
+        = f.label :zip_code, 'CEP'
+        = f.text_field :zip_code
+
+      %p.notes
+        Concluindo o cadastro você aceita nossos
+        = link_to 'termos de uso', terms_path
+      %p.notes
+        e a nossa
+        = link_to 'política de privacidade', privacy_path
+
+      = f.submit 'Cadastrar'
+
+
+  .right_box
+    .qty
+      %p
+        %span#num_qty 122273
+        pessoas já responderam nosso style quiz
+      .avatars
+        .prev
+        .faces
+        .next
+
+    %h2 Já tenho cadastro
+    %p Então é só entrar ;)
+
+    = form_tag(join_path, method: :put, class: "login") do
+      %fieldset
+        .email.field
+          = label_tag "email", "Email"
+          = text_field_tag "email"
+        .password.field
+          = label_tag "password", "Senha"
+          = password_field_tag "password"
+      %fieldset.links
+        .remember-me
+          = check_box_tag "remember_me", "1", true
+          = label_tag "remember_me", "Lembrar de mim"
+        .forgot_password
+          = link_to 'Esqueci minha senha', new_user_password_path, :class => "forgot_password"
+      = submit_tag "Entrar", :id => "login"
