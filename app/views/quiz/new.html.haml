@@ -19,6 +19,38 @@
                     = label_tag "quiz[questions][#{question.id}][#{answer.id}]", answer.text
                     = radio_button_tag "quiz[questions][#{ question.id }]", "#{ answer.id }"
                   = image_tag answer.image
-        = submit_tag 'Finalizar'
 
+        .question.last_step
+          %fieldset
+            = label_tag "quiz[user_data][shoe_size]", "Qual tamanho do seu pezinho?"
+            %ol.options
+              - (33..40).each do |size|
+                %li
+                  = size
+                  = radio_button_tag "quiz[user_data][shoe_size]", "#{ size }"
+
+          %fieldset
+            = label_tag "quiz[user_data][dress_size]", "E o tamanho do vestido?"
+            %ol.options
+              - ["PP", "P", "M", "G", "GG"].each do |size|
+                %li
+                  = size
+                  = radio_button_tag "quiz[user_data][dress_size]", "#{ size }"
+
+          %fieldset
+            = label_tag "quiz[user_data][t_shirt_size]", "Blusinha?"
+            %ol.options
+              - ["PP", "P", "M", "G", "GG"].each do |size|
+                %li
+                  = size
+                  = radio_button_tag "quiz[user_data][t_shirt_size]", "#{ size }"
+
+          %fieldset
+            = label_tag "quiz[user_data][pants_size]", "E o tamanho da sua calça jeans?"
+            %ol.options
+              - ["34", "36", "38", "40", "42", "44", "46"].each do |size|
+                %li
+                  = size
+                  = radio_button_tag "quiz[user_data][pants_size]", "#{ size }"
+          = submit_tag 'Finalizar'
 
