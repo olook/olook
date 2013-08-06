@@ -2,7 +2,7 @@
 class User < ActiveRecord::Base
   serialize :facebook_permissions, Array
 
-  attr_accessor :require_cpf
+  attr_accessor :require_cpf, :zip_code
   attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf
   attr_protected :invite_token
 
@@ -53,10 +53,6 @@ class User < ActiveRecord::Base
       return false
     end
     super
-  end
-
-  # TODO: change to field in DB
-  def zip_code
   end
 
   def name
@@ -293,7 +289,7 @@ class User < ActiveRecord::Base
   def has_credit?(date = DateTime.now)
     self.current_credit(date) > 0
   end
-  
+
   def first_visit_for_member?
     if self.first_visit?
       self.record_first_visit
