@@ -62,11 +62,13 @@
   %p Então é só entrar ;)
 
   = form_tag(join_path, method: :put) do
+    = label_tag "email", "Email"
     = text_field_tag "email"
+    = label_tag "password", "Senha"
     = password_field_tag "password"
     %p.remember-me
-      =check_box_tag ":remember_me", :checked => true
-      = label :remember_me, "Lembrar de mim"
+      =check_box_tag "remember_me", "1", true
+      = label_tag "remember_me", "Lembrar de mim"
     %p.forgot_password
       = link_to 'Esqueci minha senha', new_user_password_path, :class => "forgot_password"
-    = submit_tag "IR", :id => "login"
+    = submit_tag "Entrar", :id => "login"
