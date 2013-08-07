@@ -11,7 +11,7 @@
       %meta{:content => "Roupas femininas, sapatos, bolsas, óculos e acessórios incríveis - Olook. Seu look, seu estilo", :name => "Description"}/
     = csrf_meta_tags
 
-    = stylesheet_link_tag  "new_structure/section/survey"
+    = yield :head
 
     - unless @hide_fb_page_id
       %meta{:content => "157293541026960", :property => "fb:page_id"}/
@@ -60,4 +60,4 @@
           Escritório: Rua Natividade, 72 - Vl. Nova Conceição, São Paulo - SP Centro de distribuição: Avenida Ribeirão dos Cristais, 800, Jordanésia, Cajamar - SP. Galpão 10, módulo C e D / Olook Comércio Online de Moda Ltda  / CNPJ 011.216.478/0001-70
 
 = javascript_include_tag "jquery"
-= javascript_include_tag "profiles"
+= yield :bottom

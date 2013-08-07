@@ -1,3 +1,7 @@
+- content_for(:head) do
+  = stylesheet_link_tag  "new_structure/section/survey"
+- content_for(:bottom) do
+  = javascript_include_tag "join"
 #user_manager
   .left_box
     %h2
@@ -8,6 +12,7 @@
       Cadastre-se e receba por email novidades
       %br
       sobre moda, tendências e promoções exclusivas
+    %a.fb_login_button Entrar com FB
 
     %h2 Cadastro Olook
     %p Queremos saber mais de você.
