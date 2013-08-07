@@ -37,16 +37,16 @@ footer{
 }
 #survey{
   #content{width: 830px;height: 615px;margin: 0 auto;overflow: hidden;
+    button#back { background: image-url("quiz/back_arrow.png") no-repeat; width: 19px; height: 109px; border: none; position: absolute; top: 410px; left: 400px;}
     .content-survey{width: 12000px}
   }
   .img_style{position: absolute;right: 530px;top: 60px;}
-  .question{float:left;overflow: hidden;
-    &.current_section { h2 { background: red; } }
+  .step, .last_step {float:left;overflow: hidden;
     h2{font-size: 18px;font-family: $johnston;font-weight: 500;text-transform: uppercase;text-align: center; width: 800px;
       span{font-size: 120px;font-family: $kepler;font-weight: normal;font-style: italic;}
     }
     ol{/*text-align: center;*/
-      .selected { border: solid red; background: red; }
+      .selected { border: solid $pink 3px; }
       li{margin-right: 20px;list-style: none;border: solid 1px #000;width: 175px;height: 345px;float: left;position:relative;
         input{display: none;}
         img{width: 175px;height: 263px;position:absolute;bottom:0;}
@@ -55,15 +55,17 @@ footer{
         }
       }
     }
-    &.last_step { text-align: center;
-      fieldset { margin-left: 100px; border: none; }
-        ol.options{
-          li{width: 40px; height: 40px;float:none;display:inline-block;line-height: 40px;
-          }
-        }
+  }
+
+  .last_step { text-align: center; margin-top: 50px;
+    fieldset { margin-left: 100px; border: none; }
+    ol.options{ width: 450px;
+      li{width: 30px; height: 30px;float:none;display:inline-block;line-height: 30px;
+        &.selected { width: 26px !important; height: 26px !important; line-height: 26px !important; }
       }
     }
   }
+}
 
 #stylist{margin-top: 20px;
   img{float: left;}

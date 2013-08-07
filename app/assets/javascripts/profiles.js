@@ -7,22 +7,31 @@ previous_button = {
   }
 }
 quiz = {
-    respond_question: function(el, context) {
-        el = $(el);
-          el.on("click", function(){
-                $(this).parent().parent().addClass("current_question")
-                $("ol li.selected", context).removeClass("selected")
-                $(this).addClass("selected")
-                $(this).find("input").attr("checked", "checked");
-                $(".current_question").animate({ "margin-left": "-850px" }, "slow" );
-                $(this).parent().parent().removeClass("current_question").next().addClass("current_question")
-            })
+  respond_question: function(el) {
+    var el = $(el);
+    el.on("click", function(){
+      var context = $(this).parents('ol');
+      $(this).parent().parent().addClass("current_question");
+      context.find("li.selected").removeClass("selected");
+      $(this).addClass("selected");
+        $(this).find("input").attr("checked", "checked");
+      });
+    },
+
+    next_question: function() {
+      $("li.next-step-on-click").on("click", function(){
+      $(".current_question").animate({ "margin-left": "-850px" }, "slow" );
+        $(this).parent().parent().removeClass("current_question").next().addClass("current_question");
+      });
     }
 }
+
+
 $(function(){
-    quiz.respond_question("li", ".current_question");
-    $("#back").on("click", function(){
-        $(".current_question").removeClass("current_question").prev().addClass("current_question")
-        $(".current_question").animate({ "margin-left": "0px" }, "slow" );
-    });
+  quiz.respond_question("li.check-input");
+  quiz.next_question();
+  $("#back").on("click", function(){
+    $(".current_question").removeClass("current_question").prev().addClass("current_question");
+    $(".current_question").animate({ "margin-left": "0px" }, "slow" );
+  });
 });
