@@ -93,7 +93,7 @@ module CatalogsHelper
     span_class = text.downcase.parameterize
     text = titleize_without_pronoum(text)
     link_to(link) do
-      content_tag(:span, text, class: "#{style_class}")
+      content_tag(:span, text, class: "#{style_class}", onclick: track_event("AntibounceBox", "SeeMoreProducts"))
     end
   end  
 end
