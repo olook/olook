@@ -33,16 +33,24 @@ quiz = {
           if ($(questions[i]).hasClass("current_question")) {
             var percentage =  (i/questions_count) * 100
             $(".quiz_pink_bar").width(percentage.toString() + "%");
-          switch(percentage){
-           case(50):
-             $(".start_quiz").hide();
-             $(".half_quiz").show();
+            switch(percentage){
+              case(25):
+                $(".start_quiz").show();
+                $(".end_quiz").hide();
+                $(".half_quiz").hide();
+              break;
+              case(50):
+                $(".start_quiz").hide();
+                $(".end_quiz").hide();
+                $(".half_quiz").show();
+              break;
+             case(75):
+                $(".start_quiz").hide();
+               $(".half_quiz").hide();
+               $(".end_quiz").show();
              break;
-           case(75):
-             $(".half_quiz").hide();
-             $(".end_quiz").show();
-          }
-            };
+            }
+          };
         }
       });
     }
@@ -56,5 +64,6 @@ $(function(){
   $("#back").on("click", function(){
     $(".current_question").removeClass("current_question").prev().addClass("current_question");
     $(".current_question").animate({ "margin-left": "0px" }, "slow" );
+    quiz.calculate_bar("#back");
   });
 });
