@@ -5,7 +5,9 @@ FactoryGirl.define do
     created_by 'John Doe'
     updated_by 'John Doe'
     factory :standard_coupon do
-      code 'FOOBAR000'
+      sequence :code do |n|
+        "STD#{n}"
+      end      
       value 50.00
       remaining_amount 1
       start_date Time.now
