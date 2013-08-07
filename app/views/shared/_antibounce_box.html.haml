@@ -1,5 +1,12 @@
-%section.container_product
+%hr/
+%section.container_product.calhau
+  .banner
+    %h2 
+      Compre na Olook as marcas mais desejadas do mundo da moda
+      %br/
+      %span Triton, Forum, Iodice e mais
   %ul#products
     = render "shared/searched_products", :products => products
   .loading
-botão
+  
+  = link_to("Ver todas as marcas", "/marcas", class:"see-all")
