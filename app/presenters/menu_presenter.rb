@@ -71,7 +71,7 @@ class MenuPresenter < BasePresenter
   end
 
   def collection_themes
-    render_item("Coleções", h.collection_themes_path, "collection_themes", ["collection_themes#index"])
+    render_item("Coleções", h.collection_themes_path, "collection_themes", ["collection_themes#index", "collection_themes#show"])
   end
 
   def categories
@@ -112,7 +112,7 @@ class MenuPresenter < BasePresenter
   end
 
   def liquidation
-    render_item(h.current_liquidation.name, h.liquidations_path(h.current_liquidation.id), "liquidation", ["liquidations#show"]) if h.show_current_liquidation?
+    render_item('SALE', h.collection_theme_path('sale'), "sale", ["collection_themes#show#sale"]) if h.show_current_liquidation?
   end
 
   def blog
