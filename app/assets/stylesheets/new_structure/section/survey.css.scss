@@ -36,11 +36,11 @@ footer{
   }
 }
 #survey{
-  #content{width: 830px;height: 615px;margin: 0 auto;overflow: hidden;
+  #content{width: 830px;height: 640px;margin: 0 auto;overflow: hidden;
     button#back { background: image-url("quiz/back_arrow.png") no-repeat; width: 19px; height: 109px; border: none; position: absolute; top: 410px; left: 400px;}
-    .content-survey{width: 12000px}
+    .content-survey{width: 12000px; height: 540px;}
   }
-  .img_style{position: absolute;right: 530px;top: 60px;}
+  .img_style{position: absolute;right: 580px;top: 60px;}
   .step, .last_step {float:left;overflow: hidden;
     h2{font-size: 18px;font-family: $johnston;font-weight: 500;text-transform: uppercase;text-align: center; width: 800px;
       span{font-size: 120px;font-family: $kepler;font-weight: normal;font-style: italic;}
@@ -84,6 +84,17 @@ footer{
   }
 }
 
+.quiz_black_bar { height: 1px; width: 768px; position: relative; border-top: 1px solid #000; clear: both; margin: 0 0 0 40px; padding: 10px 0;
+  .quiz_pink_bar { height: 3px; width: 1%; position: absolute; background: $pink;top:-2px; }
+}
+
+.quiz_status { width: 768px; height: 100px; position: relative; margin: 0 0 0 40px;
+  .start_quiz, .half_quiz, .end_quiz { width: 100px; height: 100px; position: absolute; font-family: $johnston; text-transform:uppercase; font-size: 12px; color: $pink; font-weight:bold; text-align: center; }
+  .half_quiz, .end_quiz { display: none; }
+  .start_quiz { margin-left: 30px; }
+  .half_quiz { margin: 0 auto; left: 50%; margin-left: -50px; }
+  .end_quiz { right: 0; margin-right: 30px; }
+}
 #profiles{width: 990px;margin: 0 auto;margin-left: 12px;
   .content-basic, .content-chic, .content-sexy, .content-fashion{width: 940px;height: 560px;background: image-url('quiz/profiles/b_1.jpg') center no-repeat;position: relative;
     .style-basic{background: image-url('quiz/profiles/b_0.png') center no-repeat;position: absolute;width: 271px; height: 264px;left: 173px;top: 93px;

@@ -21,7 +21,6 @@
                   = image_tag answer.image
 
         .last_step
-          STYLE QUIZ // TAMANHOS
           %fieldset
             = label_tag "quiz[user_data][shoe_size]", "Qual tamanho do seu pezinho?"
             %ol.options
@@ -55,3 +54,31 @@
                   = radio_button_tag "quiz[user_data][pants_size]", "#{ size }"
           = submit_tag 'Comprar Agora'
 
+
+    .quiz_black_bar
+      .quiz_pink_bar
+
+    .quiz_status
+      .start_quiz
+        %p
+          Você ainda está
+          %br/
+          no começo.
+          %br/
+          Se joga!
+
+      .half_quiz
+        %p
+          Oba,
+          %br/
+          Já está na
+          %br/
+          metade!
+
+      .end_quiz
+        %p
+          Tá
+          %br/
+          acabando,
+          %br/
+          Ufa...
