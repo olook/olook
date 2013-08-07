@@ -84,11 +84,11 @@ footer{
   }
 }
 
-.quiz_black_bar { height: 1px; width: 768px; position: relative; border-top: 1px solid #000; clear: both; margin: 0 0 0 40px; padding: 10px 0;
-  .quiz_pink_bar { height: 3px; width: 1%; position: absolute; background: $pink;top:-2px; }
+.quiz_black_bar { height: 17px; width: 768px; position: relative; clear: both; margin: 0 0 0 40px; padding: 10px 0; background: image-url("quiz/quiz_arrow.png") no-repeat;
+  .quiz_pink_bar { height: 4px; width: 1%; position: absolute; background: $pink; top:7px; }
 }
 
-.quiz_status { width: 768px; height: 100px; position: relative; margin: 0 0 0 40px;
+.quiz_status { width: 768px; height: 100px; position: relative; margin: -15px 0 0 40px;
   .start_quiz, .half_quiz, .end_quiz { width: 100px; height: 100px; position: absolute; font-family: $johnston; text-transform:uppercase; font-size: 12px; color: $pink; font-weight:bold; text-align: center; }
   .half_quiz, .end_quiz { display: none; }
   .start_quiz { margin-left: 30px; }
