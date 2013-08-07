@@ -11,15 +11,15 @@
       .banner_principal
         = link_to image_tag("collections/preview_primavera_landing.jpg", alt: "Coleção Preview Primavera", title: "Coleção Preview Primavera"), '/colecoes/preview_primavera', onclick: track_event("Colecoes", "TopBigBanner")
       .left_banner
-        = link_to image_tag("collections/crop_carol_ribeiro_ok.jpg", alt: "Carol Ribeiro", title: "Carol Ribeiro"), collection_theme_path('carol-ribeiro'), onclick: track_event("Colecoes", "MiddleLeftBanner")
-        %p.collection CAROL RIBEIRO PARA OLOOK
-        %p.resume Confira a coleção de sapatos exclusiva desenhada pela Top
-        %p.looks= link_to "veja a coleção", collection_theme_path('carol-ribeiro'), target: "_blank"
+        = link_to image_tag("collections/menina_bolinhas.jpg", alt: "p&b", title: "p&b"), collection_theme_path('p&b'), onclick: track_event("Colecoes", "MiddleLeftBanner")
+        %p.collection PRETO & BRANCO
+        %p.resume Uma das tendências mais fortes da estação
+        %p.looks= link_to "veja a coleção", collection_theme_path('p&b'), target: "_blank"
       .right_banner
-        = link_to image_tag("collections/crop_triton.jpg", alt: "TRITON", title: "TRITON"), collection_theme_path('triton'), onclick: track_event("Colecoes", "MiddleRightBanner")
-        %p.collection TRITON
-        %p.resume As peças mais desejadas da marca aqui
-        %p.looks= link_to 'veja a coleção', collection_theme_path('triton'), target: "_blank"
+        = link_to image_tag("collections/botinha.jpg", alt: "IRRESISTÍVEIS DE INVERNO", title: "IRRESISTÍVEIS DE INVERNO"), collection_theme_path('irresistiveis_inverno'), onclick: track_event("Colecoes", "MiddleRightBanner")
+        %p.collection IRRESISTÍVEIS DE INVERNO
+        %p.resume Confira nossa seleção hot e arrase
+        %p.looks= link_to 'veja a coleção', collection_theme_path('irresistiveis_inverno'), target: "_blank"
     %button.nav.bt_left.prev_collection{:type => "button"} Anterior
     #amamos
       %h1 NÓS AMAMOS
