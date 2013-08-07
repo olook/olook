@@ -157,7 +157,7 @@ Olook::Application.routes.draw do
   end
 
   resources :shippings, :only => [:show]
-  get '/shipping_updated_freight_table/:id' => 'shippings#show', defaults: {freight_service_ids: "1"}
+  get '/shipping_updated_freight_table/:id' => 'shippings#show', defaults: {freight_service_ids: "4,5"}
 
   #ADMIN
   devise_for :admins
@@ -359,7 +359,7 @@ Olook::Application.routes.draw do
 
   resource :checkout, :path => 'pagamento', :controller => 'checkout/checkout' do
     get "/", :to => "checkout/checkout#new"
-    get "/novo", :to => "checkout/checkout#new", defaults: {freight_service_ids: "1"}
+    get "/novo", :to => "checkout/checkout#new", defaults: {freight_service_ids: "4,5"}
     get "preview_by_zipcode", :to => "checkout/addresses#preview", :as => :preview_zipcode
     resources :addresses, :path => 'endereco', :controller => "checkout/addresses"
     resources :login, :path=> "login", :controller => "checkout/login", :only => [:index]
