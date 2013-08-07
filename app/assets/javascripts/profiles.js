@@ -1,5 +1,6 @@
 quiz = {} || null;
 previous_button = { } || null;
+var ready_to_click = true;
 
 previous_button = {
   back: function() {
@@ -10,18 +11,22 @@ quiz = {
   respond_question: function(el) {
     var el = $(el);
     el.on("click", function(){
+      if (!ready_to_click) { return false }
       var context = $(this).parents('ol');
       $(this).parent().parent().addClass("current_question");
       context.find("li.selected").removeClass("selected");
       $(this).addClass("selected");
-        $(this).find("input").attr("checked", "checked");
-      });
-    },
+      $(this).find("input").attr("checked", "checked");
+      ready_to_click = true
+    });
+  },
 
     next_question: function() {
+    if (!ready_to_click) { return false }
       $("li.next-step-on-click").on("click", function(){
-      $(".current_question").animate({ "margin-left": "-850px" }, "slow" );
+        $(".current_question").animate({ "margin-left": "-850px" }, "slow" );
         $(this).parent().parent().removeClass("current_question").next().addClass("current_question");
+        ready_to_click = true
       });
     },
 
