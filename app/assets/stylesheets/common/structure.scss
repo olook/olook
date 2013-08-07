@@ -978,7 +978,7 @@ body {
         li{font-size: 10px;text-transform: uppercase;display: inline;float: left;height: 30px;background: image-url("common/nav/menu_bar.png") no-repeat right 0;
           &.liquidation{border-right: none;}
           &:nth-child(10){background:none;}
-          a{display:block;font-family: $johnston;height:28px;text-decoration: none;color: black;padding:0 14px;letter-spacing:2px;
+          a{display:block;font-family: $johnston;height:28px;text-decoration: none;color: black;padding:0 12px;letter-spacing:2px;
             &:hover,&.selected{color:$pink;}
 
           }
