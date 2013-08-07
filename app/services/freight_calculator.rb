@@ -33,14 +33,14 @@ module FreightCalculator
   end
 
   def self.clean_zip(dirty_zip)
-    return dirty_zip.gsub /\D/, ''
+    return dirty_zip.gsub(/\D/, '')
   end
 
   private
     def self.shipping_services(shipping_service_ids)
 
       sanitized_list = sanitize(shipping_service_ids)
-      if sanitized_list 
+      if sanitized_list.any?
         ShippingService.where(id: sanitized_list)
       else
         ShippingService.order('priority')
@@ -48,7 +48,7 @@ module FreightCalculator
     end
 
     def self.sanitize list
-      VALID_SHIPPING_SERVICES_ID_LIST =~ list ? list : nil
+      VALID_SHIPPING_SERVICES_ID_LIST =~ list ? list.split(",") : []
     end
 
 end
