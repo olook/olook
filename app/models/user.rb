@@ -42,7 +42,8 @@ class User < ActiveRecord::Base
   FACEBOOK_FRIENDS_BIRTHDAY = "friends_birthday"
   FACEBOOK_PUBLISH_STREAM = "publish_stream"
   FACEBOOK_RELATIONSHIP = "user_relationships,user_relationship_details"
-  ALL_FACEBOOK_PERMISSIONS = [FACEBOOK_FRIENDS_BIRTHDAY, FACEBOOK_PUBLISH_STREAM, FACEBOOK_RELATIONSHIP].join(",")
+  FACEBOOK_EMAIL = 'email'
+  ALL_FACEBOOK_PERMISSIONS = [FACEBOOK_FRIENDS_BIRTHDAY, FACEBOOK_PUBLISH_STREAM, FACEBOOK_RELATIONSHIP, FACEBOOK_EMAIL].join(",")
 
   Gender = {:female => 0, :male => 1}
   RegisteredVia = {:quiz => 0, :gift => 1, :thin => 2}
