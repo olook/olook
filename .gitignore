@@ -33,3 +33,4 @@ olook.sublime-workspace
 *.swk
 .ruby-gemset
 .ruby-version
+.elasticbeanstalk/

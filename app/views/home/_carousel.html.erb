@@ -2,7 +2,7 @@
   <ul>
     <%- @highlights.each_with_index do |highlight, index| -%>
       <li>
-        <%= link_to( image_tag(highlight.image), highlight.link, onclick: track_event('Carrossel',"Banner#{index+1}") ) %>
+        <%= link_to( image_tag(highlight.image), highlight.link, onclick: track_event('Carrossel',"Banner#{index+1}", highlight.link) ) %>
       </li>
     <%- end -%>
   </ul>

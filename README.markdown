@@ -94,7 +94,7 @@ Run to config keys in your machine
 bash bootstrap.sh development
 ```
 
--Deploy staging env
+-Deploy staging env ALL hosts
 -Default branch set to master
 ```
 cap deploy
@@ -102,12 +102,12 @@ cap deploy
 
 development:
 ```
-cap deploy dev
+cap deploy FILTER=development
 ```
 
 homolog:
 ```
-cap deploy hmg
+cap deploy FILTER=homolog
 ```
 
 homolog specific branch:
