@@ -16,7 +16,7 @@ module ApplicationHelper
     controller_action.each do |item|
       subs = item.split("#")
       category = subs[2]
-      return 'selected' if (subs[0] == params[:controller]) && (subs[1] == params[:action]) && (category==nil || (category.to_s == params[:category] || category.to_s == params[:collection_theme]))
+      return 'selected' if (subs[0] == params[:controller]) && (subs[1] == params[:action]) && (category==nil || (category.to_s == params[:category]))
     end
     return nil
   end
