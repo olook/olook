@@ -1,17 +1,17 @@
 <%= "#{Rubber.env}" %>:
   adapter: mysql2
-<%- if Rubber.env == 'staging' -%>
+<% if Rubber.env == 'staging' %>
   database: <%= "#{application}_production" %>
   username: root
   password: 
   encoding: utf8
   timeout: 5000
   host: localhost
-<%- else -%>
+<% else %>
   database: <%= "#{application}_#{Rubber.env}" %>
   username: <%= "#{Capistrano::CLI.ui.ask("Enter MySQL database user: ")}" %>
   password: <%= "#{Capistrano::CLI.ui.ask("Enter MySQL database password: ")}" %>
   encoding: utf8
   timeout: 5000
   host: olookdb1.ct2t45qjbvrd.us-east-1.rds.amazonaws.com
-<%- end -%>
+<% end %>
