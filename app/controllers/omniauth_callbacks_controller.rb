@@ -13,12 +13,14 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       if user
         user.set_facebook_data(env["omniauth.auth"])
         sign_in user
+        set_user_profile(user) if session[:qr]
         flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
-
         redirect user
       else
         session["devise.facebook_data"] = request.env["omniauth.auth"]
-        if @cart && @cart.items.any?
+        if session[:qr]
+          redirect_to join_path
+        elsif @cart && @cart.items.any?
           redirect_to new_half_user_session_path(:checkout_registration => "true")
         else
           redirect_to new_user_registration_url
@@ -51,6 +53,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     def redirect user
       if @cart && @cart.items.any?
         redirect_to new_checkout_path
+      elsif session[:qr]
+        @qr.next_step
       elsif !user.half_user?
         redirect_to member_showroom_path
       else
@@ -65,5 +69,19 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     def already_exist_a_facebook_account(omniauth)
       id = omniauth["extra"]["user_hash"]["id"]
       User.find_by_uid(id)
+    end
+
+    def set_user_profile(user)
+      if load_quiz_responder
+        @qr = QuizResponder.find(@quiz_responder[:uuid])
+        @qr.user = user
+        @qr.validate!
+        @qr
+      else
+         QuizResponder.new(user)
+      end
+    end
+    def load_quiz_responder
+      @quiz_responder = session[:qr]
     end
 end
