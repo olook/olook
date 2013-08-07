@@ -225,11 +225,11 @@ section#home {
   }
   section#brands{
     position: relative;
-    min-height: 300px;
+    min-height: 500px;
     margin: 0 0 10px;
     padding: 10px 0 20px;
     border-bottom: 1px #cbcbcb solid;
-    .box_brand{width: 580px; height: 450px; float: left;
+    .box_brand{width: 580px; height: 500px; float: left;
       h1 {
         font-family: $johnston;
         font-size: 26px;
@@ -402,6 +402,12 @@ section#home {
             background-position: -15px -407px;
             &:hover {
               background-position: -14px -406px;
+            }
+          }
+          &.lez-a-lez a {
+            background-position: -280px -346px;
+            &:hover {
+              background-position: -279px -345px;
             }
           }  
         }
