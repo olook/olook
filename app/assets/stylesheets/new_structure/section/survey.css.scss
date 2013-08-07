@@ -87,22 +87,22 @@ footer{
 #profiles{width: 990px;margin: 0 auto;margin-left: 12px;
   .content-basic, .content-chic, .content-sexy, .content-fashion{width: 940px;height: 560px;background: image-url('quiz/profiles/b_1.jpg') center no-repeat;position: relative;
     .style-basic{background: image-url('quiz/profiles/b_0.png') center no-repeat;position: absolute;width: 271px; height: 264px;left: 173px;top: 93px;
-      p{color: #fff; font-family: $avenir; font-size: 30px; text-transform: uppercase;padding-top: 80px;margin-left: -11px;font-weight: lighter;text-align: center;}
+      p{color: #fff; font-family: $avenir; font-size: 28px; text-transform: uppercase;padding-top: 80px;margin-left: -11px;font-weight: 600;text-align: center;letter-spacing: 1px;}
     }
   }
   .content-chic{background: image-url('quiz/profiles/e_1.jpg') center no-repeat;position: relative;
     .style.chic{background: image-url('quiz/profiles/e_0.png') center no-repeat;position: absolute;width: 271px; height: 270px;left: 231px;top: 41px;
-      p{color: #000; font-family: $avenir; font-size: 30px; text-transform: uppercase;padding-top: 80px;margin-left: -11px;font-weight: lighter;text-align: center;}
+      p{color: #000; font-family: $avenir; font-size: 28px; text-transform: uppercase;padding-top: 80px;margin-left: -11px;font-weight: 600;text-align: center;letter-spacing: 1px;}
     }
   }
   .content-sexy{background: image-url('quiz/profiles/s_1.jpg') center no-repeat;position: relative;
     .style.sexy{background: image-url('quiz/profiles/s_0.png') center no-repeat;position: absolute;width: 271px; height: 270px;left: 430px;top: 130px;
-      p{color: #fff; font-family: $avenir; font-size: 30px; text-transform: uppercase;padding-top: 87px;margin-left: -11px;font-weight: lighter;text-align: center;}
+      p{color: #fff; font-family: $avenir; font-size: 28px; text-transform: uppercase;padding-top: 87px;margin-left: -11px;font-weight: 600;text-align: center;letter-spacing: 1px;}
     }
   }
   .content-fashion{background: image-url('quiz/profiles/f_1.jpg') center no-repeat;position: relative;
     .style.fashion{background: image-url('quiz/profiles/f_0.png') center no-repeat;position: absolute;width: 271px; height: 270px;left: 500px;top: 10px;
-      p{color: #fff; font-family: $avenir; font-size: 30px; text-transform: uppercase;padding-top: 90px;margin-left: -11px;font-weight: lighter;text-align: center;}
+      p{color: #fff; font-family: $avenir; font-size: 28px; text-transform: uppercase;padding-top: 90px;margin-left: -11px;font-weight: 600;text-align: center;letter-spacing: 1px;}
     }
   }
   ul{margin-top: 30px;height: 485px;
@@ -124,7 +124,7 @@ footer{
   .left_box{
     width: 405px;height: 645px;
     float: left;
-
+    p{font-family: $avenir; font-weight: lighter;font-size: 15px;margin-top: -15px;margin-bottom: 35px;}
     div.field{display: inline-block;margin-right: 20px;position: relative;height: 70px;
       p{font-family: $avenir; font-weight: lighter;font-size: 15px;margin-top: -12px;}
       &.email, &.email *{width: 338px;}
@@ -147,7 +147,9 @@ footer{
     label{font-size: 14px;font-family: $avenir;color: #717274;font-weight: 500;display: block;}
     input{height: 30px;line-height: 30px;padding-left: 7px;font-size: 14px;border: solid 1px #c3c3c3;width: 152px;margin-bottom: 10px;}
     
-    .notes{margin-top: 15px;}
+    .notes{font-size: 12px;font-family: $avenir;line-height: 20px;color: #717274;margin-bottom: 0;
+      a{color: $pink;}
+    }
   }
    form.login{
     input[type=submit] {
