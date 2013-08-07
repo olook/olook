@@ -9,7 +9,7 @@ class AntibounceBox
   def self.need_antibounce_box?(search, brands, params)
     response = false
     search.products # Calling this method in order to retrieve pages and current page
-    response = (search.pages == search.current_page && (["olook", "olook concept", "olook essential", "olook essentials"] & brands).empty?) if ["brands", "catalogs"].include?(params["controller"]) && params["action"] == "show"
+    response = (search.pages == search.current_page && !brands.empty? && (["olook", "olook concept", "olook essential", "olook essentials"] & brands).empty?) if ["brands", "catalogs"].include?(params["controller"]) && params["action"] == "show"
     response &&= (["roupa", "moda praia", "lingerie", ""].include?(params["category"]) && search.expressions["brand"].any?) if params["controller"] == "brands" && params["action"] == "show"
     response
   end  
