@@ -47,7 +47,7 @@ footer{
     }
     ol{/*text-align: center;*/
       .selected { border: solid $pink 3px; }
-      li{margin-right: 20px;list-style: none;border: solid 1px #000;width: 175px;height: 345px;float: left;position:relative;
+      li{margin-right: 20px;list-style: none;border: solid 1px #b7b7b7;width: 175px;height: 345px;float: left;position:relative;
         input{display: none;}
         img{width: 175px;height: 263px;position:absolute;bottom:0;}
         p{position:absolute;font-family: $avenir;font-size: 13px;width: 175px;height: 80px;display:table;margin:0;
@@ -58,10 +58,12 @@ footer{
   }
 
   .last_step { text-align: center; margin-top: 50px;
-    fieldset { margin-left: 100px; border: none; }
-    ol.options{ width: 450px;
-      li{width: 30px; height: 30px;float:none;display:inline-block;line-height: 30px;
-        &.selected { width: 26px !important; height: 26px !important; line-height: 26px !important; }
+    fieldset { margin-left: 100px; border: none;
+      label { font-family: $johnston; font-size:16px; text-transform: uppercase; font-weight: 600; letter-spacing: 2px; }
+    }
+    ol.options{ width: 480px;
+      li{width: 34px; height: 34px;float:none;display:inline-block;line-height: 32px; color: #6d6e71; font-family: $avenir; font-size: 16px; font-weight: lighter;
+        &.selected { width: 30px !important; height: 30px !important; line-height: 26px !important; }
       }
     }
   }
