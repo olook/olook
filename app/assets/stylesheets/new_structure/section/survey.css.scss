@@ -46,7 +46,7 @@ footer{
       span{font-size: 120px;font-family: $kepler;font-weight: normal;font-style: italic;}
     }
     ol{/*text-align: center;*/
-      .selected { border: solid #f03546 1px; }
+      .selected { border: solid $pink 3px; }
       li{margin-right: 20px;list-style: none;border: solid 1px #000;width: 175px;height: 345px;float: left;position:relative;
         input{display: none;}
         img{width: 175px;height: 263px;position:absolute;bottom:0;}
@@ -59,8 +59,9 @@ footer{
 
   .last_step { text-align: center; margin-top: 50px;
     fieldset { margin-left: 100px; border: none; }
-    ol.options{
+    ol.options{ width: 450px;
       li{width: 30px; height: 30px;float:none;display:inline-block;line-height: 30px;
+        &.selected { width: 26px !important; height: 26px !important; line-height: 26px !important; }
       }
     }
   }
