@@ -39,7 +39,7 @@
           = render "shared/searched_products", :products => @search.products
         .loading
 
-      = render "shared/antibounce_box", products: @antibounce_search.products if @search.pages == @search.current_page && @antibounce_search.present?
+      = render "shared/antibounce_box", antibounce_box: @antibounce_box if @search.pages == @search.current_page && @antibounce_box.present?
 
       .pagination
         = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| brand_path(params[:brand], @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }

@@ -288,7 +288,7 @@ class SearchEngine
       excluded_brands = expressions["excluded_brand"]
       expressions.delete("excluded_brand")
       vals = excluded_brands.map { |v| "(field brand '#{v}')" } unless excluded_brands.empty?
-      bq << ( "(not #{vals.join(' ')})" )
+      bq << ( "(not (or #{vals.join(' ')}))" )
     end
 
     def validate_sort_field
