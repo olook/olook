@@ -82,7 +82,7 @@ class SearchEngine
 
   def category= cat
     if cat == "roupa"
-      @expressions["category"] = ["roupa","moda praia"]
+      @expressions["category"] = ["roupa","moda praia", "lingerie"]
     else
       @expressions["category"] = cat.to_s.split(MULTISELECTION_SEPARATOR)
     end
