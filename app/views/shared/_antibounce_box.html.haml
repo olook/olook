@@ -1,5 +1,6 @@
 %section.container_product
   %ul#products
-    = render "shared/searched_products", :products => products
+    = render "shared/searched_products", :products => antibounce_box.search.products
+  %ul
+    = more_products_link_to(catalog_path("roupa", antibounce_box.url_builder.remove_filter_of(:brand)), "Ver mais produtos")
   .loading
-botão

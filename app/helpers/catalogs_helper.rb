@@ -89,4 +89,11 @@ module CatalogsHelper
     arr.join('&')
   end
 
+  def more_products_link_to(link, text, style_class="")
+    span_class = text.downcase.parameterize
+    text = titleize_without_pronoum(text)
+    link_to(link) do
+      content_tag(:span, text, class: "#{style_class}")
+    end
+  end  
 end
