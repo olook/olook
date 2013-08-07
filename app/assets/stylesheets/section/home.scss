@@ -249,23 +249,23 @@ section#home {
         margin-top: 25px;
         li{
           a{
-            background: image-url("home/new_brands_off.jpg") no-repeat;
+            background: image-url("home/new_brands.jpg") no-repeat;
             width: 144px;
-            height: 72px;
+            height: 63px;
             float: left;
             cursor: pointer;
-            &:hover{background: image-url("home/new_brands.jpg") no-repeat;}
+            &:hover{background: image-url("home/new_brands_off.jpg") no-repeat;}
           }
           &.olook a {
-            background-position: 0px 0px;
+            background-position: 3px 1px;
             &:hover {
-              background-position: 0px 0px;
+              background-position: 3px 1px;
             }
           } 
           &.essential a {
-            background-position: -144px 0px;
+            background-position: -141px 0px;
             &:hover {
-              background-position: -144px 0px;
+              background-position: -141px 0px;
             }
           }
           &.harris a {
@@ -281,9 +281,9 @@ section#home {
             }
           } 
           &.concept a {
-            background-position: 0px -72px;
+            background-position: 0px -71px;
             &:hover {
-              background-position: 0px -72px;
+              background-position: 0px -71px;
             }
           }  
           &.manzini a {
@@ -381,9 +381,27 @@ section#home {
             }
           } 
           &.mandi a {
-            background-position: 0px -360px;
+            background-position: 0px -347px;
             &:hover {
-              background-position: 0px -360px;
+              background-position: 0px -347px;
+            }
+          }
+          &.carina-duek a {
+            background-position: -143px -347px;
+            &:hover {
+              background-position: -142px -346px;
+            }
+          }
+          &.tan-tan a {
+            background-position: -424px -343px;
+            &:hover {
+              background-position: -423px -342px;
+            }
+          }
+          &.redley a {
+            background-position: -15px -407px;
+            &:hover {
+              background-position: -14px -406px;
             }
           }  
         }
