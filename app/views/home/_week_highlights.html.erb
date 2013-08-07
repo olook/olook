@@ -3,16 +3,16 @@
   <ul>
   <% @weekly_highlights.each_with_index do |weekly_highlight, index| %>
     <li id="about">
-      <%= link_to weekly_highlight.link, class: "open_making_of", onclick: track_event('Destaques',"Banner#{index + 1}") do %>
+      <%= link_to weekly_highlight.link, class: "open_making_of", onclick: track_event('Destaques',"Banner#{index + 1}", weekly_highlight.link) do %>
         <%= image_tag weekly_highlight.image, title: "destaque semanal" %>
       <% end %>
       <div class="video_description">
         <h1>Conheça mais sobre a olook</h1>
         <%= link_to "Gostou? Descubra o seu estilo e veja a coleção completa", new_survey_path, :class => "home" %>
       </div>
-      <h1><%= link_to weekly_highlight.title, weekly_highlight.link, onclick: track_event('Destaques',"Banner#{index + 1}") %></h1>
+      <h1><%= link_to weekly_highlight.title, weekly_highlight.link, onclick: track_event('Destaques',"Banner#{index + 1}", weekly_highlight.link) %></h1>
       <p><%= weekly_highlight.subtitle %></p>
-      <%= link_to "Veja mais aqui", weekly_highlight.link, class: "more", onclick: track_event('Destaques',"Banner#{index + 1}") %>
+      <%= link_to "Veja mais aqui", weekly_highlight.link, class: "more", onclick: track_event('Destaques',"Banner#{index + 1}", weekly_highlight.link) %>
     </li>
   <% end %>
   </ul>
