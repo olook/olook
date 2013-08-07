@@ -10,9 +10,10 @@
   <%= render "shared/metrics/google/sign_in_conversion" %>
   <%= render "shared/metrics/metaffiliation/action", :email => current_user.email %>
   <%= render partial: "shared/metrics/dbm/quiz" %>
-  <%#= render partial: 'shared/metrics/fb/signup' %>
 <% end %>
-
+<% if current_user.try(:tracking).try(:utm_source) == 'adlead'%>
+  <img src="http://tru.webelapp.com/adtckrg.php?idc=60094&idctr=6&email=<%=current_user.email%>&idp=0" border="0" width="1" height="1"/>
+<% end %>
 <section id="welcome">
   <%= render "shared/modal/retake_quiz", :user => @user, :link => member_showroom_path %>
 </section>
