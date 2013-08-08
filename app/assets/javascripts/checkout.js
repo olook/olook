@@ -29,9 +29,16 @@ var masks = {
   }
 }
 
+function retrieve_freight_price_for_control_or_variation(zip_code) {
+  if ($("#freight_service_ids").val()) {
+    retrieve_freight_price_for_variation(zip_code);
+  } else {
+    retrieve_freight_price(zip_code);
+  }
+}
 
 function retrieve_freight_price(zip_code) {
-  retrieve_freight_price_for_checkout('shipping', zip_code);
+  retrieve_freight_price_for_checkout('shippings', zip_code);
 }
 
 function retrieve_freight_price_for_variation(zip_code) {
@@ -115,16 +122,21 @@ function showTotal(){
 }
 
 function freightCalc(){
+  zip_code = $("#checkout_address_zip_code").val();
+  if (zip_code) {
+    retrieve_freight_price_for_control_or_variation(zip_code);
+  }
+
   $("#checkout_address_street").on("focus", function(){
     zip_code = $("#checkout_address_zip_code").val();
-    retrieve_freight_price(zip_code)
+    retrieve_freight_price_for_control_or_variation(zip_code);
   });
 }
 
 function updateFreightValue() {
   zip_code = $('input.address_recorded:checked').val();
   if (zip_code != undefined) {
-    retrieve_freight_price(zip_code);
+    retrieve_freight_price_for_control_or_variation(zip_code);
   }
 }
 
@@ -135,6 +147,7 @@ $(function() {
   masks.tel(".tel_contato2");
   
   updateFreightValue();
+  freightCalc();
   showAboutSecurityCode();
 
   if($(".box-step-one input[type=radio]").size() == 1){
