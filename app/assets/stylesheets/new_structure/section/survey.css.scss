@@ -35,12 +35,12 @@ footer{
     border: 0px;
   }
 }
-#survey{
+#survey{ position: relative; width: 800px; margin: 0 auto;
   #content{width: 830px;height: 700px;margin: 0 auto;overflow: hidden;
-    button#back { background: image-url("quiz/back_arrow.png") no-repeat; width: 19px; height: 109px; border: none; position: absolute; top: 410px; left: 400px;}
+    button#back { background: image-url("quiz/back_arrow.png") no-repeat; width: 19px; height: 109px; border: none; position: absolute; top: 410px; left: 10px;}
     .content-survey{width: 12000px; height: 540px;}
   }
-  .img_style{position: absolute;right: 580px;top: 60px;}
+  .img_style{position: absolute;left: 680px;top: -75px; width: 130px; height: 130px; background: image-url("quiz/style.png") no-repeat;}
   .step, .last_step {float:left;overflow: hidden;
     h2{font-size: 17px;font-family: $johnston;font-weight: 500;text-transform: uppercase;text-align: center; width: 800px;
       span{font-size: 120px;font-family: $kepler;font-weight: normal;font-style: italic;}

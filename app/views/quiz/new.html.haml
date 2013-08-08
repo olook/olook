@@ -4,7 +4,8 @@
   = javascript_include_tag "profiles"
 
 %section#survey
-  =image_tag "quiz/style.png", :class => "img_style"
+  =#image_tag "quiz/style.png", :class => "img_style"
+  .img_style
   #content
     %button{ type: "button", id: "back"  }
     .content-survey
@@ -55,7 +56,7 @@
                 %li.check-input
                   = size
                   = radio_button_tag "quiz[user_data][pants_size]", "#{ size }"
-          = submit_tag 'Comprar Agora', :class => "end_quiz_button"  
+          = submit_tag 'Comprar Agora', :class => "end_quiz_button"
 
 
     .quiz_black_bar
