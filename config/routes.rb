@@ -6,6 +6,34 @@ Olook::Application.routes.draw do
 
   mount Resque::Server => "/admin/resque"
 
+  # rotas temporarias para marcas
+  {
+    "olook" => "Olook",
+    "olookconcept" => "Olook Concept",
+    "essential" => "Olook Essential",
+    "botswana" => "botswana/roupa/",
+    "cocacola-clothing" => "Coca Cola Clothing",
+    "colcci" => "Colcci",
+    "douglas-harris" => "Douglas Harris",
+    "ecletic" => "Eclectic",
+    "espaco-fashion" => "Espaco Fashion",
+    "forum" => "Forum",
+    "iodice" => "Iodice",
+    "juliana-jabour" => "Juliana Jabour",
+    "juliana-manzini" => "Juliana Manzini",
+    "leeloo" => "Leeloo",
+    "mandi" => "Mandi",
+    "mercatto" => "Mercatto",
+    "m-officer" => "M Officer",
+    "olli" => "Olli",
+    "shop-126" => "Shop 126",
+    "thelure" => "Thelure",
+    "triton" => "Triton"
+  }.each do |collection_name, brand|
+    get "/colecoes/#{collection_name}", to: "brands#show", defaults: {brand: brand}
+  end
+
+
   #temp route to fix a wrong email
   match "/olook-no-qbazar" => redirect("http://www.olook.com.br/stylist-news/olook-no-qbazar/")
 
