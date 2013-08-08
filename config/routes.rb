@@ -8,6 +8,7 @@ Olook::Application.routes.draw do
   get "/join", to: 'join#new', as: 'join'
   post "/join", to: 'join#register', as: 'join'
   put '/join', to: 'join#login', as: 'join'
+  post '/join/facebook_login', "join#facebook_login", as: 'facebook_login', :defaults => { :format => 'json' }
   get "/voce", to: "profiles#show", as: 'profile'
 
   mount Resque::Server => "/admin/resque"
