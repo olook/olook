@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   validates_with CpfValidator, :attributes => [:cpf], :if => :require_cpf
   validates_presence_of :gender, :if => Proc.new{|user| user.respond_to?(:half_user) and user.half_user}, :except => :update
 
-  FACEBOOK_FRIENDS_BIRTHDAY = "friends_birthday"
+  FACEBOOK_FRIENDS_BIRTHDAY = "friends_birthday,user_birthday"
   FACEBOOK_PUBLISH_STREAM = "publish_stream"
   FACEBOOK_RELATIONSHIP = "user_relationships,user_relationship_details"
   FACEBOOK_EMAIL = 'email'
