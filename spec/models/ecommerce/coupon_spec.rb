@@ -7,6 +7,11 @@ describe Coupon do
   let(:limited_coupon) { FactoryGirl.create(:limited_coupon) }
   subject { FactoryGirl.create(:standard_coupon, value: 100) }
 
+  before :each do
+    Coupon.destroy_all
+    Timecop.return
+  end
+
   context 'validations' do
     it {should validate_presence_of(:code)}
     it {should validate_presence_of(:value)}
