@@ -112,7 +112,7 @@ class MenuPresenter < BasePresenter
   end
 
   def liquidation
-    render_item('SALE', h.collection_theme_path('sale'), "sale", ["collection_themes#show#sale"]) if h.show_current_liquidation?
+    render_item('SALE', h.collection_theme_path('sale'), "sale", ["collection_themes#show#sale"])
   end
 
   def blog
