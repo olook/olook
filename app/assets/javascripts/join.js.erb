@@ -2,6 +2,16 @@
 //= require_self
 if(!olook) var olook = {};
 
+olook.createFacebookUser = function(user_info){
+  $.ajax({
+    type: 'POST',
+    contentType: 'application/json',
+    url: '/join/facebook_login',
+    data: JSON.stringify({ user_info: user_info}),
+    dataType: 'json'
+    });
+}
+
 olook.attachFBLogin = function(el) {
   $(el).click(function(e){
     e.preventDefault();
@@ -11,7 +21,7 @@ olook.attachFBLogin = function(el) {
         console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', function(response) {
           console.log('Good to see you, ' + response + '.');
-          console.log(response)
+          olook.createFacebookUser(response);
         });
       } else {
         console.log('User cancelled login or did not fully authorize.');
