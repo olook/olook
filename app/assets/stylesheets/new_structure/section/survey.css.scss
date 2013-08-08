@@ -36,7 +36,7 @@ footer{
   }
 }
 #survey{
-  #content{width: 830px;height: 640px;margin: 0 auto;overflow: hidden;
+  #content{width: 830px;height: 700px;margin: 0 auto;overflow: hidden;
     button#back { background: image-url("quiz/back_arrow.png") no-repeat; width: 19px; height: 109px; border: none; position: absolute; top: 410px; left: 400px;}
     .content-survey{width: 12000px; height: 540px;}
   }
@@ -86,10 +86,12 @@ footer{
   }
 }
 
-.quiz_black_bar { height: 17px; width: 768px; position: relative; clear: both; margin: 0 0 0 40px; padding: 10px 0; background: image-url("quiz/quiz_arrow.png") no-repeat;
+.quiz_black_bar { height: 17px; width: 768px; position: relative; ;clear: both; margin: 0 0 0 40px; padding: 10px 0; background: image-url("quiz/quiz_arrow.png") no-repeat;
   .quiz_pink_bar { height: 4px; width: 1%; position: absolute; background: $pink; top:7px; }
 }
-
+.end_quiz_button{width: 199px; height: 57px; text-indent: 9999px;background: image-url('quiz/bt_end.png') no-repeat 0 0;border: none;position: absolute;left: 822px;top: 770px;cursor: pointer;
+  &:hover{background: image-url('quiz/bt_end.png') no-repeat 0 -65px;}
+}
 .quiz_status { width: 768px; height: 100px; position: relative; margin: -15px 0 0 40px;
   .start_quiz, .half_quiz, .end_quiz {line-height: 17px; letter-spacing: 2px; width: 100px; height: 100px; position: absolute; font-family: $johnston; text-transform:uppercase; font-size: 11px; color: $pink; font-weight:bold; text-align: center; }
   .half_quiz, .end_quiz { display: none; }
