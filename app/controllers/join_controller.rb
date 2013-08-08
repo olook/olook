@@ -2,6 +2,7 @@
 class JoinController < ApplicationController
   include Devise::Controllers::Rememberable
   layout 'quiz'
+  respond_to :html, :json
 
   before_filter do
     @hide_about_quiz = true
@@ -33,7 +34,16 @@ class JoinController < ApplicationController
     end
   end
 
+  def facebook_login
+  end
+
   private
+
+    def user_data_from_facebook
+      if session["devise.facebook_data"]
+        session["devise.facebook_data"]["extra"]["raw_info"]
+      end
+    end
 
     def user_from_newsletter? email
       newsletter_user = CampaignEmail.where(converted_user: false, email: params[:email]).first
