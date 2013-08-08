@@ -27,6 +27,11 @@ quiz = {
         ready_to_click = false
         $(".current_question").animate({ "margin-left": "-850px" }, "slow" );
         $(this).parent().parent().removeClass("current_question").next().addClass("current_question");
+
+        if ($(".last_step").hasClass("current_question")) {
+            $(".end_quiz_button").show()
+        };
+
         ready_to_click = true
       });
     },
@@ -71,5 +76,8 @@ $(function(){
     $(".current_question").removeClass("current_question").prev().addClass("current_question");
     $(".current_question").animate({ "margin-left": "0px" }, "slow" );
     quiz.calculate_bar("#back");
+    if (!$(".last_step").hasClass("current_question")) {
+      $(".end_quiz_button").hide()
+    };
   });
 });
