@@ -9,6 +9,11 @@ Olook::Application.routes.draw do
   #temp route to fix a wrong email
   match "/olook-no-qbazar" => redirect("http://www.olook.com.br/stylist-news/olook-no-qbazar/")
 
+  # temp route to fix sent emails
+  get "/olooklet(/*id)", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
+  get "/colecoes/irresistiveis_inverno", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
+
+
   root :to => "home#index"
   get "/quiz", :to => "home#index"
   get "home/index"
