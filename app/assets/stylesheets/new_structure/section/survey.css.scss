@@ -89,7 +89,7 @@ footer{
 .quiz_black_bar { height: 17px; width: 768px; position: relative; ;clear: both; margin: 0 0 0 40px; padding: 10px 0; background: image-url("quiz/quiz_arrow.png") no-repeat;
   .quiz_pink_bar { height: 4px; width: 1%; position: absolute; background: $pink; top:7px; }
 }
-.end_quiz_button{width: 199px; height: 57px; text-indent: 9999px;background: image-url('quiz/bt_end.png') no-repeat 0 0;border: none;position: absolute;left: 822px;top: 770px;cursor: pointer;
+.end_quiz_button{width: 199px; height: 57px; text-indent: 9999px;background: image-url('quiz/bt_end.png') no-repeat 0 0;border: none;position: absolute;left: 330px;top: 630px;cursor: pointer;display: none;
   &:hover{background: image-url('quiz/bt_end.png') no-repeat 0 -65px;}
 }
 .quiz_status { width: 768px; height: 100px; position: relative; margin: -15px 0 0 40px;
