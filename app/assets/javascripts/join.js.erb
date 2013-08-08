@@ -8,16 +8,16 @@ olook.facebookCallbacks = function(){
 };
 
 olook.sendFacebookUserInfo = function(user_info){
+  var uuid = $('#qr_uuid').val();
   $.ajax({
     type: 'POST',
     url: '<%= Rails.application.routes.url_helpers.facebook_login_path %>',
-    data: { user: user_info },
+    data: { qr_uuid: uuid, user: user_info },
     dataType: 'json'
   }).success(function(jdata){
-    alert('YAY');
     window.location = jdata.next_step;
   }).error(function(){
-    alert(':(~~~~');
+    // 
   });
 }
 
