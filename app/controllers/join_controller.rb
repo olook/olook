@@ -2,7 +2,6 @@
 class JoinController < ApplicationController
   include Devise::Controllers::Rememberable
   layout 'quiz'
-  respond_to :html, :json
 
   before_filter do
     @hide_about_quiz = true
@@ -35,15 +34,16 @@ class JoinController < ApplicationController
   end
 
   def facebook_login
+    saved, @user = User.find_or_create_with_fb_jssdk_data(params[:user])
+    if saved
+      sign_in(@user)
+      render json: { next_step: set_user_profile(@user).next_step }
+    else
+      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   private
-
-    def user_data_from_facebook
-      if session["devise.facebook_data"]
-        session["devise.facebook_data"]["extra"]["raw_info"]
-      end
-    end
 
     def user_from_newsletter? email
       newsletter_user = CampaignEmail.where(converted_user: false, email: params[:email]).first
@@ -56,17 +56,17 @@ class JoinController < ApplicationController
     end
 
     def load_quiz_responder
-      @quiz_responder = session[:qr]
+      params[:qr_uuid]
     end
 
     def set_user_profile(user)
       if load_quiz_responder
-        @qr = QuizResponder.find(@quiz_responder[:uuid])
+        @qr = QuizResponder.find(params[:qr_uuid])
         @qr.user = user
         @qr.validate!
         @qr
       else
-         QuizResponder.new(user)
+        QuizResponder.new(user)
       end
     end
 end
