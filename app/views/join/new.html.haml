@@ -12,7 +12,7 @@
       Cadastre-se e receba por email novidades
       %br
       sobre moda, tendências e promoções exclusivas
-    //%a.fb_login_button Entrar com FB
+    %a.fb_login_button Entrar com FB
 
     %h2 Cadastro Olook
     %p Queremos saber mais de você.
@@ -23,7 +23,7 @@
         %ul
           - @user.errors.full_messages.each do |msg|
             %li= msg
-      
+
       .first_name.field
         = f.label :first_name
         = f.text_field :first_name
@@ -86,5 +86,3 @@
         .forgot_password
           = link_to 'Esqueci minha senha', new_user_password_path, :class => "forgot_password"
       = submit_tag "Entrar", :id => "login"
-  .login_with_facebook
-    = link_to 'Entrar com Facebook', user_omniauth_authorize_path(:facebook), :class => 'fb_login_button popup', :"data-width" => 410, :"data-height" => 300, onclick: track_event("FacebookConnect", "ConnectFromLoginBox")
