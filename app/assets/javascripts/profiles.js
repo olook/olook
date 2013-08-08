@@ -24,6 +24,7 @@ quiz = {
     next_question: function() {
     if (!ready_to_click) { return false }
       $("li.next-step-on-click").on("click", function(){
+        ready_to_click = false
         $(".current_question").animate({ "margin-left": "-850px" }, "slow" );
         $(this).parent().parent().removeClass("current_question").next().addClass("current_question");
         ready_to_click = true
