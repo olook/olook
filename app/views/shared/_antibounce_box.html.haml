@@ -6,6 +6,6 @@
       %br/
       %span Triton, Forum, Iodice e mais
   %ul#products
-    = render "shared/searched_products", :products => antibounce_box.search.products
+    = render "shared/searched_products", :products => antibounce_box.search.products, :product_source => "AntibounceBox"
   .loading  
   = more_products_link_to(catalog_path("roupa", antibounce_box.url_builder.remove_filter_of(:brand)), "Ver todas as marcas", "see-all")
