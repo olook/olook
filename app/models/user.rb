@@ -82,6 +82,19 @@ class User < ActiveRecord::Base
     user.first
   end
 
+  def self.find_or_create_with_fb_jssdk_data(data)
+    user = self.where(uid: data[:uid]).first
+    if user
+      user.gender = data[:gender]
+      user.birthday ||= data[:birthday]
+    else
+      user = self.new(data)
+      user.password = Devise.friendly_token[0,20]
+    end
+    saved = user.save
+    [saved, user]
+  end
+
   def invite_token=(token)
     raise 'Invite token is read only'
   end
