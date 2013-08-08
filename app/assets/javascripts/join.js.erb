@@ -2,32 +2,80 @@
 //= require_self
 if(!olook) var olook = {};
 
-olook.createFacebookUser = function(user_info){
+olook.facebookCallbacks = function(){
+  FB.Event.subscribe('auth.authResponseChange', function(response) {
+  });
+};
+
+olook.sendFacebookUserInfo = function(user_info){
   $.ajax({
     type: 'POST',
-    contentType: 'application/json',
-    url: '/join/facebook_login',
-    data: JSON.stringify({ user_info: user_info}),
+    url: '<%= Rails.application.routes.url_helpers.facebook_login_path %>',
+    data: { user: user_info },
     dataType: 'json'
-    });
+  }).success(function(jdata){
+    alert('YAY');
+    window.location = jdata.next_step;
+  }).error(function(){
+    alert(':(~~~~');
+  });
 }
 
+olook.getFBData = function(authResponse){
+  var getData = function(){
+    FB.api('/me', function(response) {
+      var userData = {};
+      userData.email = response.email;
+      userData.first_name = response.first_name;
+      userData.last_name = response.last_name;
+      userData.uid = response.id;
+      userData.facebookToken = authResponse.authResponse.accessToken;
+      userData.gender = ( response.gender === 'male' ? '1' : '0' );
+      var aux = response.birthday.split('/');
+      userData.birthday = [ aux[1], aux[0], aux[2] ].join('/');
+      olook.sendFacebookUserInfo(userData);
+    });
+  }
+  FB.api('/me/permissions', function(response){
+    if (response && response.data && response.data.length){
+      var permissions = response.data.shift();
+      if (permissions.email) {
+        getData();
+      } else {
+        olook.FBNotAuthorized();
+      }
+    } else {
+      olook.FBNotAuthorized();
+    }
+  });
+};
+
+olook.FBNotAuthorized = function(){};
+
+olook.FBLogin = function() {
+  FB.login(function(response){
+    if (response.status === 'connected') {
+      olook.getFBData(response);
+    } else if (response.status === 'not_authorized') {
+      olook.FBNotAuthorized();
+    } else {
+      // user canceled login
+    }
+  }, {scope: '<%= User::ALL_FACEBOOK_PERMISSIONS %>'});
+}
 olook.attachFBLogin = function(el) {
   $(el).click(function(e){
     e.preventDefault();
-
-    FB.login(function(response) {
-      if (response.authResponse) {
-        console.log('Welcome!  Fetching your information.... ');
-        FB.api('/me', function(response) {
-          console.log('Good to see you, ' + response + '.');
-          olook.createFacebookUser(response);
-        });
+    FB.getLoginStatus(function(response) {
+      if (response.status === 'connected') {
+        olook.getFBData(response);
+      } else if (response.status === 'not_authorized') {
+        olook.FBLogin();
       } else {
-        console.log('User cancelled login or did not fully authorize.');
+        olook.FBLogin();
       }
-    }, {scope: '<%= User::ALL_FACEBOOK_PERMISSIONS %>'});
-  })
+    });
+  });
 }
 
 $(function(){
