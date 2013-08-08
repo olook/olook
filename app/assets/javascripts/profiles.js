@@ -26,7 +26,7 @@ quiz = {
       $("li.next-step-on-click").on("click", function(){
         ready_to_click = false
         $(".current_question").animate({ "margin-left": "-850px" }, "slow" );
-        $(this).parent().parent().removeClass("current_question").next().addClass("current_question");
+        $(".current_question:last").removeClass("current_question").next().addClass("current_question");
 
         if ($(".last_step").hasClass("current_question")) {
             $(".end_quiz_button").show()
@@ -73,8 +73,10 @@ $(function(){
   quiz.next_question();
   quiz.calculate_bar("li.check-input");
   $("#back").on("click", function(){
-    $(".current_question").removeClass("current_question").prev().addClass("current_question");
-    $(".current_question").animate({ "margin-left": "0px" }, "slow" );
+    var current_question = $(".current_question:last");
+    var previous_question = $(".current_question:last").prev();
+    $(".current_question").removeClass("current_question");
+    previous_question.animate({ "margin-left": "0px" }, "slow" ).addClass("current_question");
     quiz.calculate_bar("#back");
     if (!$(".last_step").hasClass("current_question")) {
       $(".end_quiz_button").hide()
