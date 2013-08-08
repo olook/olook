@@ -8,7 +8,7 @@ module WhatsYourStyle
       @answers = []
 
       answers.each do |answer|
-        @answers << Answer.new(answer)
+        @answers << WhatsYourStyle::Answer.new(answer)
       end
     end
 
