@@ -55,7 +55,7 @@
                 %li.check-input
                   = size
                   = radio_button_tag "quiz[user_data][pants_size]", "#{ size }"
-          = submit_tag 'Comprar Agora'
+          = submit_tag 'Comprar Agora', :class => "end_quiz_button"  
 
 
     .quiz_black_bar
@@ -82,3 +82,5 @@
         acabando,
         %br/
         Ufa...
+
+
