@@ -53,8 +53,7 @@ class QuizResponder
 
     if @user.blank?
       save
-      add_session(:uuid, @uuid)
-      @next_step = ROUTES.join_path
+      @next_step = ROUTES.join_path(uuid: @uuid)
       return self
     end
 
@@ -65,14 +64,6 @@ class QuizResponder
     self
   end
 
-  def session_data
-    @session_data
-  end
-
-  def save_session?
-    @session_data.present?
-  end
-
   private
 
   def can_ask_for_profile?
@@ -81,11 +72,6 @@ class QuizResponder
 
   def has_profile?
     @profile.present? && @uuid.present?
-  end
-
-  def add_session(key, val)
-    @session_data ||= {}
-    @session_data[key] = val
   end
 
   def api

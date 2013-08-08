@@ -20,6 +20,7 @@
 
     %p
     = form_for(@user, url: join_path) do |f|
+      = hidden_field_tag 'qr_uuid', params[:uuid]
       #error_explanation
         %ul
           - @user.errors.full_messages.each do |msg|
@@ -73,6 +74,7 @@
     %p Então é só entrar ;)
 
     = form_tag(join_path, method: :put, class: "login") do
+      = hidden_field_tag 'qr_uuid', params[:uuid]
       %fieldset
         .email.field
           = label_tag "email", "Email"
