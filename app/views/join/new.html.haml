@@ -5,7 +5,6 @@
   = stylesheet_link_tag  "campaign_emails"
 - content_for(:bottom) do
   = javascript_include_tag "join"
-
 #user_manager
   =image_tag "quiz/style.png", :class => "stamp"
   .left_box
@@ -54,9 +53,12 @@
         %p.sex
           Selecione
         = f.select :gender, {'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 }
-      .cep.field
-        = f.label :zip_code, 'CEP'
-        = f.text_field :zip_code
+      .state.field
+        = f.label :state, 'Estado'
+        = f.select :state, []
+      .city.field
+        = f.label :city, 'Cidade'
+        = f.select :city, []
 
       %p.notes
         Concluindo o cadastro você aceita nossos
