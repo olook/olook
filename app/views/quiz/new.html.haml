@@ -18,7 +18,7 @@
               = "#{ question.text}"
             %ol.options
               - question.answers.each do |answer|
-                %li.next-step-on-click.check-input
+                %li.next-step-on-click.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizProgress', '#{ index }', '']);_gaq.push(['_trackEvent', 'QuizQuestions', '#{ question.text }', '#{ answer.text }']);"}
                   %p
                     = label_tag "quiz[questions][#{question.id}][#{answer.id}]", answer.text
                     = radio_button_tag "quiz[questions][#{ question.id }]", "#{ answer.id }"
@@ -29,7 +29,7 @@
             = label_tag "quiz[user_data][shoe_size]", "Qual tamanho do seu pezinho?"
             %ol.options
               - (33..40).each do |size|
-                %li.check-input
+                %li.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizProgress', 'QuizLastStep', '']);_gaq.push(['_trackEvent', 'QuizQuestions', 'Qual tamanho do seu pezinho?'', '#{ size }']);"}
                   = size
                   = radio_button_tag "quiz[user_data][shoe_size]", "#{ size }"
 
@@ -37,7 +37,7 @@
             = label_tag "quiz[user_data][dress_size]", "E o tamanho do vestido?"
             %ol.options
               - ["PP", "P", "M", "G", "GG"].each do |size|
-                %li.check-input
+                %li.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizProgress', 'QuizLastStep', '']);_gaq.push(['_trackEvent', 'QuizQuestions', 'E o tamanho do vestido?'', '#{ size }']);"}
                   = size
                   = radio_button_tag "quiz[user_data][dress_size]", "#{ size }"
 
@@ -45,7 +45,7 @@
             = label_tag "quiz[user_data][t_shirt_size]", "Blusinha?"
             %ol.options
               - ["PP", "P", "M", "G", "GG"].each do |size|
-                %li.check-input
+                %li.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizProgress', 'QuizLastStep', '']);_gaq.push(['_trackEvent', 'QuizQuestions', 'Blusinha?'', '#{ size }']);"}
                   = size
                   = radio_button_tag "quiz[user_data][t_shirt_size]", "#{ size }"
 
@@ -53,7 +53,7 @@
             = label_tag "quiz[user_data][pants_size]", "E o tamanho da sua calça jeans?"
             %ol.options
               - ["34", "36", "38", "40", "42", "44", "46"].each do |size|
-                %li.check-input
+                %li.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizProgress', 'QuizLastStep', '']);_gaq.push(['_trackEvent', 'QuizQuestions', 'E o tamanho da sua calça jeans?'', '#{ size }']);"}
                   = size
                   = radio_button_tag "quiz[user_data][pants_size]", "#{ size }"
           = submit_tag 'Comprar Agora', :class => "end_quiz_button"
