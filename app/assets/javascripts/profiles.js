@@ -21,12 +21,25 @@ quiz = {
     });
   },
 
+  finish: function() {
+  $("li.check-input").on("click", function(){
+    if (!ready_to_click) { return false }
+    var context = $(this).parents('ol');
+    context.find("li.selected").removeClass("selected");
+    $(this).addClass("selected");
+    $(this).find("input").attr("checked", "checked");
+    ready_to_click = true
+    });
+
+  },
+
     next_question: function() {
     if (!ready_to_click) { return false }
       $("li.next-step-on-click").on("click", function(){
         ready_to_click = false
         $(".current_question").animate({ "margin-left": "-850px" }, "slow" );
-        $(".current_question:last").removeClass("current_question").next().addClass("current_question");
+        //$(".current_question:last").removeClass("current_question").next().addClass("current_question");
+        $(this).parent().parent().removeClass("current_question").next().addClass("current_question");
 
         if ($(".last_step").hasClass("current_question")) {
             $(".end_quiz_button").show()
@@ -69,9 +82,10 @@ quiz = {
 
 
 $(function(){
-  quiz.respond_question("li.check-input");
+  quiz.respond_question("li.next-step-on-click");
   quiz.next_question();
-  quiz.calculate_bar("li.check-input");
+  quiz.finish();
+  quiz.calculate_bar("li");
   $("#back").on("click", function(){
     var current_question = $(".current_question:last");
     var previous_question = $(".current_question:last").prev();
