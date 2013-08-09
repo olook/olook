@@ -1,4 +1,5 @@
 //= require facebook_sdk
+//= require state_cities
 //= require_self
 if(!olook) var olook = {};
 
@@ -82,6 +83,12 @@ $("#login").on("click", function(){
   content = $(".login_form");
   o.newModal(content);
 });
+olook.load_state_cities = function(){
+  new dgCidadesEstados({
+    cidade: document.getElementById('user_city'),
+    estado: document.getElementById('user_state')
+  });
+}
 
 $(function(){
   olook.attachFBLogin('.fb_login_button')
