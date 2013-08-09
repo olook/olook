@@ -2,8 +2,8 @@
 class User < ActiveRecord::Base
   serialize :facebook_permissions, Array
 
-  attr_accessor :require_cpf, :zip_code
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf
+  attr_accessor :require_cpf
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf, :state, :city
   attr_protected :invite_token
 
   has_many :points, :dependent => :destroy
