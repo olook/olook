@@ -25,7 +25,7 @@
         <p>
           Nossas stylists montaram uma seleção incrível de produtos para você este mês.
           Confira e aproveite sem moderação!
-          <%= link_to "Confira aqui o seu perfil",'javascript:void(0);', class:"show-profile", onclick: track_event("Showroom","ShowProfile") %> ou se não gostar do resultado, <%= link_to "responda nosso style quiz", new_survey_path, onclick: track_event("Showroom","RestartQuiz") %> novamente.
+          <%= link_to "Confira aqui o seu perfil",profile_path, onclick: track_event("Showroom","ShowProfile") %> ou se não gostar do resultado, <%= link_to "responda nosso style quiz", wysquiz_path, onclick: track_event("Showroom","RestartQuiz") %> novamente.
         </p>
 
       </div>
