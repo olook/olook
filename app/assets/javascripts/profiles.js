@@ -31,7 +31,6 @@ quiz = {
     next_question: function() {
       $("li.next-step-on-click").on("click", function(){
         $(".current_question").animate({ "margin-left": "-850px" }, "slow" );
-        //$(".current_question:last").removeClass("current_question").next().addClass("current_question");
         $(this).parent().parent().removeClass("current_question").next().addClass("current_question");
 
         if ($(".last_step").hasClass("current_question")) {
@@ -80,7 +79,7 @@ $(function(){
   quiz.calculate_bar("li");
   $("#back").on("click", function(){
     var current_question = $(".current_question:last");
-    var previous_question = $(".current_question:last").prev();
+    var previous_question = current_question.prev();
     $(".current_question").removeClass("current_question");
     previous_question.animate({ "margin-left": "0px" }, "slow" ).addClass("current_question");
     quiz.calculate_bar("#back");
