@@ -31,7 +31,6 @@ quiz = {
     next_question: function() {
       $("li.next-step-on-click").on("click", function(){
         $(".current_question").animate({ "margin-left": "-850px" }, "slow" );
-        //$(".current_question:last").removeClass("current_question").next().addClass("current_question");
         $(this).parent().parent().removeClass("current_question").next().addClass("current_question");
 
         if ($(".last_step").hasClass("current_question")) {
