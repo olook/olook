@@ -30,4 +30,13 @@ class Profile < ActiveRecord::Base
     :traditional => "ij-JCPnjyAIQn-uR5QM",
     :trendy => "Ul-eCPHkyAIQn-uR5QM"
   }
+
+  def self.for_wysprofile(profile)
+    {
+      'casual/romantica' => '',
+      'sexy' => '',
+      'elegante' => '',
+      'fashion' => ''
+    }
+  end
 end
