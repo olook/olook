@@ -19,12 +19,14 @@ class QuizResponder
     @name = attrs[:name] || attrs['name']
     @user = attrs[:user] || attrs['user']
     @next_step = ROUTES.wysquiz_path
+    @user_data = attrs[:user_data] || attrs['user_data']
   end
 
   def save
     serial = {
       uuid: @uuid,
-      profile: @profile
+      profile: @profile,
+      user_data: @user_data
     }
     redis.set(self.class.redis_key(uuid), JSON.generate(serial))
   end
@@ -38,6 +40,11 @@ class QuizResponder
     @user.profiles = [Profile.for_wysprofile(@profile).first]
     @user.wys_uuid = @uuid
     @user.save
+  end
+
+  def update_user_info
+    @user_data ||= {}
+    @user.user_info_attributes=(@user_data)
   end
 
   def retrieve_profile
@@ -63,7 +70,7 @@ class QuizResponder
       @next_step = ROUTES.join_path(uuid: @uuid)
       return self
     end
-
+    update_user_info
     update_profile
     destroy
 

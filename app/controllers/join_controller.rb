@@ -9,6 +9,7 @@ class JoinController < ApplicationController
 
   def new
     @user = User.new
+    @user.build_user_info
   end
 
   def register
