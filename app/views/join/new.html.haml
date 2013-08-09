@@ -2,8 +2,9 @@
 - content_for(:head) do
   = stylesheet_link_tag  "new_structure/section/survey"
   = stylesheet_link_tag  "new_structure/section/join"
-- content_for(:bottom) do
-  = javascript_include_tag "join"
+
+:javascript
+  user_has_errors = "#{ @user.errors.any? }"
 
 #user_manager
   =image_tag "quiz/style.png", :class => "stamp"
@@ -78,18 +79,19 @@
     %h3 Lembramos de você!
     %p
       Informe o seu e-mail e senha abaixo:
-    = form_for(:user, :as => :user, :url => session_url(:user, :protocol => protocol)) do |f|
+      %p
+        - if @user.errors.any?
+          - @user.errors.each do |key, value|
+            = @user.errors[key].first if @user.errors[key].any?
+    = form_tag(join_path, method: 'put') do
       %fieldset
-        = f.label :email, "E-mail"
-        = f.email_field :email, class: "fields"
+        = label_tag :email, "E-mail"
+        = text_field_tag :email
       %fieldset
-        = f.label :password, "Senha"
-        = f.password_field :password, class: "fields"
-      - checkout_login ||= params[:checkout_login]
-      - checkout_login ||= false
-      = hidden_field_tag :checkout_login, checkout_login
+        = label_tag :password, "Senha"
+        = password_field_tag :password
       %fieldset.buttons
-        = f.check_box :remember_me, :id => "user_remember_me_login", :checked => true
-        = f.label :remember_me_login, "Lembrar de mim"
+        = check_box_tag :remember_me, :id => "user_remember_me_login", :checked => true
+        = label_tag :remember_me_login, "Lembrar de mim"
         = link_to "Esqueceu sua senha?", new_password_path(:user)
-        = f.submit "ENTRAR", :id => "login"
+        = submit_tag "ENTRAR", :id => "login"
