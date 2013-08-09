@@ -151,7 +151,7 @@ footer{
       &.email, &.email *{width: 338px;}
       &.cep{display: block;}
       &.gender{
-        .sex{position: absolute;z-index: 1;top:32px;line-height:32px; font-weight: 500;font-size: 14px;width: 156px;height: 32px;color: #717274;border: solid 1px #c3c3c3;padding-left: 5px;background: image-url('collections/bullet_arrow.png') no-repeat right -1px;}
+        .sex{position: absolute;z-index: 1;top:32px;line-height:32px; font-weight: 500;font-size: 14px;width: 156px;height: 32px;color: #717274;border: solid 1px #c3c3c3;padding-left: 5px;background: image-url('quiz/bullet_arrow.png') no-repeat right 3px;}
         select{position: absolute; width: 156px;height: 32px;opacity:0;z-index: 2;top:32px;}
       }
     label{font-size: 14px;font-family: $avenir;color: #717274;font-weight: 500;display: block;width: 165px;}
@@ -166,8 +166,8 @@ footer{
     }
   }
   .right_box{float: left;
-    h2{font-size: 17px;font-family: $avenir;color: #000;text-transform: uppercase;font-weight: 600;letter-spacing: 1px;margin-bottom: 0!important;}
-    a{font-size: 14px;font-family: $avenir;line-height: 20px;color: $pink;margin-bottom: 0;}
+    h2{font-size: 17px;font-family: $avenir;color: #000;text-transform: uppercase;font-weight: 600;letter-spacing: 1px;margin-bottom: 0!important;margin-left: 50px;}
+    a{font-size: 14px;font-family: $avenir;line-height: 20px;color: $pink;margin-bottom: 0;margin-left: 50px;}
   }
 }
    form.login{
