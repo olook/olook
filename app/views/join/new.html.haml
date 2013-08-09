@@ -53,9 +53,13 @@
         %p.sex
           Selecione
         = f.select :gender, {'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 }
-      .cep.field
-        = f.label :zip_code, 'CEP'
-        = f.text_field :zip_code
+      = f.fields_for(:user_info) do |info|
+        .state.field
+          = info.label :state, 'Estado'
+          = info.select :state, []
+        .city.field
+          = info.label :city, 'Cidade'
+          = info.select :city, []
 
       %p.notes
         Concluindo o cadastro você aceita nossos

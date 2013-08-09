@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130809133032) do
+ActiveRecord::Schema.define(:version => 20130809145145) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -988,6 +988,8 @@ ActiveRecord::Schema.define(:version => 20130809133032) do
     t.string   "dress_size"
     t.string   "t_shirt_size"
     t.string   "pants_size"
+    t.string   "state"
+    t.string   "city"
   end
 
   add_index "user_infos", ["user_id"], :name => "index_user_infos_on_user_id"
