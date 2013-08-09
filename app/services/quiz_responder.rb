@@ -68,7 +68,7 @@ class QuizResponder
     update_profile
     destroy
 
-    @next_step = ROUTES.profile_path
+    @next_step = ROUTES.profile_path(f: "1")
     self
   end
 
