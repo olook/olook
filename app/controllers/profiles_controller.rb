@@ -1,4 +1,5 @@
 class ProfilesController < ApplicationController
+  layout 'lite_application'
   before_filter :authenticate_user!
   def show
     @recommended = RecomendationService.new(profiles: current_user.profiles)
@@ -14,6 +15,6 @@ class ProfilesController < ApplicationController
     @bags = @recommended.products( category: Category::BAG, collection: @collection, admin: admin)
     @accessories = @recommended.products( category: Category::ACCESSORY, collection: @collection, admin: admin)
 
-    render layout: 'lite_application'
+    @profile = current_user.main_profile
   end
 end
