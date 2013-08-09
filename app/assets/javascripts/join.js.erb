@@ -85,4 +85,8 @@ $("#login").on("click", function(){
 
 $(function(){
   olook.attachFBLogin('.fb_login_button')
+  if(user_has_errors) {
+    content = $(".login_form");
+    o.newModal(content);
+  };
 })
