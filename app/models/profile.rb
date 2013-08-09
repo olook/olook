@@ -30,16 +30,15 @@ class Profile < ActiveRecord::Base
     :traditional => "ij-JCPnjyAIQn-uR5QM",
     :trendy => "Ul-eCPHkyAIQn-uR5QM"
   }
+  WYS_NAME = {
+    'casual/romantica' => 'casual',
+    'sexy' => 'sexy',
+    'elegante' => 'chic',
+    'fashion' => 'moderna'
+  }
+  WYS_NAME.default = 'casual'
 
   def self.for_wysprofile(profile)
-    alternative_name = {
-      'casual/romantica' => 'casual',
-      'sexy' => 'sexy',
-      'elegante' => 'chic',
-      'fashion' => 'moderna'
-    }
-    alternative_name.default = 'casual'
-
-    self.where(alternative_name: alternative_name[profile.to_s])
+    self.where(alternative_name: WYS_NAME[profile.to_s])
   end
 end
