@@ -53,7 +53,6 @@ olook = o = {
   },
 
   newModal: function(content, a, l){
-
     var $modal = $("div#modal.promo-olook"),
     h = a > 0 ? a : $("img",content).outerHeight(),
     w = l > 0 ? l : $("img",content).outerWidth(),
@@ -83,7 +82,7 @@ olook = o = {
          'margin-left' : ml,
          'margin-top'  : mt
       })
-     .delay(500).fadeIn().children().fadeIn();
+     .delay(500).fadeIn().children().show();
 
      if($("button.close").length > 0){
        $("button.close").remove();
@@ -190,7 +189,7 @@ olook = o = {
 
     $("button.register").on("click", function(){
       elem.animate({"left": -elem.width()},"slow");
-      $("#modal_footer img").animate({"right": '865px'},"slow");    
+      $("#modal_footer img").animate({"right": '865px'},"slow");
       $("#modal_footer .form").animate({"right": '0'},"slow");
 
       $(this).fadeOut().next().delay(200).fadeIn().next().fadeIn();
@@ -200,7 +199,7 @@ olook = o = {
           $(this).addClass("txt-black");
           if(email_field.val() == "seunomeaqui@email.com.br"){
             $(this).val("");
-          } 
+          }
         },
         focusout: function(){
           if( $.trim($(this).val()) == "" ){
@@ -216,7 +215,7 @@ olook = o = {
     });
 
     $('form#subscribe_form').submit(function(event){
-      email = email_field.val();  
+      email = email_field.val();
       event.preventDefault();
       $("#modal_footer button.close").off("click");
 
