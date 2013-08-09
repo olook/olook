@@ -3,6 +3,7 @@
   = stylesheet_link_tag  "new_structure/section/survey"
 - content_for(:bottom) do
   = javascript_include_tag "join"
+  
 #user_manager
   .left_box
     %h2
@@ -21,7 +22,6 @@
     %p.fb OU
 
     %h2 Cadastre-se na Olook
-    %p Queremos saber mais de você.
 
     %p
     = form_for(@user, url: join_path) do |f|
@@ -66,31 +66,6 @@
 
 
   .right_box
-    .qty
-      %p
-        %span#num_qty 122273
-        pessoas já responderam nosso style quiz
-      .avatars
-        .prev
-        .faces
-        .next
-
+    = image_tag("quiz/pb_rightb.jpg")
     %h2 Já tenho cadastro
-    %p Então é só entrar ;)
-
-    = form_tag(join_path, method: :put, class: "login") do
-      = hidden_field_tag 'qr_uuid', params[:uuid]
-      %fieldset
-        .email.field
-          = label_tag "email", "Email"
-          = text_field_tag "email"
-        .password.field
-          = label_tag "password", "Senha"
-          = password_field_tag "password"
-      %fieldset.links
-        .remember-me
-          = check_box_tag "remember_me", "1", true
-          = label_tag "remember_me", "Lembrar de mim"
-        .forgot_password
-          = link_to 'Esqueci minha senha', new_user_password_path, :class => "forgot_password"
-      = submit_tag "Entrar", :id => "login"
+    = link_to 'Então é só entrar ;)', "/entrar"
