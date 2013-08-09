@@ -30,7 +30,7 @@ footer{
   }
 }
 #user_manager{
-  height: 500px;width: 990px;margin: 0 auto;
+  height: 500px;width: 860px;margin: 0 auto;
   fieldset{
     border: 0px;
   }
@@ -135,6 +135,7 @@ footer{
 }
 
 #user_manager{height: 820px;margin-top: 50px;
+  .stamp{position: absolute;left: 1220px;top: 50px; width: 130px; height: 130px; background: image-url("quiz/style.png") no-repeat;}
   .left_box{width: 450px;height: 700px;float: left;
     h2{font-size: 17px;font-family: $avenir;color: #000;text-transform: uppercase;font-weight: 600;letter-spacing: 1px;}
     p{font-family: $avenir; font-weight: lighter;font-size: 15px;margin-top: -15px;margin-bottom: 35px;
