@@ -17,7 +17,7 @@ olook.sendFacebookUserInfo = function(user_info){
   }).success(function(jdata){
     window.location = jdata.next_step;
   }).error(function(){
-    // 
+    //
   });
 }
 
@@ -77,6 +77,11 @@ olook.attachFBLogin = function(el) {
     });
   });
 }
+
+$("#login").on("click", function(){
+  content = $(".login_form");
+  o.newModal(content);
+});
 
 $(function(){
   olook.attachFBLogin('.fb_login_button')

@@ -1,9 +1,10 @@
 #fb-root
 - content_for(:head) do
   = stylesheet_link_tag  "new_structure/section/survey"
+  = stylesheet_link_tag  "new_structure/section/join"
 - content_for(:bottom) do
   = javascript_include_tag "join"
-  
+
 #user_manager
   .left_box
     %h2
@@ -15,10 +16,10 @@
       %br
       sobre moda, tendências e promoções exclusivas
     %p.users
-      %span 122273 
+      %span 122273
       pessoas já responderam nosso style quiz
       = image_tag("quiz/users.jpg")
-    %a.fb_login_button Entrar com FB  
+    %a.fb_login_button Entrar com FB
     %p.fb OU
 
     %h2 Cadastre-se na Olook
@@ -68,4 +69,26 @@
   .right_box
     = image_tag("quiz/pb_rightb.jpg")
     %h2 Já tenho cadastro
-    = link_to 'Então é só entrar ;)', "/entrar"
+    = link_to 'Então é só entrar ;)', "javascript:void(0);", id: "login"
+
+#modal.promo-olook
+#overlay-campaign
+  .login_form
+    %h3 Lembramos de você!
+    %p
+      Informe o seu e-mail e senha abaixo:
+    = form_for(:user, :as => :user, :url => session_url(:user, :protocol => protocol)) do |f|
+      %fieldset
+        = f.label :email, "E-mail"
+        = f.email_field :email, class: "fields"
+      %fieldset
+        = f.label :password, "Senha"
+        = f.password_field :password, class: "fields"
+      - checkout_login ||= params[:checkout_login]
+      - checkout_login ||= false
+      = hidden_field_tag :checkout_login, checkout_login
+      %fieldset.buttons
+        = f.check_box :remember_me, :id => "user_remember_me_login", :checked => true
+        = f.label :remember_me_login, "Lembrar de mim"
+        = link_to "Esqueceu sua senha?", new_password_path(:user)
+        = f.submit "ENTRAR", :id => "login"
