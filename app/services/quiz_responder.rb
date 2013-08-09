@@ -4,7 +4,11 @@ class QuizResponder
 
   def self.find(uuid)
     json = redis.get(redis_key(uuid))
-    hash = JSON.parse(json)
+    if json
+      hash = JSON.parse(json)
+    else
+      hash = {}
+    end
     self.new(hash)
   end
 
