@@ -135,13 +135,21 @@ footer{
 }
 
 #user_manager{
-  height: 620px;
+  height: 820px;
   .left_box{
-    width: 405px;height: 645px;
+    width: 450px;height: 700px;
     float: left;
-    p{font-family: $avenir; font-weight: lighter;font-size: 15px;margin-top: -15px;margin-bottom: 35px;}
-    div.field{display: inline-block;margin-right: 20px;position: relative;height: 70px;
+    h2{font-size: 17px;font-family: $avenir;color: #000;text-transform: uppercase;font-weight: 600;letter-spacing: 1px;}
+    p{font-family: $avenir; font-weight: lighter;font-size: 15px;margin-top: -15px;margin-bottom: 35px;
+      &.users{font-family: $avenir; font-size: 14px; font-weight: 500 !important; color: #717274;margin-bottom: 10px !important;
+      span{color: #f5868d}
+      img{margin-top: 5px;}
+    }
+    &.fb{font-family: $avenir;font-size: 15px;color: #676767;margin-bottom: 15px !important;margin-top: 16px;}
+  }
+    div.field{display: inline-block;margin-right: 23px;position: relative;height: 70px;width: 160px;
       p{font-family: $avenir; font-weight: lighter;font-size: 15px;margin-top: -12px;}
+
       &.email, &.email *{width: 338px;}
       &.cep{display: block;}
       &.gender{
@@ -155,17 +163,18 @@ footer{
         }
         select{position: absolute; width: 156px;height: 32px;opacity:0;z-index: 2;top:32px;}
       }
-    }
-    fieldset{margin: 0 !important;float:left;}
-    h2{font-size: 17px;font-family: $avenir;color: #000;text-transform: uppercase;font-weight: 500;}
-
-    label{font-size: 14px;font-family: $avenir;color: #717274;font-weight: 500;display: block;}
+    label{font-size: 14px;font-family: $avenir;color: #717274;font-weight: 500;display: block;width: 165px;}
     input{height: 30px;line-height: 30px;padding-left: 7px;font-size: 14px;border: solid 1px #c3c3c3;width: 152px;margin-bottom: 10px;}
-
-    .notes{font-size: 12px;font-family: $avenir;line-height: 20px;color: #717274;margin-bottom: 0;
+}
+  input[type=submit]{border: none;background: image-url('quiz/bt_join.png') no-repeat 0 0;text-indent: -9999px;width: 116px;height: 34px;margin-top: 15px;
+    &:hover{background: image-url('quiz/bt_join.png') no-repeat 0 -36px;}
+  }
+  a.fb_login_button {background: image-url('quiz/fb.jpg') no-repeat;text-indent: -9999px;width: 231px;height: 34px;display: block;cursor: pointer;}
+    .notes{font-size: 12px;font-family: $avenir;line-height: 20px;color: #717274;margin-bottom: 0;margin-top: 10px;
       a{color: $pink;}
     }
   }
+}
    form.login{
     input[type=submit] {
       background: image-url('common/login.png') no-repeat;
@@ -177,7 +186,7 @@ footer{
       cursor: pointer;
     }
   }
-}
+
 
 
 
