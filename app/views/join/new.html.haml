@@ -52,13 +52,12 @@
         %p.sex
           Selecione
         = f.select :gender, {'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 }
-      = f.fields_for(:user_info) do |info|
-        .state.field
-          = info.label :state, 'Estado'
-          = info.select :state, []
-        .city.field
-          = info.label :city, 'Cidade'
-          = info.select :city, []
+      .state.field
+        = f.label :state, 'Estado'
+        = f.select :state, []
+      .city.field
+        = f.label :city, 'Cidade'
+        = f.select :city, []
 
       %p.notes
         Concluindo o cadastro você aceita nossos
