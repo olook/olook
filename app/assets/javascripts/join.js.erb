@@ -80,8 +80,8 @@ olook.attachFBLogin = function(el) {
 }
 
 $("#login").on("click", function(){
-  content = $(".login_form");
-  o.newModal(content);
+  content = $(".box-remember-login");
+  o.newModal(content,360,490);
 });
 olook.load_state_cities = function(){
   new dgCidadesEstados({
@@ -89,11 +89,22 @@ olook.load_state_cities = function(){
     estado: document.getElementById('user_state')
   });
 }
-
+function changeTag(field_to_copy){
+	txt = $("option:selected").val();
+	if (txt == "0"){
+		field_to_copy.text(" ").delay(100).text("Mulher");
+	}else if(txt == "1"){
+		field_to_copy.text(" ").delay(100).text("Homem");
+	}else{
+		field_to_copy.text(" ").delay(100).text("Selecione");
+	}
+}
 $(function(){
-  olook.attachFBLogin('.fb_login_button')
   if(user_has_errors) {
     content = $(".login_form");
     o.newModal(content);
   };
+  olook.attachFBLogin('.fb_login_button');
+  olook.load_state_cities();
+  $(".gender").change(function(){changeTag($("p.sex"))})
 })

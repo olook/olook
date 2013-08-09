@@ -4,7 +4,7 @@
   = stylesheet_link_tag  "new_structure/section/join"
 :javascript
   user_has_errors = "#{ @user.errors.any? }"
-
+  = stylesheet_link_tag  "campaign_emails"
 #user_manager
   =image_tag "quiz/style.png", :class => "stamp"
   .left_box
@@ -77,6 +77,7 @@
 
 #modal.promo-olook
 #overlay-campaign
+<<<<<<< HEAD
   .login_form
     %h3 Lembramos de você!
     %p
@@ -97,3 +98,24 @@
         = label_tag :remember_me_login, "Lembrar de mim"
         = link_to "Esqueceu sua senha?", new_password_path(:user)
         = submit_tag "ENTRAR", :id => "login"
+=======
+.box-remember-login
+  %h3 Lembramos de você!
+  %p
+    Informe o seu e-mail e senha abaixo:
+  = form_for(:user, :as => :user, :url => session_url(:user, :protocol => protocol)) do |f|
+    %fieldset
+      =f.label :email, "E-mail:"
+      =f.text_field :email
+    %fieldset
+      =f.label :password, "Senha:"
+      =f.password_field :password
+    %fieldset.botoes
+      %div
+        =f.check_box :remember_me, :checked => true
+        =f.label :remember_me, "Lembrar de mim"
+        %p
+          %a{:href => "/conta/password/new", :target => "_blank"} Esqueci minha senha
+      =f.submit :value => "ENTRAR", :class => "bt-enter"
+  %button{:type => "button", :class => "close"} Fechar
+>>>>>>> 8ba514134602bece733750a85a50f6fb925d3ba0
