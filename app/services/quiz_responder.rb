@@ -30,7 +30,9 @@ class QuizResponder
   end
 
   def update_profile
-    @user.update_attributes(profile: @profile, wys_uuid: @uuid)
+    @user.profiles = Profile.for_wysprofile(@profile)
+    @user.wys_uuid = @uuid
+    @user.save
   end
 
   def retrieve_profile
