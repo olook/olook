@@ -2,6 +2,7 @@
 - content_for(:head) do
   = stylesheet_link_tag  "new_structure/section/survey"
   = stylesheet_link_tag  "new_structure/section/join"
+  = stylesheet_link_tag  "campaign_emails"
 - content_for(:bottom) do
   = javascript_include_tag "join"
 
@@ -74,22 +75,22 @@
 
 #modal.promo-olook
 #overlay-campaign
-  .login_form
-    %h3 Lembramos de você!
-    %p
-      Informe o seu e-mail e senha abaixo:
-    = form_for(:user, :as => :user, :url => session_url(:user, :protocol => protocol)) do |f|
-      %fieldset
-        = f.label :email, "E-mail"
-        = f.email_field :email, class: "fields"
-      %fieldset
-        = f.label :password, "Senha"
-        = f.password_field :password, class: "fields"
-      - checkout_login ||= params[:checkout_login]
-      - checkout_login ||= false
-      = hidden_field_tag :checkout_login, checkout_login
-      %fieldset.buttons
-        = f.check_box :remember_me, :id => "user_remember_me_login", :checked => true
-        = f.label :remember_me_login, "Lembrar de mim"
-        = link_to "Esqueceu sua senha?", new_password_path(:user)
-        = f.submit "ENTRAR", :id => "login"
+.box-remember-login
+  %h3 Lembramos de você!
+  %p
+    Informe o seu e-mail e senha abaixo:
+  = form_for(:user, :as => :user, :url => session_url(:user, :protocol => protocol)) do |f|
+    %fieldset
+      =f.label :email, "E-mail:"
+      =f.text_field :email
+    %fieldset
+      =f.label :password, "Senha:"
+      =f.password_field :password
+    %fieldset.botoes
+      %div
+        =f.check_box :remember_me, :checked => true
+        =f.label :remember_me, "Lembrar de mim"
+        %p
+          %a{:href => "/conta/password/new", :target => "_blank"} Esqueci minha senha
+      =f.submit :value => "ENTRAR", :class => "bt-enter"
+  %button{:type => "button", :class => "close"} Fechar
