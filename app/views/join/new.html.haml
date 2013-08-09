@@ -50,15 +50,20 @@
         = f.password_field :password_confirmation
       .gender.field
         = f.label :gender, "Você é:"
-        %p.sex
+        %p.text
           Selecione
         = f.select :gender, {'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 }
-      .state.field
-        = f.label :state, 'Estado'
-        = f.select :state, []
-      .city.field
-        = f.label :city, 'Cidade'
-        = f.select :city, []
+      .location
+        .state.field
+          = f.label :state, 'Estado'
+          %p.text
+            Selecione
+          = f.select :state, []
+        .city.field
+          = f.label :city, 'Cidade'
+          %p.text
+            Selecione
+          = f.select :city, []
 
       %p.notes
         Concluindo o cadastro você aceita nossos
