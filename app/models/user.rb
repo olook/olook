@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   serialize :facebook_permissions, Array
 
   attr_accessor :require_cpf
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf
+  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf, :state, :city
   attr_protected :invite_token
 
   has_many :points, :dependent => :destroy
@@ -20,12 +20,9 @@ class User < ActiveRecord::Base
   has_one :tracking, :dependent => :destroy
   has_many :user_credits
   has_many :credits
-  delegate :state, :city, to: :user_info
 
   before_create :generate_invite_token
   after_create :initialize_user, :update_campaign_email
-
-  accepts_nested_attributes_for :user_info
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
