@@ -37,6 +37,7 @@ describe QuizResponder do
       @quiz = QuizResponder.new(name: name, questions: ans)
 
       @api = mock(WhatsYourStyle::Quiz)
+      @api.stub(:logger=)
       WhatsYourStyle::Quiz.should_receive(:new).and_return(@api)
       @api.should_receive(:profile_from).with({ name: name, answers: ans }).and_return({uuid: 123, profile: 'sexy'})
 
@@ -48,15 +49,21 @@ describe QuizResponder do
 
   describe '#update_profile' do
     let(:user) { FactoryGirl.create(:user) }
+    before do
+      FactoryGirl.create(:profile, alternative_name: 'sexy')
+    end
 
     it "updates user's profile" do
-      user.should_receive(:update_attributes)
-      QuizResponder.new(user: user).update_profile
+      QuizResponder.new(user: user, profile: 'sexy', uuid: '123123123').update_profile
+      expect(user.profiles).to eql([Profile.for_wysprofile('sexy').first])
     end
   end
 
   context 'validate!' do
     include Rails.application.routes.url_helpers
+    before do
+      QuizResponder.any_instance.stub(:save)
+    end
     it 'should return self' do
       @qr = QuizResponder.new(name: 'Whiskas', user: FactoryGirl.build(:user))
       expect(@qr.validate!).to eql(@qr)
@@ -75,7 +82,7 @@ describe QuizResponder do
       subject { QuizResponder.new(uuid: 111, profile: 'sexy') }
       it {
         subject.validate!
-        expect(subject.next_step).to eql(join_path)
+        expect(subject.next_step).to eql(join_path(uuid: 111))
       }
     end
 
@@ -99,7 +106,7 @@ describe QuizResponder do
         subject { QuizResponder.new(questions: { '1' => '2' }, name: 'Whiskas') }
         it {
           subject.validate!
-          expect(subject.next_step).to eql(join_path)
+          expect(subject.next_step).to eql(join_path(uuid: subject.uuid))
         }
 
         context 'with @profile and @uuid' do
@@ -116,15 +123,15 @@ describe QuizResponder do
             subject.should_receive(:save)
             subject.validate!
           }
-          it {
-            subject.should_receive(:add_session)
-            subject.validate!
-          }
         end
       end
 
       context 'has questions, name and user' do
         subject { QuizResponder.new(uuid: '123', profile: 'sexy', user: FactoryGirl.create(:user)) }
+        before do
+          FactoryGirl.create(:profile, alternative_name: 'sexy')
+          subject.stub!(:destroy)
+        end
         it "should indicate /voce" do
           subject.validate!
           expect(subject.next_step).to eql(profile_path)
@@ -135,9 +142,9 @@ describe QuizResponder do
           subject.validate!
         end
 
-        it 'should set user.profile' do
+        it 'should set user.main_profile' do
           subject.validate!
-          expect(subject.user.profile).to_not be_blank
+          expect(subject.user.main_profile).to eql(Profile.for_wysprofile('sexy').first)
         end
       end
     end
