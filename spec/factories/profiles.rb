@@ -1,6 +1,10 @@
 # -*- encoding : utf-8 -*-
 FactoryGirl.define do
   factory :profile do
+    name 'Casual'
+    first_visit_banner 'casual'
+    alternative_name 'casual'
+
     trait :with_products do
       after(:create) do |profile|
         collection = FactoryGirl.create(:collection)

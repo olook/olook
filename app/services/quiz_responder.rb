@@ -30,7 +30,7 @@ class QuizResponder
   end
 
   def update_profile
-    @user.profiles = Profile.for_wysprofile(@profile)
+    @user.profiles = [Profile.for_wysprofile(@profile).first]
     @user.wys_uuid = @uuid
     @user.save
   end
