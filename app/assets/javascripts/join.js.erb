@@ -1,4 +1,5 @@
 //= require facebook_sdk
+//= require state_cities
 //= require_self
 if(!olook) var olook = {};
 
@@ -84,5 +85,6 @@ $("#login").on("click", function(){
 });
 
 $(function(){
-  olook.attachFBLogin('.fb_login_button')
+  olook.attachFBLogin('.fb_login_button');
+  olook.load_state_cities();
 })
