@@ -20,7 +20,7 @@
       %br
       sobre moda, tendências e promoções exclusivas
     %p.users
-      %span=@quiz_count.count
+      %span=@quiz_count.try(:count)
       pessoas já responderam nosso style quiz
       = image_tag("quiz/users.jpg")
     %a.fb_login_button Entrar com FB
