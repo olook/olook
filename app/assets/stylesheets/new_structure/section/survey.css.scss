@@ -1,5 +1,5 @@
 @import 'new_structure/common/global_stuffs';
-
+body{margin-top: 0 !important;}
 header{
   .quiz_header{
     border-top: 8px black solid;
@@ -122,7 +122,7 @@ footer{
     float:left;
     overflow: hidden;
     h2{
-      font-size: 17px;
+      font-size: 15px;
       font-family: $johnston;
       font-weight: 500;
       text-transform: uppercase;
@@ -168,6 +168,7 @@ footer{
             display: table-cell;
             vertical-align: middle;
             text-align: center;
+            padding: 5px;
           }
         }
       }
