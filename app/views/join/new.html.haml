@@ -30,7 +30,7 @@
 
     %p
     = form_for(@user, url: join_path) do |f|
-      = hidden_field_tag 'qr_uuid', params[:uuid]
+      = hidden_field_tag 'qr_uuid', params[:uuid] || params[:qr_uuid]
       #error_explanation
         %ul
           - @user.errors.full_messages.each do |msg|
@@ -94,6 +94,7 @@
         - @user.errors.each do |key, value|
           = @user.errors[key].first if @user.errors[key].any?
   = form_tag(join_path, method: 'put') do
+    = hidden_field_tag 'qr_uuid', params[:uuid] || params[:qr_uuid]
     %fieldset
       = label_tag :email, "E-mail"
       = text_field_tag :email
