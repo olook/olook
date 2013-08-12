@@ -5,6 +5,8 @@
   = stylesheet_link_tag  "campaign_emails"
 :javascript
   user_has_errors = "#{ @user.errors.any? }"
+- content_for :scripts do
+  = javascript_include_tag 'join'
 #user_manager
   =image_tag "quiz/style.png", :class => "stamp"
   .left_box
