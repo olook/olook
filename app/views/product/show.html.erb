@@ -28,7 +28,7 @@
   <% content_for :footer do %>
     <%= javascript_include_tag "product" %>
   <% end %>
-  <div id="product">
+  <section id="product">
     <%#= link_to image_tag("valentine/valentines_day_facebook.jpg", style:"margin-bottom:20px"), "javascript:void(0)", class: "face-message", onclick:  track_event('ValentinesDay', "ClickValentinesDayBanner") %>
     <div class="content">
       <div id="pics_suggestions">
@@ -74,7 +74,7 @@
 
       <%# Banner placeholder %>
     </div>
-  </div>
+  </section>
 <% end %>
 <% content_for :data_layer do %>
   <%= render partial: "shared/metrics/all_in/product", :locals => { product: @product } %>
