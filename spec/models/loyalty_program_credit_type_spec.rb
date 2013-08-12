@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe LoyaltyProgramCreditType do
+
+  before :each do
+    Delorean.back_to_the_present
+    Credit.destroy_all
+  end
+
   let(:user) { FactoryGirl.create(:member) }
 
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type) }
@@ -35,15 +41,19 @@ describe LoyaltyProgramCreditType do
         end
 
         it "should remove credits when credits is equal to debit" do
+          Timecop.freeze(Time.local(2013, 9, 1, 12, 0, 0))
+
           user.user_credits_for(:loyalty_program).add(credits_attrs.dup)
 
-          Delorean.jump 1.month
+          Timecop.freeze(Time.local(2013, 10, 1, 12, 0, 0))
 
           expect{
             user.user_credits_for(:loyalty_program).remove(credits_attrs)
           }.to change{ Credit.count }.by(1)
           
           user.user_credits_for(:loyalty_program).total(DateTime.now).should == 0.0
+
+          Timecop.return
         end
 
         it "should remove credits when there's more than 1 credit" do
