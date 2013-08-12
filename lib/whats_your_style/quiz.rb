@@ -66,6 +66,12 @@ module WhatsYourStyle
       end
 
       def challenge
+        j_response = get_challenge_response
+        @profile = j_response['classification_label']
+        @uuid = j_response['uuid']
+      end
+
+      def get_challenge_response
         path = "/v1/challenges/create?api_token=#{AUTH_TOKEN}"
         req = Net::HTTP::Post.new(path)
         req.body = challenge_payload
@@ -73,9 +79,7 @@ module WhatsYourStyle
         logger_time("NET::HTTP.post(#{path})\n#{challenge_payload.inspect}") do
           response = Net::HTTP.new(HOST, PORT).start { |http| http.request(req) }
         end
-        j_response = JSON.parse(response.body)
-        @profile = j_response['classification_label']
-        @uuid = j_response['uuid']
+        JSON.parse(response.body)
       end
 
       def challenge_payload
