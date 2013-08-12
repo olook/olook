@@ -287,6 +287,7 @@ ul.tryquiz{
   margin-left: 205px;
   li{
     float: left;
+    a{
       &.me{
         width: 222px;
         height: 58px;
@@ -314,6 +315,8 @@ ul.tryquiz{
         background: image-url('quiz/bt-try.png') no-repeat 0 -185px;
       }
     }
+  }
+
   }
 }
 
