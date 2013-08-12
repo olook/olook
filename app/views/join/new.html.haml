@@ -2,7 +2,7 @@
 - content_for(:head) do
   = stylesheet_link_tag  "new_structure/section/survey"
   = stylesheet_link_tag  "new_structure/section/join"
-  = stylesheet_link_tag  "campaign_emails"
+
 :javascript
   user_has_errors = "#{ @user.errors.any? }"
 #user_manager
@@ -90,7 +90,7 @@
       - if @user.errors.any?
         - @user.errors.each do |key, value|
           = @user.errors[key].first if @user.errors[key].any?
-  = form_tag(join_path, method: 'put', class: 'new_user') do
+  = form_tag(join_path, method: 'put') do
     %fieldset
       = label_tag :email, "E-mail"
       = text_field_tag :email
