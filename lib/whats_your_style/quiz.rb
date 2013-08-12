@@ -70,7 +70,7 @@ module WhatsYourStyle
         req = Net::HTTP::Post.new(path)
         req.body = challenge_payload
         response = nil
-        logger_time("NET::HTTP.post(#{path})") do
+        logger_time("NET::HTTP.post(#{path})\n#{challenge_payload.inspect}") do
           response = Net::HTTP.new(HOST, PORT).start { |http| http.request(req) }
         end
         j_response = JSON.parse(response.body)
