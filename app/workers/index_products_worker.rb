@@ -10,6 +10,8 @@ class IndexProductsWorker
     add_products(Product.all)
     remove_products(Product.all)
 
+    Rails.cache.clear
+
     mail = DevAlertMailer.notify_about_products_index
     mail.deliver
   end
