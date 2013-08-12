@@ -57,7 +57,7 @@ module WhatsYourStyle
 
       def quiz
         return @quiz if @quiz
-        url = URI.parse "#{SCHEMA}://#{HOST}:#{PORT}#{PREFIX_URL}/quizzes/1?api_token=#{AUTH_TOKEN}"
+        url = URI.parse "#{SCHEMA}://#{HOST}:#{PORT}#{PREFIX_URL}/quizzes/1.json?api_token=#{AUTH_TOKEN}"
         response = nil
         logger_time("NET::HTTP.get_response(#{url})") do
           response = Net::HTTP.get_response(url)
@@ -72,8 +72,10 @@ module WhatsYourStyle
       end
 
       def get_challenge_response
-        path = "/v1/challenges/create?api_token=#{AUTH_TOKEN}"
+        path = "#{PREFIX_URL}/challenges/create?api_token=#{AUTH_TOKEN}"
         req = Net::HTTP::Post.new(path)
+        req.add_field('Content-Type', 'application/json; charset=utf-8')
+        req.add_field('Accept', 'application/json')
         req.body = challenge_payload
         response = nil
         logger_time("NET::HTTP.post(#{path})\n#{challenge_payload.inspect}") do
@@ -84,8 +86,8 @@ module WhatsYourStyle
 
       def challenge_payload
         JSON.generate({
-          @name => {
-            answers: @answers
+           'challenge' => {
+            'answers' => @answers
           }
         })
       end
