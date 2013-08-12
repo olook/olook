@@ -43,7 +43,7 @@
   = render 'stylist_news'
 -else
   %ul.tryquiz
-    %li.me
-      = link_to("Essa sou eu", member_showroom_path)
-    %li.again
-      = link_to("Quero tentar de novo", wysquiz_path)
+    %li
+      = link_to("Essa sou eu", member_showroom_path, :class => "me")
+    %li
+      = link_to("Quero tentar de novo", wysquiz_path, :class => "again")

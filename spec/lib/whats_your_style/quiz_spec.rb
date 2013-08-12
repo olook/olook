@@ -22,8 +22,11 @@ describe WhatsYourStyle::Quiz do
     it { expect{subject.profile_from}.to raise_error(ArgumentError) }
 
     it "should have a profile and uuid" do
-      hash = {"cool quiz" => {"1" => "3", "2" => "3"}}
+      subject.should_receive(:get_challenge_response).and_return({'uuid' => '123', 'classification_label' => 'casual/romantica'})
+      hash = {:name => "cool quiz", :answers => {"1" => "3", "2" => "3"}}
       subject.profile_from(hash)
+      expect(subject.uuid).to eql("123")
+      expect(subject.profile).to eql("casual/romantica")
     end
   end
 
