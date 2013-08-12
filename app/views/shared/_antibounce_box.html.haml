@@ -1,10 +1,7 @@
-%hr/
 %section.container_product.calhau
   .banner{class: (params[:controller] == "brands" ? "brand-banner" : "catalog-banner")}
     %h2 
-      Compre na Olook as marcas mais desejadas do mundo da moda
-      %br/
-      %span Triton, Forum, Iodice e mais
+      Que tal dar uma olhadinha em peças da Olook também?
   %ul#products
     = render "shared/searched_products", :products => antibounce_box.search.products, :product_source => "AntibounceBox"
   .loading  

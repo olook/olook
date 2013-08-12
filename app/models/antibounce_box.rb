@@ -7,12 +7,18 @@ class AntibounceBox
   end
 
   def self.need_antibounce_box?(search, brands, params)
-    response = false
+    return false unless (is_called_from_catalogs_show?(params) || is_called_from_brands_show?(params))
     search.products # Calling this method in order to retrieve pages and current page
-    response = (is_search_in_last_page?(search) || search.pages == 0 && !brands.empty? && all_brands_out_of_whitelist?(brands)) if (is_called_from_catalogs_show?(params) || is_called_from_brands_show?(params))
-    response &&= (is_cloth_category?(params["category"]) && search.expressions["brand"].any?) if is_called_from_brands_show?(params)
-    response
-  end  
+    return (is_called_from_catalogs_show?(params) ? generic_validation(search, brands) : generic_validation(search, brands) && brands_section_validation(search, params))
+  end
+
+  def self.brands_section_validation(search, params)
+    (is_cloth_category?(params["category"]) && search.expressions["brand"].any?)
+  end
+
+  def self.generic_validation(search, brands)
+    ((is_search_in_last_page?(search) || search.pages == 0) && !brands.empty? && all_brands_out_of_whitelist?(brands))
+  end
 
   private
     def generate_search(search_params)
@@ -24,9 +30,8 @@ class AntibounceBox
 
     def format_params params
       antibounce_params = params.dup 
-      brand = antibounce_params["brand"]
       antibounce_params.delete("brand")
-      antibounce_params["excluded_brand"] = brand
+      antibounce_params["brand"] = "olook"
       antibounce_params["category"] = "roupa" if antibounce_params["category"].blank? || ["roupa", "moda praia", "lingerie", ""].include?("roupa")
       antibounce_params
     end
