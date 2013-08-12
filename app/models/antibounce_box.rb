@@ -48,6 +48,6 @@ class AntibounceBox
     end
 
     def self.is_cloth_category? category
-      ["roupa", "moda praia", "lingerie", ""].include?(params["category"])
+      ["roupa", "moda praia", "lingerie", ""].include?(category)
     end
 end
