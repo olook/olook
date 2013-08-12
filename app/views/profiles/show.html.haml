@@ -6,6 +6,7 @@
 - content_for :footer do
   - if @first_time
     = javascript_include_tag 'section/lite_showroom'
+= link_to("<< Voltar para minha vitrine", member_showroom_path) unless @first_time
 = render_profile_template(@profile.alternative_name)
 - if @first_time
   #showroom
@@ -37,3 +38,6 @@
           = render 'shared/lite_product_item', product: product
 
   = render 'stylist_news'
+-else
+  = link_to("Essa sou eu", member_showroom_path)
+  = link_to("Quero tentar de novo", wysquiz_path)
