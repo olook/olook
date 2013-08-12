@@ -8,3 +8,4 @@ $("#total").html("<%= number_to_currency(total_with_freight(@freight_price)) %>"
 $("#total_billet").html("<%= number_to_currency(total_with_freight(@freight_price, Billet.new)) %>");
 $("#total_debit").html("<%= number_to_currency(total_with_freight(@freight_price, Debit.new)) %>");
 showTotal();
+trackStateForFreightABTest();

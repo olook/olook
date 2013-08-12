@@ -29,8 +29,12 @@ var masks = {
   }
 }
 
+function isVariation() {
+  return $("#freight_service_ids").val() != "";
+}
+
 function retrieve_freight_price_for_control_or_variation(zip_code) {
-  if ($("#freight_service_ids").val()) {
+  if (isVariation()) {
     retrieve_freight_price_for_variation(zip_code);
   } else {
     retrieve_freight_price(zip_code);
@@ -60,8 +64,6 @@ function retrieve_freight_price_for_checkout(url_base, zip_code) {
     success: showTotal
   });
 }
-
-
 
 function retrieve_zip_data(zip_code) {
   
@@ -137,6 +139,14 @@ function updateFreightValue() {
   zip_code = $('input.address_recorded:checked').val();
   if (zip_code != undefined) {
     retrieve_freight_price_for_control_or_variation(zip_code);
+  }
+}
+
+function trackStateForFreightABTest() {
+  state = $("#checkout_address_state").val() || $(".address_recorded:checked").data("state");
+  if (state != undefined) {
+    actionSuffix = isVariation() ? 'Var' : 'Ctrl';
+    _gaq.push(['_trackEvent', 'FreightABTest', 'FreightPreview' + actionSuffix, state, true]);
   }
 }
 
