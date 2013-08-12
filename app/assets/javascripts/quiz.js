@@ -87,4 +87,12 @@ $(function(){
       $(".end_quiz_button").hide()
     };
   });
+
+  $('#new_wysquiz').submit(function(e){
+    if($('ol.options').length !== $('ol.options input:checked').length){
+      alert("Faltou algumas respostas!")
+      e.preventDefault();
+      return false;
+    }
+  });
 });

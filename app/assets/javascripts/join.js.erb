@@ -92,7 +92,7 @@ olook.load_state_cities = function(){
 }
 
 function changeTag(field){
-  var txt = field.find(":selected").text()
+  var txt = field.find(":selected").text();
   field.prev('p').text(" ").delay(100).text(txt);
 }
 
@@ -101,5 +101,12 @@ $(function(){
   olook.load_state_cities();
   $("#user_gender,#user_state,#user_city").change(function(){
     changeTag($(this));
+  });
+  $('#new_wysquiz').submit(function(e){
+    if($('ol').length !== $('ol input:checked')){
+      alert('Preencha todas as respostas amiga!');
+      e.preventDefault();
+      return false;
+    }
   });
 });
