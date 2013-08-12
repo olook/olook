@@ -65,24 +65,18 @@ olook.FBLogin = function() {
     }
   }, {scope: '<%= User::ALL_FACEBOOK_PERMISSIONS %>'});
 }
-olook.attachFBLogin = function(el) {
-  $(el).click(function(e){
-    e.preventDefault();
-    FB.getLoginStatus(function(response) {
-      if (response.status === 'connected') {
-        olook.getFBData(response);
-      } else if (response.status === 'not_authorized') {
-        olook.FBLogin();
-      } else {
-        olook.FBLogin();
-      }
-    });
+olook.checkFBLogin = function() {
+  FB.getLoginStatus(function(response) {
+    if (response.status === 'connected') {
+      olook.getFBData(response);
+    } else if (response.status === 'not_authorized') {
+      olook.FBLogin();
+    } else {
+      olook.FBLogin();
+    }
   });
 }
 
-$("#login").on("click", function(){
-  olook.newModal($(".box-remember-login"),360,490);
-});
 
 olook.load_state_cities = function(){
   new dgCidadesEstados({
@@ -97,7 +91,7 @@ function changeTag(field){
 }
 
 $(function(){
-  olook.attachFBLogin('.fb_login_button');
+  $('.fb_login_button').click(olook.checkFBLogin);
   olook.load_state_cities();
   $("#user_gender,#user_state,#user_city").change(function(){
     changeTag($(this));
@@ -106,6 +100,10 @@ $(function(){
   if(user_has_errors) {
     olook.newModal($(".box-remember-login"),360,490);
   };
+
+  $("#login").on("click", function(){
+    olook.newModal($(".box-remember-login"),360,490);
+  });
 
   $('#new_wysquiz').submit(function(e){
     if($('ol').length !== $('ol input:checked')){
