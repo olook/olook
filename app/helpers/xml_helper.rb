@@ -1,6 +1,10 @@
 # -*- encoding : utf-8 -*-
 module XmlHelper
 
+  def discount_sanitize(product)
+   (100-(product.retail_price*100/product.price)).to_s.to_i
+  end
+
   def full_image_path path
     "http:#{path}" unless path.blank?
   end
