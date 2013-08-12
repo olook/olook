@@ -9,6 +9,7 @@ class JoinController < ApplicationController
 
   def new
     @user = User.new
+    @quiz_count = User.full
   end
 
   def register

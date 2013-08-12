@@ -32,6 +32,8 @@ class User < ActiveRecord::Base
   InviteTokenFormat = /\b[a-zA-Z0-9]{8}\b/
   NameFormat = /^[A-ZÀ-ÿ\s-]+$/i
 
+  scope :full, where(half_user: false)
+
   validates :email, :format => {:with => EmailFormat}
   validates :first_name, :presence => true, :format => { :with => NameFormat }
   validates :last_name, :presence => true, :format => { :with => NameFormat }

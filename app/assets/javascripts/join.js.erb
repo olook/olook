@@ -80,9 +80,10 @@ olook.attachFBLogin = function(el) {
 }
 
 $("#login").on("click", function(){
-  content = $(".box-remember-login");
+  var content = $(".box-remember-login");
   o.newModal(content,360,490);
 });
+
 olook.load_state_cities = function(){
   new dgCidadesEstados({
     cidade: document.getElementById('user_city'),
