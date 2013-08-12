@@ -6,6 +6,34 @@ Olook::Application.routes.draw do
 
   mount Resque::Server => "/admin/resque"
 
+  # rotas temporarias para marcas
+  {
+    "olook" => "Olook",
+    "olookconcept" => "Olook Concept",
+    "essential" => "Olook Essential",
+    "botswana" => "botswana/roupa/",
+    "cocacola-clothing" => "Coca Cola Clothing",
+    "colcci" => "Colcci",
+    "douglas-harris" => "Douglas Harris",
+    "ecletic" => "Eclectic",
+    "espaco-fashion" => "Espaco Fashion",
+    "forum" => "Forum",
+    "iodice" => "Iodice",
+    "juliana-jabour" => "Juliana Jabour",
+    "juliana-manzini" => "Juliana Manzini",
+    "leeloo" => "Leeloo",
+    "mandi" => "Mandi",
+    "mercatto" => "Mercatto",
+    "m-officer" => "M Officer",
+    "olli" => "Olli",
+    "shop-126" => "Shop 126",
+    "thelure" => "Thelure",
+    "triton" => "Triton"
+  }.each do |collection_name, brand|
+    get "/colecoes/#{collection_name}", to: "brands#show", defaults: {brand: brand}
+  end
+
+
   #temp route to fix a wrong email
   match "/olook-no-qbazar" => redirect("http://www.olook.com.br/stylist-news/olook-no-qbazar/")
 
@@ -386,8 +414,7 @@ Olook::Application.routes.draw do
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get '/diadasmaes' , :controller =>'landing_pages', :action => 'mother_day' , :as => 'mother_day'
-  get "/cadastro", :to => "landing_pages#show", defaults: { page_url: 'cadastro' }
-  get "/cadastro_email", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: 1 }
+  get "/cadastro", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: 1 }
   get "/cadastro_parcerias", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: nil }
 
   # Friendly urls (ok, I know it is not the best approach...)
