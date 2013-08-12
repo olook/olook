@@ -7,8 +7,8 @@ describe MemberMailer do
   describe "#welcome_email" do
     let(:mail) { MemberMailer.welcome_email(member) }
 
-    it "sets 'from' attribute to olook <bemvinda@olook1.com.br>" do
-      mail.from.should include("bemvinda@olook1.com.br")
+    it "sets 'from' attribute to olook <bemvinda@my.olookmail.com.br>" do
+      mail.from.should include("bemvinda@my.olookmail.com.br")
     end
 
     it "sets 'to' attribute to passed member's email" do
