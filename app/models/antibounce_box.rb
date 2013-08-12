@@ -9,8 +9,8 @@ class AntibounceBox
   def self.need_antibounce_box?(search, brands, params)
     response = false
     search.products # Calling this method in order to retrieve pages and current page
-    response = (search.pages == search.current_page && !brands.empty? && (["olook", "olook concept", "olook essential", "olook essentials"] & brands).empty?) if ["brands", "catalogs"].include?(params["controller"]) && params["action"] == "show"
-    response &&= (["roupa", "moda praia", "lingerie", ""].include?(params["category"]) && search.expressions["brand"].any?) if params["controller"] == "brands" && params["action"] == "show"
+    response = (is_search_in_last_page?(search) || search.pages == 0 && !brands.empty? && all_brands_out_of_whitelist?(brands)) if (is_called_from_catalogs_show?(params) || is_called_from_brands_show?(params))
+    response &&= (is_cloth_category?(params["category"]) && search.expressions["brand"].any?) if is_called_from_brands_show?(params)
     response
   end  
 
@@ -29,5 +29,25 @@ class AntibounceBox
       antibounce_params["excluded_brand"] = brand
       antibounce_params["category"] = "roupa" if antibounce_params["category"].blank? || ["roupa", "moda praia", "lingerie", ""].include?("roupa")
       antibounce_params
+    end
+
+    def self.is_search_in_last_page? search
+      search.pages == search.current_page 
+    end
+
+    def self.all_brands_out_of_whitelist? brands
+      (["olook", "olook concept", "olook essential", "olook essentials"] & brands).empty?
+    end
+
+    def self.is_called_from_catalogs_show? params
+      params["controller"] == "catalogs" && params["action"] == "show"
+    end
+
+    def self.is_called_from_brands_show? params
+      params["controller"] == "brands" && params["action"] == "show"
+    end
+
+    def self.is_cloth_category? category
+      ["roupa", "moda praia", "lingerie", ""].include?(params["category"])
     end
 end
