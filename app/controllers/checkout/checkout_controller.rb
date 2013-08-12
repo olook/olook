@@ -37,10 +37,9 @@ class Checkout::CheckoutController < Checkout::BaseController
     payment_builder = PaymentBuilder.new({ :cart_service => @cart_service, :payment => payment, :gateway_strategy => sender_strategy, :tracking_params => session[:order_tracking_params] } )
     
     response = payment_builder.process!
-
     if response.status == Payment::SUCCESSFUL_STATUS
       clean_cart!
-      return redirect_to(order_show_path(:number => response.payment.order.number))
+      return redirect_to(order_show_path(:number => response.payment.order.number, abt: @ab_test_label))
     else
       @addresses = @user.addresses
       display_form(address, payment, payment_method, error_message_for(response, payment))
@@ -52,6 +51,8 @@ class Checkout::CheckoutController < Checkout::BaseController
     # this is used for freight AB-Test
     def prepare_for_freight_ab_testing
       @endpoint_url = params[:freight_service_ids].present? ? 'shipping_updated_freight_table' : 'shippings'
+      @ab_test_label = params[:freight_service_ids].present? ? 'Var' : 'Ctrl'
+
       # Force to always use TOTAL EXPRESS
       @cart_service.prefered_shipping_services = params[:freight_service_ids]
     end

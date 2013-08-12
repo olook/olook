@@ -3,6 +3,9 @@ class Checkout::OrdersController < Checkout::BaseController
   before_filter :authenticate_user!
 
   def show
+    # Remove after freight ab testing is done
+    @ab_test_label = params[:abt]
+
     @order = @user.orders.find_by_number!(params[:number])
     @payment = @order.erp_payment
     promotion = @order.payments.where(:type => "PromotionPayment").first.try(:promotion)
