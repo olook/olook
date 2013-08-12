@@ -102,6 +102,11 @@ $(function(){
   $("#user_gender,#user_state,#user_city").change(function(){
     changeTag($(this));
   });
+
+  if(user_has_errors) {
+    olook.newModal($(".box-remember-login"),360,490);
+  };
+
   $('#new_wysquiz').submit(function(e){
     if($('ol').length !== $('ol input:checked')){
       alert('Preencha todas as respostas amiga!');
