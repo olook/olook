@@ -42,5 +42,8 @@
 
   = render 'stylist_news'
 -else
-  = link_to("Essa sou eu", member_showroom_path)
-  = link_to("Quero tentar de novo", wysquiz_path)
+  %ul.tryquiz
+    %li.me
+      = link_to("Essa sou eu", member_showroom_path)
+    %li.again
+      = link_to("Quero tentar de novo", wysquiz_path)

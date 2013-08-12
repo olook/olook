@@ -5,8 +5,6 @@
 
 :javascript
   user_has_errors = "#{ @user.errors.any? }"
-- content_for :scripts do
-  = javascript_include_tag 'join'
 #user_manager
   =image_tag "quiz/style.png", :class => "stamp"
   .left_box
@@ -105,5 +103,4 @@
         = label_tag :remember_me_login, "Lembrar de mim"
         %p= link_to "Esqueceu sua senha?", new_password_path(:user)
     = submit_tag "ENTRAR", class: "bt-enter"
-  %button{:type => "button", :class => "close"} Fechar
 
