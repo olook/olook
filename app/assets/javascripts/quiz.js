@@ -75,7 +75,6 @@ $(function(){
   });
   quiz.calculate_bar("li");
   $("#back").on("click", function(){
-    debugger;
     var current_question = $(".current_question:last");
     var previous_question = current_question.prev();
     $(".current_question").removeClass("current_question");
