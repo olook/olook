@@ -2,9 +2,9 @@
 - content_for(:head) do
   = stylesheet_link_tag  "new_structure/section/survey"
   = stylesheet_link_tag  "new_structure/section/join"
+  = stylesheet_link_tag  "campaign_emails"
 :javascript
   user_has_errors = "#{ @user.errors.any? }"
-  = stylesheet_link_tag  "campaign_emails"
 #user_manager
   =image_tag "quiz/style.png", :class => "stamp"
   .left_box
@@ -82,45 +82,25 @@
 
 #modal.promo-olook
 #overlay-campaign
-<<<<<<< HEAD
-  .login_form
-    %h3 Lembramos de você!
-    %p
-      Informe o seu e-mail e senha abaixo:
-      %p
-        - if @user.errors.any?
-          - @user.errors.each do |key, value|
-            = @user.errors[key].first if @user.errors[key].any?
-    = form_tag(join_path, method: 'put') do
-      %fieldset
-        = label_tag :email, "E-mail"
-        = text_field_tag :email
-      %fieldset
-        = label_tag :password, "Senha"
-        = password_field_tag :password
-      %fieldset.buttons
-        = check_box_tag :remember_me, :id => "user_remember_me_login", :checked => true
-        = label_tag :remember_me_login, "Lembrar de mim"
-        = link_to "Esqueceu sua senha?", new_password_path(:user)
-        = submit_tag "ENTRAR", :id => "login"
-=======
 .box-remember-login
   %h3 Lembramos de você!
   %p
     Informe o seu e-mail e senha abaixo:
-  = form_for(:user, :as => :user, :url => session_url(:user, :protocol => protocol)) do |f|
+    %p
+      - if @user.errors.any?
+        - @user.errors.each do |key, value|
+          = @user.errors[key].first if @user.errors[key].any?
+  = form_tag(join_path, method: 'put', class: 'new_user') do
     %fieldset
-      =f.label :email, "E-mail:"
-      =f.text_field :email
+      = label_tag :email, "E-mail"
+      = text_field_tag :email
     %fieldset
-      =f.label :password, "Senha:"
-      =f.password_field :password
+      = label_tag :password, "Senha"
+      = password_field_tag :password
     %fieldset.botoes
       %div
-        =f.check_box :remember_me, :checked => true
-        =f.label :remember_me, "Lembrar de mim"
-        %p
-          %a{:href => "/conta/password/new", :target => "_blank"} Esqueci minha senha
-      =f.submit :value => "ENTRAR", :class => "bt-enter"
+        = check_box_tag :remember_me, :id => "user_remember_me_login", :checked => true
+        = label_tag :remember_me_login, "Lembrar de mim"
+        %p= link_to "Esqueceu sua senha?", new_password_path(:user)
+    = submit_tag "ENTRAR", class: "bt-enter"
   %button{:type => "button", :class => "close"} Fechar
->>>>>>> 8ba514134602bece733750a85a50f6fb925d3ba0
