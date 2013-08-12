@@ -1,12 +1,12 @@
 %section#profiles
   .content-chic
     .style.chic
-      %p 
+      %p
         = "#{ @user.first_name } é:"
     .share
       %p
         Gostou do resultado? Então compartilhe!
-        = link_to 'Compartilhar', "javascript:void(0);", id: "facebook_share", :class => "share", :"data-width" => 128, :"data-height" => 24, onclick: track_event("Showroom","ShowroomShareFacebook")
+        = link_to 'Compartilhar', "javascript:void(0);", id: "facebook_share_profile", :class => "share", :"data-width" => 128, :"data-height" => 24, onclick: track_event("Showroom","ShowroomShareFacebook")
   %ul
     %li
       %h1
@@ -25,4 +25,4 @@
           FESTA
         %p
           O seu dress code é: Estar sempre chique e elegante!
-        =image_tag "quiz/profiles/e_4.jpg", :class => ""  
+        =image_tag "quiz/profiles/e_4.jpg", :class => ""
