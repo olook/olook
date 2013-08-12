@@ -281,6 +281,42 @@ footer{
     background: image-url('quiz/bt_end.png') no-repeat 0 -65px;
   }
 }
+ul.tryquiz{
+  width: 576px;
+  float: left;
+  margin-left: 205px;
+  li{
+    float: left;
+      &.me{
+        width: 222px;
+        height: 58px;
+        text-indent: -9999px;
+        background: image-url('quiz/bt-try.png') no-repeat 0 0;
+        border: none;
+        cursor: pointer;
+        display: block;
+        float: left;
+        margin-right: 44px;
+      &:hover{
+        background: image-url('quiz/bt-try.png') no-repeat 0 -60px;
+      }
+    }
+    &.again{
+      width: 305px;
+      height: 58px;
+      text-indent: -9999px;
+      background: image-url('quiz/bt-try.png') no-repeat 0 -125px;
+      border: none;
+      cursor: pointer;
+      display: block;
+      float: left;
+      &:hover{
+        background: image-url('quiz/bt-try.png') no-repeat 0 -185px;
+      }
+    }
+  }
+}
+
 .quiz_status {
   width: 768px;
   height: 100px;
@@ -317,7 +353,7 @@ footer{
 }
 #profiles{
   width: 990px;
-  margin: 0 auto;
+  margin: 0 auto 55px 12px;
   margin-left: 12px;
   .content-basic, .content-chic, .content-sexy, .content-fashion{
     width: 940px;
