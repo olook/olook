@@ -1,4 +1,4 @@
-//= require lite_base
+//= require plugins/new_modal
 //= require facebook_sdk
 //= require state_cities
 //= require_self
@@ -81,8 +81,7 @@ olook.attachFBLogin = function(el) {
 }
 
 $("#login").on("click", function(){
-  var content = $(".box-remember-login");
-  olook.newModal(content,360,490);
+  olook.newModal($(".box-remember-login"),360,490);
 });
 
 olook.load_state_cities = function(){
