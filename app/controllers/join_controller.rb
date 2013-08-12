@@ -25,7 +25,7 @@ class JoinController < ApplicationController
   def login
     @user = User.find_for_authentication(:email => params[:email])
     if @user && @user.valid_password?(params[:password])
-      sign_in(:user, @user)
+      sign_in(@user)
       remember_me(@user) unless params[:remeber_me].blank?
       redirect_to set_user_profile(@user).next_step, notice: I18n.t("join_controller.create.success")
     else
