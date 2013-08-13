@@ -18,6 +18,7 @@ class JoinController < ApplicationController
       sign_in(:user, @user)
       redirect_to set_user_profile(@user).next_step, notice: I18n.t("join_controller.create.success")
     else
+      @user_already_registered = User.where(email: params[:user][:email]).any?
       render :new
     end
   end
