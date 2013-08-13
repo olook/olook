@@ -14,8 +14,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
 
 
 
-#product {
-  padding: 10px 0 0 0;
+#product {padding: 10px 0 0 0;overflow:hidden;
   .content{width:970px;}
   
   .box-left,.box-right{float:left;}
@@ -120,7 +119,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     }
      
     div.line {width: 100%;overflow: auto;
-      p {font-size: 14px;line-height: 30px;text-align: left;width: 65px;float:left;}
+      p {font-size: 14px;line-height: 30px;text-align: left;width:83px;float:left;}
       ol {width: 290px;float: left;
         li {margin: 0 2px 0 0;float: left;
           &:first-child {margin-left: 0;}
