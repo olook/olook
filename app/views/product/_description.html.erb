@@ -1,33 +1,32 @@
-<div class="description">
-  <div class="line">
-    <h1><%= @product.formatted_name(200) %></h1>
-  </div>
-  <div class="line <%= "has_bt_face" if show_facebook_button %>">
-    
-    <% if show_facebook_button %>
-      <%= link_to image_tag("product/ask_gift_button.jpg", style:"float:left;margin-top:13px"), "javascript:void(0)", class: "face-message", onclick:  track_event('AskGiftButton', "ClickAskGiftButton") %>
-    <%end%>
-    
-      <fb:like class="<%= "bt_face" if show_facebook_button %>" href="http://<%= request.host_with_port %>/produto/<%= @product.id %>" send="false" layout="button_count" width="110" show_faces="false" font="arial"></fb:like>
-    
-    
-    <ul class="social">
-      <li class="first">compartilhe:</li>
-      <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=#{share_description(@product)}&hashtags=ficaadica" %></li>
-      <li class="facebook"><%= link_to "Facebook", "javascript:void(0)" %></li>
-      <li class="pinterest"><%= link_to "Pinterest", product_presenter.display_main_picture, :class => "pin-it-button", :"count-layout" => "none" %></li>
-      <li class="email last"><%= link_to "Email", "#" %></li>
-    </ul>
-    
-  </div>
-  <p class="description"><%= @product.description %></p>
+<div id="product-info" class="pl9">
+  <h1><%= @product.formatted_name(200) %></h1>
+  <h2><%= @product.brand %></h2>
   <%= product_presenter.render_price_for @cart_service %>
-  <%# if @user && !@promotion %>
-    <div class="warn_discount <%= product_presenter.is_promotion? ? 'promotion' : '' %>">
-      <p>Compre e ganhe até <span><%= number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price) %></span> em créditos </br> para usar nos próximos 2 meses</p>
-      <%= link_to "Saiba mais", "#", :class => "open_loyalty_lightbox" %>
-    </div>
-  <%# end %>
+  <p class="plots">ou em <%= installments(@product.price) %></p>
+  <div class="warn_discount <%= product_presenter.is_promotion? ? 'promotion' : '' %>">
+    <p>
+      <strong>Compre e ganhe <%= number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price) %> em créditos,</strong>
+      <%= link_to "saiba mais", "javascript:void(0);", :class => "open_loyalty_lightbox" %>
+    </p>
+  </div>
+  
+</div>  
 
+<div class="social pl9 <%= "has_bt_face" if show_facebook_button %>">
+  <%= link_to image_tag("product/ask_gift_button.jpg"), "javascript:void(0)", class: "face-message", onclick:  track_event('AskGiftButton', "ClickAskGiftButton") %>
+  
+  <ul class="social-list">
+    <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=#{share_description(@product)}&hashtags=ficaadica" %></li>
+    <li class="facebook"><%= link_to "Facebook", "javascript:void(0)" %></li>
+    <li class="pinterest"><%= link_to "Pinterest", product_presenter.display_main_picture, :class => "pin-it-button", :"count-layout" => "none" %></li>
+    <li class="email last"><%= link_to "Email", "javascript:void(0);" %></li>
+  </ul>
+  
+  <fb:like class="<%= "bt_face" if show_facebook_button %>" href="http://<%= request.host_with_port %>/produto/<%= @product.id %>" send="false" layout="button_count" width="110" show_faces="false" font="arial"></fb:like>
+  
 </div>
+
+
+
+
 
