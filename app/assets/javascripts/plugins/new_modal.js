@@ -9,6 +9,7 @@ olook.newModal = function(content, a, l){
   heightDoc = $(document).height(),
   _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()),
   _left=Math.max(0, (($(window).width() - w) / 2) + $(window).scrollLeft());
+  
 
   $("#overlay-campaign").css({"background-color": "#000", 'height' : heightDoc}).fadeIn().bind("click", function(){
     _iframe = $modal.contents().find("iframe");
@@ -20,7 +21,9 @@ olook.newModal = function(content, a, l){
     $modal.fadeOut();
     $(this).fadeOut();
   });
+  
 
+  
   $modal.html(content)
   .css({
     'height'      : h+"px",
@@ -30,16 +33,10 @@ olook.newModal = function(content, a, l){
     'margin-left' : ml,
     'margin-top'  : mt
   })
+  .append('<button type="button" class="close" role="button">close</button>')
   .delay(500).fadeIn().children().show();
 
-  if($("button.close").length > 0){
-    $("button.close").remove();
-  }
-
-  $('<button type="button" class="close" role="button">close</button>').css({
-    'top'   : _top - 15,
-    'right' : _left - 25
-  }).insertAfter($modal);
+  
 
   $("button.close, #modal a.me").click(function(){
     _iframe = $modal.contents().find("iframe");
