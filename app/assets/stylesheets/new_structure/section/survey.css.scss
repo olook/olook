@@ -1,50 +1,20 @@
 @import 'new_structure/common/global_stuffs';
 body{margin-top: 0 !important;}
 header{
-  .quiz_header{
-    border-top: 8px black solid;
-    height: 120px;
-    width: 990px;
-    margin: 0 auto;
-    .olook_logo{
-      width: 240px;
-      height: 70px;
-      margin: 0 auto;
-      padding-top: 20px;
-      h1 a{
-        width: 240px;
-        height: 70px;
-        display:block;
-        background: image-url("common/nav/sprite_header.png") no-repeat 0 -72px;
-        text-indent: -9999px;
+  .quiz_header{border-top: 8px black solid;height: 110px;width: 990px;margin: 0 auto;
+    .olook_logo{width: 240px;height: 70px;margin: 0 auto;padding-top: 20px;
+      h1 a{width: 240px;height: 70px;display:block;background: image-url("common/nav/sprite_header.png") no-repeat 0 -72px;text-indent: -9999px;
       }
     }
   }
 }
-footer{
-  margin-top: 30px;
-  ul{
-    width: 775px;
-    height: 155px;
-    border: solid 1px #d7d7d7;
-    margin: 0 auto;
-    li{
-      list-style: none;
-      margin-top: 25px;
-      p{
-        font-family: $avenir;
-        font-size: 13px;
-        color: #939598;
-
-        span{
-          font-weight: 500;
-        }
+footer{margin-top: 30px;
+  ul.quiz_footer{width: 775px;height: 155px;border: solid 1px #d7d7d7;margin: 0 auto;
+    li{list-style: none;margin-top: 25px;
+      p{font-family: $avenir;font-size: 13px;color: #939598;
+        span{font-weight: 500;}
       }
-      &.about{
-        width: 410px;
-        float: left;
-        margin-right: 65px;
-      }
+      &.about{width: 410px;float: left;margin-right: 65px;}
       &.about_quiz{
         width: 265px;
         float: left;
@@ -95,7 +65,7 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
 
   #content{
     width: 830px;
-    height: 700px;
+    height: 670px;
     margin: 0 auto;
     overflow: hidden;
 
@@ -105,18 +75,18 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
       height: 109px;
       border: none;
       position: absolute;
-      top: 300px;
+      top: 258px;
       left: -30px;
     }
     .content-survey{
       width: 12000px;
-      height: 540px;
+      height: 490px;
     }
   }
   .img_style{
     position: absolute;
     left: 680px;
-    top: -75px;
+    top: -95px;
     width: 130px;
     height: 130px;
     background: image-url("quiz/style.png") no-repeat;
@@ -127,10 +97,12 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
     h2{
       font-size: 16px;
       font-family: $johnston;
-      font-weight: 500;
+      font-weight: 600;
       text-transform: uppercase;
       text-align: center;
       width: 840px;
+      margin-top: -18px;
+      margin-bottom: -25px;
       span{
         font-size: 120px;
         font-family: $kepler;
@@ -278,7 +250,7 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
   border: none;
   position: absolute;
   left: 330px;
-  top: 630px;
+  top: 595px;
   cursor: pointer;
   display: none;
   &:hover{
@@ -516,11 +488,12 @@ ul.tryquiz{
 }
 #user_manager{
   height: 820px;
-  margin-top: 50px;
+  margin-top: 30px;
+  position: relative;
   .stamp {
     position: absolute;
-    left: 1220px;
-    top: 50px;
+    left: 710px;
+    top: -130px;
     width: 130px;
     height: 130px;
     background: image-url("quiz/style.png") no-repeat;
