@@ -13,6 +13,7 @@ class CatalogsController < ApplicationController
 
     @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
     @url_builder = SeoUrl.new(search_params, "category", @search)
+    @antibounce_box = AntibounceBox.new(params) if AntibounceBox.need_antibounce_box?(@search, @search.expressions["brand"].map{|b| b.downcase}, params)
 
     @search.for_admin if current_admin
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
