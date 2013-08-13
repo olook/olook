@@ -9,6 +9,7 @@ class JoinController < ApplicationController
 
   def new
     @user = User.new
+    @user.email = cookies['newsletterEmail']
     @quiz_count = User.full
   end
 
