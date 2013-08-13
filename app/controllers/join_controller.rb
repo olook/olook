@@ -8,12 +8,14 @@ class JoinController < ApplicationController
   end
 
   def new
+    set_user_already_variable
     @user = User.new
     @user.email = cookies['newsletterEmail']
     @quiz_count = User.full
   end
 
   def register
+    set_user_already_variable
     @user = User.new(params[:user])
     if @user.save
       sign_in(:user, @user)
@@ -47,6 +49,10 @@ class JoinController < ApplicationController
   end
 
   private
+
+    def set_user_already_variable
+      @user_already_registered = false
+    end
 
     def user_from_newsletter? email
       newsletter_user = CampaignEmail.where(converted_user: false, email: params[:email]).first
