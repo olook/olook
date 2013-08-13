@@ -44,7 +44,7 @@
         = f.text_field :last_name
       .email.field
         = f.label :email
-        = f.text_field :email
+        = f.text_field :email, value: @user.email
       .password.field
         = f.label :password, "Senha #{content_tag("span", '(min. 6 caracteres)', class: 'hint')}".html_safe
         = f.password_field :password
