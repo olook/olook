@@ -54,8 +54,8 @@
       .gender.field
         = f.label :gender, "Você é:"
         %p.text
-          Selecione
-        = f.select :gender, {'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 }
+          Mulher
+        = f.select :gender, options_for_select({'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 },selected_key = 0)
       .location
         .state.field
           = f.label :state, 'Estado'
