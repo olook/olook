@@ -28,7 +28,11 @@ class ProductPresenter < BasePresenter
     image_url = product.pictures.first.image_url(:main).to_s if product.pictures.first
     "http://pinterest.com/pin/create/button/?url=http://#{h.request.host_with_port}/produto/#{product.id}&media=#{image_url}&description=#{h.share_description(product)}"
   end
-
+  
+  def render_quantity
+    h.render :partial => 'product/quantity_product', :locals => {:product_presenter => self, :product => product}
+  end  
+  
   def render_add_to_cart
     return '' if only_view?
 
