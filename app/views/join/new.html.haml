@@ -5,7 +5,7 @@
 
 - content_for :scripts do
   :javascript
-    user_has_errors = #{ @user.errors.any? };
+    user_has_errors = #{ @user_already_registered };
   = javascript_include_tag 'join'
 
 #user_manager
@@ -90,9 +90,7 @@
   %p
     Informe o seu e-mail e senha abaixo:
     %p
-      - if @user.errors.any?
-        - @user.errors.each do |key, value|
-          = @user.errors[key].first if @user.errors[key].any?
+      = @user.errors[:email].first if @user.errors.any?
   = form_tag(join_path, method: 'put') do
     = hidden_field_tag 'qr_uuid', params[:uuid] || params[:qr_uuid]
     %fieldset
