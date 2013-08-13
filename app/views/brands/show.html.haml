@@ -38,7 +38,7 @@
         %ul#products
           = render "shared/searched_products", :products => @search.products
         .loading
-      = render "shared/antibounce_box", antibounce_box: @antibounce_box if @antibounce_box.present? && @antibounce_box.search.products.count > 0 
+      = render "shared/antibounce_box", antibounce_box: @antibounce_box if @antibounce_box.present? && @antibounce_box.search.products.count > 0 && Setting.antibounce_enabled 
 
       .pagination
         = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| brand_path(params[:brand], @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
