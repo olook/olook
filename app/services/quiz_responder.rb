@@ -66,7 +66,7 @@ class QuizResponder
       return self
     end
     update_profile
-    destroy
+    destroy unless @uuid == WhatsYourStyle::Quiz::DEFAULT_QUIZ_RESPONSE["uuid"]
 
     @next_step = ROUTES.profile_path(f: "1")
     self

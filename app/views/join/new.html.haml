@@ -5,7 +5,7 @@
 
 - content_for :scripts do
   :javascript
-    user_has_errors = #{ @user.errors.any? };
+    user_has_errors = #{ @user_already_registered };
   = javascript_include_tag 'join'
 
 #user_manager
@@ -44,7 +44,7 @@
         = f.text_field :last_name
       .email.field
         = f.label :email
-        = f.text_field :email
+        = f.text_field :email, value: @user.email
       .password.field
         = f.label :password, "Senha #{content_tag("span", '(min. 6 caracteres)', class: 'hint')}".html_safe
         = f.password_field :password
@@ -54,8 +54,8 @@
       .gender.field
         = f.label :gender, "Você é:"
         %p.text
-          Selecione
-        = f.select :gender, {'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 }
+          Mulher
+        = f.select :gender, options_for_select({'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 },selected_key = 0)
       .location
         .state.field
           = f.label :state, 'Estado'
@@ -90,9 +90,7 @@
   %p
     Informe o seu e-mail e senha abaixo:
     %p
-      - if @user.errors.any?
-        - @user.errors.each do |key, value|
-          = @user.errors[key].first if @user.errors[key].any?
+      = @user.errors[:email].first if @user.errors.any?
   = form_tag(join_path, method: 'put') do
     = hidden_field_tag 'qr_uuid', params[:uuid] || params[:qr_uuid]
     %fieldset
