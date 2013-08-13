@@ -8,9 +8,8 @@
   iframe{overflow: hidden;}
 }
 
-#modal{position: absolute;display:none;z-index:10001;overflow:hidden;background-color: #fff;border: 1px solid #000;}
-.box-remember-login{
-	position:relative;width:490px !important;height:360px !important;text-align:center;padding:15px 0;margin:0;background:#FFF;display: none;
+#modal{position: absolute;display:none;z-index:10001;overflow:hidden;padding-top:10px;}
+.box-remember-login{background-color: #fff;border: 1px solid #000;position:relative;width:490px !important;height:360px !important;text-align:center;padding:15px 0;margin:0;background:#FFF;display: none;
 	h3{font-family:$johnston;font-size:30px;letter-spacing: 1px;margin-top: 10px;text-transform: uppercase;}
 	p{font-family:$avenir;font-size:14px;margin-top: 0px;}
 	form{border:none;padding:5px 50px;width:358px;height:150px;margin:0 auto;
@@ -40,4 +39,4 @@
 		input[type="text"], input[type="password"]{padding-left: 10px; width:272px;height:31px;line-height:31px;border:solid 1px #C1C1C1;background: image-url('campaign_emails/bg_input.png') 0 2px repeat-x;*vertical-align:middle}
 	}
 }
-button.close{width:20px;height:20px;border:0;background:image-url("campaign_emails/sprite2.png") -288px -102px no-repeat;position:absolute;top:1px;right:8px;font-size:0;font-family:a;cursor:pointer;z-index:10002;right: 669px !important;top: 142px !important;}
+button.close{width:20px;height:20px;border:0;background:image-url("campaign_emails/sprite2.png") -288px -102px no-repeat;position:absolute;right:0;top:0;font-size:0;font-family:a;cursor:pointer;z-index:10002;}
