@@ -72,11 +72,14 @@ footer{
         color: #939598;
         &:hover{
           color: $pink;
+          margin-left: 15px;
         }
       }
     }
   }
 }
+.arrow_pink{margin-left: 13px;}
+a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
 #user_manager{
   height: 500px;
   width: 860px;
@@ -420,7 +423,7 @@ ul.tryquiz{
       p{
         color: #fff;
         font-family: $avenir;
-        font-size: 28px;
+        font-size: 27px;
         text-transform: uppercase;
         padding-top: 87px;
         margin-left: -11px;

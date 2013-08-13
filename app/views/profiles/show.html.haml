@@ -6,7 +6,8 @@
 - content_for :footer do
   - if @first_time
     = javascript_include_tag 'section/lite_showroom'
-= link_to("<< Voltar para minha vitrine", member_showroom_path) unless @first_time
+= image_tag "quiz/back_arrow_pink.png", :class => "arrow_pink"
+= link_to("Voltar para minha vitrine", member_showroom_path, :class =>"b_showroom") unless @first_time
 = render_profile_template(@profile.alternative_name)
 = render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id
 - content_for :footer do
