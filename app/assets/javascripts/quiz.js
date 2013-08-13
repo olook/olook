@@ -20,11 +20,17 @@ quiz = {
     }
   },
 
+
+  display_or_hide_back_button: function(el) {
+    (($(".current_question:last").prev(".step").length > 0) ? $("#back").show() : $("#back").hide()) ;
+  },
+
   next_question: function() {
     $(".current_question").animate({ "margin-left": "-850px" }, {
         duration: "slow",
         complete: function(){
             $(this).removeClass("current_question").next('.step, .last_step').addClass("current_question");
+            quiz.display_or_hide_back_button();
 
             if($(".last_step").hasClass("current_question")) {
               $(".end_quiz_button").show();
@@ -79,6 +85,7 @@ $(function(){
     var previous_question = current_question.prev();
     $(".current_question").removeClass("current_question");
     previous_question.animate({ "margin-left": "0px" }, "slow" ).addClass("current_question");
+    quiz.display_or_hide_back_button();
     quiz.calculate_bar("#back");
     if (!$(".last_step").hasClass("current_question")) {
       $(".end_quiz_button").hide()
