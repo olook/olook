@@ -13,7 +13,7 @@ class SearchEngine
 
   SEARCHABLE_FIELDS = [:category, :subcategory, :color, :brand, :heel,
                 :care, :price, :size, :product_id, :collection_theme,
-                :sort, :term]
+                :sort, :term, :excluded_brand]
   SEARCHABLE_FIELDS.each do |attr|
     define_method "#{attr}=" do |v|
       @expressions[attr] = v.to_s.split(MULTISELECTION_SEPARATOR)
@@ -221,6 +221,8 @@ class SearchEngine
       bq << ( vals.size > 1 ? "(or #{vals.join(' ')})" : vals.first )
     end
 
+    remove_excluded_brands(bq, expressions)
+
     expressions.each do |field, values|
       next if options[:use_fields] && !options[:use_fields].include?(field.to_sym) && PERMANENT_FIELDS_ON_URL.exclude?(field.to_sym)
       next if values.empty?
@@ -279,6 +281,14 @@ class SearchEngine
       end
 
       filter_params
+    end
+
+    def remove_excluded_brands(bq, expressions)
+      return unless expressions["excluded_brand"].present?
+      excluded_brands = expressions["excluded_brand"]
+      expressions.delete("excluded_brand")
+      vals = excluded_brands.map { |v| "(field brand '#{v}')" } unless excluded_brands.empty?
+      bq << ( "(not (or #{vals.join(' ')}))" )
     end
 
     def validate_sort_field
