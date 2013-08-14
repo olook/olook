@@ -56,6 +56,9 @@
         %p.text
           Mulher
         = f.select :gender, options_for_select({'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 },selected_key = 0)
+      .date.field
+        = f.label :birthday, "Data de Nascimento"
+        = f.text_field :birthday
       .location
         .state.field
           = f.label :state, 'Estado'
