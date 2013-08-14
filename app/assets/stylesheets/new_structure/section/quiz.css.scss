@@ -246,14 +246,19 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
   height: 57px;
   text-indent: 9999px;
   z-index: 9999;
-  background: image-url('quiz/bt_end.png') no-repeat 0 0;
   border: none;
   position: absolute;
   left: 330px;
   top: 595px;
   cursor: pointer;
-  &:hover{
-    background: image-url('quiz/bt_end.png') no-repeat 0 -65px;
+  &.enable{
+    background: image-url('quiz/bt_end.png') no-repeat 0 0;
+    &:hover{
+      background: image-url('quiz/bt_end.png') no-repeat 0 -65px;
+    }
+  }
+  &.disable{
+    background: image-url('quiz/bt-disable.jpg') no-repeat 0 0;
   }
 }
 ul.tryquiz{
