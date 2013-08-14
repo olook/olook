@@ -135,23 +135,41 @@ class Product < ActiveRecord::Base
   delegate :'discount_percent=', to: :master_variant
 
   def main_picture
-    picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
+    @main_picture ||= 
+    if self.pictures.loaded?
+      self.pictures.all.find { |p| p.display_on == DisplayPictureOn::GALLERY_1 }
+    else
+      self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
+    end
   end
 
   #
   # I know, it's a weird/crazy logic. Ask Andressa =p
   #
   def backside_picture
-    if cloth?
-      picture = pictures.order(:display_on).second
+    if self.pictures.loaded?
+      if cloth?
+        pictures = self.pictures.sort{ |a,b| a.display_on <=> b.display_on }
+        picture = pictures.size > 1 ? pictures[1] : pictures[0]
+      else
+        picture = self.pictures.all.find { |p| p.display_on == DisplayPictureOn::GALLERY_2 }
+      end
     else
-      picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
+      if cloth?
+        picture = self.pictures.order(:display_on).second
+      else
+        picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
+      end
     end
     return_catalog_or_suggestion_image(picture)
   end
 
   def wearing_picture
-    picture = pictures.order(:display_on).last
+    if self.pictures.loaded?
+      picture = self.pictures.sort{ |a,b| a.display_on <=> b.display_on }.last
+    else
+      picture = self.pictures.order(:display_on).last
+    end
     return_catalog_or_suggestion_image(picture)
   end
 
