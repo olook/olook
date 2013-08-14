@@ -1,4 +1,5 @@
 <% address = Address.find(@order.freight.address.id) %>
+
 <%= link_to "alterar", (checkout_addresses_path unless has_payment), :class => "change" unless @order %>
 <div class="box-order">
   <div class="item destinatario">
@@ -20,3 +21,12 @@
   </div>
   <% end %>
 </div>
+
+<%# Eh feio, mas eh pra ser temporario %>
+<% content_for :footer do %>
+  <script>
+    $(function() {
+      <%= track_event("FreightABTest", "TestCheckout#{@ab_test_label}", address.state).html_safe  %>        
+    });
+  </script>
+<% end %>

@@ -162,7 +162,7 @@ describe Checkout::CheckoutController do
         PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
         payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
         put :create, valid_data
-        response.should redirect_to(order_show_path(number: 123))
+        response.should redirect_to(order_show_path(number: 123, abt: 'Ctrl'))
       end
 
       it "cleans cart id from session" do
@@ -196,7 +196,7 @@ describe Checkout::CheckoutController do
         PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
         payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
         put :create, valid_data
-        response.should redirect_to(order_show_path(number: 123))
+        response.should redirect_to(order_show_path(number: 123, abt: 'Ctrl'))
       end
 
       it "cleans cart id from session" do
@@ -242,7 +242,7 @@ describe Checkout::CheckoutController do
         PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
         payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
         put :create, valid_data
-        response.should redirect_to(order_show_path(number: 123))
+        response.should redirect_to(order_show_path(number: 123, abt: 'Ctrl'))
       end
 
       it "cleans cart id from session" do

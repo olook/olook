@@ -3,8 +3,9 @@
 @import 'new_structure/partials/thumb_product_catalog';
 @import 'new_structure/partials/spy';
 @import 'new_structure/partials/pagination';
+@import 'new_structure/partials/antibounce_box';
 
-#result{float:left;width:785px;}
+#result{float:left;width:820px;}
 
 #content{min-height:700px;}
 .banner-brands{position:relative;margin-bottom:45px;
@@ -22,6 +23,7 @@
     }
   }
 }
+
 .brands{
   .box{float:left;width:235px;margin-left:43px;
     &:last-child{width:70px;}
