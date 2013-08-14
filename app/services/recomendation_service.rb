@@ -30,9 +30,9 @@ class RecomendationService
       collection = opts[:collection]
 
       response = if is_admin
-        profile.products.group('products.name').includes(:variants)
+        profile.products.group('products.name').includes(:variants, :pictures)
       else
-        profile.products.only_visible.group('products.name').includes(:variants).
+        profile.products.only_visible.group('products.name').includes(:variants, :pictures).
           where(_vAt[:inventory].gt(0).and(_vAt[:price].gt(0)))
       end
 
