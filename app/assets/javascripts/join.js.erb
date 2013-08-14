@@ -29,8 +29,10 @@ olook.getFBData = function(authResponse){
       userData.uid = response.id;
       userData.facebookToken = authResponse.authResponse.accessToken;
       userData.gender = ( response.gender === 'male' ? '1' : '0' );
-      var aux = response.birthday.split('/');
-      userData.birthday = [ aux[1], aux[0], aux[2] ].join('/');
+      if(response.birthday){
+        var aux = response.birthday.split('/');
+        userData.birthday = [ aux[1], aux[0], aux[2] ].join('/');
+      }
       olook.sendFacebookUserInfo(userData);
     });
   }
