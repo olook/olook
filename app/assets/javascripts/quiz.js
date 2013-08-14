@@ -39,45 +39,52 @@ quiz = {
     });
   },
 
-    calculate_bar: function(el) {
-     var el = $(el), questions = $(".step"), questions_count = questions.length;
+  calculate_bar: function(el) {
+   var el = $(el), questions = $(".step"), questions_count = questions.length;
 
-     el.on("click", function(){
-        for (i=0; i <= questions_count; i++) {
-          if ($(questions[i]).hasClass("current_question")) {
-            var percentage =  (i/questions_count) * 100
-            $(".quiz_pink_bar").width(percentage.toString() + "%");
-            switch(percentage){
-              case(25):
-                $(".start_quiz").show();
-                $(".end_quiz").hide();
-                $(".half_quiz").hide();
-              break;
-              case(50):
-                $(".start_quiz").hide();
-                $(".end_quiz").hide();
-                $(".half_quiz").show();
-              break;
-             case(75):
-                $(".start_quiz").hide();
-               $(".half_quiz").hide();
-               $(".end_quiz").show();
-             break;
-            }
-          };
-        }
-      });
+    el.on("click", function(){
+      for (i=0; i <= questions_count; i++) {
+        if ($(questions[i]).hasClass("current_question")) {
+          var percentage =  (i/questions_count) * 100
+          $(".quiz_pink_bar").width(percentage.toString() + "%");
+          switch(percentage){
+            case(25):
+              $(".start_quiz").show();
+              $(".end_quiz").hide();
+              $(".half_quiz").hide();
+            break;
+            case(50):
+              $(".start_quiz").hide();
+              $(".end_quiz").hide();
+              $(".half_quiz").show();
+            break;
+           case(75):
+              $(".start_quiz").hide();
+             $(".half_quiz").hide();
+             $(".end_quiz").show();
+           break;
+          }
+        };
+      }
+    });
+  },
+  enable_button: function(){
+    if($('ol.options').length == $('ol.options input:checked').length){
+      $('.end_quiz_button').removeClass('disable').removeAttr("disabled");
     }
+  }
 }
 
 
 $(function(){
   $('li.next-step-on-click').
     click(function(){
-        quiz.respond_question(this, true, true);
+      quiz.respond_question(this, true, true);
+      quiz.enable_button;
     });
   $('li.check-input').click(function(){
-      quiz.respond_question(this, false);
+    quiz.respond_question(this, false);
+    quiz.enable_button;
   });
   quiz.calculate_bar("li");
   $("#back").on("click", function(){
@@ -88,15 +95,12 @@ $(function(){
     quiz.display_or_hide_back_button();
     quiz.calculate_bar("#back");
     if (!$(".last_step").hasClass("current_question")) {
-      $(".end_quiz_button").hide()
+      $(".end_quiz_button").hide();
     };
   });
 
-  $('#new_wysquiz').submit(function(e){
-    if($('ol.options').length !== $('ol.options input:checked').length){
-      alert("Faltou algumas respostas!")
-      e.preventDefault();
-      return false;
-    }
+  $('ol li').on("click", function(){
+    quiz.enable_button();
   });
+
 });
