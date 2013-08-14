@@ -1,4 +1,5 @@
 //= require plugins/new_modal
+//= require plugins/jquery.meio.mask
 //= require facebook_sdk
 //= require state_cities
 //= require_self
@@ -112,4 +113,6 @@ $(function(){
       return false;
     }
   });
+
+  $('#user_birthday').setMask("99/99/9999")
 });
