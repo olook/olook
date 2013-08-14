@@ -70,7 +70,7 @@ quiz = {
   },
   enable_button: function(){
     if($('ol.options').length == $('ol.options input:checked').length){
-      $('.end_quiz_button').removeClass('disable').removeAttr("disabled");
+      $('.end_quiz_button').removeClass('disable').addClass('enable').removeAttr("disabled");
     }
   }
 }
