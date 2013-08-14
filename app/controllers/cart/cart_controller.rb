@@ -12,6 +12,7 @@ class Cart::CartController < ApplicationController
     @url = request.protocol + request.host
     @url += ":" + request.port.to_s if request.port != 80
     @chaordic_cart = ChaordicInfo.cart(@cart, current_user, cookies[:ceid])
+    @suggested_product = find_suggested_product
 
     @promo_over_coupon = false
     if @cart && @cart.coupon && !@cart.items.empty?
@@ -56,4 +57,16 @@ class Cart::CartController < ApplicationController
     end
     @cart.reload
   end
+
+  private
+    # TODO => Consider moving this logic to Product class
+    def find_suggested_product
+      suggested_products_with_inventory.shuffle.first
+    end
+
+    def suggested_products_with_inventory
+      ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i}
+      products = Product.find ids
+      products.delete_if {|product| product.inventory < 1}
+    end  
 end
