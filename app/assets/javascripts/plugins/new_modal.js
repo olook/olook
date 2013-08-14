@@ -9,8 +9,7 @@ olook.newModal = function(content, a, l, backgroud_color){
   heightDoc = $(document).height(),
   _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()),
   _left=Math.max(0, (($(window).width() - w) / 2) + $(window).scrollLeft());
-  backgroud_color = backgroud_color || "#000"
-
+  backgroud_color = backgroud_color || "#000";
 
   $("#overlay-campaign").css({"background-color": backgroud_color, 'height' : heightDoc}).fadeIn().bind("click", function(){
     _iframe = $modal.contents().find("iframe");
@@ -32,7 +31,8 @@ olook.newModal = function(content, a, l, backgroud_color){
     'top'         : '50%',
     'left'        : '50%',
     'margin-left' : ml,
-    'margin-top'  : mt
+    'margin-top'  : mt,
+    'border-bottom': '1px solid #000'
   })
   .append('<button type="button" class="close" role="button">close</button>')
   .delay(500).fadeIn().children().show();
