@@ -252,7 +252,6 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
   left: 330px;
   top: 595px;
   cursor: pointer;
-  display: none;
   &:hover{
     background: image-url('quiz/bt_end.png') no-repeat 0 -65px;
   }
@@ -609,6 +608,10 @@ div.field{
   &.cep {
     display: block;
   }
+  &.gender{
+    float: left;
+    margin-right: 27px;
+  }
   &.gender, &.state, &.city {
     .text {
       position: absolute;
@@ -632,6 +635,9 @@ div.field{
       top:24px;
       left:0px;
     }
+  }
+  input#user_birthday{
+    margin-top: -2px;
   }
   label {
     font-size: 14px;
