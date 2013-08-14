@@ -1,0 +1,33 @@
+//= require facebook_sdk
+$(function(){
+  function share_profile_result(profile, url) {
+    var obj = {
+      method: 'feed',
+        caption: 'www.olook.com.br',
+      picture: "cdn.olook.com.br/assets/socialmedia/facebook/profiles/facebook_" + profile + ".jpg",
+      link: url,
+      description: 'Repondi o style quiz da Olook e este é o meu estilo. Agora vou receber dicas de moda das Stylists! Responda também, descubra o seu estilo e ganhe R$ 10! #ficaadica'
+    };
+
+    FB.ui(obj);
+  }
+
+  $("#facebook_share_profile, #facebook_share").on("click", function(){
+    var url = $(this).data('url');
+    var user_profile = $(this).data('profile');
+    switch(user_profile) {
+      case "sexy":
+        profile = "sexy";
+      break;
+      case "chic":
+        profile = "elegante";
+      break;
+      case "moderna":
+        profile = "fashion"
+      break;
+      default:
+        profile = "casual"
+    };
+    share_profile_result(profile, url);
+  });
+});

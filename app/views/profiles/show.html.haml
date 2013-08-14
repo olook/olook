@@ -10,11 +10,6 @@
   = image_tag "quiz/back_arrow_pink.png", :class => "arrow_pink"
   = link_to("Voltar para minha vitrine", member_showroom_path, :class =>"b_showroom")
 = render_profile_template(@profile.alternative_name)
-= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id
-- content_for :footer do
-  = javascript_include_tag 'profiles'
-:javascript
-  user_profile = "#{ @profile.alternative_name.downcase }"
 - if @first_time
   #showroom
     .showroom-title
@@ -24,7 +19,7 @@
     %section#clothes_container.container_product
       .fb_share
         %p Gostou da sua vitrine? Então compartilhe!
-        = link_to 'Compartilhar', "javascript:void(0);", id: "facebook_share", :class => "share", :"data-width" => 128, :"data-height" => 24, onclick: track_event("Showroom","ShowroomShareFacebook")
+        = link_to 'Compartilhar', "javascript:void(0);", id: "facebook_share", :class => "share", data: { width: 128, height: 24, url: wysquiz_url, profile: @profile.alternative_name.downcase }, onclick: track_event("Showroom","ShowroomShareFacebook")
       %ul
         - @cloth.shift(5).each do |product|
           = render 'shared/lite_product_item', product: product
@@ -51,3 +46,5 @@
       = link_to("Essa sou eu", member_showroom_path, :class => "me")
     %li
       = link_to("Quero tentar de novo", wysquiz_path, :class => "again")
+- content_for :footer do
+  = javascript_include_tag 'profiles'
