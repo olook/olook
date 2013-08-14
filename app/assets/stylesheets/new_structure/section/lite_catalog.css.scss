@@ -4,6 +4,7 @@
 @import 'new_structure/partials/voce_esta_em';
 @import 'new_structure/partials/pagination';
 @import 'new_structure/partials/exhibition_mode';
+@import 'new_structure/partials/antibounce_box';
 
 #result{
   float:left;
@@ -111,4 +112,6 @@ aside{
   }
 }
 
-
+.banner {
+  margin-top: 20px;
+}
