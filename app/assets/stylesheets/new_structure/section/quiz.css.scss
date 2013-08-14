@@ -610,6 +610,10 @@ div.field{
   &.cep {
     display: block;
   }
+  &.gender{
+    float: left;
+    margin-right: 27px;
+  }
   &.gender, &.state, &.city {
     .text {
       position: absolute;
@@ -633,6 +637,9 @@ div.field{
       top:24px;
       left:0px;
     }
+  }
+  input#user_birthday{
+    margin-top: -2px;
   }
   label {
     font-size: 14px;
