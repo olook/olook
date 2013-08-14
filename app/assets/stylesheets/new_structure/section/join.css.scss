@@ -11,7 +11,7 @@
 
 #modal{position: absolute;display:none;z-index:10001;overflow:hidden;padding-top:10px;}
 .box-remember-login{background-color: #fff;border: 1px solid #000;position:relative;width:490px !important;height:360px !important;text-align:center;padding:15px 0;margin:0;background:#FFF;display: none;
-	h3{font-family:$johnston;font-size:30px;letter-spacing: 1px;margin-top: 10px;text-transform: uppercase;}
+	h3{font-family:$johnston;font-size:30px;letter-spacing: 1px;margin-top: 20px;text-transform: uppercase;font-weight: lighter;margin-bottom: 18px;}
 	p{font-family:$avenir;font-size:14px;margin-top: 0px;}
 	form{border:none;padding:5px 50px;width:358px;height:150px;margin:0 auto;
 		fieldset{
@@ -33,11 +33,11 @@
 			}
 
 		}
-		input[type="submit"] {background: image-url("quiz/bt-enter.png") no-repeat;text-indent: -9999px;width: 116px;height: 48px;display: block;border: none;cursor: pointer;position: absolute;left: 295px;top: 257px;
+		input[type="submit"] {background: image-url("quiz/bt-enter.png") no-repeat;text-indent: -9999px;width: 116px;height: 48px;display: block;border: none;cursor: pointer;position: absolute;left: 295px;top: 259px;
 	        &:hover{background: image-url("quiz/bt-enter.png") no-repeat 0 -51px;}
             }
 
-		input[type="text"], input[type="password"]{padding-left: 10px; width:272px;height:31px;line-height:31px;border:solid 1px #C1C1C1;background: image-url('campaign_emails/bg_input.png') 0 2px repeat-x;*vertical-align:middle}
+		input[type="text"], input[type="password"]{padding-left: 10px; width:272px;height:35px;line-height:31px;border:solid 1px #C1C1C1;background: image-url('campaign_emails/bg_input.png') 0 2px repeat-x;*vertical-align:middle}
 	}
 }
 button.close{width:20px;height:20px;border:0;background:image-url("campaign_emails/sprite2.png") -288px -102px no-repeat;position:absolute;right:0;top:0;font-size:0;font-family:a;cursor:pointer;z-index:10002;}
