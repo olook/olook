@@ -1,6 +1,6 @@
 if(!olook) var olook = {};
 
-olook.newModal = function(content, a, l){
+olook.newModal = function(content, a, l, backgroud_color){
   var $modal = $("div#modal.promo-olook"),
   h = a > 0 ? a : $("img",content).outerHeight(),
   w = l > 0 ? l : $("img",content).outerWidth(),
@@ -9,9 +9,10 @@ olook.newModal = function(content, a, l){
   heightDoc = $(document).height(),
   _top = Math.max(0, (($(window).height() - h) / 2) + $(window).scrollTop()),
   _left=Math.max(0, (($(window).width() - w) / 2) + $(window).scrollLeft());
-  
+  backgroud_color = backgroud_color || "#000"
 
-  $("#overlay-campaign").css({"background-color": "#000", 'height' : heightDoc}).fadeIn().bind("click", function(){
+
+  $("#overlay-campaign").css({"background-color": backgroud_color, 'height' : heightDoc}).fadeIn().bind("click", function(){
     _iframe = $modal.contents().find("iframe");
     if (_iframe.length > 0){
       $(_iframe).remove();
@@ -21,9 +22,9 @@ olook.newModal = function(content, a, l){
     $modal.fadeOut();
     $(this).fadeOut();
   });
-  
 
-  
+
+
   $modal.html(content)
   .css({
     'height'      : h+"px",
@@ -36,7 +37,7 @@ olook.newModal = function(content, a, l){
   .append('<button type="button" class="close" role="button">close</button>')
   .delay(500).fadeIn().children().show();
 
-  
+
 
   $("button.close, #modal a.me").click(function(){
     _iframe = $modal.contents().find("iframe");
