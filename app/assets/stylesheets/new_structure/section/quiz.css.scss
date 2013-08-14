@@ -101,13 +101,16 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
       text-transform: uppercase;
       text-align: center;
       width: 840px;
-      margin-top: -18px;
-      margin-bottom: -25px;
+      margin-top: -50px;
+      margin-bottom: 0px;
+      position: relative;
       span{
         font-size: 120px;
         font-family: $kepler;
         font-weight: normal;
         font-style: italic;
+        position: relative;
+        top: 30px;
       }
     }
     ol{
