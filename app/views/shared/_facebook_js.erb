@@ -125,11 +125,11 @@ function sendFacebookMessage() {
   });
 }
 
-function share_profile_result() {
+function share_profile_result(profile) {
   var obj = {
-method: 'feed',
+    method: 'feed',
     caption: 'www.olook.com.br',
-    picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
+    picture: "cdn.olook.com.br/assets/socialmedia/facebook/profiles/facebook_" + profile + ".jpg",
     link: '<%= wysquiz_url %>',
     description: 'Repondi o style quiz da Olook e este é o meu estilo. Agora vou receber dicas de moda das Stylists! Responda também, descubra o seu estilo e ganhe R$ 10! <%= wysquiz_path %> #ficaadica'
   };

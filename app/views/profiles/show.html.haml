@@ -12,6 +12,8 @@
 = render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id
 - content_for :footer do
   = javascript_include_tag 'profiles'
+:javascript
+  user_profile = "#{ @profile.alternative_name.downcase }"
 - if @first_time
   #showroom
     .showroom-title
