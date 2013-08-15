@@ -147,6 +147,7 @@ class Product < ActiveRecord::Base
   # I know, it's a weird/crazy logic. Ask Andressa =p
   #
   def backside_picture
+    return @backside_picture if @backside_picture
     if self.pictures.loaded?
       if cloth?
         pictures = self.pictures.sort{ |a,b| a.display_on <=> b.display_on }
@@ -161,32 +162,33 @@ class Product < ActiveRecord::Base
         picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
       end
     end
-    return_catalog_or_suggestion_image(picture)
+    @backside_picture ||= return_catalog_or_suggestion_image(picture)
   end
 
   def wearing_picture
+    return @wearing_picture if @wearing_picture
     if self.pictures.loaded?
       picture = self.pictures.sort{ |a,b| a.display_on <=> b.display_on }.last
     else
       picture = self.pictures.order(:display_on).last
     end
-    return_catalog_or_suggestion_image(picture)
+    @wearing_picture = return_catalog_or_suggestion_image(picture)
   end
 
   def thumb_picture
-    main_picture.try(:image_url, :thumb) # 50x50
+    @thumb_picture ||= main_picture.try(:image_url, :thumb) # 50x50
   end
 
   def bag_picture
-    main_picture.try(:image_url, :bag) # 70x70
+    @bag_picture ||= main_picture.try(:image_url, :bag) # 70x70
   end
 
   def showroom_picture
-    main_picture.try(:image_url, :showroom) # 170x170
+    @showroom_picture ||= main_picture.try(:image_url, :showroom) # 170x170
   end
 
   def catalog_picture
-    return_catalog_or_suggestion_image(main_picture)
+    @catalog_picture ||= return_catalog_or_suggestion_image(main_picture)
   end
 
   def return_catalog_or_suggestion_image(picture)
@@ -198,17 +200,19 @@ class Product < ActiveRecord::Base
   end
 
   def colors(size = nil, admin = false)
-    Rails.cache.fetch(CACHE_KEYS[:product_colors][:key] % [id, admin], expires_in: CACHE_KEYS[:product_colors][:expire]) do
-      is_visible = (admin ? [0,1] : true)
-      conditions = {is_visible: is_visible, category: self.category, name: self.name}
-      #conditions.merge!(variants: {description: size}) if size and self.category == Category::SHOE
-      Product.select("products.*, sum(variants.inventory) as sum_inventory, if(sum(distinct variants.inventory) > 0, 1, 0) available_inventory, sum(IF(variants.description = '#{size}', variants.inventory, 0)) description_inventory")
-            .joins('left outer join variants on products.id = variants.product_id')
-            .where(conditions)
-            .where("products.id != ?", self.id)
-            .group('products.id')
-            .order('description_inventory desc, sum_inventory desc, available_inventory desc')
-    end
+    @colors ||= lambda {
+      Rails.cache.fetch(CACHE_KEYS[:product_colors][:key] % [id, admin], expires_in: CACHE_KEYS[:product_colors][:expire]) do
+        is_visible = (admin ? [0,1] : true)
+        conditions = {is_visible: is_visible, category: self.category, name: self.name}
+        #conditions.merge!(variants: {description: size}) if size and self.category == Category::SHOE
+        Product.select("products.*, sum(variants.inventory) as sum_inventory, if(sum(distinct variants.inventory) > 0, 1, 0) available_inventory, sum(IF(variants.description = '#{size}', variants.inventory, 0)) description_inventory")
+              .joins('left outer join variants on products.id = variants.product_id')
+              .where(conditions)
+              .where("products.id != ?", self.id)
+              .group('products.id')
+              .order('description_inventory desc, sum_inventory desc, available_inventory desc')
+      end
+    }.call
   end
 
   def prioritize_by shoe_size
