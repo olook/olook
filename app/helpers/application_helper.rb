@@ -130,6 +130,10 @@ module ApplicationHelper
     Rails.env.production? ? 'https' : 'http'
   end
 
+  def should_display_footer_bar?
+    params[:controller] != 'survey' && params[:ab_t].nil? && params[:controller] != "cart/cart"
+  end
+
   private
 
     def ga_event_referer
