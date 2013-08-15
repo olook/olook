@@ -3,13 +3,13 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
-  get "/seu-estilo", to: "quiz#new", as: "wysquiz"
-  post "/seu-estilo", to: "quiz#create", as: 'wysquiz'
-  get "/join", to: 'join#new', as: 'join'
-  post "/join", to: 'join#register', as: 'join'
-  put '/join', to: 'join#login', as: 'join'
-  post '/join/facebook_login' => "join#facebook_login", as: 'facebook_login'
-  get "/voce", to: "profiles#show", as: 'profile'
+  get "/stylequiz", to: "quiz#new", as: "wysquiz"
+  post "/stylequiz", to: "quiz#create", as: 'wysquiz'
+  get "/cadastro-stylequiz", to: 'join#new', as: 'join'
+  post "/cadastro-stylequiz", to: 'join#register', as: 'join'
+  put '/cadastro-stylequiz', to: 'join#login', as: 'join'
+  post '/cadastro-stylequiz/facebook_login' => "join#facebook_login", as: 'facebook_login'
+  get "/meu-estilo", to: "profiles#show", as: 'profile'
 
   mount Resque::Server => "/admin/resque"
 
