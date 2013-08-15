@@ -61,12 +61,12 @@
         = f.text_field :birthday
       .location
         .state.field
-          = f.label :state, 'Estado'
+          = f.label :state, "Estado #{content_tag :span, '(opcional)', class: 'hint'}".html_safe
           %p.text
             Selecione
           = f.select :state, []
         .city.field
-          = f.label :city, 'Cidade'
+          = f.label :city, "Cidade #{content_tag :span, '(opcional)', class: 'hint'}".html_safe
           %p.text
             Selecione
           = f.select :city, []
