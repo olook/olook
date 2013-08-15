@@ -58,6 +58,8 @@ class JoinController < ApplicationController
       newsletter_user = CampaignEmail.where(converted_user: false, email: params[:email]).first
       @user = User.new
       if newsletter_user
+        @user.email = newsletter_user.email
+        @exist_newsletter = true
         @user.errors.add(:base, I18n.t("join_controller.create.newsletter_fail"))
       else
         @user.errors.add(:base, I18n.t("join_controller.create.fail"))
