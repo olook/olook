@@ -31,7 +31,7 @@
 
         .last_step
           %fieldset
-            = label_tag "quiz[user_data][shoes_size]", "Qual tamanho do seu pezinho?"
+            = label_tag "quiz[user_data][shoes_size]", "Qual o tamanho do seu pezinho?"
             %ol.options
               - (33..40).each do |size|
                 %li.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizProgress', 'QuizLastStep', '']);_gaq.push(['_trackEvent', 'QuizQuestions', 'Qual tamanho do seu pezinho?', '#{ size }']);_gaq.push(['_trackPageview', 'LastStep']);"}
