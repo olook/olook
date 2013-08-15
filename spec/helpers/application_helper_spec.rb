@@ -27,6 +27,14 @@ describe ApplicationHelper do
       subject { helper.should_display_footer_bar? }
       it { should be_false }
     end
+
+    context "langing pages" do
+      before do
+        controller.params[:controller] = 'landing_pages'
+      end
+      subject { helper.should_display_footer_bar? }
+      it { should be_false }
+    end
   end
 
 
