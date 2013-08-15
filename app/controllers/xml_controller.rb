@@ -62,6 +62,10 @@ class XmlController < ApplicationController
     respond_with(@products)
   end
 
+  def shopear
+    respond_with(@products)
+  end
+
   private
 
     def prepare_products
