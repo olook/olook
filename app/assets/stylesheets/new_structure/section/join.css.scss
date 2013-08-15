@@ -1,46 +1,187 @@
 @import 'new_structure/common/global_stuffs';
+
 @import 'new_structure/partials/fonts';
+
 
 /***** MODAL STYLE ****/
 
-#modal-campaign,#overlay-campaign{display:none;position:absolute;}
-#overlay-campaign{top:0;left:0;z-index:10000;width:100%;min-height:800px;background:#FFF;zoom:1;opacity:0.75;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);filter: alpha(opacity=75);}
-#modal-campaign{float:left;z-index:10001;background:transparent;top:50%;left:50%;
-  iframe{overflow: hidden;}
+#modal-campaign,#overlay-campaign{
+  display:none;
+  position:absolute;
+}
+#overlay-campaign{
+  top:0;
+  left:0;
+  z-index:10000;
+  width:100%;
+  min-height:800px;
+  background:#FFF;
+  zoom:1;
+  opacity:0.75;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+  filter: alpha(opacity=75);
+}
+#modal-campaign{
+  float:left;
+  z-index:10001;
+  background:transparent;
+  top:50%;
+  left:50%;
+
+  iframe{
+    overflow: hidden;
+  }
 }
 
-#modal{position: absolute;display:none;z-index:10001;overflow:hidden;padding-top:10px;}
-.box-remember-login{background-color: #fff;border: 1px solid #000;position:relative;width:490px !important;height:360px !important;text-align:center;padding:15px 0;margin:0;background:#FFF;display: none;
-	h3{font-family:$johnston;font-size:30px;letter-spacing: 1px;margin-top: 20px;text-transform: uppercase;font-weight: lighter;margin-bottom: 18px;}
-	p{font-family:$avenir;font-size:14px;margin-top: 0px;}
-	form{border:none;padding:5px 50px;width:358px;height:150px;margin:0 auto;
-		fieldset{
-			label{font-family:$avenir;font-size:13px;color: #5e5f61;}
-			margin-bottom:5px;border:0;
-			&.botoes{margin-top: 5px;text-align:left;
-				div{float:left;width:150px;margin-left:15px;
-					label{font-size:11px;color:#5e5f61;width:85px;display:inline-block;text-align:left;font-family:$avenir;
-						&[for="user_remember_me"]{width:100px;font-size:11px;}
-					}
-					p{float:left;margin-top:5px !important;
-						a{text-decoration:none;color:#5e5f61;font-family: $avenir;font-size: 11px;
-							&:hover{text-decoration:underline;}
-						}
-					}
-				}
-				input[type="submit"]{float:right; width:120px;height:50px;background-position: -4px -231px;text-indent: 9999px;
-					&:hover{background-position:-4px -287px;text-indent: 9999px;}}
-			}
+label .hint {
+  font-size: 13px;
+}
+#modal{
+  position: absolute;
+  display:none;
+  z-index:10001;
+  overflow:hidden;
+  padding-top:10px;
+}
+.box-remember-login{
+  background-color: #fff;
+  border: 1px solid #000;
+  position:relative;
+  width:490px !important;
+  height:360px !important;
+  text-align:center;
+  padding:15px 0;
+  margin:0;
+  background:#FFF;
+  display: none;
 
-		}
-		input[type="submit"] {background: image-url("quiz/bt-enter.png") no-repeat;text-indent: -9999px;width: 116px;height: 48px;display: block;border: none;cursor: pointer;position: absolute;left: 295px;top: 259px;
-	        &:hover{background: image-url("quiz/bt-enter.png") no-repeat 0 -51px;}
+  h3{
+    font-family:$johnston;
+    font-size:30px;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    text-transform: uppercase;
+    font-weight: lighter;
+    margin-bottom: 18px;
+  }
+  p{
+    font-family:$avenir;
+    font-size:14px;
+    margin-top: 0px;
+  }
+  form{
+    border:none;
+    padding:5px 50px;
+    width:358px;
+    height:150px;
+    margin:0 auto;
+
+
+    fieldset{
+      label{
+        font-family:$avenir;
+        font-size:13px;
+        color: #5e5f61;
+      }
+      margin-bottom:5px;
+      border:0;
+
+      &.botoes{
+        margin-top: 5px;
+        text-align:left;
+
+        div{
+          float:left;
+          width:150px;
+          margin-left:15px;
+
+          label{
+            font-size:11px;
+            color:#5e5f61;
+            width:85px;
+            display:inline-block;
+            text-align:left;
+            font-family:$avenir;
+
+            &[for="user_remember_me"]{
+              width:100px;
+              font-size:11px;
             }
+          }
+          p{
+            float:left;
+            margin-top:5px !important;
 
-		input[type="text"], input[type="password"]{padding-left: 10px; width:272px;height:35px;line-height:31px;border:solid 1px #C1C1C1;background: image-url('campaign_emails/bg_input.png') 0 2px repeat-x;*vertical-align:middle}
-	}
-}
-button.close{width:20px;height:20px;border:0;background:image-url("campaign_emails/sprite2.png") -288px -102px no-repeat;position:absolute;right:0;top:0;font-size:0;font-family:a;cursor:pointer;z-index:10002;}
-#error_explanation ul li {
-  font-family:$avenir;
-}
+            a{
+              text-decoration:none;
+              color:#5e5f61;
+              font-family: $avenir;
+              font-size: 11px;
+
+              &:hover{
+                text-decoration:underline;
+              }
+            }
+          }
+        }
+        input[type="submit"]{
+          float:right;
+          width:120px;
+          height:50px;
+          background-position: -4px -231px;
+          text-indent: 9999px;
+
+          &:hover{
+            background-position:-4px -287px;
+            text-indent: 9999px;
+          }
+        }
+      }
+
+    }
+    input[type="submit"] {
+      background: image-url("quiz/bt-enter.png") no-repeat;
+      text-indent: -9999px;
+      width: 116px;
+      height: 48px;
+      display: block;
+      border: none;
+      cursor: pointer;
+      position: absolute;
+      left: 295px;
+      top: 259px;
+
+      &:hover{
+        background: image-url("quiz/bt-enter.png") no-repeat 0 -51px;
+      }
+    }
+
+    input[type="text"], input[type="password"]{
+      padding-left: 10px;
+      width:272px;
+      height:35px;
+      line-height:31px;
+      border:solid 1px #C1C1C1;
+      background: image-url('campaign_emails/bg_input.png') 0 2px repeat-x;
+                  *vertical-align:middle}
+                }
+              }
+              button.close{
+                width:20px;
+                height:20px;
+                border:0;
+                background:image-url("campaign_emails/sprite2.png") -288px -102px no-repeat;
+                position:absolute;
+                right:0;
+                top:0;
+                font-size:0;
+                font-family:a;
+                cursor:pointer;
+                z-index:10002;
+              }
+              #error_explanation ul li {
+
+                font-family:$avenir;
+
+              }
