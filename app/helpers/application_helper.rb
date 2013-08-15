@@ -130,6 +130,10 @@ module ApplicationHelper
     Rails.env.production? ? 'https' : 'http'
   end
 
+  def should_display_footer_bar?
+    ["cart/cart", "survey", "landing_pages"].exclude?(params[:controller]) && params[:ab_t].nil?
+  end
+
   private
 
     def ga_event_referer
