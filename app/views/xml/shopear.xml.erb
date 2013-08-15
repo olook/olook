@@ -3,7 +3,7 @@
   <% @products.each do |product| %>
     <producto>
       <id><%= product.id %></id>
-      <nombre><%= product.formatted_name %></nombre>
+      <nombre><%= product.formatted_name(200) %></nombre>
       <descripcion><![CDATA[<%= product.description %>]]></descripcion>
       <fotos>
         <% product.pictures.each do |picture| %>
