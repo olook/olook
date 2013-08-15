@@ -26,7 +26,10 @@
     %a.fb_login_button Entrar com FB
     %p.fb OU
 
-    %h2 Cadastre-se na Olook
+    - if @exist_newsletter
+      %h2 Complemente seu Cadastro na Olook
+    - else
+      %h2 Cadastre-se na Olook
 
     %p
     = form_for(@user, url: join_path) do |f|
@@ -44,7 +47,7 @@
         = f.text_field :last_name
       .email.field
         = f.label :email
-        = f.text_field :email, value: @user.email
+        = f.text_field :email
       .password.field
         = f.label :password, "Senha #{content_tag("span", '(min. 6 caracteres)', class: 'hint')}".html_safe
         = f.password_field :password
