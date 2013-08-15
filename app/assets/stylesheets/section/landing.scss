@@ -67,9 +67,10 @@
         width: 204px;
         height: 37px;
         border: none;
-        &:hover{
+        cursor: pointer;
+/*        &:hover{
           background: image-url('landing_page/bt_quiz_entre.png') no-repeat 0 -43px;
-        }
+        }*/
       }
     }
   }
