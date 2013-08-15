@@ -4,14 +4,15 @@ module MarketingReports
 
     TEMP_PATH = "#{Rails.root}/tmp/"
 
-    def initialize(source = "allin")
+    def initialize(folder = "allin")
       connection = Fog::Storage.new provider: 'AWS'
-      @fog_dir = connection.directories.get(Rails.env.production? ? "olook-ftp" : "olook-ftp-dev", prefix: source)
+      @folder = folder
+      @fog_dir = connection.directories.get("olook-ftp") #(Rails.env.production? ? "olook-ftp" : "olook-ftp-dev")
     end
 
     def copy_file(filename)
       file_content = File.open(TEMP_PATH+DateTime.now.strftime(filename))
-      @fog_dir.files.create(key: filename, body: file_content, public: false)
+      @fog_dir.files.create(key: "#{@folder}/#{filename}", body: file_content, public: false)
     end
   end
 end
