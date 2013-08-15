@@ -27,7 +27,7 @@ olook.getFBData = function(authResponse){
       userData.first_name = response.first_name;
       userData.last_name = response.last_name;
       userData.uid = response.id;
-      userData.facebookToken = authResponse.authResponse.accessToken;
+      userData.facebook_token = authResponse.authResponse.accessToken;
       userData.gender = ( response.gender === 'male' ? '1' : '0' );
       if(response.birthday){
         var aux = response.birthday.split('/');
