@@ -14,9 +14,6 @@
 	h3{font-family:$johnston;font-size:30px;letter-spacing: 1px;margin-top: 20px;text-transform: uppercase;font-weight: lighter;margin-bottom: 18px;}
 	p{font-family:$avenir;font-size:14px;margin-top: 0px;}
 	form{border:none;padding:5px 50px;width:358px;height:150px;margin:0 auto;
-      #error_explanation{
-        font-family:$avenir;
-      }
 		fieldset{
 			label{font-family:$avenir;font-size:13px;color: #5e5f61;}
 			margin-bottom:5px;border:0;
@@ -44,3 +41,6 @@
 	}
 }
 button.close{width:20px;height:20px;border:0;background:image-url("campaign_emails/sprite2.png") -288px -102px no-repeat;position:absolute;right:0;top:0;font-size:0;font-family:a;cursor:pointer;z-index:10002;}
+#error_explanation ul li {
+  font-family:$avenir;
+}
