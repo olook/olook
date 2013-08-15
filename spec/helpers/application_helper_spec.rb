@@ -2,6 +2,42 @@
 require 'spec_helper'
 
 describe ApplicationHelper do
+
+  describe 'should_display_footer_bar?' do
+    context "AB test" do
+      before do
+        controller.params[:ab_t] = 'foo'
+      end
+      subject { helper.should_display_footer_bar? }
+      it { should be_false }
+    end
+
+    context "survey controller" do
+      before do
+        controller.params[:controller] = 'survey'
+      end
+      subject { helper.should_display_footer_bar? }
+      it { should be_false }
+    end
+
+    context "cart" do
+      before do
+        controller.params[:controller] = 'cart/cart'
+      end
+      subject { helper.should_display_footer_bar? }
+      it { should be_false }
+    end
+
+    context "langing pages" do
+      before do
+        controller.params[:controller] = 'landing_pages'
+      end
+      subject { helper.should_display_footer_bar? }
+      it { should be_false }
+    end
+  end
+
+
   describe "#cart_total" do
     it "returns markup for order total" do
      expected = "<span>(<span id=\"cart_items\">0 itens</span>)</span>"
@@ -28,7 +64,7 @@ describe ApplicationHelper do
     end
   end
 
-  describe "#track_add_to_cart_event" do  
+  describe "#track_add_to_cart_event" do
     let(:product_id) { '1' }
 
     it "returns a track event string with Shopping, AddToCart + referer sufix and product_id" do
@@ -178,7 +214,7 @@ describe ApplicationHelper do
 
   describe "#is_moment_page?" do
 
-    context "when the @featured_products variable is nil" do  
+    context "when the @featured_products variable is nil" do
       before do
         @featured_products = nil
       end
@@ -193,7 +229,7 @@ describe ApplicationHelper do
       end
     end
 
-    context "when the @featured_products variable isn't nil" do  
+    context "when the @featured_products variable isn't nil" do
       before do
         @featured_products = ""
       end
@@ -214,7 +250,7 @@ describe ApplicationHelper do
         context "when the actions isn't 'show'" do
           before do
             controller.params[:action] = 'fdsasfda'
-          end      
+          end
           it "returns false" do
             helper.is_moment_page?.should be_false
           end
@@ -229,9 +265,9 @@ describe ApplicationHelper do
 
         it "returns false" do
           helper.is_moment_page?.should be_false
-        end 
-      end    
+        end
+      end
     end
-  end  
+  end
 
 end
