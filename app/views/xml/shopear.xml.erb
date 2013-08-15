@@ -7,7 +7,7 @@
       <descripcion><![CDATA[<%= product.description %>]]></descripcion>
       <fotos>
         <% product.pictures.each do |picture| %>
-          <foto><%= full_image_path picture %></foto>
+          <foto><%= full_image_path picture.image %></foto>
         <% end %>
       </fotos>
       <marca><%= product.brand %></marca>
