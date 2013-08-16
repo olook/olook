@@ -196,13 +196,13 @@ span.span_error{
   font-size:12px;
   clear:both;
   float:left;
-  margin-bottom:5px
+  margin-bottom:5px;
+  width: 295px;
+  display: block;
 }
 input.input_error{
   border-color:#EA1E40 !important;
   margin-bottom:4px
 }
 
-.field{
-  margin-botton: 10px;
-}
+
