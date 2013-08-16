@@ -25,7 +25,7 @@ class AntibounceBox
       # add the parameters to meet marketing needs, that are:
       # - this search cannot include the brands inside the params
       # - half of the search products must be from olook
-      SearchEngine.new(search_params).with_limit(Setting.antibounce_product_lines * 3)
+      SearchEngine.new(search_params).with_limit(Setting.antibounce_product_lines.to_i * 3)
     end
 
     def format_params params

@@ -26,7 +26,7 @@ var google_tag_params = {
   <% if @product %>
     product_brand: "<%= @product.brand %>",
   <% end %>
-  ecomm_prodid:"<%= raw google_ids(@google_pixel_information) %>",
+  ecomm_prodid:<%= raw google_ids(@google_pixel_information) %>,
   ecomm_totalvalue:"<%= raw google_value @google_pixel_information %>",
   ecomm_pagetype:"<%= raw @google_path_pixel_information.blank? ? 'other' : @google_path_pixel_information %>"
 };
