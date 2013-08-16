@@ -497,7 +497,7 @@ ul.tryquiz{
   }
 }
 #user_manager{
-  height: 820px;
+  height: 860px;
   margin-top: 30px;
   position: relative;
   .stamp {
@@ -607,6 +607,7 @@ div.field{
   position: relative;
   height: 70px;
   width: 160px;
+  margin-bottom: 20px;
   p {
     font-family: $avenir;
     font-weight: lighter;
