@@ -26,7 +26,7 @@ module Search
     end
 
     def with_limit limit
-      @limit = limit || 30
+      @limit = (limit || 30).to_i
       self
     end
 
