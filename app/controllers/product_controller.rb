@@ -46,7 +46,9 @@ class ProductController < ApplicationController
     @product = if current_admin
       Product.find(params[:id])
     else
-      p = Product.only_visible.find(params[:id])
+      product_name = params[:id]
+      product_id = product_name.split("-").last.to_i
+      p = Product.only_visible.find(product_id)
       raise ActiveRecord::RecordNotFound unless p.price > 0
       p
     end

@@ -1,9 +1,10 @@
 $(function() {
   var stringDesc = $("div#infos div.description p.description").text();
   initQuickView.productZoom();
-  initQuickView.twitProduct();
-  initQuickView.pinProduct();
-  initQuickView.shareProductOnFacebook();
+
+  
+  accordion();
+  delivery();
 
   /** MODAL GUIA DE MEDIDAS **/
   $(".size_guide a").click(function(e){
@@ -12,34 +13,23 @@ $(function() {
     
   })
 
-  $("div#infos div.description p[class!='price'] a.more").live("click", function() {
+  $("div#product-details a.more").live("click", function() {
     el = $(this).parent();
     el.text(stringDesc);
     el.append("<a href='javascript:void(0);' class='less'>Esconder</a>");
   });
 
-  $("div#pics_suggestions ul#thumbs li a").live("click", function() {
+  $("div#gallery ul#thumbs li a").live("click", function() {
     rel = $(this).attr('rel');
-    $("div#pics_suggestions div#full_pic ul li").hide();
-    $("div#pics_suggestions div#full_pic ul li."+rel).show();
+    $("div#gallery div#full_pic ul li").hide();
+    $("div#gallery div#full_pic ul li."+rel).show();
+    $("ul#thumbs li a").find("img.selected").removeClass("selected");
+    $(this).children().addClass("selected");
     return false;
   });
 
-  $("div#box_tabs ul.tabs li a").live("click", function() {
-    rel = $(this).attr("rel");
-    $(this).parents("ul").find("li a").removeClass("selected");
-    contents = $(this).parents("div#box_tabs").find("ul.tabs_content li");
-    contents.removeClass("selected");
-    $(this).addClass("selected");
-    contents.each(function(){
-      if($(this).hasClass(rel) == true) {
-        $(this).addClass("selected");
-      }
-    });
-    return false;
-  });
-
-  $("div#infos div.size ol li").live('click', function() {
+  
+  $("div#product-details div.size ol li").live('click', function() {
     if($(this).hasClass("unavailable") == false) {
       lists = $(this).parents("ol").find("li");
       lists.find("input[type='radio']").attr('checked', false);
@@ -47,8 +37,8 @@ $(function() {
       $(this).find("input[type='radio']").attr('checked', true);
       $(this).addClass('selected');
       inventory = $(this).find("input[type='hidden']").val();
-      badge = $("div#pics_suggestions div#full_pic p.warn.quantity");
-      remaining = $("div#infos p.remaining");
+      badge = $("div#gallery div#full_pic p.warn.quantity");
+      remaining = $("div#product-details p.remaining");
       if(inventory < 2) {
         $(remaining).html("Resta apenas <strong><span>0</span> unidade</strong> para o seu tamanho");
       } else {
@@ -84,11 +74,11 @@ initQuickView = {
   inQuickView : false,
 
   productZoom : function() {
-    $("div#pics_suggestions div#full_pic ul li a.image_zoom").each(function(){
+    $("div#gallery div#full_pic ul li a.image_zoom").each(function(){
        var _url = "http:" + $(this).attr('href');
        $(this).zoom({url: _url})
     });
-    /*$("div#pics_suggestions div#full_pic ul li a.image_zoom").jqzoom({
+    /*$("div#gallery div#full_pic ul li a.image_zoom").jqzoom({
       zoomType: 'innerzoom',
       zoomWidth: 415,
       zoomHeight: 500,
@@ -142,3 +132,30 @@ initQuickView = {
     })
   }
 };
+
+function accordion(){
+  el = $("#product-particulars h3");
+  el.on("click", function(e){
+    e.stopPropagation();
+    e.preventDefault();
+    $(this).siblings("h3").removeClass("open").siblings("div").slideUp();
+    $(this).addClass("open").next().addClass("open").slideDown();
+  });
+  
+}
+
+function delivery(){
+  $("#ship-field").setMask({mask: '99999-999'});
+  
+  $("#shipping #search").click(function(){
+    cep = $("#ship-field").val();
+    if(cep.length < 9){
+      $(".shipping-msg").removeClass("ok").hide().delay(500).fadeIn().addClass("error").text("O CEP informado parece estranho. Que tal conferir?");
+      return false;
+    }else{
+      $.getJSON("/shippings/"+cep, function(data){
+        $(".shipping-msg").removeClass("error").hide().delay(500).fadeIn().addClass("ok").text(data.message);
+      });
+    }
+  })
+}

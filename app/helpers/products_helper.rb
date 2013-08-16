@@ -54,7 +54,7 @@ module ProductsHelper
     html_sizes = ""
     sizes = detail.description.split(";")
     sizes.each do |size|
-      html_sizes << "#{size.chomp}<br>"
+      html_sizes << "#{size.chomp}"
     end
     html_sizes.html_safe
   end

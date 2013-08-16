@@ -9,24 +9,24 @@
       <%= link_to "saiba mais", "javascript:void(0);", :class => "open_loyalty_lightbox" %>
     </p>
   </div>
-  
 </div>  
 
-<div class="social pl9 <%= "has_bt_face" if show_facebook_button %>">
+<div class="social-media-box pl9">
   <%= link_to image_tag("product/ask_gift_button.jpg"), "javascript:void(0)", class: "face-message", onclick:  track_event('AskGiftButton', "ClickAskGiftButton") %>
-  
+  <div class="has_bt_face">  
   <ul class="social-list">
-    <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=#{share_description(@product)}&hashtags=ficaadica" %></li>
-    <li class="facebook"><%= link_to "Facebook", "javascript:void(0)" %></li>
-    <li class="pinterest"><%= link_to "Pinterest", product_presenter.display_main_picture, :class => "pin-it-button", :"count-layout" => "none" %></li>
-    <li class="email last"><%= link_to "Email", "javascript:void(0);" %></li>
+    <li><fb:like href="http://olook.com.br/produto/<%= product_permalink(@product) %>" width="110" layout="button_count" show_faces="false" send="false"></fb:like></li>
+    
+    <li><a href="https://twitter.com/share?text= <%= share_description(@product) %>" class="twitter-share-button" data-lang="pt" data-count="none" data-hashtags="ficaadica">Tweetar</a></li>  
+    
+    <li><a href="//pinterest.com/pin/create/button/?url=http://olook.com.br/produto/<%= product_permalink(@product) %>&media=<%= product_presenter.display_main_picture %>&description=Next%20stop%3A%20Pinterest" data-pin-do="buttonPin" data-pin-config="none"><img src="//assets.pinterest.com/images/pidgets/pin_it_button.png" /></a></li>
+    
+    <li class="email"><%= link_to "Email", "javascript:void(0);" %></li>
   </ul>
-  
-  <fb:like class="<%= "bt_face" if show_facebook_button %>" href="http://<%= request.host_with_port %>/produto/<%= @product.id %>" send="false" layout="button_count" width="110" show_faces="false" font="arial"></fb:like>
-  
+  </div>
 </div>
 
 
-
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 

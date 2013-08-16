@@ -2,7 +2,7 @@
   %p.spy
     = content_tag(:span, "ESPIAR", :data => {:url => product_path(product.id), :gift => (gift ||= false), :shoe_size => (shoe_size ||= nil)}, :rel => "#{product.id}", :remote => true)
 
-  = link_to product_path(product.id), :class => "product_link", :rel => "#{product.id}" do
+  = link_to product_permalink(product), :class => "product_link", :rel => "#{product.id}" do
     = image_tag(product.catalog_image, :itemprop => "image", :alt => product.formatted_name, :class => "async", :data => {:backside_picture => product.backside_picture, :product => product.catalog_image})
     %p.info-product
       %span.name{:itemprop => "name"}= product.formatted_name

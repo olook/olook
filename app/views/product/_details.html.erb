@@ -1,33 +1,30 @@
-<div id="box_tabs">
-
-  <p class="description"><%= @product.description %></p>
-  
-  <ul class="tabs">
-    <li><%= link_to "Informações", "javascript:void(0);", :rel => "tab_2", :class => "selected" %></li>
-    <li class="last"><%= link_to "Entrega e Devolução", "javascript:void(0);", :rel => "tab_3", :class => "border_last" %></li>
-  </ul>
-  <ul class="tabs_content">
-    <li class="tab_2 selected">
-      <table cellpadding="0" cellspacing="0">
-        <tbody>
-          <% details = @product.details.only_specification.with_valid_values -%>
-          <% @product.sort_details_by_relevance(details).each do |detail| -%>
-            <tr>
-              <% unless @product.is_a_shoe_accessory? && detail.translation_token == "Salto" %>
-                <td><%= print_detail_name_for @product, detail %></td>
-                <td><%= print_detail_value detail %></td>
-              <% end %>
-            </tr>
-          <% end -%>
-        </tbody>
-      </table>
-    </li>
-    <li class="tab_3">
-      <p>- A devolução é inteiramente grátis, você não paga nada a mais para devolver sua compra</p>
-      <p>- Você terá até 30 dias corridos para solicitar a TROCA ou DEVOLUÇÃO do seu dinheiro (contados a partir da data de recebimento do produto)</p>
-      <p>- O produto devolvido não deve ter sido usado, aceitamos apenas produtos novos</p>
-      <p>- Os prazos acima contam a partir do dia em que você recebeu o produto</p>
-      <p>- Em caso de defeito, você também tem 30 dias após o recebimento para solicitar a devolução.</p>
-    </li>
-  </ul>
+<div id="product-particulars">
+  <h3 class="about-title open">SOBRE O PRODUTO</h3>
+  <div class="about open">
+      <p class="description"><%= @product.description %></p>
+      <dl>
+        <% details = @product.details.only_specification.with_valid_values -%>
+        <% @product.sort_details_by_relevance(details).each do |detail| -%>
+          <% unless @product.is_a_shoe_accessory? && detail.translation_token == "Salto" %>
+            <dt><%= print_detail_name_for @product, detail %>:</dt>
+            <dd><%= print_detail_value detail %></dd>
+          <% end %>  
+        <% end %>    
+      </dl>  
+  </div>  
+  <h3 class="shipping-title">PRAZO DE ENTREGA</h3>
+  <div class="shipping">
+    <p>Informe o CEP e consulte o prazo para destino</p>
+    <form action="" id="shipping" method="post">
+      <input class="ship-field" id="ship-field" name="ship-field" type="text" value="">
+      <button class="search" id="search" type="button">Pesquisar</button>
+    </form>
+    <p class="shipping-msg">&nbsp;</p>
+  </div>
+  <h3 class="exchange-title">TROCA E DEVOLUÇÃO</h3>
+  <div class="exchange">
+    <p><b>A devolução é inteiramente grátis:</b> você não paga nada a mais para devolver sua compra!</p>
+    <p><b>Você terá até 30 dias corridos para solicitar</b> a TROCA ou DEVOLUÇÃO do seu dinheiro<br />(contados a partir da data de recebimento do produto)</p>
+    <p><b>Em caso de defeito, você também tem 30 dias</b> após o recebimento para solicitar a devolução.</p>
+  </div>
 </div>
