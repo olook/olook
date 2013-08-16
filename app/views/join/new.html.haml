@@ -34,31 +34,32 @@
     %p
     = form_for(@user, url: join_path) do |f|
       = hidden_field_tag 'qr_uuid', params[:uuid] || params[:qr_uuid]
-      #error_explanation
-        %ul
-          - @user.errors.full_messages.each do |msg|
-            %li= msg
-
       .first_name.field
         = f.label :first_name
-        = f.text_field :first_name
+        = f.text_field :first_name, class: @user.errors[:first_name].empty? ? "" : "input_error"
+        = errors_for(@user, :first_name)
       .last_name.field
         = f.label :last_name
-        = f.text_field :last_name
+        = f.text_field :last_name, class: @user.errors[:last_name].empty? ? "" : "input_error"
+        = errors_for(@user, :last_name)
       .email.field
         = f.label :email
-        = f.text_field :email
+        = f.text_field :email, class: @user.errors[:email].empty? ? "" : "input_error"
+        = errors_for(@user, :email)
       .password.field
         = f.label :password, "Senha #{content_tag("span", '(min. 6 caracteres)', class: 'hint')}".html_safe
-        = f.password_field :password
+        = f.password_field :password, class: @user.errors[:email].empty? ? "" : "input_error"
+        = errors_for(@user, :password)
       .password_confirmation.field
         = f.label :password_confirmation, "Confirmar senha"
-        = f.password_field :password_confirmation
+        = f.password_field :password_confirmation, class: @user.errors[:email].empty? ? "" : "input_error"
+        = errors_for(@user, :password_confirmation)
       .gender.field
         = f.label :gender, "Você é:"
         %p.text
           Mulher
-        = f.select :gender, options_for_select({'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 },selected_key = 0)
+        = f.select :gender, options_for_select({'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 },selected_key = 0), class: @user.errors[:email].empty? ? "" : "input_error"
+        = errors_for(@user, :gender)
       .date.field
         = f.label :birthday, "Data de Nascimento"
         = f.text_field :birthday
