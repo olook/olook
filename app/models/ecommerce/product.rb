@@ -44,6 +44,7 @@ class Product < ActiveRecord::Base
   validates :model_number, :presence => true, :uniqueness => true
 
   mount_uploader :color_sample, ColorSampleUploader
+  mount_uploader :picture_for_xml, XmlPictureUploader
 
   scope :only_visible , where(:is_visible => true)
 
