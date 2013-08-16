@@ -6,4 +6,3 @@
     = render "shared/searched_products", :products => antibounce_box.search.products.first(Setting.antibounce_product_lines.to_i * 3), :product_source => "AntibounceBox"
   .loading  
   = more_products_link_to(catalog_path("roupa", antibounce_box.url_builder.remove_filter_of(:brand)), "Ver todas as marcas", "see-all")
--binding.pry
