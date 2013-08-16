@@ -27,7 +27,11 @@ module CatalogsHelper
     end
     text
   end
-
+  
+  def product_permalink(product)
+    "/produto/" + product.formatted_name.parameterize + "-" + product.id.to_s 
+  end  
+  
   def current_section_link_to(link, selected=false)
     search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
     link+=search_param

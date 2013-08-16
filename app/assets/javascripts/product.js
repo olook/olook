@@ -2,7 +2,8 @@
 $(document).ready(function() {
   initProduct.showCarousel();
   showInfoCredits();
-
+  
+  
   $("#product div.box_carousel a.open_carousel").live("click", function () {
     word = $(this).find("span");
     carousel = $(this).parent().find("div#carousel");
@@ -41,7 +42,7 @@ $(document).ready(function() {
   
   if($('#compartilhar_email').length == 1) {
      var content = $('#compartilhar_email');
-     $("ul.social li.email").click(function(e){
+     $("ul.social-list li.email").on("click", function(e){
         e.preventDefault();
         e.stopPropagation();
         initBase.newModal(content);
@@ -93,3 +94,4 @@ initProduct = {
     }
   }
 }
+

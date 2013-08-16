@@ -1,16 +1,44 @@
 <div id="close_quick_view">x</div>
 <% present('Product', :product => product, :member => @user, :facebook_app_id => @facebook_app_id, :logged? => user_signed_in?, :gift? => @gift, :shoe_size => @shoe_size, :only_view? => @only_view)  do |product_presenter| %>
-  <div id="product" class="product_<%= product.id %>">
-    <div class="content">
-      <div id="pics_suggestions">
+  <section id="product">
+    <div class="box-left">
+      <div id="gallery">
         <%= product_presenter.render_pics %>
       </div>
-      <div id="infos">
+      <%=image_tag("product/vantagens.jpg", class:"vantagens") %>
+    </div>
+    <div class="box-right">  
+      <div id="product-details">
         <%= product_presenter.render_description %>
         <%= product_presenter.render_add_to_cart %>
         <%= product_presenter.render_details %>
       </div>
+
+      <div id="modal_guide">
+        <h1>GUIA DE MEDIDAS</h1>
+        <%= image_tag 'common/body.jpg', :class => '' %>
+        <p>Na página do produto, você poderá </br>consultar as medidas da peça em "Tamanhos & Medidas".<br /> Aqui indicamos como fazemos a medição, <br />para que você faça o mesmo ai, ok? ;)</p>
+        <ul>
+          <li>
+            <span>BUSTO</span> <br />Contorne o busto na altura do seio
+          </li>
+          <li>
+            <span>CINTURA</span> <br />Contorne a parte mais fina da cintura
+          </li>
+          <li>
+            <span>OMBRO</span> <br />Meça o ombro de ponto a ponta
+          </li>
+          <li>
+            <span>QUADRIL</span> <br />Contorne a área de maior circunferência do seu quadril
+          </li>
+          <li>
+            <span>COMPRIMENTO</span> <br />Meça na vertical, de ponta a ponta <br />A altura da medição varia de acordo <br />com o modelo da peça. <br />No caso de um vestido, comece pelo ombro, <br />no caso de uma calça, pela cintura
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
+  </section>
+  
 <% end %>
 <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id, :product => product%>
+

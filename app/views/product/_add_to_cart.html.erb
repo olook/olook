@@ -2,7 +2,7 @@
                               id: "product_add_to_cart") do %>
   <%= hidden_field_tag :redirect, @ab_test_parameter %>
   <%= product_presenter.render_form_by_category %>
-  <%= product_presenter.render_quantity %>
+  <%#= product_presenter.render_quantity <!-- entrará depois essa partial da quantidade. Tem que fazer o JS --> %> 
 
   <% if product_presenter.show_quantity_left? %>
     <p class="remaining">

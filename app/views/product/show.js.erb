@@ -21,6 +21,9 @@ $('#close_quick_view, #overlay-campaign').on("click", function() {
   $('#quick_view, #overlay-campaign').fadeOut(300);
 });
 
+accordion();
+delivery();
+
 if (typeof initSuggestion != 'undefined') {
   initSuggestion.checkIfProductIsAlreadySelected();
 }

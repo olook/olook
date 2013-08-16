@@ -1,4 +1,6 @@
-<div class="line">
+<div class="line quantity">
   <p>Quantidade:</p>
-  <%= text_field(:quantidade,"1", class: "quantity-product") %>
+  <%= text_field_tag(:quantidade, "1", class: "quantity-product") %>
+  <button type="button" class="plus">+</button>
+  <button type="button" class="minus">-</button>
 </div>
