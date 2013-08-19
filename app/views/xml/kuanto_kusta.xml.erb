@@ -11,7 +11,7 @@
       <nparcela></nparcela>
       <vparcela></vparcela>
       <url><%= product.product_url(utm_source: "kuanto_kusta", :utm_campaign => "produtos").gsub("utm_content=#{ product.id }&", "") %></url>
-      <url_imagem><%= full_image_path(first_image_of(product)) %></url_imagem>
+      <url_imagem><%= full_image_path product.xml_picture(:main) %></url_imagem>
       <departamento><%= product.category_humanize %></departamento>
       <subdepartamento><%= product.subcategory_name %></subdepartamento>
       <isbn/>

@@ -4,7 +4,7 @@
 <product>
 <id><%= product.id %></id>
 <name><%= product.formatted_name(200) %></name>
-<image><%= full_image_path product.main_picture.try(:image) %></image>
+<image><%= full_image_path product.xml_picture(:main) %></image>
 <url>
   <%= product.product_url(:utm_source => "triggit", :utm_medium => "Remarketing", :utm_campaign => "Produtos", :utm_content => product.id) %>
 </url>

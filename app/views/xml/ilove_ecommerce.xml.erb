@@ -5,7 +5,7 @@
 		<codigo><%= product.id %></codigo>
 		<categoria><%= get_ilove_category_for product %></categoria>
 		<link><%= product.product_url(:utm_source =>"ilove_ecommerce", :utm_campaign => "produtos") %></link>
-		<imagem><%= full_image_path(first_image_of(product)) %></imagem>
+		<imagem><%= full_image_path product.xml_picture(:main) %></imagem>
 		<nome_titulo><%= product.name %></nome_titulo>
 		<descricao><%= product.description %></descricao>
 		<preco_real><%= product.price %></preco_real>

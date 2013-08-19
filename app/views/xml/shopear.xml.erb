@@ -6,9 +6,7 @@
       <nombre><%= product.formatted_name(200) %></nombre>
       <descripcion><![CDATA[<%= product.description %>]]></descripcion>
       <fotos>
-        <% product.pictures.each do |picture| %>
-          <foto><%= full_image_path picture.image %></foto>
-        <% end %>
+      <foto><%= full_image_path product.xml_picture(:main) %></foto>
       </fotos>
       <marca><%= product.brand %></marca>
       <categoria><%= product.category %></categoria>
