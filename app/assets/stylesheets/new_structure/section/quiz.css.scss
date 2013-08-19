@@ -65,7 +65,7 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
 
   #content{
     width: 830px;
-    height: 670px;
+    height: 580px;
     margin: 0 auto;
     overflow: hidden;
 
@@ -154,18 +154,20 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
       }
     }
   }
+  .pezinho{width: 750px;margin-left: 87px;}
   .last_step {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 90px;
     fieldset {
-      margin-left: 100px;
       border: none;
+      float: left;
       label {
         font-family: $johnston;
         font-size:16px;
         text-transform: uppercase;
         font-weight: 500;
         letter-spacing: 2px;
+        text-align: center;
       }
     }
     ol.options{
@@ -187,6 +189,9 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
         }
       }
     }
+    .top, .dress{width: 300px !important;}
+    .dress{margin-left: -27px;}
+    .single{margin-left: 60px;}
   }
 }
 #stylist{
@@ -246,20 +251,20 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
   }
 }
 .end_quiz_button{
-  width: 199px;
-  height: 57px;
+  width: 319px;
+  height: 60px;
   text-indent: 9999px;
   z-index: 9999;
   border: none;
   position: absolute;
-  left: 330px;
-  top: 595px;
+  left: 255px;
+  top: 500px;
   cursor: pointer;
   display:none;
   &.enable{
     background: image-url('quiz/bt_end.png') no-repeat 0 0;
     &:hover{
-      background: image-url('quiz/bt_end.png') no-repeat 0 -65px;
+      background: image-url('quiz/bt_end.png') no-repeat 0 -63px;
     }
   }
   &.disable{

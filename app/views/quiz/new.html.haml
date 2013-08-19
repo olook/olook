@@ -29,8 +29,8 @@
                     = radio_button_tag "quiz[questions][#{ question.id }]", "#{ answer.id }"
                   = image_tag answer.image
 
-        .last_step
-          %fieldset
+        .last_step.pezinho
+          %fieldset.single
             = label_tag "quiz[user_data][shoes_size]", "Qual o tamanho do seu pezinho?"
             %ol.options
               - (33..40).each do |size|
@@ -40,7 +40,7 @@
 
           %fieldset
             = label_tag "quiz[user_data][dress_size]", "E o tamanho do vestido?"
-            %ol.options
+            %ol.options.dress
               - ["PP", "P", "M", "G", "GG"].each do |size|
                 %li.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizProgress', 'QuizLastStep', '']);_gaq.push(['_trackEvent', 'QuizQuestions', 'E o tamanho do vestido?', '#{ size }']);_gaq.push(['_trackPageview', 'LastStep']);"}
                   = size
@@ -48,13 +48,13 @@
 
           %fieldset
             = label_tag "quiz[user_data][t_shirt_size]", "Blusinha?"
-            %ol.options
+            %ol.options.top
               - ["PP", "P", "M", "G", "GG"].each do |size|
                 %li.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizProgress', 'QuizLastStep', '']);_gaq.push(['_trackEvent', 'QuizQuestions', 'Blusinha?', '#{ size }']);_gaq.push(['_trackPageview', 'LastStep']);"}
                   = size
                   = radio_button_tag "quiz[user_data][t_shirt_size]", "#{ size }"
 
-          %fieldset
+          %fieldset.single
             = label_tag "quiz[user_data][pants_size]", "E o tamanho da sua calça jeans?"
             %ol.options
               - ["34", "36", "38", "40", "42", "44", "46"].each do |size|
