@@ -10,19 +10,27 @@
   <div id="asynch-load"></div>
   <div id="survey">
     <%= form_tag({:controller => "survey", :action => "create"}) do %>
+      <!-- ver o porquê desse campo -->
       <input type="hidden" id="id_first_question" value="<%= @presenter.id_first_question %>" />
 
-      <ul class="questions">
+      <div class="jcarousel-prev jcarousel-prev-horizontal"></div>
         <% question_number = 0 %>
         <% for question in @presenter.common_questions %>
-          <li id="question_<%= question.id %>" class="images">
-            <div class="jcarousel-prev jcarousel-prev-horizontal"></div>
+          <div class="questions" id="question_<%= question.id %>" class="images">
             <h2><%= question.title %></h2>
             <ol class="options">
-              <%= render "answers_radio_button", :question => question, :question_number => (question_number += 1) %>
+              <% question.answers.each_with_index do |answer,answer_number| %>
+              <li>
+                <label for="<%="for_questions_question_#{answer.question.id}_#{answer.id}" %>"></label>
+                <%= radio_button_tag("questions[question_#{answer.question.id}]", answer.id) %>
+                <%= image_tag "common/ajax-loader.gif", :class => 'asynch-load-image', :'data-href' => image_path("gift/survey/n#{question_number}_#{answer_number+1}.jpg") %>
+              </li>
+            <% end %>
             </ol>
-          </li>
+          </div>
         <% end %>
+
+        <!-- arrancar esse pedaço-->
 
         <% question = @presenter.heel_height_question %>
         <li id="question_<%= question.id %>" class="images shoes">
@@ -33,6 +41,10 @@
           </ol>
         </li>
 
+       
+
+
+       
         <% @colors = @presenter.color_questions %>
         <% question = @presenter.first_color_question %>
         <li id="question_<%= question.id %>" class="colors">
@@ -43,6 +55,7 @@
           </ol>
         </li>
 
+        
         <% question_shoe_size = @presenter.shoe_size_question %>
         <% question_dress_size = @presenter.dress_size_question %>
         <li id="question_<%= question_shoe_size.id %>" class="about">
@@ -52,6 +65,7 @@
             <%= render "answers_about", :question_shoe_size => question_shoe_size, :question_dress_size => question_dress_size %>
           </ol>
         </li>
-    </ul>
+        <!--fim arrancar esse pedaço-->
+    
   </div>
 <% end %>

@@ -2,6 +2,15 @@ require 'resque/server'
 
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
+
+  get "/stylequiz", to: "quiz#new", as: "wysquiz"
+  post "/stylequiz", to: "quiz#create", as: 'wysquiz'
+  get "/cadastro-stylequiz", to: 'join#new', as: 'join'
+  post "/cadastro-stylequiz", to: 'join#register', as: 'join'
+  put '/cadastro-stylequiz', to: 'join#login', as: 'join'
+  post '/cadastro-stylequiz/facebook_login' => "join#facebook_login", as: 'facebook_login'
+  get "/meu-estilo", to: "profiles#show", as: 'profile'
+
   mount Resque::Server => "/admin/resque"
 
   # rotas temporarias para marcas

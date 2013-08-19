@@ -1,0 +1,28 @@
+%section#profiles
+  .content-sexy
+    .style.sexy
+      %p
+        = "#{ @user.first_name } é:"
+    .share
+      %p
+        Gostou do resultado? Então compartilhe!
+        = link_to 'Compartilhar', "javascript:void(0);", id: "facebook_share_profile", :class => "share", :"data-width" => 128, :"data-height" => 24, onclick: track_event("Showroom","ShowroomShareFacebook")
+  %ul
+    %li
+      %h1
+        DIA-A-DIA
+      %p
+        Você adora  deixar as pernas à mostra e chamar atenção por onde passar.
+      =image_tag "quiz/profiles/s_2.jpg", :class => ""
+      %li
+        %h1
+          TRABALHO
+        %p
+          Estampas e acessórios marcantes fazem parte do seu dossiê de trabalho
+        =image_tag "quiz/profiles/s_3.jpg", :class => ""
+      %li.party
+        %h1
+          FESTA
+        %p
+          O seu lado mais ousado tem passe livre para frequentar festas de puro glamour.
+        =image_tag "quiz/profiles/s_4.jpg", :class => ""

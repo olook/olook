@@ -1,0 +1,63 @@
+!!!
+%html{:dir => "ltr", :lang => "pt-BR", "xmlns:fb" => "http://www.facebook.com/2008/fbml", "xmlns:og" => "http://opengraphprotocol.org/schema/"}
+  %head
+    %meta{:charset => "UTF-8"}/
+    %title olook
+    = favicon_link_tag 'olook_favicon.ico'
+    - error = nil unless error
+    - if params[:share]
+      = render 'shared/meta_tags'
+    - else
+      %meta{:content => "Roupas femininas, sapatos, bolsas, óculos e acessórios incríveis - Olook. Seu look, seu estilo", :name => "Description"}/
+    = csrf_meta_tags
+
+    = yield :head
+
+    - unless @hide_fb_page_id
+      %meta{:content => "157293541026960", :property => "fb:page_id"}/
+    - if Setting.use_vwo
+      / VWO
+      = render :partial => "shared/metrics/vwo/tracking_code"
+    / Struq navigation pixel
+    = render :partial => "shared/metrics/header_tags"
+    = yield :head
+    /[if IE]
+      <haml:loud> javascript_include_tag &amp;quot;html5.js&amp;quot; </haml:loud>
+    = render 'shared/metrics/google/universal_analytics'
+    :javascript
+      dataLayer = [];
+    = render 'shared/data_layer/master'
+    = yield :data_layer
+  %body{:class => "#{user_signed_in? ? 'logged' : ''} #{Campaign.activated_campaign.background if Campaign.activated_campaign} #{"moments" if is_moment_page?}"}
+    = render :partial => "shared/tag/google_tag_manager"
+
+    %header
+      .quiz_header
+        .olook_logo
+          =link_to((image_tag "landing_page/olook_logo.png"), root_path, title: "Olook")
+
+    = content_for?(:content) ? yield(:content) : yield
+
+    %footer
+      - if !@hide_about_quiz
+        %ul.quiz_footer
+          %li.about
+            %p
+              %span Sobre o uso de imagens e reprodução
+              %br Usamos imagens de celebridades, modelos e até mesmo anônimas para ilustrar nossas recomendações de moda, look e comportamento.
+              As pessoas retratadas não estão associadas ou recomendam a Olook.
+          %li.about_quiz
+            %p
+              %span Porque responder este quiz?
+              %br A partir de suas respostas, identificaremos seu estilo e todos os meses você receberá recomendações de nossas Stylists.
+      .infos
+        %p
+          %span © 2013 - Olook. Todos os direitos reservados.
+          %br
+          A Olook respeita sua privacidade e de todos os seus clientes. Leia mais sobre a nossa
+          =link_to "Política de Privacidade.", "/privacidade"
+          %br
+          Escritório: Rua Natividade, 72 - Vl. Nova Conceição, São Paulo - SP Centro de distribuição: Avenida Ribeirão dos Cristais, 800, Jordanésia, Cajamar - SP. Galpão 10, módulo C e D / Olook Comércio Online de Moda Ltda  / CNPJ 011.216.478/0001-70
+
+= javascript_include_tag "jquery"
+= yield :scripts

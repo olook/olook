@@ -65,10 +65,10 @@ class CampaignEmailsController < ApplicationController
 
     def choose_redirect_for_survey
       if @user = User.find_by_email(params[:campaign_email][:email])
-        redirect_to new_user_session_path 
+        redirect_to new_user_session_path
       else
-        redirect_to new_survey_path
-      end      
+        redirect_to wysquiz_path
+      end
     end
 
 end
