@@ -1,7 +1,9 @@
 class AddUserDataToUserInfo < ActiveRecord::Migration
   def change
-    add_column :user_infos, :dress_size, :string
-    add_column :user_infos, :t_shirt_size, :string
-    add_column :user_infos, :pants_size, :string
+    change_table :user_infos, bulk: true do |t|
+      t.string :dress_size
+      t.string :t_shirt_size
+      t.string :pants_size
+    end
   end
 end
