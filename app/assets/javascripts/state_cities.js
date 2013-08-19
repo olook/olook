@@ -93,7 +93,14 @@ dgCidadesEstados.prototype = {
   start: function () { //preenche os estados
     var estado = this.estado;
     while (estado.childNodes.length) estado.removeChild(estado.firstChild);
-    for (var i=0;i<this.estados.length;i++) this.addOption(estado, this.estados[i][0], this.estados[i][1]);
+    for (var i=0;i<this.estados.length;i++){
+      this.addOption(estado, this.estados[i][0], this.estados[i][1]);
+    }
+
+    var opts = this.cidade;
+    while (opts.childNodes.length) opts.removeChild(opts.firstChild); // limpa a lista atual
+
+    this.addOption(opts, '', 'Selecione uma cidade');    
   },
   run: function () { //preenche as cidades de acordo com o estado escolhido
 	var sel = this.estado.selectedIndex; // estado escolhido
@@ -104,12 +111,12 @@ dgCidadesEstados.prototype = {
     while (opts.childNodes.length) opts.removeChild(opts.firstChild); // limpa a lista atual
 
     this.addOption(opts, '', 'Selecione uma cidade');
-    for (var i=0;i<itens_total;i++) this.addOption(opts, itens[i][0], itens[i][1]); // vai adicionando as cidades correspondentes
+    for (var i=0;i<itens_total;i++) this.addOption(opts, itens[i][1], itens[i][1]); // vai adicionando as cidades correspondentes
   },
   addOption: function (elm, val, text) {
     var opt = document.createElement('option');
     opt.appendChild(document.createTextNode(text));
-    opt.value = text;
+    opt.value = val;
     elm.appendChild(opt);
   },
   estados : [

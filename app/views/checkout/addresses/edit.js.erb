@@ -1,3 +1,5 @@
+//= require state_cities
+
 $("#checkout_address").html("<%= escape_javascript( 
      render partial: 'checkout/checkout/shipping_address_form', 
      locals: { address: @address, freight_price: @freight_price } ) %>");
@@ -27,3 +29,14 @@ else
   $("#total").delay(200).fadeIn();
 
 $("html, body").animate({scrollTop: 0}, 'fast');
+
+if(!states_and_cities) var states_and_cities = {};
+
+states_and_cities.load_state_cities = function(){
+  new dgCidadesEstados({
+    cidade: document.getElementById('checkout_address_city'),
+    estado: document.getElementById('checkout_address_state')
+  });
+}
+
+states_and_cities.load_state_cities();
