@@ -1,0 +1,28 @@
+%section#profiles
+  .content-fashion
+    .style.fashion
+      %p
+        = "#{ @user.first_name } é:"
+    .share
+      %p
+        Gostou do resultado? Então compartilhe!
+        = link_to 'Compartilhar', "javascript:void(0);", id: "facebook_share_profile", :class => "share", :"data-width" => 128, :"data-height" => 24, onclick: track_event("Showroom","ShowroomShareFacebook")
+  %ul
+    %li
+      %h1
+        DIA-A-DIA
+      %p
+        Sempre de olho nas tendências, você não abre mão de looks criativos.
+      =image_tag "quiz/profiles/f_2.jpg", :class => ""
+      %li
+        %h1
+          TRABALHO
+        %p
+          Suas combinações sempre são arrojadas dos pés à cabeça.
+        =image_tag "quiz/profiles/f_3.jpg", :class => ""
+      %li.party
+        %h1
+          FESTA
+        %p
+          Você adora produções que traduzem um espírito jovem e irreverente.
+        =image_tag "quiz/profiles/f_4.jpg", :class => ""

@@ -136,7 +136,8 @@ showroom = s = {
   },
 
   attachFacebookShareCLick: function() {
-    $('#facebook_share').click(postToFacebookFeed);
+    if(typeof postToFacebookFeed !== 'undefined')
+      $('#facebook_share').click(postToFacebookFeed);
   },
 
   setMouseOverOnImages: function() {
