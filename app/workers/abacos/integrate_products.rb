@@ -5,22 +5,24 @@ module Abacos
 
     def self.perform(user="tech@olook.com.br")
       return true unless Setting.abacos_invetory
-      
+
       products_amount = process_products
       process_prices
 
       opts = {
-        to: user, 
-        subject: 'Sincronização de produtos concluída', 
+        to: user,
+        subject: 'Sincronização de produtos concluída',
         body: "Quantidade de produtos integrados: #{products_amount}"
       }
-     
+
       Resque.enqueue_in(5.minutes, NotificationWorker, opts)
     end
 
   private
     def self.process_products
       products = ProductAPI.download_products
+      products_amount = products.size
+      REDIS.set("products_to_integrate", products_amount)
       products.each do |abacos_product|
         begin
           parsed_class = parse_product_class(abacos_product)
@@ -33,7 +35,7 @@ module Abacos
           )
         end
       end
-      products.size
+      products_amount
     end
 
     def self.process_prices
@@ -50,8 +52,7 @@ module Abacos
         end
       end
     end
-    
-  private
+
     def self.parse_product_class(abacos_product)
       is_product?(abacos_product) ? Abacos::Product : Abacos::Variant
     end
