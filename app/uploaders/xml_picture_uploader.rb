@@ -33,7 +33,7 @@ class XmlPictureUploader < CarrierWave::Uploader::Base
   # def scale(width, height)
   #   # do something
   # end
-  process :optimize
+  process optimize: [{quality: 85}]
 
   version :main do
     process resize_to_fill: [1000, 1000]
