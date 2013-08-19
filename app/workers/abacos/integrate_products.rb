@@ -22,7 +22,7 @@ module Abacos
     def self.process_products
       products = ProductAPI.download_products
       products_amount = products.size
-      REDIS.set("products_to_integrate", products_amount)
+      REDIS.incrby("products_to_integrate", products_amount)
       products.each do |abacos_product|
         begin
           parsed_class = parse_product_class(abacos_product)
