@@ -347,7 +347,13 @@ hosts:
   jenkins:
     cloud_providers:
       aws:
-        image_type: c1.medium
+        image_type: m1.small
+      volumes:
+        - size: 50 # size of vol in GBs
+          zone: us-east-1b # zone to create volume in, needs to match host's zone
+          device: /dev/sdh # OS device to attach volume to
+          mount: /mnt/ # The directory to mount this volume to
+          filesystem: ext3 # the filesystem to create on volume
 # hosts:
 #   my_host:
 #     availability_zone: us-east-1a
