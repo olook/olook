@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130809201058) do
+ActiveRecord::Schema.define(:version => 20130813120906) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -1047,6 +1047,7 @@ ActiveRecord::Schema.define(:version => 20130809201058) do
   add_index "users", ["cpf"], :name => "index_users_on_cpf"
   add_index "users", ["created_at"], :name => "index_users_on_created_at"
   add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["half_user"], :name => "index_users_on_half_user"
   add_index "users", ["invite_token"], :name => "index_users_on_invite_token"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token"
   add_index "users", ["uid"], :name => "index_users_on_uid"

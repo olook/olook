@@ -1,7 +1,7 @@
 class UserInfo < ActiveRecord::Base
 	belongs_to :user
 
-    attr_accessible :shoes_size
+    attr_accessible :shoes_size, :dress_size, :t_shirt_size, :pants_size
 
 	SHOES_SIZE =
   {

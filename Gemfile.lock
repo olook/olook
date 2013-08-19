@@ -210,6 +210,8 @@ GEM
       multipart-post (~> 1.1)
       rack (~> 1.1)
     fastercsv (1.5.5)
+    fb-channel-file (0.0.2)
+      rails (>= 3.0)
     ffi (1.4.0)
     fog (1.14.0)
       builder
@@ -492,7 +494,7 @@ GEM
       rack
       raindrops (~> 0.6)
     uniform_notifier (1.2.0)
-    vcr (1.11.3)
+    vcr (2.5.0)
     vegas (0.1.11)
       rack (>= 1.0.0)
     warden (1.2.1)
@@ -541,6 +543,7 @@ DEPENDENCIES
   faker
   fakeweb
   fastercsv
+  fb-channel-file
   fog (~> 1.2)
   fuubar
   glennfu-contacts (= 1.2.6)!
@@ -599,7 +602,7 @@ DEPENDENCIES
   timecop
   uglifier (~> 1.0.3)
   unicorn (~> 4.1.1)
-  vcr (= 1.11.3)
+  vcr (~> 2.5.0)
   watchr
   will_paginate
   yui-compressor
