@@ -5,6 +5,7 @@ module Abacos
 
     def self.perform(protocol)
       Abacos::ProductAPI.confirm_product protocol
+      REDIS.decrby("products_to_integrate", 1)
     end
   end
 end
