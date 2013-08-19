@@ -1,7 +1,7 @@
 @import 'new_structure/common/global_stuffs';
 body{margin-top: 0 !important;}
 header{
-  .quiz_header{border-top: 8px black solid;height: 110px;width: 990px;margin: 0 auto;
+  .quiz_header{border-top: 8px black solid;height: 95px;width: 990px;margin: 0 auto;
     .olook_logo{width: 240px;height: 70px;margin: 0 auto;padding-top: 20px;
       h1 a{width: 240px;height: 70px;display:block;background: image-url("common/nav/sprite_header.png") no-repeat 0 -72px;text-indent: -9999px;
       }
@@ -75,19 +75,19 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
       height: 109px;
       border: none;
       position: absolute;
-      top: 258px;
+      top: 205px;
       left: -30px;
       display: none;
     }
     .content-survey{
       width: 12000px;
-      height: 490px;
+      height: 460px;
     }
   }
   .img_style{
     position: absolute;
     left: 680px;
-    top: -95px;
+    top: -89px;
     width: 130px;
     height: 130px;
     background: image-url("quiz/style.png") no-repeat;
@@ -102,17 +102,17 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
       text-transform: uppercase;
       text-align: center;
       width: 840px;
-      margin-top: -50px;
+      margin-top: -30px;
       margin-bottom: 0px;
       position: relative;
       span{
-        font-size: 120px;
+        font-size: 80px;
         font-family: $kepler;
         font-weight: normal;
         font-style: normal;
         position: relative;
         margin-right: 8px;
-        top: 30px;
+        top: 17px;
       }
     }
     ol{
@@ -232,10 +232,9 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
 .quiz_black_bar {
   height: 17px;
   width: 768px;
-  position: relative;
-  ;
+  position: absolute;
   clear: both;
-  margin: 0 0 0 40px;
+  margin: -18px 0 0 40px;
   padding: 10px 0;
   background: image-url("quiz/quiz_arrow.png") no-repeat;
   .quiz_pink_bar {
@@ -310,11 +309,11 @@ ul.tryquiz{
   width: 768px;
   height: 100px;
   position: relative;
-  margin: -15px 0 0 40px;
+  margin: 0 0 0 40px;
   .start_quiz, .half_quiz, .end_quiz {
     line-height: 17px;
     letter-spacing: 2px;
-    width: 100px;
+    width: 295px;
     height: 100px;
     position: absolute;
     font-family: $johnston;
@@ -328,16 +327,15 @@ ul.tryquiz{
     display: none;
   }
   .start_quiz {
-    margin-left: 30px;
+    margin-left: 15px;
   }
   .half_quiz {
-    margin: 0 auto;
-    left: 50%;
-    margin-left: -50px;
+    left: 33%;
+    margin-top: 10px;
   }
   .end_quiz {
     right: 0;
-    margin-right: 30px;
+    margin-right: -50px;
   }
 }
 #profiles{
