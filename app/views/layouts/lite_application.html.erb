@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" dir="ltr" lang="pt-BR">
   <head>
+    <%= render :partial => "shared/errorception" %>
     <meta charset="UTF-8">
     <title>olook</title>
     <%= favicon_link_tag 'olook_favicon.ico' %>
@@ -74,7 +75,7 @@
                 <li class="username">
                   <%= current_user.first_name %>
                 </li>
-                <p class="trade"><%= link_to "Troca Fácil", troca_path, :class => "invite" %></p>  
+                <p class="trade"><%= link_to "Troca Fácil", troca_path, :class => "invite" %></p>
                 <li class="submenu">
                   <%= link_to "Minha Conta", user_orders_path, :id => "account" %>
                   <div class="my_account">
@@ -138,7 +139,7 @@
        <script>
          show_modal = '<%= j @modal_show %>';
        </script>
-       
+
        <% unless user_signed_in? || request.url.include?("gclid") %>
          <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal && !['landing_pages','survey', 'users/registrations'].include?(params[:controller]) %>
        <% end %>
