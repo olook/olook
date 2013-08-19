@@ -552,11 +552,11 @@ ul.tryquiz{
       border: none;
       background: image-url('quiz/bt_join.png') no-repeat 0 0;
       text-indent: -9999px;
-      width: 116px;
-      height: 34px;
+      width: 319px;
+      height: 60px;
       margin-top: 15px;
       &:hover{
-        background: image-url('quiz/bt_join.png') no-repeat 0 -36px;
+        background: image-url('quiz/bt_join.png') no-repeat 0 -65px;
       }
     }
     a.fb_login_button {
@@ -606,7 +606,7 @@ div.field{
   margin-right: 23px;
   position: relative;
   height: 60px;
-  width: 160px;
+  width: 140px;
   p {
     font-family: $avenir;
     font-weight: lighter;
@@ -614,7 +614,7 @@ div.field{
     margin-top: -12px;
   }
   &.email, &.email *{
-    width: 338px;
+    width: 308px;
   }
   &.cep {
     display: block;
@@ -631,7 +631,7 @@ div.field{
       line-height:32px;
       font-weight: 500;
       font-size: 14px;
-      width: 156px;
+      width: 140px;
       height: 32px;
       color: #717274;
       border: solid 1px #c3c3c3;
@@ -664,7 +664,7 @@ div.field{
     padding-left: 7px;
     font-size: 14px;
     border: solid 1px #c3c3c3;
-    width: 152px;
+    width: 140px;
     margin-bottom: 10px;
   }
 }
