@@ -28,13 +28,21 @@
         <%= f.label :neighborhood %><em>*</em>
         <%= f.text_field :neighborhood %>
       </li>
-      <li class="city">
-        <%= f.label :city %><em>*</em>
-        <%= f.text_field :city %>
+      <li class="city field">
+        <%= f.label :city %>
+        <% #= f.text_field :city,  class: "cidade #{error_class_if_needed(address, :city)}", onblur: track_event("CheckoutAddress","fillCity") %>
+        <p class="text">
+          Selecione
+          <%= f.select :city, [] %>
+        </p>
       </li>
-      <li class="state">
-        <%= f.label :state %><em>*</em>
-        <%= f.select :state, Address::STATES.collect {|state| state}, {}, {:class => "custom_select"} %>
+      <li class="state field">
+        <%= f.label :state %>
+        <% #= f.text_field :state,  class: "uf #{error_class_if_needed(address, :state)}", onblur: [track_event("CheckoutAddress","fillState"), "javascript:trackStateForFreightABTest();"] %>
+        <p class="text">
+          Selecione
+          <%= f.select :state, [] %>
+        </p>
       </li>
     </ol>
   </fieldset>
@@ -71,3 +79,8 @@
     </ol>
   </fieldset>
 </div>
+
+
+<% content_for :footer do %>
+  <%= javascript_include_tag "addresses" %>
+<% end %>
