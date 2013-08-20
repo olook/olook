@@ -10,8 +10,8 @@
 <g:google_product_category><%= to_google_shopping_category product.category %></g:google_product_category>
 <g:product_type><%= product.subcategory %>-<%= product.brand.try(:upcase) %></g:product_type>
 <link><%= product.product_url(:utm_source =>"google", :utm_medium => "merchant", :utm_campaign => "produtos") %></link>
-<g:image_link><%= full_image_path(first_image_of(product)) %></g:image_link>
-<g:additional_image_link><%= image_at_position(product, DisplayPictureOn::GALLERY_2) %></g:additional_image_link>
+<g:image_link><%= full_image_path product.xml_picture(:main) %></g:image_link>
+<g:additional_image_link><%= full_image_path product.xml_picture(:thumb) %></g:additional_image_link>
 <g:condition>new</g:condition>
 <g:price><%= number_with_precision(product.price, precision: 2, separator: ".") %></g:price>
 <g:sale_price><%= number_with_precision(product.retail_price, precision: 2, separator: ".") %></g:sale_price>
