@@ -3,11 +3,8 @@ module Abacos
     class << self
 
       def perform opts
-        if REDIS.get("products_to_integrate").to_i.zero?
-          Resque.enqueue(NotificationWorker, opts)
-        else
-          Resque.enqueue_in(5.minutes, self, opts)
-        end
+        @opts = opts
+        integration_finished? ? notify : schedule_notification
       end
 
 
@@ -19,10 +16,18 @@ module Abacos
         REDIS.decrby("products_to_integrate", 1)
       end
 
-      def notify_when_integration_finish(opts)
-        # when it's done
-        # Resque.enqueue_in(5.minutes, NotificationWorker, opts)
-      end
+      private
+        def integration_finished?
+          REDIS.get("products_to_integrate").to_i.zero?
+        end
+
+        def notify
+          Resque.enqueue(NotificationWorker, @opts)
+        end
+
+        def schedule_notification
+          Resque.enqueue_in(5.minutes, self, @opts)
+        end
     end
   end
 end
