@@ -1,4 +1,23 @@
 <h2>Imagens</h2>
+
+<div class="inner">
+  <h3>Imagem para parceiro</h3>
+  <% if @product.picture_for_xml.present? %>
+    <%= image_tag @product.picture_for_xml.thumb %>
+  <% end %>
+  <%= form_for([:admin, @product]) do |f| %>
+    <div class="field">
+      <%= f.label :picture_for_xml %><br />
+      <%= f.file_field :picture_for_xml %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit 'Atualizar Foto' %>
+    </div>
+  <% end %>
+</div>
+
+
 <div class="inner">
   <table class="table" id="sortable_images" data-product-id="<%= product.id %>">
     <tr>
