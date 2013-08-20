@@ -343,10 +343,42 @@ ul.tryquiz{
     margin-right: -50px;
   }
 }
+
 #profiles{
   width: 990px;
   margin: 0 auto 55px 12px;
   margin-left: 12px;
+
+  a.hoverdiv {
+    position:relative;
+  }
+  a.hoverdiv:hover .hover {
+    display: block;
+  }
+  .hover {
+    display: none;
+    position: absolute;
+    width: 268px;
+    height: 420px;
+    top: -195px;
+    background: image-url('FFFFFF-0.6.png');
+  }
+  .hover .boxi {
+    border: 3px solid #ffffff;
+    background: #000;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-family: $johnston;
+    font-size: 13px;
+    line-height: 15px;
+    width: 170px;
+    padding: 10px;
+    text-align: center;
+    margin: auto;
+    top: 175px;
+    position: relative;
+  }
   .content-basic, .content-chic, .content-sexy, .content-fashion{
     width: 940px;
     height: 560px;
@@ -499,6 +531,7 @@ ul.tryquiz{
     }
   }
 }
+
 #user_manager{
   height: 840px;
   margin-top: 30px;
