@@ -10,7 +10,7 @@ module Abacos
       rescue Exception => e
         Abacos::IntegrateProductsObserver.decrement_products_to_be_integrated!
         Airbrake.notify(
-          :error_class   => "Abacos Confirm Product product",
+          :error_class   => "Abacos Confirm Product",
           :error_message => e.message
         )
       end
