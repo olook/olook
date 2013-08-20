@@ -27,7 +27,7 @@ describe Abacos::ProductAPI do
         described_class.confirm_integration(:resource, protocol)
       }.to raise_error
     end
-    
+
     describe 'specific confirmations' do
       it '#confirm_product' do
         described_class.should_receive(:confirm_integration).with(:produto, protocol)
@@ -50,7 +50,7 @@ describe Abacos::ProductAPI do
     it "should products that are available to integration" do
       products = described_class.send :download_products
       products.should be_kind_of(Array)
-      products.length.should == 144
+      products.length.should == 461
     end
   end
 end
