@@ -6,7 +6,6 @@ describe Abacos::IntegrateProductsObserver do
     it "sets how many products will be integrated" do
       REDIS.should_receive(:incrby).with("products_to_integrate",10)
       described_class.products_to_be_integrated(10)
-      Resque.enqueue_in(5.minutes, NotificationWorker, opts)
     end
   end
 
@@ -25,6 +24,9 @@ describe Abacos::IntegrateProductsObserver do
     } }
 
     context "when integration is finished" do
+      before do
+        REDIS.stub(:get).and_return("0")
+      end
       it "sends alert notification" do
         Resque.should_receive(:enqueue).with(NotificationWorker, opts)
         described_class.perform(opts)
@@ -33,7 +35,7 @@ describe Abacos::IntegrateProductsObserver do
 
     context "when integration is not finished" do
       it "enqueues verification from now to 5 minutes" do
-        Resque.should_receive(:enqueue_in).with(5.minutes, NotificationWorker, opts)
+        Resque.should_receive(:enqueue_in).with(5.minutes, described_class, opts)
         described_class.perform(opts)
       end
     end
