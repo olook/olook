@@ -25,7 +25,7 @@ describe Abacos::IntegrateProducts do
     end
 
     it "sets how many products will be integrated" do
-      REDIS.should_receive(:incrby).with("products_to_integrate",2)
+      Abacos::IntegrateProductsObserver.should_receive(:start_with).with(2)
       described_class.process_products
     end
 
