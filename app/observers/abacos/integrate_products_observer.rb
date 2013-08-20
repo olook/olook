@@ -11,11 +11,19 @@ module Abacos
         REDIS.incrby("products_to_integrate", products_amount)
       end
 
-      def decrement_products_to_be_integrated!
-        REDIS.decrby("products_to_integrate", 1)
+      def mark_product_integrated_as_success!
+        decrement_products_to_be_integrated!
+      end
+
+      def mark_product_integrated_as_failure!
+        decrement_products_to_be_integrated!
       end
 
       private
+        def decrement_products_to_be_integrated!
+          REDIS.decrby("products_to_integrate", 1)
+        end
+
         def integration_finished?
           REDIS.get("products_to_integrate").to_i.zero?
         end
