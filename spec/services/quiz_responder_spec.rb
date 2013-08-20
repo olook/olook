@@ -8,7 +8,7 @@ describe QuizResponder do
     end
 
     it "should save on redis" do
-      @redis.should_receive(:set).with("qr:123", '{"uuid":123,"profile":"sexy"}')
+      @redis.should_receive(:set).with("qr:123", '{"uuid":123,"profile":"sexy","user_data":null}')
 
       @quiz = QuizResponder.new(uuid: 123, profile: 'sexy')
       @quiz.save

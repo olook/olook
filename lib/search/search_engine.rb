@@ -118,14 +118,14 @@ class SearchEngine
 
   def filters(options={})
     url = build_filters_url(options)
-    @filters_result = fetch_result(url, parse_facets: true)
+    @filters_result ||= fetch_result(url, parse_facets: true)
     remove_care_products_from(@filters_result)
     @filters_result
   end
 
   def products(pagination = true)
     url = build_url_for(pagination ? {limit: @limit, start: self.start_item} : {})
-    @result = fetch_result(url, {parse_products: true})
+    @result ||= fetch_result(url, {parse_products: true})
     @result.products
   end
 

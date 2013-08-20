@@ -879,4 +879,30 @@ describe Product do
       it { expect(subject.sort_details_by_relevance(@details.shuffle)).to eq(@details) }
     end
   end
+
+  describe "#xml_picture" do
+    before do
+      subject.main_picture.stub(:image).and_return('main_picture_path.png')
+    end
+    context "when product has picture for xml" do
+      before do
+        subject.picture_for_xml.stub(:main).and_return('main_xml_picture_path.png')
+        subject.picture_for_xml.stub(:thumb).and_return('thumb_xml_picture_path.png')
+      end
+      context "main" do
+        it { expect(subject.xml_picture(:main)).to eq("main_xml_picture_path.png") }
+      end
+      context "thumb" do
+        it { expect(subject.xml_picture(:thumb)).to eq("thumb_xml_picture_path.png") }
+      end
+    end
+
+    context "when product hasn't picture for xml" do
+      before do
+        subject.picture_for_xml.stub(:main).and_return("")
+      end
+
+      it { expect(subject.xml_picture(:main)).to eq("main_picture_path.png") }
+    end
+  end
 end

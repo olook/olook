@@ -13,11 +13,20 @@
     name: mysql
     options: {}
   - !ruby/object:Rubber::Configuration::RoleItem
+    name: redis
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: redis_master
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: mysql_master
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
     name: db
     options:
       primary: true
   - !ruby/object:Rubber::Configuration::RoleItem
-    name: mysql_master
+    name: memcached
     options: {}
   - !ruby/object:Rubber::Configuration::RoleItem
     name: collectd
@@ -25,8 +34,8 @@
   - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
     options: {}
-  instance_id: i-008bea6b
-  image_type: c1.medium
+  instance_id: i-7b95461b
+  image_type: m1.small
   image_id: ami-3fec7956
   security_groups:
   - olook_jenkins_default
@@ -34,16 +43,23 @@
   - olook_jenkins_jenkins
   - olook_jenkins_apache
   - olook_jenkins_mysql
-  - olook_jenkins_db
+  - olook_jenkins_redis
+  - olook_jenkins_redis_master
   - olook_jenkins_mysql_master
+  - olook_jenkins_db
+  - olook_jenkins_memcached
   - olook_jenkins_collectd
   - olook_jenkins_monit
-  external_host: ec2-184-73-122-195.compute-1.amazonaws.com
-  external_ip: 184.73.122.195
-  internal_host: ip-10-28-166-218.ec2.internal
-  internal_ip: 10.28.166.218
+  external_host: ec2-54-227-80-93.compute-1.amazonaws.com
+  external_ip: 54.227.80.93
+  internal_host: ip-10-234-20-84.ec2.internal
+  internal_ip: 10.234.20.84
   zone: us-east-1b
+  provider: aws
   platform: linux
   root_device_type: ebs
-- volumes: {}
+  volumes:
+  - vol-60486b2a
+- volumes:
+    jenkins_/dev/sdh: vol-60486b2a
   static_ips: {}
