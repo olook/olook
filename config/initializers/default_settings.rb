@@ -101,3 +101,5 @@ Setting.defaults[:show_product_partner_tags] = true
 #Antibounce settings
 Setting.defaults[:antibounce_product_lines] = 4
 Setting.defaults[:antibounce_enabled] = true
+
+Setting.defaults[:upload_marketing_files_to_s3] = true
