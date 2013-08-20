@@ -5,8 +5,6 @@ Olook::Application.routes.draw do
 
   get "/stylequiz", to: "quiz#new", as: "wysquiz"
   post "/stylequiz", to: "quiz#create", as: 'wysquiz'
-  get "/quiz", to: "quiz#new"
-  get "/quiz/new", to: "quiz#new"
   get "/cadastro-stylequiz", to: 'join#new', as: 'join'
   post "/cadastro-stylequiz", to: 'join#register', as: 'join'
   put '/cadastro-stylequiz', to: 'join#login', as: 'join'
@@ -146,6 +144,7 @@ Olook::Application.routes.draw do
   match "/shopear", :to => "xml#shopear", :as => "shopear", :defaults => { :format => 'xml' }
 
   #SURVEY
+  resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
   get "/survey/check_date", :to => "survey#check_date", :as => "check_date"
 
   #PRODUCT
