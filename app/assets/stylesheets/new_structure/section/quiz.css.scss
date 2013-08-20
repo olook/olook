@@ -153,13 +153,13 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
       }
     }
   }
-  .pezinho{width: 750px;margin-left: 87px;}
   .last_step {
     text-align: center;
-    margin-top: 90px;
+    margin-top: 35px;
+    margin-left: 130px;
     fieldset {
       border: none;
-      float: left;
+      margin-bottom: -5px;
       label {
         font-family: $johnston;
         font-size:16px;
@@ -188,9 +188,6 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
         }
       }
     }
-    .top, .dress{width: 300px !important;}
-    .dress{margin-left: -27px;}
-    .single{margin-left: 60px;}
   }
 }
 #stylist{
