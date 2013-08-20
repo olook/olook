@@ -15,7 +15,7 @@ module Abacos
         body: "Quantidade de produtos integrados: #{products_amount}"
       }
 
-      Resque.enqueue_in(5.minutes, NotificationWorker, opts)
+      IntegrateProductsObserver.perform(opts)
     end
 
   private
