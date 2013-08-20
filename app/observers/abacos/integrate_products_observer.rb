@@ -1,7 +1,7 @@
 module Abacos
   class IntegrateProductsObserver
     class << self
-      def start_with products_amount
+      def products_to_be_integrated products_amount
         REDIS.incrby("products_to_integrate", products_amount)
       end
 

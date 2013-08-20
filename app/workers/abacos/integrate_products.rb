@@ -22,7 +22,7 @@ module Abacos
     def self.process_products
       products = ProductAPI.download_products
       products_amount = products.size
-      Abacos::IntegrateProductsObserver.start_with(products_amount)
+      Abacos::IntegrateProductsObserver.products_to_be_integrated(products_amount)
       products.each do |abacos_product|
         begin
           parsed_class = parse_product_class(abacos_product)
