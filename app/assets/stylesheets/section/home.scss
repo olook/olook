@@ -225,7 +225,7 @@ section#home {
   }
   section#brands{
     position: relative;
-    min-height: 500px;
+    min-height: 520px;
     margin: 0 0 10px;
     padding: 10px 0 20px;
     border-bottom: 1px #cbcbcb solid;
@@ -251,7 +251,7 @@ section#home {
           a{
             background: image-url("home/new_brands.jpg") no-repeat;
             width: 144px;
-            height: 63px;
+            height: 55px;
             float: left;
             cursor: pointer;
             &:hover{background: image-url("home/new_brands_off.jpg") no-repeat;}
@@ -417,11 +417,30 @@ section#home {
             }
           } 
           &.sommer a {
+            height: 55px;
             background-position: -289px -415px;
             &:hover {
               background-position: -290px -415px;
             }
           }  
+          &.totem a {
+            background-position: -416px -404px;
+            &:hover {
+              background-position: -416px -407px;
+            }
+          }
+          &.perfume a {
+            background-position: -154px -486px;
+            &:hover {
+              background-position: -158px -490px;
+            }
+          }
+          &.shoulder a {
+            background-position: -10px -494px;
+            &:hover {
+              background-position: -14px -498px;
+            }
+          }
         }
       }
     }
