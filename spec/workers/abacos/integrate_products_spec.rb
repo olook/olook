@@ -6,13 +6,14 @@ describe Abacos::IntegrateProducts do
     it "should call process_product, process_inventory, process_price" do
       described_class.should_receive :process_products
       described_class.should_receive :process_prices
+      Abacos::IntegrateProductsObserver.should_receive(:perform).and_return(true)
 
       described_class.perform
     end
   end
 
   describe "#process_products" do
-    before do
+    it 'should download product changes, call parse_abacos_data for received data and enqueue them' do
       Abacos::ProductAPI.should_receive(:download_products).and_return([:product, :variant])
       described_class.should_receive(:parse_product_class).with(:product).and_return(Abacos::Product)
       described_class.should_receive(:parse_product_class).with(:variant).and_return(Abacos::Variant)
@@ -22,14 +23,7 @@ describe Abacos::IntegrateProducts do
 
       Resque.should_receive(:enqueue).with(Abacos::Integrate, "Abacos::Product", :parsed_product)
       Resque.should_receive(:enqueue).with(Abacos::Integrate, "Abacos::Variant", :parsed_variant)
-    end
-
-    it "sets how many products will be integrated" do
-      Abacos::IntegrateProductsObserver.should_receive(:products_to_be_integrated).with(2)
-      described_class.process_products
-    end
-
-    it 'should download product changes, call parse_abacos_data for received data and enqueue them' do
+      Abacos::IntegrateProductsObserver.should_receive(:products_to_be_integrated).with(2).and_return("2")
       described_class.process_products
     end
   end
