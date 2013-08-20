@@ -3,8 +3,8 @@
 <% @products.each do |product| %>
 <product id="<%= product.id %>">
 <name><%= product.name %></name>
-<smallimage><%= full_image_path product.thumb_picture %></smallimage>
-<bigimage><%= full_image_path product.main_picture.try(:image) %></bigimage>
+<smallimage><%= full_image_path product.xml_picture(:thumb) %></smallimage>
+<bigimage><%= full_image_path product.xml_picture(:main) %></bigimage>
 <producturl>
   <%= product.product_url(:utm_source => "net_affiliation", :utm_medium => "vitrine", :utm_campaign => "compradores", :utm_content => 6691) %>
 </producturl>

@@ -5,8 +5,8 @@
   <product>
     <id><%= product.id %></id>
     <targeturl><%= product.product_url(:utm_source => "struq", :utm_campaign => "produtos", :utm_medium => "Remarketing") %></targeturl>
-    <imageurl1><%= full_image_path image_at_position(product, 1) %></imageurl1>
-    <imageurl2><%= full_image_path image_at_position(product, 2) %></imageurl2>
+    <imageurl1><%= full_image_path product.xml_picture(:main) %></imageurl1>
+    <imageurl2><%= full_image_path product.xml_picture(:thumb) %></imageurl2>
     <name><%= product.name %></name>
     <price>R$ <%= number_with_precision(product.price, :precision => 2, :separator => ',') %></price>
     <rrp>R$ <%= number_with_precision(product.retail_price, :precision => 2, :separator => ',') %></rrp>
