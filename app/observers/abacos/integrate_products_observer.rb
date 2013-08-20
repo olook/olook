@@ -5,7 +5,7 @@ module Abacos
         REDIS.incrby("products_to_integrate", products_amount)
       end
 
-      def decrement!
+      def decrement_products_to_be_integrated!
         REDIS.decrby("products_to_integrate", 1)
       end
     end
