@@ -6,7 +6,7 @@ module Abacos
         if REDIS.get("products_to_integrate").to_i.zero?
           Resque.enqueue(NotificationWorker, opts)
         else
-          Resque.enqueue_in(5.minutes, NotificationWorker, opts)
+          Resque.enqueue_in(5.minutes, self, opts)
         end
       end
 
