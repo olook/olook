@@ -15,7 +15,7 @@ describe Abacos::ConfirmProduct do
         Abacos::ProductAPI.should_receive(:confirm_product).with(fake_protocol)
       end
       it "decrements products to be integrated count" do
-        Abacos::IntegrateProductsObserver.should_receive(:decrement!)
+        Abacos::IntegrateProductsObserver.should_receive(:decrement_products_to_be_integrated!)
         described_class.perform fake_protocol
       end
     end

@@ -5,7 +5,7 @@ module Abacos
 
     def self.perform(protocol)
       Abacos::ProductAPI.confirm_product protocol
-      Abacos::IntegrateProductsObserver.decrement!
+      Abacos::IntegrateProductsObserver.decrement_products_to_be_integrated!
     end
   end
 end
