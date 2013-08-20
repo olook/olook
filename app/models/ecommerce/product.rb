@@ -44,6 +44,7 @@ class Product < ActiveRecord::Base
   validates :model_number, :presence => true, :uniqueness => true
 
   mount_uploader :color_sample, ColorSampleUploader
+  mount_uploader :picture_for_xml, XmlPictureUploader
 
   scope :only_visible , where(:is_visible => true)
 
@@ -444,6 +445,10 @@ class Product < ActiveRecord::Base
 
   def sort_details_by_relevance(details)
      details.sort{|first, second| details_relevance[first.translation_token.to_s.downcase] <=> details_relevance[second.translation_token.to_s.downcase]}
+  end
+
+  def xml_picture(picture)
+    picture_for_xml.try(picture).present? ? picture_for_xml.try(picture) : self.main_picture.try(:image)
   end
 
   private
