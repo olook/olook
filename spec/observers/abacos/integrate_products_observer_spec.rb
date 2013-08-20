@@ -34,6 +34,10 @@ describe Abacos::IntegrateProductsObserver do
     end
 
     context "when integration is not finished" do
+      before do
+        REDIS.stub(:get).and_return("1")
+      end
+
       it "enqueues verification from now to 5 minutes" do
         Resque.should_receive(:enqueue_in).with(5.minutes, described_class, opts)
         described_class.perform(opts)
