@@ -7,4 +7,11 @@ describe Abacos::IntegrateProductsObserver do
       described_class.start_with(10)
     end
   end
+
+  describe '.decrement!' do
+    it "decrements one product that had the integration product done" do
+      REDIS.should_receive(:decrby).with("products_to_integrate", 1)
+      described_class.decrement!
+    end
+  end
 end
