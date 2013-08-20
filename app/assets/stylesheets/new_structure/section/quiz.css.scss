@@ -65,7 +65,7 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
 
   #content{
     width: 830px;
-    height: 580px;
+    height: 555px;
     margin: 0 auto;
     overflow: hidden;
 
@@ -76,7 +76,7 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
       border: none;
       position: absolute;
       top: 205px;
-      left: -30px;
+      left: -23px;
       display: none;
     }
     .content-survey{
@@ -102,8 +102,8 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
       text-transform: uppercase;
       text-align: center;
       width: 840px;
-      margin-top: -30px;
-      margin-bottom: 0px;
+      margin-top: -16px;
+      margin-bottom: -17px;
       position: relative;
       span{
         font-size: 80px;
@@ -112,7 +112,6 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
         font-style: normal;
         position: relative;
         margin-right: 8px;
-        top: 17px;
       }
     }
     ol{
@@ -346,7 +345,7 @@ ul.tryquiz{
 
 #profiles{
   width: 990px;
-  margin: 0 auto 55px 12px;
+  margin: 0 auto 20px 12px;
   margin-left: 12px;
 
   a.hoverdiv {
@@ -533,7 +532,7 @@ ul.tryquiz{
 }
 
 #user_manager{
-  height: 840px;
+  height: 830px;
   margin-top: 30px;
   position: relative;
   .stamp {
@@ -590,7 +589,7 @@ ul.tryquiz{
       text-indent: -9999px;
       width: 319px;
       height: 60px;
-      margin-top: 15px;
+      margin-top: 22px;
       &:hover{
         background: image-url('quiz/bt_join.png') no-repeat 0 -65px;
       }
@@ -642,16 +641,16 @@ div.field{
   margin-right: 23px;
   position: relative;
   height: 60px;
-  width: 140px;
+  width: 146px;
   margin-top: 5px;
   p {
     font-family: $avenir;
     font-weight: lighter;
-    font-size: 15px;
+    font-size: 14px !important;
     margin-top: -12px;
   }
   &.email, &.email *{
-    width: 308px;
+    width: 313px;
   }
   &.cep {
     display: block;
