@@ -5,8 +5,8 @@ module Abacos
 
     def self.perform(klass, parsed_data)
       begin
-      entity = klass.constantize.new parsed_data
-      entity.integrate
+        entity = klass.constantize.new parsed_data
+        entity.integrate
       rescue Exception => e
         Abacos::IntegrateProductsObserver.decrement_products_to_be_integrated!
         Airbrake.notify(
