@@ -1,7 +1,6 @@
 module Abacos
   class IntegrateProductsObserver
     class << self
-
       def perform opts
         @opts = opts
         integration_finished? ? notify : schedule_notification
