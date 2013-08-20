@@ -6,7 +6,7 @@
     .share
       %p
         Gostou do resultado? Então compartilhe!
-        = link_to 'Compartilhar', "javascript:void(0);", id: "facebook_share_profile", :class => "share", :"data-width" => 128, :"data-height" => 24, onclick: track_event("Showroom","ShowroomShareFacebook")
+        = link_to 'Compartilhar', "javascript:void(0);", id: "facebook_share_profile", :class => "share", data: { width: 128, height: 24, url: wysquiz_url, profile: @profile.alternative_name.downcase }, onclick: track_event("Showroom","ShowroomShareFacebook")
   %ul
     %li
       %h1
