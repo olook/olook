@@ -71,7 +71,7 @@
       <td><%= product.filter_color %></td>
       <td><%= product.profiles.map(&:name).join(", ") %></td>
       <td><%= "#{product.collection.try(:name)} #{product.collection.try(:start_date).try(:year)}" %></td>
-      <td><%= image_tag(product.showroom_picture, size: '100x100') if product.showroom_picture %></td>
+      <td><%= image_tag(product.bag_picture) if product.bag_picture %></td>
       <td><%= image_tag(product.color_sample_url, size: '50x50') unless product.color_sample.blank? %></td>
       <td class=manage_products_links>
         <%= link_to "Preview", product_path(product), class: 'button info', target: "_blank" %>
