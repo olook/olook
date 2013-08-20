@@ -4,6 +4,10 @@ require 'resque/server'
 Olook::Application.routes.draw do
 
   get "/stylequiz", to: "quiz#new", as: "wysquiz"
+  
+  get "/quiz", to: "quiz#new"
+  get "/quiz/new", to: "quiz#new"
+
   post "/stylequiz", to: "quiz#create", as: 'wysquiz'
   get "/cadastro-stylequiz", to: 'join#new', as: 'join'
   post "/cadastro-stylequiz", to: 'join#register', as: 'join'
