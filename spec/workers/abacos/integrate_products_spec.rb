@@ -25,7 +25,7 @@ describe Abacos::IntegrateProducts do
     end
 
     it "sets how many products will be integrated" do
-      Abacos::IntegrateProductsObserver.should_receive(:start_with).with(2)
+      Abacos::IntegrateProductsObserver.should_receive(:products_to_be_integrated).with(2)
       described_class.process_products
     end
 
