@@ -6,9 +6,9 @@ module Abacos
     def self.perform(protocol)
       begin
         Abacos::ProductAPI.confirm_product protocol
-        Abacos::IntegrateProductsObserver.decrement_products_to_be_integrated!
+        Abacos::IntegrateProductsObserver.mark_product_integrated_as_success!
       rescue Exception => e
-        Abacos::IntegrateProductsObserver.decrement_products_to_be_integrated!
+        Abacos::IntegrateProductsObserver.mark_product_integrated_as_failure!
         Airbrake.notify(
           :error_class   => "Abacos Confirm Product",
           :error_message => e.message
