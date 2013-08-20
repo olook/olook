@@ -2,8 +2,10 @@
 class User < ActiveRecord::Base
   serialize :facebook_permissions, Array
 
-  attr_accessor :require_cpf
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf, :state, :city
+  attr_accessor :require_cpf, :validate_gender_birthday
+  attr_accessible :first_name, :last_name, :email, :password,
+    :password_confirmation, :remember_me, :cpf, :state, :city,
+    :validate_gender_birthday
   attr_protected :invite_token
 
   has_many :points, :dependent => :destroy
@@ -40,6 +42,7 @@ class User < ActiveRecord::Base
   validates_with CpfValidator, :attributes => [:cpf], :if => :is_invited
   validates_with CpfValidator, :attributes => [:cpf], :if => :require_cpf
   validates_presence_of :gender, :if => Proc.new{|user| user.respond_to?(:half_user) and user.half_user}, :except => :update
+  validates :gender, :birthday, presence: true, :if => 'validate_gender_birthday == "1"'
 
   FACEBOOK_FRIENDS_BIRTHDAY = "friends_birthday,user_birthday"
   FACEBOOK_PUBLISH_STREAM = "publish_stream"
