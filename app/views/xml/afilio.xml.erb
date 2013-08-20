@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lista>
-  <% @products.each do |product| %>  
+  <% @products.each do |product| %>
     <produto>
       <id_produto><%= product.id %></id_produto>
       <nome><%= product.formatted_name(200)%></nome>
@@ -9,7 +9,7 @@
       <preco_promocao><%= number_with_precision(product.retail_price, precision: 2, separator: ",") %></preco_promocao>
       <parcelas><%= installments_number(product.retail_price) %> </parcelas>
       <vl_parcelas><%= installments_value(product.retail_price) %></vl_parcelas>
-      <link_imagem><%= full_image_path product.main_picture.image_url %></link_imagem>
+      <link_imagem><%= full_image_path product.xml_picture(:main) %></link_imagem>
       <link_produto><%= product_url product %></link_produto>
     </produto>
   <% end %>

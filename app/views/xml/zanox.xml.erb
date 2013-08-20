@@ -12,7 +12,7 @@
 <PROD_URL><%= product.product_url(:utm_source => "zanox", :utm_medium => "xml", :utm_campaign => "produtos") %></PROD_URL>
 <BRAND><%= product.brand %></BRAND>
 <CATEGORY><%= product.category_humanize %></CATEGORY>
-<FOTO_URL><%= full_image_path product.main_picture.try(:image) %></FOTO_URL>
+<FOTO_URL><%= full_image_path product.xml_picture(:main) %></FOTO_URL>
 </producto>
 <% end %>
 </productos>
