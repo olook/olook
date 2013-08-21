@@ -5,6 +5,8 @@
 require File.expand_path('../config/application', __FILE__)
 require 'resque/tasks'
 require 'resque_scheduler/tasks'
-require 'ci/reporter/rake/rspec' rescue nil
+if Rails.env.development? || Rails.env.test?
+  require 'ci/reporter/rake/rspec'
+end
 
 Olook::Application.load_tasks
