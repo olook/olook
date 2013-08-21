@@ -152,6 +152,7 @@ function trackStateForFreightABTest() {
 }
 
 $(function() {
+
   masks.card();
   window.setTimeout(setButton,600);
   masks.tel(".tel_contato1");

@@ -26,7 +26,7 @@ module Olook
     #{Rails.root}/app/strategies/ #{Rails.root}/app/sac #{Rails.root}/lib/quiz/
     #{Rails.root}/lib/search/)
     config.autoload_paths += Dir["#{Rails.root}/app/workers/**/"]
-    config.autoload_paths += Dir["#{Rails.root}/app/observers"]
+    config.autoload_paths += Dir["#{Rails.root}/app/observers/**"]
     config.autoload_paths += Dir["#{Rails.root}/app/listeners"]
     config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/actions"]
     config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/rules"]
