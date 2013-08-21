@@ -21,6 +21,13 @@ GIT
       thor
 
 GIT
+  remote: git://github.com/nicksieger/ci_reporter.git
+  revision: cc6e557a43d099f3961908901f4603438cdceb28
+  specs:
+    ci_reporter (1.9.0)
+      builder (>= 2.1.2)
+
+GIT
   remote: git://github.com/olook/clearsale.git
   revision: 753e9e24103859f7a10e242caa05fb18ff7c6c38
   branch: master
@@ -531,6 +538,7 @@ DEPENDENCIES
   capybara-webkit (= 0.14.2)
   carrierwave (~> 0.6.0)
   chaordic-packr (= 4.0.0)!
+  ci_reporter!
   clearsale!
   curb
   dalli (= 2.0.2)
