@@ -1,0 +1,80 @@
+- content_for(:head) do
+  = stylesheet_link_tag  "new_structure/section/quiz"
+
+:javascript
+  var _gaq = _gaq || []
+
+- content_for :scripts do
+  = javascript_include_tag 'quiz'
+
+%section#survey
+  =#image_tag "quiz/style.png", :class => "img_style"
+  .img_style
+  #content
+    %button{ type: "button", id: "back"  }
+    .content-survey
+      = form_tag(wysquiz_path, id: 'new_wysquiz') do
+        = hidden_field_tag 'quiz[name]', @quiz.name
+        - @quiz.questions.each_with_index do |question, index|
+          - question_number = index + 1
+          .step
+            %h2
+              %span= "#{ question_number }"
+              = "#{ question.text}"
+            %ol.options
+              - question.answers.each do |answer|
+                %li.next-step-on-click.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizProgress', '#{ question_number }', '']);_gaq.push(['_trackEvent', 'QuizQuestions', '#{ j question.text }', '#{ j answer.text }']);_gaq.push(['_trackPageview', '/stylequiz/#{ question_number + 1 }']);"}
+                  %p
+                    = label_tag "quiz[questions][#{question.id}][#{answer.id}]", answer.text
+                    = radio_button_tag "quiz[questions][#{ question.id }]", "#{ answer.id }"
+                  = image_tag answer.image
+
+        .last_step
+          %fieldset
+            = label_tag "quiz[user_data][shoes_size]", "Qual o tamanho do seu pezinho?"
+            %ol.options
+              - (33..40).each do |size|
+                %li.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizProgress', 'QuizLastStep', '']);_gaq.push(['_trackEvent', 'QuizQuestions', 'Qual tamanho do seu pezinho?', '#{ size }']);"}
+                  = size
+                  = radio_button_tag "quiz[user_data][shoes_size]", "#{ size }"
+
+          %fieldset
+            = label_tag "quiz[user_data][dress_size]", "E o tamanho do vestido?"
+            %ol.options
+              - ["PP", "P", "M", "G", "GG"].each do |size|
+                %li.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizProgress', 'QuizLastStep', '']);_gaq.push(['_trackEvent', 'QuizQuestions', 'E o tamanho do vestido?', '#{ size }']);"}
+                  = size
+                  = radio_button_tag "quiz[user_data][dress_size]", "#{ size }"
+
+          %fieldset
+            = label_tag "quiz[user_data][t_shirt_size]", "Blusinha?"
+            %ol.options
+              - ["PP", "P", "M", "G", "GG"].each do |size|
+                %li.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizProgress', 'QuizLastStep', '']);_gaq.push(['_trackEvent', 'QuizQuestions', 'Blusinha?', '#{ size }']);"}
+                  = size
+                  = radio_button_tag "quiz[user_data][t_shirt_size]", "#{ size }"
+
+          %fieldset
+            = label_tag "quiz[user_data][pants_size]", "E o tamanho da sua calça jeans?"
+            %ol.options
+              - ["34", "36", "38", "40", "42", "44", "46"].each do |size|
+                %li.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizProgress', 'QuizLastStep', '']);_gaq.push(['_trackEvent', 'QuizQuestions', 'E o tamanho da sua calça jeans?', '#{ size }']);"}
+                  = size
+                  = radio_button_tag "quiz[user_data][pants_size]", "#{ size }"
+          = submit_tag 'Comprar Agora', :class => "end_quiz_button disable", :disabled => true, onclick: "_gaq.push(['_trackPageview', 'stylequiz/last_step']);"
+
+
+    .quiz_black_bar
+      .quiz_pink_bar
+
+    .quiz_status
+      %p.start_quiz
+        Você ainda está no começo, Se joga!
+
+      %p.half_quiz
+        Oba, já está na metade!
+
+      %p.end_quiz
+        Tá acabando, Ufa...
+
+

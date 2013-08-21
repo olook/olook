@@ -16,9 +16,9 @@ module ApplicationHelper
     controller_action.each do |item|
       subs = item.split("#")
       category = subs[2]
-      return 'selected' if (subs[0] == params[:controller]) && (subs[1] == params[:action]) && (category==nil || category.to_s == params[:category])
-      return nil
+      return 'selected' if (subs[0] == params[:controller]) && (subs[1] == params[:action]) && (category==nil || (category.to_s == params[:category]))
     end
+    return nil
   end
 
   def present(presenter_class, objects)
@@ -128,6 +128,10 @@ module ApplicationHelper
 
   def protocol
     Rails.env.production? ? 'https' : 'http'
+  end
+
+  def should_display_footer_bar?
+    ["cart/cart", "survey", "landing_pages"].exclude?(params[:controller]) && params[:ab_t].nil?
   end
 
   private

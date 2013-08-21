@@ -32,7 +32,19 @@ module MarketingReports
 
     def save_file(filename, adapt_encoding, info_ftp = nil)
       FileUploader.new(filename, @csv).save_local_file(adapt_encoding)
-      FileUploader.copy_file(filename)
+      
+      begin
+        FileUploader.copy_file(filename)
+      rescue => e
+        Rails.logger.info("Couldn't copy file: #{filename}. cause: #{e.message}")
+      end
+
+      begin
+        S3Uploader.new.copy_file(filename) unless info_ftp
+      rescue => e
+        Rails.logger.info("Couldn't send file to S3: #{filename}. cause: #{e.message}")
+      end
+
       FtpUploader.new(filename, info_ftp).upload_to_ftp if info_ftp && Rails.env.production?
     end
 

@@ -3,11 +3,54 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+  get "/stylequiz", to: "quiz#new", as: "wysquiz"
+  
+  get "/quiz", to: "quiz#new"
+  get "/quiz/new", to: "quiz#new"
+
+  post "/stylequiz", to: "quiz#create", as: 'wysquiz'
+  get "/cadastro-stylequiz", to: 'join#new', as: 'join'
+  post "/cadastro-stylequiz", to: 'join#register', as: 'join'
+  put '/cadastro-stylequiz', to: 'join#login', as: 'join'
+  post '/cadastro-stylequiz/facebook_login' => "join#facebook_login", as: 'facebook_login'
+  get "/meu-estilo", to: "profiles#show", as: 'profile'
 
   mount Resque::Server => "/admin/resque"
 
+  # rotas temporarias para marcas
+  {
+    "olook" => "Olook",
+    "olookconcept" => "Olook Concept",
+    "essential" => "Olook Essential",
+    "botswana" => "botswana/roupa/",
+    "cocacola-clothing" => "Coca Cola Clothing",
+    "colcci" => "Colcci",
+    "douglas-harris" => "Douglas Harris",
+    "ecletic" => "Eclectic",
+    "espaco-fashion" => "Espaco Fashion",
+    "forum" => "Forum",
+    "iodice" => "Iodice",
+    "juliana-jabour" => "Juliana Jabour",
+    "juliana-manzini" => "Juliana Manzini",
+    "leeloo" => "Leeloo",
+    "mandi" => "Mandi",
+    "mercatto" => "Mercatto",
+    "m-officer" => "M Officer",
+    "olli" => "Olli",
+    "shop-126" => "Shop 126",
+    "thelure" => "Thelure",
+    "triton" => "Triton"
+  }.each do |collection_name, brand|
+    get "/colecoes/#{collection_name}", to: "brands#show", defaults: {brand: brand}
+  end
+
   #temp route to fix a wrong email
   match "/olook-no-qbazar" => redirect("http://www.olook.com.br/stylist-news/olook-no-qbazar/")
+
+  # temp route to fix sent emails
+  get "/olooklet(/*id)", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
+  get "/colecoes/irresistiveis_inverno", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
+  get "/colecoes/sale", :to => "liquidations#index"
 
   root :to => "home#index"
   get "/quiz", :to => "home#index"
@@ -28,7 +71,7 @@ Olook::Application.routes.draw do
 
   #match "/1anomuito" => "pages#um_ano_muito", :as => "um_ano_muito"
   match "/1anomuito", :to => "pages#how_to", :as => "how_to"
-  
+
   #match "/sobre", :to => "pages#about", :as => "about"
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/duvidasfrequentes", :to => "pages#faq", :as => "duvidasfrequentes"
@@ -87,7 +130,6 @@ Olook::Application.routes.draw do
   match "/sociomantic", :to => "xml#sociomantic", :as => "sociomantic", :defaults => { :format => 'xml' }
   match "/criteo", :to => "xml#criteo", :as => "criteo", :defaults => { :format => 'xml' }
   match "/afilio", :to => "xml#afilio", :as => "afilio", :defaults => { :format => 'xml' }
-  match "/groovinads", :to => "xml#groovinads", :as => "groovinads", :defaults => { :format => 'xml' }
   match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
   match "/click_a_porter", :to => "xml#click_a_porter", :as => "click_a_porter", :defaults => { :format => 'xml' }
   match "/topster" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/topster_data.xml")
@@ -101,6 +143,7 @@ Olook::Application.routes.draw do
   match "/kuanto_kusta", :to => "xml#kuanto_kusta", :as => "kuanto_kusta", :defaults => { :format => 'xml' }
   match "/nextperformance", :to => "xml#nextperformance", :as => "nextperformance", :defaults => { :format => 'xml' }
   match "/muccashop", :to => "xml#muccashop", :as => "muccashop", :defaults => { :format => 'xml' }
+  match "/shopear", :to => "xml#shopear", :as => "shopear", :defaults => { :format => 'xml' }
 
   #SURVEY
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
@@ -159,6 +202,7 @@ Olook::Application.routes.draw do
   end
 
   resources :shippings, :only => [:show]
+  get '/shipping_updated_freight_table/:id' => 'shippings#show', defaults: {freight_service_ids: "4,5"}
 
   #ADMIN
   devise_for :admins
@@ -360,6 +404,7 @@ Olook::Application.routes.draw do
 
   resource :checkout, :path => 'pagamento', :controller => 'checkout/checkout' do
     get "/", :to => "checkout/checkout#new"
+    get "/novo", :to => "checkout/checkout#new", defaults: {freight_service_ids: "4,5"}
     get "preview_by_zipcode", :to => "checkout/addresses#preview", :as => :preview_zipcode
     resources :addresses, :path => 'endereco', :controller => "checkout/addresses"
     resources :login, :path=> "login", :controller => "checkout/login", :only => [:index]
@@ -381,8 +426,7 @@ Olook::Application.routes.draw do
 
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get '/diadasmaes' , :controller =>'landing_pages', :action => 'mother_day' , :as => 'mother_day'
-  get "/cadastro", :to => "landing_pages#show", defaults: { page_url: 'cadastro' }
-  get "/cadastro_email", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: 1 }
+  get "/cadastro", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: 1 }
   get "/cadastro_parcerias", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: nil }
 
   # Friendly urls (ok, I know it is not the best approach...)

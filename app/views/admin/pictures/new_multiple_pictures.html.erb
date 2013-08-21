@@ -19,6 +19,11 @@
       <%= f.file_field :color_sample %>
     </div>
 
+    <div class="field">
+      <%= f.label :picture_for_xml %><br />
+      <%= f.file_field :picture_for_xml %>
+    </div>
+
     <%= f.fields_for :pictures do |picture_form| %>
       <fieldset class="multiple_pictures">
         <div class="field">

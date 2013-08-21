@@ -43,7 +43,7 @@ describe SurveyController do
   describe "answering quiz" do
     it "should redirect to survey_path when no has questions" do
       post :create
-      response.should redirect_to new_survey_path
+      response.should redirect_to wysquiz_path
     end
     
     context "without user" do

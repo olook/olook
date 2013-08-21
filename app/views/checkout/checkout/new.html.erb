@@ -6,6 +6,7 @@
 
 <section id="payment" class="checkout">
   <%= form_for(@checkout, url: { action: "create" }) do |checkout_form| %>
+    <%= hidden_field_tag :freight_service_ids, params[:freight_service_ids] %>
     <div class="box-step-one">
       <h2 class="step-title">
         <span class="number">1.</span>
@@ -18,7 +19,7 @@
         <% if @addresses.nil? || @addresses.empty? %>
           <%= render "shipping_address_form", address: @checkout.address %>
         <% else %>
-          <%= render "address_list", addresses: @addresses %>
+          <%= render "address_list", addresses: @addresses, endpoint_url: @endpoint_url %>
         <% end %>
       </div>
     </div>
