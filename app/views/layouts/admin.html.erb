@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Olook Admin</title>
+    <%= favicon_link_tag 'olook_favicon.ico' %>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag "admin" %>
     <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
@@ -12,9 +13,7 @@
   <body>
     <div id="container">
       <div id="header">
-        <h1>
-          <%= link_to(image_tag("common/logo_admin.jpg", class: "admin_logo"), admin_path) %>
-        </h1>
+        <h1><a href="/admin">olook Admin</a></h1>
         <div id="user-navigation">
           <ul class="wat-cf">
             <% if admin_signed_in? %>
