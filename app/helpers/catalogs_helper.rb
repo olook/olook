@@ -2,7 +2,7 @@
 module CatalogsHelper
   CLOTH_SIZES_TABLE = ["PP","P","M","G","GG","33","34","35","36","37","38","39","40","42","44","46","Único","Tamanho único"]
   HIGHLIGHT_BRANDS = {"olook" => 1, "olook concept" => 2, "olook essential" => 3}
-  DOWNCASE_WORDS = Set.new( %w{ e de do da } )
+  DOWNCASE_WORDS = Set.new( %w{ e de do da a o } )
 
   def filter_link_to(link, text, selected=false, amount=nil)
     span_class = text.downcase.parameterize
@@ -93,4 +93,11 @@ module CatalogsHelper
     arr.join('&')
   end
 
+  def more_products_link_to(link, text, style_class="")
+    span_class = text.downcase.parameterize
+    text = titleize_without_pronoum(text)
+    link_to(link) do
+      content_tag(:span, text, class: "#{style_class}", onclick: track_event("AntibounceBox", "SeeMoreProducts"))
+    end
+  end  
 end

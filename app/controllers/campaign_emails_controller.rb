@@ -23,6 +23,8 @@ class CampaignEmailsController < ApplicationController
       end
       cookies['newsletterUser'] = { value: '1', path: '/', expires: 30.years.from_now }
       cookies['ceid'] = { value: "#{@campaign_email.id}", path: '/', expires: 30.years.from_now }
+      cookies['newsletterEmail'] = { value: params[:campaign_email][:email], path: '/', expires: 10.minutes.from_now }
+
       if params["ab_t"].present?
         choose_redirect_for_survey
       elsif params[:campaign_email][:from_footer].present?
@@ -63,10 +65,10 @@ class CampaignEmailsController < ApplicationController
 
     def choose_redirect_for_survey
       if @user = User.find_by_email(params[:campaign_email][:email])
-        redirect_to new_user_session_path 
+        redirect_to new_user_session_path
       else
-        redirect_to new_survey_path
-      end      
+        redirect_to wysquiz_path
+      end
     end
 
 end

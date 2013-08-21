@@ -3,13 +3,13 @@
 <% @products.each do |product| %>
 <product id="<%= product.id %>">
 <name><%= product.name %></name>
-<smallimage><%= full_image_path product.thumb_picture %></smallimage>
-<bigimage><%= full_image_path product.main_picture.try(:image) %></bigimage>
+<smallimage><%= full_image_path product.xml_picture(:thumb) %></smallimage>
+<bigimage><%= full_image_path product.xml_picture(:main) %></bigimage>
 <producturl><%= product.product_url(utm_source: "nextperformance", :utm_campaign => "Produtos", :utm_medium => "Remarketing") %></producturl>
 <description><%= product.description %></description>
 <price><%= number_with_precision(product.retail_price, precision: 2, separator: ",") %></price>
 <retailprice><%= number_with_precision(product.price, precision: 2, separator: ",") %></retailprice>
-<discount><%= (100-(product.retail_price*100/product.price)).to_i %></discount>
+<discount><%= discount_sanitize product %></discount>
 <quantidadeparcelas><%= installments_number(product.retail_price) %></quantidadeparcelas>
 <valorparcelas><%= installments_value(product.retail_price) %></valorparcelas>
 <brand><%= product.brand %></brand>

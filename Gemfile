@@ -56,6 +56,7 @@ gem 'business_time'
 gem "rails-settings-cached"
 
 gem "boleto_bancario", :git => 'git@github.com:olook/boleto_bancario.git', :branch => 'homologacao_santander', ref: "ba8f64ecb541bdd398e4377d52f71ca75a0f5905" , require: false
+gem 'fb-channel-file'
 
 group :production, :staging do
   gem 'unicorn', '~> 4.1.1'
@@ -99,9 +100,10 @@ group :development, :test do
   gem 'guard-spork'
   gem 'fuubar'
   gem 'launchy'
-  gem 'vcr', '1.11.3'
   gem 'fakeweb'
   gem 'parallel_tests'
+  gem "vcr", "~> 2.5.0"
+  gem 'ci_reporter', :git => 'git://github.com/nicksieger/ci_reporter.git'
 end
 gem 'rubber', '~> 2.0', git: 'git://github.com/nelsonmhjr/rubber.git', branch: 'newrelic'
 gem 'open4'

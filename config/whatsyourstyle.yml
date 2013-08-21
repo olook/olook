@@ -1,0 +1,8 @@
+development:
+  auth_token: "wmy47jY9_5ZwRWJKUHJ1ng"
+test:
+  auth_token: "wmy47jY9_5ZwRWJKUHJ1ng"
+staging:
+  auth_token: "wmy47jY9_5ZwRWJKUHJ1ng"
+production:
+  auth_token: "wmy47jY9_5ZwRWJKUHJ1ng"

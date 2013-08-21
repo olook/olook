@@ -6,7 +6,7 @@
     <%= link_to product, :class => "product_link", :rel => "#{product.id}", :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}}, :remote => (defined?(suggestion) || gift)  do %>
 
 
-      <%= image_tag("common/ajax-loader-product-smaller.gif", :alt => product.name, :class => "async", data: { product: product.showroom_picture, backside: product.backside_picture, wearing: product.wearing_picture, showroom: product.send(image_method ||= :showroom_picture) } ) %>
+      <%= image_tag("common/ajax-loader-product-smaller.gif", :alt => product.name, :class => "async", data: { product: product.showroom_picture, backside: product.backside_picture, wearing: product.wearing_picture, showroom: product.showroom_picture } ) %>
 
       <p class="info-product">
         <span class="name"><%= product.formatted_name %></span><br />

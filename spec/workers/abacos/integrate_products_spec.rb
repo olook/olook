@@ -6,7 +6,8 @@ describe Abacos::IntegrateProducts do
     it "should call process_product, process_inventory, process_price" do
       described_class.should_receive :process_products
       described_class.should_receive :process_prices
-      
+      Abacos::IntegrateProductsObserver.should_receive(:perform).and_return(true)
+
       described_class.perform
     end
   end
@@ -16,13 +17,13 @@ describe Abacos::IntegrateProducts do
       Abacos::ProductAPI.should_receive(:download_products).and_return([:product, :variant])
       described_class.should_receive(:parse_product_class).with(:product).and_return(Abacos::Product)
       described_class.should_receive(:parse_product_class).with(:variant).and_return(Abacos::Variant)
-      
+
       Abacos::Product.should_receive(:parse_abacos_data).with(:product).and_return(:parsed_product)
       Abacos::Variant.should_receive(:parse_abacos_data).with(:variant).and_return(:parsed_variant)
-      
+
       Resque.should_receive(:enqueue).with(Abacos::Integrate, "Abacos::Product", :parsed_product)
       Resque.should_receive(:enqueue).with(Abacos::Integrate, "Abacos::Variant", :parsed_variant)
-
+      Abacos::IntegrateProductsObserver.should_receive(:products_to_be_integrated).with(2).and_return("2")
       described_class.process_products
     end
   end
@@ -32,17 +33,17 @@ describe Abacos::IntegrateProducts do
       Abacos::ProductAPI.should_receive(:download_prices).and_return([:product_price, :variant_price])
       described_class.should_receive(:parse_price_class).with(:product_price).and_return(Abacos::ProductPrice)
       described_class.should_receive(:parse_price_class).with(:variant_price).and_return(Abacos::VariantPrice)
-      
+
       Abacos::ProductPrice.should_receive(:parse_abacos_data).with(:product_price).and_return(:parsed_product_price)
       Abacos::VariantPrice.should_receive(:parse_abacos_data).with(:variant_price).and_return(:parsed_variant_price)
-      
+
       Resque.should_receive(:enqueue).with(Abacos::IntegratePrice, "Abacos::ProductPrice", :parsed_product_price)
       Resque.should_receive(:enqueue).with(Abacos::IntegratePrice, "Abacos::VariantPrice", :parsed_variant_price)
 
       described_class.process_prices
     end
   end
-  
+
   describe "#parse_product_class" do
     let(:downloaded_product) { load_abacos_fixture :product }
     let(:downloaded_variant) { load_abacos_fixture :variant }

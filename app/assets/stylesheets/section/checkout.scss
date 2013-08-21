@@ -387,7 +387,7 @@ section#cart {
 				padding-top:40px;
 				position:relative;
 			td{padding:10px 0 20px !important;
-				.txt-recomenda{position:absolute;font-size:18px;color:#000;top:10px;left:10px;}
+				.txt-recomenda{position:absolute;font-size:18px;color:#000;top:10px;left:15px;}
 			}
 		}
     tbody tr {
@@ -518,12 +518,14 @@ section#cart {
 				/********** CAMPANHA DO AVC ****************/
 		  	&.avc-foto{
 					width:130px;text-align:center;
-					img{width:70px;height:70px;}
+					img{width:70px;height:auto ;}
 			  }
 			  &.avc-desc{
 				width:530px;
 				padding-right:150px !important;
-				p{font-size:13px;}
+				p{font-size:13px;
+          span{color: #000;font-weight: lighter;font-size: 14px;}
+        }
 			  }
 			  &.avc-button{
 					p{font-size: 17px;font-weight: lighter;margin: 0;text-align:center;color:#000}
@@ -2124,3 +2126,7 @@ a.txt-conheca{
     }
   }
 /********** end modal security code *******/
+.checkout_banner{
+  margin-bottom: 25px;
+  margin-top: -25px;
+}    

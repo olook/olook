@@ -2,8 +2,10 @@
 class User < ActiveRecord::Base
   serialize :facebook_permissions, Array
 
-  attr_accessor :require_cpf
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation, :remember_me, :cpf
+  attr_accessor :require_cpf, :validate_gender_birthday
+  attr_accessible :first_name, :last_name, :email, :password,
+    :password_confirmation, :remember_me, :cpf, :state, :city,
+    :validate_gender_birthday
   attr_protected :invite_token
 
   has_many :points, :dependent => :destroy
@@ -32,17 +34,21 @@ class User < ActiveRecord::Base
   InviteTokenFormat = /\b[a-zA-Z0-9]{8}\b/
   NameFormat = /^[A-ZÀ-ÿ\s-]+$/i
 
+  scope :full, where(half_user: false)
+
   validates :email, :format => {:with => EmailFormat}
   validates :first_name, :presence => true, :format => { :with => NameFormat }
   validates :last_name, :presence => true, :format => { :with => NameFormat }
   validates_with CpfValidator, :attributes => [:cpf], :if => :is_invited
   validates_with CpfValidator, :attributes => [:cpf], :if => :require_cpf
   validates_presence_of :gender, :if => Proc.new{|user| user.respond_to?(:half_user) and user.half_user}, :except => :update
+  validates :gender, :birthday, presence: true, :if => 'validate_gender_birthday == "1"'
 
-  FACEBOOK_FRIENDS_BIRTHDAY = "friends_birthday"
+  FACEBOOK_FRIENDS_BIRTHDAY = "friends_birthday,user_birthday"
   FACEBOOK_PUBLISH_STREAM = "publish_stream"
   FACEBOOK_RELATIONSHIP = "user_relationships,user_relationship_details"
-  ALL_FACEBOOK_PERMISSIONS = [FACEBOOK_FRIENDS_BIRTHDAY, FACEBOOK_PUBLISH_STREAM, FACEBOOK_RELATIONSHIP].join(",")
+  FACEBOOK_EMAIL = 'email'
+  ALL_FACEBOOK_PERMISSIONS = [FACEBOOK_FRIENDS_BIRTHDAY, FACEBOOK_PUBLISH_STREAM, FACEBOOK_RELATIONSHIP, FACEBOOK_EMAIL].join(",")
 
   Gender = {:female => 0, :male => 1}
   RegisteredVia = {:quiz => 0, :gift => 1, :thin => 2}
@@ -79,6 +85,19 @@ class User < ActiveRecord::Base
     t = User.arel_table
     user = User.where(t[:uid].eq(access_token["uid"]).and(t[:uid].not_eq(nil)))
     user.first
+  end
+
+  def self.find_or_create_with_fb_jssdk_data(data)
+    user = self.where(uid: data[:uid]).first
+    if user
+      user.gender = data[:gender]
+      user.birthday ||= data[:birthday]
+    else
+      user = self.new(data)
+      user.password = Devise.friendly_token[0,20]
+    end
+    saved = user.save
+    [saved, user]
   end
 
   def invite_token=(token)
@@ -289,7 +308,7 @@ class User < ActiveRecord::Base
   def has_credit?(date = DateTime.now)
     self.current_credit(date) > 0
   end
-  
+
   def first_visit_for_member?
     if self.first_visit?
       self.record_first_visit

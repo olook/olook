@@ -3,8 +3,8 @@ development:
   app_secret: 0495e5177c9e2c49457ad9224b3a9ab7
 
 staging:
-  app_id: 188195317939978
-  app_secret: 0495e5177c9e2c49457ad9224b3a9ab7
+  app_id: 395142330559351
+  app_secret: c1cc91993922a047892f9376e1d4c621
 
 test:
   app_id: 205311082875220

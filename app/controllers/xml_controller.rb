@@ -25,10 +25,6 @@ class XmlController < ApplicationController
     respond_with(@products)
   end
 
-  def groovinads
-    respond_with(@products)
-  end
-
   def mt_performance
     respond_with(@products)
   end
@@ -59,6 +55,10 @@ class XmlController < ApplicationController
   end
 
   def struq
+    respond_with(@products)
+  end
+
+  def shopear
     respond_with(@products)
   end
 

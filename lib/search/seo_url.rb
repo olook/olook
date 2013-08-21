@@ -36,6 +36,7 @@ class SeoUrl
     parsed_values = HashWithIndifferentAccess.new
     parsed_values[:collection_theme] = @params[:collection_theme]
     parsed_values[:brand] = @params[:brand] || extract_brand
+    parsed_values[:excluded_brand] = @params[:excluded_brand] if @params[:excluded_brand]
     parsed_values[:category] = @params[:category] || ((@params[:parameters].to_s.split('/').first.to_s.split(SearchEngine::MULTISELECTION_SEPARATOR) & categories).join(SearchEngine::MULTISELECTION_SEPARATOR))
     parsed_values[:subcategory] = extract_subcategories
     parsed_values.merge!(parse_filters)

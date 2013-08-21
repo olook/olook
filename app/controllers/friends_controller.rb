@@ -36,7 +36,7 @@ class FriendsController < ApplicationController
       :picture => "cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg",
       :caption => "www.olook.com.br",
       :description => I18n.t('facebook.post_wall', :link => @user.invitation_url),
-      link: "http://www.olook.com.br/#{ new_survey_path }" }
+      link: "http://www.olook.com.br/#{ wysquiz_path }" }
     @facebook_adapter.post_wall_message(params[:message], :attachment => attachment ) ? (head :ok) : (head :error)
   end
 

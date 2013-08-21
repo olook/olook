@@ -1,0 +1,50 @@
+- content_for :head do
+  = stylesheet_link_tag "new_structure/section/lite_showroom"
+  = stylesheet_link_tag  "new_structure/section/quiz"
+  %meta{:content => "home/vitrine", :name => "chaordic:source"}/
+  %meta{:content => @chaordic_user, :name => "chaordic:user"}/
+- content_for :footer do
+  - if @first_time
+    = javascript_include_tag 'section/lite_showroom'
+- unless @first_time
+  = image_tag "quiz/back_arrow_pink.png", :class => "arrow_pink"
+  = link_to("Voltar para minha vitrine", member_showroom_path, :class =>"b_showroom")
+= render_profile_template(@profile.alternative_name)
+- if @first_time
+  #showroom
+    .showroom-title
+      %p
+        %span
+          Sua vitrine de #{current_collection_name}
+    %section#clothes_container.container_product
+      .fb_share
+        %p Gostou da sua vitrine? Então compartilhe!
+        = link_to 'Compartilhar', "javascript:void(0);", id: "facebook_share", :class => "share", data: { width: 128, height: 24, url: wysquiz_url, profile: @profile.alternative_name.to_s.downcase }, onclick: track_event("Showroom","ShowroomShareFacebook")
+      %ul
+        - @cloth.shift(5).each do |product|
+          = render 'shared/lite_product_item', product: product
+      %ul.second_line
+        - @cloth.shift(5).each do |product|
+          = render 'shared/lite_product_item', product: product
+    %section#shoes_container.container_product
+      %ul
+        - @shoes.each do |product|
+          = render 'shared/lite_product_item', product: product
+    %section#purse_container.container_product
+      %ul
+        - @bags.each do |product|
+          = render 'shared/lite_product_item', product: product
+    %section#accessories_container.container_product
+      %ul
+        - @accessories.each do |product|
+          = render 'shared/lite_product_item', product: product
+
+  = render 'stylist_news'
+-else
+  %ul.tryquiz
+    %li
+      = link_to("Essa sou eu", member_showroom_path, :class => "me")
+    %li
+      = link_to("Quero tentar de novo", wysquiz_path, :class => "again")
+- content_for :footer do
+  = javascript_include_tag 'profiles'

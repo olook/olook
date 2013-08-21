@@ -513,5 +513,9 @@
 
   product_not_found: "Poxa, ainda não temos o que você está procurando :( <br/><-- Use os filtros ao lado e descubra outras coisas bacanas"
 
-
+  join_controller:
+    create:
+      success: "Bem vinda à Olook"
+      newsletter_fail: "Voce ainda não possui senha, complete o cadastro ;)"
+      fail: "Email ou Senha inválidos"
 

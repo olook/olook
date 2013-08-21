@@ -42,14 +42,14 @@ describe Users::RegistrationsController do
         session[:profile_questions] = nil
         session[:profile_birthday] = :some_data
         get :new
-        response.should redirect_to(new_survey_path)
+        response.should redirect_to(wysquiz_path)
       end
 
       it "should redirect if the user don't fill the birthday" do
         session[:profile_questions] = :some_data
         session[:profile_birthday] = nil
         get :new
-        response.should redirect_to(new_survey_path)
+        response.should redirect_to(wysquiz_path)
       end
 
       it "should render new when user fill the Survey" do
@@ -101,14 +101,14 @@ describe Users::RegistrationsController do
         session[:profile_questions] = nil
         session[:profile_birthday] = :some_data
         post :create, :user => user_attributes
-        response.should redirect_to(new_survey_path)
+        response.should redirect_to(wysquiz_path)
       end
 
       it "should redirect if the user don't fill the birthday" do
         session[:profile_questions] = :some_data
         session[:profile_birthday] = nil
         post :create, :user => user_attributes
-        response.should redirect_to(new_survey_path)
+        response.should redirect_to(wysquiz_path)
       end
 
       it "should save user" do
