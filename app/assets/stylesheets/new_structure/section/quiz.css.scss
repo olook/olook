@@ -645,6 +645,8 @@ div.field{
     font-weight: lighter;
     font-size: 14px !important;
     margin-top: -12px;
+    white-space:nowrap;
+    overflow: hidden;    
   }
   &.email, &.email *{
     width: 313px;

@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag  "new_structure/section/address_combo" %>
 
 <%= fields_for "checkout[address]", address do |address_form| %>
   <%= field_set_tag do %>
@@ -39,16 +40,25 @@
     <% end %>
     
     <%= field_set_tag do %>
-      <div>
-        <%= address_form.label :city, "Cidade*" %>
-        <%= address_form.text_field :city,  class: "cidade #{error_class_if_needed(address, :city)}", onblur: track_event("CheckoutAddress","fillCity") %>
-      </div>
-      <div>
+      <div class="state field">
         <%= address_form.label :state, "UF*" %>
-        <%= address_form.text_field :state,  class: "uf #{error_class_if_needed(address, :state)}", onblur: [track_event("CheckoutAddress","fillState"), "javascript:trackStateForFreightABTest();"] %>
+        <% #= address_form.text_field :state,  class: "uf #{error_class_if_needed(address, :state)}", onblur: [track_event("CheckoutAddress","fillState"), "javascript:trackStateForFreightABTest();"] %>
+        <p class="text">
+          Selecione
+        </p>
+        <%= address_form.select :state, [] %>
       </div>
-        <%= errors_for(address, :city) %>
-        <%= errors_for(address, :state) %>
+      <div class="city field">
+        <%= address_form.label :city, "Cidade*" %>
+        <% #= address_form.text_field :city,  class: "cidade #{error_class_if_needed(address, :city)}", onblur: track_event("CheckoutAddress","fillCity") %>
+        <p class="text">
+          Selecione
+        </p>
+        <%= address_form.select :city, [] %>
+        
+      </div>
+      <%= errors_for(address, :city) %>
+      <%= errors_for(address, :state) %>
     <% end %>
 
     <p class="subtitle">DESTINATÁRIO</p>
@@ -87,3 +97,5 @@
 <% if @user.addresses && @user.addresses.select{|address| address.id }.any? %>
   <p class="addresses_index"><%= link_to "Utilizar um endereço já cadastrado", checkout_addresses_path, remote: true, onclick: track_event("CheckoutAddress","clickUseExistingAddress") %></p>
 <% end %>
+
+<%= javascript_include_tag "checkout_addresses" %>
