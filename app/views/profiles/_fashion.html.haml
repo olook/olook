@@ -6,23 +6,35 @@
     .share
       %p
         Gostou do resultado? Então compartilhe!
-        = link_to 'Compartilhar', "javascript:void(0);", id: "facebook_share_profile", :class => "share", :"data-width" => 128, :"data-height" => 24, onclick: track_event("Showroom","ShowroomShareFacebook")
+        = link_to 'Compartilhar', "javascript:void(0);", id: "facebook_share_profile", :class => "share", data: { width: 128, height: 24, url: wysquiz_url, profile: @profile.alternative_name.downcase }, onclick: track_event("Showroom","ShowroomShareFacebook")
   %ul
     %li
-      %h1
-        DIA-A-DIA
-      %p
-        Sempre de olho nas tendências, você não abre mão de looks criativos.
-      = link_to image_tag("quiz/profiles/f_2.jpg"), collection_theme_path('casual')
+      %h1 DIA-A-DIA
+      %p Sempre de olho nas tendências, você não abre mão de looks criativos.
+      = link_to collection_theme_path('casual'), class: 'hoverdiv' do
+        = image_tag("quiz/profiles/f_2.jpg")
+        .hover
+          .boxi
+            Confira produtos
+            %br
+            para esta ocasião
     %li
-      %h1
-        TRABALHO
-      %p
-        Suas combinações sempre são arrojadas dos pés à cabeça.
-      = link_to image_tag("quiz/profiles/f_3.jpg"), collection_theme_path('executivo')
+      %h1 TRABALHO
+      %p Suas combinações sempre são arrojadas dos pés à cabeça.
+      = link_to collection_theme_path('executivo'), class: 'hoverdiv' do
+        = image_tag("quiz/profiles/f_3.jpg")
+        .hover
+          .boxi
+            Confira produtos
+            %br
+            para esta ocasião
     %li.party
-      %h1
-        FESTA
-      %p
-        Você adora produções que traduzem um espírito jovem e irreverente.
-      = link_to image_tag("quiz/profiles/f_4.jpg"), collection_theme_path('festa')
+      %h1 FESTA
+      %p Você adora produções que traduzem um espírito jovem e irreverente.
+      = link_to collection_theme_path('festa'), class: 'hoverdiv' do
+        = image_tag("quiz/profiles/f_4.jpg")
+        .hover
+          .boxi
+            Confira produtos
+            %br
+            para esta ocasião

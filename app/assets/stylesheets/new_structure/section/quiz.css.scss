@@ -65,7 +65,7 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
 
   #content{
     width: 830px;
-    height: 580px;
+    height: 555px;
     margin: 0 auto;
     overflow: hidden;
 
@@ -76,7 +76,7 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
       border: none;
       position: absolute;
       top: 205px;
-      left: -30px;
+      left: -23px;
       display: none;
     }
     .content-survey{
@@ -102,8 +102,8 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
       text-transform: uppercase;
       text-align: center;
       width: 840px;
-      margin-top: -30px;
-      margin-bottom: 0px;
+      margin-top: -10px;
+      margin-bottom: -25px;
       position: relative;
       span{
         font-size: 80px;
@@ -112,7 +112,6 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
         font-style: normal;
         position: relative;
         margin-right: 8px;
-        top: 17px;
       }
     }
     ol{
@@ -154,13 +153,13 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
       }
     }
   }
-  .pezinho{width: 750px;margin-left: 87px;}
   .last_step {
     text-align: center;
-    margin-top: 90px;
+    margin-top: 35px;
+    margin-left: 130px;
     fieldset {
       border: none;
-      float: left;
+      margin-bottom: -5px;
       label {
         font-family: $johnston;
         font-size:16px;
@@ -189,9 +188,6 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
         }
       }
     }
-    .top, .dress{width: 300px !important;}
-    .dress{margin-left: -27px;}
-    .single{margin-left: 60px;}
   }
 }
 #stylist{
@@ -343,10 +339,42 @@ ul.tryquiz{
     margin-right: -50px;
   }
 }
+
 #profiles{
   width: 990px;
-  margin: 0 auto 55px 12px;
+  margin: 0 auto 20px 12px;
   margin-left: 12px;
+
+  a.hoverdiv {
+    position:relative;
+  }
+  a.hoverdiv:hover .hover {
+    display: block;
+  }
+  .hover {
+    display: none;
+    position: absolute;
+    width: 268px;
+    height: 420px;
+    top: -195px;
+    background: image-url('FFFFFF-0.6.png');
+  }
+  .hover .boxi {
+    border: 3px solid #ffffff;
+    background: #000;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-family: $johnston;
+    font-size: 13px;
+    line-height: 15px;
+    width: 170px;
+    padding: 10px;
+    text-align: center;
+    margin: auto;
+    top: 175px;
+    position: relative;
+  }
   .content-basic, .content-chic, .content-sexy, .content-fashion{
     width: 940px;
     height: 560px;
@@ -499,8 +527,9 @@ ul.tryquiz{
     }
   }
 }
+
 #user_manager{
-  height: 840px;
+  height: 830px;
   margin-top: 30px;
   position: relative;
   .stamp {
@@ -557,7 +586,7 @@ ul.tryquiz{
       text-indent: -9999px;
       width: 319px;
       height: 60px;
-      margin-top: 15px;
+      margin-top: 22px;
       &:hover{
         background: image-url('quiz/bt_join.png') no-repeat 0 -65px;
       }
@@ -609,17 +638,18 @@ div.field{
   margin-right: 23px;
   position: relative;
   height: 60px;
-  width: 140px;
+  width: 146px;
+  margin-top: 5px;
   p {
     font-family: $avenir;
     font-weight: lighter;
-    font-size: 15px;
+    font-size: 14px !important;
     margin-top: -12px;
     white-space:nowrap;
     overflow: hidden;    
   }
   &.email, &.email *{
-    width: 308px;
+    width: 313px;
   }
   &.cep {
     display: block;

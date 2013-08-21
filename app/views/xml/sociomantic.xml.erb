@@ -13,7 +13,7 @@
 <installmentvalue><%= installments_value(product.price, separator: ',') %></installmentvalue>
 <currency>BRL</currency>
 <url><%= product.product_url(:utm_source => "sociomantic", :utm_medium => "Remarketing", :utm_campaign => "Produtos") %></url>
-<photo><%= full_image_path product.main_picture.try(:image) %></photo>
+<photo><%= full_image_path product.xml_picture(:main) %></photo>
 </product>
 <% end %>
 </products>

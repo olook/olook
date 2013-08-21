@@ -4,6 +4,10 @@ require 'resque/server'
 Olook::Application.routes.draw do
 
   get "/stylequiz", to: "quiz#new", as: "wysquiz"
+  
+  get "/quiz", to: "quiz#new"
+  get "/quiz/new", to: "quiz#new"
+
   post "/stylequiz", to: "quiz#create", as: 'wysquiz'
   get "/cadastro-stylequiz", to: 'join#new', as: 'join'
   post "/cadastro-stylequiz", to: 'join#register', as: 'join'
@@ -127,7 +131,6 @@ Olook::Application.routes.draw do
   match "/sociomantic", :to => "xml#sociomantic", :as => "sociomantic", :defaults => { :format => 'xml' }
   match "/criteo", :to => "xml#criteo", :as => "criteo", :defaults => { :format => 'xml' }
   match "/afilio", :to => "xml#afilio", :as => "afilio", :defaults => { :format => 'xml' }
-  match "/groovinads", :to => "xml#groovinads", :as => "groovinads", :defaults => { :format => 'xml' }
   match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
   match "/click_a_porter", :to => "xml#click_a_porter", :as => "click_a_porter", :defaults => { :format => 'xml' }
   match "/topster" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/topster_data.xml")

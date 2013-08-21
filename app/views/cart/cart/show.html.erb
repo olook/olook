@@ -78,15 +78,14 @@ _gaq.push(['_addTrans',
 
     <%= render "checkout_banner" %>
 
-  <div class="chaordic shoppingcart"></div>
   <% if !@cart.items.map{|item| item.variant.product}.include?(@suggested_product) && @suggested_product%>
 	<table cellpadding="0" cellspacing="0" class="items_list avc-pulseira" id="products">
       <tbody>
           <tr>
             <td class="avc-foto">
               <p class="txt-recomenda">OLOOK RECOMENDA</p>
-              <% unless @suggested_product.master_variant.thumb_picture.nil? %>
-                <%= image_tag @suggested_product.master_variant.thumb_picture %>
+              <% unless @suggested_product.master_variant.bag_picture.nil? %>
+                <%= image_tag @suggested_product.master_variant.bag_picture %>
               <% end %>
             </td>
             <td class="avc-desc">

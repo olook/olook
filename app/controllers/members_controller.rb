@@ -24,7 +24,7 @@ class MembersController < ApplicationController
     return redirect_to(root_path, :alert => "Convite inválido") unless valid_format && @inviting_member
     session[:invite] = {:invite_token => params[:invite_token], :invited_by => @inviting_member.name}
     incoming_params = params.clone.delete_if { |key| ['controller', 'action','invite_token'].include?(key) }
-    redirect_to new_survey_path(incoming_params)
+    redirect_to wysquiz_path(incoming_params)
   end
 
   def invite_by_email

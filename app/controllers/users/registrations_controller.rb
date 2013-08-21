@@ -165,7 +165,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def check_survey_response
     if session[:profile_questions].nil? || session[:profile_birthday].nil?
-      redirect_to new_survey_path
+      redirect_to wysquiz_path
     end
   end
 
