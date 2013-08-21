@@ -1,5 +1,6 @@
 module Abacos
   class IntegrateProductsObserver
+    @queue = :notify_about_integration
     class << self
       def perform opts
         @opts = opts
@@ -8,7 +9,7 @@ module Abacos
 
 
       def products_to_be_integrated products_amount
-        REDIS.incrby("products_to_integrate", products_amount)
+        REDIS.set("products_to_integrate", products_amount)
       end
 
       def mark_product_integrated_as_success!
