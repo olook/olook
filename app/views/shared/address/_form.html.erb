@@ -28,20 +28,18 @@
         <%= f.label :neighborhood %><em>*</em>
         <%= f.text_field :neighborhood %>
       </li>
-      <li class="city field">
-        <%= f.label :city %>
-        <% #= f.text_field :city,  class: "cidade #{error_class_if_needed(address, :city)}", onblur: track_event("CheckoutAddress","fillCity") %>
-        <p class="text">
-          Selecione
-          <%= f.select :city, [] %>
-        </p>
-      </li>
       <li class="state field">
-        <%= f.label :state %>
+        <%= f.label "Estado: " %>
         <% #= f.text_field :state,  class: "uf #{error_class_if_needed(address, :state)}", onblur: [track_event("CheckoutAddress","fillState"), "javascript:trackStateForFreightABTest();"] %>
         <p class="text">
-          Selecione
           <%= f.select :state, [] %>
+        </p>
+      </li>      
+      <li class="city field">
+        <%= f.label "Cidade: " %>
+        <% #= f.text_field :city,  class: "cidade #{error_class_if_needed(address, :city)}", onblur: track_event("CheckoutAddress","fillCity") %>
+        <p class="text">
+          <%= f.select :city, [] %>
         </p>
       </li>
     </ol>
