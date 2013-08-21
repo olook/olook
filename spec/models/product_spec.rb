@@ -882,6 +882,7 @@ describe Product do
 
   describe "#xml_picture" do
     before do
+      subject.stub(:main_picture).and_return('cdn_main_picture_path.png')
       subject.main_picture.stub(:image).and_return('main_picture_path.png')
     end
     context "when product has picture for xml" do
