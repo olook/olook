@@ -1,4 +1,4 @@
-[![Build Status](https://jenkins.olook.com.br/job/olook/badge/icon)](https://jenkins.olook.com.br/job/olook/)
+[![Build Status](https://jenkins.olook.com.br:8080/job/olook/badge/icon)](https://jenkins.olook.com.br:8080/job/olook/)
 
 
 Requirements
