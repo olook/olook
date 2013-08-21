@@ -112,7 +112,7 @@ class MenuPresenter < BasePresenter
   end
 
   def liquidation
-    render_item('SALE', h.collection_theme_path('sale'), "sale", ["collection_themes#show#sale"])
+    render_item('OLOOKLET', h.collection_theme_path('sale'), "sale", ["collection_themes#show#sale"])
   end
 
   def blog
