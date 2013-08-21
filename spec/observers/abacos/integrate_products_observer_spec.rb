@@ -4,7 +4,7 @@ require 'spec_helper'
 describe Abacos::IntegrateProductsObserver do
   describe '.products_to_be_integrated' do
     it "sets how many products will be integrated" do
-      REDIS.should_receive(:incrby).with("products_to_integrate",10)
+      REDIS.should_receive(:set).with("products_to_integrate",10)
       described_class.products_to_be_integrated(10)
     end
   end
