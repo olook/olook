@@ -193,13 +193,13 @@ button.close{
 }
 span.span_error{
   color:#EA1E40;
-  font-size:11px;
+  font-size:12px;
   float:left;
-  margin-bottom:5px;
-  width: 295px;
+  width: 320px;
   font-family: $avenir;
+  line-height: 15px;
 }
-input.input_error{
+.input_error{
   border-color:#EA1E40 !important;
   margin-bottom:4px
 }

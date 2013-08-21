@@ -3,7 +3,7 @@
   <% @products.each do |product| %>
     <produto>
       <link><![CDATA[olook.com.br/produto/<%= product.id %>]]></link>
-      <imagem><![CDATA[<%= full_image_path product.main_picture.try(:image) %>]]></imagem>
+      <imagem><![CDATA[<%= full_image_path product.xml_picture(:main) %>]]></imagem>
       <nome><![CDATA[<%= product.formatted_name %>]]></nome>
       <categoria><![CDATA[<%= full_category(product) %>]]></categoria>
       <descricao><![CDATA[<%= product.description %>]]></descricao>

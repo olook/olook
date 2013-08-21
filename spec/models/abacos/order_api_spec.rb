@@ -5,7 +5,7 @@ describe Abacos::OrderAPI do
   it 'should have the WSDL url pointing to the service' do
     described_class.wsdl.match(/.+AbacosWSPedidos+./).should be_true
   end
-  
+
   let(:order) { FactoryGirl.create :clean_order }
 
   describe '#insert_order' do
@@ -90,7 +90,7 @@ describe Abacos::OrderAPI do
     it "should return products that are available to integration" do
       orders = described_class.send :download_orders_statuses
       orders.should be_kind_of(Array)
-      orders.length.should == 110
+      orders.length.should == 1
     end
   end
 

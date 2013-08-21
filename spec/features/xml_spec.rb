@@ -148,6 +148,9 @@ feature "Show products on xml format" do
         <preco_por><![CDATA[#{ ActionController::Base.helpers.number_with_precision(product.retail_price, :precision => 2)}]]></preco_por>
         <parcelamento><![CDATA[3 x 33.30]]></parcelamento>
         <imagens>
+        <imagem>
+        <![CDATA[]]>
+        </imagem>
         </imagens>
         <num_tams>
         #{product.variants.map { |variant|
