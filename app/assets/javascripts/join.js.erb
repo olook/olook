@@ -77,7 +77,7 @@ olook.checkFBLogin = function() {
 
 
 olook.load_state_cities = function(){
-  new dgCidadesEstados({
+  return new dgCidadesEstados({
     cidade: document.getElementById('user_city'),
     estado: document.getElementById('user_state')
   });
@@ -90,8 +90,20 @@ function changeTag(field){
 
 $(function(){
   $('.fb_login_button').click(olook.checkFBLogin);
-  olook.load_state_cities();
-  $("#user_gender,#user_state,#user_city").change(function(){
+  if(!combo_service) var combo_service = olook.load_state_cities();
+
+  $("#user_city").change(function(){
+    changeTag($(this));
+  });
+
+  $("#user_state").change(function(){
+    changeTag($(this));
+    combo_service.run();
+    changeTag($("#user_city"));
+  });
+
+
+  $("#user_gender").change(function(){
     changeTag($(this));
   });
 
