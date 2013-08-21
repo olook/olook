@@ -70,18 +70,17 @@ Bolsa:
 - Slipper
 - Bolsa grande
 Roupa:
-- Camiseta
 - Tricot
 - Camisa
 - Calça
 - Blusa
+- Camiseta
 - Casaco e Jaqueta
 - Vestido
 - Saia
 - Shorts
 - Regata
 - vestido
-- calça
 - Top cropped
 - Macacão
 - Colete
@@ -91,9 +90,13 @@ Roupa:
 - Jaqueta
 - camisa
 - camiseta
+- teste
+- '0'
+- Short
 Lingerie:
 - Lingerie
 - Sutiã
+- Sutia
 - Calcinha
 "Moda Praia":
 - Biquini
