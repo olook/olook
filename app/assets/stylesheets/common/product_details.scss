@@ -54,8 +54,10 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     }
   }
   img.vantagens{margin:25px 0 auto;}  
-  .facebook-comments{width:515px; margin-left: 0;}
-  div#product-details{width: 469px;float: right;position:relative;color:#000;
+  .facebook-comments{width:517px; margin-left: 0;
+    iframe{width: 535px;}
+  } 
+  div#product-details{width: 417px;float: right;position:relative;color:#000;margin-left: 45px;
     .pl9{padding-left:9px;}
     h1{font-family:$avenir;font-size:17px;font-weight: lighter;}
     h2{font-family:$avenir;font-size:14px;text-transform:uppercase;font-weight:bold;margin-bottom:20px;}
@@ -190,8 +192,8 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       }
       p{font-size:14px;}
       b{display:block;}
-      h3{float:left;text-transform:uppercase;font-weight:bold;font-size:13px;clear:both;border-top:solid 1px #C2C2C2;padding:10px 0 10px 12px;width:97%;background:image-url('product/new_page_sprite.png') 455px -137px no-repeat;cursor:pointer;
-        &.open{background-position:453px -225px;cursor:text;}
+      h3{float:left;text-transform:uppercase;font-weight:bold;font-size:13px;clear:both;border-top:solid 1px #C2C2C2;padding:10px 0 10px 12px;width:97%;background:image-url('product/new_page_sprite.png') 400px -137px no-repeat;cursor:pointer;
+        &.open{background-position:400px -225px;cursor:text;}
       }
       dl{margin-top:15px;
         dt{float:left;clear:left;font-weight:bold;text-transform:uppercase;}
