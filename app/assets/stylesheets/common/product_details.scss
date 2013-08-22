@@ -52,9 +52,9 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         }
       }
     }
-    img.vantagens{margin-left:20px;}  
   }
-  .facebook-comments{width:450px;margin:0 auto;}
+  img.vantagens{margin:25px 0 auto;}  
+  .facebook-comments{width:515px; margin-left: 0;}
   div#product-details{width: 469px;float: right;position:relative;color:#000;
     .pl9{padding-left:9px;}
     h1{font-family:$avenir;font-size:17px;font-weight: lighter;}
@@ -63,7 +63,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     p {color: #000;font-size:15px;
       a {color: $pink;margin: 0 0 0 5px;}
       &.price{font-weight:bold;}
-      &.plots{color:#6D6E71;}
+      &.plots{color:#6D6E71; font-size: 14px;}
       &.price_retail {color: #838383;font-size: 25px;letter-spacing: -2px;text-decoration: line-through;text-align: center;margin-bottom: 0;
         &.left, &.left2 {font-size: 20px;width: 210px;clear: both;}
       }
