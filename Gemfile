@@ -95,6 +95,7 @@ group :development, :test do
   gem 'capybara-webkit', '0.14.2'
   gem 'database_cleaner'
   gem 'simplecov', :require => false
+  gem 'simplecov-rcov', :require => false
   gem 'spork', '~> 0.9.2'
   gem 'guard-rspec'
   gem 'guard-spork'
