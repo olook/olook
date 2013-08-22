@@ -31,7 +31,7 @@ module Abacos
         end
 
         def notify
-          Resque.enqueue(NotificationWorker, @opts)
+          IntegrationProductsAlert.notify(@opts)
         end
 
         def schedule_notification
