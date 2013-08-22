@@ -5,17 +5,9 @@ module Abacos
 
     def self.perform(user="tech@olook.com.br")
       return true unless Setting.abacos_invetory
-
       products_amount = process_products
       process_prices
-
-      opts = {
-        to: user,
-        subject: 'Sincronização de produtos concluída',
-        body: "Quantidade de produtos integrados: #{products_amount}"
-      }
-
-      IntegrateProductsObserver.perform(opts)
+      IntegrateProductsObserver.perform({ user: user, products_amount: products_amount })
     end
 
   private

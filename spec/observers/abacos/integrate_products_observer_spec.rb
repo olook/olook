@@ -30,9 +30,8 @@ describe Abacos::IntegrateProductsObserver do
 
   describe '.perform' do
     let(:opts) { {
-        to: 'bob@dylan.com',
-        subject: 'Sincronização de produtos concluída',
-        body: "Quantidade de produtos integrados: 10"
+        user: 'bob@dylan.com',
+        products_amount: 10
     } }
 
     context "when integration is finished" do
@@ -40,7 +39,7 @@ describe Abacos::IntegrateProductsObserver do
         REDIS.stub(:get).and_return("0")
       end
       it "sends alert notification" do
-        Resque.should_receive(:enqueue).with(NotificationWorker, opts)
+        IntegrationProductsAlert.should_receive(:notify).with(opts)
         described_class.perform(opts)
       end
     end
