@@ -21,6 +21,10 @@ module Abacos
         REDIS.mapped_hmset("integration_errors", { "#{ product_number }" => "#{ error_message }" })
       end
 
+      def products_errors
+        REDIS.hgetall("integration_errors")
+      end
+
       private
         def decrement_products_to_be_integrated!
           REDIS.decrby("products_to_integrate", 1)
@@ -31,7 +35,10 @@ module Abacos
         end
 
         def notify
-          IntegrationProductsAlert.notify(@opts)
+          user = @opts[:user]
+          products_amount = @opts[:products_amount]
+          mail = IntegrationProductsAlert.notify(user, products_amount, products_errors)
+          mail.deliver
         end
 
         def schedule_notification

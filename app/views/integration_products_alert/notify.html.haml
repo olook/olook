@@ -1,1 +1,16 @@
-EMAIL DE NOTIFICACAO
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %h3
+      Quantidade de produtos integrados: #{ @products_amount }
+      PRODUTOS QUE RETORNARAM ERROS
+    %table{:style => "font-family:'Lucida Sans Unicode','Lucida Grande',Sans-Serif;font-size: 12px;background: #fff;margin: 45px;width: 480px;border-collapse: collapse;text-align: center;border: 1px solid;"}
+      %tr{:style => "font-size: 14px;font-weight: normal;padding: 10px 8px;border-bottom: 2px solid #6678b1;"}
+        %th ID do produto:
+        %th Erro
+      - @errors.each_with_index do |id, message, index|
+        %tr{:style => "padding: 9px 8px 0px 8px;background:#{index.even? ? "#CCC" : "#FFF"};"}
+          %td{:style => "vertical-align:middle;height: 30px;"}= id
+          %td{:style => "vertical-align:middle;height: 30px;"}= message
+
