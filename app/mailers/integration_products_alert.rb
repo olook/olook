@@ -4,8 +4,11 @@ class IntegrationProductsAlert < ActionMailer::Base
 
   default :from => "olook notification <dev.notifications@olook.com.br>"
 
-  def notify opts
-
+  def notify(user, products_amount, errors)
+    user = user
+    @products_amount = products_amount
+    @errors = errors
+    mail(:to => user, :subject => "Sincronização de produtos concluída")
   end
 
 end
