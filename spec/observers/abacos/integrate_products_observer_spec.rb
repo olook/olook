@@ -19,7 +19,12 @@ describe Abacos::IntegrateProductsObserver do
   describe '.mark_product_integrated_as_failure!' do
     it "decrements one product that had the integration product done" do
       REDIS.should_receive(:decrby).with("products_to_integrate", 1)
-      described_class.mark_product_integrated_as_failure!
+      described_class.mark_product_integrated_as_failure!("product_number", "error_message")
+    end
+
+    it "creates on redis a error message with id" do
+      REDIS.should_receive(:mapped_hmset).with("integration_errors", { "1" => "error message" })
+      described_class.mark_product_integrated_as_failure!(1, "error message")
     end
   end
 

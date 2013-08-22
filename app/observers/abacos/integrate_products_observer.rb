@@ -16,8 +16,9 @@ module Abacos
         decrement_products_to_be_integrated!
       end
 
-      def mark_product_integrated_as_failure!
+      def mark_product_integrated_as_failure!(product_number, error_message)
         decrement_products_to_be_integrated!
+        REDIS.mapped_hmset("integration_errors", { "#{ product_number }" => "#{ error_message }" })
       end
 
       private
