@@ -89,7 +89,7 @@ function changeTag(field){
 }
 
 $(function(){
-  $('.fb_login_button').click(olook.checkFBLogin);
+  $('.fb_login_button').click(olook.checkFBLogin).click(function(){_gaq.push(['_trackEvent', 'QuizProgress', 'FormSubmit', ''])});
   if(!combo_service) var combo_service = olook.load_state_cities();
 
   $("#user_city").change(function(){
