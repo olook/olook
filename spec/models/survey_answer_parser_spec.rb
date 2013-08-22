@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require "spec_helper"
 
-describe do SurveyAnswerParser
+describe SurveyAnswerParser do
 
   let(:questions) { questions = {
       "question_45" => '151',
