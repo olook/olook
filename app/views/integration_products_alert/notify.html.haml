@@ -9,8 +9,8 @@
       %tr{:style => "font-size: 14px;font-weight: normal;padding: 10px 8px;border-bottom: 2px solid #6678b1;"}
         %th ID do produto:
         %th Erro
-      - @errors.each_with_index do |id, message, index|
-        %tr{:style => "padding: 9px 8px 0px 8px;background:#{index.even? ? "#CCC" : "#FFF"};"}
+      - @errors.each do |id, message|
+        %tr
           %td{:style => "vertical-align:middle;height: 30px;"}= id
           %td{:style => "vertical-align:middle;height: 30px;"}= message
 

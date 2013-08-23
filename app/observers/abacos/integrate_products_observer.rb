@@ -35,10 +35,11 @@ module Abacos
         end
 
         def notify
-          user = @opts[:user]
-          products_amount = @opts[:products_amount]
+          user = "vinicius.monteiro@olook.com.br" #@opts["user"]
+          products_amount = 10 #@opts["products_amount"]
           mail = IntegrationProductsAlert.notify(user, products_amount, products_errors)
           mail.deliver
+          REDIS.del("integration_errors")
         end
 
         def schedule_notification
