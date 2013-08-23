@@ -87,7 +87,8 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     .social-media-box{overflow:hidden;border-top:solid 1px #C2C2C2;border-bottom:solid 1px #C2C2C2;padding:10px 0;margin:20px 0;
       .has_bt_face{height:22px;position:relative;}
       ul.social-list {float:left; width:417px;margin-top:5px;
-        li {padding:0;margin-right: 5px;display:inline-block;
+        li {padding:0;margin-right: 10px;display:inline-block;
+          &.like{margin-right: 4px !important;margin-left: 23px;}
           a{display:inline;padding:0;width:100%;margin:0;}
           &.email{margin: 0;
             a{float:left;font-size:0;display:block;width:25px;height:20px;background: image-url('product/new_page_sprite.png') 0 -94px no-repeat;}
