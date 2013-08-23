@@ -28,30 +28,22 @@ describe Abacos::IntegrateProductsObserver do
     end
   end
 
-  describe '.products_errors' do
-    it "returns all products errors from Redis" do
-      REDIS.should_receive(:hgetall).with("integration_errors")
-      described_class.products_errors
-    end
-
-    it { expect(described_class.products_errors).to be_a(Hash) }
-  end
-
   describe '.perform' do
     let(:opts) { {
         user: 'bob@dylan.com',
         products_amount: 10
     } }
     let(:errors) { { "42" => "error message 1", "100" => "error message 2" } }
+    let(:mock_mail) { double :mail }
 
     context "when integration is finished" do
       before do
         REDIS.stub(:get).and_return("0")
-        described_class.stub(:products_errors).and_return(errors)
       end
-      let(:mock_mail) { double :mail }
+
       context "notification" do
         it "calls integration alert" do
+          described_class.stub(:products_errors).and_return(errors)
           mock_mail.stub(:deliver)
           IntegrationProductsAlert.should_receive(:notify).with(opts[:user], opts[:products_amount], errors).and_return(mock_mail)
           described_class.perform(opts)
@@ -59,6 +51,11 @@ describe Abacos::IntegrateProductsObserver do
       end
 
       context "product errors" do
+        it "gets all products errors from redis" do
+          REDIS.should_receive(:hgetall).with("integration_errors").and_return(errors)
+          described_class.perform(opts)
+        end
+
         it "deletes products errors from redis" do
           REDIS.should_receive(:del).with("integration_errors")
           described_class.perform(opts)
