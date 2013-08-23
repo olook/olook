@@ -15,7 +15,7 @@ module Abacos
       products = ProductAPI.download_products
       products_amount = products.size
       Abacos::IntegrateProductsObserver.products_to_be_integrated(products_amount)
-      products.each do |abacos_product|
+      order_products(products).each do |abacos_product|
         begin
           parsed_class = parse_product_class(abacos_product)
           parsed_data = parsed_class.parse_abacos_data(abacos_product)
@@ -30,6 +30,10 @@ module Abacos
         end
       end
       products_amount
+    end
+
+    def self.order_products(products)
+      products.sort {|a,b| b[:codigo_pai].nil? ? 1 : -1}
     end
 
     def self.process_prices
