@@ -49,9 +49,20 @@ describe Abacos::IntegrateProductsObserver do
         REDIS.stub(:get).and_return("0")
         described_class.stub(:products_errors).and_return(errors)
       end
-      it "sends alert notification" do
-        IntegrationProductsAlert.should_receive(:notify).with(opts[:user], opts[:products_amount], errors)
-        described_class.perform(opts)
+      let(:mock_mail) { double :mail }
+      context "notification" do
+        it "calls integration alert" do
+          mock_mail.stub(:deliver)
+          IntegrationProductsAlert.should_receive(:notify).with(opts[:user], opts[:products_amount], errors).and_return(mock_mail)
+          described_class.perform(opts)
+        end
+      end
+
+      context "product errors" do
+        it "deletes products errors from redis" do
+          REDIS.should_receive(:del).with("integration_errors")
+          described_class.perform(opts)
+        end
       end
     end
 
