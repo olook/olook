@@ -1,6 +1,7 @@
 if(!olook) var olook = {};
 
 olook.cep = function(selector, options) {
+  olook.cep.foundCEP = false;
   olook.cep.afterFail = options['afterFail'];
   olook.cep.setCepFieldsReadOnly = options['setCepFieldsReadOnly'] || true;
   olook.cep.estado = options['estado'];
@@ -27,6 +28,7 @@ olook.cep = function(selector, options) {
         var url = '<%= Rails.application.routes.url_helpers.cep_path('__CEP__') %>';
         url = url.replace('__CEP__', cep);
         $.getJSON(url, function(data){
+          context.foundCEP = true;
           context.setValueReadOnly(context.rua, data.endereco);
           context.setValueReadOnly(context.bairro, data.bairro);
 
@@ -51,19 +53,22 @@ olook.cep = function(selector, options) {
           context.setValueReadOnly(context.cidade, data.cidade);
         });
       } else {
-        $([context.cidade, context.estado, context.rua, context.bairro].join(',')).removeAttr('readonly');
+        if(context.foundCEP) {
+          $([context.cidade, context.estado, context.rua, context.bairro].join(',')).removeAttr('readonly');
 
-        var p = $(context.estado).parent();
-        $(context.estado).remove();
-        if(context.customEstado) p.append('<p class="text">Selecione</p>');
-        p.append(context.estadoEl);
+          var p = $(context.estado).parent();
+          $(context.estado).remove();
+          if(context.customEstado) p.append('<p class="text">Selecione</p>');
+          p.append(context.estadoEl);
 
-        var p = $(context.cidade).parent();
-        $(context.cidade).remove();
-        if(context.customCidade) p.append('<p class="text">Selecione</p>');
-        p.append(context.cidadeEl);
+          var p = $(context.cidade).parent();
+          $(context.cidade).remove();
+          if(context.customCidade) p.append('<p class="text">Selecione</p>');
+          p.append(context.cidadeEl);
 
-        if(context.afterFail) context.afterFail();
+          if(context.afterFail) context.afterFail();
+          context.foundCEP = false;
+        }
       }
     });
   }
