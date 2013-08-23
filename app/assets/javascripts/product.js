@@ -55,20 +55,21 @@ $(document).ready(function() {
   $("a.open_loyalty_lightbox").show();
 
   $("form#product_add_to_cart").submit(function() {
-    if ($('[name="variant[id]"]:checked').size() == 0) {
+    if ($('[name="variant[id]"]:checked').length == 0) {
       showAlert();
       return false; 
     }
     return true;
   });
+
+  $("#add_product").click(function(e){
+    e.preventDefault;
+  });
 });
 
 
 function showAlert(){
-  $("html, body").animate({ scrollTop: 0 }, "slow");
-  $('#error-messages').css("height", "40px").slideDown('1000', function() {
-    $('p.alert', this).text("Por favor, selecione o tamanho do produto.");
-  }).delay(3000).slideUp();  
+  $('p.alert_size').show().html("Qual o seu tamanho mesmo?") 
 }
 
 initProduct = {
