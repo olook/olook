@@ -35,10 +35,14 @@ module Abacos
         end
 
         def notify
-          user = "vinicius.monteiro@olook.com.br" #@opts["user"]
-          products_amount = 10 #@opts["products_amount"]
-          mail = IntegrationProductsAlert.notify(user, products_amount, products_errors)
-          mail.deliver
+          opts = HashWithIndifferentAccess.new(@opts)
+          user = opts["user"]
+          products_amount = opts["products_amount"]
+          IntegrationProductsAlert.notify(user, products_amount, products_errors)
+          clean_products_errors
+        end
+
+        def clean_products_errors
           REDIS.del("integration_errors")
         end
 
