@@ -7,7 +7,7 @@
   <% end %>
   <div class="warn_discount <%= product_presenter.is_promotion? ? 'promotion' : '' %>">
     <p>
-      <strong>Compre e ganhe <%= number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price) %> em créditos,</strong>
+      Compre e ganhe <%= number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price) %> em créditos,
       <%= link_to "saiba mais", "javascript:void(0);", :class => "open_loyalty_lightbox" %>
     </p>
   </div>
