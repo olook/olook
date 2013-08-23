@@ -16,7 +16,7 @@
 <div class="social-media-box pl9">
   <div class="has_bt_face">  
   <ul class="social-list">
-    <li><fb:like href="http://olook.com.br/produto/<%= product_permalink(@product) %>" width="110" layout="button_count" show_faces="false" send="false"></fb:like></li>
+    <li class="like"><fb:like href="http://olook.com.br/produto/<%= product_permalink(@product) %>" width="110" layout="button_count" show_faces="false" send="false"></fb:like></li>
     <li><%= link_to image_tag("product/ask_gift_button.jpg"), "javascript:void(0)", class: "face-message", onclick:  track_event('AskGiftButton', "ClickAskGiftButton") %></li>
     
     <li><a href="https://twitter.com/share?text= <%= share_description(@product) %>" class="twitter-share-button" data-lang="pt" data-count="none" data-hashtags="ficaadica">Tweetar</a></li>  
