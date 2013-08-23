@@ -79,15 +79,14 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       strong {color: #ff0000;}
     }
     
-    .warn_discount{position:absolute;top:67px;right:48px;width:167px;height:40px;border:solid 1px #000;box-shadow:3px 3px 0 0 #000;text-align:center;
-      p{font-size:12px;line-height:19px;font-weight: lighter;font-family: $avenir;
+    .warn_discount{position:absolute;top:67px;right:48px;width:154px;height:40px;border:solid 1px #000;box-shadow:3px 3px 0 0 #000;text-align:center;
+      p{font-size:12px;line-height:16px;font-weight: 400;font-family: $avenir;margin-top: 4px;
         a{color:$pink;text-decoration:underline;font-size:12px;}
       }
     }
     .social-media-box{overflow:hidden;border-top:solid 1px #C2C2C2;border-bottom:solid 1px #C2C2C2;padding:10px 0;margin:20px 0;
       .has_bt_face{height:22px;position:relative;}
-      a.face-message{float:left;}
-      ul.social-list {float:right;width:260px;margin-top:15px;
+      ul.social-list {float:left; width:417px;margin-top:5px;
         li {padding:0;margin-right: 5px;display:inline-block;
           a{display:inline;padding:0;width:100%;margin:0;}
           &.email{margin: 0;
