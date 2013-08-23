@@ -3,6 +3,26 @@ isJQueryLoaded = function() {
   return (typeof window.$ == 'function');
 }
 
+loadCepCheck = function() {
+  $('.zip_code').change(function(){
+    var cep = $(this).val().replace(/\D/, '');
+    if(cep.length >= 8) {
+      var url = '<%= Rails.application.routes.url_helpers.cep_path('__CEP__') %>';
+      url = url.replace('__CEP__', cep);
+      $.getJSON(url, function(data){
+        $('#checkout_address_street').val(data.endereco);
+        $('#checkout_address_neighborhood').val(data.bairro);
+        // TODO: Usar a biblioteca de cidade e estado fode a porra toda
+        $('#checkout_address_state').val(data.estado);
+        setTimeout(function(){
+          $('#checkout_address_city').val(data.cidade);
+        }, 1000);
+      });
+    }
+
+  });
+}
+
 loadStateAndCityCombobox = function() {
   if(!states_and_cities) var states_and_cities = {};
 
@@ -34,8 +54,10 @@ loadStateAndCityCombobox = function() {
 
 if (isJQueryLoaded()) {
   loadStateAndCityCombobox();
+  loadCepCheck();
 } else {
   window.onload=function(){
-    loadStateAndCityCombobox()
+    loadStateAndCityCombobox();
+    loadCepCheck();
   }
 }
