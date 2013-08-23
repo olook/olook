@@ -21,7 +21,7 @@ module Abacos
           parsed_data = parsed_class.parse_abacos_data(abacos_product)
           Resque.enqueue(Abacos::Integrate, parsed_class.to_s, parsed_data)
         rescue Exception => e
-          product_number = parsed_data[:number] || parsed_data[:model_number]
+          product_number = abacos_product[:codigo_produto]
           Abacos::IntegrateProductsObserver.mark_product_integrated_as_failure!(product_number, e.message)
           Airbrake.notify(
             :error_class   => "Abacos product integration",
