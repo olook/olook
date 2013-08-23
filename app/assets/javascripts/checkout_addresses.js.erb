@@ -1,25 +1,16 @@
 //= require state_cities
+//= require plugins/cep
 isJQueryLoaded = function() {
   return (typeof window.$ == 'function');
 }
 
 loadCepCheck = function() {
-  $('.zip_code').change(function(){
-    var cep = $(this).val().replace(/\D/, '');
-    if(cep.length >= 8) {
-      var url = '<%= Rails.application.routes.url_helpers.cep_path('__CEP__') %>';
-      url = url.replace('__CEP__', cep);
-      $.getJSON(url, function(data){
-        $('#checkout_address_street').val(data.endereco);
-        $('#checkout_address_neighborhood').val(data.bairro);
-        // TODO: Usar a biblioteca de cidade e estado fode a porra toda
-        $('#checkout_address_state').val(data.estado);
-        setTimeout(function(){
-          $('#checkout_address_city').val(data.cidade);
-        }, 1000);
-      });
-    }
-
+  olook.cep('.zip_code', {
+    estado: '#checkout_address_state',
+    cidade: '#checkout_address_city',
+    rua: '#checkout_address_street',
+    bairro: '#checkout_address_neighborhood',
+    afterFail: loadStateAndCityCombobox
   });
 }
 
@@ -38,14 +29,15 @@ loadStateAndCityCombobox = function() {
     field.prev('p').text(" ").delay(100).text(txt);
   }
 
-  $("#checkout_address_city").change(function(){
-    changeTag($(this));
-  });
 
   $("#checkout_address_state").change(function(){
     changeTag($(this));
     combo_service.run();
     changeTag($("#checkout_address_city"));
+  });
+
+  $("#checkout_address_city").change(function(){
+    changeTag($(this));
   });
 
 
