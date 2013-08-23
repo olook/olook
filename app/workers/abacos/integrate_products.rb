@@ -33,7 +33,7 @@ module Abacos
     end
 
     def self.order_products(products)
-      products.sort {|a,b| b[:codigo_pai].nil? ? 1 : -1}
+      products.sort {|a,b| a[:codigo_pai].nil? ? -1 : 1}
     end
 
     def self.process_prices
