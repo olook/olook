@@ -1,6 +1,7 @@
 if(!olook) var olook = {};
 
 olook.cep = function(selector, options) {
+  olook.cep.afterFail = options['afterFail'];
   olook.cep.setCepFieldsReadOnly = options['setCepFieldsReadOnly'] || true;
   olook.cep.estado = options['estado'];
   olook.cep.estadoEl = $(options['estado']);
@@ -31,11 +32,21 @@ olook.cep = function(selector, options) {
 
           var p = $(context.estado).parent();
           $(context.estado).remove();
+          var custom = p.find('p');
+          if(custom) {
+            context.customEstado = true;
+            custom.remove();
+          }
           p.append('<input type="text" id="' + context.estado.replace('#', '') + '" name="' + context.estadoEl.attr('name') + '" />');
           context.setValueReadOnly(context.estado, data.estado);
 
           var p = $(context.cidade).parent();
           $(context.cidade).remove();
+          var custom = p.find('p')
+          if(custom) {
+            context.customCidade = true;
+            custom.remove();
+          }
           p.append('<input type="text" id="' + context.cidade.replace('#', '') + '" name="' + context.cidadeEl.attr('name') + '" />');
           context.setValueReadOnly(context.cidade, data.cidade);
         });
@@ -44,17 +55,15 @@ olook.cep = function(selector, options) {
 
         var p = $(context.estado).parent();
         $(context.estado).remove();
+        if(context.customEstado) p.append('<p class="text">Selecione</p>');
         p.append(context.estadoEl);
 
         var p = $(context.cidade).parent();
         $(context.cidade).remove();
+        if(context.customCidade) p.append('<p class="text">Selecione</p>');
         p.append(context.cidadeEl);
-        if(dgCidadeEstados) {
-          new dgCidadesEstados({
-            cidade: document.getElementById(context.cidade.replace('#', '')),
-            estado: document.getElementById(context.estado.replace('#', ''))
-          });
-        }
+
+        if(context.afterFail) context.afterFail();
       }
     });
   }

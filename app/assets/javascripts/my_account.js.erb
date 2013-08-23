@@ -16,6 +16,12 @@ $(document).ready(function() {
     estado: '#address_state',
     cidade: '#address_city',
     rua: '#address_street',
-    bairro: '#address_neighborhood'
+    bairro: '#address_neighborhood',
+    afterFail: function(){
+      new dgCidadesEstados({
+        cidade: document.getElementById(context.cidade.replace('#', '')),
+        estado: document.getElementById(context.estado.replace('#', ''))
+      });
+    }
   });
 });
