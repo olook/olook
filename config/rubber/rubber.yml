@@ -71,9 +71,9 @@ cloud_providers:
 
     # OPTIONAL: Needed for bundling a running instance using rubber:bundle
     #
-    # pk_file: "#{Dir[(File.expand_path('~') rescue '/root') + '/.ec2/pk-*'].first}"
-    # cert_file: "#{Dir[(File.expand_path('~') rescue '/root') + '/.ec2/cert-*'].first}"
-    # image_bucket: "#{app_name}-images"
+    pk_file: "#{Dir[(File.expand_path('~') rescue '/root') + '/.ec2/pk-*'].first}"
+    cert_file: "#{Dir[(File.expand_path('~') rescue '/root') + '/.ec2/cert-*'].first}"
+    image_bucket: "#{app_name}-images"
 
     # OPTIONAL: Needed for backing up database to s3
     # backup_bucket: "#{app_name}-backups"
