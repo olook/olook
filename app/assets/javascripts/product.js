@@ -69,7 +69,7 @@ $(document).ready(function() {
 
 
 function showAlert(){
-  $('p.alert_size').show().html("Qual o seu tamanho mesmo?") 
+  $('p.alert_size').show().html("Qual é o seu tamanho mesmo?") 
 }
 
 initProduct = {
