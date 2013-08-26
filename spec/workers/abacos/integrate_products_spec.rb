@@ -14,9 +14,10 @@ describe Abacos::IntegrateProducts do
 
   describe "#process_products" do
     it 'should download product changes, call parse_abacos_data for received data and enqueue them' do
-      Abacos::ProductAPI.should_receive(:download_products).and_return([:product, :variant])
+      Abacos::ProductAPI.should_receive(:download_products).and_return([:variant, :product])
       described_class.should_receive(:parse_product_class).with(:product).and_return(Abacos::Product)
       described_class.should_receive(:parse_product_class).with(:variant).and_return(Abacos::Variant)
+      described_class.should_receive(:order_products).and_return([:product, :variant])
 
       Abacos::Product.should_receive(:parse_abacos_data).with(:product).and_return(:parsed_product)
       Abacos::Variant.should_receive(:parse_abacos_data).with(:variant).and_return(:parsed_variant)
@@ -25,6 +26,14 @@ describe Abacos::IntegrateProducts do
       Resque.should_receive(:enqueue).with(Abacos::Integrate, "Abacos::Variant", :parsed_variant)
       Abacos::IntegrateProductsObserver.should_receive(:products_to_be_integrated).with(2).and_return("2")
       described_class.process_products
+    end
+  end
+
+  describe '.order_products' do
+    let(:product) { { codigo_produto: '789' } }
+    let(:variant) { { codigo_produto: '456', codigo_pai: '123' } }
+    it "orders products before variants" do
+      expect(described_class.order_products([variant, product, product, variant])).to eq([product, product, variant, variant])
     end
   end
 
