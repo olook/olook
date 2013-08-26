@@ -22,7 +22,7 @@ olook.cep = function(selector, options) {
   }
   olook.cep.attachCep = function(selector){
     var context = olook.cep;
-    $(selector).change(function() {
+    $(selector).blur(function() {
       var cep = $(this).val().replace(/\D/, '');
       if(cep.length >= 8) {
         var url = '<%= Rails.application.routes.url_helpers.cep_path('__CEP__') %>';
