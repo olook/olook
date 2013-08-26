@@ -71,8 +71,8 @@ cloud_providers:
 
     # OPTIONAL: Needed for bundling a running instance using rubber:bundle
     #
-    pk_file: "#{Dir[(File.expand_path('~') rescue '/root') + '/.ec2/pk-*'].first}"
-    cert_file: "#{Dir[(File.expand_path('~') rescue '/root') + '/.ec2/cert-*'].first}"
+    pk_file: "#{Dir[(File.expand_path('~') rescue '/root') + '/.ec2/' + cloud_providers.aws.key_name].first}"
+    cert_file: "#{Dir[(File.expand_path('~') rescue '/root') + '/.ec2/' + cloud_providers.aws.key_name + '.pub'].first}"
     image_bucket: "#{app_name}-images"
 
     # OPTIONAL: Needed for backing up database to s3
@@ -242,7 +242,7 @@ stop_on_error_cmd: "function error_exit { exit 99; }; trap error_exit ERR"
 # excluding slave roles, but this is not always desired for staging, so you can
 # specify a different set here
 #
-# staging_roles: "web,app,db:primary=true"
+staging_roles: "web,app,db:primary=true,mysql_master,redis_master,memcached"
 
 
 # OPTIONAL: Lets one assign amazon elastic IPs (static IPs) to your instances
@@ -280,7 +280,7 @@ hosts:
   app05:
     availability_zone: us-east-1d
   resque01:
-    resque_worker_count: 30
+    resque_worker_count: 50
     cloud_providers:
       aws:
         image_type: m1.xlarge
@@ -306,10 +306,10 @@ hosts:
       aws:
         image_type: m1.medium
     volumes:
-      - size: 50 # size of vol in GBs
+      - size: 30 # size of vol in GBs
         zone: us-east-1b # zone to create volume in, needs to match host's zone
         device: /dev/sdh # OS device to attach volume to
-        mount: /mnt/ # The directory to mount this volume to
+        mount: /ebs/ # The directory to mount this volume to
         filesystem: ext3 # the filesystem to create on volume
   homolog2:
     unicorn_workers: 2
@@ -317,10 +317,10 @@ hosts:
       aws:
         image_type: m1.medium
     volumes:
-      - size: 50 # size of vol in GBs
+      - size: 30 # size of vol in GBs
         zone: us-east-1b # zone to create volume in, needs to match host's zone
         device: /dev/sdh # OS device to attach volume to
-        mount: /mnt/ # The directory to mount this volume to
+        mount: /ebs/ # The directory to mount this volume to
         filesystem: ext3 # the filesystem to create on volume
   stage:
     unicorn_workers: 2
@@ -328,10 +328,10 @@ hosts:
       aws:
         image_type: m1.medium
     volumes:
-      - size: 50 # size of vol in GBs
+      - size: 30 # size of vol in GBs
         zone: us-east-1b # zone to create volume in, needs to match host's zone
         device: /dev/sdh # OS device to attach volume to
-        mount: /mnt/ # The directory to mount this volume to
+        mount: /ebs/ # The directory to mount this volume to
         filesystem: ext3 # the filesystem to create on volume
   development:
     unicorn_workers: 2
@@ -339,18 +339,18 @@ hosts:
       aws:
         image_type: m1.medium
     volumes:
-      - size: 50 # size of vol in GBs
+      - size: 30 # size of vol in GBs
         zone: us-east-1b # zone to create volume in, needs to match host's zone
         device: /dev/sdh # OS device to attach volume to
-        mount: /mnt/ # The directory to mount this volume to
+        mount: /ebs/ # The directory to mount this volume to
         filesystem: ext3 # the filesystem to create on volume
   jenkins:
     availability_zone: us-east-1b
     volumes:
-      - size: 50 # size of vol in GBs
+      - size: 30 # size of vol in GBs
         zone: us-east-1b # zone to create volume in, needs to match host's zone
         device: /dev/sdh # OS device to attach volume to
-        mount: /mnt/ # The directory to mount this volume to
+        mount: /ebs/ # The directory to mount this volume to
         filesystem: ext3 # the filesystem to create on volume
     cloud_providers:
       aws:
