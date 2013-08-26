@@ -53,7 +53,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       }
     }
   }
-  img.vantagens{margin:5px 0 auto;}  
+  img.vantagens{margin:10px 0 auto;}  
   .facebook-comments{width:517px; margin-left: 0;
     iframe{width: 535px;}
   } 
@@ -176,7 +176,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     #product-particulars{
       div{padding-left:12px;display:none;;margin-bottom:28px;
         &.about{float:left;overflow:hidden;}
-        &.exchange{
+        &.exchange{border-bottom:solid 1px #C2C2C2;
           p{margin-bottom:10px;}
         }
         &.shipping{padding-bottom:5px;margin-bottom:18px;
@@ -193,7 +193,8 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       p{font-size:14px;}
       b{display:block;}
       h3{float:left;text-transform:uppercase;font-weight:bold;font-size:13px;clear:both;border-top:solid 1px #C2C2C2;padding:10px 0 10px 12px;width:97%;background:image-url('product/new_page_sprite.png') 400px -137px no-repeat;cursor:pointer;
-        &.open{background-position:400px -225px;cursor:text;}
+        &.open{background-position:400px -225px;cursor:text;border-bottom:none !important;}
+        &.exchange-title{border-bottom:solid 1px #C2C2C2;}
       }
       dl{margin-top:15px;
         dt{float:left;clear:left;font-weight:bold;text-transform:uppercase;}
