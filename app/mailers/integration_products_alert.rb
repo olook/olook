@@ -8,7 +8,7 @@ class IntegrationProductsAlert < ActionMailer::Base
     user = user
     @products_amount = products_amount
     @errors = errors
-    email = mail(:to => user, :subject => "Sincronização de produtos concluída")
+    email = mail(:to => "#{ user }, rafael.manoel@olook.com.br, nelson.haraguchi@olook.com.br", :subject => "Sincronização de produtos concluída")
     email.deliver
   end
 
