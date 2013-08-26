@@ -11,3 +11,5 @@
   %button{:type => "button", :class => "close"} Fechar
 = render partial: "shared/metrics/dbm/newsletter"
 = render partial: 'shared/metrics/fb/signup'
+- content_for :data_layer do
+  = render "shared/tag/new_user", register_source: 'N'
