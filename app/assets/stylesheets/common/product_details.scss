@@ -53,7 +53,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       }
     }
   }
-  img.vantagens{margin:25px 0 auto;}  
+  img.vantagens{margin:5px 0 auto;}  
   .facebook-comments{width:517px; margin-left: 0;
     iframe{width: 535px;}
   } 
@@ -114,14 +114,14 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     }
      
     div.line {width: 100%;overflow: auto;
-      p {font-size: 14px;line-height: 30px;text-align: left;width:90px;float:left;}
+      p {font-size: 12px;line-height: 30px;text-align: left;width:90px;float:left;}
       ol {width: 290px;float: left;
-        li {margin: 0 2px 0 0;float: left;
+        li {margin: 0 7px 0 0;float: left;
           &:first-child {margin-left: 0;}
-          &.size_guide,&.size_guide.selected{background: image-url('common/guide.png') no-repeat !important; height: 28px;padding-left:15px;width:60px;line-height: 13px;
+          &.size_guide,&.size_guide.selected{background: image-url('common/guide.png') no-repeat !important; height: 24px;padding-left:15px;width:60px;line-height: 13px;
             a{font-size: 12px;color: #ef3742;text-decoration: underline;} 
           }
-          label{font-weight: normal;line-height: 28px;text-align: center;min-width: 29px;height: 28px;display: inline-block;cursor: pointer;line-height:28px;
+          label{font-weight: normal;line-height: 28px;text-align: center;min-width: 24px;height: 24px;display: inline-block;cursor: pointer;line-height:28px;
             span {font-size: 10px;}
           }
           input[type="radio"] {display: none;}
@@ -144,11 +144,11 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
             display: block;
           }
         }
-        ol.colors {width: 280px;
-          li {
-            img {width: 28px;height: 28px;border: 2px solid #EF3742;}
+        ol.colors {width: 280px;margin-left: -2px;
+          li {margin-left: -1px;
+            img {width: 24px;height: 24px;border: 2px solid #EF3742;}
             a {
-              img {width:28px;height: 28px;border: 2px solid #FFF;}
+              img {width:24px;height: 24px;border: 2px solid #FFF;}
             }
           }
         }
