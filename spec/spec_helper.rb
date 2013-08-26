@@ -2,11 +2,19 @@
 require 'rubygems'
 require 'spork'
 
+# Formatter for simplecov, to work with jenkins
+require 'simplecov'
+require 'simplecov-rcov'
+
+SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
+SimpleCov.start 'rails' if ENV["COVERAGE"]
+
 module Resque
   def self.enqueue(*args); end
   def self.enqueue_in(*args); end
   def self.enqueue_at(*args); end
 end
+
 
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,
