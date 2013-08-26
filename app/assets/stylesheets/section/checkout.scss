@@ -2129,7 +2129,7 @@ a.txt-conheca{
 .checkout_banner{
   margin-bottom: 25px;
   margin-top: -25px;
-}    
+}
 
 .state.field{
   width: 85px;
@@ -2137,9 +2137,17 @@ a.txt-conheca{
   #checkout_address_state{
     width: 85px;
   }
-
+  p.text{
+    width: 89px !important;
+  }
+}
+.city.field{
+  p.text{
+    width: 172px !important;
+  }
 }
 
 #checkout_address_city{
   width: 165px;
 }
+
