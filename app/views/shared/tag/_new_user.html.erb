@@ -1,6 +1,6 @@
-<script>
+<script type="text/javascript">
   dataLayer.push({
-    'UserEmail': '<%= current_user.try(:email) %>',
+    'UserEmail': '<%= email %>',
     'zanpid': '<%= @zanpid %>',
     'RegisterSource': '<%= raw register_source %>'
   });
