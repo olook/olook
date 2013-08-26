@@ -19,24 +19,47 @@ describe Abacos::IntegrateProductsObserver do
   describe '.mark_product_integrated_as_failure!' do
     it "decrements one product that had the integration product done" do
       REDIS.should_receive(:decrby).with("products_to_integrate", 1)
-      described_class.mark_product_integrated_as_failure!
+      described_class.mark_product_integrated_as_failure!("product_number", "error_message")
+    end
+
+    it "creates on redis a error message with id" do
+      REDIS.should_receive(:mapped_hmset).with("integration_errors", { "1" => "error message" })
+      described_class.mark_product_integrated_as_failure!(1, "error message")
     end
   end
 
   describe '.perform' do
     let(:opts) { {
-        to: 'bob@dylan.com',
-        subject: 'Sincronização de produtos concluída',
-        body: "Quantidade de produtos integrados: 10"
+        user: 'bob@dylan.com',
+        products_amount: 10
     } }
+    let(:errors) { { "42" => "error message 1", "100" => "error message 2" } }
+    let(:mock_mail) { double :mail }
 
     context "when integration is finished" do
       before do
         REDIS.stub(:get).and_return("0")
       end
-      it "sends alert notification" do
-        Resque.should_receive(:enqueue).with(NotificationWorker, opts)
-        described_class.perform(opts)
+
+      context "notification" do
+        it "calls integration alert" do
+          described_class.stub(:products_errors).and_return(errors)
+          mock_mail.stub(:deliver)
+          IntegrationProductsAlert.should_receive(:notify).with(opts[:user], opts[:products_amount], errors).and_return(mock_mail)
+          described_class.perform(opts)
+        end
+      end
+
+      context "product errors" do
+        it "gets all products errors from redis" do
+          REDIS.should_receive(:hgetall).with("integration_errors").and_return(errors)
+          described_class.perform(opts)
+        end
+
+        it "deletes products errors from redis" do
+          REDIS.should_receive(:del).with("integration_errors")
+          described_class.perform(opts)
+        end
       end
     end
 

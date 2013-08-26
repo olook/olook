@@ -46,7 +46,7 @@ module Abacos
     end
 
     def confirm_variant
-      Resque.enqueue(Abacos::ConfirmProduct, self.integration_protocol)
+      Resque.enqueue(Abacos::ConfirmProduct, self.integration_protocol, self.number)
     end
 
   private
@@ -63,7 +63,7 @@ module Abacos
     def self.sanitize_product_size size
       return 'Único' if size.blank?
 
-      if M_OFFICER_TABLE_SIZE.keys.include?(size) 
+      if M_OFFICER_TABLE_SIZE.keys.include?(size)
         M_OFFICER_TABLE_SIZE[size]
       else
         size
