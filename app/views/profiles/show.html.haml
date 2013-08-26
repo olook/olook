@@ -46,5 +46,7 @@
       = link_to("Essa sou eu", member_showroom_path, :class => "me", onclick: "_gaq.push(['_trackEvent', 'MeuEstilo', 'SouEu', ''])")
     %li
       = link_to("Quero tentar de novo", wysquiz_path, :class => "again", onclick: "_gaq.push(['_trackEvent', 'MeuEstilo', 'TentarDeNovo', ''])")
+- content_for :data_layer do
+  = render "shared/tag/new_user", register_source: "Q"
 - content_for :footer do
   = javascript_include_tag 'profiles'
