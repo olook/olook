@@ -5,17 +5,9 @@ module Abacos
 
     def self.perform(user="tech@olook.com.br")
       return true unless Setting.abacos_invetory
-
       products_amount = process_products
       process_prices
-
-      opts = {
-        to: user,
-        subject: 'Sincronização de produtos concluída',
-        body: "Quantidade de produtos integrados: #{products_amount}"
-      }
-
-      IntegrateProductsObserver.perform(opts)
+      IntegrateProductsObserver.perform({ user: user, products_amount: products_amount })
     end
 
   private
@@ -23,13 +15,14 @@ module Abacos
       products = ProductAPI.download_products
       products_amount = products.size
       Abacos::IntegrateProductsObserver.products_to_be_integrated(products_amount)
-      products.each do |abacos_product|
+      order_products(products).each do |abacos_product|
         begin
           parsed_class = parse_product_class(abacos_product)
           parsed_data = parsed_class.parse_abacos_data(abacos_product)
           Resque.enqueue(Abacos::Integrate, parsed_class.to_s, parsed_data)
         rescue Exception => e
-          Abacos::IntegrateProductsObserver.mark_product_integrated_as_failure!
+          product_number = abacos_product[:codigo_produto]
+          Abacos::IntegrateProductsObserver.mark_product_integrated_as_failure!(product_number, e.message)
           Airbrake.notify(
             :error_class   => "Abacos product integration",
             :error_message => e.message
@@ -37,6 +30,10 @@ module Abacos
         end
       end
       products_amount
+    end
+
+    def self.order_products(products)
+      products.sort {|a,b| a[:codigo_pai].nil? ? -1 : 1}
     end
 
     def self.process_prices

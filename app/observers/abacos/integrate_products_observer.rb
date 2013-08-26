@@ -16,8 +16,9 @@ module Abacos
         decrement_products_to_be_integrated!
       end
 
-      def mark_product_integrated_as_failure!
+      def mark_product_integrated_as_failure!(product_number, error_message)
         decrement_products_to_be_integrated!
+        REDIS.mapped_hmset("integration_errors", { "#{ product_number }" => "#{ error_message }" })
       end
 
       private
@@ -30,7 +31,19 @@ module Abacos
         end
 
         def notify
-          Resque.enqueue(NotificationWorker, @opts)
+          opts = HashWithIndifferentAccess.new(@opts)
+          user = opts["user"]
+          products_amount = opts["products_amount"]
+          IntegrationProductsAlert.notify(user, products_amount, products_errors)
+          clean_products_errors
+        end
+
+        def products_errors
+          REDIS.hgetall("integration_errors")
+        end
+
+        def clean_products_errors
+          REDIS.del("integration_errors")
         end
 
         def schedule_notification
