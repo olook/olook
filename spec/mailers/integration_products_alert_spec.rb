@@ -10,7 +10,7 @@ describe IntegrationProductsAlert do
 
     it "creates email" do
       mail.stub(:deliver)
-      described_class.any_instance.should_receive(:mail).with({ to: email, subject: "Sincronização de produtos concluída"}).and_return(mail)
+      described_class.any_instance.should_receive(:mail).with({ to: "#{ email }, rafael.manoel@olook.com.br", subject: "Sincronização de produtos concluída"}).and_return(mail)
       described_class.notify(email, products_amount, errors)
     end
 

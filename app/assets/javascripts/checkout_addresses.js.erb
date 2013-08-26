@@ -1,6 +1,16 @@
-//= require state_cities
 isJQueryLoaded = function() {
   return (typeof window.$ == 'function');
+}
+
+loadCepCheck = function() {
+  olook.cep('.zip_code', {
+    estado: '#checkout_address_state',
+    cidade: '#checkout_address_city',
+    rua: '#checkout_address_street',
+    bairro: '#checkout_address_neighborhood',
+    afterFail: loadStateAndCityCombobox
+  });
+  $(".zip_code").focus();
 }
 
 loadStateAndCityCombobox = function() {
@@ -18,14 +28,15 @@ loadStateAndCityCombobox = function() {
     field.prev('p').text(" ").delay(100).text(txt);
   }
 
-  $("#checkout_address_city").change(function(){
-    changeTag($(this));
-  });
 
   $("#checkout_address_state").change(function(){
     changeTag($(this));
     combo_service.run();
     changeTag($("#checkout_address_city"));
+  });
+
+  $("#checkout_address_city").change(function(){
+    changeTag($(this));
   });
 
 
@@ -34,8 +45,10 @@ loadStateAndCityCombobox = function() {
 
 if (isJQueryLoaded()) {
   loadStateAndCityCombobox();
+  loadCepCheck();
 } else {
   window.onload=function(){
-    loadStateAndCityCombobox()
+    loadStateAndCityCombobox();
+    loadCepCheck();
   }
 }
