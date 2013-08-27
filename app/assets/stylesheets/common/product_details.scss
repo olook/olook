@@ -120,7 +120,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       ol {width: 290px;float: left;
         li {margin: 0 7px 0 0;float: left;
           &:first-child {margin-left: 0;}
-          &.size_guide,&.size_guide.selected{background: image-url('common/guide.png') no-repeat !important; height: 24px;padding-left:15px;width:60px;line-height: 13px;
+          &.size_guide,&.size_guide.selected{background: image-url('common/guide.png') no-repeat !important; height: 28px;padding-left:15px;width:60px;line-height: 13px;
             a{font-size: 12px;color: #ef3742;text-decoration: underline;} 
           }
           label{font-weight: normal;line-height: 28px;text-align: center;min-width: 24px;height: 24px;display: inline-block;cursor: pointer;line-height:28px;
@@ -130,7 +130,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         }
       }
       &.quantity{margin-top:12px;position:relative;overflow:hidden;
-        .quantity-product{line-height: 28px;text-align: center;width:24px;height:24px;display:inline-block;color:#6D6E71;font-size:13px;font-weight:normal;}
+        .quantity-product{line-height: 26px;text-align: center;width:20px;height:20px;display:inline-block;color:#6D6E71;font-size:13px;font-weight:normal;}
         button{position:absolute;width:14px;height:12px;border:none;color:#000;background:image-url('product/new_page_sprite.png') no-repeat;font-size:0;cursor:pointer;
           &.minus{background-position:-3px -75px;top:21px;left:130px;}
           &.plus{background-position:-24px -70px;top:0;left:127px;}
