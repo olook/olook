@@ -1,2 +1,11 @@
-%h1 Clippings#index
-%p Find me in app/views/clippings/index.html.haml
+%table
+  - @clippings.each do |clipping|
+    %tr
+      %td
+        = image_tag clipping.logo
+      %td
+        = clipping.title
+      %td
+        = simple_format clipping.clipping_text
+      %td
+        = link_to "Clique aqui para ver a matéria completa", clipping.link, target: :blank
