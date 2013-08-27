@@ -68,7 +68,7 @@
             <li class="submenu<%= ' active' if params[:controller] =~ /clippings/ %>">
               <span>Conteúdo</span>
               <ul>
-                <li><%= link_to("Imprensa", "#")%></li>
+                <li><%= access_link("Clippings")%></li>
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /admins|roles|settings/ %>">
