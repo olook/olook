@@ -309,7 +309,7 @@ class Product < ActiveRecord::Base
   end
 
   def cloth?
-    self.category == ::Category::CLOTH
+    [::Category::CLOTH, ::Category::BEACHWEAR, ::Category::LINGERIE].include?(self.category)
   end
 
   def variant_by_size(size)
