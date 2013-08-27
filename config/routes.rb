@@ -79,7 +79,6 @@ Olook::Application.routes.draw do
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
   match "/como-funciona", :to => "pages#how_to", :as => "how_to"
-  match "/olook-na-imprensa", :to => "pages#press", :as => "press"
   match "/stylists/helena-linhares", :to => "stylists#helena_linhares", :as => "helena_linhares"
   get   "/contato" => "pages#contact", :as => "contact"
   post  "/contato" => "pages#send_contact", :as => "send_contact"
@@ -87,6 +86,8 @@ Olook::Application.routes.draw do
   match "/olookmovel", to: "pages#olookmovel", as: "olookmovel"
   match "/troca_e_devolucao", to: "pages#troca", as: "troca"
   match "/half_newsletter", to: "landing_pages#half_newsletter", as: "newsletter"
+
+  match "/olook-na-imprensa", :to => "clippings#index", :as => "press"
 
   # BRANDS
   match "/marcas", :to => "brands#index", :as => "new_brands"
