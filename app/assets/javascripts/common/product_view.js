@@ -145,8 +145,9 @@ function accordion(){
 }
 
 function delivery(){
-  $("#ship-field").setMask({mask: '99999-999'});
-  
+  var sf = $("#ship-field");
+  if(sf.setMask)
+    sf.setMask({mask: '99999-999'});
   $("#shipping #search").click(function(){
     cep = $("#ship-field").val();
     if(cep.length < 9){
