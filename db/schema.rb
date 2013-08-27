@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130827165137) do
+ActiveRecord::Schema.define(:version => 20130827173524) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -270,8 +270,8 @@ ActiveRecord::Schema.define(:version => 20130827165137) do
   create_table "clippings", :force => true do |t|
     t.string   "logo"
     t.string   "title"
-    t.string   "clipping_text"
-    t.string   "published_at"
+    t.text     "clipping_text"
+    t.date     "published_at"
     t.string   "source"
     t.string   "link"
     t.datetime "created_at",    :null => false
