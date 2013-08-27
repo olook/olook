@@ -36,6 +36,18 @@ $("form#product_add_to_cart").submit(function() {
   return true;
 });
 
+$(".plus").click(function(){
+  if(parseInt($("#variant_quantity").val()) < parseInt($("#variant_quantity").attr("data-max-value"))) {
+    $("#variant_quantity").val(parseInt($("#variant_quantity").val()) + 1);
+  }
+});
+
+$(".minus").click(function(){
+  if(parseInt($("#variant_quantity").val()) > 1){
+    $("#variant_quantity").val(parseInt($("#variant_quantity").val()) - 1);
+  }
+});
+
 if (typeof initSuggestion != 'undefined') {
   initSuggestion.checkIfProductIsAlreadySelected();
 }
