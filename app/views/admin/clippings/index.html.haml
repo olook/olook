@@ -1,0 +1,22 @@
+%h1 Imprensa
+
+%div.inner
+  %table.table
+    %tr
+      %th logo
+      %th título
+      %th
+      %th
+      %th
+
+    - @clippings.each do |clipping|
+      %tr
+        %td= image_tag(clipping.title)
+        %td= clipping.title
+        %td= link_to 'Exibir', [:admin, clipping]
+        %td= link_to 'Editar', edit_admin_clipping_path(clipping)
+        %td= link_to 'Apagar', [:admin, clipping], :method => :delete, :data => { :confirm => 'Tem certeza ?' }
+
+  %br
+
+= link_to 'Novo item', new_admin_clipping_path
