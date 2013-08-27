@@ -452,7 +452,7 @@ class Product < ActiveRecord::Base
   end
 
   def description_html
-    rallow = %w{ p b i br }.map { |w| "#{w}[ >]" }.join('|')
+    rallow = %w{ p b i br }.map { |w| "#{w}\/?[ >]" }.join('|')
     self.description.gsub(/<\/?(?!(?:#{rallow}))[^>\/]*\/?>/, '')
   end
 
