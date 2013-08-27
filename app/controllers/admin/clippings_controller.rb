@@ -3,10 +3,6 @@ class Admin::ClippingsController < Admin::BaseController
     @clippings = Clipping.all
   end
 
-  def show
-    @clipping = Clipping.find(params[:id])
-  end
-
   def new
     @clipping = Clipping.new
   end
@@ -22,6 +18,16 @@ class Admin::ClippingsController < Admin::BaseController
     else
       render action: "new"
     end
+  end
+
+  def update
+    @clipping = Clipping.find(params[:id])
+    if @clipping.update_attributes(params[:clipping])
+      redirect_to [:admin, @clipping], notice: I18n.t('activerecord.models.clipping.messages.successful.update')
+    else
+      render action: "edit"
+    end
+
   end
 
   def destroy
