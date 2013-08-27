@@ -400,6 +400,10 @@
         one: Box de presente
         other: Box de presentes
 
+      clipping:
+        one: Imprensa
+        other: Imprensa
+
       gift_recipient: presenteado
       gift_occasion: "ocasião"
       address: Endereço
