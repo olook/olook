@@ -43,11 +43,11 @@ class ProductController < ApplicationController
     @facebook_app_id = FACEBOOK_CONFIG["app_id"]
     @url = request.protocol + request.host
 
+    product_name = params[:id]
+    product_id = product_name.split("-").last.to_i
     @product = if current_admin
-      Product.find(params[:id])
+      Product.find(product_id)
     else
-      product_name = params[:id]
-      product_id = product_name.split("-").last.to_i
       p = Product.only_visible.find(product_id)
       raise ActiveRecord::RecordNotFound unless p.price > 0
       p
