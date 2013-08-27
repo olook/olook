@@ -451,6 +451,11 @@ class Product < ActiveRecord::Base
     picture_for_xml.try(picture).present? ? picture_for_xml.try(picture) : self.main_picture.try(:image)
   end
 
+  def description_html
+    rallow = %w{ p b i br }.map { |w| "#{w}[ >]" }.join('|')
+    self.description.gsub(/<\/?(?!(?:#{rallow}))[^>\/]*\/?>/, '')
+  end
+
   private
 
     def details_relevance
@@ -461,7 +466,7 @@ class Product < ActiveRecord::Base
     end
 
     def self.fetch_all_featured_products_of category
-      products = Rails.cache.fetch(CACHE_KEYS[:product_fetch_all_featured_products_of][:key] % category, :expires_in => CACHE_KEYS[:product_fetch_all_featured_products_of][:expire]) do
+      Rails.cache.fetch(CACHE_KEYS[:product_fetch_all_featured_products_of][:key] % category, :expires_in => CACHE_KEYS[:product_fetch_all_featured_products_of][:expire]) do
         category_name = Category.key_for(category).to_s
         product_ids = Setting.send("featured_#{category_name}_ids").split(",")
 
