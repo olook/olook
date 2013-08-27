@@ -25,7 +25,7 @@
         <div id="main-navigation">
           <ul class="wat-cf">
             <li class="submenu<%= ' active' if params[:controller] =~ /users/ %>">
-              <span>Consumidores</span>
+              <span>Clientes</span>
               <ul>
                 <li><%= access_link("Users") %></li>
                 <li><%= access_link("Credits") %></li>
@@ -65,8 +65,14 @@
                 <li><%= access_link("Highlight Campaigns") %></li>
               </ul>
             </li>
+            <li class="submenu<%= ' active' if params[:controller] =~ /clippings/ %>">
+              <span>Conteúdo</span>
+              <ul>
+                <li><%= access_link("Clippings")%></li>
+              </ul>
+            </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /admins|roles|settings/ %>">
-              <span>Gerenciador do site</span>
+              <span>Permissões</span>
               <ul>
                 <li><%= access_link("Admins") %></li>
                 <li><%= access_link("Roles") %></li>
