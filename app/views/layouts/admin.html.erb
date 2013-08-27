@@ -65,6 +65,12 @@
                 <li><%= access_link("Highlight Campaigns") %></li>
               </ul>
             </li>
+            <li class="submenu<%= ' active' if params[:controller] =~ /clippings/ %>">
+              <span>Conteúdo</span>
+              <ul>
+                <li><%= link_to("Imprensa", "#")%></li>
+              </ul>
+            </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /admins|roles|settings/ %>">
               <span>Permissões</span>
               <ul>
