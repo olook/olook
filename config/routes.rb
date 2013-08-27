@@ -4,7 +4,7 @@ require 'resque/server'
 Olook::Application.routes.draw do
 
   get "/stylequiz", to: "quiz#new", as: "wysquiz"
-  
+
   get "/quiz", to: "quiz#new"
   get "/quiz/new", to: "quiz#new"
 
@@ -208,6 +208,8 @@ Olook::Application.routes.draw do
 
   namespace :admin do
     get "/", :to => "dashboard#index"
+
+    resources :clippings
 
     namespace :orders do
       resources :deliveries
