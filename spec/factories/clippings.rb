@@ -1,11 +1,9 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
 FactoryGirl.define do
   factory :clipping do
-    logo "MyString"
-    title "MyString"
-    clipping_text "MyString"
-    source "MyString"
-    link "MyString"
+    logo { fixture_file_upload("#{Rails.root}/spec/fixtures/files/shoe02.jpg", "image/jpeg") }
+    title "Olook is awesome"
+    clipping_text "Olook is a great online store"
+    source "nyt.com"
+    link "nyt.com/olook-is-awesome"
   end
 end
