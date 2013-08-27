@@ -5,6 +5,7 @@
       <div id="gallery">
         <%= product_presenter.render_pics %>
       </div>
+      <%=image_tag("product/vantagens.jpg", class:"vantagens") %>
       
     </div>
     <div class="box-right">  
@@ -38,7 +39,6 @@
       </div>
     </div>
   </section>
-  <%=image_tag("product/vantagens.jpg", class:"vantagens") %>
   
 <% end %>
 <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id, :product => product%>
