@@ -21,14 +21,15 @@ ul#products{
       span{width:85px;
         display:block;
         background: image-url('moments/sprite.png') no-repeat right -169px;
-        font-family:$johnston;
-        font-size:16px;
-        font-style:italic;
-        line-height:54px;
+        font-family:$avenir;
+        font-size:11px;
+        line-height:49px;
+        font-weight: bold;
+        letter-spacing: 1px;
         width: 85px;
         margin-left: 10px;
-        padding-left: 45px;
-        padding-right: 10px;
+        padding-left: 46px;
+        padding-right: 1px;
       }
     }
     &:hover{
