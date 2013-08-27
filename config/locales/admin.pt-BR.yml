@@ -4,7 +4,8 @@ pt-BR:
       clipping:
         messages:
           successful:
-            create: '%{model} criado com sucesso'
-          errors: '%{count} impedira do %{model} ser salvo'
+            create: " Materia criada com sucesso"
+            update: "Materia atualizada com sucesso"
+          errors: ''
 
 
