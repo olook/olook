@@ -1,7 +1,7 @@
 <div id="product-particulars">
   <h3 class="about-title open">SOBRE O PRODUTO</h3>
   <div class="about open">
-      <p class="description"><%= @product.description %></p>
+      <p class="description"><%= @product.description_html.html_safe %></p>
       <dl>
         <% details = @product.details.only_specification.with_valid_values -%>
         <% @product.sort_details_by_relevance(details).each do |detail| -%>
