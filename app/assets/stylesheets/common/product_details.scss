@@ -89,9 +89,11 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       ul.social-list {float:left; width:417px;margin-top:5px;
         li {padding:0;margin-right: 10px;display:inline-block;
           &.like{margin-right: 4px !important;margin-left: 23px;}
+          &.twitter{position: relative;top: -1px;}
+          &.pinterest{position: relative;top: -1px;}
           a{display:inline;padding:0;width:100%;margin:0;}
           &.email{margin: 0;
-            a{float:left;font-size:0;display:block;width:25px;height:20px;background: image-url('product/new_page_sprite.png') 0 -94px no-repeat;}
+            a{float:left;font-size:0;display:block;width:25px;height:20px;background: image-url('product/new_page_sprite.png') 0 -94px no-repeat;position: relative;margin-bottom: 2px;}
           }
           
         }
