@@ -1,0 +1,10 @@
+pt-BR:
+  activerecord:
+    models:
+      clipping:
+        messages:
+          successful:
+            create: '%{model} criado com sucesso'
+          errors: '%{count} impedira do %{model} ser salvo'
+
+
