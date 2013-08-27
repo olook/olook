@@ -130,7 +130,16 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         }
       }
       &.quantity{margin-top:12px;position:relative;overflow:hidden;
-        .quantity-product{line-height: 26px;text-align: center;width:20px;height:20px;display:inline-block;color:#6D6E71;font-size:13px;font-weight:normal;}
+        .quantity-product {
+          text-align: center;
+          width:20px;
+          height:20px;
+          display:inline-block;
+          color:#6D6E71;
+          font-size:13px;
+          font-weight:normal;
+          border: 1px solid #b7b7b7;
+        }
         button{position:absolute;width:14px;height:12px;border:none;color:#000;background:image-url('product/new_page_sprite.png') no-repeat;font-size:0;cursor:pointer;
           &.minus{background-position:-3px -75px;top:21px;left:130px;}
           &.plus{background-position:-24px -70px;top:0;left:127px;}
@@ -190,9 +199,15 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
             &.error{background:#EB8793 image-url('product/new_page_sprite.png') -50px -50px no-repeat;}
           }
         }
-        &.open{display:block;}
+        &.open{
+          display:block;
+          padding-right: 20px;
+          text-align: justify;
+        }
       }
-      p{font-size:14px;}
+      p {
+        font-size:14px;
+      }
       b{display:block;}
       h3{float:left;text-transform:uppercase;font-weight:bold;font-size:13px;clear:both;border-top:solid 1px #C2C2C2;padding:10px 0 10px 12px;width:97%;background:image-url('product/new_page_sprite.png') 400px -137px no-repeat;cursor:pointer;
         &.open{background-position:400px -225px;cursor:text;border-bottom:none !important;}
