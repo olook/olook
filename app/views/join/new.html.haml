@@ -37,45 +37,45 @@
       = f.hidden_field :validate_gender_birthday, value: 1
       .first_name.field
         = f.label :first_name
-        = f.text_field :first_name, class: @user.errors[:first_name].empty? ? "" : "input_error"
+        = f.text_field :first_name, class: @user.errors[:first_name].empty? ? "" : "input_error", onblur: track_event('QuizProgress', 'FormFirstName')
       .last_name.field
         = f.label :last_name
-        = f.text_field :last_name, class: @user.errors[:last_name].empty? ? "" : "input_error"
+        = f.text_field :last_name, class: @user.errors[:last_name].empty? ? "" : "input_error", onblur: track_event('QuizProgress', 'FormLastName')
       = errors_for(@user, :first_name)
       = errors_for(@user, :last_name)
       .email.field
         = f.label :email
-        = f.text_field :email, class: @user.errors[:email].empty? ? "" : "input_error"
+        = f.text_field :email, class: @user.errors[:email].empty? ? "" : "input_error", onblur: track_event('QuizProgress', 'FormEmail')
       = errors_for(@user, :email)
       .password.field
         = f.label :password, "Senha #{content_tag("span", '(min. 6 caracteres)', class: 'hint')}".html_safe
-        = f.password_field :password, class: @user.errors[:password].empty? ? "" : "input_error"
+        = f.password_field :password, class: @user.errors[:password].empty? ? "" : "input_error", onblur: track_event('QuizProgress', 'FormPassword')
       .password_confirmation.field
         = f.label :password_confirmation, "Confirmar senha"
-        = f.password_field :password_confirmation, class: @user.errors[:password].empty? ? "" : "input_error"
+        = f.password_field :password_confirmation, class: @user.errors[:password].empty? ? "" : "input_error", onblur: track_event('QuizProgress', 'FormPasswordConfirmation')
       = errors_for(@user, :password)
       = errors_for(@user, :password_confirmation)
       .gender.field
         = f.label :gender, "Você é:", style: 'margin-bottom: 41px;'
         %p.text{ class: @user.errors[:gender].empty? ? "" : "input_error" }
           Mulher
-        = f.select :gender, options_for_select({'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 },selected_key = 0)
+        = f.select :gender, options_for_select({'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 },selected_key = 0), onblur: track_event('QuizProgress', 'FormGender')
         = errors_for(@user, :gender)
       .date.field
         = f.label :birthday, "Data de Nascimento"
-        = f.text_field :birthday, class: @user.errors[:birthday].empty? ? "" : "input_error"
+        = f.text_field :birthday, class: @user.errors[:birthday].empty? ? "" : "input_error", onblur: track_event('QuizProgress', 'FormBornDate')
         = errors_for(@user, :birthday)
       .location
         .state.field
           = f.label :state, "Estado #{content_tag :span, '(opcional)', class: 'hint'}".html_safe
           %p.text
             Selecione
-          = f.select :state, []
+          = f.select :state, [], onblur: track_event('QuizProgress', 'FormState')
         .city.field
           = f.label :city, "Cidade #{content_tag :span, '(opcional)', class: 'hint'}".html_safe
           %p.text
             Selecione
-          = f.select :city, []
+          = f.select :city, [], onblur: track_event('QuizProgress', 'FormCity')
 
       %p.notes
         Concluindo o cadastro você aceita nossos
@@ -84,7 +84,7 @@
         e a nossa
         = link_to 'política de privacidade', privacy_path
 
-      = f.submit 'Cadastrar'
+      = f.submit 'Cadastrar', onclick: "_gaq.push(['_trackEvent', 'QuizProgress', 'FormSubmit', '']);"
 
 
   .right_box

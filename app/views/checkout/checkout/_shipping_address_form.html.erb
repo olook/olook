@@ -42,7 +42,6 @@
     <%= field_set_tag do %>
       <div class="state field">
         <%= address_form.label :state, "UF*" %>
-        <% #= address_form.text_field :state,  class: "uf #{error_class_if_needed(address, :state)}", onblur: [track_event("CheckoutAddress","fillState"), "javascript:trackStateForFreightABTest();"] %>
         <p class="text">
           Selecione
         </p>
@@ -50,12 +49,10 @@
       </div>
       <div class="city field">
         <%= address_form.label :city, "Cidade*" %>
-        <% #= address_form.text_field :city,  class: "cidade #{error_class_if_needed(address, :city)}", onblur: track_event("CheckoutAddress","fillCity") %>
         <p class="text">
           Selecione
         </p>
         <%= address_form.select :city, [] %>
-        
       </div>
       <%= errors_for(address, :city) %>
       <%= errors_for(address, :state) %>

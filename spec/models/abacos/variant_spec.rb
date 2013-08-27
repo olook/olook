@@ -5,7 +5,7 @@ describe Abacos::Variant do
   let(:downloaded_variant) { load_abacos_fixture :variant }
   let(:parsed_data) { described_class.parse_abacos_data downloaded_variant }
   subject { described_class.new parsed_data }
-  
+
   it '#attributes' do
     subject.attributes.should == {  number:             subject.number,
                                     description:        subject.description,
@@ -25,10 +25,10 @@ describe Abacos::Variant do
       mock_product.stub_chain(:variants, :find_by_number).with(subject.number).and_return(mock_variant)
 
       subject.should_receive(:confirm_variant)
-      
+
       subject.integrate
     end
-    
+
     it "should raise and error if the model_number doesn't exist" do
       expect {
         ::Product.stub(:find_by_model_number).with(subject.model_number).and_return(nil)
@@ -39,13 +39,17 @@ describe Abacos::Variant do
 
   describe '#confirm_variant' do
     let(:fake_protocol) { 'PROT-123-VAR' }
-    it 'should add a task on the queue to integrate' do
+    let(:fake_product_number) { '42' }
+    before do
       subject.stub(:integration_protocol).and_return(fake_protocol)
-      Resque.should_receive(:enqueue).with(Abacos::ConfirmProduct, fake_protocol)
+      subject.stub(:number).and_return(fake_product_number)
+    end
+    it 'should add a task on the queue to integrate' do
+      Resque.should_receive(:enqueue).with(Abacos::ConfirmProduct, fake_protocol, fake_product_number)
       subject.confirm_variant
     end
   end
-  
+
   describe 'class methods' do
     describe '#parse_abacos_data' do
       it '#integration_protocol' do

@@ -115,7 +115,7 @@ module Abacos
     end
 
     def confirm_product
-      Resque.enqueue(Abacos::ConfirmProduct, self.integration_protocol)
+      Resque.enqueue(Abacos::ConfirmProduct, self.integration_protocol, self.model_number)
     end
 
     def create_kit_variant

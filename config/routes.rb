@@ -416,6 +416,7 @@ Olook::Application.routes.draw do
   #MOIP-CALLBACK
   post '/moip', :to => 'checkout/payment_callbacks#create_moip', :as => :payment
 
+  get '/ceps/:cep' => 'ceps#show', as: 'cep'
   #ZIPCODE
   get "/get_address_by_zipcode", :to => "zipcode_lookup#get_address_by_zipcode"
   post "/address_data", :to => "zipcode_lookup#address_data"
