@@ -24,6 +24,18 @@ $('#close_quick_view, #overlay-campaign').on("click", function() {
 accordion();
 delivery();
 
+function showAlert(){
+  $('p.alert_size').show().html("Qual é o seu tamanho mesmo?") 
+}
+
+$("form#product_add_to_cart").submit(function() {
+  if ($('[name="variant[id]"]:checked').length == 0) {
+    showAlert();
+    return false;
+  }
+  return true;
+});
+
 if (typeof initSuggestion != 'undefined') {
   initSuggestion.checkIfProductIsAlreadySelected();
 }
