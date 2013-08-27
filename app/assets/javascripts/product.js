@@ -65,6 +65,18 @@ $(document).ready(function() {
   $("#add_product").click(function(e){
     e.preventDefault;
   });
+
+  $(".plus").click(function(){
+    if(parseInt($("#variant_quantity").val()) < parseInt($("#variant_quantity").attr("data-max-value"))) {
+      $("#variant_quantity").val(parseInt($("#variant_quantity").val()) + 1);
+    }
+  });
+
+  $(".minus").click(function(){
+    if(parseInt($("#variant_quantity").val()) > 1){
+      $("#variant_quantity").val(parseInt($("#variant_quantity").val()) - 1);
+    }
+  });  
 });
 
 
