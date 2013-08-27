@@ -444,13 +444,13 @@
         text_color: 'Cor do Texto do link do vídeo no banner'
         product_associate_ids: 'Ids dos produtos associados'
       clipping:
-        logo: 'Logo'
-        title: 'Título'
-        title: 'Título'
-        clipping_text: 'Conteúdo'
-        published_at: 'Quando'
-        source: 'Onde'
-        link: 'Link'
+        logo: 'Imagem'
+        title: 'Título (chamada da matéria)'
+        clipping_text: 'Citação (trecho da matéria que nos favorece)'
+        published_at: 'Quando?'
+        source: 'Onde?'
+        link: "Link (url completa, com 'Http://')"
+        alt: 'ALT da imagem'
       credit_card:
         credit_card_number: "Número do cartão"
         expiration_date: "Validade (MM/AA)"
