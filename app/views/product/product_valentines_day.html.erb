@@ -146,17 +146,6 @@
     });
   </script>
 
-  <!-- Begin: Groovinads Behavioral-->
-  <img src="http://ads01.groovinads.com/grv/track/bhpx.os?idc=90&sku=<%= "#{sku_for(@product)}" %>&idcategory=<%= "#{@product.category}" %>" height="1">
-  <!--End: Groovinads Behavioral -->
-
-  <%= render partial: "shared/metrics/sociomantic/product", :locals => { product_id: @product.id } %>
-  <%= render partial: "shared/metrics/criteo/product_page_tracker", :locals => { product_id: @product.id } %>
-  <%= render partial: "shared/metrics/triggit/product", :locals => { product_id: @product.id } %>
-  <%#= render partial: "shared/metrics/struq/product_details", :locals => { product_id: @product.id } %>
-  <%= render partial: "shared/metrics/nextperformance/product", :locals => { product_id: @product.id } %>
-  <%= render partial: "shared/metrics/nextperformance/category", :locals => { category_id: @product.category } %>
-  <%= render partial: "shared/metrics/all_in/product", :locals => { product: @product } %>
   <%= render "facebook_js", :facebook_app_id => @facebook_app_id, :product => @product %>
   <%= render "shared/lightbox_credits" %>
 <% end %>

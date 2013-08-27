@@ -1,3 +1,5 @@
+//= require state_cities
+//= require plugins/cep
 function maskTel(tel){
   ddd  = $(tel).val().substring(1, 3);
   dig9 = $(tel).val().substring(4, 5);
@@ -66,7 +68,7 @@ function retrieve_freight_price_for_checkout(url_base, zip_code) {
 }
 
 function retrieve_zip_data(zip_code) {
-  
+
   $.ajax({
     url: '/address_data',
   type: 'POST',
@@ -157,7 +159,7 @@ $(function() {
   window.setTimeout(setButton,600);
   masks.tel(".tel_contato1");
   masks.tel(".tel_contato2");
-  
+
   updateFreightValue();
   freightCalc();
   showAboutSecurityCode();
@@ -165,7 +167,7 @@ $(function() {
   if($(".box-step-one input[type=radio]").size() == 1){
     $(".box-step-one input[type=radio]").trigger('click');
   }
-  
+
   $(".credit_card").click(function() {
     $(".box-debito .debit_bank_Itau").removeClass("selected").siblings("input:checked").removeAttr("checked");
   });
@@ -186,8 +188,8 @@ $(function() {
     });
   }
 
- 
-  
+
+
   $("div.box-step-two #checkout_credits_use_credits").change(function() {
     $("#cart-box #credits_used").hide();
     $("#cart-box #total").hide();

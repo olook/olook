@@ -1,0 +1,77 @@
+if(!olook) var olook = {};
+
+olook.cep = function(selector, options) {
+  olook.cep.foundCEP = false;
+  olook.cep.afterFail = options['afterFail'];
+  olook.cep.setCepFieldsReadOnly = options['setCepFieldsReadOnly'] || true;
+  olook.cep.estado = options['estado'];
+  olook.cep.estadoEl = $(options['estado']);
+  olook.cep.rua = options['rua'];
+  olook.cep.ruaEl = $(options['rua']);
+  olook.cep.cidade = options['cidade'];
+  olook.cep.cidadeEl = $(options['cidade']);
+  olook.cep.bairro = options['bairro'];
+  olook.cep.bairroEl = $(options['bairro']);
+
+  olook.cep.setValueReadOnly = function(_selector, value) {
+    var it = $(_selector)
+    it.val(value)
+      if(value && value !== '' && olook.cep.setCepFieldsReadOnly) {
+      it.attr('readonly', 'readonly').addClass('readonly');
+    }
+  }
+  olook.cep.attachCep = function(selector){
+    var context = olook.cep;
+    $(selector).blur(function() {
+      var cep = $(this).val().replace(/\D/, '');
+      if(cep.length >= 8) {
+        var url = '<%= Rails.application.routes.url_helpers.cep_path('__CEP__') %>';
+        url = url.replace('__CEP__', cep);
+        $.getJSON(url, function(data){
+          context.foundCEP = true;
+          context.setValueReadOnly(context.rua, data.endereco);
+          context.setValueReadOnly(context.bairro, data.bairro);
+
+          var p = $(context.estado).parent();
+          $(context.estado).remove();
+          var custom = p.find('p');
+          if(custom) {
+            context.customEstado = true;
+            custom.remove();
+          }
+          p.append('<input type="text" id="' + context.estado.replace('#', '') + '" name="' + context.estadoEl.attr('name') + '" />');
+          context.setValueReadOnly(context.estado, data.estado);
+
+          var p = $(context.cidade).parent();
+          $(context.cidade).remove();
+          var custom = p.find('p')
+          if(custom) {
+            context.customCidade = true;
+            custom.remove();
+          }
+          p.append('<input type="text" id="' + context.cidade.replace('#', '') + '" name="' + context.cidadeEl.attr('name') + '" />');
+          context.setValueReadOnly(context.cidade, data.cidade);
+        });
+      } else {
+        if(context.foundCEP) {
+          $([context.cidade, context.estado, context.rua, context.bairro].join(',')).removeAttr('readonly');
+
+          var p = $(context.estado).parent();
+          $(context.estado).remove();
+          if(context.customEstado) p.append('<p class="text">Selecione</p>');
+          p.append(context.estadoEl);
+
+          var p = $(context.cidade).parent();
+          $(context.cidade).remove();
+          if(context.customCidade) p.append('<p class="text">Selecione</p>');
+          p.append(context.cidadeEl);
+
+          if(context.afterFail) context.afterFail();
+          context.foundCEP = false;
+        }
+      }
+    });
+  }
+
+  olook.cep.attachCep(selector);
+}

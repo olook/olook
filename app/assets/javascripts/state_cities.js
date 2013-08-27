@@ -100,7 +100,7 @@ dgCidadesEstados.prototype = {
     var opts = this.cidade;
     while (opts.childNodes.length) opts.removeChild(opts.firstChild); // limpa a lista atual
 
-    this.addOption(opts, '', 'Selecione');    
+    this.addOption(opts, '', 'Selecione');
   },
   run: function () { //preenche as cidades de acordo com o estado escolhido
 	var sel = this.estado.selectedIndex; // estado escolhido
@@ -120,11 +120,11 @@ dgCidadesEstados.prototype = {
     elm.appendChild(opt);
   },
   estados : [
-    ['','Selecione'],['SP','São Paulo'],['AL','Alagoas'],['AM','Amazonas'],['AP','Amapá'],['BA','Bahia'],
-    ['CE','Ceará'],['DF','Distrito Federal'],['ES','Espírito Santo'],['GO','Goiás'],['MA','Maranhão'],['MG','Minas Gerais'],
-    ['MS','Mato Grosso do Sul'],['MT','Mato Grosso'],['PA','Pará'],['PB','Paraíba'],['PE','Pernambuco'],['PI','Piauí'],
-    ['PR','Paraná'],['RJ','Rio de Janeiro'],['RN','Rio Grande do Norte'],['RO','Rondônia'],['RR','Roraima'],['RS','Rio Grande do Sul'],
-    ['SC','Santa Catarina'],['AC','Acre'],['SE','Sergipe'],['TO','Tocantins']
+    ['','Selecione'],['SP','SP'], ['AC','AC'],['AL','AL'],['AM','AM'],['AP','AP'],['BA','BA'],
+    ['CE','CE'],['DF','DF'],['ES','ES'],['GO','GO'],['MA','MA'],['MG','MG'],
+    ['MS','MS'],['MT','MT'],['PA','PA'],['PB','PB'],['PE','PE'],['PI','PI'],
+    ['PR','PR'],['RJ','RJ'],['RN','RN'],['RO','RO'],['RR','RR'],['RS','RS'],
+    ['SC','SC'],['SP','SP'],['SE','SE'],['TO','TO']
   ],
   cidades : [
 	[],
