@@ -11,16 +11,16 @@ class SearchResult
   end
 
   def found_products
-    @hits["found"].dup
+    @hits["found"]
   end
 
   def grouped_products key
-    @groups[key].dup if @groups
+    @groups[key].dup if @groups && @groups[key]
   end
 
   # TEMP
   def hits
-    @hits.dup
+    @hits.dup if @hits
   end
 
   private
