@@ -5,5 +5,8 @@ FactoryGirl.define do
     clipping_text "Olook is a great online store"
     source "nyt.com"
     link "nyt.com/olook-is-awesome"
+      trait :published do
+        published_at { Time.zone.now - 1.day }
+      end
   end
 end
