@@ -21,6 +21,7 @@ BOX MODAL ESPIAR
   .size_guide{
     display:none;
   }
+  div#gallery { width:498px; margin-left: 20px; }
   #close_quick_view{cursor: pointer;
     font-size: 20px;
     position: absolute;
@@ -33,6 +34,7 @@ BOX MODAL ESPIAR
     z-index: 100;
   }
 }
+
 .social-media-box{overflow:hidden;border-top:solid 1px #C2C2C2;border-bottom:solid 1px #C2C2C2;padding:10px 0;margin:20px 0;
   .has_bt_face{height:22px;position:relative;}
   ul.social-list {float:left; width:417px;margin-top:-7px !important;
