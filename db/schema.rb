@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130822172956) do
+ActiveRecord::Schema.define(:version => 20130827165137) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -266,6 +266,17 @@ ActiveRecord::Schema.define(:version => 20130822172956) do
   end
 
   add_index "clearsale_order_responses", ["order_id"], :name => "index_clearsale_order_responses_on_order_id"
+
+  create_table "clippings", :force => true do |t|
+    t.string   "logo"
+    t.string   "title"
+    t.string   "clipping_text"
+    t.string   "published_at"
+    t.string   "source"
+    t.string   "link"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "collection_theme_groups", :force => true do |t|
     t.string   "name"
@@ -1061,6 +1072,7 @@ ActiveRecord::Schema.define(:version => 20130822172956) do
   add_index "users", ["cpf"], :name => "index_users_on_cpf"
   add_index "users", ["created_at"], :name => "index_users_on_created_at"
   add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["half_user"], :name => "index_users_on_half_user"
   add_index "users", ["invite_token"], :name => "index_users_on_invite_token"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token"
   add_index "users", ["uid"], :name => "index_users_on_uid"
