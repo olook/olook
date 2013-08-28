@@ -124,3 +124,4 @@ initProduct = {
   }
 }
 
+initProduct.loadAddToCartForm();
