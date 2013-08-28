@@ -444,7 +444,7 @@
         text_color: 'Cor do Texto do link do vídeo no banner'
         product_associate_ids: 'Ids dos produtos associados'
       clipping:
-        logo: 'Imagem'
+        logo: 'Logo do veículo (imagem em JPG)'
         title: 'Título (chamada da matéria)'
         clipping_text: 'Citação (trecho da matéria que nos favorece)'
         published_at: 'Quando?'
