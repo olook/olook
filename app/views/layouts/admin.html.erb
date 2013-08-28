@@ -17,7 +17,7 @@
         <div id="user-navigation">
           <ul class="wat-cf">
             <% if admin_signed_in? %>
-              <li>Bem-vindo <%= "#{current_admin.first_name} #{current_admin.last_name}" %></li>
+              <li>Olá <%= "#{current_admin.first_name} #{current_admin.last_name}" %></li>
               <li><%= link_to "Sair", destroy_admin_session_path, :class => 'logout', :method => :delete %></li>
             <% end %>
           </ul>
