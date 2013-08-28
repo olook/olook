@@ -33,6 +33,6 @@ class Admin::ClippingsController < Admin::BaseController
   def destroy
     @clipping = Clipping.find(params[:id])
     @clipping.destroy
-    redirect_to admin_clippings_url
+    redirect_to admin_clippings_path
   end
 end
