@@ -2,6 +2,7 @@
 class ShippingsController < ApplicationController
   DEFAULT_VALUE = 50.0
   respond_to :json, :js
+  include FreightTracker
 
   def show
     zip_code = params[:id]
@@ -15,11 +16,12 @@ class ShippingsController < ApplicationController
     if freight.empty?
       render :status => :not_found 
     else
+      track_zip_code_fetch_event
+
       @days_to_deliver = freight[:delivery_time]
       @freight_price = freight[:price] 
       # render :show , :format => :json
     end
   end
-
 
 end
