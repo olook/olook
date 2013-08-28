@@ -17,8 +17,8 @@
         <div id="user-navigation">
           <ul class="wat-cf">
             <% if admin_signed_in? %>
-              <li>Welcome <%= "#{current_admin.first_name} #{current_admin.last_name}" %></li>
-              <li><%= link_to "Logout", destroy_admin_session_path, :class => 'logout', :method => :delete %></li>
+              <li>Bem-vindo <%= "#{current_admin.first_name} #{current_admin.last_name}" %></li>
+              <li><%= link_to "Sair", destroy_admin_session_path, :class => 'logout', :method => :delete %></li>
             <% end %>
           </ul>
         </div>
@@ -54,7 +54,7 @@
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /promotions|liquidation|coupons|landing|highlights/ %>">
-              <span>Promo</span>
+              <span>Promoções</span>
               <ul>
                 <li><%= access_link("Promotions")%></li>
                 <li><%= access_link("Liquidations")%></li>
@@ -63,12 +63,6 @@
                 <li><%= access_link("Coupons") %></li>
                 <li><%= access_link("Landing Pages") %></li>
                 <li><%= access_link("Highlight Campaigns") %></li>
-              </ul>
-            </li>
-            <li class="submenu<%= ' active' if params[:controller] =~ /clippings/ %>">
-              <span>Conteúdo</span>
-              <ul>
-                <li><%= access_link("Clippings")%></li>
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /admins|roles|settings/ %>">
@@ -81,11 +75,17 @@
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /gift/ %>">
-              <span>Projeto presentes</span>
+              <span>Presentes</span>
               <ul>
                 <li><%= access_link("Gift Occasion Types") %></li>
                 <li><%= access_link("Gift Recipient Relations") %></li>
                 <li><%= access_link("Gift Boxes") %></li>
+              </ul>
+            </li>
+            <li class="submenu<%= ' active' if params[:controller] =~ /clippings/ %>">
+              <span>Conteúdo</span>
+              <ul>
+                <li><%= access_link("Clippings")%></li>
               </ul>
             </li>
           </ul>

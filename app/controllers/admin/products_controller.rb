@@ -118,7 +118,7 @@ class Admin::ProductsController < Admin::BaseController
 
 
   private
-  helper_method :sort_column, :sort_direction
+  helper_method :sort_column, :sort_direction, :product_permalink
   def sort_column
     Product.column_names.include?(params[:s]) ? params[:s] : "collection_id"
   end
