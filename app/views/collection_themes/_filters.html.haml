@@ -23,6 +23,15 @@
         - if params[:subcategory].present?
           %li.clear_choice= link_to '[limpar]', collection_theme_path(@url_builder.remove_filter_of(:subcategory))
 
+    .filter
+      %span.selected-type.txt-filter{ class: ("filter_selected" if params[:brand].present?) } MARCA
+      .tab_bg &nbsp;
+      %ul
+        - filters_by("brand_facet", search, use_fields: [:collection_theme, :category]).each do |text, amount|
+          %li= filter_link_to(collection_theme_path(@url_builder.add_filter(:brand, text)), text.chomp, search.filter_selected?(:brand, text.chomp))
+        - if params[:brand].present?
+          %li.clear_choice= link_to '[limpar]', collection_theme_path(@url_builder.remove_filter_of(:brand))          
+
     - unless filters_by("category", search, use_fields: [:collection_theme, :category]).flatten.include? "acessório"
       .filter
         %span.selected-type.txt-filter{ class: ("filter_selected" if params[:size].present?) } TAMANHO
