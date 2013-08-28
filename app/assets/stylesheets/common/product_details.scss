@@ -14,7 +14,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
 
 
 
-#product {padding: 10px 0 0 0;overflow:hidden;margin-bottom:15px;
+#product {padding: 10px 0 0 0;overflow:visible;margin-bottom:15px;
   .content{width:970px;}
   
   .box-left,.box-right{float:left;}
@@ -79,12 +79,37 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       strong {color: #ff0000;}
     }
     
-    .warn_discount{position:absolute;top:56px;right:48px;width:154px;height:40px;border:solid 1px #000;box-shadow:3px 3px 0 0 #000;text-align:center;
-      p{font-size:12px;line-height:16px;font-weight: 400;font-family: $avenir;margin-top: 5px;width: 142px;margin-left: 6px;
-        a{color:$pink;text-decoration:underline;font-size:12px;}
+    .warn_discount{
+      position:absolute;
+      top:56px;
+      right:48px;
+      width:154px;
+      height:40px;
+      border:solid 1px #000;
+      box-shadow:3px 3px 0 0 #000;
+      text-align:center;
+      p {
+        font-size:12px;
+        line-height:16px;
+        font-weight: 400;
+        font-family: $avenir;
+        margin-top: 5px;
+        width: 142px;
+        margin-left: 6px;
+        a {
+          color:$pink;
+          text-decoration:underline;
+          font-size:12px;
+        }
       }
     }
-    .social-media-box{overflow:hidden;border-top:solid 1px #C2C2C2;border-bottom:solid 1px #C2C2C2;padding:10px 0;margin:20px 0;
+    .social-media-box{
+      overflow:visible;
+      border-top:solid 1px #C2C2C2;
+      border-bottom:solid 1px #C2C2C2;
+      padding-top:8px;
+      height:40px;
+      margin:20px 0;
       .has_bt_face{height:22px;position:relative;}
       ul.social-list {float:left; width:417px;margin-top:5px;
         li {padding:0;margin-right: 10px;display:inline-block;
@@ -215,7 +240,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       }
       dl{margin-top:15px;
         dt{float:left;clear:left;font-weight:bold;text-transform:uppercase;}
-        dd{float:left;line-height:19px;margin-left:4px;}
+        dd{float:left;line-height:19px;margin-left:4px;margin-bottom: 10px;}
       }
     }
   }
