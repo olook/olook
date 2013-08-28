@@ -3,7 +3,8 @@
 #socialmedia
   %a.twitter-share-button{"data-text" => "Tudo o que é publicado sobre a Olook na mídia você confere aqui: www.olook.com.br/imprensa. Acompanhe as novidades! ;)", "data-url" => "www.olook.com.br", "data-count" => "none", "data-counturl" => "www.olook.com.br/imprensa"} Tweetar
  
-  .fb-like{"data-action" => "like", "data-colorscheme" => "light", "data-layout" => "standard", "data-send" => "false", "data-show-faces" => "false", "data-width" => "450"}
+  %fb:like{"href" => "http://olook.com.br/imprensa", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false"}
+
 
 %table
   - @clippings.each do |clipping|
