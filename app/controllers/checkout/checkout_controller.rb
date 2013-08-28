@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Checkout::CheckoutController < Checkout::BaseController
+  include FreightTracker
 
   before_filter :authenticate_user!
   before_filter :check_order
@@ -39,6 +40,8 @@ class Checkout::CheckoutController < Checkout::BaseController
     response = payment_builder.process!
     if response.status == Payment::SUCCESSFUL_STATUS
       clean_cart!
+      # Contabilizacao do Teste AB de frete por CEP
+      track_finished_checkout address.zip_code
       return redirect_to(order_show_path(:number => response.payment.order.number, abt: @ab_test_label))
     else
       @addresses = @user.addresses
