@@ -25,62 +25,62 @@
     <%= stylesheet_link_tag "section/product" %>
   <% end %>
 
-  <% content_for :footer do %>
-    <%= javascript_include_tag "product" %>
-  <% end %>
   <section id="product">
-    <%#= link_to image_tag("valentine/valentines_day_facebook.jpg", style:"margin-bottom:20px"), "javascript:void(0)", class: "face-message", onclick:  track_event('ValentinesDay', "ClickValentinesDayBanner") %>
-    <div class="content">
-      <div id="pics_suggestions">
+    <div class="box-left">
+      <div id="gallery">
+
         <%= product_presenter.render_pics %>
         <%= product_presenter.render_facebook_comments %>
       </div>
-      <div id="infos">
+    </div>
+    <div class="box-right">
+      <div id="product-details">
         <%= product_presenter.render_description %>
         <%= product_presenter.render_add_to_cart %>
         <%= product_presenter.render_details %>
       </div>
 
-      <!-- local onde o frequentlyboughttogether será exibido -->
-      <div class="chaordic frequentlyboughttogether"></div>
-      <!-- local onde o similaritems será exibido -->
-      <div class="chaordic similaritems"></div>
-      <!-- local onde o ultimatebuy será exibido -->
-      <div class="chaordic ultimatebuy"></div>
-      <div class="chaordic mostpopular" data-skin="MP-product-detail"></div>
-
       <div id="modal_guide">
         <h1>GUIA DE MEDIDAS</h1>
         <%= image_tag 'common/body.jpg', :class => '' %>
-        <p>Na página do produto, você poderá </br>consultar as medidas da peça em "Tamanhos & Medidas".</br> Aqui indicamos como fazemos a medição, </br>para que você faça o mesmo ai, ok? ;)</p>
+        <p>Na página do produto, você poderá </br>consultar as medidas da peça em "Tamanhos & Medidas".<br /> Aqui indicamos como fazemos a medição, <br />para que você faça o mesmo ai, ok? ;)</p>
         <ul>
           <li>
-            <span>BUSTO</span> </br>Contorne o busto na altura do seio
+            <span>BUSTO</span> <br />Contorne o busto na altura do seio
           </li>
           <li>
-            <span>CINTURA</span> </br>Contorne a parte mais fina da cintura
+            <span>CINTURA</span> <br />Contorne a parte mais fina da cintura
           </li>
           <li>
-            <span>OMBRO</span> </br>Meça o ombro de ponto a ponta
+            <span>OMBRO</span> <br />Meça o ombro de ponto a ponta
           </li>
           <li>
-            <span>QUADRIL</span> </br>Contorne a área de maior circunferência do seu quadril
+            <span>QUADRIL</span> <br />Contorne a área de maior circunferência do seu quadril
           </li>
           <li>
-            <span>COMPRIMENTO</span> </br>Meça na vertical, de ponta a ponta </br>A altura da medição varia de acordo </br>com o modelo da peça. </br>No caso de um vestido, comece pelo ombro, </br>no caso de uma calça, pela cintura
+            <span>COMPRIMENTO</span> <br />Meça na vertical, de ponta a ponta <br />A altura da medição varia de acordo <br />com o modelo da peça. <br />No caso de um vestido, comece pelo ombro, <br />no caso de uma calça, pela cintura
           </li>
         </ul>
       </div>
-
-      <%# Banner placeholder %>
     </div>
+    <%=image_tag("product/vantagens.jpg", class:"vantagens") %>
   </section>
+  <!-- local onde o frequentlyboughttogether será exibido -->
+  <div class="chaordic frequentlyboughttogether"></div>
+  <!-- local onde o similaritems será exibido -->
+  <div class="chaordic similaritems"></div>
+  <!-- local onde o ultimatebuy será exibido -->
+  <div class="chaordic ultimatebuy"></div>
+  <div class="chaordic mostpopular" data-skin="MP-product-detail"></div>
+
 <% end %>
 <% content_for :data_layer do %>
   <%= render partial: "shared/metrics/all_in/product", :locals => { product: @product } %>
   <%= render partial: "shared/data_layer/product" %>
 <% end %>
+
 <% content_for :footer do %>
+   <%= javascript_include_tag "product" %>
 
    <div id="compartilhar_email">
       <p>COMPARTILHAR POR E-MAIL</p>
