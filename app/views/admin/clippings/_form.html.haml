@@ -1,7 +1,7 @@
 = form_for [:admin, @clipping] do |f|
   - if @clipping.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@clipping.errors.count, "error")} #{I18n.t('activerecord.models.clipping.messages.successful.create')}"
+      %h2= "#{pluralize(@clipping.errors.count, "erro")} #{I18n.t('activerecord.models.clipping.messages.errors')}"
       %ul
         - @clipping.errors.full_messages.each do |msg|
           %li= msg
