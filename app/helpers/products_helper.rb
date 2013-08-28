@@ -54,10 +54,10 @@ module ProductsHelper
     html_sizes = ""
     sizes = detail.description.split(";")
     sizes.each do |size|
-      html_sizes << "#{size.chomp}"
+      html_sizes << "#{size.chomp}<br>"
     end
     rallow = %w{ p b i br }.map { |w| "#{w}\/?[ >]" }.join('|')
-    html_sizes.gsub!(/<\/?(?!(?:#{rallow}))[^>\/]*\/?>/, '')
+    html_sizes.gsub!(/<\/?(?!(?:#{rallow}))[^>\/]*\/?>/i, '')
     html_sizes.html_safe
   end
 
