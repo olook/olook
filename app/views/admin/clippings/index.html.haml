@@ -1,4 +1,7 @@
-%h1 Imprensa
+%h1 Olook na imprensa
+%h1.subtitle Matérias veículadas
+%span.link_above
+  = link_to '+ Adicionar nova matéria', new_admin_clipping_path
 
 %div.inner
   %table.table
@@ -17,10 +20,10 @@
         %td= clipping.title
         %td= clipping.clipping_text
         %td= clipping.source
-        %td= clipping.published_at
+        %td= clipping.published_at.strftime('%d/%m/%Y')
         %td= link_to 'Editar', edit_admin_clipping_path(clipping)
         %td= link_to 'Apagar', [:admin, clipping], :method => :delete, :data => { :confirm => 'Tem certeza ?' }
 
   %br
 
-= link_to 'Adicionar nova matéria', new_admin_clipping_path
+= link_to '+ Adicionar nova matéria', new_admin_clipping_path

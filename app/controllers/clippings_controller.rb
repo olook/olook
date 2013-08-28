@@ -1,5 +1,5 @@
 class ClippingsController < ApplicationController
   def index
-    @clippings = Clipping.all
+    @clippings = Clipping.latest
   end
 end
