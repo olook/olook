@@ -4,6 +4,7 @@ class Clipping < ActiveRecord::Base
   mount_uploader :pdf_file, FileUploader
 
   validates :clipping_text, :logo, :published_at, :source, :title, presence: true
+  validates_with ClippingValidator
 
   scope :latest, order('published_at desc')
 end

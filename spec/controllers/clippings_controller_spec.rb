@@ -9,7 +9,7 @@ describe ClippingsController do
     end
 
     it "assigns @clippings" do
-      clipping = FactoryGirl.create(:clipping, :published)
+      clipping = FactoryGirl.create(:clipping, :with_pdf)
       get :index
       expect(assigns(:clippings)).to eq([clipping])
     end
