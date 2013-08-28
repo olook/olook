@@ -3,6 +3,8 @@
 //= require plugins/toggle_class_slide_next
 //= require plugins/custom_select
 //= require plugins/change_picture_onhover
+//= require plugins/jquery.meio.mask
+
 var filter = {};
 filter.init = function(){
   if(typeof start_position == 'undefined') start_position = 0;

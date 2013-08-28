@@ -6,6 +6,6 @@ pt-BR:
           successful:
             create: " Materia criada com sucesso"
             update: "Materia atualizada com sucesso"
-          errors: ''
+          errors: 'impediram a matéria de ser criada'
 
 
