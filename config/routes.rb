@@ -149,7 +149,7 @@ Olook::Application.routes.draw do
   get "/survey/check_date", :to => "survey#check_date", :as => "check_date"
 
   #PRODUCT
-  # get "/produto/:id" => "product#show", :as => "product"
+  get "/produto/:id" => "product#show", :as => "product"
   get "/produto/:id/spy" => "product#spy", as: 'spy_product'
   post "/produto/share" => "product#share_by_email", as: 'product_share_by_email'
 
@@ -450,7 +450,7 @@ Olook::Application.routes.draw do
   match '/acessorios-sapatos' => redirect('/sapato/conforto-amaciante-apoio%20plantar-impermeabilizante-palmilha-protecao%20para%20calcanhar'), as: 'shoe_accessories'
 
   # Produto
-  get "/:id", to: "product#show", id: /[\w|-]*\d{4}/, as: "product"
+  get "/:id", to: "product#show", id: /[\w|-]*\d+/, as: "product_seo"
 
   # CATALOGO
   match "/catalogo/:category(/*parameters)", to: "catalogs#show"

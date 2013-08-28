@@ -1,10 +1,6 @@
 # -*- encoding : utf-8 -*-
 module ApplicationHelper
 
-  def product_seo_path(product)
-    product_path(product.formatted_name.parameterize + "-" + product.id.to_s)
-  end
-
   def underscore_case(string)
     string.parameterize.gsub('-', '_')
   end

@@ -80,6 +80,10 @@ class Product < ActiveRecord::Base
 
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
 
+  def seo_path
+    formatted_name.to_s.parameterize + "-" + id.to_s
+  end
+
   def product_id
     id
   end
@@ -97,7 +101,7 @@ class Product < ActiveRecord::Base
 
   def unrelated_products
     scope = Product.where("id <> :current_product", current_product: self.id)
-    related_ids = related_products.map &:id
+    related_ids = related_products.map(&:id)
     scope = scope.where("id NOT IN (:related_products)", related_products: related_products) unless related_ids.empty?
     scope
   end
@@ -403,7 +407,7 @@ class Product < ActiveRecord::Base
   end
 
   def self.clothes_for_profile profile
-    products = Rails.cache.fetch(CACHE_KEYS[:product_clothes_for_profile][:key] % profile, :expires_in => CACHE_KEYS[:product_clothes_for_profile][:expire]) do
+    Rails.cache.fetch(CACHE_KEYS[:product_clothes_for_profile][:key] % profile, :expires_in => CACHE_KEYS[:product_clothes_for_profile][:expire]) do
       product_ids = Setting.send("cloth_showroom_#{profile}").split(",")
       find_keeping_the_order product_ids
       # QUICK AND DIRTY. remove this pleeeeeease
