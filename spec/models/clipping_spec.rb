@@ -10,8 +10,8 @@ describe Clipping do
   end
 
   describe '.latest' do
-    let!(:old_clipping) { FactoryGirl.create(:clipping, published_at: (Time.zone.now - 2.day)) }
-    let!(:recent_clipping) { FactoryGirl.create(:clipping, published_at: (Time.zone.now - 1.day)) }
+    let!(:old_clipping) { FactoryGirl.create(:clipping, :with_link, published_at: (Time.zone.now - 2.day)) }
+    let!(:recent_clipping) { FactoryGirl.create(:clipping, :with_link, published_at: (Time.zone.now - 1.day)) }
 
     subject { described_class.latest }
 
