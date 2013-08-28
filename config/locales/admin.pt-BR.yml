@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    models:
+      clipping:
+        messages:
+          successful:
+            create: " Materia criada com sucesso"
+            update: "Materia atualizada com sucesso"
+          errors: 'impediram a matéria de ser criada'
+
+
