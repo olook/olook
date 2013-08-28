@@ -450,6 +450,7 @@
         published_at: 'Quando?'
         source: 'Onde?'
         link: "Link (url completa, com 'Http://')"
+        pdf_file: "Arquivo PDF"
         alt: 'ALT da imagem'
       credit_card:
         credit_card_number: "Número do cartão"
