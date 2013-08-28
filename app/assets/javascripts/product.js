@@ -8,7 +8,7 @@ initProduct = {
     return $("div#related ul.carousel").size() > 0 ? true : false;
   },
   showAlert : function(){
-    $('p.alert_size').show().html("Qual é o seu tamanho mesmo?") 
+    $('p.alert_size').show().html("Qual é o seu tamanho mesmo?").delay(3000).fadeOut();
   },
   showCarousel : function() {
     if(initProduct.checkRelatedProducts() == true) {
@@ -74,6 +74,19 @@ initProduct = {
       }
       if(parseInt($("#variant_quantity").val()) > 1){
         $("#variant_quantity").val(parseInt($("#variant_quantity").val()) - 1);
+      }
+    });
+
+    $("#variant_quantity").change(function(){
+      var it = $(this),
+      variant = $('[name="variant[id]"]:checked');
+      if (variant.length == 0) {
+        initProduct.showAlert();
+        return;
+      }
+      var inventory = $('#inventory_' + variant.val());
+      if(it.val() > inventory.val()) {
+        it.val(inventory.val());
       }
     });
 
