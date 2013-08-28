@@ -452,6 +452,9 @@ Olook::Application.routes.draw do
   match '/novas-marcas' => redirect('/roupa/colcci-douglas%20harris-eclectic-espaco%20fashion-forum-iodice-olli-shop%20126-thelure-triton'), as: 'brands'
   match '/acessorios-sapatos' => redirect('/sapato/conforto-amaciante-apoio%20plantar-impermeabilizante-palmilha-protecao%20para%20calcanhar'), as: 'shoe_accessories'
 
+  # Produto
+  get "/:id", to: "product#show", id: /[\w|-]*\d+/, as: "product_seo"
+
   # CATALOGO
   match "/catalogo/:category(/*parameters)", to: "catalogs#show"
   match "/:category(/*parameters)", to: "catalogs#show", as: "catalog"

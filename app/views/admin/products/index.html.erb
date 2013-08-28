@@ -73,8 +73,8 @@
       <td><%= "#{product.collection.try(:name)} #{product.collection.try(:start_date).try(:year)}" %></td>
       <td><%= image_tag(product.bag_picture) if product.bag_picture %></td>
       <td><%= image_tag(product.color_sample_url, size: '50x50') unless product.color_sample.blank? %></td>
-      <td class=manage_products_links>
-        <%= link_to "Preview", product_path(product), class: 'button info', target: "_blank" %>
+      <td class="manage_products_links">
+        <%= link_to "Preview", product_seo_path(product.seo_path), class: 'button info', target: "_blank" %>
         <%= link_to 'Show', admin_product_path(product), class: 'button' %>
         <%= link_to 'Edit', edit_admin_product_path(product), class: 'button' %>
       </td>

@@ -6,13 +6,15 @@
   &.topo{
     clear:none;
     float:right;
-    margin:4px 3px 0 0;
+    margin:4px 15px 0 0;
+    position: absolute;
+    right: 0;
   }
   a{
     display:inline-block;
     font:normal 13px Verdana, Arial, sans-serif;
     text-decoration:none;
-    color:#A7A9AB;
+    color:#000;
     height:19px;
     line-height:22px;
     margin:0 3px;
@@ -27,6 +29,7 @@
     }
     &.current{
       color:#000 !important;
+      font-weight: bold;
     }
     &:hover{
       color:$base_color;
