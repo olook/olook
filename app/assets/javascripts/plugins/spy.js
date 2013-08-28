@@ -2,7 +2,7 @@ if(!olook) var olook = {};
 olook.spy = function(selector){
   $(selector).click(function(e){
     e.preventDefault();
-    var url = $(this).find('span.spy-text').data('url');
+    var url = $(this).find('span.spy-txt').data('url');
     $.ajax({
       url: url,
       cache: 'true',
