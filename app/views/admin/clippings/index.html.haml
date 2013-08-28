@@ -20,7 +20,7 @@
         %td= clipping.title
         %td= clipping.clipping_text
         %td= clipping.source
-        %td= clipping.published_at
+        %td= clipping.published_at.strftime('%d/%m/%Y')
         %td= link_to 'Editar', edit_admin_clipping_path(clipping)
         %td= link_to 'Apagar', [:admin, clipping], :method => :delete, :data => { :confirm => 'Tem certeza ?' }
 
