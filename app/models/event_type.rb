@@ -22,6 +22,10 @@ class EventType < EnumerateIt::Base
     share_on_twitter:       [50, 'Share on Twitter'],
     share_on_orkut:         [60, 'Share on Orkut'],
 
-    tracking:               [70, 'Tracking parameters']
+    tracking:               [70, 'Tracking parameters'],
+
+    zip_code_fetched:       [80, 'User fetched the zip code'],
+    finished_checkout:      [81, 'User finished the checkout process']
+
   )
 end

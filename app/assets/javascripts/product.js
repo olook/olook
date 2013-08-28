@@ -2,7 +2,8 @@
 $(document).ready(function() {
   initProduct.showCarousel();
   showInfoCredits();
-
+  
+  
   $("#product div.box_carousel a.open_carousel").live("click", function () {
     word = $(this).find("span");
     carousel = $(this).parent().find("div#carousel");
@@ -41,7 +42,7 @@ $(document).ready(function() {
   
   if($('#compartilhar_email').length == 1) {
      var content = $('#compartilhar_email');
-     $("ul.social li.email").click(function(e){
+     $("ul.social-list li.email").on("click", function(e){
         e.preventDefault();
         e.stopPropagation();
         initBase.newModal(content);
@@ -54,20 +55,33 @@ $(document).ready(function() {
   $("a.open_loyalty_lightbox").show();
 
   $("form#product_add_to_cart").submit(function() {
-    if ($('[name="variant[id]"]:checked').size() == 0) {
+    if ($('[name="variant[id]"]:checked').length == 0) {
       showAlert();
       return false; 
     }
     return true;
   });
+
+  $("#add_product").click(function(e){
+    e.preventDefault;
+  });
+
+  $(".plus").click(function(){
+    if(parseInt($("#variant_quantity").val()) < parseInt($("#variant_quantity").attr("data-max-value"))) {
+      $("#variant_quantity").val(parseInt($("#variant_quantity").val()) + 1);
+    }
+  });
+
+  $(".minus").click(function(){
+    if(parseInt($("#variant_quantity").val()) > 1){
+      $("#variant_quantity").val(parseInt($("#variant_quantity").val()) - 1);
+    }
+  });  
 });
 
 
 function showAlert(){
-  $("html, body").animate({ scrollTop: 0 }, "slow");
-  $('#error-messages').css("height", "40px").slideDown('1000', function() {
-    $('p.alert', this).text("Por favor, selecione o tamanho do produto.");
-  }).delay(3000).slideUp();  
+  $('p.alert_size').show().html("Qual é o seu tamanho mesmo?") 
 }
 
 initProduct = {
@@ -93,3 +107,4 @@ initProduct = {
     }
   }
 }
+
