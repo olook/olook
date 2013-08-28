@@ -59,7 +59,7 @@
   		&.open-accessory{width: 330px;height: 120px;
   			li{width: 110px;}
   		}
-  		li{width:120px;height:20px;;position:relative;
+  		li{width:130px;height:20px;;position:relative;
         a{display: inline-block;height: 15px;font-size: 13px;text-decoration: none;color: #000;background: url(/assets/catalog/sprite.png) no-repeat 0 -50px;padding-left: 13px;text-transform: capitalize;
           &.selected{background-position: 0 -86px !important;}
           &:hover{color:$base_color;}

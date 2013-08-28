@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 module ApplicationHelper
+
   def underscore_case(string)
     string.parameterize.gsub('-', '_')
   end

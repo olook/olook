@@ -19,5 +19,6 @@ class ProfilesController < ApplicationController
     end
 
     @profile = current_user.main_profile
+    @zanpid = request.referer[/.*=([^=]*)/,1] if request.referer =~ /zanpid/
   end
 end

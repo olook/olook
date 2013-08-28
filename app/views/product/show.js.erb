@@ -21,6 +21,33 @@ $('#close_quick_view, #overlay-campaign').on("click", function() {
   $('#quick_view, #overlay-campaign').fadeOut(300);
 });
 
+accordion();
+delivery();
+
+function showAlert(){
+  $('p.alert_size').show().html("Qual é o seu tamanho mesmo?") 
+}
+
+$("form#product_add_to_cart").submit(function() {
+  if ($('[name="variant[id]"]:checked').length == 0) {
+    showAlert();
+    return false;
+  }
+  return true;
+});
+
+$(".plus").click(function(){
+  if(parseInt($("#variant_quantity").val()) < parseInt($("#variant_quantity").attr("data-max-value"))) {
+    $("#variant_quantity").val(parseInt($("#variant_quantity").val()) + 1);
+  }
+});
+
+$(".minus").click(function(){
+  if(parseInt($("#variant_quantity").val()) > 1){
+    $("#variant_quantity").val(parseInt($("#variant_quantity").val()) - 1);
+  }
+});
+
 if (typeof initSuggestion != 'undefined') {
   initSuggestion.checkIfProductIsAlreadySelected();
 }
