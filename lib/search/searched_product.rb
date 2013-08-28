@@ -14,6 +14,10 @@ class SearchedProduct
     self.promotion = false
   end
 
+  def seo_path
+    self.formatted_name.to_s.parameterize + "-" + self.id.to_s
+  end
+
   def promotion?
     retail_price < price
   end
