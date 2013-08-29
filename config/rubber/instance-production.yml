@@ -312,7 +312,7 @@
   - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
     options: {}
-  instance_id: i-ca551aa7
+  instance_id: i-a2cc94c1
   image_type: m1.large
   image_id: ami-3fec7956
   security_groups:
@@ -325,5 +325,13 @@
   - olook_production_newrelic
   - olook_production_collectd
   - olook_production_monit
+  external_host: ec2-54-221-5-246.compute-1.amazonaws.com
+  external_ip: 54.221.5.246
+  internal_host: ip-10-159-40-233.ec2.internal
+  internal_ip: 10.159.40.233
+  zone: us-east-1b
+  platform: linux
+  root_device_type: ebs
+  provider: aws
 - volumes: {}
   static_ips: {}
