@@ -206,6 +206,9 @@
   - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
     options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: newrelic
+    options: {}
   instance_id: i-c22720a3
   image_type: m1.large
   image_id: ami-3fec7956
@@ -258,6 +261,9 @@
   - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
     options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: newrelic
+    options: {}
   instance_id: i-b6d27bd5
   image_type: m1.large
   image_id: ami-3fec7956
@@ -281,5 +287,43 @@
   platform: linux
   root_device_type: ebs
   provider: aws
+- !ruby/object:Rubber::Configuration::InstanceItem
+  name: resque03
+  domain: olook.com.br
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque_scheduler
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque_web
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque_worker
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: newrelic
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: collectd
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: monit
+    options: {}
+  instance_id: i-ca551aa7
+  image_type: m1.large
+  image_id: ami-3fec7956
+  security_groups:
+  - olook_production_default
+  - olook_production_resque03
+  - olook_production_resque
+  - olook_production_resque_scheduler
+  - olook_production_resque_web
+  - olook_production_resque_worker
+  - olook_production_newrelic
+  - olook_production_collectd
+  - olook_production_monit
 - volumes: {}
   static_ips: {}
