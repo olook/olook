@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.datetime "remember_created_at"
-    t.datetime "created_at",                                         :null => false
-    t.datetime "updated_at",                                         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "first_name"
     t.string   "last_name"
     t.integer  "role_id"
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
   create_table "answers", :force => true do |t|
     t.string   "title"
     t.integer  "question_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "order"
     t.string   "picture_name"
   end
@@ -203,6 +203,19 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
   add_index "carts", ["notified"], :name => "index_carts_on_notified"
   add_index "carts", ["user_id"], :name => "index_carts_on_user_id"
 
+  create_table "carts_backup", :id => false, :force => true do |t|
+    t.integer  "id",          :default => 0,     :null => false
+    t.integer  "user_id"
+    t.boolean  "notified",    :default => false, :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.integer  "legacy_id"
+    t.boolean  "gift_wrap",   :default => false
+    t.boolean  "use_credits", :default => false
+    t.integer  "coupon_id"
+    t.integer  "address_id"
+  end
+
   create_table "catalog_products", :force => true do |t|
     t.integer  "catalog_id"
     t.integer  "product_id"
@@ -314,8 +327,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.string   "name"
     t.date     "start_date"
     t.date     "end_date"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "is_active",  :default => false
   end
 
@@ -336,8 +349,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
   create_table "contact_informations", :force => true do |t|
     t.string   "title"
     t.string   "email"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "coupons", :force => true do |t|
@@ -348,8 +361,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.boolean  "active"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.datetime "created_at",                                                        :null => false
-    t.datetime "updated_at",                                                        :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "is_percentage"
     t.integer  "used_amount",                                        :default => 0
     t.string   "campaign"
@@ -378,8 +391,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.decimal  "total",              :precision => 10, :scale => 2
     t.integer  "user_id"
     t.integer  "order_id"
-    t.datetime "created_at",                                                           :null => false
-    t.datetime "updated_at",                                                           :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "reason"
     t.boolean  "is_debit",                                          :default => false
     t.datetime "activates_at"
@@ -404,8 +417,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.string   "translation_token"
     t.text     "description"
     t.integer  "display_on"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "details", ["product_id"], :name => "index_details_on_product_id"
@@ -414,8 +427,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.integer  "user_id"
     t.integer  "event_type",  :null => false
     t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "events", ["created_at"], :name => "index_events_on_created_at"
@@ -439,8 +452,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.decimal  "price",               :precision => 8, :scale => 2
     t.decimal  "cost",                :precision => 8, :scale => 2
     t.string   "description"
-    t.datetime "created_at",                                        :null => false
-    t.datetime "updated_at",                                        :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "freight_prices", ["order_value_end"], :name => "index_freight_prices_on_order_value_end"
@@ -557,8 +570,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.string   "email"
     t.datetime "accepted_at"
     t.integer  "invited_member_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.datetime "sent_at"
     t.boolean  "resubmitted"
   end
@@ -578,8 +591,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.boolean  "enabled"
     t.boolean  "show_header"
     t.boolean  "show_footer"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "button_top"
     t.integer  "button_left"
     t.string   "button_hover_image"
@@ -604,8 +617,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.integer  "liquidation_id"
     t.string   "image"
     t.integer  "order"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "product_id"
   end
 
@@ -619,8 +632,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.float    "discount_percent"
     t.integer  "shoe_size"
     t.string   "heel"
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "inventory"
     t.string   "shoe_size_label"
     t.string   "heel_label"
@@ -639,13 +652,27 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.datetime "ends_at"
     t.string   "welcome_banner"
     t.string   "lightbox_banner"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.text     "resume"
     t.string   "teaser_banner"
     t.boolean  "visible",         :default => true
     t.boolean  "show_advertise",  :default => true
     t.string   "big_banner"
+  end
+
+  create_table "lookbooks", :force => true do |t|
+    t.string   "name"
+    t.string   "thumb_image"
+    t.boolean  "active",      :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "slug"
+    t.string   "icon"
+    t.string   "icon_over"
+    t.string   "fg_color"
+    t.string   "bg_color"
+    t.string   "movie_image"
   end
 
   create_table "moip_callbacks", :force => true do |t|
@@ -654,8 +681,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.string   "cod_moip"
     t.string   "tipo_pagamento"
     t.string   "status_pagamento"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "classificacao"
     t.integer  "payment_id"
     t.boolean  "processed",        :default => false
@@ -682,8 +709,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
 
   create_table "orders", :force => true do |t|
     t.integer  "user_id"
-    t.datetime "created_at",                                                                          :null => false
-    t.datetime "updated_at",                                                                          :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.decimal  "credits",                            :precision => 8, :scale => 2, :default => 0.0
     t.string   "state"
     t.integer  "number",                :limit => 8
@@ -701,16 +728,16 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.decimal  "amount_increase",                    :precision => 8, :scale => 2, :default => 0.0,   :null => false
     t.decimal  "amount_paid",                        :precision => 8, :scale => 2, :default => 0.0,   :null => false
     t.decimal  "subtotal",                           :precision => 8, :scale => 2, :default => 0.0,   :null => false
-    t.string   "user_first_name"
-    t.string   "user_last_name"
-    t.string   "user_email"
-    t.string   "user_cpf"
     t.datetime "erp_integrate_at"
     t.datetime "erp_cancel_at"
     t.datetime "erp_payment_at"
     t.text     "erp_integrate_error"
     t.text     "erp_cancel_error"
     t.text     "erp_payment_error"
+    t.string   "user_first_name"
+    t.string   "user_last_name"
+    t.string   "user_email"
+    t.string   "user_cpf"
     t.decimal  "gross_amount",                       :precision => 8, :scale => 2
     t.integer  "gateway"
     t.integer  "tracking_id"
@@ -737,8 +764,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
   create_table "payments", :force => true do |t|
     t.integer  "order_id"
     t.text     "url"
-    t.datetime "created_at",                                                                  :null => false
-    t.datetime "updated_at",                                                                  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "type"
     t.string   "state"
     t.string   "user_name"
@@ -791,8 +818,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
   create_table "permissions", :force => true do |t|
     t.string   "model_name"
     t.string   "action_name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "permissions_roles", :id => false, :force => true do |t|
@@ -804,8 +831,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.string   "image"
     t.integer  "display_on"
     t.integer  "product_id"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "position",   :default => 100
   end
 
@@ -816,19 +843,20 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.integer  "value"
     t.integer  "user_id"
     t.integer  "profile_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "points", ["profile_id"], :name => "index_points_on_profile_id"
   add_index "points", ["user_id"], :name => "index_points_on_user_id"
+  add_index "points", ["user_id"], :name => "temp_user_id"
 
   create_table "products", :force => true do |t|
     t.string   "name"
     t.text     "description"
     t.integer  "category"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "model_number"
     t.string   "color_name"
     t.string   "color_sample"
@@ -851,8 +879,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
   create_table "products_profiles", :id => false, :force => true do |t|
     t.integer  "product_id"
     t.integer  "profile_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "products_profiles", ["product_id", "profile_id"], :name => "index_products_profiles_on_product_id_and_profile_id"
@@ -861,8 +889,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
 
   create_table "profiles", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "first_visit_banner"
     t.string   "alternative_name"
   end
@@ -888,8 +916,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.string   "name"
     t.string   "description"
     t.boolean  "active"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.date     "starts_at"
     t.date     "ends_at"
     t.string   "checkout_banner"
@@ -897,8 +925,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
 
   create_table "questions", :force => true do |t|
     t.string   "title"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "friend_title"
     t.integer  "survey_id"
   end
@@ -906,8 +934,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
   create_table "related_products", :force => true do |t|
     t.integer  "product_a_id", :null => false
     t.integer  "product_b_id", :null => false
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "related_products", ["product_a_id"], :name => "index_related_products_on_product_a_id"
@@ -916,8 +944,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.string   "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "rule_parameters", :force => true do |t|
@@ -949,11 +977,18 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
 
   add_index "settings", ["thing_type", "thing_id", "var"], :name => "index_settings_on_thing_type_and_thing_id_and_var", :unique => true
 
+  create_table "shipping_companies", :force => true do |t|
+    t.string   "name"
+    t.string   "erp_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "shipping_services", :force => true do |t|
     t.string   "name"
     t.string   "erp_code"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "cubic_weight_factor"
     t.integer  "priority"
     t.string   "erp_delivery_service"
@@ -962,8 +997,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
   create_table "survey_answers", :force => true do |t|
     t.integer  "user_id"
     t.text     "answers"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "survey_answers", ["user_id"], :name => "index_survey_answers_on_user_id"
@@ -976,8 +1011,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
 
   create_table "synchronization_events", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "user"
   end
 
@@ -988,8 +1023,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.string   "utm_content"
     t.string   "utm_campaign"
     t.string   "gclid"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "placement"
     t.string   "referer"
   end
@@ -1011,8 +1046,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
   create_table "user_infos", :force => true do |t|
     t.integer  "user_id"
     t.integer  "shoes_size"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "dress_size"
     t.string   "t_shirt_size"
     t.string   "pants_size"
@@ -1024,8 +1059,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.integer  "user_id"
     t.integer  "liquidation_id"
     t.boolean  "dont_want_to_see_again", :default => false
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "user_liquidations", ["liquidation_id"], :name => "index_user_liquidations_on_liquidation_id"
@@ -1033,8 +1068,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.datetime "created_at",                                                         :null => false
-    t.datetime "updated_at",                                                         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -1088,8 +1123,8 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.string   "display_reference"
     t.decimal  "price",             :precision => 10, :scale => 2
     t.integer  "inventory"
-    t.datetime "created_at",                                                      :null => false
-    t.datetime "updated_at",                                                      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "is_master"
     t.decimal  "width",             :precision => 8,  :scale => 2
     t.decimal  "height",            :precision => 8,  :scale => 2
