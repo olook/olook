@@ -1,11 +1,15 @@
-%table
+%section#clipping
+
+  %h1
+    OLOOK NA IMPRENSA
+  %p
+    O que andam falando de nós...
+  
   - @clippings.each do |clipping|
-    %tr
-      %td
+    %ul
+      %li.media
         = image_tag clipping.logo
-      %td
-        = clipping.title
-      %td
-        = simple_format clipping.clipping_text
-      %td
-        = link_to "Clique aqui para ver a matéria completa", clipping.link, target: :blank
+      %li.article
+      = clipping.title
+      = simple_format clipping.clipping_text
+      = link_to "Clique aqui para ver a matéria completa", clipping.link, target: :blank

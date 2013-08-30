@@ -1,3 +1,21 @@
 // Place all the styles related to the clippings controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'new_structure/common/global_stuffs';
+
+#clipping{
+	width: 990px;
+	height: 1000px;
+	margin: 0 auto;
+	ul{
+		width: 485px;
+		margin-top: 20px;
+		float: left;
+		li{float: left;
+			margin-right: 50px;
+			&.media{width: 117px;height: 130px;}
+			&.article{width: 330px;}
+		}
+	}
+}
