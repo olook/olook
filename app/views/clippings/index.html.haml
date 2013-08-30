@@ -7,18 +7,18 @@
   %p
     O que andam falando de nós...
 
-#socialmedia
-  %a.twitter-share-button{"data-text" => "Tudo o que é publicado sobre a Olook na mídia você confere aqui: www.olook.com.br/imprensa. Acompanhe as novidades! ;)", "data-url" => "www.olook.com.br", "data-count" => "none", "data-counturl" => "www.olook.com.br/imprensa"} Tweetar
+  #socialmedia
+    %a.twitter-share-button{"data-text" => "Tudo o que é publicado sobre a Olook na mídia você confere aqui: www.olook.com.br/imprensa. Acompanhe as novidades! ;)", "data-url" => "www.olook.com.br", "data-count" => "none", "data-counturl" => "www.olook.com.br/imprensa"} Tweetar
 
-  %fb:like{"href" => "http://olook.com.br/imprensa", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false"}
+    %fb:like{"href" => "http://olook.com.br/imprensa", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false"}
 
-
-%table
   - @clippings.each do |clipping|
     %ul
       %li.media
         = image_tag clipping.logo
       %li.article
-      = clipping.title
-      = simple_format clipping.clipping_text
-      = link_to "Ler na integra", clipping.link, target: :blank
+        %span
+          = clipping.title
+        = simple_format clipping.clipping_text
+        = clipping.source
+        = link_to "Ler na integra", clipping.link, target: :blank
