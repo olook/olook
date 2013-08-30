@@ -88,8 +88,8 @@ Olook::Application.routes.draw do
   match "/half_newsletter", to: "landing_pages#half_newsletter", as: "newsletter"
 
   # TODO use clippings when press page change
-  # match "/olook-na-imprensa", :to => "clippings#index", :as => "press"
-  match "/olook-na-imprensa", :to => "pages#press", :as => "press"
+  match "/olook-na-imprensa", :to => "clippings#index", :as => "press"
+  #match "/olook-na-imprensa", :to => "pages#press", :as => "press"
 
   # BRANDS
   match "/marcas", :to => "brands#index", :as => "new_brands"
