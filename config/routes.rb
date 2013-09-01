@@ -47,6 +47,8 @@ Olook::Application.routes.draw do
     get "/colecoes/#{collection_name}", to: "brands#show", defaults: {brand: brand}
   end
 
+  get "/colecoes/liquida_final", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
+
   #temp route to fix a wrong email
   match "/olook-no-qbazar" => redirect("http://www.olook.com.br/stylist-news/olook-no-qbazar/")
 
