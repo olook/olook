@@ -41,13 +41,12 @@ Olook::Application.configure do
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
-  config.cache_store = :dalli_store, 'localhost',{ :namespace => 'olook', :expires_in => 1.day , :compress => true }
+  config.cache_store = :redis_store, ENV['REDIS_CACHE_STORE'], { :expires_in => 5.minutes }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   #config.action_controller.asset_host = "http://cdn-app-staging.olook.com.br.s3.amazonaws.com"
-  config.action_controller.asset_host = proc do |x|
-    "//d3j8xxu8fm1yad.cloudfront.net"
-  end
+  config.action_controller.asset_host = "//d3j8xxu8fm1yad.cloudfront.net"
+
   # config.action_controller.asset_host = Proc.new do |source, request|
   #   request.ssl? ? "https://cdn-app-staging.olook.com.br.s3.amazonaws.com" : "http://cdn-app-staging.olook.com.br.s3.amazonaws.com"
   # end
