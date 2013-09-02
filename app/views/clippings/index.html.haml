@@ -1,5 +1,6 @@
 - content_for :footer do
   = javascript_include_tag "clippings"
+  = stylesheet_link_tag "clippings"
 
 - content_for(:head) do
   %meta{property: "og:title", content: "Olook na Imprensa"}
@@ -37,11 +38,11 @@
         = simple_format clipping.clipping_text
         %p.date
           %span
-            Quando:  
-          = clipping.published_at 
+            Quando:
+          = clipping.published_at
           %span
-            Onde:  
-          = clipping.source 
+            Onde:
+          = clipping.source
         = link_to "Ler na integra", clipping.link, target: :blank
         = image_tag "common/clipping_arrow.png"
 .next
