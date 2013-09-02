@@ -6,9 +6,9 @@
       OLOOK NA IMPRENSA
     %p
       O que andam falando de nós...
-    %h2 
+    %h2
       Quer escrever sobre a Olook?
-    %p.contact 
+    %p.contact
       É só entrar em contato através do e-mal imprensa@olook.com.br
 
   .socialmedia
@@ -16,7 +16,7 @@
       GOSTOU? Então compartilhe
     %a.twitter-share-button{"data-text" => "Tudo o que é publicado sobre a Olook na mídia você confere aqui: www.olook.com.br/imprensa. Acompanhe as novidades! ;)", "data-url" => "www.olook.com.br", "data-count" => "none", "data-counturl" => "www.olook.com.br/imprensa", "class" => "twitter"} Tweetar
 
-    %fb:like{"href" => "http://olook.com.br/imprensa", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false", "class" => "like"}
+    %fb:like{"href" => "http://olook.com.br/olook-na-imprensa", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false", "class" => "like"}
 
   - @clippings.each do |clipping|
     %ul
@@ -28,10 +28,10 @@
         = simple_format clipping.clipping_text
         %p.date
           %span
-            Quando: 
+            Quando:
           = clipping.published_at
           %span
-            Onde: 
+            Onde:
           = clipping.source
         = link_to "Ler na integra", clipping.link, target: :blank
         = image_tag "common/clipping_arrow.png"
