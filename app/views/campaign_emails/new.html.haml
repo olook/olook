@@ -1,6 +1,18 @@
 .box-cadastro{ class: "campaign_modal_#{@campaign_text}" }
   - if @campaign_text.to_i > 3
-    askdjflasdjkflçaskdjflR
+    .infos
+      %h1
+        com 10% de desconto
+      %ul
+        %li
+          %p
+            Válido somente para produtos Olook e não cumulativo com outras promoções do site. 
+        %li
+          %p
+            Desconto exclusivo para usuários Benefício Club. 
+        %li
+          %p
+            O desconto será visualizado no carrinho de compras.  
   - else
     =image_tag("campaign_emails/modal_pop_agosto.jpg")
     %div.content

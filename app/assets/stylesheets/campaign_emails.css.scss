@@ -127,5 +127,35 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 		label{font-family:$avenir; font-size: 14px;}
 	}
 
+	.close{top:-11px !important;right:-11px !important;}	
+}
+.campaign_modal_4{
+	width: 680px; 
+	height: 500px;
+	background: image-url("campaign_emails/club.jpg") no-repeat;
+	.infos{
+		position: absolute;
+		margin-left: 330px;
+		margin-top: 147px;
+		h1{text-transform: uppercase;font-size: 16px; font-family: $johnston;text-align: center;}
+		ul{
+			li{
+				list-style-type: none;
+				text-align: center;
+				font-size: 13px; 
+				color: #000;
+				width: 275px;
+				margin-bottom: -13px;
+				background: image-url("campaign_emails/star.png") no-repeat;
+				p{
+					padding-top: 25px;
+					color: #535353;
+					text-transform: uppercase;
+
+				}
+			}
+		}
+	}
+
 	.close{top:-11px !important;right:-11px !important;}
 }
