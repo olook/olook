@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ShareProductMailer < ActionMailer::Base
   default_url_options[:host] = "www.olook.com.br"
-  default :from => "olook <vip@o.conviteolook.com.br>"
+  default :from => "avisos@olook.com.br"
 
   def send_share_message_for(product, informations, email_receiver)
     @user_name = informations[:name_from]
