@@ -6,7 +6,7 @@
 
 #clipping{
 	width: 1100px;
-	height: 700px;
+	height: 1230px;
 	margin: 15px auto 0;
 	.b_left{margin-left: 12px; width: 445px;float: left;
 		h1, h2{font-family: $avenir;font-size: 18px;color: #000;letter-spacing: 1px;font-weight: bold;}
@@ -38,4 +38,34 @@
 		.like, .twitter{position: relative;float: right;left: 70px;top:-24px;}
 		.twitter{margin-left: 15px;}
 	}
+}
+.next{
+	.pagination{width: 1100px;height: 30px; margin: 0 auto; margin-bottom: 10px;background-color: none;
+	 a{
+	    display:inline-block;
+	    font-family: $avenir;
+	    font-size: 13px;
+	    text-decoration:none;
+	    color:#000 !important;
+	    height:19px;
+	    line-height:22px;
+	    margin:0 3px;
+
+    &.anterior, &.proximo{
+      width:10px;
+      background:image-url('catalog/sprite.png') no-repeat 2px -112px;
+      font-size:0;
+    }
+    &.proximo{
+      background-position:0 -137px;
+    }
+    &.current{
+      color:#000 !important;
+      font-weight: bold;
+    }
+    &:hover{
+      color:$base_color;
+    }
+  }
+}
 }
