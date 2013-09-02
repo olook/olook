@@ -44,7 +44,7 @@
           %span
             Onde:
           = clipping.source
-        = link_to "Ler na integra", clipping.link, target: :blank
+        = link_to "Ler na integra", show_link(clipping), target: :blank
         = image_tag "common/clipping_arrow.png"
 .next
   = will_paginate @clippings
