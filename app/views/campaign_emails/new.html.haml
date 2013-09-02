@@ -1,18 +1,41 @@
 .box-cadastro{ class: "campaign_modal_#{@campaign_text}" }
-  - if @campaign_text.to_i > 3
+  - if @campaign_text.to_i >= 4
     .infos
-      %h1
-        com 10% de desconto
+      -if @campaign_text.to_i == 4
+        %h1
+          com 10% de desconto
+      - else
+        %h1
+          com 20% de desconto
       %ul
         %li
           %p
-            Válido somente para produtos Olook e não cumulativo com outras promoções do site. 
+            Válido somente para produtos 
+            %br
+              Olook e não cumulativo com 
+            outras promoções do site. 
         %li
           %p
-            Desconto exclusivo para usuários Benefício Club. 
+            Desconto exclusivo para 
+            %br
+              usuários Benefício Club. 
         %li
           %p
-            O desconto será visualizado no carrinho de compras.  
+            O desconto será visualizado 
+            %br
+              no carrinho de compras. 
+      -if @campaign_text.to_i == 4
+        %p.date
+          Período da promoção 04/10/2013 a
+          %br
+            31/12/2013 ou enquanto durar o estoque 
+        = link_to 'Aproveite', '/sapato?utm_source=beneficioclub&utm_medium=parcerias&utm_campaign=paginabeneficios&utm_content=desc1_10off&coupon_code=OLKBENECLUB10', :class => "enjoy"
+      -else
+        %p.date
+          Período da promoção 04/09/2013 a
+          %br
+            03/10/2013 ou enquanto durar o estoque 
+        = link_to 'Aproveite', '/sapato?utm_source=beneficioclub&utm_medium=parcerias&utm_campaign=paginabeneficios&utm_content=desc1_20off&coupon_code=OLKBENECLUB20', :class => "enjoy"
   - else
     =image_tag("campaign_emails/modal_pop_agosto.jpg")
     %div.content
