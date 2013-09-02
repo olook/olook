@@ -40,32 +40,40 @@
 	}
 }
 .next{
-	.pagination{width: 1100px;height: 30px; margin: 0 auto; margin-bottom: 10px;background-color: none;
-	 a{
+	.pagination{
+	  text-align:center;
+	  clear:both;
+	  	.previous_page, .next_page{
+	      width:10px;
+	      background:image-url('catalog/sprite.png') no-repeat 2px -112px;
+	      font-size:0;
+	    }
+	    .current{
+	      color:#000 !important;
+	      font-weight: bold !important;
+	      text-indent: -9999px;
+	      font-style: normal;
+	    }
+	  a{
 	    display:inline-block;
-	    font-family: $avenir;
-	    font-size: 13px;
+	    font:normal 13px Verdana, Arial, sans-serif;
 	    text-decoration:none;
-	    color:#000 !important;
+	    color:#000;
 	    height:19px;
 	    line-height:22px;
 	    margin:0 3px;
 
-    &.anterior, &.proximo{
-      width:10px;
-      background:image-url('catalog/sprite.png') no-repeat 2px -112px;
-      font-size:0;
-    }
-    &.proximo{
-      background-position:0 -137px;
-    }
-    &.current{
-      color:#000 !important;
-      font-weight: bold;
-    }
-    &:hover{
-      color:$base_color;
-    }
-  }
-}
+	    &.previous_page, &.next_page{
+	      width:10px;
+	      background:image-url('catalog/sprite.png') no-repeat 2px -112px;
+	      font-size:0;
+	    }
+	    &.next_page{
+	      background-position:0 -137px;
+	    }
+	    &:hover{
+	      color:$base_color;
+	    }
+	  }
+	}
 }
