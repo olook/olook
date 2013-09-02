@@ -25,9 +25,9 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
   
   div#gallery {width:520px;float: left;
     ul#thumbs {float:left;width:45px;margin-right:45px;margin-left: 5px;
-      li{margin-bottom: 10px;
+      li{margin-bottom: 10px;border: solid 1px #cdcdcd;
         a:hover img {border: 2px #EF3742 solid;}
-        img {width:45px;height:auto;border:solid 2px #FFF;
+        img {width:39px;height:auto;border:solid 2px #FFF;
           &.selected {border: 2px #EF3742 solid;}
         }/* new size photo */  
       }
@@ -239,7 +239,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         &.exchange-title{border-bottom:solid 1px #C2C2C2;}
       }
       dl{margin-top:15px;
-        dt{float:left;clear:left;font-weight:bold;text-transform:uppercase;}
+        dt{float:left;clear:left;font-weight:bold;text-transform:uppercase;margin-bottom: 6px;}
         dd{float:left;line-height:19px;margin-left:4px;margin-bottom: 10px;}
       }
     }
