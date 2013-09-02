@@ -1,16 +1,19 @@
 .box-cadastro
-  =image_tag("campaign_emails/modal_pop_agosto.jpg")
-  %div.content
-    = (render "campaign_text_#{@campaign_text}") rescue render 'campaign_text_1'
-    %p.cadastre Cadastre-se e receba por e-mail novidades </br>sobre moda, tendências e promoções exclusivas
-    %div.place-holder
-      %div.error
-        %p O e-mail informado não parece correto. Que tal conferir?
-    =form_for @campaign_email do |f|
-      =f.text_field :email, :value => "seunome@email.com.br"
-      =f.submit :value => "", :class => "bt-enviar"
-    %p.texto Aceito os <a href="/termos" target="_blank">termos de uso</a>
-  .nao-exibir
-    %input{:type => "checkbox", :name => "dont_show", :class => "dont_show"}
-    %label{:for => "dont_show"} Não exibir novamente
+  - if @campaign_text.to_i > 3
+    askdjflasdjkflçaskdjflR
+  - else
+    =image_tag("campaign_emails/modal_pop_agosto.jpg")
+    %div.content
+      = (render "campaign_text_#{@campaign_text}") rescue render 'campaign_text_1'
+      %p.cadastre Cadastre-se e receba por e-mail novidades </br>sobre moda, tendências e promoções exclusivas
+      %div.place-holder
+        %div.error
+          %p O e-mail informado não parece correto. Que tal conferir?
+      =form_for @campaign_email do |f|
+        =f.text_field :email, :value => "seunome@email.com.br"
+        =f.submit :value => "", :class => "bt-enviar"
+      %p.texto Aceito os <a href="/termos" target="_blank">termos de uso</a>
+    .nao-exibir
+      %input{:type => "checkbox", :name => "dont_show", :class => "dont_show"}
+      %label{:for => "dont_show"} Não exibir novamente
   %button{:type => "button", :class => "close"} Fechar
