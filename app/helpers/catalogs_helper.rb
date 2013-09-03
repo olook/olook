@@ -1,6 +1,7 @@
 # encoding: utf-8
 module CatalogsHelper
   CLOTH_SIZES_TABLE = ["PP","P","M","G","GG","33","34","35","36","37","38","39","40","42","44","46","Único","Tamanho único"]
+  UPCASE_BRANDS = ["TVZ"]
   HIGHLIGHT_BRANDS = {"olook" => 1, "olook concept" => 2, "olook essential" => 3}
   DOWNCASE_WORDS = Set.new( %w{ e de do da a o } )
 
@@ -23,7 +24,11 @@ module CatalogsHelper
       textarr.map! { |w| DOWNCASE_WORDS.include?(w.downcase) ? w.downcase : w.capitalize  }
       text = [f, textarr].flatten.join(' ')
     else
-      text.capitalize!
+      if UPCASE_BRANDS.include?(text.upcase)
+        text.upcase!
+      else
+        text.capitalize!
+      end
     end
     text
   end
