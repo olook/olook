@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130828142326) do
+ActiveRecord::Schema.define(:version => 20130903192400) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -336,14 +336,15 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
   add_index "collections", ["start_date"], :name => "index_collections_on_start_date"
 
   create_table "consolidated_sells", :force => true do |t|
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.string   "category"
+    t.string   "subcategory"
     t.date     "day"
     t.integer  "amount"
     t.decimal  "total",        :precision => 10, :scale => 0
-    t.string   "subcategory"
     t.decimal  "total_retail", :precision => 10, :scale => 0
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
+    t.integer  "product_id"
   end
 
   create_table "contact_informations", :force => true do |t|
@@ -863,10 +864,11 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.integer  "collection_id"
     t.boolean  "is_visible"
     t.string   "color_category"
-    t.boolean  "is_kit",          :default => false
+    t.boolean  "is_kit",           :default => false
     t.string   "brand"
     t.string   "producer_code"
     t.string   "picture_for_xml"
+    t.datetime "last_integration"
   end
 
   add_index "products", ["category"], :name => "index_products_on_category"
