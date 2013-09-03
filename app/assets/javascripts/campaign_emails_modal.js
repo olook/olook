@@ -1,5 +1,9 @@
 function criaCookieAB(chave, value, time) {
-  $.cookie(chave, value, { expires: time, path: '/' });
+  var date = new Date();
+  var minutes = time;
+  date.setTime(date.getTime() + (minutes * 60 * 1000));
+
+  $.cookie(chave, value, { expires: date, path: '/' });
 }
 
 function lerCookie(chave) {
@@ -12,7 +16,7 @@ function stopProp(e) {
   if (e.stopPropagation) e.stopPropagation();
 }
 function dontShow(){
-  criaCookieAB("ms", "1", 200);
+  criaCookieAB("ms", "1", 2000);
   _gaq.push(['_trackEvent', 'Modal', 'Excluir', '', , true]);
 }
 
@@ -32,7 +36,7 @@ $(function(){
          $("#modal-campaign").append('<iframe src="/campaign_emails/new" border="0" frameborder="0" height="100%" width="100%"></iframe>');
          window.setTimeout(function(){
            if($("#overlay-campaign").is(":visible"))
-             criaCookieAB("ms","1", 1);
+             criaCookieAB("ms","1", 20);
          },500)
        }
        $(document).one({
