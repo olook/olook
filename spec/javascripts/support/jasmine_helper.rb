@@ -8,4 +8,6 @@
 #   @config.boot_files = lambda { ['/absolute/path/to/boot_dir/file.js'] }
 #end
 #
-
+Jasmine.configure do |config|
+  config.browser = :phantomjs
+end
