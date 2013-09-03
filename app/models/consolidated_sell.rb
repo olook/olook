@@ -1,8 +1,9 @@
 class ConsolidatedSell < ActiveRecord::Base
+  belongs_to :product
 
   def self.get_consolidated_record category, subcategory, day
     consolidated = where("category = ? and subcategory = ? and day = ?", category, subcategory, day).first
-    if consolidated.nil? 
+    if consolidated.nil?
       create(category: category, subcategory: subcategory, day: day, amount: 0, total: 0, total_retail: 0)
     else
       consolidated
