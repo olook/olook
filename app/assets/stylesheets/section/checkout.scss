@@ -1604,7 +1604,7 @@ section.checkout{
       &.user_identification{width: 280px;}
       &.date{width: 280px;}
 
-			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;position:absolute;left:685px;display:none;cursor:pointer;z-index:999;}
+			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;position:absolute;left:685px;display:none;cursor:pointer;z-index:999; top: 385px !important;}
 		}
 		.btn_zipcode{float:left;border:0;width:150px;height:32px;font-size:0;font-family:a;@include sprite_checkout(-92px, -244px);margin:2px 0 0 15px;cursor:pointer;}
 		.subtitle{clear:both;margin-top:10px;height:30px;@include sprite_checkout(-109px, -535px);width:293px;color:#000;padding-top:15px;clear:both;}
@@ -1727,7 +1727,7 @@ section.checkout{
 	}
 /********** END / START STEP THREE *******/
 	#cart-box{
-		float:left;border:solid 1px #D9D8D8;width:321px;max-height:345px;background:#FFF;
+		float:left;border:solid 1px #D9D8D8;width:321px;max-height:345px;background:#FFF;margin-bottom: 15px;
 		.bg-box{display:none;}
 		.products{max-height:217px;overflow-y:auto;}
 		#items{width:100%;
@@ -1756,10 +1756,11 @@ section.checkout{
 				&.frete{font-size:12px;width:150px;margin-left:109px;}
 				&#total_billet{display:none;}
 				&#total_debit{display:none;}
-			}
+ 			}
 		}
 	}
 }
+
 
 /*section.checkout {
   h1 {
@@ -2150,4 +2151,6 @@ a.txt-conheca{
 #checkout_address_city{
   width: 165px;
 }
-
+p.important{font-size: 13px;padding: 0 13px;
+      span{color: #000;}
+    }

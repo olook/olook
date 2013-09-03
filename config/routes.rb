@@ -17,6 +17,9 @@ Olook::Application.routes.draw do
 
   mount Resque::Server => "/admin/resque"
 
+  #temp redirect
+  match '/colecoes/promodavez' => redirect('/colecoes/liquida_final')
+
   # rotas temporarias para marcas
   {
     "olook" => "Olook",
@@ -43,6 +46,8 @@ Olook::Application.routes.draw do
   }.each do |collection_name, brand|
     get "/colecoes/#{collection_name}", to: "brands#show", defaults: {brand: brand}
   end
+
+  get "/colecoes/liquida_final", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
 
   #temp route to fix a wrong email
   match "/olook-no-qbazar" => redirect("http://www.olook.com.br/stylist-news/olook-no-qbazar/")
@@ -453,6 +458,7 @@ Olook::Application.routes.draw do
   match '/roupas' => redirect('/roupa'), as: 'clothes'
   match '/novas-marcas' => redirect('/roupa/colcci-douglas%20harris-eclectic-espaco%20fashion-forum-iodice-olli-shop%20126-thelure-triton'), as: 'brands'
   match '/acessorios-sapatos' => redirect('/sapato/conforto-amaciante-apoio%20plantar-impermeabilizante-palmilha-protecao%20para%20calcanhar'), as: 'shoe_accessories'
+
 
   # Produto
   get "/:id", to: "product#show", id: /[\w|-]*\d+/, as: "product_seo"

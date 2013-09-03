@@ -16,14 +16,8 @@ module BannersHelper
       path = '/colecoes/olook?utf8=%E2%9C%93&slug=olook&category_id=4&sort_filter=1&price=0-600&shoe_sizes[]='
       link_to(image_tag('moments/banner_marca_olook.jpg'), path, onclick: track_event('Catalog', "SideBanner1From#{Category.key_for(category_id).to_s.camelize}", path))
     elsif options[:position] == :sidebotton
-      if [Category::SHOE, Category::ACCESSORY].include? category_id  
-        path = '/roupa?utf8=✓&por=maior-desconto'
-        link_to(image_tag('catalog/banner_lateral_roupas.jpg'), path, onclick: track_event('Catalog', "SideBanner2From#{Category.key_for(category_id).to_s.camelize}", path))
-
-      elsif [Category::CLOTH, Category::BAG].include? category_id  
-        path = '/sapato?utf8=✓&por=maior-desconto'
-        link_to(image_tag('catalog/banner_lateral_sapatos.jpg'), path, onclick: track_event('Catalog', "SideBanner2From#{Category.key_for(category_id).to_s.camelize}", path))
-      end
+      path = collection_theme_path('neon_pastel')
+      link_to(image_tag('catalog/banner_lateral_catalogos_neon_pastel.gif'), path, onclick: track_event('Catalog', "SideBanner2From#{Category.key_for(category_id).to_s.camelize}", path))
     elsif options[:position] == :botton
       link_to(image_tag('catalog/banner_quiz.jpg'), new_survey_path , onclick: track_event('Catalog', "BottomBannerFrom#{Category.key_for(category_id).to_s.camelize}", wysquiz_path))
     else

@@ -204,10 +204,18 @@ class SearchEngine
   end
 
   def fetch_result(url, options = {})
-    url = URI.parse(url)
-    tstart = Time.zone.now.to_f * 1000.0
-    _response = Net::HTTP.get_response(url)
-    Rails.logger.info("GET cloudsearch URL (#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
+    cache_key = Digest::SHA1.hexdigest(url.to_s)
+    Rails.logger.info "[cloudsearch] cache_key: #{cache_key}"
+
+    _response = Rails.cache.fetch(cache_key, expires_in: 15.minutes) do
+      Rails.logger.info "[cloudsearch] cache missed"
+      url = URI.parse(url)
+      tstart = Time.zone.now.to_f * 1000.0
+      _response = Net::HTTP.get_response(url)
+      Rails.logger.info("GET cloudsearch URL (#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
+      _response
+    end
+
     SearchResult.new(_response, options)
   end
 
