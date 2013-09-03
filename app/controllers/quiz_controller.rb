@@ -1,6 +1,7 @@
 class QuizController < ApplicationController
   layout 'quiz'
   def new
+    @email = cookies['newsletterEmail']
     @quiz = WhatsYourStyle::Quiz.new
   end
 

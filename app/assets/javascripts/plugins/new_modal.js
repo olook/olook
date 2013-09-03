@@ -22,8 +22,6 @@ olook.newModal = function(content, a, l, backgroud_color){
     $(this).fadeOut();
   });
 
-
-
   $modal.html(content)
   .css({
     'height'      : h+"px",
