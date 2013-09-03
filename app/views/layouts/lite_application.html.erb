@@ -44,17 +44,14 @@
   </head>
 
 
-  <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>">
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=395142330559351";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
-    
+  <body onload="ativaDiv();" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>">
+    <%= yield :after_body %>
     <%= render :partial => "shared/tag/google_tag_manager" %>
+
+    <div id="modal" align="right" style="display:none;border:0px;">
+      <a href="javascript: var a=null;" onclick="window.open(' http://olook.neoassist.com/?action=neolive&th=moda&scr=request&ForcaAutenticar=1&UMail=%User[EMail]%&email=%User[EMail]%&name=%User[Name]%&uName=%User[Name]%', 'Chat' , 'status , scrollbars=no ,width=500, height=580, resizable=no, top=30 , left=30');"><img src=" http://olook.neoassist.com/clients/olook/novo/images/chatmsg.png" border="0" onclick="javascript:this.style.display='none';" id="chatmsg"  /></a>
+    </div>
+
     <%= render 'shared/admin_label' if current_admin %>
     <div id="container">
        <div id="error-messages">
