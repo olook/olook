@@ -36,7 +36,8 @@
       %li.article
         %p.title
           = clipping.title
-        = simple_format clipping.clipping_text
+        %span.info
+          = simple_format clipping.clipping_text
         %p.date
           %span
             Quando:
