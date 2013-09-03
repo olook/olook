@@ -25,6 +25,14 @@ class ShippingService < ActiveRecord::Base
     (weight > cubic_weight) ? weight : cubic_weight
   end
 
+  def find_first_free_freight_for_zip_and_order(zip_code, order_value)
+    self.freight_prices.where('(:zip >= zip_start) AND (:zip <= zip_end) AND ' +
+                              '(:order_value < order_value_start) AND '+
+                              '(price = 0)',
+                              :zip => zip_code.to_i,
+                              :order_value => order_value).first
+  end
+
 private
 
   def set_default_cubic_weight_factor
