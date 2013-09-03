@@ -48,18 +48,12 @@
     <%= render 'shared/data_layer/master' %>
     <%= yield :data_layer %>
 
-    <link type="text/css" rel="stylesheet" href="http://olook.neoassist.com/clients/olook/novo/modal.css">
-
   </head>
 
 
-  <body onload="ativaDiv();" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %> <%= "moments" if is_moment_page? %>">
+  <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %> <%= "moments" if is_moment_page? %>">
 
     <%= render :partial => "shared/tag/google_tag_manager" %>
-
-    <div id="modal" align="right" style="display:none;border:0px;">
-      <a href="javascript: var a=null;" onclick="window.open(' http://olook.neoassist.com/?action=neolive&th=moda&scr=request&ForcaAutenticar=1&UMail=%User[EMail]%&email=%User[EMail]%&name=%User[Name]%&uName=%User[Name]%', 'Chat' , 'status , scrollbars=no ,width=500, height=580, resizable=no, top=30 , left=30');"><img src=" http://olook.neoassist.com/clients/olook/novo/images/chatmsg.png" border="0" onclick="javascript:this.style.display='none';" id="chatmsg"  /></a>
-    </div>
 
     <%= render 'shared/admin_label' if current_admin %>
 
@@ -101,7 +95,6 @@
 
     <% if content_for? :footer %>
       <%= yield :footer %>
-      <script type="text/javascript" src="http://olook.neoassist.com/clients/olook/js/chat.js"></script>
     <% end %>
     <%= render :partial => "shared/metrics/master_tags" %>
   </body>
