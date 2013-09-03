@@ -12,8 +12,8 @@
 #
 src_files:
   - app/assets/javascripts/credit_card.js
-  - assets/javascripts/*.js
-  - assets/application.js
+  # - assets/javascripts/*.js
+  # - assets/application.js
 
 
 # stylesheets
