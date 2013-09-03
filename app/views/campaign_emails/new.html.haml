@@ -37,7 +37,7 @@
             03/10/2013 ou enquanto durar o estoque 
         = link_to 'Aproveite', '/sapato?utm_source=beneficioclub&utm_medium=parcerias&utm_campaign=paginabeneficios&utm_content=desc1_20off&coupon_code=OLKBENECLUB20', :class => "enjoy", target: '_blank'
   - else
-    =image_tag("campaign_emails/modal_pop_agosto.jpg")
+    =image_tag("campaign_emails/crop_foto_modal_newsletter.jpg")
     %div.content
       = (render "campaign_text_#{@campaign_text}") rescue render 'campaign_text_1'
       %p.cadastre Cadastre-se e receba por e-mail novidades </br>sobre moda, tendências e promoções exclusivas
@@ -51,4 +51,5 @@
     .nao-exibir
       %input{:type => "checkbox", :name => "dont_show", :class => "dont_show"}
       %label{:for => "dont_show"} Não exibir novamente
+
   %button{:type => "button", :class => "close"} Fechar
