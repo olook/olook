@@ -40,7 +40,7 @@
         %p.date
           %span
             Quando:
-          = clipping.published_at
+          = clipping.published_at.strftime("%d/%m/%Y")
           %span
             Onde:
           = clipping.source
