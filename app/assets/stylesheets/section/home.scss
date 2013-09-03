@@ -166,7 +166,7 @@ section#home {
   section ul.products_list {
     width: 100%;
     overflow: auto;
-    li {margin: 0 0 0 25px;display:inline-block;position:relative;z-index:1;width:146px;height:267px;/* new size photo */
+    li {margin: 0 0 0 42px;display:inline-block;position:relative;z-index:1;width:146px;height:267px;/* new size photo */
       a {
         color: #000;
         text-align: center;
@@ -225,7 +225,7 @@ section#home {
   }
   section#brands{
     position: relative;
-    min-height: 520px;
+    min-height: 555px;
     margin: 0 0 10px;
     padding: 10px 0 20px;
     border-bottom: 1px #cbcbcb solid;
@@ -447,7 +447,24 @@ section#home {
               background-position: -287px -492px;
             }
           }
-
+          &.tvz a {
+            background-position: -427px -483px;
+            &:hover {
+              background-position: -428px -492px;
+            }
+          }
+          &.folic a {
+            background-position: -141px -546px;
+            &:hover {
+              background-position: -142px -545px;
+            }
+          }
+          &.floor a {
+            background-position: -11px -557px;
+            &:hover {
+              background-position: -12px -552px;
+            }
+          }
         }
       }
     }
@@ -455,7 +472,7 @@ section#home {
       text-align: center;
       overflow: auto;
       width: 380px;
-      height: 450px;
+      height: 592px;
       h1 {
         font-family: $johnston;
         font-size: 26px;
@@ -468,7 +485,7 @@ section#home {
         li{
           border:1px solid #a7a9ac;
           height: 116px;
-          &.stylist{height: 35px;margin-top: 30px;}
+          &.stylist{height: 35px;margin-top: 22px;}
           a{border:1px solid #000;line-height: 35px; height: 35px; width: 374px; display: inline-block; font-family: $johnston; font-size: 19px;background-color: #000; text-decoration: none;color: #fff;font-size: 16px;
             &:hover{background-color: #fff; color: #000;border:1px solid #fff;}
             &.img{text-decoration: none;border: none;width: 376px;}
