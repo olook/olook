@@ -1,3 +1,4 @@
+.fb-root
 - content_for :footer do
   = javascript_include_tag "clippings"
   = stylesheet_link_tag "new_structure/section/clippings"
@@ -10,6 +11,9 @@
   %meta{property:"og:site_name", content:"Olook"}
   %meta{property: "og:type", content:"website"}
   %meta{property:"fb:app_id", content:"#{@facebook_app_id}"}
+
+- content_for(:after_body) do
+  = javascript_include_tag "common/fb_like_button"
 
 
 %section#clipping
