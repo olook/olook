@@ -403,8 +403,24 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     redis (2.2.2)
+    redis-actionpack (3.2.4)
+      actionpack (~> 3.2.0)
+      redis-rack (~> 1.4.4)
+      redis-store (~> 1.1.4)
+    redis-activesupport (3.2.4)
+      activesupport (~> 3.2.0)
+      redis-store (~> 1.1.0)
     redis-namespace (1.0.3)
       redis (< 3.0.0)
+    redis-rack (1.4.4)
+      rack (~> 1.4.0)
+      redis-store (~> 1.1.4)
+    redis-rails (3.2.4)
+      redis-actionpack (~> 3.2.4)
+      redis-activesupport (~> 3.2.4)
+      redis-store (~> 1.1.4)
+    redis-store (1.1.4)
+      redis (>= 2.2)
     resque (1.20.0)
       multi_json (~> 1.0)
       redis-namespace (~> 1.0.2)
@@ -600,6 +616,7 @@ DEPENDENCIES
   rb-fchange
   rb-fsevent
   rb-inotify (~> 0.9)
+  redis-rails
   resque (~> 1.20.0)
   resque-pool
   resque-scheduler (~> 2.0.0)
