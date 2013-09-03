@@ -5,6 +5,9 @@ function updateCountdown(origin, count) {
   origin.parent().find('.countdown').text(remaining);
 };
 function prepareCountdown(input,count){
+  if(input.parent().find('.countdown').length == 1){
+    input.parent().find('.countdown').html(count);
+  };
   input.change(function(){
     updateCountdown($(this), count);
   });
@@ -13,7 +16,7 @@ function prepareCountdown(input,count){
   });
 };
 $(document).ready( function() {
-  prepareCountdown($('#clipping_title'),100)
-  prepareCountdown($('#clipping_clipping_text'),240)
-  prepareCountdown($('#clipping_alt'),50)
+  prepareCountdown($('#clipping_title'),40)
+  prepareCountdown($('#clipping_clipping_text'),200)
+  prepareCountdown($('#clipping_alt'),40)
 });
