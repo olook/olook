@@ -5,7 +5,7 @@
   var _gaq = _gaq || []
 
 - content_for :data_layer do
-  = render "shared/tag/new_user", register_source: "N", email: @email if @email.present?
+  = render "shared/tag/new_user", register_source: "E", email: @email if @email.present?
 
 - content_for :scripts do
   = javascript_include_tag 'quiz'
