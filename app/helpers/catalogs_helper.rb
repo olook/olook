@@ -10,7 +10,7 @@ module CatalogsHelper
     text += " (#{amount})" if amount
     class_hash = selected ? {class: "selected"} : {}
     link+=search_param
-    text = titleize_without_pronoum(text)
+    text = CLOTH_SIZES_TABLE.include?(text) ? text : titleize_without_pronoum(text)
     link_to(link, class_hash) do
       content_tag(:span, text, class:"txt-#{span_class}")
     end
