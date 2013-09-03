@@ -38,6 +38,7 @@ class Product < ActiveRecord::Base
   has_many :liquidations, :through => :liquidation_products
   has_many :catalog_products, :class_name => "Catalog::Product", :foreign_key => "product_id"
   has_many :catalogs, :through => :catalog_products
+  has_many :consolidated_sells, dependent: :destroy
 
   validates :name, :presence => true
   validates :description, :presence => true
@@ -140,7 +141,7 @@ class Product < ActiveRecord::Base
   delegate :'discount_percent=', to: :master_variant
 
   def main_picture
-    @main_picture ||= 
+    @main_picture ||=
     if self.pictures.loaded?
       self.pictures.all.find { |p| p.display_on == DisplayPictureOn::GALLERY_1 }
     else
