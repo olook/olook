@@ -61,7 +61,7 @@
 
   <div class="field">
     <%= f.label :modal %><br />
-    <%= f.select :modal, [['Padrão', 1], ["10% em todo site", 3], ["20% apenas marca olook", 2], ["10% Benefícios Club", 4], ["20% Benefícios Club", 5]], prompt: "Selecione o modal" %>
+    <%= f.select :modal, Coupon::MODAL_POSSIBLE_VALUES, prompt: "Selecione o modal" %>
   </div>
 
     <% if @coupon.new_record? %>
