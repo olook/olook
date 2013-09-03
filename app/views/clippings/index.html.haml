@@ -1,11 +1,54 @@
-%table
+- content_for :footer do
+  = javascript_include_tag "clippings"
+  = stylesheet_link_tag "new_structure/section/clippings"
+
+- content_for(:head) do
+  %meta{property: "og:title", content: "Olook na Imprensa"}
+  %meta{property: "og:description", content: "Tudo o que é publicado sobre a Olook na mídia você confere aqui: www.olook.com.br/olook-na-imprensa. Acompanhe as novidades! ;)"}
+  %meta{property:"og:image", content:"http://d22zjnmu4464ds.cloudfront.net/assets/home/olook-5c5edb27a8d142a5e4b9db909c5bfbde.jpg"}
+  %meta{property:"og:url", content:"#{root_url}olook-na-imprensa"}
+  %meta{property:"og:site_name", content:"Olook"}
+  %meta{property: "og:type", content:"website"}
+  %meta{property:"fb:app_id", content:"#{@facebook_app_id}"}
+
+
+%section#clipping
+  .b_left
+    %h1
+      OLOOK NA IMPRENSA
+    %p
+      O que andam falando de nós...
+    %h2
+      Quer escrever sobre a Olook?
+    %p.contact
+      É só entrar em contato através do e-mail imprensa@olook.com.br
+
+  .socialmedia
+    %p
+      GOSTOU? Então compartilhe
+    %a.twitter-share-button{"data-text" => "Tudo o que é publicado sobre a Olook na mídia você confere aqui: www.olook.com.br/olook-na-imprensa. Acompanhe as novidades! ;)", "data-url" => "www.olook.com.br", "data-count" => "none", "data-counturl" => "www.olook.com.br/olook-na-imprensa", "class" => "twitter"} Tweetar
+
+    / .fb-like{"data-href" => "#{root_url}/olook-na-imprensa", "data-width" => "450", "data-show-faces" => "true", "data-send" => "true"}
+
+    %fb:like{"href" => "http://#{Rails.env == 'production' ? "www" : "homolog"}.olook.com.br/olook-na-imprensa", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false", "class" => "like", "width" => "100"}
+
   - @clippings.each do |clipping|
-    %tr
-      %td
+    %ul
+      %li.media
         = image_tag clipping.logo
-      %td
-        = clipping.title
-      %td
-        = simple_format clipping.clipping_text
-      %td
-        = link_to "Clique aqui para ver a matéria completa", clipping.link, target: :blank
+      %li.article
+        %p.title
+          = clipping.title
+        %span.info
+          = simple_format clipping.clipping_text
+        %p.date
+          %span
+            Quando:
+          = clipping.published_at.strftime("%d/%m/%Y")
+          %span
+            Onde:
+          = clipping.source
+        = link_to "Ler na integra", show_link(clipping), target: :blank
+        = image_tag "common/clipping_arrow.png"
+.next
+  = will_paginate @clippings
