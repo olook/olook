@@ -5,16 +5,16 @@ describe ConsolidatedSell do
     it { should belong_to(:product) }
   end
 
-  describe '.get_consolidated_record' do
+  describe '.find_consolidated_record' do
     context "when there's any consolidated sell with given data" do
       let!(:consolidated_sell) { FactoryGirl.create(:consolidated_sell) }
-      subject { described_class.get_consolidated_record(1, "anabela", Date.new(2013, 03, 22)) }
+      subject { described_class.find_consolidated_record(1, "anabela", Date.new(2013, 03, 22)) }
       it { should eq consolidated_sell }
     end
 
     context "when there's no any consolidated sell with given data" do
       it {
-        expect{described_class.get_consolidated_record("1", "anabela", Date.new(2013, 03, 22))}.to change{described_class.count}.from(0).to(1)
+        expect{described_class.find_consolidated_record("1", "anabela", Date.new(2013, 03, 22))}.to change{described_class.count}.from(0).to(1)
       }
     end
   end
@@ -51,7 +51,7 @@ describe ConsolidatedSell do
     let(:consolidated) { FactoryGirl.create(:consolidated_sell) }
 
     before do
-      described_class.stub(:get_consolidated_record).and_return(consolidated)
+      described_class.stub(:find_consolidated_record).and_return(consolidated)
       variant.product.stub(:price).and_return(BigDecimal("10,00"))
       variant.product.stub(:retail_price).and_return(BigDecimal("10,00"))
     end
