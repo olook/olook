@@ -116,10 +116,10 @@
   - olook_production_nginx
   - olook_production_collectd
   - olook_production_monit
-  external_host: ec2-50-17-157-79.compute-1.amazonaws.com
-  external_ip: 50.17.157.79
-  internal_host: ip-10-182-143-243.ec2.internal
-  internal_ip: 10.182.143.243
+  external_host: ec2-184-72-78-65.compute-1.amazonaws.com
+  external_ip: 184.72.78.65
+  internal_host: ip-10-29-187-44.ec2.internal
+  internal_ip: 10.29.187.44
   zone: us-east-1b
   platform: linux
   root_device_type: ebs
