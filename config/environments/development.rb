@@ -18,7 +18,7 @@ Olook::Application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   # Don't send real emails in development env
-  # config.action_mailer.delivery_method = :test
+  config.action_mailer.delivery_method = :test
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -32,7 +32,7 @@ Olook::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  config.cache_store = :dalli_store
+  config.cache_store = :redis_store, ENV['REDIS_CACHE_STORE']
 
   # If you are running on a Ubuntu in development mode, you'll need this for connecting on ssl sites
   Excon.defaults[:ssl_ca_path] = '/etc/ssl/certs' if `uname -v`.upcase.index 'UBUNTU'
