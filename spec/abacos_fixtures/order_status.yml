@@ -27,10 +27,10 @@
   str: XYZ-CORREIO
   attributes: {}
 :quantidade_volumes: !str
-  str: 1
+  str: '1'
   attributes: {}
 :codigo_motivo_cancelamento: !str
-  str: 55
+  str: '55'
   attributes: {}
 :motivo_cancelamento: !str
   str: 'SOME REASON'
