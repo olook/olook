@@ -302,7 +302,6 @@ ActiveRecord::Schema.define(:version => 20130903212101) do
   end
 
   add_index "collection_themes", ["collection_theme_group_id"], :name => "index_collection_themes_on_collection_theme_group_id"
-  add_index "collection_themes", ["name"], :name => "index_moments_on_name", :unique => true
   add_index "collection_themes", ["slug"], :name => "index_moments_on_slug", :unique => true
 
   create_table "collection_themes_products", :id => false, :force => true do |t|
@@ -647,20 +646,6 @@ ActiveRecord::Schema.define(:version => 20130903212101) do
     t.boolean  "visible",         :default => true
     t.boolean  "show_advertise",  :default => true
     t.string   "big_banner"
-  end
-
-  create_table "lookbooks", :force => true do |t|
-    t.string   "name"
-    t.string   "thumb_image"
-    t.boolean  "active",      :default => true
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "slug"
-    t.string   "icon"
-    t.string   "icon_over"
-    t.string   "fg_color"
-    t.string   "bg_color"
-    t.string   "movie_image"
   end
 
   create_table "moip_callbacks", :force => true do |t|
