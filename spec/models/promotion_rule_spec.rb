@@ -8,8 +8,4 @@ describe PromotionRule do
     it { should have_many :rule_parameters }
     it { should have_many(:promotions).through(:rule_parameters) }
   end
-
-  describe "#matches?" do
-    it { should respond_to(:matches?).with(2).arguments }
-  end
 end
