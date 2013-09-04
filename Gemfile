@@ -58,7 +58,7 @@ gem 'uglifier', '~> 1.0.3'
 gem 'business_time'
 gem "rails-settings-cached"
 
-gem "boleto_bancario", :git => 'git@github.com:olook/boleto_bancario.git', :branch => 'homologacao_santander', ref: "ba8f64ecb541bdd398e4377d52f71ca75a0f5905" , require: false
+gem "boleto_bancario", :git => 'git@github.com:olook/boleto_bancario.git', :branch => 'homologacao_santander', require: false
 gem 'fb-channel-file'
 
 group :production, :staging do
