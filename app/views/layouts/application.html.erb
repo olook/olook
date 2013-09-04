@@ -17,6 +17,7 @@
 
     <%= csrf_meta_tags %>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700|Pontano+Sans' rel='stylesheet' type='text/css'>
+    <%= stylesheet_link_tag  "http://olook.neoassist.com/clients/olook/novo/modal.css" %>
     <%= stylesheet_link_tag  "application" %>
     <%- unless @hide_fb_page_id -%>
       <meta property="fb:page_id" content="157293541026960" />
@@ -51,9 +52,13 @@
   </head>
 
 
-  <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %> <%= "moments" if is_moment_page? %>">
+  <body onload="ativaDiv();" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %> <%= "moments" if is_moment_page? %>">
 
     <%= render :partial => "shared/tag/google_tag_manager" %>
+
+    <div id="modal" align="right" style="display:none;border:0px;">
+      <a href="javascript: var a=null;" onclick="window.open(' http://olook.neoassist.com/?action=neolive&th=moda&scr=request&ForcaAutenticar=1&UMail=%User[EMail]%&email=%User[EMail]%&name=%User[Name]%&uName=%User[Name]%', 'Chat' , 'status , scrollbars=no ,width=500, height=580, resizable=no, top=30 , left=30');"><img src=" http://olook.neoassist.com/clients/olook/novo/images/chatmsg.png" border="0" onclick="javascript:this.style.display='none';" id="chatmsg"  /></a>
+    </div>
 
     <%= render 'shared/admin_label' if current_admin %>
 
@@ -79,6 +84,7 @@
     <div id="fb-root"></div>
 
     <%= yield :site_footer %>
+    <%= javascript_include_tag "http://olook.neoassist.com/clients/olook/js/chat.js" %>
     <%= javascript_include_tag "jquery" %>
     <%= javascript_include_tag "application" %>
     <script>
