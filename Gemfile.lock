@@ -48,8 +48,7 @@ GIT
 
 GIT
   remote: git@github.com:olook/boleto_bancario.git
-  revision: ba8f64ecb541bdd398e4377d52f71ca75a0f5905
-  ref: ba8f64ecb541bdd398e4377d52f71ca75a0f5905
+  revision: 768bb690dcde97b0349f9df68c0991eeb2864ebc
   branch: homologacao_santander
   specs:
     boleto_bancario (0.0.2.beta)
@@ -260,7 +259,7 @@ GEM
       railties (>= 3.1, < 4.1)
     hashie (1.2.0)
     highline (1.6.19)
-    hike (1.2.2)
+    hike (1.2.3)
     hpricot (0.8.6)
     httparty (0.8.3)
       multi_json (~> 1.0)
