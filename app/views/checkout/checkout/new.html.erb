@@ -34,8 +34,7 @@
 
       <%= render "payments_type", checkout_form: checkout_form %>
     </div>
-    <%= checkout_form.submit '', class: "send_it", disable_with: "", onclick: track_event("Checkout","clickSubmit") %>
-  <% end %>
+
 
     <div class="box-step-three">
       <h2 class="step-title">
@@ -43,8 +42,9 @@
         <span class="title">REVISÃO</span>
         <span class="phrase">Revise e finalize seu pedido.</span>
       </h2>
-      <%= render "cart_details", address: @checkout.address %>
+      <%= render "cart_details", address: @checkout.address, checkout_form: checkout_form %>
 
+  <% end %>
 
     </div>
 
