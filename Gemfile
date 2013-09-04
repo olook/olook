@@ -52,6 +52,7 @@ gem 'SyslogLogger', "~> 1.4.1"
 gem 'koala', '~> 1.3.0'
 gem 'dalli', '2.0.2'
 gem 'redis-rails'
+gem 'iconv'
 
 gem 'sass-rails', "~> 3.2.3"
 gem 'uglifier', '~> 1.0.3'
@@ -73,6 +74,7 @@ group :development do
   gem 'better_errors'
 end
 group :development, :test do
+  gem "fakeredis"
   gem 'rack-mini-profiler'
   gem 'faker'
   gem 'bullet'
