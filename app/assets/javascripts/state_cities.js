@@ -120,11 +120,11 @@ dgCidadesEstados.prototype = {
     elm.appendChild(opt);
   },
   estados : [
-    ['','Selecione'],['SP','SP'], ['AC','AC'],['AL','AL'],['AM','AM'],['AP','AP'],['BA','BA'],
+    ['','Selecione'],['SP','SP'],['AL','AL'],['AM','AM'],['AP','AP'],['BA','BA'],
     ['CE','CE'],['DF','DF'],['ES','ES'],['GO','GO'],['MA','MA'],['MG','MG'],
     ['MS','MS'],['MT','MT'],['PA','PA'],['PB','PB'],['PE','PE'],['PI','PI'],
     ['PR','PR'],['RJ','RJ'],['RN','RN'],['RO','RO'],['RR','RR'],['RS','RS'],
-    ['SC','SC'],['SP','SP'],['SE','SE'],['TO','TO']
+    ['SC','SC'],['AC','AC'],['SE','SE'],['TO','TO']
   ],
   cidades : [
 	[],
