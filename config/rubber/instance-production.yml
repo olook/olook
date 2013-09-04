@@ -298,5 +298,63 @@
   platform: linux
   root_device_type: ebs
   provider: aws
+- !ruby/object:Rubber::Configuration::InstanceItem
+  name: appruby2
+  domain: olook.com.br
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: web
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: app
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: unicorn
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: nginx
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: db
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: mysql
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: mysql_slave
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: newrelic
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: collectd
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: monit
+    options: {}
+  instance_id: i-c4c48aaf
+  image_type: m1.small
+  image_id: ami-3fec7956
+  security_groups:
+  - olook_production_default
+  - olook_production_web
+  - olook_production_appruby2
+  - olook_production_app
+  - olook_production_unicorn
+  - olook_production_nginx
+  - olook_production_db
+  - olook_production_mysql
+  - olook_production_mysql_slave
+  - olook_production_newrelic
+  - olook_production_collectd
+  - olook_production_monit
+  external_host: ec2-54-211-194-56.compute-1.amazonaws.com
+  external_ip: 54.211.194.56
+  internal_host: ip-10-118-123-173.ec2.internal
+  internal_ip: 10.118.123.173
+  zone: us-east-1d
+  platform: linux
+  root_device_type: ebs
+  provider: aws
 - volumes: {}
   static_ips: {}
