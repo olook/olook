@@ -10,14 +10,12 @@ class ConsolidatedSell < ActiveRecord::Base
     where(day: day).order(:category, :subcategory)
   end
 
-  def self.summarize date, variant, amount
-    product = variant.product
-
+  def self.summarize date, product, amount
     day = date.to_date
     category = product.category
     subcategory = product.subcategory
 
-    consolidated = find_or_create_consolidated_record category, subcategory, day
+    consolidated = find_or_create_consolidated_record(product, date)
     consolidated.amount += amount
     consolidated.total += amount * product.price
     consolidated.total_retail += amount * product.retail_price
