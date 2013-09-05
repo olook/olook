@@ -48,7 +48,7 @@ GIT
 
 GIT
   remote: git@github.com:olook/boleto_bancario.git
-  revision: 7800459e8aba5b51746c601b81b344371e965302
+  revision: 3bbe354eb1273a22d188f187c6412c9ced10c978
   branch: homologacao_santander
   specs:
     boleto_bancario (0.0.2.beta)
