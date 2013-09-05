@@ -5,16 +5,20 @@ describe ConsolidatedSell do
     it { should belong_to(:product) }
   end
 
-  describe '.find_or_create_consolidated_record' do
-    context "when there's any consolidated sell with given data" do
-      let!(:consolidated_sell) { FactoryGirl.create(:consolidated_sell) }
-      subject { described_class.find_or_create_consolidated_record(1, "anabela", Date.new(2013, 03, 22)) }
+  describe '.find_or_create_consolidated_record_for' do
+    let(:product) { FactoryGirl.create(:shoe) }
+    context "when there's any consolidated sell for given product" do
+      before do
+        product.stub(:subcategory).and_return("anabela")
+      end
+      let!(:consolidated_sell) { FactoryGirl.create(:consolidated_sell, product: product) }
+      subject { described_class.find_or_create_consolidated_record(product, Date.new(2013, 03, 22)) }
       it { should eq consolidated_sell }
     end
 
-    context "when there's no any consolidated sell with given data" do
+    context "when there's no any consolidated sell with given product" do
       it {
-        expect{described_class.find_or_create_consolidated_record("1", "anabela", Date.new(2013, 03, 22))}.to change{described_class.count}.from(0).to(1)
+        expect{described_class.find_or_create_consolidated_record(product, Date.new(2013, 03, 22))}.to change{product.consolidated_sells.count}.from(0).to(1)
       }
     end
   end
