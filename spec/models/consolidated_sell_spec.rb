@@ -5,7 +5,7 @@ describe ConsolidatedSell do
     it { should belong_to(:product) }
   end
 
-  describe '.find_or_create_consolidated_record_for' do
+  describe '.find_or_create_consolidated_record' do
     let(:product) { FactoryGirl.create(:shoe) }
     context "when there's any consolidated sell for given product" do
       before do
@@ -51,36 +51,46 @@ describe ConsolidatedSell do
   describe '.summarize' do
     let(:date) { Date.new(2013, 9, 03) }
     let(:amount) { 10 }
-    let!(:variant) { FactoryGirl.create(:shoe, :in_stock).variants.first }
+    let!(:product) { FactoryGirl.create(:shoe) }
     let(:consolidated) { FactoryGirl.create(:consolidated_sell) }
 
-    before do
-      described_class.stub(:find_or_create_consolidated_record).and_return(consolidated)
-      variant.product.stub(:price).and_return(BigDecimal("10,00"))
-      variant.product.stub(:retail_price).and_return(BigDecimal("10,00"))
-    end
+    context "summarizing" do
+      before do
+        described_class.stub(:find_or_create_consolidated_record).and_return(consolidated)
+        product.stub(:price).and_return(BigDecimal("10,00"))
+        product.stub(:retail_price).and_return(BigDecimal("10,00"))
+      end
 
-    context "saving" do
-      it "saves consolidate" do
-        consolidated.should_receive(:save!)
-        described_class.summarize(date, variant, amount)
+      context "saving" do
+        it "saves consolidate" do
+          consolidated.should_receive(:save!)
+          described_class.summarize(date, product, amount)
+        end
+      end
+
+      context "incrementing consolidated attributes" do
+        it "increments amount" do
+          described_class.summarize(date, product, amount)
+          expect(consolidated.amount).to eq(11)
+        end
+
+        it "increments total" do
+          described_class.summarize(date, product, amount)
+          expect(consolidated.total.to_s).to eq("109.99")
+        end
+
+        it "increments total retail" do
+          described_class.summarize(date, product, amount)
+          expect(consolidated.total_retail).to eq(BigDecimal "109.99")
+        end
       end
     end
 
-    context "incrementing consolidated attributes" do
-      it "increments amount" do
-        described_class.summarize(date, variant, amount)
-        expect(consolidated.amount).to eq(11)
-      end
+    context "getting consolidated sell" do
 
-      it "increments total" do
-        described_class.summarize(date, variant, amount)
-        expect(consolidated.total.to_s).to eq("109.99")
-      end
-
-      it "increments total retail" do
-        described_class.summarize(date, variant, amount)
-        expect(consolidated.total_retail).to eq(BigDecimal "109.99")
+      it "searches or creates consolidated sell with given product and day" do
+        described_class.should_receive(:find_or_create_consolidated_record).with(product, date).and_return(consolidated)
+        described_class.summarize(date, product, amount)
       end
 
     end
