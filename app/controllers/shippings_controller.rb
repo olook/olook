@@ -8,9 +8,9 @@ class ShippingsController < ApplicationController
     zip_code = params[:id]
 
     freight =  FreightCalculator.freight_for_zip(
-        zip_code, 
-        @cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE, 
-        params[:freight_service_ids]
+      zip_code, 
+      @cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE, 
+      params[:freight_service_ids]
     )
 
     if freight.empty?
