@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_modal_show
-    if params[:modal]
+    if params[:modal] || params[:coupon_code].present?
       @modal_show = params[:modal] != "0" ? "1" : "0"
     else
       @modal_show = cookies[:ms].blank? ? "1" : "0"
