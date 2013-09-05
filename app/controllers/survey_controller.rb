@@ -25,7 +25,7 @@ class SurveyController < ApplicationController
 
       ProfileBuilder.factory(birthday, questions, current_user)
       current_user.upgrade_to_full_user!
-      
+
       if session[:profile_retake]
         redirect_to member_showroom_path
       else
