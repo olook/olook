@@ -15,6 +15,7 @@ class Product < ActiveRecord::Base
 
   after_create :create_master_variant
   after_update :update_master_variant
+  before_save :save_integration_date, if: lambda { |product| product.inventory > 3 }
 
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
@@ -507,6 +508,10 @@ class Product < ActiveRecord::Base
 
     def update_master_variant
       master_variant.save!
+    end
+
+    def save_integration_date
+      self.integration_date = Time.zone.now.to_date
     end
 
     def detail_by_token token
