@@ -481,6 +481,11 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def quantity_sold_per_day_in_last_week
+    total_sold = self.consolidated_sells.where('day BETWEEN ? AND ?', (Time.zone.now.to_date - 7.days), (Time.zone.now.to_date - 1.days)).inject(0) { |sum, x| sum + x.amount }
+    (total_sold.to_f / 7).ceil
+  end
+
   private
 
     def details_relevance

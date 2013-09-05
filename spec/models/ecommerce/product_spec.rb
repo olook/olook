@@ -1045,4 +1045,24 @@ describe Product do
       it { should be_true }
     end
   end
+
+  describe 'quantity_sold_per_day_in_last_week' do
+    before do
+      Timecop.freeze(Time.local(1990, 9, 5))
+    end
+    after do
+      Timecop.return
+    end
+
+    let(:product) { FactoryGirl.create(:shoe) }
+    before do
+      FactoryGirl.create(:consolidated_sell, day: (Time.zone.now.to_date - 1.day), amount: 3, product: product)
+      FactoryGirl.create(:consolidated_sell, day: (Time.zone.now.to_date - 7.days), amount: 5, product: product)
+      FactoryGirl.create(:consolidated_sell, day: (Time.zone.now.to_date - 8.days), amount: 15, product: product)
+    end
+
+    subject { product.quantity_sold_per_day_in_last_week }
+
+    it { should eq 2 }
+  end
 end
