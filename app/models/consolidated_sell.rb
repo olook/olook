@@ -1,9 +1,9 @@
 class ConsolidatedSell < ActiveRecord::Base
   belongs_to :product
 
-  def self.find_or_create_consolidated_record category, subcategory, day
-    consolidated = where("category = ? and subcategory = ? and day = ?", category, subcategory, day).first
-    consolidated || create(category: category, subcategory: subcategory, day: day, amount: 0, total: 0, total_retail: 0)
+  def self.find_or_create_consolidated_record product, day
+    consolidated = where("category = ? and subcategory = ? and day = ?", product.category, product.subcategory, day).first
+    consolidated || create_consolidated_sell_for(product, day)
   end
 
   def self.summarized_report_for day
@@ -23,5 +23,10 @@ class ConsolidatedSell < ActiveRecord::Base
     consolidated.total_retail += amount * product.retail_price
     consolidated.save!
   end
+
+  private
+    def self.create_consolidated_sell_for product, day
+      product.consolidated_sells.create(category: product.category, subcategory: product.subcategory, day: day, amount: 0, total: 0, total_retail: 0)
+    end
 
 end
