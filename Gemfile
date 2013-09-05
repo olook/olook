@@ -6,6 +6,7 @@ gem 'rails', '3.2.13'
 gem 'rake', '0.9.2'
 
 gem 'mysql2'
+gem 'aws-sdk', '~> 1.0'
 gem 'jquery-rails', '~> 1.0.14'
 gem 'devise', '~> 1.5.3'
 gem 'omniauth', '= 1.0.3'
