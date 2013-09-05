@@ -14,7 +14,7 @@ module BannersHelper
     if category_name.instance_of?(Fixnum)
       category_id = category_name
     else
-    category_id = Category.with_name category_name
+      category_id = Category.with_name category_name
     end
     if options[:position] == :sidetop
       path = '/colecoes/olook?utf8=%E2%9C%93&slug=olook&category_id=4&sort_filter=1&price=0-600&shoe_sizes[]='
