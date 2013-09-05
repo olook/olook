@@ -948,4 +948,101 @@ describe Product do
       it { expect(subject.xml_picture(:main)).to eq("main_picture_path.png") }
     end
   end
+
+  describe '#is_the_size_grid_enough?' do
+    subject { product.is_the_size_grid_enough? }
+    context "shoe" do
+      let(:product) { FactoryGirl.create(:shoe) }
+      context "when number of variants with inventory greater than zero is eq 4" do
+        before do
+          i = 1
+          %w[37 38 39 40].each do |size|
+            FactoryGirl.create(:variant_without_association, description: size, display_reference: "size-#{ size }", inventory: i, product: product)
+            i =+ 1
+          end
+        end
+
+        it { should be_true }
+      end
+
+      context "when number of variants with inventory greater than zero is lower than 4" do
+        before do
+          variants = []
+          i = 0
+          %w[37 38 39 40].each do |size|
+            variants << FactoryGirl.create(:variant_without_association, description: size, display_reference: "size-#{ size }", inventory: i, product: product)
+            i =+ 1
+          end
+        end
+
+        it { should be_false }
+      end
+    end
+
+    context "cloth" do
+      let(:product) { FactoryGirl.create(:simple_garment) }
+
+      context "when has variant with size M and at least one more size" do
+        before do
+          FactoryGirl.create(:variant_without_association, description: 'P' , display_reference: 'size-P', product: product, inventory: 10)
+          FactoryGirl.create(:variant_without_association, description: 'M' , display_reference: 'size-M', product: product, inventory: 10)
+        end
+
+        it { should be_true }
+      end
+
+      context "when has only variant with size M" do
+        let(:product) { FactoryGirl.create(:simple_garment) }
+        before do
+          FactoryGirl.create(:variant_without_association, description: 'M' , display_reference: 'size-M', product: product, inventory: 10)
+        end
+
+        it { should be_false }
+      end
+
+      context "when has variants with sizes 38, 40 and one more size" do
+        let(:product) { FactoryGirl.create(:simple_garment) }
+        before do
+          FactoryGirl.create(:variant_without_association, description: 'P' , display_reference: 'size-P', product: product, inventory: 10)
+          FactoryGirl.create(:variant_without_association, description: '38' , display_reference: 'size-38', product: product, inventory: 10)
+          FactoryGirl.create(:variant_without_association, description: '40' , display_reference: 'size-40', product: product, inventory: 10)
+        end
+
+         it { should be_true }
+      end
+
+      context "when has only variants with sizes 38, 40 and at least one more size" do
+        before do
+          FactoryGirl.create(:variant_without_association, description: '38' , display_reference: 'size-38', product: product, inventory: 10)
+          FactoryGirl.create(:variant_without_association, description: '40' , display_reference: 'size-40', product: product, inventory: 10)
+        end
+
+         it { should be_false }
+      end
+
+      context "when cloth has only one size" do
+        before do
+          FactoryGirl.create(:variant_without_association, description: 'M' , display_reference: 'size-M', product: product, inventory: 10)
+          FactoryGirl.create(:variant_without_association, description: '38' , display_reference: 'size-38', product: product, inventory: 0)
+          FactoryGirl.create(:variant_without_association, description: '40' , display_reference: 'size-40', product: product, inventory: 0)
+        end
+
+         it { should be_false }
+      end
+    end
+
+    context "accesory" do
+      let(:product) { FactoryGirl.build(:basic_accessory) }
+      subject { product.is_the_size_grid_enough? }
+
+      it { should be_true }
+    end
+
+    context "bag" do
+      let(:product) { FactoryGirl.build(:basic_bag) }
+      subject { product.is_the_size_grid_enough? }
+
+      it { should be_true }
+    end
+  end
 end
