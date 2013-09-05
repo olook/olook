@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130905164118) do
+ActiveRecord::Schema.define(:version => 20130905170131) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -839,7 +839,7 @@ ActiveRecord::Schema.define(:version => 20130905164118) do
     t.string   "brand"
     t.string   "producer_code"
     t.string   "picture_for_xml"
-    t.datetime "integration_date"
+    t.date     "integration_date"
   end
 
   add_index "products", ["category"], :name => "index_products_on_category"
