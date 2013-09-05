@@ -318,6 +318,14 @@ class Product < ActiveRecord::Base
     [::Category::CLOTH, ::Category::BEACHWEAR, ::Category::LINGERIE].include?(self.category)
   end
 
+  def bag?
+    self.category == ::Category::BAG
+  end
+
+  def accessory?
+    self.category == ::Category::ACCESSORY
+  end
+
   def variant_by_size(size)
     case self.category
       when Category::SHOE then
@@ -460,6 +468,17 @@ class Product < ActiveRecord::Base
   def description_html
     rallow = %w{ p b i br }.map { |w| "#{w}\/?[ >]" }.join('|')
     self.description.gsub(/<\/?(?!(?:#{rallow}))[^>\/]*\/?>/, '')
+  end
+
+  def is_the_size_grid_enough?
+    return true if (bag? || accessory?)
+    variants = self.variants.where("inventory > 0")
+    if shoe?
+      variants.size >= 4
+    else
+      sizes = variants.collect(&:description)
+      (sizes.include?("M") && variants.size >= 2) || ((sizes & %w[38 40]).any? && variants.size >= 3)
+    end
   end
 
   private
