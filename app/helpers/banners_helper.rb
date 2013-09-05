@@ -11,7 +11,11 @@ module BannersHelper
   # IF YOU NEED TO CHANGE ANY LINK DON'T (DONT!!!!!!!) FORGET ABOUT UPDATING THE G.A. TRACKING!!!!!
   #
   def banner_for(category_name, options={})
+    if category_name.instance_of?(Fixnum)
+      category_id = category_name
+    else
     category_id = Category.with_name category_name
+    end
     if options[:position] == :sidetop
       path = '/colecoes/olook?utf8=%E2%9C%93&slug=olook&category_id=4&sort_filter=1&price=0-600&shoe_sizes[]='
       link_to(image_tag('moments/banner_marca_olook.jpg'), path, onclick: track_event('Catalog', "SideBanner1From#{Category.key_for(category_id).to_s.camelize}", path))
