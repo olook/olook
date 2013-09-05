@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: git://github.com/olook/moip-ruby.git
-  revision: 5532e53ecfec153ae9dce8f0e5b7d53da6b9967c
+  revision: 4a08c2558698222ac37db1ee88bcfb95ffce23cf
   branch: master
   specs:
     moip (1.0.2.3)
