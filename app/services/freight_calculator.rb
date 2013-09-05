@@ -20,17 +20,18 @@ module FreightCalculator
 
       freight_price = shipping_service.find_freight_for_zip(clean_zip_code, order_value)
       if freight_price
-        first_free_freight_price = (freight_price.price == 0.0) ? freight_price : shipping_service.find_first_free_freight_for_zip_and_order(clean_zip_code, order_value)
+        first_free_freight_price = shipping_service.find_first_free_freight_for_zip_and_order(clean_zip_code, order_value) unless (freight_price.price == 0.0)
         break
       end
     end
 
-    return_hash = { :price          => freight_price.try(:price)  || DEFAULT_FREIGHT_PRICE,
-      :cost           => freight_price.try(:cost)   || DEFAULT_FREIGHT_COST,
-      :delivery_time  => (freight_price.try(:delivery_time) || 0) + DEFAULT_INVENTORY_TIME,
+    return_hash = {
+      :price => freight_price.try(:price)  || DEFAULT_FREIGHT_PRICE,
+      :cost => freight_price.try(:cost)   || DEFAULT_FREIGHT_COST,
+      :delivery_time => (freight_price.try(:delivery_time) || 0) + DEFAULT_INVENTORY_TIME,
       :shipping_service_id => freight_price.try(:shipping_service_id) || DEFAULT_FREIGHT_SERVICE
     }
-    return_hash[:first_free_freight_price] = first_free_freight_price.try(:order_value_start) unless first_free_freight_price.blank? || freight_price.try(:order_value_end) >= first_free_freight_price.try(:order_value_end)
+    return_hash[:first_free_freight_price] = first_free_freight_price.order_value_start unless first_free_freight_price.blank?
 
     return_hash
   end
