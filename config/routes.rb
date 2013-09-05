@@ -93,8 +93,8 @@ Olook::Application.routes.draw do
   match "/half_newsletter", to: "landing_pages#half_newsletter", as: "newsletter"
 
   # TODO use clippings when press page change
-  # match "/olook-na-imprensa", :to => "clippings#index", :as => "press"
-  match "/olook-na-imprensa", :to => "pages#press", :as => "press"
+  match "/olook-na-imprensa", :to => "clippings#index", :as => "press"
+  #match "/olook-na-imprensa", :to => "pages#press", :as => "press"
 
   # BRANDS
   match "/marcas", :to => "brands#index", :as => "new_brands"
@@ -151,6 +151,7 @@ Olook::Application.routes.draw do
   match "/nextperformance", :to => "xml#nextperformance", :as => "nextperformance", :defaults => { :format => 'xml' }
   match "/muccashop", :to => "xml#muccashop", :as => "muccashop", :defaults => { :format => 'xml' }
   match "/shopear", :to => "xml#shopear", :as => "shopear", :defaults => { :format => 'xml' }
+  match "/adroll", :to => "xml#adroll", :as => "adroll", :defaults => { :format => 'xml' }
 
   #SURVEY
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
