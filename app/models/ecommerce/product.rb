@@ -486,6 +486,10 @@ class Product < ActiveRecord::Base
     (total_sold.to_f / 7).ceil
   end
 
+  def coverage_of_days_to_sell
+    (inventory.to_f/quantity_sold_per_day_in_last_week).ceil
+  end
+
   private
 
     def details_relevance
