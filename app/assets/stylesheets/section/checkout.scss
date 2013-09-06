@@ -2155,4 +2155,14 @@ a.txt-conheca{
 }
 p.important{font-size: 13px;padding: 0 13px;
       span{color: #000;}
-    }
+}
+
+#freight_message{
+  border:1px solid #B8C7CE;
+  background-color: #C5DDE7;
+  padding: 10px;
+  margin-top: 20px;
+  max-width: 260px;
+  color: black;
+  display: none;
+}
