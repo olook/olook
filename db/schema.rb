@@ -827,8 +827,8 @@ ActiveRecord::Schema.define(:version => 20130905170131) do
     t.string   "name"
     t.text     "description"
     t.integer  "category"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "model_number"
     t.string   "color_name"
     t.string   "color_sample"
@@ -958,6 +958,15 @@ ActiveRecord::Schema.define(:version => 20130905170131) do
     t.integer  "cubic_weight_factor"
     t.integer  "priority"
     t.string   "erp_delivery_service"
+  end
+
+  create_table "simple_email_service_infos", :force => true do |t|
+    t.integer  "bounces"
+    t.integer  "complaints"
+    t.integer  "delivery_attempts"
+    t.integer  "rejects"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "survey_answers", :force => true do |t|
