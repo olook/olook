@@ -69,6 +69,7 @@ class IndexProductsWorker
         fields['age'] = p.integration_date.try(:strftime, '%Y%m%d') || ""
         fields['qt_sold_per_day'] = product.quantity_sold_per_day_in_last_week
         fields['coverage_of_days_to_sell'] = product.coverage_of_days_to_sell
+        fields['full_grid'] = product.is_the_size_grid_enough? ? 1 : 0
 
         details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno', 'salto'].include?(d.translation_token.downcase) }
         translation_hash = {
