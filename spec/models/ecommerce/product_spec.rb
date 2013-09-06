@@ -36,7 +36,7 @@ describe Product do
 
           subject { product.integration_date }
 
-          it { should eq(Time.zone.now.to_date) }
+          it { should eq(Time.zone.today) }
         end
 
         context "when product inventory is lower than 3" do
@@ -47,7 +47,7 @@ describe Product do
 
           subject { product.integration_date }
 
-          it { should_not eq(Time.zone.now.to_date) }
+          it { should_not eq(Time.zone.today) }
         end
 
         context "when product inventory is eq than 3" do
@@ -58,7 +58,7 @@ describe Product do
 
           subject { product.integration_date }
 
-          it { should_not eq(Time.zone.now.to_date) }
+          it { should_not eq(Time.zone.today) }
         end
       end
     end
@@ -1047,18 +1047,12 @@ describe Product do
   end
 
   describe 'quantity_sold_per_day_in_last_week' do
-    before do
-      Timecop.freeze(Time.local(1990, 9, 5))
-    end
-    after do
-      Timecop.return
-    end
-
     let(:product) { FactoryGirl.create(:shoe) }
+
     before do
-      FactoryGirl.create(:consolidated_sell, day: (Time.zone.now.to_date - 1.day), amount: 3, product: product)
-      FactoryGirl.create(:consolidated_sell, day: (Time.zone.now.to_date - 7.days), amount: 5, product: product)
-      FactoryGirl.create(:consolidated_sell, day: (Time.zone.now.to_date - 8.days), amount: 15, product: product)
+      FactoryGirl.create(:consolidated_sell, day: (Time.zone.today - 1.day), amount: 3, product: product)
+      FactoryGirl.create(:consolidated_sell, day: (Time.zone.today - 7.days), amount: 5, product: product)
+      FactoryGirl.create(:consolidated_sell, day: (Time.zone.today - 9.days), amount: 15, product: product)
     end
 
     subject { product.quantity_sold_per_day_in_last_week }
