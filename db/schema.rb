@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130828142326) do
+ActiveRecord::Schema.define(:version => 20130905164118) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -325,11 +325,12 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.string   "category"
     t.date     "day"
     t.integer  "amount"
-    t.decimal  "total",        :precision => 10, :scale => 0
+    t.decimal  "total",        :precision => 8, :scale => 2
     t.string   "subcategory"
-    t.decimal  "total_retail", :precision => 10, :scale => 0
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
+    t.decimal  "total_retail", :precision => 8, :scale => 2
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.integer  "product_id"
   end
 
   create_table "contact_informations", :force => true do |t|
@@ -826,18 +827,19 @@ ActiveRecord::Schema.define(:version => 20130828142326) do
     t.string   "name"
     t.text     "description"
     t.integer  "category"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.string   "model_number"
     t.string   "color_name"
     t.string   "color_sample"
     t.integer  "collection_id"
     t.boolean  "is_visible"
     t.string   "color_category"
-    t.boolean  "is_kit",          :default => false
+    t.boolean  "is_kit",           :default => false
     t.string   "brand"
     t.string   "producer_code"
     t.string   "picture_for_xml"
+    t.date     "integration_date"
   end
 
   add_index "products", ["category"], :name => "index_products_on_category"
