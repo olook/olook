@@ -219,7 +219,8 @@ Olook::Application.routes.draw do
     get "/", :to => "dashboard#index"
 
     resources :clippings
-    resources :simple_email_service_infos, only: [:index, :show]
+    get "ses" => "simple_email_service_infos#index", as: "ses"
+    match "/ses_info", :to => "simple_email_service_infos#show", :as => "ses_info"
 
     namespace :orders do
       resources :deliveries
