@@ -404,7 +404,7 @@
         one: Imprensa
         other: Imprensa
 
-      simpleemailserviceinfo:
+      simple_email_service_info:
         one: Serviço de email
         other: Serviços de email
 
