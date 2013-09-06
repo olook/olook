@@ -1065,4 +1065,13 @@ describe Product do
 
     it { should eq 2 }
   end
+
+  describe '#coverage_of_days_to_sell' do
+    before do
+      subject.stub(:inventory).and_return(11)
+      subject.stub(:quantity_sold_per_day_in_last_week).and_return(3)
+    end
+
+    it { expect(subject.coverage_of_days_to_sell).to eq(4) }
+  end
 end
