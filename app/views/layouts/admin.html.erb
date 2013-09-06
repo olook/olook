@@ -91,7 +91,8 @@
               <li class="submenu<%= ' active' if params[:controller] =~ /simple_email_service/ %>">
               <span>Marketing</span>
               <ul>
-                <li><%= access_link("SimpleEmailServiceInfos")%></li>
+                <li>
+                  <%= link_to I18n.t("activerecord.models.simple_email_service_info.other"), admin_ses_path %></li>
               </ul>
             </li>
           </ul>
@@ -125,9 +126,9 @@
           </div>
         </div>
         <% if content_for?(:sidebar) %>
-        <div id="sidebar">
-          <%= yield :sidebar %>
-        </div>
+          <div id="sidebar">
+            <%= yield :sidebar %>
+          </div>
         <% end %>
       </div>
     </div>
