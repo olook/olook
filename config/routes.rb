@@ -14,7 +14,8 @@ Olook::Application.routes.draw do
   put '/cadastro-stylequiz', to: 'join#login', as: 'join'
   post '/cadastro-stylequiz/facebook_login' => "join#facebook_login", as: 'facebook_login'
   get "/meu-estilo", to: "profiles#show", as: 'profile'
-
+  get "/half_showroom", to:"members#half_showroom"
+ 
   mount Resque::Server => "/admin/resque"
 
   #temp redirect

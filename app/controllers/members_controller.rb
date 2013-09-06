@@ -122,6 +122,12 @@ class MembersController < ApplicationController
     @invites = @user.invites.page(params[:page]).per_page(15)
   end
 
+  def half_showroom
+    if @facebook_adapter
+      @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
+    end
+  end
+
   private
   def contact_authentication_failed
     flash[:notice] = "Falha de autenticação na importação de contatos"
