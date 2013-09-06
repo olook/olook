@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130905170131) do
+ActiveRecord::Schema.define(:version => 20130906151806) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -967,6 +967,7 @@ ActiveRecord::Schema.define(:version => 20130905170131) do
     t.integer  "rejects"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.date     "sent"
   end
 
   create_table "survey_answers", :force => true do |t|
