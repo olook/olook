@@ -1,0 +1,19 @@
+%table
+  %tr
+    %th
+      bounces
+    %th
+      complaints
+    %th
+      delivery_attempts
+    %th
+      rejects
+  %tr
+    %td
+      = @email_info[:bounces]
+    %td
+      = @email_info[:complaints]
+    %td
+      = @email_info[:delivery_attempts]
+    %td
+      = @email_info[:rejects]
