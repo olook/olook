@@ -88,6 +88,12 @@
                 <li><%= access_link("Clippings")%></li>
               </ul>
             </li>
+              <li class="submenu<%= ' active' if params[:controller] =~ /simple_email_service/ %>">
+              <span>Marketing</span>
+              <ul>
+                <li><%= access_link("SimpleEmailServiceInfos")%></li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
