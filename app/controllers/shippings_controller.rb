@@ -10,7 +10,8 @@ class ShippingsController < ApplicationController
     freight =  FreightCalculator.freight_for_zip(
       zip_code, 
       @cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE, 
-      params[:freight_service_ids]
+      params[:freight_service_ids],
+      true
     )
 
     if freight.empty?
@@ -20,7 +21,7 @@ class ShippingsController < ApplicationController
 
       @days_to_deliver = freight[:delivery_time]
       @freight_price = freight[:price] 
-      @first_free_freight_price = freight[:first_free_freight_price]  if freight[:first_free_freight_price]
+      @first_free_freight_price = nil
       # render :show , :format => :json
     end
   end

@@ -10,7 +10,7 @@ module FreightCalculator
   DEFAULT_FREIGHT_SERVICE = 1
 
 
-  def self.freight_for_zip(zip_code, order_value, shipping_service_ids=nil)
+  def self.freight_for_zip(zip_code, order_value, shipping_service_ids=nil, use_message = false)
     clean_zip_code = clean_zip(zip_code)
     return {} unless valid_zip?(clean_zip_code)
     freight_price = nil
@@ -20,7 +20,7 @@ module FreightCalculator
       
       freight_price = shipping_service.find_freight_for_zip(clean_zip_code, order_value)
       if freight_price
-        first_free_freight_price = shipping_service.find_first_free_freight_for_zip_and_order(clean_zip_code, order_value) unless (freight_price.price == 0.0)
+        first_free_freight_price = shipping_service.find_first_free_freight_for_zip_and_order(clean_zip_code, order_value) if (freight_price.price != 0.0) && use_message
         break
       end
     end
@@ -31,7 +31,7 @@ module FreightCalculator
       :delivery_time => (freight_price.try(:delivery_time) || 0) + DEFAULT_INVENTORY_TIME,
       :shipping_service_id => freight_price.try(:shipping_service_id) || DEFAULT_FREIGHT_SERVICE
     }
-    return_hash[:first_free_freight_price] = first_free_freight_price.order_value_start unless first_free_freight_price.blank?
+    return_hash[:first_free_freight_price] = first_free_freight_price.order_value_start if !first_free_freight_price.blank? 
 
     return_hash
   end
