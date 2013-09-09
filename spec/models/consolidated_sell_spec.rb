@@ -5,6 +5,28 @@ describe ConsolidatedSell do
     it { should belong_to(:product) }
   end
 
+  describe 'scopes' do
+
+    before do
+      Timecop.freeze(Time.local(2013, 9, 5))
+    end
+    after do
+      Timecop.return
+    end
+
+    describe '.in_last_week' do
+      let!(:most_recent_consolidated_sell) { FactoryGirl.create(:consolidated_sell, day: (Time.zone.today - 1.day)) }
+      let!(:recent_consolidated_sell) { FactoryGirl.create(:consolidated_sell, day: (Time.zone.today - 7.days)) }
+      let!(:old_consolidated_sell) { FactoryGirl.create(:consolidated_sell) }
+
+      subject { described_class.in_last_week }
+
+      it { should include most_recent_consolidated_sell }
+      it { should include recent_consolidated_sell }
+      it { should_not include old_consolidated_sell }
+    end
+  end
+
   describe '.find_or_create_consolidated_record' do
     let(:product) { FactoryGirl.create(:shoe) }
     context "when there's any consolidated sell for given product" do

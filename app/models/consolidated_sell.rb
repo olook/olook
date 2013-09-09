@@ -1,6 +1,8 @@
 class ConsolidatedSell < ActiveRecord::Base
   belongs_to :product
 
+  scope :in_last_week, where('day BETWEEN ? AND ?', (Time.zone.today - 8.days), (Time.zone.today - 1.days))
+
   def self.find_or_create_consolidated_record product, day
     consolidated = where("category = ? and subcategory = ? and day = ?", product.category, product.subcategory, day).first
     consolidated || create_consolidated_sell_for(product, day)
