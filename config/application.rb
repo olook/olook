@@ -13,7 +13,7 @@ if defined?(Bundler)
 end
 
 host, port = YAML.load_file(File.expand_path(File.join(File.dirname(__FILE__), 'resque.yml')))[Rails.env].split(":")
-ENV['REDIS_CACHE_STORE'] ||= "redis://#{host}:#{port}/0/cache"
+ENV['REDIS_CACHE_STORE'] ||= "redis://#{host}:#{port}/3/cache"
 
 module Olook
   class Application < Rails::Application

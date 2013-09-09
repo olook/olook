@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+<% @products.each do |product| %>
+<product>
+<id><%= product.id %></id>
+<title><%= product.formatted_name(200) %></title>
+<url>
+  <%= product.product_url(:utm_source => "adroll", :utm_medium => "Remarketing", :utm_campaign => "Produtos", :utm_content => product.id) %>
+</url>
+<image><%= full_image_path product.xml_picture(:main) %></image>
+<price><%= number_with_precision(product.retail_price, precision: 2, separator: ".") %></price>
+<currency>BRL</currency>
+</product>
+<% end %>
+</products>

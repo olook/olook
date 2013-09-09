@@ -179,11 +179,11 @@ $(function() {
     $(window).scroll(function(event) {
       var y = $(this).scrollTop();
       if(y >= 170) {
-        $('div.box-step-three').addClass('fixed').css({'left' : helpLeft, 'top' : '0', 'float' : 'none'});
-        $('input.send_it').addClass('fixed').css('left', helpLeft2);
+        $('div.box-step-three').addClass('fixed').css({'left' : helpLeft, 'top' : '0', 'float' : 'left'});
+        $('input.send_it').addClass('fixed bt-checkout').css('left', helpLeft2);
       } else {
         $('.box-step-three').removeClass('fixed').removeAttr('style');
-        $('input.send_it').removeClass('fixed').css('left', "")
+        $('input.send_it').removeClass('fixed bt-checkout').css('left', "")
       }
     });
   }

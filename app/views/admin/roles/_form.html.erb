@@ -34,11 +34,7 @@
       <td><b><%= model %></b></td>
       <% permissions.each do |permission| %>
         <%= f.fields_for :permissions, permission do |permission_builder| %>
-            <% if !@role.has_permission?(permission.id) %>
-              <td><%= permission_builder.check_box "enabled?", :checked => false %></td>
-            <% else %>
-              <td><%= permission_builder.check_box "enabled?", :checked => true %></td>
-            <% end %>
+          <td><%= permission_builder.check_box "enabled?", checked: @role.has_permission?(permission.id) %></td>
         <% end %>
       <% end %>
   </table>

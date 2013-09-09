@@ -14,6 +14,7 @@
     <tr>
       <td><%= role.name %></td>
       <td><%= role.description %></td>
+      <td><%= link_to 'Copiar', copy_admin_role_path(role), :class => 'button', method: 'post' %></td>
       <td><%= link_to 'Mostrar', admin_role_path(role), :class => 'button' %></td>
       <td><%= link_to 'Editar', edit_admin_role_path(role), :class => 'button' %></td>
       <td><%= link_to 'Apagar', admin_role_path(role), confirm: 'Tem certeza?', method: :delete, :class => 'button danger' %></td>
