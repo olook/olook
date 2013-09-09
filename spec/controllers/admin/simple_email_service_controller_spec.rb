@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Admin::SimpleEmailServiceController do
+describe Admin::SimpleEmailServiceInfosController do
 
 end
