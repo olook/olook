@@ -80,6 +80,7 @@
 
     <%= yield :site_footer %>
     <%= javascript_include_tag "jquery" %>
+    <%= yield :scripts %>
     <%= javascript_include_tag "application" %>
     <script>
       show_modal = '<%= j @modal_show %>';
