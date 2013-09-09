@@ -66,7 +66,7 @@ class IndexProductsWorker
         fields['care'] = product.subcategory.titleize if Product::CARE_PRODUCTS.include?(product.subcategory)
         fields['collection'] = product.collection.start_date.strftime('%Y%m').to_i
         fields['collection_theme'] = product.collection_themes.map { |c| c.slug }
-        fields['age'] = p.integration_date.try(:strftime, '%Y%m%d') || ""
+        fields['age'] = product.integration_date.try(:strftime, '%Y%m%d') || ""
         fields['qt_sold_per_day'] = product.quantity_sold_per_day_in_last_week
         fields['coverage_of_days_to_sell'] = product.coverage_of_days_to_sell
         fields['full_grid'] = product.is_the_size_grid_enough? ? 1 : 0
