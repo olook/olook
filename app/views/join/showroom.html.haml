@@ -1,0 +1,19 @@
+- content_for :head do 
+  = stylesheet_link_tag "new_structure/section/lite_showroom"
+
+#join_showroom
+  .register
+    %p
+      %span
+        Sua vitrine espera por você...
+      Entre e confira as novidades ;)
+    .login
+    .login_with_facebook
+      =link_to 'Entrar com Facebook', user_omniauth_authorize_path(:facebook), :class => 'fb_login_button popup', :"data-width" => 410, :"data-height" => 300, onclick: track_event("FacebookConnect", "ConnectFromLoginBox")
+      = render partial: "shared/errors", locals: { object: @user } 
+      = render partial: "users/sessions/form_user", locals: { checkout_login: true} 
+
+
+= render "home/products_categories"
+= render "home/facebook_box"
+
