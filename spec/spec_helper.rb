@@ -111,7 +111,6 @@ Spork.prefork do
     config.use_transactional_fixtures = false
 
     config.include Devise::TestHelpers, :type => :controller
-    config.extend VCR::RSpec::Macros
   end
 end
 
