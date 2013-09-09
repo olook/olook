@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-describe WhatsYourStyle::Quiz do
-  use_vcr_cassette 'whats_your_style', record: :new_episodes
+describe WhatsYourStyle::Quiz, vcr: {cassette_name: 'whats_your_style', record: :new_episodes} do
   describe "#questions" do
     subject { described_class.new.questions }
     it { should be_a(Array) }
