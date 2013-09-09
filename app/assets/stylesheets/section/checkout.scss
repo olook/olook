@@ -122,6 +122,7 @@ section#credits_explanation{
 
   ul li div.value {
     width: 70px;
+    margin-left: 200px !important;
   }
 
   .prohibited {
@@ -1708,7 +1709,7 @@ section.checkout{
 			}
 		}
 		#about_credits{
-			display:none;float:left;position:absolute;z-index:10001;background:#FFF;width:620px;min-height:250px;padding:20px;border:solid 5px #000;top:50%;left:50%;margin:-30% 0 0 -310px;
+			display:none;float:left;position:absolute;z-index:10001;background:#FFF;width:620px;min-height:250px;padding:20px;border:solid 1px #000;top:50%;left:50%;margin:-30% 0 0 -310px;
 			button{position:absolute;z-index:101;top:-12px;right:-17px;width:35px;height:35px;border:0;font-size:0;font-family:a;@include sprite_checkout(-238px, -384px);cursor:pointer;}
 			.about_title{font-size:18px;font-family:$avenir;color:#000;margin-bottom:15px;}
 			table.check{border:0;
@@ -1719,7 +1720,7 @@ section.checkout{
 					p{color:#000;font-size:14px;margin-top:15px;
 					}
 					div{margin:0;
-						&.message{font-size:12px;}
+						&.message{font-size:12px;line-height: 24px;}
 						&.description{width:245px;}
 					}
 				}
@@ -2154,4 +2155,14 @@ a.txt-conheca{
 }
 p.important{font-size: 13px;padding: 0 13px;
       span{color: #000;}
-    }
+}
+
+#freight_message{
+  border:1px solid #B8C7CE;
+  background-color: #C5DDE7;
+  padding: 10px;
+  margin-top: 20px;
+  max-width: 260px;
+  color: black;
+  display: none;
+}
