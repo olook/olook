@@ -15,6 +15,7 @@ class Product < ActiveRecord::Base
 
   after_create :create_master_variant
   after_update :update_master_variant
+  before_save :save_integration_date, if: :must_update_integration_date?
 
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
@@ -38,6 +39,7 @@ class Product < ActiveRecord::Base
   has_many :liquidations, :through => :liquidation_products
   has_many :catalog_products, :class_name => "Catalog::Product", :foreign_key => "product_id"
   has_many :catalogs, :through => :catalog_products
+  has_many :consolidated_sells, dependent: :destroy
 
   validates :name, :presence => true
   validates :description, :presence => true
@@ -140,7 +142,7 @@ class Product < ActiveRecord::Base
   delegate :'discount_percent=', to: :master_variant
 
   def main_picture
-    @main_picture ||= 
+    @main_picture ||=
     if self.pictures.loaded?
       self.pictures.all.find { |p| p.display_on == DisplayPictureOn::GALLERY_1 }
     else
@@ -316,6 +318,14 @@ class Product < ActiveRecord::Base
     [::Category::CLOTH, ::Category::BEACHWEAR, ::Category::LINGERIE].include?(self.category)
   end
 
+  def bag?
+    self.category == ::Category::BAG
+  end
+
+  def accessory?
+    self.category == ::Category::ACCESSORY
+  end
+
   def variant_by_size(size)
     case self.category
       when Category::SHOE then
@@ -460,6 +470,26 @@ class Product < ActiveRecord::Base
     self.description.gsub(/<\/?(?!(?:#{rallow}))[^>\/]*\/?>/, '')
   end
 
+  def is_the_size_grid_enough?
+    return true if (bag? || accessory?)
+    variants = self.variants.where("inventory > 0")
+    if shoe?
+      variants.size >= 4
+    else
+      sizes = variants.collect(&:description)
+      (sizes.include?("M") && variants.size >= 2) || ((sizes & %w[38 40]).any? && variants.size >= 3)
+    end
+  end
+
+  def quantity_sold_per_day_in_last_week
+    total_sold = self.consolidated_sells.in_last_week.inject(0) { |sum, x| sum + x.amount }
+    (total_sold.to_f / 7).ceil
+  end
+
+  def coverage_of_days_to_sell
+    (inventory.to_f/quantity_sold_per_day_in_last_week).ceil
+  end
+
   private
 
     def details_relevance
@@ -506,6 +536,14 @@ class Product < ActiveRecord::Base
 
     def update_master_variant
       master_variant.save!
+    end
+
+    def save_integration_date
+      self.integration_date = Time.zone.now.to_date
+    end
+
+    def must_update_integration_date?
+      self.inventory > 3
     end
 
     def detail_by_token token
