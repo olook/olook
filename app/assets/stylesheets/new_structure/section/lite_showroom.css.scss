@@ -95,6 +95,20 @@ div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;ma
     span{
       font-weight: bold;
     }
+    &.users{
+      margin-left: 105px;
+      font-family: $avenir;
+      font-size: 14px;
+      font-weight: 500 !important;
+      color: #717274;
+      margin-bottom: 10px !important;
+      span{
+        color: #f5868d
+      }
+      img{
+        margin-top: 5px;
+      }
+    }
   }
   .users{
     float: right;
