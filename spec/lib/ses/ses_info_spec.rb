@@ -15,8 +15,12 @@ describe Ses::SesInfo do
       expect(subject.retreive_ses_info).to be_an_instance_of Hash
     end
 
-    it "have bounces key" do
-      expect(subject.retreive_ses_info).to have_key(:bounces)
+    it "have correctly keys" do
+      ses_hash = subject.retreive_ses_info
+      expect(ses_hash).to have_key(:bounces)
+      expect(ses_hash).to have_key(:complaints)
+      expect(ses_hash).to have_key(:delivery_attempts)
+      expect(ses_hash).to have_key(:rejects)
     end
   end
 end
