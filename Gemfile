@@ -105,10 +105,13 @@ group :development, :test do
   gem 'guard-spork'
   gem 'fuubar'
   gem 'launchy'
-  gem 'webmock'
   gem 'parallel_tests'
   gem "vcr", "~> 2.5.0"
   gem 'ci_reporter', :git => 'git://github.com/nicksieger/ci_reporter.git', require: false
 end
 gem 'rubber', '~> 2.0', git: 'git://github.com/nelsonmhjr/rubber.git', branch: 'newrelic'
 gem 'open4'
+
+group :test do
+  gem 'webmock'  
+end
