@@ -7,13 +7,6 @@ describe ConsolidatedSell do
 
   describe 'scopes' do
 
-    before do
-      Timecop.freeze(Time.local(2013, 9, 5))
-    end
-    after do
-      Timecop.return
-    end
-
     describe '.in_last_week' do
       let!(:most_recent_consolidated_sell) { FactoryGirl.create(:consolidated_sell, day: (Time.zone.today - 1.day)) }
       let!(:recent_consolidated_sell) { FactoryGirl.create(:consolidated_sell, day: (Time.zone.today - 7.days)) }
