@@ -487,7 +487,15 @@ class Product < ActiveRecord::Base
   end
 
   def coverage_of_days_to_sell
-    (inventory.to_f/quantity_sold_per_day_in_last_week).ceil
+    if quantity_sold_per_day_in_last_week > 0
+      (inventory.to_f/quantity_sold_per_day_in_last_week).ceil
+    else
+      180 # 6 months
+    end
+  end
+
+  def time_in_stock
+    integration_date.try(:strftime, '%Y%m%d').try(:to_i) || (Time.zone.today- 3.months).strftime('%Y%m%d').to_i
   end
 
   private
