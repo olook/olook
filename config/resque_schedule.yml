@@ -16,6 +16,12 @@ send_orders_alert:
   queue: order_status_alert
   description: "Envia email avisando pedidos que precisam ser analizados com mais atencao"
 
+update_ses_info:
+  cron: "* 22 * * *"
+  class: SaveSesInfoWorker
+  queue: ses
+  description: "Atualiza a tabela ses com as informações "
+
 update_inventory:
   cron: "*/5 * * * *"
   class: Abacos::UpdateInventory
