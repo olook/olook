@@ -10,8 +10,7 @@ describe Ses::SesInfo do
     end
   end
 
-  describe "#retreive_ses_info", :vcr do
-    use_vcr_cassette
+  describe "#retreive_ses_info", vcr: true do
     it "returns hash" do
       expect(subject.retreive_ses_info).to be_an_instance_of Hash
     end
