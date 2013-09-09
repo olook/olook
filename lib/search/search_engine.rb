@@ -86,7 +86,7 @@ class SearchEngine
     else
       @expressions["category"] = cat.to_s.split(MULTISELECTION_SEPARATOR)
     end
-  end  
+  end
 
   def total_results
     @result.hits["found"]
@@ -302,7 +302,7 @@ class SearchEngine
 
     def validate_sort_field
       if @sort_field.nil? || @sort_field == "" || @sort_field == 0 || @sort_field == "0"
-        @sort_field = "-collection,-inventory,-text_relevance"
+        @sort_field = "-collection,-inventory,-text_relevance,-qt_sold_per_day,-coverage_of_days_to_sell"
       end
     end
 end
