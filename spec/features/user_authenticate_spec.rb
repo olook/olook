@@ -7,6 +7,7 @@ feature "User Authenticate", %q{
   As a user
   I want to authenticate using my Facebook account or a normal register
 } do
+# , vcr: {cassette_name: 'yahoo', :match_requests_on => [:host, :path]}
   
   pending "The flow has changed. Update the spec"
 
@@ -22,8 +23,6 @@ feature "User Authenticate", %q{
     user.record_first_visit
   end
   
-  use_vcr_cassette('yahoo', :match_requests_on => [:host, :path]) 
-
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
   let!(:redeem_credit_type) { FactoryGirl.create(:redeem_credit_type, :code => :redeem) }
