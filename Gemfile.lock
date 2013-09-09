@@ -533,7 +533,7 @@ GEM
     wasabi (2.3.0)
       nokogiri (>= 1.4.0)
     watchr (0.7)
-    webmock (1.13.0)
+    webmock (1.12.0)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
     websocket (1.0.7)
