@@ -322,15 +322,15 @@ ActiveRecord::Schema.define(:version => 20130906151806) do
   add_index "collections", ["start_date"], :name => "index_collections_on_start_date"
 
   create_table "consolidated_sells", :force => true do |t|
-    t.string   "category"
-    t.date     "day"
-    t.integer  "amount"
-    t.decimal  "total",        :precision => 8, :scale => 2
-    t.string   "subcategory"
-    t.decimal  "total_retail", :precision => 8, :scale => 2
     t.datetime "created_at",                                 :null => false
     t.datetime "updated_at",                                 :null => false
     t.integer  "product_id"
+    t.string   "category"
+    t.string   "subcategory"
+    t.date     "day"
+    t.integer  "amount"
+    t.decimal  "total",        :precision => 8, :scale => 2
+    t.decimal  "total_retail", :precision => 8, :scale => 2
   end
 
   create_table "contact_informations", :force => true do |t|
@@ -839,6 +839,7 @@ ActiveRecord::Schema.define(:version => 20130906151806) do
     t.string   "brand"
     t.string   "producer_code"
     t.string   "picture_for_xml"
+    t.datetime "last_integration"
     t.date     "integration_date"
   end
 
@@ -1086,7 +1087,6 @@ ActiveRecord::Schema.define(:version => 20130906151806) do
   add_index "users", ["cpf"], :name => "index_users_on_cpf"
   add_index "users", ["created_at"], :name => "index_users_on_created_at"
   add_index "users", ["email"], :name => "index_users_on_email"
-  add_index "users", ["half_user"], :name => "index_users_on_half_user"
   add_index "users", ["invite_token"], :name => "index_users_on_invite_token"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token"
   add_index "users", ["uid"], :name => "index_users_on_uid"
