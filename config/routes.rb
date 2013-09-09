@@ -318,6 +318,9 @@ Olook::Application.routes.draw do
       resources :liquidation_products, :as => "products"
     end
     resources :roles do
+      member do
+        post 'copy'
+      end
       resources :permissions
     end
     resources :admins

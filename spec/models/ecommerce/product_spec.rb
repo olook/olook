@@ -6,22 +6,64 @@ describe Product do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:description) }
     it { should validate_presence_of(:model_number) }
-    it { should have_many(:pictures) }
-    it { should have_many(:details) }
-    it { should have_many(:variants) }
-    it { should have_many(:catalog_products) }
-    it { should have_many(:catalogs) }
-    it { should belong_to(:collection) }
-    it { should have_and_belong_to_many(:profiles) }
 
     it { should respond_to :backside_picture }
     it { should respond_to :wearing_picture }
     it { should respond_to :remove_freebie }
   end
 
-  describe "association" do
+  describe "associations" do
     it { should have_and_belong_to_many(:collection_themes) }
+    it { should have_many(:pictures) }
+    it { should have_many(:details) }
+    it { should have_many(:variants) }
+    it { should have_many(:catalog_products) }
+    it { should have_many(:catalogs) }
+    it { should have_many(:consolidated_sells) }
+    it { should belong_to(:collection) }
+    it { should have_and_belong_to_many(:profiles) }
   end
+
+  describe 'callbacks' do
+    describe 'before_save' do
+      describe 'save_integration_date' do
+        let!(:product) { FactoryGirl.build(:shoe) }
+        context "when product inventory is greater than 3" do
+          before do
+            product.stub(:inventory).and_return(4)
+            product.save
+          end
+
+          subject { product.integration_date }
+
+          it { should eq(Time.zone.now.to_date) }
+        end
+
+        context "when product inventory is lower than 3" do
+          before do
+            product.stub(:inventory).and_return(1)
+            product.save
+          end
+
+          subject { product.integration_date }
+
+          it { should_not eq(Time.zone.now.to_date) }
+        end
+
+        context "when product inventory is eq than 3" do
+          before do
+            product.stub(:inventory).and_return(3)
+            product.save
+          end
+
+          subject { product.integration_date }
+
+          it { should_not eq(Time.zone.now.to_date) }
+        end
+      end
+    end
+  end
+
   describe 'scopes' do
     describe ".with_brand" do
       let!(:product_with_given_brand) { FactoryGirl.create(:shoe, :casual, brand: "Some Brand") }
