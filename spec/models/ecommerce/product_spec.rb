@@ -36,7 +36,7 @@ describe Product do
 
           subject { product.integration_date }
 
-          it { should eq(Time.zone.now.to_date) }
+          it { should eq(Time.zone.today) }
         end
 
         context "when product inventory is lower than 3" do
@@ -47,7 +47,7 @@ describe Product do
 
           subject { product.integration_date }
 
-          it { should_not eq(Time.zone.now.to_date) }
+          it { should_not eq(Time.zone.today) }
         end
 
         context "when product inventory is eq than 3" do
@@ -58,7 +58,7 @@ describe Product do
 
           subject { product.integration_date }
 
-          it { should_not eq(Time.zone.now.to_date) }
+          it { should_not eq(Time.zone.today) }
         end
       end
     end
@@ -947,5 +947,125 @@ describe Product do
 
       it { expect(subject.xml_picture(:main)).to eq("main_picture_path.png") }
     end
+  end
+
+  describe '#is_the_size_grid_enough?' do
+    subject { product.is_the_size_grid_enough? }
+    context "shoe" do
+      let(:product) { FactoryGirl.create(:shoe) }
+      context "when number of variants with inventory greater than zero is eq 4" do
+        before do
+          i = 1
+          %w[37 38 39 40].each do |size|
+            FactoryGirl.create(:variant_without_association, description: size, display_reference: "size-#{ size }", inventory: i, product: product)
+            i =+ 1
+          end
+        end
+
+        it { should be_true }
+      end
+
+      context "when number of variants with inventory greater than zero is lower than 4" do
+        before do
+          variants = []
+          i = 0
+          %w[37 38 39 40].each do |size|
+            variants << FactoryGirl.create(:variant_without_association, description: size, display_reference: "size-#{ size }", inventory: i, product: product)
+            i =+ 1
+          end
+        end
+
+        it { should be_false }
+      end
+    end
+
+    context "cloth" do
+      let(:product) { FactoryGirl.create(:simple_garment) }
+
+      context "when has variant with size M and at least one more size" do
+        before do
+          FactoryGirl.create(:variant_without_association, description: 'P' , display_reference: 'size-P', product: product, inventory: 10)
+          FactoryGirl.create(:variant_without_association, description: 'M' , display_reference: 'size-M', product: product, inventory: 10)
+        end
+
+        it { should be_true }
+      end
+
+      context "when has only variant with size M" do
+        let(:product) { FactoryGirl.create(:simple_garment) }
+        before do
+          FactoryGirl.create(:variant_without_association, description: 'M' , display_reference: 'size-M', product: product, inventory: 10)
+        end
+
+        it { should be_false }
+      end
+
+      context "when has variants with sizes 38, 40 and one more size" do
+        let(:product) { FactoryGirl.create(:simple_garment) }
+        before do
+          FactoryGirl.create(:variant_without_association, description: 'P' , display_reference: 'size-P', product: product, inventory: 10)
+          FactoryGirl.create(:variant_without_association, description: '38' , display_reference: 'size-38', product: product, inventory: 10)
+          FactoryGirl.create(:variant_without_association, description: '40' , display_reference: 'size-40', product: product, inventory: 10)
+        end
+
+         it { should be_true }
+      end
+
+      context "when has only variants with sizes 38, 40 and at least one more size" do
+        before do
+          FactoryGirl.create(:variant_without_association, description: '38' , display_reference: 'size-38', product: product, inventory: 10)
+          FactoryGirl.create(:variant_without_association, description: '40' , display_reference: 'size-40', product: product, inventory: 10)
+        end
+
+         it { should be_false }
+      end
+
+      context "when cloth has only one size" do
+        before do
+          FactoryGirl.create(:variant_without_association, description: 'M' , display_reference: 'size-M', product: product, inventory: 10)
+          FactoryGirl.create(:variant_without_association, description: '38' , display_reference: 'size-38', product: product, inventory: 0)
+          FactoryGirl.create(:variant_without_association, description: '40' , display_reference: 'size-40', product: product, inventory: 0)
+        end
+
+         it { should be_false }
+      end
+    end
+
+    context "accesory" do
+      let(:product) { FactoryGirl.build(:basic_accessory) }
+      subject { product.is_the_size_grid_enough? }
+
+      it { should be_true }
+    end
+
+    context "bag" do
+      let(:product) { FactoryGirl.build(:basic_bag) }
+      subject { product.is_the_size_grid_enough? }
+
+      it { should be_true }
+    end
+  end
+
+  describe 'quantity_sold_per_day_in_last_week' do
+    let(:product) { FactoryGirl.create(:shoe) }
+
+    before do
+      FactoryGirl.create(:consolidated_sell, day: (Time.zone.today - 1.day), amount: 3, product: product)
+      FactoryGirl.create(:consolidated_sell, day: (Time.zone.today - 7.days), amount: 5, product: product)
+      FactoryGirl.create(:consolidated_sell, day: (Time.zone.today - 9.days), amount: 15, product: product)
+    end
+
+    subject { product.quantity_sold_per_day_in_last_week }
+
+    it { should eq 2 }
+  end
+
+  describe '#coverage_of_days_to_sell' do
+    before do
+      subject.stub(:inventory).and_return(11)
+      subject.stub(:quantity_sold_per_day_in_last_week).and_return(3)
+    end
+
+    it { expect(subject.coverage_of_days_to_sell).to eq(4) }
   end
 end
