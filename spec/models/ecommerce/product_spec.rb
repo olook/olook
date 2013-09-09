@@ -1063,9 +1063,43 @@ describe Product do
   describe '#coverage_of_days_to_sell' do
     before do
       subject.stub(:inventory).and_return(11)
-      subject.stub(:quantity_sold_per_day_in_last_week).and_return(3)
+    end
+    context "when product was sold in the last week" do
+      before do
+        subject.stub(:quantity_sold_per_day_in_last_week).and_return(3)
+      end
+
+      it { expect(subject.coverage_of_days_to_sell).to eq(4) }
     end
 
-    it { expect(subject.coverage_of_days_to_sell).to eq(4) }
+    context "when product was sold in the last week" do
+      before do
+        subject.stub(:quantity_sold_per_day_in_last_week).and_return(0)
+      end
+
+      it { expect(subject.coverage_of_days_to_sell).to eq(180) }
+    end
+  end
+
+  describe '#time_in_stock' do
+    context "when product has integration date" do
+      before do
+        subject.stub(:integration_date).and_return(Date.civil(2013, 9, 10))
+      end
+
+      it { expect(subject.time_in_stock).to eq(20130910) }
+    end
+
+    context "when product has no integration date" do
+      before do
+        Timecop.freeze(Time.local(2013, 8, 9))
+      end
+
+      after do
+        Timecop.return
+      end
+
+      it { expect(subject.time_in_stock).to eq(20130509) }
+    end
   end
 end
