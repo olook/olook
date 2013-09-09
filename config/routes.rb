@@ -151,6 +151,7 @@ Olook::Application.routes.draw do
   match "/nextperformance", :to => "xml#nextperformance", :as => "nextperformance", :defaults => { :format => 'xml' }
   match "/muccashop", :to => "xml#muccashop", :as => "muccashop", :defaults => { :format => 'xml' }
   match "/shopear", :to => "xml#shopear", :as => "shopear", :defaults => { :format => 'xml' }
+  match "/adroll", :to => "xml#adroll", :as => "adroll", :defaults => { :format => 'xml' }
 
   #SURVEY
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
@@ -316,6 +317,9 @@ Olook::Application.routes.draw do
       resources :liquidation_products, :as => "products"
     end
     resources :roles do
+      member do
+        post 'copy'
+      end
       resources :permissions
     end
     resources :admins

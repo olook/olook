@@ -38,7 +38,7 @@ GIT
 
 GIT
   remote: git://github.com/olook/moip-ruby.git
-  revision: 5532e53ecfec153ae9dce8f0e5b7d53da6b9967c
+  revision: 4a08c2558698222ac37db1ee88bcfb95ffce23cf
   branch: master
   specs:
     moip (1.0.2.3)
@@ -48,8 +48,7 @@ GIT
 
 GIT
   remote: git@github.com:olook/boleto_bancario.git
-  revision: ba8f64ecb541bdd398e4377d52f71ca75a0f5905
-  ref: ba8f64ecb541bdd398e4377d52f71ca75a0f5905
+  revision: 3bbe354eb1273a22d188f187c6412c9ced10c978
   branch: homologacao_santander
   specs:
     boleto_bancario (0.0.2.beta)
@@ -68,7 +67,7 @@ GIT
 
 GIT
   remote: git@github.com:olook/obraspag.git
-  revision: 732c6b8f99c5aee02441950350cdb91b91dd3b4a
+  revision: 4763c2010483a3d29fe41de776f087b3a56e56f0
   branch: master
   specs:
     obraspag (0.0.31)
@@ -108,7 +107,7 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    active_attr (0.7.0)
+    active_attr (0.8.2)
       activemodel (>= 3.0.2, < 4.1)
       activesupport (>= 3.0.2, < 4.1)
     activemodel (3.2.13)
@@ -260,7 +259,7 @@ GEM
       railties (>= 3.1, < 4.1)
     hashie (1.2.0)
     highline (1.6.19)
-    hike (1.2.2)
+    hike (1.2.3)
     hpricot (0.8.6)
     httparty (0.8.3)
       multi_json (~> 1.0)

@@ -15,6 +15,7 @@ class Product < ActiveRecord::Base
 
   after_create :create_master_variant
   after_update :update_master_variant
+  before_save :save_integration_date, if: :must_update_integration_date?
 
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
@@ -38,6 +39,7 @@ class Product < ActiveRecord::Base
   has_many :liquidations, :through => :liquidation_products
   has_many :catalog_products, :class_name => "Catalog::Product", :foreign_key => "product_id"
   has_many :catalogs, :through => :catalog_products
+  has_many :consolidated_sells, dependent: :destroy
 
   validates :name, :presence => true
   validates :description, :presence => true
@@ -140,7 +142,7 @@ class Product < ActiveRecord::Base
   delegate :'discount_percent=', to: :master_variant
 
   def main_picture
-    @main_picture ||= 
+    @main_picture ||=
     if self.pictures.loaded?
       self.pictures.all.find { |p| p.display_on == DisplayPictureOn::GALLERY_1 }
     else
@@ -506,6 +508,14 @@ class Product < ActiveRecord::Base
 
     def update_master_variant
       master_variant.save!
+    end
+
+    def save_integration_date
+      self.integration_date = Time.zone.now.to_date
+    end
+
+    def must_update_integration_date?
+      self.inventory > 3
     end
 
     def detail_by_token token

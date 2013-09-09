@@ -460,9 +460,10 @@ section#home {
             }
           }
           &.floor a {
-            background-position: -11px -557px;
+            background-position: 1px -557px;
+            margin-top: 10px;
             &:hover {
-              background-position: -12px -552px;
+              background-position: 0 -552px;
             }
           }
         }

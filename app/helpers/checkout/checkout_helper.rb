@@ -46,4 +46,10 @@ module Checkout::CheckoutHelper
     cart.free_gift_wrap? ? "GRÁTIS" : number_to_currency(CartService.gift_wrap_price)
   end
 
+  def show_freight_message
+    return "O frete deste pedido será de #{number_to_currency(@freight_price)}.<br />Adicionando mais um ítem de #{number_to_currency(@first_free_freight_price - @cart_service.total())}<br/> em sua sacola seu frete será gratuito.<br /> Aproveite ;)" if @first_free_freight_price
+    return "Seu frete será gratuito neste pedido :)" if @freight_price == 0
+    return "O frete deste pedido será de #{number_to_currency(@freight_price)}."
+  end
+
 end
