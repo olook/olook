@@ -15,6 +15,8 @@ Olook::Application.routes.draw do
   post '/cadastro-stylequiz/facebook_login' => "join#facebook_login", as: 'facebook_login'
   get "/meu-estilo", to: "profiles#show", as: 'profile'
   get "/half_showroom", to:"members#half_showroom"
+  get "/minha_vitrine", to: 'join#showroom', as: 'join_showroom'
+
  
   mount Resque::Server => "/admin/resque"
 

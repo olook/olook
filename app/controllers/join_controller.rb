@@ -48,6 +48,10 @@ class JoinController < ApplicationController
     end
   end
 
+  def showroom
+    render layout: 'lite_application'
+  end
+
   private
 
     def set_user_already_variable
