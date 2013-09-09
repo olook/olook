@@ -9,4 +9,15 @@ describe Ses::SesInfo do
       expect(subject.instance_variable_get("@secret_access")).to_not be_blank
     end
   end
+
+  describe "#retreive_ses_info", :vcr do
+    use_vcr_cassette
+    it "returns hash" do
+      expect(subject.retreive_ses_info).to be_an_instance_of Hash
+    end
+
+    it "have bounces key" do
+      expect(subject.retreive_ses_info).to have_key(:bounces)
+    end
+  end
 end

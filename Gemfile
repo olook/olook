@@ -105,7 +105,7 @@ group :development, :test do
   gem 'guard-spork'
   gem 'fuubar'
   gem 'launchy'
-  gem 'fakeweb'
+  gem 'webmock'
   gem 'parallel_tests'
   gem "vcr", "~> 2.5.0"
   gem 'ci_reporter', :git => 'git://github.com/nicksieger/ci_reporter.git', require: false
