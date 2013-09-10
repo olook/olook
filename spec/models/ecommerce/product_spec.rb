@@ -26,6 +26,40 @@ describe Product do
 
   describe 'callbacks' do
     describe 'before_save' do
+
+      describe 'when the product is set to visible' do
+        let(:product) { FactoryGirl.build(:shoe, :invisible_shoe) }
+        let(:visible_product) { FactoryGirl.build(:shoe) }
+
+        context 'at the first time' do
+          it 'its lanuch date is set to current date' do
+            expect(product.is_visible).to be_false
+            product.is_visible = true
+            product.save!
+            expect(product.launch_date).to eq(Time.zone.now.to_date)
+          end
+        end
+
+        context 'at a second time' do
+          before do
+            @old_launch_date = 10.days.ago.to_date
+            visible_product.update_attribute(:launch_date, @old_launch_date)
+          end
+
+          it 'keeps the last launch date' do
+            visible_product.is_visible = false
+            visible_product.save!
+            visible_product.is_visible = true
+            visible_product.save!
+            expect(visible_product.is_visible).to be_true
+            expect(visible_product.launch_date).to eq(@old_launch_date)
+          end
+        end
+
+
+      end
+
+
       describe 'save_integration_date' do
         let!(:product) { FactoryGirl.build(:shoe) }
         context "when product inventory is greater than 3" do
