@@ -2037,8 +2037,8 @@ members.js: members-2d239a08283cc5e5ab6dbfc4ded92ca2.js
 members/index.js: members-2d239a08283cc5e5ab6dbfc4ded92ca2.js
 moments.js: moments-8d59e559d33abe01a5a94ce281fe9bf5.js
 moments/index.js: moments-8d59e559d33abe01a5a94ce281fe9bf5.js
-my_account.js: my_account-60b0a63430503f45336734a658bcd010.js
-my_account/index.js: my_account-60b0a63430503f45336734a658bcd010.js
+my_account.js: my_account-5aca5f2efc0f2af2876adb5fda45b0c2.js
+my_account/index.js: my_account-5aca5f2efc0f2af2876adb5fda45b0c2.js
 niver_olook.js: niver_olook-12ad67023592b264e271c7a9e1530e1c.js
 niver_olook/index.js: niver_olook-12ad67023592b264e271c7a9e1530e1c.js
 olookmovel.js: olookmovel-bce404c3f50b6f1f5252f50b84dca663.js
@@ -2097,8 +2097,8 @@ plugins/video_modal.js: plugins/video_modal-5c3209a4f8a6add1d43bb661bc5b19d1.js
 plugins/video_modal/index.js: plugins/video_modal-5c3209a4f8a6add1d43bb661bc5b19d1.js
 press.js: press-671f54988949c63f68232a094c0499f9.js
 press/index.js: press-671f54988949c63f68232a094c0499f9.js
-product.js: product-e42db1beefa4eb0c34c0d484f4d063f0.js
-product/index.js: product-e42db1beefa4eb0c34c0d484f4d063f0.js
+product.js: product-57c895c2dd7a87b1b43e95569e853996.js
+product/index.js: product-57c895c2dd7a87b1b43e95569e853996.js
 profiles.js: profiles-d1afa92514b7950097c36c25a9e839c0.js
 profiles/index.js: profiles-d1afa92514b7950097c36c25a9e839c0.js
 quiz.js: quiz-d5571e61aaedbfdef6f2e0432329dcbf.js
@@ -2297,8 +2297,8 @@ section/landing.css: section/landing-698a1683825633351ffa3bf2d837dc4e.css
 section/landing/index.css: section/landing-698a1683825633351ffa3bf2d837dc4e.css
 section/liquidations.css: section/liquidations-621a16d86c5ee275cb81214767da2711.css
 section/liquidations/index.css: section/liquidations-621a16d86c5ee275cb81214767da2711.css
-section/login_register.css: section/login_register-04a363a7d1a7d4ab9be8f78781eeb200.css
-section/login_register/index.css: section/login_register-04a363a7d1a7d4ab9be8f78781eeb200.css
+section/login_register.css: section/login_register-a154c1c4c4871812d43ef24937eb6d76.css
+section/login_register/index.css: section/login_register-a154c1c4c4871812d43ef24937eb6d76.css
 section/loyalty.css: section/loyalty-91724cbe65fa97c90a79cac68b6a7e23.css
 section/loyalty/index.css: section/loyalty-91724cbe65fa97c90a79cac68b6a7e23.css
 section/moments.css: section/moments-da01a352963e6a9f167357c5b10771eb.css
