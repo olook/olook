@@ -1,6 +1,6 @@
 class SimpleEmailServiceInfo < ActiveRecord::Base
   attr_accessible :bounces, :complaints, :delivery_attempts, :rejects, :sent
-  scope :between_date, ->(initial_date,final_date) {where(sent: (initial_date.beginning_of_day)..final_date.end_of_day) }
+  scope :between_date, ->(initial_date,final_date) {where(sent: (initial_date)..final_date) }
 
   def self.info(initial_date,final_date)
     email_info_range = between_date(initial_date,final_date)
