@@ -404,6 +404,10 @@
         one: Imprensa
         other: Imprensa
 
+      simple_email_service_info:
+        one: Serviço de email
+        other: Serviços de email
+
       gift_recipient: presenteado
       gift_occasion: "ocasião"
       address: Endereço

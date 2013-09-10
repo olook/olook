@@ -961,6 +961,16 @@ ActiveRecord::Schema.define(:version => 20130910191803) do
     t.string   "erp_delivery_service"
   end
 
+  create_table "simple_email_service_infos", :force => true do |t|
+    t.integer  "bounces"
+    t.integer  "complaints"
+    t.integer  "delivery_attempts"
+    t.integer  "rejects"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.date     "sent"
+  end
+
   create_table "survey_answers", :force => true do |t|
     t.integer  "user_id"
     t.text     "answers"
