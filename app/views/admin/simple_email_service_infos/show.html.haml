@@ -5,6 +5,10 @@
   = javascript_include_tag "plugins/Chart.min.js"
   = javascript_tag do
     window.email_info = [#{@email_info[:bounces]},#{@email_info[:complaints]},#{@email_info[:delivery_attempts]},#{@email_info[:rejects]}];
+
+- content_for :secondary_navigation do
+  %li= link_to 'Nova busca', admin_ses_path
+
 %h1 Relatório de envio de Emails da Amazon
 %table
   %tr
