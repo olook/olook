@@ -76,7 +76,7 @@ class IndexProductsWorker
         fields['qt_sold_per_day'] = product.quantity_sold_per_day_in_last_week
         fields['coverage_of_days_to_sell'] = product.coverage_of_days_to_sell
         fields['full_grid'] = product.is_the_size_grid_enough? ? 1 : 0
-        fields['r_age'] = (product.time_in_stock / max_age) * 100
+        fields['r_age'] = (product.time_in_stock / older) * 100
         fields['r_coverage_of_days_to_sell'] = (product.coverage_of_days_to_sell / max_coverage_of_days_to_sell) * 100
         fields['r_full_grid'] = product.is_the_size_grid_enough? ? 100 : 0
         fields['r_qt_sold_per_day'] = (product.quantity_sold_per_day_in_last_week / max_qt_sold_per_day) * 100
@@ -142,9 +142,9 @@ class IndexProductsWorker
       end
     end
 
-    def max_age
-      @max_age = @max_age || @products.collect(&:time_in_stock).min
-      @max_age
+    def older
+      @older = @older || @products.collect(&:time_in_stock).min
+      @older
     end
 
     def max_coverage_of_days_to_sell
