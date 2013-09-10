@@ -200,7 +200,7 @@ class SearchEngine
     bq = build_boolean_expression
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
     q = @query ? "?q=#{@query}&" : "?"
-    "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }"
+    "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&rank-exp=(r_full_grid*1)%2B(r_inventory*5)%2B(r_qt_sold_per_day*5)%2B(r_coverage_of_days_to_sell*1)%2B(r_age*5)&rank=exp,#{ @sort_field }&size=#{ options[:limit] }"
   end
 
   def fetch_result(url, options = {})
