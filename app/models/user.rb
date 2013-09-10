@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   RegisteredVia = {:quiz => 0, :gift => 1, :thin => 2}
 
   def cpf=(val)
-    write_attribute(:cpf, val.gsub(/\D/,""))
+    write_attribute(:cpf, val.to_s.gsub(/\D/,""))
   end
 
   def valid_password?(password)
