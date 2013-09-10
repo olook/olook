@@ -23,12 +23,13 @@ class SearchEngine
   attr_reader :current_page, :result
   attr_reader :expressions, :sort_field
 
-  def initialize attributes = {}
+  def initialize attributes = {}, is_smart=false
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
     @expressions['in_promotion'] = [0]
     @facets = []
+    @is_smart = is_smart
     default_facets
 
     Rails.logger.debug("SearchEngine received these params: #{attributes.inspect}")
@@ -200,7 +201,11 @@ class SearchEngine
     bq = build_boolean_expression
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
     q = @query ? "?q=#{@query}&" : "?"
-    "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&#{ ranking }&rank=-exp,#{ @sort_field }&size=#{ options[:limit] }"
+    if @is_smart
+      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&#{ ranking }&rank=-exp,#{ @sort_field }&size=#{ options[:limit] }"
+    else
+      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&rank=-exp,#{ @sort_field }&size=#{ options[:limit] }"
+    end
   end
 
   def ranking
