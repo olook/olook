@@ -158,7 +158,7 @@ class IndexProductsWorker
     end
 
     def max_inventory
-      @max_inventory = @max_inventory || @products.collect(&:inventory).max
+      @max_inventory = @max_inventory || Product.joins(:variants).order('sum(variants.inventory) desc').group('product_id').first.inventory
       @max_inventory
     end
 
