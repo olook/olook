@@ -200,7 +200,7 @@ class SearchEngine
     bq = build_boolean_expression
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
     q = @query ? "?q=#{@query}&" : "?"
-    "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&#{ ranking }&rank=exp,#{ @sort_field }&size=#{ options[:limit] }"
+    "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&#{ ranking }&rank=-exp,#{ @sort_field }&size=#{ options[:limit] }"
   end
 
   def ranking
