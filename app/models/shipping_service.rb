@@ -4,7 +4,7 @@ class ShippingService < ActiveRecord::Base
 
   has_many :freight_prices, :dependent => :destroy
   has_many :freights
-  
+
   after_initialize :set_default_cubic_weight_factor
 
   validates :name, :presence => true
