@@ -15,7 +15,6 @@ class Product < ActiveRecord::Base
 
   after_create :create_master_variant
   after_update :update_master_variant
-  before_save :save_integration_date, if: :must_update_integration_date?
   before_save :set_launch_date, if: :should_update_launch_date?
 
   has_many :pictures, :dependent => :destroy
@@ -497,7 +496,7 @@ class Product < ActiveRecord::Base
   end
 
   def time_in_stock
-    integration_date.try(:strftime, '%Y%m%d').try(:to_i) || (Time.zone.today- 3.months).strftime('%Y%m%d').to_i
+    launch_date.try(:strftime, '%Y%m%d').try(:to_i) || (Time.zone.today- 3.months).strftime('%Y%m%d').to_i
   end
 
   private
@@ -546,14 +545,6 @@ class Product < ActiveRecord::Base
 
     def update_master_variant
       master_variant.save!
-    end
-
-    def save_integration_date
-      self.integration_date = Time.zone.now.to_date
-    end
-
-    def must_update_integration_date?
-      self.inventory > 3
     end
 
     def should_update_launch_date?

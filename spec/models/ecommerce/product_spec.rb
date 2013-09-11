@@ -59,42 +59,6 @@ describe Product do
 
       end
 
-
-      describe 'save_integration_date' do
-        let!(:product) { FactoryGirl.build(:shoe) }
-        context "when product inventory is greater than 3" do
-          before do
-            product.stub(:inventory).and_return(4)
-            product.save
-          end
-
-          subject { product.integration_date }
-
-          it { should eq(Time.zone.today) }
-        end
-
-        context "when product inventory is lower than 3" do
-          before do
-            product.stub(:inventory).and_return(1)
-            product.save
-          end
-
-          subject { product.integration_date }
-
-          it { should_not eq(Time.zone.today) }
-        end
-
-        context "when product inventory is eq than 3" do
-          before do
-            product.stub(:inventory).and_return(3)
-            product.save
-          end
-
-          subject { product.integration_date }
-
-          it { should_not eq(Time.zone.today) }
-        end
-      end
     end
   end
 
@@ -1118,7 +1082,7 @@ describe Product do
   describe '#time_in_stock' do
     context "when product has integration date" do
       before do
-        subject.stub(:integration_date).and_return(Date.civil(2013, 9, 10))
+        subject.stub(:launch_date).and_return(Date.civil(2013, 9, 10))
       end
 
       it { expect(subject.time_in_stock).to eq(20130910) }
