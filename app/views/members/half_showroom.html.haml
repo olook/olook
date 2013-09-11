@@ -11,27 +11,24 @@
     %span
       Poxa, você ainda não tem uma vitrine personalizada da Olook :(
     Responda nosso style quiz e mude isso já!
-  -if params[:facebook]
+  - if @friends && @friends.any?
+    .users
+      #mask_carousel_facebook
+        %p 
+          SUAS AMIGAS QUE JÁ POSSUEM VITRINE DA OLOOK
+        = link_to "Anterior", "javascript:void(0);", :class => "carousel-prev-fb", :id=> "prev-button"
+        %ul#friends-face{:class => (@friends.count > 12) ? "carousel" : ""}
+          - @friends.each do |friend|
+            %li
+              = link_to friend_showroom_path(:friend_id => friend.id), onclick: track_event("Showroom","ShowFriendShowroom") do
+                .mask
+                  = image_tag user_avatar(friend, 'square'), :title => friend.name
+        = link_to "Próximo", "javascript:void(0);", :class => "carousel-next-fb", :id=> "next-button"
+  - else
     %p.users
-      %span=@quiz_count.try(:count)
+      %span=User.full.count
       pessoas já responderam nosso style quiz
       = image_tag("quiz/users.jpg")
-  -else
-    .users
-      - if @friends && @friends.any?
-        #mask_carousel_facebook
-          %p 
-            SUAS AMIGAS QUE JÁ POSSUEM VITRINE DA OLOOK
-          = link_to "Anterior", "javascript:void(0);", :class => "carousel-prev-fb", :id=> "prev-button"
-          %ul#friends-face{:class => (@friends.count > 12) ? "carousel" : ""}
-            - @friends.each do |friend|
-              %li
-                = link_to friend_showroom_path(:friend_id => friend.id), onclick: track_event("Showroom","ShowFriendShowroom") do
-                  .mask
-                    = image_tag user_avatar(friend, 'square'), :title => friend.name
-          = link_to "Próximo", "javascript:void(0);", :class => "carousel-next-fb", :id=> "next-button"
-      - else
-        #banner_creditos= link_to (image_tag('showroom/banner.png')), member_invite_path, :title => "Convide amigas e ganhe R$ 20 quando elas fizerem a primeira compra", onclick: track_event("BannerInvite", " ClickBannerFromShowroom")  
   = link_to image_tag( 'showroom/full_showroom.jpg'), survey_url
 = render "home/boxes"
 = render "home/products_categories"
