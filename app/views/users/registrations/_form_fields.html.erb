@@ -1,46 +1,47 @@
 <%= hidden_field_tag(:checkout_registration, registration_for_checkout?) %>
+<%= f.hidden_field :require_cpf, :value => true %>
 <fieldset class="<%= "facebook" if @signup_with_facebook %>">
   <div>
     <%= f.label :first_name, "Nome" %>
     <%= f.text_field :first_name, class: "first_name #{error_class_if_needed(resource, :first_name)}" %>
   </div>
-  <div>  
+  <div>
     <%= f.label :last_name, "Sobrenome" %>
     <%= f.text_field :last_name, class: "last_name #{error_class_if_needed(resource, :last_name)}" %>
   </div>
   <%= errors_for(resource, :first_name) %>
   <%= errors_for(resource, :last_name) %>
-</fieldset>  
+</fieldset>
 <fieldset>
   <div>
     <%= f.label :email, "E-mail"%>
-    <%= f.email_field :email, class: "email #{error_class_if_needed(resource, :email)}", disabled: resource.id && !resource.email.blank? %>    
+    <%= f.email_field :email, class: "email #{error_class_if_needed(resource, :email)}", disabled: resource.id && !resource.email.blank? %>
   </div>
   <%= errors_for(resource, :email) %>
 </fieldset>
 <% if resource.id.nil? %>
-  <fieldset>  
+  <fieldset>
     <div>
       <%= f.label :password, "Senha <span>(mín. 6 caracteres)</span>".html_safe %>
       <%= f.password_field :password, class: "pass #{error_class_if_needed(resource, :password)}" %>
     </div>
-    <div>    
+    <div>
     <%= f.label :password_confirmation, "Confirmar senha" %>
     <%= f.password_field :password_confirmation, class: "pass #{error_class_if_needed(resource, :password)}" %>
     </div>
     <%= errors_for(resource, :password) %>
     <%= errors_for(resource, :password_confirmation) %>
-  </fieldset>  
+  </fieldset>
 <% end %>
-<fieldset class="gender_fields">      
+<fieldset class="gender_fields">
   <div>
     <%= f.label :gender, "Você é" %>
     <%= f.select(:gender, options_for_select({"Selecione:" => "", "Mulher" => 0, "Homem" => 1},:selected => resource.gender)) %>
     <span class="custom_select <%="#{error_class_if_needed(resource, :gender)}"%>">Selecione</span>
   </div>
-  <div>  
+  <div>
     <%= f.label :birthday, "Data de Nascimento" %>
-    <%= f.text_field :birthday, class: "nasc", value: resource.birthday ? resource.birthday.strftime("%d/%m/%Y") : '' %>    
+    <%= f.text_field :birthday, class: "nasc", value: resource.birthday ? resource.birthday.strftime("%d/%m/%Y") : '' %>
   </div>
   <%= errors_for(resource, :gender) %>
 
@@ -48,12 +49,13 @@
 <fieldset>
   <%= f.label :cpf, "CPF" %>
   <%= f.text_field :cpf, class: "cpf #{error_class_if_needed(resource, :cpf)}" %>
+  <%= errors_for(resource, :cpf) %>
   <p class="info-cpf">Para as compras é necessário<br />informar o CPF</p>
   <p class="terms">Concluindo o cadastro você aceita nossos <%= link_to 'termos de uso', terms_path, :target => "_blank" %> e a<br />
      nossa <%= link_to "política de privacidade", privacy_path, :target => "_blank" %> </p>
 </fieldset>
 <fieldset>
-  <%= f.submit "Cadastrar", :id => "register" %>  
+  <%= f.submit "Cadastrar", :id => "register" %>
 </fieldset>
 
 <% content_for :footer do %>

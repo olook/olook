@@ -27,6 +27,27 @@ initProduct = {
       });
     }
   },
+  plusQuantity: function() {
+    initProduct.changeQuantity(1);
+  },
+  minusQuantity: function(){
+    initProduct.changeQuantity(-1);
+  },
+  changeQuantity: function(by) {
+    var maxVal = initProduct.selectedVariantMaxVal(),
+      newVal = parseInt($("#variant_quantity").val()) + by;
+    if(maxVal && newVal <= maxVal && newVal >= 1 ){
+      $("#variant_quantity").val(newVal);
+    }
+  },
+  selectedVariantMaxVal: function(){
+    var variant = $('[name="variant[id]"]:checked');
+    if (variant.length == 0) {
+      initProduct.showAlert();
+      return false;
+    }
+    return variant.val();
+  },
   loadAddToCartForm : function() {
     if($('#compartilhar_email').length == 1) {
       var content = $('#compartilhar_email');
@@ -43,49 +64,21 @@ initProduct = {
     $("a.open_loyalty_lightbox").show();
 
     $("form#product_add_to_cart").submit(function() {
-      if ($('[name="variant[id]"]:checked').length == 0) {
-        initProduct.showAlert();
-        return false; 
-      }
-      return true;
+      return !!(initProduct.selectedVariantMaxVal());
     });
 
     $("#add_product").click(function(e){
       e.preventDefault;
     });
 
-    $(".plus").click(function(){
-      var variant = $('[name="variant[id]"]:checked');
-      if (variant.length == 0) {
-        initProduct.showAlert();
-        return;
-      }
-      var max = $("#inventory_" + variant.val());
-      if(parseInt($("#variant_quantity").val()) < max.val()) {
-        $("#variant_quantity").val(parseInt($("#variant_quantity").val()) + 1);
-      }
-    });
+    $(".plus").off('click').on('click', initProduct.plusQuantity);
 
-    $(".minus").click(function(){
-      var variant = $('[name="variant[id]"]:checked');
-      if (variant.length == 0) {
-        initProduct.showAlert();
-        return;
-      }
-      if(parseInt($("#variant_quantity").val()) > 1){
-        $("#variant_quantity").val(parseInt($("#variant_quantity").val()) - 1);
-      }
-    });
+    $(".minus").off('click').on('click', initProduct.minusQuantity);
 
     $("#variant_quantity").change(function(){
-      var it = $(this),
-      variant = $('[name="variant[id]"]:checked');
-      if (variant.length == 0) {
-        initProduct.showAlert();
-        return;
-      }
+      var it = $(this);
       var inventory = $('#inventory_' + variant.val());
-      if(it.val() > inventory.val()) {
+      if(initProduct.selectedVariantMaxVal() && it.val() > inventory.val()) {
         it.val(inventory.val());
       }
     });

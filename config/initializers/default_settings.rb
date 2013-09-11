@@ -111,3 +111,4 @@ Setting.defaults[:qt_sold_per_day_weight] = 1
 Setting.defaults[:coverage_of_days_to_sell_weight] = 1
 Setting.defaults[:age_weight] = 1
 
+Setting.defaults[:enable_neoassist] = false

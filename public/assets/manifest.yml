@@ -1933,8 +1933,8 @@ _search_bar.js: _search_bar-b8fddf2013882173a449400dd9c30685.js
 _search_bar/index.js: _search_bar-b8fddf2013882173a449400dd9c30685.js
 addresses.js: addresses-c81646bd6cde96b29d847dad92376d5b.js
 addresses/index.js: addresses-c81646bd6cde96b29d847dad92376d5b.js
-admin.js: admin-3007232a3f57195ef5b967fe3fbe004e.js
-admin/index.js: admin-3007232a3f57195ef5b967fe3fbe004e.js
+admin.js: admin-2146675e8ee89e8e45d0fb978a65b571.js
+admin/index.js: admin-2146675e8ee89e8e45d0fb978a65b571.js
 admin/bootstrap.js: admin/bootstrap-142c4cbd713d4a86bb9b4ab506d57a15.js
 admin/bootstrap/index.js: admin/bootstrap-142c4cbd713d4a86bb9b4ab506d57a15.js
 admin/braspag_authorize_responses.js: admin/braspag_authorize_responses-b2e769792c1f969e9c832db6fd235631.js
@@ -1959,10 +1959,12 @@ admin/liquidation_products.js: admin/liquidation_products-b2e769792c1f969e9c832d
 admin/liquidation_products/index.js: admin/liquidation_products-b2e769792c1f969e9c832db6fd235631.js
 admin/products.js: admin/products-85ca38f1ae3ccaf2021ce9f207e854b7.js
 admin/products/index.js: admin/products-85ca38f1ae3ccaf2021ce9f207e854b7.js
+admin/ses.js: admin/ses-df8380da3b50af1f5c3fd4c3a9cd66db.js
+admin/ses/index.js: admin/ses-df8380da3b50af1f5c3fd4c3a9cd66db.js
 api_fb.js: api_fb-8c7a0f8129caaf09895cad1a78e7a1f6.js
 api_fb/index.js: api_fb-8c7a0f8129caaf09895cad1a78e7a1f6.js
-application.js: application-1b9621dffb92dfedc3b9d1173128f4d9.js
-application/index.js: application-1b9621dffb92dfedc3b9d1173128f4d9.js
+application.js: application-59d9a42b552a9e5527432a3ba6a64a79.js
+application/index.js: application-59d9a42b552a9e5527432a3ba6a64a79.js
 campaign_emails.js: campaign_emails-c33d5d669ab9bbddb31886d6a77ef5db.js
 campaign_emails/index.js: campaign_emails-c33d5d669ab9bbddb31886d6a77ef5db.js
 campaign_emails_modal.js: campaign_emails_modal-795ba62322234e9b417585d4f9cf68a2.js
@@ -2035,8 +2037,8 @@ members.js: members-2d239a08283cc5e5ab6dbfc4ded92ca2.js
 members/index.js: members-2d239a08283cc5e5ab6dbfc4ded92ca2.js
 moments.js: moments-8d59e559d33abe01a5a94ce281fe9bf5.js
 moments/index.js: moments-8d59e559d33abe01a5a94ce281fe9bf5.js
-my_account.js: my_account-60b0a63430503f45336734a658bcd010.js
-my_account/index.js: my_account-60b0a63430503f45336734a658bcd010.js
+my_account.js: my_account-5aca5f2efc0f2af2876adb5fda45b0c2.js
+my_account/index.js: my_account-5aca5f2efc0f2af2876adb5fda45b0c2.js
 niver_olook.js: niver_olook-12ad67023592b264e271c7a9e1530e1c.js
 niver_olook/index.js: niver_olook-12ad67023592b264e271c7a9e1530e1c.js
 olookmovel.js: olookmovel-bce404c3f50b6f1f5252f50b84dca663.js
@@ -2045,6 +2047,8 @@ opener_hack.js: opener_hack-bf96594c2faa203757a68446314eafc6.js
 opener_hack/index.js: opener_hack-bf96594c2faa203757a68446314eafc6.js
 partials/_credits_info.js: partials/_credits_info-edc85805783dedd9ce9fa1d7a197fec6.js
 partials/_credits_info/index.js: partials/_credits_info-edc85805783dedd9ce9fa1d7a197fec6.js
+plugins/Chart.min.js: plugins/Chart.min-4afa0329349158dee1c6c249653b2f2a.js
+plugins/Chart/index.min.js: plugins/Chart.min-4afa0329349158dee1c6c249653b2f2a.js
 plugins/auto-grow-input.js: plugins/auto-grow-input-777a13fdcb25d2d9359221c63357de4f.js
 plugins/auto-grow-input/index.js: plugins/auto-grow-input-777a13fdcb25d2d9359221c63357de4f.js
 plugins/carouFredSel-5.4.1/jquery.carouFredSel-5.4.1.js: plugins/carouFredSel-5.4.1/jquery.carouFredSel-5.4.1-1ca85bc88ee835028af725c1386842ee.js
@@ -2093,8 +2097,8 @@ plugins/video_modal.js: plugins/video_modal-5c3209a4f8a6add1d43bb661bc5b19d1.js
 plugins/video_modal/index.js: plugins/video_modal-5c3209a4f8a6add1d43bb661bc5b19d1.js
 press.js: press-671f54988949c63f68232a094c0499f9.js
 press/index.js: press-671f54988949c63f68232a094c0499f9.js
-product.js: product-e42db1beefa4eb0c34c0d484f4d063f0.js
-product/index.js: product-e42db1beefa4eb0c34c0d484f4d063f0.js
+product.js: product-57c895c2dd7a87b1b43e95569e853996.js
+product/index.js: product-57c895c2dd7a87b1b43e95569e853996.js
 profiles.js: profiles-d1afa92514b7950097c36c25a9e839c0.js
 profiles/index.js: profiles-d1afa92514b7950097c36c25a9e839c0.js
 quiz.js: quiz-d5571e61aaedbfdef6f2e0432329dcbf.js
@@ -2179,6 +2183,8 @@ admin/purchase_timeline/timeline.css: admin/purchase_timeline/timeline-986b5d503
 admin/purchase_timeline/timeline/index.css: admin/purchase_timeline/timeline-986b5d50385d7d08111b0e65ae108534.css
 admin/roles.css: admin/roles-0402b8a2cb4723db97c36b84f7d6de32.css
 admin/roles/index.css: admin/roles-0402b8a2cb4723db97c36b84f7d6de32.css
+admin/simple_email_service.css: admin/simple_email_service-1b13569e9620782f423d4cd3ce931750.css
+admin/simple_email_service/index.css: admin/simple_email_service-1b13569e9620782f423d4cd3ce931750.css
 admin/themes/default/fonts/museo700-regular-webfont.eot: admin/themes/default/fonts/museo700-regular-webfont-f393e2cffb2f6603a09f2a1ec5e2e35e.eot
 admin/themes/default/fonts/museo700-regular-webfont/index.eot: admin/themes/default/fonts/museo700-regular-webfont-f393e2cffb2f6603a09f2a1ec5e2e35e.eot
 admin/themes/default/fonts/museo700-regular-webfont.svg: admin/themes/default/fonts/museo700-regular-webfont-4a1dacc59d74f207cb68a4f3fc41f930.svg
@@ -2257,8 +2263,8 @@ section/avc-campaign.css: section/avc-campaign-81c6c5b83205a1575a6aa043120691e8.
 section/avc-campaign/index.css: section/avc-campaign-81c6c5b83205a1575a6aa043120691e8.css
 section/box_invite.css: section/box_invite-6d013b6cf45bdf30fa418a29d59180d6.css
 section/box_invite/index.css: section/box_invite-6d013b6cf45bdf30fa418a29d59180d6.css
-section/checkout.css: section/checkout-6c28687bcdc4b95b6ba342ef196ba940.css
-section/checkout/index.css: section/checkout-6c28687bcdc4b95b6ba342ef196ba940.css
+section/checkout.css: section/checkout-988a358fdf04948f341b32b0f23d1551.css
+section/checkout/index.css: section/checkout-988a358fdf04948f341b32b0f23d1551.css
 section/collections.css: section/collections-142d0f18aef9f551b2049ed083a46905.css
 section/collections/index.css: section/collections-142d0f18aef9f551b2049ed083a46905.css
 section/contact.css: section/contact-22cf75f437fe6cb953ebad0a33c182a1.css
@@ -2291,8 +2297,8 @@ section/landing.css: section/landing-698a1683825633351ffa3bf2d837dc4e.css
 section/landing/index.css: section/landing-698a1683825633351ffa3bf2d837dc4e.css
 section/liquidations.css: section/liquidations-621a16d86c5ee275cb81214767da2711.css
 section/liquidations/index.css: section/liquidations-621a16d86c5ee275cb81214767da2711.css
-section/login_register.css: section/login_register-04a363a7d1a7d4ab9be8f78781eeb200.css
-section/login_register/index.css: section/login_register-04a363a7d1a7d4ab9be8f78781eeb200.css
+section/login_register.css: section/login_register-a154c1c4c4871812d43ef24937eb6d76.css
+section/login_register/index.css: section/login_register-a154c1c4c4871812d43ef24937eb6d76.css
 section/loyalty.css: section/loyalty-91724cbe65fa97c90a79cac68b6a7e23.css
 section/loyalty/index.css: section/loyalty-91724cbe65fa97c90a79cac68b6a7e23.css
 section/moments.css: section/moments-da01a352963e6a9f167357c5b10771eb.css

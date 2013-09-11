@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130905164118) do
+ActiveRecord::Schema.define(:version => 20130906151806) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -959,6 +959,16 @@ ActiveRecord::Schema.define(:version => 20130905164118) do
     t.integer  "cubic_weight_factor"
     t.integer  "priority"
     t.string   "erp_delivery_service"
+  end
+
+  create_table "simple_email_service_infos", :force => true do |t|
+    t.integer  "bounces"
+    t.integer  "complaints"
+    t.integer  "delivery_attempts"
+    t.integer  "rejects"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.date     "sent"
   end
 
   create_table "survey_answers", :force => true do |t|
