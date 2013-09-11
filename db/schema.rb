@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130910191803) do
+ActiveRecord::Schema.define(:version => 20130911205207) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -840,7 +840,6 @@ ActiveRecord::Schema.define(:version => 20130910191803) do
     t.string   "producer_code"
     t.string   "picture_for_xml"
     t.datetime "last_integration"
-    t.date     "integration_date"
     t.date     "launch_date"
   end
 
