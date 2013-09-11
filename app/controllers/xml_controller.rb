@@ -64,7 +64,7 @@ class XmlController < ApplicationController
 
   def adroll
     respond_with(@products)
-  end  
+  end
 
   private
 

@@ -84,8 +84,7 @@ describe Abacos::OrderAPI do
     end
   end
 
-  describe '#download_orders_statuses' do
-    use_vcr_cassette 'StatusPedidoDisponiveis', :record => :once
+  describe '#download_orders_statuses', vcr: {cassette_name: 'StatusPedidoDisponiveis', :record => :once} do
 
     it "should return products that are available to integration" do
       orders = described_class.send :download_orders_statuses
