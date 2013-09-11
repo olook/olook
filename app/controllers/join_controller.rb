@@ -49,6 +49,7 @@ class JoinController < ApplicationController
   end
 
   def showroom
+    @user = User.new
     render layout: 'lite_application'
   end
 
