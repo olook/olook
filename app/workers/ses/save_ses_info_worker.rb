@@ -5,4 +5,3 @@ class SaveSesInfoWorker
     Ses::SesInfo.new.save_ses_info
   end
 end
-

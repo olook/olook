@@ -180,7 +180,7 @@ describe XmlController do
     it "should be success" do
       response.should be_success
     end
-  end  
+  end
 
   def stub_scope_params
     Product.should_receive(:xml_blacklist).with("products_blacklist").and_return([0])

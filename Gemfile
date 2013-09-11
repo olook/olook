@@ -113,5 +113,5 @@ gem 'rubber', '~> 2.0', git: 'git://github.com/nelsonmhjr/rubber.git', branch: '
 gem 'open4'
 
 group :test do
-  gem 'webmock'  
+  gem 'webmock'
 end

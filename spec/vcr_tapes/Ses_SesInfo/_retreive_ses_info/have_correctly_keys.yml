@@ -3180,6 +3180,6 @@ http_interactions:
         \       <Rejects>0</Rejects>\n        <Bounces>0</Bounces>\n        <Complaints>0</Complaints>\n
         \     </member>\n    </SendDataPoints>\n  </GetSendStatisticsResult>\n  <ResponseMetadata>\n
         \   <RequestId>c4143279-1976-11e3-90c0-f588fb5f4d35</RequestId>\n  </ResponseMetadata>\n</GetSendStatisticsResponse>\n"
-    http_version: 
+    http_version:
   recorded_at: Mon, 09 Sep 2013 17:39:26 GMT
 recorded_with: VCR 2.5.0

@@ -9,9 +9,8 @@ var barChartData = {
       data : window.email_info
     },
   ]
-  
 }
 
-// bounces   complaints  delivery_attempts   rejects 
+// bounces   complaints  delivery_attempts   rejects
 var myLine = new Chart(document.getElementById("canvas").getContext("2d")).Bar(barChartData, { scaleOverlay : true});
 });
