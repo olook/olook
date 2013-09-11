@@ -182,6 +182,6 @@ http_interactions:
         aHR0cHM6Ly9zMy1zYS1lYXN0LTEuYW1hem9uYXdzLmNvbS9jZG4ucXVpei5v
         bG9vay5jb20uYnIvdjMvMTJDLmpwZyIsInRleHQiOiJTZXh5LCAgbXVpdG8g
         c2V4eSJ9XX1dfQ==
-    http_version: 
+    http_version:
   recorded_at: Mon, 09 Sep 2013 22:13:01 GMT
 recorded_with: VCR 2.5.0
