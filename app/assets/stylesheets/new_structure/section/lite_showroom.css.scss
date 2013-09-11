@@ -140,39 +140,83 @@ margin-bottom: 10px;}
 
 #join_showroom{
   width: 990px;
-  height: 500px;
+  height: 400px;
   margin: 45px auto;
+  p{
+  font-family: $avenir;
+  font-size: 18px;
+  color: #000;
+  text-align: center;
+  width: 415px;
+  float: left;
+  span{
+    font-weight: bold;
+    display: block;
+  }
+}
   .register{
     width: 415px;
+    float: left;
+  }
+  .login{
+      width: 420px;
+      height: 300px;
+      border: 1px solid #cfcfcf;
+      margin-top: 20px;
+      float: left;
+     .login_with_facebook {padding: 25px 0 20px 0;border-bottom: 1px #cfcfcf solid;width: 330px;margin: 0 auto;
+    a.fb_login_button{background: image-url('common/fb-loggin-button.png') no-repeat;text-indent: -9999px;width: 194px;height: 25px;margin: 0 auto;display: block;}
+    } 
+    form{
+      border:none;padding:5px 46px;width:358px;height:150px;margin:25px 0 auto;
+      fieldset{
+        label{font-family:$avenir;font-size:13px;color: #5e5f61;
+          &.senha{margin-right: 1px;}
+        }
+        margin-bottom:15px;border:0;
+        &.botoes{
+          margin-top: 5px;
+          text-align:left;
+          div{float:left;width:150px;margin-top: 20px;
+            label{font-size:11px;color:#5e5f61;width:60px;display:inline-block;text-align:left;font-family:$avenir;
+              &[for="user_remember_me"]{width:100px;font-size:11px;}
+            }
+            p{float:left;margin-top:5px !important;text-align: left;
+              a{text-decoration:none;color:#5e5f61;font-family: $avenir;font-size: 11px;
+                &:hover{text-decoration:underline;}
+              }
+            }
+          }
+          input[type="submit"]{border: none; background: image-url('showroom/sprite.png') 0px -206px no-repeat;float:right; width:145px;height:37px;text-indent: 9999px;margin-top: 22px;margin-right: 33px;
+            &:hover{background-position:0 -249px;text-indent: 9999px;}}
+        }
+      }
+      input[type="text"], input[type="password"]{padding-left: 10px; width:272px;height:31px;line-height:31px;border:solid 1px #C1C1C1;background: image-url('campaign_emails/bg_input.png') 0 2px repeat-x;*vertical-align:middle}
+    }
+  }
+  .your_style{
+    width: 420px;
+    margin-left: 60px;
+    float: left;
     p{
-      font-family: $avenir;
-      font-size: 18px;
-      color: #000;
-      text-align: center;
-      width: 415px;
-      span{
-        font-weight: bold;
-        display: block;
+      margin-bottom: 20px;
+      width: 503px;
+    }
+    a.go_quiz{
+      background: image-url('showroom/sprite.png') no-repeat 0 -118px;
+      width: 198px;
+      height: 37px;
+      text-indent: -9999px;
+      display: block;
+      position: relative;
+      left: 270px;
+      top: -70px;
+      &:hover{
+        background-position: 0 -162px;
       }
     }
-  }
-  .login{float:left;width:342px;padding-left:5px;
-  fieldset{margin-bottom:13px;
-    label{display:block;font-size:14px;margin-bottom:3px;}
-    input.fields{width:232px;height:30px;padding-left:3px;border:solid 1px #C3C3C3;line-height:30px;}
-    &.buttons{
-      label{display:inline;font-size:12px;}
-      a{color:#6D6E71;font-size:12px;margin-left:8px;}
-      #login{width:122px;height:47px;border:0;font-size:0;font-family:a;margin-top:20px;cursor:pointer;}
-    }
-  }
 
-  .login_with_facebook{
-    margin-top:15px;border-top:solid 1px #D9D9D9;padding-top:18px;width:240px;
-    a{display:block;font-size:0;font-family:a;width:240px;height:37px;}
   }
-  #error_explanation li{font-weight:normal;}
-}
 }
 
 /* fim minha vitrine sem usuário cadastrado */
