@@ -17,7 +17,6 @@ module FreightCalculator
     first_free_freight_price = nil
 
     shipping_services(shipping_service_ids).each do |shipping_service|
-
       freight_price = shipping_service.find_freight_for_zip(clean_zip_code, order_value)
       if freight_price
         first_free_freight_price = shipping_service.find_first_free_freight_for_zip_and_order(clean_zip_code, order_value) if (freight_price.price != 0.0) && use_message
