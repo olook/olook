@@ -16,6 +16,7 @@ class Product < ActiveRecord::Base
   after_create :create_master_variant
   after_update :update_master_variant
   before_save :save_integration_date, if: :must_update_integration_date?
+  before_save :set_launch_date, if: :should_update_launch_date?
 
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
@@ -553,6 +554,14 @@ class Product < ActiveRecord::Base
 
     def must_update_integration_date?
       self.inventory > 3
+    end
+
+    def should_update_launch_date?
+      launch_date.nil? && is_visible_changed? && is_visible
+    end
+
+    def set_launch_date
+      self.launch_date = Time.zone.now.to_date
     end
 
     def detail_by_token token
