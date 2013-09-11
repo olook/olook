@@ -83,6 +83,20 @@ olook.load_state_cities = function(){
   });
 }
 
+olook.facebookCarousel = function(){
+  if($("#friends-face").length > 0){
+    $("#friends-face").carouFredSel({
+      auto  : false,
+      prev  : "#prev-button",
+      next  : "#next-button",
+      items	: {
+        width	 : 55,
+        height : 55
+      }
+    });
+  }
+}
+
 function changeTag(field){
   var txt = field.find(":selected").text();
   field.prev('p').text(" ").delay(100).text(txt);
@@ -91,6 +105,7 @@ function changeTag(field){
 $(function(){
   $('.fb_login_button').click(olook.checkFBLogin).click(function(){_gaq.push(['_trackEvent', 'QuizProgress', 'FormSubmit', ''])});
   if(!combo_service) var combo_service = olook.load_state_cities();
+  olook.facebookCarousel();
 
   $("#user_city").change(function(){
     changeTag($(this));
