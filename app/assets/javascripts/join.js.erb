@@ -82,7 +82,7 @@ olook.load_state_cities = function(){
   });
 }
 
-olook.facebookCarousel = function(){
+function facebookCarousel() {
   if($("#friends-face").length > 0){
     $("#friends-face").carouFredSel({
       auto  : false,
@@ -108,7 +108,7 @@ $(function(){
   } catch (e) {
     /* handle error */
   }
-  olook.facebookCarousel();
+  facebookCarousel();
 
   $("#user_city").change(function(){
     changeTag($(this));
