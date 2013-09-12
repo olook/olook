@@ -84,6 +84,7 @@
     <%= yield :site_footer %>
     <%= javascript_include_tag "http://olook.neoassist.com/clients/olook/js/chat.js" if Setting.enable_neoassist %>
     <%= javascript_include_tag "jquery" %>
+    <%= yield :scripts %>
     <%= javascript_include_tag "application" %>
     <script>
       show_modal = '<%= j @modal_show %>';
