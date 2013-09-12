@@ -7,9 +7,9 @@ class IndexProductsWorker
   @queue = :search
 
   def self.perform
-    @worker = self.new(Product.all)
-    @worker.add_products
-    @worker.remove_products
+    worker = self.new(Product.all)
+    worker.add_products
+    worker.remove_products
 
     mail = DevAlertMailer.notify_about_products_index
     mail.deliver
