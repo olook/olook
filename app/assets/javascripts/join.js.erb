@@ -75,7 +75,6 @@ olook.checkFBLogin = function() {
   });
 }
 
-
 olook.load_state_cities = function(){
   return new dgCidadesEstados({
     cidade: document.getElementById('user_city'),
@@ -104,7 +103,11 @@ function changeTag(field){
 
 $(function(){
   $('.fb_login_button').click(olook.checkFBLogin).click(function(){_gaq.push(['_trackEvent', 'QuizProgress', 'FormSubmit', ''])});
-  if(!combo_service) var combo_service = olook.load_state_cities();
+  try {
+    if(!combo_service) var combo_service = olook.load_state_cities();
+  } catch (e) {
+    /* handle error */
+  }
   olook.facebookCarousel();
 
   $("#user_city").change(function(){
