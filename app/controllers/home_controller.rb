@@ -6,10 +6,6 @@ class HomeController < ApplicationController
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
 
     prepare_for_home
-    if user_signed_in?
-      redirect_to member_showroom_path(@incoming_params)
-      flash[:notice] = flash[:notice]
-    end
   end
 
 end
