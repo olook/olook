@@ -27,6 +27,7 @@
   <%= select_tag :is_visible, options_for_select([["Visível", 1],["Invisível",0]], params[:is_visible]), {prompt: 'Visibilidade'} %>
   <%= select_tag :inventory_ordenation, options_for_select([["Menor Inventário", "asc"],["Maior Inventário","desc"]], params[:inventory_ordenation]), {prompt: "Ordenação por inventário"} %>
   <%= select_tag :sale_ordenation, options_for_select([["Mais Vendidos", "desc"],["Menos Vendidos ","asc"]], params[:sale_ordenation]), {prompt: "Ordenação por Vendas"} %>
+  <%= select_tag :has_pictures, options_for_select([["Com fotos", "not null"],["Sem fotos","null"]], params[:has_pictures]), {prompt: "Ordenação por imagens"} %>
   <%= button_tag 'Procurar', name: nil, type: 'submit', :class => 'button' %>
 <% end %>
 </div>
