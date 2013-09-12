@@ -44,7 +44,7 @@
   </head>
 
 
-  <body onload="ativaDiv();" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>">
+  <body onload="<%= Setting.enable_neoassist ? 'ativaDiv();' : '' %>" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>">
     <%= yield :after_body %>
     <%= render :partial => "shared/tag/google_tag_manager" %>
     <% if Setting.enable_neoassist %>
@@ -156,6 +156,7 @@
          <%= yield :footer %>
        <% end %>
 
+       <%= javascript_include_tag "http://olook.neoassist.com/clients/olook/js/chat.js" if Setting.enable_neoassist %>
        <%= render :partial => "shared/metrics/master_tags" %>
     </div>
   </body>
