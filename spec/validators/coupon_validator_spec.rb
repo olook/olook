@@ -24,9 +24,6 @@ describe CouponValidator do
 
     context "when coupon has brand" do
 
-      context "and cart has any product with brand eq coupon's brand" do
-      end
-
       context "but cart has no any product with brand eq coupon's brand" do
         let(:coupon) { FactoryGirl.build(:standard_coupon) }
 
