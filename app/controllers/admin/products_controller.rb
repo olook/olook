@@ -145,7 +145,7 @@ class Admin::ProductsController < Admin::BaseController
     @profiles = Profile.order(:name)
     @brands = Product.all.map(&:brand).compact.uniq
 
-    @products = Product.includes(:details).includes(:profiles).includes(:collection)
+    @products = Product.includes(:details).includes(:profiles).includes(:collection).includes(:pictures)
                        .search(params[:q])
                        .in_category(params[:cat])
                        .in_subcategory(params[:subcat])
@@ -153,6 +153,7 @@ class Admin::ProductsController < Admin::BaseController
                        .in_profile(params[:p])
                        .with_brand(params[:brand])
                        .with_visibility(params[:is_visible])
+                       .with_pictures(params[:has_pictures])
                        .by_inventory(params[:inventory_ordenation])
                        .by_sold(params[:sale_ordenation])
                        .order(sort_column + " " + sort_direction)

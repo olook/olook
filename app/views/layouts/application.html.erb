@@ -50,8 +50,7 @@
   </head>
 
 
-  <body onload="ativaDiv();" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %> <%= "moments" if is_moment_page? %>">
-
+  <body onload="<%= Setting.enable_neoassist ? 'ativaDiv();' : '' %>" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %> <%= "moments" if is_moment_page? %>">
     <%= render :partial => "shared/tag/google_tag_manager" %>
     <% if Setting.enable_neoassist %>
       <div id="modalneo" align="right" style="display:none;border:0px;">
@@ -84,6 +83,7 @@
     <%= yield :site_footer %>
     <%= javascript_include_tag "http://olook.neoassist.com/clients/olook/js/chat.js" if Setting.enable_neoassist %>
     <%= javascript_include_tag "jquery" %>
+    <%= yield :scripts %>
     <%= javascript_include_tag "application" %>
     <script>
       show_modal = '<%= j @modal_show %>';

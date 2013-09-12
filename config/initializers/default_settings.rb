@@ -103,4 +103,12 @@ Setting.defaults[:antibounce_product_lines] = 4
 Setting.defaults[:antibounce_enabled] = true
 
 Setting.defaults[:upload_marketing_files_to_s3] = true
+
+# Smart Catalogs
+Setting.defaults[:full_grid_weight] = 1
+Setting.defaults[:inventory_weight] = 1
+Setting.defaults[:qt_sold_per_day_weight] = 1
+Setting.defaults[:coverage_of_days_to_sell_weight] = 1
+Setting.defaults[:age_weight] = 1
+
 Setting.defaults[:enable_neoassist] = false
