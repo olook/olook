@@ -26,41 +26,39 @@ describe Product do
 
   describe 'callbacks' do
     describe 'before_save' do
-      describe 'save_integration_date' do
-        let!(:product) { FactoryGirl.build(:shoe) }
-        context "when product inventory is greater than 3" do
-          before do
-            product.stub(:inventory).and_return(4)
-            product.save
+
+      describe 'when the product is set to visible' do
+        let(:product) { FactoryGirl.build(:shoe, :invisible_shoe) }
+        let(:visible_product) { FactoryGirl.build(:shoe) }
+
+        context 'at the first time' do
+          it 'its lanuch date is set to current date' do
+            expect(product.is_visible).to be_false
+            product.is_visible = true
+            product.save!
+            expect(product.launch_date).to eq(Time.zone.now.to_date)
           end
-
-          subject { product.integration_date }
-
-          it { should eq(Time.zone.today) }
         end
 
-        context "when product inventory is lower than 3" do
+        context 'at a second time' do
           before do
-            product.stub(:inventory).and_return(1)
-            product.save
+            @old_launch_date = 10.days.ago.to_date
+            visible_product.update_attribute(:launch_date, @old_launch_date)
           end
 
-          subject { product.integration_date }
-
-          it { should_not eq(Time.zone.today) }
-        end
-
-        context "when product inventory is eq than 3" do
-          before do
-            product.stub(:inventory).and_return(3)
-            product.save
+          it 'keeps the last launch date' do
+            visible_product.is_visible = false
+            visible_product.save!
+            visible_product.is_visible = true
+            visible_product.save!
+            expect(visible_product.is_visible).to be_true
+            expect(visible_product.launch_date).to eq(@old_launch_date)
           end
-
-          subject { product.integration_date }
-
-          it { should_not eq(Time.zone.today) }
         end
+
+
       end
+
     end
   end
 
@@ -1063,9 +1061,43 @@ describe Product do
   describe '#coverage_of_days_to_sell' do
     before do
       subject.stub(:inventory).and_return(11)
-      subject.stub(:quantity_sold_per_day_in_last_week).and_return(3)
+    end
+    context "when product was sold in the last week" do
+      before do
+        subject.stub(:quantity_sold_per_day_in_last_week).and_return(3)
+      end
+
+      it { expect(subject.coverage_of_days_to_sell).to eq(4) }
     end
 
-    it { expect(subject.coverage_of_days_to_sell).to eq(4) }
+    context "when product was sold in the last week" do
+      before do
+        subject.stub(:quantity_sold_per_day_in_last_week).and_return(0)
+      end
+
+      it { expect(subject.coverage_of_days_to_sell).to eq(180) }
+    end
+  end
+
+  describe '#time_in_stock' do
+    context "when product has integration date" do
+      before do
+        subject.stub(:launch_date).and_return(Date.civil(2013, 9, 10))
+      end
+
+      it { expect(subject.time_in_stock).to eq(20130910) }
+    end
+
+    context "when product has no integration date" do
+      before do
+        Timecop.freeze(Time.local(2013, 8, 9))
+      end
+
+      after do
+        Timecop.return
+      end
+
+      it { expect(subject.time_in_stock).to eq(20130509) }
+    end
   end
 end

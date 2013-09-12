@@ -34,13 +34,6 @@ describe MembersController do
       assigns(:user).should eq(user)
     end
 
-    it "should set retake logic" do
-      session[:profile_retake] = true
-      get :showroom
-      assigns(:is_retake).should be_true
-      session[:profile_retake].should be_false
-    end
-
     it "should assign @friends" do
       FacebookAdapter.any_instance.should_receive(:facebook_friends_registered_at_olook).and_return([:fake_friend])
       get :showroom
