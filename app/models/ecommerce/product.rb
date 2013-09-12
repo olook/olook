@@ -488,7 +488,12 @@ class Product < ActiveRecord::Base
   end
 
   def coverage_of_days_to_sell
-    (inventory.to_f/quantity_sold_per_day_in_last_week).ceil
+    quantity = quantity_sold_per_day_in_last_week
+    if quantity > 0
+      (inventory.to_f/quantity_sold_per_day_in_last_week).ceil
+    else
+      180
+    end
   end
 
   private
