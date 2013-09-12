@@ -1,13 +1,14 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
-require 'features/helpers' 
+require 'features/helpers'
 
 feature "User Authenticate", %q{
   In order to give a full access
   As a user
   I want to authenticate using my Facebook account or a normal register
 } do
-  
+# , vcr: {cassette_name: 'yahoo', :match_requests_on => [:host, :path]}
+
   pending "The flow has changed. Update the spec"
 
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => "invite") }
@@ -21,8 +22,6 @@ feature "User Authenticate", %q{
     user.created_at = Time.now - 1.day
     user.record_first_visit
   end
-  
-  use_vcr_cassette('yahoo', :match_requests_on => [:host, :path]) 
 
   let!(:loyalty_program_credit_type) { FactoryGirl.create(:loyalty_program_credit_type, :code => :loyalty_program) }
   let!(:invite_credit_type) { FactoryGirl.create(:invite_credit_type, :code => :invite) }
@@ -135,7 +134,7 @@ feature "User Authenticate", %q{
   end
 
   scenario "User Log in" do
-    pending "The flow has changed. Update the spec"    
+    pending "The flow has changed. Update the spec"
     visit new_user_session_path
     # login through js pulldown
     within('div#session') do
@@ -155,7 +154,7 @@ feature "User Authenticate", %q{
     select('30', :from => 'day')
     select('Fevereiro', :from => 'month')
     select('1990', :from => 'year')
-    within("input#finish") do 
+    within("input#finish") do
      page.should have_xpath("//input[@disabled='disabled']")
     end
   end
