@@ -4,7 +4,6 @@ var LuhnCheck = (function()
 	var luhnArr = [0, 2, 4, 6, 8, 1, 3, 5, 7, 9];
 	return function(str)
 	{
-    debugger;
 		var counter = 0;
 		var incNum;
 		var odd = false;
@@ -34,7 +33,7 @@ function showAlert(){
   $("html, body").animate({ scrollTop: 0 }, "slow");
   $('#error-messages').css("height", "40px").slideDown('1000', function() {
     $('p.alert', this).text("Por favor, antes de pedir, selecione o tamanho do produto");
-  }).delay(5000).slideUp();  
+  }).delay(5000).slideUp();
 }
 
 function getSize(){
@@ -65,11 +64,11 @@ $(document).ready(function() {
   initBase.showSlideToTop();
   initBase.slideToTop();
   initBase.replaceImages();
-  
+
   o.showEmailBar();
-  
+
   getSize();
-  
+
   /* HIDE <hr/> IN CART BOX */
   if($("#cart_summary .submenu li.product_item").length > 0){
      $("p.freight").next().hide();
@@ -637,9 +636,9 @@ initBase = {
           val = $('option:selected',this).text();
           $(this).next().remove();
           $(this).after("<span class='selected-type'>"+val+"</span>");
-          
+
           txt=$(this).next().text();
-          
+
           if(txt != "Ver tudo"){
             $(this).next().addClass("filter_selected");
           }else if(txt == "Ver tudo"){
@@ -650,7 +649,7 @@ initBase = {
           }else if(txt == "Nossa Seleção"){
             $(this).next().removeClass("filter_selected");
           }
-          
+
         });
       });
     };
@@ -741,14 +740,14 @@ initBase = {
       $(this).attr('src', image);
     });
   }
-  
+
 }
 
 /*** EMAIL BAR FUNCTIONS ***/
 olook = o = {} || null;
 
 olook = o = {
-  
+
   validateEmail: function(email) {
       var regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return regex.test(email);
@@ -759,19 +758,19 @@ olook = o = {
       $.cookie("email_bar", "1", { expires: 1, path: '/' });
       $("#modal_footer").fadeOut();
     })
- 
+
     $("p.nao-exibir input").click(function(){
       $.cookie("email_bar", "2", { expires: 100, path: '/' });
       $("#modal_footer").fadeOut();
     });
-    
+
     var email_field = $("#modal_footer input.email"), elem = $("#modal_footer .presentation");
     $("button.register").on("click", function(){
 
       elem.animate({"left": -elem.width()},"slow");
-      $("#modal_footer img").animate({"right": '900px'},"slow");    
+      $("#modal_footer img").animate({"right": '900px'},"slow");
       $("#modal_footer .form").animate({"right": '-1px'},"slow");
-       
+
       $(this).fadeOut().next().delay(200).fadeIn().next().fadeIn();
 
       email_field.on({
@@ -788,34 +787,34 @@ olook = o = {
         }
       });
     });
-    
+
     $('form#subscribe_form').submit(function(event){
-      email = email_field.val();  
+      email = email_field.val();
       event.preventDefault();
       if(o.validateEmail(email) && email != "seunomeaqui@email.com.br"){
         $(this).on('ajax:success', function(evt, data, status, xhr){
           $("#modal_footer .form, .register2, .termos").fadeOut();
-          $.cookie("email_bar", "2", { expires: 200, path: '/' });  
-          
+          $.cookie("email_bar", "2", { expires: 200, path: '/' });
+
           if(data.status == "ok"){
             $("#modal_footer #ok-msg1").delay(300).fadeIn();
-            
+
           }else if(data.status == "error"){
             $("#modal_footer #ok-msg2").delay(300).fadeIn();
           }
-          
+
           email_field.off("focusout").removeClass("txt-black error").val("seunomeaqui@email.com.br");
 
           if(email_field.prev().hasClass("error")){$("p.error").removeClass("error")}
           $("#modal_footer").delay(5500).fadeOut();
-          
+
         });
       }else{
         email_field.addClass("error");
         $("#modal_footer .form p span.txt").hide().next().fadeIn().parent().addClass("error");
-      }  
+      }
     });
-    
+
   },
 
   showEmailBar: function(){
