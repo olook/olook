@@ -197,7 +197,6 @@ describe Coupon do
 
     context "when coupon has no brand" do
       before do
-        cart.stub(:items).and_return([])
         standard_coupon.stub(:brand).and_return(nil)
       end
       it { should be_true }
