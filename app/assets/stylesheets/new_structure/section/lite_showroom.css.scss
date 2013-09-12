@@ -86,6 +86,7 @@ div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;ma
   width: 990px;
   margin-top: 20px;
   margin-bottom: 20px;
+  margin-left: 12px;
   p{
     font-family: $avenir;
     font-size: 16px;
@@ -114,7 +115,7 @@ div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;ma
     float: right;
     margin-left: 55px;
     position: absolute;
-    left: 513px;
+    left: 504px;
     top: 0px;
     p{font-size: 12px;text-transform: uppercase;font-weight: bold;text-align: center;}
   }
@@ -139,9 +140,9 @@ margin-bottom: 10px;}
 /* minha vitrine sem usuário cadastrado */
 
 #join_showroom{
-  width: 990px;
-  height: 400px;
-  margin: 45px auto;
+  width: 970px;
+  height: 350px;
+  margin: 45px auto 0px;
   p{
   font-family: $avenir;
   font-size: 18px;
@@ -149,6 +150,7 @@ margin-bottom: 10px;}
   text-align: center;
   width: 415px;
   float: left;
+  line-height: 25px;
   span{
     font-weight: bold;
     display: block;
@@ -157,6 +159,7 @@ margin-bottom: 10px;}
   .register{
     width: 415px;
     float: left;
+    margin-left: 13px;
   }
   .login{
       width: 420px;
@@ -191,17 +194,19 @@ margin-bottom: 10px;}
             &:hover{background-position:0 -249px;text-indent: 9999px;}}
         }
       }
-      input[type="text"], input[type="password"]{padding-left: 10px; width:272px;height:31px;line-height:31px;border:solid 1px #C1C1C1;background: image-url('campaign_emails/bg_input.png') 0 2px repeat-x;*vertical-align:middle}
+      input[type="text"], input[type="password"]{padding-left: 10px; width:278px;height:31px;line-height:31px;border:solid 1px #C1C1C1;background: image-url('campaign_emails/bg_input.png') 0 2px repeat-x;*vertical-align:middle}
     }
   }
   .your_style{
     width: 420px;
-    margin-left: 60px;
+    margin-left: 48px;
     float: left;
     p{
       margin-bottom: 20px;
       width: 503px;
+      span{line-height: 22px;}
     }
+    img{margin-top: -1px;}
     a.go_quiz{
       background: image-url('showroom/sprite.png') no-repeat 0 -118px;
       width: 198px;
