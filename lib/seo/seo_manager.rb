@@ -13,6 +13,7 @@ module Seo
 
     def get_meta_tags_info
       file_dir = "#{Rails.root}/config/seo.yml"
+      YAML::load(File.open(file_dir))
     end
 
   end
