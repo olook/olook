@@ -29,6 +29,7 @@ describe CouponValidator do
 
         before do
           coupon.stub(:can_be_applied_to_any_product_in_the_cart?).and_return(false)
+          coupon.stub(:brand).and_return("Some Brand")
         end
 
         it "adds an error" do
@@ -42,7 +43,7 @@ describe CouponValidator do
           cart.coupon_code = coupon.code
           Coupon.stub(:find_by_code).with(coupon.code).and_return(coupon)
           subject.validate(cart)
-          cart.errors[:coupon_code].first.should eq("Não pode ser aplicado")
+          cart.errors[:coupon_code].first.should eq("O cupom informado é válido apenas para produtos da marca #{ coupon.brand}. Navegue em nosso site e escolha outras peças desta marca. ;)")
         end
       end
 
@@ -64,7 +65,7 @@ describe CouponValidator do
           cart.coupon_code = expired_coupon.code
           Coupon.stub(:find_by_code).with(expired_coupon.code).and_return(expired_coupon)
           subject.validate(cart)
-          cart.errors[:coupon_code].first.should eq("Cupom expirado. Informe outro por favor")
+          cart.errors[:coupon_code].first.should eq("O cupom informado já está expirado. Se você possui outro, informe abaixo.")
         end
       end
 
@@ -86,7 +87,7 @@ describe CouponValidator do
           cart.coupon_code = coupon.code
           Coupon.stub(:find_by_code).with(coupon.code).and_return(coupon)
           subject.validate(cart)
-          cart.errors[:coupon_code].first.should eq("A promoção é mais vantajosa que o cupom")
+          cart.errors[:coupon_code].first.should eq("Os descontos não são acumulativos, então escolhemos o desconto mais vantajoso para você.")
         end
       end
 
@@ -102,7 +103,7 @@ describe CouponValidator do
           cart.coupon_code = "CODE"
           Coupon.stub(:find_by_code).with(cart.coupon_code).and_return(nil)
           subject.validate(cart)
-          cart.errors[:coupon_code].first.should eq("Cupom inválido")
+          cart.errors[:coupon_code].first.should eq("O cupom informado não é válido. Por favor, verifique o código informado.")
         end
       end
 
@@ -120,7 +121,7 @@ describe CouponValidator do
           cart.coupon_code = unavailable_coupon.code
           Coupon.stub(:find_by_code).with(cart.coupon_code).and_return(unavailable_coupon)
           subject.validate(cart)
-          cart.errors[:coupon_code].first.should eq("Cupom inválido")
+          cart.errors[:coupon_code].first.should eq("O cupom informado não é válido. Por favor, verifique o código informado.")
         end
       end
 
