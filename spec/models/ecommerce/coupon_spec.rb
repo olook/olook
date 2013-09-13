@@ -116,6 +116,28 @@ describe Coupon do
 
     end
 
+    context "coupon for n brands" do
+      let(:brand_coupon) { FactoryGirl.build(:brand_coupon) }
+      let(:first_product) { double(id: 1000, brand: 'Some Brand') }
+      let(:other_product) { double(id: 1001, brand: 'other brand') }
+
+      before do
+        brand_coupon.stub(:brand).and_return("Some Brand,other brand")
+      end
+
+      context "first brand" do
+        subject { brand_coupon.apply_discount_to? first_product }
+        it { should be_true }
+      end
+
+      context "last brand" do
+        subject { brand_coupon.apply_discount_to? other_product }
+        it { should be_true }
+      end
+
+
+    end
+
   end
 
   describe "#is_more_advantageous_than_any_promotion?" do
