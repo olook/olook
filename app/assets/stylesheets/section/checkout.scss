@@ -2153,8 +2153,12 @@ a.txt-conheca{
 #checkout_address_city{
   width: 165px;
 }
-p.important{font-size: 13px;padding: 0 13px;
-      span{color: #000;}
+p.important {
+  font-size: 13px;
+  padding: 0 13px;
+  span {
+    color: #000;
+  }
 }
 
 #freight_message{
@@ -2165,4 +2169,5 @@ p.important{font-size: 13px;padding: 0 13px;
   max-width: 260px;
   color: black;
   display: none;
+  clear: both;
 }

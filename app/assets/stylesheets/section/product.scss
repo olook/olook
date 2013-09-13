@@ -288,3 +288,10 @@ div#compartilhar_email {
   p{text-align:center;text-transform:uppercase;padding-top:9px;}
 }
 p.gift-title{font-size:27px;font-family:$johnston;text-transform:uppercase;color:#000;margin:25px 0 20px;}
+
+div#modal {
+  &.promo-olook {
+    padding: 7px;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+}
