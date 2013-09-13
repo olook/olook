@@ -11,5 +11,9 @@ module Seo
       "olook"
     end
 
+    def get_meta_tags_info
+      file_dir = "#{Rails.root}/config/seo.yml"
+    end
+
   end
 end
