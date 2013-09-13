@@ -45,7 +45,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     # Override Devise to use update_attributes instead of update_with_password.
     # This is the only change we make.
 
-    #resource.require_cpf = true
     if resource.update_attributes(params[:user])
       if params[:user_info] && params[:user_info][:shoes_size]
         shoe_size = params[:user_info][:shoes_size]
