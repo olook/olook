@@ -42,7 +42,7 @@ class Coupon < ActiveRecord::Base
       product_ids = product_ids_allowed_to_have_discount
       product_ids.include?(product.id.to_s)
     elsif coupon_specific_for_brand?
-      product.brand.downcase == brand.downcase
+      brand.downcase.split(",").include?(product.brand.downcase)
     else
       true
     end
