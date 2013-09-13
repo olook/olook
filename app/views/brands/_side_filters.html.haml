@@ -3,3 +3,14 @@
     %dt Marcas
     - filters_by('brand_facet', search, use_fields: []).each do |text, amount|
       %dd= link_to(text.chomp.gsub('Ç', 'ç').downcase.titleize, brand_path(text), class: search.filter_selected?(:brand, text.chomp) ? "selected" : "")
+  .show_more
+    %p.title
+      OUTRAS CATEGORIAS
+    %li
+    = link_to "Roupas femininas", clothes_path, class: "categories" 
+    %li
+    = link_to "Sapatos femininos", shoes_path, class: "categories"
+    %li
+    = link_to "Acessórios femininos", accessories_path, class: "categories"
+    %li
+    = link_to "Bolsas femininas", bags_path, class: "categories"
