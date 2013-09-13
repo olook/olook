@@ -7,5 +7,9 @@ module Seo
       @url = url_params
     end
 
+    def meta_tag
+      "olook"
+    end
+
   end
 end
