@@ -11,9 +11,12 @@
       <div id="product-details">
         <%= product_presenter.render_description %>
         <%= product_presenter.render_add_to_cart %>
-        <%= product_presenter.render_details %>
+        <% if params[:from] != 'cart' %>
+          <%= product_presenter.render_details %>
+        <% end %>
       </div>
 
+        
       <div id="modal_guide">
         <h1>GUIA DE MEDIDAS</h1>
         <%= image_tag 'common/body.jpg', :class => '' %>
