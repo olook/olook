@@ -21,6 +21,7 @@ class ProductController < ApplicationController
   end
 
   def spy
+    @hide_shipping = params[:from] != 'cart'
     render layout: nil
   end
 
