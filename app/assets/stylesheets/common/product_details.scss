@@ -61,6 +61,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     .pl9{padding-left:9px;}
     h1{font-family:$avenir;font-size:17px;font-weight: lighter;}
     h2{font-family:$avenir;font-size:14px;text-transform:uppercase;font-weight:bold;margin-bottom:20px;}
+    a.ver_produto {font-family:avenir, tahoma;position: relative;top: -20px;color:#000;text-decoration:none;}
   
     p {color: #000;font-size:15px;font-family: $avenir;
       a {color: $pink;margin: 0 0 0 5px;}
@@ -103,6 +104,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         }
       }
     }
+    .division {border-top:solid 1px #C2C2C2;padding-top:20px;margin-top:20px;}
     .social-media-box{
       overflow:visible;
       border-top:solid 1px #C2C2C2;
