@@ -226,7 +226,7 @@ section#home {
   }
   section#brands{
     position: relative;
-    min-height: 555px;
+    min-height: 620px;
     margin: 0 0 10px;
     padding: 10px 0 20px;
     border-bottom: 1px #cbcbcb solid;
@@ -461,10 +461,27 @@ section#home {
             }
           }
           &.floor a {
-            background-position: 1px -557px;
-            margin-top: 10px;
+            background-position: -5px -557px;
             &:hover {
-              background-position: 0 -552px;
+              background-position: -6px -552px;
+            }
+          }
+          &.canal a {
+            background-position: -290px -545px;
+            &:hover {
+              background-position: -289px -547px;
+            }
+          }
+          &.blue a {
+            background-position: -430px -540px;
+            &:hover {
+              background-position: -429px -542px;
+            }
+          }
+          &.afghan a {
+            background-position: 1px -615px;
+            &:hover {
+              background-position: 2px -617px;
             }
           }
         }
