@@ -76,10 +76,19 @@ class IndexProductsWorker
         fields['qt_sold_per_day'] = product.quantity_sold_per_day_in_last_week
         fields['coverage_of_days_to_sell'] = product.coverage_of_days_to_sell
         fields['full_grid'] = product.is_the_size_grid_enough? ? 1 : 0
-        fields['r_age'] = (product.time_in_stock / older) * 100
+
+        oldest = older;
+        fields['r_age'] = ((oldest - product.time_in_stock) / oldest.to_f) * 100      
+
         fields['r_coverage_of_days_to_sell'] = ((product.coverage_of_days_to_sell.to_f / max_coverage_of_days_to_sell) * 100).to_i
         fields['r_full_grid'] = product.is_the_size_grid_enough? ? 100 : 0
-        fields['r_qt_sold_per_day'] = ((product.quantity_sold_per_day_in_last_week.to_f / max_qt_sold_per_day) * 100).to_i
+
+        if max_qt_sold_per_day == 0
+          fields['r_qt_sold_per_day'] = 0
+        else
+          fields['r_qt_sold_per_day'] = ((product.quantity_sold_per_day_in_last_week.to_f / max_qt_sold_per_day) * 100).to_i
+        end
+
         fields['r_inventory'] = ((product.inventory.to_f / max_inventory) * 100).to_i
 
         details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno', 'salto'].include?(d.translation_token.downcase) }
@@ -143,7 +152,7 @@ class IndexProductsWorker
     end
 
     def older
-      @older = @older || @products.collect(&:time_in_stock).min
+      @older = @older || @products.collect(&:time_in_stock).max
       @older
     end
 
