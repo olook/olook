@@ -1,4 +1,5 @@
 <% unless request.xhr? %>
     <%= stylesheet_link_tag 'common/product_details' %>
 <% end %>
+<%= javascript_include_tag('product') %>
 <%= render(:partial => 'product/quick_view',:locals => { :product => @product, :gift => @gift, :shoe_size => @shoe_size, :only_view => @only_view}) %>
