@@ -37,10 +37,9 @@ olook.spy = function(selector){
           $('#quick_view, #overlay-campaign').fadeOut(300);
         });
         if(typeof initProduct !== 'undefined') {
-          initProduct.loadAddToCartForm();
-        } else {
-          //$.getScript('<%= javascript_path('product') %>');
-          //$.getScript('<%= javascript_path('product') %>');
+          setTimeout(function(){
+            initProduct.loadAddToCartForm();
+          }, 1000);
         }
 
         accordion();
