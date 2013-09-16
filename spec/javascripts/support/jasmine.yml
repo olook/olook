@@ -44,7 +44,7 @@ stylesheets:
 #
 helpers:
   - helpers/jasmine-jquery.js
-  - helpers/**/*.js
+  # helpers/**/*.js
 
 # spec_files
 #
