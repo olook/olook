@@ -69,28 +69,6 @@ describe CouponValidator do
         end
       end
 
-      context "but is not more advantageous than any promotion" do
-        let(:coupon) { FactoryGirl.build(:standard_coupon) }
-
-        before do
-          coupon.stub(:is_more_advantageous_than_any_promotion?).and_return(false)
-        end
-
-        it "adds an error" do
-          cart.coupon_code = coupon.code
-          Coupon.stub(:find_by_code).with(coupon.code).and_return(coupon)
-          subject.validate(cart)
-          cart.errors.size.should eq(1)
-        end
-
-        it "associates an error to coupon_code" do
-          cart.coupon_code = coupon.code
-          Coupon.stub(:find_by_code).with(coupon.code).and_return(coupon)
-          subject.validate(cart)
-          cart.errors[:coupon_code].first.should eq("Os descontos não são acumulativos, então escolhemos o desconto mais vantajoso para você.")
-        end
-      end
-
       context "and coupon is not found" do
         it "adds an error" do
           cart.coupon_code = "CODE"

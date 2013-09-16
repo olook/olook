@@ -8,8 +8,6 @@ class CouponValidator < ActiveModel::Validator
           record.errors.add(:coupon_code, "O cupom informado já está expirado. Se você possui outro, informe abaixo.")
         when !coupon.try(:available?)
           record.errors.add(:coupon_code, "O cupom informado não é válido. Por favor, verifique o código informado.")
-        when !coupon.try(:is_more_advantageous_than_any_promotion?, record)
-          record.errors.add(:coupon_code, "Os descontos não são acumulativos, então escolhemos o desconto mais vantajoso para você.")
         when !coupon.try(:can_be_applied_to_any_product_in_the_cart?, record)
           record.errors.add(:coupon_code, "O cupom informado é válido apenas para produtos da marca #{ coupon.try(:brand)}. Navegue em nosso site e escolha outras peças desta marca. ;)")
       end
