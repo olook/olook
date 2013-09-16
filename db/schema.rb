@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130916132044) do
+ActiveRecord::Schema.define(:version => 20130916134410) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20130916132044) do
     t.string   "header_image_alt"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.string   "seo_text"
   end
 
   create_table "braspag_authorize_responses", :force => true do |t|
