@@ -91,6 +91,10 @@ class Product < ActiveRecord::Base
     id
   end
 
+  def title_text
+    "#{name} - Roupas e Sapatos Femininos | Olook"
+  end
+
   def model_name
     category_detail = details.find_by_translation_token("Categoria")
     category_detail ? category_detail.description : ""
