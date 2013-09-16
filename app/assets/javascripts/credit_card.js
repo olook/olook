@@ -15,23 +15,25 @@ CreditCard = {
     }
     return (counter%10 == 0);
   }
-}
+};
+
+(function($){
+  $.fn.validateCreditCardNumber = function() {
+    return this.each(function() {
+      $(this).blur(function() {
+      $("#credit_card_error").remove();
+        if (CreditCard.validateNumber(this.value)) {
+          $(".credit_card_number").removeClass("input_error");
+        } else {
+          parent_node = $("#checkout_payment_credit_card_number").parent().parent();
+          parent_node.append('<span id="credit_card_error" class="span_error">O número do cartão parece estranho. Pode conferir?</span>');
+          $(".credit_card_number").addClass("input_error");
+        }
+      });
+    });
+  };
+})(jQuery);
 
 $(function() {
-
-  $("#checkout_payment_credit_card_number").blur(function(e) {
-    credit_card_number = e.target.value
-    isCreditCardNumberValid = CreditCard.validateNumber(credit_card_number);
-    
-    $("#credit_card_error").remove();
-
-    if (CreditCard.validateNumber(credit_card_number)) {
-      $(".credit_card_number").removeClass("input_error");
-    } else {
-      parent_node = $("#checkout_payment_credit_card_number").parent().parent();
-      parent_node.append('<span id="credit_card_error" class="span_error"> O número do cartão parece estranho. Pode conferir?</span>');
-      $(".credit_card_number").addClass("input_error");
-    }
-  });
-
-})
+  $("#checkout_payment_credit_card_number").validateCreditCardNumber();
+});
