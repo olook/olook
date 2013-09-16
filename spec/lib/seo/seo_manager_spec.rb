@@ -25,13 +25,33 @@ describe Seo::SeoManager do
         expect(@seo_class.select_meta_tag).to eql('Sapatos Femininos | Olook')
       end
     end
-    context "When find meta tags on model" do
-      before do
-        @product = FactoryGirl.create(:shoe, name: 'Vestido Estampado Manga Longa Ecletic')
-        @seo_model = Seo::SeoManager.new("/asd", model: @product)
+    context "When have model" do
+      context "product" do
+        before do
+          @product = FactoryGirl.build(:shoe, name: 'Vestido Estampado Manga Longa Ecletic')
+          @seo_model = Seo::SeoManager.new("/asd", model: @product)
+        end
+        it "return specific meta tag" do
+          expect(@seo_model.select_meta_tag).to eql('Vestido Estampado Manga Longa Ecletic - Roupas e Sapatos Femininos | Olook')
+        end
       end
-      it "return map meta tag" do
-        expect(@seo_class.select_meta_tag).to eql('Vestido Estampado Manga Longa Ecletic - Roupas e Sapatos Femininos | Olook')
+      context "collection theme" do
+        before do
+          @collection_theme = FactoryGirl.build(:collection_theme)
+          @seo_model = Seo::SeoManager.new("/asd", model: @collection_theme)
+        end
+        it "return specific meta tag" do
+          expect(@seo_model.select_meta_tag).to eql('dia-a-dia - Saias Longas e Camisetas | Olook')
+        end
+      end
+      context "brand" do
+        before do
+          @brand = FactoryGirl.build(:brand)
+          @seo_model = Seo::SeoManager.new("/asd", model: @brand)
+        end
+        it "return specific meta tag" do
+          expect(@seo_model.select_meta_tag).to eql('Colcci - Calcas e vestidos | Olook')
+        end
       end
     end
   end
