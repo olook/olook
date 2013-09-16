@@ -16,6 +16,12 @@ class Brand < ActiveRecord::Base
     CATEGORIES[brand] || %w[roupas]
   end
 
+  def title_text
+    text = name
+    text = "#{name} - #{seo_text}" unless seo_text.blank?
+    "#{text} | Olook"
+  end
+
   private
 
     def format_name
