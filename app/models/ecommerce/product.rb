@@ -15,7 +15,7 @@ class Product < ActiveRecord::Base
 
   after_create :create_master_variant
   after_update :update_master_variant
-  before_save :save_integration_date, if: :must_update_integration_date?
+  before_save :set_launch_date, if: :should_update_launch_date?
 
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
@@ -61,6 +61,7 @@ class Product < ActiveRecord::Base
   scope :by_sold, lambda { |value| joins(:variants).group("products.id").order("sum(variants.initial_inventory - variants.inventory) #{ value }") if ["asc","desc"].include?(value) }
   scope :with_visibility, lambda { |value| { :conditions => ({ is_visible: value } unless value.blank? || value.nil? ) } }
   scope :search, lambda { |value| { :conditions => ([ "name like ? or model_number = ?", "%#{value}%", value ] unless value.blank? || value.nil?) } }
+  scope :with_pictures, ->(value) { joins("left JOIN `pictures` ON `pictures`.`product_id` = `products`.`id`").where("pictures.id is #{value}").group("products.id") unless value.blank?}
 
 
   scope :valid_for_xml, lambda{|black_list| only_visible.where("variants.inventory >= 1").where("variants.price > 0.0").group("products.id").joins(:variants).having("(category = 1 and count(distinct variants.id) >= 4) or (category = 4 and count(distinct variants.id) >= 2) or category NOT IN (1,4) and products.id NOT IN (#{black_list})")}
@@ -489,9 +490,17 @@ class Product < ActiveRecord::Base
   def coverage_of_days_to_sell
     quantity = quantity_sold_per_day_in_last_week
     if quantity > 0
-      (inventory.to_f/quantity_sold_per_day_in_last_week).ceil
+      (inventory.to_f/quantity).ceil
     else
-      180
+      180 # 6 months
+    end
+  end
+
+  def time_in_stock
+    if launch_date.blank?
+      365
+    else
+      (Date.current - launch_date).to_i
     end
   end
 
@@ -543,12 +552,12 @@ class Product < ActiveRecord::Base
       master_variant.save!
     end
 
-    def save_integration_date
-      self.integration_date = Time.zone.now.to_date
+    def should_update_launch_date?
+      launch_date.nil? && is_visible_changed? && is_visible
     end
 
-    def must_update_integration_date?
-      self.inventory > 3
+    def set_launch_date
+      self.launch_date = Time.zone.now.to_date
     end
 
     def detail_by_token token

@@ -158,7 +158,7 @@ facebook_friends_list:
   queue: marketing_uploader
   args:
     - facebook_friends_list
-    - facebook_friends.csv
+    - facebook_friends-%Y-%m-%d.csv
     - true
     - exact_target.yml
   description: "Cria e envia arquivo com base de usuários e amigas aniversariantes para ftp do exact target"

@@ -3,7 +3,7 @@ class MembersController < ApplicationController
 
   before_filter :set_collection, :only => [:showroom, :showroom_shoes, :showroom_bags, :showroom_accessories, :showroom_clothes]
   before_filter :check_url, :only => [:showroom, :showroom_shoes, :showroom_bags, :showroom_accessories, :showroom_clothes]
-  before_filter :authenticate_user!, :except => [:accept_invitation]
+  before_filter :authenticate_user!, :except => [:accept_invitation, :showroom]
   before_filter :load_facebook_adapter
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
@@ -77,27 +77,19 @@ class MembersController < ApplicationController
   end
 
   def showroom
+    return redirect_to join_showroom_path if !@user
+    return redirect_to half_showroom_path if @user.half_user
+
     @google_path_pixel_information = "home"
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
 
-    if @user.half_user
-      if @user.female?
-        prepare_for_home
-        return render "/home/index"
-      else
-        return redirect_to gift_root_path, :alert => flash[:notice]
-      end
-    end
-
     session[:facebook_redirect_paths] = "showroom"
-    @is_retake = session[:profile_retake] ? true : false
-    session[:profile_retake] = false
     @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
     if @facebook_adapter
       @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
     end
-    @recommended = RecomendationService.new(profiles: current_user.profiles)
 
+    @recommended = RecomendationService.new(profiles: current_user.profiles)
     admin = current_admin.present?
     # This is needed becase when we turn the month collection we never have cloth
     @cloth = Product.includes(:variants, :pictures).where("id in (?)", Setting.cloth_showroom_casual.split(",") ).all
@@ -120,6 +112,12 @@ class MembersController < ApplicationController
 
   def invite_list
     @invites = @user.invites.page(params[:page]).per_page(15)
+  end
+
+  def half_showroom
+    if @facebook_adapter
+      @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
+    end
   end
 
   private
