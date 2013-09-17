@@ -15,12 +15,12 @@ module Seo
     private
       def choose_meta_tag
         search_meta_tag
-        if @model && @model.respond_to?(:title_text)
-          @model.title_text
-        elsif meta_tag.blank?
-          'Sapatos Femininos e Roupas Femininas | Olook'
-        else
+        if meta_tag
           get_meta_tags_info[meta_tag]
+        elsif @model && @model.respond_to?(:title_text)
+          @model.title_text
+        else
+          'Sapatos Femininos e Roupas Femininas | Olook'
         end
       end
 

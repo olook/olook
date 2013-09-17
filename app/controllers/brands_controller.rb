@@ -19,6 +19,6 @@ class BrandsController < ApplicationController
   end
   private
     def title_text 
-      Seo::SeoManager.new(request.path, model: @brand.first).select_meta_tag
+      Seo::SeoManager.new(request.path, model: @brand.try(:first)).select_meta_tag
     end
 end
