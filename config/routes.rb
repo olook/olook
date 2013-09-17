@@ -14,7 +14,7 @@ Olook::Application.routes.draw do
   put '/cadastro-stylequiz', to: 'join#login', as: 'join'
   post '/cadastro-stylequiz/facebook_login' => "join#facebook_login", as: 'facebook_login'
   get "/meu-estilo", to: "profiles#show", as: 'profile'
-
+ 
   mount Resque::Server => "/admin/resque"
 
   #temp redirect
@@ -175,7 +175,10 @@ Olook::Application.routes.draw do
   post "membro/importar_contatos" => 'members#show_imported_contacts', :as => 'member_show_imported_contacts'
   post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
   get "membro/convidadas" => "members#invite_list", :as => 'member_invite_list'
-  get "membro/vitrine", :to => "members#showroom", :as => "member_showroom"
+  get "membro/vitrine" => redirect('/minha/vitrine')
+  get "minha/vitrine", :to => "members#showroom", :as => "member_showroom"
+  get "/vitrines", to:"members#half_showroom", as: 'half_showroom'
+  get "/criar/vitrine", to: 'join#showroom', as: 'join_showroom'
   get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"
   get "membro/ganhe-creditos", :to => "members#earn_credits", :as => "member_earn_credits"
   #get "membro/creditos", :to => "members#credits", :as => "member_credits"

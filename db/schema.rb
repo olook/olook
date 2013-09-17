@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130906151806) do
+ActiveRecord::Schema.define(:version => 20130911205207) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -322,15 +322,15 @@ ActiveRecord::Schema.define(:version => 20130906151806) do
   add_index "collections", ["start_date"], :name => "index_collections_on_start_date"
 
   create_table "consolidated_sells", :force => true do |t|
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
-    t.integer  "product_id"
     t.string   "category"
-    t.string   "subcategory"
     t.date     "day"
     t.integer  "amount"
     t.decimal  "total",        :precision => 8, :scale => 2
+    t.string   "subcategory"
     t.decimal  "total_retail", :precision => 8, :scale => 2
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.integer  "product_id"
   end
 
   create_table "contact_informations", :force => true do |t|
@@ -827,20 +827,19 @@ ActiveRecord::Schema.define(:version => 20130906151806) do
     t.string   "name"
     t.text     "description"
     t.integer  "category"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "model_number"
     t.string   "color_name"
     t.string   "color_sample"
     t.integer  "collection_id"
     t.boolean  "is_visible"
     t.string   "color_category"
-    t.boolean  "is_kit",           :default => false
+    t.boolean  "is_kit",          :default => false
     t.string   "brand"
     t.string   "producer_code"
     t.string   "picture_for_xml"
-    t.datetime "last_integration"
-    t.date     "integration_date"
+    t.date     "launch_date"
   end
 
   add_index "products", ["category"], :name => "index_products_on_category"
@@ -1087,6 +1086,7 @@ ActiveRecord::Schema.define(:version => 20130906151806) do
   add_index "users", ["cpf"], :name => "index_users_on_cpf"
   add_index "users", ["created_at"], :name => "index_users_on_created_at"
   add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["half_user"], :name => "index_users_on_half_user"
   add_index "users", ["invite_token"], :name => "index_users_on_invite_token"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token"
   add_index "users", ["uid"], :name => "index_users_on_uid"
