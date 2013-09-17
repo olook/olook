@@ -23,12 +23,13 @@ class SearchEngine
   attr_reader :current_page, :result
   attr_reader :expressions, :sort_field
 
-  def initialize attributes = {}
+  def initialize attributes = {}, is_smart=false
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
     @expressions['in_promotion'] = [0]
     @facets = []
+    @is_smart = is_smart
     default_facets
 
     Rails.logger.debug("SearchEngine received these params: #{attributes.inspect}")
@@ -86,7 +87,7 @@ class SearchEngine
     else
       @expressions["category"] = cat.to_s.split(MULTISELECTION_SEPARATOR)
     end
-  end  
+  end
 
   def total_results
     @result.hits["found"]
@@ -200,7 +201,15 @@ class SearchEngine
     bq = build_boolean_expression
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
     q = @query ? "?q=#{@query}&" : "?"
-    "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }"
+    if @is_smart
+      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&#{ ranking }&rank=-exp,#{ @sort_field }&size=#{ options[:limit] }"
+    else
+      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&rank=-exp,#{ @sort_field }&size=#{ options[:limit] }"
+    end
+  end
+
+  def ranking
+    "rank-exp=(r_full_grid*#{ Setting[:full_grid_weight].to_i })%2B(r_inventory*#{ Setting[:inventory_weight].to_i })%2B(r_qt_sold_per_day*#{ Setting[:qt_sold_per_day_weight].to_i })%2B(r_coverage_of_days_to_sell*#{ Setting[:coverage_of_days_to_sell_weight].to_i })%2B(r_age*#{ Setting[:age_weight].to_i })"
   end
 
   def fetch_result(url, options = {})
@@ -302,7 +311,7 @@ class SearchEngine
 
     def validate_sort_field
       if @sort_field.nil? || @sort_field == "" || @sort_field == 0 || @sort_field == "0"
-        @sort_field = "-collection,-inventory,-text_relevance"
+        @sort_field = "age,-inventory,-text_relevance"
       end
     end
 end
