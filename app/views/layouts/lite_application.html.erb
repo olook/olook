@@ -44,7 +44,7 @@
   </head>
 
 
-  <body onload="ativaDiv();" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>">
+  <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>">
     <%= yield :after_body %>
     <%= render :partial => "shared/tag/google_tag_manager" %>
     <% if Setting.enable_neoassist %>
