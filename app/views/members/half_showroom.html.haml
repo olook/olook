@@ -1,0 +1,37 @@
+- content_for :head do 
+  = stylesheet_link_tag "new_structure/section/lite_showroom"
+
+- content_for :scripts do
+  :javascript
+    user_has_errors = #{ @user_already_registered };
+  = javascript_include_tag 'join'
+
+#half_content
+  %p
+    %span
+      Poxa, você ainda não tem uma vitrine personalizada da Olook :(
+    Responda nosso style quiz e mude isso já!
+  - if @friends && @friends.any?
+    .users
+      #mask_carousel_facebook
+        %p 
+          SUAS AMIGAS QUE JÁ POSSUEM VITRINE DA OLOOK
+        = link_to "Anterior", "javascript:void(0);", :class => "carousel-prev-fb", :id=> "prev-button"
+        %ul#friends-face{:class => (@friends.count > 12) ? "carousel" : ""}
+          - @friends.each do |friend|
+            %li
+              = link_to friend_showroom_path(:friend_id => friend.id), onclick: track_event("Showroom","ShowFriendShowroom") do
+                .mask
+                  = image_tag user_avatar(friend, 'square'), :title => friend.name
+        = link_to "Próximo", "javascript:void(0);", :class => "carousel-next-fb", :id=> "next-button"
+  - else
+    %p.users
+      %span=User.full.count
+      pessoas já responderam nosso style quiz
+      = image_tag("quiz/users.jpg")
+  = link_to image_tag( 'showroom/full_showroom.jpg'), survey_url
+= render "home/boxes"
+= render "home/products_categories"
+
+-content_for :footer do
+  = javascript_include_tag "section/lite_showroom"
