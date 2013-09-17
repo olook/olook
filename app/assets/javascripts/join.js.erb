@@ -75,12 +75,25 @@ olook.checkFBLogin = function() {
   });
 }
 
-
 olook.load_state_cities = function(){
   return new dgCidadesEstados({
     cidade: document.getElementById('user_city'),
     estado: document.getElementById('user_state')
   });
+}
+
+function facebookCarousel() {
+  if($("#friends-face").length > 0){
+    $("#friends-face").carouFredSel({
+      auto  : false,
+      prev  : "#prev-button",
+      next  : "#next-button",
+      items	: {
+        width	 : 55,
+        height : 55
+      }
+    });
+  }
 }
 
 function changeTag(field){
@@ -90,7 +103,12 @@ function changeTag(field){
 
 $(function(){
   $('.fb_login_button').click(olook.checkFBLogin).click(function(){_gaq.push(['_trackEvent', 'QuizProgress', 'FormSubmit', ''])});
-  if(!combo_service) var combo_service = olook.load_state_cities();
+  try {
+    if(!combo_service) var combo_service = olook.load_state_cities();
+  } catch (e) {
+    /* handle error */
+  }
+  facebookCarousel();
 
   $("#user_city").change(function(){
     changeTag($(this));
