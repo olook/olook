@@ -14,6 +14,7 @@ src_files:
   # - spec/javascripts/helpers/jasmine-jquery.js
   - spec/javascripts/helpers/jquery-1.9.1.min.js
   - app/assets/javascripts/credit_card.js
+  - app/assets/javascripts/common/base.js
   # - assets/javascripts/*.js
   # - assets/application.js
 

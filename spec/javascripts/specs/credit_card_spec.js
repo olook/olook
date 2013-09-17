@@ -32,4 +32,28 @@ describe("CreditCard", function() {
       expect($("#credit_card_error.span_error")).toHaveText('');
     });
   });
+
+  describe(".installmentsNumberFor", function() {
+    it("returns 6 for any value above 180", function() {
+      expect(CreditCard.installmentsNumberFor(180)).toEqual(6);
+      expect(CreditCard.installmentsNumberFor(280)).toEqual(6);
+      expect(CreditCard.installmentsNumberFor(4000)).toEqual(6);
+    });
+
+    it("returns 1 for any value equals or above 30", function() {
+      expect(CreditCard.installmentsNumberFor(30)).toEqual(1);
+      expect(CreditCard.installmentsNumberFor(20)).toEqual(1);
+    });
+    
+    it("returns 2 for any value between 60 and 89", function() {
+      expect(CreditCard.installmentsNumberFor(60)).toEqual(2);
+      expect(CreditCard.installmentsNumberFor(89)).toEqual(2);
+    });    
+    
+    it("returns 4 for any value between 120 and 149", function() {
+      expect(CreditCard.installmentsNumberFor(120)).toEqual(4);
+      expect(CreditCard.installmentsNumberFor(149)).toEqual(4);
+    });    
+
+  });
 });
