@@ -87,12 +87,10 @@
       <%= address_form.text_field :mobile, class: "tel_contato2", onblur: track_event("CheckoutAddress","fillTelephone2") %>
       </div>
     <% end %>
-
-    <%= field_set_tag do %>
-      <%= image_submit_tag("new_checkout/save_address_bt.jpg", class: 'save_address') %>
-    <% end %>
-
   </div>
+
+  <%= image_submit_tag("new_checkout/save_address_bt.jpg", class: 'save_address') %>
+
 <% end %>
 
 <% if @user.addresses && @user.addresses.select{|address| address.id }.any? %>
