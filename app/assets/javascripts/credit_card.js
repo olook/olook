@@ -14,6 +14,12 @@ CreditCard = {
       counter += (odd = !odd)? incNum : luhnArr[incNum];
     }
     return (counter%10 == 0);
+  },
+
+  installmentsNumberFor: function(value) {
+    number = Math.floor((value / 30));
+    number = Math.min(6, number);
+    return number == 0 ? 1 : number;
   }
 };
 
