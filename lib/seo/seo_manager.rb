@@ -26,7 +26,7 @@ module Seo
 
       def search_meta_tag
         get_meta_tags_info.keys.select do |url_path|
-          self.meta_tag = url_path if url == url_path
+          self.meta_tag = url_path if url.downcase == url_path.downcase
           break if url == url_path
         end
       end
