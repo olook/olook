@@ -132,7 +132,7 @@ module ApplicationHelper
   end
 
   def should_display_footer_bar?
-    ["cart/cart", "survey", "landing_pages"].exclude?(params[:controller]) && params[:ab_t].nil?
+    ["cart/cart", "survey", "landing_pages", "checkout/login"].exclude?(params[:controller]) && params[:ab_t].nil?
   end
 
   private

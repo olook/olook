@@ -1,5 +1,16 @@
 //= require state_cities
 //= require plugins/cep
+
+updateCreditCardSettlementsValue = function(select_box, total) {
+  select_box.empty();
+  var options = [];
+  for (i=1; i<= CreditCard.installmentsNumberFor(total); i++) {
+    installmentValue = total / i;
+    text = i + "x de " + Formatter.toCurrency(installmentValue) + " sem juros";
+    select_box.append("<option value=" + i + ">" + text + "</option>");
+  }
+}
+
 function maskTel(tel){
   ddd  = $(tel).val().substring(1, 3);
   dig9 = $(tel).val().substring(4, 5);
@@ -52,7 +63,6 @@ function retrieve_freight_price_for_variation(zip_code) {
 }
 
 function retrieve_freight_price_for_checkout(url_base, zip_code) {
-
   $.ajax({
     url: '/' + url_base + '/' + zip_code,
     type: 'GET',
@@ -138,13 +148,6 @@ function freightCalc(){
   });
 }
 
-function updateFreightValue() {
-  zip_code = $('input.address_recorded:checked').val();
-  if (zip_code != undefined) {
-    retrieve_freight_price_for_control_or_variation(zip_code);
-  }
-}
-
 function trackStateForFreightABTest() {
   state = $("#checkout_address_state").val() || $(".address_recorded:checked").data("state");
   if (state != undefined) {
@@ -160,7 +163,6 @@ $(function() {
   masks.tel(".tel_contato1");
   masks.tel(".tel_contato2");
 
-  updateFreightValue();
   freightCalc();
   showAboutSecurityCode();
 
