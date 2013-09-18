@@ -68,7 +68,7 @@ class Admin::OrdersController < Admin::BaseController
 
   def authorize_payment
     @order = Order.find(params[:id])
-    @order.authorize_payment_if_is_a_billet
+    @order.authorize_erp_payment
 
     redirect_to admin_orders_path
   end
