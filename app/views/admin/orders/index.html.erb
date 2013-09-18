@@ -52,7 +52,6 @@
   <%= button_to "Integrar Pagamento", admin_integrate_payment_path %>
   <%= button_to "Cancelar integração", admin_integrate_cancel_path %>
 
-
   <table class="table">
     <tr>
       <th><%= sort_link @search, :number %></th>
@@ -91,6 +90,7 @@
       <td><%= number_to_currency(order.freight_price) %></td>
       <td><%= number_to_currency(order.amount_paid) %></td>
       <td><%= order.installments %>x</td>
+      <td><%= link_to "Liberar pagamento", authorize_payment_admin_order_path(id: order.id), method: :post %></td>
     </tr>
   <% end %>
   </table>
