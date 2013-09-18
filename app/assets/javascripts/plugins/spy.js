@@ -24,6 +24,8 @@ olook.spy = function(selector){
         var width = $(document).width(), height = $(document).height();
         $('#overlay-campaign').width(width).height(height).fadeIn();
 
+        var script = $(dataHtml).find('script:first').attr('src');
+
         $('#quick_view')
         .html(dataHtml)
         .css("top", $(window).scrollTop()  + 35)
@@ -37,9 +39,10 @@ olook.spy = function(selector){
           $('#quick_view, #overlay-campaign').fadeOut(300);
         });
         if(typeof initProduct !== 'undefined') {
-          setTimeout(function(){
-            initProduct.loadAddToCartForm();
-          }, 1000);
+          initProduct.loadAddToCartForm();
+        } else {
+          $.getScript(script);
+          $.getScript(script);
         }
 
         accordion();
