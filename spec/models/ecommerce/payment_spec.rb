@@ -328,4 +328,39 @@ describe Payment do
 
     end
   end
+
+  describe '#authorize_and_notify_if_is_a_billet' do
+    let(:order) { FactoryGirl.build(:order) }
+    before do
+      subject.stub(:order).and_return(order)
+    end
+    context "when payment is not a billet" do
+      subject { FactoryGirl.create(:credit_card) }
+      it "doesn't enqueue any email" do
+        DevAlertMailer.should_not_receive(:notify_about_authorization)
+        subject.authorize_and_notify_if_is_a_billet
+      end
+
+      it "doesn't authorize" do
+        subject.should_not_receive(:authorize)
+        subject.authorize_and_notify_if_is_a_billet
+      end
+
+    end
+
+    context "when is a billet" do
+      subject { FactoryGirl.create(:billet, :waiting_payment) }
+      it "enqueues an email to notify about authorization" do
+        PaymentObserver.should_receive(:notify_about_authorization).with(subject)
+        subject.authorize_and_notify_if_is_a_billet
+      end
+
+      it "authorizes" do
+        subject.should_receive(:authorize)
+        subject.authorize_and_notify_if_is_a_billet
+      end
+
+    end
+
+  end
 end
