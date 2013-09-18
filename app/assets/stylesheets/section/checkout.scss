@@ -384,7 +384,7 @@ section#cart {
       width: 70px;height: 105px;display: block;float: left;margin-right: 20px;
       div.spy_cart_icon {display:none;width:70px;height:105px;background:rgba(255,255,255,0.6);position:absolute;}
       span.spy-icon {background: url(/dev-assets/moments/sprite.png) no-repeat right -169px;width: 40px;height: 40px;float: left;margin-left: 14px;margin-top: 15px;display: block;}
-      span.spy-txt {display: block;float: left;font-family: avenir, arial, sans-serif;font-size: 11px;margin-top: 4px;font-weight: bold;letter-spacing: 1px;width: 70px;color:#000;text-align:center;}
+      span.spy-txt {display: block;float: left;font-family: avenir, arial, sans-serif;font-size: 11px;margin-top: 4px;font-weight: bold;letter-spacing: 1px;width: 70px;color:#000;text-align:center;text-decoration:none;}
     }
     a.cart_item:hover .spy_cart_icon {display:block;}
 		&.avc-pulseira{
