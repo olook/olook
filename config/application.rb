@@ -40,7 +40,6 @@ module Olook
     config.exceptions_app = self.routes
     # Activate observers that should always be running.
     config.active_record.observers = [:product_observer]
-    config.active_record.observers = [:payment_observer]
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

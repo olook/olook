@@ -265,7 +265,7 @@ class Payment < ActiveRecord::Base
   def authorize_and_notify_if_is_a_billet
     if self.is_a?(Billet)
       self.authorize
-      PaymentObserver.notify_about_authorization self
+      DevAlertMailer.notify(to: "rafael.manoel@olook.com.br", subject: "Ordem de numero #{ self.order.number } foi autorizada").deliver
     end
   end
 

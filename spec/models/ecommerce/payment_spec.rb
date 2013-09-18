@@ -331,13 +331,18 @@ describe Payment do
 
   describe '#authorize_and_notify_if_is_a_billet' do
     let(:order) { FactoryGirl.build(:order) }
+    let(:mock_mail) { double :mail }
+
     before do
       subject.stub(:order).and_return(order)
+      order.stub(:number).and_return(123)
     end
     context "when payment is not a billet" do
       subject { FactoryGirl.create(:credit_card) }
-      it "doesn't enqueue any email" do
-        DevAlertMailer.should_not_receive(:notify_about_authorization)
+
+      it "sends an email to notify about authorization" do
+        DevAlertMailer.should_not_receive(:notify).with(to: 'rafael.manoel@olook.com.br', subject: "Ordem de numero #{ subject.order.number } foi autorizada").and_return(mock_mail)
+        mock_mail.should_not_receive(:deliver)
         subject.authorize_and_notify_if_is_a_billet
       end
 
@@ -350,13 +355,15 @@ describe Payment do
 
     context "when is a billet" do
       subject { FactoryGirl.create(:billet, :waiting_payment) }
-      it "enqueues an email to notify about authorization" do
-        PaymentObserver.should_receive(:notify_about_authorization).with(subject)
-        subject.authorize_and_notify_if_is_a_billet
-      end
 
       it "authorizes" do
         subject.should_receive(:authorize)
+        subject.authorize_and_notify_if_is_a_billet
+      end
+
+      it "sends an email to notify about authorization" do
+        DevAlertMailer.should_receive(:notify).with(to: 'rafael.manoel@olook.com.br', subject: "Ordem de numero #{ subject.order.number } foi autorizada").and_return(mock_mail)
+        mock_mail.should_receive(:deliver)
         subject.authorize_and_notify_if_is_a_billet
       end
 
