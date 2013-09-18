@@ -262,6 +262,13 @@ class Payment < ActiveRecord::Base
     Payment::RESPONSE_STATUS[gateway_transaction_status]
   end
 
+  def authorize_and_notify_if_is_a_billet
+    if self.is_a?(Billet)
+      self.authorize
+      PaymentObserver.notify_about_authorization self
+    end
+  end
+
   private
 
     def generate_identification_code
