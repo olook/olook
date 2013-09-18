@@ -3,7 +3,9 @@
   <head>
     <%= render :partial => "shared/errorception" %>
     <meta charset="UTF-8">
-    <title>olook</title>
+    <title>
+      <%= title_text %>
+    </title>
     <%= favicon_link_tag 'olook_favicon.ico' %>
 
     <% error = nil unless error %>
@@ -48,6 +50,7 @@
     <%= yield :data_layer %>
 
   </head>
+
 
 
   <body onload="<%= Setting.enable_neoassist ? 'ativaDiv();' : '' %>" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %> <%= "moments" if is_moment_page? %>">
