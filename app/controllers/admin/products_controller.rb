@@ -145,6 +145,7 @@ class Admin::ProductsController < Admin::BaseController
     @profiles = Profile.order(:name)
     @brands = Product.all.map(&:brand).compact.uniq
 
+    binding.pry
     @products = Product.includes(:details).includes(:profiles).includes(:collection).includes(:pictures)
                        .search(params[:q])
                        .in_category(params[:cat])
