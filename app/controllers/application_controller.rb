@@ -18,7 +18,8 @@ class ApplicationController < ActionController::Base
                 :show_current_liquidation?,
                 :show_current_liquidation_advertise?,
                 :current_cart,
-                :current_referer
+                :current_referer,
+                :title_text
   around_filter :log_start_end_action_processing
 
   rescue_from CanCan::AccessDenied do  |exception|
@@ -68,6 +69,10 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+    def title_text
+      Seo::SeoManager.new(request.path).select_meta_tag
+    end
 
     def assign_coupon_to_cart(cart, coupon_code)
       coupon = Coupon.find_by_code(coupon_code)
