@@ -74,12 +74,13 @@
 
         <div class"group">
           <%= label_tag :launch_date, "Data de lançamento", class: 'label' %>
-          <%= date_select :start_launch_date, { include_blank: true } %>
-          <%= date_select :end_launch_date, { include_blank: true } %>
+          <%= date_select :start_launch_date, "", include_blank: true %>
+          <%= label_tag :launch_date, "até", class: 'label' %>
+          <%= date_select :end_launch_date, "", include_blank: true %>
         </div>
 
         <div class"group">
-          <%= button_tag 'Procurar', name: nil, type: 'submit', :class => 'button' %>
+          <%= submit_tag 'Procurar', name: nil, type: 'submit', :class => 'button' %>
         </div>
       <% end %>
     </div>
