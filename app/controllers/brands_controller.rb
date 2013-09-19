@@ -17,4 +17,8 @@ class BrandsController < ApplicationController
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     @url_builder = SeoUrl.new(search_params, "brand", @search)
   end
+  private
+    def title_text 
+      Seo::SeoManager.new(request.path, model: @brand.try(:first)).select_meta_tag
+    end
 end

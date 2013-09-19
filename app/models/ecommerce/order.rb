@@ -42,6 +42,11 @@ class Order < ActiveRecord::Base
   delegate :state, :to => :freight, :prefix => true, :allow_nil => true
   delegate :delivery_time, :to => :freight, :prefix => true, :allow_nil => true
 
+  def paid_at
+    state_transition = order_state_transitions.where(event: :authorized, to: :authorized).first
+    state_transition.nil? ? nil : state_transition.created_at
+  end
+
   def self.with_payment
     joins(:payments).uniq
   end

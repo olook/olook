@@ -34,6 +34,10 @@ FactoryGirl.define do
       collection_id 1
       color_name 'Black'
 
+      trait :invisible_shoe do
+        is_visible false
+      end
+
       trait :in_stock do
         after(:create) do |product|
           product.variants << FactoryGirl.create(:shoe_variant, :in_stock)
