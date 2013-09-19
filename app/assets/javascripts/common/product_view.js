@@ -138,10 +138,14 @@ function accordion(){
   el.on("click", function(e){
     e.stopPropagation();
     e.preventDefault();
-    $(this).siblings("h3").removeClass("open").siblings("div").slideUp();
-    $(this).addClass("open").next().addClass("open").slideDown();
-  });
-  
+    isOpen = $(this).hasClass( "open");
+    if(!isOpen){
+      $(this).siblings("h3").removeClass("open").siblings("div").slideUp();
+      $(this).addClass("open").next().addClass("open").slideDown();
+    } else {
+      $(this).removeClass("open").siblings("div").slideUp();    
+    }
+  });  
 }
 
 function delivery(){
