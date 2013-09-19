@@ -4,33 +4,88 @@
     <div id="error_explanation">
       <h2><%= pluralize(@sync_event.errors.count, "error") %> prohibited this event from being saved:</h2>
       <ul>
-      <% @sync_event.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @sync_event.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
   <%= submit_tag('Sincronizar produtos', class: 'button info') %>
 <% end %>
 
-<div class="search">
-  <h3>Opções de procura:</h3>
-<%= form_tag(admin_products_path, method: :get) do %>
-  <%= hidden_field_tag :s, params[:s] %>
-  <%= hidden_field_tag :d, params[:d] %>
-  <%= search_field_tag :q, params[:q], {placeholder: 'Nome ou número'} %>
-  <%= search_field_tag :subcat, params[:subcat], {placeholder: 'Subcategoria'} %>
-  <%= select_tag :col, grouped_options_for_select(@collections, params[:col]), {prompt: 'Coleção'} %>
-  <%= select_tag :cat, options_for_select(@categories, params[:cat]), {prompt: 'Categoria'} %>
-  <%= select_tag :brand, options_for_select(@brands, params[:brand]), {prompt: 'Marca'} %>
-  <%= select_tag :p, options_from_collection_for_select(@profiles, "id", "name", params[:p]), {prompt: 'Perfil'} %>
-  <%= select_tag :is_visible, options_for_select([["Visível", 1],["Invisível",0]], params[:is_visible]), {prompt: 'Visibilidade'} %>
-  <%= select_tag :inventory_ordenation, options_for_select([["Menor Inventário", "asc"],["Maior Inventário","desc"]], params[:inventory_ordenation]), {prompt: "Ordenação por inventário"} %>
-  <%= select_tag :sale_ordenation, options_for_select([["Mais Vendidos", "desc"],["Menos Vendidos ","asc"]], params[:sale_ordenation]), {prompt: "Ordenação por Vendas"} %>
-  <%= select_tag :has_pictures, options_for_select([["Com fotos", "not null"],["Sem fotos","null"]], params[:has_pictures]), {prompt: "Ordenação por imagens"} %>
-  <%= button_tag 'Procurar', name: nil, type: 'submit', :class => 'button' %>
+<% content_for :sidebar do %>
+  <div class="block">
+      <h3>Opções de procura:</h3>
+    <div class="content">
+
+      <%= form_tag(admin_products_path, :class => "form", method: :get) do %>
+        <%= hidden_field_tag :s, params[:s] %>
+        <%= hidden_field_tag :d, params[:d] %>
+
+        <div class"group">
+          <%= label_tag :q, "Nome ou número", class: 'label' %>
+          <%= search_field_tag :q, params[:q], class: 'text_field' %>
+        </div>
+
+        <div class"group">
+          <%= label_tag :q, "Subcategoria", class: 'label' %>
+          <%= search_field_tag :subcat, params[:subcat],  class: 'text_field' %>
+        </div>
+
+        <div class"group">
+          <%= label_tag :col, "Coleção", class: 'label' %>
+          <%= select_tag :col, grouped_options_for_select(@collections, params[:col]), {include_blank: true} %>
+        </div>
+
+        <div class"group">
+          <%= label_tag :cat, "Categoria", class: 'label' %>
+          <%= select_tag :cat, options_for_select(@categories, params[:cat]), {include_blank: true} %>
+        </div>
+
+        <div class"group">
+          <%= label_tag :brand, "Marca", class: 'label' %>
+          <%= select_tag :brand, options_for_select(@brands, params[:brand]), {include_blank: true} %>
+        </div>
+
+        <div class"group">
+          <%= label_tag :p, "Perfil", class: 'label' %>
+          <%= select_tag :p, options_from_collection_for_select(@profiles, "id", "name", params[:p]), {include_blank: true} %>
+        </div>
+
+        <div class"group">
+          <%= label_tag :is_visible, "Visibilidade", class: 'label' %>
+          <%= select_tag :is_visible, options_for_select([["Visível", 1],["Invisível",0]], params[:is_visible]), {include_blank: true} %>
+        </div>
+
+        <div class"group">
+          <%= label_tag :inventory_ordenation, "Ordenação por inventário", class: 'label' %>
+          <%= select_tag :inventory_ordenation, options_for_select([["Menor Inventário", "asc"],["Maior Inventário","desc"]], params[:inventory_ordenation]), {include_blank: true} %>
+        </div>
+
+        <div class"group">
+          <%= label_tag :sale_ordenation, "Ordenação por Vendas", class: 'label' %>
+          <%= select_tag :sale_ordenation, options_for_select([["Mais Vendidos", "desc"],["Menos Vendidos ","asc"]], params[:sale_ordenation]), {include_blank: true} %>
+        </div>
+
+        <div class"group">
+          <%= label_tag :has_pictures, "Ordenação por imagens", class: 'label' %>
+          <%= select_tag :has_pictures, options_for_select([["Com fotos", "not null"],["Sem fotos","null"]], params[:has_pictures]), {include_blank: true} %>
+        </div>
+
+        <div class"group">
+          <%= label_tag :launch_date, "Data de lançamento", class: 'label' %>
+          <%= date_select :start_launch_date, "", include_blank: true %>
+          <%= label_tag :launch_date, "até", class: 'label' %>
+          <%= date_select :end_launch_date, "", include_blank: true %>
+        </div>
+
+        <div class"group">
+          <%= submit_tag 'Procurar', name: nil, type: 'submit', :class => 'button' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 <% end %>
-</div>
 
 <div class="inner">
   <div class="actions-bar wat-cf">
