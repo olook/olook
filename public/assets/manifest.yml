@@ -1977,10 +1977,10 @@ api_fb.js: api_fb-8c7a0f8129caaf09895cad1a78e7a1f6.js
 api_fb/index.js: api_fb-8c7a0f8129caaf09895cad1a78e7a1f6.js
 application.js: application-c005a3bd3c6208a4654d0e18a6341823.js
 application/index.js: application-c005a3bd3c6208a4654d0e18a6341823.js
-campaign_emails.js: campaign_emails-c33d5d669ab9bbddb31886d6a77ef5db.js
-campaign_emails/index.js: campaign_emails-c33d5d669ab9bbddb31886d6a77ef5db.js
-campaign_emails_modal.js: campaign_emails_modal-795ba62322234e9b417585d4f9cf68a2.js
-campaign_emails_modal/index.js: campaign_emails_modal-795ba62322234e9b417585d4f9cf68a2.js
+campaign_emails.js: campaign_emails-931cb73b405283c645b91388db53a743.js
+campaign_emails/index.js: campaign_emails-931cb73b405283c645b91388db53a743.js
+campaign_emails_modal.js: campaign_emails_modal-be1a8b5d78225f5fdd8199a9e48c3c5e.js
+campaign_emails_modal/index.js: campaign_emails_modal-be1a8b5d78225f5fdd8199a9e48c3c5e.js
 carts.js: carts-8caa9bb52f403ce8294c7e7412f468bc.js
 carts/index.js: carts-8caa9bb52f403ce8294c7e7412f468bc.js
 catalogs.js: catalogs-b2e769792c1f969e9c832db6fd235631.js
@@ -2227,8 +2227,8 @@ admin/themes/default/fonts/museosans_500_italic-webfont.woff: admin/themes/defau
 admin/themes/default/fonts/museosans_500_italic-webfont/index.woff: admin/themes/default/fonts/museosans_500_italic-webfont-e1bcb6fd0cfa7fc553880800308f5cff.woff
 admin/themes/default/style.css: admin/themes/default/style-cfb00648a94f868a1bca26366b08b42a.css
 admin/themes/default/style/index.css: admin/themes/default/style-cfb00648a94f868a1bca26366b08b42a.css
-application.css: application-998e3495ee31166cf255a2ffe4d1588d.css
-application/index.css: application-998e3495ee31166cf255a2ffe4d1588d.css
+application.css: application-de06a338e5985cc68a953650fdd6c0d7.css
+application/index.css: application-de06a338e5985cc68a953650fdd6c0d7.css
 campaign_emails.css: campaign_emails-58c76e9d732b93b995e848bb490a507f.css
 campaign_emails/index.css: campaign_emails-58c76e9d732b93b995e848bb490a507f.css
 customlanding.css: customlanding-8cbf08aa6a1cff4512af6ec1821fa420.css
@@ -2263,8 +2263,8 @@ new_structure/section/address_combo.css: new_structure/section/address_combo-bab
 new_structure/section/address_combo/index.css: new_structure/section/address_combo-bab517aa08f5f9d1af947967edaa949a.css
 new_structure/section/brands.css: new_structure/section/brands-4b741b5bc1c7f8c933201e55318fa451.css
 new_structure/section/brands/index.css: new_structure/section/brands-4b741b5bc1c7f8c933201e55318fa451.css
-new_structure/section/clippings.css: new_structure/section/clippings-2a703651ffdeebaea648a3c0d544186d.css
-new_structure/section/clippings/index.css: new_structure/section/clippings-2a703651ffdeebaea648a3c0d544186d.css
+new_structure/section/clippings.css: new_structure/section/clippings-82443c7b086cf4515784f7b08974c5fe.css
+new_structure/section/clippings/index.css: new_structure/section/clippings-82443c7b086cf4515784f7b08974c5fe.css
 new_structure/section/collection_themes.css: new_structure/section/collection_themes-dd8acffa5e0bec141d0ac24763686430.css
 new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-dd8acffa5e0bec141d0ac24763686430.css
 new_structure/section/join.css: new_structure/section/join-22dc2faa126a17fddb685d1b6b0588ac.css
