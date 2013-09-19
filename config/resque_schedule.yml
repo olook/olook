@@ -1,3 +1,9 @@
+update_sitemap:
+  cron: "0 3 * * *"
+  class: SaveOnAmazonWorker
+  queue: sitemap
+  description: "Atualiza o sitemap"
+
 index_suggested_terms:
   cron: "0 */6 * * *"
   class: ProductSearchWorker
