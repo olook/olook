@@ -295,6 +295,10 @@ class Order < ActiveRecord::Base
     (payments.for_facebook_share_discount + payments.for_billet_discount).sum(&:total_paid)
   end
 
+  def authorize_erp_payment
+    self.erp_payment.authorize_and_notify_if_is_a_billet
+  end
+
   private
 
     def set_delivery_date_on
