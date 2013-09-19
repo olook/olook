@@ -74,7 +74,8 @@
 
         <div class"group">
           <%= label_tag :launch_date, "Data de lançamento", class: 'label' %>
-          <%= date_select :launch_date, { :order => [:day, :month, :year] }, { include_blank: true} %>
+          <%= date_select :start_launch_date, { include_blank: true } %>
+          <%= date_select :end_launch_date, { include_blank: true } %>
         </div>
 
         <div class"group">
