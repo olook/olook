@@ -1,7 +1,11 @@
 <tr id="item_<%= item.id %>">
   <td class="item">
     <% unless item.thumb_picture.nil? %>
-      <%= link_to product_path(item.product), :class => 'cart_item' do %>
+      <%= link_to spy_product_path(item.product), :class => 'cart_item', data: { url: spy_product_path(item.product, from: 'cart') } do %>
+        <div class="spy_cart_icon">
+          <span class="spy-icon"></span>
+          <span class="spy-txt">ESPIAR</span>
+        </div>
         <%= image_tag item.variant.bag_picture %>
       <% end %>
     <% end %>
