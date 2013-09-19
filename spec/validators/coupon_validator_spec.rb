@@ -30,6 +30,9 @@ describe CouponValidator do
         before do
           coupon.stub(:can_be_applied_to_any_product_in_the_cart?).and_return(false)
           coupon.stub(:brand).and_return("Some Brand")
+          coupon.stub(:expired?).and_return(false)
+          coupon.stub(:available?).and_return(true)
+          coupon.stub(:can_be_applied_to_any_product_in_the_cart?).and_return(false)
         end
 
         it "adds an error" do
