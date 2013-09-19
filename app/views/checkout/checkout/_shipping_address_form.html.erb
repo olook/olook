@@ -8,11 +8,11 @@
       <%#= "Encontrar endereço" %>
     <%# end %>
       <%= errors_for(address, :zip_code) %>
-  <% end %> 
+  <% end %>
 
   <div id="address_fields" name="address_fields" <%#= 'style= opacity:0;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);display:none;' unless address && (address.id || !address.zip_code.blank?) %>>
     <%= address_form.hidden_field :id %>
-    
+
     <%= field_set_tag do %>
       <div>
         <%= address_form.label :street, "Rua, Avenida, Praça etc*"%>
@@ -22,10 +22,10 @@
         <%= address_form.label :number, "Número*" %>
         <%= address_form.text_field :number,  class: "numero #{error_class_if_needed(address, :number)}", onblur: track_event("CheckoutAddress","fillNumber") %>
       </div>
-      <%= errors_for(address, :street) %>      
+      <%= errors_for(address, :street) %>
       <%= errors_for(address, :number) %>
     <% end %>
-    
+
     <%= field_set_tag do %>
       <div>
         <%= address_form.label :complement, "Complemento" %>
@@ -38,7 +38,7 @@
       <%= errors_for(address, :complement) %>
       <%= errors_for(address, :neighborhood) %>
     <% end %>
-    
+
     <%= field_set_tag do %>
       <div class="state field">
         <%= address_form.label :state, "UF*" %>
@@ -60,7 +60,7 @@
 
     <p class="subtitle">DESTINATÁRIO</p>
     <%= field_set_tag do %>
-      <div>  
+      <div>
       <%= address_form.label :first_name, "Nome" %>
       <%= address_form.text_field :first_name,  class: "nome_dest #{error_class_if_needed(address, :first_name)}", onblur: track_event("CheckoutAddress","fillFirstName") %>
       </div>
@@ -71,7 +71,7 @@
       <%= errors_for(address, :first_name) %>
       <%= errors_for(address, :last_name) %>
     <% end %>
-  
+
     <p class="subtitle">CONTATO NO LOCAL</p>
     <%= field_set_tag do %>
       <div>
@@ -80,15 +80,17 @@
       </div>
       <%= errors_for(address, :telephone) %>
     <% end %>
-  
+
     <%= field_set_tag do %>
       <div>
       <%= address_form.label :mobile, "Telefone de contato 2 <span>(opcional)</span>".html_safe %>
       <%= address_form.text_field :mobile, class: "tel_contato2", onblur: track_event("CheckoutAddress","fillTelephone2") %>
       </div>
     <% end %>
-  
-  </div>  
+  </div>
+
+  <%= image_submit_tag("new_checkout/save_address_bt.jpg", class: 'save_address') %>
+
 <% end %>
 
 <% if @user.addresses && @user.addresses.select{|address| address.id }.any? %>

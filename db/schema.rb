@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130906151806) do
+ActiveRecord::Schema.define(:version => 20130916134410) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20130906151806) do
     t.string   "header_image_alt"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.string   "seo_text"
   end
 
   create_table "braspag_authorize_responses", :force => true do |t|
@@ -299,6 +300,7 @@ ActiveRecord::Schema.define(:version => 20130906151806) do
     t.string   "video_link"
     t.string   "header_image_alt"
     t.string   "text_color"
+    t.string   "seo_text"
   end
 
   add_index "collection_themes", ["collection_theme_group_id"], :name => "index_collection_themes_on_collection_theme_group_id"
@@ -827,19 +829,19 @@ ActiveRecord::Schema.define(:version => 20130906151806) do
     t.string   "name"
     t.text     "description"
     t.integer  "category"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "model_number"
     t.string   "color_name"
     t.string   "color_sample"
     t.integer  "collection_id"
     t.boolean  "is_visible"
     t.string   "color_category"
-    t.boolean  "is_kit",           :default => false
+    t.boolean  "is_kit",          :default => false
     t.string   "brand"
     t.string   "producer_code"
     t.string   "picture_for_xml"
-    t.date     "integration_date"
+    t.date     "launch_date"
   end
 
   add_index "products", ["category"], :name => "index_products_on_category"

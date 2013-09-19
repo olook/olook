@@ -1,5 +1,5 @@
 class CollectionTheme < ActiveRecord::Base
-  attr_accessible :product_associate_ids, :product_associate_ids_file, :name, :slug, :video_link, :header_image_alt, :text_color, :active, :header_image, :position, :collection_theme_group_id, :fail_product_ids
+  attr_accessible :product_associate_ids, :product_associate_ids_file, :name, :slug, :video_link, :header_image_alt, :text_color, :active, :header_image, :position, :collection_theme_group_id, :fail_product_ids, :seo_text
   attr_reader :product_associate_ids, :product_associate_ids_file
   attr_accessor :fail_product_ids
 
@@ -22,6 +22,12 @@ class CollectionTheme < ActiveRecord::Base
 
   def self.find_by_slug_or_id(slug_or_id)
     self.find_by_slug(slug_or_id) || self.find_by_id(slug_or_id)
+  end
+
+  def title_text
+    text = name
+    text = "#{name} - #{seo_text}" unless seo_text.blank?
+    "#{text} | Olook"
   end
 
   def name=(val)

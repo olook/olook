@@ -3,7 +3,9 @@
   <head>
     <%= render :partial => "shared/errorception" %>
     <meta charset="UTF-8">
-    <title>olook</title>
+    <title>
+      <%= title_text %>
+    </title>
     <%= favicon_link_tag 'olook_favicon.ico' %>
 
     <% error = nil unless error %>
@@ -30,7 +32,6 @@
     <!-- Struq navigation pixel -->
     <%#= render :partial => "shared/metrics/struq/homepage" %>
 
-    <%#= render :partial => "shared/tag/siteapps" %>
     <%= render :partial => "shared/metrics/header_tags" %>
     <%= yield :head %>
 
@@ -49,6 +50,7 @@
     <%= yield :data_layer %>
 
   </head>
+
 
 
   <body onload="<%= Setting.enable_neoassist ? 'ativaDiv();' : '' %>" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %> <%= "moments" if is_moment_page? %>">
@@ -84,6 +86,7 @@
     <%= yield :site_footer %>
     <%= javascript_include_tag "http://olook.neoassist.com/clients/olook/js/chat.js" if Setting.enable_neoassist %>
     <%= javascript_include_tag "jquery" %>
+    <%= yield :scripts %>
     <%= javascript_include_tag "application" %>
     <script>
       show_modal = '<%= j @modal_show %>';
