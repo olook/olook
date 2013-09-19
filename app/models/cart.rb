@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Cart < ActiveRecord::Base
   DEFAULT_QUANTITY = 1
-  
+
   belongs_to :user
   belongs_to :coupon
   belongs_to :address

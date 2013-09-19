@@ -63,7 +63,7 @@ describe Order do
     context 'order with a canceled payment' do
       let(:order_with_canceled_payment) { FactoryGirl.create(:order_with_canceled_payment)}
 
-      it 'return true' do       
+      it 'return true' do
         order_with_canceled_payment.can_be_canceled?.should be_true
       end
     end
@@ -471,6 +471,32 @@ describe Order do
           expect(orders.first).to eq(@past_order)
         end
       end
+    end
+  end
+
+  describe '#enqueue_capture' do
+    let(:mock_payment) { double Payment }
+
+    before do
+      mock_payment.stub(:id).and_return(10)
+      subject.stub(:erp_payment).and_return(mock_payment)
+    end
+
+    it "enqueues capture" do
+      Braspag::GatewayCaptureWorker.should_receive(:perform).with(subject.erp_payment.id)
+      subject.enqueue_capture
+    end
+  end
+
+  describe '#authorize_erp_payment' do
+    let(:payment) { mock Payment }
+    before do
+      subject.stub(:erp_payment).and_return(payment)
+    end
+
+    it "calls payment method to authorize and notify" do
+      payment.should_receive(:authorize_and_notify_if_is_a_billet)
+      subject.authorize_erp_payment
     end
   end
 end

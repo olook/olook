@@ -311,7 +311,7 @@ class SearchEngine
 
     def validate_sort_field
       if @sort_field.nil? || @sort_field == "" || @sort_field == 0 || @sort_field == "0"
-        @sort_field = "-collection,-inventory,-text_relevance"
+        @sort_field = "age,-inventory,-text_relevance"
       end
     end
 end

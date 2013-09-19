@@ -91,6 +91,10 @@ class Product < ActiveRecord::Base
     id
   end
 
+  def title_text
+    "#{name} - Roupas e Sapatos Femininos | Olook"
+  end
+
   def model_name
     category_detail = details.find_by_translation_token("Categoria")
     category_detail ? category_detail.description : ""
@@ -497,7 +501,11 @@ class Product < ActiveRecord::Base
   end
 
   def time_in_stock
-    launch_date.try(:strftime, '%Y%m%d').try(:to_i) || (Time.zone.today- 3.months).strftime('%Y%m%d').to_i
+    if launch_date.blank?
+      365
+    else
+      (Date.current - launch_date).to_i
+    end
   end
 
   private

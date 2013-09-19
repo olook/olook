@@ -1082,10 +1082,12 @@ describe Product do
   describe '#time_in_stock' do
     context "when product has integration date" do
       before do
-        subject.stub(:launch_date).and_return(Date.civil(2013, 9, 10))
+        launch_date = Date.civil(2013, 9, 10)
+        @diff = (Date.current - launch_date).to_i
+        subject.stub(:launch_date).and_return(launch_date)
       end
 
-      it { expect(subject.time_in_stock).to eq(20130910) }
+      it { expect(subject.time_in_stock).to eq(@diff) }
     end
 
     context "when product has no integration date" do
@@ -1097,7 +1099,7 @@ describe Product do
         Timecop.return
       end
 
-      it { expect(subject.time_in_stock).to eq(20130509) }
+      it { expect(subject.time_in_stock).to eq(365) }
     end
   end
 end
