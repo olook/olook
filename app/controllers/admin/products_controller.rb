@@ -165,11 +165,11 @@ class Admin::ProductsController < Admin::BaseController
 
   private
     def format_date_range
-      start_date = params[:start_launch_date]
-      @start_date = !start_date.has_value?("") ? Date.new(start_date["(1i)"].to_i, start_date["(2i)"].to_i, start_date["(3i)"].to_i) : nil
+      start_date = params[:start_launch_date] || { }
+      @start_date = !start_date.has_value?("") && start_date.any?  ? Date.new(start_date["(1i)"].to_i, start_date["(2i)"].to_i, start_date["(3i)"].to_i) : nil
 
-      end_date = params[:end_launch_date]
-      @end_date = !end_date.has_value?("") ? Date.new(end_date["(1i)"].to_i, end_date["(2i)"].to_i, end_date["(3i)"].to_i) : nil
+      end_date = params[:end_launch_date] || { }
+      @end_date = !end_date.has_value?("") && end_date.any? ? Date.new(end_date["(1i)"].to_i, end_date["(2i)"].to_i, end_date["(3i)"].to_i) : nil
     end
 end
 
