@@ -1,5 +1,13 @@
 # Set the host name for URL creation
+#TODO
+def sitemap_directory
+  (Rails.env.test? || Rails.env.development?) ? 'testcdn.olook.com.br' : 'cdn.olook.com.br'
+end
 SitemapGenerator::Sitemap.default_host = "http://www.olook.com.br"
+SitemapGenerator::Sitemap.public_path = 'tmp/'
+SitemapGenerator::Sitemap.adapter = SitemapGenerator::S3Adapter.new(Fog.credentials.merge({:fog_provider => "AWS", :fog_directory => sitemap_directory}))
+SitemapGenerator::Sitemap.sitemaps_host = "http://#{sitemap_directory}.s3.amazonaws.com/"
+SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
 
 SitemapGenerator::Sitemap.create do
 
