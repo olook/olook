@@ -26,30 +26,30 @@ describe CollectionThemesHelper do
   describe "#print_section_name" do
     context "when the request fullpath equals to an existing catalog section" do
 
-      context "when the actions equals to '/bolsas'" do
+      context "when the actions equals to '/bolsa'" do
         before do
-          controller.request.stub(:fullpath).and_return('/bolsas')
+          controller.request.stub(:fullpath).and_return('/bolsa')
         end
-        it "returns bolsas" do
-          helper.print_section_name.should == "bolsas"
+        it "returns bolsa" do
+          helper.print_section_name.should == "bolsa"
         end
       end
 
-      context "when the actions equals to '/sapatos" do
+      context "when the actions equals to '/sapato" do
         before do
-          controller.request.stub(:fullpath).and_return('/sapatos')
+          controller.request.stub(:fullpath).and_return('/sapato')
         end
         it "returns sapatos" do
-          helper.print_section_name.should == "sapatos"
+          helper.print_section_name.should == "sapato"
         end
       end
 
-      context "when the actions equals to '/acessorios'" do
+      context "when the actions equals to '/acessorio'" do
         before do
-          controller.request.stub(:fullpath).and_return('/acessorios')
+          controller.request.stub(:fullpath).and_return('/acessorio')
         end
         it "returns acessórios" do
-          helper.print_section_name.should == "acessórios"
+          helper.print_section_name.should == "acessório"
         end
       end
 
