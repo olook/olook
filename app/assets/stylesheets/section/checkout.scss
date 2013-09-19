@@ -380,6 +380,13 @@ section#cart {
 
   table.items_list {
     margin: 0 0 25px 0;
+    a.cart_item {
+      width: 70px;height: 105px;display: block;float: left;margin-right: 20px;text-decoration:none;
+      div.spy_cart_icon {display:none;width:70px;height:105px;background:rgba(255,255,255,0.6);position:absolute;}
+      span.spy-icon {background: url(/dev-assets/moments/sprite.png) no-repeat right -169px;width: 40px;height: 40px;float: left;margin-left: 14px;margin-top: 15px;display: block;}
+      span.spy-txt {display: block;float: left;font-family: avenir, arial, sans-serif;font-size: 11px;margin-top: 4px;font-weight: bold;letter-spacing: 1px;width: 70px;color:#000;text-align:center;text-decoration:none;}
+    }
+    a.cart_item:hover .spy_cart_icon {display:block;}
 		&.avc-pulseira{
 				border-left:dotted 1px #000;
 				border-right:dotted 1px #000;
@@ -520,6 +527,10 @@ section#cart {
 		  	&.avc-foto{
 					width:130px;text-align:center;
 					img{width:70px;height:auto ;}
+          .cart_item, div.spy_cart_icon{height:70px;}
+          .cart_item {margin-left:28px;
+            .spy-icon {margin-top:0px;}
+          }
 			  }
 			  &.avc-desc{
 				width:530px;
@@ -2180,5 +2191,6 @@ p.important {
   display: none;
   clear: both;
 }
+.cart_quick_view #product div#product-details #product-particulars h3 { background:none; }
 
 .save_address { border: none !important; width: 146px !important; height: 42px !important; padding-left: 0px !important; margin-bottom: 10px; }
