@@ -221,7 +221,7 @@ class SearchEngine
       url = URI.parse(url)
       tstart = Time.zone.now.to_f * 1000.0
       _response = Net::HTTP.get_response(url)
-      Rails.logger.error("GET cloudsearch URL (#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
+      Rails.logger.error("GET cloudsearch URL (time=#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
       _response
     end
 
