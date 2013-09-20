@@ -15,6 +15,8 @@
 	margin-top: 80px;
 	.join{
 		width: 345px;
+		float: left;
+		margin-left: 42px;
 		p{
 			background: image-url('landing_page/olookmovel/sorteio.jpg') left no-repeat;
 			padding-left: 185px;
@@ -25,5 +27,36 @@
 				font-weight: bold;
 			}
 		}
+		form{
+		    border:none;width:358px;height:150px;margin-left: 5px;margin-top: 20px;
+		    fieldset{
+		    	margin-bottom:25px;border:0;
+		    	label{font-family:$avenir;font-size:14px;color: #717274;font-weight: 600;
+		        &.senha{margin-right: 1px;}
+		    }
+		      	&.botoes{
+		        	margin-top: 5px;
+		        	text-align:left;
+		        div{float:left;width:150px;margin-top: 20px;
+		            label{font-size:11px;color:#717274;width:60px;display:inline-block;text-align:left;font-family:$avenir;
+		            &[for="user_remember_me"]{width:100px;font-size:11px;}
+		          }
+		        	p{float:left;margin-top:5px !important;text-align: left;
+		            	a{text-decoration:none;color:#5e5f61;font-family: $avenir;font-size: 11px;
+		              &:hover{text-decoration:underline;}
+		            }
+		          }
+		        }
+		        input[type="submit"]{border: none; background: image-url('showroom/sprite.png') 0px -206px no-repeat;float:right; width:145px;height:37px;text-indent: 9999px;margin-top: 22px;margin-right: 33px;
+		          &:hover{background-position:0 -249px;text-indent: 9999px;}}
+		      	}
+		    }
+		    input[type="text"], input[type="password"]{padding-left: 10px; width:310px;height:31px;line-height:31px;border:solid 1px #C1C1C1;display: block;}
+		}
+	}
+	.olookmovel{
+		width: 490px;
+		float: left;
+		margin-left: 75px;
 	}
 }
