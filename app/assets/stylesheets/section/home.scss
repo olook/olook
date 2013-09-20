@@ -1,4 +1,5 @@
 @import 'partials/mixins';
+@import 'new_structure/partials/facebook_footer';
 
 div#content {
   overflow: visible;
@@ -166,15 +167,17 @@ section#home {
   section ul.products_list {
     width: 100%;
     overflow: auto;
-    li {
-      margin: 0 0 0 25px;
-      float: left;
+    li {margin: 0 0 0 42px;display:inline-block;position:relative;z-index:1;width:146px;height:267px;/* new size photo */
       a {
         color: #000;
         text-align: center;
         text-decoration: none;
         text-transform: uppercase;
-        float: left;
+        /* new size photo */
+        display:inline-block;
+        position:absolute;
+        bottom:0;
+        left:0;
         h1 {
           font-family: $avenir;
           font-size: 15px;
@@ -218,15 +221,16 @@ section#home {
       display: block;
       top: 0;
       left: 75px;
+      z-index:90;
     }
   }
   section#brands{
     position: relative;
-    min-height: 300px;
+    min-height: 620px;
     margin: 0 0 10px;
     padding: 10px 0 20px;
     border-bottom: 1px #cbcbcb solid;
-    .box_brand{width: 580px; height: 450px; float: left;
+    .box_brand{width: 580px; height: 500px; float: left;
       h1 {
         font-family: $johnston;
         font-size: 26px;
@@ -246,23 +250,23 @@ section#home {
         margin-top: 25px;
         li{
           a{
-            background: image-url("home/new_brands_off.jpg") no-repeat;
+            background: image-url("home/new_brands.jpg") no-repeat;
             width: 144px;
-            height: 72px;
+            height: 55px;
             float: left;
             cursor: pointer;
-            &:hover{background: image-url("home/new_brands.jpg") no-repeat;}
+            &:hover{background: image-url("home/new_brands_off.jpg") no-repeat;}
           }
           &.olook a {
-            background-position: 0px 0px;
+            background-position: 3px 1px;
             &:hover {
-              background-position: 0px 0px;
+              background-position: 3px 1px;
             }
           } 
           &.essential a {
-            background-position: -144px 0px;
+            background-position: -141px 0px;
             &:hover {
-              background-position: -144px 0px;
+              background-position: -141px 0px;
             }
           }
           &.harris a {
@@ -278,9 +282,9 @@ section#home {
             }
           } 
           &.concept a {
-            background-position: 0px -72px;
+            background-position: 0px -71px;
             &:hover {
-              background-position: 0px -72px;
+              background-position: 0px -71px;
             }
           }  
           &.manzini a {
@@ -378,11 +382,108 @@ section#home {
             }
           } 
           &.mandi a {
-            background-position: 0px -360px;
+            background-position: 0px -347px;
             &:hover {
-              background-position: 0px -360px;
+              background-position: 0px -347px;
+            }
+          }
+          &.carina-duek a {
+            background-position: -143px -347px;
+            &:hover {
+              background-position: -142px -346px;
+            }
+          }
+          &.tan-tan a {
+            background-position: -424px -343px;
+            &:hover {
+              background-position: -423px -342px;
+            }
+          }
+          &.redley a {
+            background-position: -15px -407px;
+            &:hover {
+              background-position: -14px -406px;
+            }
+          }
+          &.lez-a-lez a {
+            background-position: -280px -346px;
+            &:hover {
+              background-position: -279px -345px;
+            }
+          }
+          &.cantao a {
+            background-position: -139px -416px;
+            &:hover {
+              background-position: -138px -416px;
+            }
+          } 
+          &.sommer a {
+            height: 55px;
+            background-position: -289px -415px;
+            &:hover {
+              background-position: -290px -415px;
             }
           }  
+          &.totem a {
+            background-position: -416px -404px;
+            &:hover {
+              background-position: -416px -407px;
+            }
+          }
+          &.perfume a {
+            background-position: -154px -486px;
+            &:hover {
+              background-position: -158px -490px;
+            }
+          }
+          &.shoulder a {
+            background-position: -10px -494px;
+            &:hover {
+              background-position: -14px -498px;
+            }
+          }
+          &.doce a {
+            background-position: -286px -483px;
+            &:hover {
+              background-position: -287px -492px;
+            }
+          }
+          &.tvz a {
+            background-position: -427px -483px;
+            &:hover {
+              background-position: -428px -492px;
+            }
+          }
+          &.folic a {
+            background-position: -141px -546px;
+            &:hover {
+              background-position: -142px -545px;
+            }
+          }
+          &.floor a {
+            background-position: -5px -557px;
+            &:hover {
+              background-position: -6px -552px;
+            }
+          }
+          &.canal a {
+            background-position: -290px -545px;
+            &:hover {
+              background-position: -289px -547px;
+            }
+          }
+          &.blue a {
+            background-position: -430px -540px;
+            &:hover {
+              background-position: -429px -542px;
+            }
+          }
+          &.afghan a {
+            background-position: 1px -615px;
+            &:hover {
+              background-position: 2px -617px;
+            }
+          }
         }
       }
     }
@@ -390,7 +491,7 @@ section#home {
       text-align: center;
       overflow: auto;
       width: 380px;
-      height: 450px;
+      height: 592px;
       h1 {
         font-family: $johnston;
         font-size: 26px;
@@ -403,9 +504,10 @@ section#home {
         li{
           border:1px solid #a7a9ac;
           height: 116px;
-          &.stylist{height: 35px;margin-top: 30px;}
+          &.stylist{height: 35px;margin-top: 22px;}
           a{border:1px solid #000;line-height: 35px; height: 35px; width: 374px; display: inline-block; font-family: $johnston; font-size: 19px;background-color: #000; text-decoration: none;color: #fff;font-size: 16px;
             &:hover{background-color: #fff; color: #000;border:1px solid #fff;}
+            &.img{text-decoration: none;border: none;width: 376px;}
             }
           }
         }
@@ -453,156 +555,46 @@ section#home {
       }
     }
   }
-  div#products_categories {
-    width: 760px;
-    height: 140px;
-    margin: 0 0 30px;
-    padding: 35px 0 0 0;
-    float: left;
-    border-top: 1px #cbcbcb solid;
-    >h1 {
-      font-family: $avenir;
-      font-size: 20px;
-      font-weight: 600;
-      text-transform: uppercase;
-      margin: 0 0 25px 0;
-    }
-    ul {
-      width: 100%;
-      overflow: auto;
+  div#products_categories {width: 1020px;height: 200px;margin: 0 0 18px;padding: 15px 0 0 0;float: left;
+    ul {width: 100%;overflow: auto;margin-top: 35px;
       li {
-        a {
-          background: image-url("home/categories.png") no-repeat;
-          color: #000;
-          font-size: 11px;
-          text-align: center;
-          text-decoration: none;
-          height: 40px;
-          margin: 0 18px 0 0;
-          padding: 75px 0 0 0;
-          float: left;
-          &:hover {
-            color: #ef3742;
-          }
+        a {width: 63px;height: 100px;background: image-url("home/categories.png") no-repeat;color: #000;float: left;text-indent: -9999px;margin-right: 29px;
+          &:hover {color: #ef3742;}
         }
-        &.blusa a {
-          background-position: 6px 0px;
-          width: 45px;
-          &:hover {
-            background-position: 6px -189px;
-          }
+        &.blusa a {background-position: -5px 0px; margin-left:5px;
+          &:hover {background-position: -5px -146px;}
         }
-        &.camisa a {
-          background-position: -56px 0;
-          width: 45px;
-          &:hover {
-            background-position: -56px -189px;
-          }
+        &.camisa a {background-position: -100px 0px;
+          &:hover {background-position: -100px -146px;}
         }
-        &.calca a {
-          background-position: -105px 0;
-          width: 45px;
-          &:hover {
-            background-position: -105px -189px;
-          }
+        &.calca a {background-position: -196px 0px;
+          &:hover {background-position: -196px -146px;}
         }
-        &.saia a {
-          background-position: -150px 0;
-          width: 45px;
-          &:hover {
-            background-position: -150px -189px;
-          }
+        &.vestido a {background-position: -293px 0px;
+          &:hover {background-position: -293px -146px;}
         }
-        &.vestido a {
-          background-position: -165px 0;
-          width: 45px;
-          &:hover {
-            background-position: -165px -189px;
-          }
+        &.anabela a {background-position: -387px 0px;
+          &:hover {background-position: -387px -146px;}
         }
-        &.anabela a {
-          background-position: -219px 0;
-          width: 45px;
-          &:hover {
-            background-position: -219px -189px;
-          }
+        &.bota a {background-position: -477px 0px;
+          &:hover {background-position: -477px -146px;}
         }
-        &.bota a {
-          background-position: -275px 0;
-          width: 53px;
-          &:hover {
-            background-position: -275px -189px;
-          }
-        }
-        &.sapatilha a {
-        background-position: -346px 0;
-        &:hover {
-          background-position: -346px -189px;
-        }
+        &.sapatilha a {background-position: -570px 0px;
+        &:hover {background-position: -570px -146px;}
       }
-      &.scarpin a {
-        background-position: -415px 0;
-        &:hover {
-          background-position: -415px -189px;
-        }
+      &.scarpin a {background-position: -662px 0px;
+        &:hover {background-position: -662px -146px;}
       }
-      &.slipper a {
-        background-position: -513px 0;
-        width: 43px;
-        &:hover {
-          background-position: -513px -189px;
-        }
+      &.sneaker a {background-position: -756px 0px;
+        &:hover {background-position: -756px -146px;}
       }
-      &.sneaker a {
-        background-position: -472px 0;
-        &:hover {
-          background-position: -472px -189px;
-        }
+      &.acessorios a {background-position: -853px 0px;
+        &:hover {background-position: -853px -146px;}
       }
-      &.acessorios a {
-        background-position: -580px 0;
-        &:hover {
-          background-position: -580px -189px;
-        }
-      }
-      &.bolsas a {
-        background-position: -529px 0;
-        &:hover {
-          background-position: -529px -189px;
-        }
-      } 
+      &.bolsas a {background-position: -943px 0px;margin-right: 0 !important;
+        &:hover {background-position: -943px -146px;}
+        } 
       }
     }
   }
-  div#facebook_box {
-    width: 196px;
-    height: 140px;
-    padding: 35px 0 0 10px;
-    float: right;
-    border-top: 1px #cbcbcb solid;
-    img {
-      margin: 37px 7px 20px 0;
-      float: left;
-    }
-    h1 {
-      color: #36569e;
-      font-family: $avenir;
-      font-size: 14px;
-      margin-top: 35px;
-      span {
-        font-size: 17px;
-        font-weight: bold;
-      }
-    }
-    .like {
-      clear: both;
-    }
-  }
-}
-
-/****** IE8 HACK *******/
-html.ie8{
-   section#home{
-      li.iehack{margin:0 !important;}
-   }
 }

@@ -4,7 +4,7 @@ class ShippingService < ActiveRecord::Base
 
   has_many :freight_prices, :dependent => :destroy
   has_many :freights
-  
+
   after_initialize :set_default_cubic_weight_factor
 
   validates :name, :presence => true
@@ -23,6 +23,14 @@ class ShippingService < ActiveRecord::Base
   def freight_weight(weight, volume)
     cubic_weight = volume * cubic_weight_factor
     (weight > cubic_weight) ? weight : cubic_weight
+  end
+
+  def find_first_free_freight_for_zip_and_order(zip_code, order_value)
+    self.freight_prices.where('(:zip >= zip_start) AND (:zip <= zip_end) AND ' +
+                              '(:order_value < order_value_start) AND '+
+                              '(price = 0)',
+                              :zip => zip_code.to_i,
+                              :order_value => order_value).first
   end
 
 private

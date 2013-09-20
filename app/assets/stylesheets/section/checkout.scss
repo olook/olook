@@ -122,6 +122,7 @@ section#credits_explanation{
 
   ul li div.value {
     width: 70px;
+    margin-left: 200px !important;
   }
 
   .prohibited {
@@ -275,7 +276,7 @@ section#cart {
 
       p{
         height:21px;
-        background: image-url("/assets/campaign_emails/sprite.png") -260px -53px no-repeat;
+        background: image-url("campaign_emails/sprite.png") -260px -53px no-repeat;
         text-align:left;
         padding-left:40px;
         margin-top:7px;
@@ -379,6 +380,13 @@ section#cart {
 
   table.items_list {
     margin: 0 0 25px 0;
+    a.cart_item {
+      width: 70px;height: 105px;display: block;float: left;margin-right: 20px;text-decoration:none;
+      div.spy_cart_icon {display:none;width:70px;height:105px;background:rgba(255,255,255,0.6);position:absolute;}
+      span.spy-icon {background: image-url("moments/sprite.png") no-repeat right -169px;width: 40px;height: 40px;float: left;margin-left: 14px;margin-top: 15px;display: block;}
+      span.spy-txt {display: block;float: left;font-family: avenir, arial, sans-serif;font-size: 11px;margin-top: 4px;font-weight: bold;letter-spacing: 1px;width: 70px;color:#000;text-align:center;text-decoration:none;}
+    }
+    a.cart_item:hover .spy_cart_icon {display:block;}
 		&.avc-pulseira{
 				border-left:dotted 1px #000;
 				border-right:dotted 1px #000;
@@ -387,7 +395,7 @@ section#cart {
 				padding-top:40px;
 				position:relative;
 			td{padding:10px 0 20px !important;
-				.txt-recomenda{position:absolute;font-size:18px;color:#000;top:10px;left:10px;}
+				.txt-recomenda{position:absolute;font-size:18px;color:#000;top:10px;left:15px;}
 			}
 		}
     tbody tr {
@@ -518,12 +526,18 @@ section#cart {
 				/********** CAMPANHA DO AVC ****************/
 		  	&.avc-foto{
 					width:130px;text-align:center;
-					img{width:70px;height:70px;}
+					img{width:70px;height:auto ;}
+          .cart_item, div.spy_cart_icon{height:70px;}
+          .cart_item {margin-left:28px;
+            .spy-icon {margin-top:0px;}
+          }
 			  }
 			  &.avc-desc{
 				width:530px;
 				padding-right:150px !important;
-				p{font-size:13px;}
+				p{font-size:13px;
+          span{color: #000;font-weight: lighter;font-size: 14px;}
+        }
 			  }
 			  &.avc-button{
 					p{font-size: 17px;font-weight: lighter;margin: 0;text-align:center;color:#000}
@@ -539,12 +553,12 @@ section#cart {
 				/********** FIM CAMPANHA DO AVC ****************/
         &.item {
           width: 355px;
-
+          p.txt-black{margin-top:12px;}
           img {
             margin-right: 20px;
             float: left;
-						width:90px;
-						height:90px;
+						width:70px;/* new size photo */
+						height:auto;/* new size photo */
           }
         }
         &.amount {
@@ -1370,6 +1384,15 @@ section#payment {
 				margin:25px auto;
 				background:#F0FDDF;
 				padding:0 10px;
+        margin-bottom: 65px;
+        p.correios{
+          margin-top: 20px;
+          background: none;
+          width: 640px;
+          text-align: left;
+          line-height: 20px;
+          span{font-weight: bold;font-family: $avenir;}
+        }
 				p{
 					font-size:14px;
 					font-family:$avenir_medium;
@@ -1543,6 +1566,7 @@ section#payment {
 .txt-black{color:#000 !important;}
 .txt-pink{color:#ef3742 !important;}
 .fixed{position:fixed !important;}
+.bt-checkout{margin-left: 0 !important; margin-top: 50px !important;}
 /******************************/
 /******** NEW CHECKOUT ********/
 /******************************/
@@ -1602,7 +1626,7 @@ section.checkout{
       &.user_identification{width: 280px;}
       &.date{width: 280px;}
 
-			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;position:absolute;left:685px;display:none;cursor:pointer;z-index:999;}
+			&.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;cursor:pointer;margin-left: 40px;margin-top: 15px;}
 		}
 		.btn_zipcode{float:left;border:0;width:150px;height:32px;font-size:0;font-family:a;@include sprite_checkout(-92px, -244px);margin:2px 0 0 15px;cursor:pointer;}
 		.subtitle{clear:both;margin-top:10px;height:30px;@include sprite_checkout(-109px, -535px);width:293px;color:#000;padding-top:15px;clear:both;}
@@ -1705,7 +1729,7 @@ section.checkout{
 			}
 		}
 		#about_credits{
-			display:none;float:left;position:absolute;z-index:10001;background:#FFF;width:620px;min-height:250px;padding:20px;border:solid 5px #000;top:50%;left:50%;margin:-30% 0 0 -310px;
+			display:none;float:left;position:absolute;z-index:10001;background:#FFF;width:620px;min-height:250px;padding:20px;border:solid 1px #000;top:50%;left:50%;margin:-30% 0 0 -310px;
 			button{position:absolute;z-index:101;top:-12px;right:-17px;width:35px;height:35px;border:0;font-size:0;font-family:a;@include sprite_checkout(-238px, -384px);cursor:pointer;}
 			.about_title{font-size:18px;font-family:$avenir;color:#000;margin-bottom:15px;}
 			table.check{border:0;
@@ -1716,7 +1740,7 @@ section.checkout{
 					p{color:#000;font-size:14px;margin-top:15px;
 					}
 					div{margin:0;
-						&.message{font-size:12px;}
+						&.message{font-size:12px;line-height: 24px;}
 						&.description{width:245px;}
 					}
 				}
@@ -1725,9 +1749,9 @@ section.checkout{
 	}
 /********** END / START STEP THREE *******/
 	#cart-box{
-		float:left;border:solid 1px #D9D8D8;width:321px;max-height:335px;background:#FFF;
+		float:left;border:solid 1px #D9D8D8;width:321px;max-height:345px;background:#FFF;margin-bottom: 15px;
 		.bg-box{display:none;}
-		.products{max-height:185px;overflow-y:auto;}
+		.products{max-height:217px;overflow-y:auto;}
 		#items{width:100%;
 			tr{border-bottom:1px solid #D9D8D8;padding-bottom:5px;}
 			td{vertical-align:middle;padding-bottom:5px;
@@ -1736,7 +1760,7 @@ section.checkout{
 					input{float:right;background: image-url("new_checkout/sprite.png") no-repeat -381px -83px;border:none;color: #6D6E71;cursor:pointer;display:block;height:26px;width:70px;padding-left:20px;text-decoration:underline;font-weight:bold;}
 				}
 			}
-			img{float:left;margin:0 25px 0 10px;}
+			img{float:left;margin:10px 15px 5px;}
 			ul{float:left;margin:10px 0 0 15px;
 				li{font-size:13px;
 					&.txt-black{text-transform:uppercase;}
@@ -1747,16 +1771,18 @@ section.checkout{
 			li{font-size:13px;margin-bottom:5px;
 				span{width:109px;color:#6D6E71;display:inline-block;}
 			}
+      #billet_discount_cart,#debit_discount_cart{display:none;}
 		}
 		p.total{color: #000 !important;font-size:17px;margin-left:27px;line-height:18px;overflow:hidden;margin-bottom:10px;
 			span{width:109px;display:inline-block;float:left;font-weight: 500;
 				&.frete{font-size:12px;width:150px;margin-left:109px;}
 				&#total_billet{display:none;}
 				&#total_debit{display:none;}
-			}
+ 			}
 		}
 	}
 }
+
 
 /*section.checkout {
   h1 {
@@ -2123,3 +2149,48 @@ a.txt-conheca{
     }
   }
 /********** end modal security code *******/
+.checkout_banner{
+  margin-bottom: 25px;
+  margin-top: -25px;
+}
+
+.state.field{
+  width: 85px;
+  margin-right: 20px !important;
+  #checkout_address_state{
+    width: 85px;
+  }
+  p.text{
+    width: 89px !important;
+  }
+}
+.city.field{
+  p.text{
+    width: 172px !important;
+  }
+}
+
+#checkout_address_city{
+  width: 165px;
+}
+p.important {
+  font-size: 13px;
+  padding: 0 13px;
+  span {
+    color: #000;
+  }
+}
+
+#freight_message{
+  border:1px solid #B8C7CE;
+  background-color: #C5DDE7;
+  padding: 10px;
+  margin-top: 20px;
+  max-width: 260px;
+  color: black;
+  display: none;
+  clear: both;
+}
+.cart_quick_view #product div#product-details #product-particulars h3 { background:none; }
+
+.save_address { border: none !important; width: 146px !important; height: 42px !important; padding-left: 0px !important; margin-bottom: 10px; }

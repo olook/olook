@@ -15,6 +15,7 @@ class Product < ActiveRecord::Base
 
   after_create :create_master_variant
   after_update :update_master_variant
+  before_save :set_launch_date, if: :should_update_launch_date?
 
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
@@ -30,6 +31,7 @@ class Product < ActiveRecord::Base
 
   belongs_to :collection
   has_and_belongs_to_many :profiles
+  has_and_belongs_to_many :collection_themes
 
   has_many :gift_boxes_product, :dependent => :destroy
   has_many :gift_boxes, :through => :gift_boxes_product
@@ -37,12 +39,14 @@ class Product < ActiveRecord::Base
   has_many :liquidations, :through => :liquidation_products
   has_many :catalog_products, :class_name => "Catalog::Product", :foreign_key => "product_id"
   has_many :catalogs, :through => :catalog_products
+  has_many :consolidated_sells, dependent: :destroy
 
   validates :name, :presence => true
   validates :description, :presence => true
   validates :model_number, :presence => true, :uniqueness => true
 
   mount_uploader :color_sample, ColorSampleUploader
+  mount_uploader :picture_for_xml, XmlPictureUploader
 
   scope :only_visible , where(:is_visible => true)
 
@@ -55,8 +59,10 @@ class Product < ActiveRecord::Base
   scope :with_brand, lambda { |value| { :conditions => ({ brand: value } unless value.blank? || value.nil?) } }
   scope :by_inventory, lambda { |value| joins(:variants).group("products.id").order("sum(variants.inventory) #{ value }") if ["asc","desc"].include?(value) }
   scope :by_sold, lambda { |value| joins(:variants).group("products.id").order("sum(variants.initial_inventory - variants.inventory) #{ value }") if ["asc","desc"].include?(value) }
-  scope :with_visibility, lambda { |value| { :conditions => ({ is_visible: value } unless value.nil? ) } }
+  scope :with_visibility, lambda { |value| { :conditions => ({ is_visible: value } unless value.blank? || value.nil? ) } }
   scope :search, lambda { |value| { :conditions => ([ "name like ? or model_number = ?", "%#{value}%", value ] unless value.blank? || value.nil?) } }
+  scope :with_pictures, ->(value) { joins("left JOIN `pictures` ON `pictures`.`product_id` = `products`.`id`").where("pictures.id is #{value}").group("products.id") unless value.blank?}
+  scope :in_launch_range, ->(start_date, end_date) { where("launch_date BETWEEN ? AND ?", start_date, end_date) unless start_date.blank? || end_date.blank? }
 
 
   scope :valid_for_xml, lambda{|black_list| only_visible.where("variants.inventory >= 1").where("variants.price > 0.0").group("products.id").joins(:variants).having("(category = 1 and count(distinct variants.id) >= 4) or (category = 4 and count(distinct variants.id) >= 2) or category NOT IN (1,4) and products.id NOT IN (#{black_list})")}
@@ -78,8 +84,16 @@ class Product < ActiveRecord::Base
 
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
 
+  def seo_path
+    formatted_name.to_s.parameterize + "-" + id.to_s
+  end
+
   def product_id
     id
+  end
+
+  def title_text
+    "#{name} - Roupas e Sapatos Femininos | Olook"
   end
 
   def model_name
@@ -95,7 +109,7 @@ class Product < ActiveRecord::Base
 
   def unrelated_products
     scope = Product.where("id <> :current_product", current_product: self.id)
-    related_ids = related_products.map &:id
+    related_ids = related_products.map(&:id)
     scope = scope.where("id NOT IN (:related_products)", related_products: related_products) unless related_ids.empty?
     scope
   end
@@ -134,48 +148,60 @@ class Product < ActiveRecord::Base
   delegate :'discount_percent=', to: :master_variant
 
   def main_picture
-    picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
+    @main_picture ||=
+    if self.pictures.loaded?
+      self.pictures.all.find { |p| p.display_on == DisplayPictureOn::GALLERY_1 }
+    else
+      self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
+    end
   end
 
   #
   # I know, it's a weird/crazy logic. Ask Andressa =p
   #
   def backside_picture
-    if cloth?
-      picture = pictures.order(:display_on).second
+    return @backside_picture if @backside_picture
+    if self.pictures.loaded?
+      if cloth?
+        pictures = self.pictures.sort{ |a,b| a.display_on <=> b.display_on }
+        picture = pictures.size > 1 ? pictures[1] : pictures[0]
+      else
+        picture = self.pictures.all.find { |p| p.display_on == DisplayPictureOn::GALLERY_2 }
+      end
     else
-      picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
+      if cloth?
+        picture = self.pictures.order(:display_on).second
+      else
+        picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
+      end
     end
-    return_catalog_or_suggestion_image(picture)
+    @backside_picture ||= return_catalog_or_suggestion_image(picture)
   end
 
   def wearing_picture
-    picture = pictures.order(:display_on).last
-    return_catalog_or_suggestion_image(picture)
+    return @wearing_picture if @wearing_picture
+    if self.pictures.loaded?
+      picture = self.pictures.sort{ |a,b| a.display_on <=> b.display_on }.last
+    else
+      picture = self.pictures.order(:display_on).last
+    end
+    @wearing_picture = return_catalog_or_suggestion_image(picture)
   end
 
   def thumb_picture
-    main_picture.try(:image_url, :thumb) # 50x50
+    @thumb_picture ||= main_picture.try(:image_url, :thumb) # 50x50
   end
 
   def bag_picture
-    main_picture.try(:image_url, :bag) # 70x70
-  end
-
-  def checkout_picture
-    main_picture.try(:image_url, :checkout) # 90x90
+    @bag_picture ||= main_picture.try(:image_url, :bag) # 70x70
   end
 
   def showroom_picture
-    main_picture.try(:image_url, :showroom) # 170x170
-  end
-
-  def suggestion_picture
-    main_picture.try(:image_url, :suggestion) # 260x260
+    @showroom_picture ||= main_picture.try(:image_url, :showroom) # 170x170
   end
 
   def catalog_picture
-    return_catalog_or_suggestion_image(main_picture)
+    @catalog_picture ||= return_catalog_or_suggestion_image(main_picture)
   end
 
   def return_catalog_or_suggestion_image(picture)
@@ -187,17 +213,19 @@ class Product < ActiveRecord::Base
   end
 
   def colors(size = nil, admin = false)
-    Rails.cache.fetch(CACHE_KEYS[:product_colors][:key] % [id, admin], expires_in: CACHE_KEYS[:product_colors][:expire]) do
-      is_visible = (admin ? [0,1] : true)
-      conditions = {is_visible: is_visible, category: self.category, name: self.name}
-      #conditions.merge!(variants: {description: size}) if size and self.category == Category::SHOE
-      Product.select("products.*, sum(variants.inventory) as sum_inventory, if(sum(distinct variants.inventory) > 0, 1, 0) available_inventory, sum(IF(variants.description = '#{size}', variants.inventory, 0)) description_inventory")
-            .joins('left outer join variants on products.id = variants.product_id')
-            .where(conditions)
-            .where("products.id != ?", self.id)
-            .group('products.id')
-            .order('description_inventory desc, sum_inventory desc, available_inventory desc')
-    end
+    @colors ||= lambda {
+      Rails.cache.fetch(CACHE_KEYS[:product_colors][:key] % [id, admin], expires_in: CACHE_KEYS[:product_colors][:expire]) do
+        is_visible = (admin ? [0,1] : true)
+        conditions = {is_visible: is_visible, category: self.category, name: self.name}
+        #conditions.merge!(variants: {description: size}) if size and self.category == Category::SHOE
+        Product.select("products.*, sum(variants.inventory) as sum_inventory, if(sum(distinct variants.inventory) > 0, 1, 0) available_inventory, sum(IF(variants.description = '#{size}', variants.inventory, 0)) description_inventory")
+              .joins('left outer join variants on products.id = variants.product_id')
+              .where(conditions)
+              .where("products.id != ?", self.id)
+              .group('products.id')
+              .order('description_inventory desc, sum_inventory desc, available_inventory desc')
+      end
+    }.call
   end
 
   def prioritize_by shoe_size
@@ -293,7 +321,15 @@ class Product < ActiveRecord::Base
   end
 
   def cloth?
-    self.category == ::Category::CLOTH
+    [::Category::CLOTH, ::Category::BEACHWEAR, ::Category::LINGERIE].include?(self.category)
+  end
+
+  def bag?
+    self.category == ::Category::BAG
+  end
+
+  def accessory?
+    self.category == ::Category::ACCESSORY
   end
 
   def variant_by_size(size)
@@ -387,7 +423,7 @@ class Product < ActiveRecord::Base
   end
 
   def self.clothes_for_profile profile
-    products = Rails.cache.fetch(CACHE_KEYS[:product_clothes_for_profile][:key] % profile, :expires_in => CACHE_KEYS[:product_clothes_for_profile][:expire]) do
+    Rails.cache.fetch(CACHE_KEYS[:product_clothes_for_profile][:key] % profile, :expires_in => CACHE_KEYS[:product_clothes_for_profile][:expire]) do
       product_ids = Setting.send("cloth_showroom_#{profile}").split(",")
       find_keeping_the_order product_ids
       # QUICK AND DIRTY. remove this pleeeeeease
@@ -431,6 +467,48 @@ class Product < ActiveRecord::Base
      details.sort{|first, second| details_relevance[first.translation_token.to_s.downcase] <=> details_relevance[second.translation_token.to_s.downcase]}
   end
 
+  def xml_picture(picture)
+    picture_for_xml.try(picture).present? ? picture_for_xml.try(picture) : self.main_picture.try(:image)
+  end
+
+  def description_html
+    rallow = %w{ p b i br }.map { |w| "#{w}\/?[ >]" }.join('|')
+    self.description.gsub(/<\/?(?!(?:#{rallow}))[^>\/]*\/?>/, '')
+  end
+
+  def is_the_size_grid_enough?
+    return true if (bag? || accessory?)
+    variants = self.variants.where("inventory > 0")
+    if shoe?
+      variants.size >= 4
+    else
+      sizes = variants.collect(&:description)
+      (sizes.include?("M") && variants.size >= 2) || ((sizes & %w[38 40]).any? && variants.size >= 3)
+    end
+  end
+
+  def quantity_sold_per_day_in_last_week
+    total_sold = self.consolidated_sells.in_last_week.inject(0) { |sum, x| sum + x.amount }
+    (total_sold.to_f / 7).ceil
+  end
+
+  def coverage_of_days_to_sell
+    quantity = quantity_sold_per_day_in_last_week
+    if quantity > 0
+      (inventory.to_f/quantity).ceil
+    else
+      180 # 6 months
+    end
+  end
+
+  def time_in_stock
+    if launch_date.blank?
+      365
+    else
+      (Date.current - launch_date).to_i
+    end
+  end
+
   private
 
     def details_relevance
@@ -441,7 +519,7 @@ class Product < ActiveRecord::Base
     end
 
     def self.fetch_all_featured_products_of category
-      products = Rails.cache.fetch(CACHE_KEYS[:product_fetch_all_featured_products_of][:key] % category, :expires_in => CACHE_KEYS[:product_fetch_all_featured_products_of][:expire]) do
+      Rails.cache.fetch(CACHE_KEYS[:product_fetch_all_featured_products_of][:key] % category, :expires_in => CACHE_KEYS[:product_fetch_all_featured_products_of][:expire]) do
         category_name = Category.key_for(category).to_s
         product_ids = Setting.send("featured_#{category_name}_ids").split(",")
 
@@ -477,6 +555,14 @@ class Product < ActiveRecord::Base
 
     def update_master_variant
       master_variant.save!
+    end
+
+    def should_update_launch_date?
+      launch_date.nil? && is_visible_changed? && is_visible
+    end
+
+    def set_launch_date
+      self.launch_date = Time.zone.now.to_date
     end
 
     def detail_by_token token

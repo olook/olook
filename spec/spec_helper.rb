@@ -2,11 +2,19 @@
 require 'rubygems'
 require 'spork'
 
+# Formatter for simplecov, to work with jenkins
+require 'simplecov'
+require 'simplecov-rcov'
+
+SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
+SimpleCov.start 'rails' if ENV["COVERAGE"]
+
 module Resque
   def self.enqueue(*args); end
   def self.enqueue_in(*args); end
   def self.enqueue_at(*args); end
 end
+
 
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,
@@ -30,6 +38,7 @@ Spork.prefork do
   require 'capybara/rspec'
   require 'carrierwave/test/matchers'
   require 'capybara/poltergeist'
+  require 'webmock/rspec'
   include ActionView::Helpers::NumberHelper
 
   # Since we're using devise, the spork guys recommend us to reload the routes on this step
@@ -59,9 +68,8 @@ Spork.prefork do
   end
 
   HTTPI.log = false
-
   RSpec.configure do |config|
-
+    config.treat_symbols_as_metadata_keys_with_true_values = true
 
     # Trying: http://devblog.avdi.org/2012/08/31/configuring-database_cleaner-with-rails-rspec-capybara-and-selenium/
     # And https://gist.github.com/855604
@@ -104,7 +112,6 @@ Spork.prefork do
     config.use_transactional_fixtures = false
 
     config.include Devise::TestHelpers, :type => :controller
-    config.extend VCR::RSpec::Macros
   end
 end
 
@@ -113,12 +120,7 @@ Spork.each_run do
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-  #Requires libs. Check why I need to do it later
-  Dir[Rails.root.join("lib/**/*.rb")].each {|f| require f}
   FactoryGirl.reload
-  Dir[File.expand_path("app/controllers/user/*.rb")].each do |file|
-    require file
-  end
 
   RSpec.configure do |config|
     config.include Abacos::TestHelpers

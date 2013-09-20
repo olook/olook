@@ -1,0 +1,7 @@
+- campaign_products = [] if !defined?(campaign_products) || campaign_products.nil?
+- cpids = Set.new(campaign_products.map {|p| p.id})
+- products.each_with_index do |cp,index|
+  - next if cpids.include?(cp.id)
+  - product_source ||= "SearchedProduct"
+  = render "shared/searched_product_item", :product => cp, :product_source => product_source
+= raw(I18n.t("product_not_found")) if products.empty?

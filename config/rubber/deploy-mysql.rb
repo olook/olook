@@ -157,7 +157,7 @@ namespace :rubber do
       pass = STDIN.gets.strip
 
       sudo_script 'load_dump', <<-BASH
-        cd ~/
+        cd /mnt/
         [[ ! -d .\/s3_dump_downloader ]] && git clone git@github.com:olook/s3_dump_downloader.git
         cd s3_dump_downloader\/
         sed -i 's\/password:.*\/password: #{pass}\/' aws_s3.yml

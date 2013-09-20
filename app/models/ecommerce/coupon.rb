@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Coupon < ActiveRecord::Base
   # TODO: Temporarily disabling paper_trail for app analysis
   #has_paper_trail :on => [:update, :destroy]
@@ -5,7 +6,7 @@ class Coupon < ActiveRecord::Base
   COUPON_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/coupons.yml")
   PRODUCT_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/product_coupons.yml")[Rails.env]
   BRAND_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/brand_coupons.yml")[Rails.env]
-  MODAL_POSSIBLE_VALUES = [1,2,3]
+  MODAL_POSSIBLE_VALUES = { 'Padrão' => 1, "10% em todo site" => 3, "20% apenas marca olook" => 2, "10% Benefícios Club" => 4, "20% Benefícios Club" => 5 }
 
   validates_presence_of :code, :value, :start_date, :end_date, :campaign, :created_by
   validates_presence_of :remaining_amount, :unless => Proc.new { |a| a.unlimited }
@@ -16,7 +17,7 @@ class Coupon < ActiveRecord::Base
   before_save :set_limited_or_unlimited
 
   def modal=(val)
-    if MODAL_POSSIBLE_VALUES.include?(val.to_i)
+    if MODAL_POSSIBLE_VALUES.values.include?(val.to_i)
       write_attribute(:modal, val.to_i)
     else
       write_attribute(:modal, 1)
@@ -41,16 +42,25 @@ class Coupon < ActiveRecord::Base
       product_ids = product_ids_allowed_to_have_discount
       product_ids.include?(product.id.to_s)
     elsif coupon_specific_for_brand?
-      product.brand.downcase == brand.downcase
+      brand.downcase.split(",").include?(product.brand.downcase)
     else
       true
     end
 
   end
 
-  def should_apply_to?(cart)
+  def is_more_advantageous_than_any_promotion? cart
     discounts_sum = cart.total_promotion_discount + cart.total_liquidation_discount(ignore_coupon: true)
     calculated_value(cart.total_price) > discounts_sum
+  end
+
+  def can_be_applied_to_any_product_in_the_cart? cart
+    return true if self.brand.blank?
+    cart.items.each do |item|
+      product = item.product
+      return true if apply_discount_to? product
+    end
+    false
   end
 
   private

@@ -1,0 +1,40 @@
+%section#profiles
+  .content-basic
+    .style-basic
+      %p
+        = "#{ @user.first_name } é:"
+    .share
+      %p
+        Gostou do resultado? Então compartilhe!
+        = link_to 'Compartilhar', "javascript:void(0);", id: "facebook_share_profile", :class => "share", data: { width: 128, height: 24, url: wysquiz_url, profile: @profile.alternative_name.to_s.downcase }, onclick: track_event("Showroom","ShowroomShareFacebook")
+  %ul
+    %li
+      %h1 DIA-A-DIA
+      %p Você gosta de peças confortáveis e perfeitas para bater perna por aí!
+      = link_to collection_theme_path('casual'), class: 'hoverdiv' do
+        = image_tag("quiz/profiles/b_2.jpg")
+        .hover
+          .boxi
+            Confira produtos
+            %br
+            para esta ocasião
+    %li
+      %h1 TRABALHO
+      %p Looks básicos mas com informação de moda, ideal para uma reunião de negócios.
+      = link_to collection_theme_path('executivo'), class: 'hoverdiv' do
+        = image_tag("quiz/profiles/b_3.jpg")
+        .hover
+          .boxi
+            Confira produtos
+            %br
+            para esta ocasião
+    %li.party
+      %h1 FESTA
+      %p Peças com modelagem reta e acessórios que dão o toque básico & chique!
+      = link_to collection_theme_path('festa'), class: 'hoverdiv' do
+        = image_tag("quiz/profiles/b_4.jpg")
+        .hover
+          .boxi
+            Confira produtos
+            %br
+            para esta ocasião

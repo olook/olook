@@ -11,7 +11,7 @@ describe MemberMailer do
     let!(:mail) { ShareProductMailer.send_share_message_for(product, informations, email_receiver) }
 
     it "sets 'from' attribute to olook email" do
-      mail.from.should include("vip@o.conviteolook.com.br")
+      mail.from.should include("avisos@olook.com.br")
     end
 
     it "sets 'reply_to' attribute to user email" do

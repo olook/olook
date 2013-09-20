@@ -1,0 +1,31 @@
+- content_for :head do
+  = stylesheet_link_tag "new_structure/section/collection_themes"
+  :javascript
+    start_position = #{@search.range_values_for(:price)[:min] rescue 0};
+    final_position = #{@search.range_values_for(:price)[:max] rescue 600};
+
+#catalog
+  = render "menu", collection_theme_groups: @collection_theme_groups
+  #collection_theme_content
+    #home_collections
+      .banner_principal
+        = link_to image_tag("collections/destaque_colecao_azulejo.jpg", alt: "Coleção Azulejo Portugues", title: "Azulejo Portugues"), '/colecoes/azulejo_portugues', onclick: track_event("Colecoes", "TopBigBanner")
+      .left_banner
+        = link_to image_tag("collections/crop_totalbranco.jpg", alt: "TOTAL BRANCO", title: "TOTAL BRANCO"), collection_theme_path('branco_total'), onclick: track_event("Colecoes", "MiddleLeftBanner")
+        %p.collection TOTAL BRANCO
+        %p.resume O look branco total promete reinar nesta estação
+        %p.looks= link_to "veja a coleção", collection_theme_path('branco_total'), target: "_blank"
+      .right_banner
+        = link_to image_tag("collections/crop_navajo.jpg", alt: "Navajo", title: "Navajo"), collection_theme_path('navajo'), onclick: track_event("Colecoes", "MiddleRightBanner")
+        %p.collection NAVAJO
+        %p.resume Cores quentes e desenhos geométricos
+        %p.looks= link_to 'veja a coleção', collection_theme_path('navajo'), target: "_blank"
+    %button.nav.bt_left.prev_collection{:type => "button"} Anterior
+    #amamos
+      %h1 NÓS AMAMOS
+      #products_amamos
+        = render "featured_products", featured_products: @featured_products
+      .pagination
+    %button.nav.bt_right.next_collection{:type => "button"} Próximo
+- content_for :footer do
+  = javascript_include_tag "collection_themes"

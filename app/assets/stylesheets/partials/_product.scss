@@ -11,7 +11,7 @@ li.product {
     position: absolute;
     background: none;
     width: 100%;
-    top: 145px;
+    bottom: 25px;
     left: 0;
     display: none;
     z-index: 10;
@@ -65,20 +65,15 @@ li.product {
       }
     }
   }
-  .box_product {
+  .box_product {position:absolute;bottom:0;left:0;/* new size photo */
     display: inline-block;
     clear: left;
     a.product_link {
       position: relative;
       p.warn {
         position: absolute;
-        color: #FFF;
-        font-size: 11px;
-        font-style: oblique;
-        text-align: center;
-        text-transform: uppercase;
-        line-height: 24px;
         display: none;
+        text-indent: -9999px !important;
         &.sold_out {
           background: image-url('common/sold_out.png') no-repeat;
           color: #999;

@@ -9,7 +9,7 @@
   <codigo_barra></codigo_barra>
   <isbn></isbn>
   <link_prod><%= product.product_url(:utm_source => "buscape", :utm_medium => "vitrine", :utm_campaign => "produtos") %></link_prod>
-  <imagem><%= full_image_path product.main_picture.try(:image) %></imagem>
+  <imagem><%= full_image_path product.xml_picture(:main) %></imagem>
   <categ><%= product.category_humanize %></categ>
   <parcelamento><%= build_installment_text(product.retail_price) %></parcelamento>
   <detalhes><%= product.description %></detalhes>

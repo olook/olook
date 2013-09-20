@@ -41,20 +41,19 @@ Olook::Application.configure do
 
   # Use a different cache store in production
   # config.cache_store = :mem_cache_store
-  config.cache_store = :dalli_store, 'localhost',{ :namespace => 'olook', :expires_in => 1.day , :compress => true }
+  config.cache_store = :redis_store, ENV['REDIS_CACHE_STORE'], { :expires_in => 5.minutes }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
   #config.action_controller.asset_host = "http://cdn-app-staging.olook.com.br.s3.amazonaws.com"
-  config.action_controller.asset_host = proc do |x|
-    "//d3j8xxu8fm1yad.cloudfront.net"
-  end
+  config.action_controller.asset_host = "//d3j8xxu8fm1yad.cloudfront.net"
+
   # config.action_controller.asset_host = Proc.new do |source, request|
   #   request.ssl? ? "https://cdn-app-staging.olook.com.br.s3.amazonaws.com" : "http://cdn-app-staging.olook.com.br.s3.amazonaws.com"
   # end
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
-  config.assets.precompile += %w(*.js admin.css campaign_emails.css admin/*.css admin/*.js about/*.css common/*.js gift/*.js plugins/*.js ui/*.js section/*.css utilities/*.css customlanding.css)
+  config.assets.precompile += %w(*.js admin.css campaign_emails.css admin/*.css admin/*.js about/*.css common/*.js gift/*.js plugins/*.js ui/*.js section/*.css utilities/*.css customlanding.css new_structure/common/*.css)
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true

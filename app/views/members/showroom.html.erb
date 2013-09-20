@@ -7,7 +7,6 @@
 <% end %>
 
 
-<%= render "shared/liquida_banner" %>
 <div id="showroom">
 
   <section class="user-info">
@@ -26,7 +25,7 @@
         <p>
           Nossas stylists montaram uma seleção incrível de produtos para você este mês.
           Confira e aproveite sem moderação!
-          <%= link_to "Confira aqui o seu perfil",'javascript:void(0);', class:"show-profile", onclick: track_event("Showroom","ShowProfile") %> ou se não gostar do resultado, <%= link_to "responda nosso style quiz", new_survey_path, onclick: track_event("Showroom","RestartQuiz") %> novamente.
+          <%= link_to "Confira aqui o seu perfil",profile_path, onclick: track_event("Showroom","ShowProfile") %> ou se não gostar do resultado, <%= link_to "responda nosso style quiz", wysquiz_path, onclick: track_event("Showroom","RestartQuiz") %> novamente.
         </p>
 
       </div>
@@ -84,7 +83,7 @@
       <%- end -%>
     </ul>
 
-    <%= content_tag(:p, link_to("+ ver mais roupas +", clothes_path, :class => "more clothes", :onclick => track_event("Showroom", "SeeMore", "Clothes"), :rel => "follow"), class:"see-more")%>
+    <%= content_tag(:p, link_to("+ ver mais roupas +", catalog_path(category: "roupa"), :class => "more clothes", :onclick => track_event("Showroom", "SeeMore", "Clothes"), :rel => "follow"), class:"see-more")%>
   </section>
 
   <section class="container_product" id="shoes_container">
@@ -95,7 +94,7 @@
       <%- end -%>
     </ul>
 
-    <%= content_tag(:p, link_to("+ ver mais sapatos +", shoes_path, :class => "more shoes", :onclick => track_event("Showroom", "SeeMore", "Shoes"), :rel => "follow"), class:"see-more")%>
+    <%= content_tag(:p, link_to("+ ver mais sapatos +", catalog_path(category: "sapato"), :class => "more shoes", :onclick => track_event("Showroom", "SeeMore", "Shoes"), :rel => "follow"), class:"see-more")%>
   </section>
 
 
@@ -106,7 +105,7 @@
       <%- end -%>
     </ul>
 
-    <%= content_tag(:p, link_to("+ ver mais bolsas +", bags_path, :class => "more purses", :onclick => track_event("Showroom", "SeeMore", "Bags"), :rel => "follow"), class:"see-more")%>
+    <%= content_tag(:p, link_to("+ ver mais bolsas +", catalog_path(category: "bolsa"), :class => "more purses", :onclick => track_event("Showroom", "SeeMore", "Bags"), :rel => "follow"), class:"see-more")%>
   </section>
 
 
@@ -117,7 +116,7 @@
       <%- end -%>
     </ul>
 
-    <%= content_tag(:p, link_to("+ ver mais acessórios +", accessories_path, :class => "more accessories", :onclick => track_event("Showroom", "SeeMore", "Acessories"), :rel => "follow"), class:"see-more")%>
+    <%= content_tag(:p, link_to("+ ver mais acessórios +", catalog_path(category: "acessorio"), :class => "more accessories", :onclick => track_event("Showroom", "SeeMore", "Acessories"), :rel => "follow"), class:"see-more")%>
   </section>
 
 </div> <%# fecha div#showroom %>
@@ -127,22 +126,22 @@
 <section id="boxes">
 <ul>
   <li>
-    <%= link_to clothes_path, onclick: track_event('DestaquesRodape', "BannerEsquerda") do %>
-      <%= image_tag "home/picture-1.jpg" %>
+    <%= link_to catalog_path(category: "roupa"), onclick: track_event('DestaquesRodape', "BannerEsquerda") do %>
+      <%= image_tag "home/destaque_novidades.jpg" %>
       <h1>Novidades todos os meses</h1>
       <p>Agora temos o look completo</p>
     <% end %>
   </li>
   <li>
-    <%= link_to shoes_path, onclick: track_event('DestaquesRodape', "BannerCentro") do %>
-      <%= image_tag "home/picture-2.jpg" %>
+    <%= link_to catalog_path(category: "sapato"), onclick: track_event('DestaquesRodape', "BannerCentro") do %>
+      <%= image_tag "home/destaque_sapatoshot.jpg" %>
       <h1>SAPATOS HOT</h1>
       <p>Vai ser difícil escolher apenas um</p>
     <% end %>
   </li>
   <li class="iehack"><!-- NAO REMOVER A CLASSE -->
-    <%= link_to accessories_path, onclick: track_event('DestaquesRodape', "BannerDireita") do %>
-      <%= image_tag "home/picture-3.jpg" %>
+    <%= link_to catalog_path(category: "acessorio"), onclick: track_event('DestaquesRodape', "BannerDireita") do %>
+      <%= image_tag "home/destaque_acessorios.jpg" %>
       <h1>Pontue com acessórios</h1>
       <p>Eles valorizam qualquer look</p>
     <% end %>
@@ -155,28 +154,20 @@
 <div id="products_categories">
   <h1>O que você quer ver hoje?</h1>
   <ul>
-    <li class="blusa"><%= link_to "Blusa", catalog_path(parameters: 'roupa/blusa') %></li>
-    <li class="camisa"><%= link_to "Camisa", catalog_path(parameters: 'roupa/camisa') %></li>
-      <li class="calca"><%= link_to "Calça", catalog_path(parameters: 'roupa/calca') %></li>
-    <li class="vestido"><%= link_to "Vestido", catalog_path(parameters: 'roupa/vestido') %></li>
-    <li class="anabela"><%= link_to "Anabela", catalog_path(parameters: 'sapato/anabela') %></li>
-    <li class="bota"><%= link_to "Bota", catalog_path(parameters: 'sapato/bota') %></li>
-    <li class="sapatilha"><%= link_to "Sapatilha", catalog_path(parameters: 'sapato/sapatilha') %></li>
-    <li class="scarpin"><%= link_to "Scarpin", catalog_path(parameters: 'sapato/scarpin') %></li>
-    <li class="sneaker"><%= link_to "Sneaker", catalog_path(parameters: 'sapato/sneaker') %></li>
-    <li class="acessorios"><%= link_to "Acessórios", catalog_path(parameters: 'acessorio') %></li>
-    <li class="bolsas"><%= link_to "Bolsas", catalog_path(parameters: 'bolsa') %></li>
+    <li class="blusa"><%= link_to "Blusa", catalog_path(category: "roupa", parameters: 'blusa') %></li>
+    <li class="camisa"><%= link_to "Camisa", catalog_path(category: "roupa", parameters: 'camisa') %></li>
+      <li class="calca"><%= link_to "Calça", catalog_path(category: "roupa", parameters: 'calca') %></li>
+    <li class="vestido"><%= link_to "Vestido", catalog_path(category: "roupa", parameters: 'vestido') %></li>
+    <li class="anabela"><%= link_to "Anabela", catalog_path(category: 'sapato', parameters: 'anabela') %></li>
+    <li class="bota"><%= link_to "Bota", catalog_path(category: "sapato", parameters: 'bota') %></li>
+    <li class="sapatilha"><%= link_to "Sapatilha", catalog_path(category: "sapato", parameters: 'sapatilha') %></li>
+    <li class="scarpin"><%= link_to "Scarpin", catalog_path(category: "sapato", parameters: 'scarpin') %></li>
+    <li class="sneaker"><%= link_to "Sneaker", catalog_path(category: "sapato", parameters: 'sneaker') %></li>
+    <li class="acessorios"><%= link_to "Acessórios", catalog_path(category: 'acessorio') %></li>
+    <li class="bolsas"><%= link_to "Bolsas", catalog_path(category: 'bolsa') %></li>
   </ul>
 </div>
 <%#= fim "home/products_categories" %>
-
-<%#= render "home/facebook_box" %>
-<div id="facebook_box">
-  <%= image_tag "home/olook.jpg", title: "Olook" %>
-  <h1><span>olook</span> no facebook</h1>
-  <%= render "shared/facebook_like_button" %>
-</div>
-<%#= fim "home/facebook_box" %>
 
 <!-- MODALS -->
 <%#= render 'shared/banners/olooklet' extraindo o conteudo aqui embaixo %>
@@ -232,6 +223,4 @@
     }, 1500);
     </script>
   <% end %>
-
-
 <% end %>

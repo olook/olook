@@ -45,7 +45,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     # Override Devise to use update_attributes instead of update_with_password.
     # This is the only change we make.
 
-    #resource.require_cpf = true
     if resource.update_attributes(params[:user])
       if params[:user_info] && params[:user_info][:shoes_size]
         shoe_size = params[:user_info][:shoes_size]
@@ -165,7 +164,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def check_survey_response
     if session[:profile_questions].nil? || session[:profile_birthday].nil?
-      redirect_to new_survey_path
+      redirect_to wysquiz_path
     end
   end
 

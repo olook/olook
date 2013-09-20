@@ -14,9 +14,7 @@
 <preco_por><![CDATA[<%= number_with_precision(product.retail_price, :precision => 2) %>]]></preco_por>
 <parcelamento><![CDATA[<%= build_installment_text(product.retail_price) %>]]></parcelamento>
 <imagens>
-<% product.pictures.order(:position).each do |picture| %>
-<imagem><![CDATA[<%= full_image_path picture.image %>]]></imagem>
-<% end %>
+<imagem><![CDATA[<%= full_image_path product.xml_picture(:main) %>]]></imagem>
 </imagens>
 <num_tams>
 <% product.variants.each do |variant| %>

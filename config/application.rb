@@ -12,6 +12,9 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+host, port = YAML.load_file(File.expand_path(File.join(File.dirname(__FILE__), 'resque.yml')))[Rails.env].split(":")
+ENV['REDIS_CACHE_STORE'] ||= "redis://#{host}:#{port}/3/cache"
+
 module Olook
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -20,10 +23,13 @@ module Olook
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-    config.autoload_paths += %W(#{Rails.root}/app/presenters #{Rails.root}/app/services #{Rails.root}/app/adapters #{Rails.root}/app/workers #{Rails.root}/app/validators #{Rails.root}/app/models/ecommerce #{Rails.root}/app/models/reports #{Rails.root}/app/models/search #{Rails.root}/lib #{Rails.root}/app/strategies/**/ #{Rails.root}/app/sac )
-    config.autoload_paths += Dir["#{Rails.root}/lib/**/"]
+    config.autoload_paths += %W(#{Rails.root}/app/presenters #{Rails.root}/app/services
+    #{Rails.root}/app/adapters #{Rails.root}/app/workers #{Rails.root}/app/validators
+    #{Rails.root}/app/models/ecommerce #{Rails.root}/app/models/reports #{Rails.root}/lib
+    #{Rails.root}/app/strategies/ #{Rails.root}/app/sac #{Rails.root}/lib/quiz/
+    #{Rails.root}/lib/search/)
     config.autoload_paths += Dir["#{Rails.root}/app/workers/**/"]
-    config.autoload_paths += Dir["#{Rails.root}/app/observers"]
+    config.autoload_paths += Dir["#{Rails.root}/app/observers/**"]
     config.autoload_paths += Dir["#{Rails.root}/app/listeners"]
     config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/actions"]
     config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/rules"]
@@ -51,7 +57,7 @@ module Olook
 
     # Enable the asset pipeline
     config.assets.enabled = true
-    config.assets.initialize_on_precompile = false
+    config.assets.initialize_on_precompile = true
     # config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
     config.assets.precompile += %w(*.js admin.js admin.css campaign_emails.css admin/*.css admin/*.js about/*.css common/*.js gift/*.js plugins/*.js ui/*.js section/*.css utilities/*.css new_structure/lite_application.css new_structure/section/*.css new_structure/partials/*)

@@ -79,6 +79,41 @@ _gaq.push(['_addTrans',
     <%= render "checkout_banner" %>
 
   <div class="chaordic shoppingcart"></div>
+  <% if !@cart.items.map{|item| item.variant.product}.include?(@suggested_product) && @suggested_product%>
+	<table cellpadding="0" cellspacing="0" class="items_list avc-pulseira" id="products">
+      <tbody>
+          <tr>
+            <td class="avc-foto">
+              <p class="txt-recomenda">OLOOK RECOMENDA</p>
+              <% unless @suggested_product.master_variant.bag_picture.nil? %>
+                <%= link_to spy_product_path(@suggested_product), :class => 'cart_item', data: { url: spy_product_path(@suggested_product, from: 'cart') } do %>
+                  <div class="spy_cart_icon">
+                    <span class="spy-icon"></span>
+                    <span class="spy-txt">ESPIAR</span>
+                  </div>
+                  <%= image_tag @suggested_product.master_variant.bag_picture %>
+                <% end %>
+              <% end %>
+            </td>
+            <td class="avc-desc">
+              <p><span><b><%= @suggested_product.name %></b></span></p>
+              <p><%= @suggested_product.description %></p>
+            </td>
+            <td class="avc-button">
+              <p><%= number_to_currency(@suggested_product.retail_price) %></p>
+			  <%= form_tag(cart_items_path, onsubmit: track_event("Shopping", "AddToCartFromRecommended", @suggested_product.id),
+                                      id: "product_add_to_cart") do %>
+        <input name="from_sacola" type="hidden" value="true" %>
+				<input id="variant_id" name="variant[id]" type="hidden" value="<%= @suggested_product.variants.first.id.to_s %>" />
+				<%= submit_tag "", id: "add_product", class: "add_product" %>
+			  <% end %>
+
+            </td>
+          </tr>
+      </tbody>
+    </table>
+    <% end %>
+
     <section id="facebook_share_discount">
       <% if @cart_service.cart.facebook_share_discount? %>
         <%= render 'facebook_share_discount' %>
@@ -246,3 +281,4 @@ _gaq.push(['_addTrans',
   <%= render "shared/modal_login" %>
 
 </section>
+<div id='quick_view' class="cart_quick_view"></div>

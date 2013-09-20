@@ -1,0 +1,29 @@
+- content_for :head do
+  = stylesheet_link_tag "new_structure/section/collection_themes"
+  :javascript
+    start_position = #{@search.range_values_for(:price)[:min] rescue 0};
+    final_position = #{@search.range_values_for(:price)[:max] rescue 600};
+
+- content_for :footer do
+  = javascript_include_tag 'section/lite_collection_theme'
+
+= cache @search.cache_key, expire_in: 15.minutes do
+  #catalog
+    = render "menu", collection_theme_groups: @collection_theme_groups
+    #result
+      .collections_header
+        - if @collection_theme = @collection_theme.first
+          = image_tag @collection_theme.header_image, alt: @collection_theme.header_image_alt, title: @collection_theme.header_image_alt
+          = link_to("Assista ao vídeo >", "#",                                                                                                         |
+            { :class => "video_link", :rel => "#{@collection_theme.video_link}" }.                                                                     |
+            merge(@collection_theme.text_color ? { style: "color: #{@collection_theme.text_color}" } : {})) unless @collection_theme.video_link.blank? |
+          .video_description
+      = render "filters", search: @search
+
+      %section.container_product
+        %ul#products
+          = render "shared/searched_products", :products => @search.products
+        .loading
+
+    .pagination
+      = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| collection_theme_path(params[:collection_theme], @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }

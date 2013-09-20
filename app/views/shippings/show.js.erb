@@ -1,10 +1,24 @@
-$("#freight_price").html("<%= number_to_currency(@freight_price) %>");
-$("#freight_price").delay(200).fadeIn();
+//=require checkout_addresses
+$("#freight_price").
+  hide().
+  html("<%= number_to_currency(@freight_price) %>").
+  delay(200).
+  fadeIn();
 
-$("#delivery_time").html("<%= delivery_time_message(@days_to_deliver) %>");
-$("#delivery_time").delay(200).fadeIn();
+$("#delivery_time").
+  hide().
+  html("<%= delivery_time_message(@days_to_deliver) %>").
+  delay(200).
+  fadeIn();
 
-$("#total").html("<%= number_to_currency(total_with_freight(@freight_price)) %>");
-$("#total_billet").html("<%= number_to_currency(total_with_freight(@freight_price, Billet.new)) %>");
-$("#total_debit").html("<%= number_to_currency(total_with_freight(@freight_price, Debit.new)) %>");
+$("#total").hide().html("<%= number_to_currency(total_with_freight(@freight_price)) %>");
+$("#total_billet").hide().html("<%= number_to_currency(total_with_freight(@freight_price, Billet.new)) %>");
+$("#total_debit").hide().html("<%= number_to_currency(total_with_freight(@freight_price, Debit.new)) %>");
+$("#freight_message").hide().html('<%= show_freight_message().html_safe %>').delay(200).fadeIn();
+
 showTotal();
+updateCreditCardSettlementsValue($('#checkout_payment_payments'), "<%= total_with_freight(@freight_price) =%>");
+
+$(function() {
+  trackStateForFreightABTest();
+})

@@ -144,17 +144,26 @@ describe Billet do
   describe ".to_expire" do
 
     context "billet expired and waiting payment" do
-      let(:billet) { FactoryGirl.create(:billet, :waiting_payment, :to_expire) }
       subject { described_class.to_expire }
 
-      it { should include billet }
+      it "should include billet" do
+        # FIX this feature/test. It Fails when executed near midnight.
+        Timecop.freeze('12:00')  do
+          billet = FactoryGirl.create(:billet, :waiting_payment, :to_expire)
+          expect(subject).to include billet
+        end
+      end
     end
 
     context "billet expired and started" do
-      let(:billet) { FactoryGirl.create(:billet, :to_expire, state: "started") }
       subject { described_class.to_expire }
 
-      it { should include billet }
+      it "should include billet" do
+        # FIX this feature/test. It Fails when executed near midnight.
+        Timecop.freeze('12:00')
+        billet = FactoryGirl.create(:billet, :to_expire, state: "started")
+        expect(subject).to include billet
+      end
     end
 
     context "billet with old date but with another state" do

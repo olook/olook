@@ -30,7 +30,6 @@
       </div>
 
       <%= render "shared/ebit/seal_order" %>
-      <%#= render "shared/metrics/nextperformance/order",  order: @order %>
     </section>
   </section>
 </section>
@@ -54,12 +53,8 @@ _gaq.push(['_addTrans',
    'Brasil'
  ]);
 </script>
-<!-- Begin: Groovinads Vendas -->
-<img src="https://ssl01.groovinads.com/grv/track/px.os?fgimg=1&idpixel=50&goalvalue=<%= @order.amount_paid %>&idtransaction=<%= @order.cart.id %>" height="1" width=1>
-<!--End: Groovinads Vendas -->
   <%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :cart => @order.cart, :cart_service => @cart_service_for_order } %>
   <%= render :partial => "shared/metrics/google/ecommerce_track_trans" %>
-  <%#= render :partial => "shared/metrics/triggit/confirmation", :locals => {:order => @order, :cart => @order.cart } %>
 <% end %>
 
 <% content_for :data_layer do %>
@@ -68,10 +63,7 @@ _gaq.push(['_addTrans',
 <% end %>
 
 <% content_for :footer do %>
-  <%#= render :partial => "shared/metrics/criteo/conversion_tracker", :locals => {order: @order, cart: @order.cart, criteo_conversion: @criteo } %>
-  <%#= render :partial => "shared/metrics/metaffiliation/order", :locals => {:order => @order } %>
   <%= render :partial => "shared/metrics/all_in/order", :locals => {:order => @order } %>
-  <%#= render :partial => "shared/metrics/struq/conversion", :locals => {:order => @order } %>
   <%= render "shared/metrics/google/buy_done" %>
   <%= render "shared/metrics/dbm/transaction", order: @order %>
 <% end %>

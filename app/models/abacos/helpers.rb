@@ -16,9 +16,12 @@ module Abacos
       case abacos_category.strip.downcase
         when 'sapato' then Category::SHOE
         when 'bolsa' then Category::BAG
-        when 'roupa' then Category::CLOTH
+        when 'joia' then Category::ACCESSORY
+        when 'jóia' then Category::ACCESSORY
+        when 'lingerie' then Category::LINGERIE
+        when 'moda praia' then Category::BEACHWEAR
       else
-        Category::ACCESSORY
+        Category::CLOTH
       end
     end
 

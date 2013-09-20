@@ -20,6 +20,7 @@ describe Abacos::ConfirmarPagamento do
     let(:order) do
       result = FactoryGirl.create :clean_order
       result.stub(:'authorized?').and_return(true)
+      result.stub(:paid_at).and_return(Time.zone.now)
       result.erp_payment.update_attributes!({
         gateway_response_status: "Sucesso",
         gateway_transaction_code: "046455",

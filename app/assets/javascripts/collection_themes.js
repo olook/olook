@@ -294,6 +294,7 @@ $(function(){
     $("div#products_amamos ul").carouFredSel({
       auto: false,
       width: 780,
+      height: 375,
       items: 3,
       prev : {
         button : ".prev_collection",

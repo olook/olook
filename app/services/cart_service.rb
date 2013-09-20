@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class CartService
   attr_accessor :cart
+  attr_accessor :prefered_shipping_services
 
   delegate :allow_credit_payment?, :to => :cart
   delegate :total_promotion_discount, :to => :cart, :prefix => :cart
@@ -22,7 +23,7 @@ class CartService
   end
 
   def freight_for_zip_code zip_code
-    FreightCalculator.freight_for_zip(zip_code, subtotal)
+    FreightCalculator.freight_for_zip(zip_code, subtotal, prefered_shipping_services)
   end
 
   def freight_price

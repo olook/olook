@@ -1,11 +1,11 @@
-<section id="collections_menu">
+<section id="side_bar_menu">
   <dl>
     <% collection_theme_groups.each do |collection_theme_group| %>
-      <% collections = @collection_themes.select{ |ct| ct.collection_theme_group_id == collection_theme_group.id }.to_a.sort { |a,b| a.position <=> b.position } %>
+      <% collections = collection_theme_group.collection_themes.select{ |ct| ct.active}.to_a.sort { |a,b| a.position <=> b.position } %>
       <% next if collections.blank? %>
       <dt><%= collection_theme_group.name %></dt>
       <% while theme = collections.shift do %>
-        <dd class="<%= "last" if collections.empty? %>"><%= link_to theme.name, collection_theme_path(theme.slug), class: ("selected" if params[:slug] && theme.slug.to_s == params[:slug]), onclick: track_event("Colecoes", "link_to_#{theme.slug}") %></dd>
+        <dd class="<%= "last" if collections.empty? %>"><%= link_to theme.name, collection_theme_path(theme.slug), class: ("selected" if params[:collection_theme] && theme.slug.to_s == params[:collection_theme]), onclick: track_event("Colecoes", "link_to_#{theme.slug}") %></dd>
       <% end %>
     <% end %>
   </dl>

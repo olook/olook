@@ -1,15 +1,16 @@
 require 'spec_helper'
 
-# Specs in this file have access to a helper object that includes
-# the CatalogsHelper. For example:
-#
-# describe CatalogsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       helper.concat_strings("this","that").should == "this that"
-#     end
-#   end
-# end
 describe CatalogsHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#titleize_without_pronoum" do
+    context "argument without pronoum" do
+      it { expect(helper.titleize_without_pronoum('anabela')).to eql 'Anabela' }
+      it { expect(helper.titleize_without_pronoum('anabela carneiro')).to eql 'Anabela Carneiro' }
+    end
+
+    context "argument with pronoum" do
+      it { expect(helper.titleize_without_pronoum('anabela de carneiro')).to eql 'Anabela de Carneiro' }
+      it { expect(helper.titleize_without_pronoum('Casaco E Jaqueta')).to eql 'Casaco e Jaqueta' }
+      it { expect(helper.titleize_without_pronoum('De Casaco E Jaqueta')).to eql 'De Casaco e Jaqueta' }
+    end
+  end
 end

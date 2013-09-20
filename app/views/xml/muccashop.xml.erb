@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<loja>
+  <% @products.each do |product| %>
+    <produto>
+      <link><![CDATA[olook.com.br/produto/<%= product.id %>]]></link>
+      <imagem><![CDATA[<%= full_image_path product.xml_picture(:main) %>]]></imagem>
+      <nome><![CDATA[<%= product.formatted_name %>]]></nome>
+      <categoria><![CDATA[<%= full_category(product) %>]]></categoria>
+      <descricao><![CDATA[<%= product.description %>]]></descricao>
+      <valor><![CDATA[<%= number_with_precision(product.price, :precision => 2) %>]]></valor>
+      <valor_promo><![CDATA[<%= number_with_precision(product.retail_price, :precision => 2) %>]]></valor_promo>
+      <parcelamento><![CDATA[<%= build_installment_text(product.retail_price) %>]]></parcelamento>
+      <cor><![CDATA[<%= product.color_name %>]]></cor>
+      <marca><![CDATA[<%= product.brand %>]]></marca>
+      <sexo><![CDATA[Feminino]]></sexo>
+      <tamanho><![CDATA[<%= product.variants.map(&:description).join(', ').gsub('_', 'Único') %>]]></tamanho>
+    </produto>
+  <% end %>
+</loja>
+

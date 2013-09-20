@@ -1,3 +1,16 @@
+//= require state_cities
+//= require plugins/cep
+
+updateCreditCardSettlementsValue = function(select_box, total) {
+  select_box.empty();
+  var options = [];
+  for (i=1; i<= CreditCard.installmentsNumberFor(total); i++) {
+    installmentValue = total / i;
+    text = i + "x de " + Formatter.toCurrency(installmentValue) + " sem juros";
+    select_box.append("<option value=" + i + ">" + text + "</option>");
+  }
+}
+
 function maskTel(tel){
   ddd  = $(tel).val().substring(1, 3);
   dig9 = $(tel).val().substring(4, 5);
@@ -29,10 +42,29 @@ var masks = {
   }
 }
 
+function isVariation() {
+  return $("#freight_service_ids").val() != "";
+}
+
+function retrieve_freight_price_for_control_or_variation(zip_code) {
+  if (isVariation()) {
+    retrieve_freight_price_for_variation(zip_code);
+  } else {
+    retrieve_freight_price(zip_code);
+  }
+}
 
 function retrieve_freight_price(zip_code) {
+  retrieve_freight_price_for_checkout('shippings', zip_code);
+}
+
+function retrieve_freight_price_for_variation(zip_code) {
+  retrieve_freight_price_for_checkout('shipping_updated_freight_table', zip_code);
+}
+
+function retrieve_freight_price_for_checkout(url_base, zip_code) {
   $.ajax({
-    url: '/shippings/' + zip_code,
+    url: '/' + url_base + '/' + zip_code,
     type: 'GET',
     beforeSend: function(){
       $("#freight_price").hide();
@@ -44,7 +76,9 @@ function retrieve_freight_price(zip_code) {
     success: showTotal
   });
 }
+
 function retrieve_zip_data(zip_code) {
+
   $.ajax({
     url: '/address_data',
   type: 'POST',
@@ -72,7 +106,7 @@ function setButton(){
   el = $("#cart-box").height();
   h = el + 120;
 
-  $("#new_checkout .send_it").css("top", h).fadeIn();  
+  $("#new_checkout .send_it").css("top", h).fadeIn();
 
   if($('input.send_it').size() > 0)
     return helpLeft2 = $('input.send_it').offset().left;
@@ -87,49 +121,75 @@ function showAboutSecurityCode(){
 
 //SHOW TOTAL
 function showTotal(){
-  $("span#total").fadeOut('fast');
-  $("span#total_debit").fadeOut('fast');
-  $("#debit_discount_cart").fadeOut('fast');
-  $("span#total_billet").fadeOut('fast');
-  $("#billet_discount_cart").fadeOut('fast');
+  var _out = "span#total, span#total_billet, span#total_debit, #debit_discount_cart, #billet_discount_cart";
+  var _in = [];
   if($("div.billet").is(':visible')){
-    $("span#total_billet").delay(200).fadeIn();
-    $("#billet_discount_cart").delay(200).fadeIn();
+    _in.push("span#total_billet");
+    _in.push("#billet_discount_cart");
   } else if($('div.debit').is(':visible')) {
-    $("span#total_debit").delay(200).fadeIn();
-    $("#debit_discount_cart").delay(200).fadeIn();
+    _in.push("span#total_debit");
+    _in.push("#debit_discount_cart");
   } else {
-    $("span#total").delay(200).fadeIn();
+    _in.push("span#total");
+  }
+  $(_out).not(_in.join(',')).fadeOut('fast');
+  $(_in.join(',')).delay(200).fadeIn();
+}
+
+function freightCalc(){
+  zip_code = $("#checkout_address_zip_code").val();
+  if (zip_code) {
+    retrieve_freight_price_for_control_or_variation(zip_code);
+  }
+
+  $("#checkout_address_street").on("focus", function(){
+    zip_code = $("#checkout_address_zip_code").val();
+    retrieve_freight_price_for_control_or_variation(zip_code);
+  });
+}
+
+function trackStateForFreightABTest() {
+  state = $("#checkout_address_state").val() || $(".address_recorded:checked").data("state");
+  if (state != undefined) {
+    actionSuffix = isVariation() ? 'Var' : 'Ctrl';
+    _gaq.push(['_trackEvent', 'FreightABTest', 'FreightPreview' + actionSuffix, state, true]);
   }
 }
 
 $(function() {
+
   masks.card();
   window.setTimeout(setButton,600);
   masks.tel(".tel_contato1");
   masks.tel(".tel_contato2");
 
+  freightCalc();
   showAboutSecurityCode();
+
+  if($(".box-step-one input[type=radio]").size() == 1){
+    $(".box-step-one input[type=radio]").trigger('click');
+  }
 
   $(".credit_card").click(function() {
     $(".box-debito .debit_bank_Itau").removeClass("selected").siblings("input:checked").removeAttr("checked");
   });
 
-    var msie6 = $.browser == 'msie' && $.browser.version < 7;
+  var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if(!msie6 && $('.box-step-three').length == 1) {
     var helpLeft = $('.box-step-three').offset().left;
 
     $(window).scroll(function(event) {
       var y = $(this).scrollTop();
       if(y >= 170) {
-        $('div.box-step-three').addClass('fixed').css({'left' : helpLeft, 'top' : '0', 'float' : 'none'});
-        $('input.send_it').addClass('fixed').css('left', helpLeft2);
+        $('div.box-step-three').addClass('fixed').css({'left' : helpLeft, 'top' : '0', 'float' : 'left'});
+        $('input.send_it').addClass('fixed bt-checkout').css('left', helpLeft2);
       } else {
         $('.box-step-three').removeClass('fixed').removeAttr('style');
-        $('input.send_it').removeClass('fixed').css('left', "")
+        $('input.send_it').removeClass('fixed bt-checkout').css('left', "")
       }
     });
   }
+
 
 
   $("div.box-step-two #checkout_credits_use_credits").change(function() {
@@ -184,14 +244,14 @@ $(function() {
   };
   showPaymentType();
 
-  $(".payment_type input").click(function(){  	
+  $(".payment_type input").click(function(){
 	  showPaymentType();
 	  $(".payment_type").siblings("div").find("input:checked").removeAttr("checked");
 	  $(".payment_type").siblings("div").find("input[type='text']").val('');
 	  $(".payment_type").siblings("div").find("span.selected").removeClass("selected");
 
   })
-	
+
 
   //SELECT CARD
   var cards = $("ol.cards li span");
@@ -214,8 +274,4 @@ $(function() {
     retrieve_freight_price($("#checkout_address_zip_code").val(),null);
     return true;
   });
-
 });
-
-
-

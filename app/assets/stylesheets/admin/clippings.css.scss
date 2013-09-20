@@ -1,0 +1,28 @@
+form.new_clipping{
+  fieldset{
+    display: block;
+    width: 520px;
+    input{
+      width: 300px;
+    }
+    &.text{
+      width: 345px;
+      textarea{
+        width: 518px;
+        height: 160px;
+      }
+    }
+  }
+}
+.countdown{
+  width: 25px;
+  float: right;
+}
+h1.subtitle{
+  width: 200px;
+  float: left;
+}
+.link_above{
+  margin-top: 22px;
+  float: left;
+}

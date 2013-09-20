@@ -1,6 +1,10 @@
 # -*- encoding : utf-8 -*-
 module XmlHelper
 
+  def discount_sanitize(product)
+   (100-(product.retail_price*100/product.price)).to_s.to_i
+  end
+
   def full_image_path path
     "http:#{path}" unless path.blank?
   end
@@ -77,7 +81,9 @@ module XmlHelper
         Category::SHOE       => shoe_subcategories,
         Category::BAG        => bag_subcategories,
         Category::ACCESSORY  => accessory_subcategories,
-        Category::CLOTH  => choth_subcategories
+        Category::CLOTH  => choth_subcategories,
+        Category::LINGERIE  => choth_subcategories,
+        Category::BEACHWEAR => choth_subcategories
       }
     end
 
@@ -86,7 +92,9 @@ module XmlHelper
         Category::SHOE => 'Vestuário e acessórios > Sapatos',
         Category::BAG => 'Vestuário e acessórios > Bolsas',
         Category::ACCESSORY => 'Vestuário e acessórios > Acessórios',
-        Category::CLOTH => 'Vestuário e acessórios > Roupas'
+        Category::CLOTH => 'Vestuário e acessórios > Roupas',
+        Category::LINGERIE  => 'Vestuário e acessórios > Roupas',
+        Category::BEACHWEAR => 'Vestuário e acessórios > Roupas'
       }
     end
 end

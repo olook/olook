@@ -25,7 +25,7 @@ class SurveyController < ApplicationController
 
       ProfileBuilder.factory(birthday, questions, current_user)
       current_user.upgrade_to_full_user!
-      
+
       if session[:profile_retake]
         redirect_to member_showroom_path
       else
@@ -44,7 +44,7 @@ class SurveyController < ApplicationController
   private
 
   def check_questions_params
-    redirect_to new_survey_path if (params[:questions].nil? || is_date_invalid?(params))
+    redirect_to wysquiz_path if (params[:questions].nil? || is_date_invalid?(params))
   end
 
   def is_date_invalid?(params)

@@ -50,7 +50,7 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 	h3{font-family:$johnston;font-size:30px;letter-spacing: 1px;margin-top: 10px;text-transform: uppercase;}
 	p{font-family:$avenir;font-size:14px;margin-top: 0px;}
 	form{
-		border:none;padding:5px 50px;width:356px;height:150px;margin:0 auto;
+		border:none;padding:5px 50px;width:358px;height:150px;margin:0 auto;
 		fieldset{
 			label{font-family:$avenir;font-size:13px;color: #5e5f61;}
 			margin-bottom:5px;border:0;
@@ -78,7 +78,7 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 	.new_user{float: left;margin-left: 85px;margin-top: -5px !important; font-size: 11px;font-family: $avenir;color: #414042; a{font-size: 11px;font-family: $avenir;color: #414042;}}
 	.facebook a{display:inline-block;width:261px;height:40px;background: image-url('campaign_emails/sprite.png') 0px -52px no-repeat;font-size:0;font-family:a;margin-top:13px;}
 }
-	.close{top:-11px !important;right:-11px !important;}
+.close{top:-11px !important;right:-11px !important;}
 .box-continue{
 	position:relative;text-align:center;border:solid 1px #000;background:#FFF;width:540px;height: 270px;margin-top: 10px;
 	h3{font-family:$johnston;font-size:30px;letter-spacing: 1px;margin-top: 30px;text-transform: uppercase;}
@@ -125,6 +125,50 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 		clear:both;height:35px;padding-left:15px;color:#000;
 		input{float:left;margin:3px 5px 0 0}
 		label{font-family:$avenir; font-size: 14px;}
+	}
+
+	.close{top:-11px !important;right:-11px !important;}	
+}
+.campaign_modal_4,.campaign_modal_5 {
+	width: 680px; 
+	height: 500px;
+	background: image-url("campaign_emails/club.jpg") no-repeat;
+	.infos{
+		position: absolute;
+		margin-left: 330px;
+		margin-top: 147px;
+		h1{
+			font-family: johnston,arial,sans-serif;
+		    font-size: 20px;
+		    font-weight: lighter;
+		    margin-left: 40px;
+		    margin-top: 30px;
+		    text-align: center;
+		    text-transform: uppercase;
+		}
+		ul{
+			margin-top: -15px;
+			margin-bottom: 27px;
+			li{
+				font-family: $avenir;
+				letter-spacing: 1px;
+				list-style-type: none;
+				text-align: center;
+				font-size: 11px; 
+				color: #000;
+				width: 275px;
+				margin-bottom: -13px;
+				background: image-url("campaign_emails/star.png") no-repeat 17px 0;
+				p{
+					padding-top: 25px;
+					color: #535353;
+					text-transform: uppercase;
+
+				}
+			}
+		}
+		p.date{font-family: $avenir; font-size: 11px;width: 275px;text-align: center;color: #535353;margin-left: 40px;}
+		.enjoy{background: image-url("campaign_emails/enjoy.png") no-repeat;width: 168px; height: 43px;display: block;text-indent: -9999px;margin-left: 90px;margin-top: 18px;}	
 	}
 
 	.close{top:-11px !important;right:-11px !important;}

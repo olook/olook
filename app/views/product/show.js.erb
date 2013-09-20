@@ -20,6 +20,15 @@ $("ul.social li.email").hide();
 $('#close_quick_view, #overlay-campaign').on("click", function() {
   $('#quick_view, #overlay-campaign').fadeOut(300);
 });
+if(typeof initProduct !== 'undefined') {
+  initProduct.loadAddToCartForm();
+} else {
+  $.getScript('<%= javascript_path('product') %>');
+  $.getScript('<%= javascript_path('product') %>');
+}
+
+accordion();
+delivery();
 
 if (typeof initSuggestion != 'undefined') {
   initSuggestion.checkIfProductIsAlreadySelected();

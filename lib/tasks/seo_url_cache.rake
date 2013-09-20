@@ -1,4 +1,6 @@
+# encoding: utf-8
 namespace :seo_url do
+  desc 'Criar os arquivos de cache para comparação do SeoUrl'
   task :cache_all => :environment do
     subcategories = Product.includes(:details).all.map(&:subcategory).compact.map do |s|
       [s.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize,

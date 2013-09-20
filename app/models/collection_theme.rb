@@ -1,4 +1,8 @@
 class CollectionTheme < ActiveRecord::Base
+  attr_accessible :product_associate_ids, :product_associate_ids_file, :name, :slug, :video_link, :header_image_alt, :text_color, :active, :header_image, :position, :collection_theme_group_id, :fail_product_ids, :seo_text
+  attr_reader :product_associate_ids, :product_associate_ids_file
+  attr_accessor :fail_product_ids
+
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
   validates :header_image, presence: true
@@ -8,6 +12,7 @@ class CollectionTheme < ActiveRecord::Base
   has_one :catalog, class_name: "Catalog::CollectionTheme", foreign_key: "association_id"
   belongs_to :collection_theme_group
   accepts_nested_attributes_for :collection_theme_group, reject_if: :all_blank
+  has_and_belongs_to_many :products
 
   acts_as_list scope: :collection_theme_group
 
@@ -19,6 +24,12 @@ class CollectionTheme < ActiveRecord::Base
     self.find_by_slug(slug_or_id) || self.find_by_id(slug_or_id)
   end
 
+  def title_text
+    text = name
+    text = "#{name} - #{seo_text}" unless seo_text.blank?
+    "#{text} | Olook"
+  end
+
   def name=(val)
     self[:slug] ||= val.parameterize unless val.nil?
     self[:name] = val
@@ -26,6 +37,10 @@ class CollectionTheme < ActiveRecord::Base
 
   def slug
     self[:slug] || self[:name].to_s.parameterize
+  end
+
+  def search_name
+    ActiveSupport::Inflector.transliterate(name.downcase).gsub('.', ' ')
   end
 
   def to_params
@@ -54,9 +69,18 @@ class CollectionTheme < ActiveRecord::Base
     end
   end
 
+  def product_associate_ids= ids
+    ids_array = ids.split(/\D/).compact
+    self.products = Product.where(id: ids_array).all
+  end
+
+  def product_associate_ids_file= file
+    self.product_associate_ids = file.read
+  end
+
   private
 
-  def generate_catalog
-    self.build_catalog.save!
-  end
+    def generate_catalog
+      self.build_catalog.save!
+    end
 end

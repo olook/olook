@@ -1,5 +1,6 @@
 @import 'new_structure/common/global_stuffs';
 @import 'new_structure/partials/liquida';
+@import 'new_structure/common/modal_footer';
 
 /*------------------
 ==== CSS RESET ====
@@ -171,7 +172,7 @@ header#new_header{border-top: 8px black solid;
                }
                &.product_item{border-top:solid 1px #CCC;margin-top:10px;color:#000;font-size:12px;padding-top:10px;
                   p {line-height:17px;overflow:hidden;}
-                  img{float:left;margin-right:14px;margin-top:10px}
+                  img{float:left;margin-right:14px;margin-top:10px;width:46px;}
                   h1{font-family:$avenir;text-transform:uppercase;font-size:11px;font-weight:bold;}
                }
                p.freight{text-align:center;color:$base_color;font-family:$avenir;text-transform:uppercase;font-size:12px;
@@ -298,7 +299,7 @@ footer {height:480px;clear:both;margin-top:60px;border-top: 1px #cbcbcb solid;
       }
       h2 {color: #6d6e71;font-size: 12px;font-weight: 600;text-transform: uppercase;margin: 2px 0 0;}
     }
-    dl {margin: 0 95px 35px 0;float: left;
+    dl {margin: 0 62px 35px 0;float: left;
       dt {color: #6d6e71;font-size: 12px;font-weight: 700;text-transform: uppercase;margin: 0 0 20px;}
       dd, dd a {color: #939598;font-size: 12px;text-decoration: none;margin: 0 0 4px;}
       dd a {
@@ -330,9 +331,10 @@ footer {height:480px;clear:both;margin-top:60px;border-top: 1px #cbcbcb solid;
         }
       }
     }
-    p {color:#767676;font-size:10px;line-height: 13px;clear: both;padding:15px 0 0 0;text-align: center;
+    p {color:#767676;font-size:10px;line-height: 13px;clear: both;padding:0 0 5px;text-align: center;
       a{text-decoration: none;color: #ef3742;}
     }
+    address{margin-bottom:5px;font-size:10px;font-style:normal;text-align:center;color:#767676;}
   }
 }
 
@@ -340,7 +342,7 @@ footer {height:480px;clear:both;margin-top:60px;border-top: 1px #cbcbcb solid;
 =====  CONTENT =====
 ------------------*/
 #container{width:990px;margin:0 auto;overflow:hidden;}
-#content{width:990px;overflow:hidden;margin:0 auto 0;position:relative;}
+#content{width:990px;overflow:visible;margin:0 auto 0;position:relative;}
 
 /***** MODAL STYLE ****/
 
@@ -355,5 +357,5 @@ form{padding:12px;background:#000;color:#FFF;}
 }
 button.close{position:absolute;cursor:pointer;font-size:20px;background: image-url('common/close_dialog.png') no-repeat;text-indent:-9999px;width:30px;height:30px;z-index:10002;border:none;}
 
-/* AJUSTE FACEBOOK IFRAME */
-.fb-button{height:20px !important;overflow:hidden !important;}
+
+.watermelon {color:#ef3742;}

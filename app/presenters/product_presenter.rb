@@ -28,7 +28,11 @@ class ProductPresenter < BasePresenter
     image_url = product.pictures.first.image_url(:main).to_s if product.pictures.first
     "http://pinterest.com/pin/create/button/?url=http://#{h.request.host_with_port}/produto/#{product.id}&media=#{image_url}&description=#{h.share_description(product)}"
   end
-
+  
+  def render_quantity
+    h.render :partial => 'product/quantity_product', :locals => {:product_presenter => self, :product => product}
+  end  
+  
   def render_add_to_cart
     return '' if only_view?
 
@@ -40,7 +44,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_details
-    h.render :partial => 'product/details', :locals => {:product_presenter => self}
+    h.render :partial => 'product/details', :locals => {:product_presenter => self}    
   end
 
   def render_colors
@@ -58,6 +62,8 @@ class ProductPresenter < BasePresenter
       when Category::BAG then h.render :partial => 'product/form_for_bag', :locals => {:product_presenter => self}
       when Category::ACCESSORY then h.render :partial => 'product/form_for_accessory', :locals => {:product_presenter => self}
       when Category::CLOTH then h.render :partial => 'product/form_for_cloth', :locals => {:product_presenter => self}
+      when Category::LINGERIE then h.render :partial => 'product/form_for_cloth', :locals => {:product_presenter => self}
+      when Category::BEACHWEAR then h.render :partial => 'product/form_for_cloth', :locals => {:product_presenter => self}
     end
   end
 
