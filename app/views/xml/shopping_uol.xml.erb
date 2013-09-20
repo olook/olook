@@ -10,7 +10,7 @@
         <vparcela><%= build_installment_text(product.retail_price, separator: ",").split("x").last %></vparcela>
         <marca><%= product.brand %></marca>
         <url><%= product.product_url(:utm_source =>"shopping_uol", :utm_campaign => "Produtos", :utm_medium => "Remarketing") %></url>
-        <url_imagem><%= full_image_path(first_image_of(product)) %></url_imagem>
+        <url_imagem><%= full_image_path product.xml_picture(:main) %></url_imagem>
         <Frete>Sim</Frete>
         <departamento></departamento>
       </produto>

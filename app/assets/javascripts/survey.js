@@ -80,7 +80,7 @@ $(document).ready(function() {
 
 init = {
   carousel : function() {
-               $('.questions').jcarousel({
+               $('#survey').jcarousel({
                  initCallback: init.mycarousel_initCallback,
                  itemFirstInCallback : {
                     onBeforeAnimation : init.lockScroll,

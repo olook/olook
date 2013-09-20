@@ -1,0 +1,117 @@
+#fb-root
+- content_for(:head) do
+  = stylesheet_link_tag  "new_structure/section/quiz"
+  = stylesheet_link_tag  "new_structure/section/join"
+
+- content_for :scripts do
+  :javascript
+    user_has_errors = #{ @user_already_registered };
+  = javascript_include_tag 'join'
+
+#user_manager
+  =image_tag "quiz/style.png", :class => "stamp"
+  .left_box
+    %h2
+      Só mais um passinho...
+      %br
+      E você descobrirá seu estilo!
+    %p
+      Cadastre-se e receba por email novidades
+      %br
+      sobre moda, tendências e promoções exclusivas
+    %p.users
+      %span=@quiz_count.try(:count)
+      pessoas já responderam nosso style quiz
+      = image_tag("quiz/users.jpg")
+    %a.fb_login_button Entrar com FB
+    %p.fb OU
+
+    - if @exist_newsletter
+      %h2 Complemente seu Cadastro na Olook
+    - else
+      %h2 Cadastre-se na Olook
+
+    %p
+    = form_for(@user, url: join_path) do |f|
+      = hidden_field_tag 'qr_uuid', params[:uuid] || params[:qr_uuid]
+      = f.hidden_field :validate_gender_birthday, value: 1
+      .first_name.field
+        = f.label :first_name
+        = f.text_field :first_name, class: @user.errors[:first_name].empty? ? "" : "input_error", onblur: track_event('QuizProgress', 'FormFirstName')
+      .last_name.field
+        = f.label :last_name
+        = f.text_field :last_name, class: @user.errors[:last_name].empty? ? "" : "input_error", onblur: track_event('QuizProgress', 'FormLastName')
+      = errors_for(@user, :first_name)
+      = errors_for(@user, :last_name)
+      .email.field
+        = f.label :email
+        = f.text_field :email, class: @user.errors[:email].empty? ? "" : "input_error", onblur: track_event('QuizProgress', 'FormEmail')
+      = errors_for(@user, :email)
+      .password.field
+        = f.label :password, "Senha #{content_tag("span", '(min. 6 caracteres)', class: 'hint')}".html_safe
+        = f.password_field :password, class: @user.errors[:password].empty? ? "" : "input_error", onblur: track_event('QuizProgress', 'FormPassword')
+      .password_confirmation.field
+        = f.label :password_confirmation, "Confirmar senha"
+        = f.password_field :password_confirmation, class: @user.errors[:password].empty? ? "" : "input_error", onblur: track_event('QuizProgress', 'FormPasswordConfirmation')
+      = errors_for(@user, :password)
+      = errors_for(@user, :password_confirmation)
+      .gender.field
+        = f.label :gender, "Você é:", style: 'margin-bottom: 41px;'
+        %p.text{ class: @user.errors[:gender].empty? ? "" : "input_error" }
+          Mulher
+        = f.select :gender, options_for_select({'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 },selected_key = 0), onblur: track_event('QuizProgress', 'FormGender')
+        = errors_for(@user, :gender)
+      .date.field
+        = f.label :birthday, "Data de Nascimento"
+        = f.text_field :birthday, class: @user.errors[:birthday].empty? ? "" : "input_error", onblur: track_event('QuizProgress', 'FormBornDate')
+        = errors_for(@user, :birthday)
+      .location
+        .state.field
+          = f.label :state, "Estado #{content_tag :span, '(opcional)', class: 'hint'}".html_safe
+          %p.text
+            Selecione
+          = f.select :state, [], onblur: track_event('QuizProgress', 'FormState')
+        .city.field
+          = f.label :city, "Cidade #{content_tag :span, '(opcional)', class: 'hint'}".html_safe
+          %p.text
+            Selecione
+          = f.select :city, [], onblur: track_event('QuizProgress', 'FormCity')
+
+      %p.notes
+        Concluindo o cadastro você aceita nossos
+        = link_to 'termos de uso', terms_path
+        %br
+        e a nossa
+        = link_to 'política de privacidade', privacy_path
+
+      = f.submit 'Cadastrar', onclick: "_gaq.push(['_trackEvent', 'QuizProgress', 'FormSubmit', '']);"
+
+
+  .right_box
+    = image_tag("quiz/pb_rightb.jpg")
+    %h2 Já tenho cadastro
+    = link_to 'Então é só entrar ;)', "javascript:void(0);", id: "login"
+
+#modal.promo-olook
+#overlay-campaign
+.box-remember-login
+  %h3
+    Já tem cadastro?
+    %br Então é só entrar
+  %p
+    Informe o seu e-mail e senha abaixo:
+  = form_tag(join_path, method: 'put') do
+    = hidden_field_tag 'qr_uuid', params[:uuid] || params[:qr_uuid]
+    %fieldset
+      = label_tag :email, "E-mail"
+      = text_field_tag :email
+    %fieldset
+      = label_tag :password, "Senha"
+      = password_field_tag :password
+    %fieldset.botoes
+      %div
+        = check_box_tag :remember_me, :id => "user_remember_me_login", :checked => true
+        = label_tag :remember_me_login, "Lembrar de mim"
+        %p= link_to "Esqueceu sua senha?", new_password_path(:user)
+    = submit_tag "ENTRAR", class: "bt-enter"
+

@@ -91,7 +91,7 @@
     }
   }
   div.content {
-  
+
     div.chaordic {
       float:left;
     }
@@ -188,12 +188,12 @@
         .plots{
           font-family: $avenir !important;
           font-size: 13px !important;
-          color: black !important;  
+          color: black !important;
           padding: 0 !important;
           margin: 0 !important;
           float: none !important;
           line-height: 18px;
-        } 
+        }
         .line a.product_link {
           margin-left: 0;
         }
@@ -208,38 +208,48 @@ div#compartilhar_email {
   display: none;
   width: 530px;
   height:370px;
-  border:solid 7px #000;
+  border:solid 1px #000;
   fieldset{
     margin-bottom: 20px;
   }
+  form{margin-left: 35px;padding-top: 13px;}
   input{
     background: white image-url("common/background-inputs.png") bottom repeat-x;
-    border: 1px solid #bbbbbb;
-    padding: 6px 8px;
-    width: 92%;
+    border: 1px solid #bfbfbf;
+    display: block;
+    width: 445px;
+    height: 35px;
+    margin-top: 5px;
+    padding-left: 10px;
     &#send{
-      background: image-url("product/bt-send.png") no-repeat;
+      background: image-url("product/bt-send.png") no-repeat 0 0;
       text-indent: -9999px;
       display: block;
       border: none;
       cursor: pointer;
-      width: 115px;
-      height: 55px;
+      width: 138px;
+      height: 43px;
       float: right;
-      margin-right: 20px;
+      margin-right: 46px;
+      margin-top: 10px;
+      &:hover{background-position: 0 -48px;}
       &.opacidade{opacity:0.7;filter:alpha(opacity=70);}
     }
   }
   label{
-    font-size: 18px;
-    span{font-size:12px;}
+    font-size: 14px;
+    font-family: $avenir;
+    color: #000;
+    padding-bottom: 3px;
+    span{font-size:14px;}
   }
   p{font-family: $johnston;
-    font-size: 30px;
+    font-size: 31px;
+    letter-spacing: 2px;
     color: #000;
-    position: center;
     margin-bottom: 20px;
-    padding-top: 5px;
+    text-align: center;
+    padding-top: 15px;
     &.forgot-msg{font-family:$avenir;font-size:14px;margin:0 !important;display:none;}
   }
   div.msg{background:#F0FDDF;border: 1px solid #CBD7BC;height: 32px;margin: 15px 0 5px 0px;width: 504px;display:none;
@@ -278,3 +288,10 @@ div#compartilhar_email {
   p{text-align:center;text-transform:uppercase;padding-top:9px;}
 }
 p.gift-title{font-size:27px;font-family:$johnston;text-transform:uppercase;color:#000;margin:25px 0 20px;}
+
+div#modal {
+  &.promo-olook {
+    padding: 7px;
+    background-color: rgba(255, 255, 255, 0.7);
+  }
+}

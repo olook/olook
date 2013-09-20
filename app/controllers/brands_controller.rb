@@ -1,29 +1,24 @@
-class BrandsController < SearchController
+class BrandsController < ApplicationController
   layout "lite_application"
   def index
   end
 
   def show
-    params.merge!(SeoUrl.parse_brands(params[:parameters], params))
+    search_params = SeoUrl.parse(params)
     Rails.logger.debug("New params: #{params.inspect}")
 
-    @filters = create_filters
-
-    @side_filters = create_filters(true)
-
-    @search = SearchEngine.new(category: params[:category],
-                               care: params[:care],
-                               subcategory: params[:subcategory],
-                               color: params[:color],
-                               heel: params[:heel],
-                               care: params[:care],
-                               price: params[:price],
-                               size: params[:size],
-                               brand: params[:brand],
-                               sort: params[:sort]).for_page(params[:page]).with_limit(48)
-    @brand = Brand.find_by_name(ActiveSupport::Inflector.transliterate(params[:brand]).downcase.titleize)
+    @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
     @search.for_admin if current_admin
-    @catalog_products = @search.products
+
+    params.merge!(search_params)
+
+    @brand = Brand.where(name: ActiveSupport::Inflector.transliterate(params[:brand]).downcase.titleize)
+    @antibounce_box = AntibounceBox.new(params) if @brand.any? && AntibounceBox.need_antibounce_box?(@search, @brand.map{|b| b.name.downcase}, params)
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
+    @url_builder = SeoUrl.new(search_params, "brand", @search)
   end
+  private
+    def title_text 
+      Seo::SeoManager.new(request.path, model: @brand.try(:first)).select_meta_tag
+    end
 end

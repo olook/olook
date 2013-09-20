@@ -81,7 +81,7 @@ end
 if Rubber.env == 'production'
   require 'airbrake/capistrano'
   require 'new_relic/recipes'
-  after "deploy", "newrelic:notice_deployment"
+  after "deploy:update", "newrelic:notice_deployment"
 end
 
 # capistrano's deploy:cleanup doesn't play well with FILTER

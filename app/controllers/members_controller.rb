@@ -3,7 +3,7 @@ class MembersController < ApplicationController
 
   before_filter :set_collection, :only => [:showroom, :showroom_shoes, :showroom_bags, :showroom_accessories, :showroom_clothes]
   before_filter :check_url, :only => [:showroom, :showroom_shoes, :showroom_bags, :showroom_accessories, :showroom_clothes]
-  before_filter :authenticate_user!, :except => [:accept_invitation]
+  before_filter :authenticate_user!, :except => [:accept_invitation, :showroom]
   before_filter :load_facebook_adapter
   rescue_from Contacts::AuthenticationError, :with => :contact_authentication_failed
   rescue_from GData::Client::CaptchaError, :with => :contact_authentication_failed
@@ -24,7 +24,7 @@ class MembersController < ApplicationController
     return redirect_to(root_path, :alert => "Convite inválido") unless valid_format && @inviting_member
     session[:invite] = {:invite_token => params[:invite_token], :invited_by => @inviting_member.name}
     incoming_params = params.clone.delete_if { |key| ['controller', 'action','invite_token'].include?(key) }
-    redirect_to new_survey_path(incoming_params)
+    redirect_to wysquiz_path(incoming_params)
   end
 
   def invite_by_email
@@ -77,37 +77,29 @@ class MembersController < ApplicationController
   end
 
   def showroom
+    return redirect_to join_showroom_path if !@user
+    return redirect_to half_showroom_path if @user.half_user
+
     @google_path_pixel_information = "home"
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
 
-    if @user.half_user
-      if @user.female?
-        prepare_for_home
-        return render "/home/index"
-      else
-        return redirect_to gift_root_path, :alert => flash[:notice]
-      end
-    end
-
     session[:facebook_redirect_paths] = "showroom"
-    @is_retake = session[:profile_retake] ? true : false
-    session[:profile_retake] = false
     @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
     if @facebook_adapter
       @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
     end
-    @recommended = RecomendationService.new(profiles: current_user.profiles)
 
+    @recommended = RecomendationService.new(profiles: current_user.profiles)
     admin = current_admin.present?
     # This is needed becase when we turn the month collection we never have cloth
-    @cloth = Product.where("id in (?)", Setting.cloth_showroom_casual.split(","))
-    @cloth += @recommended.products( category: Category::CLOTH, collection: @collection, limit: 10, admin: admin)
+    @cloth = Product.includes(:variants, :pictures).where("id in (?)", Setting.cloth_showroom_casual.split(",") ).all
+    @cloth += @recommended.products( category: Category::CLOTH, collection: @collection, limit: 10, admin: admin )
     @cloth = @cloth.first(10)
 
 
-    @shoes = @recommended.products( category: Category::SHOE, collection: @collection, admin: admin)
-    @bags = @recommended.products( category: Category::BAG, collection: @collection, admin: admin)
-    @accessories = @recommended.products( category: Category::ACCESSORY, collection: @collection, admin: admin)
+    @shoes = @recommended.products( category: Category::SHOE, collection: @collection, admin: admin )
+    @bags = @recommended.products( category: Category::BAG, collection: @collection, admin: admin )
+    @accessories = @recommended.products( category: Category::ACCESSORY, collection: @collection, admin: admin )
 
     render layout: 'lite_application'
   end
@@ -120,6 +112,12 @@ class MembersController < ApplicationController
 
   def invite_list
     @invites = @user.invites.page(params[:page]).per_page(15)
+  end
+
+  def half_showroom
+    if @facebook_adapter
+      @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
+    end
   end
 
   private

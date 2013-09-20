@@ -11,8 +11,17 @@ module MarketingReports
                :campaign_emails,
                :userbase_with_source,
                :facebook_friends_list,
-               :userbase_with_source_and_credits
+               :userbase_with_source_and_credits,
+               :post_sale_userbase,
+               :userbase_with_style
                ]
+
+    SHIPPING_SERVICES = {
+        "TEX" => "Total Express",
+        "PAC" => "Correios",
+        "DLV" => "DLV",
+        nil => "Correios"
+      }               
 
     attr_accessor :csv
 
@@ -22,9 +31,21 @@ module MarketingReports
     end
 
     def save_file(filename, adapt_encoding, info_ftp = nil)
-      FileUploader.new(filename, @csv).save_local_file(adapt_encoding)
-      FileUploader.copy_file(filename)
-      FtpUploader.new(filename, info_ftp).upload_to_ftp if info_ftp && Rails.env.production?
+      ::MarketingReports::FileUploader.new(filename, @csv).save_local_file(adapt_encoding)
+      
+      begin
+        ::MarketingReports::FileUploader.copy_file(filename)
+      rescue => e
+        Rails.logger.info("Couldn't copy file: #{filename}. cause: #{e.message}")
+      end
+
+      begin
+        S3Uploader.new.copy_file(filename) unless info_ftp
+      rescue => e
+        Rails.logger.info("Couldn't send file to S3: #{filename}. cause: #{e.message}")
+      end
+
+      ::MarketingReports::FtpUploader.new(filename, info_ftp).upload_to_ftp if info_ftp && Rails.env.production?
     end
 
     def generate_userbase
@@ -103,7 +124,7 @@ group by uc.user_id, ct.code
       bounces = bounced_list
       @csv = CSV.generate(col_sep: ";") do |csv|
         csv << %w{id email created_at invite_token first_name last_name facebook_token birthday has_purchases auth_token credit_balance half_user}
-        User.select("(select sum(total_agora) from (
+        User.where("created_at >= '2013-07-16'").select("(select sum(total_agora) from (
  select
   uc.user_id,
   (CASE ct.code
@@ -204,6 +225,25 @@ group by uc.user_id, ct.code
           end
         end
       end
+    end
+
+    def generate_post_sale_userbase
+      @csv = CSV.generate do |csv|
+        csv << %w{email order_number first_name last_name delivery_type delivered_at expected_delivery_on auth_token}
+        Order.joins(:user).where("orders.state IN ('delivered', 'delivering')").find_each do |order|
+          csv << [order.user.email, order.id.to_s, order.user.first_name, order.user.last_name, SHIPPING_SERVICES[order.shipping_service_name], order.updated_at.strftime("%d-%m-%Y"), order.expected_delivery_on ? order.expected_delivery_on.strftime("%d-%m-%Y") : "", order.user.authentication_token]
+        end
+      end
+    end
+
+    def generate_userbase_with_style
+      @csv = CSV.generate do |csv|
+        csv << %w{email first_name auth_token style}
+        User.includes(:profiles).find_each do |user|
+          main_style = user.profiles.map{|p| p.alternative_name}.compact.first
+          csv << [user.email, user.first_name, user.authentication_token, main_style] if main_style
+        end
+      end      
     end
 
     def registration_source user

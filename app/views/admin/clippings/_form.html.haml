@@ -1,0 +1,40 @@
+= form_for [:admin, @clipping] do |f|
+  - if @clipping.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@clipping.errors.count, "erro")} #{I18n.t('activerecord.models.clipping.messages.errors')}"
+      %ul
+        - @clipping.errors.full_messages.each do |msg|
+          %li= msg
+
+  %fieldset.title
+    = f.label :title
+    = f.text_field :title
+    .countdown
+  %fieldset.text
+    = f.label :clipping_text
+    %br
+    = f.text_area :clipping_text
+    .countdown
+  %fieldset.link
+    = f.label :link
+    = f.text_field :link
+  %fieldset
+    = f.label :pdf_file
+    = f.file_field :pdf_file
+  %fieldset
+    = f.label :logo
+    = f.file_field :logo
+  %fieldset
+    = f.label :alt
+    = f.text_field :alt
+    .countdown
+  %fieldset
+    = f.label :published_at
+    = f.date_select(:published_at, :order => [:day, :month, :year])
+  %fieldset
+    = f.label :source
+    = f.text_field :source
+  %br
+  .actions
+    = f.submit 'Salvar'
+  %br

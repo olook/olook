@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class MemberMailer < ActionMailer::Base
-  default :from => "olook <bemvinda@olook1.com.br>"
+  default :from => "olook <bemvinda@my.olookmail.com.br>"
 
   def welcome_email(member)
     @member = member

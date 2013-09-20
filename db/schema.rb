@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130705134540) do
+ActiveRecord::Schema.define(:version => 20130916134410) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
     t.string   "header_image_alt"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.string   "seo_text"
   end
 
   create_table "braspag_authorize_responses", :force => true do |t|
@@ -188,8 +189,8 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
   create_table "carts", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "notified",                :default => false, :null => false
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "legacy_id"
     t.boolean  "gift_wrap",               :default => false
     t.boolean  "use_credits",             :default => false
@@ -242,6 +243,19 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "ceps", :force => true do |t|
+    t.string   "cep"
+    t.string   "endereco"
+    t.string   "bairro"
+    t.string   "cidade"
+    t.string   "estado"
+    t.string   "nome_estado"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "ceps", ["cep"], :name => "index_ceps_on_cep", :unique => true
+
   create_table "clearsale_order_responses", :force => true do |t|
     t.integer  "order_id"
     t.string   "status"
@@ -253,6 +267,19 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
   end
 
   add_index "clearsale_order_responses", ["order_id"], :name => "index_clearsale_order_responses_on_order_id"
+
+  create_table "clippings", :force => true do |t|
+    t.string   "logo"
+    t.string   "title"
+    t.text     "clipping_text"
+    t.date     "published_at"
+    t.string   "source"
+    t.string   "link"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.string   "alt"
+    t.string   "pdf_file"
+  end
 
   create_table "collection_theme_groups", :force => true do |t|
     t.string   "name"
@@ -273,6 +300,7 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
     t.string   "video_link"
     t.string   "header_image_alt"
     t.string   "text_color"
+    t.string   "seo_text"
   end
 
   add_index "collection_themes", ["collection_theme_group_id"], :name => "index_collection_themes_on_collection_theme_group_id"
@@ -299,11 +327,12 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
     t.string   "category"
     t.date     "day"
     t.integer  "amount"
-    t.decimal  "total",        :precision => 10, :scale => 0
+    t.decimal  "total",        :precision => 8, :scale => 2
     t.string   "subcategory"
-    t.decimal  "total_retail", :precision => 10, :scale => 0
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
+    t.decimal  "total_retail", :precision => 8, :scale => 2
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.integer  "product_id"
   end
 
   create_table "contact_informations", :force => true do |t|
@@ -505,11 +534,6 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "product_ids"
-  end
-
-  create_table "highlight_campaigns_products", :force => true do |t|
-    t.integer "highlight_campaigns_id"
-    t.integer "products_id"
   end
 
   create_table "highlights", :force => true do |t|
@@ -805,17 +829,19 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
     t.string   "name"
     t.text     "description"
     t.integer  "category"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.string   "model_number"
     t.string   "color_name"
     t.string   "color_sample"
     t.integer  "collection_id"
     t.boolean  "is_visible"
     t.string   "color_category"
-    t.boolean  "is_kit",         :default => false
+    t.boolean  "is_kit",          :default => false
     t.string   "brand"
     t.string   "producer_code"
+    t.string   "picture_for_xml"
+    t.date     "launch_date"
   end
 
   add_index "products", ["category"], :name => "index_products_on_category"
@@ -936,6 +962,16 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
     t.string   "erp_delivery_service"
   end
 
+  create_table "simple_email_service_infos", :force => true do |t|
+    t.integer  "bounces"
+    t.integer  "complaints"
+    t.integer  "delivery_attempts"
+    t.integer  "rejects"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.date     "sent"
+  end
+
   create_table "survey_answers", :force => true do |t|
     t.integer  "user_id"
     t.text     "answers"
@@ -988,8 +1024,11 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
   create_table "user_infos", :force => true do |t|
     t.integer  "user_id"
     t.integer  "shoes_size"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.string   "dress_size"
+    t.string   "t_shirt_size"
+    t.string   "pants_size"
   end
 
   add_index "user_infos", ["user_id"], :name => "index_user_infos_on_user_id"
@@ -1039,12 +1078,17 @@ ActiveRecord::Schema.define(:version => 20130705134540) do
     t.integer  "gender"
     t.integer  "registered_via",                                  :default => 0
     t.datetime "campaign_email_created_at"
+    t.string   "profile"
+    t.string   "wys_uuid"
+    t.string   "state"
+    t.string   "city"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token"
   add_index "users", ["cpf"], :name => "index_users_on_cpf"
   add_index "users", ["created_at"], :name => "index_users_on_created_at"
   add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["half_user"], :name => "index_users_on_half_user"
   add_index "users", ["invite_token"], :name => "index_users_on_invite_token"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token"
   add_index "users", ["uid"], :name => "index_users_on_uid"

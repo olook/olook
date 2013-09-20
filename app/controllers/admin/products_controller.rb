@@ -118,7 +118,7 @@ class Admin::ProductsController < Admin::BaseController
 
 
   private
-  helper_method :sort_column, :sort_direction
+  helper_method :sort_column, :sort_direction, :product_permalink
   def sort_column
     Product.column_names.include?(params[:s]) ? params[:s] : "collection_id"
   end
@@ -143,9 +143,10 @@ class Admin::ProductsController < Admin::BaseController
 
     @categories = [["Sapatos", Category::SHOE] , ['Bolsas', Category::BAG], ['Acessórios', Category::ACCESSORY], ['Roupas', Category::CLOTH]]
     @profiles = Profile.order(:name)
-    @brands = brands
+    @brands = Product.all.map(&:brand).compact.uniq
 
-    @products = Product.includes(:details).includes(:profiles).includes(:collection)
+    format_date_range
+    @products = Product.includes(:details).includes(:profiles).includes(:collection).includes(:pictures)
                        .search(params[:q])
                        .in_category(params[:cat])
                        .in_subcategory(params[:subcat])
@@ -153,6 +154,8 @@ class Admin::ProductsController < Admin::BaseController
                        .in_profile(params[:p])
                        .with_brand(params[:brand])
                        .with_visibility(params[:is_visible])
+                       .with_pictures(params[:has_pictures])
+                       .in_launch_range(@start_date, @end_date)
                        .by_inventory(params[:inventory_ordenation])
                        .by_sold(params[:sale_ordenation])
                        .order(sort_column + " " + sort_direction)
@@ -160,8 +163,13 @@ class Admin::ProductsController < Admin::BaseController
                        .paginate(page: params[:page], per_page: 10)
   end
 
-  def brands
-    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../../config/seo_url_brands.yml' ) ) ) )
-  end
+  private
+    def format_date_range
+      start_date = params[:start_launch_date] || { }
+      @start_date = !start_date.has_value?("") && start_date.any?  ? Date.new(start_date["(1i)"].to_i, start_date["(2i)"].to_i, start_date["(3i)"].to_i) : nil
+
+      end_date = params[:end_launch_date] || { }
+      @end_date = !end_date.has_value?("") && end_date.any? ? Date.new(end_date["(1i)"].to_i, end_date["(2i)"].to_i, end_date["(3i)"].to_i) : nil
+    end
 end
 

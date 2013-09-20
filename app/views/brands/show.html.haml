@@ -1,5 +1,4 @@
 - content_for :head do
-  = stylesheet_link_tag "new_structure/section/lite_catalog"
   = stylesheet_link_tag "new_structure/section/brands"
 
   %meta{:content => @glasses ? "#{@glasses}" : "home/#{@search.filter_value("category").first}", :name => "chaordic:source"}/
@@ -13,13 +12,11 @@
   :javascript
     start_position = #{@search.range_values_for(:price)[:min] rescue 0};
     final_position = #{@search.range_values_for(:price)[:max] rescue 600};
-  = javascript_include_tag 'section/lite_catalog'
   = javascript_include_tag 'section/brands'
 
-= cache "#{@search.cache_key}", expire_in: 15.minutes  do
+= cache @search.cache_key, expire_in: 15.minutes  do
   #catalog
-    %aside
-      = render "filters", search: @search, filters: @side_filters
+    = render "side_filters", search: @search
 
     #result
       - unless @search.has_any_filter_selected?
@@ -29,18 +26,19 @@
         .chaordic.purchasepersonalized
         / local onde o mostpopular será exibido
         .chaordic.mostpopular
-      
-      - if @brand.present? && @brand.header_image.present?
-        %div.collections_header
-          = image_tag(@brand.header_image, alt: @brand.header_image_alt, title: @brand.header_image_alt) if @brand
 
-      = render "ordenation_filters", search: @search
+      - if @brand = @brand.first
+        - if @brand.header_image.present?
+          %div.collections_header
+            = image_tag(@brand.header_image, alt: @brand.header_image_alt, title: @brand.header_image_alt) if @brand
+
+      = render "ordenation_filters", search: @search, url_builder: @url_builder
 
       %section.container_product
         %ul#products
-          = render "searched_products", :products => @catalog_products
+          = render "shared/searched_products", :products => @search.products
         .loading
+      = render "shared/antibounce_box", antibounce_box: @antibounce_box if @antibounce_box.present? && @antibounce_box.search.products.count > 0 && Setting.antibounce_enabled 
 
       .pagination
-        = render partial: "/shared/nav_bar_pagination", locals: { search: @search, link: brand_path, other_parameters: "por=#{ params[:por]}" }
-
+        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| brand_path(params[:brand], @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }

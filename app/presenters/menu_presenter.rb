@@ -14,42 +14,10 @@ class MenuPresenter < BasePresenter
   end
 
   def render_menu
-    if user
-      user.half_user ? render_half_user_menu : render_default_menu
-    else
-      render_offline_menu
-    end
-  end
-
-  def render_offline_menu
-    [showroom_offline, stylist, collection_themes, categories, brands, gift, liquidation].join.html_safe
-  end
-
-  def render_default_menu
     [showroom, stylist, collection_themes, categories, brands, gift, liquidation].join.html_safe
   end
 
-  def render_half_user_menu
-    if user.female?
-      render_woman_half_user_menu
-    else
-      render_man_half_user_menu
-    end
-  end
-
-  def render_woman_half_user_menu
-    render_default_menu
-  end
-
-  def render_man_half_user_menu
-    [collection_themes, my_friends, stylist, liquidation, blog].join.html_safe
-  end
-
   private
-  def showroom_offline
-    render_item("Minha Vitrine", h.root_path, "showroom", ["home#index"])
-  end
-
   def showroom
     render_item("Minha Vitrine", h.member_showroom_path, "showroom", ["members#showroom"])
   end
@@ -59,7 +27,7 @@ class MenuPresenter < BasePresenter
   end
 
   def stylist
-    render_item("Stylist News", "http://www.olook.com.br/stylist-news", "stylist", ['stylists#helena_linhares'])
+    render_item("BLOG", "http://www.olook.com.br/stylist-news", "stylist", ['stylists#helena_linhares'])
   end
 
   def my_friends
@@ -71,7 +39,7 @@ class MenuPresenter < BasePresenter
   end
 
   def collection_themes
-    render_item("Coleções", h.collection_themes_path, "collection_themes", ["collection_themes#index"])
+    render_item("Coleções", h.collection_themes_path, "collection_themes", ["collection_themes#index", "collection_themes#show"])
   end
 
   def categories
@@ -79,19 +47,19 @@ class MenuPresenter < BasePresenter
   end
 
   def clothes
-    render_item("Roupas",  h.catalog_path(parameters: 'roupa'), "categories", ["catalogs#show#roupa"])
+    render_item("Roupas",  h.catalog_path(category: 'roupa'), "categories", ["catalogs#show#roupa"])
   end
 
   def shoes
-    render_item("Sapatos", h.catalog_path(parameters: 'sapato'), "categories", ["catalogs#show#sapato"])
+    render_item("Sapatos", h.catalog_path(category: 'sapato'), "categories", ["catalogs#show#sapato"])
   end
 
   def bags
-    render_item("Bolsas", h.catalog_path(parameters: 'bolsa'), "categories", ["catalogs#show#bolsa"])
+    render_item("Bolsas", h.catalog_path(category: 'bolsa'), "categories", ["catalogs#show#bolsa"])
   end
 
   def accessories
-    render_item("Acessórios", h.catalog_path(parameters: 'acessorio'), "categories", ["catalogs#show#acessorio"])
+    render_item("Acessórios", h.catalog_path(category: 'acessorio'), "categories", ["catalogs#show#acessorio"])
   end
 
   def glasses
@@ -112,7 +80,7 @@ class MenuPresenter < BasePresenter
   end
 
   def liquidation
-    render_item(h.current_liquidation.name, h.liquidations_path(h.current_liquidation.id), "liquidation", ["liquidations#show"]) if h.show_current_liquidation?
+    render_item('OLOOKLET', h.collection_theme_path('sale'), "sale", ["collection_themes#show#sale"])
   end
 
   def blog

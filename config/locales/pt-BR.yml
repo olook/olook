@@ -37,6 +37,8 @@
       bag: Bolsa
       accessory: Acessório
       cloth: Roupa
+      beachwear: "Moda Praia"
+      lingerie: Lingerie
 
   # formatos de data e hora
   date:
@@ -398,6 +400,14 @@
         one: Box de presente
         other: Box de presentes
 
+      clipping:
+        one: Imprensa
+        other: Imprensa
+
+      simple_email_service_info:
+        one: Serviço de email
+        other: Serviços de email
+
       gift_recipient: presenteado
       gift_occasion: "ocasião"
       address: Endereço
@@ -436,6 +446,16 @@
         video_link: 'Link do Vídeo no Youtube'
         video_title: 'Título do Vídeo'
         text_color: 'Cor do Texto do link do vídeo no banner'
+        product_associate_ids: 'Ids dos produtos associados'
+      clipping:
+        logo: 'Logo do veículo (imagem em JPG)'
+        title: 'Título (chamada da matéria)'
+        clipping_text: 'Citação (trecho da matéria que nos favorece)'
+        published_at: 'Quando?'
+        source: 'Onde?'
+        link: "Link (url completa, com 'Http://')"
+        pdf_file: "Arquivo PDF"
+        alt: 'ALT da imagem'
       credit_card:
         credit_card_number: "Número do cartão"
         expiration_date: "Validade (MM/AA)"
@@ -510,5 +530,9 @@
 
   product_not_found: "Poxa, ainda não temos o que você está procurando :( <br/><-- Use os filtros ao lado e descubra outras coisas bacanas"
 
-
+  join_controller:
+    create:
+      success: "Bem vinda à Olook"
+      newsletter_fail: "Voce ainda não possui senha, complete o cadastro ;)"
+      fail: "Email ou Senha inválidos"
 

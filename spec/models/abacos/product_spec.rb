@@ -158,9 +158,13 @@ describe Abacos::Product do
 
       describe "#confirm_product" do
         let(:fake_protocol) { 'PROT123' }
-        it 'should add a task on the queue to integrate' do
+        let(:fake_product_model_number) { 'PROT123' }
+        before do
           subject.stub(:integration_protocol).and_return(fake_protocol)
-          Resque.should_receive(:enqueue).with(Abacos::ConfirmProduct, fake_protocol)
+          subject.stub(:model_number).and_return(fake_product_model_number)
+        end
+        it 'should add a task on the queue to integrate' do
+          Resque.should_receive(:enqueue).with(Abacos::ConfirmProduct, fake_protocol, fake_product_model_number)
           subject.confirm_product
         end
       end

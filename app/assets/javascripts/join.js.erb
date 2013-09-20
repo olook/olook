@@ -1,0 +1,145 @@
+//= require plugins/new_modal
+//= require plugins/jquery.meio.mask
+//= require facebook_sdk
+//= require state_cities
+//= require_self
+if(!olook) var olook = {};
+
+olook.sendFacebookUserInfo = function(user_info){
+  var uuid = $('#qr_uuid').val();
+  $.ajax({
+    type: 'POST',
+    url: '<%= Rails.application.routes.url_helpers.facebook_login_path %>',
+    data: { qr_uuid: uuid, user: user_info },
+    dataType: 'json'
+  }).success(function(jdata){
+    window.location = jdata.next_step;
+  }).error(function(){
+    //
+  });
+}
+
+olook.getFBData = function(authResponse){
+  var getData = function(){
+    FB.api('/me', function(response) {
+      var userData = {};
+      userData.email = response.email;
+      userData.first_name = response.first_name;
+      userData.last_name = response.last_name;
+      userData.uid = response.id;
+      userData.facebook_token = authResponse.authResponse.accessToken;
+      userData.gender = ( response.gender === 'male' ? '1' : '0' );
+      if(response.birthday){
+        var aux = response.birthday.split('/');
+        userData.birthday = [ aux[1], aux[0], aux[2] ].join('/');
+      }
+      olook.sendFacebookUserInfo(userData);
+    });
+  }
+  FB.api('/me/permissions', function(response){
+    if (response && response.data && response.data.length){
+      var permissions = response.data.shift();
+      if (permissions.email) {
+        getData();
+      } else {
+        olook.FBLogin();
+      }
+    } else {
+      olook.FBNotAuthorized();
+    }
+  });
+};
+
+olook.FBNotAuthorized = function(){};
+
+olook.FBLogin = function() {
+  FB.login(function(response){
+    if (response.status === 'connected') {
+      olook.getFBData(response);
+    } else if (response.status === 'not_authorized') {
+      olook.FBNotAuthorized();
+    } else {
+      // user canceled login
+    }
+  }, {scope: '<%= User::ALL_FACEBOOK_PERMISSIONS %>'});
+}
+olook.checkFBLogin = function() {
+  FB.getLoginStatus(function(response) {
+    if (response.status === 'connected') {
+      olook.getFBData(response);
+    } else if (response.status === 'not_authorized') {
+      olook.FBLogin();
+    } else {
+      olook.FBLogin();
+    }
+  });
+}
+
+olook.load_state_cities = function(){
+  return new dgCidadesEstados({
+    cidade: document.getElementById('user_city'),
+    estado: document.getElementById('user_state')
+  });
+}
+
+function facebookCarousel() {
+  if($("#friends-face").length > 0){
+    $("#friends-face").carouFredSel({
+      auto  : false,
+      prev  : "#prev-button",
+      next  : "#next-button",
+      items	: {
+        width	 : 55,
+        height : 55
+      }
+    });
+  }
+}
+
+function changeTag(field){
+  var txt = field.find(":selected").text();
+  field.prev('p').text(" ").delay(100).text(txt);
+}
+
+$(function(){
+  $('.fb_login_button').click(olook.checkFBLogin).click(function(){_gaq.push(['_trackEvent', 'QuizProgress', 'FormSubmit', ''])});
+  try {
+    if(!combo_service) var combo_service = olook.load_state_cities();
+  } catch (e) {
+    /* handle error */
+  }
+  facebookCarousel();
+
+  $("#user_city").change(function(){
+    changeTag($(this));
+  });
+
+  $("#user_state").change(function(){
+    changeTag($(this));
+    combo_service.run();
+    changeTag($("#user_city"));
+  });
+
+
+  $("#user_gender").change(function(){
+    changeTag($(this));
+  });
+
+  if(user_has_errors) {
+    olook.newModal($(".box-remember-login"),370,492, "#FFF");
+  };
+
+  $("#login").on("click", function(){
+    olook.newModal($(".box-remember-login"),370,492, "#FFF");
+  });
+
+  $('#new_wysquiz').submit(function(e){
+    if($('ol').length !== $('ol input:checked')){
+      alert('Preencha todas as respostas amiga!');
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  $('#user_birthday').setMask("99/99/9999")
+});

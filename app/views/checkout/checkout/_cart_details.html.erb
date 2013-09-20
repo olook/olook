@@ -13,7 +13,7 @@
     <li><span class="txt-black">SUBTOTAL: </span><span class="txt-black"><%= number_to_currency(@cart_service.subtotal) %></span></li>
     <li class="frete">
       <span class="txt-black">FRETE: </span>
-      <span id="freight_price"><%= number_to_currency(freight_for(address)[:price]) if address && address.zip_code %></span>
+      <span id="freight_price">R$ 0,00</span>
     </li>
     <li><span class="txt-black">CRÉDITOS: </span><span id="credits_used">-<%= number_to_currency(@cart_service.total_credits_discount) %></span></li>
     <% if @cart_service.total_coupon_discount > 0 %>
@@ -44,3 +44,5 @@
     <span class="frete" id="delivery_time"><% if address && address.zip_code %><%= delivery_time_message(freight_for(address)[:delivery_time]) %><% end %></span>
   </p>
 </div>
+<p class="important"><span>Importante:</span> O prazo de entrega começa a contar a partir da confirmação do pagamento.</p>
+  <%= checkout_form.submit '', class: "send_it", disable_with: "", onclick: track_event("Checkout","clickSubmit") if defined?(checkout_form) %>

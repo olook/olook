@@ -5,12 +5,11 @@
     %meta{:content => @chaordic_user, :name => "chaordic:user"}/
     %meta{:content => @glasses ? "#{@glasses}" : "#{section_name @pixel_information}", :name => "chaordic:category"}/
   - content_for :data_layer do
-    = render "shared/metrics/sociomantic/category", pixel_information: @pixel_information, catalog_products: @catalog_products
+    = render "shared/data_layer/category", pixel_information: @pixel_information, catalog_products: @catalog_products
   - content_for :footer do
     = javascript_include_tag "moments"
     = render :partial => "shared/metrics/criteo/listing_tracker", :locals => { :products => @products_id }
   #moments.content
-    = render "shared/liquida_banner"
     = collection_theme_presenter.render_search_form
     #products_container
       / local onde o viewpersonalized será exibido

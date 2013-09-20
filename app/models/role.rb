@@ -14,7 +14,7 @@ class Role < ActiveRecord::Base
   end
 
   def has_permission?(permission_id)
-    self.permissions.include?(Permission.find(permission_id)) ? true : false
+    self.permission_ids.include?(permission_id)
   end
 
 

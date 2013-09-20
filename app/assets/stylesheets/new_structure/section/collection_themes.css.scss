@@ -1,0 +1,158 @@
+@import 'new_structure/common/global_stuffs';
+@import 'new_structure/common/side_bar_menu';
+@import 'new_structure/partials/thumb_product_catalog';
+@import 'new_structure/partials/spy';
+@import 'new_structure/partials/pagination';
+
+#result{float:left;width:800px;margin-bottom: 25px;}
+
+#collection_theme_content{
+  float:left;
+}
+
+#home_collections{
+  height: 700px;
+  .banner_principal{
+      width: 800px;
+      height: 340px;
+  }
+  .left_banner, .right_banner{
+    width: 380px;
+    height: 320px;
+    float: left;
+    margin-top: 35px;
+  }
+  .right_banner{
+      margin-left: 38px;
+  }
+  .collection{
+    font-family: $avenir;
+    font-size: 22px;
+    color: black;
+    margin-top: 25px;
+  }
+  .resume{
+    font-family: $avenir;
+    font-size: 12px;
+    color: black;
+  }
+  .looks{
+    font-family: $avenir;
+    font-size: 10px;
+    font-weight: bold;
+    color: black;
+    text-transform: uppercase;
+    margin-top: 7px;
+    background: image-url("collections/sprite.png") no-repeat -166px 3px;
+    height: 23px;
+    a{
+      text-decoration: none;
+      &:hover{
+          color: $pink;
+      }
+    }
+  }
+}
+#amamos{
+  position: relative;
+  overflow: hidden;
+  border-top: 1px black dotted;
+  width: 780px;
+  margin-top: 45px;
+  h1{
+    margin: 40px 0;
+    font-family: $avenir;
+    font-size: 35px;
+  }
+  #products_amamos{
+    width: 2000px;
+    p.rotulo{
+      font-size: 12px;
+      font-family: $avenir;
+      color: white;
+      text-transform: uppercase;
+      b{
+        position: absolute;
+        left: 10px;
+        top: 5px;
+      }
+    }
+    .caroufredsel_wrapper ul{
+      padding-top: 20px;
+      padding-left:5px;
+    }
+  }
+  ul{
+    margin: 0 auto;top:23px !important;
+    li{
+      position: relative;
+      padding-left: 10px;
+      float: left;
+      margin-right: 15px;
+      width:200px;
+      height:300px;
+      .content-amo{position:absolute;z-index:98;bottom:0;left:10px;}
+      img{width:200px;height:auto;}
+      .rotulo{
+       position: absolute;
+       z-index:100;
+       top: -42px;
+       left: -3px;
+       background: image-url("collections/sprite.png") no-repeat -100px -72px;
+       height: 36px;
+       width: 175px;
+      }
+      a{
+        display: block;
+      }
+      p{
+        font-family: $avenir;
+        font-size: 12px;
+        color: black;
+        line-height: 18px;
+        &.brand{
+            font-size: 12px;
+            font-family: $avenir;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: black;
+        }
+        &.price{
+            font-family: $avenir;
+            font-size: 12px;
+            color: black;
+        }
+      }
+    }
+  }
+}
+button.nav{
+    position: absolute;
+    text-indent: -9999px;
+    float: left;
+    border: none;
+    background: no-repeat;
+    cursor: pointer;
+    background: image-url("collections/sprite.png") no-repeat 1px -55px;
+    height: 65px;
+    width: 40px;
+    top: 950px;
+    &.bt_left{
+        left: 133px;
+    }
+
+    &.bt_right{
+        background: image-url("collections/sprite.png") no-repeat -40px -55px;
+        right: -2px;
+    }
+}
+.collections_header{
+  position:relative;
+  margin-bottom:35px;
+  height: 290px;
+  float: left;
+  a{position:absolute;top:250px;font-size:12px;text-transform:uppercase;color:#000;text-decoration:none;
+    &:hover{text-decoration:underline;}
+    &.video_link{left:52px}
+  }
+}

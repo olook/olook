@@ -56,6 +56,8 @@ module ProductsHelper
     sizes.each do |size|
       html_sizes << "#{size.chomp}<br>"
     end
+    rallow = %w{ p b i br }.map { |w| "#{w}\/?[ >]" }.join('|')
+    html_sizes.gsub!(/<\/?(?!(?:#{rallow}))[^>\/]*\/?>/i, '')
     html_sizes.html_safe
   end
 

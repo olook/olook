@@ -25,10 +25,6 @@ class XmlController < ApplicationController
     respond_with(@products)
   end
 
-  def groovinads
-    respond_with(@products)
-  end
-
   def mt_performance
     respond_with(@products)
   end
@@ -49,12 +45,24 @@ class XmlController < ApplicationController
     respond_with(@products)
   end
 
+  def muccashop
+    respond_with(@products)
+  end
+
   def google_shopping
     @products = @products.delete_if { |product| !product.producer_code }
     respond_with(@products)
   end
 
   def struq
+    respond_with(@products)
+  end
+
+  def shopear
+    respond_with(@products)
+  end
+
+  def adroll
     respond_with(@products)
   end
 

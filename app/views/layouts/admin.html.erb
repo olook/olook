@@ -3,11 +3,18 @@
   <head>
     <meta charset="UTF-8">
     <title>Olook Admin</title>
+    <%= favicon_link_tag 'olook_favicon.ico' %>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag "admin" %>
     <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" %>
     <%= javascript_include_tag "admin" %>
     <%= yield :head %>
+    <meta name = "viewport" content = "initial-scale = 1, user-scalable = no">
+    <style>
+      canvas{
+        margin-top:30px;
+      }
+    </style>
   </head>
   <body>
     <div id="container">
@@ -16,15 +23,15 @@
         <div id="user-navigation">
           <ul class="wat-cf">
             <% if admin_signed_in? %>
-              <li>Welcome <%= "#{current_admin.first_name} #{current_admin.last_name}" %></li>
-              <li><%= link_to "Logout", destroy_admin_session_path, :class => 'logout', :method => :delete %></li>
+              <li>Olá <%= "#{current_admin.first_name} #{current_admin.last_name}" %></li>
+              <li><%= link_to "Sair", destroy_admin_session_path, :class => 'logout', :method => :delete %></li>
             <% end %>
           </ul>
         </div>
         <div id="main-navigation">
           <ul class="wat-cf">
             <li class="submenu<%= ' active' if params[:controller] =~ /users/ %>">
-              <span>Consumidores</span>
+              <span>Clientes</span>
               <ul>
                 <li><%= access_link("Users") %></li>
                 <li><%= access_link("Credits") %></li>
@@ -53,7 +60,7 @@
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /promotions|liquidation|coupons|landing|highlights/ %>">
-              <span>Promo</span>
+              <span>Promoções</span>
               <ul>
                 <li><%= access_link("Promotions")%></li>
                 <li><%= access_link("Liquidations")%></li>
@@ -65,7 +72,7 @@
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /admins|roles|settings/ %>">
-              <span>Gerenciador do site</span>
+              <span>Permissões</span>
               <ul>
                 <li><%= access_link("Admins") %></li>
                 <li><%= access_link("Roles") %></li>
@@ -74,11 +81,24 @@
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /gift/ %>">
-              <span>Projeto presentes</span>
+              <span>Presentes</span>
               <ul>
                 <li><%= access_link("Gift Occasion Types") %></li>
                 <li><%= access_link("Gift Recipient Relations") %></li>
                 <li><%= access_link("Gift Boxes") %></li>
+              </ul>
+            </li>
+            <li class="submenu<%= ' active' if params[:controller] =~ /clippings/ %>">
+              <span>Conteúdo</span>
+              <ul>
+                <li><%= access_link("Clippings")%></li>
+              </ul>
+            </li>
+              <li class="submenu<%= ' active' if params[:controller] =~ /simple_email_service/ %>">
+              <span>Marketing</span>
+              <ul>
+                <li>
+                  <%= link_to I18n.t("activerecord.models.simple_email_service_info.other"), admin_ses_path %></li>
               </ul>
             </li>
           </ul>
@@ -112,11 +132,12 @@
           </div>
         </div>
         <% if content_for?(:sidebar) %>
-        <div id="sidebar">
-          <%= yield :sidebar %>
-        </div>
+          <div id="sidebar">
+            <%= yield :sidebar %>
+          </div>
         <% end %>
       </div>
     </div>
+    <%= yield :footer %>
   </body>
 </html>

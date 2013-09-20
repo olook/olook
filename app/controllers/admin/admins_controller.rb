@@ -33,7 +33,7 @@ class Admin::AdminsController < Admin::BaseController
   end
 
   def update
-    @admin = Admin.find(params[:id]) 
+    @admin = Admin.find(params[:id])
     if params[:admin][:password].blank?
       if @admin.update_without_password(params[:admin])
         flash[:notice] = 'Admin was successfully updated.'

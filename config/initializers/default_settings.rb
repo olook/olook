@@ -88,7 +88,7 @@ Setting.defaults[:cloth_showroom_sexy] = "90863,91293,91349,90947,91381"
 Setting.defaults[:santander_billet] = false
 Setting.defaults[:show_featured_products] = true
 
-Setting.defaults[:lightbox_coupon_code] = "WP1HYHMAI13"
+Setting.defaults[:lightbox_coupon_code] = "WP1HYH1JUL13"
 Setting.defaults[:valentines_day_coupon_code] = "NAMORADOS13ALL"
 Setting.defaults[:valentines_day_show_modal] = "0"
 Setting.defaults[:billet_summary_email] = "tiago.almeida@olook.com.br"
@@ -98,4 +98,17 @@ Setting.defaults[:show_checkout_banner] = true
 Setting.defaults[:show_search_field] = false
 Setting.defaults[:show_product_partner_tags] = true
 
+#Antibounce settings
+Setting.defaults[:antibounce_product_lines] = 4
+Setting.defaults[:antibounce_enabled] = true
 
+Setting.defaults[:upload_marketing_files_to_s3] = true
+
+# Smart Catalogs
+Setting.defaults[:full_grid_weight] = 1
+Setting.defaults[:inventory_weight] = 1
+Setting.defaults[:qt_sold_per_day_weight] = 1
+Setting.defaults[:coverage_of_days_to_sell_weight] = 1
+Setting.defaults[:age_weight] = 1
+
+Setting.defaults[:enable_neoassist] = false

@@ -1,4 +1,5 @@
-[![Build Status](https://jenkins.olook.com.br/job/olook/badge/icon)](https://jenkins.olook.com.br/job/olook/)
+[![Build Status](https://jenkins.olook.com.br:8080/job/olook/badge/icon)](https://jenkins.olook.com.br:8080/job/olook/)
+
 
 Requirements
 ============
@@ -11,6 +12,7 @@ Requirements
 - libcurl3-gnutls
 - ImageMagick
 - Memcached 1.4.5
+- PhantomJS (New)
 
 Setup
 ============
@@ -70,6 +72,11 @@ How connect to Homolog
 ============
 - ssh -i ~/.ec2/gsg-keypair root@homolog.olook.com.br -A
 
+
+How connect to Resque 01
+============
+- ssh -i ~/.ec2/gsg-keypair root@resque01.olook.com.br -A
+
 Deploy with Capistrano
 ============
 
@@ -89,7 +96,7 @@ Run to config keys in your machine
 bash bootstrap.sh development
 ```
 
--Deploy staging env
+-Deploy staging env ALL hosts
 -Default branch set to master
 ```
 cap deploy
@@ -97,12 +104,12 @@ cap deploy
 
 development:
 ```
-cap deploy dev
+cap deploy FILTER=development
 ```
 
 homolog:
 ```
-cap deploy hmg
+cap deploy FILTER=homolog
 ```
 
 homolog specific branch:
@@ -163,39 +170,19 @@ Optional config files
 
 files_modified=`git status --porcelain | egrep "^(A |M |R ).*" | awk ' { if ($3 == "->") print $4; else print $2 } '`
 
-[ -s "$HOME/.rvm/scripts/rvm" ] && . "$HOME/.rvm/scripts/rvm"
-## use ruby defined in project
-[ -s ".rvmrc" ] && source .rvmrc
-if [ -s ".ruby-version" ]; then
-  _rvmrc="$(cat .ruby-version)"
-  [ -s ".ruby-gemset" ] && _rvmrc="$_rvmrc@$(cat .ruby-gemset)"
-  rvm use $_rvmrc
-fi
-
 for f in $files_modified; do
     echo "Checking ${f}..."
-    if [[ $f == *.rb ]]; then
-        ruby -c -w $f
-        if [ $? != 0 ]; then
-            echo "File ${f} failed"
-            exit 1
-        fi
+
+    if [[ $f == *.rb || $f == *.haml || $f == *.erb ]]; then
         if grep --color -n "binding.pry" $f; then
             echo "File ${f} failed - found 'binding.pry'"
             exit 1
         fi
+
         if grep --color -n "debugger" $f; then
             echo "File ${f} failed - found 'debugger'"
             exit 1
         fi
-    elif [[ $f == *.haml ]]; then
-        bundle exec haml --check $f
-    elif [[ $f == *.sass ]]; then
-        bundle exec sass --check $f
-    fi
-    if [ $? != 0 ]; then
-        echo "File ${f} failed"
-        exit 1
     fi
 done
 exit

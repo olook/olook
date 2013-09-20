@@ -3,15 +3,15 @@
 <% @products.each do |product| %>
 <product id="<%= product.id %>">
 <name><%= product.name %></name>
-<smallimage><%= full_image_path product.thumb_picture %></smallimage>
-<bigimage><%= full_image_path product.main_picture.try(:image) %></bigimage>
+<smallimage><%= full_image_path product.xml_picture(:thumb) %></smallimage>
+<bigimage><%= full_image_path product.xml_picture(:main) %></bigimage>
 <producturl>
   <%= product.product_url(:utm_source => "net_affiliation", :utm_medium => "vitrine", :utm_campaign => "compradores", :utm_content => 6691) %>
 </producturl>
 <description><%= product.description %></description>
 <price><%= number_with_precision(product.retail_price, precision: 2, separator: ",") %></price>
 <retailprice><%= number_with_precision(product.price, precision: 2, separator: ",") %></retailprice>
-<discount><%= (100-(product.retail_price*100/product.price)).to_i %></discount>
+<discount><%= discount_sanitize product %></discount>
 <brand><%= product.brand %></brand>
 <recommendable>1</recommendable>
 <instock><%= product.instock %></instock>
