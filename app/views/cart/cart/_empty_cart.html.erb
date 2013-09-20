@@ -9,8 +9,8 @@ Navegue em nosso site e mude isso já!</h2>
   <li><%= link_to "Confira sua vitrine do mês", "/membro/vitrine" %></li>
 <% end %>
 
-<li><%= link_to "Sapatos hot: Veja todos na seção sapatos" , "/sapatos" %></li>
-<li><%= link_to "Looks desejo: novidades e últimas tendências" , "/roupas" %></li>
-<li><%= link_to "Acessórios incríveis: Eles valorizam qualquer look" , "/acessorios" %></li>
+<li><%= link_to "Sapatos hot: Veja todos na seção sapatos", catalog_path(category: 'sapato') %></li>
+<li><%= link_to "Looks desejo: novidades e últimas tendências", catalog_path(category: 'roupa') %></li>
+<li><%= link_to "Acessórios incríveis: Eles valorizam qualquer look", catalog_path(category: 'acessorio') %></li>
 
 </ul>
