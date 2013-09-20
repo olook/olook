@@ -135,6 +135,12 @@ module ApplicationHelper
     ["cart/cart", "survey", "landing_pages", "checkout/login"].exclude?(params[:controller]) && params[:ab_t].nil?
   end
 
+  def apply_canonical_link
+    unless canonical_link.blank?
+      link_to "", canonical_link, rel: 'canonical'
+    end
+  end
+
   private
 
     def ga_event_referer
