@@ -1,6 +1,6 @@
 - if search.pages > 1
   - if search.has_previous_page?
-    = link_to "Página Anterior", link.call({page: search.previous_page}), title: "Página Anterior", class: "anterior"
+    = link_to "Página Anterior", link.call({page: search.previous_page}), title: "Página Anterior", class: "anterior", rel: 'prev'
 
   - if search.current_page_greater_or_eq_than_limit_link_pages?
     = link_to "1", link.call({page: 1})
@@ -20,5 +20,5 @@
 
   - if search.has_next_page?
     = link_to search.pages, link.call({page: search.pages})
-    = link_to "Próxima Página", link.call({page: search.next_page}), title: "Próxima Página", class: "proximo"
+    = link_to "Próxima Página", link.call({page: search.next_page}), title: "Próxima Página", class: "proximo", rel: 'next'
 
