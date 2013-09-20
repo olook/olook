@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130916134410) do
+ActiveRecord::Schema.define(:version => 20130920175409) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -130,6 +130,8 @@ ActiveRecord::Schema.define(:version => 20130916134410) do
     t.string   "utm_medium"
     t.string   "utm_content"
     t.string   "utm_campaign"
+    t.string   "phone"
+    t.string   "profile"
   end
 
   add_index "campaign_emails", ["email"], :name => "index_campaign_emails_on_email"
