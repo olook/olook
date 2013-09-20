@@ -71,10 +71,8 @@ end
 
 gem 'piet', :git => 'git://github.com/albertbellonch/piet.git', ref: "630a98bef1595fb2a138e98ff9aaefbca987a999"
 
-group :development do
-  gem 'better_errors'
-end
 group :development, :test do
+  gem 'better_errors'
   gem 'rack-mini-profiler'
   gem 'faker'
   gem 'bullet'
@@ -95,9 +93,9 @@ group :development, :test do
   gem 'delorean'
   gem 'timecop'
   gem 'shoulda-matchers'
+  gem 'poltergeist'
   gem "equivalent-xml", " ~> 0.2.9"
   gem 'capybara', '2.0.2'
-  gem 'capybara-webkit', '0.14.2'
   gem 'database_cleaner'
   gem 'simplecov', :require => false
   gem 'simplecov-rcov', :require => false
