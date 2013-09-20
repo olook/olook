@@ -22,7 +22,6 @@
           = banner_for(@category, position: :sidebotton)
 
     .pagination.topo
-      = link_to '',catalog_path(@category), rel: 'canonical'
       = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
     #result
       - unless @search.has_any_filter_selected? || params[:cmp].present?
