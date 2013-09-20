@@ -1,24 +1,28 @@
 - content_for :head do
-  = stylesheet_link_tag "section/landing"
+  = stylesheet_link_tag "new_structure/section/olookmovel"
 - content_for :content do
   = content_for?(:news_content) ? yield(:news_content) : yield
+
 .header_login
-  / <h1>Já faz parte? <span>Entre</span></h1>
   %h2= image_tag "landing_page/olook_logo.png", :title => "Olook"
-%section.landing-content
-  .registration-form
-    %h1 Descubra seu estilo
-    %h2 RESPONDA AO STYLE QUIZ E RECEBA SUGESTÕES DE NOSSAS STYLISTS
-    - campaign_email = CampaignEmail.new
-    .error{style: "display:none;"}
-      %p.mail_error O e-mail informado não parece correto. Que tal conferir?
-    = form_for campaign_email, :method => :post do |f|
-      = f.text_field :email, value:"Informe seu email aqui", class: "email", onclick: "_gaq.push(['_trackEvent', 'CadastroQuiz', 'ClickForm', ''])"
-      = hidden_field_tag :ab_t, true
-      = f.submit "", class: "bt-enviar", onclick: "_gaq.push(['_trackEvent', 'CadastroQuiz', 'StartQuiz', ''])"
-/
-  <div class="tv">
-  <haml_loud>link_to (image_tag "landing_page/imprensa.jpg"), "/olook-na-imprensa", :title => "Olook" </haml_loud>
-  </div>
+
+#landing-content
+  .join
+    %p
+      Cadastre-se, ganhe 
+      %span
+        15% de desconto 
+        e concorra a R$ 150   
+      em produtos Olook
+    =form_for @campaign_email, url: olookmovel_path(@campaign_email), method: 'post', html:{ :target => '_parent' } do |f|
+      %fieldset
+        =f.label :email, "E-mail"
+        =f.text_field :email
+      %fieldset
+        =f.label :phone, "Telefone ", :class => "phone"
+        =f.text_field :phone
+      %fieldset.botoes
+        =f.submit :value => "ENTRAR", :class => "bt-enter"
+
 - content_for :footer do
   = javascript_include_tag "campaign_emails"

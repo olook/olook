@@ -8,6 +8,7 @@ class LandingPagesController < ApplicationController
   end
 
   def olookmovel
+  	@campaign_email = CampaignEmail.new
   end
 
   def mother_day
