@@ -1,0 +1,29 @@
+@import 'new_structure/common/global_stuffs';
+
+.header_login{
+	width: 990px;
+	border-top: 6px solid #000;
+	h2{
+		margin-top: 40px;
+		text-align: center;
+	}	
+}
+#landing-content{
+	width: 990px;
+	height: 510px;
+	margin: 0 auto;
+	margin-top: 80px;
+	.join{
+		width: 345px;
+		p{
+			background: image-url('landing_page/olookmovel/sorteio.jpg') left no-repeat;
+			padding-left: 185px;
+			font-family: $avenir;
+			font-size: 16px;
+			color: #000;
+			span{
+				font-weight: bold;
+			}
+		}
+	}
+}
