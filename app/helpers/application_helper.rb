@@ -153,13 +153,13 @@ module ApplicationHelper
           'FromTendencias'
         when /colecoes/
           'FromColecoes'
-        when /sapatos/
+        when /sapato/
           'FromSapatos'
-        when /roupas/
+        when /roupa/
           'FromRoupas'
-        when /bolsas/
+        when /bolsa/
           'FromBolsas'
-        when /acessorios/
+        when /acessorio/
           'FromAcessorios'
         when /oculos/
           'FromOculos'
@@ -169,6 +169,6 @@ module ApplicationHelper
           'FromPresentes'
         else
           ''
-        end
+      end
     end
 end
