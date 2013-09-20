@@ -137,7 +137,7 @@ module ApplicationHelper
 
   def apply_canonical_link
     unless canonical_link.blank?
-      link_to "", canonical_link, rel: 'canonical'
+      content_tag 'link', href: canonical_link, rel: 'canonical'
     end
   end
 
