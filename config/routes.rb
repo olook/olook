@@ -447,6 +447,7 @@ Olook::Application.routes.draw do
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get '/diadasmaes' , :controller =>'landing_pages', :action => 'mother_day' , :as => 'mother_day'
   get "/cadastro", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: 1 }
+  get "/cadastro/olookmovel", :to => "landing_pages#olookmovel"
   get "/cadastro_parcerias", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: nil }
 
   # Friendly urls (ok, I know it is not the best approach...)

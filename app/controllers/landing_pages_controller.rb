@@ -7,6 +7,9 @@ class LandingPagesController < ApplicationController
     redirect_to root_path unless @landing_page.enabled?
   end
 
+  def olookmovel
+  end
+
   def mother_day
   end
 
