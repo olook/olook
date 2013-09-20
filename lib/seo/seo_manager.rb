@@ -1,7 +1,12 @@
 # -*- encoding : utf-8 -*-
+
+require 'yaml'
+
 module Seo
   class SeoManager
     attr_accessor :url, :meta_tag
+    FILENAME = File.expand_path(File.join(File.dirname(__FILE__), '../..', 'config/seo.yml'))
+    @@file = YAML::load(File.open(FILENAME))
 
     def initialize url_params, options={}
       @url = url_params
@@ -31,8 +36,7 @@ module Seo
         end
       end
       def get_meta_tags_info
-        file_dir = "#{Rails.root}/config/seo.yml"
-        YAML::load(File.open(file_dir))
+        @@file
       end
   end
 end

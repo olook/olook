@@ -1,6 +1,8 @@
 //= require ./partials/_credits_info
+//= require plugins/spy
 $(function() {
   showInfoCredits();
+  olook.spy('.cart_item[data-url]');
 
   $("form#coupon input").focus(function() {
     _gaq.push(['_trackEvent', 'Checkout', 'FillCupom', '', , true]);

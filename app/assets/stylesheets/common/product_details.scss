@@ -61,6 +61,8 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     .pl9{padding-left:9px;}
     h1{font-family:$avenir;font-size:17px;font-weight: lighter;}
     h2{font-family:$avenir;font-size:14px;text-transform:uppercase;font-weight:bold;margin-bottom:20px;}
+    a.ver_produto {font-family:avenir, tahoma;position: relative;top: -20px;color:#000;text-decoration:none;color:#ef3742;}
+    a.ver_produto:hover {text-decoration:underline;}
   
     p {color: #000;font-size:15px;font-family: $avenir;
       a {color: $pink;margin: 0 0 0 5px;}
@@ -103,6 +105,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         }
       }
     }
+    .division {border-top:solid 1px #C2C2C2;padding-top:20px;margin-top:20px;}
     .social-media-box{
       overflow:visible;
       border-top:solid 1px #C2C2C2;
@@ -113,7 +116,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       .has_bt_face{height:22px;position:relative;}
       ul.social-list {float:left; width:417px;margin-top:5px;
         li {padding:0;margin-right: 10px;display:inline-block;
-          &.like{margin-right: 4px !important;margin-left: 23px;}
+          &.like{margin-right: 4px !important;margin-left: 15px;}
           &.twitter{position: relative;top: -1px;}
           &.pinterest{position: relative;top: -1px;}
           a{display:inline;padding:0;width:100%;margin:0;}

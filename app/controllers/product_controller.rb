@@ -21,7 +21,8 @@ class ProductController < ApplicationController
   end
 
   def spy
-    render layout: 'application'
+    @hide_shipping = params[:from] != 'cart'
+    render layout: nil
   end
 
   def share_by_email
