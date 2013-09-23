@@ -7,7 +7,7 @@
 
 #landing-content
   .join
-    - if params[:ok]
+    - if @ok
       %ul
         %li
           = image_tag "landing_page/olookmovel/success.png", :title => "Sucesso"
@@ -31,9 +31,6 @@
             Equipe Olook
       = link_to 'Voltar / Fazer novo cadastro', "/cadastro/olookmovel", :class => "cadastro"
     - else
-      - if @campaign_email.errors.present?
-        - @campaign_email.errors.full_messages do |err|
-          %p= err
       %p.promo
         Cadastre-se, ganhe
         %span
@@ -44,10 +41,14 @@
         = f.hidden_field :profile, value: 'olookmovel'
         %fieldset
           =f.label :email, "E-mail"
-          =f.text_field :email
+          =f.text_field :email, class: ('with_error' if @campaign_email.errors[:email].size > 0)
+          - if @campaign_email.errors[:email].size > 0
+            %p.error_text= @campaign_email.errors[:email].first
         %fieldset
-          =f.label :phone, "Telefone ", :class => "phone"
-          =f.text_field :phone
+          =f.label :phone, "Telefone ", :class => "phone "
+          =f.text_field :phone, class: ('with_error' if @campaign_email.errors[:phone].size > 0)
+          - if @campaign_email.errors[:phone].size > 0
+            %p.error_text= @campaign_email.errors[:phone].first
         %p.notes
           Concluindo o cadastro você aceita nossos
           = link_to 'termos de uso', terms_path
