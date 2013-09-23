@@ -16,7 +16,7 @@ class Cart::CartController < ApplicationController
 
     @promo_over_coupon = false
     if @cart && @cart.coupon && !@cart.items.empty?
-      if @cart.coupon.should_apply_to? @cart
+      if @cart.coupon.is_more_advantageous_than_any_promotion? @cart
         @promo_over_coupon = true if @cart.items.any? { |i| i.liquidation? }
       else
         @cart.remove_coupon!
@@ -42,16 +42,14 @@ class Cart::CartController < ApplicationController
   end
 
   def update
-    coupon = Coupon.find_by_code(params[:cart][:coupon_code])
-
-    if coupon
-      unless coupon.should_apply_to? @cart
+    if  coupon = Coupon.find_by_code(params[:cart][:coupon_code])
+      unless coupon.is_more_advantageous_than_any_promotion? @cart
         params[:cart].delete(:coupon_code)
-        render :error, :locals => { :notice => "A promoção é mais vantajosa que o cupom" }
+        render :error, :locals => { :notice => "Os descontos não são acumulativos, então escolhemos o desconto mais vantajoso para você." }
       end
     end
-
-    unless @cart.update_attributes(params[:cart])
+    @cart.update_attributes(params[:cart])
+    if @cart.errors.any?
       notice_message = @cart.errors.messages.values.flatten.first
       render :error, :locals => { :notice => notice_message }
     end
@@ -68,5 +66,5 @@ class Cart::CartController < ApplicationController
       ids = Setting.recommended_products.split(",").map {|product_id| product_id.to_i}
       products = Product.find ids
       products.delete_if {|product| product.inventory < 1}
-    end  
+    end
 end

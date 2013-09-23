@@ -6,7 +6,7 @@ class RemoveOldTables < ActiveRecord::Migration
     # drop_table :shipping_companies
     drop_table :used_coupons
     drop_table :used_promotions
-    drop_table :versions
+    # drop_table :versions
   end
 
   def down

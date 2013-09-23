@@ -14,7 +14,7 @@ Olook::Application.routes.draw do
   put '/cadastro-stylequiz', to: 'join#login', as: 'join'
   post '/cadastro-stylequiz/facebook_login' => "join#facebook_login", as: 'facebook_login'
   get "/meu-estilo", to: "profiles#show", as: 'profile'
- 
+
   mount Resque::Server => "/admin/resque"
 
   #temp redirect
@@ -80,6 +80,7 @@ Olook::Application.routes.draw do
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/duvidasfrequentes", :to => "pages#faq", :as => "duvidasfrequentes"
   match "/centraldeatendimento", :to => "pages#faq", :as => "duvidasfrequentes"
+  match "/afiliados", :to => "pages#afiliados", :as => "afiliados"
   match "/devolucoes", :to => "pages#return_policy", :as => "return_policy"
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
@@ -298,6 +299,7 @@ Olook::Application.routes.draw do
 
     resources :orders do
       member do
+        post 'authorize_payment'
         post 'change_state'
         post 'remove_loyalty_credits'
       end

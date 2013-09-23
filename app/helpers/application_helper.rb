@@ -137,12 +137,12 @@ module ApplicationHelper
 
   def apply_canonical_link
     unless canonical_link.blank?
-      content_tag 'link', href: canonical_link, rel: 'canonical'
+      content_tag(:link, nil, href: canonical_link, rel: 'canonical')
     end
   end
 
   private
-
+ 
     def ga_event_referer
       case request.referer
         when /olook.com.br(\/)?$/

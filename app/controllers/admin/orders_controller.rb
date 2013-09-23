@@ -60,10 +60,17 @@ class Admin::OrdersController < Admin::BaseController
     debits = line_item.remove_loyalty_credits
     if debits.try(:empty?)
       flash[:error] = "Não foi possível remover os créditos de fidelidade."
-    else 
+    else
       flash[:notice] = "Creditos removidos com sucesso!"
     end
     respond_with :admin, @order
+  end
+
+  def authorize_payment
+    @order = Order.find(params[:id])
+    @order.authorize_erp_payment
+
+    redirect_to admin_orders_path
   end
 
 end
