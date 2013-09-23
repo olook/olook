@@ -2,6 +2,7 @@
 
 .header_login{
 	width: 990px;
+	margin-top: 0 !important;
 	border-top: 6px solid #000;
 	h2{
 		margin-top: 40px;
@@ -14,7 +15,7 @@
 	margin: 0 auto;
 	margin-top: 80px;
 	.join{
-		width: 345px;
+		width: 355px;
 		float: left;
 		margin-left: 42px;
 		p.promo{
@@ -114,4 +115,34 @@
 		font-size: 13px;
 		margin-top: 20px;
 	}
+} 
+
+@media (max-width: 768px){
+	#landing-content, .header_login, .content{
+		width: 100% !important;
+		.join{
+			width: 45%;
+      p.notes{
+        width: 100%
+      }
+			form{
+				width: 100%;
+			}
+		}
+		.olookmovel{
+			width: 48%;
+      margin: 0;
+      float: right;
+			img{
+				width: 100%;
+			}
+		}
+		ul{
+			width: 45%;
+		}
+	}
+  .footer{
+    width: 75%
+
+  }
 }
