@@ -8,28 +8,31 @@
 
 #landing-content
   .join
-    %p.promo
-      Cadastre-se, ganhe 
-      %span
-        15% de desconto 
-        e concorra a R$ 150   
-      em produtos Olook
-    =form_for @campaign_email, url: olookmovel_path(@campaign_email), method: 'post', html:{ :target => '_parent' } do |f|
-      %fieldset
-        =f.label :email, "E-mail"
-        =f.text_field :email
-      %fieldset
-        =f.label :phone, "Telefone ", :class => "phone"
-        =f.text_field :phone
-      %p.notes
-        Concluindo o cadastro você aceita nossos
-        = link_to 'termos de uso', terms_path
-        e a
-        %br
-        nossa
-        = link_to 'política de privacidade', privacy_path
-      %fieldset.botoes
-        =f.submit :value => "ENTRAR", :class => "bt-enter"
+    - if params[:ok]
+      %p sucesso!
+    - else
+      %p.promo
+        Cadastre-se, ganhe 
+        %span
+          15% de desconto 
+          e concorra a R$ 150   
+        em produtos Olook
+      =form_for @campaign_email, url: olookmovel_path(@campaign_email), method: 'post', html:{ :target => '_parent' } do |f|
+        %fieldset
+          =f.label :email, "E-mail"
+          =f.text_field :email
+        %fieldset
+          =f.label :phone, "Telefone ", :class => "phone"
+          =f.text_field :phone
+        %p.notes
+          Concluindo o cadastro você aceita nossos
+          = link_to 'termos de uso', terms_path
+          e a
+          %br
+          nossa
+          = link_to 'política de privacidade', privacy_path
+        %fieldset.botoes
+          =f.submit :value => "ENTRAR", :class => "bt-enter"
   .olookmovel
     = image_tag "landing_page/olookmovel/olookmovel.jpg", :title => "Olookmovel"
 
