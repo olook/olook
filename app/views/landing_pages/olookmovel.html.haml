@@ -8,7 +8,7 @@
 
 #landing-content
   .join
-    %p
+    %p.promo
       Cadastre-se, ganhe 
       %span
         15% de desconto 
@@ -21,10 +21,28 @@
       %fieldset
         =f.label :phone, "Telefone ", :class => "phone"
         =f.text_field :phone
+      %p.notes
+        Concluindo o cadastro você aceita nossos
+        = link_to 'termos de uso', terms_path
+        e a
+        %br
+        nossa
+        = link_to 'política de privacidade', privacy_path
       %fieldset.botoes
         =f.submit :value => "ENTRAR", :class => "bt-enter"
   .olookmovel
     = image_tag "landing_page/olookmovel/olookmovel.jpg", :title => "Olookmovel"
+
+.footer
+  %h3
+    Regras do Sorteio
+  %p
+    Válido somente para produtos Olook. Não acumulativo com outras promoções do site
+    %br
+      O sorteio será realizado pela equipe da Olook através do site www.sorteiosonline.com.br
+    A ganhadora será comunicada por e-mail com o código do cupom.
+    %br
+      Uso único. Válido por 30 dias
 
 - content_for :footer do
   = javascript_include_tag "campaign_emails"

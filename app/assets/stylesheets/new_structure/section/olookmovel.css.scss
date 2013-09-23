@@ -17,7 +17,7 @@
 		width: 345px;
 		float: left;
 		margin-left: 42px;
-		p{
+		p.promo{
 			background: image-url('landing_page/olookmovel/sorteio.jpg') left no-repeat;
 			padding-left: 185px;
 			font-family: $avenir;
@@ -25,6 +25,13 @@
 			color: #000;
 			span{
 				font-weight: bold;
+			}
+		}
+		p.notes{
+			font-size: 12px;
+			width: 325px;
+			a{
+				color: $pink;
 			}
 		}
 		form{
@@ -47,16 +54,33 @@
 		            }
 		          }
 		        }
-		        input[type="submit"]{border: none; background: image-url('showroom/sprite.png') 0px -206px no-repeat;float:right; width:145px;height:37px;text-indent: 9999px;margin-top: 22px;margin-right: 33px;
-		          &:hover{background-position:0 -249px;text-indent: 9999px;}}
+		        input[type="submit"]{cursor: pointer; border: none; background: image-url('landing_page/olookmovel/cadastrar.jpg') 0px 0px no-repeat;float:left; width:319px;height:59px;text-indent: 9999px;margin-top: 22px;
+		          &:hover{background-position:0 -71px;text-indent: 9999px;}}
 		      	}
 		    }
-		    input[type="text"], input[type="password"]{padding-left: 10px; width:310px;height:31px;line-height:31px;border:solid 1px #C1C1C1;display: block;}
+		    input[type="text"], input[type="password"]{padding-left: 10px; width:315px;height:31px;line-height:31px;border:solid 1px #C1C1C1;display: block;}
 		}
 	}
 	.olookmovel{
 		width: 490px;
 		float: left;
 		margin-left: 75px;
+	}
+}
+.footer{
+	width: 775px;
+	border-top: 1px solid #d7d7d7;
+	font-family: $avenir;
+	text-align: center;
+	color: #6d6f71;
+	margin: 15px auto 0;
+	h3{
+		font-size: 19px;
+		color: #6d6f71;
+		padding-top: 20px;
+	}
+	p{
+		font-size: 13px;
+		margin-top: 20px;
 	}
 }
