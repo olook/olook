@@ -8,7 +8,15 @@ class LandingPagesController < ApplicationController
   end
 
   def olookmovel
-  	@campaign_email = CampaignEmail.new
+    @campaign_email = CampaignEmail.new
+  end
+
+  def create_olookmovel
+    @campaign_email = CampaignEmail.new(params[:campaign_email])
+    if @campaign_email.save
+      @ok = 1
+    end
+    render 'olookmovel'
   end
 
   def mother_day
