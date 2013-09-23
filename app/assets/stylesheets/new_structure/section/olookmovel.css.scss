@@ -60,6 +60,37 @@
 		    }
 		    input[type="text"], input[type="password"]{padding-left: 10px; width:315px;height:31px;line-height:31px;border:solid 1px #C1C1C1;display: block;}
 		}
+		ul{
+			width: 355px;
+			height: 380px;
+			border:1px solid #c8d3bd;
+			background-color: #e2f0d4;
+			li{
+				font-family: 16px;
+				text-align: center;
+				color: #000;
+				width: 305px;
+				margin-top: 20px;
+				margin-left: 25px;
+				img{
+					margin-top: 20px;
+					margin-left: 1%;
+				}
+				p{font-size: 16px;font-family: $avenir; font-weight: lighter;}
+				p.title{font-weight: bold;}
+			}
+		}
+		a.cadastro{
+			color: #000;
+			font-size: 14px;
+			font-family: $avenir;
+			background: image-url('landing_page/olookmovel/arrow.png') 0px 5px no-repeat;
+			margin-top: 60px;
+			margin-left: 79px;
+			padding-left: 17px;
+			display: block;
+		}
+
 	}
 	.olookmovel{
 		width: 490px;
