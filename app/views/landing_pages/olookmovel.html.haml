@@ -10,10 +10,10 @@
       %p sucesso!
     - else
       %p.promo
-        Cadastre-se, ganhe 
+        Cadastre-se, ganhe
         %span
-          15% de desconto 
-          e concorra a R$ 150   
+          15% de desconto
+          e concorra a R$ 150
         em produtos Olook
       =form_for @campaign_email, url: olookmovel_path(@campaign_email), method: 'post', html:{ :target => '_parent' } do |f|
         %fieldset
