@@ -31,13 +31,17 @@
             Equipe Olook
       = link_to 'Voltar / Fazer novo cadastro', "/cadastro/olookmovel", :class => "cadastro"
     - else
+      - if @campaign_email.errors.present?
+        - @campaign_email.errors.full_messages do |err|
+          %p= err
       %p.promo
         Cadastre-se, ganhe
         %span
           15% de desconto
           e concorra a R$ 150
         em produtos Olook
-      =form_for @campaign_email, url: olookmovel_path(@campaign_email), method: 'post', html:{ :target => '_parent' } do |f|
+      = form_for @campaign_email, url: olookmovel_lp_path(@campaign_email), method: 'post', html: { :target => '_parent' } do |f|
+        = f.hidden_field :profile, value: 'olookmovel'
         %fieldset
           =f.label :email, "E-mail"
           =f.text_field :email
