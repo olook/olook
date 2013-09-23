@@ -135,8 +135,14 @@ module ApplicationHelper
     ["cart/cart", "survey", "landing_pages", "checkout/login"].exclude?(params[:controller]) && params[:ab_t].nil?
   end
 
-  private
+  def apply_canonical_link
+    unless canonical_link.blank?
+      content_tag(:link, nil, href: canonical_link, rel: 'canonical')
+    end
+  end
 
+  private
+ 
     def ga_event_referer
       case request.referer
         when /olook.com.br(\/)?$/
@@ -147,13 +153,13 @@ module ApplicationHelper
           'FromTendencias'
         when /colecoes/
           'FromColecoes'
-        when /sapatos/
+        when /sapato/
           'FromSapatos'
-        when /roupas/
+        when /roupa/
           'FromRoupas'
-        when /bolsas/
+        when /bolsa/
           'FromBolsas'
-        when /acessorios/
+        when /acessorio/
           'FromAcessorios'
         when /oculos/
           'FromOculos'
@@ -163,6 +169,6 @@ module ApplicationHelper
           'FromPresentes'
         else
           ''
-        end
+      end
     end
 end

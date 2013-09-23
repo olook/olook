@@ -32,7 +32,7 @@ describe Seo::SeoManager do
           @seo_model = Seo::SeoManager.new("/asd", model: @product)
         end
         it "return specific meta tag" do
-          expect(@seo_model.select_meta_tag).to eql('Vestido Estampado Manga Longa Ecletic - Roupas e Sapatos Femininos | Olook')
+          expect(@seo_model.select_meta_tag).to eql('Vestido Estampado Manga Longa Ecletic Black - Roupas e Sapatos Femininos | Olook')
         end
       end
       context "collection theme" do

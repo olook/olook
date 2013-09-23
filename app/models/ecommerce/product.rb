@@ -93,7 +93,8 @@ class Product < ActiveRecord::Base
   end
 
   def title_text
-    "#{name} - Roupas e Sapatos Femininos | Olook"
+    name_with_color = color_name.blank? ? name : "#{name} #{color_name}"
+    "#{name_with_color} - Roupas e Sapatos Femininos | Olook"
   end
 
   def model_name
