@@ -117,7 +117,7 @@
 	}
 } 
 
-@media (max-width: 768px){
+@media (min-width: 760px) and (max-width: 768px){
 	#landing-content, .header_login, .content{
 		width: 100% !important;
 		.join{
