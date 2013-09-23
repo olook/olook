@@ -9,7 +9,28 @@
 #landing-content
   .join
     - if params[:ok]
-      %p sucesso!
+      %ul
+        %li
+          = image_tag "landing_page/olookmovel/success.png", :title => "Sucesso"
+        %li
+          %p.title
+            Cadastro realizado com sucesso!
+        %li
+          %p
+            Você receberá em instantes
+            %br 
+              um e-mail com instruções para 
+            uso do seu cupom.
+        %li
+          %p
+            Assim que tivermos o resultado do sorteio, 
+            entraremos em contato com você.
+        %li
+          %p Boa sorte! ;)
+        %li
+          %p
+            Equipe Olook
+      = link_to 'Voltar / Fazer novo cadastro', "/cadastro/olookmovel", :class => "cadastro"
     - else
       %p.promo
         Cadastre-se, ganhe 
