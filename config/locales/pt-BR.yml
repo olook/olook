@@ -503,7 +503,17 @@
 
       full_messages:
         format: "%{attribute} %{message}"
-
+      models:
+        campaign_email:
+          attributes:
+            phone:
+              invalid: 'O telefone parece estranho. Pode conferir?'
+              blank: 'É bom termos o seu telefone. Qualquer coisa, ligamos'
+            email:
+              exists: 'Você já é uma usuária do site'
+              taken: 'Você já está cadastrada na newsletter!'
+              invalid: 'O e-mail informado não parece correto. Que tal conferir?'
+              blank: 'Precisamos do e-mail para o sorteio. Também para o seu cupom de desconto'
   views:
     members:
       no_invitation_accepted: 'Até o momento nenhuma das suas amigas se registrou'
