@@ -37,6 +37,7 @@ Spork.prefork do
   require 'rspec/rails'
   require 'capybara/rspec'
   require 'carrierwave/test/matchers'
+  require 'capybara/poltergeist'
   require 'webmock/rspec'
   include ActionView::Helpers::NumberHelper
 
@@ -44,7 +45,7 @@ Spork.prefork do
   # https://github.com/timcharper/spork/wiki/Spork.trap_method-Jujutsu
   Spork.trap_method(Rails::Application::RoutesReloader, :reload!) if defined?(Rails)
 
-  Capybara.javascript_driver = :webkit
+  Capybara.javascript_driver = :poltergeist
 
   OmniAuth.config.test_mode = true
 
