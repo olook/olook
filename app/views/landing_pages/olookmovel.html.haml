@@ -1,7 +1,5 @@
 - content_for :head do
   = stylesheet_link_tag "new_structure/section/olookmovel"
-- content_for :content do
-  = content_for?(:news_content) ? yield(:news_content) : yield
 
 .header_login
   %h2= image_tag "landing_page/olook_logo.png", :title => "Olook"
@@ -46,6 +44,3 @@
     A ganhadora será comunicada por e-mail com o código do cupom.
     %br
       Uso único. Válido por 30 dias
-
-- content_for :footer do
-  = javascript_include_tag "campaign_emails"
