@@ -503,7 +503,17 @@
 
       full_messages:
         format: "%{attribute} %{message}"
-
+      models:
+        campaign_email:
+          attributes:
+            phone:
+              invalid: 'O telefone parece estranho. Que tal conferir?'
+              blank: 'É bom termos o seu telefone. Qualquer coisa, ligamos'
+            email:
+              exists: 'Identificamos que você já é cadastrada na Olook. A promoção é válida para novos usuários.'
+              taken:  'Identificamos que você já é cadastrada na Olook.'
+              invalid: 'O e-mail informado parece estranho. Que tal conferir?'
+              blank: 'Precisamos do e-mail para o sorteio. <br /> Também para o envio do seu cupom de desconto'
   views:
     members:
       no_invitation_accepted: 'Até o momento nenhuma das suas amigas se registrou'
