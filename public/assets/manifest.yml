@@ -1275,6 +1275,16 @@ landing_page/mimo.jpg: landing_page/mimo-7b3fac25d49537488df68d3dd3a30c98.jpg
 landing_page/mimo/index.jpg: landing_page/mimo-7b3fac25d49537488df68d3dd3a30c98.jpg
 landing_page/olook_logo.png: landing_page/olook_logo-3ec5a2ebd3146d70336def00fe5b576e.png
 landing_page/olook_logo/index.png: landing_page/olook_logo-3ec5a2ebd3146d70336def00fe5b576e.png
+landing_page/olookmovel/arrow.png: landing_page/olookmovel/arrow-360c171148305df72bd96ac4f09aa7c7.png
+landing_page/olookmovel/arrow/index.png: landing_page/olookmovel/arrow-360c171148305df72bd96ac4f09aa7c7.png
+landing_page/olookmovel/cadastrar.jpg: landing_page/olookmovel/cadastrar-ca79a9f47d900473516e49197d19ffd9.jpg
+landing_page/olookmovel/cadastrar/index.jpg: landing_page/olookmovel/cadastrar-ca79a9f47d900473516e49197d19ffd9.jpg
+landing_page/olookmovel/olookmovel.jpg: landing_page/olookmovel/olookmovel-ff9d9d0ed7cbbf234689192972c92f2a.jpg
+landing_page/olookmovel/olookmovel/index.jpg: landing_page/olookmovel/olookmovel-ff9d9d0ed7cbbf234689192972c92f2a.jpg
+landing_page/olookmovel/sorteio.jpg: landing_page/olookmovel/sorteio-c7a0b5bdfdcca5dda1cbc65b5806b1ad.jpg
+landing_page/olookmovel/sorteio/index.jpg: landing_page/olookmovel/sorteio-c7a0b5bdfdcca5dda1cbc65b5806b1ad.jpg
+landing_page/olookmovel/success.png: landing_page/olookmovel/success-6f3b91a889fd4e2b2e7afb0a72728451.png
+landing_page/olookmovel/success/index.png: landing_page/olookmovel/success-6f3b91a889fd4e2b2e7afb0a72728451.png
 landing_page/presente_legal.jpg: landing_page/presente_legal-58b31e92df19e64026dff1d298690111.jpg
 landing_page/presente_legal/index.jpg: landing_page/presente_legal-58b31e92df19e64026dff1d298690111.jpg
 landing_page/top_infos.jpg: landing_page/top_infos-4e764600ad01c926022cca3114b325e3.jpg
@@ -2317,6 +2327,8 @@ new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-30d2d
 new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-30d2d39ae635b6f947abd1dc56bb570d.css
 new_structure/section/lite_showroom.css: new_structure/section/lite_showroom-af669a8ec7a4527bba041a367ae26fed.css
 new_structure/section/lite_showroom/index.css: new_structure/section/lite_showroom-af669a8ec7a4527bba041a367ae26fed.css
+new_structure/section/olookmovel.css: new_structure/section/olookmovel-3ca68bfd9029c80b9667278562012f73.css
+new_structure/section/olookmovel/index.css: new_structure/section/olookmovel-3ca68bfd9029c80b9667278562012f73.css
 new_structure/section/quiz.css: new_structure/section/quiz-bb36e09c8c3719e5edb8fb33731c1a20.css
 new_structure/section/quiz/index.css: new_structure/section/quiz-bb36e09c8c3719e5edb8fb33731c1a20.css
 new_structure/section/search.css: new_structure/section/search-8074cdc808136d7c779b27b4b19554b5.css
