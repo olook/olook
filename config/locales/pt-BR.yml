@@ -513,7 +513,7 @@
               exists: 'Você já é uma usuária do site'
               taken: 'Você já está cadastrada na newsletter!'
               invalid: 'O e-mail informado não parece correto. Que tal conferir?'
-              blank: 'Precisamos do e-mail para o sorteio. Também para o seu cupom de desconto'
+              blank: 'Precisamos do e-mail para o sorteio. <br /> Também para o seu cupom de desconto'
   views:
     members:
       no_invitation_accepted: 'Até o momento nenhuma das suas amigas se registrou'
