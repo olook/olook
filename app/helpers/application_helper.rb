@@ -68,16 +68,22 @@ module ApplicationHelper
   end
 
   def member_type
-    sufix = signed_newsletter? ? '-newsletter' : ''
     if user_signed_in?
-      current_user.half_user ? "half#{sufix}" : "quiz#{sufix}"
+      current_user.half_user ? "half#{newsletter_type}" : "quiz#{newsletter_type}"
     else
-      "visitor#{sufix}"
+      "visitor#{newsletter_type}"
     end
   end
 
-  def signed_newsletter?
-    cookies['newsletterUser'] == '1'
+  def newsletter_type
+    case cookies['newsletterUser']
+    when '1'
+      '-newsletter'
+    when '2'
+      '-olookmovel'
+    else
+      ''
+    end
   end
 
   def quantity_status(product, user)

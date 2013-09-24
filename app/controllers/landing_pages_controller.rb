@@ -15,6 +15,7 @@ class LandingPagesController < ApplicationController
     @campaign_email = CampaignEmail.new(params[:campaign_email])
     if @campaign_email.save
       @ok = 1
+      cookies['newsletterUser'] = { value: '2', path: '/', expires: 30.years.from_now }
     end
     render 'olookmovel'
   end
