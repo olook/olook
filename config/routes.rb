@@ -153,6 +153,7 @@ Olook::Application.routes.draw do
   match "/muccashop", :to => "xml#muccashop", :as => "muccashop", :defaults => { :format => 'xml' }
   match "/shopear", :to => "xml#shopear", :as => "shopear", :defaults => { :format => 'xml' }
   match "/adroll", :to => "xml#adroll", :as => "adroll", :defaults => { :format => 'xml' }
+  match "/nano_interactive", :to => "xml#nano_interactive", :as => "nano_interactive", :defaults => { :format => 'xml' }
 
   #SURVEY
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
