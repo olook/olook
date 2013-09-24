@@ -507,13 +507,13 @@
         campaign_email:
           attributes:
             phone:
-              invalid: 'O telefone parece estranho. Pode conferir?'
+              invalid: 'O telefone parece estranho. Que tal conferir?'
               blank: 'É bom termos o seu telefone. Qualquer coisa, ligamos'
             email:
-              exists: 'Você já é uma usuária do site'
-              taken: 'Você já está cadastrada na newsletter!'
-              invalid: 'O e-mail informado não parece correto. Que tal conferir?'
-              blank: 'Precisamos do e-mail para o sorteio. <br /> Também para o seu cupom de desconto'
+              exists: 'Identificamos que você já é cadastrada na Olook. A promoção é válida para novos usuários.'
+              taken:  'Identificamos que você já é cadastrada na Olook.'
+              invalid: 'O e-mail informado parece estranho. Que tal conferir?'
+              blank: 'Precisamos do e-mail para o sorteio. <br /> Também para o envio do seu cupom de desconto'
   views:
     members:
       no_invitation_accepted: 'Até o momento nenhuma das suas amigas se registrou'
