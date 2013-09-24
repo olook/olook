@@ -2,6 +2,7 @@
 //= require plugins/cep
 
 updateCreditCardSettlementsValue = function(select_box, total) {
+  selected = select_box.val();
   select_box.empty();
   var options = [];
   for (i=1; i<= CreditCard.installmentsNumberFor(total); i++) {
@@ -9,6 +10,7 @@ updateCreditCardSettlementsValue = function(select_box, total) {
     text = i + "x de " + Formatter.toCurrency(installmentValue) + " sem juros";
     select_box.append("<option value=" + i + ">" + text + "</option>");
   }
+  select_box.val(selected);
 }
 
 function maskTel(tel){
