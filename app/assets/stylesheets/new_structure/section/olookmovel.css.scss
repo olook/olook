@@ -24,6 +24,7 @@
 			font-family: $avenir;
 			font-size: 16px;
 			color: #000;
+      width: 46%;
 			span{
 				font-weight: bold;
 			}
@@ -59,8 +60,11 @@
 		          &:hover{background-position:0 -71px;text-indent: 9999px;}}
 		      	}
 		    }
-		    input[type="text"], input[type="password"]{padding-left: 10px; width:315px;height:31px;line-height:31px;border:solid 1px #C1C1C1;display: block;}
+		    input[type="text"], input[type="password"]{padding-left: 10px; width:315px;height:31px;line-height:31px;border:solid 1px #C1C1C1;display: block;
+          &.with_error{border: 1px solid #ef3742;}
+        }
 		}
+    .error_text{font-size: 11px; color: $pink;width: 90%;}
 		ul{
 			width: 355px;
 			height: 380px;
