@@ -93,7 +93,12 @@ class Product < ActiveRecord::Base
   end
 
   def title_text
-    "#{name} - Roupas e Sapatos Femininos | Olook"
+    name_with_color = color_name.blank? ? name : "#{name} #{color_name}"
+    if name_with_color.size > 33
+      "#{name_with_color} | Olook"
+    else
+      "#{name_with_color} - Roupas e Sapatos Femininos | Olook"
+    end
   end
 
   def model_name

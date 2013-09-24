@@ -26,13 +26,22 @@ describe Seo::SeoManager do
       end
     end
     context "When have model" do
-      context "product" do
+      context "product with big name" do
         before do
           @product = FactoryGirl.build(:shoe, name: 'Vestido Estampado Manga Longa Ecletic')
           @seo_model = Seo::SeoManager.new("/asd", model: @product)
         end
         it "return specific meta tag" do
-          expect(@seo_model.select_meta_tag).to eql('Vestido Estampado Manga Longa Ecletic - Roupas e Sapatos Femininos | Olook')
+          expect(@seo_model.select_meta_tag).to eql('Vestido Estampado Manga Longa Ecletic Black | Olook')
+        end
+      end
+      context "product with small name" do
+        before do
+          @product = FactoryGirl.build(:shoe, name: 'Vestido Estampado')
+          @seo_model = Seo::SeoManager.new("/asd", model: @product)
+        end
+        it "return specific meta tag" do
+          expect(@seo_model.select_meta_tag).to eql('Vestido Estampado Black - Roupas e Sapatos Femininos | Olook')
         end
       end
       context "collection theme" do
