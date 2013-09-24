@@ -48,6 +48,18 @@ olook.spy = function(selector){
         accordion();
         delivery();
 
+        // SOCIOMANTIC SPY PIXEL
+        // clear already set variables 
+        window.sociomantic.sonar.adv['olook-br'].clear();
+
+        // set the appropriate variable 
+        window.product = {
+          identifier: '1234567'
+        };
+
+        // send another tracking request
+        window.sociomantic.sonar.adv['olook-br'].track();
+
         if (typeof initSuggestion != 'undefined') {
           initSuggestion.checkIfProductIsAlreadySelected();
         }
