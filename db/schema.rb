@@ -130,6 +130,8 @@ ActiveRecord::Schema.define(:version => 20130924131551) do
     t.string   "utm_medium"
     t.string   "utm_content"
     t.string   "utm_campaign"
+    t.string   "phone"
+    t.string   "profile"
   end
 
   add_index "campaign_emails", ["email"], :name => "index_campaign_emails_on_email"
