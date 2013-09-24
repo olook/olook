@@ -65,6 +65,10 @@
     </div>
     <%=image_tag("product/vantagens.jpg", class:"vantagens") %>
   </section>
+
+  <%= product_presenter.render_look_products if params[:srl] %>
+
+
   <!-- local onde o frequentlyboughttogether será exibido -->
   <!--div class="chaordic frequentlyboughttogether"></div-->
   <!-- local onde o similaritems será exibido -->
