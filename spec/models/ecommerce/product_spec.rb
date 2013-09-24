@@ -20,6 +20,7 @@ describe Product do
     it { should have_many(:catalog_products) }
     it { should have_many(:catalogs) }
     it { should have_many(:consolidated_sells) }
+    it { should have_many(:price_logs) }
     it { should belong_to(:collection) }
     it { should have_and_belong_to_many(:profiles) }
   end
