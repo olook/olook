@@ -1,0 +1,24 @@
+<% if look_products.any? %>
+
+  <div id="related">
+    <h1 class="title">VOCÊ TAMBÉM PODE GOSTAR...</h1>
+    <ul class="<%= look_products.count > 3 ? 'carousel' : '' %>">
+      <%
+          look_products.each do |product|
+        if product.liquidation?
+      %>
+    <%# fazer um partial de product_item especifico para a feature do look %>
+    <%= render 'look_product_item', product: LiquidationProductService.liquidation_product(product).product %>
+  <% else %>
+    <%= render 'look_product_item', product: product %>
+  <% end
+      end
+    %>
+</ul>
+<% if look_products.count > 3 %>
+  <%= link_to "Anterior", "javascript:void(0);", :class => "carousel-prev" %>
+  <%= link_to "Próximo", "javascript:void(0);", :class => "carousel-next" %>
+<% end %>
+<div id="related_footer"></div>
+</div>
+<% end %>

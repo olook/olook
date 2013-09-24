@@ -16,8 +16,8 @@ class ProductPresenter < BasePresenter
     h.render :partial => "shared/product_item", :collection => member.main_profile_showroom, :as => :product
   end
 
-  def render_related_products
-    h.render :partial => 'product/related_products', :locals => {:related_products => related_products.first(6)}
+  def render_look_products
+    h.render :partial => 'product/look_products', :locals => {:look_products => look_products} if look_products.size > 1 
   end
 
   def render_description(show_facebook_button = true)
@@ -112,7 +112,7 @@ class ProductPresenter < BasePresenter
     quantity_left > 1
   end
 
-  def related_products
+  def look_products
     product.find_suggested_products.inject([]) do |result, related_product|
       if (related_product.name != product.name && related_product.category) &&  (!related_product.sold_out?)
         result << related_product
