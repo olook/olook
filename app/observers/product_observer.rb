@@ -1,13 +1,11 @@
 class ProductObserver < ActiveRecord::Observer
-  observe :variant
+  observe :product
 
-  def after_update(variant)
-    inventory_changes = variant.changes['inventory']
-    if inventory_changes && (
-      (inventory_changes.first.to_i.zero? && inventory_changes.last.to_i > 0) ||
-      (inventory_changes.last.to_i.zero? && inventory_changes.first.to_i > 0)
-    )
-      variant.product.delete_cache
+  def before_update product
+    if product.master_variant.price_changed? || product.master_variant.retail_price_changed?
+      product.price_logs.create(price: product.price, retail_price: product.retail_price)
     end
   end
+
 end
+
