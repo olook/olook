@@ -19,6 +19,7 @@ class Product < ActiveRecord::Base
 
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
+  has_many :price_logs, class_name: 'ProductPriceLog', :dependent => :destroy
   # , :conditions => {:is_master => false}
   has_many :variants, :dependent => :destroy do
     def sorted_by_description
