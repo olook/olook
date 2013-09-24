@@ -1,7 +1,7 @@
 <% if look_products.any? %>
 
   <div id="related">
-    <h1 class="title">VOCÊ TAMBÉM PODE GOSTAR...</h1>
+    <h3 class="title">COMPRE O LOOK COMPLETO</h3>
     <ul class="<%= look_products.count > 3 ? 'carousel' : '' %>">
       <%
           look_products.each do |product|
