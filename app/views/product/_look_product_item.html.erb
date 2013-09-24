@@ -1,6 +1,5 @@
 <% shoe_size = params[:shoe_sizes].to_a.find { |ss| !ss.blank? }.try(:to_i) || current_user.try(:shoes_size).try(:to_i) %>
 
-<%= cache(product.lite_item_view_cache_key_for(shoe_size), expires_in: CACHE_KEYS[:look_product_item_partial][:expire]) do %>
   <li class="product<%= " promotion" if product.promotion? %>" data-id="<%= product.id %>">
 
     <%= link_to product, :class => "product_link", :rel => "#{product.id}", :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}}, :remote => (defined?(suggestion) || gift)  do %>
@@ -46,7 +45,6 @@
         </li>
       <% end %>
     </ul>
-<% end %>
 
     <% if params[:controller] == "members" && params[:action] == "showroom" && params[:lbp] == "1" %>
       <p class="facebook_like_button">
