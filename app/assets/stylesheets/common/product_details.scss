@@ -246,7 +246,89 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         dd{float:left;line-height:19px;margin-left:4px;margin-bottom: 10px;}
       }
     }
-  }
-  
+  } 
 }
 
+#content #related {
+  width:100%;
+  border-top:2px solid #000;
+  position: relative;
+  .caroufredsel_wrapper {
+    height:265px !important;
+  }
+  h3 {
+    font-family: $johnston;
+    font-weight: lighter;
+    width:320px; 
+    background: #FFF;
+    padding: 0 10px;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    top:-15px;
+  }
+  .caroufredsel_wrapper {
+    width:640px !important;
+    left:0px !important;
+      .carousel {
+        left:20px !important;
+      }
+      li.product {
+        width:160px;
+        padding:0 10px;
+        margin: 0 8px;
+        a.product_link {
+          text-decoration: none;
+          color:#000;
+          .info-product {
+            font-family: $avenir;
+            font-size: 13px;
+            text-decoration: none;
+            width:100%;
+            overflow-x:hidden;
+            br {display: none;}
+            span.name {
+              width:300px;
+              display: block;
+              overflow-x:hidden;
+            }
+            .brand {
+              display: block;
+              text-transform: uppercase;
+            }
+            .old {
+              text-decoration: line-through;
+              letter-spacing: -1px;
+            }
+            .txt-black {
+              color: #ef3742;
+              font-size: 14px;
+              font-weight: bold;
+              letter-spacing:-1px;
+              float:right;
+              margin-right:1px;
+            }
+          }
+        }
+      }
+      li.product:hover {
+        border:0px;
+      }
+  }
+  .carousel-prev, 
+  .carousel-next {
+    background:image-url('arrows.png') -17px 0px;
+    display: block;
+    float:left;
+    float: left;
+    width: 20px;
+    height: 50px;
+    text-indent: -9999px;
+    position: absolute;
+    top: 90px;
+  }
+  .carousel-next {
+    background-position-x: 37px;
+    left: 618px;
+  }
+}
