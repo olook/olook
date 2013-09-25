@@ -2,8 +2,9 @@ class ProductObserver < ActiveRecord::Observer
   observe :product
 
   def before_update product
-    if product.master_variant.price_changed? || product.master_variant.retail_price_changed?
-      product.price_logs.create(price: product.price, retail_price: product.retail_price)
+    variant = product.master_variant
+    if variant.price_changed? || variant.retail_price_changed?
+      product.price_logs.create(price: variant.price_was, retail_price: variant.retail_price_was)
     end
   end
 
