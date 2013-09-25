@@ -104,7 +104,7 @@ class IndexProductsWorker
           else
             field_key = translation_hash.include?(detail.translation_token.downcase) ? translation_hash[detail.translation_token.downcase] : detail.translation_token.downcase.gsub(" ","_")
             if field_key == 'subcategory' && fields['category'] == 'moda praia'
-              fields[field_key] = detail.description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize + ' Moda Praia'
+              fields[field_key] = detail.description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize.gsub(" Moda Praia", "") + ' Moda Praia'
             else
               fields[field_key] = detail.description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
             end
