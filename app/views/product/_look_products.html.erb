@@ -23,3 +23,10 @@
 <div id="related_footer"></div>
 </div>
 <% end %>
+
+  <%= form_tag add_variants_path(current_cart), method: :put do %>
+    <%= hidden_field_tag :variant_numbers, "203186,202917,202329" %>
+    <%= submit_tag 'teste' %>
+  <% end %>
+
+

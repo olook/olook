@@ -420,7 +420,7 @@ Olook::Application.routes.draw do
     resources :items, :to => 'cart/items'
   end
   # => Used by chaordic
-  put 'sacola/:cart_id' => 'cart/cart#add_variants'
+  put 'sacola/:cart_id' => 'cart/cart#add_variants', as: :add_variants
 
   resource :checkout, :path => 'pagamento', :controller => 'checkout/checkout' do
     get "/", :to => "checkout/checkout#new"
