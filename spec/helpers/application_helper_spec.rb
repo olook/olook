@@ -142,22 +142,22 @@ describe ApplicationHelper do
     subject { helper.newsletter_type }
     context 'when cookie newsletterUser = 1' do
       before { cookies.should_receive(:[]).with('newsletterUser').and_return('1') }
-      it { should be eql('-newsletter') }
+      it { should eq('-newsletter') }
     end
 
     context 'when cookie newsletterUser = 2' do
       before { cookies.should_receive(:[]).with('newsletterUser').and_return('2') }
-      it { should be eql('-olookmovel') }
+      it { should eq('-olookmovel') }
     end
 
     context 'when cookie newsletterUser = 0' do
       before { cookies.should_receive(:[]).with('newsletterUser').and_return('0') }
-      it { should be eql('') }
+      it { should eq('') }
     end
 
     context 'when there is no cookie newsletterUser' do
       before { cookies.should_receive(:[]).with('newsletterUser').and_return(nil) }
-      it { should be eql('') }
+      it { should eq('') }
     end
   end
 
@@ -167,12 +167,12 @@ describe ApplicationHelper do
     context "when user is not logged in" do
       before { helper.stub(:user_signed_in?).and_return(false) }
 
-      it { should == "visitor" }
+      it { should eq "visitor" }
 
       context "with newsletter_type" do
         before { helper.stub(:newsletter_type).and_return('-bla') }
 
-        it { should == "visitor-bla" }
+        it { should eq "visitor-bla" }
       end
     end
 
@@ -182,24 +182,24 @@ describe ApplicationHelper do
       context "and user is half_user" do
         before { helper.stub_chain('current_user.half_user').and_return(true) }
 
-        it { should eql "half" }
+        it { should eq "half" }
 
         context "with newsletter_type" do
           before { helper.stub(:newsletter_type).and_return('-bla') }
 
-          it { should eql "half-bla" }
+          it { should eq "half-bla" }
         end
       end
 
       context "and user is not half_user" do
         before { helper.stub_chain('current_user.half_user').and_return(false) }
 
-        it { should eql "quiz" }
+        it { should eq "quiz" }
 
         context "with newsletter_type" do
           before { helper.stub(:newsletter_type).and_return('-bla') }
 
-          it { should eql "quiz-bla" }
+          it { should eq "quiz-bla" }
         end
       end
     end
