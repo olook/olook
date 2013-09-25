@@ -1,4 +1,4 @@
-<% hide_shipping = false if local_assigns[:hide_shipping].nil? %>
+<% hide_shipping = local_assigns[:hide_shipping].present? ? local_assigns[:hide_shipping] : false %>
 <div id="product-particulars">
   <h3 class="about-title open">SOBRE O PRODUTO</h3>
   <div class="about open">
@@ -14,7 +14,7 @@
       </dl>  
   </div>  
 
-  <% if hide_shipping %>
+  <% unless hide_shipping %>
 
     <h3 class="shipping-title">PRAZO DE ENTREGA</h3>
     <div class="shipping">
