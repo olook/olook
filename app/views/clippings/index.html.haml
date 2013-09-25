@@ -22,10 +22,7 @@
       OLOOK NA IMPRENSA
     %p
       O que andam falando de nós...
-    %h2
-      Quer escrever sobre a Olook?
-    %p.contact
-      É só entrar em contato através do e-mail imprensa@olook.com.br
+
 
   .socialmedia
     %p
@@ -36,6 +33,67 @@
 
     %fb:like{"href" => "http://#{Rails.env == 'production' ? "www" : "homolog"}.olook.com.br/olook-na-imprensa", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false", "class" => "like", "width" => "100"}
 
+  #big_clipping
+    = image_tag "common/andre.jpg"
+    %ul
+      %li.article
+        %p.title
+          Pequenos crescem no e-commerce
+        %span.info
+          “Desde o lançamento em 12 de dezembro, 300 mil brasileiras já mapearam seu perfil de consumo de moda com o algoritmo de recomendação da olook e já compraram mais de mil produtos que foram...”
+        %p.date
+          %span
+            Quando:
+          05/01/2012
+          %span
+            Onde: Startupi
+          (ig.com.br)
+        = link_to "Ler na integra", "#", target: :blank, class: 'lermais'
+        = image_tag "common/clipping_arrow.png", :class => "arrow"
+      %li.media
+        = image_tag "common/exame.jpg"
+    .clipping_left
+      = image_tag "common/kombi.jpg"
+      %ul
+        %li.article
+          %p.title
+            Pequenos crescem no e-commerce
+          %span.info
+            “Desde o lançamento em 12 de dezembro, 300 mil brasileiras já mapearam seu perfil de consumo de moda com o algoritmo de recomendação da olook e já compraram mais de mil produtos que foram...”
+          %p.date
+            %span
+              Quando:
+            05/01/2012
+            %span
+              Onde: Startupi
+            (ig.com.br)
+          = link_to "Ler na integra", "#", target: :blank, class: 'lermais'
+          = image_tag "common/clipping_arrow.png", :class => "arrow"
+        %li.media
+          = image_tag "common/exame.jpg"
+    .clipping_right
+      = image_tag "common/pb.jpg"
+      %ul
+        %li.article
+          %p.title
+            Pequenos crescem no e-commerce
+          %span.info
+            “Desde o lançamento em 12 de dezembro, 300 mil brasileiras já mapearam seu perfil de consumo de moda com o algoritmo de recomendação da olook e já compraram mais de mil produtos que foram...”
+          %p.date
+            %span
+              Quando:
+            05/01/2012
+            %span
+              Onde: Startupi
+            (ig.com.br)
+          = link_to "Ler na integra", "#", target: :blank, class: 'lermais'
+          = image_tag "common/clipping_arrow.png", :class => "arrow"
+        %li.media
+          = image_tag "common/exame.jpg"
+  %h2
+    Quer escrever sobre a Olook?
+  %p.contact
+    É só entrar em contato através do e-mail imprensa@olook.com.br
   - @clippings.each do |clipping|
     %ul
       %li.media
