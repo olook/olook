@@ -10,7 +10,7 @@ describe CampaignEmailValidator do
     context "when there's any user with given email" do
       it "returns message Email já cadastrado" do
         campaign_email.email = user.email
-        campaign_email.errors.should_receive(:add)
+        campaign_email.errors.should_receive(:add).with(:email, :exists, email: user.email)
         expect(subject.validate(campaign_email)).to be_false
       end
     end
