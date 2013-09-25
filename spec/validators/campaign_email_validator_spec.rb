@@ -10,7 +10,7 @@ describe CampaignEmailValidator do
     context "when there's any user with given email" do
       it "returns message Email já cadastrado" do
         campaign_email.email = user.email
-        campaign_email.errors.should_receive(:add).with(:email, 'já está cadastrado')
+        campaign_email.errors.should_receive(:add).with(:email, :exists, email: user.email)
         subject.validate(campaign_email)
       end
     end
@@ -18,7 +18,7 @@ describe CampaignEmailValidator do
     context "when there's no user with given email" do
       it "doesn't return message Email já cadastrado" do
         campaign_email.email = "foo@bar.com"
-        campaign_email.errors.should_not_receive(:add).with(:email, 'já está cadastrado')
+        campaign_email.errors.should_not_receive(:add).with(:email, :exists, email: "foo@bar.com")
         subject.validate(campaign_email)
       end
     end
