@@ -20,7 +20,7 @@ describe ProductObserver do
     context "price logs data" do
       before do
         product.master_variant.stub(:retail_price_was).and_return(old_retail_price)
-        product.update_attributes(retail_price: new_value)
+        product.update_attributes(retail_price: old_retail_price)
       end
       it { expect(product.price_logs.first.retail_price).to eq(old_retail_price) }
     end
