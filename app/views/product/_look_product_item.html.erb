@@ -20,30 +20,7 @@
       </div>
 
     <% end %>
-
-    <ul class="color_list">
-      <% unless product.color_name.blank? %>
-        <li>
-          <%= link_to image_tag(product.color_sample.square15.url || 'fake/no-color.png', :title => product.name), product, :'data-product' => product.showroom_picture ,:'data-back-href' => product.backside_picture , :'data-href' => "#{product.send(image_method ||= :showroom_picture) || 'fake/showroom-product.png'}", :class => "selected product_color"  %>
-          <%= hidden_field_tag "product_id_#{product.id}", product.id, :class => "product_id" %>
-          <% if shoe_size %>
-            <%= hidden_field_tag "sold_out_#{product.id}", "#{( product.sold_out? || (product.quantity(shoe_size) == 0 && product.shoe?) ) ? 'sold_out' : ''}", :class => "sold_out" %>
-            <%= hidden_field_tag "quantity_#{product.id}", "#{(shoe_size.nil?) ? '' : product.quantity( shoe_size )}", :class => "quantity" %>
-          <% end %>
-        </li>
-      <% end %>
-      <% product.colors(shoe_size, !!current_admin).each do |related_product| %>
-        <li>
-          <%= link_to image_tag(related_product.color_sample.square15.url || 'fake/no-color.png', :title => related_product.name), related_product, :'data-product' => related_product.showroom_picture, :'data-back-href' => related_product.backside_picture, :'data-href' => "#{related_product.send(image_method ||= :showroom_picture) || 'fake/showroom-product.png'}", :class => "product_color", :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}} %>
-          <%= hidden_field_tag "product_id_#{related_product.id}", related_product.id, :class => "product_id" %>
-          <% if shoe_size %>
-            <%= hidden_field_tag "sold_out_#{related_product.id}", "#{related_product.sold_out? || (related_product.quantity(shoe_size) == 0 && related_product.shoe?) ? 'sold_out' : ''}", :class => "sold_out" %>
-            <%= hidden_field_tag "quantity_#{related_product.id}", "#{(shoe_size.nil?) ? '' : related_product.quantity( shoe_size )}", :class => "quantity" %>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-
+    
     <% if params[:controller] == "members" && params[:action] == "showroom" && params[:lbp] == "1" %>
       <p class="facebook_like_button">
         <fb:like class="bt_face" href="<%= product_url(product.id) %>" send="false" layout="button_count" width="110" show_faces="false" font="arial"></fb:like>
