@@ -17,7 +17,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_look_products
-    h.render :partial => 'product/look_products', :locals => {:look_products => look_products} if look_products.size > 1 
+    h.render :partial => 'product/look_products', :locals => {:look_products => look_products, :product_presenter => self} if look_products.size > 1 
   end
 
   def render_description(show_facebook_button = true)

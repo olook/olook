@@ -18,7 +18,10 @@
           <% end %>
         </span>
       </div>
-
+      <%= form_tag "bla", remote: true do %>
+        <%= select_tag("produto_#{product.id}", options_for_select(order_array_by_size(product.variants).inject({}){|a,b| a[b.description] = b.number; a})) %>
+        <%= submit_tag "adicionar" %>
+      <% end %>
     <% end %>
     
     <% if params[:controller] == "members" && params[:action] == "showroom" && params[:lbp] == "1" %>
