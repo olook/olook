@@ -1,3 +1,4 @@
-class CatalogHeader::TextBannerCatalogHeader < CatalogHeader::CatalogHeader
-  attr_accessible :big_banner, :alt_big_banner, :link_big_banner
+class CatalogHeader::TextCatalogHeader < CatalogHeader::CatalogHeader
+  attr_accessible :resume_title, :text_complement, :title
+  validates :resume_title, :text_complement, :title, presence: true
 end
