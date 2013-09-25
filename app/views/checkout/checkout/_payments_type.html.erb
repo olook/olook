@@ -100,7 +100,7 @@
     <%= field_set_tag do %>
       <div>
       <%= payment_form.label :credit_card_number, 'Número do cartão' %>
-      <%= payment_form.text_field :credit_card_number,  class: "credit_card_number #{error_class_if_needed(@checkout.payment, :credit_card_number)}", onblur: track_event("CheckoutPayment","fillCreditCardNumber") %>
+      <%= payment_form.text_field :credit_card_number,  autocomplete: "off", class: "credit_card_number #{error_class_if_needed(@checkout.payment, :credit_card_number)}", onblur: track_event("CheckoutPayment","fillCreditCardNumber") %>
       </div>
       <div class="fieldset_validate">
       <%= payment_form.label :expiration_date, 'Validade (mm/aa)' %>
@@ -112,7 +112,7 @@
     <%= field_set_tag do %>
       <div>
       <%= payment_form.label :security_code, 'Cód. de segurança' %>
-      <%= payment_form.text_field :security_code,  class: "security_code #{error_class_if_needed(@checkout.payment, :security_code)}", onblur: track_event("CheckoutPayment","fillSecurityCode") %>
+      <%= payment_form.text_field :security_code,  autocomplete: "off", class: "security_code #{error_class_if_needed(@checkout.payment, :security_code)}", onblur: track_event("CheckoutPayment","fillSecurityCode") %>
       </div>
       <div class="code_link">
         <a href="javascript:void(0);" class="find_code">Como encontrar o código de segurança?</a>
@@ -122,7 +122,7 @@
     <%= field_set_tag do %>
       <div>
       <%= payment_form.label :user_identification, 'CPF' %>
-      <%= payment_form.text_field :user_identification,  class: "user_identification #{error_class_if_needed(@checkout.payment, :user_identification)}", onblur: track_event("CheckoutPayment","fillUserIdentification") %>
+      <%= payment_form.text_field :user_identification,  autocomplete: "off", class: "user_identification #{error_class_if_needed(@checkout.payment, :user_identification)}", onblur: track_event("CheckoutPayment","fillUserIdentification") %>
       </div>
       <%= errors_for(@checkout.payment, :user_identification) %>
     <% end %>

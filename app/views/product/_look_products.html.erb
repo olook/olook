@@ -2,7 +2,8 @@
 
   <div id="related">
     <h3 class="title">COMPRE O LOOK COMPLETO</h3>
-    <ul class="<%= look_products.count > 3 ? 'carousel' : '' %>">
+    <div class="cart_related">teste</div>
+    <ul class="carousel <%= look_products.count > 3 ? 'arrows' : '' %>">
       <%
           look_products.each do |product|
         if product.liquidation?
