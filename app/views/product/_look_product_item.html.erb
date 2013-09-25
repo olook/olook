@@ -3,25 +3,46 @@
   <li class="product<%= " promotion" if product.promotion? %>" data-id="<%= product.id %>">
 
     <%= link_to product, :class => "product_link", :rel => "#{product.id}", :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}}, :remote => (defined?(suggestion) || gift)  do %>
-
-
       <%= image_tag("common/ajax-loader-product-smaller.gif", :alt => product.name, :class => "async", data: { product: product.showroom_picture, backside: product.backside_picture, wearing: product.wearing_picture, showroom: product.showroom_picture } ) %>
 
-      <p class="info-product">
+      <div class="info-product">
         <span class="name"><%= product.formatted_name %></span><br />
         <strong class="brand"><%= product.brand %></strong><br />
 
         <span class="price">
           <% if product.promotion? %>
-            <span class="old">De <%= number_to_currency product.price %></span>
-            <span class="txt-black">por <%= number_to_currency product.retail_price %></span>
+            <span class="old">De <%= number_to_currency product.price %></span><br>
+            <span class="txt-black">por <%= number_to_currency product.retail_price %></span><br>
           <% else %>
             <%= number_to_currency product.price %> ou <span class="plots"><%= installments(product.price) %></span>
           <% end %>
         </span>
-      </p>
+      </div>
 
     <% end %>
+
+    <ul class="color_list">
+      <% unless product.color_name.blank? %>
+        <li>
+          <%= link_to image_tag(product.color_sample.square15.url || 'fake/no-color.png', :title => product.name), product, :'data-product' => product.showroom_picture ,:'data-back-href' => product.backside_picture , :'data-href' => "#{product.send(image_method ||= :showroom_picture) || 'fake/showroom-product.png'}", :class => "selected product_color"  %>
+          <%= hidden_field_tag "product_id_#{product.id}", product.id, :class => "product_id" %>
+          <% if shoe_size %>
+            <%= hidden_field_tag "sold_out_#{product.id}", "#{( product.sold_out? || (product.quantity(shoe_size) == 0 && product.shoe?) ) ? 'sold_out' : ''}", :class => "sold_out" %>
+            <%= hidden_field_tag "quantity_#{product.id}", "#{(shoe_size.nil?) ? '' : product.quantity( shoe_size )}", :class => "quantity" %>
+          <% end %>
+        </li>
+      <% end %>
+      <% product.colors(shoe_size, !!current_admin).each do |related_product| %>
+        <li>
+          <%= link_to image_tag(related_product.color_sample.square15.url || 'fake/no-color.png', :title => related_product.name), related_product, :'data-product' => related_product.showroom_picture, :'data-back-href' => related_product.backside_picture, :'data-href' => "#{related_product.send(image_method ||= :showroom_picture) || 'fake/showroom-product.png'}", :class => "product_color", :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}} %>
+          <%= hidden_field_tag "product_id_#{related_product.id}", related_product.id, :class => "product_id" %>
+          <% if shoe_size %>
+            <%= hidden_field_tag "sold_out_#{related_product.id}", "#{related_product.sold_out? || (related_product.quantity(shoe_size) == 0 && related_product.shoe?) ? 'sold_out' : ''}", :class => "sold_out" %>
+            <%= hidden_field_tag "quantity_#{related_product.id}", "#{(shoe_size.nil?) ? '' : related_product.quantity( shoe_size )}", :class => "quantity" %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
 
     <% if params[:controller] == "members" && params[:action] == "showroom" && params[:lbp] == "1" %>
       <p class="facebook_like_button">
