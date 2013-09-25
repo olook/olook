@@ -9,9 +9,9 @@
         if product.liquidation?
       %>
     <%# fazer um partial de product_item especifico para a feature do look %>
-    <%= render 'look_product_item', product: LiquidationProductService.liquidation_product(product).product %>
+    <%= render 'look_product_item', product: LiquidationProductService.liquidation_product(product).product, product_presenter: product_presenter %>
   <% else %>
-    <%= render 'look_product_item', product: product %>
+    <%= render 'look_product_item', product: product, product_presenter: product_presenter %>
   <% end
       end
     %>
