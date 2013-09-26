@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+<% @products.each do |product| %>
+    <product>
+      <product_id><%= product.id %></product_id>
+      <product_name><%= product.formatted_name(200) %></product_name>
+      <description><%= product.description %></description>
+      <old_price><%= number_with_precision(product.retail_price, precision: 2, separator: ",") %></old_price>
+      <price><%= number_with_precision(product.price, precision: 2, separator: ",") %></price>
+      <deeplink><%= product.product_url(:utm_source => "nano") %></deeplink>
+      <imageUrl><%= full_image_path product.xml_picture(:thumb) %></imageUrl>
+      <category><%= product.category_humanize %></category>
+    </product>
+<% end %>
+</products>
+
