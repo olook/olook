@@ -6,6 +6,7 @@ module Seo
   class SeoManager
 
     EXTRACT_COLOR_REGEX = /cor-(\w*)$/
+    REMOVE_COLOR_REGEX = /\/(cor|tamanho)-(.*)$/
     DEFAULT_META_TAG_TEXT = 'Sapatos Femininos e Roupas Femininas | Olook'
 
     attr_accessor :url, :meta_tag, :color, :model
