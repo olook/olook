@@ -456,6 +456,11 @@
         link: "Link (url completa, com 'Http://')"
         pdf_file: "Arquivo PDF"
         alt: 'ALT da imagem'
+      brand:
+        name: 'Nome'
+        seo_text: 'Título da página'
+        header_image_alt: 'ALT da imagem'
+        header_image: 'Imagem'
       credit_card:
         credit_card_number: "Número do cartão"
         expiration_date: "Validade (MM/AA)"
