@@ -26,9 +26,9 @@
     <% @catalog_bases.each do |catalog_base| %>
       <tr>
         <td><%= catalog_base.url %></td>
-        <td><%= link_to 'Mostrar', admin_catalog_base_path(catalog_base), :class => 'button' %></td>
-        <td><%= link_to 'Editar', edit_admin_catalog_base_path(catalog_base), :class => 'button' %></td>
-        <td><%= link_to 'Apagar', admin_catalog_base_path(catalog_base), confirm: 'Tem certeza?', method: :delete, :class => 'button danger' %></td>
+        <td><%= link_to 'Mostrar', admin_catalog_basis_path(catalog_base), :class => 'button' %></td>
+        <td><%= link_to 'Editar', edit_admin_catalog_basis_path(catalog_base), :class => 'button' %></td>
+        <td><%= link_to 'Apagar', admin_catalog_basis_path(catalog_base), confirm: 'Tem certeza?', method: :delete, :class => 'button danger' %></td>
       </tr>
     <% end %>
   </table>
