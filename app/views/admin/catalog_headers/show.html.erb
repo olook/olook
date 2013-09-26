@@ -1,0 +1,115 @@
+<h2>Landing page de catálogo</h2>
+<div class="inner">
+  <p>
+    <b>url</b>
+    <%= @catalog_header.url %>
+  </p>
+  <p>
+    <b>tipo</b>
+    <%= @catalog_header.type %>
+  </p>
+  <p>
+    <b>h1</b>
+    <%= @catalog_header.h1 %>
+  </p>
+  <p>
+    <b>h2</b>
+    <%= @catalog_header.h2 %>
+  </p>
+  <p>
+    <b>small_banner1</b>
+    <%= image_tag @catalog_header.small_banner1 %>
+  </p>
+
+  <p>
+    <b>alt_small_banner1</b>
+    <%= image_tag @catalog_header.alt_small_banner1 %>
+  </p>
+
+  <p>
+    <b>link_small_banner1</b>
+    <%= image_tag @catalog_header.link_small_banner1 %>
+  </p>
+
+
+  <p>
+    <b>small_banner2</b>
+    <%= image_tag @catalog_header.small_banner2 %>
+  </p>
+
+  <p>
+    <b>alt_small_banner2</b>
+    <%= image_tag @catalog_header.alt_small_banner2 %>
+  </p>
+
+  <p>
+    <b>link_small_banner2</b>
+    <%= image_tag @catalog_header.link_small_banner2 %>
+  </p>
+
+
+  <p>
+    <b>medium_banner</b>
+    <%= image_tag @catalog_header.medium_banner %>
+  </p>
+
+  <p>
+    <b>alt_medium_banner</b>
+    <%= image_tag @catalog_header.alt_medium_banner %>
+  </p>
+
+  <p>
+    <b>link_medium_banner</b>
+    <%= image_tag @catalog_header.link_medium_banner %>
+  </p>
+
+
+  <p>
+    <b>big_banner</b>
+    <%= image_tag @catalog_header.big_banner %>
+  </p>
+
+  <p>
+    <b>alt_big_banner</b>
+    <%= image_tag @catalog_header.alt_big_banner %>
+  </p>
+
+  <p>
+    <b>link_big_banner</b>
+    <%= image_tag @catalog_header.link_big_banner %>
+  </p>
+
+
+  <p>
+    <b>title</b>
+    <%= image_tag @catalog_header.title %>
+  </p>
+
+  <p>
+    <b>resume_title</b>
+    <%= image_tag @catalog_header.resume_title %>
+  </p>
+
+  <p>
+    <b>text_complement</b>
+    <%= image_tag @catalog_header.text_complement %>
+  </p>
+
+  <p>
+    <b>Criado em</b>
+    <%= @catalog_header.created_at %>
+  </p>
+
+  <p>
+    <b>Atualizado em</b>
+    <%= @catalog_header.updated_at %>
+  </p>
+
+</div>
+
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Editar', edit_admin_catalog_header_path(@catalog_header) %></li>
+  <li><%= link_to 'Voltar', admin_catalog_headers_path %></li>
+<% end %>
+

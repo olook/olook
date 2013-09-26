@@ -1,9 +1,9 @@
 # encoding: utf-8
-class Admin::CatalogHeaderController < Admin::BaseController
-  load_and_authorize_resource
+class Admin::CatalogHeadersController < Admin::BaseController
   respond_to :html, :text
 
   def index
+    @search = CatalogHeader::CatalogHeader.search(params[:search])
     @catalog_headers = CatalogHeader::CatalogHeader.all
   end
 

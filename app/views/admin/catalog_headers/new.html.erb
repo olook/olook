@@ -1,0 +1,10 @@
+<h2>Nova landing page de catálogo</h2>
+
+<div class="inner">
+  <%= render 'form' %>
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Voltar', admin_catalog_headers_path %></li>
+<% end %>
+

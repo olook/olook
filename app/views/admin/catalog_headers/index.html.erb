@@ -1,0 +1,41 @@
+<h2>Listando Landing page de catálogos</h2>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Nova landing page de catálogo', new_admin_catalog_header_path %></li>
+<% end %>
+
+<% content_for :sidebar do %>
+  <div class="block">
+    <h3>Filtros</h3>
+
+    <div class="content">
+    </div>
+
+  </div>
+<% end %>
+
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>url</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+    <% @catalog_headers.each do |catalog_header| %>
+      <tr>
+        <td><%= catalog_header.url %></td>
+        <td><%= link_to 'Mostrar', admin_catalog_header_path(catalog_header), :class => 'button' %></td>
+        <td><%= link_to 'Editar', edit_admin_catalog_header_path(catalog_header), :class => 'button' %></td>
+        <td><%= link_to 'Apagar', admin_catalog_header_path(catalog_header), confirm: 'Tem certeza?', method: :delete, :class => 'button danger' %></td>
+      </tr>
+    <% end %>
+  </table>
+
+  <div class="actions-bar wat-cf">
+    <div class="pagination">
+      <%#= will_paginate @catalog_headers %>
+    </div>
+  </div>
+</div>
