@@ -276,7 +276,7 @@ section#cart {
 
       p{
         height:21px;
-        background: image-url("/assets/campaign_emails/sprite.png") -260px -53px no-repeat;
+        background: image-url("campaign_emails/sprite.png") -260px -53px no-repeat;
         text-align:left;
         padding-left:40px;
         margin-top:7px;
@@ -375,7 +375,6 @@ section#cart {
   table.items_list, table.check, table#total {
     width: 990px !important;
     table-layout: fixed;
-
   }
 
   table.items_list {
@@ -383,7 +382,7 @@ section#cart {
     a.cart_item {
       width: 70px;height: 105px;display: block;float: left;margin-right: 20px;text-decoration:none;
       div.spy_cart_icon {display:none;width:70px;height:105px;background:rgba(255,255,255,0.6);position:absolute;}
-      span.spy-icon {background: url(/dev-assets/moments/sprite.png) no-repeat right -169px;width: 40px;height: 40px;float: left;margin-left: 14px;margin-top: 15px;display: block;}
+      span.spy-icon {background: image-url("moments/sprite.png") no-repeat right -169px;width: 40px;height: 40px;float: left;margin-left: 14px;margin-top: 15px;display: block;}
       span.spy-txt {display: block;float: left;font-family: avenir, arial, sans-serif;font-size: 11px;margin-top: 4px;font-weight: bold;letter-spacing: 1px;width: 70px;color:#000;text-align:center;text-decoration:none;}
     }
     a.cart_item:hover .spy_cart_icon {display:block;}
