@@ -14,10 +14,10 @@ module Seo
     @@file = YAML::load(File.open(FILENAME))
 
     def initialize url_params, options={}
-      @url = extract_base_url_from(url_params)
-      @model = options[:model] || OpenStruct.new({title_text: nil})
       match_data = EXTRACT_COLOR_REGEX.match(url_params)
       @color = match_data && match_data[1]
+      @url = url_params.gsub(REMOVE_COLOR_REGEX,'')
+      @model = options[:model] || OpenStruct.new({title_text: nil})
     end
 
     def select_meta_tag
@@ -26,15 +26,9 @@ module Seo
 
     private
 
-      def extract_base_url_from url
-        arr = url.split("/")
-        arr.first.empty? ? "/#{arr.second}" : "/#{arr.first}"        
-      end
-
       def choose_meta_tag
         search_meta_tag
         meta_tag_text = extract_meta_tag_text || DEFAULT_META_TAG_TEXT
-
         replace_placeholder_by_color_if_needed(meta_tag_text)
       end
 
