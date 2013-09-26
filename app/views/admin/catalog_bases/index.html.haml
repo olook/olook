@@ -1,0 +1,22 @@
+%h2 Listando Landing page de catálogos
+- content_for :secondary_navigation do
+  %li= link_to 'Nova landing page de catálogo', new_admin_catalog_basis_path
+- content_for :sidebar do
+  .block
+    %h3 Filtros
+    .content
+.inner
+  %table.table
+    %tr
+      %th url
+      %th
+      %th
+      %th
+    - @catalog_bases.each do |catalog_base|
+      %tr
+        %td= catalog_base.url
+        %td= link_to 'Mostrar', admin_catalog_basis_path(catalog_base), :class => 'button'
+        %td= link_to 'Editar', edit_admin_catalog_basis_path(catalog_base), :class => 'button'
+        %td= link_to 'Apagar', admin_catalog_basis_path(catalog_base), confirm: 'Tem certeza?', method: :delete, :class => 'button danger'
+  .actions-bar.wat-cf
+    .pagination
