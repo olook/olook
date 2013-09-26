@@ -3,8 +3,12 @@ class Admin::CatalogBasesController < Admin::BaseController
   respond_to :html, :text
 
   def index
-    @search = CatalogHeader::CatalogBase.search(params[:search])
-    @catalog_bases = CatalogHeader::CatalogBase.all
+    @catalog_bases = CatalogHeader::CatalogBase
+    if params[:search]
+      params[:search] = Hash[params[:search].select{|k,v| v.present?}]
+      @catalog_bases = @catalog_bases.where(params[:search])
+    end
+    @catalog_bases = @catalog_bases.page(params[:page]).per_page(100)
   end
 
   def show
