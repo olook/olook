@@ -1,0 +1,115 @@
+<h2>Landing page de catálogo</h2>
+<div class="inner">
+  <p>
+    <b>url</b>
+    <%= @catalog_base.url %>
+  </p>
+  <p>
+    <b>tipo</b>
+    <%= @catalog_base.type %>
+  </p>
+  <p>
+    <b>h1</b>
+    <%= @catalog_base.h1 %>
+  </p>
+  <p>
+    <b>h2</b>
+    <%= @catalog_base.h2 %>
+  </p>
+  <p>
+    <b>small_banner1</b>
+    <%= image_tag @catalog_base.small_banner1 %>
+  </p>
+
+  <p>
+    <b>alt_small_banner1</b>
+    <%= image_tag @catalog_base.alt_small_banner1 %>
+  </p>
+
+  <p>
+    <b>link_small_banner1</b>
+    <%= image_tag @catalog_base.link_small_banner1 %>
+  </p>
+
+
+  <p>
+    <b>small_banner2</b>
+    <%= image_tag @catalog_base.small_banner2 %>
+  </p>
+
+  <p>
+    <b>alt_small_banner2</b>
+    <%= image_tag @catalog_base.alt_small_banner2 %>
+  </p>
+
+  <p>
+    <b>link_small_banner2</b>
+    <%= image_tag @catalog_base.link_small_banner2 %>
+  </p>
+
+
+  <p>
+    <b>medium_banner</b>
+    <%= image_tag @catalog_base.medium_banner %>
+  </p>
+
+  <p>
+    <b>alt_medium_banner</b>
+    <%= image_tag @catalog_base.alt_medium_banner %>
+  </p>
+
+  <p>
+    <b>link_medium_banner</b>
+    <%= image_tag @catalog_base.link_medium_banner %>
+  </p>
+
+
+  <p>
+    <b>big_banner</b>
+    <%= image_tag @catalog_base.big_banner %>
+  </p>
+
+  <p>
+    <b>alt_big_banner</b>
+    <%= image_tag @catalog_base.alt_big_banner %>
+  </p>
+
+  <p>
+    <b>link_big_banner</b>
+    <%= image_tag @catalog_base.link_big_banner %>
+  </p>
+
+
+  <p>
+    <b>title</b>
+    <%= image_tag @catalog_base.title %>
+  </p>
+
+  <p>
+    <b>resume_title</b>
+    <%= image_tag @catalog_base.resume_title %>
+  </p>
+
+  <p>
+    <b>text_complement</b>
+    <%= image_tag @catalog_base.text_complement %>
+  </p>
+
+  <p>
+    <b>Criado em</b>
+    <%= @catalog_base.created_at %>
+  </p>
+
+  <p>
+    <b>Atualizado em</b>
+    <%= @catalog_base.updated_at %>
+  </p>
+
+</div>
+
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Editar', edit_admin_catalog_base_path(@catalog_base) %></li>
+  <li><%= link_to 'Voltar', admin_catalog_bases_path %></li>
+<% end %>
+

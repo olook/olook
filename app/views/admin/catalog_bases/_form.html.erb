@@ -1,10 +1,10 @@
-<%= form_for(@catalog_header, as: :catalog_header, :url => admin_catalog_headers_path(@catalog_header), :html => { :multipart => true }) do |f| %>
-  <% if @catalog_header.errors.any? %>
+<%= form_for(@catalog_base, as: :catalog_base, :url => admin_catalog_bases_path(@catalog_base), :html => { :multipart => true }) do |f| %>
+  <% if @catalog_base.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@catalog_header.errors.count, "error") %> prohibited this campaign from being saved:</h2>
+      <h2><%= pluralize(@catalog_base.errors.count, "error") %> prohibited this campaign from being saved:</h2>
 
       <ul>
-      <% @catalog_header.errors.full_messages.each do |msg| %>
+      <% @catalog_base.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -18,7 +18,7 @@
 
   <div class="field">
     <%= f.label :type %><br />
-    <%= f.text_field :type %>
+    <%= f.select(:type, [['Active', 'active'], ['In Active', 'inactive']]) %>
   </div>
 
   <div class="field">
