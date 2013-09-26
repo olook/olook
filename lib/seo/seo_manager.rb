@@ -37,7 +37,7 @@ module Seo
       end
 
       def replace_placeholder_by_color_if_needed(text)
-        color ? text.gsub(/feminin[ao]s/i, @color.titleize) : text
+        (color && text != DEFAULT_META_TAG_TEXT) ? text.gsub(/feminin[ao]s/i, @color.titleize) : text
       end
 
       def search_meta_tag
