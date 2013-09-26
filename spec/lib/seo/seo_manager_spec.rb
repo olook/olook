@@ -10,11 +10,11 @@ describe Seo::SeoManager do
     end
   end
 
-  describe "#meta_tag" do
+  describe "#select_meta_tag" do
     it "always return value" do
       expect(@seo_class.select_meta_tag).to_not be_nil
     end
-    context "When dont match url dont match to file items " do
+    context "When dont match url to file items " do
       it "return default" do
         seo_class_fail = Seo::SeoManager.new("/asd")
         expect(seo_class_fail.select_meta_tag).to eql('Sapatos Femininos e Roupas Femininas | Olook')
@@ -25,14 +25,76 @@ describe Seo::SeoManager do
         expect(@seo_class.select_meta_tag).to eql('Sapatos Femininos | Olook')
       end
     end
+
+    context "When there is one color on url" do
+      before do
+        @seo_class = Seo::SeoManager.new("/sapato/cor-dourado")
+      end
+
+      it "returns map meta tag with the color" do
+        expect(@seo_class.select_meta_tag).to eql('Sapatos Dourado | Olook')
+      end
+    end
+
+    context "When there are multiple colors on url" do
+      before do
+        @seo_class = Seo::SeoManager.new("/sapato/cor-dourado-azul")
+      end
+      it "returns standard map meta tag without colors" do
+        expect(@seo_class.select_meta_tag).to eql('Sapatos Femininos | Olook')
+      end
+
+    end
+
+
+    context "When the url is '/sapato/Rasteira' " do
+      before do
+        @seo_class = Seo::SeoManager.new("/sapato/Rasteira")
+      end
+
+      it "returns 'Rasteira | Olook' " do
+        expect(@seo_class.select_meta_tag).to eql('Rasteira | Olook')
+      end
+    end
+
+    context "When the url is '/sapato/Rasteira/tamanho-33' " do
+      before do
+        @seo_class = Seo::SeoManager.new("/sapato/Rasteira/tamanho-33")
+      end
+
+      it "returns 'Rasteira | Olook' " do
+        expect(@seo_class.select_meta_tag).to eql('Rasteira | Olook')
+      end
+    end
+
+
+    context "When the url is '/sapato/bota-creeper/cor-azul' " do
+      before do
+        @seo_class = Seo::SeoManager.new("/sapato/bota-creeper/cor-azul")
+      end
+
+      it "returns 'Rasteira | Olook' " do
+        expect(@seo_class.select_meta_tag).to eql('Sapatos Femininos e Roupas Femininas | Olook')
+      end
+    end
+
     context "When have model" do
-      context "product" do
+      context "product with big name" do
         before do
           @product = FactoryGirl.build(:shoe, name: 'Vestido Estampado Manga Longa Ecletic')
           @seo_model = Seo::SeoManager.new("/asd", model: @product)
         end
         it "return specific meta tag" do
-          expect(@seo_model.select_meta_tag).to eql('Vestido Estampado Manga Longa Ecletic Black - Roupas e Sapatos Femininos | Olook')
+          expect(@seo_model.select_meta_tag).to eql('Vestido Estampado Manga Longa Ecletic Black | Olook')
+        end
+      end
+      context "product with small name" do
+        before do
+          @product = FactoryGirl.build(:shoe, name: 'Vestido Estampado')
+          @seo_model = Seo::SeoManager.new("/asd", model: @product)
+        end
+        it "return specific meta tag" do
+          expect(@seo_model.select_meta_tag).to eql('Vestido Estampado Black - Roupas e Sapatos Femininos | Olook')
         end
       end
       context "collection theme" do
@@ -51,6 +113,16 @@ describe Seo::SeoManager do
         end
         it "return specific meta tag" do
           expect(@seo_model.select_meta_tag).to eql('Colcci - Calcas e vestidos | Olook')
+        end
+      end
+      context "When the url is '/marcas/Mandi' and dont have title tag" do
+        before do
+          @brand = FactoryGirl.build(:brand, name: 'mandi', seo_text: nil)
+          @seo_class = Seo::SeoManager.new("/marcas/Mandi", model: @brand)
+        end
+
+        it "returns 'Mandi | Olook' " do
+          expect(@seo_class.select_meta_tag).to eql('Mandi | Olook')
         end
       end
     end

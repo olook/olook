@@ -153,6 +153,7 @@ Olook::Application.routes.draw do
   match "/muccashop", :to => "xml#muccashop", :as => "muccashop", :defaults => { :format => 'xml' }
   match "/shopear", :to => "xml#shopear", :as => "shopear", :defaults => { :format => 'xml' }
   match "/adroll", :to => "xml#adroll", :as => "adroll", :defaults => { :format => 'xml' }
+  match "/nano_interactive", :to => "xml#nano_interactive", :as => "nano_interactive", :defaults => { :format => 'xml' }
 
   #SURVEY
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
@@ -450,6 +451,8 @@ Olook::Application.routes.draw do
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get '/diadasmaes' , :controller =>'landing_pages', :action => 'mother_day' , :as => 'mother_day'
   get "/cadastro", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: 1 }
+  get "/cadastro/olookmovel", :to => "landing_pages#olookmovel", as: 'olookmovel_lp'
+  post "/cadastro/olookmovel", :to => "landing_pages#create_olookmovel", as: 'olookmovel_lp'
   get "/cadastro_parcerias", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: nil }
 
   # Friendly urls (ok, I know it is not the best approach...)

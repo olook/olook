@@ -3,8 +3,6 @@ class Variant < ActiveRecord::Base
 
   has_many :freebie_variants
 
-  has_paper_trail on: [:create, :update], only: [:price, :retail_price], :if => Proc.new { |v| v.is_master? }
-
   default_scope where(:is_master => false)
 
   before_save :fill_is_master, :calculate_discount_percent
