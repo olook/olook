@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://s3.amazonaws.com/cdn.olook.com.br/sitemaps/sitemap.xml.gz
