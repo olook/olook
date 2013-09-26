@@ -113,13 +113,14 @@ class ProductPresenter < BasePresenter
   end
 
   def look_products
-    product.find_suggested_products.inject([]) do |result, related_product|
+    product_list = product.related_products.inject([]) do |result, related_product|
       if (related_product.name != product.name && related_product.category) &&  (!related_product.sold_out?)
         result << related_product
       else
         result
       end
     end
+    [product] + product_list
   end
 
   def render_price_for cart_service
