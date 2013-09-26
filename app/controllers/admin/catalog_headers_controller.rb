@@ -20,9 +20,9 @@ class Admin::CatalogHeadersController < Admin::BaseController
   end
 
   def create
-    @catalog_header = CatalogHeader::CatalogHeader.new(params[:catalog_header])
+    @catalog_header = CatalogHeader::CatalogHeader.factory(params[:catalog_header])
     if @catalog_header.save
-      redirect_to [:admin, @catalog_header], notice: ""
+      redirect_to admin_catalog_headers_path, notice: ""
     else
       render action: "new"
     end

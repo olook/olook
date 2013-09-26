@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130924131551) do
+ActiveRecord::Schema.define(:version => 20130926163411) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -206,7 +206,7 @@ ActiveRecord::Schema.define(:version => 20130924131551) do
   add_index "carts", ["notified"], :name => "index_carts_on_notified"
   add_index "carts", ["user_id"], :name => "index_carts_on_user_id"
 
-  create_table "catalog_headers", :force => true do |t|
+  create_table "catalog_bases", :force => true do |t|
     t.string   "url"
     t.string   "type"
     t.string   "h1"
