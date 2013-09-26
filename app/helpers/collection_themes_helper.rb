@@ -10,7 +10,7 @@ module CollectionThemesHelper
   end
 
   def print_section_name
-    {shoes_path => "sapatos", accessories_path => "acessórios", bags_path => "bolsas", clothes_path => "Roupas"}[request.fullpath]
+    {catalog_path(category: "sapato") => "sapato", catalog_path(category: "acessorio") => "acessório", catalog_path(category: "bolsa") => "bolsa", catalog_path(category: "roupa") => "Roupa"}[request.fullpath]
   end
 
   private

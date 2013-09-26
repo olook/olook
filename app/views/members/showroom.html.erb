@@ -83,7 +83,7 @@
       <%- end -%>
     </ul>
 
-    <%= content_tag(:p, link_to("+ ver mais roupas +", clothes_path, :class => "more clothes", :onclick => track_event("Showroom", "SeeMore", "Clothes"), :rel => "follow"), class:"see-more")%>
+    <%= content_tag(:p, link_to("+ ver mais roupas +", catalog_path(category: "roupa"), :class => "more clothes", :onclick => track_event("Showroom", "SeeMore", "Clothes"), :rel => "follow"), class:"see-more")%>
   </section>
 
   <section class="container_product" id="shoes_container">
@@ -94,7 +94,7 @@
       <%- end -%>
     </ul>
 
-    <%= content_tag(:p, link_to("+ ver mais sapatos +", shoes_path, :class => "more shoes", :onclick => track_event("Showroom", "SeeMore", "Shoes"), :rel => "follow"), class:"see-more")%>
+    <%= content_tag(:p, link_to("+ ver mais sapatos +", catalog_path(category: "sapato"), :class => "more shoes", :onclick => track_event("Showroom", "SeeMore", "Shoes"), :rel => "follow"), class:"see-more")%>
   </section>
 
 
@@ -105,7 +105,7 @@
       <%- end -%>
     </ul>
 
-    <%= content_tag(:p, link_to("+ ver mais bolsas +", bags_path, :class => "more purses", :onclick => track_event("Showroom", "SeeMore", "Bags"), :rel => "follow"), class:"see-more")%>
+    <%= content_tag(:p, link_to("+ ver mais bolsas +", catalog_path(category: "bolsa"), :class => "more purses", :onclick => track_event("Showroom", "SeeMore", "Bags"), :rel => "follow"), class:"see-more")%>
   </section>
 
 
@@ -116,7 +116,7 @@
       <%- end -%>
     </ul>
 
-    <%= content_tag(:p, link_to("+ ver mais acessórios +", accessories_path, :class => "more accessories", :onclick => track_event("Showroom", "SeeMore", "Acessories"), :rel => "follow"), class:"see-more")%>
+    <%= content_tag(:p, link_to("+ ver mais acessórios +", catalog_path(category: "acessorio"), :class => "more accessories", :onclick => track_event("Showroom", "SeeMore", "Acessories"), :rel => "follow"), class:"see-more")%>
   </section>
 
 </div> <%# fecha div#showroom %>
@@ -126,21 +126,21 @@
 <section id="boxes">
 <ul>
   <li>
-    <%= link_to clothes_path, onclick: track_event('DestaquesRodape', "BannerEsquerda") do %>
+    <%= link_to catalog_path(category: "roupa"), onclick: track_event('DestaquesRodape', "BannerEsquerda") do %>
       <%= image_tag "home/destaque_novidades.jpg" %>
       <h1>Novidades todos os meses</h1>
       <p>Agora temos o look completo</p>
     <% end %>
   </li>
   <li>
-    <%= link_to shoes_path, onclick: track_event('DestaquesRodape', "BannerCentro") do %>
+    <%= link_to catalog_path(category: "sapato"), onclick: track_event('DestaquesRodape', "BannerCentro") do %>
       <%= image_tag "home/destaque_sapatoshot.jpg" %>
       <h1>SAPATOS HOT</h1>
       <p>Vai ser difícil escolher apenas um</p>
     <% end %>
   </li>
   <li class="iehack"><!-- NAO REMOVER A CLASSE -->
-    <%= link_to accessories_path, onclick: track_event('DestaquesRodape', "BannerDireita") do %>
+    <%= link_to catalog_path(category: "acessorio"), onclick: track_event('DestaquesRodape', "BannerDireita") do %>
       <%= image_tag "home/destaque_acessorios.jpg" %>
       <h1>Pontue com acessórios</h1>
       <p>Eles valorizam qualquer look</p>
@@ -223,6 +223,4 @@
     }, 1500);
     </script>
   <% end %>
-
-
 <% end %>

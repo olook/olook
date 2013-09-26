@@ -3,9 +3,6 @@ class Variant < ActiveRecord::Base
 
   has_many :freebie_variants
 
-  # TODO: Temporarily disabling paper_trail for app analysis
-  #has_paper_trail
-
   default_scope where(:is_master => false)
 
   before_save :fill_is_master, :calculate_discount_percent

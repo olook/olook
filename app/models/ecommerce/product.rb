@@ -19,6 +19,7 @@ class Product < ActiveRecord::Base
 
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
+  has_many :price_logs, class_name: 'ProductPriceLog', :dependent => :destroy
   # , :conditions => {:is_master => false}
   has_many :variants, :dependent => :destroy do
     def sorted_by_description
@@ -62,6 +63,7 @@ class Product < ActiveRecord::Base
   scope :with_visibility, lambda { |value| { :conditions => ({ is_visible: value } unless value.blank? || value.nil? ) } }
   scope :search, lambda { |value| { :conditions => ([ "name like ? or model_number = ?", "%#{value}%", value ] unless value.blank? || value.nil?) } }
   scope :with_pictures, ->(value) { joins("left JOIN `pictures` ON `pictures`.`product_id` = `products`.`id`").where("pictures.id is #{value}").group("products.id") unless value.blank?}
+  scope :in_launch_range, ->(start_date, end_date) { where("launch_date BETWEEN ? AND ?", start_date, end_date) unless start_date.blank? || end_date.blank? }
 
 
   scope :valid_for_xml, lambda{|black_list| only_visible.where("variants.inventory >= 1").where("variants.price > 0.0").group("products.id").joins(:variants).having("(category = 1 and count(distinct variants.id) >= 4) or (category = 4 and count(distinct variants.id) >= 2) or category NOT IN (1,4) and products.id NOT IN (#{black_list})")}
@@ -92,7 +94,12 @@ class Product < ActiveRecord::Base
   end
 
   def title_text
-    "#{name} - Roupas e Sapatos Femininos | Olook"
+    name_with_color = color_name.blank? ? name : "#{name} #{color_name}"
+    if name_with_color.size > 33
+      "#{name_with_color} | Olook"
+    else
+      "#{name_with_color} - Roupas e Sapatos Femininos | Olook"
+    end
   end
 
   def model_name

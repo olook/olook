@@ -24,27 +24,24 @@ describe CouponValidator do
 
     context "when coupon has brand" do
 
-      context "but cart has no any product with brand eq coupon's brand" do
+      context "but cart has no product with brand eq coupon's brand" do
         let(:coupon) { FactoryGirl.build(:standard_coupon) }
 
         before do
           coupon.stub(:can_be_applied_to_any_product_in_the_cart?).and_return(false)
           coupon.stub(:brand).and_return("Some Brand")
+          coupon.stub(:expired?).and_return(false)
+          coupon.stub(:available?).and_return(true)
+          coupon.stub(:can_be_applied_to_any_product_in_the_cart?).and_return(false)
         end
 
-        it "adds an error" do
+        it "does not add an error" do
           cart.coupon_code = coupon.code
           Coupon.stub(:find_by_code).with(coupon.code).and_return(coupon)
           subject.validate(cart)
-          cart.errors.size.should eq(1)
+          expect(cart.errors[:coupon_code]).to be_empty
         end
 
-        it "associates an error to coupon_code" do
-          cart.coupon_code = coupon.code
-          Coupon.stub(:find_by_code).with(coupon.code).and_return(coupon)
-          subject.validate(cart)
-          cart.errors[:coupon_code].first.should eq("O cupom informado é válido apenas para produtos da marca #{ coupon.brand}. Navegue em nosso site e escolha outras peças desta marca. ;)")
-        end
       end
 
     end
