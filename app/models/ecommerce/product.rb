@@ -94,7 +94,8 @@ class Product < ActiveRecord::Base
   end
 
   def title_text
-    name_with_color = color_name.blank? ? name : "#{name} #{color_name}"
+    color = details.find_by_translation_token("Cor filtro").try(:description)
+    name_with_color = "#{formated_name} #{color}"
     if name_with_color.size > 33
       "#{name_with_color} | Olook"
     else
