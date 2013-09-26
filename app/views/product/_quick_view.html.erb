@@ -12,7 +12,7 @@
         <%= product_presenter.render_description %>
         <%= product_presenter.render_add_to_cart %>
         <%= render :partial => 'product/details', :locals => {:product_presenter => self, :hide_shipping => !! @hide_shipping} %>
-        <%=link_to '>> Ver página completa', product_seo_path(product.seo_path), :class => 'ver_produto' if ! @hide_shipping %>
+        <%=link_to '>> Ver página completa', product_seo_path(product.seo_path), :class => 'ver_produto' if @hide_shipping %>
       </div>
 
       <div id="modal_guide">
