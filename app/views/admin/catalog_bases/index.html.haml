@@ -5,6 +5,17 @@
   .block
     %h3 Filtros
     .content
+      = form_tag(admin_catalog_bases_path, method: :get, :class => "form") do
+        .group
+          = label_tag 'search[type]', 'Tipo', :class => "label"
+          = select_tag('search[type]', options_for_select(['', ['Texto', 'CatalogHeader::TextCatalogHeader'], ['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['2 Banners','CatalogHeader::SmallBannerCatalogHeader']], params[:search].try(:[], 'type').to_s))
+        .group
+          = label_tag 'search[url]', 'URL', :class => "label"
+          = text_field_tag 'search[url]', params[:search].try(:[], 'url').to_s
+        .group
+          = submit_tag 'Procurar', :class => "button"
+          = link_to 'Limpar', admin_catalog_bases_path, class: 'button'
+
 .inner
   %table.table
     %tr
