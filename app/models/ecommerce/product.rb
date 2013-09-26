@@ -19,6 +19,7 @@ class Product < ActiveRecord::Base
 
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
+  has_many :price_logs, class_name: 'ProductPriceLog', :dependent => :destroy
   # , :conditions => {:is_master => false}
   has_many :variants, :dependent => :destroy do
     def sorted_by_description
@@ -93,7 +94,12 @@ class Product < ActiveRecord::Base
   end
 
   def title_text
-    "#{name} - Roupas e Sapatos Femininos | Olook"
+    name_with_color = color_name.blank? ? name : "#{name} #{color_name}"
+    if name_with_color.size > 33
+      "#{name_with_color} | Olook"
+    else
+      "#{name_with_color} - Roupas e Sapatos Femininos | Olook"
+    end
   end
 
   def model_name

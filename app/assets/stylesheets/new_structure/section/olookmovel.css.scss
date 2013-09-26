@@ -1,0 +1,152 @@
+@import 'new_structure/common/global_stuffs';
+
+.header_login{
+	width: 990px;
+	margin-top: 0 !important;
+	border-top: 6px solid #000;
+	h2{
+		margin-top: 40px;
+		text-align: center;
+	}	
+}
+#landing-content{
+	width: 990px;
+	height: 510px;
+	margin: 0 auto;
+	margin-top: 80px;
+	.join{
+		width: 355px;
+		float: left;
+		margin-left: 42px;
+		p.promo{
+			background: image-url('landing_page/olookmovel/sorteio.jpg') left no-repeat;
+			padding-left: 185px;
+			font-family: $avenir;
+			font-size: 16px;
+			color: #000;
+      width: 46%;
+			span{
+				font-weight: bold;
+			}
+		}
+		p.notes{
+			font-size: 12px;
+			width: 325px;
+			a{
+				color: $pink;
+			}
+		}
+		form{
+		    border:none;width:358px;height:150px;margin-left: 5px;margin-top: 20px;
+		    fieldset{
+		    	margin-bottom:25px;border:0;
+		    	label{font-family:$avenir;font-size:14px;color: #717274;font-weight: 600;
+		        &.senha{margin-right: 1px;}
+		    }
+		      	&.botoes{
+		        	margin-top: 5px;
+		        	text-align:left;
+		        div{float:left;width:150px;margin-top: 20px;
+		            label{font-size:11px;color:#717274;width:60px;display:inline-block;text-align:left;font-family:$avenir;
+		            &[for="user_remember_me"]{width:100px;font-size:11px;}
+		          }
+		        	p{float:left;margin-top:5px !important;text-align: left;
+		            	a{text-decoration:none;color:#5e5f61;font-family: $avenir;font-size: 11px;
+		              &:hover{text-decoration:underline;}
+		            }
+		          }
+		        }
+		        input[type="submit"]{cursor: pointer; border: none; background: image-url('landing_page/olookmovel/cadastrar.jpg') 0px 0px no-repeat;float:left; width:319px;height:59px;text-indent: 9999px;margin-top: 22px;
+		          &:hover{background-position:0 -71px;text-indent: 9999px;}}
+		      	}
+		    }
+		    input[type="text"], input[type="password"]{padding-left: 10px; width:315px;height:31px;line-height:31px;border:solid 1px #C1C1C1;display: block;
+          &.with_error{border: 1px solid #ef3742;}
+        }
+		}
+    .error_text{font-size: 11px; color: $pink;width: 90%;line-height: 18px;}
+		ul{
+			width: 355px;
+			height: 380px;
+			border:1px solid #c8d3bd;
+			background-color: #e2f0d4;
+			li{
+				font-family: 16px;
+				text-align: center;
+				color: #000;
+				width: 305px;
+				margin-top: 20px;
+				margin-left: 25px;
+				img{
+					margin-top: 20px;
+					margin-left: 1%;
+				}
+				p{font-size: 16px;font-family: $avenir; font-weight: lighter;}
+				p.title{font-weight: bold;}
+			}
+		}
+		a.cadastro{
+			color: #000;
+			font-size: 14px;
+			font-family: $avenir;
+			background: image-url('landing_page/olookmovel/arrow.png') 0px 5px no-repeat;
+			margin-top: 60px;
+			margin-left: 79px;
+			padding-left: 17px;
+			display: block;
+		}
+
+	}
+	.olookmovel{
+		width: 490px;
+		float: left;
+		margin-left: 75px;
+	}
+}
+.footer{
+	width: 775px;
+	border-top: 1px solid #d7d7d7;
+	font-family: $avenir;
+	text-align: center;
+	color: #6d6f71;
+	margin: 15px auto 0;
+	h3{
+		font-size: 19px;
+		color: #6d6f71;
+		padding-top: 20px;
+	}
+	p{
+		font-size: 13px;
+		margin-top: 20px;
+	}
+} 
+
+@media (min-width: 760px) and (max-width: 768px){
+	#landing-content, .header_login, .content{
+		width: 100% !important;
+		.join{
+			width: 45%;
+      p.notes{
+        width: 100%
+      }
+			form{
+				width: 100%;
+			}
+		}
+		.olookmovel{
+			width: 48%;
+      margin: 0;
+      float: right;
+			img{
+				width: 100%;
+			}
+		}
+		ul{
+			width: 45%;
+		}
+	}
+  .footer{
+    width: 75%
+
+  }
+}

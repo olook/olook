@@ -7,9 +7,7 @@ Sapato:
 - Scarpin
 - Ankle boot
 - Anabela
-- Oxford cepa
 - Oxford
-- Sandalia
 - Peep Toe
 - Boneca
 - Slipper
@@ -17,9 +15,9 @@ Sapato:
 - Ankle Boot
 - Mocassim
 - Sneaker
-- Sneacker
+- Bolsa Média
+- Sapato
 - Alpargata
-- Necessaire
 - Tênis
 - Creeper
 - Palmilha
@@ -28,7 +26,6 @@ Sapato:
 - Amaciante
 - Impermeabilizante
 - slipper
-- bota
 Acessório:
 - Pulseira
 - Colar
@@ -42,7 +39,7 @@ Acessório:
 - Lenço
 - Carteira
 - Anel
-- Pashmina
+- Echarpe
 - Escapulário
 - KIT
 - Maxi colar
@@ -52,6 +49,7 @@ Acessório:
 - Maxi brinco
 - Necessaire
 - Cinto
+- Pashmina
 - Maxi Brinco
 Bolsa:
 - Bolsa Grande
@@ -70,6 +68,10 @@ Bolsa:
 - Slipper
 - Bolsa grande
 Roupa:
+- Echarpe
+- Bolsa Média
+- Bolsa Pequena
+- Necessaire
 - Tricot
 - Camisa
 - Calça
@@ -88,22 +90,18 @@ Roupa:
 - Top Cropped
 - Casaco
 - Jaqueta
+- Sutiã
 - camisa
 - camiseta
-- teste
-- '0'
-- Short
 Lingerie:
 - Lingerie
-- Sutiã
 - Sutia
 - Calcinha
+- Sutiã
 "Moda Praia":
-- Biquini
-- Biquíni
-- Maio
-- Maiô
-- Saída de Praia
-- Saida de Praia
-- Shorts
-- Vestido
+- Biquíni Moda Praia
+- Vestido Moda Praia
+- Maiô Moda Praia
+- Saia Moda Praia
+- Calça Moda Praia
+- Blusa Moda Praia

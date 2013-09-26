@@ -67,7 +67,7 @@ GIT
 
 GIT
   remote: git@github.com:olook/obraspag.git
-  revision: 4763c2010483a3d29fe41de776f087b3a56e56f0
+  revision: 732c6b8f99c5aee02441950350cdb91b91dd3b4a
   branch: master
   specs:
     obraspag (0.0.31)
@@ -107,7 +107,7 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    active_attr (0.8.2)
+    active_attr (0.7.0)
       activemodel (>= 3.0.2, < 4.1)
       activesupport (>= 3.0.2, < 4.1)
     activemodel (3.2.13)
@@ -138,7 +138,7 @@ GEM
       activemodel
       fog
     awesome_print (1.1.0)
-    aws-sdk (1.17.0)
+    aws-sdk (1.18.0)
       json (~> 1.4)
       nokogiri (< 1.6.0)
       uuidtools (~> 2.1)
@@ -174,9 +174,6 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 1.0.0)
-    capybara-webkit (0.14.2)
-      capybara (~> 2.0, >= 2.0.2)
-      json
     carrierwave (0.6.2)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -221,10 +218,12 @@ GEM
       multipart-post (~> 1.1)
       rack (~> 1.1)
     fastercsv (1.5.5)
+    faye-websocket (0.4.7)
+      eventmachine (>= 0.12.0)
     fb-channel-file (0.0.2)
       rails (>= 3.0)
     ffi (1.9.0)
-    fog (1.14.0)
+    fog (1.15.0)
       builder
       excon (~> 0.25.0)
       formatador (~> 0.2.0)
@@ -264,8 +263,9 @@ GEM
       railties (>= 3.1, < 4.1)
     hashie (1.2.0)
     highline (1.6.19)
-    hike (1.2.3)
+    hike (1.2.2)
     hpricot (0.8.6)
+    http_parser.rb (0.5.3)
     httparty (0.8.3)
       multi_json (~> 1.0)
       multi_xml
@@ -303,7 +303,7 @@ GEM
       polyamorous (~> 0.5.0)
     metaclass (0.0.1)
     method_source (0.8.1)
-    mime-types (1.23)
+    mime-types (1.25)
     mini_magick (3.3)
       subexec (~> 0.1.0)
     mocha (0.10.5)
@@ -316,7 +316,7 @@ GEM
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
-    net-ssh (2.6.8)
+    net-ssh (2.7.0)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     newrelic_rpm (3.5.8.72)
@@ -352,6 +352,10 @@ GEM
     parallel_tests (0.10.4)
       parallel
     png_quantizator (0.1.0)
+    poltergeist (1.1.2)
+      capybara (~> 2.0.1)
+      faye-websocket (~> 0.4.4)
+      http_parser.rb (~> 0.5.3)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
@@ -463,7 +467,7 @@ GEM
     rubyzip (0.9.9)
     rufus-scheduler (2.0.18)
       tzinfo (>= 0.3.23)
-    safe_yaml (0.9.5)
+    safe_yaml (0.9.7)
     sass (3.2.7)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -495,6 +499,8 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.3)
       tilt (~> 1.3, >= 1.3.3)
+    sitemap_generator (4.2.0)
+      builder
     slop (3.4.4)
     spork (0.9.2)
     sprockets (2.2.2)
@@ -539,7 +545,7 @@ GEM
     wasabi (2.3.0)
       nokogiri (>= 1.4.0)
     watchr (0.7)
-    webmock (1.12.0)
+    webmock (1.13.0)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
     websocket (1.0.7)
@@ -569,7 +575,6 @@ DEPENDENCIES
   capistrano
   capistrano-maintenance
   capybara (= 2.0.2)
-  capybara-webkit (= 0.14.2)
   carrierwave (~> 0.6.0)
   chaordic-packr (= 4.0.0)!
   ci_reporter!
@@ -614,6 +619,7 @@ DEPENDENCIES
   paper_trail (~> 2)
   parallel_tests
   piet!
+  poltergeist
   pry
   pry-nav
   puma
@@ -638,6 +644,7 @@ DEPENDENCIES
   shoulda-matchers
   simplecov
   simplecov-rcov
+  sitemap_generator
   spork (~> 0.9.2)
   sqlite3 (~> 1.3.6)
   state_machine (~> 1.1.0)
