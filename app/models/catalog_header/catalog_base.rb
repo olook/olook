@@ -5,11 +5,11 @@ class CatalogHeader::CatalogBase < ActiveRecord::Base
 
   def self.factory params
    if params[:type] == 'BigBannerCatalogBase'
-     BigBannerCatalogBase.new(params)
+     CatalogHeader::BigBannerCatalogHeader.new(params)
    elsif params[:type] == 'SmallBannerCatalogBase'
-     SmallBannerCatalogBase.new(params)
+     CatalogHeader::SmallBannerCatalogHeader.new(params)
    else
-     TextCatalogBase.new(params)
+     CatalogHeader::TextCatalogHeader.new(params)
    end
   end
 end
