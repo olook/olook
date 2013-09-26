@@ -34,7 +34,7 @@ Olook::Application.configure do
   # config.force_ssl = true
 
   # See everything in the log (default is :info)
-  config.log_level = :warn
+  config.log_level = :debug
 
   # Use a different logger for distributed setups
   #config.logger = SyslogLogger.new('rails-olook-prod')
@@ -54,7 +54,7 @@ Olook::Application.configure do
   # config.assets.precompile += %w( search.js )
 
   # config.assets.paths << "#{Rails.root}/public/assets/admin #{Rails.root}/public/assets/common #{Rails.root}/public/assets/gift #{Rails.root}/public/assets/plugins #{Rails.root}/public/assets/ui #{Rails.root}/public/assets/section"
-  config.assets.precompile += %w(*.js admin.css campaign_emails.css admin/*.css admin/*.js about/*.css common/*.js gift/*.js plugins/*.js ui/*.js section/*.css utilities/*.css customlanding.css)
+  config.assets.precompile += %w(*.js admin.css campaign_emails.css admin/*.css admin/*.js about/*.css common/*.css common/*.js gift/*.js plugins/*.js ui/*.js section/*.css utilities/*.css customlanding.css)
 
   # Disable delivery errors, bad email addresses will be ignored
   config.action_mailer.raise_delivery_errors = true
