@@ -223,6 +223,8 @@ Olook::Application.routes.draw do
   namespace :admin do
     get "/", :to => "dashboard#index"
 
+    resources :catalog_bases, path: "catalog_landing"
+
     resources :clippings
     get "ses" => "simple_email_service_infos#index", as: "ses"
     match "/ses_info", :to => "simple_email_service_infos#show", :as => "ses_info"
