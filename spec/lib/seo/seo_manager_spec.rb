@@ -46,21 +46,10 @@ describe Seo::SeoManager do
 
     end
 
-    context "When the url is '/marcas/Mandi' " do
-      before do
-        brand_mock = OpenStruct.new({title_text: 'Mandi - Blusas, Saias de Festa e Camisas | Olook'})
-        @seo_class = Seo::SeoManager.new("/marcas/Mandi", {model: brand_mock})
-      end
-
-      it "returns 'Mandi - Blusas, Saias de Festa e Camisas | Olook' " do
-        expect(@seo_class.select_meta_tag).to eql('Mandi - Blusas, Saias de Festa e Camisas | Olook')
-      end
-    end
 
     context "When the url is '/sapato/Rasteira' " do
       before do
-        model_mock = OpenStruct.new({title_text: 'Rasteira | Olook'})
-        @seo_class = Seo::SeoManager.new("/sapato/Rasteira", {model: model_mock})
+        @seo_class = Seo::SeoManager.new("/sapato/Rasteira")
       end
 
       it "returns 'Rasteira | Olook' " do
@@ -68,6 +57,26 @@ describe Seo::SeoManager do
       end
     end
 
+    context "When the url is '/sapato/Rasteira/tamanho-33' " do
+      before do
+        @seo_class = Seo::SeoManager.new("/sapato/Rasteira/tamanho-33")
+      end
+
+      it "returns 'Rasteira | Olook' " do
+        expect(@seo_class.select_meta_tag).to eql('Rasteira | Olook')
+      end
+    end
+
+
+    context "When the url is '/sapato/bota-creeper/cor-azul' " do
+      before do
+        @seo_class = Seo::SeoManager.new("/sapato/bota-creeper/cor-azul")
+      end
+
+      it "returns 'Rasteira | Olook' " do
+        expect(@seo_class.select_meta_tag).to eql('Sapatos Femininos e Roupas Femininas | Olook')
+      end
+    end
 
     context "When have model" do
       context "product with big name" do
@@ -104,6 +113,16 @@ describe Seo::SeoManager do
         end
         it "return specific meta tag" do
           expect(@seo_model.select_meta_tag).to eql('Colcci - Calcas e vestidos | Olook')
+        end
+      end
+      context "When the url is '/marcas/Mandi' and dont have title tag" do
+        before do
+          @brand = FactoryGirl.build(:brand, name: 'mandi', seo_text: nil)
+          @seo_class = Seo::SeoManager.new("/marcas/Mandi", model: @brand)
+        end
+
+        it "returns 'Mandi | Olook' " do
+          expect(@seo_class.select_meta_tag).to eql('Mandi | Olook')
         end
       end
     end
