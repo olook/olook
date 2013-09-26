@@ -140,10 +140,11 @@ div.full_container {
               margin-right:20px;
               border:0px;
             div.hover_suggestive {
-              bottom: 91px;
+              bottom: 90px;
+              left: -4px;
               ul li a {
-                height:44px;
-                padding-top:10px;
+                height:36px;
+                padding-top:1px;
               }
               ul li a:hover span {
                 color:#000;
