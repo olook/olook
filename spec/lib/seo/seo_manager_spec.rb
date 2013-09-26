@@ -34,6 +34,16 @@ describe Seo::SeoManager do
       it "returns map meta tag with the color" do
         expect(@seo_class.select_meta_tag).to eql('Sapatos Dourado | Olook')
       end
+
+      context "and the category is 'acessorio' " do
+        before do
+          @seo_class = Seo::SeoManager.new("/acessorio/cor-dourado")
+        end
+
+        it "returns 'Bijuterias Dourado | Olook' " do
+          expect(@seo_class.select_meta_tag).to eql('Bijuterias Dourado | Olook')
+        end
+      end
     end
 
     context "When there are multiple colors on url" do
