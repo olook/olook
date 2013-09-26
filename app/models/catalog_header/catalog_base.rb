@@ -4,9 +4,9 @@ class CatalogHeader::CatalogBase < ActiveRecord::Base
   validates :type, :url, :presence => true, :exclusion => ["CatalogHeader::CatalogBase"]
 
   def self.factory params
-   if params[:type] == 'BigBannerCatalogBase'
+   if params[:type] == 'CatalogHeader::BigBannerCatalogHeader'
      CatalogHeader::BigBannerCatalogHeader.new(params)
-   elsif params[:type] == 'SmallBannerCatalogBase'
+   elsif params[:type] == 'CatalogHeader::SmallBannerCatalogHeader'
      CatalogHeader::SmallBannerCatalogHeader.new(params)
    else
      CatalogHeader::TextCatalogHeader.new(params)
