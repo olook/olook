@@ -8,6 +8,7 @@ module Seo
     EXTRACT_COLOR_REGEX = /cor-(\w*)$/
     REMOVE_COLOR_REGEX = /\/(cor|tamanho)-(.*)$/
     DEFAULT_META_TAG_TEXT = 'Sapatos Femininos e Roupas Femininas | Olook'
+    REPLACE_REGEX = /feminin[ao]s|- semi joia e bijuterias finas/i
 
     attr_accessor :url, :meta_tag, :color, :model
     FILENAME = File.expand_path(File.join(File.dirname(__FILE__), '../..', 'config/seo.yml'))
@@ -37,7 +38,7 @@ module Seo
       end
 
       def replace_placeholder_by_color_if_needed(text)
-        (color && text != DEFAULT_META_TAG_TEXT) ? text.gsub(/feminin[ao]s/i, @color.titleize) : text
+        (color && text != DEFAULT_META_TAG_TEXT) ? text.gsub(REPLACE_REGEX, @color.titleize) : text
       end
 
       def search_meta_tag
