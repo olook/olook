@@ -1,4 +1,8 @@
+//= require plugins/spy
+
 $(function () {
+
+  olook.spy('.spy');
 
   $("#banner").click(function(){
     share();
