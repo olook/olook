@@ -408,6 +408,10 @@
         one: Serviço de email
         other: Serviços de email
 
+      catalog_header_catalog_base:
+        one: Landing de catálogo
+        other: Landing de catálogos
+
       gift_recipient: presenteado
       gift_occasion: "ocasião"
       address: Endereço
