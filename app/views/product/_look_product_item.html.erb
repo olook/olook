@@ -18,12 +18,15 @@
           <% end %>
         </span>
       </div>
-      <%= form_tag "bla", remote: true do %>
-        <%= select_tag("produto_#{product.id}", options_for_select(order_array_by_size(product.variants).inject({}){|a,b| a[b.description] = b.number; a})) %>
+      <%= form_tag cart_look_items_path, remote: true do %>
+        <%= hidden_field_tag :product, product.id %>
+        <%= select_tag("size", options_for_select(order_array_by_size(product.variants).inject({}){|a,b| a[b.description] = b.number; a}.merge('selecione' => 'Selecione'), selected: 'Selecione')) %>
         <%= submit_tag "adicionar" %>
+        <div id="<%= product.id %>" class="error">
+        </div>
       <% end %>
     <% end %>
-    
+
     <% if params[:controller] == "members" && params[:action] == "showroom" && params[:lbp] == "1" %>
       <p class="facebook_like_button">
         <fb:like class="bt_face" href="<%= product_url(product.id) %>" send="false" layout="button_count" width="110" show_faces="false" font="arial"></fb:like>
