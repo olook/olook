@@ -414,6 +414,26 @@
       credit_card: Cartão de crédito
 
     attributes:
+      catalog_header/catalog_base:
+        url: 'Url'
+        type: 'Tipo'
+        h1: 'H1 (Titulo para SEO)'
+        h2: 'H2 (Subtitulo para SEO)'
+        small_banner1: 'Destaque menor/superior (150x300)'
+        small_banner2: 'Destaque menor/inferior (150x300)'
+        medium_banner: 'Destaque maior (300x600)'
+        big_banner: 'Destaque grande (600x500)'
+        alt_small_banner1: 'Alt da imagem'
+        alt_small_banner2: 'Alt da imagem'
+        alt_medium_banner: 'Alt da imagem'
+        alt_big_banner: 'Alt da imagem'
+        link_small_banner1: 'Link (url completa, com Http://)'
+        link_small_banner2: 'Link (url completa, com Http://)'
+        link_medium_banner: 'Link (url completa, com Http://)'
+        link_big_banner: 'Link (url completa, com Http://)'
+        title: 'Título para o modelo'
+        resume_title: 'Texto resumido'
+        text_complement: 'Complemento do texto'
       highlight_campaign:
         label: Nome da campanha
         product_ids: Ids dos produtos
