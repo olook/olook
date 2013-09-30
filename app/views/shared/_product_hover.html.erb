@@ -1,6 +1,6 @@
 <div class="hover_suggestive">
   <ul>
-    <li class="spy"><%= link_to content_tag(:span, "Espiar"), spy_product_path(product), :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}}, :rel => "#{product.id}", :remote => true %></li>
+    <li class="spy" data-url="<%=spy_product_path(product)%>"><%= link_to content_tag(:span, "Espiar"), spy_product_path(product), :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}}, :rel => "#{product.id}", :remote => true %></li>
     <% if (gift) %>
     <li class="add"><%= link_to "Adicionar às sugestões", "suggestions/select_gift/#{product.id}", :remote => true, :rel => "#{product.id}", :class => "add_suggestion_#{product.id}" %></li>
     <% end %>
