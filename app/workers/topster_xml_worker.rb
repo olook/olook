@@ -3,7 +3,7 @@ class TopsterXmlWorker
 
   def self.perform
     xml = TopsterXml.create_xml
-    TopsterXml.send_to_amazon xml
+    TopsterXml.send_to_amazon(xml, 'topster_data.xml')
   end
 
 end
