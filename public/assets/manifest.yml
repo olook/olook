@@ -217,8 +217,8 @@ campaigns/bt-add.png: campaigns/bt-add-c73cba277ad52a2628c91d01372adb99.png
 campaigns/bt-add/index.png: campaigns/bt-add-c73cba277ad52a2628c91d01372adb99.png
 campaigns/logo-avc.jpg: campaigns/logo-avc-47a1cd870c0fbdf80125977ddb7eb53a.jpg
 campaigns/logo-avc/index.jpg: campaigns/logo-avc-47a1cd870c0fbdf80125977ddb7eb53a.jpg
-campaigns/logos-projetos.jpg: campaigns/logos-projetos-18f96b554109c089112c8c4b83d60777.jpg
-campaigns/logos-projetos/index.jpg: campaigns/logos-projetos-18f96b554109c089112c8c4b83d60777.jpg
+campaigns/logos-projetos.jpg: campaigns/logos-projetos-561a8b994129096cca47104b5bb34718.jpg
+campaigns/logos-projetos/index.jpg: campaigns/logos-projetos-561a8b994129096cca47104b5bb34718.jpg
 campaigns/niver/1ano-muito.png: campaigns/niver/1ano-muito-b8c1da2723232edc63c2344cc04c4c28.png
 campaigns/niver/1ano-muito/index.png: campaigns/niver/1ano-muito-b8c1da2723232edc63c2344cc04c4c28.png
 campaigns/niver/banner.jpg: campaigns/niver/banner-66ada5b3a578635cdf9346edc817e8c7.jpg
@@ -243,6 +243,8 @@ campaigns/niver/separadores.png: campaigns/niver/separadores-6dccdf2e3c82c41fc6f
 campaigns/niver/separadores/index.png: campaigns/niver/separadores-6dccdf2e3c82c41fc6fdeed565d241a1.png
 campaigns/niver/sprite-numeros.png: campaigns/niver/sprite-numeros-9fb30f0f63b5f3aa0414c61df64ebaae.png
 campaigns/niver/sprite-numeros/index.png: campaigns/niver/sprite-numeros-9fb30f0f63b5f3aa0414c61df64ebaae.png
+campaigns/outubro_rosa.jpg: campaigns/outubro_rosa-653d2a4d7de2acd305efcdb304410b8d.jpg
+campaigns/outubro_rosa/index.jpg: campaigns/outubro_rosa-653d2a4d7de2acd305efcdb304410b8d.jpg
 campaigns/regina-volpato.png: campaigns/regina-volpato-2e33006bca8d66fa5ce29604cb58c0cc.png
 campaigns/regina-volpato/index.png: campaigns/regina-volpato-2e33006bca8d66fa5ce29604cb58c0cc.png
 cart/apply-coupon.jpg: cart/apply-coupon-34a5d96af7678e7ff34c7c07aad87c38.jpg
@@ -2335,8 +2337,8 @@ new_structure/section/quiz.css: new_structure/section/quiz-bb36e09c8c3719e5edb8f
 new_structure/section/quiz/index.css: new_structure/section/quiz-bb36e09c8c3719e5edb8fb33731c1a20.css
 new_structure/section/search.css: new_structure/section/search-8074cdc808136d7c779b27b4b19554b5.css
 new_structure/section/search/index.css: new_structure/section/search-8074cdc808136d7c779b27b4b19554b5.css
-section/avc-campaign.css: section/avc-campaign-81c6c5b83205a1575a6aa043120691e8.css
-section/avc-campaign/index.css: section/avc-campaign-81c6c5b83205a1575a6aa043120691e8.css
+section/avc-campaign.css: section/avc-campaign-f52c6c4715b13bc7146ad55440cae213.css
+section/avc-campaign/index.css: section/avc-campaign-f52c6c4715b13bc7146ad55440cae213.css
 section/box_invite.css: section/box_invite-6d013b6cf45bdf30fa418a29d59180d6.css
 section/box_invite/index.css: section/box_invite-6d013b6cf45bdf30fa418a29d59180d6.css
 section/checkout.css: section/checkout-c63c4d0856246674d23baadecce4dd55.css
