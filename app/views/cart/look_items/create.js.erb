@@ -1,9 +1,9 @@
 size = '<%= j params[:size] %>';
-
+productId =  '<%= j params[:product_id] %>';
 if(initProduct.validateSize(size)) {
-  alert("valido");
+  $('msg-<%= j params[:product_id] %>').text("teste2");
 }
 else
 {
-  alert("invalido");
+  $('msg-<%= j params[:product_id] %>').text("teste");
 }
