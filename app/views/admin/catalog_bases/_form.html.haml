@@ -1,3 +1,6 @@
+- content_for :footer do
+  = javascript_include_tag 'section/admin/catalog_header'
+
 = form_for(@catalog_base, as: :catalog_base, :url => admin_catalog_bases_path(@catalog_base), :html => { :multipart => true }) do |f|
   - if @catalog_base.errors.any?
     #error_explanation
