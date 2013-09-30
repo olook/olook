@@ -129,10 +129,8 @@ initProduct = {
     initProduct.loadAddToCartForm();
   },
 
-  validateSize: function(size){
-    size = size.toString();
-    validSize = ["P", "M", "G", "GG", "33", "34", "35", "36", "37", "38", "39"].indexOf(size);
-    return validSize >= 0;
+  isEmpty: function(str){
+    return !(str && str!=''); 
   }
 }
 
