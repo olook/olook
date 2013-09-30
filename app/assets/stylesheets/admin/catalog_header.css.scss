@@ -1,3 +1,13 @@
-// Place all the styles related to the Admin::catalog_header controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+form#new_catalog_base{
+  .field{
+    display: block;
+    width: 520px;
+    border: solid 1px;
+    padding: 5px;
+    border-color: #ddd;
+    input{
+      width: 300px;
+    }
+  }
+}
+
