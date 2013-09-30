@@ -254,7 +254,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
   border-top:2px solid #000;
   position: relative;
   .caroufredsel_wrapper {
-    height:265px !important;
+    height:315px !important;
   }
   h3 {
     font-family: $johnston;
@@ -273,6 +273,21 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       .carousel {
         left:20px !important;
       }
+      #size {
+        width:100%;
+        margin-bottom:15px;
+      }
+      input {
+        width:100%;
+        background: #000;
+        border: 0px;
+        color:#FFF;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 11px;
+        text-align: center;
+        padding:5px 0;
+      }
       li.product {
         width:160px;
         padding:0 10px;
@@ -280,6 +295,12 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         a.product_link {
           text-decoration: none;
           color:#000;
+          position: relative;
+          z-index: 1;
+          form {
+            z-index: 9999;
+            position: relative;
+          }
           .info-product {
             font-family: $avenir;
             font-size: 13px;
@@ -330,5 +351,9 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
   .carousel-next {
     background-position-x: 37px;
     left: 618px;
+  }
+  .cart_related {
+    float:right;
+    width:325px;
   }
 }
