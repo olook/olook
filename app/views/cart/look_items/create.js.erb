@@ -1,9 +1,13 @@
 variant_number = '<%= j params[:variant_number] %>';
 if(initProduct.isEmpty(variant_number)) {
-  $('#msg-<%= j params[:product_id] %>').show().html('Qual é o seu tamanho mesmo?');
+  $('li[data-id=<%= j params[:product_id] %>] form .error').show().html('Qual é o seu tamanho mesmo?');
 }
 else
 {
-  $('#msg-<%= j params[:product_id] %>').hide();
+  $('li[data-id=<%= j params[:product_id] %>] form .error').hide();
+  $('#minicart').append('<%= j(hidden_field_tag("variant_numbers[]", params[:variant_number])) %>');
+  $('li[data-id=<%= j params[:product_id] %>] form input[type=submit]').addClass("added_product").attr("disabled", "disabled");
+  $('.cart_related p.empty_minicart').remove();
 
+  $('.cart_related ul').append("<li>"+$('li[data-id=<%= j params[:product_id] %>] span.name').text()+"</li>");
 }

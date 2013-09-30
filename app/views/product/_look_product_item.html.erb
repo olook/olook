@@ -22,9 +22,8 @@
     <%= form_tag cart_look_items_path, remote: true do %>
       <%= hidden_field_tag :product_id, product.id %>
       <%= select_tag("variant_number", options_for_select({'Selecione' => ''}.merge(order_variants_by_size(product.variants).inject({}){|a,b| a[b.description] = b.id; a}), selected: 'Selecione', style:"position:relative; z-index:1000;")) %>
+      <div class="error"></div>
       <%= submit_tag "adicionar" %>
-      <div id="msg-<%= product.id %>" class="error">
-      </div>
     <% end %>
     <% if params[:controller] == "members" && params[:action] == "showroom" && params[:lbp] == "1" %>
       <p class="facebook_like_button">
