@@ -254,7 +254,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
   border-top:2px solid #000;
   position: relative;
   .caroufredsel_wrapper {
-    height:315px !important;
+    height:335px !important;
   }
   h3 {
     font-family: $johnston;
@@ -270,13 +270,25 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
   .caroufredsel_wrapper {
     width:640px !important;
     left:0px !important;
+      .error {
+        border: 1px solid #ff0000;
+        font-size: 10px;
+        text-align: center;
+        background: #ff949d;
+        padding: 5px;
+        color: #000;
+        font-family: $avenir;
+        display: none;
+        margin-bottom:10px;
+      }
       .carousel {
         left:20px !important;
       }
-      #size {
+      #variant_number {
         width:100%;
         margin-bottom:15px;
       }
+      img {width: 100%;}
       input {
         width:100%;
         background: #000;
@@ -295,12 +307,6 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         a.product_link {
           text-decoration: none;
           color:#000;
-          position: relative;
-          z-index: 1;
-          form {
-            z-index: 9999;
-            position: relative;
-          }
           .info-product {
             font-family: $avenir;
             font-size: 13px;
@@ -355,5 +361,17 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
   .cart_related {
     float:right;
     width:325px;
+    padding-top:50px;
+    h3 {
+      width: 100%;
+      padding:0px;
+      text-align: left;
+      font-size: 17px;
+      font-family: $avenir;
+      font-weight: bold;
+    }
+    ul li {
+      margin-bottom:10px;
+    }
   }
 }
