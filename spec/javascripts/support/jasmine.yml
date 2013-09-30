@@ -15,6 +15,7 @@ src_files:
   - spec/javascripts/helpers/jquery-1.9.1.min.js
   - app/assets/javascripts/credit_card.js
   - app/assets/javascripts/formatter.js
+  - app/assets/javascripts/plugins/admin/countdown.js
   # - assets/javascripts/*.js
   # - assets/application.js
 
