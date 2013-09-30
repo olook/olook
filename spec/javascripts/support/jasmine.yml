@@ -16,6 +16,7 @@ src_files:
   - app/assets/javascripts/credit_card.js
   - app/assets/javascripts/formatter.js
   - app/assets/javascripts/plugins/admin/countdown.js
+  - app/assets/javascripts/admin/catalog_landing_page.js
   # - assets/javascripts/*.js
   # - assets/application.js
 
@@ -59,7 +60,7 @@ helpers:
 #   - **/*[sS]pec.js
 #
 spec_files:
-  - '**/*[sS]pec.js'
+  - '**/*[sS]pec.{js,coffee}'
 
 # src_dir
 #
