@@ -2,8 +2,22 @@
   require 'builder'
 
 class TopsterXml
+
+  RENDERERS = {
+    nextperformance: 'nextperformance_template.xml.erb',
+    topster: 'topster_template.xml.erb',
+    criteo: 'criteo.xml.erb',
+    triggit: 'triggit.xml.erb',
+    sociomantic: 'sociomantic.xml.erb',
+  }
+
+
   extend XmlHelper
   extend ActionView::Helpers::NumberHelper
+
+  def self.create_xmls
+    create_xml(RENDERERS.keys)
+  end
 
   def self.create_xml(templates)
     xmls = {}
@@ -16,39 +30,47 @@ class TopsterXml
     xmls
   end
 
-  def self.send_to_amazon (xml, file_name)
-    bucket = ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'
-    connection = Fog::Storage.new({
-      :provider   => 'AWS'
-    })
-    directory = connection.directories.get(bucket)
-    directory.files.create(
-      :key    => "xml/#{file_name}",
-      :body   => xml,
-      "Content-Type" => "application/xml",
-      :public => true)
+  def self.upload(xmls)
+    xmls.each {|template_name, xml| send_to_amazon(xml, "#{template_name}_data.xml") }
   end
 
   private
-    def self.generate_for(template_name)
-      if template_name == :nextperformance
-        renderer = ERB.new(File.read('app/views/xml/nextperformance_template.xml.erb'))
-      elsif template_name == :topster
-        renderer = ERB.new(File.read('app/views/xml/topster_template.xml.erb'))
-      else
-        renderer = OpenStruct.new({result: ""})
-      end
 
+    def self.send_to_amazon (xml, file_name)
+      bucket = ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'
+      connection = Fog::Storage.new({
+        :provider   => 'AWS'
+      })
+      directory = connection.directories.get(bucket)
+      directory.files.create(
+        :key    => "xml/#{file_name}",
+        :body   => xml,
+        "Content-Type" => "application/xml",
+        :public => true)
+    end
+
+
+    def self.generate_for(template_name)
+      renderer = get_renderer(template_name)
       renderer.result(binding)
+    end
+
+    def self.get_renderer(template_name)
+      begin
+        template_file_path = "app/views/xml/" + RENDERERS.fetch(template_name)
+        ERB.new(File.read(template_file_path))
+      rescue KeyError
+        OpenStruct.new({result: ""})
+      end      
     end
 
     def self.load_products
       # This method was copied from XmlController
       products = Product.where(collection_id: 24).valid_for_xml(Product.xml_blacklist("products_blacklist").join(','))     
-      liquidation_products = []
+      @liquidation_products = []
       active_liquidation = LiquidationService.active
-      liquidation_products = active_liquidation.resume[:products_ids] if active_liquidation
-      products + liquidation_products
+      @liquidation_products = active_liquidation.resume[:products_ids] if active_liquidation
+      products + @liquidation_products
     end
 
  end
