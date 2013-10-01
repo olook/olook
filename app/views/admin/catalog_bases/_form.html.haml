@@ -26,65 +26,68 @@
     = f.label :h2
     %br/
     = f.text_field :h2
-  .field
-    = f.label :small_banner1
-    %br/
-    = f.file_field :small_banner1
-  .field
-    = f.label :alt_small_banner1
-    %br/
-    = f.text_field :alt_small_banner1
-  .field
-    = f.label :link_small_banner1
-    %br/
-    = f.text_field :link_small_banner1
-  .field
-    = f.label :small_banner2
-    %br/
-    = f.file_field :small_banner2
-  .field
-    = f.label :alt_small_banner2
-    %br/
-    = f.text_field :alt_small_banner2
-  .field
-    = f.label :link_small_banner2
-    %br/
-    = f.text_field :link_small_banner2
-  .field
-    = f.label :medium_banner
-    %br/
-    = f.file_field :medium_banner
-  .field
-    = f.label :alt_medium_banner
-    %br/
-    = f.text_field :alt_medium_banner
-  .field
-    = f.label :link_medium_banner
-    %br/
-    = f.text_field :link_medium_banner
-  .field
-    = f.label :big_banner
-    %br/
-    = f.file_field :big_banner
-  .field
-    = f.label :alt_big_banner
-    %br/
-    = f.text_field :alt_big_banner
-  .field
-    = f.label :link_big_banner
-    %br/
-    = f.text_field :link_big_banner
-  .field
-    = f.label :title
-    %br/
-    = f.text_field :title
-  .field
-    = f.label :resume_title
-    %br/
-    = f.text_field :resume_title
-  .field
-    = f.label :text_complement
-    %br/
-    = f.text_field :text_complement
+  %fieldset#small_banner_catalog_header
+    .field
+      = f.label :small_banner1
+      %br/
+      = f.file_field :small_banner1
+    .field
+      = f.label :alt_small_banner1
+      %br/
+      = f.text_field :alt_small_banner1
+    .field
+      = f.label :link_small_banner1
+      %br/
+      = f.text_field :link_small_banner1
+    .field
+      = f.label :small_banner2
+      %br/
+      = f.file_field :small_banner2
+    .field
+      = f.label :alt_small_banner2
+      %br/
+      = f.text_field :alt_small_banner2
+    .field
+      = f.label :link_small_banner2
+      %br/
+      = f.text_field :link_small_banner2
+    .field
+      = f.label :medium_banner
+      %br/
+      = f.file_field :medium_banner
+    .field
+      = f.label :alt_medium_banner
+      %br/
+      = f.text_field :alt_medium_banner
+    .field
+      = f.label :link_medium_banner
+      %br/
+      = f.text_field :link_medium_banner
+  %fieldset#big_banner_catalog_header
+    .field
+      = f.label :big_banner
+      %br/
+      = f.file_field :big_banner
+    .field
+      = f.label :alt_big_banner
+      %br/
+      = f.text_field :alt_big_banner
+    .field
+      = f.label :link_big_banner
+      %br/
+      = f.text_field :link_big_banner
+  %fieldset#text_catalog_header
+    .field
+      = f.label :title
+      %br/
+      = f.text_field :title
+    .field
+      = f.label :resume_title
+      %br/
+      = f.text_field :resume_title
+    .field
+      = f.label :text_complement
+      %br/
+      = f.text_field :text_complement
   .actions
     = f.submit
