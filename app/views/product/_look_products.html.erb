@@ -4,13 +4,15 @@
     <h3 class="title">COMPRE O LOOK COMPLETO</h3>
     <div class="cart_related">
       <ul>
-        <li class="titulo_minicart">Você está levando...</li>
+        <!--li class="titulo_minicart">Você está levando...</li-->
       </ul>
       <div class="empty_minicart">
-        <%= installments_number(look_products.sum{|p| p.promotion? ? p.retail_price : p.price}) %>x de <%=  number_to_currency(installments_value(look_products.sum{|p| p.promotion? ? p.retail_price : p.price}, separator: ",")) %>
-        <input class="add_product disabled" disabled="disabled" id="add_product" name="commit" type="submit" value="">
+        <div class="valor_total"><%= installments_number(look_products.sum{|p| p.promotion? ? p.retail_price : p.price}) %>x de <%=  number_to_currency(installments_value(look_products.sum{|p| p.promotion? ? p.retail_price : p.price}, separator: ",")) %></div>
+        <%= form_tag add_variants_path(current_cart), method: :put, id: "minicart", name: "minicart" do %>
+          <input class="add_product disabled" disabled="disabled" id="add_product" name="commit" type="submit" value="">
+        <% end %>
       </div>
-      <p class="minicart_price"></p>
+      <div class="minicart_price"></div>
       <input type="hidden" id="total_price" />
     </div>
     <ul class="carousel <%= look_products.count > 3 ? 'arrows' : '' %>">
@@ -33,12 +35,6 @@
 <div id="related_footer"></div>
 </div>
 <% end %>
-
-<%= form_tag add_variants_path(current_cart), method: :put, id: "minicart", name: "minicart" do %>
-  <%= submit_tag 'Comprar o look Completo', disabled: "disabled" %>
-<% end %>
-
-
 <% content_for :footer do %>
   <%= javascript_include_tag "formatter" %>
   <%= javascript_include_tag "credit_card" %>
