@@ -9,5 +9,8 @@ form#new_catalog_base{
       width: 300px;
     }
   }
+  fieldset#small_banner_catalog_header, fieldset#big_banner_catalog_header, fieldset#text_catalog_header{
+    display: none;
+  }
 }
 
