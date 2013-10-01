@@ -3,9 +3,13 @@
   <div id="related">
     <h3 class="title">COMPRE O LOOK COMPLETO</h3>
     <div class="cart_related">
-      <p class="empty_minicart"><%= installments_number(look_products.sum{|p| p.promotion? ? p.retail_price : p.price}) %>x de <%=  number_to_currency(installments_value(look_products.sum{|p| p.promotion? ? p.retail_price : p.price}, separator: ",")) %></p>
-      <h3>Você está levando...</h3>
-      <ul></ul>
+      <ul>
+        <li class="titulo_minicart">Você está levando...</li>
+      </ul>
+      <div class="empty_minicart">
+        <%= installments_number(look_products.sum{|p| p.promotion? ? p.retail_price : p.price}) %>x de <%=  number_to_currency(installments_value(look_products.sum{|p| p.promotion? ? p.retail_price : p.price}, separator: ",")) %>
+        <input class="add_product disabled" disabled="disabled" id="add_product" name="commit" type="submit" value="">
+      </div>
       <p class="minicart_price"></p>
       <input type="hidden" id="total_price" />
     </div>
