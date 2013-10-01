@@ -24,7 +24,7 @@
       <%= hidden_field_tag :product_price, product.promotion? ? product.retail_price.to_s : product.price.to_s %>
       <%= select_tag("variant_number", options_for_select({'Selecione' => ''}.merge(order_variants_by_size(product.variants.where("inventory > 0")).inject({}){|a,b| a[b.description] = b.number; a}), selected: 'Selecione', style:"position:relative; z-index:1000;")) %>
       <div class="error"></div>
-      <%= submit_tag "adicionar" %>
+      <%= submit_tag "QUERO ESTE!" %>
     <% end %>
     <% if params[:controller] == "members" && params[:action] == "showroom" && params[:lbp] == "1" %>
       <p class="facebook_like_button">
