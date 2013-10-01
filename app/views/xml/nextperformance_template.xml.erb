@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+<% @products.each do |product| %>
 <product id="<%= product.id %>">
 <name><![CDATA[<%= product.name %>]]></name>
 <smallimage><%= full_image_path product.xml_picture(:thumb) %></smallimage>
@@ -14,3 +17,6 @@
 <instock><%= product.instock %></instock>
 <category><%= product.subcategory %></category>
 </product>
+<% end %>
+</products>
+
