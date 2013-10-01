@@ -3,6 +3,9 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+  resources :live_feeds, path: "api", only: [:create]
+
+
   get "/stylequiz", to: "quiz#new", as: "wysquiz"
 
   get "/quiz", to: "quiz#new"
@@ -141,6 +144,7 @@ Olook::Application.routes.draw do
   match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
   match "/click_a_porter", :to => "xml#click_a_porter", :as => "click_a_porter", :defaults => { :format => 'xml' }
   match "/topster" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/topster_data.xml")
+  match "/nextperformance" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/nextperformance_data.xml")
   match "/ilove_ecommerce", :to => "xml#ilove_ecommerce", :as => "ilove_ecommerce", :defaults => { :format => 'xml' }
   match "/zoom", :to => "xml#zoom", :as => "zoom", :defaults => { :format => 'xml' }
   match "/netaffiliation", :to => "xml#netaffiliation", :as => "netaffiliation", :defaults => { :format => 'xml' }
@@ -149,7 +153,6 @@ Olook::Application.routes.draw do
   match "/buscape", :to => "xml#buscape", :as => "buscape", :defaults => { :format => 'xml' }
   match "/struq", :to => "xml#struq", :as => "struq", :defaults => { :format => 'xml' }
   match "/kuanto_kusta", :to => "xml#kuanto_kusta", :as => "kuanto_kusta", :defaults => { :format => 'xml' }
-  match "/nextperformance", :to => "xml#nextperformance", :as => "nextperformance", :defaults => { :format => 'xml' }
   match "/muccashop", :to => "xml#muccashop", :as => "muccashop", :defaults => { :format => 'xml' }
   match "/shopear", :to => "xml#shopear", :as => "shopear", :defaults => { :format => 'xml' }
   match "/adroll", :to => "xml#adroll", :as => "adroll", :defaults => { :format => 'xml' }

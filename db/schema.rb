@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130926163411) do
+ActiveRecord::Schema.define(:version => 20130926174416) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -674,6 +674,19 @@ ActiveRecord::Schema.define(:version => 20130926163411) do
     t.boolean  "visible",         :default => true
     t.boolean  "show_advertise",  :default => true
     t.string   "big_banner"
+  end
+
+  create_table "live_feeds", :force => true do |t|
+    t.string   "firstname"
+    t.string   "gender"
+    t.date     "birthdate"
+    t.string   "email"
+    t.string   "ip"
+    t.integer  "question"
+    t.string   "zip"
+    t.string   "lastname"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "moip_callbacks", :force => true do |t|

@@ -182,6 +182,31 @@ body div.full_container {
               color: inherit;
             }
           }
+          li.product {
+              padding:0px;
+              margin-right:20px;
+              border:0px;
+              height: 316px !important;
+            div.hover_suggestive {
+              bottom: 91px;
+              ul li a {
+                height:36px;
+                padding-top:1px;
+              }
+              ul li a:hover span {
+                color:#000;
+              }
+              ul li a span {
+                font-family: avenir, tahoma;
+                font-size: 10px;
+                font-weight: bold;
+                background:image-url('/dev-assets/moments/sprite.png') no-repeat -62px -176px;
+                width: 100px;
+                height: 40px;
+                padding-top: 7px;
+              }
+            }
+          }
         }
       }
     }
@@ -1060,3 +1085,15 @@ div#calendar_container {
 .gift_box_link {
   margin-top: 20px;
 }
+
+.line {
+  b {
+    text-transform: uppercase;
+    color:#000;
+  }
+  .price {
+    color:#000;
+  }
+}
+
+
