@@ -1,6 +1,6 @@
 variant_number = '<%= j params[:variant_number] %>';
 product_price = '<%= j params[:product_price] %>';
-if(initProduct.isEmpty(variant_number)) {
+if(StringUtils.isEmpty(variant_number)) {
   $('li[data-id=<%= j params[:product_id] %>] form .error').show().html('Qual é o seu tamanho mesmo?');
 }
 else
