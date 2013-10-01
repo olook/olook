@@ -114,7 +114,7 @@ li.product {
       }
       img {
         margin: 0 0 10px 0;
-        border-bottom: 1px #b2b2b2 solid;
+        /*border-bottom: 1px #b2b2b2 solid;*/
       }
     }
     a {
@@ -280,8 +280,7 @@ li.product {
           left: -9px;
         }
         img {
-          width: 170px;
-          height: 170px;
+          width: 146px;
         }
         h1 {
           width: 170px;
@@ -334,7 +333,7 @@ li.product {
 #friends {
   li.product {
     width: 160px;
-    height: 253px;
+    height: 316px;
     div.hover_suggestive {
       top: 125px;
       ul {
@@ -451,7 +450,7 @@ li.product {
 #suggestion {
   li.product {
     width: 175px;
-    height: 275px;
+    height: 316px;
     div.hover_suggestive {
       ul {
         li.spy {
