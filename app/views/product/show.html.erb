@@ -66,7 +66,7 @@
     <%=image_tag("product/vantagens.jpg", class:"vantagens") %>
   </section>
 
-  <%= product_presenter.render_look_products if params[:srl] %>
+  <%= product_presenter.render_look_products if params[:srl] || Setting.disable_ab_test_for_look_products %>
 
 
   <!-- local onde o frequentlyboughttogether será exibido -->

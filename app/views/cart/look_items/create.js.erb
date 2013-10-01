@@ -1,6 +1,6 @@
 variant_number = '<%= j params[:variant_number] %>';
 product_price = '<%= j params[:product_price] %>';
-if(initProduct.isEmpty(variant_number)) {
+if(StringUtils.isEmpty(variant_number)) {
   $('li[data-id=<%= j params[:product_id] %>] form .error').show().html('Qual é o seu tamanho mesmo?');
 }
 else
@@ -11,7 +11,7 @@ else
   $('.cart_related div.empty_minicart').remove();
 
   $('.cart_related ul').append("<li>"+$('li[data-id=<%= j params[:product_id] %>] span.name').text()+"</li>");
-  if(initProduct.isEmpty($("#total_price").val())){
+  if(StringUtils.isEmpty($("#total_price").val())){
     $("#total_price").val('0.0');
   }
 
