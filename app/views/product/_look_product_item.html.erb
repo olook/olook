@@ -6,7 +6,7 @@
       <%= image_tag("common/ajax-loader-product-smaller.gif", :alt => product.name, :class => "async", data: { product: product.showroom_picture, backside: product.backside_picture, wearing: product.wearing_picture, showroom: product.showroom_picture } ) %>
 
       <div class="info-product">
-        <span class="name"><%= product.formatted_name %></span><br />
+        <span class="name"><%= product.formatted_name(25) %></span><br />
         <strong class="brand"><%= product.brand %></strong><br />
 
         <span class="price">
