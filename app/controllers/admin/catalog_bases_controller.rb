@@ -26,7 +26,7 @@ class Admin::CatalogBasesController < Admin::BaseController
   def create
     @catalog_base = CatalogHeader::CatalogBase.factory(params[:catalog_base])
     if @catalog_base.save
-      redirect_to admin_catalog_bases_path, notice: ""
+      redirect_to admin_catalog_bases_path, notice: "Landing de catálogo criado com sucesso."
     else
       render action: "new"
     end
@@ -36,7 +36,7 @@ class Admin::CatalogBasesController < Admin::BaseController
   def update
     @catalog_base = CatalogHeader::CatalogBase.find(params[:id])
     if @catalog_base.update_attributes(params[:catalog_base])
-      redirect_to [:admin, @catalog_base], notice: ''
+      redirect_to admin_catalog_bases_path, notice: 'Landing de catálogo atualizado com sucesso.'
     else
       render action: "edit"
     end
