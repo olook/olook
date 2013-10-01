@@ -281,12 +281,13 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         display: none;
         margin-bottom:10px;
       }
+
       .carousel {
         left:20px !important;
       }
       #variant_number {
         width:100%;
-        margin-bottom:15px;
+        margin:15px 0;
       }
       img {width: 100%;}
       input {
@@ -299,6 +300,10 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         font-size: 11px;
         text-align: center;
         padding:5px 0;
+      }
+      input.added_product {
+        background: #acacac;
+        color:#FFF;
       }
       li.product {
         width:160px;
@@ -362,7 +367,8 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     float:right;
     width:325px;
     padding-top:50px;
-    h3 {
+    #add_product {background: image-url('product/add_bag.png') center -102px no-repeat;text-indent: -9999px;width: 100%;height: 45px;margin: 17px auto 30px;display: block;border: none;cursor: pointer;clear: both;}
+    ul li.titulo_minicart {
       width: 100%;
       padding:0px;
       text-align: left;

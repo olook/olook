@@ -8,7 +8,7 @@ else
   $('li[data-id=<%= j params[:product_id] %>] form .error').hide();
   $('#minicart').append('<%= escape_javascript(hidden_field_tag("variant_numbers[]", params[:variant_number])) %>');
   $('li[data-id=<%= j params[:product_id] %>] form input[type=submit]').addClass("added_product").attr("disabled", "disabled");
-  $('.cart_related p.empty_minicart').remove();
+  $('.cart_related div.empty_minicart').remove();
 
   $('.cart_related ul').append("<li>"+$('li[data-id=<%= j params[:product_id] %>] span.name').text()+"</li>");
   if(initProduct.isEmpty($("#total_price").val())){
