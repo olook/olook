@@ -127,10 +127,6 @@ initProduct = {
       }
     });
     initProduct.loadAddToCartForm();
-  },
-
-  isEmpty: function(str){
-    return !(str && str!=''); 
   }
 }
 
