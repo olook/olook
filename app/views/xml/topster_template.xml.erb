@@ -1,21 +1,26 @@
-<produto>
-    <id_produto><![CDATA[<%= product.id.to_s %>]]></id_produto>
-    <link_produto><![CDATA[<%= product.product_url(:utm_source => "topster")%>]]></link_produto>
-    <nome_produto><![CDATA[<%= product.name%>]]></nome_produto>
-    <marca><![CDATA[<%= product.brand %>]]></marca>
-    <categoria><![CDATA[<%= full_category(product)%>]]></categoria>
-    <cores>
-        <cor><![CDATA[<%= product.color_name %>]]></cor>
-    </cores>
-    <descricao><![CDATA[<%= product.description%>]]></descricao>
-    <preco_de><![CDATA[<%= number_with_precision(product.price, :precision => 2)%>]]></preco_de>
-    <preco_por><![CDATA[<%= number_with_precision(product.retail_price, :precision => 2)%>]]></preco_por>
-    <parcelamento><![CDATA[<%= build_installment_text(product.retail_price)%>]]></parcelamento>
-    <imagens>
-      <% product.pictures.order(:position).each do |picture| %>
-        <imagem><%= picture.image%></imagem>
-      <% end %>
-    </imagens>
-    <estoque><![CDATA[<%= product.inventory > 0 ? "sim" : "não" %>]]></estoque>
-    <estoque_baixo><![CDATA[<%= product.inventory >= 2 ? "não" : "sim" %>]]></estoque_baixo>
-</produto>
+<?xml version="1.0" encoding="UTF-8"?>
+<produtos>
+    <% @products.each do |product| %>    
+    <produto>
+        <id_produto><![CDATA[<%= product.id.to_s %>]]></id_produto>
+        <link_produto><![CDATA[<%= product.product_url(:utm_source => "topster")%>]]></link_produto>
+        <nome_produto><![CDATA[<%= product.name%>]]></nome_produto>
+        <marca><![CDATA[<%= product.brand %>]]></marca>
+        <categoria><![CDATA[<%= full_category(product)%>]]></categoria>
+        <cores>
+            <cor><![CDATA[<%= product.color_name %>]]></cor>
+        </cores>
+        <descricao><![CDATA[<%= product.description%>]]></descricao>
+        <preco_de><![CDATA[<%= number_with_precision(product.price, :precision => 2)%>]]></preco_de>
+        <preco_por><![CDATA[<%= number_with_precision(product.retail_price, :precision => 2)%>]]></preco_por>
+        <parcelamento><![CDATA[<%= build_installment_text(product.retail_price)%>]]></parcelamento>
+        <imagens>
+          <% product.pictures.order(:position).each do |picture| %>
+            <imagem><%= picture.image%></imagem>
+          <% end %>
+        </imagens>
+        <estoque><![CDATA[<%= product.inventory > 0 ? "sim" : "não" %>]]></estoque>
+        <estoque_baixo><![CDATA[<%= product.inventory >= 2 ? "não" : "sim" %>]]></estoque_baixo>
+    </produto>
+    <% end %>
+</produtos>
