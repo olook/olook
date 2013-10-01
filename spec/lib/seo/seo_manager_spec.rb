@@ -34,6 +34,16 @@ describe Seo::SeoManager do
       it "returns map meta tag with the color" do
         expect(@seo_class.select_meta_tag).to eql('Sapatos Dourado | Olook')
       end
+
+      context "and the category is 'acessorio' " do
+        before do
+          @seo_class = Seo::SeoManager.new("/acessorio/cor-dourado")
+        end
+
+        it "returns 'Bijuterias Dourado | Olook' " do
+          expect(@seo_class.select_meta_tag).to eql('Bijuterias Dourado | Olook')
+        end
+      end
     end
 
     context "When there are multiple colors on url" do
@@ -85,7 +95,7 @@ describe Seo::SeoManager do
           @seo_model = Seo::SeoManager.new("/asd", model: @product)
         end
         it "return specific meta tag" do
-          expect(@seo_model.select_meta_tag).to eql('Vestido Estampado Manga Longa Ecletic Black | Olook')
+          expect(@seo_model.select_meta_tag).to match('Vestido Estampado Manga Longa Ecletic Black | Olook')
         end
       end
       context "product with small name" do
@@ -94,7 +104,7 @@ describe Seo::SeoManager do
           @seo_model = Seo::SeoManager.new("/asd", model: @product)
         end
         it "return specific meta tag" do
-          expect(@seo_model.select_meta_tag).to eql('Vestido Estampado Black - Roupas e Sapatos Femininos | Olook')
+          expect(@seo_model.select_meta_tag).to match('Vestido Estampado - Roupas e Sapatos Femininos | Olook')
         end
       end
       context "collection theme" do
