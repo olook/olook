@@ -11,7 +11,7 @@ else
   $('li[data-id=<%= j params[:product_id] %>] form input[type=submit]').val('PRODUTO ADICIONADO!');
   $('.cart_related div.empty_minicart').remove();
 
-  $('.cart_related ul').append("<li>"+$('li[data-id=<%= j params[:product_id] %>] span.name').text()+"</li>");
+  $('.cart_related ul').append("<li>"+$('li[data-id=<%= j params[:product_id] %>] img').attr("alt")+"</li>");
   if(StringUtils.isEmpty($("#total_price").val())){
     $("#total_price").val('0.0');
   }
