@@ -11,7 +11,7 @@ else
   $('.cart_related div.empty_minicart').remove();
 
   $('.cart_related ul').append("<li>"+$('li[data-id=<%= j params[:product_id] %>] span.name').text()+"</li>");
-  if(initProduct.isEmpty($("#total_price").val())){
+  if(StringUtils.isEmpty($("#total_price").val())){
     $("#total_price").val('0.0');
   }
 
