@@ -111,15 +111,21 @@
     float: left;
   }
   ul{
+    background-color: #f2f2f2;
     float: left;
-    width: 330px;
-    margin-left: 60px;
-    margin-top: 67px;
+    height: 350px;
+    margin-left: 0;
+    margin-top: auto;
+    width: 385px;
+    .first{
+      padding-top: 67px;
+      padding-left: 45px;
+    }
     .arrow{
       top: -13px !important;
     }
     li.media{
-      margin: 30px 0 0;
+      margin: 30px 45px 0;
     }
   }
   .clipping_left, .clipping_right{
@@ -130,10 +136,15 @@
     ul{
       margin: 12px 0 0;
       width: 455px;
+      background-color: none;
       li{
         float: left;
-        &.media{float: right;}
+        &.media{float: right;margin: 30px 0 0;}
       }
+    }
+    .ig{
+      width: 63px;
+      height: 64px;
     }
   }
   .clipping_left{
@@ -142,7 +153,7 @@
 }
 .socialmedia{width: 445px;float: left;height: 75px;
   p{color: #000; font-size: 13px;letter-spacing: 2px;font-weight: bold;padding-top: 30px;padding-left: 95px;}
-  .like, .twitter{position: relative;float: right;left: 70px;top:-24px;}
+  .like, .twitter{position: relative;float: right;left: 117px;top:-24px;}
   .twitter{margin-left: 15px;}
 }
 .next{
