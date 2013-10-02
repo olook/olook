@@ -1,5 +1,18 @@
 //= require state_cities
 //= require plugins/cep
+
+updateCreditCardSettlementsValue = function(select_box, total) {
+  selected = select_box.val();
+  select_box.empty();
+  var options = [];
+  for (i=1; i<= CreditCard.installmentsNumberFor(total); i++) {
+    installmentValue = total / i;
+    text = i + "x de " + Formatter.toCurrency(installmentValue) + " sem juros";
+    select_box.append("<option value=" + i + ">" + text + "</option>");
+  }
+  select_box.val(selected);
+}
+
 function maskTel(tel){
   ddd  = $(tel).val().substring(1, 3);
   dig9 = $(tel).val().substring(4, 5);
@@ -52,7 +65,6 @@ function retrieve_freight_price_for_variation(zip_code) {
 }
 
 function retrieve_freight_price_for_checkout(url_base, zip_code) {
-
   $.ajax({
     url: '/' + url_base + '/' + zip_code,
     type: 'GET',
@@ -138,13 +150,6 @@ function freightCalc(){
   });
 }
 
-function updateFreightValue() {
-  zip_code = $('input.address_recorded:checked').val();
-  if (zip_code != undefined) {
-    retrieve_freight_price_for_control_or_variation(zip_code);
-  }
-}
-
 function trackStateForFreightABTest() {
   state = $("#checkout_address_state").val() || $(".address_recorded:checked").data("state");
   if (state != undefined) {
@@ -160,7 +165,6 @@ $(function() {
   masks.tel(".tel_contato1");
   masks.tel(".tel_contato2");
 
-  updateFreightValue();
   freightCalc();
   showAboutSecurityCode();
 
@@ -179,11 +183,11 @@ $(function() {
     $(window).scroll(function(event) {
       var y = $(this).scrollTop();
       if(y >= 170) {
-        $('div.box-step-three').addClass('fixed').css({'left' : helpLeft, 'top' : '0', 'float' : 'none'});
-        $('input.send_it').addClass('fixed').css('left', helpLeft2);
+        $('div.box-step-three').addClass('fixed').css({'left' : helpLeft, 'top' : '0', 'float' : 'left'});
+        $('input.send_it').addClass('fixed bt-checkout').css('left', helpLeft2);
       } else {
         $('.box-step-three').removeClass('fixed').removeAttr('style');
-        $('input.send_it').removeClass('fixed').css('left', "")
+        $('input.send_it').removeClass('fixed bt-checkout').css('left', "")
       }
     });
   }

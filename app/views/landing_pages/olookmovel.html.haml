@@ -1,0 +1,73 @@
+- content_for :head do
+  = stylesheet_link_tag "new_structure/section/olookmovel"
+  
+%meta{:content => "width=device-width, initial-scale=1, maximum-scale=1", :name => "viewport"}/ 
+.header_login
+  %h2= image_tag "landing_page/olook_logo.png", :title => "Olook"
+
+#landing-content
+  .join
+    - if @ok
+      %ul
+        %li
+          = image_tag "landing_page/olookmovel/success.png", :title => "Sucesso"
+        %li
+          %p.title
+            Cadastro realizado com sucesso!
+        %li
+          %p
+            Você receberá em instantes
+            %br 
+              um e-mail com instruções para 
+            uso do seu cupom.
+        %li
+          %p
+            Assim que tivermos o resultado do sorteio, 
+            entraremos em contato com você.
+        %li
+          %p Boa sorte! ;)
+        %li
+          %p
+            Equipe Olook
+      = link_to 'Voltar / Fazer novo cadastro', "/cadastro/olookmovel", :class => "cadastro"
+    - else
+      %p.promo
+        Cadastre-se, ganhe
+        %span
+          15% de desconto
+          e concorra a R$ 150
+        em produtos Olook
+      = form_for @campaign_email, url: olookmovel_lp_path(@campaign_email), method: 'post', html: { :target => '_parent' } do |f|
+        = f.hidden_field :profile, value: 'olookmovel'
+        %fieldset
+          =f.label :email, "E-mail"
+          =f.text_field :email, class: ('with_error' if @campaign_email.errors[:email].size > 0)
+          - if @campaign_email.errors[:email].size > 0
+            %p.error_text= @campaign_email.errors[:email].first.html_safe
+        %fieldset
+          =f.label :phone, "Telefone ", :class => "phone "
+          =f.text_field :phone, class: ('with_error' if @campaign_email.errors[:phone].size > 0)
+          - if @campaign_email.errors[:phone].size > 0
+            %p.error_text= @campaign_email.errors[:phone].first.html_safe
+        %p.notes
+          Concluindo o cadastro você aceita nossos
+          = link_to 'termos de uso', terms_path
+          e a
+          %br
+          nossa
+          = link_to 'política de privacidade', privacy_path
+        %fieldset.botoes
+          =f.submit :value => "ENTRAR", :class => "bt-enter"
+  .olookmovel
+    = image_tag "landing_page/olookmovel/olookmovel.jpg", :title => "Olookmovel"
+
+.footer
+  %h3
+    Regras do Sorteio
+  %p
+    Válido somente para produtos Olook. Não acumulativo com outras promoções do site
+    %br
+      O sorteio será realizado pela equipe da Olook através do site www.sorteiosonline.com.br
+    A ganhadora será comunicada por e-mail com o código do cupom.
+    %br
+      Uso único. Válido por 30 dias

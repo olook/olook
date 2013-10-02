@@ -1,0 +1,16 @@
+%h1
+  Serviço de email (Amazon)
+
+#ses_form
+  = form_tag admin_ses_info_path do
+    %h3 Peíodo de busca
+    = field_set_tag  do
+      = label_tag "Inicio"
+      = select_date Date.today, prefix: :start_at
+    %br
+    = field_set_tag  do
+      = label_tag "Fim"
+      = select_date Date.today, prefix: :ends_at
+    %br
+    = field_set_tag do
+      = submit_tag 'Enviar'

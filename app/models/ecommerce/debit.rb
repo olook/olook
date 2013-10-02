@@ -33,6 +33,6 @@ class Debit < Payment
 
   def schedule_cancellation
     #TODO: this is independent of the rest of the expiration settings and calculations
-    Resque.enqueue_at(1.business_hour.from_now, Abacos::CancelOrder, self.order.number)
+    Resque.enqueue_at(5.business_hour.from_now, Abacos::CancelOrder, self.order.number)
   end
 end

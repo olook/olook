@@ -404,6 +404,10 @@
         one: Imprensa
         other: Imprensa
 
+      simple_email_service_info:
+        one: Serviço de email
+        other: Serviços de email
+
       gift_recipient: presenteado
       gift_occasion: "ocasião"
       address: Endereço
@@ -452,6 +456,11 @@
         link: "Link (url completa, com 'Http://')"
         pdf_file: "Arquivo PDF"
         alt: 'ALT da imagem'
+      brand:
+        name: 'Nome'
+        seo_text: 'Título da página'
+        header_image_alt: 'ALT da imagem'
+        header_image: 'Imagem'
       credit_card:
         credit_card_number: "Número do cartão"
         expiration_date: "Validade (MM/AA)"
@@ -499,7 +508,17 @@
 
       full_messages:
         format: "%{attribute} %{message}"
-
+      models:
+        campaign_email:
+          attributes:
+            phone:
+              invalid: 'O telefone parece estranho. Que tal conferir?'
+              blank: 'É bom termos o seu telefone. Qualquer coisa, ligamos'
+            email:
+              exists: 'Identificamos que você já é cadastrada na Olook. A promoção é válida para novos usuários.'
+              taken:  'Identificamos que você já é cadastrada na Olook.'
+              invalid: 'O e-mail informado parece estranho. Que tal conferir?'
+              blank: 'Precisamos do e-mail para o sorteio. <br /> Também para o envio do seu cupom de desconto'
   views:
     members:
       no_invitation_accepted: 'Até o momento nenhuma das suas amigas se registrou'

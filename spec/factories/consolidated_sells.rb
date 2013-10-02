@@ -2,11 +2,11 @@
 
 FactoryGirl.define do
   factory :consolidated_sell do
-    category "MyString"
-    day "2013-03-22"
+    category "1"
+    day { Date.new(2013, 03, 22) }
     amount 1
-    total "9.99"
-    subcategory "MyString"
-    total_retail "9.99"
+    total { BigDecimal.new "9.99" }
+    subcategory "Anabela"
+    total_retail { BigDecimal.new "9.99" }
   end
 end

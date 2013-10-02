@@ -28,6 +28,7 @@
     </div>
     <div id="data">
       <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+        <%= f.hidden_field :require_cpf, :value => true %>
         <%= devise_error_messages! %>
         <fieldset class="inputs">
           <ol>

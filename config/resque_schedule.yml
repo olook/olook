@@ -1,3 +1,9 @@
+update_sitemap:
+  cron: "0 3 * * *"
+  class: SaveOnAmazonWorker
+  queue: sitemap
+  description: "Atualiza o sitemap"
+
 index_suggested_terms:
   cron: "0 */6 * * *"
   class: ProductSearchWorker
@@ -15,6 +21,12 @@ send_orders_alert:
   class: SendOrderAlertWorker
   queue: order_status_alert
   description: "Envia email avisando pedidos que precisam ser analizados com mais atencao"
+
+update_ses_info:
+  cron: "* 22 * * *"
+  class: SaveSesInfoWorker
+  queue: ses
+  description: "Atualiza a tabela ses com as informações "
 
 update_inventory:
   cron: "*/5 * * * *"
@@ -147,14 +159,15 @@ post_sale_userbase:
   description: "Cria e envia arquivo com base de usuários com compras entregues para ftp do exact target"
 
 facebook_friends_list:
-  cron: "0 2 * * 0"
+  cron: "35 * * * *"
   class: MarketingUploaderWorker
   queue: marketing_uploader
   args:
     - facebook_friends_list
-    - facebook_friends.csv
+    - facebook_friends-%Y-%m-%d.csv
     - true
     - exact_target.yml
+    - 1
   description: "Cria e envia arquivo com base de usuários e amigas aniversariantes para ftp do exact target"
 
 cancel_old_billets:

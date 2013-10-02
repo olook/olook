@@ -31,6 +31,7 @@ Olook::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  config.assets.prefix = "/dev-assets"
 
   config.cache_store = :redis_store, ENV['REDIS_CACHE_STORE']
 

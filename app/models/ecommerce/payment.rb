@@ -262,6 +262,13 @@ class Payment < ActiveRecord::Base
     Payment::RESPONSE_STATUS[gateway_transaction_status]
   end
 
+  def authorize_and_notify_if_is_a_billet
+    if self.is_a?(Billet)
+      self.authorize
+      DevAlertMailer.notify(to: "rafael.manoel@olook.com.br", subject: "Ordem de numero #{ self.order.number } foi autorizada").deliver
+    end
+  end
+
   private
 
     def generate_identification_code

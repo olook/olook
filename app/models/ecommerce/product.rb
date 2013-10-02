@@ -15,9 +15,11 @@ class Product < ActiveRecord::Base
 
   after_create :create_master_variant
   after_update :update_master_variant
+  before_save :set_launch_date, if: :should_update_launch_date?
 
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
+  has_many :price_logs, class_name: 'ProductPriceLog', :dependent => :destroy
   # , :conditions => {:is_master => false}
   has_many :variants, :dependent => :destroy do
     def sorted_by_description
@@ -38,6 +40,7 @@ class Product < ActiveRecord::Base
   has_many :liquidations, :through => :liquidation_products
   has_many :catalog_products, :class_name => "Catalog::Product", :foreign_key => "product_id"
   has_many :catalogs, :through => :catalog_products
+  has_many :consolidated_sells, dependent: :destroy
 
   validates :name, :presence => true
   validates :description, :presence => true
@@ -59,6 +62,8 @@ class Product < ActiveRecord::Base
   scope :by_sold, lambda { |value| joins(:variants).group("products.id").order("sum(variants.initial_inventory - variants.inventory) #{ value }") if ["asc","desc"].include?(value) }
   scope :with_visibility, lambda { |value| { :conditions => ({ is_visible: value } unless value.blank? || value.nil? ) } }
   scope :search, lambda { |value| { :conditions => ([ "name like ? or model_number = ?", "%#{value}%", value ] unless value.blank? || value.nil?) } }
+  scope :with_pictures, ->(value) { joins("left JOIN `pictures` ON `pictures`.`product_id` = `products`.`id`").where("pictures.id is #{value}").group("products.id") unless value.blank?}
+  scope :in_launch_range, ->(start_date, end_date) { where("launch_date BETWEEN ? AND ?", start_date, end_date) unless start_date.blank? || end_date.blank? }
 
 
   scope :valid_for_xml, lambda{|black_list| only_visible.where("variants.inventory >= 1").where("variants.price > 0.0").group("products.id").joins(:variants).having("(category = 1 and count(distinct variants.id) >= 4) or (category = 4 and count(distinct variants.id) >= 2) or category NOT IN (1,4) and products.id NOT IN (#{black_list})")}
@@ -86,6 +91,16 @@ class Product < ActiveRecord::Base
 
   def product_id
     id
+  end
+
+  def title_text
+    color = details.find_by_translation_token("Cor filtro").try(:description)
+    name_with_color = "#{formatted_name(200)} #{color}"
+    if name_with_color.size > 33
+      "#{name_with_color} | Olook"
+    else
+      "#{name_with_color} - Roupas e Sapatos Femininos | Olook"
+    end
   end
 
   def model_name
@@ -140,7 +155,7 @@ class Product < ActiveRecord::Base
   delegate :'discount_percent=', to: :master_variant
 
   def main_picture
-    @main_picture ||= 
+    @main_picture ||=
     if self.pictures.loaded?
       self.pictures.all.find { |p| p.display_on == DisplayPictureOn::GALLERY_1 }
     else
@@ -316,6 +331,14 @@ class Product < ActiveRecord::Base
     [::Category::CLOTH, ::Category::BEACHWEAR, ::Category::LINGERIE].include?(self.category)
   end
 
+  def bag?
+    self.category == ::Category::BAG
+  end
+
+  def accessory?
+    self.category == ::Category::ACCESSORY
+  end
+
   def variant_by_size(size)
     case self.category
       when Category::SHOE then
@@ -460,6 +483,39 @@ class Product < ActiveRecord::Base
     self.description.gsub(/<\/?(?!(?:#{rallow}))[^>\/]*\/?>/, '')
   end
 
+  def is_the_size_grid_enough?
+    return true if (bag? || accessory?)
+    variants = self.variants.where("inventory > 0")
+    if shoe?
+      variants.size >= 4
+    else
+      sizes = variants.collect(&:description)
+      (sizes.include?("M") && variants.size >= 2) || ((sizes & %w[38 40]).any? && variants.size >= 3)
+    end
+  end
+
+  def quantity_sold_per_day_in_last_week
+    total_sold = self.consolidated_sells.in_last_week.inject(0) { |sum, x| sum + x.amount }
+    (total_sold.to_f / 7).ceil
+  end
+
+  def coverage_of_days_to_sell
+    quantity = quantity_sold_per_day_in_last_week
+    if quantity > 0
+      (inventory.to_f/quantity).ceil
+    else
+      180 # 6 months
+    end
+  end
+
+  def time_in_stock
+    if launch_date.blank?
+      365
+    else
+      (Date.current - launch_date).to_i
+    end
+  end
+
   private
 
     def details_relevance
@@ -506,6 +562,14 @@ class Product < ActiveRecord::Base
 
     def update_master_variant
       master_variant.save!
+    end
+
+    def should_update_launch_date?
+      launch_date.nil? && is_visible_changed? && is_visible
+    end
+
+    def set_launch_date
+      self.launch_date = Time.zone.now.to_date
     end
 
     def detail_by_token token

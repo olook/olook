@@ -11,7 +11,12 @@ class CatalogsController < ApplicationController
       @campaign_products = SearchEngine.new(product_id: @campaign.product_ids).with_limit(1000)
     end
 
-    @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
+    if params[:smart].present?
+      @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(48)
+    else
+      @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
+    end
+
     @url_builder = SeoUrl.new(search_params, "category", @search)
     @antibounce_box = AntibounceBox.new(params) if AntibounceBox.need_antibounce_box?(@search, @search.expressions["brand"].map{|b| b.downcase}, params)
 

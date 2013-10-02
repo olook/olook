@@ -31,6 +31,11 @@
     <small><i>O valor ficará na url www.olook.com.br/colecoes/&lt;url-amigavel&gt; e por isso deve ser único</i></small>
   </div>
   <div class="field">
+    <%= f.label :seo_text, 'Title tag' %><br />
+    <%= f.text_field :seo_text %><br />
+    <small><i>Título da página da coleção para efeitos de SEO</i></small>
+  </div>
+  <div class="field">
     <%= f.label :active %><br />
     <%= f.check_box :active %>
   </div>

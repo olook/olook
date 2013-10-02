@@ -13,6 +13,14 @@ class Admin::RolesController < Admin::BaseController
     respond_with :admin, @role
   end
 
+  def copy
+    @cloned_role = Role.find(params[:id])
+    @role = @cloned_role.dup
+    @role.permissions = @cloned_role.permissions.dup
+    @permissions = Permission.all
+    render :new
+  end
+
   def new
     @role = Role.new
     @permissions = Permission.all

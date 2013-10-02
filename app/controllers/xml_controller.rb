@@ -62,6 +62,10 @@ class XmlController < ApplicationController
     respond_with(@products)
   end
 
+  def adroll
+    respond_with(@products)
+  end
+
   private
 
     def prepare_products

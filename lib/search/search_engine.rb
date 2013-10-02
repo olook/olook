@@ -23,12 +23,13 @@ class SearchEngine
   attr_reader :current_page, :result
   attr_reader :expressions, :sort_field
 
-  def initialize attributes = {}
+  def initialize attributes = {}, is_smart=false
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
     @expressions['in_promotion'] = [0]
     @facets = []
+    @is_smart = is_smart
     default_facets
 
     Rails.logger.debug("SearchEngine received these params: #{attributes.inspect}")
@@ -86,7 +87,7 @@ class SearchEngine
     else
       @expressions["category"] = cat.to_s.split(MULTISELECTION_SEPARATOR)
     end
-  end  
+  end
 
   def total_results
     @result.hits["found"]
@@ -200,19 +201,27 @@ class SearchEngine
     bq = build_boolean_expression
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
     q = @query ? "?q=#{@query}&" : "?"
-    "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }"
+    if @is_smart
+      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&#{ ranking }&rank=-exp,#{ @sort_field }&size=#{ options[:limit] }"
+    else
+      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&rank=-exp,#{ @sort_field }&size=#{ options[:limit] }"
+    end
+  end
+
+  def ranking
+    "rank-exp=(r_full_grid*#{ Setting[:full_grid_weight].to_i })%2B(r_inventory*#{ Setting[:inventory_weight].to_i })%2B(r_qt_sold_per_day*#{ Setting[:qt_sold_per_day_weight].to_i })%2B(r_coverage_of_days_to_sell*#{ Setting[:coverage_of_days_to_sell_weight].to_i })%2B(r_age*#{ Setting[:age_weight].to_i })"
   end
 
   def fetch_result(url, options = {})
     cache_key = Digest::SHA1.hexdigest(url.to_s)
-    Rails.logger.info "[cloudsearch] cache_key: #{cache_key}"
+    Rails.logger.error "[cloudsearch] cache_key: #{cache_key}"
 
     _response = Rails.cache.fetch(cache_key, expires_in: 15.minutes) do
-      Rails.logger.info "[cloudsearch] cache missed"
+      Rails.logger.error "[cloudsearch] cache missed"
       url = URI.parse(url)
       tstart = Time.zone.now.to_f * 1000.0
       _response = Net::HTTP.get_response(url)
-      Rails.logger.info("GET cloudsearch URL (#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
+      Rails.logger.error("GET cloudsearch URL (time=#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
       _response
     end
 
@@ -302,7 +311,7 @@ class SearchEngine
 
     def validate_sort_field
       if @sort_field.nil? || @sort_field == "" || @sort_field == 0 || @sort_field == "0"
-        @sort_field = "-collection,-inventory,-text_relevance"
+        @sort_field = "age,-inventory,-text_relevance"
       end
     end
 end

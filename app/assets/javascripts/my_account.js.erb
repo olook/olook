@@ -1,6 +1,9 @@
 //= require plugins/cep
 
 $(document).ready(function() {
+  if($('#user_cpf').val() > 1){
+    $('#user_cpf').setMask("999.999.999-99")
+  };
   $("#my_account ul.shoes_size li label, .clone ul.shoes_size li label").live("click", function() {
     $(this).parents("ul.shoes_size").find("li").removeClass("selected");
     $(this).parent().addClass("selected");

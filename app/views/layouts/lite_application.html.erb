@@ -3,7 +3,10 @@
   <head>
     <%= render :partial => "shared/errorception" %>
     <meta charset="UTF-8">
-    <title>olook</title>
+    <title>
+      <%= title_text %>
+    </title>
+    <%= apply_canonical_link %>
     <%= favicon_link_tag 'olook_favicon.ico' %>
 
     <% error = nil unless error %>
@@ -14,7 +17,7 @@
     <% end %>
 
     <%= csrf_meta_tags %>
-
+    <%= stylesheet_link_tag  "http://olook.neoassist.com/clients/olook/novo/modal.css" if Setting.enable_neoassist %>
     <%= stylesheet_link_tag  "new_structure/lite_application" %>
 
     <%- unless @hide_fb_page_id -%>
@@ -26,7 +29,6 @@
       <%= render :partial => "shared/metrics/vwo/tracking_code" %>
     <% end %>
 
-    <%#= render :partial => "shared/tag/siteapps" %>
     <%= render :partial => "shared/metrics/header_tags" %>
 
     <%= yield :head %>
@@ -44,9 +46,14 @@
   </head>
 
 
-  <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>">
+  <body onload="<%= Setting.enable_neoassist ? 'ativaDiv();' : '' %>" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>">
     <%= yield :after_body %>
     <%= render :partial => "shared/tag/google_tag_manager" %>
+    <% if Setting.enable_neoassist %>
+      <div id="modalneo" align="right" style="display:none;border:0px;">
+        <a href="javascript: var a=null;" onclick="window.open(' http://olook.neoassist.com/?action=neolive&th=moda&scr=request&ForcaAutenticar=1&UMail=%User[EMail]%&email=%User[EMail]%&name=%User[Name]%&uName=%User[Name]%', 'Chat' , 'status , scrollbars=no ,width=500, height=580, resizable=no, top=30 , left=30');"><img src=" http://olook.neoassist.com/clients/olook/novo/images/chatmsg.png" border="0" onclick="javascript:this.style.display='none';" id="chatmsg"  /></a>
+      </div>
+    <% end %>
     <%= render 'shared/admin_label' if current_admin %>
     <div id="container">
        <div id="error-messages">
@@ -59,7 +66,7 @@
        <header id="new_header">
          <div class="new_content">
            <div class="box_left">
-             <p>SAC (11) 2626-3489 | <a class="contact" href="mailto:falecom@olook.com.br">falecom@olook.com.br</a></p>
+             <p>SAC (11) 2626-3489 | <a class="contact" href="/centraldeatendimento">Central de Atendimento</a></p>
              <ul class="social_icons">
                <li><%= link_to "Acompanhe pelo Facebook", "http://facebook.com/olook", title: "Acompanhe pelo Facebook", target: "_blank", class: "social_facebook" %></li>
                <li><%= link_to "Acompanhe pelo Twitter", "http://twitter.com/olook", title: "Acompanhe pelo Twitter", target: "_blank", class: "social_twitter" %></li>
@@ -135,6 +142,7 @@
        <!-- End Modals -->
 
 
+       <%= javascript_include_tag "http://olook.neoassist.com/clients/olook/js/chat.js" if Setting.enable_neoassist %>
        <%= javascript_include_tag "jquery" %>
        <%= javascript_include_tag "lite_application" %>
        <script>
@@ -150,6 +158,7 @@
          <%= yield :footer %>
        <% end %>
 
+       <%= javascript_include_tag "http://olook.neoassist.com/clients/olook/js/chat.js" if Setting.enable_neoassist %>
        <%= render :partial => "shared/metrics/master_tags" %>
     </div>
   </body>

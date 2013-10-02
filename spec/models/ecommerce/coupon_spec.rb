@@ -116,32 +116,112 @@ describe Coupon do
 
     end
 
+    context "coupon for n brands" do
+      let(:brand_coupon) { FactoryGirl.build(:brand_coupon) }
+      let(:first_product) { double(id: 1000, brand: 'Some Brand') }
+      let(:other_product) { double(id: 1001, brand: 'other brand') }
+
+      before do
+        brand_coupon.stub(:brand).and_return("Some Brand,other brand")
+      end
+
+      context "first brand" do
+        subject { brand_coupon.apply_discount_to? first_product }
+        it { should be_true }
+      end
+
+      context "last brand" do
+        subject { brand_coupon.apply_discount_to? other_product }
+        it { should be_true }
+      end
+
+
+    end
+
   end
 
-  describe "#should_apply_to?" do
+  describe "#is_more_advantageous_than_any_promotion?" do
     let(:promotion) { mock_model(Promotion)}
     let(:cart) { mock_model Cart}
+    let(:coupon) { FactoryGirl.build(:coupon, value: 100) }
 
     before :each do
       cart.stub(:total_price).and_return(300)
     end
 
     context "when value is lower than sum of sale and promotion" do
-      it "returns false" do
+      before do
         cart.should_receive(:total_promotion_discount).and_return(100)
         cart.should_receive(:total_liquidation_discount).and_return(100)
-        subject.should_receive(:value).and_return(100)
-        subject.should_apply_to?(cart).should be_false
       end
+
+      subject { coupon.is_more_advantageous_than_any_promotion?(cart) }
+
+      it { should be_false }
     end
 
     context "when value is greater than sum of sale and promotion" do
-      it "returns true" do
+      before do
         cart.should_receive(:total_promotion_discount).and_return(30)
         cart.should_receive(:total_liquidation_discount).and_return(30)
-        subject.should_receive(:value).and_return(100)
-        subject.should_apply_to?(cart).should be_true
       end
+      subject { coupon.is_more_advantageous_than_any_promotion?(cart) }
+
+      it { should be_true }
+    end
+  end
+
+  describe '#can_be_applied_to_any_product_in_the_cart?' do
+    let(:cart) { mock_model Cart }
+    let(:cart_item_invalid) { mock_model CartItem }
+
+    before do
+      mock_invalid_product = mock Product
+      cart_item_invalid.stub(:product).and_return(mock_invalid_product)
+    end
+
+    subject { standard_coupon.can_be_applied_to_any_product_in_the_cart? cart }
+
+    context "when coupon has brand" do
+      before do
+        standard_coupon.stub(:brand).and_return("Some Brand")
+      end
+
+      context "when cart has at least one valid item" do
+        let(:cart_item_valid) { mock_model CartItem }
+        before do
+          mock_valid_product = mock Product
+          cart_item_valid.stub(:product).and_return(mock_valid_product)
+
+          cart.stub(:items).and_return([cart_item_invalid, cart_item_valid])
+
+          standard_coupon.should_receive(:apply_discount_to?).with(cart_item_invalid.product).and_return(false)
+          standard_coupon.should_receive(:apply_discount_to?).with(cart_item_valid.product).and_return(true)
+        end
+        it { should be_true }
+      end
+
+      context "when product has no valid items" do
+        let(:another_cart_item_invalid) { mock_model CartItem }
+
+        before do
+          another_mock_invalid_product = mock Product
+          another_cart_item_invalid.stub(:product).and_return(another_mock_invalid_product)
+
+          cart.stub(:items).and_return([cart_item_invalid, another_cart_item_invalid])
+
+          standard_coupon.should_receive(:apply_discount_to?).with(cart_item_invalid.product).and_return(false)
+          standard_coupon.should_receive(:apply_discount_to?).with(another_cart_item_invalid.product).and_return(false)
+        end
+        it { should be_false }
+      end
+    end
+
+    context "when coupon has no brand" do
+      before do
+        standard_coupon.stub(:brand).and_return(nil)
+      end
+      it { should be_true }
     end
   end
 end

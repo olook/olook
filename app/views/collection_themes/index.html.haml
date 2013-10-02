@@ -9,17 +9,17 @@
   #collection_theme_content
     #home_collections
       .banner_principal
-        = link_to image_tag("collections/destaque_colecoes_neon_pastel_ok.jpg", alt: "Coleção Neon Pastel", title: "Neon Pastel"), '/colecoes/neon_pastel', onclick: track_event("Colecoes", "TopBigBanner")
+        = link_to image_tag("collections/destaque_outubro_rosa.jpg", alt: "Coleção Outubro Rosa", title: "Coleção Outubro Rosa"), '/colecoes/outubro_rosa', onclick: track_event("Colecoes", "TopBigBanner")
       .left_banner
-        = link_to image_tag("collections/menina_bolinhas.jpg", alt: "p&b", title: "p&b"), collection_theme_path('p&b'), onclick: track_event("Colecoes", "MiddleLeftBanner")
-        %p.collection PRETO & BRANCO
-        %p.resume Uma das tendências mais fortes da estação
-        %p.looks= link_to "veja a coleção", collection_theme_path('p&b'), target: "_blank"
+        = link_to image_tag("collections/crop_totalbranco.jpg", alt: "TOTAL BRANCO", title: "TOTAL BRANCO"), collection_theme_path('branco_total'), onclick: track_event("Colecoes", "MiddleLeftBanner")
+        %p.collection TOTAL BRANCO
+        %p.resume O look branco total promete reinar nesta estação
+        %p.looks= link_to "veja a coleção", collection_theme_path('branco_total'), target: "_blank"
       .right_banner
-        = link_to image_tag("collections/achados_inverno.jpg", alt: "Achados de inverno", title: "Achados de inverno"), collection_theme_path('liquida_final'), onclick: track_event("Colecoes", "MiddleRightBanner")
-        %p.collection ACHADOS DE INVERNO
-        %p.resume Confira nossa  seleção hot aproveite
-        %p.looks= link_to 'veja a coleção', collection_theme_path('achados_inverno'), target: "_blank"
+        = link_to image_tag("collections/crop_navajo.jpg", alt: "Navajo", title: "Navajo"), collection_theme_path('navajo'), onclick: track_event("Colecoes", "MiddleRightBanner")
+        %p.collection NAVAJO
+        %p.resume Cores quentes e desenhos geométricos
+        %p.looks= link_to 'veja a coleção', collection_theme_path('navajo'), target: "_blank"
     %button.nav.bt_left.prev_collection{:type => "button"} Anterior
     #amamos
       %h1 NÓS AMAMOS

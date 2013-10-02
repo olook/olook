@@ -61,6 +61,8 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     .pl9{padding-left:9px;}
     h1{font-family:$avenir;font-size:17px;font-weight: lighter;}
     h2{font-family:$avenir;font-size:14px;text-transform:uppercase;font-weight:bold;margin-bottom:20px;}
+    a.ver_produto {font-family:avenir, tahoma;position: relative;top: -20px;color:#000;text-decoration:none;color:#ef3742;}
+    a.ver_produto:hover {text-decoration:underline;}
   
     p {color: #000;font-size:15px;font-family: $avenir;
       a {color: $pink;margin: 0 0 0 5px;}
@@ -103,6 +105,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         }
       }
     }
+    .division {border-top:solid 1px #C2C2C2;padding-top:20px;margin-top:20px;}
     .social-media-box{
       overflow:visible;
       border-top:solid 1px #C2C2C2;
@@ -113,7 +116,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       .has_bt_face{height:22px;position:relative;}
       ul.social-list {float:left; width:417px;margin-top:5px;
         li {padding:0;margin-right: 10px;display:inline-block;
-          &.like{margin-right: 4px !important;margin-left: 23px;}
+          &.like{margin-right: 4px !important;margin-left: 15px;}
           &.twitter{position: relative;top: -1px;}
           &.pinterest{position: relative;top: -1px;}
           a{display:inline;padding:0;width:100%;margin:0;}
@@ -203,7 +206,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     }
     .alert_size{padding-left: 7px; font-family: $avenir; font-size: 12px;color: #000;width: 173px; height: 20px; margin-left: 90px; margin-top: 10px; background-color: #eb8793; border: 1px solid #a1a1a1; display: none;}
     input[type="submit"].add_product, a.add_product {background: image-url('product/add_bag.png') -25px 0 no-repeat;text-indent: -9999px;width: 415px;height: 45px;margin: 17px auto 30px;display: block;border: none;cursor: pointer;clear: both;
-      &:hover{background-position: -25px -51px;}
+      /*&:hover{background-position: -25px -51px;}*/
       &.disabled {background-position: -25px -102px;}
     }
     input[type="submit"].add_product_to_suggestions {background: image-url('product/bt-add-product-to-suggestions.jpg') no-repeat;text-indent: -9999px;width: 305px;height: 65px;margin: 17px auto 30px auto;display: block;border: none;cursor: pointer;clear: both;

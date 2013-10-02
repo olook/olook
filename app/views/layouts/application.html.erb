@@ -3,9 +3,10 @@
   <head>
     <%= render :partial => "shared/errorception" %>
     <meta charset="UTF-8">
-    <title>olook</title>
+    <title>
+      <%= title_text %>
+    </title>
     <%= favicon_link_tag 'olook_favicon.ico' %>
-
 
     <% error = nil unless error %>
     <% if params[:share] %>
@@ -17,6 +18,7 @@
 
     <%= csrf_meta_tags %>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700|Pontano+Sans' rel='stylesheet' type='text/css'>
+    <%= stylesheet_link_tag  "http://olook.neoassist.com/clients/olook/novo/modal.css" if Setting.enable_neoassist %>
     <%= stylesheet_link_tag  "application" %>
     <%- unless @hide_fb_page_id -%>
       <meta property="fb:page_id" content="157293541026960" />
@@ -30,7 +32,6 @@
     <!-- Struq navigation pixel -->
     <%#= render :partial => "shared/metrics/struq/homepage" %>
 
-    <%#= render :partial => "shared/tag/siteapps" %>
     <%= render :partial => "shared/metrics/header_tags" %>
     <%= yield :head %>
 
@@ -51,10 +52,14 @@
   </head>
 
 
-  <body class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %> <%= "moments" if is_moment_page? %>">
 
+  <body onload="<%= Setting.enable_neoassist ? 'ativaDiv();' : '' %>" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %> <%= "moments" if is_moment_page? %>">
     <%= render :partial => "shared/tag/google_tag_manager" %>
-
+    <% if Setting.enable_neoassist %>
+      <div id="modalneo" align="right" style="display:none;border:0px;">
+        <a href="javascript: var a=null;" onclick="window.open(' http://olook.neoassist.com/?action=neolive&th=moda&scr=request&ForcaAutenticar=1&UMail=%User[EMail]%&email=%User[EMail]%&name=%User[Name]%&uName=%User[Name]%', 'Chat' , 'status , scrollbars=no ,width=500, height=580, resizable=no, top=30 , left=30');"><img src=" http://olook.neoassist.com/clients/olook/novo/images/chatmsg.png" border="0" onclick="javascript:this.style.display='none';" id="chatmsg"  /></a>
+      </div>
+    <% end %>
     <%= render 'shared/admin_label' if current_admin %>
 
     <div id="modal" class="promo-olook"></div>
@@ -79,7 +84,9 @@
     <div id="fb-root"></div>
 
     <%= yield :site_footer %>
+    <%= javascript_include_tag "http://olook.neoassist.com/clients/olook/js/chat.js" if Setting.enable_neoassist %>
     <%= javascript_include_tag "jquery" %>
+    <%= yield :scripts %>
     <%= javascript_include_tag "application" %>
     <script>
       show_modal = '<%= j @modal_show %>';

@@ -6,6 +6,7 @@ gem 'rails', '3.2.13'
 gem 'rake', '0.9.2'
 
 gem 'mysql2'
+gem 'aws-sdk', '~> 1.0'
 gem 'jquery-rails', '~> 1.0.14'
 gem 'devise', '~> 1.5.3'
 gem 'omniauth', '= 1.0.3'
@@ -43,7 +44,7 @@ gem 'state_machine', '~> 1.1.0'
 gem 'state_machine-audit_trail', '~> 0.0.5'
 gem 'savon', '= 0.9.9'
 gem 'gyoku', '= 0.4.6'
-gem 'httpi', '= 0.9.7'
+gem 'httpi', '~> 0.9'
 gem 'paper_trail', '~> 2'
 gem 'meta_search'
 gem 'newrelic_rpm', '>= 3.5.3.25'
@@ -53,13 +54,14 @@ gem 'koala', '~> 1.3.0'
 gem 'dalli', '2.0.2'
 gem 'redis-rails'
 gem 'iconv'
+gem 'sitemap_generator'
 
 gem 'sass-rails', "~> 3.2.3"
 gem 'uglifier', '~> 1.0.3'
 gem 'business_time'
 gem "rails-settings-cached"
 
-gem "boleto_bancario", :git => 'git@github.com:olook/boleto_bancario.git', :branch => 'homologacao_santander', ref: "ba8f64ecb541bdd398e4377d52f71ca75a0f5905" , require: false
+gem "boleto_bancario", :git => 'git@github.com:olook/boleto_bancario.git', :branch => 'homologacao_santander', require: false
 gem 'fb-channel-file'
 
 group :production, :staging do
@@ -70,11 +72,9 @@ end
 
 gem 'piet', :git => 'git://github.com/albertbellonch/piet.git', ref: "630a98bef1595fb2a138e98ff9aaefbca987a999"
 
-group :development do
-  gem 'better_errors'
-end
 group :development, :test do
   gem "fakeredis"
+  gem 'better_errors'
   gem 'rack-mini-profiler'
   gem 'faker'
   gem 'bullet'
@@ -95,9 +95,9 @@ group :development, :test do
   gem 'delorean'
   gem 'timecop'
   gem 'shoulda-matchers'
+  gem 'poltergeist'
   gem "equivalent-xml", " ~> 0.2.9"
   gem 'capybara', '2.0.2'
-  gem 'capybara-webkit', '0.14.2'
   gem 'database_cleaner'
   gem 'simplecov', :require => false
   gem 'simplecov-rcov', :require => false
@@ -106,10 +106,15 @@ group :development, :test do
   gem 'guard-spork'
   gem 'fuubar'
   gem 'launchy'
-  gem 'fakeweb'
   gem 'parallel_tests'
   gem "vcr", "~> 2.5.0"
   gem 'ci_reporter', :git => 'git://github.com/nicksieger/ci_reporter.git', require: false
+  gem 'jasmine'
+  gem "selenium-webdriver", "~> 2.35.1"  
 end
 gem 'rubber', '~> 2.0', git: 'git://github.com/nelsonmhjr/rubber.git', branch: 'newrelic'
 gem 'open4'
+
+group :test do
+  gem 'webmock'
+end

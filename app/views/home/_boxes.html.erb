@@ -1,21 +1,21 @@
 <section id="boxes">
   <ul>
     <li>
-      <%= link_to clothes_path, onclick: track_event('DestaquesRodape', "BannerEsquerda") do %>
+      <%= link_to catalog_path("roupa"), onclick: track_event('DestaquesRodape', "BannerEsquerda") do %>
         <%= image_tag "home/destaque_novidades.jpg" %>
         <h1>NOVIDADES TODOS OS MESES</h1>
         <p>Agora temos o look completo</p>
       <% end %>
     </li>
     <li>
-      <%= link_to shoes_path, onclick: track_event('DestaquesRodape', "BannerCentro") do %>
+      <%= link_to catalog_path("sapato"), onclick: track_event('DestaquesRodape', "BannerCentro") do %>
         <%= image_tag "home/destaque_sapatoshot.jpg" %>
         <h1>SAPATOS HOT</h1>
         <p>Vai ser difícil escolher apenas um</p>
       <% end %>
     </li>
     <li class="iehack"><!-- NAO REMOVER A CLASSE -->
-      <%= link_to accessories_path, onclick: track_event('DestaquesRodape', "BannerDireita") do %>
+      <%= link_to catalog_path("acessorio"), onclick: track_event('DestaquesRodape', "BannerDireita") do %>
         <%= image_tag "home/destaque_acessorios.jpg" %>
         <h1>PONTUE COM ACESSÓRIOS</h1>
         <p>Eles valorizam qualquer look</p>

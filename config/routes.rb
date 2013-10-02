@@ -3,6 +3,9 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+  resources :live_feeds, path: "api", only: [:create]
+
+
   get "/stylequiz", to: "quiz#new", as: "wysquiz"
 
   get "/quiz", to: "quiz#new"
@@ -80,6 +83,7 @@ Olook::Application.routes.draw do
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/duvidasfrequentes", :to => "pages#faq", :as => "duvidasfrequentes"
   match "/centraldeatendimento", :to => "pages#faq", :as => "duvidasfrequentes"
+  match "/afiliados", :to => "pages#afiliados", :as => "afiliados"
   match "/devolucoes", :to => "pages#return_policy", :as => "return_policy"
   match "/privacidade", :to => "pages#privacy", :as => "privacy"
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
@@ -140,6 +144,7 @@ Olook::Application.routes.draw do
   match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
   match "/click_a_porter", :to => "xml#click_a_porter", :as => "click_a_porter", :defaults => { :format => 'xml' }
   match "/topster" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/topster_data.xml")
+  match "/nextperformance" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/nextperformance_data.xml")
   match "/ilove_ecommerce", :to => "xml#ilove_ecommerce", :as => "ilove_ecommerce", :defaults => { :format => 'xml' }
   match "/zoom", :to => "xml#zoom", :as => "zoom", :defaults => { :format => 'xml' }
   match "/netaffiliation", :to => "xml#netaffiliation", :as => "netaffiliation", :defaults => { :format => 'xml' }
@@ -148,9 +153,10 @@ Olook::Application.routes.draw do
   match "/buscape", :to => "xml#buscape", :as => "buscape", :defaults => { :format => 'xml' }
   match "/struq", :to => "xml#struq", :as => "struq", :defaults => { :format => 'xml' }
   match "/kuanto_kusta", :to => "xml#kuanto_kusta", :as => "kuanto_kusta", :defaults => { :format => 'xml' }
-  match "/nextperformance", :to => "xml#nextperformance", :as => "nextperformance", :defaults => { :format => 'xml' }
   match "/muccashop", :to => "xml#muccashop", :as => "muccashop", :defaults => { :format => 'xml' }
   match "/shopear", :to => "xml#shopear", :as => "shopear", :defaults => { :format => 'xml' }
+  match "/adroll", :to => "xml#adroll", :as => "adroll", :defaults => { :format => 'xml' }
+  match "/nano_interactive", :to => "xml#nano_interactive", :as => "nano_interactive", :defaults => { :format => 'xml' }
 
   #SURVEY
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
@@ -174,7 +180,10 @@ Olook::Application.routes.draw do
   post "membro/importar_contatos" => 'members#show_imported_contacts', :as => 'member_show_imported_contacts'
   post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
   get "membro/convidadas" => "members#invite_list", :as => 'member_invite_list'
-  get "membro/vitrine", :to => "members#showroom", :as => "member_showroom"
+  get "membro/vitrine" => redirect('/minha/vitrine')
+  get "minha/vitrine", :to => "members#showroom", :as => "member_showroom"
+  get "/vitrines", to:"members#half_showroom", as: 'half_showroom'
+  get "/criar/vitrine", to: 'join#showroom', as: 'join_showroom'
   get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"
   get "membro/ganhe-creditos", :to => "members#earn_credits", :as => "member_earn_credits"
   #get "membro/creditos", :to => "members#credits", :as => "member_credits"
@@ -218,6 +227,8 @@ Olook::Application.routes.draw do
     get "/", :to => "dashboard#index"
 
     resources :clippings
+    get "ses" => "simple_email_service_infos#index", as: "ses"
+    match "/ses_info", :to => "simple_email_service_infos#show", :as => "ses_info"
 
     namespace :orders do
       resources :deliveries
@@ -292,6 +303,7 @@ Olook::Application.routes.draw do
 
     resources :orders do
       member do
+        post 'authorize_payment'
         post 'change_state'
         post 'remove_loyalty_credits'
       end
@@ -316,6 +328,9 @@ Olook::Application.routes.draw do
       resources :liquidation_products, :as => "products"
     end
     resources :roles do
+      member do
+        post 'copy'
+      end
       resources :permissions
     end
     resources :admins
@@ -437,6 +452,8 @@ Olook::Application.routes.draw do
   get '/l/:page_url', :controller =>'landing_pages', :action => 'show' , :as => 'landing'
   get '/diadasmaes' , :controller =>'landing_pages', :action => 'mother_day' , :as => 'mother_day'
   get "/cadastro", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: 1 }
+  get "/cadastro/olookmovel", :to => "landing_pages#olookmovel", as: 'olookmovel_lp'
+  post "/cadastro/olookmovel", :to => "landing_pages#create_olookmovel", as: 'olookmovel_lp'
   get "/cadastro_parcerias", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: nil }
 
   # Friendly urls (ok, I know it is not the best approach...)

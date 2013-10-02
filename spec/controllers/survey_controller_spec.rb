@@ -45,7 +45,7 @@ describe SurveyController do
       post :create
       response.should redirect_to wysquiz_path
     end
-    
+
     context "without user" do
       it "should save questions to session" do
         post :create, params
@@ -58,13 +58,13 @@ describe SurveyController do
         response.should redirect_to new_user_registration_path
       end
     end
-    
+
     context "with user" do
-    
+
       before :each do
         sign_in user
       end
-      
+
       it "should not save questions to session" do
         ProfileBuilder.stub(:factory)
         post :create, params
@@ -94,7 +94,7 @@ describe SurveyController do
           user.points.stub(:count).and_return(1)
           controller.stub(:current_user).and_return(user)
         end
-        
+
         it "should delete questions of user" do
           user.points.should_receive(:delete_all)
           post :create, params
@@ -113,18 +113,18 @@ describe SurveyController do
 
       context "when has answers in user" do
         let(:answer) { SurveyAnswer.new }
-        
+
         before :each do
           ProfileBuilder.stub(:factory)
           user.stub(:survey_answer).and_return(answer)
           controller.stub(:current_user).and_return(user)
         end
-        
+
         it "should delete answers of user" do
           answer.should_receive(:delete)
           post :create, params
         end
-        
+
         it "should set retake quiz in session to true" do
           post :create, params
           session[:profile_retake].should be_true
@@ -135,7 +135,7 @@ describe SurveyController do
           response.should redirect_to member_showroom_path
         end
       end
-      
+
       context "when no has point in user" do
         it "should set retake quiz in session to false" do
           ProfileBuilder.stub(:factory)

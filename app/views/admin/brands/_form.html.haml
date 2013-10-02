@@ -7,15 +7,23 @@
           %li= msg
 
   %fieldset
-    =f.label :name, "Nome"
+    =f.label :name
     =f.text_field :name
-
+  %br
   %fieldset
-    =f.label :header_image_alt, "Alt da imagem"
+    %span Irá aparecer: nome da marca - texto abaixo | Olook
+    %br
+    =f.label :seo_text
+    =f.text_field :seo_text
+
+  %br
+  %fieldset
+    =f.label :header_image_alt
     =f.text_field :header_image_alt
 
+  %br
   %fieldset
-    =f.label :header_image, "Imagem"
+    =f.label :header_image
     =f.file_field :header_image
   
   .actions

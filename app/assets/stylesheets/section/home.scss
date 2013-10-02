@@ -1,4 +1,5 @@
 @import 'partials/mixins';
+@import 'new_structure/partials/facebook_footer';
 
 div#content {
   overflow: visible;
@@ -225,7 +226,7 @@ section#home {
   }
   section#brands{
     position: relative;
-    min-height: 555px;
+    min-height: 620px;
     margin: 0 0 10px;
     padding: 10px 0 20px;
     border-bottom: 1px #cbcbcb solid;
@@ -460,9 +461,27 @@ section#home {
             }
           }
           &.floor a {
-            background-position: -11px -557px;
+            background-position: -5px -557px;
             &:hover {
-              background-position: -12px -552px;
+              background-position: -6px -552px;
+            }
+          }
+          &.canal a {
+            background-position: -290px -545px;
+            &:hover {
+              background-position: -289px -547px;
+            }
+          }
+          &.blue a {
+            background-position: -430px -540px;
+            &:hover {
+              background-position: -429px -542px;
+            }
+          }
+          &.afghan a {
+            background-position: 1px -615px;
+            &:hover {
+              background-position: 2px -617px;
             }
           }
         }
@@ -536,156 +555,46 @@ section#home {
       }
     }
   }
-  div#products_categories {
-    width: 760px;
-    height: 140px;
-    margin: 0 0 30px;
-    padding: 35px 0 0 0;
-    float: left;
-    border-top: 1px #cbcbcb solid;
-    >h1 {
-      font-family: $avenir;
-      font-size: 20px;
-      font-weight: 600;
-      text-transform: uppercase;
-      margin: 0 0 25px 0;
-    }
-    ul {
-      width: 100%;
-      overflow: auto;
+  div#products_categories {width: 1020px;height: 200px;margin: 0 0 18px;padding: 15px 0 0 0;float: left;
+    ul {width: 100%;overflow: auto;margin-top: 35px;
       li {
-        a {
-          background: image-url("home/categories.png") no-repeat;
-          color: #000;
-          font-size: 11px;
-          text-align: center;
-          text-decoration: none;
-          height: 40px;
-          margin: 0 18px 0 0;
-          padding: 75px 0 0 0;
-          float: left;
-          &:hover {
-            color: #ef3742;
-          }
+        a {width: 63px;height: 100px;background: image-url("home/categories.png") no-repeat;color: #000;float: left;text-indent: -9999px;margin-right: 29px;
+          &:hover {color: #ef3742;}
         }
-        &.blusa a {
-          background-position: 6px 0px;
-          width: 45px;
-          &:hover {
-            background-position: 6px -189px;
-          }
+        &.blusa a {background-position: -5px 0px; margin-left:5px;
+          &:hover {background-position: -5px -146px;}
         }
-        &.camisa a {
-          background-position: -56px 0;
-          width: 45px;
-          &:hover {
-            background-position: -56px -189px;
-          }
+        &.camisa a {background-position: -100px 0px;
+          &:hover {background-position: -100px -146px;}
         }
-        &.calca a {
-          background-position: -105px 0;
-          width: 45px;
-          &:hover {
-            background-position: -105px -189px;
-          }
+        &.calca a {background-position: -196px 0px;
+          &:hover {background-position: -196px -146px;}
         }
-        &.saia a {
-          background-position: -150px 0;
-          width: 45px;
-          &:hover {
-            background-position: -150px -189px;
-          }
+        &.vestido a {background-position: -293px 0px;
+          &:hover {background-position: -293px -146px;}
         }
-        &.vestido a {
-          background-position: -165px 0;
-          width: 45px;
-          &:hover {
-            background-position: -165px -189px;
-          }
+        &.anabela a {background-position: -387px 0px;
+          &:hover {background-position: -387px -146px;}
         }
-        &.anabela a {
-          background-position: -219px 0;
-          width: 45px;
-          &:hover {
-            background-position: -219px -189px;
-          }
+        &.bota a {background-position: -477px 0px;
+          &:hover {background-position: -477px -146px;}
         }
-        &.bota a {
-          background-position: -275px 0;
-          width: 53px;
-          &:hover {
-            background-position: -275px -189px;
-          }
-        }
-        &.sapatilha a {
-        background-position: -346px 0;
-        &:hover {
-          background-position: -346px -189px;
-        }
+        &.sapatilha a {background-position: -570px 0px;
+        &:hover {background-position: -570px -146px;}
       }
-      &.scarpin a {
-        background-position: -415px 0;
-        &:hover {
-          background-position: -415px -189px;
-        }
+      &.scarpin a {background-position: -662px 0px;
+        &:hover {background-position: -662px -146px;}
       }
-      &.slipper a {
-        background-position: -513px 0;
-        width: 43px;
-        &:hover {
-          background-position: -513px -189px;
-        }
+      &.sneaker a {background-position: -756px 0px;
+        &:hover {background-position: -756px -146px;}
       }
-      &.sneaker a {
-        background-position: -472px 0;
-        &:hover {
-          background-position: -472px -189px;
-        }
+      &.acessorios a {background-position: -853px 0px;
+        &:hover {background-position: -853px -146px;}
       }
-      &.acessorios a {
-        background-position: -580px 0;
-        &:hover {
-          background-position: -580px -189px;
-        }
-      }
-      &.bolsas a {
-        background-position: -529px 0;
-        &:hover {
-          background-position: -529px -189px;
-        }
-      } 
+      &.bolsas a {background-position: -943px 0px;margin-right: 0 !important;
+        &:hover {background-position: -943px -146px;}
+        } 
       }
     }
   }
-  div#facebook_box {
-    width: 196px;
-    height: 140px;
-    padding: 35px 0 0 10px;
-    float: right;
-    border-top: 1px #cbcbcb solid;
-    img {
-      margin: 37px 7px 20px 0;
-      float: left;
-    }
-    h1 {
-      color: #36569e;
-      font-family: $avenir;
-      font-size: 14px;
-      margin-top: 35px;
-      span {
-        font-size: 17px;
-        font-weight: bold;
-      }
-    }
-    .like {
-      clear: both;
-    }
-  }
-}
-
-/****** IE8 HACK *******/
-html.ie8{
-   section#home{
-      li.iehack{margin:0 !important;}
-   }
 }

@@ -4,7 +4,12 @@ require "spec_helper"
 describe TopsterXml do
 
   context "When have 1 product" do
-    let!(:product) {FactoryGirl.create :shoe}
+    let(:product) {FactoryGirl.create :shoe}
+
+    before do
+      TopsterXml.stub(:load_products).and_return([product])
+    end
+
     it "build xml of products" do
       content = <<-XML.gsub(/^ {6}/, '')
       <?xml version="1.0" encoding="UTF-8"?>
@@ -20,7 +25,7 @@ describe TopsterXml do
             <![CDATA[#{product.name}]]>
           </nome_produto>
           <marca>
-            <![CDATA[olook]]>
+            <![CDATA[OLOOK]]>
           </marca>
           <categoria>
             <![CDATA[Sapato]]>
@@ -54,7 +59,9 @@ describe TopsterXml do
       </produtos>
       XML
 
-      expect(TopsterXml.create_xml).to eql(content)
+      equivalent_content = Nokogiri::XML(content)
+      result = TopsterXml.create_xml([:topster])[:topster]
+      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
     end
   end
 end

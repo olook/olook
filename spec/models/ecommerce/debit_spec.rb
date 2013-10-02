@@ -15,9 +15,9 @@ describe Debit do
   end
 
   context "#schedule_cancellation" do
-    it "schedules cancellation in 1 business hour from creation" do
+    it "schedules cancellation in 5 business hour from creation" do
       Timecop.freeze do
-        Resque.should_receive(:enqueue_at).with(1.business_hour.from_now, Abacos::CancelOrder, order.number)
+        Resque.should_receive(:enqueue_at).with(5.business_hour.from_now, Abacos::CancelOrder, order.number)
         subject.schedule_cancellation
       end
     end
