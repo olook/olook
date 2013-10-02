@@ -23,5 +23,5 @@ else
   $("#total_price").val( parseFloat($("#total_price").val()) + parseFloat(product_price));
   installments = CreditCard.installmentsNumberFor($("#total_price").val());
   $(".cart_related .minicart_price").html("Por<br>" + installments + "x de " + Formatter.toCurrency( $("#total_price").val() / installments ) + " sem juros");
-  $("form#minicart input[type=submit]").removeAttr("disabled");
+  $("form#minicart input[type=submit]").removeAttr("disabled").removeClass("disabled");
 }
