@@ -10,10 +10,9 @@
         <div class="valor_total"><%= installments_number(look_products.sum{|p| p.promotion? ? p.retail_price : p.price}) %>x de <%=  number_to_currency(installments_value(look_products.sum{|p| p.promotion? ? p.retail_price : p.price}, separator: ",")) %></div>
       </div>
       <div class="minicart_price"></div>
-      <%= form_tag add_variants_path(current_cart), method: :put, id: "minicart", name: "minicart" do %>
-      
+      <%= form_tag add_variants_path(current_cart), method: :put, id: "minicart", name: "minicart", onsubmit: "if($(this).find('#add_product').hasClass('disabled')) return false;" do %>
         <%= submit_tag "", onclick: track_event("Product", "AddLookToCart", @product.id.to_s), class: "add_product disabled", disabled:"disabled", id:"add_product", name:"commit", value: "" %>
-        <!--input class="add_product disabled" disabled="disabled" id="add_product" name="commit" type="submit" value=""-->
+        <div id="submit_tooltip">Primeiro escolha os itens que deseja comprar do look, informando o seu tamanho.</div>
       <% end %>
       <input type="hidden" id="total_price" />
     </div>
