@@ -27,7 +27,7 @@
   .socialmedia
     %p
       GOSTOU? Então compartilhe
-    %a.twitter-share-button{"data-text" => "Tudo o que é publicado sobre a Olook na mídia você confere aqui: www.olook.com.br/olook-na-imprensa. Acompanhe as novidades! ;)", "data-url" => "www.olook.com.br", "data-count" => "none", "data-counturl" => "www.olook.com.br/olook-na-imprensa", "class" => "twitter"} Tweetar
+    %a.twitter-share-button{"data-text" => "Tudo o que é publicado sobre a Olook na mídia você confere aqui: www.olook.com.br/olook-na-imprensa. Acompanhe as novidades! ;)", "data-url" => "www.olook.com.br", "data-count" => "horizontal", "data-counturl" => "www.olook.com.br/olook-na-imprensa", "class" => "twitter"} Tweetar
 
     / .fb-like{"data-href" => "#{root_url}/olook-na-imprensa", "data-width" => "450", "data-show-faces" => "true", "data-send" => "true"}
 
@@ -36,7 +36,7 @@
   #big_clipping
     = image_tag "common/andre.jpg"
     %ul
-      %li.article
+      %li.article.first
         %p.title
           Startup fatura com personalização
         %span.info
@@ -89,7 +89,7 @@
           = link_to "Ler na integra", "http://startups.ig.com.br/2013/subindo-no-salto-olook-celebra-20-meses-de-existencia-com-3o-investimento/", target: :blank, class: 'lermais'
           = image_tag "common/clipping_arrow.png", :class => "arrow"
         %li.media
-          = image_tag "common/ig.jpg"
+          = image_tag "common/ig.jpg", :class => "ig"
   %h2
     Quer escrever sobre a Olook?
   %p.contact
