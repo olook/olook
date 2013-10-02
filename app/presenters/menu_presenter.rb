@@ -14,42 +14,10 @@ class MenuPresenter < BasePresenter
   end
 
   def render_menu
-    if user
-      user.half_user ? render_half_user_menu : render_default_menu
-    else
-      render_offline_menu
-    end
-  end
-
-  def render_offline_menu
-    [showroom_offline, stylist, collection_themes, categories, brands, gift, liquidation].join.html_safe
-  end
-
-  def render_default_menu
     [showroom, stylist, collection_themes, categories, brands, gift, liquidation].join.html_safe
   end
 
-  def render_half_user_menu
-    if user.female?
-      render_woman_half_user_menu
-    else
-      render_man_half_user_menu
-    end
-  end
-
-  def render_woman_half_user_menu
-    render_default_menu
-  end
-
-  def render_man_half_user_menu
-    [collection_themes, my_friends, stylist, liquidation, blog].join.html_safe
-  end
-
   private
-  def showroom_offline
-    render_item("Minha Vitrine", h.root_path, "showroom", ["home#index"])
-  end
-
   def showroom
     render_item("Minha Vitrine", h.member_showroom_path, "showroom", ["members#showroom"])
   end

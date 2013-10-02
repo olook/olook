@@ -13,6 +13,18 @@
     }
   }
 }
+.show_more{
+  margin-left: 0;
+  margin-top: 20px;
+  a{
+    font-size: 13px;
+    color: #000;
+    text-decoration: none;
+    &:hover{
+      color: $pink;
+    }
+  }
+}
 /******** INTERNAS *******/
 section{margin-top:10px;
   &#side_bar_menu{float:left;width:160px;}

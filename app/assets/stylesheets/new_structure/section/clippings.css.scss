@@ -4,10 +4,19 @@
 
 @import 'new_structure/common/global_stuffs';
 
-#clipping{
+#clipping,#big_clipping,.clipping_left,.clipping_right{
   width: 1100px;
-  height: 1230px;
+  height: 2015px;
   margin: 15px auto 0;
+  h2{
+    font-size: 14px;
+    letter-spacing: 1px;
+    margin-left: 12px;
+  }
+  p.contact{
+    font-size: 12px;
+    margin-left: 12px;
+  }
   .b_left{
     margin-left: 12px;
     width: 445px;
@@ -19,19 +28,12 @@
       letter-spacing: 1px;
       font-weight: bold;
     }
-    h2{
-      font-size: 14px;
-      margin-top: 15px;
-    }
     p{
       font-family: $avenir;
       font-size: 15px;
       color: #000;
       letter-spacing: 1px;
       font-weight: lighter;
-    }
-    p.contact{
-      font-size: 12px;
     }
   }
   ul{
@@ -72,12 +74,14 @@
         a{
           text-decoration: none;
           color: $pink;
-          font-size: 13px;
           font-weight: 500;
-          font-style: normal;
-          letter-spacing: 1px;
-          margin-top: 5px;
-          display: block;
+          &.lermais {
+            font-style: normal;
+            margin-top: 5px;
+            display: block;
+            font-size: 13px;
+            letter-spacing: 1px;
+          }
         }
         p.date{
           font-size: 12px;
@@ -90,18 +94,56 @@
         }
         img{
         position: relative;
-        top: -20px;
+        top: -18px;
         left: 100px;
         }
-        span.info{height: 80px !important;display: block;}
+        span.info{height: 80px !important;display: block;font-style: normal;}
       }
     }
   }
-  .socialmedia{width: 445px;float: left;height: 110px;
-    p{color: #000; font-size: 13px;letter-spacing: 2px;font-weight: bold;padding-top: 30px;padding-left: 107px;}
-    .like, .twitter{position: relative;float: right;left: 70px;top:-24px;}
-    .twitter{margin-left: 15px;}
+}
+#big_clipping{
+  margin-left: 12px !important;
+  width: 990px;
+  height: 880px;
+  margin: 0;
+  img{
+    float: left;
   }
+  ul{
+    float: left;
+    width: 330px;
+    margin-left: 60px;
+    margin-top: 67px;
+    .arrow{
+      top: -13px !important;
+    }
+    li.media{
+      margin: 30px 0 0;
+    }
+  }
+  .clipping_left, .clipping_right{
+    float: left;
+    width: 465px;
+    height: 365px;
+    margin-top: 30px;
+    ul{
+      margin: 12px 0 0;
+      width: 455px;
+      li{
+        float: left;
+        &.media{float: right;}
+      }
+    }
+  }
+  .clipping_left{
+    margin-right: 35px;
+  }
+}
+.socialmedia{width: 445px;float: left;height: 75px;
+  p{color: #000; font-size: 13px;letter-spacing: 2px;font-weight: bold;padding-top: 30px;padding-left: 95px;}
+  .like, .twitter{position: relative;float: right;left: 70px;top:-24px;}
+  .twitter{margin-left: 15px;}
 }
 .next{
 	.pagination{

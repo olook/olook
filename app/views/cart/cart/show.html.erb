@@ -86,7 +86,13 @@ _gaq.push(['_addTrans',
             <td class="avc-foto">
               <p class="txt-recomenda">OLOOK RECOMENDA</p>
               <% unless @suggested_product.master_variant.bag_picture.nil? %>
-                <%= image_tag @suggested_product.master_variant.bag_picture %>
+                <%= link_to spy_product_path(@suggested_product), :class => 'cart_item', data: { url: spy_product_path(@suggested_product, from: 'cart') } do %>
+                  <div class="spy_cart_icon">
+                    <span class="spy-icon"></span>
+                    <span class="spy-txt">ESPIAR</span>
+                  </div>
+                  <%= image_tag @suggested_product.master_variant.bag_picture %>
+                <% end %>
               <% end %>
             </td>
             <td class="avc-desc">
@@ -275,3 +281,4 @@ _gaq.push(['_addTrans',
   <%= render "shared/modal_login" %>
 
 </section>
+<div id='quick_view' class="cart_quick_view"></div>

@@ -6,26 +6,33 @@ module FreightCalculator
 
   DEFAULT_FREIGHT_PRICE   = 0.0
   DEFAULT_FREIGHT_COST    = 0.0
-  DEFAULT_INVENTORY_TIME  = 4
+  DEFAULT_INVENTORY_TIME  = 2
   DEFAULT_FREIGHT_SERVICE = 1
 
 
-  def self.freight_for_zip(zip_code, order_value, shipping_service_ids=nil)
+  def self.freight_for_zip(zip_code, order_value, shipping_service_ids=nil, use_message = false)
     clean_zip_code = clean_zip(zip_code)
     return {} unless valid_zip?(clean_zip_code)
-
     freight_price = nil
+    first_free_freight_price = nil
 
     shipping_services(shipping_service_ids).each do |shipping_service|
       freight_price = shipping_service.find_freight_for_zip(clean_zip_code, order_value)
-      break if freight_price
+      if freight_price
+        first_free_freight_price = shipping_service.find_first_free_freight_for_zip_and_order(clean_zip_code, order_value) if (freight_price.price != 0.0) && use_message
+        break
+      end
     end
 
-    { :price          => freight_price.try(:price)  || DEFAULT_FREIGHT_PRICE,
-      :cost           => freight_price.try(:cost)   || DEFAULT_FREIGHT_COST,
-      :delivery_time  => (freight_price.try(:delivery_time) || 0) + DEFAULT_INVENTORY_TIME,
+    return_hash = {
+      :price => freight_price.try(:price)  || DEFAULT_FREIGHT_PRICE,
+      :cost => freight_price.try(:cost)   || DEFAULT_FREIGHT_COST,
+      :delivery_time => (freight_price.try(:delivery_time) || 0) + DEFAULT_INVENTORY_TIME,
       :shipping_service_id => freight_price.try(:shipping_service_id) || DEFAULT_FREIGHT_SERVICE
     }
+    return_hash[:first_free_freight_price] = first_free_freight_price.order_value_start if !first_free_freight_price.blank?
+
+    return_hash
   end
 
   def self.valid_zip?(zip_code)

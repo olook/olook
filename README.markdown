@@ -12,6 +12,7 @@ Requirements
 - libcurl3-gnutls
 - ImageMagick
 - Memcached 1.4.5
+- PhantomJS (New)
 
 Setup
 ============

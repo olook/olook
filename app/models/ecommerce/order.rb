@@ -42,6 +42,11 @@ class Order < ActiveRecord::Base
   delegate :state, :to => :freight, :prefix => true, :allow_nil => true
   delegate :delivery_time, :to => :freight, :prefix => true, :allow_nil => true
 
+  def paid_at
+    state_transition = order_state_transitions.where(event: :authorized, to: :authorized).first
+    state_transition.nil? ? nil : state_transition.created_at
+  end
+
   def self.with_payment
     joins(:payments).uniq
   end
@@ -288,6 +293,10 @@ class Order < ActiveRecord::Base
 
   def other_credits_discount
     (payments.for_facebook_share_discount + payments.for_billet_discount).sum(&:total_paid)
+  end
+
+  def authorize_erp_payment
+    self.erp_payment.authorize_and_notify_if_is_a_billet
   end
 
   private

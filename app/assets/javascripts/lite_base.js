@@ -192,7 +192,7 @@ olook = o = {
   },
 
   showEmailBar: function(){
-  	if($.cookie("newsletterUser") == null && $.cookie("ms") == null && $.cookie("ms1") == "1" && $.cookie("email_bar") == null){
+	if($.cookie("newsletterUser") == null && $.cookie("ms") == null && $.cookie("ms1") == "1" && $.cookie("email_bar") == null && !/(?:pagamento\/login|admins|quiz|cadastro)/.test(window.location.href)){
       $("#modal_footer").fadeIn();
   		o.registerEmail()
   	}

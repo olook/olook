@@ -1,4 +1,5 @@
 @import 'partials/mixins';
+@import 'new_structure/partials/facebook_footer';
 
 footer {
   height:300px;
@@ -72,7 +73,7 @@ footer {
       }
     }
     dl {
-      margin: 0 95px 35px 0;
+      margin: 0 55px 35px 0;
       float: left;
       dt {
         color: #6d6e71;

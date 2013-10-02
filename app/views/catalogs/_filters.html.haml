@@ -16,7 +16,7 @@
       %p.title-category Moda Praia
       %ul.category-list
         - _filters.each do |text, amount|
-          %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:subcategory, text)), text.chomp, search.filter_selected?(:subcategory, text.chomp))
+          %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:subcategory, text)), text.chomp.gsub(/ ?moda praia/i, ''), search.filter_selected?(:subcategory, text.chomp))
 
 - else
   .filter
@@ -70,4 +70,44 @@
     %ul.subcategory-list
       - filters_by("care", search, use_fields: [:category]).each do |text, amount|
         %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:care, text)), text.chomp, search.filter_selected?(:care, text.chomp))
+.show_more
+  - if search.filter_value('category').to_a.include?('sapato')
+    %p.title
+      OUTRAS CATEGORIAS
+    %li
+      = link_to "Roupas femininas", clothes_path, class: "categories"
+    %li
+      = link_to "Bolsas femininas", bags_path, class: "categories" 
+    %li
+      = link_to "Acessórios femininos", accessories_path, class: "categories"
 
+  - if search.filter_value('category').to_a.include?('roupa')
+    %p.title
+      OUTRAS CATEGORIAS
+    %li
+      = link_to "Sapatos femininos", shoes_path, class: "categories"
+    %li
+      = link_to "Bolsas femininas", bags_path, class: "categories" 
+    %li
+      = link_to "Acessórios femininos", accessories_path, class: "categories"
+
+  - if search.filter_value('category').to_a.include?('acessorio')
+    %p.title
+      OUTRAS CATEGORIAS
+    %li 
+      = link_to "Roupas femininas", clothes_path, class: "categories" 
+    %li
+      = link_to "Sapatos femininos", shoes_path, class: "categories"
+    %li
+      = link_to "Bolsas femininas", bags_path, class: "categories" 
+
+  - if search.filter_value('category').to_a.include?('bolsa')
+    %p.title
+      OUTRAS CATEGORIAS
+    %li
+    = link_to "Roupas femininas", clothes_path, class: "categories" 
+    %li
+    = link_to "Sapatos femininos", shoes_path, class: "categories"
+    %li
+    = link_to "Acessórios femininos", accessories_path, class: "categories"
+    

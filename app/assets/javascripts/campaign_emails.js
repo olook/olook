@@ -1,6 +1,7 @@
 var w = document.body.scrollWidth + 20,
-h = document.body.scrollHeight,
+h = document.body.scrollHeight + 20,
 ml = -(w/2), mt = -(h/2);
+
 if($("#ab_t").val() == null) {
   if($(".box-remember.success").length > 0){
     parent.top.$("#modal-campaign").css({
@@ -33,6 +34,8 @@ if($("#ab_t").val() == null) {
     }).delay(200).fadeIn();
   }
 }
+
+
 function autoResize(id){
   var newheight;
   var newwidth;

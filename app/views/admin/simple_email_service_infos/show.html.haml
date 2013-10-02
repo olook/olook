@@ -1,0 +1,33 @@
+= content_for :head do
+  = javascript_include_tag "admin/ses"
+
+= content_for :footer do
+  = javascript_include_tag "plugins/Chart.min.js"
+  = javascript_tag do
+    window.email_info = [#{@email_info[:bounces]},#{@email_info[:complaints]},#{@email_info[:delivery_attempts]},#{@email_info[:rejects]}];
+
+- content_for :secondary_navigation do
+  %li= link_to 'Nova busca', admin_ses_path
+
+%h1 Relatório de envio de Emails da Amazon
+%table
+  %tr
+    %th
+      bounces
+    %th
+      complaints
+    %th
+      delivery_attempts
+    %th
+      rejects
+  %tr
+    %td
+      = @email_info[:bounces]
+    %td
+      = @email_info[:complaints]
+    %td
+      = @email_info[:delivery_attempts]
+    %td
+      = @email_info[:rejects]
+
+%canvas#canvas{height:"450", width:"600"}

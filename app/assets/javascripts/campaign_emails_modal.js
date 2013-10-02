@@ -21,6 +21,12 @@ function dontShow(){
 }
 
 $(function(){
+
+  $('#i_modal').ready(function(){
+    // Isto é necessário para o lightbox aparecer no Firefox e IE :(
+    $("#modal-campaign").delay(300).fadeIn();
+  });
+
   if ( navigator.userAgent.match(/webOS/i)
       || navigator.userAgent.match(/Android/i)
       || navigator.userAgent.match(/iPhone/i)
@@ -31,13 +37,13 @@ $(function(){
      ){
        return false;
      } else {
-       if(show_modal == "1" && lerCookie("newsletterUser") == null && lerCookie("ms1") == null){
+       if(show_modal == "1" && ((lerCookie("newsletterUser") == null && lerCookie("ms1") == null) || /OLKBENECLUB/.test(window.location.search) ) ){
          $("#overlay-campaign").delay(100).show();
-         $("#modal-campaign").append('<iframe src="/campaign_emails/new" border="0" frameborder="0" height="100%" width="100%"></iframe>');
+         $("#modal-campaign").append('<iframe id="i_modal" src="/campaign_emails/new" border="0" frameborder="0" height="100%" width="100%"></iframe>');
          window.setTimeout(function(){
            if($("#overlay-campaign").is(":visible"))
              criaCookieAB("ms","1", 20);
-         },500)
+         },1000);
        }
        $(document).one({
          click: function(e){

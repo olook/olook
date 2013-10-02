@@ -1,0 +1,36 @@
+- content_for :head do 
+  = stylesheet_link_tag "new_structure/section/lite_showroom"
+
+#join_showroom
+  .register
+    %p
+      %span
+        Sua vitrine espera por você...
+      Entre e confira as novidades ;)
+    .login
+      .login_with_facebook
+        =link_to 'Entrar com Facebook', user_omniauth_authorize_path(:facebook), :class => 'fb_login_button popup', :"data-width" => 410, :"data-height" => 300, onclick: track_event("FacebookConnect", "ConnectFromLoginBox")
+      =form_for @user, url: session_path(@user), method: 'post', html:{ :target => '_parent' } do |f|
+        %fieldset
+          =f.label :email, "E-mail"
+          =f.text_field :email
+        %fieldset
+          =f.label :password, "Senha ", :class => "senha"
+          =f.password_field :password
+        %fieldset.botoes
+          %div
+            =f.check_box :remember_me, :checked => true
+            =f.label :remember_me, "Lembrar de mim"
+            %p
+              %a{:href => "/conta/password/new", :target => "_blank"} Esqueci minha senha
+          =f.submit :value => "ENTRAR", :class => "bt-enter"
+  .your_style
+    %p
+      %span
+        Ainda não tem 
+        %br
+          uma vitrine personalizada? :(
+    = link_to image_tag( 'showroom/mari_quiz.jpg'), survey_url
+    = link_to "Responder ao Quiz", survey_url, :class => "go_quiz"
+
+= render "home/products_categories"

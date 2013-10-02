@@ -44,9 +44,7 @@ describe Abacos::ProductAPI do
     end
   end
 
-  describe '#download_products' do
-    use_vcr_cassette 'ProdutosDisponiveis', :record => :once
-
+  describe '#download_products', vcr: {:cassette_name => 'ProdutosDisponiveis', :record => :once} do
     it "should products that are available to integration" do
       products = described_class.send :download_products
       products.should be_kind_of(Array)

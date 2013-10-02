@@ -9,7 +9,7 @@ module Abacos
     def initialize(order)
       raise "Order number #{order.number} isn't authorized" unless order.authorized?
       @numero_pedido      = order.number
-      @data               = parse_datetime(order.erp_payment.created_at)
+      @data               = parse_datetime(order.paid_at)
       @status             = 'speConfirmado'
       @codigo_autorizacao = order.erp_payment.gateway_transaction_code
       @mensagem_retorno   = order.erp_payment.gateway_message

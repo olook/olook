@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe ClearsaleOrderAdapter do
   context "adapting a sample payment" do
-    let(:user) { FactoryGirl.create(:user, :email => "teste@teste.com", :cpf => "600.745.487-86", :last_sign_in_ip => "127.0.0.1", :birthday => '12/09/1976') }
+    let(:user) { FactoryGirl.create(:user, :email => "teste@teste.com", :cpf => "60074548786", :last_sign_in_ip => "127.0.0.1", :birthday => '12/09/1976') }
     let(:address) { FactoryGirl.create(:address, :user => user) }
     let(:cart) { FactoryGirl.create(:cart_with_items, :user => user) }
     let(:order) { FactoryGirl.create(:clean_order_credit_card, :user => user, :cart => cart) }
@@ -13,7 +13,7 @@ describe ClearsaleOrderAdapter do
     it "should adapt the user data" do
       expected_user_data = {:email=>"teste@teste.com",
                             :id=>nil,
-                            :cpf=>"600.745.487-86",
+                            :cpf=>"60074548786",
                             :full_name=>"José Ernesto",
                             :birthdate=>"12/09/1976",
                             :phone=>"(35)3456-6849",
@@ -33,7 +33,7 @@ describe ClearsaleOrderAdapter do
                               :amount=>12.34}
 
       adapter.adapt_payment.should eq expected_payment_data
-    end    
+    end
 
     it "should adapt the order data" do
       expected_order_data = {:id=>nil,
@@ -68,7 +68,7 @@ describe ClearsaleOrderAdapter do
       expected_order_data[:id] = result[:id]
 
       result.should eq expected_order_data
-    end        
+    end
 
   end
 end

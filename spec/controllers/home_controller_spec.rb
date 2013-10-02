@@ -67,7 +67,7 @@ describe HomeController do
       context "when user is signed in" do
         it "redirects to member showroom" do
           subject.stub(:'user_signed_in?').and_return(true)
-          subject.should_receive(:redirect_to).with(member_showroom_path(tracked_params))
+          subject.should_not_receive(:redirect_to)
           get 'index', standard_params
         end
       end
@@ -75,8 +75,8 @@ describe HomeController do
       context "when user is not signed in" do
         it "does not redirect to member showroom" do
           subject.stub(:'user_signed_in?').and_return(false)
-          get 'index', :params => standard_params
           subject.should_not_receive(:redirect_to)
+          get 'index', :params => standard_params
         end
       end
 

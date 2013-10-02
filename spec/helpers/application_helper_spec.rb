@@ -138,21 +138,26 @@ describe ApplicationHelper do
     end
   end
 
-  describe '#signed_newsletter?' do
-    subject { helper.signed_newsletter? }
+  describe '#newsletter_type' do
+    subject { helper.newsletter_type }
     context 'when cookie newsletterUser = 1' do
       before { cookies.should_receive(:[]).with('newsletterUser').and_return('1') }
-      it { should be_true }
+      it { should eq('-newsletter') }
+    end
+
+    context 'when cookie newsletterUser = 2' do
+      before { cookies.should_receive(:[]).with('newsletterUser').and_return('2') }
+      it { should eq('-olookmovel') }
     end
 
     context 'when cookie newsletterUser = 0' do
       before { cookies.should_receive(:[]).with('newsletterUser').and_return('0') }
-      it { should be_false }
+      it { should eq('') }
     end
 
     context 'when there is no cookie newsletterUser' do
       before { cookies.should_receive(:[]).with('newsletterUser').and_return(nil) }
-      it { should be_false }
+      it { should eq('') }
     end
   end
 
@@ -162,51 +167,39 @@ describe ApplicationHelper do
     context "when user is not logged in" do
       before { helper.stub(:user_signed_in?).and_return(false) }
 
-      context "and signed newsletter" do
-        before { helper.stub(:signed_newsletter?).and_return(true) }
+      it { should eq "visitor" }
 
-        it { should == "visitor-newsletter" }
-      end
+      context "with newsletter_type" do
+        before { helper.stub(:newsletter_type).and_return('-bla') }
 
-      context "and not signed newsletter" do
-        before { helper.stub(:signed_newsletter?).and_return(false) }
-
-        it { should == "visitor" }
+        it { should eq "visitor-bla" }
       end
     end
 
     context "when user is logged in" do
       before { helper.stub(:'user_signed_in?').and_return(true) }
 
-      context "and not signed newsletter" do
-        before { helper.stub(:signed_newsletter?).and_return(false) }
+      context "and user is half_user" do
+        before { helper.stub_chain('current_user.half_user').and_return(true) }
 
-        context "and user is half_user" do
-          before { helper.stub_chain('current_user.half_user').and_return(true) }
+        it { should eq "half" }
 
-          it { should == "half" }
-        end
+        context "with newsletter_type" do
+          before { helper.stub(:newsletter_type).and_return('-bla') }
 
-        context "and user is not half_user" do
-          before { helper.stub_chain('current_user.half_user').and_return(false) }
-
-          it { should == "quiz" }
+          it { should eq "half-bla" }
         end
       end
 
-      context "and signed newsletter" do
-        before { helper.stub(:signed_newsletter?).and_return(true) }
+      context "and user is not half_user" do
+        before { helper.stub_chain('current_user.half_user').and_return(false) }
 
-        context "and user is half_user" do
-          before { helper.stub_chain('current_user.half_user').and_return(true) }
+        it { should eq "quiz" }
 
-          it { should == "half-newsletter" }
-        end
+        context "with newsletter_type" do
+          before { helper.stub(:newsletter_type).and_return('-bla') }
 
-        context "and user is not half_user" do
-          before { helper.stub_chain('current_user.half_user').and_return(false) }
-
-          it { should == "quiz-newsletter" }
+          it { should eq "quiz-bla" }
         end
       end
     end

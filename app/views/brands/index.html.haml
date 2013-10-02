@@ -22,17 +22,24 @@
 
 %section.brands
   .box
+    %p.letter 0-9
+    %ul.brands-list
+      %li= link_to("284", brand_path("284"))
+
     %p.letter A
     %ul.brands-list
+      %li= link_to("Afghan", brand_path("Afghan"))
       %li= link_to("Água Doce", brand_path("agua doce"))
 
     %p.letter B
     %ul.brands-list
+      %li= link_to("Blue Man", brand_path("Blue%20Man"))
       %li= link_to("Botswana", brand_path("botswana"))
 
     %p.letter C
     %ul.brands-list
       %li= link_to("Carina Duek", brand_path("carina duek"))
+      %li= link_to("Canal", brand_path("Canal"))
       %li= link_to("Cantão", brand_path("cantao"))
       %li= link_to("Coca Cola", brand_path("coca cola clothing"))
       %li= link_to("Colcci", brand_path("colcci"))
@@ -55,7 +62,7 @@
 
     %p.letter I
     %ul.brands-list
-      %li= link_to("Iódice", brand_path("iodice"))
+      %li= link_to("Iódice Denim", brand_path("Iodice%20Denim"))
     
     %p.letter J
     %ul.brands-list

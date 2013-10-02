@@ -7,35 +7,41 @@ class IndexProductsWorker
   @queue = :search
 
   def self.perform
-    add_products(Product.all)
-    remove_products(Product.all)
+    worker = self.new(Product.all)
+    worker.add_products
+    worker.remove_products
 
     mail = DevAlertMailer.notify_about_products_index
     mail.deliver
   end
 
+  def add_products
+    add_products = products_to_index(products).map { |product| create_sdf_entry_for(product, 'add') }.compact
+    flush_to_sdf_file "/tmp/base-add.sdf", add_products
+    upload_sdf_file "/tmp/base-add.sdf"
+  end
+
+  def remove_products
+    remove_products = products_to_remove(products).map { |product| create_sdf_entry_for(product, 'delete') }.compact
+    flush_to_sdf_file "/tmp/base-remove.sdf", remove_products
+    upload_sdf_file "/tmp/base-remove.sdf"
+  end
+
+
   private
 
-    def self.add_products(products)
-      add_products = products_to_index(products).map { |product| create_sdf_entry_for(product, 'add') }.compact
-      flush_to_sdf_file "/tmp/base-add.sdf", add_products
-      upload_sdf_file "/tmp/base-add.sdf"
+    def initialize products
+      @products = products
     end
 
-    def self.remove_products(products)
-      remove_products = products_to_remove(products).map { |product| create_sdf_entry_for(product, 'delete') }.compact
-      flush_to_sdf_file "/tmp/base-remove.sdf", remove_products
-      upload_sdf_file "/tmp/base-remove.sdf"
-    end
-
-    def self.flush_to_sdf_file file_name, all_products
+    def flush_to_sdf_file file_name, all_products
       File.open("#{file_name}", "w:UTF-8") do |file|
         file << all_products.to_json
       end
     end
 
 
-    def self.create_sdf_entry_for product, type
+    def create_sdf_entry_for product, type
       version = version_based_on_timestamp
 
       values = {
@@ -66,6 +72,24 @@ class IndexProductsWorker
         fields['care'] = product.subcategory.titleize if Product::CARE_PRODUCTS.include?(product.subcategory)
         fields['collection'] = product.collection.start_date.strftime('%Y%m').to_i
         fields['collection_theme'] = product.collection_themes.map { |c| c.slug }
+        fields['age'] = product.time_in_stock
+        fields['qt_sold_per_day'] = product.quantity_sold_per_day_in_last_week
+        fields['coverage_of_days_to_sell'] = product.coverage_of_days_to_sell
+        fields['full_grid'] = product.is_the_size_grid_enough? ? 1 : 0
+
+        oldest = older;
+        fields['r_age'] = ((oldest - product.time_in_stock) / oldest.to_f) * 100      
+
+        fields['r_coverage_of_days_to_sell'] = ((product.coverage_of_days_to_sell.to_f / max_coverage_of_days_to_sell) * 100).to_i
+        fields['r_full_grid'] = product.is_the_size_grid_enough? ? 100 : 0
+
+        if max_qt_sold_per_day == 0
+          fields['r_qt_sold_per_day'] = 0
+        else
+          fields['r_qt_sold_per_day'] = ((product.quantity_sold_per_day_in_last_week.to_f / max_qt_sold_per_day) * 100).to_i
+        end
+
+        fields['r_inventory'] = ((product.inventory.to_f / max_inventory) * 100).to_i
 
         details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno', 'salto'].include?(d.translation_token.downcase) }
         translation_hash = {
@@ -79,7 +103,11 @@ class IndexProductsWorker
             fields['heeluint'] = detail.description.to_i
           else
             field_key = translation_hash.include?(detail.translation_token.downcase) ? translation_hash[detail.translation_token.downcase] : detail.translation_token.downcase.gsub(" ","_")
-            fields[field_key] = detail.description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
+            if field_key == 'subcategory' && fields['category'] == 'moda praia'
+              fields[field_key] = detail.description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize.gsub(" Moda Praia", "") + ' Moda Praia'
+            else
+              fields[field_key] = detail.description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
+            end
           end
         end
         fields['keywords'] = fields.select{|k,v| ['category', 'subcategory', 'color', 'size', 'name', 'brand', 'material externo', 'material interno', 'material da sola'].include?(k)}.values.join(" ")
@@ -92,24 +120,29 @@ class IndexProductsWorker
       nil
     end
 
-    def self.upload_sdf_file file_name
+    def products
+      @products = @products || Product.all
+      @products
+    end
+
+    def upload_sdf_file file_name
       docs_domain =  SEARCH_CONFIG["docs_domain"]
       `curl -X POST --upload-file "#{file_name}" "#{docs_domain}"/2011-02-01/documents/batch --header "Content-Type:application/json"`
     end
 
-    def self.products_to_index(products)
+    def products_to_index(products)
       products.select{|p| p.price > 0 && p.main_picture.try(:image_url)}
     end
 
-    def self.products_to_remove(products)
+    def products_to_remove(products)
       products.select{|p| p.price == 0 || p.main_picture.try(:image_url).nil?}
     end
 
-    def self.version_based_on_timestamp
+    def version_based_on_timestamp
       Time.zone.now.to_i / 60
     end
 
-    def self.heel_range index
+    def heel_range index
       case
         when index < 5
           '0-4 cm'
@@ -120,6 +153,26 @@ class IndexProductsWorker
         else
           ''
       end
+    end
+
+    def older
+      @older = @older || @products.collect(&:time_in_stock).max
+      @older
+    end
+
+    def max_coverage_of_days_to_sell
+      @max_coverage = @max_coverage || @products.collect(&:coverage_of_days_to_sell).max
+      @max_coverage
+    end
+
+    def max_qt_sold_per_day
+      @max_qt_sold_per_day = @max_qt_sold_per_day || @products.collect(&:quantity_sold_per_day_in_last_week).max
+      @max_qt_sold_per_day
+    end
+
+    def max_inventory
+      @max_inventory = @max_inventory || Product.joins(:variants).order('sum(variants.inventory) desc').group('product_id').first.inventory
+      @max_inventory
     end
 
 end

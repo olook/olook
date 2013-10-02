@@ -53,6 +53,10 @@ class User < ActiveRecord::Base
   Gender = {:female => 0, :male => 1}
   RegisteredVia = {:quiz => 0, :gift => 1, :thin => 2}
 
+  def cpf=(val)
+    write_attribute(:cpf, val.to_s.gsub(/\D/,""))
+  end
+
   def valid_password?(password)
     if has_fraud?
       Rails.logger.info("User ##{id}[#{email}] access was blocked because it has fraud!")

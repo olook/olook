@@ -79,3 +79,149 @@ div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;ma
 /* ajuste search box */
 
 #search_product{height: 26px !important;}
+
+
+/* half showroom */
+#half_content{
+  width: 990px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 12px;
+  p{
+    font-family: $avenir;
+    font-size: 16px;
+    color: #000;
+    width: 515px;
+    height: 100px;
+    span{
+      font-weight: bold;
+    }
+    &.users{
+      margin-left: 105px;
+      font-family: $avenir;
+      font-size: 14px;
+      font-weight: 500 !important;
+      color: #717274;
+      margin-bottom: 10px !important;
+      span{
+        color: #f5868d
+      }
+      img{
+        margin-top: 5px;
+      }
+    }
+  }
+  .users{
+    float: right;
+    margin-left: 55px;
+    position: absolute;
+    left: 504px;
+    top: 0px;
+    p{font-size: 12px;text-transform: uppercase;font-weight: bold;text-align: center;}
+  }
+  #mask_carousel_facebook{display:inline-block;margin-top:2px;position:relative;width:427px;height:86px;text-align:center;
+    .caroufredsel_wrapper{ display:inline-block;/*float:left !important;*/margin:0 5px !important;top: -86px !important;
+      li{float:left;;margin-right:5px !important;}
+    }
+    p{font-family:$avenir;text-transform:uppercase;font-size:12px;font-weight:bold;display:inline-block !important;color:#000; text-align: center;margin-left: -47px;
+margin-bottom: 10px;}
+    a{
+      &.invite-more{clear:both;font-family:$avenir;font-size:12px;display:inline-block !important;text-decoration:underline;color:$base_color;float:left;margin-left:20px;}
+      &.carousel-prev-fb, &.carousel-next-fb{position:absolute;top:35px;font-size:0;line-height:0;display:block;width:22px;height:25px;
+      background: image-url('showroom/sprite.png') no-repeat -104px -56px;}
+      &.carousel-prev-fb{left:-2px;}
+      &.carousel-next-fb{right:0;background: image-url('showroom/sprite.png') no-repeat -105px -79px;}
+    }
+  }
+}
+
+/* fim half showroom */
+
+/* minha vitrine sem usuário cadastrado */
+
+#join_showroom{
+  width: 970px;
+  height: 350px;
+  margin: 45px auto 0px;
+  p{
+  font-family: $avenir;
+  font-size: 18px;
+  color: #000;
+  text-align: center;
+  width: 415px;
+  float: left;
+  line-height: 25px;
+  span{
+    font-weight: bold;
+    display: block;
+  }
+}
+  .register{
+    width: 415px;
+    float: left;
+    margin-left: 13px;
+  }
+  .login{
+      width: 420px;
+      height: 300px;
+      border: 1px solid #cfcfcf;
+      margin-top: 20px;
+      float: left;
+     .login_with_facebook {padding: 25px 0 20px 0;border-bottom: 1px #cfcfcf solid;width: 330px;margin: 0 auto;
+    a.fb_login_button{background: image-url('common/fb-loggin-button.png') no-repeat;text-indent: -9999px;width: 194px;height: 25px;margin: 0 auto;display: block;}
+    } 
+    form{
+      border:none;padding:5px 46px;width:358px;height:150px;margin:25px 0 auto;
+      fieldset{
+        label{font-family:$avenir;font-size:13px;color: #5e5f61;
+          &.senha{margin-right: 1px;}
+        }
+        margin-bottom:15px;border:0;
+        &.botoes{
+          margin-top: 5px;
+          text-align:left;
+          div{float:left;width:150px;margin-top: 20px;
+            label{font-size:11px;color:#5e5f61;width:60px;display:inline-block;text-align:left;font-family:$avenir;
+              &[for="user_remember_me"]{width:100px;font-size:11px;}
+            }
+            p{float:left;margin-top:5px !important;text-align: left;
+              a{text-decoration:none;color:#5e5f61;font-family: $avenir;font-size: 11px;
+                &:hover{text-decoration:underline;}
+              }
+            }
+          }
+          input[type="submit"]{border: none; background: image-url('showroom/sprite.png') 0px -206px no-repeat;float:right; width:145px;height:37px;text-indent: 9999px;margin-top: 22px;margin-right: 33px;
+            &:hover{background-position:0 -249px;text-indent: 9999px;}}
+        }
+      }
+      input[type="text"], input[type="password"]{padding-left: 10px; width:278px;height:31px;line-height:31px;border:solid 1px #C1C1C1;background: image-url('campaign_emails/bg_input.png') 0 2px repeat-x;*vertical-align:middle}
+    }
+  }
+  .your_style{
+    width: 420px;
+    margin-left: 48px;
+    float: left;
+    p{
+      margin-bottom: 20px;
+      width: 503px;
+      span{line-height: 22px;}
+    }
+    img{margin-top: -1px;}
+    a.go_quiz{
+      background: image-url('showroom/sprite.png') no-repeat 0 -118px;
+      width: 198px;
+      height: 37px;
+      text-indent: -9999px;
+      display: block;
+      position: relative;
+      left: 270px;
+      top: -70px;
+      &:hover{
+        background-position: 0 -162px;
+      }
+    }
+
+  }
+}
+
+/* fim minha vitrine sem usuário cadastrado */

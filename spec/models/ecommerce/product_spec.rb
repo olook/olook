@@ -6,22 +6,63 @@ describe Product do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:description) }
     it { should validate_presence_of(:model_number) }
-    it { should have_many(:pictures) }
-    it { should have_many(:details) }
-    it { should have_many(:variants) }
-    it { should have_many(:catalog_products) }
-    it { should have_many(:catalogs) }
-    it { should belong_to(:collection) }
-    it { should have_and_belong_to_many(:profiles) }
 
     it { should respond_to :backside_picture }
     it { should respond_to :wearing_picture }
     it { should respond_to :remove_freebie }
   end
 
-  describe "association" do
+  describe "associations" do
     it { should have_and_belong_to_many(:collection_themes) }
+    it { should have_many(:pictures) }
+    it { should have_many(:details) }
+    it { should have_many(:variants) }
+    it { should have_many(:catalog_products) }
+    it { should have_many(:catalogs) }
+    it { should have_many(:consolidated_sells) }
+    it { should have_many(:price_logs) }
+    it { should belong_to(:collection) }
+    it { should have_and_belong_to_many(:profiles) }
   end
+
+  describe 'callbacks' do
+    describe 'before_save' do
+
+      describe 'when the product is set to visible' do
+        let(:product) { FactoryGirl.build(:shoe, :invisible_shoe) }
+        let(:visible_product) { FactoryGirl.build(:shoe) }
+
+        context 'at the first time' do
+          it 'its lanuch date is set to current date' do
+            expect(product.is_visible).to be_false
+            product.is_visible = true
+            product.save!
+            expect(product.launch_date).to eq(Time.zone.now.to_date)
+          end
+        end
+
+        context 'at a second time' do
+          before do
+            @old_launch_date = 10.days.ago.to_date
+            visible_product.update_attribute(:launch_date, @old_launch_date)
+          end
+
+          it 'keeps the last launch date' do
+            visible_product.is_visible = false
+            visible_product.save!
+            visible_product.is_visible = true
+            visible_product.save!
+            expect(visible_product.is_visible).to be_true
+            expect(visible_product.launch_date).to eq(@old_launch_date)
+          end
+        end
+
+
+      end
+
+    end
+  end
+
   describe 'scopes' do
     describe ".with_brand" do
       let!(:product_with_given_brand) { FactoryGirl.create(:shoe, :casual, brand: "Some Brand") }
@@ -904,6 +945,162 @@ describe Product do
       end
 
       it { expect(subject.xml_picture(:main)).to eq("main_picture_path.png") }
+    end
+  end
+
+  describe '#is_the_size_grid_enough?' do
+    subject { product.is_the_size_grid_enough? }
+    context "shoe" do
+      let(:product) { FactoryGirl.create(:shoe) }
+      context "when number of variants with inventory greater than zero is eq 4" do
+        before do
+          i = 1
+          %w[37 38 39 40].each do |size|
+            FactoryGirl.create(:variant_without_association, description: size, display_reference: "size-#{ size }", inventory: i, product: product)
+            i =+ 1
+          end
+        end
+
+        it { should be_true }
+      end
+
+      context "when number of variants with inventory greater than zero is lower than 4" do
+        before do
+          variants = []
+          i = 0
+          %w[37 38 39 40].each do |size|
+            variants << FactoryGirl.create(:variant_without_association, description: size, display_reference: "size-#{ size }", inventory: i, product: product)
+            i =+ 1
+          end
+        end
+
+        it { should be_false }
+      end
+    end
+
+    context "cloth" do
+      let(:product) { FactoryGirl.create(:simple_garment) }
+
+      context "when has variant with size M and at least one more size" do
+        before do
+          FactoryGirl.create(:variant_without_association, description: 'P' , display_reference: 'size-P', product: product, inventory: 10)
+          FactoryGirl.create(:variant_without_association, description: 'M' , display_reference: 'size-M', product: product, inventory: 10)
+        end
+
+        it { should be_true }
+      end
+
+      context "when has only variant with size M" do
+        let(:product) { FactoryGirl.create(:simple_garment) }
+        before do
+          FactoryGirl.create(:variant_without_association, description: 'M' , display_reference: 'size-M', product: product, inventory: 10)
+        end
+
+        it { should be_false }
+      end
+
+      context "when has variants with sizes 38, 40 and one more size" do
+        let(:product) { FactoryGirl.create(:simple_garment) }
+        before do
+          FactoryGirl.create(:variant_without_association, description: 'P' , display_reference: 'size-P', product: product, inventory: 10)
+          FactoryGirl.create(:variant_without_association, description: '38' , display_reference: 'size-38', product: product, inventory: 10)
+          FactoryGirl.create(:variant_without_association, description: '40' , display_reference: 'size-40', product: product, inventory: 10)
+        end
+
+         it { should be_true }
+      end
+
+      context "when has only variants with sizes 38, 40 and at least one more size" do
+        before do
+          FactoryGirl.create(:variant_without_association, description: '38' , display_reference: 'size-38', product: product, inventory: 10)
+          FactoryGirl.create(:variant_without_association, description: '40' , display_reference: 'size-40', product: product, inventory: 10)
+        end
+
+         it { should be_false }
+      end
+
+      context "when cloth has only one size" do
+        before do
+          FactoryGirl.create(:variant_without_association, description: 'M' , display_reference: 'size-M', product: product, inventory: 10)
+          FactoryGirl.create(:variant_without_association, description: '38' , display_reference: 'size-38', product: product, inventory: 0)
+          FactoryGirl.create(:variant_without_association, description: '40' , display_reference: 'size-40', product: product, inventory: 0)
+        end
+
+         it { should be_false }
+      end
+    end
+
+    context "accesory" do
+      let(:product) { FactoryGirl.build(:basic_accessory) }
+      subject { product.is_the_size_grid_enough? }
+
+      it { should be_true }
+    end
+
+    context "bag" do
+      let(:product) { FactoryGirl.build(:basic_bag) }
+      subject { product.is_the_size_grid_enough? }
+
+      it { should be_true }
+    end
+  end
+
+  describe 'quantity_sold_per_day_in_last_week' do
+    let(:product) { FactoryGirl.create(:shoe) }
+
+    before do
+      FactoryGirl.create(:consolidated_sell, day: (Time.zone.today - 1.day), amount: 3, product: product)
+      FactoryGirl.create(:consolidated_sell, day: (Time.zone.today - 7.days), amount: 5, product: product)
+      FactoryGirl.create(:consolidated_sell, day: (Time.zone.today - 9.days), amount: 15, product: product)
+    end
+
+    subject { product.quantity_sold_per_day_in_last_week }
+
+    it { should eq 2 }
+  end
+
+  describe '#coverage_of_days_to_sell' do
+    before do
+      subject.stub(:inventory).and_return(11)
+    end
+    context "when product was sold in the last week" do
+      before do
+        subject.stub(:quantity_sold_per_day_in_last_week).and_return(3)
+      end
+
+      it { expect(subject.coverage_of_days_to_sell).to eq(4) }
+    end
+
+    context "when product was sold in the last week" do
+      before do
+        subject.stub(:quantity_sold_per_day_in_last_week).and_return(0)
+      end
+
+      it { expect(subject.coverage_of_days_to_sell).to eq(180) }
+    end
+  end
+
+  describe '#time_in_stock' do
+    context "when product has integration date" do
+      before do
+        launch_date = Date.civil(2013, 9, 10)
+        @diff = (Date.current - launch_date).to_i
+        subject.stub(:launch_date).and_return(launch_date)
+      end
+
+      it { expect(subject.time_in_stock).to eq(@diff) }
+    end
+
+    context "when product has no integration date" do
+      before do
+        Timecop.freeze(Time.local(2013, 8, 9))
+      end
+
+      after do
+        Timecop.return
+      end
+
+      it { expect(subject.time_in_stock).to eq(365) }
     end
   end
 end

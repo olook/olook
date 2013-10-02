@@ -21,7 +21,8 @@ class ProductController < ApplicationController
   end
 
   def spy
-    render layout: 'application'
+    @hide_shipping = params[:from] == 'cart'
+    render layout: nil
   end
 
   def share_by_email
@@ -33,34 +34,38 @@ class ProductController < ApplicationController
 
   private
 
-  def assign_valentines_day_parameters
-    params[:coupon_code] = Setting.valentines_day_coupon_code
-    params[:modal] = Setting.valentines_day_show_modal
-  end
-
-  def load_show_product
-    @google_path_pixel_information = "product"
-    @facebook_app_id = FACEBOOK_CONFIG["app_id"]
-    @url = request.protocol + request.host
-
-    product_name = params[:id]
-    product_id = product_name.split("-").last.to_i
-    @product = if current_admin
-      Product.find(product_id)
-    else
-      p = Product.only_visible.find(product_id)
-      raise ActiveRecord::RecordNotFound unless p.price > 0
-      p
+    def assign_valentines_day_parameters
+      params[:coupon_code] = Setting.valentines_day_coupon_code
+      params[:modal] = Setting.valentines_day_show_modal
     end
 
-    @google_pixel_information = @product
-    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
-    @chaordic_product = ChaordicInfo.product @product
-    @chaordic_category = @product.category_humanize
-    @variants = @product.variants
+    def load_show_product
+      @google_path_pixel_information = "product"
+      @facebook_app_id = FACEBOOK_CONFIG["app_id"]
+      @url = request.protocol + request.host
 
-    @gift = (params[:gift] == "true")
-    @only_view = (params[:only_view] == "true")
-    @shoe_size = @user.try(:shoes_size) || params[:shoe_size].to_i
-  end
+      product_name = params[:id]
+      product_id = product_name.split("-").last.to_i
+      @product = if current_admin
+        Product.find(product_id)
+      else
+        p = Product.only_visible.find(product_id)
+        raise ActiveRecord::RecordNotFound unless p.price > 0
+        p
+      end
+
+      @google_pixel_information = @product
+      @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
+      @chaordic_product = ChaordicInfo.product @product
+      @chaordic_category = @product.category_humanize
+      @variants = @product.variants
+
+      @gift = (params[:gift] == "true")
+      @only_view = (params[:only_view] == "true")
+      @shoe_size = @user.try(:shoes_size) || params[:shoe_size].to_i
+    end
+
+    def title_text 
+      Seo::SeoManager.new(request.path, model: @product).select_meta_tag
+    end
 end
