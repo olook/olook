@@ -11,7 +11,7 @@
       </div>
       <div class="minicart_price"></div>
       <%= form_tag add_variants_path(current_cart), method: :put, id: "minicart", name: "minicart", onsubmit: "if($(this).find('#add_product').hasClass('disabled')) return false;" do %>
-        <input class="add_product disabled" id="add_product" name="commit" type="submit" value="">
+        <%= submit_tag "", onclick: track_event("Product", "AddLookToCart", @product.id.to_s), class: "add_product disabled", disabled:"disabled", id:"add_product", name:"commit", value: "" %>
         <div id="submit_tooltip">Primeiro escolha os itens que deseja comprar do look, informando o seu tamanho.</div>
       <% end %>
       <input type="hidden" id="total_price" />
