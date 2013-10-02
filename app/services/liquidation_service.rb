@@ -7,8 +7,6 @@ class LiquidationService
     return @@active if Rails.application.config.cache_classes && !Rails.env.test? && @@active && @@active_expire > Time.zone.now
     @@active = Liquidation.where('? BETWEEN liquidations.starts_at AND liquidations.ends_at', Time.zone.now).first
     @@active_expire = 5.minutes.from_now
-    Rails.logger.info('========= CACHING IN MEMORY for 5 minnutes LiquidationService.active =============')
-    Rails.logger.info('========= TO clean must restart server  =============')
     @@active
   end
 
