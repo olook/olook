@@ -11,7 +11,9 @@
       </div>
       <div class="minicart_price"></div>
       <%= form_tag add_variants_path(current_cart), method: :put, id: "minicart", name: "minicart" do %>
-        <input class="add_product disabled" disabled="disabled" id="add_product" name="commit" type="submit" value="">
+      
+        <%= submit_tag "", onclick: track_event("Product", "AddLookToCart", @product.id.to_s), class: "add_product disabled", disabled:"disabled", id:"add_product", name:"commit", value: "" %>
+        <!--input class="add_product disabled" disabled="disabled" id="add_product" name="commit" type="submit" value=""-->
       <% end %>
       <input type="hidden" id="total_price" />
     </div>
