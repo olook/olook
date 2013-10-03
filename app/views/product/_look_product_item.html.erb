@@ -3,10 +3,13 @@
   <li class="product<%= " promotion" if product.promotion? %>" data-id="<%= product.id %>">
 
     <%= link_to product, :class => "product_link", :rel => "#{product.id}", onclick: track_event("Product", "ClickLookProduct", product.id.to_s), :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}}, :remote => (defined?(suggestion) || gift)  do %>
+
+      <%= link_to content_tag(:span, "Espiar"), spy_product_path(product), :class => 'spy', :data => {:url => spy_product_path(product), :params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}}, :rel => "#{product.id}", :remote => true %>
+
       <%= image_tag("common/ajax-loader-product-smaller.gif", :alt => product.name, :class => "async", data: { product: product.showroom_picture, backside: product.backside_picture, wearing: product.wearing_picture, showroom: product.showroom_picture } ) %>
 
       <div class="info-product">
-        <span class="name"><%= product.formatted_name(25) %></span><br />
+        <span class="name"><%= product.formatted_name(22) %></span><br />
         <strong class="brand"><%= product.brand %></strong><br />
 
         <span class="price">
@@ -24,7 +27,7 @@
       <%= hidden_field_tag :product_price, product.promotion? ? product.retail_price.to_s : product.price.to_s %>
       <%= select_tag("variant_number", options_for_select({'Selecione' => ''}.merge(order_variants_by_size(product.variants.where("inventory > 0")).inject({}){|a,b| a[b.description] = b.number; a}), selected: 'Selecione', style:"position:relative; z-index:1000;")) %>
       <div class="error"></div>
-      <%= submit_tag "QUERO ESTE!", onclick: track_event("Product", "AddLookProduct", product.id.to_s) %>
+      <%= submit_tag "QUERO ESTE!", onclick: track_event("Product", "AddLookProduct", "#{@product.id}-#{product.id}") %>
     <% end %>
     <% if params[:controller] == "members" && params[:action] == "showroom" && params[:lbp] == "1" %>
       <p class="facebook_like_button">
