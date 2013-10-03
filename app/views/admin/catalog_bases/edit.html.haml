@@ -2,5 +2,5 @@
 .inner
   = render 'form'
 - content_for :secondary_navigation do
-  %li= link_to 'Mostrar', admin_catalog_basis_path(@catalog_base)
-  %li= link_to 'Voltar', admin_catalog_bases_path
+  %li= link_to 'Mostrar', resource_path(@catalog_base)
+  %li= link_to 'Voltar', resources_path
