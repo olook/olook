@@ -69,7 +69,7 @@
                 <li><%= access_link("Coupons") %></li>
                 <li><%= access_link("Landing Pages") %></li>
                 <li><%= access_link("Highlight Campaigns") %></li>
-                <li><%= link_to I18n.t("activerecord.models.catalog_header_catalog_base_banner.other"), admin_catalog_bases_path %></li>
+                <li><%= link_to I18n.t("activerecord.models.catalog_header_catalog_base_banner.other"), admin_catalog_bases_banner_path %></li>
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /admins|roles|settings/ %>">
@@ -93,7 +93,7 @@
               <span>Conteúdo</span>
               <ul>
                 <li><%= access_link("Clippings")%></li>
-                <li><%= link_to I18n.t("activerecord.models.catalog_header_catalog_base_text.other"), admin_catalog_bases_path(type: "text") %></li>
+                <li><%= link_to I18n.t("activerecord.models.catalog_header_catalog_base_text.other"), admin_catalog_bases_text_path %></li>
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /simple_email_service/ %>">

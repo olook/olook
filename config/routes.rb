@@ -239,7 +239,7 @@ Olook::Application.routes.draw do
 
     scope defaults: {type: "CatalogHeader::TextCatalogHeader"} do
       #Landing page text
-      get "/catalog_landing_text", to: "catalog_bases#index", as: 'catalog_basis_text'
+      get "/catalog_landing_text", to: "catalog_bases#index", as: 'catalog_bases_text'
       get "/catalog_landing_text/new", to: "catalog_bases#new", as: 'new_catalog_basis_text'
       get "/catalog_landing_text/:id/edit", to: "catalog_bases#edit", as: 'edit_catalog_basis_text'
       get "catalog_landing_text/:id", to: "catalog_bases#show", as: 'catalog_basis_text'
