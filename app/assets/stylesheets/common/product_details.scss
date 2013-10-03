@@ -312,7 +312,23 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         a.product_link {
           text-decoration: none;
           color:#000;
-          a.spy {display: none;}
+          .spy {
+            display: none;
+            position: absolute;
+            top: 125px;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(255,255,255,0.6);
+            padding: 10px 0;
+            font-family: 'avenir';
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: bold;
+            background-image:image-url('moments/sprite.png');
+            background-position: -36px -164px;
+            background-repeat: no-repeat;
+            background-size: 58%;
+          }
           .info-product {
             font-family: $avenir;
             font-size: 13px;
@@ -343,7 +359,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
             }
           }
         }
-        a.product_link:hover a.spy {
+        a.product_link:hover .spy {
           display: block;
         }
       }
