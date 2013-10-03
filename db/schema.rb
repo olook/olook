@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130926174416) do
+ActiveRecord::Schema.define(:version => 20131003184430) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -209,8 +209,7 @@ ActiveRecord::Schema.define(:version => 20130926174416) do
   create_table "catalog_bases", :force => true do |t|
     t.string   "url"
     t.string   "type"
-    t.string   "h1"
-    t.string   "h2"
+    t.string   "seo_text"
     t.string   "small_banner1"
     t.string   "alt_small_banner1"
     t.string   "link_small_banner1"
