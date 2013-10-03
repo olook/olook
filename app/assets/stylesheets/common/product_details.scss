@@ -447,3 +447,19 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
 
   }
 }
+
+a#goRelatedProduct {
+  width:65px;
+  height: 88px;
+  display: block;
+  background: image-url('product/ver_look_completo.jpg') right top no-repeat;
+  text-indent: -9999px;
+  position: absolute;
+  left: 460px;
+  z-index: 99;
+  top: 293px;
+}
+
+a#goRelatedProduct:hover {
+  background-position: top left;
+}
