@@ -217,8 +217,8 @@ campaigns/bt-add.png: campaigns/bt-add-c73cba277ad52a2628c91d01372adb99.png
 campaigns/bt-add/index.png: campaigns/bt-add-c73cba277ad52a2628c91d01372adb99.png
 campaigns/logo-avc.jpg: campaigns/logo-avc-47a1cd870c0fbdf80125977ddb7eb53a.jpg
 campaigns/logo-avc/index.jpg: campaigns/logo-avc-47a1cd870c0fbdf80125977ddb7eb53a.jpg
-campaigns/logos-projetos.jpg: campaigns/logos-projetos-18f96b554109c089112c8c4b83d60777.jpg
-campaigns/logos-projetos/index.jpg: campaigns/logos-projetos-18f96b554109c089112c8c4b83d60777.jpg
+campaigns/logos-projetos.jpg: campaigns/logos-projetos-561a8b994129096cca47104b5bb34718.jpg
+campaigns/logos-projetos/index.jpg: campaigns/logos-projetos-561a8b994129096cca47104b5bb34718.jpg
 campaigns/niver/1ano-muito.png: campaigns/niver/1ano-muito-b8c1da2723232edc63c2344cc04c4c28.png
 campaigns/niver/1ano-muito/index.png: campaigns/niver/1ano-muito-b8c1da2723232edc63c2344cc04c4c28.png
 campaigns/niver/banner.jpg: campaigns/niver/banner-66ada5b3a578635cdf9346edc817e8c7.jpg
@@ -243,6 +243,8 @@ campaigns/niver/separadores.png: campaigns/niver/separadores-6dccdf2e3c82c41fc6f
 campaigns/niver/separadores/index.png: campaigns/niver/separadores-6dccdf2e3c82c41fc6fdeed565d241a1.png
 campaigns/niver/sprite-numeros.png: campaigns/niver/sprite-numeros-9fb30f0f63b5f3aa0414c61df64ebaae.png
 campaigns/niver/sprite-numeros/index.png: campaigns/niver/sprite-numeros-9fb30f0f63b5f3aa0414c61df64ebaae.png
+campaigns/outubro_rosa.jpg: campaigns/outubro_rosa-653d2a4d7de2acd305efcdb304410b8d.jpg
+campaigns/outubro_rosa/index.jpg: campaigns/outubro_rosa-653d2a4d7de2acd305efcdb304410b8d.jpg
 campaigns/regina-volpato.png: campaigns/regina-volpato-2e33006bca8d66fa5ce29604cb58c0cc.png
 campaigns/regina-volpato/index.png: campaigns/regina-volpato-2e33006bca8d66fa5ce29604cb58c0cc.png
 cart/apply-coupon.jpg: cart/apply-coupon-34a5d96af7678e7ff34c7c07aad87c38.jpg
@@ -381,6 +383,8 @@ collections/destaque_colecoes_neon_pastel_ok.jpg: collections/destaque_colecoes_
 collections/destaque_colecoes_neon_pastel_ok/index.jpg: collections/destaque_colecoes_neon_pastel_ok-9c0a207fbfea2e5fc306ac2796fac107.jpg
 collections/destaque_colecoes_preview_liquida_inverno_ok.jpg: collections/destaque_colecoes_preview_liquida_inverno_ok-a2c67b00dba23518f9eb219ffd398aeb.jpg
 collections/destaque_colecoes_preview_liquida_inverno_ok/index.jpg: collections/destaque_colecoes_preview_liquida_inverno_ok-a2c67b00dba23518f9eb219ffd398aeb.jpg
+collections/destaque_outubro_rosa.jpg: collections/destaque_outubro_rosa-b11b6d82d4e4e3c34279ff14dcd08066.jpg
+collections/destaque_outubro_rosa/index.jpg: collections/destaque_outubro_rosa-b11b6d82d4e4e3c34279ff14dcd08066.jpg
 collections/menina_bolinhas.jpg: collections/menina_bolinhas-f39c2246f7e54a6f415d69cacc7c1902.jpg
 collections/menina_bolinhas/index.jpg: collections/menina_bolinhas-f39c2246f7e54a6f415d69cacc7c1902.jpg
 collections/preview_primavera_landing.jpg: collections/preview_primavera_landing-73e57efabe46816dec7a5d8651459168.jpg
@@ -397,6 +401,8 @@ common/ajax-loader-product.gif: common/ajax-loader-product-f9dec0f9396bd71c5aae1
 common/ajax-loader-product/index.gif: common/ajax-loader-product-f9dec0f9396bd71c5aae15105494ccd2.gif
 common/ajax-loader.gif: common/ajax-loader-78a78aa01fffd454f6688e31bae86779.gif
 common/ajax-loader/index.gif: common/ajax-loader-78a78aa01fffd454f6688e31bae86779.gif
+common/andre.jpg: common/andre-a0118f98818129f9ad8c1d92e75971c4.jpg
+common/andre/index.jpg: common/andre-a0118f98818129f9ad8c1d92e75971c4.jpg
 common/animacao_topo_site.gif: common/animacao_topo_site-387699cad82339e8426698a58ef73354.gif
 common/animacao_topo_site/index.gif: common/animacao_topo_site-387699cad82339e8426698a58ef73354.gif
 common/answer-register.png: common/answer-register-86da5e35a513ad35f8c72b2b9f5d61b2.png
@@ -517,8 +523,8 @@ common/change-logo.jpg: common/change-logo-c812eeaeaec57ec5a52682abfb03dd8b.jpg
 common/change-logo/index.jpg: common/change-logo-c812eeaeaec57ec5a52682abfb03dd8b.jpg
 common/check-circle.png: common/check-circle-8d16a97b7b48214f80bbd0e7957dc44d.png
 common/check-circle/index.png: common/check-circle-8d16a97b7b48214f80bbd0e7957dc44d.png
-common/clipping_arrow.png: common/clipping_arrow-c4fd76d30ea3ff25d600a2e748c540ee.png
-common/clipping_arrow/index.png: common/clipping_arrow-c4fd76d30ea3ff25d600a2e748c540ee.png
+common/clipping_arrow.png: common/clipping_arrow-633d8f616d969db0e50bc3d9baba909c.png
+common/clipping_arrow/index.png: common/clipping_arrow-633d8f616d969db0e50bc3d9baba909c.png
 common/close_dialog.png: common/close_dialog-e4850d8e42bc98515bda3cb0043ec0f1.png
 common/close_dialog/index.png: common/close_dialog-e4850d8e42bc98515bda3cb0043ec0f1.png
 common/colors/metalizadas.png: common/colors/metalizadas-f3b73ffb87bc8a2284fec654d7f61e9f.png
@@ -549,6 +555,8 @@ common/error.png: common/error-f88dc1d07bebbf8c218800c7e633a0c7.png
 common/error/index.png: common/error-f88dc1d07bebbf8c218800c7e633a0c7.png
 common/essa-sou-eu.png: common/essa-sou-eu-4a26b525b9a6e7bb6a722a60c5a13aa6.png
 common/essa-sou-eu/index.png: common/essa-sou-eu-4a26b525b9a6e7bb6a722a60c5a13aa6.png
+common/exame.jpg: common/exame-b3f1be11d088a4dd56c304451f1b67e3.jpg
+common/exame/index.jpg: common/exame-b3f1be11d088a4dd56c304451f1b67e3.jpg
 common/facebook-title.png: common/facebook-title-d87ebdc74752b4133ab112ddd81071b4.png
 common/facebook-title/index.png: common/facebook-title-d87ebdc74752b4133ab112ddd81071b4.png
 common/fb-connect-button.png: common/fb-connect-button-ecda1321e79df3c0574cfee842276aea.png
@@ -595,6 +603,8 @@ common/icon-spy-off.png: common/icon-spy-off-13551ba034f711d862f2bdf65ad8ace4.pn
 common/icon-spy-off/index.png: common/icon-spy-off-13551ba034f711d862f2bdf65ad8ace4.png
 common/icon-spy-on.png: common/icon-spy-on-e72d0879c3db4fd8486817c054d1ddff.png
 common/icon-spy-on/index.png: common/icon-spy-on-e72d0879c3db4fd8486817c054d1ddff.png
+common/ig.jpg: common/ig-e72b34b70e7d0087e8a2c097e7a18924.jpg
+common/ig/index.jpg: common/ig-e72b34b70e7d0087e8a2c097e7a18924.jpg
 common/img-destaque-header.png: common/img-destaque-header-b1ba0e4bf01ab0662ad8545ca9a9a4d3.png
 common/img-destaque-header/index.png: common/img-destaque-header-b1ba0e4bf01ab0662ad8545ca9a9a4d3.png
 common/info.gif: common/info-fc63f27065ab56b4c4a29de1a3c9aba1.gif
@@ -605,6 +615,8 @@ common/its-me.jpg: common/its-me-4533ce7848bdb3a2fe5bdbecc1d8c6ea.jpg
 common/its-me/index.jpg: common/its-me-4533ce7848bdb3a2fe5bdbecc1d8c6ea.jpg
 common/its-me.png: common/its-me-4a26b525b9a6e7bb6a722a60c5a13aa6.png
 common/its-me/index.png: common/its-me-4a26b525b9a6e7bb6a722a60c5a13aa6.png
+common/kombi.jpg: common/kombi-c73567b6f3d2604b969d1686df3e8eb7.jpg
+common/kombi/index.jpg: common/kombi-c73567b6f3d2604b969d1686df3e8eb7.jpg
 common/login.png: common/login-72dc1ec11819d84bfc5daf261fbbc2f4.png
 common/login/index.png: common/login-72dc1ec11819d84bfc5daf261fbbc2f4.png
 common/login2.png: common/login2-3a7c007df7e8d6a729490374f0dba779.png
@@ -677,6 +689,8 @@ common/overlay.png: common/overlay-48e2b4d4b0b3fd8727cdea3a27369bf2.png
 common/overlay/index.png: common/overlay-48e2b4d4b0b3fd8727cdea3a27369bf2.png
 common/pattern_404.jpg: common/pattern_404-34c44f95ba4ed0a92276e023c13ff1d1.jpg
 common/pattern_404/index.jpg: common/pattern_404-34c44f95ba4ed0a92276e023c13ff1d1.jpg
+common/pb.jpg: common/pb-c20c0d078a694cbabd5fa9e33c45f421.jpg
+common/pb/index.jpg: common/pb-c20c0d078a694cbabd5fa9e33c45f421.jpg
 common/percentage.png: common/percentage-c761cb6c50ffa5ac1195bc6209520493.png
 common/percentage/index.png: common/percentage-c761cb6c50ffa5ac1195bc6209520493.png
 common/pink-arrow.png: common/pink-arrow-02e64e0917cac17c9d14eed11c696a83.png
@@ -751,6 +765,8 @@ common/transparent.png: common/transparent-594cb9ac1e69f140b96489f1d4918301.png
 common/transparent/index.png: common/transparent-594cb9ac1e69f140b96489f1d4918301.png
 common/try-again.jpg: common/try-again-d90eafbc81370056e9969514288c5f63.jpg
 common/try-again/index.jpg: common/try-again-d90eafbc81370056e9969514288c5f63.jpg
+common/uol.jpg: common/uol-1ec3a01ad50256ab941428eabab8dc5c.jpg
+common/uol/index.jpg: common/uol-1ec3a01ad50256ab941428eabab8dc5c.jpg
 contact/bg-content.jpg: contact/bg-content-040287f38279c7a9e4882693217c7ce2.jpg
 contact/bg-content/index.jpg: contact/bg-content-040287f38279c7a9e4882693217c7ce2.jpg
 contact/bg-select.png: contact/bg-select-36b8551de3a51fc7cdca46224ccf6cad.png
@@ -1183,10 +1199,10 @@ home/jj.jpg: home/jj-c76c8ef989706798f860b753cf2300f0.jpg
 home/jj/index.jpg: home/jj-c76c8ef989706798f860b753cf2300f0.jpg
 home/mw.jpg: home/mw-5824daff588505945e0b7b3581156816.jpg
 home/mw/index.jpg: home/mw-5824daff588505945e0b7b3581156816.jpg
-home/new_brands.jpg: home/new_brands-87d77da4f0524b11d6c269b4a17b43f8.jpg
-home/new_brands/index.jpg: home/new_brands-87d77da4f0524b11d6c269b4a17b43f8.jpg
-home/new_brands_off.jpg: home/new_brands_off-6c0e794f0f461ac3eff890dffdba727f.jpg
-home/new_brands_off/index.jpg: home/new_brands_off-6c0e794f0f461ac3eff890dffdba727f.jpg
+home/new_brands.jpg: home/new_brands-449a2c8fcec272c39c5f4411c65c0ee2.jpg
+home/new_brands/index.jpg: home/new_brands-449a2c8fcec272c39c5f4411c65c0ee2.jpg
+home/new_brands_off.jpg: home/new_brands_off-96158763ed6e58251c799e12b419e5e6.jpg
+home/new_brands_off/index.jpg: home/new_brands_off-96158763ed6e58251c799e12b419e5e6.jpg
 home/olook-loved.jpg: home/olook-loved-f2e5bf4bedba83c28882db5d1fd834f7.jpg
 home/olook-loved/index.jpg: home/olook-loved-f2e5bf4bedba83c28882db5d1fd834f7.jpg
 home/olook.jpg: home/olook-5c5edb27a8d142a5e4b9db909c5bfbde.jpg
@@ -2247,8 +2263,8 @@ admin/themes/default/fonts/museosans_500_italic-webfont.woff: admin/themes/defau
 admin/themes/default/fonts/museosans_500_italic-webfont/index.woff: admin/themes/default/fonts/museosans_500_italic-webfont-e1bcb6fd0cfa7fc553880800308f5cff.woff
 admin/themes/default/style.css: admin/themes/default/style-cfb00648a94f868a1bca26366b08b42a.css
 admin/themes/default/style/index.css: admin/themes/default/style-cfb00648a94f868a1bca26366b08b42a.css
-application.css: application-2bff9cc35f4f9438ef0d64c700e9a065.css
-application/index.css: application-2bff9cc35f4f9438ef0d64c700e9a065.css
+application.css: application-25b726ed0d581d7525f3cc6e2e1eba57.css
+application/index.css: application-25b726ed0d581d7525f3cc6e2e1eba57.css
 campaign_emails.css: campaign_emails-58c76e9d732b93b995e848bb490a507f.css
 campaign_emails/index.css: campaign_emails-58c76e9d732b93b995e848bb490a507f.css
 common/_border-radius.css: common/_border-radius-1b13569e9620782f423d4cd3ce931750.css
@@ -2283,8 +2299,8 @@ common/reset.css: common/reset-bcd8fcccdfa3daaab087390f9c057ed0.css
 common/reset/index.css: common/reset-bcd8fcccdfa3daaab087390f9c057ed0.css
 common/search.css: common/search-e767ceb74755006600b0dc7b40e6cbe9.css
 common/search/index.css: common/search-e767ceb74755006600b0dc7b40e6cbe9.css
-common/structure.css: common/structure-d1044a66f12ef7136643f51c16f7e69e.css
-common/structure/index.css: common/structure-d1044a66f12ef7136643f51c16f7e69e.css
+common/structure.css: common/structure-8928ce377053a0de2f6754069c430579.css
+common/structure/index.css: common/structure-8928ce377053a0de2f6754069c430579.css
 common/typography.css: common/typography-099ac8480b64696051967f5e7cd4a7fd.css
 common/typography/index.css: common/typography-099ac8480b64696051967f5e7cd4a7fd.css
 customlanding.css: customlanding-8cbf08aa6a1cff4512af6ec1821fa420.css
@@ -2319,8 +2335,8 @@ new_structure/section/address_combo.css: new_structure/section/address_combo-bab
 new_structure/section/address_combo/index.css: new_structure/section/address_combo-bab517aa08f5f9d1af947967edaa949a.css
 new_structure/section/brands.css: new_structure/section/brands-840c014264021a3117578767e0b1a2f2.css
 new_structure/section/brands/index.css: new_structure/section/brands-840c014264021a3117578767e0b1a2f2.css
-new_structure/section/clippings.css: new_structure/section/clippings-2a4ac0effd25938381cdd7cc3a3f0e29.css
-new_structure/section/clippings/index.css: new_structure/section/clippings-2a4ac0effd25938381cdd7cc3a3f0e29.css
+new_structure/section/clippings.css: new_structure/section/clippings-506455a8815593919e96da937eac6ea3.css
+new_structure/section/clippings/index.css: new_structure/section/clippings-506455a8815593919e96da937eac6ea3.css
 new_structure/section/collection_themes.css: new_structure/section/collection_themes-ccacecddb2ec7f504b1571174bd68f5a.css
 new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-ccacecddb2ec7f504b1571174bd68f5a.css
 new_structure/section/join.css: new_structure/section/join-22dc2faa126a17fddb685d1b6b0588ac.css
@@ -2335,8 +2351,8 @@ new_structure/section/quiz.css: new_structure/section/quiz-bb36e09c8c3719e5edb8f
 new_structure/section/quiz/index.css: new_structure/section/quiz-bb36e09c8c3719e5edb8fb33731c1a20.css
 new_structure/section/search.css: new_structure/section/search-8074cdc808136d7c779b27b4b19554b5.css
 new_structure/section/search/index.css: new_structure/section/search-8074cdc808136d7c779b27b4b19554b5.css
-section/avc-campaign.css: section/avc-campaign-81c6c5b83205a1575a6aa043120691e8.css
-section/avc-campaign/index.css: section/avc-campaign-81c6c5b83205a1575a6aa043120691e8.css
+section/avc-campaign.css: section/avc-campaign-f52c6c4715b13bc7146ad55440cae213.css
+section/avc-campaign/index.css: section/avc-campaign-f52c6c4715b13bc7146ad55440cae213.css
 section/box_invite.css: section/box_invite-6d013b6cf45bdf30fa418a29d59180d6.css
 section/box_invite/index.css: section/box_invite-6d013b6cf45bdf30fa418a29d59180d6.css
 section/checkout.css: section/checkout-c63c4d0856246674d23baadecce4dd55.css
@@ -2363,8 +2379,8 @@ section/gift_home.css: section/gift_home-74d78b18c751587fadb01ff08710eab6.css
 section/gift_home/index.css: section/gift_home-74d78b18c751587fadb01ff08710eab6.css
 section/half_user.css: section/half_user-c54c025e72fa63d3a74f1be72482d577.css
 section/half_user/index.css: section/half_user-c54c025e72fa63d3a74f1be72482d577.css
-section/home.css: section/home-fe6c1273214d2d706f458fa066827282.css
-section/home/index.css: section/home-fe6c1273214d2d706f458fa066827282.css
+section/home.css: section/home-e559187f52eb51666d6c84b59966aeab.css
+section/home/index.css: section/home-e559187f52eb51666d6c84b59966aeab.css
 section/how_to.css: section/how_to-5ad4813e83c4bc7e0b561a84e2ad096a.css
 section/how_to/index.css: section/how_to-5ad4813e83c4bc7e0b561a84e2ad096a.css
 section/invite.css: section/invite-7c7e1243d4d6338865bd1680c3cdaa02.css

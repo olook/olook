@@ -2,51 +2,75 @@
   require 'builder'
 
 class TopsterXml
+
+  RENDERERS = {
+    nextperformance: 'nextperformance_template.xml.erb',
+    topster: 'topster_template.xml.erb',
+    criteo: 'criteo.xml.erb',
+    triggit: 'triggit.xml.erb',
+    sociomantic: 'sociomantic.xml.erb',
+  }
+
+
   extend XmlHelper
   extend ActionView::Helpers::NumberHelper
 
-  def self.create_xml
-    @products = Product.all
-    xml = Builder::XmlMarkup.new( :indent => 2 )
-    xml.instruct! :xml, :encoding => "UTF-8"
-    xml.produtos do |xml|
-      @products.each do |product|
-        xml.produto do
-          xml.id_produto { xml.cdata!(product.id.to_s) }
-          xml.link_produto { xml.cdata!(product.product_url(:utm_source => "topster").to_s) }
-          xml.nome_produto { xml.cdata!(product.name.to_s) }
-          xml.marca { xml.cdata!("olook") }
-          xml.categoria { xml.cdata!(full_category(product).to_s) }
-          xml.cores do
-            xml.cor { xml.cdata!(product.color_name.to_s) }
-          end
-          xml.descricao { xml.cdata!(product.description.to_s) }
-          xml.preco_de { xml.cdata!(number_with_precision(product.price, :precision => 2).to_s) }
-          xml.preco_por { xml.cdata!(number_with_precision(product.retail_price, :precision => 2).to_s) }
-          xml.parcelamento { xml.cdata!(build_installment_text(product.retail_price).to_s) }
-          xml.imagens do
-            product.pictures.order(:position).each do |picture|
-              xml.imagem { xml.cdata!(picture.image.to_s) }
-            end
-          end
-          xml.estoque { xml.cdata!(product.inventory > 0 ? "sim" : "não" ) }
-          xml.estoque_baixo { xml.cdata!(product.inventory >= 2 ? "não" : "sim" ) }
-        end
-      end
-    end
+  def self.create_xmls
+    create_xml(RENDERERS.keys)
   end
 
-  def self.send_to_amazon (xml)
-    bucket = ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'
-    connection = Fog::Storage.new({
-      :provider   => 'AWS'
-    })
-    directory = connection.directories.get(bucket)
-    directory.files.create(
-      :key    => 'xml/topster_data.xml',
-      :body   => xml,
-      "Content-Type" => "application/xml",
-      :public => true)
+  def self.create_xml(templates)
+    xmls = {}
+    @products = load_products
+
+    templates.each do |template_name|
+      xmls[template_name] = generate_for(template_name)
+    end
+
+    xmls
   end
+
+  def self.upload(xmls)
+    xmls.each {|template_name, xml| send_to_amazon(xml, "#{template_name}_data.xml") }
+  end
+
+  private
+
+    def self.send_to_amazon (xml, file_name)
+      bucket = ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'
+      connection = Fog::Storage.new({
+        :provider   => 'AWS'
+      })
+      directory = connection.directories.get(bucket)
+      directory.files.create(
+        :key    => "xml/#{file_name}",
+        :body   => xml,
+        "Content-Type" => "application/xml",
+        :public => true)
+    end
+
+
+    def self.generate_for(template_name)
+      renderer = get_renderer(template_name)
+      renderer.result(binding)
+    end
+
+    def self.get_renderer(template_name)
+      begin
+        template_file_path = "app/views/xml/" + RENDERERS.fetch(template_name)
+        ERB.new(File.read(template_file_path))
+      rescue KeyError
+        OpenStruct.new({result: ""})
+      end      
+    end
+
+    def self.load_products
+      # This method was copied from XmlController
+      products = Product.where(collection_id: 24).valid_for_xml(Product.xml_blacklist("products_blacklist").join(','))     
+      @liquidation_products = []
+      active_liquidation = LiquidationService.active
+      @liquidation_products = active_liquidation.resume[:products_ids] if active_liquidation
+      products + @liquidation_products
+    end
 
  end

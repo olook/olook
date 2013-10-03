@@ -5,7 +5,7 @@ require 'yaml'
 module Seo
   class SeoManager
 
-    EXTRACT_COLOR_REGEX = /cor-(\w*)$/
+    EXTRACT_COLOR_REGEX = /cor-([\w|\%20| ]*)$/
     REMOVE_COLOR_REGEX = /\/(cor|tamanho)-(.*)$/
     DEFAULT_META_TAG_TEXT = 'Sapatos Femininos e Roupas Femininas | Olook'
     REPLACE_REGEX = /feminin[ao]s|- semi joia e bijuterias finas/i
