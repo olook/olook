@@ -5,13 +5,13 @@ class Admin::CatalogBasesController < Admin::BaseController
   def index
     @catalog_bases = CatalogHeader::CatalogBase
     if params[:type] == "text"
-      @catalog_bases = @catalog_bases.without_type("CatalogHeader::TextCatalogHeader")
-    end
-    if params[:search]
+      @catalog_bases = @catalog_bases.with_type("CatalogHeader::TextCatalogHeader").page(params[:page]).per_page(100)
+    elsif params[:search]
       params[:search] = Hash[params[:search].select{|k,v| v.present?}]
       @catalog_bases = @catalog_bases.where(params[:search])
+    else
+      @catalog_bases = @catalog_bases.without_type("CatalogHeader::TextCatalogHeader").page(params[:page]).per_page(100)
     end
-    @catalog_bases = @catalog_bases.page(params[:page]).per_page(100)
   end
 
   def show
