@@ -2,9 +2,9 @@
 
   <li class="product<%= " promotion" if product.promotion? %>" data-id="<%= product.id %>">
 
-    <%= link_to product, :class => "product_link", :rel => "#{product.id}", onclick: track_event("Product", "ClickLookProduct", product.id.to_s), :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}}, :remote => (defined?(suggestion) || gift)  do %>
+    <%= link_to product, :class => "product_link", :rel => "#{product.id}", onclick: track_event("Product", "ClickLookProduct", "#{@product.id}-#{product.id}"), :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}}, :remote => (defined?(suggestion) || gift)  do %>
 
-      <%= link_to content_tag(:span, "Espiar"), spy_product_path(product), :class => 'spy', :data => {:url => spy_product_path(product), :params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}}, :rel => "#{product.id}", :remote => true %>
+      <%= content_tag(:span, "Espiar", :class => 'spy', :data => {:url => spy_product_path(product), :params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}}, :rel => "#{product.id}") %>
 
       <%= image_tag("common/ajax-loader-product-smaller.gif", :alt => product.name, :class => "async", data: { product: product.showroom_picture, backside: product.backside_picture, wearing: product.wearing_picture, showroom: product.showroom_picture } ) %>
 

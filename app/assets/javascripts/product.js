@@ -6,7 +6,7 @@
 
 $(function(){
   initProduct.loadAll();
-  olook.spy('a.spy');
+  olook.spy('.spy');
 });
 
 initProduct = {
