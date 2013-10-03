@@ -4,8 +4,7 @@ FactoryGirl.define do
   factory :catalog_header, :class => CatalogHeader::CatalogBase  do
     url "/sapato"
     type ""
-    h1 "MyString"
-    h2 "MyString"
+    seo_text "MyString"
     small_banner1 "MyString"
     alt_small_banner1 "MyString"
     link_small_banner1 "MyString"
