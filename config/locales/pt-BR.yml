@@ -412,6 +412,14 @@
         one: Landing de catálogo
         other: Landing de catálogos
 
+      catalog_header_catalog_base_text:
+        one: Landing de texto
+        other: Landing de textos
+
+      catalog_header_catalog_base_banner:
+        one: Landing com banner
+        other: Landing com banners
+
       gift_recipient: presenteado
       gift_occasion: "ocasião"
       address: Endereço
