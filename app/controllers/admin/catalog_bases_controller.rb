@@ -52,17 +52,17 @@ class Admin::CatalogBasesController < Admin::BaseController
 
   def new_resource_path
     if params[:type] == "CatalogHeader::TextCatalogHeader"
-      new_admin_catalog_basis_text_path
+      admin_new_catalog_basis_text_path
     else
-      new_admin_catalog_basis_banner_path
+      admin_new_catalog_basis_banner_path
     end
   end
 
   def edit_resource_path(resource)
     if params[:type] == "CatalogHeader::TextCatalogHeader"
-      edit_admin_catalog_basis_text_path(resource)
+      admin_edit_catalog_basis_text_path(resource)
     else
-      edit_admin_catalog_basis_banner_path(resource)
+      admin_edit_catalog_basis_banner_path(resource)
     end
   end
 
