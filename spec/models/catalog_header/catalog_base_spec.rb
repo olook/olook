@@ -17,7 +17,7 @@ describe CatalogHeader::CatalogBase do
       expect(described_class.with_type("CatalogHeader::TextCatalogHeader").count).to eql(1)
     end
     it "return without text type" do
-      expect(described_class.without_type("CatalogHeader::TextCatalogHeader").count).to eql(2)
+      expect(described_class.with_type(["CatalogHeader::SmallBannerCatalogHeader", "CatalogHeader::BigBannerCatalogHeader"]).count).to eql(2)
     end
   end
 end
