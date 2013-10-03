@@ -92,7 +92,7 @@
               <span>Conteúdo</span>
               <ul>
                 <li><%= access_link("Clippings")%></li>
-                <li><%= link_to I18n.t("activerecord.models.catalog_header_catalog_base.other"), admin_catalog_bases_path %></li>
+                <li><%= link_to I18n.t("activerecord.models.catalog_header_catalog_base.other"), admin_catalog_bases_path(type: "text") %></li>
               </ul>
             </li>
             <li class="submenu<%= ' active' if params[:controller] =~ /simple_email_service/ %>">
