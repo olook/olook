@@ -226,23 +226,27 @@ Olook::Application.routes.draw do
   namespace :admin do
     get "/", :to => "dashboard#index"
 
-    #Landing page banners
-    get "/catalog_landing", to: "catalog_bases#index", as: 'catalog_bases_banner'
-    post "/catalog_landing", to: "catalog_bases#create", as: 'catalog_bases_banner'
-    get "/catalog_landing/new", to: "catalog_bases#new", as: 'new_catalog_basis_banner'
-    get "/catalog_landing/:id/edit", to: "catalog_bases#edit", as: 'edit_catalog_basis_banner'
-    get "catalog_landing/:id", to: "catalog_bases#show", as: 'catalog_basis_banner'
-    delete "/catalog_landing/:id", to: "catalog_bases#destroy", as: 'catalog_basis_banner'
-    put "/catalog_landing/:id", to: "catalog_bases#update", as: 'catalog_basis_banner'
+    scope defaults: {type: ["CatalogHeader::BigBannerCatalogHeader", "CatalogHeader::SmallCatalogHeader"]} do
+      #Landing page banners
+      get "/catalog_landing", to: "catalog_bases#index", as: 'catalog_bases_banner'
+      post "/catalog_landing", to: "catalog_bases#create", as: 'catalog_bases_banner'
+      get "/catalog_landing/new", to: "catalog_bases#new", as: 'new_catalog_basis_banner'
+      get "/catalog_landing/:id/edit", to: "catalog_bases#edit", as: 'edit_catalog_basis_banner'
+      get "catalog_landing/:id", to: "catalog_bases#show", as: 'catalog_basis_banner'
+      delete "/catalog_landing/:id", to: "catalog_bases#destroy", as: 'catalog_basis_banner'
+      put "/catalog_landing/:id", to: "catalog_bases#update", as: 'catalog_basis_banner'
+    end
 
-    #Landing page text
-    get "/catalog_landing_text", to: "catalog_bases#index", as: 'catalog_basis_text', defaults: {type: "CatalogHeader::TextCatalogHeader"}
-    get "/catalog_landing_text/new", to: "catalog_bases#new", as: 'new_catalog_basis_text', defaults: {type: "CatalogHeader::TextCatalogHeader"}
-    get "/catalog_landing_text/:id/edit", to: "catalog_bases#edit", as: 'edit_catalog_basis_text', defaults: {type: "CatalogHeader::TextCatalogHeader"}
-    get "catalog_landing_text/:id", to: "catalog_bases#show", as: 'catalog_basis_text', defaults: {type: "CatalogHeader::TextCatalogHeader"}
-    post "/catalog_landing_text", to: "catalog_bases#create", as: 'catalog_bases_text', defaults: {type: "CatalogHeader::TextCatalogHeader"}
-    delete "/catalog_landing_text/:id", to: "catalog_bases#destroy", defaults: {type: "CatalogHeader::TextCatalogHeader"}
-    put "/catalog_landing_text/:id", to: "catalog_bases#update", defaults: {type: "CatalogHeader::TextCatalogHeader"}
+    scope defaults: {type: "CatalogHeader::TextCatalogHeader"} do
+      #Landing page text
+      get "/catalog_landing_text", to: "catalog_bases#index", as: 'catalog_basis_text'
+      get "/catalog_landing_text/new", to: "catalog_bases#new", as: 'new_catalog_basis_text'
+      get "/catalog_landing_text/:id/edit", to: "catalog_bases#edit", as: 'edit_catalog_basis_text'
+      get "catalog_landing_text/:id", to: "catalog_bases#show", as: 'catalog_basis_text'
+      post "/catalog_landing_text", to: "catalog_bases#create", as: 'catalog_bases_text'
+      delete "/catalog_landing_text/:id", to: "catalog_bases#destroy"
+      put "/catalog_landing_text/:id", to: "catalog_bases#update"
+    end
 
     resources :clippings
     get "ses" => "simple_email_service_infos#index", as: "ses"
