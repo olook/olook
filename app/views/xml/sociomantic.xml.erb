@@ -3,16 +3,16 @@
 <% @products.each do |product| %>
 <product>
 <identifier><%= product.id %></identifier>
-<fn><%= product.formatted_name(200) %></fn>
-<description><%= product.description %></description>
-<category><%= product.category_humanize %></category>
+<fn><![CDATA[<%= product.formatted_name(200) %>]]></fn>
+<description><![CDATA[<%= product.description %>]]></description>
+<category><![CDATA[<%= product.category_humanize %>]]></category>
 <brand><%= product.brand %></brand>
 <price><%= product.retail_price %></price>
 <amount><%= product.price %></amount>
 <installmenttimes><%= installments_number(product.price) %></installmenttimes>
 <installmentvalue><%= installments_value(product.price, separator: ',') %></installmentvalue>
 <currency>BRL</currency>
-<url><%= product.product_url(:utm_source => "sociomantic", :utm_medium => "Remarketing", :utm_campaign => "Produtos") %></url>
+<url><![CDATA[<%= product.product_url(:utm_source => "sociomantic", :utm_medium => "Remarketing", :utm_campaign => "Produtos") %>]]></url>
 <photo><%= full_image_path product.xml_picture(:main) %></photo>
 </product>
 <% end %>

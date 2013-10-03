@@ -22,20 +22,78 @@
       OLOOK NA IMPRENSA
     %p
       O que andam falando de nós...
-    %h2
-      Quer escrever sobre a Olook?
-    %p.contact
-      É só entrar em contato através do e-mail imprensa@olook.com.br
+
 
   .socialmedia
     %p
       GOSTOU? Então compartilhe
-    %a.twitter-share-button{"data-text" => "Tudo o que é publicado sobre a Olook na mídia você confere aqui: www.olook.com.br/olook-na-imprensa. Acompanhe as novidades! ;)", "data-url" => "www.olook.com.br", "data-count" => "none", "data-counturl" => "www.olook.com.br/olook-na-imprensa", "class" => "twitter"} Tweetar
+    %a.twitter-share-button{"data-text" => "Tudo o que é publicado sobre a Olook na mídia você confere aqui: www.olook.com.br/olook-na-imprensa. Acompanhe as novidades! ;)", "data-url" => "www.olook.com.br", "data-count" => "horizontal", "data-counturl" => "www.olook.com.br/olook-na-imprensa", "class" => "twitter"} Tweetar
 
     / .fb-like{"data-href" => "#{root_url}/olook-na-imprensa", "data-width" => "450", "data-show-faces" => "true", "data-send" => "true"}
 
     %fb:like{"href" => "http://#{Rails.env == 'production' ? "www" : "homolog"}.olook.com.br/olook-na-imprensa", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false", "class" => "like", "width" => "100"}
 
+  #big_clipping
+    = image_tag "common/andre.jpg"
+    %ul
+      %li.article.first
+        %p.title
+          Startup fatura com personalização
+        %span.info
+          Mulheres que amam moda e buscam uma experiência em compras personalizadas são o publico-alvo da marca.
+        %p.date
+          %span
+            Quando:
+          01/07/2013
+          %span
+            Onde: 
+          Exame
+        = link_to "Ler na integra", "http://d1m0eb15reawkf.cloudfront.net/clipping/pdf_file/8/EXAME_JUNHO_2013.pdf", target: :blank, class: 'lermais'
+        = image_tag "common/clipping_arrow.png", :class => "arrow"
+      %li.media
+        = image_tag "common/exame.jpg"
+    .clipping_left
+      = image_tag "common/kombi.jpg"
+      %ul
+        %li.article
+          %p.title
+            Loja virtual usa kombi para vender
+          %span.info
+            A loja virtual Olook adotou uma forma diferente para divulgar suas roupas e acessórios fora da internet. A empresa transformou uma kombi em uma vitrine móvel.
+          %p.date
+            %span
+              Quando:
+            25/07/2013
+            %span
+              Onde:
+            UOL
+          = link_to "Ler na integra", "http://d1m0eb15reawkf.cloudfront.net/clipping/pdf_file/11/UOL_JULHO_2013.pdf", target: :blank, class: 'lermais'
+          = image_tag "common/clipping_arrow.png", :class => "arrow"
+        %li.media
+          = image_tag "common/uol.jpg"
+    .clipping_right
+      = image_tag "common/pb.jpg"
+      %ul
+        %li.article
+          %p.title
+            Olook recebe 3º investimento
+          %span.info
+            Nossa perspectiva é boa: queremos triplicar a receita neste ano em relação ao ano passado. Temos planos de vender em loja física. Mantivemos uma loja no Q!Bazar e vendeu super bem.
+          %p.date
+            %span
+              Quando:
+            19/08/2013
+            %span
+              Onde: 
+            IG (Startupi)
+          = link_to "Ler na integra", "http://startups.ig.com.br/2013/subindo-no-salto-olook-celebra-20-meses-de-existencia-com-3o-investimento/", target: :blank, class: 'lermais'
+          = image_tag "common/clipping_arrow.png", :class => "arrow"
+        %li.media
+          = image_tag "common/ig.jpg", :class => "ig"
+  %h2
+    Quer escrever sobre a Olook?
+  %p.contact
+    É só entrar em contato através do e-mail imprensa@olook.com.br
   - @clippings.each do |clipping|
     %ul
       %li.media

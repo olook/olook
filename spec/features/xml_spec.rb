@@ -18,65 +18,6 @@ feature "Show products on xml format" do
     stub_scope_params
   end
 
-  context "on criteo" do
-
-    scenario "I dont want to see products of criteo if has less variants" do
-      product2 = FactoryGirl.create(:blue_sliper_with_two_variants)
-      product2.master_variant.update_attribute(:price, "99.90")
-      product2.master_variant.update_attribute(:inventory, 1)
-      visit criteo_path
-      result = Nokogiri::XML(page.source)
-      content = <<-END.gsub(/^ {6}/, '')
-      <?xml version="1.0" encoding="UTF-8"?>
-      <products>
-      <product id="#{product.id}">
-      <name>#{product.name}</name>
-      <smallimage/>
-      <bigimage/>
-      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=Produtos&amp;utm_content=#{product.id}&amp;utm_medium=Remarketing&amp;utm_source=criteo</producturl>
-      <description>#{product.description}</description>
-      <price>#{number_with_precision(product.price, :precision => 2)}</price>
-      <retailprice>#{number_with_precision(product.retail_price, :precision => 2)}</retailprice>
-      <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
-      <brand>OLOOK</brand>
-      <recommendable>1</recommendable>
-      <instock>#{product.instock}</instock>
-      <category>#{product.subcategory}</category>
-      </product>
-      </products>
-      END
-      equivalent_content = Nokogiri::XML(content)
-      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
-    end
-
-
-    scenario "I want to see products of criteo" do
-      visit criteo_path
-      result = Nokogiri::XML(page.source)
-      content = <<-END.gsub(/^ {6}/, '')
-      <?xml version="1.0" encoding="UTF-8"?>
-      <products>
-      <product id="#{product.id}">
-      <name>#{product.name}</name>
-      <smallimage></smallimage>
-      <bigimage></bigimage>
-      <producturl>http://www.olook.com.br/produto/#{product.id}?utm_campaign=Produtos&amp;utm_content=#{product.id}&amp;utm_medium=Remarketing&amp;utm_source=criteo</producturl>
-      <description>#{product.description}</description>
-      <price>#{number_with_precision(product.price, :precision => 2)}</price>
-      <retailprice>#{number_with_precision(product.retail_price, :precision => 2)}</retailprice>
-      <discount>#{(100-(product.retail_price*100/product.price)).to_i}</discount>
-      <brand>OLOOK</brand>
-      <recommendable>1</recommendable>
-      <instock>#{product.instock}</instock>
-      <category>#{product.subcategory}</category>
-      </product>
-      </products>
-      END
-      equivalent_content = Nokogiri::XML(content)
-      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
-    end
-  end
-
   context "on mt_performance" do
     context "when product is in stock" do
       before do
@@ -334,35 +275,6 @@ feature "Show products on xml format" do
       EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
     end
   end
-
-  context "on sociomantic" do
-    scenario "I want to see products of sociomantic" do
-      visit sociomantic_path
-      result = Nokogiri::XML(page.source)
-      content = <<-END.gsub(/^ {6}/, '')
-      <?xml version="1.0" encoding="UTF-8" ?>
-      <products xmlns="http://data-vocabular.org/product/">
-      <product>
-      <identifier>#{product.id}</identifier>
-      <fn>#{product.name}</fn>
-      <description>#{product.description}</description>
-      <category>#{product.category_humanize}</category>
-      <brand>OLOOK</brand>
-      <price>#{product.retail_price}</price>
-      <amount>#{product.price}</amount>
-      <installmenttimes>3</installmenttimes>
-      <installmentvalue>33,30</installmentvalue>
-      <currency>BRL</currency>
-      <url>http://www.olook.com.br/produto/#{product.id}?utm_campaign=Produtos&amp;utm_content=#{product.id}&amp;utm_medium=Remarketing&amp;utm_source=sociomantic</url>
-      <photo>#{product.pictures.last.try(:image)}</photo>
-      </product>
-      </products>
-      END
-      equivalent_content = Nokogiri::XML(content)
-      result.should be_equivalent_to(equivalent_content)
-    end
-  end
-
 
   context "on zanox" do
     scenario "I want to see products of zanox" do

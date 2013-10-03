@@ -35,6 +35,13 @@ describe Seo::SeoManager do
         expect(@seo_class.select_meta_tag).to eql('Sapatos Dourado | Olook')
       end
 
+      context "url is '/bolsa/cor-azul agua' " do
+        it "returns 'Bolsas Azul Agua | Olook'" do
+          @seo_class = Seo::SeoManager.new("/bolsa/cor-azul agua")
+          expect(@seo_class.select_meta_tag).to eql('Bolsas Azul Agua | Olook')
+        end
+      end
+
       context "and the category is 'acessorio' " do
         before do
           @seo_class = Seo::SeoManager.new("/acessorio/cor-dourado")
