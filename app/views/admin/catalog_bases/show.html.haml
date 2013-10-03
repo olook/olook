@@ -7,11 +7,8 @@
     %b tipo
     = @catalog_base.type
   %p
-    %b h1
-    = @catalog_base.h1
-  %p
-    %b h2
-    = @catalog_base.h2
+    %b Texto para SEO
+    = @catalog_base.seo_text
   - if @catalog_base.type == 'CatalogHeader::SmallBannerCatalogHeader'
     %p
       %b small_banner1
@@ -67,5 +64,5 @@
     %b Atualizado em
     = @catalog_base.updated_at
 - content_for :secondary_navigation do
-  %li= link_to 'Editar', edit_admin_catalog_basis_path(@catalog_base)
-  %li= link_to 'Voltar', admin_catalog_bases_path
+  %li= link_to 'Editar', edit_resource_path(@catalog_base)
+  %li= link_to 'Voltar', resources_path

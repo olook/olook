@@ -1,13 +1,12 @@
 # encoding: utf-8
 class Admin::CatalogBasesController < Admin::BaseController
   respond_to :html, :text
+  helper_method :resource_path, :resources_path, :new_resource_path, :edit_resource_path
 
   def index
     @catalog_bases = CatalogHeader::CatalogBase
-    if params[:search]
-      params[:search] = Hash[params[:search].select{|k,v| v.present?}]
-      @catalog_bases = @catalog_bases.where(params[:search])
-    end
+    @catalog_bases = @catalog_bases.with_type(params[:type]).page(params[:page]).per_page(100)
+
     @catalog_bases = @catalog_bases.page(params[:page]).per_page(100)
   end
 
@@ -16,7 +15,7 @@ class Admin::CatalogBasesController < Admin::BaseController
   end
 
   def new
-    @catalog_base = CatalogHeader::CatalogBase.new
+    @catalog_base = CatalogHeader::CatalogBase.new(type: params[:type])
   end
 
   def edit
@@ -26,7 +25,7 @@ class Admin::CatalogBasesController < Admin::BaseController
   def create
     @catalog_base = CatalogHeader::CatalogBase.factory(params[:catalog_base])
     if @catalog_base.save
-      redirect_to admin_catalog_bases_path, notice: "Landing de catálogo criado com sucesso."
+      redirect_to resources_path, notice: "Landing de catálogo criado com sucesso."
     else
       render action: "new"
     end
@@ -36,7 +35,7 @@ class Admin::CatalogBasesController < Admin::BaseController
   def update
     @catalog_base = CatalogHeader::CatalogBase.find(params[:id])
     if @catalog_base.update_attributes(params[:catalog_base])
-      redirect_to admin_catalog_bases_path, notice: 'Landing de catálogo atualizado com sucesso.'
+      redirect_to resources_path, notice: 'Landing de catálogo atualizado com sucesso.'
     else
       render action: "edit"
     end
@@ -46,6 +45,40 @@ class Admin::CatalogBasesController < Admin::BaseController
   def destroy
     @catalog_base = CatalogHeader::CatalogBase.find(params[:id])
     @catalog_base.destroy
-    redirect_to admin_catalog_bases_url
+    redirect_to resources_path
+  end
+
+  private
+
+  def new_resource_path
+    if params[:type] == "CatalogHeader::TextCatalogHeader"
+      admin_new_catalog_basis_text_path
+    else
+      admin_new_catalog_basis_banner_path
+    end
+  end
+
+  def edit_resource_path(resource)
+    if params[:type] == "CatalogHeader::TextCatalogHeader"
+      admin_edit_catalog_basis_text_path(resource)
+    else
+      admin_edit_catalog_basis_banner_path(resource)
+    end
+  end
+
+  def resource_path(resource)
+    if params[:type] == "CatalogHeader::TextCatalogHeader"
+      admin_catalog_basis_text_path(resource)
+    else
+      admin_catalog_basis_banner_path(resource)
+    end
+  end
+
+  def resources_path
+    if params[:type] == "CatalogHeader::TextCatalogHeader"
+      admin_catalog_bases_text_path
+    else
+      admin_catalog_bases_banner_path
+    end
   end
 end

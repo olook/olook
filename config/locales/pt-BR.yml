@@ -409,8 +409,16 @@
         other: Serviços de email
 
       catalog_header_catalog_base:
-        one: Landing de catálogo
-        other: Landing de catálogos
+        one: 'Header do Catálogo'
+        other: 'Headers do Catálogo'
+
+      catalog_header_catalog_base_text:
+        one: 'Header Textual do Catálogo para Modelos'
+        other: 'Headers Textuais do Catálogo para Modelos'
+
+      catalog_header_catalog_base_banner:
+        one: 'Banner Header dos Catálogos'
+        other: 'Banner Header dos Catálogos'
 
       gift_recipient: presenteado
       gift_occasion: "ocasião"
@@ -421,8 +429,7 @@
       catalog_header/catalog_base:
         url: 'Url'
         type: 'Tipo'
-        h1: 'H1 (Titulo para SEO)'
-        h2: 'H2 (Subtitulo para SEO)'
+        seo_text: 'Text para título da página (SEO)'
         small_banner1: 'Destaque menor/superior (150x300)'
         small_banner2: 'Destaque menor/inferior (150x300)'
         medium_banner: 'Destaque maior (300x600)'
