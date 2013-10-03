@@ -11,8 +11,8 @@
     - @catalog_bases.each do |catalog_base|
       %tr
         %td= catalog_base.url
-        %td= link_to 'Mostrar', admin_catalog_basis_path(catalog_base), :class => 'button'
-        %td= link_to 'Editar', edit_admin_catalog_basis_path(catalog_base), :class => 'button'
-        %td= link_to 'Apagar', admin_catalog_basis_path(catalog_base), confirm: 'Tem certeza?', method: :delete, :class => 'button danger'
+        %td= link_to 'Mostrar', resource_path(catalog_base), :class => 'button'
+        %td= link_to 'Editar', edit_resource_path(catalog_base), :class => 'button'
+        %td= link_to 'Apagar', resource_path(catalog_base), confirm: 'Tem certeza?', method: :delete, :class => 'button danger'
   .actions-bar.wat-cf
     .pagination
