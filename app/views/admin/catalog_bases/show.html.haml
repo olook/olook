@@ -67,5 +67,5 @@
     %b Atualizado em
     = @catalog_base.updated_at
 - content_for :secondary_navigation do
-  %li= link_to 'Editar', edit_admin_catalog_basis_path(@catalog_base)
-  %li= link_to 'Voltar', admin_catalog_bases_path
+  %li= link_to 'Editar', edit_resource_path(@catalog_base)
+  %li= link_to 'Voltar', resources_path

@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Admin::CatalogBasesController < Admin::BaseController
   respond_to :html, :text
-  helper_method :resource_path, :resources_path
+  helper_method :resource_path, :resources_path, :new_resource_path, :edit_resource_path
 
   def index
     @catalog_bases = CatalogHeader::CatalogBase
@@ -50,11 +50,11 @@ class Admin::CatalogBasesController < Admin::BaseController
 
   private
 
-  def new_resource_path(resource)
+  def new_resource_path
     if params[:type] == "CatalogHeader::TextCatalogHeader"
-      new_admin_catalog_basis_text_path(resource)
+      new_admin_catalog_basis_text_path
     else
-      new_admin_catalog_basis_banner_path(resource)
+      new_admin_catalog_basis_banner_path
     end
   end
 
