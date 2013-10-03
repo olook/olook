@@ -14,10 +14,14 @@
     = f.label :url
     %br/
     = f.text_field :url
-  .field
-    = f.label :type
-    %br/
-    = f.select(:type, [['Texto', 'CatalogHeader::TextCatalogHeader'], ['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['2 Banners','CatalogHeader::SmallBannerCatalogHeader']])
+  - case params[:type]
+  - when 'CatalogHeader::TextCatalogHeader'
+    = f.hidden_field :type
+  - else
+    .field
+      = f.label :type
+      %br/
+      = f.select(:type, [['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['2 Banners','CatalogHeader::SmallBannerCatalogHeader']])
   .field
     = f.label :h1
     %br/
