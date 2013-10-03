@@ -1,7 +1,7 @@
 - content_for :footer do
   = javascript_include_tag 'section/admin/catalog_header'
 
-= form_for(@catalog_base, as: :catalog_base, :url => (@catalog_base.new_record? ? admin_catalog_bases_path : admin_catalog_basis_path(@catalog_base)), :html => { :multipart => true }) do |f|
+= form_for(@catalog_base, as: :catalog_base, :url => (@catalog_base.new_record? ? resources_path : resource_path(@catalog_base)), :html => { :multipart => true }) do |f|
   - if @catalog_base.errors.any?
     #error_explanation
       %h2
@@ -14,18 +14,18 @@
     = f.label :url
     %br/
     = f.text_field :url
+  - case params[:type]
+  - when 'CatalogHeader::TextCatalogHeader'
+    = f.hidden_field :type
+  - else
+    .field
+      = f.label :type
+      %br/
+      = f.select(:type, [['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['2 Banners','CatalogHeader::SmallBannerCatalogHeader']])
   .field
-    = f.label :type
+    = f.label :seo_text
     %br/
-    = f.select(:type, [['Texto', 'CatalogHeader::TextCatalogHeader'], ['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['2 Banners','CatalogHeader::SmallBannerCatalogHeader']])
-  .field
-    = f.label :h1
-    %br/
-    = f.text_field :h1
-  .field
-    = f.label :h2
-    %br/
-    = f.text_field :h2
+    = f.text_field :seo_text
   %fieldset#small_banner_catalog_header
     .field
       = f.label :small_banner1

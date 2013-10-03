@@ -1,11 +1,10 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :catalog_header do
-    url "MyString"
+  factory :catalog_header, :class => CatalogHeader::CatalogBase  do
+    url "/sapato"
     type ""
-    h1 "MyString"
-    h2 "MyString"
+    seo_text "MyString"
     small_banner1 "MyString"
     alt_small_banner1 "MyString"
     link_small_banner1 "MyString"
@@ -21,5 +20,15 @@ FactoryGirl.define do
     title "MyString"
     resume_title "MyString"
     text_complement "MyText"
+
+    trait :text do
+      type "CatalogHeader::TextCatalogHeader"
+    end
+    trait :big_banner do
+      type "CatalogHeader::BigBannerCatalogHeader"
+    end
+    trait :small_banner do
+      type "CatalogHeader::SmallBannerCatalogHeader"
+    end
   end
 end
