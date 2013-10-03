@@ -23,13 +23,9 @@
       %br/
       = f.select(:type, [['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['2 Banners','CatalogHeader::SmallBannerCatalogHeader']])
   .field
-    = f.label :h1
+    = f.label :seo_text
     %br/
-    = f.text_field :h1
-  .field
-    = f.label :h2
-    %br/
-    = f.text_field :h2
+    = f.text_field :seo_text
   %fieldset#small_banner_catalog_header
     .field
       = f.label :small_banner1
