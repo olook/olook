@@ -117,6 +117,51 @@ aside{
   margin-top: 20px;
 }
 
+.about_item{
+  margin-bottom: 25px;
+  color: #000;
+  font-family: $avenir;
+  h2.title{
+    display: block;
+    padding-top: 8px;
+    width: 770px;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;   
+}
+span.summary, .full{
+      line-height: 19px;
+      text-transform: none;
+      margin-top: 25px;
+      font-weight: lighter;
+      letter-spacing: 0;
+      font-size: 12px;
+      display: block;
+      width: 770px;
+    }
+    a.more_info_show,a.more_info_hide {
+      text-decoration: none;
+      color: #000;
+      letter-spacing: 0;
+      font-size: 12px;
+      line-height: 25px;
+
+      &:hover{
+        color: $pink;
+      }
+    }
+    a.more_info_show{display: block; float: left;width: 110px;}
+    a.more_info_hide{display: none; float: left;width: 120px;}
+    .like{
+      top: 4px;
+      margin-left: 3px;
+    }
+    span.full{
+      display: none;
+      width: 890px;
+    }
+  }
 
 
 
