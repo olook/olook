@@ -26,6 +26,7 @@
   <% end %>
 
   <section id="product">
+    <%= link_to "Comprar o look completo", "#", :id => "goRelatedProduct" if @product.related_products.any? && (params[:srl] || Setting.disable_ab_test_for_look_products) %>
     <div class="box-left">
       <div id="gallery">
 
