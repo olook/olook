@@ -5,23 +5,31 @@ if(StringUtils.isEmpty(variant_number)) {
 }
 else
 {
+  var hasToFadeIn = false;
   $('li[data-id=<%= j params[:product_id] %>] form .error').hide();
   $('#minicart').append('<%= escape_javascript(hidden_field_tag("variant_numbers[]", params[:variant_number])) %>');
   $('li[data-id=<%= j params[:product_id] %>] form input[type=submit]').addClass("added_product").attr("disabled", "disabled");
   $('li[data-id=<%= j params[:product_id] %>] form input[type=submit]').val('PRODUTO ADICIONADO!');
-  $('.cart_related div.empty_minicart').remove();
 
-  $('.cart_related ul').append("<li>"+$('li[data-id=<%= j params[:product_id] %>] img').attr("alt")+"</li>");
   if(StringUtils.isEmpty($("#total_price").val())){
     $("#total_price").val('0.0');
+  
+    $('.cart_related').fadeOut("fast",function(){
+      $('.cart_related div.empty_minicart').remove();
+      $('.cart_related').addClass('product_added');
+      hasToFadeIn = true;
+    });
   }
 
-  if(! $('.cart_related').hasClass("product_added")) {
-    $('.cart_related').addClass('product_added');
-    }
+  setTimeout(function() {
+    $('.cart_related ul').append("<li>"+$('li[data-id=<%= j params[:product_id] %>] img').attr("alt")+"</li>");
 
-  $("#total_price").val( parseFloat($("#total_price").val()) + parseFloat(product_price));
-  installments = CreditCard.installmentsNumberFor($("#total_price").val());
-  $(".cart_related .minicart_price").html("Por<br>" + installments + "x de " + Formatter.toCurrency( $("#total_price").val() / installments ) + " sem juros");
-  $("form#minicart input[type=submit]").removeAttr("disabled").removeClass("disabled");
+    $("#total_price").val( parseFloat($("#total_price").val()) + parseFloat(product_price));
+    installments = CreditCard.installmentsNumberFor($("#total_price").val());
+    $(".cart_related .minicart_price").html("Por<br>" + installments + "x de " + Formatter.toCurrency( $("#total_price").val() / installments ) + " sem juros");
+    $("form#minicart input[type=submit]").removeAttr("disabled").removeClass("disabled");
+    if(hasToFadeIn) {
+      $('.cart_related').fadeIn("fast");
+    }
+  },300);
 }
