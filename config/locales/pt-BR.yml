@@ -409,16 +409,16 @@
         other: Serviços de email
 
       catalog_header_catalog_base:
-        one: Landing de catálogo
-        other: Landing de catálogos
+        one: 'Header do Catálogo'
+        other: 'Headers do Catálogo'
 
       catalog_header_catalog_base_text:
-        one: Landing de texto
-        other: Landing de textos
+        one: 'Header Textual do Catálogo para Modelos'
+        other: 'Headers Textuais do Catálogo para Modelos'
 
       catalog_header_catalog_base_banner:
-        one: Landing com banner
-        other: Landing com banners
+        one: 'Banner Header dos Catálogos'
+        other: 'Banner Header dos Catálogos'
 
       gift_recipient: presenteado
       gift_occasion: "ocasião"
