@@ -312,6 +312,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         a.product_link {
           text-decoration: none;
           color:#000;
+          a.spy {display: none;}
           .info-product {
             font-family: $avenir;
             font-size: 13px;
@@ -341,6 +342,9 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
               margin-right:1px;
             }
           }
+        }
+        a.product_link:hover a.spy {
+          display: block;
         }
       }
       li.product:hover {
