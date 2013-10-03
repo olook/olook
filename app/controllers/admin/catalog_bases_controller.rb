@@ -4,6 +4,9 @@ class Admin::CatalogBasesController < Admin::BaseController
 
   def index
     @catalog_bases = CatalogHeader::CatalogBase
+    if params[:type] == "text"
+      @catalog_bases = @catalog_bases.without_type("CatalogHeader::TextCatalogHeader")
+    end
     if params[:search]
       params[:search] = Hash[params[:search].select{|k,v| v.present?}]
       @catalog_bases = @catalog_bases.where(params[:search])
