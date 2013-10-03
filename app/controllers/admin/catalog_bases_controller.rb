@@ -50,6 +50,22 @@ class Admin::CatalogBasesController < Admin::BaseController
 
   private
 
+  def new_resource_path(resource)
+    if params[:type] == "CatalogHeader::TextCatalogHeader"
+      new_admin_catalog_basis_text_path(resource)
+    else
+      new_admin_catalog_basis_banner_path(resource)
+    end
+  end
+
+  def edit_resource_path(resource)
+    if params[:type] == "CatalogHeader::TextCatalogHeader"
+      edit_admin_catalog_basis_text_path(resource)
+    else
+      edit_admin_catalog_basis_banner_path(resource)
+    end
+  end
+
   def resource_path(resource)
     if params[:type] == "CatalogHeader::TextCatalogHeader"
       admin_catalog_basis_text_path(resource)
