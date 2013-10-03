@@ -429,8 +429,7 @@
       catalog_header/catalog_base:
         url: 'Url'
         type: 'Tipo'
-        h1: 'H1 (Titulo para SEO)'
-        h2: 'H2 (Subtitulo para SEO)'
+        seo_text: 'Text para título da página (SEO)'
         small_banner1: 'Destaque menor/superior (150x300)'
         small_banner2: 'Destaque menor/inferior (150x300)'
         medium_banner: 'Destaque maior (300x600)'
