@@ -3,6 +3,9 @@ class CatalogHeader::CatalogBase < ActiveRecord::Base
 
   validates :type, :url, :presence => true, :exclusion => ["CatalogHeader::CatalogBase"]
 
+  scope :with_type, ->(type) {where(type: type)} 
+  scope :without_type, ->(type) {where("type not in (?)", type)} 
+
   def self.factory params
    if params[:type] == 'CatalogHeader::BigBannerCatalogHeader'
      CatalogHeader::BigBannerCatalogHeader.new(params)
