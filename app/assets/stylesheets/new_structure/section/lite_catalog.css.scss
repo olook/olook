@@ -162,6 +162,22 @@ span.summary, .full{
       width: 890px;
     }
   }
-
+.promo_catalog{
+  margin-bottom: 30px;
+  padding-top: 5px;
+}
+.banners_group{
+  height: 330px;
+  margin-bottom: 20px;
+  padding-top: 5px;
+  ul{
+    li{
+      float: left;
+      &.big{
+        margin-right: 15px;
+      }
+    }
+  }
+}
 
 
