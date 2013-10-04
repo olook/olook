@@ -25,6 +25,8 @@ class CatalogsController < ApplicationController
     @pixel_information = @category = params[:category]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign_products.cache_key if @campaign_products}"
     expire_fragment(@cache_key) if params[:force_cache].to_i == 1
+
+    @header = CatalogHeader::CatalogBase.for_url(request.path)
   end
 
   private
