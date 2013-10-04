@@ -65,6 +65,8 @@ class PaymentBuilder
         payment.deliver! if [Debit, CreditCard].include?(payment.class)
         payment.save!
 
+        notify_big_billet_sail(payment)
+
         order.line_items.each do |item|
           variant = Variant.lock("LOCK IN SHARE MODE").find(item.variant.id)
           variant.decrement!(:inventory, item.quantity)
@@ -124,6 +126,18 @@ class PaymentBuilder
       current_payment.calculate_percentage!
       current_payment.deliver!
       current_payment.authorize!
+    end
+
+    def notify_big_billet_sail payment
+      Resque.enqueue(NotificationWorker, {
+        to: 'marcelo.azevedo@olook.com.br, claira.zambon@olook.com.br, rafael@olook.com.br',
+        body: "Pedido acima de 1000 Reais: #{payment.order.number}",
+        subject: "Pedido acima de mil Reais"
+      }) if is_a_big_billet_sail?(payment)     
+    end
+
+    def is_a_big_billet_sail?(payment)
+      payment.class == Billet && payment.total_paid > 1000
     end
 
     def respond_with_failure
