@@ -1,0 +1,41 @@
+<% if look_products.any? %>
+
+  <div id="related">
+    <h3 class="title">COMPRE O LOOK COMPLETO</h3>
+    <div class="cart_related">
+      <ul>
+        <li class="titulo_minicart">Você está levando...</li>
+      </ul>
+      <div class="empty_minicart">
+        <div class="valor_total"><%= installments_number(look_products.sum{|p| p.promotion? ? p.retail_price : p.price}) %>x de <%=  number_to_currency(installments_value(look_products.sum{|p| p.promotion? ? p.retail_price : p.price}, separator: ",")) %></div>
+      </div>
+      <div class="minicart_price"></div>
+      <%= form_tag add_variants_path(current_cart), method: :put, id: "minicart", name: "minicart", onsubmit: "if($(this).find('#add_product').hasClass('disabled')) return false;" do %>
+        <%= submit_tag "", onclick: track_event("Product", "AddLookToCart", @product.id.to_s), class: "add_product disabled", disabled:"disabled", id:"add_product", name:"commit", value: "" %>
+        <div id="submit_tooltip"><div class="icon"></div>Primeiro escolha os itens que deseja comprar do look, informando o seu tamanho.</div>
+      <% end %>
+      <input type="hidden" id="total_price" />
+    </div>
+    <ul class="carousel <%= look_products.count > 3 ? 'arrows' : '' %>">
+      <%
+          look_products.each do |product|
+        if product.liquidation?
+      %>
+    <%# fazer um partial de product_item especifico para a feature do look %>
+    <%= render 'look_product_item', product: LiquidationProductService.liquidation_product(product).product, product_presenter: product_presenter %>
+  <% else %>
+    <%= render 'look_product_item', product: product, product_presenter: product_presenter %>
+  <% end
+      end
+    %>
+</ul>
+<% if look_products.count > 3 %>
+  <%= link_to "Anterior", "javascript:void(0);", :class => "carousel-prev" %>
+  <%= link_to "Próximo", "javascript:void(0);", :class => "carousel-next" %>
+<% end %>
+<div id="related_footer"></div>
+</div>
+<% end %>
+<% content_for :footer do %>
+  
+<% end %>

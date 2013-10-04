@@ -13,6 +13,7 @@
 src_files:
   # - spec/javascripts/helpers/jasmine-jquery.js
   - spec/javascripts/helpers/jquery-1.9.1.min.js
+  - app/assets/javascripts/string_utils.js
   - app/assets/javascripts/credit_card.js
   - app/assets/javascripts/formatter.js
   # - assets/javascripts/*.js
