@@ -17,7 +17,7 @@ class Brand < ActiveRecord::Base
   end
 
   def title_text
-    text = name
+    text = name.capitalize
     text = "#{name} - #{seo_text}" unless seo_text.blank?
     "#{text} | Olook"
   end

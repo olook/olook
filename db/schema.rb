@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130920183108) do
+ActiveRecord::Schema.define(:version => 20130926174416) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -130,6 +130,8 @@ ActiveRecord::Schema.define(:version => 20130920183108) do
     t.string   "utm_medium"
     t.string   "utm_content"
     t.string   "utm_campaign"
+    t.string   "phone"
+    t.string   "profile"
   end
 
   add_index "campaign_emails", ["email"], :name => "index_campaign_emails_on_email"
@@ -203,6 +205,30 @@ ActiveRecord::Schema.define(:version => 20130920183108) do
   add_index "carts", ["coupon_id"], :name => "index_carts_on_coupon_id"
   add_index "carts", ["notified"], :name => "index_carts_on_notified"
   add_index "carts", ["user_id"], :name => "index_carts_on_user_id"
+
+  create_table "catalog_bases", :force => true do |t|
+    t.string   "url"
+    t.string   "type"
+    t.string   "h1"
+    t.string   "h2"
+    t.string   "small_banner1"
+    t.string   "alt_small_banner1"
+    t.string   "link_small_banner1"
+    t.string   "small_banner2"
+    t.string   "alt_small_banner2"
+    t.string   "link_small_banner2"
+    t.string   "medium_banner"
+    t.string   "alt_medium_banner"
+    t.string   "link_medium_banner"
+    t.string   "big_banner"
+    t.string   "alt_big_banner"
+    t.string   "link_big_banner"
+    t.string   "title"
+    t.string   "resume_title"
+    t.text     "text_complement"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
 
   create_table "catalog_products", :force => true do |t|
     t.integer  "catalog_id"
@@ -650,6 +676,19 @@ ActiveRecord::Schema.define(:version => 20130920183108) do
     t.string   "big_banner"
   end
 
+  create_table "live_feeds", :force => true do |t|
+    t.string   "firstname"
+    t.string   "gender"
+    t.date     "birthdate"
+    t.string   "email"
+    t.string   "ip"
+    t.integer  "question"
+    t.string   "zip"
+    t.string   "lastname"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "moip_callbacks", :force => true do |t|
     t.integer  "order_id"
     t.string   "id_transacao"
@@ -824,6 +863,14 @@ ActiveRecord::Schema.define(:version => 20130920183108) do
 
   add_index "points", ["profile_id"], :name => "index_points_on_profile_id"
   add_index "points", ["user_id"], :name => "index_points_on_user_id"
+
+  create_table "product_price_logs", :force => true do |t|
+    t.integer  "product_id"
+    t.decimal  "price",        :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "retail_price", :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.datetime "created_at",                                                  :null => false
+    t.datetime "updated_at",                                                  :null => false
+  end
 
   create_table "products", :force => true do |t|
     t.string   "name"

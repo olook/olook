@@ -484,6 +484,12 @@ section#home {
               background-position: 2px -617px;
             }
           }
+          &.numbers a {
+            background-position: -153px -612px;
+            &:hover {
+              background-position: -151px -615px;
+            }
+          }
         }
       }
     }

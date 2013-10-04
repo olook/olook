@@ -60,6 +60,7 @@ module Payments
         if order_analysis_service.should_send_to_analysis?
           log("Sending to clearsale analysis")
           clearsale_order_response = order_analysis_service.send_to_analysis
+          log("Analysis response: #{clearsale_order_response}")
         else
           log("Capturing transaction")
           capture(authorize_response)

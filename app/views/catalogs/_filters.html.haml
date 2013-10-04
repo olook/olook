@@ -16,7 +16,7 @@
       %p.title-category Moda Praia
       %ul.category-list
         - _filters.each do |text, amount|
-          %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:subcategory, text)), text.chomp, search.filter_selected?(:subcategory, text.chomp))
+          %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:subcategory, text)), text.chomp.gsub(/ ?moda praia/i, ''), search.filter_selected?(:subcategory, text.chomp))
 
 - else
   .filter
