@@ -105,4 +105,8 @@ module CatalogsHelper
       content_tag(:span, text, class: "#{style_class}", onclick: track_event("AntibounceBox", "SeeMoreProducts"))
     end
   end  
+
+  def order_variants_by_size(variants_array)
+    variants_array.sort{|a,b| CLOTH_SIZES_TABLE.index(a.description.to_s).to_i <=> CLOTH_SIZES_TABLE.index(b.description.to_s).to_i}
+  end
 end

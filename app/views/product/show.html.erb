@@ -26,6 +26,7 @@
   <% end %>
 
   <section id="product">
+    <%= link_to "Comprar o look completo", "#", :id => "goRelatedProduct" if @product.related_products.any? && (params[:srl] || Setting.disable_ab_test_for_look_products) %>
     <div class="box-left">
       <div id="gallery">
 
@@ -65,6 +66,10 @@
     </div>
     <%=image_tag("product/vantagens.jpg", class:"vantagens") %>
   </section>
+
+  <%= product_presenter.render_look_products if params[:srl] || Setting.disable_ab_test_for_look_products %>
+
+
   <!-- local onde o frequentlyboughttogether será exibido -->
   <!--div class="chaordic frequentlyboughttogether"></div-->
   <!-- local onde o similaritems será exibido -->
