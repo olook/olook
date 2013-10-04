@@ -95,7 +95,7 @@ class Product < ActiveRecord::Base
 
   def title_text
     color = product_color == 'Não informado' ? '' : product_color
-    name_with_color = "#{formatted_name(200)} #{product_color}"
+    name_with_color = "#{formatted_name(200)} #{color}"
     if name_with_color.size > 33
       "#{name_with_color} | Olook"
     else
