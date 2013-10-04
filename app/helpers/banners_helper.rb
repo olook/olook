@@ -20,8 +20,8 @@ module BannersHelper
       path = '/colecoes/olook?utf8=%E2%9C%93&slug=olook&category_id=4&sort_filter=1&price=0-600&shoe_sizes[]='
       link_to(image_tag('moments/banner_marca_olook.jpg'), path, onclick: track_event('Catalog', "SideBanner1From#{Category.key_for(category_id).to_s.camelize}", path))
     elsif options[:position] == :sidebotton
-      path = '/roupa/shorts'
-      link_to(image_tag('catalog/banner_160X600_shorts.gif'), path, onclick: track_event('Catalog', "SideBanner2From#{Category.key_for(category_id).to_s.camelize}", path))
+      path = '/roupa'
+      link_to(image_tag('catalog/160x600_B.jpg'), path, onclick: track_event('Catalog', "SideBanner2From#{Category.key_for(category_id).to_s.camelize}", path))
     elsif options[:position] == :botton
       link_to(image_tag('catalog/banner_quiz.jpg'), new_survey_path , onclick: track_event('Catalog', "BottomBannerFrom#{Category.key_for(category_id).to_s.camelize}", wysquiz_path))
     else
