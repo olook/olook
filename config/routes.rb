@@ -141,12 +141,15 @@ Olook::Application.routes.draw do
   match "/criteo" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/criteo_data.xml")
   match "/triggit" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/triggit_data.xml")
   match "/sociomantic" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/sociomantic_data.xml")
+  # template da ilove_ecommerce
+  match "/parceirosmkt" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/parceirosmkt_data.xml") 
+  match "/ilove_ecommerce" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/ilove_ecommerce_data.xml") 
+  
   
   match "/zanox", :to => "xml#zanox", :as => "zanox", :defaults => { :format => 'xml' }
   match "/afilio", :to => "xml#afilio", :as => "afilio", :defaults => { :format => 'xml' }
   match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
   match "/click_a_porter", :to => "xml#click_a_porter", :as => "click_a_porter", :defaults => { :format => 'xml' }  
-  match "/ilove_ecommerce", :to => "xml#ilove_ecommerce", :as => "ilove_ecommerce", :defaults => { :format => 'xml' }
   match "/zoom", :to => "xml#zoom", :as => "zoom", :defaults => { :format => 'xml' }
   match "/netaffiliation", :to => "xml#netaffiliation", :as => "netaffiliation", :defaults => { :format => 'xml' }
   match "/shopping_uol", :to => "xml#shopping_uol", :as => "shopping_uol", :defaults => { :format => 'xml' }
