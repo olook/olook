@@ -246,7 +246,221 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         dd{float:left;line-height:19px;margin-left:4px;margin-bottom: 10px;}
       }
     }
-  }
-  
+  } 
 }
 
+#content #related {
+  width:100%;
+  border-top:2px solid #000;
+  position: relative;
+  .caroufredsel_wrapper {
+    height:335px !important;
+  }
+  h3 {
+    font-family: $johnston;
+    font-weight: lighter;
+    width:320px; 
+    background: #FFF;
+    padding: 0 10px;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    top:-15px;
+  }
+  .caroufredsel_wrapper {
+    width:640px !important;
+    left:0px !important;
+      .error {
+        border: 1px solid #ff0000;
+        font-size: 10px;
+        text-align: center;
+        background: #ff949d;
+        padding: 5px;
+        color: #000;
+        font-family: $avenir;
+        display: none;
+        margin-bottom:10px;
+      }
+
+      .carousel {
+        left:20px !important;
+      }
+      #variant_number {
+        width:100%;
+        margin:15px 0;
+      }
+      img {width: 100%;}
+      input {
+        width:100%;
+        background: #000;
+        border: 0px;
+        color:#FFF;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 11px;
+        text-align: center;
+        padding:5px 0;
+      }
+      .added_product {
+        background: #acacac;
+        color:#ffffff;
+      }
+      li.product {
+        width:160px;
+        padding:0 10px;
+        margin: 0 8px;
+        a.product_link {
+          text-decoration: none;
+          color:#000;
+          .spy {
+            display: none;
+            position: absolute;
+            top: 125px;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(255,255,255,0.6);
+            padding: 10px 0;
+            font-family: 'avenir';
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: bold;
+            background-image:image-url('moments/sprite.png');
+            background-position: -36px -164px;
+            background-repeat: no-repeat;
+            background-size: 58%;
+          }
+          .info-product {
+            font-family: $avenir;
+            font-size: 13px;
+            text-decoration: none;
+            width:100%;
+            overflow-x:hidden;
+            br {display: none;}
+            span.name {
+              width:300px;
+              display: block;
+              overflow-x:hidden;
+            }
+            .brand {
+              display: block;
+              text-transform: uppercase;
+            }
+            .old {
+              text-decoration: line-through;
+              letter-spacing: -1px;
+            }
+            .txt-black {
+              color: #ef3742;
+              font-size: 14px;
+              font-weight: bold;
+              letter-spacing:-1px;
+              float:right;
+              margin-right:1px;
+            }
+          }
+        }
+        a.product_link:hover .spy {
+          display: block;
+        }
+      }
+      li.product:hover {
+        border:0px;
+      }
+  }
+  .carousel-prev, 
+  .carousel-next {
+    background:image-url('arrows.png') -17px 0px;
+    display: block;
+    float:left;
+    float: left;
+    width: 20px;
+    height: 50px;
+    text-indent: -9999px;
+    position: absolute;
+    top: 90px;
+  }
+  .carousel-next {
+    background-position-x: 37px;
+    left: 618px;
+  }
+  .cart_related {
+    float:right;
+    width:325px;
+    color:#000;
+    padding-top:70px;
+    background:image-url('product/compre_olook_completo.jpg') no-repeat 0px 20px;
+    #submit_tooltip {
+      color:#515151;
+      width: 90%;
+      text-align: center;
+      padding:5%;
+      background: #ededed;
+      border: 1px solid #cccccc;
+      font-size: 12px;
+      margin-top:10px;
+      position: relative;
+      margin-top:20px;
+      div.icon {
+        width:100%;
+        height:14px;
+        position: absolute;
+        top:-11px;
+        left:0px;
+        background:image-url('product/arrow_compre_olook.jpg') no-repeat center center;
+      }
+    }
+    #add_product {background: image-url('product/add_bag.png') center -102px no-repeat;text-indent: -9999px;width: 100%;height: 45px;margin-top:75px;display: block;border: none;cursor: pointer;clear: both;}
+    ul li.titulo_minicart,
+    .minicart_price {
+      width: 100%;
+      padding:0px;
+      text-align: left;
+      font-size: 17px;
+      margin-top:30px;
+      font-family: $avenir;
+      font-weight: bold;
+      color: #000;
+    }
+    ul li {
+      margin-bottom:10px;
+    }
+    li.titulo_minicart {display: none;}
+    .valor_total {
+      font-family: $avenir;
+      font-size: 20px;
+      text-align: right;
+      color:#000;
+      font-weight: bold;
+    }
+  }
+  .product_added {
+    background: none;
+    padding:0px;
+    display: none;
+    li.titulo_minicart {display: block;}
+    #add_product {
+      background-position: center 0px;
+      margin-top:35px;
+    }
+    #submit_tooltip {
+      display: none;
+    }
+
+  }
+}
+
+a#goRelatedProduct {
+  width:65px;
+  height: 88px;
+  display: block;
+  background: image-url('product/ver_look_completo.jpg') right top no-repeat;
+  text-indent: -9999px;
+  position: absolute;
+  left: 460px;
+  z-index: 99;
+  top: 293px;
+}
+
+a#goRelatedProduct:hover {
+  background-position: top left;
+}
