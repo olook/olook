@@ -408,12 +408,43 @@
         one: Serviço de email
         other: Serviços de email
 
+      catalog_header_catalog_base:
+        one: 'Header do Catálogo'
+        other: 'Headers do Catálogo'
+
+      catalog_header_catalog_base_text:
+        one: 'Header Textual do Catálogo para Modelos'
+        other: 'Headers Textuais do Catálogo para Modelos'
+
+      catalog_header_catalog_base_banner:
+        one: 'Banner Header dos Catálogos'
+        other: 'Banner Header dos Catálogos'
+
       gift_recipient: presenteado
       gift_occasion: "ocasião"
       address: Endereço
       credit_card: Cartão de crédito
 
     attributes:
+      catalog_header/catalog_base:
+        url: 'Url'
+        type: 'Tipo'
+        seo_text: 'Text para título da página (SEO)'
+        small_banner1: 'Destaque menor/superior (150x300)'
+        small_banner2: 'Destaque menor/inferior (150x300)'
+        medium_banner: 'Destaque maior (300x600)'
+        big_banner: 'Destaque grande (600x500)'
+        alt_small_banner1: 'Alt da imagem'
+        alt_small_banner2: 'Alt da imagem'
+        alt_medium_banner: 'Alt da imagem'
+        alt_big_banner: 'Alt da imagem'
+        link_small_banner1: 'Link (url completa, com Http://)'
+        link_small_banner2: 'Link (url completa, com Http://)'
+        link_medium_banner: 'Link (url completa, com Http://)'
+        link_big_banner: 'Link (url completa, com Http://)'
+        title: 'Título para o modelo'
+        resume_title: 'Texto resumido'
+        text_complement: 'Complemento do texto'
       highlight_campaign:
         label: Nome da campanha
         product_ids: Ids dos produtos
