@@ -3,15 +3,15 @@
 <% @products.each do |product| %>
 <product>
 <id><%= product.id %></id>
-<name><%= product.formatted_name(200) %></name>
+<name><![CDATA[<%= product.formatted_name(200) %>]]></name>
 <image><%= full_image_path product.xml_picture(:main) %></image>
 <url>
-  <%= product.product_url(:utm_source => "triggit", :utm_medium => "Remarketing", :utm_campaign => "Produtos", :utm_content => product.id) %>
+  <![CDATA[<%= product.product_url(:utm_source => "triggit", :utm_medium => "Remarketing", :utm_campaign => "Produtos", :utm_content => product.id) %>]]>
 </url>
 <price><%= number_with_precision(product.retail_price, precision: 2, separator: ".") %></price>
-<brand> <%= product.brand %> </brand>
-<description> <%= product.description %> </description>
-<category><%= product.subcategory %></category>
+<brand><![CDATA[ <%= product.brand %>]]> </brand>
+<description><![CDATA[ <%= product.description %>]]> </description>
+<category><![CDATA[<%= product.subcategory %>]]></category>
 </product>
 <% end %>
 </products>

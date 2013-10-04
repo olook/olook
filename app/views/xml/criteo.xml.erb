@@ -2,15 +2,15 @@
 <products>
 <% @products.each do |product| %>
 <product id="<%= product.id %>">
-<name><%= product.formatted_name(200) %></name>
+<name><![CDATA[<%= product.formatted_name(200) %>]]></name>
 <smallimage><%= full_image_path product.xml_picture(:thumb) %></smallimage>
 <bigimage><%= full_image_path product.xml_picture(:main) %></bigimage>
-<producturl><%= product.product_url(:utm_source => "criteo", :utm_medium => "Remarketing", :utm_campaign => "Produtos") %></producturl>
-<description><%= product.description %></description>
+<producturl><![CDATA[<%= product.product_url(:utm_source => "criteo", :utm_medium => "Remarketing", :utm_campaign => "Produtos") %>]]></producturl>
+<description><![CDATA[<%= product.description %>]]></description>
 <price><%= number_with_precision(product.retail_price, precision: 2, separator: ",") %></price>
 <retailprice><%= number_with_precision(product.price, precision: 2, separator: ",") %></retailprice>
 <discount><%= (100-(product.retail_price*100/product.price)).to_i %></discount>
-<brand><%= product.brand %></brand>
+<brand><![CDATA[<%= product.brand %>]]></brand>
 <recommendable>1</recommendable>
 <instock><%= product.instock %></instock>
 <category><%= @liquidation_products.include?(product.id) ? "OLOOKLET" : product.subcategory.try(:upcase) %></category>
