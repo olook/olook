@@ -1,0 +1,38 @@
+<% shoe_size = params[:shoe_sizes].to_a.find { |ss| !ss.blank? }.try(:to_i) || current_user.try(:shoes_size).try(:to_i) %>
+
+  <li class="product<%= " promotion" if product.promotion? %>" data-id="<%= product.id %>">
+
+    <%= link_to product, :class => "product_link", :rel => "#{product.id}", onclick: track_event("Product", "ClickLookProduct", "#{@product.id}-#{product.id}"), :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}}, :remote => (defined?(suggestion) || gift)  do %>
+
+      <%= content_tag(:span, "Espiar", :class => 'spy', :data => {:url => spy_product_path(product), :params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}}, :rel => "#{product.id}") %>
+
+      <%= image_tag("common/ajax-loader-product-smaller.gif", :alt => product.name, :class => "async", data: { product: product.showroom_picture, backside: product.backside_picture, wearing: product.wearing_picture, showroom: product.showroom_picture } ) %>
+
+      <div class="info-product">
+        <span class="name"><%= product.formatted_name(22) %></span><br />
+        <strong class="brand"><%= product.brand %></strong><br />
+
+        <span class="price">
+          <% if product.promotion? %>
+            <span class="old">De <%= number_to_currency product.price %></span><br>
+            <span class="txt-black">por <%= number_to_currency product.retail_price %></span><br>
+          <% else %>
+            <%= number_to_currency product.price %> ou <span class="plots"><%= installments(product.price) %></span>
+          <% end %>
+        </span>
+      </div>
+    <% end %>
+    <%= form_tag cart_look_items_path, remote: true do %>
+      <%= hidden_field_tag :product_id, product.id %>
+      <%= hidden_field_tag :product_price, product.promotion? ? product.retail_price.to_s : product.price.to_s %>
+      <%= select_tag("variant_number", options_for_select({'Selecione' => ''}.merge(order_variants_by_size(product.variants.where("inventory > 0")).inject({}){|a,b| a[b.description] = b.number; a}), selected: 'Selecione', style:"position:relative; z-index:1000;")) %>
+      <div class="error"></div>
+      <%= submit_tag "QUERO ESTE!", onclick: track_event("Product", "AddLookProduct", "#{@product.id}-#{product.id}") %>
+    <% end %>
+    <% if params[:controller] == "members" && params[:action] == "showroom" && params[:lbp] == "1" %>
+      <p class="facebook_like_button">
+        <fb:like class="bt_face" href="<%= product_url(product.id) %>" send="false" layout="button_count" width="110" show_faces="false" font="arial"></fb:like>
+      </p>
+    <% end %>
+
+  </li>
