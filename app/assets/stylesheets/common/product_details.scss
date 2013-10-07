@@ -254,7 +254,18 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
   border-top:2px solid #000;
   position: relative;
   .caroufredsel_wrapper {
-    height:335px !important;
+    height:405px !important;
+    .plots {letter-spacing: -1px;}
+    .alignImages {
+      height: 241px;
+      position: relative;
+      z-index: 1;
+      margin-bottom:8px;
+      img {
+        position: absolute;
+        bottom:0px;
+      }
+    }
   }
   h3 {
     font-family: $johnston;
@@ -315,7 +326,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
           .spy {
             display: none;
             position: absolute;
-            top: 125px;
+            top: 206px;
             width: 100%;
             text-align: center;
             background-color: rgba(255,255,255,0.6);
@@ -328,6 +339,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
             background-position: -36px -164px;
             background-repeat: no-repeat;
             background-size: 58%;
+            z-index: 99;
           }
           .info-product {
             font-family: $avenir;
@@ -356,6 +368,9 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
               letter-spacing:-1px;
               float:right;
               margin-right:1px;
+              position: relative;
+              top: -3px;
+              margin-bottom:-3px;
             }
           }
         }
