@@ -261,7 +261,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
   position: relative;
   margin-top:40px;
   .caroufredsel_wrapper {
-    height:405px !important;
+    height:416px !important;
     .plots {letter-spacing: -1px;}
     .alignImages {
       height: 241px;
@@ -307,6 +307,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         width:100%;
         margin:15px 0;
         letter-spacing: -1px;
+        font-size: 11px;
       }
       img {width: 100%;}
       input {
@@ -323,6 +324,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       .added_product {
         background: #acacac;
         color:#ffffff;
+        font-weight: normal;
       }
       li.product {
         width:160px;
@@ -371,7 +373,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
             }
             .txt-black {
               color: #ef3742;
-              font-size: 14px;
+              font-size: 13px;
               font-weight: bold;
               letter-spacing:-1px;
               float:right;
