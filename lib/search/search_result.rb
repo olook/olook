@@ -23,6 +23,10 @@ class SearchResult
     @hits.dup if @hits
   end
 
+  def set_groups(key, new_hash)
+    @groups[key] = new_hash
+  end
+
   private
     def parse_facets
       @groups = {}
