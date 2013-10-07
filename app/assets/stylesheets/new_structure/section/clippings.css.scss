@@ -15,7 +15,11 @@
   }
   p.contact{
     font-size: 12px;
+    border-bottom: 1px solid #C2C2C2;
+    margin-bottom: 15px;
     margin-left: 12px;
+    padding-bottom: 25px;
+    width: 990px;
   }
   .b_left{
     margin-left: 12px;
@@ -42,6 +46,7 @@
     float: left;
     height: 200px;
     margin-left: 10px;
+    background-color: #fff;
     li{
       float: left;
       &.media{
@@ -136,7 +141,8 @@
     ul{
       margin: 12px 0 0;
       width: 455px;
-      background-color: none;
+      height: 175px;
+      background-color: #fff !important;
       li{
         float: left;
         &.media{float: right;margin: 30px 0 0;}
