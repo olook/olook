@@ -3,7 +3,7 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
-  resources :live_feeds, path: "api", only: [:create]
+  resources :live_feeds, path: "api", only: [:create, :index]
 
 
   get "/stylequiz", to: "quiz#new", as: "wysquiz"
