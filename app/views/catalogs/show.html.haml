@@ -18,6 +18,7 @@
     = javascript_include_tag "common/fb_like_button"
 
 = cache @cache_key, expire_in: 15.minutes do
+  - @header = @header.first
 
   #catalog
     %aside
@@ -26,34 +27,34 @@
         .promo_brands
           = banner_for(@category, position: :sidebotton)
 
-    - if 1==2
-      .promo_catalog
-        =link_to image_tag("catalog/full_single.jpg"), "#"
+    - if @header
+      - if @header.big_banner?
+        .promo_catalog
+          =link_to image_tag("catalog/full_single.jpg"), "#"
  
-    - if 1==1
-      .banners_group
-        %ul
-          %li.big
-            =link_to image_tag("catalog/primavera_verao_full.jpg"), "#"
-          %li
-            =link_to image_tag("catalog/menor_1.jpg"), "#"
-          %li
-            =link_to image_tag("catalog/menor_2.jpg"), "#"
+      - if @header.small_banner?
+        .banners_group
+          %ul
+            %li.big
+              =link_to image_tag("catalog/primavera_verao_full.jpg"), "#"
+            %li
+              =link_to image_tag("catalog/menor_1.jpg"), "#"
+            %li
+              =link_to image_tag("catalog/menor_2.jpg"), "#"
 
-    - if @header = @header.first && @header.text?
-      .about_item
-        %h2.title
-          Saia
-        %span.summary
-          Se antigamente as mulheres precisavam lidar com a escassez de modelagens de saias, hoje em dia chegam a se perder com tanta variedade da peça.  
-          %br
-            
-        %span.full
-          Se antigamente as mulheres precisavam lidar com a escassez de modelagens de saias, hoje em dia chegam a se perder com tanta variedade da peça. Além de ser uma peça chave no guarda-roupa feminino, as saias são capazes de dar charme, autencidade e muita feminilidade a qualquer look. Com elas, é possível deixar sem medo a velha e boa calça jeans um pouquinho de lado. Entre os modelos que fazem a cabeça das mulheres estão a saia Lápis (comprimento na altura do joelho), a mini saia (que deixa as pernocas totalmente de fora) e o peplum (que nada mais é do que um babadinho localizado na região do quadril ou final da cintura). Aqui na Olook você encontrará o modelo ideal para você! ;) 
-          %br   
-        =link_to (">> Tudo sobre saia"), "#", :class => "more_info_show"
-        =link_to (">> Ocultar conteúdo"), "#", :class => "more_info_hide"
-        %fb:like{"href" => "http://#{Rails.env == 'production' ? "www" : "homolog"}.olook.com.br/olook-na-imprensa", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false", "class" => "like", "width" => "100"}
+      - if @header.text?
+        .about_item
+          %h2.title= @header.title
+          %span.summary
+            = @header.resume_title
+            %br
+
+          %span.full
+            = @header.text_complement
+            %br
+          =link_to (">> Tudo sobre #{@header.title.downcase}"), "#", :class => "more_info_show"
+          =link_to (">> Ocultar conteúdo"), "#", :class => "more_info_hide"
+          %fb:like{"href" => "http://#{Rails.env == 'production' ? "www" : "homolog"}.olook.com.br/olook-na-imprensa", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false", "class" => "like", "width" => "100"}
     .pagination.topo
       = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
     #result
