@@ -2,6 +2,8 @@
   require 'builder'
 
 class TopsterXml
+  extend XmlHelper
+  extend ActionView::Helpers::NumberHelper
 
   RENDERERS = {
     nextperformance: 'nextperformance_template.xml.erb',
@@ -9,11 +11,9 @@ class TopsterXml
     criteo: 'criteo.xml.erb',
     triggit: 'triggit.xml.erb',
     sociomantic: 'sociomantic.xml.erb',
+    parceirosmkt: 'ilove_ecommerce.xml.erb',
+    ilove_ecommerce: 'ilove_ecommerce.xml.erb'
   }
-
-
-  extend XmlHelper
-  extend ActionView::Helpers::NumberHelper
 
   def self.create_xmls
     create_xml(RENDERERS.keys)

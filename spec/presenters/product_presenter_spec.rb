@@ -46,15 +46,15 @@ describe ProductPresenter do
     end
   end
 
-  describe '#render_related_products' do
+  describe '#render_look_products' do
     let(:second_shoe) { FactoryGirl.create(:red_slipper, collection_id: 1) }
     let(:third_shoe) { FactoryGirl.create(:silver_slipper, collection_id: 1) }
 
     it "should render the partial with product's related products" do
       products = [second_shoe, third_shoe]
-      subject.stub(:related_products).and_return(products)
-      template.should_receive(:render).with(:partial => 'product/related_products', :locals => {:related_products => products}).and_return('related')
-      subject.render_related_products.should == 'related'
+      subject.stub(:look_products).and_return(products)
+      template.should_receive(:render).with(:partial => 'product/look_products', :locals => {:look_products => products, :product_presenter => subject}).and_return('related')
+      subject.render_look_products.should == 'related'
     end
   end
 
@@ -157,10 +157,10 @@ describe ProductPresenter do
     end
   end
 
-  describe '#related_products' do
+  describe '#look_products' do
     context "when the product doesn't have any related products" do
       it "should return an empty array" do
-        subject.related_products.should be_empty
+        subject.look_products.should be_empty
       end
     end
 
@@ -173,14 +173,9 @@ describe ProductPresenter do
       let!(:v_related_bag)       { FactoryGirl.create(:variant, :product => related_bag, :inventory => 10) }
       let!(:v_out_of_stock_bag)  { FactoryGirl.create(:variant, :product => out_of_stock_bag) }
 
-      it "should return an empty array if all of them are of the same category as the presented product" do
-        product.relate_with_product related_shoe
-        subject.related_products.should == []
-      end
-
       it "should only included products in stock" do
         product.relate_with_product out_of_stock_bag
-        subject.related_products.should == []
+        subject.look_products.should == []
       end
     end
   end

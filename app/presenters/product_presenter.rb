@@ -120,7 +120,7 @@ class ProductPresenter < BasePresenter
         result
       end
     end
-    [product] + product_list
+    product_list.any? ? ([product] + product_list) : product_list
   end
 
   def render_price_for cart_service

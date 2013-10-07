@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Cart::LookItemController do
+describe Cart::LookItemsController do
 
 end
