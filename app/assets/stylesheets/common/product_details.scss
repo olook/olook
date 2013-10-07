@@ -249,10 +249,17 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
   } 
 }
 
+#content {
+  img.vantagens {
+    margin-bottom: 20px !important;
+  }
+}
+
 #content #related {
   width:100%;
   border-top:2px solid #000;
   position: relative;
+  margin-top:40px;
   .caroufredsel_wrapper {
     height:405px !important;
     .plots {letter-spacing: -1px;}
@@ -299,6 +306,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       #variant_number {
         width:100%;
         margin:15px 0;
+        letter-spacing: -1px;
       }
       img {width: 100%;}
       input {
@@ -392,7 +400,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     height: 50px;
     text-indent: -9999px;
     position: absolute;
-    top: 90px;
+    top: 122px;
   }
   .carousel-next {
     background-position-x: 37px;

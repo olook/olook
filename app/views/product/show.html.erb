@@ -64,10 +64,10 @@
         </ul>
       </div>
     </div>
-    <%=image_tag("product/vantagens.jpg", class:"vantagens") %>
+    <br style="clear:both">
   </section>
-
   <%= product_presenter.render_look_products if params[:srl] || Setting.disable_ab_test_for_look_products %>
+  <%=image_tag("product/vantagens.jpg", class:"vantagens") %>
 
 
   <!-- local onde o frequentlyboughttogether será exibido -->
