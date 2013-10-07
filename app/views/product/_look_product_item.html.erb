@@ -6,7 +6,9 @@
 
       <%= content_tag(:span, "Espiar", :class => 'spy', :data => {:url => spy_product_path(product), :params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}}, :rel => "#{product.id}") %>
 
+      <div class="alignImages">
       <%= image_tag("common/ajax-loader-product-smaller.gif", :alt => product.name, :class => "async", data: { product: product.showroom_picture, backside: product.backside_picture, wearing: product.wearing_picture, showroom: product.showroom_picture } ) %>
+      </div>
 
       <div class="info-product">
         <span class="name"><%= product.formatted_name(22) %></span><br />
