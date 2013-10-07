@@ -490,6 +490,12 @@ section#home {
               background-position: -151px -615px;
             }
           }
+          &.ellus a {
+            background-position: -289px -612px;
+            &:hover {
+              background-position: -290px -616px;
+            }
+          }
         }
       }
     }
