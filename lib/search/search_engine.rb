@@ -121,7 +121,7 @@ class SearchEngine
     @filters_result ||= {}
     url = build_filters_url(options)
     @filters_result[url] ||= fetch_result(url, parse_facets: true)
-    remove_care_products_from(@filters_result[url])
+    @filters_result[url].set_groups('subcategory', subcategory_without_care_products(@filters_result[url]))
     @filters_result[url]
   end
 
@@ -261,10 +261,11 @@ class SearchEngine
     end
   end
 
-  def remove_care_products_from(filters)
-    if filters.grouped_products('subcategory')
-      filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) }
+  def subcategory_without_care_products(filters)
+    if _filters = filters.grouped_products('subcategory')
+      return _filters.delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) }
     end
+    filters
   end
 
   private
