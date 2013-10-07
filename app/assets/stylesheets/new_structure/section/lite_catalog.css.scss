@@ -117,6 +117,31 @@ aside{
   margin-top: 20px;
 }
 
+.size_top {
+  width:530px;
+  position: absolute;
+  right: 0px;
+  top:0px;
+  float:right;
+  p {
+    float:left;
+    font-weight: bold;
+    text-transform: uppercase;
+    color:#000;
+    font-family: $avenir;
+    font-size: 11px;
+    padding-top:3px;
+  }
+  ul {float:left;width:392px;}
+  ul li {float:left;margin-left:8px;}
+  ul li a {display: block;border:1px solid #d1d1d1;color: #6d6e71;text-align: center;width: 20px;padding-top:2px;font-size: 12px;text-decoration: none;height: 18px;}
+  ul li a span.txt-unico {font-size: 8px;}
+  ul li a:hover {
+    border-color: #ef3742;
+    color:#ef3742;
+  }
+  ul li a.selected {background: #000;color:#FFF;border:1px solid #000;cursor: default;}
+}
 
 
 
