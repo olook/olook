@@ -1,6 +1,16 @@
 # encoding: utf-8
 module CatalogsHelper
   CLOTH_SIZES_TABLE = ["PP","P","M","G","GG","33","34","35","36","37","38","39","40","42","44","46","Único","Tamanho único"]
+  CLOTH_CLASSES_HASH = {
+    "Único" => "unico",
+    "Unico" => "unico",
+    "Clucth" => "unico",
+    "Grande" => "grande",
+    "Bolsa Grande" => "bolsa_grande",
+    "Bolsa Média" => "bolsa_grande",
+    "Tamanho único" => "tamanho_unico",
+    "Regulável" => "tamanho_regulavel"
+  }
   UPCASE_BRANDS = ["TVZ"]
   HIGHLIGHT_BRANDS = {"olook" => 1, "olook concept" => 2, "olook essential" => 3}
   DOWNCASE_WORDS = Set.new( %w{ e de do da a o } )
@@ -108,5 +118,9 @@ module CatalogsHelper
 
   def order_variants_by_size(variants_array)
     variants_array.sort{|a,b| CLOTH_SIZES_TABLE.index(a.description.to_s).to_i <=> CLOTH_SIZES_TABLE.index(b.description.to_s).to_i}
+  end
+
+  def category_style_class text
+    CLOTH_CLASSES_HASH.keys.include?(text) ? CLOTH_CLASSES_HASH[text] : ''
   end
 end

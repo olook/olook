@@ -1,7 +1,6 @@
 .exhibition-mode
   = form_tag catalog_path(parameters: params[:parameters]), method: 'get' do
     %fieldset
-      %span.label ORDENAÇÃO:
       %p{class: "selected_relevance#{' watermelon' if params[:por].present? && params[:por].to_s != '0'}" }
         %span NOSSA SELEÇÃO
       = select_tag('por', options_for_select({"NOSSA SELEÇÃO" => 0, "MENOR PREÇO" => "menor-preco", "MAIOR PREÇO" => "maior-preco", "MAIOR DESCONTO" => "maior-desconto"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
