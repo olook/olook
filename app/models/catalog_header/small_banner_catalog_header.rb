@@ -7,4 +7,8 @@ class CatalogHeader::SmallBannerCatalogHeader < CatalogHeader::CatalogBase
   mount_uploader :medium_banner, CatalogHeaderUploader
   mount_uploader :small_banner1, CatalogHeaderUploader
   mount_uploader :small_banner2, CatalogHeaderUploader
+
+  def small_banner?
+    true
+  end
 end
