@@ -264,10 +264,9 @@ class SearchEngine
   end
 
   def subcategory_without_care_products(filters)
-    if _filters = filters.grouped_products('subcategory')
-      return _filters.delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) }
-    end
-    filters
+    _filters = filters.grouped_products('subcategory')
+    _filters.delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) } if _filters
+    _filters
   end
 
   private
