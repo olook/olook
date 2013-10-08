@@ -2,6 +2,7 @@
 class CatalogsController < ApplicationController
   layout "lite_application"
   prepend_before_filter :verify_if_is_catalog
+  helper_method :header
 
   def show
     search_params = SeoUrl.parse(params)
@@ -25,11 +26,18 @@ class CatalogsController < ApplicationController
     @pixel_information = @category = params[:category]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign_products.cache_key if @campaign_products}"
     expire_fragment(@cache_key) if params[:force_cache].to_i == 1
-
-    @header = CatalogHeader::CatalogBase.for_url(request.path)
   end
 
   private
+
+    def header
+      @header ||= CatalogHeader::CatalogBase.for_url(request.path).first
+    end
+
+    def title_text
+      Seo::SeoManager.new(request.path, model: header).select_meta_tag
+    end
+
     def verify_if_is_catalog
       #TODO Please remove me when update Rails version
       #We can use constraints but this version (3.2.13) has a bug

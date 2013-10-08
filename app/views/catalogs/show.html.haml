@@ -18,8 +18,6 @@
     = javascript_include_tag "common/fb_like_button"
 
 = cache @cache_key, expire_in: 15.minutes do
-  - @header = @header.first
-
   #catalog
     %aside
       = render "filters", search: @search, category: @category
@@ -27,32 +25,32 @@
         .promo_brands
           = banner_for(@category, position: :sidebotton)
 
-    - if @header
-      - if @header.big_banner?
+    - if header
+      - if header.big_banner?
         .promo_catalog
-          =link_to image_tag(@header.big_banner, alt: @header.alt_big_banner, title: @header.alt_big_banner), @header.link_big_banner
+          =link_to image_tag(header.big_banner, alt: header.alt_big_banner, title: header.alt_big_banner), header.link_big_banner
 
-      - if @header.small_banner?
+      - if header.small_banner?
         .banners_group
           %ul
             %li.big
-              =link_to image_tag(@header.medium_banner, alt: @header.alt_medium_banner, title: @header.alt_medium_banner), @header.link_medium_banner
+              =link_to image_tag(header.medium_banner, alt: header.alt_medium_banner, title: header.alt_medium_banner), header.link_medium_banner
             %li
-              =link_to image_tag(@header.small_banner1, alt: @header.alt_small_banner1, title: @header.alt_medium_banner), @header.link_small_banner1
+              =link_to image_tag(header.small_banner1, alt: header.alt_small_banner1, title: header.alt_medium_banner), header.link_small_banner1
             %li
-              =link_to image_tag(@header.small_banner2, alt: @header.alt_small_banner2, title: @header.alt_medium_banner), @header.link_small_banner2
+              =link_to image_tag(header.small_banner2, alt: header.alt_small_banner2, title: header.alt_medium_banner), header.link_small_banner2
 
-      - if @header.text?
+      - if header.text?
         .about_item
-          %h2.title= @header.title
+          %h2.title= header.title
           %span.summary
-            = @header.resume_title
+            = header.resume_title
             %br
 
           %span.full
-            = @header.text_complement
+            = header.text_complement
             %br
-          =link_to (">> Tudo sobre #{@header.title.downcase}"), "#", :class => "more_info_show"
+          =link_to (">> Tudo sobre #{header.title.downcase}"), "#", :class => "more_info_show"
           =link_to (">> Ocultar conteúdo"), "#", :class => "more_info_hide"
           %fb:like{"href" => "http://#{Rails.env == 'production' ? "www" : "homolog"}.olook.com.br#{request.path}", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false", "class" => "like", "width" => "100"}
     .pagination.topo

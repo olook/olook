@@ -19,6 +19,10 @@ class CatalogHeader::CatalogBase < ActiveRecord::Base
     where(enabled:true, url: url)
   end
 
+  def title_text
+    self[:seo_text]
+  end
+
   def text?
     false
   end
