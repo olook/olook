@@ -16,7 +16,7 @@ class CatalogHeader::CatalogBase < ActiveRecord::Base
   end
 
   def self.for_url(url)
-    where(url: url)
+    where(enabled:true, url: url)
   end
 
   def text?
