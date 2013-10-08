@@ -75,39 +75,39 @@
     %p.title
       OUTRAS CATEGORIAS
     %li
-      = link_to "Roupas femininas", clothes_path, class: "categories"
+      = link_to "Roupas femininas", catalog_path(category: "roupa"), class: "categories"
     %li
-      = link_to "Bolsas femininas", bags_path, class: "categories" 
+      = link_to "Bolsas femininas", catalog_path(category: "bolsa"), class: "categories" 
     %li
-      = link_to "Acessórios femininos", accessories_path, class: "categories"
+      = link_to "Acessórios femininos", catalog_path(category: "acessorio"), class: "categories"
 
   - if search.filter_value('category').to_a.include?('roupa')
     %p.title
       OUTRAS CATEGORIAS
     %li
-      = link_to "Sapatos femininos", shoes_path, class: "categories"
+      = link_to "Sapatos femininos", catalog_path(category: "sapato"), class: "categories"
     %li
-      = link_to "Bolsas femininas", bags_path, class: "categories" 
+      = link_to "Bolsas femininas", catalog_path(category: "bolsa"), class: "categories" 
     %li
-      = link_to "Acessórios femininos", accessories_path, class: "categories"
+      = link_to "Acessórios femininos", catalog_path(category: "acessorio"), class: "categories"
 
   - if search.filter_value('category').to_a.include?('acessorio')
     %p.title
       OUTRAS CATEGORIAS
     %li 
-      = link_to "Roupas femininas", clothes_path, class: "categories" 
+      = link_to "Roupas femininas", catalog_path(category: "roupa"), class: "categories" 
     %li
-      = link_to "Sapatos femininos", shoes_path, class: "categories"
+      = link_to "Sapatos femininos", catalog_path(category: "sapato"), class: "categories"
     %li
-      = link_to "Bolsas femininas", bags_path, class: "categories" 
+      = link_to "Bolsas femininas", catalog_path(category: "bolsa"), class: "categories" 
 
   - if search.filter_value('category').to_a.include?('bolsa')
     %p.title
       OUTRAS CATEGORIAS
     %li
-    = link_to "Roupas femininas", clothes_path, class: "categories" 
+    = link_to "Roupas femininas", catalog_path(category: "roupa"), class: "categories" 
     %li
-    = link_to "Sapatos femininos", shoes_path, class: "categories"
+    = link_to "Sapatos femininos", catalog_path(category: "sapato"), class: "categories"
     %li
-    = link_to "Acessórios femininos", accessories_path, class: "categories"
+    = link_to "Acessórios femininos", catalog_path(category: "acessorio"), class: "categories"
     
