@@ -12,7 +12,8 @@ class TopsterXml
     triggit: 'triggit.xml.erb',
     sociomantic: 'sociomantic.xml.erb',
     parceirosmkt: 'ilove_ecommerce.xml.erb',
-    ilove_ecommerce: 'ilove_ecommerce.xml.erb'
+    ilove_ecommerce: 'ilove_ecommerce.xml.erb',
+    nano_interactive: 'nano_interactive.xml.erb'
   }
 
   def self.create_xmls
