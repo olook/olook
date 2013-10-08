@@ -30,17 +30,17 @@
     - if @header
       - if @header.big_banner?
         .promo_catalog
-          =link_to image_tag(@header.big_banner, alt: @header.alt_big_banner), @header.link_big_banner
+          =link_to image_tag(@header.big_banner, alt: @header.alt_big_banner, title: @header.alt_big_banner), @header.link_big_banner
 
       - if @header.small_banner?
         .banners_group
           %ul
             %li.big
-              =link_to image_tag(@header.medium_banner, alt: @header.alt_medium_banner), @header.link_medium_banner
+              =link_to image_tag(@header.medium_banner, alt: @header.alt_medium_banner, title: @header.alt_medium_banner), @header.link_medium_banner
             %li
-              =link_to image_tag(@header.small_banner1, alt: @header.alt_small_banner1), @header.link_small_banner1
+              =link_to image_tag(@header.small_banner1, alt: @header.alt_small_banner1), title: @header.alt_medium_banner, @header.link_small_banner1
             %li
-              =link_to image_tag(@header.small_banner2, alt: @header.alt_small_banner2), @header.link_small_banner2
+              =link_to image_tag(@header.small_banner2, alt: @header.alt_small_banner2), title: @header.alt_medium_banner, @header.link_small_banner2
 
       - if @header.text?
         .about_item
