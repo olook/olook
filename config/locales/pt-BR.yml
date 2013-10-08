@@ -428,6 +428,7 @@
     attributes:
       catalog_header/catalog_base:
         url: 'Url'
+        enabled: 'Ativar?'
         type: 'Tipo'
         seo_text: 'Text para título da página (SEO)'
         small_banner1: 'Destaque menor/superior (150x300)'
