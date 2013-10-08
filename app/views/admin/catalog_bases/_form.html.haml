@@ -14,6 +14,9 @@
     = f.label :url
     %br/
     = f.text_field :url
+  = f.check_box :enabled
+  = f.label :enabled
+  %br/
   - case params[:type]
   - when 'CatalogHeader::TextCatalogHeader'
     = f.hidden_field :type
