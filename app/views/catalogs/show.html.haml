@@ -30,17 +30,17 @@
     - if @header
       - if @header.big_banner?
         .promo_catalog
-          =link_to image_tag("catalog/full_single.jpg"), "#"
- 
+          =link_to image_tag(@header.big_banner, alt: @header.alt_big_banner), @header.link_big_banner
+
       - if @header.small_banner?
         .banners_group
           %ul
             %li.big
-              =link_to image_tag("catalog/primavera_verao_full.jpg"), "#"
+              =link_to image_tag(@header.medium_banner, alt: @header.alt_medium_banner), @header.link_medium_banner
             %li
-              =link_to image_tag("catalog/menor_1.jpg"), "#"
+              =link_to image_tag(@header.small_banner1, alt: @header.alt_small_banner1), @header.link_small_banner1
             %li
-              =link_to image_tag("catalog/menor_2.jpg"), "#"
+              =link_to image_tag(@header.small_banner2, alt: @header.alt_small_banner2), @header.link_small_banner2
 
       - if @header.text?
         .about_item
