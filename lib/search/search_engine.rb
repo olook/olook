@@ -120,9 +120,11 @@ class SearchEngine
   def filters(options={})
     @filters_result ||= {}
     url = build_filters_url(options)
-    @filters_result[url] ||= fetch_result(url, parse_facets: true)
-    remove_care_products_from(@filters_result[url])
-    @filters_result[url]
+    @filters_result[url] ||= -> {
+      f = fetch_result(url, parse_facets: true)
+      f.set_groups('subcategory', subcategory_without_care_products(f))
+      f
+    }.call
   end
 
   def products(pagination = true)
@@ -261,10 +263,10 @@ class SearchEngine
     end
   end
 
-  def remove_care_products_from(filters)
-    if filters.grouped_products('subcategory')
-      filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) }
-    end
+  def subcategory_without_care_products(filters)
+    _filters = filters.grouped_products('subcategory')
+    _filters.delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) } if _filters
+    _filters
   end
 
   private
