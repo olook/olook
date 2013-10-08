@@ -227,7 +227,7 @@ Olook::Application.routes.draw do
   namespace :admin do
     get "/", :to => "dashboard#index"
 
-    scope defaults: {type: ["CatalogHeader::BigBannerCatalogHeader", "CatalogHeader::SmallCatalogHeader"]} do
+    scope defaults: {type: ["CatalogHeader::BigBannerCatalogHeader", "CatalogHeader::SmallBannerCatalogHeader"]} do
       #Landing page banners
       get "/catalog_landing", to: "catalog_bases#index", as: 'catalog_bases_banner'
       post "/catalog_landing", to: "catalog_bases#create"
