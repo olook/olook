@@ -63,6 +63,7 @@ $(document).ready(function() {
   initBase.openMakingOfVideo();
   initBase.showSlideToTop();
   initBase.slideToTop();
+  initBase.goto_related_product();
   initBase.replaceImages();
 
   o.showEmailBar();
@@ -728,6 +729,15 @@ initBase = {
     $('a#go_top').live('click', function(e) {
       $("html, body").animate({
         scrollTop: 0
+      }, 'fast');
+      e.preventDefault();
+    });
+  },
+
+  goto_related_product :function() {
+    $('a#goRelatedProduct').live('click', function(e) {
+      $("html, body").animate({
+        scrollTop: 803
       }, 'fast');
       e.preventDefault();
     });

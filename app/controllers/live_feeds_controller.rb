@@ -1,6 +1,4 @@
 class LiveFeedsController < ApplicationController
-  http_basic_authenticate_with name: "euroads", password: "olook123"
-
   # Skip all before filters 
   skip_before_filter :load_user,
                       :create_cart,
@@ -15,14 +13,27 @@ class LiveFeedsController < ApplicationController
 
   respond_to :json
 
+  #
+  # Os caras da EURO ADs nao conseguem fazer um POST :(
+  #
+  def index
+    create
+  end
+
   def create
-    livefeed = LiveFeed.new(params[:live_feed])
+    live_feed_params = extract_parameters
+    livefeed = LiveFeed.new(live_feed_params)
     
     if livefeed.save
       render json: {status: :created}.to_json
     else
       render json: {status: :bad_request, message: livefeed.errors.as_json}.to_json
     end
+  end
+
+  # Necessario para o create funcionar via GET
+  def extract_parameters
+    params.reject{|key, value| ["action", "controller"].include?(key) }
   end
 
 end
