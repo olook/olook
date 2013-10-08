@@ -1,6 +1,6 @@
 update_sitemap:
   cron: "0 3 * * *"
-  class: SaveOnAmazonWorker
+  class: SitemapWorker
   queue: sitemap
   description: "Atualiza o sitemap"
 
