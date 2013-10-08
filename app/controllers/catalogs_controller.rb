@@ -35,7 +35,11 @@ class CatalogsController < ApplicationController
     end
 
     def title_text
-      Seo::SeoManager.new(request.path, model: header).select_meta_tag
+      if header && header.title_text.present?
+        Seo::SeoManager.new(request.path, model: header).select_meta_tag
+      else
+        Seo::SeoManager.new(request.path).select_meta_tag
+      end
     end
 
     def verify_if_is_catalog
