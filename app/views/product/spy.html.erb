@@ -5,6 +5,7 @@
   </script>
 <% else %>
     <%= stylesheet_link_tag 'common/product_details' %>
-      <%= javascript_include_tag('product') %>
+    <%= javascript_include_tag('product') %>
 <% end %>
 <%= render(:partial => 'product/quick_view',:locals => { :product => @product, :gift => @gift, :shoe_size => @shoe_size, :only_view => @only_view}) %>
+<%= render(:partial => 'product/sociomantic_pixel', :locals => {:product_id => @product.id} ) %>

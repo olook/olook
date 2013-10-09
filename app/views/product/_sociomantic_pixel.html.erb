@@ -1,0 +1,13 @@
+<script type="text/javascript" charset="utf-8">
+// SOCIOMANTIC SPY PIXEL
+// clear already set variables 
+window.sociomantic.sonar.adv['olook-br'].clear();
+
+// set the appropriate variable 
+window.product = {
+  identifier: '<%= product_id %>'
+};
+
+// send another tracking request
+window.sociomantic.sonar.adv['olook-br'].track();
+</script>
