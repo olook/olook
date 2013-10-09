@@ -4,6 +4,9 @@
     %b url
     = @catalog_base.url
   %p
+    %b Ativo?
+    = @catalog_base.enabled ? 'Sim' : 'Não'
+  %p
     %b tipo
     = @catalog_base.type
   %p

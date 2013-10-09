@@ -428,12 +428,13 @@
     attributes:
       catalog_header/catalog_base:
         url: 'Url'
+        enabled: 'Ativar?'
         type: 'Tipo'
         seo_text: 'Text para título da página (SEO)'
-        small_banner1: 'Destaque menor/superior (150x300)'
-        small_banner2: 'Destaque menor/inferior (150x300)'
-        medium_banner: 'Destaque maior (300x600)'
-        big_banner: 'Destaque grande (600x500)'
+        small_banner1: 'Destaque menor/superior (260px x 165px)'
+        small_banner2: 'Destaque menor/inferior (260px x 165px)'
+        medium_banner: 'Destaque maior (526px x 330px)'
+        big_banner: 'Destaque grande (786px x 144px+)'
         alt_small_banner1: 'Alt da imagem'
         alt_small_banner2: 'Alt da imagem'
         alt_medium_banner: 'Alt da imagem'

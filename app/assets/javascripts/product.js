@@ -1,6 +1,12 @@
 //= require ./partials/_credits_info
+//= require formatter
+//= require credit_card
+//= require string_utils
+//= require plugins/spy
+
 $(function(){
   initProduct.loadAll();
+  olook.spy('.spy');
 });
 
 initProduct = {
