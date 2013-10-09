@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131003184430) do
+ActiveRecord::Schema.define(:version => 20131008133511) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -227,6 +227,7 @@ ActiveRecord::Schema.define(:version => 20131003184430) do
     t.text     "text_complement"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+    t.boolean  "enabled"
   end
 
   create_table "catalog_products", :force => true do |t|

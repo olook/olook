@@ -34,7 +34,7 @@ class ChaordicInfo
       chaordic_product.pid = product.id
       chaordic_product.category = product.category_humanize
       chaordic_product.detail_url = product.id
-      chaordic_product.image_name = (product.showroom_picture) ? product.showroom_picture.to_s.split('pictures/')[1] : ""
+      chaordic_product.image_name = (product.catalog_picture) ? product.catalog_picture.to_s.split('pictures/')[1] : ""
       chaordic_product.name = "#{product.formatted_name}"
       chaordic_product.old_price = product.price.round(2).to_s
       chaordic_product.price = product.retail_price.round(2).to_s

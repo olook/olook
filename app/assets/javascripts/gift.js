@@ -2,7 +2,7 @@
 
 $(function () {
 
-  olook.spy('.spy');
+  olook.spy('.spy[data-url]');
 
   $("#banner").click(function(){
     share();

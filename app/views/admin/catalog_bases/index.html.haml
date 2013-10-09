@@ -5,12 +5,14 @@
   %table.table
     %tr
       %th url
+      %th Ativo?
       %th
       %th
       %th
     - @catalog_bases.each do |catalog_base|
       %tr
         %td= catalog_base.url
+        %td= catalog_base.enabled ? "Sim" : "Não"
         %td= link_to 'Mostrar', resource_path(catalog_base), :class => 'button'
         %td= link_to 'Editar', edit_resource_path(catalog_base), :class => 'button'
         %td= link_to 'Apagar', resource_path(catalog_base), confirm: 'Tem certeza?', method: :delete, :class => 'button danger'

@@ -134,42 +134,6 @@ feature "Show products on xml format" do
     end
   end
 
-  context "on ilove_ecommerce" do
-    scenario "I want to see products of ilove ecommerce" do
-      visit ilove_ecommerce_path
-      result = Nokogiri::XML(page.source)
-      content = <<-END.gsub(/^ {6}/, '')
-      <?xml version="1.0" encoding="UTF-8"?>
-      <produtos>
-      <produto>
-      <codigo>#{product.id}</codigo>
-      <categoria>12</categoria>
-      <link>http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&amp;utm_content=#{product.id}&amp;utm_medium=vitrine&amp;utm_source=ilove_ecommerce</link>
-      <imagem></imagem>
-      <nome_titulo>#{product.name}</nome_titulo>
-      <descricao>#{product.description}</descricao>
-      <preco_real>99.9</preco_real>
-      <preco_desconto>99.9</preco_desconto>
-      <specific>
-      <marca>OLOOK</marca>
-      <cor></cor>
-      <tamanho></tamanho>
-      <autor></autor>
-      <artista></artista>
-      <editora></editora>
-      <ritmo></ritmo>
-      <distribuidora></distribuidora>
-      <sinopse></sinopse>
-      <loja>olook</loja>
-      </specific>
-      </produto>
-      </produtos>
-      END
-      equivalent_content = Nokogiri::XML(content)
-      EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
-    end
-  end
-
   context "on shopping uol" do
     scenario "I want to see products of shopping uol" do
       visit shopping_uol_path
