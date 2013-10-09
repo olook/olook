@@ -25,7 +25,9 @@ class CollectionThemesController < SearchController
     end
 
     def canonical_link
-      "#{request.protocol}#{request.host_with_port}/#{@collection_theme.first.slug}"
+      if @collection_theme.respond_to?(:first)
+        "#{request.protocol}#{request.host_with_port}/#{@collection_theme.first.slug}"
+      end
     end
 
     # TODO: Lógica duplicada no model payment onde usa o Product#featured_products
