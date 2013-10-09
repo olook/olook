@@ -151,8 +151,8 @@ span.summary, .full{
         color: $pink;
       }
     }
-    a.more_info_show{display: block; float: left;width: 110px;}
-    a.more_info_hide{display: none; float: left;width: 120px;}
+    a.more_info_show{display: block; float: left;margin-right: 8px;}
+    a.more_info_hide{display: none; float: left;margin-right: 8px;}
     .like{
       top: 4px;
       margin-left: 3px;
@@ -176,6 +176,7 @@ span.summary, .full{
       &.big{
         margin-right: 15px;
       }
+      &.small{margin-bottom: 20px;}
     }
   }
 }
