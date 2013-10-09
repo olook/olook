@@ -3,7 +3,8 @@
   %head
     = render :partial => "shared/errorception"
     %meta{:charset => "UTF-8"}/
-    %title olook
+    %title
+      = title_text
     = favicon_link_tag 'olook_favicon.ico'
     - error = nil unless error
     - if params[:share]
