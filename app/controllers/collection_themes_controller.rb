@@ -24,6 +24,10 @@ class CollectionThemesController < SearchController
       Seo::SeoManager.new(request.path, model: @collection_theme.try(:first)).select_meta_tag
     end
 
+    def canonical_link
+      "#{request.protocol}#{request.host_with_port}/#{@collection_theme.first.slug}"
+    end
+
     # TODO: Lógica duplicada no model payment onde usa o Product#featured_products
     def retrieve_featured_products
       products = Setting.collection_section_featured_products.split('#')
