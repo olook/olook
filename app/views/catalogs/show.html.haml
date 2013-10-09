@@ -21,8 +21,15 @@
         .promo_brands
           = banner_for(@category, position: :sidebotton)
 
-    .pagination.topo
-      = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
+    /.pagination.topo
+    /  = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
+    .size_top
+      
+      %ul.category-list
+        - filters_by('size', @search, use_fields: [:category]).reverse.each do |text, amount|
+          %li{ :class => category_style_class(text)}= filter_link_to(catalog_path(@category, @url_builder.add_filter(:size, text)), text.chomp, @search.filter_selected?(:size, text.chomp))
+      %p.title-category Qual seu tamanho?
+
     #result
       - unless @search.has_any_filter_selected? || params[:cmp].present?
         / local onde o viewpersonalized será exibido
