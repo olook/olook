@@ -27,8 +27,8 @@ describe CatalogHeader::CatalogBase do
     end
 
     it "should find exact url" do
-      bota = FactoryGirl.create(:catalog_header, :text, :url => '/sapato/bota')
-      expect(CatalogHeader::CatalogBase.for_url('/sapato/bota').first).to eq(bota)
+      bota = FactoryGirl.create(:catalog_header, :text, enabled: true, url: '/sapato/bota')
+      expect(CatalogHeader::CatalogBase.for_url('/sapato/bota').first.id).to eq(bota.id)
     end
   end
 end
