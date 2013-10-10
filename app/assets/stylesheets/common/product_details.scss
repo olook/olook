@@ -14,7 +14,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
 
 
 
-#product {padding: 10px 0 0 0;overflow:visible;margin-bottom:15px;
+#product {padding: 0;overflow:visible;margin-bottom:15px;
   .content{width:970px;}
   
   .box-left,.box-right{float:left;}
@@ -486,6 +486,27 @@ a#goRelatedProduct {
   top: 291px;
 }
 
-a#goRelatedProduct:hover {
+#goRelatedProduct:hover {
   background-position: top left;
+}
+
+ul.breadcrumb {
+  display: block;
+  width:100%;
+  height:20px;
+  li {
+    float:left;
+    display: block;
+    font-family: verdana;
+    font-size: 10px;
+    color:#6d6e71;
+    padding:10px;
+    a {
+      font-family: verdana;
+      font-size: 10px;
+      color:#6d6e71;
+      display: block;
+      float:left;
+    }
+  }
 }
