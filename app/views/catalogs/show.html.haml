@@ -23,7 +23,7 @@
 
     /.pagination.topo
     /  = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
-    - unless @category == 'bolsa' || 'acessorio'
+    - unless @category == 'bolsa' || @category == 'acessorio'
       .size_top
         %ul.category-list
           - filters_by('size', @search, use_fields: [:category]).reverse.each do |text, amount|
