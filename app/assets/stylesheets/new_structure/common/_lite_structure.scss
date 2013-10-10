@@ -43,7 +43,7 @@ li{list-style-type:none;}
 a#go_top {position: fixed;background: image-url('common/arrow-go-top.png') no-repeat;text-indent: -99999px;width: 40px;height: 40px;right: 40px;bottom: 45%;z-index: 5;display: none;}
 
 header#new_header{border-top: 2px black solid;
-  .new_content{height: 100px;padding-top:15px;width: 990px;margin: 0 auto;
+  .new_content{height: 84px;padding-top:15px;width: 990px;margin: 0 auto;
       .box_left{font-family: $avenir;font-size: 10px;color: #b4b5b7;float: left;margin-left:10px;
         a.contact{text-decoration: none;color: #b4b5b7;
             &:hover{color:$base_color;}
@@ -154,7 +154,7 @@ header#new_header{border-top: 2px black solid;
         }
       }
       /*------ END BOX LOGIN -------*/
-      #cart_summary{position:absolute;display:none;top:150px;right:0px;z-index:9999;width:304px;min-height:135px;max-height:388px;border:solid 1px #CCC;box-shadow:0 2px 5px #CCC;background:#FFF;padding:15px 0;
+      #cart_summary{position:absolute;display:none;top:135px;right:0px;z-index:9999;width:304px;min-height:135px;max-height:388px;border:solid 1px #CCC;box-shadow:0 2px 5px #CCC;background:#FFF;padding:15px 0;
          .scroll{max-height:297px;overflow-y:auto;padding:0 32px;
             li{
               &.coupon_info{
@@ -166,6 +166,7 @@ header#new_header{border-top: 2px black solid;
                   img{float:left;margin-right:14px;margin-top:10px;width:46px;}
                   h1{font-family:$avenir;text-transform:uppercase;font-size:11px;font-weight:bold;}
                }
+               .big_coupon{width: 116px !important; height: 53px !important;}
                p.freight{text-align:center;color:$base_color;font-family:$avenir;text-transform:uppercase;font-size:12px;
                   span{color:#000;font-size:10px;text-transform:none;letter-spacing:1px;}
                }
