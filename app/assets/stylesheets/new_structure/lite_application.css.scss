@@ -3,3 +3,33 @@
 @import 'new_structure/common/lite_structure';
 @import 'new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min';
 @import 'new_structure/common/search';
+
+ul.breadcrumb {
+  display: block;
+  width:100%;
+  height:20px;
+  position: relative;
+  top:-12px;
+  left:6px;
+  li {
+    float:left;
+    display: block;
+    font-family: verdana;
+    font-size: 9px;
+    color:#6d6e71;
+    padding:0 0 0 10px;
+    color:#000;
+    text-align: left;
+    padding-left:5px;
+    a {
+      font-family: verdana;
+      background: image-url('product/breadcrumb.gif') right center no-repeat;
+      color:#6d6e71;
+      display: block;
+      float:left;
+      padding-right:10px;
+      text-decoration: none;
+    }
+    a:hover {color:#ef3742;}
+  }
+}
