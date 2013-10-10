@@ -6,4 +6,8 @@ class BreadcrumbService
   def self.home_url
     {name: "Home", url: "/"}
   end
+
+  def self.brand_breadcrumbs
+    [home_url,{name: "Marcas", url: "/marcas"}]
+  end  
 end
