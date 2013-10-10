@@ -13,7 +13,8 @@ class TopsterXml
     sociomantic: 'sociomantic.xml.erb',
     parceirosmkt: 'ilove_ecommerce.xml.erb',
     ilove_ecommerce: 'ilove_ecommerce.xml.erb',
-    nano_interactive: 'nano_interactive.xml.erb'
+    nano_interactive: 'nano_interactive.xml.erb',
+    adroll: 'adroll.xml.erb'
   }
 
   def self.create_xmls
@@ -67,7 +68,7 @@ class TopsterXml
 
     def self.load_products
       # This method was copied from XmlController
-      products = Product.where(collection_id: 24).valid_for_xml(Product.xml_blacklist("products_blacklist").join(','))     
+      products = Product.valid_for_xml(Product.xml_blacklist("products_blacklist").join(','))     
       @liquidation_products = []
       active_liquidation = LiquidationService.active
       @liquidation_products = active_liquidation.resume[:products_ids] if active_liquidation

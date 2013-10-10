@@ -737,7 +737,7 @@ initBase = {
   goto_related_product :function() {
     $('a#goRelatedProduct').live('click', function(e) {
       $("html, body").animate({
-        scrollTop: 803
+        scrollTop: 1040
       }, 'fast');
       e.preventDefault();
     });
