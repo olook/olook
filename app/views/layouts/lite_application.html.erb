@@ -123,6 +123,9 @@
                <ul class="default_new">
                  <%= MenuPresenter.new(self, :user => current_user).render_menu %>
                </ul>
+               <% unless params[:controller].include? "survey" %>
+                 <p class="new_sacola"><%= link_to "#{content_tag(:span, '', class: 'mini_coupon_tag') if @cart && @cart.coupon}SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %></p>
+               <% end %>
              </div>
            </nav>
          </div>
