@@ -1,6 +1,5 @@
 <script type="text/javascript">
   dataLayer.push({
-    'EncryptedEmail': '<%= Digest::MD5.hexdigest(@order.user.email) %>',
     // CRITEO
     'PrimeiraCompraDoUsuario': '<%= raw @order.user.first_buy? ? 1 : 0 %>',
     'CriteoSource': '<%= raw @criteo_conversion %>',
