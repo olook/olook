@@ -5,6 +5,7 @@
       'AnalyticAccount' : "<%= ANALYTICS_CONFIG['analytics_id'] %>",
       'MemberType' : '<%= member_type %>',
       <% if user_signed_in? %>
+      'EncryptedEmail': '<%= Digest::MD5.hexdigest(current_user.email) %>',
         'CustomerId': '<%= current_user.id %>',
         'UserAge': '<%= raw current_user.age %>',
         'UserProfile': '<%= raw current_user.profile_name %>',
