@@ -13,7 +13,8 @@ class TopsterXml
     sociomantic: 'sociomantic.xml.erb',
     parceirosmkt: 'ilove_ecommerce.xml.erb',
     ilove_ecommerce: 'ilove_ecommerce.xml.erb',
-    nano_interactive: 'nano_interactive.xml.erb'
+    nano_interactive: 'nano_interactive.xml.erb',
+    adroll: 'adroll.xml.erb'
   }
 
   def self.create_xmls
