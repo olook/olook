@@ -142,11 +142,11 @@ Olook::Application.routes.draw do
   match "/triggit" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/triggit_data.xml")
   match "/sociomantic" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/sociomantic_data.xml")
   match "/nano_interactive" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/nano_interactive_data.xml")
+  match "/adroll" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/adroll_data.xml")
   
   # template da ilove_ecommerce
   match "/parceirosmkt" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/parceirosmkt_data.xml") 
   match "/ilove_ecommerce" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/ilove_ecommerce_data.xml") 
-  
   
   match "/zanox", :to => "xml#zanox", :as => "zanox", :defaults => { :format => 'xml' }
   match "/afilio", :to => "xml#afilio", :as => "afilio", :defaults => { :format => 'xml' }
@@ -161,8 +161,7 @@ Olook::Application.routes.draw do
   match "/kuanto_kusta", :to => "xml#kuanto_kusta", :as => "kuanto_kusta", :defaults => { :format => 'xml' }
   match "/muccashop", :to => "xml#muccashop", :as => "muccashop", :defaults => { :format => 'xml' }
   match "/shopear", :to => "xml#shopear", :as => "shopear", :defaults => { :format => 'xml' }
-  match "/adroll", :to => "xml#adroll", :as => "adroll", :defaults => { :format => 'xml' }
-
+  
   #SURVEY
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
   get "/survey/check_date", :to => "survey#check_date", :as => "check_date"
