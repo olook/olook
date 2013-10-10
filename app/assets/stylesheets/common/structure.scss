@@ -1003,7 +1003,7 @@ body {
 header#new_header{
   .new_content{
      border-top: 2px black solid;
-     height: 100px;
+     height: 84px;
      padding-top:15px;
       width: 990px;
       margin: 0 auto;
@@ -1100,6 +1100,7 @@ header#new_header{
                   img{float:left;margin-right:14px;width:46px;}
                   h1{font-family:$avenir;text-transform:uppercase;font-size:11px;font-weight:bold;}
                }
+               .big_coupon{width: 116px !important; height: 53px !important;}
                p.freight{text-align:center;color:$pink;font-family:$avenir;text-transform:uppercase;font-size:12px; line-height: 18px;
                   span{color:#000;font-size:10px;text-transform:none;letter-spacing:1px;}
                }
