@@ -14,6 +14,7 @@
   = render "shared/data_layer/category", pixel_information: @pixel_information, catalog_products: @search.products
 
 = cache @cache_key, expire_in: 15.minutes do
+  = first_level_breadcrumb(@category)
   #catalog
     %aside
       = render "filters", search: @search, category: @category
