@@ -21,4 +21,10 @@ class BrandsController < ApplicationController
     def title_text 
       Seo::SeoManager.new(request.path, model: @brand.try(:first)).select_meta_tag
     end
+
+    def canonical_link
+      if @brand.respond_to?(:first)
+        "#{request.protocol}#{request.host_with_port}/#{@brand.first.name.downcase}"
+      end
+    end
 end

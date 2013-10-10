@@ -249,12 +249,30 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
   } 
 }
 
+#content {
+  img.vantagens {
+    margin-bottom: 20px !important;
+  }
+}
+
 #content #related {
   width:100%;
   border-top:2px solid #000;
   position: relative;
+  margin-top:40px;
   .caroufredsel_wrapper {
-    height:335px !important;
+    height:416px !important;
+    .plots {letter-spacing: -1px;}
+    .alignImages {
+      height: 241px;
+      position: relative;
+      z-index: 1;
+      margin-bottom:8px;
+      img {
+        position: absolute;
+        bottom:0px;
+      }
+    }
   }
   h3 {
     font-family: $johnston;
@@ -288,6 +306,8 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       #variant_number {
         width:100%;
         margin:15px 0;
+        letter-spacing: -1px;
+        font-size: 11px;
       }
       img {width: 100%;}
       input {
@@ -304,6 +324,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       .added_product {
         background: #acacac;
         color:#ffffff;
+        font-weight: normal;
       }
       li.product {
         width:160px;
@@ -315,7 +336,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
           .spy {
             display: none;
             position: absolute;
-            top: 125px;
+            top: 206px;
             width: 100%;
             text-align: center;
             background-color: rgba(255,255,255,0.6);
@@ -328,6 +349,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
             background-position: -36px -164px;
             background-repeat: no-repeat;
             background-size: 58%;
+            z-index: 99;
           }
           .info-product {
             font-family: $avenir;
@@ -351,11 +373,14 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
             }
             .txt-black {
               color: #ef3742;
-              font-size: 14px;
+              font-size: 13px;
               font-weight: bold;
               letter-spacing:-1px;
               float:right;
               margin-right:1px;
+              position: relative;
+              top: -3px;
+              margin-bottom:-3px;
             }
           }
         }
@@ -377,7 +402,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     height: 50px;
     text-indent: -9999px;
     position: absolute;
-    top: 90px;
+    top: 122px;
   }
   .carousel-next {
     background-position-x: 37px;
@@ -456,9 +481,9 @@ a#goRelatedProduct {
   background: image-url('product/ver_look_completo.jpg') right top no-repeat;
   text-indent: -9999px;
   position: absolute;
-  left: 460px;
+  left: 423px;
   z-index: 99;
-  top: 293px;
+  top: 291px;
 }
 
 a#goRelatedProduct:hover {
