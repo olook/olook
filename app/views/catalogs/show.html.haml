@@ -42,11 +42,11 @@
         .about_item
           %h2.title= header.title
           %span.summary
-            = header.resume_title
+            = header.resume_title.html_safe
             %br
 
           %span.full
-            = header.text_complement
+            = header.text_complement.html_safe
             %br
           =link_to (">> Tudo sobre #{header.title.downcase}"), "#", :class => "more_info_show"
           =link_to (">> Ocultar conteúdo"), "#", :class => "more_info_hide"
