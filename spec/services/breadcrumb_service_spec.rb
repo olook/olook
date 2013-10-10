@@ -10,4 +10,10 @@ describe BreadcrumbService do
       end
     end
   end
+
+  describe "#home_url" do
+    it "returns an array containing the home url breadcrumb only" do
+      described_class.home_url.should eq([{name: "Home", url: "/"}])
+    end
+  end  
 end
