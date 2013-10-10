@@ -24,7 +24,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     
   
   div#gallery {width:520px;float: left;
-    ul#thumbs {float:left;width:45px;margin-right:45px;margin-left: 5px;
+    ul#thumbs {float:left;width:45px;margin-right:45px;margin-left: 5px;position: relative;left: 6px;
       li{margin-bottom: 10px;border: solid 1px #cdcdcd;
         a:hover img {border: 2px #EF3742 solid;}
         img {width:39px;height:auto;border:solid 2px #FFF;
@@ -498,16 +498,19 @@ ul.breadcrumb {
     float:left;
     display: block;
     font-family: verdana;
-    font-size: 10px;
+    font-size: 9px;
     color:#6d6e71;
-    padding:10px;
+    padding:0 0 0 10px;
+    color:#000;
     a {
       font-family: verdana;
       font-size: 10px;
       color:#6d6e71;
       display: block;
       float:left;
-      padding-right:20px;
+      padding-right:10px;
+      text-decoration: none;
     }
+    a:hover {color:#ef3742;}
   }
 }
