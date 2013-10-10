@@ -427,7 +427,7 @@
 
     attributes:
       catalog_header/catalog_base:
-        url: 'Url'
+        url: 'Url (ex: /sapato)'
         enabled: 'Ativar?'
         type: 'Tipo'
         seo_text: 'Text para título da página (SEO)'
