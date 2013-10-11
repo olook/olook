@@ -686,6 +686,8 @@ common/nav/sprite-menu.jpg: common/nav/sprite-menu-777dfa0fc83fed766ab078a98097d
 common/nav/sprite-menu/index.jpg: common/nav/sprite-menu-777dfa0fc83fed766ab078a98097d247.jpg
 common/nav/sprite_header.png: common/nav/sprite_header-ec7ddeae68e284b1a777a63427151e6b.png
 common/nav/sprite_header/index.png: common/nav/sprite_header-ec7ddeae68e284b1a777a63427151e6b.png
+common/nav/sprite_header_novo_topo.png: common/nav/sprite_header_novo_topo-e0a5b2252073b2d300eba32aaa2039f1.png
+common/nav/sprite_header_novo_topo/index.png: common/nav/sprite_header_novo_topo-e0a5b2252073b2d300eba32aaa2039f1.png
 common/number-sold-out.png: common/number-sold-out-33dc881eaa7c4bc9d263b3d4046b9fb9.png
 common/number-sold-out/index.png: common/number-sold-out-33dc881eaa7c4bc9d263b3d4046b9fb9.png
 common/number.png: common/number-9e5d8b13172add8cd3a9f47356a7f0e6.png
