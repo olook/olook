@@ -1,0 +1,71 @@
+%h2 Landing page de catálogo
+.inner
+  %p
+    %b url
+    = @catalog_base.url
+  %p
+    %b Ativo?
+    = @catalog_base.enabled ? 'Sim' : 'Não'
+  %p
+    %b tipo
+    = @catalog_base.type
+  %p
+    %b Texto para SEO
+    = @catalog_base.seo_text
+  - if @catalog_base.type == 'CatalogHeader::SmallBannerCatalogHeader'
+    %p
+      %b small_banner1
+      = image_tag @catalog_base.small_banner1
+    %p
+      %b alt_small_banner1
+      = @catalog_base.alt_small_banner1
+    %p
+      %b link_small_banner1
+      = @catalog_base.link_small_banner1
+    %p
+      %b small_banner2
+      = image_tag @catalog_base.small_banner2
+    %p
+      %b alt_small_banner2
+      = @catalog_base.alt_small_banner2
+    %p
+      %b link_small_banner2
+      = @catalog_base.link_small_banner2
+    %p
+      %b medium_banner
+      = image_tag @catalog_base.medium_banner
+    %p
+      %b alt_medium_banner
+      = @catalog_base.alt_medium_banner
+    %p
+      %b link_medium_banner
+      = @catalog_base.link_medium_banner
+  - if @catalog_base.type == 'CatalogHeader::BigBannerCatalogHeader'
+    %p
+      %b big_banner
+      = image_tag @catalog_base.big_banner
+    %p
+      %b alt_big_banner
+      = @catalog_base.alt_big_banner
+    %p
+      %b link_big_banner
+      = @catalog_base.link_big_banner
+  - if @catalog_base.type == 'CatalogHeader::TextCatalogHeader'
+    %p
+      %b title
+      = @catalog_base.title
+    %p
+      %b resume_title
+      = @catalog_base.resume_title
+    %p
+      %b text_complement
+      = @catalog_base.text_complement
+  %p
+    %b Criado em
+    = @catalog_base.created_at
+  %p
+    %b Atualizado em
+    = @catalog_base.updated_at
+- content_for :secondary_navigation do
+  %li= link_to 'Editar', edit_resource_path(@catalog_base)
+  %li= link_to 'Voltar', resources_path

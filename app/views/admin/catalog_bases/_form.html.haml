@@ -1,0 +1,96 @@
+- content_for :footer do
+  = javascript_include_tag 'section/admin/catalog_header'
+
+= form_for(@catalog_base, as: :catalog_base, :url => (@catalog_base.new_record? ? resources_path : resource_path(@catalog_base)), :html => { :multipart => true }) do |f|
+  - if @catalog_base.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@catalog_base.errors.count, "error")
+        prohibited this campaign from being saved:
+      %ul
+        - @catalog_base.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :url
+    %br/
+    = f.text_field :url
+  = f.check_box :enabled
+  = f.label :enabled
+  %br/
+  - case params[:type]
+  - when 'CatalogHeader::TextCatalogHeader'
+    = f.hidden_field :type
+  - else
+    .field
+      = f.label :type
+      %br/
+      = f.select(:type, [['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['3 Banners','CatalogHeader::SmallBannerCatalogHeader']])
+  .field
+    = f.label :seo_text
+    %br/
+    = f.text_field :seo_text
+  %fieldset#small_banner_catalog_header
+    .field
+      = f.label :small_banner1
+      %br/
+      = f.file_field :small_banner1
+    .field
+      = f.label :alt_small_banner1
+      %br/
+      = f.text_field :alt_small_banner1
+    .field
+      = f.label :link_small_banner1
+      %br/
+      = f.text_field :link_small_banner1
+    .field
+      = f.label :small_banner2
+      %br/
+      = f.file_field :small_banner2
+    .field
+      = f.label :alt_small_banner2
+      %br/
+      = f.text_field :alt_small_banner2
+    .field
+      = f.label :link_small_banner2
+      %br/
+      = f.text_field :link_small_banner2
+    .field
+      = f.label :medium_banner
+      %br/
+      = f.file_field :medium_banner
+    .field
+      = f.label :alt_medium_banner
+      %br/
+      = f.text_field :alt_medium_banner
+    .field
+      = f.label :link_medium_banner
+      %br/
+      = f.text_field :link_medium_banner
+  %fieldset#big_banner_catalog_header
+    .field
+      = f.label :big_banner
+      %br/
+      = f.file_field :big_banner
+    .field
+      = f.label :alt_big_banner
+      %br/
+      = f.text_field :alt_big_banner
+    .field
+      = f.label :link_big_banner
+      %br/
+      = f.text_field :link_big_banner
+  %fieldset#text_catalog_header
+    .field
+      = f.label :title
+      %br/
+      = f.text_field :title
+    .field
+      = f.label :resume_title
+      %br/
+      = f.text_area :resume_title
+    .field
+      = f.label :text_complement
+      %br/
+      = f.text_area :text_complement
+  .actions
+    = f.submit "Salvar"
