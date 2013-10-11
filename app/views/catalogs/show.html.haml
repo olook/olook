@@ -3,15 +3,19 @@
   %meta{:content => @glasses ? "#{@glasses}" : "home/#{params["category"].to_s.titleize}", :name => "chaordic:source"}/
   %meta{:content => @chaordic_user, :name => "chaordic:user"}/
   %meta{:content => @glasses ? "#{@glasses}" : params["category"].to_s.titleize, :name => "chaordic:category"}/
+  %meta{property:"fb:app_id", content:"#{@facebook_app_id}"}
 
 - content_for :footer do
   :javascript
     start_position = #{@search.range_values_for(:price)[:min] rescue 0};
     final_position = #{@search.range_values_for(:price)[:max] rescue 600};
   = javascript_include_tag 'section/lite_catalog'
-
+  = javascript_include_tag 'section/catalog'
 - content_for :data_layer do
   = render "shared/data_layer/category", pixel_information: @pixel_information, catalog_products: @search.products
+
+  - content_for(:after_body) do
+    = javascript_include_tag "common/fb_like_button"
 
 = cache @cache_key, expire_in: 15.minutes do
   #catalog
@@ -20,7 +24,34 @@
       - if @category
         .promo_brands
           = banner_for(@category, position: :sidebotton)
+    - if header
+      - if header.big_banner?
+        .promo_catalog
+          =link_to image_tag(header.big_banner, alt: header.alt_big_banner, title: header.alt_big_banner), header.link_big_banner
+      - if header.small_banner?
+        .banners_group
+          %ul
+            %li.big
+              =link_to image_tag(header.medium_banner, alt: header.alt_medium_banner, title: header.alt_medium_banner), header.link_medium_banner
+            %li.small
+              =link_to image_tag(header.small_banner1, alt: header.alt_small_banner1, title: header.alt_medium_banner), header.link_small_banner1
+            %li
+              =link_to image_tag(header.small_banner2, alt: header.alt_small_banner2, title: header.alt_medium_banner), header.link_small_banner2
 
+      - if header.text?
+        .about_item
+          %h2.title= header.title
+          %span.summary
+            = header.resume_title.html_safe
+            %br
+          %span.full
+            = header.text_complement.html_safe
+            %br
+          =link_to (">> Tudo sobre #{header.title.downcase}"), "#", :class => "more_info_show"
+          =link_to (">> Ocultar conteúdo"), "#", :class => "more_info_hide"
+          %fb:like{"href" => "http://#{Rails.env == 'production' ? "www" : "homolog"}.olook.com.br#{request.path}", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false", "class" => "like", "width" => "100"}
+    .pagination.topo
+      = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
     /.pagination.topo
     /  = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
     - unless @category == 'bolsa' || @category == 'acessorio'

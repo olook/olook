@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130926174416) do
+ActiveRecord::Schema.define(:version => 20131010180047) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -209,8 +209,7 @@ ActiveRecord::Schema.define(:version => 20130926174416) do
   create_table "catalog_bases", :force => true do |t|
     t.string   "url"
     t.string   "type"
-    t.string   "h1"
-    t.string   "h2"
+    t.string   "seo_text"
     t.string   "small_banner1"
     t.string   "alt_small_banner1"
     t.string   "link_small_banner1"
@@ -228,6 +227,7 @@ ActiveRecord::Schema.define(:version => 20130926174416) do
     t.text     "text_complement"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+    t.boolean  "enabled"
   end
 
   create_table "catalog_products", :force => true do |t|
@@ -595,25 +595,6 @@ ActiveRecord::Schema.define(:version => 20130926174416) do
   add_index "invites", ["email"], :name => "index_invites_on_email"
   add_index "invites", ["invited_member_id"], :name => "index_invites_on_invited_member_id"
   add_index "invites", ["user_id"], :name => "index_invites_on_user_id"
-
-  create_table "landing_pages", :force => true do |t|
-    t.string   "page_image"
-    t.string   "page_title"
-    t.string   "page_url"
-    t.string   "button_image"
-    t.string   "button_url"
-    t.string   "button_alt"
-    t.boolean  "enabled"
-    t.boolean  "show_header"
-    t.boolean  "show_footer"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
-    t.integer  "button_top"
-    t.integer  "button_left"
-    t.string   "button_hover_image"
-  end
-
-  add_index "landing_pages", ["page_url"], :name => "index_landing_pages_on_page_url"
 
   create_table "line_items", :force => true do |t|
     t.integer "variant_id"
