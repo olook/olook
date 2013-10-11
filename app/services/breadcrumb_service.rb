@@ -15,4 +15,8 @@ class BreadcrumbService
   def self.collection_theme_breadcrumbs
     [home_url,{name: "Coleções", url: "/colecoes"}]
   end      
+
+  def self.gift_breadcrumbs
+    [home_url,{name: "Presentes", url: "/presentes"}]
+  end  
 end

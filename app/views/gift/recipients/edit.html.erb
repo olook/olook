@@ -9,7 +9,7 @@
 
 <% content_for :full do %>
   <div class="full_bg">
-
+    <%= gift_breadcrumbs_for(@gift_recipient) %>
     <section id="profile" class="content bn">
       <h1 class="title_name"><%= @gift_recipient.name %> é</h1>
       <%= image_tag "gift/panel_#{@main_profile.name.parameterize}.png", :title => "#{@main_profile.name}", :class => "profile" %>
