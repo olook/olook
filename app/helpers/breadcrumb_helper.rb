@@ -32,11 +32,11 @@ module BreadcrumbHelper
     end
   end  
 
-  def gift_breadcrumbs_for(gift_recipient, style_class="breadcrumb")
+  def gift_breadcrumbs_for(style, style_class="breadcrumb")
     content_tag(:ul, class: style_class) do
       BreadcrumbService.gift_breadcrumbs.inject("") do |whole, breadcrumb_hash|
         whole.concat content_tag(:li,link_to("#{breadcrumb_hash[:name]}",breadcrumb_hash[:url]))
-      end.concat(content_tag(:li,"Estilo da #{gift_recipient.name}")).html_safe
+      end.concat(content_tag(:li,style)).html_safe
     end
   end    
 
