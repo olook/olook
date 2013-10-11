@@ -9,7 +9,7 @@ describe SeoUrl do
   end
 
   describe "#parse_params" do
-    it { expect(described_class.new({}).parse_params).to be_a(Hash)  }
+    it { expect(described_class.new('').parse_params).to be_a(Hash)  }
     context "Main keys" do
       context "that include collection themes" do
         subject { described_class.new('/colecoes/p&b') }
@@ -30,7 +30,7 @@ describe SeoUrl do
     context "Main keys and filters" do
       context "that includes brands as main category as filter" do
         subject { described_class.new('/sapato/olook') }
-        it { expect(subject.parse_params[:brand]).to eq('olook') }
+        it { expect(subject.parse_params[:brand]).to eq('Olook') }
         it { expect(subject.parse_params[:category]).to eq('sapato') }
       end
       context "that includes category as main" do
@@ -38,7 +38,7 @@ describe SeoUrl do
           context "one brand" do
             subject { described_class.new('/sapato/olook') }
             it { expect(subject.parse_params[:category]).to eq('sapato') }
-            it { expect(subject.parse_params[:brand]).to eq('olook') }
+            it { expect(subject.parse_params[:brand]).to eq('Olook') }
           end
           context "multiple brands" do
             subject { described_class.new('/sapato/olook-colcci') }
@@ -95,17 +95,17 @@ describe SeoUrl do
 
     context "filtering by ordenation" do
       context "lower price" do
-        subject { described_class.new('/sapato/menor-preco') }
+        subject { described_class.new('/sapato?por=menor-preco') }
         it { expect(subject.parse_params[:sort]).to eq('retail_price') }
       end
 
       context "greater price" do
-        subject { described_class.new('/sapato/maior-preco') }
+        subject { described_class.new('/sapato?por=maior-preco') }
         it { expect(subject.parse_params[:sort]).to eq('-retail_price') }
       end
 
       context "lower discount" do
-        subject { described_class.new('/sapato/maior-desconto') }
+        subject { described_class.new('/sapato?por=maior-desconto') }
         it { expect(subject.parse_params[:sort]).to eq('-desconto') }
       end
     end
@@ -119,7 +119,7 @@ describe SeoUrl do
 
   describe 'add_filter' do
     let(:search_engine) { SearchEngine.new({ }) }
-    subject { described_class.new({ }, "category", search_engine) }
+    subject { described_class.new({}, "category", search_engine) }
     context "when given params has subcategory" do
 
       it "@search receives SearchEngine#filters_applied" do
