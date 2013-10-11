@@ -8,6 +8,7 @@
  *= require admin/orders.css.scss
  *= require admin/dashboard.css.scss
  *= require admin/clippings.css.scss
+ *= require admin/catalog_header.css.scss
  *= require admin/simple_email_service.css.scss
  *= require admin/collection_themes.css.scss
  *= require admin/multiple_pictures.css.scss

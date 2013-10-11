@@ -2,6 +2,7 @@
 class CatalogsController < ApplicationController
   layout "lite_application"
   prepend_before_filter :verify_if_is_catalog
+  helper_method :header
   DEFAULT_PAGE_SIZE = 48
 
   def show
@@ -28,6 +29,19 @@ class CatalogsController < ApplicationController
   end
 
   private
+
+    def header
+      @header ||= CatalogHeader::CatalogBase.for_url(request.path).first
+    end
+
+    def title_text
+      if header && header.title_text.present?
+        Seo::SeoManager.new(request.path, model: header).select_meta_tag
+      else
+        Seo::SeoManager.new(request.path).select_meta_tag
+      end
+    end
+
     def verify_if_is_catalog
       #TODO Please remove me when update Rails version
       #We can use constraints but this version (3.2.13) has a bug

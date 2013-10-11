@@ -1,0 +1,105 @@
+!!!
+%html{lang: "pt-BR"}
+  %head
+    %meta{charset: "UTF-8"}/
+    %title Olook Admin
+    = favicon_link_tag 'olook_favicon.ico'
+    = csrf_meta_tags
+    = stylesheet_link_tag "admin"
+    = javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+    = javascript_include_tag "admin"
+    = yield :head
+    %meta{content: "initial-scale = 1, user-scalable = no", name: "viewport"}/
+    :css
+      canvas{
+        margin-top:30px;
+      }
+  %body
+    #container
+      #header
+        %h1
+          %a{href: "/admin"} olook Admin
+        #user-navigation
+          %ul.wat-cf
+            - if admin_signed_in?
+              %li
+                Olá #{"#{current_admin.first_name} #{current_admin.last_name}"}
+              %li= link_to "Sair", destroy_admin_session_path, :class => 'logout', :method => :delete
+        #main-navigation
+          %ul.wat-cf
+            %li{class: "submenu#{' active' if params[:controller] =~ /users/}"}
+              %span Clientes
+              %ul
+                %li= access_link("Users")
+                %li= access_link("Credits")
+                %li= link_to I18n.t("activerecord.models.discount.other"), admin_discounts_path
+            %li{class: "submenu#{' active' if params[:controller] =~ /orders|shipping|moip_callbacks|payments/}"}
+              %span Vendas
+              %ul
+                %li= access_link("Orders")
+                %li= access_link("Shipping Services")
+                %li= access_link("Moip Callbacks")
+                %li= access_link("Braspag Authorize Responses")
+                %li= access_link("Braspag Capture Responses")
+                %li= access_link("Payments")
+                %li= link_to I18n.t("admin.billet.santander"), admin_new_billet_batch_path
+            %li{class: "submenu#{' active' if params[:controller] =~ /collections|moments|products/}"}
+              %span Produtos
+              %ul
+                %li= access_link("Collections")
+                %li= access_link("Collection Theme")
+                %li= access_link("Products")
+                %li= access_link("Brands")
+            %li{class: "submenu#{' active' if params[:controller] =~ /promotions|liquidation|coupons|landing|highlights/}"}
+              %span Promoções
+              %ul
+                %li= access_link("Promotions")
+                %li= access_link("Liquidations")
+                %li= access_link("Campaigns")
+                %li= access_link("Highlights")
+                %li= access_link("Coupons")
+                %li= access_link("Highlight Campaigns")
+                %li= link_to I18n.t("activerecord.models.catalog_header_catalog_base_banner.other"), admin_catalog_bases_banner_path
+            %li{class: "submenu#{' active' if params[:controller] =~ /admins|roles|settings/}"}
+              %span Permissões
+              %ul
+                %li= access_link("Admins")
+                %li= access_link("Roles")
+                %li= access_link("Settings")
+                %li= access_link("Holidays")
+            %li{class: "submenu#{' active' if params[:controller] =~ /gift/}"}
+              %span Presentes
+              %ul
+                %li= access_link("Gift Occasion Types")
+                %li= access_link("Gift Recipient Relations")
+                %li= access_link("Gift Boxes")
+            %li{class: "submenu#{' active' if params[:controller] =~ /clippings/}"}
+              %span Conteúdo
+              %ul
+                %li= access_link("Clippings")
+                %li= link_to I18n.t("activerecord.models.catalog_header_catalog_base_text.other"), admin_catalog_bases_text_path
+            %li{class: "submenu#{' active' if params[:controller] =~ /simple_email_service/}"}
+              %span Marketing
+              %ul
+                %li
+                  = link_to I18n.t("activerecord.models.simple_email_service_info.other"), admin_ses_path
+      #wrapper.wat-cf
+        .flash
+          - flash.each do |type, message|
+            %div{class: "message #{type}"}
+              %p= message
+        #main{class: content_for?(:sidebar) ? 'sidebar' : 'nosidebar'}
+          .block
+            - if content_for?(:secondary_navigation)
+              .secondary-navigation
+                %ul.wat-cf= yield :secondary_navigation
+            .content
+              = yield
+          #footer
+            .block
+              %p
+                Copyright © #{Time.now.year} olook
+        - if content_for?(:sidebar)
+          #sidebar
+            = yield :sidebar
+    = yield :footer
