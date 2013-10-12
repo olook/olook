@@ -19,11 +19,9 @@ class TopsterXml
     afilio: 'afilio_template.xml.erb',
     mt_performance: 'mt_performance_template.xml.erb',
     click_a_porter: 'click_a_porter_template.xml.erb',
-    zoom: 'zoom_template.xml.erb',
     netaffiliation: 'netaffiliation_template.xml.erb',
     shopping_uol: 'shopping_uol_template.xml.erb',
     google_shopping: 'google_shopping_template.xml.erb',
-    buscape: 'buscape_template.xml.erb',
     struq: 'struq_template.xml.erb',
     kuanto_kusta: 'kuanto_kusta_template.xml.erb',
     muccashop: 'muccashop_template.xml.erb',
@@ -66,8 +64,12 @@ class TopsterXml
 
 
     def self.generate_for(template_name)
-      renderer = get_renderer(template_name)
-      renderer.result(binding)
+      begin
+        renderer = get_renderer(template_name)
+        renderer.result(binding)
+      rescue => e
+        puts "[XML] Erro ao processar template #{template_name}: #{e}"
+      end
     end
 
     def self.get_renderer(template_name)
