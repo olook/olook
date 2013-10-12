@@ -143,24 +143,24 @@ Olook::Application.routes.draw do
   match "/sociomantic" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/sociomantic_data.xml")
   match "/nano_interactive" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/nano_interactive_data.xml")
   match "/adroll" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/adroll_data.xml")
+  match "/zanox" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/zanox_data.xml")
+  match "/afilio" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/afilio_data.xml")
+  match "/mt_performance" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/mt_performance_data.xml")
+  match "/click_a_porter" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/click_a_porter_data.xml")
+  match "/zoom" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/zoom_data.xml")
+  match "/netaffiliation" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/netaffiliation_data.xml")
+  match "/shopping_uol" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/shopping_uol_data.xml")
+  match "/google_shopping" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/google_shopping_data.xml")
+  match "/buscape" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/buscape_data.xml")
+  match "/struq" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/struq_data.xml")
+  match "/kuanto_kusta" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/kuanto_kusta_data.xml")
+  match "/muccashop" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/muccashop_data.xml")
+  match "/shopear" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/shopear_data.xml")
   
   # template da ilove_ecommerce
   match "/parceirosmkt" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/parceirosmkt_data.xml") 
   match "/ilove_ecommerce" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/ilove_ecommerce_data.xml") 
   
-  match "/zanox", :to => "xml#zanox", :as => "zanox", :defaults => { :format => 'xml' }
-  match "/afilio", :to => "xml#afilio", :as => "afilio", :defaults => { :format => 'xml' }
-  match "/mt_performance", :to => "xml#mt_performance", :as => "mt_performance", :defaults => { :format => 'xml' }
-  match "/click_a_porter", :to => "xml#click_a_porter", :as => "click_a_porter", :defaults => { :format => 'xml' }  
-  match "/zoom", :to => "xml#zoom", :as => "zoom", :defaults => { :format => 'xml' }
-  match "/netaffiliation", :to => "xml#netaffiliation", :as => "netaffiliation", :defaults => { :format => 'xml' }
-  match "/shopping_uol", :to => "xml#shopping_uol", :as => "shopping_uol", :defaults => { :format => 'xml' }
-  match "/google_shopping", :to => "xml#google_shopping", :as => "google_shopping", :defaults => { :format => 'xml' }
-  match "/buscape", :to => "xml#buscape", :as => "buscape", :defaults => { :format => 'xml' }
-  match "/struq", :to => "xml#struq", :as => "struq", :defaults => { :format => 'xml' }
-  match "/kuanto_kusta", :to => "xml#kuanto_kusta", :as => "kuanto_kusta", :defaults => { :format => 'xml' }
-  match "/muccashop", :to => "xml#muccashop", :as => "muccashop", :defaults => { :format => 'xml' }
-  match "/shopear", :to => "xml#shopear", :as => "shopear", :defaults => { :format => 'xml' }
   
   #SURVEY
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
