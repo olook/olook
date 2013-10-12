@@ -8,13 +8,26 @@ class TopsterXml
   RENDERERS = {
     nextperformance: 'nextperformance_template.xml.erb',
     topster: 'topster_template.xml.erb',
-    criteo: 'criteo.xml.erb',
-    triggit: 'triggit.xml.erb',
-    sociomantic: 'sociomantic.xml.erb',
-    parceirosmkt: 'ilove_ecommerce.xml.erb',
-    ilove_ecommerce: 'ilove_ecommerce.xml.erb',
-    nano_interactive: 'nano_interactive.xml.erb',
-    adroll: 'adroll.xml.erb'
+    criteo: 'criteo_template.xml.erb',
+    triggit: 'triggit_template.xml.erb',
+    sociomantic: 'sociomantic_template.xml.erb',
+    parceirosmkt: 'ilove_ecommerce_template.xml.erb',
+    ilove_ecommerce: 'ilove_ecommerce_template.xml.erb',
+    nano_interactive: 'nano_interactive_template.xml.erb',
+    adroll: 'adroll_template.xml.erb',
+    zanox: 'zanox_template.xml.erb',
+    afilio: 'afilio_template.xml.erb',
+    mt_performance: 'mt_performance_template.xml.erb',
+    click_a_porter: 'click_a_porter_template.xml.erb',
+    zoom: 'zoom_template.xml.erb',
+    netaffiliation: 'netaffiliation_template.xml.erb',
+    shopping_uol: 'shopping_uol_template.xml.erb',
+    google_shopping: 'google_shopping_template.xml.erb',
+    buscape: 'buscape_template.xml.erb',
+    struq: 'struq_template.xml.erb',
+    kuanto_kusta: 'kuanto_kusta_template.xml.erb',
+    muccashop: 'muccashop_template.xml.erb',
+    shopear: 'shopear_template.xml.erb'
   }
 
   def self.create_xmls
@@ -74,5 +87,4 @@ class TopsterXml
       @liquidation_products = active_liquidation.resume[:products_ids] if active_liquidation
       products + @liquidation_products
     end
-
- end
+end
