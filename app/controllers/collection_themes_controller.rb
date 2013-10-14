@@ -25,8 +25,9 @@ class CollectionThemesController < SearchController
     end
 
     def canonical_link
-      if @collection_theme.respond_to?(:first)
-        "#{request.protocol}#{request.host_with_port}/#{@collection_theme.first.slug}"
+      collection_theme = Array(@collection_theme).first
+      if collection_theme 
+        "#{request.protocol}#{request.host_with_port}/#{collection_theme.slug}"
       end
     end
 

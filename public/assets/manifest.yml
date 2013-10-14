@@ -375,6 +375,9 @@ collections/crop_totalbranco.jpg: collections/crop_totalbranco-f978f85de20356528
 collections/crop_totalbranco/index.jpg: collections/crop_totalbranco-f978f85de20356528cb7f836617eefdc.jpg
 collections/crop_triton.jpg: collections/crop_triton-40cd54dbf4497833800cb0996f8553ef.jpg
 collections/crop_triton/index.jpg: collections/crop_triton-40cd54dbf4497833800cb0996f8553ef.jpg
+collections/destaque landing_tendencia_floral_800X341.jpg: collections/destaque landing_tendencia_floral_800X341-4ae7b31410038f3e3bc70941a365a379.jpg
+collections/destaque landing_tendencia_floral_800X341/index.jpg: collections/destaque
+  landing_tendencia_floral_800X341-4ae7b31410038f3e3bc70941a365a379.jpg
 collections/destaque_capinha_pequena.jpg: collections/destaque_capinha_pequena-fe99304435cced129105d73527b0c962.jpg
 collections/destaque_capinha_pequena/index.jpg: collections/destaque_capinha_pequena-fe99304435cced129105d73527b0c962.jpg
 collections/destaque_capinha_preview_primavera.jpg: collections/destaque_capinha_preview_primavera-5e89fcbf7427ffd867fdab608c57793d.jpg
@@ -683,6 +686,8 @@ common/nav/sprite-menu.jpg: common/nav/sprite-menu-777dfa0fc83fed766ab078a98097d
 common/nav/sprite-menu/index.jpg: common/nav/sprite-menu-777dfa0fc83fed766ab078a98097d247.jpg
 common/nav/sprite_header.png: common/nav/sprite_header-ec7ddeae68e284b1a777a63427151e6b.png
 common/nav/sprite_header/index.png: common/nav/sprite_header-ec7ddeae68e284b1a777a63427151e6b.png
+common/nav/sprite_header_novo_topo.png: common/nav/sprite_header_novo_topo-e0a5b2252073b2d300eba32aaa2039f1.png
+common/nav/sprite_header_novo_topo/index.png: common/nav/sprite_header_novo_topo-e0a5b2252073b2d300eba32aaa2039f1.png
 common/number-sold-out.png: common/number-sold-out-33dc881eaa7c4bc9d263b3d4046b9fb9.png
 common/number-sold-out/index.png: common/number-sold-out-33dc881eaa7c4bc9d263b3d4046b9fb9.png
 common/number.png: common/number-9e5d8b13172add8cd3a9f47356a7f0e6.png
@@ -2347,8 +2352,8 @@ new_structure/section/brands.css: new_structure/section/brands-eb1cd59b2702f1894
 new_structure/section/brands/index.css: new_structure/section/brands-eb1cd59b2702f1894dce9fb3679c0027.css
 new_structure/section/clippings.css: new_structure/section/clippings-fbb983a0dd27284da3f271c1841e7f90.css
 new_structure/section/clippings/index.css: new_structure/section/clippings-fbb983a0dd27284da3f271c1841e7f90.css
-new_structure/section/collection_themes.css: new_structure/section/collection_themes-dfb4d1a090abd808eb2f92a8e1aceab8.css
-new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-dfb4d1a090abd808eb2f92a8e1aceab8.css
+new_structure/section/collection_themes.css: new_structure/section/collection_themes-c3da2401b089982b5da8a610c47ba497.css
+new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-c3da2401b089982b5da8a610c47ba497.css
 new_structure/section/join.css: new_structure/section/join-22dc2faa126a17fddb685d1b6b0588ac.css
 new_structure/section/join/index.css: new_structure/section/join-22dc2faa126a17fddb685d1b6b0588ac.css
 new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-7d71fbb28ce3cb1774c2ffc8f7f7a063.css
