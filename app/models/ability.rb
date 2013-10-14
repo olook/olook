@@ -8,7 +8,7 @@ class Ability
         begin
           can permission.action_name.to_sym, permission.model_name.constantize
         rescue NameError => e
-          Rails.log.error("#{e.class}: #{e.message}\n#{e.backtrace.join("\n")}")
+          Rails.logger.error("#{e.class}: #{e.message}\n#{e.backtrace.join("\n")}")
           next
         end
       end

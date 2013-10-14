@@ -23,8 +23,9 @@ class BrandsController < ApplicationController
     end
 
     def canonical_link
-      if @brand.respond_to?(:first)
-        "#{request.protocol}#{request.host_with_port}/#{@brand.first.name.downcase}"
+      brand = Array(@brand).first
+      if brand
+        "#{request.protocol}#{request.host_with_port}/#{brand.name.downcase}"
       end
     end
 end
