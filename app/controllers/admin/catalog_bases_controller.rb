@@ -1,5 +1,6 @@
 # encoding: utf-8
 class Admin::CatalogBasesController < Admin::BaseController
+  load_and_authorize_resource :class => "CatalogHeader::CatalogBase"
   respond_to :html, :text
   helper_method :resource_path, :resources_path, :new_resource_path, :edit_resource_path
 

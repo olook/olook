@@ -50,16 +50,6 @@
           =link_to (">> Tudo sobre #{header.title.downcase}"), "#", :class => "more_info_show"
           =link_to (">> Ocultar conteúdo"), "#", :class => "more_info_hide"
           %fb:like{"href" => "http://#{Rails.env == 'production' ? "www" : "homolog"}.olook.com.br#{request.path}", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false", "class" => "like", "width" => "100"}
-    .pagination.topo
-      = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
-    /.pagination.topo
-    /  = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
-    - unless @category == 'bolsa' || 'acessorio'
-      .size_top
-        %ul.category-list
-          - filters_by('size', @search, use_fields: [:category]).reverse.each do |text, amount|
-            %li{ :class => category_style_class(text)}= filter_link_to(catalog_path(@category, @url_builder.add_filter(:size, text)), text.chomp, @search.filter_selected?(:size, text.chomp))
-        %p.title-category Qual seu tamanho?
 
     #result
       - unless @search.has_any_filter_selected? || params[:cmp].present?
@@ -70,7 +60,14 @@
         / local onde o mostpopular será exibido
         / .chaordic.mostpopular
 
-      = render "ordenation_filters", search: @search, url_builder: @url_builder
+      .row{style: 'position:relative'}
+        = render "ordenation_filters", search: @search, url_builder: @url_builder
+        - unless @category == 'bolsa' || @category == 'acessorio'
+          .size_top
+            %ul.category-list
+              - filters_by('size', @search, use_fields: [:category]).reverse.each do |text, amount|
+                %li{ :class => category_style_class(text)}= filter_link_to(catalog_path(@category, @url_builder.add_filter(:size, text)), text.chomp, @search.filter_selected?(:size, text.chomp))
+            %p.title-category Qual seu tamanho?
       = render 'current_section', search: @search
 
       %section.container_product
