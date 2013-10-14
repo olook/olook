@@ -1,0 +1,2 @@
+class CustomUrlController < ApplicationController
+end
