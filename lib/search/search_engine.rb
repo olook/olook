@@ -76,7 +76,11 @@ class SearchEngine
   end
 
   def sort= sort_field
-    @sort_field = "#{ sort_field }" if sort_field.present?
+    @sortables ||= Set.new(['retail_price', '-retail_price', 'desconto', '-desconto'])
+    if sort_field.present? && @sortables.include?(sort_field)
+      @sort_field = "#{ sort_field }"
+      @is_smart = false
+    end
     self
   end
 
@@ -206,7 +210,7 @@ class SearchEngine
     if @is_smart
       "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&#{ ranking }&rank=-exp,#{ @sort_field }&size=#{ options[:limit] }"
     else
-      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&rank=-exp,#{ @sort_field }&size=#{ options[:limit] }"
+      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }"
     end
   end
 
