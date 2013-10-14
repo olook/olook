@@ -8,7 +8,7 @@ class CollectionThemesController < SearchController
   end
 
   def show
-    search_params = SeoUrl.parse(params)
+    search_params = SeoUrl.parse(request.fullpath)
     Rails.logger.debug("New params: #{params.inspect}")
 
     @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
