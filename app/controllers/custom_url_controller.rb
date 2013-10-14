@@ -2,7 +2,7 @@ class CustomUrlController < ApplicationController
   layout "lite_application"
   DEFAULT_PAGE_SIZE = 48
   def show
-    @custom_url = CatalogHeader::CustomUrlCatalogHeader.find_by_url(params[:custom_url])
+    @custom_url = CatalogHeader::CustomUrlCatalogHeader.where(enabled: true).find_by_url(request.path)
     if @custom_url
       @custom_url_products = SearchEngine.new(product_id: @custom_url.product_list)
       page_size = params[:page_size] || DEFAULT_PAGE_SIZE
