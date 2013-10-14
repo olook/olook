@@ -21,7 +21,6 @@ FactoryGirl.define do
     resume_title "MyString"
     text_complement "MyText"
     organic_url "/sapatos"
-    custom_url "/custom"
     product_list "1001,1002,1003"
 
     trait :text do
