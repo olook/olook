@@ -510,7 +510,7 @@ Olook::Application.routes.draw do
 
   # CATALOGO
   match "/catalogo/:category(/*parameters)", to: "catalogs#show"
-  match "/:category(/*parameters)", to: "catalogs#show", as: "catalog"
+  match "/:category(/*parameters)", to: "catalogs#show", as: "catalog", constraints: { category: /(?:sapato|roupa|acessorio|bolsa)/ }
 
 end
 
