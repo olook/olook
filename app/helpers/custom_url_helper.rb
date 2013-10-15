@@ -1,7 +1,7 @@
 # encoding: utf-8
 module CustomUrlHelper
 
-  def retrieeve_filter path
+  def retrieve_filter path
     case
     when /colecoes/ =~ path
       "collection_themes/menu"
