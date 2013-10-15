@@ -12,10 +12,10 @@
 
 #catalog
   %aside
-    =# render "filters", search: @search, category: @category
-    -# if @category
-      .promo_brands
-        = banner_for(@category, position: :sidebotton)
+    - if retreive_filter(request.fullpath).size == 2
+      = render retreive_filter(request.fullpath)[0], search: @search, category: retreive_filter(request.fullpath)[1]
+    - else
+      = render retreive_filter(request.fullpath), search: @search
   - if @custom_url.big_banner?
     .promo_catalog
       =link_to image_tag(header.big_banner, alt: header.alt_big_banner, title: header.alt_big_banner), header.link_big_banner
