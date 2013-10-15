@@ -133,7 +133,6 @@ padding:20px 20px 0;
   padding: 20px 0 0;
   width:98%;
   position: relative;
-  left:10px;
   h1 {
     font-size: 28px;
     letter-spacing: -1px;
@@ -265,4 +264,8 @@ padding:20px 20px 0;
       font-weight: bold;
     }
   }
+}
+
+.content { 
+width:970px !important;
 }
