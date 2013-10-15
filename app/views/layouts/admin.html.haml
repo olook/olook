@@ -60,6 +60,7 @@
                 %li= access_link("Coupons")
                 %li= access_link("Highlight Campaigns")
                 %li= link_to I18n.t("activerecord.models.catalog_header_catalog_base_banner.other"), admin_catalog_bases_banner_path
+                %li= link_to "Landing de páginas com url customizada", admin_custom_url_path
             %li{class: "submenu#{' active' if params[:controller] =~ /admins|roles|settings/}"}
               %span Permissões
               %ul
