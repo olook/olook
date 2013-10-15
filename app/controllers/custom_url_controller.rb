@@ -12,4 +12,14 @@ class CustomUrlController < ApplicationController
       redirect_to root_url
     end
   end
+
+  private
+
+    def title_text 
+      Seo::SeoManager.new(request.path, model: @custom_url).select_meta_tag
+    end
+
+    def canonical_link
+      "#{request.protocol}#{request.host_with_port}#{@custom_url.url}"
+    end
 end
