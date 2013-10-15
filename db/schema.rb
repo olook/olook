@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131014182759) do
+ActiveRecord::Schema.define(:version => 20131015142317) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -230,6 +230,7 @@ ActiveRecord::Schema.define(:version => 20131014182759) do
     t.boolean  "enabled"
     t.string   "product_list"
     t.string   "organic_url"
+    t.boolean  "custom_url"
   end
 
   create_table "catalog_products", :force => true do |t|
