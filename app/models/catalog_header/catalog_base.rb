@@ -1,5 +1,5 @@
 class CatalogHeader::CatalogBase < ActiveRecord::Base
-  attr_accessible :seo_text, :type, :url, :enabled, :organic_url, :product_list
+  attr_accessible :seo_text, :type, :url, :enabled, :organic_url, :product_list, :custom_url
 
   validates :type, :presence => true, :exclusion => ["CatalogHeader::CatalogBase"]
   validates :url, presence: true, uniqueness: true

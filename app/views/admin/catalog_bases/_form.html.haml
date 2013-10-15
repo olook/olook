@@ -16,10 +16,26 @@
     = f.text_field :url
   = f.check_box :enabled
   = f.label :enabled
+
+  - if params[:custom_url]
+    = f.hidden_field :custom_url, value: true
+    .field
+      = f.label :organic_url
+      %br/
+      = f.text_field :organic_url
+    .field
+      = f.label :product_list
+      %br/
+      = f.text_field :product_list
+
   %br/
-  - case params[:type]
-  - when 'CatalogHeader::TextCatalogHeader'
+  - if params[:type] == 'CatalogHeader::TextCatalogHeader'
     = f.hidden_field :type
+  - elsif params[:type].try(:size).to_i > 2
+    .field
+      = f.label :type
+      %br/
+      = f.select(:type, [['Texto', 'CatalogHeader::TextCatalogHeader'], ['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['3 Banners','CatalogHeader::SmallBannerCatalogHeader']])
   - else
     .field
       = f.label :type
