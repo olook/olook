@@ -12,13 +12,13 @@
 
 #catalog
   %aside
-    - if retrieve_filter(@custom_url.organic_url).size == 2
-      = render retrieve_filter(@custom_url.organic_url)[0], search: @search, category: retrieve_filter(@custom_url.organic_url)[1]
+    - if retrieve_filter(@custom_url).size == 2
+      = render retrieve_filter(@custom_url)[0], search: @search, category: retrieve_filter(@custom_url)[1]
     - else
-      = render retrieve_filter(@custom_url.organic_url), search: @search
+      = render retrieve_filter(@custom_url.fullpath), search: @search
   - if @custom_url.big_banner?
     .promo_catalog
-      =link_to image_tag(@custom_url.big_banner, alt: @custom_url.alt_big_banner, title: @custom_url.alt_big_banner), @custom_url.link_big_banner
+      =link_to image_tag(header.big_banner, alt: header.alt_big_banner, title: header.alt_big_banner), header.link_big_banner
   - if @custom_url.small_banner?
     .banners_group
       %ul
@@ -43,16 +43,15 @@
       %fb:like{"href" => "http://#{Rails.env == 'production' ? "www" : "homolog"}.olook.com.br#{request.path}", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false", "class" => "like", "width" => "100"}
 
   #result
-    .row{style: 'position:relative'}
-      = render "ordenation_filters", search: @search, url_builder: @url_builder
-      - unless @category == 'bolsa' || @category == 'acessorio'
-        .size_top
-          %ul.category-list
-            - filters_by('size', @search, use_fields: [:category]).reverse.each do |text, amount|
-              %li{ :class => category_style_class(text)}= filter_link_to(catalog_path(@category, @url_builder.add_filter(:size, text)), text.chomp, @search.filter_selected?(:size, text.chomp))
-          %p.title-category Qual seu tamanho?
-    = render 'current_section', search: @search
-
+    -if @category
+      .row{style: 'position:relative'}
+        = render "ordenation_filters", search: @search, url_builder: @url_builder
+        - unless @category == 'bolsa' || @category == 'acessorio'
+          .size_top
+            %ul.category-list
+              - filters_by('size', @search, use_fields: [:category]).reverse.each do |text, amount|
+                %li{ :class => category_style_class(text)}= filter_link_to(catalog_path(@category, @url_builder.add_filter(:size, text)), text.chomp, @search.filter_selected?(:size, text.chomp))
+            %p.title-category Qual seu tamanho?
     %section.container_product
       %ul#products
         - if @custom_url_products && @custom_url_products.products.any?
