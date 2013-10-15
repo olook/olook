@@ -1,7 +1,7 @@
 # encoding: utf-8
 module CustomUrlHelper
 
-  def retreive_filter custom_url
+  def retrieve_filter custom_url
     case
     when /colecoes/ =~ custom_url.organic_url
       "collection_themes/menu"
