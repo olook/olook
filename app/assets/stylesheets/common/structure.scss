@@ -112,6 +112,7 @@ body {
 
   div#content {
     position:relative;
+    top:-7px;
   }
 
   div#login_modal {
@@ -302,7 +303,7 @@ body {
   }
 
   .content {
-    width: 990px;
+    width: 970px;
     margin: 0 auto;
     overflow: visible;
     /*z-index: 1;*/
@@ -1683,7 +1684,7 @@ ul.breadcrumb {
   width:100% !important;
   height:20px !important;
   position: relative !important;
-  left:6px !important;
+  left:-4px !important;
   top:0px !important;
   li {
     float:left;
