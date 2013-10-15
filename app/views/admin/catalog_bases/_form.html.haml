@@ -16,6 +16,18 @@
     = f.text_field :url
   = f.check_box :enabled
   = f.label :enabled
+
+  - if params[:custom_url]
+    = f.hidden_field :custom_url, value: true
+    .field
+      = f.label :organic_url
+      %br/
+      = f.text_field :organic_url
+    .field
+      = f.label :product_list
+      %br/
+      = f.text_field :product_list
+
   %br/
   - if params[:type] == 'CatalogHeader::TextCatalogHeader'
     = f.hidden_field :type
