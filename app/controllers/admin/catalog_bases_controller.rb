@@ -7,7 +7,9 @@ class Admin::CatalogBasesController < Admin::BaseController
   def index
     @catalog_bases = CatalogHeader::CatalogBase
     @catalog_bases = @catalog_bases.with_type(params[:type]).page(params[:page]).per_page(100)
-
+    if params[:custom_url]
+      @catalog_bases = @catalog_bases.where(custom_url: !!params[:custom_url])
+    end
     @catalog_bases = @catalog_bases.page(params[:page]).per_page(100)
   end
 
