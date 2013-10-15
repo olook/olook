@@ -1210,10 +1210,10 @@ home/jj.jpg: home/jj-c76c8ef989706798f860b753cf2300f0.jpg
 home/jj/index.jpg: home/jj-c76c8ef989706798f860b753cf2300f0.jpg
 home/mw.jpg: home/mw-5824daff588505945e0b7b3581156816.jpg
 home/mw/index.jpg: home/mw-5824daff588505945e0b7b3581156816.jpg
-home/new_brands.jpg: home/new_brands-f6fb036d0539093ad8ab407c4e812e75.jpg
-home/new_brands/index.jpg: home/new_brands-f6fb036d0539093ad8ab407c4e812e75.jpg
-home/new_brands_off.jpg: home/new_brands_off-17ffb2d51816a340efd4ab92c1756835.jpg
-home/new_brands_off/index.jpg: home/new_brands_off-17ffb2d51816a340efd4ab92c1756835.jpg
+home/new_brands.jpg: home/new_brands-b7f4299bee607d03673ba50103aef497.jpg
+home/new_brands/index.jpg: home/new_brands-b7f4299bee607d03673ba50103aef497.jpg
+home/new_brands_off.jpg: home/new_brands_off-b36e8fdeb31d64ec1f30c53c67773fe2.jpg
+home/new_brands_off/index.jpg: home/new_brands_off-b36e8fdeb31d64ec1f30c53c67773fe2.jpg
 home/olook-loved.jpg: home/olook-loved-f2e5bf4bedba83c28882db5d1fd834f7.jpg
 home/olook-loved/index.jpg: home/olook-loved-f2e5bf4bedba83c28882db5d1fd834f7.jpg
 home/olook.jpg: home/olook-5c5edb27a8d142a5e4b9db909c5bfbde.jpg
@@ -2394,8 +2394,8 @@ section/gift_home.css: section/gift_home-74d78b18c751587fadb01ff08710eab6.css
 section/gift_home/index.css: section/gift_home-74d78b18c751587fadb01ff08710eab6.css
 section/half_user.css: section/half_user-c54c025e72fa63d3a74f1be72482d577.css
 section/half_user/index.css: section/half_user-c54c025e72fa63d3a74f1be72482d577.css
-section/home.css: section/home-6208e1c784968f4f4fe7d9e61822a02a.css
-section/home/index.css: section/home-6208e1c784968f4f4fe7d9e61822a02a.css
+section/home.css: section/home-894911591b44f4f5a3579059bf7bcc0e.css
+section/home/index.css: section/home-894911591b44f4f5a3579059bf7bcc0e.css
 section/how_to.css: section/how_to-5ad4813e83c4bc7e0b561a84e2ad096a.css
 section/how_to/index.css: section/how_to-5ad4813e83c4bc7e0b561a84e2ad096a.css
 section/invite.css: section/invite-7c7e1243d4d6338865bd1680c3cdaa02.css
