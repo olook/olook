@@ -12,14 +12,14 @@
 
 #catalog
   %aside
-    - if retreive_filter(request.fullpath).size == 2
-      = render retreive_filter(request.fullpath)[0], search: @search, category: retreive_filter(request.fullpath)[1]
+    - if retreive_filter(@custom_url).size == 2
+      = render retreive_filter(@custom_url)[0], search: @search, category: retreive_filter(@custom_url)[1]
     - else
-      = render retreive_filter(request.fullpath), search: @search
+      = render retreive_filter(@custom_url.fullpath), search: @search
   - if @custom_url.big_banner?
     .promo_catalog
       =link_to image_tag(header.big_banner, alt: header.alt_big_banner, title: header.alt_big_banner), header.link_big_banner
-  - if header.small_banner?
+  - if @custom_url.small_banner?
     .banners_group
       %ul
         %li.big
@@ -33,26 +33,25 @@
     .about_item
       %h2.title= @custom_url.title
       %span.summary
-        = header.resume_title.html_safe
+        = @custom_url.resume_title.html_safe
         %br
       %span.full
-        = header.text_complement.html_safe
+        = @custom_url.text_complement.html_safe
         %br
-      =link_to (">> Tudo sobre #{header.title.downcase}"), "#", :class => "more_info_show"
+      =link_to (">> Tudo sobre #{@custom_url.title.downcase}"), "#", :class => "more_info_show"
       =link_to (">> Ocultar conteúdo"), "#", :class => "more_info_hide"
       %fb:like{"href" => "http://#{Rails.env == 'production' ? "www" : "homolog"}.olook.com.br#{request.path}", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false", "class" => "like", "width" => "100"}
 
   #result
-    .row{style: 'position:relative'}
-      = render "ordenation_filters", search: @search, url_builder: @url_builder
-      - unless @category == 'bolsa' || @category == 'acessorio'
-        .size_top
-          %ul.category-list
-            - filters_by('size', @search, use_fields: [:category]).reverse.each do |text, amount|
-              %li{ :class => category_style_class(text)}= filter_link_to(catalog_path(@category, @url_builder.add_filter(:size, text)), text.chomp, @search.filter_selected?(:size, text.chomp))
-          %p.title-category Qual seu tamanho?
-    = render 'current_section', search: @search
-
+    -if @category
+      .row{style: 'position:relative'}
+        = render "ordenation_filters", search: @search, url_builder: @url_builder
+        - unless @category == 'bolsa' || @category == 'acessorio'
+          .size_top
+            %ul.category-list
+              - filters_by('size', @search, use_fields: [:category]).reverse.each do |text, amount|
+                %li{ :class => category_style_class(text)}= filter_link_to(catalog_path(@category, @url_builder.add_filter(:size, text)), text.chomp, @search.filter_selected?(:size, text.chomp))
+            %p.title-category Qual seu tamanho?
     %section.container_product
       %ul#products
         - if @custom_url_products && @custom_url_products.products.any?
