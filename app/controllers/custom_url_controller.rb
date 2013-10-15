@@ -8,6 +8,8 @@ class CustomUrlController < ApplicationController
       page_size = params[:page_size] || DEFAULT_PAGE_SIZE
       search_params = SeoUrl.parse(@custom_url.organic_url)
       @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(page_size)
+      @url_builder = SeoUrl.new(search_params, "category", @search)
+      @category = [/bolsa/, /sapato/, /acessorio/, /roupa/].map{|a| @custom_url.organic_url if a =~ @custom_url.organic_url}.compact.first.gsub("/","")
     else
       redirect_to root_url
     end
