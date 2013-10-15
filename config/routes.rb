@@ -242,6 +242,17 @@ Olook::Application.routes.draw do
       put "/catalog_landing/:id", to: "catalog_bases#update"
     end
 
+    scope defaults: {type: ["CatalogHeader::TextCatalogHeader", "CatalogHeader::BigBannerCatalogHeader", "CatalogHeader::SmallBannerCatalogHeader"]} do
+      #Landing page Mkt custom_url
+      get "/custom_url", to: "catalog_bases#index", as: 'custom_urls'
+      get "/custom_url/new", to: "catalog_bases#new", as: 'new_custom_url'
+      get "/custom_url/:id/edit", to: "catalog_bases#edit", as: 'edit_custom_url'
+      get "custom_url/:id", to: "catalog_bases#show", as: 'custom_url'
+      post "/custom_url", to: "catalog_bases#create"
+      delete "/custom_url/:id", to: "catalog_bases#destroy"
+      put "/custom_url/:id", to: "catalog_bases#update"
+    end
+
     scope defaults: {type: "CatalogHeader::TextCatalogHeader"} do
       #Landing page text
       get "/catalog_landing_text", to: "catalog_bases#index", as: 'catalog_bases_text'
