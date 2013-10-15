@@ -17,7 +17,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
 #product {padding: 0;overflow:visible;margin-bottom:15px;
   .content{width:970px;}
   
-  .box-left,.box-right{float:left;}
+  .box-left,.box-right{float:left;margin-top:10px;}
   div#gallery, div#infos {
     margin-bottom: 40px;
   }
@@ -57,7 +57,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
   .facebook-comments{width:517px; margin-left: 0;
     iframe{width: 535px;}
   } 
-  div#product-details{width: 417px;float: right;position:relative;color:#000;margin-left: 45px;
+  div#product-details{width: 417px;float: right;position:relative;color:#000;margin-left: 45px;margin-top:10px;
     .pl9{padding-left:9px;}
     h1{font-family:$avenir;font-size:17px;font-weight: lighter;}
     h2{font-family:$avenir;font-size:14px;text-transform:uppercase;font-weight:bold;margin-bottom:20px;}
@@ -496,7 +496,7 @@ ul.breadcrumb {
   height:20px;
   position: relative;
   top:-12px;
-  left:6px;
+  left:6px !important;
   li {
     float:left;
     display: block;
@@ -519,3 +519,5 @@ ul.breadcrumb {
     a:hover {color:#ef3742;}
   }
 }
+
+#product .breadcrumb {left:6px !important;}
