@@ -491,9 +491,16 @@ section#home {
             }
           }
           &.ellus a {
+            width: 140px;
             background-position: -289px -612px;
             &:hover {
               background-position: -290px -616px;
+            }
+          }
+          &.wollner a {
+            background-position: -426px -612px;
+            &:hover {
+              background-position: -428px -616px;
             }
           }
         }
