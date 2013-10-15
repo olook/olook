@@ -15,6 +15,7 @@
   = javascript_include_tag 'section/brands'
 
 = cache @search.cache_key, expire_in: 15.minutes  do
+  = brand_breadcrumbs_for(@brand.first) if @brand.any?
   #catalog
     = render "side_filters", search: @search
 
