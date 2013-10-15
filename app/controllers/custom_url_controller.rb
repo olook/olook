@@ -4,7 +4,7 @@ class CustomUrlController < ApplicationController
   def show
     @custom_url = CatalogHeader::CatalogBase.for_url(request.path).first
     if @custom_url
-      @custom_search = SearchEngine.new(product_id: @custom_url.product_list)
+      @custom_search = SearchEngine.new(product_id: @custom_url.product_list.to_s.split(/\D/).join('-'))
       page_size = params[:page_size] || DEFAULT_PAGE_SIZE
       search_params = SeoUrl.parse(@custom_url.organic_url)
       @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(page_size)
