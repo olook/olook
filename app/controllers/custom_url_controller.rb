@@ -18,7 +18,7 @@ class CustomUrlController < ApplicationController
 
   private
 
-    def title_text 
+    def title_text
       Seo::SeoManager.new(request.path, model: @custom_url).select_meta_tag
     end
 
