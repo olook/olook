@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131010180047) do
+ActiveRecord::Schema.define(:version => 20131016140748) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -228,6 +228,8 @@ ActiveRecord::Schema.define(:version => 20131010180047) do
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.boolean  "enabled"
+    t.string   "product_list"
+    t.string   "organic_url"
   end
 
   create_table "catalog_products", :force => true do |t|
@@ -1110,6 +1112,10 @@ ActiveRecord::Schema.define(:version => 20131010180047) do
     t.string   "wys_uuid"
     t.string   "state"
     t.string   "city"
+    t.string   "corporate_name"
+    t.string   "cnpj"
+    t.boolean  "reseller"
+    t.boolean  "active"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token"
