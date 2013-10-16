@@ -18,6 +18,7 @@
     = javascript_include_tag "common/fb_like_button"
 
 = cache @cache_key, expire_in: 15.minutes do
+  = first_level_breadcrumb(Category.t(Category.with_name(@category)).pluralize)
   #catalog
     %aside
       = render "filters", search: @search, category: @category
