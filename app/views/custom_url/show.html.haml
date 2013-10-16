@@ -1,5 +1,5 @@
 - content_for :head do
-  = stylesheet_link_tag "new_structure/section/lite_catalog"
+  = check_organic_url_section( collection: stylesheet_link_tag("new_structure/section/collection_themes"), brand: stylesheet_link_tag("new_structure/section/brands"), catalog: stylesheet_link_tag("new_structure/section/lite_catalog"))
 - content_for :footer do
   :javascript
     start_position = #{@search.range_values_for(:price)[:min] rescue 0};
@@ -12,7 +12,9 @@
 
 #catalog
   %aside
-    = render retrieve_filter(@custom_url), search: @search, category: @category
+    = check_organic_url_section( collection: -> { render("collection_themes/menu", collection_theme_groups: @collection_theme_groups) }, |
+      brand: -> { render("brands/side_filters", search: @search) }, |
+      catalog: -> { render("catalogs/filters", search: @search, category: @category) } )
   - if @custom_url.big_banner?
     .promo_catalog
       =link_to image_tag(@custom_url.big_banner, alt: @custom_url.alt_big_banner, title: @custom_url.alt_big_banner), @custom_url.link_big_banner
@@ -60,4 +62,5 @@
       .loading
 
     .pagination
-      = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
+      = render("shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| check_organic_url_section( catalog: -> { catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash))}, brand: -> {brand_path(@search.selected_filters_for("brand").first, @url_builder.current_filters.merge({por:params[:por]}).merge(hash))}, collection: -> { collection_theme_path(@search.selected_filters_for("collection_theme").first, @url_builder.current_filters.merge({por:params[:por]}).merge(hash))} ) })
+
