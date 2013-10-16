@@ -1,0 +1,83 @@
+// Place all the styles related to the reseller controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'new_structure/common/global_stuffs';
+
+#revenda{
+	width: 970px;
+	margin: 0 auto;
+  .about, .box_right{
+    float: left;
+  }
+	.about{
+    width: 535px;
+    margin-bottom: 20px;
+    margin-right: 9px;
+		h2{
+			font-family: $johnston;
+			font-size: 18px;
+			color: #000;
+			text-transform: uppercase;
+		}
+    p.infos{
+      font-family: $avenir;
+      font-size: 14px;
+      color: #000;
+      margin-top: 15px;
+    }
+    a.anchor_button{
+      margin-top: 25px;
+      margin-left: 50px;
+      width: 446px;
+      height: 56px;
+      display: block;
+      text-indent: -9999px;
+      background: image-url("reseller/bt_anchor.jpg") no-repeat 0 0;
+      &:hover{
+        background: image-url("reseller/bt_anchor.jpg") no-repeat 0 -62px;
+      }
+    }
+    ul{
+      margin-top: 25px;
+      li{
+        font-family: $avenir;
+        font-size: 15px;
+        background: image-url("reseller/bt_anchor.jpg") no-repeat 0 -130px;
+        height: 17px;
+        padding-left: 35px;
+        padding-top: 12px;
+        &.title{
+          background: none;
+          text-transform: uppercase;
+          font-weight: bold;
+          padding: 0;
+          font-size: 18px;
+          letter-spacing: 1px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+    p.bonus{
+      font-size: 12px;
+      font-style: italic;
+      margin-left: 35px;
+      margin-top: 20px;
+    }
+	}
+  .seller{
+    height: 330px;
+    display: block;
+    float: left;
+    ul{
+      li{
+        float: left;
+        height: 315px;
+        background: image-url("reseller/sprite_icons.png") no-repeat 0 -5px;
+        &.register{
+          width: 340px;
+        }
+      }
+    }
+  }
+}

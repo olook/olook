@@ -3,6 +3,10 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+  get "reseller/show"
+
+  get "reseller/index"
+
   resources :live_feeds, path: "api", only: [:create, :index]
 
 
