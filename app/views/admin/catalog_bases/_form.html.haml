@@ -19,14 +19,15 @@
   .field
     = f.label "Tipo de url"
     = f.select(:new_url,["Nova url", "Url existente"])
-  .field
-    = f.label :organic_url
-    %br/
-    = f.text_field :organic_url
-  .field
-    = f.label :product_list
-    %br/
-    = f.text_area :product_list
+  %fieldset#custom_url
+    .field
+      = f.label :organic_url
+      %br/
+      = f.text_field :organic_url
+    .field
+      = f.label :product_list
+      %br/
+      = f.text_area :product_list
 
   %br/
   - if params[:type] == 'CatalogHeader::TextCatalogHeader'
