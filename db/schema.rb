@@ -1114,7 +1114,7 @@ ActiveRecord::Schema.define(:version => 20131016140748) do
     t.string   "city"
     t.string   "corporate_name"
     t.string   "cnpj"
-    t.boolean  "reseller"
+    t.boolean  "reseller",                                        :default => false
     t.boolean  "active"
   end
 

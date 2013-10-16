@@ -24,6 +24,10 @@
           <%= f.text_field :email_contains, :class => "text_field" %>
         </div>
         <div class="group">
+          <%= f.label :reseller_equals, "Revendedor", :class => "label" %>
+          <%= f.select :reseller_equals, [['Cliente', false], ['Revendedor', true], ["Todos", ""]]%>
+        </div>
+        <div class="group">
           <%= f.label :created_at_gte, "Criado em", :class => "label"  %>
           <%= f.date_select :created_at_gte, :include_blank => true %>
           <%= f.label :created_at_lte, "até", :class => "label" %>
