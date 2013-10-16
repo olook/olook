@@ -4,9 +4,6 @@
   <p>Também queremos te dar um mimo! Você ganhará <span>20% de desconto</span> no segundo presente.</p>
 </div> -->
 %>
-<% unless params[:controller].include? "survey" %>
-  <p class="new_sacola"><%= link_to "#{content_tag(:span, '', class: 'mini_coupon_tag') if @cart && @cart.coupon}MINHA SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %></p>
-<% end %>
 <div id="cart_summary">
    <div class="scroll">
       <ul class="submenu">
@@ -19,7 +16,7 @@
                 Seu cupom já está garantido em sua sacola de compras
               </span>
             <%- end %>
-            <%= image_tag 'common/nav/big_coupon.png', :class => '' %>
+            <%= image_tag 'common/nav/big_coupon.png', :class => 'big_coupon' %>
             <p class="coupon_tag">Sua sacola agora<br />tem um cupom de <br /><%= coupon_value_for(@cart.coupon) %> de desconto.<br />Aproveite! ;)</p>
           </li>
         <% end %>
