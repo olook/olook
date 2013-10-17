@@ -57,12 +57,12 @@
       .field
         = f.label :type
         %br/
-        = f.select(:type, [['Texto', 'CatalogHeader::TextCatalogHeader'], ['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['3 Banners','CatalogHeader::SmallBannerCatalogHeader']])
+        = f.select(:type, [['Sem Header', 'CatalogHeader::NoBanner'], ['Texto', 'CatalogHeader::TextCatalogHeader'], ['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['3 Banners','CatalogHeader::SmallBannerCatalogHeader']])
     - else
       .field
         = f.label :type
         %br/
-        = f.select(:type, [['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['3 Banners','CatalogHeader::SmallBannerCatalogHeader']])
+        = f.select(:type, [['Sem Header', 'CatalogHeader::NoBanner'], ['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['3 Banners','CatalogHeader::SmallBannerCatalogHeader']])
     .field
       = f.label :seo_text
       %br/

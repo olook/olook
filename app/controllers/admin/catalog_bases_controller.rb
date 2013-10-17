@@ -51,7 +51,7 @@ class Admin::CatalogBasesController < Admin::BaseController
   private
 
   def new_resource_path
-    if params[:type] == "CatalogHeader::TextCatalogHeader"
+    if is_text_header?
       admin_new_catalog_basis_text_path
     else
       admin_new_catalog_basis_banner_path
@@ -59,7 +59,7 @@ class Admin::CatalogBasesController < Admin::BaseController
   end
 
   def edit_resource_path(resource)
-    if params[:type] == "CatalogHeader::TextCatalogHeader"
+    if is_text_header?
       admin_edit_catalog_basis_text_path(resource)
     else
       admin_edit_catalog_basis_banner_path(resource)
@@ -67,7 +67,7 @@ class Admin::CatalogBasesController < Admin::BaseController
   end
 
   def resource_path(resource)
-    if params[:type] == "CatalogHeader::TextCatalogHeader"
+    if is_text_header?
       admin_catalog_basis_text_path(resource)
     else
       admin_catalog_basis_banner_path(resource)
@@ -75,10 +75,14 @@ class Admin::CatalogBasesController < Admin::BaseController
   end
 
   def resources_path
-    if params[:type] == "CatalogHeader::TextCatalogHeader"
+    if is_text_header?
       admin_catalog_bases_text_path
     else
       admin_catalog_bases_banner_path
     end
+  end
+
+  def is_text_header?
+    params[:type].to_a.include?("CatalogHeader::TextCatalogHeader")
   end
 end
