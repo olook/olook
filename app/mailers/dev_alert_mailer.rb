@@ -13,7 +13,7 @@ class DevAlertMailer < ActionMailer::Base
   def product_visibility_notification(products, admin)
     @admin = admin
     @products = products
-    mail(:to => %[rafael.manoel@olook.com.br, nelson.haraguchi@olook.com.br, andressa.vieira@olook.com.br, luiza.bet@olook.com.br, suzane.dirami@olook.com.br, caroline.passos@olook.com.br, katarine.brandao@olook.com.br, cristina.logiodice@olook.com.br], :subject => "Produtos com visibilidade alterada")
+    mail(:to => %[rafael.manoel@olook.com.br, nelson.haraguchi@olook.com.br, suzane.dirami@olook.com.br, caroline.passos@olook.com.br, katarine.brandao@olook.com.br, cristina.logiodice@olook.com.br], :subject => "Produtos com visibilidade alterada")
   end
 
   def notify_about_cancelled_billets
