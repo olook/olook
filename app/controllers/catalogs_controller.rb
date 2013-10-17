@@ -6,7 +6,7 @@ class CatalogsController < ApplicationController
   DEFAULT_PAGE_SIZE = 48
 
   def show
-    search_params = SeoUrl.parse(params)
+    search_params = SeoUrl.parse(request.fullpath)
 
     Rails.logger.debug("New params: #{params.inspect}")
 
