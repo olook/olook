@@ -63,7 +63,7 @@
 
       .row{style: 'position:relative'}
         = render "ordenation_filters", search: @search, url_builder: @url_builder
-        - unless @category == 'bolsa' || @category == 'acessorio'
+        - unless @category == 'bolsa'
           .size_top
             %ul.category-list
               - filters_by('size', @search, use_fields: [:category]).reverse.each do |text, amount|
