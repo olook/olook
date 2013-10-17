@@ -950,7 +950,7 @@ body {
   }*/
 
   /*** new menu ***/
-  div#wrapper_new_menu{background:#FFF;width:100%;opacity:0.9;*filter: alpha(opacity=90);-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+  div#wrapper_new_menu{position:relative;z-index:99;background:#FFF;width:100%;opacity:0.9;*filter: alpha(opacity=90);-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
      &.smaller {
        div.content {
          width: 990px;
@@ -980,13 +980,14 @@ body {
         li{font-size: 10px;text-transform: uppercase;display: inline;float: left;height: 30px;background: image-url("common/nav/menu_bar.png") no-repeat right 0;
           &.liquidation{border-right: none;}
 /*          &:nth-child(10){background:none;}*/
-          a{display:block;font-family: $johnston;height:28px;text-decoration: none;color: black;padding:0 11px;letter-spacing:2px;
-            &:hover,&.selected{color:$pink;}
-
-          }
-
+          a{border:1px solid #fff;border-bottom:0px;display:block;font-family: $johnston;height:28px;text-decoration: none;color: black;padding:0 11px;letter-spacing:2px;}
+          a:hover, a.selecionado {border :1px solid #000;border-bottom:0px;}
         }
       }
+
+      #mm_showroom {position:absolute;top:0px;width:300px;display:block;height: 300px;}
+
+
     }
     .new_sacola{
       a{left: -9px; position: relative; text-decoration: none;display:block;height: 20px;background: image-url("common/nav/sprite_header.png") -119px -1px no-repeat;font-family: $johnston;font-size: 10px;margin-top: -43px;color: $pink;letter-spacing: 1px;padding:6px 0 0 21px;clear:both;float:right;

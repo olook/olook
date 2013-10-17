@@ -380,6 +380,7 @@ $(document).ready(function() {
   }).live("mouseleave", function() {
     hideCartSummary();
   });
+  
 
   $("ul.submenu li form.delete").live("ajax:success", function(evt, xhr, settings){
     var defaultQuantity = 1;
@@ -835,3 +836,19 @@ olook = o = {
   }
 }
 /*** END EMAIL BAR FUNCTIONS ***/
+
+/*** MEGA MENU ***/
+
+ $('.default_new li').on(
+    {
+        mouseover: function() {
+            $(this).find('div').show();
+            $(this).find('a:first').addClass('selecionado');
+            },
+
+            mouseleave: function() {
+              $(this).find('div').hide();
+              $(this).find('a:first').removeClass('selecionado');
+            }
+        }
+    );
