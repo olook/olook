@@ -35,8 +35,8 @@ class User < ActiveRecord::Base
   NameFormat = /^[A-ZÀ-ÿ\s-]+$/i
 
   scope :full, where(half_user: false)
-  scope :common, where(reseller: false)
-  scope :rebayers, includes(:orders).where("orders.state IN ('under_review', 'picking', 'delivering', 'delivered', 'authorized')")
+  scope :custom_cpf_finder, ->(cpf) {where(cpf: [cpf, cpf.gsub(/[.-]/,"")])}
+  search_methods :custom_cpf_finder
 
   validates :email, :format => {:with => EmailFormat}
   validates :first_name, :presence => true, :format => { :with => NameFormat }
