@@ -7,7 +7,6 @@ class Admin::CatalogBasesController < Admin::BaseController
   def index
     @catalog_bases = CatalogHeader::CatalogBase
     @catalog_bases = @catalog_bases.with_type(params[:type]).page(params[:page]).per_page(100)
-
     @catalog_bases = @catalog_bases.page(params[:page]).per_page(100)
   end
 

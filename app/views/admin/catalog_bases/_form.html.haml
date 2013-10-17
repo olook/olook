@@ -11,25 +11,66 @@
         - @catalog_base.errors.full_messages.each do |msg|
           %li= msg
   .field
-    = f.label :url
-    %br/
-    = f.text_field :url
-  = f.check_box :enabled
-  = f.label :enabled
-  %br/
-  - case params[:type]
-  - when 'CatalogHeader::TextCatalogHeader'
-    = f.hidden_field :type
-  - else
+    = f.label "Tipo de url"
+    = f.select(:new_url, ["Nova url", "Url existente"])
+
+  %fieldset#no_custom_url
+    %legend
+      Adicionar
+      #{params[:type] == 'CatalogHeader::TextCatalogHeader' ? 'Texto' : 'Banners'}
+      a uma URL existente do Site
+    .inline_field
+      = f.check_box :enabled
+      = f.label :enabled
     .field
-      = f.label :type
+      = f.label :url
       %br/
-      = f.select(:type, [['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['3 Banners','CatalogHeader::SmallBannerCatalogHeader']])
-  .field
-    = f.label :seo_text
-    %br/
-    = f.text_field :seo_text
+      = f.text_field :url
+
+  %fieldset#custom_url
+    %legend
+      Criar uma URL nova com cabeçalho de
+      #{params[:type] == 'CatalogHeader::TextCatalogHeader' ? 'Texto' : 'Banners'}
+    .inline_field
+      = f.check_box :enabled
+      = f.label :enabled
+    .field
+      = f.label :url, 'URL nova (ex.: /sapatos-de-festa)'
+      %small Evitar caracteres como espaço, acentos e letras maíusculas
+      %br/
+      = f.text_field :url
+    .field
+      = f.label :organic_url
+      %br/
+      = f.text_field :organic_url
+    .field
+      = f.label :product_list
+      %br/
+      = f.text_area :product_list
+
+  %br
+  %fieldset
+    %legend Tipo do Cabeçalho
+    - if params[:type] == 'CatalogHeader::TextCatalogHeader'
+      = f.hidden_field :type
+    - elsif params[:type].try(:size).to_i > 2
+      .field
+        = f.label :type
+        %br/
+        = f.select(:type, [['Texto', 'CatalogHeader::TextCatalogHeader'], ['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['3 Banners','CatalogHeader::SmallBannerCatalogHeader']])
+    - else
+      .field
+        = f.label :type
+        %br/
+        = f.select(:type, [['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['3 Banners','CatalogHeader::SmallBannerCatalogHeader']])
+    .field
+      = f.label :seo_text
+      %br/
+      = f.text_field :seo_text
+  %br
   %fieldset#small_banner_catalog_header
+    %legend Três banners como na figura abaixo
+    = image_tag('admin/catalog_header/3banner.jpg')
     .field
       = f.label :small_banner1
       %br/
@@ -67,6 +108,8 @@
       %br/
       = f.text_field :link_medium_banner
   %fieldset#big_banner_catalog_header
+    %legend Um banner como na figura abaixo
+    = image_tag('admin/catalog_header/1banner.jpg')
     .field
       = f.label :big_banner
       %br/
@@ -80,6 +123,8 @@
       %br/
       = f.text_field :link_big_banner
   %fieldset#text_catalog_header
+    %legend Texto como na figura abaixo
+    = image_tag('admin/catalog_header/texto.jpg')
     .field
       = f.label :title
       %br/
