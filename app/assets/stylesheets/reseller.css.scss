@@ -66,16 +66,55 @@
     }
 	}
   .seller{
-    height: 330px;
+    height: 375px;
+    width: 970px;
     display: block;
     float: left;
+    margin-top: 20px;
+    border-bottom: 1px solid #959595;
+    margin-bottom: 55px;
+    h2{
+      font-family: $johnston;
+      font-size: 18px;
+      color: #000;
+      text-transform: uppercase;
+    }
     ul{
+      margin-top: 10px;
       li{
         float: left;
         height: 315px;
         background: image-url("reseller/sprite_icons.png") no-repeat 0 -5px;
+        p{
+          width: 294px;
+          font-size: 14px;
+          font-family: $avenir;
+          padding-top: 185px;
+          line-height: 20px;
+          span{
+            font-weight: bold;
+            display: block;
+            font-size: 15px;
+          }
+        }
         &.register{
-          width: 340px;
+          width: 330px;
+        }
+        &.buy{
+          width: 310px;
+          background-position: -342px -5px;
+          p{
+            width: 243px;
+            margin-left: 35px;
+          }
+        }
+        &.reseller{
+          width: 330px;
+          background-position: -649px -5px;
+          p{
+            margin-left: 35px;
+            width: 277px;
+          }
         }
       }
     }
