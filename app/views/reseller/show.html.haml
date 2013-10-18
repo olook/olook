@@ -1,2 +1,15 @@
-%h1 Reseller#show
-%p Find me in app/views/reseller/show.html.haml
+= stylesheet_link_tag "reseller"
+
+= first_level_breadcrumb("Revenda Olook")
+
+=render "reseller_default"
+
+#success
+  %p.success_msg
+    Cadastro realizado com sucesso! Mandaremos um e-mail com instruções sobre os próximos passos
+  %ul
+    %li.mail_msg
+      %p
+        Enquanto aguarda o nosso e-mail, aproveite e dê uma olhada em saias ;)
+    %li.big_banner
+      =image_tag("reseller/saias.jpg")
