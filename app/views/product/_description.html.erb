@@ -5,7 +5,6 @@
   <% unless @product.promotion? %>
   <p class="plots">ou em <%= installments(@product.price) %></p>
   <% end %>
-  <% binding.pry %>
   <% if current_user && !current_user.reseller %>
     <div class="warn_discount <%= product_presenter.is_promotion? ? 'promotion' : '' %>">
       <p>
