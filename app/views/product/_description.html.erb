@@ -5,12 +5,14 @@
   <% unless @product.promotion? %>
   <p class="plots">ou em <%= installments(@product.price) %></p>
   <% end %>
-  <div class="warn_discount <%= product_presenter.is_promotion? ? 'promotion' : '' %>">
-    <p>
-      Compre e ganhe <%= number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price) %> em créditos,
-      <%= link_to "saiba mais", "javascript:void(0);", :class => "open_loyalty_lightbox" %>
-    </p>
-  </div>
+  <% if current_user && !current_user.reseller %>
+    <div class="warn_discount <%= product_presenter.is_promotion? ? 'promotion' : '' %>">
+      <p>
+        Compre e ganhe <%= number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price) %> em créditos,
+        <%= link_to "saiba mais", "javascript:void(0);", :class => "open_loyalty_lightbox" %>
+      </p>
+    </div>
+  <% end %>
 </div>  
 <% if params[:from] != 'cart' %>
   <div class="social-media-box pl9">
