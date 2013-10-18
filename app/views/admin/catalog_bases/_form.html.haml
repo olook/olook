@@ -51,18 +51,10 @@
   %br
   %fieldset
     %legend Tipo do Cabeçalho
-    - if params[:type] == 'CatalogHeader::TextCatalogHeader'
-      = f.hidden_field :type
-    - elsif params[:type].try(:size).to_i > 2
-      .field
-        = f.label :type
-        %br/
-        = f.select(:type, [['Sem Header', 'CatalogHeader::NoBanner'], ['Texto', 'CatalogHeader::TextCatalogHeader'], ['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['3 Banners','CatalogHeader::SmallBannerCatalogHeader']])
-    - else
-      .field
-        = f.label :type
-        %br/
-        = f.select(:type, [['Sem Header', 'CatalogHeader::NoBanner'], ['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['3 Banners','CatalogHeader::SmallBannerCatalogHeader']])
+    .field
+      = f.label :type
+      %br/
+      = f.select(:type, [['Sem Header', 'CatalogHeader::NoBanner'], ['Texto', 'CatalogHeader::TextCatalogHeader'], ['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['3 Banners','CatalogHeader::SmallBannerCatalogHeader']], value: params[:type].to_a.first)
     .field
       = f.label :seo_text
       %br/
