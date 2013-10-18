@@ -1147,6 +1147,10 @@ ActiveRecord::Schema.define(:version => 20131016145449) do
     t.string   "wys_uuid"
     t.string   "state"
     t.string   "city"
+    t.string   "corporate_name"
+    t.string   "cnpj"
+    t.boolean  "reseller",                                        :default => false
+    t.boolean  "active"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token"

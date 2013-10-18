@@ -35,6 +35,8 @@ class User < ActiveRecord::Base
   NameFormat = /^[A-ZÀ-ÿ\s-]+$/i
 
   scope :full, where(half_user: false)
+  scope :custom_cpf_finder, ->(cpf) {where(cpf: [cpf, cpf.gsub(/[.-]/,"")])}
+  search_methods :custom_cpf_finder
 
   validates :email, :format => {:with => EmailFormat}
   validates :first_name, :presence => true, :format => { :with => NameFormat }
@@ -52,6 +54,10 @@ class User < ActiveRecord::Base
 
   Gender = {:female => 0, :male => 1}
   RegisteredVia = {:quiz => 0, :gift => 1, :thin => 2}
+
+  def reseller?
+    reseller
+  end
 
   def cpf=(val)
     write_attribute(:cpf, val.to_s.gsub(/\D/,""))
