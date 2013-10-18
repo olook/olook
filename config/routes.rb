@@ -5,7 +5,7 @@ Olook::Application.routes.draw do
 
   get "reseller/show"
 
-  get "reseller/index"
+  get "/cadastro_revenda", to: "reseller#index", as: 'reseller_index'
 
   resources :live_feeds, path: "api", only: [:create, :index]
 
