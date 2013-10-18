@@ -2,6 +2,10 @@
 class MemberMailer < ActionMailer::Base
   default :from => "olook <bemvinda@my.olookmail.com.br>"
 
+  def reseller_welcome_email(reseller)
+    @reseller = reseller
+  end
+
   def welcome_email(member)
     @member = member
     default_welcome_email
