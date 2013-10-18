@@ -6,6 +6,7 @@
 
 #revenda{
 	width: 970px;
+  height: 1185px;
 	margin: 0 auto;
   .about, .box_right{
     float: left;
@@ -115,6 +116,45 @@
             margin-left: 35px;
             width: 277px;
           }
+        }
+      }
+    }
+  }
+}
+
+#success{
+  width: 970px;
+  p.success_msg{
+    width: 660px;
+    height: 33px;
+    font-size: 14px;
+    color: #000;
+    font-family: avenir, arial, sans-serif;
+    display: block;
+    background-color: #f0fddf;
+    border: 1px solid #c8d4ba;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 15px;
+    margin-left: 145px;
+    background: image-url("reseller/success.png") no-repeat 15px 12px;
+    padding-left: 30px;
+  }
+  ul{
+    width: 970px;
+    font-family: $avenir;
+    margin-top: 40px;
+    margin-left: 10px;
+    li{
+      &.mail_msg{
+        height: 135px;
+        background-color: #000;
+        p{
+          color: #fff;
+          font-size: 25px;
+          text-align: center;
+          padding-top: 60px;
+
         }
       }
     }
