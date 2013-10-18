@@ -265,7 +265,9 @@ _gaq.push(['_addTrans',
             <p class="buying-continue"><%= link_to "Continuar comprando","/colecoes" %></p>
           </td>
           <td class="buttons">
-            <p class="credits">Você ganhará <span id="amount_for_loyalty_program"><%=  number_to_currency @cart_service.amount_for_loyalty_program %></span> de desconto em sua próxima compra. <%= link_to "Saiba mais", "#", :class => "open_loyalty_lightbox" %></p>
+            <% if current_user && !current_user.reseller %>
+              <p class="credits">Você ganhará <span id="amount_for_loyalty_program"><%=  number_to_currency @cart_service.amount_for_loyalty_program %></span> de desconto em sua próxima compra. <%= link_to "Saiba mais", "#", :class => "open_loyalty_lightbox" %></p>
+            <% end %>
             <% if current_user %>
               <%= link_to "Continuar", new_checkout_path, :class => "continue"  %>
             <% else %>
