@@ -1,0 +1,66 @@
+- content_for :head do
+  = check_organic_url_section( collection: stylesheet_link_tag("new_structure/section/collection_themes"), brand: stylesheet_link_tag("new_structure/section/brands"), catalog: stylesheet_link_tag("new_structure/section/lite_catalog"))
+- content_for :footer do
+  :javascript
+    start_position = #{@search.range_values_for(:price)[:min] rescue 0};
+    final_position = #{@search.range_values_for(:price)[:max] rescue 600};
+  = javascript_include_tag 'section/lite_catalog'
+  = javascript_include_tag 'section/catalog'
+- content_for :data_layer do
+  - content_for(:after_body) do
+    = javascript_include_tag "common/fb_like_button"
+
+#catalog
+  %aside
+    = check_organic_url_section( collection: -> { render("collection_themes/menu", collection_theme_groups: @collection_theme_groups) }, |
+      brand: -> { render("brands/side_filters", search: @search) }, |
+      catalog: -> { render("catalogs/filters", search: @search, category: @category) } )
+  - if @custom_url.big_banner?
+    .promo_catalog
+      =link_to image_tag(@custom_url.big_banner, alt: @custom_url.alt_big_banner, title: @custom_url.alt_big_banner), @custom_url.link_big_banner
+  - if @custom_url.small_banner?
+    .banners_group
+      %ul
+        %li.big
+          =link_to image_tag(@custom_url.medium_banner, alt: @custom_url.alt_medium_banner, title: @custom_url.alt_medium_banner), @custom_url.link_medium_banner
+        %li.small
+          =link_to image_tag(@custom_url.small_banner1, alt: @custom_url.alt_small_banner1, title: @custom_url.alt_medium_banner), @custom_url.link_small_banner1
+        %li
+          =link_to image_tag(@custom_url.small_banner2, alt: @custom_url.alt_small_banner2, title: @custom_url.alt_medium_banner), @custom_url.link_small_banner2
+
+  - if @custom_url.text?
+    .about_item
+      %h2.title= @custom_url.title
+      %span.summary
+        = @custom_url.resume_title.html_safe
+        %br
+      %span.full
+        = @custom_url.text_complement.html_safe
+        %br
+      =link_to (">> Tudo sobre #{@custom_url.title.downcase}"), "#", :class => "more_info_show"
+      =link_to (">> Ocultar conteúdo"), "#", :class => "more_info_hide"
+      %fb:like{"href" => "http://#{Rails.env == 'production' ? "www" : "homolog"}.olook.com.br#{request.path}", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false", "class" => "like", "width" => "100"}
+
+  #result
+    -if @category
+      .row{style: 'position:relative'}
+        = render "ordenation_filters", search: @search, url_builder: @url_builder
+        - unless @category == 'bolsa' || @category == 'acessorio'
+          .size_top
+            %ul.category-list
+              - filters_by('size', @search, use_fields: [:category]).reverse.each do |text, amount|
+                %li{ :class => category_style_class(text)}= filter_link_to(catalog_path(@category, @url_builder.add_filter(:size, text)), text.chomp, @search.filter_selected?(:size, text.chomp))
+            %p.title-category Qual seu tamanho?
+    %section.container_product
+      %ul#products
+        - if @custom_search && @custom_search.products.any?
+          - @custom_url.product_list.split(/\D/).map { |pid| @custom_search.products.find { |p| p.id.to_i == pid.to_i } }.compact.each do |cp|
+            = render "shared/searched_product_item", :product => cp
+          = render "shared/searched_products", :products => @search.products, campaign_products: @custom_search.products
+        - else
+          = render "shared/searched_products", :products => @search.products
+      .loading
+
+    .pagination
+      = render("shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| check_organic_url_section( catalog: -> { catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash))}, brand: -> {brand_path(@search.selected_filters_for("brand").first, @url_builder.current_filters.merge({por:params[:por]}).merge(hash))}, collection: -> { collection_theme_path(@search.selected_filters_for("collection_theme").first, @url_builder.current_filters.merge({por:params[:por]}).merge(hash))} ) })
+
