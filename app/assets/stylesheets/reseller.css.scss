@@ -157,6 +157,18 @@
 
         }
       }
+      &.button{
+        margin-top: 60px !important;
+        width: 162px;
+        margin:0 auto;
+        a{
+          display: block;
+          width: 162px;
+          height: 33px;
+          text-indent: -9999px;
+          background: image-url("reseller/bt_saias.png") no-repeat;
+        }
+      }
     }
   }
 }
