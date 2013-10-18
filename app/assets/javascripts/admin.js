@@ -11,3 +11,6 @@
 //= require_tree ./common
 //= require_tree ./ui
 //= require_tree ./admin
+$(function() {
+  $("#search_custom_cpf_finder").setMask("999.999.999-99")
+});
