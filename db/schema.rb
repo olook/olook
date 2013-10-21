@@ -191,8 +191,8 @@ ActiveRecord::Schema.define(:version => 20131023133108) do
   create_table "carts", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "notified",                :default => false, :null => false
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "legacy_id"
     t.boolean  "gift_wrap",               :default => false
     t.boolean  "use_credits",             :default => false
@@ -957,9 +957,10 @@ ActiveRecord::Schema.define(:version => 20131023133108) do
   create_table "rule_parameters", :force => true do |t|
     t.text     "rules_params"
     t.integer  "promotion_rule_id"
-    t.integer  "promotion_id"
+    t.integer  "matchable_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "matchable_type"
   end
 
   create_table "sessions", :force => true do |t|
