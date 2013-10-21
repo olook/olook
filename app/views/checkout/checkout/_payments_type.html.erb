@@ -84,7 +84,7 @@
     <p>Número de parcelas:</p>
     <%= field_set_tag do %>
       <div>
-        <% options = build_installment_options(@cart_service.total, CreditCard.installments_number_for(@cart_service.total)) %>
+        <% options = build_installment_options(@cart_service.total, CreditCard.installments_number_for(@cart_service.total, user: current_user)) %>
         <%= payment_form.select :payments, options, onchange: track_event("CheckoutPayment","changeNumberOfInstallments")  %>
       </div>
     <% end %>
