@@ -6,7 +6,7 @@ class Promotion < ActiveRecord::Base
 
   has_many :promotion_payments
 
-  has_many :rule_parameters
+  has_many :rule_parameters, as: :matchable
   has_many :promotion_rules, :through => :rule_parameters
 
   has_one :action_parameter
