@@ -20,17 +20,17 @@
             %li.first Olá,
             %li.username
               = current_user.first_name
-          %p.trade= link_to "Troca Fácil", troca_path, :class => "invite"
-        %li.submenu
-          = link_to "Minha Conta", user_orders_path, :id => "account"
-          .my_account
-            %ul
-              %li= link_to "Meus pedidos", user_orders_path
-              / <li></haml:block><haml:silent></haml:silent><haml:block></li>
-              %li.last= link_to "Meus créditos", user_credits_path
-              %li= link_to "Dados pessoais", edit_user_registration_path
-              %li= link_to "Endereços", user_addresses_path
-              %li= link_to "Sair", destroy_user_session_path, :method => :delete, onclick: track_event("Checkout","clickSignOut")
+            %p.trade= link_to "Troca Fácil", troca_path, :class => "invite"
+            %li.submenu
+              = link_to "Minha Conta", user_orders_path, :id => "account"
+              .my_account
+                %ul
+                  %li= link_to "Meus pedidos", user_orders_path
+                  / <li></haml:block><haml:silent></haml:silent><haml:block></li>
+                  %li.last= link_to "Meus créditos", user_credits_path
+                  %li= link_to "Dados pessoais", edit_user_registration_path
+                  %li= link_to "Endereços", user_addresses_path
+                  %li= link_to "Sair", destroy_user_session_path, :method => :delete, onclick: track_event("Checkout","clickSignOut")
       - else
         %p.new_login
           = link_to "Entre", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger"
