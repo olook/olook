@@ -6,7 +6,7 @@
 
 <% end %>
 
-
+<%= first_level_breadcrumb "Minha Vitrine"  %>
 <div id="showroom">
 
   <section class="user-info">
@@ -150,7 +150,24 @@
 </section>
 <%#= fim "home/boxes" %>
 
-<%= render "home/products_categories" %>
+<%#= render "home/products_categories" %>
+<div id="products_categories">
+  <h1>O que você quer ver hoje?</h1>
+  <ul>
+    <li class="blusa"><%= link_to "Blusa", catalog_path(category: "roupa", parameters: 'blusa') %></li>
+    <li class="camisa"><%= link_to "Camisa", catalog_path(category: "roupa", parameters: 'camisa') %></li>
+      <li class="calca"><%= link_to "Calça", catalog_path(category: "roupa", parameters: 'calca') %></li>
+    <li class="vestido"><%= link_to "Vestido", catalog_path(category: "roupa", parameters: 'vestido') %></li>
+    <li class="anabela"><%= link_to "Anabela", catalog_path(category: 'sapato', parameters: 'anabela') %></li>
+    <li class="bota"><%= link_to "Bota", catalog_path(category: "sapato", parameters: 'bota') %></li>
+    <li class="sapatilha"><%= link_to "Sapatilha", catalog_path(category: "sapato", parameters: 'sapatilha') %></li>
+    <li class="scarpin"><%= link_to "Scarpin", catalog_path(category: "sapato", parameters: 'scarpin') %></li>
+    <li class="sneaker"><%= link_to "Sneaker", catalog_path(category: "sapato", parameters: 'sneaker') %></li>
+    <li class="acessorios"><%= link_to "Acessórios", catalog_path(category: 'acessorio') %></li>
+    <li class="bolsas"><%= link_to "Bolsas", catalog_path(category: 'bolsa') %></li>
+  </ul>
+</div>
+<%#= fim "home/products_categories" %>
 
 <!-- MODALS -->
 <%#= render 'shared/banners/olooklet' extraindo o conteudo aqui embaixo %>
