@@ -2,7 +2,7 @@
 FactoryGirl.define do
   factory :first_time_buyers, :class => Promotion do
     association :action_parameter, factory: :action_parameter
-    association :promotion_action, factory: :percentage_adjustment
+
     name "first time buyers"
     active true
 
@@ -18,7 +18,7 @@ FactoryGirl.define do
       active true
     end
     after(:build) do |promotion|
-      promotion.rule_parameters << FactoryGirl.build(:rule_parameter, promotion: promotion)
+      promotion.rule_parameters << FactoryGirl.build(:rule_parameter)
     end
   end
 end
