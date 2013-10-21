@@ -2,4 +2,73 @@
 
 = first_level_breadcrumb("Revenda Olook")
 
-=render "reseller_default"
+= render "reseller_default"
+
+= form_for(@reseller, :url => reseller_show_path) do |f|
+  - if @reseller.errors.any?
+    #error_explanation
+      %ul
+        -@reseller.errors.full_messages.each do |msg|
+          %li
+            = msg
+  .company
+    = f.label :has_corporate, "Tipo de revendedor"
+    = f.radio_button :has_corporate , "0"
+    Autônomo (CPF)
+    = f.radio_button :has_corporate , "1"
+    Logista (CNPJ)
+  .cpf.field
+    = f.label :cpf, "CPF"
+    = f.text_field :cpf
+  .cnpj.field
+    = f.label :cnpj, "CNPJ"
+    = f.text_field :cnpj
+  .corporate_name.field
+    = f.label :corporate_name, "Razão Social"
+    = f.text_field :corporate_name
+  .first_name.field
+    = f.label :first_name
+    = f.text_field :first_name, class: @user.errors[:first_name].empty? ? "" : "input_error"
+  .last_name.field
+    = f.label :last_name
+    = f.text_field :last_name, class: @user.errors[:last_name].empty? ? "" : "input_error"
+  = errors_for(@user, :first_name)
+  = errors_for(@user, :last_name)
+  .email.field
+    = f.label :email
+    = f.text_field :email, class: @user.errors[:email].empty? ? "" : "input_error"
+  = errors_for(@user, :email)
+  .password.field
+    = f.label :password, "Senha #{content_tag("span", '(min. 6 caracteres)', class: 'hint')}".html_safe
+    = f.password_field :password, class: @user.errors[:password].empty? ? "" : "input_error"
+  .password_confirmation.field
+    = f.label :password_confirmation, "Confirmar senha"
+    = f.password_field :password_confirmation, class: @user.errors[:password].empty? ? "" : "input_error"
+  = errors_for(@user, :password)
+  = errors_for(@user, :password_confirmation)
+  .gender.field
+    = f.label :gender, "Você é:", style: 'margin-bottom: 41px;'
+    %p.text{ class: @user.errors[:gender].empty? ? "" : "input_error" }
+      Mulher
+    = f.select :gender, options_for_select({'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 },selected_key = 0)
+    = errors_for(@user, :gender)
+  .date.field
+    = f.label :birthday, "Data de Nascimento"
+    = f.text_field :birthday, class: @user.errors[:birthday].empty? ? "" : "input_error"
+    = errors_for(@user, :birthday)
+  .location
+    .state.field
+      = f.label :state, "Estado #{content_tag :span, '(opcional)', class: 'hint'}".html_safe
+      %p.text
+        Selecione
+      = f.select :state, []
+    .city.field
+      = f.label :city, "Cidade #{content_tag :span, '(opcional)', class: 'hint'}".html_safe
+      %p.text
+        Selecione
+      = f.select :city, []
+    %li.terms
+      %p
+        Ao concluir o cadastro você aceita os #{link_to 'Termos de uso', terms_path, :target => "_blank"} e a nossa #{link_to "Política de Privacidade", privacy_path}
+  .buttons
+    = f.submit "Cadastrar", :id => "register"
