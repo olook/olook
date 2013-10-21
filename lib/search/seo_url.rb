@@ -86,7 +86,7 @@ class SeoUrl
     def parse_query
       if @query.present?
         @query.split('&').each do |var|
-          k, v = var.split('=')
+          k, v = var.split('=').map { |i| URI.decode(i.to_s) }
           @params[k] = v
         end
       end
@@ -102,22 +102,22 @@ class SeoUrl
 
     def parse_brands_params
       /^\/marcas\/(?<brand>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\?(?<query>.*))?/ =~ @path
-      @params[:brand] = brand
-      @params[:parameters] = parameters
+      @params[:brand] = URI.decode(brand.to_s)
+      @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end
 
     def parse_collections_params
       /^\/colecoes\/(?<collection_theme>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\?(?<query>.*))?/ =~ @path
-      @params[:collection_theme] = collection_theme
-      @params[:parameters] = parameters
+      @params[:collection_theme] = URI.decode(collection_theme.to_s)
+      @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end
 
     def parse_catalogs_params
       /^\/(?<category>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\?(?<query>.*))?/ =~ @path
-      @params[:category] = category
-      @params[:parameters] = parameters
+      @params[:category] = URI.decode(category.to_s)
+      @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end
 

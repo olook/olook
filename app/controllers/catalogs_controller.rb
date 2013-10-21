@@ -25,6 +25,8 @@ class CatalogsController < ApplicationController
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     @pixel_information = @category = params[:category]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign_products.cache_key if @campaign_products}"
+    @category = @search.expressions[:category].first
+    params[:category] = @search.expressions[:category].first
     expire_fragment(@cache_key) if params[:force_cache].to_i == 1
   end
 
