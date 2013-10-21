@@ -5,7 +5,7 @@ class CatalogHeader::CatalogBase < ActiveRecord::Base
 
   validates :type, :presence => true, :exclusion => ["CatalogHeader::CatalogBase"]
   validates :url, presence: true, uniqueness: true, format: { with: /^\//, message: 'precisa começar com /' }
-  validates :organic_url, format: { with: /^\//, message: 'precisa começar com /' }
+  validates :organic_url, format: { with: /^\//, message: 'precisa começar com /' }, if: 'self.organic_url.present?'
 
   scope :with_type, ->(type) {where(type: type)}
 
