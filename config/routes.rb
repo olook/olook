@@ -4,7 +4,7 @@ require 'resque/server'
 Olook::Application.routes.draw do
 
   get "/revenda/confirmacao", to: 'reseller#show', as: 'reseller_show'
-  post "revenda_criacao", to: "reseller#create", as: 'revenda_criacao'
+  post "/revenda_criacao", to: "reseller#create", as: 'revenda_criacao'
   get "/revenda", to: "reseller#new", as: 'reseller_new'
 
   resources :live_feeds, path: "api", only: [:create, :index]
