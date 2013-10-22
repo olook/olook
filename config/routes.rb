@@ -3,9 +3,9 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
-  post "reseller/show", as: 'reseller_show'
-
-  get "/cadastro_revenda", to: "reseller#index", as: 'reseller_index'
+  get "reseller/confirmacao", to: 'reseller#show', as: 'reseller_show'
+  post "revenda_criacao", to: "reseller#create", as: 'revenda_criacao'
+  get "/revenda", to: "reseller#new", as: 'reseller_new'
 
   resources :live_feeds, path: "api", only: [:create, :index]
 
