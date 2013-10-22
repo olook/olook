@@ -4,4 +4,5 @@ class Reseller < User
   scope :all_reseller, where(reseller: true)
   validates :gender, :has_corporate, :birthday, presence: true
   validates_presence_of :cnpj, :corporate_name, if: Proc.new { |reseller| reseller.has_corporate }
+  usar_como_cnpj :cnpj
 end
