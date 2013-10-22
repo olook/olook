@@ -172,3 +172,44 @@
     }
   }
 }
+#register_content{
+  width: 970px;
+  .register_form{
+    width: 450px;
+    margin-left: 10px;
+    h2{
+      font-family: $johnston;
+      font-size: 18px;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+    }
+    form {margin-bottom: 15px; font-family: $avenir;
+      label{
+        display: block;
+        font-size: 13px;
+        margin: 2px 0;
+        color: #58595b;
+        font-weight: 500;
+      }
+      input {background: #FFF; 
+        border: 1px solid #959595;
+        height: 34px;
+        &#reseller_cpf, &#reseller_cnpj{
+          width: 204px;
+        }
+      }
+      .cnpj.field{display: none;}  
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
