@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131016145449) do
+ActiveRecord::Schema.define(:version => 20131021191810) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "promotion_id"
@@ -565,6 +565,11 @@ ActiveRecord::Schema.define(:version => 20131016145449) do
     t.string   "product_ids"
   end
 
+  create_table "highlight_campaigns_products", :force => true do |t|
+    t.integer "highlight_campaigns_id"
+    t.integer "products_id"
+  end
+
   create_table "highlights", :force => true do |t|
     t.string   "link"
     t.string   "image"
@@ -679,18 +684,19 @@ ActiveRecord::Schema.define(:version => 20131016145449) do
     t.string   "cod_moip"
     t.string   "tipo_pagamento"
     t.string   "status_pagamento"
+<<<<<<< HEAD
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
+=======
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+>>>>>>> Add adresse object to reseller form
     t.string   "classificacao"
     t.integer  "payment_id"
-    t.boolean  "processed",        :default => false
-    t.integer  "retry",            :default => 0
-    t.text     "error"
   end
 
   add_index "moip_callbacks", ["id_transacao"], :name => "index_moip_callbacks_on_id_transacao"
   add_index "moip_callbacks", ["payment_id"], :name => "index_moip_callbacks_on_payment_id"
-  add_index "moip_callbacks", ["processed"], :name => "index_moip_callbacks_on_processed"
 
   create_table "order_state_transitions", :force => true do |t|
     t.integer  "order_id"
@@ -1117,6 +1123,7 @@ ActiveRecord::Schema.define(:version => 20131016145449) do
     t.string   "cnpj"
     t.boolean  "reseller",                                        :default => false
     t.boolean  "active"
+    t.boolean  "has_corporate"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token"
