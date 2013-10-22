@@ -191,8 +191,8 @@ ActiveRecord::Schema.define(:version => 20131021191810) do
   create_table "carts", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "notified",                :default => false, :null => false
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "legacy_id"
     t.boolean  "gift_wrap",               :default => false
     t.boolean  "use_credits",             :default => false
@@ -684,13 +684,10 @@ ActiveRecord::Schema.define(:version => 20131021191810) do
     t.string   "cod_moip"
     t.string   "tipo_pagamento"
     t.string   "status_pagamento"
-<<<<<<< HEAD
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
-=======
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
->>>>>>> Add adresse object to reseller form
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.string   "classificacao"
     t.integer  "payment_id"
   end
