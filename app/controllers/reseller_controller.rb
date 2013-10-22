@@ -8,8 +8,9 @@ class ResellerController < ApplicationController
   def create
     @reseller = Reseller.new(params[:reseller])
     if @reseller.save
-    else
       redirect_to reseller_show_path
+    else
+      render "new"
     end
   end
 

@@ -8,7 +8,7 @@
   .register_form
     %h2
       cadastre-se e seja uma revendedora olook
-    = form_for(@reseller, :url => reseller_show_path) do |f|
+    = form_for(@reseller, :url => reseller_create_path) do |f|
       - if @reseller.errors.any?
         #error_explanation
           %ul
