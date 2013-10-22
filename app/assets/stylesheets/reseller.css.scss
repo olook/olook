@@ -195,11 +195,52 @@
       input {background: #FFF; 
         border: 1px solid #959595;
         height: 34px;
-        &#reseller_cpf, &#reseller_cnpj{
+        &#reseller_cpf, &#reseller_cnpj, &#reseller_first_name, &#reseller_last_name{
           width: 204px;
+          float: left;
         }
       }
-      .cnpj.field{display: none;}  
+      .company{}
+
+      .cpf.field{}
+
+      .request_msg{}
+
+      .cnpj.field{}
+
+      .corporate_name.field{}
+
+      .first_name.field{}
+
+      .last_name.field{}
+
+      .email.field{}
+
+      .password.field{}
+
+      .password_confirmation.field{}
+
+      .gender.field{}
+
+      .date.field{}
+
+      .location{}
+        .state.field{}
+
+        .city.field{}
+
+      .buttons{}
+      .cnpj.field{display: none;} 
+      .request_msg{
+        width: 140px;
+        float: left;
+        margin-right: 75px;
+        p{
+          font-family: $avenir;
+          color: #58595b;
+          font-size: 12px;
+        }
+      } 
     }
   }
 }
