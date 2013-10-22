@@ -1,3 +1,4 @@
+//= require plugins/cep
 //= require state_cities
 //= require plugins/jquery.meio.mask
 
@@ -32,8 +33,22 @@ function changeResellerType(){
   });
 };
 
-$(function() {
+$(document).ready(function() {
   states_and_cities.load_state_cities();
   changeResellerType();
   $('#reseller_cpf').setMask("999.999.999-99");
+  $('#reseller_cnpj').setMask("99.999.999/9999-99");
+  
+  olook.cep('.zip_code', {
+    estado: '#reseller_addresses_state',
+    cidade: '#reseller_addresses_city',
+    rua: '#reseller_addresses_street',
+    bairro: '#reseller_addresses_neighborhood',
+    afterFail: function(){
+      new dgCidadesEstados({
+        cidade: document.getElementById(context.cidade.replace('#', '')),
+        estado: document.getElementById(context.estado.replace('#', ''))
+      });
+    }
+  });
 });

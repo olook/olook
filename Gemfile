@@ -54,6 +54,7 @@ gem 'koala', '~> 1.3.0'
 gem 'dalli', '2.0.2'
 gem 'redis-rails'
 gem 'sitemap_generator'
+gem 'brazilian-rails'
 
 gem 'sass-rails', "~> 3.2.3"
 gem 'uglifier', '~> 1.0.3'
