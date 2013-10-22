@@ -200,47 +200,27 @@
           float: left;
         }
       }
-      .company{}
-
-      .cpf.field{}
-
-      .request_msg{}
-
-      .cnpj.field{}
-
-      .corporate_name.field{}
-
-      .first_name.field{}
-
-      .last_name.field{}
-
-      .email.field{}
-
-      .password.field{}
-
-      .password_confirmation.field{}
-
-      .gender.field{}
-
-      .date.field{}
-
-      .location{}
-        .state.field{}
-
-        .city.field{}
-
-      .buttons{}
-      .cnpj.field{display: none;} 
-      .request_msg{
-        width: 140px;
-        float: left;
-        margin-right: 75px;
-        p{
-          font-family: $avenir;
-          color: #58595b;
-          font-size: 12px;
+      ul.formulario{
+        li{
+          height: 60px;
+          float: left;
+          &.request_msg{
+            width: 140px;
+            float: left;
+            margin-right: 75px;
+            p{
+              font-family: $avenir;
+              color: #58595b;
+              font-size: 12px;
+            }
+          }
+          &.left_boxes{margin-right: 20px;} 
+          &.company{
+            display: inline;
+          }
         }
-      } 
+      }
+      .cnpj.field{display: none;} 
     }
   }
 }
