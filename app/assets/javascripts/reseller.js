@@ -9,6 +9,29 @@ states_and_cities.load_state_cities = function(){
   });
 }
 
+function changeResellerType(){
+  var common = $('#reseller_has_corporate_0');
+  var corporate = $('#reseller_has_corporate_1');
+  var common_fieldset = $("fieldset.common")
+  var corporate_fieldset = $("fieldset.corporate")
+  if(corporate.attr("checked")) {
+    common_fieldset.hide();
+    corporate_fieldset.show();
+  }else{
+    common_fieldset.show();
+    corporate_fieldset.hide();
+  }
+  common.change(function(){
+    common_fieldset.show();
+    corporate_fieldset.hide();
+  });
+  corporate.change(function(){
+    common_fieldset.hide();
+    corporate_fieldset.show();
+  });
+};
+
 $(function() {
   states_and_cities.load_state_cities();
+  changeResellerType();
 });
