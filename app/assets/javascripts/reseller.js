@@ -1,4 +1,5 @@
-// //= require state_cities
+//= require state_cities
+//= require plugins/jquery.meio.mask
 
 if(!states_and_cities) var states_and_cities = {};
 
@@ -34,4 +35,5 @@ function changeResellerType(){
 $(function() {
   states_and_cities.load_state_cities();
   changeResellerType();
+  $('#reseller_cpf').setMask("999.999.999-99");
 });
