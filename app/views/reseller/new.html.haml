@@ -27,6 +27,7 @@
           = f.text_field :cpf
         %li.request_msg
           %p
+<<<<<<< HEAD:app/views/reseller/index.html.haml
             Precisamos dele para a análise do seu cadastro
         %li.cnpj.field
           = f.label :cnpj, "CNPJ"
@@ -93,3 +94,11 @@
               Ao concluir o cadastro você aceita os #{link_to 'Termos de uso', terms_path, :target => "_blank"} e a nossa #{link_to "Política de Privacidade", privacy_path}
         %li.buttons
           = f.submit "Cadastrar", :id => "register"
+=======
+            Ao concluir o cadastro você aceita os #{link_to 'Termos de uso', terms_path, :target => "_blank"} e a nossa #{link_to "Política de Privacidade", privacy_path}
+      .buttons
+        = f.submit "Cadastrar", :id => "register"
+        
+-content_for :footer do
+  = javascript_include_tag "reseller"
+>>>>>>> a3ccaf65bc00ff2f0d5b7590c8a4b917b431a45d:app/views/reseller/new.html.haml
