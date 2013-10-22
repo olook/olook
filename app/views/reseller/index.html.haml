@@ -63,17 +63,30 @@
         = f.label :birthday, "Data de Nascimento"
         = f.text_field :birthday, class: @user.errors[:birthday].empty? ? "" : "input_error"
         = errors_for(@user, :birthday)
-      .location
-        .state.field
-          = f.label :state, "Estado #{content_tag :span, '(opcional)', class: 'hint'}".html_safe
-          %p.text
-            Selecione
-          = f.select :state, []
-        .city.field
-          = f.label :city, "Cidade #{content_tag :span, '(opcional)', class: 'hint'}".html_safe
-          %p.text
-            Selecione
-          = f.select :city, []
+      .address
+        = f.fields_for :addresses do |address|
+          .zip_code.field
+            = address.label :zip_code
+            = address.text_field :zip_code, :class => "zip_code"
+          .street.field
+            = address.label :street
+            = address.text_field :street
+          .complement.field
+            = address.label :complement
+            = address.text_field :complement
+          .neighborhood.field
+            = address.label :neighborhood
+            = address.text_field :neighborhood
+          .state.field
+            = address.label :state, "Estado"
+            %p.text
+              Selecione
+            = address.select :state, []
+          .city.field
+            = address.label :city, "Cidade"
+            %p.text
+              Selecione
+            = address.select :city, []
         %li.terms
           %p
             Ao concluir o cadastro você aceita os #{link_to 'Termos de uso', terms_path, :target => "_blank"} e a nossa #{link_to "Política de Privacidade", privacy_path}
