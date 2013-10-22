@@ -3,7 +3,7 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
-  get "reseller/confirmacao", to: 'reseller#show', as: 'reseller_show'
+  get "revenda/confirmacao", to: 'reseller#show', as: 'reseller_show'
   post "revenda_criacao", to: "reseller#create", as: 'revenda_criacao'
   get "/revenda", to: "reseller#new", as: 'reseller_new'
 
