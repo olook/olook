@@ -985,8 +985,8 @@ body {
         }
       }
       .submenu {
-          font-family:$avenir;position:absolute;top:27px;background: #fff;border:1px solid #000;z-index: 1;display: none;padding:10px;padding-bottom:20px;
-          p, a {margin:0px;border:0px;text-transform: none;line-height: 16px !important;color:#000;background: none;font-size: 10px;}
+          font-family:$avenir;position:absolute;top:27px;background: #fff;border:1px solid #000;z-index: 1;display: none;padding:10px;
+          p, a {margin:0px;border:0px;text-transform: none;line-height: 16px !important;color:#000;background: none;font-size: 11px;}
           a.link, a:hover {padding:0px !important;margin:0px !important;border:0px !important; background: #000 !important;top:0px !important;}
           a.link {color:#FFF;margin-top: 10px !important;color: #FFF;text-align: center;padding-top: 8px !important;padding-bottom: 6px !important;height:18px;}
           h5 {width:100%;display: block;font-size: 10px;font-weight: bold;height:25px;margin-bottom:3px;}
@@ -1006,6 +1006,12 @@ body {
         li {margin:0px;margin-bottom:4px;}
       }
       .last {width:80px !important;}
+
+      #mm_blog {
+        width:320px;
+        .column {width:100px;}
+        .second {width:140px;}
+      }
 
       #mm_colecoes, #mm_roupas, #mm_sapatos, #mm_acessorios, #mm_marcas {
         width: 460px;
@@ -1047,10 +1053,18 @@ body {
       }
 
       #mm_presentes {
+        width:150px;
         a.link {background:image-url("common/nav/arrow_megamenu.jpg") #000 no-repeat 8px center !important;height:34px !important;}
       }
 
-      #mm_olooklet {right:66px;}
+      #mm_olooklet {right:36px;
+        width:160px;
+      }
+      .image {margin-top: 10px;padding-bottom: 10px;}
+
+      #mm_showroom, #mm_presentes, #mm_olooklet, #mm_blog, #mm_colecoes, #mm_roupas, #mm_sapatos, #mm_bolsas, #mm_acessorios, #mm_marcas {
+        a.sub_menu:hover, ul li a.selecionado {color:#666 !important;}
+      }
     }
     .new_sacola{
       a{left: -9px; position: relative; text-decoration: none;display:block;height: 20px;background: image-url("common/nav/sprite_header.png") -119px -1px no-repeat;font-family: $johnston;font-size: 10px;margin-top: -43px;color: $pink;letter-spacing: 1px;padding:6px 0 0 21px;clear:both;float:right;
@@ -1781,7 +1795,6 @@ ul.breadcrumb {
   width: 991px !important;
   margin: 0 auto;
 }
-
 
 
 
