@@ -25,7 +25,7 @@
     .field
       = f.label :old_url
       %br/
-      = f.text_field :old_url
+      = f.text_field :old_url, value: @catalog_base.url
 
 
   %fieldset#custom_url
@@ -39,9 +39,10 @@
       = f.label :new_url
       %small Evitar caracteres como espaço, acentos e letras maíusculas
       %br/
-      = f.text_field :new_url
+      = f.text_field :new_url, value: @catalog_base.url
     .field
       = f.label :organic_url
+      %small Essa url define os resultados orgânicos após a lista de produtos. Ela também define os filtros laterais e por isso é obrigatória.
       %br/
       = f.text_field :organic_url
     .field
@@ -60,6 +61,7 @@
       = f.label :seo_text
       %br/
       = f.text_field :seo_text
+  %br
   %fieldset#small_banner_catalog_header
     %legend Três banners como na figura abaixo
     = image_tag('admin/catalog_header/3banner.jpg')
