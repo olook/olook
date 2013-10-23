@@ -12,7 +12,7 @@
           %li= msg
   .field
     = f.label "Tipo de url"
-    = f.select(:new_url, ["Nova url", "Url existente"])
+    = f.select(:url_type, [[1, "Nova url"], [2, "Url existente"]])
 
   %fieldset#no_custom_url
     %legend
@@ -23,9 +23,9 @@
       = f.check_box :enabled
       = f.label :enabled
     .field
-      = f.label :url
+      = f.label :old_url
       %br/
-      = f.text_field :url
+      = f.text_field :old_url
 
   %fieldset#custom_url
     %legend
@@ -35,10 +35,10 @@
       = f.check_box :enabled
       = f.label :enabled
     .field
-      = f.label :url, 'URL nova (ex.: /sapatos-de-festa)'
+      = f.label :new_url
       %small Evitar caracteres como espaço, acentos e letras maíusculas
       %br/
-      = f.text_field :url
+      = f.text_field :new_url
     .field
       = f.label :organic_url
       %br/
