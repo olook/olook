@@ -986,10 +986,10 @@ body {
       }
       .submenu {
           font-family:$avenir;position:absolute;top:27px;background: #fff;border:1px solid #000;z-index: 1;display: none;padding:10px;
-          p, a {margin:0px;border:0px;text-transform: none;line-height: 16px !important;color:#000;background: none;font-size: 11px;}
+          p, a {margin:0px;border:0px;text-transform: none;line-height: 16px !important;color:#000;background: none;font-size: 12px;}
           a.link, a:hover {padding:0px !important;margin:0px !important;border:0px !important; background: #000 !important;top:0px !important;}
-          a.link {color:#FFF;margin-top: 10px !important;color: #FFF;text-align: center;padding-top: 8px !important;padding-bottom: 6px !important;height:18px;}
-          h5 {width:100%;display: block;font-size: 10px;font-weight: bold;height:25px;margin-bottom:3px;}
+          a.link {color:#FFF;margin-top: 10px !important;color: #FFF;text-align: center;padding-top: 8px !important;padding-bottom: 6px !important;height:18px;letter-spacing: 1px !important;font-size: 11px !important;}
+          h5 {width:100%;display: block;font-size: 10px;font-weight: bold;height:25px;margin-bottom:3px;letter-spacing: 2px;}
           ul, li {display: block;float:left;width:100%;height:auto;text-transform: none;}
           li {height: auto !important;height: 4px;min-height: 4px;line-height: 12px;margin-bottom: 6px;}
         }
@@ -997,6 +997,8 @@ body {
       #mm_showroom, #mm_presentes, #mm_olooklet {width:130px;
         a.link {background:image-url("common/nav/arrow_megamenu.jpg") #000 no-repeat 14px center !important;}
       }
+
+      #mm_showroom {width:170px;}
 
       #mm_blog, #mm_colecoes, #mm_roupas, #mm_sapatos, #mm_bolsas, #mm_acessorios, #mm_acessorios, #mm_marcas {width:260px; left:100px; padding-left:22px;
         .column {width:90px;float:left;display: block;}
@@ -1023,6 +1025,11 @@ body {
         br {clear:both;}
       }
 
+      #mm_colecoes {width:500px;
+        .first {width:150px !important;}
+        .second {width:105px !important;}
+        }
+
       #mm_roupas {
         width: 440px;
         left:200px;
@@ -1032,14 +1039,15 @@ body {
       }
 
       #mm_sapatos {
-        width: 425px;
+        width: 445px;
         .first {width:90px !important;}
+        .second {width:110px !important;}
         .image a.img {display: block;float: right;background:image-url("common/nav/sapatos.jpg") no-repeat center center;width: 269px !important;height: 236px;padding:0px;}
         .image a.img:hover {background:image-url("common/nav/sapatos.jpg") center center !important;padding:0px;margin:0px;width:269 !important;}
       }
 
       #mm_bolsas, #mm_acessorios {
-        width: 69px;left: 416px;padding-left: 11px;
+        width: 90px;left: 416px;padding-left: 11px;
       }
 
       #mm_acessorios {
@@ -1047,14 +1055,14 @@ body {
       }
 
       #mm_marcas {
-        width:330px; left:530px;
-        .column {width:110px !important;}
+        width:390px; left:530px;
+        .column {width:130px !important;}
 
       }
 
       #mm_presentes {
         width:150px;
-        a.link {background:image-url("common/nav/arrow_megamenu.jpg") #000 no-repeat 8px center !important;height:34px !important;}
+        a.link {background:image-url("common/nav/arrow_megamenu.jpg") #000 no-repeat 19px 11px !important;height:34px !important;}
       }
 
       #mm_olooklet {right:36px;
@@ -1063,7 +1071,7 @@ body {
       .image {margin-top: 10px;padding-bottom: 10px;}
 
       #mm_showroom, #mm_presentes, #mm_olooklet, #mm_blog, #mm_colecoes, #mm_roupas, #mm_sapatos, #mm_bolsas, #mm_acessorios, #mm_marcas {
-        a.sub_menu:hover, ul li a.selecionado {color:#666 !important;}
+        a.sub_menu:hover, ul li a.selecionado {color:#999 !important;}
       }
     }
     .new_sacola{
@@ -1168,7 +1176,7 @@ header#new_header{
         &:hover{text-decoration:underline;}
         }
       }
-      #cart_summary{position:absolute;display:none;top:115px;right:0px;z-index:9999;width:304px;min-height:135px;max-height:388px;border:solid 1px #CCC;box-shadow:0 2px 5px #CCC;background:#FFF;padding:15px 0;
+      #cart_summary{position:absolute;display:none;top:115px;right:0px;z-index:9999;width:304px;min-height:135px;max-height:388px;border:solid 1px #000;box-shadow:0 2px 5px #CCC;background:#FFF;padding:15px 0;
          .scroll{max-height:297px;overflow-y:auto;padding:0 32px;
             li{
               &.coupon_info{
