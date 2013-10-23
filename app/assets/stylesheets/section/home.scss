@@ -230,7 +230,7 @@ section#home {
   }
   section#brands{
     position: relative;
-    min-height: 620px;
+    min-height: 690px;
     margin: 0 0 10px;
     padding: 10px 0 20px;
     border-bottom: 1px #cbcbcb solid;
@@ -505,6 +505,12 @@ section#home {
             background-position: -426px -612px;
             &:hover {
               background-position: -428px -616px;
+            }
+          }
+          &.collins a {
+            background-position: 1px -670px;
+            &:hover {
+              background-position: 4px -671px;
             }
           }
         }
