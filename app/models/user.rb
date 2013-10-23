@@ -44,7 +44,6 @@ class User < ActiveRecord::Base
   validates :email, :format => {:with => EmailFormat}
   validates :first_name, :presence => true, :format => { :with => NameFormat }
   validates :last_name, :presence => true, :format => { :with => NameFormat }
-  validates_with CpfValidator, :attributes => [:cpf], :if => :is_invited
   validates_with CpfValidator, :attributes => [:cpf], :if => :require_cpf
   validates_presence_of :gender, :if => Proc.new{|user| user.respond_to?(:half_user) and user.half_user}, :except => :update
   validates :gender, :birthday, presence: true, :if => 'validate_gender_birthday == "1"'
@@ -58,9 +57,7 @@ class User < ActiveRecord::Base
   Gender = {:female => 0, :male => 1}
   RegisteredVia = {:quiz => 0, :gift => 1, :thin => 2}
 
-  def reseller?
-    reseller
-  end
+  after_create :save_data_from_session
 
   def cpf=(val)
     write_attribute(:cpf, val.to_s.gsub(/\D/,""))
@@ -72,6 +69,38 @@ class User < ActiveRecord::Base
       return false
     end
     super
+  end
+
+  def set_session_variables(session)
+    if bday = session[:profile_birthday]
+      self.birthday = Date.new(
+        bday[:year].to_i,
+        bday[:month].to_i,
+        bday[:day].to_i)
+    end
+
+    if session[:invite]
+      self.is_invited = true
+      @invite_token = session[:invite][:invite_token]
+    end
+
+    if session[:tracking_params].present?
+      @tracking_params = session[:tracking_params]
+    end
+  rescue => e
+    Rails.logger.error("#{e.class}:#{e.message}\n#{e.backtrace.join("\n")}")
+  end
+
+  def save_data_from_session
+    if @invite_token.present?
+      self.accept_invitation_with_token(@invite_token)
+    end
+
+    if @tracking_params
+      self.add_event(EventType::TRACKING, @tracking_params)
+    end
+  rescue => e
+    Rails.logger.error("#{e.class}:#{e.message}\n#{e.backtrace.join("\n")}")
   end
 
   def name
