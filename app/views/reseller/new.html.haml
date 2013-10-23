@@ -16,48 +16,54 @@
           Autônomo (CPF)
           = f.radio_button :has_corporate , "1"
           Logista (CNPJ)
-        %li.cpf.field
-          = f.label :cpf, "CPF"
-          = f.text_field :cpf
-        %li.request_msg
-          %p
-            Precisamos dele para a análise do seu cadastro
-        %li.cnpj.field
-          = f.label :cnpj, "CNPJ"
-          = f.text_field :cnpj
-        %li.corporate_name.field
-          = f.label :corporate_name, "Razão Social"
-          = f.text_field :corporate_name
+        = errors_for(@reseller, :has_corporate)
+        %fieldset.common
+          %li.cpf.field
+            = f.label :cpf, "CPF"
+            = f.text_field :cpf
+          = errors_for(@reseller, :cnpj)
+          %li.request_msg
+            %p
+              Precisamos dele para a análise do seu cadastro
+        %fieldset.corporate
+          %li.cnpj.field
+            = f.label :cnpj, "CNPJ"
+            = f.text_field :cnpj
+          = errors_for(@reseller, :cnpj)
+          %li.corporate_name.field
+            = f.label :corporate_name, "Razão Social"
+            = f.text_field :corporate_name
+          = errors_for(@reseller, :corporate_name)
         %li.first_name.field.left_boxes
           = f.label :first_name
-          = f.text_field :first_name, class: @user.errors[:first_name].empty? ? "" : "input_error"
+          = f.text_field :first_name, class: @reseller.errors[:first_name].empty? ? "" : "input_error"
+        = errors_for(@reseller, :first_name)
         %li.last_name.field
           = f.label :last_name
-          = f.text_field :last_name, class: @user.errors[:last_name].empty? ? "" : "input_error"
-        = errors_for(@user, :first_name)
-        = errors_for(@user, :last_name)
+          = f.text_field :last_name, class: @reseller.errors[:last_name].empty? ? "" : "input_error"
+        = errors_for(@reseller, :last_name)
         %li.email.field
           = f.label :email
-          = f.text_field :email, class: @user.errors[:email].empty? ? "" : "input_error"
-        = errors_for(@user, :email)
+          = f.text_field :email, class: @reseller.errors[:email].empty? ? "" : "input_error"
+        = errors_for(@reseller, :email)
         %li.password.field.left_boxes
           = f.label :password, "Senha #{content_tag("span", '(min. 6 caracteres)', class: 'hint')}".html_safe
-          = f.password_field :password, class: @user.errors[:password].empty? ? "" : "input_error"
+          = f.password_field :password, class: @reseller.errors[:password].empty? ? "" : "input_error"
         %li.password_confirmation.field
           = f.label :password_confirmation, "Confirmar senha"
-          = f.password_field :password_confirmation, class: @user.errors[:password].empty? ? "" : "input_error"
-        = errors_for(@user, :password)
-        = errors_for(@user, :password_confirmation)
+          = f.password_field :password_confirmation, class: @reseller.errors[:password].empty? ? "" : "input_error"
+        = errors_for(@reseller, :password)
+        = errors_for(@reseller, :password_confirmation)
         %li.gender.field
           = f.label :gender, "Você é:", style: 'margin-bottom: 41px;'
-          %p.text{ class: @user.errors[:gender].empty? ? "" : "input_error" }
+          %p.text{ class: @reseller.errors[:gender].empty? ? "" : "input_error" }
             Mulher
           = f.select :gender, options_for_select({'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 },selected_key = 0)
-          = errors_for(@user, :gender)
+          = errors_for(@reseller, :gender)
         %li.date.field
           = f.label :birthday, "Data de Nascimento"
-          = f.text_field :birthday, class: @user.errors[:birthday].empty? ? "" : "input_error"
-          = errors_for(@user, :birthday)
+          = f.text_field :birthday, class: @reseller.errors[:birthday].empty? ? "" : "input_error"
+          = errors_for(@reseller, :birthday)
         %li.address
           = f.fields_for :addresses do |address|
             .zip_code.field

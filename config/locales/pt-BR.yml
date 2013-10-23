@@ -516,6 +516,11 @@
         password_confirmation: "Confirmação de senha"
         reset_password_token: "Token para resetar senha"
         gender: Sexo
+        has_corporate: "Tipo de Revendedor"
+        cnpj: "CNPJ"
+        reseller: "Revendedor"
+        corporate_name: "Razão Social"
+        active: "Ativo"
       gift_recipient:
         name: nome
       gift_occasion:
