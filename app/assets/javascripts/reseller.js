@@ -6,16 +6,16 @@ if(!states_and_cities) var states_and_cities = {};
 
 states_and_cities.load_state_cities = function(){
   new dgCidadesEstados({
-    cidade: document.getElementById('reseller_addresses_city'),
-    estado: document.getElementById('reseller_addresses_state')
+    cidade: document.getElementById('reseller_addresses_attributes_0_city'),
+    estado: document.getElementById('reseller_addresses_attributes_0_state')
   });
 }
 
 function changeResellerType(){
   var common = $('#reseller_has_corporate_0');
   var corporate = $('#reseller_has_corporate_1');
-  var common_fieldset = $("fieldset.common")
-  var corporate_fieldset = $("fieldset.corporate")
+  var common_fieldset = $("fieldset.common");
+  var corporate_fieldset = $("fieldset.corporate");
   if(corporate.attr("checked")) {
     common_fieldset.hide();
     corporate_fieldset.show();
