@@ -14,7 +14,6 @@
     = f.label "Tipo de url"
     = f.select(:url_type, [["Nova url", 2], ["Url existente", 1]])
 
-  %br
   %fieldset#no_custom_url
     %legend
       Adicionar
@@ -29,7 +28,6 @@
       = f.text_field :old_url
 
 
-  %br
   %fieldset#custom_url
     %legend
       Criar uma URL nova com cabeçalho de
@@ -51,6 +49,7 @@
       %br/
       = f.text_area :product_list
 
+  %br
   %fieldset
     %legend Tipo do Cabeçalho
     .field
