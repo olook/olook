@@ -115,7 +115,7 @@ class SeoUrl
     end
 
     def parse_catalogs_params
-      /^\/(?<category>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\?(?<query>.*))?/ =~ @path
+      /^(?:\/catalogo)?\/(?<category>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\?(?<query>.*))?/ =~ @path
       @params[:category] = URI.decode(category.to_s)
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
