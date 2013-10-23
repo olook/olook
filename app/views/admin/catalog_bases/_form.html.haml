@@ -12,8 +12,9 @@
           %li= msg
   .field
     = f.label "Tipo de url"
-    = f.select(:url_type, [[1, "Nova url"], [2, "Url existente"]])
+    = f.select(:url_type, [["Nova url", 2], ["Url existente", 1]])
 
+  %br
   %fieldset#no_custom_url
     %legend
       Adicionar
@@ -27,6 +28,8 @@
       %br/
       = f.text_field :old_url
 
+
+  %br
   %fieldset#custom_url
     %legend
       Criar uma URL nova com cabeçalho de
