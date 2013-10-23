@@ -208,6 +208,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     input[type="submit"].add_product, a.add_product {background: image-url('product/add_bag.png') -25px 0 no-repeat;text-indent: -9999px;width: 415px;height: 45px;margin: 17px auto 30px;display: block;border: none;cursor: pointer;clear: both;
       /*&:hover{background-position: -25px -51px;}*/
       &.disabled {background-position: -25px -102px;}
+      &.green {background: image-url('product/bt-add-product-to-suggestions-disabled.jpg') no-repeat;}
     }
     input[type="submit"].add_product_to_suggestions {background: image-url('product/bt-add-product-to-suggestions.jpg') no-repeat;text-indent: -9999px;width: 305px;height: 65px;margin: 17px auto 30px auto;display: block;border: none;cursor: pointer;clear: both;
       &.disabled {background: image-url('product/bt-add-product-to-suggestions-disabled.jpg') no-repeat;}
