@@ -51,7 +51,7 @@ Olook::Application.routes.draw do
     "thelure" => "Thelure",
     "triton" => "Triton"
   }.each do |collection_name, brand|
-    get "/colecoes/#{collection_name}" => redirect("/marcas/#{brand}")
+    get "/colecoes/#{collection_name}" => redirect("/marcas/#{URI.encode(brand)}")
   end
 
   get "/colecoes/liquida_final", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
