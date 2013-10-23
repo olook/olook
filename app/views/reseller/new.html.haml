@@ -27,9 +27,9 @@
             = f.label :cnpj, "CNPJ"
             = f.text_field :cnpj
           = errors_for(@reseller, :cnpj)
-        %li.request_msg
-          %p
-            Precisamos dele para a análise do seu cadastro
+          %li.request_msg
+            %p
+              Precisamos dele para a análise do seu cadastro
           %li.corporate_name.field
             = f.label :corporate_name, "Razão Social"
             = f.text_field :corporate_name
@@ -58,45 +58,45 @@
           = f.label :gender, "Você é:", style: ''
           %p.text{ class: @reseller.errors[:gender].empty? ? "" : "input_error" }
           = f.select :gender, options_for_select({'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 },selected_key = 0)
-          = errors_for(@reseller, :gender)
-            %span{class: "custom_select"} Selecione
+          %span{class: "custom_select"} Selecione
+        = errors_for(@reseller, :gender)
         %li.date.field
           = f.label :birthday, "Data de Nascimento"
           = f.text_field :birthday, class: @reseller.errors[:birthday].empty? ? "" : "input_error"
           = errors_for(@reseller, :birthday)
-          = f.fields_for :addresses do |address|
-            %li.zip_code.field
-              = address.label :zip_code, "CEP"
-              = address.text_field :zip_code, :class => "zip_code"
-            %li.request_msg
-              %p
-                Pesquisaremos o seu endereço a partir do CEP informado  
-            %li.street.field
-              = address.label :street, "Rua, Avenia, Praça etc"
-              = address.text_field :street
-            %li.number.field
-              = address.label :number, "Número"
-              = address.text_field :number
-            %li.complement.field
-              = address.label :complement, "Complemento"
-              = address.text_field :complement  
-            %li.neighborhood.field
-              = address.label :neighborhood, "Bairro"
-              = address.text_field :neighborhood
-            %li.state.field
-              = address.label :state, "Estado"
-              %p.text
-                Selecione
-              = address.select :state, []
-            %li.city.field
-              = address.label :city, "Cidade"
-              %p.text
-                Selecione
-              = address.select :city, []
+        = f.fields_for :addresses do |address|
+          %li.zip_code.field
+            = address.label :zip_code, "CEP"
+            = address.text_field :zip_code, :class => "zip_code"
+          %li.request_msg
+            %p
+              Pesquisaremos o seu endereço a partir do CEP informado  
+          %li.street.field
+            = address.label :street, "Rua, Avenia, Praça etc"
+            = address.text_field :street
+          %li.number.field
+            = address.label :number, "Número"
+            = address.text_field :number
+          %li.complement.field
+            = address.label :complement, "Complemento"
+            = address.text_field :complement  
+          %li.neighborhood.field
+            = address.label :neighborhood, "Bairro"
+            = address.text_field :neighborhood
+          %li.state.field
+            = address.label :state, "Estado"
+            %p.text
+              Selecione
+            = address.select :state, []
+          %li.city.field
+            = address.label :city, "Cidade"
+            %p.text
+              Selecione
+            = address.select :city, []
           %li.terms
             %p
               Ao concluir o cadastro você aceita os #{link_to 'Termos de uso', terms_path, :target => "_blank"} e a nossa #{link_to "Política de Privacidade", privacy_path}
         %li.buttons
           = f.submit "Cadastrar", :id => "register"
--content_for :footer do
+- content_for :footer do
   = javascript_include_tag "reseller"
