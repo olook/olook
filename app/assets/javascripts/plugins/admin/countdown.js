@@ -28,7 +28,11 @@ Countdown.prototype.attach = function (){
 };
 
 Countdown.prototype.updateCount = function (){
-  this._placer.text(this._count - this._input.val().length);
+  try {
+    this._placer.text(this._count - this._input.val().length);
+  } catch (e) {
+    console.log(e)
+  }
 };
 
 
