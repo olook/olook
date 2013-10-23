@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
     :validate_gender_birthday
   attr_protected :invite_token
 
+
   has_many :points, :dependent => :destroy
   has_many :profiles, through: :points, order: Point.arel_table[:value].desc
   has_one :survey_answer, :dependent => :destroy
@@ -25,6 +26,8 @@ class User < ActiveRecord::Base
 
   before_create :generate_invite_token
   after_create :initialize_user, :update_campaign_email
+
+  accepts_nested_attributes_for :addresses
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
