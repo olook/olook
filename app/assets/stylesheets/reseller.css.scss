@@ -220,7 +220,8 @@
           }
         }
       }
-      .cnpj.field{display: none;} 
+      fieldset.common{display: none;} 
+      fieldset.corporate{display: none;} 
     }
   }
 }
