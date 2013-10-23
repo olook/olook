@@ -191,8 +191,8 @@ ActiveRecord::Schema.define(:version => 20131023133108) do
   create_table "carts", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "notified",                :default => false, :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.integer  "legacy_id"
     t.boolean  "gift_wrap",               :default => false
     t.boolean  "use_credits",             :default => false
@@ -332,6 +332,7 @@ ActiveRecord::Schema.define(:version => 20131023133108) do
   end
 
   add_index "collection_themes", ["collection_theme_group_id"], :name => "index_collection_themes_on_collection_theme_group_id"
+  add_index "collection_themes", ["name"], :name => "index_moments_on_name", :unique => true
   add_index "collection_themes", ["slug"], :name => "index_moments_on_slug", :unique => true
 
   create_table "collection_themes_products", :id => false, :force => true do |t|
@@ -678,8 +679,6 @@ ActiveRecord::Schema.define(:version => 20131023133108) do
     t.string   "cod_moip"
     t.string   "tipo_pagamento"
     t.string   "status_pagamento"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
     t.string   "classificacao"
