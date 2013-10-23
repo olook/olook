@@ -427,7 +427,9 @@
 
     attributes:
       catalog_header/catalog_base:
-        url: 'Url (ex: /sapato)'
+        url: 'URL'
+        old_url: "URL existente ex.: /sapato"
+        new_url: "URL nova ex.: /preto-e-branco"
         enabled: 'Ativar?'
         custom_url: 'Criar essa url no site?'
         product_list: 'Produtos para aparecer antes do resultado orgânico'
