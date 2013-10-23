@@ -110,6 +110,7 @@ group :development, :test do
   gem 'jasmine'
   gem "selenium-webdriver", "~> 2.35.1"  
   gem 'binding_of_caller'
+  gem 'rspec-prof'
 end
 gem 'rubber', '~> 2.0', git: 'git://github.com/nelsonmhjr/rubber.git', branch: 'newrelic'
 gem 'open4'
