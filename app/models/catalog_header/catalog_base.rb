@@ -9,6 +9,8 @@ class CatalogHeader::CatalogBase < ActiveRecord::Base
 
   scope :with_type, ->(type) {where(type: type)}
 
+  before_validation :set_url
+
   def self.factory params
     if params[:type] == 'CatalogHeader::BigBannerCatalogHeader'
       CatalogHeader::BigBannerCatalogHeader.new(params)
@@ -53,5 +55,15 @@ class CatalogHeader::CatalogBase < ActiveRecord::Base
 
   def small_banner?
     false
+  end
+
+  private
+
+  def set_url
+    if self.old_url_type?
+      self.url = self.old_url
+    else
+      self.url = self.new_url
+    end
   end
 end
