@@ -15,8 +15,7 @@ class CustomUrlController < ApplicationController
         brand: SeoUrl.new(search_params, "brand", @search),
         collection: SeoUrl.new(search_params, "collection_theme", @search)
       )
-      /\/?(?<category>roupa|bolsa|sapato|acessorio)[\/$]/ =~ @custom_url.organic_url.to_s
-      @category = category
+      @category = @search.current_filters['category'].first
       @collection_theme_groups = CollectionThemeGroup.order(:position).includes(:collection_themes)
     else
       redirect_to root_url
