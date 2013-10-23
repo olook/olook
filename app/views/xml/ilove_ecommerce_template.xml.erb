@@ -6,12 +6,12 @@
 		<categoria><%= get_ilove_category_for product %></categoria>
 		<link><![CDATA[<%= product.product_url(:utm_source =>"ilove_ecommerce", :utm_campaign => "produtos").html_safe %>]]></link>
 		<imagem><%= full_image_path product.xml_picture(:main) %></imagem>
-		<nome_titulo><%= product.name %></nome_titulo>
-		<descricao><%= product.description %></descricao>
+		<nome_titulo><![CDATA[<%= product.name %>]]></nome_titulo>
+		<descricao><![CDATA[<%= product.description %>]]></descricao>
 		<preco_real><%= product.price %></preco_real>
 		<preco_desconto><%= product.retail_price %></preco_desconto>
 		<specific>
-			<marca><%= product.brand %></marca>
+			<marca><![CDATA[<%= product.brand %>]]></marca>
 			<cor></cor>
 			<tamanho></tamanho>
 			<autor></autor>
