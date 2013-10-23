@@ -332,7 +332,6 @@ ActiveRecord::Schema.define(:version => 20131021191810) do
   end
 
   add_index "collection_themes", ["collection_theme_group_id"], :name => "index_collection_themes_on_collection_theme_group_id"
-  add_index "collection_themes", ["name"], :name => "index_moments_on_name", :unique => true
   add_index "collection_themes", ["slug"], :name => "index_moments_on_slug", :unique => true
 
   create_table "collection_themes_products", :id => false, :force => true do |t|
@@ -565,11 +564,6 @@ ActiveRecord::Schema.define(:version => 20131021191810) do
     t.string   "product_ids"
   end
 
-  create_table "highlight_campaigns_products", :force => true do |t|
-    t.integer "highlight_campaigns_id"
-    t.integer "products_id"
-  end
-
   create_table "highlights", :force => true do |t|
     t.string   "link"
     t.string   "image"
@@ -690,10 +684,14 @@ ActiveRecord::Schema.define(:version => 20131021191810) do
     t.datetime "updated_at",                          :null => false
     t.string   "classificacao"
     t.integer  "payment_id"
+    t.boolean  "processed",        :default => false
+    t.integer  "retry",            :default => 0
+    t.text     "error"
   end
 
   add_index "moip_callbacks", ["id_transacao"], :name => "index_moip_callbacks_on_id_transacao"
   add_index "moip_callbacks", ["payment_id"], :name => "index_moip_callbacks_on_payment_id"
+  add_index "moip_callbacks", ["processed"], :name => "index_moip_callbacks_on_processed"
 
   create_table "order_state_transitions", :force => true do |t|
     t.integer  "order_id"
