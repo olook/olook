@@ -40,10 +40,10 @@ $(document).ready(function() {
   $('#reseller_cnpj').setMask("99.999.999/9999-99");
   
   olook.cep('.zip_code', {
-    estado: '#reseller_addresses_state',
-    cidade: '#reseller_addresses_city',
-    rua: '#reseller_addresses_street',
-    bairro: '#reseller_addresses_neighborhood',
+    estado: '#reseller_addresses_attributes_0_state',
+    cidade: '#reseller_addresses_attributes_0_city',
+    rua: '#reseller_addresses_attributes_0_street',
+    bairro: '#reseller_addresses_attributes_0_neighborhood',
     afterFail: function(){
       new dgCidadesEstados({
         cidade: document.getElementById(context.cidade.replace('#', '')),
