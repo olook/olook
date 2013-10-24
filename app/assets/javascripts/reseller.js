@@ -42,6 +42,7 @@ $(document).ready(function() {
   changeResellerType();
   $('#reseller_cpf').setMask("999.999.999-99");
   $('#reseller_cnpj').setMask("99.999.999/9999-99");
+  $('#reseller_birthday').setMask("99/99/9999");
   
   olook.cep('.zip_code', {
     estado: '#reseller_addresses_attributes_0_state',
