@@ -12,7 +12,7 @@
       %ul.formulario
         %li.company
           = f.label :has_corporate, "Tipo de revendedor"
-          = f.radio_button :has_corporate , "0"
+          = f.radio_button :has_corporate , "0", checked: true
           = f.label :has_corporate, "Autônomo (CPF)"
           = f.radio_button :has_corporate , "1"
           = f.label :has_corporate, "Logista (CNPJ)"
