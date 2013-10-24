@@ -1010,9 +1010,9 @@ body {
       .last {width:80px !important;}
 
       #mm_blog {
-        width:320px;
-        .column {width:100px;}
-        .second {width:140px;}
+        width:350px;
+        .column {width:110px;}
+        .second {width:150px;}
       }
 
       #mm_colecoes, #mm_roupas, #mm_sapatos, #mm_acessorios, #mm_marcas {
@@ -1036,6 +1036,7 @@ body {
         .image, li.image:hover {width:220px !important;}
         .image a.img {display: block;float: right;background:image-url("common/nav/roupas.jpg") no-repeat center center;width: 213px !important;height: 269px;padding:0px;}
         .image a.img:hover {background:image-url("common/nav/roupas.jpg") center center !important;padding:0px;margin:0px;width:213 !important;}
+        .second {width:100px !important;}
       }
 
       #mm_sapatos {
@@ -1062,11 +1063,10 @@ body {
 
       #mm_presentes {
         width:150px;
-        a.link {background:image-url("common/nav/arrow_megamenu.jpg") #000 no-repeat 19px 11px !important;height:34px !important;}
       }
 
       #mm_olooklet {right:36px;
-        width:160px;
+        width:180px;
       }
       .image {margin-top: 10px;padding-bottom: 10px;}
 
@@ -1075,12 +1075,12 @@ body {
       }
     }
     .new_sacola{
-      a{left: -9px; position: relative; text-decoration: none;display:block;height: 20px;background: image-url("common/nav/sprite_header.png") -119px -1px no-repeat;font-family: $johnston;font-size: 10px;margin-top: -43px;color: $pink;letter-spacing: 1px;padding:6px 0 0 21px;clear:both;float:right;
-         &.full{background: image-url("common/nav/sprite_header.png") -219px -32px no-repeat;}
+      a{border:1px solid #fff;left: -9px; position: relative; text-decoration: none;display:block;height: 22px;background: image-url("common/nav/sprite_header.png") -119px -1px no-repeat;font-family: $johnston;font-size: 10px;margin-top: -43px;color: $pink;letter-spacing: 1px;padding:5px 13px 2px 35px;clear:both;float:right;
+         &.full{background: image-url("common/nav/sprite_header.png") #fff -208px -32px no-repeat;}
          .mini_coupon_tag{background: image-url('common/nav/sprite_header.png') -269px -113px no-repeat; width: 60px; height: 28px;top: -23px;right: 0;display: block;position: absolute;}
       }
+      a:hover, a.selecionado {border:1px solid #000;border-bottom: 0px;background: image-url("common/nav/sprite_header.png") #fff -206px -32px no-repeat;padding:5px 13px 2px 37px;}
       span{font-family: $kepler;font-size: 10px;margin: 0;}
-
     }
   }
 
@@ -1176,7 +1176,8 @@ header#new_header{
         &:hover{text-decoration:underline;}
         }
       }
-      #cart_summary{position:absolute;display:none;top:115px;right:0px;z-index:9999;width:304px;min-height:135px;max-height:388px;border:solid 1px #000;box-shadow:0 2px 5px #CCC;background:#FFF;padding:15px 0;
+      #cart_summary{position:absolute;display:none;top:127px;right:-1px;z-index:9999;width:304px;min-height:135px;max-height:388px;border:solid 1px #000;box-shadow:0 2px 5px #CCC;background:#FFF;padding:15px 0;
+         .detalhe {width: 137px;background: #FFF;height: 2px;position: absolute;top: -1px;right: 0px;}
          .scroll{max-height:297px;overflow-y:auto;padding:0 32px;
             li{
               &.coupon_info{
