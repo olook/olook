@@ -177,6 +177,7 @@
   .register_form{
     width: 450px;
     margin-left: 10px;
+    float: left;
     h2{
       font-family: $johnston;
       font-size: 18px;
@@ -233,7 +234,7 @@
           &.left_boxes{margin-right: 20px;} 
           &.company{
             margin-top: 25px;
-            height: 35px;
+            height: 28px;
             label{
                   display: inline;        
                 }
@@ -269,13 +270,59 @@
       fieldset.corporate{display: none;} 
     }
   }
+  .reseller_infos{
+    width: 445px;
+    float: left;
+    margin-left: 30px;
+    h2{
+      font-family: $johnston;
+      font-size: 18px;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      float: right;
+    }
+    ul{
+      width: 445px;
+      li{
+        margin-left: 10px;
+        margin-top: 50px;
+        height: 125px;
+        background: image-url("reseller/sprite_icons.png") no-repeat;
+        &.fast{
+          background-position: -8px -372px;
+          margin-top: 74px;
+        }
+        &.acessivel{
+          margin-top: 25px;
+          background-position: -8px -540px;
+          p{
+            padding-top: 28px;
+          }
+        }
+        &.curadoria{
+          background-position: -8px -715px;
+        }
+        &.parcerias{
+          background-position: -8px -840px;
+        }
+        &.garantia{
+          background-position: -8px -999px;
+        }
+        p{
+          font-size: 14px;
+          font-family: $avenir;
+          width: 280px;
+          padding-left: 150px;
+          span{
+            display: block;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
 }
-
-
-
-
-
-
 
 
 
