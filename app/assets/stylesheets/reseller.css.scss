@@ -196,9 +196,15 @@
         border: 1px solid #959595;
         height: 34px;
         width: 430px;
-        &#reseller_cpf, &#reseller_cnpj, &#reseller_first_name, &#reseller_last_name, &#reseller_password, &#reseller_password_confirmation, &#reseller_addresses_zip_code, &#reseller_birthday, &#reseller_addresses_street, &#reseller_addresses_number{
+        &#reseller_cpf, &#reseller_cnpj, &#reseller_first_name, &#reseller_last_name, &#reseller_password, &#reseller_password_confirmation, &#reseller_addresses_attributes_0_zip_code, &#reseller_birthday, &#reseller_addresses_attributes_0_street, &#reseller_addresses_attributes_0_number{
           width: 204px;
           float: left;
+        }
+        &#reseller_addresses_attributes_0_complement{
+          width: 107px;
+        }
+        &#reseller_addresses_attributes_0_neighborhood{
+          width: 301px;
         }
       }
       ul.formulario{
@@ -222,6 +228,8 @@
               padding-top: 22px;
             }
           }
+          &.date{float: right;margin-right: 18px;}
+          &.cep_msg{width: 170px;margin-right: 15px;}
           &.left_boxes{margin-right: 20px;} 
           &.company{
             margin-top: 25px;
@@ -231,9 +239,29 @@
                 }
             input{padding-top: 5px;margin-left: 10px;height: 15px;width: 13px;}
           }
-          select{width:158px;height:26px;opacity:0;filter: alpha(opacity=0);position:relative;z-index:2;top:10px;}
+          &.terms{
+            width: 300px;
+            margin-top: 15px;
+            p{
+              font-size: 12px; color: #58595b;
+              a{
+                color: $pink;
+              }
+            }
+          }
+/*          select{width:158px;height:26px;opacity:0;filter: alpha(opacity=0);position:relative;z-index:2;top:10px;}
           .custom_select{position:absolute;display:block;width:160px;height:39px;background: image-url("/login/sprite.png") no-repeat 0px, -104px;z-index:1;top:21px;left:0;line-height:39px;padding-left:5px;
             &.input_error{background: image-url("/login/sprite.png") no-repeat -166px, -104px};
+          }*/
+        }
+        #register{
+          width: 433px;
+          height: 56px;
+          border: none;
+          text-indent: -9999px;
+          background: image-url("reseller/bt_anchor.jpg") no-repeat 0 -180px;
+          &:hover{
+            background: image-url("reseller/bt_anchor.jpg") no-repeat 0 -242px;
           }
         }
       }
