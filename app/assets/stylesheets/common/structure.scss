@@ -6,6 +6,7 @@
 @import 'new_structure/partials/liquida';
 @import 'new_structure/section/clippings';
 @import 'new_structure/common/modal_footer';
+@import 'new_structure/common/megamenu';
 
 body {
   #error_explanation {
@@ -949,143 +950,6 @@ body {
     }
   }*/
 
-  /*** new menu ***/
-  div#wrapper_new_menu{position:relative;z-index:99;background:#FFF;width:100%;opacity:1;*filter: alpha(opacity=90);-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
-     &.smaller {
-       div.content {
-         width: 990px;
-         padding-right: 0;
-         ul.product_anchors {
-           display: none;
-         }
-       }
-     }
-     &.fixed {
-       position: fixed;
-       top: 0;
-       z-index:999;
-       padding-top:5px;
-     }
-    nav.menu_new{
-      margin: 0 auto 5px;
-      width: 990px;
-      line-height: 30px;
-      .default_new{
-        width: 970px;
-        margin: 0 auto;
-       /* overflow: hidden;*/
-       position:relative;
-       display: inline-block;
-
-        li{margin-left:-1px;font-size: 10px;text-transform: uppercase;display: inline;float: left;height: 30px;
-          &.liquidation{border-right: none;}
-/*          &:nth-child(10){background:none;}*/
-          a{border-bottom:0px;display:block;font-family: $johnston;height:28px;text-decoration: none;color: black;padding:0 11px;letter-spacing:2px;background: image-url("common/nav/menu_bar.png") no-repeat right 0;}
-          a:hover, a.selecionado {border:1px solid #000;border-bottom:0px;position:relative;background: #FFF;z-index: 99;padding:0 10px;position: relative;top:-1px;}
-        }
-      }
-      .submenu {
-          font-family:$avenir;position:absolute;top:27px;background: #fff;border:1px solid #000;z-index: 1;display: none;padding:10px;
-          p, a {margin:0px;border:0px;text-transform: none;line-height: 16px !important;color:#000;background: none;font-size: 12px;}
-          a.link, a:hover {padding:0px !important;margin:0px !important;border:0px !important; background: #000 !important;top:0px !important;}
-          a.link {color:#FFF;margin-top: 10px !important;color: #FFF;text-align: center;padding-top: 8px !important;padding-bottom: 6px !important;height:18px;letter-spacing: 1px !important;font-size: 11px !important;}
-          h5 {width:100%;display: block;font-size: 10px;font-weight: bold;height:25px;margin-bottom:3px;letter-spacing: 2px;}
-          ul, li {display: block;float:left;width:100%;height:auto;text-transform: none;}
-          li {height: auto !important;height: 4px;min-height: 4px;line-height: 12px;margin-bottom: 6px;}
-        }
-      
-      #mm_showroom, #mm_presentes, #mm_olooklet {width:130px;
-        a.link {background:image-url("common/nav/arrow_megamenu.jpg") #000 no-repeat 14px center !important;}
-      }
-
-      #mm_showroom {width:170px;}
-
-      #mm_blog, #mm_colecoes, #mm_roupas, #mm_sapatos, #mm_bolsas, #mm_acessorios, #mm_acessorios, #mm_marcas {width:260px; left:100px; padding-left:22px;
-        .column {width:90px;float:left;display: block;}
-        a.sub_menu {display: inline !important; color:#000 !important;background: none !important;padding:0px; letter-spacing: 0px;font-family: $avenir !important;line-height: 12px !important;}
-        a.sub_menu:hover {border:0px;padding:0px;margin:0px;}
-        li:hover a, li a:hover {border:0px !important;margin:0px;top:0px;}
-        li {margin:0px;margin-bottom:4px;}
-      }
-      .last {width:80px !important;}
-
-      #mm_blog {
-        width:350px;
-        .column {width:110px;}
-        .second {width:150px;}
-      }
-
-      #mm_colecoes, #mm_roupas, #mm_sapatos, #mm_acessorios, #mm_marcas {
-        width: 460px;
-        left:150px;
-        .first {width:120px !important;}
-        .image, li.image:hover {width:240px !important;}
-        .image a.img {display: block;float: right;background:image-url("common/nav/colecoes.jpg") no-repeat center center;width: 207px !important;height: 242px;padding:0px;}
-        .image a.img:hover {background:image-url("common/nav/colecoes.jpg") center center !important;padding:0px;margin:0px;width:207 !important;}
-        br {clear:both;}
-      }
-
-      #mm_colecoes {width:500px;
-        .first {width:150px !important;}
-        .second {width:105px !important;}
-        }
-
-      #mm_roupas {
-        width: 440px;
-        left:200px;
-        .image, li.image:hover {width:220px !important;}
-        .image a.img {display: block;float: right;background:image-url("common/nav/roupas.jpg") no-repeat center center;width: 213px !important;height: 269px;padding:0px;}
-        .image a.img:hover {background:image-url("common/nav/roupas.jpg") center center !important;padding:0px;margin:0px;width:213 !important;}
-        .second {width:100px !important;}
-      }
-
-      #mm_sapatos {
-        width: 445px;
-        .first {width:90px !important;}
-        .second {width:110px !important;}
-        .image a.img {display: block;float: right;background:image-url("common/nav/sapatos.jpg") no-repeat center center;width: 269px !important;height: 236px;padding:0px;}
-        .image a.img:hover {background:image-url("common/nav/sapatos.jpg") center center !important;padding:0px;margin:0px;width:269 !important;}
-      }
-
-      #mm_bolsas, #mm_acessorios {
-        width: 90px;left: 416px;padding-left: 11px;
-      }
-
-      #mm_acessorios {
-        width:100px;left:485px;
-      }
-
-      #mm_marcas {
-        width:390px; left:530px;
-        .column {width:130px !important;}
-
-      }
-
-      #mm_presentes {
-        width:150px;
-      }
-
-      #mm_olooklet {right:36px;
-        width:180px;
-      }
-      .image {margin-top: 10px;padding-bottom: 10px;}
-
-      #mm_showroom, #mm_presentes, #mm_olooklet, #mm_blog, #mm_colecoes, #mm_roupas, #mm_sapatos, #mm_bolsas, #mm_acessorios, #mm_marcas {
-        a.sub_menu:hover, ul li a.selecionado {color:#999 !important;}
-      }
-    }
-    .new_sacola{
-      a{border:1px solid #fff;left: -9px; position: relative; text-decoration: none;display:block;height: 22px;background: image-url("common/nav/sprite_header.png") -119px -1px no-repeat;font-family: $johnston;font-size: 10px;margin-top: -43px;color: $pink;letter-spacing: 1px;padding:5px 13px 2px 35px;clear:both;float:right;
-         &.full{background: image-url("common/nav/sprite_header.png") #fff -208px -32px no-repeat;}
-         .mini_coupon_tag{background: image-url('common/nav/sprite_header.png') -269px -113px no-repeat; width: 60px; height: 28px;top: -23px;right: 0;display: block;position: absolute;}
-      }
-      a:hover, a.selecionado {border:1px solid #000;border-bottom: 0px;background: image-url("common/nav/sprite_header.png") #fff -206px -32px no-repeat;padding:5px 13px 2px 37px;}
-      span{font-family: $kepler;font-size: 10px;margin: 0;}
-    }
-  }
-
-/*** end new menu ***/
-
 /*** new header ***/
 header#new_header{
   min-height: 109px;
@@ -1176,7 +1040,7 @@ header#new_header{
         &:hover{text-decoration:underline;}
         }
       }
-      #cart_summary{position:absolute;display:none;top:127px;right:-1px;z-index:9999;width:304px;min-height:135px;max-height:388px;border:solid 1px #000;box-shadow:0 2px 5px #CCC;background:#FFF;padding:15px 0;
+      #cart_summary{position:absolute;display:none;top:111px;right:-1px;z-index:9999;width:304px;min-height:135px;max-height:388px;border:solid 1px #000;box-shadow:0 2px 5px #CCC;background:#FFF;padding:15px 0;
          .detalhe {width: 137px;background: #FFF;height: 2px;position: absolute;top: -1px;right: 0px;}
          .scroll{max-height:297px;overflow-y:auto;padding:0 32px;
             li{
