@@ -48,10 +48,12 @@ function showCartSummary() {
   $("#cart_summary").show();
   $('.coupon_warn').delay(6000).fadeOut();
   $("body").addClass('cart_submenu_opened');
+  $(".new_sacola a").addClass('selecionado');
 }
 function hideCartSummary() {
   $("#cart_summary").hide();
   $("body").removeClass('cart_submenu_opened');
+  $(".new_sacola a").removeClass('selecionado');
 }
 
 $(document).ready(function() {
