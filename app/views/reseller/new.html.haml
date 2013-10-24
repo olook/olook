@@ -16,50 +16,48 @@
           = f.label :has_corporate, "Autônomo (CPF)"
           = f.radio_button :has_corporate , "1"
           = f.label :has_corporate, "Logista (CNPJ)"
-        = errors_for(@reseller, :has_corporate)
-        %fieldset.common
-          %li.cpf.field
-            = f.label :cpf, "CPF"
-            = f.text_field :cpf
+          = errors_for(@reseller, :has_corporate)
+        %li.cpf.field
+          = f.label :cpf, "CPF"
+          = f.text_field :cpf
           = errors_for(@reseller, :cnpj)
-        %fieldset.corporate
-          %li.cnpj.field
-            = f.label :cnpj, "CNPJ"
-            = f.text_field :cnpj
-          = errors_for(@reseller, :cnpj)
-          %li.corporate_name.field
-            = f.label :corporate_name, "Razão Social"
-            = f.text_field :corporate_name
-          = errors_for(@reseller, :corporate_name)
+        %li.cnpj.field
+          = f.label :cnpj, "CNPJ"
+          = f.text_field :cnpj
+          = errors_for(@reseller, :cnpj)         
         %li.request_msg
           %p
             Precisamos dele para a análise do seu cadastro
+        %li.corporate_name.field
+          = f.label :corporate_name, "Razão Social"
+          = f.text_field :corporate_name
+          = errors_for(@reseller, :corporate_name)
         %li.first_name.field.left_boxes
           = f.label :first_name
           = f.text_field :first_name, class: @reseller.errors[:first_name].empty? ? "" : "input_error"
-        = errors_for(@reseller, :first_name)
+          = errors_for(@reseller, :first_name)
         %li.last_name.field
           = f.label :last_name
           = f.text_field :last_name, class: @reseller.errors[:last_name].empty? ? "" : "input_error"
-        = errors_for(@reseller, :last_name)
+          = errors_for(@reseller, :last_name)
         %li.email.field
           = f.label :email
           = f.text_field :email, class: @reseller.errors[:email].empty? ? "" : "input_error"
-        = errors_for(@reseller, :email)
+          = errors_for(@reseller, :email)
         %li.password.field.left_boxes
           = f.label :password, "Senha #{content_tag("span", '(min. 6 caracteres)', class: 'hint')}".html_safe
           = f.password_field :password, class: @reseller.errors[:password].empty? ? "" : "input_error"
         %li.password_confirmation.field
           = f.label :password_confirmation, "Confirmar senha"
           = f.password_field :password_confirmation, class: @reseller.errors[:password].empty? ? "" : "input_error"
-        = errors_for(@reseller, :password)
-        = errors_for(@reseller, :password_confirmation)
+          = errors_for(@reseller, :password)
+          = errors_for(@reseller, :password_confirmation)
         %li.gender.field
           = f.label :gender, "Você é:", style: ''
           %p.text{ class: @reseller.errors[:gender].empty? ? "" : "input_error" }
           = f.select :gender, options_for_select({'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 },selected_key = 0)
           %span{class: "custom_select"} Selecione
-        = errors_for(@reseller, :gender)
+          = errors_for(@reseller, :gender)
         %li.date.field
           = f.label :birthday, "Data de Nascimento"
           = f.text_field :birthday, class: @reseller.errors[:birthday].empty? ? "" : "input_error"
@@ -68,25 +66,25 @@
           %li.zip_code.field
             = address.label :zip_code, "CEP"
             = address.text_field :zip_code, :class => "zip_code"
-          = errors_for(@reseller, :"addresses.zip_code")
+            = errors_for(@reseller, :"addresses.zip_code")
           %li.request_msg.cep_msg
             %p
               Pesquisaremos o seu endereço a partir do CEP informado
           %li.street.field.left_boxes
             = address.label :street, "Rua, Avenia, Praça etc"
             = address.text_field :street
-          = errors_for(@reseller, :"addresses.street")
+            = errors_for(@reseller, :"addresses.street")
           %li.number.field
             = address.label :number, "Número"
             = address.text_field :number
-          = errors_for(@reseller, :"addresses.number")
+            = errors_for(@reseller, :"addresses.number")
           %li.complement.field.left_boxes
             = address.label :complement, "Complemento"
             = address.text_field :complement
           %li.neighborhood.field
             = address.label :neighborhood, "Bairro"
             = address.text_field :neighborhood
-          = errors_for(@reseller, :"addresses.neighborhood")
+            = errors_for(@reseller, :"addresses.neighborhood")
           %li.state.field
             = address.label :state, "Estado"
             %p.text

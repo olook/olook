@@ -14,22 +14,26 @@ states_and_cities.load_state_cities = function(){
 function changeResellerType(){
   var common = $('#reseller_has_corporate_0');
   var corporate = $('#reseller_has_corporate_1');
-  var common_fieldset = $("fieldset.common");
-  var corporate_fieldset = $("fieldset.corporate");
+  var cpf = $("li.cpf");
+  var cnpj = $("li.cnpj");
+  var corporate_name = $("li.corporate_name");
   if(corporate.attr("checked")) {
     common_fieldset.hide();
     corporate_fieldset.show();
   }else{
-    common_fieldset.show();
-    corporate_fieldset.hide();
+    cpf.show();
+    cnpj.hide();
+    corporate_name.hide();
   }
   common.change(function(){
-    common_fieldset.show();
-    corporate_fieldset.hide();
+    cpf.show();
+    cnpj.hide();
+    corporate_name.hide();
   });
   corporate.change(function(){
-    common_fieldset.hide();
-    corporate_fieldset.show();
+    cpf.hide();
+    cnpj.show();
+    corporate_name.show();
   });
 };
 

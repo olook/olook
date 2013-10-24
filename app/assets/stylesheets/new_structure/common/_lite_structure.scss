@@ -57,6 +57,14 @@ header#new_header{border-top: 2px black solid;
             font-size: 11px;
           }
         }
+        a.invite{
+          color: $pink;
+          text-decoration: none;
+          float: left;
+          margin-top: 3px;
+          font-size: 11px;
+          width: 275px;
+        }
       }
 
       .social_icons{width: 150px;float: left;clear: both;
