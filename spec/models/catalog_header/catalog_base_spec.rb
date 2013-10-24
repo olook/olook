@@ -5,7 +5,6 @@ describe CatalogHeader::CatalogBase do
   it { should_not allow_value("CatalogHeader::CatalogBase").for(:type) }
   it { should validate_presence_of(:type) }
   it { should validate_presence_of(:url) }
-  it { should validate_uniqueness_of(:url) }
 
   describe ".scopes" do
 
