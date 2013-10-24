@@ -10,7 +10,8 @@ class Address < ActiveRecord::Base
   MobileFormat = /^(?:\(11\)9\d{4}-\d{3,4}|\(\d{2}\)\d{4}-\d{4})$/
   StateFormat = /^[A-Z]{2}$/
 
-  validates_presence_of :country, :state, :street, :city, :number, :zip_code, :neighborhood, :telephone
+  validates_presence_of :country, :state, :street, :city, :number, :zip_code, :neighborhood
+  validate :telephone, :presence_of => true, :if => 'telephone.present?'
 
   validates :number, :numericality => true
   validates :zip_code, :format => {:with => ZipCodeFormat}
