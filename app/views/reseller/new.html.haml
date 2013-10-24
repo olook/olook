@@ -47,10 +47,10 @@
         %li.password.field.left_boxes
           = f.label :password, "Senha #{content_tag("span", '(min. 6 caracteres)', class: 'hint')}".html_safe
           = f.password_field :password, class: error_class_if_needed(@reseller, :password)
+          = errors_for(@reseller, :password)
         %li.password_confirmation.field
           = f.label :password_confirmation, "Confirmar senha"
           = f.password_field :password_confirmation, class: error_class_if_needed(@reseller, :password_confirmation)
-          = errors_for(@reseller, :password)
           = errors_for(@reseller, :password_confirmation)
         %li.gender.field
           = f.label :gender, "Você é:", style: ''
