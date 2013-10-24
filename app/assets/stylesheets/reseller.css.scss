@@ -212,6 +212,7 @@
         border-color:#EA1E40 !important;
         margin-bottom:4px
       }
+      .email_error{width: 440px;}
       ul.formulario{
         fieldset{
           width: 204px;
@@ -219,13 +220,14 @@
         }
         li{
           float: left;
+          height: 95px;
           .span_error{
             clear: both;
             color: $pink;
             float: left;
             font-size: 12px;
-            width: 207px;
           }
+          &.small_box{width: 204px;}
           &.request_msg{
             width: 140px;
             float: left;
@@ -239,6 +241,7 @@
               padding-top: 22px;
             }
           }
+          &.neighborhood{width: 301px;}
           &.date{float: right;margin-right: 18px;}
           &.cep_msg{width: 170px;margin-right: 15px;}
           &.left_boxes{margin-right: 20px;} 
