@@ -6,7 +6,8 @@ class CustomUrlController < ApplicationController
   def show
     @custom_url = CatalogHeader::CatalogBase.for_url(request.path).first
     if @custom_url
-      @custom_search = SearchEngine.new(product_id: @custom_url.product_list.to_s.split(/\D/).join('-'))
+      product_list = @custom_url.product_list.to_s.split(/\D/).select{|w|w.present?}.compact
+      @custom_search = SearchEngine.new(product_id: product_list.join('-'))
       page_size = params[:page_size] || DEFAULT_PAGE_SIZE
       search_params = SeoUrl.parse(@custom_url.organic_url)
       @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(page_size)
@@ -15,8 +16,7 @@ class CustomUrlController < ApplicationController
         brand: SeoUrl.new(search_params, "brand", @search),
         collection: SeoUrl.new(search_params, "collection_theme", @search)
       )
-      /\/?(?<category>roupa|bolsa|sapato|acessorio)[\/$]/ =~ @custom_url.organic_url.to_s
-      @category = category
+      @category = @search.current_filters['category'].first
       @collection_theme_groups = CollectionThemeGroup.order(:position).includes(:collection_themes)
     else
       redirect_to root_url

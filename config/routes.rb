@@ -28,7 +28,7 @@ Olook::Application.routes.draw do
     "olook" => "Olook",
     "olookconcept" => "Olook Concept",
     "essential" => "Olook Essential",
-    "botswana" => "botswana/roupa/",
+    "botswana" => "botswana",
     "cocacola-clothing" => "Coca Cola Clothing",
     "colcci" => "Colcci",
     "douglas-harris" => "Douglas Harris",
@@ -47,7 +47,7 @@ Olook::Application.routes.draw do
     "thelure" => "Thelure",
     "triton" => "Triton"
   }.each do |collection_name, brand|
-    get "/colecoes/#{collection_name}", to: "brands#show", defaults: {brand: brand}
+    get "/colecoes/#{collection_name}" => redirect("/marcas/#{URI.encode(brand)}")
   end
 
   get "/colecoes/liquida_final", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
