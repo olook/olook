@@ -20,7 +20,7 @@
         %li.cpf.field
           = f.label :cpf, "CPF"
           = f.text_field :cpf, class: error_class_if_needed(@reseller, :cpf)
-          = errors_for(@reseller, :cnpj)
+          = errors_for(@reseller, :cpf)
         %li.cnpj.field
           = f.label :cnpj, "CNPJ"
           = f.text_field :cnpj, class: error_class_if_needed(@reseller, :cnpj)
@@ -90,11 +90,13 @@
             %p.text
               Selecione
             = address.select :state, []
+            = errors_for(@reseller, :"addresses.state")
           %li.city.field
             = address.label :city, "Cidade"
             %p.text
               Selecione
             = address.select :city, []
+            = errors_for(@reseller, :"addresses.city")
           %li.terms
             %p
               Ao concluir o cadastro você aceita os #{link_to 'termos de uso', terms_path, :target => "_blank"}
