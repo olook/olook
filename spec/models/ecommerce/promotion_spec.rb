@@ -28,7 +28,6 @@ describe Promotion do
      it "returns true" do
        ac = FactoryGirl.create(:promotion_action)
        promo.promotion_action = ac
-       promo.save
        promo.promotion_action.should respond_to(:simulate).with(2).arguments
      end
    end
