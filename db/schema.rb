@@ -11,14 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131023161830) do
+ActiveRecord::Schema.define(:version => 20131024125413) do
 
   create_table "action_parameters", :force => true do |t|
-    t.integer  "promotion_id"
+    t.integer  "matchable_id"
     t.integer  "promotion_action_id"
     t.string   "action_params"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.string   "matchable_type"
   end
 
   create_table "addresses", :force => true do |t|
@@ -957,9 +958,10 @@ ActiveRecord::Schema.define(:version => 20131023161830) do
   create_table "rule_parameters", :force => true do |t|
     t.text     "rules_params"
     t.integer  "promotion_rule_id"
-    t.integer  "promotion_id"
+    t.integer  "matchable_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.string   "matchable_type"
   end
 
   create_table "sessions", :force => true do |t|
