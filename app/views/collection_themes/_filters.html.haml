@@ -7,7 +7,7 @@
         %select{ :onchange => ("window.location = $(this.options[this.selectedIndex]).data('href');")}
           %option{ 'data-href' => collection_theme_path(params[:collection_theme]) } VER TUDO
           - filters_by('category', search, use_fields: [:collection_theme]).each do |text, amount|
-            %option{'data-href' => collection_theme_path(params[:collection_theme], parameters: text.chomp), selected: (params[:category].to_s == text) }= text.chomp.titleize.pluralize
+            %option{'data-href' => collection_theme_path(params[:collection_theme], parameters: text.parameterize.chomp), selected: (params[:category].to_s == text) }= text.chomp.titleize.pluralize
 
       %fieldset
         %span.selected-type.order{ class: ("filter_selected" if params[:por].present?) }= params[:por].present? ? params[:por].gsub("-", " ").titleize : "ORDENAÇÃO"
