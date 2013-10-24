@@ -34,7 +34,7 @@
           = errors_for(@reseller, :corporate_name)
         %li.first_name.field.left_boxes
           = f.label :first_name
-          = f.text_field :first_name, class: , class: error_class_if_needed(@reseller, :first_name)
+          = f.text_field :first_name, class: error_class_if_needed(@reseller, :first_name)
           = errors_for(@reseller, :first_name)
         %li.last_name.field
           = f.label :last_name
@@ -65,7 +65,7 @@
         = f.fields_for :addresses do |address|
           %li.zip_code.field
             = address.label :zip_code, "CEP"
-            = address.text_field :zip_code, :class => "zip_code #{, class: error_class_if_needed(@reseller, :'addresses.zip_code')}"
+            = address.text_field :zip_code, :class => "zip_code #{ error_class_if_needed(@reseller, :'addresses.zip_code')}"
             = errors_for(@reseller, :"addresses.zip_code")
           %li.request_msg.cep_msg
             %p
