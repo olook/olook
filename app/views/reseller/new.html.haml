@@ -27,13 +27,13 @@
             = f.label :cnpj, "CNPJ"
             = f.text_field :cnpj
           = errors_for(@reseller, :cnpj)
-        %li.request_msg
-          %p
-            Precisamos dele para a análise do seu cadastro
           %li.corporate_name.field
             = f.label :corporate_name, "Razão Social"
             = f.text_field :corporate_name
           = errors_for(@reseller, :corporate_name)
+        %li.request_msg
+          %p
+            Precisamos dele para a análise do seu cadastro
         %li.first_name.field.left_boxes
           = f.label :first_name
           = f.text_field :first_name, class: @reseller.errors[:first_name].empty? ? "" : "input_error"
