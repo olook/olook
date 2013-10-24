@@ -63,9 +63,9 @@ class CatalogHeader::CatalogBase < ActiveRecord::Base
 
   def set_url
     if self.old_url_type?
-      self.url = self.old_url
+      self.url = self.old_url if self.old_url.present?
     else
-      self.url = self.new_url
+      self.url = self.new_url if self.new_url.present?
     end
   end
 end
