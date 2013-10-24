@@ -19,6 +19,10 @@ class Address < ActiveRecord::Base
   validates :state, :format => {:with => StateFormat}
   before_validation :normalize_street
 
+  after_initialize do
+    self.country = 'BRA'
+  end
+
   def identification
     "#{first_name} #{last_name}"
   end
