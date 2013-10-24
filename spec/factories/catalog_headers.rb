@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :catalog_header, :class => CatalogHeader::CatalogBase  do
     sequence :url do |n|
-      "/sapato_#{n}"
+      "/sapatao_#{n}"
     end
     type ""
     seo_text "Sapatos"
