@@ -214,8 +214,14 @@
           float: left;
         }
         li{
-          height: 60px;
           float: left;
+          .span_error{
+            clear: both;
+            color: $pink;
+            float: left;
+            font-size: 12px;
+            width: 207px;
+          }
           &.request_msg{
             width: 140px;
             float: left;
@@ -266,8 +272,9 @@
           }
         }
       }
-      fieldset.common{display: none;} 
-      fieldset.corporate{display: none;} 
+      li.cpf{display: none;} 
+      li.cnpj{display: none;} 
+      li.corporate_name{display: none;}
     }
   }
   .reseller_infos{
