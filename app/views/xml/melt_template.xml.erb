@@ -7,7 +7,7 @@
     <image_url><![CDATA[<%= full_image_path product.xml_picture(:main) %>]]></image_url>
     <url><![CDATA[<%= product.product_url(:utm_source => "melt", :utm_campaign => "produtos") %>]]></url>
     <price><![CDATA[<%= number_with_precision(product.retail_price, :precision => 2) %>]]></price>
-    <id><![CDATA[]]></id>
+    <category><![CDATA[<%= product.category %>]]></category>
   </product>
 <% end %>
 </products>
