@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
   require 'builder'
 
-class TopsterXml
+class MktXmlBuilder
   extend XmlHelper
   extend ActionView::Helpers::NumberHelper
 
@@ -25,7 +25,8 @@ class TopsterXml
     struq: 'struq_template.xml.erb',
     kuanto_kusta: 'kuanto_kusta_template.xml.erb',
     muccashop: 'muccashop_template.xml.erb',
-    shopear: 'shopear_template.xml.erb'
+    shopear: 'shopear_template.xml.erb',
+    melt: 'melt_template.xml.erb'
   }
 
   def self.create_xmls
@@ -83,7 +84,7 @@ class TopsterXml
 
     def self.load_products
       # This method was copied from XmlController
-      products = Product.valid_for_xml(Product.xml_blacklist("products_blacklist").join(','))     
+      products = Product.valid_for_xml(Product.xml_blacklist("products_blacklist").join(','))
       @liquidation_products = []
       active_liquidation = LiquidationService.active
       @liquidation_products = active_liquidation.resume[:products_ids] if active_liquidation
