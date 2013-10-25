@@ -4,7 +4,7 @@
 <% unless product.sold_out? %>
   <product>
     <id><%= product.id %></id>
-    <targeturl><%= product.product_url(:utm_source => "struq", :utm_campaign => "produtos", :utm_medium => "Remarketing") %></targeturl>
+    <targeturl><%= product.product_url(:utm_source => "struq", :utm_campaign => "produtos", :utm_medium => "Remarketing").gsub("&","&amp;") %></targeturl>
     <imageurl1><%= full_image_path product.xml_picture(:main) %></imageurl1>
     <imageurl2><%= full_image_path product.xml_picture(:thumb) %></imageurl2>
     <name><%= product.name %></name>
