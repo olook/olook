@@ -4,6 +4,7 @@
     start_position = #{@search.range_values_for(:price)[:min] rescue 0};
     final_position = #{@search.range_values_for(:price)[:max] rescue 600};
 
+= first_level_breadcrumb "Coleções"
 #catalog
   = render "menu", collection_theme_groups: @collection_theme_groups
   #collection_theme_content

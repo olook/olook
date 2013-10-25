@@ -427,8 +427,13 @@
 
     attributes:
       catalog_header/catalog_base:
-        url: 'Url (ex: /sapato)'
+        url: 'URL'
+        old_url: "URL existente ex.: /sapato"
+        new_url: "URL nova ex.: /preto-e-branco"
         enabled: 'Ativar?'
+        custom_url: 'Criar essa url no site?'
+        product_list: 'Produtos para aparecer antes do resultado orgânico'
+        organic_url: 'Url do resultado organico (ex: /sapato/bota/cor_vermelho-tamanho_38)'
         type: 'Tipo'
         seo_text: 'Text para título da página (SEO)'
         small_banner1: 'Destaque menor/superior (260px x 155px)'

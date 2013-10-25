@@ -5,6 +5,8 @@
 - content_for :footer do
   = javascript_include_tag 'section/brands'
 
+= first_level_breadcrumb("Marcas")
+
 %section.banner-brands
   %button.anterior{type: "button"} Imagem Anterior
 
@@ -43,6 +45,7 @@
       %li= link_to("Cantão", brand_path("cantao"))
       %li= link_to("Coca Cola", brand_path("coca cola clothing"))
       %li= link_to("Colcci", brand_path("colcci"))
+      %li= link_to("Collins", brand_path("Collins"))
 
   .box
     %p.letter D
@@ -108,4 +111,8 @@
       %li= link_to("Thelure", brand_path("thelure"))
       %li= link_to("Totem", brand_path("totem"))
       %li= link_to("Triton", brand_path("triton"))
-      %li= link_to("Tvz", brand_path("Tvz"))     
+      %li= link_to("Tvz", brand_path("Tvz"))  
+
+    %p.letter W
+    %ul.brands-list
+      %li= link_to("Wollner", brand_path("Wollner"))      

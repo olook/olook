@@ -88,7 +88,7 @@ describe User do
     describe "when CPF is required" do
       it "should validate" do
         user = FactoryGirl.build(:user)
-        user.is_invited = true
+        user.require_cpf = true
         user.save
         user.should be_invalid
       end
@@ -97,7 +97,7 @@ describe User do
         cpf = "19762003691"
         user  = FactoryGirl.create(:user, :cpf => cpf)
         user2 = FactoryGirl.build(:user, :cpf => cpf)
-        user2.is_invited = true
+        user2.require_cpf = true
         user2.save
         user2.should be_invalid
       end
@@ -512,13 +512,6 @@ describe User do
 
       it 'should not include the invisible product' do
         subject.profile_showroom(sporty_profile).should_not include(invisible_product)
-      end
-
-      it "should return only the products for the last collection" do
-        pending("where's this actually used?")
-        product_a.update_attributes(:collection => last_collection)
-        product_b.update_attributes(:collection => last_collection)
-        subject.profile_showroom(casual_profile, nil, last_collection).should == [product_a, product_b]
       end
     end
 
