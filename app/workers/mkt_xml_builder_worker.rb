@@ -1,5 +1,5 @@
 class MktXmlBuilderWorker
-  @queue = :xml_builder
+  @queue = :mkt_xml_builder
 
   def self.perform
     xmls = MktXmlBuilder.create_xmls

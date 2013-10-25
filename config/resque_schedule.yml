@@ -119,7 +119,7 @@ add_expire_carts_worker:
   queue: low_priority
   description: "Expira os Carts sem items com mais de 7 dias toda segunda"
 
-update_xml_builder:
+update_mkt_xml_builder:
   cron: "30 3 * * *"
   class: MktXmlBuilderWorker
   queue: mkt_xml_builder
