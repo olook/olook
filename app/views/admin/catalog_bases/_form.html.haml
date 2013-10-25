@@ -14,14 +14,16 @@
     = f.label "Tipo de url"
     = f.select(:url_type, [["Nova url", 2], ["Url existente", 1]])
 
+  .inline_field
+    = f.check_box :enabled
+    = f.label :enabled
+  %br
+
   %fieldset#no_custom_url
     %legend
       Adicionar
       #{params[:type] == 'CatalogHeader::TextCatalogHeader' ? 'Texto' : 'Banners'}
       a uma URL existente do Site
-    .inline_field
-      = f.check_box :enabled
-      = f.label :enabled
     .field
       = f.label :old_url
       %br/
@@ -32,9 +34,6 @@
     %legend
       Criar uma URL nova com cabeçalho de
       #{params[:type] == 'CatalogHeader::TextCatalogHeader' ? 'Texto' : 'Banners'}
-    .inline_field
-      = f.check_box :enabled
-      = f.label :enabled
     .field
       = f.label :new_url
       %small Evitar caracteres como espaço, acentos e letras maíusculas
