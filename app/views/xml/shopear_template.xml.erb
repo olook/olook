@@ -15,7 +15,7 @@
       <precio_anterior><%= number_with_precision(product.price, precision: 2, separator: ",") %></precio_anterior>
       <stock><%= product.inventory %></stock>
       <genero>F</genero>
-      <link><%= product.product_url(utm_source: 'shopear').gsub("&","&amp;") %></link>
+      <link><![CDATA[<%= product.product_url(utm_source: 'shopear') %>]]></link>
     </producto>
 <% end %>
 </nombre_tienda>
