@@ -12,6 +12,11 @@ describe Coupon do
     Timecop.return
   end
 
+  it { should have_many :rule_parameters }
+  it { should have_many(:promotion_rules).through(:rule_parameters)}
+  it { should have_one :action_parameter }
+  it { should have_one(:promotion_action).through(:action_parameter)}
+
   context 'validations' do
     it {should validate_presence_of(:code)}
     it {should validate_presence_of(:value)}

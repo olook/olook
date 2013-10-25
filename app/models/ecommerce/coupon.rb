@@ -14,6 +14,12 @@ class Coupon < ActiveRecord::Base
   has_many :coupon_payments
   has_many :carts
 
+  has_many :rule_parameters, as: :matchable
+  has_many :promotion_rules, :through => :rule_parameters
+
+  has_one :action_parameter, as: :matchable
+  has_one :promotion_action, through: :action_parameter
+
   before_save :set_limited_or_unlimited
 
   def modal=(val)
