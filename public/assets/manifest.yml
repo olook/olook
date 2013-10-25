@@ -205,6 +205,8 @@ campaign_emails/crop_foto_modal_newsletter.jpg: campaign_emails/crop_foto_modal_
 campaign_emails/crop_foto_modal_newsletter/index.jpg: campaign_emails/crop_foto_modal_newsletter-05eefc5978c1997f5ec6d1aab6075957.jpg
 campaign_emails/enjoy.png: campaign_emails/enjoy-a747989427ab40def7785226f673945d.png
 campaign_emails/enjoy/index.png: campaign_emails/enjoy-a747989427ab40def7785226f673945d.png
+campaign_emails/mari_modal.jpg: campaign_emails/mari_modal-20d905791f9b6e1c381c6a929b7c1c56.jpg
+campaign_emails/mari_modal/index.jpg: campaign_emails/mari_modal-20d905791f9b6e1c381c6a929b7c1c56.jpg
 campaign_emails/modal_newsletter_foto_julho.jpg: campaign_emails/modal_newsletter_foto_julho-9ff0d6ae2ccf83e86bf3b41bbabc4355.jpg
 campaign_emails/modal_newsletter_foto_julho/index.jpg: campaign_emails/modal_newsletter_foto_julho-9ff0d6ae2ccf83e86bf3b41bbabc4355.jpg
 campaign_emails/modal_pop_agosto.jpg: campaign_emails/modal_pop_agosto-21e195c40955f9e9fd116fb2bec0f356.jpg
@@ -2290,8 +2292,8 @@ admin/themes/default/style.css: admin/themes/default/style-cfb00648a94f868a1bca2
 admin/themes/default/style/index.css: admin/themes/default/style-cfb00648a94f868a1bca26366b08b42a.css
 application.css: application-e92c5b3f5a066c1001d87cfd2a3e4d83.css
 application/index.css: application-e92c5b3f5a066c1001d87cfd2a3e4d83.css
-campaign_emails.css: campaign_emails-58c76e9d732b93b995e848bb490a507f.css
-campaign_emails/index.css: campaign_emails-58c76e9d732b93b995e848bb490a507f.css
+campaign_emails.css: campaign_emails-1b3d60dda66e385aea10fba6fee12fa1.css
+campaign_emails/index.css: campaign_emails-1b3d60dda66e385aea10fba6fee12fa1.css
 common/_border-radius.css: common/_border-radius-1b13569e9620782f423d4cd3ce931750.css
 common/_border-radius/index.css: common/_border-radius-1b13569e9620782f423d4cd3ce931750.css
 common/_css3.css: common/_css3-1b13569e9620782f423d4cd3ce931750.css
