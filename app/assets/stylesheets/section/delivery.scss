@@ -1,7 +1,7 @@
 @import 'partials/mixins';
 
 div#delivery_time {
-  margin: 35px auto 0 auto;
+  margin: 0 auto;
   section#description {
     background: image-url('delivery/map.png') 745px 20px no-repeat;
     width: 705px;
@@ -133,3 +133,7 @@ div#delivery_time {
     }
   }
 }
+.content { 
+width:970px !important;
+}
+

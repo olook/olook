@@ -28,7 +28,7 @@ Olook::Application.routes.draw do
     "olook" => "Olook",
     "olookconcept" => "Olook Concept",
     "essential" => "Olook Essential",
-    "botswana" => "botswana/roupa/",
+    "botswana" => "botswana",
     "cocacola-clothing" => "Coca Cola Clothing",
     "colcci" => "Colcci",
     "douglas-harris" => "Douglas Harris",
@@ -47,7 +47,7 @@ Olook::Application.routes.draw do
     "thelure" => "Thelure",
     "triton" => "Triton"
   }.each do |collection_name, brand|
-    get "/colecoes/#{collection_name}", to: "brands#show", defaults: {brand: brand}
+    get "/colecoes/#{collection_name}" => redirect("/marcas/#{URI.encode(brand)}")
   end
 
   get "/colecoes/liquida_final", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
@@ -231,7 +231,7 @@ Olook::Application.routes.draw do
   namespace :admin do
     get "/", :to => "dashboard#index"
 
-    scope defaults: {type: ["CatalogHeader::BigBannerCatalogHeader", "CatalogHeader::SmallBannerCatalogHeader"]} do
+    scope defaults: {type: ["CatalogHeader::NoBanner", "CatalogHeader::BigBannerCatalogHeader", "CatalogHeader::SmallBannerCatalogHeader"]} do
       #Landing page banners
       get "/catalog_landing", to: "catalog_bases#index", as: 'catalog_bases_banner'
       post "/catalog_landing", to: "catalog_bases#create"
@@ -242,7 +242,7 @@ Olook::Application.routes.draw do
       put "/catalog_landing/:id", to: "catalog_bases#update"
     end
 
-    scope defaults: {type: "CatalogHeader::TextCatalogHeader"} do
+    scope defaults: {type: [ "CatalogHeader::TextCatalogHeader" ]} do
       #Landing page text
       get "/catalog_landing_text", to: "catalog_bases#index", as: 'catalog_bases_text'
       get "/catalog_landing_text/new", to: "catalog_bases#new", as: 'new_catalog_basis_text'
@@ -510,7 +510,9 @@ Olook::Application.routes.draw do
 
   # CATALOGO
   match "/catalogo/:category(/*parameters)", to: "catalogs#show"
-  match "/:category(/*parameters)", to: "catalogs#show", as: "catalog"
+  match "/:category(/*parameters)", to: "catalogs#show", as: "catalog", constraints: { category: /(?:sapato|roupa|acessorio|bolsa)/ }
+
+  get '*custom_url' => 'custom_url#show'
 
 end
 

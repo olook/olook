@@ -1,6 +1,7 @@
 - content_for :head do
   = stylesheet_link_tag "new_structure/section/search"
 .search
+  = first_level_breadcrumb "Busca"
   - if @search.products.size == 0
     %h2
       %b

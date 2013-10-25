@@ -26,13 +26,27 @@ class SeoUrl
   PARAMETERS_BLACKLIST = [ "price" ]
   PARAMETERS_WHITELIST = [ "price", "sort", "per_page" ]
 
-  def initialize(params, current_key=nil, search=nil)
-    @params = params.dup
+  def initialize(path, current_key=nil, search=nil)
+    if path.is_a?(Hash)
+      @params = path
+    else
+      @path = path
+      @params = HashWithIndifferentAccess.new
+    end
     @search = search
     @current_key = current_key
   end
 
   def parse_params
+    if from_brands?
+      parse_brands_params
+    elsif from_collections?
+      parse_collections_params
+    else
+      parse_catalogs_params
+    end
+    parse_query
+
     parsed_values = HashWithIndifferentAccess.new
     parsed_values[:collection_theme] = @params[:collection_theme]
     parsed_values[:brand] = @params[:brand] || extract_brand
@@ -68,6 +82,44 @@ class SeoUrl
   end
 
   private
+
+    def parse_query
+      if @query.present?
+        @query.split('&').each do |var|
+          k, v = var.split('=').map { |i| URI.decode(i.to_s) }
+          @params[k] = v
+        end
+      end
+    end
+
+    def from_brands?
+       /^\/marcas\// =~ @path
+    end
+
+    def from_collections?
+      /^\/colecoes\// =~ @path
+    end
+
+    def parse_brands_params
+      /^\/marcas\/(?<brand>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\?(?<query>.*))?/ =~ @path
+      @params[:brand] = URI.decode(brand.to_s)
+      @params[:parameters] = URI.decode(parameters.to_s)
+      @query = query
+    end
+
+    def parse_collections_params
+      /^\/colecoes\/(?<collection_theme>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\?(?<query>.*))?/ =~ @path
+      @params[:collection_theme] = URI.decode(collection_theme.to_s)
+      @params[:parameters] = URI.decode(parameters.to_s)
+      @query = query
+    end
+
+    def parse_catalogs_params
+      /^(?:\/catalogo)?\/(?<category>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\?(?<query>.*))?/ =~ @path
+      @params[:category] = URI.decode(category.to_s)
+      @params[:parameters] = URI.decode(parameters.to_s)
+      @query = query
+    end
 
     def build_link_for parameters
       other_parameters = @params.dup

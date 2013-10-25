@@ -6,6 +6,9 @@
           <%= menu_presenter.render_menu %>
         <% end %>
       </ul>
+      <% unless params[:controller].include? "survey" %>
+        <p class="new_sacola"><%= link_to "SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %></p>
+      <% end %>
     </div>
   </nav>
 </div>
