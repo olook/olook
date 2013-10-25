@@ -121,8 +121,8 @@ add_expire_carts_worker:
 
 update_xml_builder:
   cron: "30 3 * * *"
-  class: XmlBuilderWorker
-  queue: xml_builder
+  class: MktXmlBuilderWorker
+  queue: mkt_xml_builder
   description: "Atualiza os xmls"
 
 userbase_with_source_exacttarget:
