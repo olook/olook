@@ -207,6 +207,10 @@
         &#reseller_addresses_attributes_0_neighborhood{
           width: 301px;
         }
+        &.readonly{
+          border: none;
+          background-color: transparent;
+        }
       }
       .input_error{
         border-color:#EA1E40 !important;
