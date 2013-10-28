@@ -1,4 +1,4 @@
-class PriceCalculationService
+class ProductDiscountService
   def initialize(product, options={})
     @product = product
     @coupon = options[:coupon]
@@ -19,7 +19,7 @@ class PriceCalculationService
 
   private
   def price_with_coupon
-    @coupon.simulate_for_product(@product)
+    @coupon.calculate_for_product(@product)
   end
 
   def eligible_coupon?
@@ -35,7 +35,7 @@ class PriceCalculationService
   end
 
   def price_with_promotion
-    return @promotion.simulate_for_product(@product) if @promotion
+    @promotion.calculate_for_product(@product) if @promotion
   end
 end
 
