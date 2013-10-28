@@ -119,11 +119,11 @@ add_expire_carts_worker:
   queue: low_priority
   description: "Expira os Carts sem items com mais de 7 dias toda segunda"
 
-update_topster_xml:
+update_mkt_xml_builder:
   cron: "30 3 * * *"
-  class: TopsterXmlWorker
-  queue: topster_xml
-  description: "Atualiza o xml da topster"
+  class: MktXmlBuilderWorker
+  queue: mkt_xml_builder
+  description: "Atualiza os xmls"
 
 userbase_with_source_exacttarget:
   cron: "0 5 * * *"

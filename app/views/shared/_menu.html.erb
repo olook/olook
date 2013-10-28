@@ -3,7 +3,7 @@
     <div class="content_new">
       <ul class="default_new">
         <% present 'Menu', :user => current_user do |menu_presenter| %>
-          <%= menu_presenter.render_menu %>
+          <%= menu_presenter.render_menu(mobile?) %>
         <% end %>
       </ul>
       <% unless params[:controller].include? "survey" %>
