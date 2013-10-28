@@ -12,7 +12,7 @@
       - if user_signed_in?
         %p= link_to "Ganhe créditos!", "/membro/ganhe-creditos", :class => "invite"
       - else
-        %p= link_to "Conheça a Revenda Olook", "#", :class => "invite"
+        %p= link_to "Conheça a Revenda Olook", reseller_new_path , :class => "invite"
     .box_right
       - if user_signed_in?
         .user
