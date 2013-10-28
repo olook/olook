@@ -1,11 +1,11 @@
 # -*- encoding : utf-8 -*-
 require "spec_helper"
 
-describe TopsterXml do
+describe MktXmlBuilder do
 
   context "for iLove Ecommerce" do
     before do
-      TopsterXml.stub(:load_products).and_return([product])
+      MktXmlBuilder.stub(:load_products).and_return([product])
     end
 
     let(:product) {FactoryGirl.create :blue_sliper_with_variants}
@@ -19,12 +19,12 @@ describe TopsterXml do
       <categoria>12</categoria>
       <link><![CDATA[http://www.olook.com.br/produto/#{product.id}?utm_campaign=produtos&utm_content=#{product.id}&utm_medium=vitrine&utm_source=ilove_ecommerce]]></link>
       <imagem></imagem>
-      <nome_titulo>#{product.name}</nome_titulo>
-      <descricao>#{product.description}</descricao>
+      <nome_titulo><![CDATA[#{product.name}]]></nome_titulo>
+      <descricao><![CDATA[#{product.description}]]></descricao>
       <preco_real>#{product.price}</preco_real>
       <preco_desconto>#{product.retail_price}</preco_desconto>
       <specific>
-      <marca>OLOOK</marca>
+      <marca><![CDATA[OLOOK]]></marca>
       <cor></cor>
       <tamanho></tamanho>
       <autor></autor>
@@ -38,7 +38,7 @@ describe TopsterXml do
       </produto>
       </produtos>
       END
-      result = Nokogiri::XML(TopsterXml.create_xml([:ilove_ecommerce])[:ilove_ecommerce])
+      result = Nokogiri::XML(MktXmlBuilder.create_xml([:ilove_ecommerce])[:ilove_ecommerce])
       equivalent_content = Nokogiri::XML(content)
       EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true}).should be_true
     end
@@ -49,7 +49,7 @@ describe TopsterXml do
     let(:product) {FactoryGirl.create :shoe}
 
     before do
-      TopsterXml.stub(:load_products).and_return([product])
+      MktXmlBuilder.stub(:load_products).and_return([product])
     end
 
     it "build xml of products" do
@@ -102,7 +102,7 @@ describe TopsterXml do
       XML
 
       equivalent_content = Nokogiri::XML(content)
-      result = TopsterXml.create_xml([:topster])[:topster]
+      result = MktXmlBuilder.create_xml([:topster])[:topster]
       EquivalentXml.equivalent?(result, equivalent_content, opts = { :element_order => false, :normalize_whitespace => true }).should be_true
     end
   end
