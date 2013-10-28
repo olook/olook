@@ -18,6 +18,7 @@ olook = o = {
   },
 
   megamenu: function() {
+    if($('body.mobile').length > 0) return;
     $('.default_new li').on(
       {
         mouseover: function() {

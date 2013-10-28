@@ -5,7 +5,7 @@ class MenuPresenter < BasePresenter
    #+(css_klass == "stylist" ? h.image_tag("home/only_balaozinho.png") : "")
     h.content_tag(:li, :class => css_klass) do
       out = h.link_to(label, path, :class => h.selected_if_current(hightlight_when))
-      if mega_menu_template
+      if mega_menu_template && !@mobile
         out += h.render mega_menu_template
       end
       out
@@ -19,7 +19,8 @@ class MenuPresenter < BasePresenter
     end
   end
 
-  def render_menu
+  def render_menu(mobile=false)
+    @mobile = mobile
     [showroom, stylist, collection_themes, categories, brands, gift, liquidation].join.html_safe
   end
 
