@@ -32,23 +32,47 @@ describe PriceCalculationService do
     end
 
     context "invalid" do
-      it "dont apply coupon" do
+      it "doesnt apply coupon" do
         @coupon.should_receive(:eligible_for_product?).with(@product).and_return(false)
         @product.stub(:retail_price).and_return(99.0)
         expect(@service.final_price).to eql(99.0)
       end
     end
     context "Valid" do
-      it "apply percentage coupon" do
+      it "applies percentage coupon" do
         @coupon.should_receive(:eligible_for_product?).with(@product).and_return(true)
         @coupon.stub(:value).and_return(30.0)
         @coupon.stub(:is_percentage?).and_return(true)
         expect(@service.final_price).to eql(69.3)
       end
-      it "apply value coupon"
+      it "applies value coupon" do
+        @coupon.should_receive(:eligible_for_product?).with(@product).and_return(true)
+        @coupon.stub(:value).and_return(30.0)
+        @coupon.stub(:is_percentage?).and_return(false)
+        expect(@service.final_price).to eql(69.0)
+      end
     end
   end
   context "with promotion" do
+    before do
+      @promotion = double('promotion')
+      @service = PriceCalculationService.new(@product, promotion: @promotion)
+      @product.stub(:retail_price).and_return(99.0)
+    end
 
+    context "invalid" do
+      it "doesn't apply promotion discount" do
+       @promotion.should_receive(:eligible_for_product?).and_return false
+       expect(@service.calculate).to eq(99.0)
+      end
+    end
+
+    context "valid" do
+      it "applies promotion discount" do
+        @promotion.should_receive(:eligible_for_product?).and_return true
+        @promotion.should_receive(:simulate_for_product).and_return(40.0)
+        expect(@service.calculate).to eq(40.0)
+      end
+    end
   end
 end
