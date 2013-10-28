@@ -19,8 +19,7 @@ class PriceCalculationService
 
   private
   def price_with_coupon
-    return @product.price * (1 - (@coupon.value * 0.01)) if @coupon.is_percentage?
-    return @product.price - @coupon.value
+    @coupon.simulate_for_product(@product)
   end
 
   def eligible_coupon?
