@@ -32,6 +32,10 @@ class Coupon < ActiveRecord::Base
     true unless self.start_date < Time.now && self.end_date > Time.now
   end
 
+  def eligible_for_product?(product)
+    available? && is_percentage? 
+  end
+
   def discount_percent
     self.is_percentage? ? self.value : 0
   end
