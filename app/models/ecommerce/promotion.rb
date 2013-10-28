@@ -29,8 +29,12 @@ class Promotion < ActiveRecord::Base
     promotion_action.simulate cart, self.action_parameter.action_params
   end
 
-  def simulate_for_product product
+  def calculate_for_product product
     promotion_action.simulate_for_product product, self.action_parameter.action_params
+  end
+
+  def calculate_for_cart cart
+    simulate cart
   end
 
   def should_apply_for?(cart)
@@ -54,7 +58,11 @@ class Promotion < ActiveRecord::Base
     matched_all_rules
   end
 
-  def eligible_for_product?
+  def eligible_for_product? product
+    true
+  end
+
+  def eligible_for_cart? cart
     true
   end
 
