@@ -67,6 +67,11 @@ class Coupon < ActiveRecord::Base
     false
   end
 
+  def simulate_for_product product
+    return product.price * (1 - (self.value * 0.01)) if self.is_percentage?
+    return product.price - self.value
+  end
+
   private
     def coupon_specific_for_product?
       !product_ids_allowed_to_have_discount.nil?
