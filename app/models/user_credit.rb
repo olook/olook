@@ -48,7 +48,7 @@ class UserCredit < ActiveRecord::Base
     # creates MGM credits for inviter
     UserCredit.add_invite_credits(order) if Setting.invite_credits_available
     # creates loyalty program credits
-    UserCredit.add_loyalty_program_credits(order) if Setting.loyalty_program_credits_available
+    UserCredit.add_loyalty_program_credits(order) if Setting.loyalty_program_credits_available && !order.user.reseller
   end
 
   def self.add_for_invitee(invitee)
@@ -72,7 +72,7 @@ class UserCredit < ActiveRecord::Base
     end
 
     def self.add_loyalty_program_credits(order)
-      user, user_credit = order.user, order.user.user_credits_for(:loyalty_program)
+      user_credit = order.user.user_credits_for(:loyalty_program)
 
       user_credit.add({
         :order => order,
