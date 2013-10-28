@@ -2346,8 +2346,8 @@ customlanding.css: customlanding-8cbf08aa6a1cff4512af6ec1821fa420.css
 customlanding/index.css: customlanding-8cbf08aa6a1cff4512af6ec1821fa420.css
 desktop.css: desktop-4e337e2905b36294398273a61f548cd3.css
 desktop/index.css: desktop-4e337e2905b36294398273a61f548cd3.css
-new_structure/lite_application.css: new_structure/lite_application-073f2ffba8037aa37b96ebc8863b225c.css
-new_structure/lite_application/index.css: new_structure/lite_application-073f2ffba8037aa37b96ebc8863b225c.css
+new_structure/lite_application.css: new_structure/lite_application-be0c8da54f91ecbba4947e9b33f5bcea.css
+new_structure/lite_application/index.css: new_structure/lite_application-be0c8da54f91ecbba4947e9b33f5bcea.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-89a95eeb61bd0261940de13468f8f414.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-89a95eeb61bd0261940de13468f8f414.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-92fa84ef4ab8ba6b3bbb184d64ad1480.css
