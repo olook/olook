@@ -21,7 +21,6 @@ div#wrapper_new_menu{position:relative;z-index:99;background:#FFF;width:100%;opa
 /*** end new menu ***/
 
 nav.menu_new{
-
   margin: 0 auto 5px;
   width: 990px;
   line-height: 30px;
@@ -40,99 +39,8 @@ nav.menu_new{
       a:hover, a.selecionado {border:1px solid #000;border-bottom:0px;position:relative;background: #FFF;z-index: 99;padding:0 10px;position: relative;top:-1px;}
     }
   }
-  .submenu {
-      font-family:$avenir;position:absolute;top:27px;background: #fff;border:1px solid #000;z-index: 1;display: none;padding:10px;
-      p, a {margin:0px;border:0px;text-transform: none;line-height: 16px !important;color:#000;background: none;font-size: 12px;}
-      a.link, a:hover {padding:0px !important;margin:0px !important;border:0px !important; background: #000 !important;top:0px !important;}
-      a.link {color:#FFF;margin-top: 10px !important;color: #FFF;text-align: center;padding-top: 8px !important;padding-bottom: 6px !important;height:18px;letter-spacing: 1px !important;font-size: 11px !important;}
-      h5 {width:100%;display: block;font-size: 10px;font-weight: bold;height:25px;margin-bottom:3px;letter-spacing: 2px;}
-      ul, li {display: block;float:left;width:100%;height:auto;text-transform: none;}
-      li {height: auto !important;height: 4px;min-height: 4px;line-height: 12px;margin-bottom: 6px;}
-    }
-
-  #mm_showroom, #mm_presentes, #mm_olooklet {width:130px;
-    a.link {background:image-url("common/nav/arrow_megamenu.jpg") #000 no-repeat 14px center !important;}
-  }
-
-  #mm_showroom {width:170px;margin-left:1px;}
-
-  #mm_blog, #mm_colecoes, #mm_roupas, #mm_sapatos, #mm_bolsas, #mm_acessorios, #mm_acessorios, #mm_marcas {width:260px; left:100px; padding-left:22px;
-    .column {width:90px;float:left;display: block;}
-    a.sub_menu {display: inline !important; color:#000 !important;background: none !important;padding:0px; letter-spacing: 0px;font-family: $avenir !important;line-height: 12px !important;}
-    a.sub_menu:hover {border:0px;padding:0px;margin:0px;}
-    li:hover a, li a:hover {border:0px !important;margin:0px;top:0px;}
-    li {margin:0px;margin-bottom:4px;}
-  }
-  .last {width:80px !important;}
-
-  #mm_blog {
-    width:340px;
-    .column {width:110px;}
-    .second {width:150px;}
-    .last {width:70px !important;}
-  }
-
-  #mm_colecoes, #mm_roupas, #mm_sapatos, #mm_acessorios, #mm_marcas {
-    width: 460px;
-    left:150px;
-    .first {width:120px !important;}
-    .image, li.image:hover {width:240px !important;}
-    .image a.img {display: block;float: right;background:image-url("common/nav/colecoes.jpg") no-repeat center center;width: 207px !important;height: 242px;padding:0px;}
-    .image a.img:hover {background:image-url("common/nav/colecoes.jpg") center center !important;padding:0px;margin:0px;width:207 !important;}
-    br {clear:both;}
-  }
-
-  #mm_colecoes {width:500px;
-    .first {width:150px !important;}
-    .second {width:105px !important;}
-    }
-
-  #mm_roupas {
-    width: 440px;
-    left:200px;
-    .image, li.image:hover {width:220px !important;}
-    .image a.img {display: block;float: right;background:image-url("common/nav/roupas.jpg") no-repeat center center;width: 213px !important;height: 269px;padding:0px;}
-    .image a.img:hover {background:image-url("common/nav/roupas.jpg") center center !important;padding:0px;margin:0px;width:213 !important;}
-    .second {width:100px !important;}
-  }
-
-  #mm_sapatos {
-    width: 445px;
-    .first {width:90px !important;}
-    .second {width:110px !important;}
-    .image a.img {display: block;float: right;background:image-url("common/nav/sapatos.jpg") no-repeat center center;width: 269px !important;height: 236px;padding:0px;}
-    .image a.img:hover {background:image-url("common/nav/sapatos.jpg") center center !important;padding:0px;margin:0px;width:269 !important;}
-  }
-
-  #mm_bolsas, #mm_acessorios {
-    width: 90px;left: 417px;padding-left: 11px;
-  }
-
-  #mm_acessorios {
-    width:100px;left:486px;
-  }
-
-  #mm_marcas {
-    width:340px; left:530px;
-    .first {width:140px !important;}
-    .second {width:120px !important;}
-    .last {width:80px !important;}
-
-  }
-
-  #mm_presentes {
-    width:160px;
-  }
-
-  #mm_olooklet {right:36px;
-    width:180px;
-  }
-  .image {margin-top: 10px;padding-bottom: 10px;}
-
-  #mm_showroom, #mm_presentes, #mm_olooklet, #mm_blog, #mm_colecoes, #mm_roupas, #mm_sapatos, #mm_bolsas, #mm_acessorios, #mm_marcas {
-    a.sub_menu:hover, ul li a.selecionado {color:#999 !important;}
-  }
 }
+
 .new_sacola{
   position: relative;
   a{position: absolute;right:0px;top:-43px; text-decoration: none;display:block;height: 25px;background: image-url("common/nav/sprite_header.png") -106px -1px no-repeat;font-family: $johnston;font-size: 10px;color: #000;letter-spacing: 1px;padding:1px 0px 2px 40px;clear:both;float:right;width: 105px;
@@ -149,3 +57,4 @@ nav.menu_new{
 }
 
 .showroom a {margin-left:1px !important;}
+
