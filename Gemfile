@@ -54,7 +54,6 @@ gem 'koala', '~> 1.3.0'
 gem 'dalli', '2.0.2'
 gem 'redis-rails'
 gem 'sitemap_generator'
-gem 'brazilian-rails'
 
 gem 'sass-rails', "~> 3.2.3"
 gem 'uglifier', '~> 1.0.3'
@@ -108,7 +107,7 @@ group :development, :test do
   gem 'parallel_tests'
   gem "vcr", "~> 2.5.0"
   gem 'ci_reporter', :git => 'git://github.com/nicksieger/ci_reporter.git', require: false
-#  gem 'jasmine'
+  gem 'jasmine'
   gem "selenium-webdriver", "~> 2.35.1"  
 end
 gem 'rubber', '~> 2.0', git: 'git://github.com/nelsonmhjr/rubber.git', branch: 'newrelic'
