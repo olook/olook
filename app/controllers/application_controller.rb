@@ -242,7 +242,7 @@ class ApplicationController < ActionController::Base
     end
 
   def mobile?
-    /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|
+    !!(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|
     elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge\ |maemo|midp|
     mmp|mobile.+firefox|netfront|opera\ m(ob|in)i|palm(\ os)?|phone|p(ixi|re)\/|
     plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|
@@ -271,7 +271,7 @@ class ApplicationController < ActionController::Base
         ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|
       veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|
         w3c(\-|\ )|webc|whit|wi(g\ |nc|nw)|wmlb|
-      wonu|x700|yas\-|your|zeto|zte\-/xi.match(request.user_agent[0..3])
+      wonu|x700|yas\-|your|zeto|zte\-/xi.match(request.user_agent[0..3]))
   end
 end
 
