@@ -41,13 +41,13 @@ describe PriceCalculationService do
     context "Valid" do
       it "applies percentage coupon" do
         @coupon.should_receive(:eligible_for_product?).with(@product).and_return(true)
-        @coupon.stub(:value).and_return(30.0)
+        @coupon.stub(:simulate_for_product).and_return(69.3)
         @coupon.stub(:is_percentage?).and_return(true)
         expect(@service.final_price).to eql(69.3)
       end
       it "applies value coupon" do
         @coupon.should_receive(:eligible_for_product?).with(@product).and_return(true)
-        @coupon.stub(:value).and_return(30.0)
+        @coupon.stub(:simulate_for_product).and_return(69.0)
         @coupon.stub(:is_percentage?).and_return(false)
         expect(@service.final_price).to eql(69.0)
       end
