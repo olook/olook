@@ -10,100 +10,110 @@
       cadastre-se e seja uma revendedora olook
     = form_for(@reseller, :url => reseller_create_path) do |f|
       %ul.formulario
-        %li.company
-          = f.label :has_corporate, "Tipo de revendedor"
-          = f.radio_button :has_corporate , "0", checked: true
-          = f.label :has_corporate, "Autônomo (CPF)"
-          = f.radio_button :has_corporate , "1"
-          = f.label :has_corporate, "Logista (CNPJ)"
-          = errors_for(@reseller, :has_corporate)
-        %li.cpf.field.small_box
-          = f.label :cpf, "CPF"
-          = f.text_field :cpf, class: error_class_if_needed(@reseller, :cpf)
-          = errors_for(@reseller, :cpf)
-        %li.cnpj.field.small_box
-          = f.label :cnpj, "CNPJ"
-          = f.text_field :cnpj, class: error_class_if_needed(@reseller, :cnpj)
-          = errors_for(@reseller, :cnpj)
-        %li.request_msg
-          %p
-            Precisamos dele para a análise do seu cadastro
-        %li.corporate_name.field
-          = f.label :corporate_name, "Razão Social"
-          = f.text_field :corporate_name
-          = errors_for(@reseller, :corporate_name)
-        %li.first_name.field.left_boxes.small_box
-          = f.label :first_name
-          = f.text_field :first_name, class: error_class_if_needed(@reseller, :first_name)
-          = errors_for(@reseller, :first_name)
-        %li.last_name.field.small_box
-          = f.label :last_name
-          = f.text_field :last_name, class: error_class_if_needed(@reseller, :last_name)
-          = errors_for(@reseller, :last_name)
-        %li.email.field
-          = f.label :email
-          = f.text_field :email, class: error_class_if_needed(@reseller, :email)
-          = errors_for(@reseller, :email)
-        %li.password.field.left_boxes.small_box
-          = f.label :password, "Senha #{content_tag("span", '(min. 6 caracteres)', class: 'hint')}".html_safe
-          = f.password_field :password, class: error_class_if_needed(@reseller, :password)
-          = errors_for(@reseller, :password)
-        %li.password_confirmation.field.small_box
-          = f.label :password_confirmation, "Confirmar senha"
-          = f.password_field :password_confirmation, class: error_class_if_needed(@reseller, :password_confirmation)
-          = errors_for(@reseller, :password_confirmation)
-        %li.gender.field.small_box
-          = f.label :gender, "Você é:", style: ''
-          %p.text{ class: error_class_if_needed(@reseller, :gender)}
-          = f.select :gender, options_for_select({'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 },selected_key = 0)
-          %span{class: "custom_select"} Selecione
-          = errors_for(@reseller, :gender)
-        %li.date.field.small_box
-          = f.label :birthday, "Data de Nascimento"
-          = f.text_field :birthday, class: error_class_if_needed(@reseller, :birthday)
-          = errors_for(@reseller, :birthday)
+        %fieldset
+          %li.company
+            = f.label :has_corporate, "Tipo de revendedor"
+            = f.radio_button :has_corporate , "0", checked: true
+            = f.label :has_corporate, "Autônomo (CPF)"
+            = f.radio_button :has_corporate , "1"
+            = f.label :has_corporate, "Logista (CNPJ)"
+            = errors_for(@reseller, :has_corporate)
+        %fieldset
+          %li.cpf.field.small_box
+            = f.label :cpf, "CPF"
+            = f.text_field :cpf, class: error_class_if_needed(@reseller, :cpf)
+            = errors_for(@reseller, :cpf)
+          %li.cnpj.field.small_box
+            = f.label :cnpj, "CNPJ"
+            = f.text_field :cnpj, class: error_class_if_needed(@reseller, :cnpj)
+            = errors_for(@reseller, :cnpj)
+          %li.request_msg
+            %p
+              Precisamos dele para a análise do seu cadastro
+        %fieldset
+          %li.corporate_name.field
+            = f.label :corporate_name, "Razão Social"
+            = f.text_field :corporate_name
+            = errors_for(@reseller, :corporate_name)
+        %fieldset
+          %li.first_name.field.left_boxes.small_box
+            = f.label :first_name
+            = f.text_field :first_name, class: error_class_if_needed(@reseller, :first_name)
+            = errors_for(@reseller, :first_name)
+          %li.last_name.field.small_box
+            = f.label :last_name
+            = f.text_field :last_name, class: error_class_if_needed(@reseller, :last_name)
+            = errors_for(@reseller, :last_name)
+        %fieldset
+          %li.email.field
+            = f.label :email
+            = f.text_field :email, class: error_class_if_needed(@reseller, :email)
+            = errors_for(@reseller, :email)
+        %fieldset
+          %li.password.field.left_boxes.small_box
+            = f.label :password, "Senha #{content_tag("span", '(min. 6 caracteres)', class: 'hint')}".html_safe
+            = f.password_field :password, class: error_class_if_needed(@reseller, :password)
+            = errors_for(@reseller, :password)
+          %li.password_confirmation.field.small_box
+            = f.label :password_confirmation, "Confirmar senha"
+            = f.password_field :password_confirmation, class: error_class_if_needed(@reseller, :password_confirmation)
+            = errors_for(@reseller, :password_confirmation)
+        %fieldset
+          %li.gender.field.small_box.left_boxes
+            = f.label :gender, "Você é:", style: ''
+            %p.text{ class: error_class_if_needed(@reseller, :gender)}
+            %span{ class: "custom_select"}
+              = f.select :gender, options_for_select({'Selecione' => "", 'Mulher' => 0, 'Homem' => 1 },selected_key = 0)
+            = errors_for(@reseller, :gender)
+          %li.date.field.small_box
+            = f.label :birthday, "Data de Nascimento"
+            = f.text_field :birthday, class: error_class_if_needed(@reseller, :birthday)
+            = errors_for(@reseller, :birthday)
         = f.fields_for :addresses do |address|
-          %li.zip_code.field.small_box
-            = address.label :zip_code, "CEP"
-            = address.text_field :zip_code, :class => "zip_code #{ error_class_if_needed(@reseller, :'addresses.zip_code')}"
-            = errors_for(@reseller, :"addresses.zip_code")
-          %li.request_msg.cep_msg
-            %p
-              Pesquisaremos o seu endereço a partir do CEP informado
-          %li.street.field.left_boxes.small_box
-            = address.label :street, "Rua, Avenia, Praça etc"
-            = address.text_field :street, class: error_class_if_needed(@reseller, :"addresses.street")
-            = errors_for(@reseller, :"addresses.street")
-          %li.number.field
-            = address.label :number, "Número"
-            = address.text_field :number, class: error_class_if_needed(@reseller, :"addresses.number")
-            = errors_for(@reseller, :"addresses.number")
-          %li.complement.field.left_boxes
-            = address.label :complement, "Complemento"
-            = address.text_field :complement
-          %li.neighborhood.field
-            = address.label :neighborhood, "Bairro"
-            = address.text_field :neighborhood, class: error_class_if_needed(@reseller, :"addresses.neighborhood")
-            = errors_for(@reseller, :"addresses.neighborhood")
-          %li.state.field.small_box
-            = address.label :state, "Estado"
-            %p.text
-              Selecione
-            = address.select :state, []
-            = errors_for(@reseller, :"addresses.state")
-          %li.city.field.small_box
-            = address.label :city, "Cidade"
-            %p.text
-              Selecione
-            = address.select :city, []
-            = errors_for(@reseller, :"addresses.city")
-          %li.terms
-            %p
-              Ao concluir o cadastro você aceita os #{link_to 'termos de uso', terms_path, :target => "_blank"}
-              %br
-                e a nossa #{link_to "política de privacidade", privacy_path}
-          %li.buttons
-            = f.submit "Cadastrar", :id => "register"
+          %fieldset
+            %li.zip_code.field.small_box
+              = address.label :zip_code, "CEP"
+              = address.text_field :zip_code, :class => "zip_code #{ error_class_if_needed(@reseller, :'addresses.zip_code')}"
+              = errors_for(@reseller, :"addresses.zip_code")
+            %li.request_msg.cep_msg
+              %p
+                Pesquisaremos o seu endereço a partir do CEP informado
+          %fieldset
+            %li.street.field.left_boxes.small_box
+              = address.label :street, "Rua, Avenia, Praça etc"
+              = address.text_field :street, class: error_class_if_needed(@reseller, :"addresses.street")
+              = errors_for(@reseller, :"addresses.street")
+            %li.number.field
+              = address.label :number, "Número"
+              = address.text_field :number, class: error_class_if_needed(@reseller, :"addresses.number")
+              = errors_for(@reseller, :"addresses.number")
+          %fieldset
+            %li.complement.field.left_boxes
+              = address.label :complement, "Complemento"
+              = address.text_field :complement
+            %li.neighborhood.field
+              = address.label :neighborhood, "Bairro"
+              = address.text_field :neighborhood, class: error_class_if_needed(@reseller, :"addresses.neighborhood")
+              = errors_for(@reseller, :"addresses.neighborhood")
+          %fieldset
+            %li.state.field.small_box.left_boxes
+              = address.label :state, "UF"
+              %span{ class: "custom_select"}
+                = address.select :state, []
+              = errors_for(@reseller, :"addresses.state")
+            %li.city.field.small_box
+              = address.label :city, "Cidade"
+              %span{ class: "custom_select"}
+                = address.select :city, []
+              = errors_for(@reseller, :"addresses.city")
+        
+            %li.terms
+              %p
+                Ao concluir o cadastro você aceita os #{link_to 'termos de uso', terms_path, :target => "_blank"}
+                %br
+                  e a nossa #{link_to "política de privacidade", privacy_path}
+            %li.buttons
+              = f.submit "Cadastrar", :id => "register"
   .reseller_infos
     %h2
       motivos para revender olook
