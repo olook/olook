@@ -13,7 +13,8 @@ div#wrapper_new_menu{position:relative;z-index:99;background:#FFF;width:100%;opa
    }
    &.fixed {
      position: fixed;
-     top: 0;
+     top: 0px;
+     left:0px;
      z-index:999;
      padding-top:5px;
    }
@@ -43,8 +44,8 @@ nav.menu_new{
 
 .new_sacola{
   position: relative;
-  a{position: absolute;right:0px;top:-43px; text-decoration: none;display:block;height: 25px;background: image-url("common/nav/sprite_header.png") -106px -1px no-repeat;font-family: $johnston;font-size: 10px;color: #000;letter-spacing: 1px;padding:1px 0px 2px 40px;clear:both;float:right;width: 105px;
-     &.full{background: image-url("common/nav/sprite_header.png") #fff fixed -208px -32px no-repeat;}
+  a{position: absolute;right:0px;top:-43px; text-decoration: none;display:block;height: 25px;background: image-url("common/nav/sprite_header.png") -106px -1px no-repeat;font-family: $johnston;font-size: 10px;color: #000;letter-spacing: 1px;padding:1px 0px 2px 40px;clear:both;width: 105px;
+     &.full{background: image-url("common/nav/sprite_header.png") #fff -208px -32px no-repeat;}
      .mini_coupon_tag{background: image-url('common/nav/sprite_header.png') -269px -113px no-repeat; width: 60px; height: 28px;top: -23px;right: 0;display: block;position: absolute;}
   }
   a.selecionado {border:1px solid #000 !important;background-color:#FFF;}
