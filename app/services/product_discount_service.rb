@@ -12,8 +12,16 @@ class ProductDiscountService
     return @product.price
   end
 
+  def base_price
+    @product.price
+  end
+
   def final_price
     @final_price ||= calculate
+  end
+
+  def has_any_discount?
+    eligible_markdown? || eligible_coupon? || eligible_promotion?
   end
 
 
