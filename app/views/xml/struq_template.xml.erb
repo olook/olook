@@ -4,18 +4,18 @@
 <% unless product.sold_out? %>
   <product>
     <id><%= product.id %></id>
-    <targeturl><%= product.product_url(:utm_source => "struq", :utm_campaign => "produtos", :utm_medium => "Remarketing") %></targeturl>
-    <imageurl1><%= full_image_path product.xml_picture(:main) %></imageurl1>
-    <imageurl2><%= full_image_path product.xml_picture(:thumb) %></imageurl2>
-    <name><%= product.name %></name>
+    <targeturl><![CDATA[<%= product.product_url(:utm_source => "struq", :utm_campaign => "produtos", :utm_medium => "Remarketing")%>]]></targeturl>
+    <imageurl1><![CDATA[<%= full_image_path product.xml_picture(:main) %>]]></imageurl1>
+    <imageurl2><![CDATA[<%= full_image_path product.xml_picture(:thumb) %>]]></imageurl2>
+    <name><![CDATA[<%= product.name %>]]></name>
     <price>R$ <%= number_with_precision(product.price, :precision => 2, :separator => ',') %></price>
     <rrp>R$ <%= number_with_precision(product.retail_price, :precision => 2, :separator => ',') %></rrp>
     <saving><%= calculate_discount_for product %>%</saving>
     <installments><%= installments_number(product.price) %></installments>
     <installmentprice>R$ <%= installments_value(product.price, :separator => ',') %></installmentprice>
     <category><%= product.category_humanize %></category>
-    <description><%= product.description %></description>
-    <brand><%= product.brand if product.brand? %></brand>
+    <description><![CDATA[<%= product.description %>]]></description>
+    <brand><![CDATA[<%= product.brand if product.brand? %>]]></brand>
     <dateadded><%= product.created_at.strftime("%Y-%m-%d") %></dateadded>
   </product>
 <% end %>
