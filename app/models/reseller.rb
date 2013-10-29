@@ -7,4 +7,8 @@ class Reseller < User
   validates_presence_of :cpf, if: Proc.new { |reseller| reseller.has_corporate == false }
   accepts_nested_attributes_for :addresses
   usar_como_cnpj :cnpj
+  
+  after_initialize do
+    self.reseller = true
+  end
 end

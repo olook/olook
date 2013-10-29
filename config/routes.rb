@@ -316,6 +316,9 @@ Olook::Application.routes.draw do
         post 'create_credit_transaction' => 'users#create_credit_transaction'
       end
     end
+    resources :resellers, :except => [:create, :new] do
+
+    end
 
     resources :utilities do
       collection do
