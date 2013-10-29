@@ -1,3 +1,4 @@
+//= require plugins/new_modal
 showroom = s = {} || null;
 
 $(function(){
@@ -21,7 +22,7 @@ showroom = s = {
   openModal: function(){
    if($('.dialog.liquidation').length == 1) {
      var content = $('.dialog.liquidation');
-     o.newModal(content, 550, 550);
+     o.newModal(content, 500, 500);
     }
   },
 
