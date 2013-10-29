@@ -123,14 +123,10 @@ class ProductPresenter < BasePresenter
     product_list.any? ? ([product] + product_list) : product_list
   end
 
-  def render_price_for cart_service
-    if product.promotion?
-      price_markdown(product.retail_price)
-    elsif has_valid_coupon_for?(cart_service, product)
-      price_markdown cart_service.price_with_coupon_for product
-    else
-      price_markup(product.price, "price")
-    end
+  def render_price_for product_discount_service
+    product_discount_service.calculate
+    return price_markdown(product_discount_service) if product_discount_service.has_any_discount?
+    return price_markup(product_discount_service.final_price, "price")
   end
 
   def is_promotion?
@@ -147,9 +143,9 @@ class ProductPresenter < BasePresenter
 
   private
 
-    def price_markdown retail_price
-      price_markup(product.price, "price_retail left2", "de: ") +
-      price_markup(retail_price, "price left2", "por: ")
+    def price_markdown discount_service
+      price_markup(discount_service.base_price, "price_retail left2", "de: ") +
+      price_markup(discount_service.final_price, "price left2", "por: ")
     end
 
     def price_markup price, css_class, prefix=nil
