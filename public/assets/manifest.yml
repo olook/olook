@@ -2200,8 +2200,8 @@ section/lite_catalog.js: section/lite_catalog-c2c32ad75be70e03de86e11805f63017.j
 section/lite_catalog/index.js: section/lite_catalog-c2c32ad75be70e03de86e11805f63017.js
 section/lite_collection_theme.js: section/lite_collection_theme-d5a8280198326a2cf96d6482fcf2c2dc.js
 section/lite_collection_theme/index.js: section/lite_collection_theme-d5a8280198326a2cf96d6482fcf2c2dc.js
-section/lite_showroom.js: section/lite_showroom-a9d4458452e4843882b4387a92e9de74.js
-section/lite_showroom/index.js: section/lite_showroom-a9d4458452e4843882b4387a92e9de74.js
+section/lite_showroom.js: section/lite_showroom-7099bcffc539af03f60518f599ca9589.js
+section/lite_showroom/index.js: section/lite_showroom-7099bcffc539af03f60518f599ca9589.js
 shipping.js: shipping-b5af7c6ffdc273e4ceac2a125a525a16.js
 shipping/index.js: shipping-b5af7c6ffdc273e4ceac2a125a525a16.js
 showroom.js: showroom-e0046d8c860a9db55e53d7354f20ca78.js
