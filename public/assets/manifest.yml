@@ -2200,8 +2200,8 @@ section/lite_catalog.js: section/lite_catalog-c2c32ad75be70e03de86e11805f63017.j
 section/lite_catalog/index.js: section/lite_catalog-c2c32ad75be70e03de86e11805f63017.js
 section/lite_collection_theme.js: section/lite_collection_theme-d5a8280198326a2cf96d6482fcf2c2dc.js
 section/lite_collection_theme/index.js: section/lite_collection_theme-d5a8280198326a2cf96d6482fcf2c2dc.js
-section/lite_showroom.js: section/lite_showroom-7099bcffc539af03f60518f599ca9589.js
-section/lite_showroom/index.js: section/lite_showroom-7099bcffc539af03f60518f599ca9589.js
+section/lite_showroom.js: section/lite_showroom-bc7e364562d119aea0b8ea8672742449.js
+section/lite_showroom/index.js: section/lite_showroom-bc7e364562d119aea0b8ea8672742449.js
 shipping.js: shipping-b5af7c6ffdc273e4ceac2a125a525a16.js
 shipping/index.js: shipping-b5af7c6ffdc273e4ceac2a125a525a16.js
 showroom.js: showroom-e0046d8c860a9db55e53d7354f20ca78.js
@@ -2346,8 +2346,8 @@ customlanding.css: customlanding-8cbf08aa6a1cff4512af6ec1821fa420.css
 customlanding/index.css: customlanding-8cbf08aa6a1cff4512af6ec1821fa420.css
 desktop.css: desktop-4e337e2905b36294398273a61f548cd3.css
 desktop/index.css: desktop-4e337e2905b36294398273a61f548cd3.css
-new_structure/lite_application.css: new_structure/lite_application-f49fced160a164fccdb132fba9c7f82f.css
-new_structure/lite_application/index.css: new_structure/lite_application-f49fced160a164fccdb132fba9c7f82f.css
+new_structure/lite_application.css: new_structure/lite_application-83863ca6efbd284a2dd0004072055a3f.css
+new_structure/lite_application/index.css: new_structure/lite_application-83863ca6efbd284a2dd0004072055a3f.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-89a95eeb61bd0261940de13468f8f414.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-89a95eeb61bd0261940de13468f8f414.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-92fa84ef4ab8ba6b3bbb184d64ad1480.css
