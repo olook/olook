@@ -14,6 +14,24 @@ olook = o = {
       olook.slideToTop();
       olook.boxLogin();
       olook.showEmailBar();
+      olook.megamenu();
+  },
+
+  megamenu: function() {
+    if($('body.mobile').length > 0) return;
+    $('.default_new li').on(
+      {
+        mouseover: function() {
+          $(this).find('div').show();
+          $(this).find('a:first').addClass('selecionado');
+        },
+
+        mouseleave: function() {
+          $(this).find('div').hide();
+          $(this).find('a:first').removeClass('selecionado');
+        }
+      }
+    );
   },
 
   menu: function(){
@@ -65,11 +83,13 @@ olook = o = {
     $("#cart_summary").show();
     $('.coupon_warn').delay(6000).fadeOut();
     $("body").addClass('cart_submenu_opened');
+    $(".new_sacola a").addClass('selecionado');
   },
 
   cartHide: function(){
     $("#cart_summary").hide();
     $("body").removeClass('cart_submenu_opened');
+    $(".new_sacola a").removeClass('selecionado');
   },
 
   myAccountMenu: function(){
@@ -197,5 +217,4 @@ olook = o = {
   		o.registerEmail()
   	}
   }
-
 }

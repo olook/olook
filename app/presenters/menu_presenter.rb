@@ -1,9 +1,15 @@
 # -*- encoding : utf-8 -*
 class MenuPresenter < BasePresenter
 
-  def render_item label, path, css_klass, hightlight_when
+  def render_item label, path, css_klass, hightlight_when, mega_menu_template = nil
    #+(css_klass == "stylist" ? h.image_tag("home/only_balaozinho.png") : "")
-    h.content_tag(:li, h.link_to(label, path, :class => h.selected_if_current(hightlight_when)),:class => css_klass)
+    h.content_tag(:li, :class => css_klass) do
+      out = h.link_to(label, path, :class => h.selected_if_current(hightlight_when))
+      if mega_menu_template && !@mobile
+        out += h.render mega_menu_template
+      end
+      out
+    end
   end
 
   def render_item_with_label label, path, css_klass, hightlight_when
@@ -13,21 +19,22 @@ class MenuPresenter < BasePresenter
     end
   end
 
-  def render_menu
+  def render_menu(mobile=false)
+    @mobile = mobile
     [showroom, stylist, collection_themes, categories, brands, gift, liquidation].join.html_safe
   end
 
   private
   def showroom
-    render_item("Minha Vitrine", h.member_showroom_path, "showroom", ["members#showroom"])
+    render_item("Minha Vitrine", h.member_showroom_path, "showroom", ["members#showroom"], 'mega_menu/showroom')
   end
 
   def brands
-    render_item("Marcas", h.new_brands_path, "brands", ["brands#index", "brands#show"])
+    render_item("Marcas", h.new_brands_path, "brands", ["brands#index", "brands#show"], 'mega_menu/brands')
   end
 
   def stylist
-    render_item("BLOG", "http://www.olook.com.br/stylist-news", "stylist", ['stylists#helena_linhares'])
+    render_item("BLOG", "http://www.olook.com.br/stylist-news", "stylist", ['stylists#helena_linhares'], 'mega_menu/blog')
   end
 
   def my_friends
@@ -39,7 +46,7 @@ class MenuPresenter < BasePresenter
   end
 
   def collection_themes
-    render_item("Coleções", h.collection_themes_path, "collection_themes", ["collection_themes#index", "collection_themes#show"])
+    render_item("Coleções", h.collection_themes_path, "collection_themes", ["collection_themes#index", "collection_themes#show"], 'mega_menu/colecoes')
   end
 
   def categories
@@ -47,19 +54,19 @@ class MenuPresenter < BasePresenter
   end
 
   def clothes
-    render_item("Roupas",  h.catalog_path(category: 'roupa'), "categories", ["catalogs#show#roupa"])
+    render_item("Roupas",  h.catalog_path(category: 'roupa'), "categories", ["catalogs#show#roupa"], 'mega_menu/roupas')
   end
 
   def shoes
-    render_item("Sapatos", h.catalog_path(category: 'sapato'), "categories", ["catalogs#show#sapato"])
+    render_item("Sapatos", h.catalog_path(category: 'sapato'), "categories", ["catalogs#show#sapato"], 'mega_menu/sapatos')
   end
 
   def bags
-    render_item("Bolsas", h.catalog_path(category: 'bolsa'), "categories", ["catalogs#show#bolsa"])
+    render_item("Bolsas", h.catalog_path(category: 'bolsa'), "categories", ["catalogs#show#bolsa"], 'mega_menu/bolsas')
   end
 
   def accessories
-    render_item("Acessórios", h.catalog_path(category: 'acessorio'), "categories", ["catalogs#show#acessorio"])
+    render_item("Acessórios", h.catalog_path(category: 'acessorio'), "categories", ["catalogs#show#acessorio"], 'mega_menu/acessorios')
   end
 
   def glasses
@@ -75,12 +82,12 @@ class MenuPresenter < BasePresenter
       "gift/survey#new",
       "gift/recipients#edit",
       "gift/suggestions#index"
-     ]
+     ], 'mega_menu/presentes'
     )
   end
 
   def liquidation
-    render_item('OLOOKLET', h.collection_theme_path('sale'), "sale", ["collection_themes#show#sale"])
+    render_item('OLOOKLET', h.collection_theme_path('sale'), "sale", ["collection_themes#show#sale"], 'mega_menu/olooklet')
   end
 
   def blog
