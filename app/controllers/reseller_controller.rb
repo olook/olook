@@ -8,6 +8,7 @@ class ResellerController < ApplicationController
   def create
     @reseller = Reseller.new(params[:reseller])
     if @reseller.save
+      SACAlertMailer.reseller_notification(@reseller, "tiago.almeida@olook.com.br")
       redirect_to reseller_show_path
     else
       render "new"
