@@ -6,6 +6,7 @@
 @import 'new_structure/partials/liquida';
 @import 'new_structure/section/clippings';
 @import 'new_structure/common/modal_footer';
+@import 'new_structure/common/megamenu';
 
 body {
   #error_explanation {
@@ -949,57 +950,6 @@ body {
     }
   }*/
 
-  /*** new menu ***/
-  div#wrapper_new_menu{background:#FFF;width:100%;opacity:0.9;*filter: alpha(opacity=90);-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
-     &.smaller {
-       div.content {
-         width: 990px;
-         padding-right: 0;
-         ul.product_anchors {
-           display: none;
-         }
-       }
-     }
-     &.fixed {
-       position: fixed;
-       top: 0;
-       z-index:999;
-       padding-top:5px;
-     }
-    nav.menu_new{
-      margin: 0 auto 5px;
-      width: 990px;
-      line-height: 30px;
-      .default_new{
-        width: 990px;
-        margin: 0 auto;
-       /* overflow: hidden;*/
-       position:relative;
-       display: inline-block;
-
-        li{font-size: 10px;text-transform: uppercase;display: inline;float: left;height: 30px;background: image-url("common/nav/menu_bar.png") no-repeat right 0;
-          &.liquidation{border-right: none;}
-/*          &:nth-child(10){background:none;}*/
-          a{display:block;font-family: $johnston;height:28px;text-decoration: none;color: black;padding:0 11px;letter-spacing:2px;
-            &:hover,&.selected{color:$pink;}
-
-          }
-
-        }
-      }
-    }
-    .new_sacola{
-      a{left: -9px; position: relative; text-decoration: none;display:block;height: 20px;background: image-url("common/nav/sprite_header.png") -119px -1px no-repeat;font-family: $johnston;font-size: 10px;margin-top: -43px;color: $pink;letter-spacing: 1px;padding:6px 0 0 21px;clear:both;float:right;
-         &.full{background: image-url("common/nav/sprite_header.png") -219px -32px no-repeat;}
-         .mini_coupon_tag{background: image-url('common/nav/sprite_header.png') -269px -113px no-repeat; width: 60px; height: 28px;top: -23px;right: 0;display: block;position: absolute;}
-      }
-      span{font-family: $kepler;font-size: 10px;margin: 0;}
-
-    }
-  }
-
-/*** end new menu ***/
-
 /*** new header ***/
 header#new_header{
   min-height: 109px;
@@ -1090,7 +1040,8 @@ header#new_header{
         &:hover{text-decoration:underline;}
         }
       }
-      #cart_summary{position:absolute;display:none;top:115px;right:0px;z-index:9999;width:304px;min-height:135px;max-height:388px;border:solid 1px #CCC;box-shadow:0 2px 5px #CCC;background:#FFF;padding:15px 0;
+      #cart_summary{position:absolute;display:none;top:119px;right:-10px;z-index:9999;width:304px;min-height:135px;max-height:388px;border:solid 1px #000;box-shadow:0 2px 5px #CCC;background:#FFF;padding:15px 0;
+         .detalhe {width: 145px;background: #FFF;height: 2px;position: absolute;top: -1px;right: 0px;}
          .scroll{max-height:297px;overflow-y:auto;padding:0 32px;
             li{
               &.coupon_info{
@@ -1717,7 +1668,6 @@ ul.breadcrumb {
   width: 991px !important;
   margin: 0 auto;
 }
-
 
 
 
