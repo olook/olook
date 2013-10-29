@@ -76,7 +76,7 @@ class SearchEngine
   end
 
   def sort= sort_field
-    @sortables ||= Set.new(['retail_price', '-retail_price', 'desconto', '-desconto'])
+    @sortables ||= Set.new(['retail_price', '-retail_price', 'desconto', '-desconto','-age'])
     if sort_field.present? && @sortables.include?(sort_field)
       @sort_field = "#{ sort_field }"
       @is_smart = false
