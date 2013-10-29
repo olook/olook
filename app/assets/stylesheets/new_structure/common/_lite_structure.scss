@@ -2,6 +2,7 @@
 @import 'new_structure/partials/liquida';
 @import 'new_structure/common/modal_footer';
 @import 'new_structure/common/megamenu';
+@import 'new_structure/common/cart_summary';
 
 /*------------------
 ==== CSS RESET ====
@@ -155,80 +156,7 @@ header#new_header{border-top: 2px black solid;
         }
       }
       /*------ END BOX LOGIN -------*/
-      #cart_summary{position:absolute;display:none;top:111px;right:-10px;z-index:9999;width:304px;min-height:135px;max-height:388px;border:solid 1px #000;box-shadow:0 2px 5px #CCC;background:#FFF;padding:15px 0;
-         .detalhe {width: 145px;background: #FFF;height: 2px;position: absolute;top: -1px;right: 0px;}
-         .scroll{max-height:297px;overflow-y:auto;padding:0 32px;
-            li{
-              &.coupon_info{
-                p{font-family: $avenir; font-size: 12px;color: #000;
-                  img{float: left; margin-top: 13px; margin-right: 10px;}}
-               }
-               &.product_item{border-top:solid 1px #CCC;margin-top:10px;color:#000;font-size:12px;padding-top:10px;
-                  p {line-height:17px;overflow:hidden;}
-                  img{float:left;margin-right:14px;margin-top:10px;width:46px;}
-                  h1{font-family:$avenir;text-transform:uppercase;font-size:11px;font-weight:bold;}
-               }
-               .big_coupon{width: 116px !important; height: 53px !important;}
-               p.freight{text-align:center;color:$base_color;font-family:$avenir;text-transform:uppercase;font-size:12px;
-                  span{color:#000;font-size:10px;text-transform:none;letter-spacing:1px;}
-               }
-               hr{height:1px;border:0;color:#CCC;background:#CCC;}
-               .empty_cart{
-                 text-align:center;
-                 font-size:11px;
-                 color:#000;
-               }
-            }
-         }
-         p.see_cart {
-           text-align:center;
-           margin:12px auto 0;
-           clear:both;
-           width: 80%;
-           border-top: 1px solid #ccc;
-          a.finish {
-            display:block;
-            width:145px;
-            height:45px;
-            background: image-url('common/nav/sprite_header.png') 0 -141px no-repeat;
-            font-size:0;
-            line-height:0;
-            margin-top:7px;
-            margin-left: auto;
-            margin-right: auto;
-          }
-        }
-        .coupon_warn {
-          display: block;
-          position: absolute;
-          background-color: #c1e2be;
-          border-top: 1px #ccc solid;
-          border-left: 1px #ccc solid;
-          border-bottom: 1px #ccc solid;
-          padding: 5px 5px 5px 5px;
-          left: -338px;
-          width: 325px;
-          top: 85px;
-          line-height: 23px;
-          .check {
-            background: image-url('common/check-circle.png') no-repeat top left;
-            display:block;
-            float:left;
-            margin-right: 5px;
-            width: 22px;
-            height: 22px;
-          }
-          .seta {
-            background: image-url('common/seta-verde.png') no-repeat top left;
-            display:block;
-            position: absolute;
-            width: 14px;
-            height: 36px;
-            top: -2px;
-            left: 335px;
-          }
-        }
-      }
+      
       p.trade{background: image-url('common/trade_arrows.png') no-repeat top left;float:left;font-size:11px;color:#000;line-height:18px;margin-left: 10px;
          a{text-decoration:none;color:#000;padding-left: 30px;
             &:hover{text-decoration:none; color: $base_color;}
@@ -323,5 +251,7 @@ button.close{position:absolute;cursor:pointer;font-size:20px;background: image-u
 
 
 .watermelon {color:#ef3742;}
+
+
 
 
