@@ -24,10 +24,11 @@ class Coupon < ActiveRecord::Base
 
   after_save :add_action
   def add_action
-    if is_percentage
-      self.create_action_parameter(action_params: value, matchable: PercentageAdjustment.first)
+    action = (is_percentage ? PercentageAdjustment : ValueAdjustment).first
+    if self.action_parameter
+      self.action_parameter.update_attributes(action_params: value, matchable: action)
     else
-      self.create_action_parameter(action_params: value, matchable: ValueAdjustment.first)
+      self.create_action_parameter(action_params: value, matchable: action)
     end
   end
 
