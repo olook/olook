@@ -261,6 +261,8 @@ cart/apply-coupon.jpg: cart/apply-coupon-34a5d96af7678e7ff34c7c07aad87c38.jpg
 cart/apply-coupon/index.jpg: cart/apply-coupon-34a5d96af7678e7ff34c7c07aad87c38.jpg
 cart/banner-gift.jpg: cart/banner-gift-0875481da3f2eaf91896e0f07ff52a22.jpg
 cart/banner-gift/index.jpg: cart/banner-gift-0875481da3f2eaf91896e0f07ff52a22.jpg
+cart/banner_carrinho_990x120.jpg: cart/banner_carrinho_990x120-ce0c737845a177f5841a1c7b76873d7f.jpg
+cart/banner_carrinho_990x120/index.jpg: cart/banner_carrinho_990x120-ce0c737845a177f5841a1c7b76873d7f.jpg
 cart/banner_check.jpg: cart/banner_check-e0d0fc2f1a439441dfebd4a7272c5797.jpg
 cart/banner_check/index.jpg: cart/banner_check-e0d0fc2f1a439441dfebd4a7272c5797.jpg
 cart/banner_check_out_inverno_off.gif: cart/banner_check_out_inverno_off-71d1881c0a494664925e27e923ac4480.gif
@@ -379,6 +381,8 @@ collections/crop_carol_ribeiro_ok.jpg: collections/crop_carol_ribeiro_ok-c7f090f
 collections/crop_carol_ribeiro_ok/index.jpg: collections/crop_carol_ribeiro_ok-c7f090f98741cafc9ffa2294a8308407.jpg
 collections/crop_navajo.jpg: collections/crop_navajo-51660d6eff6907c1611f671e5255f48d.jpg
 collections/crop_navajo/index.jpg: collections/crop_navajo-51660d6eff6907c1611f671e5255f48d.jpg
+collections/crop_pagina_colecao_380x214.jpg: collections/crop_pagina_colecao_380x214-c8bef0984e03c759672c14dbd4ad5566.jpg
+collections/crop_pagina_colecao_380x214/index.jpg: collections/crop_pagina_colecao_380x214-c8bef0984e03c759672c14dbd4ad5566.jpg
 collections/crop_totalbranco.jpg: collections/crop_totalbranco-f978f85de20356528cb7f836617eefdc.jpg
 collections/crop_totalbranco/index.jpg: collections/crop_totalbranco-f978f85de20356528cb7f836617eefdc.jpg
 collections/crop_triton.jpg: collections/crop_triton-40cd54dbf4497833800cb0996f8553ef.jpg
@@ -2354,10 +2358,19 @@ common/structure.css: common/structure-0fb27228cf169fd18a204e63467d98e2.css
 common/structure/index.css: common/structure-0fb27228cf169fd18a204e63467d98e2.css
 common/typography.css: common/typography-099ac8480b64696051967f5e7cd4a7fd.css
 common/typography/index.css: common/typography-099ac8480b64696051967f5e7cd4a7fd.css
+<<<<<<< HEAD
 customlanding.css: customlanding-b4f61d409d3a0226e0fa9c72206aa33a.css
 customlanding/index.css: customlanding-b4f61d409d3a0226e0fa9c72206aa33a.css
 new_structure/lite_application.css: new_structure/lite_application-1069bb2ffdbd48a854832272b5bccda0.css
 new_structure/lite_application/index.css: new_structure/lite_application-1069bb2ffdbd48a854832272b5bccda0.css
+customlanding.css: customlanding-8cbf08aa6a1cff4512af6ec1821fa420.css
+customlanding/index.css: customlanding-8cbf08aa6a1cff4512af6ec1821fa420.css
+new_structure/lite_application.css: new_structure/lite_application-073f2ffba8037aa37b96ebc8863b225c.css
+new_structure/lite_application/index.css: new_structure/lite_application-073f2ffba8037aa37b96ebc8863b225c.css
+desktop.css: desktop-4e337e2905b36294398273a61f548cd3.css
+desktop/index.css: desktop-4e337e2905b36294398273a61f548cd3.css
+new_structure/lite_application.css: new_structure/lite_application-be0c8da54f91ecbba4947e9b33f5bcea.css
+new_structure/lite_application/index.css: new_structure/lite_application-be0c8da54f91ecbba4947e9b33f5bcea.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-89a95eeb61bd0261940de13468f8f414.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-89a95eeb61bd0261940de13468f8f414.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-92fa84ef4ab8ba6b3bbb184d64ad1480.css

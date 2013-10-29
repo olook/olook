@@ -60,7 +60,7 @@ module Olook
     config.assets.initialize_on_precompile = true
     # config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
-    config.assets.precompile += %w(*.js admin.js admin.css campaign_emails.css reseller.css admin/*.css admin/*.js about/*.css common/*.js gift/*.js plugins/*.js ui/*.js section/*.css utilities/*.css new_structure/lite_application.css new_structure/section/*.css new_structure/partials/*)
+    config.assets.precompile += %w(*.js admin.js desktop.css admin.css campaign_emails.css reseller.css admin/*.css admin/*.js about/*.css common/*.js gift/*.js plugins/*.js ui/*.js section/*.css utilities/*.css new_structure/lite_application.css new_structure/section/*.css new_structure/partials/*)
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
