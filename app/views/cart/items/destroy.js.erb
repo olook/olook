@@ -2,11 +2,11 @@
 <% if @cart.items_total == 0 %>
   <% if request.referer =~ /#{new_checkout_path}/ %>
     window.location.href='<%= "#{cart_path}" %>';
-    $("p.new_sacola a.cart").removeClass("full");
+    $(".new_sacola a.cart").removeClass("full");
     $("p.freight").next().show();
   <% else %>
     $('section#cart').hide().empty().delay(300).append('<h1>MINHA SACOLA</h1>').append('<%= escape_javascript( render partial: "cart/cart/empty_cart") %>').delay(300).fadeIn();
-    $("p.new_sacola a.cart").removeClass("full");
+    $(".new_sacola a.cart").removeClass("full");
     $("p.freight").next().show();
   <% end %>
 <% end %>
