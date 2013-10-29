@@ -1,0 +1,76 @@
+<h2>Listando Revendedores</h2>
+
+<% content_for :sidebar do %>
+  <div class="block">
+    <h3>Filtros</h3>
+
+    <div class="content">
+      <%= form_for([:admin, @search], :html => {:class => "form"}) do |f| %>
+        <div class="group">
+          <%= f.label :first_name_contains, "Primeiro nome", :class => "label" %>
+          <%= f.text_field :first_name_contains, :class => "text_field" %>
+        </div>
+        <div class="group">
+          <%= f.label :last_name_contains, "Sobrenome", :class => "label" %>
+          <%= f.text_field :last_name_contains, :class => "text_field" %>
+        </div>
+        <div class="group">
+          <%= f.label :email_contains, "Emails", :class => "label" %>
+          <%= f.text_field :email_contains, :class => "text_field" %>
+        </div>
+        <div class="group">
+          <%= f.label :custom_cpf_finder, "Cpf", :class => "label" %>
+          <%= f.text_field :custom_cpf_finder, :class => "text_field" %>
+        </div>
+        <div class="group">
+          <%= f.label :cnpj_contains, "CNPJ", :class => "label" %>
+          <%= f.text_field :cnpj_contains, :class => "text_field" %>
+        </div>
+        <div class="group">
+          <%= f.label :created_at_gte, "Criado em", :class => "label"  %>
+          <%= f.date_select :created_at_gte, :include_blank => true %>
+          <%= f.label :created_at_lte, "até", :class => "label" %>
+          <%= f.date_select :created_at_lte, :include_blank => true %>
+        </div>
+
+        <div class="group">
+          <%= f.submit 'Procurar', :class => "button" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<div class="inner">
+  <table class="table">
+    <tr>
+      <th>id</th>
+      <th><%= sort_link @search, :first_name %></th>
+      <th><%= sort_link @search, :last_name %></th>
+      <th><%= sort_link @search, :email %></th>
+      <th>CPF</th>
+      <th>CNPJ</th>
+      <th><%= sort_link @search, :created_at %></th>
+      <th></th>
+    </tr>
+
+  <% @reseller.each do |reseller| %>
+    <tr>
+      <td><%= link_to reseller.id, admin_reseller_path(reseller) %></td>
+      <td><%= reseller.first_name %></td>
+      <td><%= reseller.last_name %></td>
+      <td><%= reseller.email %></td>
+      <td><%= reseller.cpf %></td>
+      <td><%= reseller.cnpj %></td>
+      <td><%= reseller.created_at.to_s(:short) %></td>
+      <td><%= link_to 'Editar', edit_admin_reseller_path(reseller), :class => 'button' %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <div class="actions-bar wat-cf">
+    <div class="pagination">
+      <%= will_paginate @resellers %>
+    </div>
+  </div>
+</div>
