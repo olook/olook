@@ -1,8 +1,8 @@
 # encoding: utf-8
 class Coupon < ActiveRecord::Base
-  # TODO: Temporarily disabling paper_trail for app analysis
-  #has_paper_trail :on => [:update, :destroy]
-
+  attr_accessible :code, :brand, :is_percentage, :value,
+    :start_date, :end_date, :remaining_amount, :unlimited,
+    :active, :campaign, :campaign_description, :modal, :updated_by
   COUPON_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/coupons.yml")
   PRODUCT_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/product_coupons.yml")[Rails.env]
   BRAND_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/brand_coupons.yml")[Rails.env]
@@ -21,6 +21,15 @@ class Coupon < ActiveRecord::Base
   has_one :promotion_action, through: :action_parameter
 
   before_save :set_limited_or_unlimited
+
+  after_save :add_action
+  def add_action
+    if is_percentage
+      self.create_action_parameter(action_params: value, matchable: PercentageAdjustment.first)
+    else
+      self.create_action_parameter(action_params: value, matchable: ValueAdjustment.first)
+    end
+  end
 
   def modal=(val)
     if MODAL_POSSIBLE_VALUES.values.include?(val.to_i)

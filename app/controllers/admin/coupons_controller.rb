@@ -5,7 +5,6 @@ class Admin::CouponsController < Admin::BaseController
   respond_to :html
   before_filter :load_coupon, :only => [:show, :edit, :update, :destroy]
 
-
   def index
     @search = Coupon.search(params[:search])
     @coupons = @search.relation.page(params[:page]).per_page(15).order('created_at desc')
