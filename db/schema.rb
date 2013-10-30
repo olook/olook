@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131024125413) do
+ActiveRecord::Schema.define(:version => 20131030171919) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -902,6 +902,7 @@ ActiveRecord::Schema.define(:version => 20131024125413) do
     t.string   "producer_code"
     t.string   "picture_for_xml"
     t.date     "launch_date"
+    t.integer  "visibility",      :default => 1
   end
 
   add_index "products", ["category"], :name => "index_products_on_category"
