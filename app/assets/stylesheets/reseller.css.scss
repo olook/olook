@@ -254,7 +254,8 @@
             height: 25px;
             display: block;
           }
-          &.state, .city{
+          &.state, &.city{
+            .span_error{margin-top: 5px;}
             input.readonly{
               border: none;
               background-color: transparent;
