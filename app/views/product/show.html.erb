@@ -76,7 +76,7 @@
     </div>
     <br style="clear:both">
   </section>
-  <%= product_presenter.render_look_products if params[:srl] || Setting.disable_ab_test_for_look_products %>
+  <%= product_presenter.render_look_products %>
   <%=image_tag("product/vantagens.jpg", class:"vantagens") %>
 
 
@@ -120,10 +120,6 @@
          <% end %>
      <% end %>
    </div>
-
-  <% if Setting.show_product_partner_tags %>
-
-  <% end %>
 
   <%= render "facebook_js", :facebook_app_id => @facebook_app_id, :product => @product %>
   <%= render "shared/lightbox_credits" %>
