@@ -13,7 +13,17 @@ class Admin::ResellersController < Admin::BaseController
     
   end
   def edit
-    
+    @reseller = Reseller.find(params[:id])
+    respond_with :admin, @reseller
+  end
+
+  
+  def update
+    @reseller = Reseller.find(params[:id])
+    if @reseller.update_attributes(params[:reseller])
+      flash[:notice] = 'Cadastro do revendedor atualizado.'
+    end
+    respond_with :admin, @reseller
   end
 
 end

@@ -27,7 +27,7 @@ pt-BR:
         reseller:
           attributes:
             has_corporate:
-              blank: "Você é autônomo (CPF) ou logista (CNPJ) ?"
+              inclusion: "Você é autônomo (CPF) ou logista (CNPJ) ?"
             corporate_name:
               blank: "Qual a razão social da empresa, mesmo?"
             first_name:
