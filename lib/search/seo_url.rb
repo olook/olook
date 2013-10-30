@@ -12,7 +12,7 @@ class SeoUrl
     "menor-preco" => "retail_price",
     "maior-preco" => "-retail_price",
     "maior-desconto" => "-desconto",
-    "novidade" => "-age",
+    "novidade" => "age",
     "conforto" => "care",
     "colecao" => "collection",
     "por_pagina" => "per_page"
