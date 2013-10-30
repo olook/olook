@@ -95,7 +95,7 @@
               = address.label :neighborhood, "Bairro"
               = address.text_field :neighborhood, class: error_class_if_needed(@reseller, :"addresses.neighborhood")
               = errors_for(@reseller, :"addresses.neighborhood")
-          %fieldset
+          %fieldset.addresses
             %li.state.field.small_box.left_boxes
               = address.label :state, "UF"
               %span{ class: "custom_select"}

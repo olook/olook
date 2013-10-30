@@ -207,10 +207,6 @@
         &#reseller_addresses_attributes_0_neighborhood{
           width: 301px;
         }
-        &.readonly{
-          border: none;
-          background-color: transparent;
-        }
       }
       .input_error{
         border-color:#EA1E40 !important;
@@ -257,6 +253,12 @@
             line-height: 13px;
             height: 25px;
             display: block;
+          }
+          &.state, .city{
+            input.readonly{
+              border: none;
+              background-color: transparent;
+            }
           }
           &.small_box{width: 204px;}
           &.request_msg{
