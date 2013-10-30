@@ -27,7 +27,8 @@ module CartHelper
   end
 
   def has_discount?(item)
-    @cart_service.item_promotion?(item) || @cart.has_appliable_percentage_coupon? || item.price != item.retail_price
+    discount = ProductDiscountService.new(item.product, coupon: item.cart.coupon, promotion: Promotion.select_promotion_for(item.cart))
+    discount.has_any_discount?
   end
 
   def show_checkout_banner?

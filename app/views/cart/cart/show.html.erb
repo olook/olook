@@ -1,4 +1,4 @@
-  <% content_for :head do %>
+<% content_for :head do %>
     <%= stylesheet_link_tag "section/checkout" %>
     <meta name="chaordic:source" content="cart">
     <meta name="chaordic:cart" content="<%= @chaordic_cart %>">
@@ -6,17 +6,17 @@
   <% end %>
   <% content_for :ecommerce_tracking do %>
   <script type="text/javascript">
-_gaq.push(['_addTrans',
-   '<%= @cart.id %>',
-   'olook',
-   '<%= @cart_service.total %>',
-   '',
-   '<%= @cart_service.freight_price.to_s %>',
-   '<%= @cart_service.freight_city %>',
-   '<%= @cart_service.freight_state %>',
-   'Brasil'
- ]);
-</script>
+    _gaq.push(['_addTrans',
+       '<%= @cart.id %>',
+       'olook',
+       '<%= @cart_service.total %>',
+       '',
+       '<%= @cart_service.freight_price.to_s %>',
+       '<%= @cart_service.freight_city %>',
+       '<%= @cart_service.freight_state %>',
+       'Brasil'
+     ]);
+    </script>
   <%= render :partial => "shared/metrics/google/ecommerce_add_item", :locals => { :cart => @cart, :cart_service => @cart_service} %>
 <% end %>
 
