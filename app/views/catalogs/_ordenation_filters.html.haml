@@ -7,4 +7,4 @@
         - else
           %span ORDENAÇÃO
 
-        = select_tag('por', options_for_select({"NOSSA SELEÇÃO" => 0, "MENOR PREÇO" => "menor-preco", "MAIOR PREÇO" => "maior-preco", "MAIOR DESCONTO" => "maior-desconto", "NOVIDADE" => "novidade"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
+        = select_tag('por', options_for_select({"NOSSA SELEÇÃO" => 0, "MENOR PREÇO" => "menor-preco", "MAIOR PREÇO" => "maior-preco", "MAIOR DESCONTO" => "maior-desconto", "NOVIDADES" => "novidade"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
