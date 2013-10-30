@@ -2,7 +2,8 @@ require File.expand_path(File.join(File.dirname(__FILE__), '../../app/services/c
 describe CartDiscountService do
   before do
     @cart = double('cart')
-    @cart.stub(:total_price).and_return(99.0)
+    @cart.stub(:coupon).and_return nil
+    @cart.stub(:sub_total).and_return(99.0)
   end
 
   context "with cart only" do
@@ -17,7 +18,7 @@ describe CartDiscountService do
     end
     context "#final_price" do
       it "calculates if doesn`t have price" do
-        @cart.stub(:total_price).and_return(79.0)
+        @cart.stub(:sub_total).and_return(79.0)
         expect(@service.final_price).to eql(79.0)
       end
     end
@@ -25,27 +26,27 @@ describe CartDiscountService do
 
   context "with coupon" do
     before do
-      @coupon = double('coupon')
-      @service = CartDiscountService.new(@cart, coupon: @coupon)
+      @cart.stub(:coupon).and_return(double('coupon'))
+      @service = CartDiscountService.new(@cart)
     end
 
     context "invalid" do
       it "doesnt apply coupon" do
-        @coupon.should_receive(:eligible_for_cart?).with(@cart).and_return(false)
+        @cart.coupon.should_receive(:eligible_for_cart?).with(@cart).and_return(false)
         expect(@service.final_price).to eql(99.0)
       end
     end
     context "Valid" do
       it "applies percentage coupon" do
-        @coupon.should_receive(:eligible_for_cart?).with(@cart).and_return(true)
-        @coupon.stub(:calculate_for_cart).and_return(69.3)
-        @coupon.stub(:is_percentage?).and_return(true)
+        @cart.coupon.should_receive(:eligible_for_cart?).with(@cart).and_return(true)
+        @cart.coupon.stub(:calculate_for_cart).and_return(69.3)
+        @cart.coupon.stub(:is_percentage?).and_return(true)
         expect(@service.final_price).to eql(69.3)
       end
       it "applies value coupon" do
-        @coupon.should_receive(:eligible_for_cart?).with(@cart).and_return(true)
-        @coupon.stub(:calculate_for_cart).and_return(69.0)
-        @coupon.stub(:is_percentage?).and_return(false)
+        @cart.coupon.should_receive(:eligible_for_cart?).with(@cart).and_return(true)
+        @cart.coupon.stub(:calculate_for_cart).and_return(69.0)
+        @cart.coupon.stub(:is_percentage?).and_return(false)
         expect(@service.final_price).to eql(69.0)
       end
     end

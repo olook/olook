@@ -295,16 +295,11 @@ class CartService
     retail_value = self.subtotal(:retail_price) - minimum_value
     retail_value = 0.0 if retail_value < 0
     total_discount = 0.0
-    coupon_value = cart.coupon.value if cart.coupon && !cart.coupon.is_percentage?
-    coupon_value = 0.0 if cart.coupon && !should_override_promotion_discount?
-    coupon_value ||= 0.0
     billet_discount_value = 0.0
     debit_discount_value = 0.0
     facebook_discount_value = 0.0
 
-    if coupon_value >= retail_value
-      coupon_value = retail_value
-    end
+    coupon_value = CartDiscountService.new(cart).calculate_coupon_discount
 
     retail_value -= coupon_value
 
@@ -313,7 +308,6 @@ class CartService
     credits_invite = 0.0
     credits_redeem = 0.0
     if (use_credits == true && self.cart.user)
-
 
       # Use loyalty only if there is no product with olooklet discount in the cart
       credits_loyality = allow_credit_payment? ? self.cart.user.user_credits_for(:loyalty_program).total : 0.0
