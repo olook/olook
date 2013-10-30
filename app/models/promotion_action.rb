@@ -16,10 +16,15 @@ class PromotionAction < ActiveRecord::Base
     cart.items.any? ? calculate(cart.items, param).map{|item| item[:adjustment]}.reduce(:+) : 0
   end
 
+  def simulate_for_product(product,param)
+    product ? calculate_product(product, param) : 0
+  end
+
   protected
     #
     # This method should return an Array of Hashes in the form:
     # => [{id: item.id, adjustment: item.price}]
     #
     def calculate(cart, param); end
+    def calculate_product(product,param); end
 end
