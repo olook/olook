@@ -19,6 +19,8 @@
   admin:
     billet:
       santander: "Conciliação Santander"
+    product:
+      visibility: Visibilidade
 
   #Carrinho
   cart:

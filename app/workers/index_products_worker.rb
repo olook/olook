@@ -66,7 +66,8 @@ class IndexProductsWorker
         fields['price'] = (product.price.to_d * 100).round
         fields['retail_price'] = (product.retail_price.to_d * 100).round
         fields['discount'] = (fields['retail_price'].to_i * 100) / fields['price'].to_i
-        fields['in_promotion'] = product.liquidation? ? 1 : 0
+        fields['in_promotion'] = product.liquidation? ? 1 : 0 
+        fields['visibility'] = product.visibility
         fields['category'] = product.category_humanize.downcase
         fields['size'] = product.variants.select{|v| v.inventory > 0}.map{|b| b.description}
         fields['care'] = product.subcategory.titleize if Product::CARE_PRODUCTS.include?(product.subcategory)

@@ -1,0 +1,12 @@
+#error-messages
+.batch_form
+  %h1 Adicione o CSV com os ids de produtos e visibilidade
+  %p 
+    ex.: id_produto_1,cod_visibilidade1
+  %p
+    (nota: os códigos de visibilidade são 1 -> site menos olooklet, 2 -> olooklet, 3 -> tudo) 
+  .batch_form_content
+    = form_tag admin_create_visibility_batch_path, multipart: true do
+      = file_field_tag :file
+      = submit_tag "Enviar"
+    %p= link_to "Exportar Lista para CSV", admin_export_visibility_batch_to_csv_path(format: "csv")

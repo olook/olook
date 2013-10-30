@@ -408,6 +408,11 @@ Olook::Application.routes.draw do
 
     post "billet_batch/create", as: :create_billet_batch
 
+    get "visibility_batch/new", as: :new_visibility_batch
+
+    get "visibility_batch/export", as: :export_visibility_batch_to_csv
+
+    post "visibility_batch/create", as: :create_visibility_batch
   end
 
   #USER / SIGN IN
