@@ -1,0 +1,10 @@
+%li.product_item{"data-id" => item.id, style: ( 'display:none;' if hidden )}
+  - unless item.thumb_picture.nil?
+    = image_tag item.thumb_picture, :title => item.name
+  %h1= item.product.formatted_name(24)
+  %p.size
+    Tamanho: #{item.description}
+  %p.qte
+    Quantidade:
+    %span= item.quantity
+  %p.price= number_to_currency(ProductDiscountService.new(item.product, coupon: item.cart.coupon))
