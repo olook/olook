@@ -54,16 +54,8 @@
       <th></th>
     </tr>
 
-  <% @reseller.each do |reseller| %>
+  <% @resellers.each do |reseller| %>
     <tr>
-      <td><%= link_to reseller.id, admin_reseller_path(reseller) %></td>
-      <td><%= reseller.first_name %></td>
-      <td><%= reseller.last_name %></td>
-      <td><%= reseller.email %></td>
-      <td><%= reseller.cpf %></td>
-      <td><%= reseller.cnpj %></td>
-      <td><%= reseller.created_at.to_s(:short) %></td>
-      <td><%= link_to 'Editar', edit_admin_reseller_path(reseller), :class => 'button' %></td>
     </tr>
   <% end %>
   </table>

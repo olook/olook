@@ -296,6 +296,10 @@
         one: Usuário
         other: Usuários
 
+      reseller:
+        one: Revendedor
+        other: Revendedores
+
       credit:
         one: Crédito
         other: Créditos
