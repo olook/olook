@@ -13,7 +13,7 @@
         %fieldset
           %li.company
             = f.label :has_corporate, "Tipo de revendedor"
-            = f.radio_button :has_corporate , "0", checked: @reseller.has_corporate
+            = f.radio_button :has_corporate , "0", checked: @reseller.has_corporate.blank?
             = f.label :has_corporate, "Autônomo (CPF)"
             = f.radio_button :has_corporate , "1", checked: @reseller.has_corporate
             = f.label :has_corporate, "Logista (CNPJ)"

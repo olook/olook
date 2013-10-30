@@ -45,6 +45,7 @@
   <table class="table">
     <tr>
       <th>id</th>
+      <th>Ativo?</th>
       <th><%= sort_link @search, :first_name %></th>
       <th><%= sort_link @search, :last_name %></th>
       <th><%= sort_link @search, :email %></th>
@@ -57,6 +58,7 @@
   <% @resellers.each do |reseller| %>
     <tr>
       <td><%= link_to reseller.id, admin_reseller_path(reseller) %></td>
+      <td><%= reseller.active? ? "SIM" : "Não" %></td>
       <td><%= reseller.first_name %></td>
       <td><%= reseller.last_name %></td>
       <td><%= reseller.email %></td>
