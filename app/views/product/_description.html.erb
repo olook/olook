@@ -1,7 +1,7 @@
 <div id="product-info" class="pl9">
   <h1><%= @product.formatted_name(200) %></h1>
   <h2><%= @product.brand %></h2>
-  <%= product_presenter.render_price_for @cart_service %>
+  <%= product_presenter.render_price_for @product_discount_service %>
   <% unless @product.promotion? %>
   <p class="plots">ou em <%= installments(@product.price) %></p>
   <% end %>

@@ -48,6 +48,14 @@ class Coupon < ActiveRecord::Base
     true unless self.start_date < Time.now && self.end_date > Time.now
   end
 
+  def eligible_for_product?(product)
+    available? && is_percentage? 
+  end
+
+  def eligible_for_cart?(cart)
+    available? && is_percentage? 
+  end
+
   def discount_percent
     self.is_percentage? ? self.value : 0
   end
@@ -77,6 +85,15 @@ class Coupon < ActiveRecord::Base
       return true if apply_discount_to? product
     end
     false
+  end
+
+  def calculate_for_product product
+    return product.price * (1 - (self.value * 0.01)) if self.is_percentage?
+    return product.price - self.value
+  end
+
+  def calculate_for_cart cart
+    nil
   end
 
   private
