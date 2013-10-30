@@ -12,7 +12,7 @@ gem 'devise', '~> 1.5.3'
 gem 'omniauth', '= 1.0.3'
 gem 'omniauth-facebook'
 gem 'oa-oauth', '~> 0.3.0', :require => 'omniauth/oauth'
-gem 'therubyracer', '~> 0.9.4'
+gem 'therubyracer', '~> 0.12.0'
 gem 'resque', '~> 1.20.0', :require => 'resque/server'
 gem 'resque_mailer', '~> 2.0.2'
 gem 'resque-scheduler', '~>2.0.0', :require => ['resque_scheduler', 'resque_scheduler/server']
