@@ -18,8 +18,9 @@ function changeResellerType(){
   var cnpj = $("li.cnpj");
   var corporate_name = $("li.corporate_name");
   if(corporate.attr("checked")) {
-    common_fieldset.hide();
-    corporate_fieldset.show();
+    cpf.hide();
+    cnpj.show();
+    corporate_name.show();
   }else{
     cpf.show();
     cnpj.hide();
