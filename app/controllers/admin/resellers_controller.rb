@@ -6,8 +6,8 @@ class Admin::ResellersController < Admin::BaseController
   respond_to :html
 
   def index
-    @search = Reseller.all_reseller.search(params[:search])
-    @reseller = @search.relation.page(params[:page]).per_page(15).order('created_at desc')    
+    @search = User.where(reseller: true).search(params[:search])
+    @resellers = @search.relation.page(params[:page]).per_page(15).order('created_at desc')    
   end
   def show
     
