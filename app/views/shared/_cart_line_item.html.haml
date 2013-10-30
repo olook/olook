@@ -7,4 +7,4 @@
   %p.qte
     Quantidade:
     %span= item.quantity
-  %p.price= number_to_currency(ProductDiscountService.new(item.product, coupon: item.cart.coupon))
+  %p.price= number_to_currency(ProductDiscountService.new(item.product, coupon: item.cart.coupon, promotion: Promotion.select_promotion_for(item.cart)).final_price)
