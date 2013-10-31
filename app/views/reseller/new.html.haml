@@ -33,7 +33,7 @@
         %fieldset
           %li.corporate_name.field
             = f.label :corporate_name, "Razão Social"
-            = f.text_field :corporate_name
+            = f.text_field :corporate_name, class: error_class_if_needed(@reseller, :corporate_name)
             = errors_for(@reseller, :corporate_name)
         %fieldset
           %li.first_name.field.left_boxes.small_box
