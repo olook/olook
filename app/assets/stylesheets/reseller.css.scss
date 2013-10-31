@@ -188,7 +188,7 @@
     form {margin-bottom: 15px; font-family: $avenir;
       label{
         display: block;
-        font-size: 13px;
+        font-size: 14px;
         margin: 2px 0;
         color: #58595b;
         font-weight: 500;
@@ -197,7 +197,7 @@
         border: 1px solid #959595;
         height: 34px;
         width: 430px;
-        &#reseller_cpf, &#reseller_cnpj, &#reseller_first_name, &#reseller_last_name, &#reseller_password, &#reseller_password_confirmation, &#reseller_addresses_attributes_0_zip_code, &#reseller_birthday, &#reseller_addresses_attributes_0_street, &#reseller_addresses_attributes_0_number{
+        &#reseller_cpf, &#reseller_cnpj, &#reseller_first_name, &#reseller_last_name, &#reseller_password, &#reseller_password_confirmation, &#reseller_birthday, &#reseller_addresses_attributes_0_street, &#reseller_addresses_attributes_0_number{
           width: 204px;
           float: left;
         }
@@ -206,6 +206,10 @@
         }
         &#reseller_addresses_attributes_0_neighborhood{
           width: 301px;
+        }
+        &.zip_code, &#reseller_addresses_attributes_0_zip_code{
+          width: 194px;
+          padding-left: 10px;
         }
       }
       .input_error{
@@ -254,7 +258,7 @@
             height: 25px;
             display: block;
           }
-          &.state, &.city{
+          &.state, &.city, &.corporate_name{
             .span_error{margin-top: 5px;}
             input.readonly{
               border: none;
@@ -276,6 +280,11 @@
             }
           }
           &.neighborhood{width: 301px;}
+          &.password{
+            span{
+              font-size: 12px;
+            }
+          }
           &.cep_msg{width: 170px;margin-right: 15px;}
           &.left_boxes{margin-right: 22px;} 
           &.company{
@@ -356,7 +365,7 @@
         p{
           font-size: 14px;
           font-family: $avenir;
-          width: 280px;
+          width: 290px;
           padding-left: 150px;
           span{
             display: block;
