@@ -267,11 +267,6 @@ class CartService
       end
     end
 
-    #if
-    # facebook_discount_value = calculate_facebook_discount_value(final_retail_price)
-    # final_retail_price -= facebook_discount_value
-    # discounts << :facebook
-
     {
       :origin       => origin,
       :price        => price,
