@@ -8,7 +8,7 @@
   .register_form
     %h2
       cadastre-se e seja uma revendedora olook
-    = form_for(@reseller, :url => reseller_create_path) do |f|
+    = form_for(@reseller, :url => '/revenda#register_content' ) do |f|
       %ul.formulario
         %fieldset
           %li.company
