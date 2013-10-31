@@ -7,7 +7,7 @@ class ProductDiscountService
   end
 
   def calculate
-    best_discount.calculate_for_product(@product) 
+    @final_price = best_discount.calculate_for_product(@product) 
   end
 
   def base_price
