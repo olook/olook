@@ -23,6 +23,14 @@ class Coupon < ActiveRecord::Base
   before_save :set_limited_or_unlimited
 
   after_save :add_action
+
+  def apply cart
+    if should_apply_for? cart
+      promotion_action.apply cart, self.action_parameter.action_params, self
+      Rails.logger.info "Applied coupon: #{self.name} for cart [#{cart.id}]"
+    end
+  end
+
   def add_action
     action = (is_percentage ? PercentageAdjustment : ValueAdjustment).first
     if self.action_parameter
@@ -49,11 +57,11 @@ class Coupon < ActiveRecord::Base
   end
 
   def eligible_for_product?(product)
-    available? && is_percentage? 
+    available? && is_percentage?
   end
 
   def eligible_for_cart?(cart)
-    available? && is_percentage? 
+    available?
   end
 
   def discount_percent
