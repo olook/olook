@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import 'new_structure/common/global_stuffs';
-
+#error_anchor{}
 #revenda{
 	width: 970px;
   height: 1185px;
@@ -193,22 +193,27 @@
         color: #58595b;
         font-weight: 500;
       }
-      input {background: #FFF; 
-        border: 1px solid #959595;
-        height: 34px;
-        width: 430px;
+      input {
+            background: #FFF;
+            border: 1px solid #959595;
+            height: 34px;
+            width: 430px;
+            font-family: $avenir;
+            color: #000;
+            font-size: 13px;
+            padding-left: 4px;
         &#reseller_cpf, &#reseller_cnpj, &#reseller_first_name, &#reseller_last_name, &#reseller_password, &#reseller_password_confirmation, &#reseller_birthday, &#reseller_addresses_attributes_0_street, &#reseller_addresses_attributes_0_number{
-          width: 204px;
+          width: 200px;
           float: left;
         }
         &#reseller_addresses_attributes_0_complement{
-          width: 107px;
+          width: 103px;
         }
         &#reseller_addresses_attributes_0_neighborhood{
-          width: 301px;
+          width: 297px;
         }
         &.zip_code, &#reseller_addresses_attributes_0_zip_code{
-          width: 194px;
+          width: 190px;
           padding-left: 10px;
         }
       }
@@ -216,7 +221,7 @@
         border-color:#EA1E40 !important;
         margin-bottom:4px
       }
-      .email_error{width: 440px;}
+      .email_error{width: 436px;}
       ul.formulario{
         fieldset{
           width: 204px;
