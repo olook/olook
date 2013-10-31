@@ -8,7 +8,6 @@ class Cart::ItemsController < ApplicationController
     ensure_a_variant_is_found!
     add_item_or_show_errors
 
-    redirect_to cart_path
   end
 
   def update
@@ -42,7 +41,10 @@ class Cart::ItemsController < ApplicationController
         notice_response = @cart.has_gift_items? ? "Produtos de presente não podem ser comprados com produtos da vitrine" : "Produto esgotado"
 
         format.js { render :error, locals: { notice: notice_response } }
+        format.html { render text: notice_response }
       end 
+    else
+      redirect_to cart_path
     end
   end
 
