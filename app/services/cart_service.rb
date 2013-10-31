@@ -299,7 +299,8 @@ class CartService
     debit_discount_value = 0.0
     facebook_discount_value = 0.0
 
-    coupon_value = CartDiscountService.new(cart).calculate_coupon_discount
+    cd = CartDiscountService.new(cart, coupon: cart.coupon)
+    coupon_value = cd.discount
 
     retail_value -= coupon_value
 
