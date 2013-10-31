@@ -25,10 +25,8 @@ class Coupon < ActiveRecord::Base
   after_save :add_action
 
   def apply cart
-    if should_apply_for? cart
-      promotion_action.apply cart, self.action_parameter.action_params, self
-      Rails.logger.info "Applied coupon: #{self.name} for cart [#{cart.id}]"
-    end
+    promotion_action.apply cart, self.action_parameter.action_params, self
+    Rails.logger.info "Applied coupon: #{self.name} for cart [#{cart.id}]"
   end
 
   def add_action
@@ -61,7 +59,7 @@ class Coupon < ActiveRecord::Base
   end
 
   def eligible_for_cart?(cart)
-    available?
+    available? && !is_percentage?
   end
 
   def discount_percent
@@ -101,7 +99,13 @@ class Coupon < ActiveRecord::Base
   end
 
   def calculate_for_cart cart
-    nil
+    coupon_value = value if !is_percentage?
+    coupon_value ||= 0.0
+
+    if coupon_value >= cart.sub_total
+      coupon_value = cart.sub_total
+    end
+    coupon_value
   end
 
   private
