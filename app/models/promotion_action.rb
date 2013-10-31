@@ -3,12 +3,12 @@ class PromotionAction < ActiveRecord::Base
   has_many :action_parameters
   has_many :promotions, through: :action_parameters
 
-  def apply(cart, param, promotion)
+  def apply(cart, param, match)
     cart.update_attributes(coupon_code: nil) if cart.coupon
     calculate(cart.items, param).each do |item|
       adjustment = item[:adjustment]
       item = cart.items.find(item[:id])
-      item.cart_item_adjustment.update_attributes(value: adjustment, source: promotion.name) if item.should_apply?(adjustment)
+      item.cart_item_adjustment.update_attributes(value: adjustment, source: match.name) if item.should_apply?(adjustment)
     end
   end
 
