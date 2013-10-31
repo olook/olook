@@ -286,12 +286,17 @@ class CartService
     discounts = []
     retail_value = self.subtotal(:retail_price) - minimum_value
     retail_value = 0.0 if retail_value < 0
+    total_discount = 0.0
+    coupon_value = cart.coupon.value if cart.coupon && !cart.coupon.is_percentage?
+    coupon_value = 0.0 if cart.coupon && !should_override_promotion_discount?
+    coupon_value ||= 0.0
     billet_discount_value = 0.0
     debit_discount_value = 0.0
     facebook_discount_value = 0.0
 
-    cd = CartDiscountService.new(cart, coupon: cart.coupon)
-    coupon_value = cd.discount
+    if coupon_value >= retail_value
+      coupon_value = retail_value
+    end
 
     retail_value -= coupon_value
 
