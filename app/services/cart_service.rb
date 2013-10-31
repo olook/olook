@@ -143,8 +143,8 @@ class CartService
   end
 
   def active_discounts
-    discounts = cart.items.inject([]) do |discounts, item|
-      discounts + item_discounts(item)
+    discounts = cart.items.inject([]) do |_discounts, item|
+      _discounts + item_discounts(item)
     end
 
     discounts.uniq
@@ -155,12 +155,9 @@ class CartService
   end
 
   def total(payment=nil)
-    # total = subtotal(:retail_price)
-
     total = cart_sub_total
     total += total_increase
     total -= total_discount(payment)
-    # total -= cart_total_promotion_discount unless should_override_promotion_discount?
 
     total = Payment::MINIMUM_VALUE if total < Payment::MINIMUM_VALUE
     total
@@ -294,7 +291,6 @@ class CartService
     discounts = []
     retail_value = self.subtotal(:retail_price) - minimum_value
     retail_value = 0.0 if retail_value < 0
-    total_discount = 0.0
     billet_discount_value = 0.0
     debit_discount_value = 0.0
     facebook_discount_value = 0.0
