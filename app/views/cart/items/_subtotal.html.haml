@@ -1,0 +1,9 @@
+= hidden_field('variant', "unit_value_#{item.product.id}", :value => cart_service.item_retail_price(item))
+- discount_service = ProductDiscountService.new(item.product, coupon: item.cart.coupon, promotion: Promotion.select_promotion_for(item.cart))
+- if discount_service.has_any_discount?
+  %p.price_retail
+    de: #{number_to_currency(discount_service.base_price)}
+  %p
+    por: #{number_to_currency(discount_service.final_price)}
+- else
+  %p{:id => "item_subtotal_#{item.id}"}= number_to_currency(discount_service.final_price)
