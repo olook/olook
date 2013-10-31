@@ -6,13 +6,11 @@ class CartDiscountService
   end
 
   def calculate
-    bd = best_discount # cache to avoid double processing on eligible_for_cart?
-    return @final_price = bd.calculate_for_cart(@cart) if bd
-    return @final_price = @cart.sub_total
+    @final_price = best_discount.calculate_for_cart(@cart)
   end
 
   def base_price
-    @cart.total_price
+    @cart.sub_total
   end
 
   def final_price
@@ -22,11 +20,19 @@ class CartDiscountService
   def best_discount
     return @promotion if eligible_promotion?
     return @coupon if eligible_coupon?
-    return nil
+    return NoDiscount.new
   end
 
   def discount
     base_price - final_price
+  end
+
+  class NoDiscount
+    def calculate_for_cart(cart)
+      cart.sub_total
+    end
+
+    def apply(cart); end
   end
 
   private
