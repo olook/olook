@@ -5,13 +5,6 @@ require "codeclimate-test-reporter"
 #CODECLIMATE_REPO_TOKEN=f8b9bc0159baef99717bde98ff461e5ecd83f2fb4ce41df305e38709f99aceac
 CodeClimate::TestReporter.start
 
-# Formatter for simplecov, to work with jenkins
-require 'simplecov'
-require 'simplecov-rcov'
-
-SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
-SimpleCov.start 'rails' if ENV["COVERAGE"]
-
 module Resque
   def self.enqueue(*args); end
   def self.enqueue_in(*args); end
