@@ -4,6 +4,7 @@ require 'resque/server'
 Olook::Application.routes.draw do
 
   resources :live_feeds, path: "api", only: [:create, :index]
+  resources :mercado_pago, only: [:create]
 
 
   get "/stylequiz", to: "quiz#new", as: "wysquiz"

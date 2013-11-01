@@ -7,7 +7,7 @@ class Checkout::CheckoutController < Checkout::BaseController
   before_filter :check_cpf
   
   #TODO Remove this after Freight AB test has finished
-  before_filter :prepare_for_freight_ab_testing
+  before_filter :prepare_for_freight_ab_testing 
 
   def new
     @addresses = @user.addresses
@@ -36,7 +36,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
     sender_strategy = PaymentService.create_sender_strategy(@cart_service, payment)
     payment_builder = PaymentBuilder.new({ :cart_service => @cart_service, :payment => payment, :gateway_strategy => sender_strategy, :tracking_params => session[:order_tracking_params] } )
-    
+
     response = payment_builder.process!
     if response.status == Payment::SUCCESSFUL_STATUS
       clean_cart!
@@ -99,6 +99,8 @@ class Checkout::CheckoutController < Checkout::BaseController
         Debit.new(params[:checkout][:payment])
       when "credit_card"
         CreditCard.new(params[:checkout][:payment] )
+      when "mercadopago"
+        MercadoPagoPayment.new(params[:checkout][:payment] )
       else
         nil
       end
