@@ -2,6 +2,7 @@ class Address < ActiveRecord::Base
   belongs_to :user
   has_many :freights
   has_many :carts
+  attr_accessor :require_telephone
 
   STATES = ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"]
 
@@ -11,7 +12,7 @@ class Address < ActiveRecord::Base
   StateFormat = /^[A-Z]{2}$/
 
   validates_presence_of :country, :state, :street, :city, :number, :zip_code, :neighborhood
-  validate :telephone, :presence_of => true, :if => 'telephone.present?'
+  validates :telephone, :presence => true, :if => :require_telephone
 
   validates :number, :numericality => true
   validates :zip_code, :format => {:with => ZipCodeFormat}
