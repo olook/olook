@@ -1,0 +1,56 @@
+#revenda
+  .about
+    %h2
+      seja uma revendedora olook
+    %p.infos A Olook é a primeira marca online de moda feminina do Brasil. Temos a proposta de tornar a moda acessível, seja por meio de coleções mensais – sempre com novidades seguindo as últimas tendências – seja pelo preço irresistível.
+
+    %p.infos No início, nossas vendas eram exclusivamente online, mas atendendo a pedidos começamos a trabalhar com boutiques selecionadas, como Choix e Cartel 011, além de participarmos da última edição do Q!Bazar. O sucesso foi tamanho que passamos a considerar outros canais offline, e através do contato com nossas clientes descobrimos mais um a possibilidade de relacionamento, a revenda.
+
+    %p.infos Se você está em busca de uma marca fast fashion, com ótima relação custo-benefício e muita informação de moda, a marca Olook é certeza de sucesso.
+
+    %p.infos Todos os produtos da marca Olook à venda em nosso site estão disponíveis para nossas revendedoras, que também receberão uma comunicação especial com novidades das coleções Olook e do mundo da moda.
+
+    %p.infos Temos certeza que, com ótimos produtos e os parceiros certos, alcançaremos juntos mais pessoas e teremos sucesso garantido.
+
+    - if @reseller
+      = link_to "Cadastre-se e seja revendedora", "#", :class => "anchor_button", :id => "form_reseller" 
+    %ul
+      %li.title
+        VANTAGENS
+      %li 
+        Coleções novas todos os meses
+      %li
+        Últimas tendências de moda
+      %li
+        Produtos com ótima qualidade
+      %li
+        Preço competitivo
+      %li
+        Descontos progressivos*
+      %li
+        Atendimento preferencial em nosso SAC
+      %p.bonus
+        *Política de descontos progressivos: 20% em compras acima de R$ 2.000 e 30% 
+        %br
+          em compras acima de R$ 3.000
+  .box_right
+    =image_tag("reseller/model.jpg")
+  .seller
+    %h2
+      como funciona
+    %ul
+      %li.register
+        %p
+          %span 
+            1. Cadastro
+          Receberemos seus dados e faremos uma análise. Em poucos dias você receberá nosso retorno e instruções para compra como revendedora Olook
+      %li.buy
+        %p
+          %span
+            2. Compra & troca
+          Você acessará nosso site e realizará compras, contando com condições especiais: descontos progressivos e 7 dias para solicitar a troca ou devolução gratuita
+      %li.reseller
+        %p
+          %span
+            3. Venda & recompra
+          Temos certeza que a parceria será um sucesso! Iremos mantê-la atualizada sobre as novidades e últimas tendências de moda. Nossas stylists também lhe ajudarão nas apostas de compra e na orientação das suas clientes 
