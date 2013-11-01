@@ -4,7 +4,6 @@ class PromotionAction < ActiveRecord::Base
   has_many :promotions, through: :action_parameters
 
   def apply(cart, param, match)
-    cart.update_attributes(coupon_code: nil) if cart.coupon
     calculate(cart.items, param).each do |item|
       adjustment = item[:adjustment]
       item = cart.items.find(item[:id])

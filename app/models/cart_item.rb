@@ -14,6 +14,7 @@ class CartItem < ActiveRecord::Base
   after_create :create_adjustment, :notify
   after_update :notify
   after_destroy :notify
+  attr_reader :discount_service
 
   def product_quantity
     deafult_quantity = [1]
@@ -42,9 +43,12 @@ class CartItem < ActiveRecord::Base
     end
   end
 
-  def final_price
+  def discount_service
     @discount_service ||= ProductDiscountService.new(product, coupon: cart.coupon, promotion: Promotion.select_promotion_for(cart))
-    @discount_service.final_price
+  end
+
+  def final_price
+    discount_service.final_price
   end
 
   def is_suggested_product?
