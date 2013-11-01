@@ -8,5 +8,5 @@ if ($("#cart_summary ul li.product_item[data-id=<%= @variant.id %>]").length == 
 }
 
 $("#cart_items").text("<%= pluralize(@cart.items_total, 'item', 'itens') %>");
-$("p.new_sacola a.cart").addClass("full");
+$(".new_sacola a.cart").addClass("full");
 $("p.freight").next().hide();

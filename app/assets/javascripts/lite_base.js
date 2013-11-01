@@ -73,7 +73,7 @@ olook = o = {
   },
 
   cart: function(){
-    $("p.new_sacola a.cart,#cart_summary").on("mouseenter", function() {
+    $(".new_sacola a.cart,#cart_summary").on("mouseenter", function() {
       o.cartShow();
     }).on("mouseleave", function() {
       o.cartHide();

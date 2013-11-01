@@ -8,9 +8,9 @@
       <fotos>
       <foto><%= full_image_path product.xml_picture(:main) %></foto>
       </fotos>
-      <marca><%= product.brand %></marca>
-      <categoria><%= product.category %></categoria>
-      <color><%= product.color_name %></color>
+      <marca><![CDATA[<%= product.brand %>]]></marca>
+      <categoria><![CDATA[<%= product.category %>]]></categoria>
+      <color><![CDATA[<%= product.color_name %>]]></color>
       <precio><%= number_with_precision(product.retail_price, precision: 2, separator: ",") %></precio>
       <precio_anterior><%= number_with_precision(product.price, precision: 2, separator: ",") %></precio_anterior>
       <stock><%= product.inventory %></stock>
