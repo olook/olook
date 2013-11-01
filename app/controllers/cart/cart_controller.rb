@@ -15,7 +15,7 @@ class Cart::CartController < ApplicationController
     @suggested_product = find_suggested_product
 
     @promo_over_coupon = false
-    if Promotion.select_promotion_for(@cart)
+    if @cart.coupon_id && Promotion.select_promotion_for(@cart)
       @promo_over_coupon = true
     end
   end
