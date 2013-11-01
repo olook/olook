@@ -42,11 +42,9 @@ class Cart::CartController < ApplicationController
   end
 
   def update
-    if  coupon = Coupon.find_by_code(params[:cart][:coupon_code])
-      unless coupon.is_more_advantageous_than_any_promotion? @cart
-        params[:cart].delete(:coupon_code)
-        render :error, :locals => { :notice => "Os descontos não são acumulativos, então escolhemos o desconto mais vantajoso para você." }
-      end
+    if Promotion.select_promotion_for(@cart)
+      params[:cart].delete(:coupon_code)
+      render :error, :locals => { :notice => "Os descontos não são acumulativos, então escolhemos o desconto mais vantajoso para você." }
     end
     @cart.update_attributes(params[:cart])
     if @cart.errors.any?
