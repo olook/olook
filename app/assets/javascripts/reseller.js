@@ -45,6 +45,7 @@ $(document).ready(function() {
   $('#reseller_cnpj').setMask("99.999.999/9999-99");
   $('#reseller_birthday').setMask("99/99/9999");
   $('#reseller_addresses_attributes_0_zip_code').setMask("99999-999");
+  $('#reseller_addresses_attributes_0_number').setMask("999999999");
   
   olook.cep('.zip_code', {
     estado: '#reseller_addresses_attributes_0_state',
