@@ -12,8 +12,7 @@ class Cart < ActiveRecord::Base
 
   validates_with CouponValidator, :attributes => [:coupon_code]
 
-  after_validation :update_coupon
-  after_find :update_coupon_code
+  before_validation :update_coupon
   after_update :notify_listener
 
   def allow_credit_payment?
@@ -50,7 +49,6 @@ class Cart < ActiveRecord::Base
     current_item
   end
 
-
   def items_total
    items.sum(:quantity)
   end
@@ -73,7 +71,6 @@ class Cart < ActiveRecord::Base
     unavailable_items.each {|item| item.destroy}
     size_items
   end
-
 
   def total_promotion_discount
     items.inject(0) {|sum, item| sum + item.adjustment_value}
@@ -133,13 +130,17 @@ class Cart < ActiveRecord::Base
   private
 
     def update_coupon
-      coupon = Coupon.find_by_code(self.coupon_code)
-      self.coupon = coupon
-      self.gift_wrap = true if free_gift_wrap?
-    end
-
-    def update_coupon_code
-      self.coupon_code = self.coupon.code if self.coupon
+      if self.coupon_code == ''
+        self.coupon_id = nil
+        self.coupon_code = nil
+      end
+      if self.coupon_id
+        self.coupon_code = self.coupon.code
+      elsif self.coupon_code
+        _coupon = Coupon.find_by_code(self.coupon_code)
+        self.coupon = _coupon if _coupon
+        self.gift_wrap = true if free_gift_wrap?
+      end
     end
 
     def notify_listener

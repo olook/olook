@@ -15,13 +15,8 @@ class Cart::CartController < ApplicationController
     @suggested_product = find_suggested_product
 
     @promo_over_coupon = false
-    if @cart && @cart.coupon && !@cart.items.empty?
-      if @cart.coupon.is_more_advantageous_than_any_promotion? @cart
-        @promo_over_coupon = true if @cart.items.any? { |i| i.liquidation? }
-      else
-        @cart.remove_coupon!
-        @promo_over_coupon = true
-      end
+    if Promotion.select_promotion_for(@cart)
+      @promo_over_coupon = true
     end
   end
 
