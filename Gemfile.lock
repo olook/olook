@@ -147,6 +147,8 @@ GEM
     better_errors (0.9.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bourne (1.1.2)
       mocha (= 0.10.5)
     brcpfcnpj (3.0.4)
@@ -190,6 +192,7 @@ GEM
     daemons (1.1.9)
     dalli (2.0.2)
     database_cleaner (0.9.1)
+    debug_inspector (0.0.2)
     delorean (2.1.0)
       chronic
     devise (1.5.4)
@@ -567,6 +570,7 @@ DEPENDENCIES
   awesome_print
   aws-sdk (~> 1.0)
   better_errors
+  binding_of_caller
   boleto_bancario!
   brcpfcnpj (= 3.0.4)
   bullet
