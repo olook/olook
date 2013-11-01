@@ -1,0 +1,29 @@
+<div class="msg">
+  <p class="success">Pronto! Recebemos o seu pedido de compra. Confira abaixo instruções para os próximos passos abaixo:</p>
+</div>
+
+<div class="new_payment_link">
+   <p class="txt_payment_link"> Ainda não acabou... Você ainda precisa pagar usando o MercadoPago</p>
+   <p class="mercado_pago_button">
+   <%= link_to('Pagar', @payment.url, {:class => 'lightblue-ar-s-ov', :name => 'MP-Checkout', 'mp-mode' => 'modal', :onreturn => 'mercadoPagoModalReturn'})  %>
+   </p>
+</div>
+<p class="thanks">Obrigada pela sua compra</p>
+<p class="description">
+  Mal podemos esperar para você receber o seu produto. Não se esqueça de conferir se todos os dados abaixo estão corretos.<br />
+  E se você tiver qualquer dúvida ou precisar solicitar alguma alteração, basta enviar um e-mail para <%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %>.
+</p>
+
+<script type="text/javascript">
+
+  mercadoPagoModalReturn = function(data) {
+
+    if (data.collection_status == 'approved') {
+      $('.txt_payment_link').html('Obrigado por comprar na Olook.<br>Assim que o seu pedido for enviado você receberá um email.');
+      $('.mercado_pago_button').hide();
+
+    }
+
+  }
+
+</script>
