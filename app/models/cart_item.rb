@@ -10,6 +10,7 @@ class CartItem < ActiveRecord::Base
   delegate :thumb_picture, :to => :variant, :prefix => false
   delegate :color_name, :to => :variant, :prefix => false
   delegate :liquidation?, :to => :product
+  delegate :promotion?, :to => :product
 
   after_create :create_adjustment, :notify
   after_update :notify

@@ -33,6 +33,7 @@
                 %li= access_link("Users")
                 %li= access_link("Credits")
                 %li= link_to I18n.t("activerecord.models.discount.other"), admin_discounts_path
+                %li= access_link("Resellers")
             %li{class: "submenu#{' active' if params[:controller] =~ /orders|shipping|moip_callbacks|payments/}"}
               %span Vendas
               %ul

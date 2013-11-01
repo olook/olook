@@ -28,6 +28,13 @@ FactoryGirl.define do
       end
     end
 
+    factory :cart_with_1_full_and_1_discount do
+      after(:create) do |cart|
+        FactoryGirl.create(:cart_item, :cart => cart)
+        cart.items << FactoryGirl.create(:cart_item_discount, :cart => cart)
+      end
+    end
+
     factory :cart_with_2_items do
       # after(:create) do |cart|
       #   FactoryGirl.create(:cart_item_2, :cart => cart)
