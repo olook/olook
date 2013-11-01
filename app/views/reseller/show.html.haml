@@ -16,3 +16,6 @@
       =image_tag("reseller/saias.jpg")
     %li.button
       =link_to "Veja mais saias", catalog_path('roupa', parameters: 'saia'), target: "blank", alt: "Saias"
+- content_for :footer do
+  %script{:type=>"text/javascript"}
+    $('html, body').animate({ scrollTop: '1250px' }, 'slow');
