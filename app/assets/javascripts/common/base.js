@@ -377,7 +377,7 @@ $(document).ready(function() {
     $(this).submit();
   });
 
-  $("p.new_sacola a.cart,#cart_summary").live("mouseenter", function() {
+  $(".new_sacola a.cart,#cart_summary").live("mouseenter", function() {
     showCartSummary();
   }).live("mouseleave", function() {
     hideCartSummary();
