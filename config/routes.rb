@@ -56,7 +56,7 @@ Olook::Application.routes.draw do
   match "/olook-no-qbazar" => redirect("http://www.olook.com.br/stylist-news/olook-no-qbazar/")
 
   # temp route to fix sent emails
-  get "/olooklet(/*id)", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
+  # get "/olooklet(/*id)", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
   get "/colecoes/irresistiveis_inverno", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
 
   root :to => "home#index"
@@ -105,11 +105,9 @@ Olook::Application.routes.draw do
 
   match "/marcas/:brand(/*parameters)", :to => "brands#show", as: "brand"
 
-  #LIQUIDATIONS
-  get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
-  get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
-  match "/promododia" , :to => "liquidations#index", :as => "promododia"
-  match "/olooklet" , :to => "liquidations#index", :as => "olooklet"
+  #NEW OLOOKLET
+  get "/olooklet" => "olooklet#index", :as => "olooklet"
+  get "/olooklet/:category" => "olooklet#show", :as => "olooklet_show"
 
   #NEW COLLECTIONS
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
