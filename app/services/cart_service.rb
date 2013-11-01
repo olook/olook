@@ -287,18 +287,9 @@ class CartService
     retail_value = self.subtotal(:retail_price) - minimum_value
     retail_value = 0.0 if retail_value < 0
     total_discount = 0.0
-    coupon_value = cart.coupon.value if cart.coupon && !cart.coupon.is_percentage?
-    coupon_value = 0.0 if cart.coupon && !should_override_promotion_discount?
-    coupon_value ||= 0.0
     billet_discount_value = 0.0
     debit_discount_value = 0.0
     facebook_discount_value = 0.0
-
-    if coupon_value >= retail_value
-      coupon_value = retail_value
-    end
-
-    retail_value -= coupon_value
 
     use_credits = self.cart.use_credits
     credits_loyality = 0.0
@@ -359,18 +350,16 @@ class CartService
 
     total_credits = credits_loyality + credits_invite + credits_redeem
 
-    discounts << :coupon if coupon_value > 0.0
     discounts << :billet_discount if billet_discount_value > 0
     discounts << :debit_discount if billet_discount_value > 0
 
     {
       :discounts                         => discounts,
       :is_minimum_payment                => (minimum_value > 0 && retail_value <= 0),
-      :total_discount                    => (coupon_value + total_credits + billet_discount_value + debit_discount_value + facebook_discount_value),
+      :total_discount                    => (total_credits + billet_discount_value + debit_discount_value + facebook_discount_value),
       :billet_discount                   => billet_discount_value,
       :debit_discount                    => debit_discount_value,
       :facebook_discount                 => facebook_discount_value,
-      :total_coupon                      => coupon_value,
       :total_credits_by_loyalty_program  => credits_loyality,
       :total_credits_by_invite           => credits_invite,
       :total_credits_by_redeem           => credits_redeem,

@@ -21,7 +21,7 @@ class CartItem < ActiveRecord::Base
   end
 
   def price
-    liquidation? ? LiquidationProductService.liquidation_product(product).original_price : product.price
+    product.price
   end
 
   #
@@ -40,6 +40,11 @@ class CartItem < ActiveRecord::Base
       min_value_excluding_nil = [promotional_value, olooklet_value].compact.min
       min_value_excluding_nil || 0
     end
+  end
+
+  def final_price
+    @discount_service ||= ProductDiscountService.new(product, coupon: cart.coupon, promotion: Promotion.select_promotion_for(cart))
+    @discount_service.final_price
   end
 
   def is_suggested_product?

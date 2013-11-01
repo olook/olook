@@ -29,12 +29,16 @@ class Coupon < ActiveRecord::Base
     Rails.logger.info "Applied coupon: #{self.name} for cart [#{cart.id}]"
   end
 
+  def name
+    "#{code} #{campaign}"
+  end
+
   def add_action
     action = (is_percentage ? PercentageAdjustment : ValueAdjustment).first
     if self.action_parameter
-      self.action_parameter.update_attributes(action_params: value, matchable: action)
+      self.action_parameter.update_attributes(action_params: value, promotion_action: action)
     else
-      self.create_action_parameter(action_params: value, matchable: action)
+      self.create_action_parameter(action_params: value, promotion_action: action)
     end
   end
 
@@ -77,11 +81,6 @@ class Coupon < ActiveRecord::Base
       true
     end
 
-  end
-
-  def is_more_advantageous_than_any_promotion? cart
-    discounts_sum = cart.total_promotion_discount + cart.total_liquidation_discount(ignore_coupon: true)
-    calculated_value(cart.total_price) > discounts_sum
   end
 
   def can_be_applied_to_any_product_in_the_cart? cart
