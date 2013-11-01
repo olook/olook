@@ -379,6 +379,10 @@ collections/capinha_marca_olook.jpg: collections/capinha_marca_olook-e09e14fc9bf
 collections/capinha_marca_olook/index.jpg: collections/capinha_marca_olook-e09e14fc9bfd109906c98621583d540a.jpg
 collections/crop_carol_ribeiro_ok.jpg: collections/crop_carol_ribeiro_ok-c7f090f98741cafc9ffa2294a8308407.jpg
 collections/crop_carol_ribeiro_ok/index.jpg: collections/crop_carol_ribeiro_ok-c7f090f98741cafc9ffa2294a8308407.jpg
+collections/crop_colecoes_380x214_neon.jpg: collections/crop_colecoes_380x214_neon-33edf85a9acb76e0475f02a94cc36e25.jpg
+collections/crop_colecoes_380x214_neon/index.jpg: collections/crop_colecoes_380x214_neon-33edf85a9acb76e0475f02a94cc36e25.jpg
+collections/crop_colecoes_animal_380x214.jpg: collections/crop_colecoes_animal_380x214-01746b76052fb6ba26ec8e095aad669a.jpg
+collections/crop_colecoes_animal_380x214/index.jpg: collections/crop_colecoes_animal_380x214-01746b76052fb6ba26ec8e095aad669a.jpg
 collections/crop_navajo.jpg: collections/crop_navajo-51660d6eff6907c1611f671e5255f48d.jpg
 collections/crop_navajo/index.jpg: collections/crop_navajo-51660d6eff6907c1611f671e5255f48d.jpg
 collections/crop_pagina_colecao_380x214.jpg: collections/crop_pagina_colecao_380x214-c8bef0984e03c759672c14dbd4ad5566.jpg
@@ -2302,8 +2306,8 @@ admin/themes/default/fonts/museosans_500_italic-webfont.woff: admin/themes/defau
 admin/themes/default/fonts/museosans_500_italic-webfont/index.woff: admin/themes/default/fonts/museosans_500_italic-webfont-e1bcb6fd0cfa7fc553880800308f5cff.woff
 admin/themes/default/style.css: admin/themes/default/style-cfb00648a94f868a1bca26366b08b42a.css
 admin/themes/default/style/index.css: admin/themes/default/style-cfb00648a94f868a1bca26366b08b42a.css
-application.css: application-19fa9d3123df30fd6ec1c03f60e2bc66.css
-application/index.css: application-19fa9d3123df30fd6ec1c03f60e2bc66.css
+application.css: application-2fd77209b1cb54e8aaf9869d41b75645.css
+application/index.css: application-2fd77209b1cb54e8aaf9869d41b75645.css
 campaign_emails.css: campaign_emails-1b3d60dda66e385aea10fba6fee12fa1.css
 campaign_emails/index.css: campaign_emails-1b3d60dda66e385aea10fba6fee12fa1.css
 common/_border-radius.css: common/_border-radius-1b13569e9620782f423d4cd3ce931750.css
@@ -2338,8 +2342,8 @@ common/reset.css: common/reset-bcd8fcccdfa3daaab087390f9c057ed0.css
 common/reset/index.css: common/reset-bcd8fcccdfa3daaab087390f9c057ed0.css
 common/search.css: common/search-e767ceb74755006600b0dc7b40e6cbe9.css
 common/search/index.css: common/search-e767ceb74755006600b0dc7b40e6cbe9.css
-common/structure.css: common/structure-829939d20568ce151e2f85c48441f119.css
-common/structure/index.css: common/structure-829939d20568ce151e2f85c48441f119.css
+common/structure.css: common/structure-3dc9c6078ecff16b375a1f73660f4af5.css
+common/structure/index.css: common/structure-3dc9c6078ecff16b375a1f73660f4af5.css
 common/typography.css: common/typography-099ac8480b64696051967f5e7cd4a7fd.css
 common/typography/index.css: common/typography-099ac8480b64696051967f5e7cd4a7fd.css
 customlanding.css: customlanding-8cbf08aa6a1cff4512af6ec1821fa420.css
@@ -2349,8 +2353,8 @@ new_structure/lite_application.css: new_structure/lite_application-073f2ffba8037
 new_structure/lite_application/index.css: new_structure/lite_application-073f2ffba8037aa37b96ebc8863b225c.css
 desktop.css: desktop-4e337e2905b36294398273a61f548cd3.css
 desktop/index.css: desktop-4e337e2905b36294398273a61f548cd3.css
-new_structure/lite_application.css: new_structure/lite_application-83863ca6efbd284a2dd0004072055a3f.css
-new_structure/lite_application/index.css: new_structure/lite_application-83863ca6efbd284a2dd0004072055a3f.css
+new_structure/lite_application.css: new_structure/lite_application-45d535d262e7b17548690032e533583d.css
+new_structure/lite_application/index.css: new_structure/lite_application-45d535d262e7b17548690032e533583d.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-89a95eeb61bd0261940de13468f8f414.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-89a95eeb61bd0261940de13468f8f414.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-92fa84ef4ab8ba6b3bbb184d64ad1480.css
