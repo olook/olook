@@ -1,5 +1,12 @@
 .box-cadastro{ class: "campaign_modal_#{@campaign_text}" }
-  - if @campaign_text.to_i >= 4
+  - if @campaign_text.to_i == 6
+    =image_tag("campaign_emails/bday.jpg", :class => "bday")
+    %div.futilish
+      =image_tag("campaign_emails/futilish.jpg")
+    .nao-exibir
+      %input{:type => "checkbox", :name => "dont_show", :class => "dont_show"}
+      %label{:for => "dont_show"} Não exibir novamente
+  - elsif @campaign_text.to_i >= 4
     .infos
       -if @campaign_text.to_i == 4
         %h1

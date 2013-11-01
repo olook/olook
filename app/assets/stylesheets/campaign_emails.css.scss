@@ -126,6 +126,15 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 		input{float:left;margin:3px 5px 0 0}
 		label{font-family:$avenir; font-size: 14px;}
 	}
+	img.bday{
+		margin-left: 30px;
+	}
+	.futilish{
+		width: 378px;
+		height: 243px;
+		margin-top: 32px;
+		float: left;
+	}
 
 	.close{top:-11px !important;right:-11px !important;}	
 }
