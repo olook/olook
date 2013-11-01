@@ -4,6 +4,7 @@ class CreditCard < Payment
   BANKS_OPTIONS = ["Visa", "Mastercard", "Diners"]
   # BANKS_OPTIONS = ["Visa", "Mastercard", "Diners", "AmericanExpress", "Hipercard"]
   PAYMENT_QUANTITY = 6
+  RESELLER_PAYMENT_QUANTITY = 3
   MINIMUM_PAYMENT = 30
   EXPIRATION_IN_MINUTES = 60
 
