@@ -36,7 +36,7 @@ pt-BR:
               blank: "Ah, precisamos do nome completo"
             password:
               blank: "Crie sua senha para acessos futuros"
-              too_short: "Ah, a senha deve ter no mínimo %{count} caracteres, tá?"
+              too_short: "Ela deve ter no min. %{count} caracteres, tá?"
               confirmation: "Pode repetir? Parece que não está batendo"
             email:
               blank: "Precisamos dele para envio de mensagens sobre o pedido"
@@ -49,7 +49,7 @@ pt-BR:
               blank: "Precisamos do CNPJ para análise do cadastro"
               invalid: "O CNPJ não está batendo. Pode conferir?"
             gender:
-              blank: "Mulher ou Homem?"  
+              blank: "Mulher ou Homem?"
             birthday:
               blank: "Queremos saber esta data especial :)"
 
