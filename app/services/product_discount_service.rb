@@ -18,6 +18,10 @@ class ProductDiscountService
     @final_price ||= calculate
   end
 
+  def discount
+    base_price - final_price
+  end
+
   def has_any_discount?
     eligible_markdown? || eligible_coupon? || eligible_promotion?
   end
