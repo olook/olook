@@ -2,7 +2,8 @@
 class Coupon < ActiveRecord::Base
   attr_accessible :code, :brand, :is_percentage, :value,
     :start_date, :end_date, :remaining_amount, :unlimited,
-    :active, :campaign, :campaign_description, :modal, :updated_by
+    :active, :campaign, :campaign_description, :modal,
+    :updated_by, :created_by
   COUPON_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/coupons.yml")
   PRODUCT_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/product_coupons.yml")[Rails.env]
   BRAND_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/brand_coupons.yml")[Rails.env]
