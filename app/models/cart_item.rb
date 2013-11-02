@@ -25,11 +25,6 @@ class CartItem < ActiveRecord::Base
     product.price
   end
 
-  #
-  # A lot of badsmels in this code !!!!
-  # TODO => Refactor as soon as possilbe
-  # To refactor we need to rethink the promotion and liquidation
-  #
   def retail_price(options={})
     olooklet_value = variant.product.retail_price == 0 ? price : variant.product.retail_price
     promotional_value = price - adjustment_value / quantity.to_f if has_adjustment?
@@ -39,7 +34,7 @@ class CartItem < ActiveRecord::Base
   end
 
   def discount_service
-    @discount_service ||= ProductDiscountService.new(product, coupon: cart.coupon, promotion: Promotion.select_promotion_for(cart))
+    @discount_service ||= ProductDiscountService.new(product, cart: cart, coupon: cart.coupon, promotion: Promotion.select_promotion_for(cart))
   end
 
   def final_price

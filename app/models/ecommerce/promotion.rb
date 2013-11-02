@@ -19,26 +19,23 @@ class Promotion < ActiveRecord::Base
   mount_uploader :checkout_banner, ImageUploader
 
   def apply cart
-    if should_apply_for? cart
-      promotion_action.apply cart, self.action_parameter.action_params, self
-      Rails.logger.info "Applied promotion: #{self.name} for cart [#{cart.id}]"
-    end
+    promotion_action.apply cart, self.action_parameter.action_params, self
+    Rails.logger.info "Applied promotion: #{self.name} for cart [#{cart.id}]"
   end
 
   def simulate cart
     promotion_action.simulate cart, self.action_parameter.action_params
   end
 
-  def calculate_for_product product
-    promotion_action.simulate_for_product product, self.action_parameter.action_params
+  def calculate_for_product product, opt
+    cart = opt[:cart]
+    adjustment = promotion_action.simulate_for_product product, cart, self.action_parameter.action_params
+    item = cart.items.find { |i| i.product.id == product.id }
+    product.price - (adjustment/(item.try(:quantity) || 1))
   end
 
   def calculate_for_cart cart
     simulate cart
-  end
-
-  def should_apply_for?(cart)
-    cart.coupon ? is_greater_than_coupon?(cart) : true
   end
 
   def self.select_promotion_for(cart)
@@ -58,12 +55,12 @@ class Promotion < ActiveRecord::Base
     matched_all_rules
   end
 
-  def eligible_for_product? product
-    true
+  def eligible_for_product? product, opt
+    matches?(opt[:cart])
   end
 
   def eligible_for_cart? cart
-    true
+    matches?(cart)
   end
 
   private

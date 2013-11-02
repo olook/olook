@@ -51,6 +51,10 @@ class Coupon < ActiveRecord::Base
     end
   end
 
+  def is_percentage?
+    PercentageAdjustment == promotion_action.class
+  end
+
   def available?
     (active_and_not_expired?) ? true : false
   end
@@ -59,12 +63,18 @@ class Coupon < ActiveRecord::Base
     true unless self.start_date < Time.now && self.end_date > Time.now
   end
 
-  def eligible_for_product?(product)
-    available? && is_percentage?
+  def matches?(cart)
+    rule_parameters.all? do |rule_param|
+      rule_param.matches?(cart)
+    end
+  end
+
+  def eligible_for_product?(product, opts)
+    available? && is_percentage? && matches?(opts[:cart])
   end
 
   def eligible_for_cart?(cart)
-    available? && !is_percentage?
+    available? && !is_percentage? && matches?(cart)
   end
 
   def discount_percent
@@ -93,9 +103,11 @@ class Coupon < ActiveRecord::Base
     false
   end
 
-  def calculate_for_product product
-    return product.price * (1 - (self.value * 0.01)) if self.is_percentage?
-    return product.price - self.value
+  def calculate_for_product product, opt
+    cart = opt[:cart]
+    adjustment = promotion_action.simulate_for_product product, cart, self.action_parameter.action_params
+    item = cart.items.find { |i| i.product.id == product.id }
+    product.price - (adjustment/item.quantity)
   end
 
   def calculate_for_cart cart

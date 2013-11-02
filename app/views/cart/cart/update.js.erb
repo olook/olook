@@ -8,7 +8,6 @@ $("li#mgm_credit div.value").removeClass("normal prohibited").addClass("<%= styl
 $("#total_user_credits").html("<%= number_to_currency(total_user_credits) %>");
 
 <% if @cart.coupon %>
-  $("#coupon_discount").html("<%= number_to_currency(@cart_service.total_coupon_discount) if !@cart.coupon.is_percentage? %><%= discount_percentage(@cart.coupon.discount_percent) %>");
   $("#coupon_info").show();
   $("#coupon").hide();
 

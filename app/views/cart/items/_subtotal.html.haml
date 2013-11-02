@@ -1,8 +1,8 @@
 = hidden_field('variant', "unit_value_#{item.product.id}", :value => item.discount_service.final_price)
 - if item.discount_service.has_any_discount?
   %p.price_retail
-    de: #{number_to_currency(item.discount_service.base_price)}
+    de: #{number_to_currency(item.discount_service.base_price * item.quantity)}
   %p
-    por: #{number_to_currency(item.discount_service.final_price)}
+    por: #{number_to_currency(item.discount_service.final_price * item.quantity)}
 - else
-  %p{:id => "item_subtotal_#{item.id}"}= number_to_currency(item.discount_service.final_price)
+  %p{:id => "item_subtotal_#{item.id}"}= number_to_currency(item.discount_service.final_price * item.quanitity)

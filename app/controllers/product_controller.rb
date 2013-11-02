@@ -40,7 +40,7 @@ class ProductController < ApplicationController
     end
 
     def load_product_discount_service
-      @product_discount_service = ProductDiscountService.new(@product, coupon: @cart.coupon, promotion: Promotion.select_promotion_for(@cart))
+      @product_discount_service = ProductDiscountService.new(@product, cart: @cart, coupon: @cart.coupon, promotion: Promotion.select_promotion_for(@cart))
     end
 
     def load_show_product

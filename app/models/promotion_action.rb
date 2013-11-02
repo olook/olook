@@ -15,8 +15,13 @@ class PromotionAction < ActiveRecord::Base
     cart.items.any? ? calculate(cart.items, param).map{|item| item[:adjustment]}.reduce(:+) : 0
   end
 
-  def simulate_for_product(product,param)
-    product ? calculate_product(product, param) : 0
+  def simulate_for_product(product, cart, param)
+    if cart.items.any?
+      _calc = calculate(cart.items, param)
+      _c = _calc.find { |item| item[:product_id] == product.id }
+      return _c ? _c[:adjustment] : 0
+    end
+    0
   end
 
   protected
@@ -25,5 +30,4 @@ class PromotionAction < ActiveRecord::Base
     # => [{id: item.id, adjustment: item.price}]
     #
     def calculate(cart, param); end
-    def calculate_product(product,param); end
 end
