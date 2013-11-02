@@ -99,7 +99,9 @@ class Cart < ActiveRecord::Base
   end
 
   def sub_total
-    items.inject(0) { |total, item| total += (item.quantity * item.retail_price) }
+    items.inject(0) do |total, item|
+      total += (item.quantity * item.retail_price)
+    end
   end
 
   def remove_coupon!

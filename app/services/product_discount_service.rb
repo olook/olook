@@ -2,12 +2,13 @@ class ProductDiscountService
   def initialize(product, options={})
     @product = product
     @markdown = Markdown.new
+    @cart = options[:cart]
     @coupon = options[:coupon]
     @promotion = options[:promotion]
   end
 
   def calculate
-    @final_price = best_discount.calculate_for_product(@product) 
+    @final_price = best_discount.calculate_for_product(@product, cart: @cart)
   end
 
   def base_price
@@ -19,7 +20,7 @@ class ProductDiscountService
   end
 
   def discount
-    base_price - final_price
+    base_price.to_f - final_price.to_f
   end
 
   def has_any_discount?

@@ -1,4 +1,4 @@
 - if item.discount_service.has_any_discount?
   = link_to promotion_discount(item), "#", :class => 'discount_percent'
   .discount_origin
-    %p= item.discount_service.discount
+    %p= item.discount_service.discount * item.quantity
