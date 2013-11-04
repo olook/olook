@@ -2,7 +2,9 @@
 
 FactoryGirl.define do
   factory :catalog_header, :class => CatalogHeader::CatalogBase  do
-    url "/sapato"
+    sequence :url do |n|
+      "/sapatao_#{n}"
+    end
     type ""
     seo_text "Sapatos"
     small_banner1 "MyString"
@@ -31,9 +33,6 @@ FactoryGirl.define do
     end
     trait :small_banner do
       type "CatalogHeader::SmallBannerCatalogHeader"
-    end
-    trait :mkt do
-      type "CatalogHeader::CustomUrlCatalogHeader"
     end
   end
 end

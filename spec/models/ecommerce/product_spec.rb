@@ -299,7 +299,7 @@ describe Product do
     let(:unrelated_product) { FactoryGirl.create(:shoe, :casual) }
 
     it "#related_products" do
-      FactoryGirl.create(:related_product, :product_a => silver_slipper, :product_b => subject )
+      FactoryGirl.create(:related_product, :product_a => subject, :product_b => silver_slipper )
       subject.related_products.should include(silver_slipper)
     end
 
@@ -311,7 +311,7 @@ describe Product do
 
     describe "#is_related_to?" do
       before :each do
-        FactoryGirl.create(:related_product, :product_a => silver_slipper, :product_b => subject )
+        FactoryGirl.create(:related_product, :product_a => subject, :product_b => silver_slipper )
       end
 
       it "should return true when the relationship exists" do

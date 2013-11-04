@@ -19,6 +19,7 @@
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag  "http://olook.neoassist.com/clients/olook/novo/modal.css" if Setting.enable_neoassist %>
     <%= stylesheet_link_tag  "new_structure/lite_application" %>
+    <%= stylesheet_link_tag  "desktop" unless mobile? %>
 
     <%- unless @hide_fb_page_id -%>
       <meta property="fb:page_id" content="157293541026960" />
@@ -47,8 +48,7 @@
     <%= render 'shared/tag/soasta' %>
   </head>
 
-
-  <body onload="<%= Setting.enable_neoassist ? 'ativaDiv();' : '' %>" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %>">
+  <body onload="<%= Setting.enable_neoassist ? 'ativaDiv();' : '' %>" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %><%= mobile? ? ' mobile' : ' desktop' %>">
     <%= yield :after_body %>
     <%= render :partial => "shared/tag/google_tag_manager" %>
     <% if Setting.enable_neoassist %>
@@ -108,7 +108,6 @@
              </div>
              <% end %>
              <%= render 'shared/search_bar' %>
-             <%= render 'shared/cart', :cart => @cart %>
            </div>
            <div class="olook_logo">
                <h1><%= link_to 'Olook', root_path %></h1>
@@ -121,10 +120,13 @@
            <nav class="menu_new">
              <div class="content_new">
                <ul class="default_new">
-                 <%= MenuPresenter.new(self, :user => current_user).render_menu %>
+                 <%= MenuPresenter.new(self, :user => current_user).render_menu(mobile?) %>
                </ul>
                <% unless params[:controller].include? "survey" %>
-                 <p class="new_sacola"><%= link_to "SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %></p>
+                <div class="new_sacola">
+                  <%= link_to "SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %>
+                  <%= render 'shared/cart', :cart => @cart %>
+                </div>
                <% end %>
              </div>
            </nav>
