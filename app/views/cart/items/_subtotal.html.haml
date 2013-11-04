@@ -5,4 +5,4 @@
   %p
     por: #{number_to_currency(item.discount_service.final_price * item.quantity)}
 - else
-  %p{:id => "item_subtotal_#{item.id}"}= number_to_currency(item.discount_service.final_price * item.quanitity)
+  %p{:id => "item_subtotal_#{item.id}"}= number_to_currency(item.discount_service.final_price * item.quantity)
