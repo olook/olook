@@ -12,35 +12,36 @@
           %li= msg
   .field
     = f.label "Tipo de url"
-    = f.select(:new_url, ["Nova url", "Url existente"])
+    = f.select(:url_type, [["Nova url", 2], ["Url existente", 1]])
+
+  .inline_field
+    = f.check_box :enabled
+    = f.label :enabled
+  %br
 
   %fieldset#no_custom_url
     %legend
       Adicionar
       #{params[:type] == 'CatalogHeader::TextCatalogHeader' ? 'Texto' : 'Banners'}
       a uma URL existente do Site
-    .inline_field
-      = f.check_box :enabled
-      = f.label :enabled
     .field
-      = f.label :url
+      = f.label :old_url
       %br/
-      = f.text_field :url
+      = f.text_field :old_url, value: @catalog_base.url
+
 
   %fieldset#custom_url
     %legend
       Criar uma URL nova com cabeçalho de
       #{params[:type] == 'CatalogHeader::TextCatalogHeader' ? 'Texto' : 'Banners'}
-    .inline_field
-      = f.check_box :enabled
-      = f.label :enabled
     .field
-      = f.label :url, 'URL nova (ex.: /sapatos-de-festa)'
+      = f.label :new_url
       %small Evitar caracteres como espaço, acentos e letras maíusculas
       %br/
-      = f.text_field :url
+      = f.text_field :new_url, value: @catalog_base.url
     .field
       = f.label :organic_url
+      %small Essa url define os resultados orgânicos após a lista de produtos. Ela também define os filtros laterais e por isso é obrigatória.
       %br/
       = f.text_field :organic_url
     .field
@@ -51,18 +52,10 @@
   %br
   %fieldset
     %legend Tipo do Cabeçalho
-    - if params[:type] == 'CatalogHeader::TextCatalogHeader'
-      = f.hidden_field :type
-    - elsif params[:type].try(:size).to_i > 2
-      .field
-        = f.label :type
-        %br/
-        = f.select(:type, [['Sem Header', 'CatalogHeader::NoBanner'], ['Texto', 'CatalogHeader::TextCatalogHeader'], ['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['3 Banners','CatalogHeader::SmallBannerCatalogHeader']])
-    - else
-      .field
-        = f.label :type
-        %br/
-        = f.select(:type, [['Sem Header', 'CatalogHeader::NoBanner'], ['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['3 Banners','CatalogHeader::SmallBannerCatalogHeader']])
+    .field
+      = f.label :type
+      %br/
+      = f.select(:type, [['Sem Header', 'CatalogHeader::NoBanner'], ['Texto', 'CatalogHeader::TextCatalogHeader'], ['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['3 Banners','CatalogHeader::SmallBannerCatalogHeader']], value: params[:type].to_a.first)
     .field
       = f.label :seo_text
       %br/

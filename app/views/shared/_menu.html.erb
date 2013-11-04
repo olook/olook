@@ -3,11 +3,14 @@
     <div class="content_new">
       <ul class="default_new">
         <% present 'Menu', :user => current_user do |menu_presenter| %>
-          <%= menu_presenter.render_menu %>
+          <%= menu_presenter.render_menu(mobile?) %>
         <% end %>
       </ul>
       <% unless params[:controller].include? "survey" %>
-        <p class="new_sacola"><%= link_to "SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %></p>
+        <div class="new_sacola">
+          <%= link_to "SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %>
+          <%= render 'shared/cart', :cart => @cart %>
+        </div>
       <% end %>
     </div>
   </nav>

@@ -6,10 +6,10 @@ class Promotion < ActiveRecord::Base
 
   has_many :promotion_payments
 
-  has_many :rule_parameters
+  has_many :rule_parameters, as: :matchable
   has_many :promotion_rules, :through => :rule_parameters
 
-  has_one :action_parameter
+  has_one :action_parameter, as: :matchable
   has_one :promotion_action, through: :action_parameter
 
   accepts_nested_attributes_for :rule_parameters, reject_if: lambda { |rule| rule[:promotion_rule_id].blank? }

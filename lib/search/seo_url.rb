@@ -12,6 +12,7 @@ class SeoUrl
     "menor-preco" => "retail_price",
     "maior-preco" => "-retail_price",
     "maior-desconto" => "-desconto",
+    "novidade" => "age",
     "conforto" => "care",
     "colecao" => "collection",
     "por_pagina" => "per_page"
@@ -115,7 +116,7 @@ class SeoUrl
     end
 
     def parse_catalogs_params
-      /^\/(?<category>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\?(?<query>.*))?/ =~ @path
+      /^(?:\/catalogo)?\/(?<category>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\?(?<query>.*))?/ =~ @path
       @params[:category] = URI.decode(category.to_s)
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
