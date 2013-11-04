@@ -40,7 +40,7 @@ class CatalogsController < ApplicationController
       if header && header.title_text.present?
         Seo::SeoManager.new(request.path, model: header).select_meta_tag
       else
-        Seo::SeoManager.new(request.path).select_meta_tag
+        Seo::SeoManager.new(request.path, search: @search).select_meta_tag
       end
     end
 
