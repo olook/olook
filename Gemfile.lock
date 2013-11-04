@@ -647,11 +647,7 @@ DEPENDENCIES
   sqlite3 (~> 1.3.6)
   state_machine (~> 1.1.0)
   state_machine-audit_trail (~> 0.0.5)
-<<<<<<< HEAD
   therubyracer (~> 0.12.0)
-=======
-  therubyracer (= 0.12.0)
->>>>>>> master
   thin
   timecop
   uglifier (~> 1.0.3)
