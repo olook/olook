@@ -13,7 +13,7 @@ module CartHelper
   end
 
   def promotion_discount(item)
-    percent = ( item.discount_service.discount / item.discount_service.base_price ) * 100.0
+    percent = ( 1 - ( item.retail_price / item.price )  ) * 100.0
     percent == 100 ? "Grátis" : number_to_percentage(percent, :precision => 0)
   end
 
