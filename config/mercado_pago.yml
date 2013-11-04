@@ -2,6 +2,10 @@ development:
   client_id: '237151324458229'
   client_secret: 'zr0flVnJh40ObfOKjQwqIoIUiOXGvFTM'
 
+test:
+  client_id: '123'
+  client_secret: '123456'
+
 production:
   client_id: '237151324458229'
   client_secret: 'zr0flVnJh40ObfOKjQwqIoIUiOXGvFTM'

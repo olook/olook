@@ -12,7 +12,7 @@ class MercadoPagoController < ApplicationController
         order.erp_payment.authorize
       end
 
-      render json: {status: :created}.to_json
+      render json: {status: :ok}.to_json
     rescue
       render json: {status: :bad_request}.to_json
     end
