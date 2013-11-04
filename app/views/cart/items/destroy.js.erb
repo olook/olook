@@ -39,7 +39,7 @@ $(".checkout_banner").remove();
 $("#items").after("<%= escape_javascript(render 'cart/cart/checkout_banner') %>");
 
 // update coupon
-$("#coupon_discount").remove();
+$("#coupon_discount").empty();
 <% if @cart.has_coupon? %>
   $("#coupon_discount").html("<%= @cart.coupon.code %>");
 <% end %>
