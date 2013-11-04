@@ -98,12 +98,12 @@
           %fieldset.addresses
             %li.state.field.small_box.left_boxes
               = address.label :state, "UF"
-              %span{ class: "custom_select"}
+              %span{ class: "custom_select #{error_class_if_needed(@reseller, :"addresses.state")}"}
                 = address.select :state, []
               = errors_for(@reseller, :"addresses.state")
             %li.city.field.small_box
               = address.label :city, "Cidade"
-              %span{ class: "custom_select"}
+              %span{ class: "custom_select #{error_class_if_needed(@reseller, :"addresses.city")}"}
                 = address.select :city, []
               = errors_for(@reseller, :"addresses.city")
         
@@ -148,3 +148,6 @@
 
 - content_for :footer do
   = javascript_include_tag "reseller"
+  :javascript
+    var resellerState = "#{@reseller.addresses.first.state}";
+    var resellerCity = "#{@reseller.addresses.first.city}";
