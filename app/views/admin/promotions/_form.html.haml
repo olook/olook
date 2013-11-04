@@ -1,0 +1,58 @@
+= form_for([:admin, @promotion]) do |f|
+  - if @promotion.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@promotion.errors.count, "error")
+        prohibited this admin_promotion from being saved:
+      %ul
+        - @promotion.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :name
+    %br/
+    = f.text_field :name
+  .field
+    = f.label :starts_at
+    %br/
+    = f.date_select :starts_at
+  .field
+    = f.label :ends_at
+    %br/
+    = f.date_select :ends_at
+  .field
+    = f.label :description
+    %br/
+    = f.text_field :description
+  .field
+    = f.label :checkout_banner
+    %br/
+    = f.file_field :checkout_banner
+    - if @promotion.checkout_banner?
+      = image_tag @promotion.checkout_banner_url
+    %p
+      = f.check_box :remove_checkout_banner
+      Remover
+  .field
+    = f.label :active
+    %br/
+    = f.check_box :active
+  #rules
+    %h2 Critérios para a promoção
+    = f.fields_for :rule_parameters do |builder|
+      .field
+        = builder.label 'Regra aplicada'
+        = builder.collection_select(:promotion_rule_id, @promotion_rules, :id, :name, { include_blank: true })
+      .field
+        = builder.label 'Parâmetro de regra'
+        = builder.text_field :rules_params
+  #actions
+    %h2 Ação da promoção
+    = f.fields_for :action_parameter, @action_parameter  do |builder|
+      .field
+        = builder.label 'Ação aplicada'
+        = builder.collection_select(:promotion_action_id, @promotion_actions, :id, :name, { include_blank: true })
+      .field
+        = builder.label 'Parâmetro de ação'
+        = builder.text_field :action_params
+  .actions
+    = f.submit
