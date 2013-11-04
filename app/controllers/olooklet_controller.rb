@@ -13,7 +13,7 @@ class OlookletController < ApplicationController
     @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(page_size)
 
 
-    @url_builder = SeoUrl.new(search_params, "category", @search)
+    @url_builder = SeoUrl.new(search_params, "olooklet", @search)
     @antibounce_box = AntibounceBox.new(params) if AntibounceBox.need_antibounce_box?(@search, @search.expressions["brand"].map{|b| b.downcase}, params)
 
     @search.for_admin if current_admin
@@ -34,7 +34,7 @@ class OlookletController < ApplicationController
     @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(page_size)
 
 
-    @url_builder = SeoUrl.new(search_params, "category", @search)
+    @url_builder = SeoUrl.new(search_params, "olooklet", @search)
     @antibounce_box = AntibounceBox.new(params) if AntibounceBox.need_antibounce_box?(@search, @search.expressions["brand"].map{|b| b.downcase}, params)
 
     @search.for_admin if current_admin
