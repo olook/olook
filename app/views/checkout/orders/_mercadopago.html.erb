@@ -21,8 +21,9 @@
   mercadoPagoModalReturn = function(data) {
 
     if (data.collection_status == 'approved') {
-      $('.txt_payment_link').html('Obrigado por comprar na Olook.');
+      $('.txt_payment_link').html('Pagamento realizado com sucesso.');
       $('.mercado_pago_button').hide();
+      $('.msg').hide();
     } else if (data.collection_status == 'pending') {
       $('.txt_payment_link').html('Seu pagamento está sendo processado.');
       $('.mercado_pago_button').hide();
