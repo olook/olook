@@ -1,7 +1,22 @@
+# encoding: utf-8
 class PromotionAction < ActiveRecord::Base
   validates :type, presence: true
   has_many :action_parameters
   has_many :promotions, through: :action_parameters
+
+  class << self
+    attr_accessor :filters
+  end
+
+  @filters = {
+    param: 'Parâmetro da Ação',
+    brand: 'Marca do produto a ser descontado',
+    full_price: 'Produto a ser descontado não pode ter markdown'
+  }
+
+  def self.filters
+    @filters ||= PromotionAction.filters.dup
+  end
 
   def apply(cart, param, match)
     calculate(cart.items, param).each do |item|

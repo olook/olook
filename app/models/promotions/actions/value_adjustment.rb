@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class ValueAdjustment < PromotionAction
+  filters[:param] = 'Valor em R$ a ser descontado da sacola'
   private
   def calculate(cart_items, value)
     calculated_values = []
