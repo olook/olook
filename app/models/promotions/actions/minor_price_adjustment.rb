@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class MinorPriceAdjustment < PromotionAction
+  filters[:param] = 'Quantidade de produtos diferentes de menor valor que ficarão de graça'
   def calculate(cart_items, quantity)
     calculated_adjustments = []
     minor_price_items(cart_items, quantity.to_i).each do |item|
