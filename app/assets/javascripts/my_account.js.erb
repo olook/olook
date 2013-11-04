@@ -20,6 +20,7 @@ $(document).ready(function() {
     cidade: '#address_city',
     rua: '#address_street',
     bairro: '#address_neighborhood',
+    applyHtmlTag: true,
     afterFail: function(){
       new dgCidadesEstados({
         cidade: document.getElementById(context.cidade.replace('#', '')),
