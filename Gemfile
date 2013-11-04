@@ -113,6 +113,7 @@ end
 gem 'rubber', '~> 2.0', git: 'git://github.com/nelsonmhjr/rubber.git', branch: 'newrelic'
 gem 'open4'
 
+gem "codeclimate-test-reporter", group: :test, require: nil
 group :test do
   gem 'webmock'
 end

@@ -20,78 +20,98 @@ describe Seo::SeoManager do
         expect(seo_class_fail.select_meta_tag).to eql('Sapatos Femininos e Roupas Femininas | Olook')
       end
     end
-    context "When find meta tags on file" do
-      it "return map meta tag" do
+    context "Catalog" do
+      before do
+        @search = SearchEngine.new(category: 'sapato')
+        @seo_class = Seo::SeoManager.new("/sapato", search: @search)
+      end
+      it "return categories on seo text" do
         expect(@seo_class.select_meta_tag).to eql('Sapatos Femininos | Olook')
       end
-    end
-
-    context "When there is one color on url" do
-      before do
-        @seo_class = Seo::SeoManager.new("/sapato/cor-dourado")
-      end
-
-      it "returns map meta tag with the color" do
-        expect(@seo_class.select_meta_tag).to eql('Sapatos Dourado | Olook')
-      end
-
-      context "url is '/bolsa/cor-azul agua' " do
-        it "returns 'Bolsas Azul Agua | Olook'" do
-          @seo_class = Seo::SeoManager.new("/bolsa/cor-azul agua")
-          expect(@seo_class.select_meta_tag).to eql('Bolsas Azul Agua | Olook')
+      context "When have 2 subcategories" do
+        before do
+          @search = SearchEngine.new(category: 'sapato', subcategory: 'rasteira-sapatilha')
+          @seo_class = Seo::SeoManager.new("/sapato", search: @search)
+        end
+        it "return categories with different text" do
+          expect(@seo_class.select_meta_tag).to eql('Rasteira - Sapatilha | Olook')
         end
       end
+      context "When have 4 subcategories" do
+        before do
+          @search = SearchEngine.new(category: 'sapato', subcategory: 'rasteira-sapatilha-boneca-anabela')
+          @seo_class = Seo::SeoManager.new("/sapato", search: @search)
+        end
+        it "return categories with different text" do
+          expect(@seo_class.select_meta_tag).to eql('Rasteira - Sapatilha - Boneca e outros | Olook')
+        end
+      end
+      context "When have color and category" do
+        before do
+          @search = SearchEngine.new(category: 'sapato', subcategory: 'rasteira', color: 'dourado')
+          @seo_class = Seo::SeoManager.new("/sapato", search: @search)
+        end
+        it "return categories with different text" do
+          expect(@seo_class.select_meta_tag).to eql('Rasteira Dourado | Olook')
+        end
+      end
+      context "When have one color" do
+        before do
+          @search = SearchEngine.new(category: 'sapato', subcategory: 'rasteira-sapatilha', color: 'azul')
+          @seo_class = Seo::SeoManager.new("/sapato", search: @search)
+        end
+        it "return color on result" do
+          expect(@seo_class.select_meta_tag).to eql('Rasteira - Sapatilha Azul | Olook')
+        end
+      end
+      context "When have two color" do
+        before do
+          @search = SearchEngine.new(category: 'sapato', subcategory: 'rasteira-sapatilha', color: 'azul-dourado')
+          @seo_class = Seo::SeoManager.new("/sapato", search: @search)
+        end
+        it "return color on result" do
+          expect(@seo_class.select_meta_tag).to eql('Rasteira - Sapatilha Azul Dourado | Olook')
+        end
+      end
+      context "When have size " do
+        before do
+          @search = SearchEngine.new(category: 'sapato', subcategory: 'rasteira-sapatilha', size: '34')
+          @seo_class = Seo::SeoManager.new("/sapato/Rasteira/tamanho-33", search: @search)
+        end
 
+        it "returns 'Rasteira | Olook' without size " do
+          expect(@seo_class.select_meta_tag).to eql('Rasteira - Sapatilha | Olook')
+        end
+      end
       context "and the category is 'acessorio' " do
         before do
-          @seo_class = Seo::SeoManager.new("/acessorio/cor-dourado")
+          @search = SearchEngine.new(category: 'acessorio', color: "dourado")
+          @seo_class = Seo::SeoManager.new("/acessorio/cor-dourado", search: @search)
         end
 
-        it "returns 'Bijuterias Dourado | Olook' " do
-          expect(@seo_class.select_meta_tag).to eql('Bijuterias Dourado | Olook')
+        it "returns acessory text" do
+          expect(@seo_class.select_meta_tag).to eql('Bijuterias - Semi Joia e Bijuterias Finas Dourado | Olook')
         end
       end
-    end
+      context "and the category is 'roupa' " do
+        before do
+          @search = SearchEngine.new(category: 'roupa', color: "dourado")
+          @seo_class = Seo::SeoManager.new("/roupa/cor-dourado", search: @search)
+        end
 
-    context "When there are multiple colors on url" do
-      before do
-        @seo_class = Seo::SeoManager.new("/sapato/cor-dourado-azul")
+        it "returns cloth text" do
+          expect(@seo_class.select_meta_tag).to eql('Roupas Femininas Dourado | Olook')
+        end
       end
-      it "returns standard map meta tag without colors" do
-        expect(@seo_class.select_meta_tag).to eql('Sapatos Femininos | Olook')
-      end
+      context "and the category is 'bolsa' " do
+        before do
+          @search = SearchEngine.new(category: 'bolsa', color: "dourado")
+          @seo_class = Seo::SeoManager.new("/bolsa/cor-dourado", search: @search)
+        end
 
-    end
-
-
-    context "When the url is '/sapato/Rasteira' " do
-      before do
-        @seo_class = Seo::SeoManager.new("/sapato/Rasteira")
-      end
-
-      it "returns 'Rasteira | Olook' " do
-        expect(@seo_class.select_meta_tag).to eql('Rasteira | Olook')
-      end
-    end
-
-    context "When the url is '/sapato/Rasteira/tamanho-33' " do
-      before do
-        @seo_class = Seo::SeoManager.new("/sapato/Rasteira/tamanho-33")
-      end
-
-      it "returns 'Rasteira | Olook' " do
-        expect(@seo_class.select_meta_tag).to eql('Rasteira | Olook')
-      end
-    end
-
-
-    context "When the url is '/sapato/bota-creeper/cor-azul' " do
-      before do
-        @seo_class = Seo::SeoManager.new("/sapato/bota-creeper/cor-azul")
-      end
-
-      it "returns 'Rasteira | Olook' " do
-        expect(@seo_class.select_meta_tag).to eql('Sapatos Femininos e Roupas Femininas | Olook')
+        it "returns bag text" do
+          expect(@seo_class.select_meta_tag).to eql('Bolsas Femininas Dourado | Olook')
+        end
       end
     end
 
@@ -122,6 +142,16 @@ describe Seo::SeoManager do
         it "return specific meta tag" do
           expect(@seo_model.select_meta_tag).to eql('dia-a-dia - Saias Longas e Camisetas | Olook')
         end
+        context "with color" do
+          before do
+            @search = SearchEngine.new( color: "dourado")
+            @collection_theme = FactoryGirl.build(:collection_theme)
+            @seo_model = Seo::SeoManager.new("/asd", model: @collection_theme, search: @search)
+          end
+          it "return specific meta tag" do
+            expect(@seo_model.select_meta_tag).to eql('dia-a-dia - Saias Longas e Camisetas Dourado | Olook')
+          end
+        end
       end
       context "brand" do
         before do
@@ -130,6 +160,16 @@ describe Seo::SeoManager do
         end
         it "return specific meta tag" do
           expect(@seo_model.select_meta_tag).to eql('Colcci - Calcas e vestidos | Olook')
+        end
+        context "with color" do
+          before do
+            @search = SearchEngine.new( color: "dourado")
+            @brand = FactoryGirl.build(:brand)
+            @seo_model = Seo::SeoManager.new("/asd", model: @brand, search: @search)
+          end
+          it "return specific meta tag with color" do
+            expect(@seo_model.select_meta_tag).to eql('Colcci - Calcas e vestidos Dourado | Olook')
+          end
         end
       end
       context "When the url is '/marcas/Mandi' and dont have title tag" do
@@ -141,6 +181,15 @@ describe Seo::SeoManager do
         it "returns 'Mandi | Olook' " do
           expect(@seo_class.select_meta_tag).to eql('Mandi | Olook')
         end
+      end
+    end
+    context "When dont receive search or model" do
+      before do
+        @seo_class = Seo::SeoManager.new("/termos")
+      end
+
+      it "looks seo text on file" do
+        expect(@seo_class.select_meta_tag).to eql('Termos de Uso | Olook')
       end
     end
   end

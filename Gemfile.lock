@@ -183,6 +183,8 @@ GEM
     chronic (0.9.0)
     chunky_png (1.2.8)
     clamp (0.6.1)
+    codeclimate-test-reporter (0.1.1)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.0.9)
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
@@ -484,10 +486,10 @@ GEM
     shoulda-matchers (1.4.2)
       activesupport (>= 3.0.0)
       bourne (~> 1.1.2)
-    simplecov (0.5.4)
-      multi_json (~> 1.0.3)
-      simplecov-html (~> 0.5.3)
-    simplecov-html (0.5.3)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
     simplecov-rcov (0.2.3)
       simplecov (>= 0.4.1)
     sinatra (1.3.5)
@@ -575,6 +577,7 @@ DEPENDENCIES
   chaordic-packr (= 4.0.0)!
   ci_reporter!
   clearsale!
+  codeclimate-test-reporter
   curb
   dalli (= 2.0.2)
   database_cleaner
@@ -644,7 +647,11 @@ DEPENDENCIES
   sqlite3 (~> 1.3.6)
   state_machine (~> 1.1.0)
   state_machine-audit_trail (~> 0.0.5)
+<<<<<<< HEAD
   therubyracer (~> 0.12.0)
+=======
+  therubyracer (= 0.12.0)
+>>>>>>> master
   thin
   timecop
   uglifier (~> 1.0.3)
