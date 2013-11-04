@@ -25,9 +25,8 @@ class CollectionTheme < ActiveRecord::Base
   end
 
   def title_text
-    text = name
-    text = "#{name} - #{seo_text}" unless seo_text.blank?
-    "#{text} | Olook"
+    return "#{name} - #{seo_text}" unless seo_text.blank?
+    name
   end
 
   def name=(val)
