@@ -214,3 +214,13 @@ span.summary, .full{
 
 #result .filters {margin-top:2px !important;}
 
+/* OLOOKLET */
+
+.exhibition-olooklet {
+  width:150px;
+  float:left;
+}
+
+.price-range-olooklet {
+  .ui-slider-horizontal .ui-slider-handle {width:7px;}
+}

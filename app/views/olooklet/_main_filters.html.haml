@@ -4,19 +4,6 @@
     - filters_by("color", search).each do |text, amount|
       %li{:class => text.chomp.parameterize}= filter_link_to(olooklet_path(category, @url_builder.add_filter(:color, text)), text.chomp, search.filter_selected?(:color, text.chomp))
 
-
-
-.filter
-  %p.title-category Preço
-  .price-range
-    %p#min-value-label{style:'background-image: none'} 0
-    %p#max-value-label{style:'background-image: none'} 0
-    .slider
-      #slider-range
-    %input{type: "text", id: "min-value"}
-    %input{type:"text", id:"max-value"}
-    %input{type:"hidden", name:"price", id:"price"}
-
 .filter
   %p.title-category Marca
   %ul.category-list
