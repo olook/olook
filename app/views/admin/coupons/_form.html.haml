@@ -50,6 +50,35 @@
     = f.hidden_field :created_by, :value => current_admin.name
   - else
     = f.hidden_field :updated_by, :value => current_admin.name
+  #rules
+    %h2 Critérios extras para o Cupom
+
+    %p
+      Para o cupom valer o cliente deve executar os passos abaixo
+      %br/
+      (Deixe vazio para só precisar adicionar o cupom na sacola)
+    %hr
+
+    = f.fields_for :rule_parameters do |builder|
+      .field
+        = builder.label 'Regra aplicada'
+        = builder.collection_select(:promotion_rule_id, @promotion_rules, :id, :name, { include_blank: true })
+      .field
+        = builder.label 'Parâmetro de regra'
+        = builder.text_field :rules_params
+      .field
+        = builder.check_box :_destroy
+        = builder.label :_destroy, 'Remover'
+      %hr
+  #actions
+    %h2 Ação do Cupom
+    = f.fields_for :action_parameter, @action_parameter  do |builder|
+      .field
+        = builder.label 'Ação aplicada'
+        = builder.collection_select(:promotion_action_id, @promotion_actions, :id, :name, { include_blank: true })
+      .field
+        = builder.label 'Parâmetro de ação'
+        = builder.text_field :action_params
   %br/
   .actions
     = f.submit

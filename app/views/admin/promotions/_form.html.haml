@@ -45,6 +45,10 @@
       .field
         = builder.label 'Parâmetro de regra'
         = builder.text_field :rules_params
+      .field
+        = builder.check_box :_destroy
+        = builder.label :_destroy, 'Remover'
+      %hr
   #actions
     %h2 Ação da promoção
     = f.fields_for :action_parameter, @action_parameter  do |builder|
