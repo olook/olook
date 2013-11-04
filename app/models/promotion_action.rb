@@ -2,16 +2,15 @@
 class PromotionAction < ActiveRecord::Base
   validates :type, presence: true
   has_many :action_parameters
-  has_many :promotions, through: :action_parameters
 
   class << self
     attr_accessor :filters
   end
 
   @filters = {
-    param: 'Parâmetro da Ação',
-    brand: 'Marca do produto a ser descontado',
-    full_price: 'Produto a ser descontado não pode ter markdown'
+    param: {desc: 'Parâmetro da Ação', kind: 'string'},
+    brand: {desc: 'Marca do produto a ser descontado', kind: 'string'},
+    full_price: {desc: 'Produto a ser descontado não pode ter markdown', kind: 'boolean' }
   }
 
   def self.filters

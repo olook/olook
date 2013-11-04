@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class PercentageAdjustment < PromotionAction
-  filters[:param] = "Valor em % para ser descontado dos produtos"
+  filters[:param] = { desc: "Valor em % para ser descontado dos produtos", kind: 'integer' }
   private
   def calculate(cart_items, percent)
     calculated_values = []
