@@ -7,7 +7,9 @@ if(!states_and_cities) var states_and_cities = {};
 states_and_cities.load_state_cities = function(){
   new dgCidadesEstados({
     cidade: document.getElementById('reseller_addresses_attributes_0_city'),
-    estado: document.getElementById('reseller_addresses_attributes_0_state')
+    estadoVal: resellerState,
+    estado: document.getElementById('reseller_addresses_attributes_0_state'),
+    cidadeVal: resellerCity
   });
 }
 
@@ -52,10 +54,14 @@ $(document).ready(function() {
     cidade: '#reseller_addresses_attributes_0_city',
     rua: '#reseller_addresses_attributes_0_street',
     bairro: '#reseller_addresses_attributes_0_neighborhood',
+    applyHtmlTag: false,
+    afterSuccess: function(){
+      $("#reseller_addresses_attributes_0_number").val("");
+    },
     afterFail: function(){
       new dgCidadesEstados({
-        cidade: document.getElementById(context.cidade.replace('#', '')),
-        estado: document.getElementById(context.estado.replace('#', ''))
+        cidade: document.getElementById('reseller_addresses_attributes_0_city'),
+        estado: document.getElementById('reseller_addresses_attributes_0_state')
       });
     }
   });
