@@ -68,4 +68,9 @@ class ProductController < ApplicationController
     def title_text 
       Seo::SeoManager.new(request.path, model: @product).select_meta_tag
     end
+
+    def canonical_link
+      return product_seo_path(@product.all_colors.first.seo_path) unless @product.try(:all_colors).empty?
+      product_seo_path(@product.seo_path)
+    end
 end
