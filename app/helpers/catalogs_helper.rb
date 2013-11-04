@@ -22,6 +22,7 @@ module CatalogsHelper
     class_hash = selected ? {class: "selected"} : {}
     link+=search_param
     text = CLOTH_SIZES_TABLE.include?(text) ? text : titleize_without_pronoum(text)
+    
     link_to(link, class_hash) do
       content_tag(:span, text, class:"txt-#{span_class}")
     end
