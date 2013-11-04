@@ -25,27 +25,6 @@ class OlookletController < ApplicationController
     expire_fragment(@cache_key) if params[:force_cache].to_i == 1    
   end
 
-  def show
-    search_params = SeoUrl.parse(request.fullpath)
-    
-    Rails.logger.debug("New params: #{params.inspect}")
-
-    page_size = params[:page_size] || DEFAULT_PAGE_SIZE
-    @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(page_size)
-
-
-    @url_builder = SeoUrl.new(search_params, "olooklet", @search)
-    @antibounce_box = AntibounceBox.new(params) if AntibounceBox.need_antibounce_box?(@search, @search.expressions["brand"].map{|b| b.downcase}, params)
-
-    @search.for_admin if current_admin
-    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
-    @pixel_information = @category = params[:category]
-    @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign_products.cache_key if @campaign_products}"
-    @category = @search.expressions[:category].first
-    params[:category] = @search.expressions[:category].first
-    expire_fragment(@cache_key) if params[:force_cache].to_i == 1
-  end
-
   private
 
   def header

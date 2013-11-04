@@ -129,8 +129,7 @@ class SeoUrl
     end
 
     def parse_olooklet_params
-      /^(?:\/olooklet)(?:\/(?<category>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\?(?<query>.*))?)?/ =~ @path
-      @params[:category] = URI.decode(category.to_s)
+      /^(?:\/olooklet)(?:\/(?<parameters>[^\?]+)?(?:\?(?<query>.*))?)?/ =~ @path
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end

@@ -22,7 +22,7 @@
   = first_level_breadcrumb("Olooklet")
   #catalog
     %aside
-      = render "main_filters", search: @search, category: @category
+      = render(@category ? "filters" : "main_filters", search: @search, category: @category)
       - if @category
         .promo_brands
           = banner_for(@category, position: :sidebotton)
@@ -66,6 +66,7 @@
         = render "main_ordenation_filters", search: @search, url_builder: @url_builder
         - unless @category == 'bolsa'
           .size_top
+
             /%ul.category-list
             /  - filters_by('size', @search, use_fields: [:category]).reverse.each do |text, amount|
             /    %li{ :class => category_style_class(text)}= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), text.chomp, @search.filter_selected?(:size, text.chomp))

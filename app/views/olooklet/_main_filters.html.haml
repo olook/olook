@@ -2,22 +2,22 @@
   %p.title-category Cores
   %ul.category-list.cores
     - filters_by("color", search).each do |text, amount|
-      %li{:class => text.chomp.parameterize}= filter_link_to(olooklet_path(category, @url_builder.add_filter(:color, text)), text.chomp, search.filter_selected?(:color, text.chomp))
+      %li{:class => text.chomp.parameterize}= filter_link_to(olooklet_path(@url_builder.add_filter(:color, text)), text.chomp, search.filter_selected?(:color, text.chomp))
 
 .filter
   %p.title-category Marca
   %ul.category-list
-    - filters_by('brand_facet', search).each do |text, amount|
-      %li= filter_link_to(olooklet_path(category, @url_builder.add_filter(:brand, text)), text.chomp.gsub('Ç', 'ç').downcase.titleize, search.filter_selected?(:brand, text.chomp))
+    - filters_by('brand_facet', search, use_fields: [:category]).each do |text, amount|
+      %li= filter_link_to(olooklet_path(@url_builder.add_filter(:brand, text)), text.chomp.gsub('Ç', 'ç').downcase.titleize, search.filter_selected?(:brand, text.chomp))
 
 .show_more
   %p.title
     OUTRAS CATEGORIAS
   %li
-    = link_to "Roupas femininas", olooklet_show_path(category: "roupa"), class: "categories"
+    = link_to "Roupas femininas", olooklet_path(parameters: "roupa"), class: "categories"
   %li
-    = link_to "Bolsas femininas", olooklet_show_path(category: "bolsa"), class: "categories" 
+    = link_to "Bolsas femininas", olooklet_path(parameters: "bolsa"), class: "categories" 
   %li
-    = link_to "Acessórios femininos", olooklet_show_path(category: "acessorio"), class: "categories"
+    = link_to "Acessórios femininos", olooklet_path(parameters: "acessorio"), class: "categories"
   %li
-    = link_to "Sapatos femininos", olooklet_show_path(category: "sapato"), class: "categories"      
+    = link_to "Sapatos femininos", olooklet_path(parameters: "sapato"), class: "categories"      
