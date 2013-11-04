@@ -41,8 +41,7 @@ $("#items").after("<%= escape_javascript(render 'cart/cart/checkout_banner') %>"
 // update coupon
 $("#coupon_discount").remove();
 <% if @cart.has_coupon? %>
-  $("#coupon_discount").text("<%= number_to_currency(@cart.total_coupon_discount) unless @cart.coupon.is_percentage? %>");
-  $("#coupon_discount").text("<%= discount_percentage(@cart.coupon.discount_percent) %>");               
+  $("#coupon_discount").html("<%= @cart.coupon.code %>");
 <% end %>
 
 

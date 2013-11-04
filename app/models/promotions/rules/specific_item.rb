@@ -2,8 +2,7 @@
 class SpecificItem < PromotionRule
 
   def matches?(cart, products)
-    # Cravei o valor '2' (dois) a pedido da sofia. Iremos manter isso até termos uma forma de flexibilizar
-    (get_product_ids_from(cart.items) & product_ids_list_for(products)).size == 2
+    (get_product_ids_from(cart.items) & product_ids_list_for(products)).size == 1
   end
 
   private
