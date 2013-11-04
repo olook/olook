@@ -23,7 +23,7 @@ class Coupon < ActiveRecord::Base
 
   before_save :set_limited_or_unlimited
 
-  after_save :add_action
+#  after_save :add_action
 
   def apply cart
     promotion_action.apply cart, self.action_parameter.action_params, self

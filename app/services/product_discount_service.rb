@@ -38,7 +38,7 @@ class ProductDiscountService
   end
 
   class NoDiscount
-    def calculate_for_product(product)
+    def calculate_for_product(product, opts)
       product.price
     end
 
@@ -46,11 +46,11 @@ class ProductDiscountService
   end
 
   class Markdown
-    def eligible_for_product?(product)
+    def eligible_for_product?(product, opts)
       product.retail_price < product.price
     end
 
-    def calculate_for_product(product)
+    def calculate_for_product(product, opts)
       product.retail_price
     end
 
@@ -59,15 +59,15 @@ class ProductDiscountService
 
   private
   def eligible_coupon?
-    @coupon && @coupon.eligible_for_product?(@product)
+    @coupon && @coupon.eligible_for_product?(@product, cart: @cart)
   end
 
   def eligible_markdown?
-    @markdown.eligible_for_product?(@product)
+    @markdown.eligible_for_product?(@product, cart: @cart)
   end
 
   def eligible_promotion?
-    @promotion && @promotion.eligible_for_product?(@product)
+    @promotion && @promotion.eligible_for_product?(@product, cart: @cart)
   end
 end
 
