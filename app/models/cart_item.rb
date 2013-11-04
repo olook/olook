@@ -45,6 +45,10 @@ class CartItem < ActiveRecord::Base
     product.id == Setting.checkout_suggested_product_id.to_i
   end
 
+  def has_any_discount?
+    price != retail_price
+  end
+
   def adjustment_value
     adjustment = cart_item_adjustment ? cart_item_adjustment : create_adjustment
     adjustment.value

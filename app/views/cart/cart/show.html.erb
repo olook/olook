@@ -204,10 +204,7 @@ _gaq.push(['_addTrans',
             </td>
             <td class="value discount">
               <p id="coupon_discount">
-                <% if @cart.has_coupon? %>
-                  <%= number_to_currency(@cart.total_coupon_discount) unless @cart.coupon.is_percentage? %>
-                  <%= discount_percentage(@cart.coupon.discount_percent) %>
-                <% end %>
+                <%= @cart.coupon.try(:code) %>
               </p>
               <%= form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f| %>
                 <fieldset class="inputs">
