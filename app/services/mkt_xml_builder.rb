@@ -13,6 +13,7 @@ class MktXmlBuilder
     sociomantic: 'sociomantic_template.xml.erb',
     parceirosmkt: 'ilove_ecommerce_template.xml.erb',
     ilove_ecommerce: 'ilove_ecommerce_template.xml.erb',
+    nano: 'nano_template.xml.erb',
     nano_interactive: 'nano_interactive_template.xml.erb',
     adroll: 'adroll_template.xml.erb',
     zanox: 'zanox_template.xml.erb',
