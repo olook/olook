@@ -21,9 +21,10 @@ class Coupon < ActiveRecord::Base
   has_one :action_parameter, as: :matchable
   has_one :promotion_action, through: :action_parameter
 
-  before_save :set_limited_or_unlimited
+  accepts_nested_attributes_for :rule_parameters, allow_destroy: true, reject_if: lambda { |rule| rule[:promotion_rule_id].blank? }
+  accepts_nested_attributes_for :action_parameter, reject_if: lambda { |rule| rule[:promotion_action_id].blank? }
 
-#  after_save :add_action
+  before_save :set_limited_or_unlimited
 
   def apply cart
     promotion_action.apply cart, self.action_parameter.action_params, self
@@ -32,15 +33,6 @@ class Coupon < ActiveRecord::Base
 
   def name
     "#{code} #{campaign}"
-  end
-
-  def add_action
-    action = (is_percentage ? PercentageAdjustment : ValueAdjustment).first
-    if self.action_parameter
-      self.action_parameter.update_attributes(action_params: value, promotion_action: action)
-    else
-      self.create_action_parameter(action_params: value, promotion_action: action)
-    end
   end
 
   def modal=(val)

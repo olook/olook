@@ -12,7 +12,7 @@ class Promotion < ActiveRecord::Base
   has_one :action_parameter, as: :matchable
   has_one :promotion_action, through: :action_parameter
 
-  accepts_nested_attributes_for :rule_parameters, reject_if: lambda { |rule| rule[:promotion_rule_id].blank? }
+  accepts_nested_attributes_for :rule_parameters, allow_destroy: true, reject_if: lambda { |rule| rule[:promotion_rule_id].blank? }
   accepts_nested_attributes_for :action_parameter, reject_if: lambda { |rule| rule[:promotion_action_id].blank? }
 
   validates_presence_of :rule_parameters, :action_parameter
