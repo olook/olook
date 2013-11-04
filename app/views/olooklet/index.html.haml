@@ -11,6 +11,7 @@
     final_position = #{@search.range_values_for(:price)[:max] rescue 600};
   = javascript_include_tag 'section/lite_catalog'
   = javascript_include_tag 'section/catalog'
+
 - content_for :data_layer do
   = render "shared/data_layer/category", pixel_information: @pixel_information, catalog_products: @search.products
 
@@ -65,10 +66,10 @@
         = render "main_ordenation_filters", search: @search, url_builder: @url_builder
         - unless @category == 'bolsa'
           .size_top
-            %ul.category-list
-              - filters_by('size', @search, use_fields: [:category]).reverse.each do |text, amount|
-                %li{ :class => category_style_class(text)}= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), text.chomp, @search.filter_selected?(:size, text.chomp))
-            %p.title-category Qual seu tamanho?
+            /%ul.category-list
+            /  - filters_by('size', @search, use_fields: [:category]).reverse.each do |text, amount|
+            /    %li{ :class => category_style_class(text)}= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), text.chomp, @search.filter_selected?(:size, text.chomp))
+            /%p.title-category Qual seu tamanho?
       = render 'current_section', search: @search
 
       %section.container_product
