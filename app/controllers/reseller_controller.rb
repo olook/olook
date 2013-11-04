@@ -25,6 +25,7 @@ class ResellerController < ApplicationController
    def custom_error_messages reseller
      reseller.errors.set(:cnpj, ["O CNPJ não está batendo. Pode conferir?"]) if (reseller.errors.messages[:cnpj] && reseller.errors.messages[:cnpj][0]) =~ /número inválido/
      reseller.errors.set(:'addresses.state', ["Precisamos da sigla do estado (UF)"]) if reseller.errors.messages[:'addresses.state'].to_s[0]
+     reseller.errors.set(:'addresses.street', ["Selecione um endereço"]) if reseller.errors.messages[:'addresses.state'].to_s[0]
    end
 
 end
