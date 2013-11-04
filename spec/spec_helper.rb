@@ -1,9 +1,10 @@
 # -*- encoding : utf-8 -*-
 require 'rubygems'
 require 'spork'
-require "codeclimate-test-reporter"
+#require "codeclimate-test-reporter"
 #CODECLIMATE_REPO_TOKEN=f8b9bc0159baef99717bde98ff461e5ecd83f2fb4ce41df305e38709f99aceac
-CodeClimate::TestReporter.start
+#CodeClimate::TestReporter.start
+
 
 module Resque
   def self.enqueue(*args); end
