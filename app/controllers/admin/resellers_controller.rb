@@ -21,6 +21,9 @@ class Admin::ResellersController < Admin::BaseController
   def update
     @reseller = Reseller.find(params[:id])
     if @reseller.update_attributes(params[:reseller])
+      if @reseller.active?
+        MemberMailer.reseller_confirmation(@reseller).deliver
+      end
       flash[:notice] = 'Cadastro do revendedor atualizado.'
     end
     respond_with :admin, @reseller

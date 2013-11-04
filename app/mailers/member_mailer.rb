@@ -4,7 +4,12 @@ class MemberMailer < ActionMailer::Base
 
   def reseller_welcome_email(reseller)
     @reseller = reseller
-    mail(:to => @reseller.email, :subject => "AOOOOO")
+    mail(:to => @reseller.email, :subject => "Revenda Olook")
+  end
+
+  def reseller_confirmation(reseller)
+    @reseller = reseller
+    mail(:to => @reseller.email, :subject => "Revenda Olook")
   end
 
   def welcome_email(member)
