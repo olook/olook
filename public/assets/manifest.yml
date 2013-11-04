@@ -195,6 +195,8 @@ brands/stars.png: brands/stars-6849872f9793ecdfdb36876150a0074d.png
 brands/stars/index.png: brands/stars-6849872f9793ecdfdb36876150a0074d.png
 brands/triton.jpg: brands/triton-e3456883428a3126577555cc66f68dd7.jpg
 brands/triton/index.jpg: brands/triton-e3456883428a3126577555cc66f68dd7.jpg
+campaign_emails/bday.jpg: campaign_emails/bday-052f2f6ae46818dabd888538d375066d.jpg
+campaign_emails/bday/index.jpg: campaign_emails/bday-052f2f6ae46818dabd888538d375066d.jpg
 campaign_emails/bg_input.png: campaign_emails/bg_input-14d188285bcf2d109b62870912d9a91f.png
 campaign_emails/bg_input/index.png: campaign_emails/bg_input-14d188285bcf2d109b62870912d9a91f.png
 campaign_emails/carol_cimento.jpg: campaign_emails/carol_cimento-e00b2bcdb8154ec6136b3e8b27485c5b.jpg
@@ -205,6 +207,8 @@ campaign_emails/crop_foto_modal_newsletter.jpg: campaign_emails/crop_foto_modal_
 campaign_emails/crop_foto_modal_newsletter/index.jpg: campaign_emails/crop_foto_modal_newsletter-05eefc5978c1997f5ec6d1aab6075957.jpg
 campaign_emails/enjoy.png: campaign_emails/enjoy-a747989427ab40def7785226f673945d.png
 campaign_emails/enjoy/index.png: campaign_emails/enjoy-a747989427ab40def7785226f673945d.png
+campaign_emails/futilish.jpg: campaign_emails/futilish-dd939124f53d2ba8451be238c1e6419e.jpg
+campaign_emails/futilish/index.jpg: campaign_emails/futilish-dd939124f53d2ba8451be238c1e6419e.jpg
 campaign_emails/mari_modal.jpg: campaign_emails/mari_modal-20d905791f9b6e1c381c6a929b7c1c56.jpg
 campaign_emails/mari_modal/index.jpg: campaign_emails/mari_modal-20d905791f9b6e1c381c6a929b7c1c56.jpg
 campaign_emails/modal_newsletter_foto_julho.jpg: campaign_emails/modal_newsletter_foto_julho-9ff0d6ae2ccf83e86bf3b41bbabc4355.jpg
@@ -263,6 +267,8 @@ cart/banner-gift.jpg: cart/banner-gift-0875481da3f2eaf91896e0f07ff52a22.jpg
 cart/banner-gift/index.jpg: cart/banner-gift-0875481da3f2eaf91896e0f07ff52a22.jpg
 cart/banner_carrinho_990x120.jpg: cart/banner_carrinho_990x120-ce0c737845a177f5841a1c7b76873d7f.jpg
 cart/banner_carrinho_990x120/index.jpg: cart/banner_carrinho_990x120-ce0c737845a177f5841a1c7b76873d7f.jpg
+cart/banner_carrinho_990x120_bday.jpg: cart/banner_carrinho_990x120_bday-4a89dbfd7ca2640b878fae802b1d8691.jpg
+cart/banner_carrinho_990x120_bday/index.jpg: cart/banner_carrinho_990x120_bday-4a89dbfd7ca2640b878fae802b1d8691.jpg
 cart/banner_check.jpg: cart/banner_check-e0d0fc2f1a439441dfebd4a7272c5797.jpg
 cart/banner_check/index.jpg: cart/banner_check-e0d0fc2f1a439441dfebd4a7272c5797.jpg
 cart/banner_check_out_inverno_off.gif: cart/banner_check_out_inverno_off-71d1881c0a494664925e27e923ac4480.gif
@@ -2308,8 +2314,8 @@ admin/themes/default/style.css: admin/themes/default/style-cfb00648a94f868a1bca2
 admin/themes/default/style/index.css: admin/themes/default/style-cfb00648a94f868a1bca26366b08b42a.css
 application.css: application-2fd77209b1cb54e8aaf9869d41b75645.css
 application/index.css: application-2fd77209b1cb54e8aaf9869d41b75645.css
-campaign_emails.css: campaign_emails-1b3d60dda66e385aea10fba6fee12fa1.css
-campaign_emails/index.css: campaign_emails-1b3d60dda66e385aea10fba6fee12fa1.css
+campaign_emails.css: campaign_emails-b6e39fc3887e704294c482b791eae766.css
+campaign_emails/index.css: campaign_emails-b6e39fc3887e704294c482b791eae766.css
 common/_border-radius.css: common/_border-radius-1b13569e9620782f423d4cd3ce931750.css
 common/_border-radius/index.css: common/_border-radius-1b13569e9620782f423d4cd3ce931750.css
 common/_css3.css: common/_css3-1b13569e9620782f423d4cd3ce931750.css
