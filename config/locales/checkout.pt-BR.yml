@@ -8,8 +8,8 @@ pt-BR:
           invalid: "Campo inválido"
           attributes:
             zip_code:
-              blank: "O CEP parece estranho. Pode conferir?"
-              invalid: "Precisamos do seu CEP"
+              blank: "Precisamos do seu CEP"
+              invalid: "O CEP parece estranho. Pode conferir?"
             city:
               blank: "Qual é o nome da cidade, mesmo?"
             state:
@@ -31,7 +31,7 @@ pt-BR:
             corporate_name:
               blank: "Qual a razão social da empresa, mesmo?"
             first_name:
-              blank: "Queremos te conhecer, qual é o seu nome? :)"
+              blank: "Qual é o seu nome? :)"
             last_name:
               blank: "Ah, precisamos do nome completo"
             password:
