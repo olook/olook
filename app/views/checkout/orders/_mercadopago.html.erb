@@ -21,18 +21,21 @@
   mercadoPagoModalReturn = function(data) {
 
     if (data.collection_status == 'approved') {
-      $('.txt_payment_link').html('Pagamento realizado com sucesso.');
-      $('.mercado_pago_button').hide();
-      $('.msg').hide();
+      feedback_message('Pagamento realizado com sucesso.');
+      $('.new_payment_link').hide();
     } else if (data.collection_status == 'pending') {
-      $('.txt_payment_link').html('Seu pagamento está sendo processado.');
-      $('.mercado_pago_button').hide();
+      feedback_message('Seu pagamento está sendo processado.');
+      $('.new_payment_link').hide();
     } else if (data.collection_status == 'rejected') {
-      $('.msg').html("<p class='error'>Houve falha no processamento do seu pagamento. Tente novamente ou entre em contato com o nosso SAC.</p>");
-    } else {
-      console.log(data.collection_status);
+      feedback_message('Houve falha no processamento do seu pagamento. Tente novamente ou entre em contato com o nosso SAC.');
     }
 
+  }
+
+  function feedback_message(msg, isError) {
+    addOrRemove = typeof isError != 'undefined' ? isError : false
+    $('.msg').toggleClass('error', addOrRemove);
+    $('.msg p').text(msg);
   }
 
 </script>

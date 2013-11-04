@@ -1409,7 +1409,7 @@ section#payment {
 					width:700px;
 					margin:0 auto;
 				}
-				&.error{background:#FDADB6 !important;border:solid 1px #F37C8F !important;width:490px !important;
+				&.error{background:#FDADB6 !important;border:solid 1px #F37C8F !important;width:720px !important;
 					p{@include sprite_checkout(-379px, -117px);}
 				}
 			}
