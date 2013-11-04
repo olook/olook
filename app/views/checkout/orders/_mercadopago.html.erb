@@ -3,9 +3,11 @@
 </div>
 
 <div class="new_payment_link">
-   <p class="txt_payment_link"> Ainda não acabou... Você ainda precisa pagar usando o MercadoPago</p>
+   <p class="txt_payment_link">Ainda não acabou... Você ainda precisa realizar o pagamento.<br/>
+      <span>Você precisa acessar o MercadoPago através do botão abaixo para realizar o pagamento do seu pedido.</span>
+   </p>
    <p class="mercado_pago_button">
-   <%= link_to('Pagar', @payment.url, {:class => 'lightblue-ar-s-ov', :name => 'MP-Checkout', 'mp-mode' => 'modal', :onreturn => 'mercadoPagoModalReturn'})  %>
+   <%= link_to('Realizar Pagamento', @payment.url, {:class => 'green-L-Rn-BrOn', :name => 'MP-Checkout', 'mp-mode' => 'modal', :onreturn => 'mercadoPagoModalReturn'})  %>
    </p>
 </div>
 <p class="thanks">Obrigada pela sua compra</p>
@@ -19,9 +21,15 @@
   mercadoPagoModalReturn = function(data) {
 
     if (data.collection_status == 'approved') {
-      $('.txt_payment_link').html('Obrigado por comprar na Olook.<br>Assim que o seu pedido for enviado você receberá um email.');
+      $('.txt_payment_link').html('Obrigado por comprar na Olook.');
       $('.mercado_pago_button').hide();
-
+    } else if (data.collection_status == 'pending') {
+      $('.txt_payment_link').html('Seu pagamento está sendo processado.');
+      $('.mercado_pago_button').hide();
+    } else if (data.collection_status == 'rejected') {
+      $('.msg').html("<p class='error'>Houve falha no processamento do seu pagamento. Tente novamente ou entre em contato com o nosso SAC.</p>");
+    } else {
+      console.log(data.collection_status);
     }
 
   }

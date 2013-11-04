@@ -1372,6 +1372,12 @@ section#payment {
 				}
 				.logo_itau{width:90px;height:100px;float:left;font-size:0;font-family:a;@include sprite_checkout(0px,0px);margin:0 42px 0 220px;}
 	     	.btn_pay{display:block;font-size:0;font-family:a;width:290px;height:65px;@include sprite_checkout(-90px,3px);float:left;margin-top:14px;}
+        
+        .mercado_pago_button{
+          display:block;text-align:center;
+          a {color:#ffffff;}
+        }
+
 	    }
 
 			.thanks{font-size:25px;margin:35px 0 22px;color:#000;text-transform:uppercase;}
@@ -1663,10 +1669,13 @@ section.checkout{
         span{font-weight: 500;}
 				&.tip{margin:0 0 10px !important;}
       }
-			li{float:left;height:auto
-				&.credit_card{width:120px;}
-				&.boleto{width:54px;}
-				&.debito{width:97px;}
+			li{
+        float:left;
+        display:block;
+        height:auto;
+				&.credit_card{width:100%;}
+				&.boleto{width:100%;}
+				&.debito{width:100%;}
 				label{font-size:12px;}
 			}
 			.payment_type{
@@ -1710,7 +1719,11 @@ section.checkout{
           color: #000;
         }
 			}
-			.box-boleto{float:left;
+      .box-boleto{float:left;display:none;
+        p{font-size:13px;margin-top:15px;
+          span{color:#000;}
+        }
+      }.box-mercadopago{float:left;display:none;
 				p{font-size:13px;margin-top:15px;
 					span{color:#000;}
 				}
