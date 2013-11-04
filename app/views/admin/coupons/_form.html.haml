@@ -76,9 +76,20 @@
       .field
         = builder.label 'Ação aplicada'
         = builder.collection_select(:promotion_action_id, @promotion_actions, :id, :name, { include_blank: true })
-      .field
-        = builder.label 'Parâmetro de ação'
-        = builder.text_field :action_params
+      = builder.fields_for :action_params do |action_params|
+        %table
+          - @promotion_actions.each do |promotion_action|
+            %tr{id: "action_params_desc_#{promotion_action.class.to_s.parameterize}" }
+              - promotion_action.class.filters.each do |key, opts|
+                %th{style: 'width: 100px'}= opts[:desc]
+          - @promotion_actions.first(1).each do |promotion_action|
+            %tr
+              - promotion_action.class.filters.each do |key, opts|
+                - case opts[:kind]
+                - when 'boolean'
+                  %td= action_params.check_box key, checked: @action_parameter.action_params[key.to_s] == '1'
+                - else
+                  %td= action_params.text_field key, value: @action_parameter.action_params[key.to_s]
   %br/
   .actions
     = f.submit
