@@ -12,7 +12,7 @@ class SpecificItem < PromotionRule
     end
 
     def product_ids_list_for(products)
-      products.split(",").map { |id| id.strip.to_i }
+      products.split(/\D/).map { |id| id.strip.to_i }.select { |id| !id.nil? && id != '' }
     end
 
 end
