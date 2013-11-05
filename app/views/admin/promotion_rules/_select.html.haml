@@ -1,0 +1,19 @@
+= f.check_box :use_rule_parameters, class: 'use_rule_parameters', rel: '#use_rule_parameters_div'
+= f.label :use_rule_parameters, 'Usar os critérios extras'
+
+#use_rule_parameters_div
+  %p
+    Para o cupom valer o cliente deve executar os passos abaixo
+  %hr
+
+  = f.fields_for :rule_parameters do |builder|
+    .field
+      = builder.label 'Regra aplicada'
+      = builder.collection_select(:promotion_rule_id, @promotion_rules, :id, :name, { include_blank: true })
+    .field
+      = builder.label 'Parâmetro de regra'
+      = builder.text_field :rules_params
+    .field
+      = builder.check_box :_destroy
+      = builder.label :_destroy, 'Remover'
+    %hr

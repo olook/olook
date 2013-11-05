@@ -1,6 +1,11 @@
 # -*- encoding : utf-8 -*-
 class PercentageAdjustment < PromotionAction
   filters[:param] = { desc: "Valor em % para ser descontado dos produtos", kind: 'integer' }
+
+  def name
+    "Desconto em % do valor do produto"
+  end
+
   def desc_value(filters)
     percent = filters.delete('param')
     "#{'%d' % percent.to_i }%"
