@@ -12,15 +12,15 @@
       .banner_principal
         = link_to image_tag("collections/destaque landing_tendencia_floral_800X341.jpg", alt: "Tendência Floral", title: "Tendência Floral"), '/colecoes/floral', onclick: track_event("Colecoes", "TopBigBanner")
       .left_banner
-        = link_to image_tag("collections/crop_totalbranco.jpg", alt: "TOTAL BRANCO", title: "TOTAL BRANCO"), collection_theme_path('branco_total'), onclick: track_event("Colecoes", "MiddleLeftBanner")
-        %p.collection TOTAL BRANCO
-        %p.resume O look branco total promete reinar nesta estação
-        %p.looks= link_to "veja a coleção", collection_theme_path('branco_total'), target: "_blank"
+        = link_to image_tag("collections/crop_colecoes_380x214_neon.jpg", alt: "NEON", title: "NEON"), collection_theme_path('neon_pastel'), onclick: track_event("Colecoes", "MiddleLeftBanner")
+        %p.collection NEON PASTEL
+        %p.resume O neon pastel protagoniza a tendência do momento
+        %p.looks= link_to "veja a coleção", collection_theme_path('neon_pastel'), target: "_blank"
       .right_banner
-        = link_to image_tag("collections/crop_pagina_colecao_380x214.jpg", alt: "Preview Primavera", title: "Preview Primaver"), collection_theme_path('preview_primavera'), onclick: track_event("Colecoes", "MiddleRightBanner")
-        %p.collection APROVEITE
-        %p.resume Promoção válida até 31 de outubro
-        %p.looks= link_to 'veja a coleção', collection_theme_path('preview_primavera'), target: "_blank"
+        = link_to image_tag("collections/crop_colecoes_animal_380x214.jpg", alt: "Animal Print", title: "Animal Print"), collection_theme_path('animal-print'), onclick: track_event("Colecoes", "MiddleRightBanner")
+        %p.collection ANIMAL PRINT
+        %p.resume A estampa chega colorida e num mix de bichos
+        %p.looks= link_to 'veja a coleção', collection_theme_path('animal-print'), target: "_blank"
     %button.nav.bt_left.prev_collection{:type => "button"} Anterior
     #amamos
       %h1 NÓS AMAMOS
