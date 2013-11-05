@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131024125413) do
+ActiveRecord::Schema.define(:version => 20131105184014) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(:version => 20131024125413) do
     t.datetime "updated_at",          :null => false
     t.string   "matchable_type"
   end
+
+  add_index "action_parameters", ["matchable_id", "matchable_type"], :name => "index_action_parameters_on_matchable_id_and_matchable_type"
 
   create_table "addresses", :force => true do |t|
     t.integer "user_id"
@@ -474,6 +476,10 @@ ActiveRecord::Schema.define(:version => 20131024125413) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "freight_ab_test_report", :id => false, :force => true do |t|
+    t.integer "user_id"
+  end
+
   create_table "freight_prices", :force => true do |t|
     t.integer  "shipping_service_id"
     t.integer  "zip_start"
@@ -516,6 +522,13 @@ ActiveRecord::Schema.define(:version => 20131024125413) do
 
   add_index "freights", ["order_id"], :name => "index_freights_on_order_id"
   add_index "freights", ["shipping_service_id"], :name => "index_freights_on_shipping_service_id"
+
+  create_table "frete_view", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.string  "cep",     :limit => 9
+    t.string  "tabela",  :limit => 1
+    t.string  "acao",    :limit => 7, :default => "", :null => false
+  end
 
   create_table "gift_boxes", :force => true do |t|
     t.string   "name"
@@ -991,6 +1004,8 @@ ActiveRecord::Schema.define(:version => 20131024125413) do
     t.datetime "updated_at",        :null => false
     t.string   "matchable_type"
   end
+
+  add_index "rule_parameters", ["matchable_id", "matchable_type"], :name => "index_rule_parameters_on_matchable_id_and_matchable_type"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
