@@ -30,7 +30,7 @@
         .tab_bg &nbsp;
         %ul
           - filters_by("size", search, use_fields: [:brand, :category]).each do |text, amount|
-            %li= filter_link_to(brand_path(params[:brand], @url_builder.add_filter(:size, text)), text.chomp, search.filter_selected?(:size, text.chomp))
+            %li= filter_link_to(brand_path(params[:brand], @url_builder.add_filter(:size, text)), format_size(text.chomp), search.filter_selected?(:size, text.chomp))
           - if params[:size].present?
             %li.clear_choice= link_to '[limpar]', brand_path(params[:brand], @url_builder.remove_filter_of(:size))
 
