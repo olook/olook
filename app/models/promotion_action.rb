@@ -17,7 +17,7 @@ class PromotionAction < ActiveRecord::Base
     calculate(cart.items, param).each do |item|
       adjustment = item[:adjustment]
       item = cart.items.find(item[:id])
-      item.cart_item_adjustment.update_attributes(value: adjustment, source: match.name) if item.should_apply?(adjustment)
+      item.cart_item_adjustment.update_attributes(value: adjustment, source: "#{match.class}: #{match.name}") if item.should_apply?(adjustment)
     end
   end
 

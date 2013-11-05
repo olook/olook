@@ -73,25 +73,18 @@ class Cart < ActiveRecord::Base
   end
 
   def total_promotion_discount
-    items.inject(0) {|sum, item| sum + item.adjustment_value}
+    items.inject(0) {|sum, item| /Promotion:/ =~ item.cart_item_adjustment.source ? sum + item.adjustment_value : 0 }
   end
 
   def total_liquidation_discount(options={})
     items.inject(0) do |sum, item|
-      # TODO => maybe this rule should be in the cart_item
       liquidation_discount = item.adjustment_value > 0 ? 0 : item.price - item.retail_price(options)
       sum + liquidation_discount
     end
   end
 
   def total_coupon_discount
-    return 0 if coupon.nil?
-
-    if coupon.is_percentage?
-      total_price * (coupon.value / 100.0)
-    else
-      coupon.value
-    end
+    items.inject(0) {|sum, item| /Coupon:/ =~ item.cart_item_adjustment.source ? sum + item.adjustment_value : 0 }
   end
 
   def total_price

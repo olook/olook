@@ -96,26 +96,18 @@ class PaymentBuilder
   private
 
     def create_discount_payments
-      # total_promotion = cart_service.cart.total_promotion_discount
+      total_promotion = cart_service.cart.total_promotion_discount
       billet_discount = cart_service.total_discount_by_type(:billet_discount, payment)
       debit_discount = cart_service.total_discount_by_type(:debit_discount, payment)
       facebook_discount = cart_service.total_discount_by_type(:facebook_discount, payment)
 
-      # if cart_service.cart.coupon
-      #   # This is valid because we only allow 1 kind of discount. 
-      #   # IT IS NOT POSSIBLE TO HAVE BOTH: OLOOKLET AND COUPON DISCOUNTS
-      #   total_liquidation = 0
-      #   total_coupon = cart_service.total_discount_by_type(:coupon) + cart_service.cart.total_liquidation_discount
-      #   coupon_opts = {:coupon_id => cart_service.cart.coupon.id}
-      # else
-      #   total_liquidation = cart_service.cart.total_liquidation_discount
-      #   total_coupon = cart_service.total_discount_by_type(:coupon)
-      #   coupon_opts = {}
-      # end
+      total_coupon = cart_service.cart.total_coupon_discount
+      coupon_opts = {:coupon_id => cart_service.cart.coupon_id}
+      total_liquidation = cart_service.cart.total_liquidation_discount
 
-      # create_payment_for(total_liquidation, OlookletPayment)
-      # create_payment_for(total_coupon, CouponPayment, coupon_opts)
-      # create_payment_for(total_promotion, PromotionPayment, {promotion: cart_service.cart.items.first.cart_item_adjustment.source})
+      create_payment_for(total_liquidation, OlookletPayment)
+      create_payment_for(total_coupon, CouponPayment, coupon_opts)
+      create_payment_for(total_promotion, PromotionPayment, {promotion: cart_service.cart.items.first.cart_item_adjustment.source})
       create_payment_for(facebook_discount, FacebookShareDiscountPayment)
       create_payment_for(billet_discount, BilletDiscountPayment)
       create_payment_for(debit_discount, DebitDiscountPayment)
