@@ -13,9 +13,9 @@
       %p
         Enquanto aguarda o nosso e-mail, aproveite e dê uma olhada em saias ;)
     %li.big_banner
-      =image_tag("reseller/saias.jpg")
+      = link_to(image_tag("reseller/saias.jpg"), catalog_path('roupa', parameters: 'saia', por: 'menor-preco'), target: "blank", alt: "Saias" )
     %li.button
-      =link_to "Veja mais saias", catalog_path('roupa', parameters: 'saia'), target: "blank", alt: "Saias"
+      = link_to "Veja mais saias", catalog_path('roupa', parameters: 'saia', por: 'menor-preco'), target: "blank", alt: "Saias"
 - content_for :footer do
   %script{:type=>"text/javascript"}
     $('html, body').animate({ scrollTop: '1250px' }, 'slow');
