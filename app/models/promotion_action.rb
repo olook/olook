@@ -39,9 +39,21 @@ class PromotionAction < ActiveRecord::Base
   end
 
   protected
-    #
-    # This method should return an Array of Hashes in the form:
-    # => [{id: item.id, adjustment: item.price}]
-    #
-    def calculate(cart, param); end
+  #
+  # This method should return an Array of Hashes in the form:
+  # => [{id: item.id, product_id: item.product.id, adjustment: item.price}]
+  #
+  def calculate(cart, param); end
+
+  def filter_items(cart_items, filters)
+    cis = cart_items.dup
+    if filters['brand'].present?
+      cis.select! { |item| item.product.brand.strip.parameterize == filters['brand'].strip.parameterize }
+    end
+
+    if filters['full_price'] == '1'
+      cis.select! { |item| item.product.price == item.product.retail_price }
+    end
+    cis
+  end
 end
