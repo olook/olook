@@ -21,6 +21,10 @@
     <%= @user.cpf %>
   </p>
   <p>
+    <b>Perfil:</b>
+    <%= @user.reseller? ? "Revendedor" : 'Não revendedor' %>
+  </p>
+  <p>
     <b>Convidado?</b>
     <%= @user.is_invited? ? 'Sim' : 'Não' %>
   </p>
