@@ -131,13 +131,12 @@
     color: #000;
     font-family: avenir, arial, sans-serif;
     display: block;
-    background-color: #f0fddf;
     border: 1px solid #c8d4ba;
     text-align: center;
     margin: 0 auto;
     padding-top: 15px;
     margin-left: 145px;
-    background: image-url("reseller/success.png") no-repeat 15px 12px;
+    background: image-url("reseller/success.png") #f0fddf no-repeat 15px 12px;
     padding-left: 30px;
   }
   ul{
