@@ -81,7 +81,7 @@ module CatalogsHelper
     return [] if facets.nil?
 
     if filter == 'size'
-      facets.keys.sort{|a,b| CLOTH_SIZES_TABLE.index(a.to_s).to_i <=> CLOTH_SIZES_TABLE.index(b.to_s).to_i}
+      facets.keys.map{|k| [((k.to_i != 0) ? k.to_i.to_s : k), k]}.sort{|a,b| CLOTH_SIZES_TABLE.index(a[0].to_s).to_i <=> CLOTH_SIZES_TABLE.index(b[0].to_s).to_i}.map{|v| v[1]}
     elsif filter == 'brand_facet'
 
       # Olook and Olook Concept must be shown at the top
@@ -123,5 +123,9 @@ module CatalogsHelper
 
   def category_style_class text
     CLOTH_CLASSES_HASH.keys.include?(text) ? CLOTH_CLASSES_HASH[text] : ''
+  end
+
+  def format_size size
+    (size.chomp.to_i.to_s != "0") ? size.chomp.to_i.to_s : size.chomp
   end
 end

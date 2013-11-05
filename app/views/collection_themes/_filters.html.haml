@@ -38,7 +38,7 @@
         .tab_bg &nbsp;
         %ul
           - filters_by("size", search, use_fields: [:collection_theme, :category]).each do |text, amount|
-            %li= filter_link_to(collection_theme_path(@url_builder.add_filter(:size, text)), text.chomp, search.filter_selected?(:size, text.chomp))
+            %li= filter_link_to(collection_theme_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), search.filter_selected?(:size, text.chomp))
           - if params[:size].present?
             %li.clear_choice= link_to '[limpar]', collection_theme_path(@url_builder.remove_filter_of(:size))
 

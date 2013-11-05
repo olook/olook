@@ -69,7 +69,7 @@ class IndexProductsWorker
         fields['in_promotion'] = product.liquidation? ? 1 : 0 
         fields['visibility'] = product.visibility
         fields['category'] = product.category_humanize.downcase
-        fields['size'] = product.variants.select{|v| v.inventory > 0}.map{|b| b.description}
+        fields['size'] = product.variants.select{|v| v.inventory > 0}.map{|b| (b.description.to_i.to_s != "0" ) ? b.description+fields['category'][0] : b.description}
         fields['care'] = product.subcategory.titleize if Product::CARE_PRODUCTS.include?(product.subcategory)
         fields['collection'] = product.collection.start_date.strftime('%Y%m').to_i
         fields['collection_theme'] = product.collection_themes.map { |c| c.slug }
