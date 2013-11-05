@@ -33,7 +33,9 @@ class Coupon < ActiveRecord::Base
 
   def use_rule_parameters=(val)
     if val != '1'
-      rule_parameters.destroy_all
+      rule_parameters.each do |rp|
+        rp.mark_for_destruction
+      end
     end
   end
 

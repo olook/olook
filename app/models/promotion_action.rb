@@ -46,7 +46,8 @@ class PromotionAction < ActiveRecord::Base
   def filter_items(cart_items, filters)
     cis = cart_items.dup
     if filters['brand'].present?
-      cis.select! { |item| item.product.brand.strip.parameterize == filters['brand'].strip.parameterize }
+      brands = Set.new(filters['brand'].to_s.split(/[\n\s]*,[\n\s]*/).map { |w| w.strip.parameterize })
+      cis.select! { |item| brands.include?(item.product.brand.strip.parameterize)  }
     end
 
     if filters['full_price'] == '1'

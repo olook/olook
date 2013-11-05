@@ -1,6 +1,11 @@
 # -*- encoding : utf-8 -*-
 class ValueAdjustment < PromotionAction
   filters[:param] = { desc: 'Valor em R$ a ser descontado da sacola', kind: 'currency' }
+
+  def name
+    "Desconto em R$ na sacola"
+  end
+
   def desc_value(filters, opts={})
     value = filters.delete('param')
     "R$#{value.to_i}"

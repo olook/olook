@@ -2,6 +2,10 @@
 class MinorPriceAdjustment < PromotionAction
   filters[:param] = { desc: 'Quantidade de produtos diferentes de menor valor que ficarão de graça', kind: 'integer' }
 
+  def name
+    "Produto de menor preço de graça"
+  end
+
   def desc_value(filters)
     quantity = filters.delete('param').to_i
     "#{quantity} #{"produto".pluralize(quantity)} de graça"
