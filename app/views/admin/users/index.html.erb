@@ -28,6 +28,10 @@
           <%= f.text_field :custom_cpf_finder, :class => "text_field" %>
         </div>
         <div class="group">
+          <%= f.label :cnpj_contains, "Cnpj", :class => "label" %>
+          <%= f.text_field :cnpj_contains, :class => "text_field" %>
+        </div>
+        <div class="group">
           <%= f.label :reseller_equals, "Perfil", :class => "label" %>
           <%= f.select :reseller_equals, [["Todos", ""],['Cliente', false], ['Revendedor', true]]%>
         </div>
