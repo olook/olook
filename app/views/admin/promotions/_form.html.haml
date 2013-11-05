@@ -2,8 +2,8 @@
   - if @promotion.errors.any?
     #error_explanation
       %h2
-        = pluralize(@promotion.errors.count, "error")
-        prohibited this admin_promotion from being saved:
+        = pluralize(@promotion.errors.count, "erro")
+        impediram está Promoção de ser salva:
       %ul
         - @promotion.errors.full_messages.each do |msg|
           %li= msg
@@ -38,17 +38,7 @@
     = f.check_box :active
   #rules
     %h2 Critérios para a promoção
-    = f.fields_for :rule_parameters do |builder|
-      .field
-        = builder.label 'Regra aplicada'
-        = builder.collection_select(:promotion_rule_id, @promotion_rules, :id, :name, { include_blank: true })
-      .field
-        = builder.label 'Parâmetro de regra'
-        = builder.text_field :rules_params
-      .field
-        = builder.check_box :_destroy
-        = builder.label :_destroy, 'Remover'
-      %hr
+    = render 'admin/promotion_rules/select', f: f
   #actions
     %h2 Ação da promoção
     = render 'admin/promotion_actions/select', f: f
