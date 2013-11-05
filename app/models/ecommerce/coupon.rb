@@ -36,6 +36,10 @@ class Coupon < ActiveRecord::Base
     "#{code} #{campaign}"
   end
 
+  def desc_value
+    promotion_action.desc_value(action_parameter.action_params)
+  end
+
   def modal=(val)
     if MODAL_POSSIBLE_VALUES.values.include?(val.to_i)
       write_attribute(:modal, val.to_i)

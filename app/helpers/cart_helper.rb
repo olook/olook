@@ -36,12 +36,4 @@ module CartHelper
     #! promotion.matches?(@cart)
     return Setting.show_checkout_banner
   end
-
-  def coupon_value_for coupon
-    if coupon.is_percentage?
-      number_to_percentage @cart.coupon.value, precision: 0
-    else
-      number_to_currency @cart.coupon.value
-    end
-  end
 end
