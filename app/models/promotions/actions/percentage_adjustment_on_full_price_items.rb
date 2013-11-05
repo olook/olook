@@ -4,7 +4,7 @@ class PercentageAdjustmentOnFullPriceItems < PromotionAction
     def calculate(cart_items, percent)
       calculated_values = []
       cart_items.each do |cart_item|
-        next if cart_item.promotion? 
+        next if cart_item.promotion?  || !cart_item.accepted_brands
         calculated_values << calculate_cart_item(cart_item,percent)
       end
       calculated_values
