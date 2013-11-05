@@ -32,8 +32,10 @@ pt-BR:
               blank: "Qual a razão social da empresa, mesmo?"
             first_name:
               blank: "Qual é o seu nome? :)"
+              invalid: "Parece estranho. Pode conferir? :)"
             last_name:
               blank: "Ah, precisamos do nome completo"
+              invalid: "Parece estranho. Pode conferir? :)"
             password:
               blank: "Crie sua senha para acessos futuros"
               too_short: "Ela deve ter no min. %{count} caracteres, tá?"
