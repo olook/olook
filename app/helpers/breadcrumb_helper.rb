@@ -40,6 +40,14 @@ module BreadcrumbHelper
     end
   end
 
+  def olooklet_breadcrumbs_for(title, style_class="breadcrumb")
+    content_tag(:ul, class: style_class) do
+      [home_url,{name: "Olooklet", url: "/olooklet"}].inject("") do |whole, breadcrumb_hash|
+        whole.concat content_tag(:li,link_to("#{breadcrumb_hash[:name]}",breadcrumb_hash[:url], onclick: track_event('Breadcrumb', "Olooklet")))
+      end.concat(content_tag(:li,title)).html_safe
+    end    
+  end  
+
   private
 
   def home_url

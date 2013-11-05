@@ -31,11 +31,7 @@ class OlookletController < ApplicationController
   end
 
   def title_text
-    if header && header.title_text.present?
-      Seo::SeoManager.new(request.path, model: header).select_meta_tag
-    else
-      Seo::SeoManager.new(request.path).select_meta_tag
-    end
+    "Outlet Online - Roupas e Sapatos Femininos  | Olook"
   end
 
 end
