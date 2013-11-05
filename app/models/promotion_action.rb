@@ -3,10 +3,6 @@ class PromotionAction < ActiveRecord::Base
   validates :type, presence: true
   has_many :action_parameters
 
-  class << self
-    attr_accessor :filters
-  end
-
   @filters = {
     param: {desc: 'Parâmetro da Ação', kind: 'string'},
     brand: {desc: 'Marca do produto a ser descontado', kind: 'string'},
