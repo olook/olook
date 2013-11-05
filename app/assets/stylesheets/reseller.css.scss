@@ -322,8 +322,18 @@
           }
         }
       }
-      li.cpf{display: none;} 
-      li.cnpj{display: none;} 
+      li.cpf{
+        display: none;
+        .span_error{
+          width: 300px !important;
+        }
+      } 
+      li.cnpj{
+        display: none;
+        .span_error{
+          width: 300px !important;
+        }
+      } 
       li.corporate_name{display: none;}
     }
   }
