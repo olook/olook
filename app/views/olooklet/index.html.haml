@@ -19,7 +19,7 @@
     = javascript_include_tag "common/fb_like_button"
 
 = cache @cache_key, expire_in: 15.minutes do
-  = first_level_breadcrumb("Olooklet")
+  = @category ? olooklet_breadcrumbs_for(Category.t(Category.with_name(@category)).pluralize): first_level_breadcrumb("Olooklet")
   #catalog
     %aside
       = render(@category ? "filters" : "main_filters", search: @search, category: @category)
