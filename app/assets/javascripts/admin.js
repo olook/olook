@@ -13,4 +13,5 @@
 //= require_tree ./admin
 $(function() {
   $("#search_custom_cpf_finder").setMask("999.999.999-99")
+  $("#search_cnpj_contains").setMask("99.999.999/9999-99")
 });
