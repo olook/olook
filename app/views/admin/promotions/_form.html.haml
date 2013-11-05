@@ -51,12 +51,6 @@
       %hr
   #actions
     %h2 Ação da promoção
-    = f.fields_for :action_parameter, @action_parameter  do |builder|
-      .field
-        = builder.label 'Ação aplicada'
-        = builder.collection_select(:promotion_action_id, @promotion_actions, :id, :name, { include_blank: true })
-      .field
-        = builder.label 'Parâmetro de ação'
-        = builder.text_field :action_params
+    = render 'admin/promotion_actions/select', f: f
   .actions
     = f.submit
