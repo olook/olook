@@ -5,8 +5,7 @@ class OlookletController < ApplicationController
   DEFAULT_PAGE_SIZE = 48
 
   def index
-    search_params = SeoUrl.parse(request.fullpath)
-
+    search_params = SeoUrl.parse(request.fullpath).merge({visibility: "#{Product::PRODUCT_VISIBILITY[:olooklet]}-#{Product::PRODUCT_VISIBILITY[:all]}"})
     Rails.logger.debug("New params: #{params.inspect}")
 
     page_size = params[:page_size] || DEFAULT_PAGE_SIZE
