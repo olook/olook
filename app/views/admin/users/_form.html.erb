@@ -10,6 +10,13 @@
     </div>
   <% end %>
   <div class="field">
+    <%= f.label :active %><br />
+    <%= f.label :active, "Não" %>
+    <%= f.radio_button :active, "0", checked: @reseller.active.blank? %>
+    <%= f.label :active, "Sim" %>
+    <%= f.radio_button :active, "1", checked: @reseller.active %>
+  </div>
+  <div class="field">
     <%= f.label :first_name %><br />
     <%= f.text_field :first_name %>
   </div>
