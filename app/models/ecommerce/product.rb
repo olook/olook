@@ -98,9 +98,9 @@ class Product < ActiveRecord::Base
     color = product_color == 'Não informado' ? '' : product_color
     name_with_color = "#{formatted_name(200)} #{color}"
     if name_with_color.size > 33
-      "#{name_with_color} | Olook"
+      "#{name_with_color}"
     else
-      "#{name_with_color} - Roupas e Sapatos Femininos | Olook"
+      "#{name_with_color} - Roupas e Sapatos Femininos"
     end
   end
 
