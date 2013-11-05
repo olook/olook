@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class CartItem < ActiveRecord::Base
+
   belongs_to :cart
   belongs_to :variant
   has_one :cart_item_adjustment, dependent: :destroy
@@ -11,6 +12,7 @@ class CartItem < ActiveRecord::Base
   delegate :color_name, :to => :variant, :prefix => false
   delegate :liquidation?, :to => :product
   delegate :promotion?, :to => :product
+  delegate :brand, :to => :product
 
   after_create :create_adjustment, :notify
   after_update :notify
@@ -23,6 +25,10 @@ class CartItem < ActiveRecord::Base
 
   def price
     liquidation? ? LiquidationProductService.liquidation_product(product).original_price : product.price
+  end
+
+  def accepted_brands
+    /olook/ =~ brand
   end
 
   #
