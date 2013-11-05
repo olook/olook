@@ -52,11 +52,11 @@
     = f.hidden_field :updated_by, :value => current_admin.name
   #rules
     %h2 Critérios extras para o Cupom
+    = f.check_box :use_rule_parameters
+    = f.label :use_rule_parameters, 'Usar os critérios extras'
 
     %p
       Para o cupom valer o cliente deve executar os passos abaixo
-      %br/
-      (Deixe vazio para só precisar adicionar o cupom na sacola)
     %hr
 
     = f.fields_for :rule_parameters do |builder|

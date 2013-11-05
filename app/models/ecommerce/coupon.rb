@@ -4,7 +4,7 @@ class Coupon < ActiveRecord::Base
     :start_date, :end_date, :remaining_amount, :unlimited,
     :active, :campaign, :campaign_description, :modal,
     :updated_by, :created_by, :rule_parameters_attributes,
-    :action_parameter_attributes
+    :action_parameter_attributes, :use_rule_parameters
   COUPON_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/coupons.yml")
   PRODUCT_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/product_coupons.yml")[Rails.env]
   BRAND_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/brand_coupons.yml")[Rails.env]
@@ -26,6 +26,16 @@ class Coupon < ActiveRecord::Base
   accepts_nested_attributes_for :action_parameter, reject_if: lambda { |rule| rule[:promotion_action_id].blank? }
 
   before_save :set_limited_or_unlimited
+
+  def use_rule_parameters
+    rule_parameters.count > 0
+  end
+
+  def use_rule_parameters=(val)
+    if val != '1'
+      rule_parameters.destroy_all
+    end
+  end
 
   def apply cart
     promotion_action.apply cart, self.action_parameter.action_params, self
