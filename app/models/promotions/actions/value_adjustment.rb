@@ -2,10 +2,12 @@
 class ValueAdjustment < PromotionAction
   filters[:param] = { desc: 'Valor em R$ a ser descontado da sacola', kind: 'currency' }
   private
-  def calculate(cart_items, value)
+  def calculate(cart_items, filters)
+    value = filters.delete('param')
     calculated_values = []
-    adjustment = BigDecimal(value) / cart_items.size
-    cart_items.each do |item|
+    eligible_items = filter_items(cart_items, filters)
+    adjustment = BigDecimal(value) / eligible_items.size
+    eligible_items.each do |item|
       calculated_values << {
         id: item.id,
         product_id: item.product.id,
