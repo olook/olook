@@ -77,7 +77,7 @@
           %br/
           no caso de uma calça, pela cintura
 %br{style: "clear:both"}
-= product_presenter.render_look_products if params[:srl] || Setting.disable_ab_test_for_look_products
+= product_presenter.render_look_products
 = image_tag("product/vantagens.jpg", class:"vantagens")
 .chaordic.similaritems
 .chaordic.ultimatebuy
@@ -107,6 +107,5 @@
       = field_set_tag do
         = hidden_field_tag :product_id, @product.id
         = submit_tag 'Enviar', id: :send
-  - if Setting.show_product_partner_tags
-    = render "facebook_js", :facebook_app_id => @facebook_app_id, :product => @product
-    = render "shared/lightbox_credits"
+  = render "facebook_js", :facebook_app_id => @facebook_app_id, :product => @product
+  = render "shared/lightbox_credits"
