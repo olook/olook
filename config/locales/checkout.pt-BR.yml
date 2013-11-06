@@ -72,6 +72,7 @@ pt-BR:
             cpf:
               blank: "Para compras, é necessário informar o CPF"
               invalid: "O CPF parece estranho. Pode conferir?"
+              taken:  'Cpf está cadastrado. Entre em contato com o nosso SAC'
             gender:
               blank: "Mulher ou Homem?"  
             birthday:
