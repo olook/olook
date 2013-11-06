@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class CartItem < ActiveRecord::Base
+
   belongs_to :cart
   belongs_to :variant
   has_one :cart_item_adjustment, dependent: :destroy
@@ -10,6 +11,8 @@ class CartItem < ActiveRecord::Base
   delegate :thumb_picture, :to => :variant, :prefix => false
   delegate :color_name, :to => :variant, :prefix => false
   delegate :liquidation?, :to => :product
+  delegate :promotion?, :to => :product
+  delegate :brand, :to => :product
 
   after_create :create_adjustment, :notify
   after_update :notify
@@ -25,12 +28,8 @@ class CartItem < ActiveRecord::Base
     product.price
   end
 
-  def retail_price(options={})
-    olooklet_value = variant.product.retail_price == 0 ? price : variant.product.retail_price
-    promotional_value = price - adjustment_value / quantity.to_f if has_adjustment?
-
-    min_value_excluding_nil = [promotional_value, olooklet_value].compact.min
-    min_value_excluding_nil || 0
+  def accepted_brands
+    /olook/ =~ brand
   end
 
   def discount_service
