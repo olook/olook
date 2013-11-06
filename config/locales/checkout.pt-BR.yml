@@ -47,6 +47,7 @@ pt-BR:
             cpf:
               blank: "Precisamos do CPF para análise do cadastro"
               invalid: "O CPF não está batendo. Pode conferir?"
+              taken:  'Cpf está cadastrado. Entre em contato com o nosso SAC'
             cnpj:
               blank: "Precisamos do CNPJ para análise do cadastro"
               invalid: "O CNPJ não está batendo. Pode conferir?"
