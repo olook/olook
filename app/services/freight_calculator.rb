@@ -7,7 +7,7 @@ module FreightCalculator
   DEFAULT_FREIGHT_PRICE   = 0.0
   DEFAULT_FREIGHT_COST    = 0.0
   DEFAULT_INVENTORY_TIME  = 2
-  DEFAULT_FREIGHT_SERVICE = 1
+  DEFAULT_FREIGHT_SERVICE = 2 # CORREIOS
 
 
   def self.freight_for_zip(zip_code, order_value, shipping_service_ids=nil, use_message = false)
