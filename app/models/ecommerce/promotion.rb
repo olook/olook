@@ -27,6 +27,18 @@ class Promotion < ActiveRecord::Base
     promotion_action.simulate cart, self.action_parameter.action_params
   end
 
+  def use_rule_parameters
+    rule_parameters.count > 0
+  end
+
+  def use_rule_parameters=(val)
+    if val != '1'
+      rule_parameters.each do |rp|
+        rp.mark_for_destruction
+      end
+    end
+  end
+
   def calculate_for_product product, opt
     cart = opt[:cart]
     adjustment = promotion_action.simulate_for_product product, cart, self.action_parameter.action_params
