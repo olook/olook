@@ -10,7 +10,6 @@ class MercadoPagoPayment < Payment
   end
 
   def create_preferences address
-
     phone = address.telephone
 
     items = cart.items.map do |item|
@@ -31,7 +30,7 @@ class MercadoPagoPayment < Payment
         'name' => user.first_name,
         'surname' => user.last_name,
         'email' => user.email,
-        'date_created' => user.created_at.iso8601(3) },
+        'date_created' => user.created_at.iso8601(3),
         'phone' => {
           'area_code'=> phone[1..2],
           'number'=> phone[4..phone.size]
@@ -45,13 +44,14 @@ class MercadoPagoPayment < Payment
           'street_name' => address.street,
           'street_number' => address.number,
           'zip_code' => address.zip_code 
-          }, 
-
-        'shipments' => {
-          'receiver_address' => {
-            'zip_code' => address.zip_code,
-            'street_number' => address.number,
-            'street_name' => address.street
+          }
+      },
+      'shipments' => {
+        'receiver_address' => {
+          'zip_code' => address.zip_code,
+          'street_number' => address.number,
+          'street_name' => address.street,
+          'apartment' => address.complement
         }
       },
       'external_reference' => order.number
