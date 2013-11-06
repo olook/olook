@@ -16,7 +16,11 @@ class MercadoPago
 		@client_id = client_id
 		@client_secret = client_secret
 		@rest_client = RestClient.new(debug_logger)
-		@sandbox = false
+		@sandbox = ! Rails.env.production?
+	end
+
+	def init_point
+		@sandbox ? 'sandbox_init_point' : 'init_point'
 	end
 
 	def set_debug_logger(debug_logger)
@@ -97,7 +101,7 @@ class MercadoPago
 		end
 
 		cancel_status = {"status" => "cancelled"}
-		@rest_client.put("/collections/" + id + "?access_token=" + access_token, cancel_status)
+		@rest_client.put("/collections/#{id}?access_token=" + access_token, cancel_status)
 	end
 
 	# Cancel preapproval payment
