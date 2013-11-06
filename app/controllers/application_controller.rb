@@ -21,7 +21,8 @@ class ApplicationController < ActionController::Base
                 :current_cart,
                 :current_referer,
                 :title_text,
-                :canonical_link
+                :canonical_link,
+                :meta_description
   around_filter :log_start_end_action_processing
 
   rescue_from CanCan::AccessDenied do  |exception|
@@ -80,6 +81,10 @@ class ApplicationController < ActionController::Base
       if request.fullpath.match('\?')
         "#{request.protocol}#{request.host_with_port}#{request.path}"
       end
+    end
+
+    def meta_description
+      "Roupas femininas, sapatos, bolsas, óculos e acessórios incríveis - Olook. Seu look, seu estilo"
     end
 
     def assign_coupon_to_cart(cart, coupon_code)
