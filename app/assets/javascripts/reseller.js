@@ -57,6 +57,11 @@ $(document).ready(function() {
     applyHtmlTag: false,
     afterSuccess: function(){
       $("#reseller_addresses_attributes_0_number").val("");
+      $("#reseller_addresses_attributes_0_zip_code").removeClass("input_error").next().hide();
+      $("#reseller_addresses_attributes_0_street").removeClass("input_error").next().hide();
+      $("#reseller_addresses_attributes_0_neighborhood").removeClass("input_error").next().hide();
+      $("#reseller_addresses_attributes_0_state").parent().removeClass("input_error").next().hide();
+      $("#reseller_addresses_attributes_0_city").parent().removeClass("input_error").next().hide();
     },
     afterFail: function(){
       new dgCidadesEstados({
