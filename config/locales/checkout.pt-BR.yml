@@ -39,7 +39,7 @@ pt-BR:
             password:
               blank: "Crie sua senha para acessos futuros"
               too_short: "Ela deve ter no min. %{count} caracteres, tá?"
-              confirmation: "Pode repetir? Parece que não está batendo"
+              confirmation: "Não está batendo. Pode conferir?"
             email:
               blank: "Precisamos dele para envio de mensagens sobre o pedido"
               invalid: "O e-mail parece estranho. Pode conferir?"
