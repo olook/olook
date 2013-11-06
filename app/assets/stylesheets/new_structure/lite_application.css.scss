@@ -33,3 +33,26 @@ ul.breadcrumb {
     a:hover {color:#ef3742;}
   }
 }
+
+.cat_olooklet {
+  ul {
+    margin-left:11px;
+    margin-bottom: 9px;
+    display: block;
+    float: left;
+    li {
+      margin-bottom:12px;
+        a {
+          font-size: 11px;
+          text-transform: uppercase;
+          font-weight: bold;
+          height: 15px;
+          background: image-url('catalog/sprite.png') no-repeat 0 -25px !important;
+          padding-left: 13px;
+          margin-bottom: 5px;
+          cursor: pointer;
+          display: block;
+      }
+    }
+  }
+}
