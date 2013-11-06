@@ -1,6 +1,7 @@
 @import 'partials/mixins';
 @import 'partials/fonts';
 @import 'new_structure/partials/facebook_footer';
+@import 'new_structure/common/global_stuffs';
 
 #about{
 padding:20px 20px 0;
@@ -130,126 +131,83 @@ padding:20px 20px 0;
 }
 
 #terms {
-  padding: 20px 0 0;
-  width:98%;
-  position: relative;
-  h1 {
-    font-size: 28px;
-    letter-spacing: -1px;
+  width: 970px;
+  color: #000;
+  margin-left: 10px;
+  h2{
+    font-family: $johnston;
+    font-size: 18px;
+    color: #000;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    margin: 0 0 30px;
+    margin-bottom: 45px;
+    margin-top: 15px;
   }
-
-  h2 {
-    font-size: 16px;
-    margin: 0 0 13px;
+  h3{
+    font-size: 15px;
     text-transform: uppercase;
-		font-weight:bold;
+    letter-spacing: 2px;
+    font-weight: 500;
+    margin-left: 75px;
+    margin-bottom: 30px;
   }
-
-   h3 {
+  ul{
+    margin-left: 75px;
+  }
+  ul.questions{
+    margin-left: 95px;
+  }
+  ul.solicitacao_troca, ul.prazo_reembolso{
+    margin-left: 16px;
+    width: 585px;
+    li{
+      list-style-type: disc;
+      margin-top: 10px;
+    }
+  }
+  ul li{
+    font-family: $avenir;
     font-size: 14px;
-    margin: 10px 0 13px;
-    text-transform: uppercase;
-    font-weight:bold;
-  } 
-
-  p.intro, .intro {
-    border:1px solid #e4e4e4;
-    padding:30px;
-  }
-	
-	p.section-title{
-		font-size:20px;
-		color:#000;
-		font-weight:bold;
-	}
-	
-  p {
-    a.arrow {
-      color: #101010;
+    &#subtitle{
+      margin-top: 5px;
     }
-  }
-
-  .intro {
-    margin: 0 0 40px;
-    p {
-      color: #101010;
-      font-family: avenir, Times, "Times New Roman", sans-serif;
-      font-size: 16px;
-      letter-spacing: -1px;
-      margin: 0 0 20px;
-    }
-    ul {
-      li {
-        color: #6d6e71;
-      }
-    }
-  }
-
-  ul.contact {
-    background: #FFF;
-    width: 365px;
-    overflow: hidden;
-    margin: 22px 0;
-    padding: 2px 12px;
-    border: 1px #d2d2d2 solid;
-    li {
-      float: left;
-      &.phone {
-        background: image-url('contact/ico-phone.png') left no-repeat;
-        color: #3b3b3b;
-        font-size: 15px;
+    p{
+      width: 595px;
+      margin-top: 20px;
+      span{
         font-weight: bold;
-        margin: 0 15px 0 0;
-        padding: 5px 10px 5px 25px;
-        border-right: 1px #d2d2d2 solid;
       }
-      &.mail {
-        padding: 5px 0 5px 0;
-        a {
-          background: image-url('contact/ico-mail.png') left no-repeat;
-          color: #3b3b3b;
-          font-size: 15px;
-          font-weight: bold;
-          text-decoration: none;
-          padding: 0 0 0 25px;
-          &:hover {
-            text-decoration: underline;
-          }
-        }
+    }
+    a{
+      font-weight: 500;
+      text-decoration: none;
+      color: $pink;
+      &:hover{
+        color: $pink;
       }
     }
   }
-  &.faq {
-    p {
-      margin: 0 0 35px;
-			a{color:#ef3742;}
-    }
-  }
-  &.return {
-    h2 {
-      letter-spacing: 0;
+  .politica_troca{
+    h3{
+      margin-left: 140px;
+      margin-bottom: 0px;
+      margin-top: 20px;
       font-weight: bold;
-      margin: 35px 0 5px;
     }
-    h3 {
-      font-family: KeplerStdItalic, Times, "Times New Roman", sans-serif;
-      font-size: 15px;
-      margin: 25px 0 0;
-    }
-  }
-  &.privacy, &.terms {
-    div.intro {
-      p {
-        margin: 0;
-        &.first {
-          margin: 0 0 20px;
-        }
+    p{
+      width: 595px;
+      &.titleul{
+        font-weight: 600;
+        font-size: 14px;
+        text-transform: uppercase;
       }
     }
-    h2 {
-      margin-top: 35px;
+    ul{
+      width: 520px;
+      li{
+        list-style-type: disc;
+        margin-top: 10px;
+      }
     }
   }
 }
