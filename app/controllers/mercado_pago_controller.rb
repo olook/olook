@@ -19,7 +19,7 @@ class MercadoPagoController < ApplicationController
       log("IPN handled successfully")
       render json: {status: :ok}.to_json
     rescue
-      log("Error handling IPN id=#{params[:id]}")
+      log("Error on handling IPN id=#{params[:id]}")
       render json: {status: :bad_request}.to_json
     end
   end
