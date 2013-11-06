@@ -26,6 +26,7 @@ class ResellerController < ApplicationController
      reseller.errors.set(:cnpj, ["O CNPJ não está batendo. Pode conferir?"]) if (reseller.errors.messages[:cnpj] && reseller.errors.messages[:cnpj][0]) =~ /número inválido/
      reseller.errors.set(:'addresses.state', ["Precisamos da sigla do estado (UF)"]) if reseller.errors.messages[:'addresses.state'].to_s[0]
      reseller.errors.set(:'addresses.street', ["Selecione um endereço"]) if reseller.errors.messages[:'addresses.state'].to_s[0]
+     reseller.errors.set(:'addresses.zip_code', ["Precisamos do seu CEP"]) if (reseller.errors.messages[:'addresses.zip_code'] && reseller.errors.messages[:'addresses.zip_code'][0] =~ /estranho/ )
    end
 
 end
