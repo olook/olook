@@ -128,4 +128,8 @@ module CatalogsHelper
   def format_size size
     (size.chomp.to_i.to_s != "0") ? size.chomp.to_i.to_s : size.chomp
   end
+
+  def size_should_appear_in_olooklet_menu?(text)
+    (CLOTH_SIZES_TABLE - ["Tamanho único"]).include?(format_size(text))
+  end
 end
