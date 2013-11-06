@@ -29,4 +29,8 @@ class ResellerController < ApplicationController
      reseller.errors.set(:'addresses.zip_code', ["Precisamos do seu CEP"]) if (reseller.errors.messages[:'addresses.zip_code'] && reseller.errors.messages[:'addresses.zip_code'][0] =~ /estranho/ )
    end
 
+   def meta_description
+     "Revenda na Olook as principais tendências da moda. Vantagens especiais e descontos progressivos. Seja uma de nossas afiliadas e ganhe com a gente."
+   end
+
 end
