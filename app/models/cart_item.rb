@@ -28,8 +28,12 @@ class CartItem < ActiveRecord::Base
     product.price
   end
 
-  def accepted_brands
-    /olook/ =~ brand
+  def retail_price(options={})
+    olooklet_value = variant.product.retail_price == 0 ? price : variant.product.retail_price
+    promotional_value = price - adjustment_value / quantity.to_f if has_adjustment?
+
+    min_value_excluding_nil = [promotional_value, olooklet_value].compact.min
+    min_value_excluding_nil || 0
   end
 
   def discount_service
