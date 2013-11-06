@@ -19,9 +19,10 @@ describe PercentageAdjustmentOnFullPriceItems do
       end
       expect(subject.calculate(cart.items,"30")).to be_empty
     end
-    it "return array with adjustment if we have item with full price" do
+    it "return array with adjustment if we have item with full price and with olook brand" do
       cart.items.each do |item|
         item.should_receive(:promotion?).and_return(false)
+        item.should_receive(:accepted_brands).and_return(true)
       end
       expect(subject.calculate(cart.items,"30").size).to eql(2)
     end
