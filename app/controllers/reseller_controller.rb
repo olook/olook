@@ -10,7 +10,7 @@ class ResellerController < ApplicationController
     @reseller = Reseller.new(params[:reseller])
     if @reseller.save
       sign_in(:user, @reseller)
-      SACAlertMailer.reseller_notification(@reseller, "diogo.silva@olook.com.br,rafael.manoel@look.com.br,tiago.almeida@olook.com.br").deliver
+      SACAlertMailer.reseller_notification(@reseller, "diogo.silva@olook.com.br,rafael.manoel@olook.com.br,tiago.almeida@olook.com.br").deliver
       redirect_to reseller_show_path
     else
       custom_error_messages @reseller
