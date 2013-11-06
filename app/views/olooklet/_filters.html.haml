@@ -1,3 +1,40 @@
+.show_more.cat_olooklet
+  - if search.filter_value('category').to_a.include?('sapato')
+    %ul
+      %li
+        = link_to "Roupas femininas", olooklet_path(category: "roupa")
+      %li
+        = link_to "Bolsas femininas", olooklet_path(category: "bolsa")
+      %li
+        = link_to "Acessórios femininos", olooklet_path(category: "acessorio")
+
+  - if search.filter_value('category').to_a.include?('roupa')
+    %ul
+      %li
+        = link_to "Sapatos femininos", olooklet_path(category: "sapato")
+      %li
+        = link_to "Bolsas femininas", olooklet_path(category: "bolsa")
+      %li
+        = link_to "Acessórios femininos", olooklet_path(category: "acessorio")
+
+  - if search.filter_value('category').to_a.include?('acessorio')
+    %ul
+      %li 
+        = link_to "Roupas femininas", olooklet_path(category: "roupa")
+      %li
+        = link_to "Sapatos femininos", olooklet_path(category: "sapato")
+      %li
+        = link_to "Bolsas femininas", olooklet_path(category: "bolsa")
+
+  - if search.filter_value('category').to_a.include?('bolsa')
+    %ul
+      %li
+      = link_to "Roupas femininas", olooklet_path(category: "roupa")
+      %li
+      = link_to "Sapatos femininos", olooklet_path(category: "sapato")
+      %li
+      = link_to "Acessórios femininos", olooklet_path(category: "acessorio")
+
 - if category == 'roupa'
   - if ( _filters = subcategory_filters_by("Roupa", search, use_fields: [:category])) && _filters.present?
     .filter
@@ -45,16 +82,16 @@
     - filters_by("color", search, use_fields: [:category]).each do |text, amount|
       %li{:class => text.chomp.parameterize}= filter_link_to(olooklet_path(@url_builder.add_filter(:color, text)), text.chomp, search.filter_selected?(:color, text.chomp))
 
-.filter
-  %p.title-category Preço
-  .price-range
-    %p#min-value-label{style:'background-image: none'} 0
-    %p#max-value-label{style:'background-image: none'} 0
-    .slider
-      #slider-range
-    %input{type: "text", id: "min-value"}
-    %input{type:"text", id:"max-value"}
-    %input{type:"hidden", name:"price", id:"price"}
+/ .filter
+/   %p.title-category Preço
+/   .price-range
+/     %p#min-value-label{style:'background-image: none'} 0
+/     %p#max-value-label{style:'background-image: none'} 0
+/     .slider
+/       #slider-range
+/     %input{type: "text", id: "min-value"}
+/     %input{type:"text", id:"max-value"}
+/     %input{type:"hidden", name:"price", id:"price"}
 
 - if search.filter_value('category').to_a.include?('roupa')
   .filter
@@ -68,46 +105,7 @@
     %p.title-category Tamanho
     %ul.category-list
       - filters_by('size', search, use_fields: [:category]).each do |text, amount|
-        %li= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), search.filter_selected?(:size, text.chomp))
+        %li= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), text.chomp, search.filter_selected?(:size, text.chomp))
 
-.show_more
-  - if search.filter_value('category').to_a.include?('sapato')
-    %p.title
-      OUTRAS CATEGORIAS
-    %li
-      = link_to "Roupas femininas", olooklet_path(category: "roupa"), class: "categories"
-    %li
-      = link_to "Bolsas femininas", olooklet_path(category: "bolsa"), class: "categories" 
-    %li
-      = link_to "Acessórios femininos", olooklet_path(category: "acessorio"), class: "categories"
 
-  - if search.filter_value('category').to_a.include?('roupa')
-    %p.title
-      OUTRAS CATEGORIAS
-    %li
-      = link_to "Sapatos femininos", olooklet_path(category: "sapato"), class: "categories"
-    %li
-      = link_to "Bolsas femininas", olooklet_path(category: "bolsa"), class: "categories" 
-    %li
-      = link_to "Acessórios femininos", olooklet_path(category: "acessorio"), class: "categories"
-
-  - if search.filter_value('category').to_a.include?('acessorio')
-    %p.title
-      OUTRAS CATEGORIAS
-    %li 
-      = link_to "Roupas femininas", olooklet_path(category: "roupa"), class: "categories" 
-    %li
-      = link_to "Sapatos femininos", olooklet_path(category: "sapato"), class: "categories"
-    %li
-      = link_to "Bolsas femininas", olooklet_path(category: "bolsa"), class: "categories" 
-
-  - if search.filter_value('category').to_a.include?('bolsa')
-    %p.title
-      OUTRAS CATEGORIAS
-    %li
-    = link_to "Roupas femininas", olooklet_path(category: "roupa"), class: "categories" 
-    %li
-    = link_to "Sapatos femininos", olooklet_path(category: "sapato"), class: "categories"
-    %li
-    = link_to "Acessórios femininos", olooklet_path(category: "acessorio"), class: "categories"
     
