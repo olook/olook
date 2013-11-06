@@ -9,6 +9,18 @@ class MercadoPagoPayment < Payment
     "Mercado Pago"
   end
 
+  # 
+  # Por enquanto utiliza a mesma regra de expiração de boleto
+  # 
+  def build_payment_expiration_date
+    BilletExpirationDate.expiration_for_two_business_day
+  end
+
+  def self.to_expire
+    expiration_date = 1.business_day.before(Time.zone.now) - 1.day
+    self.where(payment_expiration_date: expiration_date.beginning_of_day..expiration_date.end_of_day, state: ["waiting_payment", "started"])
+  end  
+
   def create_preferences address
     phone = address.telephone
 
@@ -58,6 +70,6 @@ class MercadoPagoPayment < Payment
     }
 
     preference = MP.create_preference(preference_data)
-    update_attribute(:url, preference['response']['sandbox_init_point'])
+    update_attribute(:url, preference['response'][MP.init_point])
   end
 end

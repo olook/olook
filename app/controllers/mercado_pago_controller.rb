@@ -11,15 +11,18 @@ class MercadoPagoController < ApplicationController
 
       log("order_number=#{order_number}, status=#{status}")
 
+      order = Order.find_by_number order_number
+      mercado_pago_payment = order.erp_payment
+      mercado_pago_payment.update_attribute(:mercado_pago_id, params[:id])
+      
       if status == 'approved'
-        order = Order.find_by_number order_number
-        order.erp_payment.authorize
+        mercado_pago_payment.authorize
       end
 
       log("IPN handled successfully")
       render json: {status: :ok}.to_json
-    rescue
-      log("Error on handling IPN id=#{params[:id]}")
+    rescue => e
+      log("Error on handling IPN id=#{params[:id]}: #{e}")
       render json: {status: :bad_request}.to_json
     end
   end
