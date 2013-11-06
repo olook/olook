@@ -1676,6 +1676,11 @@ section.checkout{
 				&.credit_card{width:100%;}
 				&.boleto{width:100%;}
 				&.debito{width:100%;}
+        &.mercadopago{
+          background: image-url("new_checkout/logo_mp.png") no-repeat 22px 0;
+          width: 300px;
+          height: 26px;
+        }
 				label{font-size:12px;}
 			}
 			.payment_type{
