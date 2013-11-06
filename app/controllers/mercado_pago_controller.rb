@@ -2,7 +2,7 @@ class MercadoPagoController < ApplicationController
 
   def create
     begin
-      log("IPN received [id=#{id}]")
+      log("IPN received [id=#{params[:id]}]")
 
       response = MP.get_payment_info params[:id]
       mp_transaction = response['response']['collection']
@@ -19,7 +19,7 @@ class MercadoPagoController < ApplicationController
       log("IPN handled successfully")
       render json: {status: :ok}.to_json
     rescue
-      log("Error handling IPN id=#{id}")
+      log("Error handling IPN id=#{params[:id]}")
       render json: {status: :bad_request}.to_json
     end
   end
