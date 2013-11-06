@@ -61,7 +61,7 @@
     <li class="boleto"><%= checkout_form.radio_button :payment_method, "billet", checked: @checkout.payment && @checkout.payment.is_a?(Billet), onclick: track_event("CheckoutPayment","clickSelectBillet") %> <%= checkout_form.label :payment_method, 'Boleto' %></li>
     <li class="debito"><%= checkout_form.radio_button :payment_method, "debit", onclick: track_event("CheckoutPayment","clickSelectDebit")  %> <%= checkout_form.label :payment_method, 'Débito Online', checked: @checkout.payment && @checkout.payment.is_a?(Debit) %></li>
 
-    <li class="mercadopago"><%= checkout_form.radio_button :payment_method, "mercadopago", onclick: track_event("CheckoutPayment","clickSelectMercadoPago")  %> <%= checkout_form.label :payment_method, 'Mercado Pago' %></li>
+    <li class="mercadopago"><%= checkout_form.radio_button :payment_method, "mercadopago", onclick: track_event("CheckoutPayment","clickSelectMercadoPago")  %></li>
   </ul>
 
   <%= fields_for "checkout[payment]", @checkout.payment do |payment_form|%>
@@ -165,7 +165,7 @@
 
   <div class="box-mercadopago mercadopago">
 
-    <p>Na página de confirmação de compra, clique em<br/> “Realizar pagamento” para ser redirecionado ao MercadoPago.</p>
+    <p>Na página de confirmação de compra, preencha os seus dados do MercadoPago.</p>
     <p><span>Importante:</span> Seu pedido ficará reservado por 48hrs, enquanto aguardamos a confirmação do seu pagamento.</p>
   </div>
 

@@ -10,7 +10,7 @@
       <section>  
         <p>FORMAS DE PAGAMENTO</p>
         <%= image_tag("common/ico_bandeiras.png", :alt => "Trabalhamos com Visa, Mastercard, American Express, Dinners e Hipercard", :style => "position:relative;top:2px;") %>
-        <%= image_tag('http://imgmp.mlstatic.com/org-img/MLB/MP/BANNERS/tipo2_125X125.jpg', alt: 'MercadoPago - Meios de pagamento', title: 'MercadoPago - Meios de pagamento') %>
+        <%= link_to image_tag('http://imgmp.mlstatic.com/org-img/MLB/MP/BANNERS/tipo2_125X125.jpg', alt: 'MercadoPago - Meios de pagamento', title: 'MercadoPago - Meios de pagamento'), "#", :class => 'mercado_pago_button' %>
         </section>
       <section>
         <p>SEGURANÇA</p>    
@@ -30,3 +30,4 @@ Olook Comércio Online de Moda Ltda  /  CNPJ 011.216.478/0001-70</p>
 
 <div id="overlay-campaign">&nbsp;</div>
 <div id="modal-campaign">&nbsp;</div>
+<div class="mercado_pago"><%= image_tag "common/banner_educativo_mp.jpg" %></div>
