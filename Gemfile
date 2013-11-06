@@ -12,7 +12,7 @@ gem 'devise', '~> 1.5.3'
 gem 'omniauth', '= 1.0.3'
 gem 'omniauth-facebook'
 gem 'oa-oauth', '~> 0.3.0', :require => 'omniauth/oauth'
-gem 'therubyracer', '= 0.12.0'
+gem 'therubyracer', '~> 0.12.0'
 gem 'resque', '~> 1.20.0', :require => 'resque/server'
 gem 'resque_mailer', '~> 2.0.2'
 gem 'resque-scheduler', '~>2.0.0', :require => ['resque_scheduler', 'resque_scheduler/server']
@@ -107,7 +107,7 @@ group :development, :test do
   gem 'parallel_tests'
   gem "vcr", "~> 2.5.0"
   gem 'ci_reporter', :git => 'git://github.com/nicksieger/ci_reporter.git', require: false
-  gem 'jasmine'
+  # gem 'jasmine'
   gem "selenium-webdriver", "~> 2.35.1"  
   gem 'binding_of_caller'
 end

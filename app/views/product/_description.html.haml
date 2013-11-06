@@ -5,10 +5,11 @@
   - unless @product.promotion?
     %p.plots
       ou em #{installments(@product.price)}
-  %div{:class => "warn_discount #{product_presenter.is_promotion? ? 'promotion' : ''}"}
-    %p
-      Compre e ganhe #{number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price)} em créditos,
-      \#{link_to "saiba mais", "javascript:void(0);", :class => "open_loyalty_lightbox"}
+  - if current_user && !current_user.reseller
+    %div{:class => "warn_discount #{product_presenter.is_promotion? ? 'promotion' : ''}"}
+      %p
+        Compre e ganhe #{number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price)} em créditos,
+        \#{link_to "saiba mais", "javascript:void(0);", :class => "open_loyalty_lightbox"}
 - if params[:from] != 'cart'
   .social-media-box.pl9
     .has_bt_face

@@ -1390,7 +1390,6 @@ section#payment {
 				margin:25px auto;
 				background:#F0FDDF;
 				padding:0 10px;
-        margin-bottom: 65px;
         p.correios{
           margin-top: 20px;
           background: none;
@@ -1444,7 +1443,7 @@ section#payment {
 						}
 						.total{border-top:solid 1px #DEDEDE;padding:20px 0;font-size:17px;overflow:hidden;
 							li{float:left;text-align:left;}
-							.delivery_time{font-size:12px;width:184px;padding-left:25px;}
+							.delivery_time{font-size:12px;width:174px;padding-left:25px;}
 							span{width:85px;display:inline-block;text-align:right;margin-right:17px;}
 						}
 						&.payment-type{
@@ -1570,7 +1569,10 @@ section#payment {
 }
 
 .txt-black{color:#000 !important;}
-.txt-pink{color:#ef3742 !important;}
+.txt-pink{
+  color:#ef3742 !important;
+  width: 90px !important;
+}
 .fixed{position:fixed !important;}
 .bt-checkout{margin-left: 0 !important; margin-top: 50px !important;}
 /******************************/
@@ -1755,7 +1757,7 @@ section.checkout{
 	}
 /********** END / START STEP THREE *******/
 	#cart-box{
-		float:left;border:solid 1px #D9D8D8;width:321px;max-height:345px;background:#FFF;margin-bottom: 15px;
+		float:left;border:solid 1px #D9D8D8;width:321px;max-height:445px;background:#FFF;margin-bottom: 15px;
 		.bg-box{display:none;}
 		.products{max-height:217px;overflow-y:auto;}
 		#items{width:100%;

@@ -7,6 +7,8 @@ class SignupNotificationWorker
     raise "The welcome message for member #{user_id} was already sent" unless member.welcome_sent_at.nil?
     if member.half_user
       mail = half_user_by_via_and_gender(member)
+    elsif member.reseller
+      mail = MemberMailer.reseller_welcome_email(member)
     else
       mail = MemberMailer.welcome_email(member)
     end
