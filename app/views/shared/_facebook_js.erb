@@ -116,10 +116,10 @@ function sendFacebookMessage() {
     caption: 'www.olook.com.br',
     picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
     <% if member %>
-      description: 'Tenho uma vitrine personaliza da Olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= accept_invitation_url(:invite_token => member.invite_token) %> #ficaadica',
+      description: 'Tenho uma vitrine personalizada da Olook e recebo dicas das Stylists! Responda também, descubra seu estilo e tenha uma vitrine personalizada <%= accept_invitation_url(:invite_token => member.invite_token) %> #ficaadica',
       link: 'http://olook.com.br'
     <% else %>
-      description: 'Tenho uma vitrine personaliza da Olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10!',
+      description: 'Tenho uma vitrine personalizada da Olook e recebo dicas das Stylists! Responda também, descubra seu estilo e tenha uma vitrine personalizada',
       link: '<%=  root_url %>'
     <% end %>
   });
@@ -132,10 +132,10 @@ method: 'feed',
     picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
     <% if member %>
         link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>',
-        description: 'Tenho uma vitrine personalizada da Olook e recebo recomendações incríveis das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= accept_invitation_url(:invite_token => member.invite_token) %> #ficaadica'
+        description: 'Tenho uma vitrine personalizada da Olook e recebo dicas das Stylists! Responda também, descubra seu estilo e tenha uma vitrine personalizada <%= accept_invitation_url(:invite_token => member.invite_token) %> #ficaadica'
     <% else %>
       link: '<%=  root_url %>',
-      description: 'Tenho uma vitrine personalizada da Olook e recebo recomendações incríveis das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= root_url %> #ficaadica'
+      description: 'Tenho uma vitrine personalizada da Olook e recebo dicas das Stylists! Responda também, descubra seu estilo e tenha uma vitrine personalizada <%= root_url %> #ficaadica'
 
     <% end %>
   };
