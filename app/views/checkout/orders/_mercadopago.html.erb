@@ -4,11 +4,10 @@
 
 <div class="new_payment_link">
    <p class="txt_payment_link">Ainda não acabou... Você ainda precisa realizar o pagamento.<br/>
-      <span>Você precisa acessar o MercadoPago através do botão abaixo para realizar o pagamento do seu pedido.</span>
+      <span>Você precisa acessar o MercadoPago através do formulário abaixo para realizar o pagamento do seu pedido.</span>
    </p>
    <p class="mercado_pago_button">
-    <!-- <iframe src="<%= @payment.url %>" width="740px" height="600px"></iframe> -->
-   <%= link_to('Realizar Pagamento', @payment.url, {:class => 'green-L-Rn-BrOn', :name => 'MP-Checkout', 'mp-mode' => 'modal', :onreturn => 'mercadoPagoModalReturn'})  %>
+    <iframe src="<%= @payment.url %>" width="740px" height="600px"></iframe>
    </p>
 </div>
 <p class="thanks">Obrigada pela sua compra</p>
