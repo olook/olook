@@ -1,0 +1,354 @@
+- content_for(:head) do
+  = stylesheet_link_tag  "about/style"
+
+= first_level_breadcrumb("Central de Atendimento")
+#terms.faq{:role => "main"}
+  %h2 
+    Central de Atendimento
+  %h3
+    Dúvidas Frequentes
+  %ul
+    %li#subtitle
+      Site e Funcionamento
+      %ul
+        %li
+          Como funciona o site?
+          %p
+            Começar é fácil, divertido e totalmente grátis! O primeiro passo é responder o nosso style quiz. São perguntas sobre moda, celebridades e design que você responde com o que melhor reflete seu estilo. Nós entendemos seu perfil de moda e todos os meses você terá uma nova vitrine criada pelas nossas stylists, além de dicas e conteúdo sobre moda. 
+            =link_to "Responda nosso style quiz", survey_path 
+            e faça parte.
+
+        %li
+          Os produtos vem com nota fiscal?
+          %p
+            A nota fiscal será enviada com o seu pedido. Caso você precise de segunda via, basta entrar em contato com a nossa equipe de atendimento.
+
+        %li
+          Existe taxa de adesão?
+          %p
+            Ter um cadastro na olook é absolutamente grátis! Você tem acesso aos conteúdos e a sua vitrine de moda personalizada todos os meses sem nenhum custo adicional. Você só pagará pelos produtos que comprar.
+        %li
+          Como posso ter acesso aos outros produtos que não estão na minha vitrine?
+          %p
+            Além dos produtos recomendados em sua vitrine, você também pode encontrar produtos navegando pelo menu do site. Se inspire em nossa área de tendências, veja as recomendações de nossas stylists, conheça nossas coleções, compre um presente para uma amiga ou ainda procure produtos por tipo, através das seções roupas, sapatos, bolsas, óculos e acessórios.
+        %li
+          Por que devo conectar minha conta olook com o facebook?
+          %p
+            Não é obrigatório usar o Facebook, criamos essa opção para facilitar o seu acesso, (aproveitando o usuário e senha do Facebook) e também para promover a interação através da rede social. Com ele conectado, você não precisará lembrar de mais uma senha, basta usar o Entrar com o Facebook. Além disso, você pode ver a vitrine das suas amigas (e elas podem ver a sua) e conferir a aniversariante de cada mês (através do calendário). 
+            =link_to 'Conecte-se através do facebook', user_omniauth_authorize_path(:facebook), :class => 'fb_login_button popup', :"data-width" => 410, :"data-height" => 300, onclick: track_event("FacebookConnect", "ConnectFromLoginBox")
+            e veja como é bacana.
+
+        %li
+          Como funciona o programa de Fidelidade?
+          %p
+            Toda vez que você compra na olook ganha 15% do valor do seu pedido em créditos e poderá utilizá-los a partir do primeiro dia útil do próximo mês. A validade dos créditos é de 2 meses e você poderá utilizá-lo em pedidos acima de R$ 100,00.  
+            =link_to "Conheça o programa de fidelidade", "/fidelidade"
+            e fique na moda todos os meses, gastando muito menos. 
+        %li
+          Os produtos possuem garantia?
+          %p
+            Os produtos comercializados pela olook possuem 90 dias de garantia. Caso você identifique durante esse período, qualquer sinal de defeito, entre em contato com a nossa equipe de atendimento que iremos orientá-lo a proceder com a troca ou devolução do valor pago
+
+        %li
+          Quais os tipos de produtos a olook comercializa?
+          %p
+            A olook é especializada em roupas, sapatos, bolsas, óculos e acessórios femininos.
+
+        %li
+          Posso usar um código promocional em produtos que já possuem desconto promocional?
+          %p
+            Os descontos não são acumulativos, então escolheremos o desconto que for mais vantajoso para você. Por exemplo, se você escolher comprar um produto com 30% de desconto e, na sacola, tentar usar um cupom de 20%, escolheremos a opção 30% de desconto no produto, pois será a mais vantajosa neste caso.
+
+        %li
+          Os produtos vem com embalagem para presente?
+          %p
+            Na etapa final de sua compra, você pode optar em comprar a embalagem para presente.
+
+        %li
+          Como funciona a promoção “indique uma amiga”?
+          %p
+            Você indica quantas amigas quiser para conhecer o site. Quando as amigas convidadas fizerem a sua primeira compra, você ganhará R$ 20,00 em créditos para usar na olook. 
+          %p
+            %span
+              Importante: 
+            o crédito é fornecido apenas para compras em nosso site e não pode ser revertido em dinheiro. 
+            =link_to "Convide suas amigas e ganhe créditos!", "/membro/convite"
+
+        %li
+          Como refazer o Style Quiz?
+          %p
+            Você pode refazer o style quiz quantas vezes desejar. Acesse sua vitrine e clique na frase em destaque 
+            =link_to "“responda nosso style quiz”", survey_path
+            e faça novamente o style quiz.
+
+        %li
+          Tenho um código promocional. Como posso utilizá-lo?
+          %p
+            Após adicionar os itens na sacola de compras, basta clicar em "Quero usar um código promocional" e informá-lo no campo que será exibido. Ao clicar no botão "aplicar", o desconto será automaticamente calculado e exibido na tela.
+        %li
+          Posso refazer o Style Quiz?
+          %p
+            Sim. Você pode refazer o style quiz quantas vezes desejar. Acesse sua vitrine e clique na frase em destaque 
+            =link_to "“responda nosso style quiz”", survey_path
+            e faça novamente o style quiz.
+
+        %li
+          Como faço para ter acesso a minha vitrine?
+          %p
+            Após responder o style quiz e efetuar o cadastro, você terá acesso a sua vitrine personalizada. E em suas próximas visitas ao site, basta clicar em 
+            =link_to "entrar", "/conta/sign_in" 
+            (no topo do nosso site), para ter acesso a sua vitrine.
+        %li
+          Vocês possuem Facebook?
+          %p
+            Não é obrigatório usar o Facebook, mas criamos essa opção para facilitar e permitir algumas coisas legais no site. Com ele conectado, você não precisa lembrar de mais uma senha – usa o login via Facebook. Além disso, você pode ver a vitrine das suas amigas e elas podem ver a sua. 
+            =link_to 'Conecte agora', user_omniauth_authorize_path(:facebook), :class => 'fb_login_button popup', :"data-width" => 410, :"data-height" => 300, onclick: track_event("FacebookConnect", "ConnectFromLoginBox")
+    %li#subtitle
+      Compras e pagamentos
+      %ul
+        %li
+          Quais são as opções de pagamento?
+          %p
+            Trabalhamos com boleto, cartão de crédito e débito em conta. Consulte abaixo nossos convênios e condições:
+            Boleto bancário (somente para pagamento à vista);
+            Cartões de crédito: Visa, Mastercard, American Express, Diners Club e Hipercard – Pagamento à vista ou parcelado (parcela mínima de R$ 30,00);
+            Débito em conta - Itaú (somente para pagamento à vista).
+        %li
+          Quanto tempo demora para confirmar o pagamento?
+          %p
+            O prazo varia de acordo com o meio de pagamento escolhido:
+            Boleto bancário – Até 48h (dias úteis)
+            Cartão de crédito – Em alguns minutos
+            Débito em conta – Em alguns minutos
+            %span
+            Importante: 
+            o tempo pode variar, entre a comunicação do banco, administradora de cartão de crédito e a plataforma de pagamento.
+        %li
+          Posso alterar a forma de pagamento?
+          %p
+            Após o pedido concluído não é possível alterar a forma de pagamento. Recomendamos, em caso de não aprovação, refazer o pedido. Você pode também entrar em contato com o nosso SAC para que nossas equipe lhe oriente da melhor forma possível.
+        %li
+          Como faço para cancelar meu pedido?
+          %p
+            Para solicitar o cancelamento você deve entrar em contato com a nossa equipe, através dos canais: falecom@olook.com.br ou 11 2626-3489
+        %li
+          Como faço para reimprimir o boleto bancário?
+          %p
+            Se o vencimento do boleto estiver dentro do prazo, é possível imprimir uma segunda via dele na área 
+            =link_to "meus pedidos", "/conta/pedidos"
+            Importante: não é possível reprogramar a data de pagamento, por isso é importante que o pagamento seja realizado dentro do prazo de vencimento.
+        %li
+          Há alguma restrição quanto ao uso de créditos?
+          %p
+            O único crédito que poderá ser utilizado em qualquer compra é o crédito de reembolso, concedido por devolução do produto.
+            Já o crédito de fidelidade e o crédito ganho ao indicar amigas (após elas realizarem a primeira compra), não pode ser utilizado na compra de produtos com desconto/promoção.
+            Além disso, o crédito de fidelidade e o crédito ganho ao indicar amigas só poderão ser utilizados em pedidos acima de R$ 100,00.
+        %li
+          Como acesso todos os produtos?
+          %p
+            Além dos produtos recomendados na sua 
+            =link_to "VITRINE", "/minha/vitrine"
+            , você também pode navegar pelo menu do site e checar as últimas 
+            =link_to "TENDÊNCIAS", "/colecoes" 
+            da moda, comprar em uma  
+            =link_to "COLEÇÃO", "/colecoes" 
+            específica, ver as recomendações da 
+            =link_to "STYLIST", "/stylists/helena-linhares" 
+            ou comprar um 
+            =link_to "PRESENTE", "/presentes" 
+            para uma amiga.
+        %li
+          Posso dividir minha compra em dois cartões de crédito?
+          %p
+            Através do sistema de pagamentos da olook é possível comprar utilizando um único cartão por vez. Caso o valor do pedido ultrapasse o limite do seu cartão, recomendamos que você faça dois pedidos (um em cada cartão). Uma outra alternativa seria utilizar outra forma de pagamento, pois também trabalhamos com boleto e débito em conta
+        %li
+          Posso pagar utilizando um cartão internacional?
+          %p
+            Sim. É possível efetuar compras com seu cartão de crédito internacional.
+    %li#subtitle
+      Entregas
+      %ul
+        %li
+          Como acompanhar o status do meu pedido?
+          %p
+            Na etapa final do pagamento, você receberá a data de expectativa da entrega. 
+          %p
+            Assim que o pedido for despachado, você também receberá um e-mail com o link de rastreio.
+          %p
+            Dentro de “meus pedidos” você pode obter atualização de entrega.  
+            =link_to "Clique aqui", "/conta/pedidos" 
+            para ir para a área de pedidos.
+        %li
+          Como faço para rastrear meu pedido?
+          %p
+            Na etapa final do pagamento, nos lhe informaremos a estimativa de entrega.
+            Assim que o pedido for despachado, você também receberá um e-mail com o link de rastreio. Em 
+            =link_to "meus pedidos", "/conta/pedidos"  
+            você poderá acompanhar o status da sua compra.
+          %p
+            %span
+              Importante: 
+            Para receber nossas comunicações e atualizações sobre a sua entrega é 
+            importante confirmar o endereço eletrônico cadastrado na olook e também 
+            incluir a extensão @olook.com.br na lista de remetentes confiáveis. Isso evita que nossas mensagens caiam na caixa de spam do seu e-mail. Quando quiser, você pode confirmar o endereço eletrônico cadastrado, em 
+            =link_to "dados pessoais", "/conta/edit"
+        %li
+          Qual é o prazo de entrega para minha região?
+          %p
+            Como o prazo de entrega varia de acordo com a localidade, você deve consultá-lo acessando a página 
+            =link_to "prazo de entrega", "/prazo-de-entrega"
+          %p
+            Também informamos o prazo de entrega na sacola de compras, na área 
+            =link_to "meus pedidos", "/conta/pedidos"
+            e também nos e-mails sobre sobre o seu pedido.
+        %li
+          Como é calculado o valor do frete?
+          %p
+            O valor do frete é definido a partir do peso e do volume do produto. Também é feito um cálculo de acordo com a região de entrega. Por essa razão, o valor calculado será exibido somente na etapa final da sua compra, quando tivermos todas essas informações.
+        %li
+          Como posso ter frete gratuito?
+          %p
+            A Olook promove em algumas regiões frete gratuito de acordo com o valor do pedido. 
+            %br
+              Para saber se será cobrado ou não, importante incluir os itens na sacola, digitar o cep e o valor aparecerá ao lado direito da tela.
+        %li
+          É possível agendar a entrega?
+          %p
+            Não é possível agendar a entrega do seu pedido. Na etapa final do pagamento, nos lhe informaremos a estimativa de entrega. Assim que o pedido for despachado, você também receberá um e-mail com o link de rastreio. Em meus pedidos você poderá acompanhar o status da sua compra.
+        %li
+          O que verificar no ato da entrega?
+          %p
+            Recuse a entrega em caso de embalagem violada. Entre em contato imediatamente com a central de atendimento através do e-mail falecom@olook.com.br ou pelo telefone (11) 2626-3489.
+        %li
+          Posso alterar o endereço de entrega após o fechamento do pedido?
+          %p
+            Você deve conferir e atualizar seu endereço no ato da compra. 
+            Após o fechamento do pedido não será possível alterar o endereço de entrega.
+            %br
+              Se você informou o endereço de entrega errado no momento da compra, entre em contato com a nossa equipe, através dos canais: falecom@olook.com.br ou 11 2626-3489.
+        %li
+          Vocês entregam em todo Brasil?
+          %p
+            Sim. Entregamos em todo território nacional.
+            Nosso prazo de entrega varia de acordo com a localidade, então você deve consultá-lo acessando a página
+            =link_to "prazo de entrega", "/prazo-de-entrega" 
+        %li
+          A partir de qual valor meu frete será gratuito?
+          %p
+            Sul e Sudeste: o frete será gratuito para compras acima de R$99
+            %br
+              Capitais de outras regiões: o frete será gratuito para compras acima de R$ 200
+            Interior de outras regiões: o frete será gratuito para compras acima de R$ 250
+        %li
+          Como funciona a Entrega Expressa para o Dia das Mães?
+          %p
+            Trabalharemos com entrega expressa para o Dia das Mães. A promoção é válida para SP Capital e compras com cartão de crédito aprovadas até às 16h.
+          %p
+            O prazo de entrega é de 1 dia útil.
+    %li#subtitle
+      Trocas e devolução
+      %ul
+        %li
+          Como funciona a política de Troca e Devolução?
+          %p
+            Olá!    :)
+          %p
+            Oferecer um serviço de qualidade para as nossas clientes é um dos pontos mais importantes para a Olook. Queremos que você tenha a melhor experiência de compra possível e, por isso, aceitamos trocas ou devoluções de produtos sem qualquer custo para você. 
+          .politica_troca
+            %h3
+              Política de Troca e Devolução
+            %p.titleul
+              Condições para troca e devolução
+            %ul
+              %li
+                Produto deve estar sem uso e com todos os acessórios, brindes, etiquetas e lacres;
+              %li
+                Na embalagem original, não danificada (caixa do sapato, saquinhos de bijuterias, etc);
+              %li
+                Com a nota fiscal (DANFE) ou cópia;
+              %li
+                Não será aceito troca ou devolução de peça íntima, para preservação da saúde de nossas clientes (salvo em caso de defeito).
+            %p.titleul   
+              Opções para troca e devolução
+            %ul
+              %li
+                A troca pode ser realizada pelo mesmo produto, variando a cor e numeração, desde que disponível no site;
+              %li
+                A troca pode ser realizada por outro produto de igual valor pago e que este esteja disponível no site;
+              %li
+                A troca por produto de valor diferente ao pago, será oferecido um vale crédito no valor pago para cliente efetuar uma nova compra;
+              %li
+                Em caso de reembolso, só será devolvido o valor pago. Créditos fidelidade, cupons de descontos ou outro benefício não serão devolvidos ao cliente;
+              %li
+                Em caso de reembolso, o valor será devolvido na forma original de pagamento.
+            %p.titleul
+              Prazos
+            %ul
+              %li
+                Trocas e devoluções -  em até 30 dias corridos a partir do recebimento do seu pedido.
+              %li
+                Erro na entrega (item errado, caixa violada, item com avaria, etc.) - em até 03 dias úteis a partir do recebimento do seu pedido.
+            %p.titleul
+              Canais para solicitação de troca e devolução
+            %ul
+              %li
+                E-mail - falecom@olook.com.br
+              %li
+                Telefone - (11) 2626.3489
+        %li
+          Quais as formas de devolução?
+          %p
+            A devolução do seu pedido é feita por meio de postagem paga pela olook. Ao solicitar a
+            troca, você receberá um link em seu e-mail com instruções para postagem do seu pedido em qualquer agência credenciada dos Correios, sem custo algum. 
+            =link_to "Consulte a lista de agências credenciadas", "http://www.correios.com.br/servicos/agencias"
+          %p
+            Realizamos o reembolso do valor pago de acordo com a forma de pagamento utilizada no fechamento do pedido.
+            Você pode também devolver o produto e receber um cupom em crédito correpondente ao valor pago. Neste caso, o cupom poderá ser utilizado na olook em até 360 dias após a emissão.
+        %li
+          Qual é o prazo para solicitar troca e devolução?
+          %ul.solicitacao_troca
+            %li
+              Arrependimento de compra: você terá até 30 dias corridos (após o recebimento do produto).
+            %li
+              Produto com defeito: os produtos comercializados pela olook possuem 90 dias de garantia.
+              %br
+                Caso você identifique durante esse período, qualquer sinal de defeito, entre em contato com a nossa equipe de atendimento que iremos orientá-lo a proceder com a troca ou devolução.
+            %li
+              Erro na entrega, produto ou embalagem avariada: Caso você tenha recebido seu pedido com alguma alteração, tal como, embalagem aberta ou violada, produto diferente em relação à compra realizada ou falta de algum acessório, comunique imediatamente nossa equipe. Você terá 3 dias corridos (após o recebimento) para notificar o problema.
+        %li
+          Qual o prazo para reembolso?
+          %ul.prazo_reembolso
+            %li 
+              Pagamento feito via boleto bancário: o reembolso será realizado na conta corrente em 
+              que foi feito o pedido em até 5 dias úteis após a conclusão da devolução.
+            %li
+              Pagamento feito via cartão de crédito: o estorno no seu cartão de crédito poderá 
+              ser visualizado em até duas faturas após a conclusão da devolução.
+            %li
+              Pagamento feito via débito em conta: o reembolso será realizado na conta corrente em 
+              que foi feito o pedido em até 5 dias úteis após a conclusão da devolução.
+          %p
+            %span
+              Importante: 
+            os prazos dependem da data de vencimento do cartão.
+    %li#subtitle
+      Parcerias
+      %ul
+        %li
+          Você tem um blog e deseja fazer parte do nosso grupo de blogueiras?
+          %p
+            As blogueiras que fazem parte do nosso grupo recebem semanalmente pautas exclusivas com release e fotos para ajudar na criação de posts. São informações sobre novas coleções, produtos, tendências e outras novidades da Olook. Para participar desta lista e saber sobre outros tipos de parcerias, envie um e-mail para 
+            =mail_to "socialmedia@olook.com.br", "socialmedia@olook.com.br"
+            falando um pouco sobre o seu blog, perfil de suas leitoras e afinidade com o nosso site.
+        %li
+          Como funciona o programa de Afiliados da Olook?
+          %p
+            Divulgue a Olook em seu site e ganhe comissão sobre as vendas realizadas. É muito simples! Basta dedicar uma área do seu site para divulgar banners, ofertas e produtos da Olook. A cada venda confirmada (tendo o seu site como ponto de partida), você ganhará uma comissão pela divulgação. Bacana, não? Você poderá escolher quais anúncios da Olook deseja divulgar em seu site, de acordo com o que é mais interessante para o seu público e também, é claro, aumentando o potencial dos resultados. Atualmente trabalhamos com as seguintes plataformas de Afiliados e você pode escolher a melhor para você:
+          %br
+            %span
+              =link_to "Conheça a Afilio", "http://www.afilio.com.br/webmaster/"
+              %br 
+                =link_to "Conheça a NetAffiliation", "http://br.netaffiliation.com/affes/Monetize-o-seu-website-com-a-NetAffiliation.html" 
+              =link_to "Conheça a Zanox", "http://www.zanox.com/br/afiliados/" 
+          %p
+            Faça parte delas, entre em contato conosco através do e-mail afiliados@olook.com.br e seja um parceiro Afiliado da Olook.
