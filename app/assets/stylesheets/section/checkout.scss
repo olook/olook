@@ -1436,7 +1436,7 @@ section#payment {
 						}
 						.total{border-top:solid 1px #DEDEDE;padding:20px 0;font-size:17px;overflow:hidden;
 							li{float:left;text-align:left;}
-							.delivery_time{font-size:12px;width:184px;padding-left:25px;}
+							.delivery_time{font-size:12px;width:174px;padding-left:25px;}
 							span{width:85px;display:inline-block;text-align:right;margin-right:17px;}
 						}
 						&.payment-type{
@@ -1562,7 +1562,10 @@ section#payment {
 }
 
 .txt-black{color:#000 !important;}
-.txt-pink{color:#ef3742 !important;}
+.txt-pink{
+  color:#ef3742 !important;
+  width: 90px !important;
+}
 .fixed{position:fixed !important;}
 .bt-checkout{margin-left: 0 !important; margin-top: 50px !important;}
 /******************************/
