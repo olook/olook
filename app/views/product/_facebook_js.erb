@@ -9,7 +9,7 @@ function postProductToFacebookFeed() {
   var obj = {
     method: 'feed',
     caption: 'www.olook.com.br',
-    link: '<%= request.host_with_port %>/produto/<%= product.id %>',
+    link: 'https://<%= request.host_with_port %>/produto/<%= product.id %>',
     picture: '<%= product.catalog_picture.to_s %>',
     description: '<%= share_description(product) %>'
   };
