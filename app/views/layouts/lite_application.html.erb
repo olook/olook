@@ -13,7 +13,7 @@
     <% if params[:share] %>
       <%= render 'shared/meta_tags' %>
     <% else %>
-      <meta name="Description" content="Roupas femininas, sapatos, bolsas, óculos e acessórios incríveis - Olook. Seu look, seu estilo">
+      <meta name="Description" content=<%= meta_description %>>
     <% end %>
 
     <%= csrf_meta_tags %>
