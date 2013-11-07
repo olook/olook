@@ -130,6 +130,12 @@ padding:20px 20px 0;
   text-indent: -9999px;
 }
 
+ul.click_show_child ul.question_box, ul.click_show_child .answer {
+  display:none;
+}
+.currentLi { display: block; }
+.otherLi { display: none; }
+
 #terms {
   width: 970px;
   color: #000;
@@ -154,9 +160,19 @@ padding:20px 20px 0;
   ul{
     margin-left: 75px;
   }
-  ul.questions{
-    margin-left: 95px;
+  li.subtitle_site{
+    cursor: pointer;
+    &:hover{
+      color: $pink;
+    }
   }
+  li.question{
+    cursor: pointer;
+      &:hover{
+      color: $pink;
+    } 
+  }
+  .politica_troca, .prazo_troca, .prazo_reembolso{display: none;}
   ul.solicitacao_troca, ul.prazo_reembolso{
     margin-left: 16px;
     width: 585px;
