@@ -32,7 +32,6 @@ class Admin::VisibilityBatchController < Admin::BaseController
 
   def export
     out = CSV.generate do |csv|
-      csv << ["id","visibility"]
       Product.all.each do |product|
         csv << [product.id, product.visibility]
       end

@@ -1,12 +1,27 @@
 #error-messages
 .batch_form
   %h1 Adicione o CSV com os ids de produtos e visibilidade
-  %p 
-    ex.: id_produto_1,cod_visibilidade1
-  %p
-    (nota: os códigos de visibilidade são 1 -> site menos olooklet, 2 -> olooklet, 3 -> tudo) 
-  .batch_form_content
-    = form_tag admin_create_visibility_batch_path, multipart: true do
-      = file_field_tag :file
-      = submit_tag "Enviar"
-    %p= link_to "Exportar Lista para CSV", admin_export_visibility_batch_to_csv_path(format: "csv")
+  %ol
+    %li
+      %p 
+        Faça o backup do CSV de lista de visibilidade atual => 
+        = link_to "Exportar CSV", admin_export_visibility_batch_to_csv_path(format: "csv") 
+      %p
+        (você poderá importar este backup no sistema caso haja algum problema)
+    %li
+      %p
+        Importe o CSV com alterações na lista de visibilidade
+        .batch_form_content
+          = form_tag admin_create_visibility_batch_path, multipart: true do
+            = file_field_tag :file
+            = submit_tag "Enviar"
+      %p 
+        (O CSV deverá conter uma ou mais linhas. Cada uma das linhas devem ser constituídas por id,visibilidade)
+      %p
+        (nota: os códigos de visibilidade são 1 -> site menos olooklet, 2 -> olooklet, 3 -> tudo) 
+      %p
+        (nota: Se precisar de um exemplo de CSV, veja o CSV exportado no passo 1) 
+
+    %li
+      %p
+        Para que as buscas estejam atualizadas, alguém de TI deve rodar a indexação. Este processo demora em torno de 40 minutos. 
