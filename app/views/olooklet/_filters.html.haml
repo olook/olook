@@ -57,14 +57,14 @@
 - if category == 'roupa'
   - if ( _filters = subcategory_filters_by("Roupa", search, use_fields: [:category])) && _filters.present?
     .filter
-      %p.title-category Roupas
+      %p.title-category Roupas Femininas
       %ul.category-list
         - _filters.each do |text, amount|
           %li= filter_link_to(olooklet_path(@url_builder.add_filter(:subcategory, text)), text.chomp, search.filter_selected?(:subcategory, text.chomp))
 
 - else
   .filter
-    %p.title-category Modelo
+    %p.title-category= Category.t(Category.with_name(@category)).pluralize
     %ul.category-list
       - filters_by("subcategory", search, use_fields: [:category]).each do |text, amount|
         %li= filter_link_to(olooklet_path(@url_builder.add_filter(:subcategory, text)), text.chomp.gsub(/ ?moda praia/i, ''), search.filter_selected?(:subcategory, text.chomp))
