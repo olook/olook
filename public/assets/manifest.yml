@@ -2204,8 +2204,8 @@ plugins/video_modal.js: plugins/video_modal-5c3209a4f8a6add1d43bb661bc5b19d1.js
 plugins/video_modal/index.js: plugins/video_modal-5c3209a4f8a6add1d43bb661bc5b19d1.js
 press.js: press-671f54988949c63f68232a094c0499f9.js
 press/index.js: press-671f54988949c63f68232a094c0499f9.js
-product.js: product-385e6ac4bae4a60bce119c82d3a77db5.js
-product/index.js: product-385e6ac4bae4a60bce119c82d3a77db5.js
+product.js: product-aef9068c25ff4b63724e41d60f1639d3.js
+product/index.js: product-aef9068c25ff4b63724e41d60f1639d3.js
 profiles.js: profiles-79696edf73b4618ad0ce382a568446e3.js
 profiles/index.js: profiles-79696edf73b4618ad0ce382a568446e3.js
 quiz.js: quiz-d5571e61aaedbfdef6f2e0432329dcbf.js

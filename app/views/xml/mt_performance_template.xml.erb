@@ -5,12 +5,12 @@
 <produto>
 <nome><![CDATA[<%= product.name %>]]></nome>
 <descricao><![CDATA[<%= product.description %>]]></descricao>
-<url><%= product.product_url(:utm_source => "mt_performance", :utm_campaign => "produtos") %></url>
-<imagem><%= full_image_path product.xml_picture(:main) %></imagem>
-<marca><%= product.brand %></marca>
+<url><![CDATA[<%= product.product_url(:utm_source => "mt_performance", :utm_campaign => "produtos") %>]]></url>
+<imagem><![CDATA[<%= full_image_path product.xml_picture(:main) %>]]></imagem>
+<marca><![CDATA[<%= product.brand %>]]></marca>
 <preco><%= number_with_precision(product.retail_price, :precision => 2) %></preco>
 <preco_original><%= number_with_precision(product.price, :precision => 2) %></preco_original>
-<categoria><%= full_category(product) %></categoria>
+<categoria><![CDATA[<%= full_category(product) %>]]></categoria>
 </produto>
 <% end %>
 <% end %>
