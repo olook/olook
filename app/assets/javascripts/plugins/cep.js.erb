@@ -3,6 +3,8 @@ if(!olook) var olook = {};
 olook.cep = function(selector, options) {
   olook.cep.foundCEP = false;
   olook.cep.afterFail = options['afterFail'];
+  olook.cep.afterSuccess = options['afterSuccess'];
+  olook.cep.applyHtmlTag = options['applyHtmlTag'];
   olook.cep.setCepFieldsReadOnly = options['setCepFieldsReadOnly'] || true;
   olook.cep.estado = options['estado'];
   olook.cep.estadoEl = $(options['estado']);
@@ -51,19 +53,19 @@ olook.cep = function(selector, options) {
           }
           p.append('<input type="text" id="' + context.cidade.replace('#', '') + '" name="' + context.cidadeEl.attr('name') + '" />');
           context.setValueReadOnly(context.cidade, data.cidade);
+          if(context.afterSuccess) context.afterSuccess();
         });
       } else {
         if(context.foundCEP) {
           $([context.cidade, context.estado, context.rua, context.bairro].join(',')).removeAttr('readonly');
-
           var p = $(context.estado).parent();
           $(context.estado).remove();
-          if(context.customEstado) p.append('<p class="text">Selecione</p>');
+          if(context.customEstado && context.applyHtmlTag) p.append('<p class="text">Selecione</p>');
           p.append(context.estadoEl);
 
           var p = $(context.cidade).parent();
           $(context.cidade).remove();
-          if(context.customCidade) p.append('<p class="text">Selecione</p>');
+          if(context.customCidade && context.applyHtmlTag) p.append('<p class="text">Selecione</p>');
           p.append(context.cidadeEl);
 
           if(context.afterFail) context.afterFail();
