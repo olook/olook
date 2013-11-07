@@ -10,7 +10,7 @@ class Coupon < ActiveRecord::Base
   BRAND_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/brand_coupons.yml")[Rails.env]
   MODAL_POSSIBLE_VALUES = { 'Padrão' => 1, "10% em todo site" => 3, "20% apenas marca olook" => 2, "10% Benefícios Club" => 4, "20% Benefícios Club" => 5, "20 % em Tudo (Aniversario Olook)" => 6 }
 
-  validates_presence_of :code, :value, :start_date, :end_date, :campaign, :created_by
+  validates_presence_of :code, :start_date, :end_date, :campaign, :created_by
   validates_presence_of :remaining_amount, :unless => Proc.new { |a| a.unlimited }
   validates_uniqueness_of :code
   has_many :coupon_payments
@@ -25,7 +25,7 @@ class Coupon < ActiveRecord::Base
   accepts_nested_attributes_for :rule_parameters, allow_destroy: true, reject_if: lambda { |rule| rule[:promotion_rule_id].blank? }
   accepts_nested_attributes_for :action_parameter, reject_if: lambda { |rule| rule[:promotion_action_id].blank? }
 
-  before_save :set_limited_or_unlimited
+  before_validation :set_limited_or_unlimited
 
   def use_rule_parameters
     rule_parameters.count > 0
