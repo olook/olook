@@ -47,12 +47,13 @@ initProduct = {
     }
   },
   selectedVariantMaxVal: function(){
-    var variant = $('[name="variant[id]"]:checked').prev();
+    var variant = $('[name="variant[id]"]:checked');
     if (variant.length == 0) {
       initProduct.showAlert();
       return false;
     }
-    return variant.val();
+    var inventory = $('[name=inventory_' + variant.val() + ']');
+    return inventory.val();
   },
   loadAddToCartForm : function() {
     if($('#compartilhar_email').length == 1) {
