@@ -700,20 +700,6 @@ ActiveRecord::Schema.define(:version => 20131105184014) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "lookbooks", :force => true do |t|
-    t.string   "name"
-    t.string   "thumb_image"
-    t.boolean  "active",      :default => true
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "slug"
-    t.string   "icon"
-    t.string   "icon_over"
-    t.string   "fg_color"
-    t.string   "bg_color"
-    t.string   "movie_image"
-  end
-
   create_table "moip_callbacks", :force => true do |t|
     t.integer  "order_id"
     t.string   "id_transacao"
@@ -732,6 +718,43 @@ ActiveRecord::Schema.define(:version => 20131105184014) do
   add_index "moip_callbacks", ["id_transacao"], :name => "index_moip_callbacks_on_id_transacao"
   add_index "moip_callbacks", ["payment_id"], :name => "index_moip_callbacks_on_payment_id"
   add_index "moip_callbacks", ["processed"], :name => "index_moip_callbacks_on_processed"
+
+  create_table "new_users", :id => false, :force => true do |t|
+    t.integer  "id",                                              :default => 0,     :null => false
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                                   :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "password_salt"
+    t.integer  "failed_attempts",                                 :default => 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.string   "encrypted_password",               :limit => 128, :default => "",    :null => false
+    t.string   "invite_token"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "uid"
+    t.text     "facebook_token"
+    t.string   "cpf"
+    t.boolean  "is_invited"
+    t.date     "birthday"
+    t.datetime "welcome_sent_at"
+    t.boolean  "has_facebook_extended_permission"
+    t.string   "authentication_token"
+    t.boolean  "has_fraud"
+    t.string   "facebook_permissions"
+    t.boolean  "half_user",                                       :default => false
+    t.integer  "gender"
+    t.integer  "registered_via",                                  :default => 0
+    t.datetime "campaign_email_created_at"
+  end
 
   create_table "order_state_transitions", :force => true do |t|
     t.integer  "order_id"

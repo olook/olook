@@ -52,7 +52,8 @@ initProduct = {
       initProduct.showAlert();
       return false;
     }
-    return variant.val();
+    var inventory = $('[name=inventory_' + variant.val() + ']');
+    return inventory.val();
   },
   loadAddToCartForm : function() {
     if($('#compartilhar_email').length == 1) {
