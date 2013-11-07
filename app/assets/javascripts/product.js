@@ -47,7 +47,7 @@ initProduct = {
     }
   },
   selectedVariantMaxVal: function(){
-    var variant = $('[name="variant[id]"]:checked');
+    var variant = $('[name="variant[id]"]:checked').prev();
     if (variant.length == 0) {
       initProduct.showAlert();
       return false;
