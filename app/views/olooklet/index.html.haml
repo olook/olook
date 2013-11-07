@@ -80,7 +80,6 @@
               %ul.category-list
                 -filters_by('size', @search, use_fields: [:category]).reverse.select{|text, amount| text.to_i != 0 && text[text.size-1] == "s"}.each do |text, amount|
                   %li{ :class => category_style_class(text)}= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
-        %br
               
       = render 'current_section', search: @search, category: @category
 
