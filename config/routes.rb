@@ -3,6 +3,10 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+  get "/revenda/confirmacao", to: 'reseller#show', as: 'reseller_show'
+  post "/revenda", to: "reseller#create", as: 'reseller_create'
+  get "/revenda", to: "reseller#new", as: 'reseller_new'
+
   resources :live_feeds, path: "api", only: [:create, :index]
 
 
@@ -49,6 +53,7 @@ Olook::Application.routes.draw do
   }.each do |collection_name, brand|
     get "/colecoes/#{collection_name}" => redirect("/marcas/#{URI.encode(brand)}")
   end
+
 
   get "/colecoes/liquida_final", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
 
@@ -310,6 +315,9 @@ Olook::Application.routes.draw do
         get 'unlock_access/:id' => 'users#unlock_access'
         post 'create_credit_transaction' => 'users#create_credit_transaction'
       end
+    end
+    resources :resellers, :except => [:create, :new] do
+
     end
 
     resources :utilities do

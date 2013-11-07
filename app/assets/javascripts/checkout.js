@@ -1,11 +1,11 @@
 //= require state_cities
 //= require plugins/cep
 
-updateCreditCardSettlementsValue = function(select_box, total) {
+updateCreditCardSettlementsValue = function(select_box, total, reseller) {
   selected = select_box.val();
   select_box.empty();
   var options = [];
-  for (i=1; i<= CreditCard.installmentsNumberFor(total); i++) {
+  for (i=1; i<= CreditCard.installmentsNumberFor(total, reseller); i++) {
     installmentValue = total / i;
     text = i + "x de " + Formatter.toCurrency(installmentValue) + " sem juros";
     select_box.append("<option value=" + i + ">" + text + "</option>");

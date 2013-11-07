@@ -5,16 +5,30 @@ describe SignupNotificationWorker do
   let(:member) { FactoryGirl.create(:member) }
   let(:mock_mail) { double :mail }
 
-  it "should send the welcome e-mail given a member id" do
-    mock_mail.should_receive(:deliver)
-    MemberMailer.should_receive(:welcome_email).with(member).and_return(mock_mail)
+  context "Common user" do
+    it "should send the welcome e-mail given a member id" do
+      mock_mail.should_receive(:deliver)
+      MemberMailer.should_receive(:welcome_email).with(member).and_return(mock_mail)
+      expect(member.welcome_sent_at).to be_nil
+      described_class.perform(member.id)
+      member.reload
+      expect(member.welcome_sent_at).to_not be_nil
+    end
+  end
 
-    member.welcome_sent_at.should be_nil
+  context "Reseller" do
+    let (:reseller) {FactoryGirl.create(:member, reseller: true)}
+    it "should send the welcome e-mail given a member id" do
+      mock_mail.should_receive(:deliver)
+      MemberMailer.should_receive(:reseller_welcome_email).with(reseller).and_return(mock_mail)
 
-    described_class.perform(member.id)
+      expect(reseller.welcome_sent_at).to be_nil
 
-    member.reload
-    member.welcome_sent_at.should_not be_nil
+      described_class.perform(reseller.id)
+
+      reseller.reload
+      expect(reseller.welcome_sent_at).to_not be_nil
+    end
   end
 
   describe "gift" do
