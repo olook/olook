@@ -6,7 +6,10 @@
   %li= link_to 'Voltar', admin_path
 
 .inner
-  %p= image_tag @brand.header_image
+  -if @brand.header_image_url.nil?
+    %p Sem imagem
+  -else
+    %p= image_tag @brand.header_image unless @brand.header_image_url.nil?
   %p 
     Nome:
     = @brand.name
