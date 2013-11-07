@@ -25,6 +25,23 @@
   %p
     %b Cupons Usados:
     = @coupon.used_amount
+  %fieldset
+    %h2 Criterios do Cupom:
+    - @coupon.rule_parameters.each do |rule_params|
+      %p
+        %b Regra:
+        = rule_params.promotion_rule.name
+      %p
+        %b Valor:
+        = rule_params.rules_params
+  %fieldset
+    %h2 Ação do Cupom:
+    %p
+      %b Ação:
+      = @coupon.promotion_action.name
+    %p
+      %b Parâmetro:
+      = @coupon.action_parameter.action_params
   - content_for :secondary_navigation do
     %li= link_to 'Editar', edit_admin_coupon_path(@coupon)
     %li= link_to 'Voltar', admin_coupons_path
