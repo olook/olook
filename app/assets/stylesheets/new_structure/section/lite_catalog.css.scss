@@ -9,7 +9,7 @@
 
 #result{
   float:left;
-  width:785px;
+  width:793px;
   margin-bottom: 25px;
 }
 
@@ -182,11 +182,11 @@ span.summary, .full{
 }
 
 .size_top {
-  width:560px;
+  width:520px;
   position: absolute;
   right: 0px;
   top:0px;
-  float:right;
+
   p {
     float:right;
     font-weight: bold;
@@ -196,7 +196,7 @@ span.summary, .full{
     font-size: 11px;
     padding-top:3px;
   }
-  ul {float:right;}
+  ul {float:right;margin-right:0px;margin-bottom:10px;}
   ul li {float:right;margin-left:6px;}
   ul li a {display: block;border:1px solid #d1d1d1;color: #6d6e71;text-align: center;width: 20px;padding-top:2px;font-size: 12px;text-decoration: none;height: 18px;}
   ul li a span.txt-unico {font-size: 12px;}
@@ -217,10 +217,15 @@ span.summary, .full{
 /* OLOOKLET */
 
 .exhibition-olooklet {
-  width:150px;
+  width:120px;
   float:left;
 }
 
 .price-range-olooklet {
   .ui-slider-horizontal .ui-slider-handle {width:7px;}
 }
+
+.row_olooklet {
+    position:relative;height:auto !important;height:10px;min-height:10px;background:blue;
+    br {clear:both;}
+  }
