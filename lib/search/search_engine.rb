@@ -20,6 +20,8 @@ class SearchEngine
     end
   end
 
+  attr_accessor :skip_beachwear_on_clothes
+
   attr_reader :current_page, :result
   attr_reader :expressions, :sort_field
 
@@ -87,7 +89,7 @@ class SearchEngine
 
 
   def category= cat
-    if cat == "roupa"
+    if cat == "roupa" && !@skip_beachwear_on_clothes
       @expressions["category"] = ["roupa","moda praia", "lingerie"]
     else
       @expressions["category"] = cat.to_s.split(MULTISELECTION_SEPARATOR)

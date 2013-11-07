@@ -9,8 +9,8 @@ class OlookletController < ApplicationController
     Rails.logger.debug("New params: #{params.inspect}")
 
     page_size = params[:page_size] || DEFAULT_PAGE_SIZE
+    search_params[:skip_beachwear_on_clothes] = true
     @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(page_size)
-
 
     @url_builder = SeoUrl.new(search_params, "olooklet", @search)
     @antibounce_box = AntibounceBox.new(params) if AntibounceBox.need_antibounce_box?(@search, @search.expressions["brand"].map{|b| b.downcase}, params)
