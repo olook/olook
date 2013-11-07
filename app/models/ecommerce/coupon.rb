@@ -49,7 +49,13 @@ class Coupon < ActiveRecord::Base
   end
 
   def desc_value
-    promotion_action.desc_value(action_parameter.action_params)
+    promotion_action.try(:desc_value, action_parameter.try(:action_params))
+  end
+  alias :value :desc_value
+
+  def brand
+    params = action_parameter.try(:action_params) || {}
+    params['brand']
   end
 
   def modal=(val)
