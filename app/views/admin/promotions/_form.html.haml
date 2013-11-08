@@ -12,6 +12,10 @@
     %br/
     = f.text_field :name
   .field
+    = f.label :active
+    %br/
+    = f.check_box :active
+  .field
     = f.label :starts_at
     %br/
     = f.date_select :starts_at
@@ -31,14 +35,19 @@
       = image_tag @promotion.checkout_banner_url
     %p
       = f.check_box :remove_checkout_banner
-      Remover
-  .field
-    = f.label :active
-    %br/
-    = f.check_box :active
+      Remover Banner de Sacola
   #rules
     %h2 Critérios para a promoção
-    = render 'admin/promotion_rules/select', f: f
+    %p
+      Sem critérios específicos a promoção é geral.
+      %br/
+      Adicione critérios para que o usuário tenha que fazer certas coisas para entrar na promoção.
+      %br/
+      Ex.: ter um total de R$100 no carrinho, ser a primeira compra, adicionar produtos de certa categoria, etc.
+      %br/
+      Desmarque para a promoção ser para todos os visitantes.
+    %p Marque para abrir as opções. Se precisar de mais que 3, salve e edite novamente e mais 3 aparecerão.
+    = render 'admin/promotion_rules/select', f: f, model_name: 'promoção'
   #actions
     %h2 Ação da promoção
     = render 'admin/promotion_actions/select', f: f

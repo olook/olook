@@ -5,8 +5,8 @@ class PromotionAction < ActiveRecord::Base
 
   @filters = {
     param: { desc: 'Parâmetro da Ação', kind: 'string' },
-    brand: { desc: 'Marca do produto a ser descontado', kind: 'string' },
-    full_price: { desc: 'Produto a ser descontado não pode ter markdown', kind: 'boolean', default: '1' }
+    brand: { desc: 'Só descontar produtos dessas marcas', kind: 'string' },
+    full_price: { desc: 'Só descontar produtos com preço cheio (sem markdown)', kind: 'boolean', default: '1' }
   }
 
   def self.filters

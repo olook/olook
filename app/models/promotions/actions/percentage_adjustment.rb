@@ -6,6 +6,10 @@ class PercentageAdjustment < PromotionAction
     "Desconto em % do valor do produto"
   end
 
+  def eg
+    "Da o desconto de porcentagem no valor dos produtos"
+  end
+
   def desc_value(filters)
     percent = filters.delete('param')
     "#{'%d' % percent.to_i }%"

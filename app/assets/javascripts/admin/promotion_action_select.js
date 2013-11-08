@@ -23,4 +23,12 @@ $(function(){
     toggleRel(this);
   });
   toggleRel('.use_rule_parameters');
+  $('.promotion_rule_selection').change(function(){
+    var el = $(this);
+    var parent = el.parents('.promotion_rule');
+    parent.find('.promotion_rule_eg, .promotion_rule_params').hide();
+    var className = el.find(':selected').attr('rel');
+    el.siblings("." + className + '_eg').show()
+    parent.find("." + className + '_params').show()
+  });
 });
