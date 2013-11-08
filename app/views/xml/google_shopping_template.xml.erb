@@ -5,28 +5,28 @@
 <% next if product.subcategory.nil? %>
 <item>
 <g:id><%= product.id %></g:id>
-<title><%= product.subcategory %> <%= product.name %></title>
-<description><%= product.description %></description>
-<g:google_product_category><%= to_google_shopping_category product.category %></g:google_product_category>
-<g:product_type><%= product.subcategory %>-<%= product.brand.try(:upcase) %></g:product_type>
-<link><%= product.product_url(:utm_source =>"google", :utm_medium => "merchant", :utm_campaign => "produtos") %></link>
-<g:image_link><%= full_image_path product.xml_picture(:main) %></g:image_link>
-<g:additional_image_link><%= full_image_path product.xml_picture(:thumb) %></g:additional_image_link>
+<title><![CDATA[<%= product.subcategory %> <%= product.name %>]]></title>
+<description><![CDATA[<%= product.description %>]]></description>
+<g:google_product_category><![CDATA[<%= to_google_shopping_category product.category %>]]></g:google_product_category>
+<g:product_type><![CDATA[<%= product.subcategory %>-<%= product.brand.try(:upcase) %>]]></g:product_type>
+<link><![CDATA[<%= product.product_url(:utm_source =>"google", :utm_medium => "merchant", :utm_campaign => "produtos") %>]]></link>
+<g:image_link><![CDATA[<%= full_image_path product.xml_picture(:main) %>]]></g:image_link>
+<g:additional_image_link><![CDATA[<%= full_image_path product.xml_picture(:thumb) %>]]></g:additional_image_link>
 <g:condition>new</g:condition>
 <g:price><%= number_with_precision(product.price, precision: 2, separator: ".") %></g:price>
 <g:sale_price><%= number_with_precision(product.retail_price, precision: 2, separator: ".") %></g:sale_price>
-<g:brand><%= product.brand %></g:brand>
+<g:brand><![CDATA[<%= product.brand %>]]></g:brand>
 <g:gender>female</g:gender>
 <g:age_group>adult</g:age_group>
 <% product.variants.each do |variant| %>
 <g:size><%= variant.display_reference %></g:size>
 <% end %>
 <g:item_group_id><%= product.id %></g:item_group_id>
-<g:mpn><%= product.producer_code %></g:mpn>
-<g:color><%= product.color_name %></g:color>
+<g:mpn><![CDATA[<%= product.producer_code %>]]></g:mpn>
+<g:color><![CDATA[<%= product.color_name %>]]></g:color>
 <% product.details.each do |detail| %>
   <% if ["Metal", "Material externo"].include?(detail.translation_token) %>
-  	<% unless detail.description == '_' %><g:material><%= detail.description %></g:material> <% end %>
+  	<% unless detail.description == '_' %><g:material><![CDATA[<%= detail.description %>]]></g:material> <% end %>
   <% end %>
 <% end %>
 </item>

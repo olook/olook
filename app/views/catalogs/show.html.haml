@@ -4,6 +4,12 @@
   %meta{:content => @chaordic_user, :name => "chaordic:user"}/
   %meta{:content => @glasses ? "#{@glasses}" : params["category"].to_s.titleize, :name => "chaordic:category"}/
   %meta{property:"fb:app_id", content:"#{@facebook_app_id}"}
+  :javascript
+    SOASTA = {};
+    SOASTA.pg = "catalog";
+    if(typeof BOOMR !== "undefined") {
+      BOOMR.addVar("h.pg", SOASTA.pg);
+    } 
 
 - content_for :footer do
   :javascript

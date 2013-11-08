@@ -8,7 +8,7 @@
 <script type="text/javascript">
   try{
     __bsd["id"]="8:1";
-    bs.setaPagina('<%= raw "#{ params[:controller] } #{ params[:action] }"%>', '', '', '', '', '', '', '<%= raw availability %>', '', '<%= raw product.description %>', '', '');
+    bs.setaPagina('<%= raw product.name%>', '<%= raw product.category_humanize %>', '','<%= raw product.try(:subcategory) %>', '<%= raw product.id %>', '<%= raw product.price %>', '', '<%= raw availability %>', '', '', '', '<%= raw product.brand %>');
   }catch(e){
   }
 </script>

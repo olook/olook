@@ -34,7 +34,7 @@ class Payment < ActiveRecord::Base
   after_create :generate_identification_code
 
   def self.for_erp
-    where(type: ['CreditCard','Billet', 'Debit'])
+    where(type: ['CreditCard','Billet', 'Debit', 'MercadoPagoPayment'])
   end
 
   def self.for_loyalty

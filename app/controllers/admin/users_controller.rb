@@ -36,6 +36,7 @@ class Admin::UsersController < Admin::BaseController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
+      MemberMailer.reseller_confirmation(@user).deliver if @user.reseller? && @user.active?
       flash[:notice] = 'User was successfully updated.'
     end
     respond_with :admin, @user
