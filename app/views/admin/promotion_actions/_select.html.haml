@@ -14,6 +14,7 @@
           - promotion_action.class.filters.each do |key, opts|
             - case opts[:kind]
             - when 'boolean'
-              %td= action_params.check_box key, checked: @action_parameter.action_params[key.to_s] == '1'
+              = action_params.hidden_field key, value: '0'
+              %td= action_params.check_box key, checked: @action_parameter.action_params[key] == '1'
             - else
-              %td= action_params.text_field key, value: @action_parameter.action_params[key.to_s]
+              %td= action_params.text_field key, value: @action_parameter.action_params[key]

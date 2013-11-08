@@ -13,6 +13,10 @@
     %br/
     = f.text_field :code
   .field
+    = f.label :active?, "Ativo?"
+    %br/
+    = f.check_box :active
+  .field
     = f.label :start_date, "Data de início"
     %br/
     = f.datetime_select :start_date, :default => Time.now
@@ -31,10 +35,6 @@
     %br/
     = f.check_box :unlimited
   .field
-    = f.label :active?, "Ativo?"
-    %br/
-    = f.check_box :active
-  .field
     = f.label :campaign, "Campanha"
     %br/
     = f.select :campaign, Coupon::COUPON_CONFIG['campaigns'], :prompt => "Selecione a campanha"
@@ -52,7 +52,14 @@
     = f.hidden_field :updated_by, :value => current_admin.name
   #rules
     %h2 Critérios extras para o Cupom
-    = render 'admin/promotion_rules/select', f: f
+    %p
+      Sem critérios específicos basta o usuário adicionar o cupom à sacola para receber o desconto.
+      %br/
+      Adicione critérios para que o usuário tenha que fazer certas coisas além de adicionar o cupom a sacola para receber o desconto.
+      %br/
+      Ex.: ter um total de R$100 no carrinho, ser a primeira compra, adicionar produtos de certa categoria, etc.
+    %p Marque para abrir as opções. Se precisar de mais que 3, salve e edite novamente e mais 3 aparecerão.
+    = render 'admin/promotion_rules/select', f: f, model_name: 'cupom'
   #actions
     %h2 Ação do Cupom
     = render 'admin/promotion_actions/select', f: f

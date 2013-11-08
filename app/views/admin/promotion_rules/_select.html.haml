@@ -1,19 +1,22 @@
 = f.check_box :use_rule_parameters, class: 'use_rule_parameters', rel: '#use_rule_parameters_div'
-= f.label :use_rule_parameters, 'Usar os critérios extras'
+= f.label :use_rule_parameters, 'Usar os critérios específicos'
 
 #use_rule_parameters_div
   %p
-    Para o cupom valer o cliente deve executar os passos abaixo
+    Para o #{model_name} valer o cliente deve executar os passos abaixo
   %hr
 
   = f.fields_for :rule_parameters do |builder|
-    .field
-      = builder.label 'Regra aplicada'
-      = builder.collection_select(:promotion_rule_id, @promotion_rules, :id, :name, { include_blank: true })
-    .field
-      = builder.label 'Parâmetro de regra'
-      = builder.text_field :rules_params
-    .field
-      = builder.check_box :_destroy
-      = builder.label :_destroy, 'Remover'
-    %hr
+    .promotion_rule
+      .field
+        = builder.label :promotion_rule_id, 'Regra aplicada'
+        = builder.select(:promotion_rule_id, options_for_select(@promotion_rules.map{ |pr| [pr.name, pr.id, {rel: pr.class}]}), { include_blank: true }, class: 'promotion_rule_selection')
+        - @promotion_rules.each do |pr|
+          = content_tag :span, pr.eg, class: "promotion_rule_eg #{pr.class}_eg", style: 'display:none'
+      - @promotion_rules.each do |pr|
+        .field.promotion_rule_params{class: "#{pr.class}_params", style: 'display:none'}
+          = builder.label :rules_params, pr.label_text
+          = builder.text_field :rules_params
+      .field
+        = builder.check_box :_destroy
+        = builder.label :_destroy, 'Remover esta Regra'

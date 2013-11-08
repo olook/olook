@@ -6,6 +6,10 @@ class ValueAdjustment < PromotionAction
     "Desconto em R$ na sacola"
   end
 
+  def eg
+    "Desconto de valor absoluto na sacola. Ex. R$ 30 independente do valor dos produtos adicionados."
+  end
+
   def desc_value(filters, opts={})
     value = filters.delete('param')
     "R$#{value.to_i}"

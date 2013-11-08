@@ -1,9 +1,13 @@
 # -*- encoding : utf-8 -*-
 class MinorPriceAdjustment < PromotionAction
-  filters[:param] = { desc: 'Quantidade de produtos diferentes de menor valor que ficarão de graça', kind: 'integer' }
+  filters[:param] = { desc: 'Quantos produtos ficarão de graça? (sempre pegamos os de menor valor primeiro)', kind: 'integer' }
 
   def name
-    "Produto de menor preço de graça"
+    "Produto de graça (menor preço primeiro)"
+  end
+
+  def eg
+    "Serve para fazer promoções leve 3 pague 2 por ex. Nesse caso adicione 1 como Quantos produtos ficarão de graça e o critério de Quantidade de produtos na sacola como 3"
   end
 
   def desc_value(filters)
