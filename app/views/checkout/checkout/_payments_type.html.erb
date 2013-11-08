@@ -158,8 +158,8 @@
       <span class="<%= (@checkout.payment && (bank == @checkout.payment.bank)) ? "selected debit_bank_#{bank}" : "debit_bank_#{bank}" %>"><%= bank %></span>
       <%= errors_for(@checkout.payment, :bank) %>
     <% end %>
+    <p>Após clicar em “finalizar compra”, você deverá<br/> informar os dados solicitados pelo MercadoPago, na página de confirmação de compra.</p>
 
-    <p>Após clicar em “finalizar compra”, você deverá<br/> clicar em “Realizar pagamento”, na página de confirmação de compra.</p>
     <p><span>Importante:</span> Seu pedido ficará reservado por 48hrs, enquanto aguardamos a confirmação do seu pagamento.</p>
   </div>
 

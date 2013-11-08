@@ -66,7 +66,10 @@ class MercadoPagoPayment < Payment
           'apartment' => address.complement
         }
       },
-      'external_reference' => order.number
+      'external_reference' => order.number,
+      'payment_methods' => {
+        'installments' => 6
+      }
     }
 
     preference = MP.create_preference(preference_data)
