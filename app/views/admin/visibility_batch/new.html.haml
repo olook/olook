@@ -16,7 +16,10 @@
             = file_field_tag :file
             = submit_tag "Enviar"
       %p 
-        (O CSV deverá conter uma ou mais linhas. Cada uma das linhas devem ser constituídas por id,visibilidade)
+        (O CSV deverá conter uma ou mais linhas. Cada uma das linhas devem ser constituídas por id e código de visibilidade, 
+        %b 
+          separados por vírgula
+        )
       %p
         (nota: os códigos de visibilidade são 1 -> site menos olooklet, 2 -> olooklet, 3 -> tudo) 
       %p
