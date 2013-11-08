@@ -3,15 +3,15 @@
   <% @products.each do |product| %>
     <produto>
       <codigo><%= product.id %></codigo>
-      <nome><%= product.name %></nome>
-      <descricao><%= product.description %></descricao>
+      <nome><![CDATA[<%= product.name %>]]></nome>
+      <descricao><![CDATA[<%= product.description %>]]></descricao>
       <preco_de><%= product.price %></preco_de>
       <preco><%= product.retail_price %></preco>
       <marca><%= product.brand %></marca>
       <nparcela></nparcela>
       <vparcela></vparcela>
-      <url><%= product.product_url(utm_source: "kuanto_kusta", :utm_campaign => "produtos").gsub("utm_content=#{ product.id }&", "") %></url>
-      <url_imagem><%= full_image_path product.xml_picture(:main) %></url_imagem>
+      <url><![CDATA[<%= product.product_url(utm_source: "kuanto_kusta", :utm_campaign => "produtos").gsub("utm_content=#{ product.id }&", "") %>]]></url>
+      <url_imagem><![CDATA[<%= full_image_path product.xml_picture(:main) %>]]></url_imagem>
       <departamento><%= product.category_humanize %></departamento>
       <subdepartamento><%= product.subcategory_name %></subdepartamento>
       <isbn/>
