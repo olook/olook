@@ -91,7 +91,7 @@ class IndexProductsWorker
 
         fields['r_inventory'] = ((product.inventory.to_f / max_inventory) * 100).to_i
 
-        details = product.details.select { |d| ['categoria','cor filtro','material da sola', 'material externo', 'material interno', 'salto'].include?(d.translation_token.downcase) }
+        details = product.details.select { |d| d.translation_token.downcase =~ /(categoria|cor filtro|material da sola|material externo|material interno|salto|salto\/tamanho|detalhes)/i }
         translation_hash = {
           'categoria' => 'subcategory',
           'cor filtro' => 'color',
