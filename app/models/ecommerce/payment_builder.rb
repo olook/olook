@@ -72,6 +72,9 @@ class PaymentBuilder
           variant.decrement!(:inventory, item.quantity)
         end
 
+        # Isto está bem ruim! REFACTOR IT!!!
+        payment.create_preferences(cart_service.cart.address) if payment.is_a? MercadoPagoPayment
+
         create_discount_payments
         create_payment_for(total_gift, GiftPayment)
         create_payment_for(total_credits, CreditPayment, {:credit => :loyalty_program} )

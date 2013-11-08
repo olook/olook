@@ -7,7 +7,7 @@ module Abacos
 
     def initialize(order)
       @valor             = parse_price order.amount_paid
-      @forma             = order.erp_payment.is_a?(Billet) ? 'BOLETO' : order.erp_payment.bank.upcase
+      @forma             = parse_bank(order)
       @parcelas          = order.erp_payment.payments || 1
       @boleto_vencimento = parse_expiration_date(order.erp_payment.payment_expiration_date) if order.erp_payment.is_a?(Billet)
     end
@@ -24,6 +24,16 @@ module Abacos
     end
 
     private
+
+    def parse_bank order
+      if order.erp_payment.is_a?(Billet) 
+        'BOLETO' 
+      elsif order.erp_payment.is_a?(MercadoPagoPayment)
+        'MERCADO PAGO'
+      else
+       order.erp_payment.bank.upcase
+     end
+    end
 
     def parse_expiration_date(date)
       date.strftime("%d%m%Y")
