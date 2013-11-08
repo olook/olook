@@ -3,16 +3,16 @@
 <% @products.each do |product| %>
 <producto>
 <PROD_NUMBER><%= product.id %></PROD_NUMBER>
-<PROD_NAME><%= product.name %></PROD_NAME>
+<PROD_NAME><![CDATA[<%= product.name %>]]></PROD_NAME>
 <PROD_PRICE><%= product.retail_price %></PROD_PRICE>
 <PROD_PRICE_OLD><%= product.price %></PROD_PRICE_OLD>
 <CURRENCY_SIMBOL>BRL</CURRENCY_SIMBOL>
-<PROD_DESCRIPTION><%= product.description[0..512] %></PROD_DESCRIPTION>
-<PROD_DESCRIPTION_LONG><%= product.description %></PROD_DESCRIPTION_LONG>
-<PROD_URL><%= product.product_url(:utm_source => "zanox", :utm_medium => "xml", :utm_campaign => "produtos") %></PROD_URL>
-<BRAND><%= product.brand %></BRAND>
-<CATEGORY><%= product.category_humanize %></CATEGORY>
-<FOTO_URL><%= full_image_path product.xml_picture(:main) %></FOTO_URL>
+<PROD_DESCRIPTION><![CDATA[<%= product.description[0..512] %>]]></PROD_DESCRIPTION>
+<PROD_DESCRIPTION_LONG><![CDATA[<%= product.description %>]]></PROD_DESCRIPTION_LONG>
+<PROD_URL><![CDATA[<%= product.product_url(:utm_source => "zanox", :utm_medium => "xml", :utm_campaign => "produtos") %>]]></PROD_URL>
+<BRAND><![CDATA[<%= product.brand %>]]></BRAND>
+<CATEGORY><![CDATA[<%= product.category_humanize %>]]></CATEGORY>
+<FOTO_URL><![CDATA[<%= full_image_path product.xml_picture(:main) %>]]></FOTO_URL>
 </producto>
 <% end %>
 </productos>
