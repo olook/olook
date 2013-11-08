@@ -1682,7 +1682,7 @@ section.checkout{
 				&.boleto{width:100%;}
 				&.debito{width:100%;}
         &.mercadopago{
-          background: image-url("new_checkout/logo_mp.png") no-repeat 22px 0;
+          background: image-url("new_checkout/logo_mp.png") no-repeat 14px -2px;
           width: 300px;
           height: 26px;
         }
@@ -1733,7 +1733,11 @@ section.checkout{
         p{font-size:13px;margin-top:15px;
           span{color:#000;}
         }
-      }.box-mercadopago{float:left;display:none;
+      }.box-mercadopago{
+        float:left;
+        display:none;
+        background: image-url("new_checkout/mercadopago_selecionado.jpg") no-repeat center top;
+        padding-top:50px;
 				p{font-size:13px;margin-top:15px;
 					span{color:#000;}
 				}
