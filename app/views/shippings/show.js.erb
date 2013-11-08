@@ -17,7 +17,7 @@ $("#total_debit").hide().html("<%= number_to_currency(total_with_freight(@freigh
 $("#freight_message").hide().html('<%= show_freight_message().html_safe %>').delay(200).fadeIn();
 
 showTotal();
-updateCreditCardSettlementsValue($('#checkout_payment_payments'), "<%= total_with_freight(@freight_price) =%>", "<%= current_user.reseller %>");
+updateCreditCardSettlementsValue($('#checkout_payment_payments'), "<%= total_with_freight(@freight_price) =%>", "<%= current_user.try(:reseller) %>");
 
 $(function() {
   trackStateForFreightABTest();
