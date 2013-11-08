@@ -397,3 +397,26 @@
             %p
               Faça parte delas, entre em contato conosco através do e-mail afiliados@olook.com.br e seja um parceiro Afiliado da Olook.
   =link_to "Voltar", "#", :class => "bt_back"
+#contact
+  %h2 
+    Entre em contato
+  %p
+    A Olook tem canais abertos para conversar com você e tornar nosso relacionamento ainda melhor.
+    %span
+      Equipe SAC: Seg à Sex das 9 às 18h (exceto feriados).
+      %br
+        Equipe de MODA: Seg à Sex das 8 às 20h / Sáb das 10 às 16h (exceto feriados).
+  %ul.contact_box
+    %li.telefone
+    %li.mail
+      =mail_to "falecom@olook.com.br", "falecom@olook.com.br"
+    %li.sac_online
+      =link_to "Sac Online", "http://olook.neoassist.com/?action=neolive&th=sac&scr=request&ForcaAutenticar=1", :class => "sac"
+    %li.moda_online
+      =link_to "Moda Online", "http://olook.neoassist.com/?action=neolive&th=sac&scr=request&ForcaAutenticar=1", :class => "moda"
+      .hint
+        %p
+          Dicas de moda, estilo ou orientações 
+          %br
+            na escolha de algum produto? 
+          Fale agora com uma de nossas consultoras
