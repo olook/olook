@@ -1,0 +1,5 @@
+%li.title-category
+  = category_name
+  %ul.category-list
+    - filters_by("subcategory", search, use_fields: [:category]).each do |text, amount|
+      %li= filter_link_to(olooklet_path(url_builder.add_filter(:subcategory, text)), text.chomp.gsub(/ ?moda praia/i, ''), search.filter_selected?(:subcategory, text.chomp))
