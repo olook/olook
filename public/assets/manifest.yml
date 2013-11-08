@@ -452,6 +452,8 @@ common/arrow-selected.gif: common/arrow-selected-d2b12ef5cecf0d774671072be826271
 common/arrow-selected/index.gif: common/arrow-selected-d2b12ef5cecf0d774671072be8262719.gif
 common/arrows.png: common/arrows-e86e11dedb40b816cd2046015b2e893f.png
 common/arrows/index.png: common/arrows-e86e11dedb40b816cd2046015b2e893f.png
+common/assinatura_125x125.png: common/assinatura_125x125-f7ae1a208ef4830f3fa3176b8ab9e298.png
+common/assinatura_125x125/index.png: common/assinatura_125x125-f7ae1a208ef4830f3fa3176b8ab9e298.png
 common/background-inputs.png: common/background-inputs-2402c30e580380f72224fca4c6c1670a.png
 common/background-inputs/index.png: common/background-inputs-2402c30e580380f72224fca4c6c1670a.png
 common/banner/bg-banner-black.png: common/banner/bg-banner-black-4158288e45edfc392fbf8fa356b09a5c.png
