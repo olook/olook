@@ -980,6 +980,7 @@ header#new_header{
           float: left;
           margin-top: 3px;
           font-size: 11px;
+          width: 275px;
         }
       }
 
@@ -1598,5 +1599,10 @@ ul.breadcrumb {
   margin: 0 auto;
 }
 
+.mercado_pago {
+  display: none;
+}
 
+dl.payment {width:500px;}
+.mercado_pago_button {margin-left:8px;}
 

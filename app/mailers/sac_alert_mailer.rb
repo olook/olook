@@ -12,4 +12,9 @@ class SACAlertMailer < ActionMailer::Base
     @order = order
     mail(:to => to, :subject => "Pedido: #{order.number} | Análise de Fraude")
   end
+
+  def reseller_notification(reseller, to)
+    @reseller = reseller
+    mail(:to => to, :subject => "Novo Revendedor")
+  end
 end

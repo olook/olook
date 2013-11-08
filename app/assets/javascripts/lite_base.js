@@ -14,6 +14,7 @@ olook = o = {
       olook.slideToTop();
       olook.boxLogin();
       olook.showEmailBar();
+      olook.goto_form_reseller();
       olook.megamenu();
   },
 
@@ -114,6 +115,14 @@ olook = o = {
       }
     });
   },
+  goto_form_reseller :function() {
+  $('a#form_reseller').live('click', function(e) {
+    $("html, body").animate({
+      scrollTop: 1250
+    }, 'fast');
+    e.preventDefault();
+  });
+},
 
   slideToTop :function() {
     $('a#go_top').on('click', function(e) {
@@ -218,3 +227,4 @@ olook = o = {
   	}
   }
 }
+
