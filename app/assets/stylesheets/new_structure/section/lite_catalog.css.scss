@@ -253,6 +253,21 @@ span.summary, .full{
         text-transform: none;
         font-weight: normal;
       }
+      .selected {
+        background-position: 0 -87px !important;
+      }
+      .title_section {
+        font-size:11px;
+        text-transform:uppercase;
+        font-weight:bold;
+        height:15px;
+        background:image-url('catalog/sprite.png') no-repeat 0 6px;
+        padding-left:13px;
+        margin-bottom:5px;
+        cursor:pointer;
+        &.close{ background-position:0 -25px !important; }
+        &.open{ background-position:0 6px !important; }
+      }      
     }
   }
 }

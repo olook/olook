@@ -1,5 +1,14 @@
 %li.title-category
-  = category_name
+  %span{class: "title_section open"}= category_name
   %ul.category-list
-    - filters_by("subcategory", search, use_fields: [:category]).each do |text, amount|
-      %li= filter_link_to(olooklet_path(url_builder.add_filter(:subcategory, text)), text.chomp.gsub(/ ?moda praia/i, ''), search.filter_selected?(:subcategory, text.chomp))
+    - if search.filter_value('category').to_a.include?('moda praia') && !search.filter_value('category').to_a.include?('roupa')  
+      - if ( _filters = subcategory_filters_by("Moda Praia", search, use_fields: [:category])) && _filters.present?
+        - _filters.each do |text,amount|
+          %li= filter_link_to(olooklet_path(url_builder.add_filter(:subcategory, text)), text.chomp.gsub(/ ?moda praia/i, ''), search.filter_selected?(:subcategory, text.chomp))
+    - elsif search.filter_value('category').to_a.include?('roupa')
+      - if ( _filters = subcategory_filters_by("Roupa", search, use_fields: [:category])) && _filters.present?
+        - _filters.each do |text,amount|
+          %li= filter_link_to(olooklet_path(url_builder.add_filter(:subcategory, text)), text.chomp.gsub(/ ?moda praia/i, ''), search.filter_selected?(:subcategory, text.chomp))
+    - else
+      - filters_by("subcategory", search, use_fields: [:category]).each do |text, amount|
+        %li= filter_link_to(olooklet_path(url_builder.add_filter(:subcategory, text)), text.chomp.gsub(/ ?moda praia/i, ''), search.filter_selected?(:subcategory, text.chomp))

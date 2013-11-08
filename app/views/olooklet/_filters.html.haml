@@ -3,27 +3,27 @@
     - if search.filter_value('category').to_a.include?('roupa')
       = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Roupas Femininas"
     - else
-      %li= link_to "Roupas femininas", olooklet_path(parameters: "roupa")
+      %li= link_to "Roupas femininas", olooklet_path(parameters: "roupa"), class: 'title_section close'
 
     - if search.filter_value('category').to_a.include?('bolsa')
       = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Bolsas Femininas"
     - else
-      %li= link_to "Bolsas femininas", olooklet_path(parameters: "bolsa")
+      %li= link_to "Bolsas femininas", olooklet_path(parameters: "bolsa"), class: 'title_section close'
 
     - if search.filter_value('category').to_a.include?('acessorio')
       = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Acessórios Femininos"
     - else
-      %li= link_to "Acessórios femininos", olooklet_path(parameters: "acessorio")
+      %li= link_to "Acessórios femininos", olooklet_path(parameters: "acessorio"), class: 'title_section close'
 
     - if search.filter_value('category').to_a.include?('sapato')
       = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Sapatos Femininos"
     - else
-      %li= link_to "Sapatos femininos", olooklet_path(parameters: "sapato")
+      %li= link_to "Sapatos femininos", olooklet_path(parameters: "sapato"), class: 'title_section close'
 
-    - if search.filter_value('category').to_a.include?('moda praia')
+    - if search.filter_value('category').to_a.include?('moda praia') && !search.filter_value('category').to_a.include?('roupa')
       = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Moda Praia"
     - else
-      %li= link_to "Moda praia", olooklet_path(parameters: "moda praia")
+      %li= link_to "Moda praia", olooklet_path(parameters: "moda praia"), class: 'title_section close'
 
 
 - if search.filter_value('category').to_a.include?('sapato')
