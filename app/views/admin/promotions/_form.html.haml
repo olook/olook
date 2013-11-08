@@ -28,14 +28,14 @@
     %br/
     = f.text_field :description
   .field
-    = f.label :checkout_banner
+    = f.label :checkout_banner, 'Banner da Sacola'
     %br/
     = f.file_field :checkout_banner
     - if @promotion.checkout_banner?
       = image_tag @promotion.checkout_banner_url
     %p
       = f.check_box :remove_checkout_banner
-      Remover Banner de Sacola
+      Remover Banner da Sacola
   #rules
     %h2 Critérios para a promoção
     %p
