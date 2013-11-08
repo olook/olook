@@ -15,27 +15,3 @@
   Mal podemos esperar para você receber o seu produto. Não se esqueça de conferir se todos os dados abaixo estão corretos.<br />
   E se você tiver qualquer dúvida ou precisar solicitar alguma alteração, basta enviar um e-mail para <%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %>.
 </p>
-
-<script type="text/javascript">
-
-  mercadoPagoModalReturn = function(data) {
-
-    if (data.collection_status == 'approved') {
-      feedback_message('Pagamento realizado com sucesso.');
-      $('.new_payment_link').hide();
-    } else if (data.collection_status == 'pending') {
-      feedback_message('Seu pagamento está sendo processado.');
-      $('.new_payment_link').hide();
-    } else if (data.collection_status == 'rejected') {
-      feedback_message('Houve falha no processamento do seu pagamento. Tente novamente ou entre em contato com o nosso SAC.');
-    }
-
-  }
-
-  function feedback_message(msg, isError) {
-    addOrRemove = typeof isError != 'undefined' ? isError : false
-    $('.msg').toggleClass('error', addOrRemove);
-    $('.msg p').text(msg);
-  }
-
-</script>
