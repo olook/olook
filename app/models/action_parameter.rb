@@ -13,6 +13,6 @@ class ActionParameter < ActiveRecord::Base
     else
       @action_params ||= {}
     end
-    @action_params
+    @action_params = self.promotion_action.class.default_filters.merge(@action_params)
   end
 end

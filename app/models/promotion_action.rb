@@ -4,13 +4,17 @@ class PromotionAction < ActiveRecord::Base
   has_many :action_parameters
 
   @filters = {
-    param: {desc: 'Parâmetro da Ação', kind: 'string'},
-    brand: {desc: 'Marca do produto a ser descontado', kind: 'string'},
-    full_price: {desc: 'Produto a ser descontado não pode ter markdown', kind: 'boolean' }
+    param: { desc: 'Parâmetro da Ação', kind: 'string' },
+    brand: { desc: 'Marca do produto a ser descontado', kind: 'string' },
+    full_price: { desc: 'Produto a ser descontado não pode ter markdown', kind: 'boolean', default: '1' }
   }
 
   def self.filters
     @filters ||= PromotionAction.filters.dup
+  end
+
+  def self.default_filters
+    @default_filters ||= Hash[PromotionAction.filters.dup.to_a.map { |k, h| [k, h[:default]] }]
   end
 
   def apply(cart, param, match)
