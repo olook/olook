@@ -2,19 +2,27 @@
   = javascript_include_tag('admin/promotion_action_select')
 = f.fields_for :action_parameter, @action_parameter  do |builder|
   .field
-    = builder.label 'Ação aplicada'
+    = builder.label 'Tipo de ação'
     = builder.select(:promotion_action_id, options_for_select(@promotion_actions.collect {|p| [p.name, p.id, {rel: "#action_params_desc_#{p.class.to_s.underscore}"}] }), {}, class: 'show_on_select')
   = builder.fields_for :action_params do |action_params|
     - @promotion_actions.each do |promotion_action|
-      %table.action_params_desc{id: "action_params_desc_#{promotion_action.class.to_s.underscore}" }
-        %tr
-          - promotion_action.class.filters.each do |key, opts|
-            %th= opts[:desc]
-        %tr
-          - promotion_action.class.filters.each do |key, opts|
-            - case opts[:kind]
-            - when 'boolean'
-              = action_params.hidden_field key, value: '0'
-              %td= action_params.check_box key, checked: @action_parameter.action_params[key] == '1'
-            - else
-              %td= action_params.text_field key, value: @action_parameter.action_params[key]
+      .action_params_desc{id: "action_params_desc_#{promotion_action.class.to_s.underscore}" }
+        %h3
+          = promotion_action.class.filters[:param][:desc]
+        = action_params.text_field :param
+        %span.hint= promotion_action.class.filters[:param][:hint]
+
+        %h3 E será aplicada a...
+
+        - promotion_action.class.filters.each do |key, opts|
+          - case opts[:kind]
+          - when 'radio'
+            - opts[:options].each do |desc, value|
+              = action_params.radio_button key, value: value
+              = action_params.label "#{key}_#{value}", desc
+          - else
+            = check_box_tag '', id: "show_param_field_#{promotion_action.class.to_s.underscore}", onchange: "$(this).nextAll('.param_field').show()"
+            = label_tag "show_param_field_#{promotion_action.class.to_s.underscore}", opts[:desc]
+            .param_field
+              = action_params.text_field key, value: @action_parameter.action_params[key]
+              %span.hint= opts[:hint]
