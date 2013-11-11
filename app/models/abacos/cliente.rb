@@ -11,7 +11,11 @@ module Abacos
       @codigo             = "F#{member.id}"
       @tipo_pessoa        = 'tpeFisica'
       @sexo               = 'tseFeminino'
-      @cpf                = parse_cpf(member.cpf)
+      if member.reseller? && member.cpf.blank?
+        @cpf              = parse_cnpj(member.cnpj)
+      else
+        @cpf              = parse_cpf(member.cpf)
+      end
       @email              = member.email
       @nome               = "#{member.first_name} #{member.last_name}"
       @data_nascimento    = parse_data(member.birthday)
@@ -30,7 +34,7 @@ module Abacos
             'Codigo'          => self.codigo,
             'TipoPessoa'      => self.tipo_pessoa,
             'Sexo'            => self.sexo,
-            'CPFouCNPJ'       => self.cpf,
+            'CPFouCNPJ'       => self.cpf || self.cnpj,
             'EMail'           => self.email,
             'Nome'            => self.nome,
             'DataNascimento'  => self.data_nascimento,
