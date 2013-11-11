@@ -62,7 +62,7 @@ class PaymentBuilder
         log("Order generated: #{order.inspect}")
         payment.order = order
         payment.calculate_percentage!
-        payment.deliver! if [Debit, CreditCard].include?(payment.class)
+        payment.deliver! if [Debit, CreditCard, MercadoPagoPayment].include?(payment.class)
         payment.save!
 
         notify_big_billet_sail(payment)
@@ -71,6 +71,9 @@ class PaymentBuilder
           variant = Variant.lock("LOCK IN SHARE MODE").find(item.variant.id)
           variant.decrement!(:inventory, item.quantity)
         end
+
+        # Isto está bem ruim! REFACTOR IT!!!
+        payment.create_preferences(cart_service.cart.address) if payment.is_a? MercadoPagoPayment
 
         create_discount_payments
         create_payment_for(total_gift, GiftPayment)
