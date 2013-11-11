@@ -53,6 +53,6 @@ class Admin::CouponsController < Admin::BaseController
     @promotion_actions = PromotionAction.all
     @promotion_rules = PromotionRule.all
     @action_parameter = @coupon.action_parameter || @coupon.build_action_parameter
-    3.times { @coupon.rule_parameters.build }
+    @coupon.rule_parameters.build
   end
 end
