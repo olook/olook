@@ -25,7 +25,7 @@ class LiveFeedsController < ApplicationController
     livefeed = LiveFeed.new(live_feed_params)
     
     if livefeed.save
-      render json: {feed: livefeed}, status: :created
+      render json: {status: 'created'}, status: :ok
     else
       render json: {message: livefeed.errors}, status: :bad_request
     end
