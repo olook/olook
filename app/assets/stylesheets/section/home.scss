@@ -513,6 +513,12 @@ section#home {
               background-position: 4px -671px;
             }
           }
+          &.triya a {
+            background-position: -148px -670px;
+            &:hover {
+              background-position: -147px -671px;
+            }
+          }
         }
       }
     }
