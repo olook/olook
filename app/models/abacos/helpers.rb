@@ -70,6 +70,10 @@ module Abacos
       cpf.gsub(/-|\.|\s/, '')[0..10] unless cpf.nil?
     end
 
+    def parse_cnpj cnpj 
+      cnpj.gsub(".","").gsub("/","").gsub("-","")
+    end
+
     def parse_data(birthday)
       return "01011900"  if birthday.nil? # TODO: Emergency fix , should be replaced!
       birthday.strftime "%d%m%Y"
