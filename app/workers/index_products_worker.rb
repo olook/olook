@@ -91,28 +91,37 @@ class IndexProductsWorker
 
         fields['r_inventory'] = ((product.inventory.to_f / max_inventory) * 100).to_i
 
-        details = product.details.select { |d| d.translation_token.downcase =~ /(categoria|cor filtro|material da sola|material externo|material interno|salto|salto\/tamanho|detalhes)/i }
+        if product.shoe?
+          product.details.each do |detail|
+            if /cm/i =~ detail.description.to_s
+              if /\a\d+ ?cm\z/ =~ detail.description.to_s
+                fields['heel'] = heel_range(detail.description)
+                fields['heeluint'] = detail.description.to_i
+              elsif /salto: (?:<heel>\d+ ?cm)/i =~ detail.description.to_s
+                fields['heel'] = heel_range(heel)
+                fields['heeluint'] = heel.to_i
+              end
+            end
+          end
+          fields['heel'] ||= '0 cm'
+          fields['heeluint'] ||= 0
+        end
+        
+        details = product.details.select { |d| d.translation_token.downcase =~ /(categoria|cor filtro|material da sola|material externo|material interno)/i }
         translation_hash = {
           'categoria' => 'subcategory',
-          'cor filtro' => 'color',
-          'salto' => 'heel'
+          'cor filtro' => 'color'
         }
         details.each do |detail|
-          if detail.translation_token.downcase =~ /(salto|salto\/tamanho|detalhes)/i && product.shoe?
-            fields['heel'] = heel_range(detail.description)
-            fields['heeluint'] = heel_range(detail.description).to_i
+          field_key = translation_hash.include?(detail.translation_token.downcase) ? translation_hash[detail.translation_token.downcase] : detail.translation_token.downcase.gsub(" ","_")
+          if field_key == 'subcategory' && fields['category'] == 'moda praia'
+            fields[field_key] = detail.description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize.gsub(" Moda Praia", "") + ' Moda Praia'
           else
-            field_key = translation_hash.include?(detail.translation_token.downcase) ? translation_hash[detail.translation_token.downcase] : detail.translation_token.downcase.gsub(" ","_")
-            if field_key == 'subcategory' && fields['category'] == 'moda praia'
-              fields[field_key] = detail.description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize.gsub(" Moda Praia", "") + ' Moda Praia'
-            else
-              fields[field_key] = detail.description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
-            end
+            fields[field_key] = detail.description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
           end
         end
         fields['keywords'] = fields.select{|k,v| ['category', 'subcategory', 'color', 'size', 'name', 'brand', 'material externo', 'material interno', 'material da sola'].include?(k)}.values.join(" ")
         values['fields'] = fields
-
       end
       values
     rescue => e
@@ -143,7 +152,7 @@ class IndexProductsWorker
     end
 
     def heel_range word
-      HeelSanitize.new(word)
+      HeelSanitize.new(word).perform
     end
 
     def older
