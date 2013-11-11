@@ -14,7 +14,11 @@ class ActionParameter < ActiveRecord::Base
       @action_params ||= {}
     end
     @action_params = HashWithIndifferentAccess.new(@action_params)
-    @action_params = HashWithIndifferentAccess.new(self.promotion_action.class.default_filters).merge(@action_params) if self.promotion_action
+    if self.promotion_action
+      @action_params = HashWithIndifferentAccess.new(self.promotion_action.class.default_filters).merge(@action_params)
+    else
+      @action_params = HashWithIndifferentAccess.new(PromotionAction.default_filters).merge(@action_params)
+    end
     @action_params
   end
 end
