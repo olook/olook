@@ -151,7 +151,7 @@ class Coupon < ActiveRecord::Base
 
     def active_and_not_expired?
       if self.active? && !expired?
-        (ensures_regardless_status) ? true : false
+        self.unlimited? || self.remaining_amount > 0
       end
     end
 
@@ -161,10 +161,6 @@ class Coupon < ActiveRecord::Base
       else
         self.unlimited = nil
       end
-    end
-
-    def ensures_regardless_status
-      true if self.unlimited? || self.remaining_amount > 0
     end
 
     def calculated_value(total_price)
