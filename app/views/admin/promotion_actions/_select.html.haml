@@ -3,7 +3,7 @@
 = f.fields_for :action_parameter, @action_parameter  do |builder|
   .field
     = builder.label 'Tipo de ação'
-    = builder.select(:promotion_action_id, options_for_select(@promotion_actions.collect {|p| [p.name, p.id, {rel: "#action_params_desc_#{p.class.to_s.underscore}"}] }), {}, class: 'show_on_select')
+    = builder.select(:promotion_action_id, options_for_select(@promotion_actions.collect {|p| [p.name, p.id, {rel: "#action_params_desc_#{p.class.to_s.underscore}"}] }, @action_parameter.promotion_action_id), {}, class: 'show_on_select')
   = builder.fields_for :action_params do |action_params|
     - @promotion_actions.each do |promotion_action|
       .action_params_desc{id: "action_params_desc_#{promotion_action.class.to_s.underscore}" }
