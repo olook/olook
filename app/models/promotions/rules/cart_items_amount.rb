@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 class CartItemsAmount < PromotionRule
 
-  def eg
-    "Define quantidade de itens necessários na sacola para ativar o desconto"
+  def name
+    "A quantidade de itens na sacola for..."
   end
 
-  def label_text
-    "Quantidade de itens no carrinho"
+  def need_param
+    true
   end
 
   def matches?(cart, parameter)

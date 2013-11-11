@@ -51,18 +51,19 @@
   - else
     = f.hidden_field :updated_by, :value => current_admin.name
   #rules
-    %h2 Critérios extras para o Cupom
+    %h2 Critérios para o Cupom
+    %h3 Como será a o cupom criado?
     %p
-      Sem critérios específicos basta o usuário adicionar o cupom à sacola para receber o desconto.
-      %br/
-      Adicione critérios para que o usuário tenha que fazer certas coisas além de adicionar o cupom a sacola para receber o desconto.
-      %br/
-      Ex.: ter um total de R$100 no carrinho, ser a primeira compra, adicionar produtos de certa categoria, etc.
-    %p Marque para abrir as opções. Se precisar de mais que 3, salve e edite novamente e mais 3 aparecerão.
-    = render 'admin/promotion_rules/select', f: f, model_name: 'cupom'
+      = f.radio_button 'use_rule_parameters', '0', class: 'use_rule_parameters'
+      = f.label 'use_rule_parameters_0', 'Simples (promoção válida para todas as clientes)'
+    %p
+      = f.radio_button 'use_rule_parameters', '1', class: 'use_rule_parameters'
+      = f.label 'use_rule_parameters_1', 'Combinada (permite a combinação de diferentes regras/variáveis)'
   #actions
-    %h2 Ação do Cupom
     = render 'admin/promotion_actions/select', f: f
-  %br/
+
+  #use_rule_parameters_div
+    %p Para conseguir o desconto, a cliente deve seguir os seguintes passos...
+    = render 'admin/promotion_rules/select', f: f
   .actions
     = f.submit

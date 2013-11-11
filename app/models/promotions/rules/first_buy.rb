@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 class FirstBuy < PromotionRule
 
-  def eg
-    "Somente usuários que nunca compraram tem direito ao desconto"
+  def name
+    'Fizer a primeira compra'
   end
 
-  def label_text
-    "Deixe vazio para essa regra"
+  def need_param
+    false
   end
 
   def matches?(cart, parameter=nil)
