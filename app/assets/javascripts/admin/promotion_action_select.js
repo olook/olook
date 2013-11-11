@@ -14,9 +14,9 @@ $(function(){
 
   function checkUseRuleParameters(el) {
     if($(el).val() == '0') {
-      $('.promotion_rules').slideUp();
+      $('#use_rule_parameters_div').slideUp();
     } else {
-      $('.promotion_rules').slideDown();
+      $('#use_rule_parameters_div').slideDown();
     }
   }
   $('.use_rule_parameters').change(function(){
