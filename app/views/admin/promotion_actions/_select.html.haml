@@ -14,15 +14,17 @@
 
         %h3 E será aplicada a...
 
-        - promotion_action.class.filters.each do |key, opts|
-          - case opts[:kind]
-          - when 'radio'
-            - opts[:options].each do |desc, value|
-              = action_params.radio_button key, value: value
-              = action_params.label "#{key}_#{value}", desc
-          - else
-            = check_box_tag '', id: "show_param_field_#{promotion_action.class.to_s.underscore}", onchange: "$(this).nextAll('.param_field').show()"
-            = label_tag "show_param_field_#{promotion_action.class.to_s.underscore}", opts[:desc]
-            .param_field
-              = action_params.text_field key, value: @action_parameter.action_params[key]
-              %span.hint= opts[:hint]
+        - promotion_action.class.filters.each do |key, opts| next if key.to_s == 'param'
+          %p
+            - case opts[:kind]
+            - when 'radio'
+              - opts[:options].each do |desc, value|
+                = action_params.radio_button key, value
+                = action_params.label "#{key}_#{value}", desc
+                %br/
+            - else
+              = check_box_tag '', id: "show_param_field_#{promotion_action.class.to_s.underscore}", onchange: "$(this).nextAll('.param_field').show()"
+              = label_tag "show_param_field_#{promotion_action.class.to_s.underscore}", opts[:desc]
+              %span.param_field
+                = action_params.text_field key, value: @action_parameter.action_params[key]
+                %span.hint= opts[:hint]

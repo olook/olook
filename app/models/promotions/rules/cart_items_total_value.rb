@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 class CartItemsTotalValue < PromotionRule
 
-  def eg
-    "É preciso ter uma somatória de valores no carrinho para ativar o desconto"
+  def name
+    'O valor total dos itens for...'
   end
 
-  def label_text
-    "Valor mínimo do carrinho"
+  def need_param
+    true
   end
 
   def matches?(cart, parameter)

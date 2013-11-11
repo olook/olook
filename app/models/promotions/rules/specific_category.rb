@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 class SpecificCategory < PromotionRule
 
-  def eg
-    "Somente ao adicionar um produto de certa categoria o desconto é ativado"
+  def name
+    'Colocar na sacola itens das categorias...'
   end
 
-  def label_text
-    "Categoria do produto"
+  def need_param
+    true
   end
 
   def matches?(cart, parameter=nil)

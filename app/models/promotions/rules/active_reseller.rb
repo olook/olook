@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 class ActiveReseller < PromotionRule
 
-  def eg
-    "Somente Revendedor Ativo pode usar esse desconto"
+  def name
+    "For uma revendedora avita"
   end
 
-  def label_text
-    "Deixe vazio para esta regra"
+  def need_param
+    false
   end
 
   def matches?(cart, parameter=nil)

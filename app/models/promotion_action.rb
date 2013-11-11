@@ -5,11 +5,6 @@ class PromotionAction < ActiveRecord::Base
 
   @filters = {
     param: { desc: 'Parâmetro da Ação', kind: 'string' },
-    brand: {
-      desc: 'Apenas itens da(s) marca(s)',
-      hint: 'Informe entre vírgulas Olook, Totem, etc',
-      kind: 'string' 
-    },
     full_price: {
       desc: 'Só descontar produtos com preço cheio (sem markdown)',
       kind: 'radio',
@@ -18,7 +13,13 @@ class PromotionAction < ActiveRecord::Base
         "Apenas itens full price" => 1,
         "Apenas itens mark down" => 0
       },
-      default: '1' }
+      default: '1'
+    },
+    brand: {
+      desc: 'Apenas itens da(s) marca(s)...',
+      hint: 'Informe entre vírgulas Olook, Totem, etc',
+      kind: 'string'
+    }
   }
 
   def self.filters

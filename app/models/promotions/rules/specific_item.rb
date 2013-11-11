@@ -1,12 +1,12 @@
 # -*- encoding : utf-8 -*-
 class SpecificItem < PromotionRule
 
-  def eg
-    "Somente após adicionar UM dos produtos listados que o desconto é ativado"
+  def name
+    'Colocar na sacola os itens de IDs...'
   end
 
-  def label_text
-    "Lista de produtos (separados por ,)"
+  def need_param
+    true
   end
 
   def matches?(cart, products)

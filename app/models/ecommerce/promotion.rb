@@ -28,7 +28,7 @@ class Promotion < ActiveRecord::Base
   end
 
   def use_rule_parameters
-    rule_parameters.count > 0
+    rule_parameters.count > 0 ? '1' : '0'
   end
 
   def use_rule_parameters=(val)

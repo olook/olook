@@ -1,22 +1,35 @@
-= f.check_box :use_rule_parameters, class: 'use_rule_parameters', rel: '#use_rule_parameters_div'
-= f.label :use_rule_parameters, 'Usar os critérios específicos'
-
-#use_rule_parameters_div
-  %p
-    Para o #{model_name} valer o cliente deve executar os passos abaixo
-  %hr
-
-  = f.fields_for :rule_parameters do |builder|
+- count = 0
+.promotion_rules
+  = f.fields_for :rule_parameters do |builder| count += 1
+    = builder.hidden_field :_destroy, class: 'destroy_rule_parameter'
     .promotion_rule
-      .field
-        = builder.label :promotion_rule_id, 'Regra aplicada'
-        = builder.select(:promotion_rule_id, options_for_select(@promotion_rules.map{ |pr| [pr.name, pr.id, {rel: pr.class}]}), { include_blank: true }, class: 'promotion_rule_selection')
-        - @promotion_rules.each do |pr|
-          = content_tag :span, pr.eg, class: "promotion_rule_eg #{pr.class}_eg", style: 'display:none'
-      - @promotion_rules.each do |pr|
-        .field.promotion_rule_params{class: "#{pr.class}_params", style: 'display:none'}
-          = builder.label :rules_params, pr.label_text
-          = builder.text_field :rules_params
-      .field
-        = builder.check_box :_destroy
-        = builder.label :_destroy, 'Remover esta Regra'
+      %h3 Passo #{count}
+      %p
+        Quando ...
+        = builder.collection_select(:promotion_rule_id, @promotion_rules, :id, :name, { include_blank: 'Selecione...' }, class: 'promotion_rule_selection')
+        = builder.text_field :rules_params
+        %span.hint
+          Complete a frase, definindo a regra de ativação do desconto
+          %br/
+          Use vírgula, caso seja necessário informar mais de um item
+        = link_to "Remover", "javascript:void;", class: 'remove_rule'
+      %hr/
+
+
+%p= link_to "+ Adicionar mais regras/variáveis", "javascript:void;", class: "add_rule"
+
+= f.fields_for :rule_parameters, RuleParameter.new, child_index: '__ID__' do |builder|
+  .ruleParameterShape{style: 'display: none;'}
+    = builder.hidden_field :_destroy, class: 'destroy_rule_parameter'
+    .promotion_rule{data: {count: count}}
+      %h3 Passo
+      %p
+        Quando ...
+        = builder.select(:promotion_rule_id, options_for_select(@promotion_rules.map{ |pr| [pr.name, pr.id, {rel: pr.class}]}), { include_blank: 'Selecione...' }, class: 'promotion_rule_selection')
+        = builder.text_field :rules_params
+        %span.hint
+          Complete a frase, definindo a regra de ativação do desconto
+          %br/
+          Use vírgula, caso seja necessário informar mais de um item
+        = link_to "Remover", "javascript:void;", class: 'remove_rule'
+      %hr/
