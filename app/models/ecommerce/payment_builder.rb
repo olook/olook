@@ -62,7 +62,7 @@ class PaymentBuilder
         log("Order generated: #{order.inspect}")
         payment.order = order
         payment.calculate_percentage!
-        payment.deliver! if [Debit, CreditCard].include?(payment.class)
+        payment.deliver! if [Debit, CreditCard, MercadoPagoPayment].include?(payment.class)
         payment.save!
 
         notify_big_billet_sail(payment)
