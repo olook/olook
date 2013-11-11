@@ -112,7 +112,8 @@ Olook::Application.routes.draw do
   match "/marcas/:brand(/*parameters)", :to => "brands#show", as: "brand"
 
   #NEW OLOOKLET
-  get "/olooklet(/*parameters)" => "olooklet#index", :as => "olooklet"
+  match "/olooklet" , :to => "liquidations#index", :as => "olooklet"
+  get "/olooklet-teste(/*parameters)" => "olooklet#index", :as => "olooklet"
 
   #NEW COLLECTIONS
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"

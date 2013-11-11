@@ -25,6 +25,11 @@
     - else
       %li= link_to "Moda praia", olooklet_path(parameters: "moda praia"), class: 'title_section close'
 
+    - if search.filter_value('category').to_a.include?('lingerie') && !search.filter_value('category').to_a.include?('roupa')
+      = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Lingeries"
+    - else
+      %li= link_to "Lingeries", olooklet_path(parameters: "lingerie"), class: 'title_section close'      
+
 
 - if search.filter_value('category').to_a.include?('sapato')
   .filter
@@ -57,19 +62,9 @@
 /     %input{type:"text", id:"max-value"}
 /     %input{type:"hidden", name:"price", id:"price"}
 
-- if search.filter_value('category').to_a.include?('roupa')
+- if (['lingerie','moda praia', 'roupa'] & search.filter_value('category').to_a).present?
   .filter
     %p.title-category Marca
     %ul.category-list
       - filters_by('brand_facet', search, use_fields: [:category]).each do |text, amount|
         %li= filter_link_to(olooklet_path(@url_builder.add_filter(:brand, text)), text.chomp.gsub('Ç', 'ç').downcase.titleize, search.filter_selected?(:brand, text.chomp))
-
-- if (['sapato', 'roupa'] & search.filter_value('category').to_a).present?
-  .filter
-    %p.title-category Tamanho
-    %ul.category-list
-      - filters_by('size', search, use_fields: [:category]).each do |text, amount|
-        %li= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), text.chomp, search.filter_selected?(:size, text.chomp))
-
-
-    

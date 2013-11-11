@@ -63,7 +63,7 @@
         / .chaordic.mostpopular
 
       .row.row_olooklet
-        = render "main_ordenation_filters", search: @search, url_builder: @url_builder
+        = @category ? (render "ordenation_filters", search: @search, url_builder: @url_builder, category: @category) : (render "main_ordenation_filters", search: @search, url_builder: @url_builder)
         - unless @category == 'bolsa'
           .size_top
             - if @category
