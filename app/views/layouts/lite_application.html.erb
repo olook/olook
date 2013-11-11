@@ -13,7 +13,7 @@
     <% if params[:share] %>
       <%= render 'shared/meta_tags' %>
     <% else %>
-      <meta name="Description" content="Roupas femininas, sapatos, bolsas, óculos e acessórios incríveis - Olook. Seu look, seu estilo">
+      <meta name="Description" content=<%= meta_description %>>
     <% end %>
 
     <%= csrf_meta_tags %>
@@ -64,7 +64,6 @@
          <%= yield :errors %>
        </div>
        <%= link_to "Ir para o topo", "#", :id => "go_top" %>
-
        <header id="new_header">
          <div class="new_content">
            <div class="box_left">
@@ -75,7 +74,11 @@
                <li><%= link_to "Acompanhe por RSS", "http://stylist-news.olook.com.br/feed/", title: "Acompanhe por RSS", target: "_blank", class: "social_rss" %></li>
                <li><%= link_to "Acompanhe pelo Instagram", "http://instagram.com/olook", title: "Acompanhe pelo Instagram", target: "_blank", class:"social_instagram" %></li>
              </ul>
-             <p><%= link_to "Ganhe créditos!", "/membro/ganhe-creditos", :class => "earn_credits" %></p>
+            <%if user_signed_in?%>
+               <p><%= link_to "Ganhe créditos!", "/membro/ganhe-creditos", :class => "earn_credits" %></p>
+            <%else%>
+              <p><%= link_to "Conheça a Revenda Olook!", reseller_new_path, :class => "invite" %></p>
+            <% end %>
            </div>
             <div class="box_right">
              <% if user_signed_in? %>

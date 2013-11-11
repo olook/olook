@@ -1,0 +1,53 @@
+<h2>Revendedor</h2>
+<div class="inner">
+
+  <p><%= link_to 'Apagar', admin_reseller_path(@reseller), confirm: 'Tem certeza?', method: :delete %></p>
+
+  <p>
+    <b>Ativo?</b>
+    <%= @reseller.active? ? 'Sim' : 'Não' %>
+  </p>
+  <p>
+    <b>Primeiro Nome:</b>
+    <%= @reseller.first_name %>
+  </p>
+  <p>
+    <b>Último Nome:</b>
+    <%= @reseller.last_name %>
+  </p>
+  <p>
+    <b>E-mail:</b>
+    <%= @reseller.email %>
+  </p>
+  <p>
+    <b>CPF:</b>
+    <%= @reseller.cpf %>
+  </p>
+  <p>
+    <b>Criado em:</b>
+      <%= @reseller.created_at %>
+  </p>
+  <p>
+    <b>Créditos atuais:</b>
+    <%= number_to_currency @reseller.current_credit %>
+  </p>
+  <p>
+    <p><b>Endereços:</b></p>
+    <% @reseller.addresses.each do |address| %>
+      <p><%= address.street %> <%= address.number %> <%= address.complement if address.complement %><br/>
+      <%= address.neighborhood %> <%= address.zip_code %> <br/>
+      <%= address.city %> <%= address.state %><br/>
+      <%= address.country %></p>
+    <% end %>
+  </p>
+
+  <p><b>Telefones:</b></p>
+  <% @reseller.addresses.each do |address| %>
+    <p><%= address.telephone if address.telephone %><br>
+      <%= address.mobile if address.mobile %></p>
+  <% end %>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Editar', edit_admin_reseller_path(@reseller) %></li>
+  <li><%= link_to 'Voltar', admin_resellers_path %></li>
+<% end %>

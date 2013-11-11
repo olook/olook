@@ -23,6 +23,7 @@ describe Address do
     end
 
     it "should require at least one telephone" do
+      subject.should_receive(:require_telephone).and_return(true)
       subject.mobile = nil
       subject.telephone = nil
       subject.should_not be_valid

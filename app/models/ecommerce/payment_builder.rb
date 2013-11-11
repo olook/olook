@@ -62,7 +62,7 @@ class PaymentBuilder
         log("Order generated: #{order.inspect}")
         payment.order = order
         payment.calculate_percentage!
-        payment.deliver! if [Debit, CreditCard].include?(payment.class)
+        payment.deliver! if [Debit, CreditCard, MercadoPagoPayment].include?(payment.class)
         payment.save!
 
         notify_big_billet_sail(payment)
@@ -72,13 +72,16 @@ class PaymentBuilder
           variant.decrement!(:inventory, item.quantity)
         end
 
+        # Isto está bem ruim! REFACTOR IT!!!
+        payment.create_preferences(cart_service.cart.address) if payment.is_a? MercadoPagoPayment
+
         create_discount_payments
         create_payment_for(total_gift, GiftPayment)
         create_payment_for(total_credits, CreditPayment, {:credit => :loyalty_program} )
         create_payment_for(total_credits_invite, CreditPayment, {:credit => :invite} )
         create_payment_for(total_credits_redeem, CreditPayment, {:credit => :redeem} )
 
-        payment.schedule_cancellation if [Debit, Billet].include?(payment.class)
+        payment.schedule_cancellation if payment.instance_of?(Debit)
 
         log("Respond with_success!")
         respond_with_success

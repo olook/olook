@@ -1,0 +1,22 @@
+= stylesheet_link_tag "reseller"
+
+= first_level_breadcrumb("Revenda Olook")
+
+=render "reseller_default"
+
+#error_anchor
+#success
+  %p.success_msg
+    Cadastro realizado com sucesso! Mandaremos um e-mail com instruções sobre os próximos passos
+  %ul
+    %li.mail_msg
+      = link_to(catalog_path('roupa', parameters: 'saia', por: 'menor-preco'), target: "blank", alt: "Saias" ) do
+        %p
+          Enquanto aguarda o nosso e-mail, aproveite e dê uma olhada em saias ;)
+    %li.big_banner
+      = link_to(image_tag("reseller/saias.jpg"), catalog_path('roupa', parameters: 'saia', por: 'menor-preco'), target: "blank", alt: "Saias" )
+    %li.button
+      = link_to("Veja mais saias", catalog_path('roupa', parameters: 'saia', por: 'menor-preco'), target: "blank", alt: "Saias")
+- content_for :footer do
+  %script{:type=>"text/javascript"}
+    $('html, body').animate({ scrollTop: '1250px' }, 'slow');

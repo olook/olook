@@ -1,0 +1,396 @@
+// Place all the styles related to the reseller controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'new_structure/common/global_stuffs';
+#error_anchor{}
+#revenda{
+	width: 970px;
+  height: 1185px;
+	margin: 0 auto;
+  .about, .box_right{
+    float: left;
+  }
+	.about{
+    width: 535px;
+    margin-bottom: 20px;
+    margin-right: 9px;
+		h2{
+			font-family: $johnston;
+			font-size: 18px;
+			color: #000;
+			text-transform: uppercase;
+		}
+    p.infos{
+      font-family: $avenir;
+      font-size: 14px;
+      color: #000;
+      margin-top: 15px;
+    }
+    a.anchor_button{
+      margin-top: 25px;
+      margin-left: 50px;
+      width: 446px;
+      height: 56px;
+      display: block;
+      text-indent: -9999px;
+      background: image-url("reseller/bt_anchor.jpg") no-repeat 0 0;
+      &:hover{
+        background: image-url("reseller/bt_anchor.jpg") no-repeat 0 -62px;
+      }
+    }
+    ul{
+      margin-top: 25px;
+      li{
+        font-family: $avenir;
+        font-size: 15px;
+        background: image-url("reseller/bt_anchor.jpg") no-repeat 0 -130px;
+        height: 17px;
+        padding-left: 35px;
+        padding-top: 12px;
+        &.title{
+          background: none;
+          text-transform: uppercase;
+          font-weight: bold;
+          padding: 0;
+          font-size: 18px;
+          letter-spacing: 1px;
+          margin-bottom: 10px;
+        }
+      }
+    }
+    p.bonus{
+      font-size: 12px;
+      font-style: italic;
+      margin-left: 35px;
+      margin-top: 20px;
+    }
+	}
+  .seller{
+    height: 375px;
+    width: 970px;
+    display: block;
+    float: left;
+    margin-top: 20px;
+    border-bottom: 1px solid #959595;
+    margin-bottom: 55px;
+    h2{
+      font-family: $johnston;
+      font-size: 18px;
+      color: #000;
+      text-transform: uppercase;
+    }
+    ul{
+      margin-top: 10px;
+      li{
+        float: left;
+        height: 315px;
+        background: image-url("reseller/sprite_icons.png") no-repeat 0 -5px;
+        p{
+          width: 294px;
+          font-size: 14px;
+          font-family: $avenir;
+          padding-top: 185px;
+          line-height: 20px;
+          span{
+            font-weight: bold;
+            display: block;
+            font-size: 15px;
+          }
+        }
+        &.register{
+          width: 330px;
+        }
+        &.buy{
+          width: 310px;
+          background-position: -342px -5px;
+          p{
+            width: 243px;
+            margin-left: 35px;
+          }
+        }
+        &.reseller{
+          width: 330px;
+          background-position: -649px -5px;
+          p{
+            margin-left: 35px;
+            width: 277px;
+          }
+        }
+      }
+    }
+  }
+}
+
+#success{
+  width: 970px;
+  p.success_msg{
+    width: 660px;
+    height: 33px;
+    font-size: 14px;
+    color: #000;
+    font-family: avenir, arial, sans-serif;
+    display: block;
+    border: 1px solid #c8d4ba;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 15px;
+    margin-left: 145px;
+    background: image-url("reseller/success.png") #f0fddf no-repeat 15px 12px;
+    padding-left: 30px;
+  }
+  ul{
+    width: 970px;
+    font-family: $avenir;
+    margin-top: 40px;
+    margin-left: 10px;
+    li{
+      &.mail_msg{
+        height: 135px;
+        background-color: #000;
+        p{
+          color: #fff;
+          font-size: 25px;
+          text-align: center;
+          padding-top: 60px;
+        }
+        a{text-decoration: none}
+      }
+      &.button{
+        margin-top: 60px !important;
+        width: 162px;
+        margin:0 auto;
+        a{
+          display: block;
+          width: 162px;
+          height: 33px;
+          text-indent: -9999px;
+          background: image-url("reseller/bt_saias.png") no-repeat;
+        }
+      }
+    }
+  }
+}
+#register_content{
+  width: 970px;
+  .register_form{
+    width: 450px;
+    margin-left: 10px;
+    float: left;
+    h2{
+      font-family: $johnston;
+      font-size: 18px;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+    }
+    form {margin-bottom: 15px; font-family: $avenir;
+      label{
+        display: block;
+        font-size: 14px;
+        margin: 2px 0;
+        color: #58595b;
+        font-weight: 500;
+      }
+      input {
+            background: #FFF;
+            border: 1px solid #959595;
+            height: 34px;
+            width: 426px;
+            font-family: $avenir;
+            color: #000;
+            font-size: 13px;
+            padding-left: 4px;
+        &#reseller_cpf, &#reseller_cnpj, &#reseller_first_name, &#reseller_last_name, &#reseller_password, &#reseller_password_confirmation, &#reseller_birthday, &#reseller_addresses_attributes_0_street, &#reseller_addresses_attributes_0_number{
+          width: 200px;
+          float: left;
+        }
+        &#reseller_addresses_attributes_0_complement{
+          width: 101px;
+        }
+        &#reseller_addresses_attributes_0_neighborhood{
+          width: 297px;
+        }
+        &.zip_code, &#reseller_addresses_attributes_0_zip_code{
+          width: 194px;
+          padding-left: 10px;
+        }
+      }
+      .input_error{
+        border-color:#EA1E40 !important;
+        margin-bottom:4px
+      }
+      .email_error{width: 436px;}
+      ul.formulario{
+        fieldset{
+          width: 204px;
+          float: left;
+        }
+        fieldset{
+          width: 445px;
+          margin-bottom: 10px;
+        }
+        li{
+          float: left;
+          span.custom_select{
+            display: block;
+            border: 1px solid #959595;
+            height: 34px;
+            width: 199px;
+            background: image-url("reseller/black_arrow.png") no-repeat 185px 10px;
+            z-index:1;top:21px;left:0;line-height:39px;padding-left:5px;
+            select {
+              background: transparent;
+              width: 268px;
+              padding: 5px;
+              font-size: 14px;
+              font-family: $avenir;
+              color: #58595b;
+              line-height: 1;
+              border: 0;
+              border-radius: 0;
+              height: 34px;
+             -webkit-appearance: none;
+            }
+          }
+          .span_error{
+            clear: both;
+            color: $pink;
+            float: left;
+            font-size: 12px;
+            line-height: 13px;
+            height: 25px;
+            display: block;
+          }
+          &.state, &.city, &.corporate_name{
+            .span_error{margin-top: 5px;}
+            input.readonly{
+              border: none;
+              background-color: transparent;
+            }
+          }
+          &.small_box{width: 204px;}
+          &.request_msg{
+            width: 140px;
+            float: left;
+            margin-right: 55px;
+            margin-left: 20px;
+            line-height: 16px;
+            p{
+              font-family: $avenir;
+              color: #58595b;
+              font-size: 12px;
+              padding-top: 22px;
+            }
+          }
+          &.neighborhood{width: 301px;}
+          &.password{
+            span{
+              font-size: 12px;
+            }
+          }
+          &.cep_msg{width: 170px;margin-right: 15px;}
+          &.left_boxes{margin-right: 22px;} 
+          &.company{
+            margin-top: 25px;
+            height: 28px;
+            label{
+                  display: inline;        
+                }
+            input{padding-top: 5px;margin-left: 10px;height: 15px;width: 13px;}
+          }
+          &.terms{
+            width: 300px;
+            margin-top: 15px;
+            height: 50px;
+            p{
+              font-size: 12px; color: #58595b;
+              a{
+                color: $pink;
+              }
+            }
+          }
+        }
+        #register{
+          width: 433px;
+          height: 56px;
+          border: none;
+          text-indent: -9999px;
+          background: image-url("reseller/bt_anchor.jpg") no-repeat 0 -180px;
+          &:hover{
+            background: image-url("reseller/bt_anchor.jpg") no-repeat 0 -242px;
+          }
+        }
+      }
+      li.cpf{
+        display: none;
+        .span_error{
+          width: 440px !important;
+        }
+      } 
+      li.cnpj{
+        display: none;
+        .span_error{
+          width: 300px !important;
+        }
+      } 
+      li.corporate_name{display: none;}
+    }
+  }
+  .reseller_infos{
+    width: 445px;
+    float: left;
+    margin-left: 30px;
+    h2{
+      font-family: $johnston;
+      font-size: 18px;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+      float: right;
+    }
+    ul{
+      width: 445px;
+      li{
+        margin-left: 10px;
+        margin-top: 53px;
+        height: 125px;
+        background: image-url("reseller/sprite_icons.png") no-repeat;
+        &.fast{
+          background-position: -8px -372px;
+          margin-top: 74px;
+        }
+        &.acessivel{
+          margin-top: 25px;
+          background-position: -8px -540px;
+          p{
+            padding-top: 28px;
+          }
+        }
+        &.curadoria{
+          background-position: -8px -715px;
+        }
+        &.parcerias{
+          background-position: -8px -840px;
+        }
+        &.garantia{
+          background-position: -8px -999px;
+        }
+        p{
+          font-size: 14px;
+          font-family: $avenir;
+          width: 290px;
+          padding-left: 150px;
+          span{
+            display: block;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+

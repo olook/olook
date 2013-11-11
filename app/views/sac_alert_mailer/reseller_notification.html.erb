@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <h3 style='margin-left:50px;'>Novo Revendedor<h3>
+    <table style="font-family:'Lucida Sans Unicode','Lucida Grande',Sans-Serif;font-size: 12px;background: #fff;margin: 45px;width: 480px;border-collapse: collapse;text-align: left;">
+      <tr style="font-size: 14px;font-weight: normal;padding: 10px 8px;border-bottom: 2px solid #6678b1;">
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>CNPJ</th>
+        <th>E-mail</th>
+      </tr>
+      <tr style="padding: 9px 8px 0px 8px;">
+        <td><%= @reseller.first_name %></td>
+        <td><%= @reseller.cpf %></td>
+        <td><%= @reseller.cnpj %></td>
+        <td><%= @reseller.email %></td>
+      </tr>
+    </table>
+    <div style='clear:both'></div>
+    <br />
+</body>
+</html>
+

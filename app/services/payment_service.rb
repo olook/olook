@@ -1,6 +1,10 @@
 class PaymentService
 
   def self.create_sender_strategy(cart_service, payment)
+    if (payment.is_a? MercadoPagoPayment)
+      return Payments::MercadoPagoSenderStrategy.new(cart_service, payment)
+    end
+
     if ((payment.is_a? CreditCard) && (payment.bank == "Hipercard" || payment.bank == "AmericanExpress")) || (!payment.is_a? CreditCard)
       return Payments::MoipSenderStrategy.new(cart_service, payment)
     end

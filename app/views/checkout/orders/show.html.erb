@@ -1,16 +1,19 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/checkout" %>
+  <script type="text/javascript" src="https://www.mercadopago.com/org-img/jsapi/mptools/buttons/render.js"></script>
   <meta name="chaordic:source" content="buy-order">
   <meta name="chaordic:buy-order" content="<%= @chaordic_confirmation %>">
 <% end %>
 
 <section id="payment" class="checkout confirmation">
   <section class="main">
-
+    <% # Extrair essa logica para um helper %>
     <%= if @payment.is_a? Billet
       render :partial => "billet", :locals => { :payment => @payment }
     elsif @payment.is_a? CreditCard
       render :partial => "credit", :locals => { :payment => @payment }
+    elsif @payment.is_a? MercadoPagoPayment
+      render :partial => "mercadopago", :locals => { :payment => @payment }
     else
       render :partial => "debit", :locals => { :payment => @payment }
     end %>
@@ -33,12 +36,6 @@
     </section>
   </section>
 </section>
-<% content_for :head do %>
-  <%#= stylesheet_link_tag 'section/earn_credits' %>
-<% end %>
-<% content_for :footer do %>
-  <%#= javascript_include_tag "earn_credits" %>
-<% end %>
 
 <% content_for :ecommerce_tracking do %>
 <script type="text/javascript">
@@ -66,4 +63,10 @@ _gaq.push(['_addTrans',
   <%= render :partial => "shared/metrics/all_in/order", :locals => {:order => @order } %>
   <%= render "shared/metrics/google/buy_done" %>
   <%= render "shared/metrics/dbm/transaction", order: @order %>
+  <script type="text/javascript">
+      (function(){function $MPBR_load(){window.$MPBR_loaded !== true && (function(){var s = document.createElement("script");s.type = "text/javascript";s.async = true;
+      s.src = ("https:"==document.location.protocol?"https://www.mercadopago.com/org-img/jsapi/mptools/buttons/":"http://mp-tools.mlstatic.com/buttons/")+"render.js";
+      var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);window.$MPBR_loaded = true;})();}
+      window.$MPBR_loaded !== true ? (window.attachEvent ? window.attachEvent('onload', $MPBR_load) : window.addEventListener('load', $MPBR_load, false)) : null;})();
+  </script>  
 <% end %>

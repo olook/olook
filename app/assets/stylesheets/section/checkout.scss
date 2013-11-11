@@ -6,6 +6,9 @@
 
 $border-color: #e5e5e5;
 
+.mercado_pago {
+  display: none;
+}
 
 a.back_link {
   background: image-url("product/arrow-back.jpg") 0 2px no-repeat;
@@ -222,7 +225,7 @@ section#cart {
 		float:left;
 		margin:10px 0 25px;
   }
-  .warning-msg{width: 520px;height: 80px;background-color: #fdadb6;border: 1px solid #f58899;margin-top: 85px;margin-left: 215px;
+  .warning-msg{width: 520px;height: 65px;background-color: #fdadb6;border: 1px solid #f58899;margin-top: 85px;margin-left: 215px;
     img{float: left;margin-left: 15px;margin-top: 9px;}
     p{float: left;font-family: $avenir;font-size: 14px;color: #000;margin-top: 9px;margin-left: 10px;
       span{font-weight: bold;}
@@ -1372,6 +1375,12 @@ section#payment {
 				}
 				.logo_itau{width:90px;height:100px;float:left;font-size:0;font-family:a;@include sprite_checkout(0px,0px);margin:0 42px 0 220px;}
 	     	.btn_pay{display:block;font-size:0;font-family:a;width:290px;height:65px;@include sprite_checkout(-90px,3px);float:left;margin-top:14px;}
+        
+        .mercado_pago_button{
+          display:block;text-align:center;
+          a {color:#ffffff;}
+        }
+
 	    }
 
 			.thanks{font-size:25px;margin:35px 0 22px;color:#000;text-transform:uppercase;}
@@ -1383,7 +1392,6 @@ section#payment {
 				margin:25px auto;
 				background:#F0FDDF;
 				padding:0 10px;
-        margin-bottom: 65px;
         p.correios{
           margin-top: 20px;
           background: none;
@@ -1403,7 +1411,7 @@ section#payment {
 					width:700px;
 					margin:0 auto;
 				}
-				&.error{background:#FDADB6 !important;border:solid 1px #F37C8F !important;width:490px !important;
+				&.error{background:#FDADB6 !important;border:solid 1px #F37C8F !important;width:720px !important;
 					p{@include sprite_checkout(-379px, -117px);}
 				}
 			}
@@ -1437,7 +1445,7 @@ section#payment {
 						}
 						.total{border-top:solid 1px #DEDEDE;padding:20px 0;font-size:17px;overflow:hidden;
 							li{float:left;text-align:left;}
-							.delivery_time{font-size:12px;width:184px;padding-left:25px;}
+							.delivery_time{font-size:12px;width:174px;padding-left:25px;}
 							span{width:85px;display:inline-block;text-align:right;margin-right:17px;}
 						}
 						&.payment-type{
@@ -1563,7 +1571,10 @@ section#payment {
 }
 
 .txt-black{color:#000 !important;}
-.txt-pink{color:#ef3742 !important;}
+.txt-pink{
+  color:#ef3742 !important;
+  width: 90px !important;
+}
 .fixed{position:fixed !important;}
 .bt-checkout{margin-left: 0 !important; margin-top: 50px !important;}
 /******************************/
@@ -1663,10 +1674,18 @@ section.checkout{
         span{font-weight: 500;}
 				&.tip{margin:0 0 10px !important;}
       }
-			li{float:left;height:auto
-				&.credit_card{width:120px;}
-				&.boleto{width:54px;}
-				&.debito{width:97px;}
+			li{
+        float:left;
+        display:block;
+        height:auto;
+				&.credit_card{width:100%;}
+				&.boleto{width:100%;}
+				&.debito{width:100%;}
+        &.mercadopago{
+          background: image-url("new_checkout/logo_mp.png") no-repeat 14px -2px;
+          width: 300px;
+          height: 26px;
+        }
 				label{font-size:12px;}
 			}
 			.payment_type{
@@ -1710,7 +1729,15 @@ section.checkout{
           color: #000;
         }
 			}
-			.box-boleto{float:left;
+      .box-boleto{float:left;display:none;
+        p{font-size:13px;margin-top:15px;
+          span{color:#000;}
+        }
+      }.box-mercadopago{
+        float:left;
+        display:none;
+        background: image-url("new_checkout/mercadopago_selecionado.jpg") no-repeat center top;
+        padding-top:50px;
 				p{font-size:13px;margin-top:15px;
 					span{color:#000;}
 				}
@@ -1748,7 +1775,7 @@ section.checkout{
 	}
 /********** END / START STEP THREE *******/
 	#cart-box{
-		float:left;border:solid 1px #D9D8D8;width:321px;max-height:345px;background:#FFF;margin-bottom: 15px;
+		float:left;border:solid 1px #D9D8D8;width:321px;max-height:445px;background:#FFF;margin-bottom: 15px;
 		.bg-box{display:none;}
 		.products{max-height:217px;overflow-y:auto;}
 		#items{width:100%;
