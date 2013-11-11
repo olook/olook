@@ -9,22 +9,24 @@
       .action_params_desc{id: "action_params_desc_#{promotion_action.class.to_s.underscore}" }
         %h3
           = promotion_action.class.filters[:param][:desc]
-        = action_params.text_field :param
+        = action_params.text_field :param, value: @action_parameter.action_params[:param]
         %span.hint= promotion_action.class.filters[:param][:hint]
 
         %h3 E será aplicada a...
 
-        - promotion_action.class.filters.each do |key, opts| next if key.to_s == 'param'
+        - promotion_action.class.filters.each do |key, opts|
+          - next if key.to_s == 'param'
           %p
             - case opts[:kind]
             - when 'radio'
+              = action_params.hidden_field key
               - opts[:options].each do |desc, value|
-                = action_params.radio_button key, value
-                = action_params.label "#{key}_#{value}", desc
+                = radio_button_tag "#{key}---#{promotion_action.class}", value, ( value.to_s == @action_parameter.action_params[key] ), class: "set_hidden"
+                = label_tag "#{key}---#{promotion_action.class}_#{value}", desc
                 %br/
             - else
-              = check_box_tag '', id: "show_param_field_#{promotion_action.class.to_s.underscore}", onchange: "$(this).nextAll('.param_field').show()"
+              = check_box_tag "show_param_field_#{promotion_action.class.to_s.underscore}", '1', @action_parameter.action_params[key].present?, class: 'clean_on_check', rel: "##{key}_for_#{promotion_action.class.to_s.underscore}"
               = label_tag "show_param_field_#{promotion_action.class.to_s.underscore}", opts[:desc]
               %span.param_field
-                = action_params.text_field key, value: @action_parameter.action_params[key]
+                = action_params.text_field key, value: @action_parameter.action_params[key], class: 'check_on_change', id: "#{key}_for_#{promotion_action.class.to_s.underscore}", rel: "#show_param_field_#{promotion_action.class.to_s.underscore}"
                 %span.hint= opts[:hint]
