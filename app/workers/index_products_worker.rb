@@ -98,9 +98,9 @@ class IndexProductsWorker
           'salto' => 'heel'
         }
         details.each do |detail|
-          if detail.translation_token.downcase == 'salto' && product.shoe?
-            fields['heel'] = heel_range(detail.description.to_i)
-            fields['heeluint'] = detail.description.to_i
+          if detail.translation_token.downcase =~ /(salto|salto\/tamanho|detalhes)/i && product.shoe?
+            fields['heel'] = heel_range(detail.description)
+            fields['heeluint'] = heel_range(detail.description).to_i
           else
             field_key = translation_hash.include?(detail.translation_token.downcase) ? translation_hash[detail.translation_token.downcase] : detail.translation_token.downcase.gsub(" ","_")
             if field_key == 'subcategory' && fields['category'] == 'moda praia'
@@ -142,17 +142,8 @@ class IndexProductsWorker
       Time.zone.now.to_i / 60
     end
 
-    def heel_range index
-      case
-        when index < 5
-          '0-4 cm'
-        when index >= 5 && index < 10
-          '5-9 cm'
-        when index >= 10
-          '10-15 cm'
-        else
-          ''
-      end
+    def heel_range word
+      HeelSanitize.new(word)
     end
 
     def older
