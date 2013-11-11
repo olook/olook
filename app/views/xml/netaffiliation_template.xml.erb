@@ -2,17 +2,17 @@
 <products>
 <% @products.each do |product| %>
 <product id="<%= product.id %>">
-<name><%= product.name %></name>
-<smallimage><%= full_image_path product.xml_picture(:thumb) %></smallimage>
-<bigimage><%= full_image_path product.xml_picture(:main) %></bigimage>
+<name><![CDATA[<%= product.name %>]]></name>
+<smallimage><![CDATA[<%= full_image_path product.xml_picture(:thumb) %>]]></smallimage>
+<bigimage><![CDATA[<%= full_image_path product.xml_picture(:main) %>]]></bigimage>
 <producturl>
-  <%= product.product_url(:utm_source => "net_affiliation", :utm_medium => "vitrine", :utm_campaign => "compradores", :utm_content => 6691) %>
+  <![CDATA[<%= product.product_url(:utm_source => "net_affiliation", :utm_medium => "vitrine", :utm_campaign => "compradores", :utm_content => 6691) %>]]>
 </producturl>
-<description><%= product.description %></description>
+<description><![CDATA[<%= product.description %>]]></description>
 <price><%= number_with_precision(product.retail_price, precision: 2, separator: ",") %></price>
 <retailprice><%= number_with_precision(product.price, precision: 2, separator: ",") %></retailprice>
-<discount><%= discount_sanitize product %></discount>
-<brand><%= product.brand %></brand>
+<discount><![CDATA[<%= discount_sanitize product %>]]></discount>
+<brand><![CDATA[<%= product.brand %>]]></brand>
 <recommendable>1</recommendable>
 <instock><%= product.instock %></instock>
 <category><%= product.category_humanize %></category>
