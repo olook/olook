@@ -69,17 +69,17 @@
             - if @category
               %p.title-category.roupa Tamanhos
               %ul.category-list
-                -filters_by('size', @search, use_fields: [:category]).reverse.each do |text, amount|
+                -filters_by('size', @search, use_fields: [:category]).reverse.reject{|text,amount|(text.to_i != 0 && text[text.size-1] != @category[0].downcase) || !should_size_appear_in_olooklet_menu?(text)}.each do |text, amount|
                   %li{ :class => category_style_class(text)}= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
             - else
               %p.title-category.roupa Roupas & Acessórios
               %ul.category-list
-                -filters_by('size', @search, use_fields: [:category]).reverse.delete_if{|text, amount| text.to_i != 0 && text[text.size-1] == "s" || !should_size_appear_in_olooklet_menu?(text)}.each do |text, amount|
+                -filters_by('size', @search, use_fields: [:category]).reverse.reject{|text, amount| (text.to_i != 0 && text[text.size-1] != "r") || !should_size_appear_in_olooklet_menu?(text)}.each do |text, amount|
                   %li{ :class => category_style_class(text)}= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
               %br
               %p.title-category.sapatos Sapatos
               %ul.category-list
-                -filters_by('size', @search, use_fields: [:category]).reverse.select{|text, amount| text.to_i != 0 && text[text.size-1] == "s"}.each do |text, amount|
+                -filters_by('size', @search, use_fields: [:category]).reverse.reject{|text, amount| (text.to_i != 0 && text[text.size-1] != "s") || !should_size_appear_in_olooklet_menu?(text)}.each do |text, amount|
                   %li{ :class => category_style_class(text)}= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
               
       = render 'current_section', search: @search, category: @category
