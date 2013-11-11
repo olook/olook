@@ -14,8 +14,6 @@ class PromotionListener
 
     def self.apply_best_discount_for cart
       best_promotion = Promotion.select_promotion_for(cart)
-      cd = CartDiscountService.new(cart, coupon: cart.coupon, promotion: best_promotion)
-      cd.best_discount.apply(cart)
       cart.items.each do |item|
         pd = ProductDiscountService.new(item.product, cart: cart, coupon: cart.coupon, promotion: best_promotion)
         pd.best_discount.apply(cart)

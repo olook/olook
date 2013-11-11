@@ -31,9 +31,9 @@ class ProductDiscountService
   # Define qual é o desconto que deve ser aplicado no produto
   # e em qual ordem.
   def best_discount
+    return @markdown if eligible_markdown?
     return @promotion if eligible_promotion?
     return @coupon if eligible_coupon?
-    return @markdown if eligible_markdown?
     return NoDiscount.new
   end
 
