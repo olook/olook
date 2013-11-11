@@ -1,41 +1,38 @@
-<% content_for :data_layer do %>  
-  <script type="text/javascript">
-    // MASTER DATA LAYERS
+<script type="text/javascript">
+  // MASTER DATA LAYERS
   dataLayer.push({
-      'AnalyticAccount' : "<%= ANALYTICS_CONFIG['analytics_id'] %>",
-      'MemberType' : '<%= member_type %>',
-      <% if user_signed_in? %>
-      'EncryptedEmail': '<%= Digest::MD5.hexdigest(current_user.email) %>',
-        'CustomerId': '<%= current_user.id %>',
-        'UserAge': '<%= raw current_user.age %>',
-        'UserProfile': '<%= raw current_user.profile_name %>',
-        'UserPurchases': '<%= raw current_user.orders.purchased.size %>',
-        'UserFacebook' : '<%= current_user.has_facebook? ? "FB" : "NOFB" %>',
-        'UserBirthDate' : '<%= current_user.birthday %>',
-        'UserShoeSize' : '<%= current_user.shoes_size %>',
-        'UserCity' : '<%= current_user.addresses.first.try(:city) %>',
-        'UserCreditValue' : '<%= current_user.current_credit %>',
-        'UserEmail': '<%= current_user.try(:email) %>',
+    'AnalyticAccount' : "<%= ANALYTICS_CONFIG['analytics_id'] %>",
+    'MemberType' : '<%= member_type %>',
+    <% if user_signed_in? %>
+    'EncryptedEmail': '<%= Digest::MD5.hexdigest(current_user.email) %>',
+      'CustomerId': '<%= current_user.id %>',
+      'UserAge': '<%= raw current_user.age %>',
+      'UserProfile': '<%= raw current_user.profile_name %>',
+      'UserPurchases': '<%= raw current_user.orders.purchased.size %>',
+      'UserFacebook' : '<%= current_user.has_facebook? ? "FB" : "NOFB" %>',
+      'UserBirthDate' : '<%= current_user.birthday %>',
+      'UserShoeSize' : '<%= current_user.shoes_size %>',
+      'UserCity' : '<%= current_user.addresses.first.try(:city) %>',
+      'UserCreditValue' : '<%= current_user.current_credit %>',
+      'UserEmail': '<%= current_user.try(:email) %>',
 
-        <% if @order.present? %>
-          'orderNumber' :  "<%= @order.number %>",
-          'OrderDate' : "<%= @order.created_at.strftime('%d/%m/%y') %>",
-          'QuantityList' : "<%= @order.line_items.count %>",
-          'OrderInstallments' : "<%= @order.installments %>",
-          'orderTotal': "<%= @order.amount_paid %>",
-        <% end %>
-
+      <% if @order.present? %>
+        'orderNumber' :  "<%= @order.number %>",
+        'OrderDate' : "<%= @order.created_at.strftime('%d/%m/%y') %>",
+        'QuantityList' : "<%= @order.line_items.count %>",
+        'OrderInstallments' : "<%= @order.installments %>",
+        'orderTotal': "<%= @order.amount_paid %>",
       <% end %>
 
-      <% if @product.present? %>
-        'ProductBrand' : "<%= @product.brand %>",
-      <% end %>
+    <% end %>
 
-      'GoogleProdid' : "<%= google_ids @google_pixel_information %>",
-      'GoogleEt' : "<%= @google_path_pixel_information if @google_path_pixel_information %>",
-      'GooglePname' : "<%= google_name @google_pixel_information %>",
-      'GooglePValues' :"<%= google_value @google_pixel_information %>"
-      });
-    </script>
-  <% end %>
+    <% if @product.present? %>
+      'ProductBrand' : "<%= @product.brand %>",
+    <% end %>
 
+    'GoogleProdid' : "<%= google_ids @google_pixel_information %>",
+    'GoogleEt' : "<%= @google_path_pixel_information if @google_path_pixel_information %>",
+    'GooglePname' : "<%= google_name @google_pixel_information %>",
+    'GooglePValues' :"<%= google_value @google_pixel_information %>"
+    });
+  </script>

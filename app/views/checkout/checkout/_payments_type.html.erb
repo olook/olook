@@ -60,6 +60,8 @@
     <li class="credit_card"><%= checkout_form.radio_button :payment_method, "credit_card", checked: @checkout.payment && @checkout.payment.is_a?(CreditCard), onclick: track_event("CheckoutPayment","clickSelectCreditCard") %> <%= checkout_form.label :payment_method, 'Cartão de Crédito' %></li>
     <li class="boleto"><%= checkout_form.radio_button :payment_method, "billet", checked: @checkout.payment && @checkout.payment.is_a?(Billet), onclick: track_event("CheckoutPayment","clickSelectBillet") %> <%= checkout_form.label :payment_method, 'Boleto' %></li>
     <li class="debito"><%= checkout_form.radio_button :payment_method, "debit", onclick: track_event("CheckoutPayment","clickSelectDebit")  %> <%= checkout_form.label :payment_method, 'Débito Online', checked: @checkout.payment && @checkout.payment.is_a?(Debit) %></li>
+
+    <li class="mercadopago"><%= checkout_form.radio_button :payment_method, "mercadopago", onclick: track_event("CheckoutPayment","clickSelectMercadoPago")  %></li>
   </ul>
 
   <%= fields_for "checkout[payment]", @checkout.payment do |payment_form|%>
@@ -156,8 +158,14 @@
       <span class="<%= (@checkout.payment && (bank == @checkout.payment.bank)) ? "selected debit_bank_#{bank}" : "debit_bank_#{bank}" %>"><%= bank %></span>
       <%= errors_for(@checkout.payment, :bank) %>
     <% end %>
+    <p>Após clicar em “finalizar compra”, você deverá<br/> informar os dados solicitados pelo MercadoPago, na página de confirmação de compra.</p>
 
-    <p>Após clicar em “finalizar compra”, você deverá<br/> clicar em “Realizar pagamento”, na página de confirmação de compra.</p>
+    <p><span>Importante:</span> Seu pedido ficará reservado por 48hrs, enquanto aguardamos a confirmação do seu pagamento.</p>
+  </div>
+
+  <div class="box-mercadopago mercadopago">
+
+    <p>Após clicar em “finalizar compra”, você deverá informar os dados solicitados pelo MercadoPago, na página de confirmação de compra.</p>
     <p><span>Importante:</span> Seu pedido ficará reservado por 48hrs, enquanto aguardamos a confirmação do seu pagamento.</p>
   </div>
 
