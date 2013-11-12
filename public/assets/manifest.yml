@@ -890,6 +890,10 @@ fake/showroom-product-purse.png: fake/showroom-product-purse-dfd45ff7a6b6565a50d
 fake/showroom-product-purse/index.png: fake/showroom-product-purse-dfd45ff7a6b6565a50ddbfa77e933a60.png
 fake/showroom-product.png: fake/showroom-product-679a75411430efc955e16567233220c2.png
 fake/showroom-product/index.png: fake/showroom-product-679a75411430efc955e16567233220c2.png
+faq/black_arrow.png: faq/black_arrow-bc1f90eca0d7dd758a43c7ade636dd82.png
+faq/black_arrow/index.png: faq/black_arrow-bc1f90eca0d7dd758a43c7ade636dd82.png
+faq/icons_contact_sprite.png: faq/icons_contact_sprite-df4eed4000baf27dc4f3f76064dfca6f.png
+faq/icons_contact_sprite/index.png: faq/icons_contact_sprite-df4eed4000baf27dc4f3f76064dfca6f.png
 first_visit_banner/casual.jpg: first_visit_banner/casual-288836e2e6be88d4ee0f6764973dd5e9.jpg
 first_visit_banner/casual/index.jpg: first_visit_banner/casual-288836e2e6be88d4ee0f6764973dd5e9.jpg
 first_visit_banner/contemporary.jpg: first_visit_banner/contemporary-da18ad3ce539727c5b5d056c1615a44f.jpg
@@ -2234,6 +2238,8 @@ section/brands.js: section/brands-7bf06030ab206a2bd9a839f34ba5e308.js
 section/brands/index.js: section/brands-7bf06030ab206a2bd9a839f34ba5e308.js
 section/catalog.js: section/catalog-ccd21d7fa2a9d1fddf96c8e0d43b82c2.js
 section/catalog/index.js: section/catalog-ccd21d7fa2a9d1fddf96c8e0d43b82c2.js
+section/faq.js: section/faq-8dbaa0ce79500202fecb035c1320a1af.js
+section/faq/index.js: section/faq-8dbaa0ce79500202fecb035c1320a1af.js
 section/lite_catalog.js: section/lite_catalog-74b1012ff37cebaf11f47d57be862ccd.js
 section/lite_catalog/index.js: section/lite_catalog-74b1012ff37cebaf11f47d57be862ccd.js
 section/lite_collection_theme.js: section/lite_collection_theme-d5a8280198326a2cf96d6482fcf2c2dc.js
@@ -2272,8 +2278,8 @@ welcome.js: welcome-977f528ad1c69589419c745b83d88eb2.js
 welcome/index.js: welcome-977f528ad1c69589419c745b83d88eb2.js
 about/normalize.css: about/normalize-b3a32727781c89e0bd714269e2f853f0.css
 about/normalize/index.css: about/normalize-b3a32727781c89e0bd714269e2f853f0.css
-about/style.css: about/style-fc8252d293fe86bbf5d9c7ba32e88ab5.css
-about/style/index.css: about/style-fc8252d293fe86bbf5d9c7ba32e88ab5.css
+about/style.css: about/style-fffa32ea3cb41103c1a0c9bf4035121d.css
+about/style/index.css: about/style-fffa32ea3cb41103c1a0c9bf4035121d.css
 admin.css: admin-02b65983587dc1f44ef7cbf3982157ff.css
 admin/index.css: admin-02b65983587dc1f44ef7cbf3982157ff.css
 admin/base.css: admin/base-ae24fa2d11e173972d666165f920beaa.css
