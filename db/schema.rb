@@ -474,6 +474,10 @@ ActiveRecord::Schema.define(:version => 20131106202200) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "freight_ab_test_report", :id => false, :force => true do |t|
+    t.integer "user_id"
+  end
+
   create_table "freight_prices", :force => true do |t|
     t.integer  "shipping_service_id"
     t.integer  "zip_start"
@@ -516,6 +520,13 @@ ActiveRecord::Schema.define(:version => 20131106202200) do
 
   add_index "freights", ["order_id"], :name => "index_freights_on_order_id"
   add_index "freights", ["shipping_service_id"], :name => "index_freights_on_shipping_service_id"
+
+  create_table "frete_view", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.string  "cep",     :limit => 9
+    t.string  "tabela",  :limit => 1
+    t.string  "acao",    :limit => 7, :default => "", :null => false
+  end
 
   create_table "gift_boxes", :force => true do |t|
     t.string   "name"
