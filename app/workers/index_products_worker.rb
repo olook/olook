@@ -104,7 +104,6 @@ class IndexProductsWorker
               end
             end
           end
-          binding.pry
           fields['heel'] ||= '0-4 cm'
           fields['heeluint'] ||= 0
         end
