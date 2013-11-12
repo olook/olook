@@ -1,0 +1,15 @@
+test:
+  client_id: '123'
+  client_secret: '123456'
+
+development:
+  client_id: '237151324458229'
+  client_secret: 'zr0flVnJh40ObfOKjQwqIoIUiOXGvFTM'
+
+staging:
+  client_id: '237151324458229'
+  client_secret: 'zr0flVnJh40ObfOKjQwqIoIUiOXGvFTM'
+
+production:
+  client_id: '237151324458229'
+  client_secret: 'zr0flVnJh40ObfOKjQwqIoIUiOXGvFTM'
