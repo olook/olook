@@ -36,6 +36,16 @@ class MercadoPagoPayment < Payment
       }
     end
 
+    # frete
+    items << {
+        'id' => 10,
+        'title' => "FRETE",
+        'quantity' => 1,
+        'currency_id' => 'BRL',
+        'unit_price' => order.freight.price.to_f,
+        'category_id' => 'fashion'
+    }
+
     preference_data = {
       'items' => items,
       'payer' => {

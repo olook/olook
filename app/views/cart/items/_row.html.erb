@@ -15,30 +15,29 @@
   </td>
   <td class="delete-item">
     <%= form_for(item, :method => :delete,
-                       :remote => :true, 
-                                  :html => { 
+                       :remote => :true,
+                                  :html => {
                                     :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s),
                                     :id => "remove_item_form_#{item.id}" }) do %>
       <%= submit_tag('excluir')  %>
     <% end %>
-  </td>  
+  </td>
   <td class="amount">
-
-    <%= form_for(item, :method => :put, 
-                        remote: true, 
-                        :html => { 
+    <%= number_to_currency(item.price) %><br />
+    <%= form_for(item, :method => :put,
+                        remote: true,
+                        :html => {
                           onsubmit: track_event("Shopping", "ChangeAmount", item.product.id), 
                           id: "change_amount_#{item.id}"
                         }) do %>
 
-      <%= item_qty_select(item) %>
-      
+      x <%= item_qty_select(item) %>
     <% end %>
   </td>
   <td class="discount">
-    <%= render partial: 'cart/items/discount', locals: { cart_service: cart_service, item: item } %>
+    <%= render partial: 'cart/items/discount', locals: { item: item } %>
   </td>
   <td class="value" >
-    <%= render partial: 'cart/items/subtotal', locals: { cart_service: cart_service, item: item } %>
+    <%= render partial: 'cart/items/subtotal', locals: { item: item } %>
   </td>
 </tr>

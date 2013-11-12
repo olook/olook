@@ -70,7 +70,7 @@
     coupon ||= cart_service.total_discount_by_type(:coupon)
     if coupon > 0 %>
     <li>
-      <p><span class="txt-black">CUPOM DESCONTO:</span><span>- <%= number_to_currency(coupon) %> <%= discount_percentage(cart_service.cart.coupon.discount_percent)%></span></p>
+      <p><span class="txt-black">CUPOM DESCONTO:</span><span>- <%= number_to_currency(coupon) %> (<%= number_to_percentage( ((coupon) / gross_amount)*100, precision: 0) %>)</span></p>
     </li>
     <% end
     billet_discount = @order.payments.for_billet_discount.sum(:total_paid) if has_payment
