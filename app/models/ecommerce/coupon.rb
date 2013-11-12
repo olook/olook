@@ -51,7 +51,10 @@ class Coupon < ActiveRecord::Base
   def desc_value
     promotion_action.try(:desc_value, action_parameter.try(:action_params))
   end
-  alias :value :desc_value
+
+  def value
+    (action_parameter.try(:action_params) || {})[:param].to_i
+  end
 
   def brand
     params = action_parameter.try(:action_params) || {}
