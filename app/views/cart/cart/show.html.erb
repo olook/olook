@@ -188,58 +188,60 @@ _gaq.push(['_addTrans',
 
     <table cellpadding="0" cellspacing="0" id="total">
       <tbody>
-          <tr id="coupon_info" <%= "style=display:none;" unless @cart.coupon %> >
-            <td>
-              Cupom Promocional
-            </td>
-            <td class="value discount">
-              <p id="coupon_discount">
-                <%= @cart.coupon.try(:code) %>
-              </p>
-              <%= form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f| %>
+      <tr id="coupon_info" <%= "style=display:none;" unless @cart.coupon %> >
+        <td>
+          Cupom Promocional
+        </td>
+        <td>
+          <p id="coupon_discount">
+            <%= @cart.coupon.try(:code) %>
+          </p>
+        </td>
+        <td class="value discount">
+          <%= form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f| %>
+            <fieldset class="inputs">
+            <ol>
+              <li>
+              <%= f.hidden_field('coupon_code', :value => nil) %>
+              <%= f.submit "Excluir" %>
+              </li>
+            </ol>
+          </fieldset>
+        <% end %>
+        </td>
+      </tr>
+      <tr class="total">
+        <td>
+          <table id="coupon" cellpadding="0" cellspacing="0" style="<%= @cart.coupon ? 'display:none;' : 'display:block;' %>">
+            <tbody>
+            <tr class="discount">
+              <td>
+                <%= form_for(@cart, remote: true,
+                             html: {
+                  onsubmit: track_event("Checkout", "ClickCupom", ''),
+                  :id => "coupon"
+                }) do |f| %>
                 <fieldset class="inputs">
                   <ol>
                     <li>
-                      <%= f.hidden_field('coupon_code', :value => nil) %>
-                      <%= f.submit "Excluir" %>
+                    <%= f.text_field('coupon_code', :value => @cart.coupon.try(:code)) %>
+                    </li>
+                    <li class="cupom">
+                    <%= f.submit '' %>
                     </li>
                   </ol>
                 </fieldset>
               <% end %>
-            </td>
-          </tr>
-        <tr class="total">
-          <td>
-            <table id="coupon" cellpadding="0" cellspacing="0" style="<%= @cart.coupon ? 'display:none;' : 'display:block;' %>">
-              <tbody>
-                <tr class="discount">
-                  <td>
-                    <%= form_for(@cart, remote: true,
-                                        html: {
-                                          onsubmit: track_event("Checkout", "ClickCupom", ''),
-                                          :id => "coupon"
-                                        }) do |f| %>
-                      <fieldset class="inputs">
-                        <ol>
-                          <li>
-                            <%= f.text_field('coupon_code', :value => @cart.coupon.try(:code)) %>
-                          </li>
-                          <li class="cupom">
-                            <%= f.submit '' %>
-                          </li>
-                        </ol>
-                      </fieldset>
-                    <% end %>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </td>
-          <td class="value">
-            <p>Total: <span id="total_value"><%= number_to_currency(@cart_service.total) %></span></p>
-            <p class="limit <%= @cart_service.is_minimum_payment? ? 'show' : '' %>">R$5,00 é o valor mínimo para processamento da compra</p>
-          </td>
-        </tr>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </td>
+        <td class="value">
+          <p>Total: <span id="total_value"><%= number_to_currency(@cart_service.total) %></span></p>
+          <p class="limit <%= @cart_service.is_minimum_payment? ? 'show' : '' %>">R$5,00 é o valor mínimo para processamento da compra</p>
+        </td>
+      </tr>
       </tbody>
     </table>
 
