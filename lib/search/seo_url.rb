@@ -43,6 +43,8 @@ class SeoUrl
       parse_brands_params
     elsif from_collections?
       parse_collections_params
+    elsif from_olooklet?
+      parse_olooklet_params
     else
       parse_catalogs_params
     end
@@ -101,6 +103,10 @@ class SeoUrl
       /^\/colecoes\// =~ @path
     end
 
+    def from_olooklet?
+      /^\/olooklet\-teste(\/)*/ =~ @path
+    end
+
     def parse_brands_params
       /^\/marcas\/(?<brand>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\?(?<query>.*))?/ =~ @path
       @params[:brand] = URI.decode(brand.to_s)
@@ -121,6 +127,13 @@ class SeoUrl
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end
+
+    def parse_olooklet_params
+      /^(?:\/olooklet\-teste)(?:\/(?<parameters>[^\?]+)?(?:\?(?<query>.*))?)?/ =~ @path
+      @params[:parameters] = URI.decode(parameters.to_s)
+      @query = query
+    end
+
 
     def build_link_for parameters
       other_parameters = @params.dup

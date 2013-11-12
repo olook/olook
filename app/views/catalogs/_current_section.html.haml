@@ -27,7 +27,7 @@
 
       - search.selected_filters_for("size").sort.each do |size|
         %li
-          %span= titleize_without_pronoum(size)
+          %span= titleize_without_pronoum(format_size(size.chomp))
           = %( #{ current_section_link_to(catalog_path(params[:category], @url_builder.add_filter(:size, size)))}).html_safe
 
       - search.selected_filters_for("brand").sort.each do |brand|
