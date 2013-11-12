@@ -605,6 +605,13 @@ section#cart {
             display: block;
             float: right;
           }
+          .discount_value {
+            display:block;
+            float:right;
+            font-size: 11px;
+            clear:both;
+            color: #3cc72e;
+          }
         }
 				&.delete-item{
 					width:227px;

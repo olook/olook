@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<produtos>
+  <% @products.each do |product| %>  
+    <item>
+      <link><![CDATA[<%= product.product_url(:utm_source =>"paraiso_feminino", :utm_campaign => "produtos").html_safe %>]]></link>
+      <preco_antigo><![CDATA[<%= product.price %>]]></preco_antigo>
+      <preco><![CDATA[<%= product.retail_price %>]]></preco>
+      <numero_parcelas><![CDATA[<%= installments_number(product.retail_price) %>]]></numero_parcelas>
+      <valor_parcelas><![CDATA[<%= installments_value(product.retail_price) %>]]></valor_parcelas>
+    </item>
+  <% end %>
+</produtos>
