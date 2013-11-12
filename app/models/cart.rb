@@ -28,9 +28,8 @@ class Cart < ActiveRecord::Base
     #BLOCK ADD IF IS NOT GIFT AND HAS GIFT IN CART
     return nil if self.has_gift_items? && !gift
 
-    quantity ||= Cart::DEFAULT_QUANTITY.to_i
-    quantity = quantity.to_i
-
+    quantity = quantity.to_i == 0 ? Cart::DEFAULT_QUANTITY : quantity.to_i
+   
     return nil unless variant.available_for_quantity?(quantity)
 
     current_item = items.select { |item| item.variant == variant }.first
