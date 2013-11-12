@@ -2,7 +2,7 @@
 class ActiveReseller < PromotionRule
 
   def name
-    "For uma revendedora avita"
+    "For uma revendedora ativa"
   end
 
   def need_param
