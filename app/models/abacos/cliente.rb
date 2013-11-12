@@ -6,15 +6,12 @@ module Abacos
     attr_reader :codigo, :tipo_pessoa, :sexo, :cpf, :email,
                 :nome, :data_nascimento, :telefone, :celular, :data_cadastro,
                 :endereco, :endereco_cobranca, :endereco_entrega
+
     def initialize(member, address)
       @codigo             = "F#{member.id}"
       @tipo_pessoa        = 'tpeFisica'
       @sexo               = 'tseFeminino'
-      if member.reseller? && member.cpf.blank?
-        @cpf              = parse_cnpj(member.cnpj)
-      else
-        @cpf              = parse_cpf(member.cpf)
-      end
+      @cpf                = member.reseller_without_cpf? ? parse_cnpj(member.cnpj) : parse_cpf(member.cpf)
       @email              = member.email
       @nome               = "#{member.first_name} #{member.last_name}"
       @data_nascimento    = parse_data(member.birthday)
