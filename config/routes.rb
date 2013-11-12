@@ -62,7 +62,7 @@ Olook::Application.routes.draw do
   match "/olook-no-qbazar" => redirect("http://www.olook.com.br/stylist-news/olook-no-qbazar/")
 
   # temp route to fix sent emails
-  get "/olooklet(/*id)", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
+  # get "/olooklet(/*id)", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
   get "/colecoes/irresistiveis_inverno", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
 
   root :to => "home#index"
@@ -111,11 +111,9 @@ Olook::Application.routes.draw do
 
   match "/marcas/:brand(/*parameters)", :to => "brands#show", as: "brand"
 
-  #LIQUIDATIONS
-  get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
-  get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
-  match "/promododia" , :to => "liquidations#index", :as => "promododia"
+  #NEW OLOOKLET
   match "/olooklet" , :to => "liquidations#index", :as => "olooklet"
+  get "/olooklet-teste(/*parameters)" => "olooklet#index", :as => "olooklet"
 
   #NEW COLLECTIONS
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
@@ -418,6 +416,11 @@ Olook::Application.routes.draw do
 
     post "billet_batch/create", as: :create_billet_batch
 
+    get "visibility_batch/new", as: :new_visibility_batch
+
+    get "visibility_batch/export", as: :export_visibility_batch_to_csv
+
+    post "visibility_batch/create", as: :create_visibility_batch
   end
 
   #USER / SIGN IN

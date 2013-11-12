@@ -50,6 +50,7 @@
                 %li= access_link("Collection Theme")
                 %li= access_link("Products")
                 %li= access_link("Brands")
+                %li= link_to I18n.t("admin.product.visibility"), admin_new_visibility_batch_path
             %li{class: "submenu#{' active' if params[:controller] =~ /promotions|liquidation|coupons|landing|highlights/}"}
               %span Promoções
               %ul

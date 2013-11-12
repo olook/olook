@@ -916,6 +916,7 @@ ActiveRecord::Schema.define(:version => 20131106202200) do
     t.string   "producer_code"
     t.string   "picture_for_xml"
     t.date     "launch_date"
+    t.integer  "visibility",      :default => 1
   end
 
   add_index "products", ["category"], :name => "index_products_on_category"

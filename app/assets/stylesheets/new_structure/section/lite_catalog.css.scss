@@ -9,7 +9,7 @@
 
 #result{
   float:left;
-  width:785px;
+  width:793px;
   margin-bottom: 25px;
 }
 
@@ -182,11 +182,11 @@ span.summary, .full{
 }
 
 .size_top {
-  width:560px;
+  width:520px;
   position: absolute;
   right: 0px;
   top:0px;
-  float:right;
+
   p {
     float:right;
     font-weight: bold;
@@ -196,7 +196,7 @@ span.summary, .full{
     font-size: 11px;
     padding-top:3px;
   }
-  ul {float:right;}
+  ul {float:left;margin-right:0px;margin-bottom:10px;}
   ul li {float:right;margin-left:6px;}
   ul li a {display: block;border:1px solid #d1d1d1;color: #6d6e71;text-align: center;width: 20px;padding-top:2px;font-size: 12px;text-decoration: none;height: 18px;}
   ul li a span.txt-unico {font-size: 12px;}
@@ -214,3 +214,60 @@ span.summary, .full{
 
 #result .filters {margin-top:2px !important;}
 
+/* OLOOKLET */
+
+.exhibition-olooklet {
+  width:120px;
+  float:left;
+}
+
+.price-range-olooklet {
+  .ui-slider-horizontal .ui-slider-handle {width:7px;}
+}
+ 
+.row_olooklet {
+  position:relative;height:auto !important;height:70px;min-height:70px;
+  br {clear:both;}
+  .size_top {width:auto;
+    .title-category {float:left;width:130px;display: block;}
+  }
+}
+
+.cat_olooklet {
+  height:auto;
+  margin-left:0px;
+  ul {
+    margin-left:0px;
+    float:none;
+    li {
+      margin-bottom: 0px;
+      ul li a {
+        font-size: 13px;
+        display: inline-block;
+        height: 15px;
+        font-size: 13px;
+        text-decoration: none;
+        color: #000;
+        padding-left: 13px;
+        background-position: 0 -50px !important;
+        text-transform: none;
+        font-weight: normal;
+      }
+      .selected {
+        background-position: 0 -87px !important;
+      }
+      .title_section {
+        font-size:11px;
+        text-transform:uppercase;
+        font-weight:bold;
+        height:15px;
+        background:image-url('catalog/sprite.png') no-repeat 0 6px;
+        padding-left:13px;
+        margin-bottom:5px;
+        cursor:pointer;
+        &.close{ background-position:0 -25px !important; }
+        &.open{ background-position:0 6px !important; }
+      }      
+    }
+  }
+}
