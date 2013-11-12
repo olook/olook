@@ -95,7 +95,7 @@ class IndexProductsWorker
         if product.shoe?
           product.details.each do |detail|
             if /cm/i =~ detail.description.to_s
-              if /\a\d+ ?cm\z/ =~ detail.description.to_s
+              if /\A\d+ ?cm\Z/ =~ detail.description.to_s
                 fields['heel'] = heel_range(detail.description)
                 fields['heeluint'] = detail.description.to_i
               elsif /salto: (?:<heel>\d+ ?cm)/i =~ detail.description.to_s
@@ -104,7 +104,8 @@ class IndexProductsWorker
               end
             end
           end
-          fields['heel'] ||= '0 cm'
+          binding.pry
+          fields['heel'] ||= '0-4 cm'
           fields['heeluint'] ||= 0
         end
         
