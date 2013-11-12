@@ -1,0 +1,33 @@
+- content_for :head do
+  = stylesheet_link_tag "section/checkout"
+= link_to "Continuar comprando", @referer[:url], :class => "back_link", onclick: track_event("Checkout","clickContinueShopping")
+%section#payment.checkout
+  = form_for(@checkout, url: { action: "create" }) do |checkout_form|
+    = hidden_field_tag :freight_service_ids, params[:freight_service_ids]
+    .box-step-one
+      %h2.step-title
+        %span.number 1.
+        %span.title ENTREGA
+        %span.phrase Como devemos enviar sua compra?
+      #checkout_address
+        = errors_for(@checkout, :address_base)
+        - if @addresses.nil? || @addresses.empty?
+          = render "shipping_address_form", address: @checkout.address
+        - else
+          = render "address_list", addresses: @addresses, endpoint_url: @endpoint_url
+        #freight_message
+    .box-step-two
+      %h2.step-title
+        %span.number 2.
+        %span.title PAGAMENTO
+        %span.phrase Como você pretende pagar?
+      = render "payments_type", checkout_form: checkout_form
+    .box-step-three
+      %h2.step-title
+        %span.number 3.
+        %span.title REVISÃO
+        %span.phrase Revise e finalize seu pedido.
+      = render "cart_details", address: @checkout.address, checkout_form: checkout_form
+- content_for :footer do
+  = render partial: "shared/metrics/dbm/order"
+  = javascript_include_tag "checkout"

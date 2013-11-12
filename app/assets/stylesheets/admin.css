@@ -2,16 +2,17 @@
  * This css will include all web-app-theme css you need
  *
  *= require admin/base
- *= require admin/themes/default/style.css
- *= require admin/liquidation_products.css
- *= require admin/promotions.css
- *= require admin/orders.css.scss
- *= require admin/dashboard.css.scss
- *= require admin/clippings.css.scss
- *= require admin/catalog_header.css.scss
- *= require admin/simple_email_service.css.scss
- *= require admin/collection_themes.css.scss
- *= require admin/multiple_pictures.css.scss
+ *= require admin/themes/default/style
+ *= require admin/liquidation_products
+ *= require admin/promotions
+ *= require admin/orders
+ *= require admin/dashboard
+ *= require admin/clippings
+ *= require admin/catalog_header
+ *= require admin/simple_email_service
+ *= require admin/collection_themes
+ *= require admin/multiple_pictures
+ *= require admin/promotion_action_select
  *= require common/jquery-ui-1.10.3.autocomplete_slider.min.css
  *= require_self
  */

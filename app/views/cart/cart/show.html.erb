@@ -46,14 +46,6 @@ _gaq.push(['_addTrans',
 
   <% end %>
 
-  <% if @cart_service.has_more_than_one_discount? %>
-    <div class="banner">
-      <%= image_tag("cart/banner_discount2.jpg", :class => "img-alert") %>
-      <h1>Sua sacola possui descontos que não podem ser aplicados juntos ao mesmo produto</h1>
-      <p>Selecionamos o maior desconto possível para você em cada produto (verifique abaixo):</p>
-    </div>
-  <% end %>
-
   <%= content_tag :div, class: 'warning-msg', style: "display:#{@promo_over_coupon ? 'block' : 'none'};" do %>
     <%= image_tag 'cart/warning_coupon.png', :class => '' %>
     <p><span>Os descontos não são acumulativos</span><br/>Você não pode usar um cupom em uma promoção do site, por exemplo</p>
@@ -202,10 +194,7 @@ _gaq.push(['_addTrans',
             </td>
             <td class="value discount">
               <p id="coupon_discount">
-                <% if @cart.has_coupon? %>
-                  <%= number_to_currency(@cart.total_coupon_discount) unless @cart.coupon.is_percentage? %>
-                  <%= discount_percentage(@cart.coupon.discount_percent) %>
-                <% end %>
+                <%= @cart.coupon.try(:code) %>
               </p>
               <%= form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f| %>
                 <fieldset class="inputs">
@@ -221,32 +210,30 @@ _gaq.push(['_addTrans',
           </tr>
         <tr class="total">
           <td>
-            <%- unless @cart.has_coupon? -%>
-              <table id="coupon" cellpadding="0" cellspacing="0">
-                <tbody>
-                  <tr class="discount">
-                    <td>
-                      <%= form_for(@cart, remote: true,
-                                          html: {
-                                            onsubmit: track_event("Checkout", "ClickCupom", ''),
-                                            :id => "coupon"
-                                          }) do |f| %>
-                        <fieldset class="inputs">
-                          <ol>
-                            <li>
-                              <%= f.text_field('coupon_code', :value => @cart.coupon.try(:code)) %>
-                            </li>
-                            <li class="cupom">
-                              <%= f.submit '' %>
-                            </li>
-                          </ol>
-                        </fieldset>
-                      <% end %>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            <%- end -%>
+            <table id="coupon" cellpadding="0" cellspacing="0" style="<%= @cart.coupon ? 'display:none;' : 'display:block;' %>">
+              <tbody>
+                <tr class="discount">
+                  <td>
+                    <%= form_for(@cart, remote: true,
+                                        html: {
+                                          onsubmit: track_event("Checkout", "ClickCupom", ''),
+                                          :id => "coupon"
+                                        }) do |f| %>
+                      <fieldset class="inputs">
+                        <ol>
+                          <li>
+                            <%= f.text_field('coupon_code', :value => @cart.coupon.try(:code)) %>
+                          </li>
+                          <li class="cupom">
+                            <%= f.submit '' %>
+                          </li>
+                        </ol>
+                      </fieldset>
+                    <% end %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </td>
           <td class="value">
             <p>Total: <span id="total_value"><%= number_to_currency(@cart_service.total) %></span></p>

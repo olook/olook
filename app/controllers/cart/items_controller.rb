@@ -7,8 +7,6 @@ class Cart::ItemsController < ApplicationController
   def create
     ensure_a_variant_is_found!
     add_item_or_show_errors
-
-    redirect_to cart_path
   end
 
   def update
@@ -42,13 +40,16 @@ class Cart::ItemsController < ApplicationController
         notice_response = @cart.has_gift_items? ? "Produtos de presente não podem ser comprados com produtos da vitrine" : "Produto esgotado"
 
         format.js { render :error, locals: { notice: notice_response } }
-      end 
+        format.html { render text: notice_response }
+      end
+    else
+      redirect_to cart_path
     end
   end
 
   def ensure_a_variant_is_found!
     respond_with do |format|
-      format.js do 
+      format.js do
         render :error, :locals => { :notice => "Por favor, selecione o tamanho do produto." }
       end
     end unless adding_a_cart_item? && a_variant_is_found
@@ -61,22 +62,22 @@ class Cart::ItemsController < ApplicationController
   def ensure_params!
     if adding_a_cart_item?
       respond_with do |format|
-        format.js do 
+        format.js do
           render :error, :locals => { :notice => "Por favor, selecione o tamanho do produto." }
-        end	        
+        end
       end unless (params[:variant] && params[:variant][:id])
     elsif updating_a_cart_item_qty?
       respond_with do |format|
-        format.js do 
+        format.js do
           render :error, :locals => { :notice => "Não foram enviados os parâmetros para atualizar a quantidade do item" }
-        end         
+        end
       end unless (params[:id] && params[:quantity])
-    else 
+    else
       #DELETE to destroy
       respond_with do |format|
-        format.js do 
+        format.js do
           render :error, :locals => { :notice => "Houve um problema ao deletar o item do carrinho" }
-        end         
+        end
       end unless (params[:id] && !params[:id].empty?)
     end
   end

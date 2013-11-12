@@ -1,0 +1,26 @@
+#cart_summary
+  .detalhe
+  .scroll
+    %ul
+      - if @cart and @cart.coupon
+        %li.coupon_info.product_item
+          - if @show_coupon_warn
+            %span.coupon_warn
+              %span.check
+              %span.seta
+              Seu cupom já está garantido em sua sacola de compras
+          = image_tag 'common/nav/big_coupon.png', :class => 'big_coupon'
+          %p.coupon_tag
+            Sua sacola agora
+            %br/
+            tem um cupom de
+            %br/
+            = @cart.coupon.desc_value
+            de desconto.
+            %br/
+            Aproveite! ;)
+      = content_tag(:li, content_tag(:p, "Sua sacola está vazia :(<br />Navegue em nosso site e mude isso já!".html_safe, class: 'empty_cart'), class: "product_item") if !@cart || @cart.items.blank?
+      - @cart && @cart.items.each do |item|
+        = render partial: 'shared/cart_line_item', locals: {item: item, hidden: false}
+      %li.last{:style => "display:none"} &nbsp;
+  %p.see_cart= link_to "Ver minha sacola", cart_path, :class => "finish"

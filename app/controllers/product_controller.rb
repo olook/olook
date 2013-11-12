@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ProductController < ApplicationController
   respond_to :html
-  before_filter :load_show_product, only: [:show, :spy, :product_valentines_day]
+  before_filter :load_show_product, :load_product_discount_service, only: [:show, :spy, :product_valentines_day]
   prepend_before_filter :assign_valentines_day_parameters, only: [:product_valentines_day]
 
   rescue_from ActiveRecord::RecordNotFound do
@@ -37,6 +37,10 @@ class ProductController < ApplicationController
     def assign_valentines_day_parameters
       params[:coupon_code] = Setting.valentines_day_coupon_code
       params[:modal] = Setting.valentines_day_show_modal
+    end
+
+    def load_product_discount_service
+      @product_discount_service = ProductDiscountService.new(@product, cart: @cart, coupon: @cart.coupon, promotion: Promotion.select_promotion_for(@cart))
     end
 
     def load_show_product
