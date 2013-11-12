@@ -57,7 +57,8 @@ describe CartItem do
 
       context "when cart has coupon" do
         let(:value_coupon) { FactoryGirl.build(:coupon)}
-        let(:percentage_coupon) { FactoryGirl.build(:percentage_coupon)}
+        let(:action_parameter) { FactoryGirl.build(:action_parameter, action_params: {param: 20}, promotion_action: PercentageAdjustment.create ) }
+        let(:percentage_coupon) { FactoryGirl.build(:coupon, action_parameter: action_parameter) }
 
         it "returns full price for value coupon" do
           cart_item.product.stub(:price).and_return(BigDecimal("59.99"))
@@ -68,7 +69,8 @@ describe CartItem do
         it "returns price with percentage applied for percentage coupon" do
           cart_item.product.stub(:price).and_return(BigDecimal("100.00"))
           cart_item.cart.stub(:coupon).and_return(percentage_coupon)
-          cart_item.retail_price.should eq(BigDecimal("80.00"))
+          cart_item.update_attributes(:quantity => 1)
+          cart_item.retail_price.to_f.should eq(80.0)
         end
       end
     end
