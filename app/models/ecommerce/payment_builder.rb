@@ -73,7 +73,9 @@ class PaymentBuilder
         end
 
         # Isto está bem ruim! REFACTOR IT!!!
+        log("[MERCADOPAGO] Creating preference for payment_id=#{payment.id}, sandbox_mode=#{MP.sandbox_mode} ")
         payment.create_preferences(cart_service.cart.address) if payment.is_a? MercadoPagoPayment
+        log("[MERCADOPAGO] Preference created. Preference_url=#{payment.url}")
 
         create_discount_payments
         create_payment_for(total_gift, GiftPayment)
