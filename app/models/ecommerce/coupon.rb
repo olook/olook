@@ -88,11 +88,11 @@ class Coupon < ActiveRecord::Base
   end
 
   def eligible_for_product?(product, opts)
-    available? && is_percentage? && matches?(opts[:cart])
+    available? && matches?(opts[:cart])
   end
 
   def eligible_for_cart?(cart)
-    available? && !is_percentage? && matches?(cart)
+    available? && matches?(cart)
   end
 
   def discount_percent
