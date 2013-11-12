@@ -6,7 +6,6 @@ module Abacos
     attr_reader :codigo, :tipo_pessoa, :sexo, :cpf, :email,
                 :nome, :data_nascimento, :telefone, :celular, :data_cadastro,
                 :endereco, :endereco_cobranca, :endereco_entrega
-
     def initialize(member, address)
       @codigo             = "F#{member.id}"
       @tipo_pessoa        = 'tpeFisica'
@@ -34,7 +33,7 @@ module Abacos
             'Codigo'          => self.codigo,
             'TipoPessoa'      => self.tipo_pessoa,
             'Sexo'            => self.sexo,
-            'CPFouCNPJ'       => self.cpf || self.cnpj,
+            'CPFouCNPJ'       => self.cpf,
             'EMail'           => self.email,
             'Nome'            => self.nome,
             'DataNascimento'  => self.data_nascimento,
