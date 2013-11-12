@@ -139,7 +139,6 @@ ul.click_show_child ul.question_box, ul.click_show_child .answer {
 #terms {
   width: 970px;
   color: #000;
-  margin-left: 10px;
   margin-bottom: 35px;
   h2{
     font-family: $johnston;
@@ -174,12 +173,12 @@ ul.click_show_child ul.question_box, ul.click_show_child .answer {
   }
   .como_funciona{
     margin-bottom: 15px !important; 
-    color: $pink !important;
+    color: #000 !important;
+    cursor:normal;
     ul.question_box{
       margin-top: 15px;
-      li{
-        color: #000 !important;
-      }
+      color: #000 !important;
+      cursor:normal;
     }
   }
   .politica_troca, .prazo_troca, .prazo_reembolso{display: none;}
@@ -250,7 +249,21 @@ ul.click_show_child ul.question_box, ul.click_show_child .answer {
     text-decoration: none;
     font-weight: lighter;
   }
+  .active{
+    color: #000;
+    &:hover{
+      color: $pink;
+    }
+  }
+  .answer{
+    color: #000 !important;
+  }
+  .como_funciona{
+    color: #000 !important;
+    cursor: normal;
+  }
 }
+
 
 .clear {
   clear: both;
@@ -274,7 +287,6 @@ width:970px !important;
   height: 220px;
   margin: 0 auto;
   h2{
-    margin-left: 11px;
     font-family: $johnston;
     font-size: 18px;
     color: #000;
@@ -288,9 +300,17 @@ width:970px !important;
     color: #000;
     font-family: $avenir;
     margin-left: 85px;
+    font-weight: lighter;
+    span.olook{
+      font-weight: bold;
+      font-size: 15px;
+      color: #000;
+      font-family: $avenir;
+      display: inline;
+    }
     span{
       display: block;
-      font-size: 10px;
+      font-size: 11px;
     }
   }
   .contact_box{
