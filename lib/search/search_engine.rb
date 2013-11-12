@@ -91,6 +91,8 @@ class SearchEngine
   def category= cat
     if cat == "roupa" && !@skip_beachwear_on_clothes
       @expressions["category"] = ["roupa","moda praia", "lingerie"]
+    elsif cat.is_a? Array
+      @expressions["category"] = cat
     else
       @expressions["category"] = cat.to_s.split(MULTISELECTION_SEPARATOR)
     end
