@@ -8,6 +8,7 @@ Olook::Application.routes.draw do
   get "/revenda", to: "reseller#new", as: 'reseller_new'
 
   resources :live_feeds, path: "api", only: [:create, :index]
+  resources :mercado_pago, only: [:create]
 
 
   get "/stylequiz", to: "quiz#new", as: "wysquiz"

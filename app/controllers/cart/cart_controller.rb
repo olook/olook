@@ -41,7 +41,9 @@ class Cart::CartController < ApplicationController
       params[:cart].delete(:coupon_code)
       render :error, :locals => { :notice => "Os descontos não são acumulativos, Você não pode usar um cupom em uma promoção do site, por exemplo" }
     end
+
     @cart.update_attributes(params[:cart])
+    
     if @cart.errors.any?
       notice_message = @cart.errors.messages.values.flatten.first
       render :error, :locals => { :notice => notice_message }
