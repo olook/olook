@@ -1,0 +1,17 @@
+<div class="msg">
+  <p class="success">Pronto! Recebemos o seu pedido de compra. Confira abaixo instruções para os próximos passos abaixo:</p>
+</div>
+
+<div class="new_payment_link">
+   <p class="txt_payment_link">Ainda não acabou... Você ainda precisa realizar o pagamento.<br/>
+      <span>Informe abaixo os dados solicitados pelo MercadoPago para realizar o pagamento do seu pedido.</span>
+   </p>
+   <p class="mercado_pago_button">
+    <iframe src="<%= @payment.url %>" width="740px" height="600px"></iframe>
+   </p>
+</div>
+<p class="thanks">Obrigada pela sua compra</p>
+<p class="description">
+  Mal podemos esperar para você receber o seu produto. Não se esqueça de conferir se todos os dados abaixo estão corretos.<br />
+  E se você tiver qualquer dúvida ou precisar solicitar alguma alteração, basta enviar um e-mail para <%= link_to "falecom@olook.com.br", "mailto:falecom@olook.com.br" %>.
+</p>

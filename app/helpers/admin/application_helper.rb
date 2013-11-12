@@ -4,7 +4,8 @@ module Admin::ApplicationHelper
   HUMANIZED_GATEWAYS = {
     1 => "Moip",
     2 => "Braspag",
-    3 => "Olook"
+    3 => "Olook",
+    4 => "Mercado Pago"
   }
 
   def payment_with_origin(payment)
