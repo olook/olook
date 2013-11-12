@@ -71,7 +71,7 @@ module Abacos
     end
 
     def parse_cnpj cnpj 
-      cnpj.gsub(/.|-|\//, "") unless cnpj.nil?
+      cnpj.gsub(/(\.|\/|-)/, "") unless cnpj.nil?
     end
 
     def parse_data(birthday)
