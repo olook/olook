@@ -11,13 +11,7 @@ module Abacos
       @numero           = order.number
 
       @codigo_cliente   = "F#{order.user.id}"
-
-      if order.user.reseller? && order.user.cpf.blank?
-        @cpf              = parse_cnpj(order.user.cnpj)
-      else
-        @cpf              = parse_cpf(order.user.cpf)
-      end
-
+      @cpf              = order.user_cpf =~ /\// ? parse_cnpj(order.user_cpf) : parse_cpf(order.user_cpf)
       @nome             = order.user_name
       @email            = order.user_email
 
