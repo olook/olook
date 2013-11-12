@@ -104,17 +104,9 @@ class PaymentBuilder
       debit_discount = cart_service.total_discount_by_type(:debit_discount, payment)
       facebook_discount = cart_service.total_discount_by_type(:facebook_discount, payment)
 
-      if cart_service.cart.coupon
-        # This is valid because we only allow 1 kind of discount. 
-        # IT IS NOT POSSIBLE TO HAVE BOTH: OLOOKLET AND COUPON DISCOUNTS
-        total_liquidation = 0
-        total_coupon = cart_service.total_discount_by_type(:coupon) + cart_service.cart.total_liquidation_discount
-        coupon_opts = {:coupon_id => cart_service.cart.coupon.id}
-      else
-        total_liquidation = cart_service.cart.total_liquidation_discount
-        total_coupon = cart_service.total_discount_by_type(:coupon)
-        coupon_opts = {}
-      end
+      total_coupon = cart_service.cart.total_coupon_discount
+      coupon_opts = {:coupon_id => cart_service.cart.coupon_id}
+      total_liquidation = cart_service.cart.total_liquidation_discount
 
       create_payment_for(total_liquidation, OlookletPayment)
       create_payment_for(total_coupon, CouponPayment, coupon_opts)

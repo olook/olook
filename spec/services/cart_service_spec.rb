@@ -314,9 +314,9 @@ describe CartService do
 
     it "should return correct value when coupon is greater than maximum value and has no freight" do
       cart_service.stub(:freight).and_return(nil)
-      coupon_of_value.update_attribute(:value, 100)
+      coupon_of_value.update_attribute(:value, 105)
       cart_service.cart.coupon = coupon_of_value
-      cart_service.total_coupon_discount.should eq(95)
+      cart_service.total_coupon_discount.should eq(100)
     end
   end
 

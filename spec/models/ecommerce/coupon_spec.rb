@@ -12,6 +12,11 @@ describe Coupon do
     Timecop.return
   end
 
+  it { should have_many :rule_parameters }
+  it { should have_many(:promotion_rules).through(:rule_parameters)}
+  it { should have_one :action_parameter }
+  it { should have_one(:promotion_action).through(:action_parameter)}
+
   context 'validations' do
     it {should validate_presence_of(:code)}
     it {should validate_presence_of(:value)}
@@ -138,37 +143,6 @@ describe Coupon do
 
     end
 
-  end
-
-  describe "#is_more_advantageous_than_any_promotion?" do
-    let(:promotion) { mock_model(Promotion)}
-    let(:cart) { mock_model Cart}
-    let(:coupon) { FactoryGirl.build(:coupon, value: 100) }
-
-    before :each do
-      cart.stub(:total_price).and_return(300)
-    end
-
-    context "when value is lower than sum of sale and promotion" do
-      before do
-        cart.should_receive(:total_promotion_discount).and_return(100)
-        cart.should_receive(:total_liquidation_discount).and_return(100)
-      end
-
-      subject { coupon.is_more_advantageous_than_any_promotion?(cart) }
-
-      it { should be_false }
-    end
-
-    context "when value is greater than sum of sale and promotion" do
-      before do
-        cart.should_receive(:total_promotion_discount).and_return(30)
-        cart.should_receive(:total_liquidation_discount).and_return(30)
-      end
-      subject { coupon.is_more_advantageous_than_any_promotion?(cart) }
-
-      it { should be_true }
-    end
   end
 
   describe '#can_be_applied_to_any_product_in_the_cart?' do
