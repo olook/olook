@@ -7,3 +7,20 @@ fieldset {
   display: inline-block;
   vertical-align: top;
 }
+
+.hint {
+  color: #777;
+  font-size: 10px;
+  font-style: italic;
+  display: inline-block;
+}
+
+.promotion_rule .hint {
+  line-height: 10px;
+  font-weight: normal !important;
+}
+
+.promotion_rule {
+  font-weight: bold !important;
+}
+

@@ -1,0 +1,47 @@
+#cart-box
+  %span.bg-box  
+  .products
+    %table#items.items_list{:cellpadding => "0", :cellspacing => "0"}
+      %tbody
+        - @cart.items.each do |item|
+          = render partial: 'cart/items/checkout_row', locals: { cart_service: @cart_service, item: item } if item
+  %ul.subtotal
+    %li
+      %span.txt-black SUBTOTAL:
+      %span.txt-black= number_to_currency(@cart_service.cart.sub_total)
+    %li.frete
+      %span.txt-black FRETE:
+      %span#freight_price R$ 0,00
+    %li
+      %span.txt-black CRÉDITOS:
+      %span#credits_used
+        \-#{number_to_currency(@cart_service.total_credits_discount)}
+    - if @cart_service.facebook_discount > 0
+      %li
+        %span.txt-black FACEBOOK:
+        %span#coupon_discount_value
+          \-#{number_to_currency(@cart_service.facebook_discount)}
+    - if @checkout
+      #billet_discount_cart
+        %li
+          %span.txt-black BOLETO:
+          %span#billet_discount_value
+            \-#{number_to_currency(@cart_service.billet_discount)}
+      #debit_discount_cart
+        %li
+          %span.txt-black DÉBITO:
+          %span#debit_discount_value
+            \-#{number_to_currency(@cart_service.debit_discount)}
+  %p.total
+    %span.txt-black TOTAL:
+    - if @checkout
+      %span#total_billet.txt-black= number_to_currency(@cart_service.total(Billet.new))
+      %span#total_debit.txt-black= number_to_currency(@cart_service.total(Debit.new))
+    %span#total.txt-black= number_to_currency(@cart_service.total)
+    %span#delivery_time.frete
+      - if address && address.zip_code
+        = delivery_time_message(freight_for(address)[:delivery_time])
+%p.important
+  %span Importante:
+  O prazo de entrega começa a contar a partir da confirmação do pagamento.
+= checkout_form.submit '', class: "send_it", disable_with: "", onclick: track_event("Checkout","clickSubmit") if defined?(checkout_form)

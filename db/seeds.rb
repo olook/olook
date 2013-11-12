@@ -36,7 +36,6 @@ end
   #Actions
   {type: MinorPriceAdjustment, name: "Produto de menor valor Gratis"},
   {type: PercentageAdjustment, name: "Desconto em % do valor do pedido"},
-  {type: PercentageAdjustmentOnFullPriceItems, name: "Desconto em % de produtos com preço cheio"},
   {type: ValueAdjustment, name: "Desconto de valor fixo"},
 ].each do | values |
   values[:type].first_or_create(name: values[:name])

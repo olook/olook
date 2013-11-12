@@ -143,8 +143,8 @@ class CartService
   end
 
   def active_discounts
-    discounts = cart.items.inject([]) do |discounts, item|
-      discounts + item_discounts(item)
+    discounts = cart.items.inject([]) do |_discounts, item|
+      _discounts + item_discounts(item)
     end
 
     discounts.uniq
@@ -155,12 +155,9 @@ class CartService
   end
 
   def total(payment=nil)
-    # total = subtotal(:retail_price)
-
     total = cart_sub_total
     total += total_increase
     total -= total_discount(payment)
-    # total -= cart_total_promotion_discount unless should_override_promotion_discount?
 
     total = Payment::MINIMUM_VALUE if total < Payment::MINIMUM_VALUE
     total
@@ -176,7 +173,6 @@ class CartService
     raise ActiveRecord::RecordNotFound.new('A valid user is required for generating an order.') if cart.user.nil?
 
     user = cart.user
-
     order = Order.create!(
       :cart_id => cart.id,
       :user_id => user.id,
@@ -189,7 +185,7 @@ class CartService
       :user_first_name => user.first_name,
       :user_last_name => user.last_name,
       :user_email => user.email,
-      :user_cpf => user.cpf,
+      :user_cpf => user.reseller_without_cpf? ? user.cnpj : user.cpf,
       :gross_amount => self.gross_amount,
       :gateway => gateway,
       :tracking => tracking
@@ -270,11 +266,6 @@ class CartService
       end
     end
 
-    #if
-    # facebook_discount_value = calculate_facebook_discount_value(final_retail_price)
-    # final_retail_price -= facebook_discount_value
-    # discounts << :facebook
-
     {
       :origin       => origin,
       :price        => price,
@@ -295,25 +286,15 @@ class CartService
     retail_value = self.subtotal(:retail_price) - minimum_value
     retail_value = 0.0 if retail_value < 0
     total_discount = 0.0
-    coupon_value = cart.coupon.value if cart.coupon && !cart.coupon.is_percentage?
-    coupon_value = 0.0 if cart.coupon && !should_override_promotion_discount?
-    coupon_value ||= 0.0
     billet_discount_value = 0.0
     debit_discount_value = 0.0
     facebook_discount_value = 0.0
-
-    if coupon_value >= retail_value
-      coupon_value = retail_value
-    end
-
-    retail_value -= coupon_value
 
     use_credits = self.cart.use_credits
     credits_loyality = 0.0
     credits_invite = 0.0
     credits_redeem = 0.0
     if (use_credits == true && self.cart.user)
-
 
       # Use loyalty only if there is no product with olooklet discount in the cart
       credits_loyality = allow_credit_payment? ? self.cart.user.user_credits_for(:loyalty_program).total : 0.0
@@ -368,18 +349,16 @@ class CartService
 
     total_credits = credits_loyality + credits_invite + credits_redeem
 
-    discounts << :coupon if coupon_value > 0.0
     discounts << :billet_discount if billet_discount_value > 0
     discounts << :debit_discount if billet_discount_value > 0
 
     {
       :discounts                         => discounts,
       :is_minimum_payment                => (minimum_value > 0 && retail_value <= 0),
-      :total_discount                    => (coupon_value + total_credits + billet_discount_value + debit_discount_value + facebook_discount_value),
+      :total_discount                    => (total_credits + billet_discount_value + debit_discount_value + facebook_discount_value),
       :billet_discount                   => billet_discount_value,
       :debit_discount                    => debit_discount_value,
       :facebook_discount                 => facebook_discount_value,
-      :total_coupon                      => coupon_value,
       :total_credits_by_loyalty_program  => credits_loyality,
       :total_credits_by_invite           => credits_invite,
       :total_credits_by_redeem           => credits_redeem,
