@@ -189,7 +189,7 @@ class CartService
       :user_first_name => user.first_name,
       :user_last_name => user.last_name,
       :user_email => user.email,
-      :user_cpf => user.cpf,
+      :user_cpf => (user.reseller? && user.cpf.blank?) ? user.cnpj : user.cpf,
       :gross_amount => self.gross_amount,
       :gateway => gateway,
       :tracking => tracking
