@@ -4,7 +4,10 @@ class HighlightCampaign < ActiveRecord::Base
 
 
   def self.find_campaign campaign_name
-    find_by_label(campaign_name) || dummy_campaign
+    Rails.logger.info "Looking for campaign_name #{campaign_name}"
+    campaign = find_by_label(campaign_name) || dummy_campaign
+    Rails.logger.info "found campaign=#{campaign.inspect}"
+    campaign
   end
 
   def has_products?
