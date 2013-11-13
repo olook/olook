@@ -182,13 +182,13 @@ span.summary, .full{
 }
 
 .size_top {
-  width:520px;
+  width:auto;
   position: absolute;
   right: 0px;
   top:0px;
 
   p {
-    float:right;
+    float:left;
     font-weight: bold;
     text-transform: uppercase;
     color:#000;
@@ -275,3 +275,4 @@ span.summary, .full{
     }
   }
 }
+
