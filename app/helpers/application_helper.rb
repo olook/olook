@@ -151,6 +151,14 @@ module ApplicationHelper
     end
   end
 
+  def render_highlighted_products_from campaign
+    html = ""
+    campaign.product_ids.split('-').map { |pid| campaign.products.find { |p| p.id.to_i == pid.to_i } }.compact.each do |cp|
+      html += render :partial => "shared/searched_product_item", :locals => {:product => cp}
+    end
+    html.html_safe
+  end
+
   private
  
     def ga_event_referer
