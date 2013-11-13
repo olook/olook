@@ -21,7 +21,8 @@ class Payment < ActiveRecord::Base
   GATEWAYS = {
     :moip => 1,
     :braspag => 2,
-    :olook => 3
+    :olook => 3,
+    :mercadopago => 4
   }
 
   attr_accessor :receipt, :user_identification

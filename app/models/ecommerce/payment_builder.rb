@@ -62,7 +62,7 @@ class PaymentBuilder
         log("Order generated: #{order.inspect}")
         payment.order = order
         payment.calculate_percentage!
-        payment.deliver! if [Debit, CreditCard].include?(payment.class)
+        payment.deliver! if [Debit, CreditCard, MercadoPagoPayment].include?(payment.class)
         payment.save!
 
         notify_big_billet_sail(payment)
@@ -73,7 +73,9 @@ class PaymentBuilder
         end
 
         # Isto está bem ruim! REFACTOR IT!!!
+        log("[MERCADOPAGO] Creating preference for payment_id=#{payment.id}, sandbox_mode=#{MP.sandbox_mode} ")
         payment.create_preferences(cart_service.cart.address) if payment.is_a? MercadoPagoPayment
+        log("[MERCADOPAGO] Preference created. Preference_url=#{payment.url}")
 
         create_discount_payments
         create_payment_for(total_gift, GiftPayment)
@@ -104,17 +106,9 @@ class PaymentBuilder
       debit_discount = cart_service.total_discount_by_type(:debit_discount, payment)
       facebook_discount = cart_service.total_discount_by_type(:facebook_discount, payment)
 
-      if cart_service.cart.coupon
-        # This is valid because we only allow 1 kind of discount. 
-        # IT IS NOT POSSIBLE TO HAVE BOTH: OLOOKLET AND COUPON DISCOUNTS
-        total_liquidation = 0
-        total_coupon = cart_service.total_discount_by_type(:coupon) + cart_service.cart.total_liquidation_discount
-        coupon_opts = {:coupon_id => cart_service.cart.coupon.id}
-      else
-        total_liquidation = cart_service.cart.total_liquidation_discount
-        total_coupon = cart_service.total_discount_by_type(:coupon)
-        coupon_opts = {}
-      end
+      total_coupon = cart_service.cart.total_coupon_discount
+      coupon_opts = {:coupon_id => cart_service.cart.coupon_id}
+      total_liquidation = cart_service.cart.total_liquidation_discount
 
       create_payment_for(total_liquidation, OlookletPayment)
       create_payment_for(total_coupon, CouponPayment, coupon_opts)
