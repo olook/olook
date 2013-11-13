@@ -411,8 +411,11 @@
         Equipe de MODA: Seg à Sex das 8 às 20h / Sáb das 10 às 16h (exceto feriados).
   %ul.contact_box
     %li.telefone
+      .hint_tel
+        %p
+          (11)2626.3489
     %li.mail
-      =mail_to "falecom@olook.com.br", "falecom@olook.com.br"
+      =link_to "Moda Online", "http://olook.neoassist.com/?action=neolive&th=sac&scr=request&ForcaAutenticar=1", :class => "email"
     %li.sac_online
       =link_to "Sac Online", "http://olook.neoassist.com/?action=neolive&th=sac&scr=request&ForcaAutenticar=1", :class => "sac"
     %li.moda_online

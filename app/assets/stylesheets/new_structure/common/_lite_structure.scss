@@ -45,7 +45,7 @@ li{list-style-type:none;}
 a#go_top {position: fixed;background: image-url('common/arrow-go-top.png') no-repeat;text-indent: -99999px;width: 40px;height: 40px;right: 40px;bottom: 45%;z-index: 5;display: none;}
 
 header#new_header{border-top: 2px black solid;
-  .new_content{height: 84px;padding-top:15px;width: 990px;margin: 0 auto;
+  .new_content{height: 84px;padding-top:15px;width: 990px;margin: 0 auto;background: image-url('common/nowflakes.png') no-repeat center -4px;
       .box_left{font-family: $avenir;font-size: 10px;color: #b4b5b7;float: left;margin-left:10px;
         a.contact{text-decoration: none;color: #b4b5b7;
             &:hover{color:$base_color;}
@@ -97,7 +97,7 @@ header#new_header{border-top: 2px black solid;
       div.user {margin: 0;float: left;
         ul {
            li {position: relative;color: #282828;font-size: 11px;text-align: right;margin: 0 0 0 3px;padding: 0;display: inline-block;float: left;
-             &.username{border-right:1px solid #cdcdcd;height: 15px;padding-right: 10px}
+             &.username{border-right:1px solid #cdcdcd;height: 15px;padding-right: 10px; background: #FFF;}
              &.first{border-left: 1px solid #cdcdcd;padding-left: 10px;height: 15px;}
              &.bl{border-left:solid 1px #D7D7D7;padding-left:8px;line-height:17px;}
              &.br{border-right:solid 1px #D7D7D7;padding-right:8px;
