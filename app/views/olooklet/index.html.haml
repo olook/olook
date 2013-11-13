@@ -23,9 +23,6 @@
   #catalog
     %aside
       = render(@category ? "filters" : "main_filters", search: @search, category: @category)
-      - if @category
-        .promo_brands
-          = banner_for(@category, position: :sidebotton)
     - if header
       - if header.big_banner?
         .promo_catalog

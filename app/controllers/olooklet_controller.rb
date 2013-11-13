@@ -28,7 +28,7 @@ class OlookletController < ApplicationController
 
   def header
     @header ||= CatalogHeader::CatalogBase.for_url(request.path).first
-    @header ||= CatalogHeader::CatalogBase.for_url("/olooklet").first
+    @header ||= CatalogHeader::CatalogBase.for_url("/olooklet-teste").first
   end
 
   def title_text
