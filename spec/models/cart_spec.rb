@@ -131,6 +131,10 @@ describe Cart do
       let(:first_item) {cart_with_one_item.items.first}
 
       before do
+        adjustment = mock('adjustment')
+        adjustment.stub(:source => 'Promotion: Megaboga promotion')
+        adjustment.stub(:update_attributes => nil)
+        first_item.stub(:cart_item_adjustment => adjustment)
         first_item.stub(:adjustment_value => BigDecimal("10"))
       end
 
@@ -145,6 +149,10 @@ describe Cart do
           @cart = cart_with_one_item
           @cart.items << second_item
 
+          adjustment = mock('second adjustment')
+          adjustment.stub(:update_attributes => nil)
+          adjustment.stub(:source => 'Promotion: Megaboga promotion')
+          second_item.stub(:cart_item_adjustment => adjustment)
           second_item.stub(:adjustment_value => BigDecimal("40"))
         end
 
