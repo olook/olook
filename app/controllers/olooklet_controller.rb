@@ -32,7 +32,7 @@ class OlookletController < ApplicationController
   end
 
   def title_text
-    "Outlet Online - Roupas e Sapatos Femininos  | Olook"
+    "Outlet Online | Roupas Femininas e Sapatos Femininos | Olook"
   end
 
 end
