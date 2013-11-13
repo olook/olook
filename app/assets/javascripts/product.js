@@ -84,9 +84,14 @@ initProduct = {
 
     $("#variant_quantity").change(function(){
       var it = $(this);
-      var inventory = $('#inventory_' + variant.val());
-      if(initProduct.selectedVariantMaxVal() && it.val() > inventory.val()) {
-        it.val(inventory.val());
+      if (it.val() <= 0) {
+        it.val(1);
+      } else {
+        var variant = $('[name="variant[id]"]:checked');
+        var inventory = $('#inventory_' + variant.val());
+        if(initProduct.selectedVariantMaxVal() && it.val() > inventory.val()) {
+          it.val(inventory.val());
+        }
       }
     });
 
