@@ -182,41 +182,26 @@ describe ProductPresenter do
 
   describe "#price" do
     subject { described_class.new view, :product => product, :member => member, :facebook_app_id => facebook_app_id }
-    let(:cart) { FactoryGirl.create(:cart_with_items) }
-    let(:cart_service) { CartService.new({ cart: cart }) }
-
-    context "when product has promotion" do
-
-      before do
-        product.stub(:promotion?).and_return(true)
-        cart_service.stub(:has_coupon?).and_return(false)
-      end
-
-      it { expect(subject.render_price_for cart).to include("de: ") }
-      it { expect(subject.render_price_for cart).to include("por: ") }
-
+    let(:product_discount_service) { double('product_discount_service')}
+    before do
+      product_discount_service.stub(base_price: 100, final_price: 100, calculate: nil)
     end
 
-    context "when cart has cupon with value greater than 0" do
+    context "when product has discount" do
       before do
-        product.stub(:promotion?).and_return(false)
-        subject.stub(:has_valid_coupon_for?).and_return(true)
+        product_discount_service.stub(discount: 10)
       end
-
-      it { expect(subject.render_price_for cart_service).to include("de: ") }
-      it { expect(subject.render_price_for cart_service).to include("por: ") }
-
+      it { expect(subject.render_price_for product_discount_service).to include("de: ") }
+      it { expect(subject.render_price_for product_discount_service).to include("por: ") }
     end
 
-    context "when cart has no cupon and product has no promotion" do
+    context "when product hasn't discount" do
       before do
-        product.stub(:promotion?).and_return(false)
-        cart_service.stub(:has_coupon?).and_return(false)
+        product_discount_service.stub(discount: 0)
       end
 
-      it { expect(subject.render_price_for cart_service).to_not include("de: ") }
-      it { expect(subject.render_price_for cart_service).to_not include("por: ") }
-
+      it { expect(subject.render_price_for product_discount_service).to_not include("de: ") }
+      it { expect(subject.render_price_for product_discount_service).to_not include("por: ") }
     end
 
   end
