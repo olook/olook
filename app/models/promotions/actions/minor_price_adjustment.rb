@@ -14,6 +14,7 @@ class MinorPriceAdjustment < PromotionAction
     quantity = filters.delete('param').to_i
     "#{quantity} #{"produto".pluralize(quantity)} de graça"
   end
+
   def calculate(cart_items, filters)
     _filters = filters.dup
     quantity = _filters.delete('param')
