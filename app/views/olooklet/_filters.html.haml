@@ -1,34 +1,34 @@
 .show_more.cat_olooklet
   %ul
     - if search.filter_value('category').to_a.include?('roupa')
-      = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Roupas Femininas"
+      = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Roupas"
     - else
-      %li= link_to "Roupas femininas", olooklet_path(parameters: "roupa"), class: 'title_section close'
-
-    - if search.filter_value('category').to_a.include?('bolsa')
-      = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Bolsas Femininas"
-    - else
-      %li= link_to "Bolsas femininas", olooklet_path(parameters: "bolsa"), class: 'title_section close'
-
-    - if search.filter_value('category').to_a.include?('acessorio')
-      = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Acessórios Femininos"
-    - else
-      %li= link_to "Acessórios femininos", olooklet_path(parameters: "acessorio"), class: 'title_section close'
+      %li= link_to "Roupas", olooklet_path(parameters: "roupa"), class: 'title_section close'
 
     - if search.filter_value('category').to_a.include?('sapato')
-      = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Sapatos Femininos"
+      = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Sapatos"
     - else
-      %li= link_to "Sapatos femininos", olooklet_path(parameters: "sapato"), class: 'title_section close'
+      %li= link_to "Sapatos", olooklet_path(parameters: "sapato"), class: 'title_section close'
 
-    - if search.filter_value('category').to_a.include?('moda praia') && !search.filter_value('category').to_a.include?('roupa')
-      = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Moda Praia"
+    - if search.filter_value('category').to_a.include?('bolsa')
+      = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Bolsas"
     - else
-      %li= link_to "Moda praia", olooklet_path(parameters: "moda praia"), class: 'title_section close'
+      %li= link_to "Bolsas", olooklet_path(parameters: "bolsa"), class: 'title_section close'
+
+    - if search.filter_value('category').to_a.include?('acessorio')
+      = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Acessórios"
+    - else
+      %li= link_to "Acessórios", olooklet_path(parameters: "acessorio"), class: 'title_section close'
 
     - if search.filter_value('category').to_a.include?('lingerie') && !search.filter_value('category').to_a.include?('roupa')
       = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Lingeries"
     - else
       %li= link_to "Lingeries", olooklet_path(parameters: "lingerie"), class: 'title_section close'      
+
+    - if search.filter_value('category').to_a.include?('moda praia') && !search.filter_value('category').to_a.include?('roupa')
+      = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Moda Praia"
+    - else
+      %li= link_to "Moda praia", olooklet_path(parameters: "moda praia"), class: 'title_section close'
 
 
 - if search.filter_value('category').to_a.include?('sapato')
