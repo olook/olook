@@ -519,6 +519,18 @@ section#home {
               background-position: -147px -671px;
             }
           }
+          &.krein a {
+            background-position: -431px -670px;
+            &:hover {
+              background-position: -431px -682px;
+            }
+          }
+          &.piu a {
+            background-position: -286px -672px;
+            &:hover {
+              background-position: -286px -676px;
+            }
+          }
         }
       }
     }
