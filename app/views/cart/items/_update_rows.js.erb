@@ -1,6 +1,6 @@
 <% @cart.items.each do |item| %>
 //update item value on item row
-$('p#item_subtotal_' + <%= item.id %>).text('<%= number_to_currency(@cart_service.item_price_total(item)) %>');
+$('p#item_subtotal_' + <%= item.id %>).text('<%= number_to_currency(item.price * item.quantity) %>');
 
 //update items quantity on cart summary header
 $("#cart_items").text("<%= pluralize(@cart.items_total, 'item', 'itens') %>");
@@ -21,7 +21,6 @@ $("table#items tbody tr#item_<%= item.id %> td.value").empty();
 
 $("table#items tbody tr#item_<%= item.id %> td.value").first().append("<%= escape_javascript( render partial: 'cart/items/subtotal',
 																					locals: {
-																						cart_service: @cart_service,
 																						item: item
 																					} ) %>");
 

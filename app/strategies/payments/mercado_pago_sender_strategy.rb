@@ -10,6 +10,9 @@ module Payments
     end
 
     def send_to_gateway
+      @payment.gateway_response_status = Payment::SUCCESSFUL_STATUS
+      @payment.gateway = Payment::GATEWAYS.fetch(:mercadopago)      
+      @payment.save!
       @payment
     end
 
