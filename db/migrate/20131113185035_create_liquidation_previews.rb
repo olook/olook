@@ -5,9 +5,9 @@ class CreateLiquidationPreviews < ActiveRecord::Migration
       t.string :name
       t.string :category
       t.string :subcategory
-      t.decimal :price
-      t.decimal :retail_price
-      t.decimal :discount_percentage
+      t.decimal :price, :precision => 10, :scale => 2
+      t.decimal :retail_price, :precision => 10, :scale => 2
+      t.decimal :discount_percentage, :precision => 10, :scale => 2
       t.string :inventory
       t.string :color
       t.boolean :visible

@@ -7,7 +7,7 @@ class Admin::VisibilityBatchController < Admin::BaseController
   def create
     LiquidationPreview.import_csv params[:file]
     message = nil
-    message ||= "Visibilidade de #{updated_products} produtos alterada com sucesso!"
+    message ||= "Visibilidade alterada com sucesso!"
     redirect_to admin_new_visibility_batch_path, notice: message
   end
 
