@@ -55,18 +55,29 @@
             </li>
           </ol>
         </fieldset>
-        <fieldset class="inputs cpf">
-          <ol>
-            <li>
-              <%= f.label :cpf %>
-              <%= f.text_field :cpf, resource.cpf.nil? ? '' : :disabled => "disabled" %>
-            </li>
-            <li>
-              <%= f.label :birthday %>
-              <%= f.date_select :birthday, { :start_year => 1900 }, :class => "custom_select"  %>
-            </li>
-          </ol>
-        </fieldset>
+        <% if resource.reseller_without_cpf? %>
+          <fieldset class="inputs cpf">
+            <ol>
+              <li>
+                <%= f.label :cnpj %>
+                <%= f.text_field :cnpj, resource.cnpj.nil? ? '' : :disabled => "disabled" %>
+              </li>
+            </ol>
+          </fieldset>
+        <% else %>
+          <fieldset class="inputs cpf">
+            <ol>
+              <li>
+                <%= f.label :cpf %>
+                <%= f.text_field :cpf, resource.cpf.nil? ? '' : :disabled => "disabled" %>
+              </li>
+              <li>
+                <%= f.label :birthday %>
+                <%= f.date_select :birthday, { :start_year => 1900 }, :class => "custom_select"  %>
+              </li>
+            </ol>
+          </fieldset>
+          <% end %>
         <% if @presenter.try(:shoe_size_question) && !resource.half_user %>
         <fieldset class="shoe_size">
           <%= fields_for 'user_info' do |ui| %>
