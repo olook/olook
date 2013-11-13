@@ -23,7 +23,8 @@
 
       %section.container_product
         %ul#products
-          = render "shared/searched_products", :products => @search.products
+          = render_highlighted_products_from(@campaign)
+          = render "shared/searched_products", :products => @search.products, campaign_products: @campaign.products
         .loading
 
     .pagination

@@ -10,7 +10,8 @@ class CatalogsController < ApplicationController
 
     Rails.logger.debug("New params: #{params.inspect}")
 
-    @campaign_products = HighlightCampaign.campaign_products(params[:cmp])
+    # @campaign, @campaign_products = HighlightCampaign.campaign_products(params[:cmp])
+    @campaign = HighlightCampaign.find_campaign(params[:cmp])
 
     page_size = params[:page_size] || DEFAULT_PAGE_SIZE
     @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(page_size)
@@ -22,7 +23,7 @@ class CatalogsController < ApplicationController
     @search.for_admin if current_admin
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     @pixel_information = @category = params[:category]
-    @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign_products.cache_key}"
+    @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
     @category = @search.expressions[:category].first
     params[:category] = @search.expressions[:category].first
     expire_fragment(@cache_key) if params[:force_cache].to_i == 1
