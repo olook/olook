@@ -124,27 +124,6 @@ ActiveRecord::Schema.define(:version => 20131113185035) do
 
   add_index "braspag_capture_responses", ["identification_code"], :name => "index_braspag_capture_responses_on_order_id"
 
-  create_table "braspag_responses", :force => true do |t|
-    t.string   "type"
-    t.string   "correlation_id"
-    t.boolean  "success"
-    t.string   "error_message"
-    t.string   "order_id"
-    t.string   "braspag_order_id"
-    t.string   "braspag_transaction_id"
-    t.string   "amount"
-    t.integer  "payment_method"
-    t.string   "acquirer_transaction_id"
-    t.string   "authorization_code"
-    t.string   "return_code"
-    t.string   "return_message"
-    t.integer  "transaction_status"
-    t.boolean  "processed",               :default => false
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
-    t.string   "credit_card_token"
-  end
-
   create_table "campaign_emails", :force => true do |t|
     t.string   "email"
     t.datetime "created_at",                        :null => false
@@ -631,15 +610,6 @@ ActiveRecord::Schema.define(:version => 20131113185035) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "images", :force => true do |t|
-    t.string   "image"
-    t.integer  "lookbook_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "images", ["lookbook_id"], :name => "index_images_on_lookbook_id"
-
   create_table "invites", :force => true do |t|
     t.integer  "user_id"
     t.string   "email"
@@ -749,20 +719,6 @@ ActiveRecord::Schema.define(:version => 20131113185035) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "lookbook_image_maps", :force => true do |t|
-    t.integer  "lookbook_id"
-    t.integer  "image_id"
-    t.integer  "product_id"
-    t.integer  "coord_x"
-    t.integer  "coord_y"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "lookbook_image_maps", ["image_id"], :name => "index_lookbook_image_maps_on_image_id"
-  add_index "lookbook_image_maps", ["lookbook_id"], :name => "index_lookbook_image_maps_on_lookbook_id"
-  add_index "lookbook_image_maps", ["product_id"], :name => "index_lookbook_image_maps_on_product_id"
-
   create_table "lookbooks", :force => true do |t|
     t.string   "name"
     t.string   "thumb_image"
@@ -775,14 +731,6 @@ ActiveRecord::Schema.define(:version => 20131113185035) do
     t.string   "fg_color"
     t.string   "bg_color"
     t.string   "movie_image"
-  end
-
-  create_table "lookbooks_products", :force => true do |t|
-    t.integer  "lookbook_id"
-    t.integer  "product_id"
-    t.boolean  "criteo",      :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "moip_callbacks", :force => true do |t|
