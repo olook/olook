@@ -867,7 +867,7 @@ body {
     div.user {margin: 0;float: left;
       ul {
         > li {
-           &.username{border-right:1px solid #cdcdcd;height: 15px;padding-right: 10px !important;}
+           &.username{border-right:1px solid #cdcdcd;height: 15px;padding-right: 10px !important;background: #FFF;}
            &.first{border-left: 1px solid #cdcdcd;padding-left: 10px;height: 15px;}
            &.bl{border-left:solid 1px #D7D7D7;padding-left:8px;line-height:17px;}
            &.br{border-right:solid 1px #D7D7D7;padding-right:8px;
@@ -955,12 +955,14 @@ body {
 /*** new header ***/
 header#new_header{
   min-height: 109px;
+
   .new_content{
-     border-top: 2px black solid;
-     height: 84px;
-     padding-top:15px;
+      border-top: 2px black solid;
+      height: 84px;
+      padding-top:15px;
       width: 990px;
       margin: 0 auto;
+      background: image-url('common/nowflakes.png') no-repeat center -4px;
       .box_left{
         font-family: $avenir;
         font-size: 10px;

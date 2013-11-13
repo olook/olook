@@ -30,10 +30,22 @@ $(document).ready(function() {
     ev.preventDefault();
     return false;
   });
+  $('a.email').click(function(ev){
+    window.open('http://olook.neoassist.com/?action=new',
+    'Continue_to_Application','width=550,height=650');
+    ev.preventDefault();
+    return false;
+  });
   $(".moda_online").mouseover(function() {
     $(".hint").show();
   });
   $(".moda_online").mouseout(function() {
     $(".hint").hide();
+  });
+  $(".telefone").mouseover(function() {
+    $(".hint_tel").show();
+  });
+  $(".telefone").mouseout(function() {
+    $(".hint_tel").hide();
   });
 });
