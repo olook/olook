@@ -53,12 +53,15 @@
         %td
           = product.color
         %td
-          = product.color
+          = product.collection
         %td
           = product.visible
         %td
           = product.visibility
         %td
           = image_tag(product.picture_url)
+  .actions-bar.wat-cf
+    .pagination
+      = will_paginate @liquidation_previews
 
 
