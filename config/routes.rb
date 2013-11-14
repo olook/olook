@@ -422,6 +422,7 @@ Olook::Application.routes.draw do
     get "visibility_batch/export", as: :export_visibility_batch_to_csv
 
     post "visibility_batch/create", as: :create_visibility_batch
+    get "visibility_batch/index", as: :index_visibility_batch
   end
 
   #USER / SIGN IN

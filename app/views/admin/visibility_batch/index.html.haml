@@ -1,0 +1,37 @@
+.liquidation_preview_content
+  = link_to "Atualizar liquidações", admin_new_visibility_batch_path
+  = link_to "Confirmar atualização", "#"
+  %table.table
+    %tr
+      %th
+        ID
+      %th
+        Nome
+      %th
+        Categoria
+      %th
+        Modelo
+      %th
+        Preço original
+      %th
+        Preço liquidação
+      %th
+        Desconto (%)
+      %th
+        Inventário
+      %th
+        Cor
+      %th
+        Coleção
+      %th
+        Visível
+      %th
+        Onde?
+      %th
+        Foto
+    - @liquidation_previews.each do |product|
+      %tr
+        %td
+          = product.id
+
+
