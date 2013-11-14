@@ -73,7 +73,6 @@ class MembersController < ApplicationController
 
   def welcome
     session[:facebook_redirect_paths] = "showroom"
-    @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
   end
 
   def showroom
@@ -84,7 +83,6 @@ class MembersController < ApplicationController
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
 
     session[:facebook_redirect_paths] = "showroom"
-    @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
     if @facebook_adapter
       @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
     end
