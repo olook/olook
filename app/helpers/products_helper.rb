@@ -1,5 +1,11 @@
 # -*- encoding: utf-8 -*-
 module ProductsHelper
+
+  def belongs_to_p_and_b_collection? product_id
+    collection = CollectionTheme.find_by_slug('p&b')
+    collection.products.map(&:id).include? product_id
+  end
+
   def variant_classes(variant, shoe_size = nil)
     classes = []
     if !variant.available_for_quantity?
