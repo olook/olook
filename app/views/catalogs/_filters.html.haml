@@ -56,12 +56,11 @@
     %input{type:"text", id:"max-value"}
     %input{type:"hidden", name:"price", id:"price"}
 
-- if search.filter_value('category').to_a.include?('roupa')
-  .filter
-    %p.title-category Marca
-    %ul.category-list
-      - filters_by('brand_facet', search, use_fields: [:category]).each do |text, amount|
-        %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:brand, text)), text.chomp.gsub('Ç', 'ç').downcase.titleize, search.filter_selected?(:brand, text.chomp))
+.filter
+  %p.title-category Marca
+  %ul.category-list
+    - filters_by('brand_facet', search, use_fields: [:category]).each do |text, amount|
+      %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:brand, text)), text.chomp.gsub('Ç', 'ç').downcase.titleize, search.filter_selected?(:brand, text.chomp))
 
 - if (['sapato', 'roupa'] & search.filter_value('category').to_a).present?
   .filter
