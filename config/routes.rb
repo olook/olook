@@ -112,7 +112,6 @@ Olook::Application.routes.draw do
   match "/marcas/:brand(/*parameters)", :to => "brands#show", as: "brand"
 
   #NEW OLOOKLET
-  match "/olooklet" , :to => "liquidations#index", :as => "olooklet"
   get "/olooklet-teste(/*parameters)" => "olooklet#index", :as => "olooklet"
 
   #NEW COLLECTIONS
@@ -198,8 +197,7 @@ Olook::Application.routes.draw do
   get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"
   get "membro/ganhe-creditos", :to => "members#earn_credits", :as => "member_earn_credits"
   #get "membro/creditos", :to => "members#credits", :as => "member_credits"
-  post "user_liquidations", :controller => "user_liquidations", :action => "update"
-  post "user_notifications", :controller => "user_liquidations", :action => "notification_update"
+
 
   # GIFT
   namespace :gift, :path => "presentes" do
