@@ -41,12 +41,12 @@ module Admin::ApplicationHelper
   end
 
   def formatted_visibility visibility_code
-    if visibility == '1'
-      'Em todo o site [1]'
-    elsif visibility == '2'
-      'Catálogos [2]'
+    if visibility_code == '1'
+      'Catálogos [1]'
+    elsif visibility_code == '2'
+      'Olooklet [2]'
     else
-      'Olooklet [3]'
+      'Em todo o site [3]'
     end
   end
 

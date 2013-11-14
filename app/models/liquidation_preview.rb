@@ -24,6 +24,6 @@ class LiquidationPreview < ActiveRecord::Base
   end
 
   def self.update_visibility_in_products
-    LiquidationPreview.all.each{|lp| lp.product.update_attribute(:visibility, lp.visibility)}
+    LiquidationPreview.all.each{|lp| lp.product.update_attribute(:visibility, lp.visibility)}   
   end
 end
