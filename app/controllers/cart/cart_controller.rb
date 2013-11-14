@@ -15,13 +15,8 @@ class Cart::CartController < ApplicationController
     @suggested_product = find_suggested_product
 
     @promo_over_coupon = false
-    if @cart && @cart.coupon && !@cart.items.empty?
-      if @cart.coupon.is_more_advantageous_than_any_promotion? @cart
-        @promo_over_coupon = true if @cart.items.any? { |i| i.liquidation? }
-      else
-        @cart.remove_coupon!
-        @promo_over_coupon = true
-      end
+    if @cart.coupon_id && Promotion.select_promotion_for(@cart)
+      @promo_over_coupon = true
     end
   end
 
@@ -42,13 +37,13 @@ class Cart::CartController < ApplicationController
   end
 
   def update
-    if  coupon = Coupon.find_by_code(params[:cart][:coupon_code])
-      unless coupon.is_more_advantageous_than_any_promotion? @cart
-        params[:cart].delete(:coupon_code)
-        render :error, :locals => { :notice => "Os descontos não são acumulativos, Você não pode usar um cupom em uma promoção do site, por exemplo" }
-      end
+    if Promotion.select_promotion_for(@cart)
+      params[:cart].delete(:coupon_code)
+      render :error, :locals => { :notice => "Os descontos não são acumulativos, Você não pode usar um cupom em uma promoção do site, por exemplo" }
     end
+
     @cart.update_attributes(params[:cart])
+    
     if @cart.errors.any?
       notice_message = @cart.errors.messages.values.flatten.first
       render :error, :locals => { :notice => notice_message }
