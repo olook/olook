@@ -28,7 +28,8 @@ class MktXmlBuilder
     muccashop: 'muccashop_template.xml.erb',
     shopear: 'shopear_template.xml.erb',
     melt: 'melt_template.xml.erb',
-    paraiso_feminino: 'paraiso_feminino_template.xml.erb'
+    paraiso_feminino: 'paraiso_feminino_template.xml.erb',
+    stylight: 'stylight_template.xml.erb'
   }
 
   def self.create_xmls
