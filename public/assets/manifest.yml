@@ -2172,6 +2172,8 @@ my_account.js: my_account-b2934740a4185a0d15d534a7e55111a8.js
 my_account/index.js: my_account-b2934740a4185a0d15d534a7e55111a8.js
 niver_olook.js: niver_olook-12ad67023592b264e271c7a9e1530e1c.js
 niver_olook/index.js: niver_olook-12ad67023592b264e271c7a9e1530e1c.js
+olooklet.js: olooklet-b2e769792c1f969e9c832db6fd235631.js
+olooklet/index.js: olooklet-b2e769792c1f969e9c832db6fd235631.js
 olookmovel.js: olookmovel-bce404c3f50b6f1f5252f50b84dca663.js
 olookmovel/index.js: olookmovel-bce404c3f50b6f1f5252f50b84dca663.js
 opener_hack.js: opener_hack-bf96594c2faa203757a68446314eafc6.js
@@ -2402,8 +2404,8 @@ customlanding.css: customlanding-b4f61d409d3a0226e0fa9c72206aa33a.css
 customlanding/index.css: customlanding-b4f61d409d3a0226e0fa9c72206aa33a.css
 desktop.css: desktop-451ed70b2e5bb68ddb58dfdcb97b0fb9.css
 desktop/index.css: desktop-451ed70b2e5bb68ddb58dfdcb97b0fb9.css
-new_structure/lite_application.css: new_structure/lite_application-a0de7538298d78014cb4db17c817d747.css
-new_structure/lite_application/index.css: new_structure/lite_application-a0de7538298d78014cb4db17c817d747.css
+new_structure/lite_application.css: new_structure/lite_application-f1ae73b7fc50477aa43e1e16eaf69314.css
+new_structure/lite_application/index.css: new_structure/lite_application-f1ae73b7fc50477aa43e1e16eaf69314.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-89a95eeb61bd0261940de13468f8f414.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-89a95eeb61bd0261940de13468f8f414.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-92fa84ef4ab8ba6b3bbb184d64ad1480.css
@@ -2440,8 +2442,8 @@ new_structure/section/collection_themes.css: new_structure/section/collection_th
 new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-43cc8492eb763c1da151c3c5511d773a.css
 new_structure/section/join.css: new_structure/section/join-22dc2faa126a17fddb685d1b6b0588ac.css
 new_structure/section/join/index.css: new_structure/section/join-22dc2faa126a17fddb685d1b6b0588ac.css
-new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-3bf7d2ca66e855f78660851c1dffb880.css
-new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-3bf7d2ca66e855f78660851c1dffb880.css
+new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-b897d5c681a38a34def3da50ced17536.css
+new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-b897d5c681a38a34def3da50ced17536.css
 new_structure/section/lite_showroom.css: new_structure/section/lite_showroom-aac85e34414994ec04fd7659c2646016.css
 new_structure/section/lite_showroom/index.css: new_structure/section/lite_showroom-aac85e34414994ec04fd7659c2646016.css
 new_structure/section/olookmovel.css: new_structure/section/olookmovel-cdc45e016c5d0e2de29f6a9c18393287.css
