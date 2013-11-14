@@ -70,13 +70,10 @@ class XmlController < ApplicationController
 
     def prepare_products
       load_products
-      liquidation_products
-      # remove_liquidation_products
     end
 
     def prepare_products_without_cloth
       load_products_without_cloth
-      liquidation_products
     end
 
     def load_products
@@ -85,16 +82,6 @@ class XmlController < ApplicationController
 
     def load_products_without_cloth
       @products = Product.valid_for_xml_without_cloth(Product.xml_blacklist("products_blacklist").join(','))
-    end
-
-    def liquidation_products
-      @liquidation_products = []
-      active_liquidation = LiquidationService.active
-      @liquidation_products = active_liquidation.resume[:products_ids] if active_liquidation
-    end
-
-    def remove_liquidation_products
-      @products.delete_if{|product| @liquidation_products.include?(product.id)} if @products
     end
 
 end
