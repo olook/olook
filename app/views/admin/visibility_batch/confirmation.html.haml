@@ -3,7 +3,7 @@
   Confira a relação abaixo antes de confirmar a atualização[
   = @liquidation_previews.count
   produtos]
-  = link_to "Confirmar atualização", "#"
+  = link_to "Confirmar atualização", admin_commit_visibility_batch_path
   %table.table
     %tr
       %th
@@ -33,7 +33,7 @@
       %th
         Foto
     - @liquidation_previews.each do |product|
-      %tr
+      %tr{class:"#{'not-visible' if !product.visible? }"}
         %td
           = product.product_id
         %td

@@ -1,18 +1,23 @@
 # encoding: UTF-8
 class Admin::VisibilityBatchController < Admin::BaseController
   respond_to :html
+  def commit
+    LiquidationPreview.update_visibility_in_products
+    message = "Produtos atualizados com sucesso!"
+    redirect_to admin_new_visibility_batch_path, notice: message    
+  end
+
   def new
   end
 
-  def index
+  def confirmation
     @liquidation_previews = LiquidationPreview.paginate(page: params[:page], per_page: 10)
   end
 
   def create
     LiquidationPreview.import_csv params[:file]
     message = nil
-    message ||= "Visibilidade alterada com sucesso!"
-    redirect_to admin_index_visibility_batch_path, notice: message
+    redirect_to admin_confirmation_visibility_batch_path, notice: message
   end
 
   def export
