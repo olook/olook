@@ -1,5 +1,8 @@
 .liquidation_preview_content
   = link_to "Atualizar liquidações", admin_new_visibility_batch_path
+  Confira a relação abaixo antes de confirmar a atualização[
+  = @liquidation_previews.count
+  produtos]
   = link_to "Confirmar atualização", "#"
   %table.table
     %tr
@@ -33,5 +36,29 @@
       %tr
         %td
           = product.id
+        %td
+          = product.name
+        %td
+          = product.category
+        %td
+          = product.subcategory
+        %td
+          = product.price
+        %td
+          = product.retail_price
+        %td
+          = product.discount_percentage
+        %td
+          = product.inventory
+        %td
+          = product.color
+        %td
+          = product.color
+        %td
+          = product.visible
+        %td
+          = product.visibility
+        %td
+          = image_tag(product.picture_url)
 
 
