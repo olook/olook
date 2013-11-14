@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131113185035) do
+ActiveRecord::Schema.define(:version => 20131114171327) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -639,6 +639,7 @@ ActiveRecord::Schema.define(:version => 20131113185035) do
     t.string   "picture_url"
     t.datetime "created_at",                                         :null => false
     t.datetime "updated_at",                                         :null => false
+    t.string   "collection"
   end
 
   add_index "liquidation_previews", ["product_id"], :name => "index_liquidation_previews_on_product_id"
