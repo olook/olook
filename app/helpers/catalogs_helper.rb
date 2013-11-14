@@ -136,7 +136,7 @@ module CatalogsHelper
   def size_list(categories, search, category_abbr, fields = [:category])
     old_categories = search.current_filters[:category]
     search.category = categories
-    response = filters_by('size', search, use_fields: fields).reverse.reject{|text,amount|(text.to_i != 0 && text[text.size-1] != category_abbr.downcase) || !should_size_appear_in_olooklet_menu?(text)}
+    response = filters_by('size', search, use_fields: fields).reject{|text,amount|(text.to_i != 0 && text[text.size-1] != category_abbr.downcase) || !should_size_appear_in_olooklet_menu?(text)}
     search.category = old_categories
     response
   end
