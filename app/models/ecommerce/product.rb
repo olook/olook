@@ -7,6 +7,7 @@ class Product < ActiveRecord::Base
   # TODO: Temporarily disabling paper_trail for app analysis
   #has_paper_trail :skip => [:pictures_attributes, :color_sample]
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
+  PRODUCT_VISIBILITY = {site: 1, olooklet: 2, all: 3}
   MINIMUM_INVENTORY_FOR_XML = 3
 
   extend ProductFinder
