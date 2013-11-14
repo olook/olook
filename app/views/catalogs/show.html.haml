@@ -76,12 +76,8 @@
 
       %section.container_product
         %ul#products
-          - if @campaign_products && @campaign_products.products.any?
-            - @campaign.product_ids.split('-').map { |pid| @campaign_products.products.find { |p| p.id.to_i == pid.to_i } }.compact.each do |cp|
-              = render "shared/searched_product_item", :product => cp
-            = render "shared/searched_products", :products => @search.products, campaign_products: @campaign_products.products
-          - else
-            = render "shared/searched_products", :products => @search.products
+          = render_highlighted_products_from(@campaign)
+          = render "shared/searched_products", :products => @search.products, campaign_products: @campaign.products
         .loading
 
       = render "shared/antibounce_box", antibounce_box: @antibounce_box if @antibounce_box.present? && @antibounce_box.search.products.count > 0 && Setting.antibounce_enabled
