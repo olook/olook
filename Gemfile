@@ -106,6 +106,7 @@ group :development, :test do
   gem 'ci_reporter', :git => 'git://github.com/nicksieger/ci_reporter.git', require: false
   gem 'jasmine'
   gem 'binding_of_caller'
+  gem 'rack-mini-profiler', '~> 0.1.23'
 end
 gem 'rubber', '~> 2.0', git: 'git://github.com/nelsonmhjr/rubber.git', branch: 'newrelic'
 gem 'open4'
@@ -114,4 +115,3 @@ gem "codeclimate-test-reporter", group: :test, require: nil
 group :test do
   gem 'webmock'
 end
-gem 'rack-mini-profiler', '0.1.23'
