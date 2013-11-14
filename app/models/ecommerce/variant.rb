@@ -7,7 +7,6 @@ class Variant < ActiveRecord::Base
 
   before_save :fill_is_master, :calculate_discount_percent
   after_save :replicate_master_changes, :if => :is_master
-  after_update :update_liquidation_products_inventory, :update_catalog_products_inventory
 
   belongs_to :product
 
@@ -32,7 +31,6 @@ class Variant < ActiveRecord::Base
   delegate :checkout_picture, :to => :product
   delegate :bag_picture, :to => :product
   delegate :showroom_picture, :to => :product
-  delegate :liquidation?, :to => :product
   delegate :promotion?, :to => :product
   delegate :gift_price, :to => :product
 
@@ -90,28 +88,12 @@ class Variant < ActiveRecord::Base
     end
   end
 
-  def update_liquidation_products_inventory
-    LiquidationProduct.where(:variant_id => self.id).update_all(:inventory => self.inventory)
-  end
-
-  def update_catalog_products_inventory
-    Catalog::Product.where(:variant_id => self.id).update_all(:inventory => self.inventory)
-  end
-
   def retail_price
-    if liquidation?
-      LiquidationProductService.retail_price(self.product)
-    else
-      retail_price_logic
-    end
+    retail_price_logic
   end
 
   def discount_percent
-    discount = if liquidation?
-       LiquidationProductService.discount_percent(self.product)
-    else
-      read_attribute(:discount_percent)
-    end
+    discount = read_attribute(:discount_percent)
     (discount.blank? || discount.zero?) ? 0 : discount
   end
 
