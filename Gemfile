@@ -74,7 +74,6 @@ gem 'piet', :git => 'git://github.com/albertbellonch/piet.git', ref: "630a98bef1
 group :development, :test do
   gem 'better_errors'
   gem 'faker'
-  gem 'rack-mini-profiler'
   gem 'bullet'
   gem 'thin'
   gem 'rb-inotify', '~> 0.9', :require => false
@@ -115,3 +114,4 @@ gem "codeclimate-test-reporter", group: :test, require: nil
 group :test do
   gem 'webmock'
 end
+gem 'rack-mini-profiler', git: 'git@github.com:MiniProfiler/rack-mini-profiler.git'
