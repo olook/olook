@@ -20,7 +20,7 @@
     billet:
       santander: "Conciliação Santander"
     product:
-      visibility: Visibilidade
+      liquidation: Liquidações
 
   #Carrinho
   cart:

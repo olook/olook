@@ -1,6 +1,7 @@
 @import 'partials/mixins';
 @import 'partials/fonts';
 @import 'new_structure/partials/facebook_footer';
+@import 'new_structure/common/global_stuffs';
 
 #about{
 padding:20px 20px 0;
@@ -128,131 +129,141 @@ padding:20px 20px 0;
   text-align: center;
   text-indent: -9999px;
 }
+ul.click_show_child{margin-bottom: 15px;}
+ul.click_show_child ul.question_box, ul.click_show_child .answer {
+  display:none;
+}
+.currentLi { display: block; }
+.otherLi { display: none; }
 
 #terms {
-  padding: 20px 0 0;
-  width:98%;
-  position: relative;
-  h1 {
-    font-size: 28px;
-    letter-spacing: -1px;
+  width: 970px;
+  color: #000;
+  margin-bottom: 35px;
+  h2{
+    font-family: $johnston;
+    font-size: 18px;
+    color: #000;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    margin: 0 0 30px;
+    margin-bottom: 45px;
+    margin-top: 15px;
   }
-
-  h2 {
-    font-size: 16px;
-    margin: 0 0 13px;
+  h3{
+    font-size: 15px;
     text-transform: uppercase;
-		font-weight:bold;
+    letter-spacing: 2px;
+    font-weight: 500;
+    margin-left: 75px;
+    margin-bottom: 30px;
   }
-
-   h3 {
+  ul{
+    margin-left: 75px;
+  }
+  li.subtitle_site{
+    cursor: pointer;
+  }
+  li.question{
+    cursor: pointer;
+    margin-top: 5px;
+    color: #000 !important;
+      &:hover{
+      color: $pink !important; 
+    } 
+  }
+  .como_funciona{
+    margin-bottom: 15px !important; 
+    color: #000 !important;
+    cursor:normal;
+    ul.question_box{
+      margin-top: 15px;
+      color: #000 !important;
+      cursor:normal;
+    }
+  }
+  .politica_troca, .prazo_troca, .prazo_reembolso{display: none;}
+  ul.solicitacao_troca, ul.prazo_reembolso{
+    margin-left: 16px;
+    width: 585px;
+    li{
+      list-style-type: disc;
+      margin-top: 10px;
+    }
+  }
+  ul li{
+    font-family: $avenir;
     font-size: 14px;
-    margin: 10px 0 13px;
-    text-transform: uppercase;
-    font-weight:bold;
-  } 
-
-  p.intro, .intro {
-    border:1px solid #e4e4e4;
-    padding:30px;
-  }
-	
-	p.section-title{
-		font-size:20px;
-		color:#000;
-		font-weight:bold;
-	}
-	
-  p {
-    a.arrow {
-      color: #101010;
+    &#subtitle{
+      margin-top: 5px;
     }
-  }
-
-  .intro {
-    margin: 0 0 40px;
-    p {
-      color: #101010;
-      font-family: avenir, Times, "Times New Roman", sans-serif;
-      font-size: 16px;
-      letter-spacing: -1px;
-      margin: 0 0 20px;
-    }
-    ul {
-      li {
-        color: #6d6e71;
-      }
-    }
-  }
-
-  ul.contact {
-    background: #FFF;
-    width: 365px;
-    overflow: hidden;
-    margin: 22px 0;
-    padding: 2px 12px;
-    border: 1px #d2d2d2 solid;
-    li {
-      float: left;
-      &.phone {
-        background: image-url('contact/ico-phone.png') left no-repeat;
-        color: #3b3b3b;
-        font-size: 15px;
+    p{
+      width: 595px;
+      margin-top: 20px;
+      span{
         font-weight: bold;
-        margin: 0 15px 0 0;
-        padding: 5px 10px 5px 25px;
-        border-right: 1px #d2d2d2 solid;
       }
-      &.mail {
-        padding: 5px 0 5px 0;
-        a {
-          background: image-url('contact/ico-mail.png') left no-repeat;
-          color: #3b3b3b;
-          font-size: 15px;
-          font-weight: bold;
-          text-decoration: none;
-          padding: 0 0 0 25px;
-          &:hover {
-            text-decoration: underline;
-          }
-        }
+    }
+    a{
+      font-weight: 500;
+      text-decoration: none;
+      color: $pink;
+      &:hover{
+        color: $pink;
       }
     }
   }
-  &.faq {
-    p {
-      margin: 0 0 35px;
-			a{color:#ef3742;}
-    }
-  }
-  &.return {
-    h2 {
-      letter-spacing: 0;
+  .politica_troca{
+    h3{
+      margin-left: 140px;
+      margin-bottom: 0px;
+      margin-top: 20px;
       font-weight: bold;
-      margin: 35px 0 5px;
     }
-    h3 {
-      font-family: KeplerStdItalic, Times, "Times New Roman", sans-serif;
-      font-size: 15px;
-      margin: 25px 0 0;
-    }
-  }
-  &.privacy, &.terms {
-    div.intro {
-      p {
-        margin: 0;
-        &.first {
-          margin: 0 0 20px;
-        }
+    p{
+      width: 595px;
+      &.titleul{
+        font-weight: 600;
+        font-size: 14px;
+        text-transform: uppercase;
       }
     }
-    h2 {
-      margin-top: 35px;
+    ul{
+      width: 520px;
+      li{
+        list-style-type: disc;
+        margin-top: 10px;
+      }
     }
+  }
+
+  .bt_back{
+    display: none;
+    background: image-url('faq/black_arrow.png') no-repeat 3px 3px; 
+    color: #000;
+    font-family: johnston, arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 12px;
+    padding-left: 18px;
+    margin-top: 25px;
+    text-decoration: none;
+    font-weight: lighter;
+  }
+  .active{
+    color: #000;
+    &:hover{
+      color: $pink;
+    }
+  }
+  .answer{
+    color: #000 !important;
+  }
+  .como_funciona{
+    color: #000 !important;
+    cursor: normal;
   }
 }
+
 
 .clear {
   clear: both;
@@ -268,4 +279,91 @@ padding:20px 20px 0;
 
 .content { 
 width:970px !important;
+}
+
+#contact{
+  border-top: 1px solid #d7d7d7;
+  width: 970px;
+  height: 220px;
+  margin: 0 auto;
+  h2{
+    font-family: $johnston;
+    font-size: 18px;
+    color: #000;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 35px;
+    margin-top: 40px;
+  }
+  p{
+    font-size: 15px;
+    color: #000;
+    font-family: $avenir;
+    margin-left: 85px;
+    font-weight: lighter;
+    span.olook{
+      font-weight: bold;
+      font-size: 15px;
+      color: #000;
+      font-family: $avenir;
+      display: inline;
+    }
+    span{
+      display: block;
+      font-size: 11px;
+    }
+  }
+  .contact_box{
+    margin-top: 15px;
+    li{
+      width: 188px;
+      height: 65px;
+      background: image-url('faq/icons_contact_sprite.png') no-repeat;
+      float: left;
+      a{
+        display: block;
+        text-indent: -9999px;
+        height: 65px;
+        width: 188px;
+      }
+      &.telefone{
+        cursor: pointer;
+        .hint_tel{
+          display: none;
+          p{
+            text-indent: 0;
+            color: #000;
+            font-weight: bold;
+            font-size: 13px;
+            padding-top: 55px;
+            margin-left: 50px;
+          }
+        }
+      }
+      &.mail{
+        background-position: -190px 0;
+        cursor: pointer;
+      }
+      &.sac_online{
+        background-position: -375px 0;
+        cursor: pointer;
+      }
+      &.moda_online{
+        background-position: -535px 0;
+        cursor: pointer;
+        .hint{
+          display: none;
+          p{
+            font-size: 11px;
+            margin: 0;
+            margin-top: -15px;
+            margin-left: -25px;
+            line-height: 15px;
+            text-align: center;
+            width: 280px;
+          }
+        }
+      }
+    }
+  }
 }

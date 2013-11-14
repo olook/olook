@@ -1,0 +1,111 @@
+:javascript
+  SOASTA = {};
+  SOASTA.pg = "product";
+  if(typeof BOOMR !== "undefined") {
+    BOOMR.addVar("h.pg", SOASTA.pg);
+  }
+
+
+- product_presenter = present 'Product', product: @product, member: @user, facebook_app_id: @facebook_app_id, shoe_size: @shoe_size, :logged? => user_signed_in?, :gift? => false, :only_view? => @only_view
+- content_for(:head) do
+  - @hide_fb_page_id = true
+  %meta{content: @facebook_app_id, property: "fb:app_id"}/
+  %meta{content: "Olook – #{@product.name}", property: "og:title"}/
+  %meta{content: @product.description, property: "og:description"}/
+  %meta{content: @product.catalog_picture.to_s, property: "og:image"}/
+  %meta{content: "#{@url}/produto/#{@product.id}", property: "og:url"}/
+  %meta{content: "Olook", property: "og:site_name"}/
+  %meta{content: "website", property: "og:type"}/
+  %meta{content: "product", name: "chaordic:source"}/
+  %meta{content: @chaordic_user, name: "chaordic:user"}/
+  %meta{content: @chaordic_product, "data-pid" => @product.id, name: "chaordic:product"}/
+  %meta{content: @chaordic_category, name: "chaordic:category"}/
+  %meta{content: current_cart.try(:id), name: "chaordic:cart_id"}/
+  %script{src: "//assets.pinterest.com/js/pinit.js", type: "text/javascript"}
+  = stylesheet_link_tag "section/product"
+
+%section#product
+  = product_breadcrumbs_for(@product)
+  = link_to "Comprar o look completo", "#", :id => "goRelatedProduct" if @product.related_products.any? && (params[:srl] || Setting.disable_ab_test_for_look_products)
+  .box-left
+    #gallery
+      = product_presenter.render_pics
+      = product_presenter.render_facebook_comments
+  .box-right
+    #product-details
+      = product_presenter.render_description
+      = product_presenter.render_add_to_cart
+      = product_presenter.render_details
+    #modal_guide
+      %h1 GUIA DE MEDIDAS
+      = image_tag 'common/body.jpg', :class => ''
+      %p
+        Na página do produto, você poderá
+        %br/
+        consultar as medidas da peça em "Tamanhos &amp; Medidas".
+        %br/
+        Aqui indicamos como fazemos a medição,
+        %br/
+        para que você faça o mesmo ai, ok? ;)
+      %ul
+        %li
+          %span BUSTO
+          %br/
+          Contorne o busto na altura do seio
+        %li
+          %span CINTURA
+          %br/
+          Contorne a parte mais fina da cintura
+        %li
+          %span OMBRO
+          %br/
+          Meça o ombro de ponto a ponta
+        %li
+          %span QUADRIL
+          %br/
+          Contorne a área de maior circunferência do seu quadril
+        %li
+          %span COMPRIMENTO
+          %br/
+          Meça na vertical, de ponta a ponta
+          %br/
+          A altura da medição varia de acordo
+          %br/
+          com o modelo da peça.
+          %br/
+          No caso de um vestido, comece pelo ombro,
+          %br/
+          no caso de uma calça, pela cintura
+%br{style: "clear:both"}
+= product_presenter.render_look_products
+= image_tag("product/vantagens.jpg", class:"vantagens")
+.chaordic.similaritems
+.chaordic.ultimatebuy
+.chaordic.mostpopular{"data-skin" => "MP-product-detail"}
+
+- content_for :data_layer do
+  = render partial: "shared/metrics/all_in/product", :locals => { product: @product }
+  = render partial: "shared/data_layer/product"
+
+- content_for :footer do
+  = javascript_include_tag "product"
+  #compartilhar_email
+    %p COMPARTILHAR POR E-MAIL
+    .msg
+      %p  
+    %p.forgot-msg Lembrou de mais alguém? Compartilhe
+    = form_tag product_share_by_email_path, remote: true do
+      = field_set_tag do
+        = label_tag :nome, "Seu nome"
+        = text_field_tag :name_from, current_user.try(:first_name), class: 'fields', size: '30'
+      = field_set_tag do
+        = label_tag :email_from, "Seu e-mail"
+        = text_field_tag :email_from, current_user.try(:email), class: 'fields', size: '30'
+      = field_set_tag do
+        = label_tag :emails_to_deliver, "Para <span>(use vírgula para enviar para vários contatos)</span>".html_safe
+        = text_field_tag :emails_to_deliver, "", class: 'fields', size: '30'
+      = field_set_tag do
+        = hidden_field_tag :product_id, @product.id
+        = submit_tag 'Enviar', id: :send
+  = render "facebook_js", :facebook_app_id => @facebook_app_id, :product => @product
+  = render "shared/lightbox_credits"

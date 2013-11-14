@@ -44,9 +44,9 @@ div#products_categories {width: 1020px;height: 200px;margin: 0 0 18px;padding: 1
   }
 }
 
-section#boxes {width: 100%;overflow: auto;margin: 0 0 55px;
+section#boxes {width: 970px;overflow: auto;margin: 0 10px 55px;
   ul {
-    li {background: #f8f8f8;width: 314px;height: 287px;display: block;margin: 0 21px 0 0;float: left;border: 1px #c2c2c2 solid;
+    li {background: #f8f8f8;width: 311px;height: 287px;display: block;margin: 0 15px 0 0;float: left;border: 1px #c2c2c2 solid;
       a {color: #231f20;text-decoration: none;
         h1 {font-family: $avenir;font-size: 17px;text-transform: uppercase;margin: 16px 0 3px 24px;font-weight:lighter;}
         p {background: image-url("home/arrows-pink.png") right center no-repeat;font-size: 15px;display: inline;margin: 0 0 0 24px;padding: 0 20px 0 0;}
