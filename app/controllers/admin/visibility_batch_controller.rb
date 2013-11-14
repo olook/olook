@@ -5,7 +5,7 @@ class Admin::VisibilityBatchController < Admin::BaseController
   end
 
   def index
-    @liquidation_previews = LiquidationPreview.all
+    @liquidation_previews = LiquidationPreview.paginate(page: params[:page], per_page: 10)
   end
 
   def create
