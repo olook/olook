@@ -4,12 +4,6 @@
   %meta{:content => @chaordic_user, :name => "chaordic:user"}/
   %meta{:content => @glasses ? "#{@glasses}" : params["category"].to_s.titleize, :name => "chaordic:category"}/
   %meta{property:"fb:app_id", content:"#{@facebook_app_id}"}
-  :javascript
-    SOASTA = {};
-    SOASTA.pg = "catalog";
-    if(typeof BOOMR !== "undefined") {
-      BOOMR.addVar("h.pg", SOASTA.pg);
-    } 
 
 - content_for :footer do
   :javascript
@@ -17,6 +11,7 @@
     final_position = #{@search.range_values_for(:price)[:max] rescue 600};
   = javascript_include_tag 'section/lite_catalog'
   = javascript_include_tag 'section/catalog'
+
 - content_for :data_layer do
   = render "shared/data_layer/category", pixel_information: @pixel_information, catalog_products: @search.products
 
@@ -24,10 +19,10 @@
     = javascript_include_tag "common/fb_like_button"
 
 = cache @cache_key, expire_in: 15.minutes do
-  = first_level_breadcrumb(Category.t(Category.with_name(@category)).pluralize)
+  = @category ? olooklet_breadcrumbs_for(Category.t(Category.with_name(@category)).pluralize): first_level_breadcrumb("Olooklet")
   #catalog
     %aside
-      = render "filters", search: @search, category: @category
+      = render(@category ? "filters" : "main_filters", search: @search, category: @category)
     - if header
       - if header.big_banner?
         .promo_catalog
@@ -64,28 +59,40 @@
         / local onde o mostpopular será exibido
         / .chaordic.mostpopular
 
-      .row{style: 'position:relative'}
-        = render "ordenation_filters", search: @search, url_builder: @url_builder
+      .row.row_olooklet
+        = @category ? (render "ordenation_filters", search: @search, url_builder: @url_builder, category: @category) : (render "main_ordenation_filters", search: @search, url_builder: @url_builder)
         - unless @category == 'bolsa'
           .size_top
-            %p.title-category Qual seu tamanho?
-            %ul.category-list
-              - size_list(@category, @search, @category[0].downcase).each do |text, amount|
-                %li{ :class => category_style_class(text)}= filter_link_to(catalog_path(@category, @url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
-            
-      = render 'current_section', search: @search
+            - if @category
+              %p.title-category.roupa Qual seu tamanho?
+              %ul.category-list
+                -size_list(@category,@search, @category[0].downcase).each do |text, amount|
+                  %li{ :class => category_style_class(text)}= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único" && @category == "sapato"
+            - else
+              %p.title-category.roupa Roupas & Acessórios
+              %ul.category-list
+                -size_list(["roupa","acessorio"],@search, "r").each do |text, amount|
+                  %li{ :class => category_style_class(text)}= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
+              %br
+              %p.title-category.sapatos Sapatos
+              %ul.category-list
+                -size_list("sapato",@search, "s").each do |text, amount|
+                  %li{ :class => category_style_class(text)}= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único"
+              
+      = render 'current_section', search: @search, category: @category
 
       %section.container_product
         %ul#products
-          = render_highlighted_products_from(@campaign)
-          = render "shared/searched_products", :products => @search.products, campaign_products: @campaign.products
+          - if @campaign_products && @campaign_products.products.any?
+            - @campaign.product_ids.split('-').map { |pid| @campaign_products.products.find { |p| p.id.to_i == pid.to_i } }.compact.each do |cp|
+              = render "shared/searched_product_item", :product => cp
+            = render "shared/searched_products", :products => @search.products, campaign_products: @campaign_products.products
+          - else
+            = render "shared/searched_products", :products => @search.products
         .loading
 
       = render "shared/antibounce_box", antibounce_box: @antibounce_box if @antibounce_box.present? && @antibounce_box.search.products.count > 0 && Setting.antibounce_enabled
 
       .pagination
-        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
-
-      .banner
-        = banner_for(@category, position: :botton)
+        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| olooklet_path(@url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
   
