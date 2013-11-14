@@ -64,10 +64,10 @@
         - unless @category == 'bolsa'
           .size_top
             - if @category
-              %p.title-category.roupa Tamanhos
+              %p.title-category.roupa Qual seu tamanho?
               %ul.category-list
                 -size_list(@category,@search, @category[0].downcase).each do |text, amount|
-                  %li{ :class => category_style_class(text)}= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
+                  %li{ :class => category_style_class(text)}= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único" && @category == "sapato"
             - else
               %p.title-category.roupa Roupas & Acessórios
               %ul.category-list
@@ -77,7 +77,7 @@
               %p.title-category.sapatos Sapatos
               %ul.category-list
                 -size_list("sapato",@search, "s").each do |text, amount|
-                  %li{ :class => category_style_class(text)}= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
+                  %li{ :class => category_style_class(text)}= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único"
               
       = render 'current_section', search: @search, category: @category
 
