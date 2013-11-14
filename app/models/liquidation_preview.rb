@@ -1,6 +1,6 @@
 class LiquidationPreview < ActiveRecord::Base
   belongs_to :product
-  attr_accessible :category, :color, :discount_percentage, :inventory, :name, :picture_url, :price, :retail_price, :subcategory, :visibility, :visible, :product_id
+  attr_accessible :category, :color, :discount_percentage, :inventory, :name, :picture_url, :price, :retail_price, :subcategory, :visibility, :visible, :product_id, :collection
 
   def self.import_csv csv_file
     LiquidationPreview.destroy_all
@@ -18,7 +18,8 @@ class LiquidationPreview < ActiveRecord::Base
                                 retail_price: p.retail_price,
                                 subcategory: p.subcategory_name,
                                 visibility: visibility_hash[p.id.to_s],
-                                visible: p.is_visible)
+                                visible: p.is_visible,
+                                collection: p.collection.name)
     end
   end
 

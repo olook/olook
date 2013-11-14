@@ -40,5 +40,8 @@ module Admin::ApplicationHelper
     end
   end
 
+  def format_visibility visibility_code
+  end
+
 end
 

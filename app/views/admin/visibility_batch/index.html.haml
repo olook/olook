@@ -57,7 +57,7 @@
         %td
           = product.visible
         %td
-          = product.visibility
+          = format_visibility(product.visibility)
         %td
           = image_tag(product.picture_url)
   .actions-bar.wat-cf
