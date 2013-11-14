@@ -114,4 +114,4 @@ gem "codeclimate-test-reporter", group: :test, require: nil
 group :test do
   gem 'webmock'
 end
-gem 'rack-mini-profiler', git: 'git@github.com:MiniProfiler/rack-mini-profiler.git'
+gem 'rack-mini-profiler', '0.1.23'
