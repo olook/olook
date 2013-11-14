@@ -67,7 +67,7 @@
     </li>
     <% end
     coupon = @order.payments.for_coupon.sum(:total_paid) if has_payment
-    coupon ||= cart_service.total_discount_by_type(:coupon)
+    coupon ||= cart_service.cart.total_coupon_discount
     if coupon > 0 %>
     <li>
       <p><span class="txt-black">CUPOM DESCONTO:</span><span>- <%= number_to_currency(coupon) %> (<%= number_to_percentage( ((coupon) / gross_amount)*100, precision: 0) %>)</span></p>
