@@ -4,6 +4,10 @@ class Admin::VisibilityBatchController < Admin::BaseController
   def new
   end
 
+  def index
+    @liquidation_previews = LiquidationPreview.paginate(page: params[:page], per_page: 10)
+  end
+
   def create
     LiquidationPreview.import_csv params[:file]
     message = nil
