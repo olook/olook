@@ -25,10 +25,10 @@
     - else
       %li= link_to "Lingeries", olooklet_path(parameters: "lingerie"), class: 'title_section close'      
 
-    - if search.filter_value('category').to_a.include?('moda praia') && !search.filter_value('category').to_a.include?('roupa')
-      = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Moda Praia"
-    - else
-      %li= link_to "Moda praia", olooklet_path(parameters: "moda praia"), class: 'title_section close'
+    / - if search.filter_value('category').to_a.include?('moda praia') && !search.filter_value('category').to_a.include?('roupa')
+    /   = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Moda Praia"
+    / - else
+    /   %li= link_to "Moda praia", olooklet_path(parameters: "moda praia"), class: 'title_section close'
 
 
 - if search.filter_value('category').to_a.include?('sapato')
