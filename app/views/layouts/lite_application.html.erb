@@ -118,23 +118,21 @@
          </div>
        </header>
 
-       <% unless params[:controller] == "survey" %>
-         <div id="wrapper_new_menu">
-           <nav class="menu_new">
-             <div class="content_new">
-               <ul class="default_new">
+       <div id="wrapper_new_menu">
+         <nav class="menu_new">
+           <div class="content_new">
+             <ul class="default_new">
+               <%= cache 'megamenu' do %>
                  <%= MenuPresenter.new(self, :user => current_user).render_menu(mobile?) %>
-               </ul>
-               <% unless params[:controller].include? "survey" %>
-                <div class="new_sacola">
-                  <%= link_to "SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %>
-                  <%= render 'shared/cart', :cart => @cart %>
-                </div>
                <% end %>
+             </ul>
+             <div class="new_sacola">
+               <%= link_to "SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %>
+               <%= render 'shared/cart', :cart => @cart %>
              </div>
-           </nav>
-         </div>
-       <%- end -%>
+           </div>
+         </nav>
+       </div>
 
        <div id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
 
