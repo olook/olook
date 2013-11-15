@@ -37,7 +37,7 @@
         %span.selected-type.txt-filter{ class: ("filter_selected" if params[:size].present?) } TAMANHO
         .tab_bg &nbsp;
         %ul
-          -size_list(params[:category],search, params[:category][0].downcase,[:collection_theme,:category]).reverse.each do |text, amount|
+          -size_list(params[:category],search, params[:category][0].downcase, [:collection_theme, :category]).each do |text, amount|
             %li= filter_link_to(collection_theme_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), search.filter_selected?(:size, text.chomp))
           - if params[:size].present?
             %li.clear_choice= link_to '[limpar]', collection_theme_path(@url_builder.remove_filter_of(:size))

@@ -3,8 +3,8 @@ class CampaignEmail < ActiveRecord::Base
   scope :uncoverted_users , where(converted_user: false)
 
   validates_with CampaignEmailValidator, :attributes => [:email]
-  validates :email, presence: true, format: { with: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i }, uniqueness: true
-  validates :phone, presence: true, format: { with: /[\(\)\- 0-9]{10,15}/ }, if: proc { |a| a.profile == "olookmovel" }
+  validates :email, presence: true, format: { with: /\A\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b\z/i }, uniqueness: true
+  validates :phone, presence: true, format: { with: /\A[\(\)\- 0-9]{10,15}\z/ }, if: proc { |a| a.profile == "olookmovel" }
 
   before_validation :default_values
 

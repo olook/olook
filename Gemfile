@@ -73,7 +73,6 @@ gem 'piet', :git => 'git://github.com/albertbellonch/piet.git', ref: "630a98bef1
 
 group :development, :test do
   gem 'better_errors'
-  gem 'rack-mini-profiler'
   gem 'faker'
   gem 'bullet'
   gem 'thin'
@@ -103,13 +102,11 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'fuubar'
-  gem 'launchy'
-  gem 'parallel_tests'
   gem "vcr", "~> 2.5.0"
   gem 'ci_reporter', :git => 'git://github.com/nicksieger/ci_reporter.git', require: false
   gem 'jasmine'
-  gem "selenium-webdriver", "~> 2.35.1"  
   gem 'binding_of_caller'
+  gem 'rack-mini-profiler', '~> 0.1.23'
 end
 gem 'rubber', '~> 2.0', git: 'git://github.com/nelsonmhjr/rubber.git', branch: 'newrelic'
 gem 'open4'
