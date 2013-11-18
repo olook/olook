@@ -7,11 +7,6 @@ class CatalogsController < ApplicationController
   helper_method :header
   DEFAULT_PAGE_SIZE = 48
 
-  add_method_tracer :parse_parameters_from, 'Custom/Catalog/parse_parameters_from'
-  add_method_tracer :add_campaign, 'Custom/Catalog/add_campaign'
-  add_method_tracer :add_search_result, 'Custom/Catalog/add_search_result'
-  add_method_tracer :add_antibounce_box, 'Custom/Catalog/add_antibounce_box'
-
   def show
     search_params = parse_parameters_from request
     Rails.logger.debug("New params: #{params.inspect}")
@@ -31,6 +26,11 @@ class CatalogsController < ApplicationController
     params[:category] = @search.expressions[:category].first
     expire_fragment(@cache_key) if params[:force_cache].to_i == 1
   end
+
+  add_method_tracer :parse_parameters_from, 'Custom/CatalogsController/parse_parameters_from'
+  add_method_tracer :add_campaign, 'Custom/CatalogsController/add_campaign'
+  add_method_tracer :add_search_result, 'Custom/CatalogsController/add_search_result'
+  add_method_tracer :add_antibounce_box, 'Custom/CatalogsController/add_antibounce_box'
 
   private
 
@@ -75,5 +75,5 @@ class CatalogsController < ApplicationController
       if (/^(sapato|bolsa|acessorio|roupa)/ =~ params[:category]).nil?
         render :template => "/errors/404.html.erb", :layout => 'error', :status => 404, :layout => "lite_application"
       end
-    end
+    end  
 end
