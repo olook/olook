@@ -92,6 +92,15 @@ class Product < ActiveRecord::Base
 
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
 
+  def discount_price(opts={})
+    return @discount_price if @discount_price.present?
+    cart = opts[:cart]
+    coupon = opts[:coupon] || cart.try(:coupon)
+    best_promotion = Promotion.select_promotion_for(cart)
+    pd = ProductDiscountService.new(self, cart: cart, coupon: coupon, promotion: best_promotion)
+    @discount_price = pd.best_discount.calculate_for_product(self, cart: cart)
+  end
+
   def seo_path
     formatted_name.to_s.parameterize + "-" + id.to_s
   end
