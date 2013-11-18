@@ -40,7 +40,7 @@ class Coupon < ActiveRecord::Base
   end
 
   def apply cart
-    promotion_action.apply cart, self.action_parameter.action_params, self
+    action_parameter.promotion_action.apply cart, self.action_parameter.action_params, self
     Rails.logger.info "Applied coupon: #{self.name} for cart [#{cart.id}]"
   end
 
