@@ -2,6 +2,8 @@
 //= require plugins/slider
 //= require plugins/spy
 //= require plugins/change_picture_onhover
+//= require plugins/discount_price_updater
+
 var brands = {} || null;
 brands = {
   init: function(){

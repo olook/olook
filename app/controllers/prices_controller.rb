@@ -4,7 +4,7 @@ class PricesController < ApplicationController
     @products = Product.where(id: ids)
     prices = @products.map do |p|
       if p.discount_price(cart: @cart) != p.price
-        price_hash = { de: p.price, por: p.discount_price(cart: @cart)}
+        price_hash = { de: ActionController::Base.helpers.number_to_currency(p.price), por: ActionController::Base.helpers.number_to_currency(p.discount_price(cart: @cart)) }
         [ p.id, price_hash ]
       end
     end.compact
