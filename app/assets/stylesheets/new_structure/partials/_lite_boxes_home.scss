@@ -2,43 +2,46 @@
 @import 'new_structure/partials/facebook_footer';
 
 div#products_categories {width: 1020px;height: 200px;margin: 0 0 18px;padding: 15px 0 0 0;float: left;
+  img{
+    margin-left: 7px;
+  }
   ul {width: 100%;overflow: auto;margin-top: 35px;
     li {
       a {width: 63px;height: 100px;background: image-url("home/categories.png") no-repeat;color: #000;float: left;text-indent: -9999px;margin-right: 29px;
         &:hover {color: #ef3742;}
       }
-      &.blusa a {background-position: -5px 0px; margin-left:5px;
-        &:hover {background-position: -5px -146px;}
+      &.blusa a {background-position: -5px 0px;
+        &:hover {background-position: -5px -147px;}
       }
       &.camisa a {background-position: -100px 0px;
-        &:hover {background-position: -100px -146px;}
+        &:hover {background-position: -100px -147px;}
       }
       &.calca a {background-position: -196px 0px;
-        &:hover {background-position: -196px -146px;}
+        &:hover {background-position: -196px -147px;}
       }
       &.vestido a {background-position: -293px 0px;
-        &:hover {background-position: -293px -146px;}
+        &:hover {background-position: -293px -147px;}
       }
       &.anabela a {background-position: -387px 0px;
-        &:hover {background-position: -387px -146px;}
+        &:hover {background-position: -387px -147px;}
       }
       &.bota a {background-position: -477px 0px;
-        &:hover {background-position: -477px -146px;}
+        &:hover {background-position: -477px -147px;}
       }
       &.sapatilha a {background-position: -570px 0px;
-      &:hover {background-position: -570px -146px;}
+      &:hover {background-position: -570px -147px;}
     }
     &.scarpin a {background-position: -662px 0px;
-      &:hover {background-position: -662px -146px;}
+      &:hover {background-position: -662px -147px;}
     }
-    &.sneaker a {background-position: -756px 0px;
-      &:hover {background-position: -756px -146px;}
+    &.rasteira a {background-position: -756px 0px;
+      &:hover {background-position: -756px -147px;}
     }
-    &.acessorios a {background-position: -853px 0px;
-      &:hover {background-position: -853px -146px;}
+    &.bolsas a {background-position: -853px 0px;
+      &:hover {background-position: -853px -147px;}
     }
-    &.bolsas a {background-position: -943px 0px;margin-right: 0 !important;
-      &:hover {background-position: -943px -146px;}
+    &.acessorios a {background-position: -943px 0px;margin-right: 0 !important;
+      &:hover {background-position: -943px -147px;}
       } 
     }
   }
@@ -46,7 +49,7 @@ div#products_categories {width: 1020px;height: 200px;margin: 0 0 18px;padding: 1
 
 section#boxes {width: 970px;overflow: auto;margin: 0 10px 55px;
   ul {
-    li {background: #f8f8f8;width: 311px;height: 287px;display: block;margin: 0 15px 0 0;float: left;border: 1px #c2c2c2 solid;
+    li {background: #f8f8f8;width: 311px;height: 287px;display: block;margin: 0 15px 0 0;float: left;border: 1px #c2c2c2 solid; overflow: hidden;
       a {color: #231f20;text-decoration: none;
         h1 {font-family: $avenir;font-size: 17px;text-transform: uppercase;margin: 16px 0 3px 24px;font-weight:lighter;}
         p {background: image-url("home/arrows-pink.png") right center no-repeat;font-size: 15px;display: inline;margin: 0 0 0 24px;padding: 0 20px 0 0;}
