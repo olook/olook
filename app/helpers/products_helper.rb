@@ -2,7 +2,7 @@
 module ProductsHelper
 
   def belongs_to_p_and_b_collection? product_id
-    collection = CollectionTheme.find_by_slug('p&b')
+    collection = CollectionTheme.find_by_slug('p&b') || OpenStruct.new({products: []})
     collection.products.map(&:id).include? product_id
   end
 

@@ -277,6 +277,16 @@ class SearchEngine
     _filters
   end
 
+  def key_for field
+    if field.to_sym == :brand
+      key = Digest::SHA1.hexdigest(expressions[:brand].to_s)
+      Rails.logger.info "[cloudsearch] brand key=#{key}"
+      key
+    else
+      ""
+    end
+  end
+
   private
     def append_or_remove_filter(filter_key, filter_value, filter_params)
       filter_params[filter_key] ||= [filter_value.downcase]
