@@ -152,22 +152,10 @@
 
 <%= render "home/products_categories" %>
 
-<!-- MODALS -->
-<%#= render 'shared/banners/olooklet' extraindo o conteudo aqui embaixo %>
-<% if show_current_liquidation_advertise? %>
-  <%= link_to image_tag('common/olooklet_banner_header.jpg'), liquidations_path(current_liquidation.id), :class => "liquidation_banner" %>
-<% end %>
-<%# fim do 'shared/banners/olooklet -%>
-
-
 <% if Campaign.activated_campaign && Campaign.activated_campaign.lightbox? %>
   <%= render :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => Campaign.activated_campaign.link}  %>
 <% end %>
 
-
-<% if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
-<%= render "shared/modal/liquidation" %>
-<% end %>
 <!-- END MODALS -->
 <% first_visit = @user.first_visit_for_member? %>
 <% if first_visit %>

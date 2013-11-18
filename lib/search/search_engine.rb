@@ -277,6 +277,14 @@ class SearchEngine
     _filters
   end
 
+  def key_for field
+    chosen_filter_values = expressions[field.to_sym] || ""
+    # Use Digest::SHA1.hexdigest ??
+    key = expressions[:category].join("-") + "/" + field.to_s + "/" + chosen_filter_values.join("-")
+    Rails.logger.info "[cloudsearch] #{field}_key=#{key}"
+    key
+  end
+
   private
     def append_or_remove_filter(filter_key, filter_value, filter_params)
       filter_params[filter_key] ||= [filter_value.downcase]

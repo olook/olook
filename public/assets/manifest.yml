@@ -2158,8 +2158,6 @@ html5.js: html5-71aa41f80fa39eeaaa6bfe52db938c9c.js
 html5/index.js: html5-71aa41f80fa39eeaaa6bfe52db938c9c.js
 join.js: join-a5712afad715ed66359bf679724688d3.js
 join/index.js: join-a5712afad715ed66359bf679724688d3.js
-liquidations.js: liquidations-6c47aa3e33d1cf4ea8b7c336ecb585f7.js
-liquidations/index.js: liquidations-6c47aa3e33d1cf4ea8b7c336ecb585f7.js
 lite_application.js: lite_application-ca56e3529a528db1f79ffe85ba5bca4a.js
 lite_application/index.js: lite_application-ca56e3529a528db1f79ffe85ba5bca4a.js
 lite_base.js: lite_base-f73a2ad2389f8f54b6881cad25ea3b14.js
@@ -2292,8 +2290,8 @@ about/normalize.css: about/normalize-b3a32727781c89e0bd714269e2f853f0.css
 about/normalize/index.css: about/normalize-b3a32727781c89e0bd714269e2f853f0.css
 about/style.css: about/style-0f093a8b9b43869ec36953ee4a81fad6.css
 about/style/index.css: about/style-0f093a8b9b43869ec36953ee4a81fad6.css
-admin.css: admin-02b65983587dc1f44ef7cbf3982157ff.css
-admin/index.css: admin-02b65983587dc1f44ef7cbf3982157ff.css
+admin.css: admin-358ded680581a71743741709a64dc98a.css
+admin/index.css: admin-358ded680581a71743741709a64dc98a.css
 admin/base.css: admin/base-ae24fa2d11e173972d666165f920beaa.css
 admin/base/index.css: admin/base-ae24fa2d11e173972d666165f920beaa.css
 admin/bootstrap.css: admin/bootstrap-15af02f0efa12f3f692188b3646254f1.css
@@ -2316,8 +2314,6 @@ admin/gift_boxes.css: admin/gift_boxes-1b13569e9620782f423d4cd3ce931750.css
 admin/gift_boxes/index.css: admin/gift_boxes-1b13569e9620782f423d4cd3ce931750.css
 admin/highlight_campaigns.css: admin/highlight_campaigns-1b13569e9620782f423d4cd3ce931750.css
 admin/highlight_campaigns/index.css: admin/highlight_campaigns-1b13569e9620782f423d4cd3ce931750.css
-admin/liquidation_products.css: admin/liquidation_products-c467cf89a71131ea84bd144e06fca00e.css
-admin/liquidation_products/index.css: admin/liquidation_products-c467cf89a71131ea84bd144e06fca00e.css
 admin/multiple_pictures.css: admin/multiple_pictures-44c975358bffaf89e01fddd349a44c14.css
 admin/multiple_pictures/index.css: admin/multiple_pictures-44c975358bffaf89e01fddd349a44c14.css
 admin/orders.css: admin/orders-0d71dd6b75a5cbe1288cb23b4690b3c8.css
@@ -2442,8 +2438,8 @@ new_structure/section/collection_themes.css: new_structure/section/collection_th
 new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-43cc8492eb763c1da151c3c5511d773a.css
 new_structure/section/join.css: new_structure/section/join-22dc2faa126a17fddb685d1b6b0588ac.css
 new_structure/section/join/index.css: new_structure/section/join-22dc2faa126a17fddb685d1b6b0588ac.css
-new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-b897d5c681a38a34def3da50ced17536.css
-new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-b897d5c681a38a34def3da50ced17536.css
+new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-ad7d23924bdbf8ced6d23b57f72028ea.css
+new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-ad7d23924bdbf8ced6d23b57f72028ea.css
 new_structure/section/lite_showroom.css: new_structure/section/lite_showroom-aac85e34414994ec04fd7659c2646016.css
 new_structure/section/lite_showroom/index.css: new_structure/section/lite_showroom-aac85e34414994ec04fd7659c2646016.css
 new_structure/section/olookmovel.css: new_structure/section/olookmovel-cdc45e016c5d0e2de29f6a9c18393287.css

@@ -128,7 +128,6 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def load_data_for_index
-    @liquidation = LiquidationService.active
     @sync_event = SynchronizationEvent.new
 
     # search params
