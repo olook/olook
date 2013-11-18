@@ -12,11 +12,6 @@ class CatalogSearchService
       @query_base = @query_base.and(Variant.arel_table[:inventory].gt(0))
       @query_base = @query_base.and(Product.arel_table[:is_visible].eq(true)).and(Variant.arel_table[:price].gt(0))
     end
-
-    if @liquidation = LiquidationService.active
-      @query_base = @query_base.and(LiquidationProduct.arel_table[:product_id].eq(nil))
-    end
-
   end
 
   def categories_available_for_options(opts={})
@@ -70,7 +65,6 @@ class CatalogSearchService
 
   def prepare_query_joins
     query = Catalog::Product.joins(:product).joins(:variant)
-    query = query.joins('left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id') if @liquidation
     query
   end
 
