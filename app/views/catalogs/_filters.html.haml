@@ -1,31 +1,29 @@
 - if category == 'roupa'
-  = cache @search.key_for(:subcategory), expire_in: 40.minutes do
-    - if ( _filters = subcategory_filters_by("Roupa", search, use_fields: [:category])) && _filters.present?
-      .filter
-        %p.title-category Roupas
-        %ul.category-list
-          - _filters.each do |text, amount|
-            %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:subcategory, text)), text.chomp, search.filter_selected?(:subcategory, text.chomp))
-    - if ( _filters = subcategory_filters_by("Lingerie", search, use_fields: [:category])) && _filters.present?
-      .filter
-        %p.title-category Lingerie
-        %ul.category-list
-          - _filters.each do |text, amount|
-            %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:subcategory, text)), text.chomp, search.filter_selected?(:subcategory, text.chomp))
-    - if ( _filters = subcategory_filters_by("Moda Praia", search, use_fields: [:category])) && _filters.present?
-      .filter
-        %p.title-category Moda Praia
-        %ul.category-list
-          - _filters.each do |text, amount|
-            %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:subcategory, text)), text.chomp.gsub(/ ?moda praia/i, ''), search.filter_selected?(:subcategory, text.chomp))
+  - if ( _filters = subcategory_filters_by("Roupa", search, use_fields: [:category])) && _filters.present?
+    .filter
+      %p.title-category Roupas
+      %ul.category-list
+        - _filters.each do |text, amount|
+          %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:subcategory, text)), text.chomp, search.filter_selected?(:subcategory, text.chomp))
+  - if ( _filters = subcategory_filters_by("Lingerie", search, use_fields: [:category])) && _filters.present?
+    .filter
+      %p.title-category Lingerie
+      %ul.category-list
+        - _filters.each do |text, amount|
+          %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:subcategory, text)), text.chomp, search.filter_selected?(:subcategory, text.chomp))
+  - if ( _filters = subcategory_filters_by("Moda Praia", search, use_fields: [:category])) && _filters.present?
+    .filter
+      %p.title-category Moda Praia
+      %ul.category-list
+        - _filters.each do |text, amount|
+          %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:subcategory, text)), text.chomp.gsub(/ ?moda praia/i, ''), search.filter_selected?(:subcategory, text.chomp))
 
 - else
-  = cache @search.key_for(:subcategory), expire_in: 40.minutes do
-    .filter
-      %p.title-category Modelo
-      %ul.category-list
-        - filters_by("subcategory", search, use_fields: [:category]).each do |text, amount|
-          %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:subcategory, text)), text.chomp, search.filter_selected?(:subcategory, text.chomp))
+  .filter
+    %p.title-category Modelo
+    %ul.category-list
+      - filters_by("subcategory", search, use_fields: [:category]).each do |text, amount|
+        %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:subcategory, text)), text.chomp, search.filter_selected?(:subcategory, text.chomp))
 
 - if search.filter_value('category').to_a.include?('sapato')
   .filter
@@ -42,12 +40,11 @@
         %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:care, text)), text.chomp, search.filter_selected?(:care, text.chomp))
 
 
-= cache @search.key_for(:color), expire_in: 40.minutes do
-  .filter
-    %p.title-category Cores
-    %ul.category-list.cores
-      - filters_by("color", search, use_fields: [:category]).each do |text, amount|
-        %li{:class => text.chomp.parameterize}= filter_link_to(catalog_path(category, @url_builder.add_filter(:color, text)), text.chomp, search.filter_selected?(:color, text.chomp))
+.filter
+  %p.title-category Cores
+  %ul.category-list.cores
+    - filters_by("color", search, use_fields: [:category]).each do |text, amount|
+      %li{:class => text.chomp.parameterize}= filter_link_to(catalog_path(category, @url_builder.add_filter(:color, text)), text.chomp, search.filter_selected?(:color, text.chomp))
 
 .filter
   %p.title-category Preço
@@ -60,12 +57,11 @@
     %input{type:"text", id:"max-value"}
     %input{type:"hidden", name:"price", id:"price"}
 
-= cache @search.key_for(:brand), expire_in: 40.minutes do
-  .filter
-    %p.title-category Marca
-    %ul.category-list
-      - filters_by('brand_facet', search, use_fields: [:category]).each do |text, amount|
-        %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:brand, text)), text.chomp.gsub('Ç', 'ç').downcase.titleize, search.filter_selected?(:brand, text.chomp))
+.filter
+  %p.title-category Marca
+  %ul.category-list
+    - filters_by('brand_facet', search, use_fields: [:category]).each do |text, amount|
+      %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:brand, text)), text.chomp.gsub('Ç', 'ç').downcase.titleize, search.filter_selected?(:brand, text.chomp))
 
 - if (['sapato', 'roupa'] & search.filter_value('category').to_a).present?
   .filter
@@ -74,44 +70,45 @@
       - size_list(category, search, category[0].downcase).reverse.each do |text, amount|
         %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:size, text)), format_size(text.chomp), search.filter_selected?(:size, text.chomp))
 
-.show_more
-  - if search.filter_value('category').to_a.include?('sapato')
-    %p.title
-      OUTRAS CATEGORIAS
-    %li
-      = link_to "Roupas femininas", catalog_path(category: "roupa"), class: "categories"
-    %li
-      = link_to "Bolsas femininas", catalog_path(category: "bolsa"), class: "categories" 
-    %li
-      = link_to "Acessórios femininos", catalog_path(category: "acessorio"), class: "categories"
+= cache @search.key_for(:category), expire_in: 40.minutes do
+  .show_more
+    - if search.filter_value('category').to_a.include?('sapato')
+      %p.title
+        OUTRAS CATEGORIAS
+      %li
+        = link_to "Roupas femininas", catalog_path(category: "roupa"), class: "categories"
+      %li
+        = link_to "Bolsas femininas", catalog_path(category: "bolsa"), class: "categories" 
+      %li
+        = link_to "Acessórios femininos", catalog_path(category: "acessorio"), class: "categories"
 
-  - if search.filter_value('category').to_a.include?('roupa')
-    %p.title
-      OUTRAS CATEGORIAS
-    %li
-      = link_to "Sapatos femininos", catalog_path(category: "sapato"), class: "categories"
-    %li
-      = link_to "Bolsas femininas", catalog_path(category: "bolsa"), class: "categories" 
-    %li
-      = link_to "Acessórios femininos", catalog_path(category: "acessorio"), class: "categories"
+    - if search.filter_value('category').to_a.include?('roupa')
+      %p.title
+        OUTRAS CATEGORIAS
+      %li
+        = link_to "Sapatos femininos", catalog_path(category: "sapato"), class: "categories"
+      %li
+        = link_to "Bolsas femininas", catalog_path(category: "bolsa"), class: "categories" 
+      %li
+        = link_to "Acessórios femininos", catalog_path(category: "acessorio"), class: "categories"
 
-  - if search.filter_value('category').to_a.include?('acessorio')
-    %p.title
-      OUTRAS CATEGORIAS
-    %li 
+    - if search.filter_value('category').to_a.include?('acessorio')
+      %p.title
+        OUTRAS CATEGORIAS
+      %li 
+        = link_to "Roupas femininas", catalog_path(category: "roupa"), class: "categories" 
+      %li
+        = link_to "Sapatos femininos", catalog_path(category: "sapato"), class: "categories"
+      %li
+        = link_to "Bolsas femininas", catalog_path(category: "bolsa"), class: "categories" 
+
+    - if search.filter_value('category').to_a.include?('bolsa')
+      %p.title
+        OUTRAS CATEGORIAS
+      %li
       = link_to "Roupas femininas", catalog_path(category: "roupa"), class: "categories" 
-    %li
+      %li
       = link_to "Sapatos femininos", catalog_path(category: "sapato"), class: "categories"
-    %li
-      = link_to "Bolsas femininas", catalog_path(category: "bolsa"), class: "categories" 
-
-  - if search.filter_value('category').to_a.include?('bolsa')
-    %p.title
-      OUTRAS CATEGORIAS
-    %li
-    = link_to "Roupas femininas", catalog_path(category: "roupa"), class: "categories" 
-    %li
-    = link_to "Sapatos femininos", catalog_path(category: "sapato"), class: "categories"
-    %li
-    = link_to "Acessórios femininos", catalog_path(category: "acessorio"), class: "categories"
+      %li
+      = link_to "Acessórios femininos", catalog_path(category: "acessorio"), class: "categories"
     
