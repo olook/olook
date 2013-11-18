@@ -16,7 +16,7 @@ class ValueAdjustment < PromotionAction
   end
   private
   def calculate(cart_items, filters)
-    _filters = filters
+    _filters = filters.dup
     value = _filters.delete('param')
     calculated_values = []
     eligible_items = filter_items(cart_items, _filters)

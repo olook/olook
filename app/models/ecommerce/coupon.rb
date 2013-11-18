@@ -123,6 +123,7 @@ class Coupon < ActiveRecord::Base
 
   def calculate_for_product product, opt
     cart = opt[:cart]
+    cart.items.build(variant: product.variants.first, quantity: 1)
     adjustment = promotion_action.simulate_for_product product, cart, self.action_parameter.action_params
     item = cart.items.find { |i| i.product.id == product.id }
     product.price - (adjustment/(item.try(:quantity) || 1))
