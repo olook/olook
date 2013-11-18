@@ -69,8 +69,6 @@ module Olook
 
     # config.middleware.use "Graylog2Exceptions", { :hostname => '107.21.158.126', :port => '12201', :level => 0 }
 
-    config.middleware.delete Rack::Cache
-
     config.action_mailer.default_url_options[:host] = 'www.olook.com.br'
     config.action_mailer.smtp_settings = {
       :user_name => "AKIAJJO4CTAEHYW34HGQ",

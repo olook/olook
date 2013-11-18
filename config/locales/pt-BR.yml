@@ -19,6 +19,8 @@
   admin:
     billet:
       santander: "Conciliação Santander"
+    product:
+      liquidation: Liquidações
 
   #Carrinho
   cart:

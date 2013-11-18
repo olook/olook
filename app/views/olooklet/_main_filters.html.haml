@@ -1,0 +1,26 @@
+.show_more.cat_olooklet
+  %ul
+    %li
+      = link_to "Roupas", olooklet_path(parameters: "roupa")
+    %li
+      = link_to "Sapatos", olooklet_path(parameters: "sapato")
+    %li
+      = link_to "Bolsas", olooklet_path(parameters: "bolsa")
+    %li
+      = link_to "Acessórios", olooklet_path(parameters: "acessorio")
+    %li
+      = link_to "Lingeries", olooklet_path(parameters: "lingerie")       
+    / %li
+    /   = link_to "Moda praia", olooklet_path(parameters: "moda praia")
+
+.filter
+  %p.title-category Cores
+  %ul.category-list.cores
+    - filters_by("color", search, use_fields: [:category]).each do |text, amount|
+      %li{:class => text.chomp.parameterize}= filter_link_to(olooklet_path(@url_builder.add_filter(:color, text)), text.chomp, search.filter_selected?(:color, text.chomp))
+
+.filter
+  %p.title-category Marca
+  %ul.category-list
+    - filters_by('brand_facet', search, use_fields: [:category]).each do |text, amount|
+      %li= filter_link_to(olooklet_path(@url_builder.add_filter(:brand, text)), text.chomp.gsub('Ç', 'ç').downcase.titleize, search.filter_selected?(:brand, text.chomp))
