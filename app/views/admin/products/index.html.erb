@@ -57,6 +57,16 @@
           <%= select_tag :is_visible, options_for_select([["Visível", 1],["Invisível",0]], params[:is_visible]), {include_blank: true} %>
         </div>
 
+        <div class="group">
+          <%= label_tag :visibility, "Onde?", class: 'label' %>
+          <%= select_tag :visibility, options_for_select([["Exibidos em Catálogos[1]", 1],["Exibidos em Olooklet[2]",2],["Exibidos em todo o site[3]",3]], params[:visibility]), {include_blank: true} %>
+        </div>          
+
+        <div class"group">
+          <%= label_tag :discount_ordenation, "Ordenação por desconto", class: 'label' %>
+          <%= select_tag :discount_ordenation, options_for_select([["Maior Desconto", "desc"],["Menor Desconto","asc"]], params[:discount_ordenation]), {include_blank: true} %>
+        </div>
+
         <div class"group">
           <%= label_tag :inventory_ordenation, "Ordenação por inventário", class: 'label' %>
           <%= select_tag :inventory_ordenation, options_for_select([["Menor Inventário", "asc"],["Maior Inventário","desc"]], params[:inventory_ordenation]), {include_blank: true} %>
@@ -95,19 +105,20 @@
   </div>
   <table class="table">
     <tr>
-      <th><%= sortable('name') %></th>
-      <th>Modelo #</th>
-      <th>Liquidação</th>
+      <th><%= sortable('name', 'Nome') %></th>
+      <th>Modelo(#)</th>
       <th><%= sortable('category', "Categoria") %></th>
+      <th>Subcategoria</th>
       <th>Visível?</th>
+      <th>Onde?</th>
       <th>Preço</th>
+      <th>Preço Liquidação</th>  
+      <th>Desconto(%)</th>    
       <th>Estoque</th>
-      <th>Inicial</th>
-      <th>Quantidade Já Vendida</th>
       <th>Cor do produto</th>
       <th>Cor do filtro</th>
       <th>Perfil</th>
-      <th><%= sortable('collection_id', 'Collection') %></th>
+      <th><%= sortable('collection_id', 'Coleção') %></th>
       <th style="width:100px">Imagem</th>
       <th>Amostra</th>
       <th></th>
@@ -116,13 +127,14 @@
     <tr class="<%= 'not-visible' if !product.is_visible %>">
       <td><%= product.name %></td>
       <td><%= product.model_number %></td>
-      <td><%= LiquidationProductService.new(@liquidation, product).liquidation_name %></td>
       <td><%= product.category_humanize %></td>
+      <td><%= product.subcategory_name %></td>      
       <td><%= product.is_visible? ? 'Yes' : 'No' %></td>
+      <td><%= formatted_visibility product.visibility %></td>
       <td><%= number_to_currency product.price %></td>
+      <td><%= number_to_currency product.retail_price %></td>
+      <td><%=  number_to_percentage product.discount_percent,:precision => 2 %></td>      
       <td><%= product.inventory %></td>
-      <td><%= product.initial_inventory %></td>
-      <td><%= product.quantity_alredy_sold %></td>
       <td><%= product.product_color %></td>
       <td><%= product.filter_color %></td>
       <td><%= product.profiles.map(&:name).join(", ") %></td>
@@ -131,8 +143,8 @@
       <td><%= image_tag(product.color_sample_url, size: '50x50') unless product.color_sample.blank? %></td>
       <td class="manage_products_links">
         <%= link_to "Preview", product_seo_path(product.seo_path), class: 'button info', target: "_blank" %>
-        <%= link_to 'Show', admin_product_path(product), class: 'button' %>
-        <%= link_to 'Edit', edit_admin_product_path(product), class: 'button' %>
+        <%= link_to 'Mostrar', admin_product_path(product), class: 'button' %>
+        <%= link_to 'Editar', edit_admin_product_path(product), class: 'button' %>
       </td>
     </tr>
   <% end %>
