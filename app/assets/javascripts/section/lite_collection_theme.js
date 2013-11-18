@@ -3,6 +3,7 @@
 //= require plugins/spy
 //= require plugins/change_picture_onhover
 //= require plugins/video_modal
+//= require plugins/discount_price_updater
 
 var cts = {} || null;
 cts = {

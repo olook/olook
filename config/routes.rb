@@ -10,7 +10,7 @@ Olook::Application.routes.draw do
   resources :live_feeds, path: "api", only: [:create, :index]
   resources :mercado_pago, only: [:create]
 
-  get '/api/prices' => 'prices#index'
+  get '/api/prices' => 'prices#index', as: 'api_prices'
 
 
   get "/stylequiz", to: "quiz#new", as: "wysquiz"

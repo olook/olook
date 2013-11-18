@@ -1,0 +1,19 @@
+function DiscountPriceUpdater(opts) {
+  this.product_ids = opts['product_ids'];
+}
+
+DiscountPriceUpdater.prototype.getPrices = function(){
+  $.ajax({
+    url: '<%= Rails.application.routes.url_helpers.api_prices_path(format: 'json') %>',
+    data: { product_ids: this.product_ids }
+  }).success(function(data){
+    var prices = data['prices'];
+    for( var product_id in prices ) {
+      var li = $('li[data-id="' + product_id + '"]');
+      li.find('.price').remove();
+      var html = '<span class="price"><span class="old" itemprop="price">De __OLD__</span><span class="txt-pink" itemprop="offers">&nbsp;por __NEW__</span></span>';
+      var values = prices[product_id];
+      li.find('.info-product').append(html.replace(/__OLD__/g, values['de']).replace(/__NEW__/g, values['por']));
+    }
+  });
+}
