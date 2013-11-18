@@ -278,13 +278,11 @@ class SearchEngine
   end
 
   def key_for field
-    if field.to_sym == :brand
-      key = Digest::SHA1.hexdigest(expressions[:brand].to_s)
-      Rails.logger.info "[cloudsearch] brand key=#{key}"
-      key
-    else
-      ""
-    end
+    chosen_filter_values = expressions[field.to_sym] || ""
+    # Use Digest::SHA1.hexdigest ??
+    key = expressions[:category].join("-") + "/" + field.to_s + "/" + chosen_filter_values.join("-")
+    Rails.logger.info "[cloudsearch] #{field}_key=#{key}"
+    key
   end
 
   private
