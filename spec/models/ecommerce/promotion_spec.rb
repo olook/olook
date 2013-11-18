@@ -46,38 +46,6 @@ describe Promotion do
       it "retuns best promotion" do
         described_class.select_promotion_for(cart).should eq(promo)
       end
-
-      it "returns nil if coupon is better that promotion" do
-        cart.should_receive(:total_coupon_discount).and_return(100.0)
-        described_class.select_promotion_for(cart).should be_nil
-      end
     end
   end
-
- describe "#should_apply_for?" do
-   let!(:promotion_action) { mock_model(PercentageAdjustment) }
-   let(:action_parameter) { mock_model(ActionParameter) }
-
-   context "when cart has no coupon" do
-     it "retuns true" do
-       cart.should_receive(:coupon).and_return(nil)
-       subject.should_apply_for?(cart).should be_true
-     end
-   end
-
-   context "when cart has coupon" do
-
-     it "returns true" do
-       subject.should_receive(:is_greater_than_coupon?).and_return(true)
-       cart.should_receive(:coupon).and_return(true)
-       subject.should_apply_for?(cart).should be_true
-     end
-
-     it "returns false" do
-       subject.should_receive(:is_greater_than_coupon?).and_return(false)
-       cart.should_receive(:coupon).and_return(true)
-       subject.should_apply_for?(cart).should be_false
-     end
-   end
- end
 end

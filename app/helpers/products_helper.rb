@@ -3,7 +3,9 @@ module ProductsHelper
 
   def belongs_to_p_and_b_collection? product_id
     collection = CollectionTheme.find_by_slug('p&b')
-    collection.products.map(&:id).include? product_id
+    if collection
+      collection.products.map(&:id).include? product_id
+    end
   end
 
   def variant_classes(variant, shoe_size = nil)

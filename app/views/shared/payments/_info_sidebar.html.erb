@@ -67,7 +67,7 @@
         </tr>
         <% end
         coupon = @order.payments.for_coupon.sum(:total_paid) if has_payment
-        coupon ||= cart_service.total_discount_by_type(:coupon)
+        coupon ||= cart_service.cart.total_coupon_discount
         if coupon > 0 %>
         <tr>
           <td>Cupom desconto</td>
