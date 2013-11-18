@@ -77,11 +77,7 @@ describe CatalogSearchService do
     product
   end
 
-  let(:liquidation) { FactoryGirl.create(:liquidation) }
-
   before :each do
-    Liquidation.delete_all
-    LiquidationProduct.delete_all
     Product.delete_all
     Variant.delete_all
     Catalog::Product.delete_all
