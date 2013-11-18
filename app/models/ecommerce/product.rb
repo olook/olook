@@ -63,7 +63,13 @@ class Product < ActiveRecord::Base
   scope :by_sold, lambda { |value| joins(:variants).group("products.id").order("sum(variants.initial_inventory - variants.inventory) #{ value }") if ["asc","desc"].include?(value) }
   scope :with_visibility, lambda { |value| { :conditions => ({ is_visible: value } unless value.blank? || value.nil? ) } }
   scope :search, lambda { |value| { :conditions => ([ "name like ? or model_number = ?", "%#{value}%", value ] unless value.blank? || value.nil?) } }
-  scope :with_pictures, ->(value) { joins("left JOIN `pictures` ON `pictures`.`product_id` = `products`.`id`").where("pictures.id is #{value}").group("products.id") unless value.blank?}
+  scope :with_pictures, ->(value) {
+    if value == "not null"
+      joins("left JOIN `pictures` ON `pictures`.`product_id` = `products`.`id`").where("pictures.id is NOT NULL").group("products.id") unless value.blank?
+    else
+      joins("left JOIN `pictures` ON `pictures`.`product_id` = `products`.`id`").where("pictures.id is NULL").group("products.id") unless value.blank?
+    end
+  }
   scope :in_launch_range, ->(start_date, end_date) { where("launch_date BETWEEN ? AND ?", start_date, end_date) unless start_date.blank? || end_date.blank? }
 
 

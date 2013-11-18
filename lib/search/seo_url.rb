@@ -24,8 +24,8 @@ class SeoUrl
   ]
 
   FIELD_SEPARATOR = '_'
-  PARAMETERS_BLACKLIST = [ "price","heel" ]
-  PARAMETERS_WHITELIST = [ "price", "sort", "per_page","heel" ]
+  PARAMETERS_BLACKLIST = [ "price"]
+  PARAMETERS_WHITELIST = [ "price", "sort", "per_page" ]
 
   def initialize(path, current_key=nil, search=nil)
     if path.is_a?(Hash)
@@ -153,7 +153,7 @@ class SeoUrl
       filter_params = []
       parameters.each do |k, v|
         if v.respond_to?(:join)
-          filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| ActiveSupport::Inflector.transliterate(_v).downcase}.join(SearchEngine::MULTISELECTION_SEPARATOR)}" if v.present? && PARAMETERS_BLACKLIST.exclude?(k.to_s) && VALUES.invert[k.to_s]
+          filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| (_v =~ /heeluint/) ? _v.split(':').last.gsub("..","-") : ActiveSupport::Inflector.transliterate(_v).downcase}.join(SearchEngine::MULTISELECTION_SEPARATOR)}" if v.present? && PARAMETERS_BLACKLIST.exclude?(k.to_s) && VALUES.invert[k.to_s]
         end
       end
       return_hash[:filter_params] = filter_params.join(FIELD_SEPARATOR)

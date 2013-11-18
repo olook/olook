@@ -176,8 +176,8 @@ cancel_old_billets:
   queue: cancel_old_billets
   description: "Cancela todos os boletos com data de expicacao de um dia antes do ultimo dia util"
 
-cancel_old_billets:
+cancel_old_mercado_pago:
   cron: "30 12 * * *"
   class: Abacos::CancelExpiredMercadoPagoPayment
   queue: cancel_old_mercadopago_payments
-  description: "Cancela todos os boletos com data de expicacao de um dia antes do ultimo dia util"
+  description: "Cancela todos os pagamentos do mercado pago expirados"
