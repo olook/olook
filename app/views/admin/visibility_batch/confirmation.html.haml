@@ -1,9 +1,14 @@
+=content_for :secondary_navigation do
+  %li
+    = link_to "Atualizar liquidações", admin_new_visibility_batch_path, class: 'update-olooklet'
+
 .liquidation_preview_content
-  = link_to "Atualizar liquidações", admin_new_visibility_batch_path
-  Confira a relação abaixo antes de confirmar a atualização[
-  = @liquidation_previews.count
-  produtos]
-  = link_to "Confirmar atualização", admin_commit_visibility_batch_path
+  #update-olooklet-header 
+    %h2.update-olooklet 
+      Confira a relação abaixo antes de confirmar a atualização[
+      = @liquidation_previews.count
+      produtos ]
+    = link_to "Confirmar atualização", admin_commit_visibility_batch_path, class: 'button info update-olooklet'
   %table.table
     %tr
       %th

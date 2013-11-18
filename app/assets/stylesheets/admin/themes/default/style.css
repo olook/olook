@@ -562,3 +562,17 @@ a.button.danger, .button.danger {
   width: 74%;
   float: right;
 }
+
+a.button.info.update-olooklet{
+  float: right;
+  height: 20px;
+  margin: 10px;
+}
+
+h2.update-olooklet {
+  display: inline;
+}
+
+#update-olooklet-header {
+  margin-top: 20px;
+}

@@ -71,10 +71,13 @@ class Product < ActiveRecord::Base
     end
   }
   scope :in_launch_range, ->(start_date, end_date) { where("launch_date BETWEEN ? AND ?", start_date, end_date) unless start_date.blank? || end_date.blank? }
+  scope :in_sections, lambda { |value| { :conditions => ({ visibility: value } unless value.blank? || value.nil? ) } }
 
 
   scope :valid_for_xml, lambda{|black_list| only_visible.where("variants.inventory >= 1").where("variants.price > 0.0").group("products.id").joins(:variants).having("(category = 1 and count(distinct variants.id) >= 4) or (category = 4 and count(distinct variants.id) >= 2) or category NOT IN (1,4) and products.id NOT IN (#{black_list})")}
   scope :valid_for_xml_without_cloth, lambda { |black_list| only_visible.where("variants.inventory >= 1").group("products.id").joins(:variants).having("(category = 1 and count(distinct variants.id) >= 4) or category NOT IN (1,4) and products.id NOT IN (#{XML_BLACKLIST["products_blacklist"].join(",")})")}
+
+  scope :with_discount, lambda{|ordenation| Product.select("products.*, (variants.price - variants.retail_price) discount_delta").where("variants.is_master = true").where("variants.price > variants.retail_price").where("variants.retail_price > 0").group("products.id").joins(:variants).order("discount_delta #{ordenation}")}
 
   def self.featured_products category
     products = fetch_all_featured_products_of category
