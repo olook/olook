@@ -23,7 +23,7 @@
   - content_for(:after_body) do
     = javascript_include_tag "common/fb_like_button"
 
-= cache @cache_key, expire_in: 30.minutes do
+= cache @cache_key, expire_in: 40.minutes do
   = first_level_breadcrumb(Category.t(Category.with_name(@category)).pluralize)
   #catalog
     %aside
