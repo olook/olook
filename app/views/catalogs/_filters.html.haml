@@ -26,12 +26,12 @@
         %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:subcategory, text)), text.chomp, search.filter_selected?(:subcategory, text.chomp))
 
 - if search.filter_value('category').to_a.include?('sapato')
-  / .filter
-  /  %p.title-category Salto
-  /  %ul.category-list
-  /    %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:heel, '0-4')), 'Baixo (0cm - 4cm)', search.filter_selected?(:heel, '0-4'))
-  /    %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:heel, '5-9')), 'Médio (5cm - 9cm)', search.filter_selected?(:heel, '5-9'))
-  /    %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:heel, '10-18')), 'Alto (10cm - 18cm)', search.filter_selected?(:heel, '10-18'))
+  .filter
+    %p.title-category Salto
+    %ul.category-list
+      %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:heel, '0-4')), 'Baixo (0cm - 4cm)', search.filter_selected?(:heel, '0-4'))
+      %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:heel, '5-9')), 'Médio (5cm - 9cm)', search.filter_selected?(:heel, '5-9'))
+      %li= filter_link_to(catalog_path(category, @url_builder.add_filter(:heel, '10-18')), 'Alto (10cm - 18cm)', search.filter_selected?(:heel, '10-18'))
 
   .filter
     %p.title-category Conforto & Proteção
