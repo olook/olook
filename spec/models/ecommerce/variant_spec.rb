@@ -176,12 +176,6 @@ describe Variant do
   end
 
   describe "delegated methods" do
-    describe "#liquidation?" do
-      it "should return the product's liquidation?" do
-        subject.product.stub(:liquidation?).and_return(true)
-        subject.liquidation?.should == true
-      end
-    end
     describe "#main_picture" do
       it "should return the product's main picture" do
         subject.product.stub(:main_picture).and_return(:main)
@@ -205,31 +199,6 @@ describe Variant do
         subject.product.stub(:color_name).and_return(:color)
         subject.color_name.should == :color
       end
-    end
-  end
-
-  describe "inventory changes updates the liquidation product" do
-    it "should reflect the changes on shoe that is into a liquidation" do
-      ls = LiquidationService.new(FactoryGirl.create(:liquidation))
-      variant = subject
-      ls.add(variant.product.id.to_s, 10)
-      variant.inventory = 8
-      variant.save
-      liquidation_product = LiquidationProduct.last
-      liquidation_product.reload.inventory.should == 8
-    end
-
-    it "should reflect all liquidations" do
-      ls1 = LiquidationService.new(FactoryGirl.create(:liquidation))
-      ls2 = LiquidationService.new(FactoryGirl.create(:liquidation))
-      variant = subject
-      ls1.add(variant.product.id.to_s, 10)
-      ls2.add(variant.product.id.to_s, 10)
-      variant.inventory = 77
-      variant.save
-      variant.reload.inventory.should == 77
-      LiquidationProduct.all.map{|lp| lp.variant_id}.uniq.should == [variant.id]
-      LiquidationProduct.all.map{|lp| lp.inventory}.should == [77, 77]
     end
   end
 
@@ -311,12 +280,6 @@ describe Variant do
       subject.retail_price.should == 99.99
     end
 
-    it "should return the retail price for a liquidation" do
-      subject.product.stub(:liquidation?).and_return(true)
-      LiquidationProductService.stub(:retail_price).with(subject.product).and_return(1.99)
-      subject.product.retail_price.should == 1.99
-    end
-
     it "should return the original when the retail price is 0" do
       subject.retail_price = 0
       subject.save!
@@ -341,18 +304,6 @@ describe Variant do
       subject.retail_price = 99.99
       subject.save!
       subject.discount_percent.should == 19
-    end
-
-    it "should return the discount_percent for a liquidation" do
-      subject.product.stub(:liquidation?).and_return(true)
-      LiquidationProductService.stub(:discount_percent).with(subject.product).and_return(20)
-      subject.product.discount_percent.should == 20
-    end
-
-    it "should return 0 when discount_percent for a liquidation is nil" do
-      subject.stub(:liquidation?).and_return(true)
-      LiquidationProductService.stub(:discount_percent).with(subject).and_return(nil)
-      subject.product.discount_percent.should == 0
     end
 
     it "should return 0 when the retail_price price is 0" do

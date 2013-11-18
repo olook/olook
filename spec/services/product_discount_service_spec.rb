@@ -28,23 +28,24 @@ describe ProductDiscountService do
   context "with coupon" do
     before do
       @coupon = double('coupon')
-      @service = ProductDiscountService.new(@product, coupon: @coupon)
+      @cart = double('cart')
+      @service = ProductDiscountService.new(@product, cart: @cart, coupon: @coupon)
     end
 
     context "invalid" do
       it "doesnt apply coupon" do
-        @coupon.should_receive(:eligible_for_product?).with(@product).and_return(false)
+        @coupon.should_receive(:eligible_for_product?).with(@product, cart: @cart).and_return(false)
         expect(@service.calculate).to eql(99.0)
       end
     end
     context "Valid" do
       it "applies percentage coupon" do
-        @coupon.should_receive(:eligible_for_product?).with(@product).and_return(true)
+        @coupon.should_receive(:eligible_for_product?).with(@product, cart: @cart).and_return(true)
         @coupon.should_receive(:calculate_for_product).and_return(69.3)
         expect(@service.calculate).to eql(69.3)
       end
       it "applies value coupon" do
-        @coupon.should_receive(:eligible_for_product?).with(@product).and_return(false)
+        @coupon.should_receive(:eligible_for_product?).with(@product, cart: @cart).and_return(false)
         expect(@service.calculate).to eql(99.0)
       end
     end

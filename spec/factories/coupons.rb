@@ -7,22 +7,11 @@ FactoryGirl.define do
     factory :standard_coupon do
       sequence :code do |n|
         "STD#{n}"
-      end      
-      value 50.00
+      end
       remaining_amount 1
       start_date Time.now
       end_date Time.now + 50.days
       active true
-    end
-
-    factory :percentage_coupon do
-      code 'FOOBAR000'
-      value 20
-      remaining_amount 1
-      start_date Time.now
-      end_date Time.now + 50.days
-      active true
-      is_percentage true
     end
 
     factory :expired_coupon do
