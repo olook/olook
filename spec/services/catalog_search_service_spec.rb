@@ -147,13 +147,6 @@ describe CatalogSearchService do
         params = {:id => catalog.id}
         CatalogSearchService.new(params).search_products.should == []
        end
-
-       it "returns 0 products if the product is in the liquidation" do
-        cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
-        lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe.id, :subcategory_name => "rasteirinha", :inventory => 1)
-        params = {:id => catalog.id}
-        CatalogSearchService.new(params).search_products.should == []
-       end
      end
 
     context "ordering" do

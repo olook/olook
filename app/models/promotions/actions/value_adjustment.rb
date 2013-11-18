@@ -14,7 +14,7 @@ class ValueAdjustment < PromotionAction
     value = filters.delete('param')
     "R$#{value.to_i}"
   end
-  private
+
   def calculate(cart_items, filters)
     _filters = filters
     value = _filters.delete('param')

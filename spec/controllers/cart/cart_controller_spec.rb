@@ -114,7 +114,7 @@ describe Cart::CartController do
       context "that applies" do
 
         before(:each) do
-          Coupon.should_receive(:find_by_code).at_least(3).times.with( coupon.code ).and_return coupon
+          Coupon.should_receive(:find_by_code).at_least(2).times.with( coupon.code ).and_return coupon
         end
 
         it "is a success" do
@@ -143,11 +143,6 @@ describe Cart::CartController do
           it "is a success" do
             put :update, params
             response.should be_success
-          end
-
-          it "doesn't associate a coupon to the cart" do
-            put :update, params
-            cart.reload.coupon.should be_nil
           end
 
           it "should render template update" do

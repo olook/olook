@@ -52,12 +52,14 @@ class PromotionAction < ActiveRecord::Base
   end
 
   def desc_value(filters); end
-  protected
+
   #
   # This method should return an Array of Hashes in the form:
   # => [{id: item.id, product_id: item.product.id, adjustment: item.price}]
   #
   def calculate(cart, param); end
+
+  protected
 
 
   def filter_items(cart_items, filters)
