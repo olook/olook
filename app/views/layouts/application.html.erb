@@ -56,7 +56,7 @@
 
 
 
-  <body onload="<%= Setting.enable_neoassist ? 'ativaDiv();' : '' %>" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %> <%= "moments" if is_moment_page? %><%= mobile? ? ' mobile' : ' desktop' %>">
+  <body onload="<%= Setting.enable_neoassist ? 'ativaDiv();' : '' %>" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %><%= mobile? ? ' mobile' : ' desktop' %>">
     <%= render :partial => "shared/tag/google_tag_manager" %>
     <% if Setting.enable_neoassist %>
       <div id="modalneo" align="right" style="display:none;border:0px;">
