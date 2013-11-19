@@ -96,8 +96,8 @@ class Product < ActiveRecord::Base
     return @discount_price if @discount_price.present?
     cart = opts[:cart]
     coupon = opts[:coupon] || cart.try(:coupon)
-    best_promotion = Promotion.select_promotion_for(cart)
-    pd = ProductDiscountService.new(self, cart: cart, coupon: coupon, promotion: best_promotion)
+    promotion = opts[:promotion] || Promotion.select_promotion_for(cart)
+    pd = ProductDiscountService.new(self, cart: cart, coupon: coupon, promotion: promotion)
     @discount_price = pd.best_discount.calculate_for_product(self, cart: cart)
   end
 
