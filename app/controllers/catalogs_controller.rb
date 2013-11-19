@@ -1,4 +1,6 @@
 # -*- encoding : utf-8 -*-
+require 'new_relic/agent/method_tracer'
+
 class CatalogsController < ApplicationController
   include ::NewRelic::Agent::MethodTracer
 
@@ -6,6 +8,40 @@ class CatalogsController < ApplicationController
   prepend_before_filter :verify_if_is_catalog
   helper_method :header
   DEFAULT_PAGE_SIZE = 48
+
+  def parse_parameters_from request
+    SeoUrl.parse(request.fullpath)
+  end
+
+  def add_campaign(params)
+    HighlightCampaign.find_campaign(params[:cmp])  
+  end
+
+  def add_search_result(search_params, params)
+    page_size = params[:page_size] || DEFAULT_PAGE_SIZE
+
+    ## For AB Testing
+    cookies[:df] = params[:df] if params[:df]
+    search_engine_clazz = if cookies[:df] == 1
+      cookies[:df] = 1
+      SearchEngineWithDynamicFilters
+    else 
+      cookies[:df] = 0
+      SearchEngine
+    end
+    ## End AB testing
+
+    search = search_engine_clazz.new(search_params, true).for_page(params[:page]).with_limit(page_size)      
+    search.for_admin if current_admin
+    search
+  end
+
+  def add_antibounce_box(search, params)
+    brands = search.expressions["brand"].map{|b| b.downcase}
+    if AntibounceBox.need_antibounce_box?(@search, brands, params)      
+      @antibounce_box = AntibounceBox.new(params) 
+    end
+  end
 
   def show
     search_params = parse_parameters_from request
@@ -33,29 +69,7 @@ class CatalogsController < ApplicationController
   add_method_tracer :add_antibounce_box, 'Custom/CatalogsController/add_antibounce_box'
 
   private
-
-    def parse_parameters_from request
-      SeoUrl.parse(request.fullpath)
-    end
-
-    def add_campaign(params)
-      HighlightCampaign.find_campaign(params[:cmp])  
-    end
-
-    def add_search_result(search_params, params)
-      page_size = params[:page_size] || DEFAULT_PAGE_SIZE
-      search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(page_size)      
-      search.for_admin if current_admin
-      search
-    end
-
-    def add_antibounce_box(search, params)
-      brands = search.expressions["brand"].map{|b| b.downcase}
-      if AntibounceBox.need_antibounce_box?(@search, brands, params)      
-        @antibounce_box = AntibounceBox.new(params) 
-      end
-    end
-
+    
     def header
       @header ||= CatalogHeader::CatalogBase.for_url(request.path).first
     end
