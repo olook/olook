@@ -118,15 +118,6 @@ Olook::Application.routes.draw do
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
   get '/colecoes/:collection_theme(/*parameters)', to: "collection_themes#show", as: "collection_theme"
 
-  # NEW COLLECTIONS - TODO
-  get '/update_moment', to: "moments#update", as: "update_moment", constraints: { format: 'js' }
-
-  # Novidades
-  match '/novidades/sapatos', to: "moments#show", as: "news_shoes", :defaults => {:category_id => Category::SHOE, :id => 1, news: true }
-  match '/novidades/roupas', to: "moments#show", as: "news_clothes", :defaults => {:category_id => Category::CLOTH, :id => 1, news: true }
-  match '/novidades/bolsas', to: "moments#show", as: "news_bags", :defaults => {:category_id => Category::BAG, :id => 1, news: true }
-  match '/novidades/accessorios', to: "moments#show", as: "news_accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1, news: true }
-
   #FRIENDS
   match "/membro/:share/:uid", :to => "home#index"
   match "/minhas-amigas/conectar", :to => "friends#facebook_connect", :as => "facebook_connect"
