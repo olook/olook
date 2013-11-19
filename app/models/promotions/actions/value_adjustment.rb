@@ -12,7 +12,7 @@ class ValueAdjustment < PromotionAction
 
   def desc_value(filters, opts={})
     value = filters.delete('param')
-    "R$#{value.to_i}"
+    "R$ #{value.to_i}"
   end
 
   def calculate(cart_items, filters)
