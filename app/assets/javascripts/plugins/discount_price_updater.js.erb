@@ -18,7 +18,7 @@ DiscountPriceUpdater.prototype.replaceUpdatedPrices = function() {
   for( var product_id in this.prices ) {
     var li = $('li[data-id="' + product_id + '"]');
     li.find('.price').remove();
-    var html = '<%= render('shared/searched_product_discount_price', from: '__OLD__', to: '__NEW__') %>';
+    var html = '<%= Haml::Engine.new(File.read(File.join(Rails.root, 'app/views', 'shared/_searched_product_discount_price.html.haml'))).render(Object.new, from: '__OLD__', to: '__NEW__') %>';
     var values = this.prices[product_id];
     li.find('.info-product').append(html.replace(/__OLD__/g, values['de']).replace(/__NEW__/g, values['por']));
   }
