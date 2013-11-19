@@ -87,11 +87,22 @@ $(function() {
   }
 
   showGiftPackageModal();
+  showCreditPackageModal();
 });
 
 function showGiftPackageModal(){
    content = $(".modal_gift");
    $("a.txt-conheca").bind("click", function(e){
+      initBase.newModal(content);
+      e.preventDefault();
+      e.stopPropagation();
+   })
+
+}
+
+function showCreditPackageModal(){
+   content = $(".modal_credit");
+   $("a.txt-credito").bind("click", function(e){
       initBase.newModal(content);
       e.preventDefault();
       e.stopPropagation();

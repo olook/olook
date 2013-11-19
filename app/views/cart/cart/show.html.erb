@@ -36,7 +36,7 @@ _gaq.push(['_addTrans',
     <p>Obrigada por compartilhar a olook. Você acaba de ganhar 2% de desconto! :)</p>
   </div>
 
-  <h1>Minha sacola</h1>
+  <h1><span class="icon"></span>Minha sacola <span class="total_itens">(<%= @cart.try(:items_total).to_i %> itens)</span></h1>
   <% unless @cart.facebook_share_discount? || @cart.items.size == 0 %>
       <div id="facebook-share">
          <p>Que tal ganhar <span>2%</span> de desconto nesta compra?</p>
@@ -45,6 +45,13 @@ _gaq.push(['_addTrans',
       </div>
 
   <% end %>
+  <div class="checkout_option_top">
+    <% if current_user %>
+      <%= link_to "Continuar", new_checkout_path, :class => "continue"  %>
+    <% else %>
+      <%= link_to "Continuar", checkout_login_index_path, :class => "continue"  %>
+    <% end %>
+  </div>
 
   <%= content_tag :div, class: 'warning-msg', style: "display:#{@promo_over_coupon ? 'block' : 'none'};" do %>
     <%= image_tag 'cart/warning_coupon.png', :class => '' %>
@@ -52,13 +59,14 @@ _gaq.push(['_addTrans',
   <% end %>
 
   <% if @cart.items.count > 0 %>
-    <ul id="titles" class="border">
-      <li class="item">Item</li>
-      <li class="amount">Quantidade</li>
-      <li class="value">Subtotal</li>
-    </ul>
-
     <table cellpadding="0" cellspacing="0" class="items_list" id="items">
+      <thead>
+        <tr>
+          <td class="item">Item</td>
+          <td class="quantidade">Quantidade</td>
+          <td class="subtotal">Subtotal</td>
+        </tr>
+      </thead>
       <tbody>
         <% @cart.items.each do |item| %>
           <%= render partial: 'cart/items/row', locals: { cart_service: @cart_service, item: item } if item %>
@@ -70,11 +78,167 @@ _gaq.push(['_addTrans',
 
   <div class="chaordic shoppingcart"></div>
   <% if !@cart.items.map{|item| item.variant.product}.include?(@suggested_product) && @suggested_product%>
+
+  <table cellpadding="0" cellspacing="0" class="check gift">
+    <tbody>
+      <tr>
+        <td class="icon-gift"></td>
+        <td class="check_column">
+          <%= form_for(@cart, :remote => true, :method => :put, html: { :id => "gift_wrap" }) do |f| %>
+            <%= f.check_box('gift_wrap', :checked => @cart.gift_wrap) %>
+            Embrulhar pedido para presente. <a href="#" target="_blank" class="txt-conheca">Conheça nossa embalagem de presente</a>
+          <% end %>
+          <div class="modal_gift">
+             <h1>CONHEÇA NOSSA EMBALAGEM DE PRESENTE!</h1>
+             <div class="img_modal"></div>
+             <h2>Um saquinho de tecido protege o produto e por fora embalamos com um lindo saquinho adicional em tule e fita de cetim. Uma graça!</h2>
+          </div>
+        </td>
+        <td class="value">
+          <%= gift_wrap_price(@cart) %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <% if @user && @user.current_credit > 0 %>
+    <table cellpadding="0" cellspacing="0" class="check credits">
+      <tbody>
+        <tr>
+          <td class="icon-credits"></td>
+          <td class="check_column">
+            <%= form_for(@cart, :remote => true, html: { :id => "use_credit_form" }) do |f| %>
+              <%= f.check_box('use_credits', :checked => @cart.use_credits) %>
+              Quero usar meus créditos <a href="#" target="_blank" class="txt-credito">Mais sobre meus créditos</a>
+              <p>Você acumulou créditos que podem ser utilizados nesta compra.</p>
+              <% if total_user_credits > @cart_service.total %>
+                <p>O valor do seu saldo é superior ao valor do pedido e você receberá a diferença em créditos</p>
+              <% elsif @cart_service.total == total_user_credits %>
+                <p>O valor do seu pedido é o mesmo que o seu saldo. Você pagará apenas o custo de envio (dependendo da localidade)</p>
+              <% else %>
+                <% if @cart.items.count > 0 %>
+                  <p>O valor do seu pedido é superior ao seu saldo e você deverá pagar a diferença</p>
+                <% end %>
+              <% end %>
+            <% end %>
+            <div class="modal_credit">
+               <h1>SOBRE OS SEUS CRÉDITOS</h1>
+               <% style = @cart_service.allow_credit_payment? ? 'normal' : 'prohibited' %>
+               <ul>
+                  <li id="loyalty_credit">
+                    <div class="description">Créditos por compras realizadas:</div>
+                    <div class="value <%= style %>"><%= number_to_currency @report.amount_of_loyalty_credits %></div>
+                    <div class="message"><%= print_credit_message %></div>
+                  </li>
+
+                 <li id="mgm_credit">
+                    <div class="description">Créditos por indicação:</div>
+                    <div class="value <%= style %>"><%= number_to_currency @report.amount_of_invite_credits %></div>
+                    <div class="message"><%= print_credit_message %></div>
+                  </li>
+
+                 <li>
+                    <div class="description">Reembolso via Central de Atendimento:</div>
+                    <div class="value"><%= number_to_currency @report.amount_of_redeem_credits %></div>
+                    <div class="message">&nbsp;</div>
+                  </li>
+                </ul>
+            </div>
+          </td>
+          <td class="value" id="total_user_credits">
+            <%= number_to_currency(total_user_credits) %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+
+  <table cellpadding="0" cellspacing="0" id="total">
+    <tbody>
+    <tr id="coupon_info" <%= "style=display:none;" unless @cart.coupon %> >
+      <td>
+        Cupom Promocional
+      </td>
+      <td>
+        <p id="coupon_discount">
+          <%= @cart.coupon.try(:code) %>
+        </p>
+      </td>
+      <td class="value discount">
+        <%= form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f| %>
+          <fieldset class="inputs">
+          <ol>
+            <li>
+            <%= f.hidden_field('coupon_code', :value => nil) %>
+            <%= f.submit "Excluir" %>
+            </li>
+          </ol>
+        </fieldset>
+      <% end %>
+      </td>
+    </tr>
+    <tr class="total">
+      <td>
+        <table id="coupon" cellpadding="0" cellspacing="0" style="<%= @cart.coupon ? 'display:none;' : 'display:block;' %>">
+          <tbody>
+          <tr class="discount">
+            <td>
+              <%= form_for(@cart, remote: true,
+                           html: {
+                onsubmit: track_event("Checkout", "ClickCupom", ''),
+                :id => "coupon"
+              }) do |f| %>
+              <fieldset class="inputs">
+                <ol>
+                  <li>
+                  <%= f.text_field('coupon_code', :value => @cart.coupon.try(:code)) %>
+                  </li>
+                  <li class="cupom">
+                  <%= f.submit '', :value => 'APLICAR CUPOM' %>
+                  </li>
+                </ol>
+              </fieldset>
+            <% end %>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </td>
+      
+    </tr>
+    </tbody>
+  </table>
+
+  <table cellpadding="0" cellspacing="0" id="cart_subtotal">
+    <tr>
+      <td width="730">
+        <div class="devolucao_credito"></div>
+      </td>
+      <td class="title_subtotal">Subtotal</td>
+      <td class="value_subtotal"><%= number_to_currency(@cart_service.total) %></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="dica_olook_quando">
+          <span class="icon_dica_olook"></span>
+          Toda vez que você vir essa lâmpada, vem <strong>dica boa</strong> por aí! Fique ligado! =)
+        </div>
+        <div class="dica_olook">
+          <span class="dica">
+            Você ganhará <span id="amount_for_loyalty_program"><%=  number_to_currency @cart_service.amount_for_loyalty_program %></span> de desconto em sua próxima compra. <%= link_to "Saiba mais", "#", :class => "open_loyalty_lightbox" %>
+          </span>
+        </div>
+      </td>
+      <td class="title_subtotal title_total">Total</td>
+      <td class="value_subtotal value_total"><%= number_to_currency(@cart_service.total) %></td>
+    </tr>
+  </table>
+
 	<table cellpadding="0" cellspacing="0" class="items_list avc-pulseira" id="products">
       <tbody>
           <tr>
             <td class="avc-foto">
-              <p class="txt-recomenda">OLOOK RECOMENDA</p>
+              <p class="txt-recomenda">ANTES DE PROSSEGUIR... A OLOOK RECOMENDA!</p>
               <% unless @suggested_product.master_variant.bag_picture.nil? %>
                 <%= link_to spy_product_path(@suggested_product), :class => 'cart_item', data: { url: spy_product_path(@suggested_product, from: 'cart') } do %>
                   <div class="spy_cart_icon">
@@ -95,7 +259,7 @@ _gaq.push(['_addTrans',
                                       id: "product_add_to_cart") do %>
         <input name="from_sacola" type="hidden" value="true" %>
 				<input id="variant_id" name="variant[id]" type="hidden" value="<%= @suggested_product.variants.first.id.to_s %>" />
-				<%= submit_tag "", id: "add_product", class: "add_product" %>
+				<%= submit_tag "", id: "add_product", class: "add_product", value: "ADICIONAR À SACOLA" %>
 			  <% end %>
 
             </td>
@@ -110,151 +274,15 @@ _gaq.push(['_addTrans',
       <% end %>
     </section>
 
-    <table cellpadding="0" cellspacing="0" class="check gift">
-      <tbody>
-        <tr>
-          <td class="check_column">
-            <%= form_for(@cart, :remote => true, :method => :put, html: { :id => "gift_wrap" }) do |f| %>
-              <%= f.check_box('gift_wrap', :checked => @cart.gift_wrap) %>
-              <h1>Embrulhar pedido para presente. <a href="#" target="_blank" class="txt-conheca">Conheça nossa embalagem de presente</a></h1>
-            <% end %>
-            <div class="modal_gift">
-               <h1>CONHEÇA NOSSA EMBALAGEM DE PRESENTE!</h1>
-               <div class="img_modal"></div>
-               <h2>Um saquinho de tecido protege o produto e por fora embalamos com um lindo saquinho adicional em tule e fita de cetim. Uma graça!</h2>
-            </div>
-          </td>
-          <td class="value">
-            <%= gift_wrap_price(@cart) %>
-          </td>
-
-        </tr>
-      </tbody>
-    </table>
-    <% if @user && @user.current_credit > 0 %>
-    <table cellpadding="0" cellspacing="0" class="check">
-      <tbody>
-        <tr>
-          <td class="check_column">
-            <%= form_for(@cart, :remote => true, html: { :id => "use_credit_form" }) do |f| %>
-              <%= f.check_box('use_credits', :checked => @cart.use_credits) %>
-              <h1>Quero usar meus créditos</h1>
-              <p>Você acumulou créditos que podem ser utilizados nesta compra.</p>
-              <% if total_user_credits > @cart_service.total %>
-                <p>O valor do seu saldo é superior ao valor do pedido e você receberá a diferença em créditos</p>
-              <% elsif @cart_service.total == total_user_credits %>
-                <p>O valor do seu pedido é o mesmo que o seu saldo. Você pagará apenas o custo de envio (dependendo da localidade)</p>
-              <% else %>
-                <% if @cart.items.count > 0 %>
-                  <p>O valor do seu pedido é superior ao seu saldo e você deverá pagar a diferença</p>
-                <% end %>
-              <% end %>
-
-              <section id="credits_explanation">
-                <p>SOBRE OS SEUS CRÉDITOS</p>
-                <% style = @cart_service.allow_credit_payment? ? 'normal' : 'prohibited' %>
-
-                <ul>
-                  <li id="loyalty_credit">
-                    <div class="description">Créditos por compras realizadas:</div>
-                    <div class="value <%= style %>"><%= number_to_currency @report.amount_of_loyalty_credits %></div>
-                    <div class="message"><%= print_credit_message %></div>
-                  </li>
-
-                 <li id="mgm_credit">
-                    <div class="description">Créditos por indicação:</div>
-                    <div class="value <%= style %>"><%= number_to_currency @report.amount_of_invite_credits %></div>
-                    <div class="message"><%= print_credit_message %></div>
-                  </li>
-
-                 <li>
-                    <div class="description">Reembolso via Central de Atendimento:</div>
-                    <div class="value"><%= number_to_currency @report.amount_of_redeem_credits %></div>
-                    <div class="message">&nbsp;</div>
-                  </li>
-                </ul>
-
-              </section>
-            <% end %>
-          </td>
-          <td class="value" id="total_user_credits">
-            <%= number_to_currency(total_user_credits) %>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <% end %>
-
-
-    <table cellpadding="0" cellspacing="0" id="total">
-      <tbody>
-      <tr id="coupon_info" <%= "style=display:none;" unless @cart.coupon %> >
-        <td>
-          Cupom Promocional
-        </td>
-        <td>
-          <p id="coupon_discount">
-            <%= @cart.coupon.try(:code) %>
-          </p>
-        </td>
-        <td class="value discount">
-          <%= form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f| %>
-            <fieldset class="inputs">
-            <ol>
-              <li>
-              <%= f.hidden_field('coupon_code', :value => nil) %>
-              <%= f.submit "Excluir" %>
-              </li>
-            </ol>
-          </fieldset>
-        <% end %>
-        </td>
-      </tr>
-      <tr class="total">
-        <td>
-          <table id="coupon" cellpadding="0" cellspacing="0" style="<%= @cart.coupon ? 'display:none;' : 'display:block;' %>">
-            <tbody>
-            <tr class="discount">
-              <td>
-                <%= form_for(@cart, remote: true,
-                             html: {
-                  onsubmit: track_event("Checkout", "ClickCupom", ''),
-                  :id => "coupon"
-                }) do |f| %>
-                <fieldset class="inputs">
-                  <ol>
-                    <li>
-                    <%= f.text_field('coupon_code', :value => @cart.coupon.try(:code)) %>
-                    </li>
-                    <li class="cupom">
-                    <%= f.submit '' %>
-                    </li>
-                  </ol>
-                </fieldset>
-              <% end %>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </td>
-        <td> &nbsp; </td>
-        <td class="value">
-          <p>Total: <span id="total_value"><%= number_to_currency(@cart_service.total) %></span></p>
-          <p class="limit <%= @cart_service.is_minimum_payment? ? 'show' : '' %>">R$5,00 é o valor mínimo para processamento da compra</p>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-
     <table id="coupon" cellpadding="0" cellspacing="0" class="items_list">
       <tbody>
         <tr>
           <td class="buy-link">
-            <p class="buying-continue"><%= link_to "Continuar comprando","/colecoes" %></p>
+            <p class="buying-continue"><%= link_to "<< Continuar comprando","/colecoes" %></p>
           </td>
           <td class="buttons">
             <% if current_user && !current_user.reseller %>
-              <p class="credits">Você ganhará <span id="amount_for_loyalty_program"><%=  number_to_currency @cart_service.amount_for_loyalty_program %></span> de desconto em sua próxima compra. <%= link_to "Saiba mais", "#", :class => "open_loyalty_lightbox" %></p>
+              <p class="credits"></p>
             <% end %>
             <% if current_user %>
               <%= link_to "Continuar", new_checkout_path, :class => "continue"  %>
