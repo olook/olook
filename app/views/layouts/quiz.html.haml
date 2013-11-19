@@ -30,7 +30,7 @@
       dataLayer = [];
     = render 'shared/data_layer/master'
     = yield :data_layer
-  %body{:class => "#{user_signed_in? ? 'logged' : ''} #{Campaign.activated_campaign.background if Campaign.activated_campaign} #{"moments" if is_moment_page?}"}
+  %body{:class => "#{user_signed_in? ? 'logged' : ''} #{Campaign.activated_campaign.background if Campaign.activated_campaign} "}
     = render :partial => "shared/tag/google_tag_manager"
 
     %header
