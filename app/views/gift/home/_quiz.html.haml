@@ -1,0 +1,31 @@
+%section#quiz
+  .content
+    %h2
+      %span
+        \//
+      Consultoria de estilo 
+      %span
+        \//
+    %p.quiz
+      Responda a um rápido QUIZ.
+      %br
+        Nossas stylists entenderão o perfil dela e você receberá recomendações.
+    = form_tag "/presentes/occasions", :method => :post do
+      = hidden_field_tag "occasion[day]", Date.current.day
+      = hidden_field_tag "occasion[month]", Date.current.month
+      .box.name
+        = label_tag "recipient[name]", "Qual o nome dela? <em>*</em>".html_safe
+        = text_field_tag "recipient[name]", nil, :placeholder => "digite aqui"
+      .box
+        = label_tag "recipient[gift_recipient_relation_id]", "Ela é sua? <em>*</em>".html_safe
+        .styled_select
+          = select_tag "recipient[gift_recipient_relation_id]", options_from_collection_for_select(@recipient_relations, :id, :name)
+      .box.shoes
+        %p Que número ela calça?
+        %ul
+          - (33..40).to_a.each do |size|
+            %li
+              = label_tag "recipient[shoe_size]", size
+              = radio_button_tag "recipient[shoe_size]", size
+      %em * preenchimento obrigatório
+      = submit_tag ""

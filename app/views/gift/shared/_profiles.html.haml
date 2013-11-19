@@ -1,0 +1,6 @@
+%ul.models
+  - @profiles.each do |profile|
+    %li{:class => profile}
+      = link_to "#" do
+        %p{:class => profile}= profile == "chic" ? "elegante" : profile
+        = image_tag "gift/profile-#{profile}.png", :id => profile
