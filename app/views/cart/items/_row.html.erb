@@ -1,43 +1,61 @@
 <tr id="item_<%= item.id %>">
-  <td class="item">
-    <% unless item.thumb_picture.nil? %>
-      <%= link_to spy_product_path(item.product), :class => 'cart_item', data: { url: spy_product_path(item.product, from: 'cart') } do %>
-        <div class="spy_cart_icon">
-          <span class="spy-icon"></span>
-          <span class="spy-txt">ESPIAR</span>
-        </div>
-        <%= image_tag item.variant.bag_picture %>
-      <% end %>
-    <% end %>
-    <p class="txt-black"><span><%= item.variant.name %></span></p>
-    <p>Tamanho: <%= item.variant.description %></p>
-    <p>Cor/Material: <%= item.variant.color_name %></p>
+  <td class="column1">
+    <table cellspacing="0" cellpading="0" width="100%">
+      <tr>
+        <td>
+          <% unless item.thumb_picture.nil? %>
+            <%= link_to spy_product_path(item.product), :class => 'cart_item', data: { url: spy_product_path(item.product, from: 'cart') } do %>
+              <div class="spy_cart_icon">
+                <span class="spy-icon"></span>
+                <span class="spy-txt">ESPIAR</span>
+              </div>
+              <%= image_tag item.variant.bag_picture %>
+            <% end %>
+          <% end %>
+          <p class="txt-black"><span><%= item.variant.name %></span></p>
+          <p>Tamanho: <%= item.variant.description %></p>
+          <p>Cor/Material: <%= item.variant.color_name %></p>
+        </td>
+        <td class="delete-item">
+          <%= form_for(item, :method => :delete,
+                             :remote => :true,
+                                        :html => {
+                                          :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s),
+                                          :id => "remove_item_form_#{item.id}" }) do %>
+            <%= submit_tag('Excluir')  %>
+          <% end %>
+        </td>
+      </tr>
+    </table>
   </td>
-  <td class="delete-item">
-    <%= form_for(item, :method => :delete,
-                       :remote => :true,
-                                  :html => {
-                                    :onsubmit => track_event("Shopping", "RemoveFromCart", item.variant.product.id.to_s),
-                                    :id => "remove_item_form_#{item.id}" }) do %>
-      <%= submit_tag('excluir')  %>
-    <% end %>
-  </td>
-  <td class="amount">
-    <%= number_to_currency(item.price) %><br />
-    <%= form_for(item, :method => :put,
-                        remote: true,
-                        :html => {
-                          onsubmit: track_event("Shopping", "ChangeAmount", item.product.id), 
-                          id: "change_amount_#{item.id}"
-                        }) do %>
+  <td class="column2">
+    <table cellspacing="0" cellpading="0" width="100%">
+      <tr>
+        <td>
+          <%= number_to_currency(item.price) %><br />
+          <%= form_for(item, :method => :put,
+                              remote: true,
+                              :html => {
+                                onsubmit: track_event("Shopping", "ChangeAmount", item.product.id), 
+                                id: "change_amount_#{item.id}"
+                              }) do %>
 
-      x <%= item_qty_select(item) %>
-    <% end %>
+            x <%= item_qty_select(item) %>
+          <% end %>
+        </td>
+      </tr>
+    </table>
   </td>
-  <td class="discount">
-    <%= render partial: 'cart/items/discount', locals: { item: item } %>
-  </td>
-  <td class="value" >
-    <%= render partial: 'cart/items/subtotal', locals: { item: item } %>
+  <td class="column3">
+    <table cellspacing="0" cellpading="0" width="100%">
+      <tr>
+        <td class="discount">
+          <%= render partial: 'cart/items/discount', locals: { item: item } %>
+        </td>
+        <td class="value" >
+          <%= render partial: 'cart/items/subtotal', locals: { item: item } %>
+        </td>
+      </tr>
+    </table>
   </td>
 </tr>
