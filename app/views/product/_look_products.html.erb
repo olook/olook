@@ -17,17 +17,10 @@
       <input type="hidden" id="total_price" />
     </div>
     <ul class="carousel <%= look_products.count > 3 ? 'arrows' : '' %>">
-      <%
-          look_products.each do |product|
-        if product.liquidation?
-      %>
-    <%= render 'look_product_item', product: LiquidationProductService.liquidation_product(product).product, product_presenter: product_presenter %>
-  <% else %>
-    <%= render 'look_product_item', product: product, product_presenter: product_presenter %>
-  <% end
-      end
-    %>
-</ul>
+      <% look_products.each do |product| %>
+        <%= render 'look_product_item', product: product, product_presenter: product_presenter %>
+      <% end %>
+    </ul>
 <% if look_products.count > 3 %>
   <%= link_to "Anterior", "javascript:void(0);", :class => "carousel-prev" %>
   <%= link_to "Próximo", "javascript:void(0);", :class => "carousel-next" %>
