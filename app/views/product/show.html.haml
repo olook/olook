@@ -29,13 +29,15 @@
   = link_to "Comprar o look completo", "#", :id => "goRelatedProduct" if @product.related_products.any? && (params[:srl] || Setting.disable_ab_test_for_look_products)
   .box-left
     #gallery
-      = product_presenter.render_pics
+      = cache "pics/#{@product.id}", expire_in: 40.minutes do
+        = product_presenter.render_pics
       = product_presenter.render_facebook_comments
   .box-right
     #product-details
-      = product_presenter.render_description
-      = product_presenter.render_add_to_cart
-      = product_presenter.render_details
+      = cache "details/#{@product.id}", expire_in: 10.minutes do
+        = product_presenter.render_description
+        = product_presenter.render_add_to_cart
+        = product_presenter.render_details
     #modal_guide
       %h1 GUIA DE MEDIDAS
       = image_tag 'common/body.jpg', :class => ''
