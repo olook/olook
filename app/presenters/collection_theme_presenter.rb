@@ -21,10 +21,6 @@ class CollectionThemePresenter < BasePresenter
     h.render :partial => 'shared/filters/shoe_size_filters', :locals => {:collection_theme_presenter => self} if shoes?
   end
 
-  def display_news_filters
-    h.render :partial => 'shared/filters/news_filters', :locals => {:collection_theme_presenter => self} #if shoes?
-  end
-
   def display_heel_filters
     h.render :partial => 'shared/filters/heel_filters', :locals => {:collection_theme_presenter => self} if shoes?
   end
