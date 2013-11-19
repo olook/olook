@@ -327,6 +327,7 @@ section#cart {
       color: #FFF;
       text-transform: uppercase;
       font-size: 10px;
+      text-decoration: none;
 			&:hover{text-decoration:underline};
 		}
 	}
@@ -644,7 +645,7 @@ section#cart {
           }
         }
         &.discount {
-          width:40%;
+          width:30%;
           text-align: center;
           
           div.discount_origin {
@@ -666,8 +667,8 @@ section#cart {
           }
 
           a.discount_percent {
-            background: image-url('cart/sprite.png') -589px -70px no-repeat !important;
-            width: 91px;
+            background: image-url('cart/sprite.png') -599px -70px no-repeat !important;
+            width: 71px;
             height: 30px;
             display: block;
             padding-top: 20px;
