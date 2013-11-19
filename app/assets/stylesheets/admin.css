@@ -3,7 +3,6 @@
  *
  *= require admin/base
  *= require admin/themes/default/style
- *= require admin/liquidation_products
  *= require admin/promotions
  *= require admin/orders
  *= require admin/dashboard

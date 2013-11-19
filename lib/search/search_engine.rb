@@ -21,6 +21,7 @@ class SearchEngine
   end
 
   attr_accessor :skip_beachwear_on_clothes
+  attr_accessor :df
 
   attr_reader :current_page, :result
   attr_reader :expressions, :sort_field
@@ -104,7 +105,7 @@ class SearchEngine
 
   def cache_key
     key = build_url_for(limit: @limit, start: self.start_item)
-    Digest::SHA1.hexdigest(key.to_s)
+    Digest::SHA1.hexdigest(df.to_s + "/" + key.to_s)
   end
 
   def filters_applied(filter_key, filter_value)
@@ -275,6 +276,14 @@ class SearchEngine
     _filters = filters.grouped_products('subcategory')
     _filters.delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) } if _filters
     _filters
+  end
+
+  def key_for field
+    chosen_filter_values = expressions[field.to_sym] || ""
+    # Use Digest::SHA1.hexdigest ??
+    key = expressions[:category].join("-") + "/" + field.to_s + "/" + chosen_filter_values.join("-")
+    Rails.logger.info "[cloudsearch] #{field}_key=#{key}"
+    key
   end
 
   private
