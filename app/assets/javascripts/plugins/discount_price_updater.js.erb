@@ -1,6 +1,7 @@
 function DiscountPriceUpdater(opts) {
   this.product_ids = opts['product_ids'];
   this.prices = {};
+  this.afterGetPricesSuccess = this.replaceUpdatedPrices;
 }
 
 DiscountPriceUpdater.prototype.getPrices = function() {
@@ -9,6 +10,7 @@ DiscountPriceUpdater.prototype.getPrices = function() {
     data: { product_ids: this.product_ids }
   }).success(function(data){
     this.prices = data['prices'];
+    this.afterGetPricesSuccess();
   });
 }
 
@@ -20,4 +22,13 @@ DiscountPriceUpdater.prototype.replaceUpdatedPrices = function() {
     var values = this.prices[product_id];
     li.find('.info-product').append(html.replace(/__OLD__/g, values['de']).replace(/__NEW__/g, values['por']));
   }
+}
+
+if(!olook) var olook = {};
+olook.priceUpdater = function() {
+  var product_ids = $('.product').map(function(idx, item){ return $(item).data('id'); });
+  var dpu = new DiscountPriceUpdater({
+    product_ids: product_ids
+  });
+  dpu.getPrices();
 }
