@@ -3,6 +3,7 @@
 .batch_form
   %h1 Atualizar liquidações (arquivo .csv)
 .batch_form_content
+  %p= link_to "Ir para lista de produtos de Olooklet", admin_products_path(params: {visibility: 2})
   = form_tag admin_create_visibility_batch_path, multipart: true do
     = file_field_tag :file
     = submit_tag "Importar arquivo"

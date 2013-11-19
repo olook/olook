@@ -37,34 +37,35 @@
         Onde?
       %th
         Foto
-    - @liquidation_previews.each do |product|
-      %tr{class:"#{'not-visible' if !product.visible? }"}
+
+    - @liquidation_previews.each do |p|
+      %tr{class:"#{'not-visible' if !p.product.is_visible? }"}
         %td
-          = product.product_id
+          = p.product.id
         %td
-          = product.name
+          = p.product.name
         %td
-          = product.category
+          = p.product.category_humanize
         %td
-          = product.subcategory
+          = p.product.subcategory_name
         %td
-          = product.price
+          = p.product.price
         %td
-          = product.retail_price
+          = p.product.retail_price
         %td
-          = product.discount_percentage
+          = p.product.discount_percent
         %td
-          = product.inventory
+          = p.product.inventory
         %td
-          = product.color
+          = p.product.product_color
         %td
-          = product.collection
+          = p.product.collection.name
         %td
-          = product.visible
+          = p.product.is_visible?
         %td
-          = formatted_visibility product.visibility
+          = formatted_visibility p.product.visibility
         %td
-          = image_tag(product.picture_url)
+          = image_tag(p.product.bag_picture,)
   .actions-bar.wat-cf
     .pagination
       = will_paginate @liquidation_previews

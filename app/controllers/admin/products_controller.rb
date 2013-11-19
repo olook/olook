@@ -140,6 +140,13 @@ class Admin::ProductsController < Admin::BaseController
       end
     end
 
+    @collection_themes = {}
+    CollectionTheme.where(active: true).order(:position).each do |collection_theme|
+      group = collection_theme.collection_theme_group.try(:name)
+      @collection_themes[group] ||= []
+      @collection_themes[group] << [collection_theme.name, collection_theme.id]
+    end
+
     @categories = [["Sapatos", Category::SHOE] , ['Bolsas', Category::BAG], ['Acessórios', Category::ACCESSORY], ['Roupas', Category::CLOTH]]
     @profiles = Profile.order(:name)
     @brands = Product.all.map(&:brand).compact.uniq
@@ -150,6 +157,7 @@ class Admin::ProductsController < Admin::BaseController
                        .in_category(params[:cat])
                        .in_subcategory(params[:subcat])
                        .in_collection(params[:col])
+                       .in_collection_theme(params[:collection_theme])
                        .in_profile(params[:p])
                        .with_brand(params[:brand])
                        .with_visibility(params[:is_visible])
@@ -160,7 +168,7 @@ class Admin::ProductsController < Admin::BaseController
                        .by_sold(params[:sale_ordenation])
                        .with_discount(params[:discount_ordenation])
                        .order(sort_column + " " + sort_direction)
-                       .order("collection_id desc, category, name")
+                       .order("products.collection_id desc, products.category, products.name")
                        .paginate(page: params[:page], per_page: 10)
   end
 
