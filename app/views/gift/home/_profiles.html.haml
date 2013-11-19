@@ -1,0 +1,102 @@
+%section#profiles
+  .content
+    = first_level_breadcrumb("Presentes")
+    %h2
+      %span
+        \// 
+      acerte em cheio no presente! 
+      %span
+        \//
+    %ul.gifts_price
+      %li
+        = link_to("#", :class => "price_box") do
+          =image_tag ("gift/gift_1.jpg")
+          %p.title_price
+            até R$ 69
+            %span
+              Um mimo 
+          %p.description
+            Uma seleção incrível de presentes
+            %br
+              que cabem em qualquer bolso. 
+            Leve um mimo para cada pessoa querida
+      %li
+        = link_to("#", :class => "price_box") do
+          =image_tag ("gift/gift_2.jpg")
+          %p.title_price
+            até R$ 129
+            %span
+              Um presente 
+              %br
+                bem bacana
+          %p.description
+            Escolhemos peças incríveis a um preço
+            %br
+              bem amigo. Não tem como errar
+      %li.last
+        = link_to("#", :class => "price_box") do
+          =image_tag ("gift/gift_3.jpg")
+          %p.title_price
+            até R$ 199
+            %span
+              Um BIG presente
+          %p.description
+            A presenteada
+            %br 
+              é super especial? Então nossa seleção 
+            é perfeita pra ela.
+      %li.big
+        = link_to("#", :class => "price_box") do
+          =image_tag ("gift/gift_4.jpg")
+          %p.title_price
+            a partir de R$ 199 / 
+            %span.sky
+              O céu é o limite!
+          %p.description
+            Quer fazer bonito no presente sem medo de ser feliz?
+            %br
+              Dá uma olhada nas nossas escolhas exclusivas!
+
+    %ul.gifts_price.anchors
+      %li
+        = link_to("#", :class => "price_box") do
+          =image_tag ("gift/gift_5.jpg")
+          %p.title_box
+            \! best sellers !
+          %p.description
+            Eles são sucesso de venda
+            %br 
+              na Olook e ótimas opções de presente. 
+            Não tem como errar!
+      %li
+        = link_to("#", :class => "price_box") do
+          =image_tag ("gift/gift_6.jpg")
+          %p.title_box
+            está em dúvida?
+          %p.description
+            Não sabe o tamanho que ela usa?
+            %br
+              Então dá uma olhada nas peças 
+            de tamanho único e acessórios incríveis
+            %br 
+              que separamos para você
+      %li.last
+        = link_to("#", :class => "price_box") do
+          =image_tag ("gift/gift_7.jpg")
+          %p.title_box
+            compre por estilo
+          %p.description
+            Confira nossas recomendações
+            %br
+              por perfil ou responda ao stylist quiz 
+            e descubra o presente ideal de acordo 
+            %br
+              com o estilo da presentada
+    %h2.select_model
+      Com quem ela se parece mais?
+      %span
+        Escolha uma das opções
+    = render "gift/shared/profiles"
+    = render "gift/shared/help"
+
+ 
