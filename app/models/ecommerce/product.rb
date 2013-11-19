@@ -12,8 +12,10 @@ class Product < ActiveRecord::Base
 
   has_enumeration_for :category, :with => Category, :required => true
 
+  attr_accessor :save_from_master_variant
+
   after_create :create_master_variant
-  after_update :update_master_variant
+  after_update :update_master_variant, unless: :save_from_master_variant
   before_save :set_launch_date, if: :should_update_launch_date?
 
   has_many :pictures, :dependent => :destroy
@@ -145,21 +147,6 @@ class Product < ActiveRecord::Base
       relationship.destroy
     end
   end
-
-  delegate :price, to: :master_variant
-  delegate :'price=', to: :master_variant
-  delegate :retail_price, to: :master_variant
-  delegate :'retail_price=', to: :master_variant
-  delegate :width, to: :master_variant
-  delegate :'width=', to: :master_variant
-  delegate :height, to: :master_variant
-  delegate :'height=', to: :master_variant
-  delegate :length, to: :master_variant
-  delegate :'length=', to: :master_variant
-  delegate :weight, to: :master_variant
-  delegate :'weight=', to: :master_variant
-  delegate :discount_percent, to: :master_variant
-  delegate :'discount_percent=', to: :master_variant
 
   def main_picture
     @main_picture ||=
