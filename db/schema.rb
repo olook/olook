@@ -913,18 +913,19 @@ ActiveRecord::Schema.define(:version => 20131119201801) do
     t.integer  "collection_id"
     t.boolean  "is_visible"
     t.string   "color_category"
-    t.boolean  "is_kit",                                         :default => false
+    t.boolean  "is_kit",                                          :default => false
     t.string   "brand"
     t.string   "producer_code"
     t.string   "picture_for_xml"
     t.date     "launch_date"
-    t.integer  "visibility",                                     :default => 1
-    t.decimal  "price",           :precision => 10, :scale => 2
-    t.decimal  "width",           :precision => 8,  :scale => 2
-    t.decimal  "height",          :precision => 8,  :scale => 2
-    t.decimal  "length",          :precision => 8,  :scale => 2
-    t.decimal  "weight",          :precision => 8,  :scale => 2
-    t.decimal  "retail_price",    :precision => 10, :scale => 2
+    t.integer  "visibility",                                      :default => 1
+    t.decimal  "price",            :precision => 10, :scale => 2
+    t.decimal  "width",            :precision => 8,  :scale => 2
+    t.decimal  "height",           :precision => 8,  :scale => 2
+    t.decimal  "length",           :precision => 8,  :scale => 2
+    t.decimal  "weight",           :precision => 8,  :scale => 2
+    t.decimal  "retail_price",     :precision => 10, :scale => 2
+    t.integer  "discount_percent"
   end
 
   add_index "products", ["category"], :name => "index_products_on_category"
