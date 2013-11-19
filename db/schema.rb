@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131106202200) do
+ActiveRecord::Schema.define(:version => 20131119201801) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -179,6 +179,8 @@ ActiveRecord::Schema.define(:version => 20131106202200) do
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
   end
+
+  add_index "cart_item_adjustments", ["cart_item_id"], :name => "index_on_cart_item_id"
 
   create_table "cart_items", :force => true do |t|
     t.integer "variant_id",                       :null => false
@@ -911,18 +913,26 @@ ActiveRecord::Schema.define(:version => 20131106202200) do
     t.integer  "collection_id"
     t.boolean  "is_visible"
     t.string   "color_category"
-    t.boolean  "is_kit",          :default => false
+    t.boolean  "is_kit",                                         :default => false
     t.string   "brand"
     t.string   "producer_code"
     t.string   "picture_for_xml"
     t.date     "launch_date"
-    t.integer  "visibility",      :default => 1
+    t.integer  "visibility",                                     :default => 1
+    t.decimal  "price",           :precision => 10, :scale => 2
+    t.decimal  "width",           :precision => 8,  :scale => 2
+    t.decimal  "height",          :precision => 8,  :scale => 2
+    t.decimal  "length",          :precision => 8,  :scale => 2
+    t.decimal  "weight",          :precision => 8,  :scale => 2
+    t.decimal  "retail_price",    :precision => 10, :scale => 2
   end
 
   add_index "products", ["category"], :name => "index_products_on_category"
   add_index "products", ["collection_id"], :name => "index_products_on_collection_id"
   add_index "products", ["color_category"], :name => "index_products_on_color_category"
+  add_index "products", ["id", "is_visible"], :name => "primary_is_visible"
   add_index "products", ["is_visible", "collection_id", "category"], :name => "index_products_on_is_visible_and_collection_id_and_category"
+  add_index "products", ["is_visible", "id"], :name => "primary_is_visible2"
   add_index "products", ["is_visible"], :name => "index_products_on_is_visible"
   add_index "products", ["model_number"], :name => "index_products_on_model_number"
 
