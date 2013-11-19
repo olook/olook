@@ -135,42 +135,6 @@ describe Product do
     it { should eq(6) }
   end
 
-  describe ".featured_products" do
-
-    context "when there is no featured products configured" do
-      before do
-        Product.should_receive(:fetch_all_featured_products_of).with(Category::SHOE).and_return([])
-      end
-
-      it "return empty array" do
-        Product.featured_products(Category::SHOE).should be_empty
-      end
-    end
-
-    context "when there is two featured products configured" do
-      before do
-        featured_products = [
-          mock_model(Product, inventory_without_hiting_the_database: 2),
-          mock_model(Product, inventory_without_hiting_the_database: 1)
-        ]
-
-        Product.should_receive(:fetch_all_featured_products_of)
-          .with(Category::SHOE)
-          .and_return(featured_products)
-
-        Product.any_instance.stub(:inventory_without_hiting_the_database).and_return(2)
-      end
-
-      it "return both products" do
-        Product.featured_products(Category::SHOE).should have(2).items
-      end
-
-
-    end
-
-
-  end
-
   describe "#add_freebie" do
     let(:product) { FactoryGirl.create :blue_sliper_with_variants }
     let(:bag) { FactoryGirl.create(:basic_bag_with_variant) }
