@@ -9,12 +9,6 @@
 #result{float:left;width:820px;}
 
 #content{min-height:700px;}
-.container-imgs{position:relative;width:950px;height:290px;overflow:hidden;margin:0 auto;
-  ul{overflow:auto;width:5000px;
-    li{float:left;width:950px;height:290px;}
-  }
-}
-
 .brands{
   .box{float:left;width:235px;margin-left:43px;
     &:last-child{width:70px;}
