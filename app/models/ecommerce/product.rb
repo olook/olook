@@ -82,6 +82,16 @@ class Product < ActiveRecord::Base
     subcategory.present? ? scoped.joins('inner join details on products.id = details.product_id').where('details.description' => subcategory) : scoped
   end
 
+  def self.set_master_variants(products)
+    product_ids = products.map { |p| p.id }
+    variants = Hash[Variant.unscoped.where(:product_id => product_ids, :is_master => true).all.map { |v| [v.product_id, v] }]
+    products.each do |p|
+      v = variants[p.id]
+      p.set_master_variant(v)
+    end
+    products
+  end
+
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
 
   def discount_price(opts={})
@@ -146,10 +156,6 @@ class Product < ActiveRecord::Base
     end
   end
 
-  delegate :price, to: :master_variant
-  delegate :'price=', to: :master_variant
-  delegate :retail_price, to: :master_variant
-  delegate :'retail_price=', to: :master_variant
   delegate :width, to: :master_variant
   delegate :'width=', to: :master_variant
   delegate :height, to: :master_variant
@@ -168,6 +174,22 @@ class Product < ActiveRecord::Base
     else
       self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
     end
+  end
+
+  def price
+    master_variant.price
+  end
+
+  def price=(v)
+    master_variant.price = v
+  end
+
+  def retail_price
+    master_variant.retail_price
+  end
+
+  def retail_price=(v)
+    master_variant.retail_price = v
   end
 
   #
@@ -223,7 +245,13 @@ class Product < ActiveRecord::Base
   end
 
   def master_variant
-    @master_variant ||= Variant.unscoped.where(:product_id => self.id, :is_master => true).first
+    return @master_variant if @master_variant_found
+    set_master_variant Variant.unscoped.where(:product_id => self.id, :is_master => true).first
+  end
+
+  def set_master_variant(variant)
+    @master_variant_found = true
+    @master_variant = variant
   end
 
   def colors(size = nil, admin = false)
