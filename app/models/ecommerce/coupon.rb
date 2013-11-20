@@ -100,7 +100,6 @@ class Coupon < ActiveRecord::Base
   end
 
   def apply_discount_to? product
-
     if coupon_specific_for_product?
       product_ids = product_ids_allowed_to_have_discount
       product_ids.include?(product.id.to_s)
@@ -109,7 +108,6 @@ class Coupon < ActiveRecord::Base
     else
       true
     end
-
   end
 
   def can_be_applied_to_any_product_in_the_cart? cart
