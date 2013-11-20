@@ -83,9 +83,8 @@ class Promotion < ActiveRecord::Base
   private
 
     def self.matched_promotions_for cart
-      promotions = []
-      active_and_not_expired(Date.today).each do |promotion|
-        promotions << promotion if promotion.matches?(cart)
+      promotions = active_and_not_expired(Date.today).includes(:rule_parameters).all.select do |promotion|
+        promotion.matches?(cart)
       end
       promotions
     end
