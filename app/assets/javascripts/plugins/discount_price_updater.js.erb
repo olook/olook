@@ -26,7 +26,7 @@ DiscountPriceUpdater.prototype.replaceUpdatedPrices = function() {
 
 if(!olook) olook = {};
 olook.priceUpdater = function() {
-  var product_ids = $('.product').map(function(idx, item){ return $(item).data('id'); }).get();
+  var product_ids = $('.product').map(function(idx, item){ return $(item).data('id'); }).get().join(',');
   var dpu = new DiscountPriceUpdater({ product_ids: product_ids });
   dpu.getPrices();
 }

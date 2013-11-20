@@ -57,7 +57,7 @@ class PromotionAction < ActiveRecord::Base
   # This method should return an Array of Hashes in the form:
   # => [{id: item.id, product_id: item.product.id, adjustment: item.price}]
   #
-  def calculate(cart, param); end
+  def calculate(cart_items, param); end
 
   protected
 
