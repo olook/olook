@@ -218,6 +218,7 @@ Olook::Application.routes.draw do
     get "profiles/:name" => "profiles#show"
   end
 
+  resources :ping, :only => [:index]
   resources :shippings, :only => [:show]
   get '/shipping_updated_freight_table/:id' => 'shippings#show', defaults: {freight_service_ids: "4,5"}
 
