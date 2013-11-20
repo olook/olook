@@ -43,7 +43,7 @@
                 %li= access_link("Braspag Capture Responses")
                 %li= access_link("Payments")
                 %li= link_to I18n.t("admin.billet.santander"), admin_new_billet_batch_path
-            %li{class: "submenu#{' active' if params[:controller] =~ /collections|moments|products/}"}
+            %li{class: "submenu#{' active' if params[:controller] =~ /collections|products/}"}
               %span Produtos
               %ul
                 %li= access_link("Collections")
@@ -54,7 +54,8 @@
               %span Promoções
               %ul
                 %li= access_link("Promotions")
-                %li= access_link("Liquidations")
+                %li= link_to I18n.t("admin.product.liquidation"), admin_new_visibility_batch_path                
+                / %li= access_link("Liquidations")
                 %li= access_link("Campaigns")
                 %li= access_link("Highlights")
                 %li= access_link("Coupons")

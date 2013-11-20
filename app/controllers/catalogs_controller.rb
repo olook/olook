@@ -1,26 +1,62 @@
 # -*- encoding : utf-8 -*-
+require 'new_relic/agent/method_tracer'
+
 class CatalogsController < ApplicationController
+  include ::NewRelic::Agent::MethodTracer
+
   layout "lite_application"
   prepend_before_filter :verify_if_is_catalog
   helper_method :header
   DEFAULT_PAGE_SIZE = 48
 
-  def show
-    search_params = SeoUrl.parse(request.fullpath)
+  def parse_parameters_from request
+    SeoUrl.parse(request.fullpath)
+  end
 
+  def add_campaign(params)
+    HighlightCampaign.find_campaign(params[:cmp])  
+  end
+
+  def add_search_result(search_params, params)
+    page_size = params[:page_size] || DEFAULT_PAGE_SIZE
+
+    ## For AB Testing
+    cookies[:df] = params[:df] if params[:df]
+    search_engine_clazz = if cookies[:df] == "1"
+      cookies[:df] = "1"
+      SearchEngineWithDynamicFilters
+    else 
+      cookies[:df] = "0"
+      SearchEngine
+    end
+    ## End AB testing
+
+    search_params = search_params.merge({df: cookies[:df]})
+
+    search = search_engine_clazz.new(search_params, true).for_page(params[:page]).with_limit(page_size)      
+    search.for_admin if current_admin
+    search
+  end
+
+  def add_antibounce_box(search, params)
+    brands = search.expressions["brand"].map{|b| b.downcase}
+    if AntibounceBox.need_antibounce_box?(@search, brands, params)      
+      @antibounce_box = AntibounceBox.new(params) 
+    end
+  end
+
+  def show
+    search_params = parse_parameters_from request
     Rails.logger.debug("New params: #{params.inspect}")
 
-    # @campaign, @campaign_products = HighlightCampaign.campaign_products(params[:cmp])
-    @campaign = HighlightCampaign.find_campaign(params[:cmp])
-
-    page_size = params[:page_size] || DEFAULT_PAGE_SIZE
-    @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(page_size)
-
+    @campaign = add_campaign(params)
+    @search = add_search_result(search_params, params)
 
     @url_builder = SeoUrl.new(search_params, "category", @search)
-    @antibounce_box = AntibounceBox.new(params) if AntibounceBox.need_antibounce_box?(@search, @search.expressions["brand"].map{|b| b.downcase}, params)
 
-    @search.for_admin if current_admin
+    add_antibounce_box(@search, params)
+
+    
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     @pixel_information = @category = params[:category]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
@@ -29,8 +65,13 @@ class CatalogsController < ApplicationController
     expire_fragment(@cache_key) if params[:force_cache].to_i == 1
   end
 
-  private
+  add_method_tracer :parse_parameters_from, 'Custom/CatalogsController/parse_parameters_from'
+  add_method_tracer :add_campaign, 'Custom/CatalogsController/add_campaign'
+  add_method_tracer :add_search_result, 'Custom/CatalogsController/add_search_result'
+  add_method_tracer :add_antibounce_box, 'Custom/CatalogsController/add_antibounce_box'
 
+  private
+    
     def header
       @header ||= CatalogHeader::CatalogBase.for_url(request.path).first
     end
@@ -50,5 +91,5 @@ class CatalogsController < ApplicationController
       if (/^(sapato|bolsa|acessorio|roupa)/ =~ params[:category]).nil?
         render :template => "/errors/404.html.erb", :layout => 'error', :status => 404, :layout => "lite_application"
       end
-    end
+    end  
 end

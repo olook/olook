@@ -123,51 +123,15 @@
 
 <div class="chaordic rec4you"></div>
 
-<section id="boxes">
-<ul>
-  <li>
-    <%= link_to catalog_path(category: "roupa"), onclick: track_event('DestaquesRodape', "BannerEsquerda") do %>
-      <%= image_tag "home/destaque_novidades.jpg" %>
-      <h1>Novidades todos os meses</h1>
-      <p>Agora temos o look completo</p>
-    <% end %>
-  </li>
-  <li>
-    <%= link_to catalog_path(category: "sapato"), onclick: track_event('DestaquesRodape', "BannerCentro") do %>
-      <%= image_tag "home/destaque_sapatoshot.jpg" %>
-      <h1>SAPATOS HOT</h1>
-      <p>Vai ser difícil escolher apenas um</p>
-    <% end %>
-  </li>
-  <li class="iehack"><!-- NAO REMOVER A CLASSE -->
-    <%= link_to catalog_path(category: "acessorio"), onclick: track_event('DestaquesRodape', "BannerDireita") do %>
-      <%= image_tag "home/destaque_acessorios.jpg" %>
-      <h1>Pontue com acessórios</h1>
-      <p>Eles valorizam qualquer look</p>
-    <% end %>
-  </li>
-</ul>
-</section>
+<%= render "home/boxes" %>
 <%#= fim "home/boxes" %>
 
 <%= render "home/products_categories" %>
-
-<!-- MODALS -->
-<%#= render 'shared/banners/olooklet' extraindo o conteudo aqui embaixo %>
-<% if show_current_liquidation_advertise? %>
-  <%= link_to image_tag('common/olooklet_banner_header.jpg'), liquidations_path(current_liquidation.id), :class => "liquidation_banner" %>
-<% end %>
-<%# fim do 'shared/banners/olooklet -%>
-
 
 <% if Campaign.activated_campaign && Campaign.activated_campaign.lightbox? %>
   <%= render :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => Campaign.activated_campaign.link}  %>
 <% end %>
 
-
-<% if @show_liquidation_lightbox && current_liquidation.lightbox_banner?  %>
-<%= render "shared/modal/liquidation" %>
-<% end %>
 <!-- END MODALS -->
 <% first_visit = @user.first_visit_for_member? %>
 <% if first_visit %>

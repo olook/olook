@@ -68,9 +68,6 @@ Setting.defaults[:featured_accessory_ids] = "13179,14082,13255,13173,13165"
 Setting.defaults[:featured_cloth_label] = "Roupas mais vendidas"
 Setting.defaults[:featured_cloth_ids] = "90004,90092,90326"
 
-# Featured products for the collection section ("Label|id#Label|id")
-Setting.defaults[:collection_section_featured_products] = "Teste|8554#|10226#Bla|11445#Categoria 1|11467#Categoria 2|11443#Lançamento!|11463"
-
 Setting.defaults[:use_vwo] = false
 
 Setting.defaults[:profile_users] = "nelson.haraguchi@olook.com.br,luis.daher@olook.com.br,rafael.manoel@olook.com.br,vinicius.monteiro@olook.com.br,tiago.almeida@olook.com.br,rafael.carvalho@olook.com.br,oliver.barnes@olook.com.br,thaiane.gazzi@olook.com.br"
@@ -86,7 +83,6 @@ Setting.defaults[:cloth_showroom_sexy] = "90863,91293,91349,90947,91381"
 
 # Santander billet
 Setting.defaults[:santander_billet] = false
-Setting.defaults[:show_featured_products] = true
 
 Setting.defaults[:lightbox_coupon_code] = "WP1HYH1JUL13"
 Setting.defaults[:olookmovel_coupon_code] = "WP1HYH1JUL13"

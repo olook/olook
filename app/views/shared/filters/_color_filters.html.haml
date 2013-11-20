@@ -1,0 +1,13 @@
+- unless @colors.blank?
+  .filter.main.main_color
+    %span.selected-type.filter_type.opened Cor
+    .tab_bg.tab_color &nbsp;
+    %ol.color_filter
+      = check_box_tag "select_all_colors", 1, params[:select_all_colors], :class => "select_all"
+      = label_tag "select_all_colors", "Todas as cores"
+      - @colors.sort{|a,b| a[0] <=> b[0]}.each do |label|
+        %li{:class => label}
+          = check_box_tag("#{product_type}_colors[]", label, params["#{product_type}_colors".to_sym] && params["#{product_type}_colors".to_sym].include?(label) || params[:select_all_colors], id: label)
+          = label_tag(label, nil, for: label)
+      %li.clear_choice
+        %button.clear_filter.bt_clear_color{:type => "button"} [ limpar ]

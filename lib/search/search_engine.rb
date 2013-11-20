@@ -6,19 +6,22 @@ class SearchEngine
 
   MULTISELECTION_SEPARATOR = '-'
   RANGED_FIELDS = HashWithIndifferentAccess.new({'price' => '', 'heel' => '', 'inventory' => ''})
-  IGNORE_ON_URL = Set.new(['inventory', :inventory, 'is_visible', :is_visible, 'in_promotion', :in_promotion])
+  IGNORE_ON_URL = Set.new(['inventory', :inventory, 'is_visible', :is_visible, 'in_promotion', :in_promotion, 'visibility', :visibility])
   PERMANENT_FIELDS_ON_URL = Set.new([:is_visible, :inventory])
 
   RETURN_FIELDS = [:subcategory,:name,:brand,:image,:retail_price,:price,:backside_image,:category,:text_relevance]
 
   SEARCHABLE_FIELDS = [:category, :subcategory, :color, :brand, :heel,
                 :care, :price, :size, :product_id, :collection_theme,
-                :sort, :term, :excluded_brand]
+                :sort, :term, :excluded_brand, :visibility]
   SEARCHABLE_FIELDS.each do |attr|
     define_method "#{attr}=" do |v|
       @expressions[attr] = v.to_s.split(MULTISELECTION_SEPARATOR)
     end
   end
+
+  attr_accessor :skip_beachwear_on_clothes
+  attr_accessor :df
 
   attr_reader :current_page, :result
   attr_reader :expressions, :sort_field
@@ -28,6 +31,7 @@ class SearchEngine
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
     @expressions['in_promotion'] = [0]
+    @expressions['visibility'] = [Product::PRODUCT_VISIBILITY[:site],Product::PRODUCT_VISIBILITY[:all]]
     @facets = []
     @is_smart = is_smart
     default_facets
@@ -86,8 +90,10 @@ class SearchEngine
 
 
   def category= cat
-    if cat == "roupa"
+    if cat == "roupa" && !@skip_beachwear_on_clothes
       @expressions["category"] = ["roupa","moda praia", "lingerie"]
+    elsif cat.is_a? Array
+      @expressions["category"] = cat
     else
       @expressions["category"] = cat.to_s.split(MULTISELECTION_SEPARATOR)
     end
@@ -99,7 +105,7 @@ class SearchEngine
 
   def cache_key
     key = build_url_for(limit: @limit, start: self.start_item)
-    Digest::SHA1.hexdigest(key.to_s)
+    Digest::SHA1.hexdigest(df.to_s + "/" + key.to_s)
   end
 
   def filters_applied(filter_key, filter_value)
@@ -246,7 +252,6 @@ class SearchEngine
     end
 
     remove_excluded_brands(bq, expressions)
-
     expressions.each do |field, values|
       next if options[:use_fields] && !options[:use_fields].include?(field.to_sym) && PERMANENT_FIELDS_ON_URL.exclude?(field.to_sym)
       next if values.empty?
@@ -271,6 +276,14 @@ class SearchEngine
     _filters = filters.grouped_products('subcategory')
     _filters.delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) } if _filters
     _filters
+  end
+
+  def key_for field
+    chosen_filter_values = expressions[field.to_sym] || ""
+    # Use Digest::SHA1.hexdigest ??
+    key = expressions[:category].join("-") + "/" + field.to_s + "/" + chosen_filter_values.join("-")
+    Rails.logger.info "[cloudsearch] #{field}_key=#{key}"
+    key
   end
 
   private

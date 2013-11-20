@@ -37,14 +37,16 @@ class MercadoPagoPayment < Payment
     end
 
     # frete
-    items << {
-        'id' => 10,
-        'title' => "FRETE",
-        'quantity' => 1,
-        'currency_id' => 'BRL',
-        'unit_price' => order.freight.price.to_f,
-        'category_id' => 'fashion'
-    }
+    if order.freight.price.to_f > 0
+      items << {
+          'id' => 10,
+          'title' => "FRETE",
+          'quantity' => 1,
+          'currency_id' => 'BRL',
+          'unit_price' => order.freight.price.to_f,
+          'category_id' => 'fashion'
+      }
+    end
 
     preference_data = {
       'items' => items,
@@ -82,7 +84,13 @@ class MercadoPagoPayment < Payment
       }
     }
 
-    preference = MP.create_preference(preference_data)
+    begin
+      Rails.logger.info("[MERCADOPAGO] Creating preference. preference_data=#{preference_data.inspect}")
+      preference = MP.create_preference(preference_data)
+      Rails.logger.info("[MERCADOPAGO] preference created=#{preference.inspect}")
+    rescue => e
+      Rails.logger.info("[MERCADOPAGO] Error creating preference: #{e}")
+    end
     update_attribute(:url, preference['response'][MP.init_point])
   end
 end
