@@ -14,11 +14,31 @@ class PromotionAction < ActiveRecord::Base
         "Apenas itens mark down" => 0,
         "Calcular o melhor desconto para o cliente (mark down ou esta) e aplicar" => 2
       },
-      default: '1'
+      default: '2'
     },
     brand: {
       desc: 'Apenas itens da(s) marca(s)...',
       hint: 'Informe entre vírgulas Olook, Totem, etc',
+      kind: 'string'
+    },
+    category: {
+      desc: 'Apenas itens da(s) categoria(s)...',
+      hint: 'Informe entre vírgulas sapato, bolsa, roupas...',
+      kind: 'string'
+    },
+    subcategory: {
+      desc: 'Apenas itens do(s) modelo(s)...',
+      hint: 'Informe entre vírgulas anabela, camiseta, óculos de sol...',
+      kind: 'string'
+    },
+    product_id: {
+      desc: 'Apenas itens com o(s) ID(s)...',
+      hint: 'Informe entre vírgulas 12770, 1703063091...',
+      kind: 'string'
+    },
+    collection_theme: {
+      desc: 'Apenas itens da(s) coleção(ões)...',
+      hint: 'Informe entre vírgulas casual, trabalho...',
       kind: 'string'
     }
   }
@@ -65,16 +85,34 @@ class PromotionAction < ActiveRecord::Base
 
   def filter_items(cart_items, filters)
     cis = cart_items.dup
-    if filters['brand'].present?
-      brands = Set.new(filters['brand'].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.strip.parameterize })
-      cis.select! { |item| brands.include?(item.product.brand.strip.parameterize)  }
-    end
 
     if filters['full_price'] == '1'
       cis.select! { |item| item.product.price == item.product.retail_price }
     elsif filters['full_price'] == '0'
       cis.select! { |item| item.product.price != item.product.retail_price }
     end
+
+    if filters['product_id'].present?
+      @product_id ||= Set.new(filters['product_id'].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.strip.parameterize })
+      cis.select! { |item| @product_id.include?(item.product.id.to_s)  }
+    elsif filters['subcategory'].present?
+      @subcategory ||= Set.new(filters['subcategory'].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.strip.parameterize })
+      cis.select! { |item| @subcategory.include?(item.product.subcategory.strip.parameterize)  }
+    elsif filters['category'].present?
+      @category = Set.new(filters['category'].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.strip.parameterize })
+      cis.select! { |item| @category.include?(item.product.category.strip.parameterize)  }
+    end
+
+    if filters['brand'].present?
+      @brands ||= Set.new(filters['brand'].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.strip.parameterize })
+      cis.select! { |item| @brands.include?(item.product.brand.strip.parameterize)  }
+    end
+
+    if filters['collection_theme'].present?
+      @collection_theme ||= Set.new(filters['collection_theme'].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.strip.parameterize })
+      cis.select! { |item| (@collection_theme & item.product.collection_themes.map { |c| c.name.strip.parameterize} ).size > 0  }
+    end
+
     cis
   end
 end
