@@ -4,7 +4,7 @@ class Admin::VisibilityBatchController < Admin::BaseController
   def commit
     LiquidationPreview.update_visibility_in_products
     message = "Produtos atualizados com sucesso!"
-    redirect_to admin_products_path, notice: message, visibility: 2    
+    redirect_to admin_products_path(params: {visibility: 2}), notice: message    
   end
 
   def new
