@@ -77,11 +77,7 @@ describe CatalogSearchService do
     product
   end
 
-  let(:liquidation) { FactoryGirl.create(:liquidation) }
-
   before :each do
-    Liquidation.delete_all
-    LiquidationProduct.delete_all
     Product.delete_all
     Variant.delete_all
     Catalog::Product.delete_all
@@ -144,13 +140,6 @@ describe CatalogSearchService do
 
        it "returns 0 products if the product is not visible" do
         cp1 = CatalogProductService.new(catalog, hidden_shoe).save!.first
-        params = {:id => catalog.id}
-        CatalogSearchService.new(params).search_products.should == []
-       end
-
-       it "returns 0 products if the product is in the liquidation" do
-        cp1 = CatalogProductService.new(catalog, basic_shoe).save!.first
-        lp1 = LiquidationProduct.create(:liquidation => liquidation, :product_id => basic_shoe.id, :subcategory_name => "rasteirinha", :inventory => 1)
         params = {:id => catalog.id}
         CatalogSearchService.new(params).search_products.should == []
        end

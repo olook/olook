@@ -23,7 +23,7 @@
   - content_for(:after_body) do
     = javascript_include_tag "common/fb_like_button"
 
-= cache @cache_key, expire_in: 15.minutes do
+= cache @cache_key, expire_in: 40.minutes do
   = first_level_breadcrumb(Category.t(Category.with_name(@category)).pluralize)
   #catalog
     %aside
@@ -68,10 +68,11 @@
         = render "ordenation_filters", search: @search, url_builder: @url_builder
         - unless @category == 'bolsa'
           .size_top
-            %ul.category-list
-              - filters_by('size', @search, use_fields: [:category]).reverse.each do |text, amount|
-                %li{ :class => category_style_class(text)}= filter_link_to(catalog_path(@category, @url_builder.add_filter(:size, text)), text.chomp, @search.filter_selected?(:size, text.chomp))
             %p.title-category Qual seu tamanho?
+            %ul.category-list
+              - size_list(@category, @search, @category[0].downcase).each do |text, amount|
+                %li{ :class => category_style_class(text)}= filter_link_to(catalog_path(@category, @url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
+            
       = render 'current_section', search: @search
 
       %section.container_product
@@ -87,4 +88,4 @@
 
       .banner
         = banner_for(@category, position: :botton)
-  
+

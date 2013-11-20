@@ -15,7 +15,6 @@ class PercentageAdjustment < PromotionAction
     "#{'%d' % percent.to_i }%"
   end
 
-  private
   def calculate(cart_items, filters = {})
     _filters = filters.dup
     percent = _filters.delete('param')

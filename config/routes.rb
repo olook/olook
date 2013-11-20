@@ -62,7 +62,7 @@ Olook::Application.routes.draw do
   match "/olook-no-qbazar" => redirect("http://www.olook.com.br/stylist-news/olook-no-qbazar/")
 
   # temp route to fix sent emails
-  get "/olooklet(/*id)", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
+  # get "/olooklet(/*id)", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
   get "/colecoes/irresistiveis_inverno", to: "collection_themes#show", defaults: {collection_theme: 'sale'}
 
   root :to => "home#index"
@@ -111,24 +111,12 @@ Olook::Application.routes.draw do
 
   match "/marcas/:brand(/*parameters)", :to => "brands#show", as: "brand"
 
-  #LIQUIDATIONS
-  get "/olooklet/:id" => "liquidations#show", :as => "liquidations"
-  get '/update_liquidation', :to => "liquidations#update", :as => "update_liquidation"
-  match "/promododia" , :to => "liquidations#index", :as => "promododia"
-  match "/olooklet" , :to => "liquidations#index", :as => "olooklet"
+  #NEW OLOOKLET
+  get "/olooklet-teste(/*parameters)" => "olooklet#index", :as => "olooklet"
 
   #NEW COLLECTIONS
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
   get '/colecoes/:collection_theme(/*parameters)', to: "collection_themes#show", as: "collection_theme"
-
-  # NEW COLLECTIONS - TODO
-  get '/update_moment', to: "moments#update", as: "update_moment", constraints: { format: 'js' }
-
-  # Novidades
-  match '/novidades/sapatos', to: "moments#show", as: "news_shoes", :defaults => {:category_id => Category::SHOE, :id => 1, news: true }
-  match '/novidades/roupas', to: "moments#show", as: "news_clothes", :defaults => {:category_id => Category::CLOTH, :id => 1, news: true }
-  match '/novidades/bolsas', to: "moments#show", as: "news_bags", :defaults => {:category_id => Category::BAG, :id => 1, news: true }
-  match '/novidades/accessorios', to: "moments#show", as: "news_accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1, news: true }
 
   #FRIENDS
   match "/membro/:share/:uid", :to => "home#index"
@@ -201,8 +189,7 @@ Olook::Application.routes.draw do
   get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"
   get "membro/ganhe-creditos", :to => "members#earn_credits", :as => "member_earn_credits"
   #get "membro/creditos", :to => "members#credits", :as => "member_credits"
-  post "user_liquidations", :controller => "user_liquidations", :action => "update"
-  post "user_notifications", :controller => "user_liquidations", :action => "notification_update"
+
 
   # GIFT
   namespace :gift, :path => "presentes" do
@@ -419,6 +406,11 @@ Olook::Application.routes.draw do
 
     post "billet_batch/create", as: :create_billet_batch
 
+    get "visibility_batch/new", as: :new_visibility_batch
+
+    get "visibility_batch/export", as: :export_visibility_batch_to_csv
+
+    post "visibility_batch/create", as: :create_visibility_batch
   end
 
   #USER / SIGN IN

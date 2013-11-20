@@ -43,7 +43,7 @@ class CartService
   end
 
   def item_retail_price(item)
-    get_retail_price_for_item(item).fetch(:retail_price)
+    item.retail_price
   end
 
   def item_promotion?(item)
@@ -58,25 +58,15 @@ class CartService
     item_retail_price(item) * item.quantity
   end
 
-  def item_discount_percent(item)
-    get_retail_price_for_item(item).fetch(:percent)
-  end
-
-  def item_discount_origin(item)
-    get_retail_price_for_item(item).fetch(:origin)
-  end
-
   def item_discount_origin_type(item)
-    get_retail_price_for_item(item).fetch(:origin_type)
-  end
-
-  def item_discounts(item)
-    discounts = get_retail_price_for_item(item).fetch(:discounts)
-    # For compatibility reason
-    # Terrible. Improve it
-    discounts << :promotion if item.has_adjustment? && cart.coupon && !should_override_promotion_discount?
-
-    discounts
+    if item.price != item.retail_price
+      if item.cart_item_adjustment.value == 0
+        return :olooklet
+      elsif /Coupon:/ =~ item.cart_item_adjustment.source
+        return :coupon
+      end
+    end
+    ''
   end
 
   def subtotal(type = :retail_price)
@@ -91,10 +81,6 @@ class CartService
     increase += cart.increment_from_gift_wrap
     increase += freight_price
     increase
-  end
-
-  def total_coupon_discount
-    calculate_discounts.fetch(:total_coupon)
   end
 
   def total_credits_discount
@@ -125,7 +111,6 @@ class CartService
 
   def total_discount_by_type(type, payment=nil)
     total_value = 0
-    total_value += total_coupon_discount if :coupon == type
     total_value += calculate_discounts.fetch(:total_credits_by_invite) if :credits_by_invite == type
     total_value += calculate_discounts.fetch(:total_credits_by_redeem) if :credits_by_redeem == type
     total_value += calculate_discounts.fetch(:total_credits_by_loyalty_program) if :credits_by_loyalty_program == type
@@ -140,18 +125,6 @@ class CartService
     end
 
     total_value
-  end
-
-  def active_discounts
-    discounts = cart.items.inject([]) do |_discounts, item|
-      _discounts + item_discounts(item)
-    end
-
-    discounts.uniq
-  end
-
-  def has_more_than_one_discount?
-    active_discounts.size > 1
   end
 
   def total(payment=nil)
@@ -255,7 +228,7 @@ class CartService
       discounts << :coupon_of_value
     end
 
-    if coupon && coupon.is_percentage? && coupon.apply_discount_to?(item.product) && item.product.can_supports_discount?
+    if coupon && coupon.is_percentage? && item.cart_item_adjustment.try(:source) =~ /Coupon:/
       discounts << :coupon
       coupon_value = price - ((coupon.value * price) / 100)
       if coupon_value < final_retail_price && should_override_promotion_discount?
@@ -383,16 +356,6 @@ class CartService
     facebook_discount_percent = 0.02.to_d
     facebook_discount_value = (retail_value.to_d + minimum_value.to_d) * facebook_discount_percent
     facebook_discount_value.round(2, BigDecimal::ROUND_HALF_UP)
-  end
-
-  def has_percentage_coupon?
-    self.cart.coupon.present? && self.cart.coupon.is_percentage?
-  end
-
-  def price_with_coupon_for product
-    coupon = self.cart.coupon
-    return product.retail_price if should_not_calculate? product, coupon
-    calculate_percentage_discount_for product, coupon
   end
 
   private

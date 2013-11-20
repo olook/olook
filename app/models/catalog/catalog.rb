@@ -11,12 +11,12 @@ class Catalog::Catalog < ActiveRecord::Base
   CARE_PRODUCTS = ['Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar']
 
   def in_category(category_id)
-    @liquidation = LiquidationService.active
+    # @liquidation = LiquidationService.active
     @query = products.joins(:product)
-    @query = @query.joins('left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id') if @liquidation
+    # @query = @query.joins('left outer join liquidation_products on liquidation_products.product_id = catalog_products.product_id') if @liquidation
     @query = @query.where(category_id: category_id, products: {is_visible: 1}).where("catalog_products.inventory > 0")
 
-    @query = @query.where(liquidation_products: {product_id: nil}) if @liquidation
+    # @query = @query.where(liquidation_products: {product_id: nil}) if @liquidation
     @query
   end
 

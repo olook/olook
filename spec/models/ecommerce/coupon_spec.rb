@@ -19,18 +19,10 @@ describe Coupon do
 
   context 'validations' do
     it {should validate_presence_of(:code)}
-    it {should validate_presence_of(:value)}
     it {should validate_presence_of(:start_date)}
     it {should validate_presence_of(:end_date)}
     it {should validate_presence_of(:campaign)}
     it {should validate_presence_of(:created_by)}
-    it {should validate_presence_of(:remaining_amount)}
-
-    it "should be invalid if coupon if limited and dont have a remaining_amount" do
-      coupon = FactoryGirl.build(:standard_coupon)
-      coupon.remaining_amount = ''
-      coupon.should_not be_valid
-    end
   end
 
   describe "#initialize" do
@@ -100,47 +92,6 @@ describe Coupon do
         end
         it { expect(product_coupon.apply_discount_to?(@product)).to be_true }
       end
-    end
-
-    context "coupon for an specific brand" do
-      let(:brand_coupon) { FactoryGirl.create(:brand_coupon) }
-
-      context "when product is not from configured brand" do
-        let(:product) { double(id: 1000, brand: 'Olook Concept') }
-        it "returns false" do
-          brand_coupon.apply_discount_to?(product).should be_false
-        end
-      end
-
-      context "when product is from configured brand" do
-        let(:product) { double(id: 1000, brand: 'Olook') }
-        it "returns true" do
-          brand_coupon.apply_discount_to?(product).should be_true
-        end
-      end
-
-    end
-
-    context "coupon for n brands" do
-      let(:brand_coupon) { FactoryGirl.build(:brand_coupon) }
-      let(:first_product) { double(id: 1000, brand: 'Some Brand') }
-      let(:other_product) { double(id: 1001, brand: 'other brand') }
-
-      before do
-        brand_coupon.stub(:brand).and_return("Some Brand,other brand")
-      end
-
-      context "first brand" do
-        subject { brand_coupon.apply_discount_to? first_product }
-        it { should be_true }
-      end
-
-      context "last brand" do
-        subject { brand_coupon.apply_discount_to? other_product }
-        it { should be_true }
-      end
-
-
     end
 
   end
