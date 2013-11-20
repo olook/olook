@@ -37,7 +37,6 @@
         Onde?
       %th
         Foto
-
     - @liquidation_previews.each do |p|
       %tr{class:"#{'not-visible' if !p.product.is_visible? }"}
         %td
@@ -63,9 +62,9 @@
         %td
           = p.product.is_visible?
         %td
-          = formatted_visibility p.product.visibility
+          = formatted_visibility p.visibility
         %td
-          = image_tag(p.product.bag_picture,)
+          = image_tag(p.product.bag_picture)
   .actions-bar.wat-cf
     .pagination
       = will_paginate @liquidation_previews
