@@ -11,7 +11,8 @@ class PromotionAction < ActiveRecord::Base
       options: {
         "Todos os produtos do site (full price + mark down)" => -1,
         "Apenas itens full price" => 1,
-        "Apenas itens mark down" => 0
+        "Apenas itens mark down" => 0,
+        "Calcular o melhor desconto para o cliente (mark down ou esta) e aplicar" => 2
       },
       default: '1'
     },
