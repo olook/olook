@@ -78,10 +78,10 @@ class ProductController < ApplicationController
 
 
   # Custom metrics for new relic
-  add_method_tracer :load_show_product, 'Custom/ProductsController/load_show_product'
-  add_method_tracer :load_product_discount_service, 'Custom/ProductsController/load_product_discount_service'
-  add_method_tracer :title_text, 'Custom/ProductsController/title_text'
-  add_method_tracer :canonical_link, 'Custom/ProductsController/canonical_link'
+  add_method_tracer :load_show_product, 'Custom/ProductController/load_show_product'
+  add_method_tracer :load_product_discount_service, 'Custom/ProductController/load_product_discount_service'
+  add_method_tracer :title_text, 'Custom/ProductController/title_text'
+  add_method_tracer :canonical_link, 'Custom/ProductController/canonical_link'
 
 
   private
