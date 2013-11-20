@@ -21,7 +21,7 @@ $(function () {
     });
   }
 
-  $("section#profiles ul li a").live("click", function(e) {
+  $("section#profiles ul.models li a").live("click", function(e) {
 
     var profile = e.target.id;
 
@@ -39,7 +39,7 @@ $(function () {
     e.preventDefault();
   });
 
-  $("section#suggestions div.content ul li a").live("click", function(e) {
+  $("section#suggestions div.content ul.models li a").live("click", function(e) {
     var index = $(this).parent().index();
     $("section#suggestions div.content ul li").removeClass();
     $(this).parent().addClass("selected");
@@ -149,7 +149,7 @@ share = function() {
 }
 
 $(function () {
-     $("a#friend_quiz").click(function() {
+     $("a#scroll_to_quiz").click(function() {
       $('html, body').animate({
           scrollTop: $("#anchor_profile").offset().top
       }, 1500);
