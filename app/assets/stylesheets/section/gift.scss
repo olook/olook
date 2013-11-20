@@ -772,7 +772,6 @@ body div.full_container {
       }
     }
     &.sub {
-      background-color: #f9f9f9;
       padding: 30px 0;
       display: none;
     }
@@ -1201,5 +1200,9 @@ div#calendar_container {
 
 .warn, 
 .sold_out {display: none !important;}
-
+#anchor_profile{
+  width: 970px;
+  height: 2px;
+  margin: 0 auto;
+}
 

@@ -72,6 +72,7 @@ $(function () {
     e.preventDefault();
   });
 
+
   $("div#help a.close").on("click", function(e) {
     $(this).parent().fadeOut();
     e.preventDefault();
@@ -110,9 +111,13 @@ $(function () {
       $("form.edit_profile").submit();
     }
   });
+
+
 });
 
+
 InitGift = {
+
   friendsPreloader : function() {
     $("div#birthdays_list ul.friends_list").remove();
     $("div#birthdays_list").html("<div class='preloader'></div>");
@@ -127,7 +132,7 @@ InitGift = {
 
   createLoader : function(container) {
     $(container).html("<p class='loading'></p>");
-  }
+  },
 }
 
 share = function() {
@@ -142,3 +147,11 @@ share = function() {
   opt.link = sharer;
   FB.ui(opt);
 }
+
+$(function () {
+     $("a#friend_quiz").click(function() {
+      $('html, body').animate({
+          scrollTop: $("#anchor_profile").offset().top
+      }, 1500);
+    });
+  });
