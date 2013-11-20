@@ -51,12 +51,19 @@ body div.full_container {
             color: #231f20;
           }
         }
-
+       ul li a img.first_block {
+          &:hover{
+            opacity:0.65;
+            -moz-opacity: 0.65;
+            filter: alpha(opacity=65);
+            }
+          }
         ul.gifts_price{
           height: 945px;
           width: 970px;
           margin: 0 auto;
           margin-top: 40px;
+
           li{
             margin-right: 59px;
             width: 284px;
