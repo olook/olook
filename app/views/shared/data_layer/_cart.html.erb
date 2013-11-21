@@ -2,8 +2,9 @@
   <% if @cart.items.any? %>
     dataLayer.push({
         // All in
-        'AllInCart': '<% @cart.items.each do |item| %>bs.addProdutoCarrinho("<%= raw item.id %>","<%= raw item.name %>","<%= raw item.retail_price %>", "<%= raw item.price - item.retail_price %>", "<%= raw item.quantity %>","","<%= raw item.product.category_humanize %>", "<%= raw item.product.subcategory %>", "", "", "<%= raw item.product.brand %>");<% end %>',
-        'AllInPage':"bs.setaPagina('cart/cart/show');",
+        'AllInCart': <%= raw @cart.items.map{|item| 
+          [item.id.to_s,item.name,item.retail_price.to_s,(item.price - item.retail_price).to_s,item.quantity.to_s,"",item.product.category_humanize,item.product.subcategory,"","",item.brand]}%>,
+        'AllInPage': "cart/cart/show",
         //General
         'ProductsList': [<%= @cart.items.map{|item| item.product.id.to_s }.join(",") %>],
         'PriceList': [<%= raw @cart.items.map{|item| item.retail_price.to_s}.join(",") %>],

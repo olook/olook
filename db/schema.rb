@@ -180,6 +180,7 @@ ActiveRecord::Schema.define(:version => 20131119201801) do
     t.datetime "updated_at",                                  :null => false
   end
 
+  add_index "cart_item_adjustments", ["cart_item_id"], :name => "index_cart_item_adjustments_on_cart_item_id"
   add_index "cart_item_adjustments", ["cart_item_id"], :name => "index_on_cart_item_id"
 
   create_table "cart_items", :force => true do |t|

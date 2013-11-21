@@ -1,0 +1,14 @@
+.filter.main
+  %h1.accessories ROUPAS
+  %span.selected-type.filter_type.opened.cloth_model Modelo
+  .tab_bg.tab_cloth_model &nbsp;
+  %ol.open.open_cloth
+    = check_box_tag "select_all_accessories", 1, params[:select_all_accessories], :class => "select_all"
+    = label_tag "select_all_accessories", "Todos os acessórios"
+    - collection_theme_presenter.collection_theme.catalog.clothes.each do |subcategory, label|
+      - unless subcategory.nil? && label.nil?
+        %li
+          = check_box_tag('cloth_subcategories[]', subcategory, params[:cloth_subcategories] && params[:cloth_subcategories].include?(subcategory) || params[:select_all_accessories], :id => subcategory)
+          = label_tag(label, nil, :for => subcategory)
+    %li.clear_choice
+      %button.clear_filter.bt_clear_cloth{:type => "button"} [ limpar ]
