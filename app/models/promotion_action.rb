@@ -82,7 +82,6 @@ class PromotionAction < ActiveRecord::Base
 
   protected
 
-
   def filter_items(cart_items, filters)
     cis = cart_items.dup
 
@@ -93,24 +92,24 @@ class PromotionAction < ActiveRecord::Base
     end
 
     if filters['product_id'].present?
-      @product_id ||= Set.new(filters['product_id'].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.strip.parameterize })
-      cis.select! { |item| @product_id.include?(item.product.id.to_s)  }
+      @product_id ||= Set.new(filters['product_id'].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.to_s.strip.parameterize })
+      cis.select! { |item| @product_id.include?(item.product.id.to_s) }
     elsif filters['subcategory'].present?
-      @subcategory ||= Set.new(filters['subcategory'].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.strip.parameterize })
-      cis.select! { |item| @subcategory.include?(item.product.subcategory.strip.parameterize)  }
+      @subcategory ||= Set.new(filters['subcategory'].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.to_s.strip.parameterize })
+      cis.select! { |item| @subcategory.include?(item.product.subcategory.to_s.strip.parameterize) }
     elsif filters['category'].present?
-      @category = Set.new(filters['category'].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.strip.parameterize })
-      cis.select! { |item| @category.include?(item.product.category.strip.parameterize)  }
+      @category = Set.new(filters['category'].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.to_s.strip.parameterize })
+      cis.select! { |item| @category.include?(item.product.category_humanize.to_s.strip.parameterize) }
     end
 
     if filters['brand'].present?
-      @brands ||= Set.new(filters['brand'].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.strip.parameterize })
-      cis.select! { |item| @brands.include?(item.product.brand.strip.parameterize)  }
+      @brands ||= Set.new(filters['brand'].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.to_s.strip.parameterize })
+      cis.select! { |item| @brands.include?(item.product.brand.to_s.strip.parameterize) }
     end
 
     if filters['collection_theme'].present?
-      @collection_theme ||= Set.new(filters['collection_theme'].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.strip.parameterize })
-      cis.select! { |item| (@collection_theme & item.product.collection_themes.map { |c| c.name.strip.parameterize} ).size > 0  }
+      @collection_theme ||= Set.new(filters['collection_theme'].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.to_s.strip.parameterize })
+      cis.select! { |item| (@collection_theme & item.product.collection_themes.map { |c| c.name.to_s.strip.parameterize} ).size > 0 }
     end
 
     cis
