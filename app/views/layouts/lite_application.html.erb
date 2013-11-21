@@ -122,7 +122,7 @@
          <nav class="menu_new">
            <div class="content_new">
              <ul class="default_new">
-               <%= cache 'megamenu' do %>
+               <%= cache "megamenu-#{mobile? ? 'mobile' : 'desktop'}" do %>
                  <%= MenuPresenter.new(self, :user => current_user).render_menu(mobile?) %>
                <% end %>
              </ul>
