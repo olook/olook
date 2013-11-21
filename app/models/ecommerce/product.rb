@@ -7,6 +7,7 @@ class Product < ActiveRecord::Base
   # TODO: Temporarily disabling paper_trail for app analysis
   #has_paper_trail :skip => [:pictures_attributes, :color_sample]
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
+  PRODUCT_VISIBILITY = {site: 1, olooklet: 2, all: 3}
   MINIMUM_INVENTORY_FOR_XML = 3
 
   extend ProductFinder
@@ -36,8 +37,6 @@ class Product < ActiveRecord::Base
 
   has_many :gift_boxes_product, :dependent => :destroy
   has_many :gift_boxes, :through => :gift_boxes_product
-  has_many :liquidation_products
-  has_many :liquidations, :through => :liquidation_products
   has_many :catalog_products, :class_name => "Catalog::Product", :foreign_key => "product_id"
   has_many :catalogs, :through => :catalog_products
   has_many :consolidated_sells, dependent: :destroy
@@ -62,18 +61,18 @@ class Product < ActiveRecord::Base
   scope :by_sold, lambda { |value| joins(:variants).group("products.id").order("sum(variants.initial_inventory - variants.inventory) #{ value }") if ["asc","desc"].include?(value) }
   scope :with_visibility, lambda { |value| { :conditions => ({ is_visible: value } unless value.blank? || value.nil? ) } }
   scope :search, lambda { |value| { :conditions => ([ "name like ? or model_number = ?", "%#{value}%", value ] unless value.blank? || value.nil?) } }
-  scope :with_pictures, ->(value) { joins("left JOIN `pictures` ON `pictures`.`product_id` = `products`.`id`").where("pictures.id is #{value}").group("products.id") unless value.blank?}
+  scope :with_pictures, ->(value) {
+    if value == "not null"
+      joins("left JOIN `pictures` ON `pictures`.`product_id` = `products`.`id`").where("pictures.id is NOT NULL").group("products.id") unless value.blank?
+    else
+      joins("left JOIN `pictures` ON `pictures`.`product_id` = `products`.`id`").where("pictures.id is NULL").group("products.id") unless value.blank?
+    end
+  }
   scope :in_launch_range, ->(start_date, end_date) { where("launch_date BETWEEN ? AND ?", start_date, end_date) unless start_date.blank? || end_date.blank? }
 
 
   scope :valid_for_xml, lambda{|black_list| only_visible.where("variants.inventory >= 1").where("variants.price > 0.0").group("products.id").joins(:variants).having("(category = 1 and count(distinct variants.id) >= 4) or (category = 4 and count(distinct variants.id) >= 2) or category NOT IN (1,4) and products.id NOT IN (#{black_list})")}
   scope :valid_for_xml_without_cloth, lambda { |black_list| only_visible.where("variants.inventory >= 1").group("products.id").joins(:variants).having("(category = 1 and count(distinct variants.id) >= 4) or category NOT IN (1,4) and products.id NOT IN (#{XML_BLACKLIST["products_blacklist"].join(",")})")}
-
-  def self.featured_products category
-    products = fetch_all_featured_products_of category
-    remove_sold_out products
-    # TODO => it is still missing the removal of sold out specifc variants (shoe number)
-  end
 
   def self.in_profile profile
     !profile.blank? && !profile.nil? ? scoped.joins('inner join products_profiles on products.id = products_profiles.product_id').where('products_profiles.profile_id' => profile) : scoped
@@ -283,8 +282,7 @@ class Product < ActiveRecord::Base
   end
 
   def liquidation?
-    active_liquidation = LiquidationService.active
-    active_liquidation.has_product?(self) if active_liquidation
+    false
   end
 
   def promotion?
@@ -524,15 +522,6 @@ class Product < ActiveRecord::Base
       h
     end
 
-    def self.fetch_all_featured_products_of category
-      Rails.cache.fetch(CACHE_KEYS[:product_fetch_all_featured_products_of][:key] % category, :expires_in => CACHE_KEYS[:product_fetch_all_featured_products_of][:expire]) do
-        category_name = Category.key_for(category).to_s
-        product_ids = Setting.send("featured_#{category_name}_ids").split(",")
-
-        find_keeping_the_order product_ids
-      end
-    end
-
     def self.find_keeping_the_order product_ids
       products =  includes(:variants).where("id in (?)", product_ids).all
 
@@ -541,11 +530,6 @@ class Product < ActiveRecord::Base
       end
       sorted_products.compact
     end
-
-    def self.remove_sold_out products
-      products.select {|product| product.inventory_without_hiting_the_database > 0}
-    end
-
 
     def create_master_variant
       @master_variant = Variant.new(:is_master => true,

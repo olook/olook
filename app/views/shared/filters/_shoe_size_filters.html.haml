@@ -1,0 +1,12 @@
+.filter.main.shoe_size
+  %span.selected-type.filter_type.opened Tamanho
+  .tab_bg.tab_shoe_size &nbsp;
+  %ol.column-size
+    - collection_theme_presenter.collection_theme.catalog.shoe_sizes.each do |size, value|
+      - unless size.zero?
+        %li
+          - size_checked = params[:shoe_sizes].to_a.empty? ? (current_user && current_user.shoes_size.to_s == size.to_s) : params[:shoe_sizes].to_a.include?(size.to_s)
+          = check_box_tag('shoe_sizes[]', size, size_checked, :id => "size_#{size}")
+          = label_tag(size, nil, :for => "size_#{size}")
+    %li.clear_choice
+      %button.clear_filter.bt_clear_size{:type => "button"} [ limpar ]

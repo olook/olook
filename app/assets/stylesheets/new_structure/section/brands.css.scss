@@ -8,23 +8,7 @@
 
 #result{float:left;width:820px;}
 
-#content{min-height:700px;}
-.banner-brands{position:relative;margin-bottom:45px;
-  button{position:absolute;top:125px;width:8px;height:33px;font-size:0;border:none;background:image-url('home/arrows.jpg') no-repeat 0 0;cursor:pointer;
-    &.anterior{left:0;
-      &:hover{background-position:0 -33px;}
-    }
-    &.proximo{right:0;background-position:-8px 0;
-      &:hover{background-position:-8px -33px;}
-    }
-  }
-  .container-imgs{position:relative;width:950px;height:290px;overflow:hidden;margin:0 auto;
-    ul{overflow:auto;width:5000px;
-      li{float:left;width:950px;height:290px;}
-    }
-  }
-}
-
+#content{min-height:450px;}
 .brands{
   .box{float:left;width:235px;margin-left:43px;
     &:last-child{width:70px;}

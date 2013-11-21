@@ -53,8 +53,11 @@ module Seo
         category_name = category.first unless category.blank?
         return "#{subcategory_name} #{color_formatted}" if !subcategory.blank? && !color.blank?
         return "#{subcategory_name}" unless subcategory.blank?
-        return "#{CATEGORY_TEXT[category_name.to_sym]} #{color_formatted}" if !category.blank? && !color.blank?
-        return "#{CATEGORY_TEXT[category_name.to_sym]}" if category
+        if category && category_name
+          return "#{CATEGORY_TEXT[category_name.to_sym]} #{color_formatted}" unless color.blank?
+          return "#{CATEGORY_TEXT[category_name.to_sym]}" 
+        end
+        ""
       end
 
       def extract_subcategories

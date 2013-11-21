@@ -157,8 +157,4 @@ class ProductPresenter < BasePresenter
     def variants_sorted_by_size
       product.variants.sort{|first, second| SIZES_TABLE[first.description].to_i <=> SIZES_TABLE[second.description].to_i }
     end
-
-    def has_valid_coupon_for? cart_service, product
-      cart_service.has_percentage_coupon? && cart_service.cart.coupon.apply_discount_to?(product)
-    end
 end
