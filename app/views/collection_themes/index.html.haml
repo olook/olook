@@ -21,12 +21,5 @@
         %p.collection ANIMAL PRINT
         %p.resume A estampa chega colorida e num mix de bichos
         %p.looks= link_to 'veja a coleção', collection_theme_path('animal-print'), target: "_blank"
-    %button.nav.bt_left.prev_collection{:type => "button"} Anterior
-    #amamos
-      %h1 NÓS AMAMOS
-      #products_amamos
-        = render "featured_products", featured_products: @featured_products
-      .pagination
-    %button.nav.bt_right.next_collection{:type => "button"} Próximo
 - content_for :footer do
   = javascript_include_tag "collection_themes"

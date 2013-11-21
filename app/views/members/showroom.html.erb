@@ -123,31 +123,7 @@
 
 <div class="chaordic rec4you"></div>
 
-<section id="boxes">
-<ul>
-  <li>
-    <%= link_to catalog_path(category: "roupa"), onclick: track_event('DestaquesRodape', "BannerEsquerda") do %>
-      <%= image_tag "home/destaque_novidades.jpg" %>
-      <h1>Novidades todos os meses</h1>
-      <p>Agora temos o look completo</p>
-    <% end %>
-  </li>
-  <li>
-    <%= link_to catalog_path(category: "sapato"), onclick: track_event('DestaquesRodape', "BannerCentro") do %>
-      <%= image_tag "home/destaque_sapatoshot.jpg" %>
-      <h1>SAPATOS HOT</h1>
-      <p>Vai ser difícil escolher apenas um</p>
-    <% end %>
-  </li>
-  <li class="iehack"><!-- NAO REMOVER A CLASSE -->
-    <%= link_to catalog_path(category: "acessorio"), onclick: track_event('DestaquesRodape', "BannerDireita") do %>
-      <%= image_tag "home/destaque_acessorios.jpg" %>
-      <h1>Pontue com acessórios</h1>
-      <p>Eles valorizam qualquer look</p>
-    <% end %>
-  </li>
-</ul>
-</section>
+<%= render "home/boxes" %>
 <%#= fim "home/boxes" %>
 
 <%= render "home/products_categories" %>

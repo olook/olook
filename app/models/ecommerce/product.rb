@@ -70,12 +70,6 @@ class Product < ActiveRecord::Base
   scope :valid_for_xml, lambda{|black_list| only_visible.where("variants.inventory >= 1").where("variants.price > 0.0").group("products.id").joins(:variants).having("(category = 1 and count(distinct variants.id) >= 4) or (category = 4 and count(distinct variants.id) >= 2) or category NOT IN (1,4) and products.id NOT IN (#{black_list})")}
   scope :valid_for_xml_without_cloth, lambda { |black_list| only_visible.where("variants.inventory >= 1").group("products.id").joins(:variants).having("(category = 1 and count(distinct variants.id) >= 4) or category NOT IN (1,4) and products.id NOT IN (#{XML_BLACKLIST["products_blacklist"].join(",")})")}
 
-  def self.featured_products category
-    products = fetch_all_featured_products_of category
-    remove_sold_out products
-    # TODO => it is still missing the removal of sold out specifc variants (shoe number)
-  end
-
   def self.in_profile profile
     !profile.blank? && !profile.nil? ? scoped.joins('inner join products_profiles on products.id = products_profiles.product_id').where('products_profiles.profile_id' => profile) : scoped
   end
@@ -535,15 +529,6 @@ class Product < ActiveRecord::Base
       h
     end
 
-    def self.fetch_all_featured_products_of category
-      Rails.cache.fetch(CACHE_KEYS[:product_fetch_all_featured_products_of][:key] % category, :expires_in => CACHE_KEYS[:product_fetch_all_featured_products_of][:expire]) do
-        category_name = Category.key_for(category).to_s
-        product_ids = Setting.send("featured_#{category_name}_ids").split(",")
-
-        find_keeping_the_order product_ids
-      end
-    end
-
     def self.find_keeping_the_order product_ids
       products =  includes(:variants).where("id in (?)", product_ids).all
 
@@ -552,11 +537,6 @@ class Product < ActiveRecord::Base
       end
       sorted_products.compact
     end
-
-    def self.remove_sold_out products
-      products.select {|product| product.inventory_without_hiting_the_database > 0}
-    end
-
 
     def create_master_variant
       @master_variant = Variant.new(:is_master => true,
