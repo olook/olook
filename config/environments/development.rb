@@ -2,6 +2,7 @@
 Olook::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  config.log_level = :debug
   # In the development environment your application's code is reloaded on
   # every request.  This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
@@ -33,7 +34,7 @@ Olook::Application.configure do
   config.assets.debug = true
   config.assets.prefix = "/dev-assets"
 
-  config.cache_store = :redis_store, ENV['REDIS_CACHE_STORE']
+  config.cache_store = :redis_store, ENV['REDIS_CACHE_STORE'], { expires_in: 5.minutes }
 
   # If you are running on a Ubuntu in development mode, you'll need this for connecting on ssl sites
   Excon.defaults[:ssl_ca_path] = '/etc/ssl/certs' if `uname -v`.upcase.index 'UBUNTU'

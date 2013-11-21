@@ -14,10 +14,7 @@ class ApplicationController < ActionController::Base
                 :set_modal_show,
                 :load_campaign_email_if_user_is_not_logged
 
-  helper_method :current_liquidation,
-                :mobile?,
-                :show_current_liquidation?,
-                :show_current_liquidation_advertise?,
+  helper_method :mobile?,
                 :current_cart,
                 :current_referer,
                 :title_text,
@@ -126,21 +123,6 @@ class ApplicationController < ActionController::Base
       cart
     end
 
-    def current_liquidation
-      Rails.logger.debug('ApplicationController#current_liquidation')
-      LiquidationService.active
-    end
-
-    def show_current_liquidation?
-      Rails.logger.debug('ApplicationController#show_current_liquidation?')
-      current_liquidation.try(:visible?)
-    end
-
-    def show_current_liquidation_advertise?
-      Rails.logger.debug('ApplicationController#show_current_liquidation_advertise?')
-      current_liquidation.try(:show_advertise?)
-    end
-
     def current_referer
       Rails.logger.debug('ApplicationController#current_referer')
       session[:return_to] = case request.referer
@@ -232,7 +214,6 @@ class ApplicationController < ActionController::Base
       Rails.logger.debug('ApplicationController#prepare_for_home')
       @top5 = Product.fetch_products :top5
       @stylist = Product.fetch_products :selection
-      @concept = Product.fetch_products :concept
       @highlights = Highlight.highlights_to_show HighlightType::CAROUSEL
       @weekly_highlights = Highlight.highlights_to_show HighlightType::WEEKLY
 

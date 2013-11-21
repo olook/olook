@@ -54,33 +54,7 @@ describe CartItem do
           cart_item.retail_price.to_s.should eq("50.0")
         end
       end
-
-      context "when cart has coupon" do
-        let(:value_coupon) { FactoryGirl.build(:coupon)}
-        let(:percentage_coupon) { FactoryGirl.build(:percentage_coupon)}
-
-        it "returns full price for value coupon" do
-          cart_item.product.stub(:price).and_return(BigDecimal("59.99"))
-          cart_item.cart.stub(:coupon).and_return(value_coupon)
-          cart_item.retail_price.should eq(cart_item.product.price)
-        end
-
-        it "returns price with percentage applied for percentage coupon" do
-          cart_item.product.stub(:price).and_return(BigDecimal("100.00"))
-          cart_item.cart.stub(:coupon).and_return(percentage_coupon)
-          cart_item.retail_price.should eq(BigDecimal("80.00"))
-        end
-      end
     end
-
-    context " retail price for olooklet" do
-      pending " TODO "
-    end
-
-    context " retail price for not olooklet" do
-      pending " TODO "
-    end
-
   end
 
   describe "#adjustment" do

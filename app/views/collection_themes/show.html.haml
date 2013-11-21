@@ -7,7 +7,7 @@
 - content_for :footer do
   = javascript_include_tag 'section/lite_collection_theme'
 
-= cache @cache_key, expire_in: 25.minutes do
+= cache @cache_key, expire_in: 30.minutes do
   = collection_theme_breadcrumbs_for(@collection_theme.first) if @collection_theme.any?
   #catalog
     = render "menu", collection_theme_groups: @collection_theme_groups

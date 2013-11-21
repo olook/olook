@@ -24,7 +24,7 @@ class SeoUrl
   ]
 
   FIELD_SEPARATOR = '_'
-  PARAMETERS_BLACKLIST = [ "price" ]
+  PARAMETERS_BLACKLIST = [ "price"]
   PARAMETERS_WHITELIST = [ "price", "sort", "per_page" ]
 
   def initialize(path, current_key=nil, search=nil)
@@ -43,6 +43,8 @@ class SeoUrl
       parse_brands_params
     elsif from_collections?
       parse_collections_params
+    elsif from_olooklet?
+      parse_olooklet_params
     else
       parse_catalogs_params
     end
@@ -101,6 +103,10 @@ class SeoUrl
       /^\/colecoes\// =~ @path
     end
 
+    def from_olooklet?
+      /^\/olooklet\-teste(\/)*/ =~ @path
+    end
+
     def parse_brands_params
       /^\/marcas\/(?<brand>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\?(?<query>.*))?/ =~ @path
       @params[:brand] = URI.decode(brand.to_s)
@@ -122,6 +128,13 @@ class SeoUrl
       @query = query
     end
 
+    def parse_olooklet_params
+      /^(?:\/olooklet\-teste)(?:\/(?<parameters>[^\?]+)?(?:\?(?<query>.*))?)?/ =~ @path
+      @params[:parameters] = URI.decode(parameters.to_s)
+      @query = query
+    end
+
+
     def build_link_for parameters
       other_parameters = @params.dup
       return_hash = {}
@@ -140,10 +153,9 @@ class SeoUrl
       filter_params = []
       parameters.each do |k, v|
         if v.respond_to?(:join)
-          filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| ActiveSupport::Inflector.transliterate(_v).downcase}.join(SearchEngine::MULTISELECTION_SEPARATOR)}" if v.present? && PARAMETERS_BLACKLIST.exclude?(k.to_s) && VALUES.invert[k.to_s]
+          filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| (_v =~ /heeluint/) ? _v.split(':').last.gsub("..","-") : ActiveSupport::Inflector.transliterate(_v).downcase}.join(SearchEngine::MULTISELECTION_SEPARATOR)}" if v.present? && PARAMETERS_BLACKLIST.exclude?(k.to_s) && VALUES.invert[k.to_s]
         end
       end
-
       return_hash[:filter_params] = filter_params.join(FIELD_SEPARATOR)
       return_hash[:order_params] = post_parameters
 

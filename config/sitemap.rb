@@ -39,12 +39,6 @@ SitemapGenerator::Sitemap.create do
     add collection_theme_path(collection.name)
   end
 
-  #NEWS
-  add news_shoes_path
-  add news_clothes_path
-  add news_bags_path
-  add news_accessories_path
-
   #PRODUCT
   Product.only_visible.each do |product|
     add product_seo_path(product.seo_path)

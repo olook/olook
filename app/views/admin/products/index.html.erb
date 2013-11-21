@@ -97,7 +97,6 @@
     <tr>
       <th><%= sortable('name') %></th>
       <th>Modelo #</th>
-      <th>Liquidação</th>
       <th><%= sortable('category', "Categoria") %></th>
       <th>Visível?</th>
       <th>Preço</th>
@@ -116,7 +115,6 @@
     <tr class="<%= 'not-visible' if !product.is_visible %>">
       <td><%= product.name %></td>
       <td><%= product.model_number %></td>
-      <td><%= LiquidationProductService.new(@liquidation, product).liquidation_name %></td>
       <td><%= product.category_humanize %></td>
       <td><%= product.is_visible? ? 'Yes' : 'No' %></td>
       <td><%= number_to_currency product.price %></td>
