@@ -69,6 +69,7 @@ $(function () {
   $("div#help p+a").on("click", function(e) {
     var container_position = $("section#quiz").offset().top;
     InitGift.slideTo(container_position);
+    $(this).parent().fadeOut();
     e.preventDefault();
   });
 
