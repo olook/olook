@@ -17,7 +17,7 @@ class PercentageAdjustment < PromotionAction
 
   def calculate(cart_items, filters = {})
     _filters = filters.dup
-    percent = _filters.delete('param')
+    percent = _filters[ 'param' ]
     calculated_values = []
     filter_items(cart_items, _filters).each do |cart_item|
       sub_total = cart_item.quantity * cart_item.price
