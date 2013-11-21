@@ -77,7 +77,6 @@ _gaq.push(['_addTrans',
     <%= render "checkout_banner" %>
 
   <div class="chaordic shoppingcart"></div>
-  <% if !@cart.items.map{|item| item.variant.product}.include?(@suggested_product) && @suggested_product%>
 
   <table cellpadding="0" cellspacing="0" class="check gift">
     <tbody>
@@ -234,6 +233,7 @@ _gaq.push(['_addTrans',
     </tr>
   </table>
 
+  <% if !@cart.items.map{|item| item.variant.product}.include?(@suggested_product) && @suggested_product%>
 	<table cellpadding="0" cellspacing="0" class="items_list avc-pulseira" id="products">
       <tbody>
           <tr>

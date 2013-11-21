@@ -1,6 +1,19 @@
 $("#total_value").html("<%= number_to_currency(@cart_service.total) %>");
 
-$('#subtotal_parcial').append("<br><span id='embrulho_presente'>R$ 5,00</span>");
+if ($('#cart_gift_wrap').is(':checked')){
+  $('#subtotal_parcial').append("<br><span id='embrulho_presente'></span>");
+  var span_gift_target = $('#embrulho_presente');
+  span_gift_target.html("<%= gift_wrap_price(@cart) %>");
+}else{
+  $('#embrulho_presente').remove();
+}
+if ($('#cart_use_credits').is(':checked')){
+  $('#subtotal_parcial').append("<br><span id='credito_fidelidade'></span>");
+  var span_target = $('#credito_fidelidade');
+  span_target.html("-<%= number_to_currency(total_user_credits) %>");
+}else{
+  $('#credito_fidelidade').remove();
+}
 
 <% style = @cart_service.allow_credit_payment? ? 'normal' : 'prohibited' %>
 
