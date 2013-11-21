@@ -1,5 +1,7 @@
 $("#total_value").html("<%= number_to_currency(@cart_service.total) %>");
 
+$('#subtotal_parcial').append("<br><span id='embrulho_presente'>R$ 5,00</span>");
+
 <% style = @cart_service.allow_credit_payment? ? 'normal' : 'prohibited' %>
 
 $("li#loyalty_credit div.value").removeClass("normal prohibited").addClass("<%= style %>");
