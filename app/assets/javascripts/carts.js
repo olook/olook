@@ -4,14 +4,14 @@ $(function() {
   showInfoCredits();
   olook.spy('.cart_item[data-url]');
   if ($('#cart_gift_wrap').is(':checked')){
-    $('#subtotal_parcial').after("<span id='embrulho_presente'><br\\></span>");
+    $('#subtotal_parcial').append("<div id='embrulho_presente'></div>");
     var span_gift_target = $('#embrulho_presente');
     span_gift_target.html($("#gift_value").text().trim());
   }else{
     $('#embrulho_presente').remove();
   }
   if ($('#cart_use_credits').is(':checked')){
-    $('#subtotal_parcial').after("<span id='credito_fidelidade'><br\\></span>");
+    $('#subtotal_parcial').append("<div id='credito_fidelidade'></div>");
     var span_target = $('#credito_fidelidade');
     span_target.html($("#total_user_credits").text().trim());
   }else{
