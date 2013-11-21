@@ -16,8 +16,8 @@ class ValueAdjustment < PromotionAction
   end
 
   def calculate(cart_items, filters)
-    _filters = filters
-    value = _filters.delete('param')
+    _filters = filters.dup
+    value = _filters[ 'param' ]
     calculated_values = []
     eligible_items = filter_items(cart_items, _filters)
     adjustment = BigDecimal(value) / eligible_items.size
