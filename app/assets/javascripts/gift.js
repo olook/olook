@@ -21,7 +21,7 @@ $(function () {
     });
   }
 
-  $("section#profiles ul li a").live("click", function(e) {
+  $("section#profiles ul.models li a").live("click", function(e) {
 
     var profile = e.target.id;
 
@@ -39,7 +39,7 @@ $(function () {
     e.preventDefault();
   });
 
-  $("section#suggestions div.content ul li a").live("click", function(e) {
+  $("section#suggestions div.content ul.models li a").live("click", function(e) {
     var index = $(this).parent().index();
     $("section#suggestions div.content ul li").removeClass();
     $(this).parent().addClass("selected");
@@ -69,8 +69,10 @@ $(function () {
   $("div#help p+a").on("click", function(e) {
     var container_position = $("section#quiz").offset().top;
     InitGift.slideTo(container_position);
+    $(this).parent().fadeOut();
     e.preventDefault();
   });
+
 
   $("div#help a.close").on("click", function(e) {
     $(this).parent().fadeOut();
@@ -110,9 +112,13 @@ $(function () {
       $("form.edit_profile").submit();
     }
   });
+
+
 });
 
+
 InitGift = {
+
   friendsPreloader : function() {
     $("div#birthdays_list ul.friends_list").remove();
     $("div#birthdays_list").html("<div class='preloader'></div>");
@@ -127,7 +133,7 @@ InitGift = {
 
   createLoader : function(container) {
     $(container).html("<p class='loading'></p>");
-  }
+  },
 }
 
 share = function() {
@@ -142,3 +148,11 @@ share = function() {
   opt.link = sharer;
   FB.ui(opt);
 }
+
+$(function () {
+     $("a#scroll_to_quiz").click(function() {
+      $('html, body').animate({
+          scrollTop: $("#anchor_profile").offset().top
+      }, 1500);
+    });
+  });
