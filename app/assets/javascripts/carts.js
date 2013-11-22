@@ -10,10 +10,10 @@ $(function() {
   }else{
     $('#embrulho_presente').remove();
   }
-  if ($('#cart_use_credits').is(':checked')){
+  if ($('#cart_use_credits').is(':checked') && $(".cupom").is('visible')){
     $('#subtotal_parcial').append("<div id='credito_fidelidade'></div>");
     var span_target = $('#credito_fidelidade');
-    span_target.html($("#total_user_credits").text().trim());
+    span_target.html("-"+$("#total_user_credits").text().trim());
   }else{
     $('#credito_fidelidade').remove();
   }
