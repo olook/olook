@@ -21,4 +21,6 @@
 //= require common/jquery.cookie
 //= require lite_base
 //= require _search_bar
+//= require_tree ./common
+//= require ./partials/_credits_info
 
