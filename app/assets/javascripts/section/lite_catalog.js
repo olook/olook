@@ -16,7 +16,6 @@ filter.init = function(){
   olook.changePictureOnhover('img.async');
   olook.customSelect(".custom_select");
   olook.toggleClassSlideNext(".title-category");
-  olook.priceUpdater();
 }
 
 $(filter.init);
