@@ -5,7 +5,6 @@
 //= require plugins/custom_select
 //= require plugins/change_picture_onhover
 //= require plugins/jquery.meio.mask
-//= require plugins/discount_price_updater
 
 var filter = {};
 filter.init = function(){
