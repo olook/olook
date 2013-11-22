@@ -277,6 +277,8 @@ cart/banner_dia_das_maes.jpg: cart/banner_dia_das_maes-6231a06cbe4596dd23e73bafe
 cart/banner_dia_das_maes/index.jpg: cart/banner_dia_das_maes-6231a06cbe4596dd23e73bafe485a04f.jpg
 cart/banner_discount2.jpg: cart/banner_discount2-e8711cd9f9d108e5ac6b71e4bc0a5493.jpg
 cart/banner_discount2/index.jpg: cart/banner_discount2-e8711cd9f9d108e5ac6b71e4bc0a5493.jpg
+cart/banner_sacola_990_120.jpg: cart/banner_sacola_990_120-ef6ba7763e96abb854cf885050d7828c.jpg
+cart/banner_sacola_990_120/index.jpg: cart/banner_sacola_990_120-ef6ba7763e96abb854cf885050d7828c.jpg
 cart/bg-input-coupon.jpg: cart/bg-input-coupon-86189b8d683e1f6b2b4836f3b83d415c.jpg
 cart/bg-input-coupon/index.jpg: cart/bg-input-coupon-86189b8d683e1f6b2b4836f3b83d415c.jpg
 cart/bg-input-cpf.jpg: cart/bg-input-cpf-2407234ed7a8085e34ee28adb4a9e98d.jpg
@@ -2310,10 +2312,10 @@ about/normalize.css: about/normalize-b3a32727781c89e0bd714269e2f853f0.css
 about/normalize/index.css: about/normalize-b3a32727781c89e0bd714269e2f853f0.css
 about/style.css: about/style-0f093a8b9b43869ec36953ee4a81fad6.css
 about/style/index.css: about/style-0f093a8b9b43869ec36953ee4a81fad6.css
-admin.css: admin-358ded680581a71743741709a64dc98a.css
-admin/index.css: admin-358ded680581a71743741709a64dc98a.css
-admin/base.css: admin/base-ae24fa2d11e173972d666165f920beaa.css
-admin/base/index.css: admin/base-ae24fa2d11e173972d666165f920beaa.css
+admin.css: admin-3528af83f3c7254425a6c69292d6a490.css
+admin/index.css: admin-3528af83f3c7254425a6c69292d6a490.css
+admin/base.css: admin/base-96e5214e25a9324f01841de103ae3ca6.css
+admin/base/index.css: admin/base-96e5214e25a9324f01841de103ae3ca6.css
 admin/bootstrap.css: admin/bootstrap-15af02f0efa12f3f692188b3646254f1.css
 admin/bootstrap/index.css: admin/bootstrap-15af02f0efa12f3f692188b3646254f1.css
 admin/braspag_authorize_responses.css: admin/braspag_authorize_responses-1b13569e9620782f423d4cd3ce931750.css
@@ -2374,8 +2376,8 @@ admin/themes/default/fonts/museosans_500_italic-webfont.ttf: admin/themes/defaul
 admin/themes/default/fonts/museosans_500_italic-webfont/index.ttf: admin/themes/default/fonts/museosans_500_italic-webfont-7c789c95ea92657dba7c84dfab5c4a95.ttf
 admin/themes/default/fonts/museosans_500_italic-webfont.woff: admin/themes/default/fonts/museosans_500_italic-webfont-e1bcb6fd0cfa7fc553880800308f5cff.woff
 admin/themes/default/fonts/museosans_500_italic-webfont/index.woff: admin/themes/default/fonts/museosans_500_italic-webfont-e1bcb6fd0cfa7fc553880800308f5cff.woff
-admin/themes/default/style.css: admin/themes/default/style-cfb00648a94f868a1bca26366b08b42a.css
-admin/themes/default/style/index.css: admin/themes/default/style-cfb00648a94f868a1bca26366b08b42a.css
+admin/themes/default/style.css: admin/themes/default/style-88eb0610b60a4af46bd00d491b56195a.css
+admin/themes/default/style/index.css: admin/themes/default/style-88eb0610b60a4af46bd00d491b56195a.css
 application.css: application-b1a0d4d15c6d0b26f05410ecf6c158e6.css
 application/index.css: application-b1a0d4d15c6d0b26f05410ecf6c158e6.css
 campaign_emails.css: campaign_emails-dfffda7532a3fed156b69540d9c0d169.css
