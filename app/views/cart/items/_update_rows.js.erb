@@ -5,6 +5,9 @@ $('p#item_subtotal_' + <%= item.id %>).text('<%= number_to_currency(item.price *
 //update items quantity on cart summary header
 $("#cart_items").text("<%= pluralize(@cart.items_total, 'item', 'itens') %>");
 
+//update items total on cart title
+$(".total_itens").text("(<%= pluralize(@cart.items_total, 'item', 'itens') %>)");
+
 //update total order subtotal
 $('table#cart_subtotal tr td#subtotal_parcial').text('<%= number_to_currency(@cart_calculator.items_subtotal) %>');
   if ($('#cart_gift_wrap').is(':checked')){

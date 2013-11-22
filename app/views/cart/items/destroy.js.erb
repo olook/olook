@@ -20,6 +20,9 @@
 //update items total on cart summary
 $("#cart_items").hide().delay(200).text("<%= pluralize(@cart.items_total, 'item', 'itens') %>").fadeIn();
 
+//update items total on cart title
+$(".total_itens").hide().delay(200).text("<%= pluralize(@cart.items_total, 'item', 'itens') %>").fadeIn();
+
 //?
 $("#amount_for_loyalty_program").text("<%= number_to_currency @cart_service.amount_for_loyalty_program %>");
 
