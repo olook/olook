@@ -24,7 +24,7 @@ class MinorPriceAdjustment < PromotionAction
       calculated_adjustments << {
         id: item.id,
         product_id: item.product.id,
-        adjustment: item.price
+        adjustment: item.retail_price
       }
     end
     calculated_adjustments

@@ -19,12 +19,14 @@ class PercentageAdjustment < PromotionAction
     _filters = filters.dup
     percent = _filters[ 'param' ]
     calculated_values = []
+
     eligible_items = filter_items(cart_items, _filters)
+
     eligible_items.each do |cart_item|
       sub_total = cart_item.quantity * cart_item.price
       adjustment = sub_total * BigDecimal("#{percent.to_i / 100.0}")
       if _filters['full_price'] == '2'
-        markdown_discount = cart_item.quantity * ( cart_item.product.price - cart_item.retail_price )
+        markdown_discount = cart_item.quantity * ( cart_item.price - cart_item.retail_price )
         next if markdown_discount > adjustment
       end
       calculated_values << {
