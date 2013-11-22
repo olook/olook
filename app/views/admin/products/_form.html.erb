@@ -24,6 +24,10 @@
     <%= f.check_box :is_visible %>
   </div>
   <div class="field">
+    <%= f.label :visibility, "Onde?" %><br />
+    <%= f.select :visibility, options_for_select([["Site (exceto olooklet)", 1],["Olooklet",2],["Todo o site",3]],selected_key = @product.visibility) %>
+  </div>  
+  <div class="field">
     <%= f.label :category, "Categoria" %><br />
     <%= f.select :category, Category.to_a %>
   </div>

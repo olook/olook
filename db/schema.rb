@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131119190500) do
+ActiveRecord::Schema.define(:version => 20131119201801) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -628,20 +628,9 @@ ActiveRecord::Schema.define(:version => 20131119190500) do
 
   create_table "liquidation_previews", :force => true do |t|
     t.integer  "product_id"
-    t.string   "name"
-    t.string   "category"
-    t.string   "subcategory"
-    t.decimal  "price",               :precision => 10, :scale => 0
-    t.decimal  "retail_price",        :precision => 10, :scale => 0
-    t.decimal  "discount_percentage", :precision => 10, :scale => 0
-    t.string   "inventory"
-    t.string   "color"
-    t.boolean  "visible"
     t.integer  "visibility"
-    t.string   "picture_url"
-    t.datetime "created_at",                                         :null => false
-    t.datetime "updated_at",                                         :null => false
-    t.string   "collection"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "liquidation_previews", ["product_id"], :name => "index_liquidation_previews_on_product_id"
@@ -886,20 +875,27 @@ ActiveRecord::Schema.define(:version => 20131119190500) do
     t.string   "name"
     t.text     "description"
     t.integer  "category"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                                                         :null => false
+    t.datetime "updated_at",                                                         :null => false
     t.string   "model_number"
     t.string   "color_name"
     t.string   "color_sample"
     t.integer  "collection_id"
     t.boolean  "is_visible"
     t.string   "color_category"
-    t.boolean  "is_kit",          :default => false
+    t.boolean  "is_kit",                                          :default => false
     t.string   "brand"
     t.string   "producer_code"
     t.string   "picture_for_xml"
     t.date     "launch_date"
-    t.integer  "visibility",      :default => 1
+    t.integer  "visibility",                                      :default => 1
+    t.decimal  "price",            :precision => 10, :scale => 2
+    t.decimal  "width",            :precision => 8,  :scale => 2
+    t.decimal  "height",           :precision => 8,  :scale => 2
+    t.decimal  "length",           :precision => 8,  :scale => 2
+    t.decimal  "weight",           :precision => 8,  :scale => 2
+    t.decimal  "retail_price",     :precision => 10, :scale => 2
+    t.integer  "discount_percent"
   end
 
   add_index "products", ["category"], :name => "index_products_on_category"

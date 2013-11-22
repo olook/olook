@@ -1,33 +1,23 @@
 # encoding: UTF-8
 class Admin::VisibilityBatchController < Admin::BaseController
   respond_to :html
+  def commit
+    LiquidationPreview.update_visibility_in_products
+    message = "Produtos atualizados com sucesso!"
+    redirect_to admin_products_path(params: {visibility: 2}), notice: message    
+  end
+
   def new
   end
 
+  def confirmation
+    @liquidation_previews = LiquidationPreview.paginate(page: params[:page], per_page: 10)
+  end
+
   def create
+    LiquidationPreview.import_csv params[:file]
     message = nil
-    arr = nil
-    i = 1
-    begin
-      arr = {Product::PRODUCT_VISIBILITY[:site] => [],Product::PRODUCT_VISIBILITY[:olooklet] => [],Product::PRODUCT_VISIBILITY[:all] => [] }
-
-      CSV.foreach(params[:file].path, headers: false) do |row|
-        arr[row.last.to_i] << row.first.to_i
-        i+=1
-      end  
-    rescue
-      arr = nil
-      message = "Opção de visibilidade inexistente na linha #{i}."
-    end  
-
-    updated_products = 0
-    if arr
-      arr.each do |k,v|
-        updated_products += Product.where(id: v).update_all(visibility: k)
-      end
-    end
-    message ||= "Visibilidade de #{updated_products} produtos alterada com sucesso!"
-    redirect_to admin_new_visibility_batch_path, notice: message
+    redirect_to admin_confirmation_visibility_batch_path, notice: message
   end
 
   def export
