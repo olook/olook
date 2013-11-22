@@ -17,7 +17,7 @@
             <span class="old">De <%= number_to_currency product.price %></span>
             <span class="txt-black">por <%= number_to_currency product.retail_price %></span>
           <% else %>
-            <%= number_to_currency product.price %> ou <span class="plots"><%= installments(product.price) %></span>
+            <%= number_to_currency product.price %> ou <span class="plots"><%= installments(product.price.to_f) %></span>
           <% end %>
         </span>
       </p>
