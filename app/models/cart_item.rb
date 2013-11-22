@@ -29,11 +29,9 @@ class CartItem < ActiveRecord::Base
   end
 
   def retail_price(options={})
-    olooklet_value = variant.product.retail_price == 0 ? price : variant.product.retail_price
-    promotional_value = price - adjustment_value / quantity.to_f if has_adjustment?
-
-    min_value_excluding_nil = [promotional_value, olooklet_value].compact.min
-    min_value_excluding_nil || 0
+    _value = variant.product.retail_price == 0 ? price : variant.product.retail_price
+    _value = _value - ( adjustment_value / quantity.to_f )
+    _value
   end
 
   def discount_service
@@ -53,8 +51,7 @@ class CartItem < ActiveRecord::Base
   end
 
   def adjustment_value
-    adjustment = cart_item_adjustment ? cart_item_adjustment : create_adjustment
-    adjustment.value
+    cart_item_adjustment ? cart_item_adjustment.value : 0
   end
 
   def has_adjustment?

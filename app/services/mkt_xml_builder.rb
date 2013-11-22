@@ -29,7 +29,8 @@ class MktXmlBuilder
     shopear: 'shopear_template.xml.erb',
     melt: 'melt_template.xml.erb',
     paraiso_feminino: 'paraiso_feminino_template.xml.erb',
-    stylight: 'stylight_template.xml.erb'
+    stylight: 'stylight_template.xml.erb',
+    all_in: 'all_in.xml.erb'
   }
 
   def self.create_xmls
@@ -87,10 +88,6 @@ class MktXmlBuilder
 
     def self.load_products
       # This method was copied from XmlController
-      products = Product.valid_for_xml(Product.xml_blacklist("products_blacklist").join(','))
-      @liquidation_products = []
-      active_liquidation = LiquidationService.active
-      @liquidation_products = active_liquidation.resume[:products_ids] if active_liquidation
-      products + @liquidation_products
+      Product.valid_for_xml(Product.xml_blacklist("products_blacklist").join(','))
     end
 end

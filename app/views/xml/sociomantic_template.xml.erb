@@ -14,7 +14,7 @@
 <currency>BRL</currency>
 <url><![CDATA[<%= product.product_url(:utm_source => "sociomantic", :utm_medium => "Remarketing", :utm_campaign => "Produtos") %>]]></url>
 <photo><%= full_image_path product.xml_picture(:main) %></photo>
+<score><%= SociomanticScore.calculate_for(product) %></score>
 </product>
 <% end %>
 </products>
-

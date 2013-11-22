@@ -10,6 +10,8 @@ Olook::Application.routes.draw do
   resources :live_feeds, path: "api", only: [:create, :index]
   resources :mercado_pago, only: [:create]
 
+  get '/api/prices' => 'prices#index', as: 'api_prices'
+
 
   get "/stylequiz", to: "quiz#new", as: "wysquiz"
 
@@ -118,15 +120,6 @@ Olook::Application.routes.draw do
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
   get '/colecoes/:collection_theme(/*parameters)', to: "collection_themes#show", as: "collection_theme"
 
-  # NEW COLLECTIONS - TODO
-  get '/update_moment', to: "moments#update", as: "update_moment", constraints: { format: 'js' }
-
-  # Novidades
-  match '/novidades/sapatos', to: "moments#show", as: "news_shoes", :defaults => {:category_id => Category::SHOE, :id => 1, news: true }
-  match '/novidades/roupas', to: "moments#show", as: "news_clothes", :defaults => {:category_id => Category::CLOTH, :id => 1, news: true }
-  match '/novidades/bolsas', to: "moments#show", as: "news_bags", :defaults => {:category_id => Category::BAG, :id => 1, news: true }
-  match '/novidades/accessorios', to: "moments#show", as: "news_accessories", :defaults => {:category_id => Category::ACCESSORY, :id => 1, news: true }
-
   #FRIENDS
   match "/membro/:share/:uid", :to => "home#index"
   match "/minhas-amigas/conectar", :to => "friends#facebook_connect", :as => "facebook_connect"
@@ -159,6 +152,7 @@ Olook::Application.routes.draw do
   match "/shopear" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/shopear_data.xml")
   match "/melt" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/melt_data.xml")
   match "/stylight" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/stylight_data.xml") 
+  match "/all_in" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/all_in_data.xml") 
   
   # template da ilove_ecommerce
   match "/parceirosmkt" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/parceirosmkt_data.xml") 
@@ -227,6 +221,7 @@ Olook::Application.routes.draw do
     get "profiles/:name" => "profiles#show"
   end
 
+  resources :ping, :only => [:index]
   resources :shippings, :only => [:show]
   get '/shipping_updated_freight_table/:id' => 'shippings#show', defaults: {freight_service_ids: "4,5"}
 
