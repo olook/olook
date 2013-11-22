@@ -416,7 +416,9 @@ $(document).ready(function() {
   });
 
   $("a.mercado_pago_button").click(function(e){
-      content = $("div.mercado_pago");
+      var content = $("div.mercado_pago");
+      var img = content.data('url');
+      content.append("<img src='" + img + "' />");
       content.css({'width': '800px', 'height': '640px'});
       initBase.newModal(content);
       e.preventDefault();

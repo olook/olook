@@ -31,6 +31,7 @@ olook.newModal = function(content, a, l, backgroud_color){
     'margin-left' : ml,
     'margin-top'  : mt,
     'border-bottom': '1px solid #000'
+
   })
   .append('<button type="button" class="close" role="button">close</button>')
   .delay(500).fadeIn().children().show();
