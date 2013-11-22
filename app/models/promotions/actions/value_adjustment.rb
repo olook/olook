@@ -12,15 +12,21 @@ class ValueAdjustment < PromotionAction
 
   def desc_value(filters, opts={})
     value = filters.delete('param')
-    "R$#{value.to_i}"
+    "R$ #{value.to_i}"
   end
 
   def calculate(cart_items, filters)
     _filters = filters.dup
-    value = _filters[ 'param' ]
+    value = BigDecimal(_filters['param'])
     calculated_values = []
     eligible_items = filter_items(cart_items, _filters)
-    adjustment = BigDecimal(value) / eligible_items.size
+    if _filters['full_price'] == '2'
+      if !eligible_items.find { |item| item.product.retail_price == item.product.price }
+        markdown_discount = eligible_items.inject(0) { |sum, item| sum + item.product.price - item.retail_price }
+        eligible_items.reject! { |item| item.product.price != item.product.retail_price } if markdown_discount > value
+      end
+    end
+    adjustment = value / eligible_items.size
     eligible_items.each do |item|
       calculated_values << {
         id: item.id,
