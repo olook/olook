@@ -29,7 +29,8 @@ class MktXmlBuilder
     shopear: 'shopear_template.xml.erb',
     melt: 'melt_template.xml.erb',
     paraiso_feminino: 'paraiso_feminino_template.xml.erb',
-    stylight: 'stylight_template.xml.erb'
+    stylight: 'stylight_template.xml.erb',
+    all_in: 'all_in.xml.erb'
   }
 
   def self.create_xmls
