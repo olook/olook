@@ -4,8 +4,6 @@ class Product < ActiveRecord::Base
   SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto"
   CARE_PRODUCTS = ['Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar']
   UNAVAILABLE_ITEMS = :unavailable_items
-  # TODO: Temporarily disabling paper_trail for app analysis
-  #has_paper_trail :skip => [:pictures_attributes, :color_sample]
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
   PRODUCT_VISIBILITY = {site: 1, olooklet: 2, all: 3}
   MINIMUM_INVENTORY_FOR_XML = 3
@@ -14,22 +12,20 @@ class Product < ActiveRecord::Base
 
   has_enumeration_for :category, :with => Category, :required => true
 
+  attr_accessor :save_from_master_variant
+
   after_create :create_master_variant
-  after_update :update_master_variant
+  after_update :update_master_variant, unless: :save_from_master_variant
   before_save :set_launch_date, if: :should_update_launch_date?
 
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
   has_many :price_logs, class_name: 'ProductPriceLog', :dependent => :destroy
-  # , :conditions => {:is_master => false}
   has_many :variants, :dependent => :destroy do
     def sorted_by_description
       self.sort {|variant_a, variant_b| variant_a.description <=> variant_b.description }
     end
   end
-
-  # has_one :master_variant, :class_name => "Variant", :conditions => {:is_master => true}, :foreign_key => "product_id"
-  # has_one :main_picture, :class_name => "Picture", :conditions => {:display_on => DisplayPictureOn::GALLERY_1}, :foreign_key => "product_id"
 
   belongs_to :collection
   has_and_belongs_to_many :profiles
@@ -82,7 +78,26 @@ class Product < ActiveRecord::Base
     subcategory.present? ? scoped.joins('inner join details on products.id = details.product_id').where('details.description' => subcategory) : scoped
   end
 
+  def self.set_master_variants(products)
+    product_ids = products.map { |p| p.id }
+    variants = Hash[Variant.unscoped.where(:product_id => product_ids, :is_master => true).all.map { |v| [v.product_id, v] }]
+    products.each do |p|
+      v = variants[p.id]
+      p.set_master_variant(v)
+    end
+    products
+  end
+
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
+
+  def discount_price(opts={})
+    return @discount_price if @discount_price.present?
+    cart = opts[:cart]
+    coupon = opts[:coupon] || cart.try(:coupon)
+    promotion = opts[:promotion]
+    pd = ProductDiscountService.new(self, cart: cart, coupon: coupon, promotion: promotion)
+    @discount_price = pd.best_discount.calculate_for_product(self, cart: cart)
+  end
 
   def seo_path
     formatted_name.to_s.parameterize + "-" + id.to_s
@@ -136,21 +151,6 @@ class Product < ActiveRecord::Base
       relationship.destroy
     end
   end
-
-  delegate :price, to: :master_variant
-  delegate :'price=', to: :master_variant
-  delegate :retail_price, to: :master_variant
-  delegate :'retail_price=', to: :master_variant
-  delegate :width, to: :master_variant
-  delegate :'width=', to: :master_variant
-  delegate :height, to: :master_variant
-  delegate :'height=', to: :master_variant
-  delegate :length, to: :master_variant
-  delegate :'length=', to: :master_variant
-  delegate :weight, to: :master_variant
-  delegate :'weight=', to: :master_variant
-  delegate :discount_percent, to: :master_variant
-  delegate :'discount_percent=', to: :master_variant
 
   def main_picture
     @main_picture ||=
@@ -214,7 +214,14 @@ class Product < ActiveRecord::Base
   end
 
   def master_variant
-    @master_variant ||= Variant.unscoped.where(:product_id => self.id, :is_master => true).first
+    return @master_variant if @master_variant_found
+    set_master_variant Variant.unscoped.where(:product_id => self.id, :is_master => true).first
+  end
+
+  def set_master_variant(variant)
+    @master_variant_found = true
+    variant.product = self
+    @master_variant = variant
   end
 
   def colors(size = nil, admin = false)

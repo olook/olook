@@ -51,7 +51,6 @@
             %ul.category-list
               - filters_by('size', @search, use_fields: [:category]).reverse.each do |text, amount|
                 %li{ :class => category_style_class(text)}= filter_link_to(catalog_path(@category, @url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
-            
     %section.container_product
       %ul#products
         - if @custom_search && @custom_search.products.any?
