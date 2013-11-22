@@ -45,7 +45,7 @@ li{list-style-type:none;}
 a#go_top {position: fixed;background: image-url('common/arrow-go-top.png') no-repeat;text-indent: -99999px;width: 40px;height: 40px;right: 40px;bottom: 45%;z-index: 5;display: none;}
 
 header#new_header{border-top: 2px black solid;
-  .new_content{height: 84px;padding-top:15px;width: 990px;margin: 0 auto;background: image-url('common/nowflakes.png') no-repeat center -4px;
+  .new_content{height: 84px;padding-top:15px;width: 990px;margin: 0 auto;background: image-url('common/nav/sprite_header.png') no-repeat 250px -363px;
       .box_left{font-family: $avenir;font-size: 10px;color: #b4b5b7;float: left;margin-left:10px;
         a.contact{text-decoration: none;color: #b4b5b7;
             &:hover{color:$base_color;}
@@ -109,7 +109,7 @@ header#new_header{border-top: 2px black solid;
               text-decoration: none;
               &#info_user {color:#000;padding-right: 10px;}
               &#account {
-                  background: image-url('common/arrow-down-pink.png') right 7px no-repeat;color: #000;text-align: left;width: auto;min-width: 70px;height: 17px;margin: -6px 0 0;padding: 5px 20px 5px 8px;display: inline-block;border: 1px #FFF solid;float: none;line-height:17px;
+                  background: image-url('common/nav/sprite_header.png') no-repeat 74px -219px;color: #000;text-align: left;width: auto;min-width: 70px;height: 17px;margin: -6px 0 0;padding: 5px 20px 5px 8px;display: inline-block;border: 1px #FFF solid;float: none;line-height:17px;
                   &:hover, &.hover {text-decoration: none;border-color: #CCC;box-shadow:0px 2px 5px #CCC;color: #ef3742;}
                 &:hover {color: #ef3742;}
               }
@@ -165,7 +165,7 @@ header#new_header{border-top: 2px black solid;
       }
       /*------ END BOX LOGIN -------*/
       
-      p.trade{background: image-url('common/trade_arrows.png') no-repeat top left;float:left;font-size:11px;color:#000;line-height:18px;margin-left: 10px;
+      p.trade{background: image-url('common/nav/sprite_header.png') no-repeat -10px -197px;float:left;font-size:11px;color:#000;line-height:18px;margin-left: 10px;
          a{text-decoration:none;color:#000;padding-left: 30px;
             &:hover{text-decoration:none; color: $base_color;}
          }
@@ -181,7 +181,7 @@ header#new_header{border-top: 2px black solid;
 /*------------------
 ====== FOOTER ======
 ------------------*/
-footer {height:480px;clear:both;margin-top:60px;border-top: 1px #cbcbcb solid;
+footer {height:550px;clear:both;margin-top:60px;border-top: 1px #cbcbcb solid;
   section {margin:0px auto;width:970px;padding-top:40px;
     div.box_newsletter {display: none;width: 100%;overflow: auto;margin: 0 0 20px;
       form {width: 650px;overflow: auto;margin: 0 50px 0 0;float: left;
@@ -225,7 +225,7 @@ footer {height:480px;clear:both;margin-top:60px;border-top: 1px #cbcbcb solid;
         }
       }
       &.double {margin: 0 95px 0 0;
-        &.payment {clear: both;width:500px;}
+        &.payment {clear: both;width:500px;height:220px;}
         &.security {
           dd {float: left;}
         }
@@ -270,9 +270,9 @@ button.close{
   border:none;
 }
 
-
 .watermelon {color:#ef3742;}
 
-
+.aceitamos_cartoes {width:172px;height:131px;display: block;float:left;background: image-url('common/nav/sprite_header.png') -360px -16px no-repeat;text-indent: -5000px;}
+.mercado_pago_button {width:125px;height:125px; display: block;float:left;background: image-url('common/nav/sprite_header.png') -361px -153px no-repeat;text-indent: -5000px;}
 
 
