@@ -37,7 +37,7 @@ class ProductDiscountService
 
   class NoDiscount
     def calculate_for_product(product, opts)
-      product.price
+      product.retail_price
     end
 
     def apply(cart); end
