@@ -42,9 +42,9 @@ class Promotion < ActiveRecord::Base
   def calculate_for_product product, opt
     cart = opt[:cart]
     if product.is_visible? && product.master_variant
-      cart.items.build(variant: product.master_variant, quantity: 1)
-      adjustment = promotion_action.simulate_for_product product, cart, self.action_parameter.action_params
-      item = cart.items.find { |i| i.product.id == product.id }
+      cart_items = cart.items.to_a + [CartItem.new(variant: product.master_variant, quantity: 1, cart_id: cart.id)]
+      adjustment = promotion_action.simulate_for_product product.id, cart_items, self.action_parameter.action_params
+      item = cart_items.find { |i| i.product.id == product.id }
       product.price - (adjustment/(item.try(:quantity) || 1))
     else
       product.price

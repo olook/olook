@@ -5,7 +5,6 @@ class PricesController < ApplicationController
     @promotion = Promotion.select_promotion_for(@cart)
     Product.set_master_variants(@products)
     prices = @products.map do |p|
-      Rails.logger.debug("Check #{p.id}")
       if p.discount_price(cart: @cart, coupon: @cart.coupon, promotion: @promotion) != p.price
         price_hash = { de: ActionController::Base.helpers.number_to_currency(p.price), por: ActionController::Base.helpers.number_to_currency(p.discount_price(cart: @cart)) }
         [ p.id, price_hash ]

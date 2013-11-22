@@ -63,10 +63,10 @@ class PromotionAction < ActiveRecord::Base
     cart.items.any? ? calculate(cart.items, param).map{|item| item[:adjustment]}.reduce(:+) : 0
   end
 
-  def simulate_for_product(product, cart, param)
-    if cart.items.any?
-      _calc = calculate(cart.items, param)
-      _c = _calc.find { |item| item[:product_id] == product.id }
+  def simulate_for_product(product_id, cart_items, param)
+    if cart_items.any?
+      _calc = calculate(cart_items, param)
+      _c = _calc.find { |item| item[:product_id] == product_id }
       return _c ? _c[:adjustment] : 0
     end
     0
