@@ -214,7 +214,7 @@ _gaq.push(['_addTrans',
         <div class="devolucao_credito"></div>
       </td>
       <td class="title_subtotal">Subtotal</td>
-      <td class="value_subtotal" id="subtotal_parcial"><%= number_to_currency(@cart_service.total) %></td>
+      <td class="value_subtotal" id="subtotal_parcial"><%= number_to_currency(@cart_calculator.items_subtotal) %></td>
     </tr>
     <tr>
       <td>
@@ -229,7 +229,7 @@ _gaq.push(['_addTrans',
         </div>
       </td>
       <td class="title_subtotal title_total">Total</td>
-      <td class="value_subtotal value_total" id="total_value"><%= number_to_currency(@cart_service.total) %></td>
+      <td class="value_subtotal value_total" id="total_value"><%= number_to_currency(@cart_calculator.items_total) %></td>
     </tr>
   </table>
 

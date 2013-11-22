@@ -13,7 +13,7 @@ class Cart::CartController < ApplicationController
     @url += ":" + request.port.to_s if request.port != 80
     @chaordic_cart = ChaordicInfo.cart(@cart, current_user, cookies[:ceid])
     @suggested_product = find_suggested_product
-
+    @cart_calculator = CartProfit::CartCalculator.new(@cart)
     @promo_over_coupon = false
     if @cart.coupon_id && Promotion.select_promotion_for(@cart)
       @promo_over_coupon = true
@@ -43,12 +43,12 @@ class Cart::CartController < ApplicationController
     end
 
     @cart.update_attributes(params[:cart])
-    
     if @cart.errors.any?
       notice_message = @cart.errors.messages.values.flatten.first
       render :error, :locals => { :notice => notice_message }
     end
     @cart.reload
+    @cart_calculator = CartProfit::CartCalculator.new(@cart)
   end
 
   private
