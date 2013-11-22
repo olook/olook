@@ -115,3 +115,4 @@ gem "codeclimate-test-reporter", group: :test, require: nil
 group :test do
   gem 'webmock'
 end
+gem 'passenger', require: false

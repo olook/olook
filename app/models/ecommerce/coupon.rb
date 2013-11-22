@@ -100,7 +100,6 @@ class Coupon < ActiveRecord::Base
   end
 
   def apply_discount_to? product
-
     if coupon_specific_for_product?
       product_ids = product_ids_allowed_to_have_discount
       product_ids.include?(product.id.to_s)
@@ -109,7 +108,6 @@ class Coupon < ActiveRecord::Base
     else
       true
     end
-
   end
 
   def can_be_applied_to_any_product_in_the_cart? cart
@@ -123,9 +121,14 @@ class Coupon < ActiveRecord::Base
 
   def calculate_for_product product, opt
     cart = opt[:cart]
-    adjustment = promotion_action.simulate_for_product product, cart, self.action_parameter.action_params
-    item = cart.items.find { |i| i.product.id == product.id }
-    product.price - (adjustment/(item.try(:quantity) || 1))
+    if product.is_visible? && product.master_variant
+      cart_items = cart.items.to_a + [CartItem.new(variant: product.master_variant, quantity: 1, cart_id: cart.id)]
+      adjustment = promotion_action.simulate_for_product product.id, cart_items, self.action_parameter.action_params
+      item = cart_items.find { |i| i.product.id == product.id }
+      product.price - (adjustment/(item.try(:quantity) || 1))
+    else
+      product.price
+    end
   end
 
   def calculate_for_cart cart
