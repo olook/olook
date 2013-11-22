@@ -3,7 +3,7 @@
   %h3 Passo
   %p
     Quando ...
-    = builder.select(:promotion_rule_id, options_for_select(@promotion_rules.map{ |pr| [pr.name, pr.id, {rel: pr.class}]}), { include_blank: 'Selecione...' }, class: 'promotion_rule_selection')
+    = builder.select(:promotion_rule_id, options_for_select(@promotion_rules.map{ |pr| [pr.name, pr.id, {rel: pr.class}]}, builder.object.promotion_rule_id), { include_blank: 'Selecione...' }, class: 'promotion_rule_selection')
     = builder.text_field :rules_params, disabled: true, class: 'rules_params'
     %span.hint
       Complete a frase, definindo a regra de ativação do desconto

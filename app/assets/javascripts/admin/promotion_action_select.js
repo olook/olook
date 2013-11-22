@@ -7,9 +7,6 @@ $(function(){
     $(selected.attr('rel')).show().find(inputs).removeAttr('disabled');
   }
 
-  $('.show_on_select').change(function(){
-    showRel($(this), '.action_params_desc');
-  });
   showRel($('.show_on_select'), '.action_params_desc');
 
   function checkUseRuleParameters(el) {
@@ -21,9 +18,6 @@ $(function(){
       $('#use_rule_parameters_div').slideDown();
     }
   }
-  $('.use_rule_parameters').unbind('change').change(function(){
-    checkUseRuleParameters(this);
-  });
   checkUseRuleParameters('.use_rule_parameters')
   $('.promotion_rule_selection').unbind('change').change(function(){
     var el = $(this);
@@ -44,16 +38,12 @@ $(function(){
     }
   }
 
-  $('.clean_on_check').click(function(){
-    cleanOnCheck(this);
-  });
   function removePromotionRule(){
     var par = $(this).parents('.promotion_rule');
     par.siblings('.destroy_rule_parameter').val('1');
     par.remove();
     updateRuleParameterCount();
   }
-  $('.remove_rule').unbind('click').click(removePromotionRule);
 
   function updateRuleParameterCount() {
     var remainingRules = $('.promotion_rule h3');
@@ -76,12 +66,25 @@ $(function(){
     var target = el.siblings('[type=hidden]');
     target.val(el.val());
   }
-  $('.set_hidden').unbind('click').click(function(){
-    setHidden(this);
-  })
-  $('.check_on_change').unbind('change').change(function(){
-    checkOnChange(this);
-  });
+  function binds() {
+    $('.set_hidden').unbind('click').click(function(){
+      setHidden(this);
+    })
+    $('.check_on_change').unbind('change').change(function(){
+      checkOnChange(this);
+    });
+    $('.remove_rule').unbind('click').click(removePromotionRule);
+    $('.clean_on_check').click(function(){
+      cleanOnCheck(this);
+    });
+    $('.use_rule_parameters').unbind('change').change(function(){
+      checkUseRuleParameters(this);
+    });
+    $('.show_on_select').unbind('change').change(function(){
+      showRel($(this), '.action_params_desc');
+    });
+  }
+  binds();
 
   $('.add_rule').unbind('click').click(function(e){
     e.preventDefault();
@@ -89,6 +92,6 @@ $(function(){
     shape = shape.replace(/__ID__/g, new Date().getTime());
     $('.promotion_rules').append(shape);
     updateRuleParameterCount();
-    $('.remove_rule').unbind('click').click(removePromotionRule);
+    binds();
   });
 });
