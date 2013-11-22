@@ -628,20 +628,9 @@ ActiveRecord::Schema.define(:version => 20131119201801) do
 
   create_table "liquidation_previews", :force => true do |t|
     t.integer  "product_id"
-    t.string   "name"
-    t.string   "category"
-    t.string   "subcategory"
-    t.decimal  "price",               :precision => 10, :scale => 0
-    t.decimal  "retail_price",        :precision => 10, :scale => 0
-    t.decimal  "discount_percentage", :precision => 10, :scale => 0
-    t.string   "inventory"
-    t.string   "color"
-    t.boolean  "visible"
     t.integer  "visibility"
-    t.string   "picture_url"
-    t.datetime "created_at",                                         :null => false
-    t.datetime "updated_at",                                         :null => false
-    t.string   "collection"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "liquidation_previews", ["product_id"], :name => "index_liquidation_previews_on_product_id"
