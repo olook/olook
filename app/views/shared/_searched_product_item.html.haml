@@ -12,13 +12,7 @@
       %strong.brand{:itemprop => "brand"}= product.brand
       %br/
       - if product.promotion?
-        %span.price
-          %span.old{:itemprop => "price"}
-            De
-            = number_to_currency product.price
-          %span.txt-pink{:itemprop => "offers"}
-            &nbsp;por
-            = number_to_currency product.retail_price
+        = render 'shared/searched_product_discount_price', from: number_to_currency(product.price), to: number_to_currency(product.retail_price)
       - else
         %span.price{:itemprop => "price"}
           = number_to_currency product.price
