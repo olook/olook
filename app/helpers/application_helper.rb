@@ -133,10 +133,6 @@ module ApplicationHelper
     section_name.nil? ? 'Coleções' : section_name
   end
 
-  def is_moment_page?
-    params[:controller] == "moments" && ["show", "clothes"].include?(params[:action]) && @featured_products
-  end
-
   def protocol
     Rails.env.production? ? 'https' : 'http'
   end

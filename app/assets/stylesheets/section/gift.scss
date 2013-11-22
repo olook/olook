@@ -17,32 +17,123 @@ div#banner {
 
 body div.full_container {
   section {
+    width: 970px;
+    margin: 0 auto;
     background: image-url('gift/border-sections.jpg') bottom repeat-x;
 	 &.bn{background: none !important;}
     &#profiles {
-      min-height: 740px;
+      min-height: 2221px;
       div.content {
         position: relative;
-        background: image-url('gift/bg-shadow.jpg') bottom center no-repeat;
         height: 725px;
         width:970px;
         overflow: visible;
-        >h1 {
-          font-size: 40px;
+        h2 {
+          margin-top: 25px;
+          font-family: $avenir;
+          font-size: 23px;
+          letter-spacing: 3px;
           text-transform: uppercase;
-          margin: 15px 0 5px;
-          &+p {
-            font-size: 14px;
-            margin: 0 0 40px;
+          span{
+            color: $pink;
+          }
+        }
+        h2.select_model{
+          margin-top: 10px;
+          font-family: $johnston;
+          font-size: 28px;
+          color: #231f20;
+          text-align: center;
+          span{
+            font-family: $avenir;
+            font-size: 18px;
+            display: block;
+            color: #231f20;
+          }
+        }
+       ul li a img.first_block {
+          &:hover{
+            opacity:0.65;
+            -moz-opacity: 0.65;
+            filter: alpha(opacity=65);
+            }
+          }
+        ul.gifts_price{
+          height: 945px;
+          width: 970px;
+          margin: 0 auto;
+          margin-top: 40px;
+
+          li{
+            margin-right: 59px;
+            width: 284px;
+            float: left;
+            &.last{margin-right: 0 !important;}
+            &.big{margin-top: 30px;}
+            a{
+              text-decoration: none;
+              float: left;
+              text-align: center;
+            }
+            a.price_box{height: 445px !important;}
+            p.description{
+              margin-top: 5px;
+              font-size: 14px;
+              font-family: $avenir;
+              color: #231f20;
+            }
+            p.title_price{
+              margin-top: 15px;
+              font-size: 28px;
+              font-family: $johnston;
+              color: #231f20;
+              font-weight: bold;
+              text-align: center;
+              text-transform: uppercase;
+              line-height: 30px;
+              &:hover{
+                color: $pink;
+                }
+              span{
+                font-weight: lighter;
+                font-family: $kepler;
+                display: block;
+                font-size: 26px;
+                text-transform: none;
+              }
+              span.sky{
+                display: inline;
+              }
+            }
+          }
+        }
+        ul.anchors{
+          margin-top: 65px;
+          height: 460px;
+          overflow: hidden;
+          p.title_box{
+            margin-top: 15px;
+            font-size: 26px;
+            font-family: $johnston;
+            color: #231f20;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            line-height: 30px;
+            &:hover{
+              color: $pink;
+            }
           }
         }
         div#help {
+          border: 1px solid #848484;
+          background-color: #fff;
           position: absolute;
-          background: image-url('gift/bg-help-box.png') no-repeat;
-          text-align: center;
-          width: 247px;
-          height: 136px;
-          padding: 20px 0 0 0;
+          text-align: left;
+          width: 356px;
+          height: 88px;
+          padding: 0px 0 0 0;
+          margin-top: 10px;
           display: block;
           top: 0;
           right: 0;
@@ -54,24 +145,32 @@ body div.full_container {
 				a.bt-recomendation{display:block;width:170px;height:35px;font-size:0;font-family:a;background: image-url("gift/bt-recomendations.png") no-repeat !important;}
 				a.my-gifts{font-size:11px;color:#DE4F7F;}
 			}
-          h1 {
+          h2 {
             font-family: $avenir;
             font-size: 14px;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin: 0 0 5px;
+            margin-left: 14px;
+            margin-top: 10px;
+            text-transform: none;
+            font-weight: bold;
+            color: #231f20;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
           }
           p {
-            font-size: 12px;
-            line-height: 17px;
-            margin: 0 auto 8px;
+            font-size: 13px;
+            line-height: 15px;
+            font-family: $avenir;
+            color: #231f20;
+            margin-left: 15px;
             &+a {
-              background: image-url('gift/bt-answer-quiz.png') no-repeat;
+              background: image-url("gift/bt-answer-quiz.png") no-repeat;
               text-indent: -99999px;
-              width: 137px;
-              height: 34px;
+              width: 120px;
+              height: 55px;
               margin: 0 auto;
               display: block;
+              float: right;
+              margin-top: -55px;
             }
           }
           a.close {
@@ -81,8 +180,9 @@ body div.full_container {
             width: 18px;
             height: 18px;
             display: block;
-            top: 8px;
-            right: 13px;
+            top: -10px;
+            right: -10px;
+            z-index: 1001;
           }
           &.fixed {
             position: fixed;
@@ -91,22 +191,11 @@ body div.full_container {
           }
         }
       }
-      h2 {
-        background: image-url('gift/arrow-title.jpg') top right no-repeat;
-        font-family: $avenir;
-        font-size: 16px;
-        text-transform: uppercase;
-        display: inline-block;
-        margin: 0 0 10px;
-        padding: 0 55px 20px 0;
-        strong {
-          font-weight: 600;
-        }
-      }
-      ul {
+      ul.models {
         width: 975px;
         overflow: auto;
         margin: 0 auto;
+        margin-top: 25px;
         li {
 					&.chic{float:left;margin-left:25px;
 						a{margin:0 !important}
@@ -116,23 +205,31 @@ body div.full_container {
             text-decoration: none;
             text-align: center;
             min-width: 220px;
-            min-height: 572px;
+            min-height: 588px;
             margin: 0 20px 0 0;
             float: left;
-            h1 {
-              background: image-url('gift/bg-profiles-title.jpg') top center no-repeat;
-              font-family: $avenir;
-              font-size: 26px;
-              font-weight: lighter;
-              text-transform: uppercase;
+            p {
+              text-transform: capitalize;
+              display: block;
+              padding-top: 3px;
+              font-family: avenir, arial, sans-serif;
+              font-size: 14px;
+              letter-spacing: 1px;
               text-align: center;
-              height: 48px;
-              margin: 0 0 5px;
-              padding: 6px 0 0;
-				  		&.chic{width:150px;}
+              color: #fff;
+              width: 75px !important;
+              height: 25px !important;
+              background-color: #000;
+              margin: 0 auto;
+              margin-bottom: 18px;
+				  		&.chic{margin-left: 35px;}
+              &.moderna{margin-left: 83px;}
+              &:hover{
+                color: $pink;
+              }
             }
             &.selected {
-              background: image-url('gift/bg-profile-selected.jpg') bottom center no-repeat;
+              background: image-url('gift/bg-profile-selected.png') bottom center no-repeat;
             }
             &.off {
               opacity: 0.4;
@@ -150,13 +247,13 @@ body div.full_container {
     }
     &#profile_products {
       div.content {
-        > h1 {
+        > h2 {
           font-family: $avenir;
-          font-size: 17px;
-          font-weight: lighter;
+          font-size: 20px;
+          color: #231f20;
           text-align: center;
-          text-transform: uppercase;
-          margin: 0 0 30px;
+          margin: 10px 0 10px;
+          letter-spacing: 1px;
           strong {
             font-weight: 500;
           }
@@ -168,8 +265,8 @@ body div.full_container {
           &+a {
             background: image-url('gift/bt-more-suggestions.jpg') no-repeat;
             text-indent: -99999px;
-            width: 210px;
-            height: 34px;
+            width: 284px;
+            height: 41px;
             display: block;
             margin: 0 auto;
           }
@@ -356,28 +453,39 @@ body div.full_container {
     &#quiz {
       div.content {
         text-align: center;
-        padding: 55px 0;
-        > h1 {
+        padding: 35px 0 0;
+        h2 {
           font-family: $avenir;
-          font-size: 35px;
+          font-size: 26px;
+          letter-spacing: 3px;
           text-transform: uppercase;
-          font-weight: lighter;
-          &+p {
-            margin: 0 0 20px;
+          span{
+            color: $pink;
           }
+        }
+        p.quiz{
+          margin-top: 15px;
+          font-size: 14px;
+          font-family: $avenir;
+          color: #231f20;
+          text-align: center;
+          margin-bottom: 35px;
+        }
+        .name{
+          margin-left: 209px;
         }
         div.box {
           width: 290px;
           overflow: auto;
-          margin: 0 auto 15px;
-          padding: 15px 45px;
-          border: 1px #e1e0e0 solid;
+          float: left;
+          height: 75px;
           label, p {
             color: #101010;
             font-family: $avenir;
-            font-size: 16px;
+            font-size: 15px;
             margin: 0 0 10px;
             display: block;
+            font-weight: 600;
             em {
               color: #807f7f;
             }
@@ -388,27 +496,28 @@ body div.full_container {
             }
           }
           input[type="text"] {
-            font-family: $avenir;
-            font-size: 13px;
-            font-style: italic;
+            font-family: avenir, arial, sans-serif;
+            font-size: 14px;
+            color: #000;
             text-align: center;
-            width: 173px;
+            width: 226px;
             padding: 4px 10px;
-            border: 1px $third_color solid;
+            border: 1px #000 solid;
+            height: 24px;
           }
           div.styled_select {
             background: image-url('gift/styled-select.jpg') no-repeat;
-            width: 195px;
-            height: 28px;
+            width: 237px;
+            height: 34px;
             overflow: hidden;
             display: block;
             margin: 0 auto;
             select {
               background: transparent;
               font-size: 12px;
-              width: 190px;
+              width: 230px;
               height: 26px;
-              margin: 1px 0 0;
+              margin: 4px 0 0;
               padding: 5px;
               border: 1px #fff solid;
               -webkit-appearance: none;
@@ -450,11 +559,12 @@ body div.full_container {
           &.shoes {
             width: 355px;
             margin-bottom: 2px;
-            padding: 15px 13px;
+            margin-left: 318px;
+            margin-top: 20px;
             &+em {
               color: #6d6e71;
               font-size: 11px;
-              margin: 0 0 20px 305px;
+              margin: 0 0 20px 318px;
               float: left;
               clear: both;
             }
@@ -463,8 +573,8 @@ body div.full_container {
         input[type="submit"] {
           background: image-url('gift/bt-quiz.jpg') no-repeat;
           text-indent: -99999px;
-          width: 257px;
-          height: 63px;
+          width: 222px;
+          height: 58px;
           margin: 0 auto;
           display: block;
           clear: both;
@@ -670,7 +780,6 @@ body div.full_container {
       }
     }
     &.sub {
-      background-color: #f9f9f9;
       padding: 30px 0;
       display: none;
     }
@@ -1099,5 +1208,9 @@ div#calendar_container {
 
 .warn, 
 .sold_out {display: none !important;}
-
+#anchor_profile{
+  width: 970px;
+  height: 2px;
+  margin: 0 auto;
+}
 

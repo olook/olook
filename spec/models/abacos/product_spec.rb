@@ -181,7 +181,7 @@ describe Abacos::Product do
 
     describe "parser collection themes" do
       describe "when has many collection themes" do
-        it "should return moments" do
+        it "should return collection themes" do
           parsed_data[:collection_themes].should == ["1", "2"]
         end
       end

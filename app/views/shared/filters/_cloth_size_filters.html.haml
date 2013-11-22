@@ -1,0 +1,10 @@
+.filter.main
+  %span.selected-type.filter_type.opened.cloth_size Tamanho
+  .tab_bg.tab_cloth_size &nbsp;
+  %ol.column_size_cloth
+    - collection_theme_presenter.collection_theme.catalog.cloth_sizes.each do |size|
+      %li
+        = check_box_tag('cloth_sizes[]', size,  params[:cloth_sizes] && params[:cloth_sizes].include?(size), :id => "size_#{size}")
+        = label_tag(nil, size, :for => "size_#{size}")
+    %li.clear_choice
+      %button.clear_filter.bt_clear_cloth_size{:type => "button"} [ limpar ]
