@@ -22,7 +22,7 @@
   %meta{content: @chaordic_category, name: "chaordic:category"}/
   %meta{content: current_cart.try(:id), name: "chaordic:cart_id"}/
   %script{src: "//assets.pinterest.com/js/pinit.js", type: "text/javascript"}
-  = stylesheet_link_tag "section/product"
+  = stylesheet_link_tag "new_structure/section/lite_product"
 
 %section#product
   = product_breadcrumbs_for(@product)
@@ -34,10 +34,11 @@
       = product_presenter.render_facebook_comments
   .box-right
     #product-details
+      = product_presenter.render_description
       = product_presenter.render_add_to_cart
       = cache "details/#{@product.id}", expire_in: 10.minutes do
-        = product_presenter.render_description
         = product_presenter.render_details
+
     #modal_guide
       %h1 GUIA DE MEDIDAS
       = image_tag 'common/body.jpg', :class => ''
