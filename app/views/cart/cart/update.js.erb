@@ -1,4 +1,5 @@
-$("#total_value").html("<%= number_to_currency(@cart_service.total) %>");
+$("#total_value").html("<%= number_to_currency(@cart_calculator.items_total) %>");
+$("#subtotal_parcial").html("<%= number_to_currency(@cart_calculator.items_subtotal) %>");
 
 if ($('#cart_gift_wrap').is(':checked')){
   $('#subtotal_parcial').append("<div id='embrulho_presente'></div>");
@@ -7,7 +8,7 @@ if ($('#cart_gift_wrap').is(':checked')){
 }else{
   $('#embrulho_presente').remove();
 }
-if ($('#cart_use_credits').is(':checked')){
+if ($('#cart_use_credits').is(':checked') && "<%= total_user_credits %>" != "0.0"){
   $('#subtotal_parcial').append("<div id='credito_fidelidade'></div>");
   var span_target = $('#credito_fidelidade');
   span_target.html("-<%= number_to_currency(total_user_credits) %>");
@@ -26,7 +27,6 @@ $("#total_user_credits").html("<%= number_to_currency(total_user_credits) %>");
   $("#coupon_discount").html("<%= @cart.coupon.code %>");
   $("#coupon_info").show();
   $("#coupon").hide();
-
   $("li#loyalty_credit div.message").html("<%= print_credit_message %>");
   $("li#mgm_credit div.message").html("<%= print_credit_message %>");
 <% else %>
@@ -42,7 +42,7 @@ $("#coupon a#show_coupon_field").show();
 $("#coupon a#show_coupon_field").siblings("form").hide();
 
 // update overall total
-$('table#total tr.total span').text('<%= number_to_currency(@cart_service.total) %>');
+$('table#total tr.total span').text('<%= number_to_currency(@cart_calculator.items_total) %>');
 
 // update item rows discounts and subtotals
 // usually when using coupons on cart show
