@@ -331,8 +331,8 @@ cart/ico-payments.png: cart/ico-payments-82f661173991c5fc68122aee7fafe83d.png
 cart/ico-payments/index.png: cart/ico-payments-82f661173991c5fc68122aee7fafe83d.png
 cart/label_discount2.jpg: cart/label_discount2-7595030e6f37865f9bed4b47c61e6694.jpg
 cart/label_discount2/index.jpg: cart/label_discount2-7595030e6f37865f9bed4b47c61e6694.jpg
-cart/leve4_pague3_banner_sacola.jpg: cart/leve4_pague3_banner_sacola-44506ab0a4c167789f480e999ea1bf33.jpg
-cart/leve4_pague3_banner_sacola/index.jpg: cart/leve4_pague3_banner_sacola-44506ab0a4c167789f480e999ea1bf33.jpg
+cart/leve4_pague3_banner_sacola.jpg: cart/leve4_pague3_banner_sacola-83683f5b4faa96c98b45926cac7a059f.jpg
+cart/leve4_pague3_banner_sacola/index.jpg: cart/leve4_pague3_banner_sacola-83683f5b4faa96c98b45926cac7a059f.jpg
 cart/number_background.png: cart/number_background-d216b7afffe606d676e25a7ad4d287c4.png
 cart/number_background/index.png: cart/number_background-d216b7afffe606d676e25a7ad4d287c4.png
 cart/print-billet.png: cart/print-billet-eff5c37c6428d3ba46b7fbbe53e1ca88.png
@@ -772,6 +772,8 @@ common/select-arrow-down.png: common/select-arrow-down-094112e390294bf2a16a31464
 common/select-arrow-down/index.png: common/select-arrow-down-094112e390294bf2a16a3146413ed257.png
 common/select-bg.png: common/select-bg-086c7da92abcc6139b87a28820e51a67.png
 common/select-bg/index.png: common/select-bg-086c7da92abcc6139b87a28820e51a67.png
+common/seloeBit.png: common/seloeBit-f6820318df98a1376221336e10e87968.png
+common/seloeBit/index.png: common/seloeBit-f6820318df98a1376221336e10e87968.png
 common/seta-verde.png: common/seta-verde-6c7db752d0bc6920ad63d6da710cfab4.png
 common/seta-verde/index.png: common/seta-verde-6c7db752d0bc6920ad63d6da710cfab4.png
 common/shadow_video.png: common/shadow_video-bb8f8e1f5203b9a32da8590e693276b7.png
