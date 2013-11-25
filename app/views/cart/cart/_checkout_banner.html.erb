@@ -1,6 +1,6 @@
 <% if show_checkout_banner? %>
   <div class="checkout_banner">
     <br/>
-    <%= link_to image_tag("cart/leve4_pague3_banner_sacola.jpg"), collection_theme_path('preview_primavera') %>
+    <%= link_to image_tag("cart/leve4_pague3_banner_sacola.jpg"), collection_theme_path('preview_primavera'), onclick: track_event("Cart", "ClickBanner", '') %>
   </div>
 <% end %>
