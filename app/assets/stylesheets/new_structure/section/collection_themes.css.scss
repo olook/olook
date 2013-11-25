@@ -148,12 +148,13 @@ button.nav{
     }
 }
 .collections_header{
+  margin-top: 14px;
   position:relative;
   margin-bottom:15px;
-  height: 290px;
+  height: 140px;
   float: left;
-  a{position:absolute;top:250px;font-size:12px;text-transform:uppercase;color:#000;text-decoration:none;
+  a{position:absolute;top:110px;font-size:11px;text-transform:uppercase;color:#000;text-decoration:none;
     &:hover{text-decoration:underline;}
-    &.video_link{left:52px}
+    &.video_link{left:28px}
   }
 }
