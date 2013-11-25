@@ -1568,7 +1568,7 @@ ul.breadcrumb {
   height:20px !important;
   position: relative !important;
   left:-4px !important;
-  top:0px !important;
+  top:3px !important;
   li {
     float:left;
     display: block;
@@ -1609,4 +1609,8 @@ dl.payment {width:500px;}
 .mercado_pago_button {margin-left:8px;}
 
 a.selecionado {color:$pink !important;}
+
+
+.aceitamos_cartoes {width:172px;height:131px;display: block;float:left;background: image-url('common/nav/sprite_header.png') -360px -16px no-repeat;text-indent: -5000px;}
+.mercado_pago_button {width:125px;height:125px; display: block;float:left;background: image-url('common/nav/sprite_header.png') -361px -153px no-repeat;text-indent: -5000px;}
 
