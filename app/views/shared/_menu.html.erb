@@ -2,7 +2,7 @@
   <nav class="menu_new">
     <div class="content_new">
       <ul class="default_new">
-        <%= cache 'megamenu' do %>
+        <%= cache ["megamenu",mobile?] do %>
           <% present 'Menu', :user => current_user do |menu_presenter| %>
             <%= menu_presenter.render_menu(mobile?) %>
           <% end %>
