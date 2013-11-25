@@ -331,8 +331,8 @@ cart/ico-payments.png: cart/ico-payments-82f661173991c5fc68122aee7fafe83d.png
 cart/ico-payments/index.png: cart/ico-payments-82f661173991c5fc68122aee7fafe83d.png
 cart/label_discount2.jpg: cart/label_discount2-7595030e6f37865f9bed4b47c61e6694.jpg
 cart/label_discount2/index.jpg: cart/label_discount2-7595030e6f37865f9bed4b47c61e6694.jpg
-cart/leve4_pague3_banner_sacola.jpg: cart/leve4_pague3_banner_sacola-44506ab0a4c167789f480e999ea1bf33.jpg
-cart/leve4_pague3_banner_sacola/index.jpg: cart/leve4_pague3_banner_sacola-44506ab0a4c167789f480e999ea1bf33.jpg
+cart/leve4_pague3_banner_sacola.jpg: cart/leve4_pague3_banner_sacola-83683f5b4faa96c98b45926cac7a059f.jpg
+cart/leve4_pague3_banner_sacola/index.jpg: cart/leve4_pague3_banner_sacola-83683f5b4faa96c98b45926cac7a059f.jpg
 cart/number_background.png: cart/number_background-d216b7afffe606d676e25a7ad4d287c4.png
 cart/number_background/index.png: cart/number_background-d216b7afffe606d676e25a7ad4d287c4.png
 cart/print-billet.png: cart/print-billet-eff5c37c6428d3ba46b7fbbe53e1ca88.png
@@ -772,6 +772,8 @@ common/select-arrow-down.png: common/select-arrow-down-094112e390294bf2a16a31464
 common/select-arrow-down/index.png: common/select-arrow-down-094112e390294bf2a16a3146413ed257.png
 common/select-bg.png: common/select-bg-086c7da92abcc6139b87a28820e51a67.png
 common/select-bg/index.png: common/select-bg-086c7da92abcc6139b87a28820e51a67.png
+common/seloeBit.png: common/seloeBit-f6820318df98a1376221336e10e87968.png
+common/seloeBit/index.png: common/seloeBit-f6820318df98a1376221336e10e87968.png
 common/seta-verde.png: common/seta-verde-6c7db752d0bc6920ad63d6da710cfab4.png
 common/seta-verde/index.png: common/seta-verde-6c7db752d0bc6920ad63d6da710cfab4.png
 common/shadow_video.png: common/shadow_video-bb8f8e1f5203b9a32da8590e693276b7.png
@@ -2458,8 +2460,8 @@ new_structure/section/brands.css: new_structure/section/brands-5c8c81f57b005c8fd
 new_structure/section/brands/index.css: new_structure/section/brands-5c8c81f57b005c8fde642c2248d38d97.css
 new_structure/section/clippings.css: new_structure/section/clippings-fbb983a0dd27284da3f271c1841e7f90.css
 new_structure/section/clippings/index.css: new_structure/section/clippings-fbb983a0dd27284da3f271c1841e7f90.css
-new_structure/section/collection_themes.css: new_structure/section/collection_themes-613a38f6455ffb0ee34766c2ac4864bf.css
-new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-613a38f6455ffb0ee34766c2ac4864bf.css
+new_structure/section/collection_themes.css: new_structure/section/collection_themes-332bc1cc325c3c21b983368afee11e30.css
+new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-332bc1cc325c3c21b983368afee11e30.css
 new_structure/section/join.css: new_structure/section/join-22dc2faa126a17fddb685d1b6b0588ac.css
 new_structure/section/join/index.css: new_structure/section/join-22dc2faa126a17fddb685d1b6b0588ac.css
 new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-ad7d23924bdbf8ced6d23b57f72028ea.css
@@ -2480,8 +2482,8 @@ section/box_invite.css: section/box_invite-6d013b6cf45bdf30fa418a29d59180d6.css
 section/box_invite/index.css: section/box_invite-6d013b6cf45bdf30fa418a29d59180d6.css
 section/checkout.css: section/checkout-fe609aedc0ab6aad1e3061d80c1870b8.css
 section/checkout/index.css: section/checkout-fe609aedc0ab6aad1e3061d80c1870b8.css
-section/collections.css: section/collections-86224d32e35e68717fce236119aa0733.css
-section/collections/index.css: section/collections-86224d32e35e68717fce236119aa0733.css
+section/collections.css: section/collections-84ff81735d0b09a3c84a997ab2ef9389.css
+section/collections/index.css: section/collections-84ff81735d0b09a3c84a997ab2ef9389.css
 section/contact.css: section/contact-22cf75f437fe6cb953ebad0a33c182a1.css
 section/contact/index.css: section/contact-22cf75f437fe6cb953ebad0a33c182a1.css
 section/credits.css: section/credits-da3d9d21d55525007bf6f3dc0c1622fa.css
@@ -2516,8 +2518,8 @@ section/login_register.css: section/login_register-60ef117697d18adcc943134fe2365
 section/login_register/index.css: section/login_register-60ef117697d18adcc943134fe2365402.css
 section/loyalty.css: section/loyalty-91724cbe65fa97c90a79cac68b6a7e23.css
 section/loyalty/index.css: section/loyalty-91724cbe65fa97c90a79cac68b6a7e23.css
-section/moments.css: section/moments-d8888384822998eb67a7d75b6270820b.css
-section/moments/index.css: section/moments-d8888384822998eb67a7d75b6270820b.css
+section/moments.css: section/moments-16a7ea563919d5c3eca6849f43585bb2.css
+section/moments/index.css: section/moments-16a7ea563919d5c3eca6849f43585bb2.css
 section/my_account.css: section/my_account-07185abe1a898421f7af468624720d7f.css
 section/my_account/index.css: section/my_account-07185abe1a898421f7af468624720d7f.css
 section/niver-olook.css: section/niver-olook-ac353bd4ce198c200b92c69ab11e55b2.css
