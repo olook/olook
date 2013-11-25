@@ -2458,8 +2458,8 @@ new_structure/section/brands.css: new_structure/section/brands-5c8c81f57b005c8fd
 new_structure/section/brands/index.css: new_structure/section/brands-5c8c81f57b005c8fde642c2248d38d97.css
 new_structure/section/clippings.css: new_structure/section/clippings-fbb983a0dd27284da3f271c1841e7f90.css
 new_structure/section/clippings/index.css: new_structure/section/clippings-fbb983a0dd27284da3f271c1841e7f90.css
-new_structure/section/collection_themes.css: new_structure/section/collection_themes-613a38f6455ffb0ee34766c2ac4864bf.css
-new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-613a38f6455ffb0ee34766c2ac4864bf.css
+new_structure/section/collection_themes.css: new_structure/section/collection_themes-332bc1cc325c3c21b983368afee11e30.css
+new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-332bc1cc325c3c21b983368afee11e30.css
 new_structure/section/join.css: new_structure/section/join-22dc2faa126a17fddb685d1b6b0588ac.css
 new_structure/section/join/index.css: new_structure/section/join-22dc2faa126a17fddb685d1b6b0588ac.css
 new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-ad7d23924bdbf8ced6d23b57f72028ea.css
@@ -2480,8 +2480,8 @@ section/box_invite.css: section/box_invite-6d013b6cf45bdf30fa418a29d59180d6.css
 section/box_invite/index.css: section/box_invite-6d013b6cf45bdf30fa418a29d59180d6.css
 section/checkout.css: section/checkout-fe609aedc0ab6aad1e3061d80c1870b8.css
 section/checkout/index.css: section/checkout-fe609aedc0ab6aad1e3061d80c1870b8.css
-section/collections.css: section/collections-86224d32e35e68717fce236119aa0733.css
-section/collections/index.css: section/collections-86224d32e35e68717fce236119aa0733.css
+section/collections.css: section/collections-84ff81735d0b09a3c84a997ab2ef9389.css
+section/collections/index.css: section/collections-84ff81735d0b09a3c84a997ab2ef9389.css
 section/contact.css: section/contact-22cf75f437fe6cb953ebad0a33c182a1.css
 section/contact/index.css: section/contact-22cf75f437fe6cb953ebad0a33c182a1.css
 section/credits.css: section/credits-da3d9d21d55525007bf6f3dc0c1622fa.css
@@ -2516,8 +2516,8 @@ section/login_register.css: section/login_register-60ef117697d18adcc943134fe2365
 section/login_register/index.css: section/login_register-60ef117697d18adcc943134fe2365402.css
 section/loyalty.css: section/loyalty-91724cbe65fa97c90a79cac68b6a7e23.css
 section/loyalty/index.css: section/loyalty-91724cbe65fa97c90a79cac68b6a7e23.css
-section/moments.css: section/moments-d8888384822998eb67a7d75b6270820b.css
-section/moments/index.css: section/moments-d8888384822998eb67a7d75b6270820b.css
+section/moments.css: section/moments-16a7ea563919d5c3eca6849f43585bb2.css
+section/moments/index.css: section/moments-16a7ea563919d5c3eca6849f43585bb2.css
 section/my_account.css: section/my_account-07185abe1a898421f7af468624720d7f.css
 section/my_account/index.css: section/my_account-07185abe1a898421f7af468624720d7f.css
 section/niver-olook.css: section/niver-olook-ac353bd4ce198c200b92c69ab11e55b2.css
