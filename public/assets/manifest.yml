@@ -2314,8 +2314,8 @@ welcome.js: welcome-977f528ad1c69589419c745b83d88eb2.js
 welcome/index.js: welcome-977f528ad1c69589419c745b83d88eb2.js
 about/normalize.css: about/normalize-b3a32727781c89e0bd714269e2f853f0.css
 about/normalize/index.css: about/normalize-b3a32727781c89e0bd714269e2f853f0.css
-about/style.css: about/style-a474a9f1b90d03bc14c1f50e6e046ccf.css
-about/style/index.css: about/style-a474a9f1b90d03bc14c1f50e6e046ccf.css
+about/style.css: about/style-74104cafc4deb70f8df1eb0ee0777374.css
+about/style/index.css: about/style-74104cafc4deb70f8df1eb0ee0777374.css
 admin.css: admin-3528af83f3c7254425a6c69292d6a490.css
 admin/index.css: admin-3528af83f3c7254425a6c69292d6a490.css
 admin/base.css: admin/base-96e5214e25a9324f01841de103ae3ca6.css
