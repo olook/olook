@@ -612,6 +612,15 @@ ActiveRecord::Schema.define(:version => 20131119201801) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "images", :force => true do |t|
+    t.string   "image"
+    t.integer  "lookbook_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "images", ["lookbook_id"], :name => "index_images_on_lookbook_id"
+
   create_table "invites", :force => true do |t|
     t.integer  "user_id"
     t.string   "email"
@@ -725,6 +734,14 @@ ActiveRecord::Schema.define(:version => 20131119201801) do
     t.string   "movie_image"
   end
 
+  create_table "lookbooks_products", :force => true do |t|
+    t.integer  "lookbook_id"
+    t.integer  "product_id"
+    t.boolean  "criteo",      :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
   create_table "moip_callbacks", :force => true do |t|
     t.integer  "order_id"
     t.string   "id_transacao"
@@ -743,6 +760,13 @@ ActiveRecord::Schema.define(:version => 20131119201801) do
   add_index "moip_callbacks", ["id_transacao"], :name => "index_moip_callbacks_on_id_transacao"
   add_index "moip_callbacks", ["payment_id"], :name => "index_moip_callbacks_on_payment_id"
   add_index "moip_callbacks", ["processed"], :name => "index_moip_callbacks_on_processed"
+
+  create_table "order_events", :force => true do |t|
+    t.integer  "order_id"
+    t.text     "message"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "order_state_transitions", :force => true do |t|
     t.integer  "order_id"
@@ -810,6 +834,24 @@ ActiveRecord::Schema.define(:version => 20131119201801) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
   end
+
+  create_table "payment_responses", :force => true do |t|
+    t.integer  "payment_id"
+    t.string   "response_id"
+    t.string   "response_status"
+    t.text     "token"
+    t.decimal  "total_paid",         :precision => 8, :scale => 2
+    t.decimal  "gateway_fee",        :precision => 8, :scale => 2
+    t.string   "gateway_code"
+    t.string   "transaction_status"
+    t.string   "message"
+    t.string   "transaction_code"
+    t.integer  "return_code"
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
+  end
+
+  add_index "payment_responses", ["payment_id"], :name => "index_payment_responses_on_payment_id"
 
   create_table "payments", :force => true do |t|
     t.integer  "order_id"
@@ -1113,6 +1155,25 @@ ActiveRecord::Schema.define(:version => 20131119201801) do
   add_index "trackings", ["user_id"], :name => "index_trackings_on_user_id"
   add_index "trackings", ["utm_content"], :name => "index_trackings_on_utm_content"
 
+  create_table "used_coupons", :force => true do |t|
+    t.integer  "order_id"
+    t.integer  "coupon_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "used_promotions", :force => true do |t|
+    t.integer  "order_id"
+    t.integer  "promotion_id"
+    t.decimal  "discount_value",   :precision => 10, :scale => 2
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+    t.integer  "discount_percent"
+  end
+
+  add_index "used_promotions", ["order_id"], :name => "index_used_promotions_on_order_id"
+  add_index "used_promotions", ["promotion_id"], :name => "index_used_promotions_on_promotion_id"
+
   create_table "user_credits", :force => true do |t|
     t.integer  "credit_type_id"
     t.integer  "user_id"
@@ -1225,17 +1286,6 @@ ActiveRecord::Schema.define(:version => 20131119201801) do
   add_index "variants", ["number"], :name => "index_variants_on_number"
   add_index "variants", ["product_id", "is_master"], :name => "index_variants_on_product_id_and_is_master"
   add_index "variants", ["product_id"], :name => "index_variants_on_product_id"
-
-  create_table "versions", :force => true do |t|
-    t.string   "item_type",  :null => false
-    t.integer  "item_id",    :null => false
-    t.string   "event",      :null => false
-    t.string   "whodunnit"
-    t.text     "object"
-    t.datetime "created_at"
-  end
-
-  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
   create_table "videos", :force => true do |t|
     t.string   "title"
