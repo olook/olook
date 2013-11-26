@@ -16,7 +16,7 @@
       %ul.social-list
         %li.like
           %like{:href => "http://olook.com.br/produto/#{product_permalink(@product)}", :layout => "button_count", :send => "false", :show_faces => "false", :width => "110"}
-        %li= link_to image_tag("product/ask_gift_button.jpg"), "javascript:void(0)", class: "face-message", onclick:  track_event('AskGiftButton', "ClickAskGiftButton")
+        %li.fb_bt= link_to image_tag("product/ask_gift_button.jpg"), "javascript:void(0)", class: "face-message", onclick:  track_event('AskGiftButton', "ClickAskGiftButton")
         %li.twitter
           %a.twitter-share-button{"data-count" => "none", "data-hashtags" => "ficaadica", "data-lang" => "pt", :href => "https://twitter.com/share?text= #{share_description(@product)}"} Tweetar
         %li.pinterest
