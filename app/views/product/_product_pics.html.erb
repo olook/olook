@@ -3,9 +3,9 @@
     <%- @first_pic_id ||= picture.id -%>
     <li><%= link_to image_tag(picture.image_url(:thumb).to_s), "javascript:void(0);", :rel => "product_#{picture.id}", :class=>"load-async-#{picture.id}" %></li>
   <% end %>
-    <% if belongs_to_p_and_b_collection? @product.id %>
+    <% unless @product.youtube_token.blank? %>
       <li class="vwo_1378925044720">
-        <a href="javascript:void(0);" onclick="javascript:initBase.newModal(initBase.youtubePlayer('YkBgFKanVgQ'));" rel= "product_<%= @first_pic_id %>" class="load-async-<%= @first_pic_id %>" >
+        <a href="javascript:void(0);" onclick="<%= track_event("Product", "ClickVideo", @product.id.to_s) %>;javascript:initBase.newModal(initBase.youtubePlayer(initBase.youtubeParser('<%= @product.youtube_token %>')));" rel= "product_<%= @first_pic_id %>" class="load-async-<%= @first_pic_id %>" >
           <img alt="Thumb_image-315f3051a45c2d84e537b23bbf109d89559513775f7caabd1f7bea528ff0a36c." src="//useruploads.visualwebsiteoptimizer.com/useruploads/17517/images/84b46068a48e588ee947f39ce6998a69_modal_video.jpg" class="vwo_1378925047103">
         </a>
       </li>
