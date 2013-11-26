@@ -83,7 +83,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     
     .warn_discount{
       position:absolute;
-      top:56px;
+      top:42px;
       right:48px;
       width:154px;
       height:40px;
@@ -118,10 +118,13 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         li {padding:0;margin-right: 10px;display:inline-block;
           &.like{margin-right: 4px !important;margin-left: 15px;}
           &.twitter{position: relative;top: -1px;}
-          &.pinterest{position: relative;top: -1px;}
-          a{display:inline;padding:0;width:100%;margin:0;}
+          &.pinterest{position: relative;top: -8px;}
+          &.fb_bt{position: relative;top: -8px;}
+          a{display:inline;padding:0;width:100%;margin:0;
+            &.like{top: -8px;position: relative;}
+          }
           &.email{margin: 0;
-            a{float:left;font-size:0;display:block;width:25px;height:20px;background: image-url('product/new_page_sprite.png') 0 -94px no-repeat;position: relative;margin-bottom: 2px;}
+            a{float:left;font-size:0;display:block;width:25px;height:20px;background: image-url('product/new_page_sprite.png') 0 -94px no-repeat;position: relative;margin-bottom: 1px;}
           }
           
         }
@@ -148,8 +151,8 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       ol {width: 290px;float: left;
         li {margin: 0 7px 0 0;float: left;
           &:first-child {margin-left: 0;}
-          &.size_guide,&.size_guide.selected{background: image-url('common/guide.png') no-repeat !important; height: 28px;padding-left:15px;width:60px;line-height: 13px;
-            a{font-size: 12px;color: #ef3742;text-decoration: underline;} 
+          &.size_guide,&.size_guide.selected{background: image-url('common/guide.png') no-repeat !important; height: 34px;padding-left:15px;width:60px;line-height: 13px;
+            a{font-size: 12px;color: #ef3742;text-decoration: underline;line-height: 14px;} 
           }
           label{font-weight: normal;line-height: 28px;text-align: center;min-width: 24px;height: 24px;display: inline-block;cursor: pointer;line-height:28px;
             span {font-size: 10px;}
