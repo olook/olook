@@ -25,7 +25,7 @@ class MercadoPagoPayment < Payment
   def create_preferences address
     phone = address.telephone
 
-    items = cart.items.map do |item|
+    items = cart.items.select{|i| i.retail_price.to_f > 0}.map do |item|
       {
         'id' => item.id,
         'title' => item.name,
