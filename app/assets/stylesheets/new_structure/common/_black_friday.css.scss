@@ -80,6 +80,8 @@ body {
 		ul.warnings {
 			background:#000;
 			margin-top:0px;
+			position: relative;
+			top:-19px;
 			li img {display: none;}
 			li {
 				width:100%;
