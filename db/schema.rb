@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131119201801) do
+ActiveRecord::Schema.define(:version => 20131126134610) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -639,6 +639,15 @@ ActiveRecord::Schema.define(:version => 20131119201801) do
     t.integer  "product_id"
   end
 
+  create_table "liquidation_previews", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "visibility"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "liquidation_previews", ["product_id"], :name => "index_liquidation_previews_on_product_id"
+
   create_table "liquidation_products", :force => true do |t|
     t.integer  "liquidation_id"
     t.integer  "product_id"
@@ -915,6 +924,7 @@ ActiveRecord::Schema.define(:version => 20131119201801) do
     t.decimal  "weight",           :precision => 8,  :scale => 2
     t.decimal  "retail_price",     :precision => 10, :scale => 2
     t.integer  "discount_percent"
+    t.string   "youtube_token"
   end
 
   add_index "products", ["category"], :name => "index_products_on_category"

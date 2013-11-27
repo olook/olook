@@ -416,7 +416,9 @@ $(document).ready(function() {
   });
 
   $("a.mercado_pago_button").click(function(e){
-      content = $("div.mercado_pago");
+      var content = $("div.mercado_pago");
+      var img = content.data('url');
+      content.append("<img src='" + img + "' />");
       content.css({'width': '800px', 'height': '640px'});
       initBase.newModal(content);
       e.preventDefault();
@@ -458,7 +460,7 @@ initBase = {
   },
 
   youtubePlayer : function(yt_id) {
-    return "<div style='width:791px;height:445px;'><iframe width='791' height='445' src='http://www.youtube.com/embed/"+ yt_id +"?rel=0&enablejsapi=1&autoplay=1&vq=large' frameborder='0'></iframe></div>";
+    return "<div style='width:791px;height:445px;'><iframe width='791' height='445' src='//www.youtube.com/embed/"+ yt_id +"?rel=0&enablejsapi=1&autoplay=1&vq=large' frameborder='0'></iframe></div>";
   },
 
   newModal : function(content){
