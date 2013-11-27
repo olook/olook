@@ -122,7 +122,7 @@
       = f.label :big_banner
       %br/
       = f.file_field :big_banner
-      - if f.object.big_banner?
+      - if f.object.big_banner? && f.object.big_banner_url
         = image_tag(f.object.big_banner, style: 'max-width: 500px')
         %br/
         = f.check_box :remove_big_banner, style: 'width: 10px'

@@ -152,6 +152,7 @@ Olook::Application.routes.draw do
   match "/shopear" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/shopear_data.xml")
   match "/melt" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/melt_data.xml")
   match "/stylight" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/stylight_data.xml") 
+  match "/all_in" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/all_in_data.xml") 
   
   # template da ilove_ecommerce
   match "/parceirosmkt" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/parceirosmkt_data.xml") 
@@ -414,6 +415,8 @@ Olook::Application.routes.draw do
     get "visibility_batch/export", as: :export_visibility_batch_to_csv
 
     post "visibility_batch/create", as: :create_visibility_batch
+    get "visibility_batch/commit", as: :commit_visibility_batch    
+    get "visibility_batch/confirmation", as: :confirmation_visibility_batch
   end
 
   #USER / SIGN IN

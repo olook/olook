@@ -360,7 +360,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
             font-size: 13px;
             text-decoration: none;
             width:100%;
-            overflow-x:hidden;
+            overflow: hidden;
             br {display: none;}
             span.name {
               width:300px;
@@ -383,7 +383,6 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
               float:right;
               margin-right:1px;
               position: relative;
-              top: -3px;
               margin-bottom:-3px;
             }
           }
