@@ -11,7 +11,7 @@ class SearchController < ApplicationController
       redirect_to catalog_path(category: @singular_word)
     else
       @search = SearchEngine.new(term: @q, brand: search_params[:brand], subcategory: search_params[:subcategory])
-        .for_page(search_params[:page])
+        .for_page(params[:page])
         .with_limit(48)
       @url_builder = SeoUrl.new(search_params, nil, @search)
     end
