@@ -16,7 +16,9 @@ body {
 						width:192px;
 					}
 				}
+
 			}
+
 			.box_left p,
 			.box_left p a.contact,
 			.box_right li.first,
@@ -26,6 +28,12 @@ body {
 				color:#FFF;
 			}
 			.box_right li.submenu * {box-shadow: none !important;}
+			.box_right {
+				.user {
+					ul li.submenu {top:1px;}
+				}
+				.new_login {color:#FFF;}
+			}
 		}
 		li.username {background: none !important;}
 		li a#account {
@@ -71,10 +79,15 @@ body {
 				background-image: image-url('common/nav/sprite_header_bf.png');
 				background-color: #000;
 			}
-			.new_sacola .selecionado {background-color:#FFF;}
-
+			.cart:hover,
+			.new_sacola a.selecionado {background-image: image-url('common/nav/sprite_header.png');background-color:#FFF;}
+		}
+		&.fixed {
+			padding-top:0px;
+			.menu_new {padding-top:10px;}
 		}
 	}
+
 	div#content {
 		top: 0px;
 		ul.warnings {
