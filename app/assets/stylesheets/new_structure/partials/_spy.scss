@@ -40,8 +40,9 @@ BOX MODAL ESPIAR
   ul.social-list {float:left; width:417px;margin-top:-7px !important;
     li {padding:0;margin-right: 10px;display:inline-block;
       &.like{margin-right: 4px !important;margin-left: 23px;position: relative; top: 8px;}
-      &.twitter{position: relative;top: 7px !important;}
-      &.pinterest{position: relative;top: -1px;}
+      &.twitter{position: relative;top: 17px !important;}
+      &.pinterest{position: relative;top: 10px !important;}
+      &.fb_bt{position: relative;top: 10px !important;}
       a{display:inline;padding:0;width:100%;margin:0;}
       &.email{
         margin: 0;
@@ -54,7 +55,7 @@ BOX MODAL ESPIAR
           background: image-url('product/new_page_sprite.png') 0 -94px no-repeat;
           position: relative;
           margin-bottom: 2px;
-          top: 7px;
+
         }
       }
     }
