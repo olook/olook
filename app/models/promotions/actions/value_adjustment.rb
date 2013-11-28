@@ -26,14 +26,25 @@ class ValueAdjustment < PromotionAction
         eligible_items.reject! { |item| item.product.price != item.product.retail_price } if markdown_discount > value
       end
     end
-    adjustment = value / eligible_items.size
+    
+    cart_total = eligible_items.inject(0) {|total, item| total += item.retail_price * item.quantity}
+
+
     eligible_items.each do |item|
+      adjustment = calculate_adjustment_value_for(value, cart_total, item.retail_price * item.quantity)
       calculated_values << {
         id: item.id,
         product_id: item.product.id,
         adjustment: adjustment
       }
     end
+
     calculated_values
   end
+
+  private
+    def calculate_adjustment_value_for value, cart_total, current_item_value=0
+      calculated_adjustment = value / cart_total * current_item_value
+      [calculated_adjustment.round(2), current_item_value].min
+    end
 end
