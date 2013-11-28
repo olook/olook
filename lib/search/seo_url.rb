@@ -104,7 +104,7 @@ class SeoUrl
     end
 
     def from_olooklet?
-      /^\/olooklet\-teste(\/)*/ =~ @path
+      /^\/olooklet(\/)*/ =~ @path
     end
 
     def parse_brands_params
