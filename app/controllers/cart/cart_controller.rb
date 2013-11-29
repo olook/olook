@@ -13,11 +13,6 @@ class Cart::CartController < ApplicationController
     @url += ":" + request.port.to_s if request.port != 80
     @chaordic_cart = ChaordicInfo.cart(@cart, current_user, cookies[:ceid])
     @suggested_product = find_suggested_product
-
-    @promo_over_coupon = false
-    if @cart.coupon_id && Promotion.select_promotion_for(@cart)
-      @promo_over_coupon = true
-    end
   end
 
   def destroy
@@ -37,11 +32,6 @@ class Cart::CartController < ApplicationController
   end
 
   def update
-    if Promotion.select_promotion_for(@cart)
-      params[:cart].delete(:coupon_code)
-      render :error, :locals => { :notice => "Os descontos não são acumulativos, Você não pode usar um cupom em uma promoção do site, por exemplo" }
-    end
-
     @cart.update_attributes(params[:cart])
     
     if @cart.errors.any?
