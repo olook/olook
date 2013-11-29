@@ -95,6 +95,8 @@ body {
 			margin-top:0px;
 			position: relative;
 			top:-19px;
+			height:63px;
+			margin-bottom:0px;
 			li img {display: none;}
 			li {
 				width:100%;
@@ -103,5 +105,6 @@ body {
 				background: image-url('common/nav/sprite_header_bf.png') no-repeat 9px -260px;
 			}
 		}
+		#carousel {top:-10px;}
 	}
 }
