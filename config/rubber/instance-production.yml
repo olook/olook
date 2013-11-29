@@ -79,3 +79,43 @@
   platform: linux
   root_device_type: ebs
   provider: aws
+- !ruby/object:Rubber::Configuration::InstanceItem
+  name: resque03
+  domain: olook.com.br
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque_worker
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: newrelic
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: collectd
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: monit
+    options: {}
+  instance_id: i-56e90e2d
+  image_type: m1.large
+  image_id: ami-3fec7956
+  security_groups:
+  - olook_production_default
+  - olook_production_resque03
+  - olook_production_resque
+  - olook_production_resque_worker
+  - olook_production_newrelic
+  - olook_production_collectd
+  - olook_production_monit
+  external_host: ec2-54-227-2-184.compute-1.amazonaws.com
+  external_ip: 54.227.2.184
+  internal_host: ip-10-158-99-20.ec2.internal
+  internal_ip: 10.158.99.20
+  zone: us-east-1b
+  platform: linux
+  root_device_type: ebs
+  provider: aws
+- volumes: {}
+  static_ips: {}
