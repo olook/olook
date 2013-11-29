@@ -1,3 +1,14 @@
 #mm_olooklet.submenu
-	%p Preços incríveis. Até 80% OFF
-	= link_to 'APROVEITE', collection_theme_path(collection_theme: 'sale'), :class => "link"
+	%p Preços incríveis. Até 75% OFF
+	%span.column.first
+		%ul
+			%li
+				= link_to 'Roupas', olooklet_path(parameters: 'roupa'), :class => 'sub_menu'
+			%li
+				= link_to 'Sapatos',olooklet_path(parameters: 'sapato'), :class => 'sub_menu'
+			%li 
+				= link_to 'Bolsas', olooklet_path(parameters: 'bolsa'), :class => 'sub_menu'
+			%li 
+				= link_to 'Acessórios', olooklet_path(parameters: 'acessorio'), :class => 'sub_menu'
+			%li 
+				= link_to 'Moda Praia', olooklet_path(parameters: 'moda praia'), :class => 'sub_menu'

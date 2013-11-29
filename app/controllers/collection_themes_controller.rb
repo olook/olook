@@ -10,9 +10,6 @@ class CollectionThemesController < SearchController
     search_params = SeoUrl.parse(request.fullpath)
     Rails.logger.debug("New params: #{params.inspect}")
 
-    #FIXME remove this line ASAP
-    params[:cmp] = "trabalho-27112013 " if params[:collection_theme] == "executivo"
-
     @campaign = HighlightCampaign.find_campaign(params[:cmp])
     @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(48)
     params.merge!(search_params)
