@@ -6,7 +6,7 @@ nav.menu_new{
       p, a {margin:0px;border:0px;text-transform: none;line-height: 16px !important;color:#000;background: none;font-size: 12px;}
       a.link, a:hover {padding:0px !important;margin:0px !important;border:0px !important; background: #000 !important;top:0px !important;}
       a.link {color:#FFF;margin-top: 10px !important;color: #FFF;text-align: center;padding-top: 8px !important;padding-bottom: 6px !important;height:18px;letter-spacing: 1px !important;font-size: 11px !important;}
-      h5 {width:100%;display: block;font-size: 10px;font-weight: bold;height:25px;margin-bottom:3px;letter-spacing: 2px;}
+      h5 {width:100%;display: block;font-size: 11px;font-weight: bold;height:25px;margin-bottom:3px;letter-spacing: 2px;}
       ul, li {display: block;float:left;width:100%;height:auto;text-transform: none;}
     li {height: auto !important;height: 4px;min-height: 4px;line-height: 12px;margin-bottom: 6px;}
   }
@@ -66,11 +66,11 @@ nav.menu_new{
   }
 
   #mm_bolsas, #mm_acessorios {
-    width: 90px;left: 417px;padding-left: 11px;
+    width: 90px;left: 396px;padding-left: 11px;
   }
 
   #mm_acessorios {
-    width:100px;left:486px;
+    width:100px;left:463px;
   }
 
   #mm_marcas {
@@ -85,7 +85,8 @@ nav.menu_new{
     width:160px;
   }
 
-  #mm_olooklet {right:36px;
+  #mm_olooklet {
+    right:66px;
     width:180px;
   }
   .image {margin-top: 10px;padding-bottom: 10px;}
