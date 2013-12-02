@@ -104,7 +104,7 @@ group :development, :test do
   gem 'fuubar'
   gem "vcr", "~> 2.5.0"
   gem 'ci_reporter', :git => 'git://github.com/nicksieger/ci_reporter.git', require: false
- # gem 'jasmine'
+ gem 'jasmine'
   gem 'binding_of_caller'
   gem 'rack-mini-profiler', '~> 0.1.23'
 end
