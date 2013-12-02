@@ -17,7 +17,7 @@
       catalog: -> { render("catalogs/filters", search: @search, category: @category) } )
   - if @custom_url.big_banner?
     .promo_catalog
-      =link_to image_tag(@custom_url.big_banner, alt: @custom_url.alt_big_banner, title: @custom_url.alt_big_banner), @custom_url.link_big_banner
+      = big_banner_img_for @custom_url
   - if @custom_url.small_banner?
     .banners_group
       %ul

@@ -104,7 +104,7 @@ class SeoUrl
     end
 
     def from_olooklet?
-      /^\/olooklet\-teste(\/)*/ =~ @path
+      /^\/olooklet(\/)*/ =~ @path
     end
 
     def parse_brands_params
@@ -129,7 +129,7 @@ class SeoUrl
     end
 
     def parse_olooklet_params
-      /^(?:\/olooklet\-teste)(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
+      /^(?:\/olooklet)(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end
