@@ -1,0 +1,15 @@
+            Para darmos continuidade, só falta o pagamento do boleto:<br><br>
+<center><a href="<%= "#{root_url}#{order_show_path(payment.order.number)}" %>" style="cursor:pointer;text-decoration:none;"><input name="botao" type="button" value="IMPRIMIR BOLETO" style="color:white;font-size:17px;background:#e82e3a;width:220px;height:50px;border:none;cursor:pointer;text-decoration:none;"  target="_blank"></a></center>
+
+<br><br>
+Logo, logo vamos enviar um e-mail com o novo status da sua compra. Qualquer dúvida, pode falar com a gente: <a href="mailto:falecom@olook.com.br" style="color:#e82e3a" target="_blank">falecom@olook.com.br</a><br><br>
+
+Até mais ;)<br>
+Equipe Olook<br>
+<a href="http://www.olook.com.br/?utm_source=olook&amp;utm_medium=email&amp;utm_campaign=transacional&amp;utm_content=t_pedido_recebido_urlfinal_boleto&amp;auth_token=<%= @order.user.authentication_token %>" style="color:#e82e3a;" target="_blank">www.olook.com.br</a>
+        </td>
+      </tr>
+
+    </td></tr></table>
+  </td>
+</tr>
