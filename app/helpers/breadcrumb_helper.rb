@@ -21,7 +21,7 @@ module BreadcrumbHelper
   end
 
   def olooklet_breadcrumbs_for(title, style_class="breadcrumb")
-    second_level_breadcrumb("Olooklet", "/olooklet-teste", "Olooklet", title, style_class)
+    second_level_breadcrumb("Olooklet", "/olooklet", "Olooklet", title, style_class)
   end  
 
   private
