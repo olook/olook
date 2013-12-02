@@ -117,9 +117,9 @@
          <nav class="menu_new">
            <div class="content_new">
              <ul class="default_new">
-               <%= cache ["megamenu",mobile?] do %>
-                 <%= MenuPresenter.new(self, :user => current_user).render_menu(mobile?) %>
-               <% end %>
+                <%= cache ["megamenu",mobile?] do %>
+                   <%= MenuPresenter.new(self, :user => current_user).render_menu(mobile?) %>
+                <% end %>
              </ul>
              <div class="new_sacola">
                <%= link_to "MINHA SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %>

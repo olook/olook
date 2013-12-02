@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class MercadoPagoPayment < Payment
+  before_create :set_payment_expiration_date
 
   def to_s
     "MercadoPago"
@@ -24,7 +25,7 @@ class MercadoPagoPayment < Payment
   def create_preferences address
     phone = address.telephone
 
-    items = cart.items.map do |item|
+    items = cart.items.select{|i| i.retail_price.to_f > 0}.map do |item|
       {
         'id' => item.id,
         'title' => item.name,
@@ -88,9 +89,10 @@ class MercadoPagoPayment < Payment
       Rails.logger.info("[MERCADOPAGO] Creating preference. preference_data=#{preference_data.inspect}")
       preference = MP.create_preference(preference_data)
       Rails.logger.info("[MERCADOPAGO] preference created=#{preference.inspect}")
+      update_attribute(:url, preference['response'][MP.init_point])
     rescue => e
       Rails.logger.info("[MERCADOPAGO] Error creating preference: #{e}")
+      raise e
     end
-    update_attribute(:url, preference['response'][MP.init_point])
   end
 end

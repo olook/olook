@@ -5,7 +5,7 @@ module BreadcrumbHelper
   end
 
   def product_breadcrumbs_for(product, style_class="breadcrumb")
-    second_level_breadcrumb(product.category_humanize.titleize.pluralize, "/#{product.category_humanize.downcase}", "Brand", "Product", style_class)
+    second_level_breadcrumb(product.category_humanize.titleize.pluralize, "/#{product.category_humanize.downcase}", "Product",product.formatted_name(200), style_class)
   end  
 
   def brand_breadcrumbs_for(brand, style_class="breadcrumb")
@@ -21,7 +21,7 @@ module BreadcrumbHelper
   end
 
   def olooklet_breadcrumbs_for(title, style_class="breadcrumb")
-    second_level_breadcrumb("Olooklet", "/olooklet-teste", "Olooklet", title, style_class)
+    second_level_breadcrumb("Olooklet", "/olooklet", "Olooklet", title, style_class)
   end  
 
   private

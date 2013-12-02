@@ -94,44 +94,20 @@ footer {
         }
       }
       dd {
-        ul.social {
-          width: 100%;
-          overflow: auto;
-          margin: 15px 0 0 0;
+        ul.social {width: 100%;overflow: auto;margin: 15px 0 0 0;
           li {
-            a {
-              background: image-url("home/social.png") no-repeat;
-              text-indent: -99999px;
-              width: 24px;
-              height: 24px;
-              margin: 0 6px 0 0;
-              display: block;
-              float: left;
-
+            a {background: image-url('common/nav/sprite_header.png') no-repeat;text-indent: -99999px;width: 24px;height: 24px;margin: 0 6px 0 0;display: block;float: left;}
+            &.facebook a {background-position: -10px -299px;
+              &:hover {background-position: -10px -265px;}
             }
-            &.facebook a {
-              background-position: 0 -34px;
-              &:hover {
-                background-position: 0 0px;
-              }
+            &.twitter a {background-position: -38px -299px;
+              &:hover {background-position: -38px -265px;}
             }
-            &.twitter a {
-              background-position: -28px -34px;
-              &:hover {
-                background-position: -28px 0px;
-              }
+            &.rss a {background-position: -68px -299px;
+              &:hover {background-position: -68px -265px;}
             }
-            &.rss a {
-              background-position: -58px -34px;
-              &:hover {
-                background-position: -58px 0px;
-              }
-            }
-            &.instagram a {
-              background-position: -89px -35px;
-              &:hover {
-                background-position: -89px 0px;
-              }
+            &.instagram a {background-position: -99px -300px;
+              &:hover {background-position: -99px -265px;}
             }
           }
         }
@@ -166,7 +142,10 @@ footer {
   .mercado_pago {
     display: none;
   }
+
+
 }
   
+
 
   
