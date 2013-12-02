@@ -3,6 +3,8 @@
 //= require credit_card
 //= require string_utils
 //= require plugins/spy
+//= require ./partials/_modal
+//= require plugins/valentines_day
 
 $(function(){
   initProduct.loadAll();
@@ -61,7 +63,7 @@ initProduct = {
       $("ul.social-list li.email").on("click", function(e){
         e.preventDefault();
         e.stopPropagation();
-        initBase.newModal(content);
+        modal.show(content);
       });
     }
     $("#compartilhar_email form").submit(function(){
