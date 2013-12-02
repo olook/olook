@@ -10,6 +10,7 @@
 @import 'new_structure/common/cart_summary';
 
 
+
 body {
   #error_explanation {
     margin: 0 0 15px;
@@ -101,17 +102,7 @@ body {
     }
   }
 
-  a#go_top {
-    position: fixed;
-    background: image-url('common/arrow-go-top.png') no-repeat;
-    text-indent: -99999px;
-    width: 40px;
-    height: 40px;
-    right: 40px;
-    bottom: 45%;
-    z-index: 5;
-    display: none;
-  }
+  a#go_top {position: fixed;background: image-url('common/nav/sprite_header.png') no-repeat -492px -153px;text-indent: -99999px;width: 40px;height: 40px;right: 40px;bottom: 45%;z-index: 5;display: none;}
 
   div#content {
     position:relative;
@@ -879,7 +870,7 @@ body {
             text-decoration: none;
             &#info_user {color:#000;padding-right: 10px;}
             &#account {
-                background: image-url('common/arrow-down-pink.png') right 7px no-repeat;color: #000;text-align: left;width: auto;min-width: 70px;height: 17px;margin: -6px 0 0;padding: 5px 20px 5px 8px;display: inline-block;border: 1px #FFF solid;float: none;line-height:17px;
+                background: image-url('common/nav/sprite_header.png') no-repeat 74px -219px;color: #000;text-align: left;width: auto;min-width: 70px;height: 17px;margin: -6px 0 0;padding: 5px 20px 5px 8px;display: inline-block;border: 1px #FFF solid;float: none;line-height:17px;
                 &:hover, &.hover {text-decoration: none;border-color: #CCC;box-shadow:0px 2px 5px #CCC;color: #ef3742;}
               &:hover {color: #ef3742;}
             }
@@ -957,12 +948,7 @@ header#new_header{
   min-height: 109px;
 
   .new_content{
-      border-top: 2px black solid;
-      height: 84px;
-      padding-top:15px;
-      width: 990px;
-      margin: 0 auto;
-      background: image-url('common/nowflakes.png') no-repeat center -4px;
+      height: 84px;padding-top:15px;width: 990px;margin: 0 auto;background: image-url('common/nav/sprite_header.png') no-repeat 250px -413px;border-top:2px solid #000;
       .box_left{
         font-family: $avenir;
         font-size: 10px;
@@ -990,49 +976,17 @@ header#new_header{
         width: 150px;
         float: left;
         clear: both;
-        a.social_facebook{
-          background: image-url('common/nav/sprite_header.png') 0 0;
-          width: 22px;
-          height: 22px;
-          text-indent: -9999px;
-          display: block;
-          float: left;
-          &:hover{
-            background: image-url('common/nav/sprite_header.png') 0 -31px;
-          }
+        a.social_facebook{background: image-url('common/nav/sprite_header.png') 0 0;width: 22px;height: 22px;text-indent: -9999px;display: block;float: left;
+          &:hover{background: image-url('common/nav/sprite_header.png') 0 -31px;}
         }
-        a.social_twitter{
-          background: image-url('common/nav/sprite_header.png') -22px 0;
-          width: 22px;
-          height: 22px;
-          text-indent: -9999px;
-          display: block;
-          float: left;
-          &:hover{
-            background: image-url("common/nav/sprite_header.png") no-repeat -22px -31px;
-          }
+        a.social_twitter{background: image-url('common/nav/sprite_header.png') -22px 0;width: 22px;height: 22px;text-indent: -9999px;display: block;float: left;
+          &:hover{background: image-url("common/nav/sprite_header.png") no-repeat -22px -31px;}
         }
-        a.social_rss{
-          background: image-url("common/nav/sprite_header.png") no-repeat -46px 0;
-          width: 22px;
-          height: 22px;
-          text-indent: -9999px;
-          display: block;
-          float: left;
-          &:hover{
-            background: image-url("common/nav/sprite_header.png") no-repeat -46px -31px;
-          }
+        a.social_rss{background: image-url("common/nav/sprite_header.png") no-repeat -46px 0;width: 22px;height: 22px;text-indent: -9999px;display: block;float: left;
+          &:hover{background: image-url("common/nav/sprite_header.png") no-repeat -46px -31px;}
         }
-        a.social_instagram{
-          background: image-url("common/nav/sprite_header.png") no-repeat -71px -1px;
-          width: 22px;
-          height: 22px;
-          text-indent: -9999px;
-          display: block;
-          float: left;¨
-          &:hover{
-            background: image-url("common/nav/sprite_header.png") no-repeat -71px -31px;
-          }
+        a.social_instagram{background: image-url("common/nav/sprite_header.png") no-repeat -71px -1px;width: 22px;height: 22px;text-indent: -9999px;display: block;float: left;
+          &:hover{background: image-url("common/nav/sprite_header.png") no-repeat -71px -31px;}
         }
       }
       .olook_logo{width: 190px;height: 57px;margin: 0 auto;padding-top: 5px;
@@ -1046,7 +1000,7 @@ header#new_header{
         }
       }
       
-      p.trade{background: image-url('common/trade_arrows.png') no-repeat top left;float:left;font-size:11px;color:#000;line-height:18px;margin-left: 10px;
+      p.trade{background: image-url('common/nav/sprite_header.png') no-repeat -10px -197px;float:left;font-size:11px;color:#000;line-height:18px;margin-left: 10px;
          a{text-decoration:none;color:#000;padding-left: 30px;
             &:hover{text-decoration:none; color: $pink;}
          }
@@ -1568,7 +1522,7 @@ ul.breadcrumb {
   height:20px !important;
   position: relative !important;
   left:-4px !important;
-  top:0px !important;
+  top:3px !important;
   li {
     float:left;
     display: block;
@@ -1606,7 +1560,9 @@ ul.breadcrumb {
 }
 
 dl.payment {width:500px;}
-.mercado_pago_button {margin-left:8px;}
 
 a.selecionado {color:$pink !important;}
+
+.aceitamos_cartoes {width:172px;height:131px;display: block;float:left;background: image-url('common/nav/sprite_header.png') -360px -16px no-repeat;text-indent: -5000px;}
+.mercado_pago_button {width:125px;height:125px; display: block;float:left;background: image-url('common/nav/sprite_header.png') -361px -153px no-repeat;text-indent: -5000px;}
 

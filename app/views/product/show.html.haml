@@ -34,8 +34,7 @@
       = product_presenter.render_facebook_comments
   .box-right
     #product-details
-      = cache "description/#{@product.id}", expire_in: 30.minutes do
-        = product_presenter.render_description
+      = product_presenter.render_description
       = product_presenter.render_add_to_cart
       = cache "details/#{@product.id}", expire_in: 30.minutes do
         = product_presenter.render_details
