@@ -124,12 +124,12 @@ module Payments
     end
 
     def remove_nine_digits_of_telephone(phone_number)
-      phone_number.gsub!("(11)9","(11)") if phone_number =~ /^\(11\)9\d{4}-\d{4}$/
+      phone_number.gsub!("(11)9","(11)") if phone_number =~ /^\(\d{2}\)9\d{4}-\d{4}$/
       phone_number
     end
 
     def fix_telephone_mask(phone_number)
-      if phone_number =~ /^\(11\)\d{5}-\d{3}$/
+      if phone_number =~ /^\(\d{2}\)\d{5}-\d{3}$/
         phone_number.gsub!("-", "")
         phone_number.insert 8, "-"
       end
