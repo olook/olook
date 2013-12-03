@@ -225,8 +225,10 @@ class Product < ActiveRecord::Base
 
   def set_master_variant(variant)
     @master_variant_found = true
-    variant.product = self
-    @master_variant = variant
+    if variant
+      variant.product = self
+      @master_variant = variant
+    end
   end
 
   def colors(size = nil, admin = false)
