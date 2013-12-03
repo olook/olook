@@ -380,6 +380,10 @@ class User < ActiveRecord::Base
     self.cpf && Cpf.new(self.cpf).valido?
   end
 
+  def profile
+    read_attribute(:profile).nil? ? self.profile_name : read_attribute(:profile)
+  end
+
   private
 
   def generate_invite_token
