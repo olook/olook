@@ -81,8 +81,8 @@ describe CartService do
   end
 
   context ".item_price" do
-    it "should return price from master variant" do
-      cart.items.first.variant.product.master_variant.update_attribute(:price, 20)
+    it "should return price from product.price" do
+      cart.items.first.variant.product.update_attribute(:price, 20)
       cart_service.item_price(cart.items.first).should eq(20)
     end
   end
@@ -183,7 +183,7 @@ describe CartService do
 
   context ".is_minimum_payment?" do
     before :each do
-      master_variant = cart.items.first.variant.product.master_variant
+      master_variant = cart.items.first.variant.product
       master_variant.update_attribute(:price, 50)
       master_variant.update_attribute(:retail_price, 50)
       cart.update_attribute(:use_credits, true)
@@ -218,7 +218,7 @@ describe CartService do
     let(:empty_user_credit) { mock_model(UserCredit, total: 0) }
 
     before :each do
-      master_variant = cart.items.first.variant.product.master_variant
+      master_variant = cart.items.first.variant.product
       master_variant.update_attribute(:price, 100)
       master_variant.update_attribute(:retail_price, 100)
       cart_service.cart.coupon = nil
@@ -398,17 +398,15 @@ describe CartService do
     before do
       @cart_item = cart.items.first
       @cart_item.update_attribute(:quantity, 1)
-      @cart_item.variant.product.master_variant.update_attribute(:price, 20)
+      @cart_item.variant.product.update_attribute(:price, 20)
     end
 
     context "when item doesnt have promotion adjustment" do
 
       it "should return current retail price" do
-        @cart_item.variant.product.master_variant.update_attribute(:retail_price, 10)
+        @cart_item.variant.product.update_attribute(:retail_price, 10)
         cart_service.item_retail_price(@cart_item).should eq(10)
       end
-
-      pending " TODO !!! More specs "
     end
 
     context "when item has a promotion adjustment" do
@@ -418,8 +416,8 @@ describe CartService do
       end
 
       it "should return promotion price" do
-        @cart_item.variant.product.master_variant.update_attribute(:retail_price, 19)
-        cart_service.item_retail_price(@cart_item).should eq(18)
+        @cart_item.variant.product.update_attribute(:retail_price, 19)
+        cart_service.item_retail_price(@cart_item).should eq(17)
       end
     end
   end
