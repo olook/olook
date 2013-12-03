@@ -82,7 +82,6 @@ class MktXmlBuilder
     end
 
     def self.load_products
-      # This method was copied from XmlController
       Product.valid_for_xml(Product.xml_blacklist("products_blacklist").join(','))
     end
 end
