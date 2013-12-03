@@ -3,8 +3,12 @@
 /*********************
  HOME STYLIST PARTIAL
 *********************/
-section#stylists {position: relative;min-height: 270px;margin: 0 0 30px;padding: 10px 0 30px;border-bottom: 1px #CBCBCB solid;
-  >h1 {font-family: $kepler;font-size: 27px;text-align: center;text-transform: uppercase;margin: 0 0 30px;color:#000;font-weight:normal;}
+section#stylists {position: relative;min-height: 270px;margin: 0 0 30px;padding: 10px 0 30px;
+  p.title {font-family: $avenir;font-size: 22px;text-align: center;text-transform: uppercase;margin: 0 0 30px;color:#000;font-weight:lighter;letter-spacing: 3px;
+  	span{
+  		color: #ef3742;
+  	}
+  }
   h2 {position: absolute;background: image-url("home/olook-loved.jpg") no-repeat;text-indent: -99999px;width: 104px;height: 104px;display: block;top: 0;left: 75px;}
   ul.products_list {width: 100%;overflow: auto;
     li {margin: 0 0 0 42px;float: left;
