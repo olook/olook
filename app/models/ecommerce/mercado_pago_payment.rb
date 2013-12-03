@@ -22,7 +22,7 @@ class MercadoPagoPayment < Payment
     self.where(payment_expiration_date: expiration_date.beginning_of_day..expiration_date.end_of_day, state: ["waiting_payment", "started"])
   end  
 
-  def create_preferences address
+  def create_preferences address, total_credits_value
     phone = address.telephone
 
     items = cart.items.select{|i| i.retail_price.to_f > 0}.map do |item|
@@ -35,6 +35,18 @@ class MercadoPagoPayment < Payment
         'category_id' => 'fashion',
         'picture_url' => 'http:' + item.product.main_picture.image_url(:catalog)
       }
+    end
+
+    # descontos (fidelidade, reembolso, facebook)
+    if total_credits_value.to_f > 0
+      items << {
+          'id' => 10,
+          'title' => "CREDITOS",
+          'quantity' => 1,
+          'currency_id' => 'BRL',
+          'unit_price' => (total_credits_value * (-1)).to_f,
+          'category_id' => 'fashion'
+      }      
     end
 
     # frete
