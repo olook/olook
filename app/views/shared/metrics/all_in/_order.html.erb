@@ -8,8 +8,8 @@
         bs.finalizaCompra("<%= raw order.amount_paid %>","<%= raw order.freight_price %>","4","<%= raw order.erp_payment.type %>","<%= raw order.erp_payment.bank %>","","<%= raw order.number %>", '<%= raw order.payments.with_discount.map { |payment| "#{ payment.type }"}.join(", ") %>');
 
           <% order.line_items.each do |item| %>
-        bs.addProdutoComprado("<%= raw order.number %>","<%= raw item.variant.product_id %>","<%= raw item.variant.name %>","<%= raw item.retail_price %>", "", "<%= raw item.quantity %>","", "<%= raw item.variant.product.category_humanize %>", "<%= raw item.variant.product.subcategory %>", "", "<%= raw item.variant.product.brand %>",
-            "", "", "", "", "");
+        bs.addProdutoComprado("<%= raw order.number %>","<%= raw item.variant.product_id %>","<%= raw item.variant.name %>","<%= raw item.retail_price %>", "", "<%= raw item.quantity %>","", "<%= raw item.variant.product.category_humanize %>", "<%= raw item.variant.product.subcategory %>", "", "","<%= raw item.variant.product.brand %>",
+            "", "", "", "");
           <% end %>
     }catch(e){
     }
