@@ -7,8 +7,8 @@
 <g:id><%= product.id %></g:id>
 <title><![CDATA[<%= product.subcategory %> <%= product.name %>]]></title>
 <description><![CDATA[<%= product.description %>]]></description>
-<g:google_product_category><![CDATA[<%= to_google_shopping_category product.category %>]]></g:google_product_category>
-<g:product_type><![CDATA[<%= product.subcategory %>-<%= product.brand.try(:upcase) %>]]></g:product_type>
+<g:google_product_category><![CDATA[<%= product.category_humanize  %>]]></g:google_product_category>
+<g:product_type><![CDATA[<%= product.try(:subcategory) %>]]></g:product_type>
 <link><![CDATA[<%= product.product_url(:utm_source =>"google", :utm_medium => "merchant", :utm_campaign => "produtos") %>]]></link>
 <g:image_link><![CDATA[<%= full_image_path product.xml_picture(:main) %>]]></g:image_link>
 <g:additional_image_link><![CDATA[<%= full_image_path product.xml_picture(:thumb) %>]]></g:additional_image_link>
