@@ -527,6 +527,13 @@ class Product < ActiveRecord::Base
     end
   end
 
+  [:price, :retail_price, :width, :height, :length, :weight].each do |attr|
+    define_method( "#{attr}=" ) do |value|
+      master_variant[attr] = value
+      self[attr] = value
+    end
+  end
+
   private
 
     def details_relevance
