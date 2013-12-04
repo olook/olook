@@ -1,0 +1,8 @@
+<script>
+  dataLayer.push({
+  'AllInPage': <%= raw "#{ params[:controller] } #{ params[:action] }"%>,
+  'ResquestUrl': <%= raw request.url %>,
+  'CampaignUtm': <%= raw request.url.match(/utm_campaign=([^&]*)/) %>,
+  'ContentUtm': <%= raw request.url.match(/utm_content=([^&]*)/) %>
+  });
+</script>
