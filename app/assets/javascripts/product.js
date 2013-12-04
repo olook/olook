@@ -15,6 +15,14 @@ $(function(){
 });
 
 initProduct = {
+  gotoRelatedProduct :function() {
+    $('a#goRelatedProduct').live('click', function(e) {
+      $("html, body").animate({
+        scrollTop: 900
+      }, 'fast');
+      e.preventDefault();
+    });
+  },  
   checkRelatedProducts : function() {
     return $("div#related ul.carousel").size() > 0 ? true : false;
   },
@@ -106,6 +114,7 @@ initProduct = {
   },
   loadAll : function() {
     initProduct.showCarousel();
+    initProduct.gotoRelatedProduct();
     showInfoCredits();
 
     $("#product div.box_carousel a.open_carousel").live("click", function () {
