@@ -13,7 +13,7 @@ describe CatalogProductService do
 
     FactoryGirl.create :basic_bag_simple, :product => product
 
-    product
+    product.reload
   end
 
   let(:basic_bag_with_discount) do
@@ -24,7 +24,7 @@ describe CatalogProductService do
 
     FactoryGirl.create :basic_bag_simple, :product => product
 
-    product
+    product.reload
   end
 
 
@@ -38,7 +38,7 @@ describe CatalogProductService do
     product.master_variant.price = 100.00
     product.master_variant.save!
 
-    product
+    product.reload
   end
 
   let(:basic_shirt) do
@@ -49,7 +49,7 @@ describe CatalogProductService do
 
     FactoryGirl.create :yellow_shirt, :product => product
 
-    product
+    product.reload
   end
 
   describe "#save!" do
@@ -65,7 +65,6 @@ describe CatalogProductService do
           ct_product.subcategory_name.should eq "bolsa-azul"
           ct_product.original_price.should   eq 100.0
           ct_product.retail_price.should     eq 100.0
-          ct_product.discount_percent.should eq 0
           ct_product.shoe_size.should        be_nil
           ct_product.heel.should             be_nil
           ct_product.variant_id.should       eq basic_bag.variants.first.id
@@ -86,7 +85,6 @@ describe CatalogProductService do
           ct_product.subcategory_name.should   eq "bolsa-azul"
           ct_product.original_price.should     eq 100.0
           ct_product.retail_price.should       eq 85.0
-          ct_product.discount_percent.should   eq 15
           ct_product.shoe_size.should          be_nil
           ct_product.heel.should               be_nil
           ct_product.variant_id.should         eq basic_bag_with_discount.variants.first.id
@@ -148,7 +146,6 @@ describe CatalogProductService do
           ct_products[0].subcategory_name.should  eq "sandalia"
           ct_products[0].original_price.should    eq 100.0
           ct_products[0].retail_price.should      eq 100.0
-          ct_products[0].discount_percent.should  eq 0
           ct_products[0].shoe_size.should         eq 35
           ct_products[0].heel.should              eq "0-5-cm"
           ct_products[0].variant_id.should        eq basic_shoes.variants[0].id
@@ -163,7 +160,6 @@ describe CatalogProductService do
           ct_products[1].subcategory_name.should  eq "sandalia"
           ct_products[1].original_price.should    eq 100.0
           ct_products[1].retail_price.should      eq 100.0
-          ct_products[1].discount_percent.should  eq 0
           ct_products[1].shoe_size.should         eq 37
           ct_products[1].heel.should              eq "0-5-cm"
           ct_products[1].variant_id.should        eq basic_shoes.variants[1].id
@@ -187,12 +183,13 @@ describe CatalogProductService do
         basic_bag.master_variant.update_attributes!(:price => 50.00)
         basic_bag.variants.first.update_attributes!(:inventory => 5)
 
+        basic_bag.reload
+
         ct_product = CatalogProductService.new(catalog, basic_bag, :discount_percentage => 50).save!
         ct_product.id.should               eq ct_product_id
         ct_product.subcategory_name.should eq "nova-categoria"
         ct_product.original_price.should   eq 100.0
         ct_product.retail_price.should     eq 100.0
-        ct_product.discount_percent.should eq 0
         ct_product.shoe_size.should        be_nil
         ct_product.heel.should             be_nil
         ct_product.variant_id.should       eq basic_bag.variants.first.id
@@ -213,13 +210,14 @@ describe CatalogProductService do
         basic_shoes.variants.first.update_attributes!(:inventory => 5)
         basic_shoes.variants.last.update_attributes!(:inventory => 2)
 
+        basic_shoes.reload
+
         ct_products = CatalogProductService.new(catalog, basic_shoes, :discount_percentage => 50).save!
 
         ct_products[0].id.should                eq ct_products_id[0]
         ct_products[0].subcategory_name.should  eq "nova-categoria"
         ct_products[0].original_price.should    eq 100.0
         ct_products[0].retail_price.should      eq 100.0
-        ct_products[0].discount_percent.should  eq 0
         ct_products[0].shoe_size.should         eq 35
         ct_products[0].heel.should              eq "0-5-cm"
         ct_products[0].variant_id.should        eq basic_shoes.variants[0].id
@@ -232,7 +230,6 @@ describe CatalogProductService do
         ct_products[1].subcategory_name.should eq "nova-categoria"
         ct_products[1].original_price.should   eq 100.0
         ct_products[1].retail_price.should     eq 100.0
-        ct_products[1].discount_percent.should  eq 0
         ct_products[1].shoe_size.should         eq 37
         ct_products[1].heel.should              eq "0-5-cm"
         ct_products[1].variant_id.should        eq basic_shoes.variants[1].id
@@ -252,6 +249,8 @@ describe CatalogProductService do
 
           basic_bag.master_variant.update_attributes!(:price => 50.00)
           basic_bag.variants.first.update_attributes!(:inventory => 5)
+
+          basic_bag.reload
 
           ct_product = CatalogProductService.new(catalog, basic_bag, :discount_percentage => 50, :update_price => true).save!
           ct_product.id.should               eq ct_product_id
@@ -278,6 +277,8 @@ describe CatalogProductService do
           basic_shirt.master_variant.update_attributes!(:price => 50.00)
           basic_shirt.variants.first.update_attributes!(:inventory => 5)
 
+          basic_shirt.reload
+
           ct_product = CatalogProductService.new(catalog, basic_shirt, :discount_percentage => 50, :update_price => true).save![0]
           ct_product.id.should               eq ct_product_id
           ct_product.subcategory_name.should eq "nova-categoria"
@@ -303,6 +304,7 @@ describe CatalogProductService do
           basic_shoes.master_variant.update_attributes!(:price => 50.00)
           basic_shoes.variants.first.update_attributes!(:inventory => 5)
           basic_shoes.variants.last.update_attributes!(:inventory => 2)
+          basic_shoes.reload
 
           ct_products = CatalogProductService.new(catalog, basic_shoes, :discount_percentage => 50, :update_price => true).save!
 
