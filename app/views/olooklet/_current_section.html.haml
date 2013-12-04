@@ -7,31 +7,31 @@
       - search.selected_filters_for("subcategory").sort.each do |sub|
         %li
           %span= titleize_without_pronoum(sub)
-          = %( #{ category ? current_section_link_to(olooklet_path(category, @url_builder.add_filter(:subcategory, sub))) : current_section_link_to(olooklet_path(@url_builder.add_filter(:subcategory, sub)))}).html_safe
+          = %( #{ category ? current_section_link_to(@filters_presenter.path(category, @url_builder.add_filter(:subcategory, sub))) : current_section_link_to(@filters_presenter.path(@url_builder.add_filter(:subcategory, sub)))}).html_safe
 
       - search.selected_filters_for("color").sort.each do |col|
         %li
           %span= titleize_without_pronoum(col)
-          = %( #{ category ? current_section_link_to(olooklet_path(category, @url_builder.add_filter(:color, col))) : current_section_link_to(olooklet_path(@url_builder.add_filter(:color, col)))}).html_safe
+          = %( #{ category ? current_section_link_to(@filters_presenter.path(category, @url_builder.add_filter(:color, col))) : current_section_link_to(@filters_presenter.path(@url_builder.add_filter(:color, col)))}).html_safe
 
       - search.selected_filters_for("heel").map{|h|h.gsub('heeluint:', '')}.sort.each do |hee|
         %li
           %span= titleize_without_pronoum(formated_heel(hee))
-          = %( #{ category ? current_section_link_to(olooklet_path(category, @url_builder.add_filter(:heel, hee.gsub("..","-")))) : current_section_link_to(olooklet_path(@url_builder.add_filter(:heel, hee.gsub("..","-"))))}).html_safe
+          = %( #{ category ? current_section_link_to(@filters_presenter.path(category, @url_builder.add_filter(:heel, hee.gsub("..","-")))) : current_section_link_to(@filters_presenter.path(@url_builder.add_filter(:heel, hee.gsub("..","-"))))}).html_safe
 
       - search.selected_filters_for("care").sort.each do |car|
         %li
           %span= titleize_without_pronoum(car)
-          = %( #{ category ? current_section_link_to(olooklet_path(category, @url_builder.add_filter(:care, car))) : current_section_link_to(olooklet_path(@url_builder.add_filter(:care, car)))}).html_safe
+          = %( #{ category ? current_section_link_to(@filters_presenter.path(category, @url_builder.add_filter(:care, car))) : current_section_link_to(@filters_presenter.path(@url_builder.add_filter(:care, car)))}).html_safe
 
       - search.selected_filters_for("size").sort.each do |size|
         %li
           %span= titleize_without_pronoum(format_size(size.chomp))
-          = %( #{ category ? current_section_link_to(olooklet_path(category, @url_builder.add_filter(:size, size))) : current_section_link_to(olooklet_path(@url_builder.add_filter(:size, size)))}).html_safe
+          = %( #{ category ? current_section_link_to(@filters_presenter.path(category, @url_builder.add_filter(:size, size))) : current_section_link_to(@filters_presenter.path(@url_builder.add_filter(:size, size)))}).html_safe
 
       - search.selected_filters_for("brand").sort.each do |brand|
         %li
           %span= titleize_without_pronoum(brand)
-          = %( #{ category ? current_section_link_to(olooklet_path(category, @url_builder.add_filter(:brand, brand))) : current_section_link_to(olooklet_path(@url_builder.add_filter(:brand, brand)))}).html_safe
-      %li.clean= link_to "Limpar tudo", olooklet_path(params[:category])
+          = %( #{ category ? current_section_link_to(@filters_presenter.path(category, @url_builder.add_filter(:brand, brand))) : current_section_link_to(@filters_presenter.path(@url_builder.add_filter(:brand, brand)))}).html_safe
+      %li.clean= link_to "Limpar tudo", @filters_presenter.path(params[:category])
 

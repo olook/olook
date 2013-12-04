@@ -5,7 +5,9 @@ class OlookletController < ApplicationController
   DEFAULT_PAGE_SIZE = 48
 
   def index
-    search_params = SeoUrl.parse(request.fullpath).merge({visibility: "#{Product::PRODUCT_VISIBILITY[:olooklet]}-#{Product::PRODUCT_VISIBILITY[:all]}"})
+    visibility = params[:visibility] || "#{Product::PRODUCT_VISIBILITY[:olooklet]}-#{Product::PRODUCT_VISIBILITY[:all]}"
+    request_path = params[:path] || request.fullpath
+    search_params = SeoUrl.parse(request_path).merge({visibility: visibility})
     Rails.logger.debug("New params: #{params.inspect}")    
     default_params(search_params,"olooklet", "olooklet")
   end
@@ -26,6 +28,7 @@ class OlookletController < ApplicationController
     @category = @search.expressions[:category].first
     params[:category] = @search.expressions[:category].first
     @cache_key = configure_cache(@search)         
+    @filters_presenter = FiltersPresenter.new(site_section)
   end
 
   def header
@@ -44,4 +47,3 @@ class OlookletController < ApplicationController
   end
 
 end
-
