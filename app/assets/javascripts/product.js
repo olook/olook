@@ -2,9 +2,12 @@
 //= require formatter
 //= require credit_card
 //= require string_utils
-//= require plugins/spy
 //= require ./partials/_modal
 //= require plugins/valentines_day
+//= require plugins/jquery.meio.mask
+//= require plugins/image_loader
+//= require plugins/spy
+
 
 $(function(){
   initProduct.loadAll();
