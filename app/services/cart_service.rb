@@ -258,7 +258,6 @@ class CartService
     discounts = []
     retail_value = self.subtotal(:retail_price) - minimum_value
     retail_value = 0.0 if retail_value < 0
-    total_discount = 0.0
     billet_discount_value = 0.0
     debit_discount_value = 0.0
     facebook_discount_value = 0.0
