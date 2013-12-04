@@ -134,10 +134,8 @@
 
 <!-- END MODALS -->
 <% first_visit = @user.first_visit_for_member? %>
-<% if first_visit %>
-  <% content_for :data_layer do %>
-    <%= render "shared/metrics/adlead/adlead" %>
-  <% end %>
+<% content_for :data_layer do %>
+  <%= render "shared/data_layer/showroom" %>
 <% end %>
 
 <% content_for :footer do %>
@@ -154,7 +152,6 @@
     <%= javascript_include_tag "common/jquery.zclip.min" %>
 
     <%= render "shared/invite", :user => current_user %>
-    <%= render 'shared/metrics/all_in/showroom', :user => current_user  %>
   <% end %>
 
   <% if first_visit %>

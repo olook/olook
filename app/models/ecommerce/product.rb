@@ -225,8 +225,10 @@ class Product < ActiveRecord::Base
 
   def set_master_variant(variant)
     @master_variant_found = true
-    variant.product = self
-    @master_variant = variant
+    if variant
+      variant.product = self
+      @master_variant = variant
+    end
   end
 
   def colors(size = nil, admin = false)
@@ -522,6 +524,13 @@ class Product < ActiveRecord::Base
       365
     else
       (Date.current - launch_date).to_i
+    end
+  end
+
+  [:price, :retail_price, :width, :height, :length, :weight].each do |attr|
+    define_method( "#{attr}=" ) do |value|
+      master_variant[attr] = value
+      self[attr] = value
     end
   end
 
