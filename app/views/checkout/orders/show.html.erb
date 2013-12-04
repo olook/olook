@@ -60,7 +60,6 @@ _gaq.push(['_addTrans',
 <% end %>
 
 <% content_for :footer do %>
-  <%= render :partial => "shared/metrics/all_in/order", :locals => {:order => @order } %>
   <%= render "shared/metrics/google/buy_done" %>
   <%= render "shared/metrics/dbm/transaction", order: @order %>
   <script type="text/javascript">
