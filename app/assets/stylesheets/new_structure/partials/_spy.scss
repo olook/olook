@@ -34,7 +34,7 @@ BOX MODAL ESPIAR
     z-index: 100;
   }
 }
-
+/*
 .social-media-box{overflow:hidden;border-top:solid 1px #C2C2C2;border-bottom:solid 1px #C2C2C2;padding:10px 0;margin:20px 0;
   .has_bt_face{height:22px;position:relative;}
   ul.social-list {float:left; width:417px;margin-top:-7px !important;
@@ -44,19 +44,6 @@ BOX MODAL ESPIAR
       &.pinterest{position: relative;top: 10px !important;}
       &.fb_bt{position: relative;top: 10px !important;}
       a{display:inline;padding:0;width:100%;margin:0;}
-      &.email{
-        margin: 0;
-        a {
-          float:left;
-          font-size:0;
-          display:block;
-          width:25px;
-          height:20px;
-          background: image-url('product/new_page_sprite.png') 0 -94px no-repeat;
-          position: relative;
-          margin-bottom: 2px;
-
-        }
       }
     }
   }
@@ -70,9 +57,9 @@ BOX MODAL ESPIAR
       display: none;
     }
     iframe {
-      /*height: 20px !important;*/
       overflow:hidden !important;
     }
     &.bt_face{position:absolute;top:41px;right:8px;}
   }
 }
+*/
