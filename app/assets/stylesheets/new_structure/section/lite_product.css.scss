@@ -1,6 +1,7 @@
 @import 'new_structure/common/jquery.jqzoom';
 @import 'common/product_details';
 @import 'partials/credits_info';
+@import 'new_structure/partials/spy';
 
 /** MODAL COMPARTILHAR POR EMAIL**/
 div#compartilhar_email {
@@ -61,5 +62,3 @@ div#compartilhar_email {
     }
   }
 }
-
-@import 'new_structure/partials/spy';
