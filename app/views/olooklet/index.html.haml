@@ -67,17 +67,17 @@
               %p.title-category.roupa Qual seu tamanho?
               %ul.category-list
                 -size_list(@category,@search, @category[0].downcase).each do |text, amount|
-                  %li{ :class => category_style_class(text)}= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único" && @category == "sapato"
+                  %li{ :class => category_style_class(text)}= filter_link_to(@filters_presenter.path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único" && @category == "sapato"
             - else
               %p.title-category.roupa Roupas & Acessórios
               %ul.category-list
                 -size_list(["roupa","acessorio"],@search, "r").each do |text, amount|
-                  %li{ :class => category_style_class(text)}= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
+                  %li{ :class => category_style_class(text)}= filter_link_to(@filters_presenter.path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
               %br
               %p.title-category.sapatos Sapatos
               %ul.category-list
                 -size_list("sapato",@search, "s").each do |text, amount|
-                  %li{ :class => category_style_class(text)}= filter_link_to(olooklet_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único"
+                  %li{ :class => category_style_class(text)}= filter_link_to(@filters_presenter.path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único"
               
       = render 'current_section', search: @search, category: @category
 
@@ -94,5 +94,5 @@
       = render "shared/antibounce_box", antibounce_box: @antibounce_box if @antibounce_box.present? && @antibounce_box.search.products.count > 0 && Setting.antibounce_enabled
 
       .pagination
-        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| olooklet_path(@url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
+        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @filters_presenter.path(@url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
   
