@@ -13,7 +13,6 @@ class Cart::CartController < ApplicationController
     @url += ":" + request.port.to_s if request.port != 80
     @chaordic_cart = ChaordicInfo.cart(@cart, current_user, cookies[:ceid])
     @suggested_product = find_suggested_product
-    @coupon_presenter = CouponPresenter.new(@cart.coupon)
   end
 
   def destroy
