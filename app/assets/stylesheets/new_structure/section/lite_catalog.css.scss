@@ -81,11 +81,12 @@ aside{
   a{
     display:inline-block;
     height:15px;
-    font-size:13px;
+    font-size:11px;
     text-decoration:none;
     color:#000;
     background:image-url('catalog/sprite.png') no-repeat 0 -50px;
     padding-left:13px;
+    font-family: $verdana;
 
     &:hover{ color:$base_color; }
     &.selected{ background-position:0 -86px !important; }
@@ -192,13 +193,13 @@ span.summary, .full{
     font-weight: bold;
     text-transform: uppercase;
     color:#000;
-    font-family: $avenir;
+    font-family: $arial;
     font-size: 11px;
     padding-top:3px;
   }
   ul {float:left;margin-right:0px;margin-bottom:5px;}
   ul li {float:left;margin-left:6px;}
-  ul li a {display: block;border:1px solid #d1d1d1;color: #6d6e71;text-align: center;width: 20px;padding-top:2px;font-size: 12px;text-decoration: none;height: 18px;}
+  ul li a {font-family:$verdana;display: block;border:1px solid #d1d1d1;color: #6d6e71;text-align: center;width: 20px;padding-top:2px;font-size: 12px;text-decoration: none;height: 18px;}
   ul li a span.txt-unico {font-size: 12px;}
   ul li a:hover {
     border-color: #ef3742;
