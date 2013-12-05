@@ -2,7 +2,7 @@
 require 'new_relic/agent/method_tracer'
 
 class ProductController < ApplicationController
-  include ::NewRelic::Agent::MethodTracer
+  include ::NewRelic::Agent::MethodTracer 
 
   respond_to :html
   before_filter :load_show_product, :load_product_discount_service, only: [:show, :spy, :product_valentines_day]
@@ -16,6 +16,7 @@ class ProductController < ApplicationController
 
   def show
     @ab_test_parameter = params[:s] == "1" ? 1 : 0
+    render layout: "lite_application"
   end
 
   def product_valentines_day

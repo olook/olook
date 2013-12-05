@@ -8,7 +8,7 @@ $(function() {
 
   /** MODAL GUIA DE MEDIDAS **/
   $(".size_guide a").click(function(e){
-    initBase.newModal($("#modal_guide"));
+    modal.show($("#modal_guide"));
     e.preventDefault();
     
   })
@@ -78,15 +78,6 @@ initQuickView = {
        var _url = "http:" + $(this).attr('href');
        $(this).zoom({url: _url})
     });
-    /*$("div#gallery div#full_pic ul li a.image_zoom").jqzoom({
-      zoomType: 'innerzoom',
-      zoomWidth: 415,
-      zoomHeight: 500,
-      imageOpacity: 0.4,
-      title: false,
-      preloadImages: false,
-      fadeoutSpeed: 'fast'
-    });*/
   },
 
   twitProduct : function() {
