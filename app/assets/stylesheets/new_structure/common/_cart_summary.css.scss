@@ -1,7 +1,7 @@
 @import "new_structure/common/global_stuffs";
 
 #cart_summary{position:absolute;display:none;top:-14px;right:0px;z-index:9999;width:304px;min-height:135px;max-height:388px;border:solid 1px #000;box-shadow:0 2px 5px #CCC;background:#FFF;padding:15px 0;
-   .detalhe {width: 187px;background: #FFF;height: 2px;position: absolute;top: -1px;right: 0px;}
+   .detalhe {width: 139px;background: #FFF;height: 2px;position: absolute;top: -1px;right: 0px;}
    .scroll{max-height:297px;overflow-y:auto;padding:0 32px;
       li{
         &.coupon_info{
