@@ -198,6 +198,7 @@ _gaq.push(['_addTrans',
           </p>
         </td>
         <td class="value discount">
+          <%= CouponPresenter.new(@cart.coupon).show_total_discount %>
           <%= form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f| %>
             <fieldset class="inputs">
             <ol>
