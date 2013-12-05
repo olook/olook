@@ -94,6 +94,9 @@ class MercadoPagoPayment < Payment
       'external_reference' => order.number,
       'payment_methods' => {
         'installments' => 6
+      },
+      'payment_methods' => { 
+        'excluded_payment_types' => [ { "id" => "ticket" } ] 
       }
     }
 
