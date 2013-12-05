@@ -21,7 +21,7 @@
               que cabem em qualquer bolso. 
             Leve um mimo para cada pessoa querida
       %li
-        = link_to("/selections?preco=0-130&lbl=ate-130", :class => "price_box") do
+        = link_to("/selections?preco=70-130&lbl=ate-130", :class => "price_box") do
           =image_tag ("gift/gift_2.jpg"), :class => "first_block"
           %p.title_price
             até R$ 129,90
@@ -34,7 +34,7 @@
             %br
               bem amigo. Não tem como errar
       %li.last
-        = link_to("/selections?preco=0-200&lbl=ate-200", :class => "price_box") do
+        = link_to("/selections?preco=130-200&lbl=ate-200", :class => "price_box") do
           =image_tag ("gift/gift_3.jpg"), :class => "first_block"
           %p.title_price
             até R$ 200
@@ -46,7 +46,7 @@
               é super especial? Então nossa seleção 
             é perfeita pra ela.
       %li.big
-        = link_to("/colecoes/acima_200&lbl=acima-200", :class => "price_box") do
+        = link_to("/selections?preco=200-*&lbl=acima-200", :class => "price_box") do
           =image_tag ("gift/gift_4.jpg"), :class => "first_block"
           %p.title_price
             a partir de R$ 200 / 
