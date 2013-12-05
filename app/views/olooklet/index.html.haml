@@ -78,8 +78,9 @@
               %ul.category-list
                 -size_list("sapato",@search, "s").each do |text, amount|
                   %li{ :class => category_style_class(text)}= filter_link_to(@filters_presenter.path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único"
-              
-      = render 'current_section', search: @search, category: @category
+      
+      = if @filters_presenter.show_current_section?        
+        = render 'current_section', search: @search, category: @category
 
       %section.container_product
         %ul#products
