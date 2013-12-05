@@ -45,6 +45,8 @@ class SeoUrl
       parse_collections_params
     elsif from_olooklet?
       parse_olooklet_params
+    elsif from_selections?
+      parse_selections_params
     else
       parse_catalogs_params
     end
@@ -56,6 +58,8 @@ class SeoUrl
     parsed_values[:excluded_brand] = @params[:excluded_brand] if @params[:excluded_brand]
     parsed_values[:category] = @params[:category] || ((@params[:parameters].to_s.split('/').first.to_s.split(SearchEngine::MULTISELECTION_SEPARATOR) & categories).join(SearchEngine::MULTISELECTION_SEPARATOR))
     parsed_values[:subcategory] = extract_subcategories
+    parsed_values[:visibility] = @params[:visibility]
+
     parsed_values.merge!(parse_filters)
     parsed_values.merge!(parse_order)
     parsed_values
@@ -107,6 +111,10 @@ class SeoUrl
       /^\/olooklet(\/)*/ =~ @path
     end
 
+    def from_selections?
+      /^\/selections(\/)*/ =~ @path
+    end
+
     def parse_brands_params
       /^\/marcas\/(?<brand>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\?(?<query>.*))?/ =~ @path
       @params[:brand] = URI.decode(brand.to_s)
@@ -130,6 +138,12 @@ class SeoUrl
 
     def parse_olooklet_params
       /^(?:\/olooklet)(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
+      @params[:parameters] = URI.decode(parameters.to_s)
+      @query = query
+    end
+
+    def parse_selections_params
+      /^(?:\/selections)(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end

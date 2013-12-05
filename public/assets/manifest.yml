@@ -1284,10 +1284,10 @@ home/jj.jpg: home/jj-c76c8ef989706798f860b753cf2300f0.jpg
 home/jj/index.jpg: home/jj-c76c8ef989706798f860b753cf2300f0.jpg
 home/mw.jpg: home/mw-5824daff588505945e0b7b3581156816.jpg
 home/mw/index.jpg: home/mw-5824daff588505945e0b7b3581156816.jpg
-home/new_brands.jpg: home/new_brands-6b32d7c46dc1078836fde9426f76d5ef.jpg
-home/new_brands/index.jpg: home/new_brands-6b32d7c46dc1078836fde9426f76d5ef.jpg
-home/new_brands_off.jpg: home/new_brands_off-7ed6cd8308fbcbd8782f4f103b07a936.jpg
-home/new_brands_off/index.jpg: home/new_brands_off-7ed6cd8308fbcbd8782f4f103b07a936.jpg
+home/new_brands.jpg: home/new_brands-9e75404db1d8dfa4752c681f9f9c5608.jpg
+home/new_brands/index.jpg: home/new_brands-9e75404db1d8dfa4752c681f9f9c5608.jpg
+home/new_brands_off.jpg: home/new_brands_off-3a33fdb08efe2f86e598e9c2211d881d.jpg
+home/new_brands_off/index.jpg: home/new_brands_off-3a33fdb08efe2f86e598e9c2211d881d.jpg
 home/olook-loved.jpg: home/olook-loved-f2e5bf4bedba83c28882db5d1fd834f7.jpg
 home/olook-loved/index.jpg: home/olook-loved-f2e5bf4bedba83c28882db5d1fd834f7.jpg
 home/olook.jpg: home/olook-5c5edb27a8d142a5e4b9db909c5bfbde.jpg
@@ -1312,6 +1312,8 @@ home/tit-top5.jpg: home/tit-top5-0bde00d0c154ec7eaa2dda920cee1ab5.jpg
 home/tit-top5/index.jpg: home/tit-top5-0bde00d0c154ec7eaa2dda920cee1ab5.jpg
 home/topo_novo_revisao_frete_3.png: home/topo_novo_revisao_frete_3-7ea9418d82770cf5210c6135c0c6771d.png
 home/topo_novo_revisao_frete_3/index.png: home/topo_novo_revisao_frete_3-7ea9418d82770cf5210c6135c0c6771d.png
+home/user_bt_modal.jpg: home/user_bt_modal-e4821282e780781f9a9fa1e8019317a3.jpg
+home/user_bt_modal/index.jpg: home/user_bt_modal-e4821282e780781f9a9fa1e8019317a3.jpg
 how_to/background.jpg: how_to/background-16ef7ac20170eeb152baf31c79ea6547.jpg
 how_to/background/index.jpg: how_to/background-16ef7ac20170eeb152baf31c79ea6547.jpg
 how_to/box-1.jpg: how_to/box-1-565206bb1f61ec1d0f1e32371039b595.jpg
@@ -2398,8 +2400,8 @@ admin/themes/default/style.css: admin/themes/default/style-88eb0610b60a4af46bd00
 admin/themes/default/style/index.css: admin/themes/default/style-88eb0610b60a4af46bd00d491b56195a.css
 application.css: application-0b9fd79a9583bd886b365ffc9beba673.css
 application/index.css: application-0b9fd79a9583bd886b365ffc9beba673.css
-campaign_emails.css: campaign_emails-dfffda7532a3fed156b69540d9c0d169.css
-campaign_emails/index.css: campaign_emails-dfffda7532a3fed156b69540d9c0d169.css
+campaign_emails.css: campaign_emails-c941c04abf03376a918f372171b42dcb.css
+campaign_emails/index.css: campaign_emails-c941c04abf03376a918f372171b42dcb.css
 common/_border-radius.css: common/_border-radius-1b13569e9620782f423d4cd3ce931750.css
 common/_border-radius/index.css: common/_border-radius-1b13569e9620782f423d4cd3ce931750.css
 common/_css3.css: common/_css3-1b13569e9620782f423d4cd3ce931750.css
@@ -2520,8 +2522,8 @@ section/gift_home.css: section/gift_home-74d78b18c751587fadb01ff08710eab6.css
 section/gift_home/index.css: section/gift_home-74d78b18c751587fadb01ff08710eab6.css
 section/half_user.css: section/half_user-c54c025e72fa63d3a74f1be72482d577.css
 section/half_user/index.css: section/half_user-c54c025e72fa63d3a74f1be72482d577.css
-section/home.css: section/home-d3071b4761ae78f2e80fc45b2f01ea6c.css
-section/home/index.css: section/home-d3071b4761ae78f2e80fc45b2f01ea6c.css
+section/home.css: section/home-8422b6a623d244ec7db67fd1829329c4.css
+section/home/index.css: section/home-8422b6a623d244ec7db67fd1829329c4.css
 section/how_to.css: section/how_to-eee0aa79a6e1cbeb7583c978f93c744a.css
 section/how_to/index.css: section/how_to-eee0aa79a6e1cbeb7583c978f93c744a.css
 section/invite.css: section/invite-7c7e1243d4d6338865bd1680c3cdaa02.css
