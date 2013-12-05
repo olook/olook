@@ -9,10 +9,10 @@ describe FreightCalculator do
       context "for which there isn't a freight price" do
         it "should return a hash with price, delivery time and cost equal to zero" do
           freight = described_class.freight_for_zip(zip_code, 0)
-          freight[:price].should == FreightCalculator::DEFAULT_FREIGHT_PRICE
-          freight[:cost].should == FreightCalculator::DEFAULT_FREIGHT_COST
-          freight[:delivery_time].should == FreightCalculator::DEFAULT_INVENTORY_TIME
-          freight[:shipping_service_id].should == FreightCalculator::DEFAULT_FREIGHT_SERVICE
+          expect(freight[:price]).to  eql(FreightCalculator::DEFAULT_FREIGHT_PRICE)
+          expect(freight[:cost]).to eql(FreightCalculator::DEFAULT_FREIGHT_COST)
+          expect(freight[:delivery_time]).to eql(FreightCalculator::DEFAULT_INVENTORY_TIME)
+          expect(freight[:shipping_service_id]).to eql(FreightCalculator::DEFAULT_FREIGHT_SERVICE)
         end
       end
 
@@ -44,7 +44,7 @@ describe FreightCalculator do
         end
         
         it "should return a hash with price, delivery time and cost" do
-          described_class.freight_for_zip(zip_code, order_value).should == freight_details
+          expect(described_class.freight_for_zip(zip_code, order_value)).to eql(freight_details)
         end
       end
     end
@@ -52,7 +52,7 @@ describe FreightCalculator do
     context 'given an invalid zipcode' do
       it "should return an empty hash " do
         described_class.stub(:'valid_zip?').and_return(false)
-        described_class.freight_for_zip('', 0).should == {}
+        expect(described_class.freight_for_zip('', 0)).to eql({})
       end
     end
   end
@@ -62,31 +62,31 @@ describe FreightCalculator do
     let(:clean_zip) { '05379020' }
 
     it 'should remove any non-numerical characters' do
-      described_class.clean_zip(dirty_zip).should == clean_zip
+      expect(described_class.clean_zip(dirty_zip)).to eql(clean_zip)
     end
     it 'should not mess with clean zips' do
-      described_class.clean_zip(clean_zip).should == clean_zip
+      expect(described_class.clean_zip(clean_zip)).to eql(clean_zip)
     end
   end
 
   describe "#valid_zip?" do
     it 'should return true for a valid zip' do
-      described_class.valid_zip?('05379020').should be_true
-      described_class.valid_zip?('01504001').should be_true
+      expect(described_class.valid_zip?('05379020')).to be_true
+      expect(described_class.valid_zip?('01504001')).to be_true
     end
 
     context 'it should return false' do
       it "for an empty zip" do
-        described_class.valid_zip?('').should be_false
+        expect(described_class.valid_zip?('')).to be_false
       end
       it "for a zip with letters" do
-        described_class.valid_zip?('A').should be_false
+        expect(described_class.valid_zip?('A')).to be_false
       end
       it "for a short zip" do
-        described_class.valid_zip?('123').should be_false
+        expect(described_class.valid_zip?('123')).to be_false
       end
       it "for a long zip" do
-        described_class.valid_zip?('999999999').should be_false
+        expect(described_class.valid_zip?('999999999')).to be_false
       end
     end
   end

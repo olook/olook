@@ -15,7 +15,6 @@ module FreightCalculator
     return {} unless valid_zip?(clean_zip_code)
     freight_price = nil
     first_free_freight_price = nil
-
     shipping_services(shipping_service_ids).each do |shipping_service|
       freight_price = shipping_service.find_freight_for_zip(clean_zip_code, order_value)
       if freight_price
