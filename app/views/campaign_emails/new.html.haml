@@ -13,7 +13,7 @@
         %br
           na sua primeira compra e arrase em looks 
         com muito estilo. 
-      =link_to "Compre Agora", "/20reais_primeira_compra?coupon_code=20reais_primeira_compra", :class => "bt_go_catalog", onclick: track_event('Lightbox', 'PrimeiraCompra')
+      =link_to "Compre Agora", "/20reais_primeira_compra", :class => "bt_go_catalog", target: '_parent', onclick: track_event('Lightbox', 'PrimeiraCompra')
       %p.terms_new_user
         *Válido para compras acima de R$100
         %br
