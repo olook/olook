@@ -1312,6 +1312,8 @@ home/tit-top5.jpg: home/tit-top5-0bde00d0c154ec7eaa2dda920cee1ab5.jpg
 home/tit-top5/index.jpg: home/tit-top5-0bde00d0c154ec7eaa2dda920cee1ab5.jpg
 home/topo_novo_revisao_frete_3.png: home/topo_novo_revisao_frete_3-7ea9418d82770cf5210c6135c0c6771d.png
 home/topo_novo_revisao_frete_3/index.png: home/topo_novo_revisao_frete_3-7ea9418d82770cf5210c6135c0c6771d.png
+home/user_bt_modal.jpg: home/user_bt_modal-e4821282e780781f9a9fa1e8019317a3.jpg
+home/user_bt_modal/index.jpg: home/user_bt_modal-e4821282e780781f9a9fa1e8019317a3.jpg
 how_to/background.jpg: how_to/background-16ef7ac20170eeb152baf31c79ea6547.jpg
 how_to/background/index.jpg: how_to/background-16ef7ac20170eeb152baf31c79ea6547.jpg
 how_to/box-1.jpg: how_to/box-1-565206bb1f61ec1d0f1e32371039b595.jpg
@@ -2398,8 +2400,8 @@ admin/themes/default/style.css: admin/themes/default/style-88eb0610b60a4af46bd00
 admin/themes/default/style/index.css: admin/themes/default/style-88eb0610b60a4af46bd00d491b56195a.css
 application.css: application-0b9fd79a9583bd886b365ffc9beba673.css
 application/index.css: application-0b9fd79a9583bd886b365ffc9beba673.css
-campaign_emails.css: campaign_emails-dfffda7532a3fed156b69540d9c0d169.css
-campaign_emails/index.css: campaign_emails-dfffda7532a3fed156b69540d9c0d169.css
+campaign_emails.css: campaign_emails-c941c04abf03376a918f372171b42dcb.css
+campaign_emails/index.css: campaign_emails-c941c04abf03376a918f372171b42dcb.css
 common/_border-radius.css: common/_border-radius-1b13569e9620782f423d4cd3ce931750.css
 common/_border-radius/index.css: common/_border-radius-1b13569e9620782f423d4cd3ce931750.css
 common/_css3.css: common/_css3-1b13569e9620782f423d4cd3ce931750.css
