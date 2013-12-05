@@ -1,7 +1,8 @@
 - if search.has_any_filter_selected?
   %section.filters
     %p
-      Você está em Olooklet
+      Você está em 
+      = @filters_presenter.section_name
       %span //
     %ul
       - search.selected_filters_for("subcategory").sort.each do |sub|
