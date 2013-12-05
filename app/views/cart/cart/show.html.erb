@@ -1,3 +1,4 @@
+
   <% content_for :head do %>
     <%= stylesheet_link_tag "section/checkout" %>
     <meta name="chaordic:source" content="cart">
@@ -198,7 +199,10 @@ _gaq.push(['_addTrans',
           </p>
         </td>
         <td class="value discount">
-          <%= CouponPresenter.new(@cart.coupon).show_total_discount %>
+          <% present 'Coupon', coupon: @cart.coupon do |coupon_presenter| %>
+            <%= coupon_presenter.show_total_discount %>
+          <% end %>
+          
           <%= form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f| %>
             <fieldset class="inputs">
             <ol>
