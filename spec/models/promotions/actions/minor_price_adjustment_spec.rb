@@ -26,7 +26,7 @@ describe MinorPriceAdjustment do
 
         it "return de item id and its value as adjustment" do
           cart_item.stub(quantity: 1)
-          subject.calculate([cart_item], {'param' =>  1}).should == [{id: cart_item.id, product_id: 7, adjustment: BigDecimal("75")}]
+          subject.calculate([cart_item], {'param' =>  1}).should == [{id: cart_item.id, product_id: 7, adjustment: BigDecimal("65")}]
         end
       end
 
@@ -34,7 +34,7 @@ describe MinorPriceAdjustment do
 
         it "return de item id and its value as adjustment" do
           cart_item.stub(quantity: 2)
-          subject.calculate([cart_item], {'param' => 1}).should == [{id: cart_item.id, product_id: 7, adjustment: BigDecimal("75")}]
+          subject.calculate([cart_item], {'param' => 1}).should == [{id: cart_item.id, product_id: 7, adjustment: BigDecimal("65")}]
         end
       end
     end
@@ -61,7 +61,7 @@ describe MinorPriceAdjustment do
         end
 
         it "return the minor item value (50)" do
-          @return.should == [{id: cart_item_2.id, product_id: 8, adjustment: BigDecimal("50")}]
+          @return.should == [{id: cart_item_2.id, product_id: 8, adjustment: BigDecimal("40")}]
         end
       end
 
@@ -75,7 +75,7 @@ describe MinorPriceAdjustment do
         end
 
         it "return 2 minor item values (50, 95)" do
-          @return.should == [{id: cart_item_2.id, product_id: 8, adjustment: BigDecimal("50")}, {id: cart_item_1.id, product_id: 7, adjustment: BigDecimal("95")}]
+          @return.should == [{id: cart_item_2.id, product_id: 8, adjustment: BigDecimal("40")}, {id: cart_item_1.id, product_id: 7, adjustment: BigDecimal("85")}]
         end
       end
 
