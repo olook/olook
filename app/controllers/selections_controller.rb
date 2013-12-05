@@ -10,8 +10,11 @@ class SelectionsController < OlookletController
   end
 
   def header
-    @header ||= CatalogHeader::CatalogBase.for_url("/" + params[:lbl]).first
+    @header ||= CatalogHeader::CatalogBase.for_url("/#{params[:lbl]}").first
   end
 
 
+  def title_text
+    "Seleções especiais | Roupas Femininas e Sapatos Femininos | Olook"
+  end
 end
