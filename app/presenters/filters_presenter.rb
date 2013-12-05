@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class FiltersPresenter
   include Rails.application.routes.url_helpers
 
@@ -11,6 +12,10 @@ class FiltersPresenter
     else
       selections_path(value).html_safe
     end
+  end
+
+  def section_name
+    @for == 'olooklet' ? 'Olooklet' : 'Seleções especiais'
   end
 
 end
