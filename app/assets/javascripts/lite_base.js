@@ -43,7 +43,7 @@ olook.mercadoPagoBanner = function() {
     var img = content.data('url');
     content.html("<img src='" + img + "' />");
     content.css({'width': '800px', 'height': '640px', 'position': 'fixed !important'});
-    olook.newModal(content,640,800);
+    modal.show(content,640,800);
     e.preventDefault();
   });
 }

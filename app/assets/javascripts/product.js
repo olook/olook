@@ -2,7 +2,12 @@
 //= require formatter
 //= require credit_card
 //= require string_utils
+//= require ./partials/_modal
+//= require plugins/valentines_day
+//= require plugins/jquery.meio.mask
+//= require plugins/image_loader
 //= require plugins/spy
+
 
 $(function(){
   initProduct.loadAll();
@@ -10,6 +15,14 @@ $(function(){
 });
 
 initProduct = {
+  gotoRelatedProduct :function() {
+    $('a#goRelatedProduct').live('click', function(e) {
+      $("html, body").animate({
+        scrollTop: 900
+      }, 'fast');
+      e.preventDefault();
+    });
+  },  
   checkRelatedProducts : function() {
     return $("div#related ul.carousel").size() > 0 ? true : false;
   },
@@ -61,7 +74,7 @@ initProduct = {
       $("ul.social-list li.email").on("click", function(e){
         e.preventDefault();
         e.stopPropagation();
-        initBase.newModal(content);
+        modal.show(content);
       });
     }
     $("#compartilhar_email form").submit(function(){
@@ -101,6 +114,7 @@ initProduct = {
   },
   loadAll : function() {
     initProduct.showCarousel();
+    initProduct.gotoRelatedProduct();
     showInfoCredits();
 
     $("#product div.box_carousel a.open_carousel").live("click", function () {

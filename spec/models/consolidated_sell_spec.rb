@@ -68,14 +68,13 @@ describe ConsolidatedSell do
     let(:amount) { 10 }
     let!(:product) { FactoryGirl.create(:shoe) }
     let(:consolidated) { FactoryGirl.create(:consolidated_sell) }
+    before do
+      described_class.stub(:find_or_create_consolidated_record).and_return(consolidated)
+      product.stub(:price).and_return(BigDecimal("10,00"))
+      product.stub(:retail_price).and_return(BigDecimal("10,00"))
+    end
 
     context "summarizing" do
-      before do
-        described_class.stub(:find_or_create_consolidated_record).and_return(consolidated)
-        product.stub(:price).and_return(BigDecimal("10,00"))
-        product.stub(:retail_price).and_return(BigDecimal("10,00"))
-      end
-
       context "saving" do
         it "saves consolidate" do
           consolidated.should_receive(:save!)
