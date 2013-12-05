@@ -6,7 +6,7 @@ class FiltersPresenter
     @for = olooklet_or_selection
   end
 
-  def path(value)
+  def path(value=nil)
     if @for == 'olooklet'
       olooklet_path(value).html_safe
     else
