@@ -6,7 +6,7 @@ class SearchEngine
 
   MULTISELECTION_SEPARATOR = '-'
   RANGED_FIELDS = HashWithIndifferentAccess.new({'price' => '', 'heel' => '', 'inventory' => ''})
-  IGNORE_ON_URL = Set.new(['inventory', :inventory, 'is_visible', :is_visible, 'in_promotion', :in_promotion, 'visibility', :visibility])
+  IGNORE_ON_URL = Set.new(['inventory', :inventory, 'is_visible', :is_visible, 'in_promotion', :in_promotion])
   PERMANENT_FIELDS_ON_URL = Set.new([:is_visible, :inventory])
 
   RETURN_FIELDS = [:subcategory,:name,:brand,:image,:retail_price,:price,:backside_image,:category,:text_relevance]
@@ -74,7 +74,7 @@ class SearchEngine
   def price= price
     @expressions["price"] = []
     if /^(?<min>\d+)-(?<max>\d+)$/ =~ price.to_s
-      @expressions["price"] = ["retail_price:#{min.to_i*100}..#{max.to_i*100}"]
+      @expressions["price"] = ["retail_price:#{min.to_i*100}..#{max.to_i*100-1}"]
     end
     self
   end
