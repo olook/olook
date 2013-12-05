@@ -104,11 +104,12 @@ section#home {
     > h1 {
       background: image-url("home/bg-title-highlights.jpg") center center no-repeat;
       color: #231f20;
-      font-family: $avenir;
-      font-size: 19px;
+      font-family: $verdana;
+      font-size: 16px;
       text-transform: uppercase;
       text-align: center;
       margin: 0 0 17px;
+      letter-spacing: 1px;
       
     }
     ul {
@@ -128,27 +129,33 @@ section#home {
           margin: 0 0 10px;
         }
         h1 {
-          font-family: $johnston;
-          font-family: 29px;
+          font-family: $verdana;
+          font-size: 22px;
           text-transform: uppercase;
           a{
             text-decoration: none;
             color: #000 ;
+            font-family: $verdana;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 1px;
           }
         }
         p {
           color: #231f20;
-          font-size: 15px;
+          font-size: 13px;
           margin: 0 0 15px;
+          font-family: $verdana;
         }
         a.more {
           background: image-url("home/bg-more.jpg") center center no-repeat;
           color: #000;
-          font-size: 12px;
-          font-weight: bold;
+          font-size: 10px;
+          font-weight: 600;
           text-decoration: none;
           text-transform: uppercase;
           padding: 0 30px;
+          font-family: $verdana;
           &:hover {
             color: #ef3742;
           }
@@ -211,11 +218,13 @@ section#home {
     padding: 10px 0 30px;
     border-bottom: 1px #cbcbcb solid;
     >h1 {
-      font-family: $kepler;
-      font-size: 27px;
+      font-family: $verdana;
+      font-size: 18px;
       text-align: center;
       text-transform: uppercase;
       margin: 0 0 30px;
+      letter-spacing: 2px;
+    
     }
     h2 {
       position: absolute;
@@ -237,8 +246,9 @@ section#home {
     border-bottom: 1px #cbcbcb solid;
     .box_brand{width: 580px; height: 500px; float: left;
       h1 {
-        font-family: $johnston;
-        font-size: 26px;
+        font-family: $verdana;
+        font-size: 18px;
+        letter-spacing: 2px;
         text-align: center;
         text-transform: uppercase;
         margin: 0 0 10px;
@@ -541,11 +551,12 @@ section#home {
       width: 380px;
       height: 592px;
       h1 {
-        font-family: $johnston;
-        font-size: 26px;
+        font-family: $verdana;
+        font-size: 18px;
         text-align: center;
         text-transform: uppercase;
         margin: 0 0 10px;
+        letter-spacing: 2px;
       }
       ul{
         width: 378px;
