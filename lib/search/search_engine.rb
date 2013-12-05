@@ -302,6 +302,7 @@ class SearchEngine
       filter_params = HashWithIndifferentAccess.new
       expressions.each do |k, v|
         next if IGNORE_ON_URL.include?(k)
+        next if k == 'visibility'
         filter_params[k] ||= []
         if RANGED_FIELDS[k]
           v.each do |_v|
