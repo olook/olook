@@ -35,7 +35,7 @@ update_inventory:
   description: "Atualiza o Inventario"
 
 update_order_status:
-  cron: "*/5 * * * *"
+  cron: "*/30 * * * *"
   class: Abacos::UpdateOrderStatus
   queue: order_status
   description: "Atualiza o status dos Pedidos"
