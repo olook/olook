@@ -16,4 +16,16 @@ describe Freebie do
       it { should_not be }
     end
   end
+
+  describe '.product_is_freebie?' do
+    context 'when product_id is 23035' do
+      subject { Freebie.product_is_freebie?(23035) }
+      it { should be }
+    end
+
+    context 'when product_id is 23034' do
+      subject { Freebie.product_is_freebie?(23034) }
+      it { should_not be }
+    end
+  end
 end
