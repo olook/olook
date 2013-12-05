@@ -96,11 +96,22 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 		.titulo{font-family:$johnston;font-size:25px;color:#000;text-align:center;margin:30px 0 10px;text-transform:uppercase;line-height:35px;letter-spacing: 1px;
 			span{font-family:$avenir;font-size:18px;}
 		}
+		p.cadastre_new{font-size: 18px;font-family: $avenir; color: #000;text-align: center;margin-left: 5px;
+			span{
+				font-weight: bold;
+				font-size: 24px;
+			}
+		}
 		.big_titulo{font-family:$johnston;font-size:25px;color:#000;text-align:center;margin:50px 0 20px;text-transform:uppercase;line-height:35px;letter-spacing: 1px;
 			span{font-family:$avenir;font-size:18px;}
 		}
 		.cadastre{font-family:$avenir;font-size:17px;color:#050708;text-align:center;margin-left:5px;margin-bottom: -13px;}
 		.adendo{font-size:14px;font-family:$avenir;float:left;width:440px;line-height:18px;margin-top:207px;color:#424242;letter-spacing:-1px;margin-left:42px;position:absolute}
+		a.bt_go_catalog{
+			background: image-url('home/user_bt_modal.jpg') 0px 0px; display: block; width: 171px; height: 43px;text-indent: -9999px;margin-left: 138px;margin-top: 30px;
+			&:hover{background-position: 0 -52px;}
+		}
+		p.terms_new_user{font-size: 12px;font-family: $avenir; color: #000; text-align: center;margin-top: 37px;}
 	}
 
 	form{
