@@ -13,6 +13,10 @@ class Freebie
     "Falta R$ #{miss.to_i},#{( (miss - miss.to_i) * 100 ).round} para conseguir o brinde"
   end
 
+  def variant_id
+    55593
+  end
+
   class << self
     def product_is_freebie?(product_id)
       product_id.to_i == 23035
