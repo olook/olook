@@ -15,10 +15,6 @@
   = javascript_include_tag "gift"
 - content_for :full do
   #fb-root
-  /
-    <div id="banner">
-    <haml:silent>
-    </haml:silent>  </div>
   = render "profiles"
   - @profiles.each do |profile|
     %section#profile_products{:class => "sub #{profile}"}

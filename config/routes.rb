@@ -115,6 +115,7 @@ Olook::Application.routes.draw do
 
   #NEW OLOOKLET
   get "/olooklet(/*parameters)" => "olooklet#index", :as => "olooklet"
+  get "/selections(/*parameters)" => "selections#index", :as => "selections"
 
   #NEW COLLECTIONS
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
