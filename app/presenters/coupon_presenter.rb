@@ -8,7 +8,7 @@ class CouponPresenter < BasePresenter
   end
 
   def show_line_item_discount_for item
-    if item.has_any_discount? && show_markdown_for?(item)
+    if item.has_adjustment? && !fixed_value_coupon?
       h.link_to promotion_discount(item), "#", :class => 'discount_percent'
     end
   end
