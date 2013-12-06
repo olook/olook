@@ -59,12 +59,12 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
   } 
   div#product-details{width: 417px;float: right;position:relative;color:#000;margin-left: 45px;margin-top:10px;
     .pl9{padding-left:9px;}
-    h1{font-family:$avenir;font-size:17px;font-weight: lighter;}
-    h2{font-family:$avenir;font-size:14px;text-transform:uppercase;font-weight:bold;margin-bottom:20px;}
+    h1{font-family:$verdana;font-size:16px;font-weight: lighter;letter-spacing: 2px;padding-bottom:3px;}
+    h2{font-family:$arial;font-size:14px;text-transform:uppercase;font-weight:bold;margin-bottom:20px;}
     a.ver_produto {font-family:avenir, tahoma;position: relative;top: -20px;color:#000;text-decoration:none;color:#ef3742;}
     a.ver_produto:hover {text-decoration:underline;}
   
-    p {color: #000;font-size:15px;font-family: $avenir;
+    p {color: #000;font-size:15px;font-family: $preco;
       a {color: $pink;margin: 0 0 0 5px;}
       &.price{font-weight:bold;}
       &.plots{color:#6D6E71; font-size: 14px;}
