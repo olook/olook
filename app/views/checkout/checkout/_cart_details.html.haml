@@ -39,7 +39,7 @@
       %span#total_debit.txt-black= number_to_currency(@cart_service.total(Debit.new))
     %span#total.txt-black= number_to_currency(@cart_service.total)
     %span#delivery_time.frete
-      - if address && address.zip_code
+      - if address.try(:zip_code) && !@has_two_shipping_services
         = delivery_time_message(freight_for(address)[:delivery_time])
 %p.important
   %span Importante:
