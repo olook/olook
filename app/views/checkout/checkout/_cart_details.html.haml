@@ -42,6 +42,11 @@
       - if address.try(:zip_code) && !@has_two_shipping_services
         %p.frete_time
           Seu pedido será entregue em X dias úteis.
+        = delivery_time_message(freight_for(address)[:delivery_time])
+  - if @freebie && @freebie.can_receive_freebie?
+    %p.freebie_row
+      Super Brinde da Olook o cheirinho da Olook como aromatizante pra vc!
+
 %p.important
   %span Importante:
   O prazo de entrega começa a contar a partir da confirmação do pagamento.
