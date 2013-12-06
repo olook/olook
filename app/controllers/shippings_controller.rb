@@ -7,23 +7,19 @@ class ShippingsController < ApplicationController
   def show
     zip_code = params[:id]
 
-    freight =  FreightCalculator.freight_for_zip(
+    freights =  FreightCalculator.freight_for_zip(
       zip_code,
       @cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE,
       params[:freight_service_ids],
       true
     )
-
-    if freight.empty?
-      render :status => :not_found
-    else
-      track_zip_code_fetch_event
-
-      @days_to_deliver = freight[:delivery_time]
-      @freight_price = freight[:price]
-      @first_free_freight_price = freight[:first_free_freight_price]  if freight[:first_free_freight_price]
-      # render :show , :format => :json
-    end
+    return render :status => :not_found if freights.empty?
+      
+    track_zip_code_fetch_event
+    @has_two_shipping_services = freights.count > 1
+    #@days_to_deliver = freight[:delivery_time]
+    #@freight_price = freight[:price]
+    #@first_free_freight_price = freight[:first_free_freight_price]  if freight[:first_free_freight_price]
   end
 
 end
