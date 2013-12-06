@@ -1284,10 +1284,10 @@ home/jj.jpg: home/jj-c76c8ef989706798f860b753cf2300f0.jpg
 home/jj/index.jpg: home/jj-c76c8ef989706798f860b753cf2300f0.jpg
 home/mw.jpg: home/mw-5824daff588505945e0b7b3581156816.jpg
 home/mw/index.jpg: home/mw-5824daff588505945e0b7b3581156816.jpg
-home/new_brands.jpg: home/new_brands-9e75404db1d8dfa4752c681f9f9c5608.jpg
-home/new_brands/index.jpg: home/new_brands-9e75404db1d8dfa4752c681f9f9c5608.jpg
-home/new_brands_off.jpg: home/new_brands_off-3a33fdb08efe2f86e598e9c2211d881d.jpg
-home/new_brands_off/index.jpg: home/new_brands_off-3a33fdb08efe2f86e598e9c2211d881d.jpg
+home/new_brands.jpg: home/new_brands-def0a5ca7902772d47718bfb6d6e493f.jpg
+home/new_brands/index.jpg: home/new_brands-def0a5ca7902772d47718bfb6d6e493f.jpg
+home/new_brands_off.jpg: home/new_brands_off-c89f7673b77246b600878feff070acbe.jpg
+home/new_brands_off/index.jpg: home/new_brands_off-c89f7673b77246b600878feff070acbe.jpg
 home/olook-loved.jpg: home/olook-loved-f2e5bf4bedba83c28882db5d1fd834f7.jpg
 home/olook-loved/index.jpg: home/olook-loved-f2e5bf4bedba83c28882db5d1fd834f7.jpg
 home/olook.jpg: home/olook-5c5edb27a8d142a5e4b9db909c5bfbde.jpg
@@ -2440,8 +2440,8 @@ common/typography.css: common/typography-099ac8480b64696051967f5e7cd4a7fd.css
 common/typography/index.css: common/typography-099ac8480b64696051967f5e7cd4a7fd.css
 customlanding.css: customlanding-01e5d0450940ed0ef66a0fac6a3df677.css
 customlanding/index.css: customlanding-01e5d0450940ed0ef66a0fac6a3df677.css
-desktop.css: desktop-8e1b32ca7b08a2debd9c2ff89996d913.css
-desktop/index.css: desktop-8e1b32ca7b08a2debd9c2ff89996d913.css
+desktop.css: desktop-394a1afacfc4783ef4877b777e066ef5.css
+desktop/index.css: desktop-394a1afacfc4783ef4877b777e066ef5.css
 new_structure/lite_application.css: new_structure/lite_application-9ff3141c6f4711801b9e31be796d2f6f.css
 new_structure/lite_application/index.css: new_structure/lite_application-9ff3141c6f4711801b9e31be796d2f6f.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-89a95eeb61bd0261940de13468f8f414.css
@@ -2522,8 +2522,8 @@ section/gift_home.css: section/gift_home-74d78b18c751587fadb01ff08710eab6.css
 section/gift_home/index.css: section/gift_home-74d78b18c751587fadb01ff08710eab6.css
 section/half_user.css: section/half_user-c54c025e72fa63d3a74f1be72482d577.css
 section/half_user/index.css: section/half_user-c54c025e72fa63d3a74f1be72482d577.css
-section/home.css: section/home-8422b6a623d244ec7db67fd1829329c4.css
-section/home/index.css: section/home-8422b6a623d244ec7db67fd1829329c4.css
+section/home.css: section/home-a2e2e0221e726f0886f04bd9ad8fdd79.css
+section/home/index.css: section/home-a2e2e0221e726f0886f04bd9ad8fdd79.css
 section/how_to.css: section/how_to-eee0aa79a6e1cbeb7583c978f93c744a.css
 section/how_to/index.css: section/how_to-eee0aa79a6e1cbeb7583c978f93c744a.css
 section/invite.css: section/invite-7c7e1243d4d6338865bd1680c3cdaa02.css
