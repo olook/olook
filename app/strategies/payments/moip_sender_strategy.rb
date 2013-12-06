@@ -124,7 +124,7 @@ module Payments
     end
 
     def remove_nine_digits_of_telephone(phone_number)
-      phone_number.gsub!("(11)9","(11)") if phone_number =~ /^\(\d{2}\)9\d{4}-\d{4}$/
+      phone_number.gsub!(")9",")") if phone_number =~ /^\(\d{2}\)9\d{4}-\d{4}$/
       phone_number
     end
 

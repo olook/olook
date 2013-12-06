@@ -8,7 +8,7 @@ class Address < ActiveRecord::Base
 
   ZipCodeFormat = /^[0-9]{5}-[0-9]{3}$/
   PhoneFormat = /^(?:\(\d{2}\)(9){0,1}[2-9]\d{3}-\d{4})$/
-  MobileFormat = /^(?:\(\d{2}\)(9){0,1}[2-9]\d{3}-\d{4})$/
+  MobileFormat = /^(?:\(\d{2}\)(9){1}[2-9]\d{3}-\d{4})$/
   StateFormat = /^[A-Z]{2}$/
 
   validates_presence_of :country, :state, :street, :city, :number, :zip_code, :neighborhood
