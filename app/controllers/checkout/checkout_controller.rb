@@ -14,6 +14,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     @report  = CreditReportService.new(@user)
     @checkout = Checkout.new(address: @addresses.find { |a| a.id == current_user.orders.last.freight.address_id rescue false } || @addresses.first )
     @has_two_shipping_services = FreightCalculator.freight_for_zip(@checkout.address.zip_code,@cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE,).count > 1
+    @freebie = Freebie.new(subtotal: @cart.sub_total)
   end
 
   def create
@@ -93,7 +94,7 @@ class Checkout::CheckoutController < Checkout::BaseController
       params[:checkout][:payment][:receipt] = Payment::RECEIPT
       params[:checkout][:payment][:telephone] = address.telephone if address
 
-      payment = case params[:checkout][:payment_method]
+      case params[:checkout][:payment_method]
       when "billet"
         Billet.new(params[:checkout][:payment])
       when "debit"
