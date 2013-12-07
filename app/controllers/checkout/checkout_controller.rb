@@ -13,7 +13,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     @addresses = @user.addresses
     @report  = CreditReportService.new(@user)
     @checkout = Checkout.new(address: @addresses.find { |a| a.id == current_user.orders.last.freight.address_id rescue false } || @addresses.first )
-    @freebie = Freebie.new(subtotal: @cart.sub_total) if current_admin
+    @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id) if current_admin
   end
 
   def create
