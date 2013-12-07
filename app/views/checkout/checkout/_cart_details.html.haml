@@ -41,7 +41,7 @@
     %span#delivery_time.frete
       - if address && address.zip_code
         = delivery_time_message(freight_for(address)[:delivery_time])
-  - if @freebie && @freebie.can_receive_freebie?
+  - if @freebie && Freebie.selection_for(@cart.id) && @freebie.can_receive_freebie?
     .freebie_row
       %p
         Veja 

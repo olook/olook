@@ -30,4 +30,5 @@ $('#cart_summary ul li[data-id=<%= item.id %>] p.qte span').text(<%= item.quanti
 
 <% if @freebie %>
   $('.freebie').replaceWith('<%= j render('freebie/item', freebie: @freebie) %>');
+  if(olook.checkFreebie) olook.checkFreebie();
 <% end %>
