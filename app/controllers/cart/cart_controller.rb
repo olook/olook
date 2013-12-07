@@ -39,6 +39,7 @@ class Cart::CartController < ApplicationController
       render :error, :locals => { :notice => notice_message }
     end
     @cart.reload
+    @freebie = Freebie.new(subtotal: @cart.sub_total)
   end
 
   def i_want_freebie
