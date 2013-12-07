@@ -176,7 +176,7 @@ class CartService
     end
 
     freebie = Freebie.new(subtotal: cart.sub_total)
-    if freebie.can_receive_freebie?
+    if Freebie.selection_for(cart.id) && freebie.can_receive_freebie?
       freebie_item = LineItem.new(variant_id: freebie.variant_id, quantity: 1, price: 0.1,
                                   retail_price: 0.1, gift: false, is_freebie: true)
       order.line_items << freebie_item
