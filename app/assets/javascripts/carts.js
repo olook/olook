@@ -87,11 +87,22 @@ $(function() {
   }
 
   showGiftPackageModal();
+  showSmellPackageModal();
 });
 
 function showGiftPackageModal(){
-   content = $(".modal_gift");
+   var content = $(".modal_gift");
    $("a.txt-conheca").bind("click", function(e){
+      initBase.newModal(content);
+      e.preventDefault();
+      e.stopPropagation();
+   })
+
+}
+
+function showSmellPackageModal(){
+   var content = $(".modal_smell");
+   $("a.seeTheSmell").bind("click", function(e){
       initBase.newModal(content);
       e.preventDefault();
       e.stopPropagation();
