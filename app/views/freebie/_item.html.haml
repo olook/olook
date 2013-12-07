@@ -5,4 +5,9 @@
       = check_box_tag 'i_want_freebie', 1, checked: 'checked'
       Desejo Receber
   - else
-    = freebie.what_can_i_do_to_receive_freebie
+    %h2
+      Nas compras acima de R$ 200,00 reais ganhe um aroma de ambiente exclusivo Olook.
+    %p.missingToSmell
+      = freebie.what_can_i_do_to_receive_freebie
+    = link_to 'Veja mais aqui', '#', class: 'seeTheSmell'
+.modal_smell
