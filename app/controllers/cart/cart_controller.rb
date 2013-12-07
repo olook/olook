@@ -43,6 +43,7 @@ class Cart::CartController < ApplicationController
 
   def i_want_freebie
     Freebie.save_selection_for(cart: @cart, i_want_freebie: params[:i_want_freebie])
+    render text: 'OK'
   end
 
   private
