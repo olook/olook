@@ -41,7 +41,17 @@
     %span#delivery_time.frete
       - if address && address.zip_code
         = delivery_time_message(freight_for(address)[:delivery_time])
+  - if @freebie && Freebie.selection_for(@cart.id) && @freebie.can_receive_freebie?
+    .freebie_row
+      %p
+        Veja 
+        = link_to 'aqui', '#', class: 'seeTheSmell' 
+        o mimo que a Olook vai te dar de presente! 
+        
+
 %p.important
   %span Importante:
   O prazo de entrega começa a contar a partir da confirmação do pagamento.
 = checkout_form.submit '', class: "send_it", disable_with: "", onclick: track_event("Checkout","clickSubmit") if defined?(checkout_form)
+
+.modal_smell
