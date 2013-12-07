@@ -207,6 +207,10 @@ table.check {
 
 section#cart {
   padding: 20px 0 0;
+
+  .freebie {height:110px;background: image-url('cart/cheirinho.jpg') no-repeat left center;padding-left:10%;width:90%;
+    h2 {font-family: $avenir;font-size: 18px;display: block;width:100%;float:left;}
+  }
 	.txt-add{clear:both;font-size:13px;line-height:18px;border-bottom:dotted 1px #000;
 		small{font-size:11px;}
 	}
@@ -290,6 +294,7 @@ section#cart {
 
   .f14{font-size:14px;}
   .desconto{font-size:11px;margin-top:15px;}
+
 }
 
 	.buying-continue{
