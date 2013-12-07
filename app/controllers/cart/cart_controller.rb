@@ -34,12 +34,15 @@ class Cart::CartController < ApplicationController
 
   def update
     @cart.update_attributes(params[:cart])
-    
     if @cart.errors.any?
       notice_message = @cart.errors.messages.values.flatten.first
       render :error, :locals => { :notice => notice_message }
     end
     @cart.reload
+  end
+
+  def i_want_freebie
+    Freebie.save_selection_for(cart: @cart, i_want_freebie: params[:i_want_freebie])
   end
 
   private
