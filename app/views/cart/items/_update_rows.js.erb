@@ -28,3 +28,6 @@ $("table#items tbody tr#item_<%= item.id %> td.value").first().append("<%= escap
 $('#cart_summary ul li[data-id=<%= item.id %>] p.qte span').text(<%= item.quantity %>);
 <% end %>
 
+<% if @freebie %>
+  $('.freebie').replaceWith('<%= j render('freebie/item', freebie: @freebie) %>');
+<% end %>
