@@ -14,7 +14,7 @@ class Cart::ItemsController < ApplicationController
 
     if @item.update_attribute(:quantity, params[:quantity])
       @cart.items.reload
-      @freebie = Freebie.new(subtotal: @cart.sub_total)
+      @freebie = Freebie.new(subtotal: @cart.sub_total) if current_admin
       respond_with { |format| format.js {  } }
     else
       render :error, :locals => { :notice => "Houve um problema ao atualizar a quantidade do item do cart" }
@@ -26,7 +26,7 @@ class Cart::ItemsController < ApplicationController
 
     if @item.destroy
       @cart.items.reload
-      @freebie = Freebie.new(subtotal: @cart.sub_total)
+      @freebie = Freebie.new(subtotal: @cart.sub_total) if current_admin
       respond_with { |format| format.js { } }
     else
       render :error, :locals => { :notice => "Houve um problema ao deletar o item do cart" }
