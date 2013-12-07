@@ -451,6 +451,7 @@ Olook::Application.routes.draw do
 
   #CHECKOUT
   resource :cart, :path => 'sacola', :controller => "cart/cart", :except => [:create] do
+    get 'i_want_freebie' => 'cart/cart#i_want_freebie', as: 'i_want_freebie'
     resources :items, :to => 'cart/items'
     resources :look_items, to: 'cart/look_items', only: [:create, :destroy]
   end
