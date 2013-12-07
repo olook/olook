@@ -1843,8 +1843,8 @@ section.checkout{
           input{float:right;background: image-url("new_checkout/sprite.png") no-repeat -381px -83px;border:none;color: #6D6E71;cursor:pointer;display:block;height:26px;width:70px;padding-left:20px;text-decoration:underline;font-weight:bold;}
         }
       }
-      img{float:left;margin:10px 15px 5px;}
-      ul{float:left;margin:10px 0 0 15px;
+      img{float:left;margin-left:10px;}
+      ul{float:left;margin:10px 0 0 15px;width:215px;
         li{font-size:13px;
           &.txt-black{text-transform:uppercase;}
         }
