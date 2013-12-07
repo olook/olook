@@ -44,10 +44,16 @@
           Seu pedido será entregue em X dias úteis.
         = delivery_time_message(freight_for(address)[:delivery_time])
   - if @freebie && @freebie.can_receive_freebie?
-    %p.freebie_row
-      Super Brinde da Olook o cheirinho da Olook como aromatizante pra vc!
+    .freebie_row
+      %p
+        Veja 
+        = link_to 'aqui', '#', class: 'seeTheSmell' 
+        o mimo que a Olook vai te dar de presente! 
+        
 
 %p.important
   %span Importante:
   O prazo de entrega começa a contar a partir da confirmação do pagamento.
 = checkout_form.submit '', class: "send_it", disable_with: "", onclick: track_event("Checkout","clickSubmit") if defined?(checkout_form)
+
+.modal_smell

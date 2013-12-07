@@ -1854,7 +1854,27 @@ section.checkout{
   }
 /********** END / START STEP THREE *******/
   #cart-box{
-    float:left;border:solid 1px #D9D8D8;width:321px;max-height:445px;background:#FFF;margin-bottom: 15px;
+    float:left;border:solid 1px #D9D8D8;width:321px;max-height:458px;background:#FFF;margin-bottom: 15px;
+    .freebie_row {
+      width:270px;
+      background: image-url("cart/cheirinho.jpg") no-repeat left center;
+      height:100px;
+      height: 128px;
+      margin-left: 27px;
+      border-top:1px solid #d1d1d1;
+      p {
+        display: block;
+        width: 180px;
+        margin-left: 80px;
+        margin-top: 40px;
+        font-family: $avenir;
+        font-weight: lighter;
+        line-height: 16px;
+        font-size: 13px;
+        color:#000;
+        a {color:$pink;}
+      }
+    }
     .bg-box{display:none;}
     .products{max-height:217px;overflow-y:auto;}
     #items{width:100%;
