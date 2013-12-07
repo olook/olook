@@ -175,13 +175,15 @@ class CartService
       create_freebies_line_items_and_update_subtotal(order, item)
     end
 
-    freebie = Freebie.new(subtotal: cart.sub_total)
-    if Freebie.selection_for(cart.id) && freebie.can_receive_freebie?
-      freebie_item = LineItem.new(variant_id: freebie.variant_id, quantity: 1, price: 0.1,
-                                  retail_price: 0.1, gift: false, is_freebie: true)
-      order.line_items << freebie_item
-      order.amount_discount += (0.1)
-      order.subtotal += (0.1)
+    if Freebie.selection_for(cart.id)
+      freebie = Freebie.new(subtotal: cart.sub_total, cart_id: cart.id)
+      if freebie.can_receive_freebie?
+        freebie_item = LineItem.new(variant_id: freebie.variant_id, quantity: 1, price: 0.1,
+                                    retail_price: 0.1, gift: false, is_freebie: true)
+        order.line_items << freebie_item
+        order.amount_discount += (0.1)
+        order.subtotal += (0.1)
+      end
     end
 
     order.freight = Freight.create(freight)
