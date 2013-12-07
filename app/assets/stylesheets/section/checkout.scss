@@ -204,14 +204,37 @@ table.check {
    }
  }
 
-.modal_smell {display: none;width:526px;height:332px;background: image-url('cart/modal_smell.jpg') no-repeat center center;}
+.modal_smell {display: none;width:526px;height:332px;background: image-url('cart/modal_smell.jpg') no-repeat center center;border:8px solid #FFF;}
 
 section#cart {
   padding: 20px 0 0;
   .freebie {height:110px;background: image-url('cart/cheirinho.jpg') no-repeat left center;padding-left:9%;width:91%;
     h2 {font-family: $avenir;font-size: 16px;display: block;width:36%;float:left;margin:0px;padding:0px;}
+    h2.added {text-transform: uppercase;width: 265px;font-size: 14px;line-height: 22px;margin-bottom: 10px;padding-top: 15px;}
     .missingToSmell {margin:0px;display: block;width:100%;padding:0px;float:left;margin-top:10px;}
     .seeTheSmell {display: block;clear: both;float:left;color:$pink;font-family: $avenir;font-size: 12px;}
+    .smellName, .checkbox, .value, .value_total {float:left;}
+    .checkbox {
+      width:200px;padding-top:26px;color:#000;font-size: 12px;font-weight: lighter;
+    }
+    .value {
+      width: 121px;
+      text-align: center;
+      padding-top:27px;
+    }
+    .value_total {
+      float: right;
+      padding-top: 25px;
+      text-align: left;
+      width: 119px;
+      font-size: 17px;
+      color: #000;
+      font-family: avenir;
+      font-weight: lighter; 
+      padding-left: 70px;
+      height: 43px;
+      background: image-url('cart/img_gratis.jpg') no-repeat left center;
+    }
   }
   .txt-add{clear:both;font-size:13px;line-height:18px;border-bottom:dotted 1px #000;
     small{font-size:11px;}
