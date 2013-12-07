@@ -1,9 +1,16 @@
 .freebie
   - if freebie.can_receive_freebie?
-    Insira aqui o conteudo
-    %p
+    .smellName
+      %h2.added
+        aroma de ambiente exclusivo Olook.
+      = link_to 'Veja mais aqui', '#', class: 'seeTheSmell'
+    .checkbox
       = check_box_tag 'i_want_freebie', 1, checked: 'checked'
       Desejo Receber
+    .value
+      R$ 30,00
+    .value_total
+      R$ 30,00
   - else
     %h2
       Nas compras acima de R$ 200,00 reais ganhe um aroma de ambiente exclusivo Olook.
