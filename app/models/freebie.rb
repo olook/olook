@@ -2,6 +2,12 @@
 class Freebie
   def initialize(attrs={})
     @subtotal = attrs[:subtotal]
+    @cart_id = attrs[:cart_id]
+    if can_receive_freebie?
+      key = "iwantfreebie/#{@cart_id}"
+      v = REDIS.get(key)
+      Freebie.save_selection_for(@cart_id, '1') if v.nil?
+    end
   end
 
   def can_receive_freebie?
@@ -30,7 +36,7 @@ class Freebie
     def selection_for(cart_id)
       key = "iwantfreebie/#{cart_id}"
       v = REDIS.get(key)
-      v.nil? || v == '1'
+      v.to_s == '1'
     end
   end
 end
