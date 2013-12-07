@@ -209,7 +209,7 @@ table.check {
 section#cart {
   padding: 20px 0 0;
   .freebie {height:110px;background: image-url('cart/cheirinho.jpg') no-repeat left center;padding-left:9%;width:91%;
-    h2 {font-family: $avenir;font-size: 16px;display: block;width:36%;float:left;margin:0px;padding:0px;}
+    h2 {font-family: $avenir;font-size: 16px;display: block;width:36%;float:left;margin:0px;padding:0px;padding-top:10px;}
     h2.added {text-transform: uppercase;width: 265px;font-size: 14px;line-height: 22px;margin-bottom: 10px;padding-top: 15px;}
     .missingToSmell {margin:0px;display: block;width:100%;padding:0px;float:left;margin-top:10px;}
     .seeTheSmell {display: block;clear: both;float:left;color:$pink;font-family: $avenir;font-size: 12px;}
