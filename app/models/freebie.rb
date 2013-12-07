@@ -22,10 +22,15 @@ class Freebie
       product_id.to_i == 23035
     end
 
-    def save_selection_for(attr={})
-      key = "iwantfreebie/#{attr[:cart].id}"
-      val = attr[:i_want_freebie]
-      REDIS.setex(key, 10.minutes, val)
+    def save_selection_for(cart_id, val)
+      key = "iwantfreebie/#{cart_id}"
+      REDIS.setex(key, 1.hour, val)
+    end
+
+    def selection_for(cart_id)
+      key = "iwantfreebie/#{cart_id}"
+      v = REDIS.get(key)
+      v.nil? || v == '1'
     end
   end
 end
