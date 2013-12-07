@@ -1,5 +1,6 @@
 //= require ./partials/_credits_info
 //= require plugins/spy
+//= require plugins/check_freebie
 $(function() {
   showInfoCredits();
   olook.spy('.cart_item[data-url]');
