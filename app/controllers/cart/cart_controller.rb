@@ -13,6 +13,7 @@ class Cart::CartController < ApplicationController
     @url += ":" + request.port.to_s if request.port != 80
     @chaordic_cart = ChaordicInfo.cart(@cart, current_user, cookies[:ceid])
     @suggested_product = find_suggested_product
+    @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
   end
 
   def destroy
@@ -33,7 +34,6 @@ class Cart::CartController < ApplicationController
 
   def update
     @cart.update_attributes(params[:cart])
-    
     if @cart.errors.any?
       notice_message = @cart.errors.messages.values.flatten.first
       render :error, :locals => { :notice => notice_message }
@@ -48,7 +48,12 @@ class Cart::CartController < ApplicationController
       @coupon_value = @cart.coupon.action_parameter.action_params[:param]
     end
 
+    @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
+  end
 
+  def i_want_freebie
+    Freebie.save_selection_for(@cart.id, params[:i_want_freebie])
+    render text: 'OK'
   end
 
   private
