@@ -13,7 +13,7 @@ class Cart::CartController < ApplicationController
     @url += ":" + request.port.to_s if request.port != 80
     @chaordic_cart = ChaordicInfo.cart(@cart, current_user, cookies[:ceid])
     @suggested_product = find_suggested_product
-    @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id) if current_admin
+    @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
   end
 
   def destroy
@@ -39,7 +39,7 @@ class Cart::CartController < ApplicationController
       render :error, :locals => { :notice => notice_message }
     end
     @cart.reload
-    @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id) if current_admin
+    @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
   end
 
   def i_want_freebie
