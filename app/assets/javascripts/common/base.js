@@ -251,10 +251,9 @@ $(document).ready(function() {
 
   // For now both fone field will acept nine digits
   function maskTel(tel){
-  	ddd  = $(tel).val().substring(1, 3);
   	dig9 = $(tel).val().substring(4, 5);
 
-  	if(ddd == "11" && dig9 == "9")
+  	if(dig9 == "9")
   		$(tel).setMask("(99)99999-9999");
     else
      	$(tel).setMask("(99)9999-9999");
