@@ -2448,8 +2448,8 @@ common/typography.css: common/typography-099ac8480b64696051967f5e7cd4a7fd.css
 common/typography/index.css: common/typography-099ac8480b64696051967f5e7cd4a7fd.css
 customlanding.css: customlanding-01e5d0450940ed0ef66a0fac6a3df677.css
 customlanding/index.css: customlanding-01e5d0450940ed0ef66a0fac6a3df677.css
-desktop.css: desktop-394a1afacfc4783ef4877b777e066ef5.css
-desktop/index.css: desktop-394a1afacfc4783ef4877b777e066ef5.css
+desktop.css: desktop-c38952617eccf706ac18a175acf34341.css
+desktop/index.css: desktop-c38952617eccf706ac18a175acf34341.css
 new_structure/lite_application.css: new_structure/lite_application-9ff3141c6f4711801b9e31be796d2f6f.css
 new_structure/lite_application/index.css: new_structure/lite_application-9ff3141c6f4711801b9e31be796d2f6f.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-89a95eeb61bd0261940de13468f8f414.css
