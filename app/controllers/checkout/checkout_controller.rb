@@ -13,6 +13,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     @addresses = @user.addresses
     @report  = CreditReportService.new(@user)
     @checkout = Checkout.new(address: @addresses.find { |a| a.id == current_user.orders.last.freight.address_id rescue false } || @addresses.first )
+    @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
   end
 
   def create
@@ -92,7 +93,7 @@ class Checkout::CheckoutController < Checkout::BaseController
       params[:checkout][:payment][:receipt] = Payment::RECEIPT
       params[:checkout][:payment][:telephone] = address.telephone if address
 
-      payment = case params[:checkout][:payment_method]
+      case params[:checkout][:payment_method]
       when "billet"
         Billet.new(params[:checkout][:payment])
       when "debit"

@@ -14,10 +14,9 @@ updateCreditCardSettlementsValue = function(select_box, total, reseller) {
 }
 
 function maskTel(tel){
-  ddd  = $(tel).val().substring(1, 3);
   dig9 = $(tel).val().substring(4, 5);
 
-  if(ddd == "11" && dig9 == "9")
+  if(dig9 == "9")
     $(tel).setMask("(99)99999-9999");
   else
     $(tel).setMask("(99)9999-9999");
@@ -167,6 +166,7 @@ $(function() {
 
   freightCalc();
   showAboutSecurityCode();
+  showSmellPackageModal();
 
   if($(".box-step-one input[type=radio]").size() == 1){
     $(".box-step-one input[type=radio]").trigger('click');
@@ -190,6 +190,15 @@ $(function() {
     //     $('input.send_it').removeClass('fixed bt-checkout').css('left', "")
     //   }
     // });
+  }
+
+  function showSmellPackageModal(){
+   var content = $(".modal_smell");
+   $("a.seeTheSmell").bind("click", function(e){
+      initBase.newModal(content);
+      e.preventDefault();
+      e.stopPropagation();
+   })
   }
 
 
