@@ -43,9 +43,15 @@ module FreightCalculator
 
   private
     def self.choose_betters_shipping_services shipping_services_array
-      return shipping_services_array if shipping_services_array.count < 3
-
-      shipping_services_array.sort{|x,y| x[:shipping_service_priority] <=> y[:shipping_service_priority]}.first(2)
+      return shipping_services_array if shipping_services_array.count == 1
+      return_shippings = []
+      sort_shipping_services = shipping_services_array.sort{|x,y| x[:shipping_service_priority] <=> y[:shipping_service_priority]}
+      better_shipping = sort_shipping_services.delete_at(0)
+      return_shippings << better_shipping
+      sort_shipping_services.each do |shipping|
+        return_shippings << shipping if shipping[:delivery_time] < better_shipping[:delivery_time]
+      end
+      return_shippings
     end
 
     def self.shipping_services(shipping_service_ids)

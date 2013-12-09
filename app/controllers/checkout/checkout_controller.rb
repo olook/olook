@@ -13,8 +13,8 @@ class Checkout::CheckoutController < Checkout::BaseController
     @addresses = @user.addresses
     @report  = CreditReportService.new(@user)
     @checkout = Checkout.new(address: @addresses.find { |a| a.id == current_user.orders.last.freight.address_id rescue false } || @addresses.first )
-    @has_two_shipping_services = FreightCalculator.freight_for_zip(@checkout.address.zip_code,@cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE,).count > 1
     @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
+    prepare_freights
   end
 
   def create
@@ -53,6 +53,18 @@ class Checkout::CheckoutController < Checkout::BaseController
   end
 
   private
+
+    def prepare_freights
+      freights = FreightCalculator.freight_for_zip(@checkout.address.zip_code,@cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE)
+      if freights.count > 1
+        @has_two_shipping_services = true
+        @shipping_service1 = OpenStruct.new freights.first
+        @shipping_service2 = OpenStruct.new freights.last
+      else
+        @shipping_service1 = OpenStruct.new freights.first
+      end
+    end
+
     # this is used for freight AB-Test
     def prepare_for_freight_ab_testing
       @endpoint_url = params[:freight_service_ids].present? ? 'shipping_updated_freight_table' : 'shippings'
