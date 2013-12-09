@@ -16,6 +16,13 @@
         - else
           = render "address_list", addresses: @addresses, endpoint_url: @endpoint_url
         #freight_message
+      %br
+      - if @has_two_shipping_services
+        #shipping_services_types
+          = checkout_form.radio_button :shipping_service, "Convencional"
+          = checkout_form.label :shipping_service, "Convencional"
+          = checkout_form.radio_button :shipping_service, "Expressa"
+          = checkout_form.label :shipping_service, "Expressa"
     .box-step-two
       %h2.step-title
         %span.number 2.
