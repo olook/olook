@@ -40,7 +40,8 @@
     %span#total.txt-black= number_to_currency(@cart_service.total)
     %span#delivery_time.frete
       - if address.try(:zip_code) && !@has_two_shipping_services
-        = delivery_time_message(freight_for(address)[:delivery_time])
+        %p.frete_time
+          Seu pedido será entregue em X dias úteis.
 %p.important
   %span Importante:
   O prazo de entrega começa a contar a partir da confirmação do pagamento.
