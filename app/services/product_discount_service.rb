@@ -23,7 +23,11 @@ class ProductDiscountService
   end
 
   def has_any_discount?
-    eligible_markdown? || eligible_coupon? || eligible_promotion?
+    eligible_coupon? || eligible_promotion?
+  end
+
+  def fixed_value_discount?
+    best_discount.promotion_action.is_a?(ValueAdjustment)
   end
 
   # Método principal da classe
@@ -41,6 +45,7 @@ class ProductDiscountService
     end
 
     def apply(cart); end
+    def promotion_action; end
   end
 
   private
