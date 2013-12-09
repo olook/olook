@@ -1,4 +1,5 @@
 @import 'partials/mixins';
+@import 'new_structure/common/global_stuffs';
 
 /*** MODAL GUIA DE MEDIDAS ***/
 div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px solid #a7a9ac; position: absolute;z-index: 3000;padding-left: 50px;display: none;
