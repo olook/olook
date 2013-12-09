@@ -22,10 +22,6 @@ module Checkout::CheckoutHelper
     @cart_service.total(payment).to_f + freight_value.to_f
   end
 
-  def delivery_time_message(delivery_time)
-    "(entrega em #{delivery_time} dias úteis)"
-  end
-
   def billet_discount_enabled
     Setting.billet_discount_available
   end
