@@ -82,5 +82,9 @@ select_options.empty();
     "<%= escape_javascript(render(:partial => 'facebook_share_discount')) %>"
   );
 <% end %>
-showTotal();
 
+<% if @coupon_value %>
+  $('#coupon_discount_value').text('<%= number_to_currency(@coupon_value) %>');
+<% end %>
+
+showTotal();
