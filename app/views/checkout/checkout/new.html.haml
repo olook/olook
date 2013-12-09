@@ -17,12 +17,21 @@
           = render "address_list", addresses: @addresses, endpoint_url: @endpoint_url
         #freight_message
       %br
-      - if @has_two_shipping_services
-        #shipping_services_types
-          = checkout_form.radio_button :shipping_service, "Convencional"
-          = checkout_form.label :shipping_service, "Convencional"
-          = checkout_form.radio_button :shipping_service, "Expressa"
-          = checkout_form.label :shipping_service, "Expressa"
+      / - if @has_two_shipping_services
+      #shipping_services_types
+        %p
+          Selecione a opção de entrega
+        %ul
+          %li
+            = checkout_form.radio_button :shipping_service, "Convencional"
+            = checkout_form.label :shipping_service, "Convencional"
+            %p.shipping
+              (3 dias úteis) R$ 0,00
+          %li.expresso
+            = checkout_form.radio_button :shipping_service, "Expressa"
+            = checkout_form.label :shipping_service, "Expressa"
+            %p.shipping
+              (3 dias úteis) R$ 0,00
     .box-step-two
       %h2.step-title
         %span.number 2.
