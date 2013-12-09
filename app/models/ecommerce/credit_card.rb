@@ -13,7 +13,7 @@ class CreditCard < Payment
   FourToSixCreditCardNumberFormat = /^[0-9]{14,16}$/
 
 
-  PhoneFormat = /^(?:\(11\)9\d{4}-\d{3,4}|\(\d{2}\)\d{4}-\d{4})$/
+  PhoneFormat = /^(?:\(\d{2}\)(9){0,1}[2-9]\d{3}-\d{4})$/
 
   SecurityCodeFormat = /^(\d{3}(\d{1})?)?$/
   BirthdayFormat = /^\d{2}\/\d{2}\/\d{4}$/
