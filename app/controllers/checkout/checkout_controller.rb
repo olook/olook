@@ -55,14 +55,18 @@ class Checkout::CheckoutController < Checkout::BaseController
   private
 
     def prepare_freights
-      freights = FreightCalculator.freight_for_zip(@checkout.address.zip_code,@cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE)
+      freights = sorted_freights
       if freights.count > 1
         @has_two_shipping_services = true
-        @shipping_service1 = OpenStruct.new freights.first
-        @shipping_service2 = OpenStruct.new freights.last
+        @shipping_service_slow = OpenStruct.new freights.first
+        @shipping_service_fast = OpenStruct.new freights.last
       else
         @shipping_service1 = OpenStruct.new freights.first
       end
+    end
+
+    def sorted_freights
+      FreightCalculator.freight_for_zip(@checkout.address.zip_code,@cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE).sort{|x,y| x[:delivery_time] <=> y[:delivery_time]}
     end
 
     # this is used for freight AB-Test
