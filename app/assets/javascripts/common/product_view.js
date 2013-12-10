@@ -5,6 +5,7 @@ $(function() {
   
   accordion();
   delivery();
+  guaranteedDelivery();
 
   /** MODAL GUIA DE MEDIDAS **/
   $(".size_guide a").click(function(e){
@@ -137,6 +138,13 @@ function accordion(){
       $(this).removeClass("open").siblings("div").slideUp();    
     }
   });  
+}
+
+function guaranteedDelivery(){
+  $('.consultaCepGarantido').click(function(e){
+    e.preventDefault();
+    $('.formDelivery').slideToggle();
+  });
 }
 
 function delivery(){

@@ -527,3 +527,70 @@ ul.breadcrumb {
 #product .breadcrumb {left:6px !important;}
 
 input.quero_este {cursor: pointer;}
+
+/* ENTREGA GARANTIDA ~ REMOVER APÓS TERMINO */
+
+.delivery {  
+  background:image-url('product/delivery.gif') no-repeat 7px 3px;
+  border-top:1px solid #d1d1d1;
+  border-bottom:1px solid #d1d1d1;
+  margin:20px 0;
+  padding:5px 0 10px 13%;
+
+  div.garantido {
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: -1px;
+    padding-left: 15px;
+    padding-top: 5px;
+    span {
+      font-size: 11px;
+      font-weight: 600;
+      display: block;
+      letter-spacing: -1px;
+    }
+    .formDelivery {
+      font-family: $avenir;
+      font-size: 13px;
+      font-weight: lighter;
+      padding:10px 0;
+      letter-spacing: 0px;
+      input[type="text"] {
+        width: 143px;
+        height: 23px;
+        border: solid 1px #000;
+        box-shadow: 1px 2px 0 0 #000;
+        padding-left: 5px;
+        margin-top:5px;
+      }
+      input[type="button"] {
+        width: 90px;
+        height: 25px;
+        border: none;
+        background: #000;
+        color: #FFF;
+        text-transform: uppercase;
+        font-size: 11px;
+        text-align: center;
+        margin-left: 8px;
+        cursor: pointer;
+      }
+      p.shipping-msg{
+        margin-top: 15px;
+        width: 300px;
+        height: 33px;
+        border: solid 1px #A1A1A1;
+        padding-left: 35px;
+        line-height: 33px;
+        font-size: 12px !important;
+      }
+      p.ok {
+        background:image-url('product/new_page_sprite.png') #e6f4d6 -50px -90px no-repeat;
+      }
+      p.error {
+        background:image-url('product/new_page_sprite.png') #eb8793 -50px -50px no-repeat;
+      }
+    }
+  }
+  br{clear: both;}
+}
