@@ -5,6 +5,7 @@ class ShippingsController < ApplicationController
   include FreightTracker
 
   def show
+
     zip_code = params[:id]
 
     freights =  FreightCalculator.freight_for_zip(
@@ -17,8 +18,8 @@ class ShippingsController < ApplicationController
       
     track_zip_code_fetch_event
     @has_two_shipping_services = freights.count > 1
-    #@days_to_deliver = freight[:delivery_time]
-    #@freight_price = freight[:price]
+    @days_to_deliver = freights.first[:delivery_time]
+    @freight_price = freights.first[:price]
     #@first_free_freight_price = freight[:first_free_freight_price]  if freight[:first_free_freight_price]
   end
 

@@ -23,12 +23,12 @@
           Selecione a opção de entrega
         %ul
           %li
-            = checkout_form.radio_button :shipping_service, @shipping_service1.shipping_service_id, class: "shipping_service_radio"
+            = checkout_form.radio_button :shipping_service, @shipping_service.shipping_service_id, class: "shipping_service_radio", checked: true
             = checkout_form.label :shipping_service, "Convencional"
             %p.shipping
-              = "(#{@shipping_service_slow.try(:delivery_time)} dias úteis) R$ #{@shipping_service_slow.try(:price)}"
+              = "(#{@shipping_service.try(:delivery_time)} dias úteis) R$ #{@shipping_service.try(:price)}"
           %li.expresso
-            = checkout_form.radio_button :shipping_service, @shipping_service1.shipping_service_id, class: "shipping_service_radio"
+            = checkout_form.radio_button :shipping_service, @shipping_service_fast.shipping_service_id, class: "shipping_service_radio"
             = checkout_form.label :shipping_service, "Expressa"
             %p.shipping
               = "(#{@shipping_service_fast.try(:delivery_time)} dias úteis) R$ #{@shipping_service_fast.try(:price)}"

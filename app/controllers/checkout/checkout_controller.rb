@@ -58,10 +58,10 @@ class Checkout::CheckoutController < Checkout::BaseController
       freights = sorted_freights
       if freights.count > 1
         @has_two_shipping_services = true
-        @shipping_service_slow = OpenStruct.new freights.first
+        @shipping_service = OpenStruct.new freights.first
         @shipping_service_fast = OpenStruct.new freights.last
       else
-        @shipping_service1 = OpenStruct.new freights.first
+        @shipping_service = OpenStruct.new freights.first
       end
     end
 

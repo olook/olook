@@ -49,7 +49,7 @@ module FreightCalculator
       better_shipping = sort_shipping_services.delete_at(0)
       return_shippings << better_shipping
       sort_shipping_services.each do |shipping|
-        return_shippings << shipping if shipping[:delivery_time] < better_shipping[:delivery_time]
+        return_shippings << shipping #if shipping[:delivery_time] < better_shipping[:delivery_time]
       end
       return_shippings
     end
