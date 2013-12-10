@@ -7,10 +7,10 @@ $("#freight_price").
 
 $("#delivery_time").
   hide().
-  html("<%= delivery_time_message(@days_to_deliver) %>").
+  html("<%= @days_to_deliver %>").
   delay(200).
   fadeIn();
-
+debugger;
 $("#total").hide().html("<%= number_to_currency(total_with_freight(@freight_price)) %>");
 $("#total_billet").hide().html("<%= number_to_currency(total_with_freight(@freight_price, Billet.new)) %>");
 $("#total_debit").hide().html("<%= number_to_currency(total_with_freight(@freight_price, Debit.new)) %>");
