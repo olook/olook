@@ -3,9 +3,7 @@ class UserCredit < ActiveRecord::Base
   belongs_to :user
   has_many :credits
 
-  #INVITE_BONUS = BigDecimal.new("10.00")
-  #INVITE_BONUS_FOR_INVITEE = BigDecimal.new("10.00")
-  TRANSACTION_LIMIT = 150.0
+  TRANSACTION_LIMIT = 400.0
   CREDIT_CODES = {invite: 'MGM', loyalty_program: 'Fidelidade', redeem: 'Reembolso'}
 
   def last_credit(date = DateTime.now, is_debit=false, source=nil)

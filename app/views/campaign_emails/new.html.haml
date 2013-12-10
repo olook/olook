@@ -1,5 +1,30 @@
 .box-cadastro{ class: "campaign_modal_#{@campaign_text}" }
-  - if @campaign_text.to_i == 6
+  - if @campaign_text.to_i == 7
+    =image_tag("campaign_emails/mari_modal.jpg")
+    %div.content
+      %p.big_titulo 
+        ainda não
+        %br 
+          comprou na olook?
+      %p.cadastre_new
+        Aproveite o desconto de 
+        %span 
+          R$ 20
+        %br
+          na sua primeira compra e arrase em looks 
+        com muito estilo. 
+      =link_to "Compre Agora", "/20reais_primeira_compra", :class => "bt_go_catalog", target: '_parent', onclick: track_event('Lightbox', 'PrimeiraCompra')
+      %p.terms_new_user
+        *Válido para compras acima de R$100
+        %br
+          *Não cumulativo com outros cupons e descontos do site.
+    .nao-exibir
+      %input{:type => "checkbox", :name => "dont_show", :class => "dont_show"}
+      %label{:for => "dont_show"} Não exibir novamente
+
+
+
+  - elsif @campaign_text.to_i == 6
     =image_tag("campaign_emails/bday.jpg", :class => "bday")
     %div.futilish
       =image_tag("campaign_emails/futilish.jpg")

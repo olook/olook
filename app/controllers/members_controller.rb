@@ -90,7 +90,9 @@ class MembersController < ApplicationController
     @recommended = RecomendationService.new(profiles: current_user.profiles)
     admin = current_admin.present?
     # This is needed becase when we turn the month collection we never have cloth
-    @cloth = Product.includes(:variants, :pictures).where("id in (?)", Setting.cloth_showroom_casual.split(",") ).all
+    # cloth_ids = cloth_ids_by_profile current_user.profile
+
+    @cloth = clothes_by_profile
     @cloth += @recommended.products( category: Category::CLOTH, collection: @collection, limit: 10, admin: admin )
     @cloth = @cloth.first(10)
 
@@ -143,6 +145,22 @@ class MembersController < ApplicationController
     if @user && @user.has_facebook?
       @facebook_adapter = FacebookAdapter.new @user.facebook_token
     end
+  end
+
+  def clothes_by_profile
+    profile = current_user.profile || current_user.main_profile.try(:alternative_name)
+    sanitized_profile = case profile
+    when 'fashion'
+      'moderna'
+    when 'elegante'
+      'chic'
+    when 'sexy'
+      'sexy'
+    else
+      'casual'
+    end
+    
+    Product.clothes_for_profile sanitized_profile
   end
 end
 

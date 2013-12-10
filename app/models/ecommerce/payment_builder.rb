@@ -74,7 +74,7 @@ class PaymentBuilder
 
         # Isto está bem ruim! REFACTOR IT!!!
         log("[MERCADOPAGO] Creating preference for payment_id=#{payment.id}, sandbox_mode=#{MP.sandbox_mode} ")
-        payment.create_preferences(cart_service.cart.address) if payment.is_a? MercadoPagoPayment
+        payment.create_preferences(cart_service.cart.address, cart_service.total_discount) if payment.is_a? MercadoPagoPayment
         log("[MERCADOPAGO] Preference created. Preference_url=#{payment.url}")
 
         create_discount_payments
@@ -127,7 +127,7 @@ class PaymentBuilder
 
     def notify_big_billet_sail payment
       Resque.enqueue(NotificationWorker, {
-        to: 'marcelo.azevedo@olook.com.br, claira.zambon@olook.com.br, rafael@olook.com.br',
+        to: 'jenny.liu@olook.com.br, marcelo.azevedo@olook.com.br, claira.zambon@olook.com.br, rafael@olook.com.br',
         body: "Pedido acima de 1000 Reais: #{payment.order.number}",
         subject: "Pedido acima de mil Reais"
       }) if is_a_big_billet_sail?(payment)     

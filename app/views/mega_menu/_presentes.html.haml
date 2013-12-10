@@ -1,3 +1,13 @@
 #mm_presentes.submenu
-	%p Encontre o presente ideal para as mulheres da sua vida. 
-	= link_to 'CONHEÇA', gift_root_path, :class => "link"
+	%span.column.first
+		%ul
+			%li
+				= link_to 'Até 69,90', "/selections?preco=0-70&lbl=ate-70", :class => 'sub_menu'
+			%li
+				= link_to 'Até 129,90', "/selections?preco=70-130&lbl=ate-130", :class => 'sub_menu'
+			%li
+				= link_to 'Até 200', "/selections?preco=130-200&lbl=ate-200", :class => 'sub_menu'
+			%li
+				= link_to 'Acima de 200', "/selections?preco=200-1000&lbl=acima-200", :class => 'sub_menu'
+			%li
+				= link_to 'Está em Dúvida?', "/selections/tamanho-unico?lbl=tamanho-unico", :class => 'sub_menu'

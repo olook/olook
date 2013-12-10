@@ -147,6 +147,8 @@
 
        <%= javascript_include_tag "jquery" %>
        <%= javascript_include_tag "lite_application" %>
+       <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
+       
        <script>
          show_modal = '<%= j @modal_show %>';
        </script>
