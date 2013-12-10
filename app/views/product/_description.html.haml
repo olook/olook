@@ -10,21 +10,30 @@
       %p
         Compre e ganhe #{number_to_currency LoyaltyProgramCreditType.apply_percentage(@product.retail_price)} em créditos,
         \#{link_to "saiba mais", "javascript:void(0);", :class => "open_loyalty_lightbox"}
-- if params[:from] != 'cart'
-  - unless params[:action] == "spy" 
-    .social-media-box.pl9
-      .has_bt_face
-        %ul.social-list
-          %li.like
-            %like{:href => "http://olook.com.br/produto/#{product_permalink(@product)}", :layout => "button_count", :send => "false", :show_faces => "false", :width => "110"}
-          %li.fb_bt= link_to image_tag("product/ask_gift_button.jpg"), "javascript:void(0)", class: "face-message", onclick:  track_event('AskGiftButton', "ClickAskGiftButton")
-          %li.twitter
-            %a.twitter-share-button{"data-count" => "none", "data-hashtags" => "ficaadica", "data-lang" => "pt", :href => "https://twitter.com/share?text= #{share_description(@product)}"} Tweetar
-          %li.pinterest
-            %a{"data-pin-config" => "none", "data-pin-do" => "buttonPin", :href => "//pinterest.com/pin/create/button/?url=http://olook.com.br/produto/#{product_permalink(@product)}&media=#{product_presenter.display_main_picture}&description=Next%20stop%3A%20Pinterest"}
-              %img{:src => "//assets.pinterest.com/images/pidgets/pin_it_button.png"}/
-          %li.email= link_to "Email", "javascript:void(0);"
-- else
-  .division
+  .delivery
+    .garantido
+      Entrega garantida até 24/12. 
+      = link_to 'Consulte seu CEP', '#', class: 'consultaCepGarantido'
+      %span
+        * Para compras até dia 22/12 e efetuadas com cartão de crédito.
+      .formDelivery{method:'post'}
+        %p Informe o CEP e consulte o prazo para destino
+        %form#shipping
+          %input#cepDelivery{type:'text'}
+          %input#search{type:'button', value:'PESQUISAR'}
+        %p{class:'shipping-msg'}
+          Quando for um CEP válido!
+    // .social-media-box.pl9
+    //  .has_bt_face
+    //    %ul.social-list
+    //      %li.like
+    //        %like{:href => "http://olook.com.br/produto/#{product_permalink(@product)}", :layout => "button_count", :send => "false", :show_faces => "false", :width => "110"}
+    //      %li.fb_bt= link_to image_tag("product/ask_gift_button.jpg"), "javascript:void(0)", class: "face-message", onclick:  track_event('AskGiftButton', "ClickAskGiftButton")
+    //      %li.twitter
+    //        %a.twitter-share-button{"data-count" => "none", "data-hashtags" => "ficaadica", "data-lang" => "pt", :href => "https://twitter.com/share?text= #{share_description(@product)}"} Tweetar
+    //      %li.pinterest
+    //        %a{"data-pin-config" => "none", "data-pin-do" => "buttonPin", :href => "//pinterest.com/pin/create/button/?url=http://olook.com.br/produto/#{product_permalink(@product)}&media=#{product_presenter.display_main_picture}&description=Next%20stop%3A%20Pinterest"}
+    //          %img{:src => "//assets.pinterest.com/images/pidgets/pin_it_button.png"}/
+    //      %li.email= link_to "Email", "javascript:void(0);"
 :javascript
   !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
