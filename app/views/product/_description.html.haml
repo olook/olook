@@ -16,15 +16,13 @@
       = link_to 'Consulte seu CEP', '#', class: 'consultaCepGarantido'
       %span
         * Para compras até dia 22/12 e efetuadas com cartão de crédito.
-      .formDelivery
+      .formDelivery{method:'post'}
         %p Informe o CEP e consulte o prazo para destino
         %form#shipping
-          %input{type:'text'}
-          %input{type:'button', value:'PESQUISAR'}
-        %p{class:'shipping-msg ok'}
+          %input#cepDelivery{type:'text'}
+          %input#search{type:'button', value:'PESQUISAR'}
+        %p{class:'shipping-msg'}
           Quando for um CEP válido!
-        %p{class:'shipping-msg error'}
-          Quando o CEP não é válido!
     // .social-media-box.pl9
     //  .has_bt_face
     //    %ul.social-list

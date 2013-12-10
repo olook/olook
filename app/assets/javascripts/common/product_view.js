@@ -1,8 +1,8 @@
+
 $(function() {
   var stringDesc = $("div#infos div.description p.description").text();
-  initQuickView.productZoom();
-
   
+  initQuickView.productZoom();
   accordion();
   delivery();
   guaranteedDelivery();
@@ -148,11 +148,11 @@ function guaranteedDelivery(){
 }
 
 function delivery(){
-  var sf = $("#ship-field");
+  var sf = $("#ship-field, #cepDelivery");
   if(sf.setMask)
     sf.setMask({mask: '99999-999'});
   $("#shipping #search").click(function(){
-    cep = $("#ship-field").val();
+    cep = $("#ship-field, #cepDelivery").val();
     if(cep.length < 9){
       $(".shipping-msg").removeClass("ok").hide().delay(500).fadeIn().addClass("error").text("O CEP informado parece estranho. Que tal conferir?");
       return false;
