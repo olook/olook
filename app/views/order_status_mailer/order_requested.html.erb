@@ -128,6 +128,7 @@
 					<%= render :partial => 'order_status_mailer/requested_credit_card' if @order.erp_payment.is_a? CreditCard %>
 					<%= render :partial => 'order_status_mailer/requested_billet', :locals => {:payment => @order.erp_payment} if @order.erp_payment.is_a? Billet %>
 					<%= render :partial => 'order_status_mailer/requested_debit' if @order.erp_payment.is_a? Debit %>
+          <%= render :partial => 'order_status_mailer/requested_mercado_pago_payment', :locals => {:payment => @order.erp_payment} if @order.erp_payment.is_a? MercadoPagoPayment %>          
 
   <tr>
     <td align="center">       

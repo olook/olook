@@ -8,7 +8,7 @@ class OrderStatus
     "payment-made-denied"     => ["payment-made"    , "Negado"],
     "payment-made-failed"     => ["payment-made"    , "Falha de comunicação"],
     "order-picking"           => ["order-picking"   , "Seu pedido está sendo separado"],
-    "order-delivering"        => ["order-deliver"   , "Em trânsito"],
+    "order-delivering"        => ["order-picking"   , "Em trânsito"],
     "order-delivered"         => ["order-deliver"   , "Entregue"],
     "order-not-delivered"     => ["order-deliver"   , "Não entregue"]
   }

@@ -3,7 +3,7 @@
   <% @products.each do |product| %>
   <produto>
     <codigo><%= product.id %></codigo>
-    <categoria><%= get_ilove_category_for product %></categoria>
+    <categoria><![CDATA[<%= product.subcategory %>]]></categoria>
     <link><![CDATA[<%= product.product_url(:utm_source =>"stylight", :utm_campaign => "produtos").html_safe %>]]></link>
     <imagem><%= full_image_path product.xml_picture(:main) %></imagem>
     <nome_titulo><![CDATA[<%= product.name %>]]></nome_titulo>

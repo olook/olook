@@ -22,7 +22,7 @@
   %meta{content: @chaordic_category, name: "chaordic:category"}/
   %meta{content: current_cart.try(:id), name: "chaordic:cart_id"}/
   %script{src: "//assets.pinterest.com/js/pinit.js", type: "text/javascript"}
-  = stylesheet_link_tag "section/product"
+  = stylesheet_link_tag "new_structure/section/lite_product"
 
 %section#product
   = product_breadcrumbs_for(@product)
@@ -38,6 +38,7 @@
       = product_presenter.render_add_to_cart
       = cache "details/#{@product.id}", expire_in: 30.minutes do
         = product_presenter.render_details
+
     #modal_guide
       %h1 GUIA DE MEDIDAS
       = image_tag 'common/body.jpg', :class => ''
@@ -86,7 +87,6 @@
 .chaordic.mostpopular{"data-skin" => "MP-product-detail"}
 
 - content_for :data_layer do
-  = render partial: "shared/metrics/all_in/product", :locals => { product: @product }
   = render partial: "shared/data_layer/product"
 
 - content_for :footer do

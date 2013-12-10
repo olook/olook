@@ -167,6 +167,7 @@ $(function() {
 
   freightCalc();
   showAboutSecurityCode();
+  showSmellPackageModal();
 
   if($(".box-step-one input[type=radio]").size() == 1){
     $(".box-step-one input[type=radio]").trigger('click');
@@ -190,6 +191,15 @@ $(function() {
     //     $('input.send_it').removeClass('fixed bt-checkout').css('left', "")
     //   }
     // });
+  }
+
+  function showSmellPackageModal(){
+   var content = $(".modal_smell");
+   $("a.seeTheSmell").bind("click", function(e){
+      initBase.newModal(content);
+      e.preventDefault();
+      e.stopPropagation();
+   })
   }
 
 

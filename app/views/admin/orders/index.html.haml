@@ -23,7 +23,7 @@
           = f.collection_select :state_eq, Order::STATUS.to_a, :first, :last, {:include_blank => true}
         .group
           = f.label :state, "Metodo de pagamento", :class => "label"
-          = f.select :payments_type_eq, {"Boleto Bancário" => "Billet", "Cartão de Crédito" => "CreditCard", "Débito" => "Debit"} , {:include_blank => true}
+          = f.select :payments_type_eq, {"Boleto Bancário" => "Billet", "Cartão de Crédito" => "CreditCard", "Débito" => "Debit", "Mercado Pago" => "MercadoPagoPayment"} , {:include_blank => true}
         .group
           = f.label :state, "Gateway", :class => "label"
           = f.select :gateway_eq, {"Moip" => "1", "Braspag" => "2", "Olook" => 3} , {:include_blank => true}
