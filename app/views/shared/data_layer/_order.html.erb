@@ -3,7 +3,7 @@
     // All in
     'AllInOrderItens':  <%= raw @order.line_items.map{|item|
       [@order.number.to_s,item.variant.product_id.to_s,item.variant.name,item.retail_price.to_s,"",item.quantity.to_s,"",item.variant.product.category_humanize,item.variant.product.subcategory,"","",item.variant.product.brand,"","","",""]}%>,
-    'AllInPage': <%= raw "#{ params[:controller] } #{ params[:action] }"%>,
+    'AllInPage': '<%= raw "#{ params[:controller] } #{ params[:action] }"%>',
     'Freight': <%= raw @order.freight_price %>,
     'paymentType': <%= raw @order.erp_payment.type %>,
     'Bank': <%= raw @order.erp_payment.bank %>,
