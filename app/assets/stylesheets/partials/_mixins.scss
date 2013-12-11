@@ -2,14 +2,17 @@
 @import 'common/gradient';
 @import 'common/images';
 
-
 $pink: #ef3742;
 $secondary_color: #b8b6b6;
 $third_color: #6d6e71;
-$avenir: avenir, arial, sans-serif;
-$avenir_medium: avenir_medium, arial, sans-serif;
-$kepler: KeplerStdItalic, Times, "Times New Roman", serif;
-$johnston: johnston, arial, sans-serif;
+$avenir: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+$avenir_medium: Arial, "Trebuchet Ms", arial, sans-serif, avenir_medium;
+$kepler:  Arial, "Trebuchet Ms", Times, "Times New Roman", serif, KeplerStdItalic;
+$johnston: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+$arial: arial, verdana, tahoma;
+$verdana: verdana, arial, tahoma;
+$tahoma: tahoma, arial, verdana;
+$preco: Verdana, "Trebuchet Ms", Arial, Verdana;
 
 @mixin table {
   table#list {
