@@ -102,14 +102,18 @@ section#home {
   }
   section#week_highlights {
     > h1 {
-      background: image-url("home/bg-title-highlights.jpg") center center no-repeat;
       color: #231f20;
       font-family: $avenir;
       font-size: 19px;
       text-transform: uppercase;
       text-align: center;
       margin: 0 0 17px;
-      
+      letter-spacing: 3px;
+      span {
+        letter-spacing: 1px;
+        padding: 0 10px;
+        color:$pink;
+      }
     }
     ul {
       width: 100%;
@@ -135,8 +139,9 @@ section#home {
             text-decoration: none;
             color: #000 ;
             font-family: $verdana;
-            font-size: 22px;
-            letter-spacing: -1px;
+            font-size: 19px;
+            letter-spacing: 1px;
+            font-weight: bold;
           }
         }
         p {
@@ -225,8 +230,10 @@ section#home {
       text-align: center;
       text-transform: uppercase;
       margin: 0 0 30px;
+      letter-spacing: 3px;
       span{
         color: #ef3742;
+        letter-spacing: 1px;
       }
     }
     h2 {
