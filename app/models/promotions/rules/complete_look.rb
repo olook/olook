@@ -9,7 +9,7 @@ class CompleteLook < PromotionRule
 
   def matches?(cart, parameter=nil)
     cart.items.each do |item|
-      return true if all_related_products_in_cart?(item, cart)
+      return true if all_related_products_in_cart?(item, cart) && has_related_products?(item)
     end
     false
   end
@@ -17,7 +17,19 @@ class CompleteLook < PromotionRule
   private
 
   def all_related_products_in_cart?(item, cart)
-    (item.product.related_products.map(&:id) << item.product.id).inject(true){|v,a| v  &&= cart.items.map{|i| i.product.id }.include?(a)} && item.product.related_products.size > 0
+    complete_look_products(item).inject(true){|result,product| result &&= product_is_in_the_cart?(product,cart.items)}
+  end
+
+  def complete_look_products item
+    (item.product.related_products.map(&:id) << item.product.id)
+  end
+
+  def has_related_products? item
+    item.product.related_products.size > 0
+  end
+
+  def product_is_in_the_cart?(product, cart_items)
+    cart_items.map{|i| i.product.id }.include?(product)
   end
 
 end
