@@ -1,13 +1,13 @@
 <script type="text/javascript">
   dataLayer.push({
     // All in
-    'AllInOrderItens':  <%= @order.line_items.map{|item|
-      [@order.number,item.variant.product_id,item.variant.name,item.retail_price,"",item.quantity,"",item.variant.product.category_humanize,item.variant.product.subcategory,"","",item.variant.product.brand,"","","",""]}%>,
-    'AllInPage': <%= raw "#{ params[:controller] } #{ params[:action] }"%>,
-    'Freight': <%= raw @order.freight_price %>,
-    'paymentType': <%= raw @order.erp_payment.type %>,
-    'Bank': <%= raw @order.erp_payment.bank %>,
-    'PaymentDiscount': <%= raw @order.payments.with_discount.map { |payment| "#{ payment.type }"}.join(", ") %>,
+    'AllInOrderItens':  <%= raw @order.line_items.map{|item|
+      [@order.number.to_s,item.variant.product_id.to_s,item.variant.name,item.retail_price.to_s,"",item.quantity.to_s,"",item.variant.product.category_humanize,item.variant.product.subcategory,"","",item.variant.product.brand,"","","",""]}%>,
+    'AllInPage': '<%= raw "#{ params[:controller] } #{ params[:action] }"%>',
+    'Freight': '<%= raw @order.freight_price %>',
+    'paymentType': '<%= raw @order.erp_payment.type %>',
+    'Bank': '<%= raw @order.erp_payment.bank %>',
+    'PaymentDiscount': '<%= raw @order.payments.with_discount.map { |payment| "#{ payment.type }"}.join(", ") %>',
 
     // CRITEO
     'PrimeiraCompraDoUsuario': '<%= raw @order.user.first_buy? ? 1 : 0 %>',

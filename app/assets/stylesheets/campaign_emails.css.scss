@@ -148,7 +148,14 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 	}
 
 	.close{top:-11px !important;right:-11px !important;}	
+	.promo_new{margin: 25px 0 10px !important;}
+	p.content_promo{margin-top: 5px;line-height: 21px;}
+	.promo_error{margin-bottom: -10px;}
+	.promo_form{height: 75px !important;}
+	.terms_promo{position: absolute;margin-top: 45px !important;margin-left: 71px !important;}
 }
+
+
 .campaign_modal_4,.campaign_modal_5 {
 	width: 680px; 
 	height: 500px;
