@@ -19,8 +19,8 @@
       .formDelivery{method:'post'}
         %p Informe o CEP e consulte o prazo para destino
         %form#shipping
-          %input#cepDelivery{type:'text'}
-          %input#search{type:'button', value:'PESQUISAR'}
+          %input.ship-field#cepDelivery{type:'text'}
+          %input#search{type:'button', value:'PESQUISAR', data: {warranty_deliver: 1}}
         %p{class:'shipping-msg'}
           Quando for um CEP válido!
     // .social-media-box.pl9
