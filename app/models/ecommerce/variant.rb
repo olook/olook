@@ -7,7 +7,6 @@ class Variant < ActiveRecord::Base
 
   before_save :fill_is_master, :calculate_discount_percent
   after_save :replicate_master_changes, :if => :is_master
-  after_update :update_catalog_products_inventory
 
   belongs_to :product
 
@@ -93,10 +92,6 @@ class Variant < ActiveRecord::Base
       child_variant.copy_master_variant
       child_variant.save!
     end
-  end
-
-  def update_catalog_products_inventory
-    Catalog::Product.where(:variant_id => self.id).update_all(:inventory => self.inventory)
   end
 
   def retail_price
