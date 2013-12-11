@@ -41,7 +41,7 @@
     %span#delivery_time.frete
       - if address.try(:zip_code) && !@has_two_shipping_services
         %p.frete_time
-          = "Seu pedido será entregue em #{@shipping_service.delivery_time} dias úteis."
+          = "Seu pedido será entregue em #{@shipping_service.try(:delivery_time)} dias úteis."
   - if @freebie && Freebie.selection_for(@cart.id) && @freebie.can_receive_freebie?
     .freebie_row
       %p

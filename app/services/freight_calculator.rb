@@ -13,11 +13,9 @@ module FreightCalculator
   def self.freight_for_zip(zip_code, order_value, shipping_service_ids=nil, use_message = false)
     clean_zip_code = clean_zip(zip_code)
     return {} unless valid_zip?(clean_zip_code)
-    #first_free_freight_price = nil
     return_array = []
     freight_prices = shipping_services(shipping_service_ids).map do |shipping_service|
       shipping_service.find_freight_for_zip(clean_zip_code, order_value)
-      #first_free_freight_price = shipping_service.find_first_free_freight_for_zip_and_order(clean_zip_code, order_value) if (freight_price.price != 0.0) && use_message
     end
     return [{price: DEFAULT_FREIGHT_PRICE, cost: DEFAULT_FREIGHT_COST,delivery_time: DEFAULT_INVENTORY_TIME,shipping_service_id: DEFAULT_FREIGHT_SERVICE}] if freight_prices.empty?
     freight_prices.compact.each do |freight|
@@ -26,10 +24,10 @@ module FreightCalculator
       :cost => freight.try(:cost) || DEFAULT_FREIGHT_COST,
       :delivery_time => (freight.try(:delivery_time) || 0) + DEFAULT_INVENTORY_TIME,
       :shipping_service_id => freight.try(:shipping_service_id) || DEFAULT_FREIGHT_SERVICE,
-      :shipping_service_priority => freight.try(:shipping_service).try(:priority)
+      :shipping_service_priority => freight.try(:shipping_service).try(:priority),
+      :cost_for_free => (freight.price != 0.0) && use_message ? freight.shipping_service.find_first_free_freight_for_zip_and_order(clean_zip_code, order_value).try(:order_value_start) : ''
     }
     end
-    #return_hash[:first_free_freight_price] = first_free_freight_price.order_value_start if !first_free_freight_price.blank?
     choose_betters_shipping_services return_array
   end
 
@@ -49,7 +47,7 @@ module FreightCalculator
       better_shipping = sort_shipping_services.delete_at(0)
       return_shippings << better_shipping
       sort_shipping_services.each do |shipping|
-        return_shippings << shipping #if shipping[:delivery_time] < better_shipping[:delivery_time]
+        return_shippings << shipping if shipping[:delivery_time] < better_shipping[:delivery_time]
       end
       return_shippings
     end
