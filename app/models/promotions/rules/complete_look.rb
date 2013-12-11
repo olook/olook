@@ -17,10 +17,12 @@ class CompleteLook < PromotionRule
   private
 
   def all_related_products_in_cart?(item, cart)
-    complete_look_products(item).inject(true){|result,product| result &&= product_is_in_the_cart?(product,cart.items)}
+    all_products_in_the_cart = cart.items.map{|item| item.product.id}
+    product_ids_related_to_item = get_all_related_product_ids_for(item)
+    contains_all_elements?(all_products_in_the_cart, product_ids_related_to_item)
   end
 
-  def complete_look_products item
+  def get_all_related_product_ids_for item
     (item.product.related_products.map(&:id) << item.product.id)
   end
 
@@ -28,8 +30,9 @@ class CompleteLook < PromotionRule
     item.product.related_products.size > 0
   end
 
-  def product_is_in_the_cart?(product, cart_items)
-    cart_items.map{|i| i.product.id }.include?(product)
+  def contains_all_elements? all_products_in_the_cart, product_ids_related_to_item
+    product_ids_related_to_item & all_products_in_the_cart == product_ids_related_to_item
   end
+
 
 end
