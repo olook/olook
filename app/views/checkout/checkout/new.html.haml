@@ -15,7 +15,7 @@
           = render "shipping_address_form", address: @checkout.address
         - else
           = render "address_list", addresses: @addresses, endpoint_url: @endpoint_url
-        #freight_message
+        
       %br
       //- if @has_two_shipping_services
       #shipping_services_types
