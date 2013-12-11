@@ -134,12 +134,16 @@ section#home {
           a{
             text-decoration: none;
             color: #000 ;
+            font-family: $verdana;
+            font-size: 22px;
+            letter-spacing: -1px;
           }
         }
         p {
           color: #231f20;
-          font-size: 15px;
+          font-size: 12px;
           margin: 0 0 15px;
+          font-family: $verdana;
         }
         a.more {
           background: image-url("home/bg-more.jpg") center center no-repeat;
