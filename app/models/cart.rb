@@ -121,6 +121,14 @@ class Cart < ActiveRecord::Base
     coupon.present? && (!coupon.is_percentage? || has_appliable_percentage_coupon?)
   end
 
+  def complete_look_product_ids_in_cart
+    return_array = []
+    items.each do |item|
+      return_array |= item.product.related_products.map(&:id) if item.product.list_contains_all_related_products?(items.map(&:id))
+    end
+    Set.new return_array
+  end
+
   private
 
     def update_coupon
