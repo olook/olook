@@ -5,6 +5,7 @@ class ShippingsController < ApplicationController
   include FreightTracker
 
   def show
+    @warranty_deliver = true if params[:warranty_deliver]
     zip_code = params[:id]
 
     freight =  FreightCalculator.freight_for_zip(

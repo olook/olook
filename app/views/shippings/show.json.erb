@@ -1,1 +1,6 @@
+<% if @warranty_deliver && @days_to_deliver.business_days.from_now > Time.parse('2013-12-25') %>
+{"message": "O seu local está fora da área de cobertura da garantia.", "class": "error"}
+<% else %>
 {"message": "O prazo para o CEP <%= params[:id] %> é de <%= @days_to_deliver %> dias úteis"}
+<% end %>
+
