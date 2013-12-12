@@ -952,12 +952,15 @@ header#new_header{
       .box_left{
         font-family: $avenir;
         font-size: 10px;
-        color: #b4b5b7;
+        color: #101010;
         float: left;
         margin-left:10px;
+        p {
+          line-height: 14px;
+        }
         a.contact{
           text-decoration: none;
-          color: #b4b5b7;
+          color: #101010;
             &:hover{
             color:$pink;
           }
