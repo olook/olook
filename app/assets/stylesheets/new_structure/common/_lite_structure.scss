@@ -46,8 +46,18 @@ a#go_top {position: fixed;background: image-url('common/nav/sprite_header.png') 
 
 header#new_header{border-top: 2px black solid;
   .new_content{height: 84px;padding-top:15px;width: 990px;margin: 0 auto;background: image-url('common/nav/sprite_header.png') no-repeat 250px -413px;
-      .box_left{font-family: $avenir;font-size: 10px;color: #b4b5b7;float: left;margin-left:10px;
-        a.contact{text-decoration: none;color: #b4b5b7;
+      .box_left{
+        font-family: $avenir;
+        font-size: 10px;
+        color: #101010;
+        float: left;
+        margin-left:10px;
+        p {
+          line-height: 14px;
+        }
+        a.contact{
+          text-decoration: none;
+          color: #101010;
             &:hover{color:$base_color;}
         }
         p{
