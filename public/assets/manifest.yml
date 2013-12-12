@@ -2200,10 +2200,10 @@ html5.js: html5-71aa41f80fa39eeaaa6bfe52db938c9c.js
 html5/index.js: html5-71aa41f80fa39eeaaa6bfe52db938c9c.js
 join.js: join-a5712afad715ed66359bf679724688d3.js
 join/index.js: join-a5712afad715ed66359bf679724688d3.js
-lite_application.js: lite_application-77102c142048af40a609bd124892243a.js
-lite_application/index.js: lite_application-77102c142048af40a609bd124892243a.js
-lite_base.js: lite_base-ffcdfa3029687c504e99838afbf12ea7.js
-lite_base/index.js: lite_base-ffcdfa3029687c504e99838afbf12ea7.js
+lite_application.js: lite_application-d417fd4aa1d90a0fcff4f1dd18eaf36a.js
+lite_application/index.js: lite_application-d417fd4aa1d90a0fcff4f1dd18eaf36a.js
+lite_base.js: lite_base-2db3fd1b30eeace5d603cb26f3d87f8f.js
+lite_base/index.js: lite_base-2db3fd1b30eeace5d603cb26f3d87f8f.js
 members.js: members-2d239a08283cc5e5ab6dbfc4ded92ca2.js
 members/index.js: members-2d239a08283cc5e5ab6dbfc4ded92ca2.js
 moments.js: moments-8d59e559d33abe01a5a94ce281fe9bf5.js
