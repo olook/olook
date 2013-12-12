@@ -48,6 +48,7 @@ $(document).ready(function() {
   $('#reseller_birthday').setMask("99/99/9999");
   $('#reseller_addresses_attributes_0_zip_code').setMask("99999-999");
   $('#reseller_addresses_attributes_0_number').setMask("999999999");
+  $('#reseller_addresses_attributes_0_telephone').setMask("(99)99999-9999");
   
   olook.cep('.zip_code', {
     estado: '#reseller_addresses_attributes_0_state',
