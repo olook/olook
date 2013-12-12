@@ -92,10 +92,10 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       box-shadow:3px 3px 0 0 #000;
       text-align:center;
       p {
-        font-size:12px;
-        line-height:16px;
+        font-size:11px;
+        line-height:13px;
         font-weight: 400;
-        font-family: $avenir;
+        font-family: $arial;
         margin-top: 5px;
         width: 142px;
         margin-left: 6px;
@@ -103,6 +103,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
           color:$pink;
           text-decoration:underline;
           font-size:12px;
+          font-family: $verdana;
         }
       }
     }
