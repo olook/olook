@@ -63,13 +63,9 @@
        <header id="new_header">
          <div class="new_content">
            <div class="box_left">
-             <p>SAC (11) 2626-3489 | <a class="contact" href="/centraldeatendimento">Central de Atendimento</a></p>
-             <ul class="social_icons">
-               <li><%= link_to "Acompanhe pelo Facebook", "http://facebook.com/olook", title: "Acompanhe pelo Facebook", target: "_blank", class: "social_facebook" %></li>
-               <li><%= link_to "Acompanhe pelo Twitter", "http://twitter.com/olook", title: "Acompanhe pelo Twitter", target: "_blank", class: "social_twitter" %></li>
-               <li><%= link_to "Acompanhe por RSS", "http://stylist-news.olook.com.br/feed/", title: "Acompanhe por RSS", target: "_blank", class: "social_rss" %></li>
-               <li><%= link_to "Acompanhe pelo Instagram", "http://instagram.com/olook", title: "Acompanhe pelo Instagram", target: "_blank", class:"social_instagram" %></li>
-             </ul>
+             <p>SAC (11) 2626-3489</p>
+             <p><a class="contact" href="/centraldeatendimento">Central de Atendimento</a></p>
+
             <%if user_signed_in?%>
                <p><%= link_to "Ganhe créditos!", "/membro/ganhe-creditos", :class => "earn_credits" %></p>
             <%else%>
