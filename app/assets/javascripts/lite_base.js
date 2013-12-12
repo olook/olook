@@ -1,4 +1,6 @@
 //= require plugins/new_modal
+//= require plugins/video_modal
+
 if(!olook) var olook = {};
 
 $(function(){
