@@ -528,6 +528,7 @@
         cnpj: "CNPJ"
         reseller: "Revendedor"
         corporate_name: "Razão Social"
+        fantasy_name: "Nome Fantasia"
         active: "Ativo"
       gift_recipient:
         name: nome
