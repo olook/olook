@@ -9,6 +9,8 @@
     %h2
       cadastre-se e seja uma revendedora olook
     = form_for(@reseller, :url => reseller_create_path(anchor: 'register_content') ) do |f|
+      - f.hidden_field :require_telephone, :value => "true"
+      
       %ul.formulario
         %fieldset
           %li.company
@@ -35,6 +37,10 @@
             = f.label :corporate_name, "Razão Social"
             = f.text_field :corporate_name, class: error_class_if_needed(@reseller, :corporate_name)
             = errors_for(@reseller, :corporate_name)
+          %li.fantasy_name.field
+            = f.label :fantasy_name
+            = f.text_field :fantasy_name, class: error_class_if_needed(@reseller, :fantasy_name)
+            = errors_for(@reseller, :fantasy_name)
         %fieldset
           %li.first_name.field.left_boxes.small_box
             = f.label :first_name
@@ -106,7 +112,10 @@
               %span{ class: "custom_select #{error_class_if_needed(@reseller, :"addresses.city")}"}
                 = address.select :city, []
               = errors_for(@reseller, :"addresses.city")
-        
+            %li.date.field.phone
+              = address.label :telephone, "Telefone"
+              = address.text_field :telephone, class: error_class_if_needed(@reseller, :"addresses.telephone")
+              = errors_for(@reseller, :"addresses.telephone")
             %li.terms
               %p
                 Ao concluir o cadastro você aceita os #{link_to 'termos de uso', terms_path, :target => "_blank"}
