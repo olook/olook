@@ -13,12 +13,12 @@
   .delivery
     .garantido
       Entrega garantida até 24/12. 
-      = link_to 'Consulte seu CEP', '#', class: 'consultaCepGarantido'
+      = link_to 'Consulte seu CEP', '#', class: 'consultaCepGarantido', onclick: track_event('EntregaGarantida', 'OpenForm', '')
       .formDelivery{method:'post'}
         %p Informe o CEP e consulte o prazo para destino
         %form#shipping
           %input.ship-field#cepDelivery{type:'text'}
-          %input#search{type:'button', value:'PESQUISAR', data: {warranty_deliver: 1}}
+          %input#search{type:'button', value:'PESQUISAR', data: {warranty_deliver: 1}, onclick: track_event('EntregaGarantida', 'SubmitQuery', '')}
         %p{class:'shipping-msg'}
           Quando for um CEP válido!
     // .social-media-box.pl9
