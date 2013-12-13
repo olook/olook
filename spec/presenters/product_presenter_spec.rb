@@ -184,7 +184,7 @@ describe ProductPresenter do
     subject { described_class.new view, :product => product, :member => member, :facebook_app_id => facebook_app_id }
     let(:product_discount_service) { double('product_discount_service')}
     before do
-      product_discount_service.stub(base_price: 100, final_price: 100, calculate: nil)
+      product_discount_service.stub(base_price: 100, final_price: 100, calculate: nil, 'fixed_value_discount?' => false)
     end
 
     context "when product has discount" do
