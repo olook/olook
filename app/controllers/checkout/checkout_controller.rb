@@ -35,6 +35,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
     address.save
     @cart_service.cart.address = address
+    @cart_service.prefered_shipping_services = params[:checkout][:shipping_service]
 
     sender_strategy = PaymentService.create_sender_strategy(@cart_service, payment)
     payment_builder = PaymentBuilder.new({ :cart_service => @cart_service, :payment => payment, :gateway_strategy => sender_strategy, :tracking_params => session[:order_tracking_params] } )
@@ -66,7 +67,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     end
 
     def sorted_freights
-      FreightCalculator.freight_for_zip(@checkout.address.zip_code,@cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE).sort{|x,y| x[:delivery_time] <=> y[:delivery_time]}
+      FreightCalculator.freight_for_zip(@checkout.address.zip_code,@cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE).sort{|x,y| y[:delivery_time] <=> x[:delivery_time]}
     end
 
     # this is used for freight AB-Test
