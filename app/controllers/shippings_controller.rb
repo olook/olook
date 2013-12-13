@@ -16,7 +16,13 @@ class ShippingsController < ApplicationController
     return render :status => :not_found if freights.empty?
       
     track_zip_code_fetch_event
-    @has_two_shipping_services = freights.count > 1
+    if freights.count > 1
+        @has_two_shipping_services = true
+        @shipping_service = OpenStruct.new freights.first
+        @shipping_service_fast = OpenStruct.new freights.last
+    else
+        @shipping_service = OpenStruct.new freights.first
+    end
     @days_to_deliver = freights.first[:delivery_time]
     @freight_price = freights.first[:price]
     @first_free_freight_price = freights.first[:cost_for_free]  if freights.first[:cost_for_free]
