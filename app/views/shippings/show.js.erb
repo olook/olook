@@ -1,5 +1,6 @@
 //=require checkout_addresses
 <% if @has_two_shipping_services %>
+  $("#shipping_services_types").show();
   $(".shipping").html("(<%= @shipping_service.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service.price) %>");
   $(".expresso > p").html("(<%= @shipping_service_fast.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service_fast.price) %>");
   $(".frete_time").hide();
