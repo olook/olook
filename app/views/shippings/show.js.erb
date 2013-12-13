@@ -5,7 +5,7 @@
   $(".frete_time").hide();
 <% else %>
   $("#shipping_services_types").hide();
-  $(".frete_time").show().html("Seu pedido será entregue em <%= @shipping_service.try(:delivery_time) %> dias úteis.)";
+  $(".frete_time").show().html("Seu pedido será entregue em <%= @shipping_service.try(:delivery_time) %> dias úteis.");
 <% end %>
 
 
