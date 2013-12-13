@@ -12,9 +12,8 @@ class ShippingsController < ApplicationController
       @cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE,
       params[:freight_service_ids],
       true
-    )
+    ).sort{|x,y| y[:delivery_time] <=> x[:delivery_time]}
     return render :status => :not_found if freights.empty?
-      
     track_zip_code_fetch_event
     if freights.count > 1
         @has_two_shipping_services = true
