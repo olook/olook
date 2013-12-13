@@ -9,12 +9,7 @@ class ShippingsController < ApplicationController
     zip_code = params[:id]
 
     zip_code = params[:id]
-    freights =  FreightCalculator.freight_for_zip(
-      zip_code,
-      @cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE,
-      params[:freight_service_ids],
-      true
-    ).sort{|x,y| y[:delivery_time] <=> x[:delivery_time]}
+    freights = order_freights
     return render :status => :not_found if freights.empty?
     track_zip_code_fetch_event
     prepare_freights(freights)
@@ -24,6 +19,17 @@ class ShippingsController < ApplicationController
     end
     @freight_price = freights.first[:price]
     @first_free_freight_price = freights.first[:cost_for_free]  if freights.first[:cost_for_free]
+  end
+
+  private
+
+  def order_freights
+    FreightCalculator.freight_for_zip(
+      zip_code,
+      @cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE,
+      params[:freight_service_ids],
+      true
+    ).sort{|x,y| y[:delivery_time] <=> x[:delivery_time]}
   end
 
 end
