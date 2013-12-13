@@ -830,8 +830,9 @@ body {
         margin-bottom: 15px;
         fieldset.buttons {
           input[type=submit] {
-            background: image-url('common/login.png') no-repeat;
-            text-indent: -9999px;
+            @include bt_color($primary_bt_color, $primary_bt_color_hover);
+            font-weight: bold;
+            letter-spacing: 1px;
             width: 74px;
             height: 31px;
             display: block;

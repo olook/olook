@@ -271,35 +271,34 @@ ul.tryquiz{
   width: 576px;
   float: left;
   margin-left: 205px;
+  margin-bottom: 20px;
   li{
     float: left;
     a{
+      font-family: $bt_font;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      text-align: center;
+      font-size: 17px;
+      padding-top: 20px;
+      letter-spacing: 2px;
       &.me{
         width: 222px;
-        height: 58px;
-        text-indent: -9999px;
-        background: image-url('quiz/bt-try.png') no-repeat 0 0;
-        border: none;
-        cursor: pointer;
+        height: 38px;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
         display: block;
         float: left;
         margin-right: 44px;
-      &:hover{
-        background: image-url('quiz/bt-try.png') no-repeat 0 -60px;
-      }
     }
     &.again{
       width: 305px;
-      height: 58px;
-      text-indent: -9999px;
-      background: image-url('quiz/bt-try.png') no-repeat 0 -125px;
-      border: none;
-      cursor: pointer;
+      height: 38px;
       display: block;
       float: left;
-      &:hover{
-        background: image-url('quiz/bt-try.png') no-repeat 0 -185px;
-      }
+      @include bt_color($terciary_bt_color, $terciary_bt_color_hover);
     }
   }
 
