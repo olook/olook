@@ -24,6 +24,7 @@ class EventType < EnumerateIt::Base
 
     tracking:               [70, 'Tracking parameters'],
 
+    express_freight:        [79, 'User see express freight'],
     zip_code_fetched:       [80, 'User fetched the zip code'],
     finished_checkout:      [81, 'User finished the checkout process']
 
