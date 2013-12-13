@@ -8,6 +8,8 @@ module FreightCalculator
   DEFAULT_FREIGHT_COST    = 0.0
   DEFAULT_INVENTORY_TIME  = 2
   DEFAULT_FREIGHT_SERVICE = 2 # CORREIOS
+  DEFAULT_DELIVERY_TIME_FACTOR = 0.2
+  DEFAULT_PRICE_FACTOR = 0.3
 
 
   def self.freight_for_zip(zip_code, order_value, shipping_service_ids=nil, use_message = false)
@@ -47,9 +49,16 @@ module FreightCalculator
       better_shipping = sort_shipping_services.delete_at(0)
       return_shippings << better_shipping
       sort_shipping_services.each do |shipping|
-        return_shippings << shipping if shipping[:delivery_time] < better_shipping[:delivery_time]
+        return_shippings << shipping if delivery_time_calculation(shipping[:delivery_time],better_shipping[:delivery_time])# && price_calculation(shipping[:price],better_shipping[:price])
       end
       return_shippings
+    end
+
+    def self.delivery_time_calculation delivery_time, control_delivery_time
+      delivery_time <= (control_delivery_time - (control_delivery_time * DEFAULT_DELIVERY_TIME_FACTOR))
+    end
+    def self.price_calculation price, price_control
+      price >= (price_control + (price_control * DEFAULT_PRICE_FACTOR))
     end
 
     def self.shipping_services(shipping_service_ids)
