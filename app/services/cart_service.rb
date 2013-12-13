@@ -19,7 +19,7 @@ class CartService
   end
 
   def freight
-    cart.address ? freight_for_zip_code(cart.address.zip_code).merge({address: cart.address}) : {}
+    cart.address ? freight_for_zip_code(cart.address.zip_code).first.merge({address: cart.address}) : {}
   end
 
   def freight_for_zip_code zip_code
@@ -166,7 +166,6 @@ class CartService
 
     order.line_items = []
 
-
     cart.items.each do |item|
 
       order.line_items << LineItem.new(variant_id: item.variant.id, quantity: item.quantity, price: item_price(item),
@@ -185,8 +184,7 @@ class CartService
         order.subtotal += (0.1)
       end
     end
-
-    order.freight = Freight.create(freight)
+    order.freight = Freight.create(freight.except(:shipping_service_priority,:cost_for_free))
     order.save
     order
   end
