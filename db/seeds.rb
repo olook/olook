@@ -32,6 +32,7 @@ end
   {type: SpecificItem, name: "Items especificos"},
   {type: SpecificCategory, name: "Items com categoria especifica"},
   {type: ActiveReseller, name: "Revendedor ativo"},
+  {type: CompleteLook, name: 'Todos os produtos de um look estiverem no carrinho'},
 
   #Actions
   {type: MinorPriceAdjustment, name: "Produto de menor valor Gratis"},
