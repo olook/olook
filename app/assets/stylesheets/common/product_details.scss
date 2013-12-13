@@ -1,4 +1,5 @@
 @import 'partials/mixins';
+@import 'new_structure/common/global_stuffs';
 
 /*** MODAL GUIA DE MEDIDAS ***/
 div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px solid #a7a9ac; position: absolute;z-index: 3000;padding-left: 50px;display: none;
@@ -59,17 +60,17 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
   } 
   div#product-details{width: 417px;float: right;position:relative;color:#000;margin-left: 45px;margin-top:10px;
     .pl9{padding-left:9px;}
-    h1{font-family:$avenir;font-size:17px;font-weight: lighter;}
-    h2{font-family:$avenir;font-size:14px;text-transform:uppercase;font-weight:bold;margin-bottom:20px;}
+    h1{font-family:$verdana;font-size:16px;font-weight: lighter;letter-spacing: 0px;padding-bottom:3px;}
+    h2{font-family:$verdana;font-size:14px;text-transform:uppercase;font-weight:bold;margin-bottom:10px;}
     a.ver_produto {font-family:avenir, tahoma;position: relative;top: -20px;color:#000;text-decoration:none;color:#ef3742;}
     a.ver_produto:hover {text-decoration:underline;}
   
-    p {color: #000;font-size:15px;font-family: $avenir;
+    p {color: #000;font-size:15px;font-family: $preco;
       a {color: $pink;margin: 0 0 0 5px;}
-      &.price{font-weight:bold;}
+      &.price{font-weight:bold;color:$pink;margin-bottom:10px;font-size: $verdana;}
       &.plots{color:#6D6E71; font-size: 14px;}
-      &.price_retail {color: #000;font-size: 13px !important;text-decoration: line-through;text-align: center;margin-bottom: 0;font-family: $avenir;
-        &.left, &.left2 {font-size: 20px;width: 210px;clear: both;}
+      &.price_retail {color: #000;font-size: 13px !important;text-decoration: line-through;text-align: center;margin-bottom: 0;font-family: $verdana;
+        &.left, &.left2 {font-size: 20px;width: 150px;clear: both;}
       }
       &.left2{text-align: left;font-size: 15px;}
       &.left {text-align: left;float: left;}
@@ -91,10 +92,10 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       box-shadow:3px 3px 0 0 #000;
       text-align:center;
       p {
-        font-size:12px;
-        line-height:16px;
+        font-size:11px;
+        line-height:13px;
         font-weight: 400;
-        font-family: $avenir;
+        font-family: $arial;
         margin-top: 5px;
         width: 142px;
         margin-left: 6px;
@@ -102,6 +103,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
           color:$pink;
           text-decoration:underline;
           font-size:12px;
+          font-family: $verdana;
         }
       }
     }
@@ -154,7 +156,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
           &.size_guide,&.size_guide.selected{background: image-url('common/guide.png') no-repeat !important; height: 34px;padding-left:15px;width:60px;line-height: 13px;
             a{font-size: 12px;color: #ef3742;text-decoration: underline;line-height: 14px;} 
           }
-          label{font-weight: normal;line-height: 28px;text-align: center;min-width: 24px;height: 24px;display: inline-block;cursor: pointer;line-height:28px;
+          label{font-weight: normal;line-height: 23px;text-align: center;min-width: 24px;height: 24px;display: inline-block;cursor: pointer;font-family: $verdana;font-size: 12px;
             span {font-size: 10px;}
           }
           input[type="radio"] {display: none;}
@@ -217,6 +219,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       &.disabled {background: image-url('product/bt-add-product-to-suggestions-disabled.jpg') no-repeat;}
     }
     #product-particulars{
+      * {font-family: $verdana !important;}
       div{padding-left:12px;display:none;;margin-bottom:28px;
         &.about{float:left;overflow:hidden;}
         &.exchange{border-bottom:solid 1px #C2C2C2;
@@ -238,16 +241,16 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         }
       }
       p {
-        font-size:14px;
+        font-size:12px;
       }
       b{display:block;}
-      h3{float:left;text-transform:uppercase;font-weight:bold;font-size:13px;clear:both;border-top:solid 1px #C2C2C2;padding:10px 0 10px 12px;width:97%;background:image-url('product/new_page_sprite.png') 400px -137px no-repeat;cursor:pointer;
+      h3{float:left;text-transform:uppercase;font-weight:bold;font-size:12px;clear:both;border-top:solid 1px #C2C2C2;padding:10px 0 10px 12px;width:97%;background:image-url('product/new_page_sprite.png') 400px -137px no-repeat;cursor:pointer;
         &.open{background-position:400px -225px;cursor:text;border-bottom:none !important;}
         &.exchange-title{border-bottom:solid 1px #C2C2C2;}
       }
       dl{margin-top:15px;
-        dt{float:left;clear:left;font-weight:bold;text-transform:uppercase;margin-bottom: 6px;}
-        dd{float:left;line-height:19px;margin-left:4px;margin-bottom: 10px;}
+        dt{float:left;clear:left;font-weight:bold;text-transform:uppercase;margin-bottom: 6px;font-size: 12px;}
+        dd{float:left;line-height:19px;margin-left:4px;margin-bottom: 10px;font-size: 12px;}
       }
     }
   } 
@@ -488,6 +491,7 @@ a#goRelatedProduct {
   left: 423px;
   z-index: 99;
   top: 291px;
+
 }
 
 #goRelatedProduct:hover {
@@ -527,3 +531,73 @@ ul.breadcrumb {
 #product .breadcrumb {left:6px !important;}
 
 input.quero_este {cursor: pointer;}
+
+/* ENTREGA GARANTIDA ~ REMOVER APÓS TERMINO */
+
+.delivery {  
+  background:image-url('product/delivery.gif') no-repeat 7px -5px;
+  border-top:1px solid #d1d1d1;
+  border-bottom:1px solid #d1d1d1;
+  margin:20px 0;
+  padding:5px 0 10px 13%;
+
+  div.garantido {
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0px;
+    padding-left: 15px;
+    padding-top: 5px;
+    span {
+      font-size: 11px;
+      font-weight: 600;
+      display: block;
+      letter-spacing: -1px;
+    }
+    .formDelivery {
+      font-family: $avenir;
+      font-size: 13px;
+      font-weight: lighter;
+      padding:10px 0;
+      letter-spacing: 0px;
+      display: none;
+      input[type="text"] {
+        width: 143px;
+        height: 23px;
+        border: solid 1px #000;
+        box-shadow: 1px 2px 0 0 #000;
+        padding-left: 5px;
+        margin-top:5px;
+      }
+      input[type="button"] {
+        width: 90px;
+        height: 25px;
+        border: none;
+        background: #000;
+        color: #FFF;
+        text-transform: uppercase;
+        font-size: 11px;
+        text-align: center;
+        margin-left: 8px;
+        cursor: pointer;
+      }
+      p.shipping-msg{
+        margin-top: 15px;
+        width: 300px;
+        height: 33px;
+        border: solid 1px #A1A1A1;
+        padding-left: 35px;
+        line-height: 33px;
+        font-size: 12px !important;
+        display: none;
+      }
+      p.ok {
+        background:image-url('product/new_page_sprite.png') #e6f4d6 -50px -90px no-repeat;
+      }
+      p.error {
+        background:image-url('product/new_page_sprite.png') #eb8793 -50px -50px no-repeat;
+        letter-spacing: -0.05em;
+      }
+    }
+  }
+  br{clear: both;}
+}

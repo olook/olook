@@ -5,25 +5,25 @@ section#our_essence {
   padding: 20px 0;
   overflow: hidden;
   > h1 {
-    font-family: $johnston;
-    font-size: 26px;
+    font-family: $verdana;
+    font-size: 25px;
     text-transform: uppercase;
     margin: 0 0 40px;
   }
   div.description {
     width: 565px;
-    margin: 0 65px 0 0;
+    margin: 0 45px 0 0;
     float: left;
     p {
-      font-family: $avenir;
+      font-family: $verdana;
       color: $third_color;
-      font-size: 18px;
+      font-size: 13px;
       font-weight: lighter;
       text-align: justify;
       margin: 0 0 37px;
       span {
         font-family: $kepler;
-        font-size: 19px;
+        font-size: 14px;
         &.olook-bold{
           font-weight: bold;
           font-family: $avenir;
@@ -38,15 +38,15 @@ section#our_essence {
     padding: 0 0 55px;
     float: right;
     h2 {
-      font-family: $kepler;
-      font-size: 26px;
+      font-family: $verdana;
+      font-size: 25px;
       margin: 0 0 20px;
     }
     img {
       margin: 0 0 40px;
     }
     > p {
-      font-family: $kepler;
+      font-family: $verdana;
       font-size: 16px;
       margin: 0 0 35px;
     }

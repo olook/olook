@@ -125,8 +125,12 @@ class ProductPresenter < BasePresenter
 
   def render_price_for product_discount_service
     product_discount_service.calculate
-    return price_markdown(product_discount_service) if product_discount_service.discount > 0
-    return price_markup(product_discount_service.final_price, "price")
+    
+    if product_discount_service.discount > 0 && !product_discount_service.fixed_value_discount?
+      price_markdown(product_discount_service)
+    else
+      return price_markup(product_discount_service.base_price, "price")
+    end
   end
 
   def is_promotion?

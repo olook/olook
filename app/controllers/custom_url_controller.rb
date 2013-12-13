@@ -18,6 +18,7 @@ class CustomUrlController < ApplicationController
       )
       @category = @search.current_filters['category'].first
       @collection_theme_groups = CollectionThemeGroup.order(:position).includes(:collection_themes)
+      @cache_key = "custom_url#{request.path}|#{@search.cache_key}#{@custom_url.cache_key}"
     else
       redirect_to root_url
     end
