@@ -67,9 +67,6 @@ function retrieve_freight_price_for_checkout(url_base, zip_code) {
   $.ajax({
     url: '/' + url_base + '/' + zip_code,
     type: 'GET',
-    data: {
-      freight_service_ids: $(".shipping_service_radio:checked").val()
-    },
     beforeSend: function(){
       $("#freight_price").hide();
       $("#delivery_time").hide();
