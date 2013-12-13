@@ -39,6 +39,11 @@ module ApplicationHelper
     end
   end
 
+  def track_pageview(virtual_url)
+    "_gaq.push(['_trackPageview', '#{virtual_url}']);"
+  end
+
+
   def track_event(*args)
     options = args.last.is_a?(Hash) ? args.last : {}
     category = args[0]
