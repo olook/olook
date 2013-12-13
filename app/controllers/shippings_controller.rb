@@ -17,13 +17,7 @@ class ShippingsController < ApplicationController
     ).sort{|x,y| y[:delivery_time] <=> x[:delivery_time]}
     return render :status => :not_found if freights.empty?
     track_zip_code_fetch_event
-    if freights.count > 1
-        @has_two_shipping_services = true
-        @shipping_service = OpenStruct.new freights.first
-        @shipping_service_fast = OpenStruct.new freights.last
-    else
-        @shipping_service = OpenStruct.new freights.first
-    end
+    prepare_freights(freights)
     @days_to_deliver = freights.first[:delivery_time]
     if @days_to_deliver <= 4
       @days_to_deliver = 2

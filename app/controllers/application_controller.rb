@@ -262,5 +262,16 @@ class ApplicationController < ActionController::Base
         w3c(\-|\ )|webc|whit|wi(g\ |nc|nw)|wmlb|
       wonu|x700|yas\-|your|zeto|zte\-/xi.match(user_agent))
   end
+
+  def prepare_freights(freights)
+    if freights.count > 1
+      @has_two_shipping_services = true
+      @shipping_service = OpenStruct.new freights.first
+      @shipping_service_fast = OpenStruct.new freights.last
+    else
+      @shipping_service = OpenStruct.new freights.first
+    end
+  end
+
 end
 

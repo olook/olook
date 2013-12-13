@@ -14,7 +14,8 @@ class Checkout::CheckoutController < Checkout::BaseController
     @report  = CreditReportService.new(@user)
     @checkout = Checkout.new(address: @addresses.find { |a| a.id == current_user.orders.last.freight.address_id rescue false } || @addresses.first )
     @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
-    prepare_freights
+
+    prepare_freights(sorted_freights)
   end
 
   def create
@@ -54,17 +55,6 @@ class Checkout::CheckoutController < Checkout::BaseController
   end
 
   private
-
-    def prepare_freights
-      freights = sorted_freights
-      if freights.count > 1
-        @has_two_shipping_services = true
-        @shipping_service = OpenStruct.new freights.first
-        @shipping_service_fast = OpenStruct.new freights.last
-      else
-        @shipping_service = OpenStruct.new freights.first
-      end
-    end
 
     def sorted_freights
       FreightCalculator.freight_for_zip(@checkout.address.zip_code,@cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE).sort{|x,y| y[:delivery_time] <=> x[:delivery_time]}
