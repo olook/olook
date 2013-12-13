@@ -166,6 +166,7 @@ class CartService
 
     order.line_items = []
 
+
     cart.items.each do |item|
 
       order.line_items << LineItem.new(variant_id: item.variant.id, quantity: item.quantity, price: item_price(item),

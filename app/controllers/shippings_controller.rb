@@ -5,6 +5,8 @@ class ShippingsController < ApplicationController
   include FreightTracker
 
   def show
+    @warranty_deliver = true if params[:warranty_deliver]
+    zip_code = params[:id]
 
     zip_code = params[:id]
     freights =  FreightCalculator.freight_for_zip(
@@ -23,6 +25,9 @@ class ShippingsController < ApplicationController
         @shipping_service = OpenStruct.new freights.first
     end
     @days_to_deliver = freights.first[:delivery_time]
+    if @days_to_deliver <= 4
+      @days_to_deliver = 2
+    end
     @freight_price = freights.first[:price]
     @first_free_freight_price = freights.first[:cost_for_free]  if freights.first[:cost_for_free]
   end

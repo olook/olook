@@ -38,7 +38,16 @@ class Cart::CartController < ApplicationController
       notice_message = @cart.errors.messages.values.flatten.first
       render :error, :locals => { :notice => notice_message }
     end
+
     @cart.reload
+
+    #
+    # Isto é feio, muito feio. Juro que volto aqui para refatorar
+    #
+    if @cart.coupon && @cart.coupon.promotion_action.is_a?(ValueAdjustment)
+      @coupon_value = @cart.coupon.action_parameter.action_params[:param]
+    end
+
     @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
   end
 

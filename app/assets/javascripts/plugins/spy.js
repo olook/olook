@@ -47,6 +47,7 @@ olook.spy = function(selector){
 
         accordion();
         delivery();
+        guaranteedDelivery();
 
         if (typeof initSuggestion != 'undefined') {
           initSuggestion.checkIfProductIsAlreadySelected();

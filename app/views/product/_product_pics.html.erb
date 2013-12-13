@@ -5,7 +5,7 @@
   <% end %>
     <% unless @product.youtube_token.blank? %>
       <li class="vwo_1378925044720">
-        <a href="javascript:void(0);" onclick="<%= track_event("Product", "ClickVideo", @product.id.to_s) %>;javascript:initBase.newModal(initBase.youtubePlayer(initBase.youtubeParser('<%= @product.youtube_token %>')));" rel= "product_<%= @first_pic_id %>" class="load-async-<%= @first_pic_id %>" >
+        <a href="javascript:void(0);" onclick="<%= track_event("Product", "ClickVideo", @product.id.to_s) %>;javascript:olook.videoModalBuild(olook.youtubePlayer(olook.youtubeParser('<%= @product.youtube_token %>')));" rel= "product_<%= @first_pic_id %>" class="load-async-<%= @first_pic_id %>" >
           <%= image_tag("product/bt-modal-video.jpg", class: "vwo_1378925047103") %>
         </a>
       </li>
