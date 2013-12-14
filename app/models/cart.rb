@@ -124,7 +124,7 @@ class Cart < ActiveRecord::Base
   def complete_look_product_ids_in_cart
     return_array = []
     items.each do |item|
-      return_array |= item.product.related_products.map(&:id) if item.product.list_contains_all_related_products?(items.map(&:id))
+      return_array |= item.product.related_products.map(&:id) if item.product.list_contains_all_related_products?(items.map{|i| i.product.id})
     end
     Set.new return_array
   end
