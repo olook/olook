@@ -146,20 +146,35 @@ function guaranteedDelivery(){
     $('.formDelivery').slideToggle();
   });
 }
-
+function findDeliveryTime(it, warranty_deliver){
+    var cep = it.siblings('.ship-field').val();
+    if(cep.length < 9){
+      $(".shipping-msg").removeClass("ok").hide().delay(500).fadeIn().addClass("error").text("O CEP informado parece estranho. Que tal conferir?");
+      return false;
+    }else{
+      var suf = '';
+      if (warranty_deliver) {
+        suf = '?warranty_deliver=1';
+      }
+      $.getJSON("/shippings/"+cep+suf, function(data){
+        var klass = 'ok';
+        if(data['class']){
+          klass = data['class'];
+        }
+        it.parent().siblings(".shipping-msg").removeClass("error").hide().delay(500).fadeIn().addClass(klass).text(data.message);
+      });
+    }
+  }
 function delivery(){
   var sf = $("#ship-field, #cepDelivery");
   if(sf.setMask)
     sf.setMask({mask: '99999-999'});
   $("#shipping #search").click(function(){
-    cep = $("#ship-field, #cepDelivery").val();
-    if(cep.length < 9){
-      $(".shipping-msg").removeClass("ok").hide().delay(500).fadeIn().addClass("error").text("O CEP informado parece estranho. Que tal conferir?");
-      return false;
-    }else{
-      $.getJSON("/shippings/"+cep, function(data){
-        $(".shipping-msg").removeClass("error").hide().delay(500).fadeIn().addClass("ok").text(data.message);
-      });
+    var it = $(this);
+    if(it.data('warrantyDeliver')){
+      findDeliveryTime(it, true);
+    } else {
+      findDeliveryTime(it);
     }
-  })
+  });
 }

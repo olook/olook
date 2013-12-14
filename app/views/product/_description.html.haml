@@ -13,15 +13,13 @@
   .delivery
     .garantido
       Entrega garantida até 24/12. 
-      = link_to 'Consulte seu CEP', '#', class: 'consultaCepGarantido'
-      %span
-        * Para pedidos com pagamento aprovado até 22/12
+      = link_to 'Consulte seu CEP', '#', class: 'consultaCepGarantido', onclick: track_pageview('/open-zipcode-form')
       .formDelivery{method:'post'}
         %p Informe o CEP e consulte o prazo para destino
         %form#shipping
-          %input#cepDelivery{type:'text'}
-          %input#search{type:'button', value:'PESQUISAR'}
-        %p{class:'shipping-msg'}
+          %input.ship-field#cepDelivery{type:'text'}
+          %input#search{type:'button', value:'PESQUISAR', data: {warranty_deliver: 1}, onclick: track_pageview('/query-zipcode')}
+        %SubmitQuery{class:'shipping-msg'}
           Quando for um CEP válido!
     // .social-media-box.pl9
     //  .has_bt_face
