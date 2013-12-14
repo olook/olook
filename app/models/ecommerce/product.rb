@@ -538,6 +538,10 @@ class Product < ActiveRecord::Base
     contains_all_elements_as_related_products?(product_ids) && has_related_products?
   end
 
+  def look_product_ids
+    (related_products.map(&:id) << id)
+  end  
+
   private
 
     def details_relevance
@@ -589,16 +593,12 @@ class Product < ActiveRecord::Base
       detail.description if detail
     end
 
-    def related_product_ids
-      (related_products.map(&:id) << id)
-    end
-
     def has_related_products?
       related_products.size > 0
     end
 
     def contains_all_elements_as_related_products? product_ids
-      rp_ids = related_product_ids
+      rp_ids = look_product_ids
       rp_ids & product_ids == rp_ids
     end    
 end
