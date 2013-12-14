@@ -534,8 +534,8 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def list_contains_all_related_products? product_ids
-    contains_all_elements_as_related_products?(product_ids) && has_related_products?
+  def list_contains_all_complete_look_products? product_ids
+    contains_all_elements_as_look_products?(product_ids) && has_related_products?
   end
 
   def look_product_ids
@@ -597,7 +597,7 @@ class Product < ActiveRecord::Base
       related_products.size > 0
     end
 
-    def contains_all_elements_as_related_products? product_ids
+    def contains_all_elements_as_look_products? product_ids
       rp_ids = look_product_ids
       rp_ids & product_ids == rp_ids
     end    
