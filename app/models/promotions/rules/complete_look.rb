@@ -11,7 +11,7 @@ class CompleteLook < PromotionRule
     cart_item_ids = cart.items.map{|item| item.product.id}
 
     cart.items.each do |item|
-      return true if item.product.list_contains_all_related_products?(cart_item_ids)
+      return true if item.product.list_contains_all_complete_look_products?(cart_item_ids)
     end
     false
   end
