@@ -30,6 +30,8 @@ pt-BR:
               inclusion: "Você é autônomo (CPF) ou logista (CNPJ) ?"
             corporate_name:
               blank: "Qual a razão social da empresa, mesmo?"
+            fantasy_name:
+              blank: "Qual a nome fantasia da empresa, mesmo?"
             first_name:
               blank: "Qual é o seu nome? :)"
               invalid: "Parece estranho. Pode conferir? :)"

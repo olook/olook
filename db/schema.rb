@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131126134610) do
+ActiveRecord::Schema.define(:version => 20131212110833) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -1084,6 +1084,7 @@ ActiveRecord::Schema.define(:version => 20131126134610) do
     t.boolean  "reseller",                                        :default => false
     t.boolean  "active"
     t.boolean  "has_corporate"
+    t.string   "fantasy_name"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token"
