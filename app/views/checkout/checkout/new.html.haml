@@ -18,7 +18,7 @@
         
       %br
       - if @has_two_shipping_services
-        - track_event(EventType::EXPRESS_FREIGHT, @checkout.address.zip_code)
+        - track_event("express_freight", @checkout.address.zip_code)
         #shipping_services_types
           %p
             Selecione a opção de entrega
