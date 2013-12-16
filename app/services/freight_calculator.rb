@@ -28,7 +28,7 @@ module FreightCalculator
       :cost_for_free => (freight.price != 0.0) && use_message ? freight.shipping_service.find_first_free_freight_for_zip_and_order(clean_zip_code, order_value).try(:order_value_start) : ''
     }
     end
-    TransportShippingService.new return_array
+    TransportShippingService.new(return_array).choose_better_transport_shipping
   end
 
   def self.valid_zip?(zip_code)
