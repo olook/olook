@@ -120,7 +120,7 @@ group by uc.user_id, ct.code
       begin
         gather_facebook_friends(Date.today)
       rescue => e
-        DevAlertMailer.notify(from: 'dev.notifications@olook.com.br', to: 'incidentes@olook.com.br', subject: "Falha ao gerar CSV de amigos do facebook: #{e}").deliver
+        DevAlertMailer.notify(from: 'dev.notifications@olook.com.br', to: 'incidentes@olook.com.br', subject: "Falha ao gerar CSV de amigos do facebook: #{e}", body: e.backtrace).deliver
       end
     end
 

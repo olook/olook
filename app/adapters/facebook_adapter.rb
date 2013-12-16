@@ -8,7 +8,12 @@ class FacebookAdapter
 
   def facebook_friends(fields = "name, gender, birthday, first_name")
     Rails.cache.fetch(access_token, :expires_in => 15.minutes) do
-      friends = adapter.get_connections("me", "friends", :fields => fields)
+      begin
+        friends = adapter.get_connections("me", "friends", :fields => fields)
+      rescue => e
+        puts "Error on getting facebook data for token #{@access_token}"
+        friends = []
+      end
       filter_female_friends(friends).map do |friend|
         OpenStruct.new(:uid => friend["id"],
          :name => friend["name"],
