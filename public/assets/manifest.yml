@@ -2340,8 +2340,8 @@ welcome.js: welcome-977f528ad1c69589419c745b83d88eb2.js
 welcome/index.js: welcome-977f528ad1c69589419c745b83d88eb2.js
 about/normalize.css: about/normalize-b3a32727781c89e0bd714269e2f853f0.css
 about/normalize/index.css: about/normalize-b3a32727781c89e0bd714269e2f853f0.css
-about/style.css: about/style-7675a5651a14a45b562a894df4993b6b.css
-about/style/index.css: about/style-7675a5651a14a45b562a894df4993b6b.css
+about/style.css: about/style-f5e624e5db1e55b23b818588ef480410.css
+about/style/index.css: about/style-f5e624e5db1e55b23b818588ef480410.css
 admin.css: admin-0cb9816b596846ca3f9ddc537b35b68d.css
 admin/index.css: admin-0cb9816b596846ca3f9ddc537b35b68d.css
 admin/base.css: admin/base-96e5214e25a9324f01841de103ae3ca6.css
@@ -2502,8 +2502,8 @@ new_structure/section/quiz.css: new_structure/section/quiz-ff33044939970a31b18aa
 new_structure/section/quiz/index.css: new_structure/section/quiz-ff33044939970a31b18aa12e4030d5d5.css
 new_structure/section/search.css: new_structure/section/search-8074cdc808136d7c779b27b4b19554b5.css
 new_structure/section/search/index.css: new_structure/section/search-8074cdc808136d7c779b27b4b19554b5.css
-reseller.css: reseller-0a2dd166e543e43e62135a1325d7fb9a.css
-reseller/index.css: reseller-0a2dd166e543e43e62135a1325d7fb9a.css
+reseller.css: reseller-40a35c299f95c41b19415b21128f5981.css
+reseller/index.css: reseller-40a35c299f95c41b19415b21128f5981.css
 section/avc-campaign.css: section/avc-campaign-82656d1d5879e46c4517203431f6ffa4.css
 section/avc-campaign/index.css: section/avc-campaign-82656d1d5879e46c4517203431f6ffa4.css
 section/box_invite.css: section/box_invite-ae04ed235c25d271bb19d4271ecc29b6.css
