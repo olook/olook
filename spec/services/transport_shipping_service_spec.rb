@@ -20,7 +20,7 @@ describe TransportShippingService do
     end
 
     it "return same transport shipping info that was initialize" do
-      expect(@transport_service.choose_better_transport_shipping).to eql [@defaut_transport_service]
+      expect(@transport_service.choose_better_transport_shipping).to eql default_shipping: @defaut_transport_service
     end
   end
 
@@ -40,7 +40,7 @@ describe TransportShippingService do
         @transport_service = TransportShippingService.new([@defaut_transport_service, @transport_service_1])
       end
       it "return two transport shipping ordering with cost" do
-        expect(@transport_service.choose_better_transport_shipping).to eql [@defaut_transport_service, @transport_service_1]
+        expect(@transport_service.choose_better_transport_shipping).to eql(default_shipping: @defaut_transport_service, fast_shipping: @transport_service_1 )
       end
     end
     context "and have tree possible choices" do
@@ -56,7 +56,7 @@ describe TransportShippingService do
         @transport_service = TransportShippingService.new([@defaut_transport_service, @transport_service_1,@transport_service_2])
       end
       it "return two transport shipping ordering with cost" do
-        expect(@transport_service.choose_better_transport_shipping).to eql [@defaut_transport_service, @transport_service_1]
+        expect(@transport_service.choose_better_transport_shipping).to eql(default_shipping: @defaut_transport_service, fast_shipping: @transport_service_2)
       end
     end
   end

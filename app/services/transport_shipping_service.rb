@@ -1,33 +1,40 @@
 class TransportShippingService
   DEFAULT_DELIVERY_TIME_FACTOR = 0.2
   DEFAULT_PRICE_FACTOR = 0.3
-  attr_reader :transport_shippins
+  attr_reader :transport_shippings
   attr_accessor :return_shippings
 
-  def initialize transport_shippins
-    @transport_shippins = transport_shippins
-    @return_shippings = []
+  def initialize transport_shippings
+    @transport_shippings = transport_shippings
+    @return_shippings = {}
   end
 
   def choose_better_transport_shipping
-    return transport_shippins if transport_shippins.count == 1
-    sort_shipping_services = order_by_cost
-    better_shipping = sort_shipping_services.delete_at(0)
-    return_shippings << better_shipping
-    sort_shipping_services.each do |shipping|
-      return_shippings << shipping if delivery_time_calculation(shipping[:delivery_time],better_shipping[:delivery_time]) && price_calculation(shipping[:price],better_shipping[:price])
-    end
-    return_shippings.first(2)
+    default_shipping = better_cost_shipping
+    fast_shipping = better_time_shipping
+
+    return_shippings[:default_shipping] = default_shipping
+    set_fast_shipping(fast_shipping) if has_smaller_deliver_time?(fast_shipping[:delivery_time],default_shipping[:delivery_time]) && has_major_price?(fast_shipping[:price],default_shipping[:price])
+
+    return_shippings
   end
 
   private
-    def order_by_cost
-      transport_shippins.sort{|x,y| x[:cost] <=> y[:cost]}
+    def better_cost_shipping
+      transport_shippings.sort{|x,y| x[:cost] <=> y[:cost]}.first
     end
-    def delivery_time_calculation delivery_time, control_delivery_time
+    def better_time_shipping
+      transport_shippings.sort{|x,y| x[:delivery_time] <=> y[:delivery_time]}.first
+    end
+    def set_fast_shipping shipping
+      return_shippings[:fast_shipping] = shipping if return_shippings[:default_shipping] != shipping
+    end
+
+    #Criar classes para fazer isso
+    def has_smaller_deliver_time? delivery_time, control_delivery_time
       delivery_time <= (control_delivery_time - (control_delivery_time * DEFAULT_DELIVERY_TIME_FACTOR))
     end
-    def price_calculation price, price_control
+    def has_major_price? price, price_control
       price >= (price_control + (price_control * DEFAULT_PRICE_FACTOR))
     end
 end
