@@ -5,9 +5,6 @@ class Checkout::CheckoutController < Checkout::BaseController
   before_filter :authenticate_user!
   before_filter :check_order
   before_filter :check_cpf
-  
-  #TODO Remove this after Freight AB test has finished
-  before_filter :prepare_for_freight_ab_testing 
 
   def new
     @addresses = @user.addresses
@@ -33,7 +30,6 @@ class Checkout::CheckoutController < Checkout::BaseController
       display_form(address, payment, payment_method)
       return
     end
-
     address.save
     @cart_service.cart.address = address
     @cart_service.prefered_shipping_services = params[:checkout][:shipping_service]
@@ -44,9 +40,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     response = payment_builder.process!
     if response.status == Payment::SUCCESSFUL_STATUS
       clean_cart!
-      # Contabilizacao do Teste AB de frete por CEP
-      track_finished_checkout address.zip_code
-      return redirect_to(order_show_path(:number => response.payment.order.number, abt: @ab_test_label))
+      return redirect_to(order_show_path(:number => response.payment.order.number))
     else
       @addresses = @user.addresses
       display_form(address, payment, payment_method, error_message_for(response, payment))
@@ -57,18 +51,7 @@ class Checkout::CheckoutController < Checkout::BaseController
   private
 
     def sorted_freights
-      FreightCalculator.freight_for_zip(@checkout.address.zip_code,@cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE).sort{|x,y| y[:delivery_time] <=> x[:delivery_time]}
     end
-
-    # this is used for freight AB-Test
-    def prepare_for_freight_ab_testing
-      @endpoint_url = params[:freight_service_ids].present? ? 'shipping_updated_freight_table' : 'shippings'
-      @ab_test_label = params[:freight_service_ids].present? ? 'Var' : 'Ctrl'
-
-      # Force to always use TOTAL EXPRESS
-      @cart_service.prefered_shipping_services = params[:freight_service_ids]
-    end
-
 
     def error_message_for response, payment
       return "Identificamos um problema com a forma de pagamento escolhida." unless payment.is_a? CreditCard 
