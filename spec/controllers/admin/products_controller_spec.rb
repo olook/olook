@@ -50,25 +50,6 @@ describe Admin::ProductsController, admin: true do
     end
   end
 
-  describe "POST create" do
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved product as @product" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Product.any_instance.stub(:save).and_return(false)
-        post :create, :product => {}
-        assigns(:product).should be_a_new(Product)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Product.any_instance.stub(:save).and_return(false)
-        post :create, :product => {}
-        flash[:notice].should be_blank
-        #response.should render_template("new")
-      end
-    end
-  end
-
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested product" do

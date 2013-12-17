@@ -190,8 +190,9 @@ describe ProductPresenter do
     context "when product has discount" do
       before do
         product_discount_service.stub(discount: 10)
+        product_discount_service.stub(:fixed_value_discount?)
       end
-      it { expect(subject.render_price_for product_discount_service).to include("de: ") }
+      it { expect(subject.render_price_for(product_discount_service)).to include("de: ") }
       it { expect(subject.render_price_for product_discount_service).to include("por: ") }
     end
 
