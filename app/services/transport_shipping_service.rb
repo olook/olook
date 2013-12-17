@@ -35,6 +35,6 @@ class TransportShippingService
       delivery_time <= (control_delivery_time - (control_delivery_time * DEFAULT_DELIVERY_TIME_FACTOR))
     end
     def has_major_price? price, price_control
-      price >= (price_control + (price_control * DEFAULT_PRICE_FACTOR))
+      price > (price_control + (price_control * DEFAULT_PRICE_FACTOR))
     end
 end
