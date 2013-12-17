@@ -133,14 +133,6 @@ function freightCalc(){
   });
 }
 
-function trackStateForFreightABTest() {
-  state = $("#checkout_address_state").val() || $(".address_recorded:checked").data("state");
-  if (state != undefined) {
-    actionSuffix = isVariation() ? 'Var' : 'Ctrl';
-    _gaq.push(['_trackEvent', 'FreightABTest', 'FreightPreview' + actionSuffix, state, true]);
-  }
-}
-
 function changeFrieghtTotalValue(){
 $('.shipping_service_radio').change(function(){console.log('aaaaa')})
 }
