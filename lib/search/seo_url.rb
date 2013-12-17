@@ -47,6 +47,8 @@ class SeoUrl
       parse_olooklet_params
     elsif from_selections?
       parse_selections_params
+    elsif from_newest?
+      parse_newest_params
     else
       parse_catalogs_params
     end
@@ -111,6 +113,10 @@ class SeoUrl
       /^\/olooklet(\/)*/ =~ @path
     end
 
+    def from_newest?
+      /^\/novidades(\/)*/ =~ @path
+    end
+
     def from_selections?
       /^\/selections(\/)*/ =~ @path
     end
@@ -138,6 +144,12 @@ class SeoUrl
 
     def parse_olooklet_params
       /^(?:\/olooklet)(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
+      @params[:parameters] = URI.decode(parameters.to_s)
+      @query = query
+    end
+
+    def parse_newest_params
+      /^(?:\/novidades)(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end
