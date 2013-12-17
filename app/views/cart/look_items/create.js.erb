@@ -2,9 +2,11 @@ variant_number = '<%= j params[:variant_number] %>';
 product_price = '<%= j params[:product_price] %>';
 
 var hasToFadeIn = false;
+var cartContainsItems = false;
 variant_numbers = <%= @variant_numbers %>;
 
 for(i=0;i<variant_numbers.length;i++){
+  console.log(variant_numbers[i]);
   $('#variant_numbers_[value=\"'+variant_numbers[i]+'\"]').remove();
   $('#variant_numbers[][value=\"'+variant_numbers[i]+'\"]').remove();  
 }
@@ -17,8 +19,8 @@ if(StringUtils.isEmpty($("#total_price").val())){
   $("#total_price").val('0.0');
 
   $('.cart_related').fadeOut("fast",function(){
-    $('.cart_related div.empty_minicart').hide();
     $('.cart_related').addClass('product_added');
+    $('.cart_related div.empty_minicart').hide();    
     hasToFadeIn = true;
   });
 }
@@ -27,6 +29,14 @@ setTimeout(function() {
   if ($( ".cart_related ul li:contains("+$('li[data-id=<%= j params[:product_id] %>] img').attr("alt")+")" ).length == 0){
     $('.cart_related ul').append("<li>"+$('li[data-id=<%= j params[:product_id] %>] img').attr("alt")+"</li>");
     $("#total_price").val( parseFloat($("#total_price").val()) + parseFloat(product_price));
+  } else if ($( ".cart_related ul li:contains("+$('li[data-id=<%= j params[:product_id] %>] img').attr("alt")+")" ).length > 0 && variant_number.length == 0){
+    $( ".cart_related ul li:contains("+$('li[data-id=<%= j params[:product_id] %>] img').attr("alt")+")" ).remove();
+    $("#total_price").val( parseFloat($("#total_price").val()) - parseFloat(product_price));
+    if($( ".cart_related ul li").length -1 == 0){
+      $("#total_price").val('');
+      cartContainsItems = true;
+      hasToFadeIn = true;
+    }
   }
 
   var installments = CreditCard.installmentsNumberFor($("#total_price").val());
@@ -37,6 +47,13 @@ setTimeout(function() {
   }
 
   $("form#minicart input[type=submit]").removeAttr("disabled").removeClass("disabled");
+
+  if(cartContainsItems) {
+    $('.cart_related').removeClass('product_added');
+    $(".cart_related .minicart_price").html("");
+    $('.cart_related div.empty_minicart').fadeIn("fast");
+  }
+
   if(hasToFadeIn) {
     $('.cart_related').fadeIn("fast");
   }
