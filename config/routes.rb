@@ -410,6 +410,8 @@ Olook::Application.routes.draw do
     post "visibility_batch/create", as: :create_visibility_batch
     get "visibility_batch/commit", as: :commit_visibility_batch    
     get "visibility_batch/confirmation", as: :confirmation_visibility_batch
+
+    resources :itineraries
   end
 
   #USER / SIGN IN
