@@ -19,8 +19,8 @@ describe FreightCalculator do
       context 'for which there is a freight price' do
         let(:order_value) { 70.1 }
 
-        let(:freight_details1) { {:price => BigDecimal.new("10.0"), :cost => BigDecimal.new("5.0"), :delivery_time => 2 + FreightCalculator::DEFAULT_INVENTORY_TIME, :shipping_service_id => shipping_service1.id, shipping_service_priority: shipping_service1.priority } }
-        let(:freight_details2) { {:price => BigDecimal.new("5.0"), :cost => BigDecimal.new("3.0"), :delivery_time => 30 + FreightCalculator::DEFAULT_INVENTORY_TIME, :shipping_service_id => shipping_service2.id, shipping_service_priority: shipping_service2.priority } }
+        let(:freight_details1) { {:price => BigDecimal.new("10.0"), :cost => BigDecimal.new("5.0"), :delivery_time => 2 + FreightCalculator::DEFAULT_INVENTORY_TIME, :shipping_service_id => shipping_service1.id, shipping_service_priority: shipping_service1.priority, cost_for_free: "" } }
+        let(:freight_details2) { {:price => BigDecimal.new("5.0"), :cost => BigDecimal.new("3.0"), :delivery_time => 30 + FreightCalculator::DEFAULT_INVENTORY_TIME, :shipping_service_id => shipping_service2.id, shipping_service_priority: shipping_service2.priority, cost_for_free: "" } }
         let(:shipping_service2) { FactoryGirl.create :shipping_service, :priority => 1 }
         let(:shipping_service1) { FactoryGirl.create :shipping_service, :priority => 99 }
 
@@ -50,12 +50,12 @@ describe FreightCalculator do
         end
         context "with two shipping services" do 
           it "should return a hash with price, delivery time and cost" do
-            expect(described_class.freight_for_zip(zip_code, order_value)).to eql([freight_details2,freight_details1])
+            expect(described_class.freight_for_zip(zip_code, order_value)).to eql(default_shipping: freight_details2,fast_shipping: freight_details1)
           end
         end
         context "with tree shipping services" do 
           let(:shipping_service3) { FactoryGirl.create :shipping_service, :priority => 10 }
-          let(:freight_details3) { {:price => BigDecimal.new("5.0"), :cost => BigDecimal.new("3.0"), :delivery_time => 30 + FreightCalculator::DEFAULT_INVENTORY_TIME, :shipping_service_id => shipping_service3.id, shipping_service_priority: shipping_service3.priority } }
+          let(:freight_details3) { {:price => BigDecimal.new("5.0"), :cost => BigDecimal.new("3.0"), :delivery_time => 30 + FreightCalculator::DEFAULT_INVENTORY_TIME, :shipping_service_id => shipping_service3.id, shipping_service_priority: shipping_service3.priority, cost_for_free: "" } }
           before do
             FactoryGirl.create  :freight_price, :shipping_service => shipping_service3,
                                 :zip_start => 5379016, :zip_end => 5379100,
@@ -63,7 +63,7 @@ describe FreightCalculator do
                                 :price => 5.0, :cost => 3.0, :delivery_time => 30
           end
           it "should return a hash with price, delivery time and cost" do
-            expect(described_class.freight_for_zip(zip_code, order_value)).to eql([freight_details2,freight_details3])
+            expect(described_class.freight_for_zip(zip_code, order_value)).to eql(default_shipping: freight_details2,fast_shipping: freight_details1)
           end
         end
       end
