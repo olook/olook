@@ -12,6 +12,9 @@
 <% if @force_show_div %>
   $("#shipping_services_types").show();
 <% end %>
+if($('.shipping_service_radio:checked').hasClass('express')){
+  $('#freight_message').hide();
+}
 $("#freight_price").
   hide().
   html("<%= number_to_currency(@freight_price) %>").
@@ -29,7 +32,9 @@ $("#total_billet").hide().html("<%= number_to_currency(total_with_freight(@freig
 $("#total_debit").hide().html("<%= number_to_currency(total_with_freight(@freight_price, Debit.new)) %>");
 $("#freight_message").hide()
 $("#freight_message p.freight_msg").html('<%= show_freight_message().html_safe %>')
-$("#freight_message").delay(200).fadeIn();
+if(!$('.shipping_service_radio:checked').hasClass('express')){
+  $("#freight_message").delay(200).fadeIn();
+}
 
 showTotal();
 updateCreditCardSettlementsValue( $('#checkout_payment_payments'), "<%= total_with_freight(@freight_price) =%>", "<%= current_user && current_user.reseller? %>");
