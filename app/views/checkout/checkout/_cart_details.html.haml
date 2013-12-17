@@ -38,10 +38,9 @@
       %span#total_billet.txt-black= number_to_currency(@cart_service.total(Billet.new))
       %span#total_debit.txt-black= number_to_currency(@cart_service.total(Debit.new))
     %span#total.txt-black= number_to_currency(@cart_service.total)
-    %span#delivery_time.frete
-      - unless address.try(:zip_code).blank?
-        %p.frete_time
-          = "Seu pedido será entregue em #{@shipping_service.try(:delivery_time)} dias úteis."
+    - unless address.try(:zip_code).blank?
+      %p.frete_time{:class => (@addresses.count == 1 ? 'active' : '')}
+        = "Seu pedido será entregue em #{@shipping_service.try(:delivery_time)} dias úteis."
   - if @freebie && Freebie.selection_for(@cart.id) && @freebie.can_receive_freebie?
     .freebie_row
       %p
