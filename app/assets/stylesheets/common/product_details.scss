@@ -501,20 +501,16 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
 }
 
 a#goRelatedProduct {
-  width:65px;
-  height: 88px;
+  width:125px;
+  height: 125px;
   display: block;
-  background: image-url('product/ver_look_completo.jpg') right top no-repeat;
+  background: image-url('product/ver_look_completo.png') center center no-repeat;
   text-indent: -9999px;
   position: absolute;
   left: 423px;
   z-index: 99;
-  top: 291px;
+  top: 111px;
 
-}
-
-#goRelatedProduct:hover {
-  background-position: top left;
 }
 
 ul.breadcrumb {
