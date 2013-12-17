@@ -19,20 +19,20 @@
       %br
       - if @has_two_shipping_services
         - track_event("express_freight", @checkout.address.zip_code)
-        #shipping_services_types
-          %p
-            Selecione a opção de entrega
-          %ul
-            %li
-              = checkout_form.radio_button :shipping_service, @shipping_service.try(:shipping_service_id), class: "shipping_service_radio", checked: true
-              = checkout_form.label :shipping_service, "Convencional"
-              %p.shipping
-                = "(#{@shipping_service.try(:delivery_time)} dias úteis) #{number_to_currency(@shipping_service.try(:price))}"
-            %li.expresso
-              = checkout_form.radio_button :shipping_service, @shipping_service_fast.try(:shipping_service_id), class: "shipping_service_radio"
-              = checkout_form.label :shipping_service, "Expressa"
-              %p.shipping
-                = "(#{@shipping_service_fast.try(:delivery_time)} dias úteis) #{number_to_currency(@shipping_service_fast.try(:price))}"
+      #shipping_services_types
+        %p
+          Selecione a opção de entrega
+        %ul
+          %li
+            = checkout_form.radio_button :shipping_service, @shipping_service.try(:shipping_service_id), class: "shipping_service_radio", checked: false, onclick:"retrieve_freight_price_for_checkout('#{@checkout.address.zip_code}','#{@shipping_service.try(:shipping_service_id)}')"
+            = checkout_form.label :shipping_service, "Convencional"
+            %p.shipping
+              = "(#{@shipping_service.try(:delivery_time)} dias úteis) #{number_to_currency(@shipping_service.try(:price))}"
+          %li.expresso
+            = checkout_form.radio_button :shipping_service, @shipping_service_fast.try(:shipping_service_id), class: "shipping_service_radio", checked: false, onclick:"retrieve_freight_price_for_checkout('#{@checkout.address.zip_code}','#{@shipping_service_fast.try(:shipping_service_id)}')"
+            = checkout_form.label :shipping_service, "Expressa"
+            %p.shipping
+              = "(#{@shipping_service_fast.try(:delivery_time)} dias úteis) #{number_to_currency(@shipping_service_fast.try(:price))}"
     .box-step-two
       %h2.step-title
         %span.number 2.
