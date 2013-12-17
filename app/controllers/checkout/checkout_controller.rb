@@ -11,8 +11,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     @report  = CreditReportService.new(@user)
     @checkout = Checkout.new(address: @addresses.find { |a| a.id == current_user.orders.last.freight.address_id rescue false } || @addresses.first )
     @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
-
-    prepare_freights(sorted_freights)
+    prepare_freights(shipping_freights) if @checkout.address
   end
 
   def create
@@ -50,7 +49,8 @@ class Checkout::CheckoutController < Checkout::BaseController
 
   private
 
-    def sorted_freights
+    def shipping_freights
+      FreightCalculator.freight_for_zip(@checkout.address.zip_code,@cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE)
     end
 
     def error_message_for response, payment
