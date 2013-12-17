@@ -122,12 +122,18 @@ div.link_mail {
 		    float:left;
       }
       a {
-				@include sprite_checkout(-211px, -200px);
-        text-indent: -9999px;
+
         width: 98px;
-        height: 34px;
+        height: 24px;
         display: block;
 				float:left;
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: none;
+        letter-spacing: 2px;
+        font-size: 11px;
+        padding-top: 10px;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
       }
       div.zclip {
         z-index: 10000 !important;
