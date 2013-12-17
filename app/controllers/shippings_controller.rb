@@ -11,12 +11,13 @@ class ShippingsController < ApplicationController
     return render :status => :not_found if freights.empty?
     track_zip_code_fetch_event
     prepare_freights(freights)
-    @days_to_deliver = freights.first[:delivery_time]
+    @days_to_deliver = freights.fetch(:default_shipping)[:delivery_time]
     if @days_to_deliver <= 4
       @days_to_deliver = 2
     end
-    @freight_price = freights.first[:price]
-    @first_free_freight_price = freights.first[:cost_for_free]  if freights.first[:cost_for_free]
+    @force_show_div = true if params[:freight_service_ids]
+    @freight_price = freights.fetch(:default_shipping)[:price]
+    @first_free_freight_price = freights.fetch(:default_shipping)[:cost_for_free]  if freights.fetch(:default_shipping)[:cost_for_free]
   end
 
   private
