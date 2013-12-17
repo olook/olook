@@ -553,6 +553,10 @@ input.quero_este {cursor: pointer;}
       display: block;
       letter-spacing: -1px;
     }
+    p.obs {
+      font-size: 10px !important;
+      color: #6D6E71 !important;
+    }    
     .formDelivery {
       font-family: $avenir;
       font-size: 13px;
