@@ -567,7 +567,7 @@ input.quero_este {cursor: pointer;}
   div.garantido {
     font-weight: 600;
     font-size: 14px;
-    letter-spacing: -1px;
+    letter-spacing: 0px;
     padding-left: 15px;
     padding-top: 5px;
     span {
@@ -618,6 +618,7 @@ input.quero_este {cursor: pointer;}
       }
       p.error {
         background:image-url('product/new_page_sprite.png') #eb8793 -50px -50px no-repeat;
+        letter-spacing: -0.05em;
       }
     }
   }
