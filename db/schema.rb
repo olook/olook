@@ -196,8 +196,8 @@ ActiveRecord::Schema.define(:version => 20131212110833) do
   create_table "carts", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "notified",                :default => false, :null => false
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "legacy_id"
     t.boolean  "gift_wrap",               :default => false
     t.boolean  "use_credits",             :default => false
@@ -287,8 +287,6 @@ ActiveRecord::Schema.define(:version => 20131212110833) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
-
-  add_index "ceps", ["cep"], :name => "index_ceps_on_cep", :unique => true
 
   create_table "clearsale_order_responses", :force => true do |t|
     t.integer  "order_id"
@@ -570,11 +568,6 @@ ActiveRecord::Schema.define(:version => 20131212110833) do
     t.string   "product_ids"
   end
 
-  create_table "highlight_campaigns_products", :force => true do |t|
-    t.integer "highlight_campaigns_id"
-    t.integer "products_id"
-  end
-
   create_table "highlights", :force => true do |t|
     t.string   "link"
     t.string   "image"
@@ -622,15 +615,6 @@ ActiveRecord::Schema.define(:version => 20131212110833) do
   add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
   add_index "line_items", ["variant_id"], :name => "index_line_items_on_variant_id"
 
-  create_table "liquidation_carousels", :force => true do |t|
-    t.integer  "liquidation_id"
-    t.string   "image"
-    t.integer  "order"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-    t.integer  "product_id"
-  end
-
   create_table "liquidation_previews", :force => true do |t|
     t.integer  "product_id"
     t.integer  "visibility"
@@ -639,45 +623,6 @@ ActiveRecord::Schema.define(:version => 20131212110833) do
   end
 
   add_index "liquidation_previews", ["product_id"], :name => "index_liquidation_previews_on_product_id"
-
-  create_table "liquidation_products", :force => true do |t|
-    t.integer  "liquidation_id"
-    t.integer  "product_id"
-    t.integer  "category_id"
-    t.string   "subcategory_name"
-    t.decimal  "original_price",         :precision => 10, :scale => 2
-    t.decimal  "retail_price",           :precision => 10, :scale => 2
-    t.float    "discount_percent"
-    t.integer  "shoe_size"
-    t.string   "heel"
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
-    t.integer  "inventory"
-    t.string   "shoe_size_label"
-    t.string   "heel_label"
-    t.string   "subcategory_name_label"
-    t.integer  "variant_id"
-  end
-
-  add_index "liquidation_products", ["liquidation_id"], :name => "index_liquidation_products_on_liquidation_id"
-  add_index "liquidation_products", ["product_id"], :name => "index_liquidation_products_on_product_id"
-
-  create_table "liquidations", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.string   "teaser"
-    t.datetime "starts_at"
-    t.datetime "ends_at"
-    t.string   "welcome_banner"
-    t.string   "lightbox_banner"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
-    t.text     "resume"
-    t.string   "teaser_banner"
-    t.boolean  "visible",         :default => true
-    t.boolean  "show_advertise",  :default => true
-    t.string   "big_banner"
-  end
 
   create_table "live_feeds", :force => true do |t|
     t.string   "firstname"
@@ -698,14 +643,18 @@ ActiveRecord::Schema.define(:version => 20131212110833) do
     t.string   "cod_moip"
     t.string   "tipo_pagamento"
     t.string   "status_pagamento"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.string   "classificacao"
     t.integer  "payment_id"
+    t.boolean  "processed",        :default => false
+    t.integer  "retry",            :default => 0
+    t.text     "error"
   end
 
   add_index "moip_callbacks", ["id_transacao"], :name => "index_moip_callbacks_on_id_transacao"
   add_index "moip_callbacks", ["payment_id"], :name => "index_moip_callbacks_on_payment_id"
+  add_index "moip_callbacks", ["processed"], :name => "index_moip_callbacks_on_processed"
 
   create_table "order_state_transitions", :force => true do |t|
     t.integer  "order_id"
@@ -1091,17 +1040,6 @@ ActiveRecord::Schema.define(:version => 20131212110833) do
   end
 
   add_index "user_infos", ["user_id"], :name => "index_user_infos_on_user_id"
-
-  create_table "user_liquidations", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "liquidation_id"
-    t.boolean  "dont_want_to_see_again", :default => false
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
-  end
-
-  add_index "user_liquidations", ["liquidation_id"], :name => "index_user_liquidations_on_liquidation_id"
-  add_index "user_liquidations", ["user_id"], :name => "index_user_liquidations_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"
