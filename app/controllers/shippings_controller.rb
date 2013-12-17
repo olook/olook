@@ -10,7 +10,7 @@ class ShippingsController < ApplicationController
     freights = shipping_freights
     return render :status => :not_found if freights.empty?
     track_zip_code_fetch_event
-    prepare_freights(freights)
+    prepare_freights(shipping_freights)
     @days_to_deliver = freights.fetch(:default_shipping)[:delivery_time]
     if @days_to_deliver <= 4
       @days_to_deliver = 2
