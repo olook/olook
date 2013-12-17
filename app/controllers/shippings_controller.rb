@@ -6,7 +6,8 @@ class ShippingsController < ApplicationController
 
   def show
     @warranty_deliver = true if params[:warranty_deliver]
-    freights = order_freights
+    @zip_code = params[:id]
+    freights = shipping_freights
     return render :status => :not_found if freights.empty?
     track_zip_code_fetch_event
     prepare_freights(freights)
@@ -20,13 +21,13 @@ class ShippingsController < ApplicationController
 
   private
 
-  def order_freights
+  def shipping_freights
     FreightCalculator.freight_for_zip(
-      zip_code,
+      @zip_code,
       @cart_service.subtotal > 0 ? @cart_service.subtotal : DEFAULT_VALUE,
       params[:freight_service_ids],
       true
-    ).sort{|x,y| y[:delivery_time] <=> x[:delivery_time]}
+    )
   end
 
 end
