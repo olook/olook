@@ -1696,6 +1696,7 @@ section.checkout{
       float: left;
       width: 300px;
       margin-top: 30px;
+      display:none;
       p{
         font-family: $avenir;
         font-size: 15px;
@@ -1906,6 +1907,7 @@ section.checkout{
       }
     }
     p.frete_time{
+      display:none;
       background: image-url("new_checkout/carrinhos_frete.png") no-repeat 0px 3px;
       width: 155px;
       text-align: left;
@@ -2349,4 +2351,7 @@ p.important {
 
 .shipping_service_radio{
   float:left;
+}
+.active{
+  display:block !important;
 }
