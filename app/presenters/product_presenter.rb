@@ -163,9 +163,15 @@ class ProductPresenter < BasePresenter
     end
 
     def complete_look_discount
-      complete_look_promotion = Promotion.find(Setting.complete_look_promotion_id)
-      filters = complete_look_promotion.action_parameter.action_params
-      discount = complete_look_promotion.action_parameter.promotion_action.desc_value filters
-      {value: discount.gsub(/(R\$ |\%)/,""), is_percentage: discount.match(/(R\$ )/).blank? }
+      discount_hash = nil
+      begin
+        complete_look_promotion = Promotion.find(Setting.complete_look_promotion_id)
+        filters = complete_look_promotion.action_parameter.action_params
+        discount = complete_look_promotion.action_parameter.promotion_action.desc_value filters
+        discount_hash = {value: discount.gsub(/(R\$ |\%)/,""), is_percentage: discount.match(/(R\$ )/).blank? }
+      rescue
+        discount_hash = {}
+      end
+      discount_hash
     end
 end
