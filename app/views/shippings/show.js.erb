@@ -1,6 +1,7 @@
 //=require checkout_addresses
 <% if @has_two_shipping_services %>
   $("#shipping_services_types").show();
+  $('.shipping_service_radio:first').prop('checked', true);
   $(".shipping").html("(<%= @shipping_service.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service.price) %>");
   $(".expresso > p").html("(<%= @shipping_service_fast.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service_fast.price) %>");
   $(".frete_time").hide();
@@ -8,8 +9,9 @@
   $("#shipping_services_types").hide();
   $(".frete_time").show().html("Seu pedido será entregue em <%= @shipping_service.try(:delivery_time) %> dias úteis.");
 <% end %>
-
-
+<% if @force_show_div %>
+  $("#shipping_services_types").show();
+<% end %>
 $("#freight_price").
   hide().
   html("<%= number_to_currency(@freight_price) %>").
@@ -31,8 +33,4 @@ $("#freight_message").delay(200).fadeIn();
 
 showTotal();
 updateCreditCardSettlementsValue( $('#checkout_payment_payments'), "<%= total_with_freight(@freight_price) =%>", "<%= current_user && current_user.reseller? %>");
-
-$(function() {
-  trackStateForFreightABTest();
-})
 
