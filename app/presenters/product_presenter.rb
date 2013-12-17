@@ -17,7 +17,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_look_products
-    h.render :partial => 'product/look_products', :locals => {:look_products => look_products, :product_presenter => self, :complete_look_promotion => complete_look_promotion} if look_products.size > 1 
+    h.render :partial => 'product/look_products', :locals => {:look_products => look_products, :product_presenter => self, :complete_look_discount => complete_look_discount} if look_products.size > 1 
   end
 
   def render_description(show_facebook_button = true)
@@ -162,7 +162,10 @@ class ProductPresenter < BasePresenter
       product.variants.sort{|first, second| SIZES_TABLE[first.description].to_i <=> SIZES_TABLE[second.description].to_i }
     end
 
-    def complete_look_promotion
-      Promotion.find(Setting.complete_look_promotion_id)
+    def complete_look_discount
+      complete_look_promotion = Promotion.find(Setting.complete_look_promotion_id)
+      filters = complete_look_promotion.action_parameter.action_params
+      discount = complete_look_promotion.action_parameter.promotion_action.desc_value filters
+      {value: discount.gsub(/(R\$ |\%)/,""), is_percentage: discount.match(/(R\$ )/).blank? }
     end
 end
