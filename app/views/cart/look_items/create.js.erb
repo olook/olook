@@ -2,18 +2,17 @@ variant_number = '<%= j params[:variant_number] %>';
 product_price = '<%= j params[:product_price] %>';
 
 var hasToFadeIn = false;
-var cartContainsItems = false;
-variant_numbers = <%= @variant_numbers %>;
+var cartContainsItems = true;
+var variant_numbers = <%= @variant_numbers.to_s.html_safe %>;
 
 for(i=0;i<variant_numbers.length;i++){
-  console.log(variant_numbers[i]);
   $('#variant_numbers_[value=\"'+variant_numbers[i]+'\"]').remove();
   $('#variant_numbers[][value=\"'+variant_numbers[i]+'\"]').remove();  
 }
 
-$('#minicart').append('<%= escape_javascript(hidden_field_tag("variant_numbers[]", params[:variant_number])) %>');
-$('li[data-id=<%= j params[:product_id] %>] form input[type=submit]').addClass("added_product").attr("disabled", "disabled");
-$('li[data-id=<%= j params[:product_id] %>] form input[type=submit]').val('PRODUTO ADICIONADO!');
+if(variant_number.length > 0){
+  $('#minicart').append('<%= escape_javascript(hidden_field_tag("variant_numbers[]", params[:variant_number])) %>');
+}
 
 if(StringUtils.isEmpty($("#total_price").val())){
   $("#total_price").val('0.0');
@@ -34,7 +33,7 @@ setTimeout(function() {
     $("#total_price").val( parseFloat($("#total_price").val()) - parseFloat(product_price));
     if($( ".cart_related ul li").length -1 == 0){
       $("#total_price").val('');
-      cartContainsItems = true;
+      cartContainsItems = false;
       hasToFadeIn = true;
     }
   }
@@ -48,7 +47,7 @@ setTimeout(function() {
 
   $("form#minicart input[type=submit]").removeAttr("disabled").removeClass("disabled");
 
-  if(cartContainsItems) {
+  if(!cartContainsItems) {
     $('.cart_related').removeClass('product_added');
     $(".cart_related .minicart_price").html("");
     $('.cart_related div.empty_minicart').fadeIn("fast");
