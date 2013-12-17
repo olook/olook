@@ -19,7 +19,7 @@ class CartService
   end
 
   def freight
-    cart.address ? freight_for_zip_code(cart.address.zip_code).first.merge({address: cart.address}) : {}
+    cart.address ? (freight_for_zip_code(cart.address.zip_code).fetch(:fast_shipping,nil) || freight_for_zip_code(cart.address.zip_code).fetch(:default_shipping)).merge({address: cart.address}) : {}
   end
 
   def freight_for_zip_code zip_code
