@@ -1,7 +1,7 @@
 <% selected_address = addresses.first if addresses.size == 1 %>
 <% addresses.each do |address| %>
   <%= field_set_tag do %>
-    <%= radio_button :address, 'id', address.id, class: "address_recorded", id: "", data: {state: address.state},  checked: (selected_address && (address.id == selected_address.id)), onclick:"retrieve_freight_price_for_control_or_variation('#{address.zip_code}');#{track_event('CheckoutAddress','clickSelectAddress')}" %>
+    <%= radio_button :address, 'id', address.id, class: "address_recorded", id: "", data: {state: address.state},  checked: (selected_address && (address.id == selected_address.id)), onclick:"retrieve_freight_price_for_checkout('#{address.zip_code}','');#{track_event('CheckoutAddress','clickSelectAddress')}" %>
     <%= label_tag :address, '', class: "address_label" %>
     <ul class="address_data">
       <li><%= "#{address.first_name} #{address.last_name}" %></li>
