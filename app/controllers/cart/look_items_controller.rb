@@ -1,6 +1,6 @@
 class Cart::LookItemsController < ApplicationController
   respond_to :js
   def create
-    @variant_numbers = Product.find(params[:product_id]).variants.map{|v| v.number.to_i}.to_s
+    @variant_numbers = Product.find(params[:product_id]).variants.map{|v| v.number}
   end
 end
