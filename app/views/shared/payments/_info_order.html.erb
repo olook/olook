@@ -35,7 +35,7 @@
     </li>
 
     <%
-    if cart_service.freight_price > 0 %>
+    if @order.try(:freight).try(:price) > 0 %>
     <li>
       <p><span class="txt-black">FRETE:</span><span><%= number_to_currency(@order.freight.price) %></span></p>
     </li>
