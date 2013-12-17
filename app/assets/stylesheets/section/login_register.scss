@@ -16,7 +16,17 @@
 		&.buttons{
 			label{display:inline;font-size:12px;}
 			a{color:#6D6E71;font-size:12px;margin-left:8px;}
-			#login{width:122px;height:47px;@include sprite_login(-208px, 0);border:0;font-size:0;font-family:a;margin-top:20px;cursor:pointer;}
+			#login{
+        width:122px;
+        height:47px;
+        border:0;
+        margin-top:20px;
+        cursor:pointer;
+        letter-spacing: 2px;
+        font-size: 13px;
+        font-weight: 600;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
+      }
 		}
 	}
 
@@ -28,7 +38,20 @@
 }
 
 .register{float:left;width:305px;
-	a{display:block;font-size:0;font-family:a;width:206px;height:52px;@include sprite_login(0, 0)}
+	a{
+    display:block;
+    font-size:0;
+    width:206px;
+    height:34px;
+    cursor:pointer;
+    letter-spacing: 2px;
+    font-size: 13px;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    padding-top: 18px;
+    @include bt_color($primary_bt_color, $primary_bt_color_hover);
+  }
 }
 .form_register{float:left;width:352px;margin-right:167px;padding-left:5px;
 	fieldset{margin-bottom:15px;

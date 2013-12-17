@@ -140,8 +140,6 @@ label .hint {
 
     }
     input[type="submit"] {
-      background: image-url("quiz/bt-enter.png") no-repeat;
-      text-indent: -9999px;
       width: 116px;
       height: 48px;
       display: block;
@@ -150,10 +148,11 @@ label .hint {
       position: absolute;
       left: 295px;
       top: 274px;
-
-      &:hover{
-        background: image-url("quiz/bt-enter.png") no-repeat 0 -51px;
-      }
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 15px;
+      letter-spacing: 2px;
+      @include bt_color($primary_bt_color, $primary_bt_color_hover);
     }
 
     input[type="text"], input[type="password"]{
@@ -170,7 +169,7 @@ label .hint {
                 width:20px;
                 height:20px;
                 border:0;
-                background:image-url("campaign_emails/sprite2.png") -288px -102px no-repeat;
+                background:image-url("campaign_emails/close_bt.png")no-repeat;
                 position:absolute;
                 right:0;
                 top:0;
@@ -183,7 +182,7 @@ button.close{
   width:20px;
   height:20px;
   border:0;
-  background:image-url("campaign_emails/sprite2.png") -288px -102px no-repeat;
+  background:image-url("campaign_emails/close_bt.png")no-repeat;
   position:absolute;
   right:0;
   top:0;

@@ -536,13 +536,14 @@ body {
 												& + li {
 			                      margin-right: 20px;
 			                      input[type='submit'] {
-			                        background: image-url('common/login2.png') no-repeat;
-			                        text-indent: -9999px;
 			                        width: 106px;
 			                        height: 42px;
 			                        display: block;
 			                        border: none;
 			                        cursor: pointer;
+                              font-size: 13px;
+                              font-weight: 600;
+                              @include bt_color($primary_bt_color, $primary_bt_color_hover);
 			                      }
 			                    }
 			                  }
@@ -550,8 +551,6 @@ body {
                   	}
 
                   input[type='submit'] {
-                    background: image-url('common/login2.png') no-repeat;
-                    text-indent: -9999px;
                     width: 106px;
                     height: 42px;
                     display: block;
@@ -559,6 +558,10 @@ body {
                     cursor: pointer;
                     margin:0 19px 0 0 !important;
 										float:none;
+                    font-size: 13px;
+                    font-weight: 600;
+                    letter-spacing: 2px;
+                    @include bt_color($primary_bt_color, $primary_bt_color_hover);
                   }
                 }
               }
