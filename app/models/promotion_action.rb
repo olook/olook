@@ -40,7 +40,11 @@ class PromotionAction < ActiveRecord::Base
       desc: 'Apenas itens da(s) coleção(ões)...',
       hint: 'Informe entre vírgulas casual, trabalho...',
       kind: 'string'
-    }
+    },
+    complete_look_products: {
+      desc: 'Descontar apenas itens do look completo',
+      kind: 'boolean'
+    }    
   }
 
   def self.filters
@@ -111,6 +115,10 @@ class PromotionAction < ActiveRecord::Base
       @collection_theme ||= Set.new(filters['collection_theme'].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.to_s.strip.parameterize })
       cis.select! { |item| (@collection_theme & item.product.collection_themes.map { |c| c.name.to_s.strip.parameterize} ).size > 0 }
     end
+
+    if filters['complete_look_products'] == '1'
+      cis.select! { |item| item.cart.complete_look_product_ids_in_cart.include?(item.product.id) }
+    end    
 
     cis
   end
