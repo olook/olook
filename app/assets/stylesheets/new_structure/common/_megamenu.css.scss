@@ -38,7 +38,7 @@ nav.menu_new{
       &.liquidation{border-right: none;}
 /*          &:nth-child(10){background:none;}*/
       a{font-weight:bold;border-bottom:0px;display:block;font-family: $arial;height:28px;text-decoration: none;color: black;padding:0 11px;letter-spacing:0.15em;background: image-url('common/nav/sprite_header.png') no-repeat right -354px;}
-      a:hover, a.selecionado {border:1px solid #000;border-bottom:0px;position:relative;background: #FFF;z-index: 99;padding:0 10px;position: relative;top:-1px;color:$pink !important;}
+      a.selecionado {border:1px solid #000;border-bottom:0px;position:relative;background: #FFF;z-index: 99;padding:0 10px;position: relative;top:-1px;color:$pink !important;}
     }
   }
 }

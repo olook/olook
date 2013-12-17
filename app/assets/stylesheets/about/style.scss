@@ -125,17 +125,19 @@ ul.click_show_child ul.question_box, ul.click_show_child .answer {
 .otherLi { display: none; }
 
 #terms {
+  margin-top: 20px;
   width: 970px;
   color: #000;
-  margin-bottom: 35px;
+  margin-bottom: 20px;
   h2{
     font-family: $johnston;
     font-size: 18px;
     color: #000;
     letter-spacing: 3px;
     text-transform: uppercase;
-    margin-bottom: 45px;
+    margin-bottom: 40px;
     margin-top: 15px;
+    font-weight: 700;
   }
   h3{
     font-size: 15px;
@@ -270,10 +272,10 @@ width:970px !important;
 }
 
 #contact{
-  border-top: 1px solid #d7d7d7;
   width: 970px;
-  height: 220px;
+  height: 240px;
   margin: 0 auto;
+  margin-top: 20px;
   h2{
     font-family: $johnston;
     font-size: 18px;
@@ -281,7 +283,7 @@ width:970px !important;
     letter-spacing: 3px;
     text-transform: uppercase;
     margin-bottom: 35px;
-    margin-top: 40px;
+    font-weight: 700;
   }
   p{
     font-size: 15px;

@@ -3,12 +3,8 @@
     .box_left
       %p
         SAC (11) 2626-3489 |
+      %p  
         %a.contact{:href => "/centraldeatendimento"} Central de Atendimento
-      %ul.social_icons
-        %li= link_to "Acompanhe pelo Facebook", "http://facebook.com/olook", title: "Acompanhe pelo Facebook", target: "_blank", class: "social_facebook"
-        %li= link_to "Acompanhe pelo Twitter", "http://twitter.com/olook", title: "Acompanhe pelo Twitter", target: "_blank", class: "social_twitter"
-        %li= link_to "Acompanhe por RSS", "http://stylist-news.olook.com.br/feed/", title: "Acompanhe por RSS", target: "_blank", class: "social_rss"
-        %li= link_to "Acompanhe pelo Instagram", "http://instagram.com/olook", title: "Acompanhe pelo Instagram", target: "_blank", class:"social_instagram"
       - if user_signed_in?
         %p= link_to "Ganhe créditos!", "/membro/ganhe-creditos", :class => "invite"
       - else

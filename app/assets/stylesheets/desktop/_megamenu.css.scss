@@ -4,9 +4,26 @@ nav.menu_new{
   .submenu {
       font-family:$verdana;position:absolute;top:27px;background: #fff;border:1px solid #000;z-index: 1;display: none;padding:10px;
       p, a {margin:0px;border:0px;text-transform: none;line-height: 16px !important;color:#000;background: none;font-size: 11px;font-family: $verdana;}
-      a.link, a:hover {padding:0px !important;margin:0px !important;border:0px !important; background: #000 !important;top:0px !important;}
+      a.link {padding:0px !important;margin:0px !important;border:0px !important; background: #000 !important;top:0px !important;}
       a.link {color:#FFF;margin-top: 10px !important;color: #FFF;text-align: center;padding-top: 8px !important;padding-bottom: 6px !important;height:18px;letter-spacing: 1px !important;font-size: 11px !important;}
-      h5 {width:100%;display: block;font-size: 11px;font-weight: bold;height:25px;margin-bottom:3px;letter-spacing: 1px;font-family: $verdana;}
+      h5 {
+        width:100%;
+        display: block;
+        font-size: 11px;
+        font-weight: bold;
+        height:25px;
+        margin-bottom:3px;
+        letter-spacing: 1px;
+        font-family: $verdana;
+      }
+      h5 a {
+        height:25px;
+        background: #FFF;
+        font-size: 11px;
+        line-height: 30px;
+        background: #FFF;
+        padding: 7px 0px 0px 0px; 
+      }
       ul, li {display: block;float:left;width:100%;height:auto;text-transform: none;}
     li {height: auto !important;height: 4px;min-height: 4px;line-height: 12px;margin-bottom: 6px;}
   }

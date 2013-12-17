@@ -51,25 +51,6 @@ describe Admin::ProductsController, admin: true do
   end
 
   describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Product" do
-        expect {
-          post :create, :product => valid_attributes
-        }.to change(Product, :count).by(1)
-      end
-
-      it "assigns a newly created product as @product" do
-        post :create, :product => valid_attributes
-        assigns(:product).should be_a(Product)
-        assigns(:product).should be_persisted
-      end
-
-      it "redirects to the created product" do
-        post :create, :product => valid_attributes
-        response.should redirect_to([:admin, Product.last])
-      end
-    end
-
     describe "with invalid params" do
       it "assigns a newly created but unsaved product as @product" do
         # Trigger the behavior that occurs when invalid params are submitted
