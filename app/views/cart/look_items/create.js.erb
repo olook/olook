@@ -17,7 +17,7 @@ if(StringUtils.isEmpty($("#total_price").val())){
   $("#total_price").val('0.0');
 
   $('.cart_related').fadeOut("fast",function(){
-    $('.cart_related div.empty_minicart').remove();
+    $('.cart_related div.empty_minicart').hide();
     $('.cart_related').addClass('product_added');
     hasToFadeIn = true;
   });
@@ -28,8 +28,14 @@ setTimeout(function() {
     $('.cart_related ul').append("<li>"+$('li[data-id=<%= j params[:product_id] %>] img').attr("alt")+"</li>");
     $("#total_price").val( parseFloat($("#total_price").val()) + parseFloat(product_price));
   }
-  installments = CreditCard.installmentsNumberFor($("#total_price").val());
-  $(".cart_related .minicart_price").html("Por<br>" + installments + "x de " + Formatter.toCurrency( $("#total_price").val() / installments ) + " sem juros");
+
+  var installments = CreditCard.installmentsNumberFor($("#total_price").val());
+  if ($("li.product").length == ($(".cart_related ul li").length - 1)){
+    $(".cart_related .minicart_price").html("De<span class='original_price'>" + installments + "x de " + Formatter.toCurrency( $("#total_price").val() / installments ) + "</span>Por <span class='discounted_price'>"+$(".total_with_discount").html() + " sem juros</span>")
+  } else {
+    $(".cart_related .minicart_price").html("Por<span class='first_price'>" + installments + "x de " + Formatter.toCurrency( $("#total_price").val() / installments ) + " sem juros </span>");
+  }
+
   $("form#minicart input[type=submit]").removeAttr("disabled").removeClass("disabled");
   if(hasToFadeIn) {
     $('.cart_related').fadeIn("fast");
