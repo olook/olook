@@ -111,3 +111,5 @@ Setting.defaults[:age_weight] = 1
 Setting.defaults[:enable_neoassist] = false
 
 Setting.defaults[:disable_ab_test_for_look_products] = false
+
+Setting.defaults[:complete_look_promotion_id] = "0"

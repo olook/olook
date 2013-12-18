@@ -24,6 +24,9 @@
                 = radio_button_tag "#{key}---#{promotion_action.class}", value, ( value.to_s == @action_parameter.action_params[key] ), class: "set_hidden"
                 = label_tag "#{key}---#{promotion_action.class}_#{value}", desc
                 %br/
+            - when 'boolean'
+              = action_params.check_box key, id: "#{key}_for_#{promotion_action.class.to_s.underscore}", checked: @action_parameter.action_params[key] == "1"
+              = label_tag "#{key}_for_#{promotion_action.class.to_s.underscore}", opts[:desc]
             - else
               = check_box_tag "show_param_field_#{key}_#{promotion_action.class.to_s.underscore}", '1', @action_parameter.action_params[key].present?, class: 'clean_on_check', rel: "##{key}_for_#{promotion_action.class.to_s.underscore}"
               = label_tag "show_param_field_#{key}_#{promotion_action.class.to_s.underscore}", opts[:desc]

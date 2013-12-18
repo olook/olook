@@ -38,7 +38,7 @@ class PercentageAdjustment < PromotionAction
         product_id: cart_item.product.id,
         adjustment: adjustment
       }
-    end
+    end    
     calculated_values
   end
 end
