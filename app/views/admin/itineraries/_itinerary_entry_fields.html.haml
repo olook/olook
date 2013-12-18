@@ -1,8 +1,5 @@
 %tr
-  %td 
-    = f.text_field :when_date
-  %td 
-    = f.text_field :where
-  %td 
-    = f.check_box :_destroy
-    = f.label :_destroy, 'Apagar'
+  %td
+    = f.text_field :when_date, class: "date"
+  %td
+    = f.text_field :where, class: "where"

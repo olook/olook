@@ -10,6 +10,6 @@ class Itinerary < ActiveRecord::Base
   end
 
   def self.olookmovel
-    find_by_name('olookmovel')
+    find_by_name!('olookmovel')
   end
 end
