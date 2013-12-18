@@ -62,6 +62,12 @@ function retrieve_freight_price_for_checkout(zip_code,shipping_id) {
   });
 }
 
+function retrieve_shipping_service(){
+  shipping_service_id = $('.shipping_service_radio:checked').data('shipping-service');
+  zipcode = $('input.address_recorded:checked').data('zipcode');
+  retrieve_freight_price_for_checkout(zipcode, shipping_service_id);
+}
+
 function retrieve_zip_data(zip_code) {
 
   $.ajax({
