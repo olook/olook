@@ -679,8 +679,9 @@ section#cart {
           width: 130px;
           padding-left: 35px;
           p {
-            font-size: 17px;
+            font-size: 16px;
             font-weight: lighter;
+            letter-spacing: -1px;
             margin: 0;
             color:#000;
             &.price_retail {
