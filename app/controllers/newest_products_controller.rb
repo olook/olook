@@ -6,7 +6,8 @@ class NewestProductsController < ApplicationController
     request_path = request.fullpath
     search_params = SeoUrl.parse(request_path)
     @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(page_size)
-    @url_builder = SeoUrl.new(search_params, 'olooklet', @search)
-    @filters_presenter = FiltersPresenter.new('olooklet')
+    @search.sort = 'age'
+    @url_builder = SeoUrl.new(search_params, 'novidades', @search)
+    @url_builder.set_link_builder {|_param| newest_path(_param)}
   end
 end

@@ -490,7 +490,7 @@ Olook::Application.routes.draw do
   post "/cadastro/olookmovel", :to => "landing_pages#create_olookmovel", as: 'olookmovel_lp'
   get "/cadastro_parcerias", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: nil }
 
-  get "/novidades" => "newest_products#index", as: "newest"
+  get "/novidades(/*parameters)" => "newest_products#index", as: "newest"
 
   # Friendly urls (ok, I know it is not the best approach...)
   match '/sapatos' => redirect('/sapato'), as: 'shoes'
