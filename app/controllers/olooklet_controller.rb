@@ -20,15 +20,15 @@ class OlookletController < ApplicationController
     @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(page_size)
 
     @url_builder = SeoUrl.new(search_params, site_section, @search)
+    @url_builder.set_link_builder { |_param| olooklet_path(_param) }
     @antibounce_box = AntibounceBox.new(params) if AntibounceBox.need_antibounce_box?(@search, @search.expressions["brand"].map{|b| b.downcase}, params)
 
     @search.for_admin if current_admin
-    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
+    @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])
     @pixel_information = @category = params[:category]
     @category = @search.expressions[:category].first
     params[:category] = @search.expressions[:category].first
-    @cache_key = configure_cache(@search)         
-    @filters_presenter = FiltersPresenter.new(site_section)
+    @cache_key = configure_cache(@search)
   end
 
   def header

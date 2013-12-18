@@ -1,9 +1,10 @@
 #catalog
   %aside
+    = render("olooklet/main_filters", search: @search, category: @category)
   #result
     %section.container_product
       %ul#products
         = render "shared/searched_products", :products => @search.products
       .loading
     .pagination
-      = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @filters_presenter.path(@url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
+      = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @url_builder.current_filters {|p| p.merge({por:params[:por]}).merge(hash) } }

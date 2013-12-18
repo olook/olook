@@ -27,7 +27,12 @@ class SeoUrl
   PARAMETERS_BLACKLIST = [ "price"]
   PARAMETERS_WHITELIST = [ "price", "sort", "per_page" ]
 
-  def initialize(path, current_key=nil, search=nil)
+  def initialize(path, current_key=nil, search=nil, &link_builder)
+    if link_builder.respond_to?(:call)
+      @link_builder = link_builder
+    else
+      @link_builder = lambda { |a| a }
+    end
     if path.is_a?(Hash)
       @params = path
     else
@@ -36,6 +41,10 @@ class SeoUrl
     end
     @search = search
     @current_key = current_key
+  end
+
+  def set_link_builder(&blk)
+    @link_builder = blk
   end
 
   def parse_params
@@ -71,19 +80,25 @@ class SeoUrl
     self.new(parameters).parse_params
   end
 
-  def current_filters
+  def current_filters(&blk)
     parameters = HashWithIndifferentAccess.new(@search.current_filters.dup)
-    build_link_for parameters
+    parameters = build_link_for(parameters)
+    parameters = blk.call(parameters) if blk
+    @link_builder.call(parameters)
   end
 
-  def remove_filter_of(filter)
+  def remove_filter_of(filter, &blk)
     parameters = HashWithIndifferentAccess.new(@search.remove_filter(filter.to_sym).dup)
-    build_link_for parameters
+    parameters = build_link_for(parameters)
+    parameters = blk.call(parameters) if blk
+    @link_builder.call(parameters)
   end
 
-  def add_filter(filter, filter_text)
+  def add_filter(filter, filter_text, &blk)
     parameters = HashWithIndifferentAccess.new(@search.filters_applied(filter.to_sym, filter_text.chomp).dup)
-    build_link_for parameters
+    parameters = build_link_for(parameters)
+    parameters = blk.call(parameters) if blk
+    @link_builder.call(parameters)
   end
 
   def self.all_categories
