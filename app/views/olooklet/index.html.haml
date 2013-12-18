@@ -22,7 +22,7 @@
   = @category ? olooklet_breadcrumbs_for(Category.t(Category.with_name(@category)).pluralize): first_level_breadcrumb("Olooklet")
   #catalog
     %aside
-      = render(@category ? "filters" : "main_filters", search: @search, category: @category)
+      = render("filters", search: @search, category: @category)
     - if header
       - if header.big_banner?
         .promo_catalog
