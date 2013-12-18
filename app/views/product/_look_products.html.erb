@@ -7,7 +7,8 @@
         <li class="titulo_minicart">Você está levando...</li>
       </ul>
       <div class="empty_minicart">
-        <div class="valor_total"><%= installments_number(look_products.sum{|p| p.promotion? ? p.retail_price : p.price}) %>x de <%=  number_to_currency(installments_value(look_products.sum{|p| p.promotion? ? p.retail_price : p.price}, separator: ",")) %></div>
+        <div class="valor_total"><%= installments_number(look_products_sum(look_products)) %>x de <%=  number_to_currency(installments_value(look_products.sum{|p| p.promotion? ? p.retail_price : p.price} * (1-(complete_look_discount[:value].to_i/100.0)), separator: ",")) %></div>
+        <div class="total_with_discount" style="display:none;"><%= installments_number(product_sum_discount(look_products_sum(look_products),complete_look_discount[:value].to_i,complete_look_discount[:is_percentage])) %>x de <%=  number_to_currency(installments_value(look_products.sum{|p| p.promotion? ? p.retail_price : p.price} * (1-(complete_look_discount[:value].to_i/100.0)), separator: ",")) %></div>
       </div>
       <div class="minicart_price"></div>
       <%= form_tag add_variants_path(current_cart), method: :put, id: "minicart", name: "minicart", onsubmit: "if($(this).find('#add_product').hasClass('disabled')) return false;" do %>
