@@ -575,11 +575,13 @@ section#cart {
           p{font-size: 17px;font-weight: lighter;margin: 0;text-align:center;color:#000}
           form{text-align:center}
           input[type="submit"]{
-            @include sprite_checkout( 0,-607px);
-            width:129px;
+            width:145px;
             height:38px;
             border:0;
             cursor:pointer;
+            letter-spacing: 2px;
+            font-size: 10px;
+            @include bt_color($primary_bt_color, $primary_bt_color_hover);
           }
         }
         /********** FIM CAMPANHA DO AVC ****************/
