@@ -5,6 +5,12 @@
   $(".shipping").html("(<%= @shipping_service.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service.price) %>");
   $(".expresso > p").html("(<%= @shipping_service_fast.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service_fast.price) %>");
   $(".frete_time").hide();
+
+
+  $('.shipping_service_radio:first').data('shipping-service',<%= @shipping_service.shipping_service_id %>); 
+  $('.shipping_service_radio:last').data('shipping-service', <%= @shipping_service_fast.shipping_service_id %>); 
+
+
 <% else %>
   $("#shipping_services_types").hide();
   $(".frete_time").show().html("Seu pedido será entregue em <%= @shipping_service.try(:delivery_time) %> dias úteis.");
@@ -15,6 +21,7 @@
 if($('.shipping_service_radio:checked').hasClass('express')){
   $('#freight_message').hide();
 }
+
 $("#freight_price").
   hide().
   html("<%= number_to_currency(@freight_price) %>").
