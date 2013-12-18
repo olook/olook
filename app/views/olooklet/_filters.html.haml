@@ -44,7 +44,7 @@
     - filters_by("color", search, use_fields: [:category]).each do |text, amount|
       %li{:class => text.chomp.parameterize}= filter_link_to(@url_builder.add_filter(:color, text), text.chomp, search.filter_selected?(:color, text.chomp))
 
-- if (['lingerie','moda praia', 'roupa'] & search.filter_value('category').to_a).present?
+- if search.filter_value('category').to_a.empty? || (['lingerie','moda praia', 'roupa'] & search.filter_value('category').to_a).present?
   .filter
     %p.title-category Marca
     %ul.category-list
