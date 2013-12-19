@@ -260,6 +260,7 @@ describe Product do
   describe 'when working with related products' do
     subject { FactoryGirl.create(:red_slipper) }
     let(:silver_slipper) { FactoryGirl.create(:silver_slipper) }
+    let(:shoe) { FactoryGirl.create(:shoe) }
     let(:unrelated_product) { FactoryGirl.create(:shoe, :casual) }
 
     it "#related_products" do
@@ -989,4 +990,45 @@ describe Product do
       it { expect(subject.time_in_stock).to eq(365) }
     end
   end
+
+ describe 'when working with complete look products' do
+    subject { FactoryGirl.create(:red_slipper) }
+    let(:silver_slipper) { FactoryGirl.create(:silver_slipper) }
+    let(:shoe) { FactoryGirl.create(:shoe) }
+    let(:unrelated_product) { FactoryGirl.create(:shoe, :casual) }
+
+    describe "#list_contains_all_complete_look_products?" do
+      before :each do
+        subject.relate_with_product(silver_slipper)
+        subject.relate_with_product(shoe)
+      end
+
+      context "when list contains all related products" do
+        context "when list contains exactly the related products" do
+          it "returns true" do
+            subject.list_contains_all_complete_look_products?([silver_slipper.id, shoe.id, subject.id]).should be_true
+          end
+        end
+        context "when list contains more ids than the related products" do
+          it "returns true" do
+            subject.list_contains_all_complete_look_products?([silver_slipper.id, shoe.id, subject.id, unrelated_product.id]).should be_true
+          end
+        end        
+      end
+
+      context "when list doesn't contain all related products" do
+        it "returns false" do
+          subject.list_contains_all_complete_look_products?([silver_slipper.id, subject.id]).should be_false
+        end
+      end
+    end
+
+    describe "#look_product_ids" do
+      it "displays the related product ids + given product id" do
+        subject.relate_with_product(silver_slipper)
+        subject.relate_with_product(shoe)
+        subject.look_product_ids.should eq([silver_slipper.id,shoe.id, subject.id])
+      end
+    end
+  end  
 end

@@ -55,6 +55,11 @@ describe Address do
         subject.should_not be_valid
       end
 
+      it "(31)9897-8923 should be valid" do
+        subject.mobile = "(31)9897-8923"
+        subject.should be_valid
+      end
+
       it "(11)989789236 should not be valid" do
         subject.mobile = "(11)989789236"
         subject.should_not be_valid
@@ -64,6 +69,11 @@ describe Address do
     describe "Telephone number format" do
       it "(11)5978-9236 should be valid" do
         subject.telephone = "(11)5978-9236"
+        subject.should be_valid
+      end
+
+      it "(31)9897-8923 should be valid" do
+        subject.telephone = "(31)9897-8923"
         subject.should be_valid
       end
 

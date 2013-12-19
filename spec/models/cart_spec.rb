@@ -284,4 +284,24 @@ describe Cart do
   it "should return false when no has gift item" do
     cart_with_items.has_gift_items?.should be(false)
   end
+
+  describe "#complete_look_product_ids_in_cart" do
+    let(:cart_with_3_items) { FactoryGirl.create(:cart_with_3_items) }
+
+    context "when cart contains the complete look" do
+      it "returns the complete look product ids set" do
+        cart_with_3_items.items.each do |item|
+          cart_with_3_items.items.first.product.relate_with_product(item.product) unless cart_with_3_items.items.first == item
+        end
+        cart_with_3_items.complete_look_product_ids_in_cart.sort.should eq(cart_with_3_items.items.map{|i| i.product.id}.sort)
+      end
+    end
+
+    context "when cart doesn't contain the complete look" do
+      it "returns an empty set" do
+        cart_with_3_items.complete_look_product_ids_in_cart.sort.should be_empty
+      end
+    end
+
+  end
 end
