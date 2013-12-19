@@ -1,27 +1,27 @@
 .show_more.cat_olooklet
   %ul
     - if search.filter_value('category').to_a.include?('roupa')
-      = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Roupas"
+      = render 'olooklet/selected_filter', search: search, url_builder: @url_builder, category_name: "Roupas"
     - else
       %li= link_to "Roupas", @url_builder.add_filter(:category, "roupa"), class: 'title_section close'
 
     - if search.filter_value('category').to_a.include?('sapato')
-      = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Sapatos"
+      = render 'olooklet/selected_filter', search: search, url_builder: @url_builder, category_name: "Sapatos"
     - else
       %li= link_to "Sapatos", @url_builder.add_filter(:category, "sapato"), class: 'title_section close'
 
     - if search.filter_value('category').to_a.include?('bolsa')
-      = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Bolsas"
+      = render 'olooklet/selected_filter', search: search, url_builder: @url_builder, category_name: "Bolsas"
     - else
       %li= link_to "Bolsas", @url_builder.add_filter(:category, "bolsa"), class: 'title_section close'
 
     - if search.filter_value('category').to_a.include?('acessorio')
-      = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Acessórios"
+      = render 'olooklet/selected_filter', search: search, url_builder: @url_builder, category_name: "Acessórios"
     - else
       %li= link_to "Acessórios", @url_builder.add_filter(:category, "acessorio"), class: 'title_section close'
 
     - if search.filter_value('category').to_a.include?('moda praia') && !search.filter_value('category').to_a.include?('roupa')
-      = render 'selected_filter', search: search, url_builder: @url_builder, category_name: "Moda Praia"
+      = render 'olooklet/selected_filter', search: search, url_builder: @url_builder, category_name: "Moda Praia"
     - else
       %li= link_to "Moda Praia", @url_builder.add_filter(:category, "moda praia"), class: 'title_section close'      
 

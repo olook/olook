@@ -22,7 +22,7 @@
   = @category ? olooklet_breadcrumbs_for(Category.t(Category.with_name(@category)).pluralize): first_level_breadcrumb("Olooklet")
   #catalog
     %aside
-      = render("filters", search: @search, category: @category)
+      = render("olooklet/filters", search: @search, category: @category)
     - if header
       - if header.big_banner?
         .promo_catalog
@@ -60,7 +60,7 @@
         / .chaordic.mostpopular
 
       .row.row_olooklet
-        = @category ? (render "ordenation_filters", search: @search, url_builder: @url_builder, category: @category) : (render "main_ordenation_filters", search: @search, url_builder: @url_builder)
+        = render "olooklet/ordenation_filters", search: @search, url_builder: @url_builder, category: @category
         - unless @category == 'bolsa'
           .size_top
             - if @category
