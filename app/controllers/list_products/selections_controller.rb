@@ -1,13 +1,14 @@
 # -*- encoding : utf-8 -*-
-class SelectionsController < OlookletController
+class ListProducts::SelectionsController < ListProductsController
 
   def index
     visibility = "1-2-3"
     search_params = SeoUrl.parse(request.fullpath).merge({visibility: visibility})
-    Rails.logger.debug("New params: #{params.inspect}")
-    default_params(search_params,"selections", "selections")
-    render 'olooklet/index'
+    default_params(search_params,"selections")
+    @url_builder.set_link_builder { |_param| selections_path(_param) }
   end
+
+  private
 
   def header
     @header ||= CatalogHeader::CatalogBase.for_url("/#{params[:lbl]}").first

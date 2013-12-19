@@ -22,7 +22,7 @@
   = @category ? olooklet_breadcrumbs_for(Category.t(Category.with_name(@category)).pluralize): first_level_breadcrumb("Olooklet")
   #catalog
     %aside
-      = render("olooklet/filters", search: @search, category: @category)
+      = render("list_products/filters", search: @search, category: @category)
     - if header
       - if header.big_banner?
         .promo_catalog
@@ -60,7 +60,7 @@
         / .chaordic.mostpopular
 
       .row.row_olooklet
-        = render "olooklet/ordenation_filters", search: @search, url_builder: @url_builder, category: @category
+        = render "list_products/ordenation_filters", search: @search, url_builder: @url_builder, category: @category
         - unless @category == 'bolsa'
           .size_top
             - if @category
@@ -80,7 +80,7 @@
                   %li{ :class => category_style_class(text)}= filter_link_to(@url_builder.add_filter(:size, text), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único"
 
       - if params[:controller] == 'olooklet'
-        = render 'current_section', search: @search, category: @category
+        = render 'list_products/current_section', search: @search, category: @category
 
       %section.container_product
         %ul#products
