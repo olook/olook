@@ -22,7 +22,7 @@
         %br
         =form_for @campaign_email do |f| 
           =f.text_field :email, :value => "seunome@email.com.br"
-          =f.submit :value => "", :class => "bt-enviar"
+          =f.submit :value => "CADASTRAR", :class => "bt-enviar"
 
         %p.texto Aceito os <a href="/termos" target="_blank">termos de uso</a>
       %p.terms_new_user.terms_promo
@@ -113,7 +113,7 @@
           %p O e-mail informado não parece correto. Que tal conferir?
       =form_for @campaign_email do |f|
         =f.text_field :email, :value => "seunome@email.com.br"
-        =f.submit :value => "", :class => "bt-enviar"
+        =f.submit :value => "CADASTRAR", :class => "bt-enviar"
       %p.texto Aceito os <a href="/termos" target="_blank">termos de uso</a>
     .nao-exibir
       %input{:type => "checkbox", :name => "dont_show", :class => "dont_show"}

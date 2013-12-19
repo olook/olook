@@ -37,20 +37,27 @@
      border-top: 1px solid #ccc;
       a.selecionado {border:0px !important;}
       a.finish {
-        display:block;
-        width:145px;
-        height:45px;
-        background: image-url('common/nav/sprite_header.png') 0 -141px no-repeat;
-        font-size:0;
+        padding-top: 17px;
+        display: block;
+        width: 120px;
+        height: 16px;
+        font-size:9px;
         line-height:0;
-        margin-top:7px;
+        margin-top:16px;
         margin-left: auto;
         margin-right: auto;
         position: relative !important;
         top:0px !important;
-        padding:0px !important;
+        text-transform: uppercase;
+        padding-left: 14px;
+        padding-right: 14px;
+        font-weight: lighter;
+        -webkit-box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.71);
+        -moz-box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.71);
+        box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.71);
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
       }
-      a.finish:hover {border:0px;padding:0px !important;}
+      a.finish:hover {width: 120px; height: 16px; color: #fff;padding-left: 14px;padding-right: 14px;color: #fff !important;}
   }
   .coupon_warn {
     display: block;
