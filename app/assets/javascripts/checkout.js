@@ -45,29 +45,13 @@ var masks = {
   }
 }
 
-function isVariation() {
-  return $("#freight_service_ids").val() != "";
-}
-
-function retrieve_freight_price_for_control_or_variation(zip_code) {
-  if (isVariation()) {
-    retrieve_freight_price_for_variation(zip_code);
-  } else {
-    retrieve_freight_price(zip_code);
+function retrieve_freight_price_for_checkout(zip_code,shipping_id) {
+  url_path = '/shippings/' + zip_code
+  if(shipping_id.length != ''){
+    url_path = url_path.concat('?freight_service_ids=' + shipping_id)
   }
-}
-
-function retrieve_freight_price(zip_code) {
-  retrieve_freight_price_for_checkout('shippings', zip_code);
-}
-
-function retrieve_freight_price_for_variation(zip_code) {
-  retrieve_freight_price_for_checkout('shipping_updated_freight_table', zip_code);
-}
-
-function retrieve_freight_price_for_checkout(url_base, zip_code) {
   $.ajax({
-    url: '/' + url_base + '/' + zip_code,
+    url: url_path,
     type: 'GET',
     beforeSend: function(){
       $("#freight_price").hide();
@@ -78,6 +62,12 @@ function retrieve_freight_price_for_checkout(url_base, zip_code) {
     },
     success: showTotal
   });
+}
+
+function retrieve_shipping_service(){
+  shipping_service_id = $('.shipping_service_radio:checked').data('shipping-service');
+  zipcode = $('input.address_recorded:checked').data('zipcode');
+  retrieve_freight_price_for_checkout(zipcode, shipping_service_id);
 }
 
 function retrieve_zip_data(zip_code) {
@@ -151,12 +141,8 @@ function freightCalc(){
   });
 }
 
-function trackStateForFreightABTest() {
-  state = $("#checkout_address_state").val() || $(".address_recorded:checked").data("state");
-  if (state != undefined) {
-    actionSuffix = isVariation() ? 'Var' : 'Ctrl';
-    _gaq.push(['_trackEvent', 'FreightABTest', 'FreightPreview' + actionSuffix, state, true]);
-  }
+function changeFrieghtTotalValue(){
+$('.shipping_service_radio').change(function(){console.log('aaaaa')})
 }
 
 $(function() {
