@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131212110833) do
+ActiveRecord::Schema.define(:version => 20131217174109) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -601,6 +601,21 @@ ActiveRecord::Schema.define(:version => 20131212110833) do
   add_index "invites", ["email"], :name => "index_invites_on_email"
   add_index "invites", ["invited_member_id"], :name => "index_invites_on_invited_member_id"
   add_index "invites", ["user_id"], :name => "index_invites_on_user_id"
+
+  create_table "itineraries", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.text     "description"
+  end
+
+  create_table "itinerary_entries", :force => true do |t|
+    t.integer  "itinerary_id"
+    t.string   "when_date"
+    t.string   "where"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "line_items", :force => true do |t|
     t.integer "variant_id"
