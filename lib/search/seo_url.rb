@@ -94,6 +94,13 @@ class SeoUrl
     @link_builder.call(parameters)
   end
 
+  def replace_filter(filter, filter_text, &blk)
+    parameters = HashWithIndifferentAccess.new(@search.replace_filter(filter.to_sym, filter_text.chomp).dup)
+    parameters = build_link_for(parameters)
+    parameters = blk.call(parameters) if blk
+    @link_builder.call(parameters)
+  end
+
   def add_filter(filter, filter_text, &blk)
     parameters = HashWithIndifferentAccess.new(@search.filters_applied(filter.to_sym, filter_text.chomp).dup)
     parameters = build_link_for(parameters)
