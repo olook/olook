@@ -1508,6 +1508,8 @@ my_account/title-personal-data.png: my_account/title-personal-data-be08302ebd59c
 my_account/title-personal-data/index.png: my_account/title-personal-data-be08302ebd59cee0ae7faf0d90393b68.png
 new_checkout/bg_steps.png: new_checkout/bg_steps-d422223a9869e1f3281de77485159e78.png
 new_checkout/bg_steps/index.png: new_checkout/bg_steps-d422223a9869e1f3281de77485159e78.png
+new_checkout/carrinhos_frete.png: new_checkout/carrinhos_frete-9efde487039c16312b6292be25c9a5e1.png
+new_checkout/carrinhos_frete/index.png: new_checkout/carrinhos_frete-9efde487039c16312b6292be25c9a5e1.png
 new_checkout/codigo_seguranca.jpg: new_checkout/codigo_seguranca-c4b4119310860090097174f1faa5bff5.jpg
 new_checkout/codigo_seguranca/index.jpg: new_checkout/codigo_seguranca-c4b4119310860090097174f1faa5bff5.jpg
 new_checkout/img_boleto.png: new_checkout/img_boleto-b66f8919d350c28e763762dc639a6e9f.png
