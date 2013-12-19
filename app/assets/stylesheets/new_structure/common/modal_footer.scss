@@ -3,8 +3,7 @@
 #modal_footer{clear: both;width: 100%;height: 115px;background-color: #e6aedb;z-index: 9999;position: fixed;bottom: 0;left: 0;display:none;
   
   .modal{position:relative;width:1025px;height:115px;margin:0 auto;
-    .modal_container{position:relative;overflow:hidden;width:750px;height:115px;}
-    
+    .modal_container{position:relative;overflow:hidden;width:750px;height:115px;} 
     .presentation{position:absolute;top:28px;left:20px;z-index:1;
       h1{font-family: 'johnston', arial, sans-serif;font-size: 27px;line-height:18px;}
       h2{font-family: 'avenir', arial, sans-serif;font-size: 14px;font-weight: lighter;margin-top:8px;}
@@ -26,10 +25,8 @@
     }
     #ok-msg2{width:480px; 
       p{background:none;}
-    }
-      
-    .register, .register2, .close{position: absolute;cursor: pointer;border: none;text-indent: -99999px;bottom:35px;right:40px;}
-    
+    }    
+    .register, .register2, .close{position: absolute;cursor: pointer;border: none;text-indent: -99999px;bottom:35px;right:40px;} 
     .register, .register2{width: 152px;height: 37px;background: image-url('common/sprite_modal_footer.png') 0 -82px;
       &:hover{background: image-url('common/sprite_modal_footer.png') 0 -36px;}
     }
@@ -39,21 +36,32 @@
     .termos{position:absolute;right:55px;bottom:13px;font-size:11px;display:none;color:#000;
       a{color:#000;font-size:11px;}
     }
-    
     img{position:absolute;bottom:-1px;right:250px;}
   }
-  
 }
-
 /*** BOX REMEMBERED ***/
 .box-continue{
 	position:relative;text-align:center;border:solid 1px #000;background:#FFF;width:540px;height: 270px;margin-top: 10px;
 	h3{font-family:$johnston;font-size:30px;letter-spacing: 1px;margin-top: 30px;text-transform: uppercase;}
 	p{font-family:$avenir;font-size:14px;margin-top: 25px;line-height: 18px;}
 	.desconto{font-family:$avenir;font-size:14px;margin-top: 40px;margin-bottom: 5px !important; line-height: 18px;}
-	.close_pink{background: image-url('campaign_emails/new_modal_sprite.png') -6px -117px no-repeat; width: 255px;height:55px;font-size:0;font-family:a;cursor:pointer;border:none;
-	&:hover{background: image-url('campaign_emails/new_modal_sprite.png') -6px -173px no-repeat; width: 255px;height:55px;}}
-	.close{top:0 !important;right:-11px !important;}
+  .close_pink{
+    width: 255px;
+    height:55px;
+    cursor:pointer;
+    border:none;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    -webkit-box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.71);
+    -moz-box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.71);
+    box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.71);
+    @include bt_color($primary_bt_color, $primary_bt_color_hover);
+  }
 }
+	.close{top:0 !important;right:-11px !important;}
+
 
 

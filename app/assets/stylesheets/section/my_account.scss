@@ -210,13 +210,14 @@ div#my_account {
       }
       fieldset.buttons {
         ol li input[type="submit"] {
-          background: image-url("common/bt-save.jpg") no-repeat;
-          text-indent: -9999px;
+          @include bt_color($primary_bt_color, $primary_bt_color_hover);
           width: 125px;
           height: 61px;
           display: block;
           border: none;
           cursor: pointer;
+          letter-spacing: 2px;
+          font-size: 15px;
         }
       }
       fieldset.facebook {
@@ -291,13 +292,14 @@ div#my_account {
         ol {
           li {
             input[type="submit"] {
-              background: image-url("common/bt-save.jpg") no-repeat;
-              text-indent: -9999px;
+              @include bt_color($primary_bt_color, $primary_bt_color_hover);
               width: 125px;
               height: 61px;
               display: block;
               border: none;
               cursor: pointer;
+              letter-spacing: 2px;
+              font-size: 15px;
             }
           }
         }
@@ -740,13 +742,14 @@ div#my_account {
             }
           }
           input[type="submit"] {
-            background: image-url("common/bt-save.jpg") no-repeat;
-            text-indent: -9999px;
+            @include bt_color($primary_bt_color, $primary_bt_color_hover);
             width: 125px;
             height: 61px;
             display: block;
             border: none;
             cursor: pointer;
+            letter-spacing: 2px;
+            font-size: 15px;
           }
         }
       }

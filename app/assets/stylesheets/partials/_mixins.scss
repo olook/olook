@@ -13,6 +13,34 @@ $arial: arial, verdana, tahoma;
 $verdana: verdana, arial, tahoma;
 $tahoma: tahoma, arial, verdana;
 $preco: Verdana, "Trebuchet Ms", Arial, Verdana;
+$primary_bt_color: #eb6a73;
+$primary_bt_color_hover: #e82d3a;
+$secondary_bt_color: #48b012;
+$secondary_bt_color_hover: #327f11;
+$terciary_bt_color: #b1b1b1;
+$terciary_bt_color_hover: #8c8c8c;
+$bt_font: "Trebuchet Ms" !important;
+$bt_font_color: #fff !important;
+
+@mixin gradient_bg($color1, $color2){
+  background: $color2;
+  background: linear-gradient(to bottom, $color1 0%,$color2 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: $bt_font;
+  color: $bt_font_color;
+  text-decoration: none !important;
+  
+}
+@mixin bt_color($color1, $color2) {
+  @include gradient_bg($color1, $color2);
+  &:hover {
+    @include gradient_bg($color2, $color1);
+  }
+}
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
 
 @mixin table {
   table#list {
