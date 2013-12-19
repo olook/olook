@@ -12,12 +12,7 @@
 <section id="kombi">
   <div id="description">
     <h1>OLOOK<span>móvel</span></h1>
-    <p>A olookmóvel surgiu do desejo de estar ainda mais perto de você.</p>
-    <p>Através de uma experiência única e super diferente, agora você pode conhecer melhor os modelos da nossa coleção, experimentar e ficar por dentro de todas as novidades.</p>
-    <p>Escolhemos uma Kombi 1968  super estilosa para se tornar a vitrine móvel da olook. Ela foi totalmente personalizada e adaptada com uma combinação perfeita entre a nossa essência e o que temos de melhor para lhe inspirar.</p>
-    <p>Nela você pode conferir uma seleção dos produtos da coleção do mês, assistir nossos editoriais com dicas de moda e, se quiser, comprar online de lá mesmo. Além disso, estamos disponibilizando cupons de desconto para usar no site.</p>
-    <p>Para começar, nos próximos dias a olookmóvel estará por vários bairros da cidade de São Paulo. Acompanhe o roteiro e fique ligada:</p>
-    <p>Siga a <a href="http://instagram.com/olook" target="_blank">@olook</a> para saber o que está rolando e onde encontrá-la.</p>
+    <%= Itinerary.olookmovel.description.html_safe %>
   </div>
   <div id="pictures">
     <div id="instagram">
@@ -36,50 +31,12 @@
           <td>Quando?</td>
           <td>Onde?</td>
         </tr>
-        <tr>
-          <td>09/12/2013 (seg)</td>
-          <td>Turbinando os motores para a nossa próxima parada</td>
-        </tr>  
-        <tr>
-          <td>10/12/2013 (ter) </td>
-          <td>Turbinando os motores para a nossa próxima parada</td>
-        </tr> 
-        <tr>
-          <td>11/12/2013 (qua) / JARDINS</td>
-          <td>11h30 – Chegada ao 1º local – Alameda Lorena</td>
-        </tr> 
-        <tr>
-          <td>12/12/2013 (qui) / JARDINS</td>
-          <td>11h30 – Chegada ao 1º local – Rua Oscar Freire</td>
-        </tr> 
-        <tr>
-          <td>13/12/2013 (sex) / JARDINS</td>
-          <td>11h30 – Chegada ao 1º local – Rua Dr. Melo Alves</td>
-        </tr> 
-        <tr>
-          <td>14/12/2013 (sab) / IBIRAPUERA</td>
-          <td>11h30 – Chegada ao 1º local – Parque do Ibirapuera</td>
-        </tr> 
-        <tr>
-          <td>16/12/2013 (seg) / ITAIM </td>
-          <td>11h30 – Chegada ao 1º local – Rua Bandeira Paulista</td>
-        </tr>  
-        <tr>
-          <td>17/12/2013 (ter) / ITAIM </td>
-          <td>11h30 – Chegada ao 1º local – Rua João Cachoeira</td>
-        </tr> 
-        <tr>
-          <td>18/12/2013 (qua) / ITAIM</td>
-          <td>11h30 – Chegada ao 1º local – Rua Jesuíno Arruda </td>
-        </tr> 
-        <tr>
-          <td>19/12/2013 (qui) / ITAIM </td>
-          <td>11h30 – Chegada ao 1º local – Rua Renato Paes de Barros</td>
-        </tr> 
-        <tr>
-          <td>20/12/2013 (sex) / ITAIM </td>
-          <td>11h30 – Chegada ao 1º local – Rua Tabapuã</td>
-        </tr>   
+        <% Itinerary.entries.each do |entry| %>
+          <tr>
+            <td><%= entry.when_date %></td>
+            <td><%= entry.where %></td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
   </div>
