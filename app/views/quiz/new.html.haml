@@ -64,7 +64,7 @@
                 %li.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizQuestions', 'E o tamanho da sua calça jeans?', '#{ size }']);"}
                   = size
                   = radio_button_tag "quiz[user_data][pants_size]", "#{ size }"
-          = submit_tag 'Comprar Agora', :class => "end_quiz_button disable", :disabled => true, onclick: "_gaq.push(['_trackEvent', 'QuizProgress', 'QuizLastStep', ''])"
+          = submit_tag 'FINALIZAR QUIZ', :class => "end_quiz_button disable", :disabled => true, onclick: "_gaq.push(['_trackEvent', 'QuizProgress', 'QuizLastStep', ''])"
 
 
     .quiz_black_bar

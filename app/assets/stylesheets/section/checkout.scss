@@ -575,11 +575,13 @@ section#cart {
           p{font-size: 17px;font-weight: lighter;margin: 0;text-align:center;color:#000}
           form{text-align:center}
           input[type="submit"]{
-            @include sprite_checkout( 0,-607px);
-            width:129px;
+            width:145px;
             height:38px;
             border:0;
             cursor:pointer;
+            letter-spacing: 2px;
+            font-size: 10px;
+            @include bt_color($primary_bt_color, $primary_bt_color_hover);
           }
         }
         /********** FIM CAMPANHA DO AVC ****************/
@@ -792,8 +794,7 @@ section#cart {
         li{float:left;}
         .cupom {
           input[type="submit"] {
-            background: image-url('cart/apply-coupon.jpg') no-repeat;
-            text-indent: -99999px;
+            @include bt_color($primary_bt_color, $primary_bt_color_hover);
             width: 131px;
             height: 34px;
             display: block;
@@ -801,6 +802,8 @@ section#cart {
             padding: 0;
             border: none;
             cursor: pointer;
+            letter-spacing: 2px;
+            font-size: 11px;
           }
         }
       }
@@ -808,12 +811,16 @@ section#cart {
   }
 
   a.continue {
-    @include sprite_checkout(-91px, -132px);
-    text-indent: -9999px;
+    @include bt_color($primary_bt_color, $primary_bt_color_hover);
     width: 268px;
-    height: 63px;
+    height: 42px;
     display: block;
     float: right;
+    text-decoration: none;
+    text-align: center;
+    letter-spacing: 2px;
+    font-size: 17px;
+    padding-top: 21px;
   }
 
   section {
@@ -1123,13 +1130,16 @@ section#payment {
       float: right;
       ol li {
         input[type='submit'] {
-          background: image-url('cart/bt-make-payment.png') no-repeat;
-          text-indent: -9999px;
           width: 203px;
           height: 46px;
           display: block;
           border: none;
           cursor: pointer;
+          font-size: 14px;
+          text-align: center;
+          text-transform: uppercase;
+          text-decoration: none;
+          @include bt_color($primary_bt_color, $primary_bt_color_hover);
         }
       }
     }
@@ -1388,7 +1398,20 @@ section#payment {
         color:#000;
         text-align:left;
         img{float:left;margin-left:45px;}
-        .link-boleto{display:block;float:left;width:267px;height:64px;@include sprite_checkout(-91px,-68px);font-size:0;font-family:a;margin-top:25px}
+        .link-boleto{
+          display:block;
+          float:left;
+          width:267px;
+          height:42px;
+          margin-top:25px;
+          text-transform: uppercase;
+          text-decoration: none;
+          letter-spacing: 2px;
+          text-align: center;
+          font-size: 17px;
+          padding-top: 22px;
+          @include bt_color($primary_bt_color, $primary_bt_color_hover);
+        }
         .txt_payment_link{
           font-size:20px;
           font-family:$avenir;
@@ -1588,11 +1611,15 @@ section#payment {
         margin: 0 0 20px 0;
       }
       a.back {
-        background: image-url("my_account/bt-back-showroom.png") no-repeat;
-        text-indent: -9999px;
         width: 259px;
-        height: 46px;
+        height: 28px;
         display: block;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 15px;
+        padding-top: 18px;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
       }
     }
     section.sidebar {
@@ -1674,7 +1701,18 @@ section.checkout{
       &.user_identification{width: 280px;}
       &.date{width: 280px;}
 
-      &.send_it{width:270px;height:68px;border:0;@include sprite_checkout(-91px, -131px);clear:both;cursor:pointer;margin-left: 40px;margin-top: 15px;}
+      &.send_it{
+        width:270px;
+        height:68px;
+        border:0;
+        clear:both;
+        cursor:pointer;
+        margin-left: 40px;
+        margin-top: 15px;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
+        font-size: 17px;
+        letter-spacing: 2px;
+      }
     }
     .btn_zipcode{float:left;border:0;width:150px;height:32px;font-size:0;font-family:a;@include sprite_checkout(-92px, -244px);margin:2px 0 0 15px;cursor:pointer;}
     .subtitle{clear:both;margin-top:10px;height:30px;@include sprite_checkout(-109px, -535px);width:293px;color:#000;padding-top:15px;clear:both;}
@@ -1925,153 +1963,6 @@ section.checkout{
 }
 
 
-/*section.checkout {
-  h1 {
-    font-family: $avenir;
-    font-size: 22px;
-    font-weight: lighter;
-    text-transform: uppercase;
-    margin-bottom: 15px;
-    padding-bottom: 3px;
-    a {
-      color: #ef3742;
-      font-family: Arial;
-      font-size: 12px;
-      letter-spacing: 0;
-      vertical-align: middle;
-    }
-  }
-  section.main {
-    width: 645px;
-    float: left;
-  }
-  section.sidebar {
-    width: 315px;
-    padding: 24px 0 0 0;
-    float: right;
-    a.change {
-      color: #de4c7b;
-      font-weight: 500;
-      margin: 0 0 5px;
-      float: right;
-    }
-    div.request_info {
-      background: #efefef;
-      font-size: 14px;
-      margin: 0 0 20px 0;
-      padding: 15px 20px 10px;
-      border: 1px #d4d4d4 solid;
-      clear: both;
-      div.item {
-        margin-bottom: 20px;
-        h1 {
-          font-size: 19px;
-          text-align: center;
-        }
-        p {
-          color: $third_color;
-          margin: 0 0 5px 0;
-        }
-        table {
-          width: 100%;
-          color: #252326;
-          td.value {
-            text-align: right;
-          }
-          tbody tr td {
-            font-size: 14px;
-            font-weight: 500;
-            padding: 5px 0;
-            &:first-child{width:60%}
-
-          }
-          tbody tr.promotion {
-            td {
-              color: #de4c7b;
-            }
-          }
-          tfoot tr td {
-            font-size: 14px;
-            font-weight: 500;
-            width: 50%;
-            padding: 5px 0 0 0;
-            border-top: 1px #000 dotted;
-          }
-        }
-      }
-      div.delivery_time {
-        margin: 20px auto;
-        padding: 10px 12px;
-        border-top: 1px #000 dotted;
-        p {
-          color: $pink;
-          font-weight: 600;
-          text-align: center;
-          margin: 0;
-          strong {
-            color: #ef3742;
-          }
-        }
-      }
-    }
-    input[type="submit"].continue {
-      background: image-url('cart/continue.jpg') no-repeat;
-      text-indent: -9999px;
-      width: 183px;
-      height: 63px;
-      margin: 0 auto;
-      display: block;
-      cursor: pointer;
-      border: none;
-    }
-    input[type="submit"].finish, a.finish {
-      background: image-url('cart/finish.png') 0 0 no-repeat;
-      text-indent: -9999px;
-      width: 116px;
-      height: 46px;
-      margin: 0 auto;
-      display: block;
-      cursor: pointer;
-      border: none;
-      &.disabled {
-        background-position: -116px 0;
-      }
-    }
-    input[type="submit"].save {
-      background: image-url('cart/save-continue.png') 0 0 no-repeat;
-      text-indent: -9999px;
-      width: 202px;
-      height: 46px;
-      margin: 0 auto;
-      display: block;
-      cursor: pointer;
-      border: none;
-      &.disabled {
-        background-position: -202px 0;
-      }
-    }
-    input[type="submit"].disabled.continue {
-      background: image-url('cart/continue-disabled.png') 0 0 no-repeat;
-      text-indent: -9999px;
-      width: 139px;
-      height: 46px;
-      margin: 0 auto;
-      display: block;
-      cursor: pointer;
-      border: none;
-    }
-  }
-  input[type='submit'] {
-    background: image-url('cart/bt-finish.jpg') no-repeat;
-    text-indent: -99999px;
-    width: 160px;
-    height: 63px;
-    display: block;
-    border: none;
-    cursor: pointer;
-  }
-}
-*/
 div#modal {
   div#rules {
     width: 640px;

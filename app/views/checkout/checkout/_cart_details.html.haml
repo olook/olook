@@ -50,7 +50,7 @@
 %p.important
   %span Importante:
   O prazo de entrega começa a contar a partir da confirmação do pagamento.
-= checkout_form.submit '', class: "send_it", disable_with: "", onclick: track_event("Checkout","clickSubmit") if defined?(checkout_form)
+= checkout_form.submit 'FECHAR MEU PEDIDO', class: "send_it", disable_with: "", onclick: track_event("Checkout","clickSubmit") if defined?(checkout_form)
 #freight_message
   %p.hint
     Dica Olook!
