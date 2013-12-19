@@ -53,7 +53,7 @@ describe ProductPresenter do
     it "should render the partial with product's related products" do
       products = [second_shoe, third_shoe]
       subject.stub(:look_products).and_return(products)
-      template.should_receive(:render).with(:partial => 'product/look_products', :locals => {:look_products => products, :product_presenter => subject}).and_return('related')
+      template.should_receive(:render).with(:partial => 'product/look_products', :locals => {:look_products => products, :product_presenter => subject, :complete_look_discount => {}}).and_return('related')
       subject.render_look_products.should == 'related'
     end
   end
@@ -190,8 +190,9 @@ describe ProductPresenter do
     context "when product has discount" do
       before do
         product_discount_service.stub(discount: 10)
+        product_discount_service.stub(:fixed_value_discount?)
       end
-      it { expect(subject.render_price_for product_discount_service).to include("de: ") }
+      it { expect(subject.render_price_for(product_discount_service)).to include("de: ") }
       it { expect(subject.render_price_for product_discount_service).to include("por: ") }
     end
 

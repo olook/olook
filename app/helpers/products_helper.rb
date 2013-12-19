@@ -66,4 +66,12 @@ module ProductsHelper
     product.master_variant.sku
   end
 
+  def look_products_sum look_products
+    look_products.sum{|p| p.promotion? ? p.retail_price : p.price}
+  end
+
+  def product_sum_discount(sum, discount, is_percentage)
+    is_percentage ? sum * (1 - (discount/100.0)) : sum - discount  
+  end
+
 end

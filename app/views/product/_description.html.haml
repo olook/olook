@@ -12,15 +12,8 @@
         \#{link_to "saiba mais", "javascript:void(0);", :class => "open_loyalty_lightbox"}
   .delivery
     .garantido
-      Entrega garantida até 24/12. 
-      = link_to 'Consulte seu CEP', '#', class: 'consultaCepGarantido', onclick: track_pageview('/open-zipcode-form')
-      .formDelivery{method:'post'}
-        %p Informe o CEP e consulte o prazo para destino
-        %form#shipping
-          %input.ship-field#cepDelivery{type:'text'}
-          %input#search{type:'button', value:'PESQUISAR', data: {warranty_deliver: 1}, onclick: track_pageview('/query-zipcode')}
-        %SubmitQuery{class:'shipping-msg'}
-          Quando for um CEP válido!
+      Entrega garantida até 24/12
+      %p.obs para São Paulo capital
     // .social-media-box.pl9
     //  .has_bt_face
     //    %ul.social-list

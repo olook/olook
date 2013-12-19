@@ -681,8 +681,9 @@ section#cart {
           width: 130px;
           padding-left: 35px;
           p {
-            font-size: 17px;
+            font-size: 16px;
             font-weight: lighter;
+            letter-spacing: -1px;
             margin: 0;
             color:#000;
             &.price_retail {
@@ -1654,7 +1655,7 @@ section.checkout{
       display:block;float:left;
       &.number{font-family:$kepler;font-size:60px;}
       &.title{margin-top:8px;font-family:$avenir;font-size:25px;width:200px;}
-      &.phrase{font-family:$kepler;font-size:16px;}
+      &.phrase{font-family:$verdana;font-size:13px;margin-top:7px;}
     }
   }
 
