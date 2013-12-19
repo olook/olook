@@ -3,27 +3,27 @@
     - if search.filter_value('category').to_a.include?('roupa')
       = render 'olooklet/selected_filter', search: search, url_builder: @url_builder, category_name: "Roupas"
     - else
-      %li= link_to "Roupas", @url_builder.add_filter(:category, "roupa"), class: 'title_section close'
+      %li= link_to "Roupas", @url_builder.replace_filter(:category, "roupa"), class: 'title_section close'
 
     - if search.filter_value('category').to_a.include?('sapato')
       = render 'olooklet/selected_filter', search: search, url_builder: @url_builder, category_name: "Sapatos"
     - else
-      %li= link_to "Sapatos", @url_builder.add_filter(:category, "sapato"), class: 'title_section close'
+      %li= link_to "Sapatos", @url_builder.replace_filter(:category, "sapato"), class: 'title_section close'
 
     - if search.filter_value('category').to_a.include?('bolsa')
       = render 'olooklet/selected_filter', search: search, url_builder: @url_builder, category_name: "Bolsas"
     - else
-      %li= link_to "Bolsas", @url_builder.add_filter(:category, "bolsa"), class: 'title_section close'
+      %li= link_to "Bolsas", @url_builder.replace_filter(:category, "bolsa"), class: 'title_section close'
 
     - if search.filter_value('category').to_a.include?('acessorio')
       = render 'olooklet/selected_filter', search: search, url_builder: @url_builder, category_name: "Acessórios"
     - else
-      %li= link_to "Acessórios", @url_builder.add_filter(:category, "acessorio"), class: 'title_section close'
+      %li= link_to "Acessórios", @url_builder.replace_filter(:category, "acessorio"), class: 'title_section close'
 
     - if search.filter_value('category').to_a.include?('moda praia') && !search.filter_value('category').to_a.include?('roupa')
       = render 'olooklet/selected_filter', search: search, url_builder: @url_builder, category_name: "Moda Praia"
     - else
-      %li= link_to "Moda Praia", @url_builder.add_filter(:category, "moda praia"), class: 'title_section close'      
+      %li= link_to "Moda Praia", @url_builder.replace_filter(:category, "moda praia"), class: 'title_section close'
 
 - if search.filter_value('category').to_a.include?('sapato')
   .filter
