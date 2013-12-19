@@ -210,10 +210,21 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       }
     }
     .alert_size{padding-left: 7px; font-family: $avenir; font-size: 12px;color: #000;width: 173px; height: 20px; margin-left: 90px; margin-top: 10px; background-color: #eb8793; border: 1px solid #a1a1a1; display: none;}
-    input[type="submit"].add_product, a.add_product {background: image-url('product/add_bag.png') -25px 0 no-repeat;text-indent: -9999px;width: 415px;height: 45px;margin: 17px auto 30px;display: block;border: none;cursor: pointer;clear: both;
+    input[type="submit"].add_product, a.add_product {
+      @include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+      width: 415px;
+      height: 45px;
+      margin: 17px auto 30px;
+      display: block;
+      border: none;
+      cursor: pointer;
+      clear: both;
+      letter-spacing: 3px;
+      font-size: 16px;
+      padding-top: 2px;
+
       /*&:hover{background-position: -25px -51px;}*/
-      &.disabled {background-position: -25px -102px;}
-      &.green {background: image-url('product/bt-add-product-to-suggestions-green.png') no-repeat;}
+      &.disabled {@include bt_color($terciary_bt_color, $terciary_bt_color_hover);}
     }
     input[type="submit"].add_product_to_suggestions {background: image-url('product/bt-add-product-to-suggestions.jpg') no-repeat;text-indent: -9999px;width: 305px;height: 65px;margin: 17px auto 30px auto;display: block;border: none;cursor: pointer;clear: both;
       &.disabled {background: image-url('product/bt-add-product-to-suggestions-disabled.jpg') no-repeat;}
@@ -441,7 +452,19 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
         background:image-url('product/arrow_compre_olook.jpg') no-repeat center center;
       }
     }
-    #add_product {background: image-url('product/add_bag.png') center -102px no-repeat;text-indent: -9999px;width: 100%;height: 45px;margin-top:75px;display: block;border: none;cursor: pointer;clear: both;}
+    #add_product {
+      width: 325px;
+      height: 45px;
+      margin-top:75px;
+      display: block;
+      border: none;
+      cursor: pointer;
+      clear: both;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-align: center;}
+      .add_product{@include bt_color($secondary_bt_color, $secondary_bt_color_hover);}
+      .disabled {@include bt_color($terciary_bt_color, $terciary_bt_color_hover);}
     ul li.titulo_minicart,
     .minicart_price {
       width: 100%;

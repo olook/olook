@@ -98,7 +98,7 @@ _gaq.push(['_addTrans',
                                       id: "product_add_to_cart") do %>
         <input name="from_sacola" type="hidden" value="true" %>
 				<input id="variant_id" name="variant[id]" type="hidden" value="<%= @suggested_product.variants.first.id.to_s %>" />
-				<%= submit_tag "", id: "add_product", class: "add_product" %>
+				<%= submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "add_product" %>
 			  <% end %>
 
             </td>
@@ -239,7 +239,7 @@ _gaq.push(['_addTrans',
                     <%= f.text_field('coupon_code', :value => @cart.coupon.try(:code)) %>
                     </li>
                     <li class="cupom">
-                    <%= f.submit '' %>
+                    <%= f.submit 'APLICAR CUPOM' %>
                     </li>
                   </ol>
                 </fieldset>
@@ -269,9 +269,9 @@ _gaq.push(['_addTrans',
               <p class="credits">Você ganhará <span id="amount_for_loyalty_program"><%=  number_to_currency @cart_service.amount_for_loyalty_program %></span> de desconto em sua próxima compra. <%= link_to "Saiba mais", "#", :class => "open_loyalty_lightbox" %></p>
             <% end %>
             <% if current_user %>
-              <%= link_to "Continuar", new_checkout_path, :class => "continue"  %>
+              <%= link_to "FECHAR MEU PEDIDO", new_checkout_path, :class => "continue"  %>
             <% else %>
-              <%= link_to "Continuar", checkout_login_index_path, :class => "continue"  %>
+              <%= link_to "FECHAR MEU PEDIDO", checkout_login_index_path, :class => "continue"  %>
             <% end %>
           </td>
         </tr>

@@ -1,6 +1,7 @@
 *.parameterize{margin:0;padding:0;outline:none;}
 
 @import 'partials/fonts';
+@import 'new_structure/common/global_stuffs';
 
 $avenir: avenir, arial, sans-serif;
 //$avenir_medium: avenir_medium, arial, sans-serif;
@@ -8,8 +9,17 @@ $kepler: KeplerStdItalic, Times, "Times New Roman", serif;
 $johnston: johnston, arial, sans-serif;
 
 
-input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-family:$avenir;text-shadow:0px 1px 2px #000;color:#FFF;background: image-url('campaign_emails/new_modal_sprite.png') no-repeat;}
-.close{width:20px;height:20px;border:0;background:image-url("campaign_emails/sprite2.png") -289px -102px no-repeat;position:absolute;top:1px;right:8px;font-size:0;font-family:a;cursor:pointer;}
+input[type="submit"]{
+		float:left;
+		cursor:pointer;
+		font-size:20px;
+		border:0;
+		@include bt_color($primary_bt_color, $primary_bt_color_hover);
+		-webkit-box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.71);
+        -moz-box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.71);
+        box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.71);
+    }
+.close{width:20px;height:20px;border:0;background:image-url("campaign_emails/close_bt.png")no-repeat;position:absolute;top:1px;right:8px;font-size:0;font-family:a;cursor:pointer;}
 .box-remember{
 	position:relative;width:412px;height:218px;border:solid 1px #000;text-align:center;padding:15px 0;margin:10px 0 0;background:#FFF;
 	h3{font-family:$johnston;font-size:29px;}
@@ -39,8 +49,21 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 			font-size:15px;
 		}
 	}
-	.close_pink{background: image-url('campaign_emails/new_modal_sprite.png') -6px -117px no-repeat; width: 255px;height:55px;font-size:0;font-family:a;cursor:pointer;border:none;
-	&:hover{background: image-url('campaign_emails/new_modal_sprite.png') -6px -173px no-repeat; width: 255px;height:55px;}}
+	.close_pink{
+		width: 255px;
+		height:55px;
+		cursor:pointer;
+		border:none;
+		font-size: 15px;
+		text-align: center;
+		margin-top: 15px;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		-webkit-box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.71);
+        -moz-box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.71);
+        box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.71);
+		@include bt_color($primary_bt_color, $primary_bt_color_hover);
+	}
 	.close{top:-11px !important;right:-11px !important;}
 	.f14{font-size:14px;}
 	.desconto{font-size:11px;margin-top:15px;}
@@ -67,8 +90,15 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 						}
 					}
 				}
-				input[type="submit"]{float:right; width:120px;height:50px;background-position: -4px -231px;text-indent: 9999px;
-					&:hover{background-position:-4px -287px;text-indent: 9999px;}}
+				input[type="submit"]{
+					float:right; 
+					width:120px;
+					height:50px;
+					text-align: center;
+					text-transform: uppercase;
+					letter-spacing: 2px;
+					font-size: 14px;
+				}
 			}
 
 		}
@@ -84,8 +114,21 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 	h3{font-family:$johnston;font-size:30px;letter-spacing: 1px;margin-top: 30px;text-transform: uppercase;}
 	p{font-family:$avenir;font-size:14px;margin-top: 25px;line-height: 18px;}
 	.desconto{font-family:$avenir;font-size:14px;margin-top: 40px;margin-bottom: 5px !important; line-height: 18px;}
-	.close_pink{background: image-url('campaign_emails/new_modal_sprite.png') -6px -117px no-repeat; width: 255px;height:55px;font-size:0;font-family:a;cursor:pointer;border:none;
-	&:hover{background: image-url('campaign_emails/new_modal_sprite.png') -6px -173px no-repeat; width: 255px;height:55px;}}
+	.close_pink{
+		width: 255px;
+		height:55px;
+		cursor:pointer;
+		border:none;
+		font-size: 15px;
+		text-align: center;
+		margin-top: 15px;
+		letter-spacing: 2px;
+		text-transform: uppercase;
+		-webkit-box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.71);
+        -moz-box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.71);
+        box-shadow: 1px 1px 10px 1px rgba(0,0,0,0.71);
+		@include bt_color($primary_bt_color, $primary_bt_color_hover);
+	}
 	.close{top:-11px !important;right:-11px !important;}
 }
 
@@ -108,20 +151,34 @@ input[type="submit"]{float:left;cursor:pointer;font-size:20px;border:0;font-fami
 		.cadastre{font-family:$avenir;font-size:17px;color:#050708;text-align:center;margin-left:5px;margin-bottom: -13px;}
 		.adendo{font-size:14px;font-family:$avenir;float:left;width:440px;line-height:18px;margin-top:207px;color:#424242;letter-spacing:-1px;margin-left:42px;position:absolute}
 		a.bt_go_catalog{
-			background: image-url('home/user_bt_modal.jpg') 0px 0px; display: block; width: 171px; height: 43px;text-indent: -9999px;margin-left: 138px;margin-top: 30px;
-			&:hover{background-position: 0 -52px;}
+			display: block; 
+			width: 171px; 
+			height: 31px;
+			margin-left: 138px;
+			margin-top: 30px;
+			text-transform: uppercase;
+			padding-top: 13px;
+			text-align: center;
+			letter-spacing: 2px;
+			font-size: 15px;
+			@include bt_color($primary_bt_color, $primary_bt_color_hover);
 		}
 		p.terms_new_user{font-size: 12px;font-family: $avenir; color: #000; text-align: center;margin-top: 37px;}
 	}
 
 	form{
 		input[type="text"]{float:left;border:solid 1px #cacaca;font-family:$avenir;font-size:14px;width:247px;height:30px;margin:8px 16px 0 25px;line-height:30px;color:#a7a9ab;text-align: center;}
-		input[type="submit"]{width:151px;height:56px;background-position: -4px -5px;font-family:$johnston;font-size:14px;color:#FFF;padding-bottom: 3px; letter-spacing: 2px;margin-left: 7px;
-			&:hover{background-position:-4px -61px;};
+		input[type="submit"]{
+			width:140px;
+			height:45px;
+			font-size:14px;
+			padding-bottom: 3px; 
+			letter-spacing: 2px;
+			margin-left: 7px;
 		}
 
 	}
-	.texto{font-size:11px;font-family:$avenir;float:right;width:135px;line-height:18px;color:#585858;margin-right:5px;margin-top:0px;
+	.texto{font-size:11px;font-family:$avenir;float:right;width:135px;line-height:18px;color:#585858;margin-right:5px;margin-top:5px;
 		a{color:#585858;}
 	}
 	small{clear:both;display:block;font-family:$avenir;font-size:11px;text-align:center;margin-top:20px;float:left;}

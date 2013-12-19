@@ -163,14 +163,22 @@ body div.full_container {
             color: #231f20;
             margin-left: 15px;
             &+a {
-              background: image-url("gift/bt-answer-quiz.png") no-repeat;
-              text-indent: -99999px;
-              width: 120px;
-              height: 55px;
+              @include bt_color($primary_bt_color, $primary_bt_color_hover);
+              font-size: 11px;
+              width: 85px;
+              height: 40px;
               margin: 0 auto;
               display: block;
               float: right;
-              margin-top: -55px;
+              margin-top: -53px;
+              margin-right: 15px;
+              padding: 7px 10px 4px 12px;
+              text-align: center;
+              text-transform: uppercase;
+              letter-spacing: 2px;
+              font-weight: bold;
+              text-decoration: none;
+              line-height: 18px;
             }
           }
           a.close {
@@ -571,8 +579,7 @@ body div.full_container {
           }
         }
         input[type="submit"] {
-          background: image-url('gift/bt-quiz.jpg') no-repeat;
-          text-indent: -99999px;
+          @include bt_color($primary_bt_color, $primary_bt_color_hover);
           width: 222px;
           height: 58px;
           margin: 0 auto;
@@ -580,6 +587,8 @@ body div.full_container {
           clear: both;
           cursor: pointer;
           border: none;
+          font-size: 15px;
+          letter-spacing: 2px;
         }
       }
     }
