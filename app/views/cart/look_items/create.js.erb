@@ -13,8 +13,7 @@ for(i=0;i<variant_numbers.length;i++){
 if(variant_number.length > 0){
   $('#minicart').append('<%= escape_javascript(hidden_field_tag("variant_numbers[]", params[:variant_number])) %>');
 }
-
-if(StringUtils.isEmpty($("#total_price").val())){
+if(StringUtils.isEmpty($("#total_price").val()) || ($( ".cart_related ul li").length -1 == 0)){
   $("#total_price").val('0.0');
 
   $('.cart_related').fadeOut("fast",function(){
