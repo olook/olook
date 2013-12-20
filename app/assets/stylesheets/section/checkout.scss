@@ -234,6 +234,8 @@ section#cart {
       padding-left: 70px;
       height: 43px;
       background: image-url('cart/img_gratis.jpg') no-repeat left center;
+      text-decoration: line-through;
+      color:#666;
     }
   }
   .txt-add{clear:both;font-size:13px;line-height:18px;border-bottom:dotted 1px #000;
@@ -942,6 +944,15 @@ section#address_new {
 }
 
 section#payment {
+  #billet_expiration {
+    display: none;
+    font-size: 11px;
+    position: absolute;
+    left: 70px;
+    top: 77px;
+    border: 1px solid rgb(209, 209, 209);
+    padding: 2px;
+  }
   #billet_info {
     background: #f2f2f2;
     color: #000;
@@ -1778,6 +1789,7 @@ section.checkout{
       .credits input, .payment_type input, .cards input{float:left;height:auto;margin:0 5px 0 0;border:none;padding: 0}
       label{line-height:14px;}
       ul,ol{overflow:hidden;}
+      .payment {position: relative;}
     }
     .credits{float:left;padding-left:5px;
       label{color:#000;}
