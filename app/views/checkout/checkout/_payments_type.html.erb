@@ -129,6 +129,13 @@
       <%= errors_for(@checkout.payment, :user_identification) %>
     <% end %>
 
+    <%= field_set_tag do %>
+      <div>
+      <%= payment_form.label :user_birthday, 'Data de nascimento' %>
+      <%= payment_form.text_field :user_birthday,  class: "date #{error_class_if_needed(@checkout.payment, :user_birthday)}", onblur: track_event("CheckoutPayment","fillUserBirthday") %>
+      </div>
+      <%= errors_for(@checkout.payment, :user_birthday) %>
+    <% end %>
   </div>
   <div class="box-boleto billet">
     <% if billet_discount_enabled %>
