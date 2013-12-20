@@ -141,11 +141,15 @@ function accordion(){
 }
 
 function guaranteedDelivery(){
-  $('.consultaCepGarantido').click(function(e){
-    e.preventDefault();
-    $('.formDelivery').slideToggle();
+  $('.payment_type input').click(function(e){
+    if($("#checkout_payment_method_billet").is(':checked')) {
+      $('#billet_expiration').slideDown();
+    } else {
+      $('#billet_expiration').slideUp();
+    }
   });
 }
+
 function findDeliveryTime(it, warranty_deliver){
     var cep = it.siblings('.ship-field').val();
     if(cep.length < 9){
