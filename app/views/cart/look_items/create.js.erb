@@ -13,7 +13,7 @@ for(i=0;i<variant_numbers.length;i++){
 if(variant_number.length > 0){
   $('#minicart').append('<%= escape_javascript(hidden_field_tag("variant_numbers[]", params[:variant_number])) %>');
 }
-if(StringUtils.isEmpty($("#total_price").val()) || ($( ".cart_related ul li").length -1 == 0)){
+if((StringUtils.isEmpty($("#total_price").val()) || ($( ".cart_related ul li").length -1 == 0)) && !StringUtils.isEmpty(variant_number)){
   $("#total_price").val('0.0');
 
   $('.cart_related').fadeOut("fast",function(){
@@ -24,7 +24,7 @@ if(StringUtils.isEmpty($("#total_price").val()) || ($( ".cart_related ul li").le
 }
 
 setTimeout(function() {
-  if ($( ".cart_related ul li:contains("+$('li[data-id=<%= j params[:product_id] %>] img').attr("alt")+")" ).length == 0){
+  if ($( ".cart_related ul li:contains("+$('li[data-id=<%= j params[:product_id] %>] img').attr("alt")+")" ).length == 0 && variant_number.length > 0){
     $('.cart_related ul').append("<li>"+$('li[data-id=<%= j params[:product_id] %>] img').attr("alt")+"</li>");
     $("#total_price").val( parseFloat($("#total_price").val()) + parseFloat(product_price));
   } else if ($( ".cart_related ul li:contains("+$('li[data-id=<%= j params[:product_id] %>] img').attr("alt")+")" ).length > 0 && variant_number.length == 0){
@@ -40,7 +40,7 @@ setTimeout(function() {
   var installments = CreditCard.installmentsNumberFor($("#total_price").val());
   if ($("li.product").length == ($(".cart_related ul li").length - 1)){
     $(".cart_related .minicart_price").html("De<span class='original_price'>" + installments + "x de " + Formatter.toCurrency( $("#total_price").val() / installments ) + "</span>Por <span class='discounted_price'>"+$(".total_with_discount").html() + " sem juros</span>")
-  } else {
+  } else if(!StringUtils.isEmpty(variant_number)) {
     $(".cart_related .minicart_price").html("Por<span class='first_price'>" + installments + "x de " + Formatter.toCurrency( $("#total_price").val() / installments ) + " sem juros </span>");
   }
 
