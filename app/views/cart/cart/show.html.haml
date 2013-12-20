@@ -93,92 +93,58 @@
               %h2 Um saquinho de tecido protege o produto e por fora embalamos com um lindo saquinho adicional em tule e fita de cetim. Uma graça!
           %td.value
             = gift_wrap_price(@cart)
-    - if @user && @user.current_credit > 0
-      %table.check{:cellpadding => "0", :cellspacing => "0"}
-        %tbody
-          %tr
-            %td.check_column
-              = form_for(@cart, :remote => true, html: { :id => "use_credit_form" }) do |f|
-                = f.check_box('use_credits', :checked => @cart.use_credits)
-                %h1 Quero usar meus créditos
-                %p Você acumulou créditos que podem ser utilizados nesta compra.
-                - if total_user_credits > @cart_service.total
-                  %p O valor do seu saldo é superior ao valor do pedido e você receberá a diferença em créditos
-                - elsif @cart_service.total == total_user_credits
-                  %p O valor do seu pedido é o mesmo que o seu saldo. Você pagará apenas o custo de envio (dependendo da localidade)
-                - else
-                  - if @cart.items.count > 0
-                    %p O valor do seu pedido é superior ao seu saldo e você deverá pagar a diferença
-                %section#credits_explanation
-                  %p SOBRE OS SEUS CRÉDITOS
-                  - style = @cart_service.allow_credit_payment? ? 'normal' : 'prohibited'
-                  %ul
-                    %li#loyalty_credit
-                      .description Créditos por compras realizadas:
-                      %div{:class => "value #{style}"}= number_to_currency @report.amount_of_loyalty_credits
-                      .message= print_credit_message
-                    %li#mgm_credit
-                      .description Créditos por indicação:
-                      %div{:class => "value #{style}"}= number_to_currency @report.amount_of_invite_credits
-                      .message= print_credit_message
-                    %li
-                      .description Reembolso via Central de Atendimento:
-                      .value= number_to_currency @report.amount_of_redeem_credits
-                      .message &nbsp;
-            %td#total_user_credits.value
-              = number_to_currency(total_user_credits)
     %table#total{:cellpadding => "0", :cellspacing => "0"}
       %tbody
-        <tr id="coupon_info" #{"style=display:none;" unless @cart.coupon} >
-    %td
-      Cupom Promocional
-    %td
-      %p#coupon_discount
-        = @cart.coupon.try(:code)
-    %td.value.discount
-      = form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f|
-        %fieldset.inputs
-          %ol
-            %li
-              = f.hidden_field('coupon_code', :value => nil)
-              = f.submit "Excluir"
-      %span#coupon_discount_value
-        - present 'Coupon', coupon: @cart.coupon do |coupon_presenter|
-          = coupon_presenter.show_total_discount
-    %tr.total
-      %td
-        %table#coupon{:cellpadding => "0", :cellspacing => "0", :style => @cart.coupon ? 'display:none;' : 'display:block;'}
-          %tbody
-            %tr.discount
-              %td
-                = form_for(@cart, remote: true,html: {onsubmit: track_event("Checkout", "ClickCupom", ''),:id => "coupon"}) do |f|
-                  %fieldset.inputs
-                    %ol
-                      %li
-                        = f.text_field('coupon_code', :value => @cart.coupon.try(:code))
-                      %li.cupom
-                        = f.submit 'APLICAR CUPOM'
-      %td &nbsp;
-      %td.value
-        %p
-          Total:
-          %span#total_value= number_to_currency(@cart_service.total)
-        %p{:class => "limit #{@cart_service.is_minimum_payment? ? 'show' : ''}"} R$5,00 é o valor mínimo para processamento da compra
-    %table#coupon.items_list{:cellpadding => "0", :cellspacing => "0"}
-      %tbody
-        %tr
-          %td.buy-link
-            %p.buying-continue= link_to "Continuar comprando","/colecoes"
-          %td.buttons
-            - if current_user && !current_user.reseller
-              %p.credits
-                Você ganhará
-                %span#amount_for_loyalty_program= number_to_currency @cart_service.amount_for_loyalty_program
-                de desconto em sua próxima compra. #{link_to "Saiba mais", "#", :class => "open_loyalty_lightbox"}
-            - if current_user
-              = link_to "FECHAR MEU PEDIDO", new_checkout_path, :class => "continue"
-            - else
-              = link_to "FECHAR MEU PEDIDO", checkout_login_index_path, :class => "continue"
+        %tr#coupon_info
+          %td
+            Cupom Promocional
+          %td
+            %p#coupon_discount
+              = @cart.coupon.try(:code)
+          %td.value.discount
+            = form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f|
+              %fieldset.inputs
+                %ol
+                  %li
+                    = f.hidden_field('coupon_code', :value => nil)
+                    = f.submit "Excluir"
+            %span#coupon_discount_value
+              - present 'Coupon', coupon: @cart.coupon do |coupon_presenter|
+                = coupon_presenter.show_total_discount
+          %tr.total
+            %td
+              %table#coupon{:cellpadding => "0", :cellspacing => "0", :style => @cart.coupon ? 'display:none;' : 'display:block;'}
+                %tbody
+                  %tr.discount
+                    %td
+                      = form_for(@cart, remote: true,html: {onsubmit: track_event("Checkout", "ClickCupom", ''),:id => "coupon"}) do |f|
+                        %fieldset.inputs
+                          %ol
+                            %li
+                              = f.text_field('coupon_code', :value => @cart.coupon.try(:code))
+                            %li.cupom
+                              = f.submit 'APLICAR CUPOM'
+            %td &nbsp;
+            %td.value
+              %p
+                Total:
+                %span#total_value= number_to_currency(@cart_service.total)
+              %p{:class => "limit #{@cart_service.is_minimum_payment? ? 'show' : ''}"} R$5,00 é o valor mínimo para processamento da compra
+          %table#coupon.items_list{:cellpadding => "0", :cellspacing => "0"}
+            %tbody
+              %tr
+                %td.buy-link
+                  %p.buying-continue= link_to "Continuar comprando","/colecoes"
+                %td.buttons
+                  - if current_user && !current_user.reseller
+                    %p.credits
+                      Você ganhará
+                      %span#amount_for_loyalty_program= number_to_currency @cart_service.amount_for_loyalty_program
+                      de desconto em sua próxima compra. #{link_to "Saiba mais", "#", :class => "open_loyalty_lightbox"}
+                  - if current_user
+                    = link_to "FECHAR MEU PEDIDO", new_checkout_path, :class => "continue"
+                  - else
+                    = link_to "FECHAR MEU PEDIDO", checkout_login_index_path, :class => "continue"
   - else
     = render 'empty_cart'
   = render "shared/modal_login"
