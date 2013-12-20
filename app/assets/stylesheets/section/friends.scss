@@ -232,15 +232,16 @@ section#friends {
                   display: block;
                 }
                 input[type="submit"] {
-                  background: image-url('friends/bt-answer-invite.jpg') 0 -34px no-repeat;
-                  text-indent: -9999px;
                   width: 173px;
                   height: 34px;
                   display: block;
                   border: none;
                   cursor: pointer;
+                  letter-spacing: 2px;
+                  text-transform: uppercase;
+                  @include bt_color($primary_bt_color, $primary_bt_color_hover);
                   &.disabled {
-                    background-position: 0 0;
+                    @include bt_color($terciary_bt_color, $terciary_bt_color_hover);
                   }
                 }
               }
