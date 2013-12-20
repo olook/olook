@@ -293,6 +293,9 @@
             not_delivered: "Não entregue"
 
     models:
+      itinerary:
+        one: Itinerário
+        other: Itinerários
 
       user:
         one: Usuário
