@@ -517,8 +517,8 @@ Olook::Application.routes.draw do
   get "/:id", to: "product#show", id: /[\w|-]*\d+/, as: "product_seo"
 
   # CATALOGO
-  match "/catalogo/:category(/*parameters)", to: "catalogs#show"
-  match "/:category(/*parameters)", to: "catalogs#show", as: "catalog", constraints: { category: /(?:sapato|roupa|acessorio|bolsa)/ }
+  match "/catalogo/:category(/*parameters)", to: "catalogs#index"
+  match "/:category(/*parameters)", to: "catalogs#index", as: "catalog", constraints: { category: /(?:sapato|roupa|acessorio|bolsa)/ }
 
   get '*custom_url' => 'custom_url#show'
 
