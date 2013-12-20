@@ -80,19 +80,20 @@ body {
         margin: 20px 0;
         float: left;
         a {
-          text-indent: -9999px;
           display: block;
           &.me {
-            background: image-url("common/its-me.png") no-repeat;
-            width: 179px;
-            height: 59px;
             margin: 0 0 0 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 15px;
+            padding-top: 18px;
+            @include bt_color($primary_bt_color, $primary_bt_color_hover);
           }
           &.new_survey {
-            background: image-url("common/try-again.jpg") no-repeat;
             width: 301px;
             height: 59px;
             float: right;
+            @include bt_color($terciary_bt_color, $terciary_bt_color_hover);
           }
         }
       }
@@ -165,13 +166,15 @@ body {
               margin-top: 7px;
               font-size: 11px;
               input[type="submit"] {
-                background: image-url("common/login.png") no-repeat;
-                text-indent: -9999px;
                 width: 74px;
                 height: 31px;
                 display: block;
                 border: none;
                 cursor: pointer;
+                font-size: 15px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                @include bt_color($primary_bt_color, $primary_bt_color_hover);
               }
 
               input {width: auto;}
@@ -217,13 +220,15 @@ body {
                   width: 84%;
                 }
                 input[type='submit'] {
-                  background: image-url("common/registration.png") no-repeat;
-                  text-indent: -9999px;
                   width: 126px;
                   height: 37px;
                   display: block;
                   cursor: pointer;
                   border: none;
+                  text-transform: uppercase;
+                  letter-spacing: 2px;
+                  font-size: 15px;
+                  @include bt_color($primary_bt_color, $primary_bt_color_hover);
                 }
                 &.gender {
                   margin: 0 0 5px 0;
@@ -337,13 +342,14 @@ body {
       .form_content {
         margin: 0 0 0 0;
         input[type='submit']{
-          text-indent: 9999px;
-          background: image-url('common/resend_pass.png') no-repeat 0 0px;
           width: 295px;
           height: 69px;
           border: 0;
           margin-left: 20px;
-          &:hover{background: image-url('common/resend_pass.png') no-repeat 0 -72px;}
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          font-size: 16px;
+          @include bt_color($primary_bt_color, $primary_bt_color_hover);
         }
       }
 

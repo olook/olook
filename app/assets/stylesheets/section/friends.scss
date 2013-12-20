@@ -401,8 +401,6 @@ section#friends {
                   }
                 }
                 input[type="submit"] {
-                  background: image-url('friends/bg-share.jpg') 0 -34px no-repeat;
-                  text-indent: -9999px;
                   width: 139px;
                   height: 34px;
                   display: block;
@@ -410,8 +408,12 @@ section#friends {
                   cursor: pointer;
                   clear: both;
                   float: right;
+                  font-size: 14px;
+                  letter-spacing: 2px;
+                  text-transform: uppercase;
+                  @include bt_color($primary_bt_color, $primary_bt_color_hover);
                   &.disabled {
-                    background-position: 0 0;
+                    @include bt_color($terciary_bt_color, $terciary_bt_color_hover);
                   }
                 }
               }
