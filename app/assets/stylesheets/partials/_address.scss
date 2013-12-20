@@ -43,14 +43,6 @@ section.main {
               text-align: center;
               display: block;
             }
-            &.select_address {
-              background: image-url('common/bt-use-address.jpg') no-repeat;
-              text-indent: -9999px;
-              width: 158px;
-              height: 39px;
-              display: block;
-              margin: 0 auto;
-            }
           }
         }
       }
@@ -111,14 +103,16 @@ section.main {
       &.buttons {
         margin: 5px 0 0 0;
         a.search {
-          background: image-url("cart/search-zip-code.png") no-repeat;
-          text-indent: -9999px;
           width: 94px;
           height: 32px;
           margin-right: 20px;
           display: block;
           cursor: pointer;
           float: left;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          font-size: 12px;
+          @include bt_color($primary_bt_color, $primary_bt_color_hover);
         }
         p {
           font-size: 14px;
