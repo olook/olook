@@ -29,17 +29,18 @@ initProduct = {
   showAlert : function(){
     $('p.alert_size').show().html("Qual é o seu tamanho mesmo?").delay(3000).fadeOut();
   },
+  // for reasons unknown, this carousel is awkwardly inverted. I had to re-invert the names in order for it to work properly :P
   showCarousel : function() {
     if(initProduct.checkRelatedProducts() == true) {
       $("div#related ul.carousel").carouFredSel({
         auto: false,
         width: 860,
         items: 3,
-        prev : {
+        next : {
           button : ".carousel-prev",
           items : 3
         },
-        next : {
+        prev : {
           button : ".carousel-next",
           items : 3
         }
@@ -115,6 +116,7 @@ initProduct = {
   loadAll : function() {
     initProduct.showCarousel();
     initProduct.gotoRelatedProduct();
+    initProduct.loadUnloadTriggers();
     showInfoCredits();
 
     $("#product div.box_carousel a.open_carousel").live("click", function () {
@@ -153,6 +155,18 @@ initProduct = {
       }
     });
     initProduct.loadAddToCartForm();
+  },
+
+  loadUnloadTriggers : function() {
+    $(window).on("beforeunload", function () {
+      initProduct.unloadSelects();
+    });    
+  },    
+
+  unloadSelects : function() {
+    for(i = 0; i < $("li #variant_number").length; i++){
+      $("li #variant_number")[i].selectedIndex = 0;            
+    }
   }
 }
 
