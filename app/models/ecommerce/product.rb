@@ -539,7 +539,9 @@ class Product < ActiveRecord::Base
   end
 
   def look_product_ids
-    (related_products.map(&:id) << id)
+    rp_ids = (related_products.select{|rp| rp.inventory > 0}.map(&:id))
+    rp_ids << id
+    rp_ids
   end  
 
   private

@@ -993,9 +993,9 @@ describe Product do
 
  describe 'when working with complete look products' do
     subject { FactoryGirl.create(:red_slipper) }
-    let(:silver_slipper) { FactoryGirl.create(:silver_slipper) }
-    let(:shoe) { FactoryGirl.create(:shoe) }
-    let(:unrelated_product) { FactoryGirl.create(:shoe, :casual) }
+    let(:silver_slipper) { FactoryGirl.create(:silver_slipper, :in_stock) }
+    let(:shoe) { FactoryGirl.create(:shoe, :in_stock) }
+    let(:unrelated_product) { FactoryGirl.create(:shoe, :casual, :in_stock) }
 
     describe "#list_contains_all_complete_look_products?" do
       before :each do
