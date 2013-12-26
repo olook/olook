@@ -41,18 +41,6 @@ padding:20px 20px 0;
   margin: 25px 0;
 }
 
-#main_describe a {
-  background: image-url('about/btn-answer.png') no-repeat;
-  text-indent: -9999px;
-  display: block;
-  width: 271px;
-  height: 65px;
-
-  &.logged {
-    background: image-url('about/btn-answer-logged.png') no-repeat;
-  }
-}
-
 #function {
   width: 960px;
   overflow: hidden;

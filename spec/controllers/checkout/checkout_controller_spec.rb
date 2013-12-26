@@ -71,6 +71,7 @@ describe Checkout::CheckoutController do
     context "when user has address" do
       before :each do
         FactoryGirl.create(:address, {user: user})
+        FreightCalculator.stub(:freight_for_zip).and_return({default_shipping: {}, fast_shipping: {}})
       end
 
       it "renders the template new" do
@@ -162,7 +163,7 @@ describe Checkout::CheckoutController do
         PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
         payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
         put :create, valid_data
-        response.should redirect_to(order_show_path(number: 123, abt: 'Ctrl'))
+        response.should redirect_to(order_show_path(number: 123))
       end
 
       it "cleans cart id from session" do
@@ -196,7 +197,7 @@ describe Checkout::CheckoutController do
         PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
         payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
         put :create, valid_data
-        response.should redirect_to(order_show_path(number: 123, abt: 'Ctrl'))
+        response.should redirect_to(order_show_path(number: 123))
       end
 
       it "cleans cart id from session" do
@@ -242,7 +243,7 @@ describe Checkout::CheckoutController do
         PaymentBuilder.should_receive(:new).and_return(payment_builder_mock)
         payment_builder_mock.should_receive(:process!).and_return(OpenStruct.new(status: Payment::SUCCESSFUL_STATUS, payment: OpenStruct.new({order: OpenStruct.new({number: 123})})))
         put :create, valid_data
-        response.should redirect_to(order_show_path(number: 123, abt: 'Ctrl'))
+        response.should redirect_to(order_show_path(number: 123))
       end
 
       it "cleans cart id from session" do

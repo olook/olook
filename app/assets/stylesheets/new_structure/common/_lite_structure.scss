@@ -45,7 +45,7 @@ li{list-style-type:none;}
 a#go_top {position: fixed;background: image-url('common/nav/sprite_header.png') no-repeat -492px -153px;text-indent: -99999px;width: 40px;height: 40px;right: 40px;bottom: 45%;z-index: 5;display: none;}
 
 header#new_header{border-top: 2px black solid;
-  .new_content{height: 84px;padding-top:15px;width: 990px;margin: 0 auto;background: image-url('common/nav/sprite_header.png') no-repeat 250px -413px;
+  .new_content{height: 84px;padding-top:15px;width: 990px;margin: 0 auto;
       .box_left{
         font-family: $avenir;
         font-size: 10px;
@@ -164,7 +164,17 @@ header#new_header{border-top: 2px black solid;
       			&.buttons{
     					label{font-weight:normal !important;width:103px;}
     					a{font-size:11px;float:left;}
-              input[type=submit]{background: image-url('common/login.png') no-repeat;text-indent: -9999px;width: 74px;height: 31px;display: block;border: none;cursor: pointer;}
+              input[type=submit]{
+                font-size: 10px;
+                @include bt_color($primary_bt_color, $primary_bt_color_hover);
+                font-weight: bold;
+                letter-spacing: 1px;
+                width: 74px;
+                height: 31px;
+                display: block;
+                border: none;
+                cursor: pointer;
+              }
               #user_remember_me_login{background:none;margin-right:5px;}  
     				}
           }

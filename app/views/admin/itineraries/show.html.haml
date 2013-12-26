@@ -1,0 +1,17 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @itinerary.name
+
+%p Itinerário
+- @itinerary.itinerary_entries.each do |entry|
+  %p
+    = entry.when_date
+  %p
+    = entry.where
+
+
+= link_to 'Edit', edit_admin_itinerary_path(@itinerary)
+\|
+= link_to 'Back', admin_itineraries_path

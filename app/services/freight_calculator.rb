@@ -6,33 +6,29 @@ module FreightCalculator
 
   DEFAULT_FREIGHT_PRICE   = 0.0
   DEFAULT_FREIGHT_COST    = 0.0
-  DEFAULT_INVENTORY_TIME  = 2
+  DEFAULT_INVENTORY_TIME  = 10
   DEFAULT_FREIGHT_SERVICE = 2 # CORREIOS
 
 
   def self.freight_for_zip(zip_code, order_value, shipping_service_ids=nil, use_message = false)
     clean_zip_code = clean_zip(zip_code)
     return {} unless valid_zip?(clean_zip_code)
-    freight_price = nil
-    first_free_freight_price = nil
-
-    shipping_services(shipping_service_ids).each do |shipping_service|
-      freight_price = shipping_service.find_freight_for_zip(clean_zip_code, order_value)
-      if freight_price
-        first_free_freight_price = shipping_service.find_first_free_freight_for_zip_and_order(clean_zip_code, order_value) if (freight_price.price != 0.0) && use_message
-        break
-      end
+    return_array = []
+    freight_prices = shipping_services(shipping_service_ids).map do |shipping_service|
+      shipping_service.find_freight_for_zip(clean_zip_code, order_value)
     end
-
-    return_hash = {
-      :price => freight_price.try(:price)  || DEFAULT_FREIGHT_PRICE,
-      :cost => freight_price.try(:cost)   || DEFAULT_FREIGHT_COST,
-      :delivery_time => (freight_price.try(:delivery_time) || 0) + DEFAULT_INVENTORY_TIME,
-      :shipping_service_id => freight_price.try(:shipping_service_id) || DEFAULT_FREIGHT_SERVICE
+    return [{price: DEFAULT_FREIGHT_PRICE, cost: DEFAULT_FREIGHT_COST,delivery_time: DEFAULT_INVENTORY_TIME,shipping_service_id: DEFAULT_FREIGHT_SERVICE}] if freight_prices.empty?
+    freight_prices.compact.each do |freight|
+      return_array << {
+      :price => freight.try(:price) || DEFAULT_FREIGHT_PRICE,
+      :cost => freight.try(:cost) || DEFAULT_FREIGHT_COST,
+      :delivery_time => (freight.try(:delivery_time) || 0) + DEFAULT_INVENTORY_TIME,
+      :shipping_service_id => freight.try(:shipping_service_id) || DEFAULT_FREIGHT_SERVICE,
+      :shipping_service_priority => freight.try(:shipping_service).try(:priority),
+      :cost_for_free => (freight.price != 0.0) && use_message ? freight.shipping_service.find_first_free_freight_for_zip_and_order(clean_zip_code, order_value).try(:order_value_start) : ''
     }
-    return_hash[:first_free_freight_price] = first_free_freight_price.order_value_start if !first_free_freight_price.blank?
-
-    return_hash
+    end
+    TransportShippingService.new(return_array).choose_better_transport_shipping
   end
 
   def self.valid_zip?(zip_code)
