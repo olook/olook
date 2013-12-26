@@ -567,6 +567,12 @@ section#home {
               background-position: -425px -357px;
             }
           }
+          &.basico a {
+            background-position: -577px -361px;
+            &:hover {
+              background-position: -577px -361px;
+            }
+          }
         }
       }
     }
