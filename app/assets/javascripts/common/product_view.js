@@ -1,7 +1,10 @@
+window.onload = function() {
+  initQuickView.productZoom();
+  new ImageLoader().load("async");
+}
 
 $(document).ready(function(){
-  new ImageLoader().load("async");
-  initQuickView.productZoom();
+  new ImageLoader().load("async-first");
 
   accordion();
   delivery();
