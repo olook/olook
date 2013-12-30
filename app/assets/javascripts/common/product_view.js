@@ -1,11 +1,17 @@
+window.onload = function() {
+  new ImageLoader().load("async");
+  initQuickView.productZoom();
+
+  accordion();
+  delivery();
+  guaranteedDelivery();
+}
 
 $(function() {
   var stringDesc = $("div#infos div.description p.description").text();
   
-  initQuickView.productZoom();
-  accordion();
-  delivery();
-  guaranteedDelivery();
+  // initQuickView.productZoom();
+
 
   /** MODAL GUIA DE MEDIDAS **/
   $(".size_guide a").click(function(e){
@@ -69,6 +75,7 @@ $(function() {
     $('body .dialog #login_modal').fadeIn('slow');
     initBase.closeDialog();
   });
+
 });
 
 initQuickView = {
