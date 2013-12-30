@@ -1,11 +1,12 @@
-window.onload = function() {
+
+$(document).ready(function(){
   new ImageLoader().load("async");
   initQuickView.productZoom();
 
   accordion();
   delivery();
-  guaranteedDelivery();
-}
+  guaranteedDelivery();  
+});
 
 $(function() {
   var stringDesc = $("div#infos div.description p.description").text();
