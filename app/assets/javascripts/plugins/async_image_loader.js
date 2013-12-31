@@ -3,7 +3,6 @@ function ImageLoader() {
   var ATTRIBUTE_NAME = 'data-async-url';
 
   this.load = function(class_name) {
-    console.log('carregando imagens da classe: ' + class_name);
 
     var containers = document.getElementsByClassName(class_name);
 
