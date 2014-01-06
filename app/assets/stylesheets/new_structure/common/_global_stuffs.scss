@@ -27,6 +27,7 @@ $bt_font_color: #fff !important;
   font-family: $bt_font;
   color: $bt_font_color;
   text-decoration: none !important;
+  text-align: center !important;
   
 }
 @mixin bt_color($color1, $color2) {
