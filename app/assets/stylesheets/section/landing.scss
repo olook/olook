@@ -65,14 +65,14 @@
       color: #939598;
       text-align: center;
       &.bt-enviar{
-        background: image-url('landing_page/bt_quiz_entre.png') no-repeat 0 0;
         width: 204px;
         height: 37px;
         border: none;
         cursor: pointer;
-/*        &:hover{
-          background: image-url('landing_page/bt_quiz_entre.png') no-repeat 0 -43px;
-        }*/
+        font-size: 14px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
       }
     }
   }

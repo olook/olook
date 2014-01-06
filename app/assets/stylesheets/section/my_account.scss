@@ -873,13 +873,15 @@ div.dialog.gifted {
       }
     }
     input[type="submit"] {
-      background: image-url('my_account/bt-save-gifted.jpg') no-repeat;
-      text-indent: -99999px;
       width: 127px;
       height: 63px;
       display: block;
       cursor: pointer;
       border: none;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 15px;
+      @include bt_color($primary_bt_color, $primary_bt_color_hover);
     }
   }
   &.clone {

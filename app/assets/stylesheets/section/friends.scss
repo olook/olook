@@ -72,17 +72,6 @@ section#friends {
           }
         }
       }
-      a.update {
-        background: image-url("friends/bg-refresh.jpg") center left no-repeat;
-        color: #010101;
-        font-size: 13px;
-        text-decoration: none;
-        padding: 0 0 0 40px;
-        float: left;
-        &:hover {
-          text-decoration: underline;
-        }
-      }
     }
   }
   section#friends_content {
@@ -459,15 +448,6 @@ section#friends {
           font-size: 18px;
           font-weight: normal;
           margin: 0 0 5px 0;
-        }
-        a {
-          background: image-url('friends/back-arrow.jpg') left no-repeat;
-          color: #ef3742;
-          text-decoration: none;
-          padding: 0 0 0 10px;
-          &:hover {
-            text-decoration: underline;
-          }
         }
       }
       div.product_list {

@@ -1630,12 +1630,15 @@ section#payment {
     }
     section.sidebar {
       a.print {
-        background: image-url('my_account/bt-print.png') no-repeat;
-        text-indent: -9999px;
         width: 224px;
-        height: 46px;
+        height: 26px;
         margin: 0 auto;
         display: block;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 13px;
+        padding-top: 20px;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
       }
     }
   }
