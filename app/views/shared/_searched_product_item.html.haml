@@ -4,13 +4,8 @@
     %span.spy-icon
     = content_tag(:span, "ESPIAR", class: 'spy-txt', :data => {:url => spy_product_path(product.id), :gift => (gift ||= false), :shoe_size => (shoe_size ||= nil)}, :rel => "#{product.id}", :remote => true)
 
-  = link_to product_seo_path(product.seo_path), :class => "product_link", :rel => "#{product.id}", :alt => product.formatted_name, :title => product.formatted_name, onclick: track_event(product_source, "clickOnProduct", product.id.to_s) do
-    
-    .async{data: {async_url: product.catalog_image, backside_picture: product.backside_picture}, itemprop: "image", alt: product.formatted_name} 
-    / = content_tag :div, class: 'async', data: {async_url: product.catalog_image} do
-    /   &nbsp;
-
-    / = image_tag("common/ajax-loader.gif", :itemprop => "image", :alt => product.formatted_name, :title => product.formatted_name, :class => "async", :data => {:backside_picture => product.backside_picture, :product => product.catalog_image, async_url: product.catalog_image})
+  = link_to product_seo_path(product.seo_path), :class => "product_link", :rel => "#{product.id}", :alt => product.formatted_name, :title => product.formatted_name, onclick: track_event(product_source, "clickOnProduct", product.id.to_s) do   
+    .async{data: {product: product.catalog_image, backside_picture: product.backside_picture, product: product.catalog_image}, itemprop: "image", alt: product.formatted_name}
     %p.info-product
       %span.name{:itemprop => "name"}= product.formatted_name
       %br/

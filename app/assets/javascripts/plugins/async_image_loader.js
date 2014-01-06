@@ -1,6 +1,6 @@
 function ImageLoader() {
 
-  var ATTRIBUTE_NAME = 'data-async-url';
+  var ATTRIBUTE_NAME = 'data-product';
 
   this.load = function(class_name) {
 
@@ -14,8 +14,12 @@ function ImageLoader() {
       var attributes;
       if (container.tagName == 'DIV') {
         img_container = new Image();
-        container.appendChild(img_container);
-        attributes = {'data-backside-picture': container.getAttribute('data-backside-picture')};
+        img_container.className = 'async'
+        container.parentNode.replaceChild(img_container, container);
+        attributes = {
+          'data-backside-picture': container.getAttribute('data-backside-picture'),
+          'data-product': container.getAttribute('data-product')
+        };
       } else {
         img_container = container;
       }
