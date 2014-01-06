@@ -50,7 +50,7 @@
             %br
           =link_to (">> Tudo sobre #{header.title.downcase}"), "#", :class => "more_info_show"
           =link_to (">> Ocultar conteúdo"), "#", :class => "more_info_hide"
-          %fb:like{"href" => "http://#{Rails.env == 'production' ? "www" : "homolog"}.olook.com.br#{request.path}", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false", "class" => "like", "width" => "100"}
+          / %fb:like{"href" => "http://#{Rails.env == 'production' ? "www" : "homolog"}.olook.com.br#{request.path}", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false", "class" => "like", "width" => "100"}
 
     #result
       - unless @search.has_any_filter_selected? || params[:cmp].present?
