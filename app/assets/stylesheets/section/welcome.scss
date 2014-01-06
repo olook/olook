@@ -211,7 +211,6 @@ section#welcome {
             }
             &.buttons {
               input[type="submit"] {
-                background: image-url("welcome/bt-invite.jpg") no-repeat;
                 color: #FFF;
                 font-family: 'Open Sans', sans-serif;
                 font-size: 17px;
@@ -225,6 +224,7 @@ section#welcome {
                 border: none;
                 cursor: pointer;
                 float: left;
+                @include bt_color($primary_bt_color, $primary_bt_color_hover);
               }
             }
           }

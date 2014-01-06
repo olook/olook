@@ -142,7 +142,7 @@ body div.full_container {
 				p{text-transform:uppercase;font-family:$avenir_medium;font-size:11px !important;color:#000;
 					&.name{font-size:15px !important;width:162px;height:31px;line-height:31px;border:solid 1px #DEDEDE;text-align:center;}
 				}
-				a.bt-recomendation{display:block;width:170px;height:35px;font-size:0;font-family:a;background: image-url("gift/bt-recomendations.png") no-repeat !important;}
+				a.bt-recomendation{display:block;width:170px;height:35px;font-size:14px;letter-spacing: 2px; text-transform: uppercase;@include bt_color($primary_bt_color, $primary_bt_color_hover);}
 				a.my-gifts{font-size:11px;color:#DE4F7F;}
 			}
           h2 {
@@ -271,12 +271,14 @@ body div.full_container {
           margin: 0 0 15px;
           overflow: auto;
           &+a {
-            background: image-url('gift/bt-more-suggestions.jpg') no-repeat;
-            text-indent: -99999px;
             width: 284px;
-            height: 41px;
+            height: 26px;
             display: block;
             margin: 0 auto;
+            text-transform: uppercase;
+            padding-top: 15px;
+            letter-spacing: 2px;
+            @include bt_color($primary_bt_color, $primary_bt_color_hover);
           }
           .plots {
             font-size: inherit;
@@ -407,10 +409,6 @@ body div.full_container {
                 height: 350px;
                 border: none !important;
               }
-              span {
-                background: image-url('gift/bg-bottom-pink-arrow.png') top right no-repeat;
-                padding-right: 20px;
-              }
             }
           }
         }
@@ -447,9 +445,9 @@ body div.full_container {
                 h1 {
                   font-family: $avenir;
                   font-size: 18px;
-                  line-height: 18px;
+                  line-height: 12px;
                   text-transform: uppercase;
-                  width: 135px;
+                  width: 120px;
                   border-bottom: 1px #000 solid;
                 }
               }
@@ -726,14 +724,15 @@ body div.full_container {
                   ul {
                     li {
                       input[type="submit"] {
-                        background: image-url("gift/bt-find-present.jpg") no-repeat;
-                        text-indent: -99999px;
                         width: 169px;
                         height: 30px;
                         display: block;
                         margin: 0 auto;
                         border: none;
                         cursor: pointer;
+                        font-size: 14px;
+                        text-transform: uppercase;
+                        @include bt_color($primary_bt_color, $primary_bt_color_hover);
                       }
                     }
                   }
@@ -761,17 +760,6 @@ body div.full_container {
               ul#months {
                 li {
                   height: 32px;
-                  a {
-                    background: image-url('gift/arrow-pink.png') top center no-repeat;
-                    margin-top: 7px;
-                    display: block;
-                    &:hover, &.selected {
-                      background: image-url('gift/arrow-black.png') top center no-repeat;
-                      color: #080808;
-                      font-size: 23px;
-                      margin-top: 0;
-                    }
-                  }
                 }
               }
             }
@@ -830,10 +818,13 @@ section#banner {
     display: block;
     clear: both;
     &#new_occasion_link {
-      background: image-url("gift/bt-start.jpg") no-repeat;
       width: 405px;
-      height: 63px;
+      height: 38px;
       margin: 0 0 10px 0;
+      letter-spacing: 2px;
+      font-size: 15px;
+      padding-top: 25px;
+      @include bt_color($primary_bt_color, $primary_bt_color_hover);
     }
     &.facebook {
       background: image-url('gift/bt-facebook.jpg') no-repeat;
@@ -907,7 +898,6 @@ section#occasion {
       }
     }
     input[type="submit"] {
-      background: image-url("gift/bt-continue.png") no-repeat;
       color: #FFF;
       width: 169px;
       height: 59px;
@@ -916,6 +906,7 @@ section#occasion {
       border: none;
       cursor: pointer;
       clear: both;
+      @include bt_color($primary_bt_color, $primary_bt_color_hover);
     }
   }
 }
@@ -1039,14 +1030,16 @@ section#profile {
       }
     }
     input[type="submit"] {
-      background: image-url('gift/bt-recipient.png') no-repeat;
-      text-indent: -99999px;
       width: 348px;
       height: 61px;
       display: inline-block;
       margin: 0 0 25px 70px;
       border: none;
       cursor: pointer;
+      font-size: 15px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      @include bt_color($primary_bt_color, $primary_bt_color_hover);
     }
   }
   form.edit_profile {
@@ -1212,6 +1205,7 @@ div#calendar_container {
   }
   .price {
     color:#000;
+    font-size: 12px;
   }
 }
 

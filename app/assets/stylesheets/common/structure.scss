@@ -1511,7 +1511,7 @@ header div.contact {
 		form{display:inline-block;margin:0;width:600px;
 			fieldset{float:left;border:0;
 				#cep{width:113px;height:22px;font-size:13px;line-height:22px;}
-				.buscar{float:left;background: image-url("shipping/buttons.png") 0 -1px no-repeat;font-size:0;line-height:0;font-family:a;border:0;width:79px;height:30px;margin:0 5px 0 10px}
+				.buscar{float:left;font-size:15px;border:0;width:79px;height:30px;margin:0 5px 0 10px;letter-spacing: 2px;text-transform: uppercase;@include bt_color($primary_bt_color, $primary_bt_color_hover);}
 			}
 		}
 		#msg{float:left;margin-top:5px;}
