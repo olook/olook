@@ -45,10 +45,11 @@
       li{
         font-family: $avenir;
         font-size: 15px;
-        background: image-url("reseller/bt_anchor.jpg") no-repeat 0 -130px;
-        height: 17px;
+        background: image-url("reseller/bt_anchor.jpg") no-repeat;
+        height: 21px;
         padding-left: 35px;
-        padding-top: 12px;
+        padding-top: 2px;
+        margin-bottom: 5px;
         &.title{
           background: none;
           text-transform: uppercase;
