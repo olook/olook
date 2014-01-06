@@ -1,3 +1,4 @@
+// Acho que podemos apagar esse arquivo (pelo menos na pagina de produto nao esta sendo usado - Rafael)
 if(!image_loader) var image_loader = {};
 
 image_loader.init = function(){

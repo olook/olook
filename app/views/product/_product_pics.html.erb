@@ -22,7 +22,7 @@
   <ul>
     <% @product.pictures.order(:position).each_with_index do |picture, index| %>
       <% class_name = index == 0 ? 'async-first' : 'async' %>
-      <li class=<%= "product_#{picture.id}" %> ><%= link_to(image_tag("common/ajax-loader.gif", alt: "#{@product.name}", :class => "#{class_name} full", 'data-async-url' => "#{picture.image_url(:main).to_s}"), picture.image_url(:zoom_out).to_s, :rel => "product_#{picture.id}", :class => "image_zoom") %></li>
+      <li class=<%= "product_#{picture.id}" %> ><%= link_to(image_tag("common/ajax-loader.gif", alt: "#{@product.name}", :class => "#{class_name} full", 'data-product' => "#{picture.image_url(:main).to_s}"), picture.image_url(:zoom_out).to_s, :rel => "product_#{picture.id}", :class => "image_zoom") %></li>
     <% end %>
   </ul>
 </div>
