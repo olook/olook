@@ -226,8 +226,8 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       /*&:hover{background-position: -25px -51px;}*/
       &.disabled {@include bt_color($terciary_bt_color, $terciary_bt_color_hover);}
     }
-    input[type="submit"].add_product_to_suggestions {background: image-url('product/bt-add-product-to-suggestions.jpg') no-repeat;text-indent: -9999px;width: 305px;height: 65px;margin: 17px auto 30px auto;display: block;border: none;cursor: pointer;clear: both;
-      &.disabled {background: image-url('product/bt-add-product-to-suggestions-disabled.jpg') no-repeat;}
+    input[type="submit"].add_product_to_suggestions {@include bt_color($primary_bt_color, $primary_bt_color_hover);letter-spacing: 2px;text-transform: uppercase;font-size: 14px; width: 305px;height: 65px;margin: 17px auto 30px auto;display: block;border: none;cursor: pointer;clear: both;
+      &.disabled {@include bt_color($terciary_bt_color, $terciary_bt_color_hover);}
     }
     #product-particulars{
       * {font-family: $verdana !important;}

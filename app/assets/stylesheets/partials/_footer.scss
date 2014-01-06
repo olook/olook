@@ -42,14 +42,16 @@ footer {
           }
         }
         input[type="submit"] {
-          background: image-url("home/bt-register.png") no-repeat;
-          text-indent: -99999px;
           width: 122px;
           height: 33px;
           margin: 3px 0 0 0;
           display: block;
           border: none;
           cursor: pointer;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          font-size: 14px;
+          @include bt_color($primary_bt_color, $primary_bt_color_hover);
         }
         p {
           color: #6d6e71;
