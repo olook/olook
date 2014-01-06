@@ -9,12 +9,25 @@ function ImageLoader() {
     for (var i = 0; i < containers.length; i++) {
       var container = containers[i];
       var url = container.getAttribute(ATTRIBUTE_NAME);
-      load_image(container, url);
+
+      var img_container;
+      var attributes;
+      if (container.tagName == 'DIV') {
+        img_container = new Image();
+        container.appendChild(img_container);
+        attributes = {'data-backside-picture': container.getAttribute('data-backside-picture')};
+      } else {
+        img_container = container;
+      }
+
+
+      load_image(img_container, url, attributes);
     };
 
   };
 
-  load_image = function(img_tag, url) {
+  load_image = function(img_tag, url, attributes) {
+    for(var k in attributes) img_tag.setAttribute(k, attributes[k])
     img_tag.src = url;
   };
 
