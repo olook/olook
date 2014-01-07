@@ -17,6 +17,4 @@ filter.init = function(){
   olook.toggleClassSlideNext(".title-category");
 }
 
-// window.addEventListener('load', filter.init);
-
 $(filter.init);
