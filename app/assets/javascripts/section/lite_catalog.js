@@ -12,11 +12,11 @@ filter.init = function(){
   if(typeof final_position == 'undefined') final_position = 600;
   olook.slider('#slider-range', start_position, final_position);
   olook.spy('p.spy');
-  olook.changePictureOnhover('img.async');
+  olook.changePictureOnhover('.async');
   olook.customSelect(".custom_select");
   olook.toggleClassSlideNext(".title-category");
 }
 
-window.addEventListener('load', filter.init);
+// window.addEventListener('load', filter.init);
 
-// $(filter.init);
+$(filter.init);
