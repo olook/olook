@@ -37,7 +37,6 @@ class ProductController < ApplicationController
     #redirect_to(:back, notice: "Emails enviados com sucesso!")
   end
 
-
   def load_product_discount_service
     @product_discount_service = ProductDiscountService.new(@product, cart: @cart, coupon: @cart.coupon, promotion: Promotion.select_promotion_for(@cart))
   end
