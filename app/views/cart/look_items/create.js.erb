@@ -38,9 +38,10 @@ setTimeout(function() {
   }
 
   var installments = CreditCard.installmentsNumberFor($("#total_price").val());
+
   if ($("li.product").length == ($(".cart_related ul li").length - 1)){
     $(".cart_related .minicart_price").html("De<span class='original_price'>" + installments + "x de " + Formatter.toCurrency( $("#total_price").val() / installments ) + "</span>Por <span class='discounted_price'>"+$(".total_with_discount").html() + " sem juros</span>")
-  } else if(!StringUtils.isEmpty(variant_number)) {
+  } else if(($(".cart_related ul li").length - 1) > 0){ //(!StringUtils.isEmpty(variant_number)) {
     $(".cart_related .minicart_price").html("Por<span class='first_price'>" + installments + "x de " + Formatter.toCurrency( $("#total_price").val() / installments ) + " sem juros </span>");
   }
 
