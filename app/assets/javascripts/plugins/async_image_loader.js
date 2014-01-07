@@ -15,7 +15,8 @@ function ImageLoader() {
       if (container.tagName == 'DIV') {
         img_container = new Image();
         img_container.className = 'async'
-        container.parentNode.replaceChild(img_container, container);
+        container.appendChild(img_container);
+        // container.parentNode.replaceChild(img_container, container);
         attributes = {
           'data-backside-picture': container.getAttribute('data-backside-picture'),
           'data-product': container.getAttribute('data-product')
