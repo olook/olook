@@ -1,15 +1,22 @@
 window.onload = function() {
   initQuickView.productZoom();
-  new ImageLoader().load("async");
+  load_all_other_images();
 }
 
 $(document).ready(function(){
-  new ImageLoader().load("async-first");
-
+  load_first_image();
   accordion();
   delivery();
   guaranteedDelivery();  
 });
+
+load_first_image = function() {
+  new ImageLoader().load("async-first");
+}
+
+load_all_other_images = function() {
+  new ImageLoader().load("async");
+}
 
 $(function() {
   var stringDesc = $("div#infos div.description p.description").text();
