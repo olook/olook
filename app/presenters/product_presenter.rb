@@ -17,7 +17,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_look_products
-    h.render :partial => 'product/look_products', :locals => {:look_products => look_products, :product_presenter => self, :complete_look_discount => complete_look_discount} if look_products.size > 1 && product.inventory > 0 
+    h.render :partial => 'product/look_products', :locals => {:look_products => look_products, :product_presenter => self, :complete_look_discount => complete_look_discount} if look_products.size > 1 && product.inventory > 0 && product.has_more_than_half_look_products_available?
   end
 
   def render_description(show_facebook_button = true)
