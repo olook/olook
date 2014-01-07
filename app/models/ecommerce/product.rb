@@ -535,14 +535,18 @@ class Product < ActiveRecord::Base
   end
 
   def list_contains_all_complete_look_products? product_ids
-    contains_all_elements_as_look_products?(product_ids) && has_related_products?
+    contains_all_elements_as_look_products?(product_ids) && has_more_than_half_look_products_available? && has_related_products?
   end
 
   def look_product_ids
     rp_ids = (related_products.select{|rp| rp.inventory > 0}.map(&:id))
     rp_ids << id
     rp_ids
-  end  
+  end
+
+  def has_more_than_half_look_products_available?
+    related_products.size <= 2 * (look_product_ids.size - 1)    
+  end        
 
   private
 
