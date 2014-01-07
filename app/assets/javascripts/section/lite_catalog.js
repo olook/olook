@@ -15,6 +15,14 @@ filter.init = function(){
   olook.changePictureOnhover('.async');
   olook.customSelect(".custom_select");
   olook.toggleClassSlideNext(".title-category");
+
 }
 
 $(filter.init);
+
+
+loadThumbnails = function() {
+  new ImageLoader().load("async");
+}
+
+window.addEventListener('load', loadThumbnails);

@@ -11,11 +11,11 @@ $(document).ready(function(){
 });
 
 load_first_image = function() {
-  new ImageLoader().load("async-first");
+  new ImageLoader().load("thumb-first");
 }
 
 load_all_other_images = function() {
-  new ImageLoader().load("async");
+  new ImageLoader().load("thumb");
 }
 
 $(function() {
