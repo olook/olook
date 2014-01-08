@@ -21,7 +21,7 @@
   height: 485px;
   margin: 0 auto;
   margin-top: 20px;
-  background: image-url('landing_page/mari_01.jpg') no-repeat;
+  background: image-url('landing_page/jeans.jpg') no-repeat;
   
   .infos{display:none;position:absolute;top:58px;right:74px;}
 
@@ -65,14 +65,15 @@
       color: #939598;
       text-align: center;
       &.bt-enviar{
-        background: image-url('landing_page/bt_quiz_entre.png') no-repeat 0 0;
+        margin-top: 20px;
         width: 204px;
-        height: 37px;
+        height: 40px;
         border: none;
         cursor: pointer;
-/*        &:hover{
-          background: image-url('landing_page/bt_quiz_entre.png') no-repeat 0 -43px;
-        }*/
+        font-size: 14px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
       }
     }
   }

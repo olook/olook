@@ -84,14 +84,16 @@ div.social {
       border: 1px solid #C1C1C1;
     }
     input[type="submit"] {
-      background: image-url("common/invite.png") no-repeat !important;
-      text-indent: -9999px;
       width: 115px !important;
       height: 34px !important;
       display: block !important;
       margin: 0 auto;
       border: none !important;
       cursor: pointer !important;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 14px;
+      @include bt_color($primary_bt_color, $primary_bt_color_hover);
     }
   }
 }

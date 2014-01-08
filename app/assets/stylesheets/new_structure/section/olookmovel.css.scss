@@ -56,8 +56,7 @@
 		            }
 		          }
 		        }
-		        input[type="submit"]{cursor: pointer; border: none; background: image-url('landing_page/olookmovel/cadastrar.jpg') 0px 0px no-repeat;float:left; width:319px;height:59px;text-indent: 9999px;margin-top: 22px;
-		          &:hover{background-position:0 -71px;text-indent: 9999px;}}
+		        input[type="submit"]{cursor: pointer; border: none;float:left; width:319px;height:59px;margin-top: 22px;text-transform: uppercase;letter-spacing: 2px;font-size: 15px; @include bt_color($primary_bt_color, $primary_bt_color_hover);}
 		      	}
 		    }
 		    input[type="text"], input[type="password"]{padding-left: 10px; width:306px;height:31px;line-height:31px;border:solid 1px #C1C1C1;display: block;

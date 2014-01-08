@@ -17,7 +17,7 @@
     <p class="warn percentage"><span><%= @product.discount_percent.to_i %>%</span><br />off</p>
   <% end %>
   <% if product_presenter.show_quantity_left? %>
-    <p class="warn quantity">Só<br />mais<br /><span><%= "#{(current_user.shoes_size.nil?) ? '' : @product.quantity( current_user.shoes_size )}" %></span></p>
+    <p class="warn quantity">Só<span class="more">mais</span><span><%= "#{(current_user.shoes_size.nil?) ? '' : @product.quantity( current_user.shoes_size )}" %></span></p>
   <% end %>
   <ul>
     <% @product.pictures.order(:position).each do |picture| %>

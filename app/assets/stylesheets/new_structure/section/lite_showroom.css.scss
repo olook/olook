@@ -53,8 +53,16 @@ img.profile-quiz{position:absolute;display:none;top:284px;left:735px;z-index:999
     iframe{width:90px;}
   }
   .new_survey, .me{display:block;float:left;text-indent:-9999em;margin-top:20px;}
-  .new_survey{background: image-url('common/try-again.jpg') no-repeat;width: 301px;height: 59px;margin-left:200px;}
-  .me{display:block;background: image-url('common/its-me.png') no-repeat;width: 179px;height: 59px;margin-left: 20px;}
+  .new_survey{@include bt_color($terciary_bt_color, $terciary_bt_color_hover);width: 301px;height: 59px;margin-left:200px;}
+  .me{
+    display:block;
+    margin-left: 20px;
+    width: 179px;height: 39px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 15px;
+    padding-top: 18px;
+    @include bt_color($primary_bt_color, $primary_bt_color_hover);}
 }
 
 div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;margin-top:60px;clear:both;text-align:center;
