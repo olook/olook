@@ -6,6 +6,7 @@
 
 - content_for :footer do
   = javascript_include_tag 'section/lite_collection_theme'
+  = javascript_include_tag "section/load_thumbnail_images"  
 
 = cache @cache_key, expire_in: 30.minutes do
   = collection_theme_breadcrumbs_for(@collection_theme.first) if @collection_theme.any?
