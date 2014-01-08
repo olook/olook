@@ -14,9 +14,7 @@ module FreightCalculator
     clean_zip_code = clean_zip(zip_code)
     return {} unless valid_zip?(clean_zip_code)
     return_array = []
-    freight_prices = shipping_services(shipping_service_ids).map do |shipping_service|
-      shipping_service.find_freight_for_zip(clean_zip_code, order_value)
-    end
+    freight_prices = FreightPrice.with_zip_and_value(clean_zip_code,order_value )
     return [{price: DEFAULT_FREIGHT_PRICE, cost: DEFAULT_FREIGHT_COST,delivery_time: DEFAULT_INVENTORY_TIME,shipping_service_id: DEFAULT_FREIGHT_SERVICE}] if freight_prices.empty?
     freight_prices.compact.each do |freight|
       return_array << {
