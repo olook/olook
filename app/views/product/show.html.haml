@@ -25,7 +25,8 @@
 
 %section#product
   = product_breadcrumbs_for(@product)
-  = link_to "Comprar o look completo", "#", :id => "goRelatedProduct" if @product.related_products.any?
+  = link_to "Comprar o look completo", "#", :id => "goRelatedProduct" if @product.related_products.any? && @product.inventory > 0 && @product.has_more_than_half_look_products_available?
+
   .box-left
     #gallery
       = cache "pics/#{@product.id}", expire_in: 30.minutes do

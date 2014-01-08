@@ -702,13 +702,15 @@ div.field{
 }
 form.login{
   input[type=submit] {
-    background: image-url('common/login.png') no-repeat;
-    text-indent: -9999px;
     width: 74px;
     height: 31px;
     display: block;
     border: none;
     cursor: pointer;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    @include bt_color($primary_bt_color, $primary_bt_color_hover);
   }
 }
 
