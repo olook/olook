@@ -1,12 +1,16 @@
 class ListProductsController < ApplicationController
   layout "lite_application"
-  helper_method :header  
+  helper_method :header, :url_prefix
   DEFAULT_PAGE_SIZE = 48
   class << self
     attr_reader :url_prefix
   end
 
   protected
+
+  def url_prefix
+    self.class.url_prefix
+  end
 
   def default_params(search_params, site_section)
     page_size = params[:page_size] || DEFAULT_PAGE_SIZE
@@ -25,7 +29,7 @@ class ListProductsController < ApplicationController
   end
 
   def configure_cache(search)
-    cache_key = "#{self.class.url_prefix}#{request.path}|#{@search.cache_key}#{@campaign_products.cache_key if @campaign_products}"
+    cache_key = "#{url_prefix}#{request.path}|#{@search.cache_key}#{@campaign_products.cache_key if @campaign_products}"
     expire_fragment(cache_key) if params[:force_cache].to_i == 1
     cache_key
   end

@@ -18,7 +18,7 @@
     = javascript_include_tag "common/fb_like_button"
 
 = cache @cache_key, expire_in: 15.minutes do
-  = @category ? olooklet_breadcrumbs_for(Category.t(Category.with_name(@category)).pluralize): first_level_breadcrumb("Olooklet")
+  = @category ? second_level_breadcrumb(url_prefix.gsub('/', '').capitalize, url_prefix, url_prefix.gsub('/', '').capitalize, Category.t(Category.with_name(@category)).pluralize, 'breadcrumb'): first_level_breadcrumb(url_prefix.gsub('/', '').capitalize)
   #catalog
     %aside
       = render("list_products/filters", search: @search, category: @category)
@@ -93,6 +93,7 @@
 
       = render "shared/antibounce_box", antibounce_box: @antibounce_box if @antibounce_box.present? && @antibounce_box.search.products.count > 0 && Setting.antibounce_enabled
 
-      .pagination
-        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @url_builder.current_filters{|p| p.merge({por:params[:por]}).merge(hash)} }
+      - unless @hide_pagination
+        .pagination
+          = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @url_builder.current_filters{|p| p.merge({por:params[:por]}).merge(hash)} }
   

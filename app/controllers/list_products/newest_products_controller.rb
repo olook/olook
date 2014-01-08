@@ -13,6 +13,7 @@ class ListProducts::NewestProductsController < ListProductsController
     @search.sort = 'age'
     @search.with_limit(PRODUCTS_SIZE)
     @search.for_page(1)
+    @hide_pagination = true
   end
 
   private
