@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class ListProducts::SelectionsController < ListProductsController
+  @url_prefix = "/selecoes"
 
   def index
     visibility = "1-2-3"

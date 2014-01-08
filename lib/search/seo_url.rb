@@ -141,7 +141,7 @@ class SeoUrl
     end
 
     def from_selections?
-      /^\/selections(\/)*/ =~ @path
+      /^\/selecoes(\/)*/ =~ @path
     end
 
     def parse_brands_params
@@ -178,7 +178,7 @@ class SeoUrl
     end
 
     def parse_selections_params
-      /^(?:\/selections)(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
+      /^(?:\/selecoes)(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end
