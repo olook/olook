@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ListProducts::NewestProductsController < ListProductsController
   @url_prefix = '/novidades'
+  PRODUCTS_SIZE = 42
 
   def index
     visibility = "#{Product::PRODUCT_VISIBILITY[:site]}-#{Product::PRODUCT_VISIBILITY[:all]}"
@@ -10,6 +11,8 @@ class ListProducts::NewestProductsController < ListProductsController
 
     @url_builder.set_link_builder { |_param| newest_path(_param) }
     @search.sort = 'age'
+    @search.with_limit(PRODUCTS_SIZE)
+    @search.for_page(1)
   end
 
   private
