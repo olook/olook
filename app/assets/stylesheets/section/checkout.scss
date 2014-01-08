@@ -931,14 +931,16 @@ section#address_new {
       }
     }
     input[type="submit"] {
-      background: image-url('cart/bt-save-continue.jpg') no-repeat;
-      text-indent: -99999px;
       width: 267px;
       height: 61px;
       margin: 20px 0 0;
       display: block;
       border: none;
       cursor: pointer;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 16px;
+      @include bt_color($primary_bt_color, $primary_bt_color_hover);
     }
   }
 }
@@ -1033,14 +1035,16 @@ section#payment {
           }
         }
         input[type="submit"] {
-          background: image-url('cart/bt-save-cpf.jpg') no-repeat;
-          text-indent: -99999px;
           width: 133px;
           height: 36px;
           margin: 2px 0 0;
           display: block;
           border: none;
           cursor: pointer;
+          font-size: 13px;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          @include bt_color($primary_bt_color, $primary_bt_color_hover);
         }
         p {
           color: $third_color;
@@ -1116,8 +1120,6 @@ section#payment {
         font-weight: bold;
       }
       input[type="submit"] {
-        background: image-url("cart/print-billet.png") no-repeat;
-        text-indent: -9999px;
         width: 165px;
         height: 46px;
         display: block;
@@ -1125,6 +1127,10 @@ section#payment {
         border: none;
         cursor: pointer;
         float: right;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 15px;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
       }
       &.last {
         margin-bottom: 30px;
@@ -1446,7 +1452,7 @@ section#payment {
           }
         }
         .logo_itau{width:90px;height:100px;float:left;font-size:0;font-family:a;@include sprite_checkout(0px,0px);margin:0 42px 0 220px;}
-        .btn_pay{display:block;font-size:0;font-family:a;width:290px;height:65px;@include sprite_checkout(-90px,3px);float:left;margin-top:14px;}
+        .btn_pay{display:block;font-size:17px;width:290px;height:45px;float:left;margin-top:14px;text-transform: uppercase;letter-spacing: 2px;padding-top: 26px; @include bt_color($primary_bt_color, $primary_bt_color_hover);}
         
         .mercado_pago_button{
           display:block;text-align:center;
@@ -1635,12 +1641,15 @@ section#payment {
     }
     section.sidebar {
       a.print {
-        background: image-url('my_account/bt-print.png') no-repeat;
-        text-indent: -9999px;
         width: 224px;
-        height: 46px;
+        height: 26px;
         margin: 0 auto;
         display: block;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 13px;
+        padding-top: 20px;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
       }
     }
   }

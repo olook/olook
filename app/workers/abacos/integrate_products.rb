@@ -4,7 +4,7 @@ module Abacos
     @queue = :product
 
     def self.perform(user="tech@olook.com.br")
-      return true unless Setting.abacos_invetory
+      #return true unless Setting.abacos_invetory
       products_amount = process_products
       process_prices
       IntegrateProductsObserver.perform({ user: user, products_amount: products_amount })

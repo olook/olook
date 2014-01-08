@@ -1,3 +1,4 @@
+@import 'new_structure/common/global_stuffs';
 html {
   overflow-x: hidden;
 
@@ -117,11 +118,14 @@ div#modal {
       line-height: 45px;
       float: right;
       &.home {
-        background: image-url("common/bt-lightbox-quiz.jpg") no-repeat;
-        text-indent: -9999px;
         width: 233px;
-        height: 57px;
+        height: 37px;
         display: block;
+        padding-top: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 15px;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
       }
       &:focus {
         outline: none;

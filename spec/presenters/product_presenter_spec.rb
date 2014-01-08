@@ -3,7 +3,7 @@ require "spec_helper"
 
 describe ProductPresenter do
   include ActionView::TestCase::Behavior
-  let(:product) { FactoryGirl.create(:shoe, :casual) }
+  let(:product) { FactoryGirl.create(:shoe, :casual, :in_stock) }
   let(:member) { double :user }
   let(:facebook_app_id) { double :facebook_app_id }
   let(:template) { double :template }
@@ -47,14 +47,16 @@ describe ProductPresenter do
   end
 
   describe '#render_look_products' do
-    let(:second_shoe) { FactoryGirl.create(:red_slipper, collection_id: 1) }
-    let(:third_shoe) { FactoryGirl.create(:silver_slipper, collection_id: 1) }
+    context "when all products have sufficient inventory" do
+      let(:second_shoe) { FactoryGirl.create(:red_slipper, :in_stock, collection_id: 1) }
+      let(:third_shoe) { FactoryGirl.create(:silver_slipper, :in_stock, collection_id: 1) }
 
-    it "should render the partial with product's related products" do
-      products = [second_shoe, third_shoe]
-      subject.stub(:look_products).and_return(products)
-      template.should_receive(:render).with(:partial => 'product/look_products', :locals => {:look_products => products, :product_presenter => subject, :complete_look_discount => {}}).and_return('related')
-      subject.render_look_products.should == 'related'
+      it "should render the partial with all product's related products" do
+        products = [second_shoe, third_shoe]
+        subject.stub(:look_products).and_return(products)
+        template.should_receive(:render).with(:partial => 'product/look_products', :locals => {:look_products => products, :product_presenter => subject, :complete_look_discount => {}}).and_return('related')
+        subject.render_look_products.should == 'related'
+      end
     end
   end
 
