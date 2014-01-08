@@ -35,13 +35,13 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     }
     div#full_pic {float:left;position:relative;width:365px;/* new size photo */height: auto;margin-bottom: 30px;
 
-      p.warn {position: absolute;color: #FFF;font-family: "Open Sans", sans-serif;font-size: 17px;font-weight: normal;text-align: center;text-transform: uppercase;line-height: 10px;width: 64px;height: 64px;top: 2px;left: 2px;display: none;z-index: 100;
-        &.sold_out {background: image-url('common/sold_out_big.png') no-repeat;font-size: 18px;line-height: 18px;height: 50px;padding-top: 14px;display: block;}
-        &.percentage, &.quantity {background: image-url('common/quantity_big.png') no-repeat;height: 54px;padding-top: 10px;display: block;
+      p.warn {font-weight: bold; position: absolute;color: $pink;font-family: $bt_font;font-size: 14px;font-weight: normal;text-align: center;text-transform: uppercase;line-height: 10px;width: 80px;height: 70px;top: 2px;left: 2px;display: none;z-index: 100;
+        &.sold_out {margin-top: 80px !important;margin-left: 9px !important;background: image-url('common/sold_out_big.png') no-repeat;font-size: 18px;line-height: 18px;height: 50px;padding-top: 14px;display: block;}
+        &.percentage, &.quantity {margin-top: 80px;margin-left: 11px;background: image-url('common/quantity_big.png') no-repeat;height: 80px;padding-top: 80px;display: block;
           span {font-size: 23px;line-height: 27px;font-weight: 600;}
         }
-        &.quantity {line-height: 16px;height: 56px;padding-top: 8px;
-          span {line-height: 20px;}
+        &.quantity {line-height: 16px;padding-top: 25px;font-weight: bold;
+          span {line-height: 20px;letter-spacing: 2px;}
         }
       }
       ul {
