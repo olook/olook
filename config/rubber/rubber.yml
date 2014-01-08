@@ -290,15 +290,15 @@ hosts:
       aws:
         image_type: m1.large
   resque03:
-    resque_worker_count: 20
+    resque_worker_count: 50
     cloud_providers:
       aws:
-        image_type: m1.large
+        image_type: m1.xlarge
   resque04:
-    resque_worker_count: 20
+    resque_worker_count: 50
     cloud_providers:
       aws:
-        image_type: m1.large
+        image_type: m1.xlarge
 
   homolog:
     unicorn_workers: 2
