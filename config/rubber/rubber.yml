@@ -299,6 +299,21 @@ hosts:
     cloud_providers:
       aws:
         image_type: m1.xlarge
+  resque05:
+    resque_worker_count: 50
+    cloud_providers:
+      aws:
+        image_type: m1.xlarge
+  resque06:
+    resque_worker_count: 50
+    cloud_providers:
+      aws:
+        image_type: m1.xlarge
+  resque07:
+    resque_worker_count: 50
+    cloud_providers:
+      aws:
+        image_type: m1.xlarge
 
   homolog:
     unicorn_workers: 2
