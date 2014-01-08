@@ -2012,12 +2012,10 @@ section/admin/clippings.js: section/admin/clippings-c74f0397bcc2180880641c2ad25e
 section/admin/clippings/index.js: section/admin/clippings-c74f0397bcc2180880641c2ad25e33d0.js
 section/brands.js: section/brands-b3b40f680dd84ba4e00957b08ae9d0a2.js
 section/brands/index.js: section/brands-b3b40f680dd84ba4e00957b08ae9d0a2.js
-section/catalog.js: section/catalog-ccd21d7fa2a9d1fddf96c8e0d43b82c2.js
-section/catalog/index.js: section/catalog-ccd21d7fa2a9d1fddf96c8e0d43b82c2.js
 section/faq.js: section/faq-0b1612a5e83457565866ac8cb4c0bc57.js
 section/faq/index.js: section/faq-0b1612a5e83457565866ac8cb4c0bc57.js
-section/lite_catalog.js: section/lite_catalog-754fb8e8e45487b9d6893fb5a3f3ce19.js
-section/lite_catalog/index.js: section/lite_catalog-754fb8e8e45487b9d6893fb5a3f3ce19.js
+section/lite_catalog.js: section/lite_catalog-d845b4d35df5da1f87cf058df7a3496a.js
+section/lite_catalog/index.js: section/lite_catalog-d845b4d35df5da1f87cf058df7a3496a.js
 section/lite_collection_theme.js: section/lite_collection_theme-5a55e53155580c0264be3ac1b638158a.js
 section/lite_collection_theme/index.js: section/lite_collection_theme-5a55e53155580c0264be3ac1b638158a.js
 section/lite_showroom.js: section/lite_showroom-7099bcffc539af03f60518f599ca9589.js
@@ -2168,8 +2166,8 @@ customlanding.css: customlanding-f5471a0f698e53693a1fe7da7d64f841.css
 customlanding/index.css: customlanding-f5471a0f698e53693a1fe7da7d64f841.css
 desktop.css: desktop-88fe43e889634bc30341102ba73833f7.css
 desktop/index.css: desktop-88fe43e889634bc30341102ba73833f7.css
-new_structure/lite_application.css: new_structure/lite_application-a81322530e0d5cd1856b645283884a8e.css
-new_structure/lite_application/index.css: new_structure/lite_application-a81322530e0d5cd1856b645283884a8e.css
+new_structure/lite_application.css: new_structure/lite_application-45def8454e2c511aee9a8f07c69fc6f4.css
+new_structure/lite_application/index.css: new_structure/lite_application-45def8454e2c511aee9a8f07c69fc6f4.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-07234903ebfd1e145f7a228916919465.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-07234903ebfd1e145f7a228916919465.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-86441a5e2e303926eca1bee7b84a06e2.css
@@ -2206,8 +2204,8 @@ new_structure/section/collection_themes.css: new_structure/section/collection_th
 new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-558caf7fba926abd862015103d4088d5.css
 new_structure/section/join.css: new_structure/section/join-3186f3c8328f7adb40d21a612a7a3325.css
 new_structure/section/join/index.css: new_structure/section/join-3186f3c8328f7adb40d21a612a7a3325.css
-new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-9aa406ce6f6703a1ce4d705b264c16f2.css
-new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-9aa406ce6f6703a1ce4d705b264c16f2.css
+new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-061b66bd5e2f9804952c62ce85d6a161.css
+new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-061b66bd5e2f9804952c62ce85d6a161.css
 new_structure/section/lite_product.css: new_structure/section/lite_product-4ad7d891bf97bad30a3eae81e028324b.css
 new_structure/section/lite_product/index.css: new_structure/section/lite_product-4ad7d891bf97bad30a3eae81e028324b.css
 new_structure/section/lite_showroom.css: new_structure/section/lite_showroom-57bf07814235217351ef3fa40b0c703c.css
