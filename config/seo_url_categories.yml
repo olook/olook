@@ -5,8 +5,8 @@ Sapato:
 - Sandália
 - Peep toe
 - Scarpin
-- Ankle boot
 - Anabela
+- Ankle boot
 - Oxford
 - Peep Toe
 - Boneca
@@ -25,19 +25,18 @@ Sapato:
 - Amaciante
 - Impermeabilizante
 - slipper
+- Chinelo
 Acessório:
 - Pulseira
 - Colar
-- Bolsa Média
 - Brinco
 - Bracelete
 - Jóia
 - Gargantilha
 - Conjunto Brinco e Colar
 - Tiara
-- Lenço
-- Carteira
 - Anel
+- Carteira
 - Echarpe
 - Escapulário
 - KIT
@@ -59,15 +58,26 @@ Bolsa:
 - Pasta
 - Bolsa Festa
 - Maxi  Bag
-- Clutch
 - Carteira
 - Mochila
+- Clutch
 - Bolsa média
 - Couro Sintético
 - Slipper
 - Bolsa grande
+- Bolsa pequena
 Roupa:
+- Bolsa Média
 - Echarpe
+- Acessório
+- Lenço
+- Colar
+- Pulseira
+- Bracelete
+- Gargantilha
+- Brinco
+- Óculos de Sol
+- Clutch
 - Tricot
 - Camisa
 - Calça
@@ -92,11 +102,11 @@ Roupa:
 Lingerie:
 - Calcinha
 - Sutiã
-- Sutia
-"Moda Praia":
+Moda Praia:
 - Biquíni Moda Praia
-- Vestido Moda Praia
 - Maiô Moda Praia
+- Vestido Moda Praia
 - Saia Moda Praia
-- Calça Moda Praia
 - Blusa Moda Praia
+- Calça Moda Praia
+- Macacão Moda Praia
