@@ -79,5 +79,73 @@
   platform: linux
   root_device_type: ebs
   provider: aws
+- !ruby/object:Rubber::Configuration::InstanceItem
+  name: resque03
+  domain: olook.com.br
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque_worker
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: collectd
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: monit
+    options: {}
+  instance_id: i-79df4659
+  image_type: m1.xlarge
+  image_id: ami-3fec7956
+  security_groups:
+  - olook_production_default
+  - olook_production_resque03
+  - olook_production_resque
+  - olook_production_resque_worker
+  - olook_production_collectd
+  - olook_production_monit
+  external_host: ec2-23-22-239-109.compute-1.amazonaws.com
+  external_ip: 23.22.239.109
+  internal_host: ip-10-45-162-133.ec2.internal
+  internal_ip: 10.45.162.133
+  zone: us-east-1b
+  platform: linux
+  root_device_type: ebs
+  provider: aws
+- !ruby/object:Rubber::Configuration::InstanceItem
+  name: resque04
+  domain: olook.com.br
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque_worker
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: collectd
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: monit
+    options: {}
+  instance_id: i-05db4225
+  image_type: m1.xlarge
+  image_id: ami-3fec7956
+  security_groups:
+  - olook_production_default
+  - olook_production_resque04
+  - olook_production_resque
+  - olook_production_resque_worker
+  - olook_production_collectd
+  - olook_production_monit
+  external_host: ec2-184-73-5-168.compute-1.amazonaws.com
+  external_ip: 184.73.5.168
+  internal_host: ip-10-180-208-86.ec2.internal
+  internal_ip: 10.180.208.86
+  zone: us-east-1b
+  platform: linux
+  root_device_type: ebs
+  provider: aws
 - volumes: {}
   static_ips: {}
