@@ -122,6 +122,11 @@ class SearchEngine
     parameters = expressions.dup
     parameters.delete_if {|k| IGNORE_ON_URL.include? k }
     parameters[filter.to_sym] = []
+    if NESTED_FILTERS[filter.to_sym]
+      NESTED_FILTERS[filter.to_sym].each do |key|
+        parameters[key.to_sym] = []
+      end
+    end
     parameters
   end
 
