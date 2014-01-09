@@ -114,8 +114,9 @@ Olook::Application.routes.draw do
   match "/marcas/:brand(/*parameters)", :to => "brands#show", as: "brand"
 
   #NEW OLOOKLET
-  get "/olooklet(/*parameters)" => "olooklet#index", :as => "olooklet"
-  get "/selections(/*parameters)" => "selections#index", :as => "selections"
+  get "/olooklet(/*parameters)" => "list_products/olooklet#index", :as => "olooklet"
+  get "/selecoes(/*parameters)" => "list_products/selections#index", :as => "selections"
+  get "/novidades(/*parameters)" => "list_products/newest_products#index", as: "newest"
 
   #NEW COLLECTIONS
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
@@ -515,8 +516,8 @@ Olook::Application.routes.draw do
   get "/:id", to: "product#show", id: /[\w|-]*\d+/, as: "product_seo"
 
   # CATALOGO
-  match "/catalogo/:category(/*parameters)", to: "catalogs#show"
-  match "/:category(/*parameters)", to: "catalogs#show", as: "catalog", constraints: { category: /(?:sapato|roupa|acessorio|bolsa)/ }
+  match "/catalogo/:category(/*parameters)", to: "catalogs#index"
+  match "/:category(/*parameters)", to: "catalogs#index", as: "catalog", constraints: { category: /(?:sapato|roupa|acessorio|bolsa)/ }
 
   get '*custom_url' => 'custom_url#show'
 

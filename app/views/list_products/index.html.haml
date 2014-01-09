@@ -10,7 +10,6 @@
     start_position = #{@search.range_values_for(:price)[:min] rescue 0};
     final_position = #{@search.range_values_for(:price)[:max] rescue 600};
   = javascript_include_tag 'section/lite_catalog'
-  = javascript_include_tag 'section/catalog'
 
 - content_for :data_layer do
   = render "shared/data_layer/category", pixel_information: @pixel_information, catalog_products: @search.products
@@ -19,10 +18,10 @@
     = javascript_include_tag "common/fb_like_button"
 
 = cache @cache_key, expire_in: 15.minutes do
-  = @category ? olooklet_breadcrumbs_for(Category.t(Category.with_name(@category)).pluralize): first_level_breadcrumb("Olooklet")
+  = @category ? second_level_breadcrumb(url_prefix.gsub('/', '').capitalize, url_prefix, url_prefix.gsub('/', '').capitalize, Category.t(Category.with_name(@category)).pluralize, 'breadcrumb'): first_level_breadcrumb(url_prefix.gsub('/', '').capitalize)
   #catalog
     %aside
-      = render(@category ? "filters" : "main_filters", search: @search, category: @category)
+      = render("list_products/filters", search: @search, category: @category)
     - if header
       - if header.big_banner?
         .promo_catalog
@@ -60,27 +59,27 @@
         / .chaordic.mostpopular
 
       .row.row_olooklet
-        = @category ? (render "ordenation_filters", search: @search, url_builder: @url_builder, category: @category) : (render "main_ordenation_filters", search: @search, url_builder: @url_builder)
+        = render "list_products/ordenation_filters", search: @search, url_builder: @url_builder, category: @category
         - unless @category == 'bolsa'
           .size_top
             - if @category
               %p.title-category.roupa Qual seu tamanho?
               %ul.category-list
                 -size_list(@category,@search, @category[0].downcase).each do |text, amount|
-                  %li{ :class => category_style_class(text)}= filter_link_to(@filters_presenter.path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único" && @category == "sapato"
+                  %li{ :class => category_style_class(text)}= filter_link_to(@url_builder.add_filter(:size, text), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único" && @category == "sapato"
             - else
               %p.title-category.roupa Roupas & Acessórios
               %ul.category-list
                 -size_list(["roupa","acessorio"],@search, "r").each do |text, amount|
-                  %li{ :class => category_style_class(text)}= filter_link_to(@filters_presenter.path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
+                  %li{ :class => category_style_class(text)}= filter_link_to(@url_builder.add_filter(:size, text), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
               %br
               %p.title-category.sapatos Sapatos
               %ul.category-list
                 -size_list("sapato",@search, "s").each do |text, amount|
-                  %li{ :class => category_style_class(text)}= filter_link_to(@filters_presenter.path(@url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único"
-      
-      - if @filters_presenter.show_current_section?        
-        = render 'current_section', search: @search, category: @category
+                  %li{ :class => category_style_class(text)}= filter_link_to(@url_builder.add_filter(:size, text), format_size(text.chomp), @search.filter_selected?(:size, text.chomp)) unless text == "Único"
+
+      - if params[:controller] == 'olooklet'
+        = render 'list_products/current_section', search: @search, category: @category
 
       %section.container_product
         %ul#products
@@ -94,6 +93,7 @@
 
       = render "shared/antibounce_box", antibounce_box: @antibounce_box if @antibounce_box.present? && @antibounce_box.search.products.count > 0 && Setting.antibounce_enabled
 
-      .pagination
-        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @filters_presenter.path(@url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
+      - unless @hide_pagination
+        .pagination
+          = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @url_builder.current_filters{|p| p.merge({por:params[:por]}).merge(hash)} }
   

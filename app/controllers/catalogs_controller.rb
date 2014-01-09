@@ -34,7 +34,7 @@ class CatalogsController < ApplicationController
     end
   end
 
-  def show
+  def index
     search_params = parse_parameters_from request
     Rails.logger.debug("New params: #{params.inspect}")
 
