@@ -265,7 +265,7 @@
   - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
     options: {}
-  instance_id: i-4775ec67
+  instance_id: i-6ca3384c
   image_type: m1.xlarge
   image_id: ami-3fec7956
   security_groups:
@@ -275,10 +275,10 @@
   - olook_production_resque_worker
   - olook_production_collectd
   - olook_production_monit
-  external_host: ec2-54-205-229-208.compute-1.amazonaws.com
-  external_ip: 54.205.229.208
-  internal_host: ip-10-181-159-178.ec2.internal
-  internal_ip: 10.181.159.178
+  external_host: ec2-54-221-0-158.compute-1.amazonaws.com
+  external_ip: 54.221.0.158
+  internal_host: ip-10-235-24-208.ec2.internal
+  internal_ip: 10.235.24.208
   zone: us-east-1b
   platform: linux
   root_device_type: ebs
@@ -299,7 +299,7 @@
   - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
     options: {}
-  instance_id: i-3a6ff61a
+  instance_id: i-cea833ee
   image_type: m1.xlarge
   image_id: ami-3fec7956
   security_groups:
@@ -309,10 +309,10 @@
   - olook_production_resque_worker
   - olook_production_collectd
   - olook_production_monit
-  external_host: ec2-23-22-235-103.compute-1.amazonaws.com
-  external_ip: 23.22.235.103
-  internal_host: ip-10-181-161-37.ec2.internal
-  internal_ip: 10.181.161.37
+  external_host: ec2-54-227-12-8.compute-1.amazonaws.com
+  external_ip: 54.227.12.8
+  internal_host: ip-10-45-163-155.ec2.internal
+  internal_ip: 10.45.163.155
   zone: us-east-1b
   platform: linux
   root_device_type: ebs
@@ -333,7 +333,7 @@
   - !ruby/object:Rubber::Configuration::RoleItem
     name: monit
     options: {}
-  instance_id: i-3f6ff61f
+  instance_id: i-37ad3617
   image_type: m1.xlarge
   image_id: ami-3fec7956
   security_groups:
@@ -343,78 +343,10 @@
   - olook_production_resque_worker
   - olook_production_collectd
   - olook_production_monit
-  external_host: ec2-54-205-182-110.compute-1.amazonaws.com
-  external_ip: 54.205.182.110
-  internal_host: ip-10-180-205-21.ec2.internal
-  internal_ip: 10.180.205.21
-  zone: us-east-1b
-  platform: linux
-  root_device_type: ebs
-  provider: aws
-- !ruby/object:Rubber::Configuration::InstanceItem
-  name: resque11
-  domain: olook.com.br
-  roles:
-  - !ruby/object:Rubber::Configuration::RoleItem
-    name: resque
-    options: {}
-  - !ruby/object:Rubber::Configuration::RoleItem
-    name: resque_worker
-    options: {}
-  - !ruby/object:Rubber::Configuration::RoleItem
-    name: collectd
-    options: {}
-  - !ruby/object:Rubber::Configuration::RoleItem
-    name: monit
-    options: {}
-  instance_id: i-016ff621
-  image_type: m1.xlarge
-  image_id: ami-3fec7956
-  security_groups:
-  - olook_production_default
-  - olook_production_resque11
-  - olook_production_resque
-  - olook_production_resque_worker
-  - olook_production_collectd
-  - olook_production_monit
-  external_host: ec2-54-224-218-32.compute-1.amazonaws.com
-  external_ip: 54.224.218.32
-  internal_host: ip-10-232-79-178.ec2.internal
-  internal_ip: 10.232.79.178
-  zone: us-east-1b
-  platform: linux
-  root_device_type: ebs
-  provider: aws
-- !ruby/object:Rubber::Configuration::InstanceItem
-  name: resque12
-  domain: olook.com.br
-  roles:
-  - !ruby/object:Rubber::Configuration::RoleItem
-    name: resque
-    options: {}
-  - !ruby/object:Rubber::Configuration::RoleItem
-    name: resque_worker
-    options: {}
-  - !ruby/object:Rubber::Configuration::RoleItem
-    name: collectd
-    options: {}
-  - !ruby/object:Rubber::Configuration::RoleItem
-    name: monit
-    options: {}
-  instance_id: i-9360f9b3
-  image_type: m1.xlarge
-  image_id: ami-3fec7956
-  security_groups:
-  - olook_production_default
-  - olook_production_resque12
-  - olook_production_resque
-  - olook_production_resque_worker
-  - olook_production_collectd
-  - olook_production_monit
-  external_host: ec2-54-211-180-182.compute-1.amazonaws.com
-  external_ip: 54.211.180.182
-  internal_host: ip-10-180-203-161.ec2.internal
-  internal_ip: 10.180.203.161
+  external_host: ec2-54-196-26-86.compute-1.amazonaws.com
+  external_ip: 54.196.26.86
+  internal_host: ip-10-232-10-90.ec2.internal
+  internal_ip: 10.232.10.90
   zone: us-east-1b
   platform: linux
   root_device_type: ebs
