@@ -258,6 +258,7 @@ span.summary, .full{
         background-position: 0 -50px !important;
         text-transform: none;
         font-weight: normal;
+        &.clean{background: image-url('collections/sprite.png') -269px -116px no-repeat !important;}
       }
       .selected {
         background-position: 0 -87px !important;
