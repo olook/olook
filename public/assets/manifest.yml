@@ -209,6 +209,8 @@ campaign_emails/crop_foto_modal_newsletter.jpg: campaign_emails/crop_foto_modal_
 campaign_emails/crop_foto_modal_newsletter/index.jpg: campaign_emails/crop_foto_modal_newsletter-05eefc5978c1997f5ec6d1aab6075957.jpg
 campaign_emails/enjoy.png: campaign_emails/enjoy-a747989427ab40def7785226f673945d.png
 campaign_emails/enjoy/index.png: campaign_emails/enjoy-a747989427ab40def7785226f673945d.png
+campaign_emails/fotinho_modal.jpg: campaign_emails/fotinho_modal-48ad11f04dc9a08c4a0d9d7b292a209d.jpg
+campaign_emails/fotinho_modal/index.jpg: campaign_emails/fotinho_modal-48ad11f04dc9a08c4a0d9d7b292a209d.jpg
 campaign_emails/futilish.jpg: campaign_emails/futilish-dd939124f53d2ba8451be238c1e6419e.jpg
 campaign_emails/futilish/index.jpg: campaign_emails/futilish-dd939124f53d2ba8451be238c1e6419e.jpg
 campaign_emails/mari_modal.jpg: campaign_emails/mari_modal-20d905791f9b6e1c381c6a929b7c1c56.jpg
@@ -321,6 +323,8 @@ catalog/banner_quiz.jpg: catalog/banner_quiz-1733e9226be563371ee489794c3f761f.jp
 catalog/banner_quiz/index.jpg: catalog/banner_quiz-1733e9226be563371ee489794c3f761f.jpg
 catalog/banner_quiz_primavera.jpg: catalog/banner_quiz_primavera-e3a05f36e99f66498bcba287961c1c76.jpg
 catalog/banner_quiz_primavera/index.jpg: catalog/banner_quiz_primavera-e3a05f36e99f66498bcba287961c1c76.jpg
+catalog/banner_quiz_sem_mari.jpg: catalog/banner_quiz_sem_mari-fda9f0fdc0bb2c1afbd61cba9a81cb29.jpg
+catalog/banner_quiz_sem_mari/index.jpg: catalog/banner_quiz_sem_mari-fda9f0fdc0bb2c1afbd61cba9a81cb29.jpg
 catalog/sprite.png: catalog/sprite-846f139ebc53c31a3c64dfe9f3e3fda2.png
 catalog/sprite/index.png: catalog/sprite-846f139ebc53c31a3c64dfe9f3e3fda2.png
 collections/arrow-black.png: collections/arrow-black-fb49e5a6db6a6f7f18732736fd37e781.png
