@@ -15,6 +15,7 @@ class Cart::ItemsController < ApplicationController
     if @item.update_attribute(:quantity, params[:quantity])
       @cart.items.reload
       @cart_calculator = CartProfit::CartCalculator.new(@cart)
+      @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
       respond_with { |format| format.js {  } }
     else
       render :error, :locals => { :notice => "Houve um problema ao atualizar a quantidade do item do cart" }
@@ -27,6 +28,7 @@ class Cart::ItemsController < ApplicationController
     if @item.destroy
       @cart.items.reload
       @cart_calculator = CartProfit::CartCalculator.new(@cart)
+      @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
       respond_with { |format| format.js { } }
     else
       render :error, :locals => { :notice => "Houve um problema ao deletar o item do cart" }

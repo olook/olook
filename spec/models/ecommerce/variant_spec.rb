@@ -217,18 +217,6 @@ describe Variant do
 
       product
     end
-
-    it "should reflect all catalogs" do
-      ct_product = CatalogProductService.new(catalog, basic_bag).save!
-
-      basic_bag.variants.each do |variant|
-        variant.update_attribute(:inventory, variant.id+1)
-
-        Catalog::Product.where(:variant_id => variant.id).each do |ct_product|
-          ct_product.inventory.should eq(variant.id+1)
-        end
-      end
-    end
   end
 
   describe "consolidate discount percent when has retail_price" do

@@ -26,8 +26,14 @@ class SeoUrl
   FIELD_SEPARATOR = '_'
   PARAMETERS_BLACKLIST = [ "price"]
   PARAMETERS_WHITELIST = [ "price", "sort", "per_page" ]
+  MULTISELECTION_SEPARATOR = SearchEngine::MULTISELECTION_SEPARATOR
 
-  def initialize(path, current_key=nil, search=nil)
+  def initialize(path, current_key=nil, search=nil, &link_builder)
+    if link_builder.respond_to?(:call)
+      @link_builder = link_builder
+    else
+      @link_builder = lambda { |a| a }
+    end
     if path.is_a?(Hash)
       @params = path
     else
@@ -38,6 +44,10 @@ class SeoUrl
     @current_key = current_key
   end
 
+  def set_link_builder(&blk)
+    @link_builder = blk
+  end
+
   def parse_params
     if from_brands?
       parse_brands_params
@@ -45,6 +55,10 @@ class SeoUrl
       parse_collections_params
     elsif from_olooklet?
       parse_olooklet_params
+    elsif from_selections?
+      parse_selections_params
+    elsif from_newest?
+      parse_newest_params
     else
       parse_catalogs_params
     end
@@ -54,8 +68,10 @@ class SeoUrl
     parsed_values[:collection_theme] = @params[:collection_theme]
     parsed_values[:brand] = @params[:brand] || extract_brand
     parsed_values[:excluded_brand] = @params[:excluded_brand] if @params[:excluded_brand]
-    parsed_values[:category] = @params[:category] || ((@params[:parameters].to_s.split('/').first.to_s.split(SearchEngine::MULTISELECTION_SEPARATOR) & categories).join(SearchEngine::MULTISELECTION_SEPARATOR))
+    parsed_values[:category] = @params[:category] || ((@params[:parameters].to_s.split('/').first.to_s.split(MULTISELECTION_SEPARATOR) & categories).join(MULTISELECTION_SEPARATOR))
     parsed_values[:subcategory] = extract_subcategories
+    parsed_values[:visibility] = @params[:visibility]
+
     parsed_values.merge!(parse_filters)
     parsed_values.merge!(parse_order)
     parsed_values
@@ -65,19 +81,32 @@ class SeoUrl
     self.new(parameters).parse_params
   end
 
-  def current_filters
+  def current_filters(&blk)
     parameters = HashWithIndifferentAccess.new(@search.current_filters.dup)
-    build_link_for parameters
+    parameters = build_link_for(parameters)
+    parameters = blk.call(parameters) if blk
+    @link_builder.call(parameters)
   end
 
-  def remove_filter_of(filter)
+  def remove_filter_of(filter, &blk)
     parameters = HashWithIndifferentAccess.new(@search.remove_filter(filter.to_sym).dup)
-    build_link_for parameters
+    parameters = build_link_for(parameters)
+    parameters = blk.call(parameters) if blk
+    @link_builder.call(parameters)
   end
 
-  def add_filter(filter, filter_text)
+  def replace_filter(filter, filter_text, &blk)
+    parameters = HashWithIndifferentAccess.new(@search.replace_filter(filter.to_sym, filter_text.chomp).dup)
+    parameters = build_link_for(parameters)
+    parameters = blk.call(parameters) if blk
+    @link_builder.call(parameters)
+  end
+
+  def add_filter(filter, filter_text, &blk)
     parameters = HashWithIndifferentAccess.new(@search.filters_applied(filter.to_sym, filter_text.chomp).dup)
-    build_link_for parameters
+    parameters = build_link_for(parameters)
+    parameters = blk.call(parameters) if blk
+    @link_builder.call(parameters)
   end
 
   def self.all_categories
@@ -104,7 +133,15 @@ class SeoUrl
     end
 
     def from_olooklet?
-      /^\/olooklet\-teste(\/)*/ =~ @path
+      /^\/olooklet(\/)*/ =~ @path
+    end
+
+    def from_newest?
+      /^\/novidades(\/)*/ =~ @path
+    end
+
+    def from_selections?
+      /^\/selecoes(\/)*/ =~ @path
     end
 
     def parse_brands_params
@@ -129,7 +166,19 @@ class SeoUrl
     end
 
     def parse_olooklet_params
-      /^(?:\/olooklet\-teste)(?:\/(?<parameters>[^\?]+)?(?:\?(?<query>.*))?)?/ =~ @path
+      /^(?:\/olooklet)(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
+      @params[:parameters] = URI.decode(parameters.to_s)
+      @query = query
+    end
+
+    def parse_newest_params
+      /^(?:\/novidades)(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
+      @params[:parameters] = URI.decode(parameters.to_s)
+      @query = query
+    end
+
+    def parse_selections_params
+      /^(?:\/selecoes)(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end
@@ -138,8 +187,8 @@ class SeoUrl
     def build_link_for parameters
       other_parameters = @params.dup
       return_hash = {}
-      return_hash[:brand] = ActiveSupport::Inflector.transliterate(parameters.delete(:brand).join(SearchEngine::MULTISELECTION_SEPARATOR)).downcase if parameters[:brand].present?
-      return_hash[:subcategory] = ActiveSupport::Inflector.transliterate(parameters.delete(:subcategory).join(SearchEngine::MULTISELECTION_SEPARATOR).downcase) if parameters[:subcategory].present?
+      return_hash[:brand] = ActiveSupport::Inflector.transliterate(parameters.delete(:brand).join(MULTISELECTION_SEPARATOR)).downcase if parameters[:brand].present?
+      return_hash[:subcategory] = ActiveSupport::Inflector.transliterate(parameters.delete(:subcategory).join(MULTISELECTION_SEPARATOR).downcase) if parameters[:subcategory].present?
       return_hash[:category] = ActiveSupport::Inflector.transliterate(parameters.delete(:category).first.to_s).downcase if parameters[:category].present?
 
       post_parameters = {}
@@ -147,20 +196,20 @@ class SeoUrl
         if k.to_s == "sort"
           v = VALUES.invert[v]
         end
-        post_parameters[VALUES.invert[k.to_s]] = v.respond_to?(:join) ? v.join(SearchEngine::MULTISELECTION_SEPARATOR) : v
+        post_parameters[VALUES.invert[k.to_s]] = v.respond_to?(:join) ? v.join(MULTISELECTION_SEPARATOR) : v
       end
 
       filter_params = []
       parameters.each do |k, v|
         if v.respond_to?(:join)
-          filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| (_v =~ /heeluint/) ? _v.split(':').last.gsub("..","-") : ActiveSupport::Inflector.transliterate(_v).downcase}.join(SearchEngine::MULTISELECTION_SEPARATOR)}" if v.present? && PARAMETERS_BLACKLIST.exclude?(k.to_s) && VALUES.invert[k.to_s]
+          filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| (_v =~ /heeluint/) ? _v.split(':').last.gsub("..","-") : ActiveSupport::Inflector.transliterate(_v).downcase}.join(MULTISELECTION_SEPARATOR)}" if v.present? && PARAMETERS_BLACKLIST.exclude?(k.to_s) && VALUES.invert[k.to_s]
         end
       end
       return_hash[:filter_params] = filter_params.join(FIELD_SEPARATOR)
       return_hash[:order_params] = post_parameters
 
       return_hash.delete(@current_key.to_sym) if @current_key
-      path = [ return_hash[:category], return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join(SearchEngine::MULTISELECTION_SEPARATOR)
+      path = [ return_hash[:category], return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join(MULTISELECTION_SEPARATOR)
       { parameters: [path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/') }.merge(return_hash[:order_params])
     end
 
@@ -179,18 +228,18 @@ class SeoUrl
     end
 
     def extract_brand
-      brands = (all_brands & @params[:parameters].to_s.split('/').first.to_s.split(SearchEngine::MULTISELECTION_SEPARATOR).map { |s| ActiveSupport::Inflector.transliterate(s).titleize })
-      brands.join(SearchEngine::MULTISELECTION_SEPARATOR) if brands.any?
+      brands = (all_brands & @params[:parameters].to_s.split('/').first.to_s.split(MULTISELECTION_SEPARATOR).map { |s| ActiveSupport::Inflector.transliterate(s).titleize })
+      brands.join(MULTISELECTION_SEPARATOR) if brands.any?
     end
 
     def extract_subcategories
-      subcategories_and_brands = @params[:parameters].to_s.split("/").first.split(SearchEngine::MULTISELECTION_SEPARATOR) rescue []
+      subcategories_and_brands = @params[:parameters].to_s.split("/").first.split(MULTISELECTION_SEPARATOR) rescue []
       _all_subcategories = all_subcategories || []
       unless @params[:search]
         _all_subcategories -= CARE_PRODUCTS.map { |s| ActiveSupport::Inflector.transliterate(s) }
       end
       subcategories = (subcategories_and_brands.map { |s| ActiveSupport::Inflector.transliterate(s) } & _all_subcategories)
-      subcategories.join(SearchEngine::MULTISELECTION_SEPARATOR) if subcategories.any?
+      subcategories.join(MULTISELECTION_SEPARATOR) if subcategories.any?
     end
 
     def categories
@@ -206,9 +255,9 @@ class SeoUrl
       filter_params = @params[:parameters].to_s.split("/").last
       parsed_values = {}
       filter_params.to_s.split(FIELD_SEPARATOR).each do |item|
-        auxs = item.split(SearchEngine::MULTISELECTION_SEPARATOR)
+        auxs = item.split(MULTISELECTION_SEPARATOR)
         key = auxs.shift
-        vals = auxs.join(SearchEngine::MULTISELECTION_SEPARATOR)
+        vals = auxs.join(MULTISELECTION_SEPARATOR)
         parsed_values[VALUES[key]] = vals
       end
       parsed_values

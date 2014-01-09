@@ -44,9 +44,9 @@ describe Address do
       subject.should_not be_valid
     end
 
-    describe "Mobile number format for DDD 11" do
-      it "(11)98978-9236 should be valid" do
-        subject.mobile = "(11)98978-9236"
+    describe "Mobile number format" do
+      it "(31)98978-9236 should be valid" do
+        subject.mobile = "(31)98978-9236"
         subject.should be_valid
       end
 
@@ -55,20 +55,13 @@ describe Address do
         subject.should_not be_valid
       end
 
-      it "(11)989789236 should not be valid" do
-        subject.mobile = "(11)989789236"
-        subject.should_not be_valid
-      end
-    end
-
-    describe "Mobile number format for other DDDs" do
-      it "(34)8978-9236 should be valid" do
-        subject.mobile = "(34)8978-9236"
+      it "(31)9897-8923 should be valid" do
+        subject.mobile = "(31)9897-8923"
         subject.should be_valid
       end
 
-      it "(34)89789236 should not be valid" do
-        subject.mobile = "(34)89789236"
+      it "(11)989789236 should not be valid" do
+        subject.mobile = "(11)989789236"
         subject.should_not be_valid
       end
     end
@@ -76,6 +69,11 @@ describe Address do
     describe "Telephone number format" do
       it "(11)5978-9236 should be valid" do
         subject.telephone = "(11)5978-9236"
+        subject.should be_valid
+      end
+
+      it "(31)9897-8923 should be valid" do
+        subject.telephone = "(31)9897-8923"
         subject.should be_valid
       end
 

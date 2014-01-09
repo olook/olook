@@ -10,7 +10,7 @@ class ActiveReseller < PromotionRule
   end
 
   def matches?(cart, parameter=nil)
-    user = cart.user
+    user = cart.try(:user)
     user.try(:reseller?) && user.try(:active?)
   end
 end

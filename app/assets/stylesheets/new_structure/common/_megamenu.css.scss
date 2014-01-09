@@ -37,15 +37,15 @@ nav.menu_new{
     li{margin-left:-1px;font-size: 10px;text-transform: uppercase;display: inline;float: left;height: 30px;
       &.liquidation{border-right: none;}
 /*          &:nth-child(10){background:none;}*/
-      a{border-bottom:0px;display:block;font-family: $johnston;height:28px;text-decoration: none;color: black;padding:0 11px;letter-spacing:2px;background: image-url("common/nav/menu_bar.png") no-repeat right 0;}
-      a:hover, a.selecionado {border:1px solid #000;border-bottom:0px;position:relative;background: #FFF;z-index: 99;padding:0 10px;position: relative;top:-1px;color:$pink !important;}
+      a{font-weight:bold;border-bottom:0px;display:block;font-family: $arial;height:28px;text-decoration: none;color: black;padding:0 11px;letter-spacing:0.15em;background: image-url('common/nav/sprite_header.png') no-repeat right -354px;}
+      a.selecionado {border:1px solid #000;border-bottom:0px;position:relative;background: #FFF;z-index: 99;padding:0 10px;position: relative;top:-1px;color:$pink !important;}
     }
   }
 }
 
 .new_sacola{
   position: relative;
-  a{position: absolute;right:0px;top:-43px; text-decoration: none;display:block;height: 25px;background: image-url("common/nav/sprite_header.png") -106px -1px no-repeat;font-family: $johnston;font-size: 10px;color: #000;letter-spacing: 1px;padding:1px 0px 2px 40px;clear:both;width: 105px;
+  a{position: absolute;right:0px;top:-43px; text-decoration: none;display:block;height: 25px;background: image-url("common/nav/sprite_header.png") -106px -1px no-repeat;font-family: $arial;font-size: 10px;color: #000;letter-spacing: 1px;padding:1px 0px 2px 40px;clear:both;width: 99px; font-weight: bold;
      &.full{background: image-url("common/nav/sprite_header.png") #fff -208px -32px no-repeat;}
      .mini_coupon_tag{background: image-url('common/nav/sprite_header.png') -269px -113px no-repeat; width: 60px; height: 28px;top: -23px;right: 0;display: block;position: absolute;}
   }
@@ -54,7 +54,7 @@ nav.menu_new{
   /*a:hover, a.selecionado, a.cart:hover {border:1px solid #000;border-bottom: 0px;padding:1px 13px 2px 34px;}*/
   /*a.cart:hover {background: image-url("common/nav/sprite_header.png") -107px -1px no-repeat !important; padding:1px 13px 2px 34px !important;}
   a.full:hover {background: image-url("common/nav/sprite_header.png") -207px -32px no-repeat !important; padding:1px 13px 2px 36px !important;}*/
-  span{font-family: $kepler;font-size: 10px;margin: 0;}
+  span{font-family: $arial;font-size: 10px;margin: 0;letter-spacing: 0px;font-weight: normal;font-style: italic;}
 
 }
 

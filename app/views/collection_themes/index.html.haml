@@ -17,9 +17,9 @@
         %p.resume O neon pastel protagoniza a tendência do momento
         %p.looks= link_to "veja a coleção", collection_theme_path('neon_pastel'), target: "_blank"
       .right_banner
-        = link_to image_tag("collections/crop_colecoes_animal_380x214.jpg", alt: "Animal Print", title: "Animal Print"), collection_theme_path('animal-print'), onclick: track_event("Colecoes", "MiddleRightBanner")
-        %p.collection ANIMAL PRINT
-        %p.resume A estampa chega colorida e num mix de bichos
-        %p.looks= link_to 'veja a coleção', collection_theme_path('animal-print'), target: "_blank"
+        = link_to image_tag("collections/destaquemenor_colecoes_boho.jpg", alt: "Boho Chic", title: "Boho Chic"), collection_theme_path('boho_chic'), onclick: track_event("Colecoes", "MiddleRightBanner")
+        %p.collection BOHO CHIC
+        %p.resume Visual chama atenção pelas peças leves e confortáveis
+        %p.looks= link_to 'veja a coleção', collection_theme_path('boho_chic'), target: "_blank"
 - content_for :footer do
   = javascript_include_tag "collection_themes"

@@ -2,24 +2,41 @@
 /* Specific for megamenu desktop*/
 nav.menu_new{
   .submenu {
-      font-family:$avenir;position:absolute;top:27px;background: #fff;border:1px solid #000;z-index: 1;display: none;padding:10px;
-      p, a {margin:0px;border:0px;text-transform: none;line-height: 16px !important;color:#000;background: none;font-size: 12px;}
-      a.link, a:hover {padding:0px !important;margin:0px !important;border:0px !important; background: #000 !important;top:0px !important;}
+      font-family:$verdana;position:absolute;top:27px;background: #fff;border:1px solid #000;z-index: 1;display: none;padding:10px;
+      p, a {margin:0px;border:0px;text-transform: none;line-height: 16px !important;color:#000;background: none;font-size: 11px;font-family: $verdana;}
+      a.link {padding:0px !important;margin:0px !important;border:0px !important; background: #000 !important;top:0px !important;}
       a.link {color:#FFF;margin-top: 10px !important;color: #FFF;text-align: center;padding-top: 8px !important;padding-bottom: 6px !important;height:18px;letter-spacing: 1px !important;font-size: 11px !important;}
-      h5 {width:100%;display: block;font-size: 10px;font-weight: bold;height:25px;margin-bottom:3px;letter-spacing: 2px;}
+      h5 {
+        width:100%;
+        display: block;
+        font-size: 11px;
+        font-weight: bold;
+        height:25px;
+        margin-bottom:3px;
+        letter-spacing: 1px;
+        font-family: $verdana;
+      }
+      h5 a {
+        height:25px;
+        background: #FFF;
+        font-size: 11px;
+        line-height: 30px;
+        background: #FFF;
+        padding: 7px 0px 0px 0px; 
+      }
       ul, li {display: block;float:left;width:100%;height:auto;text-transform: none;}
     li {height: auto !important;height: 4px;min-height: 4px;line-height: 12px;margin-bottom: 6px;}
   }
 
   #mm_showroom, #mm_presentes, #mm_olooklet {width:130px;
-    a.link {background:image-url("common/nav/arrow_megamenu.jpg") #000 no-repeat 14px center !important;}
+    a.link {background: image-url('common/nav/sprite_header.png') #000 no-repeat -185px -142px !important;}
   }
 
   #mm_showroom {width:170px;margin-left:1px;}
 
-  #mm_blog, #mm_colecoes, #mm_roupas, #mm_sapatos, #mm_bolsas, #mm_acessorios, #mm_acessorios, #mm_marcas {width:260px; left:100px; padding-left:22px;
+  #mm_blog, #mm_colecoes, #mm_roupas, #mm_sapatos, #mm_bolsas, #mm_acessorios, #mm_acessorios, #mm_marcas, #mm_olooklet,#mm_presentes {width:260px;
     .column {width:90px;float:left;display: block;}
-    a.sub_menu {display: inline !important; color:#000 !important;background: none !important;padding:0px; letter-spacing: 0px;font-family: $avenir !important;line-height: 12px !important;}
+    a.sub_menu {display: inline !important; color:#000 !important;background: none !important;padding:0px; letter-spacing: 0px;font-family: $verdana !important;line-height: 12px !important;font-weight: normal;}
     a.sub_menu:hover {border:0px;padding:0px;margin:0px;}
     li:hover a, li a:hover {border:0px !important;margin:0px;top:0px;}
     li {margin:0px;margin-bottom:4px;}
@@ -35,11 +52,10 @@ nav.menu_new{
 
   #mm_colecoes, #mm_roupas, #mm_sapatos, #mm_acessorios, #mm_marcas {
     width: 460px;
-    left:150px;
     .first {width:120px !important;}
     .image, li.image:hover {width:240px !important;}
-    .image a.img {display: block;float: right;background:image-url("common/nav/colecoes.jpg") no-repeat center center;width: 207px !important;height: 242px;padding:0px;}
-    .image a.img:hover {background:image-url("common/nav/colecoes.jpg") center center !important;padding:0px;margin:0px;width:207 !important;}
+    .image a.img {display: block;float: right;background:image-url("common/nav/megamenucolecoes.jpg") no-repeat center center;width: 207px !important;height: 242px;padding:0px;}
+    .image a.img:hover {background:image-url("common/nav/megamenucolecoes.jpg") center center !important;padding:0px;margin:0px;width:207 !important;}
     br {clear:both;}
   }
 
@@ -50,7 +66,6 @@ nav.menu_new{
 
   #mm_roupas {
     width: 440px;
-    left:200px;
     .image, li.image:hover {width:220px !important;}
     .image a.img {display: block;float: right;background:image-url("common/nav/roupas.jpg") no-repeat center center;width: 213px !important;height: 269px;padding:0px;}
     .image a.img:hover {background:image-url("common/nav/roupas.jpg") center center !important;padding:0px;margin:0px;width:213 !important;}
@@ -66,15 +81,16 @@ nav.menu_new{
   }
 
   #mm_bolsas, #mm_acessorios {
-    width: 90px;left: 417px;padding-left: 11px;
+    width: 90px;
+    padding-left: 11px;
   }
 
   #mm_acessorios {
-    width:100px;left:486px;
+    width:100px;
   }
 
   #mm_marcas {
-    width:340px; left:530px;
+    width:340px;
     .first {width:140px !important;}
     .second {width:120px !important;}
     .last {width:80px !important;}
@@ -82,11 +98,13 @@ nav.menu_new{
   }
 
   #mm_presentes {
-    width:160px;
+    width:110px;
+    .first {width:110px;}
   }
 
-  #mm_olooklet {right:36px;
+  #mm_olooklet {
     width:180px;
+    span {margin-top:10px;}
   }
   .image {margin-top: 10px;padding-bottom: 10px;}
 

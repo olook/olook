@@ -210,13 +210,14 @@ div#my_account {
       }
       fieldset.buttons {
         ol li input[type="submit"] {
-          background: image-url("common/bt-save.jpg") no-repeat;
-          text-indent: -9999px;
+          @include bt_color($primary_bt_color, $primary_bt_color_hover);
           width: 125px;
           height: 61px;
           display: block;
           border: none;
           cursor: pointer;
+          letter-spacing: 2px;
+          font-size: 15px;
         }
       }
       fieldset.facebook {
@@ -291,13 +292,14 @@ div#my_account {
         ol {
           li {
             input[type="submit"] {
-              background: image-url("common/bt-save.jpg") no-repeat;
-              text-indent: -9999px;
+              @include bt_color($primary_bt_color, $primary_bt_color_hover);
               width: 125px;
               height: 61px;
               display: block;
               border: none;
               cursor: pointer;
+              letter-spacing: 2px;
+              font-size: 15px;
             }
           }
         }
@@ -425,8 +427,8 @@ div#my_account {
             overflow: auto;
             display: block;
             img {
-              width: 170px;
-              height: 170px;
+              max-width: 170px;
+              max-height: 170px;
               margin: 0 20px 30px 0;
               float: left;
             }
@@ -740,13 +742,14 @@ div#my_account {
             }
           }
           input[type="submit"] {
-            background: image-url("common/bt-save.jpg") no-repeat;
-            text-indent: -9999px;
+            @include bt_color($primary_bt_color, $primary_bt_color_hover);
             width: 125px;
             height: 61px;
             display: block;
             border: none;
             cursor: pointer;
+            letter-spacing: 2px;
+            font-size: 15px;
           }
         }
       }
@@ -870,13 +873,15 @@ div.dialog.gifted {
       }
     }
     input[type="submit"] {
-      background: image-url('my_account/bt-save-gifted.jpg') no-repeat;
-      text-indent: -99999px;
       width: 127px;
       height: 63px;
       display: block;
       cursor: pointer;
       border: none;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 15px;
+      @include bt_color($primary_bt_color, $primary_bt_color_hover);
     }
   }
   &.clone {

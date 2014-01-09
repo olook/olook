@@ -1,2 +1,2 @@
-- if item.has_any_discount?
-  = link_to promotion_discount(item), "#", :class => 'discount_percent'
+- present 'Coupon', coupon: @cart.coupon do |coupon_presenter|
+  = coupon_presenter.show_line_item_discount_for(item)

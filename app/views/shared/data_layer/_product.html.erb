@@ -1,7 +1,19 @@
+<% availability = case @product.inventory
+ when 0 then "Indisponvel"
+ when 1  then "Resta 1"
+ else
+   "Disponivel"
+ end %>
 <script type="text/javascript">
   dataLayer.push({
       'ProductID': '<%= @product.id %>',
       'Sku': '<%= sku_for(@product) %>',
-      'Category': '<%= @product.category %>'
+      'Category': '<%= @product.category %>',
+      'CategoryHumanize': '<%= raw @product.category_humanize %>',
+      'ProductName': '<%= raw @product.name%>',
+      'Subcategory': '<%= raw @product.try(:subcategory) %>',
+      'ProductPrice': '<%= raw @product.price %>',
+      'Disponibility': '<%= raw availability %>',
+      'DinamicProductBrand': '<%= raw @product.brand %>'
   });
 </script>

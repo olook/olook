@@ -23,7 +23,7 @@ module BannersHelper
       path = '/roupa'
       link_to(image_tag('catalog/160x600_B.jpg'), path, onclick: track_event('Catalog', "SideBanner2From#{Category.key_for(category_id).to_s.camelize}", path))
     elsif options[:position] == :botton
-      link_to(image_tag('catalog/banner_quiz_primavera.jpg'), new_survey_path , onclick: track_event('Catalog', "BottomBannerFrom#{Category.key_for(category_id).to_s.camelize}", wysquiz_path))
+      link_to(image_tag('catalog/banner_quiz_sem_mari.jpg'), new_survey_path , onclick: track_event('Catalog', "BottomBannerFrom#{Category.key_for(category_id).to_s.camelize}", wysquiz_path))
     else
       ""
     end

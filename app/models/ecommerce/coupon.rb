@@ -8,7 +8,7 @@ class Coupon < ActiveRecord::Base
   COUPON_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/coupons.yml")
   PRODUCT_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/product_coupons.yml")[Rails.env]
   BRAND_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/brand_coupons.yml")[Rails.env]
-  MODAL_POSSIBLE_VALUES = { 'Padrão' => 1, "10% em todo site" => 3, "20% apenas marca olook" => 2, "10% Benefícios Club" => 4, "20% Benefícios Club" => 5, "20 % em Tudo (Aniversario Olook)" => 6 }
+  MODAL_POSSIBLE_VALUES = { 'Padrão' => 1, "10% em todo site" => 3, "20% apenas marca olook" => 2, "10% Benefícios Club" => 4, "20% Benefícios Club" => 5, "20 % em Tudo (Aniversario Olook)" => 6, "20 reais Novos Usuários" => 7, "Facebook - 20 Reais" => 8 }
 
   validates_presence_of :code, :start_date, :end_date, :campaign, :created_by
   validates_presence_of :remaining_amount, :unless => Proc.new { |a| a.unlimited }
@@ -100,7 +100,6 @@ class Coupon < ActiveRecord::Base
   end
 
   def apply_discount_to? product
-
     if coupon_specific_for_product?
       product_ids = product_ids_allowed_to_have_discount
       product_ids.include?(product.id.to_s)
@@ -109,7 +108,6 @@ class Coupon < ActiveRecord::Base
     else
       true
     end
-
   end
 
   def can_be_applied_to_any_product_in_the_cart? cart
@@ -123,9 +121,14 @@ class Coupon < ActiveRecord::Base
 
   def calculate_for_product product, opt
     cart = opt[:cart]
-    adjustment = promotion_action.simulate_for_product product, cart, self.action_parameter.action_params
-    item = cart.items.find { |i| i.product.id == product.id }
-    product.price - (adjustment/(item.try(:quantity) || 1))
+    if product.is_visible? && product.master_variant
+      cart_items = cart.items.to_a + [CartItem.new(variant: product.master_variant, quantity: 1, cart_id: cart.id)]
+      adjustment = promotion_action.simulate_for_product product.id, cart_items, self.action_parameter.action_params
+      item = cart_items.find { |i| i.product.id == product.id }
+      product.price - (adjustment/(item.try(:quantity) || 1))
+    else
+      product.price
+    end
   end
 
   def calculate_for_cart cart

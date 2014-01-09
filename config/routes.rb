@@ -10,6 +10,8 @@ Olook::Application.routes.draw do
   resources :live_feeds, path: "api", only: [:create, :index]
   resources :mercado_pago, only: [:create]
 
+  get '/api/prices' => 'prices#index', as: 'api_prices'
+
 
   get "/stylequiz", to: "quiz#new", as: "wysquiz"
 
@@ -89,9 +91,9 @@ Olook::Application.routes.draw do
   match "/termos", :to => "pages#terms", :as => "terms"
   match "/duvidasfrequentes", :to => "pages#faq", :as => "duvidasfrequentes"
   match "/centraldeatendimento", :to => "pages#faq", :as => "duvidasfrequentes"
-  match "/afiliados", :to => "pages#afiliados", :as => "afiliados"
-  match "/devolucoes", :to => "pages#return_policy", :as => "return_policy"
-  match "/privacidade", :to => "pages#privacy", :as => "privacy"
+  match "/afiliados", :to => "pages#faq", :as => "afiliados"
+  match "/devolucoes", :to => "pages#faq", :as => "return_policy"
+  match "/privacidade", :to => "pages#faq", :as => "privacy"
   match "/prazo-de-entrega", :to => "pages#delivery_time", :as => "delivery_time"
   match "/como-funciona", :to => "pages#how_to", :as => "how_to"
   match "/stylists/helena-linhares", :to => "stylists#helena_linhares", :as => "helena_linhares"
@@ -112,7 +114,9 @@ Olook::Application.routes.draw do
   match "/marcas/:brand(/*parameters)", :to => "brands#show", as: "brand"
 
   #NEW OLOOKLET
-  get "/olooklet-teste(/*parameters)" => "olooklet#index", :as => "olooklet"
+  get "/olooklet(/*parameters)" => "list_products/olooklet#index", :as => "olooklet"
+  get "/selecoes(/*parameters)" => "list_products/selections#index", :as => "selections"
+  get "/novidades(/*parameters)" => "list_products/newest_products#index", as: "newest"
 
   #NEW COLLECTIONS
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
@@ -136,29 +140,22 @@ Olook::Application.routes.draw do
   match "/triggit" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/triggit_data.xml")
   match "/sociomantic" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/sociomantic_data.xml")
   match "/nano_interactive" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/nano_interactive_data.xml")
-  match "/adroll" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/adroll_data.xml")
   match "/zanox" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/zanox_data.xml")
   match "/afilio" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/afilio_data.xml")
   match "/mt_performance" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/mt_performance_data.xml")
-  match "/click_a_porter" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/click_a_porter_data.xml")
   match "/netaffiliation" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/netaffiliation_data.xml")
-  match "/shopping_uol" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/shopping_uol_data.xml")
   match "/google_shopping" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/google_shopping_data.xml")
-  match "/struq" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/struq_data.xml")
-  match "/kuanto_kusta" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/kuanto_kusta_data.xml")
   match "/muccashop" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/muccashop_data.xml")
   match "/shopear" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/shopear_data.xml")
   match "/melt" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/melt_data.xml")
   match "/stylight" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/stylight_data.xml") 
+  match "/all_in" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/all_in_data.xml") 
   
   # template da ilove_ecommerce
   match "/parceirosmkt" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/parceirosmkt_data.xml") 
   match "/ilove_ecommerce" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/ilove_ecommerce_data.xml") 
   match "/paraiso_feminino" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/paraiso_feminino_data.xml") 
   
-  # Esquema antigo
-  match "/buscape", :to => "xml#buscape", :as => "buscape", :defaults => { :format => 'xml' }
-  match "/zoom", :to => "xml#zoom", :as => "zoom", :defaults => { :format => 'xml' }
 
   #SURVEY
   resource :survey, :only => [:new, :create], :path => 'quiz', :controller => :survey
@@ -218,6 +215,7 @@ Olook::Application.routes.draw do
     get "profiles/:name" => "profiles#show"
   end
 
+  resources :ping, :only => [:index]
   resources :shippings, :only => [:show]
   get '/shipping_updated_freight_table/:id' => 'shippings#show', defaults: {freight_service_ids: "4,5"}
 
@@ -411,6 +409,10 @@ Olook::Application.routes.draw do
     get "visibility_batch/export", as: :export_visibility_batch_to_csv
 
     post "visibility_batch/create", as: :create_visibility_batch
+    get "visibility_batch/commit", as: :commit_visibility_batch    
+    get "visibility_batch/confirmation", as: :confirmation_visibility_batch
+
+    resources :itineraries
   end
 
   #USER / SIGN IN
@@ -452,6 +454,7 @@ Olook::Application.routes.draw do
 
   #CHECKOUT
   resource :cart, :path => 'sacola', :controller => "cart/cart", :except => [:create] do
+    get 'i_want_freebie' => 'cart/cart#i_want_freebie', as: 'i_want_freebie'
     resources :items, :to => 'cart/items'
     resources :look_items, to: 'cart/look_items', only: [:create, :destroy]
   end
@@ -513,8 +516,8 @@ Olook::Application.routes.draw do
   get "/:id", to: "product#show", id: /[\w|-]*\d+/, as: "product_seo"
 
   # CATALOGO
-  match "/catalogo/:category(/*parameters)", to: "catalogs#show"
-  match "/:category(/*parameters)", to: "catalogs#show", as: "catalog", constraints: { category: /(?:sapato|roupa|acessorio|bolsa)/ }
+  match "/catalogo/:category(/*parameters)", to: "catalogs#index"
+  match "/:category(/*parameters)", to: "catalogs#index", as: "catalog", constraints: { category: /(?:sapato|roupa|acessorio|bolsa)/ }
 
   get '*custom_url' => 'custom_url#show'
 

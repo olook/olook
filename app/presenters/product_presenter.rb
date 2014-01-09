@@ -17,7 +17,7 @@ class ProductPresenter < BasePresenter
   end
 
   def render_look_products
-    h.render :partial => 'product/look_products', :locals => {:look_products => look_products, :product_presenter => self} if look_products.size > 1 
+    h.render :partial => 'product/look_products', :locals => {:look_products => look_products, :product_presenter => self, :complete_look_discount => complete_look_discount} if look_products.size > 1 && product.inventory > 0 && product.has_more_than_half_look_products_available?
   end
 
   def render_description(show_facebook_button = true)
@@ -125,8 +125,12 @@ class ProductPresenter < BasePresenter
 
   def render_price_for product_discount_service
     product_discount_service.calculate
-    return price_markdown(product_discount_service) if product_discount_service.discount > 0
-    return price_markup(product_discount_service.final_price, "price")
+    
+    if product_discount_service.discount > 0 && !product_discount_service.fixed_value_discount?
+      price_markdown(product_discount_service)
+    else
+      return price_markup(product_discount_service.base_price, "price")
+    end
   end
 
   def is_promotion?
@@ -156,5 +160,18 @@ class ProductPresenter < BasePresenter
 
     def variants_sorted_by_size
       product.variants.sort{|first, second| SIZES_TABLE[first.description].to_i <=> SIZES_TABLE[second.description].to_i }
+    end
+
+    def complete_look_discount
+      discount_hash = nil
+      begin
+        complete_look_promotion = Promotion.find(Setting.complete_look_promotion_id)
+        filters = complete_look_promotion.action_parameter.action_params
+        discount = complete_look_promotion.action_parameter.promotion_action.desc_value filters
+        discount_hash = {value: discount.gsub(/(R\$ |\%)/,""), is_percentage: discount.match(/(R\$ )/).blank? }
+      rescue
+        discount_hash = {}
+      end
+      discount_hash
     end
 end

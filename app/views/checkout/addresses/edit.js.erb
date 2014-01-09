@@ -6,19 +6,18 @@ masks.tel(".tel_contato1");
 masks.tel(".tel_contato2");
 
 <% freight = freight_for(@address) %>
-
 $("#freight_price").hide();
-$("#freight_price").html("<%= number_to_currency(freight[:price]) %>");
+$("#freight_price").html("<%= number_to_currency(freight.fetch(:default_shipping)[:price]) %>");
 $("#freight_price").delay(200).fadeIn();
 
 $("#delivery_time").hide();
-$("#delivery_time").html("<%= delivery_time_message(freight[:delivery_time]) %>");
+$("#delivery_time").html("<%= delivery_time_message(freight.fetch(:default_shipping)[:delivery_time]) %>");
 $("#delivery_time").delay(200).fadeIn();
 
 $("#total").hide();
-$("#total").html("<%= number_to_currency(total_with_freight(freight[:price])) %>");
+$("#total").html("<%= number_to_currency(total_with_freight(freight.fetch(:default_shipping)[:price])) %>");
 $("#total_billet").hide();
-$("#total_billet").html("<%= number_to_currency(total_with_freight(freight[:price], Billet.new)) %>");
+$("#total_billet").html("<%= number_to_currency(total_with_freight(freight.fetch(:default_shipping)[:price], Billet.new)) %>");
 
 
 if($("#checkout_payment_method_billet").is(":checked"))

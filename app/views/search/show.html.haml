@@ -1,5 +1,7 @@
 - content_for :head do
   = stylesheet_link_tag "new_structure/section/search"
+- content_for :footer do
+  = javascript_include_tag "section/load_thumbnail_images"
 .search
   = first_level_breadcrumb "Busca"
   - if @search.products.size == 0
@@ -45,4 +47,3 @@
   = render "home/stylists"
 = render "home/boxes"
 = render "home/products_categories"
-

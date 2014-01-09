@@ -49,7 +49,3 @@ $("#coupon_discount").empty();
 <% if @cart.has_coupon? %>
   $("#coupon_discount").html("<%= @cart.coupon.code %>");
 <% end %>
-
-
-
-

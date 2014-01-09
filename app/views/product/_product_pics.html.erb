@@ -1,12 +1,12 @@
 <ul id="thumbs">
   <% @product.pictures.order(:position).each do |picture| %>
     <%- @first_pic_id ||= picture.id -%>
-    <li><%= link_to image_tag(picture.image_url(:thumb).to_s), "javascript:void(0);", :rel => "product_#{picture.id}", :class=>"load-async-#{picture.id}" %></li>
+    <li><%= link_to image_tag("#{picture.image_url(:thumb).to_s}"), "javascript:void(0);", :rel => "product_#{picture.id}", :class=>"load-async-#{picture.id}" %></li>
   <% end %>
-    <% if belongs_to_p_and_b_collection? @product.id %>
+    <% unless @product.youtube_token.blank? %>
       <li class="vwo_1378925044720">
-        <a href="javascript:void(0);" onclick="javascript:initBase.newModal(initBase.youtubePlayer('YkBgFKanVgQ'));" rel= "product_<%= @first_pic_id %>" class="load-async-<%= @first_pic_id %>" >
-          <img alt="Thumb_image-315f3051a45c2d84e537b23bbf109d89559513775f7caabd1f7bea528ff0a36c." src="//useruploads.visualwebsiteoptimizer.com/useruploads/17517/images/84b46068a48e588ee947f39ce6998a69_modal_video.jpg" class="vwo_1378925047103">
+        <a href="javascript:void(0);" onclick="<%= track_event("Product", "ClickVideo", @product.id.to_s) %>;javascript:olook.videoModalBuild(olook.youtubePlayer(olook.youtubeParser('<%= @product.youtube_token %>')));" rel= "product_<%= @first_pic_id %>" class="load-async-<%= @first_pic_id %>" >
+          <%= image_tag("product/bt-modal-video.jpg", class: "vwo_1378925047103") %>
         </a>
       </li>
     <% end %>
@@ -17,11 +17,12 @@
     <p class="warn percentage"><span><%= @product.discount_percent.to_i %>%</span><br />off</p>
   <% end %>
   <% if product_presenter.show_quantity_left? %>
-    <p class="warn quantity">Só<br />mais<br /><span><%= "#{(current_user.shoes_size.nil?) ? '' : @product.quantity( current_user.shoes_size )}" %></span></p>
+    <p class="warn quantity">Só<span class="more">mais</span><span><%= "#{(current_user.shoes_size.nil?) ? '' : @product.quantity( current_user.shoes_size )}" %></span></p>
   <% end %>
   <ul>
-    <% @product.pictures.order(:position).each do |picture| %>
-      <li class=<%= "product_#{picture.id}" %>><%= link_to(image_tag("#{picture.image_url(:main).to_s}", :class => "full"), picture.image_url(:zoom_out).to_s, :rel => "product_#{picture.id}", :class => "image_zoom") %></li>
+    <% @product.pictures.order(:position).each_with_index do |picture, index| %>
+      <% class_name = index == 0 ? 'thumb-first' : 'thumb' %>
+      <li class=<%= "product_#{picture.id}" %> ><%= link_to(image_tag("common/ajax-loader.gif", alt: "#{@product.name}", :class => "#{class_name} full", 'data-product' => "#{picture.image_url(:main).to_s}"), picture.image_url(:zoom_out).to_s, :rel => "product_#{picture.id}", :class => "image_zoom") %></li>
     <% end %>
   </ul>
 </div>

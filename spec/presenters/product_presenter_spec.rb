@@ -3,7 +3,7 @@ require "spec_helper"
 
 describe ProductPresenter do
   include ActionView::TestCase::Behavior
-  let(:product) { FactoryGirl.create(:shoe, :casual) }
+  let(:product) { FactoryGirl.create(:shoe, :casual, :in_stock) }
   let(:member) { double :user }
   let(:facebook_app_id) { double :facebook_app_id }
   let(:template) { double :template }
@@ -47,14 +47,16 @@ describe ProductPresenter do
   end
 
   describe '#render_look_products' do
-    let(:second_shoe) { FactoryGirl.create(:red_slipper, collection_id: 1) }
-    let(:third_shoe) { FactoryGirl.create(:silver_slipper, collection_id: 1) }
+    context "when all products have sufficient inventory" do
+      let(:second_shoe) { FactoryGirl.create(:red_slipper, :in_stock, collection_id: 1) }
+      let(:third_shoe) { FactoryGirl.create(:silver_slipper, :in_stock, collection_id: 1) }
 
-    it "should render the partial with product's related products" do
-      products = [second_shoe, third_shoe]
-      subject.stub(:look_products).and_return(products)
-      template.should_receive(:render).with(:partial => 'product/look_products', :locals => {:look_products => products, :product_presenter => subject}).and_return('related')
-      subject.render_look_products.should == 'related'
+      it "should render the partial with all product's related products" do
+        products = [second_shoe, third_shoe]
+        subject.stub(:look_products).and_return(products)
+        template.should_receive(:render).with(:partial => 'product/look_products', :locals => {:look_products => products, :product_presenter => subject, :complete_look_discount => {}}).and_return('related')
+        subject.render_look_products.should == 'related'
+      end
     end
   end
 
@@ -184,14 +186,15 @@ describe ProductPresenter do
     subject { described_class.new view, :product => product, :member => member, :facebook_app_id => facebook_app_id }
     let(:product_discount_service) { double('product_discount_service')}
     before do
-      product_discount_service.stub(base_price: 100, final_price: 100, calculate: nil)
+      product_discount_service.stub(base_price: 100, final_price: 100, calculate: nil, 'fixed_value_discount?' => false)
     end
 
     context "when product has discount" do
       before do
         product_discount_service.stub(discount: 10)
+        product_discount_service.stub(:fixed_value_discount?)
       end
-      it { expect(subject.render_price_for product_discount_service).to include("de: ") }
+      it { expect(subject.render_price_for(product_discount_service)).to include("de: ") }
       it { expect(subject.render_price_for product_discount_service).to include("por: ") }
     end
 

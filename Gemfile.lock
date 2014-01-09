@@ -191,6 +191,7 @@ GEM
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
     curb (0.8.3)
+    daemon_controller (1.1.7)
     daemons (1.1.9)
     dalli (2.0.2)
     database_cleaner (0.9.1)
@@ -345,6 +346,10 @@ GEM
     paper_trail (2.7.1)
       activerecord (~> 3.0)
       railties (~> 3.0)
+    passenger (4.0.24)
+      daemon_controller (>= 1.1.0)
+      rack
+      rake (>= 0.8.1)
     png_quantizator (0.1.0)
     poltergeist (1.1.2)
       capybara (~> 2.0.1)
@@ -613,6 +618,7 @@ DEPENDENCIES
   omniauth-facebook
   open4
   paper_trail (~> 2)
+  passenger
   piet!
   poltergeist
   pry

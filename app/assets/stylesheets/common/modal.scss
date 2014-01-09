@@ -1,3 +1,4 @@
+@import 'new_structure/common/global_stuffs';
 html {
   overflow-x: hidden;
 
@@ -87,7 +88,7 @@ html {
 }
 
 div#modal {
-  background: #FFF;
+  background: #FFF !important;
   border: 1px #000 solid;
   padding: 0;
   display: none;
@@ -97,7 +98,7 @@ div#modal {
     z-index:10001;
     border:none;
 
-    .close{display:block;position: absolute; background:image-url("campaign_emails/sprite2.png") -286px -102px no-repeat; width: 25px; margin: -12px 0 0 0; right: -10px; padding: 0; height: 20px; z-index: 10002;text-indent:-9999em;border:none;cursor:pointer;top: 0;}
+    .close{display:block;position: absolute; background:image-url("campaign_emails/close_bt.png")no-repeat; width: 25px; margin: -12px 0 0 0; right: -10px; padding: 0; height: 20px; z-index: 10002;text-indent:-9999em;border:none;cursor:pointer;top: 0;}
   }
   div.video_description {
     background: #FFF;
@@ -117,11 +118,14 @@ div#modal {
       line-height: 45px;
       float: right;
       &.home {
-        background: image-url("common/bt-lightbox-quiz.jpg") no-repeat;
-        text-indent: -9999px;
         width: 233px;
-        height: 57px;
+        height: 37px;
         display: block;
+        padding-top: 20px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 15px;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
       }
       &:focus {
         outline: none;

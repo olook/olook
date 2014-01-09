@@ -28,14 +28,14 @@ update_ses_info:
   queue: ses
   description: "Atualiza a tabela ses com as informações "
 
-update_inventory:
-  cron: "*/5 * * * *"
-  class: Abacos::UpdateInventory
-  queue: inventory
-  description: "Atualiza o Inventario"
+# update_inventory:
+#   cron: "*/5 * * * *"
+#   class: Abacos::UpdateInventory
+#   queue: inventory
+#   description: "Atualiza o Inventario"
 
 update_order_status:
-  cron: "*/5 * * * *"
+  cron: "*/30 * * * *"
   class: Abacos::UpdateOrderStatus
   queue: order_status
   description: "Atualiza o status dos Pedidos"

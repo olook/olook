@@ -1,3 +1,7 @@
+<% if @freebie %>
+  $('.freebie').replaceWith('<%= j render('freebie/item', freebie: @freebie) %>');
+  if(olook.checkFreebie) olook.checkFreebie();
+<% end %>
 $("#total_value").html("<%= number_to_currency(@cart_calculator.items_total) %>");
 $("#subtotal_parcial").html("<%= number_to_currency(@cart_calculator.items_subtotal) %>");
 
@@ -92,4 +96,10 @@ select_options.empty();
     "<%= escape_javascript(render(:partial => 'facebook_share_discount')) %>"
   );
 <% end %>
+
+<% if @coupon_value %>
+  $('#coupon_discount_value').text('<%= number_to_currency(@coupon_value) %>');
+<% end %>
+
 showTotal();
+

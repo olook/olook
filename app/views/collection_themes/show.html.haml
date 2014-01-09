@@ -6,6 +6,7 @@
 
 - content_for :footer do
   = javascript_include_tag 'section/lite_collection_theme'
+  = javascript_include_tag "section/load_thumbnail_images"  
 
 = cache @cache_key, expire_in: 30.minutes do
   = collection_theme_breadcrumbs_for(@collection_theme.first) if @collection_theme.any?
@@ -15,7 +16,7 @@
       .collections_header
         - if @collection_theme = @collection_theme.first
           = image_tag @collection_theme.header_image, alt: @collection_theme.header_image_alt, title: @collection_theme.header_image_alt
-          = link_to("Assista ao vídeo >", "#",                                                                                                         |
+          = link_to(">> Assista ao vídeo", "#",                                                                                                         |
             { :class => "video_link", :rel => "#{@collection_theme.video_link}" }.                                                                     |
             merge(@collection_theme.text_color ? { style: "color: #{@collection_theme.text_color}" } : {})) unless @collection_theme.video_link.blank? |
           .video_description

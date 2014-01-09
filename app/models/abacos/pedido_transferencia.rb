@@ -3,7 +3,7 @@ module Abacos
 
     def parsed_data
       result = super
-      result['ListaDePedidos']['DadosPedidos']['ComercializacaoOutrasSaidas'] = 7
+      result['ListaDePedidos']['DadosPedidos']['ComercializacaoOutrasSaidas'] = 55
       result
     end
   

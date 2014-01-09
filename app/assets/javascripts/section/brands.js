@@ -2,6 +2,7 @@
 //= require plugins/slider
 //= require plugins/spy
 //= require plugins/change_picture_onhover
+
 var brands = {} || null;
 brands = {
   init: function(){
@@ -10,7 +11,7 @@ brands = {
     olook.slider('#slider-range', start_position, final_position);
     olook.customSelect('.filter select');
     olook.spy('p.spy');
-    olook.changePictureOnhover('img.async');
+    olook.changePictureOnhover('.async');
     brands.showSelectUl();
     brands.hideSelectUlOnBodyClick();
   },

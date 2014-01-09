@@ -42,6 +42,7 @@ describe CartItem do
       context "cart_item without adjustment" do
         it "returns full price" do
           cart_item.product.master_variant.update_attribute(:retail_price, "100.00")
+          cart_item.reload
           cart_item.retail_price.to_s.should eq("100.0")
         end
       end

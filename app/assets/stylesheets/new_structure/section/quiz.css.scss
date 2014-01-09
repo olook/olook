@@ -249,7 +249,6 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
 .end_quiz_button{
   width: 319px;
   height: 60px;
-  text-indent: 9999px;
   z-index: 9999;
   border: none;
   position: absolute;
@@ -257,52 +256,50 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
   top: 500px;
   cursor: pointer;
   display:none;
+  font-size: 17px;
+  text-align: center;
+  letter-spacing: 2px;
   &.enable{
-    background: image-url('quiz/bt_end.png') no-repeat 0 0;
-    &:hover{
-      background: image-url('quiz/bt_end.png') no-repeat 0 -63px;
-    }
+    @include bt_color($primary_bt_color, $primary_bt_color_hover);
   }
   &.disable{
-    background: image-url('quiz/bt-disable.jpg') no-repeat 0 0;
+    @include bt_color($terciary_bt_color, $terciary_bt_color_hover);
   }
 }
 ul.tryquiz{
   width: 576px;
   float: left;
   margin-left: 205px;
+  margin-bottom: 20px;
   li{
     float: left;
     a{
+      font-family: $bt_font;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      text-align: center;
+      font-size: 17px;
+      padding-top: 20px;
+      letter-spacing: 2px;
       &.me{
         width: 222px;
-        height: 58px;
-        text-indent: -9999px;
-        background: image-url('quiz/bt-try.png') no-repeat 0 0;
-        border: none;
-        cursor: pointer;
+        height: 38px;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
         display: block;
         float: left;
         margin-right: 44px;
-      &:hover{
-        background: image-url('quiz/bt-try.png') no-repeat 0 -60px;
       }
-    }
     &.again{
       width: 305px;
-      height: 58px;
-      text-indent: -9999px;
-      background: image-url('quiz/bt-try.png') no-repeat 0 -125px;
-      border: none;
-      cursor: pointer;
+      height: 38px;
       display: block;
       float: left;
-      &:hover{
-        background: image-url('quiz/bt-try.png') no-repeat 0 -185px;
+      @include bt_color($terciary_bt_color, $terciary_bt_color_hover);
       }
     }
-  }
-
   }
 }
 
@@ -582,14 +579,14 @@ ul.tryquiz{
 
     input[type=submit]{
       border: none;
-      background: image-url('quiz/bt_join.png') no-repeat 0 0;
-      text-indent: -9999px;
       width: 319px;
       height: 60px;
       margin-top: 22px;
-      &:hover{
-        background: image-url('quiz/bt_join.png') no-repeat 0 -65px;
-      }
+      letter-spacing: 2px;
+      text-align: center;
+      font-size: 17px;
+      text-transform: uppercase;
+      @include bt_color($primary_bt_color, $primary_bt_color_hover);
     }
     a.fb_login_button {
       background: image-url('quiz/fb.jpg') no-repeat;
@@ -705,13 +702,15 @@ div.field{
 }
 form.login{
   input[type=submit] {
-    background: image-url('common/login.png') no-repeat;
-    text-indent: -9999px;
     width: 74px;
     height: 31px;
     display: block;
     border: none;
     cursor: pointer;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    @include bt_color($primary_bt_color, $primary_bt_color_hover);
   }
 }
 

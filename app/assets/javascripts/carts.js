@@ -1,5 +1,6 @@
 //= require ./partials/_credits_info
 //= require plugins/spy
+//= require plugins/check_freebie
 $(function() {
   showInfoCredits();
   olook.spy('.cart_item[data-url]');
@@ -102,10 +103,11 @@ $(function() {
 
   showGiftPackageModal();
   showCreditPackageModal();
+  showSmellPackageModal();
 });
 
 function showGiftPackageModal(){
-   content = $(".modal_gift");
+   var content = $(".modal_gift");
    $("a.txt-conheca").bind("click", function(e){
       initBase.newModal(content);
       e.preventDefault();
@@ -117,6 +119,16 @@ function showGiftPackageModal(){
 function showCreditPackageModal(){
    content = $(".modal_credit");
    $("a.txt-credito").bind("click", function(e){
+      initBase.newModal(content);
+      e.preventDefault();
+      e.stopPropagation();
+   })
+
+}
+
+function showSmellPackageModal(){
+   var content = $(".modal_smell");
+   $("a.seeTheSmell").bind("click", function(e){
       initBase.newModal(content);
       e.preventDefault();
       e.stopPropagation();

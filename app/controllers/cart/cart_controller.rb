@@ -18,6 +18,7 @@ class Cart::CartController < ApplicationController
     if @cart.coupon_id && Promotion.select_promotion_for(@cart)
       @promo_over_coupon = true
     end
+    @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
   end
 
   def destroy
@@ -37,18 +38,28 @@ class Cart::CartController < ApplicationController
   end
 
   def update
-    if Promotion.select_promotion_for(@cart)
-      params[:cart].delete(:coupon_code)
-      render :error, :locals => { :notice => "Os descontos não são acumulativos, Você não pode usar um cupom em uma promoção do site, por exemplo" }
-    end
-
     @cart.update_attributes(params[:cart])
     if @cart.errors.any?
       notice_message = @cart.errors.messages.values.flatten.first
       render :error, :locals => { :notice => notice_message }
     end
+
     @cart.reload
     @cart_calculator = CartProfit::CartCalculator.new(@cart)
+
+    #
+    # Isto é feio, muito feio. Juro que volto aqui para refatorar
+    #
+    if @cart.coupon && @cart.coupon.promotion_action.is_a?(ValueAdjustment)
+      @coupon_value = @cart.coupon.action_parameter.action_params[:param]
+    end
+
+    @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
+  end
+
+  def i_want_freebie
+    Freebie.save_selection_for(@cart.id, params[:i_want_freebie])
+    render text: 'OK'
   end
 
   private

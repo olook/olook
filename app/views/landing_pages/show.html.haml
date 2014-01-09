@@ -5,7 +5,7 @@
 %section.landing-content
   .registration-form
     %h1 Descubra seu estilo
-    %h2 RESPONDA AO STYLE QUIZ E RECEBA SUGESTÕES DE NOSSAS STYLISTS
+    %h2 Responda ao style quiz e receba sugestões de nossas stylists
     - campaign_email = CampaignEmail.new
     - if params[:ab_t].present?
       .error{style: "display:none;"}
@@ -13,7 +13,7 @@
       = form_for campaign_email, :method => :post do |f|
         = f.text_field :email, value:"Informe seu email aqui", class: "email", onclick: "_gaq.push(['_trackEvent', 'CadastroQuiz', 'ClickForm', ''])"
         = hidden_field_tag :ab_t, true
-        = f.submit "", class: "bt-enviar", onclick: "_gaq.push(['_trackEvent', 'CadastroQuiz', 'StartQuiz', ''])"
+        = f.submit "RESPONDER AO QUIZ", class: "bt-enviar", onclick: "_gaq.push(['_trackEvent', 'CadastroQuiz', 'StartQuiz', ''])"
     - else
       = link_to wysquiz_path, :class => "action", :title => 'Comece agora!', :style => 'top:340px;left:584px;' do
         = image_tag 'landing_page/g_quiz.jpg', :alt => 'Comece agora!',  data_src: image_path('landing_page/g_quiz_h.jpg')

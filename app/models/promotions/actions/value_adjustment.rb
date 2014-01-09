@@ -12,22 +12,39 @@ class ValueAdjustment < PromotionAction
 
   def desc_value(filters, opts={})
     value = filters.delete('param')
-    "R$#{value.to_i}"
+    "R$ #{value.to_i}"
   end
 
   def calculate(cart_items, filters)
-    _filters = filters
-    value = _filters.delete('param')
+    _filters = filters.dup
+    value = BigDecimal(_filters['param'])
     calculated_values = []
     eligible_items = filter_items(cart_items, _filters)
-    adjustment = BigDecimal(value) / eligible_items.size
+    if _filters['full_price'] == '2'
+      if !eligible_items.find { |item| item.product.retail_price == item.product.price }
+        markdown_discount = eligible_items.inject(0) { |sum, item| sum + item.product.price - item.retail_price }
+        eligible_items.reject! { |item| item.product.price != item.product.retail_price } if markdown_discount > value
+      end
+    end
+    
+    cart_total = eligible_items.inject(0) {|total, item| total += item.retail_price * item.quantity}
+
+
     eligible_items.each do |item|
+      adjustment = calculate_adjustment_value_for(value, cart_total, item.retail_price * item.quantity)
       calculated_values << {
         id: item.id,
         product_id: item.product.id,
         adjustment: adjustment
       }
     end
+
     calculated_values
   end
+
+  private
+    def calculate_adjustment_value_for value, cart_total, current_item_value=0
+      calculated_adjustment = value / cart_total * current_item_value
+      [calculated_adjustment.round(2), current_item_value].min
+    end
 end
