@@ -37,21 +37,7 @@ _gaq.push(['_addTrans',
   </div>
 
   <h1><span class="icon"></span>Minha sacola <span class="total_itens">(<%= @cart.try(:items_total).to_i %> itens)</span></h1>
-  <% unless @cart.facebook_share_discount? || @cart.items.size == 0 %>
-      <div id="facebook-share">
-         <p>Que tal ganhar <span>2%</span> de desconto nesta compra?</p>
-          <%= link_to 'Compartilhar', cart_path, data: {cart_id:  @cart.id }, id: "facebook_share", remote: true , :class => "share", :"data-width" => 128, :"data-height" => 24 %>
-            <p class="share-text">Compartilhe e veja o desconto na sua sacola. :)</p>
-      </div>
-
-  <% end %>
-  <div class="checkout_option_top">
-    <% if current_user %>
-      <%= link_to "Continuar", new_checkout_path, :class => "continue"  %>
-    <% else %>
-      <%= link_to "Continuar", checkout_login_index_path, :class => "continue"  %>
-    <% end %>
-  </div>
+  
 
   <%= content_tag :div, class: 'warning-msg', style: "display:#{@promo_over_coupon ? 'block' : 'none'};" do %>
     <%= image_tag 'cart/warning_coupon.png', :class => '' %>
@@ -107,18 +93,7 @@ _gaq.push(['_addTrans',
           <td class="icon-credits"></td>
           <td class="check_column">
             <%= form_for(@cart, :remote => true, html: { :id => "use_credit_form" }) do |f| %>
-              <%= f.check_box('use_credits', :checked => @cart.use_credits) %>
-              Quero usar meus créditos <a href="#" target="_blank" class="txt-credito">Mais sobre meus créditos</a>
-              <p>Você acumulou créditos que podem ser utilizados nesta compra.</p>
-              <% if total_user_credits > @cart_service.total %>
-                <p>O valor do seu saldo é superior ao valor do pedido e você receberá a diferença em créditos</p>
-              <% elsif @cart_service.total == total_user_credits %>
-                <p>O valor do seu pedido é o mesmo que o seu saldo. Você pagará apenas o custo de envio (dependendo da localidade)</p>
-              <% else %>
-                <% if @cart.items.count > 0 %>
-                  <p>O valor do seu pedido é superior ao seu saldo e você deverá pagar a diferença</p>
-                <% end %>
-              <% end %>
+              Você pode utilizar seus créditos na etapa de pagamento <a href="#" target="_blank" class="txt-credito">Mais sobre meus créditos</a>
             <% end %>
             <div class="modal_credit">
                <h1>SOBRE OS SEUS CRÉDITOS</h1>
@@ -152,32 +127,11 @@ _gaq.push(['_addTrans',
     </table>
   <% end %>
 
-  <table cellpadding="0" cellspacing="0" id="total">
-    <tbody>
-    <tr id="coupon_info" <%= "style=display:none;" unless @cart.coupon %> >
-      <td>
-        Cupom Promocional
-      </td>
-      <td>
-        <p id="coupon_discount">
-          <%= @cart.coupon.try(:code) %>
-        </p>
-      </td>
-      <td class="value discount">
-        <%= form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f| %>
-          <fieldset class="inputs">
-          <ol>
-            <li>
-            <%= f.hidden_field('coupon_code', :value => nil) %>
-            <%= f.submit "Excluir" %>
-            </li>
-          </ol>
-        </fieldset>
-      <% end %>
-      </td>
-    </tr>
-    <tr class="total">
-      <td>
+  
+
+  <table cellpadding="0" cellspacing="0" id="cart_subtotal">
+    <tr>
+      <td width="730">
         <table id="coupon" cellpadding="0" cellspacing="0" style="<%= @cart.coupon ? 'display:none;' : 'display:block;' %>">
           <tbody>
           <tr class="discount">
@@ -202,32 +156,31 @@ _gaq.push(['_addTrans',
           </tr>
           </tbody>
         </table>
-      </td>
-      
-    </tr>
-    </tbody>
-  </table>
-
-  <table cellpadding="0" cellspacing="0" id="cart_subtotal">
-    <tr>
-      <td width="730">
-        <div class="devolucao_credito"></div>
+        <table cellpadding="0" cellspacing="0" id="total" class="aplicarCupom">
+          <tbody>
+          <tr id="coupon_info" <%= "style=display:none;" unless @cart.coupon %> >
+            <td class="tituloCupom">
+              Cupom aplicado:
+            </td>
+            <td class="nomeCupom">
+              <p id="coupon_discount">
+                <%= @cart.coupon.try(:code) %>
+                
+              </p>
+              <%= form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f| %>                  
+                <%= f.hidden_field('coupon_code', :value => nil) %>
+                <%= f.submit "Excluir cupom", :class => 'excluirCupom' %>
+              <% end %>
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </td>
       <td class="title_subtotal">Subtotal</td>
       <td class="value_subtotal" id="subtotal_parcial"><%= number_to_currency(@cart_calculator.items_subtotal) %></td>
     </tr>
     <tr>
-      <td>
-        <div class="dica_olook_quando">
-          <span class="icon_dica_olook"></span>
-          Toda vez que você vir essa lâmpada, vem <strong>dica boa</strong> por aí! Fique ligado! =)
-        </div>
-        <div class="dica_olook">
-          <span class="dica">
-            Você ganhará <span id="amount_for_loyalty_program"><%=  number_to_currency @cart_service.amount_for_loyalty_program %></span> de desconto em sua próxima compra. <%= link_to "Saiba mais", "#", :class => "open_loyalty_lightbox" %>
-          </span>
-        </div>
-      </td>
+      <td></td>
       <td class="title_subtotal title_total">Total</td>
       <td class="value_subtotal value_total" id="total_value"><%= number_to_currency(@cart_calculator.items_total) %></td>
     </tr>
@@ -274,7 +227,7 @@ _gaq.push(['_addTrans',
       <% end %>
     </section>
 
-    <table id="coupon" cellpadding="0" cellspacing="0" class="items_list">
+    <table cellpadding="0" cellspacing="0" class="items_list">
       <tbody>
         <tr>
           <td class="buy-link">

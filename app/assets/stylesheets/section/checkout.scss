@@ -143,7 +143,7 @@ table.check {
      tr {
        td {
 					/*&.check_column{width:870px;}*/
-          &.icon-gift, &.icon-credits {width:50px; height:20px;background: image-url('cart/sprite.png') no-repeat -677px -80px;}
+          &.icon-gift, &.icon-credits {width:50px; height:20px;background: image-url('cart/sprite.png') no-repeat -677px -80px;position: relative;left:22px;}
           &.icon-credits {background: image-url('cart/sprite.png') no-repeat -742px -80px;}
          vertical-align: middle;
          padding: 10px 0;
@@ -157,13 +157,20 @@ table.check {
             vertical-align: top;
             width: 120px;
          }
+         form#use_credit_form {
+          padding-left:26px;
+          position: relative;
+          top:-4px;
+         }
          input[type="checkbox"] {
            /*margin: 0 17px 0 5px;*/
            float: left;
            margin: 0 12px 0 1px;
            position: relative;
            top: 2px;
+           left:-50px;
          }
+         input.use_credits{display:none;}
          h1 {
            color: #000;
            font-family: $avenir;
@@ -231,6 +238,7 @@ section#cart {
 		float:left;
     padding-top: 20px;
     width:220px;
+    margin-bottom:20px;
     span.icon {
       background:image-url('cart/sprite.png') no-repeat -567px -70px;
       width:25px;
@@ -401,7 +409,7 @@ section#cart {
     }
   }
 
-  table.items_list, table.check, table#total {
+  table.items_list, table.check {
     width: 968px !important;
     table-layout: fixed;
   }
@@ -427,7 +435,7 @@ section#cart {
     tr td.column1, tr td.column2, tr td.column3 {border-bottom:1px solid #d1d3d4;
       p {font-size: 13px !important;}
       p span {font-size: 15px !important;}
-      .delete-item {padding-left:25px !important;}
+      .delete-item {padding-left:25px !important;width:100px;}
     }
     tr td.column1, tr td.column2 {border-right:1px solid #d1d3d4;}
     tr td.column2 tr td {text-align: center;}
@@ -450,9 +458,7 @@ section#cart {
 		&.avc-pulseira{
 				margin:35px 0;
 				padding-top:60px;
-        border-right:1px solid #d1d1d1;
-        border-left:1px solid #d1d1d1;
-        border-bottom:1px solid #d1d1d1;
+        border:1px solid #d1d1d1;
 				position:relative;
 			td{padding:10px 0 20px !important;
 				.txt-recomenda{
@@ -461,11 +467,11 @@ section#cart {
           top: 0px;
           width: 97%;
           text-align: left;
-          background: #f03646;
+          background: #E7E7E9;
           left: 0px;
           padding: 1.5%;
           font-weight: bold;
-          color: #FFF;
+          color: #000;
         }
 			}
 		}
@@ -747,17 +753,21 @@ section#cart {
   table#total {
     margin: 0;
 		width:100%;
+    position: relative;
+    top:22px;
+    width:600px;
     tbody {
       tr {
         td {
           color: #000;
-          font-family: $avenir;
-          font-size: 18px;
+          font-size: 15px;
           vertical-align: middle;
+          color: #EE3640;
           &.discount{float:right;margin-right:20px;
             p#coupon_discount{float:left;width:100px;margin:0;}
             form.edit_cart{float:left;}
           }
+
           &.value {
             padding-top: 24px;
 
@@ -792,12 +802,47 @@ section#cart {
             }
           }
         }
+        .tituloCupom {
+          text-align: right;
+          width:130px;
+          padding-right:5px;
+        }
+        .nomeCupom {
+          font-weight: bold;
+          p {
+            float:left;
+          }
+        }
+        .excluirCupom {
+          margin:0px !important;
+          padding-top:0px !important;
+          float:none !important;
+          border:1px solid #F4323B!important;
+          padding:6px !important;
+          color: #000 !important;
+          text-decoration: none !important;
+          margin-left:10px !important;
+          cursor: pointer;
+          background: image-url('common/sprite_modal_footer.png') -128px 2px #F7989E no-repeat !important;
+          padding-left: 26px !important;
+          position: relative;
+          top:-3px;
+        }
       }
     }
   }
 
+  table.aplicarCupom {
+    position: relative;
+    left:190px;
+    width:500px;
+  }
+
   table#coupon {
 		width:550px;
+    position: relative;
+    top:20px;
+    left:110px;
     tr {
       td {
 
