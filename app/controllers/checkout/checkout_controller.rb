@@ -50,7 +50,8 @@ class Checkout::CheckoutController < Checkout::BaseController
   private
 
     def shipping_freights
-      FreightCalculator.freight_for_zip(@checkout.address.zip_code,@cart_service.subtotal)
+      subtotal = @cart_service.subtotal > 0 ? @cart_service.subtotal : 1
+      FreightCalculator.freight_for_zip(@checkout.address.zip_code, subtotal)
     end
 
     def error_message_for response, payment

@@ -11,7 +11,7 @@ brands = {
     olook.slider('#slider-range', start_position, final_position);
     olook.customSelect('.filter select');
     olook.spy('p.spy');
-    olook.changePictureOnhover('img.async');
+    olook.changePictureOnhover('.async');
     brands.showSelectUl();
     brands.hideSelectUlOnBodyClick();
   },
