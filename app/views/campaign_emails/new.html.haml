@@ -1,6 +1,6 @@
 .box-cadastro{ class: "campaign_modal_#{@campaign_text}" }
   - if @campaign_text.to_i == 8
-    =image_tag("campaign_emails/mari_modal.jpg")
+    =image_tag("campaign_emails/fotinho_modal.jpg")
     %div.content
       %p.big_titulo.promo_new
         ainda não
@@ -35,7 +35,7 @@
 
 
   - elsif @campaign_text.to_i == 7
-    =image_tag("campaign_emails/mari_modal.jpg")
+    =image_tag("campaign_emails/fotinho_modal.jpg")
     %div.content
       %p.big_titulo 
         ainda não
@@ -104,7 +104,7 @@
             03/10/2013 ou enquanto durar o estoque 
         = link_to 'Aproveite', '/sapato', :class => "enjoy", target: '_blank'
   - else
-    =image_tag("campaign_emails/mari_modal.jpg")
+    =image_tag("campaign_emails/fotinho_modal.jpg")
     %div.content
       = (render "campaign_text_#{@campaign_text}") rescue render 'campaign_text_1'
       %p.cadastre Cadastre-se e receba por e-mail novidades </br>sobre moda, tendências e promoções exclusivas
