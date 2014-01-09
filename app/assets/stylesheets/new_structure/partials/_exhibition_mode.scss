@@ -1,3 +1,4 @@
+@import 'new_structure/common/global_stuffs';
 .exhibition-mode{
   float:left;
   width:785px;
@@ -28,6 +29,7 @@
       background: image-url("collections/bullet_arrow.png") no-repeat right -1px;
       letter-spacing:1px;
       padding-right:30px;
+      font-family: arial;
     }
   }
   span.label {

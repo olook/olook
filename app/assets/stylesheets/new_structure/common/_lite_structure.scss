@@ -42,12 +42,22 @@ li{list-style-type:none;}
 /*------------------
 ====== HEADER ======
 ------------------*/
-a#go_top {position: fixed;background: image-url('common/arrow-go-top.png') no-repeat;text-indent: -99999px;width: 40px;height: 40px;right: 40px;bottom: 45%;z-index: 5;display: none;}
+a#go_top {position: fixed;background: image-url('common/nav/sprite_header.png') no-repeat -492px -153px;text-indent: -99999px;width: 40px;height: 40px;right: 40px;bottom: 45%;z-index: 5;display: none;}
 
 header#new_header{border-top: 2px black solid;
-  .new_content{height: 84px;padding-top:15px;width: 990px;margin: 0 auto;background: image-url('common/nowflakes.png') no-repeat center -4px;
-      .box_left{font-family: $avenir;font-size: 10px;color: #b4b5b7;float: left;margin-left:10px;
-        a.contact{text-decoration: none;color: #b4b5b7;
+  .new_content{height: 84px;padding-top:15px;width: 990px;margin: 0 auto;
+      .box_left{
+        font-family: $avenir;
+        font-size: 10px;
+        color: #101010;
+        float: left;
+        margin-left:10px;
+        p {
+          line-height: 14px;
+        }
+        a.contact{
+          text-decoration: none;
+          color: #101010;
             &:hover{color:$base_color;}
         }
         p{
@@ -109,7 +119,7 @@ header#new_header{border-top: 2px black solid;
               text-decoration: none;
               &#info_user {color:#000;padding-right: 10px;}
               &#account {
-                  background: image-url('common/arrow-down-pink.png') right 7px no-repeat;color: #000;text-align: left;width: auto;min-width: 70px;height: 17px;margin: -6px 0 0;padding: 5px 20px 5px 8px;display: inline-block;border: 1px #FFF solid;float: none;line-height:17px;
+                  background: image-url('common/nav/sprite_header.png') no-repeat 74px -219px;color: #000;text-align: left;width: auto;min-width: 70px;height: 17px;margin: -6px 0 0;padding: 5px 20px 5px 8px;display: inline-block;border: 1px #FFF solid;float: none;line-height:17px;
                   &:hover, &.hover {text-decoration: none;border-color: #CCC;box-shadow:0px 2px 5px #CCC;color: #ef3742;}
                 &:hover {color: #ef3742;}
               }
@@ -154,7 +164,17 @@ header#new_header{border-top: 2px black solid;
       			&.buttons{
     					label{font-weight:normal !important;width:103px;}
     					a{font-size:11px;float:left;}
-              input[type=submit]{background: image-url('common/login.png') no-repeat;text-indent: -9999px;width: 74px;height: 31px;display: block;border: none;cursor: pointer;}
+              input[type=submit]{
+                font-size: 10px;
+                @include bt_color($primary_bt_color, $primary_bt_color_hover);
+                font-weight: bold;
+                letter-spacing: 1px;
+                width: 74px;
+                height: 31px;
+                display: block;
+                border: none;
+                cursor: pointer;
+              }
               #user_remember_me_login{background:none;margin-right:5px;}  
     				}
           }
@@ -165,7 +185,7 @@ header#new_header{border-top: 2px black solid;
       }
       /*------ END BOX LOGIN -------*/
       
-      p.trade{background: image-url('common/trade_arrows.png') no-repeat top left;float:left;font-size:11px;color:#000;line-height:18px;margin-left: 10px;
+      p.trade{background: image-url('common/nav/sprite_header.png') no-repeat -10px -197px;float:left;font-size:11px;color:#000;line-height:18px;margin-left: 10px;
          a{text-decoration:none;color:#000;padding-left: 30px;
             &:hover{text-decoration:none; color: $base_color;}
          }
@@ -181,16 +201,16 @@ header#new_header{border-top: 2px black solid;
 /*------------------
 ====== FOOTER ======
 ------------------*/
-footer {height:480px;clear:both;margin-top:60px;border-top: 1px #cbcbcb solid;
+footer {height:550px;clear:both;margin-top:60px;border-top: 1px #cbcbcb solid;
   section {margin:0px auto;width:970px;padding-top:40px;
     div.box_newsletter {display: none;width: 100%;overflow: auto;margin: 0 0 20px;
       form {width: 650px;overflow: auto;margin: 0 50px 0 0;float: left;
         > * {float: left;}
         label {font-size: 17px;line-height: 38px;text-transform: uppercase;margin: 0 20px 0 0;}
-        input[type="text"] {color: #939598;font-family: $avenir;font-size: 13px;width: 150px;margin: 0 15px 0 0;padding: 9px 15px;border: 1px #959595 solid;
+        input[type="text"] {color: #939598;font-family: $arial;font-size: 13px;width: 150px;margin: 0 15px 0 0;padding: 9px 15px;border: 1px #959595 solid;
           &:focus {outline: none;}
         }
-        input[type="submit"] {background: image-url("home/bt-register.png") no-repeat;text-indent: -99999px;width: 122px;height: 33px;margin: 3px 0 0 0;display: block;border: none;cursor: pointer;}
+        input[type="submit"] {@include bt_color($primary_bt_color, $primary_bt_color_hover);letter-spacing: 2px; text-transform: uppercase;font-size: 14px; width: 122px;height: 33px;margin: 3px 0 0 0;display: block;border: none;cursor: pointer;}
         p {color: #6d6e71;clear: both;float: right;
           a {color: #6d6e71;text-decoration: none;
             &:hover {text-decoration: underline;}
@@ -199,42 +219,42 @@ footer {height:480px;clear:both;margin-top:60px;border-top: 1px #cbcbcb solid;
       }
       h2 {color: #6d6e71;font-size: 12px;font-weight: 600;text-transform: uppercase;margin: 2px 0 0;}
     }
-    dl {margin: 0 55px 35px 0;float: left;
-      dt {color: #6d6e71;font-size: 12px;font-weight: 700;text-transform: uppercase;margin: 0 0 20px;}
-      dd, dd a {color: #939598;font-size: 12px;text-decoration: none;margin: 0 0 4px;}
+    dl {margin: 0 52px 35px 0;float: left;
+      dt {color: #6d6e71;font-size: 12px;font-weight: 700;text-transform: uppercase;margin: 0 0 20px;font-family: $arial;letter-spacing: 2px;}
+      dd, dd a {color: #939598;font-size: 11px;text-decoration: none;margin: 0 0 4px;font-family: $verdana;line-height: 20px;}
       dd a {
         &:hover {color: #bcbec0;}
       }
       dd {
         ul.social {width: 100%;overflow: auto;margin: 15px 0 0 0;
           li {
-            a {background: image-url("home/social.png") no-repeat;text-indent: -99999px;width: 24px;height: 24px;margin: 0 6px 0 0;display: block;float: left;}
-            &.facebook a {background-position: 0 -34px;
-              &:hover {background-position: 0 0px;}
+            a {background: image-url('common/nav/sprite_header.png') no-repeat;text-indent: -99999px;width: 24px;height: 24px;margin: 0 6px 0 0;display: block;float: left;}
+            &.facebook a {background-position: -10px -299px;
+              &:hover {background-position: -10px -265px;}
             }
-            &.twitter a {background-position: -28px -34px;
-              &:hover {background-position: -28px 0px;}
+            &.twitter a {background-position: -38px -299px;
+              &:hover {background-position: -38px -265px;}
             }
-            &.rss a {background-position: -58px -34px;
-              &:hover {background-position: -58px 0px;}
+            &.rss a {background-position: -68px -299px;
+              &:hover {background-position: -68px -265px;}
             }
-            &.instagram a {background-position: -89px -35px;
-              &:hover {background-position: -89px 0px;}
+            &.instagram a {background-position: -99px -300px;
+              &:hover {background-position: -99px -265px;}
             }
           }
         }
       }
       &.double {margin: 0 95px 0 0;
-        &.payment {clear: both;width:500px;}
+        &.payment {clear: both;width:521px;height:220px;}
         &.security {
           dd {float: left;}
         }
       }
     }
-    p {color:#767676;font-size:10px;line-height: 13px;clear: both;padding:0 0 5px;text-align: center;
+    p {color:#767676;font-size:10px;line-height: 13px;clear: both;padding:0 0 5px;text-align: center;font-family: $verdana;
       a{text-decoration: none;color: #ef3742;}
     }
-    address{margin-bottom:5px;font-size:10px;font-style:normal;text-align:center;color:#767676;}
+    address{margin-bottom:5px;font-size:10px;font-style:normal;text-align:center;color:#767676;font-family: $verdana;}
   }
 }
 
@@ -253,7 +273,7 @@ footer {height:480px;clear:both;margin-top:60px;border-top: 1px #cbcbcb solid;
 }
 
 #modal{position: absolute;display:none;z-index:10001;overflow:hidden;background-color: #fff;border: 1px solid #000;
-form{padding:12px;background:#000;color:#FFF;}
+form{padding:12px;background:#fff;color:#FFF;}
 }
 
 button.close{
@@ -270,9 +290,7 @@ button.close{
   border:none;
 }
 
-
 .watermelon {color:#ef3742;}
 
-
-
-
+.aceitamos_cartoes {width:172px;height:131px;display: block;float:left;background: image-url('common/nav/sprite_header.png') -360px -16px no-repeat;text-indent: -5000px;}
+.mercado_pago_button {width:125px;height:125px; display: block;float:left;background: image-url('common/nav/sprite_header.png') -361px -153px no-repeat;text-indent: -5000px;}

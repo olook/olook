@@ -10,6 +10,7 @@
 @import 'new_structure/common/cart_summary';
 
 
+
 body {
   #error_explanation {
     margin: 0 0 15px;
@@ -79,19 +80,20 @@ body {
         margin: 20px 0;
         float: left;
         a {
-          text-indent: -9999px;
           display: block;
           &.me {
-            background: image-url("common/its-me.png") no-repeat;
-            width: 179px;
-            height: 59px;
             margin: 0 0 0 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 15px;
+            padding-top: 18px;
+            @include bt_color($primary_bt_color, $primary_bt_color_hover);
           }
           &.new_survey {
-            background: image-url("common/try-again.jpg") no-repeat;
             width: 301px;
             height: 59px;
             float: right;
+            @include bt_color($terciary_bt_color, $terciary_bt_color_hover);
           }
         }
       }
@@ -101,17 +103,7 @@ body {
     }
   }
 
-  a#go_top {
-    position: fixed;
-    background: image-url('common/arrow-go-top.png') no-repeat;
-    text-indent: -99999px;
-    width: 40px;
-    height: 40px;
-    right: 40px;
-    bottom: 45%;
-    z-index: 5;
-    display: none;
-  }
+  a#go_top {position: fixed;background: image-url('common/nav/sprite_header.png') no-repeat -492px -153px;text-indent: -99999px;width: 40px;height: 40px;right: 40px;bottom: 45%;z-index: 5;display: none;}
 
   div#content {
     position:relative;
@@ -174,13 +166,15 @@ body {
               margin-top: 7px;
               font-size: 11px;
               input[type="submit"] {
-                background: image-url("common/login.png") no-repeat;
-                text-indent: -9999px;
                 width: 74px;
                 height: 31px;
                 display: block;
                 border: none;
                 cursor: pointer;
+                font-size: 15px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                @include bt_color($primary_bt_color, $primary_bt_color_hover);
               }
 
               input {width: auto;}
@@ -226,13 +220,15 @@ body {
                   width: 84%;
                 }
                 input[type='submit'] {
-                  background: image-url("common/registration.png") no-repeat;
-                  text-indent: -9999px;
                   width: 126px;
                   height: 37px;
                   display: block;
                   cursor: pointer;
                   border: none;
+                  text-transform: uppercase;
+                  letter-spacing: 2px;
+                  font-size: 15px;
+                  @include bt_color($primary_bt_color, $primary_bt_color_hover);
                 }
                 &.gender {
                   margin: 0 0 5px 0;
@@ -346,13 +342,14 @@ body {
       .form_content {
         margin: 0 0 0 0;
         input[type='submit']{
-          text-indent: 9999px;
-          background: image-url('common/resend_pass.png') no-repeat 0 0px;
           width: 295px;
           height: 69px;
           border: 0;
           margin-left: 20px;
-          &:hover{background: image-url('common/resend_pass.png') no-repeat 0 -72px;}
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          font-size: 16px;
+          @include bt_color($primary_bt_color, $primary_bt_color_hover);
         }
       }
 
@@ -545,13 +542,14 @@ body {
 												& + li {
 			                      margin-right: 20px;
 			                      input[type='submit'] {
-			                        background: image-url('common/login2.png') no-repeat;
-			                        text-indent: -9999px;
 			                        width: 106px;
 			                        height: 42px;
 			                        display: block;
 			                        border: none;
 			                        cursor: pointer;
+                              font-size: 13px;
+                              font-weight: 600;
+                              @include bt_color($primary_bt_color, $primary_bt_color_hover);
 			                      }
 			                    }
 			                  }
@@ -559,8 +557,6 @@ body {
                   	}
 
                   input[type='submit'] {
-                    background: image-url('common/login2.png') no-repeat;
-                    text-indent: -9999px;
                     width: 106px;
                     height: 42px;
                     display: block;
@@ -568,6 +564,10 @@ body {
                     cursor: pointer;
                     margin:0 19px 0 0 !important;
 										float:none;
+                    font-size: 13px;
+                    font-weight: 600;
+                    letter-spacing: 2px;
+                    @include bt_color($primary_bt_color, $primary_bt_color_hover);
                   }
                 }
               }
@@ -839,8 +839,9 @@ body {
         margin-bottom: 15px;
         fieldset.buttons {
           input[type=submit] {
-            background: image-url('common/login.png') no-repeat;
-            text-indent: -9999px;
+            @include bt_color($primary_bt_color, $primary_bt_color_hover);
+            font-weight: bold;
+            letter-spacing: 1px;
             width: 74px;
             height: 31px;
             display: block;
@@ -879,7 +880,7 @@ body {
             text-decoration: none;
             &#info_user {color:#000;padding-right: 10px;}
             &#account {
-                background: image-url('common/arrow-down-pink.png') right 7px no-repeat;color: #000;text-align: left;width: auto;min-width: 70px;height: 17px;margin: -6px 0 0;padding: 5px 20px 5px 8px;display: inline-block;border: 1px #FFF solid;float: none;line-height:17px;
+                background: image-url('common/nav/sprite_header.png') no-repeat 74px -219px;color: #000;text-align: left;width: auto;min-width: 70px;height: 17px;margin: -6px 0 0;padding: 5px 20px 5px 8px;display: inline-block;border: 1px #FFF solid;float: none;line-height:17px;
                 &:hover, &.hover {text-decoration: none;border-color: #CCC;box-shadow:0px 2px 5px #CCC;color: #ef3742;}
               &:hover {color: #ef3742;}
             }
@@ -957,21 +958,19 @@ header#new_header{
   min-height: 109px;
 
   .new_content{
-      border-top: 2px black solid;
-      height: 84px;
-      padding-top:15px;
-      width: 990px;
-      margin: 0 auto;
-      background: image-url('common/nowflakes.png') no-repeat center -4px;
+      height: 84px;padding-top:15px;width: 990px;margin: 0 auto;border-top:2px solid #000;
       .box_left{
         font-family: $avenir;
         font-size: 10px;
-        color: #b4b5b7;
+        color: #101010;
         float: left;
         margin-left:10px;
+        p {
+          line-height: 14px;
+        }
         a.contact{
           text-decoration: none;
-          color: #b4b5b7;
+          color: #101010;
             &:hover{
             color:$pink;
           }
@@ -990,53 +989,21 @@ header#new_header{
         width: 150px;
         float: left;
         clear: both;
-        a.social_facebook{
-          background: image-url('common/nav/sprite_header.png') 0 0;
-          width: 22px;
-          height: 22px;
-          text-indent: -9999px;
-          display: block;
-          float: left;
-          &:hover{
-            background: image-url('common/nav/sprite_header.png') 0 -31px;
-          }
+        a.social_facebook{background: image-url('common/nav/sprite_header.png') 0 0;width: 22px;height: 22px;text-indent: -9999px;display: block;float: left;
+          &:hover{background: image-url('common/nav/sprite_header.png') 0 -31px;}
         }
-        a.social_twitter{
-          background: image-url('common/nav/sprite_header.png') -22px 0;
-          width: 22px;
-          height: 22px;
-          text-indent: -9999px;
-          display: block;
-          float: left;
-          &:hover{
-            background: image-url("common/nav/sprite_header.png") no-repeat -22px -31px;
-          }
+        a.social_twitter{background: image-url('common/nav/sprite_header.png') -22px 0;width: 22px;height: 22px;text-indent: -9999px;display: block;float: left;
+          &:hover{background: image-url("common/nav/sprite_header.png") no-repeat -22px -31px;}
         }
-        a.social_rss{
-          background: image-url("common/nav/sprite_header.png") no-repeat -46px 0;
-          width: 22px;
-          height: 22px;
-          text-indent: -9999px;
-          display: block;
-          float: left;
-          &:hover{
-            background: image-url("common/nav/sprite_header.png") no-repeat -46px -31px;
-          }
+        a.social_rss{background: image-url("common/nav/sprite_header.png") no-repeat -46px 0;width: 22px;height: 22px;text-indent: -9999px;display: block;float: left;
+          &:hover{background: image-url("common/nav/sprite_header.png") no-repeat -46px -31px;}
         }
-        a.social_instagram{
-          background: image-url("common/nav/sprite_header.png") no-repeat -71px -1px;
-          width: 22px;
-          height: 22px;
-          text-indent: -9999px;
-          display: block;
-          float: left;¨
-          &:hover{
-            background: image-url("common/nav/sprite_header.png") no-repeat -71px -31px;
-          }
+        a.social_instagram{background: image-url("common/nav/sprite_header.png") no-repeat -71px -1px;width: 22px;height: 22px;text-indent: -9999px;display: block;float: left;
+          &:hover{background: image-url("common/nav/sprite_header.png") no-repeat -71px -31px;}
         }
       }
-      .olook_logo{width: 190px;height: 57px;margin: 0 auto;padding-top: 5px;
-        h1 a{width: 190px;height: 57px;display:block;background: image-url("common/nav/sprite_header.png") no-repeat 0 -74px;text-indent: -9999px;}
+      .olook_logo{width: 190px;height: 57px;margin: 0 auto;padding-top: 5px;position: relative;
+        h1 a{width: 190px;height: 57px;display:block;background: image-url("common/nav/sprite_header.png") no-repeat 0 -74px;text-indent: -9999px;position: absolute;top:0px;}
       }
     }
     .box_right{float: right;margin: 0px 10px 0 0;position:relative;
@@ -1046,7 +1013,7 @@ header#new_header{
         }
       }
       
-      p.trade{background: image-url('common/trade_arrows.png') no-repeat top left;float:left;font-size:11px;color:#000;line-height:18px;margin-left: 10px;
+      p.trade{background: image-url('common/nav/sprite_header.png') no-repeat -10px -197px;float:left;font-size:11px;color:#000;line-height:18px;margin-left: 10px;
          a{text-decoration:none;color:#000;padding-left: 30px;
             &:hover{text-decoration:none; color: $pink;}
          }
@@ -1200,6 +1167,7 @@ img.balloon{display:none;position: absolute;width: 174px;height: 185px;z-index:8
               margin-right: 0;
               padding: 0 20px;
               display: block;
+              font-family: $verdana;
               span {
                 font-size: 12px;
                 text-indent: 0;
@@ -1543,7 +1511,7 @@ header div.contact {
 		form{display:inline-block;margin:0;width:600px;
 			fieldset{float:left;border:0;
 				#cep{width:113px;height:22px;font-size:13px;line-height:22px;}
-				.buscar{float:left;background: image-url("shipping/buttons.png") 0 -1px no-repeat;font-size:0;line-height:0;font-family:a;border:0;width:79px;height:30px;margin:0 5px 0 10px}
+				.buscar{float:left;font-size:15px;border:0;width:79px;height:30px;margin:0 5px 0 10px;letter-spacing: 2px;text-transform: uppercase;@include bt_color($primary_bt_color, $primary_bt_color_hover);}
 			}
 		}
 		#msg{float:left;margin-top:5px;}
@@ -1568,7 +1536,7 @@ ul.breadcrumb {
   height:20px !important;
   position: relative !important;
   left:-4px !important;
-  top:0px !important;
+  top:3px !important;
   li {
     float:left;
     display: block;
@@ -1606,7 +1574,9 @@ ul.breadcrumb {
 }
 
 dl.payment {width:500px;}
-.mercado_pago_button {margin-left:8px;}
 
 a.selecionado {color:$pink !important;}
+
+.aceitamos_cartoes {width:172px;height:131px;display: block;float:left;background: image-url('common/nav/sprite_header.png') -360px -16px no-repeat;text-indent: -5000px;}
+.mercado_pago_button {width:125px;height:125px; display: block;float:left;background: image-url('common/nav/sprite_header.png') -361px -153px no-repeat;text-indent: -5000px;}
 

@@ -293,6 +293,9 @@
             not_delivered: "Não entregue"
 
     models:
+      itinerary:
+        one: Itinerário
+        other: Itinerários
 
       user:
         one: Usuário
@@ -483,7 +486,7 @@
       collection_theme:
         active: 'Ativo'
         collection_theme_group: 'Grupo'
-        header_image: 'Banner (Altura 290 x Largura 800)'
+        header_image: 'Banner (Altura 138 x Largura 813)'
         header_image_alt: "Alt/title do Banner"
         position: 'Posição'
         video_link: 'Link do Vídeo no Youtube'
@@ -528,6 +531,7 @@
         cnpj: "CNPJ"
         reseller: "Revendedor"
         corporate_name: "Razão Social"
+        fantasy_name: "Nome Fantasia"
         active: "Ativo"
       gift_recipient:
         name: nome

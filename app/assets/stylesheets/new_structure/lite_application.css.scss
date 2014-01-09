@@ -49,7 +49,6 @@ ul.breadcrumb {
           height: 15px;
           background: image-url('catalog/sprite.png') no-repeat 0 -25px !important;
           padding-left: 13px;
-          margin-bottom: 5px;
           cursor: pointer;
           display: block;
       }
@@ -62,3 +61,7 @@ ul.breadcrumb {
 
 a.selecionado,
 a.selecionado:hover {color:$pink !important;}
+
+#modal {position: fixed !important;}
+
+section.banner {margin-bottom:30px !important;}

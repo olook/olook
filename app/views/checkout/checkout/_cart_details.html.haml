@@ -38,10 +38,21 @@
       %span#total_billet.txt-black= number_to_currency(@cart_service.total(Billet.new))
       %span#total_debit.txt-black= number_to_currency(@cart_service.total(Debit.new))
     %span#total.txt-black= number_to_currency(@cart_service.total)
-    %span#delivery_time.frete
-      - if address && address.zip_code
-        = delivery_time_message(freight_for(address)[:delivery_time])
+    - unless address.try(:zip_code).blank?
+      %p.frete_time{:class => (@addresses.try(:count) == 1 ? 'active' : '')}
+        = "Seu pedido será entregue em #{@shipping_service.try(:delivery_time)} dias úteis."
+  - if @freebie && Freebie.selection_for(@cart.id) && @freebie.can_receive_freebie?
+    .freebie_row
+      %p
+        Veja 
+        = link_to 'aqui', '#', class: 'seeTheSmell' 
+        o mimo que a Olook vai te dar de presente! 
 %p.important
   %span Importante:
   O prazo de entrega começa a contar a partir da confirmação do pagamento.
-= checkout_form.submit '', class: "send_it", disable_with: "", onclick: track_event("Checkout","clickSubmit") if defined?(checkout_form)
+= checkout_form.submit 'FECHAR MEU PEDIDO', class: "send_it", disable_with: "", onclick: track_event("Checkout","clickSubmit") if defined?(checkout_form)
+#freight_message
+  %p.hint
+    Dica Olook!
+  %p.freight_msg
+.modal_smell

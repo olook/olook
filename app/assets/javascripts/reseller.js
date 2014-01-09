@@ -13,6 +13,17 @@ states_and_cities.load_state_cities = function(){
   });
 }
 
+function maskTel(tel){
+  dig9 = $(tel).val().substring(4, 5);
+  ddd  = $(tel).val().substring(1, 3);
+
+  if(dig9 == "9" && ddd.match(/11|12|13|14|15|16|17|18|19|21|22|24|27|28/)){
+    $(tel).setMask("(99)99999-9999");
+  } else {
+    $(tel).setMask("(99)9999-9999");
+  }
+}
+
 function changeResellerType(){
   var common = $('#reseller_has_corporate_0');
   var corporate = $('#reseller_has_corporate_1');
@@ -48,7 +59,10 @@ $(document).ready(function() {
   $('#reseller_birthday').setMask("99/99/9999");
   $('#reseller_addresses_attributes_0_zip_code').setMask("99999-999");
   $('#reseller_addresses_attributes_0_number').setMask("999999999");
-  
+  $('#reseller_addresses_attributes_0_telephone').keyup(function(){
+      maskTel($(this));
+  });
+
   olook.cep('.zip_code', {
     estado: '#reseller_addresses_attributes_0_state',
     cidade: '#reseller_addresses_attributes_0_city',

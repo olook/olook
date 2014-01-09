@@ -31,23 +31,25 @@
       margin-top: 25px;
       margin-left: 50px;
       width: 446px;
-      height: 56px;
+      height: 38px;
       display: block;
-      text-indent: -9999px;
-      background: image-url("reseller/bt_anchor.jpg") no-repeat 0 0;
-      &:hover{
-        background: image-url("reseller/bt_anchor.jpg") no-repeat 0 -62px;
-      }
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-align: center;
+      font-size: 17px;
+      padding-top: 18px;
+      @include bt_color($primary_bt_color, $primary_bt_color_hover);
     }
     ul{
       margin-top: 25px;
       li{
         font-family: $avenir;
         font-size: 15px;
-        background: image-url("reseller/bt_anchor.jpg") no-repeat 0 -130px;
-        height: 17px;
+        background: image-url("reseller/bt_anchor.jpg") no-repeat;
+        height: 21px;
         padding-left: 35px;
-        padding-top: 12px;
+        padding-top: 2px;
+        margin-bottom: 5px;
         &.title{
           background: none;
           text-transform: uppercase;
@@ -211,7 +213,7 @@
         &#reseller_addresses_attributes_0_neighborhood{
           width: 297px;
         }
-        &.zip_code, &#reseller_addresses_attributes_0_zip_code{
+        &.zip_code, &#reseller_addresses_attributes_0_zip_code, &.phone{
           width: 194px;
           padding-left: 10px;
         }
@@ -315,11 +317,11 @@
           width: 433px;
           height: 56px;
           border: none;
-          text-indent: -9999px;
-          background: image-url("reseller/bt_anchor.jpg") no-repeat 0 -180px;
-          &:hover{
-            background: image-url("reseller/bt_anchor.jpg") no-repeat 0 -242px;
-          }
+          text-align: center;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          font-size: 17px;
+          @include bt_color($primary_bt_color, $primary_bt_color_hover);
         }
       }
       li.cpf{
@@ -334,7 +336,7 @@
           width: 300px !important;
         }
       } 
-      li.corporate_name{display: none;}
+      li.corporate_name{display: none;margin-bottom: 8px;}
     }
   }
   .reseller_infos{

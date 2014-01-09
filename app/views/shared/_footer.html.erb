@@ -43,10 +43,10 @@
     <dl class="double payment">
       <dt>Formas de pagamento</dt>
       <dd>
-        <%= image_tag("common/ico_bandeiras.png", :alt => "Trabalhamos com Visa, Mastercard, American Express e Dinners", :style => "position:relative;top:2px;") %>
-        <%= link_to image_tag('common/assinatura_125x125.png', alt: 'MercadoPago - Meios de pagamento', title: 'MercadoPago - Meios de pagamento'), "#", :class => 'mercado_pago_button' %>
+        <div class="aceitamos_cartoes">Trabalhamos com Visa, Mastercard, American Express e Dinners</div>
+        <%= link_to "MercadoPago - Meios de Pagamento", "#", :class => 'mercado_pago_button' %>
+        <br style="clear:both">Em até 6 vezes (parcela mínima de R$ 30,00)
       </dd>
-      <dd style="padding:20px 0;">Em até 6 vezes (parcela mínima de R$ 30,00)</dd>
     </dl>
     <dl class="double security">
       <dt>Segurança</dt>
@@ -56,11 +56,6 @@
     <p>© <%= Time.now.year %> - Olook. Todos os direitos reservados. A Olook respeita sua privacidade e de todos os seus clientes. Leia mais sobre a nossa <%= link_to "Política de Privacidade", terms_path %>.</p>
 <address>Escritório: Rua Natividade, 72 - Vl. Nova Conceição, São Paulo - SP. Centro de distribuição: Avenida Ribeirão dos Cristais, 800, Jordanésia, Cajamar - SP. Galpão 10, módulo C e D</address>
 <p>Olook Comércio Online de Moda Ltda  /  CNPJ 011.216.478/0001-70</p>
-
-
   </section>
-
-  <div class="mercado_pago">
-    <%= image_tag "common/banner_educativo_mp.jpg" %>
-  </div>
+  <div class="mercado_pago" data-url="<%= image_path "common/banner_educativo_mp.jpg" %>"></div>
 </footer>

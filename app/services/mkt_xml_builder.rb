@@ -15,21 +15,17 @@ class MktXmlBuilder
     ilove_ecommerce: 'ilove_ecommerce_template.xml.erb',
     nano: 'nano_template.xml.erb',
     nano_interactive: 'nano_interactive_template.xml.erb',
-    adroll: 'adroll_template.xml.erb',
     zanox: 'zanox_template.xml.erb',
     afilio: 'afilio_template.xml.erb',
     mt_performance: 'mt_performance_template.xml.erb',
-    click_a_porter: 'click_a_porter_template.xml.erb',
     netaffiliation: 'netaffiliation_template.xml.erb',
-    shopping_uol: 'shopping_uol_template.xml.erb',
     google_shopping: 'google_shopping_template.xml.erb',
-    struq: 'struq_template.xml.erb',
-    kuanto_kusta: 'kuanto_kusta_template.xml.erb',
     muccashop: 'muccashop_template.xml.erb',
     shopear: 'shopear_template.xml.erb',
     melt: 'melt_template.xml.erb',
     paraiso_feminino: 'paraiso_feminino_template.xml.erb',
-    stylight: 'stylight_template.xml.erb'
+    stylight: 'stylight_template.xml.erb',
+    all_in: 'all_in.xml.erb'
   }
 
   def self.create_xmls
@@ -86,11 +82,6 @@ class MktXmlBuilder
     end
 
     def self.load_products
-      # This method was copied from XmlController
-      products = Product.valid_for_xml(Product.xml_blacklist("products_blacklist").join(','))
-      @liquidation_products = []
-      active_liquidation = LiquidationService.active
-      @liquidation_products = active_liquidation.resume[:products_ids] if active_liquidation
-      products + @liquidation_products
+      Product.valid_for_xml(Product.xml_blacklist("products_blacklist").join(','))
     end
 end

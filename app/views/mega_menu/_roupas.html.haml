@@ -1,60 +1,55 @@
 #mm_roupas.submenu
-	%span.column.first
-		%h5 ROUPAS
-		%ul
-			%li
-				= link_to 'Blazer', catalog_path(category:'roupa', parameters: 'blazer'), :class => 'sub_menu'
-			%li
-				= link_to 'Blusa', catalog_path(category:'roupa', parameters: 'blusa'), :class => 'sub_menu'
-			%li
-				= link_to 'Calça', catalog_path(category:'roupa', parameters: 'calca'), :class => 'sub_menu'
-			%li
-				= link_to 'Camisa', catalog_path(category:'roupa', parameters: 'camisa'), :class => 'sub_menu'
-			%li
-				= link_to 'Camiseta', catalog_path(category:'roupa', parameters: 'camiseta'), :class => 'sub_menu'
+  %span.column.first
+    %h5 
+      = link_to 'ROUPAS', catalog_path(category:'roupa')
+    %ul
+      %li
+        = link_to 'Blazer', catalog_path(category:'roupa', parameters: 'blazer'), :class => 'sub_menu'
+      %li
+        = link_to 'Blusa', catalog_path(category:'roupa', parameters: 'blusa'), :class => 'sub_menu'
+      %li
+        = link_to 'Calça', catalog_path(category:'roupa', parameters: 'calca'), :class => 'sub_menu'
+      %li
+        = link_to 'Camisa', catalog_path(category:'roupa', parameters: 'camisa'), :class => 'sub_menu'
+      %li
+        = link_to 'Camiseta', catalog_path(category:'roupa', parameters: 'camiseta'), :class => 'sub_menu'
 
-			%li
-				= link_to 'Casaco e Jaqueta', catalog_path(category:'roupa', parameters: 'casaco%20e%20jaqueta'), :class => 'sub_menu'
-			%li
-				= link_to 'Colete', catalog_path(category:'roupa', parameters: 'colete'), :class => 'sub_menu'
-			%li
-				= link_to 'Echarpe', catalog_path(category:'roupa', parameters: 'echarpe'), :class => 'sub_menu'
-			%li
-				= link_to 'Macacão', catalog_path(category:'roupa', parameters: 'macacao'), :class => 'sub_menu'
-			%li
-				= link_to 'Regata', catalog_path(category:'roupa', parameters: 'regata'), :class => 'sub_menu'
+      %li
+        = link_to 'Casaco e Jaqueta', catalog_path(category:'roupa', parameters: 'casaco%20e%20jaqueta'), :class => 'sub_menu'
+      %li
+        = link_to 'Colete', catalog_path(category:'roupa', parameters: 'colete'), :class => 'sub_menu'
+      %li
+        = link_to 'Macacão', catalog_path(category:'roupa', parameters: 'macacao'), :class => 'sub_menu'
+      %li
+        = link_to 'Regata', catalog_path(category:'roupa', parameters: 'regata'), :class => 'sub_menu'
 
-			%li
-				= link_to 'Saia', catalog_path(category:'roupa', parameters: 'saia'), :class => 'sub_menu'
-			%li
-				= link_to 'Shorts', catalog_path(category:'roupa', parameters: 'shorts'), :class => 'sub_menu'
-			%li
-				= link_to 'Top Cropped', catalog_path(category:'roupa', parameters: 'top%20cropped'), :class => 'sub_menu'
-			%li
-				= link_to 'Tricot', catalog_path(category:'roupa', parameters: 'tricot'), :class => 'sub_menu'
-			%li
-				= link_to 'Vestido', catalog_path(category:'roupa', parameters: 'vestido'), :class => 'sub_menu'
+      %li
+        = link_to 'Saia', catalog_path(category:'roupa', parameters: 'saia'), :class => 'sub_menu'
+      %li
+        = link_to 'Shorts', catalog_path(category:'roupa', parameters: 'shorts'), :class => 'sub_menu'
+      %li
+        = link_to 'Top Cropped', catalog_path(category:'roupa', parameters: 'top%20cropped'), :class => 'sub_menu'
+      %li
+        = link_to 'Tricot', catalog_path(category:'roupa', parameters: 'tricot'), :class => 'sub_menu'
+      %li
+        = link_to 'Vestido', catalog_path(category:'roupa', parameters: 'vestido'), :class => 'sub_menu'
 
-	%span.column.second
-		%h5 LINGERIE
-		%ul
-			%li
-				= link_to 'Sutiã', catalog_path(category:'roupa', parameters: 'sutia'), :class => 'sub_menu'
-		%br
-		%h5{style:'margin-top:-14px'} MODA PRAIA
-		%ul
-			%li
-				= link_to 'Biquíni', catalog_path(category:'roupa', parameters: 'biquini%20moda%20praia'), :class => 'sub_menu'
-			%li
-				= link_to 'Blusa', catalog_path(category:'roupa', parameters: 'blusa%20moda%20praia'), :class => 'sub_menu'
-			%li
-				= link_to 'Calça', catalog_path(category:'roupa', parameters: 'calca%20moda%20praia'), :class => 'sub_menu'
-			%li
-				= link_to 'Maiô', catalog_path(category:'roupa', parameters: 'maio%20moda%20praia'), :class => 'sub_menu'
-			%li
-				= link_to 'Saia', catalog_path(category:'roupa', parameters: 'saia%20moda%20praia'), :class => 'sub_menu'
-			%li
-				= link_to 'Vestido', catalog_path(category:'roupa', parameters: 'vestido%20moda%20praia'), :class => 'sub_menu'
-	
-	%span.column.image
-		= link_to '', catalog_path(category:'roupa', cmp: 'email_1310_tie_dye'), class: 'img'
+  %span.column.second
+    %h5 
+      = link_to 'MODA PRAIA', catalog_path(category:'roupa', parameters: 'agua%20doce-blue%20man-triya-salinas')
+    %ul
+      %li
+        = link_to 'Biquíni', catalog_path(category:'roupa', parameters: 'biquini%20moda%20praia'), :class => 'sub_menu'
+      %li
+        = link_to 'Blusa', catalog_path(category:'roupa', parameters: 'blusa%20moda%20praia'), :class => 'sub_menu'
+      %li
+        = link_to 'Calça', catalog_path(category:'roupa', parameters: 'calca%20moda%20praia'), :class => 'sub_menu'
+      %li
+        = link_to 'Maiô', catalog_path(category:'roupa', parameters: 'maio%20moda%20praia'), :class => 'sub_menu'
+      %li
+        = link_to 'Saia', catalog_path(category:'roupa', parameters: 'saia%20moda%20praia'), :class => 'sub_menu'
+      %li
+        = link_to 'Vestido', catalog_path(category:'roupa', parameters: 'vestido%20moda%20praia'), :class => 'sub_menu'
+  
+  %span.column.image
+    = link_to '', catalog_path(category:'roupa', cmp: 'email_1310_tie_dye'), class: 'img'

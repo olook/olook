@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" dir="ltr" lang="pt-BR">
   <head>
+ 
+
     <%= render :partial => "shared/errorception" %>
+    <%= javascript_include_tag "control" %>
     <meta charset="UTF-8">
     <title>
       <%= title_text %>
@@ -13,11 +16,11 @@
     <% if params[:share] %>
       <%= render 'shared/meta_tags' %>
     <% else %>
-      <meta name="Description" content=<%= meta_description %>>
+      <meta name="Description" content='<%= meta_description %>'>
     <% end %>
 
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag  "http://olook.neoassist.com/clients/olook/novo/modal.css" if Setting.enable_neoassist %>
+    <%= stylesheet_link_tag  "//olook.neoassist.com/clients/olook/novo/modal.css" %>
     <%= stylesheet_link_tag  "new_structure/lite_application" %>
     <%= stylesheet_link_tag  "desktop" unless mobile? %>
 
@@ -25,10 +28,8 @@
       <meta property="fb:page_id" content="157293541026960" />
     <%- end -%>
 
-    <% if Setting.use_vwo %>
-      <!-- VWO -->
-      <%= render :partial => "shared/metrics/vwo/tracking_code" %>
-    <% end %>
+    <!-- VWO -->
+    <%= render :partial => "shared/metrics/vwo/tracking_code" %>
 
     <%= render :partial => "shared/metrics/header_tags" %>
 
@@ -48,14 +49,12 @@
     <%= render 'shared/tag/soasta' %>
   </head>
 
-  <body onload="<%= Setting.enable_neoassist ? 'ativaDiv();' : '' %>" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %><%= mobile? ? ' mobile' : ' desktop' %>">
+  <body onload='ativaDiv();' class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %><%= mobile? ? ' mobile' : ' desktop' %>">
     <%= yield :after_body %>
     <%= render :partial => "shared/tag/google_tag_manager" %>
-    <% if Setting.enable_neoassist %>
-      <div id="modalneo" align="right" style="display:none;border:0px;">
-        <a href="javascript: var a=null;" onclick="window.open(' http://olook.neoassist.com/?action=neolive&th=moda&scr=request&ForcaAutenticar=1&UMail=%User[EMail]%&email=%User[EMail]%&name=%User[Name]%&uName=%User[Name]%', 'Chat' , 'status , scrollbars=no ,width=500, height=580, resizable=no, top=30 , left=30');"><img src=" http://olook.neoassist.com/clients/olook/novo/images/chatmsg.png" border="0" onclick="javascript:this.style.display='none';" id="chatmsg"  /></a>
-      </div>
-    <% end %>
+    <div id="modalneo" align="right" style="display:none;border:0px;">
+      <a href="javascript: var a=null;" onclick="window.open(' http://olook.neoassist.com/?action=neolive&th=moda&scr=request&ForcaAutenticar=1&UMail=%User[EMail]%&email=%User[EMail]%&name=%User[Name]%&uName=%User[Name]%', 'Chat' , 'status , scrollbars=no ,width=500, height=580, resizable=no, top=30 , left=30');"><img src=" http://olook.neoassist.com/clients/olook/novo/images/chatmsg.png" border="0" onclick="javascript:this.style.display='none';" id="chatmsg"  /></a>
+    </div>
     <%= render 'shared/admin_label' if current_admin %>
     <div id="container">
        <div id="error-messages">
@@ -67,13 +66,9 @@
        <header id="new_header">
          <div class="new_content">
            <div class="box_left">
-             <p>SAC (11) 2626-3489 | <a class="contact" href="/centraldeatendimento">Central de Atendimento</a></p>
-             <ul class="social_icons">
-               <li><%= link_to "Acompanhe pelo Facebook", "http://facebook.com/olook", title: "Acompanhe pelo Facebook", target: "_blank", class: "social_facebook" %></li>
-               <li><%= link_to "Acompanhe pelo Twitter", "http://twitter.com/olook", title: "Acompanhe pelo Twitter", target: "_blank", class: "social_twitter" %></li>
-               <li><%= link_to "Acompanhe por RSS", "http://stylist-news.olook.com.br/feed/", title: "Acompanhe por RSS", target: "_blank", class: "social_rss" %></li>
-               <li><%= link_to "Acompanhe pelo Instagram", "http://instagram.com/olook", title: "Acompanhe pelo Instagram", target: "_blank", class:"social_instagram" %></li>
-             </ul>
+             <p>SAC (11) 2626-3489</p>
+             <p><a class="contact" href="/centraldeatendimento">Central de Atendimento</a></p>
+
             <%if user_signed_in?%>
                <p><%= link_to "Ganhe créditos!", "/membro/ganhe-creditos", :class => "earn_credits" %></p>
             <%else%>
@@ -94,7 +89,6 @@
                   <div class="my_account">
                     <ul>
                       <li><%= link_to "Meus pedidos", user_orders_path %></li>
-                      <!-- <li><%#= link_to "Meus presentes", user_gifts_path %></li> -->
                       <li class="last"><%= link_to "Meus créditos", user_credits_path %></li>
                       <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
                       <li><%= link_to "Endereços", user_addresses_path %></li>
@@ -122,9 +116,9 @@
          <nav class="menu_new">
            <div class="content_new">
              <ul class="default_new">
-               <%= cache 'megamenu' do %>
-                 <%= MenuPresenter.new(self, :user => current_user).render_menu(mobile?) %>
-               <% end %>
+                <%= cache ["megamenu",mobile?] do %>
+                   <%= MenuPresenter.new(self, :user => current_user).render_menu(mobile?) %>
+                <% end %>
              </ul>
              <div class="new_sacola">
                <%= link_to "SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %>
@@ -150,15 +144,16 @@
        <!-- End Modals -->
 
 
-       <%= javascript_include_tag "http://olook.neoassist.com/clients/olook/js/chat.js" if Setting.enable_neoassist %>
        <%= javascript_include_tag "jquery" %>
        <%= javascript_include_tag "lite_application" %>
+       <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
+       
        <script>
          show_modal = '<%= j @modal_show %>';
        </script>
 
        <% unless user_signed_in? || request.url.include?("gclid") %>
-         <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal && !['landing_pages','survey', 'users/registrations'].include?(params[:controller]) %>
+         <%= javascript_include_tag "campaign_emails_modal" if !['landing_pages','survey', 'users/registrations'].include?(params[:controller]) %>
        <% end %>
 
 
@@ -166,7 +161,7 @@
          <%= yield :footer %>
        <% end %>
 
-       <%= javascript_include_tag "http://olook.neoassist.com/clients/olook/js/chat.js" if Setting.enable_neoassist %>
+       <%= javascript_include_tag "//olook.neoassist.com/clients/olook/js/chat.js" %>
        <%= render :partial => "shared/metrics/master_tags" %>
     </div>
   </body>

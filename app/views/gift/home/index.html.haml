@@ -1,0 +1,24 @@
+- content_for :head do
+  = stylesheet_link_tag "section/gift"
+  %meta{:content => "home/presentes", :name => "chaordic:source"}/
+  <meta name="chaordic:user" content= #{@chaordic_user}>
+  %meta{:content => "Presentes", :name => "chaordic:category"}/
+  %meta{:content => FACEBOOK_CONFIG["app_id"], :property => "fb:app_id"}/
+  %meta{:content => "ACERTE EM CHEIO NO PRESENTE", :property => "og:title"}/
+  %meta{:content => "Encontre o presente ideal para as mulheres da sua vida através da nossa ferramenta de presentes.", :property => "og:caption"}/
+  %meta{:content => "#ficaadica", :property => "og:description"}/
+  %meta{:content => "http:#{image_path('gift/imagem_presentes_facebook.jpg')}", :property => "og:image"}/
+- content_for :data_layer do
+  :javascript
+    dataLayer.push({'Category': '#{section_name @google_path_pixel_information}'});
+- content_for :footer do
+  = javascript_include_tag "gift"
+- content_for :full do
+  #fb-root
+  = render "profiles"
+  - @profiles.each do |profile|
+    %section#profile_products{:class => "sub #{profile}"}
+      = render "profile_products", products: @profiles_products	[profile.to_sym], profile: profile
+  = render "suggestion_products"
+  = render "quiz"
+  / = render "calendar"

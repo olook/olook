@@ -7,7 +7,6 @@ class Variant < ActiveRecord::Base
 
   before_save :fill_is_master, :calculate_discount_percent
   after_save :replicate_master_changes, :if => :is_master
-  after_update :update_catalog_products_inventory
 
   belongs_to :product
 
@@ -34,6 +33,7 @@ class Variant < ActiveRecord::Base
   delegate :showroom_picture, :to => :product
   delegate :promotion?, :to => :product
   delegate :gift_price, :to => :product
+
 
   def update_initial_inventory_if_needed
     if (initial_inventory == 0 || inventory > initial_inventory)
@@ -82,16 +82,17 @@ class Variant < ActiveRecord::Base
 
   def replicate_master_changes
     # I don't know why, but self.product.variants doesn't work
-    master_product = Product.find(self.product.id)
+    master_product = Product.find(self.product_id)
+    [:price, :retail_price, :width, :height, :length, :weight].each do |attr|
+      master_product[attr] = self.send(attr)
+    end
+    master_product.save_from_master_variant = true
+    master_product.save!
     master_product.variants.each do |child_variant|
       child_variant.copy_master_variant
       child_variant.save!
     end
   end
-
-  def update_catalog_products_inventory
-    Catalog::Product.where(:variant_id => self.id).update_all(:inventory => self.inventory)
-  end  
 
   def retail_price
     retail_price_logic

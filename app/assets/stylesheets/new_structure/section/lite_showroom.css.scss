@@ -53,8 +53,16 @@ img.profile-quiz{position:absolute;display:none;top:284px;left:735px;z-index:999
     iframe{width:90px;}
   }
   .new_survey, .me{display:block;float:left;text-indent:-9999em;margin-top:20px;}
-  .new_survey{background: image-url('common/try-again.jpg') no-repeat;width: 301px;height: 59px;margin-left:200px;}
-  .me{display:block;background: image-url('common/its-me.png') no-repeat;width: 179px;height: 59px;margin-left: 20px;}
+  .new_survey{@include bt_color($terciary_bt_color, $terciary_bt_color_hover);width: 301px;height: 59px;margin-left:200px;}
+  .me{
+    display:block;
+    margin-left: 20px;
+    width: 179px;height: 39px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 15px;
+    padding-top: 18px;
+    @include bt_color($primary_bt_color, $primary_bt_color_hover);}
 }
 
 div.showroom-title{position:relative;border-top:solid 1px #CBCBCB;height:37px;margin-top:60px;clear:both;text-align:center;
@@ -190,8 +198,16 @@ margin-bottom: 10px;}
               }
             }
           }
-          input[type="submit"]{border: none; background: image-url('showroom/sprite.png') 0px -206px no-repeat;float:right; width:145px;height:37px;text-indent: 9999px;margin-top: 22px;margin-right: 33px;
-            &:hover{background-position:0 -249px;text-indent: 9999px;}}
+          input[type="submit"]{
+            border: none; 
+            float:right; 
+            width:145px;
+            height:37px;
+            margin-top: 22px;
+            margin-right: 33px;
+            letter-spacing: 2px;
+            @include bt_color($primary_bt_color, $primary_bt_color_hover);
+          }
         }
       }
       input[type="text"], input[type="password"]{padding-left: 10px; width:278px;height:31px;line-height:31px;border:solid 1px #C1C1C1;background: image-url('campaign_emails/bg_input.png') 0 2px repeat-x;*vertical-align:middle}
@@ -208,19 +224,18 @@ margin-bottom: 10px;}
     }
     img{margin-top: -1px;}
     a.go_quiz{
-      background: image-url('showroom/sprite.png') no-repeat 0 -118px;
       width: 198px;
-      height: 37px;
-      text-indent: -9999px;
+      height: 30px;
       display: block;
       position: relative;
       left: 270px;
       top: -70px;
-      &:hover{
-        background-position: 0 -162px;
-      }
+      text-align: center;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding-top: 12px;
+      @include bt_color($primary_bt_color, $primary_bt_color_hover);
     }
-
   }
 }
 

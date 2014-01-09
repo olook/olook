@@ -12,9 +12,34 @@ filter.init = function(){
   if(typeof final_position == 'undefined') final_position = 600;
   olook.slider('#slider-range', start_position, final_position);
   olook.spy('p.spy');
-  olook.changePictureOnhover('img.async');
+  olook.changePictureOnhover('.async');
   olook.customSelect(".custom_select");
   olook.toggleClassSlideNext(".title-category");
+
+  $(".more_info_show").click(function(e){
+    e.preventDefault();
+      $(".summary,.more_info_show").css("display", "none");
+      $(".full,.more_info_hide").css("display", "block");
+  });
+
+  $(".more_info_hide").click(function(e){
+    e.preventDefault();
+      $(".full,.more_info_hide").css("display", "none");
+      $(".summary,.more_info_show").css("display", "block");
+  });
+
+  $("a.mercado_pago_button").click(function(e){
+      content = $("div.mercado_pago");
+      olook.newModal(content, 640, 800);
+  });
 }
 
+
 $(filter.init);
+
+
+loadThumbnails = function() {
+  new ImageLoader().load("async");
+}
+
+window.addEventListener('load', loadThumbnails);

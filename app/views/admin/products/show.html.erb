@@ -26,6 +26,11 @@
   </p>
 
   <p>
+    <b>Onde?:</b>
+    <%= formatted_visibility(@product.visibility) %>
+  </p>
+
+  <p>
     <b>Estoque:</b>
     <%= @product.inventory %>
   </p>
@@ -64,6 +69,11 @@
     <b>Descrição:</b>
     <%= @product.description %>
   </p>
+
+  <p>
+    <b>URL do vídeo no youtube:</b>
+    <%= @product.youtube_token %>
+  </p>  
 </div>
 
 <%= render :partial => 'profiles', :locals => {:product => @product} %>

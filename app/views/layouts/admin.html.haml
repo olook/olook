@@ -79,6 +79,7 @@
               %ul
                 %li= access_link("Clippings")
                 %li= link_to I18n.t("activerecord.models.catalog_header_catalog_base_text.other"), admin_catalog_bases_text_path
+                %li= access_link("Itineraries")
             %li{class: "submenu#{' active' if params[:controller] =~ /simple_email_service/}"}
               %span Marketing
               %ul

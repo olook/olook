@@ -1,3 +1,4 @@
+@import 'new_structure/common/global_stuffs';
 body {
   #error_explanation {
     width: 460px;
@@ -127,14 +128,15 @@ body {
       }
       &.buttons {
         input[type="submit"] {
-          background: image-url('contact/bt-send-message.jpg') no-repeat;
-          text-indent: -9999px;
           width: 206px;
           height: 49px;
           display: block;
           border: none;
           cursor: pointer;
           float: right;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          @include bt_color($primary_bt_color, $primary_bt_color_hover);
         }
       }
     }

@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class MercadoPagoPayment < Payment
+  before_create :set_payment_expiration_date
 
   def to_s
     "MercadoPago"
@@ -21,10 +22,10 @@ class MercadoPagoPayment < Payment
     self.where(payment_expiration_date: expiration_date.beginning_of_day..expiration_date.end_of_day, state: ["waiting_payment", "started"])
   end  
 
-  def create_preferences address
+  def create_preferences address, total_credits_value
     phone = address.telephone
 
-    items = cart.items.map do |item|
+    items = cart.items.select{|i| i.retail_price.to_f > 0}.map do |item|
       {
         'id' => item.id,
         'title' => item.name,
@@ -34,6 +35,18 @@ class MercadoPagoPayment < Payment
         'category_id' => 'fashion',
         'picture_url' => 'http:' + item.product.main_picture.image_url(:catalog)
       }
+    end
+
+    # descontos (fidelidade, reembolso, facebook)
+    if total_credits_value.to_f > 0
+      items << {
+          'id' => 10,
+          'title' => "CREDITOS",
+          'quantity' => 1,
+          'currency_id' => 'BRL',
+          'unit_price' => (total_credits_value * (-1)).to_f,
+          'category_id' => 'fashion'
+      }      
     end
 
     # frete
@@ -81,6 +94,9 @@ class MercadoPagoPayment < Payment
       'external_reference' => order.number,
       'payment_methods' => {
         'installments' => 6
+      },
+      'payment_methods' => { 
+        'excluded_payment_types' => [ { "id" => "ticket" } ] 
       }
     }
 
@@ -88,9 +104,10 @@ class MercadoPagoPayment < Payment
       Rails.logger.info("[MERCADOPAGO] Creating preference. preference_data=#{preference_data.inspect}")
       preference = MP.create_preference(preference_data)
       Rails.logger.info("[MERCADOPAGO] preference created=#{preference.inspect}")
+      update_attribute(:url, preference['response'][MP.init_point])
     rescue => e
       Rails.logger.info("[MERCADOPAGO] Error creating preference: #{e}")
+      raise e
     end
-    update_attribute(:url, preference['response'][MP.init_point])
   end
 end

@@ -68,6 +68,11 @@
       = f.label :small_banner1
       %br/
       = f.file_field :small_banner1
+      - if f.object.small_banner1?
+        = image_tag(f.object.small_banner1, style: 'max-width: 500px')
+        %br/
+        = f.check_box :remove_small_banner1, style: 'width: 10px'
+        = f.label :remove_small_banner1, 'Remover imagem acima salva previamente'
     .field
       = f.label :alt_small_banner1
       %br/
@@ -80,6 +85,11 @@
       = f.label :small_banner2
       %br/
       = f.file_field :small_banner2
+      - if f.object.small_banner2?
+        = image_tag(f.object.small_banner2, style: 'max-width: 500px')
+        %br/
+        = f.check_box :remove_small_banner2, style: 'width: 10px'
+        = f.label :remove_small_banner2, 'Remover imagem acima salva previamente'
     .field
       = f.label :alt_small_banner2
       %br/
@@ -92,6 +102,11 @@
       = f.label :medium_banner
       %br/
       = f.file_field :medium_banner
+      - if f.object.medium_banner?
+        = image_tag(f.object.medium_banner, style: 'max-width: 500px')
+        %br/
+        = f.check_box :remove_medium_banner, style: 'width: 10px'
+        = f.label :remove_medium_banner, 'Remover imagem acima salva previamente'
     .field
       = f.label :alt_medium_banner
       %br/
@@ -107,6 +122,11 @@
       = f.label :big_banner
       %br/
       = f.file_field :big_banner
+      - if f.object.big_banner? && f.object.big_banner_url
+        = image_tag(f.object.big_banner, style: 'max-width: 500px')
+        %br/
+        = f.check_box :remove_big_banner, style: 'width: 10px'
+        = f.label :remove_big_banner, 'Remover imagem acima salva previamente'
     .field
       = f.label :alt_big_banner
       %br/

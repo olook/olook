@@ -41,9 +41,14 @@ class Promotion < ActiveRecord::Base
 
   def calculate_for_product product, opt
     cart = opt[:cart]
-    adjustment = promotion_action.simulate_for_product product, cart, self.action_parameter.action_params
-    item = cart.items.find { |i| i.product.id == product.id }
-    product.price - (adjustment/(item.try(:quantity) || 1))
+    if product.is_visible? && product.master_variant
+      cart_items = cart.items.to_a + [CartItem.new(variant: product.master_variant, quantity: 1, cart_id: cart.id)]
+      adjustment = promotion_action.simulate_for_product product.id, cart_items, self.action_parameter.action_params
+      item = cart_items.find { |i| i.product.id == product.id }
+      product.price - (adjustment/(item.try(:quantity) || 1))
+    else
+      product.price
+    end
   end
 
   def calculate_for_cart cart
@@ -78,9 +83,8 @@ class Promotion < ActiveRecord::Base
   private
 
     def self.matched_promotions_for cart
-      promotions = []
-      active_and_not_expired(Date.today).each do |promotion|
-        promotions << promotion if promotion.matches?(cart)
+      promotions = active_and_not_expired(Date.today).includes(:rule_parameters).all.select do |promotion|
+        promotion.matches?(cart)
       end
       promotions
     end

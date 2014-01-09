@@ -19,21 +19,10 @@ class CatalogsController < ApplicationController
 
   def add_search_result(search_params, params)
     page_size = params[:page_size] || DEFAULT_PAGE_SIZE
+    search = SearchEngineWithDynamicFilters.new(search_params, true)
+      .for_page(params[:page])
+      .with_limit(page_size)
 
-    ## For AB Testing
-    cookies[:df] = params[:df] if params[:df]
-    search_engine_clazz = if cookies[:df] == "1"
-      cookies[:df] = "1"
-      SearchEngineWithDynamicFilters
-    else 
-      cookies[:df] = "0"
-      SearchEngine
-    end
-    ## End AB testing
-
-    search_params = search_params.merge({df: cookies[:df]})
-
-    search = search_engine_clazz.new(search_params, true).for_page(params[:page]).with_limit(page_size)      
     search.for_admin if current_admin
     search
   end
@@ -45,7 +34,7 @@ class CatalogsController < ApplicationController
     end
   end
 
-  def show
+  def index
     search_params = parse_parameters_from request
     Rails.logger.debug("New params: #{params.inspect}")
 

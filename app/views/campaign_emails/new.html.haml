@@ -1,5 +1,65 @@
 .box-cadastro{ class: "campaign_modal_#{@campaign_text}" }
-  - if @campaign_text.to_i == 6
+  - if @campaign_text.to_i == 8
+    =image_tag("campaign_emails/fotinho_modal.jpg")
+    %div.content
+      %p.big_titulo.promo_new
+        ainda não
+        %br 
+          comprou na olook?
+      %p.cadastre_new.content_promo
+        Aproveite o desconto de 
+        %span 
+          R$ 20
+        %br
+          na sua primeira compra 
+        e arrase em looks com muito estilo.
+        %br
+          %span
+            Só por 48h
+      %div.place-holder.promo_form
+        %div.error.promo_error
+          %p O e-mail informado não parece correto. Que tal conferir?
+        %br
+        =form_for @campaign_email do |f| 
+          =f.text_field :email, :value => "seunome@email.com.br"
+          =f.submit :value => "CADASTRAR", :class => "bt-enviar"
+
+        %p.texto Aceito os <a href="/termos" target="_blank">termos de uso</a>
+      %p.terms_new_user.terms_promo
+        *Válido para compras acima de R$100
+        %br
+          *Não cumulativo com outros cupons e descontos do site.
+    .nao-exibir
+      %input{:type => "checkbox", :name => "dont_show", :class => "dont_show"}
+      %label{:for => "dont_show"} Não exibir novamente
+
+
+  - elsif @campaign_text.to_i == 7
+    =image_tag("campaign_emails/fotinho_modal.jpg")
+    %div.content
+      %p.big_titulo 
+        ainda não
+        %br 
+          comprou na olook?
+      %p.cadastre_new
+        Aproveite o desconto de 
+        %span 
+          R$ 20
+        %br
+          na sua primeira compra e arrase em looks 
+        com muito estilo. 
+      =link_to "Compre Agora", "/20reais_primeira_compra", :class => "bt_go_catalog", target: '_parent', onclick: track_event('Lightbox', 'PrimeiraCompra')
+      %p.terms_new_user
+        *Válido para compras acima de R$100
+        %br
+          *Não cumulativo com outros cupons e descontos do site.
+    .nao-exibir
+      %input{:type => "checkbox", :name => "dont_show", :class => "dont_show"}
+      %label{:for => "dont_show"} Não exibir novamente
+
+
+
+  - elsif @campaign_text.to_i == 6
     =image_tag("campaign_emails/bday.jpg", :class => "bday")
     %div.futilish
       =image_tag("campaign_emails/futilish.jpg")
@@ -44,7 +104,7 @@
             03/10/2013 ou enquanto durar o estoque 
         = link_to 'Aproveite', '/sapato', :class => "enjoy", target: '_blank'
   - else
-    =image_tag("campaign_emails/mari_modal.jpg")
+    =image_tag("campaign_emails/fotinho_modal.jpg")
     %div.content
       = (render "campaign_text_#{@campaign_text}") rescue render 'campaign_text_1'
       %p.cadastre Cadastre-se e receba por e-mail novidades </br>sobre moda, tendências e promoções exclusivas
@@ -53,7 +113,7 @@
           %p O e-mail informado não parece correto. Que tal conferir?
       =form_for @campaign_email do |f|
         =f.text_field :email, :value => "seunome@email.com.br"
-        =f.submit :value => "", :class => "bt-enviar"
+        =f.submit :value => "CADASTRAR", :class => "bt-enviar"
       %p.texto Aceito os <a href="/termos" target="_blank">termos de uso</a>
     .nao-exibir
       %input{:type => "checkbox", :name => "dont_show", :class => "dont_show"}

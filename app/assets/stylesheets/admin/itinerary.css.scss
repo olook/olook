@@ -1,0 +1,81 @@
+body{font-family: "Trebuchet Ms"}
+h1{
+	font-weight: 700;
+	font-size: 23px;
+	margin-left: 0;
+}
+h3{
+	font-size: 16px;
+	font-weight: 600;
+}
+#itinerary_description{
+	width: 936px !important;
+	height: 240px !important;
+	background: #d5d5d5 !important;
+	border: none;
+	padding: 10px!important;
+}
+p.roteiro{
+	font-size: 15px !important;
+	font-style: italic !important;
+	margin-top: 0 !important;
+}
+.itinerary{width: 960px;}
+.field {margin:0px;}
+form{padding-bottom: 20px;}
+table{
+	width: 960px;
+	margin-bottom: 35px;
+	td {vertical-align: top;padding-bottom:10px;}
+	td.title{
+		font-size: 23px;
+		text-align: left;
+		font-weight: lighter;
+		height: 28px;
+	}
+	.date, .where{height: 45px;background: #d5d5d5;border: none; padding-left: 10px;}
+	.date{width: 210px; margin-right: 20px;}
+	.where{width: 702px;}
+	input[type=checkbox]{
+		width: 20px;
+		height: 20px;
+		border: none;
+		float: left;
+		margin-left: 5px;
+		margin-top: 13px;
+	}
+	label{
+		float: left;
+		position: absolute;
+		font-size: 13px;
+		font-weight: 500;
+		margin-top: 13px;
+	}
+	tr.boxes td{margin-bottom: 5px !important;}
+}
+.add_fields{
+	float: right;
+	margin-right: 10px;
+	display: block;
+	padding-left: 30px;
+	width: 121px;
+	font-size: 16px;
+	color: #000 !important;
+	height: 30px;
+	padding-top: 2px;
+	margin-top: 5px;
+	margin-right: 0;
+	background: image-url('admin/plus.png')no-repeat;
+}
+input[type=submit]{
+	border: none !important;
+	background: #007236 !important;
+	color: #fff !important;
+	font-weight: 600;
+	width: 75px;
+	height: 32px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	font-size: 12px;
+	&:hover{background: #00612e !important;}
+}

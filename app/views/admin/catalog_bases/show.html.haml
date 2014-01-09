@@ -43,7 +43,8 @@
   - if @catalog_base.type == 'CatalogHeader::BigBannerCatalogHeader'
     %p
       %b big_banner
-      = image_tag @catalog_base.big_banner
+      - if @catalog_base.big_banner_url
+        = image_tag @catalog_base.big_banner
     %p
       %b alt_big_banner
       = @catalog_base.alt_big_banner

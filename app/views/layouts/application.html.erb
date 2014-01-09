@@ -13,23 +13,21 @@
     <% if params[:share] %>
       <%= render 'shared/meta_tags' %>
     <% else %>
-      <meta name="Description" content=<%= meta_description %>>
+      <meta name="Description" content='<%= meta_description %>'>
     <% end %>
 
 
     <%= csrf_meta_tags %>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700|Pontano+Sans' rel='stylesheet' type='text/css'>
-    <%= stylesheet_link_tag  "http://olook.neoassist.com/clients/olook/novo/modal.css" if Setting.enable_neoassist %>
+    <%= stylesheet_link_tag  "http://olook.neoassist.com/clients/olook/novo/modal.css" %>
     <%= stylesheet_link_tag  "application" %>
     <%= stylesheet_link_tag  "desktop" unless mobile? %>
     <%- unless @hide_fb_page_id -%>
       <meta property="fb:page_id" content="157293541026960" />
     <%- end -%>
 
-    <% if Setting.use_vwo %>
-      <!-- VWO -->
-      <%= render :partial => "shared/metrics/vwo/tracking_code" %>
-    <% end %>
+    <!-- VWO -->
+    <%= render :partial => "shared/metrics/vwo/tracking_code" %>
 
     <!-- Struq navigation pixel -->
     <%#= render :partial => "shared/metrics/struq/homepage" %>
@@ -56,13 +54,11 @@
 
 
 
-  <body onload="<%= Setting.enable_neoassist ? 'ativaDiv();' : '' %>" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %><%= mobile? ? ' mobile' : ' desktop' %>">
+  <body onload="<%= 'ativaDiv();' %>" class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %><%= mobile? ? ' mobile' : ' desktop' %>">
     <%= render :partial => "shared/tag/google_tag_manager" %>
-    <% if Setting.enable_neoassist %>
-      <div id="modalneo" align="right" style="display:none;border:0px;">
-        <a href="javascript: var a=null;" onclick="window.open(' http://olook.neoassist.com/?action=neolive&th=moda&scr=request&ForcaAutenticar=1&UMail=%User[EMail]%&email=%User[EMail]%&name=%User[Name]%&uName=%User[Name]%', 'Chat' , 'status , scrollbars=no ,width=500, height=580, resizable=no, top=30 , left=30');"><img src=" http://olook.neoassist.com/clients/olook/novo/images/chatmsg.png" border="0" onclick="javascript:this.style.display='none';" id="chatmsg"  /></a>
-      </div>
-    <% end %>
+    <div id="modalneo" align="right" style="display:none;border:0px;">
+      <a href="javascript: var a=null;" onclick="window.open(' http://olook.neoassist.com/?action=neolive&th=moda&scr=request&ForcaAutenticar=1&UMail=%User[EMail]%&email=%User[EMail]%&name=%User[Name]%&uName=%User[Name]%', 'Chat' , 'status , scrollbars=no ,width=500, height=580, resizable=no, top=30 , left=30');"><img src=" http://olook.neoassist.com/clients/olook/novo/images/chatmsg.png" border="0" onclick="javascript:this.style.display='none';" id="chatmsg"  /></a>
+    </div>
     <%= render 'shared/admin_label' if current_admin %>
 
     <div id="modal" class="promo-olook"></div>
@@ -87,7 +83,7 @@
     <div id="fb-root"></div>
 
     <%= yield :site_footer %>
-    <%= javascript_include_tag "http://olook.neoassist.com/clients/olook/js/chat.js" if Setting.enable_neoassist %>
+    <%= javascript_include_tag "http://olook.neoassist.com/clients/olook/js/chat.js" %>
     <%= javascript_include_tag "jquery" %>
     <%= yield :scripts %>
     <%= javascript_include_tag "application" %>
@@ -100,7 +96,7 @@
     <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
 
     <% unless user_signed_in? || request.url.include?("gclid") %>
-    <%= javascript_include_tag "campaign_emails_modal" if Setting.show_campaign_email_modal &&  !['landing_pages','survey', 'users/registrations', 'cart/cart', 'devise/sessions' ].include?(params[:controller]) %>
+    <%= javascript_include_tag "campaign_emails_modal" if !['landing_pages','survey', 'users/registrations', 'cart/cart', 'devise/sessions' ].include?(params[:controller]) %>
     <% end %>
 
     <% if content_for? :footer %>

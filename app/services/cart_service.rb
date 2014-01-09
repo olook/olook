@@ -19,7 +19,7 @@ class CartService
   end
 
   def freight
-    cart.address ? freight_for_zip_code(cart.address.zip_code).merge({address: cart.address}) : {}
+    cart.address ? (freight_for_zip_code(cart.address.zip_code).fetch(:fast_shipping,nil) || freight_for_zip_code(cart.address.zip_code).fetch(:default_shipping)).merge({address: cart.address}) : {}
   end
 
   def freight_for_zip_code zip_code
@@ -166,6 +166,7 @@ class CartService
 
     order.line_items = []
 
+
     cart.items.each do |item|
 
       order.line_items << LineItem.new(variant_id: item.variant.id, quantity: item.quantity, price: item_price(item),
@@ -174,7 +175,17 @@ class CartService
       create_freebies_line_items_and_update_subtotal(order, item)
     end
 
-    order.freight = Freight.create(freight)
+    if Freebie.selection_for(cart.id)
+      freebie = Freebie.new(subtotal: cart.sub_total, cart_id: cart.id)
+      if freebie.can_receive_freebie?
+        freebie_item = LineItem.new(variant_id: freebie.variant_id, quantity: 1, price: 0.1,
+                                    retail_price: 0.1, gift: false, is_freebie: true)
+        order.line_items << freebie_item
+        order.amount_discount += (0.1)
+        order.subtotal += (0.1)
+      end
+    end
+    order.freight = Freight.create(freight.except(:shipping_service_priority,:cost_for_free))
     order.save
     order
   end
@@ -258,7 +269,6 @@ class CartService
     discounts = []
     retail_value = self.subtotal(:retail_price) - minimum_value
     retail_value = 0.0 if retail_value < 0
-    total_discount = 0.0
     billet_discount_value = 0.0
     debit_discount_value = 0.0
     facebook_discount_value = 0.0

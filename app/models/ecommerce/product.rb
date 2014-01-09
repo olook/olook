@@ -4,8 +4,6 @@ class Product < ActiveRecord::Base
   SUBCATEGORY_TOKEN, HEEL_TOKEN = "Categoria", "Salto"
   CARE_PRODUCTS = ['Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar']
   UNAVAILABLE_ITEMS = :unavailable_items
-  # TODO: Temporarily disabling paper_trail for app analysis
-  #has_paper_trail :skip => [:pictures_attributes, :color_sample]
   QUANTITY_OPTIONS = {1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5}
   PRODUCT_VISIBILITY = {site: 1, olooklet: 2, all: 3}
   MINIMUM_INVENTORY_FOR_XML = 3
@@ -14,22 +12,20 @@ class Product < ActiveRecord::Base
 
   has_enumeration_for :category, :with => Category, :required => true
 
+  attr_accessor :save_from_master_variant
+
   after_create :create_master_variant
-  after_update :update_master_variant
+  after_update :update_master_variant, unless: :save_from_master_variant
   before_save :set_launch_date, if: :should_update_launch_date?
 
   has_many :pictures, :dependent => :destroy
   has_many :details, :dependent => :destroy
   has_many :price_logs, class_name: 'ProductPriceLog', :dependent => :destroy
-  # , :conditions => {:is_master => false}
   has_many :variants, :dependent => :destroy do
     def sorted_by_description
       self.sort {|variant_a, variant_b| variant_a.description <=> variant_b.description }
     end
   end
-
-  # has_one :master_variant, :class_name => "Variant", :conditions => {:is_master => true}, :foreign_key => "product_id"
-  # has_one :main_picture, :class_name => "Picture", :conditions => {:display_on => DisplayPictureOn::GALLERY_1}, :foreign_key => "product_id"
 
   belongs_to :collection
   has_and_belongs_to_many :profiles
@@ -56,11 +52,12 @@ class Product < ActiveRecord::Base
 
   scope :in_category, lambda { |value| { :conditions => ({ category: value } unless value.blank? || value.nil?) } }
   scope :in_collection, lambda { |value| { :conditions => ({ collection_id: value } unless value.blank? || value.nil?) } }
+
   scope :with_brand, lambda { |value| { :conditions => ({ brand: value } unless value.blank? || value.nil?) } }
   scope :by_inventory, lambda { |value| joins(:variants).group("products.id").order("sum(variants.inventory) #{ value }") if ["asc","desc"].include?(value) }
   scope :by_sold, lambda { |value| joins(:variants).group("products.id").order("sum(variants.initial_inventory - variants.inventory) #{ value }") if ["asc","desc"].include?(value) }
   scope :with_visibility, lambda { |value| { :conditions => ({ is_visible: value } unless value.blank? || value.nil? ) } }
-  scope :search, lambda { |value| { :conditions => ([ "name like ? or model_number = ?", "%#{value}%", value ] unless value.blank? || value.nil?) } }
+  scope :search, lambda { |value| { :conditions => ([ "products.name like ? or products.model_number = ? or products.description like ?", "%#{value}%", value, "%#{value}%" ] unless value.blank? || value.nil?) } }
   scope :with_pictures, ->(value) {
     if value == "not null"
       joins("left JOIN `pictures` ON `pictures`.`product_id` = `products`.`id`").where("pictures.id is NOT NULL").group("products.id") unless value.blank?
@@ -69,10 +66,14 @@ class Product < ActiveRecord::Base
     end
   }
   scope :in_launch_range, ->(start_date, end_date) { where("launch_date BETWEEN ? AND ?", start_date, end_date) unless start_date.blank? || end_date.blank? }
+  scope :in_sections, lambda { |value| { :conditions => ({ visibility: value } unless value.blank? || value.nil? ) } }
 
+  scope :in_collection_theme, lambda { |value| includes(:collection_themes).where(collection_themes:{id: value}) unless value.blank? || value.nil?  }
 
   scope :valid_for_xml, lambda{|black_list| only_visible.where("variants.inventory >= 1").where("variants.price > 0.0").group("products.id").joins(:variants).having("(category = 1 and count(distinct variants.id) >= 4) or (category = 4 and count(distinct variants.id) >= 2) or category NOT IN (1,4) and products.id NOT IN (#{black_list})")}
   scope :valid_for_xml_without_cloth, lambda { |black_list| only_visible.where("variants.inventory >= 1").group("products.id").joins(:variants).having("(category = 1 and count(distinct variants.id) >= 4) or category NOT IN (1,4) and products.id NOT IN (#{XML_BLACKLIST["products_blacklist"].join(",")})")}
+
+  scope :with_discount, lambda{|ordenation| Product.select("products.*, (variants.price - variants.retail_price) discount_delta").where("variants.is_master = true").where("variants.price > variants.retail_price").where("variants.retail_price > 0").group("products.id").joins(:variants).order("discount_delta #{ordenation}") unless ordenation.blank? || ordenation.nil? }
 
   def self.in_profile profile
     !profile.blank? && !profile.nil? ? scoped.joins('inner join products_profiles on products.id = products_profiles.product_id').where('products_profiles.profile_id' => profile) : scoped
@@ -82,7 +83,26 @@ class Product < ActiveRecord::Base
     subcategory.present? ? scoped.joins('inner join details on products.id = details.product_id').where('details.description' => subcategory) : scoped
   end
 
+  def self.set_master_variants(products)
+    product_ids = products.map { |p| p.id }
+    variants = Hash[Variant.unscoped.where(:product_id => product_ids, :is_master => true).all.map { |v| [v.product_id, v] }]
+    products.each do |p|
+      v = variants[p.id]
+      p.set_master_variant(v)
+    end
+    products
+  end
+
   accepts_nested_attributes_for :pictures, :reject_if => lambda{|p| p[:image].blank?}
+
+  def discount_price(opts={})
+    return @discount_price if @discount_price.present?
+    cart = opts[:cart]
+    coupon = opts[:coupon] || cart.try(:coupon)
+    promotion = opts[:promotion]
+    pd = ProductDiscountService.new(self, cart: cart, coupon: coupon, promotion: promotion)
+    @discount_price = pd.best_discount.calculate_for_product(self, cart: cart)
+  end
 
   def seo_path
     formatted_name.to_s.parameterize + "-" + id.to_s
@@ -136,21 +156,6 @@ class Product < ActiveRecord::Base
       relationship.destroy
     end
   end
-
-  delegate :price, to: :master_variant
-  delegate :'price=', to: :master_variant
-  delegate :retail_price, to: :master_variant
-  delegate :'retail_price=', to: :master_variant
-  delegate :width, to: :master_variant
-  delegate :'width=', to: :master_variant
-  delegate :height, to: :master_variant
-  delegate :'height=', to: :master_variant
-  delegate :length, to: :master_variant
-  delegate :'length=', to: :master_variant
-  delegate :weight, to: :master_variant
-  delegate :'weight=', to: :master_variant
-  delegate :discount_percent, to: :master_variant
-  delegate :'discount_percent=', to: :master_variant
 
   def main_picture
     @main_picture ||=
@@ -214,7 +219,16 @@ class Product < ActiveRecord::Base
   end
 
   def master_variant
-    @master_variant ||= Variant.unscoped.where(:product_id => self.id, :is_master => true).first
+    return @master_variant if @master_variant_found
+    set_master_variant Variant.unscoped.where(:product_id => self.id, :is_master => true).first
+  end
+
+  def set_master_variant(variant)
+    @master_variant_found = true
+    if variant
+      variant.product = self
+      @master_variant = variant
+    end
   end
 
   def colors(size = nil, admin = false)
@@ -513,6 +527,27 @@ class Product < ActiveRecord::Base
     end
   end
 
+  [:price, :retail_price, :width, :height, :length, :weight].each do |attr|
+    define_method( "#{attr}=" ) do |value|
+      master_variant[attr] = value
+      self[attr] = value
+    end
+  end
+
+  def list_contains_all_complete_look_products? product_ids
+    contains_all_elements_as_look_products?(product_ids) && has_more_than_half_look_products_available? && has_related_products?
+  end
+
+  def look_product_ids
+    rp_ids = (related_products.select{|rp| rp.inventory > 0}.map(&:id))
+    rp_ids << id
+    rp_ids
+  end
+
+  def has_more_than_half_look_products_available?
+    related_products.size <= 2 * (look_product_ids.size - 1)    
+  end        
+
   private
 
     def details_relevance
@@ -563,5 +598,14 @@ class Product < ActiveRecord::Base
       end
       detail.description if detail
     end
+
+    def has_related_products?
+      related_products.size > 0
+    end
+
+    def contains_all_elements_as_look_products? product_ids
+      rp_ids = look_product_ids
+      rp_ids & product_ids == rp_ids
+    end    
 end
 

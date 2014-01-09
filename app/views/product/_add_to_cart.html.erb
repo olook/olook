@@ -12,8 +12,8 @@
   <% end %>
 
   <% if product.sold_out? %>
-    <%= submit_tag "", id: "add_product", class: "add_product disabled", disabled: "disabled" %>
+    <%= submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "add_product disabled", disabled: "disabled" %>
   <% else %>
-    <%= submit_tag "", id: "add_product", class: "add_product#{' green' if params[:gbtn] == '1'}" %>
+    <%= submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "add_product" %>
   <% end %>
 <% end %>
