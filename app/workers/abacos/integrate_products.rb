@@ -20,7 +20,7 @@ module Abacos
           parsed_class = parse_product_class(abacos_product)
           parsed_data = parsed_class.parse_abacos_data(abacos_product)
           Resque.enqueue(Abacos::Integrate, parsed_class.to_s, parsed_data)
-        rescue Exception => e
+        rescue => e
           product_number = abacos_product[:codigo_produto]
           Abacos::IntegrateProductsObserver.mark_product_integrated_as_failure!(product_number, e.message)
           Airbrake.notify(
@@ -42,7 +42,7 @@ module Abacos
           parsed_class = parse_price_class(abacos_price)
           parsed_data = parsed_class.parse_abacos_data(abacos_price)
           Resque.enqueue(Abacos::IntegratePrice, parsed_class.to_s, parsed_data)
-        rescue Exception => e
+        rescue => e
           Airbrake.notify(
             :error_class   => "Abacos price integration",
             :error_message => e.message

@@ -13,6 +13,7 @@ module FreightCalculator
   def self.freight_for_zip(zip_code, order_value, shipping_service_ids=nil, use_message = false)
     clean_zip_code = clean_zip(zip_code)
     return {} unless valid_zip?(clean_zip_code)
+    order_value = 1 if order_value == 0
     return_array = []
     freight_prices = shipping_services(shipping_service_ids).map do |shipping_service|
       shipping_service.find_freight_for_zip(clean_zip_code, order_value)

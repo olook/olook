@@ -249,5 +249,73 @@
   platform: linux
   root_device_type: ebs
   provider: aws
+- !ruby/object:Rubber::Configuration::InstanceItem
+  name: resque08
+  domain: olook.com.br
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque_worker
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: collectd
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: monit
+    options: {}
+  instance_id: i-6ca3384c
+  image_type: m1.xlarge
+  image_id: ami-3fec7956
+  security_groups:
+  - olook_production_default
+  - olook_production_resque08
+  - olook_production_resque
+  - olook_production_resque_worker
+  - olook_production_collectd
+  - olook_production_monit
+  external_host: ec2-54-221-0-158.compute-1.amazonaws.com
+  external_ip: 54.221.0.158
+  internal_host: ip-10-235-24-208.ec2.internal
+  internal_ip: 10.235.24.208
+  zone: us-east-1b
+  platform: linux
+  root_device_type: ebs
+  provider: aws
+- !ruby/object:Rubber::Configuration::InstanceItem
+  name: resque10
+  domain: olook.com.br
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque_worker
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: collectd
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: monit
+    options: {}
+  instance_id: i-37ad3617
+  image_type: m1.xlarge
+  image_id: ami-3fec7956
+  security_groups:
+  - olook_production_default
+  - olook_production_resque10
+  - olook_production_resque
+  - olook_production_resque_worker
+  - olook_production_collectd
+  - olook_production_monit
+  external_host: ec2-54-196-26-86.compute-1.amazonaws.com
+  external_ip: 54.196.26.86
+  internal_host: ip-10-232-10-90.ec2.internal
+  internal_ip: 10.232.10.90
+  zone: us-east-1b
+  platform: linux
+  root_device_type: ebs
+  provider: aws
 - volumes: {}
   static_ips: {}

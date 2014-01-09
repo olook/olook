@@ -19,9 +19,6 @@
 - content_for :data_layer do
   = render "shared/data_layer/category", pixel_information: @pixel_information, catalog_products: @search.products
 
-  - content_for(:after_body) do
-    = javascript_include_tag "common/fb_like_button"
-
 = cache @cache_key, expires_in: 40.minutes do
   = first_level_breadcrumb(Category.t(Category.with_name(@category)).pluralize)
   #catalog
@@ -52,7 +49,7 @@
             %br
           =link_to (">> Tudo sobre #{header.title.downcase}"), "#", :class => "more_info_show"
           =link_to (">> Ocultar conteúdo"), "#", :class => "more_info_hide"
-          %fb:like{"href" => "http://#{Rails.env == 'production' ? "www" : "homolog"}.olook.com.br#{request.path}", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false", "class" => "like", "width" => "100"}
+          / %fb:like{"href" => "http://#{Rails.env == 'production' ? "www" : "homolog"}.olook.com.br#{request.path}", "data-action" => "like", "layout" => "button_count", "send" => "false", "show-faces" => "false", "class" => "like", "width" => "100"}
 
     #result
       - unless @search.has_any_filter_selected? || params[:cmp].present?

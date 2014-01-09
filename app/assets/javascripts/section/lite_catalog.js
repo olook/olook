@@ -12,7 +12,7 @@ filter.init = function(){
   if(typeof final_position == 'undefined') final_position = 600;
   olook.slider('#slider-range', start_position, final_position);
   olook.spy('p.spy');
-  olook.changePictureOnhover('img.async');
+  olook.changePictureOnhover('.async');
   olook.customSelect(".custom_select");
   olook.toggleClassSlideNext(".title-category");
 
@@ -34,4 +34,12 @@ filter.init = function(){
   });
 }
 
+
 $(filter.init);
+
+
+loadThumbnails = function() {
+  new ImageLoader().load("async");
+}
+
+window.addEventListener('load', loadThumbnails);

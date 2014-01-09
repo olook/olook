@@ -1,15 +1,28 @@
 <script type="text/javascript">
-$(function(){
-	window.fbAsyncInit = function(){
-  	FB.init({
-	    appId: '<%= facebook_app_id %>',
-	    status: true,
-	    cookie: true,
-	    oauth: true,
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+</script>
+
+
+<script type="text/javascript">
+
+init_facebook = function (){
+  window.fbAsyncInit = function(){
+    FB.init({
+      appId: '<%= facebook_app_id %>',
+      status: true,
+      cookie: true,
+      oauth: true,
       xfbml: true,
       frictionlessRequests : true
 
-	  });
+    });
 
     FB.Event.subscribe('edge.create', function(href, widget) {
 
@@ -36,11 +49,11 @@ $(function(){
     //   _gaq.push(['_trackEvent', 'Showroom', 'ClickFacebookLike', '']);
     // });
 
-	  try {
-	    FB.XFBML.parse();
-	  } catch(ex){}
+    try {
+      FB.XFBML.parse();
+    } catch(ex){}
 
-	}
+  }
 
 
   $("a.face-message").click(function(){
@@ -62,8 +75,8 @@ $(function(){
     $("#quick_view ul.social li.facebook a").click(function(){postProductToFacebookFeed()})
   }
 
-
-});
+}
+window.addEventListener('load', init_facebook);
 
 /**
   * TODO: Change the function name because we don't send message to boyfriend anymore
@@ -158,13 +171,4 @@ function postProductToFacebookFeed() {
 }
 <% end %>
 
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
 </script>
-

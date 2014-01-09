@@ -48,9 +48,14 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       ul {
         li {width: 365px;margin:0 auto;/* new size photo */ overflow: visible;display: none;
           &:first-child {display: block;}
-          a {display:inline-block;
-            img.full{width:365px;}
+          a{
+            display:inline-block;
+            max-width: 100%;
+            img.full {
+              max-width: 100%;
+            }
           }
+
         }
       }
     }

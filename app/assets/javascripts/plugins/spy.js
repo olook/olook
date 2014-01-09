@@ -49,6 +49,9 @@ olook.spy = function(selector){
         delivery();
         guaranteedDelivery();
 
+        load_first_image();
+        load_all_other_images();
+
         if (typeof initSuggestion != 'undefined') {
           initSuggestion.checkIfProductIsAlreadySelected();
         }
