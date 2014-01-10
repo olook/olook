@@ -8,11 +8,11 @@ describe FreightCalculator do
 
       context "for which there isn't a freight price" do
         it "returns a array of hashs with price, delivery time and cost equal to zero" do
-          freight = described_class.freight_for_zip(zip_code, 0).first
-          expect(freight[:price]).to  eql(FreightCalculator::DEFAULT_FREIGHT_PRICE)
-          expect(freight[:cost]).to eql(FreightCalculator::DEFAULT_FREIGHT_COST)
-          expect(freight[:delivery_time]).to eql(FreightCalculator::DEFAULT_INVENTORY_TIME)
-          expect(freight[:shipping_service_id]).to eql(FreightCalculator::DEFAULT_FREIGHT_SERVICE)
+          freight = described_class.freight_for_zip(zip_code, 0)
+          expect(freight[:default_shipping][:price]).to eql(FreightCalculator::DEFAULT_FREIGHT_PRICE)
+          expect(freight[:default_shipping][:cost]).to eql(FreightCalculator::DEFAULT_FREIGHT_COST)
+          expect(freight[:default_shipping][:delivery_time]).to eql(FreightCalculator::DEFAULT_INVENTORY_TIME)
+          expect(freight[:default_shipping][:shipping_service_id]).to eql(FreightCalculator::DEFAULT_FREIGHT_SERVICE)
         end
       end
 

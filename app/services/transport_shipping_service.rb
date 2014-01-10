@@ -14,7 +14,11 @@ class TransportShippingService
     fast_shipping = better_time_shipping
 
     return_shippings[:default_shipping] = default_shipping
-    set_fast_shipping(fast_shipping) if has_smaller_deliver_time?(fast_shipping[:delivery_time],default_shipping[:delivery_time]) && has_major_price?(fast_shipping[:price],default_shipping[:price])
+    
+    fast_delivery_time, fast_price = fast_shipping[:delivery_time], fast_shipping[:price]
+    default_delivery_time, default_price = default_shipping[:delivery_time], default_shipping[:price]
+
+    set_fast_shipping(fast_shipping) if has_smaller_deliver_time?(fast_delivery_time, default_delivery_time) && has_major_price?(fast_price, default_price)
 
     return_shippings
   end

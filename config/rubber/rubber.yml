@@ -290,15 +290,55 @@ hosts:
       aws:
         image_type: m1.large
   resque03:
-    resque_worker_count: 20
+    resque_worker_count: 50
     cloud_providers:
       aws:
-        image_type: m1.large
+        image_type: m1.xlarge
   resque04:
-    resque_worker_count: 20
+    resque_worker_count: 50
     cloud_providers:
       aws:
-        image_type: m1.large
+        image_type: m1.xlarge
+  resque05:
+    resque_worker_count: 50
+    cloud_providers:
+      aws:
+        image_type: m1.xlarge
+  resque06:
+    resque_worker_count: 50
+    cloud_providers:
+      aws:
+        image_type: m1.xlarge
+  resque07:
+    resque_worker_count: 50
+    cloud_providers:
+      aws:
+        image_type: m1.xlarge
+  resque08:
+    resque_worker_count: 50
+    cloud_providers:
+      aws:
+        image_type: m1.xlarge
+  resque09:
+    resque_worker_count: 50
+    cloud_providers:
+      aws:
+        image_type: m1.xlarge
+  resque10:
+    resque_worker_count: 50
+    cloud_providers:
+      aws:
+        image_type: m1.xlarge      
+  resque11:
+    resque_worker_count: 50
+    cloud_providers:
+      aws:
+        image_type: m1.xlarge
+  resque12:
+    resque_worker_count: 50
+    cloud_providers:
+      aws:
+        image_type: m1.xlarge   
 
   homolog:
     unicorn_workers: 2

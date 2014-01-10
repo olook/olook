@@ -121,6 +121,13 @@ class SearchEngine
     parameters
   end
 
+  def replace_filter(filter, filter_value)
+    parameters = expressions.dup
+    parameters.delete_if {|k| IGNORE_ON_URL.include? k }
+    parameters[filter.to_sym] = [filter_value]
+    parameters
+  end
+
   def current_filters
     parameters = expressions.dup
     parameters.delete_if {|k| IGNORE_ON_URL.include? k }

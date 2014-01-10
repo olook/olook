@@ -1452,7 +1452,7 @@ section#payment {
           }
         }
         .logo_itau{width:90px;height:100px;float:left;font-size:0;font-family:a;@include sprite_checkout(0px,0px);margin:0 42px 0 220px;}
-        .btn_pay{display:block;font-size:0;font-family:a;width:290px;height:65px;@include sprite_checkout(-90px,3px);float:left;margin-top:14px;}
+        .btn_pay{display:block;font-size:17px;width:290px;height:45px;float:left;margin-top:14px;text-transform: uppercase;letter-spacing: 2px;padding-top: 26px; @include bt_color($primary_bt_color, $primary_bt_color_hover);}
         
         .mercado_pago_button{
           display:block;text-align:center;
