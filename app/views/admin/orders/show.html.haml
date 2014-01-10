@@ -97,7 +97,7 @@
         %td= link_to line_item.variant.name, admin_product_path(line_item.variant.product)
         %td= line_item.quantity
         %td= number_to_currency(line_item.price)
-        %td= number_to_currency(line_item.retail_price)
+        %td= number_to_currency(line_item.sale_price)
         %td= number_to_currency(line_item.total_paid)
         %td= number_to_currency(line_item.calculate_markdown_discount)
         %td= number_to_currency(line_item.calculate_coupon_discount)
