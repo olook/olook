@@ -22,17 +22,7 @@
 - content_for :footer do
   = javascript_include_tag "carts"
 %section#cart
-  .msg
-    %p Obrigada por compartilhar a olook. Você acaba de ganhar 2% de desconto! :)
   %h1 Minha sacola
-  - unless @cart.facebook_share_discount? || @cart.items.size == 0
-    #facebook-share
-      %p
-        Que tal ganhar
-        %span 2%
-        de desconto nesta compra?
-      = link_to 'Compartilhar', '/facebook_share', data: {cart_id:  @cart.id }, id: "facebook_share", remote: true , :class => "share", :"data-width" => 128, :"data-height" => 24
-      %p.share-text Compartilhe e veja o desconto na sua sacola. :)
   = content_tag :div, class: 'warning-msg', style: "display:#{@promo_over_coupon ? 'block' : 'none'};" do
     = image_tag 'cart/warning_coupon.png', :class => ''
     %p
@@ -41,12 +31,12 @@
         %br/
       não pode usar um cupom em uma promoção do site, por exemplo
   - if @cart.items.count > 0
-    %ul#titles.border
-      %li.item Item
-      %li.amount Quantidade
-      %li.value Subtotal
     %table#items.items_list{:cellpadding => "0", :cellspacing => "0"}
       %tbody
+        %tr
+          %td{:colspan => '3'}Item
+          %td Quantidade
+          %td SubTotal
         - @cart.items.each do |item|
           = render partial: 'cart/items/row', locals: { cart_service: @cart_service, item: item } if item && !Freebie.product_is_freebie?(item.product.id)
     = render 'freebie/item', freebie: @freebie if @freebie

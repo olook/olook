@@ -229,7 +229,7 @@ table.check {
 .modal_smell {display: none;width:526px;height:332px;background: image-url('cart/modal_smell.jpg') no-repeat center center;border:8px solid #FFF;}
 
 section#cart {
-  padding: 20px 11px;
+  padding: 10px 11px;
   .txt-add{clear:both;font-size:13px;line-height:18px;border-bottom:dotted 1px #000;
     small{font-size:11px;}
   }
@@ -264,7 +264,7 @@ section#cart {
     }
   }
   h1 {
-    font-family: $johnston;
+    font-family: $verdana;
     font-size: 16px;
     text-transform: uppercase;
     float:left;
