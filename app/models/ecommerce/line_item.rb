@@ -19,8 +19,11 @@ class LineItem < ActiveRecord::Base
   end
 
   def markdown
-    return BigDecimal("0") if sale_price  != 0
-    sale_price  != 0 ? price - sale_price : BigDecimal("0")
+    if sale_price == 0
+      0
+    else
+      price - sale_price
+    end
   end
 
   def total_discounts
@@ -91,13 +94,13 @@ class LineItem < ActiveRecord::Base
   end  
 
   def total_paid
-    price - (total_discounts*percentage).round(2)
+    retail_price
   end
 
   private
 
     def line_item_sum
-      self.order.line_items.inject(0) do | sum, line_item | 
+      @line_item_sum ||= self.order.line_items.inject(0) do | sum, line_item | 
         sum += (line_item.is_freebie ? 0 : line_item.retail_price)
       end
     end
