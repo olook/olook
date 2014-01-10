@@ -94,7 +94,7 @@ class LineItem < ActiveRecord::Base
   end  
 
   def total_paid
-    retail_price
+    sale_price - (total_discounts*percentage).round(2)
   end
 
   private
