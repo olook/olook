@@ -21,15 +21,15 @@
   %meta{content: @chaordic_product, "data-pid" => @product.id, name: "chaordic:product"}/
   %meta{content: @chaordic_category, name: "chaordic:category"}/
   %meta{content: current_cart.try(:id), name: "chaordic:cart_id"}/
-  %script{src: "//assets.pinterest.com/js/pinit.js", type: "text/javascript"}
   = stylesheet_link_tag "new_structure/section/lite_product"
 
 %section#product
   = product_breadcrumbs_for(@product)
-  = link_to "Comprar o look completo", "#", :id => "goRelatedProduct" if @product.related_products.any? && (params[:srl] || Setting.disable_ab_test_for_look_products)
+  = link_to "Comprar o look completo", "#", :id => "goRelatedProduct" if @product.related_products.any? && @product.inventory > 0 && @product.has_more_than_half_look_products_available?
+
   .box-left
     #gallery
-      = cache "pics/#{@product.id}", expire_in: 40.minutes do
+      = cache "pics/#{@product.id}", expire_in: 30.minutes do
         = product_presenter.render_pics
       = product_presenter.render_facebook_comments
   .box-right

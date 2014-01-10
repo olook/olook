@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" dir="ltr" lang="pt-BR">
   <head>
+ 
+
     <%= render :partial => "shared/errorception" %>
+    <%= javascript_include_tag "control" %>
     <meta charset="UTF-8">
     <title>
       <%= title_text %>
@@ -17,7 +20,7 @@
     <% end %>
 
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag  "http://olook.neoassist.com/clients/olook/novo/modal.css" %>
+    <%= stylesheet_link_tag  "//olook.neoassist.com/clients/olook/novo/modal.css" %>
     <%= stylesheet_link_tag  "new_structure/lite_application" %>
     <%= stylesheet_link_tag  "desktop" unless mobile? %>
 
@@ -158,7 +161,7 @@
          <%= yield :footer %>
        <% end %>
 
-       <%= javascript_include_tag "http://olook.neoassist.com/clients/olook/js/chat.js" %>
+       <%= javascript_include_tag "//olook.neoassist.com/clients/olook/js/chat.js" %>
        <%= render :partial => "shared/metrics/master_tags" %>
     </div>
   </body>

@@ -1,11 +1,28 @@
+window.onload = function() {
+  initQuickView.productZoom();
+  load_all_other_images();
+}
+
+$(document).ready(function(){
+  load_first_image();
+  accordion();
+  delivery();
+  guaranteedDelivery();  
+});
+
+load_first_image = function() {
+  new ImageLoader().load("thumb-first");
+}
+
+load_all_other_images = function() {
+  new ImageLoader().load("thumb");
+}
 
 $(function() {
   var stringDesc = $("div#infos div.description p.description").text();
   
-  initQuickView.productZoom();
-  accordion();
-  delivery();
-  guaranteedDelivery();
+  // initQuickView.productZoom();
+
 
   /** MODAL GUIA DE MEDIDAS **/
   $(".size_guide a").click(function(e){
@@ -69,6 +86,7 @@ $(function() {
     $('body .dialog #login_modal').fadeIn('slow');
     initBase.closeDialog();
   });
+
 });
 
 initQuickView = {
