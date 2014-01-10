@@ -170,7 +170,7 @@ class CartService
     cart.items.each do |item|
 
       order.line_items << LineItem.new(variant_id: item.variant.id, quantity: item.quantity, price: item_price(item),
-                    retail_price: normalize_retail_price(order, item), gift: item.gift)
+                    retail_price: normalize_retail_price(order, item), sale_price: item.product.retail_price, gift: item.gift)
 
       create_freebies_line_items_and_update_subtotal(order, item)
     end
