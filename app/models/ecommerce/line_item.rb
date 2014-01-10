@@ -18,6 +18,15 @@ class LineItem < ActiveRecord::Base
     retail_price * quantity
   end
 
+  def markdown
+    return BigDecimal("0") if sale_price  != 0
+    sale_price  != 0 ? price - sale_price : BigDecimal("0")
+  end
+
+  def total_discounts
+    (order.markdown_discount + order.coupon_discount + order.loyalty_credits_discount + order.other_credits_discount) * percentage
+  end
+
   def calculate_loyalty_credit_amount
     return 0 if is_freebie
     
@@ -82,13 +91,13 @@ class LineItem < ActiveRecord::Base
   end  
 
   def total_paid
-    (order.amount_paid*percentage).round(2)
+    price - (total_discounts*percentage).round(2)
   end
 
   private
 
     def line_item_sum
-      total = self.order.line_items.inject(0) do | sum, line_item | 
+      self.order.line_items.inject(0) do | sum, line_item | 
         sum += (line_item.is_freebie ? 0 : line_item.retail_price)
       end
     end

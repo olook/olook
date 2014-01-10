@@ -99,7 +99,7 @@
         %td= number_to_currency(line_item.price)
         %td= number_to_currency(line_item.sale_price)
         %td= number_to_currency(line_item.total_paid)
-        %td= number_to_currency(line_item.calculate_markdown_discount)
+        %td= number_to_currency(line_item.markdown)
         %td= number_to_currency(line_item.calculate_coupon_discount)
         %td= number_to_currency(line_item.calculate_other_credits_discount)
         %td= number_to_currency(line_item.calculate_loyalty_credits_discount)

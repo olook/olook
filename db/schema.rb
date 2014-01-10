@@ -625,7 +625,7 @@ ActiveRecord::Schema.define(:version => 20140110132606) do
     t.boolean "gift"
     t.decimal "retail_price", :precision => 8,  :scale => 3
     t.boolean "is_freebie",                                  :default => false
-    t.decimal "sale_price",   :precision => 10, :scale => 0
+    t.decimal "sale_price",   :precision => 10, :scale => 0, :default => 0
   end
 
   add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
