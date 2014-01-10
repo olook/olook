@@ -89,7 +89,8 @@ aside{
     font-family: $verdana;
 
     &:hover{ color:$base_color; }
-    &.selected{ background-position:0 -86px !important; }
+    &.selected{ background-position:0 -86px !important;}
+    &.clean{background: image-url('collections/sprite.png') -269px -116px no-repeat !important;}
   }
   .clean_filter a{
     font-size:11px;
@@ -257,6 +258,7 @@ span.summary, .full{
         background-position: 0 -50px !important;
         text-transform: none;
         font-weight: normal;
+        &.clean{background: image-url('collections/sprite.png') -269px -116px no-repeat !important;}
       }
       .selected {
         background-position: 0 -87px !important;

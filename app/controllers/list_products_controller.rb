@@ -15,7 +15,7 @@ class ListProductsController < ApplicationController
   def default_params(search_params, site_section)
     page_size = params[:page_size] || DEFAULT_PAGE_SIZE
     search_params[:skip_beachwear_on_clothes] = true
-    @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(page_size)
+    @search = SearchEngineWithDynamicFilters.new(search_params, true).for_page(params[:page]).with_limit(page_size)
     @search.for_admin if current_admin
 
     @url_builder = SeoUrl.new(search_params, site_section, @search)
