@@ -70,25 +70,28 @@
   = render :partial => 'purchase_timeline', :locals => {:order => @order}
   %table.table
     %tr
-      %th Brinde?
-      %th
-      %th SKU
-      %th Produto
-      %th Quantidade
-      %th Preço cheio
-      %th Preço vitrine
-      %th Total Pago
-      %th Markdown
-      %th Cupom
-      %th Outros Descontos
-      %th Fidelidade
-      %th MGM
-      %th Reembolso
-      %th
+      %th{rowspan: "2"} Brinde?
+      %th{rowspan: "2"}
+      %th{rowspan: "2"} SKU
+      %th{rowspan: "2"} Produto
+      %th{rowspan: "2"} Qtd
+      %th{rowspan: "2"} Preço cheio
+      %th{rowspan: "2"} Preço vitrine
+      %th{rowspan: "2"} Total Pago
+      %th.order_discount{colspan: "5"}
+        Descontos
+      %th{rowspan: "2"} Reembolso
+      %th{rowspan: "2"}
         Créditos de Fidelidade
         %br>/
         (ganhos)
-      %th
+      %th{rowspan: "2"}
+    %tr
+      %th Markdown
+      %th Cupom
+      %th Outros
+      %th Fidelidade
+      %th MGM
     - @order.line_items.each do |line_item|
       %tr
         %td= "Brinde" if line_item.is_freebie

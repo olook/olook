@@ -94,6 +94,7 @@ class LineItem < ActiveRecord::Base
   end  
 
   def total_paid
+    return 0 if retail_price <= 0.1
     retail_price - (total_discounts*percentage).round(2)
   end
 
