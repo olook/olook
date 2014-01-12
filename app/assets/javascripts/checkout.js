@@ -132,17 +132,13 @@ function showTotal(){
 function freightCalc(){
   zip_code = $("#checkout_address_zip_code").val();
   if (zip_code) {
-    retrieve_freight_price_for_control_or_variation(zip_code);
+    retrieve_freight_price_for_checkout(zip_code,"");
   }
 
   $("#checkout_address_street").on("focus", function(){
     zip_code = $("#checkout_address_zip_code").val();
-    retrieve_freight_price_for_control_or_variation(zip_code);
+    retrieve_freight_price_for_checkout(zip_code,"");
   });
-}
-
-function changeFrieghtTotalValue(){
-$('.shipping_service_radio').change(function(){console.log('aaaaa')})
 }
 
 $(function() {
@@ -151,6 +147,16 @@ $(function() {
   window.setTimeout(setButton,600);
   masks.tel(".tel_contato1");
   masks.tel(".tel_contato2");
+
+  if(!states_and_cities) var states_and_cities = {};
+
+  states_and_cities.load_state_cities = function(){
+    new dgCidadesEstados({
+      cidade: document.getElementById('checkout_address_city'),
+      estado: document.getElementById('checkout_address_state')
+    });
+  }
+  states_and_cities.load_state_cities();
 
   freightCalc();
   showAboutSecurityCode();
