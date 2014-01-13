@@ -10,7 +10,7 @@ class ShippingsController < ApplicationController
     freights = shipping_freights
     return render :status => :not_found if freights.empty?
     track_zip_code_fetch_event
-    prepare_freights(shipping_freights)
+    prepare_freights(freights)
     @days_to_deliver = freights.fetch(:default_shipping)[:delivery_time]
     @force_show_div = true if params[:freight_service_ids]
     @freight_price = freights.fetch(:default_shipping)[:price]
