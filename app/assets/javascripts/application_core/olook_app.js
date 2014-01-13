@@ -1,30 +1,20 @@
-var OlookApp = function() {
+/* A classe-namespace. Esta classe contem a instancia do mediator.
+ * Alternativamente, podemos tambem criar metodos que tem como objetivo desacoplar o codigo de bibliotecas de manipulacao de
+ * DOM e chamadas AJAX (ex.: jQuery)
+ */
+var OlookApp = function(_mediator) {
 
-  var modules = {};
-  var mediator = null;
+  var mediator = _mediator;
 
   return {
     getMediator: function(){
       return mediator;
-    },
-
-    getModules: function(){
-      return modules;
-    },
-
-    addModule: function(moduleName, module){
-      modules[moduleName] = module;
-      modules[moduleName].init();
-    },
-
-    init: function(){
-      mediator = new Mediator();
     }
   };
 };
 
-var olook_app = null;
+var olookApp = null;
 
 $(function(){
-  olook_app.init();
+  olookApp = new OlookApp(new Mediator());
 });
