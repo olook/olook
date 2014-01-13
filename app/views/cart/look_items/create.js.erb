@@ -1,29 +1,10 @@
-var variant_number = '<%= j params[:variant_number] %>';
+var variantNumber = '<%= j params[:variant_number] %>';
 var product_price = '<%= j params[:product_price] %>';
 var product_id = '<%= j params[:product_id] %>';
 
-var hasToFadeIn = false;
-var cartContainsItems = true;
-var variant_numbers = <%= @variant_numbers.to_s.html_safe %>;
+var variantNumbers = <%= @variant_numbers.to_s.html_safe %>;
 
-for(i=0;i<variant_numbers.length;i++){
-  $('#variant_numbers_[value=\"'+variant_numbers[i]+'\"]').remove();
-  $('#variant_numbers[][value=\"'+variant_numbers[i]+'\"]').remove();  
-}
+olookApp.mediator.publish("updateMinicartInput",variantNumbers, variantNumber, '<%= escape_javascript(hidden_field_tag("variant_numbers[]", params[:variant_number])) %>');
 
-if(variant_number.length > 0){
-  $('#minicart').append('<%= escape_javascript(hidden_field_tag("variant_numbers[]", params[:variant_number])) %>');
-}
-if((StringUtils.isEmpty($("#total_price").val()) || ($( ".cart_related ul li").length -1 == 0)) && !StringUtils.isEmpty(variant_number)){
-  $("#total_price").val('0.0');
-
-  $('.cart_related').fadeOut("fast",function(){
-    $('.cart_related').addClass('product_added');
-    $('.cart_related div.empty_minicart').hide();    
-    hasToFadeIn = true;
-  });
-}
-
-setTimeout(function() {
-  olookApp.getMediator().publish("updateMinicartDisplay", hasToFadeIn, cartContainsItems, product_id, product_price, variant_number);    
-},300);   
+olookApp.mediator.publish("updateMinicartDisplay", product_id, product_price, variantNumber);    
+   
