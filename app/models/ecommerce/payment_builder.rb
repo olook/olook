@@ -116,7 +116,7 @@ class PaymentBuilder
 
       cart_service.cart.items.each do |item|
         if /Promotion:/ =~ item.cart_item_adjustment.source
-          line_item = order.line_items.find { |litem| litem.variant_id == item.variant_id }
+          line_item = payment.order.line_items.find { |litem| litem.variant_id == item.variant_id }
           create_payment_for(item.adjustment_value, PromotionPayment, {line_item_id: line_item.try(:id), promotion: cart_service.cart.items.first.cart_item_adjustment.source})
         end
       end
