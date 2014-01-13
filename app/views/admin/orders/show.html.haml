@@ -87,11 +87,11 @@
         (ganhos)
       %th{rowspan: "2"}
     %tr
-      %th Markdown
-      %th Cupom
-      %th Outros
-      %th Fidelidade
-      %th MGM
+      %th.order_discount Markdown
+      %th.order_discount Cupom
+      %th.order_discount Outros
+      %th.order_discount Fidelidade
+      %th.order_discount MGM
     - @order.line_items.each do |line_item|
       %tr
         %td= "Brinde" if line_item.is_freebie
