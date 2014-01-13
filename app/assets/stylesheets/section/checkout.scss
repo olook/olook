@@ -145,7 +145,7 @@ table.check {
         /*&.check_column{width:870px;}*/
         &.icon-gift, &.icon-credits {width:50px; height:20px;background: image-url('cart/sprite.png') no-repeat -677px -80px;position: relative;left:22px;}
         &.icon-credits {background: image-url('cart/sprite.png') no-repeat -742px -80px;}
-        &.check_column{width:870px; }
+        &.check_column{width:800px; }
         vertical-align: middle;
         padding: 10px 0;
         &.check_discount{
@@ -193,10 +193,9 @@ table.check {
         &.value {
           color: #000;
           font-family: $avenir;
-          font-size: 17px;
+          font-size: 15px;
           text-align: right;
           font-weight: bold;
-          letter-spacing: 1px;
           width: 100px;
         }
       }
@@ -219,6 +218,7 @@ table.check {
           }
           &.value {
             color: #000; 
+            font-family: 'Trebuchet-Ms', Verdana;
           }
         }
       }
@@ -269,8 +269,10 @@ section#cart {
     text-transform: uppercase;
     float:left;
     padding-top: 20px;
-    width:220px;
+    width:240px;
     margin-bottom:20px;
+    letter-spacing: -1px;
+    font-weight: bold;
     span.icon {
       background:image-url('cart/sprite.png') no-repeat -567px -70px;
       width:25px;
@@ -279,7 +281,7 @@ section#cart {
       float:left;
       margin-top:-20px;
     }
-    span.total_itens {font-weight: normal;font-size: 16px;text-transform: none; font-family: KeplerStdItalic, tahoma;letter-spacing: 1px;}
+    span.total_itens {font-weight: normal;font-size: 13px;text-transform: none; font-family: $verdana, tahoma;position: relative;top:-2px;font-style: italic;margin-left:5px;}
   }
   h2 {
     font-family: $kepler;
@@ -361,7 +363,6 @@ section#cart {
   .buying-continue{
     margin:20px 0 30px;
     font-size:12px;
-    @include sprite_checkout(-390px,-161px);
     padding-left:13px;
     a{
       display: block;
@@ -803,7 +804,7 @@ section#cart {
           color: #EE3640;
           padding-top:10px;
           &.discount{float:right;margin-right:20px;
-            p#coupon_discount{float:left;width:100px;margin:0;}
+            p#coupon_discount{float:left;width:100px;margin:0;padding-top:2px;}
             form.edit_cart{float:left;}
           }
 
@@ -864,8 +865,7 @@ section#cart {
           cursor: pointer;
           background: image-url('common/sprite_modal_footer.png') -128px 2px #F7989E no-repeat !important;
           padding-left: 26px !important;
-          position: relative;
-          top:-3px;
+        
         }
       }
     }
@@ -933,7 +933,7 @@ section#cart {
     width:100%;
     margin-top:25px;
     border-top:1px solid #d1d1d1;
-    td {padding-top:10px;vertical-align: middle;}
+    td {vertical-align: middle;}
     .devolucao_credito { 
       width:710px;
       height:60px;
@@ -2338,7 +2338,7 @@ section#payment.payment_new {
   }
 }
 a.txt-conheca{
-  font-family: $avenir;
+  font-family: $verdana;
   font-size: 14px;
   color: $pink;
   text-transform: none;
