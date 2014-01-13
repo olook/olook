@@ -33,7 +33,6 @@ _gaq.push(['_addTrans',
 <section id="cart">
 
   <h1><span class="icon"></span>Minha sacola <span class="total_itens">(<%= @cart.try(:items_total).to_i %> itens)</span></h1>
-  
 
   <%= content_tag :div, class: 'warning-msg', style: "display:#{@promo_over_coupon ? 'block' : 'none'};" do %>
     <%= image_tag 'cart/warning_coupon.png', :class => '' %>
@@ -41,6 +40,25 @@ _gaq.push(['_addTrans',
   <% end %>
 
   <% if @cart.items.count > 0 %>
+    <div id="float_total">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+              <td>
+                <span class="total_itens">(<%= @cart.try(:items_total).to_i %> itens).........Total <%= number_to_currency(@cart_calculator.items_total) %></span>
+              </td>
+              <td class="buttons">
+                <% if current_user && !current_user.reseller %>
+                  <p class="credits"></p>
+                <% end %>
+                <% if current_user %>
+                  <%= link_to "FECHAR MEU PEDIDO", new_checkout_path, :class => "continue"  %>
+                <% else %>
+                  <%= link_to "FECHAR MEU PEDIDO", checkout_login_index_path, :class => "continue"  %>
+                <% end %>
+              </td>
+            </tr>
+        </table>
+    </div>
     <table cellpadding="0" cellspacing="0" class="items_list" id="items">
       <thead>
         <tr>
@@ -123,7 +141,6 @@ _gaq.push(['_addTrans',
     </table>
   <% end %>
 
-  
 
   <table cellpadding="0" cellspacing="0" id="cart_subtotal">
     <tr>
@@ -161,7 +178,6 @@ _gaq.push(['_addTrans',
             <td class="nomeCupom">
               <p id="coupon_discount">
                 <%= @cart.coupon.try(:code) %>
-                
               </p>
               <%= form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f| %>                  
                 <%= f.hidden_field('coupon_code', :value => nil) %>
