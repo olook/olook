@@ -94,11 +94,11 @@
       %th.order_discount Fidelidade
       %th.order_discount MGM
     - @order.line_items.each do |line_item|
-      %tr
+      %tr.infos_item
         %td= "Brinde" if line_item.is_freebie
         %td= image_tag(line_item.variant.thumb_picture) if line_item.variant.thumb_picture
         %td= link_to line_item.variant.sku, admin_product_path(line_item.variant.product)
-        %td= link_to line_item.variant.name, admin_product_path(line_item.variant.product)
+        %td.product_name= link_to line_item.variant.name, admin_product_path(line_item.variant.product)
         %td= line_item.quantity
         %td= number_to_currency(line_item.price)
         %td= number_to_currency(line_item.sale_price)
