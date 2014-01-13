@@ -361,7 +361,7 @@ section#cart {
   }
 
   .buying-continue{
-    margin:20px 0 30px;
+    margin:20px -13px 30px;
     font-size:12px;
     padding-left:13px;
     a{
@@ -382,6 +382,7 @@ section#cart {
     background: image-url("cart/sprite.png") no-repeat -820px -69px;
     display: block;
     float:left;
+    margin-left: 105px;
   }
   p.txt-suggestions{
     clear:both;
@@ -489,7 +490,7 @@ section#cart {
     a.cart_item {
       width: 70px;height: 105px;display: block;float: left;margin-right: 20px;text-decoration:none;
       div.spy_cart_icon {display:none;width:70px;height:105px;background:rgba(255,255,255,0.6);position:absolute;}
-      span.spy-icon {background: image-url("moments/sprite.png") no-repeat right -169px;width: 40px;height: 40px;float: left;margin-left: 14px;margin-top: 15px;display: block;}
+      span.spy-icon {background: image-url("moments/sprite.png") no-repeat right -169px;width: 40px;height: 40px;float: left;margin-left: 14px;margin-top: 15px !important;display: block;}
       span.spy-txt {display: block;float: left;font-family: avenir, arial, sans-serif;font-size: 11px;margin-top: 4px;font-weight: bold;letter-spacing: 1px;width: 70px;color:#000;text-align:center;text-decoration:none;}
     }
     a.cart_item:hover .spy_cart_icon {display:block;}
@@ -643,7 +644,7 @@ section#cart {
         &.avc-foto{
           width:130px;text-align:center;
           img{width:70px;height:auto ;}
-          .cart_item, div.spy_cart_icon{height:70px;}
+          .cart_item, div.spy_cart_icon{height:105px;}
           .cart_item {margin-left:28px;
             .spy-icon {margin-top:0px;}
           }
@@ -2088,12 +2089,11 @@ section.checkout{
   }
   /********** END / START STEP THREE *******/
   #cart-box{
-    float:left;border:solid 1px #D9D8D8;width:321px;max-height:478px;background:#FFF;margin-bottom: 15px;
+    float:left;border:solid 1px #D9D8D8;width:321px;max-height:515px;background:#FFF;margin-bottom: 15px;
     .freebie_row {
       width:270px;
       background: image-url("cart/cheirinho.jpg") no-repeat left center;
       height:100px;
-      height: 128px;
       margin-left: 27px;
       border-top:1px solid #d1d1d1;
       p {
