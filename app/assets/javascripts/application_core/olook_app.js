@@ -1,16 +1,9 @@
-/* A classe-namespace. Esta classe contem a instancia do mediator.
+/* A classe-namespace. Objetos desta classe devem conter a instancia do mediator.
  * Alternativamente, podemos tambem criar metodos que tem como objetivo desacoplar o codigo de bibliotecas de manipulacao de
  * DOM e chamadas AJAX (ex.: jQuery)
  */
-var OlookApp = function(_mediator) {
-
-  var mediator = _mediator;
-
-  return {
-    getMediator: function(){
-      return mediator;
-    }
-  };
+function OlookApp(mediator) {
+  this.mediator = mediator;
 };
 
 var olookApp = null;
