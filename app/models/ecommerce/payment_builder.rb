@@ -32,6 +32,7 @@ class PaymentBuilder
     }
 
     attributes.merge!({:source => options[:promotion]}) if options[:promotion]
+    attributes.merge!({:line_item_id => options[:line_item_id]}) if options[:line_item_id]
     attributes.merge!({:credit_type_id => CreditType.find_by_code!(options[:credit]).id}) if options[:credit]
     attributes.merge!({:coupon_id => options[:coupon_id]}) if options[:coupon_id]
 
@@ -112,6 +113,13 @@ class PaymentBuilder
 
       create_payment_for(total_liquidation, OlookletPayment)
       create_payment_for(total_coupon, CouponPayment, coupon_opts)
+
+      cart_service.cart.items.each do |item|
+        if /Promotion:/ =~ item.cart_item_adjustment.source
+          line_item = order.line_items.find { |litem| litem.variant_id == item.variant_id }
+          create_payment_for(item.adjustment_value, PromotionPayment, {line_item_id: line_item.try(:id), promotion: cart_service.cart.items.first.cart_item_adjustment.source})
+        end
+      end
       create_payment_for(total_promotion, PromotionPayment, {promotion: cart_service.cart.items.first.cart_item_adjustment.source})
       create_payment_for(facebook_discount, FacebookShareDiscountPayment)
       create_payment_for(billet_discount, BilletDiscountPayment)

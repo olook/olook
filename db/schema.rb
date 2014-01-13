@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140110132606) do
+ActiveRecord::Schema.define(:version => 20140113164430) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -913,6 +913,7 @@ ActiveRecord::Schema.define(:version => 20140110132606) do
     t.string   "security_code"
     t.string   "source"
     t.string   "mercado_pago_id"
+    t.integer  "line_item_id"
   end
 
   add_index "payments", ["cart_id"], :name => "index_payments_on_cart_id"
