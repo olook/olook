@@ -4,7 +4,12 @@ var product_id = '<%= j params[:product_id] %>';
 
 var variantNumbers = <%= @variant_numbers.to_s.html_safe %>;
 
-olookApp.mediator.publish("updateMinicartInput",variantNumbers, variantNumber, '<%= escape_javascript(hidden_field_tag("variant_numbers[]", params[:variant_number])) %>');
+olookApp.mediator.publish("fadeOutMinicart", variantNumber);
+olookApp.mediator.publish("updateMinicartInputs",variantNumbers, variantNumber, '<%= escape_javascript(hidden_field_tag("variant_numbers[]", params[:variant_number])) %>');
 
-olookApp.mediator.publish("updateMinicartDisplay", product_id, product_price, variantNumber);    
+setTimeout(function() {
+  olookApp.mediator.publish("updateMinicartData", product_id, product_price, variantNumber);  
+  olookApp.mediator.publish("updateMinicartBoxDisplay");
+  olookApp.mediator.publish("fadeInMinicart");  
+},300);    
    
