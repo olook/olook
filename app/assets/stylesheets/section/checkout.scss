@@ -228,6 +228,22 @@ table.check {
 
 .modal_smell {display: none;width:526px;height:332px;background: image-url('cart/modal_smell.jpg') no-repeat center center;border:8px solid #FFF;}
 
+#float_total {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: #ccc;
+  width: 100%;
+  table {
+    width: 990px;
+    margin: auto;
+    td.buttons {
+      width: 480px;
+      padding-right: 10px;
+    }
+  }
+}
+
 section#cart {
   padding: 10px 11px;
   .txt-add{clear:both;font-size:13px;line-height:18px;border-bottom:dotted 1px #000;
