@@ -94,7 +94,7 @@ class LineItem < ActiveRecord::Base
   end
 
   def calculate_promotion_discount
-    (order.promotion_discount).round(2)
+    (order.payments.for_promotion.where(line_item_id: id)).first.try(:total_paid).to_f.round(2)
   end
 
   def total_paid
