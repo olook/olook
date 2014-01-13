@@ -22,7 +22,6 @@
 //= require lib/mediator.min
 //= require application_core/olook_app
 //= require modules/complete_look/minicart_update_manager
-//= require modules/b
 //= require lite_base
 //= require _search_bar
 //= require ./partials/_credits_info
