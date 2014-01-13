@@ -78,7 +78,7 @@
       %th{rowspan: "2"} Preço cheio
       %th{rowspan: "2"} Preço vitrine
       %th{rowspan: "2"} Total Pago
-      %th.order_discount{colspan: "5"}
+      %th.order_discount{colspan: "6"}
         Descontos
       %th{rowspan: "2"} Reembolso
       %th{rowspan: "2"}
@@ -89,6 +89,7 @@
     %tr
       %th.order_discount Markdown
       %th.order_discount Cupom
+      %th.order_discount Promo
       %th.order_discount Outros
       %th.order_discount Fidelidade
       %th.order_discount MGM
@@ -104,6 +105,7 @@
         %td= number_to_currency(line_item.total_paid)
         %td= number_to_currency(line_item.markdown)
         %td= number_to_currency(line_item.calculate_coupon_discount)
+        %td= number_to_currency(line_item.calculate_promotion_discount)
         %td= number_to_currency(line_item.calculate_other_credits_discount)
         %td= number_to_currency(line_item.calculate_loyalty_credits_discount)
         %td= number_to_currency(line_item.calculate_invite_credits_discount)

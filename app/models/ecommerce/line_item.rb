@@ -91,7 +91,11 @@ class LineItem < ActiveRecord::Base
 
   def calculate_other_credits_discount
     (order.other_credits_discount*percentage).round(2)
-  end  
+  end
+
+  def calculate_promotion_discount
+    (order.promotion_discount).round(2)
+  end
 
   def total_paid
     return 0 if retail_price <= 0.1

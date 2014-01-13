@@ -283,6 +283,10 @@ class Order < ActiveRecord::Base
     payments.for_loyalty.sum(&:total_paid)
   end
 
+  def promotion_discount
+    payments.for_promotion.sum(&:total_paid)
+  end
+
   def redeem_credits_discount
     payments.for_redeem.sum(&:total_paid)
   end
