@@ -12,3 +12,5 @@
     - else
       - filters_by("subcategory", search, use_fields: [:category]).each do |text, amount|
         %li= filter_link_to(url_builder.add_filter(:subcategory, text), text.chomp.gsub(/ ?moda praia/i, ''), search.filter_selected?(:subcategory, text.chomp))
+
+    %li= link_to("Limpar Filtro", @url_builder.remove_filter_of(:subcategory), :class => "clean") if search.filter_value(:subcategory).present?
