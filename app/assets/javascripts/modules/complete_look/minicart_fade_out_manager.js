@@ -1,4 +1,6 @@
 function MinicartFadeOutManager(){
+  
+  
   function hasToFadeOut(variantNumber){
     return ((StringUtils.isEmpty($("#total_price").val()) || ($( ".cart_related ul li").length -1 == 0)) && !StringUtils.isEmpty(variantNumber));
   }
