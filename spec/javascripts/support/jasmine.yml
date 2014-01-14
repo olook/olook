@@ -18,6 +18,7 @@ src_files:
   - app/assets/javascripts/formatter.js
   - app/assets/javascripts/plugins/admin/countdown.js
   - app/assets/javascripts/admin/catalog_landing_page.js
+  - app/assets/javascripts/lib/mediator.js
   # - assets/javascripts/*.js
   # - assets/application.js
 
