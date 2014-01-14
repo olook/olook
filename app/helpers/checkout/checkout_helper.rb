@@ -52,4 +52,8 @@ module Checkout::CheckoutHelper
     return "O frete deste pedido será de #{number_to_currency(@freight_price)}."
   end
 
+  def initial_freight shipping_service
+    number_to_currency(shipping_service.try(:price) || "0")
+  end
+
 end
