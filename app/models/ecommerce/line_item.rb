@@ -98,7 +98,7 @@ class LineItem < ActiveRecord::Base
   end
 
   def total_paid
-    return 0 if retail_price <= 0.1
+    return 0 if free_on_site?
     retail_price - (total_discounts*percentage).round(2)
   end
 
@@ -143,6 +143,15 @@ class LineItem < ActiveRecord::Base
 
     def percentage
       # calcular retail_price/line_item_sum para saber a porcentagem do produto na quantia paga.
-      retail_price/line_item_sum
+      normalized_retail_price/line_item_sum
+    end
+
+    def normalized_retail_price
+      return 0 if free_on_site?
+      retail_price
+    end
+
+    def free_on_site?
+      retail_price <= 0.1 
     end
 end
