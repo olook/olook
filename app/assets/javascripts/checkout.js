@@ -151,16 +151,6 @@ states_and_cities.load_state_cities = function(){
 }
 
 $(function() {
-  states_and_cities.load_state_cities();
-  $('#checkout_address_state').change(function(){
-    $(this).parent().find("p").html($(this).val());
-  });
-  $('#checkout_address_state').parent().find("p").html($('#checkout_address_state').val());
-  $('#checkout_address_city').parent().find("p").html($('#checkout_address_city').val());
-  $('#checkout_address_city').change(function(){
-    $(this).parent().find("p").html($(this).val());
-  });
-
   masks.card();
   window.setTimeout(setButton,600);
   masks.tel(".tel_contato1");
