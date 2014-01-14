@@ -15,6 +15,7 @@ class Checkout::CheckoutController < Checkout::BaseController
   end
 
   def create
+    binding.pry
     address = shipping_address(params)
     payment = create_payment(address)
     payment_method = params[:checkout][:payment_method]
