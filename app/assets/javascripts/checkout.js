@@ -140,8 +140,26 @@ function freightCalc(){
     retrieve_freight_price_for_checkout(zip_code,"");
   });
 }
+if(!states_and_cities) var states_and_cities = {};
+states_and_cities.load_state_cities = function(){
+  new dgCidadesEstados({
+    cidade: document.getElementById('checkout_address_city'),
+    estadoVal: checkoutState,
+    estado: document.getElementById('checkout_address_state'),
+    cidadeVal: checkoutCity
+  });
+}
 
 $(function() {
+  states_and_cities.load_state_cities();
+  $('#checkout_address_state').change(function(){
+    $(this).parent().find("p").html($(this).val());
+  });
+  $('#checkout_address_state').parent().find("p").html($('#checkout_address_state').val());
+  $('#checkout_address_city').parent().find("p").html($('#checkout_address_city').val());
+  $('#checkout_address_city').change(function(){
+    $(this).parent().find("p").html($(this).val());
+  });
 
   masks.card();
   window.setTimeout(setButton,600);
@@ -154,6 +172,14 @@ $(function() {
     bairro: '#checkout_address_neighborhood',
     applyHtmlTag: true,
     afterFail: function(){
+  $('#checkout_address_state').change(function(){
+    $(this).parent().find("p").html($(this).val());
+  });
+  $('#checkout_address_state').parent().find("p").html($('#checkout_address_state').val());
+  $('#checkout_address_city').parent().find("p").html($('#checkout_address_city').val());
+  $('#checkout_address_city').change(function(){
+    $(this).parent().find("p").html($(this).val());
+  });
       new dgCidadesEstados({
         cidade: document.getElementById(olook.cep.cidade.replace('#', '')),
         estado: document.getElementById(olook.cep.estado.replace('#', ''))
