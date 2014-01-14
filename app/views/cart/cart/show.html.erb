@@ -73,6 +73,7 @@ _gaq.push(['_addTrans',
         <% end %>
       </tbody>
     </table>
+    <%= render 'freebie/item', freebie: @freebie if @freebie %>
 
     <%= render "checkout_banner" %>
 
@@ -113,8 +114,8 @@ _gaq.push(['_addTrans',
               <div class="content">
                <h2>SOBRE OS SEUS CRÉDITOS</h2>
                <% style = @cart_service.allow_credit_payment? ? 'normal' : 'prohibited' %>
-               <p><span>//</span> Você acumulou R$ 10,00 créditos que podem ser utilizados nesta compra.</p>
-               <p><span>//</span>O valor do seu pedido é superior ao seu saldo e você deverá pagar a diferença.</p>
+               <p><span>//</span> Você acumulou <%= number_to_currency @report.available_credits %> créditos que podem ser utilizados nesta compra.</p>
+               <p><span>//</span> O valor do seu pedido é superior ao seu saldo e você deverá pagar a diferença.</p>
                <h2>ENTENDA SEUS CRÉDITOS</h2>
                <table cellspacing="0" cellspading="0">
                 <tr class="loyalty_credit">

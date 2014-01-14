@@ -4,8 +4,8 @@
 //= require plugins/check_freebie
 //= require plugins/float_total_scroll_manager
 
-
 $(function() {
+  new FloatTotalScrollManager().config();
   showInfoCredits();
   olook.spy('.cart_item[data-url]');
   if ($('#cart_gift_wrap').is(':checked')){
