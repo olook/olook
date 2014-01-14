@@ -29,11 +29,9 @@ FloatTotalScrollManager.prototype.fade = function(percentage) {
 FloatTotalScrollManager.prototype.apply = function() {
   this.updateProperties();
   var windowHeight = window.innerHeight;
-  if(windowHeight >= this.elementBounding.top) {
-    var full = this.elementBounding.height,
-    actual = (windowHeight - this.elementBounding.top)/full;
-    this.fade(actual);
-  }
+  var full = this.elementBounding.height,
+  actual = (windowHeight - this.elementBounding.top)/full;
+  this.fade(actual);
 }
 
 new FloatTotalScrollManager().config();
