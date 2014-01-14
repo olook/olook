@@ -110,27 +110,30 @@ _gaq.push(['_addTrans',
               Você pode utilizar seus créditos na etapa de pagamento <a href="#" target="_blank" class="txt-credito">Mais sobre meus créditos</a>
             <% end %>
             <div class="modal_credit">
-               <h1>SOBRE OS SEUS CRÉDITOS</h1>
+              <div class="content">
+               <h2>SOBRE OS SEUS CRÉDITOS</h2>
                <% style = @cart_service.allow_credit_payment? ? 'normal' : 'prohibited' %>
-               <ul>
-                  <li id="loyalty_credit">
-                    <div class="description">Créditos por compras realizadas:</div>
-                    <div class="value <%= style %>"><%= number_to_currency @report.amount_of_loyalty_credits %></div>
-                    <div class="message"><%= print_credit_message %></div>
-                  </li>
-
-                 <li id="mgm_credit">
-                    <div class="description">Créditos por indicação:</div>
-                    <div class="value <%= style %>"><%= number_to_currency @report.amount_of_invite_credits %></div>
-                    <div class="message"><%= print_credit_message %></div>
-                  </li>
-
-                 <li>
-                    <div class="description">Reembolso via Central de Atendimento:</div>
-                    <div class="value"><%= number_to_currency @report.amount_of_redeem_credits %></div>
-                    <div class="message">&nbsp;</div>
-                  </li>
-                </ul>
+               <p><span>//</span> Você acumulou R$ 10,00 créditos que podem ser utilizados nesta compra.</p>
+               <p><span>//</span>O valor do seu pedido é superior ao seu saldo e você deverá pagar a diferença.</p>
+               <h2>ENTENDA SEUS CRÉDITOS</h2>
+               <table cellspacing="0" cellspading="0">
+                <tr class="loyalty_credit">
+                  <td><span>//</span> Créditos por compras realizadas ..............................................</td>
+                  <td class="value <%= style %>"><%= number_to_currency @report.amount_of_loyalty_credits %></td>
+                  <td></td>
+                </tr>
+                <tr class="mgm_credit">
+                  <td><span>//</span> Créditos por indicação .........................................................</td>
+                  <td class="value <%= style %>"><%= number_to_currency @report.amount_of_invite_credits %></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><span>//</span> Reembolso via Central de Atendimento .....................................</td>
+                  <td><%= number_to_currency @report.amount_of_redeem_credits %></td>
+                  <td></td>
+                </tr>
+               </table>
+              </div>
             </div>
           </td>
           <td class="value" id="total_user_credits">
