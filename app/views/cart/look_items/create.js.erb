@@ -4,12 +4,12 @@ var product_id = '<%= j params[:product_id] %>';
 
 var variantNumbers = <%= @variant_numbers.to_s.html_safe %>;
 
-olookApp.mediator.publish("fadeOutMinicart", variantNumber);
-olookApp.mediator.publish("updateMinicartInputs",variantNumbers, variantNumber, '<%= escape_javascript(hidden_field_tag("variant_numbers[]", params[:variant_number])) %>');
+olookApp.mediator.publish(MinicartFadeOutManager.name, variantNumber);
+olookApp.mediator.publish(MinicartInputsUpdater.name,variantNumbers, variantNumber, '<%= escape_javascript(hidden_field_tag("variant_numbers[]", params[:variant_number])) %>');
 
 setTimeout(function() {
-  olookApp.mediator.publish("updateMinicartData", product_id, product_price, variantNumber);  
-  olookApp.mediator.publish("updateMinicartBoxDisplay");
-  olookApp.mediator.publish("fadeInMinicart");  
+  olookApp.mediator.publish(MinicartDataUpdater.name, product_id, product_price, variantNumber);  
+  olookApp.mediator.publish(MinicartBoxDisplayUpdater.name);
+  olookApp.publish(MinicartFadeInManager.name);  
 },300);    
    
