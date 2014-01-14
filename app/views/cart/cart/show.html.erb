@@ -44,7 +44,7 @@ _gaq.push(['_addTrans',
         <table cellpadding="0" cellspacing="0">
             <tr>
               <td>
-                <span class="total_itens">(<%= @cart.try(:items_total).to_i %> itens).........Total <%= number_to_currency(@cart_calculator.items_total) %></span>
+                <span class="total_itens"><span class="icon"></span>(<%= @cart.try(:items_total).to_i %> itens)................Total <strong><%= number_to_currency(@cart_calculator.items_total) %></strong></span>
               </td>
               <td class="buttons">
                 <% if current_user && !current_user.reseller %>
@@ -265,4 +265,3 @@ _gaq.push(['_addTrans',
 
 </section>
 <div id='quick_view' class="cart_quick_view"></div>
-<div class="tarja_total"></div>
