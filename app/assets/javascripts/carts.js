@@ -1,6 +1,43 @@
+//= require application_core/olook_app
 //= require ./partials/_credits_info
 //= require plugins/spy
 //= require plugins/check_freebie
+
+function FloatTotalScrollManager() {
+  this.floated = document.getElementById('float_total');
+  this.element = document.getElementById('close_cart');
+}
+
+FloatTotalScrollManager.prototype.updateProperties = function() {
+  this.elementHeight = this.element.offsetHeight;
+  this.elementBounding = this.element.getBoundingClientRect();
+}
+
+FloatTotalScrollManager.prototype.config = function () {
+  olookApp.mediator.subscribe('window.onscroll', new FloatTotalScrollManager());
+}
+
+FloatTotalScrollManager.prototype.fade = function(percentage) {
+  if(percentage > 1) {
+    this.floated.style.display = 'none';
+  } else {
+    this.floated.style.display = 'block';
+    this.floated.style.opacity = 1 - percentage;
+  }
+}
+
+FloatTotalScrollManager.prototype.apply = function() {
+  this.updateProperties();
+  var windowHeight = window.innerHeight;
+  if(windowHeight >= this.elementBounding.top) {
+    var full = this.elementBounding.height,
+    actual = (windowHeight - this.elementBounding.top)/full;
+    this.fade(actual);
+  }
+}
+
+new FloatTotalScrollManager().config();
+
 $(function() {
   showInfoCredits();
   olook.spy('.cart_item[data-url]');
