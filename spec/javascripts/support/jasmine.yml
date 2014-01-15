@@ -20,6 +20,7 @@ src_files:
   - app/assets/javascripts/admin/catalog_landing_page.js
   - app/assets/javascripts/lib/mediator.js
   - app/assets/javascripts/application_core/olook_app.js
+  - app/assets/javascripts/modules/**/*.js
   # - assets/javascripts/*.js
   # - assets/application.js
 
