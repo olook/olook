@@ -12,12 +12,21 @@ function OlookApp(_mediator) {
   return{
     mediator: mediator,
     publish: function(){
-      if (arguments.length == 0)
-        throw "topic name is required";
+      if (arguments.length == 0){
+        throw "channel name is required";
+      }
       args = shift(arguments);
       mediator.publish(arguments[0], args);
     },
     subscribe: function(channel){
+      if (channel == null || channel == undefined){
+        throw "channel is required";
+      } else if(StringUtils.isEmpty(channel.name)){
+        throw "channel name is required";
+      } else if(channel.facade == null || channel.facade == undefined){
+        throw "channel facade method is required";
+      }
+      
       mediator.subscribe(channel.name, channel.facade);
     }
 
