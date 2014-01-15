@@ -1,35 +1,6 @@
 <header class="checkout">
   <div class="head">
     <h1><%= link_to 'Olook', root_path %></h1>
-    <p class="security">Ambiente Seguro</p>
-     <div id="session">
-      <div class="box_right">
-       <% if user_signed_in? %>
-      <div class="user">
-        <ul>
-          <li class="first">Olá,</li>
-          <li class="username">
-            <%= current_user.first_name %>
-          </li>
-          <p class="trade"><%= link_to "Troca Fácil", troca_path, :class => "invite" %></p>  
-          <li class="submenu">
-            <%= link_to "Minha Conta", "#", :id => "account" %>
-            <div class="my_account">
-              <ul>
-                <li><%= link_to "Meus pedidos", user_orders_path %></li>
-                <!-- <li><%#= link_to "Meus presentes", user_gifts_path %></li> -->
-                <li class="last"><%= link_to "Meus créditos", user_credits_path %></li>
-                <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
-                <li><%= link_to "Endereços", user_addresses_path %></li>
-                <li><%= link_to "Sair", destroy_user_session_path, :method => :delete, onclick: track_event("Checkout","clickSignOut") %></li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </div>
-       <% end %>
-     </div>
-    </div>  
-    <p class="contact"><span>SAC (11) 2626-3489</span></p>
+    <p class="contact"><span>Olá, <%= current_user.first_name %> | Em caso de dúvidas fale com o nosso SAC (11) 2626-3489</span></p>
   </div>
 </header>

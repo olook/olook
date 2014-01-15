@@ -308,13 +308,12 @@ section#cart {
   }
   h1 {
     font-family: $verdana;
-    font-size: 16px;
+    font-size: 14px;
     text-transform: uppercase;
     float:left;
     padding-top: 20px;
     width:240px;
-    margin-bottom:20px;
-    letter-spacing: -1px;
+    margin-bottom:20px;  
     font-weight: bold;
     span.icon {
       background:image-url('cart/sprite.png') no-repeat -567px -70px;
@@ -516,7 +515,7 @@ section#cart {
 
     tr td.column1, tr td.column2, tr td.column3 {border-bottom:1px solid #d1d3d4;
       p {font-size: 13px !important;}
-      p span {font-size: 15px !important;}
+      p span {font-size: 13px !important;}
       .delete-item {padding-left:25px !important;width:100px;}
     }
     tr td.column1, tr td.column2 {border-right:1px solid #d1d3d4;}
@@ -524,7 +523,7 @@ section#cart {
     tr td.column3 {
       .value {
         text-align: right;
-        p {font-size: 16px; font-weight: bold;}
+        p {font-size: 16px; font-weight: bold;letter-spacing: 0px !important;}
         .price_retail {font-size: 13px !important;text-decoration: line-through;font-weight: normal !important;}
 
       }
@@ -547,7 +546,7 @@ section#cart {
           position: absolute;
           font-size: 18px;
           top: 0px;
-          width: 97%;
+          width: 97.1%;
           text-align: left;
           background: #E7E7E9;
           left: 0px;
@@ -1883,12 +1882,13 @@ section#payment {
 /******************************/
 /******** NEW CHECKOUT ********/
 /******************************/
+
 section.checkout{
   &#payment{position:relative;margin-top:30px;clear:both;min-height:550px;}
-  .box-step-one,.box-step-two{width:301px;float:left;padding-right:10px;margin-right:15px;border-right:dotted 1px #000;}
-  .box-step-three{float:left;width:325px;}
+  .box-step-one,.box-step-two{width:301px;float:left;margin-right:15px;border:1px solid #d1d1d1;}
+  .box-step-three{float:left;width:325px;border:1px solid #d1d1d1;}
 
-  h2.step-title{float:left;clear:both;margin-bottom:15px;
+  h2.step-title{width:100%;display: block;background: #eee;padding:5px 0;text-align: center;font-size: 12px;letter-spacing: 2px;text-transform: uppercase;font-weight: bold;
     span{
       display:block;float:left;
       &.number{font-family:$kepler;font-size:60px;}
@@ -2131,20 +2131,18 @@ section.checkout{
     }
   }
   /********** END / START STEP THREE *******/
-  #cart-box{
-    float:left;border:solid 1px #D9D8D8;width:321px;max-height:515px;background:#FFF;margin-bottom: 15px;
-    .freebie_row {
+  .freebie_row {
       width:270px;
       background: image-url("cart/cheirinho.jpg") no-repeat left center;
       height:100px;
-      margin-left: 27px;
-      border-top:1px solid #d1d1d1;
+      margin-left: 9px;
+      padding:10px 0;
       p {
         display: block;
-        width: 180px;
+        width: 205px;
         margin-left: 80px;
         margin-top: 40px;
-        font-family: $avenir;
+        font-family: Verdana;
         font-weight: lighter;
         line-height: 16px;
         font-size: 13px;
@@ -2152,8 +2150,11 @@ section.checkout{
         a {color:$pink;}
       }
     }
+  #cart-box{
+    float:left;width:100%;background:#FFF;
+    
     .bg-box{display:none;}
-    .products{max-height:217px;overflow-y:auto;}
+    .products{}
     #items{width:100%;
       tr{border-bottom:1px solid #D9D8D8;padding-bottom:5px;}
       td{vertical-align:middle;padding-bottom:5px;
@@ -2162,10 +2163,13 @@ section.checkout{
           input{float:right;background: image-url("new_checkout/sprite.png") no-repeat -381px -83px;border:none;color: #6D6E71;cursor:pointer;display:block;height:26px;width:70px;padding-left:20px;text-decoration:underline;font-weight:bold;}
         }
       }
-      img{float:left;margin-left:10px;}
-      ul{float:left;margin:10px 0 0 15px;width:215px;
-        li{font-size:13px;
-          &.txt-black{text-transform:uppercase;}
+      img{float:left;margin-left:10px;margin-top:20px;}
+      ul{float:left;margin:10px 0 0 15px;width:205px;
+        li{font-size:11px;
+          &.txt-black{font-size: 12px;padding-bottom:5px;}
+          p {font-weight: bold;font-size: 13px;color:#000}
+          .price_retail {text-decoration: line-through;font-size: 13px;font-weight: normal;color:#000;}
+          
         }
       }
     }
