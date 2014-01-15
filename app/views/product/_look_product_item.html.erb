@@ -1,6 +1,6 @@
 <% shoe_size = params[:shoe_sizes].to_a.find { |ss| !ss.blank? }.try(:to_i) || current_user.try(:shoes_size).try(:to_i) %>
 
-  <li class="product<%= " promotion" if product.promotion? %>" data-id="<%= product.id %>">
+  <li class="product<%= " promotion" if product.promotion? %>" data-id="<%= product.id %>" data-name="<%= product.name %>">
 
     <%= link_to product, :class => "product_link", :rel => "#{product.id}", onclick: track_event("Product", "ClickLookProduct", "#{@product.id}-#{product.id}"), :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}}, :remote => (defined?(suggestion) || gift)  do %>
 
