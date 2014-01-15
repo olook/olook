@@ -65,48 +65,59 @@
        <%= link_to "Ir para o topo", "#", :id => "go_top" %>
        <header id="new_header">
          <div class="new_content">
-            <div class="box_right">
+           <div class="box_right">
              <% if user_signed_in? %>
-            <div class="user">
-              <ul>
-                <li class="first">Olá,</li>
-                <li class="username">
-                  <%= current_user.first_name %>
-                </li>
-                <p class="trade"><%= link_to "Troca Fácil", troca_path, :class => "invite" %></p>
-                <li class="submenu">
-                  <%= link_to "Minha Conta", user_orders_path, :id => "account" %>
-                  <div class="my_account">
-                    <ul>
-                      <li><%= link_to "Meus pedidos", user_orders_path %></li>
-                      <li class="last"><%= link_to "Meus créditos", user_credits_path %></li>
-                      <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
-                      <li><%= link_to "Endereços", user_addresses_path %></li>
-                      <li><%= link_to "Sair", destroy_user_session_path, :method => :delete, onclick: track_event("Checkout","clickSignOut") %></li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </div>
-             <% else %>
-             <p class="new_login"><%= link_to "Entre", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %> ou <%= link_to "Descubra seu estilo", wysquiz_path %></p>
+               <div class="user">
+               <ul>
+                 <li class="first">Olá,</li>
+                 <li class="username">
+                 <%= current_user.first_name %>
+                 </li>
+                 <p class="trade"><%= link_to "Troca Fácil", troca_path, :class => "invite" %></p>
+                 <li class="submenu">
+                 <%= link_to "Minha Conta", user_orders_path, :id => "account" %>
+                 <div class="my_account">
+                   <ul>
+                     <li><%= link_to "Meus pedidos", user_orders_path %></li>
+                     <li class="last"><%= link_to "Meus créditos", user_credits_path %></li>
+                     <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
+                     <li><%= link_to "Endereços", user_addresses_path %></li>
+                     <li><%= link_to "Sair", destroy_user_session_path, :method => :delete, onclick: track_event("Checkout","clickSignOut") %></li>
+                   </ul>
+                 </div>
+                 </li>
+               </ul>
+             </div>
+           <% else %>
+               <p class="new_login"><%= link_to "Entre", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %> ou <%= link_to "Descubra seu estilo", wysquiz_path %></p>
              <div class="sign-in-dropdown close">
                <%= render "users/sessions/form_user" %>
              </div>
-             <% end %>
+           <% end %>
              <div class="box_bottom">
-              <%= render 'shared/search_bar' %>
-              <div class="new_sacola">
-               <%= link_to "SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %>
-               <%= render 'shared/cart', :cart => @cart %>
-              </div>
+               <ul class="addons">
+                 <li class="search">
+                 <%= render 'shared/search_bar' %>
+                 </li>
+                 <li class="wishlist">
+                 <%= link_to "Wishlist", "#", :class=> "" %>
+                 <p class="sub">
+                 Você ainda não tem nada na sua lista de desejos
+                 <br />
+                 aproveite e monte bla bla bla...</p>
+                 </li>
+                 </ul>
+               </div>
+               <div class="new_sacola">
+                 <%= link_to "SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %>
+                 <%= render 'shared/cart', :cart => @cart %>
+               </div>
+             </div>
+             <div class="olook_logo">
+               <h1><%= link_to 'Olook', root_path %></h1>
              </div>
            </div>
-           <div class="olook_logo">
-               <h1><%= link_to 'Olook', root_path %></h1>
-           </div>
-         </div>
-       </header>
+         </header>
 
        <div id="wrapper_new_menu">
          <nav class="menu_new">
