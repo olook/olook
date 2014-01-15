@@ -19,6 +19,7 @@
   admin:
     billet:
       santander: "Conciliação Santander"
+      report: "Boletos a vencer"
     product:
       liquidation: Liquidações
 
