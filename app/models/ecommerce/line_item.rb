@@ -7,7 +7,7 @@ class LineItem < ActiveRecord::Base
   validates_presence_of :quantity
   scope :ordered_by_price, order('line_items.price DESC')
   delegate :liquidation?, :to => :variant
-  
+
   def retail_price
     retail = read_attribute(:retail_price)
     retail ||= price
@@ -18,12 +18,24 @@ class LineItem < ActiveRecord::Base
     retail_price * quantity
   end
 
+  def markdown
+    if sale_price == 0
+      0
+    else
+      price - sale_price
+    end
+  end
+
+  def total_discounts
+    (order.markdown_discount + order.coupon_discount + order.loyalty_credits_discount + order.other_credits_discount)
+  end
+
   def calculate_loyalty_credit_amount
     return 0 if is_freebie
-    
+
     # buscar crédito gerado pela order
     total_credit_amount = find_original_loyalty_credit.try(:value)
-    
+
     total_credit_amount ||= 0
 
     # devolver quantia através da porcentagem calculada anteriormente
@@ -63,33 +75,43 @@ class LineItem < ActiveRecord::Base
 
   def calculate_coupon_discount
     (order.coupon_discount*percentage).round(2)
-  end  
+  end
 
   def calculate_loyalty_credits_discount
     (order.loyalty_credits_discount*percentage).round(2)
-  end  
+  end
 
   def calculate_redeem_credits_discount
     (order.redeem_credits_discount*percentage).round(2)
-  end  
+  end
 
   def calculate_invite_credits_discount
     (order.invite_credits_discount*percentage).round(2)
-  end  
+  end
 
   def calculate_other_credits_discount
     (order.other_credits_discount*percentage).round(2)
-  end  
+  end
+
+  def calculate_promotion_discount
+    (order.payments.for_promotion.where(line_item_id: id)).first.try(:total_paid).to_f.round(2)
+  end
 
   def total_paid
-    (order.amount_paid*percentage).round(2)
+    return 0 if free_on_site?
+    retail_price - (total_discounts*percentage).round(2)
+  end
+
+  def normalized_retail_price
+    return 0 if free_on_site?
+    retail_price
   end
 
   private
 
     def line_item_sum
-      total = self.order.line_items.inject(0) do | sum, line_item | 
-        sum += (line_item.is_freebie ? 0 : line_item.retail_price)
+      @line_item_sum ||= self.order.line_items.inject(0) do | sum, line_item |
+        sum += line_item.is_freebie ? 0 : line_item.normalized_retail_price
       end
     end
 
@@ -126,6 +148,10 @@ class LineItem < ActiveRecord::Base
 
     def percentage
       # calcular retail_price/line_item_sum para saber a porcentagem do produto na quantia paga.
-      retail_price/line_item_sum
+      normalized_retail_price/line_item_sum
+    end
+
+    def free_on_site?
+      retail_price <= 0.1
     end
 end
