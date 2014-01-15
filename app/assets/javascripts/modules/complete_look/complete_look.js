@@ -13,8 +13,8 @@ var completeLook = function(){
       olookApp.mediator.publish(MinicartInputsUpdater.name,variantNumbers, variantNumber, "<input type='hidden' name='variant_numbers[]' value='"+variantNumber+"'>");
 
       setTimeout(function() {
-        olookApp.mediator.publish(MinicartDataUpdater.name, productId, productPrice, variantNumber);  
-        olookApp.mediator.publish(MinicartBoxDisplayUpdater.name);
+        olookApp.publish(MinicartDataUpdater.name, productId, productPrice, variantNumber);  
+        olookApp.publish(MinicartBoxDisplayUpdater.name);
         olookApp.publish(MinicartFadeInManager.name);  
       },300);    
     });
