@@ -65,16 +65,6 @@
        <%= link_to "Ir para o topo", "#", :id => "go_top" %>
        <header id="new_header">
          <div class="new_content">
-           <div class="box_left">
-             <p>SAC (11) 2626-3489</p>
-             <p><a class="contact" href="/centraldeatendimento">Central de Atendimento</a></p>
-
-            <%if user_signed_in?%>
-               <p><%= link_to "Ganhe créditos!", "/membro/ganhe-creditos", :class => "earn_credits" %></p>
-            <%else%>
-              <p><%= link_to "Conheça a Revenda Olook!", reseller_new_path, :class => "invite" %></p>
-            <% end %>
-           </div>
             <div class="box_right">
              <% if user_signed_in? %>
             <div class="user">
@@ -104,7 +94,13 @@
                <%= render "users/sessions/form_user" %>
              </div>
              <% end %>
-             <%= render 'shared/search_bar' %>
+             <div class="box_bottom">
+              <%= render 'shared/search_bar' %>
+              <div class="new_sacola">
+               <%= link_to "SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %>
+               <%= render 'shared/cart', :cart => @cart %>
+              </div>
+             </div>
            </div>
            <div class="olook_logo">
                <h1><%= link_to 'Olook', root_path %></h1>
