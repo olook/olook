@@ -270,14 +270,15 @@ section#cart {
   .txt-add{clear:both;font-size:13px;line-height:18px;border-bottom:dotted 1px #000;
     small{font-size:11px;}
   }
-  .freebie {height:110px;background: image-url('cart/cheirinho.jpg') no-repeat left center;padding-left:9%;width:91%;
-    h2 {font-family: $avenir;font-size: 16px;display: block;width:36%;float:left;margin:0px;padding:0px;padding-top:10px;}
-    h2.added {text-transform: uppercase;width: 265px;font-size: 14px;line-height: 22px;margin-bottom: 10px;padding-top: 15px;}
-    .missingToSmell {margin:0px;display: block;width:100%;padding:0px;float:left;margin-top:10px;}
-    .seeTheSmell {display: block;clear: both;float:left;color:$pink;font-family: $avenir;font-size: 12px;}
+  .freebie {height:110px;background: image-url('cart/cheirinho.jpg') no-repeat left 12px;padding-left:9%;width:91%;border-bottom: 1px solid #d1d1d1;
+  padding-bottom: 32px;margin-bottom: 24px;font-family: $verdana;
+    h2 {font-family: $verdana;font-size: 13px;display: block;width:46%;float:left;margin:0px;padding:0px;padding-top:10px;font-weight: bold;}
+    h2.added {width:365px;font-size: 14px;line-height: 22px;margin-bottom: 10px;padding-top: 15px;font-family: verdana;font-weight: bold;text-transform: capitalize;}
+    .missingToSmell {margin:0px;display: block;width:100%;padding:0px;float:left;margin-top:10px;font-family: $verdana;font-size: 13px;}
+    .seeTheSmell {display: block;clear: both;float:left;color:$pink;font-family: $verdana;font-size: 12px;}
     .smellName, .checkbox, .value, .value_total {float:left;}
     .checkbox {
-      width:200px;padding-top:26px;color:#000;font-size: 12px;font-weight: lighter;
+      width:180px;padding-top:26px;color:#000;font-size: 12px;font-weight: lighter;
     }
     .value {
       width: 121px;
@@ -298,6 +299,11 @@ section#cart {
       background: image-url('cart/img_gratis.jpg') no-repeat left center;
       text-decoration: line-through;
       color:#666;
+      text-align: right;
+      font-family: verdana;
+      color: #000;
+      font-size: 15px;
+      letter-spacing: -1px;
     }
   }
   h1 {
@@ -327,10 +333,10 @@ section#cart {
     float:left;
     margin:10px 0 25px;
   }
-  .warning-msg{width: 520px;height: 65px;background-color: #fdadb6;border: 1px solid #f58899;margin-top: 85px;margin-left: 215px;
+  .warning-msg{margin-bottom:20px;width: 520px;height: 65px;background-color: #fdadb6;border: 1px solid #f58899;margin-top: 85px;margin-left: 215px;font-family: $tahoma;
     img{float: left;margin-left: 15px;margin-top: 9px;}
-    p{float: left;font-family: $avenir;font-size: 14px;color: #000;margin-top: 9px;margin-left: 10px;
-      span{font-weight: bold;}
+    p{float: left;font-family: $tahoma;font-size: 14px;color: #000;margin-top: 9px;margin-left: 10px;
+      span{font-weight: bold;font-family: tahoma;}
     }
   }
   .checkout_option_top {
@@ -491,7 +497,7 @@ section#cart {
   }
 
   table.items_list {
-    margin: 0 0 25px 0;
+    margin: 0 0 10px 0;
     thead tr td {
       text-align: center;
       padding:5px 0;
