@@ -807,3 +807,22 @@ olook.showEmailBar = function(){
             }
         }
     );
+
+/*** Wishlist ***/
+
+ $('.addons li').on(
+    {
+        mouseover: function() {
+            $(this).find('wishlist').show();
+            $(this).find('a:first').addClass('selecionado');
+            $(this).find('p:first').show();
+            },
+
+            mouseleave: function() {
+              $(this).find('wishlist').hide();
+              $(this).find('a:first').removeClass('selecionado');
+              $(this).find('p:first').hide();
+            }
+        }
+    );
+

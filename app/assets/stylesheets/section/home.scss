@@ -7,34 +7,6 @@ div#content {
 }
 
 section#home {
-  ul.warnings {
-    width: 990px;
-    height: 65px;
-    margin: 10px 0;
-    li {
-      color: #939598;
-      font-family: $kepler;
-      font-size: 16px;
-      line-height: 20px;
-      text-align: center;
-      float: left;
-      img {
-        width:971px;
-        margin-left:10px;
-      }
-      &.freight {
-        background: image-url('home/separator-warnings.jpg') center right no-repeat;
-        width: 341px;
-      }
-      &.exchange {
-        background: image-url('home/separator-warnings.jpg') center right no-repeat;
-        width: 305px;
-      }
-      &.discount {
-        width: 335px;
-      }
-    }
-  }
   div#carousel {
     position: relative;
     width: 990px;
