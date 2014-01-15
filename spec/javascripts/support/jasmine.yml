@@ -17,6 +17,7 @@ src_files:
   - app/assets/javascripts/credit_card.js
   - app/assets/javascripts/formatter.js
   - app/assets/javascripts/plugins/admin/countdown.js
+  - app/assets/javascripts/plugins/float_total_scroll_manager.js
   - app/assets/javascripts/admin/catalog_landing_page.js
   # - assets/javascripts/*.js
   # - assets/application.js
