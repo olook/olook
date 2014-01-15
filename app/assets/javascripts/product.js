@@ -7,7 +7,6 @@
 //= require plugins/jquery.meio.mask
 //= require plugins/image_loader
 //= require plugins/spy
-//= require lib/mediator
 //= require_tree ./modules/complete_look
 
 $(function(){

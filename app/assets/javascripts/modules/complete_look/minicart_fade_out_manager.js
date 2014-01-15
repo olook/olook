@@ -1,11 +1,10 @@
 MinicartFadeOutManager = function(){
 
-
-  var hasToFadeOut = function(variantNumber){
+  hasToFadeOut = function(variantNumber){
     return ((StringUtils.isEmpty($("#total_price").val()) || ($( ".cart_related ul li").length -1 == 0)) && !StringUtils.isEmpty(variantNumber));
   };
 
-  var fadeOut = function(){
+  fadeOut = function(){
     $("#total_price").val('0.0');
 
     $('.cart_related').fadeOut("fast",function(){
@@ -14,13 +13,15 @@ MinicartFadeOutManager = function(){
     });
   };
 
+  facade = function(variantNumber){
+    if(hasToFadeOut(variantNumber)){
+      fadeOut();
+    }
+  }
+
   return {
     name: "FADE_OUT_MINICART",
-    facade: function(variantNumber){
-      if(hasToFadeOut(variantNumber)){
-        fadeOut();
-      }
-    }
+    facade: facade
   };
 }();
 
