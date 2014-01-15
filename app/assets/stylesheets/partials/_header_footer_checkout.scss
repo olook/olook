@@ -1,13 +1,13 @@
 header.checkout{
-	background:none !important;min-height:100px !important;padding:30px 0 0 0 !important;border-bottom:solid 2px #DEDDDD;text-align:center;margin-bottom: 30px;
+	background:none !important;min-height:100px !important;padding:30px 0 0 0 !important;text-align:center;margin-bottom: 0px;
 	div.head{width:975px;margin:0 auto;position:relative;}
 	h1{float:left;
 	 a{background: image-url('common/logo.jpg') no-repeat;height: 68px;margin: 8px 0 0;text-indent: -9999px;width: 217px;}
 	}
 	p{
-		&.security{margin:30px 0 0 60px;color:#91C78C;font-family:$avenir_medium;font-size:11px;text-transform:uppercase;float:left;height:24px;padding-left:30px;line-height:30px;background: image-url("login/ico_security.png") no-repeat;}
-		&.contact{float:right;color:#6D6E71;font-size:11px;margin-top:47px;
-			span{float:left;font-size:11px;margin:0 -43px 0 0;width:200px;}
+		&.security{display:none;margin:30px 0 0 60px;color:#91C78C;font-family:$avenir_medium;font-size:11px;text-transform:uppercase;float:left;height:24px;padding-left:30px;line-height:30px;background: image-url("login/ico_security.png") no-repeat;}
+		&.contact{float:right;color:#6D6E71;font-size:11px;margin-top:35px;
+			span{float:left;font-size:11px;width:500px;text-align: right;font-size: 13px; font-family: $verdana;color:#000;}
 			a{color:#6D6E71;font-size:11px;margin-left:5px;}
 		}
 	}
