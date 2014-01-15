@@ -1,0 +1,19 @@
+%h1 Boletos a vencer
+%div.inner
+  %table.table
+    %tr
+      %th Cliente
+      %th Número
+      %th Email
+      %th Telefone
+      %th Total pago
+
+    - @billets.all.each do |billet|
+      %tr
+        %td= link_to billet.order.user.name, admin_user_path(billet.order.user) if billet.order.try(:user)
+        %td= link_to billet.order.number, admin_order_path(billet.order)
+        %td= link_to billet.order.user.email, admin_user_path(billet.order.user) if billet.order.try(:user)
+        %td= billet.user.addresses.first.try(:telephone)
+        %td= billet.order.amount_paid
+
+  %br
