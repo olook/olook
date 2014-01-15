@@ -36,5 +36,5 @@ function OlookApp(_mediator) {
 var olookApp = null;
 
 $(function(){
-  olookApp = olookApp || new OlookApp(new Mediator());
+  olookApp = new OlookApp(new Mediator());
 });
