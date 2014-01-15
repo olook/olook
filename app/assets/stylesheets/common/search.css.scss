@@ -2,12 +2,35 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "new_structure/common/global_stuffs";
+
 .search_box{
-  position: relative;clear:both;float:right;
+  position: relative;
+  clear:both;
+  float:right;
   input[type="submit"]{
-    position: absolute;background: image-url('common/nav/sprite_header.png') -165px -147px;width: 32px;height: 28px;left: 486px;text-indent: 9999px;border:none;cursor: pointer;
+    position: absolute;
+    background: image-url('common/nav/sprite_header.png') -165px -147px;
+    width: 32px;
+    height: 28px;
+    left: 486px;
+    text-indent: 9999px;
+    border:none;
+    cursor: pointer;
   }
   #search_product{
-    float: left;border: solid 1px #000;font-family: $avenir;font-size: 12px;font-weight: 400; width: 475px;height: 35px;line-height: 29px;color: #000;text-align: left;padding-left: 10px;padding-right: 40px;text-transform: capitalize;margin-right: 20px;
+    float: left;
+    border: solid 1px #000;
+    font-family: $avenir;
+    font-size: 12px;
+    font-weight: 400;
+    width: 475px;
+    height: 35px;
+    line-height: 29px;
+    color: #000;
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 40px;
+    text-transform: capitalize;
+    margin-right: 20px;
   }
 }
