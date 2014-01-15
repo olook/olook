@@ -14,13 +14,14 @@ FloatTotalScrollManager.prototype.config = function () {
 };
 
 FloatTotalScrollManager.prototype.fade = function(percentage) {
-  if(this.isInsane()) return;
+  if(this.isInsane()) return false;
   if(percentage > 1) {
     this.floated.style.display = 'none';
   } else {
     this.floated.style.display = 'block';
     this.floated.style.opacity = 1 - percentage;
   }
+  return true;
 };
 
 FloatTotalScrollManager.prototype.isInsane = function() {
