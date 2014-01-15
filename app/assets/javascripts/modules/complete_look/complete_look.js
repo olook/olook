@@ -10,7 +10,8 @@ var completeLook = function(){
       var variantNumbers = data['variant_numbers'];
 
       olookApp.mediator.publish(MinicartFadeOutManager.name, variantNumber);
-      olookApp.mediator.publish(MinicartInputsUpdater.name,variantNumbers, variantNumber, "<input type='hidden' name='variant_numbers[]' value='"+variantNumber+"'>");
+      // Move the input creation to Channel
+      olookApp.mediator.publish(MinicartInputsUpdater.name,variantNumbers, variantNumber, "<input type='hidden' id='variant_numbers_' name='variant_numbers[]' value='"+variantNumber+"'>");
 
       setTimeout(function() {
         olookApp.publish(MinicartDataUpdater.name, productId, productPrice, variantNumber);  
