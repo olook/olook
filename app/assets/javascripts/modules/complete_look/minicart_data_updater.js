@@ -41,7 +41,11 @@ MinicartDataUpdater = function(){
 
   return{
     name: "UPDATE_MINICART_DATA",
-    facade: function(productId, productPrice, variantNumber){
+    facade: function(params){
+      var productId = params[0];
+      var productPrice = params[1];
+      var variantNumber = params[2];
+
       if (isAddition(productId, variantNumber)){
         addItem(productId, productPrice);
       } else if (isRemoval(productId, variantNumber)){
