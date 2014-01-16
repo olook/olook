@@ -2,7 +2,7 @@
   $('.freebie').replaceWith('<%= j render('freebie/item', freebie: @freebie) %>');
   if(olook.checkFreebie) olook.checkFreebie();
 <% end %>
-$("#total_value").html("<%= number_to_currency(@cart_calculator.items_total) %>");
+olookApp.mediator.publish('cart.update', {total: "<%= number_to_currency(@cart_calculator.items_total) %>"});
 $("#subtotal_parcial").html("<%= number_to_currency(@cart_calculator.items_subtotal) %>");
 
 if ($('#cart_gift_wrap').is(':checked')){

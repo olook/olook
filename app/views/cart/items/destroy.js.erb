@@ -33,7 +33,7 @@ $('tr#item_<%= @item.id %>').fadeOut();
 $('table#cart_subtotal tr td#subtotal_parcial').text('<%= number_to_currency(@cart_service.total) %>');
 
 //update total order value
-$('table#cart_subtotal tr td#total_value').text('<%= number_to_currency(@cart_service.total) %>');
+olookApp.mediator.publish('cart.update', {total: '<%= number_to_currency(@cart_service.total) %>'});
 
 //Remove item from cart summary pull down
 $("li[data-id=<%= @item.id %>]").first().remove();

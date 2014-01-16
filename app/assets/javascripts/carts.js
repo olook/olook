@@ -4,8 +4,32 @@
 //= require plugins/check_freebie
 //= require plugins/float_total_scroll_manager
 
+function CartUpdater() {
+  this.developer = 'Nelson Haraguchi';
+};
+
+CartUpdater.prototype = {
+  changeView: function(data) {
+    if(data.total) {
+      $("#total_value").html(data.total);
+      $("#float_total_value").html(data.total);
+    }
+    if (data.totalItens) {
+      //update items quantity on cart summary header
+      $("#cart_items").text(data.totalItens);
+
+      //update items total on cart title
+      $(".js-total-itens").html(data.totalItens);
+    }
+  },
+  config: function() {
+    olookApp.mediator.subscribe('cart.update', this.changeView, {}, this);
+  }
+};
+
 $(function() {
   new FloatTotalScrollManager().config();
+  new CartUpdater().config();
   showInfoCredits();
   olook.spy('.cart_item[data-url]');
   if ($('#cart_gift_wrap').is(':checked')){
