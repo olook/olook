@@ -254,6 +254,8 @@ Olook::Application.routes.draw do
     namespace :orders do
       resources :deliveries
       resources :statuses
+      resources :billet_reports, only: :index
+      resources :newest_reports, only: :index
     end
 
     get 'product_autocomplete' => 'products#autocomplete_information'
