@@ -1895,10 +1895,10 @@ section#payment {
 
 section.checkout{
   &#payment{position:relative;margin-top:30px;clear:both;min-height:550px;}
-  .box-step-one,.box-step-two{width:301px;float:left;margin-right:15px;border:1px solid #d1d1d1;}
-  .box-step-three{float:left;width:325px;border:1px solid #d1d1d1;}
+  .box-step-one,.box-step-two{width:301px;float:left;padding-right:10px;margin-right:15px;border-right:dotted 1px #000;}
+  .box-step-three{float:left;width:325px;}
 
-  h2.step-title{width:100%;display: block;background: #eee;padding:5px 0;text-align: center;font-size: 12px;letter-spacing: 2px;text-transform: uppercase;font-weight: bold;
+  h2.step-title{float:left;clear:both;margin-bottom:15px;
     span{
       display:block;float:left;
       &.number{font-family:$kepler;font-size:60px;}
@@ -1909,8 +1909,8 @@ section.checkout{
 
   form.new_checkout{float:left;
     div#checkout_address{float:left;
-      .span_error{float:none !important;display:block;margin-bottom:10px;}
-      div#address_fields{float:left;}
+        .span_error{float:none !important;display:block;margin-bottom:10px;}
+        div#address_fields{float:left;}
     }
     fieldset{margin-bottom:14px;
       div{float:left;margin:0 10px 3px 0;position:relative;
@@ -1929,7 +1929,7 @@ section.checkout{
     input{
       height:30px;line-height:30px;padding-left:7px;font-size:14px;border:solid 1px #C3C3C3;
 
-      /*********** STEP ONE *********/
+/*********** STEP ONE *********/
       &.input_error{border-color:#EA1E40 !important;border-left:solid 5px #EA1E40; margin-bottom: 3px;}
       &.zip_code{width:115px;float:left}
       &.endereco{width:172px;}
@@ -2021,7 +2021,7 @@ section.checkout{
         }
       }
     }
-    /********** END / START STEP TWO *******/
+/********** END / START STEP TWO *******/
     .box-step-two{
       .credits input, .payment_type input, .cards input{float:left;height:auto;margin:0 5px 0 0;border:none;padding: 0}
       label{line-height:14px;}
@@ -2063,7 +2063,7 @@ section.checkout{
       }
       .box-cartao{float:left;display:none;
         .cards{overflow:hidden;
-          &.input_error{border:solid 1px #EA1E40 !important;border-left:solid 5px #EA1E40 !important;padding-top:3px;}
+           &.input_error{border:solid 1px #EA1E40 !important;border-left:solid 5px #EA1E40 !important;padding-top:3px;}
           li{position:relative;width:47px;height:35px;margin-top: 5px;
             input,label{opacity:0;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";position:relative;z-index:1}
             label{font-size:12px;float:left;}
@@ -2110,6 +2110,7 @@ section.checkout{
           span{color:#000;}
         }
       }
+
       .box-debito{
         float:left;position:relative;display:none;
         input, label{opacity:0;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";z-index:1;position:relative;float:left;}
@@ -2140,19 +2141,22 @@ section.checkout{
       }
     }
   }
-  /********** END / START STEP THREE *******/
-  .freebie_row {
+/********** END / START STEP THREE *******/
+  #cart-box{
+    float:left;border:solid 1px #D9D8D8;width:321px;max-height:478px;background:#FFF;margin-bottom: 15px;
+    .freebie_row {
       width:270px;
       background: image-url("cart/cheirinho.jpg") no-repeat left center;
       height:100px;
-      margin-left: 9px;
-      padding:10px 0;
+      height: 128px;
+      margin-left: 27px;
+      border-top:1px solid #d1d1d1;
       p {
         display: block;
-        width: 205px;
+        width: 180px;
         margin-left: 80px;
         margin-top: 40px;
-        font-family: Verdana;
+        font-family: $avenir;
         font-weight: lighter;
         line-height: 16px;
         font-size: 13px;
@@ -2160,11 +2164,8 @@ section.checkout{
         a {color:$pink;}
       }
     }
-  #cart-box{
-    float:left;width:100%;background:#FFF;
-    
     .bg-box{display:none;}
-    .products{}
+    .products{max-height:217px;overflow-y:auto;}
     #items{width:100%;
       tr{border-bottom:1px solid #D9D8D8;padding-bottom:5px;}
       td{vertical-align:middle;padding-bottom:5px;
@@ -2173,13 +2174,10 @@ section.checkout{
           input{float:right;background: image-url("new_checkout/sprite.png") no-repeat -381px -83px;border:none;color: #6D6E71;cursor:pointer;display:block;height:26px;width:70px;padding-left:20px;text-decoration:underline;font-weight:bold;}
         }
       }
-      img{float:left;margin-left:10px;margin-top:20px;}
-      ul{float:left;margin:10px 0 0 15px;width:205px;
-        li{font-size:11px;
-          &.txt-black{font-size: 12px;padding-bottom:5px;}
-          p {font-weight: bold;font-size: 13px;color:#000}
-          .price_retail {text-decoration: line-through;font-size: 13px;font-weight: normal;color:#000;}
-          
+      img{float:left;margin-left:10px;}
+      ul{float:left;margin:10px 0 0 15px;width:215px;
+        li{font-size:13px;
+          &.txt-black{text-transform:uppercase;}
         }
       }
     }
