@@ -1,21 +1,14 @@
 - content_for :head do
   = stylesheet_link_tag "section/checkout"
-
+= link_to "Continuar comprando", @referer[:url], :class => "back_link", onclick: track_event("Checkout","clickContinueShopping")
 %section#payment.checkout
   = form_for(@checkout, url: { action: "create" }) do |checkout_form|
     = hidden_field_tag :freight_service_ids, params[:freight_service_ids]
     .box-step-one
-      %h2.step-title Revisão
-      = render "cart_details", address: @checkout.address, checkout_form: checkout_form
-      %br{style:'clear:both'}
-      - if @freebie && Freebie.selection_for(@cart.id) && @freebie.can_receive_freebie?
-        .freebie_row
-          %p
-            Veja 
-            = link_to 'aqui', '#', class: 'seeTheSmell' 
-            o mimo que a Olook vai te dar de presente! 
-    .box-step-two
-      %h2.step-title ENTREGA
+      %h2.step-title
+        %span.number 1.
+        %span.title ENTREGA
+        %span.phrase Como devemos enviar sua compra?
       #checkout_address
         = errors_for(@checkout, :address_base)
         - if @addresses.nil? || @addresses.empty?
@@ -38,9 +31,18 @@
             = checkout_form.label :shipping_service, "Expressa"
             %p.shipping
               = "(#{@shipping_service_fast.try(:delivery_time)} dias úteis) #{number_to_currency(@shipping_service_fast.try(:price))}"
+    .box-step-two
+      %h2.step-title
+        %span.number 2.
+        %span.title PAGAMENTO
+        %span.phrase Como você pretende pagar?
+      = render "payments_type", checkout_form: checkout_form
     .box-step-three
-        
-        
+      %h2.step-title
+        %span.number 3.
+        %span.title REVISÃO
+        %span.phrase Revise e finalize seu pedido.
+      = render "cart_details", address: @checkout.address, checkout_form: checkout_form
 - content_for :footer do
   = render partial: "shared/metrics/dbm/order"
   = javascript_include_tag "checkout"
