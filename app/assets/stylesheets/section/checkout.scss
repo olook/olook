@@ -770,6 +770,10 @@ section#cart {
             font-size: 11px;
             clear:both;
             color: #3cc72e;
+            width: 74px;
+            height:27px;
+            text-indent: -5000px;
+            background: image-url('cart/discount_value.jpg') no-repeat center center;
           }
         }
         &.delete-item{
