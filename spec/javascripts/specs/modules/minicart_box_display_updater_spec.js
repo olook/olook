@@ -7,28 +7,26 @@ describe("MinicartBoxDisplayUpdater", function() {
   });
 
   describe("#facade", function() {
-    // it("fades out when it has to fade out", function(){
-    //   setFixtures("<input id='total_price' name='total_price' /><div class='cart_related' style='display:block;'><ul><li></li></ul></div>");
-    //   MinicartFadeOutManager.facade(123);
-    //    // Wait for fadeOut event finished
-    //   waitsFor(function() {
-    //   return ($('.cart_related').css("display") == "none");
-    //   }, "The element won't ever be hidden", 3000);
-    //   runs(function(){
-    //     expect($('.cart_related').css("display")).toEqual("none");
-    //   });
-    // });
+    describe("when the cart is empty", function() {
+      it("must show the empty cart box",function(){});
+      it("must disable the submit button",function(){});
+    });
 
-    // it("doesn't fade out when there's an element in the list", function(){
-    //   setFixtures("<input id='total_price' name='total_price' /><div class='cart_related'><ul><li></li><li></li></ul></div>");
-    //   MinicartFadeInManager.facade();
-    //   waitsFor(function() {
-    //   return ($('.cart_related').css("display") == "none");
-    //   }, "The element won't ever be shown", 3000);
-    //   runs(function(){
-    //     expect($('.cart_related').css("display")).toEqual("block");
-    //   });
-    // });
+    describe("when the cart isn't empty", function() {
+      it("must enable the submit button",function(){});
+    });    
+
+    it("fades out when it has to fade out", function(){
+      setFixtures("<input id='total_price' name='total_price' /><div class='cart_related' style='display:block;'><ul><li></li></ul></div>");
+      MinicartFadeOutManager.facade(123);
+       // Wait for fadeOut event finished
+      waitsFor(function() {
+      return ($('.cart_related').css("display") == "none");
+      }, "The element won't ever be hidden", 3000);
+      runs(function(){
+        expect($('.cart_related').css("display")).toEqual("none");
+      });
+    });
 
   });
 });
