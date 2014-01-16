@@ -27,7 +27,7 @@ class LineItem < ActiveRecord::Base
   end
 
   def total_discounts
-    (order.markdown_discount + order.coupon_discount + order.loyalty_credits_discount + order.other_credits_discount)
+    (order.loyalty_credits_discount + order.other_credits_discount)
   end
 
   def calculate_loyalty_credit_amount
