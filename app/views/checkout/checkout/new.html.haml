@@ -46,3 +46,6 @@
 - content_for :footer do
   = render partial: "shared/metrics/dbm/order"
   = javascript_include_tag "checkout"
+  :javascript
+    var checkoutState = "#{@checkout.address.try(:state)}";
+    var checkoutCity = "#{@checkout.address.try(:city)}";
