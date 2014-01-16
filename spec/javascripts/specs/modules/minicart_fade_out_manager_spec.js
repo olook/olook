@@ -19,14 +19,14 @@ describe("MinicartFadeOutManager", function() {
     
     it("doesn't fade out when there is no element in the list but variantNumber is not provided", function(){
       MinicartFadeOutManager.facade();
-      expectCartDisplayPropertyIs('block', "The element won't ever be hidden");
+      expectCartDisplayPropertyIs('block', "The element won't ever be shown");
     });
 
     it("doesn't fade out when there's an element in the list", function(){
       html.append(sandbox({class: 'js-minicartItem'}))
 
       MinicartFadeOutManager.facade(123);
-      expectCartDisplayPropertyIs('block', "The element won't ever be hidden");
+      expectCartDisplayPropertyIs('block', "The element won't ever be shown");
     });
   });
 
