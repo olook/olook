@@ -1,8 +1,11 @@
 describe("MinicartFadeInManager", function() {
 
   describe("#name", function() {
-    expect(MinicartFadeInManager.name).toEqual("FADE_IN_MINICART");
+    it("should be called FADE_IN_MINICART", function(){
+      expect(MinicartFadeInManager.name).toEqual("FADE_IN_MINICART");
+    });
   });
+
 
   describe("#facade", function() {
     it("fades in when it has to fade in", function(){
