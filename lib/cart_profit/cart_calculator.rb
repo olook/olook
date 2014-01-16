@@ -6,14 +6,14 @@ module CartProfit
       @cart = cart
     end
 
-    def items_subtotal
+    def items_subtotal(avoid_adjustment=true)
       return 0 if cart.nil? || (cart && cart.items.nil?)
-      cart.items.inject(0){|sum,item| sum += item.retail_price * item.quantity}
+      cart.items.inject(0){|sum,item| sum += item.retail_price(avoid_ajustment: avoid_adjustment) * item.quantity}
     end
 
     def items_total
       return 0 if cart.nil? || (cart && cart.items.nil?)
-      subtotal = items_subtotal
+      subtotal = items_subtotal(false)
       subtotal += gift_price - user_credits_value
     end
 
