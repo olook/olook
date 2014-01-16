@@ -182,11 +182,7 @@ _gaq.push(['_addTrans',
           <tr id="coupon_info" <%= "style=display:none;" unless @cart.coupon %> >
             <td class="tituloCupom">
               Cupom aplicado:
-            </td>
-            <td class="nomeCupom">
-              <p id="coupon_discount">
-                <%= @cart.coupon.try(:code) %>
-              </p>
+              <strong><%= @cart.coupon.try(:code) %></strong>
               <%= form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f| %>                  
                 <%= f.hidden_field('coupon_code', :value => nil) %>
                 <%= f.submit "Excluir cupom", :class => 'excluirCupom' %>
