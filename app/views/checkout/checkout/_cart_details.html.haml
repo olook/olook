@@ -5,6 +5,4 @@
       %tbody
         - @cart.items.each do |item|
           = render partial: 'cart/items/checkout_row', locals: { cart_service: @cart_service, item: item } if item
-.modal_smell
-
-
+.modal_smell 
