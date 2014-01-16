@@ -323,7 +323,15 @@ section#cart {
       float:left;
       margin-top:-20px;
     }
-    span.total_itens {font-weight: normal;font-size: 13px;text-transform: none; font-family: $verdana, tahoma;position: relative;top:-2px;font-style: italic;margin-left:5px;}
+    span.total_itens {font-weight: normal;
+      font-size: 13px;
+      text-transform: none;
+      font-family: $verdana, tahoma;
+      position: relative;
+      top:-2px;
+      font-style: italic;
+      margin-left:5px;
+    }
   }
   h2 {
     font-family: $kepler;
