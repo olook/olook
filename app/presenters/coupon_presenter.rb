@@ -3,7 +3,7 @@ class CouponPresenter < BasePresenter
 
   def show_total_discount
     if fixed_value_coupon?
-      h.number_to_currency(coupon.action_parameter.action_params[:param])
+      h.number_to_currency(-1 * coupon.action_parameter.action_params[:param].to_f)
     end
   end
 

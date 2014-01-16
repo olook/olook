@@ -2,7 +2,9 @@
   $('.freebie').replaceWith('<%= j render('freebie/item', freebie: @freebie) %>');
   if(olook.checkFreebie) olook.checkFreebie();
 <% end %>
-olookApp.mediator.publish('cart.update', {total: "<%= number_to_currency(@cart_calculator.items_total) %>"});
+cartUpdateData = {};
+cartUpdateData.total = "<%= number_to_currency(@cart_calculator.items_total) %>";
+
 $("#subtotal_parcial").html("<%= number_to_currency(@cart_calculator.items_subtotal) %>");
 
 if ($('#cart_gift_wrap').is(':checked')){
@@ -28,18 +30,23 @@ $("li#mgm_credit div.value").removeClass("normal prohibited").addClass("<%= styl
 $("#total_user_credits").html("<%= number_to_currency(total_user_credits) %>");
 
 <% if @cart.coupon %>
-  $("#coupon_discount").html("<%= @cart.coupon.code %>");
+  cartUpdateData.couponCode = "<%= @cart.coupon.code %>";
+  cartUpdateData.usingCoupon = true;
+
+  $("#coupon_discount").html();
   $("#coupon_info").show();
   $("#coupon").hide();
+
   $("li#loyalty_credit div.message").html("<%= print_credit_message %>");
   $("li#mgm_credit div.message").html("<%= print_credit_message %>");
 <% else %>
+  cartUpdateData.usingCoupon = false;
   $("#coupon_discount").html("");
   $("#coupon_info").hide();
+  $("#coupon").show();
 
   $("li#loyalty_credit div.message").html("");
   $("li#mgm_credit div.message").html("");
-  $("#coupon").show();
 <% end %>
 
 $("#coupon a#show_coupon_field").show();
@@ -98,8 +105,9 @@ select_options.empty();
 <% end %>
 
 <% if @coupon_value %>
-  $('#coupon_discount_value').text('<%= number_to_currency(@coupon_value) %>');
+  cartUpdateData.couponDiscountValue = '<%= number_to_currency(@coupon_value) %>';
 <% end %>
 
+olookApp.mediator.publish('cart.update', cartUpdateData);
 showTotal();
 

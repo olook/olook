@@ -51,7 +51,7 @@ class Cart::CartController < ApplicationController
     # Isto é feio, muito feio. Juro que volto aqui para refatorar
     #
     if @cart.coupon && @cart.coupon.promotion_action.is_a?(ValueAdjustment)
-      @coupon_value = @cart.coupon.action_parameter.action_params[:param]
+      @coupon_value = -1 * @cart.coupon.action_parameter.action_params[:param].to_f
     end
 
     @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)

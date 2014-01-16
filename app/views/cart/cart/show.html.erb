@@ -182,8 +182,8 @@ _gaq.push(['_addTrans',
           <tr id="coupon_info" <%= "style=display:none;" unless @cart.coupon %> >
             <td class="tituloCupom">
               Cupom aplicado:
-              <strong><%= @cart.coupon.try(:code) %></strong>
-              <%= form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f| %>                  
+              <strong id="coupon_discount"><%= @cart.coupon.try(:code) %></strong>
+              <%= form_for(@cart, :remote => true, html: { :id => "remove_coupon" }) do |f| %>
                 <%= f.hidden_field('coupon_code', :value => nil) %>
                 <%= f.submit "Excluir cupom", :class => 'excluirCupom' %>
               <% end %>
@@ -193,7 +193,10 @@ _gaq.push(['_addTrans',
         </table>
       </td>
       <td class="title_subtotal">Subtotal</td>
-      <td class="value_subtotal" id="subtotal_parcial"><%= number_to_currency(@cart_calculator.items_subtotal) %></td>
+      <td class="value_subtotal">
+        <div id="subtotal_parcial"><%= number_to_currency(@cart_calculator.items_subtotal) %></div>
+        <div id="js-coupon-discount-value"><%= present('Coupon', coupon: @cart.coupon).show_total_discount %></div>
+      </td>
     </tr>
     <tr>
       <td></td>
