@@ -1,7 +1,7 @@
 MinicartFadeOutManager = function(){
 
   hasToFadeOut = function(variantNumber){
-    return ((StringUtils.isEmpty($("#total_price").val()) || ($( ".cart_related ul li").length -1 == 0)) && !StringUtils.isEmpty(variantNumber));
+    return $('.js-minicartItem').size() == 0 && !StringUtils.isEmpty(variantNumber);
   };
 
   fadeOut = function(){
@@ -9,7 +9,7 @@ MinicartFadeOutManager = function(){
 
     $('.cart_related').fadeOut("fast",function(){
       $('.cart_related').addClass('product_added');
-      $('.cart_related div.empty_minicart').hide();    
+      $('.cart_related div.empty_minicart').hide();
     });
   };
 
