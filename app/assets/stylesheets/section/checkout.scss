@@ -890,9 +890,8 @@ section#cart {
           }
         }
         .tituloCupom {
-          text-align: right;
-          width:130px;
-          padding-right:5px;
+          text-align: center;
+          strong {color:#EE3640;}
         }
         .nomeCupom {
           font-weight: bold;
@@ -900,6 +899,7 @@ section#cart {
             float:left;
           }
         }
+        #remove_coupon {display: inline !important;}
         .excluirCupom {
           margin:0px !important;
           padding-top:0px !important;
@@ -919,9 +919,7 @@ section#cart {
   }
 
   table.aplicarCupom {
-    position: relative;
-    left:190px;
-    width:500px;
+    width:100%;
   }
 
   table#coupon {
