@@ -22,6 +22,8 @@
       report: "Boletos a vencer"
     product:
       liquidation: Liquidações
+    users:
+      report: "Primeira compra"
 
   #Carrinho
   cart:
