@@ -2,28 +2,6 @@
 //update item value on item row
 $('p#item_subtotal_' + <%= item.id %>).text('<%= number_to_currency(item.price * item.quantity) %>');
 
-//update total order subtotal
-$('table#cart_subtotal tr td#subtotal_parcial').text('<%= number_to_currency(@cart_calculator.items_subtotal) %>');
-
-if ($('#cart_gift_wrap').is(':checked')){
-  $('#subtotal_parcial').append("<div id='embrulho_presente'></div>");
-  var span_gift_target = $('#embrulho_presente');
-  span_gift_target.html($("#gift_value").text().trim());
-}else{
-  $('#embrulho_presente').remove();
-}
-if ($('#cart_use_credits').is(':checked')){
-  $('#subtotal_parcial').append("<div id='credito_fidelidade'></div>");
-  var span_target = $('#credito_fidelidade');
-  span_target.html($("#total_user_credits").text().trim());
-}else{
-  $('#credito_fidelidade').remove();
-}
-
-olookApp.mediator.publish('cart.update', {
-  totalItens: "(<%= pluralize(@cart.items_total, 'item', 'itens') %>)",
-  total: '<%= number_to_currency(@cart_calculator.items_total) %>'
-});
 
 // update item rows' discounts and subtotals
 $("table#items tbody tr#item_<%= item.id %> td.discount").empty();
@@ -44,6 +22,27 @@ $("table#items tbody tr#item_<%= item.id %> td.value").first().append("<%= escap
 //update item quantity on cart summary (pull down)
 $('#cart_summary ul li[data-id=<%= item.id %>] p.qte span').text(<%= item.quantity %>);
 <% end %>
+
+if ($('#cart_gift_wrap').is(':checked')){
+  $('#subtotal_parcial').append("<div id='embrulho_presente'></div>");
+  var span_gift_target = $('#embrulho_presente');
+  span_gift_target.html($("#gift_value").text().trim());
+}else{
+  $('#embrulho_presente').remove();
+}
+if ($('#cart_use_credits').is(':checked')){
+  $('#subtotal_parcial').append("<div id='credito_fidelidade'></div>");
+  var span_target = $('#credito_fidelidade');
+  span_target.html($("#total_user_credits").text().trim());
+}else{
+  $('#credito_fidelidade').remove();
+}
+
+olookApp.mediator.publish('cart.update', {
+  totalItens: "(<%= pluralize(@cart.items_total, 'item', 'itens') %>)",
+  total: '<%= number_to_currency(@cart_calculator.items_total) %>',
+  subtotal: '<%= number_to_currency(@cart_calculator.items_subtotal) %>'
+});
 
 <% if @freebie %>
   $('.freebie').replaceWith('<%= j render('freebie/item', freebie: @freebie) %>');
