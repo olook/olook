@@ -30,7 +30,7 @@ $("#amount_for_loyalty_program").text("<%= number_to_currency @cart_service.amou
 $('tr#item_<%= @item.id %>').fadeOut();
 
 //update total order subtotal
-$('table#cart_subtotal tr td#subtotal_parcial').text('<%= number_to_currency(@cart_service.total) %>');
+$('#subtotal_parcial').text('<%= number_to_currency(@cart_service.total) %>');
 
 //update total order value
 olookApp.mediator.publish('cart.update', {total: '<%= number_to_currency(@cart_service.total) %>'});
