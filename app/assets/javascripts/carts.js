@@ -21,6 +21,21 @@ CartUpdater.prototype = {
       //update items total on cart title
       $(".js-total-itens").html(data.totalItens);
     }
+    if(typeof data.usingCoupon !== 'undefined') {
+      if(data.usingCoupon) {
+        $("#coupon_discount").html(data.couponCode);
+        $('#js-coupon-discount-value').text(data.couponDiscountValue);
+        $("#coupon_info").show();
+        $("#coupon").hide();
+      } else {
+        $("#coupon_discount").html("");
+        $('#js-coupon-discount-value').text('');
+        $("#coupon_info").hide();
+        $("#coupon").show();
+      }
+    }
+    if(data.couponDiscountValue) {
+    }
   },
   config: function() {
     olookApp.mediator.subscribe('cart.update', this.changeView, {}, this);
