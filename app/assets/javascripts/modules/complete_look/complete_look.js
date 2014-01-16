@@ -3,15 +3,13 @@ var completeLook = function(){
   addLookItemToCart = function(actionUrl, values) {
     $.post(actionUrl, values, function( data ) {
 
-      var variantNumber = data['variant_number'];
+      var variantNumber = values['variant_number'];
       var productPrice = data['product_price'];
       var productId = data['product_id'];
 
-      var variantNumbers = data['variant_numbers'];
-
       olookApp.mediator.publish(MinicartFadeOutManager.name, variantNumber);
       // Move the input creation to Channel
-      olookApp.mediator.publish(MinicartInputsUpdater.name,variantNumbers, variantNumber, "<input type='hidden' id='variant_numbers_' name='variant_numbers[]' value='"+variantNumber+"'>");
+      olookApp.mediator.publish(MinicartInputsUpdater.name, productId, variantNumber);
 
       setTimeout(function() {
         olookApp.publish(MinicartDataUpdater.name, productId, productPrice, variantNumber);  
