@@ -3,13 +3,17 @@ class CouponPresenter < BasePresenter
 
   def show_total_discount
     if fixed_value_coupon?
-      h.number_to_currency(coupon.action_parameter.action_params[:param])
+      h.number_to_currency(-1 * coupon.action_parameter.action_params[:param].to_f)
     end
   end
 
   def show_line_item_discount_for item
-    if item.has_adjustment? && !fixed_value_coupon?
-      h.link_to promotion_discount(item), "#", :class => 'discount_percent'
+    if item.has_adjustment?
+      if !fixed_value_coupon?
+        h.link_to promotion_discount(item), "#", :class => 'discount_percent'
+      else
+        h.link_to h.number_to_currency(value_discount(item)), "#", :class => 'discount_value'
+      end
     end
   end
 
@@ -32,6 +36,10 @@ class CouponPresenter < BasePresenter
   private
     def fixed_value_coupon?
       coupon && coupon.promotion_action.is_a?(ValueAdjustment)
+    end
+
+    def value_discount(item)
+      item.adjustment_value
     end
 
     def promotion_discount(item)

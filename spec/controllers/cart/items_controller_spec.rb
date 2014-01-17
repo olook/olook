@@ -15,7 +15,7 @@ describe Cart::ItemsController do
 
 			it "adds an item to the cart instance" do
         post :create, params, :format => :js
-        controller.current_cart.items.first.variant.should eq(basic_bag)
+        controller.send(:current_cart).items.first.variant.should eq(basic_bag)
       end
 
       it "renders create when item added and respond for js" do

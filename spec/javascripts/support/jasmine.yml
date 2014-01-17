@@ -17,8 +17,9 @@ src_files:
   - app/assets/javascripts/credit_card.js
   - app/assets/javascripts/formatter.js
   - app/assets/javascripts/plugins/admin/countdown.js
+  - app/assets/javascripts/plugins/float_total_scroll_manager.js
   - app/assets/javascripts/admin/catalog_landing_page.js
-  - app/assets/javascripts/lib/mediator.js
+  - vendor/assets/javascripts/mediator.js
   - app/assets/javascripts/application_core/olook_app.js
   - app/assets/javascripts/modules/**/*.js
   # - assets/javascripts/*.js

@@ -11,12 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131217174109) do
+ActiveRecord::Schema.define(:version => 20140116175113) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
     t.integer  "promotion_action_id"
-    t.string   "action_params"
+    t.text     "action_params"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.string   "matchable_type"
@@ -647,10 +647,11 @@ ActiveRecord::Schema.define(:version => 20131217174109) do
     t.integer "variant_id"
     t.integer "order_id"
     t.integer "quantity"
-    t.decimal "price",        :precision => 8, :scale => 3
+    t.decimal "price",        :precision => 8,  :scale => 3
     t.boolean "gift"
-    t.decimal "retail_price", :precision => 8, :scale => 3
-    t.boolean "is_freebie",                                 :default => false
+    t.decimal "retail_price", :precision => 8,  :scale => 3
+    t.boolean "is_freebie",                                  :default => false
+    t.decimal "sale_price",   :precision => 10, :scale => 2, :default => 0.0
   end
 
   add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
@@ -869,6 +870,7 @@ ActiveRecord::Schema.define(:version => 20131217174109) do
     t.string   "security_code"
     t.string   "source"
     t.string   "mercado_pago_id"
+    t.integer  "line_item_id"
   end
 
   add_index "payments", ["cart_id"], :name => "index_payments_on_cart_id"
