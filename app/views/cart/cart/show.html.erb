@@ -37,6 +37,7 @@ _gaq.push(['_addTrans',
   <%= content_tag :div, class: 'warning-msg', style: "display:#{@promo_over_coupon ? 'block' : 'none'};" do %>
     <%= image_tag 'cart/warning_coupon.png', :class => '' %>
     <p><span>Os descontos não são cumulativos</span></p>
+    <br style="clear:both;">
   <% end %>
 
   <% if @cart.items.count > 0 %>
