@@ -36,7 +36,7 @@ _gaq.push(['_addTrans',
 
   <%= content_tag :div, class: 'warning-msg', style: "display:#{@promo_over_coupon ? 'block' : 'none'};" do %>
     <%= image_tag 'cart/warning_coupon.png', :class => '' %>
-    <p><span>Os descontos não são acumulativos</span><br/>Você não pode usar um cupom em uma promoção do site, por exemplo</p>
+    <p><span>Os descontos não são cumulativos</span></p>
   <% end %>
 
   <% if @cart.items.count > 0 %>
