@@ -1896,6 +1896,7 @@ section#payment {
 section.checkout{
   &#payment{position:relative;margin-top:30px;clear:both;min-height:550px;}
   .box-step-one,.box-step-two{width:301px;float:left;margin-right:15px;border:1px solid #d1d1d1;}
+  .box-step-two {width: 312px;}
   .box-step-three{float:left;width:325px;border:1px solid #d1d1d1;}
 
   h2.step-title{width:100%;display: block;background: #eee;padding:5px 0;text-align: center;font-size: 12px;letter-spacing: 2px;text-transform: uppercase;font-weight: bold;
@@ -1908,7 +1909,7 @@ section.checkout{
   }
 
   form.new_checkout{float:left;
-    div#checkout_address{float:left;
+    div#checkout_address{float:left;padding:10px;
       .span_error{float:none !important;display:block;margin-bottom:10px;}
       div#address_fields{float:left;}
     }
