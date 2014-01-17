@@ -34,6 +34,7 @@ class Cart::CartController < ApplicationController
     @report  = CreditReportService.new(@user) unless @report
     cart = Cart.find_by_id(params[:cart_id]) || current_cart
     cart.add_variants params[:variant_numbers]
+    @cart_calculator = CartProfit::CartCalculator.new(@cart)
     render :show
   end
 
