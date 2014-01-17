@@ -56,7 +56,7 @@ _gaq.push(['_addTrans',
                   <p class="credits"></p>
                 <% end %>
                 <% if current_user %>
-                  <%= link_to "FECHAR MEU PEDIDO", new_checkout_path, :class => "continue"  %>
+                  <%= link_to "FECHAR MEU PEDIDO", new_checkout_url(protocol: 'https'), :class => "continue"  %>
                 <% else %>
                   <%= link_to "FECHAR MEU PEDIDO", checkout_login_index_path, :class => "continue"  %>
                 <% end %>
@@ -258,7 +258,7 @@ _gaq.push(['_addTrans',
               <p class="credits"></p>
             <% end %>
             <% if current_user %>
-              <%= link_to "FECHAR MEU PEDIDO", new_checkout_path, :class => "continue"  %>
+              <%= link_to "FECHAR MEU PEDIDO", new_checkout_url(protocol: 'https'), :class => "continue"  %>
             <% else %>
               <%= link_to "FECHAR MEU PEDIDO", checkout_login_index_path, :class => "continue"  %>
             <% end %>
