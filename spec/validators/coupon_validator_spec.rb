@@ -22,30 +22,6 @@ describe CouponValidator do
       end
     end
 
-    context "when coupon has brand" do
-
-      context "but cart has no product with brand eq coupon's brand" do
-        let(:coupon) { FactoryGirl.build(:standard_coupon) }
-
-        before do
-          coupon.stub(:can_be_applied_to_any_product_in_the_cart?).and_return(false)
-          coupon.stub(:brand).and_return("Some Brand")
-          coupon.stub(:expired?).and_return(false)
-          coupon.stub(:available?).and_return(true)
-          coupon.stub(:can_be_applied_to_any_product_in_the_cart?).and_return(false)
-        end
-
-        it "does not add an error" do
-          cart.coupon_code = coupon.code
-          Coupon.stub(:find_by_code).with(coupon.code).and_return(coupon)
-          subject.validate(cart)
-          expect(cart.errors[:coupon_code]).to be_empty
-        end
-
-      end
-
-    end
-
     context "coupon_code exists" do
 
       context "and coupon is expired" do
@@ -62,7 +38,7 @@ describe CouponValidator do
           cart.coupon_code = expired_coupon.code
           Coupon.stub(:find_by_code).with(expired_coupon.code).and_return(expired_coupon)
           subject.validate(cart)
-          cart.errors[:coupon_code].first.should eq("O cupom informado já está expirado. Se você possui outro, informe abaixo.")
+          cart.errors[:coupon_code].first.should eq("Este cupom não é mais válido :/")
         end
       end
 
@@ -78,7 +54,7 @@ describe CouponValidator do
           cart.coupon_code = "CODE"
           Coupon.stub(:find_by_code).with(cart.coupon_code).and_return(nil)
           subject.validate(cart)
-          cart.errors[:coupon_code].first.should eq("O cupom informado não é válido. Por favor, verifique o código informado.")
+          cart.errors[:coupon_code].first.should eq("Cupom inexistente. Tente digitar novamente.")
         end
       end
 
@@ -96,7 +72,7 @@ describe CouponValidator do
           cart.coupon_code = unavailable_coupon.code
           Coupon.stub(:find_by_code).with(cart.coupon_code).and_return(unavailable_coupon)
           subject.validate(cart)
-          cart.errors[:coupon_code].first.should eq("O cupom informado não é válido. Por favor, verifique o código informado.")
+          cart.errors[:coupon_code].first.should eq("Este cupom não é mais válido :/")
         end
       end
 

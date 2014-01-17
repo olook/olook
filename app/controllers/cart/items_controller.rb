@@ -14,6 +14,7 @@ class Cart::ItemsController < ApplicationController
 
     if @item.update_attribute(:quantity, params[:quantity])
       @cart.items.reload
+      @cart_calculator = CartProfit::CartCalculator.new(@cart)
       @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
       respond_with { |format| format.js {  } }
     else
@@ -26,6 +27,7 @@ class Cart::ItemsController < ApplicationController
 
     if @item.destroy
       @cart.items.reload
+      @cart_calculator = CartProfit::CartCalculator.new(@cart)
       @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
       respond_with { |format| format.js { } }
     else
