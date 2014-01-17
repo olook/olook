@@ -9,7 +9,7 @@ MinicartFadeOutManager = function(){
 
     $('.cart_related').fadeOut("fast",function(){
       $('.cart_related').addClass('product_added');
-      $('.cart_related div.empty_minicart').hide();
+      $('.empty_minicart').hide();
     });
   };
 
