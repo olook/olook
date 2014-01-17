@@ -46,5 +46,5 @@ olookApp.mediator.publish('cart.update', {
 
 <% if @freebie %>
   $('.freebie').replaceWith('<%= j render('freebie/item', freebie: @freebie) %>');
-  if(olook.checkFreebie) olook.checkFreebie();
+  if(olook.attachFreebieActions) olook.attachFreebieActions();
 <% end %>
