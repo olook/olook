@@ -40,8 +40,9 @@ class Cart::CartController < ApplicationController
   def update
     @cart.update_attributes(params[:cart])
     if @cart.errors.any?
-      notice_message = @cart.errors.messages.values.flatten.first
-      render :error, :locals => { :notice => notice_message }
+      @notice_message = @cart.errors[:coupon_code].first
+      render :error
+      return
     end
 
     @cart.reload
