@@ -1,32 +1,30 @@
 MinicartDataUpdater = function(){
 
   getProductName = function(productId) {
-    return $('li[data-id='+productId+']').data('name');
+    return $('.js-look-product[data-id='+productId+']').data('name');
   }
 
   var writePrice = function(){
     var installments = CreditCard.installmentsNumberFor($("#total_price").val());
-    if ($("li.product").length == ($(".js-minicartItem").length)){
+    if ($(".js-look-product").length == ($(".js-minicartItem").length)){
       $(".minicart_price").html("De<span class='original_price'>" + installments + "x de " + Formatter.toCurrency( $("#total_price").val() / installments ) + "</span>Por <span class='discounted_price'>"+$(".total_with_discount").html() + " sem juros</span>");
-    } else if(($(".cart_related ul li").length - 1) > 0){
+    } else if(($(".js-minicartItem").length) > 0){
       $(".minicart_price").html("Por<span class='first_price'>" + installments + "x de " + Formatter.toCurrency( $("#total_price").val() / installments ) + " sem juros </span>");
     }
   };
 
   var productNameInMinicart = function(productId){
-    var productName = getProductName(productId);
-    // Improve this selector
-    return($( ".cart_related ul li:contains("+ productName +")" ));
+    return($( ".js-minicartItem[data-id='"+ productId +"']" ));
   };
 
   var addItem = function(productId, productPrice){
     var productName = getProductName(productId);
-    $('.cart_related ul').append("<li class='js-minicartItem'>"+ productName +"</li>");
     if(isCartEmpty()){
       $("#total_price").val(parseFloat(productPrice));
     } else {
       $("#total_price").val( parseFloat($("#total_price").val()) + parseFloat(productPrice));
     }      
+    $('.js-look-products').append("<li class='js-minicartItem' data-id='"+productId+"'>"+ productName +"</li>");
   };
 
   var removeItem = function(productId, productPrice){
@@ -47,7 +45,7 @@ MinicartDataUpdater = function(){
   };
 
   var isCartEmpty = function(){
-    return ($( ".cart_related ul li").length - 1 == 0);
+    return ($( ".js-minicartItem").length == 0);
   };
 
   return{
