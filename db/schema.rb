@@ -11,12 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131217174109) do
+ActiveRecord::Schema.define(:version => 20140116175113) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
     t.integer  "promotion_action_id"
-    t.string   "action_params"
+    t.text     "action_params"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.string   "matchable_type"
@@ -249,6 +249,30 @@ ActiveRecord::Schema.define(:version => 20131217174109) do
     t.text     "product_list"
     t.string   "organic_url"
     t.integer  "url_type"
+  end
+
+  create_table "catalog_headers", :force => true do |t|
+    t.string   "url"
+    t.string   "type"
+    t.string   "h1"
+    t.string   "h2"
+    t.string   "small_banner1"
+    t.string   "alt_small_banner1"
+    t.string   "link_small_banner1"
+    t.string   "small_banner2"
+    t.string   "alt_small_banner2"
+    t.string   "link_small_banner2"
+    t.string   "medium_banner"
+    t.string   "alt_medium_banner"
+    t.string   "link_medium_banner"
+    t.string   "big_banner"
+    t.string   "alt_big_banner"
+    t.string   "link_big_banner"
+    t.string   "title"
+    t.string   "resume_title"
+    t.text     "text_complement"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "catalog_products", :force => true do |t|
@@ -643,14 +667,34 @@ ActiveRecord::Schema.define(:version => 20131217174109) do
     t.datetime "updated_at",   :null => false
   end
 
+  create_table "landing_pages", :force => true do |t|
+    t.string   "page_image"
+    t.string   "page_title"
+    t.string   "page_url"
+    t.string   "button_image"
+    t.string   "button_url"
+    t.string   "button_alt"
+    t.boolean  "enabled"
+    t.boolean  "show_header"
+    t.boolean  "show_footer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "button_top"
+    t.integer  "button_left"
+    t.string   "button_hover_image"
+  end
+
+  add_index "landing_pages", ["page_url"], :name => "index_landing_pages_on_page_url"
+
   create_table "line_items", :force => true do |t|
     t.integer "variant_id"
     t.integer "order_id"
     t.integer "quantity"
-    t.decimal "price",        :precision => 8, :scale => 3
+    t.decimal "price",        :precision => 8,  :scale => 3
     t.boolean "gift"
-    t.decimal "retail_price", :precision => 8, :scale => 3
-    t.boolean "is_freebie",                                 :default => false
+    t.decimal "retail_price", :precision => 8,  :scale => 3
+    t.boolean "is_freebie",                                  :default => false
+    t.decimal "sale_price",   :precision => 10, :scale => 2, :default => 0.0
   end
 
   add_index "line_items", ["order_id"], :name => "index_line_items_on_order_id"
@@ -869,6 +913,7 @@ ActiveRecord::Schema.define(:version => 20131217174109) do
     t.string   "security_code"
     t.string   "source"
     t.string   "mercado_pago_id"
+    t.integer  "line_item_id"
   end
 
   add_index "payments", ["cart_id"], :name => "index_payments_on_cart_id"
@@ -1046,8 +1091,8 @@ ActiveRecord::Schema.define(:version => 20131217174109) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
