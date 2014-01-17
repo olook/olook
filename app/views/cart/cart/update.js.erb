@@ -108,6 +108,7 @@ select_options.empty();
   cartUpdateData.couponDiscountValue = '<%= number_to_currency(@coupon_value) %>';
 <% end %>
 
-olookApp.mediator.publish('cart.update', cartUpdateData);
 showTotal();
+if(olookApp && olookApp.mediator)
+  olookApp.mediator.publish('cart.update', cartUpdateData);
 
