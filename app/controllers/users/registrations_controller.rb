@@ -140,7 +140,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => resource.id) if session[:recipient_id]
       end
 
-      return new_checkout_path if @cart.items_total > 0
+      return new_checkout_url(protocol: 'https') if @cart.items_total > 0
     end
 
     if resource.half_user && resource.male?
@@ -152,7 +152,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def after_update_path_for(resource)
     if @cart && @cart.items_total > 0
-      new_checkout_path
+      new_checkout_url(protocol: 'https')
     end
   end
 
