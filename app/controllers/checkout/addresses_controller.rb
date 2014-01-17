@@ -5,7 +5,7 @@ class Checkout::AddressesController < Checkout::BaseController
   before_filter :check_order
 
   def index
-    redirect_to new_checkout_address_path unless @user.addresses.any?
+    redirect_to new_checkout_address_url(protocol: 'https') unless @user.addresses.any?
     @addresses = @user.addresses
   end
 
@@ -21,7 +21,7 @@ class Checkout::AddressesController < Checkout::BaseController
     params[:address][:country] = 'BRA' if params[:address]
     @address = @user.addresses.build(params[:address])
     if @address.save
-      redirect_to new_checkout_path
+      redirect_to new_checkout_url(protocol: 'https')
     else
       respond_with(@address)
     end
@@ -30,7 +30,7 @@ class Checkout::AddressesController < Checkout::BaseController
   def update
     @address = @user.addresses.find(params[:id])
     if @address.update_attributes(params[:address])
-      redirect_to new_checkout_path
+      redirect_to new_checkout_url(protocol: 'https')
     else
       respond_with(@address)
     end
