@@ -6,7 +6,6 @@ MinicartDataUpdater = function(){
 
   var writePrice = function(){
     var installments = CreditCard.installmentsNumberFor($("#total_price").val());
-
     if ($("li.product").length == ($(".js-minicartItem").length)){
       $(".minicart_price").html("De<span class='original_price'>" + installments + "x de " + Formatter.toCurrency( $("#total_price").val() / installments ) + "</span>Por <span class='discounted_price'>"+$(".total_with_discount").html() + " sem juros</span>");
     } else if(($(".cart_related ul li").length - 1) > 0){
@@ -23,7 +22,11 @@ MinicartDataUpdater = function(){
   var addItem = function(productId, productPrice){
     var productName = getProductName(productId);
     $('.cart_related ul').append("<li class='js-minicartItem'>"+ productName +"</li>");
-    $("#total_price").val( parseFloat($("#total_price").val()) + parseFloat(productPrice));
+    if(isCartEmpty()){
+      $("#total_price").val(parseFloat(productPrice));
+    } else {
+      $("#total_price").val( parseFloat($("#total_price").val()) + parseFloat(productPrice));
+    }      
   };
 
   var removeItem = function(productId, productPrice){
