@@ -170,16 +170,6 @@ function showCreditPackageModal(){
 
 }
 
-function showSmellPackageModal(){
-   var content = $(".modal_smell");
-   $("a.seeTheSmell").bind("click", function(e){
-      initBase.newModal(content);
-      e.preventDefault();
-      e.stopPropagation();
-   })
-
-}
-
 function changeCartItemQty(cart_item_id) {
     $('form#change_amount_' + cart_item_id).submit();
 }
