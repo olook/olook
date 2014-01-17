@@ -1,9 +1,67 @@
+//= require application_core/olook_app
 //= require ./partials/_credits_info
 //= require plugins/spy
 //= require plugins/check_freebie
+//= require plugins/float_total_scroll_manager
+
+function CartUpdater() {
+  this.developer = 'Nelson Haraguchi';
+};
+
+CartUpdater.prototype = {
+  changeView: function(data) {
+    if(data.total) {
+      $("#total_value").html(data.total);
+      $("#float_total_value").html(data.total);
+    }
+    if (data.totalItens) {
+      //update items quantity on cart summary header
+      $("#cart_items").text(data.totalItens);
+
+      //update items total on cart title
+      $(".js-total-itens").html(data.totalItens);
+    }
+    if(typeof data.usingCoupon !== 'undefined') {
+      if(data.usingCoupon) {
+        $("#coupon_discount").html(data.couponCode);
+        $('#js-coupon-discount-value').text(data.couponDiscountValue);
+        $("#coupon_info").show();
+        $("#coupon").hide();
+      } else {
+        $("#coupon_discount").html("");
+        $('#js-coupon-discount-value').text('');
+        $("#coupon_info").hide();
+        $("#coupon").show();
+      }
+    }
+    if(data.subtotal) {
+      $('#subtotal_parcial').html(data.subtotal);
+    }
+  },
+  config: function() {
+    olookApp.mediator.subscribe('cart.update', this.changeView, {}, this);
+  }
+};
+
 $(function() {
+  new FloatTotalScrollManager().config();
+  new CartUpdater().config();
   showInfoCredits();
   olook.spy('.cart_item[data-url]');
+  if ($('#cart_gift_wrap').is(':checked')){
+    $('#subtotal_parcial').after("<div id='embrulho_presente'></div>");
+    var span_gift_target = $('#embrulho_presente');
+    span_gift_target.html($("#gift_value").text().trim());
+  }else{
+    $('#embrulho_presente').remove();
+  }
+  if ($('#cart_use_credits').is(':checked') && $(".cupom").filter(":visible").length > 0){
+    $('#subtotal_parcial').after("<div id='credito_fidelidade'></div>");
+    var span_target = $('#credito_fidelidade');
+    span_target.html("-"+$("#total_user_credits").text().trim());
+  }else{
+    $('#credito_fidelidade').remove();
+  }
 
   $("form#coupon input").focus(function() {
     _gaq.push(['_trackEvent', 'Checkout', 'FillCupom', '', , true]);
@@ -88,6 +146,7 @@ $(function() {
   }
 
   showGiftPackageModal();
+  showCreditPackageModal();
   showSmellPackageModal();
 });
 
@@ -101,9 +160,9 @@ function showGiftPackageModal(){
 
 }
 
-function showSmellPackageModal(){
-   var content = $(".modal_smell");
-   $("a.seeTheSmell").bind("click", function(e){
+function showCreditPackageModal(){
+   content = $(".modal_credit");
+   $("a.txt-credito").bind("click", function(e){
       initBase.newModal(content);
       e.preventDefault();
       e.stopPropagation();

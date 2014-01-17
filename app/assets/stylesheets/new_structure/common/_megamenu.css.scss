@@ -1,24 +1,36 @@
 @import "new_structure/common/global_stuffs";
 
 /*** new menu ***/
-div#wrapper_new_menu{position:relative;z-index:99;background:#FFF;width:100%;opacity:1;*filter: alpha(opacity=90);-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
-   &.smaller {
-     div.content {
-       width: 990px;
-       padding-right: 0;
-       ul.product_anchors {
-         display: none;
-       }
-     }
-   }
-   &.fixed {
-     position: fixed;
-     top: 0px;
-     left:0px;
-     z-index:999;
-     padding-top:5px;
-     height:31px;
-   }
+div#replace_new_menu_on_float {
+  height: 42px;
+  display:none;
+}
+div#wrapper_new_menu{
+  position:relative;
+  z-index:99;
+  background:#FFF;
+  width:100%;
+  opacity:1;
+  *filter: alpha(opacity=90);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+  &.smaller {
+    div.content {
+      width: 990px;
+      padding-right: 0;
+      ul.product_anchors {
+        display: none;
+      }
+    }
+  }
+  &.fixed {
+    position: fixed;
+    top: 0px;
+    left:0px;
+    z-index:999;
+    padding-top:5px;
+    height:31px;
+  }
 }
 /*** end new menu ***/
 

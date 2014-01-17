@@ -11,7 +11,7 @@ class Checkout::LoginController < ApplicationController
   private
 
   def check_user_logged
-    redirect_to new_checkout_path if logged_in?
+    redirect_to new_checkout_url(protocol: 'https') if logged_in?
   end
 
 end
