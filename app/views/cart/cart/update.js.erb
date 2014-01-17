@@ -1,6 +1,6 @@
 <% if @freebie %>
   $('.freebie').replaceWith('<%= j render('freebie/item', freebie: @freebie) %>');
-  if(olook.checkFreebie) olook.checkFreebie();
+  if(olook.attachFreebieActions) olook.attachFreebieActions();
 <% end %>
 cartUpdateData = {};
 cartUpdateData.total = "<%= number_to_currency(@cart_calculator.items_total) %>";
