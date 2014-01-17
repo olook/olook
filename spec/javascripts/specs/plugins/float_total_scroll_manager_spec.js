@@ -62,7 +62,7 @@ describe('FloatTotalScrollManager', function() {
     it('expect not processing when is insane', function(){
       spyOn(ftsm, 'isInsane').andReturn(true);
       spyOn(ftsm, 'fade');
-      ftsm.apply();
+      ftsm.calculateFade();
       expect(ftsm.fade).not.toHaveBeenCalled();
     });
   });
