@@ -17,23 +17,11 @@
   $("table#total p.limit").removeClass("show");
 <% end %>
 
-//update items total on cart summary
-$("#cart_items").hide().delay(200).text("<%= pluralize(@cart.items_total, 'item', 'itens') %>").fadeIn();
-
-//update items total on cart title
-$(".total_itens").hide().delay(200).text("<%= pluralize(@cart.items_total, 'item', 'itens') %>").fadeIn();
-
 //?
 $("#amount_for_loyalty_program").text("<%= number_to_currency @cart_service.amount_for_loyalty_program %>");
 
 //remove item row
 $('tr#item_<%= @item.id %>').fadeOut();
-
-//update total order subtotal
-$('#subtotal_parcial').text('<%= number_to_currency(@cart_service.total) %>');
-
-//update total order value
-olookApp.mediator.publish('cart.update', {total: '<%= number_to_currency(@cart_service.total) %>'});
 
 //Remove item from cart summary pull down
 $("li[data-id=<%= @item.id %>]").first().remove();
