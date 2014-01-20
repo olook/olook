@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140116175113) do
+ActiveRecord::Schema.define(:version => 20140120211443) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -739,6 +739,15 @@ ActiveRecord::Schema.define(:version => 20140116175113) do
     t.string   "fg_color"
     t.string   "bg_color"
     t.string   "movie_image"
+  end
+
+  create_table "looks", :force => true do |t|
+    t.integer  "product_id"
+    t.string   "picture"
+    t.datetime "launched_at"
+    t.integer  "profile_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "moip_callbacks", :force => true do |t|
