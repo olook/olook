@@ -86,10 +86,15 @@
                    </ul>
                  </div>
                  </li>
+                 <li>
+                  <p class="sac">SAC (11) 2626-3489</p>
+                 </li>
                </ul>
              </div>
            <% else %>
-               <p class="new_login"><%= link_to "Entre", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %> ou <%= link_to "Descubra seu estilo", wysquiz_path %></p>
+              <p class="sac">SAC (11) 2626-3489</p>
+              <p class="new_login"><%= link_to "Entre", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %> &nbsp;ou&nbsp; <%= link_to "Descubra seu estilo", wysquiz_path %></p>
+               
              <div class="sign-in-dropdown close">
                <%= render "users/sessions/form_user" %>
              </div>

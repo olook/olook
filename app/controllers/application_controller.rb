@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  layout "site"
+  layout "lite_application"
 
   before_filter :load_user,
                 :create_cart,
