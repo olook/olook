@@ -94,6 +94,20 @@ body div#content {
     overflow: auto;
     li.link {
       float: left;
+      margin:20px -13px 30px;
+      font-size:12px;
+      padding-left:13px;
+      a{
+        display: block;
+        width: 150px;
+        padding: 5px;
+        background: #000;
+        color: #FFF;
+        text-transform: uppercase;
+        font-size: 10px;
+        text-decoration: none;
+        &:hover{text-decoration:underline};
+      }
     }
     li.moip {
       background: image-url('common/moip.png') no-repeat;
@@ -410,7 +424,8 @@ section#cart {
 
   }
 
-  .buying-continue{
+  .buying-continue,
+  .link {
     margin:20px -13px 30px;
     font-size:12px;
     padding-left:13px;
@@ -1986,7 +2001,7 @@ section.checkout{
       float: left;
       width: 300px;
       margin-top: 0px;
-      display:block !important;
+      display:none;
       padding-left:10px;
       p{
         font-family: $avenir;

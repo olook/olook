@@ -7,9 +7,9 @@
    <%= content_for?(:news_content) ? yield(:news_content) : yield %>
     <ul class="links_moip">
       <% if @referer %>
-        <li class="link"><%= link_to "Continuar comprando", @referer[:url], :class => "back_link" %></li>
+        <li class="link"><%= link_to "<< Continuar comprando", @referer[:url], :class => "back_link" %></li>
       <% else %>
-        <li class="link"><%= link_to "Continuar comprando", member_showroom_path, :class => "back_link" %></li>
+        <li class="link"><%= link_to "<< Continuar comprando", member_showroom_path, :class => "back_link" %></li>
       <% end %>
     </ul>
   <% end %>
