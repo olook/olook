@@ -21,7 +21,8 @@ class Order < ActiveRecord::Base
   scope :with_date_and_authorized, lambda { |date| joins(:order_state_transitions).
                                                    where(order_state_transitions: {event: "authorized", to: "authorized", created_at: date.beginning_of_day..date.end_of_day}) }
   scope :with_expected_delivery_on, lambda { |date| where(expected_delivery_on: date.beginning_of_day..date.end_of_day) }
-  scope :with_first_buyers, ->(date=Time.zone.now) {where(created_at: date.beginning_of_day..date.end_of_day).select{|a| a.user.orders.count == 1}}
+  scope :with_first_buyers, -> {joins(:user).where("users.orders_count = 1").group("users.id")}
+  scope :between, ->(date=Time.zone.now) {where(created_at: date.beginning_of_day..date.end_of_day)}
 
   belongs_to :cart
   belongs_to :user, counter_cache: true
