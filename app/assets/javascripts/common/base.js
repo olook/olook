@@ -67,12 +67,18 @@ $(document).ready(function() {
   if (!msie6 && $('div#wrapper_new_menu').length == 1) {
     var top = $('div#wrapper_new_menu').offset().top - parseFloat($('div#wrapper_new_menu').css('margin-top').replace(/auto/, 0));
     $(window).scroll(function (event) {
+      var wrapper = $('div#wrapper_new_menu');
+      var replacer = $('div#replace_new_menu_on_float');
       var y = $(this).scrollTop();
-      if (y >= top) {
-        $('div#wrapper_new_menu').addClass('fixed');
+      if (y >= top - 5) {
+        wrapper.addClass('fixed');
+        replacer.show();
       } else {
-        $('div#wrapper_new_menu').removeClass('fixed');
+        wrapper.removeClass('fixed');
+        replacer.hide();
       }
+      event.preventDefault();
+      event.stopPropagation();
     });
   }
 

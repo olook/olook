@@ -12,12 +12,9 @@
           = image_tag 'common/nav/big_coupon.png', :class => 'big_coupon'
           %p.coupon_tag
             Sua sacola agora
-            %br/
             tem um cupom de
-            %br/
             = @cart.coupon.desc_value
             de desconto.
-            %br/
             Aproveite! ;)
       = content_tag(:li, content_tag(:p, "Sua sacola está vazia :(<br />Navegue no site e mude isso já!".html_safe, class: 'empty_cart'), class: "product_item") if !@cart || @cart.items.blank?
       - @cart && @cart.items.each do |item|

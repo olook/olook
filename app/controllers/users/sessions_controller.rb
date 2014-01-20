@@ -39,7 +39,7 @@ class Users::SessionsController < Devise::SessionsController
     end
 
     if @cart && @cart.items_total > 0
-      new_checkout_path
+      new_checkout_url(protocol: 'https')
     elsif resource.half_user && resource.male?
       gift_root_path
     else

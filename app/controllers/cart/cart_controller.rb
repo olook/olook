@@ -13,6 +13,11 @@ class Cart::CartController < ApplicationController
     @url += ":" + request.port.to_s if request.port != 80
     @chaordic_cart = ChaordicInfo.cart(@cart, current_user, cookies[:ceid])
     @suggested_product = find_suggested_product
+    @cart_calculator = CartProfit::CartCalculator.new(@cart)
+    @promo_over_coupon = false
+    if @cart.coupon_id && Promotion.select_promotion_for(@cart)
+      @promo_over_coupon = true
+    end
     @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
   end
 
@@ -29,23 +34,26 @@ class Cart::CartController < ApplicationController
     @report  = CreditReportService.new(@user) unless @report
     cart = Cart.find_by_id(params[:cart_id]) || current_cart
     cart.add_variants params[:variant_numbers]
+    @cart_calculator = CartProfit::CartCalculator.new(@cart)
     render :show
   end
 
   def update
     @cart.update_attributes(params[:cart])
     if @cart.errors.any?
-      notice_message = @cart.errors.messages.values.flatten.first
-      render :error, :locals => { :notice => notice_message }
+      @notice_message = @cart.errors[:coupon_code].first
+      render :error
+      return
     end
 
     @cart.reload
+    @cart_calculator = CartProfit::CartCalculator.new(@cart)
 
     #
     # Isto é feio, muito feio. Juro que volto aqui para refatorar
     #
     if @cart.coupon && @cart.coupon.promotion_action.is_a?(ValueAdjustment)
-      @coupon_value = @cart.coupon.action_parameter.action_params[:param]
+      @coupon_value = -1 * @cart.coupon.action_parameter.action_params[:param].to_f
     end
 
     @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
