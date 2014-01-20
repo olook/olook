@@ -39,7 +39,7 @@ class CartService
   end
 
   def item_price(item)
-    get_retail_price_for_item(item).fetch(:price)
+    item.price
   end
 
   def item_retail_price(item)
@@ -170,7 +170,7 @@ class CartService
     cart.items.each do |item|
 
       order.line_items << LineItem.new(variant_id: item.variant.id, quantity: item.quantity, price: item_price(item),
-                    retail_price: normalize_retail_price(order, item), gift: item.gift)
+                    retail_price: normalize_retail_price(order, item), sale_price: item.product.retail_price, gift: item.gift)
 
       create_freebies_line_items_and_update_subtotal(order, item)
     end
@@ -214,50 +214,6 @@ class CartService
 
   def should_override_promotion_discount?
     cart.total_coupon_discount > cart_total_promotion_discount
-  end
-
-  def get_retail_price_for_item(item)
-    origin = ''
-    percent = 0
-    final_retail_price = item.retail_price
-    final_retail_price ||= 0
-    price = item.price
-    discounts = []
-    origin_type = ''
-
-    if price != final_retail_price && !item.has_adjustment? && cart.coupon.nil?
-      Rails.logger.info("[OLOOKLET] Calculating Olooklet retail price for item")
-      percent =  (1 - (final_retail_price / price) )* 100
-      origin = 'Olooklet: '+percent.ceil.to_s+'% de desconto'
-      discounts << :olooklet
-      origin_type = :olooklet
-    end
-
-    coupon = cart.coupon
-
-    if coupon && !coupon.is_percentage?
-      discounts << :coupon_of_value
-    end
-
-    if coupon && coupon.is_percentage? && item.cart_item_adjustment.try(:source) =~ /Coupon:/
-      discounts << :coupon
-      coupon_value = price - ((coupon.value * price) / 100)
-      if coupon_value < final_retail_price && should_override_promotion_discount?
-        percent = coupon.value
-        final_retail_price = coupon_value
-        origin = 'Desconto de '+percent.ceil.to_s+'% do cupom '+coupon.code
-        origin_type = :coupon
-      end
-    end
-
-    {
-      :origin       => origin,
-      :price        => price,
-      :retail_price => final_retail_price,
-      :percent      => percent,
-      :discounts    => discounts,
-      :origin_type  => origin_type
-    }
   end
 
   def minimum_value

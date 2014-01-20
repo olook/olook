@@ -56,12 +56,15 @@ olook.menu = function(){
   var $el, leftPos, newWidth, w = $("ul.default_new li .selected").outerWidth(), l = $("ul.default_new li .selected").position() && $("ul.default_new li .selected").position().left,
   top = ( $('div#wrapper_new_menu').offset() && $('div#wrapper_new_menu').offset().top ) - parseFloat(( $('div#wrapper_new_menu').css('margin-top') && $('div#wrapper_new_menu').css('margin-top') || '0' ).replace(/auto/, 0));
 
-    $(window).scroll(function (event) {
-    var y = $(this).scrollTop();
-    if (y >= top) {
-      $('div#wrapper_new_menu').addClass('fixed');
+  $(window).scroll(function (event) {
+    var wrapper = $('div#wrapper_new_menu');
+    var replacer = $('div#replace_new_menu_on_float');
+    if (y >= top - 5) {
+      wrapper.addClass('fixed');
+      replacer.show();
     } else {
-      $('div#wrapper_new_menu').removeClass('fixed');
+      wrapper.removeClass('fixed');
+      replacer.hide();
     }
     event.preventDefault();
     event.stopPropagation();
