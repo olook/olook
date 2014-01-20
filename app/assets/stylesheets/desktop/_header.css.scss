@@ -91,6 +91,7 @@ nav.menu_new{
 
   #mm_marcas {
     width:340px;
+    right: 0;
     .first {width:140px !important;}
     .second {width:120px !important;}
     .last {width:80px !important;}
@@ -98,12 +99,14 @@ nav.menu_new{
   }
 
   #mm_presentes {
+    right: 0;
     width:110px;
     .first {width:110px;}
   }
 
   #mm_olooklet {
     width:180px;
+    right: 0;
     span {margin-top:10px;}
   }
   .image {margin-top: 10px;padding-bottom: 10px;}
