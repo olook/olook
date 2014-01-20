@@ -235,12 +235,12 @@ $(function() {
   });
 
   // ABOUT CREDITS MODAL
-  $("div.box-step-two .more_credits").click(function(){
+  $("div.box-step-three .more_credits").click(function(){
     $("#overlay-campaign").show();
     $("#about_credits").fadeIn();
   });
 
-  $("div.box-step-two button").click(function(){
+  $("div.box-step-three  button").click(function(){
     $("#about_credits").fadeOut();
     $("#overlay-campaign").hide();
   });
