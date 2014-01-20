@@ -1,4 +1,4 @@
-%h1 Boletos a expirar em 48 horas
+%h1 Boletos a expirar em 24 horas
 %div.inner
   %table.table
     %tr
@@ -13,7 +13,7 @@
         %td= link_to billet.order.user.name, admin_user_path(billet.order.user) if billet.order.try(:user)
         %td= link_to billet.order.number, admin_order_path(billet.order)
         %td= link_to billet.order.user.email, admin_user_path(billet.order.user) if billet.order.try(:user)
-        %td= billet.user.addresses.first.try(:telephone)
+        %td= billet.order.user.try(:addresses).try(:first).try(:telephone)
         %td= billet.order.amount_paid
 
   %br
