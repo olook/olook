@@ -22,7 +22,7 @@
           = render "shipping_address_form", address: @checkout.address
         - else
           = render "address_list", addresses: @addresses, endpoint_url: @endpoint_url
-        
+
       %br
       #shipping_services_types
         %p
@@ -39,7 +39,43 @@
             %p.shipping
               = "(#{@shipping_service_fast.try(:delivery_time)} dias úteis) #{number_to_currency(@shipping_service_fast.try(:price))}"
     .box-step-three
-        
+      %h2.step-title PAGAMENTO
+      = render "payments_type", checkout_form: checkout_form
+      %ul.subtotal
+        %li
+          %span.txt-black Subtotal:
+          %span.txt-black.txt-subtotal= number_to_currency(@cart_service.cart.sub_total)
+        %li.frete
+          %span.txt-black Frete:
+          %span#freight_price= initial_freight @shipping_service
+        %li
+          %span.txt-black Créditos:
+          %span#credits_used
+            \-#{number_to_currency(@cart_service.total_credits_discount)}
+        - if @cart_service.facebook_discount > 0
+          %li
+            %span.txt-black Facebook:
+            %span#coupon_discount_value
+              \-#{number_to_currency(@cart_service.facebook_discount)}
+        - if @checkout
+          #billet_discount_cart
+            %li
+              %span.txt-black Boleto:
+              %span#billet_discount_value
+                \-#{number_to_currency(@cart_service.billet_discount)}
+          #debit_discount_cart
+            %li
+              %span.txt-black Débito:
+              %span#debit_discount_value
+                \-#{number_to_currency(@cart_service.debit_discount)}
+      %p.total
+        %span.txt-black TOTAL:
+        - if @checkout
+          %span#total_billet.txt-black= number_to_currency(@cart_service.total(Billet.new))
+          %span#total_debit.txt-black= number_to_currency(@cart_service.total(Debit.new))
+        %span#total.txt-black= number_to_currency(@cart_service.total)
+      = checkout_form.submit 'FECHAR MEU PEDIDO', class: "send_it", disable_with: "", onclick: track_event("Checkout","clickSubmit") if defined?(checkout_form)
+    
         
 - content_for :footer do
   = render partial: "shared/metrics/dbm/order"

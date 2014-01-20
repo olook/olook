@@ -1175,10 +1175,12 @@ section#payment {
     display: none;
     font-size: 11px;
     position: absolute;
-    left: 70px;
-    top: 77px;
+    right: 65px;
+    top: -1px;
     border: 1px solid rgb(209, 209, 209);
     padding: 2px;
+    color:#000;
+    background: #faffd4;
   }
   #billet_info {
     background: #f2f2f2;
@@ -2023,51 +2025,71 @@ section.checkout{
       }
     }
     /********** END / START STEP TWO *******/
-    .box-step-two{
+    .box-step-two, .box-step-three {
       .credits input, .payment_type input, .cards input{float:left;height:auto;margin:0 5px 0 0;border:none;padding: 0}
       label{line-height:14px;}
       ul,ol{overflow:hidden;}
       .payment {position: relative;}
     }
-    .credits{float:left;padding-left:5px;
-      label{color:#000;}
 
-      p{font-size:13px;float:left;
-        span, a{color:#000; font-weight: 500;}
-        a{display:block;margin:6px 0 5px;font-size:13px;}
+    .box-step-three {
+      ul.subtotal, .total {width:91%;padding:6.5% 9% 0 0;
+        li {padding-bottom:10px;height:13px;}
+        .txt-black {display: block;float:left;width:31%;text-align: right;font-weight: normal !important;}
+        .txt-subtotal, #freight_price, #credits_used, #billet_discount_value, #total, #total_billet, #debit_discount_value, #total_debit {float:right;text-align: right;}
+        #total_debit, #total, #total_billet {font-weight: bold !important;font-size: 18px;width:150px;}
+      }
+      .send_it {margin-left:29px;margin-bottom:32px;}
+    }
+
+    .credits{float:left;padding-left:5px;padding:10px;
+      label{color:#000;font-weight: bold;font-size: 13px;}
+
+      p{line-height: 16px;
+        font-size: 12px;
+        padding-left: 20px;
+        padding-top: 5px;
+        float:left;
+        span, a{color:#000; font-size: 12px;}
+        a{display:block;margin:6px 0 5px;}
       }
     }
-    .payment{float:left;padding-left:5px;
+    .payment{
       .span_error{float:none !important;display:block;}
+
       p{font-size:13px;margin-top:15px;
         span{font-weight: 500;}
         &.tip{margin:0 0 10px !important;}
       }
+      p.subtitle {padding:0px !important;margin:0px !important;text-align: center;width:100%;display: block;background: none;font-weight: bold;font-size: 14px;}
       li{
         float:left;
         display:block;
         height:auto;
-        &.credit_card{width:100%;}
-        &.boleto{width:100%;}
-        &.debito{width:100%;}
+        padding-left:9px !important;
+        &.credit_card{width:90%;}
+        &.boleto{width:90%;}
+        &.debito{width:90%;}
         &.mercadopago{
-          background: image-url("new_checkout/logo_mp.png") no-repeat 14px -2px;
-          width: 300px;
+          background: image-url("new_checkout/logo_mp.png") no-repeat 21px -2px;
+          width: 290px;
           height: 26px;
         }
         label{font-size:12px;}
       }
       .payment_type{
-        li{margin-right:5px;padding:1px 0 0 3px;
+        padding-left:2px;padding-bottom:20px;border-bottom:1px solid #d1d1d1;
+        li{margin-right:5px;padding:1px 0 0 3px;margin-right:10px;padding-bottom:5px;position: relative;
           label{float:left;}
         }
       }
-      .box-cartao{float:left;display:none;
+      .box-cartao{float:left;display:none;padding:10px; border-bottom:1px solid #d1d1d1;background: #faffd4;
+        div {margin:0px !important;}
         .cards{overflow:hidden;
           &.input_error{border:solid 1px #EA1E40 !important;border-left:solid 5px #EA1E40 !important;padding-top:3px;}
           li{position:relative;width:47px;height:35px;margin-top: 5px;
             input,label{opacity:0;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";position:relative;z-index:1}
-            label{font-size:12px;float:left;}
+            label{font-size:13px;float:left;}
             span{position:absolute;z-index:2;display:block;width:47px;height:37px;font-size:0;font-family:a;cursor:pointer;
               &.Visa{@include sprite_checkout(-171px, -422px);
                 &.selected{@include sprite_checkout(-168px, -459px)}
@@ -2098,26 +2120,26 @@ section.checkout{
           color: #000;
         }
       }
-      .box-boleto{float:left;display:none;
-        p{font-size:13px;margin-top:15px;
+      .box-boleto{float:left;display:none;padding:10px;
+        p{font-size:13px;margin-top:10px; line-height: 18px;
           span{color:#000;}
         }
       }.box-mercadopago{
         float:left;
         display:none;
-        background: image-url("new_checkout/mercadopago_selecionado.jpg") no-repeat center top;
-        padding-top:50px;
-        p{font-size:13px;margin-top:15px;
+        background: image-url("new_checkout/mercadopago_selecionado.jpg") no-repeat center 10px;
+        padding:64px 10px 10px 10px;
+        p{font-size:13px;margin-top:10px;line-height: 18px;
           span{color:#000;}
         }
       }
       .box-debito{
-        float:left;position:relative;display:none;
+        float:left;position:relative;display:none;padding:10px;
         input, label{opacity:0;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";z-index:1;position:relative;float:left;}
-        .debit_bank_Itau{position:absolute;z-index:2;top:100px;left:0;display:block;width:45px;height:32px;@include sprite_checkout(-125px, -423px);font-size:0;font-family:a;cursor:pointer;
+        .debit_bank_Itau{position:absolute;z-index:2;top:100px;left:10px;display:block;width:45px;height:32px;@include sprite_checkout(-125px, -423px);font-size:0;font-family:a;cursor:pointer;
           &.selected{@include sprite_checkout(-123px, -459px)}
         }
-        p{clear:both;font-size:13px;margin-top:15px;
+        p{clear:both;font-size:13px;margin-top:10px;line-height: 18px;
           span{color:#000;}
         }
       }
@@ -2168,7 +2190,7 @@ section.checkout{
     .products{}
     #items{width:100%;
       tr{border-bottom:1px solid #D9D8D8;padding-bottom:5px;}
-      td{vertical-align:middle;padding-bottom:5px;
+      td{vertical-align:middle;padding-bottom:5px;height:130px;
         &.amount{font-size:12px;text-align:center;}
         &.delete-item{
           input{float:right;background: image-url("new_checkout/sprite.png") no-repeat -381px -83px;border:none;color: #6D6E71;cursor:pointer;display:block;height:26px;width:70px;padding-left:20px;text-decoration:underline;font-weight:bold;}
