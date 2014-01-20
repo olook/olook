@@ -78,14 +78,6 @@ $(function() {
 
     $(".continue").click(function() {
     $("form#gift_message").submit();
-  })
-
-
-  $('section#cart a.continue.login').live('click', function(e) {
-    clone = $('.dialog.product_login').clone().addClass("clone");
-    content = clone[0].innerHTML;
-    initBase.modal(content);
-    e.preventDefault();
   });
 
   $('#cart_use_credits').change(function() {

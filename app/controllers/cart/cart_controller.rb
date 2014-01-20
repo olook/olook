@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Cart::CartController < ApplicationController
-  layout "site"
+  layout "lite_application"
 
   respond_to :html, :js
   skip_before_filter :authenticate_user!, :only => :add_variants
