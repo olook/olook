@@ -49,7 +49,7 @@ class Users::SessionsController < Devise::SessionsController
 
   def layout_by_resource
     return "checkout" if params[:checkout_login] == "true"
-    return "site"
+    return "lite_application"
   end
 
 end
