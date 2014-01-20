@@ -1912,7 +1912,7 @@ section.checkout{
 
   form.new_checkout{float:left;
     div#checkout_address{float:left;padding:10px;
-      .span_error{float:none !important;display:block;margin-bottom:10px;}
+      .span_error{float:none !important;display:block;margin-bottom:10px;font-weight: bold;}
       div#address_fields{float:left;}
     }
     fieldset{margin-bottom:14px;
@@ -1933,7 +1933,7 @@ section.checkout{
       height:30px;line-height:30px;padding-left:7px;font-size:14px;border:solid 1px #C3C3C3;
 
       /*********** STEP ONE *********/
-      &.input_error{border-color:#EA1E40 !important;border-left:solid 5px #EA1E40; margin-bottom: 3px;}
+      &.input_error{border-color:#EA1E40 !important;border-left:solid 5px #EA1E40; margin-bottom: 3px;background:#faffd4 !important;}
       &.zip_code{width:115px;float:left}
       &.endereco{width:172px;}
       &.numero{width:80px;}
@@ -1985,15 +1985,15 @@ section.checkout{
       border-top: 1px solid #cdcdcd;
       float: left;
       width: 300px;
-      margin-top: 30px;
-      display:none;
+      margin-top: 0px;
+      display:block !important;
+      padding-left:10px;
       p{
         font-family: $avenir;
         font-size: 15px;
         color: #000;
         font-weight: 700;
-        margin-left: 30px;
-        margin-top: 25px;
+        padding-top:10px;
       }
       ul {width: 300px;margin-top: 10px;
         li{width: 300px;height: 36px;
@@ -2008,8 +2008,10 @@ section.checkout{
             font-weight: 700;
             color: #000;
             width: 140px;
+            height:21px;
           }
           &.expresso{
+            padding-top:0px;
             label{background-position: 0 -29px}
           }
           p.shipping{
@@ -2019,7 +2021,8 @@ section.checkout{
             color: #000;
             width: 140px;
             float: right;
-            margin-top: -22px;
+            margin-top: -30px;
+            padding-top:0px;
           }
         }
       }
@@ -2055,7 +2058,7 @@ section.checkout{
       }
     }
     .payment{
-      .span_error{float:none !important;display:block;}
+      .span_error{float:none !important;display:block;width:100%;text-align: center;padding-bottom:10px;}
 
       p{font-size:13px;margin-top:15px;
         span{font-weight: 500;}
@@ -2086,7 +2089,7 @@ section.checkout{
       .box-cartao{float:left;display:none;padding:10px; border-bottom:1px solid #d1d1d1;background: #faffd4;
         div {margin:0px !important;}
         .cards{overflow:hidden;
-          &.input_error{border:solid 1px #EA1E40 !important;border-left:solid 5px #EA1E40 !important;padding-top:3px;}
+          &.input_error{border:solid 1px #EA1E40 !important;border-left:solid 5px #EA1E40 !important;padding-top:3px;background:#faffd4 !important;}
           li{position:relative;width:47px;height:35px;margin-top: 5px;
             input,label{opacity:0;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";position:relative;z-index:1}
             label{font-size:13px;float:left;}
