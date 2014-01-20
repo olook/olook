@@ -334,11 +334,36 @@ nav.menu_new{
    position:relative;
    display: inline-block;
 
-    li{margin-left:-1px;font-size: 10px;text-transform: uppercase;display: inline;float: left;height: 30px;
+    li{
+      margin-left: -1px;
+      font-size: 10px;
+      text-transform: uppercase;
+      display: inline;
+      float: left;
+      height: 30px;
       &.liquidation{border-right: none;}
 /*          &:nth-child(10){background:none;}*/
-      a{font-weight:bold;border-bottom:0px;display:block;font-family: $arial;height:27px;text-decoration: none;color: black;padding:0 19px;letter-spacing:0.15em;background: image-url('common/nav/sprite_header.png') no-repeat right -354px;}
-      a.selecionado {border:1px solid #000;border-bottom:0px;position:relative;background: #FFF;z-index: 99;position: relative;color:$pink !important;padding:0 18px;}
+      a{font-weight: bold;
+        border-bottom: 0;
+        display: block;
+        font-family: arial,verdana,tahoma;
+        height: 28px;
+        text-decoration: none;
+        color: black;
+        padding: 0 18px;
+        letter-spacing: 0.15em;
+        background: image-url('common/nav/sprite_header.png') no-repeat right -354px;
+      }
+      a.selecionado {
+        border: 1px solid #000;
+        border-bottom: 0;
+        position: relative;
+        background: #FFF;
+        z-index: 99;
+        padding: 0 17px;
+        position: relative;
+        top: -1px;
+      }
     }
   }
   li.olooklet{padding-right: 0 !important;}
