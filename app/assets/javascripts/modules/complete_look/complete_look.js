@@ -3,9 +3,9 @@ var completeLook = function(){
   addLookItemToCart = function(actionUrl, values) {
     $.post(actionUrl, values, function( data ) {
 
-      var variantNumber = values['variant_number'];
-      var productPrice = data['product_price'];
-      var productId = data['product_id'];
+      var variantNumber = values.variant_number;
+      var productPrice = data.product_price;
+      var productId = data.product_id;
 
       olookApp.mediator.publish(MinicartFadeOutManager.name, variantNumber);
       // Move the input creation to Channel
