@@ -258,13 +258,13 @@ olook.showEmailBar = function(){
         mouseover: function() {
             $(this).find('wishlist').show();
             $(this).find('a:first').addClass('selecionado');
-            $(this).find('p:first').show();
+            $(this).find('.sub').show();
             },
 
             mouseleave: function() {
               $(this).find('wishlist').hide();
               $(this).find('a:first').removeClass('selecionado');
-              $(this).find('p:first').hide();
+              $(this).find('.sub').hide();
             }
         }
     );

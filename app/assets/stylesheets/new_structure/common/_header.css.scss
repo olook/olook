@@ -1,4 +1,6 @@
 @import "new_structure/common/global_stuffs";
+@import "new_structure/partials/home_stylist_box";
+@import "new_structure/partials/lite_boxes_home";
 /*------------------
 ====== HEADER ======
 ------------------*/
@@ -226,9 +228,9 @@ header#new_header{border-top: 2px black solid;
     }
     li.wishlist{
       width: 100px;
-      a{
+      a.wishlist{
         text-align: center;color: #000;font-size: 10px;letter-spacing: 1px;font-family: $arial;
-        padding-left: 25px;
+        padding-left: 22px;
         padding-top: 12px;
         padding-right: 2px;
         background: image-url('common/nav/sprite_header.png') no-repeat 13px -363px;
@@ -250,12 +252,21 @@ header#new_header{border-top: 2px black solid;
         border-bottom: none !important;
         z-index: 10000;
       }
+      a.newest_bag{
+        display: block;
+        margin-top: 10px;
+        text-decoration: none;
+        color: #000;
+        font-weight: bold;
+        height: 27px;
+        &:hover{color:$base_color;}
+      }
       p.sub{
-        font-size: 12px;
+        font-size: 11px;
         font-family: $avenir;
         color: #000;
-        text-align: center;
-        padding: 40px;
+        text-align: left;
+        padding: 10px;
         background-color: #fff;
         border: 1px solid #000;
         position: absolute;
@@ -263,7 +274,10 @@ header#new_header{border-top: 2px black solid;
         z-index: 9999;
         display: none;
         top: 71px;
-        width: 200px;
+        letter-spacing: 0.03em;
+      }
+      p.full{
+        padding: 10px 25px;
       }
     }
   }
@@ -273,7 +287,6 @@ header#new_header{border-top: 2px black solid;
 /*------------------
 ====== MENU =======
 ------------------*/
-@import "new_structure/common/global_stuffs";
 
 /*** new menu ***/
 div#replace_new_menu_on_float {
@@ -315,7 +328,7 @@ nav.menu_new{
   line-height: 30px;
   * {line-height: 30px;}
   .default_new{
-    width: 970px;
+    width: 990px;
     margin: 0 auto;
    /* overflow: hidden;*/
    position:relative;
@@ -324,28 +337,15 @@ nav.menu_new{
     li{margin-left:-1px;font-size: 10px;text-transform: uppercase;display: inline;float: left;height: 30px;
       &.liquidation{border-right: none;}
 /*          &:nth-child(10){background:none;}*/
-      a{font-weight:bold;border-bottom:0px;display:block;font-family: $arial;height:28px;text-decoration: none;color: black;padding:0 11px;letter-spacing:0.15em;background: image-url('common/nav/sprite_header.png') no-repeat right -354px;}
-      a.selecionado {border:1px solid #000;border-bottom:0px;position:relative;background: #FFF;z-index: 99;padding:0 10px;position: relative;top:-1px;color:$pink !important;}
+      a{font-weight:bold;border-bottom:0px;display:block;font-family: $arial;height:27px;text-decoration: none;color: black;padding:0 19px;letter-spacing:0.15em;background: image-url('common/nav/sprite_header.png') no-repeat right -354px;}
+      a.selecionado {border:1px solid #000;border-bottom:0px;position:relative;background: #FFF;z-index: 99;position: relative;color:$pink !important;padding:0 18px;}
     }
   }
+  li.olooklet{padding-right: 0 !important;}
+  li.olooklet a{background: none;}
+  li.showroom a{margin-left: 1px;}
+  li.brands, .gift{position: relative;}
 }
-
-.new_sacola{
-  position: relative;
-  a{position: absolute;right:0px;top:-43px; text-decoration: none;display:block;height: 25px;background: image-url("common/nav/sprite_header.png") -106px -1px no-repeat;font-family: $arial;font-size: 10px;color: #000;letter-spacing: 1px;padding:1px 0px 2px 40px;clear:both;width: 99px; font-weight: bold;
-     &.full{background: image-url("common/nav/sprite_header.png") #fff -208px -32px no-repeat;}
-     .mini_coupon_tag{background: image-url('common/nav/sprite_header.png') -269px -113px no-repeat; width: 60px; height: 28px;top: -23px;right: 0;display: block;position: absolute;}
-  }
-  a.selecionado {border:1px solid #000 !important;background-color:#FFF;}
-  a.cart {margin-left:1px;border-top:1px solid #fff;border-right:1px solid #fff;}
-  /*a:hover, a.selecionado, a.cart:hover {border:1px solid #000;border-bottom: 0px;padding:1px 13px 2px 34px;}*/
-  /*a.cart:hover {background: image-url("common/nav/sprite_header.png") -107px -1px no-repeat !important; padding:1px 13px 2px 34px !important;}
-  a.full:hover {background: image-url("common/nav/sprite_header.png") -207px -32px no-repeat !important; padding:1px 13px 2px 36px !important;}*/
-  span{font-family: $arial;font-size: 10px;margin: 0;letter-spacing: 0px;font-weight: normal;font-style: italic;}
-
-}
-
-.showroom a {margin-left:1px !important;}
 
 body.mobile .default_new a,
 body.mobile .default_new a:hover,
@@ -355,12 +355,6 @@ body.mobile .default_new a.selecionado {border-top-color:#FFF !important;}
 /*-----------------------
 ====== SEARCH BOX =======
 -----------------------*/
-// Place all the styles related to the search controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-@import "new_structure/common/global_stuffs";
-@import "new_structure/partials/home_stylist_box";
-@import "new_structure/partials/lite_boxes_home";
 
 .search_box{
   position: relative;
@@ -587,7 +581,7 @@ body.mobile .default_new a.selecionado {border-top-color:#FFF !important;}
           p{font-family: $avenir; font-size: 12px;color: #000;
             img{float: left; margin-top: 13px; margin-right: 10px;}}
          }
-         &.product_item{border-top:solid 1px #CCC;margin-top:10px;color:#000;font-size:12px;padding-top:10px;height:80px;
+         &.product_item{border-top:solid 1px #CCC;margin-top:10px;color:#000;font-size:12px;padding-top:10px;
             p {line-height:17px;overflow:hidden;}
             img{float:left;margin-right:14px;margin-top:10px;width:46px;margin-bottom:20px;}
             h1{font-family:$arial;text-transform:uppercase;font-size:11px;font-weight:bold;line-height: 16px;}
@@ -612,6 +606,7 @@ body.mobile .default_new a.selecionado {border-top-color:#FFF !important;}
      margin:12px auto 0;
      clear:both;
      width: 80%;
+     border-top: 1px solid #cdcdcd;
       a.selecionado {border:0px !important;}
       a.finish {
         padding-top: 17px;
