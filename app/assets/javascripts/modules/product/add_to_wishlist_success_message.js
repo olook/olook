@@ -1,7 +1,11 @@
 AddToWishlistSuccessMessage = function(){
 
   facade = function(message) {
-    $('#js-addToWishlistButton').append('<h1>'+message+'</h1>');
+    removeButton = '<div class="js-removeFromWishlist">Remover da wishlist S2</div>';
+
+    addToWishlistButton = $('#js-addToWishlistButton');
+    addToWishlistButton.after(removeButton);
+    addToWishlistButton.hide();   
   }
 
   return {
