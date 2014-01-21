@@ -11,10 +11,10 @@ $(function() {
 $('.img').on(
   {
     mouseover: function() {
-      $(this).find('a').show();
+      $(this).find('.js-imgAddToCart').show();
     },
     mouseleave: function() {
-      $(this).find('a').hide();
+      $(this).find('.js-imgAddToCart').hide();
     }
   }
 );

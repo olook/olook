@@ -3,4 +3,12 @@ class WishedProduct < ActiveRecord::Base
 
   belongs_to :variant
   belongs_to :wishlist
+
+  def product_id
+    variant.product_id
+  end
+
+  def variant_number
+    variant.number
+  end
 end

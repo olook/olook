@@ -23,8 +23,12 @@ load_all_other_images = function() {
 
 $(function() {
   $('#js-addToWishlistButton').click(function(){
+    olookApp.mediator.publish(AddToWishlist.name);
+  });
+
+  $('#js-removeFromWishlistButton').click(function(){
     var productId = $(this).data('product-id');
-    olookApp.mediator.publish(AddToWishlist.name, productId);
+    olookApp.mediator.publish(RemoveFromWishlist.name, productId);
   });
 
   var stringDesc = $("div#infos div.description p.description").text();
