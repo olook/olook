@@ -1,21 +1,55 @@
+require File.expand_path(File.join(File.dirname(__FILE__), '../../../lib/full_look/look_profile_calculator'))
+require 'ostruct'
+
 describe FullLook::LookProfileCalculator do
-  before do
-    @product1 = FactoryGirl.build(:shoe)
-    @product2 = FactoryGirl.build(:bag)
-    @product3 = FactoryGirl.build(:basic_accessory)
-    @product4 = FactoryGirl.build(:simple_garment)
-  end
-  context "when products have on profile" do
-    before do
-      @profile = mock("sexy", name: "sexy")
-      @product1.should_receive(:profiles).and_return([@profile])
-      @product2.should_receive(:profiles).and_return([@profile])
-      @product3.should_receive(:profiles).and_return([@profile])
-      @product4.should_receive(:profiles).and_return([@profile])
+  CASUAL_PROFILE = 1
+  FASHION_PROFILE = 2
+  SEXY_PROFILE = 3
+  ELEGANCE_PROFILE = 4
+
+  SHOE = 1
+  BAG = 2
+  ACCESSORY = 3
+  CLOTH = 4
+
+  context "there is more one profile than others" do
+    context "when products have one profile" do
+      before do
+        @products = [
+          mock('product', profiles: [OpenStruct.new(id: SEXY_PROFILE)], category: CLOTH),
+          mock('product', profiles: [OpenStruct.new(id: CASUAL_PROFILE)], category: SHOE),
+          mock('product', profiles: [OpenStruct.new(id: CASUAL_PROFILE)], category: BAG)
+        ]
+      end
+      it { expect(described_class.calculate(@products)).to eql CASUAL_PROFILE }
+
+      context 'when there is a category_weight' do
+        before do
+          @options = {
+            category_weight: { CLOTH => 3, SHOE => 1, BAG => 1, ACCESSORY => 1 }
+          }
+        end
+        it { expect(described_class.calculate(@products, @options)).to eql SEXY_PROFILE }
+      end
     end
-    context "have more sexy" do
-      it "be sexy" do
-        expect(described_class.calculate([@product1,@product2,@product3,@product4])).to eql "sexy"
+    context "when products have two profile" do
+      before do
+        @products = [
+          mock('product', profiles: [OpenStruct.new(id: SEXY_PROFILE), OpenStruct.new(id: CASUAL_PROFILE)], category: CLOTH),
+          mock('product', profiles: [OpenStruct.new(id: FASHION_PROFILE), OpenStruct.new(id: CASUAL_PROFILE)], category: SHOE),
+          mock('product', profiles: [OpenStruct.new(id: FASHION_PROFILE), OpenStruct.new(id: SEXY_PROFILE)], category: BAG),
+          mock('product', profiles: [OpenStruct.new(id: FASHION_PROFILE), OpenStruct.new(id: ELEGANCE_PROFILE)], category: ACCESSORY)
+        ]
+      end
+      it { expect(described_class.calculate(@products)).to eql FASHION_PROFILE }
+
+      context 'when there is a category_weight' do
+        before do
+          @options = {
+            category_weight: { CLOTH => 3, SHOE => 1, BAG => 1, ACCESSORY => 1 }
+          }
+        end
+        it { expect(described_class.calculate(@products, @options)).to eql SEXY_PROFILE }
       end
     end
   end
