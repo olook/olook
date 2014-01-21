@@ -55,23 +55,42 @@ olook.mercadoPagoBanner = function() {
 }
 
 olook.menu = function(){
-  var $el, leftPos, newWidth, w = $("ul.default_new li .selected").outerWidth(), l = $("ul.default_new li .selected").position() && $("ul.default_new li .selected").position().left,
-  top = ( $('div#wrapper_new_menu').offset() && $('div#wrapper_new_menu').offset().top ) - parseFloat(( $('div#wrapper_new_menu').css('margin-top') && $('div#wrapper_new_menu').css('margin-top') || '0' ).replace(/auto/, 0));
+  var msie6 = $.browser == 'msie' && $.browser.version < 7;
+  if (!msie6 && $('div#wrapper_new_menu').length == 1) {
+    var top = $('div#wrapper_new_menu').offset().top - parseFloat($('div#wrapper_new_menu').css('margin-top').replace(/auto/, 0));
+    $(window).scroll(function (event) {
+      var wrapper = $('div#wrapper_new_menu');
+      var replacer = $('div#replace_new_menu_on_float');
+      var y = $(this).scrollTop();
+      if (y >= top - 5) {
+        wrapper.addClass('fixed');
+        replacer.show();
+      } else {
+        wrapper.removeClass('fixed');
+        replacer.hide();
+      }
+      event.preventDefault();
+      event.stopPropagation();
+    });
+  }
 
-  $(window).scroll(function (event) {
-    var wrapper = $('div#wrapper_new_menu');
-    var replacer = $('div#replace_new_menu_on_float');
-    if (y >= top - 5) {
-      wrapper.addClass('fixed');
-      replacer.show();
+
+  if($(window).width() < "1200") {
+    $("#wrapper_new_menu .menu_new").addClass("smaller");
+  }
+
+  $(window).resize(function() {
+    width = $(this).width();
+    menu = $("#wrapper_new_menu .menu_new");
+
+    if(width < "1200") {
+      $(menu).addClass("smaller");
     } else {
-      wrapper.removeClass('fixed');
-      replacer.hide();
+      $(menu).removeClass("smaller");
     }
-    event.preventDefault();
-    event.stopPropagation();
   });
 }
+
 
 olook.boxLogin = function() {
   $('p.new_login a.trigger').click(function(e){
@@ -270,3 +289,4 @@ olook.showEmailBar = function(){
             }
         }
     );
+

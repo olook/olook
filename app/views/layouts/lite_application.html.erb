@@ -73,7 +73,7 @@
                  <li class="username">
                  <%= current_user.first_name %>
                  </li>
-                 <p class="trade"><%= link_to "Troca Fácil", troca_path, :class => "invite" %></p>
+                 <p class="trade"><%= link_to "Fale Conosco", duvidasfrequentes_path, :class => "invite" %></p>
                  <li class="submenu">
                  <%= link_to "Minha Conta", user_orders_path, :id => "account" %>
                  <div class="my_account">
@@ -115,7 +115,7 @@
                       </p>
                     <% else %>                                          
                       <p class="sub full">
-                        Oba tem produto da
+                        Oba! Tem produto da
                         <br />
                           sua wishlist com desconto!
                         <%= link_to '>> Confira!', wishlist_path, :class=>"newest_bag" %>
