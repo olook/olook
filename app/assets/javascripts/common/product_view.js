@@ -1,3 +1,5 @@
+//= require application_core/olook_app
+
 window.onload = function() {
   initQuickView.productZoom();
   load_all_other_images();
@@ -19,11 +21,13 @@ load_all_other_images = function() {
 }
 
 $(function() {
+  $('#js-addToWishlistButton').click(function(){
+    var productId = $(this).data('product-id');
+    olookApp.mediator.publish('ADD_TO_WISHLIST', productId);
+  });
+
   var stringDesc = $("div#infos div.description p.description").text();
   
-  // initQuickView.productZoom();
-
-
   /** MODAL GUIA DE MEDIDAS **/
   $(".size_guide a").click(function(e){
     modal.show($("#modal_guide"));

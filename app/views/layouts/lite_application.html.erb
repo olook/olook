@@ -105,7 +105,7 @@
                  <%= render 'shared/search_bar' %>
                  </li>
                  <li class="wishlist">
-                 <%= link_to "Wishlist", newest_path, :class=> "wishlist" %>
+                 <%= link_to "Wishlist", wishlist_path, :class=> "wishlist" %>
                     <% @has_wishlist_items = false %>
                     <% if @has_wishlist_items %>
                       <p class="sub">
@@ -118,7 +118,7 @@
                         Oba tem produto da
                         <br />
                           sua wishlist com desconto!
-                        <%= link_to '>> Confira!', newest_path, :class=>"newest_bag" %>
+                        <%= link_to '>> Confira!', wishlist_path, :class=>"newest_bag" %>
                       </p>
                     <% end %>
                  </li>

@@ -34,6 +34,8 @@
       = product_presenter.render_facebook_comments
   .box-right
     #product-details
+      .add_to_wishlist{id: 'js-addToWishlistButton', data: {product_id: @product.id}}
+        ADD
       = product_presenter.render_description
       = product_presenter.render_add_to_cart
       = cache "details/#{@product.id}", expire_in: 30.minutes do
