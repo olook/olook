@@ -19,6 +19,7 @@ class Product < ActiveRecord::Base
   before_save :set_launch_date, if: :should_update_launch_date?
 
   has_many :pictures, :dependent => :destroy
+  has_many :gallery_5_pictures, class_name: 'Picture', conditions: ['pictures.display_on = ?', DisplayPictureOn::GALLERY_5]
   has_many :details, :dependent => :destroy
   has_many :price_logs, class_name: 'ProductPriceLog', :dependent => :destroy
   has_many :variants, :dependent => :destroy do
