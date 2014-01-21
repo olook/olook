@@ -6,7 +6,7 @@ module FullLook
         product.profiles.each do |profile|
           h[profile.id] ||= 0
           if category_weight
-            h[profile.id] += category_weight[product.category]
+            h[profile.id] += category_weight[product.category] || 1
           else
             h[profile.id] += 1
           end
