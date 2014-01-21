@@ -7,7 +7,7 @@
 //= require plugins/jquery.meio.mask
 //= require plugins/image_loader
 //= require plugins/spy
-
+//= require_tree ./modules/complete_look
 
 $(function(){
   initProduct.loadAll();

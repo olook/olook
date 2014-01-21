@@ -19,6 +19,7 @@
 //= require plugins/change_picture_onhover
 //= require common/product_view
 //= require common/jquery.cookie
+//= require application_core/olook_app
 //= require lite_base
 //= require _search_bar
 //= require ./partials/_credits_info
