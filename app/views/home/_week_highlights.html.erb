@@ -1,6 +1,7 @@
 <section id="week_highlights">
   <h1><span>//</span>Veja os destaques da semana<span>//</span></h1>
   <ul>
+  <% POST_RETRIEVER_SERVICE.retrieve_posts %>
   <% @weekly_highlights.each_with_index do |weekly_highlight, index| %>
     <li id="about">
       <%= link_to weekly_highlight.link, class: "open_making_of", onclick: track_event('Destaques',"Banner#{index + 1}", weekly_highlight.link) do %>
