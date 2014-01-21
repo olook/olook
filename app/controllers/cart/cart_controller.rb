@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Cart::CartController < ApplicationController
-  layout "site"
+  layout "lite_application"
 
   respond_to :html, :js
   skip_before_filter :authenticate_user!, :only => :add_variants
@@ -34,6 +34,7 @@ class Cart::CartController < ApplicationController
     @report  = CreditReportService.new(@user) unless @report
     cart = Cart.find_by_id(params[:cart_id]) || current_cart
     cart.add_variants params[:variant_numbers]
+    @cart_calculator = CartProfit::CartCalculator.new(@cart)
     render :show
   end
 
