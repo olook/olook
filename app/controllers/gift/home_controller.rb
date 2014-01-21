@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class Gift::HomeController < Gift::BaseController
-  layout 'gift'
 
   before_filter :check_facebook_permissions
   before_filter :load_facebook_adapter
