@@ -45,7 +45,7 @@ describe OrderAnalysisService do
 
     context "user's first buy" do
       it "should have one order" do
-        user.should have(1).orders
+        expect(user.orders.count).to eql(1)
       end 
 
       it "should have one credit card payment" do
@@ -66,7 +66,7 @@ describe OrderAnalysisService do
       
       context "with the same credit card" do
         it "should have two orders" do
-          user.should have(2).orders
+          expect(user.orders.count).to eql(2)
         end
 
         it "should have two credit card payment" do
