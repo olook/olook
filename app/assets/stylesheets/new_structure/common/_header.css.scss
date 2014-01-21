@@ -41,20 +41,6 @@ header#new_header{border-top: 2px black solid;
         }
       }
 
-      .social_icons{width: 150px;float: left;clear: both;
-        a.social_facebook{background: image-url('common/nav/sprite_header.png') 0 0;width: 22px;height: 22px;text-indent: -9999px;display: block;float: left;
-          &:hover{background: image-url('common/nav/sprite_header.png') 0 -31px;}
-        }
-        a.social_twitter{background: image-url('common/nav/sprite_header.png') -22px 0;width: 22px;height: 22px;text-indent: -9999px;display: block;float: left;
-          &:hover{background: image-url("common/nav/sprite_header.png") no-repeat -22px -31px;}
-        }
-        a.social_rss{background: image-url("common/nav/sprite_header.png") no-repeat -46px 0;width: 22px;height: 22px;text-indent: -9999px;display: block;float: left;
-          &:hover{background: image-url("common/nav/sprite_header.png") no-repeat -46px -31px;}
-        }
-        a.social_instagram{background: image-url("common/nav/sprite_header.png") no-repeat -71px -1px;width: 22px;height: 22px;text-indent: -9999px;display: block;float: left;
-          &:hover{background: image-url("common/nav/sprite_header.png") no-repeat -71px -31px;}
-        }
-      }
       .olook_logo{width: 190px;height: 57px;margin: 9px -2px auto;;padding-top: 5px;
         h1 a{width: 190px;height: 57px;display:block;background: image-url("common/nav/sprite_header.png") no-repeat 0 -74px;text-indent: -9999px;}
       }
@@ -165,8 +151,16 @@ header#new_header{border-top: 2px black solid;
       /*------ END USER MENU ----*/
       
       /*------ BOX LOGIN -------*/
-      .sign-in-dropdown {display: none;position: absolute;right: 0;top: 30px;z-index: 9999;background: #FFF;border: 1px solid #BBB;padding: 12px;width: 244px;
-        /*&.close {display: none;}*/
+      .sign-in-dropdown {
+        display: none;
+        position: absolute;
+        right: -1px !important;
+        top: 30px;
+        z-index: 9999;
+        background: #FFF;
+        border: 1px solid #BBB;
+        padding: 12px;
+        width: 250px;
         &.open {display: block;}
       
         form {margin-bottom: 15px;
@@ -212,7 +206,6 @@ header#new_header{border-top: 2px black solid;
       .ui-helper-hidden-accessible{display:none;}
     }
 }
-
 .box_bottom{
   float: right;
   height: 55px;
@@ -253,13 +246,17 @@ header#new_header{border-top: 2px black solid;
         z-index: 10000;
       }
       a.newest_bag{
+        font-size: 10px;
         display: block;
         margin-top: 10px;
         text-decoration: none;
-        color: #000;
-        font-weight: bold;
-        height: 27px;
-        &:hover{color:$base_color;}
+        font-weight: lighter;
+        height: 26px;
+        width: 140px;
+        letter-spacing: 2px;
+        padding-top: 9px;
+        text-transform: uppercase;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
       }
       p.sub{
         font-size: 11px;
@@ -284,98 +281,122 @@ header#new_header{border-top: 2px black solid;
 
 }
 
-/*------------------
-====== MENU =======
-------------------*/
+/*-----------------------------
+====== MINHA SACOLA BOX =======
+------------------------------*/
 
-/*** new menu ***/
-div#replace_new_menu_on_float {
-  height: 42px;
+.new_sacola{
+  position: relative;
+  a{position: absolute;right:0px;top:-101px; text-decoration: none;display:block;height: 25px;background: image-url("common/nav/sprite_header.png") -114px 4px no-repeat;font-family: $arial;font-size: 10px;color: #000;letter-spacing: 1px;padding:6px 0px 15px 27px;clear:both;width: 99px; font-weight: bold;
+     &.full{background: image-url("common/nav/sprite_header.png") #fff -158px -359px no-repeat;}
+     .mini_coupon_tag{background: image-url('common/nav/sprite_header.png') -269px -113px no-repeat; width: 60px; height: 28px;top: -23px;right: 0;display: block;position: absolute;}
+  }
+  a.selecionado {border:1px solid #000 !important;background-color:#FFF;}
+  a.cart {margin-left:1px;border-top:1px solid #fff;border-right:1px solid #fff;}
+  span{font-family: $arial;font-size: 10px;margin: 0;letter-spacing: 0px;font-weight: normal;font-style: italic;}
+}
+#cart_summary{
+  position:absolute;
   display:none;
-}
-div#wrapper_new_menu{
-  position:relative;
-  z-index:99;
-  background:#FFF;
-  width:100%;
-  opacity:1;
-  *filter: alpha(opacity=90);
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
-  &.smaller {
-    div.content {
-      width: 990px;
-      padding-right: 0;
-      ul.product_anchors {
-        display: none;
+  top:71px;
+  right:-10px;
+  z-index:9999;
+  width:280px;
+  min-height:135px;
+  max-height:388px;
+  border:solid 1px #000;
+  box-shadow:0 2px 5px #CCC;
+  background:#FFF;padding:15px 0;
+  p{float: none !important;}
+   .detalhe {width: 126px;background: #FFF;height: 2px;position: absolute;top: -1px;right: 0px;}
+   .scroll{max-height:297px;overflow-y:auto;padding:0 32px;
+      li{
+        &.coupon_info{
+          p{font-family: $avenir; font-size: 12px;color: #000;
+            img{float: left; margin-top: 13px; margin-right: 10px;}}
+         }
+         &.product_item{border-top:solid 1px #CCC;margin-top:10px;color:#000;font-size:12px;padding-top:10px;
+            p {line-height:17px;overflow:hidden;}
+            img{float:left;margin-right:14px;margin-top:10px;width:46px;margin-bottom:20px;}
+            h1{font-family:$arial;text-transform:uppercase;font-size:11px;font-weight:bold;line-height: 16px;}
+            .size,
+            .qte {font-size: 11px;font-family: $verdana;}
+            .qte, .qte span {line-height: 13px;height:17px;}
+            .price {font-family: $preco;}
+         }
+         .big_coupon{width: 116px !important; height: 53px !important;}
+         p.freight{text-align:center;color:$base_color;font-family:$avenir;text-transform:uppercase;font-size:12px;
+            span{color:#000;font-size:10px;text-transform:none;letter-spacing:1px;}
+         }
+         .empty_cart{
+           text-align:center;
+           font-size:11px;
+           color:#000;
+         }
       }
-    }
-  }
-  &.fixed {
-    position: fixed;
-    top: 0px;
-    left:0px;
-    z-index:999;
-    padding-top:5px;
-    height:31px;
-  }
-}
-/*** end new menu ***/
-
-nav.menu_new{
-  margin: 0 auto 5px;
-  width: 990px;
-  line-height: 30px;
-  * {line-height: 30px;}
-  .default_new{
-    width: 990px;
-    margin: 0 auto;
-   /* overflow: hidden;*/
-   position:relative;
-   display: inline-block;
-
-    li{
-      margin-left: -1px;
-      font-size: 10px;
-      text-transform: uppercase;
-      display: inline;
-      float: left;
-      height: 30px;
-      &.liquidation{border-right: none;}
-/*          &:nth-child(10){background:none;}*/
-      a{font-weight: bold;
-        border-bottom: 0;
+   }
+    .see_cart {
+     text-align:center;
+     margin:12px auto 0;
+     clear:both;
+     width: 80%;
+     border-top: 1px solid #cdcdcd;
+      a.selecionado {border:0px !important;}
+      a.finish {
+        padding-top: 20px;
         display: block;
-        font-family: arial,verdana,tahoma;
-        height: 28px;
-        text-decoration: none;
-        color: black;
-        padding: 0 18px;
-        letter-spacing: 0.15em;
-        background: image-url('common/nav/sprite_header.png') no-repeat right -354px;
+        width: 120px;
+        height: 16px;
+        font-size:9px;
+        line-height:0;
+        margin-top:16px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative !important;
+        top:0px !important;
+        text-transform: uppercase;
+        padding-left: 14px;
+        padding-right: 14px;
+        font-weight: lighter;
+        padding-bottom: 3px;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
       }
-      a.selecionado {
-        border: 1px solid #000;
-        border-bottom: 0;
-        position: relative;
-        background: #FFF;
-        z-index: 99;
-        padding: 0 17px;
-        position: relative;
-        top: -1px;
-      }
+      a.finish:hover {width: 120px; height: 16px; color: #fff;padding-left: 14px;padding-right: 14px;color: #fff !important;}
+  }
+  .coupon_warn {
+    display: block;
+    position: absolute;
+    background-color: #c1e2be;
+    border-top: 1px #ccc solid;
+    border-left: 1px #ccc solid;
+    border-bottom: 1px #ccc solid;
+    padding: 5px 5px 5px 5px;
+    left: -338px;
+    width: 325px;
+    top: 85px;
+    line-height: 23px;
+    .check {
+      background: image-url('common/check-circle.png') no-repeat top left;
+      display:block;
+      float:left;
+      margin-right: 5px;
+      width: 22px;
+      height: 22px;
+    }
+    .seta {
+      background: image-url('common/seta-verde.png') no-repeat top left;
+      display:block;
+      position: absolute;
+      width: 14px;
+      height: 36px;
+      top: -2px;
+      left: 335px;
     }
   }
-  li.olooklet{padding-right: 0 !important;}
-  li.olooklet a{background: none;}
-  li.showroom a{margin-left: 1px;}
-  li.brands, .gift{position: relative;}
 }
-
-body.mobile .default_new a,
-body.mobile .default_new a:hover,
-body.mobile .default_new a.selecionado {border-top-color:#FFF !important;}
-
+/*---------------------------------
+====== FIM MINHA SACOLA BOX =======
+----------------------------------*/
 
 /*-----------------------
 ====== SEARCH BOX =======
@@ -571,117 +592,102 @@ body.mobile .default_new a.selecionado {border-top-color:#FFF !important;}
     background: none !important;
   }
 }
-.new_sacola{
-  position: relative;
-  a{position: absolute;right:0px;top:-101px; text-decoration: none;display:block;height: 25px;background: image-url("common/nav/sprite_header.png") -114px 4px no-repeat;font-family: $arial;font-size: 10px;color: #000;letter-spacing: 1px;padding:6px 0px 15px 27px;clear:both;width: 99px; font-weight: bold;
-     &.full{background: image-url("common/nav/sprite_header.png") #fff -158px -359px no-repeat;}
-     .mini_coupon_tag{background: image-url('common/nav/sprite_header.png') -269px -113px no-repeat; width: 60px; height: 28px;top: -23px;right: 0;display: block;position: absolute;}
-  }
-  a.selecionado {border:1px solid #000 !important;background-color:#FFF;}
-  a.cart {margin-left:1px;border-top:1px solid #fff;border-right:1px solid #fff;}
-  /*a:hover, a.selecionado, a.cart:hover {border:1px solid #000;border-bottom: 0px;padding:1px 13px 2px 34px;}*/
-  /*a.cart:hover {background: image-url("common/nav/sprite_header.png") -107px -1px no-repeat !important; padding:1px 13px 2px 34px !important;}
-  a.full:hover {background: image-url("common/nav/sprite_header.png") -207px -32px no-repeat !important; padding:1px 13px 2px 36px !important;}*/
-  span{font-family: $arial;font-size: 10px;margin: 0;letter-spacing: 0px;font-weight: normal;font-style: italic;}
 
-}
+/*---------------------------
+====== FIM SEARCH BOX =======
+---------------------------*/
 
-#cart_summary{
-  position:absolute;
+/*----------------------
+====== FIM HEADER ======
+-----------------------*/
+
+/*------------------
+====== MENU =======
+------------------*/
+div#replace_new_menu_on_float {
+  height: 42px;
   display:none;
-  top:71px;
-  right:-10px;
-  z-index:9999;
-  width:280px;
-  min-height:135px;
-  max-height:388px;
-  border:solid 1px #000;
-  box-shadow:0 2px 5px #CCC;
-  background:#FFF;padding:15px 0;
-  p{float: none !important;}
-   .detalhe {width: 126px;background: #FFF;height: 2px;position: absolute;top: -1px;right: 0px;}
-   .scroll{max-height:297px;overflow-y:auto;padding:0 32px;
-      li{
-        &.coupon_info{
-          p{font-family: $avenir; font-size: 12px;color: #000;
-            img{float: left; margin-top: 13px; margin-right: 10px;}}
-         }
-         &.product_item{border-top:solid 1px #CCC;margin-top:10px;color:#000;font-size:12px;padding-top:10px;
-            p {line-height:17px;overflow:hidden;}
-            img{float:left;margin-right:14px;margin-top:10px;width:46px;margin-bottom:20px;}
-            h1{font-family:$arial;text-transform:uppercase;font-size:11px;font-weight:bold;line-height: 16px;}
-            .size,
-            .qte {font-size: 11px;font-family: $verdana;}
-            .qte, .qte span {line-height: 13px;height:17px;}
-            .price {font-family: $preco;}
-         }
-         .big_coupon{width: 116px !important; height: 53px !important;}
-         p.freight{text-align:center;color:$base_color;font-family:$avenir;text-transform:uppercase;font-size:12px;
-            span{color:#000;font-size:10px;text-transform:none;letter-spacing:1px;}
-         }
-         .empty_cart{
-           text-align:center;
-           font-size:11px;
-           color:#000;
-         }
+}
+div#wrapper_new_menu{
+  position:relative;
+  z-index:99;
+  background:#FFF;
+  width:100%;
+  opacity:1;
+  *filter: alpha(opacity=90);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+  &.smaller {
+    div.content {
+      width: 990px;
+      padding-right: 0;
+      ul.product_anchors {
+        display: none;
       }
-   }
-    .see_cart {
-     text-align:center;
-     margin:12px auto 0;
-     clear:both;
-     width: 80%;
-     border-top: 1px solid #cdcdcd;
-      a.selecionado {border:0px !important;}
-      a.finish {
-        padding-top: 17px;
-        display: block;
-        width: 120px;
-        height: 16px;
-        font-size:9px;
-        line-height:0;
-        margin-top:16px;
-        margin-left: auto;
-        margin-right: auto;
-        position: relative !important;
-        top:0px !important;
-        text-transform: uppercase;
-        padding-left: 14px;
-        padding-right: 14px;
-        font-weight: lighter;
-        padding-bottom: 3px;
-        @include bt_color($primary_bt_color, $primary_bt_color_hover);
-      }
-      a.finish:hover {width: 120px; height: 16px; color: #fff;padding-left: 14px;padding-right: 14px;color: #fff !important;}
+    }
   }
-  .coupon_warn {
-    display: block;
-    position: absolute;
-    background-color: #c1e2be;
-    border-top: 1px #ccc solid;
-    border-left: 1px #ccc solid;
-    border-bottom: 1px #ccc solid;
-    padding: 5px 5px 5px 5px;
-    left: -338px;
-    width: 325px;
-    top: 85px;
-    line-height: 23px;
-    .check {
-      background: image-url('common/check-circle.png') no-repeat top left;
-      display:block;
-      float:left;
-      margin-right: 5px;
-      width: 22px;
-      height: 22px;
-    }
-    .seta {
-      background: image-url('common/seta-verde.png') no-repeat top left;
-      display:block;
-      position: absolute;
-      width: 14px;
-      height: 36px;
-      top: -2px;
-      left: 335px;
-    }
+  &.fixed {
+    position: fixed;
+    top: 0px;
+    left:0px;
+    z-index:999;
+    padding-top:5px;
+    height:31px;
   }
 }
+
+nav.menu_new{
+  margin: 0 auto 5px;
+  width: 990px;
+  line-height: 30px;
+  * {line-height: 30px;}
+  .default_new{
+    width: 990px;
+    margin: 0 auto;
+   position:relative;
+   display: inline-block;
+
+    li{
+      margin-left: -1px;
+      font-size: 10px;
+      text-transform: uppercase;
+      display: inline;
+      float: left;
+      height: 30px;
+      &.liquidation{border-right: none;}
+      a{font-weight: bold;
+        border-bottom: 0;
+        display: block;
+        font-family: arial,verdana,tahoma;
+        height: 28px;
+        text-decoration: none;
+        color: black;
+        padding: 0 19px;
+        letter-spacing: 0.15em;
+        background: image-url('common/nav/sprite_header.png') no-repeat right -354px;
+      }
+      a.selecionado {
+        border: 1px solid #000;
+        border-bottom: 0;
+        position: relative;
+        background: #FFF;
+        z-index: 99;
+        padding: 0 18px;
+        position: relative;
+        top: -1px;
+      }
+    }
+  }
+  li.olooklet{padding-right: 0 !important;}
+  li.olooklet a{background: none;}
+  li.showroom a{margin-left: 1px;}
+  li.brands, .gift{position: relative;}
+}
+
+body.mobile .default_new a,
+body.mobile .default_new a:hover,
+body.mobile .default_new a.selecionado {border-top-color:#FFF !important;}
+
+/*---------------------
+====== FIM MENU =======
+---------------------*/

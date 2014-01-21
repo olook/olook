@@ -1,15 +1,22 @@
 - content_for :footer do
   = javascript_include_tag "wishlist"
+#wishlist
+  %h1 
+    Eu Quero!
+    %span
+      Angela, seus produtos favoritos estão aqui!
 
-%h1 Meus produtos favoritos
-
-- @wishlist.wished_products.each do |wp|
-  %p 
-    - product = wp.variant.product
-    .async{data: {product: product.catalog_picture, backside_picture: product.backside_picture, product: product.catalog_picture}}
-  %p
-    = wp.variant.product.name
-  %p 
-    = wp.variant.product.retail_price
-  %p 
-    = wp.variant.number
+  - @wishlist.wished_products.each do |wp|
+    %div.product
+      %div.img
+        - product = wp.variant.product
+        .async{data: {product: product.catalog_picture, backside_picture: product.backside_picture, product: product.catalog_picture}}
+      %h2
+        = product.name
+      %h3
+        = product.brand
+      %div.value
+        R$ 
+        = product.retail_price
+        
+      = wp.variant.number
