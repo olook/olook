@@ -4,7 +4,7 @@
   %h1 
     Eu Quero!
     %span
-      Angela, seus produtos favoritos estão aqui!
+      = "#{current_user.first_name}, seus produtos favoritos estão aqui!"
 
   - @wishlist.wished_products.each do |wp|
     %div.product
