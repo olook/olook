@@ -11,7 +11,7 @@
 		span {
       font-weight: normal;
       text-transform: none;
-      background: image-url('common/wishlist/bg_coracao.jpg') no-repeat center left;
+      background: image-url('common/wishlist/bg_coracao.png') no-repeat top left;
       padding-left:30px;
     }
 	}
@@ -31,6 +31,41 @@
       height:322px;
       position: relative;
       margin-bottom:10px;
+      a.add_product,
+      a.added_product {
+        position: absolute;
+        z-index: 99;
+        padding:10px;
+        padding-right:40px;
+        border:1px solid #d1d1d1;
+        border-radius: 6px;
+        font-size: 11px; 
+        text-transform: uppercase;
+        font-weight: bold;
+        color:#fff;
+        text-decoration: none;
+        width:76px;
+        height:17px;
+        background: image-url('common/wishlist/bg_coracao.png') #f03644 no-repeat 96px -31px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -18px 0 0 -64px;
+        text-align: center;
+        display: none;
+        letter-spacing: 1px;
+      }
+      a.add_product:hover {
+        -webkit-box-shadow: 1px 0px 28px -4px rgba(0,0,0,0.75);
+        -moz-box-shadow: 1px 0px 28px -4px rgba(0,0,0,0.75);
+        box-shadow: 1px 0px 28px -4px rgba(0,0,0,0.75);
+      }
+      a.added_product {
+        background-position: 96px -70px;
+        background-color:#fff;
+        color:#000;
+        letter-spacing: 0px;
+      }
       .async {
         width:100%; 
         position: absolute;
@@ -70,11 +105,6 @@
         color:red;
         border-color: red;
       }
-    }
-    li:hover {
-      color:red;
-      border-color: red;
-      cursor: pointer;
     }
   }
 }
