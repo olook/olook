@@ -1,8 +1,12 @@
+- content_for :footer do
+  = javascript_include_tag "wishlist"
+
 %h1 Meus produtos favoritos
 
 - @wishlist.wished_products.each do |wp|
   %p 
-    = image_tag(wp.variant.product.catalog_picture)
+    - product = wp.variant.product
+    .async{data: {product: product.catalog_picture, backside_picture: product.backside_picture, product: product.catalog_picture}}
   %p
     = wp.variant.product.name
   %p 

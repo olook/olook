@@ -16,7 +16,6 @@ function ImageLoader() {
         img_container = new Image();
         img_container.className = 'async'
         container.appendChild(img_container);
-        // container.parentNode.replaceChild(img_container, container);
         attributes = {
           'data-backside-picture': container.getAttribute('data-backside-picture'),
           'data-product': container.getAttribute('data-product')
