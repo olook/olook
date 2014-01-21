@@ -1,0 +1,11 @@
+%h1 Meus produtos favoritos
+
+- @wishlist.wished_products.each do |wp|
+  %p 
+    = image_tag(wp.variant.product.catalog_picture)
+  %p
+    = wp.variant.product.name
+  %p 
+    = wp.variant.product.retail_price
+  %p 
+    = wp.variant.number

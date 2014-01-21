@@ -3,6 +3,8 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+  get "/wishlist", to: 'wishlist#show', as: 'wishlist'
+
   get "/revenda/confirmacao", to: 'reseller#show', as: 'reseller_show'
   post "/revenda", to: "reseller#create", as: 'reseller_create'
   get "/revenda", to: "reseller#new", as: 'reseller_new'
