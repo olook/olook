@@ -148,6 +148,7 @@ class LineItem < ActiveRecord::Base
 
     def percentage
       # calcular retail_price/line_item_sum para saber a porcentagem do produto na quantia paga.
+      return 0 if normalized_retail_price == 0
       normalized_retail_price/line_item_sum
     end
 
