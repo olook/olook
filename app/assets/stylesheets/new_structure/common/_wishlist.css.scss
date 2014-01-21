@@ -1,4 +1,4 @@
-
+@import "new_structure/common/global_stuffs";
 #wishlist {
 	width:100%;
 	h1 {
@@ -6,7 +6,7 @@
 		display: block;
 		font-size: 16px;
     margin-bottom:20px;
-    font-family: "Trebuchet Ms", Verdana;
+    font-family: $bt_font;
     text-transform: uppercase;
 		span {
       font-weight: normal;
