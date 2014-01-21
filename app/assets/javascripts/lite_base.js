@@ -1,6 +1,8 @@
+//= require string_utils
 //= require plugins/new_modal
 //= require plugins/video_modal
 //= require plugins/async_image_loader
+
 
 
 if(!olook) var olook = {};

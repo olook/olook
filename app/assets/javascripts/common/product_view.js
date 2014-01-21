@@ -1,4 +1,5 @@
 //= require application_core/olook_app
+//= require_tree ../modules/product
 
 window.onload = function() {
   initQuickView.productZoom();
@@ -23,7 +24,7 @@ load_all_other_images = function() {
 $(function() {
   $('#js-addToWishlistButton').click(function(){
     var productId = $(this).data('product-id');
-    olookApp.mediator.publish('ADD_TO_WISHLIST', productId);
+    olookApp.mediator.publish(AddToWishlist.name, productId);
   });
 
   var stringDesc = $("div#infos div.description p.description").text();
