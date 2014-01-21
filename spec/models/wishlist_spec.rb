@@ -19,11 +19,11 @@ describe Wishlist do
       let(:variant) {FactoryGirl.create(:shoe_variant)}
 
       it "returns true" do
-        expect(wishlist.add_variant(variant)).to be_true
+        expect(wishlist.add(variant)).to be_true
       end
 
       it "increase the number of wished products" do
-        wishlist.add_variant(variant)
+        wishlist.add(variant)
         expect(wishlist).to have(1).wished_products
       end
     end
@@ -31,18 +31,18 @@ describe Wishlist do
     describe "when adding an invalid variant" do
       let(:invalid_variant) {Variant.new}
       it "returns false" do
-        expect(wishlist.add_variant(invalid_variant)).to be_false
+        expect(wishlist.add(invalid_variant)).to be_false
       end
     end
 
     describe "when adding a nil variant" do
-      it {expect { wishlist.add_variant(nil) }.to raise_error("variant cannot be nil")}
+      it {expect { wishlist.add(nil) }.to raise_error("variant cannot be nil")}
     end
 
   end
 
   describe "#remove" do
-    it {should respond_to :remove}
+    it {should respond_to(:remove).with(1).arguments}
     
     context 'empty wishlist' do
       it "returns false" do
@@ -53,7 +53,7 @@ describe Wishlist do
     context 'wishlist with elements' do
       let(:variant) {FactoryGirl.create(:shoe_variant)}
       before(:each) do
-        wishlist.add_variant(variant)       
+        wishlist.add(variant)       
       end
       
       describe "when removing an existing wished product" do
@@ -89,7 +89,7 @@ describe Wishlist do
       let(:shoe) {FactoryGirl.create(:shoe_variant)}
       before(:each) do
         wishlist = Wishlist.create({user_id: user.id})
-        wishlist.add_variant shoe
+        wishlist.add shoe
       end
 
       it "finds the users wishlist" do

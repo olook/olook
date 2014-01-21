@@ -4,15 +4,13 @@ class Wishlist < ActiveRecord::Base
   belongs_to :user
   has_many :wished_products
 
-  def add_variant variant
+  def add variant
     raise 'variant cannot be nil' if variant.nil?
     return false unless variant.valid?
 
     wished_products << WishedProduct.create({
       retail_price: variant.retail_price,
       variant_id: variant.id})
-
-    true
   end
 
   def remove variant_number
