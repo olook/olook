@@ -64,7 +64,7 @@ class PromotionAction < ActiveRecord::Base
   end
 
   def simulate(cart, param)
-    cart.items.any? ? calculate(cart.items, param).map{|item| item[:adjustment]}.reduce(:+) : 0
+    cart.items.any? ? (calculate(cart.items, param).map{|item| item[:adjustment]}.reduce(:+) || 0) : 0
   end
 
   def simulate_for_product(product_id, cart_items, param)
