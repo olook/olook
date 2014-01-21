@@ -182,8 +182,8 @@ $(function() {
   showAboutSecurityCode();
   olook.showSmellPackageModal();
 
-  if($(".box-step-one input[type=radio]").size() == 1){
-    $(".box-step-one input[type=radio]").trigger('click');
+  if($('input[name="address\[id\]"]:checked').size() == 1){
+    $('input[name="address\[id\]"]:checked').trigger('click');
   }
 
   $(".credit_card").click(function() {
