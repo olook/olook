@@ -2,10 +2,40 @@
 /* Specific for megamenu desktop*/
 nav.menu_new{
   .submenu {
-      font-family:$verdana;position:absolute;top:27px;background: #fff;border:1px solid #000;z-index: 1;display: none;padding:10px;
-      p, a {margin:0px;border:0px;text-transform: none;line-height: 16px !important;color:#000;background: none;font-size: 11px;font-family: $verdana;}
-      a.link {padding:0px !important;margin:0px !important;border:0px !important; background: #000 !important;top:0px !important;}
-      a.link {color:#FFF;margin-top: 10px !important;color: #FFF;text-align: center;padding-top: 8px !important;padding-bottom: 6px !important;height:18px;letter-spacing: 1px !important;font-size: 11px !important;}
+      font-family:$verdana;
+      position:absolute;
+      top:27px;
+      background: #fff;
+      border:1px solid #000;
+      z-index: 1;
+      display: none;
+      padding:10px;
+      p, a {
+        margin:0 0 0 8px;
+        border:0px;
+        text-transform: none;
+        line-height: 16px !important;
+        color:#000;
+        background: none;
+        font-size: 11px;
+        font-family: $verdana;
+      }
+      a.link {
+        padding:0px !important;
+        margin:0px !important;
+        border:0px !important; 
+        top:0px !important;}
+      a.link {
+        margin-top: 10px !important;
+        text-align: center;
+        padding-top: 10px !important;
+        padding-bottom: 6px !important;
+        height:18px;
+        letter-spacing: 1px !important;
+        font-size: 10px !important;
+        letter-spacing: 2px !important;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
+      }
       h5 {
         width:100%;
         display: block;
@@ -27,10 +57,10 @@ nav.menu_new{
       ul, li {display: block;float:left;width:100%;height:auto;text-transform: none;}
     li {height: auto !important;height: 4px;min-height: 4px;line-height: 12px;margin-bottom: 6px;}
   }
-
-  #mm_showroom, #mm_presentes, #mm_olooklet {width:130px;
-    a.link {background: image-url('common/nav/sprite_header.png') #000 no-repeat -185px -142px !important;}
+  #mm_blog, #mm_colecoes{
+    h5{margin-left: 8px;}
   }
+  #mm_showroom, #mm_presentes, #mm_olooklet {width:130px;}
 
   #mm_showroom {width:170px;margin-left:1px;}
 
@@ -80,13 +110,16 @@ nav.menu_new{
     .image a.img:hover {background:image-url("common/nav/sapatos.jpg") center center !important;padding:0px;margin:0px;width:269 !important;}
   }
 
-  #mm_bolsas, #mm_acessorios {
-    width: 90px;
+  #mm_bolsas{
+    width: 105px;
     padding-left: 11px;
+    .first {width:105px !important;}
+
   }
 
   #mm_acessorios {
-    width:100px;
+    width:98px;
+    padding-left: 11px;
   }
 
   #mm_marcas {
@@ -106,12 +139,12 @@ nav.menu_new{
 
   #mm_olooklet {
     width:180px;
-    right: 20px;
+    right: 0px;
     span {margin-top:10px;}
   }
   .image {margin-top: 10px;padding-bottom: 10px;}
 
   #mm_showroom, #mm_presentes, #mm_olooklet, #mm_blog, #mm_colecoes, #mm_roupas, #mm_sapatos, #mm_bolsas, #mm_acessorios, #mm_marcas {
-    a.sub_menu:hover, ul li a.selecionado {color:$pink !important;}
+    a.sub_menu:hover, ul li a.selecionado {color:$pink !important; margin: 0 0 0 8px !important;}
   }
 }
