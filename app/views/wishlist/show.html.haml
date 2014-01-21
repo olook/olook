@@ -18,5 +18,9 @@
       %div.value
         R$ 
         = product.retail_price
-        
-      = wp.variant.number
+      %ul
+      - product.variants.each do |variant|
+        %li
+          - if variant.number == wp.variant.number 
+            Escolhido:
+          = variant.description
