@@ -3,6 +3,12 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+  # get "wished_products/create"
+
+  # get "wished_products/delete"
+
+  resources :wished_products, only: [:create, :delete]
+
   get "/wishlist", to: 'wishlist#show', as: 'wishlist'
 
   get "/revenda/confirmacao", to: 'reseller#show', as: 'reseller_show'
