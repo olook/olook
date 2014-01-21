@@ -5,3 +5,16 @@ $(function() {
   olook.changePictureOnhover('.async');
   new ImageLoader().load('async');
 });
+
+/*** Wishlist Add Cart Button ***/
+
+$('.img').on(
+  {
+    mouseover: function() {
+      $(this).find('a').show();
+    },
+    mouseleave: function() {
+      $(this).find('a').hide();
+    }
+  }
+);
