@@ -17,7 +17,7 @@ describe FullLook::LookBuilder do
   describe '#perform' do
     def product(id, attrs={})
       mock("Product##{id}",
-           gallery_5_pictures: [mock(image_url: "image#{id}")],
+           full_look_picture: attrs.keys.include?(:full_look_picture) ? attrs[:full_look_picture] : mock("Picture##{id}", image_url: "image#{id}"),
            launch_date: "2013-12-25",
            brand: attrs[:brand] || 'Olook',
            inventory: attrs[:inventory] || 10,
@@ -123,6 +123,15 @@ describe FullLook::LookBuilder do
       relateds = []
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(2, is_visible: false))
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(3))
+      subject.stub(:related_products).and_return(relateds)
+      Look.should_not_receive(:build_and_create)
+      subject.perform
+    end
+
+    it "should filter out looks without picture" do
+      relateds = []
+      relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, full_look_picture: nil), product_b: product(2))
+      relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, full_look_picture: nil), product_b: product(3))
       subject.stub(:related_products).and_return(relateds)
       Look.should_not_receive(:build_and_create)
       subject.perform

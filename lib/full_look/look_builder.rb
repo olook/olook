@@ -45,7 +45,8 @@ module FullLook
         look[:products].size >= PRODUCTS_MINIMUN_QTY &&
         look[:brands].all? { |b| ALLOWED_BRANDS_REGEX =~ b } &&
         look[:inventories].all? { |i| i >= MINIMUM_INVENTORY } &&
-        look[:is_visibles].all?
+        look[:is_visibles].all? &&
+        !look[:master_product].full_look_picture.nil?
       end
     end
 
