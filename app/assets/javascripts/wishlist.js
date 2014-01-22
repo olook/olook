@@ -30,7 +30,6 @@ $('.js-imgAddToCart').click(function(){
       'data': {'variant_numbers[]': variantId},
       'success': function(data) {
         // triggers an event to update the minicart and change the class of the product added
-            debugger;
             it.removeClass('add_product').addClass('added_product').text('Adicionado');
         }
       });
