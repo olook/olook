@@ -1,6 +1,6 @@
 module FullLook
   class LookBuilder
-    attr_accessor :products, :category_weight 
+    attr_accessor :category_weight
     @queue = 'look'
 
     def self.perform
@@ -13,11 +13,8 @@ module FullLook
 
     def perform
       delete_previous_looks
-      set_category_weight_factor
-      products = retreive_products
-      products = normalize_products
 
-      products.each do |master_product_id, struc|
+      look_structure.each do |master_product_id, struc|
         master_product = struc[:master_product]
         look = Look.new
         look.product_id = master_product_id
@@ -29,18 +26,18 @@ module FullLook
       end
     end
 
-
     def delete_previous_looks
       Look.delete_all
     end
 
-    def retreive_products
+    private
+    def look_structure
       cloth_products = Product.cloths.pluck(:id)
-      RelatedProduct.with_products(cloth_products).all
+      related_products = RelatedProduct.with_products(cloth_products).all
+      normalize_products(related_products)
     end
 
-
-    def normalize_products
+    def normalize_products(products)
       products.inject({}) do |h, rp|
         h[rp.product_a_id] ||= {}
         h[rp.product_a_id][:master_product] ||= rp.product_a
@@ -50,7 +47,6 @@ module FullLook
       end
     end
 
-    private
     def set_category_weight_factor
       @category_weight = Hash.new(1)
       @category_weight[ Category::CLOTH ] = Setting.look_cloth_category_weight
