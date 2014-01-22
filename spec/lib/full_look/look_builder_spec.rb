@@ -15,10 +15,11 @@ describe FullLook::LookBuilder do
   end
 
   describe '#perform' do
-    def product(id)
+    def product(id, attrs={})
       mock("Product##{id}",
            gallery_5_pictures: [mock(image_url: "image#{id}")],
-           launch_date: "2013-12-25")
+           launch_date: "2013-12-25",
+           brand: attrs[:brand] || 'Olook')
     end
 
     before do
@@ -46,6 +47,7 @@ describe FullLook::LookBuilder do
       Look.should_receive(:build_and_create).with({product_id: 1, picture: "image1", launched_at: "2013-12-25", profile_id: 1})
       subject.perform
     end
+
     it "send related products to look profile calculator" do
       product_1 = product(1)
       product_2 = product(2)
@@ -67,6 +69,24 @@ describe FullLook::LookBuilder do
       relateds << mock('RelatedProduct', product_a_id: 5, product_a: product(5), product_b: product(6))
       subject.stub(:related_products).and_return(relateds)
       Look.should_receive(:build_and_create).exactly(1).times
+      subject.perform
+    end
+
+    it "should filter out looks with products that not belongs to Olook brand" do
+      relateds = []
+      relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, brand: 'olook concept'), product_b: product(2, brand: 'Colcci'))
+      relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, brand: 'olook concept'), product_b: product(3))
+      subject.stub(:related_products).and_return(relateds)
+      Look.should_not_receive(:build_and_create)
+      subject.perform
+    end
+
+    it "should filter out looks with master_product brand that not belongs to Olook" do
+      relateds = []
+      relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, brand: 'colcci'), product_b: product(2))
+      relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, brand: 'colcci'), product_b: product(3))
+      subject.stub(:related_products).and_return(relateds)
+      Look.should_not_receive(:build_and_create)
       subject.perform
     end
   end
