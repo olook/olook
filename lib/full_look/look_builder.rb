@@ -22,7 +22,7 @@ module FullLook
         master_product = struc[:master_product]
         look = {}
         look[:product_id] = master_product_id
-        look[:picture] = master_product.gallery_5_pictures.first.try(:image_url)
+        look[:picture] = master_product.full_look_picture.try(:image_url)
         look[:launched_at] = master_product.launch_date
         look[:profile_id] = LookProfileCalculator.calculate(struc[:products], category_weight: category_weight)
         Look.build_and_create(look)
@@ -34,6 +34,7 @@ module FullLook
     end
 
     private
+
     def look_structure
       looks = normalize_products(related_products)
       filter_looks(looks)

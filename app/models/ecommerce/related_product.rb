@@ -4,5 +4,5 @@ class RelatedProduct < ActiveRecord::Base
   belongs_to :product_a, :class_name => 'Product'
   belongs_to :product_b, :class_name => 'Product'
 
-  scope :with_products, ->(product_ids) {where(product_a_id: product_ids).includes(:product_b => :variants, :product_a => [:gallery_5_pictures, :variants])}
+  scope :with_products, ->(product_ids) {where(product_a_id: product_ids).includes(:product_b => :variants, :product_a => [:pictures, :variants])}
 end
