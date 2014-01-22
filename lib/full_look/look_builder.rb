@@ -54,17 +54,16 @@ module FullLook
 
     def normalize_products(products)
       products.inject({}) do |h, rp|
-        key = h[rp.product_a_id] ||= {}
+        h[rp.product_a_id] ||= {
+          master_product: rp.product_a,
+          products: [rp.product_a],
+          brands: [rp.product_a.brand],
+          inventories: [rp.product_a.inventory]
+        }
+        key = h[rp.product_a_id]
 
-        key[:master_product] ||= rp.product_a
-
-        key[:products] ||= [rp.product_a]
         key[:products].push(rp.product_b)
-
-        key[:brands] ||= [rp.product_a.brand]
         key[:brands].push(rp.product_b.brand)
-
-        key[:inventories] ||= [rp.product_a.inventory]
         key[:inventories].push(rp.product_b.inventory)
 
         h
