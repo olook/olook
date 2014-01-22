@@ -7,7 +7,7 @@
 a#go_top {position: fixed;background: image-url('common/nav/sprite_header.png') no-repeat -492px -153px;text-indent: -99999px;width: 40px;height: 40px;right: 40px;bottom: 45%;z-index: 5;display: none;}
 
 header#new_header{border-top: 2px black solid;
-  .new_content{height: 84px;padding-top:15px;width: 990px;margin: 0 auto;
+  .new_content{height: 77px;padding-top:15px;width: 990px;margin: 0 auto;
       .box_left{
         font-family: $avenir;
         font-size: 10px;
@@ -287,7 +287,7 @@ header#new_header{border-top: 2px black solid;
 
 .new_sacola{
   position: relative;
-  a{position: absolute;right:0px;top:-101px; text-decoration: none;display:block;height: 25px;background: image-url("common/nav/sprite_header.png") -114px 4px no-repeat;font-family: $arial;font-size: 10px;color: #000;letter-spacing: 1px;padding:6px 0px 15px 27px;clear:both;width: 99px; font-weight: bold;
+  a{position: absolute;right:0px;top:-95px; text-decoration: none;display:block;height: 25px;background: image-url("common/nav/sprite_header.png") -114px 4px no-repeat;font-family: $arial;font-size: 10px;color: #000;letter-spacing: 1px;padding:6px 0px 15px 27px;clear:both;width: 99px; font-weight: bold;
      &.full{background: image-url("common/nav/sprite_header.png") #fff -158px -359px no-repeat;}
      .mini_coupon_tag{background: image-url('common/nav/sprite_header.png') -269px -113px no-repeat; width: 60px; height: 28px;top: -23px;right: 0;display: block;position: absolute;}
   }
@@ -616,6 +616,7 @@ div#wrapper_new_menu{
   *filter: alpha(opacity=90);
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+
   &.smaller {
     div.content {
       width: 990px;
@@ -633,12 +634,14 @@ div#wrapper_new_menu{
     padding-top:5px;
     height:31px;
   }
+  .content_new{height: 33px;margin-bottom: 15px;}
 }
 
 nav.menu_new{
   margin: 0 auto 5px;
   width: 990px;
   line-height: 30px;
+  background-color: #000;
   * {line-height: 30px;}
   .default_new{
     width: 990px;
@@ -660,16 +663,16 @@ nav.menu_new{
         font-family: arial,verdana,tahoma;
         height: 28px;
         text-decoration: none;
-        color: black;
+        color: #fff;
         padding: 0 19px;
         letter-spacing: 0.15em;
-        background: image-url('common/nav/sprite_header.png') no-repeat right -354px;
       }
       a.selecionado {
         border: 1px solid #000;
         border-bottom: 0;
         position: relative;
         background: #FFF;
+        color: #000;
         z-index: 99;
         padding: 0 18px;
         position: relative;
