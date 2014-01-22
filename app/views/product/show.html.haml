@@ -35,12 +35,12 @@
   .box-right
     #product-details
       // Isso pode ir pruma partial -------
-      - if has_wished?(@product.id)
-        .remove_button{id: 'js-removeFromWishlistButton', data: {product_id: @product.id}}     
-          Remover da wishlist S2
-      -else
-        .add_button{id: 'js-addToWishlistButton', data: {product_id: @product.id}}     
-          Adicionar a wishlist S2
+      - display_property_for_remove_button = has_wished?(@product.id) ? 'block' : 'none';
+      - display_property_for_add_button = has_wished?(@product.id) ? 'none' : 'block';
+      .remove_button{id: 'js-removeFromWishlistButton', data: {product_id: @product.id}, style: "display:#{display_property_for_remove_button}"}
+        Remover da wishlist S2
+      .add_button{id: 'js-addToWishlistButton', data: {product_id: @product.id}, style: "display:#{display_property_for_add_button}"}     
+        Adicionar a wishlist S2
       // ----------------------------------
       = product_presenter.render_description
       = product_presenter.render_add_to_cart

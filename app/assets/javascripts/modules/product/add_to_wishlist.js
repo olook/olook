@@ -14,11 +14,7 @@ AddToWishlist = function(){
         }).fail(function(){
           olookApp.publish(AddToWishlistErrorMessage.name, 'Erro. Tente novamente');
         });
-
     }
-
-
-
   }
 
   return {
