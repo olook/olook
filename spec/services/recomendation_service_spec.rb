@@ -1,12 +1,12 @@
 require "spec_helper"
 
 describe RecomendationService do
-  subject { described_class.new({ profiles: @profiles }) }
-  before do
-    @profiles = [FactoryGirl.create(:casual_profile)]
-  end
-
   describe "#products" do
+    subject { described_class.new({ profiles: @profiles }) }
+    before do
+      @profiles = [FactoryGirl.create(:casual_profile)]
+    end
+
     context "when product quantity matters" do
       before do
         4.times do
@@ -160,12 +160,16 @@ describe RecomendationService do
         @bag = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:bag, name: "#bag #{ rand }", profiles: @profiles)).product
         @accessory = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:basic_accessory, name: "#accessory #{ rand }", profiles: @profiles)).product
         @cloth = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:simple_garment, name: "#cloth #{ rand }", profiles: @profiles)).product
-      end      
+      end
       it "includes unique product occurrences only" do
         described_class.any_instance.should_receive(:filtered_list_for_profile).and_return([@shoe, @shoe, @bag, @accessory, @cloth])
 
         described_class.new({ profiles: @profiles }).products.count(@shoe).should eq(1)
       end
     end
+  end
+
+  describe "#looks" do
+
   end
 end
