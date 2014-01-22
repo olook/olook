@@ -21,7 +21,7 @@ class Wishlist < ActiveRecord::Base
   end
 
   def self.for(user)
-    where(user_id: user.id).first || Wishlist.new({user_id: user.id})
+    where(user_id: user.id).first || Wishlist.create({user_id: user.id})
   end
 
   def has? product_id
