@@ -1,3 +1,9 @@
+regenerate_looks:
+  cron: "0 */6 * * *"
+  class: FullLook::LookBuilder
+  queue: look
+  description: "Gera novamente os Looks"
+
 update_sitemap:
   cron: "0 3 * * *"
   class: SitemapWorker
