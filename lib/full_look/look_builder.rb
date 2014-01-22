@@ -24,7 +24,7 @@ module FullLook
         look[:product_id] = master_product_id
         look[:picture] = master_product.gallery_5_pictures.first.try(:image_url)
         look[:launched_at] = master_product.launch_date
-        look[:profile_id] = LookProfileCalculator.calculate([master_product].concat(struc[:products]), category_weight: category_weight)
+        look[:profile_id] = LookProfileCalculator.calculate(struc[:products], category_weight: category_weight)
         Look.build_and_create(look)
       end
     end
@@ -41,7 +41,7 @@ module FullLook
 
     def filter_looks(looks)
       looks.select do |master_product_id, look|
-        ( look[:products].size + 1 ) >= PRODUCTS_MINIMUN_QTY &&
+        look[:products].size >= PRODUCTS_MINIMUN_QTY &&
         look[:brands].all? { |b| ALLOWED_BRANDS_REGEX =~ b } &&
         look[:inventories].all? { |i| i >= MINIMUM_INVENTORY }
       end
@@ -54,14 +54,19 @@ module FullLook
 
     def normalize_products(products)
       products.inject({}) do |h, rp|
-        h[rp.product_a_id] ||= {}
-        h[rp.product_a_id][:master_product] ||= rp.product_a
-        h[rp.product_a_id][:products] ||= []
-        h[rp.product_a_id][:products].push(rp.product_b)
-        h[rp.product_a_id][:brands] ||= [rp.product_a.brand]
-        h[rp.product_a_id][:brands].push(rp.product_b.brand)
-        h[rp.product_a_id][:inventories] ||= [rp.product_a.inventory]
-        h[rp.product_a_id][:inventories].push(rp.product_b.inventory)
+        key = h[rp.product_a_id] ||= {}
+
+        key[:master_product] ||= rp.product_a
+
+        key[:products] ||= [rp.product_a]
+        key[:products].push(rp.product_b)
+
+        key[:brands] ||= [rp.product_a.brand]
+        key[:brands].push(rp.product_b.brand)
+
+        key[:inventories] ||= [rp.product_a.inventory]
+        key[:inventories].push(rp.product_b.inventory)
+
         h
       end
     end
