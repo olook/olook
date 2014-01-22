@@ -9,7 +9,8 @@
   - @wishlist.wished_products.each do |wp|
     %div.product
       %div.img
-        = link_to 'Adicionar', '#', :class => 'add_product js-imgAddToCart', :data => {cart_id: @cart.id, variant: wp.variant.number}
+        - data = get_label_and_class_name(@cart, wp)
+        = link_to data[:label], '#', :class => "#{data[:class_name]} js-imgAddToCart", :data => {cart_id: @cart.id, variant: wp.variant.number}
         - product = wp.variant.product
         .async{data: {product: product.catalog_picture, backside_picture: product.backside_picture, product: product.catalog_picture}}
       %h2

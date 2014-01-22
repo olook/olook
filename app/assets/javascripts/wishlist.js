@@ -19,10 +19,15 @@ $('.img').on(
   }
 );
 
-$('.js-imgAddToCart').click(function(){
+$('.js-imgAddToCart').click(function(e){
+
   var it = $(this);
   var cartId = it.data('cart-id');
   var variantId = it.data('variant');
+  
+  if (it.hasClass('added_product')) {
+    return false;
+  }
 
   $.ajax({
       'type': 'put',
@@ -30,7 +35,7 @@ $('.js-imgAddToCart').click(function(){
       'data': {'variant_numbers[]': variantId},
       'success': function(data) {
         // triggers an event to update the minicart and change the class of the product added
-            it.removeClass('add_product').addClass('added_product').text('Adicionado');
+          it.removeClass('add_product').addClass('added_product').text('Adicionado');
         }
       });
 
