@@ -181,3 +181,9 @@ cancel_old_mercado_pago:
   class: Abacos::CancelExpiredMercadoPagoPayment
   queue: cancel_old_mercadopago_payments
   description: "Cancela todos os pagamentos do mercado pago expirados"
+
+gather_blog_posts:
+  cron: "0 * * * *"
+  class: PostUpdaterWorker
+  queue: blog_posts
+  description: "Atualiza as chamadas dos posts de hora em hora"
