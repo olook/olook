@@ -105,18 +105,18 @@
                  <%= render 'shared/search_bar' %>
                  </li>
                  <li class="wishlist">
-                 <%= link_to "Wishlist", wishlist_path, :class=> "wishlist" %>
+                 <%= link_to "Favoritos", wishlist_path, :class=> "wishlist" %>
                     <% if empty_wishlist? %>
                       <p class="sub">
-                        Você ainda não adicionou
+                        Você ainda não adicionou nenhum
                         <br />
-                          nenhum produto a sua wishlist.
+                          produto a sua lista de favoritos.
                       </p>
                     <% else %>                                     
                       <p class="sub full">
-                        Oba! Tem produto da
+                        Oba! Alguns do seus produtos
                         <br />
-                          sua wishlist com desconto!
+                          favoritos estão com desconto!
                         <%= link_to 'Confira', wishlist_path, :class=>"newest_bag" %>
                       </p>
                     <% end %>
