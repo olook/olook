@@ -18,3 +18,18 @@ $('.img').on(
     }
   }
 );
+
+$('.js-imgAddToCart').click(function(){
+  var cartId = $(this).data('cart-id');
+  var variantId = $(this).data('variant');
+
+  $.ajax({
+      'type': 'put',
+      'url': '/sacola/' + cartId,
+      'data': {'variant_numbers[]': variantId},
+      'success': function(data) {
+        // triggers an event to update the minicart and change the class of the product added
+        }
+      });
+
+});
