@@ -1,4 +1,4 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '../../../lib/full_look/look_builder'))
+require 'spec_helper'
 
 describe FullLook::LookBuilder do
   describe ".perform" do
@@ -16,14 +16,26 @@ describe FullLook::LookBuilder do
 
 
   describe '#perform' do
-    describe "#normalize_products" do
-      before  do
-        mock('RelatedProduct',product_a: 1, product_b: [2,3] )
-      end
-      it "return hash with master_product and products" do
-        subject.should_receive(:products).and_return(@related_products)
-        expect(subject.normalize_products).to eql {}
-      end
+    def product(id)
+      mock("Product##{id}",
+           gallery_5_pictures: [mock(image_url: 'image')],
+           launch_date: Time.now)
+    end
+
+    before do
+      subject.stub!(:set_category_weight_factor).and_return(Hash.new(1))
+      relateds = []
+      relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(2))
+      relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(3))
+      relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(4))
+      relateds << mock('RelatedProduct', product_a_id: 5, product_a: product(5), product_b: product(6))
+      relateds << mock('RelatedProduct', product_a_id: 5, product_a: product(5), product_b: product(7))
+      subject.should_receive(:related_products).and_return(relateds)
+    end
+
+    it "should create 2 Looks" do
+      Look.should_receive(:build_and_create).exactly(2).times
+      subject.perform
     end
   end
 end

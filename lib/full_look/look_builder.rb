@@ -16,13 +16,12 @@ module FullLook
 
       look_structure.each do |master_product_id, struc|
         master_product = struc[:master_product]
-        look = Look.new
-        look.product_id = master_product_id
-        look.picture = master_product.gallery_5_pictures.first.try(:image_url)
-        look.launched_at = master_product.launch_date
-        look.profile_id = LookProfileCalculator.calculate([master_product].concat(struc[:products]), category_weight: category_weight)
-
-        look.save
+        look = {}
+        look[:product_id] = master_product_id
+        look[:picture] = master_product.gallery_5_pictures.first.try(:image_url)
+        look[:launched_at] = master_product.launch_date
+        look[:profile_id] = LookProfileCalculator.calculate([master_product].concat(struc[:products]), category_weight: category_weight)
+        Look.build_and_create(look)
       end
     end
 
@@ -32,9 +31,12 @@ module FullLook
 
     private
     def look_structure
-      cloth_products = Product.cloths.pluck(:id)
-      related_products = RelatedProduct.with_products(cloth_products).all
       normalize_products(related_products)
+    end
+
+    def related_products
+      cloth_products = Product.cloths.pluck(:id)
+      RelatedProduct.with_products(cloth_products).all
     end
 
     def normalize_products(products)
