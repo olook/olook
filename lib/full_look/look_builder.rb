@@ -43,7 +43,8 @@ module FullLook
       looks.select do |master_product_id, look|
         look[:products].size >= PRODUCTS_MINIMUN_QTY &&
         look[:brands].all? { |b| ALLOWED_BRANDS_REGEX =~ b } &&
-        look[:inventories].all? { |i| i >= MINIMUM_INVENTORY }
+        look[:inventories].all? { |i| i >= MINIMUM_INVENTORY } &&
+        look[:is_visibles].all?
       end
     end
 
@@ -58,13 +59,15 @@ module FullLook
           master_product: rp.product_a,
           products: [rp.product_a],
           brands: [rp.product_a.brand],
-          inventories: [rp.product_a.inventory]
+          inventories: [rp.product_a.inventory],
+          is_visibles: [rp.product_a.is_visible]
         }
         key = h[rp.product_a_id]
 
         key[:products].push(rp.product_b)
         key[:brands].push(rp.product_b.brand)
         key[:inventories].push(rp.product_b.inventory)
+        key[:is_visibles].push(rp.product_b.is_visible)
 
         h
       end
