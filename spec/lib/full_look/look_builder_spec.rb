@@ -16,6 +16,28 @@ describe FullLook::LookBuilder do
 
 
   describe '#perform' do
+    describe "#set_category_weight_factor" do
+      it "set category weight array" do
+        expect(subject.category_weight).to_not be_nil
+      end
+    end
+    describe "#retreive_products" do
+      it "call products" do
+        RelatedProduct.should_receive(:with_products)
+        described_class.should_receive(:perform)
+        described_class.perform
+      end
+    end
+
+    describe "#normalize_products" do
+      before  do
+        @related_products = mock('RelatedProduct',product_a: 1, product_b: [2,3] )
+      end
+      it "return hash with master_product and products" do
+        subject.should_receive(:products).and_return(@related_products)
+        expect(subject.normalize_products).to eql {}
+      end
+    end
   end
 end
 

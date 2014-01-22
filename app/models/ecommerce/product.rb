@@ -47,9 +47,10 @@ class Product < ActiveRecord::Base
 
   scope :only_visible , where(:is_visible => true)
 
-  scope :shoes        , where(:category => Category::SHOE)
-  scope :bags         , where(:category => Category::BAG)
-  scope :accessories  , where(:category => Category::ACCESSORY)
+  scope :shoes        , -> {where(:category => Category::SHOE)}
+  scope :bags         , -> {where(:category => Category::BAG)}
+  scope :accessories  , -> {where(:category => Category::ACCESSORY)}
+  scope :cloths       , -> {where(category: Category::CLOTH)}
 
   scope :in_category, lambda { |value| { :conditions => ({ category: value } unless value.blank? || value.nil?) } }
   scope :in_collection, lambda { |value| { :conditions => ({ collection_id: value } unless value.blank? || value.nil?) } }
