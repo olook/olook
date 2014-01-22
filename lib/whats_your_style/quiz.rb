@@ -94,7 +94,7 @@ module WhatsYourStyle
         response = Net::HTTP.new(HOST, PORT).start { |http| http.request(req) }
       end
       JSON.parse(response.body)
-    rescue
+    rescue => error
       error_message = "Failed to achieve WhatsYourStyle Server for QUIZ RESPONSE: #{error.class}"
       _body = "#{error.class}: #{error.message}\n#{error.backtrace.to_a.join("\n")}"
       ActionMailer::Base.mail(:from => "dev.notifications@olook.com.br",
