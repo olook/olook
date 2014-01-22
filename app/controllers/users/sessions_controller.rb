@@ -4,6 +4,17 @@ class Users::SessionsController < Devise::SessionsController
 
   after_filter :create_sign_in_event, :only => :create
   before_filter :create_sign_out_event, :only => :destroy
+  after_filter :store_location
+
+
+  def store_location
+    # store last url - this is needed for post-login redirect to whatever the user last visited.
+    referer_url = request.referer
+    
+    unless (referer_url =~ /conta\/sign_in/)
+      session[:previous_url] = referer_url
+    end
+  end
 
   def new
     resource = build_resource({})
@@ -31,19 +42,14 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def after_sign_in_path_for(resource)
-    @cart.update_attributes(:user_id => resource.id) if @cart
+    path = session[:previous_url] || member_showroom_path
 
-    if @cart && @cart.has_gift_items?
-      GiftOccasion.find(session[:occasion_id]).update_attributes(:user_id => resource.id) if session[:occasion_id]
-      GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => resource.id) if session[:recipient_id]
-    end
+    @cart.update_attributes(:user_id => resource.id) if @cart
 
     if @cart && @cart.items_total > 0
       new_checkout_url(protocol: 'https')
-    elsif resource.half_user && resource.male?
-      gift_root_path
     else
-      member_showroom_path
+      path
     end
   end
 
