@@ -4,12 +4,15 @@ class WishedProductsController < ApplicationController
   respond_to :json
 
   def create
-    product_id = params[:product_id]
-    variant = Product.find(product_id).variants.first
+    variant = Variant.find(params[:variant_id])
     Wishlist.for(current_user).add variant
     render json: {message: 'Adicionado com sucesso'}
   end
 
-  def delete
+  def destroy
+    product = Product.find params[:id]
+    wishlist = Wishlist.for(current_user)
+    product.variants.each {|variant| wishlist.remove variant.number}
+    render json: {message: 'Removido com sucesso'}
   end
 end

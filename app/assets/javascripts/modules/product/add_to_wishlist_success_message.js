@@ -1,7 +1,8 @@
 AddToWishlistSuccessMessage = function(){
 
   facade = function(message) {
-    $('#js-addToWishlistButton').append('<h1>'+message+'</h1>');
+    $('#js-addToWishlistButton').fadeOut()
+    $('#js-removeFromWishlistButton').fadeIn();
   }
 
   return {
