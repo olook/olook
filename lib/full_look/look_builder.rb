@@ -4,6 +4,8 @@ module FullLook
     @queue = 'look'
 
     PRODUCTS_MINIMUN_QTY = 3
+    MINIMUM_INVENTORY = 1
+    ALLOWED_BRANDS_REGEX = /^olook/i
 
     def self.perform
       self.new.perform
@@ -39,8 +41,9 @@ module FullLook
 
     def filter_looks(looks)
       looks.select do |master_product_id, look|
-        look[:products].size >= PRODUCTS_MINIMUN_QTY - 1 &&
-        look[:brands].all? { |b| /^olook/i =~ b }
+        ( look[:products].size + 1 ) >= PRODUCTS_MINIMUN_QTY &&
+        look[:brands].all? { |b| ALLOWED_BRANDS_REGEX =~ b } &&
+        look[:inventories].all? { |i| i >= MINIMUM_INVENTORY }
       end
     end
 
@@ -57,6 +60,8 @@ module FullLook
         h[rp.product_a_id][:products].push(rp.product_b)
         h[rp.product_a_id][:brands] ||= [rp.product_a.brand]
         h[rp.product_a_id][:brands].push(rp.product_b.brand)
+        h[rp.product_a_id][:inventories] ||= [rp.product_a.inventory]
+        h[rp.product_a_id][:inventories].push(rp.product_b.inventory)
         h
       end
     end
