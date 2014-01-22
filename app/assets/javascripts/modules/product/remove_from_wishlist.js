@@ -7,7 +7,7 @@ RemoveFromWishlist = function(){
       'type': 'DELETE',
       'url': action_url,
       'success': function(data) {
-          olookApp.publish(AddToWishlistSuccessMessage.name, data.message);
+          olookApp.publish(RemoveFromWishlistSuccessMessage.name);
       }});
   }
 
