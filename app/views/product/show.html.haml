@@ -34,8 +34,14 @@
       = product_presenter.render_facebook_comments
   .box-right
     #product-details
-      .add_to_wishlist{id: 'js-addToWishlistButton', data: {product_id: @product.id}}
-        ADD
+      // Isso pode ir pruma partial -------
+      - if has_wished?(@product.id)
+        .remove_button{id: 'js-removeFromWishlistButton', data: {product_id: @product.id}}     
+          Remover da wishlist S2
+      -else
+        .add_button{id: 'js-addToWishlistButton', data: {product_id: @product.id}}     
+          Adicionar a wishlist S2
+      // ----------------------------------
       = product_presenter.render_description
       = product_presenter.render_add_to_cart
       = cache "details/#{@product.id}", expire_in: 30.minutes do
