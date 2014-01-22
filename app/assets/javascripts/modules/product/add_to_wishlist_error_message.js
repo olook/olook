@@ -1,7 +1,9 @@
 AddToWishlistErrorMessage = function(){
 
-  facade = function(message) {
-    $('#js-addToWishlistButton').append('<h1>Erro: '+message+' !!!</h1>');
+  facade = function(parameters) {  
+    var message = parameters[0];
+    $('p.alert_size').html(message).show()
+      .delay(3000).fadeOut();    
   }
 
   return {

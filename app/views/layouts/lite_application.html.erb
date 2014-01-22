@@ -106,14 +106,13 @@
                  </li>
                  <li class="wishlist">
                  <%= link_to "Wishlist", wishlist_path, :class=> "wishlist" %>
-                    <% @has_wishlist_items = false %>
-                    <% if @has_wishlist_items %>
+                    <% if empty_wishlist? %>
                       <p class="sub">
                         Você ainda não adicionou
                         <br />
                           nenhum produto a sua wishlist.
                       </p>
-                    <% else %>                                          
+                    <% else %>                                     
                       <p class="sub full">
                         Oba! Tem produto da
                         <br />

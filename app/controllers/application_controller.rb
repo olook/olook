@@ -19,7 +19,10 @@ class ApplicationController < ActionController::Base
                 :current_referer,
                 :title_text,
                 :canonical_link,
-                :meta_description
+                :meta_description,
+                :has_wished?,
+                :empty_wishlist?
+
   around_filter :log_start_end_action_processing
 
   rescue_from CanCan::AccessDenied do  |exception|
@@ -29,6 +32,18 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+    def empty_wishlist?
+      Wishlist.for(current_user).wished_products.empty?
+    end
+
+    def has_wished? product_id
+      if current_user
+        Wishlist.for(current_user).has?(product_id)
+      else
+        false
+      end
+    end
 
     def render_public_exception
       Rails.logger.debug('ApplicationController#render_public_exception')
