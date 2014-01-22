@@ -34,7 +34,11 @@ class ApplicationController < ActionController::Base
   protected
 
     def empty_wishlist?
-      Wishlist.for(current_user).wished_products.empty?
+      if current_user
+        Wishlist.for(current_user).wished_products.empty?
+      else
+        true
+      end
     end
 
     def has_wished? product_id
