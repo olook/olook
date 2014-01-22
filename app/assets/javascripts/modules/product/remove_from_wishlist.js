@@ -8,7 +8,11 @@ RemoveFromWishlist = function(){
       'url': action_url,
       'success': function(data) {
           olookApp.publish(RemoveFromWishlistSuccessMessage.name);
-      }});
+      }}).fail(function(data){
+          if (data.status == 401) {//non authorized
+            window.location.href='/entrar';
+          }
+      });
   }
 
   return {
