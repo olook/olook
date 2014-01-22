@@ -53,52 +53,62 @@ module WhatsYourStyle
 
     private
 
-      def logger_time(text, &block)
-        start = Time.now.to_f
-        yield
-        time = (Time.now.to_f - start) * 1000
-        logger.info("[#{ '%0.2f' % time } ms] #{text}")
-      end
+    def logger_time(text, &block)
+      start = Time.now.to_f
+      yield
+      time = (Time.now.to_f - start) * 1000
+      logger.info("[#{ '%0.2f' % time } ms] #{text}")
+    end
 
-      def quiz
-        return @quiz if @quiz
-        url = URI.parse "#{SCHEMA}://#{HOST}:#{PORT}#{PREFIX_URL}/quizzes/1.json?api_token=#{AUTH_TOKEN}"
-        response = nil
-        logger_time("NET::HTTP.get_response(#{url})") do
-          response = Net::HTTP.get_response(url)
-        end
-        @quiz = JSON.parse(response.body)
-        rescue
-          DEFAULT_QUIZ
+    def quiz
+      return @quiz if @quiz
+      url = URI.parse "#{SCHEMA}://#{HOST}:#{PORT}#{PREFIX_URL}/quizzes/1.json?api_token=#{AUTH_TOKEN}"
+      response = nil
+      logger_time("NET::HTTP.get_response(#{url})") do
+        response = Net::HTTP.get_response(url)
       end
+      @quiz = JSON.parse(response.body)
+    rescue => error
+      error_message = "Failed to achieve WhatsYourStyle Server for QUIZ: #{error.class}"
+      _body = "#{error.class}: #{error.message}\n#{error.backtrace.to_a.join("\n")}"
+      ActionMailer::Base.mail(:from => "dev.notifications@olook.com.br",
+                              :to => "nelson.haraguchi@olook.com.br,tiago.almeida@olook.com.br,rafael.manoel@olook.com.br",
+                              :subject => "ErrorNotifier: #{error_message}", :body => _body).deliver
+      DEFAULT_QUIZ
+    end
 
-      def challenge
-        j_response = get_challenge_response
-        @profile = j_response['classification_label']
-        @uuid = j_response['uuid']
-      end
+    def challenge
+      j_response = get_challenge_response
+      @profile = j_response['classification_label']
+      @uuid = j_response['uuid']
+    end
 
-      def get_challenge_response
-        path = "#{PREFIX_URL}/challenges/create?api_token=#{AUTH_TOKEN}"
-        req = Net::HTTP::Post.new(path)
-        req.add_field('Content-Type', 'application/json; charset=utf-8')
-        req.add_field('Accept', 'application/json')
-        req.body = challenge_payload
-        response = nil
-        logger_time("NET::HTTP.post(#{path})\n#{challenge_payload.inspect}") do
-          response = Net::HTTP.new(HOST, PORT).start { |http| http.request(req) }
-        end
-        JSON.parse(response.body)
-        rescue
-          DEFAULT_QUIZ_RESPONSE
+    def get_challenge_response
+      path = "#{PREFIX_URL}/challenges/create?api_token=#{AUTH_TOKEN}"
+      req = Net::HTTP::Post.new(path)
+      req.add_field('Content-Type', 'application/json; charset=utf-8')
+      req.add_field('Accept', 'application/json')
+      req.body = challenge_payload
+      response = nil
+      logger_time("NET::HTTP.post(#{path})\n#{challenge_payload.inspect}") do
+        response = Net::HTTP.new(HOST, PORT).start { |http| http.request(req) }
       end
+      JSON.parse(response.body)
+    rescue
+      error_message = "Failed to achieve WhatsYourStyle Server for QUIZ RESPONSE: #{error.class}"
+      _body = "#{error.class}: #{error.message}\n#{error.backtrace.to_a.join("\n")}"
+      ActionMailer::Base.mail(:from => "dev.notifications@olook.com.br",
+                              :to => "nelson.haraguchi@olook.com.br,tiago.almeida@olook.com.br,rafael.manoel@olook.com.br",
+                              :subject => "ErrorNotifier: #{error_message}", :body => _body).deliver
+      DEFAULT_QUIZ_RESPONSE
+    end
 
-      def challenge_payload
-        JSON.generate({
-           'challenge' => {
-            'answers' => @answers
-          }
-        })
-      end
+    def challenge_payload
+      JSON.generate({
+         'challenge' => {
+          'answers' => @answers
+        }
+      })
+    end
   end
 end
