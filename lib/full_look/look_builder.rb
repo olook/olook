@@ -39,7 +39,8 @@ module FullLook
 
     def filter_looks(looks)
       looks.select do |master_product_id, look|
-        look[:products].size >= PRODUCTS_MINIMUN_QTY - 1
+        look[:products].size >= PRODUCTS_MINIMUN_QTY - 1 &&
+        look[:brands].all? { |b| /^olook/i =~ b }
       end
     end
 
@@ -54,6 +55,8 @@ module FullLook
         h[rp.product_a_id][:master_product] ||= rp.product_a
         h[rp.product_a_id][:products] ||= []
         h[rp.product_a_id][:products].push(rp.product_b)
+        h[rp.product_a_id][:brands] ||= [rp.product_a.brand]
+        h[rp.product_a_id][:brands].push(rp.product_b.brand)
         h
       end
     end
