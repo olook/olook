@@ -38,9 +38,9 @@
       - display_property_for_remove_button = has_wished?(@product.id) ? 'block' : 'none';
       - display_property_for_add_button = has_wished?(@product.id) ? 'none' : 'block';
       .remove_button{id: 'js-removeFromWishlistButton', data: {product_id: @product.id}, style: "display:#{display_property_for_remove_button}"}
-        Remover da wishlist S2
+        Remover da wishlist
       .add_button{id: 'js-addToWishlistButton', data: {product_id: @product.id}, style: "display:#{display_property_for_add_button}"}     
-        Adicionar a wishlist S2
+        Adicionar a wishlist
       // ----------------------------------
       = product_presenter.render_description
       = product_presenter.render_add_to_cart
