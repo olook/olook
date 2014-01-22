@@ -3,6 +3,8 @@ module FullLook
     attr_accessor :category_weight
     @queue = 'look'
 
+    PRODUCTS_MINIMUN_QTY = 3
+
     def self.perform
       self.new.perform
     end
@@ -31,7 +33,14 @@ module FullLook
 
     private
     def look_structure
-      normalize_products(related_products)
+      looks = normalize_products(related_products)
+      filter_looks(looks)
+    end
+
+    def filter_looks(looks)
+      looks.select do |master_product_id, look|
+        look[:products].size >= PRODUCTS_MINIMUN_QTY - 1
+      end
     end
 
     def related_products

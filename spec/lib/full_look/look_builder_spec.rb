@@ -23,9 +23,9 @@ describe FullLook::LookBuilder do
 
     before do
       subject.stub!(:set_category_weight_factor).and_return(Hash.new(1))
+      FullLook::LookProfileCalculator.stub(:calculate).and_return(1)
     end
     it "should create 2 Looks" do
-      FullLook::LookProfileCalculator.stub(:calculate).and_return(1)
       relateds = []
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(2))
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(3))
@@ -38,7 +38,6 @@ describe FullLook::LookBuilder do
     end
 
     it "create with correct params" do
-      FullLook::LookProfileCalculator.stub(:calculate).and_return(1)
       relateds = []
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(2))
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(3))
@@ -58,6 +57,16 @@ describe FullLook::LookBuilder do
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product_1, product_b: product_3)
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product_1, product_b: product_4)
       subject.stub(:related_products).and_return(relateds)
+      subject.perform
+    end
+
+    it "should filter out looks with less than 3 products" do
+      relateds = []
+      relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(2))
+      relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(3))
+      relateds << mock('RelatedProduct', product_a_id: 5, product_a: product(5), product_b: product(6))
+      subject.stub(:related_products).and_return(relateds)
+      Look.should_receive(:build_and_create).exactly(1).times
       subject.perform
     end
   end
