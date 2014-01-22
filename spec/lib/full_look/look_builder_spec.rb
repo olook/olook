@@ -19,7 +19,8 @@ describe FullLook::LookBuilder do
       mock("Product##{id}",
            gallery_5_pictures: [mock(image_url: "image#{id}")],
            launch_date: "2013-12-25",
-           brand: attrs[:brand] || 'Olook')
+           brand: attrs[:brand] || 'Olook',
+           inventory: attrs[:inventory] || 10)
     end
 
     before do
@@ -85,6 +86,24 @@ describe FullLook::LookBuilder do
       relateds = []
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, brand: 'colcci'), product_b: product(2))
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, brand: 'colcci'), product_b: product(3))
+      subject.stub(:related_products).and_return(relateds)
+      Look.should_not_receive(:build_and_create)
+      subject.perform
+    end
+
+    it "should filter out looks with master_product zero inventory" do
+      relateds = []
+      relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, inventory: 0), product_b: product(2))
+      relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, inventory: 0), product_b: product(3))
+      subject.stub(:related_products).and_return(relateds)
+      Look.should_not_receive(:build_and_create)
+      subject.perform
+    end
+
+    it "should filter out looks with related products with zero inventory" do
+      relateds = []
+      relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(2, inventory: 0))
+      relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(3))
       subject.stub(:related_products).and_return(relateds)
       Look.should_not_receive(:build_and_create)
       subject.perform
