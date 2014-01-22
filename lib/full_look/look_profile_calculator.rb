@@ -1,15 +1,12 @@
 module FullLook
   class LookProfileCalculator
     def self.calculate products, options={}
-      category_weight = options[:category_weight]
+      category_weight = options[:category_weight] || {}
       profile_count = products.inject({}) do |h, product|
+        weight = category_weight[product.category] || 1
         product.profiles.each do |profile|
           h[profile.id] ||= 0
-          if category_weight
-            h[profile.id] += category_weight[product.category] || 1
-          else
-            h[profile.id] += 1
-          end
+          h[profile.id] += weight
         end
         h
       end
