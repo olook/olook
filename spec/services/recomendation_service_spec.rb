@@ -1,9 +1,11 @@
 require "spec_helper"
 
 describe RecomendationService do
-    before do
-      @profiles = [FactoryGirl.create(:casual_profile)]
-    end
+  subject { described_class.new({ profiles: @profiles }) }
+  before do
+    @profiles = [FactoryGirl.create(:casual_profile)]
+  end
+
   describe "#products" do
     context "when product quantity matters" do
       before do
@@ -71,7 +73,7 @@ describe RecomendationService do
     end
 
     context "when there's not enough products in main profile" do
-      subject { described_class.new({ profiles: @profiles,limit: 3 }).products }
+      subject { described_class.new({ profiles: @profiles }).products(limit: 3) }
 
       before do
         @profiles << FactoryGirl.create(:sporty_profile)
@@ -178,7 +180,7 @@ describe RecomendationService do
 
     end
     it "return most recent look for profile" do
-      expect(described_class.new(profiles: 1, limit: 4).full_looks).to eql([@look1,@look3,@look2])
+      expect(described_class.new(profiles: 1).full_looks(limit: 4)).to eql([@look1,@look3,@look2])
     end
   end
 end
