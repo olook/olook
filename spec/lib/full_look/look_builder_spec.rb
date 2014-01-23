@@ -28,6 +28,7 @@ describe FullLook::LookBuilder do
     before do
       subject.stub!(:set_category_weight_factor).and_return(Hash.new(1))
       FullLook::LookProfileCalculator.stub(:calculate).and_return(1)
+      Look.stub!(:build_and_create)
     end
     it "should create 2 Looks" do
       relateds = []
