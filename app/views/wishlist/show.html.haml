@@ -12,7 +12,7 @@
       %div.img
         = link_to 'remover', '#', :class => 'removeFromWishlist js-removeFromWishlistButton', :title => "Remover dos meus favoritos!", :data => {product_id: wp.product_id}
         - data = get_label_and_class_name(@cart, wp)
-        = link_to data[:label], '#', :class => "#{data[:class_name]} js-imgAddToCart", :data => {cart_id: @cart.id, variant: wp.variant.number}
+        = link_to data[:label], '#', :class => "#{data[:class_name]} js-imgAddToCart #{data[:sold_out]}", :data => {cart_id: @cart.id, variant: wp.variant.number}
         - product = wp.variant.product
         .async{data: {product: product.catalog_picture, backside_picture: product.backside_picture, product: product.catalog_picture}}
       %h2
@@ -26,5 +26,4 @@
         - order_variants_by_size(product.variants).each do |variant|
           - if variant.number == wp.variant.number
             %li.selected= variant.description
-      %a.seeMoreDetails
-        Ver Mais
+      = link_to "Ver Mais", product_seo_path(product.seo_path), :class => 'seeMoreDetails'
