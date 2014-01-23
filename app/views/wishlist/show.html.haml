@@ -21,7 +21,7 @@
         R$ 
         = product.retail_price
       %ul.size
-        - product.variants.each do |variant|
+        - order_variants_by_size(product.variants).each do |variant|
           - if variant.number == wp.variant.number
             %li.selected= variant.description
           - else

@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 module WishlistHelper
+  include ::CatalogsHelper
 
   def get_label_and_class_name(cart, wished_product)
 
