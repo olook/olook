@@ -18,6 +18,7 @@ describe FullLook::LookBuilder do
     def product(id, attrs={})
       mock("Product##{id}",
            full_look_picture: attrs.keys.include?(:full_look_picture) ? attrs[:full_look_picture] : mock("Picture##{id}", image_url: "image#{id}"),
+           front_picture: attrs.keys.include?(:front_picture) ? attrs[:front_picture] : mock("Picture##{id}", image_url: "image#{id}"),
            launch_date: "2013-12-25",
            brand: attrs[:brand] || 'Olook',
            inventory: attrs[:inventory] || 10,
@@ -46,7 +47,7 @@ describe FullLook::LookBuilder do
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(3))
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(4))
       subject.stub(:related_products).and_return(relateds)
-      Look.should_receive(:build_and_create).with({product_id: 1, picture: "image1", launched_at: "2013-12-25", profile_id: 1})
+      Look.should_receive(:build_and_create).with({product_id: 1, full_look_picture: "image1", front_picture: "image1", launched_at: "2013-12-25", profile_id: 1})
       subject.perform
     end
 
@@ -64,13 +65,13 @@ describe FullLook::LookBuilder do
       subject.perform
     end
 
-    it "should filter out looks with less than 3 products" do
+    it "should filter out looks with less than 2 products" do
       relateds = []
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(2))
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(3))
       relateds << mock('RelatedProduct', product_a_id: 5, product_a: product(5), product_b: product(6))
       subject.stub(:related_products).and_return(relateds)
-      Look.should_receive(:build_and_create).exactly(1).times
+      Look.should_receive(:build_and_create).exactly(2).times
       subject.perform
     end
 

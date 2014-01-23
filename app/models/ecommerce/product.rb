@@ -168,13 +168,19 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def front_picture
+    return @front_picture if @front_picture.present?
+    pics = self.pictures.select { |p| p.display_on <= 10 }.sort { |a,b| a.display_on <=> b.display_on }
+    pics.first
+  end
+
   def full_look_picture
     return @full_look_picture if @full_look_picture.present?
     pics = self.pictures.select { |p| p.display_on <= 10 }.sort { |a,b| b.display_on <=> a.display_on }
-    if bag? || accessory?
-      pics.second
-    else
+    if cloth?
       pics.first
+    else
+      pics.second
     end
   end
 

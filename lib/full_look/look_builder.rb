@@ -22,7 +22,8 @@ module FullLook
         master_product = struc[:master_product]
         look = {}
         look[:product_id] = master_product_id
-        look[:picture] = master_product.full_look_picture.try(:image_url)
+        look[:full_look_picture] = master_product.full_look_picture.try(:image_url)
+        look[:front_picture] = master_product.front_picture.try(:image_url)
         look[:launched_at] = master_product.launch_date
         look[:profile_id] = LookProfileCalculator.calculate(struc[:products], category_weight: category_weight)
         Look.build_and_create(look)
