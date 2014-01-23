@@ -18,18 +18,25 @@ class PostRetrieverService
   private
 
     def retrieve_post_data(number = 3)
-      posts = @wp.getPosts(:filter =>{:order => "desc", :orderby => "post_date", :post_type => 'post', :post_status => 'publish', :number => number})
       posts.map do |post|        
-        img_hash = process_images(post["post_thumbnail"]["link"])
-
-        data_hash = {
-          link: post["link"],
-          title: post["post_title"], 
-          subtitle: post["custom_fields"].select{|cf| cf["key"] == "wps_subtitle"}.first["value"]
-        }
-
-        data_hash.merge(img_hash)
+        format_post post
       end
+    end
+
+    def posts number = 3
+      @wp.getPosts(:filter =>{:order => "desc", :orderby => "post_date", :post_type => 'post', :post_status => 'publish', :number => number})      
+    end
+
+    def format_post post
+      img_hash = process_images(post["post_thumbnail"]["link"])
+
+      data_hash = {
+        link: post["link"],
+        title: post["post_title"], 
+        subtitle: post["custom_fields"].select{|cf| cf["key"] == "wps_subtitle"}.first["value"]
+      }
+
+      data_hash.merge(img_hash)      
     end
 
     def process_images img
