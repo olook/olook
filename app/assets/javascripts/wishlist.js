@@ -12,9 +12,11 @@ $('.img').on(
   {
     mouseover: function() {
       $(this).find('.js-imgAddToCart').show();
+      $(this).find('img').css('opacity', '0.65');
     },
     mouseleave: function() {
       $(this).find('.js-imgAddToCart').hide();
+      $(this).find('img').css('opacity', '1');
     }
   }
 );
@@ -39,4 +41,12 @@ $('.js-imgAddToCart').click(function(e){
         }
       });
 
+});
+
+$(function(){
+  $('#js-removeFromWishlistButton').click(function(){
+    var it = $(this);
+    var productId = it.data('product-id');
+    olookApp.mediator.publish(RemoveFromWishlist.name, productId);
+  });
 });

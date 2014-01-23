@@ -1,6 +1,7 @@
 RemoveFromWishlist = function(){
 
-  facade = function(productId) {
+  var facade = function(productId) {
+    
     var action_url = '/wished_products/' + productId;
 
     $.ajax({
