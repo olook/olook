@@ -126,9 +126,9 @@ class ProductPresenter < BasePresenter
   end
 
   def render_price_for product_discount_service
-    product_discount_service.calculate
+    product_discount_service.calculate_without_promotion_or_coupon
     
-    if product_discount_service.discount > 0 && !product_discount_service.fixed_value_discount?
+    if product_discount_service.discount > 0
       price_markdown(product_discount_service)
     else
       return price_markup(product_discount_service.base_price, "price")
