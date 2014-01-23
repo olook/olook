@@ -1,5 +1,6 @@
 - content_for :footer do
   = javascript_include_tag "wishlist"
+= first_level_breadcrumb("Favoritos")
 #wishlist
   %h1 
     Eu Quero!
@@ -25,3 +26,5 @@
         - order_variants_by_size(product.variants).each do |variant|
           - if variant.number == wp.variant.number
             %li.selected= variant.description
+      %a.seeMoreDetails
+        Ver Mais

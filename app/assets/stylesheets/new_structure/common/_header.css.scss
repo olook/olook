@@ -221,12 +221,13 @@ header#new_header{border-top: 2px black solid;
     }
     li.wishlist{
       width: 100px;
-      a.wishlist{
+      a.wishlist,
+      a.wishlistHasProduct{
         text-align: center;color: #000;font-size: 10px;letter-spacing: 1px;font-family: $arial;
         padding-left: 22px;
         padding-top: 12px;
         padding-right: 2px;
-        background: image-url('common/nav/sprite_header.png') no-repeat 11px -363px;
+        background: image-url('common/nav/sprite_header.png') no-repeat 11px -326px;
         height: 29px;
         width: 93px;
         display: block;
@@ -238,6 +239,9 @@ header#new_header{border-top: 2px black solid;
         right: 117px;
 
         &:hover{color: $base_color;font-weight: 700;}
+      }
+      a.wishlistHasProduct {
+        background: image-url('common/nav/sprite_header.png') no-repeat 11px -363px;
       }
       a.selecionado {
         background-color: #FFF;

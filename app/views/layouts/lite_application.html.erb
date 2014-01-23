@@ -105,21 +105,23 @@
                  <%= render 'shared/search_bar' %>
                  </li>
                  <li class="wishlist">
-                 <%= link_to "Favoritos", wishlist_path, :class=> "wishlist", onclick: track_event("Wishlist","openWishilistFromMenu") %>
-                    <% if empty_wishlist? %>
+                 <% if empty_wishlist? %>
+                   <%= link_to "Favoritos", wishlist_path, :class=> "wishlist", onclick: track_event("Wishlist","openWishilistFromMenu") %>
                       <p class="sub">
                         Você ainda não adicionou nenhum
                         <br />
                           produto a sua lista de favoritos.
                       </p>
-                    <% elsif any_wished_product_has_discount? %>                                     
+                 <% elsif any_wished_product_has_discount? %>                                     
+                   <%= link_to "Favoritos", wishlist_path, :class=> "wishlistHasProduct", onclick: track_event("Wishlist","openWishilistFromMenu") %>
                       <p class="sub full">
                         Oba! Alguns do seus produtos
                         <br />
                           favoritos estão com desconto!
                         <%= link_to 'Confira', wishlist_path, :class=>"newest_bag", onclick: track_event("Wishlist","openWishilistFromDiscountBanner") %>
                       </p>
-                    <% else %>
+                 <% else %>
+                   <%= link_to "Favoritos", wishlist_path, :class=> "wishlistHasProduct", onclick: track_event("Wishlist","openWishilistFromMenu") %>
                       <p class="sub">
                         Você possui <%= wished_products_count %> produto(s)
                         <br />
