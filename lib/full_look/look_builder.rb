@@ -3,7 +3,7 @@ module FullLook
     attr_accessor :category_weight
     @queue = 'look'
 
-    PRODUCTS_MINIMUN_QTY = 3
+    PRODUCTS_MINIMUN_QTY = 2
     MINIMUM_INVENTORY = 1
     ALLOWED_BRANDS_REGEX = /^olook/i
 
