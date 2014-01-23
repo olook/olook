@@ -10,11 +10,11 @@
     text-transform: uppercase;
     background: image-url('common/wishlist/bg_coracao.png') no-repeat top left;
     padding-left:30px;
-    margin-top:46px;
     padding-bottom:2px;
 		span {
       font-weight: normal;
       text-transform: none;
+      display: block;
     }
 	}
   div.product {
@@ -34,7 +34,8 @@
       position: relative;
       margin-bottom:10px;
       a.add_product,
-      a.added_product {
+      a.added_product,
+      a.soldOut {
         position: absolute;
         z-index: 99;
         padding:10px;
@@ -57,16 +58,24 @@
         display: none;
         letter-spacing: 1px;
       }
-      a.add_product:hover {
-        -webkit-box-shadow: 1px 0px 28px -4px rgba(0,0,0,0.75);
-        -moz-box-shadow: 1px 0px 28px -4px rgba(0,0,0,0.75);
-        box-shadow: 1px 0px 28px -4px rgba(0,0,0,0.75);
-      }
+      
       a.added_product {
         background-position: 96px -70px;
         background-color:#fff;
         color:#000;
         letter-spacing: 0px;
+        cursor: default;
+      }
+      a.soldOut {
+        background-color: #000;
+        background-image: none;
+        color:#FFF;
+        padding:10px;
+        display: block !important;
+        width:100px;
+        text-align: center;
+        margin-left:-61px;
+        text-transform: uppercase;
       }
       .async {
         width:100%; 
@@ -80,14 +89,14 @@
       }
       .removeFromWishlist {
         position: absolute; 
-        right:0px;
-        top:0px;
-        background: image-url('common/wishlist/bt_remover.png') no-repeat center center;
-        width:16px;
-        height:13px;
+        right: 0px;
+        top: 0px;
+        background: image-url('common/close_dialog.png') no-repeat center center;
+        width:30px;
+        height:30px;
         display: block;
         text-indent: -5000px;
-        z-index: 999;
+        z-index: 10;
       }
      
     }
@@ -104,7 +113,8 @@
     }
   }
   ul.size {
-    width:100%;
+    width:40%;
+    float:left;
     display: block;
     margin:5px 0;
     li {
@@ -119,6 +129,24 @@
         color:red;
         border-color: red;
       }
+    }
+  }
+  a.seeMoreDetails {
+    float:right;
+    border:1px solid #000;
+    padding:1px 3px;
+    margin-top:3px;
+    color:#000;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-family: 'Trebuchet Ms';
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 10;
+    cursor: pointer;
+    &:hover {
+      background-color:#000;
+      color:#FFF;
     }
   }
 }
