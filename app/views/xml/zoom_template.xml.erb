@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<produtos>
+  <% @products.each do |product| %>
+    <produto>
+      <codigo><%= product.id %></codigo>
+      <nome><![CDATA[<%= product.formatted_name(200) %>]]></nome>
+      <descricao><![CDATA[<%= product.description %>]]></descricao>
+      <preco_de><%= product.price %></preco_de>
+      <preco><%= product.retail_price %></preco>
+      <nparcela></nparcela>
+      <vparcela></vparcela>
+      <url><![CDATA[<%= product.product_url(:utm_source =>"zoom", :utm_campaign => product.category_humanize) %>]]></url>
+      <url_imagem><![CDATA[<%= full_image_path product.xml_picture(:main) %>]]></url_imagem>
+      <departamento><![CDATA[<%= product.category_humanize %>]]></departamento>
+      <subdepartamento><![CDATA[<%= product.subcategory_name %>]]></subdepartamento>
+      <marca><![CDATA[<%= product.brand %>]]></marca>
+      <isbn/>
+      <editora/>
+      <autor/>
+      <mpc></mpc>
+      <ean></ean>
+      <sku></sku>
+    </produto>
+  <% end %>
+</produtos>
