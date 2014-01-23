@@ -171,7 +171,7 @@ module ApplicationHelper
 
   def wished_products_count
     if current_user
-      Wishlist.for(current_user).wished_products.size
+      Wishlist.for(current_user).size
     else
       0
     end
