@@ -17,8 +17,8 @@ describe FullLook::LookBuilder do
   describe '#perform' do
     def product(id, attrs={})
       mock("Product##{id}",
-           full_look_picture: attrs.keys.include?(:full_look_picture) ? attrs[:full_look_picture] : mock("Picture##{id}", look_showroom_image_url: "image#{id}", recreate_versions!: nil, save: true),
-           front_picture: attrs.keys.include?(:front_picture) ? attrs[:front_picture] : mock("Picture##{id}", look_showroom_image_url: "image#{id}", recreate_versions!: nil, save: true),
+           full_look_picture: attrs.keys.include?(:full_look_picture) ? attrs[:full_look_picture] : mock("Picture##{id}", image_url: "image#{id}"),
+           front_picture: attrs.keys.include?(:front_picture) ? attrs[:front_picture] : mock("Picture##{id}", image_url: "image#{id}"),
            launch_date: "2013-12-25",
            brand: attrs[:brand] || 'Olook',
            inventory: attrs[:inventory] || 10,
