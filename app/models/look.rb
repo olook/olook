@@ -6,7 +6,8 @@ class Look < ActiveRecord::Base
   def self.build_and_create(attr)
     look = self.new
     look.product_id = attr[:product_id]
-    look.picture = attr[:picture]
+    look.full_look_picture = attr[:full_look_picture]
+    look.front_picture = attr[:front_picture]
     look.launched_at = attr[:launched_at]
     look.profile_id = attr[:profile_id]
     look.save
