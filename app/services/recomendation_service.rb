@@ -3,13 +3,14 @@ class RecomendationService
   def initialize(opts = {})
     @profiles = opts[:profiles]
     @shoe_size = opts[:shoe_size]
+    @limit = opts.fetch(:limit, 5)
   end
 
   # Produtos recomendados para os parametros passados na
   #
   #
   def products(opts= {  })
-    current_limit = limit = opts[:limit] || 5
+    current_limit = limit = @limit
     products = []
 
     @profiles.each do |profile|
@@ -20,12 +21,21 @@ class RecomendationService
     products.uniq
   end
 
+  def full_looks
+    filtered_looks_for_profile
+  end
+
   private
+
+    def filtered_looks_for_profile
+      Look.where(profile_id: @profiles).joins(:product).group("products.name").order("launched_at desc").first(@limit)
+    end
+
     def filtered_list_for_profile(profile, opts={})
       _pAt = Product.arel_table
       _vAt = Variant.arel_table
 
-      is_admin = opts[:admin] || false
+      is_admin = opts.fetch(:admin, false)
       category = opts[:category]
       collection = opts[:collection]
 
@@ -45,7 +55,7 @@ class RecomendationService
                 and(_vAt[:description].eq(@shoe_size))
               )) if @shoe_size.present?
 
-      response = response.where(category: category) if category.present?    
+      response = response.where(category: category) if category.present?
 
       response
     end

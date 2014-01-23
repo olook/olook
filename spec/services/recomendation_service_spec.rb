@@ -1,11 +1,11 @@
 require "spec_helper"
 
 describe RecomendationService do
-  describe "#products" do
-    subject { described_class.new({ profiles: @profiles }) }
     before do
       @profiles = [FactoryGirl.create(:casual_profile)]
     end
+  describe "#products" do
+    subject { described_class.new({ profiles: @profiles }) }
 
     context "when product quantity matters" do
       before do
@@ -17,9 +17,11 @@ describe RecomendationService do
       end
 
       context 'and limit 10 was passed' do
-        it { expect(subject.products(limit: 10).count).to eq(10) }
+        subject { described_class.new({ profiles: @profiles, limit: 10 }) }
+        it { expect(subject.products.count).to eq(10) }
       end
       context 'and no limit was passed' do
+        subject { described_class.new({ profiles: @profiles, limit: 5 }) }
         it { expect(subject.products.count).to eq(5) }
       end
     end
@@ -73,7 +75,7 @@ describe RecomendationService do
     end
 
     context "when there's not enough products in main profile" do
-      subject { described_class.new({ profiles: @profiles }).products(limit: 3) }
+      subject { described_class.new({ profiles: @profiles,limit: 3 }).products }
 
       before do
         @profiles << FactoryGirl.create(:sporty_profile)
@@ -94,7 +96,7 @@ describe RecomendationService do
     end
 
     context "ordering profile's products by decreasing inventory" do
-      subject { described_class.new({ profiles: @profiles }).products(limit: 4) }
+      subject { described_class.new({ profiles: @profiles, limit: 4 }).products }
 
       before do
         @profiles << FactoryGirl.create(:sporty_profile)
@@ -169,7 +171,18 @@ describe RecomendationService do
     end
   end
 
-  describe "#looks" do
+  describe "#full_looks" do
+    before do
+      @shoe = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:shoe, name: "#shoe #{ rand }", profiles: @profiles)).product
+      @bag = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:bag, name: "#bag #{ rand }", profiles: @profiles)).product
+      @accessory = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:basic_accessory, name: "#accessory #{ rand }", profiles: @profiles)).product
+      @look1 = FactoryGirl.create(:look, launched_at: "2014-02-31 02:00:00", product_id: @shoe.id)
+      @look2 = FactoryGirl.create(:look, launched_at: "2014-01-22 02:00:00", product_id: @bag.id)
+      @look3 = FactoryGirl.create(:look, launched_at: "2014-01-31 02:00:00", product_id: @accessory.id)
 
+    end
+    it "return most recent look for profile" do
+      expect(described_class.new(profiles: 1, limit: 4).full_looks).to eql([@look1,@look3,@look2])
+    end
   end
 end
