@@ -29,6 +29,10 @@ class ApplicationController < ActionController::Base
     redirect_to admin_url
   end
 
+  def after_login_return_to path
+    session[:previous_url] = path
+  end
+
   protected
 
     def render_public_exception
