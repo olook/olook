@@ -12,7 +12,8 @@ $(function() {
     var cartId = it.data('cart-id');
     var variantId = it.data('variant');
     
-    if (it.hasClass('added_product')) {
+    if (it.hasClass('added_product') || it.hasClass('soldOut')) {
+      e.preventDefault();
       return false;
     }
 
