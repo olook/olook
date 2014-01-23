@@ -129,10 +129,19 @@ describe FullLook::LookBuilder do
       subject.perform
     end
 
-    it "should filter out looks without picture" do
+    it "should filter out looks without full_look_picture" do
       relateds = []
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, full_look_picture: nil), product_b: product(2))
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, full_look_picture: nil), product_b: product(3))
+      subject.stub(:related_products).and_return(relateds)
+      Look.should_not_receive(:build_and_create)
+      subject.perform
+    end
+
+    it "should filter out looks without front_picture" do
+      relateds = []
+      relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, front_picture: nil), product_b: product(2))
+      relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, front_picture: nil), product_b: product(3))
       subject.stub(:related_products).and_return(relateds)
       Look.should_not_receive(:build_and_create)
       subject.perform
