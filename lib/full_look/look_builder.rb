@@ -6,6 +6,22 @@ module FullLook
     PRODUCTS_MINIMUN_QTY = 2
     MINIMUM_INVENTORY = 1
     ALLOWED_BRANDS_REGEX = /^olook/i
+    WHITELISTED_SUBCATEGORIES = [
+      'blazer',
+      'blusa',
+      'calca',
+      'camisa',
+      'camiseta',
+      'casaco',
+      'casaco e jaqueta',
+      'colete',
+      'macacao',
+      'regata',
+      'saia',
+      'shorts',
+      'top cropped',
+      'vestido'
+    ]
 
     def self.perform
       self.new.perform
@@ -57,7 +73,7 @@ module FullLook
     end
 
     def related_products
-      cloth_products = Product.cloths.pluck(:id)
+      cloth_products = Product.cloths.in_subcategory(WHITELISTED_SUBCATEGORIES).pluck(:id)
       RelatedProduct.with_products(cloth_products).all
     end
 
