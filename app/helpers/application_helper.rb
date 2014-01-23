@@ -160,6 +160,41 @@ module ApplicationHelper
     html.html_safe
   end
 
+  ###########
+  def empty_wishlist?
+    if current_user
+      Wishlist.for(current_user).wished_products.empty?
+    else
+      true
+    end
+  end
+
+  def wished_products_count
+    if current_user
+      Wishlist.for(current_user).wished_products.size
+    else
+      0
+    end
+  end
+
+
+  def any_wished_product_has_discount?
+    if current_user
+      wished_products = Wishlist.for(current_user).wished_products
+      wished_products.select {|wp| wp.variant.product.retail_price < wp.retail_price}.any?       
+    else
+      false
+    end
+  end    
+
+  def has_wished? product_id
+    if current_user
+      Wishlist.for(current_user).has?(product_id)
+    else
+      false
+    end
+  end  
+
   private
  
     def ga_event_referer
