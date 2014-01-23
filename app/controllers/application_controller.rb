@@ -19,9 +19,7 @@ class ApplicationController < ActionController::Base
                 :current_referer,
                 :title_text,
                 :canonical_link,
-                :meta_description,
-                :has_wished?,
-                :empty_wishlist?
+                :meta_description
 
   around_filter :log_start_end_action_processing
 
@@ -31,23 +29,11 @@ class ApplicationController < ActionController::Base
     redirect_to admin_url
   end
 
+  def after_login_return_to path
+    session[:previous_url] = path
+  end
+
   protected
-
-    def empty_wishlist?
-      if current_user
-        Wishlist.for(current_user).wished_products.empty?
-      else
-        true
-      end
-    end
-
-    def has_wished? product_id
-      if current_user
-        Wishlist.for(current_user).has?(product_id)
-      else
-        false
-      end
-    end
 
     def render_public_exception
       Rails.logger.debug('ApplicationController#render_public_exception')
