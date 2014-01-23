@@ -9,14 +9,14 @@ class BlogImageUploader < CarrierWave::Uploader::Base
     "blog_images_for_home/"
   end  
 
-  process :optimize
-
   version :old_home do
     process :resize_to_fit => [318, 205]
+    process :optimize
   end
 
   version :new_home do
     process :resize_to_fit => [490, 367]
+    process :optimize
   end
 
   def extension_white_list
