@@ -26,7 +26,11 @@ module FullLook
         look[:front_picture] = master_product.front_picture.try(:image_url)
         look[:launched_at] = master_product.launch_date
         look[:profile_id] = LookProfileCalculator.calculate(struc[:products], category_weight: category_weight)
-        Look.build_and_create(look)
+        begin
+          Look.build_and_create(look)
+        rescue Exception => e
+         Rails.logger.error("#{ e.class}: #{e.message} \n #{ e.backtrace.join("\n")}")
+        end
       end
     end
 
