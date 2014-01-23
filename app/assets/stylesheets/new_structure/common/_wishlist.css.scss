@@ -77,9 +77,6 @@
           position: absolute;
           bottom:0px;
         }
-        img:hover {
-          
-        }
       }
       .removeFromWishlist {
         position: absolute; 
@@ -90,6 +87,7 @@
         height:13px;
         display: block;
         text-indent: -5000px;
+        z-index: 999;
       }
      
     }
