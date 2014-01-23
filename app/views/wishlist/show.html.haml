@@ -9,6 +9,7 @@
   - @wishlist.wished_products.each do |wp|
     %div.product
       %div.img
+        = link_to 'remover', '', :class => 'removeFromWishlist', :title => "Remover dos meus favoritos!", :id => "js-removeFromWishlistButton", :data => {product_id: wp.product_id}
         - data = get_label_and_class_name(@cart, wp)
         = link_to data[:label], '#', :class => "#{data[:class_name]} js-imgAddToCart", :data => {cart_id: @cart.id, variant: wp.variant.number}
         - product = wp.variant.product

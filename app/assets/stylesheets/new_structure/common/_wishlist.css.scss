@@ -77,7 +77,21 @@
           position: absolute;
           bottom:0px;
         }
+        img:hover {
+          
+        }
       }
+      .removeFromWishlist {
+        position: absolute; 
+        right:0px;
+        top:0px;
+        background: image-url('common/wishlist/bt_remover.png') no-repeat center center;
+        width:16px;
+        height:13px;
+        display: block;
+        text-indent: -5000px;
+      }
+     
     }
     h2, h3, h4 {
       width:100%;
