@@ -3,14 +3,13 @@ class RecomendationService
   def initialize(opts = {})
     @profiles = opts[:profiles]
     @shoe_size = opts[:shoe_size]
-    @limit = opts.fetch(:limit, 5)
   end
 
   # Produtos recomendados para os parametros passados na
   #
   #
   def products(opts= {  })
-    current_limit = limit = @limit
+    current_limit = limit = opts[:limit] || 5
     products = []
 
     @profiles.each do |profile|
@@ -21,14 +20,14 @@ class RecomendationService
     products.uniq
   end
 
-  def full_looks
-    filtered_looks_for_profile
+  def full_looks(opts={})
+    filtered_looks_for_profile(opts)
   end
 
   private
 
-    def filtered_looks_for_profile
-      Look.where(profile_id: @profiles).joins(:product).group("products.name").order("launched_at desc").first(@limit)
+    def filtered_looks_for_profile(opts={})
+      Look.where(profile_id: @profiles).joins(:product).group("products.name").order("launched_at desc").first(opts[:limit])
     end
 
     def filtered_list_for_profile(profile, opts={})
