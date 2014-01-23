@@ -112,13 +112,19 @@
                         <br />
                           produto a sua lista de favoritos.
                       </p>
-                    <% else %>                                     
+                    <% elsif any_wished_product_has_discount? %>                                     
                       <p class="sub full">
                         Oba! Alguns do seus produtos
                         <br />
                           favoritos estão com desconto!
                         <%= link_to 'Confira', wishlist_path, :class=>"newest_bag" %>
                       </p>
+                    <% else %>
+                      <p class="sub">
+                        Você possui <%= wished_products_count %> produto(s)
+                        <br />
+                          na sua lista de favoritos.
+                      </p>                    
                     <% end %>
                  </li>
                  </ul>
