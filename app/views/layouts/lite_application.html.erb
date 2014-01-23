@@ -105,7 +105,7 @@
                  <%= render 'shared/search_bar' %>
                  </li>
                  <li class="wishlist">
-                 <%= link_to "Favoritos", wishlist_path, :class=> "wishlist" %>
+                 <%= link_to "Favoritos", wishlist_path, :class=> "wishlist", onclick: track_event("Wishlist","openWishilistFromMenu") %>
                     <% if empty_wishlist? %>
                       <p class="sub">
                         Você ainda não adicionou nenhum
@@ -117,7 +117,7 @@
                         Oba! Alguns do seus produtos
                         <br />
                           favoritos estão com desconto!
-                        <%= link_to 'Confira', wishlist_path, :class=>"newest_bag" %>
+                        <%= link_to 'Confira', wishlist_path, :class=>"newest_bag", onclick: track_event("Wishlist","openWishilistFromDiscountBanner") %>
                       </p>
                     <% else %>
                       <p class="sub">
