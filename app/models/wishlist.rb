@@ -25,11 +25,19 @@ class Wishlist < ActiveRecord::Base
   end
 
   def has? product_id
-    wished_products.map{|wp| wp.product_id}.include?(product_id)
+    products.map{|wp| wp.product_id}.include?(product_id)
+  end
+
+  def products
+    wished_products.select{|wp| wp.variant.product.is_visible?}
+  end
+
+  def size
+    products.size
   end
 
   private
     def find_wished_product_by variant_number
-      wished_products.select{|wp| wp.variant_number == variant_number}
+      products.select{|wp| wp.variant_number == variant_number}
     end
 end

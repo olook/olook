@@ -4,6 +4,38 @@
 $(function() {
   olook.changePictureOnhover('.async');
   new ImageLoader().load('async');
+
+
+  $('.js-imgAddToCart').click(function(e){
+
+    var it = $(this);
+    var cartId = it.data('cart-id');
+    var variantId = it.data('variant');
+    
+    if (it.hasClass('added_product')) {
+      return false;
+    }
+
+    $.ajax({
+        'type': 'put',
+        'url': '/sacola/' + cartId,
+        'data': {'variant_numbers[]': variantId},
+        'success': function(data) {
+          // triggers an event to update the minicart and change the class of the product added
+            it.removeClass('add_product').addClass('added_product').text('Adicionado');
+          }
+        });
+
+  });
+
+
+  $('.js-removeFromWishlistButton').click(function(e){
+    var it = $(this);
+    var productId = it.data('product-id');
+    olookApp.mediator.publish(RemoveFromWishlist.name, productId);
+    e.preventDefault();
+  });
+
 });
 
 /*** Wishlist Add Cart Button ***/
@@ -20,33 +52,3 @@ $('.img').on(
     }
   }
 );
-
-$('.js-imgAddToCart').click(function(e){
-
-  var it = $(this);
-  var cartId = it.data('cart-id');
-  var variantId = it.data('variant');
-  
-  if (it.hasClass('added_product')) {
-    return false;
-  }
-
-  $.ajax({
-      'type': 'put',
-      'url': '/sacola/' + cartId,
-      'data': {'variant_numbers[]': variantId},
-      'success': function(data) {
-        // triggers an event to update the minicart and change the class of the product added
-          it.removeClass('add_product').addClass('added_product').text('Adicionado');
-        }
-      });
-
-});
-
-$(function(){
-  $('#js-removeFromWishlistButton').click(function(){
-    var it = $(this);
-    var productId = it.data('product-id');
-    olookApp.mediator.publish(RemoveFromWishlist.name, productId);
-  });
-});

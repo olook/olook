@@ -1,8 +1,12 @@
 RemoveFromWishlistSuccessMessage = function(){
 
-  facade = function() {
+  facade = function(productId) {
+    // product-page
     $('#js-removeFromWishlistButton').fadeOut();    
-    $('#js-addToWishlistButton').fadeIn()
+    $('#js-addToWishlistButton').fadeIn();
+
+    // wishlist page
+    $('.js-product-' + productId).fadeOut();
   }
 
   return {
