@@ -6,10 +6,10 @@
     %span
       = "#{current_user.first_name}, seus produtos favoritos estão aqui!"
 
-  - @wishlist.wished_products.each do |wp|
-    %div.product
+  - @wishlist.products.each do |wp|
+    %div.product{class: "js-product-#{wp.product_id}"}
       %div.img
-        = link_to 'remover', '', :class => 'removeFromWishlist', :title => "Remover dos meus favoritos!", :id => "js-removeFromWishlistButton", :data => {product_id: wp.product_id}
+        = link_to 'remover', '#', :class => 'removeFromWishlist js-removeFromWishlistButton', :title => "Remover dos meus favoritos!", :data => {product_id: wp.product_id}
         - data = get_label_and_class_name(@cart, wp)
         = link_to data[:label], '#', :class => "#{data[:class_name]} js-imgAddToCart", :data => {cart_id: @cart.id, variant: wp.variant.number}
         - product = wp.variant.product
