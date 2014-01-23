@@ -5,8 +5,6 @@ describe RecomendationService do
       @profiles = [FactoryGirl.create(:casual_profile)]
     end
   describe "#products" do
-    subject { described_class.new({ profiles: @profiles }) }
-
     context "when product quantity matters" do
       before do
         4.times do
@@ -17,11 +15,9 @@ describe RecomendationService do
       end
 
       context 'and limit 10 was passed' do
-        subject { described_class.new({ profiles: @profiles, limit: 10 }) }
-        it { expect(subject.products.count).to eq(10) }
+        it { expect(subject.products(limit: 10).count).to eq(10) }
       end
       context 'and no limit was passed' do
-        subject { described_class.new({ profiles: @profiles, limit: 5 }) }
         it { expect(subject.products.count).to eq(5) }
       end
     end
