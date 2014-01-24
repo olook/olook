@@ -1,0 +1,17 @@
+- content_for :head do
+  = stylesheet_link_tag "section/home"
+  %meta{:content => "home", :name => "chaordic:source"}/
+  %meta{:content => @chaordic_user, :name => "chaordic:user"}/
+%section#home
+  %section#looks
+    = render "looks", looks: @looks
+  %section#blogs
+  = render "home/week_highlights"
+  \--------------------------------------------OLD----------------------
+  \#{link_to "Olook na imprensa", press_path, id: "press"}
+  \#{render "home/stylists"}
+  \#{render "home/brands"}
+  .chaordic.rec4you
+  = render "home/boxes"
+  = render "home/products_categories"
+= render partial: 'shared/metrics/criteo/home'
