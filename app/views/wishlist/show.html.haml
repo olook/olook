@@ -6,8 +6,9 @@
     Eu Quero!
     %span
       = "#{current_user.first_name}, seus produtos favoritos estão aqui!"
-
+  %div.noProductWished
   - @wishlist.products.each do |wp|
+    
     %div.product{class: "js-product-#{wp.product_id}"}
       %div.img
         = link_to 'remover', '#', :class => 'removeFromWishlist js-removeFromWishlistButton', :title => "Remover dos meus favoritos!", :data => {product_id: wp.product_id}
