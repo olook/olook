@@ -650,9 +650,8 @@ nav.menu_new{
   .default_new{
     width: 990px;
     margin: 0 auto;
-   position:relative;
-   display: inline-block;
-
+    position:relative;
+    display: inline-block;
     li{
       margin-left: -1px;
       font-size: 10px;
@@ -665,7 +664,7 @@ nav.menu_new{
         border-bottom: 0;
         display: block;
         font-family: arial,verdana,tahoma;
-        height: 28px;
+        height: 32px;
         text-decoration: none;
         color: #fff;
         padding: 0 19px;
