@@ -135,8 +135,8 @@ class PaymentBuilder
 
     def notify_big_billet_sail payment
       Resque.enqueue(NotificationWorker, {
-        to: 'jenny.liu@olook.com.br, rafael@olook.com.br, tiago.almeida@olook.com.br',
-        body: "Pedido acima de 1000 Reais: #{payment.order.number}",
+        to: 'jenny.liu@olook.com.br, rafael@olook.com.br, tiago.almeida@olook.com.br, carol.sampaio@olook.com.br, diogo.silva@olook.com.br',
+        body: "Pedido acima de 1000 Reais: <br>Numero: #{payment.order.number}<br>Valor: #{payment.order.gross_amount}",
         subject: "Pedido acima de mil Reais"
       }) if is_a_big_billet_sail?(payment)
     end
