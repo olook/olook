@@ -41,9 +41,11 @@ $(function() {
             it.removeClass('add_product').addClass('added_product').text('Adicionado');
           }
         });
-
   });
 
+  if ($('.product').size() == 0) {
+    $('.noProductWished').show();
+  }
 
   $('.js-removeFromWishlistButton').click(function(e){
     var it = $(this);
