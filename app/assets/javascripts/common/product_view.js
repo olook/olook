@@ -66,7 +66,7 @@ $(function() {
       $(badge).hide();
       if(inventory <= 3) {
         $(remaining).find("span").text(inventory);
-        $(badge).find("span").text(inventory);
+        $(".js-remaining-badge").text(inventory);
         $(remaining).show();
         $(badge).show();
       }
