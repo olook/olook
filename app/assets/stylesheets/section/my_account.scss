@@ -124,15 +124,15 @@ div#box_title_my_account {
     display: block;
   }
   h1 {
-    font-family: $johnston;
-    font-size: 35px;
+    font-family: $verdana;
+    font-size: 26px;
     letter-spacing: -1px;
     text-transform: uppercase;
     margin: 0 0 5px;
   }
   h2 {
-    font-family: $kepler;
-    font-size: 18px;
+    font-family: $verdana;
+    font-size: 14px;
   }
 }
 
@@ -151,7 +151,7 @@ div#my_account {
         margin: 0 0 15px 0;
         a {
           color: #101010;
-          font-size: 18px;
+          font-size: 15px;
           text-decoration: none;
           text-transform: uppercase;
           padding: 0 17px 0 0;
@@ -606,13 +606,13 @@ div#my_account {
       margin: 30px 0 0 10px;
       h1 {
         font-family: $johnston;
-        font-size: 22px;
+        font-size: 18px;
         text-transform: uppercase;
         margin: 0 0 10px;
       }
       h2 {
         font-family: $avenir;
-        font-size: 22px;
+        font-size: 14px;
         font-weight: lighter;
         span {
           color: $pink;
