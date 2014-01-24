@@ -9,6 +9,10 @@ class ProductDiscountService
   def calculate
     @final_price = best_discount.calculate_for_product(@product, cart: @cart)
   end
+  
+  def calculate_without_promotion_or_coupon
+    @final_price = NoDiscount.new.calculate_for_product(@product, cart: @cart)
+  end
 
   def base_price
     @product.price
