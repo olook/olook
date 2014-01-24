@@ -108,7 +108,7 @@ select_options.empty();
   cartUpdateData.couponDiscountValue = '<%= number_to_currency(@coupon_value) %>';
 <% end %>
 
-if(showTotal) showTotal();
-if(olookApp && olookApp.mediator)
+if(typeof showTotal === 'function') showTotal();
+if(typeof olookApp === 'object' && olookApp.mediator)
   olookApp.mediator.publish('cart.update', cartUpdateData);
 
