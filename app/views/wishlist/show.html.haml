@@ -19,9 +19,10 @@
         = product.name
       %h3
         = product.brand
+      #cart_name{style:'display:none;'}
+        = product.formatted_name(24)
       %div.value
-        R$ 
-        = product.retail_price
+        = number_to_currency product.retail_price
       %ul.size
         - order_variants_by_size(product.variants).each do |variant|
           - if variant.number == wp.variant.number
