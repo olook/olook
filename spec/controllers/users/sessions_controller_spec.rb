@@ -59,16 +59,6 @@ describe Users::SessionsController do
         session[:cart_id] = cart.id
       end
       
-      it "should update gift occassion with user" do
-        post :create, :user => user_params
-        occasion.reload.user_id.should be(controller.current_user.id)
-      end
-
-      it "should update gift recipient with user" do
-        post :create, :user => user_params
-        recipient.reload.user_id.should be(controller.current_user.id)
-      end
-      
       it "should update cart with user" do
         post :create, :user => user_params
         cart.reload.user_id.should be(controller.current_user.id)
@@ -115,13 +105,6 @@ describe Users::SessionsController do
         user.stub(:half_user => false)
         post :create, :user => user_params
         response.should redirect_to(member_showroom_path)
-      end
-    end
-
-    context "when is as half user and is man" do
-      it "should redirect to gift page" do
-        post :create, :user => man_user_params
-        response.should redirect_to(gift_root_path)
       end
     end
 
