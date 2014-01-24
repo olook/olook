@@ -19,7 +19,7 @@ describe Wishlist do
     end
 
     context 'wishlist has the product 123' do
-      let(:wished_product_mock) {OpenStruct.new({product_id: 123})}
+      let(:wished_product_mock) {OpenStruct.new({product_id: 123, is_visible?: true})}
 
       before(:each) do
         wishlist.stub(:wished_products).and_return([wished_product_mock])
@@ -70,7 +70,7 @@ describe Wishlist do
     end
 
     context "wishlist with one variant of product 123" do
-      let(:wished_product) {OpenStruct.new({product_id: '123', variant_number: '123-P'})}
+      let(:wished_product) {OpenStruct.new({product_id: '123', variant_number: '123-P', is_visible?: true})}
       let(:already_added_variant) {OpenStruct.new({number: '123-P', product_id: '123', valid?: true})}
       let(:new_variant) {OpenStruct.new({number: '123-G', product_id: '123', valid?: true})}
 
