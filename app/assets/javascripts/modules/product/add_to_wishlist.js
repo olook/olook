@@ -13,7 +13,7 @@ AddToWishlist = function(){
           olookApp.publish(AddToWishlistSuccessMessage.name, data.message);
         }).fail(function(data){
           if (data.status == 401) {//non authorized
-            window.location.href='/entrar';
+            window.location.href='/entrar/1';
           }
         });
     }
