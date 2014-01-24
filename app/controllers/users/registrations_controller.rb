@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Users::RegistrationsController < Devise::RegistrationsController
-  layout :layout_by_resource
+  layout 'lite_application'
 
   before_filter :check_survey_response, :only => [:new, :create]
   before_filter :authenticate_user!, :only => [:destroy_facebook_account, :edit, :update]

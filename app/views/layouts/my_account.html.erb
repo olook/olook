@@ -1,6 +1,14 @@
 <% content_for :top_my_account do %>
   <%= render "shared/header_default" %>
   <%= render "shared/menu" %>
+  <% unless registration_for_checkout? %>
+    <div id="box_title_my_account">
+      <div class="content">
+        <h1>Minha conta</h1>
+        <h2>Edite suas informações pessoais, altere ou adicione endereços, melhore sua vitrine e acompanhe seus pedidos</h2>
+      </div>
+    </div>
+  <% end %>
 <% end %>
 
 <% content_for :content do %>
