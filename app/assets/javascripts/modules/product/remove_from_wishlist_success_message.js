@@ -7,6 +7,11 @@ RemoveFromWishlistSuccessMessage = function(){
 
     // wishlist page
     $('.js-product-' + productId).fadeOut();
+    $('.js-product-' + productId).remove();
+    
+    if ($('.product').size() == 0) {
+      $('.noProductWished').show();
+    }
 
     if($(".js-full-wishlist-box").size() == 1 && parseInt($(".js-product-count").text()) == 1){
       $('.js-full-wishlist-box').addClass('wishlist').removeClass('wishlistHasProduct').removeClass('js-full-wishlist-box').addClass('js-empty-wishlist-box');
