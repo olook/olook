@@ -4,24 +4,22 @@
   <meta name="chaordic:user" content="<%= @chaordic_user %>">
 <% end %>
 
-<% content_for :footer do %>
-  <%= javascript_include_tag "home" %>
-<% end %>
-
 <section id="home">
-  <ul class="warnings">
-    <li class=""><%= image_tag 'home/topo_novo_revisao_frete_3.png', :class => '', style:"" %></li>
-  </ul>
-  <%= render "home/carousel" %>
   <%= render "home/week_highlights" %>
+
+
+
+
+--------------------------------------------OLD----------------------
   <%= link_to "Olook na imprensa", press_path, id: "press" %>
   <%= render "home/stylists" %>
   <%= render "home/brands" %>
-  <!-- <div class="chaordic mostpopular" data-skin="MP-top-5"></div> -->
   <div class="chaordic rec4you"></div>
   <%= render "home/boxes" %>
   <%= render "home/products_categories" %>
 </section>
 
 <%= render partial: 'shared/metrics/criteo/home' %>
-<%#= render partial: 'shared/metrics/triggit/home' %>
+<% content_for :footer do %>
+  <%= javascript_include_tag "home" %>
+<% end %>
