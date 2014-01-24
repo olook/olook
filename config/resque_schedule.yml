@@ -1,3 +1,9 @@
+update_birthday_base:
+  cron: "0 5 * * *"
+  class: MarketingBaseUploaderWorker
+  queue: marketing_uploader
+  description: "Atualiza a base de aniversariantes na ExactTarget"
+
 update_sitemap:
   cron: "0 3 * * *"
   class: SitemapWorker
@@ -29,7 +35,7 @@ update_ses_info:
   description: "Atualiza a tabela ses com as informações "
 
 update_inventory:
-  cron: "*/30 * * * *"
+  cron: "*/5 * * * *"
   class: Abacos::UpdateInventory
   queue: inventory
   description: "Atualiza o Inventario"
