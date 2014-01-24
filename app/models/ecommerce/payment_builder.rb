@@ -94,9 +94,9 @@ class PaymentBuilder
       end
     end
 
-    rescue Exception => error
-      ErrorNotifier.send_notifier(@gateway_strategy.class, error, payment)
-      respond_with_failure
+  rescue Exception => error
+    ErrorNotifier.send_notifier(@gateway_strategy.class, error, payment)
+    respond_with_failure
   end
 
   private
@@ -134,11 +134,15 @@ class PaymentBuilder
     end
 
     def notify_big_billet_sail payment
+      order = payment.order
+      quantity = order.line_items.inject(0){|total, item| total += item.quantity}
+      to = %w(jenny.liu rafael.manoel tiago.almeida carol.sampaio diogo.silva).map{|s| "#{s}@olook.com.br"}.join(",")
+
       Resque.enqueue(NotificationWorker, {
-        to: 'jenny.liu@olook.com.br, claira.zambon@olook.com.br, rafael@olook.com.br, tiago.almeida@olook.com.br',
-        body: "Pedido acima de 1000 Reais: #{payment.order.number}",
+        to: to,
+        body: "Pedido acima de 1000 Reais. \nNumero: #{order.number} \nValor: #{order.gross_amount} \nQuantidade: #{quantity}",
         subject: "Pedido acima de mil Reais"
-      }) if is_a_big_billet_sail?(payment)     
+      }) if is_a_big_billet_sail?(payment)
     end
 
     def is_a_big_billet_sail?(payment)
