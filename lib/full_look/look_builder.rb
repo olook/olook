@@ -17,8 +17,6 @@ module FullLook
       'colete',
       'macacao',
       'regata',
-      'saia',
-      'shorts',
       'top cropped',
       'vestido'
     ]
