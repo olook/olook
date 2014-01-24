@@ -1,5 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Users::SessionsController < Devise::SessionsController
+
+  FROM_WISHLIST = "1"
+
   layout :layout_by_resource
 
   after_filter :create_sign_in_event, :only => :create
@@ -17,6 +20,12 @@ class Users::SessionsController < Devise::SessionsController
 
   def new
     resource = build_resource({})
+
+    if params[:id] == FROM_WISHLIST
+      flash[:notice] = "Entre para poder adicionar um item a sua lista de favoritos."
+    end
+
+
     unless flash[:alert].nil?
       flash[:alert] = nil
       resource.errors.add(" ", I18n.t('devise.failure.invalid'))

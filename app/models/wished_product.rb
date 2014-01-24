@@ -11,4 +11,8 @@ class WishedProduct < ActiveRecord::Base
   def variant_number
     variant.number
   end
+
+  def is_visible?
+    variant.product.is_visible?
+  end
 end
