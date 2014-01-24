@@ -29,8 +29,7 @@
 
   .box-left
     #gallery
-      = cache "pics/#{@product.id}", expire_in: 30.minutes do
-        = product_presenter.render_pics
+      = product_presenter.render_pics
       = product_presenter.render_facebook_comments
   .box-right
     #product-details
