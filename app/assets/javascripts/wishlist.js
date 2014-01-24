@@ -11,7 +11,13 @@ $(function() {
     var it = $(this);
     var cartId = it.data('cart-id');
     var variantId = it.data('variant');
-    
+
+    var imageUrl = $(this).parent().find('.async').data('product').replace("catalog", "thumb");
+    var quantity = "1";
+    var size = $(this).parent().parent().find('ul li').html().trim();
+    var price = $(this).parent().parent().find('.value').html().trim();
+    var cartName = $(this).parent().parent().find('#cart_name').html().trim();
+
     if (it.hasClass('added_product') || it.hasClass('soldOut')) {
       e.preventDefault();
       return false;
@@ -22,6 +28,15 @@ $(function() {
         'url': '/sacola/' + cartId,
         'data': {'variant_numbers[]': variantId},
         'success': function(data) {
+          if($(".empty_cart").size() > 0){
+            $("#cart_summary .scroll ul").html("");
+            $(".cart").addClass("full");
+
+          }
+          $("#cart_summary .scroll ul").prepend("<li data-id='"+variantId+"' class='product_item'><img title='"+cartName+"' src='"+imageUrl+"'><h1>"+cartName+"</h1><p class='size'>Tamanho: "+size+"</p><p class='qte'>Quantidade:<span>1</span></p><p class='price'>"+price+"</p></li>");
+          var cartItemNumber = parseInt($(".cart span #cart_items").html().replace("itens","").replace("item","").trim()) + 1;
+          var cartItemText = cartItemNumber+" "+(cartItemNumber == 1 ? "item" : "itens");
+          $(".cart span #cart_items").html(cartItemText);
           // triggers an event to update the minicart and change the class of the product added
             it.removeClass('add_product').addClass('added_product').text('Adicionado');
           }
