@@ -10,14 +10,15 @@
     float: left;
     > h1 {
       font-family: $johnston;
-      font-size: 34px;
+      font-size: 24px;
       text-transform: uppercase;
       display: block;
       margin: 0 0 20px;
+      padding-top:10px
     }
     h2 {
       font-family: $kepler;
-      font-size: 20px;
+      font-size: 16px;
       width: 100%;
       margin: 0 0 25px;
       .txtpink{color: $pink;
@@ -77,10 +78,11 @@
   margin: 0 auto 0 10px;
   h1 {
     font-family: $avenir;
-    font-size: 29px;
+    font-size: 24px;
     text-transform: uppercase;
     display: block;
     margin-bottom: 20px;
+    padding-top:10px;
   }
   ul {
     width: 100%;

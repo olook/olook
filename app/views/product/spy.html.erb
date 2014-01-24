@@ -1,7 +1,6 @@
 <% if request.xhr? %>
   <script type="text/javascript" charset="utf-8">
     $.getScript('<%= javascript_path('product') %>');
-    $.getScript('<%= javascript_path('product') %>');
   </script>
 <% else %>
     <%= stylesheet_link_tag 'common/product_details' %>

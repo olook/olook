@@ -38,6 +38,7 @@ class Checkout::CheckoutController < Checkout::BaseController
 
     response = payment_builder.process!
     if response.status == Payment::SUCCESSFUL_STATUS
+      clean_wishlist!
       clean_cart!
       return redirect_to(order_show_path(:number => response.payment.order.number))
     else

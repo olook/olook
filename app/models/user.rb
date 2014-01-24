@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_one :tracking, :dependent => :destroy
   has_many :user_credits
   has_many :credits
+  has_one :wishlist
 
   before_create :generate_invite_token
   after_create :initialize_user, :update_campaign_email
@@ -58,6 +59,7 @@ class User < ActiveRecord::Base
   RegisteredVia = {:quiz => 0, :gift => 1, :thin => 2}
 
   after_create :save_data_from_session
+
 
   def cpf=(val)
     write_attribute(:cpf, val.to_s.gsub(/\D/,""))
