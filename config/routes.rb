@@ -3,6 +3,10 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+  resources :wished_products, only: [:create, :destroy]
+
+  get "/wishlist", to: 'wishlist#show', as: 'wishlist'
+
   get "/revenda/confirmacao", to: 'reseller#show', as: 'reseller_show'
   post "/revenda", to: "reseller#create", as: 'reseller_create'
   get "/revenda", to: "reseller#new", as: 'reseller_new'
@@ -421,7 +425,7 @@ Olook::Application.routes.draw do
   #USER / SIGN IN
 
   devise_for :users, :path => 'conta', :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "users/registrations", :sessions => "users/sessions" } do
-    get '/entrar' => 'users/sessions#new', :as => :new_user_session
+    get '/entrar/:id' => 'users/sessions#new', :as => :new_user_session
     post '/entrar' => 'users/sessions#create', :as => :user_session
     delete '/logout' => 'users/sessions#destroy', :as => :destroy_user_session
     get '/registrar' => "users/registrations#new_half", :as => :new_half_user_session

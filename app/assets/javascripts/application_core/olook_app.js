@@ -1,6 +1,7 @@
 //= require mediator
 //= require_self
 //= require application_core/scroll_events
+//= require string_utils
 
 /* A classe-namespace. Objetos desta classe devem conter a instancia do mediator.
  * Alternativamente, podemos tambem criar metodos que tem como objetivo desacoplar o codigo de bibliotecas de manipulacao de
