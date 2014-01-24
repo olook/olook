@@ -43,6 +43,7 @@ module FullLook
         look[:launched_at] = master_product.launch_date
         look[:profile_id] = LookProfileCalculator.calculate(struc[:products], category_weight: category_weight)
         begin
+          Rails.logger.debug("Criando look")
           Look.build_and_create(look)
         rescue Exception => e
          Rails.logger.error("#{ e.class}: #{e.message} \n #{ e.backtrace.join("\n")}")
@@ -79,6 +80,7 @@ module FullLook
 
     def normalize_products(products)
       products.inject({}) do |h, rp|
+        Rails.logger.debug("Normalizando rp")
         h[rp.product_a_id] ||= {
           master_product: rp.product_a,
           products: [rp.product_a],
