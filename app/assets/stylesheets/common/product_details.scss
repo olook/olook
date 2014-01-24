@@ -78,8 +78,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       margin-bottom: 20px;
       background: image-url('common/nav/sprite_header.png') #fff no-repeat 8px -333px;
       padding:4px 0 0 16px;
-      position: absolute;
-      top: 116px;
+      position: absolute;left:-10px;top:8px;
       color:#000;
       text-decoration: underline;
       text-align: right;
@@ -137,13 +136,14 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
     }
     .division {border-top:solid 1px #C2C2C2;padding-top:20px;margin-top:20px;}
     .social-media-box{
+      position:  relative;
       overflow:visible;
       border-top:solid 1px #C2C2C2;
       border-bottom:solid 1px #C2C2C2;
       padding-top:8px;
       height:40px;
       margin:20px 0;
-      .has_bt_face{height:22px;position:relative;left:108px;}
+      .has_bt_face{height:22px;position: absolute;right:-125px;top:8px;}
       ul.social-list {float:left; width:417px;margin-top:5px;
         li {padding:0;margin-right: 10px;display:inline-block;
           &.like{margin-right: 4px !important;margin-left: 15px;}
