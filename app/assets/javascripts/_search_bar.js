@@ -7,6 +7,7 @@ olook.perform_search = function() {
 };
 
 $(function() {
+  console.log("loading searchbar...");
   $("#search_product").click(function(e){
     this.value = "";
     $(this).removeClass('default').addClass('enabled');
@@ -27,4 +28,5 @@ $(function() {
         $("#search_form").submit();
       }
   }).parents('form').submit(olook.perform_search);
+  console.log("searchbar loaded.");
 });
