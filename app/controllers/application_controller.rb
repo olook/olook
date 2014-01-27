@@ -218,10 +218,7 @@ class ApplicationController < ActionController::Base
 
     def prepare_for_home
       Rails.logger.debug('ApplicationController#prepare_for_home')
-      @top5 = Product.fetch_products :top5
-      @stylist = Product.fetch_products :selection
-      @highlights = Highlight.highlights_to_show HighlightType::CAROUSEL
-      @weekly_highlights = Highlight.highlights_to_show HighlightType::WEEKLY
+      @highlights = Highlight.all
 
       if params[:share]
         @user = User.find(params[:uid])
