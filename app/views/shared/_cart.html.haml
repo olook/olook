@@ -16,7 +16,7 @@
             = @cart.coupon.desc_value
             de desconto.
             Aproveite! ;)
-      = content_tag(:li, content_tag(:p, "Sua sacola está vazia :(<br />Navegue em nosso site e mude isso já!".html_safe, class: 'empty_cart'), class: "product_item") if !@cart || @cart.items.blank?
+      = content_tag(:li, content_tag(:p, "Sua sacola está vazia :(<br />Navegue no site e mude isso já!".html_safe, class: 'empty_cart'), class: "product_item") if !@cart || @cart.items.blank?
       - @cart && @cart.items.each do |item|
         = render partial: 'shared/cart_line_item', locals: {item: item, hidden: false}
       %li.last{:style => "display:none"} &nbsp;

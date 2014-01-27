@@ -3,6 +3,15 @@ olook.spy = function(selector){
   $(selector).click(function(e){
     e.preventDefault();
     var url = $(this).data('url');
+    if(_gaq){
+      var source = url.match(/from=(\w+)/);
+      if(source){
+        source = source[1];
+      } else {
+        source = 'Product';
+      }
+      _gaq.push(['_trackEvent', source, 'clickOnSpyProduct', url.replace(/\D/g, '')]);
+    }
     $.ajax({
       url: url,
       cache: 'true',
