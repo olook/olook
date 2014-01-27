@@ -23,7 +23,7 @@ $(function() {
       return false;
     }
     
-    gaq.push(['_trackEvent', 'wishlist', 'add', productId, , true]);
+    _gaq.push(['_trackEvent', 'wishlist', 'add', productId, , true]);
 
     $.ajax({
         'type': 'put',
@@ -52,8 +52,7 @@ $(function() {
   $('.js-removeFromWishlistButton').click(function(e){
     var it = $(this);
     var productId = it.data('product-id');
-    
-    gaq.push(['_trackEvent', 'wishlist', 'remove', productId, , true]);
+    _gaq.push(['_trackEvent', 'wishlist', 'remove', productId, , true]);
 
     olookApp.mediator.publish(RemoveFromWishlist.name, productId);
     e.preventDefault();
