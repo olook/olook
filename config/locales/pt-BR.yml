@@ -369,8 +369,8 @@
         other: Campanhas
 
       highlight:
-        one: Destaque
-        other: Destaques
+        one: Banner da Home
+        other: Banners da Home
 
       highlight_campaign:
         one: Campanha com destaque
