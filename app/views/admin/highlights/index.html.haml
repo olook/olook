@@ -1,27 +1,30 @@
 %h1= I18n.t("activerecord.models.highlight.other")
+
+%div.inner
+
+= link_to 'Novo destaque', new_admin_highlight_path
+
 %div.inner
   %table.table
     %tr
+      %th Posição
       %th Imagem
       %th Título
       %th SubTítulo
       %th Link
-      %th Posição
       %th
       %th
       %th
 
     - @highlights.each do |highlight|
       %tr
+        %td= highlight.position
         %td= image_tag highlight.image_url(:thumb)
         %td= highlight.title
         %td= highlight.subtitle
         %td= highlight.link
-        %td= highlight.position
         %td= link_to 'Exibir', [:admin, highlight]
         %td= link_to 'Editar', edit_admin_highlight_path(highlight)
         %td= link_to 'Apagar', [:admin, highlight], :method => :delete, :data => { :confirm => 'Tem certeza ?' }
 
   %br
-
-= link_to 'Novo destaque', new_admin_highlight_path
