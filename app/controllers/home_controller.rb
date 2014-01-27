@@ -8,8 +8,8 @@ class HomeController < ApplicationController
     @recommendation = RecommendationService.new(profiles: current_user.try(:profiles))
     @looks = @recommendation.full_looks(limit: 4)
 
+    @products = []
     if current_user
-      @products = []
       categories = [
         Category::CLOTH,
         Category::SHOE,
@@ -21,7 +21,7 @@ class HomeController < ApplicationController
       end.flatten
       categories.cycle do |category_id|
         break if products.empty? || @products.size >= 18
-        p = products.find { |_p| _p.category_id == category_id }
+        p = products.find { |_p| _p.category == category_id }
         if p
           @products.push(p)
           products.delete(p)

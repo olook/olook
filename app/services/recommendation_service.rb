@@ -1,6 +1,6 @@
 class RecommendationService
 
-  DAYS_AGO_TO_CONSIDER_NEW = 30
+  DAYS_AGO_TO_CONSIDER_NEW = 450
 
   def initialize(opts = {})
     @profiles = opts[:profiles]
