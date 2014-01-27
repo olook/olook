@@ -1,4 +1,5 @@
 //= require state_cities
+//= require plugins/cep
 //= require plugins/jquery.meio.mask.js
 
 if(!states_and_cities) var states_and_cities = {};
@@ -22,13 +23,26 @@ function maskTel(tel){
 }
 
 $(function() {
+  olook.cep('.zip_code', {
+    estado: '#address_state',
+    cidade: '#address_city',
+    rua: '#address_street',
+    bairro: '#address_neighborhood',
+    applyHtmlTag: true,
+    afterFail: function(){
+      new dgCidadesEstados({
+        cidade: document.getElementById(context.cidade.replace('#', '')),
+        estado: document.getElementById(context.estado.replace('#', ''))
+      });
+    }
+  });
   states_and_cities.load_state_cities();
   maskTel($("#address_telephone"));
   $("#address_telephone").keyup(function(){
-      maskTel(tel);
-    });;
+    maskTel($("#address_telephone"));
+  });;
   maskTel($("#address_mobile"));
   $("#address_mobile").keyup(function(){
-      maskTel(tel);
-    });;
+      maskTel($("#address_mobile"));
+  });;
 });
