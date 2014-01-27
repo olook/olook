@@ -21,12 +21,12 @@ class MenuPresenter < BasePresenter
 
   def render_menu(mobile=false)
     @mobile = mobile
-    [showroom, stylist, collection_themes, categories, brands, gift, liquidation].join.html_safe
+    [newest, stylist, collection_themes, categories, brands, gift, liquidation].join.html_safe
   end
 
   private
-  def showroom
-    render_item("Minha Vitrine", h.member_showroom_path, "showroom", ["members#showroom"], 'mega_menu/showroom')
+  def newest
+    render_item("Novidades", h.newest_path, "showroom", ["list_products/newest_products#index"], 'mega_menu/showroom')
   end
 
   def brands
