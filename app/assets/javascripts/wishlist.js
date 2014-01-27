@@ -7,10 +7,10 @@ $(function() {
 
 
   $('.js-imgAddToCart').click(function(e){
-
     var it = $(this);
     var cartId = it.data('cart-id');
     var variantId = it.data('variant');
+    var productId = it.data('product-id');
 
     var imageUrl = $(this).parent().find('.async').data('product').replace("catalog", "thumb");
     var quantity = "1";
@@ -22,6 +22,8 @@ $(function() {
       e.preventDefault();
       return false;
     }
+    
+    _gaq.push(['_trackEvent', 'wishlist', 'add', productId, , true]);
 
     $.ajax({
         'type': 'put',
@@ -50,6 +52,8 @@ $(function() {
   $('.js-removeFromWishlistButton').click(function(e){
     var it = $(this);
     var productId = it.data('product-id');
+    _gaq.push(['_trackEvent', 'wishlist', 'remove', productId, , true]);
+
     olookApp.mediator.publish(RemoveFromWishlist.name, productId);
     e.preventDefault();
   });

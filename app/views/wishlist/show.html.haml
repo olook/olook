@@ -21,7 +21,7 @@
         = product.brand
       #cart_name{style:'display:none;'}
         = product.formatted_name(24)
-      %div.value
+      %div{:class => "value#{' discounted-price' if product.promotion?}"}
         = number_to_currency product.retail_price
       %ul.size
         - order_variants_by_size(product.variants).each do |variant|
