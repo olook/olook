@@ -8,12 +8,6 @@
 //= require plugins/image_loader
 //= require plugins/spy
 //= require_tree ./modules/complete_look
-
-$(function(){
-  initProduct.loadAll();
-  olook.spy('.spy');
-});
-
 initProduct = {
   gotoRelatedProduct :function() {
     $('a#goRelatedProduct').live('click', function(e) {
@@ -171,3 +165,21 @@ initProduct = {
 }
 
 initProduct.loadAddToCartForm();
+
+
+$(function(){
+
+  initProduct.loadAll();
+  olook.spy('.spy');
+
+
+  $('#js-addToWishlistButton').click(function(){
+    olookApp.mediator.publish(AddToWishlist.name);
+  });
+
+  $('#js-removeFromWishlistButton').click(function(){
+    var productId = $(this).data('product-id');
+    olookApp.mediator.publish(RemoveFromWishlist.name, productId);
+  });
+
+});
