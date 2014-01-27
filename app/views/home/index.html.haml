@@ -5,7 +5,7 @@
 %section#home
   %section#looks
     - @looks.each do |look|
-      = link_to(image_tag(look.front_picture.showroom.url), product_path(look.product))
+      = link_to(image_tag(look.front_picture.showroom.url, data: { hover: look.full_look_picture.showroom.url }, class: 'js-change-pic-onhover'), product_path(look.product))
   %section#blogs
   = render "home/week_highlights"
   \--------------------------------------------OLD----------------------
