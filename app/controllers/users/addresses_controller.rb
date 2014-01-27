@@ -17,8 +17,6 @@ class Users::AddressesController < ApplicationController
   end
 
   def create
-    params[:address][:country] = 'BRA'
-    
     @address = @user.addresses.build(params[:address])
     if @address.save
       redirect_to(user_addresses_path)
