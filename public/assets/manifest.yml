@@ -1848,8 +1848,8 @@ welcome/press.png: welcome/press-b290d160d6b04c9b8de41473a787840a.png
 welcome/press/index.png: welcome/press-b290d160d6b04c9b8de41473a787840a.png
 _search_bar.js: _search_bar-d2ba8d1b1d2bf973d7d04e5aed5fe137.js
 _search_bar/index.js: _search_bar-d2ba8d1b1d2bf973d7d04e5aed5fe137.js
-addresses.js: addresses-c81646bd6cde96b29d847dad92376d5b.js
-addresses/index.js: addresses-c81646bd6cde96b29d847dad92376d5b.js
+addresses.js: addresses-36c60c34d0185f9fad6cfb83a950baa3.js
+addresses/index.js: addresses-36c60c34d0185f9fad6cfb83a950baa3.js
 admin.js: admin-656995ccf3ad48543e43055921a45884.js
 admin/index.js: admin-656995ccf3ad48543e43055921a45884.js
 admin/bootstrap.js: admin/bootstrap-142c4cbd713d4a86bb9b4ab506d57a15.js
