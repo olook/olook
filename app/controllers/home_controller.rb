@@ -6,7 +6,8 @@ class HomeController < ApplicationController
     @google_path_pixel_information = "Home"
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     @recommendation = RecommendationService.new(profiles: current_user.try(:profiles)) 
-    @looks = @recom.full_looks(limit: 4)
+    @looks = @recommendation.full_looks(limit: 4)
+
     prepare_for_home
   end
 
