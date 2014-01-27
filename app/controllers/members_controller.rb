@@ -87,7 +87,7 @@ class MembersController < ApplicationController
       @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
     end
 
-    @recommended = RecomendationService.new(profiles: current_user.profiles)
+    @recommended = RecommendationService.new(profiles: current_user.profiles)
     admin = current_admin.present?
     # This is needed becase when we turn the month collection we never have cloth
     # cloth_ids = cloth_ids_by_profile current_user.profile

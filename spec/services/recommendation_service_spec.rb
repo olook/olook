@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe RecomendationService do
+describe RecommendationService do
   subject { described_class.new({ profiles: @profiles }) }
   before do
     @profiles = [FactoryGirl.create(:casual_profile)]
