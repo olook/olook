@@ -38,7 +38,7 @@ $(document).ready(function() {
   });
   $('a.trade').click(function(ev){
     window.open('http://olook.neoassist.com/?th=troca&action=new',
-    'Continue_to_Application','width=650,height=800');
+    'Continue_to_Application','width=650,height=800,scrollbars=1');
     ev.preventDefault();
     return false;
   });
