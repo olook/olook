@@ -3,16 +3,36 @@
   %meta{:content => "home", :name => "chaordic:source"}/
   %meta{:content => @chaordic_user, :name => "chaordic:user"}/
 %section#home
-  %section#looks
-    - @looks.each do |look|
-      = link_to(image_tag(look.front_picture.showroom.url, data: { hover: look.full_look_picture.showroom.url }, class: 'js-change-pic-onhover'), product_path(look.product))
-  %section#blogs
-  = render "home/week_highlights"
-  \--------------------------------------------OLD----------------------
-  \#{link_to "Olook na imprensa", press_path, id: "press"}
-  \#{render "home/stylists"}
-  \#{render "home/brands"}
-  .chaordic.rec4you
-  = render "home/boxes"
-  = render "home/products_categories"
-= render partial: 'shared/metrics/criteo/home'
+  #banner
+    .column
+      =image_tag "home/trash/img_small.jpg"
+      =image_tag "home/trash/img_small.jpg"
+      %h2 
+        Maxi Colares
+        %span Fique na moda!
+    .column.big
+      =image_tag "home/trash/img_big.jpg"
+      %h2 
+        Tendência all jeans
+        %span Abuse das misturas para arrasar neste verão com as peças mais lindas da Olook
+    .column
+      =image_tag "home/trash/img_medium.jpg"
+      %h2 
+        Moda Praia
+        %span Como ficar linda!
+  #looks
+    %h3
+      meus looks
+      =link_to "consulte seu perfil", "teste"
+    .mylook
+      .look
+        =image_tag "home/trash/look1.jpg"
+      .look
+        =image_tag "home/trash/look2.jpg"
+      .look
+        =image_tag "home/trash/look3.jpg"
+      .look.last
+        =image_tag "home/trash/look4.jpg"
+  #see_too
+    %h4
+      Veja Também
