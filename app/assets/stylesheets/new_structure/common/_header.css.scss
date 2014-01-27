@@ -409,6 +409,7 @@ header#new_header{border-top: 2px black solid;
   position: relative;
   clear:both;
   float:right;
+
   #search_product{
     float: left;
     border: solid 1px #000;
@@ -418,13 +419,24 @@ header#new_header{border-top: 2px black solid;
     width: 475px;
     height: 35px;
     line-height: 29px;
-    color: #000;
     text-align: left;
     padding-left: 10px;
     padding-right: 40px;
-    text-transform: capitalize;
     margin-right: 20px;
   }
+
+  .default {
+    color: #CDCDCD;
+    font-style: italic;
+    text-transform: none;
+  }
+
+  .enabled {
+    color: #000;
+    font-style: normal;
+    text-transform: capitalize;
+  }
+
   input[type="submit"]{
     position: absolute;
     background: image-url('common/nav/sprite_header.png') -165px -147px;

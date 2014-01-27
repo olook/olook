@@ -7,6 +7,11 @@ olook.perform_search = function() {
 };
 
 $(function() {
+  $("#search_product").click(function(e){
+    this.value = "";
+    $(this).removeClass('default').addClass('enabled');
+  });
+
   $("#search_product").keypress(function(e) {
     if (e.which == 13) {
       $(this).parents('form').submit();
