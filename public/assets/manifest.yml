@@ -424,6 +424,8 @@ common/banner/bg-banner-pink.png: common/banner/bg-banner-pink-fac34191446a3ee22
 common/banner/bg-banner-pink/index.png: common/banner/bg-banner-pink-fac34191446a3ee22110e83ef24f35af.png
 common/banner_educativo_mp.jpg: common/banner_educativo_mp-55e506bdeb8f0ebeedffd044d8962ca8.jpg
 common/banner_educativo_mp/index.jpg: common/banner_educativo_mp-55e506bdeb8f0ebeedffd044d8962ca8.jpg
+common/banner_mgm_B.jpg: common/banner_mgm_B-09f1b2baacb0ce0876656948a336abd1.jpg
+common/banner_mgm_B/index.jpg: common/banner_mgm_B-09f1b2baacb0ce0876656948a336abd1.jpg
 common/bg-content-half-user.jpg: common/bg-content-half-user-c49dc3bc33dc196566f09b07ccd77269.jpg
 common/bg-content-half-user/index.jpg: common/bg-content-half-user-c49dc3bc33dc196566f09b07ccd77269.jpg
 common/bg-day.png: common/bg-day-d6eb1e6c3d962bab8b49e491ec8538b8.png
@@ -1712,8 +1714,8 @@ showroom/arrow-prev.png: showroom/arrow-prev-ea5159ac2b858c92b546e28131be9a27.pn
 showroom/arrow-prev/index.png: showroom/arrow-prev-ea5159ac2b858c92b546e28131be9a27.png
 showroom/arrows.png: showroom/arrows-e0fe6e2f608b9461850f892f71648b88.png
 showroom/arrows/index.png: showroom/arrows-e0fe6e2f608b9461850f892f71648b88.png
-showroom/banner.png: showroom/banner-3c3bd8e685cfc4b05b3ccd2893b4defe.png
-showroom/banner/index.png: showroom/banner-3c3bd8e685cfc4b05b3ccd2893b4defe.png
+showroom/banner.png: showroom/banner-58a10e1f53a1b4250714fa406ab3986f.png
+showroom/banner/index.png: showroom/banner-58a10e1f53a1b4250714fa406ab3986f.png
 showroom/banner_marcos_proenca.jpg: showroom/banner_marcos_proenca-47de0d6d7380e2fc78abbfc6596ca336.jpg
 showroom/banner_marcos_proenca/index.jpg: showroom/banner_marcos_proenca-47de0d6d7380e2fc78abbfc6596ca336.jpg
 showroom/bg-minus.jpg: showroom/bg-minus-a256371097e9599eb68e74db6092e88e.jpg
@@ -1952,8 +1954,8 @@ lite_application.js: lite_application-96d505c9c84e579ecdf7fc08b70cc6f2.js
 lite_application/index.js: lite_application-96d505c9c84e579ecdf7fc08b70cc6f2.js
 lite_base.js: lite_base-2576659093d5d54c18afaa69dccf36ad.js
 lite_base/index.js: lite_base-2576659093d5d54c18afaa69dccf36ad.js
-members.js: members-2d239a08283cc5e5ab6dbfc4ded92ca2.js
-members/index.js: members-2d239a08283cc5e5ab6dbfc4ded92ca2.js
+members.js: members-a64a344650c9b45808920a6e1ec41409.js
+members/index.js: members-a64a344650c9b45808920a6e1ec41409.js
 modules/complete_look/complete_look.js: modules/complete_look/complete_look-4afa9291f2ac4d20b92fac591846631b.js
 modules/complete_look/complete_look/index.js: modules/complete_look/complete_look-4afa9291f2ac4d20b92fac591846631b.js
 modules/complete_look/minicart_box_display_updater.js: modules/complete_look/minicart_box_display_updater-a449f5cddbfdda09790b9bbf1e8dfce0.js
@@ -2316,8 +2318,8 @@ section/home.css: section/home-55c1cc36493fc7c2846bc34af4a5e334.css
 section/home/index.css: section/home-55c1cc36493fc7c2846bc34af4a5e334.css
 section/how_to.css: section/how_to-fc0db3e7012ead06f1e07f860416b93b.css
 section/how_to/index.css: section/how_to-fc0db3e7012ead06f1e07f860416b93b.css
-section/invite.css: section/invite-aa14523bce5888fbd4ac0969cbac284e.css
-section/invite/index.css: section/invite-aa14523bce5888fbd4ac0969cbac284e.css
+section/invite.css: section/invite-84d35be85eb4508a0e96c462dda3b77d.css
+section/invite/index.css: section/invite-84d35be85eb4508a0e96c462dda3b77d.css
 section/landing.css: section/landing-2c2e17f7092b106f13de2f62b988aaf2.css
 section/landing/index.css: section/landing-2c2e17f7092b106f13de2f62b988aaf2.css
 section/liquidations.css: section/liquidations-c53e1ebdbd4fddbe971d3bb7dac1de14.css
