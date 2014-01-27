@@ -6,8 +6,11 @@
   %section#looks
     - @looks.each do |look|
       = link_to(image_tag(look.front_picture.showroom.url, data: { hover: look.full_look_picture.showroom.url }, class: 'js-change-pic-onhover'), product_path(look.product))
+  %section#products
+    - @products.each do |product|
+      = render 'shared/lite_product_item', product: product
+
   %section#blogs
-  = render "home/week_highlights"
   \--------------------------------------------OLD----------------------
   \#{link_to "Olook na imprensa", press_path, id: "press"}
   \#{render "home/stylists"}
