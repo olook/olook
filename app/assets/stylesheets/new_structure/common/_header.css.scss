@@ -348,9 +348,9 @@ header#new_header{border-top: 2px black solid;
       a.finish {
         padding-top: 20px;
         display: block;
-        width: 120px;
+        width: 130px;
         height: 16px;
-        font-size:9px;
+        font-size:10px;
         line-height:0;
         margin-top:16px;
         margin-left: auto;
@@ -360,11 +360,11 @@ header#new_header{border-top: 2px black solid;
         text-transform: uppercase;
         padding-left: 14px;
         padding-right: 14px;
-        font-weight: lighter;
         padding-bottom: 3px;
+        letter-spacing: 2px;
         @include bt_color($primary_bt_color, $primary_bt_color_hover);
       }
-      a.finish:hover {width: 120px; height: 16px; color: #fff;padding-left: 14px;padding-right: 14px;color: #fff !important;}
+      a.finish:hover {width: 130px; height: 16px; color: #fff;padding-left: 14px;padding-right: 14px;color: #fff !important;}
   }
   .coupon_warn {
     display: block;
@@ -409,6 +409,7 @@ header#new_header{border-top: 2px black solid;
   position: relative;
   clear:both;
   float:right;
+
   #search_product{
     float: left;
     border: solid 1px #000;
@@ -418,13 +419,24 @@ header#new_header{border-top: 2px black solid;
     width: 475px;
     height: 35px;
     line-height: 29px;
-    color: #000;
     text-align: left;
     padding-left: 10px;
     padding-right: 40px;
-    text-transform: capitalize;
     margin-right: 20px;
   }
+
+  .default {
+    color: #CDCDCD;
+    font-style: italic;
+    text-transform: none;
+  }
+
+  .enabled {
+    color: #000;
+    font-style: normal;
+    text-transform: capitalize;
+  }
+
   input[type="submit"]{
     position: absolute;
     background: image-url('common/nav/sprite_header.png') -165px -147px;
