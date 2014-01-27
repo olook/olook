@@ -2,7 +2,6 @@
   <h1><span>//</span>Veja os destaques da semana<span>//</span></h1>
   <ul>
   <% POST_RETRIEVER_SERVICE.retrieve_posts.each_with_index do |post, index| %>
-  <%# @weekly_highlights.each_with_index do |weekly_highlight, index| %>
     <li id="about">
       <%= link_to post[:link], class: "open_making_of", onclick: track_event('Destaques',"Banner#{index + 1}", post[:link]) do %>
         <%= image_tag post[:img_old_home], title: "destaque semanal" %>

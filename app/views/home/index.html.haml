@@ -8,8 +8,8 @@
 %section#home
   #banner
     .column
-      =image_tag "home/trash/img_small.jpg"
-      =image_tag "home/trash/img_small.jpg"
+      - left_highlight = @highlights.select{|h| h.position == 2}.first
+      =image_tag left_highlight.left_image
       %h2 
         Maxi Colares
         %span Fique na moda!
@@ -19,7 +19,8 @@
         Tendência all jeans
         %span Abuse das misturas para arrasar neste verão com as peças mais lindas da Olook
     .column
-      =image_tag "home/trash/img_medium.jpg"
+      - right_highlight = @highlights.select{|h| h.position == 3}.first
+      =image_tag right_highlight.right_image
       %h2 
         Moda Praia
         %span Como ficar linda!

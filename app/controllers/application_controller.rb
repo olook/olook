@@ -218,7 +218,7 @@ class ApplicationController < ActionController::Base
 
     def prepare_for_home
       Rails.logger.debug('ApplicationController#prepare_for_home')
-      @highlights = Highlight.all
+      @highlights = Highlight.highlights_to_show
 
       if params[:share]
         @user = User.find(params[:uid])
