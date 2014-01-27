@@ -7,548 +7,105 @@ div#content {
 }
 
 section#home {
-  div#carousel {
-    position: relative;
-    width: 990px;
-    height: 486px;
-    margin: -8px 0 17px;
-    .caroufredsel_wrapper{overflow:hidden;}
-    a.close {
-      position: absolute;
-      background: image-url("lookbooks/close.png") no-repeat;
-      text-indent: -99999px;
-      top: 0;
-      right: 0;
-      width: 38px;
-      height: 40px;
-      display: block;
-      z-index: 101;
-      &:hover{
-        background: image-url("lookbooks/close-hover.png") no-repeat;
-      }
-    }
-    .jcarousel-container {
-      width: 990px;
-      position: relative;
-    }
-    .prev-item, .next-item {
-      position: absolute;
-      background: image-url("home/arrows.jpg") no-repeat;
-      text-indent: -9999px;
-      width: 8px;
-      height: 33px;
-      display: block;
-      top: 230px;
-      z-index: 100;
-      cursor: pointer;
-    }
-    .prev-item {
-      background-position: 0 0;
-      left: -13px;
-      &:hover {
-        background-position: 0 -33px;
-      }
-    }
-    .next-item {
-      background-position: -8px 0;
-      right: -13px;
-      &:hover {
-        background-position: -8px -33px;
-      }
-    }
-    ul {
-      position: relative;
-      width: 3000px;
-      overflow: auto;
-      left: 0;
-      li {
-        position: relative;
-        width: 990px;
-        height: 490px;
-        display: block;
-        margin: 0;
-        padding: 0;
-        float: left;
-      }
-    }
-  }
-  section#week_highlights {
-    > h1 {
-      color: #231f20;
-      font-family: $avenir;
-      font-size: 19px;
-      text-transform: uppercase;
+  #banner {
+    width:100%;
+  
+    height:450px;
+    .column {
+      width:240px;
+      float:left;
+      height:auto !important;
+      height:450px;
+      min-height:450px;
       text-align: center;
-      margin: 0 0 17px;
-      letter-spacing: 3px;
-      font-weight: lighter;
-      span {
-        letter-spacing: 1px;
-        padding: 0 10px;
-        color:$pink;
+      img {
+        margin-bottom:8px;
       }
-    }
-    ul {
-      width: 100%;
-      margin: 0 0 30px;
-      overflow: auto;
-      li {
-        width: 315px;
-        display: block;
-        text-align: center;
-        margin: 0 20px 0 0;
-        float: left;
-        div.video_description {
-          display: none;
-        }
-        img {
-          margin: 0 0 10px;
-        }
-        h1 {
-          font-family: $johnston;
-          font-family: 29px;
-          text-transform: uppercase;
-          a{
-            text-decoration: none;
-            color: #000 ;
-            font-family: $verdana;
-            font-size: 19px;
-            letter-spacing: 1px;
-            font-weight: bold;
-          }
-        }
-        p {
-          color: #231f20;
-          font-size: 12px;
-          margin: 0 0 15px;
-          font-family: $verdana;
-        }
-        a.more {
-          background: image-url("home/bg-more.jpg") center center no-repeat;
-          color: #000;
-          font-size: 11px;
-          font-weight: bold;
-          text-decoration: none;
-          text-transform: uppercase;
-          padding: 0 30px;
-          &:hover {
-            color: #ef3742;
-          }
-        }
-        &:last-child {
-          width: 318px;
-          float: right;
-          margin: 0;
-        }
-      }
-    }
-  }
-  a#press {
-    background: image-url("home/press.jpg") no-repeat;
-    text-indent: -99999px;
-    width: 990px;
-    height: 65px;
-    display: block;
-    margin: 0 0 25px;
-  }
-  section ul.products_list {
-    width: 100%;
-    overflow: auto;
-    li {margin: 0 0 0 42px;display:inline-block;position:relative;z-index:1;width:146px;height:267px;/* new size photo */
-      a {
-        color: #000;
-        text-align: center;
-        text-decoration: none;
-        text-transform: uppercase;
-        /* new size photo */
-        display:inline-block;
-        position:absolute;
-        bottom:0;
-        left:0;
-        h1 {
-          font-family: $verdana;
-          font-size: 11px;
-          font-weight: bold;
-        }
-        p {
-          font-family: $verdana;
-          font-size: 12px;
-        }
-      }
-    }
-  }
-  section#top5 {
-    margin: 0 0 20px;
-    padding: 0 0 30px;
-    border-bottom: 1px #cbcbcb solid;
-    >h1 {
-      background: image-url("home/tit-top5.jpg") top center no-repeat;
-      font-family: $kepler;
-      font-size: 18px;
-      text-align: center;
-      margin: 0 0 30px;
-      padding: 33px 0 0 0;
-    }
-  }
-  section#stylists {
-    position: relative;
-    min-height: 270px;
-    margin: 0 0 30px;
-    padding: 10px 0 30px;
-    p.title {
-      font-weight: lighter;
-      color: #000;
-      font-family: $avenir;
-      font-size: 19px;
-      text-align: center;
-      text-transform: uppercase;
-      margin: 0 0 30px;
-      letter-spacing: 3px;
-      span{
-        color: #ef3742;
-        letter-spacing: 1px;
-      }
-    }
-    h2 {
-      position: absolute;
-      background: image-url("home/olook-loved.jpg") no-repeat;
-      text-indent: -99999px;
-      width: 104px;
-      height: 104px;
-      display: block;
-      top: 0;
-      left: 75px;
-      z-index:90;
-    }
-  }
-  section#brands{
-    position: relative;
-    min-height: 485px;
-    margin: 33px 0 10px;
-    padding: 10px 0 20px;
-    border-bottom: 1px #cbcbcb solid;
-    .box_brand{width: 990px; height: 500px; float: left;border-top: 1px solid #acacac;
       h2 {
-        width: 107px;
-        height: 20px;
-        background-color: #fff;
-        font-family: avenir, arial, sans-serif;
-        font-size: 19px;
-        text-align: center;
-        text-transform: uppercase;
+        width:100%;
         display: block;
-        position: absolute;
-        letter-spacing: 2px;
         text-align: center;
-        top: 0px;
-        left: 420px;
-        font-weight: lighter;
-      }
-      ul{
-        width: 990px;
-        overflow: auto;
-        margin-top: 25px;
-        li{
-          width: 135px;
-          height: 61px;
-          float: left;
-          margin-right: 5px;
-          a{
-            background: image-url("home/new_brands.jpg") no-repeat;
-            width: 135px;
-            height: 61px;
-            float: left;
-            cursor: pointer;
-            &:hover{background: image-url("home/new_brands_off.jpg") no-repeat;}
-          }
-          &.thelure, &.triton, &.tan-tan, &.redley, &.ellus, &.doce {margin-right: 0px;}
-          &.olook a {
-            background-position: 6px -4px;
-            &:hover {
-              background-position: 6px -4px;
-            }
-          } 
-          &.essential a {
-            background-position: -135px -5px;
-            &:hover {
-              background-position: -135px -5px;
-            }
-          }
-          &.harris a {
-            background-position: -276px -6px;
-            &:hover {
-              background-position: -276px -6px;
-            }
-          } 
-          &.jabour a {
-            background-position: -424px -4px;
-            &:hover {
-              background-position: -424px -4px;
-            }
-          } 
-          &.concept a {
-            background-position: -576px -6px;
-            &:hover {
-              background-position: -576px -6px;
-            }
-          }  
-          &.manzini a {
-            background-position: -722px -6px;
-            &:hover {
-              background-position: -722px -6px;
-            }
-          } 
-          &.thelure a {
-            background-position: -871px 2px;
-            &:hover {
-              background-position: -871px 2px;
-            }
-          } 
-          &.fashion a {
-            background-position: -577px -311px;
-            &:hover {
-              background-position: -577px -311px;
-            }
-          }
-          &.forum a {
-            background-position: 6px -64px;
-            &:hover {
-              background-position: 6px -64px;
-            }
-          }
-          &.mofficer a {
-            background-position: -134px -64px;
-            &:hover {
-              background-position: -134px -64px;
-            }
-          } 
-          &.coke a {
-            background-position: -279px -62px;
-            &:hover {
-              background-position: -279px -62px;
-            }
-          } 
-          &.botswana a {
-            background-position: -431px -62px;
-            &:hover {
-              background-position: -431px -62px;
-            }
-          } 
-          &.iodice a {
-            background-position: -578px -65px;
-            &:hover {
-              background-position: -578px -65px;
-            }
-          } 
-          &.eclectic a {
-            background-position: -722px -64px;
-            &:hover {
-              background-position: -722px -64px;
-            }
-          }
-          &.triton a {
-            width: 126px;
-            background-position: -875px -64px;
-            &:hover {
-              background-position: -875px -64px;
-            }
-          } 
-          &.mercatto a {
-            width: 126px;
-            background-position: -718px -302px;
-            &:hover {
-              background-position: -718px -302px;
-            }
-          }
-          &.shop a {
-            background-position: 11px -120px;
-            &:hover {
-              background-position: 11px -120px;
-            }
-          } 
-          &.olli a {
-            background-position: -136px -126px;
-            &:hover {
-              background-position: -136px -126px;
-            }
-          } 
-          &.colcci a {
-            background-position: -278px -121px;
-            &:hover {
-              background-position: -278px -121px;
-            }
-          } 
-          
-          &.leeloo a {
-            background-position: -431px -123px;
-            &:hover {
-              background-position: -431px -123px;
-            }
-          } 
-          &.mandi a {
-            background-position: -580px -121px;
-            &:hover {
-              background-position: -580px -121px;
-            }
-          }
-          &.carina-duek a {
-            background-position: -723px -117px;
-            &:hover {
-              background-position: -723px -117px;
-            }
-          }
-          &.tan-tan a {
-            background-position: -873px -121px;
-            &:hover {
-              background-position: -873px -121px;
-            }
-          }
-          &.redley a {
-            background-position: -868px -181px;
-            &:hover {
-              background-position: -868px -181px;
-            }
-          }
-          &.lez-a-lez a {
-            background-position: -133px -181px;
-            &:hover {
-              background-position: -133px -181px;
-            }
-          }
-          &.cantao a {
-            background-position: -278px -180px;
-            &:hover {
-              background-position: -278px -180px;
-            }
-          } 
-          &.sommer a {
-            background-position: -429px -181px;
-            &:hover {
-              background-position: -429px -181px;
-            }
-          }  
-          &.totem a {
-            background-position: -723px -181px;
-            &:hover {
-              background-position: -723px -181px;
-            }
-          }
-          &.perfume a {
-            background-position: 9px -182px;
-            &:hover {
-              background-position: 9px -182px;
-            }
-          }
-          &.shoulder a {
-            background-position: -583px -181px;
-            &:hover {
-              background-position: -583px -181px;
-            }
-          }
-          &.doce a {
-            background-position: -868px -292px;
-            &:hover {
-              background-position: -868px -292px;
-            }
-          }
-          &.tvz a {
-            background-position: 11px -240px;
-            &:hover {
-              background-position: 11px -240px;
-            }
-          }
-          &.folic a {
-            background-position: -135px -240px;
-            &:hover {
-              background-position: -135px -240px;
-            }
-          }
-          &.floor a {
-            background-position: -425px -297px;
-            &:hover {
-              background-position: -425px -297px;
-            }
-          }
-          &.canal a {
-            background-position: -429px -239px;
-            &:hover {
-              background-position: -429px -239px;
-            }
-          }
-          &.blue a {
-            background-position: -577px -240px;
-            &:hover {
-              background-position: -577px -240px;
-            }
-          }
-          &.afghan a {
-            background-position: -723px -252px;
-            &:hover {
-              background-position: -723px -252px;
-            }
-          }
-          &.numbers a {
-            background-position: 11px -293px;
-            &:hover {
-              background-position: 11px -293px;
-            }
-          }
-          &.ellus a {
-            background-position: -870px -238px;
-            &:hover {
-              background-position: -870px -238px;
-            }
-          }
-          &.wollner a {
-            background-position: -282px -239px;
-            &:hover {
-              background-position: -282px -239px;
-            }
-          }
-          &.collins a {
-            background-position: 11px -353px;
-            &:hover {
-              background-position: 11px -353px;
-            }
-          }
-          &.triya a {
-            background-position: -285px -294px;
-            &:hover {
-              background-position: -285px -294px;
-            }
-          }
-          &.krein a {
-            background-position: -134px -291px;
-            &:hover {
-              background-position: -134px -291px;
-            }
-          }
-          &.piu a {
-            background-position: -135px -343px;
-            &:hover {
-              background-position: -135px -343px;
-            }
-          }
-          &.salinas a {
-            background-position: -281px -353px;
-            &:hover {
-              background-position: -281px -353px;
-            }
-          }
-          &.garnus a {
-            background-position: -425px -357px;
-            &:hover {
-              background-position: -425px -357px;
-            }
-          }
-          &.basico a {
-            background-position: -577px -361px;
-            &:hover {
-              background-position: -577px -361px;
-            }
-          }
+        font-family: $arial;
+        font-size: 17px;
+        text-transform: uppercase;
+        padding-top:10px;
+        letter-spacing: 1px;
+        span {
+          display: block;
+          font-family: Georgia, Tahoma, Arial;
+          font-size: 14px;
+          text-transform: none;
+          font-weight: normal;
+          padding:5px 20px 0 20px;          
         }
       }
+    }
+    .big {
+      width:490px;
+      margin:0 10px;
+    }
+  }
+  #looks {
+    width:100%;
+    margin-top:20px;
+    h3 {
+      width:100%;
+      text-align: center;
+      display: block;
+      padding:15px 0;
+      background: #dbb8b9;
+      color:#FFF;
+      text-transform: uppercase;
+      font-size:23px;
+      font-weight: normal;
+      position: relative;
+      font-family: "Trebuchet Ms", Verdana, Tahoma;
+      letter-spacing: 2px;
+      a { 
+        position: absolute;
+        right:20px;
+        letter-spacing: 0px;
+        font-family: $verdana;
+        font-size: 12px;
+        text-transform: none;
+        font-weight: normal;
+        color:#FFF;
+      }
+    }
+    .mylook {
+      width:100%;
+      height: auto !important;
+      height:365px;
+      min-height:365px;
+      .look {
+        width:242px;
+        float:left;
+        margin:7px 7px 0 0 ;
+        &.last {
+          margin-right:0px;
+        }
+      }
+    }
+  }
+  #see_too {
+    border:1px solid #d1d1d1;
+    margin-top:60px;
+    height:100px;
+    position: relative;
+    h4 {
+      padding:0 10px;
+      background: #fff;
+      border-right:1px solid #d1d1d1;
+      border-left:1px solid #d1d1d1;
+      position: absolute;
+      top:-10px;
+      left:50%;
+      font-family: "Trebuchet Ms", Verdana, Tahoma;
+      font-size: 18px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-left:-80px;
+      font-weight: normal;
     }
   }
 }
