@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Cart::CartController < ApplicationController
-  layout "site"
+  layout "lite_application"
 
-  respond_to :html, :js
+  respond_to :html, :js, :json
   skip_before_filter :authenticate_user!, :only => :add_variants
 
   def show
@@ -28,14 +28,18 @@ class Cart::CartController < ApplicationController
   end
 
   #
-  # Only used by chaordic
+  # Only used by chaordic and wishlist
   #
   def add_variants
     @report  = CreditReportService.new(@user) unless @report
     cart = Cart.find_by_id(params[:cart_id]) || current_cart
     cart.add_variants params[:variant_numbers]
     @cart_calculator = CartProfit::CartCalculator.new(@cart)
-    render :show
+
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: {message: 'sucesso!'} }
+    end
   end
 
   def update
@@ -49,11 +53,8 @@ class Cart::CartController < ApplicationController
     @cart.reload
     @cart_calculator = CartProfit::CartCalculator.new(@cart)
 
-    #
-    # Isto é feio, muito feio. Juro que volto aqui para refatorar
-    #
-    if @cart.coupon && @cart.coupon.promotion_action.is_a?(ValueAdjustment)
-      @coupon_value = -1 * @cart.coupon.action_parameter.action_params[:param].to_f
+    if @cart.coupon
+      @coupon_value = -1 * (@cart.items.inject(0.0){|sum,i| sum+i.adjustment_value.to_f})
     end
 
     @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)

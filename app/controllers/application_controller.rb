@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  layout "site"
+  layout "lite_application"
 
   before_filter :load_user,
                 :create_cart,
@@ -20,12 +20,17 @@ class ApplicationController < ActionController::Base
                 :title_text,
                 :canonical_link,
                 :meta_description
+
   around_filter :log_start_end_action_processing
 
   rescue_from CanCan::AccessDenied do  |exception|
     flash[:error] = "Access Denied! You don't have permission to execute this action.
     Contact the system administrator"
     redirect_to admin_url
+  end
+
+  def after_login_return_to path
+    session[:previous_url] = path
   end
 
   protected

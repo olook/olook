@@ -13,12 +13,11 @@
     dataLayer.push({'Category': '#{section_name @google_path_pixel_information}'});
 - content_for :footer do
   = javascript_include_tag "gift"
-- content_for :full do
-  #fb-root
-  = render "profiles"
-  - @profiles.each do |profile|
-    %section#profile_products{:class => "sub #{profile}"}
-      = render "profile_products", products: @profiles_products	[profile.to_sym], profile: profile
-  = render "suggestion_products"
-  = render "quiz"
-  / = render "calendar"
+#fb-root
+= render "profiles"
+- @profiles.each do |profile|
+  %section#profile_products{:class => "sub #{profile}"}
+    = render "profile_products", products: @profiles_products	[profile.to_sym], profile: profile
+= render "suggestion_products"
+= render "quiz"
+/ = render "calendar"
