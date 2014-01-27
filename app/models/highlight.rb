@@ -8,10 +8,8 @@ class Highlight < ActiveRecord::Base
   validates :image, presence: true
   validates :link, presence: true
   validates :position, presence: true
-  validates :title, presence: true, :if => lambda{|type| type == HighlightType::WEEKLY}
-  validates :subtitle, presence: true, :if => lambda{|type| type == HighlightType::WEEKLY}
-
-  has_enumeration_for :highlight_type, :with => HighlightType, :required => true
+  validates :title, presence: true
+  validates :subtitle, presence: true
 
   def self.highlights_to_show type
     Rails.cache.fetch("highlights-#{type}", :expires_in => 30.minutes) do 
