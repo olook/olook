@@ -3,6 +3,7 @@ class LandingPagesController < ApplicationController
   layout 'application'
 
   def show
+    cookies[:partner] = params[:partner]
   end
 
   def olookmovel
