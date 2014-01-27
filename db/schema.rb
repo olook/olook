@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140123165920) do
+ActiveRecord::Schema.define(:version => 20140127190851) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -236,30 +236,6 @@ ActiveRecord::Schema.define(:version => 20140123165920) do
     t.text     "product_list"
     t.string   "organic_url"
     t.integer  "url_type"
-  end
-
-  create_table "catalog_headers", :force => true do |t|
-    t.string   "url"
-    t.string   "type"
-    t.string   "h1"
-    t.string   "h2"
-    t.string   "small_banner1"
-    t.string   "alt_small_banner1"
-    t.string   "link_small_banner1"
-    t.string   "small_banner2"
-    t.string   "alt_small_banner2"
-    t.string   "link_small_banner2"
-    t.string   "medium_banner"
-    t.string   "alt_medium_banner"
-    t.string   "link_medium_banner"
-    t.string   "big_banner"
-    t.string   "alt_big_banner"
-    t.string   "link_big_banner"
-    t.string   "title"
-    t.string   "resume_title"
-    t.text     "text_complement"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
   end
 
   create_table "catalog_products", :force => true do |t|
@@ -596,11 +572,11 @@ ActiveRecord::Schema.define(:version => 20140123165920) do
     t.string   "link"
     t.string   "image"
     t.integer  "position"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "title"
     t.string   "subtitle"
-    t.integer  "highlight_type"
+    t.string   "alt_text"
   end
 
   create_table "holidays", :force => true do |t|
@@ -641,25 +617,6 @@ ActiveRecord::Schema.define(:version => 20140123165920) do
     t.datetime "updated_at",   :null => false
   end
 
-  create_table "landing_pages", :force => true do |t|
-    t.string   "page_image"
-    t.string   "page_title"
-    t.string   "page_url"
-    t.string   "button_image"
-    t.string   "button_url"
-    t.string   "button_alt"
-    t.boolean  "enabled"
-    t.boolean  "show_header"
-    t.boolean  "show_footer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "button_top"
-    t.integer  "button_left"
-    t.string   "button_hover_image"
-  end
-
-  add_index "landing_pages", ["page_url"], :name => "index_landing_pages_on_page_url"
-
   create_table "line_items", :force => true do |t|
     t.integer "variant_id"
     t.integer "order_id"
@@ -694,16 +651,6 @@ ActiveRecord::Schema.define(:version => 20140123165920) do
     t.string   "lastname"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "looks", :force => true do |t|
-    t.integer  "product_id"
-    t.string   "front_picture"
-    t.datetime "launched_at"
-    t.integer  "profile_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.string   "full_look_picture"
   end
 
   create_table "looks", :force => true do |t|
@@ -1022,8 +969,8 @@ ActiveRecord::Schema.define(:version => 20140123165920) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"

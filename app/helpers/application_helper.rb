@@ -160,7 +160,6 @@ module ApplicationHelper
     html.html_safe
   end
 
-  ###########
   def empty_wishlist?
     if current_user
       Wishlist.for(current_user).wished_products.empty?
@@ -177,11 +176,10 @@ module ApplicationHelper
     end
   end
 
-
   def any_wished_product_has_discount?
     if current_user
       wished_products = Wishlist.for(current_user).wished_products
-      wished_products.select {|wp| wp.variant.product.retail_price < wp.retail_price}.any?       
+      wished_products.select {|wp| wp.variant.product.promotion?}.any?       
     else
       false
     end
