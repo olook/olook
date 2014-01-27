@@ -1,34 +1,32 @@
 # -*- encoding : utf-8 -*-
 class Highlight < ActiveRecord::Base
+  mount_uploader :image, CentralHighlightBannerUploader
+  mount_uploader :left_image, SideHighlightBannerUploader
+  mount_uploader :right_image, SideHighlightBannerUploader
+
   after_save :clean_cache
-  after_destroy :clean_cache
+  after_destroy :clean_cache  
 
-  mount_uploader :image, BannerUploader
-
-  validates :image, presence: true
   validates :link, presence: true
   validates :position, presence: true
   validates :title, presence: true
   validates :subtitle, presence: true
+  validates :alt_text, presence: true  
 
-  def self.highlights_to_show type
-    Rails.cache.fetch("highlights-#{type}", :expires_in => 30.minutes) do 
-      highlights = where(highlight_type: type).order(:position)
-      highlights || []
+  def self.highlights_to_show
+    Rails.cache.fetch("highlights", :expires_in => 30.minutes) do
+      highlights = []
+      for i in 1..3 
+        highlights << where(position: i).last
+      end
+      highlights
     end
   end
 
-  def self.grouped_by_type
-    grouped_highlights = {}
-    HighlightType.list.each do |type_id|
-      grouped_highlights[type_id] = Highlight.where(highlight_type: type_id).order(:position)
-    end    
-    grouped_highlights
-  end
 
   private
     def clean_cache
-      HighlightType.list.each{|id| Rails.cache.delete("highlights-#{id}")}
-    end
+      Rails.cache.delete("highlights")
+    end  
 
 end
