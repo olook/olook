@@ -13,7 +13,7 @@ class Users::SessionsController < Devise::SessionsController
   def store_location
     # store last url - this is needed for post-login redirect to whatever the user last visited.
     referer_url = request.referer
-    unless (referer_url =~ /conta\/sign_in/)
+    unless (request.url =~ /conta\/sign_in/)
       session[:previous_url] = referer_url
     end
   end
