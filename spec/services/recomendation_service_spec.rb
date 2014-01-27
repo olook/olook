@@ -180,7 +180,7 @@ describe RecomendationService do
 
     end
     it "return most recent look for profile" do
-      expect(described_class.new(profiles: 1).full_looks(limit: 4)).to eql([@look1,@look3,@look2])
+      expect(described_class.new(profiles: 1).full_looks(limit: 4)).to include(*[@look1,@look3,@look2])
     end
   end
 end

@@ -10,7 +10,7 @@ class RecomendationService
   # Produtos recomendados para os parametros passados na
   #
   #
-  def products(opts= {  })
+  def products(opts= {})
     current_limit = limit = opts[:limit] || 5
     products = []
 
@@ -40,7 +40,7 @@ class RecomendationService
       category = opts[:category]
       collection = opts[:collection]
 
-      result = profile.products.where(_pAt[:launch_date].gt(DAYS_AGO_TO_CONSIDER_NEW.days.ago)).order('RAND()').includes(:variants, :pictures)
+      result = profile.products.where(_pAt[:launch_date].gt(DAYS_AGO_TO_CONSIDER_NEW.days.ago)).includes(:variants, :pictures)
 
       result = result.only_visible.where(_vAt[:inventory].gt(0).and(_vAt[:price].gt(0))) unless is_admin
 
