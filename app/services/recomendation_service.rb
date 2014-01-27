@@ -1,5 +1,7 @@
 class RecomendationService
 
+  DAYS_AGO_TO_CONSIDER_NEW = 30
+
   def initialize(opts = {})
     @profiles = opts[:profiles]
     @shoe_size = opts[:shoe_size]
@@ -27,7 +29,7 @@ class RecomendationService
   private
 
     def filtered_looks_for_profile(opts={})
-      Look.where(profile_id: @profiles).joins(:product).group("products.name").order("launched_at desc").first(opts[:limit])
+      Look.where(profile_id: @profiles).where(Look.arel_table[:launched_at].gt(DAYS_AGO_TO_CONSIDER_NEW.days.ago)).order('RAND()').first(opts[:limit])
     end
 
     def filtered_list_for_profile(profile, opts={})
@@ -38,25 +40,21 @@ class RecomendationService
       category = opts[:category]
       collection = opts[:collection]
 
-      response = if is_admin
-        profile.products.group('products.name').includes(:variants, :pictures)
-      else
-        profile.products.only_visible.group('products.name').includes(:variants, :pictures).
-          where(_vAt[:inventory].gt(0).and(_vAt[:price].gt(0)))
-      end
+      result = profile.products.where(_pAt[:launch_date].gt(DAYS_AGO_TO_CONSIDER_NEW.days.ago)).order('RAND()').includes(:variants, :pictures)
 
-      response = response.
-        where(_pAt[:collection_id].eq(collection.id)) if collection
+      result = result.only_visible.where(_vAt[:inventory].gt(0).and(_vAt[:price].gt(0))) unless is_admin
 
-      response = response.joins(:variants).
+      result = result.where(_pAt[:collection_id].eq(collection.id)) if collection
+
+      result = result.joins(:variants).
         where(_pAt[:category].not_eq(Category::SHOE).
             or(_pAt[:category].eq(Category::SHOE).
                 and(_vAt[:description].eq(@shoe_size))
               )) if @shoe_size.present?
 
-      response = response.where(category: category) if category.present?
+      result = result.where(category: category) if category.present?
 
-      response
+      result
     end
 
 end
