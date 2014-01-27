@@ -1,4 +1,4 @@
-class RecomendationService
+class RecommendationService
 
   DAYS_AGO_TO_CONSIDER_NEW = 30
 

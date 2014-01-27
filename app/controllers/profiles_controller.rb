@@ -4,7 +4,7 @@ class ProfilesController < ApplicationController
   def show
 
     if @first_time = (params[:f] == '1')
-      @recommended = RecomendationService.new(profiles: current_user.profiles)
+      @recommended = RecommendationService.new(profiles: current_user.profiles)
 
       admin = current_admin.present?
       # This is needed becase when we turn the month collection we never have cloth
