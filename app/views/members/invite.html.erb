@@ -7,7 +7,7 @@
 <% end %>
 
 <section id="user-info">
-  <%= image_tag 'common/convide_amigas.jpg', :class => 'full_banner' %>
+  <%= image_tag 'common/banner_mgm_B.jpg', :class => 'full_banner' %>
 </section>
 
 <section id="share-mail">
@@ -37,13 +37,13 @@
               <script type="text/javascript" charset="utf-8">
                 twttr.ready(function (twttr) {
                   twttr.events.bind('click', function(event){
-                    <%= track_event('MemberInvite', 'TwitterPost') %>
+                    _gaq.push(['_trackEvent', 'MemberInvite', 'TwitterPost', '']);
                   });
                 });
               </script>
             </li>
             <li>
-              <%= link_to image_tag('common/fb-post-to-wall.png'), 'javascript:void', id: 'facebook_post_wall', onclick: track_event('MemberInvite', 'FacebookPost') %>
+              <%= link_to image_tag('common/fb-post-to-wall.png'), 'javascript:void', id: 'facebook_post_wall', onclick: 'javascript:postToFacebookFeed(this)' %>
             </li>
           </ul>
         </li>
@@ -79,14 +79,3 @@
     </fieldset>
   <% end %>
 </section>
-
-<section id="post-to-wall", style="background:none;">
-  <hgroup>
-    <h1>Convide amigas do Facebook</h1>
-    <h2>Para convidar, selecione suas amigas<br />na caixa ao lado
-    </h2>
-  </hgroup>
-  <%= link_to image_tag('common/bt-face-send-messages.png'), 'javascript:void;', :id => 'facebook_invite_friends', onclick: track_event("MemberInvite","FacebookMessage") %>
-</section>
-
-<%#= render 'invite_by_email.html.erb' %>
