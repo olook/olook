@@ -5,7 +5,7 @@ class Admin::HighlightsController <  Admin::BaseController
   respond_to :haml
 
   def index
-    @highlights = Highlight.grouped_by_type   
+    @highlights = Highlight.all   
   end
 
   def show
