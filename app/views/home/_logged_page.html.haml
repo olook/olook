@@ -3,79 +3,13 @@
     meus looks
     =link_to "consulte seu perfil", "teste"
   .mylook
-    .look
-      =image_tag "home/trash/look1.jpg"
-    .look
-      =image_tag "home/trash/look2.jpg"
-    .look
-      =image_tag "home/trash/look3.jpg"
-    .look.last
-      =image_tag "home/trash/look4.jpg"
-#see_too
-  %h4
-    Veja Também
-  %ul#carousel.elastislide-list
-    %li
-      =link_to image_tag('home/trash/look1.jpg'), "#"
-      %span
-        R$ 150,00
-    %li
-      =link_to image_tag('home/trash/look2.jpg'), "#"
-      %span
-        R$ 150,00
-    %li
-      =link_to image_tag('home/trash/look3.jpg'), "#"
-      %span
-        R$ 150,00
-    %li
-      =link_to image_tag('home/trash/look4.jpg'), "#"
-      %span
-        R$ 150,00
-    %li
-      =link_to image_tag('home/trash/look1.jpg'), "#"
-      %span
-        R$ 150,00
-    %li
-      =link_to image_tag('home/trash/look2.jpg'), "#"
-      %span
-        R$ 150,00
-    %li
-      =link_to image_tag('home/trash/look3.jpg'), "#"
-      %span
-        R$ 150,00
-    %li
-      =link_to image_tag('home/trash/look4.jpg'), "#"
-      %span
-        R$ 150,00
-    %li
-      =link_to image_tag('home/trash/look1.jpg'), "#" 
-      %span
-        R$ 150,00
-    %li
-      =link_to image_tag('home/trash/look2.jpg'), "#"
-      %span
-        R$ 150,00
-    %li
-      =link_to image_tag('home/trash/look3.jpg'), "#"
-      %span
-        R$ 150,00
-    %li
-      =link_to image_tag('home/trash/look4.jpg'), "#"
-      %span
-        R$ 150,00
-    %li
-      =link_to image_tag('home/trash/look1.jpg'), "#"
-      %span
-        R$ 150,00
-    %li
-      =link_to image_tag('home/trash/look2.jpg'), "#"
-      %span
-        R$ 150,00
-    %li
-      =link_to image_tag('home/trash/look3.jpg'), "#"
-      %span
-        R$ 150,00
-    %li
-      =link_to image_tag('home/trash/look4.jpg'), "#"
-      %span
-        R$ 150,00
+    - @looks.each_with_index do |look,idx|
+      .look{class: ('last' if idx == 3)}= link_to image_tag(look.front_picture.showroom.url, data: { hover: look.full_look_picture.showroom.url }), product_seo_url(look.product.seo_path)
+  #see_too
+    %h4
+      Veja Também
+    %ul#carousel.elastislide-list
+      - @products.each do |product|
+        %li
+          =link_to image_tag(product.front_picture.try(:image_url), data: { hover: product.full_look_picture.try(:image_url) }), product_seo_url(product.seo_path)
+          %span= number_to_currency(product.retail_price)
