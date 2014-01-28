@@ -738,8 +738,8 @@ common/wishlist/ico_close.png: common/wishlist/ico_close-ee14042e8362f20f3bec944
 common/wishlist/ico_close/index.png: common/wishlist/ico_close-ee14042e8362f20f3bec9445670080c0.png
 common/wishlist/ico_heart.png: common/wishlist/ico_heart-4a414c728509dbb1c31ec23c3ea34771.png
 common/wishlist/ico_heart/index.png: common/wishlist/ico_heart-4a414c728509dbb1c31ec23c3ea34771.png
-common/wishlist/img_wishlist.png: common/wishlist/img_wishlist-3a759d1b80954b3a25c5e508cf3eca9d.png
-common/wishlist/img_wishlist/index.png: common/wishlist/img_wishlist-3a759d1b80954b3a25c5e508cf3eca9d.png
+common/wishlist/img_wishlist.png: common/wishlist/img_wishlist-4082749f977b7455a6d766ed78fbf467.png
+common/wishlist/img_wishlist/index.png: common/wishlist/img_wishlist-4082749f977b7455a6d766ed78fbf467.png
 compre_olook_completo.jpg: compre_olook_completo-54f15440a3700d392501955d70bdfe4d.jpg
 compre_olook_completo/index.jpg: compre_olook_completo-54f15440a3700d392501955d70bdfe4d.jpg
 contact/bg-content.jpg: contact/bg-content-040287f38279c7a9e4882693217c7ce2.jpg
@@ -2232,8 +2232,8 @@ customlanding.css: customlanding-0a3bd5bbcab0bb35f16f4ef4fd46c6b5.css
 customlanding/index.css: customlanding-0a3bd5bbcab0bb35f16f4ef4fd46c6b5.css
 desktop.css: desktop-9518f931a231fc9f6a4bde00df34d3e7.css
 desktop/index.css: desktop-9518f931a231fc9f6a4bde00df34d3e7.css
-new_structure/lite_application.css: new_structure/lite_application-398071f6b2e4fcde1e969ced81a417fe.css
-new_structure/lite_application/index.css: new_structure/lite_application-398071f6b2e4fcde1e969ced81a417fe.css
+new_structure/lite_application.css: new_structure/lite_application-8fd93b589710c740c59adb2146fc4275.css
+new_structure/lite_application/index.css: new_structure/lite_application-8fd93b589710c740c59adb2146fc4275.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-07234903ebfd1e145f7a228916919465.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-07234903ebfd1e145f7a228916919465.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-86441a5e2e303926eca1bee7b84a06e2.css
