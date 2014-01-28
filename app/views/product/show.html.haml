@@ -29,15 +29,14 @@
 
   .box-left
     #gallery
-      = cache "pics/#{@product.id}", expire_in: 30.minutes do
-        = product_presenter.render_pics
+      = product_presenter.render_pics
       = product_presenter.render_facebook_comments
   .box-right
     #product-details
+      
       = product_presenter.render_description
       = product_presenter.render_add_to_cart
-      = cache "details/#{@product.id}", expire_in: 30.minutes do
-        = product_presenter.render_details
+      = product_presenter.render_details
 
     #modal_guide
       %h1 GUIA DE MEDIDAS

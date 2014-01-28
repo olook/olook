@@ -51,7 +51,7 @@
         <%= link_to "Convide mais amigas e ganhe créditos!", member_invite_path, class: "invite-more", onclick: track_event("Showroom","ShowroomMemberInvite") %>
       </div>
     <%- else -%>
-      <div id="banner_creditos"><%= link_to (image_tag('showroom/banner.png')), member_invite_path, :title => "Convide amigas e ganhe R$ 20 quando elas fizerem a primeira compra", onclick: track_event("BannerInvite", " ClickBannerFromShowroom") %></div>
+      <div id="banner_creditos"><%= link_to (image_tag('showroom/banner.png')), member_invite_path, :title => "Convide amigas e ganhe R$ 30 quando elas fizerem a primeira compra", onclick: track_event("BannerInvite", " ClickBannerFromShowroom") %></div>
     <%- end -%>
   </section>
 

@@ -13,5 +13,5 @@
   <% end %> 
 <% end %>
 <% if @user.addresses && @user.addresses.select{|address| address.id }.any?  %>
-<p class="new_address"><%= link_to "+ Adicionar novo endereço", new_checkout_address_path, remote: true, onclick: track_event("CheckoutAddress","clickAddAddress") %></p>
+<p class="new_address"><%= link_to "+ Adicionar novo endereço", new_checkout_address_url(protocol: 'https'), remote: true, onclick: track_event("CheckoutAddress","clickAddAddress") %></p>
 <% end %>

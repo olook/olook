@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Billet < Payment
 
+  scope :expire_at, ->(date_for_search) {where(payment_expiration_date: date_for_search.beginning_of_day..date_for_search.end_of_day, state: ["waiting_payment", "started"]).order("total_paid DESC")}
+
   EXPIRATION_IN_DAYS = 3
   validates :receipt, :presence => true, :on => :create
   before_create :set_payment_expiration_date

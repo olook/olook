@@ -3,6 +3,7 @@
 @import 'partials/product';
 @import "partials/header_footer_checkout";
 @import 'partials/credits_info';
+@import 'new_structure/partials/spy';
 
 $border-color: #e5e5e5;
 
@@ -354,7 +355,11 @@ section#cart {
     float:left;
     margin:10px 0 25px;
   }
-  .warning-msg{margin-bottom:20px;width: 520px;height: 65px;background-color: #fdadb6;border: 1px solid #f58899;margin-top: 85px;margin-left: 215px;font-family: $tahoma;
+
+  .warning-msg{margin-bottom:20px;width: 520px;background-color: #fdadb6;border: 1px solid #f58899;margin-top: 85px;margin-left: 215px;font-family: $tahoma;
+    height: auto !important;
+    height:60px;
+    min-height:40px;
     img{float: left;margin-left: 15px;margin-top: 9px;}
     p{float: left;font-family: $tahoma;font-size: 14px;color: #000;margin-top: 9px;margin-left: 10px;
       span{font-weight: bold;font-family: tahoma;}
@@ -424,14 +429,14 @@ section#cart {
 
   }
 
-  .buying-continue,
-  .link {
+
+  .buying-continue{
     margin:20px -13px 30px;
     font-size:12px;
     padding-left:13px;
     a{
       display: block;
-      width: 150px;
+      width: 180px;
       padding: 5px;
       background: #000;
       color: #FFF;
@@ -1050,6 +1055,7 @@ section#cart {
       }
     }
 
+    table.aplicarCupom {width:100%;}
   }
 
   a.continue {
@@ -2538,6 +2544,9 @@ p.important {
   }
 }
 
+#freight_price{
+  width: 150px !important;
+}
 #freight_message{
   border-top: 1px solid #cdcdcd;
   padding: 10px;

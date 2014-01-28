@@ -1,5 +1,6 @@
 //= require state_cities
 //= require plugins/cep
+//= require plugins/check_freebie
 
 updateCreditCardSettlementsValue = function(select_box, total, reseller) {
   selected = select_box.val();
@@ -179,10 +180,10 @@ $(function() {
   window.setTimeout(setButton,600);
   freightCalc();
   showAboutSecurityCode();
-  showSmellPackageModal();
+  olook.showSmellPackageModal();
 
-  if($(".box-step-one input[type=radio]").size() == 1){
-    $(".box-step-one input[type=radio]").trigger('click');
+  if($('input[name="address\[id\]"]:checked').size() == 1){
+    $('input[name="address\[id\]"]:checked').trigger('click');
   }
 
   $(".credit_card").click(function() {
@@ -204,17 +205,6 @@ $(function() {
     //   }
     // });
   }
-
-  function showSmellPackageModal(){
-   var content = $(".modal_smell");
-   $("a.seeTheSmell").bind("click", function(e){
-      initBase.newModal(content);
-      e.preventDefault();
-      e.stopPropagation();
-   })
-  }
-
-
 
   $("div.box-step-two #checkout_credits_use_credits").change(function() {
     $("#cart-box #credits_used").hide();

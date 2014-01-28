@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  layout "site"
+  layout "lite_application"
 
   before_filter :load_user,
                 :create_cart,
@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
                 :title_text,
                 :canonical_link,
                 :meta_description
+
   around_filter :log_start_end_action_processing
 
   rescue_from CanCan::AccessDenied do  |exception|
@@ -28,47 +29,52 @@ class ApplicationController < ActionController::Base
     redirect_to admin_url
   end
 
-  def render_public_exception
-    Rails.logger.debug('ApplicationController#render_public_exception')
-    case env["action_dispatch.exception"]
-      when ActiveRecord::RecordNotFound, ActionController::UnknownController,
-        ::AbstractController::ActionNotFound
-        render :template => "/errors/404.html.erb", :layout => 'error', :status => 404
-      else
-        render :template => "/errors/500.html.erb", :layout => 'error', :status => 500
-    end
-  end
-
-  # making this method public so it can be stubbed in tests
-  # TODO: find a way to stub without this ugly hack
-  def current_cart
-    Rails.logger.debug('ApplicationController#current_cart')
-    #ORDER_ID IN PARAMS BECAUSE HAVE EMAIL SEND IN PAST
-    cart_id_session = session[:cart_id]
-    cart_id_params = params[:cart_id]
-    cart_id_legacy = params[:order_id]
-
-    cart = @user.carts.find_by_id(cart_id_params)  if @user && cart_id_params
-    cart = @user.carts.find_by_legacy_id(cart_id_legacy)  if @user && cart_id_legacy
-
-    cart ||= Cart.find_by_id(cart_id_session) if cart_id_session
-
-    cart = assign_coupon_to_cart(cart, params[:coupon_code]) if params[:coupon_code]
-
-    assign_cart_to_user(cart) if cart
-
-    cart
-  end
-
-  def set_modal_show
-    if params[:modal] || params[:coupon_code].present?
-      @modal_show = params[:modal] != "0" ? "1" : "0"
-    else
-      @modal_show = cookies[:ms].blank? ? "1" : "0"
-    end
+  def after_login_return_to path
+    session[:previous_url] = path
   end
 
   protected
+
+    def render_public_exception
+      Rails.logger.debug('ApplicationController#render_public_exception')
+      case env["action_dispatch.exception"]
+        when ActiveRecord::RecordNotFound, ActionController::UnknownController,
+          ::AbstractController::ActionNotFound
+          render :template => "/errors/404.html.erb", :layout => 'error', :status => 404
+        else
+          render :template => "/errors/500.html.erb", :layout => 'error', :status => 500
+      end
+    end
+
+    # making this method public so it can be stubbed in tests
+    # TODO: find a way to stub without this ugly hack
+    def current_cart
+      Rails.logger.debug('ApplicationController#current_cart')
+      #ORDER_ID IN PARAMS BECAUSE HAVE EMAIL SEND IN PAST
+      cart_id_session = session[:cart_id]
+      cart_id_params = params[:cart_id]
+      cart_id_legacy = params[:order_id]
+
+      cart = @user.carts.find_by_id(cart_id_params)  if @user && cart_id_params
+      cart = @user.carts.find_by_legacy_id(cart_id_legacy)  if @user && cart_id_legacy
+
+      cart ||= Cart.find_by_id(cart_id_session) if cart_id_session
+
+      cart = assign_coupon_to_cart(cart, params[:coupon_code]) if params[:coupon_code]
+
+      assign_cart_to_user(cart) if cart
+
+      cart
+    end
+
+    def set_modal_show
+      if params[:modal] || params[:coupon_code].present?
+        @modal_show = params[:modal] != "0" ? "1" : "0"
+      else
+        @modal_show = cookies[:ms].blank? ? "1" : "0"
+      end
+    end
+
 
     def title_text
       Seo::SeoManager.new(request.path).select_meta_tag

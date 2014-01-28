@@ -1,6 +1,7 @@
 @import 'partials/mixins';
 body {
   .content {
+    width: 970px !important; 
     #user-info {
       position: relative;
       width: 100%;
@@ -31,7 +32,10 @@ body {
         overflow: hidden;
         position: relative;
         h1{font-size: 23px;}
-        h2{font-size: 13px;}
+        h2{font-size: 13px;
+          line-height: 18px;
+          font-weight: 500;
+          margin-top: 8px;}
 
         hgroup {
           background: image-url('common/divisor-share.png') top right no-repeat;
