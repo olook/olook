@@ -10,11 +10,6 @@ class CentralHighlightBannerUploader < CarrierWave::Uploader::Base
     "#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  version :thumb do
-    process :resize_to_fit => [200, 100]
-    process optimize: [{quality: 90}]
-  end
-
   version :site do
     process :resize_to_fit => [489, 361]
     process optimize: [{quality: 90}]
