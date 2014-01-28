@@ -136,4 +136,58 @@ section#home {
       }
     }
   }
+  #week_highlights {
+    border-top:1px solid #e1e1e1;
+    margin-top:40px;
+    position:relative;
+    padding-top:40px;
+    height:auto !important;
+    height:300px;
+    min-height:300px;
+    h4 {
+      position: absolute;
+      top:-8px;
+      font-family: $arial;
+      font-size: 20px;
+      font-weight: normal;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      left:50%;
+      margin-left:-100px;
+      background: #FFF;
+      padding:0 10px;
+      span {
+        font-family: Georgia;
+        font-size: 40px;
+        margin-right:-6px;
+        font-style: italic;
+      }
+    }
+    #about {
+      width:31.3%;
+      text-align: center;
+      float:left;
+      margin:0 1%;
+      img {
+        width:100%;
+        margin-bottom:10px;
+      }
+      h5, h5 a {
+        font-family: $arial;
+        font-size: 17px;
+        letter-spacing: 1px;
+        display: block;
+        padding:2px;
+        text-decoration: none;
+        color:#000;
+      }
+      p {
+        font-family: Georgia;
+        font-size: 14px;
+        display: block;
+        letter-spacing: 2px;
+        text-align: center;
+      }
+    }
+  }
 }
