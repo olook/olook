@@ -614,15 +614,6 @@ ActiveRecord::Schema.define(:version => 20140127215701) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "images", :force => true do |t|
-    t.string   "image"
-    t.integer  "lookbook_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "images", ["lookbook_id"], :name => "index_images_on_lookbook_id"
-
   create_table "invites", :force => true do |t|
     t.integer  "user_id"
     t.string   "email"
@@ -738,20 +729,6 @@ ActiveRecord::Schema.define(:version => 20140127215701) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "lookbook_image_maps", :force => true do |t|
-    t.integer  "lookbook_id"
-    t.integer  "image_id"
-    t.integer  "product_id"
-    t.integer  "coord_x"
-    t.integer  "coord_y"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "lookbook_image_maps", ["image_id"], :name => "index_lookbook_image_maps_on_image_id"
-  add_index "lookbook_image_maps", ["lookbook_id"], :name => "index_lookbook_image_maps_on_lookbook_id"
-  add_index "lookbook_image_maps", ["product_id"], :name => "index_lookbook_image_maps_on_product_id"
-
   create_table "lookbooks", :force => true do |t|
     t.string   "name"
     t.string   "thumb_image"
@@ -764,14 +741,6 @@ ActiveRecord::Schema.define(:version => 20140127215701) do
     t.string   "fg_color"
     t.string   "bg_color"
     t.string   "movie_image"
-  end
-
-  create_table "lookbooks_products", :force => true do |t|
-    t.integer  "lookbook_id"
-    t.integer  "product_id"
-    t.boolean  "criteo",      :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "looks", :force => true do |t|
@@ -802,20 +771,6 @@ ActiveRecord::Schema.define(:version => 20140127215701) do
   add_index "moip_callbacks", ["id_transacao"], :name => "index_moip_callbacks_on_id_transacao"
   add_index "moip_callbacks", ["payment_id"], :name => "index_moip_callbacks_on_payment_id"
   add_index "moip_callbacks", ["processed"], :name => "index_moip_callbacks_on_processed"
-
-  create_table "moments", :force => true do |t|
-    t.string   "name"
-    t.boolean  "active",                     :default => false
-    t.string   "slug"
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
-    t.string   "header_image"
-    t.string   "article",      :limit => 25,                    :null => false
-    t.integer  "position",                   :default => 1
-  end
-
-  add_index "moments", ["name"], :name => "index_moments_on_name", :unique => true
-  add_index "moments", ["slug"], :name => "index_moments_on_slug", :unique => true
 
   create_table "order_state_transitions", :force => true do |t|
     t.integer  "order_id"
@@ -1105,8 +1060,8 @@ ActiveRecord::Schema.define(:version => 20140127215701) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
@@ -1266,7 +1221,6 @@ ActiveRecord::Schema.define(:version => 20140127215701) do
     t.boolean  "active"
     t.boolean  "has_corporate"
     t.string   "fantasy_name"
-    t.integer  "orders_count",                                    :default => 0
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token"
@@ -1302,17 +1256,6 @@ ActiveRecord::Schema.define(:version => 20140127215701) do
   add_index "variants", ["number"], :name => "index_variants_on_number"
   add_index "variants", ["product_id", "is_master"], :name => "index_variants_on_product_id_and_is_master"
   add_index "variants", ["product_id"], :name => "index_variants_on_product_id"
-
-  create_table "versions", :force => true do |t|
-    t.string   "item_type",  :null => false
-    t.integer  "item_id",    :null => false
-    t.string   "event",      :null => false
-    t.string   "whodunnit"
-    t.text     "object"
-    t.datetime "created_at"
-  end
-
-  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
   create_table "videos", :force => true do |t|
     t.string   "title"
