@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   def index
     @google_path_pixel_information = "Home"
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
-    @recommendation = RecommendationService.new(profiles: current_user.try(:profiles))
+    @recommendation = RecommendationService.new(profiles: current_user.try(:profiles_with_fallback))
     @looks = @recommendation.full_looks(limit: 4)
 
     @products = []

@@ -227,6 +227,14 @@ class User < ActiveRecord::Base
     Rails.application.routes.url_helpers.accept_invitation_url self.invite_token, :host => host
   end
 
+  def profiles_with_fallback
+    if profiles.empty?
+      [Profile.default]
+    else
+      profiles
+    end
+  end
+
   def all_profiles_showroom(category = nil, collection = Collection.active)
     result = []
     self.profile_scores.each do |profile_score|
