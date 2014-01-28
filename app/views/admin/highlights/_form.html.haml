@@ -7,10 +7,6 @@
           %li= msg
 
   %fieldset
-    =f.label :position, "Posição"
-    =f.select :position, {"Central" => 1, "Esquerda" => 2, "Direita" => 3}
-    
-  %fieldset
     =f.label :title, "Título (apenas para tipo Semanal)"
     =f.text_field :title
 
@@ -18,17 +14,20 @@
     =f.label :subtitle, "Subtítulo (apenas para tipo Semanal)"
     =f.text_field :subtitle
 
-  %fieldset
-    =f.label :image, "Imagem Central"
-    =f.file_field :image
+  - if @highlight.try(:position) == 1
+    %fieldset
+      =f.label :image, "Imagem Central"
+      =f.file_field :image
 
-  %fieldset
-    =f.label :left_image, "Imagem (Esquerda)"
-    =f.file_field :left_image    
-  
-  %fieldset
-    =f.label :right_image, "Imagem (Direita)"
-    =f.file_field :right_image
+  - if @highlight.try(:position) == 2
+    %fieldset
+      =f.label :left_image, "Imagem (Esquerda)"
+      =f.file_field :left_image
+
+  - if @highlight.try(:position) == 3
+    %fieldset
+      =f.label :right_image, "Imagem (Direita)"
+      =f.file_field :right_image
 
   %fieldset
     =f.label :link, "Link (url completa, com 'http://')"
