@@ -12,6 +12,9 @@ class Highlight < ActiveRecord::Base
   validates :title, presence: true
   validates :subtitle, presence: true
   validates :alt_text, presence: true
+  validates :image, presence: true, if: :is_center_image?
+  validates :left_image, presence: true, if: :is_left_image?
+  validates :right_image, presence: true, if: :is_right_image?
 
   def self.highlights_to_show
     Rails.cache.fetch("highlights", :expires_in => 30.minutes) do
@@ -23,9 +26,32 @@ class Highlight < ActiveRecord::Base
     end
   end
 
+  def image_for_position
+    case position
+    when HighlightPosition::CENTER 
+      image
+    when HighlightPosition::LEFT
+      left_image
+    when HighlightPosition::RIGHT
+      right_image
+    end    
+  end
+
   private
 
   def clean_cache
     Rails.cache.delete("highlights")
+  end
+
+  def is_center_image?
+    position == HighlightPosition::CENTER
+  end
+
+  def is_left_image?
+    position == HighlightPosition::LEFT
+  end
+
+  def is_right_image?
+    position == HighlightPosition::RIGHT
   end
 end
