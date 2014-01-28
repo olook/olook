@@ -190,4 +190,31 @@ section#home {
       }
     }
   }
+  .looks_unlogged {
+    height:490px;
+    .mylook {
+      width:25% !important;
+      float:left;
+      .look {
+        width:294px !important;
+        img {
+          width:100%;
+        }
+      }
+    }
+    #see_too {
+      margin-top:7px;
+      width:69%;
+      float:right;
+      height:280px;
+      h4 {display: none;}
+      .elastislide-wrapper {
+        padding:0 40px;
+      }
+    }
+    a.banner_unlogged {
+      float:right;
+      margin-top:26px;
+    }
+  }
 }

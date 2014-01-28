@@ -26,87 +26,10 @@
       %h2 
         = right_highlight.title
         %span= right_highlight.subtitle
-  #looks
-    %h3
-      meus looks
-      =link_to "consulte seu perfil", "teste"
-    .mylook
-      .look
-        =image_tag "home/trash/look1.jpg"
-      .look
-        =image_tag "home/trash/look2.jpg"
-      .look
-        =image_tag "home/trash/look3.jpg"
-      .look.last
-        =image_tag "home/trash/look4.jpg"
-  #see_too
-    %h4
-      Veja Também
-    %ul#carousel.elastislide-list
-      %li
-        =link_to image_tag('home/trash/look1.jpg'), "#"
-        %span
-          R$ 150,00
-      %li
-        =link_to image_tag('home/trash/look2.jpg'), "#"
-        %span
-          R$ 150,00
-      %li
-        =link_to image_tag('home/trash/look3.jpg'), "#"
-        %span
-          R$ 150,00
-      %li
-        =link_to image_tag('home/trash/look4.jpg'), "#"
-        %span
-          R$ 150,00
-      %li
-        =link_to image_tag('home/trash/look1.jpg'), "#"
-        %span
-          R$ 150,00
-      %li
-        =link_to image_tag('home/trash/look2.jpg'), "#"
-        %span
-          R$ 150,00
-      %li
-        =link_to image_tag('home/trash/look3.jpg'), "#"
-        %span
-          R$ 150,00
-      %li
-        =link_to image_tag('home/trash/look4.jpg'), "#"
-        %span
-          R$ 150,00
-      %li
-        =link_to image_tag('home/trash/look1.jpg'), "#"
-        %span
-          R$ 150,00
-      %li
-        =link_to image_tag('home/trash/look2.jpg'), "#"
-        %span
-          R$ 150,00
-      %li
-        =link_to image_tag('home/trash/look3.jpg'), "#"
-        %span
-          R$ 150,00
-      %li
-        =link_to image_tag('home/trash/look4.jpg'), "#"
-        %span
-          R$ 150,00
-      %li
-        =link_to image_tag('home/trash/look1.jpg'), "#"
-        %span
-          R$ 150,00
-      %li
-        =link_to image_tag('home/trash/look2.jpg'), "#"
-        %span
-          R$ 150,00
-      %li
-        =link_to image_tag('home/trash/look3.jpg'), "#"
-        %span
-          R$ 150,00
-      %li
-        =link_to image_tag('home/trash/look4.jpg'), "#"
-        %span
-          R$ 150,00
+  - if current_user
+    = render "logged_page"
+  - else
+    = render "unlogged_page"
   %section#week_highlights
     %h4 
       %span s
