@@ -15,7 +15,7 @@ class Admin::HighlightsController <  Admin::BaseController
   end
 
   def new
-    @highlight = Highlight.new
+    @highlight = Highlight.new(position: params["position"])
   end
 
   def edit

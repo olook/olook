@@ -7,15 +7,14 @@
           %li= msg
 
   %fieldset
-    =f.label :highlight_type, "Tipo"
-    =f.select(:highlight_type, HighlightType.to_a)
-  %fieldset
-    =f.label :title, "Título (apenas para tipo Semanal)"
+    =f.label :title, "Título"
     =f.text_field :title
 
   %fieldset
-    =f.label :subtitle, "Subtítulo (apenas para tipo Semanal)"
+    =f.label :subtitle, "Subtítulo"
     =f.text_field :subtitle
+
+  =f.hidden_field :position
 
   - if @highlight.try(:position) == 1
     %fieldset
