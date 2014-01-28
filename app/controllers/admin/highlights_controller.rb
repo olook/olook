@@ -35,7 +35,7 @@ class Admin::HighlightsController <  Admin::BaseController
   def update
     @highlight = Highlight.find(params[:id])
     if @highlight.update_attributes(params[:highlight])
-      redirect_to [:admin, @highlight], notice: 'Destaque atualizado com sucesso'
+      redirect_to admin_highlights_path, notice: 'Destaque modificado com sucesso.'
     else
       render action: "edit"
     end
