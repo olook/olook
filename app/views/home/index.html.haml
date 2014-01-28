@@ -9,8 +9,8 @@
   #banner
     .column
       - left_highlight = @highlights.select{|h| h.position == 2}.last
-      =link_to left_highlight.link do
-        =image_tag left_highlight.left_image, alt: left_highlight.alt_text, title: left_highlight.alt_text
+      = link_to left_highlight.link do
+        = image_tag left_highlight.left_image, alt: left_highlight.alt_text, title: left_highlight.alt_text
         %h2 
           = left_highlight.title
           %span= left_highlight.subtitle
