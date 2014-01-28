@@ -9,12 +9,7 @@ class SideHighlightBannerUploader < CarrierWave::Uploader::Base
   def store_dir
     "#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
-
-  version :thumb do
-    process :resize_to_fit => [200, 100]
-    process optimize: [{quality: 90}]
-  end
-
+  
   version :site do
     process :resize_to_fit => [239, 360]
     process optimize: [{quality: 90}]
