@@ -9,7 +9,6 @@ module FullLook
     WHITELISTED_SUBCATEGORIES = [
       'blazer',
       'blusa',
-      'calca',
       'camisa',
       'camiseta',
       'casaco',
@@ -39,7 +38,7 @@ module FullLook
         look[:full_look_picture] = master_product.full_look_picture.try(:image_url)
         look[:front_picture] = master_product.front_picture.try(:image_url)
         look[:launched_at] = master_product.launch_date
-        look[:profile_id] = LookProfileCalculator.calculate(struc[:products], category_weight: category_weight)
+        look[:profile_id] = LookProfileCalculator.calculate([master_product], category_weight: category_weight)
         begin
           Rails.logger.debug("Criando look")
           Look.build_and_create(look)
