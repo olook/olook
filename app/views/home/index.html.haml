@@ -25,7 +25,7 @@
     .column
       - if @right_highlight
         =link_to @right_highlight.link do
-          =image_tag @right_highlight.right_image, alt: @right_highlight.alt_text, title: left_highlight.alt_text
+          =image_tag @right_highlight.right_image, alt: @right_highlight.alt_text, title: right_highlight.alt_text
           %h2 
             = @right_highlight.title
             %span= @right_highlight.subtitle
