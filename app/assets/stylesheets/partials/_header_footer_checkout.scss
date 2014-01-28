@@ -1,8 +1,9 @@
+@import "new_structure/common/global_stuffs";
 header.checkout{
-  background:none !important;min-height:100px !important;padding:30px 0 0 0 !important;border-bottom:solid 2px #DEDDDD;text-align:center;margin-bottom: 30px;
+  background:none !important;min-height:85px !important;padding:30px 0 0 0 !important;border-bottom:solid 2px #DEDDDD;text-align:center;margin-bottom: 30px;
   div.head{width:975px;margin:0 auto;position:relative;}
   h1{float:left;
-   a{background: image-url('common/logo.jpg') no-repeat;height: 68px;margin: 8px 0 0;text-indent: -9999px;width: 217px;}
+   a{width: 190px;height: 57px;display:block;background: image-url("common/nav/sprite_header.png") no-repeat 0 -74px;text-indent: -9999px;}
   }
   p{
     &.security{margin:30px 0 0 60px;color:#91C78C;font-family:$avenir_medium;font-size:11px;text-transform:uppercase;float:left;height:24px;padding-left:30px;line-height:30px;background: image-url("login/ico_security.png") no-repeat;}
@@ -14,34 +15,95 @@ header.checkout{
   #session {
     position: absolute;right:0;top:20px;z-index: 995;@include sign-in;overflow: visible;
       
-.box_right{float: right;margin:0;position:relative;
-      .new_login{width: 162px;height: 18px;font-family: $avenir;font-size: 11px;display: block;float: right;text-align: center;line-height: 18px;border-left: 1px #d7d7d7 solid;border-right: 1px #d7d7d7 solid;
-        a{text-decoration: none;color: #000;
-        &:hover{text-decoration:underline;color: #ef3742;}
+    .box_right{  
+        color: #000;
+        float: right;
+        margin: -7px 10px 0 0;
+        position:relative;
+        width: 450px;
+        p{float: right;}
+        .new_login{
+          width: 164px;
+          height: 18px;
+          font-family: $avenir;
+          font-size: 11px;
+          display: block;
+          text-align: center;
+          line-height: 18px;
+          border-left: 1px #000 solid;
+          border-right: 1px #000 solid;
+          height: 15px;
+          a{text-decoration: none;color: #000;
+            &:hover{color: $pink;}
+          }
         }
-      }
+
+        p.trade{font-size:11px;color:#000;line-height:18px;margin-left: 10px;
+          padding-right: 5px;
+          border-right: 1px solid #000;
+          a{text-decoration:none;color:#000;
+            &:hover{text-decoration:none; color: $pink;}
+          }
+        }
+        p.sac{
+          color: #000;
+          font-family: $avenir;
+          font-size: 11px;
+          line-height: 18px;
+          margin-left:8px;
+
+        }
       /*------ USER MENU ----*/
-      div.user {margin: 0;float: left;
+      div.user {margin: 0;float: right;
         ul {
-          > li {
-             &.username{border-right:1px solid #cdcdcd;height: 15px;padding-right: 10px !important;}
-             &.first{border-left: 1px solid #cdcdcd;padding-left: 10px;height: 15px;}
-             &.bl{border-left:solid 1px #D7D7D7;padding-left:8px;line-height:17px;}
-             &.br{border-right:solid 1px #D7D7D7;padding-right:8px;
-               a{color:$pink;line-height:17px;}
+          float: right;
+            li {position: relative;color: #282828;font-size: 11px;text-align: right;margin: 0 0 0 3px;padding: 0;display: inline-block;float: left;
+              &.user{height: 15px;padding-top: 3px;}
+              &.username{border-right:1px solid #000;height: 15px;padding-right: 8px; background: #FFF;}
+              &.first{height: 15px;}
+              &.bl{border-left:solid 1px #D7D7D7;padding-left:8px;line-height:17px;}
+              &.br{border-right:solid 1px #000;padding-right:8px;
+                a{color:$base_color;line-height:17px;}
              }
-            position: relative;color: #282828;font-size: 11px;text-align: right;margin: 0 0 0 3px;padding: 0;display: inline-block;float: left;
+              &.submenu{padding-right: 5px;
+                border-right: 1px solid #000;
+                height: 18px;
+              }
             a {
+
               color: #282828;
               text-decoration: none;
               &#info_user {color:#000;padding-right: 10px;}
               &#account {
-                  background: image-url('common/arrow-down-pink.png') right 7px no-repeat;color: #000;text-align: left;width: auto;min-width: 70px;height: 17px;margin: -6px 0 0;padding: 5px 20px 5px 8px;display: inline-block;border: 1px #FFF solid;float: none;line-height:17px;
-                  &:hover, &.hover {text-decoration: none;border-color: #CCC;box-shadow:0px 2px 5px #CCC;color: #ef3742;}
+                color: #000;
+                text-align: left;
+                width: auto;
+                min-width: 70px;
+                height: 17px;
+                margin: -6px 0 0;
+                padding: 5px 5px 5px 8px;
+                display: inline-block;
+                border: 1px #FFF solid;
+                float: none;
+                line-height:17px;
+
+                &:hover, &.hover {text-decoration: none;border-color: #CCC;box-shadow:0px 2px 5px #CCC;color: #ef3742;}
                 &:hover {color: #ef3742;}
               }
             }  
-            div.my_account {position: absolute;background: #FFF;padding: 5px 0;display: none;top: 17px;left: 0;z-index: 1000;border-left: 1px #CCC solid;border-right: 1px #CCC solid;border-bottom: 1px #CCC solid;box-shadow:0px 4px 5px #CCC;
+            div.my_account {
+              position: absolute;
+              background: #FFF;
+              padding: 5px 0;
+              display: none;
+              top: 17px;
+              left: -10px;
+              z-index: 1000;
+              border-left: 1px #CCC solid;
+              border-right: 1px #CCC solid;
+              border-bottom: 1px #CCC solid;
+              box-shadow:0px 4px 5px #CCC;
+              width: 100px !important;
               ul {
                 margin: 0 0 0 5px;
                 li {margin-top:8px;text-align: left;width: 100%;display: block;clear: both;width: 90px !important;
@@ -60,12 +122,6 @@ header.checkout{
           }
         }
       }
-        p.trade{background: image-url('common/trade_arrows.png') no-repeat top left;float:left;font-size:11px;color:#000;line-height:18px;margin-left: 10px;
-         a{text-decoration:none;color:#000;padding-left: 30px;
-            &:hover{text-decoration:none; color: $pink;}
-         }
-      } 
-  }
 
   }
   
@@ -93,4 +149,5 @@ footer.footer_checkout{
     }
   }
 
+}
 }

@@ -144,7 +144,7 @@ div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px sol
       padding-top:8px;
       height:40px;
       margin:20px 0;
-      .has_bt_face{height:22px;position: absolute;right:-125px;top:8px;}
+      .has_bt_face{height:22px;position: absolute;right:-68px;top:8px;}
 
       ul.social-list {float:left; width:417px;margin-top:5px;
         li {padding:0;margin-right: 10px;display:inline-block;
@@ -675,5 +675,5 @@ input.quero_este {cursor: pointer;}
 }
 
 @-moz-document url-prefix() {
-  .has_bt_face{position:asbolute;right:-145px !important;top:8px;}
+  .has_bt_face{position:asbolute;right:-78px !important;top:8px;}
 }
