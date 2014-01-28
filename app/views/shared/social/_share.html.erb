@@ -1,6 +1,6 @@
 <div class="social">
   <ul>
-    <li class="facebook"><%= link_to "#", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","#{params[:controller].split("/").join("_").camelize}ShareFacebook") do %>Postar no meu mural<% end %></li>
+    <li class="facebook"><%= link_to "#", class: 'js-facebookShareButton', onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","#{params[:controller].split("/").join("_").camelize}ShareFacebook") do %>Postar no meu mural<% end %></li>
     <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=Cadastre-se na olook pelo meu convite, descubra o seu estilo e ainda ganhe R$10! #{accept_invitation_url(:invite_token => user.invite_token)}&hashtags=ficaadica", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","#{params[:controller].split("/").join("_").camelize}ShareTwitter") %></li>
     <li class="email"><%= link_to "#" do %>Enviar por email<% end %></li>
   </ul>
@@ -34,5 +34,21 @@ $(function() {
       $(".box_copy").fadeIn().delay(2000).fadeOut();
     }
   });
+
+  $('.js-facebookShareButton').click(function(e){
+    var obj = {
+      picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
+      method: 'feed',
+      caption: 'www.olook.com.br',
+      link: $(".js-invitationLink").val(),
+      description: 'Ganhe 10 Reais em compras na Olook.com.br'
+    }
+
+    FB.ui(obj, function(response) {
+      console.log('message posted');
+    });
+
+  });
+
 })
 </script>
