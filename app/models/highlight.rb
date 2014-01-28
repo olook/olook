@@ -5,13 +5,13 @@ class Highlight < ActiveRecord::Base
   mount_uploader :right_image, SideHighlightBannerUploader
 
   after_save :clean_cache
-  after_destroy :clean_cache  
+  after_destroy :clean_cache
 
   validates :link, presence: true
   validates :position, presence: true
   validates :title, presence: true
   validates :subtitle, presence: true
-  validates :alt_text, presence: true  
+  validates :alt_text, presence: true
 
   def self.highlights_to_show
     Rails.cache.fetch("highlights", :expires_in => 30.minutes) do
@@ -23,10 +23,9 @@ class Highlight < ActiveRecord::Base
     end
   end
 
-
   private
-    def clean_cache
-      Rails.cache.delete("highlights")
-    end  
 
+  def clean_cache
+    Rails.cache.delete("highlights")
+  end
 end
