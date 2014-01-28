@@ -15,7 +15,7 @@ class RecommendationService
     products = []
 
     @profiles.each do |profile|
-      products += filtered_list_for_profile(profile, opts).first(current_limit).sort { |a,b| b.inventory <=> a.inventory }
+      products += filtered_list_for_profile(profile, opts).first(current_limit)
       current_limit = limit - products.size
       break if products.size == limit
     end
@@ -40,7 +40,7 @@ class RecommendationService
       category = opts[:category]
       collection = opts[:collection]
 
-      result = profile.products.where(_pAt[:launch_date].gt(DAYS_AGO_TO_CONSIDER_NEW.days.ago)).includes(:variants, :pictures)
+      result = profile.products.where(_pAt[:launch_date].gt(DAYS_AGO_TO_CONSIDER_NEW.days.ago)).includes(:variants, :pictures).order('RAND()')
 
       result = result.only_visible.where(_vAt[:inventory].gt(0).and(_vAt[:price].gt(0))) unless is_admin
 
