@@ -3,6 +3,15 @@
   Clique na foto que queira modificar
 
 %div.inner
-  = link_to(image_tag(@left_image.try(:left_image_url,:site)), edit_admin_highlight_path(@left_image))
-  = link_to(image_tag(@center_image.try(:image_url,:site)), edit_admin_highlight_path(@center_image))
-  = link_to(image_tag(@right_image.try(:right_image_url,:site)), edit_admin_highlight_path(@right_image))
+  -if @left_hightlight.blank?
+    = link_to "Criar Destaque da home", "#"
+  -else
+    = link_to(image_tag(@left_hightlight.try(:left_image_url,:site)), edit_admin_highlight_path(@left_hightlight))
+  -if @center_hightlight.blank?
+    = link_to "Criar Destaque da home", "#"
+  -else
+    = link_to(image_tag(@center_hightlight.try(:image_url,:site)), edit_admin_highlight_path(@center_hightlight))
+  -if @right_hightlight.blank?
+    = link_to "Criar Destaque da home", "#"
+  -else
+    = link_to(image_tag(@right_hightlight.try(:right_image_url,:site)), edit_admin_highlight_path(@right_hightlight))

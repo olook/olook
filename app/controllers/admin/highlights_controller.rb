@@ -5,9 +5,9 @@ class Admin::HighlightsController <  Admin::BaseController
   respond_to :haml
 
   def index
-    @left_image = Highlight.find_by_position 2
-    @center_image = Highlight.find_by_position 1
-    @right_image = Highlight.find_by_position 3
+    @left_hightlight = Highlight.find_by_position 2
+    @center_hightlight = Highlight.find_by_position 1
+    @right_hightlight = Highlight.find_by_position 3
   end
 
   def show
