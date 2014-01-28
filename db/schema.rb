@@ -614,6 +614,15 @@ ActiveRecord::Schema.define(:version => 20140127215701) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "images", :force => true do |t|
+    t.string   "image"
+    t.integer  "lookbook_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "images", ["lookbook_id"], :name => "index_images_on_lookbook_id"
+
   create_table "invites", :force => true do |t|
     t.integer  "user_id"
     t.string   "email"
@@ -729,6 +738,20 @@ ActiveRecord::Schema.define(:version => 20140127215701) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "lookbook_image_maps", :force => true do |t|
+    t.integer  "lookbook_id"
+    t.integer  "image_id"
+    t.integer  "product_id"
+    t.integer  "coord_x"
+    t.integer  "coord_y"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "lookbook_image_maps", ["image_id"], :name => "index_lookbook_image_maps_on_image_id"
+  add_index "lookbook_image_maps", ["lookbook_id"], :name => "index_lookbook_image_maps_on_lookbook_id"
+  add_index "lookbook_image_maps", ["product_id"], :name => "index_lookbook_image_maps_on_product_id"
+
   create_table "lookbooks", :force => true do |t|
     t.string   "name"
     t.string   "thumb_image"
@@ -741,6 +764,14 @@ ActiveRecord::Schema.define(:version => 20140127215701) do
     t.string   "fg_color"
     t.string   "bg_color"
     t.string   "movie_image"
+  end
+
+  create_table "lookbooks_products", :force => true do |t|
+    t.integer  "lookbook_id"
+    t.integer  "product_id"
+    t.boolean  "criteo",      :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "looks", :force => true do |t|
@@ -771,6 +802,20 @@ ActiveRecord::Schema.define(:version => 20140127215701) do
   add_index "moip_callbacks", ["id_transacao"], :name => "index_moip_callbacks_on_id_transacao"
   add_index "moip_callbacks", ["payment_id"], :name => "index_moip_callbacks_on_payment_id"
   add_index "moip_callbacks", ["processed"], :name => "index_moip_callbacks_on_processed"
+
+  create_table "moments", :force => true do |t|
+    t.string   "name"
+    t.boolean  "active",                     :default => false
+    t.string   "slug"
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
+    t.string   "header_image"
+    t.string   "article",      :limit => 25,                    :null => false
+    t.integer  "position",                   :default => 1
+  end
+
+  add_index "moments", ["name"], :name => "index_moments_on_name", :unique => true
+  add_index "moments", ["slug"], :name => "index_moments_on_slug", :unique => true
 
   create_table "order_state_transitions", :force => true do |t|
     t.integer  "order_id"
@@ -1221,6 +1266,7 @@ ActiveRecord::Schema.define(:version => 20140127215701) do
     t.boolean  "active"
     t.boolean  "has_corporate"
     t.string   "fantasy_name"
+    t.integer  "orders_count",                                    :default => 0
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token"
