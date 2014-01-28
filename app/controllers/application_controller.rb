@@ -218,7 +218,7 @@ class ApplicationController < ActionController::Base
 
     def prepare_for_home
       Rails.logger.debug('ApplicationController#prepare_for_home')
-      @highlights = Highlight.highlights_to_show
+      prepare_highlights
 
       if params[:share]
         @user = User.find(params[:uid])
@@ -272,6 +272,13 @@ class ApplicationController < ActionController::Base
       @has_two_shipping_services = true
       @shipping_service_fast = OpenStruct.new freights.fetch(:fast_shipping)
     end
+  end
+
+  def prepare_highlights
+    highlights = Highlight.highlights_to_show
+    @left_highlight = highlights[HighlightPosition::LEFT]
+    @center_highlight = highlights[HighlightPosition::CENTER]
+    @right_highlight = highlights[HighlightPosition::RIGHT]    
   end
 
 end
