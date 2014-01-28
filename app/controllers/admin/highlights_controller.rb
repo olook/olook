@@ -5,7 +5,9 @@ class Admin::HighlightsController <  Admin::BaseController
   respond_to :haml
 
   def index
-    @highlights = Highlight.all   
+    @left_image = Highlight.find_by_position 2
+    @center_image = Highlight.find_by_position 1
+    @right_image = Highlight.find_by_position 3
   end
 
   def show
@@ -33,7 +35,7 @@ class Admin::HighlightsController <  Admin::BaseController
   def update
     @highlight = Highlight.find(params[:id])
     if @highlight.update_attributes(params[:highlight])
-      redirect_to [:admin, @highlight], notice: 'Destaque atualizado com sucesso'
+      redirect_to admin_highlights_path, notice: 'Destaque modificado com sucesso.'
     else
       render action: "edit"
     end
