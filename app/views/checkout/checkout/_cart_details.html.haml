@@ -15,7 +15,7 @@
     %li
       %span.txt-black CRÉDITOS:
       %span#credits_used
-        \-#{number_to_currency(@cart_service.total_credits_discount)}
+        \#{@cart_service.total_credits_discount > 0 ? -number_to_currency(@cart_service.total_credits_discount) : "R$ 0,00"}
     - if @cart_service.facebook_discount > 0
       %li
         %span.txt-black FACEBOOK:

@@ -12,9 +12,6 @@ module Recommended
       organize = products.inject({}) {|h,hv| h[hv.category] ||= [];h[hv.category] += [hv];h}
       (1..6)
       organize
-      # binding.pry
-      # (1..50).to_a
-      # organize
     end
   end
 end
