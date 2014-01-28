@@ -1,12 +1,12 @@
 #looks.looks_unlogged
   %h3 Dicas da Olook
   .mylook
-    .look= link_to image_tag(@looks.first.front_picture.showroom.url, data: { hover: @looks.first.full_look_picture.showroom.url }), product_seo_url(@looks.first.product.seo_path)
+    .look= link_to image_tag(@showroom_presenter.look.front_picture.showroom.url, data: { hover: @showroom_presenter.look.full_look_picture.showroom.url }), product_seo_url(@showroom_presenter.look.product.seo_path)
   #see_too
     %h4
       Veja Também
     %ul#carousel.elastislide-list
-      - @products.each do |product|
+      - @showroom_presenter.products.each do |product|
         %li
           =link_to image_tag(product.front_picture.try(:image_url, :showroom), data: { hover: product.full_look_picture.try(:image_url, :showroom) }), product_seo_url(product.seo_path)
           %span= number_to_currency(product.retail_price)

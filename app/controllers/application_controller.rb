@@ -216,20 +216,6 @@ class ApplicationController < ActionController::Base
       !(referer =~ /olook\.com\.br/)
     end
 
-    def prepare_for_home
-      Rails.logger.debug('ApplicationController#prepare_for_home')
-      prepare_highlights
-
-      if params[:share]
-        @user = User.find(params[:uid])
-        @profile = @user.profile_scores.first.try(:profile).try(:first_visit_banner)
-        @qualities = Profile::DESCRIPTION["#{@profile}"]
-        @url = request.protocol + request.host
-      end
-      @incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
-      session[:tracking_params] ||= @incoming_params
-    end
-
   def mobile?
 
     user_agent = request.user_agent ? request.user_agent[0..3] : ""
@@ -272,13 +258,6 @@ class ApplicationController < ActionController::Base
       @has_two_shipping_services = true
       @shipping_service_fast = OpenStruct.new freights.fetch(:fast_shipping)
     end
-  end
-
-  def prepare_highlights
-    highlights = Highlight.highlights_to_show
-    @left_highlight = highlights[HighlightPosition::LEFT]
-    @center_highlight = highlights[HighlightPosition::CENTER]
-    @right_highlight = highlights[HighlightPosition::RIGHT]    
   end
 
 end
