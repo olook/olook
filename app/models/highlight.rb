@@ -17,7 +17,7 @@ class Highlight < ActiveRecord::Base
     Rails.cache.fetch("highlights", :expires_in => 30.minutes) do
       highlights = {}
       for i in 1..3 
-        highlights[i.to_s] = where(position: i).last
+        highlights[i] = where(position: i).last
       end
       highlights
     end

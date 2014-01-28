@@ -8,25 +8,26 @@
 %section#home
   #banner
     .column
-      - left_highlight = @highlights.select{|h| h.position == 2}.last
+      - left_highlight = @highlights[HighlightPosition::LEFT]
       = link_to left_highlight.link do
         = image_tag left_highlight.left_image, alt: left_highlight.alt_text, title: left_highlight.alt_text
         %h2 
           = left_highlight.title
           %span= left_highlight.subtitle
     .column.big
-      - center_highlight = @highlights.select{|h| h.position == 1}.last
+      - center_highlight = @highlights[HighlightPosition::CENTER]
       =link_to center_highlight.link do
         =image_tag center_highlight.image, alt: center_highlight.alt_text, title: center_highlight.alt_text
         %h2 
           = center_highlight.title
           %span= center_highlight.subtitle
     .column
-      - right_highlight = @highlights.select{|h| h.position == 3}.last
-      =image_tag right_highlight.right_image, alt: right_highlight.alt_text, title: left_highlight.alt_text
-      %h2 
-        = right_highlight.title
-        %span= right_highlight.subtitle
+      - right_highlight = @highlights[HighlightPosition::RIGHT]
+      =link_to right_highlight.link do
+        =image_tag right_highlight.right_image, alt: right_highlight.alt_text, title: left_highlight.alt_text
+        %h2 
+          = right_highlight.title
+          %span= right_highlight.subtitle
   - if current_user
     = render "logged_page"
   - else
