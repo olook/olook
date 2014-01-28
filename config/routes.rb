@@ -3,6 +3,10 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+  resources :wished_products, only: [:create, :destroy]
+
+  get "/wishlist", to: 'wishlist#show', as: 'wishlist'
+
   get "/revenda/confirmacao", to: 'reseller#show', as: 'reseller_show'
   post "/revenda", to: "reseller#create", as: 'reseller_create'
   get "/revenda", to: "reseller#new", as: 'reseller_new'
@@ -141,6 +145,7 @@ Olook::Application.routes.draw do
   match "/sociomantic" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/sociomantic_data.xml")
   match "/nano_interactive" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/nano_interactive_data.xml")
   match "/zanox" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/zanox_data.xml")
+  match "/zoom" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/zoom_data.xml")
   match "/afilio" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/afilio_data.xml")
   match "/mt_performance" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/mt_performance_data.xml")
   match "/netaffiliation" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/netaffiliation_data.xml")
@@ -254,6 +259,8 @@ Olook::Application.routes.draw do
     namespace :orders do
       resources :deliveries
       resources :statuses
+      resources :billet_reports, only: :index
+      resources :newest_reports, only: :index
     end
 
     get 'product_autocomplete' => 'products#autocomplete_information'
@@ -418,7 +425,7 @@ Olook::Application.routes.draw do
   #USER / SIGN IN
 
   devise_for :users, :path => 'conta', :controllers => { :omniauth_callbacks => "omniauth_callbacks", :registrations => "users/registrations", :sessions => "users/sessions" } do
-    get '/entrar' => 'users/sessions#new', :as => :new_user_session
+    get '/entrar/:id' => 'users/sessions#new', :as => :new_user_session
     post '/entrar' => 'users/sessions#create', :as => :user_session
     delete '/logout' => 'users/sessions#destroy', :as => :destroy_user_session
     get '/registrar' => "users/registrations#new_half", :as => :new_half_user_session
@@ -489,7 +496,7 @@ Olook::Application.routes.draw do
   get "/cadastro", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: 1 }
   get "/cadastro/olookmovel", :to => "landing_pages#olookmovel", as: 'olookmovel_lp'
   post "/cadastro/olookmovel", :to => "landing_pages#create_olookmovel", as: 'olookmovel_lp'
-  get "/cadastro_parcerias", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: nil }
+  get "/cadastro_parcerias", :to => "landing_pages#show", defaults: { page_url: 'cadastro', ab_t: nil, partner: "adlead" }
 
   # Friendly urls (ok, I know it is not the best approach...)
   match '/sapatos' => redirect('/sapato'), as: 'shoes'

@@ -17,7 +17,9 @@ class ProductPresenter < BasePresenter
   end
 
   def render_look_products
-    h.render :partial => 'product/look_products', :locals => {:look_products => look_products, :product_presenter => self, :complete_look_discount => complete_look_discount} if look_products.size > 1 && product.inventory > 0 && product.has_more_than_half_look_products_available?
+    if look_products.size > 1 && product.inventory > 0 && product.has_more_than_half_look_products_available?
+      h.render :partial => 'product/look_products', :locals => {:look_products => look_products, :product_presenter => self, :complete_look_discount => complete_look_discount} 
+    end
   end
 
   def render_description(show_facebook_button = true)
@@ -124,9 +126,9 @@ class ProductPresenter < BasePresenter
   end
 
   def render_price_for product_discount_service
-    product_discount_service.calculate
+    product_discount_service.calculate_without_promotion_or_coupon
     
-    if product_discount_service.discount > 0 && !product_discount_service.fixed_value_discount?
+    if product_discount_service.discount > 0
       price_markdown(product_discount_service)
     else
       return price_markup(product_discount_service.base_price, "price")

@@ -1,6 +1,6 @@
 <% shoe_size = params[:shoe_sizes].to_a.find { |ss| !ss.blank? }.try(:to_i) || current_user.try(:shoes_size).try(:to_i) %>
 
-  <li class="product<%= " promotion" if product.promotion? %>" data-id="<%= product.id %>">
+  <li class="product<%= " promotion" if product.promotion? %> js-look-product" data-id="<%= product.id %>" data-name="<%= product.name %>">
 
     <%= link_to product, :class => "product_link", :rel => "#{product.id}", onclick: track_event("Product", "ClickLookProduct", "#{@product.id}-#{product.id}"), :data => {:params => {:gift =>  (gift ||= false), :shoe_size => (shoe_size ||= nil)}}, :remote => (defined?(suggestion) || gift)  do %>
 
@@ -24,12 +24,11 @@
         </span>
       </div>
     <% end %>
-    <%= form_tag cart_look_items_path, remote: true do %>
+    <%= form_tag cart_look_items_path do %>
       <%= hidden_field_tag :product_id, product.id %>
       <%= hidden_field_tag :product_price, product.promotion? ? product.retail_price.to_s : product.price.to_s %>
-      <%= select_tag("variant_number", options_for_select({'Selecione o seu tamanho' => ''}.merge(order_variants_by_size(product.variants.where("inventory > 0")).inject({}){|a,b| a[b.description] = b.number; a}), selected: 'Selecione', style:"position:relative; z-index:1000;"),onchange: track_event("Product", "AddLookProduct", "#{@product.id}-#{product.id}")+";$(this).submit();") %>
+      <%= select_tag("variant_number", options_for_select({'Selecione o seu tamanho' => ''}.merge(order_variants_by_size(product.variants.where("inventory > 0")).inject({}){|a,b| a[b.description] = b.number; a}), selected: 'Selecione', style:"position:relative; z-index:1000;"),onchange: track_event("Product", "AddLookProduct", "#{@product.id}-#{product.id}")+";$(this).submit();", data: {product_id: product.id}) %>
       <div class="error"></div>
-      <%#= submit_tag "QUERO ESTE!", onclick: track_event("Product", "AddLookProduct", "#{@product.id}-#{product.id}"), class: 'quero_este' %>
     <% end %>
     <% if params[:controller] == "members" && params[:action] == "showroom" && params[:lbp] == "1" %>
       <p class="facebook_like_button">

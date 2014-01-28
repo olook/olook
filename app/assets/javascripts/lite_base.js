@@ -1,6 +1,8 @@
+//= require string_utils
 //= require plugins/new_modal
 //= require plugins/video_modal
 //= require plugins/async_image_loader
+
 
 
 if(!olook) var olook = {};
@@ -53,20 +55,42 @@ olook.mercadoPagoBanner = function() {
 }
 
 olook.menu = function(){
-  var $el, leftPos, newWidth, w = $("ul.default_new li .selected").outerWidth(), l = $("ul.default_new li .selected").position() && $("ul.default_new li .selected").position().left,
-  top = ( $('div#wrapper_new_menu').offset() && $('div#wrapper_new_menu').offset().top ) - parseFloat(( $('div#wrapper_new_menu').css('margin-top') && $('div#wrapper_new_menu').css('margin-top') || '0' ).replace(/auto/, 0));
-
+  var msie6 = $.browser == 'msie' && $.browser.version < 7;
+  if (!msie6 && $('div#wrapper_new_menu').length == 1) {
+    var top = $('div#wrapper_new_menu').offset().top - parseFloat($('div#wrapper_new_menu').css('margin-top').replace(/auto/, 0));
     $(window).scroll(function (event) {
-    var y = $(this).scrollTop();
-    if (y >= top) {
-      $('div#wrapper_new_menu').addClass('fixed');
+      var wrapper = $('div#wrapper_new_menu');
+      var replacer = $('div#replace_new_menu_on_float');
+      var y = $(this).scrollTop();
+      if (y >= top - 5) {
+        wrapper.addClass('fixed');
+        replacer.show();
+      } else {
+        wrapper.removeClass('fixed');
+        replacer.hide();
+      }
+      event.preventDefault();
+      event.stopPropagation();
+    });
+  }
+
+
+  if($(window).width() < "1200") {
+    $("#wrapper_new_menu .menu_new").addClass("smaller");
+  }
+
+  $(window).resize(function() {
+    width = $(this).width();
+    menu = $("#wrapper_new_menu .menu_new");
+
+    if(width < "1200") {
+      $(menu).addClass("smaller");
     } else {
-      $('div#wrapper_new_menu').removeClass('fixed');
+      $(menu).removeClass("smaller");
     }
-    event.preventDefault();
-    event.stopPropagation();
   });
 }
+
 
 olook.boxLogin = function() {
   $('p.new_login a.trigger').click(function(e){
@@ -247,3 +271,22 @@ olook.showEmailBar = function(){
 		o.registerEmail();
 	}
 }
+
+/*** Wishlist ***/
+
+ $('.addons li').on(
+    {
+        mouseover: function() {
+            $(this).find('wishlist').show();
+            $(this).find('a:first').addClass('selecionado');
+            $(this).find('.sub').show();
+            },
+
+            mouseleave: function() {
+              $(this).find('wishlist').hide();
+              $(this).find('a:first').removeClass('selecionado');
+              $(this).find('.sub').hide();
+            }
+        }
+    );
+

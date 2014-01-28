@@ -7,7 +7,6 @@ class PromotionListener
   end
 
   private
-
     def self.reset_adjustments_for cart
       cart.items.each { |item| item.cart_item_adjustment.update_attributes(value: 0, source: nil) }
     end

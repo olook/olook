@@ -1,0 +1,20 @@
+%h2 Clientes com a primeira compra (Hoje)
+%div.inner
+  %table.table
+    %tr
+      %th Cliente
+      %th Pedido
+      %th Email
+      %th Telefone
+      %th Total pago
+
+    - @orders.all.each do |order|
+      %tr
+        %td= link_to order.user.name, admin_user_path(order.user)
+        %td= link_to order.number, admin_order_path(order)
+        %td= link_to order.user.email, admin_user_path(order.user)
+        %td= order.user.addresses.first.try(:telephone)
+        %td= order.amount_paid
+
+  %br
+

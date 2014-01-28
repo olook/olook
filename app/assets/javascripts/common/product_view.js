@@ -1,3 +1,6 @@
+//= require application_core/olook_app
+//= require_tree ../modules/product
+
 window.onload = function() {
   initQuickView.productZoom();
   load_all_other_images();
@@ -21,9 +24,6 @@ load_all_other_images = function() {
 $(function() {
   var stringDesc = $("div#infos div.description p.description").text();
   
-  // initQuickView.productZoom();
-
-
   /** MODAL GUIA DE MEDIDAS **/
   $(".size_guide a").click(function(e){
     modal.show($("#modal_guide"));
@@ -66,7 +66,7 @@ $(function() {
       $(badge).hide();
       if(inventory <= 3) {
         $(remaining).find("span").text(inventory);
-        $(badge).find("span").text(inventory);
+        $(".js-remaining-badge").text(inventory);
         $(remaining).show();
         $(badge).show();
       }
