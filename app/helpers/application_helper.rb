@@ -197,6 +197,24 @@ module ApplicationHelper
     current_user.nil? || current_user.half_user?
   end  
 
+  def has_items_in_wishlist?
+    current_user && Wishlist.for(current_user).wished_products.any?
+  end
+
+  def home_wishlist_images
+    wishlist_products = Wishlist.for(current_user).wished_products.last(2)
+    wishlist_images = []
+    wishlist_images << wishlist_products.first.variant.product.main_picture.image_url(:main)
+
+    if wishlist_products.size > 1
+      wishlist_images << wishlist_products.last.variant.product.main_picture.image_url(:main)      
+    else
+      wishlist_images << wishlist_products.first.variant.product.backside_picture.gsub("catalog","main")
+    end
+
+    wishlist_images
+  end
+
   private
  
     def ga_event_referer
