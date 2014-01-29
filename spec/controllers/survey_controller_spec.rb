@@ -107,7 +107,7 @@ describe SurveyController do
 
         it "should redirect to showroom" do
           post :create, params
-          response.should redirect_to member_showroom_path
+          response.should redirect_to root_path
         end
       end
 
@@ -132,7 +132,7 @@ describe SurveyController do
 
         it "should redirect to showroom" do
           post :create, params
-          response.should redirect_to member_showroom_path
+          response.should redirect_to root_path
         end
       end
 
