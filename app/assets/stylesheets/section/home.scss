@@ -90,6 +90,7 @@ section#home {
         width:242px;
         float:left;
         margin:7px 7px 0 0 ;
+        position: relative;
         &.last {
           margin-right:0px;
         }
@@ -132,6 +133,7 @@ section#home {
         height:242px;
         min-height:242px;
         max-height:242px;
+        position: relative;
         img{
           width:141px;
           height:212px;}
@@ -244,6 +246,7 @@ section#home {
         float:left;
         margin:0 5px;
         display: block;
+        position: relative;
       }
       h5 {
         padding-top:30px;
@@ -280,5 +283,20 @@ section#home {
       float:right;
       margin-top:12px;
     }
+  }
+  .seeMore {
+    width:100%;
+    display: block;
+    position: absolute;
+    bottom:0px;
+    padding:10px 0;
+    background: #fff;
+    color:#000;
+    display: none;
+    text-align: center;
+    font-family: "Trebuchet Ms";
+    letter-spacing: 2px;
+    background: rgba(255,255,255,0.6);
+    font-size: 12px;
   }
 }
