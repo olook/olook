@@ -191,6 +191,10 @@ module ApplicationHelper
     else
       false
     end
+  end
+
+  def show_unlogged_home?
+    current_user.nil? || current_user.half_user?
   end  
 
   private
