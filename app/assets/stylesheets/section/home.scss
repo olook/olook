@@ -27,6 +27,9 @@ section#home {
         color:#000;
         text-decoration: none;
       }
+      a:hover {
+        color:#ed3a40;
+      }
       h2 {
         width:100%;
         display: block;
@@ -34,8 +37,8 @@ section#home {
         font-family: $arial;
         font-size: 17px;
         text-transform: uppercase;
-        padding-top:10px;
-        letter-spacing: 1px;
+        padding-top:4px;
+        letter-spacing: 3px;
         span {
           display: block;
           font-family: Georgia, Tahoma, Arial;
@@ -53,7 +56,7 @@ section#home {
   }
   #looks {
     width:100%;
-    margin-top:20px;
+    margin-top:18px;
     h3 {
       width:100%;
       text-align: center;
@@ -66,7 +69,7 @@ section#home {
       font-weight: normal;
       position: relative;
       font-family: "Trebuchet Ms", Verdana, Tahoma;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       a { 
         position: absolute;
         right:20px;
@@ -96,10 +99,10 @@ section#home {
   #see_too {
     border:1px solid #d1d1d1;
     margin-top:60px;
-    height:298px;
+    height:305px;
     position: relative;
     h4 {
-      padding:0 10px;
+      padding:0 40px;
       background: #fff;
       border-right:1px solid #d1d1d1;
       border-left:1px solid #d1d1d1;
@@ -108,10 +111,13 @@ section#home {
       left:50%;
       font-family: "Trebuchet Ms", Verdana, Tahoma;
       font-size: 18px;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      margin-left:-80px;
+      margin-left:-114px;
       font-weight: normal;
+    }
+    .elastislide-wrapper {
+      padding:5px 22px;    
     }
     ul#carousel {
       height: auto !important;
@@ -119,17 +125,16 @@ section#home {
       min-height:260px;
       max-height:261px;
       li {
-        height:285px;
         padding:5px;
         border:1px solid #e1e1e1;
         margin-right:5px;
         height: auto !important;
-        height:225px;
-        min-height:225px;
-        max-height:225px;
+        height:242px;
+        min-height:242px;
+        max-height:242px;
         img{
-          width:135px;
-          height:203px;}
+          width:141px;
+          height:212px;}
         span {
           display: block;
           font-family: $verdana;
@@ -138,6 +143,15 @@ section#home {
           letter-spacing: 0px;
         }
       }
+    }
+    .elastislide-next,
+    .elastislide-prev {
+      background: image-url('home/arrows.png') transparent no-repeat center right;
+      right:7px;
+    }
+    .elastislide-prev {
+      background-position: center left;
+      left:7px;
     }
   }
   #week_highlights {
@@ -179,7 +193,7 @@ section#home {
       h5, h5 a {
         font-family: $arial;
         font-size: 20px;
-        letter-spacing: 1px;
+        letter-spacing: 2px;
         display: block;
         padding:2px;
         text-decoration: none;
@@ -196,15 +210,49 @@ section#home {
     }
     .favTip {
       width:445px;
-      height:445px;
+      padding-top:371px;
       float:right;
-      background: red;
+      background:image-url('home/bg_favTip.jpg') no-repeat top center;
+      text-align: center;
+      position: relative;
+      h5, h5 a {
+        font-family: $arial;
+        font-size: 20px;
+        letter-spacing: 2px;
+        display: block;
+        padding:2px;
+        text-decoration: none;
+        color:#000;
+        padding:20px 0 10px 0;
+        text-transform: uppercase;
+        span {color:#ed3a40;}
+      }
+      p {
+        font-family: Georgia;
+        font-size: 14px;
+        display: block;
+        letter-spacing: 2px;
+        text-align: center;
+      }
+    }
+    .has_love {
+      background: none;
+      padding-top:0px;
+      width:505px;
+      .fav_product {
+        float:left;
+        margin:0 5px;
+      }
+      h5 {
+        padding-top:30px;
+        clear:both;
+      }
     }
   }
   .looks_unlogged {
     height:490px;
     .mylook {
-      width:25% !important;
+      width:30% !important;
       float:left;
       .look {
         width:294px !important;
@@ -217,15 +265,18 @@ section#home {
       margin-top:7px;
       width:69%;
       float:right;
-      height:280px;
+      height:296px;
       h4 {display: none;}
       .elastislide-wrapper {
-        padding:0 40px;
+        padding:0 22px;
+      }
+      ul#carousel li {
+        margin-right:9px;
       }
     }
     a.banner_unlogged {
       float:right;
-      margin-top:26px;
+      margin-top:12px;
     }
   }
 }
