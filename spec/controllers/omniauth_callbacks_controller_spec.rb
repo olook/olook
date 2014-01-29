@@ -18,7 +18,7 @@ describe OmniauthCallbacksController do
         user.stub(:authenticatable_salt)
         user.stub(:half_user?).and_return(false)
         get :facebook
-        response.should redirect_to(member_showroom_path)
+        response.should redirect_to(root_path)
       end
 
       it "should set facebook uid and token" do
@@ -49,7 +49,7 @@ describe OmniauthCallbacksController do
         session[:facebook_scopes] = facebook_scopes
         session[:facebook_redirect_paths] = "showroom"
         get :facebook
-        response.should redirect_to(member_showroom_path)
+        response.should redirect_to(root_path)
       end
 
       it "should redirect to friends showroom" do
