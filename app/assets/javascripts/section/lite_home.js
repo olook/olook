@@ -15,15 +15,13 @@ olook.carousel = function() {
 }
 
 olook.seeMore = function() {
-  $('#carousel li a').on(
+  $('#carousel li, .look, .fav_product').on(
     {
       mouseover: function() {
-        $(this).find('img').css('opacity', '0.65');
-        $(this).find('.js-imgAddToCart').show();
+        $(this).find('.seeMore').show();
       },
       mouseleave: function() {
-        $(this).find('img').css('opacity', '1');
-        $(this).find('.js-imgAddToCart').hide();
+        $(this).find('.seeMore').hide();
       }
     }
   );

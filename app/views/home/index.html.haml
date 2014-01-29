@@ -4,6 +4,8 @@
   %meta{:content => @chaordic_user, :name => "chaordic:user"}/
 - content_for :footer do
   = javascript_include_tag "section/lite_home"
+  - if Campaign.activated_campaign && Campaign.activated_campaign.lightbox?
+    = render :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => Campaign.activated_campaign.link}
 
 %section#home
 
