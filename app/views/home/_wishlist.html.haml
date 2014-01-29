@@ -1,0 +1,12 @@
+- if has_items_in_wishlist?
+  .favTip.has_love
+    .fav_product
+      = link_to image_tag('home/trash/has_love1.jpg'), wishlist_path
+    .fav_product
+      = link_to image_tag('home/trash/has_love1.jpg'), wishlist_path
+- else
+  .favTip
+    = link_to "Wishlist", wishlist_path, class: "favTipLink"
+  %h5 
+    \// Favoritos //
+  %p Separe aqui seus produtos favoritos
