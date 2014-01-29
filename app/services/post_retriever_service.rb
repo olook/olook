@@ -7,7 +7,7 @@ class PostRetrieverService
 
   def retrieve_posts
     Rails.cache.fetch("sn-post-data", :expires_in => 1.hour) do
-      retrieve_post_data
+      retrieve_post_data 1
     end
   end
 
@@ -18,7 +18,7 @@ class PostRetrieverService
   private
 
     def retrieve_post_data(number = 3)
-      posts.map do |post|        
+      posts(number).map do |post|        
         format_post post
       end
     end
