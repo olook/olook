@@ -33,25 +33,9 @@
             %span= @right_highlight.subtitle
 
   - if show_unlogged_home?
-    = cache "home/unlogged_page", expire_in: 30.minutes do
-      = render "unlogged_page"
+    = render "unlogged_page"
   - else
-    = cache "home/#{@current_user.profile}", expire_in: 30.minutes do
-      = render "logged_page"
+    = render "logged_page"
   %section#week_highlights
     = render "home/week_highlights"
-    
-    // Se não houver nenhum produto em favoritos, logado ou deslogado, basta remover a classe 'has_love'. Quando há produtos para exibir, adicione a classe. 
-    
-    .favTip.has_love
-      .fav_product
-        = link_to image_tag('home/trash/has_love1.jpg'), "#"
-        .seeMore 
-          VER MAIS
-      .fav_product
-        = link_to image_tag('home/trash/has_love1.jpg'), "#"
-        .seeMore 
-          VER MAIS
-      %h5 
-        \// Favoritos //
-      %p Separe aqui seus produtos favoritos
+    = render "home/wishlist"
