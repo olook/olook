@@ -29,10 +29,10 @@
           %h2 
             = @right_highlight.title
             %span= @right_highlight.subtitle
-  - if current_user
-    = render "logged_page"
-  - else
+  - if current_user.nil? || current_user.half_user?
     = render "unlogged_page"
+  - else
+    = render "logged_page"
   %section#week_highlights
     = render "home/week_highlights"
     .favTip
