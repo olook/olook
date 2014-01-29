@@ -50,7 +50,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def after_sign_in_path_for(resource)
-    path = session[:previous_url] || member_showroom_path
+    path = session[:previous_url] || root_path
 
     @cart.update_attributes(:user_id => resource.id) if @cart
 

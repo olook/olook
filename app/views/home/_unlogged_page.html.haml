@@ -1,13 +1,13 @@
 #looks.looks_unlogged
   %h3 Dicas da Olook
   .mylook
-    .look= link_to image_tag(@showroom_presenter.look.front_picture.showroom.url, data: { hover: @showroom_presenter.look.full_look_picture.showroom.url }), product_seo_url(@showroom_presenter.look.product.seo_path)
+    .look= link_to image_tag(@showroom_presenter.look.front_picture.showroom.url, data: { hover: @showroom_presenter.look.full_look_picture.showroom.url }), product_seo_url(@showroom_presenter.look.product.seo_path), onclick: track_event("UnloggedHome", "ClickLook", "#{@showroom_presenter.look.id}")
   #see_too
     %h4
       Veja Também
     %ul#carousel.elastislide-list
       - @showroom_presenter.products.each do |product|
         %li
-          =link_to image_tag(product.front_picture.try(:image_url, :showroom), data: { hover: product.full_look_picture.try(:image_url, :showroom) }), product_seo_url(product.seo_path)
+          =link_to image_tag(product.front_picture.try(:image_url, :showroom), data: { hover: product.full_look_picture.try(:image_url, :showroom) }), product_seo_url(product.seo_path), onclick: track_event("UnloggedHome", "ClickCarouselProduct", "#{product.id}")
           %span= number_to_currency(product.retail_price)
-  = link_to image_tag("home/banner_deslogado.jpg"), wysquiz_path, :class => "banner_unlogged"
+  = link_to image_tag("home/banner_deslogado.jpg"), wysquiz_path, :class => "banner_unlogged", onclick: track_event("UnloggedHome", "ClickBanner")
