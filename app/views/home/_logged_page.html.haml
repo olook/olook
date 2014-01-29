@@ -4,7 +4,10 @@
     =link_to "consulte seu perfil", profile_url
   .mylook
     - @showroom_presenter.looks.each_with_index do |look,idx|
-      .look{class: ('last' if idx == 3)}= link_to image_tag(look.front_picture.showroom.url, data: { hover: look.full_look_picture.showroom.url }), product_seo_url(look.product.seo_path), onclick: track_event("LoggedHome", "ClickLook", "#{look.id}")
+      .look{class: ('last' if idx == 3)}
+        = link_to image_tag(look.front_picture.showroom.url, data: { hover: look.full_look_picture.showroom.url }), product_seo_url(look.product.seo_path), onclick: track_event("LoggedHome", "ClickLook", "#{look.id}")
+        .seeMore 
+          VER MAIS
   #see_too
     %h4
       Veja Também
@@ -13,3 +16,5 @@
         %li
           =link_to image_tag(product.front_picture.try(:image_url, :showroom)), product_seo_url(product.seo_path), onclick: track_event("LoggedHome", "ClickCarouselProduct", "#{product.id}")
           %span= number_to_currency(product.retail_price)
+          .seeMore 
+            VER MAIS
