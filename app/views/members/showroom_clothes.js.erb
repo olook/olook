@@ -1,5 +1,0 @@
-<% present 'Showroom', :member => @user, :admin => current_admin, :collection => @collection   do |showroom_presenter| %>
-  $('#clothes_product').html('<%= j showroom_presenter.display_clothes((5..24),@collection,@user) %>');
-<% end %>
-$("#clothes_product").append('<%= j link_to "Ver mais roupas", clothes_path, :class => "catalog_link" %>');
-initBase.replaceImages();

@@ -185,7 +185,6 @@ Olook::Application.routes.draw do
   post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
   get "membro/convidadas" => "members#invite_list", :as => 'member_invite_list'
   get "membro/vitrine" => redirect('/minha/vitrine')
-  get "minha/vitrine", :to => "members#showroom", :as => "member_showroom"
   get "/vitrines", to:"members#half_showroom", as: 'half_showroom'
   get "/criar/vitrine", to: 'join#showroom', as: 'join_showroom'
   get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"

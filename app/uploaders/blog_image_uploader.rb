@@ -15,7 +15,7 @@ class BlogImageUploader < CarrierWave::Uploader::Base
   end
 
   version :new_home do
-    process :resize_to_fit => [490, 367]
+    process :resize_to_fit => [482, 361]
     process :optimize
   end
 
