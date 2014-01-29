@@ -8,7 +8,7 @@
     = javascript_include_tag 'section/lite_showroom'
 - unless @first_time
   = image_tag "quiz/back_arrow_pink.png", :class => "arrow_pink"
-  = link_to("Voltar para minha vitrine", member_showroom_path, :class =>"b_showroom")
+  = link_to("Voltar para minha vitrine", root_path, :class =>"b_showroom")
 = render_profile_template(@profile.alternative_name)
 - if @first_time
   #showroom
@@ -43,7 +43,7 @@
 -else
   %ul.tryquiz
     %li
-      = link_to("Essa sou eu!", member_showroom_path, :class => "me", onclick: "_gaq.push(['_trackEvent', 'MeuEstilo', 'SouEu', ''])")
+      = link_to("Essa sou eu!", root_path, :class => "me", onclick: "_gaq.push(['_trackEvent', 'MeuEstilo', 'SouEu', ''])")
     %li
       = link_to("Quero tentar de novo", wysquiz_path, :class => "again", onclick: "_gaq.push(['_trackEvent', 'MeuEstilo', 'TentarDeNovo', ''])")
 - content_for :data_layer do

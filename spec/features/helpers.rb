@@ -4,8 +4,8 @@
 def do_login!(user)
   FacebookAdapter.any_instance.stub(:facebook_friends_registered_at_olook).and_return([])
   VCR.use_cassette('yahoo_login', :match_requests_on => [:host, :path]) do
-    visit '/'
-    within('div.sign-in-dropdown') do
+    visit '/conta/sign_in'
+    within('#sign-in-box') do
       fill_in "user_email", :with => user.email
       fill_in "user_password", :with => user.password
       click_button "login"

@@ -19,40 +19,6 @@ describe MembersController do
     end
   end
 
-  describe "#showroom" do
-    before :all do
-      user.add_event(EventType::FIRST_VISIT)
-    end
-
-    before :each do
-      FacebookAdapter.any_instance.stub(:facebook_friends_registered_at_olook)
-    end
-
-    it "should show the member showroom page" do
-      get :showroom
-      response.should render_template("showroom")
-      assigns(:user).should eq(user)
-    end
-
-    it "should assign @friends" do
-      FacebookAdapter.any_instance.should_receive(:facebook_friends_registered_at_olook).and_return([:fake_friend])
-      get :showroom
-      assigns(:friends).should == [:fake_friend]
-    end
-
-    it "should redirect to facebook_connect_path if the user has a invalid token" do
-      FacebookAdapter.any_instance.should_receive(:facebook_friends_registered_at_olook).and_raise(Koala::Facebook::APIError)
-      get :showroom
-      response.should be_ok
-    end
-
-    it "should not redirect to facebook_connect_path if the user has a valid token" do
-      get :showroom
-      response.should_not redirect_to(facebook_connect_path)
-    end
-
-  end
-
   it "#invite_by_email" do
     emails = ['jane@friend.com', 'invalid email', 'mary@friend.com', 'lily@friend.com', 'rose@friend.com']
     joined_emails = "#{emails[0]},#{emails[1]}\r#{emails[2]}\t#{emails[3]};#{emails[4]}"
