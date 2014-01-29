@@ -4,11 +4,12 @@
 //= require plugins/change_picture_onhover
 
 
-$(function(){
+initHome = function(){
   olook.carousel();
   olook.seeMore();
-  // olook.changePictureOnhover('a:has(img[data-hover])', 'hover')
-});
+  olook.changePictureOnhover('.look_thumbnail');
+  new ImageLoader().load('look_thumbnail');
+};
 
 olook.carousel = function() {
   $('#carousel').elastislide();
@@ -26,3 +27,5 @@ olook.seeMore = function() {
     }
   );
 }
+
+window.addEventListener('load', initHome);
