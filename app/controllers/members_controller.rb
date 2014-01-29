@@ -75,35 +75,6 @@ class MembersController < ApplicationController
     session[:facebook_redirect_paths] = "showroom"
   end
 
-  def showroom
-    return redirect_to join_showroom_path if !@user
-    return redirect_to half_showroom_path if @user.half_user
-
-    @google_path_pixel_information = "home"
-    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
-
-    session[:facebook_redirect_paths] = "showroom"
-    if @facebook_adapter
-      @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
-    end
-
-    @recommended = RecommendationService.new(profiles: current_user.profiles)
-    admin = current_admin.present?
-    # This is needed becase when we turn the month collection we never have cloth
-    # cloth_ids = cloth_ids_by_profile current_user.profile
-
-    @cloth = clothes_by_profile
-    @cloth += @recommended.products( category: Category::CLOTH, collection: @collection, limit: 10, admin: admin )
-    @cloth = @cloth.first(10)
-
-
-    @shoes = @recommended.products( category: Category::SHOE, collection: @collection, admin: admin )
-    @bags = @recommended.products( category: Category::BAG, collection: @collection, admin: admin )
-    @accessories = @recommended.products( category: Category::ACCESSORY, collection: @collection, admin: admin )
-
-    render layout: 'lite_application'
-  end
-
   def earn_credits
   end
 
@@ -112,13 +83,6 @@ class MembersController < ApplicationController
 
   def invite_list
     @invites = @user.invites.page(params[:page]).per_page(15)
-  end
-
-  def half_showroom
-    if @facebook_adapter
-      @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
-    end
-    render layout: 'lite_application'
   end
 
   private
