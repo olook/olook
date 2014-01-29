@@ -13,7 +13,7 @@ olook.checkFreebie = function() {
 olook.showSmellPackageModal = function (){
    var content = $(".modal_smell:first");
    $("a.seeTheSmell").unbind('click').bind("click", function(e){
-      initBase.newModal(content);
+      olook.newModal(content, 340, 530);
       e.preventDefault();
       e.stopPropagation();
    });
