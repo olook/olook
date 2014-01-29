@@ -6,7 +6,7 @@
 
 $(function(){
   olook.carousel();
-  // olook.changePictureOnhover('a:has(img[data-hover])', 'hover')
+  olook.changePictureOnhover('a:has(img[data-hover])', 'hover')
 });
 
 olook.carousel = function() {
