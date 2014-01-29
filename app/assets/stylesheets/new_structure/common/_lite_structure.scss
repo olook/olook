@@ -40,18 +40,119 @@ li{list-style-type:none;}
 /*------------------
 ====== FOOTER ======
 ------------------*/
-footer {height:415px;clear:both;margin-top:60px;position: relative;background-color: #000;color: #fff !important;
-  section {margin:0px auto;width:970px;padding-top:40px;
-    ul{width: 170px;float: left;font-family: $verdana;margin-right: 40px;
-      &.atendimento{margin-left: 95px;}
+footer {
+  height:465px;
+  clear:both;
+  margin-top:60px;
+  position: relative;
+  background-color: #000;
+  color: #fff !important;
+  section {
+    margin:0px auto;
+    width:970px;
+    padding-top:40px;
+    ul{
+      width: 170px;
+      float: left;
+      font-family: $verdana;
+      margin-right: 68px;
+      height: 205px;
+      &.atendimento{margin-left: 40px;}
+      &.social{
+        width: 180px;
+        margin-right: 0 !important;
+        a{
+          display: block;
+          width: 35px;
+          height: 35px;}
+        li.logo{
+          margin-bottom: 15px;
+        }
+        li.icon{
+          width: 35px;
+          height: 35px;
+          float: left;
+          text-indent: -9999px;
+          background: image-url('footer/social_icons.png') no-repeat;
+          margin-right: 5px;
+        }
+        li.fb{margin-left: 58px;}
+        li.twitter{background-position: -41px 0;}
+        li.instagram{background-position: -82px 0;}
+      }
       li{
         font-size: 11px;
         padding-top: 5px;
-        a{color: #fff;text-decoration: none;
-          &:hover{color:$base_color;}
+        a{
+          color: #fff;
+          text-decoration: none;
+          cursor: pointer;
+          &:hover{text-decoration:underline;}
         }
-        &.title{text-transform: uppercase;font-size: 13px;margin-bottom: 25px;font-weight: bold;}
+        &.title{
+          text-transform: uppercase;
+          font-size: 13px;
+          margin-bottom: 25px;
+          font-weight: bold;
+        }
       }
+      &.payment{
+        margin-left: 40px;
+        height: 100px;
+        width: 430px;
+        margin-top: 25px;
+        li.title{width: 440px;}
+        li.credit, .billet, .online, .mpago{
+          height: 50px;
+          float: left;
+          background: image-url('footer/payment_icons.png') no-repeat 0 28px;
+          margin-right: 20px;
+        }
+        li.credit{
+          width: 125px;
+        }
+        li.billet{
+          width: 45px;
+          background-position: -149px 28px; 
+        }
+        li.online{
+          width: 82px; 
+          background-position: -234px 28px;
+        }
+        li.mpago{
+          width: 90px;
+          margin-right: 0;
+          background-position: -329px 28px;
+          p{text-indent: -9999px;}
+        }
+      }
+      &.security{
+        height: 107px;
+        width: 170px;
+        margin-top: 25px;
+        float: right;
+        margin-right: 20px;
+        li{float: left;}
+        li.title{
+          width: 250px;
+          padding-left: 10px;
+        }
+        li.ebit{
+          a{display: block;padding-top: 3px;}
+        }
+      }
+    }
+    .about_olook{
+      width: 990px;
+      background-color: #fff;
+      color: #5c5c5c; 
+      float: left;
+      font-family: $verdana;
+      font-size: 10px;
+      text-align: center;
+      margin-top: 35px;
+      margin-left: -10px;
+      padding-top: 10px;
     }
   }
 }
