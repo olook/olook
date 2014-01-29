@@ -73,43 +73,17 @@ describe RecommendationService do
     end
 
     context "when there's not enough products in main profile" do
-      subject { described_class.new({ profiles: @profiles }).products(limit: 3) }
+      subject { described_class.new({ profiles: @profiles }).products(limit: 2) }
 
       before do
         @profiles << FactoryGirl.create(:sporty_profile)
         @products_returned = [FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:shoe, profiles: [@profiles.first])).product]
-        @products_returned << FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:bag, profiles: [@profiles.last])).product
-        @products_returned << FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:basic_accessory, profiles: [@profiles.last])).product
-        @products_not_returned = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:simple_garment, profiles: [@profiles.last])).product
+        @products_returned = FactoryGirl.create(:variant, :in_stock, product: FactoryGirl.create(:simple_garment, profiles: [@profiles.last])).product
       end
 
       context "returned products" do
         it { should include(*@products_returned) }
-        it { should_not include(@products_not_returned) }
       end
-
-      context "the first products should follow given profile's order" do
-        it { expect(subject.first).to eq(@products_returned.first) }
-      end
-    end
-
-    context "ordering profile's products by decreasing inventory" do
-      subject { described_class.new({ profiles: @profiles, limit: 4 }).products }
-
-      before do
-        @profiles << FactoryGirl.create(:sporty_profile)
-
-        @sec_product = FactoryGirl.create(:variant, inventory: 1, product: FactoryGirl.create(:shoe, profiles: [@profiles.first])).product
-        @first_product = FactoryGirl.create(:variant, inventory: 8, product: FactoryGirl.create(:bag, profiles: [@profiles.first])).product
-        @third_product = FactoryGirl.create(:variant, inventory: 9, product: FactoryGirl.create(:basic_accessory, profiles: [@profiles.last])).product
-        @fourth_product = FactoryGirl.create(:variant, inventory: 3, product: FactoryGirl.create(:simple_garment, profiles: [@profiles.last])).product
-
-      end
-
-      it { expect(subject.first).to eq(@first_product) }
-      it { expect(subject[1]).to eq(@sec_product) }
-      it { expect(subject[2]).to eq(@third_product) }
-      it { expect(subject[3]).to eq(@fourth_product) }
     end
 
     context "when product is sold out" do

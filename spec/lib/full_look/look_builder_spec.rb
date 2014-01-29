@@ -57,7 +57,7 @@ describe FullLook::LookBuilder do
       product_2 = product(2)
       product_3 = product(3)
       product_4 = product(4)
-      FullLook::LookProfileCalculator.should_receive(:calculate).with([product_1,product_2,product_3,product_4],category_weight: subject.category_weight).and_return(1)
+      FullLook::LookProfileCalculator.should_receive(:calculate).with([product_1],category_weight: subject.category_weight).and_return(1)
       relateds = []
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product_1, product_b: product_2)
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product_1, product_b: product_3)
