@@ -8,6 +8,6 @@
     %ul#carousel.elastislide-list
       - @showroom_presenter.products.each do |product|
         %li
-          =link_to image_tag(product.front_picture.try(:image_url, :showroom), data: { hover: product.full_look_picture.try(:image_url, :showroom) }), product_seo_url(product.seo_path), onclick: track_event("UnloggedHome", "ClickCarouselProduct", "#{product.id}")
+          =link_to image_tag(product.front_picture.try(:image_url, :showroom)), product_seo_url(product.seo_path), onclick: track_event("UnloggedHome", "ClickCarouselProduct", "#{product.id}")
           %span= number_to_currency(product.retail_price)
   = link_to image_tag("home/banner_deslogado.jpg"), wysquiz_path, :class => "banner_unlogged", onclick: track_event("UnloggedHome", "ClickBanner")
