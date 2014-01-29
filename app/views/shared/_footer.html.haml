@@ -45,4 +45,40 @@
         = link_to "Revenda Olook", reseller_new_path
       %li
         = link_to "Programa de Afiliados", afiliados_path
-      
+    %ul.social
+      %li.logo
+        =image_tag("footer/olook_logo.png")
+      %li.icon.fb
+        =link_to "Facebook", "http://facebook.com/olook", :alt => "Facebook"
+      %li.icon.twitter
+        =link_to "Twitter", "http://twitter.com/olook", :alt => "Twitter"
+      %li.icon.instagram
+        =link_to "Instagram", "http://instagram.com/olook", :alt => "Instagram"
+    %ul.payment
+      %li.title
+        Formas de Pagamento
+      %li.credit
+        %p
+          Cartão de Crédito
+      %li.billet
+        %p
+          Boleto
+      %li.online
+        %p
+          Débito Online
+      %li.mpago
+        %p
+          Mercado Pago
+    %ul.security
+      %li.title
+        Site Seguro
+      %li
+        = link_to image_tag("common/ico_security.png"), "http://www.trustlogo.com/ttb_searcher/trustlogo?v_querytype=W&v_shortname=SC4&v_search=http://www.olook.com.br/&x=6&y=5", target: '_blank'
+      %li.ebit
+        = render "shared/ebit/seal_footer"
+    .about_olook
+      %p
+        © #{Time.now.year} - Olook. Todos os direitos reservados. A Olook respeita sua privacidade e de todos os seus clientes. Leia mais sobre a nossa #{link_to "Política de Privacidade", terms_path}.
+      %address Escritório: Rua Natividade, 72 - Vl. Nova Conceição, São Paulo - SP. Centro de distribuição: Avenida Ribeirão dos Cristais, 800, Jordanésia, Cajamar - SP. Galpão 10, módulo C e D
+      %p Olook Comércio Online de Moda Ltda  /  CNPJ 011.216.478/0001-70
+
