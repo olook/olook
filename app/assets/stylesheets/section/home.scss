@@ -234,6 +234,7 @@ section#home {
         letter-spacing: 2px;
         text-align: center;
       }
+      .fav_product {display: none;}
     }
     .has_love {
       background: none;
@@ -242,6 +243,7 @@ section#home {
       .fav_product {
         float:left;
         margin:0 5px;
+        display: block;
       }
       h5 {
         padding-top:30px;
