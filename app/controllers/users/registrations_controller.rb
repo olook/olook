@@ -71,7 +71,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def destroy_facebook_account
     @user.update_attributes(:uid => nil, :facebook_token => nil, :facebook_permissions => [])
-    redirect_to(member_showroom_path, :notice => "Sua conta do Facebook foi removida com sucesso")
+    redirect_to(root_path, :notice => "Sua conta do Facebook foi removida com sucesso")
   end
 
   protected

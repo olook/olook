@@ -41,7 +41,7 @@ describe Admin::UsersController, admin: true do
   describe "GET admin_login" do
     it "allow admin to login as any user" do
       get :admin_login, :id => user.id.to_s
-      response.should redirect_to(member_showroom_path)
+      response.should redirect_to(root_path)
     end
   end
 

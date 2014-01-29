@@ -42,7 +42,7 @@
     <div id="showroom">
       <%= image_tag "loyalty/products.jpg", :title => "Produtos" %>
       <% if @user %>
-        <%= link_to "Visite sua vitrine e aproveite", member_showroom_path, :class => "link_showroom" %>
+        <%= link_to "Visite sua vitrine e aproveite", root_path, :class => "link_showroom" %>
       <% else %>
         <%= link_to "COMPRAR AGORA", collection_themes_path, :class => "buy_now" %>
       <% end %>
