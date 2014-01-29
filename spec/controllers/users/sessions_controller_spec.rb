@@ -104,14 +104,14 @@ describe Users::SessionsController do
       it "should redirect to showroom page" do
         user.stub(:half_user => false)
         post :create, :user => user_params
-        response.should redirect_to(member_showroom_path)
+        response.should redirect_to(root_path)
       end
     end
 
     context "when is as half user and is woman" do
       it "should redirect to showroom page" do
         post :create, :user => woman_user_params
-        response.should redirect_to(member_showroom_path)
+        response.should redirect_to(root_path)
       end
     end
   end

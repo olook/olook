@@ -1,13 +1,16 @@
 <% POST_RETRIEVER_SERVICE.retrieve_posts.each_with_index do |post, index| %>
   <div id="about">
-    <%= link_to post[:link], class: "open_making_of", onclick: track_event('Destaques',"Banner#{index + 1}", post[:link]) do %>
+    <%= link_to post[:link], class: "open_making_of", onclick: track_event('Home',"StylistNewsBanner#{index + 1}", post[:link]) do %>
       <%= image_tag post[:img_new_home], title: "destaque semanal" %>
     <% end %>
     <!--div class="video_description">
       <h5>Conheça mais sobre a olook</h5>
       <%= link_to "Gostou? Descubra o seu estilo e veja a coleção completa", wysquiz_path, :class => "home" %>
     </div-->
-    <h5><%= link_to post[:title], post[:link], onclick: track_event('Destaques',"Banner#{index + 1}", post[:link]) %></h5>
+    <h5>
+      <!--%= link_to post[:title], post[:link], onclick: track_event('Destaques',"Banner#{index + 1}", post[:link]) %-->
+      // BLOG // 
+    </h5>
     <p><%= post[:subtitle] %></p>
     <!-- %= link_to "Veja mais aqui", post[:link], class: "more", onclick: track_event('Destaques',"Banner#{index + 1}", post[:link]) % -->
   </div>
