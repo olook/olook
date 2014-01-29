@@ -197,6 +197,10 @@ module ApplicationHelper
     current_user.nil? || current_user.half_user?
   end  
 
+  def has_items_in_wishlist?
+    current_user && Wishlist.for(current_user).wished_products.any?
+  end
+
   private
  
     def ga_event_referer
