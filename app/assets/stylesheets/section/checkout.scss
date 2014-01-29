@@ -2160,7 +2160,19 @@ section.checkout{
       .box-debito{
         float:left;position:relative;display:none;padding:10px;
         input, label{opacity:0;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";z-index:1;position:relative;float:left;}
-        .debit_bank_Itau{position:absolute;z-index:2;top:100px;left:10px;display:block;width:45px;height:32px;@include sprite_checkout(-125px, -423px);font-size:0;font-family:a;cursor:pointer;
+        .debit_bank_Itau{
+          position:absolute;
+          z-index:2;
+          left:144px;
+          top:80px;
+          display:block;
+          width:45px;
+          height:32px;
+          @include sprite_checkout(-125px, -423px);
+          font-size:0;
+          font-family:a;
+          cursor:pointer;
+
           &.selected{@include sprite_checkout(-123px, -459px)}
         }
         p{clear:both;font-size:13px;margin-top:10px;line-height: 18px;
