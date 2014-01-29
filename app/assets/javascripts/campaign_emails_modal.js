@@ -39,7 +39,14 @@ $(function(){
      } else {
        if(show_modal == "1" && ((lerCookie("newsletterUser") == null && lerCookie("ms1") == null) || /OLKBENECLUB/.test(window.location.search) ) ){
          $("#overlay-campaign").delay(100).show();
-         $("#modal-campaign").append('<iframe id="i_modal" src="/campaign_emails/new" border="0" frameborder="0" height="100%" width="100%"></iframe>');
+         if($('.dialog').length == 1) {
+           var content = $('.dialog:first').html();
+           olook.newModal(content, 550, 550, '#fff');
+         } else {
+           var content = '<iframe id="i_modal" src="/campaign_emails/new" border="0" frameborder="0" height="100%" width="100%"></iframe>';
+           $("#modal-campaign").append(content);
+         }
+
          window.setTimeout(function(){
            if($("#overlay-campaign").is(":visible"))
              criaCookieAB("ms","1", 20);
