@@ -51,6 +51,11 @@
             %span.txt-black Facebook:
             %span#coupon_discount_value
               \-#{number_to_currency(@cart_service.facebook_discount)}
+        - if @cart.gift_wrap?
+          %li
+            %span.txt-black Presente:
+            %span#gift_wrap
+              =gift_wrap_price(@cart)
         - if @checkout
           #billet_discount_cart
             %li
