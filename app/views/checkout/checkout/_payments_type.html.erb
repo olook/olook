@@ -141,7 +141,7 @@
   </div>
   <div class="box-debito debit">
     <% if debit_discount_enabled %>
-      <p class="tip" id="billet_tip" style="<%= @cart_service.debit_discount > 0 ? "" : "display:none;" %>">Você terá <span><%= debit_discount_percentage %>% de desconto.</span> (<%= number_to_currency(@cart_service.billet_discount) %> neste pedido).</p>
+      <p class="tip" id="billet_tip" style="<%= @cart_service.debit_discount > 0 ? "" : "display:none;" %>">Você terá <span><%= debit_discount_percentage %>% de desconto.</span></p>
     <% end %>
     <p class="subtitle">SELECIONE SEU BANCO:</p>
     <% Debit::BANKS_OPTIONS.each do |bank| %>
