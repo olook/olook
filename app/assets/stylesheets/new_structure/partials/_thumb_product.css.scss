@@ -4,7 +4,7 @@
     &.second_line{
       li{margin-top:65px;}
     }
-    li{display:inline-block;width:180px;margin:25px 15px 0 0;position:relative;
+    li{display:inline-block;width:180px;margin:25px 12px 0 0;position:relative;
       &:nth-child(5n){margin-right:0;}
       &:hover{.spy{visibility:visible;}}
 
