@@ -2,7 +2,7 @@
   %h3 Dicas da Olook
   .mylook
     .look
-      = link_to image_tag(@showroom_presenter.look.front_picture.showroom.url, data: { hover: @showroom_presenter.look.full_look_picture.showroom.url }), product_seo_url(@showroom_presenter.look.product.seo_path), onclick: track_event("UnloggedHome", "ClickLook", "#{@showroom_presenter.look.id}")
+      = link_to image_tag(@showroom_presenter.look.front_picture.big_showroom.url, data: { hover: @showroom_presenter.look.full_look_picture.big_showroom.url }), product_seo_url(@showroom_presenter.look.product.seo_path), onclick: track_event("UnloggedHome", "ClickLook", "#{@showroom_presenter.look.id}")
       .seeMore
         VER MAIS
   #see_too

@@ -15,6 +15,11 @@ class LookImageUploader < CarrierWave::Uploader::Base
     process :optimize
   end
 
+  version :big_showroom do
+    process :resize_to_fit => [294, 443]
+    process :optimize
+  end
+
   def extension_white_list
     %w(jpg jpeg gif png)
   end
