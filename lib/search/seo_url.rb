@@ -145,21 +145,21 @@ class SeoUrl
     end
 
     def parse_brands_params
-      /^\/marcas\/(?<brand>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\?(?<query>.*))?/ =~ @path
+      /^\/marcas\/(?<brand>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\/?\?(?<query>.*))?/ =~ @path
       @params[:brand] = URI.decode(brand.to_s)
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end
 
     def parse_collections_params
-      /^\/colecoes\/(?<collection_theme>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\?(?<query>.*))?/ =~ @path
+      %r{^/colecoes/(?<collection_theme>[^/\?]*)(?:/(?<parameters>[^\?]+))?(?:/?\?(?<query>.*))?} =~ @path
       @params[:collection_theme] = URI.decode(collection_theme.to_s)
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end
 
     def parse_catalogs_params
-      /^(?:\/catalogo)?\/(?<category>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\?(?<query>.*))?/ =~ @path
+      /^(?:\/catalogo)?\/(?<category>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\/?\?(?<query>.*))?/ =~ @path
       @params[:category] = URI.decode(category.to_s)
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
@@ -172,13 +172,13 @@ class SeoUrl
     end
 
     def parse_newest_params
-      /^(?:\/novidades)(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
+      /^(?:\/novidades)(?:\/(?<parameters>[^\?]+)?)?((?:\/?\?(?<query>.*))?)?/ =~ @path
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end
 
     def parse_selections_params
-      /^(?:\/selecoes)(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
+      /^(?:\/selecoes)(?:\/(?<parameters>[^\?]+)?)?((?:\/?\?(?<query>.*))?)?/ =~ @path
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end
