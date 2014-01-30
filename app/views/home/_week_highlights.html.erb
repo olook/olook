@@ -3,15 +3,11 @@
     <%= link_to post[:link], class: "open_making_of", onclick: track_event(show_unlogged_home? ? "UnloggedHome" : "LoggedHome","StylistNewsBanner#{index + 1}", post[:link]) do %>
       <%= image_tag post[:img_new_home], title: "destaque semanal" %>
     <% end %>
-    <!--div class="video_description">
-      <h5>Conheça mais sobre a olook</h5>
-      <%= link_to "Gostou? Descubra o seu estilo e veja a coleção completa", wysquiz_path, :class => "home" %>
-    </div-->
     <h5>
-      <!--%= link_to post[:title], post[:link], onclick: track_event('Destaques',"Banner#{index + 1}", post[:link]) %-->
-      // BLOG // 
+      <%= link_to "http://www.olook.com.br/stylist-news", onclick: track_event(show_unlogged_home? ? "UnloggedHome" : "LoggedHome","StylistNewsBanner#{index + 1}", post[:link]) do %>
+        // ÚLTIMAS DO BLOG //
+      <% end %>
     </h5>
-    <p><%= post[:subtitle] %></p>
-    <!-- %= link_to "Veja mais aqui", post[:link], class: "more", onclick: track_event('Destaques',"Banner#{index + 1}", post[:link]) % -->
+    <p><%= link_to post[:subtitle], post[:link] %></p>
   </div>
 <% end %>
