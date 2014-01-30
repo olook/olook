@@ -1,7 +1,7 @@
 #looks
   %h3
-    meus looks
-    =link_to "consulte seu perfil", profile_url
+    Meus Looks
+    =link_to "ver meu estilo", profile_url
   .mylook
     - @showroom_presenter.looks.each_with_index do |look,idx|
       .look{class: ('last' if idx == 3)}
