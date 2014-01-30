@@ -220,7 +220,7 @@ section#home {
         width:100%;
         margin-bottom:10px;
       }
-      h5, h5 a {
+      h5 a {
         font-family: $arial;
         font-size: 20px;
         letter-spacing: 2px;
@@ -230,10 +230,12 @@ section#home {
         color:#000;
         padding:20px 0 10px 0;
       }
-      p {
+      p a {
         font-family: Georgia;
         font-size: 14px;
         display: block;
+        color:#000;
+        text-decoration: none;
         letter-spacing: 2px;
         text-align: center;
       }
