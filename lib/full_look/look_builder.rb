@@ -1,6 +1,5 @@
 module FullLook
   class LookBuilder
-    attr_accessor :category_weight
     @queue = 'look'
 
     PRODUCTS_MINIMUN_QTY = 2
@@ -24,10 +23,6 @@ module FullLook
       self.new.perform
     end
 
-    def initialize
-      set_category_weight_factor
-    end
-
     def perform
       delete_previous_looks
 
@@ -35,16 +30,11 @@ module FullLook
         master_product = struc[:master_product]
         look = {}
         look[:product_id] = master_product_id
-        look[:full_look_picture] = master_product.full_look_picture.try(:image_url)
-        look[:front_picture] = master_product.front_picture.try(:image_url)
+        look[:full_look_picture] = master_product.full_look_picture.image_url
+        look[:front_picture] = master_product.front_picture.image_url
         look[:launched_at] = master_product.launch_date
-        look[:profile_id] = LookProfileCalculator.calculate([master_product], category_weight: category_weight)
-        begin
-          Rails.logger.debug("Criando look")
-          Look.build_and_create(look)
-        rescue Exception => e
-         Rails.logger.error("#{ e.class}: #{e.message} \n #{ e.backtrace.join("\n")}")
-        end
+        look[:profile_id] = get_look_profile([master_product])
+        build_and_create_look(look)
       end
     end
 
@@ -53,6 +43,17 @@ module FullLook
     end
 
     private
+
+    def build_and_create_look(look)
+      logger.debug("Criando look")
+      Look.build_and_create(look)
+    rescue Exception => e
+      logger.error("#{ e.class}: #{e.message} \n #{ e.backtrace.join("\n")}")
+    end
+
+    def get_look_profile(products)
+      LookProfileCalculator.calculate(products, category_weight: category_weight)
+    end
 
     def look_structure
       looks = normalize_products(related_products)
@@ -77,7 +78,7 @@ module FullLook
 
     def normalize_products(products)
       products.inject({}) do |h, rp|
-        Rails.logger.debug("Normalizando rp")
+        logger.debug("Normalizando rp")
         h[rp.product_a_id] ||= {
           master_product: rp.product_a,
           products: [rp.product_a],
@@ -96,7 +97,11 @@ module FullLook
       end
     end
 
-    def set_category_weight_factor
+    def logger
+      Rails.logger
+    end
+
+    def category_weight
       @category_weight = Hash.new(1)
       @category_weight[ Category::CLOTH ] = Setting.look_cloth_category_weight
       @category_weight[ Category::ACCESSORY ] = Setting.look_accessory_category_weight
