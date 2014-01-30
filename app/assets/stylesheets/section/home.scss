@@ -252,7 +252,7 @@ section#home {
         display:block;
         text-indent:-5000px;
       }
-      h5, h5 a {
+      h5 a {
         font-family: $arial;
         font-size: 20px;
         letter-spacing: 2px;
@@ -264,12 +264,14 @@ section#home {
         text-transform: uppercase;
         span {color:#ed3a40;}
       }
-      p {
+      p a {
         font-family: Georgia;
         font-size: 14px;
         display: block;
         letter-spacing: 2px;
         text-align: center;
+        text-decoration: none;
+        color: #000;
       }
       .fav_product {display: none;}
     }
@@ -282,14 +284,13 @@ section#home {
         margin:0 5px;
         display: block;
         width:46%;
-        margin:0 2%;
+        margin:0 2% 10px 2%;
         float:left;
         position: relative;
         height:360px;
         img {width:100%;}
       }
       h5 {
-        padding-top:30px;
         clear:both;
       }
     }
