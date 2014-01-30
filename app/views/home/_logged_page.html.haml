@@ -6,7 +6,9 @@
     - @showroom_presenter.looks.each_with_index do |look,idx|
       .look{class: ('last' if idx == 3)}
         = link_to product_seo_url(look.product.seo_path, onclick: track_event("LoggedHome", "ClickLook", "#{look.id}")) do 
-          .look_thumbnail{data: {product: look.front_picture.showroom.url, backside_picture: look.full_look_picture.showroom.url }}
+          %span.look_thumbnail{data: {product: look.front_picture.showroom.url, backside_picture: look.full_look_picture.showroom.url }}
+        .seeMore
+          VER MAIS
   #see_too
     %h4
       Veja Também
