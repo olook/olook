@@ -1,6 +1,6 @@
 <div class="social">
   <ul>
-    <li class="facebook"><%= link_to "#", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","#{params[:controller].split("/").join("_").camelize}ShareFacebook") do %>Postar no meu mural<% end %></li>
+    <li class="facebook"><%= link_to "#", class: 'js-facebookShareButton', onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","#{params[:controller].split("/").join("_").camelize}ShareFacebook") do %>Postar no meu mural<% end %></li>
     <li class="twitter"><%= link_to "Tweetar", "https://twitter.com/intent/tweet?text=Cadastre-se na olook pelo meu convite, descubra o seu estilo e ainda ganhe R$10! #{accept_invitation_url(:invite_token => user.invite_token)}&hashtags=ficaadica", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","#{params[:controller].split("/").join("_").camelize}ShareTwitter") %></li>
     <li class="email"><%= link_to "#" do %>Enviar por email<% end %></li>
   </ul>
@@ -12,14 +12,43 @@
 </div>
 <div class="link_mail">
   <p class="txt-copie">Copie o link abaixo e envie por email, MSN ou GTalk:</p>
-  <ul>
-    <li>
-      <%= text_field_tag "link", accept_invitation_url(:invite_token => user.invite_token), :readonly => "readonly" %>
-      <%= link_to "Copiar link", "javascript:void(0);", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","#{params[:controller].split("/").join("_").camelize}ShareLink") %>
-    </li>
-  </ul>
   <div class="box_copy">
     <p><strong>Link copiado</strong></p>
     <p>Aperte CTRL + V para colar.</p>
   </div>
+  <ul>
+    <li>
+      <%= text_field_tag "link", accept_invitation_url(:invite_token => user.invite_token), :readonly => "readonly", class: 'js-invitationLink' %>
+      <%= link_to "Copiar link", "javascript:void(0);", onclick: track_event("#{params[:controller].split("/").join("_").camelize}Share","#{params[:controller].split("/").join("_").camelize}ShareLink"), class: 'js-copyButton' %>
+    </li>
+  </ul>
 </div>
+
+<%= javascript_include_tag "jquery" %>
+<script type="text/javascript">
+$(function() {
+    $(".js-copyButton").zclip({
+    path: "/assets/ZeroClipboard.swf",
+    copy: function() { return $(".js-invitationLink").val(); },
+    afterCopy: function(){
+      $(".box_copy").fadeIn().delay(2000).fadeOut();
+    }
+  });
+
+  $('.js-facebookShareButton').click(function(e){
+    var obj = {
+      picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
+      method: 'feed',
+      caption: 'www.olook.com.br',
+      link: $(".js-invitationLink").val(),
+      description: 'Ganhe 10 Reais em compras na Olook.com.br'
+    }
+
+    FB.ui(obj, function(response) {
+      console.log('message posted');
+    });
+
+  });
+
+})
+</script>

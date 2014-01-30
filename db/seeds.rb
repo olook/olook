@@ -33,6 +33,7 @@ end
   {type: SpecificCategory, name: "Items com categoria especifica"},
   {type: ActiveReseller, name: "Revendedor ativo"},
   {type: CompleteLook, name: 'Todos os produtos de um look estiverem no carrinho'},
+  {type: OlookProductsTotalValue, name: 'Valor total dos items Olook'},
 
   #Actions
   {type: MinorPriceAdjustment, name: "Produto de menor valor Gratis"},
