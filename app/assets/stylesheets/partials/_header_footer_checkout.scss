@@ -1,12 +1,12 @@
 @import "new_structure/common/global_stuffs";
 header.checkout{
-  background:none !important;min-height:85px !important;padding:30px 0 0 0 !important;border-bottom:solid 2px #DEDDDD;text-align:center;margin-bottom: 30px;
+  background:none !important;min-height:70px !important;padding:30px 0 0 0 !important;border-bottom:solid 2px #DEDDDD;text-align:center;margin-bottom: 30px;
   div.head{width:975px;margin:0 auto;position:relative;}
   h1{float:left;
-   a{width: 190px;height: 57px;display:block;background: image-url("common/nav/sprite_header.png") no-repeat 0 -74px;text-indent: -9999px;}
+   a{width: 190px;height: 57px;display:block;background: image-url("common/nav/sprite_header.png") no-repeat 0 -74px;text-indent: -9999px;margin: -3px 0 0;}
   }
   p{
-    &.security{margin:30px 0 0 60px;color:#91C78C;font-family:$avenir_medium;font-size:11px;text-transform:uppercase;float:left;height:24px;padding-left:30px;line-height:30px;background: image-url("login/ico_security.png") no-repeat;}
+    &.security{margin:8px 0 0 60px;color:#91C78C;font-family:$avenir_medium;font-size:11px;text-transform:uppercase;float:left;height:24px;padding-left:30px;line-height:30px;background: image-url("login/ico_security.png") no-repeat;}
     &.contact{float:right;color:#6D6E71;font-size:11px;margin-top:47px;
       span{float:left;font-size:11px;margin:0 -43px 0 0;width:200px;}
       a{color:#6D6E71;font-size:11px;margin-left:5px;}
@@ -18,14 +18,15 @@ header.checkout{
     .box_right{  
         color: #000;
         float: right;
-        margin: -7px 10px 0 0;
+        margin: -41px 10px 0 0;
         position:relative;
         width: 450px;
+        font-family: $johnston;
         p{float: right;}
         .new_login{
           width: 164px;
           height: 18px;
-          font-family: $avenir;
+          font-family: $johnston;
           font-size: 11px;
           display: block;
           text-align: center;
@@ -39,7 +40,7 @@ header.checkout{
         }
 
         p.trade{font-size:11px;color:#000;line-height:18px;margin-left: 10px;
-          padding-right: 5px;
+          padding-right: 10px;
           border-right: 1px solid #000;
           a{text-decoration:none;color:#000;
             &:hover{text-decoration:none; color: $pink;}
@@ -47,7 +48,7 @@ header.checkout{
         }
         p.sac{
           color: #000;
-          font-family: $avenir;
+          font-family: $johnston;
           font-size: 11px;
           line-height: 18px;
           margin-left:8px;
@@ -81,7 +82,7 @@ header.checkout{
                 min-width: 70px;
                 height: 17px;
                 margin: -6px 0 0;
-                padding: 5px 5px 5px 8px;
+                padding: 7px 0px 5px 8px;
                 display: inline-block;
                 border: 1px #FFF solid;
                 float: none;
@@ -123,31 +124,6 @@ header.checkout{
         }
       }
 
-  }
-  
-}
-
-footer.footer_checkout{
-  background:none !important;margin-top:30px;border-top:solid 2px #DEDDDD;padding-top:30px;height:170px;
-  div{width:965px;overflow:hidden;margin:0 auto;padding-left:10px;
-    section{float:left;width:auto;padding:0;color:#000;margin-right:46px;
-      &.name-rights{clear:both;margin:30px 0 0;
-        p{clear: both;color: #767676;font-size: 11px;line-height: 13px;margin:0px;}
-      }
-      p{font-family:$avenir;font-size:14px;margin:0 0 20px;color:#000;}
-      ul{
-        &.vantagens{
-          li{margin:0 0 6px 15px;list-style:disc !important;}
-        }
-        &.security{
-          li{float:left;
-            &.comodo{margin-top:10px;} 
-          } 
-        }
-        li{font-size:11px;}
-      } 
-    }
-  }
-
+  }  
 }
 }

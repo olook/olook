@@ -1,6 +1,7 @@
 //= require state_cities
 //= require plugins/cep
 //= require plugins/check_freebie
+//= require plugins/footer_popup
 
 updateCreditCardSettlementsValue = function(select_box, total, reseller) {
   selected = select_box.val();
@@ -48,6 +49,10 @@ var masks = {
 
 function retrieve_freight_price_for_checkout(zip_code,shipping_id) {
   url_path = '/shippings/' + zip_code
+  if (!zip_code) {
+    return;
+  }
+  
   if(shipping_id.length != ''){
     url_path = url_path.concat('?freight_service_ids=' + shipping_id)
   }
@@ -67,7 +72,8 @@ function retrieve_freight_price_for_checkout(zip_code,shipping_id) {
 
 function retrieve_shipping_service(){
   shipping_service_id = $('.shipping_service_radio:checked').data('shipping-service');
-  zipcode = $('input.address_recorded:checked').data('zipcode');
+  zipcode = $('input.address_recorded:checked').data('zipcode') || $('.zip_code').val();
+
   retrieve_freight_price_for_checkout(zipcode, shipping_service_id);
 }
 
@@ -225,12 +231,12 @@ $(function() {
   });
 
   // ABOUT CREDITS MODAL
-  $("div.box-step-two .more_credits").click(function(){
+  $("div.box-step-three .more_credits").click(function(){
     $("#overlay-campaign").show();
     $("#about_credits").fadeIn();
   });
 
-  $("div.box-step-two button").click(function(){
+  $("div.box-step-three  button").click(function(){
     $("#about_credits").fadeOut();
     $("#overlay-campaign").hide();
   });

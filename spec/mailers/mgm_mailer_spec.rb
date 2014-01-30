@@ -23,7 +23,7 @@ describe MGMMailer do
     end
 
     it "should mention correctly the inviter as well as the invitee" do
-      mail.body.to_s["#{member.first_name}</span> comprar pela primeira vez na olook, você ganhará <b>R$ 20</b> em créditos."].should_not be_nil
+      mail.body.to_s["#{member.first_name}</span> comprar pela primeira vez na olook, você ganhará <b>R$ 30</b> em créditos."].should_not be_nil
     end
   end
 

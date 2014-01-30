@@ -1,6 +1,7 @@
 @import 'new_structure/common/global_stuffs';
 @import 'new_structure/partials/liquida';
 @import 'new_structure/common/modal_footer';
+@import 'partials/footer';
 
 /*------------------
 ==== CSS RESET ====
@@ -36,66 +37,6 @@ li{list-style-type:none;}
   }
 }
 
-
-/*------------------
-====== FOOTER ======
-------------------*/
-footer {height:550px;clear:both;margin-top:60px;border-top: 1px #cbcbcb solid; position: relative;
-  section {margin:0px auto;width:970px;padding-top:40px;
-    div.box_newsletter {display: none;width: 100%;overflow: auto;margin: 0 0 20px;
-      form {width: 650px;overflow: auto;margin: 0 50px 0 0;float: left;
-        > * {float: left;}
-        label {font-size: 17px;line-height: 38px;text-transform: uppercase;margin: 0 20px 0 0;}
-        input[type="text"] {color: #939598;font-family: $arial;font-size: 13px;width: 150px;margin: 0 15px 0 0;padding: 9px 15px;border: 1px #959595 solid;
-          &:focus {outline: none;}
-        }
-        input[type="submit"] {@include bt_color($primary_bt_color, $primary_bt_color_hover);letter-spacing: 2px; text-transform: uppercase;font-size: 14px; width: 122px;height: 33px;margin: 3px 0 0 0;display: block;border: none;cursor: pointer;}
-        p {color: #6d6e71;clear: both;float: right;
-          a {color: #6d6e71;text-decoration: none;
-            &:hover {text-decoration: underline;}
-          }
-        }
-      }
-      h2 {color: #6d6e71;font-size: 12px;font-weight: 600;text-transform: uppercase;margin: 2px 0 0;}
-    }
-    dl {margin: 0 52px 35px 0;float: left;
-      dt {color: #6d6e71;font-size: 12px;font-weight: 700;text-transform: uppercase;margin: 0 0 20px;font-family: $arial;letter-spacing: 2px;}
-      dd, dd a {color: #939598;font-size: 11px;text-decoration: none;margin: 0 0 4px;font-family: $verdana;line-height: 20px;}
-      dd a {
-        &:hover {color: #bcbec0;}
-      }
-      dd {
-        ul.social {width: 100%;overflow: auto;margin: 15px 0 0 0;
-          li {
-            a {background: image-url('common/nav/sprite_header.png') no-repeat;text-indent: -99999px;width: 24px;height: 24px;margin: 0 6px 0 0;display: block;float: left;}
-            &.facebook a {background-position: -10px -299px;
-              &:hover {background-position: -10px -265px;}
-            }
-            &.twitter a {background-position: -38px -299px;
-              &:hover {background-position: -38px -265px;}
-            }
-            &.rss a {background-position: -68px -299px;
-              &:hover {background-position: -68px -265px;}
-            }
-            &.instagram a {background-position: -99px -300px;
-              &:hover {background-position: -99px -265px;}
-            }
-          }
-        }
-      }
-      &.double {margin: 0 95px 0 0;
-        &.payment {clear: both;width:521px;height:220px;}
-        &.security {
-          dd {float: left;}
-        }
-      }
-    }
-    p {color:#767676;font-size:10px;line-height: 13px;clear: both;padding:0 0 5px;text-align: center;font-family: $verdana;
-      a{text-decoration: none;color: #ef3742;}
-    }
-    address{margin-bottom:5px;font-size:10px;font-style:normal;text-align:center;color:#767676;font-family: $verdana;}
-  }
-}
 
 /*------------------
 =====  CONTENT =====
