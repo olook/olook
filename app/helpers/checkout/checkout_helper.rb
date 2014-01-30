@@ -56,4 +56,8 @@ module Checkout::CheckoutHelper
     number_to_currency(shipping_service.try(:price) || "0")
   end
 
+  def credit_discount_value
+    discount_to_show = @cart_service.total_credits_discount > 0 ? -@cart_service.total_credits_discount : 0
+    number_to_currency(discount_to_show)
+  end
 end

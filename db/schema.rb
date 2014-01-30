@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140117120353) do
+ActiveRecord::Schema.define(:version => 20140117214951) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -1167,5 +1167,19 @@ ActiveRecord::Schema.define(:version => 20140117120353) do
 
   add_index "weights", ["answer_id"], :name => "index_weights_on_answer_id"
   add_index "weights", ["profile_id"], :name => "index_weights_on_profile_id"
+
+  create_table "wished_products", :force => true do |t|
+    t.integer  "variant_id"
+    t.integer  "wishlist_id"
+    t.decimal  "retail_price", :precision => 10, :scale => 0
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+  end
+
+  create_table "wishlists", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

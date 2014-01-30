@@ -27,4 +27,9 @@ class Checkout::BaseController < ApplicationController
   def clean_cart!
     session[:cart_id] = nil
   end
+
+  def clean_wishlist!
+    wishlist = Wishlist.for(current_user)
+    @cart_service.cart.items.each{|item| wishlist.remove item.variant.number}
+  end
 end

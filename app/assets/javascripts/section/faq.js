@@ -20,19 +20,7 @@ $(document).ready(function() {
   });
   $('a.sac').click(function(ev){
     window.open('http://olook.neoassist.com/?action=neolive&th=sac&scr=request&ForcaAutenticar=1',
-    'Continue_to_Application','width=500,height=500');
-    ev.preventDefault();
-    return false;
-  });
-  $('a.moda').click(function(ev){
-    window.open('http://olook.neoassist.com/?action=neolive&th=moda&scr=request&ForcaAutenticar=1',
-    'Continue_to_Application','width=500,height=500');
-    ev.preventDefault();
-    return false;
-  });
-  $('a.email').click(function(ev){
-    window.open('http://olook.neoassist.com/?action=new',
-    'Continue_to_Application','width=550,height=650');
+    'Continue_to_Application','width=650,height=500');
     ev.preventDefault();
     return false;
   });

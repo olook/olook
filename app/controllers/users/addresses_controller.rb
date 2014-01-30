@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 class Users::AddressesController < ApplicationController
-  layout "my_account"
 
   respond_to :html
   before_filter :authenticate_user!
@@ -18,8 +17,6 @@ class Users::AddressesController < ApplicationController
   end
 
   def create
-    params[:address][:country] = 'BRA'
-    
     @address = @user.addresses.build(params[:address])
     if @address.save
       redirect_to(user_addresses_path)

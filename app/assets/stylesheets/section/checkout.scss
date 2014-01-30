@@ -3,6 +3,7 @@
 @import 'partials/product';
 @import "partials/header_footer_checkout";
 @import 'partials/credits_info';
+@import 'new_structure/partials/spy';
 
 $border-color: #e5e5e5;
 
@@ -94,6 +95,20 @@ body div#content {
     overflow: auto;
     li.link {
       float: left;
+      margin:20px -13px 30px;
+      font-size:12px;
+      padding-left:13px;
+      a{
+        display: block;
+        width: 150px;
+        padding: 5px;
+        background: #000;
+        color: #FFF;
+        text-transform: uppercase;
+        font-size: 10px;
+        text-decoration: none;
+        &:hover{text-decoration:underline};
+      }
     }
     li.moip {
       background: image-url('common/moip.png') no-repeat;
@@ -340,6 +355,7 @@ section#cart {
     float:left;
     margin:10px 0 25px;
   }
+
   .warning-msg{margin-bottom:20px;width: 520px;background-color: #fdadb6;border: 1px solid #f58899;margin-top: 85px;margin-left: 215px;font-family: $tahoma;
     height: auto !important;
     height:60px;
@@ -412,6 +428,7 @@ section#cart {
     .desconto{font-size:11px;margin-top:15px;}
 
   }
+
 
   .buying-continue{
     margin:20px -13px 30px;
@@ -1037,6 +1054,7 @@ section#cart {
         a {text-decoration: underline;color:#000;}
       }
     }
+
     table.aplicarCupom {width:100%;}
   }
 
@@ -1178,10 +1196,12 @@ section#payment {
     display: none;
     font-size: 11px;
     position: absolute;
-    left: 70px;
-    top: 77px;
+    right: 65px;
+    top: -1px;
     border: 1px solid rgb(209, 209, 209);
     padding: 2px;
+    color:#000;
+    background: #faffd4;
   }
   #billet_info {
     background: #f2f2f2;
@@ -1783,6 +1803,7 @@ section#payment {
         .invite-box{
           width:472px;text-align:center;margin-bottom:30px;border:solid 1px #DEDEDE;padding-top:15px;
           h2{font-size:20px}
+          p{font-size: 12px;margin-top: 10px;}
         }
       }
       /****** END NEW CONCLUSION PAGE *****/
@@ -1898,10 +1919,11 @@ section#payment {
 
 section.checkout{
   &#payment{position:relative;margin-top:30px;clear:both;min-height:550px;}
-  .box-step-one,.box-step-two{width:301px;float:left;padding-right:10px;margin-right:15px;border-right:dotted 1px #000;}
-  .box-step-three{float:left;width:325px;}
+  .box-step-one,.box-step-two{width:301px;float:left;margin-right:15px;border:1px solid #d1d1d1;}
+  .box-step-two {width: 312px;}
+  .box-step-three{float:left;width:325px;border:1px solid #d1d1d1;}
 
-  h2.step-title{float:left;clear:both;margin-bottom:15px;
+  h2.step-title{width:100%;display: block;background: #eee;padding:5px 0;text-align: center;font-size: 12px;letter-spacing: 2px;text-transform: uppercase;font-weight: bold;
     span{
       display:block;float:left;
       &.number{font-family:$kepler;font-size:60px;}
@@ -1911,9 +1933,9 @@ section.checkout{
   }
 
   form.new_checkout{float:left;
-    div#checkout_address{float:left;
-        .span_error{float:none !important;display:block;margin-bottom:10px;}
-        div#address_fields{float:left;}
+    div#checkout_address{float:left;padding:10px;
+      .span_error{float:none !important;display:block;margin-bottom:10px;font-weight: bold;}
+      div#address_fields{float:left;}
     }
     fieldset{margin-bottom:14px;
       div{float:left;margin:0 10px 3px 0;position:relative;
@@ -1932,8 +1954,8 @@ section.checkout{
     input{
       height:30px;line-height:30px;padding-left:7px;font-size:14px;border:solid 1px #C3C3C3;
 
-/*********** STEP ONE *********/
-      &.input_error{border-color:#EA1E40 !important;border-left:solid 5px #EA1E40; margin-bottom: 3px;}
+      /*********** STEP ONE *********/
+      &.input_error{border-color:#EA1E40 !important;border-left:solid 5px #EA1E40; margin-bottom: 3px;background:#faffd4 !important;}
       &.zip_code{width:115px;float:left}
       &.endereco{width:172px;}
       &.numero{width:80px;}
@@ -1983,17 +2005,17 @@ section.checkout{
     }
     #shipping_services_types{
       border-top: 1px solid #cdcdcd;
+      display:none;
       float: left;
       width: 300px;
-      margin-top: 30px;
-      display:none;
+      margin-top: 0px;
+      padding-left:10px;
       p{
         font-family: $avenir;
         font-size: 15px;
         color: #000;
         font-weight: 700;
-        margin-left: 30px;
-        margin-top: 25px;
+        padding-top:10px;
       }
       ul {width: 300px;margin-top: 10px;
         li{width: 300px;height: 36px;
@@ -2008,8 +2030,10 @@ section.checkout{
             font-weight: 700;
             color: #000;
             width: 140px;
+            height:21px;
           }
           &.expresso{
+            padding-top:0px;
             label{background-position: 0 -29px}
           }
           p.shipping{
@@ -2019,57 +2043,78 @@ section.checkout{
             color: #000;
             width: 140px;
             float: right;
-            margin-top: -22px;
+            margin-top: -30px;
+            padding-top:0px;
           }
         }
       }
     }
-/********** END / START STEP TWO *******/
-    .box-step-two{
+    /********** END / START STEP TWO *******/
+    .box-step-two, .box-step-three {
       .credits input, .payment_type input, .cards input{float:left;height:auto;margin:0 5px 0 0;border:none;padding: 0}
       label{line-height:14px;}
       ul,ol{overflow:hidden;}
       .payment {position: relative;}
     }
-    .credits{float:left;padding-left:5px;
-      label{color:#000;}
 
-      p{font-size:13px;float:left;
-        span, a{color:#000; font-weight: 500;}
-        a{display:block;margin:6px 0 5px;font-size:13px;}
+    .box-step-three {
+      ul.subtotal, .total {width:91%;padding:6.5% 9% 0 0;
+        li {padding-bottom:10px;height:13px;}
+        .txt-black {display: block;float:left;width:31%;text-align: right;font-weight: normal !important;}
+        .txt-subtotal, #freight_price, #gift_wrap, #credits_used, #billet_discount_value, #total, #total_billet, #debit_discount_value, #total_debit {float:right;text-align: right;}
+        #total_debit, #total, #total_billet {font-weight: bold !important;font-size: 18px;width:150px;}
+      }
+      .send_it {margin-left:29px;margin-bottom:32px;}
+    }
+
+    .credits{float:left;padding-left:5px;padding:10px;
+      label{color:#000;font-weight: bold;font-size: 13px;}
+
+      p{line-height: 16px;
+        font-size: 12px;
+        padding-left: 20px;
+        padding-top: 5px;
+        float:left;
+        span, a{color:#000; font-size: 12px;}
+        a{display:block;margin:6px 0 5px;}
       }
     }
-    .payment{float:left;padding-left:5px;
-      .span_error{float:none !important;display:block;}
+    .payment{
+      .span_error{float:none !important;display:block;width:100%;text-align: center;padding-bottom:10px;}
+
       p{font-size:13px;margin-top:15px;
         span{font-weight: 500;}
         &.tip{margin:0 0 10px !important;}
       }
+      p.subtitle {padding:0px !important;margin:0px !important;text-align: center;width:100%;display: block;background: none;font-weight: bold;font-size: 14px;}
       li{
         float:left;
         display:block;
         height:auto;
-        &.credit_card{width:100%;}
-        &.boleto{width:100%;}
-        &.debito{width:100%;}
+        padding-left:9px !important;
+        &.credit_card{width:90%;}
+        &.boleto{width:90%;}
+        &.debito{width:90%;}
         &.mercadopago{
-          background: image-url("new_checkout/logo_mp.png") no-repeat 14px -2px;
-          width: 300px;
+          background: image-url("new_checkout/logo_mp.png") no-repeat 21px -2px;
+          width: 290px;
           height: 26px;
         }
         label{font-size:12px;}
       }
       .payment_type{
-        li{margin-right:5px;padding:1px 0 0 3px;
+        padding-left:2px;padding-bottom:20px;border-bottom:1px solid #d1d1d1;
+        li{margin-right:5px;padding:1px 0 0 3px;margin-right:10px;padding-bottom:5px;position: relative;
           label{float:left;}
         }
       }
-      .box-cartao{float:left;display:none;
+      .box-cartao{float:left;display:none;padding:10px; border-bottom:1px solid #d1d1d1;background: #faffd4;
+        div {margin:0px !important;}
         .cards{overflow:hidden;
-           &.input_error{border:solid 1px #EA1E40 !important;border-left:solid 5px #EA1E40 !important;padding-top:3px;}
+          &.input_error{border:solid 1px #EA1E40 !important;border-left:solid 5px #EA1E40 !important;padding-top:3px;background:#faffd4 !important;}
           li{position:relative;width:47px;height:35px;margin-top: 5px;
             input,label{opacity:0;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";position:relative;z-index:1}
-            label{font-size:12px;float:left;}
+            label{font-size:13px;float:left;}
             span{position:absolute;z-index:2;display:block;width:47px;height:37px;font-size:0;font-family:a;cursor:pointer;
               &.Visa{@include sprite_checkout(-171px, -422px);
                 &.selected{@include sprite_checkout(-168px, -459px)}
@@ -2100,27 +2145,38 @@ section.checkout{
           color: #000;
         }
       }
-      .box-boleto{float:left;display:none;
-        p{font-size:13px;margin-top:15px;
+      .box-boleto{float:left;display:none;padding:10px;
+        p{font-size:13px;margin-top:10px; line-height: 18px;
           span{color:#000;}
         }
       }.box-mercadopago{
         float:left;
         display:none;
-        background: image-url("new_checkout/mercadopago_selecionado.jpg") no-repeat center top;
-        padding-top:50px;
-        p{font-size:13px;margin-top:15px;
+        background: image-url("new_checkout/mercadopago_selecionado.jpg") no-repeat center 10px;
+        padding:64px 10px 10px 10px;
+        p{font-size:13px;margin-top:10px;line-height: 18px;
           span{color:#000;}
         }
       }
-
       .box-debito{
-        float:left;position:relative;display:none;
+        float:left;position:relative;display:none;padding:10px;
         input, label{opacity:0;-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";z-index:1;position:relative;float:left;}
-        .debit_bank_Itau{position:absolute;z-index:2;top:100px;left:0;display:block;width:45px;height:32px;@include sprite_checkout(-125px, -423px);font-size:0;font-family:a;cursor:pointer;
+        .debit_bank_Itau{
+          position:absolute;
+          z-index:2;
+          left:144px;
+          top:80px;
+          display:block;
+          width:45px;
+          height:32px;
+          @include sprite_checkout(-125px, -423px);
+          font-size:0;
+          font-family:a;
+          cursor:pointer;
+
           &.selected{@include sprite_checkout(-123px, -459px)}
         }
-        p{clear:both;font-size:13px;margin-top:15px;
+        p{clear:both;font-size:13px;margin-top:10px;line-height: 18px;
           span{color:#000;}
         }
       }
@@ -2144,22 +2200,19 @@ section.checkout{
       }
     }
   }
-/********** END / START STEP THREE *******/
-  #cart-box{
-    float:left;border:solid 1px #D9D8D8;width:321px;max-height:478px;background:#FFF;margin-bottom: 15px;
-    .freebie_row {
+  /********** END / START STEP THREE *******/
+  .freebie_row {
       width:270px;
       background: image-url("cart/cheirinho.jpg") no-repeat left center;
       height:100px;
-      height: 128px;
-      margin-left: 27px;
-      border-top:1px solid #d1d1d1;
+      margin-left: 9px;
+      padding:10px 0;
       p {
         display: block;
-        width: 180px;
+        width: 205px;
         margin-left: 80px;
         margin-top: 40px;
-        font-family: $avenir;
+        font-family: Verdana;
         font-weight: lighter;
         line-height: 16px;
         font-size: 13px;
@@ -2167,20 +2220,27 @@ section.checkout{
         a {color:$pink;}
       }
     }
+  #cart-box{
+    float:left;width:100%;background:#FFF;
+    
     .bg-box{display:none;}
-    .products{max-height:217px;overflow-y:auto;}
+    .products{}
     #items{width:100%;
       tr{border-bottom:1px solid #D9D8D8;padding-bottom:5px;}
-      td{vertical-align:middle;padding-bottom:5px;
+      td{vertical-align:middle;padding-bottom:5px;height:130px;
         &.amount{font-size:12px;text-align:center;}
         &.delete-item{
           input{float:right;background: image-url("new_checkout/sprite.png") no-repeat -381px -83px;border:none;color: #6D6E71;cursor:pointer;display:block;height:26px;width:70px;padding-left:20px;text-decoration:underline;font-weight:bold;}
         }
       }
-      img{float:left;margin-left:10px;}
-      ul{float:left;margin:10px 0 0 15px;width:215px;
-        li{font-size:13px;
-          &.txt-black{text-transform:uppercase;}
+      img{float:left;margin-left:10px;margin-top:20px;}
+      ul{float:left;margin:10px 0 0 15px;width:205px;
+        li{font-size:11px;
+          line-height: 16px;
+          &.txt-black{font-size: 12px;padding-bottom:5px;}
+          p {font-weight: bold;font-size: 13px;color:#000}
+          .price_retail {text-decoration: line-through;font-size: 13px;font-weight: normal;color:#000;}
+          
         }
       }
     }
