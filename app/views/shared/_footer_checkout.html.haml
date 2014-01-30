@@ -1,0 +1,48 @@
+%footer.footer_checkout
+  %section
+    %ul.atendimento
+      %li.title
+        Atendimento
+      %li.phone
+        (11) 2626-3489
+      %li.mail
+        =link_to "E-mail", "http://olook.neoassist.com/?action=neolive&th=sac&scr=request&ForcaAutenticar=1", :class => "email"
+      %li.trade
+        =link_to "Troca Fácil", "http://olook.neoassist.com/?th=troca&action=new", :class => "trade"  
+      %li.sac_online
+        =link_to "SAC Online", "http://olook.neoassist.com/?action=neolive&th=sac&scr=request&ForcaAutenticar=1", :class => "sac"
+      %li.moda_online
+        =link_to "Moda Online", "http://olook.neoassist.com/?action=neolive&th=sac&scr=request&ForcaAutenticar=1", :class => "moda"
+    %ul.payment
+      %li.title
+        Formas de Pagamento
+      %li.credit
+        %p
+          Cartão de Crédito
+      %li.billet
+        %p
+          Boleto
+      %li.online
+        %p
+          Débito Online
+      %li.mpago
+        %p
+          Mercado Pago
+    %ul.security
+      %li.title
+        Site Seguro
+      %li
+        = link_to image_tag("common/ico_security.png"), "http://www.trustlogo.com/ttb_searcher/trustlogo?v_querytype=W&v_shortname=SC4&v_search=http://www.olook.com.br/&x=6&y=5", target: '_blank'
+      %li.ebit
+        = render "shared/ebit/seal_footer"
+    .about_olook
+      %p
+        © #{Time.now.year} - Olook. Todos os direitos reservados. A Olook respeita sua privacidade e de todos os seus clientes. Leia mais sobre a nossa #{link_to "Política de Privacidade", terms_path}.
+      %address Escritório: Rua Natividade, 72 - Vl. Nova Conceição, São Paulo - SP. Centro de distribuição: Avenida Ribeirão dos Cristais, 800, Jordanésia, Cajamar - SP. Galpão 10, módulo C e D
+      %p Olook Comércio Online de Moda Ltda  /  CNPJ 011.216.478/0001-70
+#overlay-campaign
+  &nbsp;
+#modal-campaign
+  &nbsp;
+.mercado_pago
+  = image_tag "common/banner_educativo_mp.jpg"

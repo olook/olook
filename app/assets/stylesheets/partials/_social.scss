@@ -10,8 +10,9 @@ div.social {
     li {
       position: relative;
       width: 115px;
-      margin: 0 5px 0 0;
+      margin: 0 0 0 0;
       float: left;
+      overflow: hidden;
       a {
         color: #5a5a5b;
         font-family: $avenir;
@@ -145,12 +146,12 @@ div.link_mail {
   div.box_copy {
     position: absolute;
     background: image-url('common/copy.png') top center no-repeat;
-    width: 166px;
-    height: 38px;
+    width: 236px;
+    height: 42px;
     padding: 17px 0 0 0;
     display: none;
-    top: 95px;
-    left:35px;
+    top: -28px;
+    left:210px;
     p {
       color: #666;
       font-size: 12px;
