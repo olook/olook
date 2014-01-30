@@ -133,7 +133,7 @@
   </div>
   <div class="box-boleto billet">
     <% if billet_discount_enabled %>
-      <p class="tip" id="billet_tip" style="<%= @cart_service.billet_discount > 0 ? "" : "display:none;" %>">Você terá <span><%= billet_discount_percentage%>% de desconto.</span> (<%= number_to_currency(@cart_service.billet_discount) %> neste pedido).<br/>
+      <p class="tip" id="billet_tip" style="<%= @cart_service.billet_discount > 0 ? "" : "display:none;" %>">Você terá <span><%= billet_discount_percentage%>% de desconto.</span>
     <% end %>
     Após finalizar a compra, imprima e efetue o pagamento do boleto até <span><%= I18n.l BilletExpirationDate.expiration_for_two_business_day.to_date %></span>.</p>
 
