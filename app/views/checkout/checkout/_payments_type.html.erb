@@ -150,6 +150,8 @@
       <span class="<%= (@checkout.payment && (bank == @checkout.payment.bank)) ? "selected debit_bank_#{bank}" : "debit_bank_#{bank}" %>"><%= bank %></span>
       <%= errors_for(@checkout.payment, :bank) %>
     <% end %>
+
+    <p>Após finalizar a compra você deverá informar os dados solicitados pelo seu banco na página de confirmação.</p>
     
 
   </div>
