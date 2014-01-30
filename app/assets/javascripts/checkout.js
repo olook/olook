@@ -1,6 +1,7 @@
 //= require state_cities
 //= require plugins/cep
 //= require plugins/check_freebie
+//= require plugins/footer_popup
 
 updateCreditCardSettlementsValue = function(select_box, total, reseller) {
   selected = select_box.val();
