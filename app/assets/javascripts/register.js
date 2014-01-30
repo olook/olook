@@ -1,3 +1,5 @@
+//= require plugins/jquery.meio.mask.js
+
 var masks = {
 	cpf: function(){
 		$("input.cpf").setMask({

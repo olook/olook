@@ -23,3 +23,4 @@
 //= require lite_base
 //= require _search_bar
 //= require ./partials/_credits_info
+//= require plugins/footer_popup

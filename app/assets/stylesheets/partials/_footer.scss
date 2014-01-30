@@ -1,154 +1,136 @@
 @import 'partials/mixins';
 @import 'new_structure/partials/facebook_footer';
 
-footer {
-  height:300px;
+footer, .footer_checkout {
+  height:465px;
   clear:both;
   margin-top:60px;
-  border-top: 1px #cbcbcb solid;
+  position: relative;
+  background-color: #000;
+  color: #fff !important;
   section {
     margin:0px auto;
-    position: relative;
     width:970px;
     padding-top:40px;
-    div.box_newsletter {
-      display: none;
-      width: 100%;
-      overflow: auto;
-      margin: 0 0 20px;
-      form {
-        width: 650px;
-        overflow: auto;
-        margin: 0 50px 0 0;
-        float: left;
-        > * {
-          float: left;
-        }
-        label {
-          font-size: 17px;
-          line-height: 38px;
-          text-transform: uppercase;
-          margin: 0 20px 0 0;
-        }
-        input[type="text"] {
-          color: #939598;
-          font-family: $avenir;
-          font-size: 13px;
-          width: 150px;
-          margin: 0 15px 0 0;
-          padding: 9px 15px;
-          border: 1px #959595 solid;
-          &:focus {
-            outline: none;
-          }
-        }
-        input[type="submit"] {
-          width: 122px;
-          height: 33px;
-          margin: 3px 0 0 0;
-          display: block;
-          border: none;
-          cursor: pointer;
-          text-transform: uppercase;
-          letter-spacing: 2px;
-          font-size: 14px;
-          @include bt_color($primary_bt_color, $primary_bt_color_hover);
-        }
-        p {
-          color: #6d6e71;
-          clear: both;
-          float: right;
-          a {
-            color: #6d6e71;
-            text-decoration: none;
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-        }
-      }
-      h2 {
-        color: #6d6e71;
-        font-size: 12px;
-        font-weight: 600;
-        text-transform: uppercase;
-        margin: 2px 0 0;
-      }
-    }
-    dl {
-      margin: 0 30px 35px 0;
+    ul{
+      width: 170px;
       float: left;
-      dt {
-        color: #6d6e71;
-        font-size: 12px;
-        font-weight: 700;
-        text-transform: uppercase;
-        margin: 0 0 20px;
+      font-family: $verdana;
+      margin-right: 68px;
+      height: 205px;
+      &.atendimento{margin-left: 40px;}
+      &.social{
+        width: 180px;
+        margin-right: 0 !important;
+        a{
+          display: block;
+          width: 35px;
+          height: 35px;}
+        li.logo{
+          margin-bottom: 15px;
+        }
+        li.icon{
+          width: 35px;
+          height: 35px;
+          float: left;
+          text-indent: -9999px;
+          background: image-url('footer/social_icons.png') no-repeat;
+          margin-right: 5px;
+        }
+        li.fb{margin-left: 58px;}
+        li.twitter{background-position: -41px 0;}
+        li.instagram{background-position: -82px 0;}
       }
-      dd, dd a {
-        color: #939598;
-        font-size: 12px;
-        text-decoration: none;
-        margin: 0 0 4px;
-      }
-      dd a {
-        &:hover {
-          color: #bcbec0;
+      li{
+        font-size: 11px;
+        padding-top: 5px;
+        a{
+          color: #fff;
+          text-decoration: none;
+          cursor: pointer;
+          &:hover{text-decoration:underline;}
+        }
+        &.title{
+          text-transform: uppercase;
+          font-size: 13px;
+          margin-bottom: 25px;
+          font-weight: bold;
         }
       }
-      dd {
-        ul.social {width: 100%;overflow: auto;margin: 15px 0 0 0;
-          li {
-            a {background: image-url('common/nav/sprite_header.png') no-repeat;text-indent: -99999px;width: 24px;height: 24px;margin: 0 6px 0 0;display: block;float: left;}
-            &.facebook a {background-position: -10px -299px;
-              &:hover {background-position: -10px -265px;}
-            }
-            &.twitter a {background-position: -38px -299px;
-              &:hover {background-position: -38px -265px;}
-            }
-            &.rss a {background-position: -68px -299px;
-              &:hover {background-position: -68px -265px;}
-            }
-            &.instagram a {background-position: -99px -300px;
-              &:hover {background-position: -99px -265px;}
-            }
-          }
+      &.payment{
+        margin-left: 40px;
+        height: 100px;
+        width: 430px;
+        margin-top: 25px;
+        li.title{width: 440px;}
+        li.credit, .billet, .online, .mpago{
+          height: 50px;
+          float: left;
+          background: image-url('footer/payment_icons.png') no-repeat 0 28px;
+          margin-right: 20px;
+        }
+        li.credit{
+          width: 125px;
+        }
+        li.billet{
+          width: 45px;
+          background-position: -149px 28px; 
+        }
+        li.online{
+          width: 82px; 
+          background-position: -234px 28px;
+        }
+        li.mpago{
+          width: 90px;
+          margin-right: 0;
+          background-position: -329px 28px;
+          p{text-indent: -9999px;}
         }
       }
-      &.double {
-        margin: 0 95px 0 0;
-        &.payment {
-          clear: both;
+      &.security{
+        height: 107px;
+        width: 170px;
+        margin-top: 25px;
+        float: right;
+        margin-right: 20px;
+        li{float: left;}
+        li.title{
+          width: 250px;
+          padding-left: 10px;
         }
-        &.security {
-          dd {
-            float: left;
-          }
+        li.ebit{
+          a{display: block;padding-top: 3px;}
         }
       }
     }
-    p {
-      color:#767676;
-      font-size:10px;
-      line-height: 13px;
-      clear: both;
-      padding:0 0 5px;
+    .about_olook{
+      width: 990px;
+      background-color: #fff;
+      color: #5c5c5c; 
+      float: left;
+      font-family: $verdana;
+      font-size: 10px;
       text-align: center;
-      a{
-        text-decoration: none;
-        color: #ef3742;
-      }
+      margin-top: 35px;
+      margin-left: -10px;
+      padding-top: 10px;
+      margin-bottom: 10px;
     }
-    address{margin-bottom:5px;font-size:10px;font-style:normal;text-align:center;color:#767676;}
   }
-
-  .mercado_pago {
-    display: none;
-  }
-
-
 }
-  
 
+/* ----------------- Footer Checkout----------------- */
+
+footer.footer_checkout{
+  width: 990px !important;
+  margin: 0 auto;
+  height: 230px;
+  section{
+    ul{float: left;margin-top: 0 !important;height: 160px;
+      &.payment{margin-left: 0;}
+    }
+  }
+}
+.mercado_pago{display: none;}
 
   
