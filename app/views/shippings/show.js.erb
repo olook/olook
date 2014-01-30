@@ -1,4 +1,5 @@
 //=require checkout_addresses
+$('#shipping_services_types').show();
 <% if @has_two_shipping_services %>
   $(".expresso").show();
   $(".shipping").html("(<%= @shipping_service.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service.price) %>");
@@ -10,11 +11,9 @@
 <% if !@has_two_shipping_services && !params[:freight_service_ids] %>
   $(".shipping").html("(<%= @shipping_service.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service.price) %>");
   $('.shipping_service_radio:first').data('shipping-service',<%= @shipping_service.shipping_service_id %>); 
+  $('.shipping_service_radio:first').attr("checked",true);
   $(".expresso").hide();
 <% end %>
-if($('.shipping_service_radio:checked').hasClass('express')){
-  $('#freight_message').hide();
-}
 
 $("#freight_price").
   hide().
