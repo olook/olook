@@ -49,6 +49,10 @@ var masks = {
 
 function retrieve_freight_price_for_checkout(zip_code,shipping_id) {
   url_path = '/shippings/' + zip_code
+  if (!zip_code) {
+    return;
+  }
+  
   if(shipping_id.length != ''){
     url_path = url_path.concat('?freight_service_ids=' + shipping_id)
   }
@@ -68,7 +72,8 @@ function retrieve_freight_price_for_checkout(zip_code,shipping_id) {
 
 function retrieve_shipping_service(){
   shipping_service_id = $('.shipping_service_radio:checked').data('shipping-service');
-  zipcode = $('input.address_recorded:checked').data('zipcode');
+  zipcode = $('input.address_recorded:checked').data('zipcode') || $('.zip_code').val();
+
   retrieve_freight_price_for_checkout(zipcode, shipping_service_id);
 }
 
