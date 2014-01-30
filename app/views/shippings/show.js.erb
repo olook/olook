@@ -1,23 +1,16 @@
 //=require checkout_addresses
 <% if @has_two_shipping_services %>
-  
-  $("#shipping_services_types").show();
-  $('.shipping_service_radio:first').prop('checked', true);
+  $(".expresso").show();
   $(".shipping").html("(<%= @shipping_service.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service.price) %>");
   $(".expresso > p").html("(<%= @shipping_service_fast.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service_fast.price) %>");
-  $(".frete_time").hide();
   _gaq.push(['_trackEvent', 'ExpressFreight', "ShowExpressDeliveryBox",<%= @zip_code %>,'', true]);
-
   $('.shipping_service_radio:first').data('shipping-service',<%= @shipping_service.shipping_service_id %>); 
   $('.shipping_service_radio:last').data('shipping-service', <%= @shipping_service_fast.shipping_service_id %>); 
-
-
-<% else %>
-  $("#shipping_services_types").hide();
-  $(".frete_time").show().html("Seu pedido será entregue em <%= @shipping_service.try(:delivery_time) %> dias úteis.");
 <% end %>
-<% if @force_show_div %>
-  $("#shipping_services_types").show();
+<% if !@has_two_shipping_services && !params[:freight_service_ids] %>
+  $(".shipping").html("(<%= @shipping_service.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service.price) %>");
+  $('.shipping_service_radio:first').data('shipping-service',<%= @shipping_service.shipping_service_id %>); 
+  $(".expresso").hide();
 <% end %>
 if($('.shipping_service_radio:checked').hasClass('express')){
   $('#freight_message').hide();
@@ -44,6 +37,6 @@ if(!$('.shipping_service_radio:checked').hasClass('express')){
   $("#freight_message").delay(200).fadeIn();
 }
 
-showTotal();
+//showTotal();
 updateCreditCardSettlementsValue( $('#checkout_payment_payments'), "<%= total_with_freight(@freight_price) =%>", "<%= current_user && current_user.reseller? %>");
 

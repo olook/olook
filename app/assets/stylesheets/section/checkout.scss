@@ -2003,12 +2003,14 @@ section.checkout{
       clear:both;margin-bottom:10px;
       a{font-size:14px;color:#000;display:block;height:16px;@include sprite_checkout(-394px, -246px);padding-left:10px;text-decoration:underline;}
     }
+    .expresso{
+      display:none;
+    }
     #shipping_services_types{
       border-top: 1px solid #cdcdcd;
       float: left;
       width: 300px;
       margin-top: 0px;
-      display:none;
       padding-left:10px;
       p{
         font-family: $avenir;
