@@ -1,4 +1,5 @@
-require 'spec_helper'
+require File.expand_path(File.join(File.dirname(__FILE__), '../../../lib/full_look/look_builder'))
+require 'logger'
 
 describe FullLook::LookBuilder do
   describe ".perform" do
@@ -26,10 +27,13 @@ describe FullLook::LookBuilder do
     end
 
     before do
-      subject.stub!(:set_category_weight_factor).and_return(Hash.new(1))
-      FullLook::LookProfileCalculator.stub(:calculate).and_return(1)
-      Look.stub!(:build_and_create)
+      subject.stub(:logger).and_return(Logger.new('/dev/null'))
+      subject.stub(:delete_previous_looks)
+      subject.stub(:category_weight).and_return(Hash.new(1))
+      subject.stub(:get_look_profile).and_return(1)
+      subject.stub(:build_and_create_look)
     end
+
     it "should create 2 Looks" do
       relateds = []
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(2))
@@ -38,7 +42,7 @@ describe FullLook::LookBuilder do
       relateds << mock('RelatedProduct', product_a_id: 5, product_a: product(5), product_b: product(6))
       relateds << mock('RelatedProduct', product_a_id: 5, product_a: product(5), product_b: product(7))
       subject.stub(:related_products).and_return(relateds)
-      Look.should_receive(:build_and_create).exactly(2).times
+      subject.should_receive(:build_and_create_look).exactly(2).times
       subject.perform
     end
 
@@ -48,7 +52,7 @@ describe FullLook::LookBuilder do
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(3))
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(4))
       subject.stub(:related_products).and_return(relateds)
-      Look.should_receive(:build_and_create).with({product_id: 1, full_look_picture: "image1", front_picture: "image1", launched_at: "2013-12-25", profile_id: 1})
+      subject.should_receive(:build_and_create_look).with({product_id: 1, full_look_picture: "image1", front_picture: "image1", launched_at: "2013-12-25", profile_id: 1})
       subject.perform
     end
 
@@ -57,7 +61,7 @@ describe FullLook::LookBuilder do
       product_2 = product(2)
       product_3 = product(3)
       product_4 = product(4)
-      FullLook::LookProfileCalculator.should_receive(:calculate).with([product_1],category_weight: subject.category_weight).and_return(1)
+      subject.should_receive(:get_look_profile).with([product_1]).and_return(1)
       relateds = []
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product_1, product_b: product_2)
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product_1, product_b: product_3)
@@ -72,7 +76,7 @@ describe FullLook::LookBuilder do
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(3))
       relateds << mock('RelatedProduct', product_a_id: 5, product_a: product(5), product_b: product(6))
       subject.stub(:related_products).and_return(relateds)
-      Look.should_receive(:build_and_create).exactly(2).times
+      subject.should_receive(:build_and_create_look).exactly(2).times
       subject.perform
     end
 
@@ -81,7 +85,7 @@ describe FullLook::LookBuilder do
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, brand: 'olook concept'), product_b: product(2, brand: 'Colcci'))
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, brand: 'olook concept'), product_b: product(3))
       subject.stub(:related_products).and_return(relateds)
-      Look.should_not_receive(:build_and_create)
+      subject.should_not_receive(:build_and_create_look)
       subject.perform
     end
 
@@ -90,7 +94,7 @@ describe FullLook::LookBuilder do
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, brand: 'colcci'), product_b: product(2))
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, brand: 'colcci'), product_b: product(3))
       subject.stub(:related_products).and_return(relateds)
-      Look.should_not_receive(:build_and_create)
+      subject.should_not_receive(:build_and_create_look)
       subject.perform
     end
 
@@ -99,7 +103,7 @@ describe FullLook::LookBuilder do
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, inventory: 0), product_b: product(2))
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, inventory: 0), product_b: product(3))
       subject.stub(:related_products).and_return(relateds)
-      Look.should_not_receive(:build_and_create)
+      subject.should_not_receive(:build_and_create_look)
       subject.perform
     end
 
@@ -108,7 +112,7 @@ describe FullLook::LookBuilder do
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(2, inventory: 0))
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(3))
       subject.stub(:related_products).and_return(relateds)
-      Look.should_not_receive(:build_and_create)
+      subject.should_not_receive(:build_and_create_look)
       subject.perform
     end
 
@@ -117,7 +121,7 @@ describe FullLook::LookBuilder do
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, is_visible: false), product_b: product(2))
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, is_visible: false), product_b: product(3))
       subject.stub(:related_products).and_return(relateds)
-      Look.should_not_receive(:build_and_create)
+      subject.should_not_receive(:build_and_create_look)
       subject.perform
     end
 
@@ -126,7 +130,7 @@ describe FullLook::LookBuilder do
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(2, is_visible: false))
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1), product_b: product(3))
       subject.stub(:related_products).and_return(relateds)
-      Look.should_not_receive(:build_and_create)
+      subject.should_not_receive(:build_and_create_look)
       subject.perform
     end
 
@@ -135,7 +139,7 @@ describe FullLook::LookBuilder do
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, full_look_picture: nil), product_b: product(2))
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, full_look_picture: nil), product_b: product(3))
       subject.stub(:related_products).and_return(relateds)
-      Look.should_not_receive(:build_and_create)
+      subject.should_not_receive(:build_and_create_look)
       subject.perform
     end
 
@@ -144,7 +148,7 @@ describe FullLook::LookBuilder do
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, front_picture: nil), product_b: product(2))
       relateds << mock('RelatedProduct', product_a_id: 1, product_a: product(1, front_picture: nil), product_b: product(3))
       subject.stub(:related_products).and_return(relateds)
-      Look.should_not_receive(:build_and_create)
+      subject.should_not_receive(:build_and_create_look)
       subject.perform
     end
   end
