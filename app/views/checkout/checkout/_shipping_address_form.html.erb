@@ -9,6 +9,7 @@
 
   <div id="address_fields" name="address_fields" <%#= 'style= opacity:0;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);display:none;' unless address && (address.id || !address.zip_code.blank?) %>>
     <%= address_form.hidden_field :id %>
+    <%= address_form.hidden_field :require_telephone %>
 
     <%= field_set_tag do %>
       <div>
