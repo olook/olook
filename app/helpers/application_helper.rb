@@ -183,7 +183,7 @@ module ApplicationHelper
     else
       false
     end
-  end    
+  end
 
   def has_wished? product_id
     if current_user
