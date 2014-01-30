@@ -1,6 +1,7 @@
 class RecommendationService
 
   DAYS_AGO_TO_CONSIDER_NEW = 450
+  DATE_WHEN_PICTURES_CHANGED = "2013-07-01"
 
   def initialize(opts = {})
     @profiles = opts[:profiles]
@@ -40,7 +41,10 @@ class RecommendationService
       category = opts[:category]
       collection = opts[:collection]
 
-      result = profile.products.where(_pAt[:launch_date].gt(DAYS_AGO_TO_CONSIDER_NEW.days.ago)).includes(:variants, :pictures).order('RAND()')
+      result = profile.products.where(_pAt[:launch_date].gt(DAYS_AGO_TO_CONSIDER_NEW.days.ago))
+                               .where(_pAt[:created_at].gt(DATE_WHEN_PICTURES_CHANGED))
+                               .includes(:variants, :pictures)
+                               .order('RAND()')
 
       result = result.only_visible.where(_vAt[:inventory].gt(0).and(_vAt[:price].gt(0))) unless is_admin
 
