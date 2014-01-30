@@ -129,6 +129,7 @@
                         Você possui <span class="js-product-count"><%= wished_products_count %></span> produto(s)
                         <br />
                           na sua lista de favoritos.
+                        <%= link_to 'Confira', wishlist_path, :class=>"newest_bag", onclick: track_event("Wishlist","openWishlistFromDiscountBanner") %>
                       </p>                    
                     <% end %>
                  </li>
