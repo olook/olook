@@ -33,9 +33,11 @@
             %span= @right_highlight.subtitle
 
   - if show_unlogged_home?
-    = render "unlogged_page"
+    = cache "home/unlogged_page", expire_in: 30.minutes do
+      = render "unlogged_page"
   - else
-    = render "logged_page"
+    = cache "home/#{@current_user.profile}", expire_in: 30.minutes do
+      = render "logged_page"
   %section#week_highlights
     = render "home/week_highlights"
     = render "home/wishlist"
