@@ -183,7 +183,7 @@ module ApplicationHelper
     else
       false
     end
-  end    
+  end
 
   def has_wished? product_id
     if current_user
@@ -195,7 +195,7 @@ module ApplicationHelper
 
   def show_unlogged_home?
     current_user.nil? || current_user.half_user?
-  end  
+  end
 
   def has_items_in_wishlist?
     current_user && Wishlist.for(current_user).wished_products.any?
