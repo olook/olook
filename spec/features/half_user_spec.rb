@@ -17,7 +17,7 @@ feature "Half user", %q{
   scenario "acessing as a half user must redirect to its root path" do
     half_user =  FactoryGirl.create(:user, :half_user => true, :gender => User::Gender[:male])
     do_login!(half_user)
-    current_path.should == "/presentes"
+    current_path.should == "/vitrines"
   end
 
   scenario "acessing as a woman half user must redirect to its root path" do

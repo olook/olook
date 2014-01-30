@@ -139,7 +139,7 @@ $(function() {
 
   showGiftPackageModal();
   showCreditPackageModal();
-  showSmellPackageModal();
+  olook.showSmellPackageModal();
 });
 
 function showGiftPackageModal(){
