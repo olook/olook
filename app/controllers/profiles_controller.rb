@@ -16,6 +16,8 @@ class ProfilesController < ApplicationController
       @shoes = @recommended.products( category: Category::SHOE, collection: @collection, admin: admin)
       @bags = @recommended.products( category: Category::BAG, collection: @collection, admin: admin)
       @accessories = @recommended.products( category: Category::ACCESSORY, collection: @collection, admin: admin)
+
+      @partner = cookies[:partner]
     end
 
     @profile = current_user.main_profile

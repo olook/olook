@@ -7,7 +7,6 @@ if($("div#quick_view").size() == 0) {
 var width = $(document).width(), height = $(document).height();
 $('#overlay-campaign').width(width).height(height).fadeIn();
 
-/*$('.content').first().append("<%= escape_javascript(render('shared/modal_login')) %>");*/
 $('#quick_view')
 .html("<%= escape_javascript(render(:partial => 'product/quick_view',:locals => { :product => @product, :gift => @gift, :shoe_size => @shoe_size, :only_view => @only_view})) %>")
 .css("top", $(window).scrollTop()  + 35)

@@ -1,0 +1,30 @@
+- content_for :footer do
+  = javascript_include_tag "wishlist"
+= first_level_breadcrumb("Favoritos")
+#wishlist
+  %h1 
+    Eu Quero!
+    %span
+      = "#{current_user.first_name}, seus produtos favoritos estão aqui!"
+  %div.noProductWished
+  - @wishlist.products.each do |wp|
+    %div.product{class: "js-product-#{wp.product_id}"}
+      %div.img
+        = link_to 'remover', '#', :class => 'removeFromWishlist js-removeFromWishlistButton', :title => "Remover dos meus favoritos!", :data => {product_id: wp.product_id}
+        - data = get_label_and_class_name(@cart, wp)
+        = link_to data[:label], '#', :class => "#{data[:class_name]} js-imgAddToCart #{data[:sold_out]}", :data => {cart_id: @cart.id, variant: wp.variant.number}
+        - product = wp.variant.product
+        .async{data: {product: product.catalog_picture, backside_picture: product.backside_picture, product: product.catalog_picture}}
+      %h2
+        = product.name
+      %h3
+        = product.brand
+      #cart_name{style:'display:none;'}
+        = product.formatted_name(24)
+      %div{:class => "value#{' discounted-price' if product.promotion?}"}
+        = number_to_currency product.retail_price
+      %ul.size
+        - order_variants_by_size(product.variants).each do |variant|
+          - if variant.number == wp.variant.number
+            %li.selected= variant.description
+      = link_to "Ver Mais", product_seo_path(product.seo_path), :class => 'seeMoreDetails'
