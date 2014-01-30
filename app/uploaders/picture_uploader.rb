@@ -3,6 +3,7 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or ImageScience support:
   include CarrierWave::MiniMagick
+
   # To optimize jpg images using jpegoptm
   include Piet::CarrierWaveExtension
 
