@@ -20,6 +20,9 @@ $("#freight_price").
   html("<%= number_to_currency(@freight_price) %>").
   delay(200).
   fadeIn();
+
+$("#freight_price").data('freight_price', <%= @freight_price %>);
+
 <% if !@has_two_shipping_services %>
   $("#delivery_time").
     hide().

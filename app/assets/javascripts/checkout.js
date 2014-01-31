@@ -212,21 +212,32 @@ $(function() {
     // });
   }
 
-  $("div.box-step-two #checkout_credits_use_credits").change(function() {
+  $("#checkout_credits_use_credits").change(function() {
     $("#cart-box #credits_used").hide();
     $("#cart-box #total").hide();
     $("#cart-box #total_billet").hide();
     $("#cart-box #total_debit").hide();
     $("#cart-box #billet_discount_cart").hide();
     $.ajax({
-      url: '/sacola',
+      url: '/pagamento',
       type: 'PUT',
+      dataType: 'json',
       data: {
         cart: {
           use_credits: $(this).attr('checked') == 'checked'
         },
       freight_price: $("#freight_price").text()
       }
+    }).done(function(data){
+      var value = $("#freight_price").data('freight_price');
+      freight_value = value == undefined ? 0 : parseFloat(value);
+ 
+      $('#credits_used').text(formatReal(data.credits_discount));
+      $('#total').text(formatReal(add(data.total, freight_value)));
+      $('#total_billet').text(formatReal(add(data.total_billet, freight_value)));
+      $('#total_debit').text(formatReal(add(data.total_debit, freight_value)));
+      $('#debit_discount_value').text(formatReal(data.debit_discount));
+      $('#billet_discount_value').text(formatReal(data.billet_discount));
     });
   });
 
@@ -295,3 +306,11 @@ $(function() {
     return true;
   });
 });
+
+add = function(str1, str2) {
+  return parseFloat(str1) + parseFloat(str2);
+}
+
+formatReal = function(value) {
+  return "R$ " + parseFloat(value).toFixed(2).replace(/\./, ',');
+}
