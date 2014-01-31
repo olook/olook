@@ -32,7 +32,7 @@ class ShowroomPresenter
 
   def fetch_products_in_each_category
     categories_for_showroom.map do |category_id|
-      @recommendation.products(category: category_id, limit: @limit)
+      @recommendation.products(category: category_id, limit: @products_limit)
     end.flatten
   end
 
