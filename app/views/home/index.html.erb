@@ -4,6 +4,10 @@
   <meta name="chaordic:user" content="<%= @chaordic_user %>">
 <% end %>
 
+<% content_for :data_layer do %>
+  <%= render "shared/data_layer/home"%>
+<% end %>
+
 <% content_for :footer do %>
   <%= javascript_include_tag "home" %>
 <% end %>
