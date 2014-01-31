@@ -8,7 +8,7 @@ class ShowroomPresenter
 
   def initialize(args={})
     @recommendation = args[:recommendation]
-    @products_limit = args[:products_limit] || 18
+    @products_limit = args[:products_limit] || 22
     @looks_limit = args[:looks_limit] || 4
     @products = []
   end
