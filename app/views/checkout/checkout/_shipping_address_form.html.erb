@@ -4,14 +4,12 @@
   <%= field_set_tag do %>
     <%= address_form.label :zip_code, "CEP*" %>
     <%= address_form.text_field :zip_code, class: "zip_code  #{error_class_if_needed(address, :zip_code)}", onblur: track_event("CheckoutAddress","fillCep") %>
-    <%#= button_tag(type: "button", class: "btn_zipcode", id:"zip_code_btn", name:"zip_code_btn", onclick:"retrieve_zip_data($('#checkout_address_zip_code').val());#{track_event('CheckoutAddress','clickCep')}") do %>
-      <%#= "Encontrar endereço" %>
-    <%# end %>
       <%= errors_for(address, :zip_code) %>
   <% end %>
 
   <div id="address_fields" name="address_fields" <%#= 'style= opacity:0;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=0);display:none;' unless address && (address.id || !address.zip_code.blank?) %>>
     <%= address_form.hidden_field :id %>
+    <%= address_form.hidden_field :require_telephone %>
 
     <%= field_set_tag do %>
       <div>
@@ -75,7 +73,7 @@
     <p class="subtitle">CONTATO NO LOCAL</p>
     <%= field_set_tag do %>
       <div>
-      <%= address_form.label :telephone, "Telefone de contato 1" %>
+      <%= address_form.label :telephone, "Telefone de contato 1*" %>
       <%= address_form.text_field :telephone, class: "tel_contato1 #{error_class_if_needed(address, :telephone)}", onblur: track_event("CheckoutAddress","fillTelephone1") %>
       </div>
       <%= errors_for(address, :telephone) %>

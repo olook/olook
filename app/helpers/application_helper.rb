@@ -204,12 +204,12 @@ module ApplicationHelper
   def home_wishlist_images
     wishlist_products = Wishlist.for(current_user).wished_products.last(2)
     wishlist_images = []
-    wishlist_images << wishlist_products.first.variant.product.main_picture.image_url(:main)
+    wishlist_images << {img: wishlist_products.first.variant.product.main_picture.image_url(:main), product: wishlist_products.first.variant.product }
 
     if wishlist_products.size > 1
-      wishlist_images << wishlist_products.last.variant.product.main_picture.image_url(:main)      
+      wishlist_images << {img: wishlist_products.last.variant.product.main_picture.image_url(:main), product: wishlist_products.last.variant.product}      
     else
-      wishlist_images << wishlist_products.first.variant.product.backside_picture.gsub("catalog","main")
+      wishlist_images << {img: wishlist_products.first.variant.product.backside_picture.gsub("catalog","main"), product: wishlist_products.first.variant.product}
     end
 
     wishlist_images

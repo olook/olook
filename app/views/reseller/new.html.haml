@@ -9,8 +9,6 @@
     %h2
       cadastre-se e seja uma revendedora olook
     = form_for(@reseller, :url => reseller_create_path(anchor: 'register_content') ) do |f|
-      - f.hidden_field :require_telephone, :value => "true"
-      
       %ul.formulario
         %fieldset
           %li.company

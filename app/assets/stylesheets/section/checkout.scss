@@ -2058,7 +2058,7 @@ section.checkout{
     }
 
     .box-step-three {
-      ul.subtotal, .total {width:91%;padding:6.5% 9% 0 0;
+      ul.subtotal, .total {width:91%;padding:1% 9% 0 0;
         li {padding-bottom:10px;height:13px;}
         .txt-black {display: block;float:left;width:31%;text-align: right;font-weight: normal !important;}
         .txt-subtotal, #freight_price, #gift_wrap, #credits_used, #billet_discount_value, #total, #total_billet, #debit_discount_value, #total_debit {float:right;text-align: right;}
@@ -2165,7 +2165,7 @@ section.checkout{
           position:absolute;
           z-index:2;
           left:144px;
-          top:80px;
+          top:83px;
           display:block;
           width:45px;
           height:32px;
