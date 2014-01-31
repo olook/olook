@@ -212,21 +212,29 @@ $(function() {
     // });
   }
 
-  $("div.box-step-two #checkout_credits_use_credits").change(function() {
+  $("#checkout_credits_use_credits").change(function() {
     $("#cart-box #credits_used").hide();
     $("#cart-box #total").hide();
     $("#cart-box #total_billet").hide();
     $("#cart-box #total_debit").hide();
     $("#cart-box #billet_discount_cart").hide();
     $.ajax({
-      url: '/sacola',
+      url: '/pagamento',
       type: 'PUT',
+      dataType: 'json',
       data: {
         cart: {
           use_credits: $(this).attr('checked') == 'checked'
         },
       freight_price: $("#freight_price").text()
       }
+    }).done(function(data){
+      $('#credits_used').text(data.credits_discount);
+      $('#total').text(data.total);
+      $('#total_billet').text(data.total_billet);
+      $('#total_debit').text(data.total_debit);
+      $('#debit_discount_value').text(data.debit_discount);
+      $('#billet_discount_value').text(data.billet_discount);
     });
   });
 
