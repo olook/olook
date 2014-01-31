@@ -470,6 +470,7 @@ Olook::Application.routes.draw do
 
   resource :checkout, :path => 'pagamento', :controller => 'checkout/checkout' do
     get "/", :to => "checkout/checkout#new"
+    put "/", to: 'checkout/checkout#update'
     get "/novo", :to => "checkout/checkout#new", defaults: {freight_service_ids: "4,5"}
     get "preview_by_zipcode", :to => "checkout/addresses#preview", :as => :preview_zipcode
     resources :addresses, :path => 'endereco', :controller => "checkout/addresses"
