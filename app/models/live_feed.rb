@@ -9,4 +9,18 @@ class LiveFeed < ActiveRecord::Base
   validates :gender, presence: :true, inclusion: ['m', 'g']
   validates :ip, presence: :true
   validates :question, presence: :true
+
+  validate :new_email
+
+  def new_email
+    errors.add(:email, 'Already exists') if newsletter || user
+  end 
+
+  def newsletter
+    CampaignEmail.find_by_email(email)
+  end
+
+  def user
+    User.find_by_email(email)
+  end
 end
