@@ -65,4 +65,7 @@ a.selecionado:hover {color:$pink !important;}
 
 #modal {position: fixed !important;}
 
-section.banner {margin-bottom:30px !important;}
+section.banner {
+  margin-bottom:10px !important;
+  img {width:100%;}
+}
