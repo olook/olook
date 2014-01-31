@@ -53,12 +53,12 @@ class Checkout::CheckoutController < Checkout::BaseController
     @cart_service.cart.update_attribute(:use_credits, params[:cart][:use_credits])
     signal = @cart_service.total_credits_discount > 0 ? "-" : ""
     render json: {
-      'credits_discount' => signal + number_to_currency(@cart_service.total_credits_discount),
-      'billet_discount' => signal + number_to_currency(@cart_service.billet_discount),
-      'debit_discount' => signal +  number_to_currency(@cart_service.debit_discount),
-      'total' => number_to_currency(@cart_service.total),
-      'total_billet' => number_to_currency(@cart_service.total(Billet.new)),
-      'total_debit' => number_to_currency(@cart_service.total(Debit.new))
+      'credits_discount' => "#{signal}#{@cart_service.total_credits_discount}",
+      'billet_discount' => signal + "#{@cart_service.billet_discount}",
+      'debit_discount' => signal +  "#{@cart_service.debit_discount}",
+      'total' => (@cart_service.total),
+      'total_billet' => (@cart_service.total(Billet.new)),
+      'total_debit' => (@cart_service.total(Debit.new))
     }
   end
 
