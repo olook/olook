@@ -147,7 +147,7 @@ class ApplicationController < ActionController::Base
       if @cart && @cart.has_gift_items?
         session[:return_to] ||= { text: "Voltar para as sugestões", url: gift_recipient_suggestions_path(session[:recipient_id]) }
       elsif @user && !@user.half_user?
-        session[:return_to] ||= { text: "Voltar para a minha vitrine", url: member_showroom_path }
+        session[:return_to] ||= { text: "Voltar para a minha vitrine", url: root_path }
       else
         session[:return_to] ||= { text: "Voltar para coleções", url: collection_themes_path }
       end
@@ -214,23 +214,6 @@ class ApplicationController < ActionController::Base
       Rails.logger.debug('ApplicationController#external_referer?(referer)')
       return false if referer.nil?
       !(referer =~ /olook\.com\.br/)
-    end
-
-    def prepare_for_home
-      Rails.logger.debug('ApplicationController#prepare_for_home')
-      @top5 = Product.fetch_products :top5
-      @stylist = Product.fetch_products :selection
-      @highlights = Highlight.highlights_to_show HighlightType::CAROUSEL
-      @weekly_highlights = Highlight.highlights_to_show HighlightType::WEEKLY
-
-      if params[:share]
-        @user = User.find(params[:uid])
-        @profile = @user.profile_scores.first.try(:profile).try(:first_visit_banner)
-        @qualities = Profile::DESCRIPTION["#{@profile}"]
-        @url = request.protocol + request.host
-      end
-      @incoming_params = params.clone.delete_if {|key| ['controller', 'action'].include?(key) }
-      session[:tracking_params] ||= @incoming_params
     end
 
   def mobile?

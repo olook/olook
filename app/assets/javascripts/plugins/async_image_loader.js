@@ -12,7 +12,7 @@ function ImageLoader() {
 
       var img_container;
       var attributes;
-      if (container.tagName == 'DIV') {
+      if (container.tagName != 'IMG') {
         img_container = new Image();
         img_container.className = 'async'
         container.appendChild(img_container);
@@ -30,7 +30,7 @@ function ImageLoader() {
 
   };
 
-  load_image = function(img_tag, url, attributes) {
+  var load_image = function(img_tag, url, attributes) {
     for(var k in attributes) img_tag.setAttribute(k, attributes[k])
     img_tag.src = url;
   };

@@ -19,6 +19,7 @@ class Product < ActiveRecord::Base
   before_save :set_launch_date, if: :should_update_launch_date?
 
   has_many :pictures, :dependent => :destroy
+  has_many :gallery_5_pictures, class_name: 'Picture', conditions: ['pictures.display_on = ?', DisplayPictureOn::GALLERY_5]
   has_many :details, :dependent => :destroy
   has_many :price_logs, class_name: 'ProductPriceLog', :dependent => :destroy
   has_many :variants, :dependent => :destroy do
@@ -46,9 +47,10 @@ class Product < ActiveRecord::Base
 
   scope :only_visible , where(:is_visible => true)
 
-  scope :shoes        , where(:category => Category::SHOE)
-  scope :bags         , where(:category => Category::BAG)
-  scope :accessories  , where(:category => Category::ACCESSORY)
+  scope :shoes        , -> {where(:category => Category::SHOE)}
+  scope :bags         , -> {where(:category => Category::BAG)}
+  scope :accessories  , -> {where(:category => Category::ACCESSORY)}
+  scope :cloths       , -> {where(category: Category::CLOTH)}
 
   scope :in_category, lambda { |value| { :conditions => ({ category: value } unless value.blank? || value.nil?) } }
   scope :in_collection, lambda { |value| { :conditions => ({ collection_id: value } unless value.blank? || value.nil?) } }
@@ -163,6 +165,22 @@ class Product < ActiveRecord::Base
       self.pictures.all.find { |p| p.display_on == DisplayPictureOn::GALLERY_1 }
     else
       self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
+    end
+  end
+
+  def front_picture
+    return @front_picture if @front_picture.present?
+    pics = self.pictures.select { |p| p.display_on <= 10 }.sort { |a,b| a.display_on <=> b.display_on }
+    pics.first
+  end
+
+  def full_look_picture
+    return @full_look_picture if @full_look_picture.present?
+    pics = self.pictures.select { |p| p.display_on <= 10 }.sort { |a,b| b.display_on <=> a.display_on }
+    if cloth?
+      pics.first
+    else
+      pics.second
     end
   end
 

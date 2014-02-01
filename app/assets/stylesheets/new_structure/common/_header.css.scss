@@ -168,15 +168,15 @@ header#new_header{border-top: 2px black solid;
             label{display: block;font-size: 11px;font-weight: bold;margin: 2px 0;}
             input {background: #FFF image-url('common/background-inputs.png') bottom repeat-x;border: 1px solid #BBB;padding: 6px 8px;width: 92%;
             
-    					&#user_remember_me_login{width:auto;float:left;}	
-    					&#login{float:right;margin:-17px 0 0 65px;}
-    					&#user_password{margin-bottom:10px;}
+              &#user_remember_me_login{width:auto;float:left;}  
+              &#login{float:right;margin:-17px 0 0 65px;}
+              &#user_password{margin-bottom:10px;}
               &:focus {outline: none;}
             }
             
-      			&.buttons{
-    					label{font-weight:normal !important;width:103px;}
-    					a{font-size:11px;float:left;}
+            &.buttons{
+              label{font-weight:normal !important;width:103px;}
+              a{font-size:11px;float:left;}
               input[type=submit]{
                 font-size: 10px;
                 @include bt_color($primary_bt_color, $primary_bt_color_hover);
@@ -189,7 +189,7 @@ header#new_header{border-top: 2px black solid;
                 cursor: pointer;
               }
               #user_remember_me_login{background:none;margin-right:5px;}  
-    				}
+            }
           }
         }
         .login_with_facebook {padding: 10px 0 0 0;border-top: 1px #cfcfcf solid;
@@ -318,9 +318,9 @@ header#new_header{border-top: 2px black solid;
           p{font-family: $avenir; font-size: 12px;color: #000;
             img{float: left; margin-top: 13px; margin-right: 10px;}}
          }
-         &.product_item{border-top:solid 1px #CCC;margin-top:10px;color:#000;font-size:12px;padding-top:10px;
+         &.product_item{border-top:solid 1px #CCC;margin-top:10px;color:#000;font-size:12px;padding-top:10px;height:80px;
             p {line-height:17px;overflow:hidden;}
-            img{float:left;margin-right:14px;margin-top:10px;width:46px;margin-bottom:20px;}
+            img{float:left;margin-right:14px;margin-top:10px;width:46px;}
             h1{font-family:$arial;text-transform:uppercase;font-size:11px;font-weight:bold;line-height: 16px;}
             .size,
             .qte {font-size: 11px;font-family: $verdana;}
@@ -650,7 +650,7 @@ div#wrapper_new_menu{
     padding-top:5px;
     height:31px;
   }
-  .content_new{height: 33px;margin-bottom: 15px;}
+  .content_new{height: 33px;margin-bottom: 10px;}
 }
 
 nav.menu_new{
