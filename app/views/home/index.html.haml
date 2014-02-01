@@ -38,7 +38,7 @@
     = cache "home/unlogged_page", expire_in: 30.minutes do
       = render "unlogged_page"
   - else
-    = cache "home/#{@current_user.profile}", expire_in: 30.minutes do
+    = cache "home/#{@current_user.main_profile.alternative_name}", expire_in: 30.minutes do
       = render "logged_page"
   %section#week_highlights
     = render "home/week_highlights"
