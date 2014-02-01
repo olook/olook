@@ -6,6 +6,8 @@
   = javascript_include_tag "section/lite_home"
   - if Campaign.activated_campaign && Campaign.activated_campaign.lightbox?
     = render :partial => "shared/modal/lightbox", :locals => {:image_url => Campaign.activated_campaign.lightbox_url, :link => Campaign.activated_campaign.link}
+- content_for :data_layer do
+  = render "shared/data_layer/home"
 
 %section#home
 
