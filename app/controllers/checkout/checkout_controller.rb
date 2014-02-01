@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Checkout::CheckoutController < Checkout::BaseController
   include FreightTracker
+  include ActionView::Helpers::NumberHelper
 
   before_filter :authenticate_user!
   before_filter :check_order
@@ -46,6 +47,19 @@ class Checkout::CheckoutController < Checkout::BaseController
       display_form(address, payment, payment_method, error_message_for(response, payment))
       return
     end
+  end
+
+  def update
+    @cart_service.cart.update_attribute(:use_credits, params[:cart][:use_credits])
+    signal = @cart_service.total_credits_discount > 0 ? "-" : ""
+    render json: {
+      'credits_discount' => "#{signal}#{@cart_service.total_credits_discount}",
+      'billet_discount' => signal + "#{@cart_service.billet_discount}",
+      'debit_discount' => signal +  "#{@cart_service.debit_discount}",
+      'total' => (@cart_service.total),
+      'total_billet' => (@cart_service.total(Billet.new)),
+      'total_debit' => (@cart_service.total(Debit.new))
+    }
   end
 
   private
