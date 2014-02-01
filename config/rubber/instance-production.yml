@@ -79,5 +79,65 @@
   platform: linux
   root_device_type: ebs
   provider: aws
+- !ruby/object:Rubber::Configuration::InstanceItem
+  name: resque03
+  domain: olook.com.br
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque_worker
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: collectd
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: monit
+    options: {}
+  instance_id: i-04fea024
+  image_type: m1.xlarge
+  image_id: ami-3fec7956
+  security_groups:
+  - olook_production_default
+  - olook_production_resque03
+  - olook_production_resque_worker
+  - olook_production_collectd
+  - olook_production_monit
+  external_host: ec2-184-73-95-110.compute-1.amazonaws.com
+  external_ip: 184.73.95.110
+  internal_host: ip-10-180-218-102.ec2.internal
+  internal_ip: 10.180.218.102
+  zone: us-east-1b
+  platform: linux
+  root_device_type: ebs
+  provider: aws
+- !ruby/object:Rubber::Configuration::InstanceItem
+  name: resque04
+  domain: olook.com.br
+  roles:
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: resque_worker
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: collectd
+    options: {}
+  - !ruby/object:Rubber::Configuration::RoleItem
+    name: monit
+    options: {}
+  instance_id: i-30fda310
+  image_type: m1.xlarge
+  image_id: ami-3fec7956
+  security_groups:
+  - olook_production_default
+  - olook_production_resque04
+  - olook_production_resque_worker
+  - olook_production_collectd
+  - olook_production_monit
+  external_host: ec2-174-129-122-243.compute-1.amazonaws.com
+  external_ip: 174.129.122.243
+  internal_host: ip-10-182-220-95.ec2.internal
+  internal_ip: 10.182.220.95
+  zone: us-east-1b
+  platform: linux
+  root_device_type: ebs
+  provider: aws
 - volumes: {}
   static_ips: {}

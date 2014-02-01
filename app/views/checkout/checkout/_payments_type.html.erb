@@ -133,17 +133,15 @@
   </div>
   <div class="box-boleto billet">
     <% if billet_discount_enabled %>
-      <p class="tip" id="billet_tip" style="<%= @cart_service.billet_discount > 0 ? "" : "display:none;" %>">Pague com boleto e <span>ganhe <%= billet_discount_percentage%>% de desconto.</span> Nesta compra seu desconto será de <span id="billet_discount"><%= number_to_currency(@cart_service.billet_discount) %></span>.</p>
+      <p class="tip" id="billet_tip" style="<%= @cart_service.billet_discount > 0 ? "" : "display:none;" %>">Você terá <span><%= billet_discount_percentage%>% de desconto.</span>
     <% end %>
-    <p>Você deverá imprimir e realizar o pagamento
-    do boleto após a finalização da compra.</p>
+    Após finalizar a compra, imprima e efetue o pagamento do boleto até <span><%= I18n.l BilletExpirationDate.expiration_for_two_business_day.to_date %></span>.</p>
 
-    <p><span>Importante:</span> Seu pedido ficará reservado por 48hrs, enquanto aguardamos a confirmação
-    do seu pagamento.</p>
+
   </div>
   <div class="box-debito debit">
     <% if debit_discount_enabled %>
-      <p class="tip" id="billet_tip" style="<%= @cart_service.debit_discount > 0 ? "" : "display:none;" %>">Pague com débito e <span>ganhe <%= debit_discount_percentage %>% de desconto.</span> Nesta compra seu desconto será de <span id="debit_discount"><%= number_to_currency(@cart_service.debit_discount) %></span>.</p>
+      <p class="tip" id="billet_tip" style="<%= @cart_service.debit_discount > 0 ? "" : "display:none;" %>">Você terá <span><%= debit_discount_percentage %>% de desconto.</span></p>
     <% end %>
     <p class="subtitle">SELECIONE SEU BANCO:</p>
     <% Debit::BANKS_OPTIONS.each do |bank| %>
@@ -152,15 +150,14 @@
       <span class="<%= (@checkout.payment && (bank == @checkout.payment.bank)) ? "selected debit_bank_#{bank}" : "debit_bank_#{bank}" %>"><%= bank %></span>
       <%= errors_for(@checkout.payment, :bank) %>
     <% end %>
-    <p>Após clicar em “finalizar compra”, você deverá informar os dados solicitados pelo seu banco na página de confirmação de compra.</p>
 
-    <p><span>Importante:</span> Seu pedido ficará reservado por 48hrs, enquanto aguardamos a confirmação do seu pagamento.</p>
+    <p>Após finalizar a compra você deverá informar os dados solicitados pelo seu banco na página de confirmação.</p>
+    
+
   </div>
 
   <div class="box-mercadopago mercadopago">
-
-    <p>Após clicar em “finalizar compra”, você deverá informar os dados solicitados pelo MercadoPago, na página de confirmação de compra.</p>
-    <p><span>Importante:</span> Seu pedido ficará reservado por 48hrs, enquanto aguardamos a confirmação do seu pagamento.</p>
+    <p>Após finalizar a compra, você deverá informar os dados solicitados pelo MercadoPago na página de confirmação.</p>
   </div>
 
   <% end %>
