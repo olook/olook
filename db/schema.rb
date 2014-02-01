@@ -1114,6 +1114,7 @@ ActiveRecord::Schema.define(:version => 20140127215701) do
     t.boolean  "active"
     t.boolean  "has_corporate"
     t.string   "fantasy_name"
+    t.integer  "orders_count",                                    :default => 0
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token"

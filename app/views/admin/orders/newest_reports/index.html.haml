@@ -7,14 +7,17 @@
       %th Email
       %th Telefone
       %th Total pago
+      %th Status
 
-    - @orders.all.each do |order|
+    - @orders.all.each do |order| 
+      
       %tr
-        %td= link_to order.user.name, admin_user_path(order.user)
-        %td= link_to order.number, admin_order_path(order)
-        %td= link_to order.user.email, admin_user_path(order.user)
-        %td= order.user.addresses.first.try(:telephone)
+        %td= link_to order.user.name, admin_user_path(order.user) if order.user 
+        %td= link_to order.number, admin_order_path(order) if order.user 
+        %td= link_to order.user.email, admin_user_path(order.user) if order.user 
+        %td= order.user.addresses.first.try(:telephone) if order.user 
         %td= order.amount_paid
+        %td= order.state
 
   %br
 
