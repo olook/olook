@@ -1,4 +1,0 @@
-<% present 'Showroom', :member => @user, :admin => current_admin, :collection => @collection  do |showroom_presenter| %>
-  $('#bags_product').html('<%= j showroom_presenter.display_bags((5..100),@collection) %>');
-<% end %>
-initBase.replaceImages();

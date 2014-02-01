@@ -113,3 +113,8 @@ Setting.defaults[:enable_neoassist] = false
 Setting.defaults[:disable_ab_test_for_look_products] = false
 
 Setting.defaults[:complete_look_promotion_id] = "0"
+
+Setting.defaults[:look_cloth_category_weight] = 2
+Setting.defaults[:look_shoe_category_weight] = 1
+Setting.defaults[:look_bag_category_weight] = 1
+Setting.defaults[:look_accessory_category_weight] = 1

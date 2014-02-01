@@ -59,6 +59,8 @@ gem 'sass-rails', "~> 3.2.3"
 gem 'uglifier', '~> 1.0.3'
 gem 'business_time'
 gem "rails-settings-cached"
+gem "rubypress", :git => 'git://github.com/olook/rubypress.git', :branch => 'master'
+
 
 gem "boleto_bancario", :git => 'git@github.com:olook/boleto_bancario.git', :branch => 'homologacao_santander', require: false
 gem 'fb-channel-file'

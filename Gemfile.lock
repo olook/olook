@@ -47,6 +47,13 @@ GIT
       nokogiri (~> 1.5.0)
 
 GIT
+  remote: git://github.com/olook/rubypress.git
+  revision: 6390ecade441966d5387f1789a8db388c2bd18d1
+  branch: master
+  specs:
+    rubypress (1.0.3)
+
+GIT
   remote: git@github.com:olook/boleto_bancario.git
   revision: 3bbe354eb1273a22d188f187c6412c9ced10c978
   branch: homologacao_santander
@@ -646,6 +653,7 @@ DEPENDENCIES
   resque_mailer (~> 2.0.2)
   rspec-rails (~> 2.12.0)
   rubber (~> 2.0)!
+  rubypress!
   sass-rails (~> 3.2.3)
   savon (= 0.9.9)
   shoulda-matchers

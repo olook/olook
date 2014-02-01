@@ -1,33 +1,17 @@
-%h1 Destaques
+%h1= I18n.t("activerecord.models.highlight.other")
+%h3
+  Clique na foto que queira modificar
 
-
--@highlights.each do |type_id, highlights|
-
-  %h2=HighlightType.t(type_id)
-
-  %div.inner
-    %table.table
-      %tr
-        %th Imagem
-        %th Título
-        %th SubTítulo
-        %th Link
-        %th Posição
-        %th
-        %th
-        %th
-
-      - highlights.each do |highlight|
-        %tr
-          %td= image_tag highlight.image_url(:thumb)
-          %td= highlight.title
-          %td= highlight.subtitle
-          %td= highlight.link
-          %td= highlight.position
-          %td= link_to 'Exibir', [:admin, highlight]
-          %td= link_to 'Editar', edit_admin_highlight_path(highlight)
-          %td= link_to 'Apagar', [:admin, highlight], :method => :delete, :data => { :confirm => 'Tem certeza ?' }
-
-    %br
-
-= link_to 'Novo destaque', new_admin_highlight_path
+%div.inner
+  -if @left_highlight.blank? 
+    = link_to "Criar Destaque da home", new_admin_highlight_path(position: HighlightPosition::LEFT)
+  -else
+    = link_to(image_tag(@left_highlight.try(:left_image_url,:site)), edit_admin_highlight_path(@left_highlight))
+  -if @center_highlight.blank?
+    = link_to "Criar Destaque da home", new_admin_highlight_path(position: HighlightPosition::CENTER)
+  -else
+    = link_to(image_tag(@center_highlight.try(:image_url,:site)), edit_admin_highlight_path(@center_highlight))
+  -if @right_highlight.blank?
+    = link_to "Criar Destaque da home", new_admin_highlight_path(position: HighlightPosition::RIGHT)
+  -else
+    = link_to(image_tag(@right_highlight.try(:right_image_url,:site)), edit_admin_highlight_path(@right_highlight))
