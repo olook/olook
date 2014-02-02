@@ -1,13 +1,12 @@
-<% POST_RETRIEVER_SERVICE.retrieve_posts.each_with_index do |post, index| %>
-  <div id="about">
-    <%= link_to post[:link], class: "open_making_of", onclick: track_event(show_unlogged_home? ? "UnloggedHome" : "LoggedHome","StylistNewsBanner#{index + 1}", post[:link]) do %>
-      <%= image_tag post[:img_new_home], title: "destaque semanal" %>
+<% post =  POST_RETRIEVER_SERVICE.retrieve_posts.first %>
+<div id="about">
+  <%= link_to post[:link], class: "open_making_of", onclick: track_event(show_unlogged_home? ? "UnloggedHome" : "LoggedHome","StylistNewsBanner", post[:link]) do %>
+    <%= image_tag post[:img_new_home], title: "destaque semanal" %>
+  <% end %>
+  <h5>
+    <%= link_to "http://www.olook.com.br/stylist-news", onclick: track_event(show_unlogged_home? ? "UnloggedHome" : "LoggedHome","StylistNewsBanner", post[:link]) do %>
+      // ÚLTIMAS DO BLOG //
     <% end %>
-    <h5>
-      <%= link_to "http://www.olook.com.br/stylist-news", onclick: track_event(show_unlogged_home? ? "UnloggedHome" : "LoggedHome","StylistNewsBanner#{index + 1}", post[:link]) do %>
-        // ÚLTIMAS DO BLOG //
-      <% end %>
-    </h5>
-    <p><%= link_to post[:subtitle], post[:link] %></p>
-  </div>
-<% end %>
+  </h5>
+  <p><%= link_to post[:subtitle], post[:link] %></p>
+</div>
