@@ -7,7 +7,7 @@ class PostRetrieverService
 
   def retrieve_posts
     Rails.cache.fetch("sn-post-data", :expires_in => 1.hour) do
-      retrieve_post_data 1
+      retrieve_post_data
     end
   end
 
@@ -17,13 +17,13 @@ class PostRetrieverService
 
   private
 
-    def retrieve_post_data(number = 3)
+    def retrieve_post_data(number = 1)
       posts(number).map do |post|        
         format_post post
       end
     end
 
-    def posts number = 3
+    def posts number = 1
       @wp.getPosts(:filter =>{:order => "desc", :orderby => "post_date", :post_type => 'post', :post_status => 'publish', :number => number})      
     end
 
