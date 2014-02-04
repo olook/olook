@@ -25,7 +25,7 @@ gem 'glennfu-contacts', '= 1.2.6', :path => "vendor/gems", :require => "contacts
 gem 'cancan', '~> 1.6.7'
 gem 'enumerate_it', '~> 0.7.14'
 gem 'fog', '~> 1.2'
-gem 'carrierwave', '~> 0.6.0'
+gem 'carrierwave', '~> 0.6'
 gem 'mini_magick', '= 3.3'
 gem 'zipruby'
 gem 'will_paginate'
