@@ -44,7 +44,13 @@ Olook::Application.configure do
   config.cache_store = :redis_store, ENV['REDIS_CACHE_STORE'], { expires_in: 40.minutes }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server
-  config.action_controller.asset_host = "//d22zjnmu4464ds.cloudfront.net"
+  config.action_controller.asset_host = Proc.new { |source, request| 
+    if request.ssl?
+      "https://gp1.wac.edgecastcdn.net/80BFF9/assets/"
+    else
+      "http://wac.bff9.edgecastcdn.net/80BFF9/assets/"
+    end
+  }
 
   # config.action_controller.asset_host = Proc.new do |source, request|
   #   request.ssl? ? "https://cdn-app.olook.com.br.s3.amazonaws.com" : "http://cdn-app.olook.com.br.s3.amazonaws.com"
