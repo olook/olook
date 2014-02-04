@@ -5,7 +5,7 @@ class SearchResult
 
   def initialize(response, options = {})
    @hits = JSON.parse(response.body)["hits"] || empty_hits_result
-   @facets = JSON.parse(response.body)["facets"]
+   @facets = JSON.parse(response.body)["facets"] || {}
    parse_facets if options[:parse_facets]
    parse_products if options[:parse_products]
   end
