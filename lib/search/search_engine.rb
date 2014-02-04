@@ -9,7 +9,7 @@ class SearchEngine
   IGNORE_ON_URL = Set.new(['inventory', :inventory, 'is_visible', :is_visible, 'in_promotion', :in_promotion])
   PERMANENT_FIELDS_ON_URL = Set.new([:is_visible, :inventory])
 
-  RETURN_FIELDS = [:subcategory,:name,:brand,:image,:retail_price,:price,:backside_image,:category,:text_relevance]
+  RETURN_FIELDS = [:subcategory,:name,:brand,:image,:retail_price,:price,:backside_image,:category,:text_relevance,:inventory]
 
   SEARCHABLE_FIELDS = [:category, :subcategory, :color, :brand, :heel,
                 :care, :price, :size, :product_id, :collection_theme,
