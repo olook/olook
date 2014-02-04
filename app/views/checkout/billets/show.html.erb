@@ -80,7 +80,7 @@
           N&atilde;o imprima em modo rascunho.
         </div>
         <div id="btn_print" class="btn_print right" style="margin-top:23px;" onClick="window.print();return false">
-          <img src="/assets/boleto/icon_print_14x14.png" width="14" height="14"> &nbsp;imprimir
+          <%= image_tag "boleto/icon_print_14x14.png", width: "14", height: "14" %> &nbsp;imprimir
         </div>
       </div>
       <div style="clear:left">
@@ -109,7 +109,7 @@
         </tr>
           <tr valign="top">
             <td>
-              <img src="/assets/boleto/tesoura.gif" style="margin-bottom: 3px;" width="640" height="5">
+              <%= image_tag "boleto/tesoura.gif", style: "margin-bottom: 3px;", width: "640", height: "5" %>
             </td>
         </tr>
       </tbody>
@@ -119,7 +119,7 @@
         <tr>
             <td width="320">
               <font size="3" face="Arial, Helvetica, sans-serif">
-                <img src="/assets/boleto/logo.png" vspace="0" width="125" align="absbottom" height="37" hspace="1">
+                <%= image_tag "boleto/logo.png", vspace: "0", width: "125", align: "absbottom", height: "37", hspace: "1" %>
               </font>
             </td>
             <td valign="bottom" width="320" align="right">
@@ -153,14 +153,14 @@
           </td>
             <td width="18%">
               <font size="1" face="Arial, Helvetica, sans-serif">&nbsp;Vencimento</font>
-            <font size="3" face="Arial">
-              <b>
-                    <div align="right">
-                      <font size="2" face="Arial, Helvetica, sans-serif"><%= @boleto.data_vencimento.strftime("%d/%m/%Y") %>&nbsp;</font>
-                    </div>
+              <font size="3" face="Arial">
+                <div align="right">
+                  <b>
+                    <font size="2" face="Arial, Helvetica, sans-serif"><%= @boleto.data_vencimento.strftime("%d/%m/%Y") %>&nbsp;</font>
                   </b>
-                </font>
-              </td>
+                </div>
+              </font>
+            </td>
           </tr>
           <tr>
             <td width="43%">
@@ -249,14 +249,14 @@
     <table width="640" border="0" cellpadding="0" cellspacing="0">
       <tbody>
         <tr valign="top">
-            <td>
-              <img src="/assets/boleto/tesoura.gif" style="margin-bottom: 3px;" width="640" height="5">
-              </td>
+          <td>
+            <%= image_tag "boleto/tesoura.gif", style: "margin-bottom: 3px;", width: "640", height: "5" %>
+          </td>
       </tr>
     </tbody></table>
     <table width="640" border="0" cellpadding="0" cellspacing="0">
       <tbody><tr>
-        <td valign="bottom" width="112"><font size="3" face="Arial, Helvetica, sans-serif"><img src="/assets/boleto/logo.png" vspace="0" width="125" align="absbottom" height="37" hspace="1"></font></td>
+        <td valign="bottom" width="112"><font size="3" face="Arial, Helvetica, sans-serif"><%= image_tag "boleto/logo.png", vspace: "0", width: "125", align: "absbottom", height: "37", hspace: "1" %></font></td>
         <td valign="bottom" width="66" align="center"> <font size="3" face="Arial, Helvetica, sans-serif"><b>&nbsp;<font color="#999999">033</font>&nbsp;</b></font>
         </td>
         <td valign="bottom" width="462" align="right" nowrap="nowrap"><font size="3" face="Arial"><%= @boleto.linha_digitavel %>&nbsp;</font></td>
@@ -479,7 +479,7 @@
         <tbody><tr>
           <td width="452" align="left"> <table width="100%" border="0" cellpadding="0" cellspacing="0">
             <tbody>
-              <tr><td valign="bottom" width="96%" height="53"><img src=<%= @boleto.url_da_imagem_do_codigo_de_barras %>></td>
+              <tr><td valign="bottom" width="96%" height="53"><%= image_tag @boleto.url_da_imagem_do_codigo_de_barras %></td>
                 </tr>
               </tbody>
       </table>
