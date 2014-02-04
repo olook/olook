@@ -1,6 +1,6 @@
 class RecommendationService
 
-  DAYS_AGO_TO_CONSIDER_NEW = 450
+  DAYS_AGO_TO_CONSIDER_NEW = 90
   DATE_WHEN_PICTURES_CHANGED = "2013-07-01"
 
   def initialize(opts = {})
