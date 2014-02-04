@@ -183,9 +183,10 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 1.0.0)
-    carrierwave (0.6.2)
+    carrierwave (0.9.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
+      json (>= 1.7)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     choice (0.1.6)
@@ -590,7 +591,7 @@ DEPENDENCIES
   capistrano
   capistrano-maintenance
   capybara (= 2.0.2)
-  carrierwave (~> 0.6.0)
+  carrierwave (~> 0.6)
   chaordic-packr (= 4.0.0)!
   ci_reporter!
   clearsale!
