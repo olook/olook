@@ -1,6 +1,6 @@
 class SearchedProduct
 
-  attr_accessor :id, :formatted_name, :model_name, :category, :catalog_image, :backside_picture, :price, :brand, :retail_price
+  attr_accessor :id, :formatted_name, :model_name, :category, :catalog_image, :backside_picture, :price, :brand, :retail_price, :inventory
   attr_writer :promotion
 
   def initialize id, data
@@ -12,6 +12,7 @@ class SearchedProduct
     self.price = BigDecimal.new(data["price"][0].to_d/100.0.to_d)
     self.retail_price = BigDecimal.new(data["retail_price"][0].to_d/100.0.to_d)
     self.promotion = false
+    self.inventory = data["inventory"][0]
   end
 
   def seo_path
