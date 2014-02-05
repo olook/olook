@@ -15,6 +15,9 @@
         = link_to data[:label], '#', :class => "#{data[:class_name]} js-imgAddToCart #{data[:sold_out]}", :data => {cart_id: @cart.id, variant: wp.variant.number}
         - product = wp.variant.product
         .async{data: {product: product.catalog_picture, backside_picture: product.backside_picture, product: product.catalog_picture}}
+        - if wp.variant.discount_percent && wp.variant.discount_percent > 0
+          %p.label_price
+            =number_to_percentage wp.variant.discount_percent, precision: 0
       %h2
         = product.name
       %h3
