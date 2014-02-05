@@ -39,7 +39,7 @@ class QuizResponder
     @user.profile = @profile
     @user.profiles = [Profile.for_wysprofile(@profile).first]
     @user.wys_uuid = @uuid
-    @user.save
+    @user.upgrade_to_full_user!
   end
 
   def retrieve_profile

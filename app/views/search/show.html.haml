@@ -1,6 +1,9 @@
 - content_for :head do
   = stylesheet_link_tag "new_structure/section/search"
+- content_for :footer do
+  = javascript_include_tag "section/load_thumbnail_images"
 .search
+  = first_level_breadcrumb "Busca"
   - if @search.products.size == 0
     %h2
       %b
@@ -41,7 +44,6 @@
     %p Enquanto isso, porque você não dá uma olhada em...
   .chaordic.mostpopular{"data-skin" => "MP-top-5"}
   - @stylist = Product.fetch_products :selection
-  = render "home/stylists"
-= render "home/boxes"
-= render "home/products_categories"
-
+  = render "stylists"
+= render "boxes"
+= render "products_categories"

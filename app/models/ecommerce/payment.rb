@@ -21,7 +21,8 @@ class Payment < ActiveRecord::Base
   GATEWAYS = {
     :moip => 1,
     :braspag => 2,
-    :olook => 3
+    :olook => 3,
+    :mercadopago => 4
   }
 
   attr_accessor :receipt, :user_identification
@@ -34,7 +35,7 @@ class Payment < ActiveRecord::Base
   after_create :generate_identification_code
 
   def self.for_erp
-    where(type: ['CreditCard','Billet', 'Debit'])
+    where(type: ['CreditCard','Billet', 'Debit', 'MercadoPagoPayment'])
   end
 
   def self.for_loyalty

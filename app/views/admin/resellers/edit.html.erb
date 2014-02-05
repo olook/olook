@@ -1,0 +1,10 @@
+<h2>Editando Revendedor</h2>
+
+<div class="inner">
+  <%= render 'form' %>
+</div>
+
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Mostrar', admin_reseller_path(@reseller) %></li>
+  <li><%= link_to 'Voltar', admin_resellers_path %></li>
+<% end %>

@@ -19,6 +19,11 @@
   admin:
     billet:
       santander: "Conciliação Santander"
+      report: "Boletos a vencer"
+    product:
+      liquidation: Liquidações
+    users:
+      report: "Primeira compra"
 
   #Carrinho
   cart:
@@ -291,10 +296,17 @@
             not_delivered: "Não entregue"
 
     models:
+      itinerary:
+        one: Itinerário
+        other: Itinerários
 
       user:
         one: Usuário
         other: Usuários
+
+      reseller:
+        one: Revendedor
+        other: Revendedores
 
       credit:
         one: Crédito
@@ -357,8 +369,8 @@
         other: Campanhas
 
       highlight:
-        one: Destaque
-        other: Destaques
+        one: Banner da Home
+        other: Banners da Home
 
       highlight_campaign:
         one: Campanha com destaque
@@ -408,12 +420,49 @@
         one: Serviço de email
         other: Serviços de email
 
+      catalog_header_catalog_base:
+        one: 'Header do Catálogo'
+        other: 'Headers do Catálogo'
+
+      catalog_header_catalog_base_text:
+        one: 'Header Textual do Catálogo para Modelos'
+        other: 'Headers Textuais do Catálogo para Modelos'
+
+      catalog_header_catalog_base_banner:
+        one: 'Banner Header dos Catálogos'
+        other: 'Banner Header dos Catálogos'
+
       gift_recipient: presenteado
       gift_occasion: "ocasião"
       address: Endereço
       credit_card: Cartão de crédito
 
     attributes:
+      catalog_header/catalog_base:
+        url: 'URL'
+        old_url: "URL existente ex.: /sapato"
+        new_url: "URL nova ex.: /preto-e-branco"
+        enabled: 'Ativar?'
+        custom_url: 'Criar essa url no site?'
+        product_list: 'Produtos para aparecer antes do resultado orgânico'
+        organic_url: 'Url do resultado organico (ex: /sapato/bota/cor_vermelho-tamanho_38)'
+        type: 'Tipo'
+        seo_text: 'Text para título da página (SEO)'
+        small_banner1: 'Destaque menor/superior (260px x 155px)'
+        small_banner2: 'Destaque menor/inferior (260px x 155px)'
+        medium_banner: 'Destaque maior (526px x 330px)'
+        big_banner: 'Destaque grande (786px x 144px+)'
+        alt_small_banner1: 'Alt da imagem'
+        alt_small_banner2: 'Alt da imagem'
+        alt_medium_banner: 'Alt da imagem'
+        alt_big_banner: 'Alt da imagem'
+        link_small_banner1: 'Link (url completa, com Http://)'
+        link_small_banner2: 'Link (url completa, com Http://)'
+        link_medium_banner: 'Link (url completa, com Http://)'
+        link_big_banner: 'Link (url completa, com Http://)'
+        title: 'Título para o modelo'
+        resume_title: 'Texto resumido'
+        text_complement: 'Complemento do texto'
       highlight_campaign:
         label: Nome da campanha
         product_ids: Ids dos produtos
@@ -440,7 +489,7 @@
       collection_theme:
         active: 'Ativo'
         collection_theme_group: 'Grupo'
-        header_image: 'Banner (Altura 290 x Largura 800)'
+        header_image: 'Banner (Altura 138 x Largura 813)'
         header_image_alt: "Alt/title do Banner"
         position: 'Posição'
         video_link: 'Link do Vídeo no Youtube'
@@ -481,6 +530,12 @@
         password_confirmation: "Confirmação de senha"
         reset_password_token: "Token para resetar senha"
         gender: Sexo
+        has_corporate: "Tipo de Revendedor"
+        cnpj: "CNPJ"
+        reseller: "Revendedor"
+        corporate_name: "Razão Social"
+        fantasy_name: "Nome Fantasia"
+        active: "Ativo"
       gift_recipient:
         name: nome
       gift_occasion:

@@ -3,13 +3,15 @@
   <h2>Seu Pedido</h2>
   <ul class="produto">
     <% line_items.each do |line_item|%>
-      <li>
-      <p class="img"><%= image_tag (line_item.variant.product.thumb_picture) %></p>
-      <p class="nome"><%= line_item.variant.name %></p>
-      <p class="qte">Quantidade: <%= line_item.quantity %></p>
-      <p class="tamanho">Tamanho: <%= line_item.variant.description %></p>
-      <p class="preco"><%= number_to_currency(line_item.variant.price) %></p>
-      </li>
+      <% unless line_item.is_freebie %>
+        <li>
+          <p class="img"><%= image_tag (line_item.variant.product.thumb_picture) if line_item.variant.product.thumb_picture %></p>
+          <p class="nome"><%= line_item.variant.name %></p>
+          <p class="qte">Quantidade: <%= line_item.quantity %></p>
+          <p class="tamanho">Tamanho: <%= line_item.variant.description %></p>
+          <p class="preco"><%= number_to_currency(line_item.variant.price) %></p>
+        </li>
+      <% end %>
     <% end %>
   </ul>
   <ul class="sub-total">
@@ -33,7 +35,7 @@
     </li>
 
     <%
-    if cart_service.freight_price > 0 %>
+    if @order.try(:freight).try(:price) > 0 %>
     <li>
       <p><span class="txt-black">FRETE:</span><span><%= number_to_currency(@order.freight.price) %></span></p>
     </li>
@@ -67,10 +69,10 @@
     </li>
     <% end
     coupon = @order.payments.for_coupon.sum(:total_paid) if has_payment
-    coupon ||= cart_service.total_discount_by_type(:coupon)
+    coupon ||= cart_service.cart.total_coupon_discount
     if coupon > 0 %>
     <li>
-      <p><span class="txt-black">CUPOM DESCONTO:</span><span>- <%= number_to_currency(coupon) %> <%= discount_percentage(cart_service.cart.coupon.discount_percent)%></span></p>
+      <p><span class="txt-black">CUPOM DESCONTO:</span><span>- <%= number_to_currency(coupon) %> (<%= number_to_percentage( ((coupon) / gross_amount)*100, precision: 0) %>)</span></p>
     </li>
     <% end
     billet_discount = @order.payments.for_billet_discount.sum(:total_paid) if has_payment

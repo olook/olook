@@ -5,7 +5,9 @@ module Abacos
 
     def self.perform
       Billet.to_expire.each do |billet|
-        Abacos::CancelOrder.perform billet.order.number
+        if (billet.order)
+          Abacos::CancelOrder.perform billet.order.number
+        end
       end
       mail = DevAlertMailer.notify_about_cancelled_billets
       mail.deliver

@@ -1,5 +1,5 @@
 @import "partials/product";
-
+@import 'new_structure/common/global_stuffs';
 body {
   header {
     div.contact {
@@ -211,7 +211,6 @@ section#welcome {
             }
             &.buttons {
               input[type="submit"] {
-                background: image-url("welcome/bt-invite.jpg") no-repeat;
                 color: #FFF;
                 font-family: 'Open Sans', sans-serif;
                 font-size: 17px;
@@ -225,6 +224,7 @@ section#welcome {
                 border: none;
                 cursor: pointer;
                 float: left;
+                @include bt_color($primary_bt_color, $primary_bt_color_hover);
               }
             }
           }
@@ -325,13 +325,22 @@ div#profile_quiz ul li a {
 text-indent: -9999px;display: block;} 
 
 div#profile_quiz ul li a.new_survey {
-background: url(/assets/common/try-again.jpg) no-repeat;width: 301px;
-height: 59px;
+width: 301px;
+height: 41px;
 float: right;
+font-size: 15px;
+letter-spacing: 2px;
+text-transform: uppercase;
+padding-top: 18px;
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
 }
 
 div#profile_quiz ul li a.me {
-background: url(/assets/common/its-me.png) no-repeat;
-width: 179px;height: 59px;
+width: 179px;height: 39px;
 margin: 0 0 0 20px;
+text-transform: uppercase;
+letter-spacing: 2px;
+font-size: 15px;
+padding-top: 18px;
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
 }

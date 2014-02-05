@@ -21,7 +21,7 @@ module GoogleAnalyticsHelper
     when products.kind_of?(Cart)
       products.items.map(&:name).to_s.gsub(/"/, "'")
     when products.kind_of?(Order)
-      products.line_items.map{|v|v.variant.name}.to_s.gsub(/"/, "'")
+      products.line_items.map{|v|v.variant.name}.to_s.gsub(/"/, "")
     end
   end
 

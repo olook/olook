@@ -117,7 +117,11 @@ group by uc.user_id, ct.code
     end
 
     def generate_facebook_friends_list
-      gather_facebook_friends(Date.today)
+      begin
+        gather_facebook_friends(Date.today)
+      rescue => e
+        DevAlertMailer.notify(from: 'dev.notifications@olook.com.br', to: 'incidentes@olook.com.br', subject: "Falha ao gerar CSV de amigos do facebook: #{e}", body: e.backtrace).deliver
+      end
     end
 
     def generate_userbase_with_auth_token_and_credits

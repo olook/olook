@@ -1,26 +1,40 @@
 //= require ./partials/_credits_info
-$(function(){
-  initProduct.loadAll();
-});
-
+//= require formatter
+//= require credit_card
+//= require string_utils
+//= require ./partials/_modal
+//= require plugins/valentines_day
+//= require plugins/jquery.meio.mask
+//= require plugins/image_loader
+//= require plugins/spy
+//= require_tree ./modules/complete_look
 initProduct = {
+  gotoRelatedProduct :function() {
+    $('a#goRelatedProduct').live('click', function(e) {
+      $("html, body").animate({
+        scrollTop: 900
+      }, 'fast');
+      e.preventDefault();
+    });
+  },  
   checkRelatedProducts : function() {
     return $("div#related ul.carousel").size() > 0 ? true : false;
   },
   showAlert : function(){
     $('p.alert_size').show().html("Qual é o seu tamanho mesmo?").delay(3000).fadeOut();
   },
+  // for reasons unknown, this carousel is awkwardly inverted. I had to re-invert the names in order for it to work properly :P
   showCarousel : function() {
     if(initProduct.checkRelatedProducts() == true) {
       $("div#related ul.carousel").carouFredSel({
         auto: false,
         width: 860,
         items: 3,
-        prev : {
+        next : {
           button : ".carousel-prev",
           items : 3
         },
-        next : {
+        prev : {
           button : ".carousel-next",
           items : 3
         }
@@ -46,7 +60,8 @@ initProduct = {
       initProduct.showAlert();
       return false;
     }
-    return variant.val();
+    var inventory = $('[name=inventory_' + variant.val() + ']');
+    return inventory.val();
   },
   loadAddToCartForm : function() {
     if($('#compartilhar_email').length == 1) {
@@ -54,7 +69,7 @@ initProduct = {
       $("ul.social-list li.email").on("click", function(e){
         e.preventDefault();
         e.stopPropagation();
-        initBase.newModal(content);
+        modal.show(content);
       });
     }
     $("#compartilhar_email form").submit(function(){
@@ -77,9 +92,14 @@ initProduct = {
 
     $("#variant_quantity").change(function(){
       var it = $(this);
-      var inventory = $('#inventory_' + variant.val());
-      if(initProduct.selectedVariantMaxVal() && it.val() > inventory.val()) {
-        it.val(inventory.val());
+      if (it.val() <= 0) {
+        it.val(1);
+      } else {
+        var variant = $('[name="variant[id]"]:checked');
+        var inventory = $('#inventory_' + variant.val());
+        if(initProduct.selectedVariantMaxVal() && it.val() > inventory.val()) {
+          it.val(inventory.val());
+        }
       }
     });
 
@@ -89,6 +109,8 @@ initProduct = {
   },
   loadAll : function() {
     initProduct.showCarousel();
+    initProduct.gotoRelatedProduct();
+    initProduct.loadUnloadTriggers();
     showInfoCredits();
 
     $("#product div.box_carousel a.open_carousel").live("click", function () {
@@ -127,7 +149,37 @@ initProduct = {
       }
     });
     initProduct.loadAddToCartForm();
+  },
+
+  loadUnloadTriggers : function() {
+    $(window).on("beforeunload", function () {
+      initProduct.unloadSelects();
+    });    
+  },    
+
+  unloadSelects : function() {
+    for(i = 0; i < $("li #variant_number").length; i++){
+      $("li #variant_number")[i].selectedIndex = 0;            
+    }
   }
 }
 
 initProduct.loadAddToCartForm();
+
+
+$(function(){
+
+  initProduct.loadAll();
+  olook.spy('.spy');
+
+
+  $('#js-addToWishlistButton').click(function(){
+    olookApp.mediator.publish(AddToWishlist.name);
+  });
+
+  $('#js-removeFromWishlistButton').click(function(){
+    var productId = $(this).data('product-id');
+    olookApp.mediator.publish(RemoveFromWishlist.name, productId);
+  });
+
+});

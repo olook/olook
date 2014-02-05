@@ -1,0 +1,31 @@
+= form_for([:admin, @itinerary]) do |f|
+  - if @itinerary.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@itinerary.errors.count, "error")} prohibited this admin_itinerary from being saved:"
+      %ul
+        - @itinerary.errors.full_messages.each do |msg|
+          %li= msg
+
+  - if @itinerary.name != "olookmovel" 
+    %h2= f.text_field :name
+  %h3
+    = f.label :description, 'Descrição da página'
+  = f.text_area :description
+  %h3
+    = f.label :description, 'Roteiro'
+  %p.roteiro
+    Os campos não preenchidos não serão exibidos. Você pode adicionar mais campos se necessário.
+  .itinerary
+    .field
+      .entries
+        %table.entries
+          %tr
+            %td.title Quando?
+            %td.title Onde? 
+          = f.fields_for :itinerary_entries do |builder|
+            = render 'itinerary_entry_fields', f: builder
+    
+    = link_to_add_fields('Adicionar campo', f, :itinerary_entries)
+
+    .actions
+      = f.submit 'Salvar'

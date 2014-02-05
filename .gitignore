@@ -34,3 +34,4 @@ olook.sublime-workspace
 .ruby-gemset
 .ruby-version
 .elasticbeanstalk/
+.tag*

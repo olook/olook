@@ -24,6 +24,7 @@
   <div class="full_bg">
     <section id="suggestion">
       <div class="content">
+        <%= gift_breadcrumbs_for(@profile.alternative_name.titleize) %>
         <div id="profile">
           <%= image_tag "gift/profile-#{@profile.alternative_name.parameterize}.png" %>
           <div>

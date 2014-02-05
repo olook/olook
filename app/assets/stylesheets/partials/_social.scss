@@ -10,8 +10,9 @@ div.social {
     li {
       position: relative;
       width: 115px;
-      margin: 0 5px 0 0;
+      margin: 0 0 0 0;
       float: left;
+      overflow: hidden;
       a {
         color: #5a5a5b;
         font-family: $avenir;
@@ -84,14 +85,16 @@ div.social {
       border: 1px solid #C1C1C1;
     }
     input[type="submit"] {
-      background: image-url("common/invite.png") no-repeat !important;
-      text-indent: -9999px;
       width: 115px !important;
       height: 34px !important;
       display: block !important;
       margin: 0 auto;
       border: none !important;
       cursor: pointer !important;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 14px;
+      @include bt_color($primary_bt_color, $primary_bt_color_hover);
     }
   }
 }
@@ -122,12 +125,18 @@ div.link_mail {
 		    float:left;
       }
       a {
-				@include sprite_checkout(-211px, -200px);
-        text-indent: -9999px;
+
         width: 98px;
-        height: 34px;
+        height: 24px;
         display: block;
 				float:left;
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: none;
+        letter-spacing: 2px;
+        font-size: 11px;
+        padding-top: 10px;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
       }
       div.zclip {
         z-index: 10000 !important;
@@ -137,12 +146,12 @@ div.link_mail {
   div.box_copy {
     position: absolute;
     background: image-url('common/copy.png') top center no-repeat;
-    width: 166px;
-    height: 38px;
+    width: 236px;
+    height: 42px;
     padding: 17px 0 0 0;
     display: none;
-    top: 95px;
-    left:35px;
+    top: -28px;
+    left:210px;
     p {
       color: #666;
       font-size: 12px;

@@ -1,15 +1,28 @@
 <script type="text/javascript">
-$(function(){
-	window.fbAsyncInit = function(){
-  	FB.init({
-	    appId: '<%= facebook_app_id %>',
-	    status: true,
-	    cookie: true,
-	    oauth: true,
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+</script>
+
+
+<script type="text/javascript">
+
+init_facebook = function (){
+  window.fbAsyncInit = function(){
+    FB.init({
+      appId: '<%= facebook_app_id %>',
+      status: true,
+      cookie: true,
+      oauth: true,
       xfbml: true,
       frictionlessRequests : true
 
-	  });
+    });
 
     FB.Event.subscribe('edge.create', function(href, widget) {
 
@@ -36,11 +49,11 @@ $(function(){
     //   _gaq.push(['_trackEvent', 'Showroom', 'ClickFacebookLike', '']);
     // });
 
-	  try {
-	    FB.XFBML.parse();
-	  } catch(ex){}
+    try {
+      FB.XFBML.parse();
+    } catch(ex){}
 
-	}
+  }
 
 
   $("a.face-message").click(function(){
@@ -62,8 +75,8 @@ $(function(){
     $("#quick_view ul.social li.facebook a").click(function(){postProductToFacebookFeed()})
   }
 
-
-});
+}
+window.addEventListener('load', init_facebook);
 
 /**
   * TODO: Change the function name because we don't send message to boyfriend anymore
@@ -116,10 +129,10 @@ function sendFacebookMessage() {
     caption: 'www.olook.com.br',
     picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
     <% if member %>
-      description: 'Tenho uma vitrine personaliza da Olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= accept_invitation_url(:invite_token => member.invite_token) %> #ficaadica',
+      description: 'Tenho uma vitrine personalizada da Olook e recebo dicas das Stylists! Responda também, descubra seu estilo e tenha uma vitrine personalizada <%= accept_invitation_url(:invite_token => member.invite_token) %> #ficaadica',
       link: 'http://olook.com.br'
     <% else %>
-      description: 'Tenho uma vitrine personaliza da Olook e recebo recomendações das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10!',
+      description: 'Tenho uma vitrine personalizada da Olook e recebo dicas das Stylists! Responda também, descubra seu estilo e tenha uma vitrine personalizada',
       link: '<%=  root_url %>'
     <% end %>
   });
@@ -132,10 +145,10 @@ method: 'feed',
     picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
     <% if member %>
         link: '<%=  accept_invitation_url(:invite_token => member.invite_token) %>',
-        description: 'Tenho uma vitrine personalizada da Olook e recebo recomendações incríveis das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= accept_invitation_url(:invite_token => member.invite_token) %> #ficaadica'
+        description: 'Tenho uma vitrine personalizada da Olook e recebo dicas das Stylists! Responda também, descubra seu estilo e tenha uma vitrine personalizada <%= accept_invitation_url(:invite_token => member.invite_token) %> #ficaadica'
     <% else %>
       link: '<%=  root_url %>',
-      description: 'Tenho uma vitrine personalizada da Olook e recebo recomendações incríveis das Stylists! Responda o style quiz, descubra o seu estilo e ganhe R$10! <%= root_url %> #ficaadica'
+      description: 'Tenho uma vitrine personalizada da Olook e recebo dicas das Stylists! Responda também, descubra seu estilo e tenha uma vitrine personalizada <%= root_url %> #ficaadica'
 
     <% end %>
   };
@@ -158,13 +171,4 @@ function postProductToFacebookFeed() {
 }
 <% end %>
 
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=<%= @facebook_app_id %>";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
 </script>
-

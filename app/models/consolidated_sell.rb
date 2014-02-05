@@ -13,10 +13,6 @@ class ConsolidatedSell < ActiveRecord::Base
   end
 
   def self.summarize date, product, amount
-    day = date.to_date
-    category = product.category
-    subcategory = product.subcategory
-
     consolidated = find_or_create_consolidated_record(product, date)
     consolidated.amount += amount
     consolidated.total += amount * product.price

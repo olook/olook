@@ -84,7 +84,7 @@ describe Checkout::AddressesController do
 
     it "should redirect to new if the user dont have an address" do
       get :index
-      response.should redirect_to(new_checkout_address_path)
+      response.should redirect_to(new_checkout_address_url(protocol: 'https'))
     end
   end
 

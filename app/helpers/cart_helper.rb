@@ -13,7 +13,7 @@ module CartHelper
   end
 
   def promotion_discount(item)
-    percent = calculate_percentage_for item
+    percent = ( 1 - ( item.retail_price / item.price )  ) * 100.0
     percent == 100 ? "Grátis" : number_to_percentage(percent, :precision => 0)
   end
 
@@ -27,7 +27,7 @@ module CartHelper
   end
 
   def has_discount?(item)
-    @cart_service.item_promotion?(item) || @cart.has_appliable_percentage_coupon? || item.price != item.retail_price
+    item.discount_service.has_any_discount?
   end
 
   def show_checkout_banner?
@@ -36,25 +36,4 @@ module CartHelper
     #! promotion.matches?(@cart)
     return Setting.show_checkout_banner
   end
-
-  def coupon_value_for coupon
-    if coupon.is_percentage?
-      number_to_percentage @cart.coupon.value, precision: 0
-    else
-      number_to_currency @cart.coupon.value
-    end
-  end
-
-  private
-    def calculate_percentage_for item
-      # for compatibility reason
-
-      if @cart.has_appliable_percentage_coupon? && @cart.total_coupon_discount > @cart.total_promotion_discount
-        @cart.coupon.value
-      else
-        item_retail_price = @cart_service.item_retail_price(item)
-        (item.price - item_retail_price) / item.price * BigDecimal("100.0")
-      end
-    end
-
 end

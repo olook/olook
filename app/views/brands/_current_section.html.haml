@@ -18,7 +18,7 @@
         %li= %( #{ car } #{ current_section_link_to(brand_path(params[:brand], SeoUrl.build_for('brand',search.filters_applied(:care, car))))}).html_safe
 
       - search.selected_filters_for("size").each do |size|
-        %li= %( #{ size } #{ current_section_link_to(brand_path(params[:brand], SeoUrl.build_for('brand',search.filters_applied(:size, size))))}).html_safe
+        %li= %( #{ format_size(size.chomp) } #{ current_section_link_to(brand_path(params[:brand], SeoUrl.build_for('brand',search.filters_applied(:size, size))))}).html_safe
 
       - search.selected_filters_for("brand").each do |brand|
         %li= %( #{ brand } #{ current_section_link_to(brand_path(params[:brand], SeoUrl.build_for('brand',search.filters_applied(:brand, brand))))}).html_safe

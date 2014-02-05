@@ -86,12 +86,15 @@ section#earn_credits {
         }
       }
       a {
-        background: image-url('earn_credits/bt-showroom.jpg') no-repeat;
-        text-indent: -99999px;
         width: 251px;
-        height: 39px;
+        height: 29px;
         margin: 0 auto;
         display: block;
+        font-size: 15px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        padding-top: 10px;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
       }
     }
   }

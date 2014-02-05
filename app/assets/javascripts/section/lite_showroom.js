@@ -1,3 +1,4 @@
+//= require plugins/new_modal
 showroom = s = {} || null;
 
 $(function(){

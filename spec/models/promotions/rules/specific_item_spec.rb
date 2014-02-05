@@ -9,12 +9,9 @@ describe SpecificItem do
 
     context "when product of item has promotion" do
       it "returns true" do
-        # O SpecificItem rule está cravado para funcionar com 2 items.
-        cart.items << FactoryGirl.create(:cart_item_2, cart: cart)
 
         product_id = cart.items.first.product.id
-        last_product_id = cart.items.last.product.id
-        subject.matches?(cart, "10,#{ product_id },#{last_product_id} 13").should be_true
+        subject.matches?(cart, "10,#{ product_id },13").should be_true
       end
     end
 

@@ -13,16 +13,19 @@ describe CreditCard do
     it { should validate_presence_of(:expiration_date) }
     it { should validate_presence_of(:user_identification) }
     it { should validate_presence_of(:telephone) }
-    it { should validate_presence_of(:user_birthday) }
 
-    it { should allow_value("(11)1111-1111").for(:telephone) }
-    it { should allow_value("(11)9111-1111").for(:telephone) }
-    it { should allow_value("(11)91111-111").for(:telephone) }
-    it { should allow_value("(11)91111-1111").for(:telephone) }
-    it { should_not allow_value("(21)91111-111").for(:telephone) }
+    it { should allow_value("(11)2111-1111").for(:telephone) }
+    it { should_not allow_value("(21)1111-1111").for(:telephone) }
     it { should_not allow_value("(21)91111-1111").for(:telephone) }
+    it { should allow_value("(11)9111-1111").for(:telephone) }
+    it { should_not allow_value("(11)92111-111").for(:telephone) }
+    it { should allow_value("(11)92111-1111").for(:telephone) }
+    it { should_not allow_value("(21)91111-111").for(:telephone) }
+    it { should allow_value("(21)92111-1111").for(:telephone) }
     it { should_not allow_value("2222-2222").for(:telephone) }
     it { should_not allow_value("92222-2222").for(:telephone) }
+    it { should allow_value("19/02/1984").for(:user_birthday) }
+
 
     describe 'credit card number length' do
       context 'number too short' do
@@ -110,9 +113,19 @@ describe CreditCard do
         subject.valid?.should_not eq(true)
       end
 
-      it "requires user_birthday" do
+      it "requires user_birthday if it isn't null" do
         subject.user_birthday = nil
-        subject.valid?.should_not eq(true)
+        subject.valid?.should eq(true)
+      end
+
+      it "requires user_birthday" do
+        subject.user_birthday = "12/12/1984"
+        subject.valid?.should eq(true)
+      end
+
+      it "requires user_birthday to be null or valid" do
+        subject.user_birthday = "12/12/198"
+        subject.valid?.should eq(false)
       end
 
       it "requires security_code" do

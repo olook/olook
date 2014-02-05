@@ -32,11 +32,10 @@
       = link_to 'Voltar / Fazer novo cadastro', "/cadastro/olookmovel", :class => "cadastro"
     - else
       %p.promo
-        Cadastre-se, ganhe
-        %span
-          15% de desconto
-          e concorra a R$ 150
-        em produtos Olook
+        Cadastre-se, ganhe R$20,00
+        para compras acima de R$100,00
+        e concorra a R$100,00
+        em produtos Olook.
       = form_for @campaign_email, url: olookmovel_lp_path(@campaign_email), method: 'post', html: { :target => '_parent' } do |f|
         = f.hidden_field :profile, value: 'olookmovel'
         %fieldset
@@ -65,7 +64,7 @@
   %h3
     Regras do Sorteio
   %p
-    Válido somente para produtos Olook. Não acumulativo com outras promoções do site
+    Válido somente para produtos Olook. Não cumulativo com outras promoções do site
     %br
       O sorteio será realizado pela equipe da Olook através do site www.sorteiosonline.com.br
     A ganhadora será comunicada por e-mail com o código do cupom.

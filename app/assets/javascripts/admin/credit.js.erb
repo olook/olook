@@ -19,7 +19,7 @@ $(document).ready(function(){
 	}, "Please provide a valid money amount. For cents use two digits");
 
 	$.validator.addMethod("transaction_limit", function(value, element) {
-    return this.optional(element) || (parseFloat(value) <= 150);
+    return this.optional(element) || (parseFloat(value) <= 400);
 	}, "* Amount cannot exceed the max value.");
 
 	$.validator.addMethod("transaction_minimun_limit", function(value, element) {

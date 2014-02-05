@@ -4,6 +4,7 @@ class CreditCard < Payment
   BANKS_OPTIONS = ["Visa", "Mastercard", "Diners"]
   # BANKS_OPTIONS = ["Visa", "Mastercard", "Diners", "AmericanExpress", "Hipercard"]
   PAYMENT_QUANTITY = 6
+  RESELLER_PAYMENT_QUANTITY = 3
   MINIMUM_PAYMENT = 30
   EXPIRATION_IN_MINUTES = 60
 
@@ -12,17 +13,17 @@ class CreditCard < Payment
   FourToSixCreditCardNumberFormat = /^[0-9]{14,16}$/
 
 
-  PhoneFormat = /^(?:\(11\)9\d{4}-\d{3,4}|\(\d{2}\)\d{4}-\d{4})$/
+  PhoneFormat = /^(?:\(\d{2}\)(9){0,1}[2-9]\d{3}-\d{4})$/
 
   SecurityCodeFormat = /^(\d{3}(\d{1})?)?$/
   BirthdayFormat = /^\d{2}\/\d{2}\/\d{4}$/
   ExpirationDateFormat = /^\d{2}\/\d{2}$/
 
-  validates :user_name, :bank, :security_code, :expiration_date, :user_identification, :telephone, :user_birthday, :credit_card_number, :presence => true, :on => :create
+  validates :user_name, :bank, :security_code, :expiration_date, :user_identification, :telephone, :credit_card_number, :presence => true, :on => :create
   validate :apply_bank_number_of_digits, :on => :create
   validates_format_of :telephone, :with => PhoneFormat, :on => :create
   validates_format_of :security_code, :with => SecurityCodeFormat, :on => :create
-  validates_format_of :user_birthday, :with => BirthdayFormat, :on => :create
+  validates_format_of :user_birthday, :with => BirthdayFormat, :on => :create, :unless => lambda{|cc| cc.user_birthday.nil? || cc.user_birthday.empty? }
   validates_format_of :expiration_date, :with => ExpirationDateFormat, :on => :create
   validates_length_of :user_name, maximum: 100, :on => :create
 
@@ -52,9 +53,13 @@ class CreditCard < Payment
     Time.now > self.payment_expiration_date if self.payment_expiration_date
   end
 
-  def self.installments_number_for(order_total)
+  def self.installments_number_for(order_total, options={})
     number = (order_total / MINIMUM_PAYMENT).to_i
-    number = PAYMENT_QUANTITY if number > PAYMENT_QUANTITY
+    if options[:user] && options[:user].reseller
+      number = RESELLER_PAYMENT_QUANTITY if number > RESELLER_PAYMENT_QUANTITY
+    else
+      number = PAYMENT_QUANTITY if number > PAYMENT_QUANTITY
+    end
     (number == 0) ? 1 : number
   end
 

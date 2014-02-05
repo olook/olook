@@ -1,3 +1,23 @@
+//= require common/jquery.zclip.min
+//= require application_core/olook_app
+
+function postToFacebookFeed(element) {
+
+  var obj = {
+      picture: 'cdn.olook.com.br/assets/socialmedia/facebook/icon-app/app-2012-09-19.jpg',
+      method: 'feed',
+      caption: 'www.olook.com.br',
+      link: $('#link').val(),
+      description: 'Ganhe 10 Reais em compras na Olook.com.br'
+  }
+
+  FB.ui(obj, function(response) {
+    console.log('message posted');
+    _gaq.push(['_trackEvent', 'MemberInvite', 'FacebookPost', '', , true]);
+  });
+
+}
+
 (function changeImg(){
   $("#user-info li a.fidelidade_desativado").click(function(e){
     var h;
@@ -58,11 +78,6 @@ $(document).ready(function() {
   $('.import-dropdown a').live('click', function(event){
     event.preventDefault();
     $(this).parent().hide();
-  });
-
-  $(document).bind('keydown', 'esc',function () {
-    $('.import-dropdown').hide();
-    return false;
   });
 
   $('#invite_list input#select_all').click(function() {

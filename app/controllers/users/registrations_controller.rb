@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Users::RegistrationsController < Devise::RegistrationsController
-  layout :layout_by_resource
+  layout 'lite_application'
 
   before_filter :check_survey_response, :only => [:new, :create]
   before_filter :authenticate_user!, :only => [:destroy_facebook_account, :edit, :update]
@@ -71,7 +71,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def destroy_facebook_account
     @user.update_attributes(:uid => nil, :facebook_token => nil, :facebook_permissions => [])
-    redirect_to(member_showroom_path, :notice => "Sua conta do Facebook foi removida com sucesso")
+    redirect_to(root_path, :notice => "Sua conta do Facebook foi removida com sucesso")
   end
 
   protected
@@ -140,7 +140,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
         GiftRecipient.find(session[:recipient_id]).update_attributes(:user_id => resource.id) if session[:recipient_id]
       end
 
-      return new_checkout_path if @cart.items_total > 0
+      return new_checkout_url(protocol: 'https') if @cart.items_total > 0
     end
 
     if resource.half_user && resource.male?
@@ -152,7 +152,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def after_update_path_for(resource)
     if @cart && @cart.items_total > 0
-      new_checkout_path
+      new_checkout_url(protocol: 'https')
     end
   end
 

@@ -6,31 +6,53 @@ class Promotion < ActiveRecord::Base
 
   has_many :promotion_payments
 
-  has_many :rule_parameters
+  has_many :rule_parameters, as: :matchable
   has_many :promotion_rules, :through => :rule_parameters
 
-  has_one :action_parameter
+  has_one :action_parameter, as: :matchable
   has_one :promotion_action, through: :action_parameter
 
-  accepts_nested_attributes_for :rule_parameters, reject_if: lambda { |rule| rule[:promotion_rule_id].blank? }
+  accepts_nested_attributes_for :rule_parameters, allow_destroy: true, reject_if: lambda { |rule| rule[:promotion_rule_id].blank? }
   accepts_nested_attributes_for :action_parameter, reject_if: lambda { |rule| rule[:promotion_action_id].blank? }
 
   validates_presence_of :rule_parameters, :action_parameter
   mount_uploader :checkout_banner, ImageUploader
 
   def apply cart
-    if should_apply_for? cart
-      promotion_action.apply cart, self.action_parameter.action_params, self
-      Rails.logger.info "Applied promotion: #{self.name} for cart [#{cart.id}]"
-    end
+    promotion_action.apply cart, self.action_parameter.action_params, self
+    Rails.logger.info "Applied promotion: #{self.name} for cart [#{cart.id}]"
   end
 
   def simulate cart
     promotion_action.simulate cart, self.action_parameter.action_params
   end
 
-  def should_apply_for?(cart)
-    cart.coupon ? is_greater_than_coupon?(cart) : true
+  def use_rule_parameters
+    rule_parameters.count > 0 ? '1' : '0'
+  end
+
+  def use_rule_parameters=(val)
+    if val != '1'
+      rule_parameters.each do |rp|
+        rp.mark_for_destruction
+      end
+    end
+  end
+
+  def calculate_for_product product, opt
+    cart = opt[:cart]
+    if product.is_visible? && product.master_variant
+      cart_items = cart.items.to_a + [CartItem.new(variant: product.master_variant, quantity: 1, cart_id: cart.id)]
+      adjustment = promotion_action.simulate_for_product product.id, cart_items, self.action_parameter.action_params
+      item = cart_items.find { |i| i.product.id == product.id }
+      product.price - (adjustment/(item.try(:quantity) || 1))
+    else
+      product.price
+    end
+  end
+
+  def calculate_for_cart cart
+    simulate cart
   end
 
   def self.select_promotion_for(cart)
@@ -50,12 +72,19 @@ class Promotion < ActiveRecord::Base
     matched_all_rules
   end
 
+  def eligible_for_product? product, opt
+    matches?(opt[:cart])
+  end
+
+  def eligible_for_cart? cart
+    matches?(cart)
+  end
+
   private
 
     def self.matched_promotions_for cart
-      promotions = []
-      active_and_not_expired(Date.today).each do |promotion|
-        promotions << promotion if promotion.matches?(cart)
+      promotions = active_and_not_expired(Date.today).includes(:rule_parameters).all.select do |promotion|
+        promotion.matches?(cart)
       end
       promotions
     end
@@ -63,9 +92,7 @@ class Promotion < ActiveRecord::Base
     def self.best_promotion_for(cart, promotions_to_apply = [])
       if cart.items.any? && promotions_to_apply.any?
         best_promotion = calculate(promotions_to_apply, cart).sort_by { |promotion| promotion[:total_discount] }.last
-        if best_promotion[:total_discount] && best_promotion[:total_discount] >= cart.total_coupon_discount
-          best_promotion[:promotion]
-        end
+        best_promotion[:promotion]
       end
     end
 

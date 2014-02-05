@@ -4,6 +4,7 @@ section#kombi {
   div#description {
     width: 500px;
     float: left;
+    position: relative;
     h1 {
       font-family: $johnston;
       font-size: 22px;
@@ -158,4 +159,8 @@ section#kombi {
       }
     }
   }
+}
+
+.content { 
+  width:970px !important;
 }

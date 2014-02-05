@@ -3,7 +3,7 @@
     <%= group.position.to_s + ". " %><%= group.name %>
   <%- else -%>
     <%= form_for(group, url: admin_collection_theme_group_path(group)) do |f| %>
-      <%= hidden_field_tag 'redirect_to', admin_collection_themes_path %>
+      <%= hidden_field_tag 'redirect_to', 'back' %>
       <%= group.position %>. <%= group.name %>
       <%= f.select(:position,
                    options_for_select((1 .. groups_size ).to_a, selected: group.position),

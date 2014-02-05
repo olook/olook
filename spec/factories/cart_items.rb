@@ -14,6 +14,11 @@ FactoryGirl.define do
     association :variant, factory: :basic_bag_simple, inventory: 10
     quantity 1
   end
+
+  factory :cart_item_discount, :class => CartItem do
+    association :variant, factory: :basic_shoe_size_37_with_discount, inventory: 10
+    quantity 1
+  end
   
   factory :cart_item_that_belongs_to_a_cart, :class => CartItem do
     association :variant, factory: :basic_shoe_size_37, inventory: 5

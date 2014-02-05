@@ -1,6 +1,18 @@
+regenerate_looks:
+  cron: "0 */6 * * *"
+  class: FullLook::LookBuilder
+  queue: look
+  description: "Gera novamente os Looks"
+
+update_birthday_base:
+  cron: "0 5 * * *"
+  class: MarketingBaseUploaderWorker
+  queue: marketing_uploader
+  description: "Atualiza a base de aniversariantes na ExactTarget"
+
 update_sitemap:
   cron: "0 3 * * *"
-  class: SaveOnAmazonWorker
+  class: SitemapWorker
   queue: sitemap
   description: "Atualiza o sitemap"
 
@@ -35,7 +47,7 @@ update_inventory:
   description: "Atualiza o Inventario"
 
 update_order_status:
-  cron: "*/5 * * * *"
+  cron: "*/30 * * * *"
   class: Abacos::UpdateOrderStatus
   queue: order_status
   description: "Atualiza o status dos Pedidos"
@@ -119,11 +131,11 @@ add_expire_carts_worker:
   queue: low_priority
   description: "Expira os Carts sem items com mais de 7 dias toda segunda"
 
-update_topster_xml:
+update_mkt_xml_builder:
   cron: "30 3 * * *"
-  class: TopsterXmlWorker
-  queue: topster_xml
-  description: "Atualiza o xml da topster"
+  class: MktXmlBuilderWorker
+  queue: mkt_xml_builder
+  description: "Atualiza os xmls"
 
 userbase_with_source_exacttarget:
   cron: "0 5 * * *"
@@ -175,3 +187,15 @@ cancel_old_billets:
   class: Abacos::CancelExpiredBillet
   queue: cancel_old_billets
   description: "Cancela todos os boletos com data de expicacao de um dia antes do ultimo dia util"
+
+cancel_old_mercado_pago:
+  cron: "30 12 * * *"
+  class: Abacos::CancelExpiredMercadoPagoPayment
+  queue: cancel_old_mercadopago_payments
+  description: "Cancela todos os pagamentos do mercado pago expirados"
+
+gather_blog_posts:
+  cron: "0 * * * *"
+  class: PostUpdaterWorker
+  queue: blog_posts
+  description: "Atualiza as chamadas dos posts de hora em hora"

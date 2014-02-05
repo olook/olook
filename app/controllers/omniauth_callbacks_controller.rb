@@ -35,7 +35,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure
-    redirect_to(member_showroom_path, :alert => I18n.t("facebook.connect_failure"))
+    redirect_to(root_path, :alert => I18n.t("facebook.connect_failure"))
   end
 
   def setup
@@ -52,18 +52,18 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     #
     def redirect user
       if @cart && @cart.items.any?
-        redirect_to new_checkout_path
+        redirect_to new_checkout_url(protocol: 'https')
       elsif session[:qr]
         @qr.next_step
       elsif !user.half_user?
-        redirect_to member_showroom_path
+        redirect_to root_path
       else
         redirect_to gift_root_path
       end
     end
 
     def facebook_redirect_paths
-      {:friends => friends_home_path, :gift => gift_root_path, :showroom => member_showroom_path, :checkout => new_checkout_path, :quiz => profile_path}
+      {:friends => friends_home_path, :gift => gift_root_path, :showroom => root_path, :checkout => new_checkout_url(protocol: 'https'), :quiz => profile_path}
     end
 
     def already_exist_a_facebook_account(omniauth)

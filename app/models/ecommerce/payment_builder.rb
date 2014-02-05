@@ -32,6 +32,7 @@ class PaymentBuilder
     }
 
     attributes.merge!({:source => options[:promotion]}) if options[:promotion]
+    attributes.merge!({:line_item_id => options[:line_item_id]}) if options[:line_item_id]
     attributes.merge!({:credit_type_id => CreditType.find_by_code!(options[:credit]).id}) if options[:credit]
     attributes.merge!({:coupon_id => options[:coupon_id]}) if options[:coupon_id]
 
@@ -62,13 +63,20 @@ class PaymentBuilder
         log("Order generated: #{order.inspect}")
         payment.order = order
         payment.calculate_percentage!
-        payment.deliver! if [Debit, CreditCard].include?(payment.class)
+        payment.deliver! if [Debit, CreditCard, MercadoPagoPayment].include?(payment.class)
         payment.save!
+
+        notify_big_billet_sail(payment)
 
         order.line_items.each do |item|
           variant = Variant.lock("LOCK IN SHARE MODE").find(item.variant.id)
           variant.decrement!(:inventory, item.quantity)
         end
+
+        # Isto está bem ruim! REFACTOR IT!!!
+        log("[MERCADOPAGO] Creating preference for payment_id=#{payment.id}, sandbox_mode=#{MP.sandbox_mode} ")
+        payment.create_preferences(cart_service.cart.address, cart_service.total_discount) if payment.is_a? MercadoPagoPayment
+        log("[MERCADOPAGO] Preference created. Preference_url=#{payment.url}")
 
         create_discount_payments
         create_payment_for(total_gift, GiftPayment)
@@ -76,7 +84,7 @@ class PaymentBuilder
         create_payment_for(total_credits_invite, CreditPayment, {:credit => :invite} )
         create_payment_for(total_credits_redeem, CreditPayment, {:credit => :redeem} )
 
-        payment.schedule_cancellation if [Debit, Billet].include?(payment.class)
+        payment.schedule_cancellation if payment.instance_of?(Debit)
 
         log("Respond with_success!")
         respond_with_success
@@ -86,9 +94,9 @@ class PaymentBuilder
       end
     end
 
-    rescue Exception => error
-      ErrorNotifier.send_notifier(@gateway_strategy.class, error, payment)
-      respond_with_failure
+  rescue Exception => error
+    ErrorNotifier.send_notifier(@gateway_strategy.class, error, payment)
+    respond_with_failure
   end
 
   private
@@ -99,20 +107,19 @@ class PaymentBuilder
       debit_discount = cart_service.total_discount_by_type(:debit_discount, payment)
       facebook_discount = cart_service.total_discount_by_type(:facebook_discount, payment)
 
-      if cart_service.cart.coupon
-        # This is valid because we only allow 1 kind of discount. 
-        # IT IS NOT POSSIBLE TO HAVE BOTH: OLOOKLET AND COUPON DISCOUNTS
-        total_liquidation = 0
-        total_coupon = cart_service.total_discount_by_type(:coupon) + cart_service.cart.total_liquidation_discount
-        coupon_opts = {:coupon_id => cart_service.cart.coupon.id}
-      else
-        total_liquidation = cart_service.cart.total_liquidation_discount
-        total_coupon = cart_service.total_discount_by_type(:coupon)
-        coupon_opts = {}
-      end
+      total_coupon = cart_service.cart.total_coupon_discount
+      coupon_opts = {:coupon_id => cart_service.cart.coupon_id}
+      total_liquidation = cart_service.cart.total_liquidation_discount
 
       create_payment_for(total_liquidation, OlookletPayment)
       create_payment_for(total_coupon, CouponPayment, coupon_opts)
+
+      cart_service.cart.items.each do |item|
+        if /Promotion:/ =~ item.cart_item_adjustment.source
+          line_item = payment.order.line_items.find { |litem| litem.variant_id == item.variant_id }
+          create_payment_for(item.adjustment_value, PromotionPayment, {line_item_id: line_item.try(:id), promotion: cart_service.cart.items.first.cart_item_adjustment.source})
+        end
+      end
       create_payment_for(total_promotion, PromotionPayment, {promotion: cart_service.cart.items.first.cart_item_adjustment.source})
       create_payment_for(facebook_discount, FacebookShareDiscountPayment)
       create_payment_for(billet_discount, BilletDiscountPayment)
@@ -124,6 +131,22 @@ class PaymentBuilder
       current_payment.calculate_percentage!
       current_payment.deliver!
       current_payment.authorize!
+    end
+
+    def notify_big_billet_sail payment
+      order = payment.order
+      quantity = order.line_items.inject(0){|total, item| total += item.quantity}
+      to = %w(jenny.liu rafael.manoel tiago.almeida carol.sampaio diogo.silva).map{|s| "#{s}@olook.com.br"}.join(",")
+
+      Resque.enqueue(NotificationWorker, {
+        to: to,
+        body: "Pedido acima de 1000 Reais. \nNumero: #{order.number} \nValor: #{order.gross_amount} \nQuantidade: #{quantity}",
+        subject: "Pedido acima de mil Reais"
+      }) if is_a_big_billet_sail?(payment)
+    end
+
+    def is_a_big_billet_sail?(payment)
+      payment.class == Billet && payment.total_paid > 1000
     end
 
     def respond_with_failure

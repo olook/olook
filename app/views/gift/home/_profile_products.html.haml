@@ -1,0 +1,9 @@
+/ <section id="profile_products" class="sub">
+.content
+  %h2
+    Algumas sugestões de presentes para ela
+  %ul.products
+    - products.each do |product|
+      = render "shared/product_item", product: product
+  = link_to "Ver mais recomendações", "#", id: 'see_more'
+/ </section>

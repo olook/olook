@@ -17,6 +17,9 @@ describe Abacos::ProductPrice do
 
     it 'should update the product price and integrate it' do
       mock_product = mock_model(::Product)
+      mv = mock_model(::Variant)
+      mv.stub(:'price=' => nil, :'retail_price=' => nil, :'save!' => nil)
+      mock_product.stub(:master_variant).and_return(mv)
       mock_product.should_receive(:'price=').with(subject.price)
       mock_product.should_receive(:'retail_price=').with(subject.retail_price)
       mock_product.should_receive(:'save!').and_return(true)
@@ -30,6 +33,9 @@ describe Abacos::ProductPrice do
 
     it 'should update the kit product price and update kit variant price' do
       mock_product = mock_model(::Product)
+      mv = mock_model(::Variant)
+      mv.stub(:'price=' => nil, :'retail_price=' => nil, :'save!' => nil)
+      mock_product.stub(:master_variant).and_return(mv)
       mock_product.should_receive(:'price=').with(subject.price)
       mock_product.should_receive(:'retail_price=').with(subject.retail_price)
       mock_product.should_receive(:'save!').and_return(true)

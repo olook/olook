@@ -17,6 +17,7 @@ class JoinController < ApplicationController
   def register
     set_user_already_variable
     @user = User.new(params[:user])
+    @user.set_session_variables(session)
     if @user.save
       sign_in(:user, @user)
       redirect_to set_user_profile(@user).next_step, notice: I18n.t("join_controller.create.success")

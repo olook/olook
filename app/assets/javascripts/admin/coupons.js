@@ -22,4 +22,5 @@ $(document).ready(function(){
 		condition = ($(this).attr('checked')) ? true : false;
 		validation( condition , "#coupon_remaining_amount" );
 	});
+
 });

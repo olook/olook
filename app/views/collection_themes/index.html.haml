@@ -4,28 +4,22 @@
     start_position = #{@search.range_values_for(:price)[:min] rescue 0};
     final_position = #{@search.range_values_for(:price)[:max] rescue 600};
 
+= first_level_breadcrumb "Coleções"
 #catalog
   = render "menu", collection_theme_groups: @collection_theme_groups
   #collection_theme_content
     #home_collections
       .banner_principal
-        = link_to image_tag("collections/destaque_outubro_rosa.jpg", alt: "Coleção Outubro Rosa", title: "Coleção Outubro Rosa"), '/colecoes/outubro_rosa', onclick: track_event("Colecoes", "TopBigBanner")
+        = link_to image_tag("collections/destaque landing_tendencia_floral_800X341.jpg", alt: "Tendência Floral", title: "Tendência Floral"), '/colecoes/floral', onclick: track_event("Colecoes", "TopBigBanner")
       .left_banner
-        = link_to image_tag("collections/crop_totalbranco.jpg", alt: "TOTAL BRANCO", title: "TOTAL BRANCO"), collection_theme_path('branco_total'), onclick: track_event("Colecoes", "MiddleLeftBanner")
-        %p.collection TOTAL BRANCO
-        %p.resume O look branco total promete reinar nesta estação
-        %p.looks= link_to "veja a coleção", collection_theme_path('branco_total'), target: "_blank"
+        = link_to image_tag("collections/crop_colecoes_380x214_neon.jpg", alt: "NEON", title: "NEON"), collection_theme_path('neon_pastel'), onclick: track_event("Colecoes", "MiddleLeftBanner")
+        %p.collection NEON PASTEL
+        %p.resume O neon pastel protagoniza a tendência do momento
+        %p.looks= link_to "veja a coleção", collection_theme_path('neon_pastel'), target: "_blank"
       .right_banner
-        = link_to image_tag("collections/crop_navajo.jpg", alt: "Navajo", title: "Navajo"), collection_theme_path('navajo'), onclick: track_event("Colecoes", "MiddleRightBanner")
-        %p.collection NAVAJO
-        %p.resume Cores quentes e desenhos geométricos
-        %p.looks= link_to 'veja a coleção', collection_theme_path('navajo'), target: "_blank"
-    %button.nav.bt_left.prev_collection{:type => "button"} Anterior
-    #amamos
-      %h1 NÓS AMAMOS
-      #products_amamos
-        = render "featured_products", featured_products: @featured_products
-      .pagination
-    %button.nav.bt_right.next_collection{:type => "button"} Próximo
+        = link_to image_tag("collections/destaquemenor_colecoes_boho.jpg", alt: "Boho Chic", title: "Boho Chic"), collection_theme_path('boho_chic'), onclick: track_event("Colecoes", "MiddleRightBanner")
+        %p.collection BOHO CHIC
+        %p.resume Visual chama atenção pelas peças leves e confortáveis
+        %p.looks= link_to 'veja a coleção', collection_theme_path('boho_chic'), target: "_blank"
 - content_for :footer do
   = javascript_include_tag "collection_themes"

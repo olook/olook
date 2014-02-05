@@ -1,0 +1,15 @@
+- count = 0
+.promotion_rules
+  = f.fields_for :rule_parameters do |builder| count += 1
+    = render 'admin/promotion_rules/rule_shape', builder: builder, count: count
+
+:javascript
+  var promotionRuleNeedParam = {
+    #{ @promotion_rules.map{|p| "prule_#{p.id}: #{p.need_param}" }.join(',') }
+  };
+
+%p= link_to "+ Adicionar mais regras/variáveis", "javascript:void;", class: "add_rule"
+
+= f.fields_for :rule_parameters, RuleParameter.new, child_index: '__ID__' do |builder|
+  .ruleParameterShape{style: 'display: none;'}
+    = render 'admin/promotion_rules/rule_shape', builder: builder, count: count

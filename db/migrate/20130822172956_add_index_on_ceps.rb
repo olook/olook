@@ -1,6 +1,6 @@
 class AddIndexOnCeps < ActiveRecord::Migration
   def up
-    add_index :ceps, :cep, :unique => true
+    # add_index :ceps, :cep, :unique => true
   end
 
   def down

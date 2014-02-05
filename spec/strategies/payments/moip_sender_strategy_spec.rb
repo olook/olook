@@ -194,7 +194,7 @@ describe Payments::MoipSenderStrategy do
 
   describe "#format_telephone" do
     it "removes the ninth digit of the telephone" do
-      subject.format_telephone("(11)99123-4567").should eq("(11)9123-4567")
+      subject.format_telephone("(21)99123-4567").should eq("(21)9123-4567")
     end
 
     it "corrects a wrong mask" do

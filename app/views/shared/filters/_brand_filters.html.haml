@@ -1,0 +1,12 @@
+- category = params[:category_id]
+.filter.main.brand
+  %p.filter_type.opened
+    Marcas#{image_tag 'collections/arrow-black.png', :class => 'model'}
+  %button.clear_filter.bt_clear_size{:type => "button"} [ limpar ]
+  %ol.column-size
+    - collection_theme_presenter.collection_theme.catalog.brands_for(category).each do |brand|
+      %li
+        - brand_checked = params[:brands].to_a.include?(brand.to_s)
+        = check_box_tag('brands[]', brand, brand_checked, :id => "brand_#{brand}")
+        = label_tag(brand, nil, :for => "brand_#{brand}")
+  = image_tag 'collections/arrow-white.png', :class => 'arrow arrow-size', style:"display:none"

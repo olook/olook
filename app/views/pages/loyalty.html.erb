@@ -1,6 +1,7 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag "section/loyalty" %>
 <% end %>
+<%= first_level_breadcrumb("Fidelidade Olook") %>
 
 <section id="loyalty">
   <h1>Fidelidade Olook</h1>
@@ -41,9 +42,9 @@
     <div id="showroom">
       <%= image_tag "loyalty/products.jpg", :title => "Produtos" %>
       <% if @user %>
-        <%= link_to "Visite sua vitrine e aproveite", member_showroom_path, :class => "link_showroom" %>
+        <%= link_to "Visite sua vitrine e aproveite", root_path, :class => "link_showroom" %>
       <% else %>
-        <%= link_to "Comprar agora", collection_themes_path, :class => "buy_now" %>
+        <%= link_to "COMPRAR AGORA", collection_themes_path, :class => "buy_now" %>
       <% end %>
     </div>
   </div>

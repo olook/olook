@@ -1,3 +1,6 @@
+<%= content_for :footer do %>
+  <%= javascript_include_tag "my_account" %>
+<% end %>
 <% if registration_for_checkout? %>
   <% content_for :head do %>
     <%= stylesheet_link_tag "section/login_register" %>
@@ -22,6 +25,12 @@
     <%= stylesheet_link_tag "section/my_account" %>
   <% end %>
 
+  <div id="box_title_my_account">
+    <div class="content">
+      <h1>Minha conta</h1>
+      <h2>Edite suas informações pessoais, altere ou adicione endereços, melhore sua vitrine e acompanhe seus pedidos</h2>
+    </div>
+  </div>
   <div id="my_account" class="personal_data">
     <div id="box_menu">
       <%= render "shared/my_account/menu" %>
@@ -55,18 +64,29 @@
             </li>
           </ol>
         </fieldset>
-        <fieldset class="inputs cpf">
-          <ol>
-            <li>
-              <%= f.label :cpf %>
-              <%= f.text_field :cpf, resource.cpf.nil? ? '' : :disabled => "disabled" %>
-            </li>
-            <li>
-              <%= f.label :birthday %>
-              <%= f.date_select :birthday, { :start_year => 1900 }, :class => "custom_select"  %>
-            </li>
-          </ol>
-        </fieldset>
+        <% if resource.reseller_without_cpf? %>
+          <fieldset class="inputs cpf">
+            <ol>
+              <li>
+                <%= f.label :cnpj %>
+                <%= f.text_field :cnpj, resource.cnpj.nil? ? '' : :disabled => "disabled" %>
+              </li>
+            </ol>
+          </fieldset>
+        <% else %>
+          <fieldset class="inputs cpf">
+            <ol>
+              <li>
+                <%= f.label :cpf %>
+                <%= f.text_field :cpf, resource.cpf.nil? ? '' : :disabled => "disabled" %>
+              </li>
+              <li>
+                <%= f.label :birthday %>
+                <%= f.date_select :birthday, { :start_year => 1900 }, :class => "custom_select"  %>
+              </li>
+            </ol>
+          </fieldset>
+          <% end %>
         <% if @presenter.try(:shoe_size_question) && !resource.half_user %>
         <fieldset class="shoe_size">
           <%= fields_for 'user_info' do |ui| %>
@@ -93,7 +113,7 @@
         <% end %>
         <fieldset class="buttons">
           <ol>
-            <li><%= f.submit "", :id => "update_user" %></li>
+            <li><%= f.submit "SALVAR", :id => "update_user" %></li>
           </ol>
         </fieldset>
       <% end %>

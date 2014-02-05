@@ -5,7 +5,7 @@ class Checkout::BaseController < ApplicationController
 
   private
   def check_cpf
-    redirect_to edit_user_registration_path(:checkout_registration => true) unless @user.has_valid_cpf?
+    redirect_to edit_user_registration_path(:checkout_registration => true) unless @user.reseller? || @user.has_valid_cpf?
   end
 
   def check_order
@@ -26,5 +26,10 @@ class Checkout::BaseController < ApplicationController
 
   def clean_cart!
     session[:cart_id] = nil
+  end
+
+  def clean_wishlist!
+    wishlist = Wishlist.for(current_user)
+    @cart_service.cart.items.each{|item| wishlist.remove item.variant.number}
   end
 end

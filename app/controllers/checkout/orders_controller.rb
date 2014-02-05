@@ -23,4 +23,9 @@ class Checkout::OrdersController < Checkout::BaseController
     @zanpid = request.referer[/.*=([^=]*)/,1] if request.referer =~ /zanpid/
     @criteo = @order.tracking && @order.tracking.utm_source.to_s.match(/criteo.*/) ? 1 : 0
   end
+  private
+
+    def title_text 
+      "Pagamento confirmado | Olook" 
+    end
 end

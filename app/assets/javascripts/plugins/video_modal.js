@@ -11,7 +11,7 @@ olook.youtubeParser = function(url) {
 };
 
 olook.youtubePlayer = function(youtube_id) {
-  return "<div style='width:791px;height:445px;'><iframe width='791' height='445' src='http://www.youtube.com/embed/"+ youtube_id +"?rel=0&enablejsapi=1&autoplay=1&vq=large' frameborder='0'></iframe></div>";
+  return "<div style='width:791px;height:445px;'><iframe width='791' height='445' src='//www.youtube.com/embed/"+ youtube_id +"?rel=0&enablejsapi=1&autoplay=1&vq=large' frameborder='0'></iframe></div>";
 };
 
 // TODO: Refatorar com olook.newModal para extrair a funcionalidade comum e

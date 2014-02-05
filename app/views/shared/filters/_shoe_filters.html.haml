@@ -1,0 +1,13 @@
+.filter.main.shoe_models
+  %h1.shoes SAPATOS
+  %span.selected-type.filter_type.opened.model Modelo
+  .tab_bg.tab_model &nbsp;
+  %ol.open
+    - collection_theme_presenter.collection_theme.catalog.shoes.each do |subcategory,label|
+      - unless subcategory.nil? && label.nil?
+        %li
+          - subcategory_checked = params[:shoe_subcategories] && params[:shoe_subcategories].include?(subcategory) || params[:select_all_shoes]
+          = check_box_tag('shoe_subcategories[]', subcategory, subcategory_checked, :id => subcategory.gsub("-",""))
+          = label_tag(label, nil, :for => subcategory)
+    %li.clear_choice
+      %button.clear_filter.bt_clear_model{:type => "button"} [ limpar ]

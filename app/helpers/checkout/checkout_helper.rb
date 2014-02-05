@@ -47,9 +47,17 @@ module Checkout::CheckoutHelper
   end
 
   def show_freight_message
-    return "O frete deste pedido será de #{number_to_currency(@freight_price)}.<br />Adicionando mais um ítem de #{number_to_currency(@first_free_freight_price - @cart_service.total())}<br/> em sua sacola seu frete será gratuito.<br /> Aproveite ;)" if @first_free_freight_price
+    return "O frete será de #{number_to_currency(@freight_price)}.<br />Adicionando um ítem<br/> de #{number_to_currency(@first_free_freight_price - @cart_service.total())} ele será <br/> gratuito. Aproveite ;)" unless @first_free_freight_price.blank?
     return "Seu frete será gratuito neste pedido :)" if @freight_price == 0
     return "O frete deste pedido será de #{number_to_currency(@freight_price)}."
   end
 
+  def initial_freight shipping_service
+    number_to_currency(shipping_service.try(:price) || "0")
+  end
+
+  def credit_discount_value
+    discount_to_show = @cart_service.total_credits_discount > 0 ? -@cart_service.total_credits_discount : 0
+    number_to_currency(discount_to_show)
+  end
 end

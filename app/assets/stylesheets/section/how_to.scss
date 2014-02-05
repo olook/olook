@@ -3,21 +3,22 @@
 
 #how_to{
   min-height: 280px;
-  margin: 20px auto 0 10px;
+  margin: 0 auto;
   div#description {
     width: 100%;
     overflow: auto;
     float: left;
     > h1 {
       font-family: $johnston;
-      font-size: 34px;
+      font-size: 24px;
       text-transform: uppercase;
       display: block;
       margin: 0 0 20px;
+      padding-top:10px
     }
     h2 {
       font-family: $kepler;
-      font-size: 20px;
+      font-size: 16px;
       width: 100%;
       margin: 0 0 25px;
       .txtpink{color: $pink;
@@ -77,10 +78,11 @@
   margin: 0 auto 0 10px;
   h1 {
     font-family: $avenir;
-    font-size: 29px;
+    font-size: 24px;
     text-transform: uppercase;
     display: block;
     margin-bottom: 20px;
+    padding-top:10px;
   }
   ul {
     width: 100%;
@@ -89,7 +91,7 @@
       margin-right: 10px;
       width: 237px;
       height: 278px;
-      margin-right: 10px !important;
+      margin-right: 5px !important;
       float: left;
       &#left_box {
         background: image-url('how_to/box-1.jpg') no-repeat;
@@ -129,4 +131,8 @@
   #steps h1 {
     font-weight: bold;
   }
+}
+
+.content { 
+width:970px !important;
 }

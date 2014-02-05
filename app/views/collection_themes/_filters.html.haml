@@ -3,11 +3,11 @@
     - params[:category] = filters_by('category', search, use_fields: [:collection_theme])[0][0] if filters_by('category', search, use_fields: [:collection_theme]).size == 1
     = form_tag collection_theme_path(params[:collection_theme], @url_builder.current_filters), method: 'get' do
       %fieldset.first_child
-        %span.selected-type{ class: ("filter_selected" if params[:category].present?) }= params[:category].present? ? params[:category].pluralize : "CATÁLOGO"
+        %span.selected-type{ class: ("filter_selected" if params[:category].present?) }= params[:category].present? ? params[:category].pluralize : "CATEGORIA"
         %select{ :onchange => ("window.location = $(this.options[this.selectedIndex]).data('href');")}
           %option{ 'data-href' => collection_theme_path(params[:collection_theme]) } VER TUDO
           - filters_by('category', search, use_fields: [:collection_theme]).each do |text, amount|
-            %option{'data-href' => collection_theme_path(params[:collection_theme], parameters: text.chomp), selected: (params[:category].to_s == text) }= text.chomp.titleize.pluralize
+            %option{'data-href' => collection_theme_path(params[:collection_theme], parameters: text.parameterize.chomp), selected: (params[:category].to_s == text) }= text.chomp.titleize.pluralize
 
       %fieldset
         %span.selected-type.order{ class: ("filter_selected" if params[:por].present?) }= params[:por].present? ? params[:por].gsub("-", " ").titleize : "ORDENAÇÃO"
@@ -37,8 +37,8 @@
         %span.selected-type.txt-filter{ class: ("filter_selected" if params[:size].present?) } TAMANHO
         .tab_bg &nbsp;
         %ul
-          - filters_by("size", search, use_fields: [:collection_theme, :category]).each do |text, amount|
-            %li= filter_link_to(collection_theme_path(@url_builder.add_filter(:size, text)), text.chomp, search.filter_selected?(:size, text.chomp))
+          -size_list(params[:category],search, params[:category][0].downcase, [:collection_theme, :category]).each do |text, amount|
+            %li= filter_link_to(collection_theme_path(@url_builder.add_filter(:size, text)), format_size(text.chomp), search.filter_selected?(:size, text.chomp))
           - if params[:size].present?
             %li.clear_choice= link_to '[limpar]', collection_theme_path(@url_builder.remove_filter_of(:size))
 

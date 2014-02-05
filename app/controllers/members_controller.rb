@@ -73,35 +73,6 @@ class MembersController < ApplicationController
 
   def welcome
     session[:facebook_redirect_paths] = "showroom"
-    @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
-  end
-
-  def showroom
-    return redirect_to join_showroom_path if !@user
-    return redirect_to half_showroom_path if @user.half_user
-
-    @google_path_pixel_information = "home"
-    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
-
-    session[:facebook_redirect_paths] = "showroom"
-    @show_liquidation_lightbox = UserLiquidationService.new(current_user, current_liquidation).show?
-    if @facebook_adapter
-      @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
-    end
-
-    @recommended = RecomendationService.new(profiles: current_user.profiles)
-    admin = current_admin.present?
-    # This is needed becase when we turn the month collection we never have cloth
-    @cloth = Product.includes(:variants, :pictures).where("id in (?)", Setting.cloth_showroom_casual.split(",") ).all
-    @cloth += @recommended.products( category: Category::CLOTH, collection: @collection, limit: 10, admin: admin )
-    @cloth = @cloth.first(10)
-
-
-    @shoes = @recommended.products( category: Category::SHOE, collection: @collection, admin: admin )
-    @bags = @recommended.products( category: Category::BAG, collection: @collection, admin: admin )
-    @accessories = @recommended.products( category: Category::ACCESSORY, collection: @collection, admin: admin )
-
-    render layout: 'lite_application'
   end
 
   def earn_credits
@@ -112,12 +83,6 @@ class MembersController < ApplicationController
 
   def invite_list
     @invites = @user.invites.page(params[:page]).per_page(15)
-  end
-
-  def half_showroom
-    if @facebook_adapter
-      @friends = @facebook_adapter.facebook_friends_registered_at_olook rescue []
-    end
   end
 
   private
@@ -145,6 +110,22 @@ class MembersController < ApplicationController
     if @user && @user.has_facebook?
       @facebook_adapter = FacebookAdapter.new @user.facebook_token
     end
+  end
+
+  def clothes_by_profile
+    profile = current_user.profile || current_user.main_profile.try(:alternative_name)
+    sanitized_profile = case profile
+    when 'fashion'
+      'moderna'
+    when 'elegante'
+      'chic'
+    when 'sexy'
+      'sexy'
+    else
+      'casual'
+    end
+    
+    Product.clothes_for_profile sanitized_profile
   end
 end
 

@@ -1,0 +1,21 @@
+%h1 Itinerários
+
+%h2 Crie um itinerário com o nome <b>olookmovel</b>
+.content
+  %table
+    %tr
+      %th Name
+      %th
+      %th
+      %th
+
+    - @itineraries.each do |itinerary|
+      %tr
+        %td= itinerary.name
+        %td= link_to 'Ver', [:admin, itinerary]
+        %td= link_to 'Editar', edit_admin_itinerary_path(itinerary)
+        %td= link_to 'Apagar', [:admin, itinerary], :method => :delete, :data => { :confirm => 'Tem certeza?' }
+
+  %br
+
+  = link_to 'Novo itinerário', new_admin_itinerary_path

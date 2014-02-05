@@ -6,7 +6,7 @@ describe CartItemsTotalValue do
     let(:cart) { FactoryGirl.create(:cart_with_items) }
 
     before :each do
-      cart.should_receive(:total_price).and_return(BigDecimal("100"))
+      cart.should_receive(:sub_total).and_return(BigDecimal("100"))
     end
 
     context "when items total value is lower than parameter" do
