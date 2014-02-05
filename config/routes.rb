@@ -228,6 +228,7 @@ Olook::Application.routes.draw do
 
   namespace :admin do
     get "/", :to => "dashboard#index"
+    get "/lista_pastas_s3", to: "bucket_s3#index"
 
     scope defaults: {type: ["CatalogHeader::NoBanner", "CatalogHeader::BigBannerCatalogHeader", "CatalogHeader::SmallBannerCatalogHeader"]} do
       #Landing page banners
