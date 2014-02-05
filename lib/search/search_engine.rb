@@ -78,7 +78,7 @@ class SearchEngine
   def price= price
     @expressions["price"] = []
     if /^(?<min>\d+)-(?<max>\d+)$/ =~ price.to_s
-      @expressions["price"] = ["retail_price:#{min.to_i*100}..#{max.to_i*100-1}"]
+      @expressions["price"] = ["retail_price:#{min.to_i*100}..#{[max.to_i*100-1, 0].max}"]
     end
     self
   end
