@@ -1,0 +1,14 @@
+.filter.main.bag_models
+  %h1.purse BOLSAS
+  %span.selected-type.filter_type.opened.model Modelo
+  .tab_bg.tab_model &nbsp;
+  %ol.open.open-bags
+    = check_box_tag "select_all_bags", 1, params[:select_all_bags], :class => "select_all"
+    = label_tag "select_all_bags", "Todas as bolsas"
+    - collection_theme_presenter.collection_theme.catalog.bags.each do |subcategory,label|
+      - unless subcategory.nil? && label.nil?
+        %li
+          = check_box_tag('bag_subcategories[]', subcategory, params[:bag_subcategories] && params[:bag_subcategories].include?(subcategory) || params[:select_all_bags], :id => subcategory)
+          = label_tag(label, nil, :for => subcategory)
+    %li.clear_choice
+      %button.clear_filter.bt_clear_bag{:type => "button"} [ limpar ]

@@ -11,7 +11,7 @@
 
     - @brands.each do |brand|
       %tr
-        %td= image_tag brand.header_image_url(:thumb)
+        %td= image_tag(brand.header_image_url(:thumb)) unless brand.header_image_url(:thumb).nil?
         %td= brand.name
         %td= brand.header_image_alt
         %td= link_to 'Exibir', [:admin, brand]

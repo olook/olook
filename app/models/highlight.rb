@@ -1,36 +1,57 @@
 # -*- encoding : utf-8 -*-
 class Highlight < ActiveRecord::Base
+  mount_uploader :image, CentralHighlightBannerUploader
+  mount_uploader :left_image, SideHighlightBannerUploader
+  mount_uploader :right_image, SideHighlightBannerUploader
+
   after_save :clean_cache
   after_destroy :clean_cache
 
-  mount_uploader :image, BannerUploader
-
-  validates :image, presence: true
   validates :link, presence: true
   validates :position, presence: true
-  validates :title, presence: true, :if => lambda{|type| type == HighlightType::WEEKLY}
-  validates :subtitle, presence: true, :if => lambda{|type| type == HighlightType::WEEKLY}
+  validates :title, presence: true
+  validates :subtitle, presence: true
+  validates :alt_text, presence: true
+  validates :image, presence: true, if: :is_center_image?
+  validates :left_image, presence: true, if: :is_left_image?
+  validates :right_image, presence: true, if: :is_right_image?
 
-  has_enumeration_for :highlight_type, :with => HighlightType, :required => true
-
-  def self.highlights_to_show type
-    Rails.cache.fetch("highlights-#{type}", :expires_in => 30.minutes) do 
-      highlights = where(highlight_type: type).order(:position)
-      highlights || []
+  def self.highlights_to_show
+    Rails.cache.fetch("highlights", :expires_in => 30.minutes) do
+      highlights = {}
+      for i in 1..3 
+        highlights[i] = where(position: i).last
+      end
+      highlights
     end
   end
 
-  def self.grouped_by_type
-    grouped_highlights = {}
-    HighlightType.list.each do |type_id|
-      grouped_highlights[type_id] = Highlight.where(highlight_type: type_id).order(:position)
+  def image_for_position
+    case position
+    when HighlightPosition::CENTER 
+      image.url(:site)
+    when HighlightPosition::LEFT
+      left_image.url(:site)
+    when HighlightPosition::RIGHT
+      right_image.url(:site)
     end    
-    grouped_highlights
   end
 
   private
-    def clean_cache
-      HighlightType.list.each{|id| Rails.cache.delete("highlights-#{id}")}
-    end
 
+  def clean_cache
+    Rails.cache.delete("highlights")
+  end
+
+  def is_center_image?
+    position == HighlightPosition::CENTER
+  end
+
+  def is_left_image?
+    position == HighlightPosition::LEFT
+  end
+
+  def is_right_image?
+    position == HighlightPosition::RIGHT
+  end
 end

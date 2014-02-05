@@ -1,0 +1,69 @@
+= javascript_include_tag "admin/coupons"
+= form_for([:admin, @coupon]) do |f|
+  - if @coupon.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@coupon.errors.count, "error")
+        prohibited this coupon from being saved:
+      %ul
+        - @coupon.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :code, "Código"
+    %br/
+    = f.text_field :code
+  .field
+    = f.label :active?, "Ativo?"
+    %br/
+    = f.check_box :active
+  .field
+    = f.label :start_date, "Data de início"
+    %br/
+    = f.datetime_select :start_date, :default => Time.now
+  .field
+    = f.label :end_date, "Data de término"
+    %br/
+    = f.datetime_select :end_date, :default => Time.now
+  .field
+    = f.label :remaining_of_coupons, "Cupons remanecentes"
+    %br/
+    %strong.info *Se deixar este campo vazio o cupom será configurado automaticamente para ilimitado.
+    %br/
+    = f.text_field :remaining_amount
+  .field
+    = f.label :unlimited?, "Ilimitado?"
+    %br/
+    = f.check_box :unlimited
+  .field
+    = f.label :campaign, "Campanha"
+    %br/
+    = f.select :campaign, Coupon::COUPON_CONFIG['campaigns'], :prompt => "Selecione a campanha"
+  .field
+    = f.label :campaign_description, "Descrição da campanha"
+    %br/
+    = f.text_field :campaign_description
+  .field
+    = f.label :modal
+    %br/
+    = f.select :modal, Coupon::MODAL_POSSIBLE_VALUES, prompt: "Selecione o modal"
+  - if @coupon.new_record?
+    = f.hidden_field :created_by, :value => current_admin.name
+  - else
+    = f.hidden_field :updated_by, :value => current_admin.name
+  #rules
+    %h2 Critérios para o Cupom
+    %h3 Como será o cupom criado?
+    %p
+      = f.radio_button 'use_rule_parameters', '0', class: 'use_rule_parameters'
+      = f.label 'use_rule_parameters_0', 'Simples (basta adicionar à sacola)'
+    %p
+      = f.radio_button 'use_rule_parameters', '1', class: 'use_rule_parameters'
+      = f.label 'use_rule_parameters_1', 'Combinada (permite a combinação de diferentes regras/variáveis)'
+  #actions
+    = render 'admin/promotion_actions/select', f: f
+
+  #use_rule_parameters_div
+    %p Para conseguir o desconto, a cliente deve seguir os seguintes passos...
+    = render 'admin/promotion_rules/select', f: f
+  .actions
+    = f.submit

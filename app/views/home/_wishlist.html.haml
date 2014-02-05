@@ -1,0 +1,14 @@
+- if has_items_in_wishlist?
+  - wishlist_images = home_wishlist_images
+  .favTip.has_love
+    .fav_product
+      = link_to image_tag(wishlist_images.first[:img]), product_path(wishlist_images.first[:product])
+    .fav_product
+      = link_to image_tag(wishlist_images.last[:img]), product_path(wishlist_images.last[:product])
+    %h5= link_to "// Meus Favoritos //", wishlist_path
+    %p= link_to "Seus queridinhos esperam por você", wishlist_path
+- else
+  .favTip
+    = link_to "Wishlist", wishlist_path, class: "favTipLink"
+    %h5= link_to "// Meus Favoritos //", wishlist_path
+    %p= link_to "Separe aqui seus produtos favoritos", wishlist_path

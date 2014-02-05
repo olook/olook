@@ -341,7 +341,7 @@ describe Payment do
       subject { FactoryGirl.create(:credit_card) }
 
       it "sends an email to notify about authorization" do
-        DevAlertMailer.should_not_receive(:notify).with(to: 'rafael.manoel@olook.com.br', subject: "Ordem de numero #{ subject.order.number } foi autorizada").and_return(mock_mail)
+        DevAlertMailer.should_not_receive(:notify).with(to: 'rafael.manoel@olook.com.br', subject: "Ordem de numero #{ subject.order.number } foi autorizada")
         mock_mail.should_not_receive(:deliver)
         subject.authorize_and_notify_if_is_a_billet
       end

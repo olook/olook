@@ -16,9 +16,13 @@ CreditCard = {
     return (counter%10 == 0);
   },
 
-  installmentsNumberFor: function(value) {
+  installmentsNumberFor: function(value, reseller) {
     number = Math.floor((value / 30));
-    number = Math.min(6, number);
+    if(reseller === "true"){
+      number = Math.min(3, number);
+    }else{
+      number = Math.min(6, number);
+    }
     return number == 0 ? 1 : number;
   }
 };

@@ -11,13 +11,23 @@
   </p>
 
   <p>
-    <b>Marca #:</b>
+    <b>Marca:</b>
     <%= @product.brand %>
+  </p>
+
+  <p>
+    <b>Data de lançamento:</b>
+    <%= @product.launch_date %>
   </p>
 
   <p>
     <b>Visível?:</b>
     <%= @product.is_visible? ? 'Yes' : 'No' %>
+  </p>
+
+  <p>
+    <b>Onde?:</b>
+    <%= formatted_visibility(@product.visibility) %>
   </p>
 
   <p>
@@ -59,6 +69,11 @@
     <b>Descrição:</b>
     <%= @product.description %>
   </p>
+
+  <p>
+    <b>URL do vídeo no youtube:</b>
+    <%= @product.youtube_token %>
+  </p>  
 </div>
 
 <%= render :partial => 'profiles', :locals => {:product => @product} %>

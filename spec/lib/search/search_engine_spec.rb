@@ -62,7 +62,7 @@ describe SearchEngine do
                          product_id: []} }
 
     let(:expected_parameters) { { category: [],
-                         subcategory:["Some Subcategory"],
+                         subcategory:[],
                          color: [],
                          brand: ["Some Brand"],
                          heel: [],

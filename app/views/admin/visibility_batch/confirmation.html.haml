@@ -1,0 +1,72 @@
+=content_for :secondary_navigation do
+  %li
+    = link_to "Atualizar liquidações", admin_new_visibility_batch_path, class: 'update-olooklet'
+
+.liquidation_preview_content
+  #update-olooklet-header 
+    %h2.update-olooklet 
+      Confira a relação abaixo antes de confirmar a atualização[
+      = @liquidation_previews.count
+      produtos ]
+    = link_to "Confirmar atualização", admin_commit_visibility_batch_path, class: 'button info update-olooklet'
+  %table.table
+    %tr
+      %th
+        ID
+      %th
+        Nome
+      %th
+        Categoria
+      %th
+        Modelo
+      %th
+        Preço original
+      %th
+        Preço liquidação
+      %th
+        Desconto (%)
+      %th
+        Inventário
+      %th
+        Cor
+      %th
+        Coleção
+      %th
+        Visível
+      %th
+        Onde?
+      %th
+        Foto
+    - @liquidation_previews.each do |p|
+      %tr{class:"#{'not-visible' if !p.product.is_visible? }"}
+        %td
+          = p.product.id
+        %td
+          = p.product.name
+        %td
+          = p.product.category_humanize
+        %td
+          = p.product.subcategory_name
+        %td
+          = p.product.price
+        %td
+          = p.product.retail_price
+        %td
+          = p.product.discount_percent
+        %td
+          = p.product.inventory
+        %td
+          = p.product.product_color
+        %td
+          = p.product.collection.name
+        %td
+          = p.product.is_visible?
+        %td
+          = formatted_visibility p.visibility
+        %td
+          = image_tag(p.product.bag_picture) if p.product.bag_picture
+  .actions-bar.wat-cf
+    .pagination
+      = will_paginate @liquidation_previews
+
+

@@ -19,7 +19,7 @@ class CouponPayment < Payment
         coupon.increment!(:used_amount, 1)
       end
     end
-    super    
+    super
   end
 
 end

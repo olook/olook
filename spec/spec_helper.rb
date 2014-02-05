@@ -1,13 +1,10 @@
 # -*- encoding : utf-8 -*-
 require 'rubygems'
 require 'spork'
+require "codeclimate-test-reporter"
+#CODECLIMATE_REPO_TOKEN=f8b9bc0159baef99717bde98ff461e5ecd83f2fb4ce41df305e38709f99aceac
+CodeClimate::TestReporter.start if ENV['CODECLIMATE_REPO_TOKEN']
 
-# Formatter for simplecov, to work with jenkins
-require 'simplecov'
-require 'simplecov-rcov'
-
-SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
-SimpleCov.start 'rails' if ENV["COVERAGE"]
 
 module Resque
   def self.enqueue(*args); end
@@ -33,6 +30,9 @@ Spork.prefork do
 
   # This file is copied to spec/ when you run 'rails generate rspec:install'
   ENV["RAILS_ENV"] ||= 'test'
+end
+
+Spork.each_run do
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
   require 'capybara/rspec'
@@ -113,9 +113,6 @@ Spork.prefork do
 
     config.include Devise::TestHelpers, :type => :controller
   end
-end
-
-Spork.each_run do
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}

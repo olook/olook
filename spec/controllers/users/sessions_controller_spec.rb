@@ -59,16 +59,6 @@ describe Users::SessionsController do
         session[:cart_id] = cart.id
       end
       
-      it "should update gift occassion with user" do
-        post :create, :user => user_params
-        occasion.reload.user_id.should be(controller.current_user.id)
-      end
-
-      it "should update gift recipient with user" do
-        post :create, :user => user_params
-        recipient.reload.user_id.should be(controller.current_user.id)
-      end
-      
       it "should update cart with user" do
         post :create, :user => user_params
         cart.reload.user_id.should be(controller.current_user.id)
@@ -77,12 +67,12 @@ describe Users::SessionsController do
       it "should redirect to new_checkout page when user has credits" do
         user.user_credits_for(:invite).add(amount: 50)
         post :create, :user => user_params
-        response.should redirect_to(new_checkout_path)
+        response.should redirect_to(new_checkout_url(protocol: 'https'))
       end
 
       it "should redirect to new_checkout page" do
         post :create, :user => user_params
-        response.should redirect_to(new_checkout_path)
+        response.should redirect_to(new_checkout_url(protocol: 'https'))
       end
     end
 
@@ -101,12 +91,12 @@ describe Users::SessionsController do
       it "should redirect to new_checkout page when user has credits" do
         user.user_credits_for(:invite).add(amount: 50)
         post :create, :user => user_params
-        response.should redirect_to(new_checkout_path)
+        response.should redirect_to(new_checkout_url(protocol: 'https'))
       end
 
       it "should redirect to new_checkout page" do
         post :create, :user => user_params
-        response.should redirect_to(new_checkout_path)
+        response.should redirect_to(new_checkout_url(protocol: 'https'))
       end
     end
 
@@ -114,21 +104,14 @@ describe Users::SessionsController do
       it "should redirect to showroom page" do
         user.stub(:half_user => false)
         post :create, :user => user_params
-        response.should redirect_to(member_showroom_path)
-      end
-    end
-
-    context "when is as half user and is man" do
-      it "should redirect to gift page" do
-        post :create, :user => man_user_params
-        response.should redirect_to(gift_root_path)
+        response.should redirect_to(root_path)
       end
     end
 
     context "when is as half user and is woman" do
       it "should redirect to showroom page" do
         post :create, :user => woman_user_params
-        response.should redirect_to(member_showroom_path)
+        response.should redirect_to(root_path)
       end
     end
   end

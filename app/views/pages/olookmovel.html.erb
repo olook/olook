@@ -7,15 +7,12 @@
   <%= javascript_include_tag "olookmovel" %>
 <% end %>
 
+<%= first_level_breadcrumb("Olookmóvel") %>
+
 <section id="kombi">
   <div id="description">
     <h1>OLOOK<span>móvel</span></h1>
-    <p>A olookmóvel surgiu do desejo de estar ainda mais perto de você.</p>
-    <p>Através de uma experiência única e super diferente, agora você pode conhecer melhor os modelos da nossa coleção, experimentar e ficar por dentro de todas as novidades.</p>
-    <p>Escolhemos uma Kombi 1968  super estilosa para se tornar a vitrine móvel da olook. Ela foi totalmente personalizada e adaptada com uma combinação perfeita entre a nossa essência e o que temos de melhor para lhe inspirar.</p>
-    <p>Nela você pode conferir uma seleção dos produtos da coleção do mês, assistir nossos editoriais com dicas de moda e, se quiser, comprar online de lá mesmo. Além disso, estamos disponibilizando cupons de desconto para usar no site.</p>
-    <p>Para começar, nos próximos dias a olookmóvel estará por vários bairros da cidade de São Paulo. Acompanhe o roteiro e fique ligada:</p>
-    <p>Siga a <a href="http://instagram.com/olook" target="_blank">@olook</a> para saber o que está rolando e onde encontrá-la.</p>
+    <%= Itinerary.olookmovel.description.html_safe %>
   </div>
   <div id="pictures">
     <div id="instagram">
@@ -34,36 +31,21 @@
           <td>Quando?</td>
           <td>Onde?</td>
         </tr>
-        <tr>
-          <td>28/09/2013 (sab) / IBIRAPUERA</td>
-          <td>10h00 – Chegada ao 1º local – Parque do Ibirapuera</td>
-        </tr>
-        <tr>
-          <td>30/09/2013 (seg) / LAPA</td>
-          <td>10h00 – Chegada ao 1º local – Av Nossa Senhora da Lapa</td>
-        </tr>
-        <tr>
-          <td>01/10/2013 (ter) / FREGUESIA DO Ó</td>
-          <td>11h30 – Chegada ao 1º local – Av Santa Marina</td>
-        </tr>
-        <tr>
-          <td>02/10/2013 (qua) / LIMÃO</td>
-          <td>11h30 – Chegada ao 1º local – Av Prof Celestino Bourroul</td>
-        </tr>
-        <tr>
-          <td>03/10/2013 (qui) / LIMÃO</td>
-          <td>11h30 – Chegada ao 1º local – Rua Zilda</td>
-        </tr>
-        <tr>
-          <td>04/10/2013 (sex) / SANTANA</td>
-          <td>11h30 – Chegada ao 1º local – Rua Voluntários da Patria</td>
-        </tr>
-        <tr>
-          <td>05/10/2013 (sab) / TREMEMBÉ</td>
-          <td>11h00 – Chegada ao 1º local – Horto Florestal (Rua do Horto, 931)</td>
-        </tr>
-        </tr>   
+        <% Itinerary.entries.each do |entry| %>
+          <tr>
+            <td><%= entry.when_date %></td>
+            <td><%= entry.where %></td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
   </div>
-</section>
+</section> 
+
+
+
+
+
+        
+
+

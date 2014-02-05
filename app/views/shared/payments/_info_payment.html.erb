@@ -5,8 +5,8 @@
         <p class="boleto"><span class="txt-black">Forma de pagamento: </span><span>Boleto Bancário</span></p>
       <% elsif @payment.is_a? CreditCard %>
         <p class="cartao <%= @payment.bank %>"><span class="txt-black">Forma de pagamento: </span><span>Cartão de Crédito</span></p>
-      <% else %>
-        <p class="debit"><span class="txt-black">Forma de pagamento: </span><span>Débito Online</span></p>
+      <% elsif @payment.is_a? MercadoPagoPayment %>
+        <p class="mercadopago"><span class="txt-black">Forma de pagamento: </span><span>MercadoPago</span></p>
       <% end %>
     </div>
     <div>

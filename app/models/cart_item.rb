@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class CartItem < ActiveRecord::Base
+
   belongs_to :cart
   belongs_to :variant
   has_one :cart_item_adjustment, dependent: :destroy
@@ -10,10 +11,13 @@ class CartItem < ActiveRecord::Base
   delegate :thumb_picture, :to => :variant, :prefix => false
   delegate :color_name, :to => :variant, :prefix => false
   delegate :liquidation?, :to => :product
+  delegate :promotion?, :to => :product
+  delegate :brand, :to => :product
 
   after_create :create_adjustment, :notify
   after_update :notify
   after_destroy :notify
+  attr_reader :discount_service
 
   def product_quantity
     deafult_quantity = [1]
@@ -21,34 +25,37 @@ class CartItem < ActiveRecord::Base
   end
 
   def price
-    liquidation? ? LiquidationProductService.liquidation_product(product).original_price : product.price
+    product.price
   end
 
-  #
-  # A lot of badsmels in this code !!!!
-  # TODO => Refactor as soon as possilbe
-  # To refactor we need to rethink the promotion and liquidation
-  #
   def retail_price(options={})
-    # coupon discount is calculated by cart service
-    if !options[:ignore_coupon] && cart.has_coupon?
-      cart.has_appliable_percentage_coupon? ? price - (price * cart.coupon.value / 100) : price
+    _value = variant.product.retail_price == 0 ? price : variant.product.retail_price
+    if options[:avoid_ajustment]
+      _value = _value
     else
-      olooklet_value = variant.product.retail_price == 0 ? price : variant.product.retail_price
-      promotional_value = price - adjustment_value / quantity.to_f if has_adjustment?
-
-      min_value_excluding_nil = [promotional_value, olooklet_value].compact.min
-      min_value_excluding_nil || 0
+      _value = _value - ( adjustment_value / quantity.to_f )
     end
+    _value
+  end
+
+  def discount_service
+    @discount_service ||= ProductDiscountService.new(product, cart: cart, coupon: cart.coupon, promotion: Promotion.select_promotion_for(cart))
+  end
+
+  def final_price
+    discount_service.final_price
   end
 
   def is_suggested_product?
     product.id == Setting.checkout_suggested_product_id.to_i
   end
 
+  def has_any_discount?
+    price != retail_price
+  end
+
   def adjustment_value
-    adjustment = cart_item_adjustment ? cart_item_adjustment : create_adjustment
-    adjustment.value
+    cart_item_adjustment ? cart_item_adjustment.value : 0
   end
 
   def has_adjustment?

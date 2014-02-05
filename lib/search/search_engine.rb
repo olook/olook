@@ -9,16 +9,23 @@ class SearchEngine
   IGNORE_ON_URL = Set.new(['inventory', :inventory, 'is_visible', :is_visible, 'in_promotion', :in_promotion])
   PERMANENT_FIELDS_ON_URL = Set.new([:is_visible, :inventory])
 
-  RETURN_FIELDS = [:subcategory,:name,:brand,:image,:retail_price,:price,:backside_image,:category,:text_relevance]
+  RETURN_FIELDS = [:subcategory,:name,:brand,:image,:retail_price,:price,:backside_image,:category,:text_relevance,:inventory]
 
   SEARCHABLE_FIELDS = [:category, :subcategory, :color, :brand, :heel,
                 :care, :price, :size, :product_id, :collection_theme,
-                :sort, :term, :excluded_brand]
+                :sort, :term, :excluded_brand, :visibility]
   SEARCHABLE_FIELDS.each do |attr|
     define_method "#{attr}=" do |v|
       @expressions[attr] = v.to_s.split(MULTISELECTION_SEPARATOR)
     end
   end
+
+  NESTED_FILTERS = {
+    category: [ :subcategory ]
+  }
+
+  attr_accessor :skip_beachwear_on_clothes
+  attr_accessor :df
 
   attr_reader :current_page, :result
   attr_reader :expressions, :sort_field
@@ -28,6 +35,7 @@ class SearchEngine
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
     @expressions['in_promotion'] = [0]
+    @expressions['visibility'] = [Product::PRODUCT_VISIBILITY[:site],Product::PRODUCT_VISIBILITY[:all]]
     @facets = []
     @is_smart = is_smart
     default_facets
@@ -70,20 +78,26 @@ class SearchEngine
   def price= price
     @expressions["price"] = []
     if /^(?<min>\d+)-(?<max>\d+)$/ =~ price.to_s
-      @expressions["price"] = ["retail_price:#{min.to_i*100}..#{max.to_i*100}"]
+      @expressions["price"] = ["retail_price:#{min.to_i*100}..#{max.to_i*100-1}"]
     end
     self
   end
 
   def sort= sort_field
-    @sort_field = "#{ sort_field }" if sort_field.present?
+    @sortables ||= Set.new(['retail_price', '-retail_price', 'desconto', '-desconto','age'])
+    if sort_field.present? && @sortables.include?(sort_field)
+      @sort_field = "#{ sort_field }"
+      @is_smart = false
+    end
     self
   end
 
 
   def category= cat
-    if cat == "roupa"
+    if cat == "roupa" && !@skip_beachwear_on_clothes
       @expressions["category"] = ["roupa","moda praia", "lingerie"]
+    elsif cat.is_a? Array
+      @expressions["category"] = cat
     else
       @expressions["category"] = cat.to_s.split(MULTISELECTION_SEPARATOR)
     end
@@ -95,7 +109,7 @@ class SearchEngine
 
   def cache_key
     key = build_url_for(limit: @limit, start: self.start_item)
-    Digest::SHA1.hexdigest(key.to_s)
+    Digest::SHA1.hexdigest(df.to_s + "/" + key.to_s)
   end
 
   def filters_applied(filter_key, filter_value)
@@ -108,6 +122,23 @@ class SearchEngine
     parameters = expressions.dup
     parameters.delete_if {|k| IGNORE_ON_URL.include? k }
     parameters[filter.to_sym] = []
+    if NESTED_FILTERS[filter.to_sym]
+      NESTED_FILTERS[filter.to_sym].each do |key|
+        parameters[key.to_sym] = []
+      end
+    end
+    parameters
+  end
+
+  def replace_filter(filter, filter_value)
+    parameters = expressions.dup
+    parameters.delete_if {|k| IGNORE_ON_URL.include? k }
+    parameters[filter.to_sym] = [filter_value]
+    if NESTED_FILTERS[filter.to_sym]
+      NESTED_FILTERS[filter.to_sym].each do |key|
+        parameters[key.to_sym] = []
+      end
+    end
     parameters
   end
 
@@ -120,9 +151,11 @@ class SearchEngine
   def filters(options={})
     @filters_result ||= {}
     url = build_filters_url(options)
-    @filters_result[url] ||= fetch_result(url, parse_facets: true)
-    remove_care_products_from(@filters_result[url])
-    @filters_result[url]
+    @filters_result[url] ||= -> {
+      f = fetch_result(url, parse_facets: true)
+      f.set_groups('subcategory', subcategory_without_care_products(f))
+      f
+    }.call
   end
 
   def products(pagination = true)
@@ -204,7 +237,7 @@ class SearchEngine
     if @is_smart
       "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&#{ ranking }&rank=-exp,#{ @sort_field }&size=#{ options[:limit] }"
     else
-      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&rank=-exp,#{ @sort_field }&size=#{ options[:limit] }"
+      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }"
     end
   end
 
@@ -240,7 +273,6 @@ class SearchEngine
     end
 
     remove_excluded_brands(bq, expressions)
-
     expressions.each do |field, values|
       next if options[:use_fields] && !options[:use_fields].include?(field.to_sym) && PERMANENT_FIELDS_ON_URL.exclude?(field.to_sym)
       next if values.empty?
@@ -261,10 +293,18 @@ class SearchEngine
     end
   end
 
-  def remove_care_products_from(filters)
-    if filters.grouped_products('subcategory')
-      filters.grouped_products('subcategory').delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) }
-    end
+  def subcategory_without_care_products(filters)
+    _filters = filters.grouped_products('subcategory')
+    _filters.delete_if{|c| Product::CARE_PRODUCTS.map(&:parameterize).include?(c.parameterize) } if _filters
+    _filters
+  end
+
+  def key_for field
+    chosen_filter_values = expressions[field.to_sym] || ""
+    # Use Digest::SHA1.hexdigest ??
+    key = expressions[:category].join("-") + "/" + field.to_s + "/" + chosen_filter_values.join("-")
+    Rails.logger.info "[cloudsearch] #{field}_key=#{key}"
+    key
   end
 
   private
@@ -283,6 +323,7 @@ class SearchEngine
       filter_params = HashWithIndifferentAccess.new
       expressions.each do |k, v|
         next if IGNORE_ON_URL.include?(k)
+        next if k == 'visibility'
         filter_params[k] ||= []
         if RANGED_FIELDS[k]
           v.each do |_v|

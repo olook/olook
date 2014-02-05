@@ -44,6 +44,10 @@ body {
   float:left;
 }
 
+.right_aligned {
+  float:right;
+}
+
 #container {
   min-width: 960px;
 }
@@ -492,3 +496,14 @@ fieldset legend {font-size:140%;}
   width: 360px;
   padding: 26px;
 }
+
+.batch_form{
+  width: 400px;
+}
+
+.batch_right_aligned{
+  float: right;
+  margin-top: 10px;
+  font-size: 14px;
+}
+

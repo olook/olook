@@ -2,4 +2,70 @@
 @import 'new_structure/about/normalize';
 @import 'new_structure/common/lite_structure';
 @import 'new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min';
-@import 'new_structure/common/search';
+@import 'new_structure/common/header';
+@import 'new_structure/common/wishlist';
+
+ul.breadcrumb {
+  display: block;
+  width:100%;
+  height:20px;
+  position: relative;
+  top:-9px;
+  left:6px;
+  li {
+    float:left;
+    display: block;
+    font-family: verdana;
+    font-size: 9px;
+    color:#6d6e71;
+    padding:0 0 0 10px;
+    color:#000;
+    text-align: left;
+    padding-left:5px;
+    a {
+      font-family: verdana;
+      background: image-url('product/breadcrumb.gif') right center no-repeat;
+      color:#6d6e71;
+      display: block;
+      float:left;
+      padding-right:10px;
+      text-decoration: none;
+    }
+    a:hover {color:#ef3742;}
+  }
+}
+
+.cat_olooklet {
+  ul {
+    margin-left:11px;
+    margin-bottom: 9px;
+    display: block;
+    float: left;
+    li {
+      margin-bottom:12px;
+        a {
+          font-size: 11px;
+          text-transform: uppercase;
+          font-weight: bold;
+          height: 15px;
+          background: image-url('catalog/sprite.png') no-repeat 0 -25px !important;
+          padding-left: 13px;
+          cursor: pointer;
+          display: block;
+      }
+    }
+  }
+}
+.mercado_pago {
+  display: none;
+}
+
+a.selecionado,
+a.selecionado:hover {color:$pink !important;}
+
+#modal {position: fixed !important;}
+
+section.banner {
+  margin-bottom:10px !important;
+  img {width:100%;}
+}

@@ -1,18 +1,18 @@
 # -*- encoding : utf-8 -*-
 class Checkout::CheckoutController < Checkout::BaseController
   include FreightTracker
+  include ActionView::Helpers::NumberHelper
 
   before_filter :authenticate_user!
   before_filter :check_order
   before_filter :check_cpf
-  
-  #TODO Remove this after Freight AB test has finished
-  before_filter :prepare_for_freight_ab_testing
 
   def new
     @addresses = @user.addresses
     @report  = CreditReportService.new(@user)
     @checkout = Checkout.new(address: @addresses.find { |a| a.id == current_user.orders.last.freight.address_id rescue false } || @addresses.first )
+    @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
+    prepare_freights(shipping_freights) if @checkout.address
   end
 
   def create
@@ -30,19 +30,18 @@ class Checkout::CheckoutController < Checkout::BaseController
       display_form(address, payment, payment_method)
       return
     end
-
     address.save
     @cart_service.cart.address = address
+    @cart_service.prefered_shipping_services = params[:checkout][:shipping_service]
 
     sender_strategy = PaymentService.create_sender_strategy(@cart_service, payment)
     payment_builder = PaymentBuilder.new({ :cart_service => @cart_service, :payment => payment, :gateway_strategy => sender_strategy, :tracking_params => session[:order_tracking_params] } )
-    
+
     response = payment_builder.process!
     if response.status == Payment::SUCCESSFUL_STATUS
+      clean_wishlist!
       clean_cart!
-      # Contabilizacao do Teste AB de frete por CEP
-      track_finished_checkout address.zip_code
-      return redirect_to(order_show_path(:number => response.payment.order.number, abt: @ab_test_label))
+      return redirect_to(order_show_path(:number => response.payment.order.number))
     else
       @addresses = @user.addresses
       display_form(address, payment, payment_method, error_message_for(response, payment))
@@ -50,16 +49,25 @@ class Checkout::CheckoutController < Checkout::BaseController
     end
   end
 
+  def update
+    @cart_service.cart.update_attribute(:use_credits, params[:cart][:use_credits])
+    signal = @cart_service.total_credits_discount > 0 ? "-" : ""
+    render json: {
+      'credits_discount' => "#{signal}#{@cart_service.total_credits_discount}",
+      'billet_discount' => signal + "#{@cart_service.billet_discount}",
+      'debit_discount' => signal +  "#{@cart_service.debit_discount}",
+      'total' => (@cart_service.total),
+      'total_billet' => (@cart_service.total(Billet.new)),
+      'total_debit' => (@cart_service.total(Debit.new))
+    }
+  end
+
   private
-    # this is used for freight AB-Test
-    def prepare_for_freight_ab_testing
-      @endpoint_url = params[:freight_service_ids].present? ? 'shipping_updated_freight_table' : 'shippings'
-      @ab_test_label = params[:freight_service_ids].present? ? 'Var' : 'Ctrl'
 
-      # Force to always use TOTAL EXPRESS
-      @cart_service.prefered_shipping_services = params[:freight_service_ids]
+    def shipping_freights
+      subtotal = @cart_service.subtotal > 0 ? @cart_service.subtotal : 1
+      FreightCalculator.freight_for_zip(@checkout.address.zip_code, subtotal)
     end
-
 
     def error_message_for response, payment
       return "Identificamos um problema com a forma de pagamento escolhida." unless payment.is_a? CreditCard 
@@ -92,13 +100,15 @@ class Checkout::CheckoutController < Checkout::BaseController
       params[:checkout][:payment][:receipt] = Payment::RECEIPT
       params[:checkout][:payment][:telephone] = address.telephone if address
 
-      payment = case params[:checkout][:payment_method]
+      case params[:checkout][:payment_method]
       when "billet"
         Billet.new(params[:checkout][:payment])
       when "debit"
         Debit.new(params[:checkout][:payment])
       when "credit_card"
         CreditCard.new(params[:checkout][:payment] )
+      when "mercadopago"
+        MercadoPagoPayment.new(params[:checkout][:payment] )
       else
         nil
       end

@@ -23,7 +23,7 @@
     fieldset {float:left;position:relative;
       span{width:99px;}
       &.first_child{margin-right:10px;
-        span{width:70px;}
+        span{width:80px;}
       }
        
       select{position: absolute;width:100%;line-height: 26px;top: 0;left: 0;border:solid 1px #D7D7D7;opacity:0;cursor:pointer;}
@@ -60,9 +60,10 @@
   			li{width: 110px;}
   		}
   		li{width:130px;height:20px;;position:relative;
-        a{display: inline-block;height: 15px;font-size: 13px;text-decoration: none;color: #000;background: url(/assets/catalog/sprite.png) no-repeat 0 -50px;padding-left: 13px;text-transform: capitalize;
+        a{display: inline-block;height: 15px;font-size: 13px;text-decoration: none;color: #000;background: image-url('catalog/sprite.png') no-repeat 0 -50px;padding-left: 13px;text-transform: capitalize;
           &.selected{background-position: 0 -86px !important;}
           &:hover{color:$base_color;}
+          &.clean{background: image-url('collections/sprite.png') -270px -119px no-repeat !important;}
         }
         &.clear_choice{position:absolute;top:5px;right:0;width:50px;
           a{background:none;text-transform:none;padding:0;}

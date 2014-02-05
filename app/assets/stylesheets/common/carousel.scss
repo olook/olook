@@ -327,16 +327,18 @@ body {
               overflow: auto;
               clear: both;
               li {
-                background: image-url('common/finish.jpg') 0 0 no-repeat;
-                text-indent: -9999px;
                 width: 147px;
                 height: 61px;
                 margin: 0 auto;
                 display: block;
                 cursor: pointer;
                 float: none;
+                font-size: 13px;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                @include bt_color($primary_bt_color, $primary_bt_color_hover);
                 &.grey-button {
-                  background-position: 0 -61px;
+                  @include bt_color($terciary_bt_color, $terciary_bt_color_hover);
                 }
                 input[type=submit] {
                   background: none;

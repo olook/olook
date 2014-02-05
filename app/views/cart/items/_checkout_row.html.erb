@@ -6,6 +6,7 @@
     <ul>
       <li class="txt-black"><%= item.variant.name %></li>
       <li>Tamanho: <%= item.variant.description %></li>
+      <li>Quantidade: <%= item.quantity %></li>
       <li><%= render partial: 'cart/items/subtotal', locals: { cart_service: cart_service, item: item } %>
     </ul>
   </td>

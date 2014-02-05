@@ -16,8 +16,10 @@ class ProductPresenter < BasePresenter
     h.render :partial => "shared/product_item", :collection => member.main_profile_showroom, :as => :product
   end
 
-  def render_related_products
-    h.render :partial => 'product/related_products', :locals => {:related_products => related_products.first(6)}
+  def render_look_products(admin)
+    if (look_products.size > 1 && product.inventory > 0 && product.has_more_than_half_look_products_available?) || admin
+      h.render :partial => 'product/look_products', :locals => {:look_products => look_products(admin), :product_presenter => self, :complete_look_discount => complete_look_discount} 
+    end
   end
 
   def render_description(show_facebook_button = true)
@@ -112,23 +114,24 @@ class ProductPresenter < BasePresenter
     quantity_left > 1
   end
 
-  def related_products
-    product.find_suggested_products.inject([]) do |result, related_product|
-      if (related_product.name != product.name && related_product.category) &&  (!related_product.sold_out?)
+  def look_products(admin = nil)
+    product_list = product.related_products.inject([]) do |result, related_product|
+      if ((related_product.name != product.name && related_product.category) && (!related_product.sold_out?) || admin)
         result << related_product
       else
         result
       end
     end
+    product_list.any? ? ([product] + product_list) : product_list
   end
 
-  def render_price_for cart_service
-    if product.promotion?
-      price_markdown(product.retail_price)
-    elsif has_valid_coupon_for?(cart_service, product)
-      price_markdown cart_service.price_with_coupon_for product
+  def render_price_for product_discount_service
+    product_discount_service.calculate_without_promotion_or_coupon
+    
+    if product_discount_service.discount > 0
+      price_markdown(product_discount_service)
     else
-      price_markup(product.price, "price")
+      return price_markup(product_discount_service.base_price, "price")
     end
   end
 
@@ -146,9 +149,9 @@ class ProductPresenter < BasePresenter
 
   private
 
-    def price_markdown retail_price
-      price_markup(product.price, "price_retail left2", "de: ") +
-      price_markup(retail_price, "price left2", "por: ")
+    def price_markdown discount_service
+      price_markup(discount_service.base_price, "price_retail left2", "de: ") +
+      price_markup(discount_service.final_price, "price left2", "por: ")
     end
 
     def price_markup price, css_class, prefix=nil
@@ -161,7 +164,16 @@ class ProductPresenter < BasePresenter
       product.variants.sort{|first, second| SIZES_TABLE[first.description].to_i <=> SIZES_TABLE[second.description].to_i }
     end
 
-    def has_valid_coupon_for? cart_service, product
-      cart_service.has_percentage_coupon? && cart_service.cart.coupon.apply_discount_to?(product)
+    def complete_look_discount
+      discount_hash = nil
+      begin
+        complete_look_promotion = Promotion.find(Setting.complete_look_promotion_id)
+        filters = complete_look_promotion.action_parameter.action_params
+        discount = complete_look_promotion.action_parameter.promotion_action.desc_value filters
+        discount_hash = {value: discount.gsub(/(R\$ |\%)/,""), is_percentage: discount.match(/(R\$ )/).blank? }
+      rescue
+        discount_hash = {}
+      end
+      discount_hash
     end
 end

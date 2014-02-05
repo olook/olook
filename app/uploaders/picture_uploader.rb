@@ -3,6 +3,7 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or ImageScience support:
   include CarrierWave::MiniMagick
+
   # To optimize jpg images using jpegoptm
   include Piet::CarrierWaveExtension
 
@@ -34,27 +35,35 @@ class PictureUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
 
-  process optimize: [{quality: 85}]
 
   version :thumb do
     process :resize_to_limit => [45, 68]
+    process optimize: [{quality: 85}]
   end
   version :bag do
     process :resize_to_limit => [70, 107]
+    process optimize: [{quality: 85}]
   end
   version :catalog do
     process :resize_to_fill => [200, 300]
+    process optimize: [{quality: 85}]
   end
   version :showroom do
     process :resize_to_limit => [146, 220]
+    process optimize: [{quality: 85}]
   end
   version :main do
     process :resize_to_limit => [365, 550]
+    process optimize: [{quality: 85}]
   end
   version :zoom_out do
     process :resize_to_limit => [730, 1100]
+    process optimize: [{quality: 85}]
   end
-
+  version :look_showroom do
+    process :resize_to_limit => [242, 365]
+    process optimize: [{quality: 85}]
+  end
 
   def extension_white_list
     %w(jpg jpeg gif png)

@@ -1,0 +1,12 @@
+.filter.main.bag_color
+  %span.selected-type.filter_type.opened Cor
+  .tab_bg.tab_color &nbsp;
+  %ol.color_filter
+    = check_box_tag "select_all_bag_colors", 1, params[:select_all_bag_colors], :class => "select_all"
+    = label_tag "select_all_colors", "Todas as cores"
+    - {'neutras' => 'Neutras', 'metalizadas' => 'Metalizadas', 'estampadas' => 'Estampadas', 'vivas' => 'Vivas', 'animal-print' => 'Animal Print', 'tons-pastel' => 'Tons pastel'}.sort{|a,b| b[0] <=> a[0]}.each do |subcategory, label|
+      %li{:class => subcategory}
+        = check_box_tag 'bag_colors[]', subcategory, params[:bag_colors] && params[:bag_colors].include?(subcategory), id: subcategory
+        = label_tag label, nil, for: subcategory
+    %li.clear_choice
+      %button.clear_filter.bt_clear_bag_color{:type => "button"} [ limpar ]

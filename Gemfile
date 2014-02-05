@@ -12,7 +12,7 @@ gem 'devise', '~> 1.5.3'
 gem 'omniauth', '= 1.0.3'
 gem 'omniauth-facebook'
 gem 'oa-oauth', '~> 0.3.0', :require => 'omniauth/oauth'
-gem 'therubyracer', '~> 0.9.4'
+gem 'therubyracer', '~> 0.12.0'
 gem 'resque', '~> 1.20.0', :require => 'resque/server'
 gem 'resque_mailer', '~> 2.0.2'
 gem 'resque-scheduler', '~>2.0.0', :require => ['resque_scheduler', 'resque_scheduler/server']
@@ -47,7 +47,7 @@ gem 'gyoku', '= 0.4.6'
 gem 'httpi', '~> 0.9'
 gem 'paper_trail', '~> 2'
 gem 'meta_search'
-gem 'newrelic_rpm', '>= 3.5.3.25'
+gem 'newrelic_rpm'
 # gem 'graylog2_exceptions'
 gem 'SyslogLogger', "~> 1.4.1"
 gem 'koala', '~> 1.3.0'
@@ -60,6 +60,8 @@ gem 'sass-rails', "~> 3.2.3"
 gem 'uglifier', '~> 1.0.3'
 gem 'business_time'
 gem "rails-settings-cached"
+gem "rubypress", :git => 'git://github.com/olook/rubypress.git', :branch => 'master'
+
 
 gem "boleto_bancario", :git => 'git@github.com:olook/boleto_bancario.git', :branch => 'homologacao_santander', require: false
 gem 'fb-channel-file'
@@ -75,7 +77,6 @@ gem 'piet', :git => 'git://github.com/albertbellonch/piet.git', ref: "630a98bef1
 group :development, :test do
   gem "fakeredis"
   gem 'better_errors'
-  gem 'rack-mini-profiler'
   gem 'faker'
   gem 'bullet'
   gem 'thin'
@@ -105,16 +106,17 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'fuubar'
-  gem 'launchy'
-  gem 'parallel_tests'
   gem "vcr", "~> 2.5.0"
   gem 'ci_reporter', :git => 'git://github.com/nicksieger/ci_reporter.git', require: false
   gem 'jasmine'
-  gem "selenium-webdriver", "~> 2.35.1"  
+  gem 'binding_of_caller'
+  gem 'rack-mini-profiler', '~> 0.1.23'
 end
 gem 'rubber', '~> 2.0', git: 'git://github.com/nelsonmhjr/rubber.git', branch: 'newrelic'
 gem 'open4'
 
+gem "codeclimate-test-reporter", group: :test, require: nil
 group :test do
   gem 'webmock'
 end
+gem 'passenger', require: false

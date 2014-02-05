@@ -1,6 +1,6 @@
 class RuleParameter < ActiveRecord::Base
 
-  belongs_to :promotion
+  belongs_to :matchable, polymorphic: true
   belongs_to :promotion_rule
 
   def matches? cart

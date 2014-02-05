@@ -1,11 +1,20 @@
+<div id="replace_new_menu_on_float"></div>
 <div id="wrapper_new_menu">
   <nav class="menu_new">
     <div class="content_new">
       <ul class="default_new">
-        <% present 'Menu', :user => current_user do |menu_presenter| %>
-          <%= menu_presenter.render_menu %>
+        <%= cache ["megamenu",mobile?] do %>
+          <% present 'Menu', :user => current_user do |menu_presenter| %>
+            <%= menu_presenter.render_menu(mobile?) %>
+          <% end %>
         <% end %>
       </ul>
+      <% unless params[:controller].include? "survey" %>
+        <div class="new_sacola">
+          <%= link_to "SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %>
+          <%= render 'shared/cart', :cart => @cart %>
+        </div>
+      <% end %>
     </div>
   </nav>
 </div>

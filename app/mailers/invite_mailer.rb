@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class InviteMailer < ActionMailer::Base
   default_url_options[:host] = "www.olook.com.br"
-  default :from => "olook <vip@o.conviteolook.com.br>"
+  default :from => "olook <bemvinda@olook.com.br>"
 
   def invite_email(invite)
     @invite = invite

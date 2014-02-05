@@ -1,0 +1,20 @@
+%h2 Listando Landing page de catálogos
+- content_for :secondary_navigation do
+  %li= link_to 'Nova landing page de catálogo', new_resource_path
+.inner
+  %table.table
+    %tr
+      %th url
+      %th Ativo?
+      %th
+      %th
+      %th
+    - @catalog_bases.each do |catalog_base|
+      %tr
+        %td= catalog_base.url
+        %td= catalog_base.enabled ? "Sim" : "Não"
+        %td= link_to 'Mostrar', resource_path(catalog_base), :class => 'button'
+        %td= link_to 'Editar', edit_resource_path(catalog_base), :class => 'button'
+        %td= link_to 'Apagar', resource_path(catalog_base), confirm: 'Tem certeza?', method: :delete, :class => 'button danger'
+  .actions-bar.wat-cf
+    .pagination

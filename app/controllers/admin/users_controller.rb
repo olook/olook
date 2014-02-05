@@ -36,6 +36,7 @@ class Admin::UsersController < Admin::BaseController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
+      MemberMailer.reseller_confirmation(@user).deliver if @user.reseller? && @user.active?
       flash[:notice] = 'User was successfully updated.'
     end
     respond_with :admin, @user
@@ -54,7 +55,7 @@ class Admin::UsersController < Admin::BaseController
     if sign_in User.find(params[:id]), :bypass => true
       session[:cart_id] = Cart.includes(:orders).where(:orders => {:id => nil}, :user_id => params[:id]).last.try(:id)
       session[:cart_credits] = nil
-      redirect_to(member_showroom_path) 
+      redirect_to(root_path)
     end
   end
 

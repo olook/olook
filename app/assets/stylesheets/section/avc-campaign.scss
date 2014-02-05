@@ -21,17 +21,18 @@
 		
 		&#tv-cinema{
 			width:280px;margin-right: 55px;
-			h2{@include logo(0,0);width:106px;height:136px;margin:0 0 19px 115px;text-indent: -9999px;}
+			h2{@include logo(0,0);width:106px;height:136px;margin:-15px 0 35px 85px;text-indent: -9999px;}
 		}
 		&#rede-brasil{
 			width:285px; margin-right:55px;
-			h2{@include logo(-115px,-26px);width:166px;height:113px;margin:23px 0 19px 62px;text-indent: -9999px;}
+			h2{@include logo(-115px,-26px);width:166px;height:113px;margin:10px 0 30px 43px;text-indent: -9999px;}
 		}
 		&#que-tal{
 			border: solid 1px #a7a9ac;
 			width:305px;
 			min-height: 215px;
 			margin:5px 0 60px;
+			background-color: #fafafa;
 			h2{@include logo(-411px,-154px);
 				font-family: $johnston;font-size: 14px;  padding-left: 56px;
     			padding-top: 14px;
@@ -50,7 +51,7 @@
 		}
 		&#rosa{
 			width:290px;
-			h2{@include logo(-5px,-160px);width:200px;height:126px;margin:8px 0 19px 38px;text-indent: -9999px;}
+			h2{@include logo(-5px,-160px);width:200px;height:126px;margin:23px 0 3px 38px;text-indent: -9999px;}
 		}
 		&#campanha{
 			clear:both;margin-top:10px;

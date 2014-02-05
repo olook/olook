@@ -21,7 +21,7 @@
   height: 485px;
   margin: 0 auto;
   margin-top: 20px;
-  background: image-url('landing_page/blue_olook.jpg') no-repeat;
+  background: image-url('landing_page/jeans.jpg') no-repeat;
   
   .infos{display:none;position:absolute;top:58px;right:74px;}
 
@@ -43,16 +43,18 @@
     position: absolute;
     .mail_error{color: $pink; font-size: 11px;}
     h1{
-      font-family: $johnston;
+      font-family: $avenir;
       color: #000;
-      font-size: 26px;
+      font-size: 25px;
       text-transform: uppercase;
       letter-spacing: -1px;
       margin-top: 40px;
+      font-weight: 600;
     }
     h2{
       margin: 8px 30px;
-      font-size: 14px;
+      font-size: 16px;
+      font-family: $avenir;
     }
     input{
       margin-top: 15px;
@@ -63,14 +65,15 @@
       color: #939598;
       text-align: center;
       &.bt-enviar{
-        background: image-url('landing_page/bt_quiz_entre.png') no-repeat 0 0;
+        margin-top: 20px;
         width: 204px;
-        height: 37px;
+        height: 40px;
         border: none;
         cursor: pointer;
-/*        &:hover{
-          background: image-url('landing_page/bt_quiz_entre.png') no-repeat 0 -43px;
-        }*/
+        font-size: 14px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        @include bt_color($primary_bt_color, $primary_bt_color_hover);
       }
     }
   }

@@ -97,7 +97,7 @@ describe Abacos::Cliente do
                   'Nome' => 'Jéssica Maíra',
                   'DataNascimento' => '15051980',
                   'Telefone' => '(35)3712-3457',
-                  'Celular' => '(21)9876-2737',
+                  'Celular' => '(21)99876-2737',
                   'DataCadastro' => member.created_at.strftime("%d%m%Y"),
                   'Endereco' => {
                         'Logradouro' => 'Rua Exemplo Teste',

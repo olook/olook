@@ -5,7 +5,7 @@
   var _gaq = _gaq || []
 
 - content_for :data_layer do
-  = render "shared/tag/new_user", register_source: "E", email: @email if @email.present?
+  = render "shared/tag/new_user", partner: nil, register_source: "E", email: @email if @email.present?
 
 - content_for :scripts do
   = javascript_include_tag 'quiz'
@@ -64,7 +64,7 @@
                 %li.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizQuestions', 'E o tamanho da sua calça jeans?', '#{ size }']);"}
                   = size
                   = radio_button_tag "quiz[user_data][pants_size]", "#{ size }"
-          = submit_tag 'Comprar Agora', :class => "end_quiz_button disable", :disabled => true, onclick: "_gaq.push(['_trackEvent', 'QuizProgress', 'QuizLastStep', ''])"
+          = submit_tag 'FINALIZAR QUIZ', :class => "end_quiz_button disable", :disabled => true, onclick: "_gaq.push(['_trackEvent', 'QuizProgress', 'QuizLastStep', ''])"
 
 
     .quiz_black_bar

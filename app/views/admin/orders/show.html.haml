@@ -1,0 +1,193 @@
+%h2
+  Ordem:
+  %b= @order.number
+.inner
+  .inner_info{:style => "float:left;width:20%;"}
+    %p
+      %b Cliente:
+      = link_to "#{@order.user.name} - #{@order.user.email}", admin_user_path(@order.user) if @order.user
+    %p
+      %button{:style => "padding:5px"}
+        %b
+          = link_to 'Login', "/admin/users/login/#{@order.user.id}" if @order.user
+          %b
+    %p
+      %b Data:
+      = l @order.created_at, :format => :short
+    %p
+      %b Gateway de Pagamento:
+      = humanize_gateway @order.gateway
+    %p
+      %b Cógido de identificação:
+      = @order.erp_payment ? @order.erp_payment.identification_code : ""
+    %p
+      %b Moip ID:
+      = @order.erp_payment ? @order.erp_payment.try(:gateway_code) : "Pagamento não encontrado"
+    %p
+      %b URL de Pagamento:
+      = @order.erp_payment ? link_to("Clique aqui para abrir a url de pagamento", @order.erp_payment.url) : ""
+    %p
+      %b Status:
+      = @order.status
+    %p
+      %b Método de pagamento:
+      - if @order.erp_payment
+        = @order.erp_payment.human_to_s
+        = "- #{@order.erp_payment.bank}" if @order.erp_payment.is_a? CreditCard
+      - else
+        Pagamento não encontrado
+    %p
+      %b Produtos Total:
+      = number_to_currency(@order.subtotal)
+    %p
+      %b Frete Total:
+      = number_to_currency(@order.freight_price)
+    %p
+      %b Total Pago:
+      = number_to_currency(@order.amount_paid)
+    %p
+      %b Parcelas:
+      = @order.installments
+      x
+    %p
+      %b Estimativa de Entrega:
+      = @order.freight.delivery_time if @order.freight
+      dias úteis
+    %div
+      %h3 Cupons
+      - @order.payments.each do |payment|
+        %p
+          - if payment.coupon_id?
+            %b= payment.coupon.code
+            %b= number_to_currency(payment.coupon.value)
+    %div
+      %h3 Endereço de entrega
+      - if @address
+        %p= @address.identification
+        %p= "#{@address.street}, #{@address.number} - #{@address.neighborhood}"
+        %p= "#{@address.zip_code}"
+        %p= "#{@address.city}, #{@address.state}"
+  = render :partial => 'purchase_timeline', :locals => {:order => @order}
+  %table.table
+    %tr
+      %th{rowspan: "2"} Brinde?
+      %th{rowspan: "2"}
+      %th{rowspan: "2"} SKU
+      %th{rowspan: "2"} Produto
+      %th{rowspan: "2"} Qtd
+      %th{rowspan: "2"} Preço cheio
+      %th{rowspan: "2"} Preço vitrine
+      %th{rowspan: "2"} Total Pago
+      %th.order_discount{colspan: "6"}
+        Descontos
+      %th{rowspan: "2"}
+        Créditos de Reembolso
+        %br/
+        (usados)
+      %th{rowspan: "2"}
+        Créditos de Fidelidade
+        %br/
+        (ganhos)
+      %th{rowspan: "2"}
+    %tr
+      %th.order_discount Markdown
+      %th.order_discount Cupom
+      %th.order_discount Promo
+      %th.order_discount Outros
+      %th.order_discount Fidelidade
+      %th.order_discount MGM
+    - @order.line_items.each do |line_item|
+      %tr.infos_item
+        %td= "Brinde" if line_item.is_freebie
+        %td= image_tag(line_item.variant.thumb_picture) if line_item.variant.thumb_picture
+        %td= link_to line_item.variant.sku, admin_product_path(line_item.variant.product)
+        %td.product_name= link_to line_item.variant.name, admin_product_path(line_item.variant.product)
+        %td= line_item.quantity
+        %td= number_to_currency(line_item.price)
+        %td= number_to_currency(line_item.sale_price)
+        %td= number_to_currency(line_item.total_paid)
+        %td= number_to_currency(line_item.markdown)
+        %td= number_to_currency(line_item.calculate_coupon_discount)
+        %td= number_to_currency(line_item.calculate_promotion_discount)
+        %td= number_to_currency(line_item.calculate_other_credits_discount)
+        %td= number_to_currency(line_item.calculate_loyalty_credits_discount)
+        %td= number_to_currency(line_item.calculate_invite_credits_discount)
+        %td= number_to_currency(line_item.calculate_redeem_credits_discount)
+        %td= number_to_currency(line_item.calculate_available_credits)
+        %td
+          - if line_item.debits.empty? && !line_item.is_freebie
+            = form_tag(remove_loyalty_credits_admin_order_path(@order)) do
+              = hidden_field_tag 'line_item_id', line_item.id
+              = submit_tag 'Remover créditos de fidelidade'
+  %h3 Total de Créditos de fidelidade
+  %p
+    = number_to_currency(@order.line_items.sum(&:calculate_loyalty_credit_amount))
+  %h3 Abacos
+  %p
+    %b Erp Integrado em:
+    - if @order.erp_integrate_at
+      = l @order.erp_integrate_at, :format => :short
+    - else
+      Não ocorreu
+  %p
+    %b Erp Cancelado em:
+    - if @order.erp_cancel_at
+      = l @order.erp_cancel_at, :format => :short
+    - else
+      Não ocorreu
+  %p
+    %b Erp Pagamento em:
+    - if @order.erp_payment_at
+      = l @order.erp_payment_at, :format => :short
+    - else
+      Não ocorreu
+  %p
+    %b Erro de integração do Erp:
+    = @order.erp_integrate_error
+  %p
+    %b Erro de cancelamento do Erp:
+    = @order.erp_cancel_error
+  %p
+    %b Erro do pagamento do Erp:
+    = @order.erp_payment_error
+  %p
+  %h3= link_to 'Pagamentos', admin_payments_path(:search => {:order_id_eq => @order.id})
+  - @order.payments.each do |payment|
+    %p
+      %b
+        = link_to payment_with_origin(payment), admin_payment_path(payment)
+        \:
+      = number_to_currency payment.total_paid
+      \-
+      \#{number_to_percentage payment.percent, :precision => 2}
+      %b= payment.state
+  - unless @order.gateway == 1
+    %h3 Informações sobre Clear Sale
+    - if @order.clearsale_order_responses.empty?
+      Não existem transações
+    - else
+      #order_clear_sale
+        %table.table
+          %tr
+            %th ID
+            %th Score
+            %th Status
+            %th Processado
+            %th Última tentativa
+          - @order.clearsale_order_responses.each do |response|
+            %tr
+              %td= response.id
+              %td= response.score
+              %td= response.status
+              %td= response.processed
+              %td= response.last_attempt
+        %p
+  %p
+    - if @order.state_events(guard: false).many?
+      = form_tag(change_state_admin_order_path(@order), :class => "cb") do
+        = select_tag "event", options_from_collection_for_select(@order.state_events(guard: false).map{|a| [a,I18n.t("activerecord.state_machines.order.state.events.#{a}")]}, 'first',"last")
+        = submit_tag 'Mudar!'
+    - else
+      Não há estados para a alteração.
+- content_for :secondary_navigation do
+  %li= link_to 'Back', admin_orders_path

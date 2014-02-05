@@ -15,6 +15,15 @@ module Abacos
       
       product.price = self.price
       product.retail_price = self.retail_price
+
+      # alterando a master variant antes do product, senao o preco do product
+      # volta a ser o preco antigo que estava com a master_variant (por causa de
+        # um monte de callbacks )
+      product.master_variant.price = product.price
+      product.master_variant.retail_price = product.retail_price
+      product.master_variant.save!
+      
+
       if product.save!
         CatalogService.save_product product, :update_price => true
       end

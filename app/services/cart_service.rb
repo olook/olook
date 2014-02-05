@@ -19,7 +19,7 @@ class CartService
   end
 
   def freight
-    cart.address ? freight_for_zip_code(cart.address.zip_code).merge({address: cart.address}) : {}
+    cart.address ? (freight_for_zip_code(cart.address.zip_code).fetch(:fast_shipping,nil) || freight_for_zip_code(cart.address.zip_code).fetch(:default_shipping)).merge({address: cart.address}) : {}
   end
 
   def freight_for_zip_code zip_code
@@ -39,11 +39,11 @@ class CartService
   end
 
   def item_price(item)
-    get_retail_price_for_item(item).fetch(:price)
+    item.price
   end
 
   def item_retail_price(item)
-    get_retail_price_for_item(item).fetch(:retail_price)
+    item.retail_price
   end
 
   def item_promotion?(item)
@@ -58,25 +58,15 @@ class CartService
     item_retail_price(item) * item.quantity
   end
 
-  def item_discount_percent(item)
-    get_retail_price_for_item(item).fetch(:percent)
-  end
-
-  def item_discount_origin(item)
-    get_retail_price_for_item(item).fetch(:origin)
-  end
-
   def item_discount_origin_type(item)
-    get_retail_price_for_item(item).fetch(:origin_type)
-  end
-
-  def item_discounts(item)
-    discounts = get_retail_price_for_item(item).fetch(:discounts)
-    # For compatibility reason
-    # Terrible. Improve it
-    discounts << :promotion if item.has_adjustment? && cart.coupon && !should_override_promotion_discount?
-
-    discounts
+    if item.price != item.retail_price
+      if item.cart_item_adjustment.value == 0
+        return :olooklet
+      elsif /Coupon:/ =~ item.cart_item_adjustment.source
+        return :coupon
+      end
+    end
+    ''
   end
 
   def subtotal(type = :retail_price)
@@ -91,10 +81,6 @@ class CartService
     increase += cart.increment_from_gift_wrap
     increase += freight_price
     increase
-  end
-
-  def total_coupon_discount
-    calculate_discounts.fetch(:total_coupon)
   end
 
   def total_credits_discount
@@ -125,7 +111,6 @@ class CartService
 
   def total_discount_by_type(type, payment=nil)
     total_value = 0
-    total_value += total_coupon_discount if :coupon == type
     total_value += calculate_discounts.fetch(:total_credits_by_invite) if :credits_by_invite == type
     total_value += calculate_discounts.fetch(:total_credits_by_redeem) if :credits_by_redeem == type
     total_value += calculate_discounts.fetch(:total_credits_by_loyalty_program) if :credits_by_loyalty_program == type
@@ -142,25 +127,10 @@ class CartService
     total_value
   end
 
-  def active_discounts
-    discounts = cart.items.inject([]) do |discounts, item|
-      discounts + item_discounts(item)
-    end
-
-    discounts.uniq
-  end
-
-  def has_more_than_one_discount?
-    active_discounts.size > 1
-  end
-
   def total(payment=nil)
-    # total = subtotal(:retail_price)
-
     total = cart_sub_total
     total += total_increase
     total -= total_discount(payment)
-    # total -= cart_total_promotion_discount unless should_override_promotion_discount?
 
     total = Payment::MINIMUM_VALUE if total < Payment::MINIMUM_VALUE
     total
@@ -176,7 +146,6 @@ class CartService
     raise ActiveRecord::RecordNotFound.new('A valid user is required for generating an order.') if cart.user.nil?
 
     user = cart.user
-
     order = Order.create!(
       :cart_id => cart.id,
       :user_id => user.id,
@@ -189,7 +158,7 @@ class CartService
       :user_first_name => user.first_name,
       :user_last_name => user.last_name,
       :user_email => user.email,
-      :user_cpf => user.cpf,
+      :user_cpf => user.reseller_without_cpf? ? user.cnpj : user.cpf,
       :gross_amount => self.gross_amount,
       :gateway => gateway,
       :tracking => tracking
@@ -197,15 +166,26 @@ class CartService
 
     order.line_items = []
 
+
     cart.items.each do |item|
 
       order.line_items << LineItem.new(variant_id: item.variant.id, quantity: item.quantity, price: item_price(item),
-                    retail_price: normalize_retail_price(order, item), gift: item.gift)
+                    retail_price: normalize_retail_price(order, item), sale_price: item.product.retail_price, gift: item.gift)
 
       create_freebies_line_items_and_update_subtotal(order, item)
     end
 
-    order.freight = Freight.create(freight)
+    if Freebie.selection_for(cart.id)
+      freebie = Freebie.new(subtotal: cart.sub_total, cart_id: cart.id)
+      if freebie.can_receive_freebie?
+        freebie_item = LineItem.new(variant_id: freebie.variant_id, quantity: 1, price: 0.1,
+                                    retail_price: 0.1, gift: false, is_freebie: true)
+        order.line_items << freebie_item
+        order.amount_discount += (0.1)
+        order.subtotal += (0.1)
+      end
+    end
+    order.freight = Freight.create(freight.except(:shipping_service_priority,:cost_for_free))
     order.save
     order
   end
@@ -236,55 +216,6 @@ class CartService
     cart.total_coupon_discount > cart_total_promotion_discount
   end
 
-  def get_retail_price_for_item(item)
-    origin = ''
-    percent = 0
-    final_retail_price = item.retail_price
-    final_retail_price ||= 0
-    price = item.price
-    discounts = []
-    origin_type = ''
-
-    if price != final_retail_price && !item.has_adjustment? && cart.coupon.nil?
-      Rails.logger.info("[OLOOKLET] Calculating Olooklet retail price for item")
-      percent =  (1 - (final_retail_price / price) )* 100
-      origin = 'Olooklet: '+percent.ceil.to_s+'% de desconto'
-      discounts << :olooklet
-      origin_type = :olooklet
-    end
-
-    coupon = cart.coupon
-
-    if coupon && !coupon.is_percentage?
-      discounts << :coupon_of_value
-    end
-
-    if coupon && coupon.is_percentage? && coupon.apply_discount_to?(item.product) && item.product.can_supports_discount?
-      discounts << :coupon
-      coupon_value = price - ((coupon.value * price) / 100)
-      if coupon_value < final_retail_price && should_override_promotion_discount?
-        percent = coupon.value
-        final_retail_price = coupon_value
-        origin = 'Desconto de '+percent.ceil.to_s+'% do cupom '+coupon.code
-        origin_type = :coupon
-      end
-    end
-
-    #if
-    # facebook_discount_value = calculate_facebook_discount_value(final_retail_price)
-    # final_retail_price -= facebook_discount_value
-    # discounts << :facebook
-
-    {
-      :origin       => origin,
-      :price        => price,
-      :retail_price => final_retail_price,
-      :percent      => percent,
-      :discounts    => discounts,
-      :origin_type  => origin_type
-    }
-  end
-
   def minimum_value
     return 0.0 if freight_price > Payment::MINIMUM_VALUE
     Payment::MINIMUM_VALUE
@@ -294,26 +225,15 @@ class CartService
     discounts = []
     retail_value = self.subtotal(:retail_price) - minimum_value
     retail_value = 0.0 if retail_value < 0
-    total_discount = 0.0
-    coupon_value = cart.coupon.value if cart.coupon && !cart.coupon.is_percentage?
-    coupon_value = 0.0 if cart.coupon && !should_override_promotion_discount?
-    coupon_value ||= 0.0
     billet_discount_value = 0.0
     debit_discount_value = 0.0
     facebook_discount_value = 0.0
-
-    if coupon_value >= retail_value
-      coupon_value = retail_value
-    end
-
-    retail_value -= coupon_value
 
     use_credits = self.cart.use_credits
     credits_loyality = 0.0
     credits_invite = 0.0
     credits_redeem = 0.0
     if (use_credits == true && self.cart.user)
-
 
       # Use loyalty only if there is no product with olooklet discount in the cart
       credits_loyality = allow_credit_payment? ? self.cart.user.user_credits_for(:loyalty_program).total : 0.0
@@ -368,18 +288,16 @@ class CartService
 
     total_credits = credits_loyality + credits_invite + credits_redeem
 
-    discounts << :coupon if coupon_value > 0.0
     discounts << :billet_discount if billet_discount_value > 0
     discounts << :debit_discount if billet_discount_value > 0
 
     {
       :discounts                         => discounts,
       :is_minimum_payment                => (minimum_value > 0 && retail_value <= 0),
-      :total_discount                    => (coupon_value + total_credits + billet_discount_value + debit_discount_value + facebook_discount_value),
+      :total_discount                    => (total_credits + billet_discount_value + debit_discount_value + facebook_discount_value),
       :billet_discount                   => billet_discount_value,
       :debit_discount                    => debit_discount_value,
       :facebook_discount                 => facebook_discount_value,
-      :total_coupon                      => coupon_value,
       :total_credits_by_loyalty_program  => credits_loyality,
       :total_credits_by_invite           => credits_invite,
       :total_credits_by_redeem           => credits_redeem,
@@ -404,16 +322,6 @@ class CartService
     facebook_discount_percent = 0.02.to_d
     facebook_discount_value = (retail_value.to_d + minimum_value.to_d) * facebook_discount_percent
     facebook_discount_value.round(2, BigDecimal::ROUND_HALF_UP)
-  end
-
-  def has_percentage_coupon?
-    self.cart.coupon.present? && self.cart.coupon.is_percentage?
-  end
-
-  def price_with_coupon_for product
-    coupon = self.cart.coupon
-    return product.retail_price if should_not_calculate? product, coupon
-    calculate_percentage_discount_for product, coupon
   end
 
   private

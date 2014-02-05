@@ -14,8 +14,8 @@ describe ProductController do
     
     before :each do
       session[:order] = order
-      product.price = 29.90
-      product.save!
+      product.master_variant.price = 29.90
+      product.master_variant.save!
       FactoryGirl.create(:main_picture, :product => product)
     end
 

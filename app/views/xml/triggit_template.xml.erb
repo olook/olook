@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+<% @products.each do |product| %>
+<product>
+<id><%= product.id %></id>
+<name><![CDATA[<%= product.formatted_name(200) %>]]></name>
+<image><%= full_image_path product.xml_picture(:main) %></image>
+<url>
+  <![CDATA[<%= product.product_url(:utm_source => "triggit", :utm_medium => "Remarketing", :utm_campaign => "Produtos", :utm_content => product.id) %>]]>
+</url>
+<price><%= number_with_precision(product.retail_price, precision: 2, separator: ".") %></price>
+<brand><![CDATA[ <%= product.brand %>]]> </brand>
+<description><![CDATA[ <%= product.description %>]]> </description>
+<category><![CDATA[<%= product.subcategory %>]]></category>
+</product>
+<% end %>
+</products>

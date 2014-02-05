@@ -53,8 +53,8 @@ class Admin::CollectionThemeGroupsController < Admin::BaseController
   def redirect_if_called_remotely
     if request.xhr?
       respond_with(:admin, @collection_theme_group)
-    elsif params[:redirect_to]
-      redirect_to params[:redirect_to]
+    elsif params[:redirect_to] && params[:redirect_to] == 'back'
+      redirect_to :back
     else
       redirect_to(admin_collection_theme_groups_path)
     end

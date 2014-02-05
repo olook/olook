@@ -4,8 +4,8 @@ class SearchResult
   attr_reader :products, :facets
 
   def initialize(response, options = {})
-   @hits = JSON.parse(response.body)["hits"]
-   @facets = JSON.parse(response.body)["facets"]
+   @hits = JSON.parse(response.body)["hits"] || empty_hits_result
+   @facets = JSON.parse(response.body)["facets"] || {}
    parse_facets if options[:parse_facets]
    parse_products if options[:parse_products]
   end
@@ -20,10 +20,19 @@ class SearchResult
 
   # TEMP
   def hits
-    @hits.dup if @hits
+    @hits.dup
+  end
+
+  def set_groups(key, new_hash)
+    @groups[key] = new_hash
   end
 
   private
+
+    def empty_hits_result
+      {"hit" => []}
+    end
+
     def parse_facets
       @groups = {}
       @facets.map do |group_name, constraints|

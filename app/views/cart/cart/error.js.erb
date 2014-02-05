@@ -1,5 +1,5 @@
-$('.notice').text('<%= notice %>');
+$('.warning-msg p').html('<span><%= @notice_message %></span>');
+$('.warning-msg').fadeIn();
 $('html, body').animate({
   scrollTop: 0
 }, 'slow');
-initBase.showErrorMessages();

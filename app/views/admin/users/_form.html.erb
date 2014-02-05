@@ -9,6 +9,15 @@
       </ul>
     </div>
   <% end %>
+  <% if @user.reseller? %>
+    <div class="field">
+      <%= f.label :active %><br />
+      <%= f.label :active, "Não" %>
+      <%= f.radio_button :active, "0", checked: @user.active.blank? %>
+      <%= f.label :active, "Sim" %>
+      <%= f.radio_button :active, "1", checked: @user.active %>
+    </div>
+  <% end %>
   <div class="field">
     <%= f.label :first_name %><br />
     <%= f.text_field :first_name %>
@@ -24,6 +33,10 @@
   <div class="field">
     <%= f.label :cpf %><br />
     <%= f.text_field :cpf %>
+  </div>
+  <div class="field">
+    <%= f.label :cnpj %><br />
+    <%= f.text_field :cnpj %>
   </div>
 
   <div class="actions">

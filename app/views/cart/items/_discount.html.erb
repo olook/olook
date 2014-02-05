@@ -1,6 +1,0 @@
-<% if has_discount?(item) %>
-    <%= link_to promotion_discount(item), "#", :class => 'discount_percent' %>
-  <div class='discount_origin'>
-    <p><%= cart_service.item_discount_origin(item) %></p>
-  </div>
-<% end %>

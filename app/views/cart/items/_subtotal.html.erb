@@ -1,8 +1,0 @@
-<%= hidden_field('variant', "unit_value_#{item.product.id}", :value => cart_service.item_retail_price(item)) %>
-
-<% if has_discount?(item) %>
-  <p class="price_retail">de: <%= number_to_currency(cart_service.item_price_total(item)) %></p>
-  <p>por: <%= number_to_currency(cart_service.item_retail_price_total(item)) %></p>
-<% else %>
-  <p id="item_subtotal_<%= item.id %>"><%= number_to_currency(cart_service.item_price_total(item)) %></p>
-<% end %>

@@ -5,10 +5,6 @@ class CollectionThemePresenter < BasePresenter
     h.render "nav", :collection_themes => collection_themes if showing_specific_category?
   end
 
-  def render_search_form
-    h.render :partial => 'moments/search_form', :locals => {:collection_theme_presenter => self}
-  end
-
   def display_color_filters
     h.render :partial => 'shared/filters/color_filters', :locals => {:collection_theme_presenter => self, product_type: category_type}
   end
@@ -23,10 +19,6 @@ class CollectionThemePresenter < BasePresenter
 
   def display_shoe_size_filters
     h.render :partial => 'shared/filters/shoe_size_filters', :locals => {:collection_theme_presenter => self} if shoes?
-  end
-
-  def display_news_filters
-    h.render :partial => 'shared/filters/news_filters', :locals => {:collection_theme_presenter => self} #if shoes?
   end
 
   def display_heel_filters

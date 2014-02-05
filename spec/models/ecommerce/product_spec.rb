@@ -135,42 +135,6 @@ describe Product do
     it { should eq(6) }
   end
 
-  describe ".featured_products" do
-
-    context "when there is no featured products configured" do
-      before do
-        Product.should_receive(:fetch_all_featured_products_of).with(Category::SHOE).and_return([])
-      end
-
-      it "return empty array" do
-        Product.featured_products(Category::SHOE).should be_empty
-      end
-    end
-
-    context "when there is two featured products configured" do
-      before do
-        featured_products = [
-          mock_model(Product, inventory_without_hiting_the_database: 2),
-          mock_model(Product, inventory_without_hiting_the_database: 1)
-        ]
-
-        Product.should_receive(:fetch_all_featured_products_of)
-          .with(Category::SHOE)
-          .and_return(featured_products)
-
-        Product.any_instance.stub(:inventory_without_hiting_the_database).and_return(2)
-      end
-
-      it "return both products" do
-        Product.featured_products(Category::SHOE).should have(2).items
-      end
-
-
-    end
-
-
-  end
-
   describe "#add_freebie" do
     let(:product) { FactoryGirl.create :blue_sliper_with_variants }
     let(:bag) { FactoryGirl.create(:basic_bag_with_variant) }
@@ -296,10 +260,11 @@ describe Product do
   describe 'when working with related products' do
     subject { FactoryGirl.create(:red_slipper) }
     let(:silver_slipper) { FactoryGirl.create(:silver_slipper) }
+    let(:shoe) { FactoryGirl.create(:shoe) }
     let(:unrelated_product) { FactoryGirl.create(:shoe, :casual) }
 
     it "#related_products" do
-      FactoryGirl.create(:related_product, :product_a => silver_slipper, :product_b => subject )
+      FactoryGirl.create(:related_product, :product_a => subject, :product_b => silver_slipper )
       subject.related_products.should include(silver_slipper)
     end
 
@@ -311,7 +276,7 @@ describe Product do
 
     describe "#is_related_to?" do
       before :each do
-        FactoryGirl.create(:related_product, :product_a => silver_slipper, :product_b => subject )
+        FactoryGirl.create(:related_product, :product_a => subject, :product_b => silver_slipper )
       end
 
       it "should return true when the relationship exists" do
@@ -386,84 +351,6 @@ describe Product do
             loaded_product.save
           }.not_to raise_error
         end
-      end
-    end
-  end
-
-  describe "methods delegated to master_variant" do
-    subject { FactoryGirl.create(:shoe, :casual) }
-
-    describe 'getter methods' do
-      it "#price" do
-        subject.master_variant.should_receive(:price)
-        subject.price
-      end
-
-      it "#retail_price" do
-        subject.master_variant.should_receive(:retail_price)
-        subject.retail_price
-      end
-
-      it "#discount_percent" do
-        subject.master_variant.should_receive(:discount_percent)
-        subject.discount_percent
-      end
-
-      it "#width" do
-        subject.master_variant.should_receive(:width)
-        subject.width
-      end
-
-      it "#height" do
-        subject.master_variant.should_receive(:height)
-        subject.height
-      end
-
-      it "#length" do
-        subject.master_variant.should_receive(:length)
-        subject.length
-      end
-
-      it "#weight" do
-        subject.master_variant.should_receive(:weight)
-        subject.weight
-      end
-    end
-
-    describe 'setter methods' do
-      it "#price=" do
-        subject.price = 765.0
-        subject.master_variant.price.should == 765.0
-      end
-
-      it "#retail_price=" do
-        subject.retail_price = 99.0
-        subject.master_variant.retail_price.should == 99.0
-      end
-
-      it "#discount_percent=" do
-        subject.discount_percent = 99.0
-        subject.master_variant.discount_percent.should == 99.0
-      end
-
-      it "#width=" do
-        subject.width = 55.0
-        subject.master_variant.width.should == 55.0
-      end
-
-      it "#height=" do
-        subject.height = 66.0
-        subject.master_variant.height.should == 66.0
-      end
-
-      it "#length=" do
-        subject.length = 77.0
-        subject.master_variant.length.should == 77.0
-      end
-
-      it "#weight=" do
-        subject.weight = 987.0
-        subject.master_variant.weight.should == 987.0
       end
     end
   end
@@ -1103,4 +990,45 @@ describe Product do
       it { expect(subject.time_in_stock).to eq(365) }
     end
   end
+
+ describe 'when working with complete look products' do
+    subject { FactoryGirl.create(:red_slipper) }
+    let(:silver_slipper) { FactoryGirl.create(:silver_slipper, :in_stock) }
+    let(:shoe) { FactoryGirl.create(:shoe, :in_stock) }
+    let(:unrelated_product) { FactoryGirl.create(:shoe, :casual, :in_stock) }
+
+    describe "#list_contains_all_complete_look_products?" do
+      before :each do
+        subject.relate_with_product(silver_slipper)
+        subject.relate_with_product(shoe)
+      end
+
+      context "when list contains all related products" do
+        context "when list contains exactly the related products" do
+          it "returns true" do
+            subject.list_contains_all_complete_look_products?([silver_slipper.id, shoe.id, subject.id]).should be_true
+          end
+        end
+        context "when list contains more ids than the related products" do
+          it "returns true" do
+            subject.list_contains_all_complete_look_products?([silver_slipper.id, shoe.id, subject.id, unrelated_product.id]).should be_true
+          end
+        end        
+      end
+
+      context "when list doesn't contain all related products" do
+        it "returns false" do
+          subject.list_contains_all_complete_look_products?([silver_slipper.id, subject.id]).should be_false
+        end
+      end
+    end
+
+    describe "#look_product_ids" do
+      it "displays the related product ids + given product id" do
+        subject.relate_with_product(silver_slipper)
+        subject.relate_with_product(shoe)
+        subject.look_product_ids.should eq([silver_slipper.id,shoe.id, subject.id])
+      end
+    end
+  end  
 end

@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Cart::CartController < ApplicationController
-  layout "site"
+  layout "lite_application"
 
-  respond_to :html, :js
+  respond_to :html, :js, :json
   skip_before_filter :authenticate_user!, :only => :add_variants
 
   def show
@@ -13,16 +13,12 @@ class Cart::CartController < ApplicationController
     @url += ":" + request.port.to_s if request.port != 80
     @chaordic_cart = ChaordicInfo.cart(@cart, current_user, cookies[:ceid])
     @suggested_product = find_suggested_product
-
+    @cart_calculator = CartProfit::CartCalculator.new(@cart)
     @promo_over_coupon = false
-    if @cart && @cart.coupon && !@cart.items.empty?
-      if @cart.coupon.is_more_advantageous_than_any_promotion? @cart
-        @promo_over_coupon = true if @cart.items.any? { |i| i.liquidation? }
-      else
-        @cart.remove_coupon!
-        @promo_over_coupon = true
-      end
+    if @cart.coupon_id && Promotion.select_promotion_for(@cart)
+      @promo_over_coupon = true
     end
+    @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
   end
 
   def destroy
@@ -32,28 +28,41 @@ class Cart::CartController < ApplicationController
   end
 
   #
-  # Only used by chaordic
+  # Only used by chaordic and wishlist
   #
   def add_variants
     @report  = CreditReportService.new(@user) unless @report
     cart = Cart.find_by_id(params[:cart_id]) || current_cart
     cart.add_variants params[:variant_numbers]
-    render :show
+    @cart_calculator = CartProfit::CartCalculator.new(@cart)
+
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: {message: 'sucesso!'} }
+    end
   end
 
   def update
-    if  coupon = Coupon.find_by_code(params[:cart][:coupon_code])
-      unless coupon.is_more_advantageous_than_any_promotion? @cart
-        params[:cart].delete(:coupon_code)
-        render :error, :locals => { :notice => "Os descontos não são acumulativos, então escolhemos o desconto mais vantajoso para você." }
-      end
-    end
     @cart.update_attributes(params[:cart])
     if @cart.errors.any?
-      notice_message = @cart.errors.messages.values.flatten.first
-      render :error, :locals => { :notice => notice_message }
+      @notice_message = @cart.errors[:coupon_code].first
+      render :error
+      return
     end
+
     @cart.reload
+    @cart_calculator = CartProfit::CartCalculator.new(@cart)
+
+    if @cart.coupon
+      @coupon_value = -1 * (@cart.items.inject(0.0){|sum,i| sum+i.adjustment_value.to_f})
+    end
+
+    @freebie = Freebie.new(subtotal: @cart.sub_total, cart_id: @cart.id)
+  end
+
+  def i_want_freebie
+    Freebie.save_selection_for(@cart.id, params[:i_want_freebie])
+    render text: 'OK'
   end
 
   private

@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 module ProductsHelper
+
   def variant_classes(variant, shoe_size = nil)
     classes = []
     if !variant.available_for_quantity?
@@ -63,6 +64,18 @@ module ProductsHelper
 
   def sku_for product
     product.master_variant.sku
+  end
+
+  def look_products_sum look_products
+    look_products.sum{|p| p.promotion? ? p.retail_price : p.price}
+  end
+
+  def product_sum_discount(sum, discount, is_percentage)
+    is_percentage ? sum * (1 - (discount/100.0)) : sum - discount  
+  end
+
+  def display_discount_text(discount, is_percentage)
+    is_percentage ? "#{discount}%" : number_to_currency(discount)  
   end
 
 end

@@ -19,14 +19,14 @@ class Admin::PromotionsController < Admin::BaseController
     @promotion_rules = PromotionRule.all
     @promotion = Promotion.new
     @action_parameter = ActionParameter.new
-    3.times { @promotion.rule_parameters.build }
+    @promotion.rule_parameters.build
   end
 
   def edit
     @promotion_actions = PromotionAction.all
     @promotion_rules = PromotionRule.all
     @promotion = Promotion.find(params[:id])
-    3.times { @promotion.rule_parameters.build }
+    @promotion.rule_parameters.build
     @action_parameter = @promotion.action_parameter ? @promotion.action_parameter : ActionParameter.new
   end
 
@@ -35,7 +35,7 @@ class Admin::PromotionsController < Admin::BaseController
     if @promotion.save
       flash[:notice] = 'Promotion was successfully created.'
     else
-      3.times { @promotion.rule_parameters.build }
+      @promotion.rule_parameters.build
       @action_parameter = @promotion.action_parameter ? @promotion.action_parameter : ActionParameter.new
       @promotion_actions = PromotionAction.all
       @promotion_rules = PromotionRule.all

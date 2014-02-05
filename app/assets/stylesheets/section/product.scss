@@ -201,65 +201,6 @@
     }
   }
 }
-/** MODAL COMPARTILHAR POR EMAIL**/
-div#compartilhar_email {
-  background: #FFF;
-  padding: 35px;
-  display: none;
-  width: 530px;
-  height:370px;
-  border:solid 1px #000;
-  fieldset{
-    margin-bottom: 20px;
-  }
-  form{margin-left: 35px;padding-top: 13px;}
-  input{
-    background: white image-url("common/background-inputs.png") bottom repeat-x;
-    border: 1px solid #bfbfbf;
-    display: block;
-    width: 445px;
-    height: 35px;
-    margin-top: 5px;
-    padding-left: 10px;
-    &#send{
-      background: image-url("product/bt-send.png") no-repeat 0 0;
-      text-indent: -9999px;
-      display: block;
-      border: none;
-      cursor: pointer;
-      width: 138px;
-      height: 43px;
-      float: right;
-      margin-right: 46px;
-      margin-top: 10px;
-      &:hover{background-position: 0 -48px;}
-      &.opacidade{opacity:0.7;filter:alpha(opacity=70);}
-    }
-  }
-  label{
-    font-size: 14px;
-    font-family: $avenir;
-    color: #000;
-    padding-bottom: 3px;
-    span{font-size:14px;}
-  }
-  p{font-family: $johnston;
-    font-size: 31px;
-    letter-spacing: 2px;
-    color: #000;
-    margin-bottom: 20px;
-    text-align: center;
-    padding-top: 15px;
-    &.forgot-msg{font-family:$avenir;font-size:14px;margin:0 !important;display:none;}
-  }
-  div.msg{background:#F0FDDF;border: 1px solid #CBD7BC;height: 32px;margin: 15px 0 5px 0px;width: 504px;display:none;
-    p{color: #000;font-family: avenir,arial,sans-serif;font-size: 14px;line-height: 24px;margin-top: 4px;min-height: 22px;padding: 0 0 0 38px;background: image-url("campaign_emails/sprite.png") no-repeat -260px -53px;}
-
-    &.error{background:#FDADB6;border: 1px solid #F37C8F;display: none;height: 32px;padding: 0;
-      p{background: image-url('campaign_emails/sprite.png') no-repeat -333px 0 !important;padding: 0 0 0 25px;}
-    }
-  }
-}
 
 /***** VALENTINES DAY *****/
 #benefits{clear:both;overflow:hidden;margin:10px 0;padding:15px 0;border-top:solid 2px #CCC;border-bottom:solid 2px #CCC;color:#000;

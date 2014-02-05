@@ -12,8 +12,7 @@ class Cart < ActiveRecord::Base
 
   validates_with CouponValidator, :attributes => [:coupon_code]
 
-  after_validation :update_coupon
-  after_find :update_coupon_code
+  before_validation :update_coupon
   after_update :notify_listener
 
   def allow_credit_payment?
@@ -29,9 +28,8 @@ class Cart < ActiveRecord::Base
     #BLOCK ADD IF IS NOT GIFT AND HAS GIFT IN CART
     return nil if self.has_gift_items? && !gift
 
-    quantity ||= Cart::DEFAULT_QUANTITY.to_i
-    quantity = quantity.to_i
-
+    quantity = quantity.to_i == 0 ? Cart::DEFAULT_QUANTITY : quantity.to_i
+   
     return nil unless variant.available_for_quantity?(quantity)
 
     current_item = items.select { |item| item.variant == variant }.first
@@ -49,7 +47,6 @@ class Cart < ActiveRecord::Base
 
     current_item
   end
-
 
   def items_total
    items.sum(:quantity)
@@ -74,27 +71,19 @@ class Cart < ActiveRecord::Base
     size_items
   end
 
-
   def total_promotion_discount
-    items.inject(0) {|sum, item| sum + item.adjustment_value}
+    items.inject(0) {|sum, item| /Promotion:/ =~ item.cart_item_adjustment.source ? sum + item.adjustment_value : 0 }
   end
 
   def total_liquidation_discount(options={})
     items.inject(0) do |sum, item|
-      # TODO => maybe this rule should be in the cart_item
       liquidation_discount = item.adjustment_value > 0 ? 0 : item.price - item.retail_price(options)
       sum + liquidation_discount
     end
   end
 
   def total_coupon_discount
-    return 0 if coupon.nil?
-
-    if coupon.is_percentage?
-      total_price * (coupon.value / 100.0)
-    else
-      coupon.value
-    end
+    items.inject(0) {|sum, item| /Coupon:/ =~ item.cart_item_adjustment.source ? sum + item.adjustment_value : 0 }
   end
 
   def total_price
@@ -102,7 +91,9 @@ class Cart < ActiveRecord::Base
   end
 
   def sub_total
-    items.inject(0) { |total, item| total += (item.quantity * item.retail_price) }
+    items.inject(0) do |total, item|
+      total += (item.quantity * item.retail_price)
+    end
   end
 
   def remove_coupon!
@@ -130,16 +121,28 @@ class Cart < ActiveRecord::Base
     coupon.present? && (!coupon.is_percentage? || has_appliable_percentage_coupon?)
   end
 
+  def complete_look_product_ids_in_cart
+    return_array = []
+    items.each do |item|
+      return_array |= item.product.look_product_ids if item.product.list_contains_all_complete_look_products?(items.map{|i| i.product.id})
+    end
+    Set.new return_array
+  end
+
   private
 
     def update_coupon
-      coupon = Coupon.find_by_code(self.coupon_code)
-      self.coupon = coupon
-      self.gift_wrap = true if free_gift_wrap?
-    end
-
-    def update_coupon_code
-      self.coupon_code = self.coupon.code if self.coupon
+      if self.coupon_code == ''
+        self.coupon_id = nil
+        self.coupon_code = nil
+      end
+      if self.coupon_id
+        self.coupon_code = self.coupon.code
+      elsif self.coupon_code
+        _coupon = Coupon.find_by_code(self.coupon_code)
+        self.coupon = _coupon if _coupon
+        self.gift_wrap = true if free_gift_wrap?
+      end
     end
 
     def notify_listener

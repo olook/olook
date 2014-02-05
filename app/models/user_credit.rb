@@ -3,9 +3,7 @@ class UserCredit < ActiveRecord::Base
   belongs_to :user
   has_many :credits
 
-  #INVITE_BONUS = BigDecimal.new("10.00")
-  #INVITE_BONUS_FOR_INVITEE = BigDecimal.new("10.00")
-  TRANSACTION_LIMIT = 150.0
+  TRANSACTION_LIMIT = 400.0
   CREDIT_CODES = {invite: 'MGM', loyalty_program: 'Fidelidade', redeem: 'Reembolso'}
 
   def last_credit(date = DateTime.now, is_debit=false, source=nil)
@@ -48,7 +46,7 @@ class UserCredit < ActiveRecord::Base
     # creates MGM credits for inviter
     UserCredit.add_invite_credits(order) if Setting.invite_credits_available
     # creates loyalty program credits
-    UserCredit.add_loyalty_program_credits(order) if Setting.loyalty_program_credits_available
+    UserCredit.add_loyalty_program_credits(order) if Setting.loyalty_program_credits_available && !order.user.reseller
   end
 
   def self.add_for_invitee(invitee)
@@ -72,7 +70,7 @@ class UserCredit < ActiveRecord::Base
     end
 
     def self.add_loyalty_program_credits(order)
-      user, user_credit = order.user, order.user.user_credits_for(:loyalty_program)
+      user_credit = order.user.user_credits_for(:loyalty_program)
 
       user_credit.add({
         :order => order,

@@ -4,12 +4,14 @@ section#loyalty {
   padding: 20px 0 0;
   > h1 {
     font-family: $johnston;
-    font-size: 37px;
+    font-size: 36px;
     text-transform: uppercase;
     margin: 0 0 15px;
+    letter-spacing: 2px;
+    font-weight: bold;
     &+h2 {
       font-family: $kepler;
-      font-size: 38px;
+      font-size: 20px;
       margin: 0 0 15px;
     }
   }
@@ -33,7 +35,7 @@ section#loyalty {
       li {
         background: image-url('loyalty/icons.jpg') no-repeat;
         background-position: -149px 0;
-        font-size: 13px;
+        font-size: 11px;
         text-align: center;
         width: 130px;
         margin: 0 20px 0 0;
@@ -77,7 +79,7 @@ section#loyalty {
       padding: 15px 20px;
       border: 1px #888 solid;
       > p {
-        font-size: 23px;
+        font-size: 22px;
         line-height: 30px;
         text-align: center;
         margin: 15px auto 10px;
@@ -99,7 +101,7 @@ section#loyalty {
         text-align: center;
         margin: 10px 0 0;
         &+p {
-          font-size: 14px;
+          font-size: 13px;
           line-height: 20px;
         }
       }
@@ -111,18 +113,26 @@ section#loyalty {
     }
     div#showroom {
       a {
-        text-indent: -99999px;
         margin: 0 auto;
         display: block;
         &.link_showroom {
-          background: image-url('loyalty/bt-showroom.jpg') no-repeat;
           width: 402px;
-          height: 61px;
+          height: 36px;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          font-size: 15px;
+          padding-top: 25px;
+          @include bt_color($primary_bt_color, $primary_bt_color_hover);
         }
         &.buy_now {
-          background: image-url('loyalty/buy-now.jpg') no-repeat;
+          @include bt_color($primary_bt_color, $primary_bt_color_hover);
           width: 249px;
-          height: 59px;
+          height: 37px;
+          text-decoration: none;
+          letter-spacing: 2px;
+          padding-top: 21px;
+          text-align: center;
+
         }
       }
     }

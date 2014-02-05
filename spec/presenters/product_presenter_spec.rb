@@ -3,7 +3,7 @@ require "spec_helper"
 
 describe ProductPresenter do
   include ActionView::TestCase::Behavior
-  let(:product) { FactoryGirl.create(:shoe, :casual) }
+  let(:product) { FactoryGirl.create(:shoe, :casual, :in_stock) }
   let(:member) { double :user }
   let(:facebook_app_id) { double :facebook_app_id }
   let(:template) { double :template }
@@ -46,15 +46,17 @@ describe ProductPresenter do
     end
   end
 
-  describe '#render_related_products' do
-    let(:second_shoe) { FactoryGirl.create(:red_slipper, collection_id: 1) }
-    let(:third_shoe) { FactoryGirl.create(:silver_slipper, collection_id: 1) }
+  describe '#render_look_products' do
+    context "when all products have sufficient inventory" do
+      let(:second_shoe) { FactoryGirl.create(:red_slipper, :in_stock, collection_id: 1) }
+      let(:third_shoe) { FactoryGirl.create(:silver_slipper, :in_stock, collection_id: 1) }
 
-    it "should render the partial with product's related products" do
-      products = [second_shoe, third_shoe]
-      subject.stub(:related_products).and_return(products)
-      template.should_receive(:render).with(:partial => 'product/related_products', :locals => {:related_products => products}).and_return('related')
-      subject.render_related_products.should == 'related'
+      it "should render the partial with all product's related products" do
+        products = [second_shoe, third_shoe]
+        subject.stub(:look_products).and_return(products)
+        template.should_receive(:render).with(:partial => 'product/look_products', :locals => {:look_products => products, :product_presenter => subject, :complete_look_discount => {}}).and_return('related')
+        subject.render_look_products(nil).should == 'related'
+      end
     end
   end
 
@@ -157,10 +159,10 @@ describe ProductPresenter do
     end
   end
 
-  describe '#related_products' do
+  describe '#look_products' do
     context "when the product doesn't have any related products" do
       it "should return an empty array" do
-        subject.related_products.should be_empty
+        subject.look_products.should be_empty
       end
     end
 
@@ -173,55 +175,36 @@ describe ProductPresenter do
       let!(:v_related_bag)       { FactoryGirl.create(:variant, :product => related_bag, :inventory => 10) }
       let!(:v_out_of_stock_bag)  { FactoryGirl.create(:variant, :product => out_of_stock_bag) }
 
-      it "should return an empty array if all of them are of the same category as the presented product" do
-        product.relate_with_product related_shoe
-        subject.related_products.should == []
-      end
-
       it "should only included products in stock" do
         product.relate_with_product out_of_stock_bag
-        subject.related_products.should == []
+        subject.look_products.should == []
       end
     end
   end
 
   describe "#price" do
     subject { described_class.new view, :product => product, :member => member, :facebook_app_id => facebook_app_id }
-    let(:cart) { FactoryGirl.create(:cart_with_items) }
-    let(:cart_service) { CartService.new({ cart: cart }) }
-
-    context "when product has promotion" do
-
-      before do
-        product.stub(:promotion?).and_return(true)
-        cart_service.stub(:has_coupon?).and_return(false)
-      end
-
-      it { expect(subject.render_price_for cart).to include("de: ") }
-      it { expect(subject.render_price_for cart).to include("por: ") }
-
+    let(:product_discount_service) { double('product_discount_service')}
+    before do
+      product_discount_service.stub(base_price: 100, final_price: 100, calculate_without_promotion_or_coupon: nil, 'fixed_value_discount?' => false)
     end
 
-    context "when cart has cupon with value greater than 0" do
+    context "when product has discount" do
       before do
-        product.stub(:promotion?).and_return(false)
-        subject.stub(:has_valid_coupon_for?).and_return(true)
+        product_discount_service.stub(discount: 10)
+        product_discount_service.stub(:fixed_value_discount?)
       end
-
-      it { expect(subject.render_price_for cart_service).to include("de: ") }
-      it { expect(subject.render_price_for cart_service).to include("por: ") }
-
+      it { expect(subject.render_price_for(product_discount_service)).to include("de: ") }
+      it { expect(subject.render_price_for product_discount_service).to include("por: ") }
     end
 
-    context "when cart has no cupon and product has no promotion" do
+    context "when product hasn't discount" do
       before do
-        product.stub(:promotion?).and_return(false)
-        cart_service.stub(:has_coupon?).and_return(false)
+        product_discount_service.stub(discount: 0)
       end
 
-      it { expect(subject.render_price_for cart_service).to_not include("de: ") }
-      it { expect(subject.render_price_for cart_service).to_not include("por: ") }
-
+      it { expect(subject.render_price_for product_discount_service).to_not include("de: ") }
+      it { expect(subject.render_price_for product_discount_service).to_not include("por: ") }
     end
 
   end

@@ -4,7 +4,7 @@ class BrandsController < ApplicationController
   end
 
   def show
-    search_params = SeoUrl.parse(params)
+    search_params = SeoUrl.parse(request.fullpath)
     Rails.logger.debug("New params: #{params.inspect}")
 
     @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
@@ -19,6 +19,13 @@ class BrandsController < ApplicationController
   end
   private
     def title_text 
-      Seo::SeoManager.new(request.path, model: @brand.try(:first)).select_meta_tag
+      Seo::SeoManager.new(request.path, model: @brand.try(:first), search: @search).select_meta_tag
+    end
+
+    def canonical_link
+      brand = Array(@brand).first
+      if brand
+        "#{request.protocol}#{request.host_with_port}/#{brand.name.downcase}"
+      end
     end
 end

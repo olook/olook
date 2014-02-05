@@ -39,6 +39,11 @@ module ApplicationHelper
     end
   end
 
+  def track_pageview(virtual_url)
+    "_gaq.push(['_trackPageview', '#{virtual_url}']);"
+  end
+
+
   def track_event(*args)
     options = args.last.is_a?(Hash) ? args.last : {}
     category = args[0]
@@ -113,7 +118,11 @@ module ApplicationHelper
   end
 
   def item_qty_max_option(item)
-    [item.variant.inventory, Setting.default_item_quantity.to_i].min
+    if item.cart.user && item.cart.user.reseller && item.cart.user.active
+      item.variant.inventory
+    else
+      [item.variant.inventory, Setting.default_item_quantity.to_i].min
+    end
   end
 
   def item_qty_select(item)
@@ -129,10 +138,6 @@ module ApplicationHelper
     section_name.nil? ? 'Coleções' : section_name
   end
 
-  def is_moment_page?
-    params[:controller] == "moments" && ["show", "clothes"].include?(params[:action]) && @featured_products
-  end
-
   def protocol
     Rails.env.production? ? 'https' : 'http'
   end
@@ -145,6 +150,69 @@ module ApplicationHelper
     unless canonical_link.blank?
       content_tag(:link, nil, href: canonical_link, rel: 'canonical')
     end
+  end
+
+  def render_highlighted_products_from campaign
+    html = ""
+    campaign.product_ids.split('-').map { |pid| campaign.products.find { |p| p.id.to_i == pid.to_i } }.compact.each do |cp|
+      html += render :partial => "shared/searched_product_item", :locals => {:product => cp}
+    end
+    html.html_safe
+  end
+
+  def empty_wishlist?
+    if current_user
+      Wishlist.for(current_user).wished_products.empty?
+    else
+      true
+    end
+  end
+
+  def wished_products_count
+    if current_user
+      Wishlist.for(current_user).size
+    else
+      0
+    end
+  end
+
+  def any_wished_product_has_discount?
+    if current_user
+      wished_products = Wishlist.for(current_user).wished_products
+      wished_products.select {|wp| wp.variant.product.promotion?}.any?       
+    else
+      false
+    end
+  end
+
+  def has_wished? product_id
+    if current_user
+      Wishlist.for(current_user).has?(product_id)
+    else
+      false
+    end
+  end
+
+  def show_unlogged_home?
+    current_user.nil? || current_user.half_user?
+  end
+
+  def has_items_in_wishlist?
+    current_user && Wishlist.for(current_user).wished_products.any?
+  end
+
+  def home_wishlist_images
+    wishlist_products = Wishlist.for(current_user).wished_products.last(2)
+    wishlist_images = []
+    wishlist_images << {img: wishlist_products.first.variant.product.main_picture.image_url(:main), product: wishlist_products.first.variant.product }
+
+    if wishlist_products.size > 1
+      wishlist_images << {img: wishlist_products.last.variant.product.main_picture.image_url(:main), product: wishlist_products.last.variant.product}      
+    else
+      wishlist_images << {img: wishlist_products.first.variant.product.backside_picture.gsub("catalog","main"), product: wishlist_products.first.variant.product}
+    end
+
+    wishlist_images
   end
 
   private

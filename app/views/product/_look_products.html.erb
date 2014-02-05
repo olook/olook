@@ -1,0 +1,38 @@
+<% if look_products.any? %>
+
+  <div id="related">
+    <h3 class="title">COMPRE O LOOK COMPLETO</h3>
+    <div class="cart_related">
+      <ul class="js-look-products">
+        <li class="titulo_minicart">Você está levando...</li>
+      </ul>
+      <div class="empty_minicart">
+        <div class="valor_total"></div>
+        <div class="total_with_discount" style="display:none;"><%= installments_number(product_sum_discount(look_products_sum(look_products),complete_look_discount[:value].to_i,complete_look_discount[:is_percentage])) %>x de <%=  number_to_currency(installments_value(look_products.sum{|p| p.promotion? ? p.retail_price : p.price} * (1-(complete_look_discount[:value].to_i/100.0)), separator: ",")) %></div>
+      </div>
+      <div class="minicart_price"></div>
+      <%= form_tag add_variants_path(current_cart), method: :put, id: "minicart", name: "minicart", onsubmit: "if($(this).find('#add_product').hasClass('disabled')) return false;" do %>
+      <%= submit_tag "ADICIONAR À SACOLA", onclick: track_event("Product", "AddLookToCart", @product.id.to_s), class: "add_product disabled js-addToCartButton", disabled:"disabled", id:"add_product", name:"commit", value: "ADICIONAR À SACOLA" %>
+        <div id="submit_tooltip"><div class="icon"></div>Primeiro escolha os itens que deseja comprar do look, informando o seu tamanho.</div>
+      <% end %>
+      <input type="hidden" id="total_price" />
+    </div>
+    <ul class="carousel <%= look_products.count > 3 ? 'arrows' : '' %>">
+      <% look_products.each do |product| %>
+        <%= render 'look_product_item', product: product, product_presenter: product_presenter %>
+      <% end %>
+    </ul>
+<% if look_products.count > 3 %>
+  <%= link_to "Anterior", "javascript:void(0);", :class => "carousel-prev" %>
+  <%= link_to "Próximo", "javascript:void(0);", :class => "carousel-next" %>
+<% end %>
+<div id="related_footer"></div>
+</div>
+<% end %>
+<% content_for :footer do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      <%= track_event("Product", "DisplayLookProducts", @product.id.to_s).html_safe %>
+    });
+  </script>
+<% end %>
