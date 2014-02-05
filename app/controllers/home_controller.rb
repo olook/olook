@@ -5,10 +5,15 @@ class HomeController < ApplicationController
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     recommendation = RecommendationService.new(profiles: current_user.try(:profiles_with_fallback) || [Profile.default])
     @showroom_presenter = ShowroomPresenter.new(recommendation: recommendation, looks_limit: 4, products_limit: 22)
+    @cache_key = current_user_profile
     prepare_for_home
   end
 
   private
+
+  def current_user_profile
+    @current_user && @current_user.main_profile ? @current_user.main_profile.alternative_name : "none"
+  end
 
   def prepare_for_home
     prepare_highlights
