@@ -12,7 +12,7 @@ module Checkout::CheckoutHelper
 
   def show_motoboy_freight?
     current_time = Time.now
-    @shipping_service_fast.shipping_service_id == MOTOBOY_FREIGHT_SERVICE_ID #&& Time.workday?(current_time) && !Time.before_business_hours?(current_time)# && !Time.after_business_hours?(current_time)
+    @shipping_service_fast.shipping_service_id == MOTOBOY_FREIGHT_SERVICE_ID && Time.workday?(current_time) && !Time.before_business_hours?(current_time) && !Time.after_business_hours?(current_time)
   end
 
   def error_class_if_needed(object, field)
