@@ -94,8 +94,11 @@ initQuickView = {
 
   productZoom : function() {
     $("div#gallery div#full_pic ul li a.image_zoom").each(function(){
-       var _url = "http:" + $(this).attr('href');
-       $(this).zoom({url: _url})
+      var _url = $(this).attr('href');
+      if(/^\/\//.test(_url)){
+        _url = "https:" + _url
+      }
+      $(this).zoom({url: _url})
     });
   },
 
