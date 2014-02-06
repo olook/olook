@@ -1,5 +1,7 @@
-class PicturesProcessController < Admin::BaseController
+class Admin::PicturesProcessController < Admin::BaseController
   def index
+    @connection = Fog::Storage.new({provider: 'AWS'})
+
     authorize! :new_multiple_pictures, Picture
   end
 
