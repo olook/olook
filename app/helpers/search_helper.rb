@@ -1,4 +1,19 @@
 module SearchHelper
+
+  HEEL_RANGE_LABELS = {
+    '0-4' => 'Baixo (0cm - 4cm)', 
+    '5-9' => 'Médio (5cm - 9cm)', 
+    '10-15' => 'Alto (10cm - 15cm'
+  }
+
+  def heels(filters)
+    filters.map{|f| f[0].chomp(" cm")}
+  end
+
+  def heel_label_for(heel_range)
+    HEEL_RANGE_LABELS[heel_range]
+  end
+
   # TODO: Refactor this to improve readability
   def brand_link_to field, text, amount
 
