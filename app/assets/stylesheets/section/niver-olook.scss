@@ -134,7 +134,7 @@ $bodoni:bodoni_stdbold,Helvetica Neue,arial,sans-serif;
 } 
 
 #mapa{
-	width:935px;height:520px;background:url("/assets/campaigns/niver/bg-mapa.png") no-repeat;clear:both;float:left;position:relative;
+	width:935px;height:520px;background:image-url("campaigns/niver/bg-mapa.png") no-repeat;clear:both;float:left;position:relative;
 	div{
 		width:330px;position:absolute;top:60px;left:0;
 		.chamada{
