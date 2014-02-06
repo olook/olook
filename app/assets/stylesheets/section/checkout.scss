@@ -2034,7 +2034,11 @@ section.checkout{
           }
           &.expresso{
             padding-top:0px;
-            label{background-position: 0 -29px}
+            label{background-position: 0 -29px}            
+          }
+          &.motoboy{
+            padding-top:0px;
+            label{background-position: 0 -175px}
           }
           p.shipping{
             font-family: $avenir;
