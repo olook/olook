@@ -16,6 +16,7 @@ gem 'therubyracer', '~> 0.12.0'
 gem 'resque', '~> 1.20.0', :require => 'resque/server'
 gem 'resque_mailer', '~> 2.0.2'
 gem 'resque-scheduler', '~>2.0.1', :require => ['resque_scheduler', 'resque_scheduler/server']
+gem 'rufus-scheduler', '~>2.0.24'
 gem 'resque-pool'
 gem 'puma', require: false #for resque web in rubber
 gem 'brcpfcnpj', '= 3.0.4'
