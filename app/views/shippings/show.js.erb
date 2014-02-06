@@ -1,5 +1,10 @@
 //=require checkout_addresses
 $('#shipping_services_types').show();
+if( $(".motoboy").size() > 0 && $('.shipping_service_radio:last').is(':checked') && $("#motoboy_info").size() == 0){
+  $(".motoboy").append('<span id=motoboy_info>Viável apenas para pedidos com pagamento confirmado até as 15h</span>');
+}else{
+      $("#motoboy_info").remove();
+}
 <% if @has_two_shipping_services %>
   $(".expresso").show();
   $(".shipping").html("(<%= @shipping_service.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service.price) %>");
@@ -17,7 +22,6 @@ $('#shipping_services_types').show();
     
     var expressDeliveryTime = expressInput.siblings().last();
     expressDeliveryTime.html('(Em 3 horas) <%= number_to_currency(@shipping_service_fast.price) %>' );
-    $(".motoboy").append('<span id=motoboy_info>Viável apenas para pagamentos confirmados até as 15h</span>');
   <% else %>
     expressInput.parent().removeClass('motoboy').addClass('expresso');
     var expressLabel = expressInput.siblings().first();
@@ -32,6 +36,7 @@ $('#shipping_services_types').show();
   $('.shipping_service_radio:first').data('shipping-service',<%= @shipping_service.shipping_service_id %>); 
   $('.shipping_service_radio:first').attr("checked",true);
   $(".expresso").hide();
+  $("#motoboy_info").remove();
 <% end %>
 
 $("#freight_price").
