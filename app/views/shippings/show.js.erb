@@ -8,7 +8,7 @@ $('#shipping_services_types').show();
   $('.shipping_service_radio:first').data('shipping-service',<%= @shipping_service.shipping_service_id %>); 
   var expressInput = $('.shipping_service_radio:last');
   expressInput.data('shipping-service', <%= @shipping_service_fast.shipping_service_id %>); 
-  <% if @shipping_service_fast.shipping_service_id == 4 %>
+  <% if @shipping_service_fast.shipping_service_id == 5 %>
     expressInput.parent().removeClass('expresso').addClass('motoboy');
 
     var expressLabel = expressInput.siblings().first();
