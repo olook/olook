@@ -2,3 +2,6 @@
 # edit config/rubber/role/resque_worker/resque-pool.yml for production/staging
 
 "*": 2
+
+production:
+  "*": 50
