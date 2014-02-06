@@ -8,7 +8,11 @@
       </ul>
       <div class="empty_minicart">
         <div class="valor_total"></div>
-        <div class="total_with_discount" style="display:none;"><%= installments_number(product_sum_discount(look_products_sum(look_products),complete_look_discount[:value].to_i,complete_look_discount[:is_percentage])) %>x de <%=  number_to_currency(installments_value(look_products.sum{|p| p.promotion? ? p.retail_price : p.price} * (1-(complete_look_discount[:value].to_i/100.0)), separator: ",")) %></div>
+        <div class="total_with_discount" style="display:none;">
+          <%= installments_number(product_sum_discount(look_products,complete_look_discount[:value].to_i,complete_look_discount[:is_percentage])) %>x 
+          de 
+          <%=  number_to_currency(installments_value(product_sum_discount(look_products,complete_look_discount[:value].to_i,complete_look_discount[:is_percentage]), separator: ",")) %>
+        </div>
       </div>
       <div class="minicart_price"></div>
       <%= form_tag add_variants_path(current_cart), method: :put, id: "minicart", name: "minicart", onsubmit: "if($(this).find('#add_product').hasClass('disabled')) return false;" do %>
@@ -16,6 +20,8 @@
         <div id="submit_tooltip"><div class="icon"></div>Primeiro escolha os itens que deseja comprar do look, informando o seu tamanho.</div>
       <% end %>
       <input type="hidden" id="total_price" />
+      <input type="hidden" id="total_price_without_discount" value="<%= look_products.sum{|p| p.price} %>"/>
+      <input type="hidden" id="total_look_promotion_price" value="<%= look_products.sum{|p| p.price} * (1-(complete_look_discount[:value].to_i/100.0)) %>"/>
     </div>
     <ul class="carousel <%= look_products.count > 3 ? 'arrows' : '' %>">
       <% look_products.each do |product| %>
