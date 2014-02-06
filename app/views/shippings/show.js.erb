@@ -16,6 +16,11 @@ $('#shipping_services_types').show();
     
     var expressDeliveryTime = expressInput.siblings().last();
     expressDeliveryTime.html('(Até 3 horas) <%= number_to_currency(@shipping_service_fast.price) %>' );
+  <% else %>
+    expressInput.parent().removeClass('motoboy').addClass('expresso');
+    var expressLabel = expressInput.siblings().first();
+    expressLabel.html('Expresso');
+
   <% end %>
 
 
