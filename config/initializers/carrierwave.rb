@@ -17,7 +17,9 @@ CarrierWave.configure do |config|
   #   end
   else
     config.fog_directory = 'cdn.olook.com.br'
-    config.fog_host = "//d1m0eb15reawkf.cloudfront.net"
+    config.asset_host = Proc.new { |file|
+      "https://gp1.wac.edgecastcdn.net/80BFF9/uploads"
+    }
   end
   
   config.fog_attributes = { 'Cache-Control' => 'max-age=315576000',
