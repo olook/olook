@@ -500,6 +500,7 @@ header#new_header{border-top: 2px black solid;
     letter-spacing: 1px;
     font-weight: lighter;
     line-height:25px;
+
     b{font-size:21px;
       font-family: $avenir_medium;
     }
@@ -510,6 +511,11 @@ header#new_header{border-top: 2px black solid;
       color:#58595B;
       display:inline-block;
       margin-bottom:30px;
+      font-family: Verdana;
+      color: #000;
+      letter-spacing: 0px;
+      text-transform: uppercase;
+      font-size: 18px;
       span{font-weight:normal;
       }
     }
@@ -563,22 +569,32 @@ header#new_header{border-top: 2px black solid;
     }
     &.search-results-list{
       li{display:inline-block;
-        width:200px;
-        margin:0 50px 25px 0;
+        width:170px;
+        border:1px solid #e1e1e1;
+        padding:6px;
+        position: relative;
+        height:325px;
+        float:left;
+        margin:0 5px 10px 5px;
         a{color:#000;
           text-decoration:none;
-          font-size:13px !important;
+          font-size:11px !important;
+          font-family: Verdana;
           .name{color:#000;
-            font-size:13px !important;
+            font-size:11px !important;
             height:18px;
             overflow:hidden;
           }
+          .brand {
+            text-transform: uppercase;
+          }
+          .price {
+            font-family: "Trebuchet Ms";
+          }
           b{text-transform:uppercase;
           }
-          img{border-bottom:solid 1px #B9BABE;
-            margin-bottom:5px;
-            width:200px;
-            height:auto;
+          img{
+            width:100%;
           }
           .old {text-decoration:line-through;
           }
@@ -586,7 +602,11 @@ header#new_header{border-top: 2px black solid;
             font-size: 15px;
             font-weight: bold;
           }
-        }  
+        } 
+        .async {
+          position: relative;height:255px;
+          img {position: absolute;bottom:0px;}
+        } 
       }
     }
   }
