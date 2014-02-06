@@ -264,6 +264,8 @@ Olook::Application.routes.draw do
     end
 
     get 'product_autocomplete' => 'products#autocomplete_information'
+    get 'pictures_process' => 'pictures_process#index'
+    post 'pictures_process' => 'pictures_process#create'
     resources :products do
       collection do
         post 'sync_products' => 'products#sync_products', :as => 'sync_products'
