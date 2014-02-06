@@ -205,6 +205,7 @@ class MercadoPago
 
 			if API_BASE_URL.scheme == "https" # enable SSL/TLS
 				@http.use_ssl = true
+        @http.ssl_version = :SSLv3
 				@http.verify_mode = OpenSSL::SSL::VERIFY_PEER
 				@http.ca_file = File.join(File.dirname(__FILE__), "cacert.pem")
 			end
