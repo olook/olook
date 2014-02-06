@@ -1,6 +1,6 @@
 class TransportShippingService
   DEFAULT_DELIVERY_TIME_FACTOR = 0.1
-  DEFAULT_PRICE_FACTOR = 0.7
+  DEFAULT_PRICE_FACTOR = 0.1
   attr_reader :transport_shippings
   attr_accessor :return_shippings
 
@@ -17,7 +17,6 @@ class TransportShippingService
     
     fast_delivery_time, fast_price = fast_shipping[:delivery_time], fast_shipping[:price]
     default_delivery_time, default_price = default_shipping[:delivery_time], default_shipping[:price]
-
     set_fast_shipping(fast_shipping) if has_smaller_deliver_time?(fast_delivery_time, default_delivery_time) && has_major_price?(fast_price, default_price)
 
     return_shippings
@@ -25,7 +24,7 @@ class TransportShippingService
 
   private
     def better_cost_shipping
-      transport_shippings.sort{|x,y| x[:price] <=> y[:price]}.first
+      transport_shippings.sort{|x,y| x[:cost] <=> y[:cost]}.first
     end
     def better_time_shipping
       transport_shippings.sort{|x,y| x[:delivery_time] <=> y[:delivery_time]}.first
@@ -39,6 +38,6 @@ class TransportShippingService
       delivery_time <= (control_delivery_time - (control_delivery_time * DEFAULT_DELIVERY_TIME_FACTOR))
     end
     def has_major_price? price, price_control
-      price < (price_control + (price_control * DEFAULT_PRICE_FACTOR))
+      price > (price_control + (price_control * DEFAULT_PRICE_FACTOR))
     end
 end
