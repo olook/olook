@@ -78,8 +78,4 @@ module ProductsHelper
     (product.price * (1 - (discount/100.0)))
   end
 
-  def display_discount_text(discount, is_percentage)
-    is_percentage ? "#{discount}%" : number_to_currency(discount)  
-  end
-
 end
