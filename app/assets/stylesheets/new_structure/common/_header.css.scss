@@ -262,6 +262,10 @@ header#new_header{border-top: 2px black solid;
         text-transform: uppercase;
         @include bt_color($primary_bt_color, $primary_bt_color_hover);
       }
+      a.discount{
+        color: $base_color;
+        background-position: -153px -313px;
+      }
       p.sub{
         font-size: 11px;
         font-family: $avenir;

@@ -98,6 +98,18 @@
         text-indent: -5000px;
         z-index: 10;
       }
+      p.label_price{
+        background: image-url('common/wishlist/label_price.png') no-repeat;
+        width: 59px;
+        height: 26px;
+        font-size: 14px;
+        font-family: $johnston;
+        color: #fff;
+        font-weight: 600;
+        position: absolute;
+        padding-left: 26px;
+        padding-top: 5px;
+      }
      
     }
     h2, h3, h4 {
