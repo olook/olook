@@ -2030,8 +2030,8 @@ modules/complete_look/complete_look.js: modules/complete_look/complete_look-4afa
 modules/complete_look/complete_look/index.js: modules/complete_look/complete_look-4afa9291f2ac4d20b92fac591846631b.js
 modules/complete_look/minicart_box_display_updater.js: modules/complete_look/minicart_box_display_updater-a449f5cddbfdda09790b9bbf1e8dfce0.js
 modules/complete_look/minicart_box_display_updater/index.js: modules/complete_look/minicart_box_display_updater-a449f5cddbfdda09790b9bbf1e8dfce0.js
-modules/complete_look/minicart_data_updater.js: modules/complete_look/minicart_data_updater-b8a562e84d325ce3d1894eacff74cc1e.js
-modules/complete_look/minicart_data_updater/index.js: modules/complete_look/minicart_data_updater-b8a562e84d325ce3d1894eacff74cc1e.js
+modules/complete_look/minicart_data_updater.js: modules/complete_look/minicart_data_updater-8f0e85f10d38da37dbcc185b94c74e05.js
+modules/complete_look/minicart_data_updater/index.js: modules/complete_look/minicart_data_updater-8f0e85f10d38da37dbcc185b94c74e05.js
 modules/complete_look/minicart_fade_in_manager.js: modules/complete_look/minicart_fade_in_manager-10ea0315b595be11055629b84fcaf6b7.js
 modules/complete_look/minicart_fade_in_manager/index.js: modules/complete_look/minicart_fade_in_manager-10ea0315b595be11055629b84fcaf6b7.js
 modules/complete_look/minicart_fade_out_manager.js: modules/complete_look/minicart_fade_out_manager-17abe73a1c49a8b438b08f0a52977880.js
@@ -2130,8 +2130,8 @@ plugins/video_modal.js: plugins/video_modal-93303bb6d174bce996cdef9153b74344.js
 plugins/video_modal/index.js: plugins/video_modal-93303bb6d174bce996cdef9153b74344.js
 press.js: press-671f54988949c63f68232a094c0499f9.js
 press/index.js: press-671f54988949c63f68232a094c0499f9.js
-product.js: product-ab626bbc6d822044e73c84c507af616d.js
-product/index.js: product-ab626bbc6d822044e73c84c507af616d.js
+product.js: product-78202f200116b73298a1970fbca5ef9a.js
+product/index.js: product-78202f200116b73298a1970fbca5ef9a.js
 profiles.js: profiles-79696edf73b4618ad0ce382a568446e3.js
 profiles/index.js: profiles-79696edf73b4618ad0ce382a568446e3.js
 quiz.js: quiz-d5571e61aaedbfdef6f2e0432329dcbf.js
