@@ -12,7 +12,7 @@
   <% end %>
 
   <% if product.sold_out? %>
-    <%= submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "add_product disabled", disabled: "disabled" %>
+    <%= submit_tag "PRODUTO ESGOTADO", id: "add_product", class: "add_product disabled", disabled: "disabled" %>
   <% else %>
     <%= submit_tag "ADICIONAR À SACOLA", id: "add_product", class: "add_product" %>
   <% end %>
