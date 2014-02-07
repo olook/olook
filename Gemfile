@@ -76,7 +76,6 @@ end
 gem 'piet', :git => 'git://github.com/albertbellonch/piet.git', ref: "630a98bef1595fb2a138e98ff9aaefbca987a999"
 
 group :development, :test do
-  gem "fakeredis"
   gem 'better_errors'
   gem 'faker'
   gem 'bullet'
@@ -119,5 +118,6 @@ gem 'open4'
 gem "codeclimate-test-reporter", group: :test, require: nil
 group :test do
   gem 'webmock'
+  gem "fakeredis"
 end
 gem 'passenger', require: false
