@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Checkout::CheckoutHelper
 
-  MOTOBOY_FREIGHT_SERVICE_ID = 7
+  MOTOBOY_FREIGHT_SERVICE_ID = 5
 
   def errors_for(object, field)
     if object
@@ -12,7 +12,7 @@ module Checkout::CheckoutHelper
 
   def show_motoboy_freight?
     current_time = Time.zone.now
-    @shipping_service_fast.shipping_service_id == MOTOBOY_FREIGHT_SERVICE_ID && Time.workday?(current_time) && !Time.before_business_hours?(current_time) && !Time.after_business_hours?(current_time)
+    @shipping_service_fast.shipping_service_id == MOTOBOY_FREIGHT_SERVICE_ID && work_time?
   end
 
   def error_class_if_needed(object, field)
@@ -67,4 +67,9 @@ module Checkout::CheckoutHelper
     discount_to_show = @cart_service.total_credits_discount > 0 ? -@cart_service.total_credits_discount : 0
     number_to_currency(discount_to_show)
   end
+
+  private
+    def work_time?
+      Time.workday?(current_time) && !Time.before_business_hours?(current_time) && !Time.after_business_hours?(current_time)
+    end
 end
