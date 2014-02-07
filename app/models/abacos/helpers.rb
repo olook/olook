@@ -20,7 +20,6 @@ module Abacos
         when 'jóia' then Category::ACCESSORY
         when 'lingerie' then Category::LINGERIE
         when 'moda praia' then Category::BEACHWEAR
-        when 'plus size' then Category::PLUSSIZE
       else
         Category::CLOTH
       end
