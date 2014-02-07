@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Checkout::CheckoutHelper
 
-  MOTOBOY_FREIGHT_SERVICE_ID = 5
+  MOTOBOY_FREIGHT_SERVICE_ID = 7
 
   def errors_for(object, field)
     if object
