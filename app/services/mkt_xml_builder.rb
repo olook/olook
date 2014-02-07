@@ -26,7 +26,8 @@ class MktXmlBuilder
     paraiso_feminino: 'paraiso_feminino_template.xml.erb',
     stylight: 'stylight_template.xml.erb',
     all_in: 'all_in.xml.erb',
-    zoom: 'zoom_template.xml.erb'
+    zoom: 'zoom_template.xml.erb',
+    buscape: 'buscape_template.xml.erb'
   }
 
   def self.create_xmls
