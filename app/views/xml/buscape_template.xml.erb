@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <produtos>
-<% @products.each do |product| %>
+<% @products_for_mercadolivre.each do |product| %>
 <produto>
   <descricao><![CDATA[<%= product.subcategory %> <%= product.name %>]]></descricao>
   <preco><![CDATA[<%= number_to_currency(product.retail_price).delete("R$ ") %>]]></preco>
