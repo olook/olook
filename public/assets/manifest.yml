@@ -1392,10 +1392,12 @@ my_account/title-personal-data.png: my_account/title-personal-data-be08302ebd59c
 my_account/title-personal-data/index.png: my_account/title-personal-data-be08302ebd59cee0ae7faf0d90393b68.png
 new_checkout/bg_steps.png: new_checkout/bg_steps-d422223a9869e1f3281de77485159e78.png
 new_checkout/bg_steps/index.png: new_checkout/bg_steps-d422223a9869e1f3281de77485159e78.png
-new_checkout/carrinhos_frete.png: new_checkout/carrinhos_frete-9efde487039c16312b6292be25c9a5e1.png
-new_checkout/carrinhos_frete/index.png: new_checkout/carrinhos_frete-9efde487039c16312b6292be25c9a5e1.png
+new_checkout/carrinhos_frete.png: new_checkout/carrinhos_frete-5e4b62cc0124ab4e888ff9184ff4188d.png
+new_checkout/carrinhos_frete/index.png: new_checkout/carrinhos_frete-5e4b62cc0124ab4e888ff9184ff4188d.png
 new_checkout/codigo_seguranca.jpg: new_checkout/codigo_seguranca-c4b4119310860090097174f1faa5bff5.jpg
 new_checkout/codigo_seguranca/index.jpg: new_checkout/codigo_seguranca-c4b4119310860090097174f1faa5bff5.jpg
+new_checkout/icone_motoca.jpg: new_checkout/icone_motoca-4d3474109b93d14e0b63ed5593b4b2fd.jpg
+new_checkout/icone_motoca/index.jpg: new_checkout/icone_motoca-4d3474109b93d14e0b63ed5593b4b2fd.jpg
 new_checkout/img_boleto.png: new_checkout/img_boleto-b66f8919d350c28e763762dc639a6e9f.png
 new_checkout/img_boleto/index.png: new_checkout/img_boleto-b66f8919d350c28e763762dc639a6e9f.png
 new_checkout/logo_mp.jpg: new_checkout/logo_mp-4bd496e5aa65ad823a00d30ce468138c.jpg
@@ -2366,8 +2368,8 @@ section/avc-campaign.css: section/avc-campaign-0a1947964088596d05863279c631f5d7.
 section/avc-campaign/index.css: section/avc-campaign-0a1947964088596d05863279c631f5d7.css
 section/box_invite.css: section/box_invite-be916e8ce4ca637035a21433079ac6a8.css
 section/box_invite/index.css: section/box_invite-be916e8ce4ca637035a21433079ac6a8.css
-section/checkout.css: section/checkout-f683df82687ca0c0a56a87f659dff234.css
-section/checkout/index.css: section/checkout-f683df82687ca0c0a56a87f659dff234.css
+section/checkout.css: section/checkout-8fb3dba85e36499a2d3a6775124fc005.css
+section/checkout/index.css: section/checkout-8fb3dba85e36499a2d3a6775124fc005.css
 section/collections.css: section/collections-4e596c8defb1e71324e84b2a7b624214.css
 section/collections/index.css: section/collections-4e596c8defb1e71324e84b2a7b624214.css
 section/contact.css: section/contact-fd72f7c1b3750717fdb0af28ce6b99b4.css
