@@ -11,12 +11,10 @@ class SpecificSubcategoryCount < PromotionRule
 
   def matches?(cart, parameter=nil)
     return false if cart.items.empty? || parameter.nil?
-    cart_subcategories = Set.new(cart.items.collect(&:product).collect(&:subcategory).map {|c| c.parameterize })
     /\A\((?<total_count>\d+)\) (?<subcategories>.*)\z/ =~ parameter.to_s
-    subcategories = subcategories.split(/\s*,\s*/).map { |s| s.parameterize }
-    subcategories.all? do |subcategory|
-      cart_subcategories.include?(subcategory)
-    end
+    subcategories = Set.new(subcategories.split(/\s*,\s*/).map { |s| s.parameterize })
+    cart_subcategories = cart.items.map {|i| [i.product.subcategory.parameterize] * i.quantity }.flatten.select{ |c| subcategories.include?(c) }
+    cart_subcategories.size >= total_count.to_i
   end
 end
 
