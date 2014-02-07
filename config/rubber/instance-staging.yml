@@ -137,5 +137,8 @@
   provider: aws
   platform: linux
   root_device_type: ebs
-- volumes: {}
+  volumes:
+  - vol-08d4fe45
+- volumes:
+    development_/dev/sdh: vol-08d4fe45
   static_ips: {}
