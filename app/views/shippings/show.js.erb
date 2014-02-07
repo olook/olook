@@ -14,6 +14,8 @@ $('.shipping_service_radio:first').val(<%= @shipping_service.shipping_service_id
   $(".expresso > p").html("(<%= @shipping_service_fast.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service_fast.price) %>");
   _gaq.push(['_trackEvent', 'ExpressFreight', 'ShowExpressDeliveryBox','<%= @zip_code %>', , true]);
   $('.shipping_service_radio:first').data('shipping-service',<%= @shipping_service.shipping_service_id %>); 
+  $('.shipping_service_radio:last').data('shipping-service', <%= @shipping_service_fast.shipping_service_id %>); 
+  $('.shipping_service_radio:last').val(<%= @shipping_service_fast.shipping_service_id %>);
   var expressInput = $('.shipping_service_radio:last');
   expressInput.data('shipping-service', <%= @shipping_service_fast.shipping_service_id %>); 
 
@@ -25,6 +27,7 @@ $('.shipping_service_radio:first').val(<%= @shipping_service.shipping_service_id
     
     var expressDeliveryTime = expressInput.siblings().last();
     expressDeliveryTime.html('(Em 3 horas) <%= number_to_currency(@shipping_service_fast.price) %>' );
+    $('.shipping_service_radio:last').val(<%= @shipping_service_fast.shipping_service_id %>);
   <% else %>
     expressInput.parent().removeClass('motoboy').addClass('expresso');
     var expressLabel = expressInput.siblings().first();
