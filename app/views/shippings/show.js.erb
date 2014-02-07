@@ -5,6 +5,9 @@ if( $(".motoboy").size() > 0 && $('.shipping_service_radio:last').is(':checked')
 }else{
       $("#motoboy_info").remove();
 }
+
+$('.shipping_service_radio:first').val(<%= @shipping_service.shipping_service_id %>);
+
 <% if @has_two_shipping_services %>
   $(".expresso").show();
   $(".shipping").html("(<%= @shipping_service.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service.price) %>");
@@ -29,7 +32,8 @@ if( $(".motoboy").size() > 0 && $('.shipping_service_radio:last').is(':checked')
 
   <% end %>
 
-
+  $('.shipping_service_radio:last').data('shipping-service', <%= @shipping_service_fast.shipping_service_id %>); 
+  $('.shipping_service_radio:last').val(<%= @shipping_service_fast.shipping_service_id %>);
 <% end %>
 <% if !@has_two_shipping_services && !params[:freight_service_ids] %>
   $(".shipping").html("(<%= @shipping_service.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service.price) %>");
