@@ -11,7 +11,6 @@ module Checkout::CheckoutHelper
   end
 
   def show_motoboy_freight?
-    current_time = Time.zone.now
     @shipping_service_fast.shipping_service_id == MOTOBOY_FREIGHT_SERVICE_ID && work_time?
   end
 
@@ -70,6 +69,7 @@ module Checkout::CheckoutHelper
 
   private
     def work_time?
+      current_time = Time.zone.now
       Time.workday?(current_time) && !Time.before_business_hours?(current_time) && !Time.after_business_hours?(current_time)
     end
 end
