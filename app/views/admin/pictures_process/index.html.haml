@@ -7,4 +7,8 @@
   - @keys.each do |key|
     %tr
       %td= link_to(key.respond_to?(:key) ? key.key : key, admin_pictures_process_path(prefix: key))
-      %td=button_to "Sincronizar", admin_pictures_process_path(key: key), method: :post
+      - if PictureProcess.is_pending?(key: key)
+        %td Em andamento
+      - else
+        %td=button_to "Processar", admin_pictures_process_path(key: key), method: :post
+
