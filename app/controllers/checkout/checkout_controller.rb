@@ -117,6 +117,7 @@ class Checkout::CheckoutController < Checkout::BaseController
     def display_form(address, payment, payment_method, error_message = nil)
       @report  = CreditReportService.new(@user)
       @checkout = Checkout.new(address: address, payment: payment, payment_method: payment_method)
+      prepare_freights(shipping_freights) if @checkout.address
       if error_message
         @checkout.errors.add(:payment_base, error_message)
         # TODO => Move these lines to Payment class

@@ -481,8 +481,8 @@ GEM
     ruby-hmac (0.4.0)
     ruby-progressbar (1.0.2)
     rubyzip (0.9.9)
-    rufus-scheduler (3.0.5)
-      tzinfo
+    rufus-scheduler (2.0.24)
+      tzinfo (>= 0.3.22)
     safe_yaml (0.9.7)
     sass (3.2.7)
     sass-rails (3.2.6)
@@ -659,6 +659,7 @@ DEPENDENCIES
   rspec-rails (~> 2.12.0)
   rubber (~> 2.0)!
   rubypress!
+  rufus-scheduler (~> 2.0.24)
   sass-rails (~> 3.2.3)
   savon (= 0.9.9)
   shoulda-matchers
