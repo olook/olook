@@ -74,6 +74,18 @@ class Order < ActiveRecord::Base
     joins(:payments).uniq.where("payments.state IN ('authorized','completed')")
   end
 
+  def notify_motoboy_order
+    if shipping_service_name == 'LOGGI'
+      to = %w(rafael.manoel).map{|s| "#{s}@olook.com.br"}.join(",")
+      Resque.enqueue(NotificationWorker, {
+        to: to,
+        body: "Pedido Numero: #{number} deve ser eviado por motoboy",
+        subject: "Pedido motoboy"
+      })
+    end  
+  end
+
+
   state_machine :initial => :waiting_payment do
     store_audit_trail
 
@@ -88,7 +100,8 @@ class Order < ActiveRecord::Base
     after_transition any => :authorized, :do => [:transition_to_authorized,
                                                  :set_delivery_date_on,
                                                  :set_shipping_service_name,
-                                                 :summarize_sell]
+                                                 :summarize_sell,
+                                                 :notify_motoboy_order]
 
     after_transition any => :canceled, :do => [:enqueue_cancelation_notification,
                                                :check_cupon_devolution
