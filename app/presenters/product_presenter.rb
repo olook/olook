@@ -16,9 +16,9 @@ class ProductPresenter < BasePresenter
     h.render :partial => "shared/product_item", :collection => member.main_profile_showroom, :as => :product
   end
 
-  def render_look_products
-    if look_products.size > 1 && product.inventory > 0 && product.has_more_than_half_look_products_available?
-      h.render :partial => 'product/look_products', :locals => {:look_products => look_products, :product_presenter => self, :complete_look_discount => complete_look_discount} 
+  def render_look_products(admin)
+    if (look_products.size > 1 && product.inventory > 0 && product.has_more_than_half_look_products_available?) || admin
+      h.render :partial => 'product/look_products', :locals => {:look_products => look_products(admin), :product_presenter => self, :complete_look_discount => complete_look_discount} 
     end
   end
 
@@ -114,9 +114,9 @@ class ProductPresenter < BasePresenter
     quantity_left > 1
   end
 
-  def look_products
+  def look_products(admin = nil)
     product_list = product.related_products.inject([]) do |result, related_product|
-      if (related_product.name != product.name && related_product.category) &&  (!related_product.sold_out?)
+      if ((related_product.name != product.name && related_product.category) && (!related_product.sold_out?) || admin)
         result << related_product
       else
         result

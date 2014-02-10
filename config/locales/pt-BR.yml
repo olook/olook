@@ -44,6 +44,7 @@
       cloth: Roupa
       beachwear: "Moda Praia"
       lingerie: Lingerie
+      plussize: "Plus Size"
 
   # formatos de data e hora
   date:
@@ -369,8 +370,8 @@
         other: Campanhas
 
       highlight:
-        one: Destaque
-        other: Destaques
+        one: Banner da Home
+        other: Banners da Home
 
       highlight_campaign:
         one: Campanha com destaque

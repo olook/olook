@@ -5,14 +5,14 @@ module FreightCalculator
 
   DEFAULT_FREIGHT_PRICE   = 0.0
   DEFAULT_FREIGHT_COST    = 0.0
-  DEFAULT_INVENTORY_TIME  = 3
+  DEFAULT_INVENTORY_TIME  = 2
   DEFAULT_FREIGHT_SERVICE = 2 # CORREIOS
 
   DEFAULT_FREIGHT = {
     default_shipping: {
       price: DEFAULT_FREIGHT_PRICE, 
       cost: DEFAULT_FREIGHT_COST,
-      delivery_time: DEFAULT_INVENTORY_TIME,
+      delivery_time: DEFAULT_INVENTORY_TIME + 4,
       shipping_service_id: DEFAULT_FREIGHT_SERVICE
     }
   }

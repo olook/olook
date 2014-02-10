@@ -38,6 +38,10 @@ class Profile < ActiveRecord::Base
   }
   WYS_NAME.default = 'casual'
 
+  def self.default
+    self.find_by_alternative_name('casual')
+  end
+
   def self.for_wysprofile(profile)
     self.where(alternative_name: WYS_NAME[profile.to_s])
   end

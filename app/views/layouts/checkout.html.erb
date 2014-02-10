@@ -9,7 +9,7 @@
       <% if @referer %>
         <li class="link"><%= link_to "<< Continuar comprando", @referer[:url], :class => "back_link" %></li>
       <% else %>
-        <li class="link"><%= link_to "<< Continuar comprando", member_showroom_path, :class => "back_link" %></li>
+        <li class="link"><%= link_to "<< Continuar comprando", root_path, :class => "back_link" %></li>
       <% end %>
     </ul>
   <% end %>

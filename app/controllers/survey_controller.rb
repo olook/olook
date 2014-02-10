@@ -27,7 +27,7 @@ class SurveyController < ApplicationController
       current_user.upgrade_to_full_user!
 
       if session[:profile_retake]
-        redirect_to member_showroom_path
+        redirect_to root_path
       else
         redirect_to member_welcome_path
       end

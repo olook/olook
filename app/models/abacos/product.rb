@@ -40,7 +40,6 @@ module Abacos
         integrate_attributes(product)
         integrate_details(product)
         integrate_profiles(product)
-        integrate_catalogs(product)
         if product.is_kit
           create_kit_variant
         else
@@ -65,17 +64,6 @@ module Abacos
         product.save!
       end
       product
-    end
-
-    def integrate_catalogs(product)
-      collection_themes_in_catalog = self.collection_themes.each.map do |item|
-        begin
-          CollectionTheme.find_by_id!(item.to_i)
-        rescue ActiveRecord::RecordNotFound => e
-          #todo: tratar
-        end
-      end
-      CatalogService.save_product product, :collection_themes => collection_themes_in_catalog.compact
     end
 
     def integrate_attributes(product)

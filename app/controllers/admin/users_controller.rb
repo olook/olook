@@ -55,7 +55,7 @@ class Admin::UsersController < Admin::BaseController
     if sign_in User.find(params[:id]), :bypass => true
       session[:cart_id] = Cart.includes(:orders).where(:orders => {:id => nil}, :user_id => params[:id]).last.try(:id)
       session[:cart_credits] = nil
-      redirect_to(member_showroom_path) 
+      redirect_to(root_path)
     end
   end
 

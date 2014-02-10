@@ -155,6 +155,7 @@ Olook::Application.routes.draw do
   match "/melt" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/melt_data.xml")
   match "/stylight" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/stylight_data.xml") 
   match "/all_in" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/all_in_data.xml") 
+  match "/buscape" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/buscape_data.xml") 
   
   # template da ilove_ecommerce
   match "/parceirosmkt" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/parceirosmkt_data.xml") 
@@ -185,7 +186,6 @@ Olook::Application.routes.draw do
   post "membro/convidar_contatos" => "members#invite_imported_contacts", :as => 'member_invite_imported_contacts'
   get "membro/convidadas" => "members#invite_list", :as => 'member_invite_list'
   get "membro/vitrine" => redirect('/minha/vitrine')
-  get "minha/vitrine", :to => "members#showroom", :as => "member_showroom"
   get "/vitrines", to:"members#half_showroom", as: 'half_showroom'
   get "/criar/vitrine", to: 'join#showroom', as: 'join_showroom'
   get "membro/bem-vinda", :to => "members#welcome", :as => "member_welcome"
@@ -470,6 +470,7 @@ Olook::Application.routes.draw do
 
   resource :checkout, :path => 'pagamento', :controller => 'checkout/checkout' do
     get "/", :to => "checkout/checkout#new"
+    put "/", to: 'checkout/checkout#update'
     get "/novo", :to => "checkout/checkout#new", defaults: {freight_service_ids: "4,5"}
     get "preview_by_zipcode", :to => "checkout/addresses#preview", :as => :preview_zipcode
     resources :addresses, :path => 'endereco', :controller => "checkout/addresses"
