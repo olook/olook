@@ -266,10 +266,14 @@ olook.registerEmail = function(){
 
 
 olook.showEmailBar = function(){
- if($.cookie("newsletterUser") == null && $.cookie("ms") == null && $.cookie("ms1") == "1" && $.cookie("email_bar") == null && !/(?:pagamento\/login|admins|quiz|cadastro)/.test(window.location.href)){
+  if($.cookie("newsletterUser") == null &&
+     $.cookie("ms") == null &&
+       $.cookie("ms1") == "1" &&
+         $.cookie("email_bar") == null &&
+           !/(?:pagamento\/login|admins|quiz|cadastro)/.test(window.location.href)){
     $("#modal_footer").fadeIn();
-		o.registerEmail();
-	}
+  o.registerEmail();
+  }
 }
 
 /*** Wishlist ***/

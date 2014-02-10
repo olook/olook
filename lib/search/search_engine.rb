@@ -9,7 +9,7 @@ class SearchEngine
   IGNORE_ON_URL = Set.new(['inventory', :inventory, 'is_visible', :is_visible, 'in_promotion', :in_promotion])
   PERMANENT_FIELDS_ON_URL = Set.new([:is_visible, :inventory])
 
-  RETURN_FIELDS = [:subcategory,:name,:brand,:image,:retail_price,:price,:backside_image,:category,:text_relevance]
+  RETURN_FIELDS = [:subcategory,:name,:brand,:image,:retail_price,:price,:backside_image,:category,:text_relevance,:inventory]
 
   SEARCHABLE_FIELDS = [:category, :subcategory, :color, :brand, :heel,
                 :care, :price, :size, :product_id, :collection_theme,
@@ -78,7 +78,7 @@ class SearchEngine
   def price= price
     @expressions["price"] = []
     if /^(?<min>\d+)-(?<max>\d+)$/ =~ price.to_s
-      @expressions["price"] = ["retail_price:#{min.to_i*100}..#{max.to_i*100-1}"]
+      @expressions["price"] = ["retail_price:#{min.to_i*100}..#{[max.to_i*100-1, 0].max}"]
     end
     self
   end
@@ -104,7 +104,7 @@ class SearchEngine
   end
 
   def total_results
-    @result.hits["found"]
+    @result.hits["found"] || 0
   end
 
   def cache_key

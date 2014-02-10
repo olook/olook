@@ -71,33 +71,42 @@
                <ul>
                  <li class="first">Olá,</li>
                  <li class="username">
-                 <%= current_user.first_name %>
+                   <%= current_user.first_name %>
                  </li>
-                 
                  <li class="submenu">
-                 <%= link_to "Minha Conta", user_orders_path, :id => "account" %>
-                 <div class="my_account">
-                   <ul>
-                     <li><%= link_to "Meus pedidos", user_orders_path %></li>
-                     <li class="last"><%= link_to "Meus créditos", user_credits_path %></li>
-                     <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
-                     <li><%= link_to "Endereços", user_addresses_path %></li>
-                     <li><%= link_to "Sair", destroy_user_session_path, :method => :delete, onclick: track_event("Checkout","clickSignOut") %></li>
-                   </ul>
-                 </div>
+                   <%= link_to "Minha Conta", user_orders_path, :id => "account" %>
+                   <div class="my_account">
+                     <ul>
+                       <li><%= link_to "Meus pedidos", user_orders_path %></li>
+                       <li class="last"><%= link_to "Meus créditos", user_credits_path %></li>
+                       <li><%= link_to "Dados pessoais", edit_user_registration_path %></li>
+                       <li><%= link_to "Endereços", user_addresses_path %></li>
+                       <li><%= link_to "Sair", destroy_user_session_path, :method => :delete, onclick: track_event("Checkout","clickSignOut") %></li>
+                     </ul>
+                   </div>
                  </li>
-                 <p class="trade"><%= link_to "Fale Conosco", duvidasfrequentes_path, :class => "invite" %></p>
                  <li>
-                  <p class="sac">(11) 2626-3489</p>
+                   <p class="trade" style=""><%= link_to "Fale Conosco", duvidasfrequentes_path, :class => "invite" %></p>
+                 </li>
+                 <li>
+                   <p class="sac">(11) 2626-3489</p>
                  </li>
                </ul>
              </div>
            <% else %>
-              <p class="trade" style="float:right;border-right:0px;border-left:1px solid #000;padding-left:10px;"><%= link_to "Fale Conosco", duvidasfrequentes_path, :class => "invite" %></p>
-              <p class="sac" style="">(11) 2626-3489</p>
-              <p class="new_login"><%= link_to "Entre", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %> &nbsp;ou&nbsp; <%= link_to "Descubra seu estilo", wysquiz_path %></p>
-
-               
+             <div class="user">
+               <ul>
+                 <li>
+                   <p class="new_login"><%= link_to "Entre", "javascript:void(0);", :rel => "sign-in-dropdown", :class => "trigger" %> &nbsp;ou&nbsp; <%= link_to "Descubra seu estilo", wysquiz_path %></p>
+                 </li>
+                 <li>
+                   <p class="trade" style=""><%= link_to "Fale Conosco", duvidasfrequentes_path, :class => "invite" %></p>
+                 </li>
+                 <li>
+                   <p class="sac" style="">(11) 2626-3489</p>
+                 </li>
+               </ul>
+             </div>
              <div class="sign-in-dropdown close">
                <%= render "users/sessions/form_user" %>
              </div>
@@ -116,7 +125,7 @@
                           produto a sua lista de favoritos.
                       </p>
                  <% elsif any_wished_product_has_discount? %>                                     
-                   <%= link_to "Favoritos", wishlist_path, :class=> "wishlistHasProduct", onclick: track_event("Wishlist","openWishlistFromMenu") %>
+                   <%= link_to "Favoritos", wishlist_path, :class=> "wishlistHasProduct discount", onclick: track_event("Wishlist","openWishlistFromMenu") %>
                       <p class="sub full">
                         Oba! Alguns dos seus produtos
                         <br />

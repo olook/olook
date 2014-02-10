@@ -1,3 +1,9 @@
+regenerate_looks:
+  cron: "0 */6 * * *"
+  class: FullLook::LookBuilder
+  queue: look
+  description: "Gera novamente os Looks"
+
 update_birthday_base:
   cron: "0 5 * * *"
   class: MarketingBaseUploaderWorker
@@ -35,7 +41,7 @@ update_ses_info:
   description: "Atualiza a tabela ses com as informações "
 
 update_inventory:
-  cron: "*/5 * * * *"
+  cron: "*/45 * * * *"
   class: Abacos::UpdateInventory
   queue: inventory
   description: "Atualiza o Inventario"
@@ -187,3 +193,9 @@ cancel_old_mercado_pago:
   class: Abacos::CancelExpiredMercadoPagoPayment
   queue: cancel_old_mercadopago_payments
   description: "Cancela todos os pagamentos do mercado pago expirados"
+
+gather_blog_posts:
+  cron: "0 * * * *"
+  class: PostUpdaterWorker
+  queue: blog_posts
+  description: "Atualiza as chamadas dos posts de hora em hora"

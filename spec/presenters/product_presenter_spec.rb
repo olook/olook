@@ -55,7 +55,7 @@ describe ProductPresenter do
         products = [second_shoe, third_shoe]
         subject.stub(:look_products).and_return(products)
         template.should_receive(:render).with(:partial => 'product/look_products', :locals => {:look_products => products, :product_presenter => subject, :complete_look_discount => {}}).and_return('related')
-        subject.render_look_products.should == 'related'
+        subject.render_look_products(nil).should == 'related'
       end
     end
   end

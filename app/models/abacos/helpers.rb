@@ -18,10 +18,11 @@ module Abacos
         when 'bolsa' then Category::BAG
         when 'joia' then Category::ACCESSORY
         when 'jóia' then Category::ACCESSORY
+        when 'roupa' then Category::CLOTH
         when 'lingerie' then Category::LINGERIE
         when 'moda praia' then Category::BEACHWEAR
       else
-        Category::CLOTH
+        Category::ACCESSORY
       end
     end
 

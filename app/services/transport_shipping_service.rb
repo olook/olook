@@ -1,6 +1,6 @@
 class TransportShippingService
-  DEFAULT_DELIVERY_TIME_FACTOR = 0.2
-  DEFAULT_PRICE_FACTOR = 0.3
+  DEFAULT_DELIVERY_TIME_FACTOR = 0.1
+  DEFAULT_PRICE_FACTOR = 0.1
   attr_reader :transport_shippings
   attr_accessor :return_shippings
 
@@ -17,7 +17,6 @@ class TransportShippingService
     
     fast_delivery_time, fast_price = fast_shipping[:delivery_time], fast_shipping[:price]
     default_delivery_time, default_price = default_shipping[:delivery_time], default_shipping[:price]
-
     set_fast_shipping(fast_shipping) if has_smaller_deliver_time?(fast_delivery_time, default_delivery_time) && has_major_price?(fast_price, default_price)
 
     return_shippings
