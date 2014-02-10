@@ -12,7 +12,7 @@ module FreightCalculator
     default_shipping: {
       price: DEFAULT_FREIGHT_PRICE, 
       cost: DEFAULT_FREIGHT_COST,
-      delivery_time: DEFAULT_INVENTORY_TIME,
+      delivery_time: DEFAULT_INVENTORY_TIME + 4,
       shipping_service_id: DEFAULT_FREIGHT_SERVICE
     }
   }

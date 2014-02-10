@@ -126,7 +126,7 @@
                           produto a sua lista de favoritos.
                       </p>
                  <% elsif any_wished_product_has_discount? %>                                     
-                   <%= link_to "Favoritos", wishlist_path, :class=> "wishlistHasProduct", onclick: track_event("Wishlist","openWishlistFromMenu") %>
+                   <%= link_to "Favoritos", wishlist_path, :class=> "wishlistHasProduct discount", onclick: track_event("Wishlist","openWishlistFromMenu") %>
                       <p class="sub full">
                         Oba! Alguns dos seus produtos
                         <br />

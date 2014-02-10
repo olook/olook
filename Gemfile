@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-ruby '1.9.3'
+ruby "2.0.0"
 
 gem 'rails', '3.2.13'
 gem 'rake', '0.9.2'
@@ -15,7 +15,8 @@ gem 'oa-oauth', '~> 0.3.0', :require => 'omniauth/oauth'
 gem 'therubyracer', '~> 0.12.0'
 gem 'resque', '~> 1.20.0', :require => 'resque/server'
 gem 'resque_mailer', '~> 2.0.2'
-gem 'resque-scheduler', '~>2.0.0', :require => ['resque_scheduler', 'resque_scheduler/server']
+gem 'resque-scheduler', '~>2.0.1', :require => ['resque_scheduler', 'resque_scheduler/server']
+gem 'rufus-scheduler', '~>2.0.24'
 gem 'resque-pool'
 gem 'puma', require: false #for resque web in rubber
 gem 'brcpfcnpj', '= 3.0.4'
@@ -25,7 +26,7 @@ gem 'glennfu-contacts', '= 1.2.6', :path => "vendor/gems", :require => "contacts
 gem 'cancan', '~> 1.6.7'
 gem 'enumerate_it', '~> 0.7.14'
 gem 'fog', '~> 1.2'
-gem 'carrierwave', '~> 0.6.0'
+gem 'carrierwave', '~> 0.6'
 gem 'mini_magick', '= 3.3'
 gem 'zipruby'
 gem 'will_paginate'
@@ -44,7 +45,7 @@ gem 'state_machine', '~> 1.1.0'
 gem 'state_machine-audit_trail', '~> 0.0.5'
 gem 'savon', '= 0.9.9'
 gem 'gyoku', '= 0.4.6'
-gem 'httpi', '= 0.9.7'
+gem 'httpi', '~> 0.9'
 gem 'paper_trail', '~> 2'
 gem 'meta_search'
 gem 'newrelic_rpm'
@@ -53,6 +54,7 @@ gem 'SyslogLogger', "~> 1.4.1"
 gem 'koala', '~> 1.3.0'
 gem 'dalli', '2.0.2'
 gem 'redis-rails'
+gem 'iconv'
 gem 'sitemap_generator'
 
 gem 'sass-rails', "~> 3.2.3"
@@ -116,5 +118,6 @@ gem 'open4'
 gem "codeclimate-test-reporter", group: :test, require: nil
 group :test do
   gem 'webmock'
+  gem "fakeredis"
 end
 gem 'passenger', require: false
