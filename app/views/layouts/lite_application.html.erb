@@ -47,7 +47,7 @@
     <%= yield :data_layer %>
 
     <%= render 'shared/tag/soasta' %>
-    <script type="text/javascript" src="http://localhost/popup/js.php?popup=1"></script>
+    <%= Setting.sample_popup_url.html_safe %>
   </head>
 
   <body onload='ativaDiv();' class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %><%= mobile? ? ' mobile' : ' desktop' %>">

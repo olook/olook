@@ -118,3 +118,5 @@ Setting.defaults[:look_cloth_category_weight] = 2
 Setting.defaults[:look_shoe_category_weight] = 1
 Setting.defaults[:look_bag_category_weight] = 1
 Setting.defaults[:look_accessory_category_weight] = 1
+
+Setting.defaults[:sample_popup_url] = "<script type=\"text/javascript\" src=\"http://localhost/js.php?popup=4\"></script>"
