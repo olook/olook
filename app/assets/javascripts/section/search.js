@@ -1,0 +1,3 @@
+$(function(){
+  olook.changePictureOnhover('.async');
+})

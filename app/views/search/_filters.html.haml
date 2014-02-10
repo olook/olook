@@ -28,6 +28,6 @@
   .filter
     %p.title-category Marca
     %ul.category-list
-      - filters_by('brand_facet', search, use_fields: [:category]).each do |text, amount|
+      - _filters.each do |text|
         %li= filter_link_to(search_path(@url_builder.add_filter(:brand, text)), text.chomp.gsub('Ç', 'ç').downcase.titleize, search.filter_selected?(:brand, text.chomp))
       %li= link_to("Limpar Filtro", @url_builder.remove_filter_of(:brand), :class => "clean") if search.filter_value(:brand).present?        
