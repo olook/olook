@@ -6,7 +6,7 @@ module XmlHelper
   end
 
   def full_image_path path
-    if path && !(path =~ /http/)
+    if path && !(path.to_s =~ /http/)
       "http:#{path}"
     else
       path
