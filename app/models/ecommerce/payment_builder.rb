@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class PaymentBuilder
+  MOTOBOY = 5
   attr_accessor :cart_service, :payment, :delivery_address, :response, :gateway_strategy
 
   def initialize(opts = { })
@@ -67,6 +68,7 @@ class PaymentBuilder
         payment.save!
 
         notify_big_billet_sail(payment)
+        notify_motoboy_order(order)
 
         order.line_items.each do |item|
           variant = Variant.lock("LOCK IN SHARE MODE").find(item.variant.id)
@@ -100,6 +102,18 @@ class PaymentBuilder
   end
 
   private
+
+    def notify_motoboy_order order
+      freight = order.freight
+      if freight.shipping_service_id == MOTOBOY
+        to = %w(rafael.manoel luiz.vergueiro cristina.logiodice diogo.silva erico.proenca).map{|s| "#{s}@olook.com.br"}.join(",")
+        Resque.enqueue(NotificationWorker, {
+          to: to,
+          body: "Pedido Numero: #{order.number} deve ser eviado por motoboy",
+          subject: "Pedido motoboy"
+        })
+      end    
+    end
 
     def create_discount_payments
       total_promotion = cart_service.cart.total_promotion_discount

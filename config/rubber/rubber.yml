@@ -279,6 +279,13 @@ hosts:
     availability_zone: us-east-1d
   app05:
     availability_zone: us-east-1d
+  appruby2:
+    availability_zone: us-east-1d
+    ruby_version: 2.0.0-p195
+    branch: ruby2
+    cloud_providers:
+      aws:
+        image_type: m1.small
   resque01:
     resque_worker_count: 50
     cloud_providers:
