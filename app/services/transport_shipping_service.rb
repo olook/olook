@@ -17,7 +17,7 @@ class TransportShippingService
     
     fast_delivery_time, fast_price = fast_shipping[:delivery_time], fast_shipping[:price]
     default_delivery_time, default_price = default_shipping[:delivery_time], default_shipping[:price]
-    set_fast_shipping(fast_shipping) if has_smaller_deliver_time?(fast_delivery_time, default_delivery_time) && has_major_price?(fast_price, default_price)
+    set_fast_shipping(fast_shipping) if has_smaller_deliver_time?(fast_delivery_time, default_delivery_time)
 
     return_shippings
   end
@@ -36,8 +36,5 @@ class TransportShippingService
     #Criar classes para fazer isso
     def has_smaller_deliver_time? delivery_time, control_delivery_time
       delivery_time <= (control_delivery_time - (control_delivery_time * DEFAULT_DELIVERY_TIME_FACTOR))
-    end
-    def has_major_price? price, price_control
-      price > (price_control + (price_control * DEFAULT_PRICE_FACTOR))
     end
 end
