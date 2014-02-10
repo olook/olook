@@ -127,6 +127,7 @@ class SearchEngine
         parameters[key.to_sym] = []
       end
     end
+    parameters.merge!({q: @query}) if @query
     parameters
   end
 
