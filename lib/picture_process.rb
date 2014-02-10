@@ -1,15 +1,25 @@
 class PictureProcess
   DIRECTORY = 'product_pictures'
   attr_accessor :params
+  @queue = 'low'
 
-  def initialize(options={})
+  def self.list(options={})
     @@connection ||= Fog::Storage[:aws]
     @@directory ||= @@connection.directories.get(DIRECTORY)
     @@directory.instance_variable_set('@files', nil)
-    @params = options
+    @@directory.files.all(delimiter: '/', prefix: options[:prefix]).common_prefixes
   end
 
-  def list
-    @@directory.files.all(delimiter: '/', prefix: params[:prefix]).common_prefixes
+  def self.perform(options={})
+    self.new(options).perform
+  end
+
+  def initialize(options={})
+    @key = options[:key]
+    raise ArgumentError.new("Directory to process on S3 Bucket is necessary (key is nil)") if @key.blank?
+  end
+
+  def perform
+    puts "Fazendo a porra toda"
   end
 end

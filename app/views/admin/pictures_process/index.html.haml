@@ -6,8 +6,5 @@
       %td
   - @keys.each do |key|
     %tr
-      - if key.respond_to?(:public_url) && key.public_url.present?
-        %td= link_to(key.key, key.public_url)
-      - else
-        %td= link_to(key.respond_to?(:key) ? key.key : key, admin_pictures_process_path(prefix: key))
-      %td Botão
+      %td= link_to(key.respond_to?(:key) ? key.key : key, admin_pictures_process_path(prefix: key))
+      %td=button_to "Sincronizar", admin_pictures_process_path(key: key), method: :post
