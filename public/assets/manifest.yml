@@ -1392,10 +1392,12 @@ my_account/title-personal-data.png: my_account/title-personal-data-be08302ebd59c
 my_account/title-personal-data/index.png: my_account/title-personal-data-be08302ebd59cee0ae7faf0d90393b68.png
 new_checkout/bg_steps.png: new_checkout/bg_steps-d422223a9869e1f3281de77485159e78.png
 new_checkout/bg_steps/index.png: new_checkout/bg_steps-d422223a9869e1f3281de77485159e78.png
-new_checkout/carrinhos_frete.png: new_checkout/carrinhos_frete-9efde487039c16312b6292be25c9a5e1.png
-new_checkout/carrinhos_frete/index.png: new_checkout/carrinhos_frete-9efde487039c16312b6292be25c9a5e1.png
+new_checkout/carrinhos_frete.png: new_checkout/carrinhos_frete-5e4b62cc0124ab4e888ff9184ff4188d.png
+new_checkout/carrinhos_frete/index.png: new_checkout/carrinhos_frete-5e4b62cc0124ab4e888ff9184ff4188d.png
 new_checkout/codigo_seguranca.jpg: new_checkout/codigo_seguranca-c4b4119310860090097174f1faa5bff5.jpg
 new_checkout/codigo_seguranca/index.jpg: new_checkout/codigo_seguranca-c4b4119310860090097174f1faa5bff5.jpg
+new_checkout/icone_motoca.jpg: new_checkout/icone_motoca-4d3474109b93d14e0b63ed5593b4b2fd.jpg
+new_checkout/icone_motoca/index.jpg: new_checkout/icone_motoca-4d3474109b93d14e0b63ed5593b4b2fd.jpg
 new_checkout/img_boleto.png: new_checkout/img_boleto-b66f8919d350c28e763762dc639a6e9f.png
 new_checkout/img_boleto/index.png: new_checkout/img_boleto-b66f8919d350c28e763762dc639a6e9f.png
 new_checkout/logo_mp.jpg: new_checkout/logo_mp-4bd496e5aa65ad823a00d30ce468138c.jpg
@@ -2030,8 +2032,8 @@ modules/complete_look/complete_look.js: modules/complete_look/complete_look-4afa
 modules/complete_look/complete_look/index.js: modules/complete_look/complete_look-4afa9291f2ac4d20b92fac591846631b.js
 modules/complete_look/minicart_box_display_updater.js: modules/complete_look/minicart_box_display_updater-a449f5cddbfdda09790b9bbf1e8dfce0.js
 modules/complete_look/minicart_box_display_updater/index.js: modules/complete_look/minicart_box_display_updater-a449f5cddbfdda09790b9bbf1e8dfce0.js
-modules/complete_look/minicart_data_updater.js: modules/complete_look/minicart_data_updater-b8a562e84d325ce3d1894eacff74cc1e.js
-modules/complete_look/minicart_data_updater/index.js: modules/complete_look/minicart_data_updater-b8a562e84d325ce3d1894eacff74cc1e.js
+modules/complete_look/minicart_data_updater.js: modules/complete_look/minicart_data_updater-8f0e85f10d38da37dbcc185b94c74e05.js
+modules/complete_look/minicart_data_updater/index.js: modules/complete_look/minicart_data_updater-8f0e85f10d38da37dbcc185b94c74e05.js
 modules/complete_look/minicart_fade_in_manager.js: modules/complete_look/minicart_fade_in_manager-10ea0315b595be11055629b84fcaf6b7.js
 modules/complete_look/minicart_fade_in_manager/index.js: modules/complete_look/minicart_fade_in_manager-10ea0315b595be11055629b84fcaf6b7.js
 modules/complete_look/minicart_fade_out_manager.js: modules/complete_look/minicart_fade_out_manager-17abe73a1c49a8b438b08f0a52977880.js
@@ -2130,8 +2132,8 @@ plugins/video_modal.js: plugins/video_modal-93303bb6d174bce996cdef9153b74344.js
 plugins/video_modal/index.js: plugins/video_modal-93303bb6d174bce996cdef9153b74344.js
 press.js: press-671f54988949c63f68232a094c0499f9.js
 press/index.js: press-671f54988949c63f68232a094c0499f9.js
-product.js: product-ab626bbc6d822044e73c84c507af616d.js
-product/index.js: product-ab626bbc6d822044e73c84c507af616d.js
+product.js: product-78202f200116b73298a1970fbca5ef9a.js
+product/index.js: product-78202f200116b73298a1970fbca5ef9a.js
 profiles.js: profiles-79696edf73b4618ad0ce382a568446e3.js
 profiles/index.js: profiles-79696edf73b4618ad0ce382a568446e3.js
 quiz.js: quiz-d5571e61aaedbfdef6f2e0432329dcbf.js
@@ -2366,8 +2368,8 @@ section/avc-campaign.css: section/avc-campaign-0a1947964088596d05863279c631f5d7.
 section/avc-campaign/index.css: section/avc-campaign-0a1947964088596d05863279c631f5d7.css
 section/box_invite.css: section/box_invite-be916e8ce4ca637035a21433079ac6a8.css
 section/box_invite/index.css: section/box_invite-be916e8ce4ca637035a21433079ac6a8.css
-section/checkout.css: section/checkout-f683df82687ca0c0a56a87f659dff234.css
-section/checkout/index.css: section/checkout-f683df82687ca0c0a56a87f659dff234.css
+section/checkout.css: section/checkout-8fb3dba85e36499a2d3a6775124fc005.css
+section/checkout/index.css: section/checkout-8fb3dba85e36499a2d3a6775124fc005.css
 section/collections.css: section/collections-4e596c8defb1e71324e84b2a7b624214.css
 section/collections/index.css: section/collections-4e596c8defb1e71324e84b2a7b624214.css
 section/contact.css: section/contact-fd72f7c1b3750717fdb0af28ce6b99b4.css

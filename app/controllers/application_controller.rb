@@ -253,7 +253,7 @@ class ApplicationController < ActionController::Base
   end
 
   def prepare_freights(freights)
-    @shipping_service = OpenStruct.new freights.fetch(:default_shipping)
+    @shipping_service = OpenStruct.new freights.fetch(:default_shipping, nil)
     if freights.count > 1
       @has_two_shipping_services = true
       @shipping_service_fast = OpenStruct.new freights.fetch(:fast_shipping)

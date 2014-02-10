@@ -1,5 +1,13 @@
 //=require checkout_addresses
 $('#shipping_services_types').show();
+if( $(".motoboy").size() > 0 && $('.shipping_service_radio:last').is(':checked') && $("#motoboy_info").size() == 0){
+  $(".motoboy").append('<span id=motoboy_info>Apenas para pedidos com pagamento confirmado até as 15h</span>');
+}else{
+      $("#motoboy_info").remove();
+}
+
+$('.shipping_service_radio:first').val(<%= @shipping_service.shipping_service_id %>);
+
 <% if @has_two_shipping_services %>
   $(".expresso").show();
   $(".shipping").html("(<%= @shipping_service.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service.price) %>");
@@ -7,12 +15,35 @@ $('#shipping_services_types').show();
   _gaq.push(['_trackEvent', 'ExpressFreight', 'ShowExpressDeliveryBox','<%= @zip_code %>', , true]);
   $('.shipping_service_radio:first').data('shipping-service',<%= @shipping_service.shipping_service_id %>); 
   $('.shipping_service_radio:last').data('shipping-service', <%= @shipping_service_fast.shipping_service_id %>); 
+  $('.shipping_service_radio:last').val(<%= @shipping_service_fast.shipping_service_id %>);
+  var expressInput = $('.shipping_service_radio:last');
+  expressInput.data('shipping-service', <%= @shipping_service_fast.shipping_service_id %>); 
+
+  <% if show_motoboy_freight? %>
+    expressInput.parent().removeClass('expresso').addClass('motoboy');
+
+    var expressLabel = expressInput.siblings().first();
+    expressLabel.html('Entrega a jato');
+    
+    var expressDeliveryTime = expressInput.siblings().last();
+    expressDeliveryTime.html('(Em 3 horas) <%= number_to_currency(@shipping_service_fast.price) %>' );
+    $('.shipping_service_radio:last').val(<%= @shipping_service_fast.shipping_service_id %>);
+  <% else %>
+    expressInput.parent().removeClass('motoboy').addClass('expresso');
+    var expressLabel = expressInput.siblings().first();
+    expressLabel.html('Expresso');
+
+  <% end %>
+
+  $('.shipping_service_radio:last').data('shipping-service', <%= @shipping_service_fast.shipping_service_id %>); 
+  $('.shipping_service_radio:last').val(<%= @shipping_service_fast.shipping_service_id %>);
 <% end %>
 <% if !@has_two_shipping_services && !params[:freight_service_ids] %>
   $(".shipping").html("(<%= @shipping_service.delivery_time %> dias úteis) <%= number_to_currency(@shipping_service.price) %>");
   $('.shipping_service_radio:first').data('shipping-service',<%= @shipping_service.shipping_service_id %>); 
   $('.shipping_service_radio:first').attr("checked",true);
   $(".expresso").hide();
+  $("#motoboy_info").remove();
 <% end %>
 
 $("#freight_price").
