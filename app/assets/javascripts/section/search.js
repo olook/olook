@@ -1,5 +1,6 @@
-//= require plugins/carrosel
+//= require plugins/change_picture_onhover
 
 $(function(){
-  olook.changePictureOnhover('.async');
-})
+  olook.changePictureOnhover('.look_thumbnail');
+  new ImageLoader().load('look_thumbnail');
+});

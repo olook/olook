@@ -39,6 +39,11 @@
 
 - if @search.products.size == 0
   .chaordic.mostpopular{"data-skin" => "MP-top-5"}
-  - @stylist = Product.fetch_products :selection
   %section#stylists.search_result
-    = render "search/products", products: @stylist, ga_category: 'Stylists'
+    %ul.products_list
+      - @recommendation.products(limit: 6).each do |product|
+        %li
+          = link_to product_seo_url(product.seo_path), onclick: track_event("LoggedHome", "ClickCarouselProduct", "#{product.id}") do
+            %span.look_thumbnail{data: {product: product.main_picture.image_url(:catalog), backside_picture: product.backside_picture.image_url(:catalog) }}
+          %span= product.name
+          %span= number_to_currency(product.retail_price)

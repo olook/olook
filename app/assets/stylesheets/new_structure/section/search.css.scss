@@ -1,1 +1,23 @@
 p.spy { display: none; }
+
+
+.search_result {
+  margin-top:20px !important;
+  li {
+    width:150px;
+    float:left;
+    display: block;
+    height:260px;
+    border:1px solid #e1e1e1;
+    padding:5px;
+    margin:0 0 0 5px !important;
+    a, img {width:100%;}
+    span {
+      font-weight: normal !important;
+      font-family: Verdana !important;
+      font-size: 11px !important;
+      color:#808285;
+      text-align: left;
+    }
+  }
+}
