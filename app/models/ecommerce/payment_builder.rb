@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class PaymentBuilder
+  MOTOBOY = 5
   attr_accessor :cart_service, :payment, :delivery_address, :response, :gateway_strategy
 
   def initialize(opts = { })
@@ -100,7 +101,6 @@ class PaymentBuilder
   end
 
   private
-
     def create_discount_payments
       total_promotion = cart_service.cart.total_promotion_discount
       billet_discount = cart_service.total_discount_by_type(:billet_discount, payment)
