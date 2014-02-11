@@ -607,15 +607,16 @@ header#new_header{border-top: 2px black solid;
             letter-spacing: -1px;
           }
         } 
-        .async {
+        div.async {
           position: relative;
-        }
-        .info-product {
-          position: absolute;
-          bottom:5px;
+          height:256px;
+          img {
+            width:100%;
+            position: absolute;
+            bottom:0px;
+          }
         }
       }
-
     }
   }
   #filters {
