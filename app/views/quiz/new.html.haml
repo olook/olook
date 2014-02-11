@@ -50,9 +50,9 @@
                   = radio_button_tag "quiz[user_data][dress_size]", "#{ size }"
 
           %fieldset
-            = label_tag "quiz[user_data][t_shirt_size]", "Blusinha?"
+            = label_tag "quiz[user_data][t_shirt_size]", "Blusa?"
             %ol.options
-              - ["PP", "P", "M", "G", "GG"].each do |size|
+              - ["PP", "P", "M", "G", "GG", "Plus Size"].each do |size|
                 %li.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizQuestions', 'Blusinha?', '#{ size }']);"}
                   = size
                   = radio_button_tag "quiz[user_data][t_shirt_size]", "#{ size }"
@@ -60,7 +60,7 @@
           %fieldset
             = label_tag "quiz[user_data][pants_size]", "E o tamanho da sua calça jeans?"
             %ol.options
-              - ["34", "36", "38", "40", "42", "44", "46"].each do |size|
+              - ["34", "36", "38", "40", "42", "44", "46", "Plus Size"].each do |size|
                 %li.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizQuestions', 'E o tamanho da sua calça jeans?', '#{ size }']);"}
                   = size
                   = radio_button_tag "quiz[user_data][pants_size]", "#{ size }"
