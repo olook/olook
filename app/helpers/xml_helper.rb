@@ -6,7 +6,11 @@ module XmlHelper
   end
 
   def full_image_path path
-    "http:#{path}" unless path.blank?
+    if path && !(path.to_s =~ /http/)
+      "http:#{path}"
+    else
+      path
+    end
   end
 
   def build_installment_text(price, options = {})
