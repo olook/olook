@@ -8,16 +8,13 @@
   - if @search.products.size == 0
     %h2
       %b
-        Poxa, ainda não temos
+        Poxa, não encontramos
         %span= @q
-        \:(
-      Como sempre chegam novidades, logo mais devemos ter o que você procura por aqui. Fique ligada! ;)
-    %p.hints Sugestões para uma próxima busca:
+    %p.hints Você pode tentar fazer a busca novamente seguindo nossas dicas:
     %ul.hint-list
-      %li.hint_one Verifique se a ortografia está correta;
-      %li.hint_two Tente palavras mais genéricas;
-      %li.hint_three Ou palavras diferentes, com o mesmo significado;
-      %li.hint_four E remova aspas ou sinais de mais: isso restringe a possibilidade de resultados.
+      %li.hint_one - Verifique se a escrita está correta;
+      %li.hint_two - Tente palavras mais genéricas;
+    %p.hints Ou dê uma olhadinha em nossas sugestões ;) 
   - else
     .cb
       - unless @dont_show_message
@@ -41,10 +38,7 @@
         = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| search_path(@url_builder.current_filters.merge({q: @q}).merge(hash)) }
 
 - if @search.products.size == 0
-  .other-products
-    %p Enquanto isso, porque você não dá uma olhada em...
   .chaordic.mostpopular{"data-skin" => "MP-top-5"}
   - @stylist = Product.fetch_products :selection
-  = render "stylists"
-= render "boxes"
-= render "products_categories"
+  %section#stylists.search_result
+    = render "search/products", products: @stylist, ga_category: 'Stylists'

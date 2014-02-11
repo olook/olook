@@ -505,10 +505,12 @@ header#new_header{border-top: 2px black solid;
     font-weight: lighter;
     line-height:25px;
 
-    b{font-size:21px;
-      font-family: $avenir_medium;
+    b{font-size:18px;
+      font-family: verdana;
+      color:#000;
+      font-weight: normal;
     }
-    span{font-weight: bold;
+    span{
       color: $base_color;
     }
     &.title-founded{font-size:21px;
@@ -529,25 +531,22 @@ header#new_header{border-top: 2px black solid;
     font-size:12px;
     font-weight:bold;
   }
-  .hints{font-size: 15px;
-    font-family: $avenir;
-    color: #58595b;
-    text-transform: uppercase;
-    font-weight: 600;
+  .hints{font-size: 14px;
+    font-family: verdana;
+    color: #000;
+    font-weight: normal;
     margin-top: 20px;
   }
   ul{width: 100%;
     overflow: auto;
     &.hint-list{margin-top: 15px;
-      li{padding-left:25px;
+      li{
         height:22px;
         display:block;
-        font-size:15px;
-        font-family:$avenir;
-        color:#767779;
-        letter-spacing:1px;
+        font-size:14px;
+        font-family:verdana;
+        color:#000;
         font-weight:lighter;
-        background: image-url('search/number_icon.jpg') no-repeat;
         &.hint_one{background-position: 0 0;
         }
         &.hint_two{background-position: 0 -22px;
@@ -718,6 +717,9 @@ header#new_header{border-top: 2px black solid;
     }
   }
 }
+
+
+
 .show_more{
   clear: both;
   height: 100px;
