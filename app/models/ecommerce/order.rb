@@ -76,7 +76,7 @@ class Order < ActiveRecord::Base
 
   def notify_motoboy_order
     if shipping_service_name == 'LOGGI'
-      to = %w(rafael.manoel).map{|s| "#{s}@olook.com.br"}.join(",")
+      to = %w(rafael.manoel cristina.logiodice luiz.vergueiro erico.proenca).map{|s| "#{s}@olook.com.br"}.join(",")
       Resque.enqueue(NotificationWorker, {
         to: to,
         body: "Pedido Numero: #{number} deve ser eviado por motoboy",
