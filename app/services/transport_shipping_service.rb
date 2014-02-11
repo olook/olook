@@ -24,7 +24,7 @@ class TransportShippingService
 
   private
     def better_cost_shipping
-      transport_shippings.sort{|x,y| x[:cost] <=> y[:cost]}.first
+      transport_shippings.sort{|x,y| x[:price] <=> y[:price]}.first
     end
     def better_time_shipping
       transport_shippings.sort{|x,y| x[:delivery_time] <=> y[:delivery_time]}.first
