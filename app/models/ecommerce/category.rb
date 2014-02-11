@@ -11,7 +11,7 @@ class Category < EnumerateIt::Base
   )
 
   def self.list_of_all_categories
-    [Category::SHOE,Category::BAG,Category::ACCESSORY,Category::CLOTH, Category::LINGERIE, Category::BEACHWEAR]
+    [Category::SHOE,Category::BAG,Category::ACCESSORY,Category::CLOTH, Category::LINGERIE, Category::BEACHWEAR, Category::PLUSSIZE]
   end
 
   def self.with_name name
