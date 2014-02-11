@@ -602,15 +602,20 @@ header#new_header{border-top: 2px black solid;
           .old {text-decoration:line-through;
           }
           .txt-pink{color: $base_color;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
+            letter-spacing: -1px;
           }
         } 
         .async {
-          position: relative;height:255px;
-          img {position: absolute;bottom:0px;}
-        } 
+          position: relative;
+        }
+        .info-product {
+          position: absolute;
+          bottom:5px;
+        }
       }
+
     }
   }
   #filters {
