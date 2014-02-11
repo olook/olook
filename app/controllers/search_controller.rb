@@ -19,6 +19,7 @@ class SearchController < ApplicationController
       @url_builder = SeoUrl.new(search_params, nil, @search)
     end
 
+    @recommendation = RecommendationService.new(profiles: current_user.try(:profiles_with_fallback) || [Profile.default])
   end
 
   def product_suggestions
