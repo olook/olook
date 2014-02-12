@@ -4,8 +4,7 @@ class PictureProcess
   @queue = 'low'
 
   def self.list(options={})
-    @@connection ||= Fog::Storage[:aws]
-    @@directory ||= @@connection.directories.get(DIRECTORY)
+    @@directory ||= self.connection
     @@directory.instance_variable_set('@files', nil)
     @@directory.files.all(delimiter: '/', prefix: options[:prefix]).common_prefixes
   end
@@ -24,11 +23,28 @@ class PictureProcess
   end
 
   def perform
+    hash = Hash.new
+    arr = []
+    files = self.class.directory.files.all(delimiter: '/', prefix: @key).common_prefixes
+    files.map do |file|
+      product_number = file.gsub(/\D/, '')
+      arr = self.class.directory.files.all(delimiter: '/', prefix: file).map{|f| f.public_url}
+      arr.shift
+      arr
+      hash[product_number] = arr 
+      hash
+    end
+    binding.pry
+    hash
     puts "Fazendo a porra toda"
     sleep 600
   end
 
   private
+  def self.directory
+    connection ||= Fog::Storage[:aws]
+    connection.directories.get(DIRECTORY)
+  end
 
   def self.is_in_queue?(*args)
     key = Resque.encode(class: self.to_s, args: args)
