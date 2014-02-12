@@ -34,8 +34,16 @@ class PictureProcess
       hash[product_number] = arr 
       hash
     end
-    binding.pry
-    hash
+    hash.each do |k,v|
+      product = Product.find k
+      product.remote_color_sample_url = v.select{|image| image =~ /sample/i}.first
+      product.save
+      product.pictures.destroy_all if product.pictures.count > 1
+      v.each do |image|
+        Picture.create(product: product, image: File.open(image))
+      end
+      product.pictures
+    end
     puts "Fazendo a porra toda"
     sleep 600
   end
