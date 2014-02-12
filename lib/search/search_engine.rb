@@ -105,7 +105,7 @@ class SearchEngine
   end
 
   def total_results
-    @result.hits["found"]
+    @result.hits["found"] || 0
   end
 
   def cache_key
