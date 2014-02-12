@@ -558,7 +558,7 @@ header#new_header{border-top: 2px black solid;
       }
     }
     &.subcategory-list{color:#000;
-      li{margin-top:4px;
+      li{
         &:hover{color:$base_color;
         }
         a{color:#000;
