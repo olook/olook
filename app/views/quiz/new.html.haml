@@ -43,8 +43,8 @@
           %fieldset
             = label_tag "quiz[user_data][dress_size]", "E o tamanho do vestido?"
             %ol.options
-              - ["PP", "P", "M", "G", "GG"].each do |size|
-                %li.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizQuestions', 'E o tamanho do vestido?', '#{ size }']);"}
+              - ["PP", "P", "M", "G", "GG", "Plus Size"].each do |size|
+                %li{class:"check-input#{size == 'Plus Size' ? ' plus' : ''}", onclick: "_gaq.push(['_trackEvent', 'QuizQuestions', 'E o tamanho do vestido?', '#{ size }']);"}
                   = size
                   = radio_button_tag "quiz[user_data][dress_size]", "#{ size }"
 
