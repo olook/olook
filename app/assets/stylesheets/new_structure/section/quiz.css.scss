@@ -80,7 +80,7 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
     }
     .content-survey{
       width: 12000px;
-      height: 460px;
+      height: 490px;
     }
   }
   .img_style{
@@ -116,6 +116,7 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
     ol{
       .selected {
         border: solid $pink 3px;
+
       }
       li{
         margin-right: 20px;
@@ -169,21 +170,30 @@ a.b_showroom{font-family: $avenir; font-size: 11px;color: $pink;}
       }
     }
     ol.options{
-      width: 480px;
+      width: 560px;
       li{
-        width: 34px;
-        height: 34px;
+        width: 44px;
+        height: 30px;
         float:none;
         display:inline-block;
-        line-height: 36px;
         color: #6d6e71;
         font-family: $avenir;
         font-size: 16px;
         font-weight: lighter;
-        &.selected {
-          width: 30px !important;
-          height: 30px !important;
-          line-height: 32px !important;
+        padding-top: 15px;
+        line-height: 20px;
+        &.selected{
+          background:#000 !important;
+          color: #fff !important;
+          border:1px solid #000 !important;
+        }
+        &.plus{
+          padding-top:0px !important;
+          position: relative;
+          top: 6px;
+          height: 37px !important;
+          line-height: 15px !important;
+          padding-top: 8px !important;
         }
       }
     }
