@@ -147,7 +147,6 @@ class Admin::ProductsController < Admin::BaseController
       @collection_themes[group] << [collection_theme.name, collection_theme.id]
     end
 
-    @categories = [["Sapatos", Category::SHOE] , ['Bolsas', Category::BAG], ['Acessórios', Category::ACCESSORY], ['Roupas', Category::CLOTH]]
     @profiles = Profile.order(:name)
     @brands = Product.all.map(&:brand).compact.uniq
 
