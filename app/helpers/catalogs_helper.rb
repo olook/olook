@@ -12,7 +12,7 @@ module CatalogsHelper
     "Regulável" => "tamanho_regulavel"
   }
   UPCASE_BRANDS = ["TVZ"]
-  HIGHLIGHT_BRANDS = {"olook" => 1, "olook concept" => 2, "olook essential" => 3}
+  HIGHLIGHT_BRANDS = {"olook" => 1, "olook concept" => 2, "olook essential" => 3, "olook plus" => 4}
   DOWNCASE_WORDS = Set.new( %w{ e de do da a o } )
 
   def filter_link_to(link, text, selected=false, amount=nil)
