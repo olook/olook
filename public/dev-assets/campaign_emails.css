@@ -1,0 +1,697 @@
+/* line 1, ../../app/assets/stylesheets/campaign_emails.css.scss */
+*.parameterize {
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 12, ../../app/assets/stylesheets/campaign_emails.css.scss */
+input[type="submit"] {
+  float: left;
+  cursor: pointer;
+  font-size: 20px;
+  border: 0;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  -webkit-box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.49);
+  -moz-box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.49);
+  box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.49);
+}
+/* line 35, ../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+input[type="submit"]:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+
+/* line 22, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.close {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  background: url(/dev-assets/campaign_emails/close_bt.png) no-repeat;
+  position: absolute;
+  top: 1px;
+  right: 8px;
+  font-size: 0;
+  font-family: a;
+  cursor: pointer;
+}
+
+/* line 23, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember {
+  position: relative;
+  width: 412px;
+  height: 218px;
+  border: solid 1px #000;
+  text-align: center;
+  padding: 15px 0;
+  margin: 10px 0 0;
+  background: #FFF;
+}
+/* line 25, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember h3 {
+  font-family: johnston, arial, sans-serif;
+  font-size: 29px;
+}
+/* line 26, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember p {
+  font-family: avenir, arial, sans-serif;
+  font-size: 13px;
+}
+/* line 27, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember p.msg_close {
+  font-size: 14px;
+  margin-top: 30px;
+  margin-bottom: 0;
+}
+/* line 29, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember div.msg p {
+  font-family: avenir, arial, sans-serif;
+  font-size: 13px;
+}
+/* line 30, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember div.msg span {
+  display: block;
+  font-weight: bold;
+  font-size: 13px;
+}
+/* line 36, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember .msg {
+  background: #F0FDDF;
+  border: solid 1px #CBD7BC;
+  width: 245px;
+  height: 42px;
+  margin: 35px auto 5px auto;
+}
+/* line 42, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember .msg p {
+  height: 35px;
+  background: url(/dev-assets/campaign_emails/sprite.png) -260px -45px no-repeat;
+  text-align: left;
+  padding-left: 40px;
+  margin-top: 3px;
+  line-height: 39px;
+  font-size: 15px;
+}
+/* line 52, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember .close_pink {
+  width: 255px;
+  height: 55px;
+  cursor: pointer;
+  border: none;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  -webkit-box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.49);
+  -moz-box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.49);
+  box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.49);
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+.box-remember .close_pink:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 67, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember .close {
+  top: -11px !important;
+  right: -11px !important;
+}
+/* line 68, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember .f14 {
+  font-size: 14px;
+}
+/* line 69, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember .desconto {
+  font-size: 11px;
+  margin-top: 15px;
+}
+
+/* line 71, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login {
+  position: relative;
+  width: 500px !important;
+  height: 345px !important;
+  border: solid 1px #000;
+  text-align: center;
+  padding: 15px 0;
+  margin: 10px 0 0;
+  background: #FFF;
+}
+/* line 73, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login h3 {
+  font-family: johnston, arial, sans-serif;
+  font-size: 30px;
+  letter-spacing: 1px;
+  margin-top: 10px;
+  text-transform: uppercase;
+}
+/* line 74, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login p {
+  font-family: avenir, arial, sans-serif;
+  font-size: 14px;
+  margin-top: 0px;
+}
+/* line 75, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login form {
+  border: none;
+  padding: 5px 50px;
+  width: 358px;
+  height: 150px;
+  margin: 0 auto;
+}
+/* line 77, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login form fieldset {
+  margin-bottom: 5px;
+  border: 0;
+}
+/* line 78, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login form fieldset label {
+  font-family: avenir, arial, sans-serif;
+  font-size: 13px;
+  color: #5e5f61;
+}
+/* line 80, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login form fieldset.botoes {
+  margin-top: 5px;
+  text-align: left;
+}
+/* line 83, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login form fieldset.botoes div {
+  float: left;
+  width: 150px;
+  margin-left: 15px;
+}
+/* line 84, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login form fieldset.botoes div label {
+  font-size: 11px;
+  color: #5e5f61;
+  width: 60px;
+  display: inline-block;
+  text-align: left;
+  font-family: avenir, arial, sans-serif;
+}
+/* line 85, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login form fieldset.botoes div label[for="user_remember_me"] {
+  width: 100px;
+  font-size: 11px;
+}
+/* line 87, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login form fieldset.botoes div p {
+  float: left;
+  margin-top: 5px !important;
+}
+/* line 88, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login form fieldset.botoes div p a {
+  text-decoration: none;
+  color: #5e5f61;
+  font-family: avenir, arial, sans-serif;
+  font-size: 11px;
+}
+/* line 89, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login form fieldset.botoes div p a:hover {
+  text-decoration: underline;
+}
+/* line 93, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login form fieldset.botoes input[type="submit"] {
+  float: right;
+  width: 120px;
+  height: 50px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+/* line 106, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login form input[type="text"], .box-remember-login form input[type="password"] {
+  padding-left: 10px;
+  width: 272px;
+  height: 31px;
+  line-height: 31px;
+  border: solid 1px #C1C1C1;
+  background: url(/dev-assets/campaign_emails/bg_input.png) 0 2px repeat-x;
+  *vertical-align: middle;
+}
+/* line 108, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login .new_user {
+  float: left;
+  margin-left: 85px;
+  margin-top: -5px !important;
+  font-size: 11px;
+  font-family: avenir, arial, sans-serif;
+  color: #414042;
+}
+/* line 108, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login .new_user a {
+  font-size: 11px;
+  font-family: avenir, arial, sans-serif;
+  color: #414042;
+}
+/* line 109, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-remember-login .facebook a {
+  display: inline-block;
+  width: 261px;
+  height: 40px;
+  background: url(/dev-assets/campaign_emails/sprite.png) 0px -52px no-repeat;
+  font-size: 0;
+  font-family: a;
+  margin-top: 13px;
+}
+
+/* line 111, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.close {
+  top: -11px !important;
+  right: -11px !important;
+}
+
+/* line 112, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-continue {
+  position: relative;
+  text-align: center;
+  border: solid 1px #000;
+  background: #FFF;
+  width: 540px;
+  height: 270px;
+  margin-top: 10px;
+}
+/* line 114, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-continue h3 {
+  font-family: johnston, arial, sans-serif;
+  font-size: 30px;
+  letter-spacing: 1px;
+  margin-top: 30px;
+  text-transform: uppercase;
+}
+/* line 115, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-continue p {
+  font-family: avenir, arial, sans-serif;
+  font-size: 14px;
+  margin-top: 25px;
+  line-height: 18px;
+}
+/* line 116, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-continue .desconto {
+  font-family: avenir, arial, sans-serif;
+  font-size: 14px;
+  margin-top: 40px;
+  margin-bottom: 5px !important;
+  line-height: 18px;
+}
+/* line 117, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-continue .close_pink {
+  width: 255px;
+  height: 55px;
+  cursor: pointer;
+  border: none;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  -webkit-box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.49);
+  -moz-box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.49);
+  box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.49);
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+.box-continue .close_pink:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 132, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-continue .close {
+  top: -11px !important;
+  right: -11px !important;
+}
+
+/* line 135, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro {
+  float: left;
+  position: relative;
+  width: 893px;
+  border: solid 1px #000;
+  background: #FFF;
+  margin-top: 10px;
+}
+/* line 137, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro img {
+  float: left;
+  margin-left: 15px;
+  margin-top: 15px;
+}
+/* line 138, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro div.content {
+  width: 450px;
+  height: 340px;
+  padding: 0 19px;
+  float: left;
+}
+/* line 139, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro div.content .titulo {
+  font-family: johnston, arial, sans-serif;
+  font-size: 25px;
+  color: #000;
+  text-align: center;
+  margin: 30px 0 10px;
+  text-transform: uppercase;
+  line-height: 35px;
+  letter-spacing: 1px;
+}
+/* line 140, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro div.content .titulo span {
+  font-family: avenir, arial, sans-serif;
+  font-size: 18px;
+}
+/* line 142, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro div.content p.cadastre_new {
+  font-size: 18px;
+  font-family: avenir, arial, sans-serif;
+  color: #000;
+  text-align: center;
+  margin-left: 5px;
+}
+/* line 143, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro div.content p.cadastre_new span {
+  font-weight: bold;
+  font-size: 24px;
+}
+/* line 148, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro div.content .big_titulo {
+  font-family: johnston, arial, sans-serif;
+  font-size: 25px;
+  color: #000;
+  text-align: center;
+  margin: 50px 0 20px;
+  text-transform: uppercase;
+  line-height: 35px;
+  letter-spacing: 1px;
+}
+/* line 149, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro div.content .big_titulo span {
+  font-family: avenir, arial, sans-serif;
+  font-size: 18px;
+}
+/* line 151, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro div.content .cadastre {
+  font-family: avenir, arial, sans-serif;
+  font-size: 17px;
+  color: #050708;
+  text-align: center;
+  margin-left: 5px;
+  margin-bottom: -13px;
+}
+/* line 152, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro div.content .adendo {
+  font-size: 14px;
+  font-family: avenir, arial, sans-serif;
+  float: left;
+  width: 440px;
+  line-height: 18px;
+  margin-top: 207px;
+  color: #424242;
+  letter-spacing: -1px;
+  margin-left: 42px;
+  position: absolute;
+}
+/* line 153, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro div.content a.bt_go_catalog {
+  display: block;
+  width: 171px;
+  height: 31px;
+  margin-left: 138px;
+  margin-top: 30px;
+  text-transform: uppercase;
+  padding-top: 13px;
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 15px;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+.box-cadastro div.content a.bt_go_catalog:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 166, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro div.content p.terms_new_user {
+  font-size: 12px;
+  font-family: avenir, arial, sans-serif;
+  color: #000;
+  text-align: center;
+  margin-top: 37px;
+}
+/* line 170, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro form input[type="text"] {
+  float: left;
+  border: solid 1px #cacaca;
+  font-family: avenir, arial, sans-serif;
+  font-size: 14px;
+  width: 247px;
+  height: 30px;
+  margin: 8px 16px 0 25px;
+  line-height: 30px;
+  color: #a7a9ab;
+  text-align: center;
+}
+/* line 171, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro form input[type="submit"] {
+  width: 140px;
+  height: 45px;
+  font-size: 14px;
+  padding-bottom: 3px;
+  letter-spacing: 2px;
+  margin-left: 7px;
+}
+/* line 181, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro .texto {
+  font-size: 11px;
+  font-family: avenir, arial, sans-serif;
+  float: right;
+  width: 135px;
+  line-height: 18px;
+  color: #585858;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+/* line 182, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro .texto a {
+  color: #585858;
+}
+/* line 184, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro small {
+  clear: both;
+  display: block;
+  font-family: avenir, arial, sans-serif;
+  font-size: 11px;
+  text-align: center;
+  margin-top: 20px;
+  float: left;
+}
+/* line 186, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro .place-holder {
+  height: 45px;
+  margin-top: 5px;
+}
+/* line 187, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro .place-holder .error {
+  margin-top: 20px;
+  width: 400px;
+  height: 32px;
+  border: solid 1px #f4778e;
+  background: #fdadb7;
+  padding: 0;
+  display: none;
+  margin-left: 29px;
+}
+/* line 188, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro .place-holder .error p {
+  min-height: 22px;
+  background: url(/dev-assets/campaign_emails/sprite.png) -333px 0 no-repeat;
+  font-size: 14px;
+  padding: 0 0 0 25px;
+  color: #000;
+  margin-top: 4px;
+  line-height: 24px;
+  font-family: avenir, arial, sans-serif;
+  font-size: 14px;
+}
+/* line 192, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro .nao-exibir {
+  clear: both;
+  height: 35px;
+  padding-left: 15px;
+  color: #000;
+}
+/* line 194, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro .nao-exibir input {
+  float: left;
+  margin: 3px 5px 0 0;
+}
+/* line 195, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro .nao-exibir label {
+  font-family: avenir, arial, sans-serif;
+  font-size: 14px;
+}
+/* line 197, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro img.bday {
+  margin-left: 30px;
+}
+/* line 200, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro .futilish {
+  width: 378px;
+  height: 243px;
+  margin-top: 32px;
+  float: left;
+}
+/* line 207, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro .close {
+  top: -11px !important;
+  right: -11px !important;
+}
+/* line 208, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro .promo_new {
+  margin: 25px 0 10px !important;
+}
+/* line 209, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro p.content_promo {
+  margin-top: 5px;
+  line-height: 21px;
+}
+/* line 210, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro .promo_error {
+  margin-bottom: -10px;
+}
+/* line 211, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro .promo_form {
+  height: 75px !important;
+}
+/* line 212, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.box-cadastro .terms_promo {
+  position: absolute;
+  margin-top: 45px !important;
+  margin-left: 71px !important;
+}
+
+/* line 216, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.campaign_modal_4, .campaign_modal_5 {
+  width: 680px;
+  height: 500px;
+  background: url(/dev-assets/campaign_emails/club.jpg) no-repeat;
+}
+/* line 220, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.campaign_modal_4 .infos, .campaign_modal_5 .infos {
+  position: absolute;
+  margin-left: 330px;
+  margin-top: 147px;
+}
+/* line 224, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.campaign_modal_4 .infos h1, .campaign_modal_5 .infos h1 {
+  font-family: johnston,arial,sans-serif;
+  font-size: 20px;
+  font-weight: lighter;
+  margin-left: 40px;
+  margin-top: 30px;
+  text-align: center;
+  text-transform: uppercase;
+}
+/* line 233, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.campaign_modal_4 .infos ul, .campaign_modal_5 .infos ul {
+  margin-top: -15px;
+  margin-bottom: 27px;
+}
+/* line 236, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.campaign_modal_4 .infos ul li, .campaign_modal_5 .infos ul li {
+  font-family: avenir, arial, sans-serif;
+  letter-spacing: 1px;
+  list-style-type: none;
+  text-align: center;
+  font-size: 11px;
+  color: #000;
+  width: 275px;
+  margin-bottom: -13px;
+  background: url(/dev-assets/campaign_emails/star.png) no-repeat 17px 0;
+}
+/* line 246, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.campaign_modal_4 .infos ul li p, .campaign_modal_5 .infos ul li p {
+  padding-top: 25px;
+  color: #535353;
+  text-transform: uppercase;
+}
+/* line 254, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.campaign_modal_4 .infos p.date, .campaign_modal_5 .infos p.date {
+  font-family: avenir, arial, sans-serif;
+  font-size: 11px;
+  width: 275px;
+  text-align: center;
+  color: #535353;
+  margin-left: 40px;
+}
+/* line 255, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.campaign_modal_4 .infos .enjoy, .campaign_modal_5 .infos .enjoy {
+  background: url(/dev-assets/campaign_emails/enjoy.png) no-repeat;
+  width: 168px;
+  height: 43px;
+  display: block;
+  text-indent: -9999px;
+  margin-left: 90px;
+  margin-top: 18px;
+}
+/* line 258, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.campaign_modal_4 .close, .campaign_modal_5 .close {
+  top: -11px !important;
+  right: -11px !important;
+}
+
+/* line 261, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.campaign_modal_6 {
+  height: 330px;
+}
+/* line 263, ../../app/assets/stylesheets/campaign_emails.css.scss */
+.campaign_modal_6 img {
+  margin-top: 0px;
+}

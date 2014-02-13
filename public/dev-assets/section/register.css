@@ -1,0 +1,235 @@
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 4, ../../../app/assets/stylesheets/section/register.scss */
+body #error_explanation {
+  width: 445px;
+}
+/* line 8, ../../../app/assets/stylesheets/section/register.scss */
+body .content #models {
+  float: left;
+  overflow: visible;
+  width: 540px;
+  height: 573px;
+  margin: 20px 0 0 0;
+}
+/* line 16, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up {
+  float: right;
+  overflow: visible;
+  width: 450px;
+  margin: 10px 0 0 0;
+}
+/* line 22, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up h2, body .content #sign-up p {
+  margin-left: 60px;
+}
+/* line 26, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up .not_connected {
+  margin: 0 auto 15px auto;
+}
+/* line 28, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up .not_connected h2, body .content #sign-up .not_connected p {
+  margin: 0;
+}
+/* line 31, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up .not_connected h2 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  line-height: 33px;
+  margin-bottom: 15px;
+}
+/* line 36, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up .not_connected p {
+  font-size: 17px;
+  width: 430px;
+}
+/* line 42, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up p {
+  margin-bottom: 20px;
+}
+/* line 46, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up p.facebook {
+  margin-bottom: 20px;
+}
+/* line 50, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up div.connect {
+  width: 415px;
+  overflow: hidden;
+  margin: 0 0 15px 0;
+  padding: 15px;
+  border: 1px #dedede solid;
+}
+/* line 56, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up div.connect p {
+  color: #6d6e71;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 13px;
+  line-height: 13px;
+  width: 185px;
+  margin: 0;
+  float: left;
+}
+/* line 65, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up div.connect .fb-connect {
+  background: url(/dev-assets/common/fb-connect-button.png) no-repeat;
+  display: block;
+  width: 212px;
+  height: 25px;
+  margin: 0;
+  float: right;
+}
+/* line 75, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form {
+  clear: both;
+}
+/* line 80, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset ol.facebook {
+  display: none;
+}
+/* line 83, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset ol li, body .content #sign-up form fieldset ol .field_with_errors {
+  width: 460px;
+  overflow: auto;
+}
+/* line 87, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset ol li label, body .content #sign-up form fieldset ol .field_with_errors label {
+  color: #6d6e71;
+  font-size: 14px;
+  line-height: 27px;
+  display: block;
+}
+/* line 93, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset ol li p.hint, body .content #sign-up form fieldset ol .field_with_errors p.hint {
+  color: #878787;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 14px;
+  letter-spacing: normal;
+  width: 155px;
+  display: block;
+  margin: 0 0 0 15px;
+  float: left;
+}
+/* line 107, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset ol li input[type='text'], body .content #sign-up form fieldset ol li input[type='email'], body .content #sign-up form fieldset ol li input[type='password'], body .content #sign-up form fieldset ol .field_with_errors input[type='text'], body .content #sign-up form fieldset ol .field_with_errors input[type='email'], body .content #sign-up form fieldset ol .field_with_errors input[type='password'] {
+  background: url(/dev-assets/common/bg-inputs.png) repeat-x;
+  width: 266px;
+  border: 1px solid #C1C1C1;
+  margin: 0 0 7px;
+  padding: 7px 8px;
+  height: 17px;
+  float: left;
+}
+/* line 117, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset ol li.cpf, body .content #sign-up form fieldset ol .field_with_errors.cpf {
+  border: 1px solid #C1C1C1;
+  padding: 16px;
+  width: 250px;
+  margin-top: 7px;
+}
+/* line 122, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset ol li.cpf input[type='text'], body .content #sign-up form fieldset ol li.cpf input[type='email'], body .content #sign-up form fieldset ol li.cpf input[type='password'], body .content #sign-up form fieldset ol .field_with_errors.cpf input[type='text'], body .content #sign-up form fieldset ol .field_with_errors.cpf input[type='email'], body .content #sign-up form fieldset ol .field_with_errors.cpf input[type='password'] {
+  background: url(/dev-assets/common/bg-inputs.png) repeat-x;
+  width: 230px;
+  border: 1px solid #C1C1C1;
+  margin: 0 0 7px;
+  padding: 7px 8px;
+  height: 17px;
+  float: left;
+}
+/* line 132, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset ol li.cpf span, body .content #sign-up form fieldset ol .field_with_errors.cpf span {
+  font-size: 10px;
+  color: red;
+  text-align: center;
+  font-family: Arial;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: block;
+}
+/* line 141, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset ol li.cpf label, body .content #sign-up form fieldset ol .field_with_errors.cpf label {
+  width: 56px;
+  margin-left: 18px;
+}
+/* line 147, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset ol li.terms, body .content #sign-up form fieldset ol .field_with_errors.terms {
+  width: 285px;
+  clear: both;
+}
+/* line 150, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset ol li.terms p, body .content #sign-up form fieldset ol .field_with_errors.terms p {
+  color: #6d6e71;
+  font-size: 12px;
+  text-align: center;
+  padding-top: 10px;
+  font-family: arial;
+  font-style: normal;
+  letter-spacing: 0;
+  margin: 0 0 20px;
+}
+/* line 159, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset ol li.terms p a, body .content #sign-up form fieldset ol .field_with_errors.terms p a {
+  color: #6d6e71;
+}
+/* line 165, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset ol li.password label, body .content #sign-up form fieldset ol .field_with_errors.password label {
+  line-height: 22px;
+}
+/* line 171, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset ol .field_with_errors {
+  float: left;
+}
+/* line 173, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset ol .field_with_errors label {
+  padding-top: 10px;
+}
+/* line 179, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset.buttons {
+  width: 285px;
+  margin: 0;
+}
+/* line 183, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset.buttons li {
+  width: 300px;
+}
+/* line 186, ../../../app/assets/stylesheets/section/register.scss */
+body .content #sign-up form fieldset.buttons li input[type='submit'] {
+  width: 287px;
+  height: 61px;
+  display: block;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 2px;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 36, ../../../app/assets/stylesheets/partials/_mixins.scss */
+body .content #sign-up form fieldset.buttons li input[type='submit']:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}

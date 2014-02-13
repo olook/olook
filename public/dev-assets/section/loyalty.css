@@ -1,0 +1,202 @@
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 3, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty {
+  padding: 20px 0 0;
+}
+/* line 5, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty > h1 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 36px;
+  text-transform: uppercase;
+  margin: 0 0 15px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
+/* line 12, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty > h1 + h2 {
+  font-family: Arial, "Trebuchet Ms", Times, "Times New Roman", serif, KeplerStdItalic;
+  font-size: 20px;
+  margin: 0 0 15px;
+}
+/* line 18, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#left {
+  position: relative;
+  width: 465px;
+  overflow: auto;
+  float: left;
+}
+/* line 23, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#left div.arrow {
+  position: absolute;
+  background: url(/dev-assets/loyalty/arrow.png) no-repeat;
+  width: 67px;
+  height: 48px;
+  bottom: 145px;
+  left: 213px;
+  display: block;
+}
+/* line 32, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#left ul.steps {
+  margin: 0 0 40px 30px;
+  overflow: auto;
+}
+/* line 35, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#left ul.steps li {
+  background: url(/dev-assets/loyalty/icons.jpg) no-repeat;
+  background-position: -149px 0;
+  font-size: 11px;
+  text-align: center;
+  width: 130px;
+  margin: 0 20px 0 0;
+  padding: 170px 0 0 0;
+  display: inline-block;
+  float: left;
+}
+/* line 45, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#left ul.steps li:first-child {
+  background-position: 4px 0;
+}
+/* line 48, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#left ul.steps li:last-child, section#loyalty div#left ul.steps li.last {
+  background-position: -301px 0;
+  margin: 0;
+}
+/* line 54, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#left > h1 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 24px;
+  font-weight: normal;
+  text-transform: uppercase;
+  margin: 0 0 20px 2px;
+}
+/* line 61, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#left ul.products {
+  margin: 0 0 0 30px;
+}
+/* line 63, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#left ul.products li {
+  margin: 0 30px 0 0;
+  float: left;
+}
+/* line 66, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#left ul.products li:last-child, section#loyalty div#left ul.products li.last {
+  margin: 0;
+}
+/* line 72, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#right {
+  width: 460px;
+  overflow: auto;
+  float: right;
+}
+/* line 76, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#right div#credits {
+  overflow: auto;
+  margin: 30px 0 60px;
+  padding: 15px 20px;
+  border: 1px #888 solid;
+}
+/* line 81, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#right div#credits > p {
+  font-size: 22px;
+  line-height: 30px;
+  text-align: center;
+  margin: 15px auto 10px;
+}
+/* line 87, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#right div#credits h1 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 22px;
+  text-align: center;
+  text-transform: uppercase;
+}
+/* line 92, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#right div#credits h1 + p {
+  font-size: 18px;
+  line-height: 25px;
+}
+/* line 97, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#right div#credits h2 {
+  color: #ef3742;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 36px;
+  text-align: center;
+  margin: 10px 0 0;
+}
+/* line 103, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#right div#credits h2 + p {
+  font-size: 13px;
+  line-height: 20px;
+}
+/* line 108, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#right div#credits a {
+  color: #ef3742;
+  text-align: center;
+  display: block;
+}
+/* line 115, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#right div#showroom a {
+  margin: 0 auto;
+  display: block;
+}
+/* line 118, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#right div#showroom a.link_showroom {
+  width: 402px;
+  height: 36px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 15px;
+  padding-top: 25px;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 36, ../../../app/assets/stylesheets/partials/_mixins.scss */
+section#loyalty div#right div#showroom a.link_showroom:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 127, ../../../app/assets/stylesheets/section/loyalty.scss */
+section#loyalty div#right div#showroom a.buy_now {
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  width: 249px;
+  height: 37px;
+  text-decoration: none;
+  letter-spacing: 2px;
+  padding-top: 21px;
+  text-align: center;
+}
+/* line 36, ../../../app/assets/stylesheets/partials/_mixins.scss */
+section#loyalty div#right div#showroom a.buy_now:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}

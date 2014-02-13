@@ -1,0 +1,124 @@
+/* line 4, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body .top-shadow {
+  position: relative;
+  margin-top: -26px;
+  top: 0;
+}
+/* line 13, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body .content .home .steps ul li {
+  width: 100%;
+  margin-left: 20px;
+}
+/* line 18, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body .content .home .steps ul li.one span {
+  padding: 0 0 10px 0;
+}
+/* line 23, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body .content .home .steps ul li strong {
+  width: 40px;
+}
+/* line 27, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body .content .home .steps ul li span {
+  letter-spacing: -2px;
+}
+/* line 37, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body #survey ul.questions li.about fieldset.buttons li input[type='submit'] {
+  padding: 10px 15px;
+}
+/* line 42, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body #survey .about .jcarousel-prev {
+  right: 1050px;
+}
+/* line 51, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body #survey ul.questions li.about fieldset.select select {
+  font-size: 16px;
+  color: #ef3742;
+}
+/* line 55, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body #survey ul.questions li.about fieldset.select select[name='day'], html.ie7 body #survey ul.questions li.about fieldset.select select[name='year'] {
+  width: 28%;
+}
+/* line 59, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body #survey ul.questions li.about fieldset.select select[name='month'] {
+  width: 35%;
+}
+/* line 63, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body #survey ul.questions li.about fieldset.select select option {
+  padding: 10px;
+}
+/* line 68, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body #survey ul.questions li.about li {
+  overflow: hidden;
+  position: relative;
+}
+/* line 72, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body #survey ul.questions li.about li input[type='radio'] {
+  display: block;
+  position: absolute;
+  top: -20px;
+  left: -20px;
+}
+/* line 84, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body #survey ul.questions li.colors ol.options > li div ol.stars, html.ie7 body #survey ul.questions li.colors ol.options > li div ol.colors {
+  float: left;
+}
+/* line 94, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body header a {
+  margin-left: 5px;
+}
+/* line 102, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body header #session #sign-in-dropdown form fieldset.buttons input[type='submit'] {
+  border: none;
+}
+/* line 110, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body nav ul {
+  overflow: hidden;
+}
+/* line 113, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie7 body nav ul li {
+  float: left;
+}
+/* line 124, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie8 body #survey .about {
+  overflow: hidden;
+  display: block;
+}
+/* line 129, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie8 body #survey .about li label {
+  display: block;
+  overflow: hidden;
+}
+/* line 132, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie8 body #survey .about li label input[type='radio'] {
+  position: absolute;
+  top: -50px;
+  display: block;
+}
+/* line 151, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie8 body header .content #session #sign-in-dropdown form fieldset.inputs ol li input[type='email'], html.ie8 body header .content #session #sign-in-dropdown form fieldset.inputs ol li input[type='password'] {
+  padding: 5px 8px;
+}
+/* line 168, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie8 body #survey ul.questions li.about fieldset.select select {
+  padding: 10px 8px 10px 8px;
+}
+/* line 171, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie8 body #survey ul.questions li.about fieldset.select select[name='day'], html.ie8 body #survey ul.questions li.about fieldset.select select[name='year'] {
+  width: 28%;
+}
+/* line 175, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.ie8 body #survey ul.questions li.about fieldset.select select[name='month'] {
+  width: 35%;
+}
+/* line 192, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.webkit body #survey ul.questions li.about fieldset.select select {
+  background: url(/dev-assets/common/select-arrow-down.png) no-repeat right center;
+}
+/* line 209, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.gecko body #survey ul.questions li.about fieldset.select select[name='day'], html.gecko body #survey ul.questions li.about fieldset.select select[name='year'] {
+  width: 28%;
+}
+/* line 213, ../../../app/assets/stylesheets/utilities/cross_browser.scss */
+html.gecko body #survey ul.questions li.about fieldset.select select[name='month'] {
+  width: 35%;
+}

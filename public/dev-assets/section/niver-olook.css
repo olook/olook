@@ -1,0 +1,530 @@
+/* line 1, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#niver-top {
+  margin-top: 120px;
+}
+/* line 3, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#niver-top h2 {
+  font: 31px 'FuturaStd-Book',arial,sans-serif;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+/* line 5, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#niver-top h2 span {
+  font-family: 'FuturaStd-Bold',arial, sans-serif !important;
+  *font-weight: bold;
+}
+/* line 7, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#niver-top div {
+  float: left;
+}
+/* line 9, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#niver-top div p {
+  font: 15px 'Futura-medium',arial,sans-serif;
+  color: #999;
+}
+/* line 10, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#niver-top div p b {
+  font-weight: bold !important;
+}
+/* line 12, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#niver-top div.niver-left {
+  width: 330px;
+}
+/* line 14, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#niver-top div.niver-left p {
+  width: 263px;
+}
+/* line 16, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#niver-top div.niver-left p span {
+  color: #000;
+}
+/* line 19, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#niver-top div.niver-logo {
+  width: 318px;
+}
+/* line 21, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#niver-top div.niver-logo h1 {
+  font-size: 0;
+  line-height: 0;
+  font-family: a;
+  width: 300px;
+  height: 285px;
+  background: url(/dev-assets/campaigns/niver/niver-logo.png) no-repeat;
+  margin-top: -80px !important;
+}
+/* line 23, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#niver-top div.niver-right {
+  width: 300px;
+}
+/* line 25, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#niver-top div.niver-right p {
+  width: 249px;
+}
+/* line 27, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#niver-top div.niver-right p span {
+  color: #E05B8E;
+}
+
+/* line 38, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico {
+  clear: both;
+  float: left;
+  margin-top: 70px;
+}
+/* line 42, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul {
+  float: left;
+  width: 317px;
+}
+/* line 45, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li {
+  position: relative;
+  margin-bottom: 15px;
+  background: url(/dev-assets/campaigns/niver/infografico2.jpg) no-repeat;
+  color: #FFF;
+  text-align: center;
+}
+/* line 47, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li:hover {
+  background: url(/dev-assets/campaigns/niver/infografico_over.jpg) no-repeat;
+}
+/* line 49, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li p {
+  position: absolute;
+  bottom: 10px;
+  left: 36px;
+  width: 228px;
+  text-transform: uppercase;
+}
+/* line 51, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li p span {
+  display: block;
+}
+/* line 53, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li p span.numero {
+  font-size: 0;
+  line-height: 0;
+  font-family: a;
+  background: url(/assets/campaigns/niver/sprite-numeros.png) no-repeat;
+  margin: 0 0 17px 62px;
+}
+/* line 54, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li p span.titulo {
+  display: none;
+  min-height: 16px;
+  font-size: 20px;
+  font-family: bodoni_stdbold, Helvetica Neue, arial, sans-serif;
+  background: url(/assets/campaigns/niver/separadores.png) -256px bottom no-repeat;
+  padding-bottom: 16px;
+}
+/* line 55, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li p span.frase {
+  display: none;
+  min-height: 8px;
+  font-size: 24px;
+  font-family: FuturaStd-Book, Helvetica Neue, arial, sans-serif;
+  line-height: 28px;
+  text-transform: uppercase;
+  background: url(/assets/campaigns/niver/separadores.png) 0 bottom no-repeat;
+  padding-bottom: 18px;
+}
+/* line 57, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li p a {
+  display: none;
+}
+/* line 62, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.um {
+  width: 300px;
+  height: 400px;
+  background-position: 0 0;
+}
+/* line 63, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.um .only-number {
+  bottom: 130px;
+}
+/* line 64, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.um .numero {
+  background-position: 0 0;
+  width: 102px;
+  height: 102px;
+}
+/* line 65, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.um .frase {
+  font-size: 20px;
+}
+/* line 68, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.dois {
+  width: 300px;
+  height: 300px;
+  background-position: 0 -417px;
+}
+/* line 69, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.dois .only-number {
+  bottom: 78px;
+}
+/* line 70, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.dois .numero {
+  background-position: 0 -108px;
+  width: 102px;
+  height: 102px;
+}
+/* line 73, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.tres {
+  width: 300px;
+  height: 226px;
+  background-position: 0 -734px;
+}
+/* line 74, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.tres .only-number {
+  bottom: 71px;
+}
+/* line 75, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.tres .numero {
+  background-position: 0 -266px;
+  width: 78px;
+  height: 78px;
+  margin-bottom: 5px;
+}
+/* line 76, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.tres .frase {
+  font-size: 20px;
+  line-height: 23px;
+}
+/* line 79, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.quatro {
+  width: 300px;
+  height: 400px;
+  background-position: 0 -977px;
+}
+/* line 80, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.quatro .only-number {
+  bottom: 137px;
+}
+/* line 81, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.quatro .numero {
+  background-position: 0 -378px;
+  width: 102px;
+  height: 102px;
+}
+/* line 84, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.cinco {
+  width: 300px;
+  height: 300px;
+  background-position: -316px 0px;
+}
+/* line 85, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.cinco .only-number {
+  bottom: 81px;
+}
+/* line 86, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.cinco .numero {
+  background-position: -112px 0;
+  width: 102px;
+  height: 102px;
+}
+/* line 87, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.cinco .titulo {
+  font-size: 16px;
+}
+/* line 88, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.cinco .frase {
+  font-size: 40px;
+}
+/* line 91, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.seis {
+  width: 300px;
+  height: 300px;
+  background-position: -316px -317px;
+}
+/* line 92, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.seis .only-number {
+  bottom: 98px;
+}
+/* line 93, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.seis .numero {
+  background-position: -110px -108px;
+  width: 102px;
+  height: 102px;
+}
+/* line 96, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.sete {
+  width: 300px;
+  height: 400px;
+  background-position: -316px -634px;
+}
+/* line 97, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.sete .only-number {
+  bottom: 150px;
+}
+/* line 98, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.sete .numero {
+  background-position: -109px -215px;
+  width: 130px;
+  height: 130px;
+  margin: 0 0 20px 50px;
+}
+/* line 101, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.oito {
+  width: 300px;
+  height: 325px;
+  background-position: -316px -1051px;
+}
+/* line 102, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.oito .only-number {
+  bottom: 87px;
+}
+/* line 103, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.oito .numero {
+  background-position: -242px 0;
+  width: 102px;
+  height: 102px;
+}
+/* line 106, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.nove {
+  width: 300px;
+  height: 226px;
+  background-position: -631px 0px;
+}
+/* line 107, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.nove .only-number {
+  bottom: 77px;
+}
+/* line 108, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.nove .numero {
+  background-position: -242px -126px;
+  width: 81px;
+  height: 81px;
+  margin-bottom: 2px;
+}
+/* line 109, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.nove a {
+  font-size: 12px;
+  font-family: FuturaStd-Bold, Helvetica Neue, arial, sans-serif;
+  color: #FFF;
+  text-decoration: none;
+}
+/* line 110, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.nove a:hover {
+  text-decoration: underline;
+}
+/* line 114, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.dez {
+  width: 300px;
+  height: 400px;
+  background-position: -631px -242px;
+}
+/* line 115, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.dez .only-number {
+  bottom: 151px;
+}
+/* line 116, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.dez .numero {
+  background-position: -243px -242px;
+  width: 100px;
+  height: 100px;
+}
+/* line 119, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.onze {
+  width: 300px;
+  height: 300px;
+  background-position: -631px -660px;
+}
+/* line 120, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.onze .only-number {
+  bottom: 72px;
+}
+/* line 121, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.onze .numero {
+  background-position: -109px -355px;
+  width: 123px;
+  height: 123px;
+}
+/* line 124, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.doze {
+  width: 300px;
+  height: 400px;
+  background-position: -631px -976px;
+}
+/* line 125, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.doze .only-number {
+  bottom: 141px;
+}
+/* line 126, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.doze p {
+  width: 234px;
+}
+/* line 127, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.doze .numero {
+  background-position: -242px -377px;
+  width: 100px;
+  height: 100px;
+}
+/* line 128, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.doze .titulo {
+  font-size: 32px;
+}
+/* line 129, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#infografico ul li.doze .frase {
+  font-size: 20px;
+}
+
+/* line 136, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa {
+  width: 935px;
+  height: 520px;
+  background: url(/dev-assets/campaigns/niver/bg-mapa.png) no-repeat;
+  clear: both;
+  float: left;
+  position: relative;
+}
+/* line 138, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa div {
+  width: 330px;
+  position: absolute;
+  top: 60px;
+  left: 0;
+}
+/* line 140, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa div .chamada {
+  font-size: 29px;
+  font-family: FuturaStd-Book, Helvetica Neue, arial, sans-serif;
+  color: #282828;
+  line-height: 37px;
+  margin: 20px 0 30px;
+}
+/* line 142, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa div .chamada span {
+  color: #DC5386;
+}
+/* line 144, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa div .chamada2 {
+  font-size: 18px;
+  font-family: FuturaStd-Book, Helvetica Neue, arial, sans-serif;
+  color: #282828;
+  margin-top: 30px;
+}
+/* line 146, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa .separador {
+  border: 0;
+  height: 11px;
+  background: url(/assets/campaigns/niver/separadores.png) -492px 0 no-repeat;
+}
+/* line 147, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #brasil {
+  position: relative;
+  width: 415px;
+  height: 418px;
+  background: url(/assets/campaigns/niver/mapa-brasil.png) no-repeat;
+  float: left;
+  margin: 30px 0 0 244px;
+}
+/* line 149, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #brasil li {
+  position: absolute;
+}
+/* line 150, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #brasil li.hover {
+  background: url(/assets/campaigns/niver/mapa-brasil.png) no-repeat;
+}
+/* line 151, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #brasil li#norte {
+  width: 269px;
+  height: 209px;
+  top: 0px;
+  left: 2px;
+}
+/* line 152, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #brasil li#norte.hover {
+  background-position: 0px -409px;
+}
+/* line 154, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #brasil li#nordeste {
+  width: 128px;
+  height: 169px;
+  top: 85px;
+  left: 243px;
+}
+/* line 155, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #brasil li#nordeste.hover {
+  background-position: -285px -451px;
+}
+/* line 157, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #brasil li#sudeste {
+  width: 123px;
+  height: 123px;
+  top: 200px;
+  left: 205px;
+}
+/* line 158, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #brasil li#sudeste.hover {
+  background-position: -172px -644px;
+  z-index: 2;
+}
+/* line 160, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #brasil li#centro {
+  width: 150px;
+  height: 160px;
+  top: 151px;
+  left: 115px;
+}
+/* line 161, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #brasil li#centro.hover {
+  background-position: 1px -637px;
+}
+/* line 163, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #brasil li#sul {
+  width: 90px;
+  height: 115px;
+  top: 295px;
+  left: 160px;
+}
+/* line 164, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #brasil li#sul.hover {
+  background-position: -326px -656px;
+}
+/* line 169, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #frases {
+  width: 306px;
+  height: 262px;
+  background: url(/assets/campaigns/niver/mapa-brasil.png) 0 -840px no-repeat;
+  float: left;
+  margin: 60px 0 0 -30px;
+  position: relative;
+}
+/* line 171, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #frases .dn {
+  display: none;
+}
+/* line 172, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #frases li {
+  margin: 56px 0 0 32px;
+  font-size: 15px;
+  font-family: Futura-medium, Helvetica Neue, arial, sans-serif;
+  color: #FFF;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+/* line 173, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #frases li .bolder {
+  font-family: FuturaStd-Bold, Helvetica Neue, arial, sans-serif;
+  color: #BB3164;
+}
+/* line 174, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#mapa #frases li .autor {
+  color: #000;
+  font-weight: bold;
+  float: left;
+  margin-top: 6px;
+}
+
+/* line 180, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#banner {
+  clear: both;
+  float: left;
+  margin-top: 20px;
+}
+/* line 181, ../../../app/assets/stylesheets/section/niver-olook.scss */
+#banner .mr18 {
+  margin-right: 17px;
+}

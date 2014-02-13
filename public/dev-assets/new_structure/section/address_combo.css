@@ -1,0 +1,68 @@
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 5, ../../../../app/assets/stylesheets/new_structure/section/address_combo.css.scss */
+div.field {
+  display: inline-block;
+  margin-right: 23px;
+  position: relative;
+  height: 60px;
+  width: 140px;
+}
+/* line 11, ../../../../app/assets/stylesheets/new_structure/section/address_combo.css.scss */
+div.field p {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-weight: lighter;
+  font-size: 15px;
+  margin-top: -12px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/* line 20, ../../../../app/assets/stylesheets/new_structure/section/address_combo.css.scss */
+div.field.state .text, div.field.city .text {
+  position: absolute;
+  z-index: 1;
+  top: 32px;
+  line-height: 32px;
+  font-weight: 500;
+  font-size: 14px;
+  width: 140px;
+  height: 32px;
+  color: #717274;
+  border: solid 1px #c3c3c3;
+  padding-left: 5px;
+  background: url(/dev-assets/quiz/bullet_arrow.png) no-repeat right 3px;
+}
+/* line 34, ../../../../app/assets/stylesheets/new_structure/section/address_combo.css.scss */
+div.field.state select, div.field.city select {
+  position: absolute;
+  width: 160px;
+  z-index: 2;
+  opacity: 0;
+  top: 24px;
+  left: 0px;
+}
+/* line 43, ../../../../app/assets/stylesheets/new_structure/section/address_combo.css.scss */
+div.field label {
+  font-size: 14px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  color: #717274;
+  font-weight: 500;
+  display: block;
+  width: 165px;
+}
+/* line 51, ../../../../app/assets/stylesheets/new_structure/section/address_combo.css.scss */
+div.field input {
+  height: 30px;
+  line-height: 30px;
+  padding-left: 7px;
+  font-size: 14px;
+  border: solid 1px #c3c3c3;
+  width: 140px;
+  margin-bottom: 10px;
+}

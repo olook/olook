@@ -1,0 +1,1538 @@
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 4, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.aths-special {
+  background: #EFEAD6;
+}
+/* line 7, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.straw {
+  background: #D4B889;
+}
+/* line 11, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.driftwood {
+  background: #B48456;
+}
+/* line 15, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.nevada {
+  background: #707173;
+}
+/* line 19, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.ship-gray {
+  background: #36353A;
+}
+/* line 24, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.vis-vis-to-tree-poppy {
+  background-image: url(/dev-assets/quiz/metal-colors.png);
+}
+/* line 24, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.colonial-white-to-koromiko {
+  background-image: url(/dev-assets/quiz/metal-colors.png);
+}
+/* line 24, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.alto-to-silver-chalice {
+  background-image: url(/dev-assets/quiz/metal-colors.png);
+}
+/* line 24, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.dusty-gray-to-boulder {
+  background-image: url(/dev-assets/quiz/metal-colors.png);
+}
+/* line 24, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.mercury-to-silver {
+  background-image: url(/dev-assets/quiz/metal-colors.png);
+}
+/* line 29, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.colonial-white-to-koromiko {
+  background-position: -35px;
+}
+/* line 33, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.alto-to-silver-chalice {
+  background-position: -72px;
+}
+/* line 37, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.dusty-gray-to-boulder {
+  background-position: -108px;
+}
+/* line 41, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.mercury-to-silver {
+  background-position: -144px;
+}
+/* line 45, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.pink-flare {
+  background: #DBB8CC;
+}
+/* line 49, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.peach-yellow {
+  background: #FBDAB1;
+}
+/* line 53, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.chalky {
+  background: #EDD496;
+}
+/* line 57, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.light-orchid {
+  background: #E3AFCA;
+}
+/* line 61, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.vanilla-ice {
+  background: #F2D3E8;
+}
+/* line 65, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.golden-bell {
+  background: #c33500;
+}
+/* line 69, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.cardinal-pink {
+  background: #1e7dd2;
+}
+/* line 73, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.windsor {
+  background: #bb0373;
+}
+/* line 76, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.observatory {
+  background: #63aa2b;
+}
+/* line 79, ../../../app/assets/stylesheets/partials/_colors.scss */
+body ol.colors li.black {
+  background: #faf400;
+}
+
+/* line 2, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main input[type="text"], section.main input[type="email"], section.main input[type="password"] {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+}
+/* line 5, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main ol.addresses {
+  width: 100%;
+  overflow: auto;
+}
+/* line 8, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main ol.addresses li.address_item {
+  width: 215px;
+  height: 190px;
+  overflow: hidden;
+  margin: 0 60px 25px 0;
+  padding: 15px 30px;
+  display: table;
+  border: 2px #eee solid;
+  float: left;
+}
+/* line 17, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main ol.addresses li.address_item.selected {
+  border-color: #ef3742;
+}
+/* line 20, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main ol.addresses li.address_item ul.links {
+  width: auto;
+  margin: 15px auto 0;
+  overflow: auto;
+}
+/* line 24, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main ol.addresses li.address_item ul.links li {
+  width: auto;
+  margin: 0 auto 5px;
+  overflow: auto;
+}
+/* line 28, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main ol.addresses li.address_item ul.links li.address {
+  width: 100%;
+  clear: both;
+  margin-bottom: 10px;
+}
+/* line 33, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main ol.addresses li.address_item ul.links li a {
+  color: #ef3742;
+  font-size: 14px;
+  text-decoration: none;
+  margin: 0 auto;
+}
+/* line 38, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main ol.addresses li.address_item ul.links li a:hover {
+  text-decoration: underline;
+}
+/* line 41, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main ol.addresses li.address_item ul.links li a.edit {
+  color: #ef3742;
+  text-align: center;
+  display: block;
+}
+/* line 49, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main ol.addresses li.address_item p {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+/* line 52, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main ol.addresses li.address_item p span {
+  color: #101010;
+  font-weight: 400;
+}
+/* line 57, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main ol.addresses li.address_item input[type="radio"] {
+  display: none;
+}
+/* line 60, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main ol.addresses li.address_item.no_margin {
+  margin-right: 0;
+}
+/* line 63, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main ol.addresses li.address_item.add {
+  margin-right: 0;
+}
+/* line 65, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main ol.addresses li.address_item.add a {
+  background: url(/dev-assets/common/plus-address.png) center left no-repeat;
+  color: #ef3742;
+  font-size: 16px;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: middle;
+  margin: 0 0 0 5px;
+  display: table-cell;
+}
+/* line 74, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main ol.addresses li.address_item.add a:hover {
+  text-decoration: underline;
+}
+/* line 81, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.zip_code {
+  width: 100%;
+  margin: 0;
+  overflow: auto;
+}
+/* line 85, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.zip_code fieldset {
+  float: left;
+}
+/* line 89, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.zip_code fieldset ol li label {
+  line-height: 40px;
+  display: inline-block;
+}
+/* line 93, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.zip_code fieldset ol li em {
+  color: #000;
+  line-height: 40px;
+  margin-right: 15px;
+}
+/* line 100, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.zip_code fieldset.inputs {
+  margin-right: 20px;
+}
+/* line 103, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.zip_code fieldset.buttons {
+  margin: 5px 0 0 0;
+}
+/* line 105, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.zip_code fieldset.buttons a.search {
+  width: 94px;
+  height: 32px;
+  margin-right: 20px;
+  display: block;
+  cursor: pointer;
+  float: left;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 36, ../../../app/assets/stylesheets/partials/_mixins.scss */
+section.main div.zip_code fieldset.buttons a.search:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 117, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.zip_code fieldset.buttons p {
+  font-size: 14px;
+  width: 325px;
+  line-height: 30px;
+}
+/* line 121, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.zip_code fieldset.buttons p a {
+  color: #6D6E71;
+  text-decoration: none;
+}
+/* line 124, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.zip_code fieldset.buttons p a:hover {
+  text-decoration: underline;
+}
+/* line 134, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.address_fields fieldset.inputs, section.main div.contact_fields fieldset.inputs {
+  padding: 30px 25px;
+  border: 1px #d6d6d6 solid;
+}
+/* line 138, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.address_fields fieldset.inputs ol li, section.main div.contact_fields fieldset.inputs ol li {
+  margin: 0 10px 10px 0;
+  float: left;
+}
+/* line 141, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.address_fields fieldset.inputs ol li label, section.main div.contact_fields fieldset.inputs ol li label {
+  display: block;
+}
+/* line 145, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.address_fields fieldset.inputs ol li.street input, section.main div.contact_fields fieldset.inputs ol li.street input {
+  width: 345px;
+}
+/* line 150, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.address_fields fieldset.inputs ol li.number input, section.main div.contact_fields fieldset.inputs ol li.number input {
+  width: 70px;
+}
+/* line 155, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.address_fields fieldset.inputs ol li.complement input, section.main div.contact_fields fieldset.inputs ol li.complement input {
+  width: 70px;
+}
+/* line 160, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.address_fields fieldset.inputs ol li.neighborhood input, section.main div.contact_fields fieldset.inputs ol li.neighborhood input {
+  width: 190px;
+}
+/* line 165, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.address_fields fieldset.inputs ol li.city input, section.main div.contact_fields fieldset.inputs ol li.city input {
+  width: 215px;
+}
+/* line 169, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.address_fields fieldset.inputs ol li.state, section.main div.contact_fields fieldset.inputs ol li.state {
+  position: relative;
+}
+/* line 171, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.address_fields fieldset.inputs ol li.state select.custom_select, section.main div.contact_fields fieldset.inputs ol li.state select.custom_select {
+  position: absolute;
+  line-height: 26px;
+  width: 74px;
+  height: 34px;
+  top: 21px;
+  left: 0px;
+}
+/* line 179, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.address_fields fieldset.inputs ol li.state span.select, section.main div.contact_fields fieldset.inputs ol li.state span.select {
+  position: absolute;
+  background: url(/dev-assets/common/bg-select-state.png) no-repeat;
+  line-height: 34px;
+  width: 74px;
+  height: 34px;
+  text-indent: 15px;
+  top: 19px;
+  left: 0px;
+  z-index: 0;
+}
+/* line 191, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.address_fields fieldset.inputs ol li.warn_phone, section.main div.contact_fields fieldset.inputs ol li.warn_phone {
+  width: 100%;
+  margin: 19px 0 5px !important;
+}
+/* line 195, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.address_fields fieldset.inputs ol li.phone, section.main div.address_fields fieldset.inputs ol li.mandatory, section.main div.contact_fields fieldset.inputs ol li.phone, section.main div.contact_fields fieldset.inputs ol li.mandatory {
+  margin-right: 13px;
+  padding-top: 10px;
+  border-top: 0;
+  clear: both;
+}
+/* line 200, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.address_fields fieldset.inputs ol li.phone input, section.main div.address_fields fieldset.inputs ol li.mandatory input, section.main div.contact_fields fieldset.inputs ol li.phone input, section.main div.contact_fields fieldset.inputs ol li.mandatory input {
+  width: 200px;
+}
+/* line 205, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.address_fields fieldset.inputs ol li.mandatory em, section.main div.contact_fields fieldset.inputs ol li.mandatory em {
+  color: #000;
+  float: none;
+  margin-right: 5px;
+}
+/* line 213, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.address_fields fieldset.inputs.desc, section.main div.contact_fields fieldset.inputs.desc {
+  padding: 15px 0;
+  border: none;
+}
+/* line 221, ../../../app/assets/stylesheets/partials/_address.scss */
+section.main div.contact_fields h1 {
+  color: #101010;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 22px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+/* line 7, ../../../app/assets/stylesheets/section/my_account.scss */
+body #error_explanation {
+  width: 640px;
+}
+
+/* line 11, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user {
+  width: 645px;
+  margin: 20px 0 0 0;
+  overflow: hidden;
+}
+/* line 17, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset ol li {
+  margin: 0 15px 15px 0;
+  display: inline;
+  float: left;
+}
+/* line 21, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset ol li label {
+  margin-right: 3px;
+  float: left;
+}
+/* line 25, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset ol li em {
+  color: #000;
+  font-size: 14px;
+  float: left;
+}
+/* line 30, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset ol li p.warn {
+  font-size: 10px;
+}
+/* line 38, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset.inputs ol li input[type="text"], form.edit_user fieldset.inputs ol li input[type="email"], form.edit_user fieldset.inputs ol li input[type="password"] {
+  color: #000;
+  font-size: 14px;
+  padding: 8px 10px;
+  border: 1px #e8e8e8 solid;
+  display: block;
+  clear: both;
+}
+/* line 45, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset.inputs ol li input[type="text"]:focus, form.edit_user fieldset.inputs ol li input[type="email"]:focus, form.edit_user fieldset.inputs ol li input[type="password"]:focus {
+  outline: none;
+}
+/* line 49, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset.inputs ol li.email {
+  width: 100%;
+}
+/* line 51, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset.inputs ol li.email input {
+  width: 205px;
+}
+/* line 59, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset.cpf li {
+  position: relative;
+}
+/* line 61, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset.cpf li span.select {
+  position: absolute;
+  float: left;
+  height: 34px;
+  line-height: 34px;
+  cursor: default;
+  top: 19px;
+  z-index: 1;
+}
+/* line 71, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset.cpf li select.custom_select {
+  position: absolute;
+  line-height: 26px;
+  height: 34px;
+  top: 25px;
+}
+/* line 76, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset.cpf li select.custom_select#user_birthday_3i {
+  width: 74px;
+  margin-right: 10px;
+  left: 10px;
+}
+/* line 80, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset.cpf li select.custom_select#user_birthday_3i + span {
+  background: url(/dev-assets/common/bg-day.png) no-repeat;
+  width: 74px;
+  text-indent: 22px;
+  left: 0;
+}
+/* line 87, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset.cpf li select.custom_select#user_birthday_2i {
+  width: 100px;
+  margin-right: 15px;
+  left: 95px;
+}
+/* line 91, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset.cpf li select.custom_select#user_birthday_2i + span {
+  background: url(/dev-assets/common/bg-month.png) no-repeat;
+  width: 110px;
+  text-indent: 15px;
+  left: 83px;
+}
+/* line 98, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset.cpf li select.custom_select#user_birthday_1i {
+  width: 75px;
+  left: 215px;
+}
+/* line 101, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset.cpf li select.custom_select#user_birthday_1i + span {
+  background: url(/dev-assets/common/bg-year.png) no-repeat;
+  width: 75px;
+  text-indent: 16px;
+  left: 203px;
+}
+/* line 112, ../../../app/assets/stylesheets/section/my_account.scss */
+form.edit_user fieldset.facebook {
+  margin: 0 0 40px 0;
+}
+
+/* line 118, ../../../app/assets/stylesheets/section/my_account.scss */
+div#box_title_my_account {
+  width: 100%;
+  margin: 30px 0 20px 0;
+  display: block;
+}
+/* line 122, ../../../app/assets/stylesheets/section/my_account.scss */
+div#box_title_my_account h1, div#box_title_my_account h2 {
+  font-weight: lighter;
+  display: block;
+}
+/* line 126, ../../../app/assets/stylesheets/section/my_account.scss */
+div#box_title_my_account h1 {
+  font-family: verdana, arial, tahoma;
+  font-size: 26px;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  margin: 0 0 5px;
+}
+/* line 133, ../../../app/assets/stylesheets/section/my_account.scss */
+div#box_title_my_account h2 {
+  font-family: verdana, arial, tahoma;
+  font-size: 14px;
+}
+
+/* line 139, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account {
+  width: 100%;
+  overflow: auto;
+}
+/* line 142, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account div#box_menu {
+  background: url(/dev-assets/common/bg-divisor.jpg) top right no-repeat;
+  width: 200px;
+  height: 515px;
+  display: block;
+  float: left;
+}
+/* line 148, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account div#box_menu ul {
+  margin: 20px 25px 0 0;
+}
+/* line 150, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account div#box_menu ul li {
+  margin: 0 0 15px 0;
+}
+/* line 152, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account div#box_menu ul li a {
+  color: #101010;
+  font-size: 15px;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 0 17px 0 0;
+}
+/* line 158, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account div#box_menu ul li a:hover, div#my_account div#box_menu ul li a.selected {
+  color: #ef3742;
+}
+/* line 165, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account div#data {
+  width: 780px;
+  margin: 0 0 0 10px;
+  overflow: hidden;
+  float: left;
+}
+/* line 170, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account div#data div.box_title {
+  width: 715px;
+  padding: 5px 0 0;
+  overflow: hidden;
+}
+/* line 174, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account div#data div.box_title h1 {
+  color: #101010;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 22px;
+  font-weight: 400;
+  text-transform: uppercase;
+  display: block;
+  float: left;
+}
+/* line 183, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account div#data div.box_title p.warn {
+  color: #696969;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  width: 445px;
+  margin-right: 10px;
+  float: right;
+}
+/* line 190, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account div#data div.box_title p.warn strong {
+  color: #ef3742;
+}
+/* line 195, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account div#data section.main {
+  width: 100%;
+  overflow: hidden;
+}
+/* line 202, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.personal_data form h2 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 15px;
+}
+/* line 208, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.personal_data form label {
+  float: none;
+}
+/* line 212, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.personal_data form fieldset.buttons ol li input[type="submit"] {
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  width: 125px;
+  height: 61px;
+  display: block;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 2px;
+  font-size: 15px;
+}
+/* line 36, ../../../app/assets/stylesheets/partials/_mixins.scss */
+div#my_account.personal_data form fieldset.buttons ol li input[type="submit"]:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 224, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.personal_data form fieldset.facebook p {
+  color: #4c4c4c;
+  margin: 0 0 15px 0;
+}
+/* line 228, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.personal_data form fieldset.facebook a {
+  background: url(/dev-assets/my_account/desc-face.jpg) no-repeat;
+  text-indent: -9999px;
+  width: 195px;
+  height: 25px;
+  display: block;
+}
+/* line 237, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.personal_data form fieldset.shoe_size ul.shoes_size {
+  overflow: hidden;
+  margin: 0 0 30px 0;
+  clear: both;
+}
+/* line 241, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.personal_data form fieldset.shoe_size ul.shoes_size li {
+  border: 1px solid #6d6e71;
+  color: #6d6e71;
+  display: block;
+  line-height: 38px;
+  margin-right: 19px;
+  float: left;
+}
+/* line 248, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.personal_data form fieldset.shoe_size ul.shoes_size li.selected {
+  background: #101010;
+  color: #FFF;
+  font-weight: 500;
+  border-color: #101010;
+}
+/* line 254, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.personal_data form fieldset.shoe_size ul.shoes_size li label {
+  font-size: 16px;
+  text-align: center;
+  display: block;
+  width: 46px;
+  height: 38px;
+  cursor: pointer;
+}
+/* line 261, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.personal_data form fieldset.shoe_size ul.shoes_size li label input {
+  display: none;
+}
+/* line 272, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.addresses ol.addresses {
+  padding-top: 25px;
+}
+/* line 274, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.addresses ol.addresses a.select_address {
+  display: none;
+}
+/* line 282, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.address_new_edit ol li {
+  margin-bottom: 0;
+}
+/* line 287, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.address_new_edit fieldset.inputs {
+  margin-bottom: 0;
+}
+/* line 290, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.address_new_edit fieldset.buttons {
+  margin: 20px 0 0 0;
+}
+/* line 294, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.address_new_edit fieldset.buttons ol li input[type="submit"] {
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  width: 125px;
+  height: 61px;
+  display: block;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 2px;
+  font-size: 15px;
+}
+/* line 36, ../../../app/assets/stylesheets/partials/_mixins.scss */
+div#my_account.address_new_edit fieldset.buttons ol li input[type="submit"]:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 310, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.address_new_edit div.address_fields ol li {
+  margin-bottom: 10px;
+}
+/* line 317, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders table {
+  width: 770px;
+  margin: 25px 0 30px 10px;
+}
+/* line 322, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders table thead tr th {
+  background: url(/dev-assets/my_account/bg-bottom-table.jpg) bottom repeat-x;
+  color: #000;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 16px;
+  font-weight: lighter;
+  text-align: center;
+  padding: 10px 0px;
+}
+/* line 330, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders table thead tr th.number {
+  width: 100px;
+  text-align: left;
+}
+/* line 334, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders table thead tr th.date {
+  width: 125px;
+}
+/* line 337, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders table thead tr th.amount {
+  width: 75px;
+}
+/* line 340, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders table thead tr th.value, div#my_account.orders table thead tr th.freight, div#my_account.orders table thead tr th.payments {
+  width: 80px;
+}
+/* line 343, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders table thead tr th.status {
+  width: 150px;
+}
+/* line 351, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders table tbody tr td {
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 1px #e5e5e5 solid;
+}
+/* line 355, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders table tbody tr td.more {
+  position: relative;
+}
+/* line 357, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders table tbody tr td.more a {
+  background: url(/dev-assets/my_account/more-informations.png) no-repeat;
+  text-indent: -9999px;
+  width: 114px;
+  height: 20px;
+  display: block;
+}
+/* line 365, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders table tbody tr td a {
+  color: #ef3742;
+  text-decoration: none;
+}
+/* line 368, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders table tbody tr td a:hover {
+  text-decoration: underline;
+}
+/* line 372, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders table tbody tr td.number {
+  color: #ef3742;
+  text-align: left;
+  padding-left: 10px;
+}
+/* line 382, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status {
+  margin: 30px 0 0 35px;
+}
+/* line 2, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status {
+  width: 100%;
+  overflow: auto;
+  margin: 0 0 30px 0;
+  display: block;
+}
+/* line 7, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status li {
+  background: url(/dev-assets/my_account/bg-status.png) no-repeat;
+  text-indent: -9999px;
+  height: 100px;
+  display: inline-block;
+  float: left;
+}
+/* line 13, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status li.state1 {
+  background-position: 0 0;
+  width: 172px;
+}
+/* line 17, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status li.state2 {
+  background-position: -172px 0;
+  width: 177px;
+}
+/* line 21, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status li.state3 {
+  background-position: -350px 0;
+  width: 177px;
+}
+/* line 25, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status li.state4 {
+  background-position: -527px 0;
+  width: 174px;
+}
+/* line 32, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status.not-selected li.state1 {
+  background-position: 0 0;
+}
+/* line 35, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status.not-selected li.state2 {
+  background-position: -172px 0;
+}
+/* line 38, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status.not-selected li.state3 {
+  background-position: -350px 0;
+}
+/* line 41, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status.not-selected li.state4 {
+  background-position: -527px 0;
+}
+/* line 48, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status.order-requested li.state1 {
+  background-position: 0px -100px;
+}
+/* line 55, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status.payment-made li.state1 {
+  background-position: 0px -100px;
+}
+/* line 58, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status.payment-made li.state2 {
+  background-position: -172px -100px;
+}
+/* line 65, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status.order-picking li.state1 {
+  background-position: 0px -100px;
+}
+/* line 68, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status.order-picking li.state2 {
+  background-position: -172px -100px;
+}
+/* line 71, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status.order-picking li.state3 {
+  background-position: -350px -100px;
+}
+/* line 78, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status.order-deliver li.state1 {
+  background-position: 0px -100px;
+}
+/* line 81, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status.order-deliver li.state2 {
+  background-position: -172px -100px;
+}
+/* line 84, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status.order-deliver li.state3 {
+  background-position: -350px -100px;
+}
+/* line 87, ../../../app/assets/stylesheets/partials/_order_status.scss */
+div#my_account.orders div.order_status ul#status.order-deliver li.state4 {
+  background-position: -527px -100px;
+}
+/* line 385, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status h1, div#my_account.orders div.order_status h2 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+}
+/* line 388, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status h1 {
+  color: #000;
+  font-size: 16px;
+  margin: 0 0 25px 0;
+  padding: 0 0 10px 0;
+  border-bottom: 1px #e5e5e5 solid;
+}
+/* line 394, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status h1 span {
+  color: #ef3742;
+}
+/* line 397, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status h1 a {
+  color: #ef3742;
+  margin: 0 20px 0 25px;
+}
+/* line 402, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status h2 {
+  color: #7a7a7a;
+  font-size: 14px;
+  text-align: center;
+  font-weight: normal;
+  margin: 0 0 30px 0;
+}
+/* line 408, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status h2 strong {
+  color: #7a7a7a;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+/* line 414, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status div#description {
+  width: 645px;
+  overflow: auto;
+  padding: 20px 30px;
+  border: 1px #d9d9d9 solid;
+}
+/* line 419, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status div#description ul#items {
+  width: 375px;
+  overflow: auto;
+  margin-right: 40px;
+  float: left;
+  border-right: 1px #d9d9d9 solid;
+}
+/* line 425, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status div#description ul#items li {
+  width: 100%;
+  overflow: auto;
+  display: block;
+}
+/* line 429, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status div#description ul#items li img {
+  max-width: 170px;
+  max-height: 170px;
+  margin: 0 20px 30px 0;
+  float: left;
+}
+/* line 435, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status div#description ul#items li h1 {
+  font-size: 15px;
+  text-transform: uppercase;
+  margin: 0 0 10px 0;
+  padding: 0;
+  border: none;
+}
+/* line 442, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status div#description ul#items li p, div#my_account.orders div.order_status div#description ul#items li strong {
+  color: #6d6d6d;
+  margin: 0 0 5px 0;
+}
+/* line 446, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status div#description ul#items li strong {
+  font-weight: 500;
+}
+/* line 451, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status div#description div#details {
+  width: 225px;
+  float: left;
+}
+/* line 454, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status div#description div#details div {
+  font-size: 13px;
+  margin: 0 0 20px 0;
+}
+/* line 458, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status div#description div#details h1 {
+  color: #292929;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin: 0 0 5px 0;
+  padding: 0;
+  border: none;
+}
+/* line 468, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status div#description div#details p, div#my_account.orders div.order_status div#description div#details strong {
+  color: #545353;
+}
+/* line 470, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status div#description div#details p a, div#my_account.orders div.order_status div#description div#details strong a {
+  color: #ef3742;
+}
+/* line 474, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status div#description div#details strong {
+  font-weight: 500;
+}
+/* line 477, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status div#description div#details p.warn {
+  font-size: 11px;
+}
+/* line 480, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status div#description div#details table {
+  width: 150px;
+  margin: 0;
+}
+/* line 484, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status div#description div#details table thead tr th {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  text-transform: uppercase;
+  padding: 0 0 5px 0;
+  border: none;
+}
+/* line 495, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.orders div.order_status div#description div#details table tbody tr td {
+  padding: 0;
+  border: none;
+}
+/* line 505, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts {
+  padding: 30px 0 0 0;
+}
+/* line 507, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts h1 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 22px;
+  text-transform: uppercase;
+  margin: 0 10px;
+}
+/* line 513, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table {
+  width: 735px;
+  margin: 25px 0 45px 10px;
+}
+/* line 518, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table thead tr th {
+  background: url(/dev-assets/my_account/bg-bottom-table.jpg) bottom repeat-x;
+  color: #000;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 16px;
+  font-weight: lighter;
+  text-align: center;
+  padding: 10px 0px;
+}
+/* line 526, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table thead tr th.number {
+  width: 100px;
+  text-align: left;
+}
+/* line 530, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table thead tr th.date {
+  width: 125px;
+}
+/* line 533, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table thead tr th.amount {
+  width: 75px;
+}
+/* line 536, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table thead tr th.value, div#my_account.my_gifts table thead tr th.freight, div#my_account.my_gifts table thead tr th.payments {
+  width: 80px;
+}
+/* line 539, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table thead tr th.status {
+  width: 150px;
+}
+/* line 542, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table thead tr th.gifted {
+  text-align: left;
+}
+/* line 550, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table tbody tr td {
+  text-align: center;
+  padding: 20px 0 0;
+}
+/* line 553, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table tbody tr td.more {
+  position: relative;
+}
+/* line 555, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table tbody tr td.more a {
+  background: url(/dev-assets/my_account/more-informations.png) no-repeat;
+  text-indent: -9999px;
+  width: 114px;
+  height: 20px;
+  display: block;
+}
+/* line 563, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table tbody tr td.number {
+  color: #ef3742;
+  text-align: left;
+  padding-left: 10px;
+}
+/* line 567, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table tbody tr td.number a {
+  color: #6d6e71;
+  text-decoration: none;
+}
+/* line 570, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table tbody tr td.number a:hover {
+  text-decoration: underline;
+}
+/* line 575, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table tbody tr td.gifted {
+  text-align: left;
+}
+/* line 579, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table tbody tr td.edit a {
+  background: url(/dev-assets/my_account/icon-edit.jpg) top left no-repeat;
+  color: #6d6e71;
+  padding: 2px 0 0 22px;
+}
+/* line 586, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table tbody tr td.recommendations a {
+  color: #ef3742;
+}
+/* line 592, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_gifts table tbody tr.message td {
+  background: url(/dev-assets/my_account/gift-icon.jpg) 0 17px no-repeat;
+  font-weight: bold;
+  text-align: left;
+  padding: 20px 0 20px 30px;
+  border-bottom: 1px #e5e5e5 solid;
+}
+/* line 605, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits {
+  margin: 30px 0 0 10px;
+}
+/* line 607, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits h1 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+}
+/* line 613, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits h2 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 14px;
+  font-weight: lighter;
+}
+/* line 617, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits h2 span {
+  color: #ef3742;
+}
+/* line 620, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits h2 + h2 {
+  color: #6d6e71;
+  margin: 0 0 40px;
+}
+/* line 624, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits h2 + p {
+  background: url(/dev-assets/common/border-table-top.jpg) bottom repeat-x;
+  margin: 0 0 15px;
+  padding: 0 0 12px;
+}
+/* line 630, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits p.earn_credits {
+  margin: 0 0 10px;
+}
+/* line 632, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits p.earn_credits a {
+  color: #ef3742;
+  text-decoration: none;
+}
+/* line 635, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits p.earn_credits a:hover {
+  text-decoration: underline;
+}
+/* line 640, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits table {
+  width: 100%;
+  margin: 0 0 45px;
+}
+/* line 643, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits table thead tr th, div#my_account.my_credits div.credits table tfoot tr td {
+  color: #000;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 18px;
+  font-weight: normal;
+  text-align: left;
+}
+/* line 650, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits table tfoot tr td {
+  color: #6d6e71;
+  padding-top: 20px;
+}
+/* line 653, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits table tfoot tr td.value {
+  color: #ef3742;
+  font-size: 16px;
+  text-align: right;
+}
+/* line 659, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits table tbody tr td {
+  font-size: 16px;
+  font-weight: lighter;
+  padding: 0 0 5px;
+}
+/* line 663, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits table tbody tr td.value {
+  text-align: right;
+}
+/* line 667, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits table.border {
+  background: url(/dev-assets/common/border-table-top.jpg) top repeat-x;
+}
+/* line 669, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits table.border thead tr th {
+  padding-top: 10px;
+}
+/* line 673, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.my_credits div.credits table + p {
+  font-size: 13px;
+  text-align: center;
+  display: block;
+  margin: 10px 0 0;
+  padding: 10px 0 0;
+  border-top: 1px #c5c5c6 solid;
+}
+/* line 686, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.facebook div#data div.container {
+  margin: 15px 0 0 30px;
+}
+/* line 688, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.facebook div#data div.container p {
+  color: #4c4c4c;
+  width: 705px;
+  margin: 0 0 20px 0;
+}
+/* line 693, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.facebook div#data div.container a {
+  background: url(/dev-assets/my_account/desc-face.jpg) no-repeat;
+  text-indent: -9999px;
+  width: 195px;
+  height: 25px;
+  display: block;
+}
+/* line 705, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.showroom div#data div.container {
+  margin: 15px 0 0 30px;
+}
+/* line 707, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.showroom div#data div.container h2 {
+  color: #454545;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  margin: 0 0 10px 0;
+}
+/* line 713, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.showroom div#data div.container form {
+  margin-left: 0;
+}
+/* line 715, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.showroom div#data div.container form ul.shoes_size {
+  overflow: hidden;
+  margin: 0 0 30px 0;
+  clear: both;
+}
+/* line 719, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.showroom div#data div.container form ul.shoes_size li {
+  border: 1px solid #b8b6b6;
+  color: #b8b6b6;
+  display: block;
+  line-height: 36px;
+  margin-right: 19px;
+  float: left;
+}
+/* line 726, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.showroom div#data div.container form ul.shoes_size li.selected {
+  background: #b8b6b6;
+  color: #FFF;
+}
+/* line 730, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.showroom div#data div.container form ul.shoes_size li label {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  width: 46px;
+  height: 38px;
+  cursor: pointer;
+}
+/* line 738, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.showroom div#data div.container form ul.shoes_size li label input {
+  display: none;
+}
+/* line 744, ../../../app/assets/stylesheets/section/my_account.scss */
+div#my_account.showroom div#data div.container form input[type="submit"] {
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  width: 125px;
+  height: 61px;
+  display: block;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 2px;
+  font-size: 15px;
+}
+/* line 36, ../../../app/assets/stylesheets/partials/_mixins.scss */
+div#my_account.showroom div#data div.container form input[type="submit"]:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+
+/* line 760, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted {
+  width: 495px;
+  height: 350px !important;
+  display: none;
+  padding: 40px 50px;
+}
+/* line 765, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted h1 {
+  font-size: 20px;
+  font-weight: lighter;
+  text-transform: uppercase;
+}
+/* line 770, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form {
+  width: 540px;
+}
+/* line 772, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form label, div.dialog.gifted form p {
+  color: #6d6e71;
+  font-size: 14px;
+  margin: 0 0 5px;
+  display: block;
+}
+/* line 778, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul {
+  width: 100%;
+  overflow: auto;
+  margin: 0 0 10px;
+}
+/* line 782, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul li {
+  float: left;
+}
+/* line 786, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.name_relation li {
+  margin: 0 30px 0 0;
+}
+/* line 788, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.name_relation li input[type="text"] {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 14px;
+  width: 208px;
+  padding: 8px 12px;
+  border: 1px #6d6e71 solid;
+}
+/* line 794, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.name_relation li input[type="text"]:focus {
+  outline: none;
+}
+/* line 801, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.date li {
+  background: url(/dev-assets/my_account/arrow-select.jpg) top right no-repeat;
+  height: 33px;
+  margin: 0 25px 0 0;
+  padding: 0 22px 0 10px;
+  display: block;
+  overflow: hidden;
+  border: 1px #6d6e71 solid;
+}
+/* line 809, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.date li select {
+  background: transparent;
+  font-size: 14px;
+  height: 31px;
+  margin: 1px 0 0;
+  border: 1px #fff solid;
+  -webkit-appearance: none;
+}
+/* line 816, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.date li select:focus {
+  outline: none;
+}
+/* line 820, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.date li.day {
+  width: 45px;
+}
+/* line 822, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.date li.day select {
+  width: 40px;
+}
+/* line 826, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.date li.month {
+  width: 88px;
+}
+/* line 828, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.date li.month select {
+  width: 83px;
+}
+/* line 832, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.date li.year {
+  width: 53px;
+}
+/* line 834, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.date li.year select {
+  width: 48px;
+}
+/* line 841, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.shoes_size {
+  margin-bottom: 35px;
+}
+/* line 843, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.shoes_size li {
+  position: relative;
+  color: #7e7f82;
+  text-align: center;
+  margin: 0 7px 0 0;
+  float: left;
+  border: 1px #7e7f82 solid;
+}
+/* line 850, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.shoes_size li label {
+  font-size: 13px;
+  line-height: 34px;
+  width: 36px;
+  margin: 0;
+  cursor: pointer;
+}
+/* line 857, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.shoes_size li input[type="radio"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+}
+/* line 863, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.shoes_size li.selected {
+  background: #000;
+  border-color: #000;
+}
+/* line 866, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.shoes_size li.selected label {
+  color: #FFF;
+}
+/* line 870, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form ul.shoes_size li:last-child {
+  margin: 0;
+}
+/* line 875, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted form input[type="submit"] {
+  width: 127px;
+  height: 63px;
+  display: block;
+  cursor: pointer;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 15px;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 36, ../../../app/assets/stylesheets/partials/_mixins.scss */
+div.dialog.gifted form input[type="submit"]:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 887, ../../../app/assets/stylesheets/section/my_account.scss */
+div.dialog.gifted.clone {
+  display: block;
+}
+
+/* line 893, ../../../app/assets/stylesheets/section/my_account.scss */
+.gecko form fieldset.cpf li select.custom_select, .ie form fieldset.cpf li select.custom_select {
+  top: 19px !important;
+}
+/* line 895, ../../../app/assets/stylesheets/section/my_account.scss */
+.gecko form fieldset.cpf li select.custom_select#user_birthday_3i, .ie form fieldset.cpf li select.custom_select#user_birthday_3i {
+  left: 0px !important;
+}
+/* line 898, ../../../app/assets/stylesheets/section/my_account.scss */
+.gecko form fieldset.cpf li select.custom_select#user_birthday_2i, .ie form fieldset.cpf li select.custom_select#user_birthday_2i {
+  left: 85px !important;
+}
+/* line 901, ../../../app/assets/stylesheets/section/my_account.scss */
+.gecko form fieldset.cpf li select.custom_select#user_birthday_1i, .ie form fieldset.cpf li select.custom_select#user_birthday_1i {
+  left: 205px !important;
+}
+
+/* line 907, ../../../app/assets/stylesheets/section/my_account.scss */
+.pagination {
+  text-align: center;
+  height: 25px;
+  display: block;
+}
+/* line 911, ../../../app/assets/stylesheets/section/my_account.scss */
+.pagination .previous_page, .pagination .next_page {
+  display: none;
+}
+/* line 914, ../../../app/assets/stylesheets/section/my_account.scss */
+.pagination em.current {
+  background: #ef3742;
+  color: #FFF;
+  font-size: 12px;
+  padding: 5px 7px;
+  margin: 0 3px;
+  display: inline-block;
+}
+/* line 922, ../../../app/assets/stylesheets/section/my_account.scss */
+.pagination a {
+  color: #2a2a2a;
+  font-size: 12px;
+  text-decoration: none;
+  padding: 5px 7px;
+  margin: 0 2px;
+  display: inline-block;
+  cursor: pointer;
+}
+/* line 930, ../../../app/assets/stylesheets/section/my_account.scss */
+.pagination a:hover {
+  background: #ef3742;
+  color: #FFF;
+}
