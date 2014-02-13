@@ -2010,6 +2010,8 @@ section.checkout{
       width: 300px;
       margin-top: 0px;
       padding-left:10px;
+      height: auto !important;
+      height: 115px;
       p{
         font-family: $avenir;
         font-size: 15px;
@@ -2034,7 +2036,15 @@ section.checkout{
           }
           &.expresso{
             padding-top:0px;
-            label{background-position: 0 -29px}
+            label{background-position: 0 -29px}            
+          }
+          &.motoboy{
+            padding-top:0px;
+            height:auto !important;
+            height:30px;
+            min-height:30px;
+            position:relative;
+            label{background-position: 0 -175px}
           }
           p.shipping{
             font-family: $avenir;
@@ -2594,4 +2604,15 @@ p.important {
 }
 .active{
   display:block !important;
+}
+#motoboy_info{
+  display:block;
+  width:280px;
+  border:1px solid #e1e1e1;
+  margin-bottom:15px;
+  font-size: 11px;
+  background: "#elelel";
+  padding: 4px;
+  background:#faffd4;
+
 }

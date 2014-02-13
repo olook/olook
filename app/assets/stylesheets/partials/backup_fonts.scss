@@ -29,18 +29,18 @@
 
 @font-face {
     font-family: 'KeplerStdItalic';
-    src:url('/fonts/kepler/adobe_-_keplerstd-italic-webfont.eot'),
-    url('/fonts/kepler/adobe_-_keplerstd-italic-webfont.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/kepler/adobe_-_keplerstd-italic-webfont.ttf') format('truetype');
+    src:asset-url('kepler/adobe_-_keplerstd-italic-webfont.eot', 'fonts'),
+    asset-url('kepler/adobe_-_keplerstd-italic-webfont.eot?#iefix', 'fonts') format('embedded-opentype'),
+    asset-url('kepler/adobe_-_keplerstd-italic-webfont.ttf', 'fonts') format('truetype');
 	font-weight: normal;
 }
 
 @font-face {
     font-family: 'avenir';
     src:
-        url('<%= asset_path "avenir/avenir-book-webfont.eot" %>'),
-        url('<%= asset_path "avenir/avenir-book-webfont.eot" %>?#iefix') format('embedded-opentype'),
-        url('<%= asset_path "avenir/avenir-book-webfont.ttf" %>') format('truetype');
+        asset-url('avenir/avenir-book-webfont.eot', 'fonts'),
+        asset-url('avenir/avenir-book-webfont.eot?#iefix', 'fonts') format('embedded-opentype'),
+        asset-url('avenir/avenir-book-webfont.ttf', 'fonts') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }

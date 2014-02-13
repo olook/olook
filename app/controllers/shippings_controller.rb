@@ -8,13 +8,16 @@ class ShippingsController < ApplicationController
     @warranty_deliver = true if params[:warranty_deliver]
     @zip_code = params[:id]
     freights = shipping_freights
-    return render :status => :not_found if freights.empty?
-    track_zip_code_fetch_event
     prepare_freights(freights)
-    @days_to_deliver = freights.fetch(:default_shipping)[:delivery_time]
-    @force_show_div = true if params[:freight_service_ids]
-    @freight_price = freights.fetch(:default_shipping)[:price]
-    @first_free_freight_price = freights.fetch(:default_shipping)[:cost_for_free]  if freights.fetch(:default_shipping)[:cost_for_free]
+    if freights.empty?
+      render :status => :not_found 
+    else
+      track_zip_code_fetch_event
+      @days_to_deliver = freights.fetch(:default_shipping)[:delivery_time]
+      @force_show_div = true if params[:freight_service_ids]
+      @freight_price = freights.fetch(:default_shipping)[:price]
+      @first_free_freight_price = freights.fetch(:default_shipping)[:cost_for_free]  if freights.fetch(:default_shipping)[:cost_for_free]
+    end
   end
 
   private

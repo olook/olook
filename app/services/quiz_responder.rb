@@ -39,7 +39,23 @@ class QuizResponder
     @user.profile = @profile
     @user.profiles = [Profile.for_wysprofile(@profile).first]
     @user.wys_uuid = @uuid
+    update_user_info
     @user.upgrade_to_full_user!
+  end
+
+  def update_user_info
+    @user_data ||= {}
+    if @user.user_info
+      info = @user.user_info
+      info.shoes_size = @user_data[:shoes_size] if @user_data[:shoes_size] || @user_data["shoes_size"] 
+      info.dress_size = @user_data[:dress_size] if @user_data[:dress_size] || @user_data["dress_size"]
+      info.t_shirt_size = @user_data[:t_shirt_size] if @user_data[:t_shirt_size] || @user_data["t_shirt_size"]
+      info.pants_size = @user_data[:pants_size] if @user_data[:pants_size] || @user_data["pants_size"]
+      info.save
+    else
+      @user.user_info_attributes=(@user_data)
+      @user.save
+    end
   end
 
   def retrieve_profile

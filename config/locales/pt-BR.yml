@@ -44,6 +44,7 @@
       cloth: Roupa
       beachwear: "Moda Praia"
       lingerie: Lingerie
+      plussize: "Plus Size"
 
   # formatos de data e hora
   date:
