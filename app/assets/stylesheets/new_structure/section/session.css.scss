@@ -33,8 +33,9 @@
             font-size: 14px;
             text-decoration: none;
             line-height: 28px;
+            display: block;
+            width: 165px;
             span{
-              padding-left: 70px;
               font-size: 17px;
             }
           }
@@ -42,7 +43,9 @@
         li.fb{
           background-position: 0 0;
         }
-        li.twitter{background-position: 0px -60px;margin-left: 90px;}
+        li.twitter{background-position: 0px -60px;margin-left: 90px;
+          a{width: 140px;}
+        }
       }
 
       #sign-in-box {
@@ -179,10 +182,10 @@
         letter-spacing: 2px;
         font-family: $bt_font;
         font-size: 13px;
+        text-decoration: none;
         p{
           width: 212px;
-          height: 29px;
-          position: absolute;
+          height: 31px;
           display: block;
           margin-top: -67px;
           margin-left: 243px;
