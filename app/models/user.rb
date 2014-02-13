@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   after_create :initialize_user, :update_campaign_email
 
   accepts_nested_attributes_for :addresses
+  accepts_nested_attributes_for :user_info
 
   devise :database_authenticatable, :registerable, :lockable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
