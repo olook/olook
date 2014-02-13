@@ -1,65 +1,58 @@
 @import "partials/mixins";
 .sign-in {
-      background: image-url('home/bg-middle-home.jpg') top right no-repeat;
-      height: 575px;
-      padding:0 30px;
+      height: 475px;
+      padding-left: 30px;
       @include sign-in(relative);
-
-      h1 {
-        font-family: $johnston;
-        font-size: 40px;
-        letter-spacing: -2px;
-        font-weight: normal;
+      .login{
+        display: block;
+        float: left;
+        width: 450px;
+        height: 500px;
+        h2 {
+        font-family: $bt_font;
+        font-size: 16px;
+        font-weight: bold !important;
       }
 
       .social-media {
         display: block;
-        width: 546px;
+        width: 450px;
         height: 96px;
         float: left;
-        margin-top: 90px;
-        margin-left: 100px;
-
-        li {
-          background: image-url('common/sprite-social-media.png') 10px 24px no-repeat;
-          display: block;
+        margin-top: 61px;
+        li{
+          background: image-url('login/social_icons.png') no-repeat;
+          width: 180px; 
+          height: 58px;
           float: left;
-          border-left: 1px solid #CECECE;
-          width: 180px;
-          height: 84px;
-
-          &:first-child {
-            border-left: none;
-          }
-
-          &.twitter {
-            background-position: -167px 23px;
-          }
-
-          &.orkut {
-            background-position: -361px 25px;
-          }
-
-          a {
-            text-align: center;
-            display: block;
-            font-family: Times;
-            font-size: 22px;
-            font-style: italic;
-            color: #606060;
+          a{
+            padding-left: 70px;
+            color: #000;
+            font-weight: bold;
+            font-family: $bt_font;
+            font-size: 14px;
             text-decoration: none;
-            height: 84px;
+            line-height: 28px;
+            span{
+              padding-left: 70px;
+              font-size: 17px;
+            }
           }
+      }
+        li.fb{
+          background-position: 0 0;
         }
+        li.twitter{background-position: 0px -60px;margin-left: 90px;}
       }
 
       #sign-in-box {
         padding: 35px;
         width: 345px;
         position: relative;
-        margin: 44px 0 0 83px;
+        margin: 44px 0 0 0px;
         float: left;
-				z-index:10;
+        z-index:10;
+        border:none;
 
         .fb-login-button {
           background: image-url('common/fb-loggin-button.png') no-repeat;
@@ -91,11 +84,12 @@
                   }
 
                   input {
-                    background: #f3f3f3 image-url('common/bg-input-sign-in.png') center top repeat-x;
+                    background-color: #fff;
                     padding: 10px;
                     background-position: bottom;
                     float: left;
                     width: 262px;
+                    border: 1px solid #000;
                   }
                 }
               }
@@ -104,60 +98,61 @@
             &.buttons {
               ol {
                 li {
-                  margin: 10px 0 0 0;
-                  float: right;
+                  margin: 10px 13px 10px 6px !important;
+                  float: left;
                   &.remember-me {
-                    width: 210px;
+                    width: 345px;
                     margin: 0;
                     float: left;
                     input[type='checkbox'] {
                       margin-bottom: 10px;
-											width:25px;
-											float:left;
+                      width:25px;
+                      float:left;
                     }
-										label{width:150px !important;}
+                    label{width:150px !important;}
                     p {
-											&.register{font-size:11px;float:left;margin-left:10px;
-												a{float:none;}
-											}
-											 &.forgot_password {
-												float:left;margin:0 0 10px 10px;clear:both;
-                      	a{
-	                        color: #6D6E71;
-	                        text-decoration: none;
-													display: block;
-	                        &:hover {
-	                          text-decoration: underline;
-	                        }
-	                      }
-												& + li {
-			                      margin-right: 20px;
-			                      input[type='submit'] {
-			                        width: 106px;
-			                        height: 42px;
-			                        display: block;
-			                        border: none;
-			                        cursor: pointer;
+                      &.register{font-size:11px;float:left;margin-left:45px;margin-top: -13px;
+                        a{float:none;}
+                      }
+                       &.forgot_password {
+                        float:left;margin:0 0 10px 10px;clear:both;
+                        a{
+                          color: #6D6E71;
+                          text-decoration: none;
+                          display: block;
+                          &:hover {
+                            text-decoration: underline;
+                          }
+                        }
+                        & + li {
+                            margin-right: 20px;
+                            input[type='submit'] {
+                              width: 106px;
+                              height: 42px;
+                              display: block;
+                              border: none;
+                              cursor: pointer;
                               font-size: 13px;
                               font-weight: 600;
                               @include bt_color($primary_bt_color, $primary_bt_color_hover);
-			                      }
-			                    }
-			                  }
-                    	}
-                  	}
+                            }
+                          }
+                        }
+                      }
+                    }
 
                   input[type='submit'] {
-                    width: 106px;
-                    height: 42px;
+                    width: 212px;
+                    height: 45px;
                     display: block;
                     border: none;
                     cursor: pointer;
                     margin:0 19px 0 0 !important;
-										float:none;
+                    float:none;
                     font-size: 13px;
                     font-weight: 600;
                     letter-spacing: 2px;
+                    margin-left: 65px !important; 
                     @include bt_color($primary_bt_color, $primary_bt_color_hover);
                   }
                 }
@@ -166,11 +161,34 @@
           }
         }
       }
-
-      img {
-        display: block;
-        float: right;
-        margin-right: 5px;
-        margin-top: -30px;
+    }
+    .quiz_login{
+      display: block;
+      float: left;
+      width: 490px;
+      height: 500px;
+      margin-top: 35px;
+      margin-left: 18px;
+      .quiz_img{
+        margin-top: 10px;
+      }
+      a{
+        position: relative;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-family: $bt_font;
+        font-size: 13px;
+        p{
+          width: 212px;
+          height: 29px;
+          position: absolute;
+          display: block;
+          margin-top: -67px;
+          margin-left: 243px;
+          padding-top: 14px;
+          @include bt_color($primary_bt_color, $primary_bt_color_hover);
+        }
       }
     }
+  }
