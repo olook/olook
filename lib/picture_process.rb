@@ -1,6 +1,6 @@
 class PictureProcess
   DIRECTORY = 'product_pictures'
-  attr_accessor :params
+  attr_accessor :params, :product_pictures
   @queue = 'low'
 
   def self.list(options={})
@@ -19,22 +19,13 @@ class PictureProcess
 
   def initialize(options={})
     @key = options['key']
+    @product_pictures = Hash.new
     raise ArgumentError.new("Directory to process on S3 Bucket is necessary (key is nil)") if @key.blank?
   end
 
   def perform
-    hash = Hash.new
-    arr = []
-    files = self.class.directory.files.all(delimiter: '/', prefix: @key).common_prefixes
-    files.map do |file|
-      product_number = file.gsub(/\D/, '')
-      arr = self.class.directory.files.all(delimiter: '/', prefix: file).map{|f| f.public_url}
-      arr.shift
-      arr
-      hash[product_number] = arr 
-      hash
-    end
-    hash.each do |k,v|
+    products_hash = retreive_product_pictures
+    products_hash.each do |k,v|
       product = Product.find k
       product.remote_color_sample_url = v.select{|image| image =~ /sample/i}.first
       product.save
@@ -51,6 +42,22 @@ class PictureProcess
   end
 
   private
+
+  def retreive_product_pictures
+    get_files.map do |file|
+      product_number = file.gsub(/\D/, '')
+      arr = self.class.directory.files.all(delimiter: '/', prefix: file).map{|f| f.public_url}
+      arr.shift
+      arr
+      hash[product_number] = arr 
+      hash
+    end
+  end
+
+  def get_files
+    self.class.directory.files.all(delimiter: '/', prefix: @key).common_prefixes
+  end
+
   def self.directory
     connection ||= Fog::Storage[:aws]
     connection.directories.get(DIRECTORY)
