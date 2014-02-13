@@ -104,7 +104,7 @@ class SearchEngine
   end
 
   def total_results
-    @result.hits["found"]
+    @result.hits["found"] || 0
   end
 
   def cache_key
@@ -127,6 +127,7 @@ class SearchEngine
         parameters[key.to_sym] = []
       end
     end
+    parameters.merge!({q: @query}) if @query
     parameters
   end
 
