@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <produtos>
-<% @products.each do |product| %>
+<% @products_for_mercadolivre.each do |product| %>
 <produto>
-  <descricao><%= product.subcategory %> <%= product.name %></descricao>
-  <preco><%= number_to_currency(product.retail_price).delete("R$ ") %></preco>
+  <descricao><![CDATA[<%= product.subcategory %> <%= product.name %>]]></descricao>
+  <preco><![CDATA[<%= number_to_currency(product.retail_price).delete("R$ ") %>]]></preco>
   <id_produto><%= product.id %></id_produto>
-  <marca><%= product.brand %></marca>
+  <marca><![CDATA[<%= product.brand %>]]></marca>
   <codigo_barra></codigo_barra>
   <isbn></isbn>
-  <link_prod><%= product.product_url(:utm_source => "buscape", :utm_medium => "vitrine", :utm_campaign => "produtos") %></link_prod>
-  <imagem><%= full_image_path product.xml_picture(:main) %></imagem>
-  <categ><%= product.category_humanize %></categ>
+  <link_prod><![CDATA[<%= product.product_url(:utm_source => "buscape", :utm_medium => "vitrine", :utm_campaign => "produtos") %>]]></link_prod>
+  <imagem><![CDATA[<%= full_image_path product.xml_picture(:main) %>]]></imagem>
+  <categ><![CDATA[<%= product.category_humanize %>]]></categ>
   <parcelamento><%= build_installment_text(product.retail_price) %></parcelamento>
-  <detalhes><%= product.description %></detalhes>
+  <detalhes><![CDATA[<%= product.description %>]]></detalhes>
   <% product.details.each do |detail| %>
     <% if ["Metal", "Material externo"].include?(detail.translation_token) %>
-    <material><%= detail.description %></material>
+    <material><![CDATA[<%= detail.description %>]]></material>
     <% end %>
   <% end %>
 </produto>
