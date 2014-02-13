@@ -40,7 +40,9 @@ class PictureProcess
       product.save
       product.pictures.destroy_all if product.pictures.count > 1
       v.each do |image|
-        Picture.create(product: product, image: File.open(image))
+        picture = Picture.new(product: product)
+        picture.remote_image_url = image
+        picture.save
       end
       product.pictures
     end
@@ -70,3 +72,4 @@ class PictureProcess
     end
   end
 end
+
