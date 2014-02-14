@@ -196,11 +196,6 @@
          show_modal = '<%= j @modal_show %>';
        </script>
 
-       <% unless user_signed_in? || request.url.include?("gclid") %>
-         <%= javascript_include_tag "campaign_emails_modal" if !['landing_pages','survey', 'users/registrations'].include?(params[:controller]) %>
-       <% end %>
-
-
        <% if content_for? :footer %>
          <%= yield :footer %>
        <% end %>

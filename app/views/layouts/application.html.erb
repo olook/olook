@@ -96,10 +96,6 @@
 
     <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
 
-    <% unless user_signed_in? || request.url.include?("gclid") %>
-    <%= javascript_include_tag "campaign_emails_modal" if !['landing_pages','survey', 'users/registrations', 'cart/cart', 'devise/sessions' ].include?(params[:controller]) %>
-    <% end %>
-
     <% if content_for? :footer %>
       <%= yield :footer %>
     <% end %>
