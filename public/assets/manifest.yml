@@ -2352,8 +2352,8 @@ new_structure/section/quiz.css: new_structure/section/quiz-70b46fc4357d462234213
 new_structure/section/quiz/index.css: new_structure/section/quiz-70b46fc4357d4622342133b3c991047f.css
 new_structure/section/search.css: new_structure/section/search-9f693f30a1c8f7f8725cfbde23b7313e.css
 new_structure/section/search/index.css: new_structure/section/search-9f693f30a1c8f7f8725cfbde23b7313e.css
-new_structure/section/session.css: new_structure/section/session-903321c1bd98e3d543c5a18c3a00aab3.css
-new_structure/section/session/index.css: new_structure/section/session-903321c1bd98e3d543c5a18c3a00aab3.css
+new_structure/section/session.css: new_structure/section/session-697eb222510476bad3527e2149390317.css
+new_structure/section/session/index.css: new_structure/section/session-697eb222510476bad3527e2149390317.css
 reseller.css: reseller-2cb42648231f15cb98164ab42bd6ce70.css
 reseller/index.css: reseller-2cb42648231f15cb98164ab42bd6ce70.css
 section/avc-campaign.css: section/avc-campaign-f5140b952ee97eb3bec5c76469d6b30c.css
