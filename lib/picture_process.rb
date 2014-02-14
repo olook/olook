@@ -52,8 +52,6 @@ class PictureProcess
     get_files.map do |file|
       product_number = file.gsub(/\D/, '')
       arr = self.class.directory.files.all(delimiter: '/', prefix: file).select{|image| /\/(?:sample|\d+).jpg$/i =~ image.key}.map{|f| f.public_url}
-      arr.shift
-      arr
       product_pictures[product_number] = arr 
       product_pictures
     end
