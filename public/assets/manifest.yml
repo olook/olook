@@ -1292,6 +1292,12 @@ liquidations/shoes.png: liquidations/shoes-f9a8cc6f8146636c126eaef14a6d25bc.png
 liquidations/shoes/index.png: liquidations/shoes-f9a8cc6f8146636c126eaef14a6d25bc.png
 login/ico_security.png: login/ico_security-8902b02ab508e518a5498aa93d068266.png
 login/ico_security/index.png: login/ico_security-8902b02ab508e518a5498aa93d068266.png
+login/olook_vantagens.png: login/olook_vantagens-78aae741ef97af943002c7dbdac42112.png
+login/olook_vantagens/index.png: login/olook_vantagens-78aae741ef97af943002c7dbdac42112.png
+login/quiz.jpg: login/quiz-d7ce420a06d58328c4e9cd543593eba5.jpg
+login/quiz/index.jpg: login/quiz-d7ce420a06d58328c4e9cd543593eba5.jpg
+login/social_icons.png: login/social_icons-dbe34c9a4e19622ff5f0c4b31d8621b2.png
+login/social_icons/index.png: login/social_icons-dbe34c9a4e19622ff5f0c4b31d8621b2.png
 login/sprite.png: login/sprite-35e866661fb13e857fc3354f273210af.png
 login/sprite/index.png: login/sprite-35e866661fb13e857fc3354f273210af.png
 loyalty/arrow.png: loyalty/arrow-d0eacf894cfd98df786249d517ce0bdf.png
@@ -2364,8 +2370,8 @@ new_structure/section/quiz.css: new_structure/section/quiz-07d7f18ed4de609d82212
 new_structure/section/quiz/index.css: new_structure/section/quiz-07d7f18ed4de609d82212b8f1b8f60bd.css
 new_structure/section/search.css: new_structure/section/search-49024cc68b01fc21c42d0a0901be917f.css
 new_structure/section/search/index.css: new_structure/section/search-49024cc68b01fc21c42d0a0901be917f.css
-new_structure/section/session.css: new_structure/section/session-caebfb74c1baac5b661329e1c5d8860e.css
-new_structure/section/session/index.css: new_structure/section/session-caebfb74c1baac5b661329e1c5d8860e.css
+new_structure/section/session.css: new_structure/section/session-25d10049e7f0505b454e276cb1b5236c.css
+new_structure/section/session/index.css: new_structure/section/session-25d10049e7f0505b454e276cb1b5236c.css
 reseller.css: reseller-c8a71593d3b0588df4fabd38b8b1927a.css
 reseller/index.css: reseller-c8a71593d3b0588df4fabd38b8b1927a.css
 section/avc-campaign.css: section/avc-campaign-0a1947964088596d05863279c631f5d7.css
