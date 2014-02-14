@@ -1,7 +1,7 @@
 @import "partials/mixins";
 .sign-in {
       height: 475px;
-      padding-left: 30px;
+      padding-left: 15px;
       @include sign-in(relative);
       .login{
         display: block;
@@ -169,7 +169,7 @@
       display: block;
       float: left;
       width: 490px;
-      height: 500px;
+      height: 445px;
       margin-top: 35px;
       margin-left: 18px;
       .quiz_img{
@@ -183,13 +183,16 @@
         font-family: $bt_font;
         font-size: 13px;
         text-decoration: none;
-        p{
+        .quiz_img{margin-top: 10px;}
+        &.bt_quiz{
           width: 212px;
           height: 31px;
           display: block;
           margin-top: -67px;
           margin-left: 243px;
           padding-top: 14px;
+          font-weight: bold;
+          background-color: #e82d3a;
           @include bt_color($primary_bt_color, $primary_bt_color_hover);
         }
       }
