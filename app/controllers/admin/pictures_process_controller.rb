@@ -6,7 +6,7 @@ class Admin::PicturesProcessController < Admin::BaseController
 
   def create
     authorize! :create_multiple_pictures, Picture
-    Resque.enqueue(PictureProcess, key: params[:key])
-    redirect_to admin_pictures_process_path, notice: 'Processamento enfileirado. Aguarde o email daqui alguns minutos'
+    Resque.enqueue(PictureProcess, {"key" => params[:key], "user_email" => current_admin.email})
+    redirect_to admin_pictures_process_path, notice: 'Processamento está sendo realizado. Aguarde o email com as informações'
   end
 end
