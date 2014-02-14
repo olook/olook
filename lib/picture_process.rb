@@ -1,6 +1,6 @@
 class PictureProcess
   DIRECTORY = 'product_pictures'
-  attr_accessor :params, :product_pictures
+  attr_accessor :params, :product_pictures, :return_hash
   @queue = 'low'
 
   def self.list(options={})
@@ -20,14 +20,15 @@ class PictureProcess
   def initialize(options={})
     @key = options['key']
     @product_pictures = Hash.new
+    @return_hash = {product_ids: [], error: ""}
     raise ArgumentError.new("Directory to process on S3 Bucket is necessary (key is nil)") if @key.blank?
   end
 
   def perform
-    products_hash = retreive_product_pictures
+    products_hash = retrieve_product_pictures
     create_product_picures products_hash
     puts "Fazendo a porra toda"
-    sleep 600
+    return_hash
   end
 
   private
@@ -48,7 +49,7 @@ class PictureProcess
     end
   end
 
-  def retreive_product_pictures
+  def retrieve_product_pictures
     get_files.map do |file|
       product_number = file.gsub(/\D/, '')
       arr = self.class.directory.files.all(delimiter: '/', prefix: file).select{|image| /\/(?:sample|\d+).jpg$/i =~ image.key}.map{|f| f.public_url}
