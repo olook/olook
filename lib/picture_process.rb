@@ -25,33 +25,39 @@ class PictureProcess
 
   def perform
     products_hash = retreive_product_pictures
-    products_hash.each do |k,v|
-      product = Product.find k
-      product.remote_color_sample_url = v.select{|image| image =~ /sample/i}.first
-      product.save
-      product.pictures.destroy_all if product.pictures.count > 1
-      v.each do |image|
-        picture = Picture.new(product: product)
-        picture.remote_image_url = image
-        picture.save
-      end
-      product.pictures
-    end
+    create_product_picures products_hash
     puts "Fazendo a porra toda"
     sleep 600
   end
 
   private
 
+  def create_product_picures product_pictures
+    product_pictures.each do |key,val|
+      product = Product.find key
+      product.remote_color_sample_url = val.select{|image| image =~ /sample/i}.first
+      product.save
+      product.pictures.destroy_all if product.pictures.count > 1
+      val.each do |image|
+        unless image =~ /sample/i
+          picture = Picture.new(product: product)
+          picture.remote_image_url = image 
+          picture.save
+        end
+      end
+    end
+  end
+
   def retreive_product_pictures
     get_files.map do |file|
       product_number = file.gsub(/\D/, '')
-      arr = self.class.directory.files.all(delimiter: '/', prefix: file).map{|f| f.public_url}
+      arr = self.class.directory.files.all(delimiter: '/', prefix: file).select{|image| /\/(?:sample|\d+).jpg$/i =~ image.key}.map{|f| f.public_url}
       arr.shift
       arr
-      hash[product_number] = arr 
-      hash
+      product_pictures[product_number] = arr 
+      product_pictures
     end
+    product_pictures
   end
 
   def get_files
