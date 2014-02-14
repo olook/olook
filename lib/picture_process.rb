@@ -1,10 +1,10 @@
 class PictureProcess
   DIRECTORY = 'product_pictures'
-  attr_accessor :params, :product_pictures, :return_hash
+  attr_accessor :params, :product_pictures, :return_hash, :user_email
   @queue = 'low'
 
   def self.list(options={})
-    @@directory ||= self.connection
+    @@directory ||= self.directory
     @@directory.instance_variable_set('@files', nil)
     @@directory.files.all(delimiter: '/', prefix: options[:prefix]).common_prefixes
   end
@@ -14,13 +14,14 @@ class PictureProcess
   end
 
   def self.is_pending?(*args)
-    is_working?(*args) || is_in_queue?(*args) 
+    is_working?(*args) || is_in_queue?(*args)
   end
 
   def initialize(options={})
+    @user_email = options['user_email']
     @key = options['key']
     @product_pictures = Hash.new
-    @return_hash = {product_ids: [], error: ""}
+    @return_hash = {product_ids: [], errors: []}
     raise ArgumentError.new("Directory to process on S3 Bucket is necessary (key is nil)") if @key.blank?
   end
 
@@ -28,7 +29,7 @@ class PictureProcess
     products_hash = retrieve_product_pictures
     create_product_picures products_hash
     puts "Fazendo a porra toda"
-    return_hash
+    Admin::PictureProcessMailer.notify_picture_process user_email, return_hash
   end
 
   private
@@ -37,7 +38,7 @@ class PictureProcess
     product_pictures.each do |key,val|
       product = Product.find_by_id key
       if product.nil?
-        return_hash[:error] = "Produto não encontrado - #{key}"
+        return_hash[:errors] << "Produto não encontrado - #{key}"
         next
       else
         return_hash[:product_ids] << key
@@ -45,10 +46,11 @@ class PictureProcess
       product.remote_color_sample_url = val.select{|image| image =~ /sample/i}.first
       product.save
       product.pictures.destroy_all if product.pictures.count > 1
-      val.each_with_index do |image,index|
+      val.each_with_index do |image|
         unless image =~ /sample/i
-          picture = Picture.new(product: product, display_on: index + 1)
-          picture.remote_image_url = image 
+          /\/(?<display>\d+).jpg$/i =~ image
+          picture = Picture.new(product: product, display_on: display)
+          picture.remote_image_url = image
           picture.save
         end
       end
@@ -59,7 +61,7 @@ class PictureProcess
     get_files.map do |file|
       product_id = file.gsub(/\D/, '')
       arr = self.class.directory.files.all(delimiter: '/', prefix: file).select{|image| /\/(?:sample|\d+).jpg$/i =~ image.key}.map{|f| f.public_url}
-      product_pictures[product_id] = arr 
+      product_pictures[product_id] = arr
       product_pictures
     end
     product_pictures
@@ -67,7 +69,7 @@ class PictureProcess
 
   def get_files
     files = self.class.directory.files.all(delimiter: '/', prefix: @key).common_prefixes
-    return_hash[:error] = "Não foi possivel encontrar nenhum arquivo nessa pasta" if files.empty?
+    return_hash[:errors] << "Não foi possivel encontrar nenhum arquivo nessa pasta" if files.empty?
     files
   end
 
