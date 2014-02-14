@@ -60,7 +60,9 @@ class PictureProcess
   end
 
   def get_files
-    self.class.directory.files.all(delimiter: '/', prefix: @key).common_prefixes
+    files = self.class.directory.files.all(delimiter: '/', prefix: @key).common_prefixes
+    return_hash[:error] = "Não foi possivel encontrar nenhum arquivo nessa pasta" if files.empty?
+    files
   end
 
   def self.directory
