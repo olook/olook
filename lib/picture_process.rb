@@ -35,7 +35,13 @@ class PictureProcess
 
   def create_product_picures product_pictures
     product_pictures.each do |key,val|
-      product = Product.find key
+      product = Product.find_by_id key
+      if product.nil?
+        return_hash[:error] = "Produto não encontrado - #{key}"
+        next
+      else
+        return_hash[:product_ids] << key
+      end
       product.remote_color_sample_url = val.select{|image| image =~ /sample/i}.first
       product.save
       product.pictures.destroy_all if product.pictures.count > 1
@@ -51,9 +57,9 @@ class PictureProcess
 
   def retrieve_product_pictures
     get_files.map do |file|
-      product_number = file.gsub(/\D/, '')
+      product_id = file.gsub(/\D/, '')
       arr = self.class.directory.files.all(delimiter: '/', prefix: file).select{|image| /\/(?:sample|\d+).jpg$/i =~ image.key}.map{|f| f.public_url}
-      product_pictures[product_number] = arr 
+      product_pictures[product_id] = arr 
       product_pictures
     end
     product_pictures
