@@ -1,1 +1,7 @@
-notifies :restart, 'service[site_resque]' if ::File.exists?('/etc/init/site_resque.conf')
+service "site_resque" do
+  if ::File.exist?('/etc/init/site_resque.conf')
+    action :restart
+  else
+    action :nothing
+  end
+end
