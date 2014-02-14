@@ -38,9 +38,9 @@ class PictureProcess
       product.remote_color_sample_url = val.select{|image| image =~ /sample/i}.first
       product.save
       product.pictures.destroy_all if product.pictures.count > 1
-      val.each do |image|
+      val.each_with_index do |image,index|
         unless image =~ /sample/i
-          picture = Picture.new(product: product)
+          picture = Picture.new(product: product, display_on: index + 1)
           picture.remote_image_url = image 
           picture.save
         end
