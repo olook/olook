@@ -46,10 +46,21 @@ class PictureProcess
     products_hash = retrieve_product_pictures
     create_product_picures products_hash
     sleep 30 while self.has_pending_product_jobs?
+    check_failed_jobs
     Admin::PictureProcessMailer.notify_picture_process(user_email, return_hash).deliver
   end
 
   private
+
+  def check_failed_jobs
+    size = Resque::Failure.count
+    Resque::Failure.all(0, size).each do |failed_job|
+      if failed_job['payload']['class'] == PictureProcess::ProductPictures.to_s &&
+        existent_product_ids.include?(failed_job['payload']['args'][0].to_i)
+        return_hash[:errors] << "Processamento do produto código: #{key} deu erro! Informe o TI. Mensagem: #{failed_job['error']}"
+      end
+    end
+  end
 
   def create_product_picures product_pictures
     @existent_product_ids = Set.new(Product.where(id: product_pictures.keys).pluck(:id))
@@ -57,12 +68,12 @@ class PictureProcess
       if existent_product_ids.include?(key.to_i)
         return_hash[:product_ids] << key
       else
-        return_hash[:errors] << "Produto não encontrado - código: #{key}"
+        return_hash[:errors] << "Produto código: #{key} não encontrado, verifique se o código está correto e se ele está no admin."
         next
       end
 
       if val.size == 0
-        return_hash[:errors] << "Pasta do produto código #{key} não tem fotos"
+        return_hash[:errors] << "Pasta do produto código #{key} não tem fotos, talvez a sincronização do diretório não terminou ou deu algum erro."
         next
       end
 
