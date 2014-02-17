@@ -51,6 +51,11 @@
     <%= yield :data_layer %>
 
     <%= render 'shared/tag/soasta' %>
+
+    <% unless user_signed_in? || request.url.include?("gclid") %>
+      <%= Setting.sample_popup_url.html_safe if !['landing_pages','survey', 'users/registrations', 'cart/cart', 'devise/sessions' ].include?(params[:controller]) %>
+    <% end %> 
+
   </head>
 
 
