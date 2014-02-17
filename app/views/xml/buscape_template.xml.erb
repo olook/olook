@@ -2,7 +2,7 @@
 <produtos>
 <% @products_for_mercadolivre.each do |product| %>
 <produto>
-  <descricao><![CDATA[<%= product.description %>]]></descricao>
+  <descricao><![CDATA[<%= product.formatted_name %>]]></descricao>
   <preco><![CDATA[<%= number_to_currency(product.retail_price).delete("R$ ") %>]]></preco>
   <id_produto><%= product.id %></id_produto>
   <marca><![CDATA[<%= product.brand %>]]></marca>
