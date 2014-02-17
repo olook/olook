@@ -77,7 +77,7 @@ class CatalogsController < ApplicationController
       #TODO Please remove me when update Rails version
       #We can use constraints but this version (3.2.13) has a bug
 
-      if (/^(sapato|bolsa|acessorio|roupa|plus-size)/ =~ params[:category]).nil?
+      if (/^(sapato|bolsa|acessorio|roupa|curves)/ =~ params[:category]).nil?
         render :template => "/errors/404.html.erb", :layout => 'error', :status => 404, :layout => "lite_application"
       end
     end  
