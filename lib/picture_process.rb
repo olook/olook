@@ -1,12 +1,12 @@
 class PictureProcess
   DIRECTORY = 'product_pictures'
+  LOGGER_FILE = STDOUT
   attr_accessor :params, :product_pictures, :return_hash, :user_email
   @queue = 'low'
 
   def self.list(options={})
-    @@directory ||= self.directory
-    @@directory.instance_variable_set('@files', nil)
-    @@directory.files.all(delimiter: '/', prefix: options[:prefix]).common_prefixes
+    directory.instance_variable_set('@files', nil)
+    directory.files.all(delimiter: '/', prefix: options[:prefix]).common_prefixes
   end
 
   def self.perform(options={})
@@ -28,14 +28,15 @@ class PictureProcess
   def perform
     products_hash = retrieve_product_pictures
     create_product_picures products_hash
-    puts "Fazendo a porra toda"
-    Admin::PictureProcessMailer.notify_picture_process user_email, return_hash
+    Admin::PictureProcessMailer.notify_picture_process(user_email, return_hash).deliver
   end
 
   private
 
   def create_product_picures product_pictures
     product_pictures.each do |key,val|
+      time_start = Time.zone.now
+      logger.debug("Initializing PictureProcess for product #{key} with #{val.size} pictures")
       product = Product.find_by_id key
       if product.nil?
         return_hash[:errors] << "Produto não encontrado - #{key}"
@@ -43,39 +44,43 @@ class PictureProcess
       else
         return_hash[:product_ids] << key
       end
-      product.remote_color_sample_url = val.select{|image| image =~ /sample/i}.first
-      product.save
+
       product.pictures.destroy_all if product.pictures.count > 1
+      t = []
       val.each_with_index do |image|
-        unless image =~ /sample/i
-          /\/(?<display>\d+).jpg$/i =~ image
+        if /sample/i =~ image
+          product.remote_color_sample_url = image
+          product.save
+        else
+          %r{/(?<display>\d+).jpg$}i =~ image
           picture = Picture.new(product: product, display_on: display)
           picture.remote_image_url = image
           picture.save
         end
       end
+      logger.debug('Finished in %.2fms' % ( ( Time.zone.now - time_start ) * 1000 ) )
     end
   end
 
   def retrieve_product_pictures
-    get_files.map do |file|
-      product_id = file.gsub(/\D/, '')
-      arr = self.class.directory.files.all(delimiter: '/', prefix: file).select{|image| /\/(?:sample|\d+).jpg$/i =~ image.key}.map{|f| f.public_url}
-      product_pictures[product_id] = arr
-      product_pictures
+    files = self.class.directory.files.all(prefix: @key)
+    return_hash[:errors] << "Não foi possivel encontrar nenhum arquivo nessa pasta" if files.empty?
+    files.inject({}) do |h, f|
+      if %r{/(?<product_id>\d+)/(?:sample|\d+).jpg$} =~ f.key
+        h[product_id] ||= []
+        h[product_id] << "https://s3.amazonaws.com/#{DIRECTORY}/#{f.key}"
+      end
+      h
     end
-    product_pictures
   end
 
-  def get_files
-    files = self.class.directory.files.all(delimiter: '/', prefix: @key).common_prefixes
-    return_hash[:errors] << "Não foi possivel encontrar nenhum arquivo nessa pasta" if files.empty?
-    files
+  def logger
+    @logger ||= Logger.new(LOGGER_FILE)
   end
 
   def self.directory
-    connection ||= Fog::Storage[:aws]
-    connection.directories.get(DIRECTORY)
+    @@connection ||= Fog::Storage[:aws]
+    @@directory ||= @@connection.directories.get(DIRECTORY)
   end
 
   def self.is_in_queue?(*args)
