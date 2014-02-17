@@ -58,7 +58,7 @@ class PictureProcess
           picture.save
         end
       end
-      logger.debug('Finished in %.2fms' % ( ( Time.zone.now - time_start ) * 1000 ) )
+      logger.debug('Finished in %.2fs' % ( Time.zone.now - time_start ) )
     end
   end
 
