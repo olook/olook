@@ -2,6 +2,7 @@ class PictureProcess
   DIRECTORY = 'product_pictures'
   LOGGER_FILE = STDOUT
   attr_accessor :params, :product_pictures, :return_hash, :user_email
+  attr_reader :existent_product_ids
   @queue = 'low'
 
   def self.list(options={})
@@ -17,6 +18,22 @@ class PictureProcess
     is_working?(hashopt) || is_in_queue?(hashopt)
   end
 
+  def has_pending_product_jobs?
+    Resque.working.any? do |worker|
+      payload = worker.job['payload']
+      payload['class'] == PictureProcess::ProductPictures.to_s &&
+        existent_product_ids.include?(payload['args'].first.to_i)
+    end ||
+    lambda {
+      queue = "queue:#{PictureProcess::ProductPictures.instance_variable_get('@queue')}"
+      jobs = Resque.redis.lrange(queue, 0, -1)
+      jobs.any? do |job|
+        j = Resque.decode(job)
+        existent_product_ids.include?(j['args'][0].to_i)
+      end
+    }.call
+  end
+
   def initialize(options={})
     @user_email = options['user_email']
     @key = options['key']
@@ -28,36 +45,28 @@ class PictureProcess
   def perform
     products_hash = retrieve_product_pictures
     create_product_picures products_hash
+    sleep 30 while self.has_pending_product_jobs?
     Admin::PictureProcessMailer.notify_picture_process(user_email, return_hash).deliver
   end
 
   private
 
   def create_product_picures product_pictures
+    @existent_product_ids = Set.new(Product.where(id: product_pictures.keys).pluck(:id))
     product_pictures.each do |key,val|
-      time_start = Time.zone.now
-      logger.debug("Initializing PictureProcess for product #{key} with #{val.size} pictures")
-      product = Product.find_by_id key
-      if product.nil?
-        return_hash[:errors] << "Produto não encontrado - #{key}"
-        next
-      else
+      if existent_product_ids.include?(key.to_i)
         return_hash[:product_ids] << key
+      else
+        return_hash[:errors] << "Produto não encontrado - código: #{key}"
+        next
       end
 
-      product.pictures.destroy_all if product.pictures.count > 1
-      val.each_with_index do |image|
-        if /sample/i =~ image
-          product.remote_color_sample_url = image
-          product.save
-        else
-          %r{/(?<display>\d+).jpg$}i =~ image
-          picture = Picture.new(product: product, display_on: display)
-          picture.remote_image_url = image
-          picture.save
-        end
+      if val.size == 0
+        return_hash[:errors] << "Pasta do produto código #{key} não tem fotos"
+        next
       end
-      logger.debug('Finished in %.2fs' % ( Time.zone.now - time_start ) )
+
+      Resque.enqueue(PictureProcess::ProductPictures, key, val)
     end
   end
 
@@ -65,9 +74,9 @@ class PictureProcess
     files = self.class.directory.files.all(prefix: @key)
     return_hash[:errors] << "Não foi possivel encontrar nenhum arquivo nessa pasta" if files.empty?
     files.inject({}) do |h, f|
-      if %r{/(?<product_id>\d+)/(?:sample|\d+).jpg$} =~ f.key
+      if %r{/(?<product_id>\d+)/[^/]*$} =~ f.key
         h[product_id] ||= []
-        h[product_id] << "https://s3.amazonaws.com/#{DIRECTORY}/#{f.key}"
+        h[product_id] << "https://s3.amazonaws.com/#{DIRECTORY}/#{f.key}" if %r{(?:sample|\d+).jpg$} =~ f.key
       end
       h
     end
