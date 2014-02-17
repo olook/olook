@@ -46,7 +46,6 @@ class PictureProcess
       end
 
       product.pictures.destroy_all if product.pictures.count > 1
-      t = []
       val.each_with_index do |image|
         if /sample/i =~ image
           product.remote_color_sample_url = image
