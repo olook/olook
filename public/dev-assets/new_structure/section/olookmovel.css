@@ -1,0 +1,275 @@
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 3, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+.header_login {
+  width: 990px;
+  margin-top: 0 !important;
+  border-top: 6px solid #000;
+}
+/* line 7, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+.header_login h2 {
+  margin-top: 40px;
+  text-align: center;
+}
+
+/* line 12, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content {
+  width: 990px;
+  height: 510px;
+  margin: 0 auto;
+  margin-top: 80px;
+}
+/* line 17, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join {
+  width: 355px;
+  float: left;
+  margin-left: 42px;
+}
+/* line 21, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join p.promo {
+  background: url(/dev-assets/landing_page/olookmovel/sorteio.jpg) left no-repeat;
+  padding-left: 185px;
+  font-family: "Trebuchet Ms" !important;
+  font-size: 14px;
+  color: #000;
+  width: 46%;
+}
+/* line 28, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join p.promo span {
+  font-weight: bold;
+}
+/* line 32, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join p.notes {
+  font-size: 12px;
+  width: 325px;
+}
+/* line 35, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join p.notes a {
+  color: #ef3742;
+}
+/* line 39, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join form {
+  border: none;
+  width: 358px;
+  height: 150px;
+  margin-left: 5px;
+  margin-top: 20px;
+}
+/* line 41, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join form fieldset {
+  margin-bottom: 25px;
+  border: 0;
+}
+/* line 43, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join form fieldset label {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 14px;
+  color: #717274;
+  font-weight: 600;
+}
+/* line 44, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join form fieldset label.senha {
+  margin-right: 1px;
+}
+/* line 46, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join form fieldset.botoes {
+  margin-top: 5px;
+  text-align: left;
+}
+/* line 49, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join form fieldset.botoes div {
+  float: left;
+  width: 150px;
+  margin-top: 20px;
+}
+/* line 50, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join form fieldset.botoes div label {
+  font-size: 11px;
+  color: #717274;
+  width: 60px;
+  display: inline-block;
+  text-align: left;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+}
+/* line 51, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join form fieldset.botoes div label[for="user_remember_me"] {
+  width: 100px;
+  font-size: 11px;
+}
+/* line 53, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join form fieldset.botoes div p {
+  float: left;
+  margin-top: 5px !important;
+  text-align: left;
+}
+/* line 54, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join form fieldset.botoes div p a {
+  text-decoration: none;
+  color: #5e5f61;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 11px;
+}
+/* line 55, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join form fieldset.botoes div p a:hover {
+  text-decoration: underline;
+}
+/* line 59, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join form fieldset.botoes input[type="submit"] {
+  cursor: pointer;
+  border: none;
+  float: left;
+  width: 319px;
+  height: 59px;
+  margin-top: 22px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 15px;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+#landing-content .join form fieldset.botoes input[type="submit"]:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 62, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join form input[type="text"], #landing-content .join form input[type="password"] {
+  padding-left: 10px;
+  width: 306px;
+  height: 31px;
+  line-height: 31px;
+  border: solid 1px #C1C1C1;
+  display: block;
+}
+/* line 63, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join form input[type="text"].with_error, #landing-content .join form input[type="password"].with_error {
+  border: 1px solid #ef3742;
+}
+/* line 66, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join .error_text {
+  font-size: 11px;
+  color: #ef3742;
+  width: 90%;
+  line-height: 18px;
+}
+/* line 67, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join ul {
+  width: 355px;
+  height: 380px;
+  border: 1px solid #c8d3bd;
+  background-color: #e2f0d4;
+}
+/* line 72, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join ul li {
+  font-family: 16px;
+  text-align: center;
+  color: #000;
+  width: 305px;
+  margin-top: 20px;
+  margin-left: 25px;
+}
+/* line 79, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join ul li img {
+  margin-top: 20px;
+  margin-left: 1%;
+}
+/* line 83, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join ul li p {
+  font-size: 16px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-weight: lighter;
+}
+/* line 84, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join ul li p.title {
+  font-weight: bold;
+}
+/* line 87, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .join a.cadastro {
+  color: #000;
+  font-size: 14px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  background: url(/dev-assets/landing_page/olookmovel/arrow.png) 0px 5px no-repeat;
+  margin-top: 60px;
+  margin-left: 79px;
+  padding-left: 17px;
+  display: block;
+}
+/* line 99, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+#landing-content .olookmovel {
+  width: 490px;
+  float: left;
+  margin-left: 75px;
+}
+
+/* line 105, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+.footer {
+  width: 775px;
+  border-top: 1px solid #d7d7d7;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  text-align: center;
+  color: #6d6f71;
+  margin: 15px auto 0;
+}
+/* line 112, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+.footer h3 {
+  font-size: 19px;
+  color: #6d6f71;
+  padding-top: 20px;
+}
+/* line 117, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+.footer p {
+  font-size: 13px;
+  margin-top: 20px;
+}
+
+@media (min-width: 760px) and (max-width: 768px) {
+  /* line 124, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+  #landing-content, .header_login, .content {
+    width: 100% !important;
+  }
+  /* line 126, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+  #landing-content .join, .header_login .join, .content .join {
+    width: 45%;
+  }
+  /* line 128, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+  #landing-content .join p.notes, .header_login .join p.notes, .content .join p.notes {
+    width: 100%;
+  }
+  /* line 131, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+  #landing-content .join form, .header_login .join form, .content .join form {
+    width: 100%;
+  }
+  /* line 135, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+  #landing-content .olookmovel, .header_login .olookmovel, .content .olookmovel {
+    width: 48%;
+    margin: 0;
+    float: right;
+  }
+  /* line 139, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+  #landing-content .olookmovel img, .header_login .olookmovel img, .content .olookmovel img {
+    width: 100%;
+  }
+  /* line 143, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+  #landing-content ul, .header_login ul, .content ul {
+    width: 45%;
+  }
+
+  /* line 147, ../../../../app/assets/stylesheets/new_structure/section/olookmovel.css.scss */
+  .footer {
+    width: 75%;
+  }
+}

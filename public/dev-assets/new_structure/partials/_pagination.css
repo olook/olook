@@ -1,0 +1,50 @@
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 2, ../../../../app/assets/stylesheets/new_structure/partials/_pagination.scss */
+.pagination {
+  text-align: center;
+  clear: both;
+}
+/* line 6, ../../../../app/assets/stylesheets/new_structure/partials/_pagination.scss */
+.pagination.topo {
+  clear: none;
+  float: right;
+  margin: 4px 15px 0 0;
+  position: absolute;
+  right: 0;
+}
+/* line 13, ../../../../app/assets/stylesheets/new_structure/partials/_pagination.scss */
+.pagination a {
+  display: inline-block;
+  font: normal 13px Verdana, Arial, sans-serif;
+  text-decoration: none;
+  color: #000;
+  height: 19px;
+  line-height: 22px;
+  margin: 0 3px;
+}
+/* line 22, ../../../../app/assets/stylesheets/new_structure/partials/_pagination.scss */
+.pagination a.anterior, .pagination a.proximo {
+  width: 10px;
+  background: url(/dev-assets/catalog/sprite.png) no-repeat 2px -112px;
+  font-size: 0;
+}
+/* line 27, ../../../../app/assets/stylesheets/new_structure/partials/_pagination.scss */
+.pagination a.proximo {
+  background-position: 0 -137px;
+}
+/* line 30, ../../../../app/assets/stylesheets/new_structure/partials/_pagination.scss */
+.pagination a.current {
+  color: #000 !important;
+  font-weight: bold;
+}
+/* line 34, ../../../../app/assets/stylesheets/new_structure/partials/_pagination.scss */
+.pagination a:hover {
+  color: #ef3742;
+}

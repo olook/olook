@@ -1,0 +1,134 @@
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 3, ../../../app/assets/stylesheets/section/our_essence.scss */
+section#our_essence {
+  width: 100%;
+  padding: 20px 0;
+  overflow: hidden;
+}
+/* line 7, ../../../app/assets/stylesheets/section/our_essence.scss */
+section#our_essence > h1 {
+  font-family: verdana, arial, tahoma;
+  font-size: 25px;
+  text-transform: uppercase;
+  margin: 0 0 40px;
+}
+/* line 13, ../../../app/assets/stylesheets/section/our_essence.scss */
+section#our_essence div.description {
+  width: 565px;
+  margin: 0 45px 0 0;
+  float: left;
+}
+/* line 17, ../../../app/assets/stylesheets/section/our_essence.scss */
+section#our_essence div.description p {
+  font-family: verdana, arial, tahoma;
+  color: #6d6e71;
+  font-size: 13px;
+  font-weight: lighter;
+  text-align: justify;
+  margin: 0 0 37px;
+}
+/* line 24, ../../../app/assets/stylesheets/section/our_essence.scss */
+section#our_essence div.description p span {
+  font-family: Arial, "Trebuchet Ms", Times, "Times New Roman", serif, KeplerStdItalic;
+  font-size: 14px;
+}
+/* line 27, ../../../app/assets/stylesheets/section/our_essence.scss */
+section#our_essence div.description p span.olook-bold {
+  font-weight: bold;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+}
+/* line 34, ../../../app/assets/stylesheets/section/our_essence.scss */
+section#our_essence div.logo_definition {
+  color: #000;
+  width: 355px;
+  text-align: center;
+  padding: 0 0 55px;
+  float: right;
+}
+/* line 40, ../../../app/assets/stylesheets/section/our_essence.scss */
+section#our_essence div.logo_definition h2 {
+  font-family: verdana, arial, tahoma;
+  font-size: 25px;
+  margin: 0 0 20px;
+}
+/* line 45, ../../../app/assets/stylesheets/section/our_essence.scss */
+section#our_essence div.logo_definition img {
+  margin: 0 0 40px;
+}
+/* line 48, ../../../app/assets/stylesheets/section/our_essence.scss */
+section#our_essence div.logo_definition > p {
+  font-family: verdana, arial, tahoma;
+  font-size: 16px;
+  margin: 0 0 35px;
+}
+/* line 53, ../../../app/assets/stylesheets/section/our_essence.scss */
+section#our_essence div.logo_definition div#making_of {
+  position: relative;
+  width: 355px;
+  height: 191px;
+  margin: 0;
+  float: right;
+}
+/* line 59, ../../../app/assets/stylesheets/section/our_essence.scss */
+section#our_essence div.logo_definition div#making_of a.label, section#our_essence div.logo_definition div#making_of h1 {
+  position: absolute;
+  text-align: left;
+}
+/* line 63, ../../../app/assets/stylesheets/section/our_essence.scss */
+section#our_essence div.logo_definition div#making_of a.label {
+  background: url(/dev-assets/lookbooks/label_video.png) no-repeat;
+  color: #FFF;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 12px;
+  font-weight: 100;
+  line-height: 26px;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 122px;
+  height: 33px;
+  padding: 0 0 0 32px;
+  display: block;
+  top: 10px;
+  right: 0;
+}
+/* line 79, ../../../app/assets/stylesheets/section/our_essence.scss */
+section#our_essence div.logo_definition div#making_of h1 {
+  background: url(/dev-assets/lookbooks/bg-title.png) repeat;
+  color: #FFF;
+  font-family: Arial, "Trebuchet Ms", Times, "Times New Roman", serif, KeplerStdItalic;
+  font-size: 22px;
+  font-weight: lighter;
+  width: 328px;
+  margin: 0;
+  padding: 7px 0 7px 15px;
+  left: 0;
+  bottom: 0;
+}
+/* line 91, ../../../app/assets/stylesheets/section/our_essence.scss */
+section#our_essence div.logo_definition div#making_of img {
+  margin: 0;
+  float: left;
+}
+/* line 95, ../../../app/assets/stylesheets/section/our_essence.scss */
+section#our_essence div.logo_definition div#making_of div.video_description {
+  display: none;
+}
+
+/* line 102, ../../../app/assets/stylesheets/section/our_essence.scss */
+.content {
+  width: 970px !important;
+}

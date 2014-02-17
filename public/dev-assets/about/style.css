@@ -1,0 +1,518 @@
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 3, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box {
+  padding: 0 0 0 70px;
+  width: 102px;
+  height: 140px;
+  float: right;
+  background: url(/dev-assets/common/nav/sprite_header.png) -164px -193px;
+  position: absolute;
+  right: 0px;
+  top: 40px;
+}
+/* line 4, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box img {
+  margin: 0 7px 20px 0;
+  float: left;
+}
+/* line 5, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box h3 {
+  color: #36569e;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 14px;
+  font-weight: lighter;
+}
+/* line 6, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box h3 span {
+  font-size: 17px;
+  font-weight: bold;
+}
+/* line 8, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box .like {
+  clear: both;
+  padding-top: -20px;
+  width: 100px;
+}
+/* line 9, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box .fb-button {
+  width: 100px;
+}
+
+/****** IE8 HACK *******/
+/* line 14, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+html.ie8 section#home li.iehack {
+  margin: 0 !important;
+}
+
+/* AJUSTE FACEBOOK IFRAME */
+/* line 18, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+.fb-button {
+  height: 20px !important;
+  overflow: hidden !important;
+  margin-top: -40px;
+}
+
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 6, ../../../app/assets/stylesheets/about/style.scss */
+#about {
+  padding: 20px 20px 0;
+}
+
+/* line 10, ../../../app/assets/stylesheets/about/style.scss */
+#about h1 {
+  font-family: Times, "Times New Roman", Georgia, serif;
+  font-style: italic;
+  font-weight: normal;
+  letter-spacing: -2px;
+  font-size: 40px;
+  margin: 0px 0px 10px;
+}
+
+/* line 19, ../../../app/assets/stylesheets/about/style.scss */
+#main_feature img {
+  float: left;
+  margin-right: 45px;
+}
+
+/* line 24, ../../../app/assets/stylesheets/about/style.scss */
+#main_describe {
+  width: 490px;
+  float: left;
+}
+
+/* line 29, ../../../app/assets/stylesheets/about/style.scss */
+#main_describe h2 {
+  font-family: Times, "Times New Roman", Georgia, serif;
+  font-style: italic;
+  font-weight: normal;
+  letter-spacing: -2px;
+  font-size: 35px;
+  line-height: 24px;
+  margin: 3px 0px;
+}
+
+/* line 39, ../../../app/assets/stylesheets/about/style.scss */
+#main_describe p {
+  font-size: 14px;
+  margin: 25px 0;
+}
+
+/* line 44, ../../../app/assets/stylesheets/about/style.scss */
+#function {
+  width: 960px;
+  overflow: hidden;
+  margin: 35px auto 0px;
+}
+/* line 48, ../../../app/assets/stylesheets/about/style.scss */
+#function h1 {
+  background: url(/dev-assets/how_to/title-how-to.png) no-repeat;
+  text-indent: -9999px;
+  width: 240px;
+  height: 20px;
+  display: block;
+  margin-bottom: 12px;
+}
+/* line 56, ../../../app/assets/stylesheets/about/style.scss */
+#function ul {
+  width: 100%;
+  overflow: auto;
+}
+
+/* line 62, ../../../app/assets/stylesheets/about/style.scss */
+#function li {
+  float: left;
+  list-style: none;
+  margin-right: 10px;
+}
+
+/* line 68, ../../../app/assets/stylesheets/about/style.scss */
+#function li .img_left {
+  margin-bottom: 33px;
+}
+
+/* line 71, ../../../app/assets/stylesheets/about/style.scss */
+#function li .img_leftmid {
+  margin-bottom: 28px;
+}
+
+/* line 74, ../../../app/assets/stylesheets/about/style.scss */
+#function li .img_rightmid {
+  margin-bottom: 16px;
+}
+
+/* line 77, ../../../app/assets/stylesheets/about/style.scss */
+#function li .img_right {
+  margin-bottom: 3px;
+}
+
+/* line 81, ../../../app/assets/stylesheets/about/style.scss */
+.box {
+  width: 237px;
+  height: 278px;
+  margin-right: 3px !important;
+  float: left;
+}
+/* line 87, ../../../app/assets/stylesheets/about/style.scss */
+.box#left_box {
+  background: url(/dev-assets/about/box-1.png) no-repeat;
+}
+/* line 91, ../../../app/assets/stylesheets/about/style.scss */
+.box#left_box_mid {
+  background: url(/dev-assets/about/box-2.png) no-repeat;
+}
+/* line 95, ../../../app/assets/stylesheets/about/style.scss */
+.box#right_box_mid {
+  background: url(/dev-assets/about/box-3.png) no-repeat;
+}
+/* line 99, ../../../app/assets/stylesheets/about/style.scss */
+.box#right_box {
+  background: url(/dev-assets/about/box-4.png) no-repeat;
+  margin-right: none !important;
+}
+
+/* line 105, ../../../app/assets/stylesheets/about/style.scss */
+.box h3 {
+  font-weight: normal;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-align: center;
+  text-indent: -9999px;
+  letter-spacing: -1px;
+  width: 185px;
+}
+
+/* line 115, ../../../app/assets/stylesheets/about/style.scss */
+.box p {
+  font-size: 11px;
+  text-align: center;
+  text-indent: -9999px;
+}
+
+/* line 120, ../../../app/assets/stylesheets/about/style.scss */
+ul.click_show_child {
+  margin-bottom: 15px;
+}
+
+/* line 121, ../../../app/assets/stylesheets/about/style.scss */
+ul.click_show_child ul.question_box, ul.click_show_child .answer {
+  display: none;
+}
+
+/* line 124, ../../../app/assets/stylesheets/about/style.scss */
+.currentLi {
+  display: block;
+}
+
+/* line 125, ../../../app/assets/stylesheets/about/style.scss */
+.otherLi {
+  display: none;
+}
+
+/* line 127, ../../../app/assets/stylesheets/about/style.scss */
+#terms {
+  margin-top: 20px;
+  width: 970px;
+  color: #000;
+  margin-bottom: 20px;
+}
+/* line 132, ../../../app/assets/stylesheets/about/style.scss */
+#terms h2 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 18px;
+  color: #000;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  margin-top: 15px;
+  font-weight: 700;
+}
+/* line 142, ../../../app/assets/stylesheets/about/style.scss */
+#terms h3 {
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+  margin-left: 75px;
+  margin-bottom: 30px;
+}
+/* line 150, ../../../app/assets/stylesheets/about/style.scss */
+#terms ul {
+  margin-left: 75px;
+}
+/* line 153, ../../../app/assets/stylesheets/about/style.scss */
+#terms li.subtitle_site {
+  cursor: pointer;
+}
+/* line 156, ../../../app/assets/stylesheets/about/style.scss */
+#terms li.question {
+  cursor: pointer;
+  margin-top: 5px;
+  color: #000 !important;
+}
+/* line 160, ../../../app/assets/stylesheets/about/style.scss */
+#terms li.question:hover {
+  color: #ef3742 !important;
+}
+/* line 164, ../../../app/assets/stylesheets/about/style.scss */
+#terms .como_funciona {
+  margin-bottom: 15px !important;
+  color: #000 !important;
+  cursor: normal;
+}
+/* line 168, ../../../app/assets/stylesheets/about/style.scss */
+#terms .como_funciona ul.question_box {
+  margin-top: 15px;
+  color: #000 !important;
+  cursor: normal;
+}
+/* line 174, ../../../app/assets/stylesheets/about/style.scss */
+#terms .politica_troca, #terms .prazo_troca, #terms .prazo_reembolso {
+  display: none;
+}
+/* line 175, ../../../app/assets/stylesheets/about/style.scss */
+#terms ul.solicitacao_troca, #terms ul.prazo_reembolso {
+  margin-left: 16px;
+  width: 585px;
+}
+/* line 178, ../../../app/assets/stylesheets/about/style.scss */
+#terms ul.solicitacao_troca li, #terms ul.prazo_reembolso li {
+  list-style-type: disc;
+  margin-top: 10px;
+}
+/* line 183, ../../../app/assets/stylesheets/about/style.scss */
+#terms ul li {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 14px;
+}
+/* line 186, ../../../app/assets/stylesheets/about/style.scss */
+#terms ul li#subtitle {
+  margin-top: 5px;
+}
+/* line 189, ../../../app/assets/stylesheets/about/style.scss */
+#terms ul li p {
+  width: 595px;
+  margin-top: 20px;
+}
+/* line 192, ../../../app/assets/stylesheets/about/style.scss */
+#terms ul li p span {
+  font-weight: bold;
+}
+/* line 196, ../../../app/assets/stylesheets/about/style.scss */
+#terms ul li a {
+  font-weight: 500;
+  text-decoration: none;
+  color: #ef3742;
+}
+/* line 200, ../../../app/assets/stylesheets/about/style.scss */
+#terms ul li a:hover {
+  color: #ef3742;
+}
+/* line 206, ../../../app/assets/stylesheets/about/style.scss */
+#terms .politica_troca h3 {
+  margin-left: 140px;
+  margin-bottom: 0px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+/* line 212, ../../../app/assets/stylesheets/about/style.scss */
+#terms .politica_troca p {
+  width: 595px;
+}
+/* line 214, ../../../app/assets/stylesheets/about/style.scss */
+#terms .politica_troca p.titleul {
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+/* line 220, ../../../app/assets/stylesheets/about/style.scss */
+#terms .politica_troca ul {
+  width: 520px;
+}
+/* line 222, ../../../app/assets/stylesheets/about/style.scss */
+#terms .politica_troca ul li {
+  list-style-type: disc;
+  margin-top: 10px;
+}
+/* line 229, ../../../app/assets/stylesheets/about/style.scss */
+#terms .bt_back {
+  display: none;
+  background: url(/dev-assets/faq/black_arrow.png) no-repeat 3px 3px;
+  color: #000;
+  font-family: johnston, arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
+  padding-left: 18px;
+  margin-top: 25px;
+  text-decoration: none;
+  font-weight: lighter;
+}
+/* line 242, ../../../app/assets/stylesheets/about/style.scss */
+#terms .active {
+  color: #000;
+}
+/* line 244, ../../../app/assets/stylesheets/about/style.scss */
+#terms .active:hover {
+  color: #ef3742;
+}
+/* line 248, ../../../app/assets/stylesheets/about/style.scss */
+#terms .answer {
+  color: #000 !important;
+}
+/* line 251, ../../../app/assets/stylesheets/about/style.scss */
+#terms .como_funciona {
+  color: #000 !important;
+  cursor: normal;
+}
+
+/* line 258, ../../../app/assets/stylesheets/about/style.scss */
+.clear {
+  clear: both;
+}
+
+/* line 264, ../../../app/assets/stylesheets/about/style.scss */
+.win #terms h2 {
+  font-weight: bold;
+}
+
+/* line 270, ../../../app/assets/stylesheets/about/style.scss */
+.content {
+  width: 970px !important;
+}
+
+/* line 274, ../../../app/assets/stylesheets/about/style.scss */
+#contact {
+  width: 970px;
+  height: 240px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+/* line 279, ../../../app/assets/stylesheets/about/style.scss */
+#contact h2 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 18px;
+  color: #000;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 35px;
+  font-weight: 700;
+}
+/* line 288, ../../../app/assets/stylesheets/about/style.scss */
+#contact p {
+  font-size: 15px;
+  color: #000;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  margin-left: 85px;
+  font-weight: lighter;
+}
+/* line 294, ../../../app/assets/stylesheets/about/style.scss */
+#contact p span {
+  display: block;
+  font-size: 11px;
+}
+/* line 298, ../../../app/assets/stylesheets/about/style.scss */
+#contact p span.olook {
+  font-weight: bold;
+  font-size: 15px;
+  color: #000;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  display: inline;
+}
+/* line 306, ../../../app/assets/stylesheets/about/style.scss */
+#contact .contact_box {
+  margin-top: 15px;
+}
+/* line 308, ../../../app/assets/stylesheets/about/style.scss */
+#contact .contact_box li {
+  width: 188px;
+  height: 65px;
+  background: url(/dev-assets/faq/icons_contact_sprite.png) no-repeat;
+  float: left;
+}
+/* line 313, ../../../app/assets/stylesheets/about/style.scss */
+#contact .contact_box li a {
+  display: block;
+  text-indent: -9999px;
+  height: 65px;
+  width: 188px;
+}
+/* line 319, ../../../app/assets/stylesheets/about/style.scss */
+#contact .contact_box li.telefone {
+  cursor: pointer;
+}
+/* line 321, ../../../app/assets/stylesheets/about/style.scss */
+#contact .contact_box li.telefone .hint_tel {
+  display: none;
+}
+/* line 323, ../../../app/assets/stylesheets/about/style.scss */
+#contact .contact_box li.telefone .hint_tel p {
+  text-indent: 0;
+  color: #000;
+  font-weight: bold;
+  font-size: 13px;
+  padding-top: 55px;
+  margin-left: 50px;
+}
+/* line 333, ../../../app/assets/stylesheets/about/style.scss */
+#contact .contact_box li.mail {
+  background-position: -190px 0;
+  cursor: pointer;
+}
+/* line 337, ../../../app/assets/stylesheets/about/style.scss */
+#contact .contact_box li.trade {
+  background-position: -774px 0;
+  cursor: pointer;
+}
+/* line 341, ../../../app/assets/stylesheets/about/style.scss */
+#contact .contact_box li.sac_online {
+  background-position: -375px 0;
+  cursor: pointer;
+}
+/* line 345, ../../../app/assets/stylesheets/about/style.scss */
+#contact .contact_box li.moda_online {
+  background-position: -535px 0;
+  cursor: pointer;
+}
+/* line 348, ../../../app/assets/stylesheets/about/style.scss */
+#contact .contact_box li.moda_online .hint {
+  display: none;
+}
+/* line 350, ../../../app/assets/stylesheets/about/style.scss */
+#contact .contact_box li.moda_online .hint p {
+  font-size: 11px;
+  margin: 0;
+  margin-top: -15px;
+  margin-left: -25px;
+  line-height: 15px;
+  text-align: center;
+  width: 280px;
+}

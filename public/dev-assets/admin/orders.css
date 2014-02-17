@@ -1,0 +1,17 @@
+/* line 1, ../../../app/assets/stylesheets/admin/orders.css.scss */
+#order_clear_sale {
+  clear: both;
+  min-width: 500px;
+  float: left;
+}
+
+/* line 7, ../../../app/assets/stylesheets/admin/orders.css.scss */
+.cb {
+  clear: both;
+}
+
+/* line 11, ../../../app/assets/stylesheets/admin/orders.css.scss */
+th.order_discount {
+  text-align: center;
+  font-weight: bold;
+}

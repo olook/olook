@@ -1,0 +1,1913 @@
+/* line 1, ../../../app/assets/stylesheets/admin/base.scss */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 2, ../../../app/assets/stylesheets/admin/base.scss */
+.clear {
+  clear: both;
+  height: 0;
+}
+
+/* line 4, ../../../app/assets/stylesheets/admin/base.scss */
+.wat-cf:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+/* line 12, ../../../app/assets/stylesheets/admin/base.scss */
+.wat-cf {
+  display: inline-block;
+}
+
+/* Hides from IE-mac \*/
+/* line 15, ../../../app/assets/stylesheets/admin/base.scss */
+* html .wat-cf {
+  height: 1%;
+}
+
+/* line 16, ../../../app/assets/stylesheets/admin/base.scss */
+.wat-cf {
+  display: block;
+}
+
+/* End hide from IE-mac */
+/* line 19, ../../../app/assets/stylesheets/admin/base.scss */
+h1 {
+  margin: 15px 14px;
+  font-size: 22px;
+  font-weight: normal;
+}
+
+/* line 20, ../../../app/assets/stylesheets/admin/base.scss */
+h2 {
+  font-size: 22px;
+  margin: 15px 0;
+  font-weight: normal;
+  width: 100%;
+}
+
+/* line 21, ../../../app/assets/stylesheets/admin/base.scss */
+h3 {
+  font-size: 18px;
+  margin: 10px 0;
+  font-weight: normal;
+}
+
+/* line 22, ../../../app/assets/stylesheets/admin/base.scss */
+h4 {
+  font-size: 16px;
+  margin: 10px 0;
+  font-weight: normal;
+}
+
+/* line 23, ../../../app/assets/stylesheets/admin/base.scss */
+hr {
+  height: 1px;
+  border: 0;
+}
+
+/* line 24, ../../../app/assets/stylesheets/admin/base.scss */
+p {
+  margin: 15px 0;
+}
+
+/* line 25, ../../../app/assets/stylesheets/admin/base.scss */
+a img {
+  border: none;
+}
+
+/* line 27, ../../../app/assets/stylesheets/admin/base.scss */
+body {
+  font-size: 12px;
+  font-family: sans-serif;
+}
+
+/* line 32, ../../../app/assets/stylesheets/admin/base.scss */
+.field {
+  margin: 15px;
+  display: block;
+}
+
+/* line 37, ../../../app/assets/stylesheets/admin/base.scss */
+.info {
+  font-size: 10px;
+  color: #999;
+  font-family: Arial, Verdana, Tahoma;
+}
+
+/* line 43, ../../../app/assets/stylesheets/admin/base.scss */
+.left_aligned {
+  float: left;
+}
+
+/* line 47, ../../../app/assets/stylesheets/admin/base.scss */
+.right_aligned {
+  float: right;
+}
+
+/* line 51, ../../../app/assets/stylesheets/admin/base.scss */
+#container {
+  min-width: 960px;
+}
+
+/* line 55, ../../../app/assets/stylesheets/admin/base.scss */
+#header, #wrapper {
+  padding: 0 20px;
+}
+
+/* line 59, ../../../app/assets/stylesheets/admin/base.scss */
+#header {
+  position: relative;
+  padding-top: 1px;
+}
+
+/* line 64, ../../../app/assets/stylesheets/admin/base.scss */
+#header h1 {
+  margin: 0;
+  padding: 10px 0;
+  font-size: 26px;
+}
+
+/* line 70, ../../../app/assets/stylesheets/admin/base.scss */
+#header h1 a:link, #header h1 a:active, #header h1 a:hover, #header h1 a:visited {
+  text-decoration: none;
+}
+
+/* line 74, ../../../app/assets/stylesheets/admin/base.scss */
+#main {
+  float: left;
+}
+
+/* line 75, ../../../app/assets/stylesheets/admin/base.scss */
+#main.sidebar {
+  width: 77%;
+}
+
+/* line 76, ../../../app/assets/stylesheets/admin/base.scss */
+#main.nosidebar {
+  width: 100%;
+}
+
+/* line 78, ../../../app/assets/stylesheets/admin/base.scss */
+.actions-bar {
+  padding: 10px 1px;
+}
+
+/* line 82, ../../../app/assets/stylesheets/admin/base.scss */
+.actions-bar .actions {
+  float: left;
+}
+
+/* line 87, ../../../app/assets/stylesheets/admin/base.scss */
+.actions-bar .pagination {
+  float: right;
+  padding: 1px 0;
+}
+
+/* line 92, ../../../app/assets/stylesheets/admin/base.scss */
+#sidebar {
+  width: 25%;
+  float: right;
+}
+
+/* line 97, ../../../app/assets/stylesheets/admin/base.scss */
+#sidebar h3 {
+  padding: 10px 15px;
+  margin: 0;
+  font-size: 13px;
+}
+
+/* line 103, ../../../app/assets/stylesheets/admin/base.scss */
+#sidebar .block {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+/* line 108, ../../../app/assets/stylesheets/admin/base.scss */
+#sidebar .block .content {
+  padding: 0 15px;
+}
+
+/* line 112, ../../../app/assets/stylesheets/admin/base.scss */
+#sidebar ul.navigation li a:link, #sidebar ul.navigation li a:visited {
+  display: block;
+  padding: 10px 15px;
+}
+
+/* line 117, ../../../app/assets/stylesheets/admin/base.scss */
+#sidebar .block .sidebar-block, #sidebar .notice {
+  padding: 10px;
+}
+
+/* line 121, ../../../app/assets/stylesheets/admin/base.scss */
+#wrapper {
+  padding-top: 20px;
+}
+
+/* line 125, ../../../app/assets/stylesheets/admin/base.scss */
+#main .block {
+  margin-bottom: 20px;
+  padding-top: 1px;
+}
+
+/* line 130, ../../../app/assets/stylesheets/admin/base.scss */
+#main .block .content .inner {
+  padding: 0 15px 15px;
+}
+
+/* line 134, ../../../app/assets/stylesheets/admin/base.scss */
+#main .main p.first {
+  margin-top: 0;
+}
+
+/* line 138, ../../../app/assets/stylesheets/admin/base.scss */
+#user-navigation {
+  position: absolute;
+  top: 0px;
+  right: 20px;
+}
+
+/* line 144, ../../../app/assets/stylesheets/admin/base.scss */
+#main-navigation {
+  width: 100%;
+}
+
+/* line 148, ../../../app/assets/stylesheets/admin/base.scss */
+#user-navigation ul, #main-navigation ul, .secondary-navigation ul, #sidebar ul.navigation {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+/* line 154, ../../../app/assets/stylesheets/admin/base.scss */
+#user-navigation ul li, #main-navigation ul li, .secondary-navigation ul li {
+  float: left;
+}
+
+/* line 158, ../../../app/assets/stylesheets/admin/base.scss */
+#main-navigation ul li {
+  margin-right: 5px;
+}
+
+/* line 162, ../../../app/assets/stylesheets/admin/base.scss */
+#user-navigation ul li {
+  padding: 5px 10px;
+}
+
+/* line 168, ../../../app/assets/stylesheets/admin/base.scss */
+#main-navigation ul li a:link, #main-navigation ul li a:visited, #main-navigation ul li a:hover, #main-navigation ul li a:active,
+.secondary-navigation ul li a:link, .secondary-navigation ul li a:visited, .secondary-navigation ul li a:hover, .secondary-navigation ul li a:active,
+#user-navigation ul li a:link, #user-navigation ul li a:visited, #user-navigation ul li a:hover, #user-navigation ul li a:active {
+  text-decoration: none;
+}
+
+/* line 172, ../../../app/assets/stylesheets/admin/base.scss */
+#main-navigation ul li a {
+  font-size: 14px;
+  line-height: 14px;
+  display: block;
+  padding: 8px 15px;
+}
+
+/* line 179, ../../../app/assets/stylesheets/admin/base.scss */
+.secondary-navigation {
+  font-size: 13px;
+  border-bottom-width: 10px;
+  border-bottom-style: solid;
+}
+
+/* line 185, ../../../app/assets/stylesheets/admin/base.scss */
+.secondary-navigation ul li a {
+  display: block;
+  padding: 10px 15px;
+}
+
+/* line 190, ../../../app/assets/stylesheets/admin/base.scss */
+#footer {
+  padding-bottom: 20px;
+}
+
+/* pagination */
+/* line 196, ../../../app/assets/stylesheets/admin/base.scss */
+.pagination a, .pagination span, .pagination em {
+  padding: 2px 5px;
+  margin: 5px 5px 5px 0;
+  display: block;
+  float: left;
+  border-style: solid;
+  border-width: 1px;
+}
+
+/* line 205, ../../../app/assets/stylesheets/admin/base.scss */
+.pagination em {
+  font-weight: bold;
+}
+
+/* line 209, ../../../app/assets/stylesheets/admin/base.scss */
+.pagination a {
+  text-decoration: none;
+}
+
+/* tables */
+/* line 214, ../../../app/assets/stylesheets/admin/base.scss */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+/* line 220, ../../../app/assets/stylesheets/admin/base.scss */
+.table th {
+  padding: 10px;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* line 226, ../../../app/assets/stylesheets/admin/base.scss */
+.table th.first {
+  width: 30px;
+}
+
+/* line 230, ../../../app/assets/stylesheets/admin/base.scss */
+.table th.last {
+  width: 200px;
+}
+
+/* line 233, ../../../app/assets/stylesheets/admin/base.scss */
+.table th .current {
+  background-repeat: no-repeat;
+  background-position: right center;
+  padding-right: 12px;
+}
+
+/* line 238, ../../../app/assets/stylesheets/admin/base.scss */
+.table th .asc {
+  background-image: url(/dev-assets/admin/up_arrow.gif);
+}
+
+/* line 241, ../../../app/assets/stylesheets/admin/base.scss */
+.table th .desc {
+  background-image: url(/dev-assets/admin/down_arrow.gif);
+}
+
+/* line 245, ../../../app/assets/stylesheets/admin/base.scss */
+.table .checkbox {
+  margin-left: 10px;
+}
+
+/* line 249, ../../../app/assets/stylesheets/admin/base.scss */
+.table td {
+  padding: 10px;
+}
+
+/* line 253, ../../../app/assets/stylesheets/admin/base.scss */
+.table td.last {
+  text-align: right;
+}
+
+/* forms */
+/* line 259, ../../../app/assets/stylesheets/admin/base.scss */
+input.checkbox {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 264, ../../../app/assets/stylesheets/admin/base.scss */
+.form .group {
+  margin-bottom: 15px;
+}
+
+/* line 268, ../../../app/assets/stylesheets/admin/base.scss */
+.form div.left {
+  width: 20%;
+  float: left;
+}
+
+/* line 273, ../../../app/assets/stylesheets/admin/base.scss */
+.form div.right {
+  width: 75%;
+  float: right;
+}
+
+/* line 278, ../../../app/assets/stylesheets/admin/base.scss */
+.form .columns .column {
+  width: 48%;
+}
+
+/* line 282, ../../../app/assets/stylesheets/admin/base.scss */
+.form .columns .left {
+  float: left;
+}
+
+/* line 286, ../../../app/assets/stylesheets/admin/base.scss */
+.form .columns .right {
+  float: right;
+}
+
+/* line 290, ../../../app/assets/stylesheets/admin/base.scss */
+.form label.label, .form input.text_field, .form textarea.text_area {
+  font-size: 1.2em;
+  padding: 1px 0;
+  margin: 0;
+}
+
+/* line 296, ../../../app/assets/stylesheets/admin/base.scss */
+.form label.right {
+  text-align: right;
+}
+
+/* line 300, ../../../app/assets/stylesheets/admin/base.scss */
+.form input.checkbox, .form input.radio {
+  margin-right: 5px;
+}
+
+/* line 304, ../../../app/assets/stylesheets/admin/base.scss */
+.form label.checkbox, .form label.radio {
+  line-height: 1.5em;
+}
+
+/* line 308, ../../../app/assets/stylesheets/admin/base.scss */
+.form label.label {
+  display: block;
+  padding-bottom: 2px;
+  font-weight: bold;
+}
+
+/* line 314, ../../../app/assets/stylesheets/admin/base.scss */
+.form div.fieldWithErrors label.label {
+  display: inline;
+}
+
+/* line 318, ../../../app/assets/stylesheets/admin/base.scss */
+.form .fieldWithErrors .error {
+  color: red;
+}
+
+/* line 322, ../../../app/assets/stylesheets/admin/base.scss */
+.form input.text_field, .form textarea.text_area {
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+}
+
+/* lists */
+/* line 330, ../../../app/assets/stylesheets/admin/base.scss */
+ul.list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+/* line 336, ../../../app/assets/stylesheets/admin/base.scss */
+ul.list li {
+  clear: left;
+  padding-bottom: 5px;
+}
+
+/* line 341, ../../../app/assets/stylesheets/admin/base.scss */
+ul.list li .left {
+  float: left;
+}
+
+/* line 345, ../../../app/assets/stylesheets/admin/base.scss */
+ul.list li .left .avatar {
+  width: 50px;
+  height: 50px;
+}
+
+/* line 350, ../../../app/assets/stylesheets/admin/base.scss */
+ul.list li .item {
+  margin-left: 80px;
+}
+
+/* line 354, ../../../app/assets/stylesheets/admin/base.scss */
+ul.list li .item .avatar {
+  float: left;
+  margin: 0 5px 5px 0;
+  width: 30px;
+  height: 30px;
+}
+
+/* box */
+/* line 363, ../../../app/assets/stylesheets/admin/base.scss */
+#box {
+  width: 500px;
+  margin: 50px auto;
+}
+
+/* line 368, ../../../app/assets/stylesheets/admin/base.scss */
+#box .block {
+  margin-bottom: 20px;
+}
+
+/* line 372, ../../../app/assets/stylesheets/admin/base.scss */
+#box .block h2 {
+  padding: 10px 15px;
+  margin: 0;
+}
+
+/* line 377, ../../../app/assets/stylesheets/admin/base.scss */
+#box .block .content {
+  padding: 10px 20px;
+}
+
+/*  Inspired by http://particletree.com/features/rediscovering-the-button-element */
+/* line 382, ../../../app/assets/stylesheets/admin/base.scss */
+a.button:link, a.button:visited, a.button:hover, a.button:active, button.button {
+  color: #222;
+  display: block;
+  float: left;
+  margin: 0 7px 0 0;
+  background-color: #eee;
+  border: 1px solid #bfbfbf;
+  font-size: 1em;
+  line-height: 1.3em;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px 10px 6px 7px;
+  text-decoration: none;
+}
+
+/* line 397, ../../../app/assets/stylesheets/admin/base.scss */
+button.button {
+  width: auto;
+  overflow: visible;
+  padding: 4px 10px 3px 7px;
+  /* IE6 */
+}
+
+/* line 402, ../../../app/assets/stylesheets/admin/base.scss */
+button.button[type] {
+  padding: 5px 10px 5px 7px;
+  /* Firefox */
+  line-height: 17px;
+  /* Safari */
+}
+
+/* line 407, ../../../app/assets/stylesheets/admin/base.scss */
+*:first-child + html button.button[type] {
+  padding: 4px 10px 3px 7px;
+  /* IE7 */
+}
+
+/* line 411, ../../../app/assets/stylesheets/admin/base.scss */
+button.button img, a.button img {
+  margin: 0 3px -3px 0 !important;
+  padding: 0;
+  border: none;
+  width: 16px;
+  height: 16px;
+}
+
+/* line 419, ../../../app/assets/stylesheets/admin/base.scss */
+button.button:hover, a.button:hover {
+  background-color: #dedede;
+}
+
+/* line 423, ../../../app/assets/stylesheets/admin/base.scss */
+button.button:active, a.button:active {
+  background-color: #e5e5e5;
+}
+
+/* line 426, ../../../app/assets/stylesheets/admin/base.scss */
+.text_button_padding {
+  color: #222222;
+  display: block;
+  float: left;
+  font-size: 1em;
+  line-height: 2em;
+  margin: 0 7px 0 0;
+  padding: 5px 0 6px 7px;
+  text-decoration: none;
+}
+
+/* line 436, ../../../app/assets/stylesheets/admin/base.scss */
+.link_button {
+  cursor: pointer;
+}
+
+/* line 440, ../../../app/assets/stylesheets/admin/base.scss */
+.hidden_destroy {
+  float: right;
+  position: relative;
+  margin: 0 30px 0 30px;
+}
+
+/* line 446, ../../../app/assets/stylesheets/admin/base.scss */
+.content .hidden_destroy a, .hidden_destroy a:link {
+  color: #f5f5f5;
+  font-size: 8px;
+}
+
+/* line 451, ../../../app/assets/stylesheets/admin/base.scss */
+.content .hidden_destroy a:hover {
+  color: #ff0000;
+}
+
+/* line 455, ../../../app/assets/stylesheets/admin/base.scss */
+.admin_carousel_image {
+  position: relative;
+  display: inline;
+  margin: 10px;
+}
+
+/* line 461, ../../../app/assets/stylesheets/admin/base.scss */
+.destroy_carousel_image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 15px;
+  height: 17px;
+  font-family: Verdana, Tahoma, Arial;
+  background-color: #800000;
+  color: #fff;
+  text-align: center;
+}
+
+/* line 473, ../../../app/assets/stylesheets/admin/base.scss */
+.search {
+  background: #ededed;
+  padding: 10px;
+  margin: 15px 15px 5px 15px;
+}
+
+/* line 478, ../../../app/assets/stylesheets/admin/base.scss */
+.search h3 {
+  font-size: 140%;
+  margin: 3px 0;
+}
+
+/* line 482, ../../../app/assets/stylesheets/admin/base.scss */
+.search input[type=search], .search input[type=text] {
+  width: 175px;
+}
+
+/* line 483, ../../../app/assets/stylesheets/admin/base.scss */
+fieldset {
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+
+/* line 484, ../../../app/assets/stylesheets/admin/base.scss */
+fieldset legend {
+  font-size: 140%;
+}
+
+/* line 486, ../../../app/assets/stylesheets/admin/base.scss */
+#sync_products {
+  margin: 20px;
+}
+
+/* line 488, ../../../app/assets/stylesheets/admin/base.scss */
+.not-visible, .not-visible td, .not-visible td *, .not-visible td img {
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+}
+
+/* line 493, ../../../app/assets/stylesheets/admin/base.scss */
+.handle:hover {
+  cursor: move;
+}
+
+/* line 495, ../../../app/assets/stylesheets/admin/base.scss */
+.batch_form_content {
+  width: 360px;
+  padding: 26px;
+}
+
+/* line 500, ../../../app/assets/stylesheets/admin/base.scss */
+.batch_form {
+  width: 400px;
+}
+
+/* line 504, ../../../app/assets/stylesheets/admin/base.scss */
+.batch_right_aligned {
+  float: right;
+  margin-top: 10px;
+  font-size: 14px;
+}
+/* Activo 2 by David Francisco (activo.dmfranc.com) - tiny version for web-app-theme */
+
+@font-face {
+  font-family: "MuseoSans500";
+  src: url("fonts/museosans_500-webfont.eot");
+  src: local("☺"), url("fonts/museosans_500-webfont.woff") format("woff"), url("fonts/museosans_500-webfont.ttf") format("truetype"), url("fonts/museosans_500-webfont.svg#webfontxgyHgdAL") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "MuseoSans500Italic";
+  src: url("fonts/museosans_500_italic-webfont.eot");
+  src: local("☺"), url("fonts/museosans_500_italic-webfont.woff") format("woff"), url("fonts/museosans_500_italic-webfont.ttf") format("truetype"), url("fonts/museosans_500_italic-webfont.svg#webfonteCRZCYEf") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Museo700";
+  src: url("fonts/museo700-regular-webfont.eot");
+  src: local("☺"), url("fonts/museo700-regular-webfont.woff") format("woff"), url("fonts/museo700-regular-webfont.ttf") format("truetype"), url("fonts/museo700-regular-webfont.svg#webfontOC5Ke5xr") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  color: #111111;
+  background: #c4c4c4 url("admin/themes/default/images/bgd.jpg");
+  font-family: helvetica, arial, sans-serif;
+}
+
+h1, h2, h3 {
+  color: #111111;
+  font-weight: normal;
+  font-family: helvetica, arial, sans-serif;
+}
+
+a:link, a:visited, a:hover, a:active {
+  color:#08C;
+  text-decoration:none;
+}
+
+a {
+  -moz-outline: none;
+}
+
+hr {
+  background: #dddddd;
+  color: #dddddd;
+}
+
+#header {
+  height: 80px;
+  background-color: #333333;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+  -moz-box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+  -webkit-box-shadow: inset 0 -5px 10px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+#header h1 {
+  padding: 15px 5px;
+  float: left;
+  font-size: 40px;
+  font-style: normal;
+  text-transform: normal;
+  letter-spacing: -1px;
+  line-height: 1.2em;
+  color: white;
+}
+#header h1 a:link, #header h1 a:active, #header h1 a:hover, #header h1 a:visited {
+  color: white;
+}
+
+#main {
+  /*width: 77%;*/
+  float: left;
+}
+#main .block {
+  padding-top: 0px;
+  background-color: white;
+  text-shadow: 0 1px 0 white;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+#main .block .content {
+  padding-top: 1px;
+  /*overflow: auto;*/
+}
+#main .block .content .inner {
+  padding: 0 15px 15px;
+}
+#main .block .content h2 {
+  margin-left: 15px;
+  font-size: 22px;
+  text-transform: normal;
+  letter-spacing: -1px;
+  line-height: 1.2em;
+}
+#main .block .content p {
+  font-size: 13px;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: normal;
+  letter-spacing: normal;
+  line-height: 1.45em;
+}
+
+#main-navigation {
+  padding-top: 30px;
+  width: auto;
+}
+#main-navigation ul li {
+  padding: 10px 30px 10px 20px;
+  margin:15px 1px 0px 0px;
+  background-color:#444;
+  -webkit-border-top-left-radius: 5px;
+  -webkit-border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+#main-navigation ul li a:link, #main-navigation ul li a:visited, #main-navigation ul li a:hover, #main-navigation ul li a:active {
+  padding: 8px 0;
+  text-decoration: none;
+  color: #eeeeee;
+}
+#main-navigation ul li.active {
+  background-color:#555;
+}
+#main-navigation .submenu span {
+  color:#eee;
+}
+#main-navigation .submenu ul {
+  display:none;
+  margin-top:10px;
+  margin-left:-20px;
+  position:fixed;
+  background-color:#FFF;
+  min-width:150px;
+  border:1px solid #ddd;
+  border-top:0;
+  -webkit-border-bottom-right-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+#main-navigation .submenu:hover {background-color:#666;}
+#main-navigation .submenu:hover ul {display:block;}
+#main-navigation .submenu ul li {
+  border-bottom:1px solid #ccc;
+  padding:0;
+  margin:0;
+  float:none;
+  background:#fff;
+}
+#main-navigation .submenu ul li a {
+  color:#222;
+  padding:10px;
+}
+#main-navigation .submenu ul li a:hover {background-color:#ddd;}
+
+
+.secondary-navigation {
+  background: #e0e0e0 url("admin/themes/default/images/boxbar-background.png") top;
+  border-bottom-width: 0px;
+  -moz-border-radius-topleft: 6px;
+  -webkit-border-top-left-radius: 6px;
+  border-top-left-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  -webkit-border-top-right-radius: 6px;
+  border-top-right-radius: 6px;
+}
+.secondary-navigation li.first a, .secondary-navigation ul li.first {
+  -moz-border-radius-topleft: 6px;
+  -webkit-border-top-left-radius: 6px;
+  border-top-left-radius: 6px;
+}
+.secondary-navigation ul li a:link, .secondary-navigation ul li a:visited, .secondary-navigation ul li a:hover, .secondary-navigation ul li a:active {
+  text-decoration: none;
+  color: #111111;
+}
+.secondary-navigation ul li.text {
+  padding: 10px 15px;
+  color: #818171;
+}
+.secondary-navigation ul li.active {
+  background-color: white;
+}
+.secondary-navigation ul li.active a:hover {
+  background-color: white;
+}
+
+#user-navigation {
+  top: 10px;
+  right: 10px;
+  color: #eeeeee;
+  font-size: 14px;
+}
+
+#user-navigation ul li a:link, #user-navigation ul li a:visited, #user-navigation ul li a:hover, #user-navigation ul li a:active {
+  text-decoration: none;
+  color: #eeeeee;
+}
+#user-navigation ul li a:active img {
+  margin-top: 1px;
+}
+
+#user-navigation ul li { /*, .secondary-navigation ul li*/
+  float: left;
+}
+
+#footer {
+  color: #261f1f;
+  text-shadow: none;
+}
+#footer .block {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background: none;
+}
+#footer p {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+#sidebar {
+  width: 20%;
+  float: right;
+}
+#sidebar .block {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+#sidebar .block h4 {
+  font-weight: normal;
+  font-family: helvetica, arial, sans-serif;
+}
+#sidebar .notice {
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0, 0, 0, 0.15)), to(rgba(0, 0, 0, 0)));
+  background-image: -moz-linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25), 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+#sidebar .warning {
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #222222;
+  background: #ffef4e;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+#sidebar h3 {
+  padding-left: 25px;
+  color: #111111;
+  border-bottom: 1px solid #261f1f;
+}
+#sidebar ul li {
+  background-position: 0 11px;
+  background-repeat: no-repeat;
+  background-image: url("admin/themes/default/images/arrow.png");
+  border-bottom: 1px dashed #777777;
+  list-style-type: none;
+}
+#sidebar ul li a {
+  margin-left: 10px;
+  text-decoration: none;
+  text-shadow: 0 1px 0 white;
+}
+#sidebar ul li.active a {
+  color: #a4a4a4;
+}
+
+.control {
+  float: right;
+  margin-right: 9px;
+  margin-top: 11px;
+}
+
+.pagination a, .pagination span, .pagination em {
+  border: 1px solid #c3c4ba;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  margin-right: 5px;
+  padding: 6px;
+  min-width: 15px;
+  text-align: center;
+  background: #dddddd;
+  background-image: url("admin/themes/default/images/button-background.png");
+  color: #111111;
+}
+.pagination a:hover {
+  border: 1px solid #818171;
+  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+.pagination span.current, .pagination em {
+  background: #261f1f;
+  color: white;
+  border: 1px solid #261f1f;
+}
+
+.pagination a:active {
+  background-image: url("admin/themes/default/images/button-background-active.png");
+  outline: none;
+}
+
+.table th {
+  background: #dedede;
+  color: #222222;
+  font-weight: normal;
+}
+.table th.last {
+  min-width: 90px;
+}
+.table td {
+  border-bottom: 1px solid #eaeaea;
+}
+.table td.last {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.table tr.even {
+  background: #f8f8f8;
+}
+.table tr:hover {
+  background:#efefef;
+}
+
+.form label.label {
+  font-family: helvetica, arial, sans-serif;
+  font-weight: normal;
+  color: #666666;
+}
+.form input.text_field, .form textarea.text_area {
+  width: 100%;
+  border: 1px solid #dddddd;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.form input.button {
+  background: #dddddd;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #c1c1c1;
+  padding: 2px 5px;
+  cursor: pointer;
+  color: #111111;
+  font-weight: bold;
+  font-size: 11px;
+}
+.form input.button:hover {
+  border: 1px solid #666666;
+}
+.form .description {
+  font-style: italic;
+  color: #8c8c8c;
+  font-size: 0.9em;
+}
+.form .navform a {
+  color: #cc0000;
+}
+
+.flash .message {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  text-align: center;
+  margin: 0 auto 15px;
+  color: white;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+}
+.flash .message p {
+  margin: 8px;
+}
+.flash .error, .flash .error-list {
+  border: 1px solid #993624;
+  background: #cc4831 url("admin/themes/default/images/messages/error.png") no-repeat 10px center;
+}
+.flash .warning {
+  border: 1px solid #bb9004;
+  background: #f9c006 url("admin/themes/default/images/messages/warning.png") no-repeat 10px center;
+}
+.flash .notice {
+  color: #28485e;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+  border: 1px solid #8a9daa;
+  background: #b8d1e2 url("admin/themes/default/images/messages/notice.png") no-repeat 10px center;
+}
+.flash .error-list {
+  text-align: left;
+}
+.flash .error-list h2 {
+  font-size: 16px;
+  text-align: center;
+}
+.flash .error-list ul {
+  padding-left: 22px;
+  line-height: 18px;
+  list-style-type: square;
+  margin-bottom: 15px;
+}
+
+ul.list li {
+  border-bottom-color: #dddddd;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+ul.list li .item .avatar {
+  border-color: #dddddd;
+  border-width: 1px;
+  border-style: solid;
+  padding: 2px;
+}
+
+#box {
+  width: 480px;
+}
+#box .block {
+  background: white;
+  text-shadow: 0 1px 0 white;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 1px rgba(0, 0, 0, 0.3);
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+}
+#box .block h2 {
+  background: #261f1f;
+  color: white;
+  text-shadow: none;
+  -moz-border-radius-topleft: 6px;
+  -webkit-border-top-left-radius: 6px;
+  border-top-left-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  -webkit-border-top-right-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+a.button, button.button, input.button, input[type=submit] {
+  background: whiteSmoke;
+  background-image: -webkit-linear-gradient(top, white, #E6E6E6);
+  background-repeat: repeat-x;
+  border:1px solid rgba(0, 0, 0, 0.0976563);
+  border-bottom-color: rgba(0, 0, 0, 0.246094);
+  box-shadow: rgba(255, 255, 255, 0.199219) 0px 1px 0px 0px inset, rgba(0, 0, 0, 0.046875) 0px 1px 2px 0px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-size: 13px;
+  font-weight: normal;
+  letter-spacing: normal;
+  line-height: 18px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  text-align: center;
+  text-indent: 0px;
+  text-shadow: rgba(0, 0, 0, 0.246094) 0px -1px 0px;
+  text-transform: none;
+  vertical-align: middle;
+  word-spacing: 0px;
+  height: 28px;
+  padding: 4px 10px;
+}
+a.button:link, a.button:visited, a.button:hover, a.button:active, button.button:hover, button.button:active, input.button:hover, input.button:active, input[type=submit]:active {
+  font-weight: normal;
+}
+a.button:active, button.button:active, input.button:active, input[type=submit]:active {
+  outline: none;
+  margin-top: 1px;
+  margin-bottom: -1px;
+}
+a.button.info, .button.info {
+  background: #006DCC;
+  color:white;
+  background-image: -ms-linear-gradient(top, #FBB450, #F89406);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FBB450), to(#F89406));
+  background-image: -webkit-linear-gradient(top, #08C, #04C);
+  background-image: -o-linear-gradient(top, #FBB450, #F89406);
+  background-image: -moz-linear-gradient(top, #FBB450, #F89406);
+  background-image: linear-gradient(top, #FBB450, #F89406);
+  border-color: #F89406 #F89406 #AD6704;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#08C', endColorstr='#04C', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+a.button.warn, .button.warn {
+  background: #FAA732;
+  color:white;
+  background-image: -ms-linear-gradient(top, #FBB450, #F89406);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FBB450), to(#F89406));
+  background-image: -webkit-linear-gradient(top, #FBB450, #F89406);
+  background-image: -o-linear-gradient(top, #FBB450, #F89406);
+  background-image: -moz-linear-gradient(top, #FBB450, #F89406);
+  background-image: linear-gradient(top, #FBB450, #F89406);
+  border-color: #F89406 #F89406 #AD6704;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#fbb450', endColorstr='#f89406', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+a.button.danger, .button.danger {
+  background:#DA4F49;
+  color:white;
+  background-image: -ms-linear-gradient(top, #EE5F5B, #BD362F);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#EE5F5B), to(#BD362F));
+  background-image: -webkit-linear-gradient(top, #EE5F5B, #BD362F);
+  background-image: -o-linear-gradient(top, #EE5F5B, #BD362F);
+  background-image: -moz-linear-gradient(top, #EE5F5B, #BD362F);
+  background-image: linear-gradient(top, #EE5F5B, #BD362F);
+  background-repeat: repeat-x;
+  border-color: #BD362F #BD362F #802420;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ee5f5b', endColorstr='#bd362f', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+
+.form div.left {
+  width: 10%;
+  float: left;
+}
+.form div.right {
+  width: 85%;
+  float: right;
+}
+
+.login div.left, .signup div div.left {
+  width: 21%;
+  float: left;
+}
+.login div.right, .signup div div.right {
+  width: 74%;
+  float: right;
+}
+
+a.button.info.update-olooklet{
+  float: right;
+  height: 20px;
+  margin: 10px;
+}
+
+h2.update-olooklet {
+  display: inline;
+}
+
+#update-olooklet-header {
+  margin-top: 20px;
+}
+div.content {
+  padding: 2em;
+}
+
+fieldset {
+  width: 48%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.hint {
+  color: #777;
+  font-size: 10px;
+  font-style: italic;
+  display: inline-block;
+}
+
+.promotion_rule .hint {
+  line-height: 10px;
+  font-weight: normal !important;
+}
+
+.promotion_rule {
+  font-weight: bold !important;
+}
+
+/* line 1, ../../../app/assets/stylesheets/admin/orders.css.scss */
+#order_clear_sale {
+  clear: both;
+  min-width: 500px;
+  float: left;
+}
+
+/* line 7, ../../../app/assets/stylesheets/admin/orders.css.scss */
+.cb {
+  clear: both;
+}
+
+/* line 11, ../../../app/assets/stylesheets/admin/orders.css.scss */
+th.order_discount {
+  text-align: center;
+  font-weight: bold;
+}
+/* line 1, ../../../app/assets/stylesheets/admin/dashboard.css.scss */
+.dashboard_report_buttons {
+  width: 200px;
+  height: 100px;
+  padding: 10px;
+}
+/* line 2, ../../../app/assets/stylesheets/admin/dashboard.css.scss */
+.dashboard_report_buttons .button {
+  width: 170px;
+  margin-bottom: 20px !important;
+  display: block;
+  padding: 0 !important;
+  line-height: 27px !important;
+}
+/* line 2, ../../../app/assets/stylesheets/admin/clippings.css.scss */
+form.new_clipping fieldset {
+  display: block;
+  width: 520px;
+}
+/* line 5, ../../../app/assets/stylesheets/admin/clippings.css.scss */
+form.new_clipping fieldset input {
+  width: 300px;
+}
+/* line 8, ../../../app/assets/stylesheets/admin/clippings.css.scss */
+form.new_clipping fieldset.text {
+  width: 345px;
+}
+/* line 10, ../../../app/assets/stylesheets/admin/clippings.css.scss */
+form.new_clipping fieldset.text textarea {
+  width: 518px;
+  height: 160px;
+}
+
+/* line 17, ../../../app/assets/stylesheets/admin/clippings.css.scss */
+.countdown {
+  width: 25px;
+  float: right;
+}
+
+/* line 21, ../../../app/assets/stylesheets/admin/clippings.css.scss */
+h1.subtitle {
+  width: 200px;
+  float: left;
+}
+
+/* line 25, ../../../app/assets/stylesheets/admin/clippings.css.scss */
+.link_above {
+  margin-top: 22px;
+  float: left;
+}
+/* line 2, ../../../app/assets/stylesheets/admin/catalog_header.css.scss */
+form#new_catalog_base .field, form#edit_catalog_base .field {
+  display: block;
+  width: 520px;
+  border: solid 1px;
+  padding: 5px;
+  border-color: #ddd;
+}
+/* line 8, ../../../app/assets/stylesheets/admin/catalog_header.css.scss */
+form#new_catalog_base .field input, form#edit_catalog_base .field input {
+  width: 300px;
+}
+/* line 12, ../../../app/assets/stylesheets/admin/catalog_header.css.scss */
+form#new_catalog_base fieldset#small_banner_catalog_header, form#new_catalog_base fieldset#big_banner_catalog_header, form#new_catalog_base fieldset#text_catalog_header, form#edit_catalog_base fieldset#small_banner_catalog_header, form#edit_catalog_base fieldset#big_banner_catalog_header, form#edit_catalog_base fieldset#text_catalog_header {
+  display: none;
+}
+/* line 1, ../../../app/assets/stylesheets/admin/collection_themes.css.scss */
+.manage_products_links {
+  width: 100px !important;
+}
+/* line 1, ../../../app/assets/stylesheets/admin/multiple_pictures.css.scss */
+.multiple_pictures {
+  display: block;
+}
+/* line 2, ../../../app/assets/stylesheets/admin/promotion_action_select.css.scss */
+.action_params_desc th {
+  width: 180px;
+}
+/* line 5, ../../../app/assets/stylesheets/admin/promotion_action_select.css.scss */
+.action_params_desc td {
+  text-align: center;
+}
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* jQuery UI - v1.10.3 - 2013-05-09
+* http://jqueryui.com
+* Includes: jquery.ui.core.css, jquery.ui.autocomplete.css, jquery.ui.menu.css, jquery.ui.slider.css
+* Copyright 2013 jQuery Foundation and other contributors Licensed MIT */
+/* line 7, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-helper-hidden {
+  display: none;
+}
+
+/* line 8, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-helper-hidden-accessible {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/* line 9, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-helper-reset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  line-height: 1.3;
+  text-decoration: none;
+  font-size: 100%;
+  list-style: none;
+}
+
+/* line 10, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-helper-clearfix:before, .ui-helper-clearfix:after {
+  content: "";
+  display: table;
+  border-collapse: collapse;
+}
+
+/* line 11, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-helper-clearfix:after {
+  clear: both;
+}
+
+/* line 12, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-helper-clearfix {
+  min-height: 0;
+}
+
+/* line 13, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-helper-zfix {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  opacity: 0;
+  filter: Alpha(Opacity=0);
+}
+
+/* line 14, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-front {
+  z-index: 100;
+}
+
+/* line 15, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-state-disabled {
+  cursor: default !important;
+}
+
+/* line 16, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-icon {
+  display: block;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
+/* line 17, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-widget-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* line 18, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-autocomplete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: default;
+}
+
+/* line 19, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu {
+  list-style: none;
+  padding: 2px;
+  margin: 0;
+  display: block;
+  outline: 0;
+  background: #fff;
+  border: solid 1px #000;
+  border-top: none;
+  width: 470px !important;
+  -webkit-box-shadow: 3px 3px #000;
+  box-shadow: 3px 3px #000;
+}
+
+/* line 21, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-menu {
+  margin-top: -3px;
+  position: absolute;
+}
+
+/* line 22, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-menu-item {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+}
+
+/* line 23, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-menu-divider {
+  margin: 5px -2px 5px -2px;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+  border-width: 1px 0 0;
+}
+
+/* line 24, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-menu-item a {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 12px;
+  text-decoration: none;
+  display: block;
+  padding: 2px .4em;
+  line-height: 1.5;
+  min-height: 0;
+  font-weight: 400;
+  color: #000 !important;
+  margin-top: 2px;
+  text-transform: capitalize;
+}
+
+/* line 25, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-menu-item a.ui-state-focus, .ui-menu .ui-menu-item a.ui-state-active {
+  font-weight: 400;
+  /*margin:-1px*/
+}
+
+/* line 26, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-state-disabled {
+  font-weight: 400;
+  margin: .4em 0 .2em;
+  line-height: 1.5;
+}
+
+/* line 27, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-state-disabled a {
+  cursor: default;
+}
+
+/* line 28, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu-icons {
+  position: relative;
+}
+
+/* line 29, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu-icons .ui-menu-item a {
+  position: relative;
+  padding-left: 2em;
+}
+
+/* line 30, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-icon {
+  position: absolute;
+  top: .2em;
+  left: .2em;
+}
+
+/* line 31, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-menu-icon {
+  position: static;
+  float: right;
+}
+
+/* line 32, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider {
+  position: relative;
+  text-align: left;
+  top: 9px;
+}
+
+/* line 33, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider .ui-slider-handle {
+  position: absolute;
+  z-index: 2;
+  width: 7px;
+  height: 11px;
+  cursor: default;
+  background: url(/dev-assets/collections/bullet_range_price.png) -1px 0 no-repeat;
+  cursor: pointer;
+}
+
+/* line 34, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider .ui-slider-handle:last-child {
+  background-position: -15px 0 !important;
+  margin-left: 0;
+}
+
+/* line 35, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider .ui-slider-range {
+  position: absolute;
+  z-index: 1;
+  font-size: .7em;
+  display: block;
+  border: 0;
+  background-position: 0 0;
+}
+
+/* line 36, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider .ui-widget-header {
+  background: #000;
+}
+
+/* line 37, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider.ui-state-disabled .ui-slider-handle, .ui-slider.ui-state-disabled .ui-slider-range {
+  filter: inherit;
+}
+
+/* line 38, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-horizontal {
+  height: .2em;
+  background: #CCC;
+}
+
+/* line 39, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-horizontal .ui-slider-handle {
+  top: -.3em;
+  margin-left: -.5em;
+}
+
+/* line 40, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-horizontal .ui-slider-range {
+  top: 0;
+  height: 100%;
+}
+
+/* line 41, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-horizontal .ui-slider-range-min {
+  left: 0;
+}
+
+/* line 42, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-horizontal .ui-slider-range-max {
+  right: 0;
+}
+
+/* line 43, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-vertical {
+  width: .8em;
+  height: 100px;
+}
+
+/* line 44, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-vertical .ui-slider-handle {
+  left: -.3em;
+  margin-left: 0;
+  margin-bottom: -.6em;
+}
+
+/* line 45, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-vertical .ui-slider-range {
+  left: 0;
+  width: 100%;
+}
+
+/* line 46, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-vertical .ui-slider-range-min {
+  bottom: 0;
+}
+
+/* line 47, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-vertical .ui-slider-range-max {
+  top: 0;
+}
+
+/* line 48, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-menu-item a.ui-state-focus, .ui-menu .ui-menu-item a.ui-state-active {
+  color: #000;
+}
+
+/* line 50, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.price-range {
+  float: left;
+  margin-top: 2px;
+}
+
+/* line 51, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.price-range .slider {
+  float: left;
+  width: 50px;
+  margin-right: 20px;
+}
+
+/* line 52, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.price-range p {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-weight: bold;
+  width: 40px;
+  font-size: 10px;
+}
+
+/* line 53, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.price-range p#min-value-label {
+  float: left;
+  margin-right: 10px;
+}
+
+/* line 54, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.price-range p#max-value-label {
+  float: right;
+}
+
+/* line 55, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.price-range input {
+  display: none;
+  width: 45px;
+}
+
+/* fix to windows */
+/* line 58, ../../../app/assets/stylesheets/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+html.win .price-range .slider {
+  width: 39px !important;
+}
+/*
+ * This css will include all web-app-theme css you need
+ *
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ */
+
+/* Write here your css for overriding the theme's rules */
+
+/*#main {*/
+  /*width: 100%;*/
+/*}*/
+
+/* line 1, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+body {
+  font-family: "Trebuchet Ms";
+}
+
+/* line 2, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+h1 {
+  font-weight: 700;
+  font-size: 23px;
+  margin-left: 0;
+}
+
+/* line 7, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* line 11, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+#itinerary_description {
+  width: 936px !important;
+  height: 240px !important;
+  background: #d5d5d5 !important;
+  border: none;
+  padding: 10px !important;
+}
+
+/* line 18, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+p.roteiro {
+  font-size: 15px !important;
+  font-style: italic !important;
+  margin-top: 0 !important;
+}
+
+/* line 23, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+.itinerary {
+  width: 960px;
+}
+
+/* line 24, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+.field {
+  margin: 0px;
+}
+
+/* line 25, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+form {
+  padding-bottom: 20px;
+}
+
+/* line 26, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+table {
+  width: 960px;
+  margin-bottom: 35px;
+}
+/* line 29, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+table td {
+  vertical-align: top;
+  padding-bottom: 10px;
+}
+/* line 30, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+table td.title {
+  font-size: 23px;
+  text-align: left;
+  font-weight: lighter;
+  height: 28px;
+}
+/* line 36, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+table .date, table .where {
+  height: 45px;
+  background: #d5d5d5;
+  border: none;
+  padding-left: 10px;
+}
+/* line 37, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+table .date {
+  width: 210px;
+  margin-right: 20px;
+}
+/* line 38, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+table .where {
+  width: 702px;
+}
+/* line 39, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+table input[type=checkbox] {
+  width: 20px;
+  height: 20px;
+  border: none;
+  float: left;
+  margin-left: 5px;
+  margin-top: 13px;
+}
+/* line 47, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+table label {
+  float: left;
+  position: absolute;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 13px;
+}
+/* line 54, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+table tr.boxes td {
+  margin-bottom: 5px !important;
+}
+
+/* line 56, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+.add_fields {
+  float: right;
+  margin-right: 10px;
+  display: block;
+  padding-left: 30px;
+  width: 121px;
+  font-size: 16px;
+  color: #000 !important;
+  height: 30px;
+  padding-top: 2px;
+  margin-top: 5px;
+  margin-right: 0;
+  background: url(/dev-assets/admin/plus.png) no-repeat;
+}
+
+/* line 70, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+input[type=submit] {
+  border: none !important;
+  background: #007236 !important;
+  color: #fff !important;
+  font-weight: 600;
+  height: 32px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+/* line 79, ../../../app/assets/stylesheets/admin/itinerary.css.scss */
+input[type=submit]:hover {
+  background: #00612e !important;
+}

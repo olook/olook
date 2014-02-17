@@ -1,0 +1,344 @@
+/* line 134, ../../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 2, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in {
+  height: 475px;
+  padding-left: 15px;
+}
+/* line 88, ../../../../app/assets/stylesheets/partials/_mixins.scss */
+.sign-in .sign-in-dropdown, .sign-in #sign-in-box {
+  background: #FFF;
+  border: 1px solid #BBB;
+  padding: 12px;
+  position: relative;
+  right: 0;
+  top: 30px;
+  z-index: 9999;
+  width: 244px;
+}
+/* line 101, ../../../../app/assets/stylesheets/partials/_mixins.scss */
+.sign-in .sign-in-dropdown form fieldset.buttons label, .sign-in #sign-in-box form fieldset.buttons label {
+  font-weight: normal !important;
+  width: 103px;
+}
+/* line 102, ../../../../app/assets/stylesheets/partials/_mixins.scss */
+.sign-in .sign-in-dropdown form fieldset.buttons a, .sign-in #sign-in-box form fieldset.buttons a {
+  font-size: 11px;
+  float: left;
+}
+/* line 104, ../../../../app/assets/stylesheets/partials/_mixins.scss */
+.sign-in .sign-in-dropdown form fieldset label, .sign-in #sign-in-box form fieldset label {
+  display: block;
+  font-size: 11px;
+  font-weight: bold;
+  margin: 2px 0;
+}
+/* line 111, ../../../../app/assets/stylesheets/partials/_mixins.scss */
+.sign-in .sign-in-dropdown form fieldset input, .sign-in #sign-in-box form fieldset input {
+  background: white url(/dev-assets/common/background-inputs.png) bottom repeat-x;
+  border: 1px solid #BBB;
+  padding: 6px 8px;
+  width: 92%;
+}
+/* line 116, ../../../../app/assets/stylesheets/partials/_mixins.scss */
+.sign-in .sign-in-dropdown form fieldset input#user_remember_me_login, .sign-in #sign-in-box form fieldset input#user_remember_me_login {
+  width: auto;
+  float: left;
+}
+/* line 117, ../../../../app/assets/stylesheets/partials/_mixins.scss */
+.sign-in .sign-in-dropdown form fieldset input#login, .sign-in #sign-in-box form fieldset input#login {
+  float: right;
+  margin: -17px 0 0 65px;
+}
+/* line 118, ../../../../app/assets/stylesheets/partials/_mixins.scss */
+.sign-in .sign-in-dropdown form fieldset input#user_password, .sign-in #sign-in-box form fieldset input#user_password {
+  margin-bottom: 10px;
+}
+/* line 119, ../../../../app/assets/stylesheets/partials/_mixins.scss */
+.sign-in .sign-in-dropdown form fieldset input:focus, .sign-in #sign-in-box form fieldset input:focus {
+  outline: none;
+}
+/* line 127, ../../../../app/assets/stylesheets/partials/_mixins.scss */
+.sign-in .sign-in-dropdown.close, .sign-in .close#sign-in-box {
+  display: none;
+}
+/* line 131, ../../../../app/assets/stylesheets/partials/_mixins.scss */
+.sign-in .sign-in-dropdown.open, .sign-in .open#sign-in-box {
+  display: block;
+}
+/* line 6, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login {
+  display: block;
+  float: left;
+  width: 450px;
+  height: 500px;
+}
+/* line 11, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login h2 {
+  font-family: "Trebuchet Ms" !important;
+  font-size: 16px;
+  font-weight: bold !important;
+}
+/* line 17, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login .social-media {
+  display: block;
+  width: 450px;
+  height: 96px;
+  float: left;
+  margin-top: 61px;
+}
+/* line 23, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login .social-media li {
+  background: url(/dev-assets/login/social_icons.png) no-repeat;
+  width: 180px;
+  height: 58px;
+  float: left;
+}
+/* line 28, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login .social-media li a {
+  padding-left: 70px;
+  color: #000;
+  font-weight: bold;
+  font-family: "Trebuchet Ms" !important;
+  font-size: 14px;
+  text-decoration: none;
+  line-height: 28px;
+  display: block;
+  width: 165px;
+}
+/* line 38, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login .social-media li a span {
+  font-size: 17px;
+}
+/* line 43, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login .social-media li.fb {
+  background-position: 0 0;
+}
+/* line 46, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login .social-media li.twitter {
+  background-position: 0px -60px;
+  margin-left: 90px;
+}
+/* line 47, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login .social-media li.twitter a {
+  width: 140px;
+}
+/* line 51, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box {
+  padding: 35px;
+  width: 345px;
+  position: relative;
+  margin: 44px 0 0 0px;
+  float: left;
+  z-index: 10;
+  border: none;
+}
+/* line 60, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box .fb-login-button {
+  background: url(/dev-assets/common/fb-loggin-button.png) no-repeat;
+  display: block;
+  width: 194px;
+  height: 25px;
+  text-indent: -10000px;
+  position: absolute;
+  top: -40px;
+  left: 0px;
+}
+/* line 74, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box form fieldset.inputs ol {
+  overflow: hidden;
+}
+/* line 77, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box form fieldset.inputs ol li {
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+/* line 81, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box form fieldset.inputs ol li label {
+  float: left;
+  line-height: 34px;
+  font-size: 12px;
+  font-weight: normal;
+  margin-right: 10px;
+}
+/* line 89, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box form fieldset.inputs ol li input {
+  background-color: #fff;
+  padding: 10px;
+  background-position: bottom;
+  float: left;
+  width: 262px;
+  border: 1px solid #000;
+}
+/* line 103, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box form fieldset.buttons ol li {
+  margin: 10px 13px 10px 6px !important;
+  float: left;
+}
+/* line 106, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box form fieldset.buttons ol li.remember-me {
+  width: 345px;
+  margin: 0;
+  float: left;
+}
+/* line 110, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box form fieldset.buttons ol li.remember-me input[type='checkbox'] {
+  margin-bottom: 10px;
+  width: 25px;
+  float: left;
+}
+/* line 115, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box form fieldset.buttons ol li.remember-me label {
+  width: 150px !important;
+}
+/* line 117, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box form fieldset.buttons ol li.remember-me p.register {
+  font-size: 11px;
+  float: left;
+  margin-left: 45px;
+  margin-top: -13px;
+}
+/* line 118, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box form fieldset.buttons ol li.remember-me p.register a {
+  float: none;
+}
+/* line 120, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box form fieldset.buttons ol li.remember-me p.forgot_password {
+  float: left;
+  margin: 0 0 10px 10px;
+  clear: both;
+}
+/* line 122, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box form fieldset.buttons ol li.remember-me p.forgot_password a {
+  color: #6D6E71;
+  text-decoration: none;
+  display: block;
+}
+/* line 126, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box form fieldset.buttons ol li.remember-me p.forgot_password a:hover {
+  text-decoration: underline;
+}
+/* line 130, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box form fieldset.buttons ol li.remember-me p.forgot_password + li {
+  margin-right: 20px;
+}
+/* line 132, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box form fieldset.buttons ol li.remember-me p.forgot_password + li input[type='submit'] {
+  width: 106px;
+  height: 42px;
+  display: block;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 36, ../../../../app/assets/stylesheets/partials/_mixins.scss */
+.sign-in .login #sign-in-box form fieldset.buttons ol li.remember-me p.forgot_password + li input[type='submit']:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 147, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .login #sign-in-box form fieldset.buttons ol li input[type='submit'] {
+  width: 212px;
+  height: 45px;
+  display: block;
+  border: none;
+  cursor: pointer;
+  margin: 0 19px 0 0 !important;
+  float: none;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-left: 65px !important;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 36, ../../../../app/assets/stylesheets/partials/_mixins.scss */
+.sign-in .login #sign-in-box form fieldset.buttons ol li input[type='submit']:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 168, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .quiz_login {
+  display: block;
+  float: left;
+  width: 490px;
+  height: 445px;
+  margin-top: 35px;
+  margin-left: 18px;
+}
+/* line 175, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .quiz_login .quiz_img {
+  margin-top: 10px;
+}
+/* line 178, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .quiz_login a {
+  position: relative;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-family: "Trebuchet Ms" !important;
+  font-size: 13px;
+  text-decoration: none;
+}
+/* line 186, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .quiz_login a .quiz_img {
+  margin-top: 10px;
+}
+/* line 187, ../../../../app/assets/stylesheets/new_structure/section/session.css.scss */
+.sign-in .quiz_login a.bt_quiz {
+  width: 212px;
+  height: 31px;
+  display: block;
+  margin-top: -67px;
+  margin-left: 243px;
+  padding-top: 14px;
+  font-weight: bold;
+  background-color: #e82d3a;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 36, ../../../../app/assets/stylesheets/partials/_mixins.scss */
+.sign-in .quiz_login a.bt_quiz:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}

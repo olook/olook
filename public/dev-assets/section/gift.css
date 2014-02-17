@@ -1,0 +1,2049 @@
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 3, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product {
+  position: relative;
+  margin: 0 0 2px 0;
+  padding: 10px;
+  overflow: hidden;
+  display: inline-block;
+  float: left;
+}
+/* line 10, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product div.hover_suggestive {
+  position: absolute;
+  background: none;
+  width: 100%;
+  bottom: 25px;
+  left: 0;
+  display: none;
+  z-index: 10;
+}
+/* line 18, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product div.hover_suggestive ul {
+  margin: 0;
+  padding: 0 !important;
+}
+/* line 21, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product div.hover_suggestive ul li {
+  text-align: center;
+  margin: 0;
+}
+/* line 24, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product div.hover_suggestive ul li a {
+  background: url(/dev-assets/common/bg-spy.png) repeat;
+  color: #101010;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 13px;
+  font-weight: lighter;
+  line-height: 32px;
+  text-decoration: none;
+  text-transform: uppercase;
+  height: 32px;
+  margin: 0 auto;
+  display: block;
+}
+/* line 36, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product div.hover_suggestive ul li a span {
+  background: url(/dev-assets/common/icon-spy-on.png) left center no-repeat;
+  color: #000;
+  line-height: 16px;
+  display: inline-block;
+  padding: 0 0 0 19px;
+}
+/* line 44, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product div.hover_suggestive ul li a:hover span {
+  color: #ef3742;
+}
+/* line 49, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product div.hover_suggestive ul li.add {
+  display: none;
+}
+/* line 51, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product div.hover_suggestive ul li.add a {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #ef3742;
+  color: #FFF;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 9px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  width: 150px;
+  margin: -120px auto 0;
+  padding: 0 10px;
+}
+/* line 68, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  /* new size photo */
+  display: inline-block;
+  clear: left;
+}
+/* line 71, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product a.product_link {
+  position: relative;
+}
+/* line 73, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product a.product_link p.warn {
+  position: absolute;
+  display: none;
+  text-indent: -9999px !important;
+}
+/* line 77, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product a.product_link p.warn.sold_out {
+  background: url(/dev-assets/common/sold_out.png) no-repeat;
+  color: #999;
+  width: 72px;
+  height: 30px;
+}
+/* line 83, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product a.product_link p.warn.quantity {
+  background: url(/dev-assets/common/quantity.png) no-repeat;
+  word-spacing: -1px;
+  width: 62px;
+  height: 30px;
+}
+/* line 89, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product a.product_link p.warn.shoe_size {
+  background: url(/dev-assets/common/number.png) no-repeat;
+  word-spacing: -1px;
+  width: 51px;
+  height: 30px;
+}
+/* line 95, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product a.product_link p.warn.percentage {
+  top: 65px !important;
+  left: 120px !important;
+  background: url(/dev-assets/moments/sprite.png) no-repeat 0 -109px;
+  width: 60px;
+  height: 60px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir !important;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 18px;
+  padding-top: 10px;
+  display: block;
+}
+/* line 108, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product a.product_link p.warn.percentage span {
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: normal;
+}
+/* line 115, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product a.product_link img {
+  margin: 0 0 10px 0;
+  /*border-bottom: 1px #b2b2b2 solid;*/
+}
+/* line 120, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product a {
+  text-decoration: none;
+  float: left;
+}
+/* line 123, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product a h1 {
+  background: none;
+  color: #000;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0 0 5px;
+  padding: 0;
+  overflow: hidden;
+  float: none;
+}
+/* line 136, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product .line {
+  width: 100%;
+  overflow: hidden;
+  margin: 0 auto 10px;
+}
+/* line 140, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product .line .like_mask {
+  width: 106px;
+  height: 24px;
+  display: block;
+  overflow: hidden;
+  float: left;
+}
+/* line 148, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product .line .fb-like .fb_edge_comment_widget {
+  display: none;
+}
+/* line 151, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product .line .fb-like iframe {
+  overflow: hidden !important;
+}
+/* line 153, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product .line a {
+  float: none;
+}
+/* line 156, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product .line ol, li.product .box_product .line img {
+  float: left;
+}
+/* line 159, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product .line ol {
+  height: 28px;
+  margin: 0 0 0 5px;
+}
+/* line 162, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product .line ol li {
+  margin: 6px 0 0 0;
+  display: inline !important;
+  float: left;
+}
+/* line 167, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product .line ol li a img {
+  width: 15px;
+  height: 15px;
+  border: 2px #D7D7D7 solid;
+}
+/* line 173, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product .line ol li a:hover img, li.product .box_product .line ol li a.selected img {
+  border: 2px #000 solid;
+}
+/* line 180, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product .line .like, li.product .box_product .line span {
+  float: right;
+}
+/* line 183, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product .line span {
+  color: #343434;
+  font-size: 16px;
+  letter-spacing: -1px;
+  margin-right: 2px;
+  padding: 3px 0 0 0;
+}
+/* line 190, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product .line .like {
+  background: url(/dev-assets/common/ico-heart-off.png) no-repeat;
+  text-indent: -9999px;
+  color: #716d68;
+  font-family: Arial;
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 14px;
+  height: 14px;
+  display: block;
+}
+/* line 202, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product .line .like:hover, li.product .box_product .line .like.selected {
+  background: url(/dev-assets/common/ico-heart-on.png) no-repeat;
+  color: #ff7db0;
+}
+/* line 209, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product.sold_out a p.sold_out {
+  top: 2px;
+  left: 2px;
+  display: block;
+}
+/* line 213, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product.sold_out a p.sold_out + p.shoe_size {
+  background: url(/dev-assets/common/number-sold-out.png) no-repeat;
+  left: 61px !important;
+  display: block;
+}
+/* line 221, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product.stock_down a p.quantity {
+  top: 2px;
+  left: 2px;
+  display: block;
+}
+/* line 225, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product .box_product.stock_down a p.quantity + p.shoe_size {
+  left: 53px !important;
+  display: block;
+}
+/* line 232, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product:hover {
+  padding: 5px;
+  border: 5px #F4F4F4 solid;
+}
+/* line 235, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product:hover div.hover_suggestive {
+  display: block;
+}
+/* line 238, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product:hover p.know {
+  display: block;
+}
+/* line 245, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product.promotion .box_product .line span {
+  color: #ef3742;
+  font-size: 15px;
+  font-weight: bold;
+  float: none;
+}
+/* line 250, ../../../app/assets/stylesheets/partials/_product.scss */
+li.product.promotion .box_product .line span.old {
+  color: #000;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 9px;
+  text-decoration: line-through;
+}
+
+/* line 264, ../../../app/assets/stylesheets/partials/_product.scss */
+#showroom li.product, #lookbooks li.product, #welcome li.product, #profile_products li.product {
+  width: 178px;
+  height: 275px;
+}
+/* line 270, ../../../app/assets/stylesheets/partials/_product.scss */
+#showroom li.product div.hover_suggestive ul li.spy a, #lookbooks li.product div.hover_suggestive ul li.spy a, #welcome li.product div.hover_suggestive ul li.spy a, #profile_products li.product div.hover_suggestive ul li.spy a {
+  width: 170px;
+}
+/* line 278, ../../../app/assets/stylesheets/partials/_product.scss */
+#showroom li.product .box_product a.product_link p.warn, #lookbooks li.product .box_product a.product_link p.warn, #welcome li.product .box_product a.product_link p.warn, #profile_products li.product .box_product a.product_link p.warn {
+  top: 2px;
+  left: -9px;
+}
+/* line 282, ../../../app/assets/stylesheets/partials/_product.scss */
+#showroom li.product .box_product a.product_link img, #lookbooks li.product .box_product a.product_link img, #welcome li.product .box_product a.product_link img, #profile_products li.product .box_product a.product_link img {
+  width: 146px;
+}
+/* line 285, ../../../app/assets/stylesheets/partials/_product.scss */
+#showroom li.product .box_product a.product_link h1, #lookbooks li.product .box_product a.product_link h1, #welcome li.product .box_product a.product_link h1, #profile_products li.product .box_product a.product_link h1 {
+  width: 170px;
+  height: 18px;
+}
+
+/* line 294, ../../../app/assets/stylesheets/partials/_product.scss */
+#product div.hover_suggestive, #cart div.hover_suggestive {
+  top: 235px;
+}
+/* line 298, ../../../app/assets/stylesheets/partials/_product.scss */
+#product div.hover_suggestive ul li.spy a, #cart div.hover_suggestive ul li.spy a {
+  width: 260px;
+}
+/* line 306, ../../../app/assets/stylesheets/partials/_product.scss */
+#product .box_product a.product_link p.warn, #cart .box_product a.product_link p.warn {
+  top: 2px;
+  left: -9px;
+}
+/* line 310, ../../../app/assets/stylesheets/partials/_product.scss */
+#product .box_product a.product_link img, #cart .box_product a.product_link img {
+  width: 260px;
+  height: 260px;
+}
+/* line 314, ../../../app/assets/stylesheets/partials/_product.scss */
+#product .box_product a.product_link h1, #cart .box_product a.product_link h1 {
+  width: 250px;
+  height: 17px;
+}
+/* line 321, ../../../app/assets/stylesheets/partials/_product.scss */
+#product div#carousel div.hover_suggestive, #cart div#carousel div.hover_suggestive {
+  top: 140px;
+}
+/* line 325, ../../../app/assets/stylesheets/partials/_product.scss */
+#product div#carousel div.hover_suggestive ul li.spy a, #cart div#carousel div.hover_suggestive ul li.spy a {
+  width: 180px;
+}
+
+/* line 334, ../../../app/assets/stylesheets/partials/_product.scss */
+#friends li.product {
+  width: 160px;
+  height: 316px;
+}
+/* line 337, ../../../app/assets/stylesheets/partials/_product.scss */
+#friends li.product div.hover_suggestive {
+  top: 125px;
+}
+/* line 341, ../../../app/assets/stylesheets/partials/_product.scss */
+#friends li.product div.hover_suggestive ul li.spy a {
+  width: 150px;
+}
+/* line 349, ../../../app/assets/stylesheets/partials/_product.scss */
+#friends li.product .box_product a.product_link p.warn {
+  top: 2px;
+  left: -9px;
+}
+/* line 353, ../../../app/assets/stylesheets/partials/_product.scss */
+#friends li.product .box_product a.product_link img {
+  width: 150px;
+  height: 150px;
+}
+/* line 357, ../../../app/assets/stylesheets/partials/_product.scss */
+#friends li.product .box_product a.product_link h1 {
+  width: 150px;
+  height: 17px;
+}
+
+/* line 366, ../../../app/assets/stylesheets/partials/_product.scss */
+#liquidation ul#products {
+  clear: both;
+}
+
+/* line 368, ../../../app/assets/stylesheets/partials/_product.scss */
+#liquidation li.product, #moments li.product {
+  width: 160px;
+  height: 225px;
+}
+/* line 371, ../../../app/assets/stylesheets/partials/_product.scss */
+#liquidation li.product div.hover_suggestive, #moments li.product div.hover_suggestive {
+  top: 125px;
+}
+/* line 375, ../../../app/assets/stylesheets/partials/_product.scss */
+#liquidation li.product div.hover_suggestive ul li.spy a, #moments li.product div.hover_suggestive ul li.spy a {
+  width: 150px;
+}
+/* line 383, ../../../app/assets/stylesheets/partials/_product.scss */
+#liquidation li.product .box_product a.product_link p.warn, #moments li.product .box_product a.product_link p.warn {
+  top: 2px;
+  left: -9px;
+  /*&.percentage {
+    left: 2px;
+  }*/
+}
+/* line 390, ../../../app/assets/stylesheets/partials/_product.scss */
+#liquidation li.product .box_product a.product_link img, #moments li.product .box_product a.product_link img {
+  width: 150px;
+  height: 150px;
+}
+/* line 394, ../../../app/assets/stylesheets/partials/_product.scss */
+#liquidation li.product .box_product a.product_link h1, #moments li.product .box_product a.product_link h1 {
+  width: 150px;
+  height: 17px;
+}
+
+/* line 407, ../../../app/assets/stylesheets/partials/_product.scss */
+#moments li.product .box_product a.product_link h1 {
+  font-size: 14px;
+  width: auto !important;
+  float: left;
+}
+/* line 412, ../../../app/assets/stylesheets/partials/_product.scss */
+#moments li.product .box_product a.product_link > span {
+  color: #343434;
+  font-size: 14px;
+  letter-spacing: -1px;
+  margin-right: 2px;
+  margin: 0 7px 0 0;
+  float: right;
+}
+/* line 425, ../../../app/assets/stylesheets/partials/_product.scss */
+#moments li.product.promotion .box_product a.product_link > span {
+  color: #ef3742;
+  text-align: right;
+  padding: 2px 0 0;
+  display: block;
+  clear: both;
+  border-top: 1px #eee solid;
+  float: none;
+}
+/* line 433, ../../../app/assets/stylesheets/partials/_product.scss */
+#moments li.product.promotion .box_product a.product_link > span.old {
+  color: #000;
+  font-size: 12px;
+  text-decoration: line-through;
+  padding: 0;
+  display: inline;
+  clear: none;
+  border: none;
+  float: right;
+}
+
+/* line 451, ../../../app/assets/stylesheets/partials/_product.scss */
+#suggestion li.product {
+  width: 175px;
+  height: 316px;
+}
+/* line 457, ../../../app/assets/stylesheets/partials/_product.scss */
+#suggestion li.product div.hover_suggestive ul li.spy a {
+  width: 170px;
+}
+/* line 465, ../../../app/assets/stylesheets/partials/_product.scss */
+#suggestion li.product .box_product a.product_link p.warn {
+  top: 2px;
+  left: -9px;
+}
+/* line 469, ../../../app/assets/stylesheets/partials/_product.scss */
+#suggestion li.product .box_product a.product_link img {
+  width: 170px;
+  height: 170px;
+}
+/* line 473, ../../../app/assets/stylesheets/partials/_product.scss */
+#suggestion li.product .box_product a.product_link h1 {
+  width: 170px;
+  height: 17px;
+}
+
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 3, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box {
+  padding: 0 0 0 70px;
+  width: 102px;
+  height: 140px;
+  float: right;
+  background: url(/dev-assets/common/nav/sprite_header.png) -164px -193px;
+  position: absolute;
+  right: 0px;
+  top: 40px;
+}
+/* line 4, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box img {
+  margin: 0 7px 20px 0;
+  float: left;
+}
+/* line 5, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box h3 {
+  color: #36569e;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 14px;
+  font-weight: lighter;
+}
+/* line 6, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box h3 span {
+  font-size: 17px;
+  font-weight: bold;
+}
+/* line 8, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box .like {
+  clear: both;
+  padding-top: -20px;
+  width: 100px;
+}
+/* line 9, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box .fb-button {
+  width: 100px;
+}
+
+/****** IE8 HACK *******/
+/* line 14, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+html.ie8 section#home li.iehack {
+  margin: 0 !important;
+}
+
+/* AJUSTE FACEBOOK IFRAME */
+/* line 18, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+.fb-button {
+  height: 20px !important;
+  overflow: hidden !important;
+  margin-top: -40px;
+}
+
+/* line 5, ../../../app/assets/stylesheets/section/gift.scss */
+header {
+  background: none;
+}
+
+/* line 9, ../../../app/assets/stylesheets/section/gift.scss */
+body #tracker + p {
+  display: none;
+}
+
+/* line 13, ../../../app/assets/stylesheets/section/gift.scss */
+div#banner {
+  margin: 0 auto;
+  width: 990px;
+}
+
+/* line 18, ../../../app/assets/stylesheets/section/gift.scss */
+section {
+  width: 970px;
+  margin: 0 auto;
+  background: url(/dev-assets/gift/border-sections.jpg) bottom repeat-x;
+}
+/* line 22, ../../../app/assets/stylesheets/section/gift.scss */
+section.bn {
+  background: none !important;
+}
+/* line 23, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles {
+  min-height: 2221px;
+}
+/* line 25, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content {
+  position: relative;
+  height: 725px;
+  width: 970px;
+  overflow: visible;
+}
+/* line 30, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content h2 {
+  margin-top: 25px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 23px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+/* line 36, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content h2 span {
+  color: #ef3742;
+}
+/* line 40, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content h2.select_model {
+  margin-top: 10px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 28px;
+  color: #231f20;
+  text-align: center;
+}
+/* line 46, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content h2.select_model span {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 18px;
+  display: block;
+  color: #231f20;
+}
+/* line 54, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content ul li a img.first_block:hover {
+  opacity: 0.65;
+  -moz-opacity: 0.65;
+  filter: alpha(opacity=65);
+}
+/* line 60, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content ul.gifts_price {
+  height: 945px;
+  width: 970px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+/* line 66, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content ul.gifts_price li {
+  margin-right: 59px;
+  width: 284px;
+  float: left;
+}
+/* line 70, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content ul.gifts_price li.last {
+  margin-right: 0 !important;
+}
+/* line 71, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content ul.gifts_price li.big {
+  margin-top: 30px;
+}
+/* line 72, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content ul.gifts_price li a {
+  text-decoration: none;
+  float: left;
+  text-align: center;
+}
+/* line 77, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content ul.gifts_price li a.price_box {
+  height: 445px !important;
+}
+/* line 78, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content ul.gifts_price li p.description {
+  margin-top: 5px;
+  font-size: 14px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  color: #231f20;
+}
+/* line 84, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content ul.gifts_price li p.title_price {
+  margin-top: 15px;
+  font-size: 28px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  color: #231f20;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 30px;
+}
+/* line 93, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content ul.gifts_price li p.title_price:hover {
+  color: #ef3742;
+}
+/* line 96, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content ul.gifts_price li p.title_price span {
+  font-weight: lighter;
+  font-family: Arial, "Trebuchet Ms", Times, "Times New Roman", serif, KeplerStdItalic;
+  display: block;
+  font-size: 26px;
+  text-transform: none;
+}
+/* line 103, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content ul.gifts_price li p.title_price span.sky {
+  display: inline;
+}
+/* line 109, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content ul.anchors {
+  margin-top: 65px;
+  height: 460px;
+  overflow: hidden;
+}
+/* line 113, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content ul.anchors p.title_box {
+  margin-top: 15px;
+  font-size: 26px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  color: #231f20;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 30px;
+}
+/* line 122, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content ul.anchors p.title_box:hover {
+  color: #ef3742;
+}
+/* line 127, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content div#help {
+  border: 1px solid #848484;
+  background-color: #fff;
+  position: absolute;
+  text-align: left;
+  width: 356px;
+  height: 88px;
+  padding: 0px 0 0 0;
+  margin-top: 10px;
+  display: block;
+  top: 0;
+  right: 0;
+}
+/* line 139, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content div#help.reminder {
+  height: 146px !important;
+  padding-top: 10px !important;
+}
+/* line 141, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content div#help.reminder p {
+  text-transform: uppercase;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir_medium;
+  font-size: 11px !important;
+  color: #000;
+}
+/* line 142, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content div#help.reminder p.name {
+  font-size: 15px !important;
+  width: 162px;
+  height: 31px;
+  line-height: 31px;
+  border: solid 1px #DEDEDE;
+  text-align: center;
+}
+/* line 144, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content div#help.reminder a.bt-recomendation {
+  display: block;
+  width: 170px;
+  height: 35px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+section#profiles div.content div#help.reminder a.bt-recomendation:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 145, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content div#help.reminder a.my-gifts {
+  font-size: 11px;
+  color: #DE4F7F;
+}
+/* line 147, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content div#help h2 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 14px;
+  margin-left: 14px;
+  margin-top: 10px;
+  text-transform: none;
+  font-weight: bold;
+  color: #231f20;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+/* line 158, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content div#help p {
+  font-size: 13px;
+  line-height: 15px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  color: #231f20;
+  margin-left: 15px;
+}
+/* line 164, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content div#help p + a {
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  font-size: 11px;
+  width: 85px;
+  height: 40px;
+  margin: 0 auto;
+  display: block;
+  float: right;
+  margin-top: -53px;
+  margin-right: 15px;
+  padding: 7px 10px 4px 12px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  text-decoration: none;
+  line-height: 18px;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+section#profiles div.content div#help p + a:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 183, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content div#help a.close {
+  position: absolute;
+  background: url(/dev-assets/gift/bt-close-help.png) no-repeat;
+  text-indent: -99999px;
+  width: 18px;
+  height: 18px;
+  display: block;
+  top: -10px;
+  right: -10px;
+  z-index: 1001;
+}
+/* line 194, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles div.content div#help.fixed {
+  position: fixed;
+  top: 55px;
+  z-index: 10;
+}
+/* line 201, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles ul.models {
+  width: 975px;
+  overflow: auto;
+  margin: 0 auto;
+  margin-top: 25px;
+}
+/* line 207, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles ul.models li.chic {
+  float: left;
+  margin-left: 25px;
+}
+/* line 208, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles ul.models li.chic a {
+  margin: 0 !important;
+}
+/* line 210, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles ul.models li.sexy {
+  float: left;
+  margin-left: -20px;
+}
+/* line 211, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles ul.models li a {
+  text-decoration: none;
+  text-align: center;
+  min-width: 220px;
+  min-height: 588px;
+  margin: 0 20px 0 0;
+  float: left;
+}
+/* line 218, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles ul.models li a p {
+  text-transform: capitalize;
+  display: block;
+  padding-top: 3px;
+  font-family: avenir, arial, sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #fff;
+  width: 75px !important;
+  height: 25px !important;
+  background-color: #000;
+  margin: 0 auto;
+  margin-bottom: 18px;
+}
+/* line 232, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles ul.models li a p.chic {
+  margin-left: 35px;
+}
+/* line 233, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles ul.models li a p.moderna {
+  margin-left: 83px;
+}
+/* line 234, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles ul.models li a p:hover {
+  color: #ef3742;
+}
+/* line 238, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles ul.models li a.selected {
+  background: url(/dev-assets/gift/bg-profile-selected.png) bottom center no-repeat;
+}
+/* line 241, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles ul.models li a.off {
+  opacity: 0.4;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+  filter: alpha(opacity=40);
+}
+/* line 248, ../../../app/assets/stylesheets/section/gift.scss */
+section#profiles ul.models li:last-child a {
+  margin: 0;
+}
+/* line 257, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile_products div.content > h2 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 20px;
+  color: #231f20;
+  text-align: center;
+  margin: 10px 0 10px;
+  letter-spacing: 1px;
+}
+/* line 264, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile_products div.content > h2 strong {
+  font-weight: 500;
+}
+/* line 268, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile_products div.content ul.products {
+  width: 100%;
+  margin: 0 0 15px;
+  overflow: auto;
+}
+/* line 272, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile_products div.content ul.products + a {
+  width: 284px;
+  height: 26px;
+  display: block;
+  margin: 0 auto;
+  text-transform: uppercase;
+  padding-top: 15px;
+  letter-spacing: 2px;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+section#profile_products div.content ul.products + a:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 282, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile_products div.content ul.products .plots {
+  font-size: inherit;
+  padding-top: 0;
+}
+/* line 287, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile_products div.content ul.products .line a.product_link {
+  margin-left: 0;
+  color: inherit;
+}
+/* line 292, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile_products div.content ul.products li.product {
+  padding: 0px;
+  margin-right: 20px;
+  border: 0px;
+  height: 316px !important;
+}
+/* line 297, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile_products div.content ul.products li.product div.hover_suggestive {
+  bottom: 91px;
+}
+/* line 299, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile_products div.content ul.products li.product div.hover_suggestive ul li a {
+  height: 36px;
+  padding-top: 1px;
+}
+/* line 303, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile_products div.content ul.products li.product div.hover_suggestive ul li a:hover span {
+  color: #000;
+}
+/* line 306, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile_products div.content ul.products li.product div.hover_suggestive ul li a span {
+  font-family: avenir, tahoma;
+  font-size: 10px;
+  font-weight: bold;
+  background: url(/dev-assets/moments/sprite.png) no-repeat -62px -176px;
+  width: 100px;
+  height: 40px;
+  padding-top: 7px;
+}
+/* line 320, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions {
+  padding: 30px 0 0;
+}
+/* line 322, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions div.content {
+  height: 401px;
+  overflow: visible;
+}
+/* line 325, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions div.content > h1 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 17px;
+  font-weight: lighter;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0 0 30px;
+}
+/* line 332, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions div.content > h1 strong {
+  font-weight: 500;
+}
+/* line 336, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions div.content ul {
+  width: 990px;
+  overflow: auto;
+}
+/* line 340, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions div.content ul li a {
+  text-align: center;
+  text-decoration: none;
+  min-height: 290px;
+  width: 330px;
+  float: left;
+}
+/* line 346, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions div.content ul li a h1 {
+  color: #101010;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 35px;
+  font-weight: lighter;
+  text-transform: uppercase;
+  margin: 0 0 5px;
+}
+/* line 354, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions div.content ul li a img {
+  margin: 0 0 5px;
+}
+/* line 357, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions div.content ul li a p {
+  color: #6d6e71;
+  font-family: Arial, "Trebuchet Ms", Times, "Times New Roman", serif, KeplerStdItalic;
+  font-size: 15px;
+  width: 205px;
+  margin: 0 auto;
+}
+/* line 364, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions div.content ul li a span {
+  background: url(/dev-assets/gift/bg-right-pink-arrow.png) top right no-repeat;
+  color: #101010;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  display: inline-block;
+  padding-right: 15px;
+}
+/* line 375, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions div.content ul li#helena a {
+  width: 329px;
+  border-right: 1px #e8e8e8 solid;
+}
+/* line 379, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions div.content ul li#helena p {
+  background: url(/dev-assets/gift/bg-phrase-helena.png) bottom center no-repeat;
+  line-height: 20px;
+  margin-bottom: 15px;
+  padding-bottom: 50px;
+}
+/* line 387, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions div.content ul li#bestsellers a {
+  width: 329px;
+  border-right: 1px #e8e8e8 solid;
+}
+/* line 391, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions div.content ul li#bestsellers img {
+  margin-bottom: 10px;
+}
+/* line 396, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions div.content ul li#face a {
+  width: 330px;
+}
+/* line 401, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions div.content ul li.no_border a {
+  border: none !important;
+}
+/* line 406, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions div.content ul li.selected a {
+  background: url(/dev-assets/gift/bg-suggestion-selected.jpg) bottom center no-repeat;
+  height: 350px;
+  border: none !important;
+}
+/* line 416, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions_products {
+  padding: 30px 0;
+}
+/* line 419, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions_products div.content p.loading {
+  background: url(/dev-assets/common/ajax-loader.gif) center center no-repeat;
+  height: 25px;
+}
+/* line 423, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions_products div.content ul.products {
+  width: 100%;
+  margin: 0 0 15px;
+  overflow: auto;
+}
+/* line 427, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions_products div.content ul.products li.product {
+  width: 170px;
+}
+/* line 429, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions_products div.content ul.products li.product a {
+  color: #101010;
+  text-decoration: none;
+}
+/* line 432, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions_products div.content ul.products li.product a img {
+  margin: 0 0 10px;
+}
+/* line 435, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions_products div.content ul.products li.product a p {
+  font-size: 30px;
+  margin: 5px 10px 0 0;
+  float: left;
+}
+/* line 440, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions_products div.content ul.products li.product a div.name_price {
+  text-align: center;
+  margin: 5px 0 0 0;
+  float: left;
+}
+/* line 444, ../../../app/assets/stylesheets/section/gift.scss */
+section#suggestions_products div.content ul.products li.product a div.name_price h1 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 18px;
+  line-height: 12px;
+  text-transform: uppercase;
+  width: 120px;
+  border-bottom: 1px #000 solid;
+}
+/* line 459, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content {
+  text-align: center;
+  padding: 35px 0 0;
+}
+/* line 462, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content h2 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 26px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+/* line 467, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content h2 span {
+  color: #ef3742;
+}
+/* line 471, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content p.quiz {
+  margin-top: 15px;
+  font-size: 14px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  color: #231f20;
+  text-align: center;
+  margin-bottom: 35px;
+}
+/* line 479, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content .name {
+  margin-left: 209px;
+}
+/* line 482, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content div.box {
+  width: 290px;
+  overflow: auto;
+  float: left;
+  height: 75px;
+}
+/* line 487, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content div.box label, section#quiz div.content div.box p {
+  color: #101010;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 15px;
+  margin: 0 0 10px;
+  display: block;
+  font-weight: 600;
+}
+/* line 494, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content div.box label em, section#quiz div.content div.box p em {
+  color: #807f7f;
+}
+/* line 499, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content div.box input[type="text"]:focus, section#quiz div.content div.box select:focus {
+  outline: none;
+}
+/* line 503, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content div.box input[type="text"] {
+  font-family: avenir, arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  text-align: center;
+  width: 226px;
+  padding: 4px 10px;
+  border: 1px #000 solid;
+  height: 24px;
+}
+/* line 513, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content div.box div.styled_select {
+  background: url(/dev-assets/gift/styled-select.jpg) no-repeat;
+  width: 237px;
+  height: 34px;
+  overflow: hidden;
+  display: block;
+  margin: 0 auto;
+}
+/* line 520, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content div.box div.styled_select select {
+  background: transparent;
+  font-size: 12px;
+  width: 230px;
+  height: 26px;
+  margin: 4px 0 0;
+  padding: 5px;
+  border: 1px #fff solid;
+  -webkit-appearance: none;
+}
+/* line 532, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content div.box ul li {
+  position: relative;
+  color: #7e7f82;
+  text-align: center;
+  margin: 0 7px 0 0;
+  float: left;
+  border: 1px #7e7f82 solid;
+}
+/* line 539, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content div.box ul li label {
+  font-size: 13px;
+  line-height: 34px;
+  width: 36px;
+  margin: 0;
+  cursor: pointer;
+}
+/* line 546, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content div.box ul li input[type="radio"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+}
+/* line 552, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content div.box ul li.selected {
+  background: #000;
+  border-color: #000;
+}
+/* line 555, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content div.box ul li.selected label {
+  color: #FFF;
+}
+/* line 559, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content div.box ul li:last-child {
+  margin: 0;
+}
+/* line 564, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content div.box.shoes {
+  width: 355px;
+  margin-bottom: 2px;
+  margin-left: 318px;
+  margin-top: 20px;
+}
+/* line 569, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content div.box.shoes + em {
+  color: #6d6e71;
+  font-size: 11px;
+  margin: 0 0 20px 318px;
+  float: left;
+  clear: both;
+}
+/* line 578, ../../../app/assets/stylesheets/section/gift.scss */
+section#quiz div.content input[type="submit"] {
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  width: 222px;
+  height: 58px;
+  margin: 0 auto;
+  display: block;
+  clear: both;
+  cursor: pointer;
+  border: none;
+  font-size: 15px;
+  letter-spacing: 2px;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+section#quiz div.content input[type="submit"]:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 593, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content {
+  position: relative;
+  padding: 55px 0 0;
+}
+/* line 596, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content > h1 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 35px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: lighter;
+}
+/* line 602, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content > h1 + p {
+  text-align: center;
+  margin: 0 0 30px;
+}
+/* line 605, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content > h1 + p + a.facebook {
+  background: url(/dev-assets/gift/bt-fb.jpg) no-repeat;
+  text-indent: -99999px;
+  width: 282px;
+  height: 38px;
+  margin: 0 auto;
+  display: block;
+}
+/* line 615, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div.opacity {
+  background: url(/dev-assets/gift/opacity.png) repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 990px;
+  height: 100%;
+  display: block;
+}
+/* line 624, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container {
+  position: relative;
+}
+/* line 626, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar {
+  width: 100%;
+  overflow: hidden;
+  padding: 0 0 80px 0;
+}
+/* line 630, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul#months {
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  margin: 0 0 20px 0;
+  padding: 0 0 20px 5px;
+  border-bottom: 1px #eaeaea solid;
+}
+/* line 637, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul#months li {
+  width: 80px;
+  margin: 0;
+  padding: 10px 0;
+  float: left;
+}
+/* line 642, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul#months li a {
+  color: #878686;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 15px;
+  font-weight: lighter;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 10px 5px;
+}
+/* line 651, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul#months li.first {
+  margin-left: 0;
+}
+/* line 654, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul#months li.last {
+  margin-right: 0;
+}
+/* line 660, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul.friends_list > li {
+  position: relative;
+  width: 50px;
+  overflow: visible;
+  margin: 0 5px 10px 0;
+  display: block;
+  float: left;
+}
+/* line 667, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul.friends_list > li a {
+  color: #6d6e71;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 12px;
+  text-align: center;
+  text-decoration: none;
+  float: left;
+}
+/* line 674, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul.friends_list > li a div.mask {
+  width: 50px;
+  height: 50px;
+  margin: 0 0 2px 0;
+  overflow: hidden;
+}
+/* line 679, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul.friends_list > li a div.mask img {
+  height: 60px;
+}
+/* line 683, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul.friends_list > li a p {
+  height: 18px;
+  overflow: hidden;
+}
+/* line 688, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul.friends_list > li div.actions {
+  position: absolute;
+  background: url(/dev-assets/gift/bg-actions-left.png) bottom center no-repeat;
+  width: 250px;
+  height: 123px;
+  overflow: visible;
+  top: 40px;
+  left: 0;
+  z-index: 1000;
+  display: none;
+}
+/* line 698, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul.friends_list > li div.actions div.triangle {
+  position: absolute;
+  background: url(/dev-assets/gift/triangle-pink.png) no-repeat;
+  width: 13px;
+  height: 13px;
+  display: block;
+  top: -3px;
+  left: -3px;
+}
+/* line 707, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul.friends_list > li div.actions h1 {
+  color: #101010;
+  font-family: Arial, "Trebuchet Ms", Times, "Times New Roman", serif, KeplerStdItalic;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  margin: 25px auto 7px;
+  width: 220px;
+}
+/* line 716, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul.friends_list > li div.actions p {
+  color: #6d6e71;
+  font-size: 13px;
+  line-height: normal;
+  text-align: center;
+  margin: 0 0 8px;
+}
+/* line 725, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul.friends_list > li div.actions ul li input[type="submit"] {
+  width: 169px;
+  height: 30px;
+  display: block;
+  margin: 0 auto;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  text-transform: uppercase;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+section#calendar div.content div#calendar_container div#calendar ul.friends_list > li div.actions ul li input[type="submit"]:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 738, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul.friends_list > li div.actions a.close_actions {
+  position: absolute;
+  color: #c1c1c1;
+  font-family: "Open Sans", sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  top: 10px;
+  right: 10px;
+}
+/* line 747, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul.friends_list > li div.actions.left {
+  background: url(/dev-assets/gift/bg-actions.png) bottom center no-repeat;
+  right: 0;
+  left: auto;
+}
+/* line 753, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar ul.friends_list > li:hover > div.actions {
+  display: block;
+}
+/* line 760, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container div#calendar.connected ul#months li {
+  height: 32px;
+}
+/* line 766, ../../../app/assets/stylesheets/section/gift.scss */
+section#calendar div.content div#calendar_container a#connect_facebook {
+  background: url(/dev-assets/gift/bt-facebook.jpg) no-repeat;
+  text-indent: -99999px;
+  width: 403px;
+  height: 43px;
+  display: block;
+  margin: 0 auto;
+  padding: 0 0 0 40px;
+}
+/* line 778, ../../../app/assets/stylesheets/section/gift.scss */
+section.sub {
+  padding: 30px 0;
+  display: none;
+}
+/* line 782, ../../../app/assets/stylesheets/section/gift.scss */
+section:last-child {
+  background: none;
+}
+
+/* line 787, ../../../app/assets/stylesheets/section/gift.scss */
+section#banner {
+  background: url(/dev-assets/gift/bg-header.jpg) top right no-repeat;
+  min-height: 515px;
+  margin-bottom: 20px;
+  overflow: auto;
+}
+/* line 792, ../../../app/assets/stylesheets/section/gift.scss */
+section#banner h1 {
+  color: #101010;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 44px;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 43px;
+  width: 405px;
+  margin: 20px 0 25px 0;
+}
+/* line 802, ../../../app/assets/stylesheets/section/gift.scss */
+section#banner p {
+  color: #101010;
+  font-family: Arial, "Trebuchet Ms", Times, "Times New Roman", serif, KeplerStdItalic;
+  font-size: 17px;
+  line-height: 21px;
+  text-align: center;
+  width: 405px;
+  margin: 0 0 20px 0;
+}
+/* line 811, ../../../app/assets/stylesheets/section/gift.scss */
+section#banner img {
+  margin: 0 0 10px 0;
+}
+/* line 814, ../../../app/assets/stylesheets/section/gift.scss */
+section#banner a {
+  text-indent: -99999px;
+  display: block;
+  clear: both;
+}
+/* line 818, ../../../app/assets/stylesheets/section/gift.scss */
+section#banner a#new_occasion_link {
+  width: 405px;
+  height: 38px;
+  margin: 0 0 10px 0;
+  letter-spacing: 2px;
+  font-size: 15px;
+  padding-top: 25px;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+section#banner a#new_occasion_link:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 827, ../../../app/assets/stylesheets/section/gift.scss */
+section#banner a.facebook {
+  background: url(/dev-assets/gift/bt-facebook.jpg) no-repeat;
+  width: 403px;
+  height: 43px;
+}
+/* line 831, ../../../app/assets/stylesheets/section/gift.scss */
+section#banner a.facebook.disabled {
+  opacity: .5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+}
+
+/* line 841, ../../../app/assets/stylesheets/section/gift.scss */
+section#occasion form {
+  margin: 35px auto;
+}
+/* line 843, ../../../app/assets/stylesheets/section/gift.scss */
+section#occasion form div {
+  font-size: 45px;
+}
+/* line 846, ../../../app/assets/stylesheets/section/gift.scss */
+section#occasion form div, section#occasion form input[type="text"], section#occasion form select.custom_select {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 45px;
+  font-weight: lighter;
+  letter-spacing: -2px;
+}
+/* line 852, ../../../app/assets/stylesheets/section/gift.scss */
+section#occasion form select.custom_select {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+/* line 856, ../../../app/assets/stylesheets/section/gift.scss */
+section#occasion form div.phrase_container {
+  color: #383838;
+  text-align: center;
+  width: 890px;
+  margin: 0 auto 20px auto;
+}
+/* line 861, ../../../app/assets/stylesheets/section/gift.scss */
+section#occasion form div.phrase_container p {
+  position: relative;
+  line-height: normal;
+  display: inline-block;
+}
+/* line 865, ../../../app/assets/stylesheets/section/gift.scss */
+section#occasion form div.phrase_container p input[type="text"] {
+  font-size: 28px;
+}
+/* line 868, ../../../app/assets/stylesheets/section/gift.scss */
+section#occasion form div.phrase_container p select.custom_select {
+  position: relative;
+  padding: 0 18px;
+  top: 0;
+  left: 0;
+}
+/* line 874, ../../../app/assets/stylesheets/section/gift.scss */
+section#occasion form div.phrase_container p span.select {
+  position: absolute;
+  background: #FFF;
+  color: #b8b6b6;
+  padding: 0 20px;
+  left: 0;
+  border: 1px #a4a4a4 dotted;
+  z-index: 0;
+  white-space: nowrap;
+}
+/* line 886, ../../../app/assets/stylesheets/section/gift.scss */
+section#occasion form input[type="text"] {
+  background: #FFF;
+  width: 280px;
+  color: #b8b6b6;
+  font-weight: lighter;
+  margin-bottom: 10px;
+  padding: 0 20px;
+  border: 1px #a4a4a4 dotted;
+}
+/* line 894, ../../../app/assets/stylesheets/section/gift.scss */
+section#occasion form input[type="text"]:focus {
+  outline: none;
+}
+/* line 898, ../../../app/assets/stylesheets/section/gift.scss */
+section#occasion form input[type="submit"] {
+  color: #FFF;
+  width: 169px;
+  height: 59px;
+  margin: 0 auto;
+  display: block;
+  border: none;
+  cursor: pointer;
+  clear: both;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+section#occasion form input[type="submit"]:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+
+/* line 912, ../../../app/assets/stylesheets/section/gift.scss */
+section#squiz {
+  padding: 10px 0 0;
+}
+/* line 914, ../../../app/assets/stylesheets/section/gift.scss */
+section#squiz #survey {
+  height: 460px !important;
+}
+/* line 916, ../../../app/assets/stylesheets/section/gift.scss */
+section#squiz #survey h2 {
+  margin: 20px 0 0 0;
+}
+/* line 920, ../../../app/assets/stylesheets/section/gift.scss */
+section#squiz #survey ol.questions h3 {
+  display: none;
+}
+/* line 928, ../../../app/assets/stylesheets/section/gift.scss */
+section#squiz #survey ul.questions li.images ol li div.shadow {
+  top: 13px;
+  left: 18px;
+}
+/* line 936, ../../../app/assets/stylesheets/section/gift.scss */
+section#squiz #survey .jcarousel-prev {
+  top: 205px;
+}
+/* line 941, ../../../app/assets/stylesheets/section/gift.scss */
+section#squiz ul#tracker {
+  width: 92px;
+  margin: 0 auto 30px;
+}
+
+/* line 947, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile {
+  padding: 20px 0 0;
+}
+/* line 949, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile h1.title_name {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 41px;
+  font-weight: lighter;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  margin: 25px 0 40px;
+}
+/* line 958, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile img.profile {
+  width: 930px;
+  height: 247px;
+  margin: 0 auto 20px;
+  display: block;
+}
+/* line 964, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile p.change_profile {
+  color: #101010;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 15px;
+  text-align: center;
+  margin: 0 0 0 100px;
+  float: left;
+}
+/* line 971, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile p.change_profile a {
+  color: #ef3742;
+  text-decoration: none;
+}
+/* line 974, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile p.change_profile a:hover {
+  text-decoration: underline;
+}
+/* line 979, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_gift_recipient {
+  width: 100%;
+  overflow: auto;
+  margin: 0 0 35px;
+}
+/* line 983, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_gift_recipient fieldset {
+  width: 392px;
+  padding: 20px;
+  float: left;
+  border: 1px #6d6e71 solid;
+}
+/* line 988, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_gift_recipient fieldset h1 {
+  color: 101010;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  margin: 0 0 10px;
+}
+/* line 996, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_gift_recipient fieldset ul.shoes {
+  width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  display: block;
+}
+/* line 1001, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_gift_recipient fieldset ul.shoes li {
+  color: #6d6e71;
+  line-height: 36px;
+  font-weight: 500;
+  margin: 0 7px 0 0;
+  display: inline-block;
+  border: 1px solid #6d6e71;
+  float: left;
+}
+/* line 1009, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_gift_recipient fieldset ul.shoes li label {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 13px;
+  text-align: center;
+  display: block;
+  width: 40px;
+  height: 35px;
+  cursor: pointer;
+}
+/* line 1017, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_gift_recipient fieldset ul.shoes li label input {
+  display: none;
+}
+/* line 1021, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_gift_recipient fieldset ul.shoes li.selected {
+  background: #000;
+  color: #FFF;
+  font-weight: 600;
+  border-color: #000;
+}
+/* line 1030, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_gift_recipient input[type="submit"] {
+  width: 348px;
+  height: 61px;
+  display: inline-block;
+  margin: 0 0 25px 70px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+section#profile form.edit_gift_recipient input[type="submit"]:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 1044, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles {
+  width: 100%;
+  padding: 10px 0 20px 0;
+  overflow: hidden;
+  display: none;
+}
+/* line 1049, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles h1 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 37px;
+  font-weight: lighter;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  line-height: 40px;
+  margin: 25px 0 40px;
+}
+/* line 1058, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles h1 span {
+  color: #ef3742;
+}
+/* line 1062, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul {
+  margin: 0 0 0 25px;
+}
+/* line 1064, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul li {
+  display: inline;
+}
+/* line 1066, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul li label {
+  position: relative;
+  background: url(/dev-assets/gift/options_profile.png) no-repeat;
+  width: 292px;
+  height: 350px;
+  margin: 0 10px 10px;
+  display: block;
+  float: left;
+  cursor: pointer;
+}
+/* line 1075, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul li label input[type="radio"] {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+}
+/* line 1083, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul li.basica label {
+  background-position: -2px 0px;
+}
+/* line 1087, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul li.basica:hover label {
+  background-position: -2px -350px;
+}
+/* line 1093, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul li.fashionista label {
+  background-position: -302px 0px;
+}
+/* line 1097, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul li.fashionista:hover label {
+  background-position: -302px -350px;
+}
+/* line 1103, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul li.elegante label {
+  background-position: -599px 0px;
+}
+/* line 1107, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul li.elegante:hover label {
+  background-position: -599px -350px;
+}
+/* line 1113, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul li.feminina label {
+  background-position: -896px 0px;
+}
+/* line 1117, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul li.feminina:hover label {
+  background-position: -896px -350px;
+}
+/* line 1123, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul li.sexy label {
+  background-position: -1193px 0px;
+}
+/* line 1127, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul li.sexy:hover label {
+  background-position: -1193px -350px;
+}
+/* line 1133, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul li.tradicional label {
+  background-position: -1490px 0px;
+}
+/* line 1137, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul li.tradicional:hover label {
+  background-position: -1490px -350px;
+}
+/* line 1143, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul li.trendy label {
+  background-position: -1787px 0px;
+}
+/* line 1147, ../../../app/assets/stylesheets/section/gift.scss */
+section#profile form.edit_profile div.profiles ul li.trendy:hover label {
+  background-position: -1787px -350px;
+}
+
+/* line 1159, ../../../app/assets/stylesheets/section/gift.scss */
+div.full_container div.shadow {
+  position: absolute;
+  background: url(/dev-assets/gift/shadow-signed-out.png) top center no-repeat;
+  width: 1124px;
+  height: 26px;
+  display: block;
+  margin-left: -562px;
+  top: 0;
+  left: 50%;
+}
+/* line 1170, ../../../app/assets/stylesheets/section/gift.scss */
+div.full_container div.full_bg {
+  background: url(/dev-assets/gift/bg.jpg) repeat;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* line 1179, ../../../app/assets/stylesheets/section/gift.scss */
+div#calendar_container div.title {
+  border-bottom: 1px #949494 solid;
+}
+/* line 1181, ../../../app/assets/stylesheets/section/gift.scss */
+div#calendar_container div.title h1 {
+  background: url(/dev-assets/gift/subtitle-calendar.jpg) 250px 0 no-repeat;
+  color: #101010;
+  font-family: "Open Sans", sans-serif;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -2px;
+  line-height: 50px;
+  text-transform: uppercase;
+  padding: 5px 0 0 0;
+}
+
+/* line 1195, ../../../app/assets/stylesheets/section/gift.scss */
+.gift_box_link {
+  margin-top: 20px;
+}
+
+/* line 1200, ../../../app/assets/stylesheets/section/gift.scss */
+.line b {
+  text-transform: uppercase;
+  color: #000;
+}
+/* line 1204, ../../../app/assets/stylesheets/section/gift.scss */
+.line .price {
+  color: #000;
+  font-size: 12px;
+}
+
+/* line 1211, ../../../app/assets/stylesheets/section/gift.scss */
+.warn,
+.sold_out {
+  display: none !important;
+}
+
+/* line 1212, ../../../app/assets/stylesheets/section/gift.scss */
+#anchor_profile {
+  width: 970px;
+  height: 2px;
+  margin: 0 auto;
+}

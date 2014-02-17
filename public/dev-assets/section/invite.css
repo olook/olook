@@ -1,0 +1,480 @@
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 3, ../../../app/assets/stylesheets/section/invite.scss */
+body .content {
+  width: 970px !important;
+}
+/* line 5, ../../../app/assets/stylesheets/section/invite.scss */
+body .content #user-info {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: visible;
+  z-index: 10;
+  margin-top: 10px;
+}
+/* line 12, ../../../app/assets/stylesheets/section/invite.scss */
+body .content #user-info ul {
+  width: 990px;
+  height: 265px;
+}
+/* line 13, ../../../app/assets/stylesheets/section/invite.scss */
+body .content #user-info ul.fixed {
+  position: fixed;
+}
+/* line 16, ../../../app/assets/stylesheets/section/invite.scss */
+body .content #user-info ul li a {
+  width: 485px;
+  height: 265px;
+  float: left;
+  display: inline-block;
+}
+/* line 17, ../../../app/assets/stylesheets/section/invite.scss */
+body .content #user-info ul li a.convide, body .content #user-info ul li a.convide_desativado {
+  background: url(/dev-assets/common/convide_ativado.jpg) no-repeat;
+  margin-right: 10px;
+}
+/* line 18, ../../../app/assets/stylesheets/section/invite.scss */
+body .content #user-info ul li a.convide_desativado {
+  background-position: -506px 1px !important;
+}
+/* line 19, ../../../app/assets/stylesheets/section/invite.scss */
+body .content #user-info ul li a.fidelidade, body .content #user-info ul li a.fidelidade_desativado {
+  background: url(/dev-assets/common/fidelidade_olook.jpg) no-repeat -507px 1px;
+}
+/* line 20, ../../../app/assets/stylesheets/section/invite.scss */
+body .content #user-info ul li a.fidelidade {
+  background-position: 0 0 !important;
+}
+/* line 27, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail, body .content section#invite-mail, body .content section#import-contacts, body .content section#post-to-wall {
+  background: url(/dev-assets/common/division.png) center bottom no-repeat;
+  width: 990px;
+  padding: 40px 0;
+  padding-top: 60px;
+  overflow: hidden;
+  position: relative;
+}
+/* line 34, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail h1, body .content section#invite-mail h1, body .content section#import-contacts h1, body .content section#post-to-wall h1 {
+  font-size: 23px;
+}
+/* line 35, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail h2, body .content section#invite-mail h2, body .content section#import-contacts h2, body .content section#post-to-wall h2 {
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 500;
+  margin-top: 8px;
+}
+/* line 40, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail hgroup, body .content section#invite-mail hgroup, body .content section#import-contacts hgroup, body .content section#post-to-wall hgroup {
+  background: url(/dev-assets/common/divisor-share.png) top right no-repeat;
+  width: 465px;
+  min-height: 90px;
+  display: block;
+  margin-right: 30px;
+  float: left;
+}
+/* line 49, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail form, body .content section#invite-mail form, body .content section#import-contacts form, body .content section#post-to-wall form {
+  float: left;
+  padding-top: 15px;
+}
+/* line 53, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail form input[type='text'], body .content section#share-mail form textarea, body .content section#invite-mail form input[type='text'], body .content section#invite-mail form textarea, body .content section#import-contacts form input[type='text'], body .content section#import-contacts form textarea, body .content section#post-to-wall form input[type='text'], body .content section#post-to-wall form textarea {
+  border: 1px solid #cdcdcd;
+  width: 335px;
+  height: 42px;
+  font-size: 18px;
+  letter-spacing: -1px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+}
+/* line 62, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail form textarea, body .content section#invite-mail form textarea, body .content section#import-contacts form textarea, body .content section#post-to-wall form textarea {
+  resize: none;
+  color: #3c3c3c;
+  font-size: 15px;
+}
+/* line 67, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail form .copy_link, body .content section#invite-mail form .copy_link, body .content section#import-contacts form .copy_link, body .content section#post-to-wall form .copy_link {
+  width: 115px;
+  height: 29px;
+  display: block;
+  position: absolute;
+  top: 75px;
+  right: 32px;
+  cursor: pointer;
+  text-align: center;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: bold;
+  padding-top: 16px;
+}
+/* line 36, ../../../app/assets/stylesheets/partials/_mixins.scss */
+body .content section#share-mail form .copy_link:hover, body .content section#invite-mail form .copy_link:hover, body .content section#import-contacts form .copy_link:hover, body .content section#post-to-wall form .copy_link:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 87, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail .buttons li, body .content section#invite-mail .buttons li, body .content section#import-contacts .buttons li, body .content section#post-to-wall .buttons li {
+  width: 285px;
+  margin: 34px auto 0 !important;
+}
+/* line 91, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail .buttons li input[type='image'], body .content section#invite-mail .buttons li input[type='image'], body .content section#import-contacts .buttons li input[type='image'], body .content section#post-to-wall .buttons li input[type='image'] {
+  margin-left: 15px;
+}
+/* line 97, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail .share, body .content section#invite-mail .share, body .content section#import-contacts .share, body .content section#post-to-wall .share {
+  margin-top: 15px;
+}
+/* line 100, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail .share li, body .content section#invite-mail .share li, body .content section#import-contacts .share li, body .content section#post-to-wall .share li {
+  font-size: 15px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  text-transform: lowercase;
+  float: left;
+  color: #000;
+  margin-left: 10px !important;
+}
+/* line 107, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail .share li .twitter-share-button, body .content section#invite-mail .share li .twitter-share-button, body .content section#import-contacts .share li .twitter-share-button, body .content section#post-to-wall .share li .twitter-share-button {
+  margin-bottom: -4px !important;
+  margin-left: 5px !important;
+}
+/* line 109, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail .share li:first-child, body .content section#invite-mail .share li:first-child, body .content section#import-contacts .share li:first-child, body .content section#post-to-wall .share li:first-child {
+  margin-left: 0;
+}
+/* line 112, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail .share li.share_msg, body .content section#invite-mail .share li.share_msg, body .content section#import-contacts .share li.share_msg, body .content section#post-to-wall .share li.share_msg {
+  margin-left: 55px !important;
+}
+/* line 115, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail .services, body .content section#invite-mail .services, body .content section#import-contacts .services, body .content section#post-to-wall .services {
+  float: left;
+  overflow: hidden;
+}
+/* line 119, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail .services li, body .content section#invite-mail .services li, body .content section#import-contacts .services li, body .content section#post-to-wall .services li {
+  float: left;
+  margin-top: 30px;
+  margin-left: 70px;
+}
+/* line 124, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail .services li a, body .content section#invite-mail .services li a, body .content section#import-contacts .services li a, body .content section#post-to-wall .services li a {
+  background: url(/dev-assets/common/mail-services-icons.png) no-repeat;
+  width: 119px;
+  height: 151px;
+  text-indent: -99999px;
+  display: block;
+}
+/* line 131, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail .services li a.gmail, body .content section#invite-mail .services li a.gmail, body .content section#import-contacts .services li a.gmail, body .content section#post-to-wall .services li a.gmail {
+  background-position: 0 0;
+}
+/* line 135, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail .services li a.yahoo, body .content section#invite-mail .services li a.yahoo, body .content section#import-contacts .services li a.yahoo, body .content section#post-to-wall .services li a.yahoo {
+  background-position: -143px 0;
+}
+/* line 141, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail div.box_copy, body .content section#invite-mail div.box_copy, body .content section#import-contacts div.box_copy, body .content section#post-to-wall div.box_copy {
+  position: absolute;
+  background: url(/dev-assets/common/copy.png) top center no-repeat;
+  width: 240px;
+  height: 60px;
+  padding: 10px 0 0 0;
+  display: none;
+  top: 10px;
+  left: 720px;
+}
+/* line 150, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail div.box_copy p, body .content section#invite-mail div.box_copy p, body .content section#import-contacts div.box_copy p, body .content section#post-to-wall div.box_copy p {
+  color: #000;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: left;
+  margin-left: 45px;
+}
+/* line 157, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#share-mail div.box_copy p span, body .content section#invite-mail div.box_copy p span, body .content section#import-contacts div.box_copy p span, body .content section#post-to-wall div.box_copy p span {
+  color: #000;
+  font-weight: bold;
+}
+/* line 165, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#post-to-wall a {
+  display: block;
+  float: left;
+  margin-top: 7px;
+}
+/* line 173, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#invite-mail form {
+  padding-top: 12px;
+}
+/* line 176, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#invite-mail form fieldset.buttons ol li {
+  margin: 15px 0 0;
+}
+/* line 178, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#invite-mail form fieldset.buttons ol li input {
+  display: block;
+  border: none;
+  width: 115px;
+  height: 46px;
+  position: absolute;
+  cursor: pointer;
+  text-align: center;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 5px;
+}
+/* line 36, ../../../app/assets/stylesheets/partials/_mixins.scss */
+body .content section#invite-mail form fieldset.buttons ol li input:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 196, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#invite-mail form fieldset.invite {
+  position: absolute;
+  top: 39px;
+  right: -140px;
+}
+/* line 199, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#credits {
+  margin-top: 30px;
+}
+/* line 201, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#credits h1 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  color: #ef3742;
+  font-size: 25px;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+/* line 202, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#credits ul {
+  margin-top: 25px;
+  height: 220px;
+}
+/* line 205, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#credits ul li {
+  width: 205px;
+  height: 220px;
+  float: left;
+  text-align: center;
+  color: #000;
+  margin-right: 120px;
+}
+/* line 206, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#credits ul li p {
+  padding-top: 155px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 13px;
+}
+/* line 207, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#credits ul li.first {
+  background: url(/dev-assets/common/earn_credits.jpg) no-repeat 50px 0px;
+  margin-left: 20px;
+}
+/* line 208, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#credits ul li.earn {
+  background: url(/dev-assets/common/earn_credits.jpg) no-repeat -265px 0px;
+}
+/* line 209, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#credits ul li.last {
+  background: url(/dev-assets/common/earn_credits.jpg) no-repeat -600px 0px;
+  margin-right: 0 !important;
+}
+/* line 214, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#import-contacts .import-dropdown {
+  background: #FFF;
+  width: 346px;
+  height: 160px;
+  border: 1px solid #DADADA;
+  overflow: hidden;
+  position: absolute;
+  right: 50px;
+  top: 40px;
+  padding: 15px 50px;
+}
+/* line 225, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#import-contacts .import-dropdown > span {
+  background: url(/dev-assets/common/mail-services-icons.png) no-repeat;
+  display: block;
+  width: 55px;
+  height: 60px;
+  position: absolute;
+  right: 57px;
+  top: 30px;
+  text-indent: -10000px;
+}
+/* line 235, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#import-contacts .import-dropdown > span.gmail {
+  background-position: -35px -40px;
+}
+/* line 239, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#import-contacts .import-dropdown > span.yahoo {
+  background-position: 5px 0;
+}
+/* line 244, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#import-contacts .import-dropdown .close {
+  display: block;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 14px;
+}
+/* line 255, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#import-contacts .import-dropdown form {
+  margin-top: 0;
+  padding-top: 0;
+  width: 210px;
+}
+/* line 263, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#import-contacts .import-dropdown form fieldset.inputs ol li {
+  margin-bottom: 8px;
+  display: block;
+}
+/* line 268, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#import-contacts .import-dropdown form fieldset.inputs ol li input[type='text'], body .content section#import-contacts .import-dropdown form fieldset.inputs ol li input[type='password'] {
+  background: url(/dev-assets/common/background-inputs.png) repeat-x;
+  width: 93%;
+  padding: 6px 8px;
+  border: 1px solid #BBB;
+}
+/* line 276, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#import-contacts .import-dropdown form fieldset.inputs ol li + li + li + li {
+  padding: 10px 0;
+}
+/* line 280, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#import-contacts .import-dropdown form fieldset.inputs ol .hint {
+  font-size: 12px;
+  display: block;
+  padding: 18px 0;
+}
+/* line 288, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#import-contacts .import-dropdown form fieldset.buttons {
+  position: absolute;
+  display: block;
+  top: 112px;
+  right: 40px;
+  width: 115px;
+}
+/* line 296, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#import-contacts .import-dropdown form fieldset.buttons ol li {
+  width: 114px;
+}
+/* line 299, ../../../app/assets/stylesheets/section/invite.scss */
+body .content section#import-contacts .import-dropdown form fieldset.buttons ol li input[type='submit'] {
+  width: 110px;
+  padding: 10px 15px;
+  font-size: 14px;
+  letter-spacing: 0px;
+}
+/* line 315, ../../../app/assets/stylesheets/section/invite.scss */
+body .full-banner {
+  background: #000;
+  width: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 115px;
+  left: 0;
+  z-index: 99;
+}
+/* line 324, ../../../app/assets/stylesheets/section/invite.scss */
+body .full-banner .close {
+  position: absolute;
+  right: 10%;
+  top: 20px;
+}
+/* line 330, ../../../app/assets/stylesheets/section/invite.scss */
+body .full-banner .content {
+  border: 1px solid #1C1C1C;
+  width: 651px;
+  margin: 15px auto;
+  padding: 10px 30px;
+}
+/* line 336, ../../../app/assets/stylesheets/section/invite.scss */
+body .full-banner .content ul {
+  background: #1C1C1C;
+  width: 542px;
+  display: block;
+  margin: 20px auto 5px;
+  padding: 10px;
+  overflow: hidden;
+}
+/* line 344, ../../../app/assets/stylesheets/section/invite.scss */
+body .full-banner .content ul li {
+  float: left;
+  width: 140px;
+  position: relative;
+  margin: 0 20px;
+}
+/* line 350, ../../../app/assets/stylesheets/section/invite.scss */
+body .full-banner .content ul li:before {
+  content: "+";
+  display: block;
+  position: absolute;
+  top: 30px;
+  left: -28px;
+}
+/* line 358, ../../../app/assets/stylesheets/section/invite.scss */
+body .full-banner .content ul li:first-child {
+  padding-top: 20px;
+}
+/* line 361, ../../../app/assets/stylesheets/section/invite.scss */
+body .full-banner .content ul li:first-child + li + li {
+  padding-top: 10px;
+}
+/* line 365, ../../../app/assets/stylesheets/section/invite.scss */
+body .full-banner .content ul li:first-child:before {
+  content: "";
+}
+/* line 371, ../../../app/assets/stylesheets/section/invite.scss */
+body .full-banner .content ul + a {
+  display: block;
+  width: auto;
+}
