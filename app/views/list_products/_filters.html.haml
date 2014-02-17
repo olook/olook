@@ -25,10 +25,10 @@
     - else
       %li= link_to "Moda Praia", @url_builder.replace_filter(:category, "moda praia"), class: 'title_section close'
 
-    - if search.filter_value('category').to_a.include?('plus-size')
-      = render 'list_products/selected_filter', search: search, url_builder: @url_builder, category_name: "Plus Size"
+    - if search.filter_value('category').to_a.include?('curves')
+      = render 'list_products/selected_filter', search: search, url_builder: @url_builder, category_name: "Curves"
     - else
-      %li= link_to "Plus Size", @url_builder.replace_filter(:category, "plus-size"), class: 'title_section close'
+      %li= link_to "Olook Curves", @url_builder.replace_filter(:category, "curves"), class: 'title_section close'
 
 - if search.filter_value('category').to_a.include?('sapato')
   .filter

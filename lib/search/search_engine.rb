@@ -128,6 +128,7 @@ class SearchEngine
         parameters[key.to_sym] = []
       end
     end
+    parameters.merge!({q: @query}) if @query
     parameters
   end
 
@@ -204,7 +205,7 @@ class SearchEngine
 
   def build_filters_url(options={})
     bq = build_boolean_expression(options)
-    bq += "facet=#{@facets.join(',')}&facet-brand_facet-top-n=50" if @facets.any?
+    bq += "facet=#{@facets.join(',')}&facet-brand_facet-top-n=100" if @facets.any?
     q = @query ? "q=#{@query}&" : ""
     "http://#{BASE_URL}?#{q}#{bq}"
   end
