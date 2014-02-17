@@ -11,7 +11,9 @@
         %th ID do produto:
       - @process_info[:product_ids].each_with_index do |id,index|
         %tr{:style => "padding: 9px 8px 0px 8px;background:#{index.even? ? "#CCC" : "#FFF"};"}
-          %td{:style => "vertical-align:middle;height: 30px;"}= link_to id, admin_product_url(id)
+          %td{:style => "vertical-align:middle;height: 30px;"}
+            = link_to "#{id} (admin)", admin_product_url(id)
+            = link_to 'site', product_seo_url(id)
     %h2
       Erros no processamento
     %table{:style => "font-family:'Lucida Sans Unicode','Lucida Grande',Sans-Serif;font-size: 12px;background: #fff;margin: 45px;width: 480px;border-collapse: collapse;text-align: center;border: 1px solid;"}
