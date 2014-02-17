@@ -504,16 +504,23 @@ header#new_header{border-top: 2px black solid;
     letter-spacing: 1px;
     font-weight: lighter;
     line-height:25px;
-    b{font-size:21px;
-      font-family: $avenir_medium;
+
+    b{font-size:18px;
+      font-family: verdana;
+      color:#000;
+      font-weight: normal;
     }
-    span{font-weight: bold;
+    span{
       color: $base_color;
     }
     &.title-founded{font-size:21px;
       color:#58595B;
       display:inline-block;
       margin-bottom:30px;
+      font-family: Verdana;
+      color: #000;
+      letter-spacing: 0px;
+      font-size: 18px;
       span{font-weight:normal;
       }
     }
@@ -523,25 +530,22 @@ header#new_header{border-top: 2px black solid;
     font-size:12px;
     font-weight:bold;
   }
-  .hints{font-size: 15px;
-    font-family: $avenir;
-    color: #58595b;
-    text-transform: uppercase;
-    font-weight: 600;
+  .hints{font-size: 14px;
+    font-family: verdana;
+    color: #000;
+    font-weight: normal;
     margin-top: 20px;
   }
   ul{width: 100%;
     overflow: auto;
     &.hint-list{margin-top: 15px;
-      li{padding-left:25px;
+      li{
         height:22px;
         display:block;
-        font-size:15px;
-        font-family:$avenir;
-        color:#767779;
-        letter-spacing:1px;
+        font-size:14px;
+        font-family:verdana;
+        color:#000;
         font-weight:lighter;
-        background: image-url('search/number_icon.jpg') no-repeat;
         &.hint_one{background-position: 0 0;
         }
         &.hint_two{background-position: 0 -22px;
@@ -553,8 +557,7 @@ header#new_header{border-top: 2px black solid;
       }
     }
     &.subcategory-list{color:#000;
-      margin-bottom:30px;
-      li{margin-top:4px;
+      li{
         &:hover{color:$base_color;
         }
         a{color:#000;
@@ -567,34 +570,155 @@ header#new_header{border-top: 2px black solid;
     }
     &.search-results-list{
       li{display:inline-block;
-        width:200px;
-        margin:0 50px 25px 0;
+        width:170px;
+        border:1px solid #e1e1e1;
+        padding:6px;
+        position: relative;
+        height:325px;
+        float:left;
+        margin:0 5px 10px 5px;
         a{color:#000;
           text-decoration:none;
-          font-size:13px !important;
+          font-size:11px !important;
+          font-family: Verdana;
           .name{color:#000;
-            font-size:13px !important;
+            font-size:11px !important;
             height:18px;
             overflow:hidden;
           }
+          .brand {
+            text-transform: uppercase;
+          }
+          .price {
+            font-family: "Trebuchet Ms";
+          }
           b{text-transform:uppercase;
           }
-          img{border-bottom:solid 1px #B9BABE;
-            margin-bottom:5px;
-            width:200px;
-            height:auto;
+          img{
+            width:100%;
           }
           .old {text-decoration:line-through;
           }
           .txt-pink{color: $base_color;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: bold;
+            letter-spacing: -1px;
           }
-        }  
+        } 
+        div.async {
+          position: relative;
+          height:256px;
+          img {
+            width:100%;
+            position: absolute;
+            bottom:0px;
+          }
+        }
+      }
+    }
+  }
+  #filters {
+    .filter{
+      margin-bottom:15px;
+      clear: both;
+      overflow:hidden;
+    }
+    ul.cores{
+      width:145px;
+      max-height:200px;
+      overflow-y:auto;
+      border:solid 1px #CCC;
+      padding-left:5px;
+
+      li span{
+        display:inline-block;
+        height:15px;
+        padding-left:19px;
+        background: image-url("common/thumbs_cor.png") no-repeat 0 1px;
+
+        &.txt-amarelo{background-position: 0 -302px; }
+        &.txt-azul{background-position: 0 -382px; }
+        &.txt-bege{background-position: 0 -239px; }
+        &.txt-branco{background-position: 0 -416px; }
+        &.txt-cinza{background-position: 0 -270px; }
+        &.txt-cobra{background-position: 0 -93px; }
+        &.txt-cobre{background-position: 0 2px; }
+        &.txt-dourado{background-position: 0 -13px; }
+        &.txt-floral{background-position: 0 -77px; }
+        &.txt-laranja{background-position: 0 -318px; }
+        &.txt-listras{background-position: 0 -109px; }
+        &.txt-marrom{background-position: 0 -254px; }
+        &.txt-multicolorido{background-position: 0 -125px; }
+        &.txt-nude{background-position: 0 -222px; }
+        &.txt-off-white{background-position: 0 -432px; }
+        &.txt-onix{background-position: 0 -29px; }
+        &.txt-onca{background-position: 0 -141px; }
+        &.txt-poas{background-position: 0 -157px; }
+        &.txt-prateado{background-position: 0 -45px; }
+        &.txt-preto{background-position: 0 -286px; }
+        &.txt-rosa{background-position: 0 -350px; }
+        &.txt-rose{background-position: 0 -61px; }
+        &.txt-roxo{background-position: 0 -366px; }
+        &.txt-vaca{background-position: 0 -173px; }
+        &.txt-verde{background-position: 0 -398px; }
+        &.txt-vermelho{background-position: 0 -334px; }
+        &.txt-xadrez{background-position: 0 -189px; }
+        &.txt-zebra{background-position: 0 -205px; }
+      }
+    }
+
+    p{
+      font-size:12px;
+      text-transform:uppercase;
+      font-weight:bold;
+      height:15px;
+      background:image-url('catalog/sprite.png') no-repeat 0 6px;
+      padding-left:13px;
+      margin-bottom:5px;
+      cursor:pointer;
+      &.close{ background-position:0 -25px !important; }
+    }
+    a{
+      display:inline-block;
+      height:15px;
+      font-size:11px;
+      text-decoration:none;
+      color:#000;
+      background:image-url('catalog/sprite.png') no-repeat 0 -50px;
+      padding-left:13px;
+      font-family: $verdana;
+
+      &:hover{ color:$base_color; }
+      &.selected{ background-position:0 -86px !important;}
+      &.clean{background: image-url('collections/sprite.png') -269px -116px no-repeat !important;}
+    }
+    .clean_filter a{
+      font-size:11px;
+      text-decoration:underline;
+      background:none;
+      padding-left:0;
+    }
+    .invite_friends {
+      a {
+        background: none;
+        padding: 0;
+        height:100%;
+        margin-bottom: 20px;
+      }
+    }
+    .promo_brands {
+      a {
+        background: none;
+        padding: 0;
+        height:100%;
+        margin-bottom: 20px;
       }
     }
   }
 }
+
+
+
 .show_more{
   clear: both;
   height: 100px;

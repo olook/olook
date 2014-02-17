@@ -37,7 +37,8 @@ class MktXmlBuilder
   def self.create_xml(templates)
     xmls = {}
     @products = load_products
-    @products_for_mercadolivre = Product.where({id: [3220,4380,11533,14086,17822,18751,18753,19571,19573,19575,19577,19992,20006,20044,20074,20076,20088,20122,20144,20600,20606,20899,20901,21359,21391,21395,21403,21407,21419,21421,22350,22352,22597,22601,22617,22623,22625,22627,22629,22883,22887,22889,22891,22893,22895,22897,22899,22901,22903,22913,22915,22917,22919,9037]})
+    ids = Setting.mercadolivre_product_ids.split(',')
+    @products_for_mercadolivre = Product.where({id: ids})
 
     templates.each do |template_name|
       xmls[template_name] = generate_for(template_name)
