@@ -13,8 +13,8 @@ class PictureProcess
     self.new(options).perform
   end
 
-  def self.is_pending?(*args)
-    is_working?(*args) || is_in_queue?(*args)
+  def self.is_pending?(hashopt={})
+    is_working?(hashopt) || is_in_queue?(hashopt)
   end
 
   def initialize(options={})
@@ -83,19 +83,20 @@ class PictureProcess
     @@directory ||= @@connection.directories.get(DIRECTORY)
   end
 
-  def self.is_in_queue?(*args)
-    key = Resque.encode(class: self.to_s, args: args)
+  def self.is_in_queue?(hashopt={})
+    key = hashopt['key'] || hashopt[:key]
     queue = "queue:#{@queue}"
     jobs = Resque.redis.lrange(queue, 0, -1)
     jobs.any? do |job|
-      job == key
+      j = Resque.decode(job)
+      j['args'][0]['key'] == key
     end
   end
 
-  def self.is_working?(*args)
-    key = Resque.decode(Resque.encode( class: self.to_s, args: args ))
+  def self.is_working?(hashopt={})
+    key = hashopt['key'] || hashopt[:key]
     Resque.working.any? do |worker|
-      worker.job['payload'] == key
+      worker.job['payload']['args'][0]['key'] == key
     end
   end
 end
