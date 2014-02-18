@@ -47,6 +47,7 @@ class PictureProcess
     create_product_picures products_hash
     sleep 30 while self.has_pending_product_jobs?
     check_failed_jobs
+    logger.debug("Email será enviado agora")
     Admin::PictureProcessMailer.notify_picture_process(user_email, return_hash).deliver
   end
 
