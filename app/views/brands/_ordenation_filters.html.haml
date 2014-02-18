@@ -1,19 +1,22 @@
 #filters_container
-  - params[:category] = filters_by('category', search, use_fields: [:brand])[0][0] if filters_by('category', search, use_fields: [:brand]).size == 1
+  - category = params[:category]
+  - category = filters_by('category', search, use_fields: [:brand])[0][0] if filters_by('category', search, use_fields: [:brand]).size == 1
+  - category = 'roupa' if category == 'curves'
   .filter
     = form_tag brand_path(parameters: params[:parameters]), method: 'get' do
 
       %fieldset.first_child
-        %span.selected-type{ class: ("filter_selected" if params[:category].present?) }= params[:category].present? ? params[:category].pluralize : "VER TUDO"
+        %span.selected-type{ class: ("filter_selected" if category.present?) }= category.present? ? category.pluralize : "VER TUDO"
         %select{ :onchange => ("window.location = $(this.options[this.selectedIndex]).data('href');")}
           %option{ 'data-href' => brand_path(params[:brand]) } VER TUDO
           - filters_by('category', search, use_fields: [:brand]).each do |text, amount|
-            %option{'data-href' => brand_path(params[:brand], parameters: text.chomp), selected: params[:category].to_s == text}= text.chomp.titleize.pluralize
+            - description = text == 'curves' ? 'roupa' : text           
+            %option{'data-href' => brand_path(params[:brand], parameters: text.chomp), selected: category.to_s == text}= description.chomp.titleize.pluralize
 
       %fieldset
         %span.selected-type.order{ class: ("filter_selected" if params[:por].present?) }= params[:por].present? ? params[:por].gsub("-", " ").titleize : "NOSSA SELEÇÃO"
         = select_tag('por', options_for_select({"Nossa Seleção" => 0, "Menor Preço" => "menor-preco", "Maior Preço" => "maior-preco", "Maior Desconto" => "maior-desconto"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
-  - if params[:category].present?
+  - if category.present?
 
     .filter
       %span.selected-type.txt-filter{ class: ("filter_selected" if params[:subcategory].present?) } MODELO
@@ -29,7 +32,7 @@
         %span.selected-type.txt-filter{ class: ("filter_selected" if params[:size].present?) } TAMANHO
         .tab_bg &nbsp;
         %ul
-          -size_list(params[:category],search, params[:category][0].downcase,[:brand,:category]).each do |text, amount|
+          -size_list(category,search, category[0].downcase,[:brand,:category]).each do |text, amount|
             %li= filter_link_to(brand_path(params[:brand], @url_builder.add_filter(:size, text)), format_size(text.chomp), search.filter_selected?(:size, text.chomp))
           - if params[:size].present?
             %li.clear_choice= link_to '[limpar]', brand_path(params[:brand], @url_builder.remove_filter_of(:size))

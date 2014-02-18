@@ -6,11 +6,12 @@ class Category < EnumerateIt::Base
     :accessory  => 3,
     :cloth      => 4,
     :lingerie   => 5,
-    :beachwear  => 6
+    :beachwear  => 6,
+    :curves   => 7
   )
 
   def self.list_of_all_categories
-    [Category::SHOE,Category::BAG,Category::ACCESSORY,Category::CLOTH, Category::LINGERIE, Category::BEACHWEAR]
+    [Category::SHOE,Category::BAG,Category::ACCESSORY,Category::CLOTH, Category::LINGERIE, Category::BEACHWEAR, Category::CURVES]
   end
 
   def self.with_name name

@@ -45,7 +45,7 @@
 
         <div class"group">
           <%= label_tag :cat, "Categoria", class: 'label' %>
-          <%= select_tag :cat, options_for_select(@categories, params[:cat]), {include_blank: true} %>
+          <%= select_tag :cat, options_for_select(Category.to_a, params[:cat]), {include_blank: true} %>
         </div>
 
         <div class"group">
