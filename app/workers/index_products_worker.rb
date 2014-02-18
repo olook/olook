@@ -7,18 +7,26 @@ class IndexProductsWorker
   @queue = :search
 
   def self.perform
+    d0 = Time.now.to_i
     worker = self.new(Product.all)
     worker.add_products
     worker.remove_products
+    d1 = Time.now.to_i
+    
+    puts "Total time = #{d1-d0}"
 
     mail = DevAlertMailer.notify_about_products_index
     mail.deliver
   end
 
   def add_products
-    add_products = products_to_index(products).map { |product| create_sdf_entry_for(product, 'add') }.compact
-    flush_to_sdf_file "/tmp/base-add.sdf", add_products
-    upload_sdf_file "/tmp/base-add.sdf"
+    threads = []
+    products.each_slice(1000).with_index do |slice, index|
+      threads << Thread.new do 
+        run slice, index
+      end
+    end
+    threads.each {|t| t.join}
   end
 
   def remove_products
@@ -27,6 +35,20 @@ class IndexProductsWorker
     upload_sdf_file "/tmp/base-remove.sdf"
   end
 
+  def run slice, index
+    begin
+      entries = products_to_index(slice).map { |product| create_sdf_entry_for(product, 'add') }.compact
+      file_name = "/tmp/base-add#{'%03d' % index}.sdf"
+      flush_to_sdf_file file_name, entries
+      upload_sdf_file file_name
+    rescue => e
+      opts = {
+        body: "Falha ao gerar o arquivo para indexacao: #{index}-add",
+        to: "tech@olook.com.br",
+        subject: "Falha ao rodar a indexacao de produtos"}
+      DevAlertMailer.notify(opts).deliver
+    end    
+  end
 
   private
 
@@ -68,7 +90,7 @@ class IndexProductsWorker
         fields['discount'] = (fields['retail_price'].to_i * 100) / fields['price'].to_i
         fields['in_promotion'] = product.liquidation? ? 1 : 0 
         fields['visibility'] = product.visibility
-        fields['category'] = product.category_humanize.downcase
+        fields['category'] = product.category_humanize.downcase.gsub(" ", "-")
         fields['size'] = product.variants.select{|v| v.inventory > 0}.map{|b| (b.description.to_i.to_s != "0" ) ? b.description+product.category_humanize[0].downcase : b.description}
         fields['care'] = product.subcategory.titleize if Product::CARE_PRODUCTS.include?(product.subcategory)
         fields['collection'] = product.collection.start_date.strftime('%Y%m').to_i

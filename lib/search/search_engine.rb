@@ -47,7 +47,6 @@ class SearchEngine
       next if k.blank?
       self.send("#{k}=", v)
     end
-
     validate_sort_field
   end
 
@@ -93,13 +92,15 @@ class SearchEngine
   end
 
 
-  def category= cat
-    if cat == "roupa" && !@skip_beachwear_on_clothes
+  def category= _category
+    if _category == "roupa" && !@skip_beachwear_on_clothes
       @expressions["category"] = ["roupa","moda praia", "lingerie"]
-    elsif cat.is_a? Array
-      @expressions["category"] = cat
+    elsif _category.is_a?(Array) 
+      @expressions["category"] = _category
+    elsif _category == 'plus-size'
+      @expressions["category"] = [_category]
     else
-      @expressions["category"] = cat.to_s.split(MULTISELECTION_SEPARATOR)
+      @expressions["category"] = _category.to_s.split(MULTISELECTION_SEPARATOR)
     end
   end
 
@@ -204,7 +205,7 @@ class SearchEngine
 
   def build_filters_url(options={})
     bq = build_boolean_expression(options)
-    bq += "facet=#{@facets.join(',')}&" if @facets.any?
+    bq += "facet=#{@facets.join(',')}&facet-brand_facet-top-n=100" if @facets.any?
     q = @query ? "q=#{@query}&" : ""
     "http://#{BASE_URL}?#{q}#{bq}"
   end

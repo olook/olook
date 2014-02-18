@@ -68,7 +68,9 @@ class SeoUrl
     parsed_values[:collection_theme] = @params[:collection_theme]
     parsed_values[:brand] = @params[:brand] || extract_brand
     parsed_values[:excluded_brand] = @params[:excluded_brand] if @params[:excluded_brand]
-    parsed_values[:category] = @params[:category] || ((@params[:parameters].to_s.split('/').first.to_s.split(MULTISELECTION_SEPARATOR) & categories).join(MULTISELECTION_SEPARATOR))
+
+    matched_categories = categories.uniq.select {|category| @params[:parameters] =~ /#{category}/}
+    parsed_values[:category] = @params[:category] || matched_categories.join(MULTISELECTION_SEPARATOR)
     parsed_values[:subcategory] = extract_subcategories
     parsed_values[:visibility] = @params[:visibility]
 
