@@ -52,7 +52,7 @@ class PictureProcess
     end
     check_failed_jobs
     logger.debug("Email será enviado agora")
-    Admin::PictureProcessMailer.notify_picture_process(user_email, return_hash).deliver
+    Admin::PictureProcessMailer.notify_picture_process(user_email, {'key' => @key}.merge(return_hash)).deliver
   end
 
   private
