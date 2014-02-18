@@ -1,0 +1,14 @@
+%h2 Diretórios para processar múltiplas imagens
+%table.table
+  - if params[:prefix].present?
+    %tr
+      %td= link_to('..', admin_pictures_process_path(prefix: params[:prefix].to_s.split('/')[0..-2].join('/')))
+      %td
+  - @keys.each do |key|
+    %tr
+      %td= link_to(key.respond_to?(:key) ? key.key : key, admin_pictures_process_path(prefix: key))
+      - if PictureProcess.is_pending?(key: key)
+        %td Em andamento
+      - else
+        %td=button_to "Processar", admin_pictures_process_path(key: key), method: :post
+
