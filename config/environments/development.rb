@@ -19,7 +19,7 @@ Olook::Application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   # Don't send real emails in development env
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :test
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
