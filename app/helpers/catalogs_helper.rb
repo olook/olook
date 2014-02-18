@@ -12,8 +12,14 @@ module CatalogsHelper
     "Regulável" => "tamanho_regulavel"
   }
   UPCASE_BRANDS = ["TVZ"]
-  HIGHLIGHT_BRANDS = {"olook" => 1, "olook concept" => 2, "olook essential" => 3, "olook plus" => 4}
+  HIGHLIGHT_BRANDS = {"olook" => 1, "olook concept" => 2, "olook essential" => 3, "olook curves" => 4}
   DOWNCASE_WORDS = Set.new( %w{ e de do da a o } )
+
+  def clean_filter_link_to(link)
+    link += params[:q].blank? ? "" : "?q=#{params[:q]}"
+
+    link_to('Limpar Filtro', link, class: 'clean')
+  end
 
   def filter_link_to(link, text, selected=false, amount=nil)
     span_class = text.downcase.parameterize

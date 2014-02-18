@@ -15,7 +15,6 @@ Sapato:
 - Ankle Boot
 - Mocassim
 - Sneaker
-- Bolsa Média
 - Alpargata
 - Tênis
 - Creeper
@@ -27,6 +26,7 @@ Sapato:
 - slipper
 - Chinelo
 Acessório:
+- Lenço
 - Pulseira
 - Colar
 - Brinco
@@ -67,17 +67,6 @@ Bolsa:
 - Bolsa grande
 - Bolsa pequena
 Roupa:
-- Bolsa Média
-- Echarpe
-- Acessório
-- Lenço
-- Colar
-- Pulseira
-- Bracelete
-- Gargantilha
-- Brinco
-- Óculos de Sol
-- Clutch
 - Tricot
 - Camisa
 - Calça
@@ -96,7 +85,6 @@ Roupa:
 - Top Cropped
 - Casaco
 - Jaqueta
-- Sutiã
 - camisa
 - camiseta
 Lingerie:
@@ -110,5 +98,7 @@ Moda Praia:
 - Blusa Moda Praia
 - Calça Moda Praia
 - Macacão Moda Praia
-Plus Size:
+Curves:
 - blusa
+- camisa
+- shorts
