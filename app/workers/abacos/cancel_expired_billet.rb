@@ -4,12 +4,11 @@ module Abacos
     @queue = :cancel_old_billets
 
     def self.perform
-      Billet.to_expire.each do |billet|
-        if (billet.order)
-          Abacos::CancelOrder.perform billet.order.number
-        end
+      billets = Billet.to_expire
+      billets.each do |billet|
+        Abacos::CancelOrder.perform billet.order.number if billet.order
       end
-      mail = DevAlertMailer.notify_about_cancelled_billets
+      mail = DevAlertMailer.notify_about_cancelled_billets billets
       mail.deliver
     end
   end
