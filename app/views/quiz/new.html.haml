@@ -33,7 +33,7 @@
                   = image_tag answer.image
         .last_step
           %fieldset
-            = label_tag "quiz[user_data][shoes_size]", "Qual o tamanho do seu pezinho?"
+            = label_tag "quiz[user_data][shoes_size]", "Que número você calça?"
             %ol.options
               - (33..40).each do |size|
                 %li.check-input{ onclick: "_gaq.push(['_trackEvent', 'QuizQuestions', 'Qual tamanho do seu pezinho?', '#{ size }']);"}
@@ -59,7 +59,7 @@
           %fieldset
             = label_tag "quiz[user_data][pants_size]", "E o tamanho da sua calça jeans?"
             %ol.options
-              - ["34", "36", "38", "40", "42", "44", "Plus Size"].each do |size|
+              - ["34", "36", "38", "40", "42", "44", "46", "48", "50", "52"].each do |size|
                 %li{class:"check-input#{size == 'Plus Size' ? ' plus' : ''}", onclick: "_gaq.push(['_trackEvent', 'QuizQuestions', 'E o tamanho da sua calça jeans?', '#{ size }']);"}
                   = size
                   = radio_button_tag "quiz[user_data][pants_size]", "#{ size }"
