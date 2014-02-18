@@ -2316,8 +2316,8 @@ common/typography.css: common/typography-c256a8c32cc6190e88b7c33f036f1f12.css
 common/typography/index.css: common/typography-c256a8c32cc6190e88b7c33f036f1f12.css
 customlanding.css: customlanding-0bc0baff2f20e01c2f88b5b9f4596267.css
 customlanding/index.css: customlanding-0bc0baff2f20e01c2f88b5b9f4596267.css
-desktop.css: desktop-5c4644e9979dca4c54984bfea3dda8ba.css
-desktop/index.css: desktop-5c4644e9979dca4c54984bfea3dda8ba.css
+desktop.css: desktop-552f9cdcb535300f7022ffa26f7dd282.css
+desktop/index.css: desktop-552f9cdcb535300f7022ffa26f7dd282.css
 new_structure/lite_application.css: new_structure/lite_application-81ac24bc3a1d68c24a844041939f63bf.css
 new_structure/lite_application/index.css: new_structure/lite_application-81ac24bc3a1d68c24a844041939f63bf.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-5d2b189bf1a3a9a4864eb25499d36060.css
@@ -2366,8 +2366,8 @@ new_structure/section/lite_showroom.css: new_structure/section/lite_showroom-148
 new_structure/section/lite_showroom/index.css: new_structure/section/lite_showroom-148d20cc5fa8fdd667ca2508ed7d1415.css
 new_structure/section/olookmovel.css: new_structure/section/olookmovel-8cc1e591c9185f914cbea511f7ebf5ce.css
 new_structure/section/olookmovel/index.css: new_structure/section/olookmovel-8cc1e591c9185f914cbea511f7ebf5ce.css
-new_structure/section/quiz.css: new_structure/section/quiz-07d7f18ed4de609d82212b8f1b8f60bd.css
-new_structure/section/quiz/index.css: new_structure/section/quiz-07d7f18ed4de609d82212b8f1b8f60bd.css
+new_structure/section/quiz.css: new_structure/section/quiz-432eacb9d130f901693a870cd6305922.css
+new_structure/section/quiz/index.css: new_structure/section/quiz-432eacb9d130f901693a870cd6305922.css
 new_structure/section/search.css: new_structure/section/search-49024cc68b01fc21c42d0a0901be917f.css
 new_structure/section/search/index.css: new_structure/section/search-49024cc68b01fc21c42d0a0901be917f.css
 new_structure/section/session.css: new_structure/section/session-25d10049e7f0505b454e276cb1b5236c.css

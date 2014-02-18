@@ -21,6 +21,7 @@ module Abacos
         when 'roupa' then Category::CLOTH
         when 'lingerie' then Category::LINGERIE
         when 'moda praia' then Category::BEACHWEAR
+        when 'fashion curves' then Category::CURVES
       else
         Category::ACCESSORY
       end
