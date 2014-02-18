@@ -11,8 +11,7 @@ class PictureProcess::ProductPictures
       if /sample/i =~ image
         product.remote_color_sample_url = image
         product.save
-      else
-        %r{/(?<display>\d+).jpg$}i =~ image
+      elsif %r{/(?<display>\d+).jpg$}i =~ image
         picture = Picture.new(product: product, display_on: display)
         picture.remote_image_url = image
         picture.save
