@@ -20,4 +20,9 @@ module Fixes
     puts "cache de view removido"
   end
 
+  def cancel_order number
+    order = Order.find_by_number number
+    cancelar_pedido = Abacos::CancelarPedido.new order
+    Abacos::OrderAPI.cancel_order cancelar_pedido
+  end
 end

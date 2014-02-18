@@ -20,13 +20,9 @@ class IndexProductsWorker
   end
 
   def add_products
-    threads = []
     products.each_slice(1000).with_index do |slice, index|
-      threads << Thread.new do 
         run slice, index
-      end
     end
-    threads.each {|t| t.join}
   end
 
   def remove_products
@@ -43,7 +39,7 @@ class IndexProductsWorker
       upload_sdf_file file_name
     rescue => e
       opts = {
-        body: "Falha ao gerar o arquivo para indexacao: #{index}-add",
+        body: "Falha ao gerar o arquivo para indexacao: #{index}-add<br> #{e} <br> #{e.backtrace}",
         to: "tech@olook.com.br",
         subject: "Falha ao rodar a indexacao de produtos"}
       DevAlertMailer.notify(opts).deliver
