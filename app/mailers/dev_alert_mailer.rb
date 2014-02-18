@@ -16,8 +16,9 @@ class DevAlertMailer < ActionMailer::Base
     mail(:to => %[rafael.manoel@olook.com.br, nelson.haraguchi@olook.com.br, suzane.dirami@olook.com.br, caroline.passos@olook.com.br, katarine.brandao@olook.com.br, cristina.logiodice@olook.com.br], :subject => "Produtos com visibilidade alterada")
   end
 
-  def notify_about_cancelled_billets
-    mail(:to => "tech@olook.com.br", :subject => "Cancelamento de boletos rodado com sucesso!")
+  def notify_about_cancelled_billets billets
+    @billets = billets
+    mail(:to => "tiago.almeida@olook.com.br", :subject => "Cancelamento de boletos rodado com sucesso!")
   end
 
   def notify_about_products_search_worker
