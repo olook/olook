@@ -47,6 +47,9 @@
     <%= yield :data_layer %>
 
     <%= render 'shared/tag/soasta' %>
+    <% unless user_signed_in? || request.url.include?("gclid") %>
+      <%= Setting.sample_popup_url.html_safe if !['landing_pages','survey', 'users/registrations', 'cart/cart', 'devise/sessions' ].include?(params[:controller]) %>
+    <% end %>
   </head>
 
   <body onload='ativaDiv();' class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %><%= mobile? ? ' mobile' : ' desktop' %>">
@@ -194,11 +197,6 @@
        <script>
          show_modal = '<%= j @modal_show %>';
        </script>
-
-       <% unless user_signed_in? || request.url.include?("gclid") %>
-         <%= javascript_include_tag "campaign_emails_modal" if !['landing_pages','survey', 'users/registrations'].include?(params[:controller]) %>
-       <% end %>
-
 
        <% if content_for? :footer %>
          <%= yield :footer %>
