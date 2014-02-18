@@ -119,4 +119,4 @@ Setting.defaults[:look_shoe_category_weight] = 1
 Setting.defaults[:look_bag_category_weight] = 1
 Setting.defaults[:look_accessory_category_weight] = 1
 
-Setting.defaults[:sample_popup_url] = "<script type=\"text/javascript\" src=\"http://popup.olook.com.br/js.php?popup=4\"></script>"
+Setting.defaults[:sample_popup_url] = "<script type=\"text/javascript\" src=\"http://popup.olook.com.br/js.php?popup=6\"></script>"
