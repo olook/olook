@@ -21,7 +21,7 @@ div#banner {
     background: image-url('gift/border-sections.jpg') bottom repeat-x;
 	 &.bn{background: none !important;}
     &#profiles {
-      min-height: 2221px;
+      min-height: 1551px;
       div.content {
         position: relative;
         height: 725px;
@@ -43,6 +43,7 @@ div#banner {
           font-size: 28px;
           color: #231f20;
           text-align: center;
+          display: none;
           span{
             font-family: $avenir;
             font-size: 18px;
@@ -203,6 +204,7 @@ div#banner {
         overflow: auto;
         margin: 0 auto;
         margin-top: 25px;
+        display: none;
         li {
 					&.chic{float:left;margin-left:25px;
 						a{margin:0 !important}
