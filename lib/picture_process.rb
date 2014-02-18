@@ -62,7 +62,7 @@ class PictureProcess
     Resque::Failure.all(0, size).each do |failed_job|
       if failed_job['payload']['class'] == PictureProcess::ProductPictures.to_s &&
         existent_product_ids.include?(failed_job['payload']['args'][0].to_i)
-        return_hash[:errors] << "Processamento do produto código: #{key} deu erro! Informe o TI. Mensagem: #{failed_job['error']}"
+        return_hash[:errors] << "Processamento do produto código: #{failed_job['payload']['args'][0].to_i} deu erro! Informe o TI. Mensagem: #{failed_job['error']}"
       end
     end
   end
