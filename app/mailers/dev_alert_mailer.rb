@@ -18,7 +18,7 @@ class DevAlertMailer < ActionMailer::Base
 
   def notify_about_cancelled_billets billets
     @billets = billets
-    mail(:to => "tiago.almeida@olook.com.br", :subject => "Cancelamento de boletos rodado com sucesso!")
+    mail(:to => "tech@olook.com.br", :subject => "Cancelamento de boletos rodado com sucesso!")
   end
 
   def notify_about_products_search_worker
