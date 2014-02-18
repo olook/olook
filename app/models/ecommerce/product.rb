@@ -438,6 +438,7 @@ class Product < ActiveRecord::Base
 
   def formatted_name(size=35)
     _formated_name = cloth? || is_a_shoe_accessory? ? name : "#{model_name} #{name}"
+    _formated_name = _formated_name.gsub(/#{brand}/i, '').chomp(' ')
     _formated_name = "#{_formated_name[0..size-5]}&hellip;".html_safe if _formated_name.size > size
     _formated_name
   end
