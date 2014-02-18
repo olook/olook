@@ -45,7 +45,11 @@ class PictureProcess
   def perform
     products_hash = retrieve_product_pictures
     create_product_picures products_hash
-    sleep 30 while self.has_pending_product_jobs?
+    loop do
+      break unless self.has_pending_product_jobs?
+      logger.debug('sleeping 30 seconds')
+      sleep 30
+    end
     check_failed_jobs
     logger.debug("Email será enviado agora")
     Admin::PictureProcessMailer.notify_picture_process(user_email, return_hash).deliver
