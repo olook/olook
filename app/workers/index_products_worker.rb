@@ -8,7 +8,7 @@ class IndexProductsWorker
 
   def self.perform
     d0 = Time.now.to_i
-    worker = self.new(Product.all)
+    worker = self.new(Product.pluck(:id))
     worker.add_products
     worker.remove_products
     d1 = Time.now.to_i
@@ -20,8 +20,8 @@ class IndexProductsWorker
   end
 
   def add_products
-    products.each_slice(1000).with_index do |slice, index|
-        run slice, index
+    products.each_slice(500).with_index do |slice, index|
+      run slice, index
     end
   end
 
@@ -158,12 +158,12 @@ class IndexProductsWorker
       `curl -X POST --upload-file "#{file_name}" "#{docs_domain}"/2011-02-01/documents/batch --header "Content-Type:application/json"`
     end
 
-    def products_to_index(products)
-      products.select{|p| p.price > 0 && p.main_picture.try(:image_url)}
+    def products_to_index(product_ids)
+      Product.where(id: product_ids).select{|p| p.price > 0 && p.main_picture.try(:image_url)}
     end
 
-    def products_to_remove(products)
-      products.select{|p| p.price == 0 || p.main_picture.try(:image_url).nil?}
+    def products_to_remove(product_ids)
+      Product.where(id: product_ids).select{|p| p.price == 0 || p.main_picture.try(:image_url).nil?}
     end
 
     def version_based_on_timestamp
