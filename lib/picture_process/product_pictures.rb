@@ -9,7 +9,7 @@ class PictureProcess::ProductPictures
     product.pictures.destroy_all if product.pictures.count > 1
     sample = pictures.find { |image| /sample/i =~ image }
     if sample
-      product.remote_color_sample_url = image
+      product.remote_color_sample_url = sample
       product.save
     end
     _pics = pictures.select { |image| %r{/[\d-]+\.jpg$}i =~ image }.sort
