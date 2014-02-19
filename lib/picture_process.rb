@@ -46,9 +46,9 @@ class PictureProcess
     products_hash = retrieve_product_pictures
     create_product_picures products_hash
     loop do
-      break unless self.has_pending_product_jobs?
       logger.debug('sleeping 30 seconds')
       sleep 30
+      break unless self.has_pending_product_jobs?
     end
     check_failed_jobs
     logger.debug("Email será enviado agora")
