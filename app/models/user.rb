@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   has_many :user_credits
   has_many :credits
   has_one :wishlist
+  has_one :user_coupon
 
   before_create :generate_invite_token
   after_create :initialize_user, :update_campaign_email
