@@ -8,7 +8,7 @@ class IndexProductsWorker
 
   def self.perform
     d0 = Time.now.to_i
-    worker = self.new(Product.all)
+    worker = self.new(Product.pluck(:id))
     worker.add_products
     worker.remove_products
     d1 = Time.now.to_i
@@ -20,8 +20,8 @@ class IndexProductsWorker
   end
 
   def add_products
-    products.each_slice(1000).with_index do |slice, index|
-        run slice, index
+    products.each_slice(500).with_index do |slice, index|
+      run slice, index
     end
   end
 
@@ -149,7 +149,6 @@ class IndexProductsWorker
     end
 
     def products
-      @products = @products || Product.all
       @products
     end
 
@@ -158,12 +157,12 @@ class IndexProductsWorker
       `curl -X POST --upload-file "#{file_name}" "#{docs_domain}"/2011-02-01/documents/batch --header "Content-Type:application/json"`
     end
 
-    def products_to_index(products)
-      products.select{|p| p.price > 0 && p.main_picture.try(:image_url)}
+    def products_to_index(product_ids)
+      Product.where(id: product_ids).select{|p| p.price > 0 && p.main_picture.try(:image_url)}
     end
 
-    def products_to_remove(products)
-      products.select{|p| p.price == 0 || p.main_picture.try(:image_url).nil?}
+    def products_to_remove(product_ids)
+      Product.where(id: product_ids).select{|p| p.price == 0 || p.main_picture.try(:image_url).nil?}
     end
 
     def version_based_on_timestamp
@@ -174,18 +173,23 @@ class IndexProductsWorker
       HeelSanitize.new(word).perform
     end
 
+    def eager_products
+      @eager ||= Product.where(id: products)
+      @eager
+    end
+
     def older
-      @older = @older || @products.collect(&:time_in_stock).max
+      @older = @older || eager_products.collect(&:time_in_stock).max
       @older
     end
 
     def max_coverage_of_days_to_sell
-      @max_coverage = @max_coverage || @products.collect(&:coverage_of_days_to_sell).max
+      @max_coverage = @max_coverage || eager_products.collect(&:coverage_of_days_to_sell).max
       @max_coverage
     end
 
     def max_qt_sold_per_day
-      @max_qt_sold_per_day = @max_qt_sold_per_day || @products.collect(&:quantity_sold_per_day_in_last_week).max
+      @max_qt_sold_per_day = @max_qt_sold_per_day || eager_products.collect(&:quantity_sold_per_day_in_last_week).max
       @max_qt_sold_per_day
     end
 

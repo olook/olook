@@ -13,6 +13,10 @@
   <%= submit_tag('Sincronizar produtos', class: 'button info') %>
 <% end %>
 
+<% content_for :secondary_navigation do %>
+  <li><%= link_to 'Processar fotos em lote', admin_pictures_process_path %></li>
+<% end %>
+
 <% content_for :sidebar do %>
   <div class="block">
       <h3>Opções de procura:</h3>
