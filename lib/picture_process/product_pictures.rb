@@ -7,15 +7,16 @@ class PictureProcess::ProductPictures
     product = Product.find_by_id key
 
     product.pictures.destroy_all if product.pictures.count > 1
-    pictures.each_with_index do |image|
-      if /sample/i =~ image
-        product.remote_color_sample_url = image
-        product.save
-      elsif %r{/(?<display>\d+).jpg$}i =~ image
-        picture = Picture.new(product: product, display_on: display)
-        picture.remote_image_url = image
-        picture.save
-      end
+    sample = pictures.find { |image| /sample/i =~ image }
+    if sample
+      product.remote_color_sample_url = image
+      product.save
+    end
+    _pics = pictures.select { |image| %r{/[\d-]+\.jpg$}i =~ image }.sort
+    _pics.each_with_index do |image, index|
+      picture = Picture.new(product: product, display_on: index + 1)
+      picture.remote_image_url = image
+      picture.save
     end
     logger.debug('Finished in %.2fs' % ( Time.zone.now - time_start ) )
   end
