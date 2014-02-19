@@ -120,7 +120,7 @@ class PictureProcess
   def self.is_working?(hashopt={})
     key = hashopt['key'] || hashopt[:key]
     Resque.working.any? do |worker|
-      worker.job['payload']['args'][0]['key'] == key
+      worker.job['payload']['args'][0]['key'] == key rescue false
     end
   end
 end
