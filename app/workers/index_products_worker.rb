@@ -149,7 +149,6 @@ class IndexProductsWorker
     end
 
     def products
-      @products = @products || Product.all
       @products
     end
 
@@ -174,18 +173,23 @@ class IndexProductsWorker
       HeelSanitize.new(word).perform
     end
 
+    def eager_products
+      @eager ||= Product.where(id: products)
+      @eager
+    end
+
     def older
-      @older = @older || @products.collect(&:time_in_stock).max
+      @older = @older || eager_products.collect(&:time_in_stock).max
       @older
     end
 
     def max_coverage_of_days_to_sell
-      @max_coverage = @max_coverage || @products.collect(&:coverage_of_days_to_sell).max
+      @max_coverage = @max_coverage || eager_products.collect(&:coverage_of_days_to_sell).max
       @max_coverage
     end
 
     def max_qt_sold_per_day
-      @max_qt_sold_per_day = @max_qt_sold_per_day || @products.collect(&:quantity_sold_per_day_in_last_week).max
+      @max_qt_sold_per_day = @max_qt_sold_per_day || eager_products.collect(&:quantity_sold_per_day_in_last_week).max
       @max_qt_sold_per_day
     end
 
