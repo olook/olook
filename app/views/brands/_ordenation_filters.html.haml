@@ -11,7 +11,7 @@
           %option{ 'data-href' => brand_path(params[:brand]) } VER TUDO
           - filters_by('category', search, use_fields: [:brand]).each do |text, amount|
             - description = text == 'curves' ? 'roupa' : text           
-            %option{'data-href' => brand_path(params[:brand], parameters: text.chomp), selected: category.to_s == text}= description.chomp.titleize.pluralize
+            %option{'data-href' => brand_path(params[:brand], parameters: ActiveSupport::Inflector.transliterate(text.chomp)), selected: category.to_s == text}= description.chomp.titleize.pluralize
 
       %fieldset
         %span.selected-type.order{ class: ("filter_selected" if params[:por].present?) }= params[:por].present? ? params[:por].gsub("-", " ").titleize : "NOSSA SELEÇÃO"
