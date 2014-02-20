@@ -23,6 +23,8 @@ class ListProducts::NewestProductsController < ListProductsController
   end
 
   def title_text
-    "Novidades | Roupas Femininas e Sapatos Femininos | Olook"
+    "Novidades | Sapatos Femininos" if @category && @category == 'sapato'
+    "Novidades | #{@category}s Femininas" if @category && @category != 'sapato'
+    "Novidades | Roupas Femininas e Sapatos Femininos"
   end
 end
