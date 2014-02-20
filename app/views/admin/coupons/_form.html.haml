@@ -35,6 +35,10 @@
     %br/
     = f.check_box :unlimited
   .field
+    = f.label :one_per_user?, "Um por pessoa?"
+    %br/
+    = f.check_box :one_per_user    
+  .field
     = f.label :campaign, "Campanha"
     %br/
     = f.select :campaign, Coupon::COUPON_CONFIG['campaigns'], :prompt => "Selecione a campanha"
