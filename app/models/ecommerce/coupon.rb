@@ -4,7 +4,8 @@ class Coupon < ActiveRecord::Base
     :start_date, :end_date, :remaining_amount, :unlimited,
     :active, :campaign, :campaign_description, :modal,
     :updated_by, :created_by, :rule_parameters_attributes,
-    :action_parameter_attributes, :use_rule_parameters
+    :action_parameter_attributes, :use_rule_parameters,
+    :one_per_user
   COUPON_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/coupons.yml")
   PRODUCT_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/product_coupons.yml")[Rails.env]
   BRAND_COUPONS_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/brand_coupons.yml")[Rails.env]
