@@ -23,8 +23,13 @@ class ListProducts::NewestProductsController < ListProductsController
   end
 
   def title_text
-    "Novidades | Sapatos Femininos" if @category && @category == 'sapato'
-    "Novidades | #{@category}s Femininas" if @category && @category != 'sapato'
-    "Novidades | Roupas Femininas e Sapatos Femininos"
+    return "Novidades | Sapatos Femininos | Olook" if @category && @category == 'sapato'
+    return "Novidades | #{@category}s Femininas | Olook" if @category && @category != 'sapato'
+    "Novidades | Roupas Femininas e Sapatos Femininos | Olook"
+  end
+
+  def canonical_link
+    return "#{request.protocol}#{request.host_with_port}/novidades/#{@category}" if @category
+    "#{request.protocol}#{request.host_with_port}/novidades"
   end
 end
