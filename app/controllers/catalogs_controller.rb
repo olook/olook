@@ -75,11 +75,11 @@ class CatalogsController < ApplicationController
     end
 
     def canonical_link
-       host =  "#{request.protocol}#{request.host_with_port}/"
-      if @category || @subcategory
-        "#{host}#{@category}"
+      host =  "#{request.protocol}#{request.host_with_port}/"
+      if @subcategory
+        "#{host}#{@category}/#{@subcategory.downcase}"
       else
-        "#{host}#{@category}/#{@subcategory}"
+        "#{host}#{@category}"
       end
     end
 
