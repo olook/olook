@@ -107,7 +107,7 @@ class PictureProcess
     files.inject({}) do |h, f|
       if %r{/(?<product_id>\d+)/[^/]*$} =~ f.key
         h[product_id] ||= []
-        h[product_id] << "https://s3.amazonaws.com/#{DIRECTORY}/#{f.key}" if %r{(?:sample|\d+).jpg$} =~ f.key
+        h[product_id] << "https://s3.amazonaws.com/#{DIRECTORY}/#{f.key}"
       end
       h
     end
