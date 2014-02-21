@@ -60,20 +60,22 @@ class PictureProcess
   def check_failed_jobs
     size = Resque::Failure.count
     index_to_remove = {}
-    Resque::Failure.all(0, size).each_with_index do |failed_job, index|
-      if failed_job['payload']['class'] == PictureProcess::ProductPictures.to_s &&
-        existent_product_ids.include?(failed_job['payload']['args'][0].to_i)
+    Resque::Failure.all(0, size + 1).each_with_index do |failed_job, index|
+      if ((failed_job['payload']['class'] == PictureProcess::ProductPictures.to_s && existent_product_ids.include?(failed_job['payload']['args'][0].to_i)) rescue false)
         return_hash[:errors] << "Processamento do produto código: #{failed_job['payload']['args'][0].to_i} deu erro! Informe o TI. Mensagem: #{failed_job['error']}"
         index_to_remove[index] = failed_job
       end
     end
 
     if index_to_remove.size > 0
-      _body = ""
+      _body = "<table><tr> <th>ID</th> <th>Falhou em</th> <th>Mensagem</th> <th>Payload</th> </tr>%s</table>"
+      rows = []
+      row = "<tr> <td>%s</td> <td>%s</td> <td>%s</td> <td>%s %s %s</td> </tr>"
       index_to_remove.each do |index, failed_job|
-        _body.concat(failed_job.inspect)
+        rows.push(row % [ failed_job['payload']['args'][0], failed_job['failed_at'], failed_job['exception'], failed_job['payload']['class'], failed_job['worker'], failed_job['queue'] ])
+        rows.push("<tr> <td colspan=4><pre>%s</pre></td> </tr>" % failed_job['backtrace'].join("\n"))
       end
-      ActionMailer::Base.mail(:from => "dev.notifications@olook.com.br", :to => Setting.dev_notification_emails, :subject => "Failed Jobs on Processing Pictures #{Time.zone.now.strftime('%Y-%m-%d')}", :body => _body).deliver
+      ActionMailer::Base.mail(:from => "dev.notifications@olook.com.br", :to => Setting.dev_notification_emails, :subject => "Failed Jobs on Processing Pictures #{Time.zone.now.strftime('%Y-%m-%d')}", :body => _body % rows.join).deliver
       index_to_remove.keys.sort { |a,b| b <=> a }.each do |index|
         Resque::Failure.remove(index)
       end
