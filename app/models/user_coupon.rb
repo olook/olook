@@ -3,12 +3,14 @@ class UserCoupon < ActiveRecord::Base
   attr_accessible :coupon_ids
 
   def add coupon_id
+    coupon_id = coupon_id.to_s
     coupon_array = split_coupon_ids
     coupon_array << coupon_id unless coupon_id.blank? || include?(coupon_id)
     join_and_save_coupon_array coupon_array
   end
 
   def remove coupon_id
+    coupon_id = coupon_id.to_s
     coupon_array = split_coupon_ids
     coupon_array.delete(coupon_id) unless coupon_id.blank?
     join_and_save_coupon_array coupon_array 
