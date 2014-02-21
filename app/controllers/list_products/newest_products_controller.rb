@@ -22,14 +22,4 @@ class ListProducts::NewestProductsController < ListProductsController
     @header ||= CatalogHeader::CatalogBase.for_url(self.class.url_prefix).first
   end
 
-  def title_text
-    return "Novidades | Sapatos Femininos | Olook" if @category && @category == 'sapato'
-    return "Novidades | #{@category}s Femininas | Olook" if @category && @category != 'sapato'
-    "Novidades | Roupas Femininas e Sapatos Femininos | Olook"
-  end
-
-  def canonical_link
-    return "#{request.protocol}#{request.host_with_port}/novidades/#{@category}" if @category
-    "#{request.protocol}#{request.host_with_port}/novidades"
-  end
 end
