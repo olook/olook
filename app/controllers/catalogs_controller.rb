@@ -50,6 +50,7 @@ class CatalogsController < ApplicationController
     @pixel_information = @category = params[:category]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
     @category = @search.expressions[:category].first
+    @subcategory = @search.expressions[:subcategory].first
     params[:category] = @search.expressions[:category].first
     expire_fragment(@cache_key) if params[:force_cache].to_i == 1
   end
@@ -70,6 +71,15 @@ class CatalogsController < ApplicationController
         Seo::SeoManager.new(request.path, model: header).select_meta_tag
       else
         Seo::SeoManager.new(request.path, search: @search).select_meta_tag
+      end
+    end
+
+    def canonical_link
+      host =  "#{request.protocol}#{request.host_with_port}/"
+      if @subcategory
+        "#{host}#{@category}/#{@subcategory.downcase}"
+      else
+        "#{host}#{@category}"
       end
     end
 
