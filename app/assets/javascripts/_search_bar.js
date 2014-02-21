@@ -23,7 +23,7 @@ $(function() {
   }).autocomplete({
       source: "/busca/product_suggestions",
       select: function(event, ui) { 
-        $("input##search_product").val(ui.item.value);
+        $("input#search_product").val(ui.item.value);
         $("#search_form").submit();
       }
   }).parents('form').submit(olook.perform_search);

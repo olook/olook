@@ -4,6 +4,7 @@
  
 
     <%= render :partial => "shared/errorception" %>
+    <%= javascript_include_tag "jquery" %>
     <%= javascript_include_tag "control.js" %>
     <meta charset="UTF-8">
     <title>
@@ -153,7 +154,7 @@
                </div>
              </div>
              <div class="olook_logo">
-               <h1><%= link_to 'Olook', root_path %></h1>
+               <h2><%= link_to 'Olook', root_path %></h2>
              </div>
            </div>
          </header>
@@ -190,7 +191,6 @@
        <!-- End Modals -->
 
 
-       <%= javascript_include_tag "jquery" %>
        <%= javascript_include_tag "lite_application" %>
        <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
        
