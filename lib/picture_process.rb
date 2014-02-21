@@ -75,7 +75,7 @@ class PictureProcess
         rows.push(row % [ failed_job['payload']['args'][0], failed_job['failed_at'], failed_job['exception'], failed_job['payload']['class'], failed_job['worker'], failed_job['queue'] ])
         rows.push("<tr> <td colspan=4><pre>%s</pre></td> </tr>" % failed_job['backtrace'].join("\n"))
       end
-      ActionMailer::Base.mail(:from => "dev.notifications@olook.com.br", :to => Setting.dev_notification_emails, :subject => "Failed Jobs on Processing Pictures #{Time.zone.now.strftime('%Y-%m-%d')}", :body => _body % rows.join).deliver
+      ActionMailer::Base.mail(:content_type => 'text/html', :from => "dev.notifications@olook.com.br", :to => Setting.dev_notification_emails, :subject => "Failed Jobs on Processing Pictures #{Time.zone.now.strftime('%Y-%m-%d')}", :body => _body % rows.join).deliver
       index_to_remove.keys.sort { |a,b| b <=> a }.each do |index|
         Resque::Failure.remove(index)
       end
