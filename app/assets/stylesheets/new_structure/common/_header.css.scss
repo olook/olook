@@ -325,7 +325,7 @@ header#new_header{border-top: 2px black solid;
          &.product_item{border-top:solid 1px #CCC;margin-top:10px;color:#000;font-size:12px;padding-top:10px;height:80px;
             p {line-height:17px;overflow:hidden;}
             img{float:left;margin-right:14px;margin-top:10px;width:46px;}
-            h1{font-family:$arial;text-transform:uppercase;font-size:11px;font-weight:bold;line-height: 16px;}
+            h2{font-family:$arial;text-transform:uppercase;font-size:11px;font-weight:bold;line-height: 16px;}
             .size,
             .qte {font-size: 11px;font-family: $verdana;}
             .qte, .qte span {line-height: 13px;height:17px;}
