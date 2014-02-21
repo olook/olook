@@ -35,4 +35,7 @@ class HomeController < ApplicationController
     @right_highlight = highlights[HighlightPosition::RIGHT]
   end
 
+  def canonical_link
+    "#{request.protocol}#{request.host_with_port}"
+  end
 end
