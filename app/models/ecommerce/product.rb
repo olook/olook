@@ -357,7 +357,7 @@ class Product < ActiveRecord::Base
   end
 
   def cloth?
-    [::Category::CLOTH, ::Category::BEACHWEAR, ::Category::LINGERIE, ::CATEGORY::CURVES].include?(self.category)
+    [::Category::CLOTH, ::Category::BEACHWEAR, ::Category::LINGERIE, ::Category::CURVES].include?(self.category)
   end
 
   def bag?
