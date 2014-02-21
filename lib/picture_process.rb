@@ -70,9 +70,9 @@ class PictureProcess
     if index_to_remove.size > 0
       _body = "<table><tr> <th>ID</th> <th>Falhou em</th> <th>Mensagem</th> <th>Payload</th> </tr>%s</table>"
       rows = []
-      row = "<tr> <td>%s</td> <td>%s</td> <td>%s</td> <td>%s %s %s</td> </tr>"
+      row = "<tr> <td>%s</td> <td>%s</td> <td>%s: %s</td> <td>%s %s %s</td> </tr>"
       index_to_remove.each do |index, failed_job|
-        rows.push(row % [ failed_job['payload']['args'][0], failed_job['failed_at'], failed_job['exception'], failed_job['payload']['class'], failed_job['worker'], failed_job['queue'] ])
+        rows.push(row % [ failed_job['payload']['args'][0], failed_job['failed_at'], failed_job['exception'], failed_job['error'], failed_job['payload']['class'], failed_job['worker'], failed_job['queue'] ])
         rows.push("<tr> <td colspan=4><pre>%s</pre></td> </tr>" % failed_job['backtrace'].join("\n"))
       end
       ActionMailer::Base.mail(:content_type => 'text/html', :from => "dev.notifications@olook.com.br", :to => Setting.dev_notification_emails, :subject => "Failed Jobs on Processing Pictures #{Time.zone.now.strftime('%Y-%m-%d')}", :body => _body % rows.join).deliver
