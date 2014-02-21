@@ -12,6 +12,10 @@ class ListProductsController < ApplicationController
     self.class.url_prefix
   end
 
+  def prefix_for_page_title
+    url_prefix.gsub("/","").capitalize
+  end
+
   def default_params(search_params, site_section)
     page_size = params[:page_size] || DEFAULT_PAGE_SIZE
     search_params[:skip_beachwear_on_clothes] = true
@@ -32,6 +36,18 @@ class ListProductsController < ApplicationController
     cache_key = "#{url_prefix}#{request.path}|#{@search.cache_key}#{@campaign_products.cache_key if @campaign_products}"
     expire_fragment(cache_key) if params[:force_cache].to_i == 1
     cache_key
+  end
+
+
+  def title_text
+    return "#{prefix_for_page_title} | Sapatos Femininos | Olook" if @category && @category == 'sapato'
+    return "#{prefix_for_page_title} | #{@category}s Femininas | Olook" if @category && @category != 'sapato'
+    "#{prefix_for_page_title} | Roupas Femininas e Sapatos Femininos | Olook"
+  end
+
+  def canonical_link
+    return "#{request.protocol}#{request.host_with_port}/#{prefix_for_page_title}/#{@category}" if @category
+    "#{request.protocol}#{request.host_with_port}/#{prefix_for_page_title}"
   end
 
 end

@@ -16,9 +16,4 @@ class ListProducts::OlookletController < ListProductsController
     @header ||= CatalogHeader::CatalogBase.for_url(request.path).first
     @header ||= CatalogHeader::CatalogBase.for_url(self.class.url_prefix).first
   end
-
-  def title_text
-    "Outlet Online | Roupas Femininas e Sapatos Femininos | Olook"
-  end
-
 end
