@@ -129,6 +129,11 @@ class Cart < ActiveRecord::Base
     Set.new return_array
   end
 
+  def coupon_used_by_user? _coupon
+    return false unless user
+    _coupon.one_per_user? && user.user_coupon.include?(_coupon.id)
+  end
+
   private
 
     def update_coupon
@@ -156,5 +161,4 @@ class Cart < ActiveRecord::Base
     def has_empty_adjustments?
       items.select { |item| item.has_adjustment? }.empty?
     end
-
 end

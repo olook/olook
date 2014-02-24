@@ -17,6 +17,7 @@ class UserCoupon < ActiveRecord::Base
   end
 
   def include? coupon_id
+    coupon_id = coupon_id.to_s
     split_coupon_ids.include? coupon_id
   end
 
