@@ -22,7 +22,7 @@ describe Seo::DescriptionManager do
           expect(@description.choose).to eql YAML::load(File.open(Seo::DescriptionManager::FILENAME))["alpargata"]
         end
       end
-      context "Upcase", focus: true  do
+      context "Upcase"  do
         before do
           @description = described_class.new description_key: "Alpargata"
         end
