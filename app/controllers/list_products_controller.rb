@@ -46,8 +46,12 @@ class ListProductsController < ApplicationController
   end
 
   def canonical_link
-    return "#{request.protocol}#{request.host_with_port}/#{prefix_for_page_title}/#{@category}" if @category
-    "#{request.protocol}#{request.host_with_port}/#{prefix_for_page_title}"
+    return "http://#{request.host_with_port}/#{prefix_for_page_title}/#{@category}" if @category
+    "http://#{request.host_with_port}/#{prefix_for_page_title}"
+  end
+
+  def meta_description
+    Seo::DescriptionManager.new(description_key: prefix_for_page_title).choose
   end
 
 end
