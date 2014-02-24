@@ -82,12 +82,12 @@ class ApplicationController < ActionController::Base
 
     def canonical_link
       if request.fullpath.match('\?')
-        "#{request.protocol}#{request.host_with_port}#{request.path}"
+        "http://#{request.host_with_port}#{request.path}"
       end
     end
 
     def meta_description
-      "Roupas femininas, sapatos, bolsas, óculos e acessórios incríveis - Olook. Seu look, seu estilo"
+      Seo::DescriptionManager.new.choose
     end
 
     def assign_coupon_to_cart(cart, coupon_code)
