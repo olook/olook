@@ -24,7 +24,7 @@ module FullLook
     end
 
     def perform
-      delete_previous_looks
+      previous_look_ids = Look.pluck('id')
 
       look_structure.each do |master_product_id, struc|
         master_product = struc[:master_product]
@@ -36,10 +36,12 @@ module FullLook
         look[:profile_id] = get_look_profile([master_product])
         build_and_create_look(look)
       end
+
+      remove previous_look_ids
     end
 
-    def delete_previous_looks
-      Look.delete_all
+    def remove ids
+      Look.delete_all(id: ids)
     end
 
     private

@@ -218,63 +218,77 @@ section#home {
         width:100%;
         margin-bottom:10px;
       }
-      h5 a {
+      h5 {
         font-family: $arial;
         font-size: 20px;
         letter-spacing: 2px;
         display: block;
         padding:2px;
-        text-decoration: none;
+        text-decoration: none !important;
         color:#000;
         padding:20px 0 10px 0;
-        &:hover{color: $base_color;}
-      }
-      p a {
+        &:hover{color: $base_color;text-decoration: none !important;
+          a{text-decoration: none !important;}
+        }
+        span {
+        margin-top: 11px;
+        font-weight: normal;
         font-family: Georgia;
         font-size: 14px;
         display: block;
-        color:#000;
         text-decoration: none;
         letter-spacing: 2px;
         text-align: center;
         &:hover{color: $base_color;}
+        }
       }
+
+      a{text-decoration: none !important;}
     }
     .favTip {
       width:445px;
+      height: 447px;
       float:right;
       background:image-url('home/bg_favTip.jpg') no-repeat top center;
       text-align: center;
       position: relative;
       .favTipLink{
-        width:100%;
-        height:371px;
-        display:block;
-        text-indent:-5000px;
+        width: 100%;
+        height: 75px;
+        display: block;
+        padding-top: 389px;
+        margin-left: -23px !important;
       }
-      h5 a {
+      h5 a{
+        width: 445px;
+        text-align: center;
+        display: block;
+        position: relative;
+        bottom: 0;
         font-family: $arial;
         font-size: 20px;
         letter-spacing: 2px;
-        display: block;
         padding:2px;
         text-decoration: none;
-        color:#000;
-        padding:20px 0 10px 0;
+        padding:39px 0 10px 0;
+        color: #000 !important;
         text-transform: uppercase;
-        span {color:#ed3a40;}
-        &:hover{color: $base_color;}
-      }
-      p a {
+        margin-top: 1px;
+        margin-left: -225px !important;
+        span {
+        margin-top: 11px;
+        font-weight: normal;
         font-family: Georgia;
         font-size: 14px;
         display: block;
         letter-spacing: 2px;
         text-align: center;
         text-decoration: none;
-        color: #000;
-        &:hover{color: $base_color;}
+        text-transform: none;
+        }
+        &:hover{color: $base_color !important;}
       }
+
       .fav_product {display: none;}
     }
     .has_love {

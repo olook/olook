@@ -12,7 +12,7 @@ class PictureProcess::ProductPictures
       product.remote_color_sample_url = sample
       product.save
     end
-    _pics = pictures.select { |image| %r{/[\d-]+\.jpg$}i =~ image }.sort
+    _pics = pictures.select { |image| %r{/[\d-]+\.jpe?g$}i =~ image }.sort
     _pics.each_with_index do |image, index|
       picture = Picture.new(product: product, display_on: index + 1)
       picture.remote_image_url = image
