@@ -255,13 +255,15 @@ class SearchEngine
       Rails.logger.error "[cloudsearch] cache missed"
       url = URI.parse(url)
       tstart = Time.zone.now.to_f * 1000.0
-      _response = Net::HTTP.get_response(url)
+      http_response = Net::HTTP.get_response(url)
       Rails.logger.error("GET cloudsearch URL (time=#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
-      Rails.logger.error("[cloudsearch] result_code:#{_response.code}, result_message:#{_response.message}")
-      _response
-    end
+      Rails.logger.error("[cloudsearch] result_code:#{http_response.code}, result_message:#{http_response.message}")
 
+      raise "CloudSearchConnectError" if http_response.code != '200'
+      http_response
+    end
     SearchResult.new(_response, options)
+        
   end
 
   def build_boolean_expression(options={})
