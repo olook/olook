@@ -14,11 +14,29 @@ describe Seo::DescriptionManager do
       end
     end
     context "when find key" do
-      before do
-        @description = described_class.new description_key: "alpargata"
+      context "lowercase" do
+        before do
+          @description = described_class.new description_key: "alpargata"
+        end
+        it "return alpargata description" do
+          expect(@description.choose).to eql YAML::load(File.open(Seo::DescriptionManager::FILENAME))["alpargata"]
+        end
       end
-      it "return default description" do
-        expect(@description.choose).to eql YAML::load(File.open(Seo::DescriptionManager::FILENAME))["alpargata"]
+      context "Upcase", focus: true  do
+        before do
+          @description = described_class.new description_key: "Alpargata"
+        end
+        it "return alpargata description" do
+          expect(@description.choose).to eql YAML::load(File.open(Seo::DescriptionManager::FILENAME))["alpargata"]
+        end
+      end
+      context "With space" do
+        before do
+          @description = described_class.new description_key: "bolsa media"
+        end
+        it "return bolsa media description" do
+          expect(@description.choose).to eql YAML::load(File.open(Seo::DescriptionManager::FILENAME))["bolsa media"]
+        end
       end
     end
   end

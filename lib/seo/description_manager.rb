@@ -12,12 +12,12 @@ class Seo::DescriptionManager
 
   def choose
     return DEFAULT if description_key.blank? || search_description_key.blank?
-    get_description_file[description_key]
+    get_description_file[description_key.downcase]
   end
 
   private
   def search_description_key
-    get_description_file.keys.select{|key| key.include?(description_key)}
+    get_description_file.keys.select{|key| key =~ /#{description_key}/i}
   end
   def get_description_file
     @@file
