@@ -75,12 +75,16 @@ class CatalogsController < ApplicationController
     end
 
     def canonical_link
-      host =  "#{request.protocol}#{request.host_with_port}/"
+      host =  "http://#{request.host_with_port}/"
       if @subcategory
         "#{host}#{@category}/#{@subcategory.downcase}"
       else
         "#{host}#{@category}"
       end
+    end
+
+    def meta_description
+      Seo::DescriptionManager.new(description_key: @subcategory.blank? ? @category : @subcategory).choose
     end
 
     def verify_if_is_catalog
