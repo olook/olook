@@ -33,18 +33,18 @@ class ApplicationController < ActionController::Base
     session[:previous_url] = path
   end
 
-  protected
-
-    def render_public_exception
-      Rails.logger.debug('ApplicationController#render_public_exception')
-      case env["action_dispatch.exception"]
-        when ActiveRecord::RecordNotFound, ActionController::UnknownController,
-          ::AbstractController::ActionNotFound
-          render :template => "/errors/404.html.erb", :layout => 'error', :status => 404
-        else
-          render :template => "/errors/500.html.erb", :layout => 'error', :status => 500
-      end
+  def render_public_exception
+    Rails.logger.debug('ApplicationController#render_public_exception')
+    case env["action_dispatch.exception"]
+      when ActiveRecord::RecordNotFound, ActionController::UnknownController,
+        ::AbstractController::ActionNotFound
+        render :template => "/errors/404.html.erb", :status => 404
+      else
+        render :template => "/errors/500.html.erb", :status => 500
     end
+  end
+
+  protected
 
     # making this method public so it can be stubbed in tests
     # TODO: find a way to stub without this ugly hack
