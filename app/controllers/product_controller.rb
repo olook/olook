@@ -72,8 +72,8 @@ class ProductController < ApplicationController
   end
 
   def canonical_link
-    return product_seo_path(@product.all_colors.first.seo_path) unless (@product.try(:all_colors).nil? || @product.try(:all_colors).empty?) 
-    product_seo_path(@product.seo_path) if @product
+    return product_seo_url(@product.all_colors.first.seo_path) unless (@product.try(:all_colors).nil? || @product.try(:all_colors).empty?) 
+    product_seo_url(@product.seo_path) if @product
   end
 
 

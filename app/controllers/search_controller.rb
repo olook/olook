@@ -30,4 +30,8 @@ class SearchController < ApplicationController
     def catalogs_pages
       %w[roupa acessorio sapato bolsa]
     end
+
+    def canonical_link
+      "http://#{request.host_with_port}/busca"
+    end
 end
