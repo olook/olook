@@ -33,18 +33,18 @@ class ApplicationController < ActionController::Base
     session[:previous_url] = path
   end
 
-  protected
-
-    def render_public_exception
-      Rails.logger.debug('ApplicationController#render_public_exception')
-      case env["action_dispatch.exception"]
-        when ActiveRecord::RecordNotFound, ActionController::UnknownController,
-          ::AbstractController::ActionNotFound
-          render :template => "/errors/404.html.erb", :layout => 'error', :status => 404
-        else
-          render :template => "/errors/500.html.erb", :layout => 'error', :status => 500
-      end
+  def render_public_exception
+    Rails.logger.debug('ApplicationController#render_public_exception')
+    case env["action_dispatch.exception"]
+      when ActiveRecord::RecordNotFound, ActionController::UnknownController,
+        ::AbstractController::ActionNotFound
+        render :template => "/errors/404.html.erb", :status => 404
+      else
+        render :template => "/errors/500.html.erb", :status => 500
     end
+  end
+
+  protected
 
     # making this method public so it can be stubbed in tests
     # TODO: find a way to stub without this ugly hack
@@ -82,12 +82,12 @@ class ApplicationController < ActionController::Base
 
     def canonical_link
       if request.fullpath.match('\?')
-        "#{request.protocol}#{request.host_with_port}#{request.path}"
+        "http://#{request.host_with_port}#{request.path}"
       end
     end
 
     def meta_description
-      "Roupas femininas, sapatos, bolsas, óculos e acessórios incríveis - Olook. Seu look, seu estilo"
+      Seo::DescriptionManager.new.choose
     end
 
     def assign_coupon_to_cart(cart, coupon_code)

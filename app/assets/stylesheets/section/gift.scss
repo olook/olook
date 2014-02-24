@@ -78,14 +78,16 @@ div#banner {
             a.price_box{height: 445px !important;}
             p.description{
               margin-top: 5px;
-              font-size: 14px;
-              font-family: $avenir;
+              font-size: 13px;
+              font-family: Georgia, Tahoma, Arial;
               color: #231f20;
+              letter-spacing: 1px;
+              font-weight: normal;
             }
             p.title_price{
               margin-top: 15px;
               font-size: 28px;
-              font-family: $johnston;
+              font-family: $arial;
               color: #231f20;
               font-weight: bold;
               text-align: center;
@@ -96,10 +98,11 @@ div#banner {
                 }
               span{
                 font-weight: lighter;
-                font-family: $kepler;
+                font-family: $arial;
                 display: block;
-                font-size: 26px;
+                font-size: 22px;
                 text-transform: none;
+                line-height: 25px;
               }
               span.sky{
                 display: inline;
@@ -138,9 +141,21 @@ div#banner {
           top: 0;
           right: 0;
 			 &.reminder{
-				height:146px !important;padding-top:10px !important;
-				p{text-transform:uppercase;font-family:$avenir_medium;font-size:11px !important;color:#000;
-					&.name{font-size:15px !important;width:162px;height:31px;line-height:31px;border:solid 1px #DEDEDE;text-align:center;}
+				height:146px !important;
+        padding-top:10px !important;
+				p{
+          text-transform:uppercase;
+          font-family: $arial;
+          font-size:11px !important;
+          color:#000;
+					&.name{
+            font-size:15px !important;
+            width:162px;
+            height:31px;
+            line-height:31px;
+            border:solid 1px #DEDEDE;
+            text-align:center;
+          }
 				}
 				a.bt-recomendation{display:block;width:170px;height:35px;font-size:14px;letter-spacing: 2px; text-transform: uppercase;@include bt_color($primary_bt_color, $primary_bt_color_hover);}
 				a.my-gifts{font-size:11px;color:#DE4F7F;}
@@ -157,7 +172,7 @@ div#banner {
             margin-bottom: 5px;
           }
           p {
-            font-size: 13px;
+            font-size: 11px;
             line-height: 15px;
             font-family: $avenir;
             color: #231f20;

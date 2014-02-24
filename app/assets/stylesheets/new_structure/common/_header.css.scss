@@ -42,7 +42,7 @@ header#new_header{border-top: 2px black solid;
       }
 
       .olook_logo{width: 190px;height: 57px;margin: 9px -2px auto;;padding-top: 5px;
-        h1 a{width: 190px;height: 57px;display:block;background: image-url("common/nav/sprite_header.png") no-repeat 0 -74px;text-indent: -9999px;}
+        h2 a{width: 190px;height: 57px;display:block;background: image-url("common/nav/sprite_header.png") no-repeat 0 -74px;text-indent: -9999px;}
       }
     }
     .box_right{  
@@ -325,7 +325,7 @@ header#new_header{border-top: 2px black solid;
          &.product_item{border-top:solid 1px #CCC;margin-top:10px;color:#000;font-size:12px;padding-top:10px;height:80px;
             p {line-height:17px;overflow:hidden;}
             img{float:left;margin-right:14px;margin-top:10px;width:46px;}
-            h1{font-family:$arial;text-transform:uppercase;font-size:11px;font-weight:bold;line-height: 16px;}
+            h2{font-family:$arial;text-transform:uppercase;font-size:11px;font-weight:bold;line-height: 16px;}
             .size,
             .qte {font-size: 11px;font-family: $verdana;}
             .qte, .qte span {line-height: 13px;height:17px;}

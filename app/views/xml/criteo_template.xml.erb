@@ -13,7 +13,7 @@
 <brand><![CDATA[<%= product.brand %>]]></brand>
 <recommendable>1</recommendable>
 <instock><%= product.instock %></instock>
-<category><%= @liquidation_products.include?(product.id) ? "OLOOKLET" : product.subcategory.try(:upcase) %></category>
+<category><%= product.subcategory.try(:upcase) %></category>
 </product>
 <% end %>
 </products>
