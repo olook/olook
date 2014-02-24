@@ -29,7 +29,7 @@ class CollectionThemesController < SearchController
     def canonical_link
       collection_theme = Array(@collection_theme).first
       if collection_theme 
-        "#{request.protocol}#{request.host_with_port}/#{collection_theme.slug}"
+        "http://#{request.host_with_port}/#{collection_theme.slug}"
       end
     end
 end

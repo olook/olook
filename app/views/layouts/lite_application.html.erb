@@ -17,7 +17,7 @@
     <% if params[:share] %>
       <%= render 'shared/meta_tags' %>
     <% else %>
-      <meta name="Description" content='<%= meta_description %>'>
+      <meta name="description" content="<%= meta_description %>">
     <% end %>
 
     <%= csrf_meta_tags %>
@@ -143,7 +143,7 @@
                         <br />
                           na sua lista de favoritos.
                         <%= link_to 'Confira', wishlist_path, :class=>"newest_bag", onclick: track_event("Wishlist","openWishlistFromDiscountBanner") %>
-                      </p>                    
+                      </p>
                     <% end %>
                  </li>
                  </ul>
