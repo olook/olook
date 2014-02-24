@@ -25,7 +25,7 @@ class BrandsController < ApplicationController
     def canonical_link
       brand = Array(@brand).first
       if brand
-        "#{request.protocol}#{request.host_with_port}/#{brand.name.downcase}"
+        "http://#{request.host_with_port}/#{brand.name.downcase}"
       end
     end
 end
