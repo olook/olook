@@ -145,7 +145,7 @@ class Cart < ActiveRecord::Base
         self.coupon_code = self.coupon.code
       elsif self.coupon_code
         _coupon = Coupon.find_by_code(self.coupon_code)
-        self.coupon = _coupon if _coupon
+        self.coupon = _coupon if _coupon && !coupon_used_by_user?(_coupon)
         self.gift_wrap = true if free_gift_wrap?
       end
     end
