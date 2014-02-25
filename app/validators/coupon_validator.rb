@@ -8,9 +8,17 @@ class CouponValidator < ActiveModel::Validator
         return
       end
 
-      if coupon.try(:expired?) || !coupon.try(:available?) || cart.coupon_used_by_user?(coupon)
+      if coupon.try(:expired?) || !coupon.try(:available?) || has_unique_coupon_restriction?(cart)
         cart.errors.add(:coupon_code, "Este cupom não é mais válido :/")
       end
     end
   end
+
+  private
+    def has_unique_coupon_restriction?(cart)
+      return false if cart.user.nil?
+      user_coupon = cart.user.user_coupon
+      !UniqueCouponUtilizationPolicy.apply?(coupon: _coupon, user_coupon: user_coupon)
+    end
+
 end
