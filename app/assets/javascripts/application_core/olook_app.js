@@ -39,6 +39,6 @@ function OlookApp(_mediator) {
 };
 
 // Need to execute procedural otherwise when jQuery.ready events fire,
-// The use of olookApp variable will fail.
+// using olookApp variable will fail.
 olookApp = new OlookApp(new Mediator());
 
