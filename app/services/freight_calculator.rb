@@ -44,7 +44,7 @@ module FreightCalculator
   end
 
   def self.clean_zip(dirty_zip)
-    return dirty_zip.gsub(/\D/, '')
+    return (dirty_zip || "").gsub(/\D/, '')
   end
 
   private
