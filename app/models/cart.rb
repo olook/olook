@@ -129,11 +129,6 @@ class Cart < ActiveRecord::Base
     Set.new return_array
   end
 
-  def coupon_used_by_user? _coupon
-    return false unless user
-    _coupon.one_per_user? && user.user_coupon.include?(_coupon.id)
-  end
-
   private
 
     def update_coupon
@@ -145,7 +140,10 @@ class Cart < ActiveRecord::Base
         self.coupon_code = self.coupon.code
       elsif self.coupon_code
         _coupon = Coupon.find_by_code(self.coupon_code)
-        self.coupon = _coupon if _coupon && !coupon_used_by_user?(_coupon)
+        _user_coupon = user.nil? ? nil : user.user_coupon
+        if UniqueCouponUtilizationPolicy.apply?(coupon: _coupon, user_coupon: _user_coupon)
+          self.coupon = _coupon 
+        end
         self.gift_wrap = true if free_gift_wrap?
       end
     end
