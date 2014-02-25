@@ -6,7 +6,7 @@
         - @cart.items.each do |item|
           = render partial: 'cart/items/checkout_row', locals: { cart_service: @cart_service, item: item } if item
 
-  - if @freebie && Freebie.selection_for(@cart.id) && @freebie.can_receive_freebie?
+  - if @freebie && Freebie.selection_for(@cart.id) && @freebie.available? && @freebie.can_receive_freebie?
     .freebie_row
       %p
         Veja 
