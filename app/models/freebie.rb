@@ -10,6 +10,11 @@ class Freebie
     end
   end
 
+  def available?
+    Setting.cheirinho_de_graca &&
+    Variant.find(variant_id).inventory > 0
+  end
+
   def can_receive_freebie?
     @subtotal.to_f > 200
   end
