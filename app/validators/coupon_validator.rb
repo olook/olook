@@ -7,7 +7,6 @@ class CouponValidator < ActiveModel::Validator
         cart.errors.add(:coupon_code, "Cupom inexistente. Tente digitar novamente.")
         return
       end
-
       if coupon.try(:expired?) || !coupon.try(:available?) || cart.coupon_used_by_user?(coupon)
         cart.errors.add(:coupon_code, "Este cupom não é mais válido :/")
       end
