@@ -5,7 +5,7 @@
   .mylook
     - @showroom_presenter.looks.each_with_index do |look,idx|
       .look{class: ('last' if idx == 3)}
-        = link_to product_seo_url(look.product.seo_path), onclick: track_event("LoggedHome", "ClickLook", "#{look.product_id}") do
+        = link_to product_seo_path(look.product.seo_path), onclick: track_event("LoggedHome", "ClickLook", "#{look.product_id}") do
           %span.look_thumbnail{data: {product: look.front_picture.showroom.url, backside_picture: look.full_look_picture.showroom.url }}
   #see_too
     %h4
@@ -13,6 +13,6 @@
     %ul#carousel.elastislide-list
       - @showroom_presenter.products.each do |product|
         %li
-          = link_to image_tag(product.front_picture.try(:image_url, :showroom)), product_seo_url(product.seo_path), onclick: track_event("LoggedHome", "ClickCarouselProduct", "#{product.id}")
+          = link_to image_tag(product.front_picture.try(:image_url, :showroom)), product_seo_path(product.seo_path), onclick: track_event("LoggedHome", "ClickCarouselProduct", "#{product.id}")
           %span= number_to_currency(product.retail_price)
           = link_to "Ver Mais", product_seo_path(product.seo_path), :class => 'seeMore'

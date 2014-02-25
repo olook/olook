@@ -44,7 +44,7 @@
     %ul.products_list
       - @recommendation.products(limit: 6).each do |product|
         %li
-          = link_to product_seo_url(product.seo_path), onclick: track_event("LoggedHome", "ClickCarouselProduct", "#{product.id}") do
+          = link_to product_seo_path(product.seo_path), onclick: track_event("LoggedHome", "ClickCarouselProduct", "#{product.id}") do
             %span.look_thumbnail{data: {product: product.front_picture.image_url(:showroom), backside_picture: product.full_look_picture.image_url(:showroom) }}
           %span= number_to_currency(product.retail_price)
           = link_to "Ver Mais", product_seo_path(product.seo_path), :class => 'seeMore'
