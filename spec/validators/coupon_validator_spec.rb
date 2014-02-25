@@ -58,6 +58,30 @@ describe CouponValidator do
         end
       end
 
+      # context "and it's unique" do
+      #   let(:available_coupon) { FactoryGirl.build(:coupon, one_per_user: true) }
+      #   context "and it's already used" do
+      #     it "adds an error" do
+      #       cart.coupon_code = available_coupon.code
+      #       Coupon.stub(:find_by_code).with(cart.coupon_code).and_return(available_coupon)
+      #       Coupon.any_instance.should_receive(:expired?).and_return(false)
+      #       Coupon.any_instance.should_receive(:available?).and_return(false)            
+      #       cart.should_receive(:coupon_used_by_user?).and_return(true)
+      #       subject.validate(cart)
+      #       cart.errors.size.should eq(1)
+      #     end
+      #   end
+
+      #   context "and it's not used" do
+      #     it "doesnt add an error to cart" do
+      #       cart.coupon_code = available_coupon.code
+      #       Coupon.stub(:find_by_code).with(cart.coupon_code).and_return(available_coupon)
+      #       subject.validate(cart)
+      #       cart.errors.size.should eq(0)
+      #     end
+      #   end        
+      # end      
+
       context "and coupon is not available" do
         let(:unavailable_coupon) { FactoryGirl.build(:unavailable_coupon) }
 
