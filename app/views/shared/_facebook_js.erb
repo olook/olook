@@ -1,3 +1,4 @@
+<div id="fb-root"></div>
 <script type="text/javascript">
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -25,29 +26,8 @@ init_facebook = function (){
     });
 
     FB.Event.subscribe('edge.create', function(href, widget) {
-
-    <% if params[:controller] == "members" && params[:action] =="showroom" && params[:lbp] == "1" %>
-      // A/B test rules:
-      // if the user is
-      // - accessing members#showroom and the lbp param is "1"
-      // - clicking on a showroom product (which means that the "www.facebook.com/Olook" like link is excluded)
-      // then the ClickFacebookLike event is going to be fired
-      // for any other cases, the ClickFacebookLike is going to be fired
-      // (if you re reading this, please ask someone if you can take out those rules, only firing the ClickFacebookLike for all cases)
-
-      if( href == "www.facebook.com/Olook") {
-        _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);
-      } else {
-        _gaq.push(['_trackEvent', 'Showroom', 'ClickFacebookLike', href]);
-      }
-    <% else %>
       _gaq.push(['_trackEvent', 'Facebook', 'Like', href]);
-    <% end %>
     });
-
-    // FB.Event.subscribe('edge.create', function(href, widget) {
-    //   _gaq.push(['_trackEvent', 'Showroom', 'ClickFacebookLike', '']);
-    // });
 
     try {
       FB.XFBML.parse();
@@ -77,49 +57,6 @@ init_facebook = function (){
 
 }
 window.addEventListener('load', init_facebook);
-
-/**
-  * TODO: Change the function name because we don't send message to boyfriend anymore
-  *
-  */
-function getBoyfriendName(){
-  FB.api('/me', function(response) {
-    sendMessageToBoyfriend(response);
-  });
-}
-
-
-function sendMessageToBoyfriend(me_response) {
-  var boyfriend = "";
-  var link_suffix = "?single=1";
-  var size = $.trim($("div.line.size ol").find("li input[type='radio']:checked").prev().prev().text());
-  var significant_other = me_response.significant_other;
-  if(significant_other){
-    boyfriend = significant_other.id;
-    link_suffix = "";
-  }
-
-  ui_hash = {
-    method: 'feed',
-    name: 'Quero Olook de presente!',
-    <% if @product %>
-      caption: 'Vi este produto no site da Olook e amei! <3',
-      to: me_response.id,
-      display: "iframe",
-
-      picture: 'http:'+'<%= @product.catalog_picture.to_s %>',
-      description: 'Além de acertar em cheio no presente, a troca e devolução é grátis.',
-      // link: '<%= "#{root_url}dia_dos_namorados/" %>'+me_response.id+'<%= "/#{@product.id.to_s}" %>'+link_suffix+'&size='+size
-      link: '<%= "#{root_url}quero_ganhar/" %>'+me_response.id+'<%= "/#{@product.id.to_s}" %>'+link_suffix+'&size='+size
-    <% end %>
-  };
-
-  function callback(response) {
-    $(window).scrollTop($("#quick_view").position().top - 10)
-  }
-
-  FB.ui(ui_hash, callback);
-}
 
 
 
