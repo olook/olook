@@ -17,7 +17,7 @@ class CouponValidator < ActiveModel::Validator
     def has_unique_coupon_restriction?(cart, coupon)
       return false if cart.user.nil?
       user_coupon = cart.user.user_coupon
-      !UniqueCouponUtilizationPolicy.apply?(coupon: coupon, user_coupon: user_coupon)
+      user_coupon ? !UniqueCouponUtilizationPolicy.apply?(coupon: coupon, user_coupon: user_coupon) : false
     end
 
 end
