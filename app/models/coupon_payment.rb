@@ -17,6 +17,8 @@ class CouponPayment < Payment
       coupon = Coupon.lock("LOCK IN SHARE MODE").find_by_id(self.try(:coupon_id))
       if coupon
         coupon.increment!(:used_amount, 1)
+        user_coupon = UserCoupon.find_by_user_id(user.id)
+        user_coupon.add(coupon.id) if coupon.one_per_user?
       end
     end
     super
