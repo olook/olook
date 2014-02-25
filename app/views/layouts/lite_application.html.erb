@@ -54,6 +54,7 @@
   </head>
 
   <body onload='ativaDiv();' class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %><%= mobile? ? ' mobile' : ' desktop' %>">
+    <%= render "shared/facebook_js", member: current_user, facebook_app_id: @facebook_app_id  %>
     <%= yield :after_body %>
     <%= render :partial => "shared/tag/google_tag_manager" %>
     <div id="modalneo" align="right" style="display:none;border:0px;">
@@ -128,7 +129,7 @@
                         <br />
                           produto a sua lista de favoritos.
                       </p>
-                 <% elsif any_wished_product_has_discount? %>                                     
+                 <% elsif any_wished_product_has_discount? %>
                    <%= link_to "Favoritos", wishlist_path, :class=> "wishlistHasProduct discount", onclick: track_event("Wishlist","openWishlistFromMenu") %>
                       <p class="sub full">
                         Oba! Alguns dos seus produtos
@@ -190,10 +191,8 @@
        <div id="modal-campaign">&nbsp;</div>
        <!-- End Modals -->
 
-
        <%= javascript_include_tag "lite_application" %>
-       <%= render "shared/facebook_js", :member => current_user, :facebook_app_id => @facebook_app_id  %>
-       
+
        <script>
          show_modal = '<%= j @modal_show %>';
        </script>

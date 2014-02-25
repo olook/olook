@@ -31,15 +31,14 @@ function OlookApp(_mediator) {
       } else if(channel.facade == null || channel.facade == undefined){
         throw "channel facade method is required";
       }
-      
+
       mediator.subscribe(channel.name, channel.facade);
     }
 
   }
 };
 
-var olookApp = null;
+// Need to execute procedural otherwise when jQuery.ready events fire,
+// The use of olookApp variable will fail.
+olookApp = new OlookApp(new Mediator());
 
-$(function(){
-  olookApp = new OlookApp(new Mediator());
-});
