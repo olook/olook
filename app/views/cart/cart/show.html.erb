@@ -78,7 +78,7 @@ _gaq.push(['_addTrans',
         <% end %>
       </tbody>
     </table>
-    <%= render 'freebie/item', freebie: @freebie if @freebie %>
+    <%= render 'freebie/item', freebie: @freebie if @freebie && @freebie.available? %>
 
     <%= render "checkout_banner" %>
 
