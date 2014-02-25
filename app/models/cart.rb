@@ -140,7 +140,10 @@ class Cart < ActiveRecord::Base
         self.coupon_code = self.coupon.code
       elsif self.coupon_code
         _coupon = Coupon.find_by_code(self.coupon_code)
-        self.coupon = _coupon if _coupon
+        _user_coupon = user.nil? ? nil : user.user_coupon
+        if UniqueCouponUtilizationPolicy.apply?(coupon: _coupon, user_coupon: _user_coupon)
+          self.coupon = _coupon 
+        end
         self.gift_wrap = true if free_gift_wrap?
       end
     end
@@ -156,5 +159,4 @@ class Cart < ActiveRecord::Base
     def has_empty_adjustments?
       items.select { |item| item.has_adjustment? }.empty?
     end
-
 end
