@@ -19,7 +19,6 @@ MinicartBoxDisplayUpdater = function(){
   };
 
   return{
-    name: "UPDATE_MINICART_BOX_DISPLAY",
     facade: function(){
       if(isCartEmpty()) {
         showEmptyCartBox();
@@ -33,5 +32,5 @@ MinicartBoxDisplayUpdater = function(){
 }();
 
 $(function(){
-  olookApp.subscribe(MinicartBoxDisplayUpdater);
+  olookApp.subscribe("minicart:update:box_display", MinicartBoxDisplayUpdater.facade);
 });
