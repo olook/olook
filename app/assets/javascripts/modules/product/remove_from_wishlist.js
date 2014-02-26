@@ -16,11 +16,11 @@ RemoveFromWishlist = function(){
   }
 
   return {
-    name: "REMOVE_FROM_WISHLIST",
+    name: "wishlist:remove",
     facade: facade
   };
 }();
 
 $(function(){
-  olookApp.subscribe(RemoveFromWishlist); 
+  olookApp.subscribe('wishlist:remove');
 });
