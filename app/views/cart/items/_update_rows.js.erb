@@ -38,7 +38,7 @@ if ($('#cart_use_credits').is(':checked')){
   $('#credito_fidelidade').remove();
 }
 
-olookApp.mediator.publish('cart.update', {
+olookApp.publish('cart:update', {
   totalItens: "(<%= pluralize(@cart.items_total, 'item', 'itens') %>)",
   total: '<%= number_to_currency(@cart_calculator.items_total) %>',
   subtotal: '<%= number_to_currency(@cart_calculator.items_subtotal) %>'
