@@ -62,7 +62,7 @@ var MinicartDataUpdater = (function(){
   };
 
   MinicartDataUpdater.prototype.config = function() {
-    olookApp.subscribe('minicart:update', this.facade, {}, this);
+    olookApp.subscribe('minicart:update:data', this.facade, {}, this);
   };
 
   return MinicartDataUpdater;

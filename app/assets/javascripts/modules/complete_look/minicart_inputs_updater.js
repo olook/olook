@@ -12,7 +12,6 @@ MinicartInputsUpdater = function(){
   }
 
   return{
-    name: "UPDATE_MINICART_INPUTS",
     facade: function(productId, variantNumber){
       $('.js-' + productId).remove();
       appendHiddenFieldToMiniCartForm(productId, variantNumber);
@@ -25,5 +24,5 @@ MinicartInputsUpdater = function(){
  * e declarar o subscribe usando o metodo de facade como callback
  */
 $(function(){
-  olookApp.subscribe(MinicartInputsUpdater);   
+  olookApp.subscribe("minicart:update:inputs", MinicartInputsUpdater.facade);   
 });

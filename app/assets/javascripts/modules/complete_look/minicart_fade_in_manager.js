@@ -14,12 +14,11 @@ MinicartFadeInManager = function(){
   }
 
   return{
-    name: 'FADE_IN_MINICART',
     facade: facade
   }
 
 }();
 
 $(function(){
-  olookApp.subscribe(MinicartFadeInManager);
+  olookApp.subscribe('minicart:update:fadein', MinicartFadeInManager.facade);
 });
