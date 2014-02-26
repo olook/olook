@@ -1,6 +1,6 @@
 var completeLook = function(){
 
-  addLookItemToCart = function(actionUrl, values) {
+  var addLookItemToCart = function(actionUrl, values) {
     $.post(actionUrl, values, function( data ) {
 
       var variantNumber = values.variant_number;
@@ -19,16 +19,16 @@ var completeLook = function(){
     });
   }
 
-  bindEvents = function(){
+  var bindEvents = function(){
     $('li.product form #variant_number').change(function(e){
       var element = $(this);
       var actionUrl = element.parent().attr('action');
 
-      values = {
+      var values = {
         'product_id': element.data('product-id'),
         'variant_number': element.val()
       }
-      
+
       addLookItemToCart(actionUrl, values);
     });
   }
@@ -36,7 +36,7 @@ var completeLook = function(){
   return {
     bindEvents: bindEvents
   }
-  
+
 }();
 
 $(function() {
