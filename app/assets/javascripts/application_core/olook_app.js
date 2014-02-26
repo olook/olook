@@ -10,29 +10,27 @@
 function OlookApp(_mediator) {
   var mediator = _mediator;
 
-  shift = function(list) {
-    return Array.prototype.slice.call(list, 1);
+  shift = function(list, starting_point) {
+    return Array.prototype.slice.call(list, starting_point);
   }
 
   return{
-    mediator: mediator,
     publish: function(){
       if (arguments.length == 0){
         throw "channel name is required";
       }
-      args = shift(arguments);
+      args = shift(arguments,1);
       mediator.publish(arguments[0], args);
     },
-    subscribe: function(channel){
-      if (channel == null || channel == undefined){
-        throw "channel is required";
-      } else if(StringUtils.isEmpty(channel.name)){
+    subscribe: function(){
+      if (arguments.length == 0){
         throw "channel name is required";
-      } else if(channel.facade == null || channel.facade == undefined){
+      } else if (arguments.length == 1){
         throw "channel facade method is required";
       }
+      var args = shift(arguments,2);
 
-      mediator.subscribe(channel.name, channel.facade);
+      mediator.subscribe(arguments[0], arguments[1], args);
     }
 
   }
