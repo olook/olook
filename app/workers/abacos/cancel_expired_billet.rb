@@ -4,11 +4,17 @@ module Abacos
     @queue = :cancel_old_billets
 
     def self.perform
-      billets = Billet.to_expire
+      errors = []
+      default_expiration_date = 2.business_day.ago
+      billets = Billet.to_expire(default_expiration_date)
       billets.each do |billet|
-        Abacos::CancelOrder.perform billet.order.number if billet.order
+        begin
+          Abacos::CancelOrder.perform billet.order.number if billet.order
+        rescue => e
+          errors << "Pedido: #{billet.try(:order)}, mensagem: #{e.message}"
+        end
       end
-      mail = DevAlertMailer.notify_about_cancelled_billets billets
+      mail = DevAlertMailer.notify_about_cancelled_billets(billets, errors)
       mail.deliver
     end
   end
