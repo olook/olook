@@ -82,9 +82,12 @@ class Order < ActiveRecord::Base
         body: "Pedido Numero: #{number} deve ser eviado por motoboy",
         subject: "Pedido motoboy"
       })
-    end  
+    end
   end
 
+  def enqueue_survey_email
+    Resque.enqueue_in(self.payments.first.payment_expiration_date + 3.days, Orders::SurveyEmailWorker, self.id)
+  end
 
   state_machine :initial => :waiting_payment do
     store_audit_trail
@@ -101,7 +104,8 @@ class Order < ActiveRecord::Base
                                                  :set_delivery_date_on,
                                                  :set_shipping_service_name,
                                                  :summarize_sell,
-                                                 :notify_motoboy_order]
+                                                 :notify_motoboy_order,
+                                                 :enqueue_survey_email]
 
     after_transition any => :canceled, :do => [:enqueue_cancelation_notification,
                                                :check_cupon_devolution
