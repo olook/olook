@@ -1,12 +1,13 @@
-MinicartDataUpdater = function(){
+var MinicartDataUpdater = (function(){
+  function MinicartDataUpdater() {};
 
-  getProductName = function(productId) {
+  var getProductName = function(productId) {
     return $('.js-look-product[data-id='+productId+']').data('name');
   }
 
   var writePrice = function(){
     var installments = CreditCard.installmentsNumberFor($("#total_price").val());
-    if ($(".js-look-product").length == ($(".js-minicartItem").length) && (parseFloat($("#total_price").val()) > parseFloat($("#total_look_promotion_price").val()))){ 
+    if ($(".js-look-product").length == ($(".js-minicartItem").length) && (parseFloat($("#total_price").val()) > parseFloat($("#total_look_promotion_price").val()))){
       $(".minicart_price").html("De<span class='original_price'>" + installments + "x de " + Formatter.toCurrency( $("#total_price_without_discount").val() / installments ) + "</span>Por <span class='discounted_price'>"+$(".total_with_discount").html() + " sem juros</span>");
 
     } else if(($(".js-minicartItem").length) > 0){
@@ -24,7 +25,7 @@ MinicartDataUpdater = function(){
       $("#total_price").val(parseFloat(productPrice));
     } else {
       $("#total_price").val( parseFloat($("#total_price").val()) + parseFloat(productPrice));
-    }      
+    }
     $('.js-look-products').append("<li class='js-minicartItem' data-id='"+productId+"'>"+ productName +"</li>");
   };
 
@@ -34,7 +35,7 @@ MinicartDataUpdater = function(){
       $("#total_price").val('');
     } else {
       $("#total_price").val( parseFloat($("#total_price").val()) - parseFloat(productPrice));
-    }    
+    }
   };
 
   var isAddition = function(productId, variantNumber){
@@ -49,28 +50,20 @@ MinicartDataUpdater = function(){
     return ($( ".js-minicartItem").length == 0);
   };
 
-  var applyDiscount = function(productPrice){
+  var applyDiscount = function(productPrice){};
 
-  };
-
-  return{
-    name: "UPDATE_MINICART_DATA",
-    facade: function(params){
-      var productId = params[0];
-      var productPrice = params[1];
-      var variantNumber = params[2];
-
-      if (isAddition(productId, variantNumber)){
-        addItem(productId, productPrice);
-      } else if (isRemoval(productId, variantNumber)){
-        removeItem(productId, productPrice);
-      }
-      writePrice();
+  MinicartDataUpdater.prototype.facade = function(params){
+    if (isAddition(params['productId'], params['variantNumber'])){
+      addItem(params['productId'], params['productPrice']);
+    } else if (isRemoval(params['productId'], params['variantNumber'])){
+      removeItem(params['productId'], params['productPrice']);
     }
+    writePrice();
   };
 
-}();
+  MinicartDataUpdater.prototype.config = function() {
+    olookApp.subscribe('minicart:update', this.facade, {}, this);
+  };
 
-$(function(){
-  olookApp.subscribe(MinicartDataUpdater);
-});
+  return MinicartDataUpdater;
+})();

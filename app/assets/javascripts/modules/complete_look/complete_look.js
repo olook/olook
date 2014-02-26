@@ -1,34 +1,36 @@
 var completeLook = function(){
 
-  addLookItemToCart = function(actionUrl, values) {
+  var addLookItemToCart = function(actionUrl, values) {
     $.post(actionUrl, values, function( data ) {
 
-      var variantNumber = values.variant_number;
-      var productPrice = data.product_price;
-      var productId = data.product_id;
+      var minicartUpdate = {
+        variantNumber: values.variant_number,
+        productPrice: data.product_price,
+        productId: data.product_id
+      }
 
-      olookApp.mediator.publish(MinicartFadeOutManager.name, variantNumber);
+      olookApp.publish(MinicartFadeOutManager.name, variantNumber);
       // Move the input creation to Channel
-      olookApp.mediator.publish(MinicartInputsUpdater.name, productId, variantNumber);
+      olookApp.publish(MinicartInputsUpdater.name, productId, variantNumber);
 
       setTimeout(function() {
-        olookApp.publish(MinicartDataUpdater.name, productId, productPrice, variantNumber);  
+        olookApp.publish('minicart:update', minicartUpdate);
         olookApp.publish(MinicartBoxDisplayUpdater.name);
-        olookApp.publish(MinicartFadeInManager.name);  
-      },300);    
+        olookApp.publish(MinicartFadeInManager.name);
+      },300);
     });
   }
 
-  bindEvents = function(){
+  var bindEvents = function(){
     $('li.product form #variant_number').change(function(e){
       var element = $(this);
       var actionUrl = element.parent().attr('action');
 
-      values = {
+      var values = {
         'product_id': element.data('product-id'),
         'variant_number': element.val()
       }
-      
+
       addLookItemToCart(actionUrl, values);
     });
   }
@@ -36,7 +38,7 @@ var completeLook = function(){
   return {
     bindEvents: bindEvents
   }
-  
+
 }();
 
 $(function() {
