@@ -66,7 +66,8 @@ class SeoUrl
 
     parsed_values = HashWithIndifferentAccess.new
     parsed_values[:collection_theme] = @params[:collection_theme]
-    parsed_values[:brand] = @params[:brand] || extract_brand
+
+    parsed_values[:brand] = extract_brand
     parsed_values[:excluded_brand] = @params[:excluded_brand] if @params[:excluded_brand]
 
     matched_categories = categories.uniq.select {|category| @params[:parameters] =~ /#{category}/}
@@ -147,8 +148,7 @@ class SeoUrl
     end
 
     def parse_brands_params
-      /^\/marcas\/(?<brand>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\/?\?(?<query>.*))?/ =~ @path
-      @params[:brand] = URI.decode(brand.to_s)
+      %r{^/marcas(?:/(?<parameters>[^\?]+))?(?:/?\?(?<query>.*))?} =~ @path
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end
@@ -168,19 +168,19 @@ class SeoUrl
     end
 
     def parse_olooklet_params
-      /^(?:\/olooklet)(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
+      /^\/olooklet(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end
 
     def parse_newest_params
-      /^(?:\/novidades)(?:\/(?<parameters>[^\?]+)?)?((?:\/?\?(?<query>.*))?)?/ =~ @path
+      /^\/novidades(?:\/(?<parameters>[^\?]+)?)?((?:\/?\?(?<query>.*))?)?/ =~ @path
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end
 
     def parse_selections_params
-      /^(?:\/selecoes)(?:\/(?<parameters>[^\?]+)?)?((?:\/?\?(?<query>.*))?)?/ =~ @path
+      /^\/selecoes(?:\/(?<parameters>[^\?]+)?)?((?:\/?\?(?<query>.*))?)?/ =~ @path
       @params[:parameters] = URI.decode(parameters.to_s)
       @query = query
     end
@@ -189,7 +189,7 @@ class SeoUrl
     def build_link_for parameters
       other_parameters = @params.dup
       return_hash = {}
-      return_hash[:brand] = ActiveSupport::Inflector.transliterate(parameters.delete(:brand).join(MULTISELECTION_SEPARATOR)).downcase if parameters[:brand].present?
+      return_hash[:brand] = parameters.delete(:brand).map{|b| b.parameterize }.join(MULTISELECTION_SEPARATOR) if parameters[:brand].present?
       return_hash[:subcategory] = ActiveSupport::Inflector.transliterate(parameters.delete(:subcategory).join(MULTISELECTION_SEPARATOR).downcase) if parameters[:subcategory].present?
       return_hash[:category] = ActiveSupport::Inflector.transliterate(parameters.delete(:category).first.to_s).downcase if parameters[:category].present?
 
@@ -230,7 +230,16 @@ class SeoUrl
     end
 
     def extract_brand
-      brands = (all_brands & @params[:parameters].to_s.split('/').first.to_s.split(MULTISELECTION_SEPARATOR).map { |s| ActiveSupport::Inflector.transliterate(s).titleize })
+      param_brand = @params[:parameters].to_s.split('/').first.to_s.parameterize
+      sorted_brands = all_brands.sort do |a,b|
+        b.scan(" ").size <=> a.scan(" ").size
+      end
+      brands = sorted_brands.select do |b|
+        if /#{b.parameterize}/ =~ param_brand
+          param_brand.slice!(/#{b.parameterize}/)
+          true
+        end
+      end
       brands.join(MULTISELECTION_SEPARATOR) if brands.any?
     end
 
