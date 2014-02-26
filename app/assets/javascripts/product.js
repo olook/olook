@@ -8,6 +8,7 @@
 //= require plugins/image_loader
 //= require plugins/spy
 //= require_tree ./modules/complete_look
+
 initProduct = {
   gotoRelatedProduct :function() {
     $('a#goRelatedProduct').live('click', function(e) {
@@ -168,10 +169,11 @@ initProduct.loadAddToCartForm();
 
 
 $(function(){
+  new MinicartFadeOutManager().config();
+  new MinicartDataUpdater().config();
 
   initProduct.loadAll();
   olook.spy('.spy');
-
 
   $('#js-addToWishlistButton').click(function(){
     olookApp.mediator.publish(AddToWishlist.name);
