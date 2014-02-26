@@ -40,11 +40,12 @@ module FreightCalculator
   end
 
   def self.valid_zip?(zip_code)
-    zip_code.match(VALID_ZIP_FORMAT) ? true : false
+    return unless zip_code
+    zip_code.to_s.match(VALID_ZIP_FORMAT) ? true : false
   end
 
   def self.clean_zip(dirty_zip)
-    return dirty_zip.gsub(/\D/, '')
+    return dirty_zip.to_s.gsub(/\D/, '')
   end
 
   private

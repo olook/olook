@@ -5,6 +5,8 @@ describe CouponPayment do
   it { should validate_presence_of(:coupon_id) }
   
   let(:coupon) { FactoryGirl.create :standard_coupon }
+  let(:user) {FactoryGirl.create :user}
+  let(:user_coupon) { FactoryGirl.create(:user_coupon, user: user) }  
   let(:order) { mock_model(Order, :authorized => true) }
   
   subject { CouponPayment.new(:order => order) }
@@ -38,12 +40,16 @@ describe CouponPayment do
     
     it "should execute increment used" do
       subject.coupon = coupon
+      subject.user = user
+      Coupon.any_instance.should_receive(:one_per_user?).and_return(false)
       Coupon.any_instance.should_receive(:increment!).with(:used_amount, 1)
       subject.authorize_order?.should be(true)
     end
     
     it "should execute order authorized" do
       subject.coupon = coupon
+      subject.user = user
+      Coupon.any_instance.should_receive(:one_per_user?).and_return(false)      
       order.should_receive(:authorized)
       subject.authorize_order?.should be(true)
     end

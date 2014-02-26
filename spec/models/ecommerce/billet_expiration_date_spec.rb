@@ -7,7 +7,7 @@ describe BilletExpirationDate do
     let(:tuesday) { saturday + 3.days }
     it "returns tuesday" do
       Timecop.freeze(saturday) do
-        expect(described_class.expiration_for_two_business_day).to eq tuesday
+        expect(described_class.business_day_expiration_date).to eq tuesday
       end
     end
   end
@@ -17,7 +17,7 @@ describe BilletExpirationDate do
     let(:tuesday) { sunday + 2.days }
     it "returns tuesday" do
       Timecop.freeze(sunday) do
-        expect(described_class.expiration_for_two_business_day).to eq tuesday
+        expect(described_class.business_day_expiration_date).to eq tuesday
       end
     end
   end
@@ -27,7 +27,7 @@ describe BilletExpirationDate do
     let(:wednesday) { monday + 2.days }
     it "returns wednesday" do
       Timecop.freeze(monday) do
-        expect(described_class.expiration_for_two_business_day).to eq wednesday
+        expect(described_class.business_day_expiration_date).to eq wednesday
       end
     end
   end
@@ -37,7 +37,7 @@ describe BilletExpirationDate do
     let(:thursday) { tuesday + 2.days }
     it "returns thursday" do
       Timecop.freeze(tuesday) do
-        expect(described_class.expiration_for_two_business_day).to eq thursday
+        expect(described_class.business_day_expiration_date).to eq thursday
       end
     end
   end
@@ -47,7 +47,7 @@ describe BilletExpirationDate do
     let(:friday) { wednesday + 2.days }
     it "returns friday" do
       Timecop.freeze(wednesday) do
-        expect(described_class.expiration_for_two_business_day).to eq friday
+        expect(described_class.business_day_expiration_date).to eq friday
       end
     end
   end
@@ -57,7 +57,7 @@ describe BilletExpirationDate do
     let(:monday) { thursday + 4.days }
     it "returns monday" do
       Timecop.freeze(thursday) do
-        expect(described_class.expiration_for_two_business_day).to eq monday
+        expect(described_class.business_day_expiration_date).to eq monday
       end
     end
   end
@@ -67,7 +67,7 @@ describe BilletExpirationDate do
     let(:tuesday) { friday + 4.days }
     it "returns tuesday" do
       Timecop.freeze(friday) do
-        expect(described_class.expiration_for_two_business_day).to eq tuesday
+        expect(described_class.business_day_expiration_date).to eq tuesday
       end
     end
   end
