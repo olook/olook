@@ -2,6 +2,7 @@
 class Billet < Payment
 
   scope :expire_at, ->(date_for_search) {where(payment_expiration_date: date_for_search.beginning_of_day..date_for_search.end_of_day, state: ["waiting_payment", "started"]).order("total_paid DESC")}
+  scope :to_expire, ->(date=Time.zone.now) {where("payment_expiration_date <= ?", date.beginning_of_day).where(state: ["waiting_payment", "started"]).where("order_id IS NOT NULL")}
 
   EXPIRATION_IN_DAYS = 3
   validates :receipt, :presence => true, :on => :create
@@ -24,7 +25,7 @@ class Billet < Payment
   end
 
   def expired?
-    Date.current > BilletExpirationDate.expiration_for_two_business_day(self.payment_expiration_date.to_date) if self.payment_expiration_date
+    Date.current > BilletExpirationDate.business_day_expiration_date(self.payment_expiration_date.to_date).to_date if self.payment_expiration_date
   end
 
   def schedule_cancellation
@@ -32,14 +33,9 @@ class Billet < Payment
     Resque.enqueue_at(5.business_days.from_now.beginning_of_day, Abacos::CancelOrder, self.order.number)
   end
 
-  def self.to_expire
-    expiration_date = 1.business_day.before(Time.zone.now) - 1.day
-    self.where(payment_expiration_date: expiration_date.beginning_of_day..expiration_date.end_of_day, state: ["waiting_payment", "started"])
-  end
-
   private
 
     def build_payment_expiration_date
-      BilletExpirationDate.expiration_for_two_business_day
+      BilletExpirationDate.business_day_expiration_date
     end
 end

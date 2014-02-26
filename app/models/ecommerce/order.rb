@@ -379,6 +379,10 @@ class Order < ActiveRecord::Base
       if payment_coupon
         coupon = Coupon.find payment_coupon.coupon_id
         coupon.update_attribute(:remaining_amount, coupon.remaining_amount.next) if coupon.unlimited.nil?
+        if coupon.one_per_user?
+          user_coupon = UserCoupon.find_or_create_by_user_id(payment_coupon.user.id) 
+          user_coupon.remove coupon.id
+        end
       end
     end
 
