@@ -13,11 +13,9 @@ function ImageLoader() {
       var img_container;
       var attributes;
       if (container.tagName != 'IMG') {
-        img_container = new Image();
+        img_container = document.createElement('img');
         img_container.className = 'async'
-        console.log('img container created');
         container.appendChild(img_container);
-        console.log('img container added to ' + container.tagName );
         attributes = {
           'data-backside-picture': container.getAttribute('data-backside-picture'),
           'data-product': container.getAttribute('data-product')
