@@ -6,12 +6,15 @@ class PictureProcess::ProductPictures
     logger.debug("Initializing PictureProcess for product #{key} with #{pictures.size} pictures")
     product = Product.find_by_id key
 
-    product.pictures.destroy_all if product.pictures.count > 1
+    still = pictures.find { |image| /still/i =~ image }
+    product.remote_picture_for_xml_url = still if still
+
     sample = pictures.find { |image| /sample/i =~ image }
-    if sample
-      product.remote_color_sample_url = sample
-      product.save
-    end
+    product.remote_color_sample_url = sample if sample
+
+    product.save
+
+    product.pictures.destroy_all if product.pictures.count > 1
     _pics = pictures.select { |image| %r{/[\d-]+\.jpe?g$}i =~ image }.sort
     _pics.each_with_index do |image, index|
       picture = Picture.new(product: product, display_on: index + 1)
