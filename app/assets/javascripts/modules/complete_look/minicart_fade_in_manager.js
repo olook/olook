@@ -1,13 +1,13 @@
 MinicartFadeInManager = function(){
-  hasToFadeIn = function(){
+  var hasToFadeIn = function(){
     return ($('.cart_related').css("display") == "none");
   };
 
-  fadeIn = function(){
+  var fadeIn = function(){
     $('.cart_related').fadeIn("fast");    
   };
 
-  facade = function(){
+  var facade = function(){
     if(hasToFadeIn()) {
       fadeIn();
     } 

@@ -1,10 +1,11 @@
-MinicartFadeOutManager = function(){
+var MinicartFadeOutManager = (function(){
+  function MinicartFadeOutManager() {};
 
-  hasToFadeOut = function(variantNumber){
+  var hasToFadeOut = function(variantNumber){
     return $('.js-minicartItem').size() == 0 && !StringUtils.isEmpty(variantNumber);
   };
 
-  fadeOut = function(){
+  var fadeOut = function(){
     $("#total_price").val('0.0');
 
     $('.cart_related').fadeOut("fast",function(){
@@ -13,18 +14,15 @@ MinicartFadeOutManager = function(){
     });
   };
 
-  facade = function(variantNumber){
+  MinicartFadeOutManager.prototype.facade = function(){
     if(hasToFadeOut(variantNumber)){
       fadeOut();
     }
   }
 
-  return {
-    name: "FADE_OUT_MINICART",
-    facade: facade
-  };
-}();
+  MinicartFadeOutManager.prototype.config = function(){
+    olookApp.subscribe('minicart:update:fadeout', this.facade, {}, this);
+  }
 
-$(function(){
-  olookApp.subscribe(MinicartFadeOutManager); 
-});
+  return MinicartFadeOutManager;
+})();

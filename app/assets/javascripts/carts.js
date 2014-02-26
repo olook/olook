@@ -39,7 +39,7 @@ CartUpdater.prototype = {
     }
   },
   config: function() {
-    olookApp.mediator.subscribe('cart.update', this.changeView, {}, this);
+    olookApp.mediator.subscribe('cart:update', this.changeView, {}, this);
   }
 };
 
