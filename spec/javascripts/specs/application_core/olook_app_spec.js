@@ -24,7 +24,7 @@ describe("Olook APP", function() {
       app.publish('topic name', 'param1', 'param2');
       expect(mockMediator.publish).toHaveBeenCalledWith('topic name', ['param1', 'param2']);
     });
-        
+
   });
 
   describe("#subscribe", function() {

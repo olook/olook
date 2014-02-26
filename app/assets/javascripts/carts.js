@@ -2,7 +2,7 @@
 //= require ./partials/_credits_info
 //= require plugins/spy
 //= require plugins/check_freebie
-//= require plugins/float_total_scroll_manager
+//= require modules/cart/float_total_scroll_manager
 
 function CartUpdater() {
   this.developer = 'Nelson Haraguchi';
