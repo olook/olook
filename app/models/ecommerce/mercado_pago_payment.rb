@@ -14,7 +14,7 @@ class MercadoPagoPayment < Payment
   # Por enquanto utiliza a mesma regra de expiração de boleto
   # 
   def build_payment_expiration_date
-    BilletExpirationDate.expiration_for_two_business_day
+    BilletExpirationDate.business_day_expiration_date
   end
 
   def self.to_expire

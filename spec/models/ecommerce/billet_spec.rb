@@ -81,7 +81,7 @@ describe Billet do
 
   context "payment expiration date" do
     it "should set payment expiration date after create" do
-      BilletExpirationDate.stub!(:expiration_for_two_business_day).and_return(Time.zone.local(2012, 2, 17))
+      BilletExpirationDate.stub!(:business_day_expiration_date).and_return(Time.zone.local(2012, 2, 17))
       expect(I18n.l(subject.payment_expiration_date, format: '%Y-%m-%d')).to eq '2012-02-17'
     end
   end
