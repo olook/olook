@@ -9,14 +9,8 @@ var completeLook = function(){
         productId: data.product_id
       }
 
-      olookApp.publish(MinicartFadeOutManager.name, variantNumber);
-      // Move the input creation to Channel
-      olookApp.publish(MinicartInputsUpdater.name, productId, variantNumber);
-
       setTimeout(function() {
         olookApp.publish('minicart:update', minicartUpdate);
-        olookApp.publish(MinicartBoxDisplayUpdater.name);
-        olookApp.publish(MinicartFadeInManager.name);
       },300);
     });
   }

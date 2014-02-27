@@ -14,8 +14,8 @@ var MinicartFadeOutManager = (function(){
     });
   };
 
-  MinicartFadeOutManager.prototype.facade = function(){
-    if(hasToFadeOut(variantNumber)){
+  MinicartFadeOutManager.prototype.facade = function(params){
+    if(hasToFadeOut(params['variantNumber'])){
       fadeOut();
     }
   }

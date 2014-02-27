@@ -17,7 +17,7 @@ initProduct = {
       }, 'fast');
       e.preventDefault();
     });
-  },  
+  },
   checkRelatedProducts : function() {
     return $("div#related ul.carousel").size() > 0 ? true : false;
   },
@@ -155,12 +155,12 @@ initProduct = {
   loadUnloadTriggers : function() {
     $(window).on("beforeunload", function () {
       initProduct.unloadSelects();
-    });    
-  },    
+    });
+  },
 
   unloadSelects : function() {
     for(i = 0; i < $("li #variant_number").length; i++){
-      $("li #variant_number")[i].selectedIndex = 0;            
+      $("li #variant_number")[i].selectedIndex = 0;
     }
   }
 }
@@ -171,6 +171,8 @@ initProduct.loadAddToCartForm();
 $(function(){
   new MinicartFadeOutManager().config();
   new MinicartDataUpdater().config();
+  new MinicartBoxDisplayUpdater().config();
+  new MinicartFadeInManager().config();
 
   initProduct.loadAll();
   olook.spy('.spy');

@@ -1,6 +1,7 @@
-MinicartInputsUpdater = function(){
+var MinicartInputsUpdater = (function(){
+  function MinicartInputsUpdater() {};
 
-  appendHiddenFieldToMiniCartForm = function(productId, variantNumber) {
+  var appendHiddenFieldToMiniCartForm = function(productId, variantNumber) {
     if (!StringUtils.isEmpty(variantNumber)) {
       $('<input type="hidden">').attr({
           'id': 'variant_numbers_',
@@ -11,18 +12,19 @@ MinicartInputsUpdater = function(){
     }
   }
 
-  return{
-    facade: function(productId, variantNumber){
-      $('.js-' + productId).remove();
-      appendHiddenFieldToMiniCartForm(productId, variantNumber);
-    }
+  MinicartInputsUpdater.prototype.facade = function(params){
+    $('.js-' + params['productId']).remove();
+    appendHiddenFieldToMiniCartForm(params['productId'], params['variantNumber']);
   }
-}();
 
-/* 
- * assim que o documento for renderizado, devemos criar uma nova instancia do modulo
- * e declarar o subscribe usando o metodo de facade como callback
- */
-$(function(){
-  olookApp.subscribe("minicart:update:inputs", MinicartInputsUpdater.facade);   
-});
+  /*
+   * assim que o documento for renderizado, devemos criar uma nova instancia do modulo
+   * e declarar o subscribe usando o metodo de facade como callback
+   */
+  MinicartInputsUpdater.prototype.config = function() {
+    olookApp.subscribe("minicart:update:inputs", this.facade, {}, this);
+  }
+
+  return MinicartInputsUpdater;
+})();
+
