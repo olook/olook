@@ -3,6 +3,7 @@ class Order < ActiveRecord::Base
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
   WAREHOUSE_TIME = 2
+  EXTRATIMEFORSURVEY = 3
 
   STATUS = {
     "waiting_payment" => "Aguardando pagamento",
@@ -86,7 +87,8 @@ class Order < ActiveRecord::Base
   end
 
   def enqueue_survey_email
-    Resque.enqueue_in(self.payments.first.payment_expiration_date + 3.days, Orders::SurveyEmailWorker, self.id)
+    date_for_schedule = (self.payments.first.payment_expiration_date.to_date - Date.today).to_i
+    Resque.enqueue_in( date_for_schedule.days + EXTRATIMEFORSURVEY.days, Orders::SurveyEmailWorker, self.id)
   end
 
   state_machine :initial => :waiting_payment do
