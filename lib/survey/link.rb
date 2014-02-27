@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'yaml'
-class Survey::Order
+class Survey::Link
   FILENAME = File.expand_path(File.join(File.dirname(__FILE__), '../..', 'config/survey_link.yml'))
   @@file = YAML::load(File.open(FILENAME))
 
