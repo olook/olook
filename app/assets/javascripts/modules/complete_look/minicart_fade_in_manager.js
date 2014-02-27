@@ -9,14 +9,14 @@ var MinicartFadeInManager = (function(){
     $('.cart_related').fadeIn("fast");
   };
 
-  MinicartFadeInManager.prototype.facade = function() {
+  MinicartFadeInManager.prototype.facade = function(params) {
     if(hasToFadeIn()) {
       fadeIn();
     }
   };
 
   MinicartFadeInManager.prototype.config = function() {
-    olookApp.subscribe('minicart:update:fadein', MinicartFadeInManager.facade);
+    olookApp.subscribe('minicart:update:fadein', this.facade, {}, this);
   }
 
   return MinicartFadeInManager;
