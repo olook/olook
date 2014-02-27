@@ -1,4 +1,5 @@
-MinicartBoxDisplayUpdater = function(){
+var MinicartBoxDisplayUpdater = (function(){
+  function MinicartBoxDisplayUpdater(){};
 
   var showEmptyCartBox = function(){
     $('.cart_related').removeClass('product_added');
@@ -18,19 +19,18 @@ MinicartBoxDisplayUpdater = function(){
     return ($( ".js-minicartItem").length == 0);
   };
 
-  return{
-    facade: function(){
-      if(isCartEmpty()) {
-        showEmptyCartBox();
-        disableSubmitButton();
-      } else {
-        enableSubmitButton();
-      }
+  MinicartBoxDisplayUpdater.prototype.facade = function(params){
+    if(isCartEmpty()) {
+      showEmptyCartBox();
+      disableSubmitButton();
+    } else {
+      enableSubmitButton();
     }
   };
 
-}();
+  MinicartBoxDisplayUpdater.prototype.config = function() {
+    olookApp.subscribe("minicart:update:box_display", this.facade, {}, this);
+  };
 
-$(function(){
-  olookApp.subscribe("minicart:update:box_display", MinicartBoxDisplayUpdater.facade);
-});
+  return MinicartBoxDisplayUpdater;
+})();
