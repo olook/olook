@@ -1,4 +1,14 @@
 %footer
+  %section.newsletter
+    %ul.social
+      %li.logo
+        =image_tag("footer/olook_logo.png")
+      / %li.icon.fb
+      /   =link_to "Facebook", "http://facebook.com/olook", :alt => "Facebook"
+      / %li.icon.twitter
+      /   =link_to "Twitter", "http://twitter.com/olook", :alt => "Twitter"
+      / %li.icon.instagram
+      /   =link_to "Instagram", "http://instagram.com/olook", :alt => "Instagram"
   %section
     %ul.atendimento
       %li.title
@@ -45,15 +55,6 @@
         = link_to "Revenda Olook", reseller_new_path
       %li
         = link_to "Programa de Afiliados", afiliados_path
-    %ul.social
-      %li.logo
-        =image_tag("footer/olook_logo.png")
-      %li.icon.fb
-        =link_to "Facebook", "http://facebook.com/olook", :alt => "Facebook"
-      %li.icon.twitter
-        =link_to "Twitter", "http://twitter.com/olook", :alt => "Twitter"
-      %li.icon.instagram
-        =link_to "Instagram", "http://instagram.com/olook", :alt => "Instagram"
     %ul.payment
       %li.title
         Formas de Pagamento
