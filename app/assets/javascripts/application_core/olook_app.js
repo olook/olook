@@ -15,6 +15,7 @@ function OlookApp(_mediator) {
   }
 
   return{
+    mediator: mediator,
     publish: function(){
       if (arguments.length == 0){
         throw "channel name is required";
