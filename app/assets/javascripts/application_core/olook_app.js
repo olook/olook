@@ -28,9 +28,9 @@ function OlookApp(_mediator) {
       } else if (arguments.length == 1){
         throw "channel facade method is required";
       }
-      var args = shift(arguments,2);
-
-      mediator.subscribe(arguments[0], arguments[1], args);
+      var options = (arguments.length >= 3) ? arguments[2] : null; 
+      var context = (arguments.length >= 4) ? arguments[3] : null; 
+      mediator.subscribe(arguments[0], arguments[1], options, context);
     }
 
   }

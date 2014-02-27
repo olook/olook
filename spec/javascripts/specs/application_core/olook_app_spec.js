@@ -28,27 +28,26 @@ describe("Olook APP", function() {
   });
 
   describe("#subscribe", function() {
-    var nullChannel = null;
-    var nullNameChannel = {name: null};
-    var nullFacadeMethodChannel = {name: "a", facade: null};
-    var channel = {name: "channelName", facade: "channelFacade"};
-
     it("returns an exception when channel is null", function() {
-      expect(app.subscribe.bind(null, nullChannel)).toThrow("channel is required");
+      expect(app.subscribe.bind(null)).toThrow("channel name is required");
     });
 
     it("returns an exception when channel name is null", function() {
-      expect(app.subscribe.bind(null, nullNameChannel)).toThrow("channel name is required");
+      expect(app.subscribe.bind(null, "a")).toThrow("channel facade method is required");
     });
 
-    it("returns an exception when channel facade method is null", function() {
-      expect(app.subscribe.bind(null, nullFacadeMethodChannel)).toThrow("channel facade method is required");
+    it("calls the mediator subscribe method when the channel name and callback method are being passed properly", function() {
+      var a = function(){};
+      app.subscribe("a", a);
+      expect(mockMediator.subscribe).toHaveBeenCalledWith("a", a, null, null);
     });
 
-    it("calls the mediator subscribe method when the channel is being passed properly", function() {
-      app.subscribe(channel);
-      expect(mockMediator.subscribe).toHaveBeenCalledWith(channel.name, channel.facade);
-    });      
+    it("calls the mediator subscribe method when the channel, callback method and options are being passed properly", function() {
+      var a = function(){};
+      var hash = { name: 'acasafd' };
+      app.subscribe("a", a, );
+      expect(mockMediator.subscribe).toHaveBeenCalledWith("a", a, hash, null);
+    });                        
   });
 
 });
