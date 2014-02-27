@@ -5,7 +5,7 @@ class Orders::SurveyMailer < ActionMailer::Base
 
   def order_survey order
     @order = order
-    @link = Survey::Order.generate @order.line_items
+    @link = Survey::Link.generate @order.line_items
     mail(:to => @order.user_email, :subject => "Pesquisa de satisfação")
   end
 end
