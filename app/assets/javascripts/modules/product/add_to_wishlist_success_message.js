@@ -14,11 +14,10 @@ AddToWishlistSuccessMessage = function(){
   }
 
   return {
-    name: "ADD_TO_WISHLIST_SUCCESS_MESSAGE",
     facade: facade
   };
 }();
 
 $(function(){
-  olookApp.subscribe(AddToWishlistSuccessMessage); 
+  olookApp.subscribe("wishlist:add:success_message", AddToWishlistSuccessMessage.facade, {}, AddToWishlistSuccessMessage);
 });

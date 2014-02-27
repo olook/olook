@@ -20,11 +20,10 @@ AddToWishlist = function(){
   }
 
   return {
-    name: "ADD_TO_WISHLIST",
     facade: facade
   };
 }();
 
 $(function(){
-  olookApp.subscribe(AddToWishlist); 
+  olookApp.subscribe('wishlist:add', AddToWishlist.facade, {}, AddToWishlist);
 });

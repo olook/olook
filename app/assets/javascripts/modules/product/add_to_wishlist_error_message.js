@@ -7,11 +7,10 @@ AddToWishlistErrorMessage = function(){
   }
 
   return {
-    name: "ADD_TO_WISHLIST_ERROR_MESSAGE",
     facade: facade
   };
 }();
 
 $(function(){
-  olookApp.subscribe(AddToWishlistErrorMessage); 
+  olookApp.subscribe("wishlist:add:error_message", AddToWishlistErrorMessage.facade, {}, AddToWishlistErrorMessage);
 });
