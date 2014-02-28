@@ -45,7 +45,7 @@ describe("Olook APP", function() {
     it("calls the mediator subscribe method when the channel, callback method and options are being passed properly", function() {
       var a = function(){};
       var hash = { name: 'acasafd' };
-      app.subscribe("a", a, );
+      app.subscribe("a", a, hash);
       expect(mockMediator.subscribe).toHaveBeenCalledWith("a", a, hash, null);
     });                        
   });
