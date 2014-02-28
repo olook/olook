@@ -14,7 +14,8 @@ AddToWishlistSuccessMessage = function(){
   }
 
   return {
-    facade: facade
+    facade: facade,
+    name: "wishlist:add:success_message"
   };
 }();
 

@@ -22,7 +22,8 @@ RemoveFromWishlistSuccessMessage = function(){
   }
 
   return {
-    facade: facade
+    facade: facade,
+    name: "wishlist:remove:success_message"
   };
 }();
 

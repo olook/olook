@@ -20,10 +20,11 @@ AddToWishlist = function(){
   }
 
   return {
-    facade: facade
+    facade: facade,
+    name: 'wishlist:add:click_button'
   };
 }();
 
 $(function(){
-  olookApp.subscribe('wishlist:add', AddToWishlist.facade, {}, AddToWishlist);
+  olookApp.subscribe('wishlist:add:click_button', AddToWishlist.facade, {}, AddToWishlist);
 });

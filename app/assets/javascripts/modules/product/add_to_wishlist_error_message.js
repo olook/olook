@@ -1,13 +1,13 @@
 AddToWishlistErrorMessage = function(){
 
-  facade = function(parameters) {  
-    var message = parameters[0];
+  facade = function(message) {
     $('p.alert_size').html(message).show()
       .delay(3000).fadeOut();    
   }
 
   return {
-    facade: facade
+    facade: facade,
+    name: "wishlist:add:error_message"
   };
 }();
 
