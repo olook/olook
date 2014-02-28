@@ -173,6 +173,7 @@ $(function(){
   new MinicartDataUpdater().config();
   new MinicartBoxDisplayUpdater().config();
   new MinicartFadeInManager().config();
+  new MinicartInputsUpdater().config();
 
   initProduct.loadAll();
   olook.spy('.spy');

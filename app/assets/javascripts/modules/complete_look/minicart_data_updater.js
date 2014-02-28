@@ -53,7 +53,7 @@ var MinicartDataUpdater = (function(){
   var applyDiscount = function(productPrice){};
 
   MinicartDataUpdater.prototype.facade = function(params){
-    olookApp.publish('minicart:update:fadeout');
+    olookApp.publish('minicart:update:fadeout', params);
     olookApp.publish('minicart:update:input', params);
     setTimeout(function(){
       if (isAddition(params['productId'], params['variantNumber'])){
