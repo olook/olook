@@ -53,12 +53,18 @@ var MinicartDataUpdater = (function(){
   var applyDiscount = function(productPrice){};
 
   MinicartDataUpdater.prototype.facade = function(params){
-    if (isAddition(params['productId'], params['variantNumber'])){
-      addItem(params['productId'], params['productPrice']);
-    } else if (isRemoval(params['productId'], params['variantNumber'])){
-      removeItem(params['productId'], params['productPrice']);
-    }
-    writePrice();
+    olookApp.publish('minicart:update:fadeout');
+    olookApp.publish('minicart:update:input', params);
+    setTimeout(function(){
+      if (isAddition(params['productId'], params['variantNumber'])){
+        addItem(params['productId'], params['productPrice']);
+      } else if (isRemoval(params['productId'], params['variantNumber'])){
+        removeItem(params['productId'], params['productPrice']);
+      }
+      writePrice();
+      olookApp.publish('minicart:update:box_display', params);
+      olookApp.publish('minicart:update:fadein');
+    }, 300);
   };
 
   MinicartDataUpdater.prototype.config = function() {

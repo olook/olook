@@ -22,7 +22,7 @@ var MinicartInputsUpdater = (function(){
    * e declarar o subscribe usando o metodo de facade como callback
    */
   MinicartInputsUpdater.prototype.config = function() {
-    olookApp.subscribe("minicart:update:inputs", this.facade, {}, this);
+    olookApp.subscribe("minicart:update:input", this.facade, {}, this);
   }
 
   return MinicartInputsUpdater;

@@ -7,11 +7,9 @@ var completeLook = function(){
         variantNumber: values.variant_number,
         productPrice: data.product_price,
         productId: data.product_id
-      }
+      };
 
-      setTimeout(function() {
-        olookApp.publish('minicart:update', minicartUpdate);
-      },300);
+      olookApp.publish('minicart:update:data', minicartUpdate);
     });
   }
 
