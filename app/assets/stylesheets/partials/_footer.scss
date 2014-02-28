@@ -100,10 +100,76 @@ footer, .footer_checkout {
     width: 990px;
     padding-top: 0;
     ul.social {
-      width: 300px;
+      width: 400px;
       height: 30px;
       padding: 0;
-      margin: 7px 10px 0 33px; 
+      margin: 7px 10px 0 33px;
+      li.logo{
+        float: left;
+        width: 240px;
+      }
+      li.icon{
+        float: left;
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+        border: 1px solid #fff;
+      }
+    }
+    ul.mail{
+      width: 465px;
+      height: 30px;
+      margin-right: 0;
+      margin-top: 14px;
+      margin-left: 33px;
+      p{
+        font-size: 13px;
+        font-family: $bt_font;
+        letter-spacing: 1px;
+        color: #cccccc;
+        float: left;
+        margin-right: 5px;
+        span{
+          color: $base_color;
+          font-weight: 600;
+          font-size: 14px;
+        }
+      }
+      fieldset{
+        display: block;
+        width: 100px;
+        float: left;
+        .box_mail{
+          width: 205px;
+          height: 23px;
+          background-color: #1a1a1a;
+          color: #cccccc;
+          font-size: 10px;
+          font-family: $bt_font;
+          border: 1px solid #cccccc;
+          padding-left: 10px;
+          letter-spacing: 1px;
+          margin-top: -4px;
+          position: absolute;
+        }
+      }
+      fieldset.botao{
+        width: 30px;
+        height:30px;
+        border: none;
+        .bt_enviar{
+          background: image-url('common/nav/sprite_header.png') no-repeat 0 -275px;
+          width: 26px;
+          height: 26px;
+          text-indent: 9999px;
+          float: right;
+          position: absolute;
+          margin-top: -4px;
+          border: none;
+          top: 13px;
+          right: 15px;
+        }
+      }
     }
   }
 }
