@@ -51,6 +51,7 @@ Olook::Application.configure do
       "http://wac.bff9.edgecastcdn.net/80BFF9/assets"
     end
   }
+  config.action_mailer.asset_host = "http://wac.bff9.edgecastcdn.net/80BFF9/assets"
 
   # config.action_controller.asset_host = Proc.new do |source, request|
   #   request.ssl? ? "https://cdn-app.olook.com.br.s3.amazonaws.com" : "http://cdn-app.olook.com.br.s3.amazonaws.com"
