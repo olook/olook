@@ -4,10 +4,10 @@ describe("MinicartInputsUpdater", function() {
     beforeEach(function(){
       olookApp = jasmine.createSpyObj('olookApp', ['subscribe']);
     });
-    it("should call subscribe in channel minicart:update:inputs", function(){
+    it("should call subscribe in channel minicart:update:input", function(){
       var obj = new MinicartInputsUpdater();
       obj.config();
-      expect(olookApp.subscribe).toHaveBeenCalledWith("minicart:update:inputs", obj.facade, {}, obj);
+      expect(olookApp.subscribe).toHaveBeenCalledWith("minicart:update:input", obj.facade, {}, obj);
     });
   });
 

@@ -1,6 +1,8 @@
-AddToWishlistSuccessMessage = function(){
+var AddToWishlistSuccessMessage = (function(){
+  
+  function AddToWishlistSuccessMessage(){};
 
-  facade = function(message) {
+  AddToWishlistSuccessMessage.prototype.facade = function(message) {
     $('#js-addToWishlistButton').fadeOut();
     $('#js-removeFromWishlistButton').fadeIn();
 
@@ -11,14 +13,12 @@ AddToWishlistSuccessMessage = function(){
       $(".js-product-count").text(parseInt($(".js-product-count").text()) + 1); 
     }
     
-  }
-
-  return {
-    facade: facade,
-    name: "wishlist:add:success_message"
   };
-}();
 
-$(function(){
-  olookApp.subscribe("wishlist:add:success_message", AddToWishlistSuccessMessage.facade, {}, AddToWishlistSuccessMessage);
-});
+  AddToWishlistSuccessMessage.prototype.config = function(){
+    olookApp.subscribe("wishlist:add:success_message", this.facade, {}, this);
+  };
+
+  return AddToWishlistSuccessMessage;
+
+})();

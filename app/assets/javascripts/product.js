@@ -167,24 +167,30 @@ initProduct = {
 
 initProduct.loadAddToCartForm();
 
+var bindWishlistEvents = function(){
+  $('#js-addToWishlistButton').click(function(){
+    olookApp.mediator.publish('wishlist:add:click_button');
+  });
 
-$(function(){
+  $('#js-removeFromWishlistButton').click(function(){
+    var productId = $(this).data('product-id');
+    olookApp.mediator.publish('wishlist:remove:click_button', productId);
+  });
+};
+
+var loadCompleteLookModules = function(){
   new MinicartFadeOutManager().config();
   new MinicartDataUpdater().config();
   new MinicartBoxDisplayUpdater().config();
   new MinicartFadeInManager().config();
   new MinicartInputsUpdater().config();
+};
+
+$(function(){
+  loadCompleteLookModules();
 
   initProduct.loadAll();
   olook.spy('.spy');
 
-  $('#js-addToWishlistButton').click(function(){
-    olookApp.mediator.publish(AddToWishlist.name);
-  });
-
-  $('#js-removeFromWishlistButton').click(function(){
-    var productId = $(this).data('product-id');
-    olookApp.mediator.publish(RemoveFromWishlist.name, productId);
-  });
-
+  bindWishlistEvents();
 });
