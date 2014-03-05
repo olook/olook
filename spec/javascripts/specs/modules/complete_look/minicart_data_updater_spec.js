@@ -28,18 +28,33 @@ describe("MinicartDataUpdater", function() {
         });
 
         it("displays the product name in the minicart once",function(){
-          var obj = new MinicartDataUpdater();
-          obj.config();
-          obj.facade({productId: "1", productPrice: "2", variantNumber: "3"});
-          expect($('.js-minicartItem').length).toEqual(1);
+          runs(function(){
+            var obj = new MinicartDataUpdater();
+            obj.config();
+            obj.facade({productId: "1", productPrice: "2", variantNumber: "3"});
+          });
+          waitsFor(function(){
+            return $('.js-minicartItem').length > 0
+          }, "", 500);
+
+          runs(function(){
+            expect($('.js-minicartItem').length).toEqual(1);
+          });
         });
 
         it("updates the total price",function(){
-          expect($('#total_price').val()).toEqual("");
-          var obj = new MinicartDataUpdater();
-          obj.config();
-          obj.facade({productId: "1", productPrice: "2", variantNumber: "3"});
-          expect($('#total_price').val()).toEqual("2");
+          runs(function(){
+            expect($('#total_price').val()).toEqual("");
+            var obj = new MinicartDataUpdater();
+            obj.config();
+            obj.facade({productId: "1", productPrice: "2", variantNumber: "3"});
+          });
+          waitsFor(function(){
+            return $('#total_price').val() == "2";
+          });
+          runs(function(){
+            expect($('#total_price').val()).toEqual("2");
+          });
         });
 
       });
@@ -100,19 +115,33 @@ describe("MinicartDataUpdater", function() {
         });
 
         it("Doesn't change the minicart item length",function(){
-          expect($('.js-minicartItem').length).toEqual(1);
-          var obj = new MinicartDataUpdater();
-          obj.config();
-          obj.facade({productId: "1", productPrice: "2", variantNumber: ""});
-          expect($('.js-minicartItem').length).toEqual(0);
+          runs(function(){
+            expect($('.js-minicartItem').length).toEqual(1);
+            var obj = new MinicartDataUpdater();
+            obj.config();
+            obj.facade({productId: "1", productPrice: "2", variantNumber: ""});
+          });
+          waitsFor(function(){
+            return $('.js-minicartItem').length == 0;
+          });
+          runs(function(){
+            expect($('.js-minicartItem').length).toEqual(0);
+          });
         });
 
         it("updates the total price",function(){
-          expect($('#total_price').val()).toEqual("2");
-          var obj = new MinicartDataUpdater();
-          obj.config();
-          obj.facade({productId: "1", productPrice: "2", variantNumber: ""});
-          expect($('#total_price').val()).toEqual("");
+          runs(function(){
+            expect($('#total_price').val()).toEqual("2");
+            var obj = new MinicartDataUpdater();
+            obj.config();
+            obj.facade({productId: "1", productPrice: "2", variantNumber: ""});
+          });
+          waitsFor(function(){
+            return $('#total_price').val() == "";
+          });
+          runs(function(){
+            expect($('#total_price').val()).toEqual("");
+          });
         });
       });
 
