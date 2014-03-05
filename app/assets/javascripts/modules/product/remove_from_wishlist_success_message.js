@@ -1,6 +1,6 @@
-RemoveFromWishlistSuccessMessage = function(){
-
-  facade = function(productId) {
+var RemoveFromWishlistSuccessMessage = (function(){
+  function RemoveFromWishlistSuccessMessage(){};
+  RemoveFromWishlistSuccessMessage.prototype.facade = function(productId) {
     // product-page
     $('#js-removeFromWishlistButton').fadeOut();
     $('#js-addToWishlistButton').fadeIn();
@@ -19,14 +19,11 @@ RemoveFromWishlistSuccessMessage = function(){
     }else if($(".js-full-wishlist-box").size() == 1 && parseInt($(".js-product-count").text()) > 1){
       $(".js-product-count").text(parseInt($(".js-product-count").text()) - 1);
     }
-  }
-
-  return {
-    facade: facade,
-    name: "wishlist:remove:success_message"
   };
-}();
 
-$(function(){
-  olookApp.subscribe("wishlist:remove:success_message", RemoveFromWishlistSuccessMessage.facade, {}, RemoveFromWishlistSuccessMessage);
-});
+  RemoveFromWishlistSuccessMessage.prototype.config = function(){
+    olookApp.subscribe("wishlist:remove:success_message", this.facade, {}, this);
+  };
+
+  return RemoveFromWishlistSuccessMessage;
+})();

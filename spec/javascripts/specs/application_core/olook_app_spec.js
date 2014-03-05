@@ -17,12 +17,12 @@ describe("Olook APP", function() {
 
     it("accept one argument", function() {
       app.publish('topic name');
-      expect(mockMediator.publish).toHaveBeenCalledWith('topic name', []);
+      expect(mockMediator.publish).toHaveBeenCalledWith('topic name');
     });
 
     it("accept two or more arguments", function() {
       app.publish('topic name', 'param1', 'param2');
-      expect(mockMediator.publish).toHaveBeenCalledWith('topic name', ['param1', 'param2']);
+      expect(mockMediator.publish).toHaveBeenCalledWith('topic name', 'param1', 'param2');
     });
 
   });
