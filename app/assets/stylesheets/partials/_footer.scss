@@ -114,7 +114,6 @@ footer, .footer_checkout {
       letter-spacing: 1px;
       font-weight: normal;
       padding-left: 40px;
-      display: none;
       span{
         font-weight: bold;
         font-size: 12px;
@@ -127,7 +126,9 @@ footer, .footer_checkout {
       border: 1px solid #e94762;
       height: 23px;
       padding-top: 4px;
-      display: block;
+    }
+    .js-success, .js-error{
+      display: none;
     }
     ul.social {
       width: 400px;

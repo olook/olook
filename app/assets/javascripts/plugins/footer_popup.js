@@ -1,4 +1,7 @@
+//= require_tree ../modules/footer_newsletter
 $(document).ready(function() {
+  new NewsletterSubscriber().config();
+
    $('a.sac').click(function(ev){
     window.open('http://olook.neoassist.com/?action=neolive&th=sac&scr=request&ForcaAutenticar=1',
     'Continue_to_Application','width=650,height=500');
@@ -34,13 +37,18 @@ $(document).ready(function() {
     if (input.val() == '' || input.val() == input.attr('default_value')) {
       input.val(input.attr('default_value'));
     }
-  }).blur().parents('form').submit(function() {
-    $(this).find('.js-footer-newsletter').each(function() {
+  }).blur();
+
+  $('.js-subscribe').click(function() {
+    $('.js-footer-newsletter').each(function() {
       var input = $(this);
       if (input.val() == input.attr('default_value')) {
         input.val('');
       }
+      olookApp.publish("footer:newsletter:subscribe", input.val());
     })
   });
+
+
 });
 
