@@ -2,11 +2,12 @@
 class MultiWorkersProcessSlave
   @queue = :low
 
-  def self.perform data, cache_key, missing_key
+  def self.perform data
+    cache_key = data['cache_key']
+    missing_key = data['missing_key']
     begin
       csv_content = CSV.generate(col_sep: ";") do |csv|
-        csv << ['first_name', 'Email Address', 'created_at' ]
-        User.where("id < ? and id >= ?", data['last'], data['first']).each{|u| csv << [u.first_name, u.email, u.created_at]}
+        map(data).each{|u| csv << [u.first_name, u.email, u.created_at, u.total.to_s]}
       end
 
       sufix = "%02d" % data['index']
@@ -20,6 +21,16 @@ class MultiWorkersProcessSlave
     ensure
       REDIS.decr(missing_key) if REDIS.get(missing_key).to_i > 0
     end
+  end
+
+  def self.map data
+    User.find_by_sql("select uuid, first_name, created_at, email, total from (select u.id as uuid, (
+    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0 and c.activates_at <= date(now()) and c.expires_at >= date(now())),0)  -
+    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1 and c.activates_at <= date(now()) and c.expires_at >= date(now())), 0)
+  ) total from users u left join user_credits uc on u.id = uc.user_id and uc.credit_type_id = 1
+      where u.id >= #{data['first']} and u.id < #{data['last']}
+      group by u.id
+) as tmp join users on tmp.uuid = users.id") 
   end
 
 end
