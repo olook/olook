@@ -1,17 +1,16 @@
-AddToWishlistErrorMessage = function(){
+var AddToWishlistErrorMessage = (function(){
 
-  facade = function(parameters) {  
-    var message = parameters[0];
+  function AddToWishlistErrorMessage(){};
+
+  AddToWishlistErrorMessage.prototype.facade = function(message) {
     $('p.alert_size').html(message).show()
       .delay(3000).fadeOut();    
-  }
-
-  return {
-    name: "ADD_TO_WISHLIST_ERROR_MESSAGE",
-    facade: facade
   };
-}();
 
-$(function(){
-  olookApp.subscribe(AddToWishlistErrorMessage); 
-});
+  AddToWishlistErrorMessage.prototype.config = function(){
+    olookApp.subscribe("wishlist:add:error_message", this.facade, {}, this);
+  };
+
+  return AddToWishlistErrorMessage;
+  
+})();

@@ -1,25 +1,24 @@
-MinicartFadeInManager = function(){
-  hasToFadeIn = function(){
+var MinicartFadeInManager = (function(){
+  function MinicartFadeInManager(){};
+
+  var hasToFadeIn = function(){
     return ($('.cart_related').css("display") == "none");
   };
 
-  fadeIn = function(){
-    $('.cart_related').fadeIn("fast");    
+  var fadeIn = function(){
+    $('.cart_related').fadeIn("fast");
   };
 
-  facade = function(){
+  MinicartFadeInManager.prototype.facade = function(params) {
     if(hasToFadeIn()) {
       fadeIn();
-    } 
+    }
+  };
+
+  MinicartFadeInManager.prototype.config = function() {
+    olookApp.subscribe('minicart:update:fadein', this.facade, {}, this);
   }
 
-  return{
-    name: 'FADE_IN_MINICART',
-    facade: facade
-  }
+  return MinicartFadeInManager;
+})();
 
-}();
-
-$(function(){
-  olookApp.subscribe(MinicartFadeInManager);
-});
