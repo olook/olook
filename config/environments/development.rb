@@ -33,6 +33,7 @@ Olook::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = false
   config.assets.prefix = "/dev-assets"
+  config.action_mailer.asset_host = "http://localhost:3000"
 
   config.cache_store = :redis_store, ENV['REDIS_CACHE_STORE'], { expires_in: 5.minutes }
 

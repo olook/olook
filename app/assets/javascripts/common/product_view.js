@@ -10,7 +10,8 @@ $(document).ready(function(){
   load_first_image();
   accordion();
   delivery();
-  guaranteedDelivery();  
+  guaranteedDelivery(); 
+  loadWishlistModules(); 
 });
 
 load_first_image = function() {
@@ -19,6 +20,14 @@ load_first_image = function() {
 
 load_all_other_images = function() {
   new ImageLoader().load("thumb");
+}
+
+var loadWishlistModules = function() {
+  new AddToWishlist().config();
+  new AddToWishlistSuccessMessage().config();
+  new AddToWishlistErrorMessage().config();  
+  new RemoveFromWishlist().config();
+  new RemoveFromWishlistSuccessMessage().config();
 }
 
 $(function() {
