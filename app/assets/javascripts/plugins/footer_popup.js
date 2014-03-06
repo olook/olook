@@ -23,4 +23,24 @@ $(document).ready(function() {
     ev.preventDefault();
     return false;
   });
+
+  $('.js-footer-newsletter').focus(function() {
+    var input = $(this);
+    if (input.val() == input.attr('default_value')) {
+      input.val('');
+    }
+  }).blur(function() {
+    var input = $(this);
+    if (input.val() == '' || input.val() == input.attr('default_value')) {
+      input.val(input.attr('default_value'));
+    }
+  }).blur().parents('form').submit(function() {
+    $(this).find('.js-footer-newsletter').each(function() {
+      var input = $(this);
+      if (input.val() == input.attr('default_value')) {
+        input.val('');
+      }
+    })
+  });
 });
+
