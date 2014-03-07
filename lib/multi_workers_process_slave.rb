@@ -7,7 +7,7 @@ class MultiWorkersProcessSlave
     missing_key = data['missing_key']
     begin
       csv_content = CSV.generate(col_sep: ";") do |csv|
-        map(data).each{|u| csv << [u.first_name, u.email, u.created_at, u.total.to_s, u.birthday, u.auth_token]}
+        map(data).each{|u| csv << [u.first_name, u.email, u.created_at, u.total.to_s, u.birthday.to_date, u.authentication_token]}
       end
 
       sufix = "%02d" % data['index']
