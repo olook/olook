@@ -5,16 +5,20 @@ var NewsletterSubscriber = (function(){
     $('.js-subscribe').off('click')
   };
 
+  var trackEvent = function(message){
+    _gaq.push(['_trackEvent', 'FooterNewsletter', message, '', , true]);
+  };
+
   var displayErrorMessage = function(){
     $('.js-success').fadeOut();    
     $('.js-error').fadeIn();
-    _gaq.push(['_trackEvent', 'FooterNewsletter', 'Error', '', , true]);    
+    trackEvent('Error');
   };
 
   var displaySuccessMessage = function(){
     $('.js-error').fadeOut();   
     $('.js-success').fadeIn();
-    _gaq.push(['_trackEvent', 'FooterNewsletter', 'Success', '', , true]);            
+    trackEvent('Success');            
   };
 
   var displayFeedbackMessage = function(status){
@@ -27,6 +31,7 @@ var NewsletterSubscriber = (function(){
   };
 
   var subscribe = function(email){
+    trackEvent("EmailSubmitted");
     $.post('/campaign_email_subscribe', {email: email}, function( data ) {
       displayFeedbackMessage(data.status);
     });
