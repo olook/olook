@@ -49,6 +49,11 @@ $(document).ready(function() {
     })
   });
 
+  $('.js-footer-newsletter').keypress(function(key){
+    if(key.which == 13) {
+      $('.js-subscribe').click();
+    }
+  });  
 
 });
 
