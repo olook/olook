@@ -28,7 +28,7 @@ class MultiWorkersProcessMaster
     
   end
 
-	def self.split_data
+  def self.split_data
     total = User.count
     num_of_records = total / MAX
     left = total % MAX + 1
@@ -59,7 +59,7 @@ class MultiWorkersProcessMaster
     begin
       open("tmp/base_atualizada.csv", 'wb') do |f|
         # header
-        f << ['first_name', 'email address', 'created_at, total' ].join(';')
+        f << ['first_name', 'email address', 'created_at', 'aniversario', 'auth_token' , 'total'].join(';')
         f << "\n"
         files.each do |path|
           puts "baixando #{path}"

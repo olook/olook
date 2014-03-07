@@ -7,7 +7,7 @@ class MultiWorkersProcessSlave
     missing_key = data['missing_key']
     begin
       csv_content = CSV.generate(col_sep: ";") do |csv|
-        map(data).each{|u| csv << [u.first_name, u.email, u.created_at, u.total.to_s]}
+        map(data).each{|u| csv << [u.first_name, u.email, u.created_at, u.total.to_s, u.birthday, u.auth_token]}
       end
 
       sufix = "%02d" % data['index']
@@ -24,7 +24,7 @@ class MultiWorkersProcessSlave
   end
 
   def self.map data
-    User.find_by_sql("select uuid, first_name, created_at, email, total from (select u.id as uuid, (
+    User.find_by_sql("select uuid, first_name, created_at, email, birthday, authentication_token , total from (select u.id as uuid, (
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0 and c.activates_at <= date(now()) and c.expires_at >= date(now())),0)  -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1 and c.activates_at <= date(now()) and c.expires_at >= date(now())), 0)
   ) total from users u left join user_credits uc on u.id = uc.user_id and uc.credit_type_id = 1
