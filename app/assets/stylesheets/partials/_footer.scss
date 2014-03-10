@@ -2,45 +2,25 @@
 @import 'new_structure/partials/facebook_footer';
 
 footer, .footer_checkout {
-  height:465px;
+  height:390px;
   clear:both;
   margin-top:60px;
   position: relative;
   background-color: #000;
   color: #fff !important;
+
   section {
     margin:0px auto;
     width:970px;
     padding-top:40px;
     ul{
-      width: 170px;
+      width: 165px;
       float: left;
       font-family: $verdana;
-      margin-right: 68px;
+      margin-right: 26px;
       height: 205px;
-      &.atendimento{margin-left: 40px;}
-      &.social{
-        width: 180px;
-        margin-right: 0 !important;
-        a{
-          display: block;
-          width: 35px;
-          height: 35px;}
-        li.logo{
-          margin-bottom: 15px;
-        }
-        li.icon{
-          width: 35px;
-          height: 35px;
-          float: left;
-          text-indent: -9999px;
-          background: image-url('footer/social_icons.png') no-repeat;
-          margin-right: 5px;
-        }
-        li.fb{margin-left: 58px;}
-        li.twitter{background-position: -41px 0;}
-        li.instagram{background-position: -82px 0;}
-      }
+      &.atendimento{margin-left: 25px;width: 130px;}
+
       li{
         font-size: 11px;
         padding-top: 5px;
@@ -53,21 +33,19 @@ footer, .footer_checkout {
         &.title{
           text-transform: uppercase;
           font-size: 13px;
-          margin-bottom: 25px;
+          margin-bottom: 20px;
           font-weight: bold;
         }
       }
       &.payment{
-        margin-left: 40px;
         height: 100px;
-        width: 430px;
-        margin-top: 25px;
-        li.title{width: 440px;}
+        width: 197px;
+        li.title{width: 195px;}
         li.credit, .billet, .online, .mpago{
           height: 50px;
           float: left;
           background: image-url('footer/payment_icons.png') no-repeat 0 28px;
-          margin-right: 20px;
+          margin-right: 25px;
         }
         li.credit{
           width: 125px;
@@ -75,6 +53,7 @@ footer, .footer_checkout {
         li.billet{
           width: 45px;
           background-position: -149px 28px; 
+          margin-right: 0;
         }
         li.online{
           width: 82px; 
@@ -90,9 +69,7 @@ footer, .footer_checkout {
       &.security{
         height: 107px;
         width: 170px;
-        margin-top: 25px;
-        float: right;
-        margin-right: 20px;
+        margin-right: 0 !important;
         li{float: left;}
         li.title{
           width: 250px;
@@ -111,10 +88,133 @@ footer, .footer_checkout {
       font-family: $verdana;
       font-size: 10px;
       text-align: center;
-      margin-top: 35px;
+      margin-top: 40px;
       margin-left: -10px;
       padding-top: 10px;
       margin-bottom: 10px;
+    }
+  }
+  .newsletter{
+    height: 45px;
+    background-color: #1a1a1a;
+    width: 990px;
+    padding-top: 0;
+    .feedback, .denied{
+      width: 335px;
+      height: 37px;
+      background: image-url('common/sprite_modal_footer.png') no-repeat 6px -162px;
+      background-color: #bfd7bd;
+      border: 1px solid #81b47e;
+      position: absolute;
+      top: 42px;
+      right: 12px;
+      color: #000;
+      font-size: 11px;
+      font-family: $bt_font;
+      letter-spacing: 1px;
+      font-weight: normal;
+      padding-left: 40px;
+      span{
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 14px;
+      }
+    }
+    .denied{
+      background: image-url('common/sprite_modal_footer.png') no-repeat -122px 2px;
+      background-color: #ea8596;
+      border: 1px solid #e94762;
+      height: 23px;
+      padding-top: 4px;
+    }
+    .js-success, .js-error{
+      display: none;
+    }
+    ul.social {
+      width: 400px;
+      height: 30px;
+      padding: 0;
+      margin: 7px 10px 0 33px;
+      li{
+        position: relative;
+        a{
+          text-indent: 9999px;
+          display: block;
+          width: 100%;
+          height:27px;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+      }
+      li.logo{
+        float: left;
+        width: 240px;
+        margin-right: 6px;
+      }
+      li.icon, li.icon-{
+        float: left;
+        width: 30px;
+        height: 30px;
+        margin-right: 5px;
+        border: 1px solid #fff;
+      }
+    }
+    ul.mail{
+      width: 465px;
+      height: 30px;
+      margin-right: 0;
+      margin-top: 14px;
+      margin-left: 33px;
+      p{
+        font-size: 13px;
+        font-family: $bt_font;
+        letter-spacing: 1px;
+        color: #cccccc;
+        float: left;
+        margin-right: 5px;
+        span{
+          color: $base_color;
+          font-weight: 600;
+          font-size: 14px;
+          font-weight: bold;
+        }
+      }
+      fieldset{
+        display: block;
+        width: 100px;
+        float: left;
+        .box_mail{
+          width: 205px;
+          height: 23px;
+          background-color: #1a1a1a;
+          color: #cccccc;
+          font-size: 10px;
+          font-family: $bt_font;
+          border: 1px solid #cccccc;
+          padding-left: 10px;
+          letter-spacing: 1px;
+          margin-top: -4px;
+          position: absolute;
+        }
+      }
+      fieldset.botao{
+        width: 30px;
+        height:30px;
+        border: none;
+        .bt_enviar{
+          background: image-url('common/nav/sprite_header.png') no-repeat 0 -275px;
+          width: 26px;
+          height: 26px;
+          text-indent: 9999px;
+          float: right;
+          position: absolute;
+          margin-top: -4px;
+          border: none;
+          top: 13px;
+          right: 15px;
+        }
+      }
     }
   }
 }
@@ -132,5 +232,52 @@ footer.footer_checkout{
   }
 }
 .mercado_pago{display: none;}
+
+@font-face {
+  font-family: 'icomoon';
+  src: asset-url('icon/icomoon.eot?-twdbeg', 'fonts');
+  src: asset-url('icon/icomoon.eot?#iefix-twdbeg', 'fonts') format('embedded-opentype'),
+    asset-url('icon/icomoon.woff?-twdbeg', 'fonts') format('woff'),
+    asset-url('icon/icomoon.ttf?-twdbeg', 'fonts') format('truetype'),
+    asset-url('icon/icomoon.svg?-twdbeg#icomoon', 'fonts') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+    float: left;
+    width: 22px;
+    height: 22px;
+    margin-right: 5px;
+    font-size: 19px;
+    color: #cccccc;
+    margin-top: 2px;
+
+}
+
+.icon-instagram:before {
+  content: "\e600";
+}
+.icon-facebook:before {
+  content: "\e601";
+}
+.icon-youtube:before {
+  content: "\e603";
+}
+.icon-twitter:before {
+  content: "\e602";
+}
+
 
   

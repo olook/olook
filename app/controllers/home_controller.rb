@@ -36,6 +36,6 @@ class HomeController < ApplicationController
   end
 
   def canonical_link
-    "#{request.protocol}#{request.host_with_port}"
+    "http://#{request.host_with_port}"
   end
 end

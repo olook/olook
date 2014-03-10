@@ -110,5 +110,5 @@ select_options.empty();
 
 if(typeof showTotal === 'function') showTotal();
 if(typeof olookApp === 'object' && olookApp.mediator)
-  olookApp.mediator.publish('cart.update', cartUpdateData);
+  olookApp.publish('cart:update', cartUpdateData);
 

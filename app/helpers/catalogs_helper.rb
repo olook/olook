@@ -1,6 +1,6 @@
 # encoding: utf-8
 module CatalogsHelper
-  CLOTH_SIZES_TABLE = ["PP","P","M","G","GG","33","34","35","36","37","38","39","40","42","44","46","Único","Tamanho único"]
+  CLOTH_SIZES_TABLE = ["PP","P","M","G","GG","EXG","33","34","35","36","37","38","39","40","42","44","46","Único","Tamanho único"]
   CLOTH_CLASSES_HASH = {
     "Único" => "unico",
     "Unico" => "unico",
@@ -142,7 +142,9 @@ module CatalogsHelper
   def size_list(categories, search, category_abbr, fields = [:category])
     old_categories = search.current_filters[:category]
     search.category = categories
-    response = filters_by('size', search, use_fields: fields).reject{|text,amount|(text.to_i != 0 && text[text.size-1] != category_abbr.downcase) || !should_size_appear_in_olooklet_menu?(text)}
+    response = filters_by('size', search, use_fields: fields).reject do |text,amount|
+      (text.to_i != 0 && text[text.size-1] != category_abbr.downcase) || !should_size_appear_in_olooklet_menu?(text)
+    end
     search.category = old_categories
     response
   end

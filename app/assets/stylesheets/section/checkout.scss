@@ -2192,11 +2192,11 @@ section.checkout{
       }
     }
     #about_credits{
-      display:none;float:left;position:absolute;z-index:10001;background:#FFF;width:620px;min-height:250px;padding:20px;border:solid 1px #000;top:50%;left:50%;margin:-30% 0 0 -310px;
+      display:none;float:left;position:absolute;z-index:10001;background:#FFF;width:620px;min-height:250px;padding:0 10px;border:solid 1px #000;top:50%;left:50%;margin:-35% 0 0 -350px;
       button{position:absolute;z-index:101;top:-12px;right:-17px;width:35px;height:35px;border:0;font-size:0;font-family:a;@include sprite_checkout(-238px, -384px);cursor:pointer;}
       .about_title{font-size:18px;font-family:$avenir;color:#000;margin-bottom:15px;}
       table.check{border:0;
-        p{margin:0;width:620px;
+        p{margin:0;width:615px;
           span{color:#000;}
         }
         #credits_explanation{
@@ -2464,12 +2464,13 @@ section#payment.payment_new {
   }
 }
 
-.modal_credit {
+#about_credits {
   border:1px solid #000;
   padding:5px;
-  height:385px;
+  height:515px;
   background-color: #fff !important;
-  h2 {margin:40px 0 20px 0 !important;font-family: 'Trebuchet Ms', tahoma, $verdana !important;font-size: 16px !important;padding:0px;}
+  width:700px !important;
+  h2 {margin:20px 0 10px 0 !important;font-family: 'Trebuchet Ms', tahoma, $verdana !important;font-size: 16px !important;padding:0px;}
   .content {
     width: 83.7%;
     margin-left: 3%;
@@ -2477,7 +2478,7 @@ section#payment.payment_new {
     border: 1px solid #d1d1d1;
     background: #e1e1e1;
     padding: 5%;
-    height: 316px;
+    height: 416px;
     padding-top: 0px;
     span {color:#f03646;}
     table {
@@ -2487,6 +2488,7 @@ section#payment.payment_new {
         font-family: 'Trebuchet Ms';
         font-size: 13px !important;
         color: #000;
+        text-align: right;
       }
     }
   }
@@ -2495,6 +2497,13 @@ section#payment.payment_new {
     font-size: 13px;
     margin-bottom: 15px;
     color: #000;}
+}
+
+#about_credits {
+  .content {
+
+  }
+
 }
 
 a.txt-conheca{
