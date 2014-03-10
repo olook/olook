@@ -70,9 +70,7 @@ class MktBaseGenerator
     begin
       open("tmp/base_atualizada.csv", 'wb') do |f|
         # header
-        f << ['first_name', 'email address', 'created_at, total' ].join(';')
-        # Almeida, esta estava no HEAD
-        # f << ['first_name', 'email address', 'created_at', 'aniversario', 'auth_token' , 'total', 'tem_compra', 'ultima_compra']
+        f << ['first_name', 'email address', 'created_at', 'aniversario', 'auth_token' , 'total', 'tem_compra', 'ultima_compra'].join(';')
         f << "\n"
         files.each do |path|
           puts "baixando #{path}"
