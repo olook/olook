@@ -1,0 +1,2 @@
+var FacebookAuthSucess = (function(){
+})();
