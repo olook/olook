@@ -7,11 +7,11 @@ var FacebookEvents = (function(){
 
   FacebookEvents.prototype.facade = function(){
     FB.Event.subscribe('edge.create', function(url, element){
-      olookApp.mediator.publish('fb:like', url, element);
+      olookApp.publish('fb:like', url, element);
     });
 
     FB.Event.subscribe('auth.statusChange', function(response){
-      olookApp.mediator.publish('fb:auth:statusChange', response);
+      olookApp.publish('fb:auth:statusChange', response);
     });
   };
 
