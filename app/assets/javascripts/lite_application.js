@@ -24,6 +24,7 @@
 //= require ./partials/_credits_info
 //= require plugins/footer_popup
 //= require modules/facebook/events
+//= require_tree ./modules/facebook/auth
 //= require modules/facebook/auth
 
 new FacebookEvents().config();
