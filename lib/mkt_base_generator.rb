@@ -29,13 +29,13 @@ class MktBaseGenerator
   end
 
   def self.map data
-    User.find_by_sql("select uuid, first_name, created_at, email, total from (select u.id as uuid, (
+    User.find_by_sql("select uuid, first_name, users.created_at, email, DATE_FORMAT(birthday,'%d/%m/%Y'), authentication_token, tem_pedido, DATE_FORMAT(ultimo_pedido, '%d/%m/%Y'),total from (select u.id as uuid, (
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0 and c.activates_at <= date(now()) and c.expires_at >= date(now())),0)  -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1 and c.activates_at <= date(now()) and c.expires_at >= date(now())), 0)
-  ) total from users u left join user_credits uc on u.id = uc.user_id and uc.credit_type_id = 1
+  ) total, ( select IF(count(o.id) > 0, 'SIM', 'NAO' )) tem_pedido, (select MAX(o.created_at)) ultimo_pedido from users u left join user_credits uc on u.id = uc.user_id and uc.credit_type_id = 1 left join orders o on u.id = o.user_id and o.state in ('authorized', 'delivery', 'picking', 'delivering')
       where u.id >= #{data['first']} and u.id < #{data['last']}
       group by u.id
-) as tmp join users on tmp.uuid = users.id") 
+  ) as tmp join users on tmp.uuid = users.id")
   end
 
 
