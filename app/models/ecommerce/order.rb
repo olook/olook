@@ -3,6 +3,7 @@ class Order < ActiveRecord::Base
   CONSTANT_NUMBER = 1782
   CONSTANT_FACTOR = 17
   WAREHOUSE_TIME = 2
+  EXTRATIMEFORSURVEY = 3
 
   STATUS = {
     "waiting_payment" => "Aguardando pagamento",
@@ -82,9 +83,13 @@ class Order < ActiveRecord::Base
         body: "Pedido Numero: #{number} deve ser eviado por motoboy",
         subject: "Pedido motoboy"
       })
-    end  
+    end
   end
 
+  def enqueue_survey_email
+    date_for_schedule = (self.payments.first.payment_expiration_date.to_date - Date.today).to_i
+    Resque.enqueue_in( date_for_schedule.days + EXTRATIMEFORSURVEY.days, Orders::SurveyEmailWorker, self.id)
+  end
 
   state_machine :initial => :waiting_payment do
     store_audit_trail
@@ -101,7 +106,8 @@ class Order < ActiveRecord::Base
                                                  :set_delivery_date_on,
                                                  :set_shipping_service_name,
                                                  :summarize_sell,
-                                                 :notify_motoboy_order]
+                                                 :notify_motoboy_order,
+                                                 :enqueue_survey_email]
 
     after_transition any => :canceled, :do => [:enqueue_cancelation_notification,
                                                :check_cupon_devolution
@@ -379,6 +385,10 @@ class Order < ActiveRecord::Base
       if payment_coupon
         coupon = Coupon.find payment_coupon.coupon_id
         coupon.update_attribute(:remaining_amount, coupon.remaining_amount.next) if coupon.unlimited.nil?
+        if coupon.one_per_user?
+          user_coupon = UserCoupon.find_or_create_by_user_id(payment_coupon.user.id) 
+          user_coupon.remove coupon.id
+        end
       end
     end
 

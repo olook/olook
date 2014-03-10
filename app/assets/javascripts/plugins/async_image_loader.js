@@ -13,7 +13,7 @@ function ImageLoader() {
       var img_container;
       var attributes;
       if (container.tagName != 'IMG') {
-        img_container = new Image();
+        img_container = document.createElement('img');
         img_container.className = 'async'
         container.appendChild(img_container);
         attributes = {
