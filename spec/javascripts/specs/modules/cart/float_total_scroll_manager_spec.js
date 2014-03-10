@@ -58,11 +58,11 @@ describe('FloatTotalScrollManager', function() {
     });
   });
 
-  describe(".calculateFade", function() {
+  describe(".facade", function() {
     it('expect not processing when is insane', function(){
       spyOn(ftsm, 'isInsane').andReturn(true);
       spyOn(ftsm, 'fade');
-      ftsm.calculateFade();
+      ftsm.facade();
       expect(ftsm.fade).not.toHaveBeenCalled();
     });
   });
