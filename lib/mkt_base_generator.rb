@@ -34,7 +34,7 @@ class MktBaseGenerator
     DATE_FORMAT(ultimo_pedido, '%d/%m/%Y') as ultimo_pedido, IF(half_user = 'TRUE', 'Half', 'Full') as tipo, profile , total from (select u.id as uuid, (
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0 and c.activates_at <= date(now()) and c.expires_at >= date(now())),0) -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1 and c.activates_at <= date(now()) and c.expires_at >= date(now())), 0)
-  ) total, ( select IF(count(o.id) > 0, 'SIM', 'NAO' )) tem_pedido, count(o.id) qtde_pedido,  IFNULL((sum(o.gross_amount) / count(o.id)), 0) ticket_medio,   (select MAX(o.created_at)) ultimo_pedido from users u left join user_credits uc on u.id = uc.user_id and uc.credit_type_id = 1 left join orders o on u.id = o.user_id and o.state in ('authorized', 'delivery', 'picking', 'delivering')
+  ) total, ( select IF(count(o.id) > 0, 'SIM', 'NAO' )) tem_pedido, count(o.id) qtde_pedido,  IFNULL((sum(o.gross_amount) / count(o.id)), 0) ticket_medio, (select MAX(o.created_at)) ultimo_pedido from users u left join user_credits uc on u.id = uc.user_id and uc.credit_type_id = 1 left join orders o on u.id = o.user_id and o.state in ('authorized', 'delivery', 'picking', 'delivering')
       where u.id >= #{data['first']} and u.id < #{data['last']} AND u.reseller = false
       group by u.id
   ) as tmp join users on tmp.uuid = users.id")
@@ -57,7 +57,7 @@ class MktBaseGenerator
     datas.each_with_index do |data, index|
       data.merge!({index: index})
       Resque.enqueue(self.class, data)
-    end    
+    end
 
   end
 
