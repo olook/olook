@@ -10,7 +10,6 @@ class MultiWorkersProcessMaster
 
       if master.has_finished?
         master.join
-        
       else
         master.sleep
       end
@@ -20,7 +19,5 @@ class MultiWorkersProcessMaster
       master.split
       master.sleep
     end
-   
   end
-
 end
