@@ -11,6 +11,8 @@ var FacebookAuth = (function(){
   };
 
   FacebookAuth.prototype.facade = function(response){
+    this.authResponse = response.authResponse;
+    this.status = response.status;
     olookApp.publish('fb:auth:statusChange.before');
     getUserData(function(userData){
       console.log(userData);
@@ -19,7 +21,9 @@ var FacebookAuth = (function(){
         type: 'POST',
         contentType: 'application/json',
         dataType: 'json',
-        data: JSON.stringify({ facebookData: userData })
+        data: JSON.stringify({
+          facebookData: userData,
+          authResponse: this.authResponse })
       }).complete(function(){
         olookApp.publish('fb:auth:statusChange.complete');
       }).success(function(result){
