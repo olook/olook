@@ -11,7 +11,7 @@ class MktBaseGenerator
     missing_key = MISSING_KEY
     begin
       csv_content = CSV.generate(col_sep: ";") do |csv|
-        map(data).each{|u| csv << [u.first_name, u.email, u.criado_em, u.birthday,u.authentication_token,u.total.to_s,u.tem_pedido, u.ultimo_pedido]}
+        map(data).each{|u| csv << [u.first_name, u.email, u.criado_em, u.birthday,u.authentication_token,u.total.to_s,u.tem_pedido, u.ultimo_pedido,u.tipo]}
       end
 
       sufix = "%02d" % data['index']
@@ -29,18 +29,19 @@ class MktBaseGenerator
   end
 
   def self.map data
-    User.find_by_sql("select uuid, first_name, DATE_FORMAT(created_at,'%d/%m/%Y') as criado_em, email, DATE_FORMAT(birthday,'%d/%m/%Y') as birthday, authentication_token, tem_pedido, DATE_FORMAT(ultimo_pedido, '%d/%m/%Y') as ultimo_pedido,total from (select u.id as uuid, (
-    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0 and c.activates_at <= date(now()) and c.expires_at >= date(now())),0)  -
+
+    User.find_by_sql("select uuid, first_name, DATE_FORMAT(created_at,'%d/%m/%Y') as criado_em, email, DATE_FORMAT(birthday,'%d/%m/%Y') as birthday, authentication_token, tem_pedido, DATE_FORMAT(ultimo_pedido, '%d/%m/%Y') as ultimo_pedido, IF(half_user = 'TRUE', 'Half', 'Full') as tipo ,total from (select u.id as uuid, (
+    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0 and c.activates_at <= date(now()) and c.expires_at >= date(now())),0) -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1 and c.activates_at <= date(now()) and c.expires_at >= date(now())), 0)
   ) total, ( select IF(count(o.id) > 0, 'SIM', 'NAO' )) tem_pedido, (select MAX(o.created_at)) ultimo_pedido from users u left join user_credits uc on u.id = uc.user_id and uc.credit_type_id = 1 left join orders o on u.id = o.user_id and o.state in ('authorized', 'delivery', 'picking', 'delivering')
-      where u.id >= #{data['first']} and u.id < #{data['last']}
+      where u.id >= #{data['first']} and u.id < #{data['last']} AND u.reseller = false
       group by u.id
   ) as tmp join users on tmp.uuid = users.id")
   end
 
 
 
-  def split 
+  def split
     total = User.count
     num_of_records = total / MAX
     left = total % MAX + 1
@@ -70,7 +71,7 @@ class MktBaseGenerator
     begin
       open("tmp/base_atualizada.csv", 'wb') do |f|
         # header
-        f << ['first_name', 'email address', 'created_at', 'aniversario', 'auth_token' , 'total', 'tem_pedido', 'ultimo_pedido'].join(';')
+        f << ['first_name', 'email address', 'created_at', 'aniversario', 'auth_token' , 'total', 'tem_pedido', 'ultimo_pedido', 'tipo'].join(';')
         f << "\n"
         files.each do |path|
           puts "baixando #{path}"
