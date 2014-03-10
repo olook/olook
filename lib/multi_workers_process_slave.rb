@@ -7,7 +7,7 @@ class MultiWorkersProcessSlave
     missing_key = data['missing_key']
     begin
       csv_content = CSV.generate(col_sep: ";") do |csv|
-        map(data).each{|u| csv << [u.first_name, u.email, u.created_at.strftime("%d/%m/%Y"), u.birthday.strftime("%d/%m/%Y"), u.authentication_token, u.total.to_s,u.tem_pedido,u.ultimo_pedido.strftime("%d/%m/%Y")]}
+        map(data).each{|u| csv << [u.first_name, u.email, u.created_at, u.birthday, u.authentication_token, u.total.to_s,u.tem_pedido,u.ultimo_pedido]}
       end
 
       sufix = "%02d" % data['index']
@@ -24,11 +24,11 @@ class MultiWorkersProcessSlave
   end
 
   def self.map data
-    User.find_by_sql("select uuid, first_name, users.created_at, email, birthday, authentication_token, tem_pedido, ultimo_pedido,total from (select u.id as uuid, (
+    User.find_by_sql("select uuid, first_name, DATE_FORMAT(u.created_at,'%d/%m/%Y'), email, DATE_FORMAT(birthday,'%d/%m/%Y'), authentication_token, tem_pedido, DATE_FORMAT(ultimo_pedido,'%d/%m/%Y'),total from (select u.id as uuid, (
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0 and c.activates_at <= date(now()) and c.expires_at >= date(now())),0)  -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1 and c.activates_at <= date(now()) and c.expires_at >= date(now())), 0)
-  ) total, ( select IF(count(o.id) > 0, 'SIM', 'NAO' )) tem_pedido, (select MAX(o.created_at)) ultimo_pedido from users u left join user_credits uc on u.id = uc.user_id and uc.credit_type_id = 1 left join orders o on u.id = o.user_id and o.state in ('authorized', 'delivery', 'picking', 'delivering')
-      where u.id >= #{data['first']} and u.id < #{data['last']}
+  ) total, ( select IF(count(o.id) > 0, 'SIM', 'NAO' )) tem_pedido, (select MAX(STR_TO_DATE(o.created_at,'%d/%m/%Y'))) ultimo_pedido from users u left join user_credits uc on u.id = uc.user_id and uc.credit_type_id = 1 left join orders o on u.id = o.user_id and o.state in ('authorized', 'delivery', 'picking', 'delivering')
+      where u.id >= #{data[:first]} and u.id < #{data[:last]}
       group by u.id
   ) as tmp join users on tmp.uuid = users.id")
   end
