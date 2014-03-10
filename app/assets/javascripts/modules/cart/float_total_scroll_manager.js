@@ -11,7 +11,7 @@ FloatTotalScrollManager.prototype = {
   },
 
   config: function () {
-    return olookApp.mediator.subscribe('window.onscroll', this.calculateFade, {}, this);
+    return olookApp.mediator.subscribe('window:onscroll', this.facade, {}, this);
   },
 
   fade: function(percentage) {
@@ -31,7 +31,7 @@ FloatTotalScrollManager.prototype = {
     return false;
   },
 
-  calculateFade: function() {
+  facade: function() {
     if(this.isInsane()) return;
     this.updateProperties();
     var windowHeight = window.innerHeight;

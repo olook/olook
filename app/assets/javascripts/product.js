@@ -8,6 +8,7 @@
 //= require plugins/image_loader
 //= require plugins/spy
 //= require_tree ./modules/complete_look
+
 initProduct = {
   gotoRelatedProduct :function() {
     $('a#goRelatedProduct').live('click', function(e) {
@@ -16,7 +17,7 @@ initProduct = {
       }, 'fast');
       e.preventDefault();
     });
-  },  
+  },
   checkRelatedProducts : function() {
     return $("div#related ul.carousel").size() > 0 ? true : false;
   },
@@ -154,32 +155,42 @@ initProduct = {
   loadUnloadTriggers : function() {
     $(window).on("beforeunload", function () {
       initProduct.unloadSelects();
-    });    
-  },    
+    });
+  },
 
   unloadSelects : function() {
     for(i = 0; i < $("li #variant_number").length; i++){
-      $("li #variant_number")[i].selectedIndex = 0;            
+      $("li #variant_number")[i].selectedIndex = 0;
     }
   }
 }
 
 initProduct.loadAddToCartForm();
 
-
-$(function(){
-
-  initProduct.loadAll();
-  olook.spy('.spy');
-
-
+var bindWishlistEvents = function(){
   $('#js-addToWishlistButton').click(function(){
-    olookApp.mediator.publish(AddToWishlist.name);
+    olookApp.mediator.publish('wishlist:add:click_button');
   });
 
   $('#js-removeFromWishlistButton').click(function(){
     var productId = $(this).data('product-id');
-    olookApp.mediator.publish(RemoveFromWishlist.name, productId);
+    olookApp.mediator.publish('wishlist:remove:click_button', productId);
   });
+};
 
+var loadCompleteLookModules = function(){
+  new MinicartFadeOutManager().config();
+  new MinicartDataUpdater().config();
+  new MinicartBoxDisplayUpdater().config();
+  new MinicartFadeInManager().config();
+  new MinicartInputsUpdater().config();
+};
+
+$(function(){
+  loadCompleteLookModules();
+
+  initProduct.loadAll();
+  olook.spy('.spy');
+
+  bindWishlistEvents();
 });
