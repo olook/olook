@@ -1,5 +1,5 @@
 class Users::FacebookConnectController < ApplicationController
   def create
-    render text: 'OK'
+    render json: { redirectTo: request.referer }
   end
 end
