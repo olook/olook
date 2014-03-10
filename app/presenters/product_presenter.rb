@@ -66,6 +66,7 @@ class ProductPresenter < BasePresenter
       when Category::CLOTH then h.render :partial => 'product/form_for_cloth', :locals => {:product_presenter => self}
       when Category::LINGERIE then h.render :partial => 'product/form_for_cloth', :locals => {:product_presenter => self}
       when Category::BEACHWEAR then h.render :partial => 'product/form_for_cloth', :locals => {:product_presenter => self}
+      when Category::CURVES then h.render :partial => 'product/form_for_cloth', :locals => {:product_presenter => self}
     end
   end
 

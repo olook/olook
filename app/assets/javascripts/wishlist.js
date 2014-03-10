@@ -54,7 +54,7 @@ $(function() {
     var productId = it.data('product-id');
     _gaq.push(['_trackEvent', 'wishlist', 'remove', productId, , true]);
 
-    olookApp.mediator.publish(RemoveFromWishlist.name, productId);
+    olookApp.mediator.publish('wishlist:remove:click_button', productId);
     e.preventDefault();
   });
 
