@@ -39,7 +39,7 @@ class FacebookConnectService
     {
       first_name: @facebook_data['first_name'],
       last_name: @facebook_data['last_name'],
-      authentication_token: @access_token,
+      facebook_token: @access_token,
       uid: @facebook_data['id'],
       birthday: "#{us_birthday[2]}-#{us_birthday[0]}-#{us_birthday[1]}"
     }

@@ -398,6 +398,10 @@ class User < ActiveRecord::Base
 
   private
 
+  def password_required?
+    uid.blank? && facebook_token.blank?
+  end
+
   def generate_invite_token
     loop do
       write_attribute(:invite_token, Devise.friendly_token[0..7])
