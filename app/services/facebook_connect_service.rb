@@ -35,6 +35,7 @@ class FacebookConnectService
   end
 
   def create_user
+    @user = User.create(first_name: @facebook_data[:first_name],last_name: @facebook_data[:last_name],email: @facebook_data[:email],authentication_token: @access_token)
   end
 
   def update_user
