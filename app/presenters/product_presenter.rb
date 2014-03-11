@@ -1,8 +1,6 @@
 # -*- encoding : utf-8 -*-
 class ProductPresenter < BasePresenter
-
-  SIZES_TABLE = Catalog::Catalog::CLOTH_SIZES_TABLE
-
+  include CatalogsHelper
 
   def collection_name
    Collection.active.try(:name) || I18n.l(Date.today, :format => '%B')
@@ -162,7 +160,7 @@ class ProductPresenter < BasePresenter
     end
 
     def variants_sorted_by_size
-      product.variants.sort{|first, second| SIZES_TABLE[first.description].to_i <=> SIZES_TABLE[second.description].to_i }
+      order_variants_by_size product.variants
     end
 
     def complete_look_discount
