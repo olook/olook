@@ -10,6 +10,11 @@ class MultiWorkersProcessMaster
 
       if master.has_finished?
         master.join
+        elapsed_time = master.finish
+        puts "finalizou em #{elapsed_time}s"
+        # notifica tech
+        DevAlertMailer.notify({to: 'tech@olook.com.br', 
+          subject: "Geracao da base para AllIn concluida (em #{elapsed_time}s)"}).deliver!
       else
         master.sleep
       end
