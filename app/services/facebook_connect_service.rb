@@ -34,11 +34,23 @@ class FacebookConnectService
     !!@user
   end
 
+  def data_for_user
+    us_birthday = @facebook_data['birthday'].to_s.split('/')
+    {
+      first_name: @facebook_data['first_name'],
+      last_name: @facebook_data['last_name'],
+      authentication_token: @access_token,
+      uid: @facebook_data['id'],
+      birthday: "#{us_birthday[2]}-#{us_birthday[0]}-#{us_birthday[1]}"
+    }
+  end
+
   def create_user
-    @user = User.create(first_name: @facebook_data[:first_name],last_name: @facebook_data[:last_name],email: @facebook_data[:email],authentication_token: @access_token)
+    User.create(data_for_user.merge(email: @facebook_data['email']))
   end
 
   def update_user
+    @user.update_attributes(data_for_user)
   end
 
   # Allows to make GET or POST requests to the facebook API graph
