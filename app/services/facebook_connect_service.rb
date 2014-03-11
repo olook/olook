@@ -46,11 +46,13 @@ class FacebookConnectService
   end
 
   def create_user
-    User.create(data_for_user.merge(email: @facebook_data['email']))
+    @user = User.create(data_for_user.merge(email: @facebook_data['email']))
+    @user
   end
 
   def update_user
     @user.update_attributes(data_for_user)
+    @user
   end
 
   # Allows to make GET or POST requests to the facebook API graph
