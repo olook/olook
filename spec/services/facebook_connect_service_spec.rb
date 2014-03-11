@@ -1,4 +1,5 @@
-require File.expand_path(File.join(__dir__, 'app/service/facebook_connect_service'))
+require File.expand_path(File.join(__dir__, '../../app/services/facebook_connect_service'))
+# require File.expand_path(File.join(File.dirname(__FILE__), '../../app/services/cart_discount_service'))
 
 describe FacebookConnectService do
   describe "#connect!" do
