@@ -2,13 +2,16 @@ var FacebookAuth = (function(){
   function FacebookAuth() { };
 
   FacebookAuth.prototype.config = function(){
-    olookApp.subscribe('fb:auth:statusChange', this.facade, {}, this);
+    olookApp.subscribe('fb:auth:login', this.facade, {}, this);
     new FacebookAuthSuccess().config();
   };
 
   FacebookAuth.prototype.facade = function(response){
     this.authResponse = response.authResponse;
     this.status = response.status;
+    if(this.status !== 'connected') {
+      return false;
+    }
     olookApp.publish('fb:auth:statusChange.before');
     $.ajax({
       url: '/facebook_connect',
@@ -27,3 +30,8 @@ var FacebookAuth = (function(){
 
   return FacebookAuth;
 })();
+
+//Used on data-onlogin attribute in FB Login Button
+loginFacebook = function(response) {
+  olookApp.publish('fb:auth:login', response);
+}
