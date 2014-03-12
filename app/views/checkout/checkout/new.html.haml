@@ -70,9 +70,9 @@
       %p.total
         %span.txt-black TOTAL:
         - if @checkout
-          %span#total_billet.txt-black= number_to_currency(@cart_service.total(Billet.new))
-          %span#total_debit.txt-black= number_to_currency(@cart_service.total(Debit.new))
-        %span#total.txt-black= number_to_currency(@cart_service.total)
+          %span#total_billet.txt-black= number_to_currency(@cart_service.total(payment: Billet.new))
+          %span#total_debit.txt-black= number_to_currency(@cart_service.total(payment: Debit.new))
+        %span#total.txt-black= number_to_currency(@cart_service.total(freight_value: (@shipping_service.try(:price)) || 0.0))
       = checkout_form.submit 'FECHAR MEU PEDIDO', class: "send_it", disable_with: "", onclick: track_event("Checkout","clickSubmit") if defined?(checkout_form)
     
         
