@@ -67,7 +67,7 @@ update_braspag_responses:
 csv_for_all_in:
   cron: "0 2 * * *"
   class: MultiWorkersProcessMaster
-  queue: marketing_uploader
+  queue: low
   args:
     - MktBaseGenerator
   description: "Cria arquivo de importação para allinemail"
