@@ -131,7 +131,6 @@ class CartService
     total = cart_sub_total
     total += total_increase
     total -= total_discount(payment)
-
     total = Payment::MINIMUM_VALUE if total < Payment::MINIMUM_VALUE
     total
   end
