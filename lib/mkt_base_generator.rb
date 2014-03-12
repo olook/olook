@@ -2,22 +2,12 @@ class MktBaseGenerator
   include MultiJobsProcess
 
   @queue = :low
-  
-  def max
-    20
-  end
 
   def execute data
     csv_content = CSV.generate(col_sep: ";") do |csv|
-      map(data).each{|u| csv << [u.first_name, u.email, u.criado_em, u.birthday,u.authentication_token,u.total.to_s,u.tem_pedido,u.ticket_medio,u.qtde_pedido ,u.ultimo_pedido,u.tipo, u.profile]}
+      map(data).each{|u| csv << create_csv_line(u) }
     end
-
-    sufix = "%02d" % data['index']
-
-    filename = "fragment-#{sufix}.csv"
-    path = "tmp/#{filename}"
-    File.open(path, "w", encoding: "ISO-8859-1") { |io| io << csv_content }
-    MarketingReports::S3Uploader.new('base_geral').copy_file(filename)
+    upload_to_s3 data['index'], csv_content
   end
 
   def map data
@@ -32,44 +22,69 @@ class MktBaseGenerator
   end
 
   def split_data
-    total = User.count
-    num_of_records = total / max
-    left = total % max + 1
-
-    datas = (0...max).map do |i|
-      first = i * num_of_records
-      last = num_of_records * (i+1) - 1
-      last += left if i == (max - 1)
+    indexs = prepare_indexs
+    (0...max).map do |i|
+      first = i * indexs[:num_of_records]
+      last = indexs[:num_of_records] * (i+1) - 1
+      last += indexs[:left] if i == (max - 1)
       {first: first, last: last}
     end
   end
 
-  def join  
-    connection = Fog::Storage.new provider: 'AWS'
-    dir = connection.directories.get(Rails.env.production? ? "olook-ftp" : "olook-ftp-dev")
-    files = dir.files.select{|file| file.key.match( /base_geral\/fragment/) }.map{|file| file.key}
-
+  def join
     begin
-      open("tmp/base_atualizada.csv", 'wb') do |f|
-        # header
-        f << ['first_name', 'email address', 'criado_em', 'aniversario', 'auth_token' , 'total', 'tem_pedido', 'ticket_medio','quantidade_pedidos','ultimo_pedido','tipo', 'perfil'].join(';')
-        f << "\n"
-        files.each do |path|
-          puts "baixando #{path}"
-          dir.files.get(path) do |chunk, remaining, total|
-            f.write chunk
-          end
-          puts "arquivo concluido."
-        end
+      open("tmp/base_atualizada.csv", 'wb') do |file|
+        file << csv_header
+        merge_csv_files_to file
       end
-
       # upload
       MarketingReports::S3Uploader.new('allin').copy_file('base_atualizada.csv')
-
     rescue => e
       puts e
     end
   end
 
+  private
+    def connection
+      Fog::Storage.new provider: 'AWS'
+    end
 
+    def bucket
+      connection.directories.get(Rails.env.production? ? "olook-ftp" : "olook-ftp-dev")
+    end
+
+    def get_uploaded_files
+      bucket.files.select{|file| file.key.match( /base_geral\/fragment/) }.map{|file| file.key}
+    end
+
+    def upload_to_s3 index, csv_content
+      sufix = "%02d" % index
+
+      filename = "fragment-#{sufix}.csv"
+      path = "tmp/#{filename}"
+      File.open(path, "w", encoding: "ISO-8859-1") { |io| io << csv_content }
+      MarketingReports::S3Uploader.new('base_geral').copy_file(filename)
+    end
+
+    def csv_header
+      ['first_name', 'email address', 'criado_em', 'aniversario', 'auth_token' , 'total', 'tem_pedido', 'ticket_medio','quantidade_pedidos','ultimo_pedido','tipo', 'perfil'].join(';') + "\n"
+    end
+    def create_csv_line u
+      [u.first_name, u.email, u.criado_em, u.birthday,u.authentication_token,u.total.to_s,u.tem_pedido,u.ticket_medio,u.qtde_pedido ,u.ultimo_pedido,u.tipo, u.profile]
+    end
+
+    def merge_csv_files_to file
+      get_uploaded_files.each do |path|
+        bucket.files.get(path) do |chunk, remaining, total|
+          file.write chunk
+        end
+      end
+    end
+
+    def prepare_indexs
+      total = User.count
+      num_of_records = total / max
+      left = total % max + 1
+      {num_of_records: num_of_records, left: left }
+    end
 end
