@@ -127,11 +127,10 @@ class CartService
     total_value
   end
 
-  def total(opts={})
+  def total(payment=nil)
     total = cart_sub_total
     total += total_increase
-    total += opts[:freight_value].to_f if opts[:freight_value]
-    total -= total_discount(opts[:payment])
+    total -= total_discount(payment)
     total = Payment::MINIMUM_VALUE if total < Payment::MINIMUM_VALUE
     total
   end
