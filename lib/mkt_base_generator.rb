@@ -59,7 +59,6 @@ class MktBaseGenerator
 
     def upload_to_s3 index, csv_content
       sufix = "%02d" % index
-
       filename = "fragment-#{sufix}.csv"
       path = "tmp/#{filename}"
       File.open(path, "w", encoding: "ISO-8859-1") { |io| io << csv_content }
