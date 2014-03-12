@@ -57,17 +57,6 @@
         z-index:10;
         border:none;
 
-        .fb-login-button {
-          background: image-url('common/fb-loggin-button.png') no-repeat;
-          display: block;
-          width: 194px;
-          height: 25px;
-          text-indent: -10000px;
-          position: absolute;
-          top: -40px;
-          left: 0px;
-        }
-
         form {
           fieldset {
             &.inputs {
