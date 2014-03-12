@@ -4,6 +4,7 @@
 @import 'new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min';
 @import 'new_structure/common/header';
 @import 'new_structure/common/wishlist';
+@import 'new_structure/common/responsive_mobile';
 
 ul.breadcrumb {
   display: block;
@@ -69,4 +70,3 @@ section.banner {
   margin-bottom:10px !important;
   img {width:100%;}
 }
-

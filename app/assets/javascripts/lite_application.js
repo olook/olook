@@ -23,3 +23,4 @@
 //= require _search_bar
 //= require ./partials/_credits_info
 //= require plugins/footer_popup
+//= require common/bamboo.0.1
