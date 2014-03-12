@@ -1,8 +1,15 @@
 //= require plugins/new_modal
 //= require plugins/jquery.meio.mask
-//= require facebook_sdk
 //= require state_cities
+//= require application_core/olook_app
+//= require modules/facebook/events
+//= require_tree ./modules/facebook/auth
+//= require modules/facebook/auth
 //= require_self
+
+new FacebookEvents().config();
+new FacebookAuth().config();
+
 if(!olook) var olook = {};
 
 olook.sendFacebookUserInfo = function(user_info){
