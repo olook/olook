@@ -6,11 +6,15 @@ module MultiJobsProcess
   # execute
   # split_data
   # join
-  # max
   #
+  #
+  
+  def max
+    20
+  end
 
   def already_started?
-    REDIS.exists(cache_key)    
+    REDIS.exists(cache_key)
   end
 
   def has_finished?
