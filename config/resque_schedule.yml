@@ -64,6 +64,14 @@ update_braspag_responses:
   queue: payments
   description: "Processa respostas de pagamento Braspag"
 
+csv_for_all_in:
+  cron: "0 2 * * *"
+  class: MultiWorkersProcessMaster
+  queue: low
+  args:
+    - MktBaseGenerator
+  description: "Cria arquivo de importação para allinemail"
+
 userbase_with_auth_token_and_credits:
   cron: "0 2 * * *"
   class: MarketingUploaderWorker
@@ -108,17 +116,6 @@ send_one_day_to_expiration_warning:
   queue: notification_sender
   description: "Dispara emails avisando que os créditos de fidelidade irão expirar amanhã"
 
-in_cart_mail:
-  cron: "0 10 * * *"
-  class: MarketingUploaderWorker
-  queue: marketing_uploader
-  args:
-    - in_cart_mail
-    - abandono-%Y-%m-%d.csv
-    - true
-    - exact_target.yml
-  description: "Cria e envia arquivo com carrinhos abandonados para ftp do exact target"
-
 force_clearsale_callback:
   cron: "*/5 * * * *"
   class: Clearsale::CallbackWorker
@@ -136,39 +133,6 @@ update_mkt_xml_builder:
   class: MktXmlBuilderWorker
   queue: mkt_xml_builder
   description: "Atualiza os xmls"
-
-userbase_with_source_exacttarget:
-  cron: "0 5 * * *"
-  class: MarketingUploaderWorker
-  queue: marketing_uploader
-  args:
-    - userbase_with_source
-    - userbase-with-source-%Y-%m-%d.csv
-    - true
-    - exact_target.yml
-  description: "Cria e envia arquivo com base de usuários para ftp do exact target"
-
-userbase_with_source_and_credits_exacttarget:
-  cron: "0 5 * * *"
-  class: MarketingUploaderWorker
-  queue: marketing_uploader
-  args:
-    - userbase_with_source_and_credits
-    - userbase-with-source-and-credits-%Y-%m-%d.csv
-    - true
-    - exact_target.yml
-  description: "Cria e envia arquivo com base de usuários com creditos para ftp do exact target"
-
-post_sale_userbase:
-  cron: "0 5 * * *"
-  class: MarketingUploaderWorker
-  queue: marketing_uploader
-  args:
-    - post_sale_userbase
-    - post_sale_userbase-%Y-%m-%d.csv
-    - true
-    - exact_target.yml
-  description: "Cria e envia arquivo com base de usuários com compras entregues para ftp do exact target"
 
 facebook_friends_list:
   cron: "35 * * * *"
