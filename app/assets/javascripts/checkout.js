@@ -2,6 +2,13 @@
 //= require plugins/cep
 //= require plugins/check_freebie
 //= require plugins/footer_popup
+//= require application_core/olook_app
+//= require modules/facebook/events
+//= require_tree ./modules/facebook/auth
+//= require modules/facebook/auth
+
+new FacebookEvents().config();
+new FacebookAuth().config();
 
 updateCreditCardSettlementsValue = function(select_box, total, reseller) {
   selected = select_box.val();
@@ -52,7 +59,7 @@ function retrieve_freight_price_for_checkout(zip_code,shipping_id) {
   if (!zip_code) {
     return;
   }
-  
+
   if(shipping_id.length != ''){
     url_path = url_path.concat('?freight_service_ids=' + shipping_id)
   }
@@ -199,7 +206,7 @@ $(function() {
   var msie6 = $.browser == 'msie' && $.browser.version < 7;
   if(!msie6 && $('.box-step-three').length == 1) {
     var helpLeft = $('.box-step-three').offset().left;
-    // Função para scrollar box passo 3 
+    // Função para scrollar box passo 3
     // $(window).scroll(function(event) {
     //   var y = $(this).scrollTop();
     //   if(y >= 170) {
@@ -231,7 +238,7 @@ $(function() {
     }).done(function(data){
       var value = $("#freight_price").data('freight_price');
       freight_value = value == undefined ? 0 : parseFloat(value);
- 
+
       $('#credits_used').text(formatReal(data.credits_discount));
       $('#total').text(formatReal(add(data.total, freight_value)));
       $('#total_billet').text(formatReal(add(data.total_billet, freight_value)));
