@@ -1,0 +1,41 @@
+@media only screen and (max-width: 600px) {
+	@import 'new_structure/common/bamboo';
+
+	#new_header,
+	#wrapper_new_menu,
+	#content,
+	footer {
+		display: none;
+	}
+
+	#container {
+		height:1000px !important;
+	}
+
+	.submenu {display: none !important;}
+
+	/* SEARCH */
+
+	.search_box {
+		float:left;
+		width:263px;
+		#search_product {
+			border:0px;
+		}
+		#search_product {
+			width:214px;
+			margin-right:0px;
+		}
+		input[type="submit"] {
+			left:236px;
+		}
+	}
+}
+
+@media only screen and (min-width: 601px) {
+	header.primary,
+	#console, 
+	#main-nav {display: none !important;}
+}
+
+.profiler-results {display: none !important;}
