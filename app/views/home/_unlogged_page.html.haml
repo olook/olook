@@ -15,3 +15,16 @@
           %span= number_to_currency(product.retail_price)
           = link_to "Ver Mais", product_seo_path(product.seo_path), :class => 'seeMore'
   = link_to image_tag("home/banner_deslogado.jpg"), wysquiz_path, :class => "banner_unlogged", onclick: track_event("UnloggedHome", "ClickBanner")
+
+  #emkt_box
+    - unless user_signed_in?
+      %ul.mail
+        %p
+          Nova por aqui? 
+          %span
+            R$30 GRÁTIS 
+          agora
+        %fieldset
+          =text_field_tag :email, "", :class => "box_mail js-footer-newsletter", :default_value => "Digite aqui seu e-mail"
+        %fieldset.botao
+          =submit_tag "CADASTRAR", :class => "bt_enviar js-subscribe"
