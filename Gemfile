@@ -48,7 +48,6 @@ gem 'gyoku', '= 0.4.6'
 gem 'httpi', '~> 0.9'
 gem 'paper_trail', '~> 2'
 gem 'meta_search'
-gem 'newrelic_rpm'
 # gem 'graylog2_exceptions'
 gem 'SyslogLogger', "~> 1.4.1"
 gem 'koala', '~> 1.3.0'
@@ -67,6 +66,9 @@ gem "rubypress", :git => 'git://github.com/olook/rubypress.git', :branch => 'mas
 gem "boleto_bancario", :git => 'git@github.com:olook/boleto_bancario.git', :branch => 'homologacao_santander', require: false
 gem 'fb-channel-file'
 
+group :production do
+  gem 'newrelic_rpm'
+end
 group :production, :staging do
   gem 'unicorn', '~> 4.1.1'
   gem 'asset_sync', '~> 0.5.0'
