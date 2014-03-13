@@ -67,6 +67,7 @@
           <%= cache ["megamenu",mobile?] do %>
              <%= MenuPresenter.new(self, :user => current_user).render_menu(mobile?) %>
           <% end %>
+          <li><%= link_to "Sair", destroy_user_session_path, :method => :delete, onclick: track_event("Checkout","clickSignOut") %></li>
        </ul>
     </nav>
     <div id="container">
