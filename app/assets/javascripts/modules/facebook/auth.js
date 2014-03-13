@@ -1,6 +1,14 @@
 var FacebookAuth = (function(){
   function FacebookAuth() { };
 
+  var displayBeforeChangeMessage = function(){
+    olook.showLoadingScreen();
+  };
+
+  var displayLoginCompletedMessage = function(){
+    olook.hideLoadingScreen();
+  };
+
   FacebookAuth.prototype.config = function(){
     olookApp.subscribe('fb:auth:login', this.facade, {}, this);
     new FacebookAuthSuccess().config();
@@ -12,7 +20,7 @@ var FacebookAuth = (function(){
     if(this.status !== 'connected') {
       return false;
     }
-    olookApp.publish('fb:auth:statusChange.before');
+    displayBeforeChangeMessage();
     $.ajax({
       url: '/facebook_connect',
       type: 'POST',
@@ -20,11 +28,9 @@ var FacebookAuth = (function(){
       dataType: 'json',
       data: JSON.stringify({ authResponse: this.authResponse })
     }).complete(function(){
-      olookApp.publish('fb:auth:statusChange.complete');
+      displayLoginCompletedMessage();
     }).success(function(result){
       olookApp.publish('fb:auth:success', result);
-    }).error(function(){
-      olookApp.publish('fb:auth:error');
     });
   };
 
