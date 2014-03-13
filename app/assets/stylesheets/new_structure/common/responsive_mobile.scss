@@ -1,15 +1,16 @@
 @media only screen and (max-width: 600px) {
+	body {overflow-x:hidden;}
 	@import 'new_structure/common/bamboo';
 
 	#new_header,
 	#wrapper_new_menu,
-	#content,
 	footer {
 		display: none;
 	}
 
 	#container {
 		height:1000px !important;
+		background: #FFF;
 	}
 
 	.submenu {display: none !important;}
@@ -28,6 +29,40 @@
 		}
 		input[type="submit"] {
 			left:236px;
+			background-position: -165px -149px;
+		}
+	}
+
+	/* CONTENT */
+
+	#content {
+		width:100%;
+		padding:0px;
+		background: red;
+		* {display: none !important;}
+		#home, #banner, .column {display: block !important;}
+		#banner {
+			width:100%;
+			height:600px;
+			background:blue;
+			.column {
+				width:50% !important;
+				float:left !important;
+				margin-top:200px !important;
+				background:black;
+				height:100px !important;
+				min-height:100px !important;
+			}
+			.big {
+				width:100% !important;
+				height: 200px !important;
+				min-height:200px !important;
+				margin:0px !important;
+				position: absolute;
+				left:0px;
+				top:0px;
+				background:yellow;
+			}
 		}
 	}
 }
