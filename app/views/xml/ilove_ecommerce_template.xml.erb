@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <produtos>
-	<% products = @products.select{|p| p.picture_for_xml.present?} %>
+	<% products = @products.select{|p| p.picture_for_xml.present? || !p.cloth?} %>
 	<% products.each do |product| %>
 		<produto>
 			<codigo><%= product.id %></codigo>
