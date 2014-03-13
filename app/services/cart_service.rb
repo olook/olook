@@ -153,7 +153,7 @@ class CartService
       :gift_wrap => cart.gift_wrap,
       :amount_discount => total_discount(payment),
       :amount_increase => total_increase,
-      :amount_paid => total(payment),
+      :amount_paid => total(payment: payment),
       :subtotal => subtotal,
       :user_first_name => user.first_name,
       :user_last_name => user.last_name,
