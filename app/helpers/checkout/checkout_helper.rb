@@ -24,8 +24,8 @@ module Checkout::CheckoutHelper
     FreightCalculator.freight_for_zip(address.zip_code, @cart_service.subtotal)
   end
 
-  def total_with_freight(value, payment_type=nil)
-    @cart_service.total(payment: payment_type, freight_value: value)
+  def total_with_freight(freight_value, payment=nil)
+    @cart_service.total(payment).to_f + freight_value.to_f
   end
 
   def delivery_time_message(delivery_time)
