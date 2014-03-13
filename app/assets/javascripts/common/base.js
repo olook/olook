@@ -266,7 +266,7 @@ $(document).ready(function() {
       $(tel).setMask("(99)9999-9999");
     }
   }
-  
+
   $("input:text.phone").keyup(function(){
 		maskTel(this);
 	});
@@ -335,7 +335,7 @@ $(document).ready(function() {
   }).live("mouseleave", function() {
     hideCartSummary();
   });
-  
+
 
   $("ul.submenu li form.delete").live("ajax:success", function(evt, xhr, settings){
     var defaultQuantity = 1;
@@ -831,4 +831,3 @@ olook.showEmailBar = function(){
             }
         }
     );
-
