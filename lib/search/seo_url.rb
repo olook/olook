@@ -232,7 +232,7 @@ class SeoUrl
     def extract_brand
       param_brand = @params[:parameters].to_s.split('/').first.to_s.parameterize
       sorted_brands = all_brands.sort do |a,b|
-        b.scan(" ").size <=> a.scan(" ").size
+        b.size <=> a.size
       end
       brands = sorted_brands.select do |b|
         if /#{b.parameterize}/ =~ param_brand
