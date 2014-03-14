@@ -422,7 +422,7 @@ section#home {
       right: 80px;
     }
   }
-  .feedback, .denied{
+  .fback, .fdenied{
     width: 310px;
     height: 41px;
     background: image-url('common/sprite_modal_footer.png') no-repeat 4px -162px;
@@ -447,12 +447,11 @@ section#home {
       line-height: 14px;
     }
   }
-  .denied{
+  .fdenied{
     background: image-url('common/sprite_modal_footer.png') no-repeat -122px 2px;
     background-color: #ea8596;
     border: 1px solid #e94762;
     height: 23px;
     padding-top: 4px;
-    display: block;
   }
 }
