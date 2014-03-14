@@ -4,7 +4,6 @@ class CampaignEmail < ActiveRecord::Base
 
   validates_with CampaignEmailValidator, :attributes => [:email]
   validates :email, presence: true, format: { with: /\A\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b\z/i }, uniqueness: true
-  validates :phone, presence: true, format: { with: /\A[\(\)\- 0-9]{10,15}\z/ }, if: proc { |a| a.profile == "olookmovel" }
 
   before_validation :default_values
 

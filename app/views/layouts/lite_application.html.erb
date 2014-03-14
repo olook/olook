@@ -51,6 +51,8 @@
     <% unless user_signed_in? || request.url.include?("gclid") %>
       <%= Setting.sample_popup_url.html_safe if !['landing_pages','survey', 'users/registrations', 'cart/cart', 'devise/sessions' ].include?(params[:controller]) %>
     <% end %>
+
+    <script type='text/javascript'>var _sf_startpt=(new Date()).getTime()</script>
   </head>
 
   <body onload='ativaDiv();' class="<%= user_signed_in? ? 'logged' : '' %> <%= Campaign.activated_campaign.background if Campaign.activated_campaign %><%= mobile? ? ' mobile' : ' desktop' %>">
