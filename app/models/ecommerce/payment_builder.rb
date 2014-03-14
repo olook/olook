@@ -43,7 +43,7 @@ class PaymentBuilder
 
   def process!
     payment.cart_id = cart_service.cart.id
-    payment.total_paid = cart_service.total(payment)
+    payment.total_paid = cart_service.total(payment: payment)
     payment.user_id = cart_service.cart.user.id
     payment.save!
     log("Saving Payment data on payment ##{payment.try :id}")

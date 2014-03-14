@@ -24,8 +24,8 @@ module Checkout::CheckoutHelper
     FreightCalculator.freight_for_zip(address.zip_code, @cart_service.subtotal)
   end
 
-  def total_with_freight(freight_value, payment=nil)
-    @cart_service.total(payment).to_f + freight_value.to_f
+  def total_with_freight(value, payment_type=nil)
+    @cart_service.total(payment: payment_type, freight_value: value)
   end
 
   def delivery_time_message(delivery_time)
@@ -53,7 +53,7 @@ module Checkout::CheckoutHelper
   end
 
   def show_freight_message
-    return "O frete será de #{number_to_currency(@freight_price)}.<br />Adicionando um ítem<br/> de #{number_to_currency(@first_free_freight_price - @cart_service.total())} ele será <br/> gratuito. Aproveite ;)" unless @first_free_freight_price.blank?
+    return "O frete será de #{number_to_currency(@freight_price)}.<br />Adicionando um ítem<br/> de #{number_to_currency(@first_free_freight_price - @cart_service.total)} ele será <br/> gratuito. Aproveite ;)" unless @first_free_freight_price.blank?
     return "Seu frete será gratuito neste pedido :)" if @freight_price == 0
     return "O frete deste pedido será de #{number_to_currency(@freight_price)}."
   end

@@ -203,19 +203,32 @@ module ApplicationHelper
 
   def home_wishlist_images
     wishlist_products = Wishlist.for(current_user).wished_products.last(2)
+    product =  wishlist_products.first.variant.product
+
     wishlist_images = []
-    wishlist_images << {img: wishlist_products.first.variant.product.main_picture.image_url(:main), product: wishlist_products.first.variant.product }
+    wishlist_images << get_image_for(product, :main)
 
     if wishlist_products.size > 1
-      wishlist_images << {img: wishlist_products.last.variant.product.main_picture.image_url(:main), product: wishlist_products.last.variant.product}      
+      product = wishlist_products.last.variant.product
+      wishlist_images << get_image_for(product, :main)
     else
-      wishlist_images << {img: wishlist_products.first.variant.product.backside_picture.gsub("catalog","main"), product: wishlist_products.first.variant.product}
+      wishlist_images << get_image_for(product, :backside)
     end
 
-    wishlist_images
+    wishlist_images.compact
   end
 
   private
+
+    def get_image_for product, view_type
+      main_pic = product.main_picture
+      backside_pic = product.backside_picture
+      if (view_type == :main && main_pic.present? || view_type == :backside && backside_pic.present?)
+
+        img_url = view_type == :backside ? backside_pic.gsub("catalog","main") : main_pic.image_url(:main)
+        {img: img_url, product: product}
+      end
+    end
  
     def ga_event_referer
       case request.referer

@@ -70,6 +70,5 @@ if(!$('.shipping_service_radio:checked').hasClass('express')){
   $("#freight_message").delay(200).fadeIn();
 }
 
-//showTotal();
 updateCreditCardSettlementsValue( $('#checkout_payment_payments'), "<%= total_with_freight(@freight_price) =%>", "<%= current_user && current_user.reseller? %>");
 
