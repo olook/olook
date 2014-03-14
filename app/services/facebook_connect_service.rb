@@ -51,7 +51,11 @@ class FacebookConnectService
   end
 
   def update_user
-    @user.update_attributes(data_for_user)
+    data = data_for_user
+    data.delete(:first_name)
+    data.delete(:last_name)
+    data.delete(:birthday)
+    @user.update_attributes(data)
     @user
   end
 
