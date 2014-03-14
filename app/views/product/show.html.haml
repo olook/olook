@@ -33,7 +33,7 @@
       = product_presenter.render_facebook_comments
   .box-right
     #product-details
-      
+
       = product_presenter.render_description
       = product_presenter.render_add_to_cart
       = product_presenter.render_details
@@ -108,5 +108,4 @@
       = field_set_tag do
         = hidden_field_tag :product_id, @product.id
         = submit_tag 'Enviar', id: :send
-  = render "facebook_js", :facebook_app_id => @facebook_app_id, :product => @product
   = render "shared/lightbox_credits"

@@ -32,7 +32,7 @@
     = yield :data_layer
   %body{:class => "#{user_signed_in? ? 'logged' : ''} #{Campaign.activated_campaign.background if Campaign.activated_campaign} "}
     = render :partial => "shared/tag/google_tag_manager"
-
+    = render "shared/facebook_js", member: current_user, facebook_app_id: @facebook_app_id
     %header
       .quiz_header
         .olook_logo

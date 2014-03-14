@@ -8,6 +8,10 @@ class JoinController < ApplicationController
   end
 
   def new
+    if current_user
+      redirect_to set_user_profile(current_user).next_step
+      return
+    end
     set_user_already_variable
     @user = User.new
     @user.email = cookies['newsletterEmail']
@@ -73,12 +77,12 @@ class JoinController < ApplicationController
     end
 
     def load_quiz_responder
-      params[:qr_uuid]
+      params[:qr_uuid] || params[:uuid]
     end
 
     def set_user_profile(user)
       if load_quiz_responder
-        @qr = QuizResponder.find(params[:qr_uuid])
+        @qr = QuizResponder.find(load_quiz_responder)
         @qr.user = user
         @qr.validate!
         @qr

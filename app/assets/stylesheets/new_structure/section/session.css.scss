@@ -1,4 +1,11 @@
 @import "partials/mixins";
+.fb-login-button {
+  text-align: center;
+  width: 100%;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #D1D1D1;
+}
 .sign-in {
       height: 475px;
       padding-left: 15px;
@@ -22,7 +29,7 @@
         margin-top: 61px;
         li{
           background: image-url('login/social_icons.png') no-repeat;
-          width: 180px; 
+          width: 180px;
           height: 58px;
           float: left;
           a{
@@ -52,21 +59,10 @@
         padding: 35px;
         width: 345px;
         position: relative;
-        margin: 44px 0 0 0px;
+        margin: -20px 0 0 0px;
         float: left;
         z-index:10;
         border:none;
-
-        .fb-login-button {
-          background: image-url('common/fb-loggin-button.png') no-repeat;
-          display: block;
-          width: 194px;
-          height: 25px;
-          text-indent: -10000px;
-          position: absolute;
-          top: -40px;
-          left: 0px;
-        }
 
         form {
           fieldset {
@@ -155,7 +151,7 @@
                     font-size: 13px;
                     font-weight: 600;
                     letter-spacing: 2px;
-                    margin-left: 65px !important; 
+                    margin-left: 65px !important;
                     @include bt_color($primary_bt_color, $primary_bt_color_hover);
                   }
                 }

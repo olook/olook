@@ -32,10 +32,7 @@ olook.newModal = function(content, a, l, backgroud_color){
     'margin-top'  : mt,
     'border-bottom': '1px solid #000'
 
-  })
-  .append('<button type="button" class="close" role="button">close</button>')
-  .delay(500).fadeIn().children().show();
-
+  }).append('<button type="button" class="close" role="button">close</button>').delay(500).fadeIn().children().show();
 
 
   $("button.close, #modal a.me").click(function(){
@@ -49,4 +46,12 @@ olook.newModal = function(content, a, l, backgroud_color){
     $("#overlay-campaign").fadeOut();
   })
 
+};
+
+olook.showLoadingScreen = function(){
+  $("#overlay-campaign").css({"background-color": '#FFF', 'height' : $(document).height()}).fadeIn();
+};
+
+olook.hideLoadingScreen = function(){
+  $("#overlay-campaign").fadeOut();
 };

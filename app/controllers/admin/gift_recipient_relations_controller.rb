@@ -44,5 +44,5 @@ class Admin::GiftRecipientRelationsController < Admin::BaseController
     @gift_recipient_relation = GiftRecipientRelation.find(params[:id])
     @gift_recipient_relation.destroy
     respond_with :admin, @gift_recipient_relation
-  end  
+  end
 end

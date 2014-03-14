@@ -69,8 +69,7 @@
 
     <div id="modal" class="promo-olook"></div>
     <div id="modal-campaign"></div>
-    <div id="overlay-campaign"></div>
-
+    <div id="overlay-campaign"><%= image_tag 'common/ajax-loader.gif', id: 'ajax-loader', style: 'position:fixed;top:50%;left:50%' %></div>
     <div id="error-messages">
       <p class="notice"><%= notice unless params[:action] == "product_valentines_day" %></p>
       <p class="alert"><%= alert %></p>
