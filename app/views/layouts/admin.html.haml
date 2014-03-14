@@ -32,7 +32,6 @@
               %ul
                 %li= access_link("Users")
                 %li= access_link("Credits")
-                %li= link_to I18n.t("activerecord.models.discount.other"), admin_discounts_path
             %li{class: "submenu#{' active' if params[:controller] =~ /orders|shipping|moip_callbacks|payments/}"}
               %span Vendas
               %ul
@@ -42,9 +41,9 @@
                 %li= access_link("Braspag Authorize Responses")
                 %li= access_link("Braspag Capture Responses")
                 %li= access_link("Payments")
-                %li= link_to I18n.t("admin.billet.santander"), admin_new_billet_batch_path
-                %li= link_to I18n.t("admin.billet.report"), admin_orders_billet_reports_path
-                %li= link_to I18n.t("admin.users.report"), admin_orders_newest_reports_path
+                %li= access_link_generic(name: "BilletService", location: "admin.billet.santander", path: admin_new_billet_batch_path, action: "create")
+                %li= link_to I18n.t("admin.billet.report"), admin_billet_reports_path
+                %li= link_to I18n.t("admin.users.report"), admin_newest_reports_path
             %li{class: "submenu#{' active' if params[:controller] =~ /collections|products/}"}
               %span Produtos
               %ul
@@ -56,7 +55,7 @@
               %span Promoções
               %ul
                 %li= access_link("Promotions")
-                %li= link_to I18n.t("admin.product.liquidation"), admin_new_visibility_batch_path                
+                %li= link_to I18n.t("admin.product.liquidation"), admin_new_visibility_batch_path
                 / %li= access_link("Liquidations")
                 %li= access_link("Campaigns")
                 %li= access_link("Highlights")
