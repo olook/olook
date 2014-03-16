@@ -12,7 +12,8 @@
 		background: #FFF;
 	}
 
-	.submenu {display: none !important;}
+	.submenu,
+  .breadcrumb {display: none !important;}
 
 	/* HEADER */
 
@@ -238,7 +239,145 @@
         }
       }
 		} 
-	}
+
+    /* CATALOG */
+
+    #catalog {
+      .promo_catalog,
+      .row,
+      .about_item {display: none !important;}
+      #products, #result {
+        width: 100%;
+      }
+      #result {
+        section.filters {
+          width: auto;
+          margin-left:13px;
+          padding:0px;
+          border:0px;
+        }
+        .banner img {
+          width:100%;
+        }
+      }
+
+      #products {
+        li.product {
+          margin:0px;
+          width:45%;
+          padding:0px;
+          float:left;
+          margin-left: 3%;
+          margin-bottom: 3%;
+          height:266px;
+          border:1px dotted #d1d1d1;
+          .async {
+            width:100%;
+            height:266px;
+            img {
+              width:100%;
+              height:auto;
+            }
+          }
+          .spy {
+            display: none !important;
+          }
+          .info-product {
+            position: absolute;
+            bottom:0px;
+            background: #fff;
+            width:92%;
+            padding:0 4%;
+          }
+          .price {
+            font-size: 10px;
+          }
+          .brand {
+            font-size: 11px;
+          }
+          .name {
+            margin-bottom:0px;
+          }
+        }
+      }
+      aside {
+        width:97%;
+        margin:0px;
+        margin-bottom:10px;
+        overflow-y:auto;
+        margin-left:12px;
+        margin-top:4px;
+        ul.category-list,
+        .preco,
+        .show_more,
+        .subcategory-list {
+          display: none;
+        }
+        .filter {
+          float:left;
+          margin:0px;
+          clear:none;
+          margin-top:5px;
+          margin-right:3px;
+          .cores {
+            max-height: 500px !important;
+          }
+          p.title-category {
+            margin:0px;
+            padding:0px;
+            background: none;
+            font-size: 11px;
+            font-weight: normal;
+            text-transform: none;
+            font-family: "Trebuchet Ms";
+            border:1px dotted #d1d1d1;
+            background: #000;
+            color:#FFF;
+            padding:5px;
+            line-height: 14px;
+          }
+          .category-list,
+          .subcategory-list {
+            position: absolute;
+            background: red;
+            z-index: 9999;
+            background: #FFF;
+            border: 1px dotted #d1d1d1;
+            padding: 5px;
+          }
+        }
+      }
+    }
+    .box-left {
+      width:100%;
+      clear:both;
+      margin:0px;
+      height:580px;
+      #gallery {
+        width:100%;
+        margin:0px;
+        #full_pic {
+          width:100%;
+          top:0px;
+          ul li a, ul, ul li, ul li a img {width:100%;}
+        }
+        #thumbs {
+          position: absolute;
+          left:0px;
+          top:0px;
+          margin:0px;
+          z-index: 9999;
+        }
+      }
+      #facebook-comments {
+        display: none;
+      }
+  	}
+    .box-right {
+      clear:both;
+      display: none;
+    }
+  }
   .looks_unlogged {
     height:378px !important;
     .mylook {display:none !important;}
@@ -279,7 +418,6 @@
       font-family: "Trebuchet Ms" !important;
     }
   }
-
 }
 
 @media only screen and (min-width: 601px) {
