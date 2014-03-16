@@ -142,7 +142,37 @@
 	#content {
 		width:100%;
 		padding:0px;
+    #cart {
+      table#items {
+        width:100% !important;
+        thead {
+          .item {width:auto;}
+        }
+        .delete-item {
+          display: none;
+        }
+        td.quantidade {
+          width:auto;
+        }
+      }
+      table.check tbody tr td input[type="checkbox"] {
+        left:-65px;
+      }
+      table.check tbody tr td.icon-gift {
+        left:9px;
+        width:38px;
+      }
+      table.check.gift tbody tr td.check_column {
+        font-style: 12px;
+      }
+    }
+    #float_total {
+      display: none !important;
+    }
 		#home, #banner, .column {display: block !important;}
+    #product {
+      margin-bottom:0px;
+    }
 		#banner {
 			width:100%;
 			height:575px !important;
@@ -352,30 +382,86 @@
       width:100%;
       clear:both;
       margin:0px;
-      height:580px;
+      padding-top:30px;
+      margin-top:0px !important;
       #gallery {
         width:100%;
         margin:0px;
         #full_pic {
           width:100%;
           top:0px;
+          margin-bottom:0px !important;
           ul li a, ul, ul li, ul li a img {width:100%;}
         }
         #thumbs {
           position: absolute;
-          left:0px;
-          top:0px;
+          left:10px;
+          top:41px;
           margin:0px;
           z-index: 9999;
         }
       }
+      #product-details {
+        position: initial !important;
+        width:100%;
+        margin:0px;
+        #product-particulars {
+          width:100%;
+          .open {
+            width:90%;
+            p.description {
+              width:96%;
+            }
+          }
+        }
+        .size_guide {
+          display: none !important;
+        }
+        #product_add_to_cart {
+          .line {margin-left:10px;}
+        }
+        input[type="submit"].add_product {
+          width:100%;
+        }
+        #product-info {
+          position: absolute;
+          top:0px;
+          border: 0px;
+          width: 100%;
+          background: #000;
+          padding: 5px;
+          height: 20px;
+          left: 0px;
+          h1, h2 {
+            font-size: 12px;
+          }
+          h1 {
+            position: absolute;
+            left: 10px;
+            color: #FFF;
+
+          }
+          h2 {
+            position: absolute;
+            color: #FFF;
+            top: 6px;
+            right: 14px;
+            text-align: right;
+          }
+          .plots,
+          .price {
+            display: none;
+          }
+        }
+      }
+      
       #facebook-comments {
         display: none;
       }
   	}
-    .box-right {
+    .vantagens{
       clear:both;
-      display: none;
+      display: none !important;
     }
   }
   .looks_unlogged {
@@ -391,6 +477,7 @@
 
   footer {
     height:45px !important;
+    margin:0px !important;
     section {width:100% !important;display: none;}
     section.newsletter{display: block !important;}
     .mail {
