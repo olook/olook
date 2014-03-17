@@ -27,7 +27,19 @@ $(document).ready(function() {
     return false;
   });
 
-  $('.js-footer-newsletter').focus(function() {
+  $('.js-newsletter.js-footerbox').focus(function() {
+    var input = $(this);
+    if (input.val() == input.attr('default_value')) {
+      input.val('');
+    }
+  }).blur(function() {
+    var input = $(this);
+    if (input.val() == '' || input.val() == input.attr('default_value')) {
+      input.val(input.attr('default_value'));
+    }
+  }).blur();
+
+  $('.js-newsletter.js-middlebox').focus(function() {
     var input = $(this);
     if (input.val() == input.attr('default_value')) {
       input.val('');
@@ -40,20 +52,36 @@ $(document).ready(function() {
   }).blur();
 
   $('.js-subscribe.js-footerbox').click(function() {
-    $('.js-footer-newsletter').each(function() {
+    $('.js-newsletter.js-footerbox').each(function() {
       var input = $(this);
       if (input.val() == input.attr('default_value')) {
         input.val('');
       }
-      olookApp.publish("footer:newsletter:subscribe", input.val());
+      olookApp.publish("footer:newsletter:subscribe", input.val(),".js-footerbox");
     })
   });
 
-  $('.js-footer-newsletter').keypress(function(key){
+  $('.js-newsletter.js-footerbox').keypress(function(key){
     if(key.which == 13) {
-      $('.js-subscribe').click();
+      $('.js-subscribe.js-footerbox').click();
     }
-  });  
+  });
+
+  $('.js-subscribe.js-middlebox').click(function() {
+    $('.js-newsletter.js-middlebox').each(function() {
+      var input = $(this);
+      if (input.val() == input.attr('default_value')) {
+        input.val('');
+      }
+      olookApp.publish("middle:newsletter:subscribe", input.val(),".js-middlebox");
+    })
+  });
+
+  $('.js-newsletter.js-middlebox').keypress(function(key){
+    if(key.which == 13) {
+      $('.js-subscribe.js-middlebox').click();
+    }
+  });    
 
 });
 
