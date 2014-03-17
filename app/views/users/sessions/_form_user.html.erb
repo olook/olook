@@ -21,6 +21,5 @@
   </fieldset>
 <% end %>
 <div class="login_with_facebook">
-  <%= link_to 'Entrar com Facebook', user_omniauth_authorize_path(:facebook), :class => 'fb_login_button popup', :"data-width" => 410, :"data-height" => 300, onclick: track_event("FacebookConnect", "ConnectFromLoginBox") %>
+  <div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false" data-scope="basic_info,email,user_birthday,friends_birthday,user_education_history,user_location" data-onlogin="loginFacebook"></div>
 </div>
-

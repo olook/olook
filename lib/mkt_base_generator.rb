@@ -37,8 +37,11 @@ class MktBaseGenerator
         file << csv_header
         merge_csv_files_to file
       end
-      # upload
-      MarketingReports::S3Uploader.new('allin').copy_file('base_atualizada.csv')
+      # upload to S3
+      # MarketingReports::S3Uploader.new('allin').copy_file('base_atualizada.csv')
+
+      # save it on disk to be sent to CI machine through BitSync (Ask Nelson)
+      MarketingReports::FileUploader.copy_file('base_atualizada.csv')
     rescue => e
       puts e
     end
