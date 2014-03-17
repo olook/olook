@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Admin::ReportsController < Admin::BaseController
+  authorize_resource :class => false
   def new
   end
 

@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Admin::CollectionsController < Admin::BaseController
+  load_and_authorize_resource
   respond_to :html
 
-  load_and_authorize_resource
 
   def index
     @collections = Collection.order('start_date desc')

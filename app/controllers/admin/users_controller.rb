@@ -1,10 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Admin::UsersController < Admin::BaseController
-
   load_and_authorize_resource
-
   respond_to :html, :js, :text
-  
   before_filter :check_params_for_create_credits, :only => :create_credit_transaction
 
   def index

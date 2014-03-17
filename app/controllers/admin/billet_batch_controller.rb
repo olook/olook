@@ -1,5 +1,6 @@
 # encoding: UTF-8
 class Admin::BilletBatchController < Admin::BaseController
+  authorize_resource :class => false
   respond_to :html
   def new
   end

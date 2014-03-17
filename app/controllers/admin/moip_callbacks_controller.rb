@@ -1,17 +1,16 @@
 class Admin::MoipCallbacksController < Admin::BaseController
+  load_and_authorize_resource
   respond_to :html
 
-  load_and_authorize_resource
-
   def index
-  	@search = MoipCallback.search(params[:search])
-  	@moip_callbacks = @search.relation.page(params[:page]).per_page(100).order('processed asc, id asc')
+    @search = MoipCallback.search(params[:search])
+    @moip_callbacks = @search.relation.page(params[:page]).per_page(100).order('processed asc, id asc')
   end
 
   def show
-  	@moip_callback = MoipCallback.find(params[:id])
-  	@payment = Payment.find_by_identification_code(@moip_callback.id_transacao)
-  	respond_with :admin, @moip_callback, @payment
+    @moip_callback = MoipCallback.find(params[:id])
+    @payment = Payment.find_by_identification_code(@moip_callback.id_transacao)
+    respond_with :admin, @moip_callback, @payment
   end
 
   def change_to_processed
@@ -43,5 +42,4 @@ class Admin::MoipCallbacksController < Admin::BaseController
     end
     respond_with :admin, @moip_callback
   end
-
 end

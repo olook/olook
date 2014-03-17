@@ -1,4 +1,5 @@
 class Admin::HighlightCampaignsController < Admin::BaseController
+  load_and_authorize_resource
   respond_to :html
 
   def index
