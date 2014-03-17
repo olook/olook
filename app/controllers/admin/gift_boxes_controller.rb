@@ -1,4 +1,5 @@
 class Admin::GiftBoxesController < Admin::BaseController
+  load_and_authorize_resource
   respond_to :html
   def index
     @gift_boxes = GiftBox.all

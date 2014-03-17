@@ -23,7 +23,7 @@
       %span=@quiz_count.try(:count)
       pessoas já responderam nosso style quiz
       = image_tag("quiz/users.jpg")
-    %a.fb_login_button Entrar com FB
+    .fb-login-button{"data-max-rows" => "1", "data-size" => "large", "data-show-faces" => "false", "data-auto-logout-link" => "false", "data-scope" => FACEBOOK_CONFIG['login_scope'], "data-onlogin" => "loginFacebook"}
     %p.fb OU
 
     - if @exist_newsletter
@@ -94,6 +94,8 @@
 
 #modal.promo-olook
 #overlay-campaign
+  = image_tag 'common/ajax-loader.gif', id: 'ajax-loader', style: 'position:fixed;top:50%;left:50%;'
+
 .box-remember-login
   %h3
     Já tem cadastro?
@@ -114,4 +116,3 @@
         = label_tag :remember_me_login, "Lembrar de mim"
         %p= link_to "Esqueceu sua senha?", new_password_path(:user)
     = submit_tag "ENTRAR", class: "bt-enter"
-

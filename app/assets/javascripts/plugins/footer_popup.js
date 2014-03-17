@@ -27,7 +27,7 @@ $(document).ready(function() {
     return false;
   });
 
-  $('.js-footer-newsletter').focus(function() {
+  $('.js-newsletter.js-footerbox').focus(function() {
     var input = $(this);
     if (input.val() == input.attr('default_value')) {
       input.val('');
@@ -39,21 +39,49 @@ $(document).ready(function() {
     }
   }).blur();
 
-  $('.js-subscribe').click(function() {
-    $('.js-footer-newsletter').each(function() {
+  $('.js-newsletter.js-middlebox').focus(function() {
+    var input = $(this);
+    if (input.val() == input.attr('default_value')) {
+      input.val('');
+    }
+  }).blur(function() {
+    var input = $(this);
+    if (input.val() == '' || input.val() == input.attr('default_value')) {
+      input.val(input.attr('default_value'));
+    }
+  }).blur();
+
+  var prepareForEmailInput = function(prefix) {
+    $('.js-newsletter.js-'+prefix+'box').each(function() {
       var input = $(this);
       if (input.val() == input.attr('default_value')) {
         input.val('');
       }
-      olookApp.publish("footer:newsletter:subscribe", input.val());
+      olookApp.publish("newsletter:subscribe", input.val(),prefix);
     })
+  };
+
+  var clickOnReturnKey = function(key, prefix){
+    if(key.which == 13) {
+      $('.js-subscribe.js-'+prefix+'box').click();
+    }
+  };
+
+  $('.js-subscribe.js-footerbox').click(function(){
+    prepareForEmailInput("footer");
   });
 
-  $('.js-footer-newsletter').keypress(function(key){
-    if(key.which == 13) {
-      $('.js-subscribe').click();
-    }
+  $('.js-subscribe.js-middlebox').click(function(){
+    prepareForEmailInput("middle");
   });  
+
+  $('.js-newsletter.js-footerbox').keypress(function(key){
+    clickOnReturnKey(key,"footer");
+  });
+
+  $('.js-newsletter.js-middlebox').keypress(function(key){
+    clickOnReturnKey(key,"middle");
+  });    
 
 });
 

@@ -1,4 +1,5 @@
 class Admin::GiftRecipientRelationsController < Admin::BaseController
+  load_and_authorize_resource
   respond_to :html
   def index
     @gift_recipient_relations = GiftRecipientRelation.all
@@ -44,5 +45,5 @@ class Admin::GiftRecipientRelationsController < Admin::BaseController
     @gift_recipient_relation = GiftRecipientRelation.find(params[:id])
     @gift_recipient_relation.destroy
     respond_with :admin, @gift_recipient_relation
-  end  
+  end
 end

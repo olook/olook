@@ -1,6 +1,7 @@
 class RecommendationService
 
-  DAYS_AGO_TO_CONSIDER_NEW = 120
+  DAYS_AGO_TO_CONSIDER_NEW = 140
+  DAYS_AGO_TO_CONSIDER_NEW_PRODUCTS = 30
   DATE_WHEN_PICTURES_CHANGED = "2013-07-01"
 
   def initialize(opts = {})
@@ -41,7 +42,7 @@ class RecommendationService
       category = opts[:category]
       collection = opts[:collection]
 
-      result = profile.products.where(_pAt[:launch_date].gt(DAYS_AGO_TO_CONSIDER_NEW.days.ago))
+      result = profile.products.where(_pAt[:launch_date].gt(DAYS_AGO_TO_CONSIDER_NEW_PRODUCTS.days.ago))
                                .where(_pAt[:created_at].gt(DATE_WHEN_PICTURES_CHANGED))
                                .includes(:variants, :pictures)
                                .order('RAND()')

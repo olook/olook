@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 class Admin::CollectionThemeGroupsController < Admin::BaseController
+  load_and_authorize_resource
   respond_to :html, :js
 
   before_filter :load_collections, only: [:update, :create, :destroy]
 
-  load_and_authorize_resource
 
   def index
     @collection_theme_groups = CollectionThemeGroup.order("position")

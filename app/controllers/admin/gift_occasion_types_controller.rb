@@ -1,4 +1,5 @@
 class Admin::GiftOccasionTypesController < Admin::BaseController
+  load_and_authorize_resource
   respond_to :html
   before_filter :load_gift_recipient_relations
   

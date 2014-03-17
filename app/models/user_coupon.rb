@@ -13,7 +13,7 @@ class UserCoupon < ActiveRecord::Base
     coupon_id = coupon_id.to_s
     coupon_array = split_coupon_ids
     coupon_array.delete(coupon_id) unless coupon_id.blank?
-    join_and_save_coupon_array coupon_array 
+    join_and_save_coupon_array coupon_array
   end
 
   def include? coupon_id
@@ -23,12 +23,12 @@ class UserCoupon < ActiveRecord::Base
 
   private
     def join_and_save_coupon_array coupon_array
-      self.coupon_ids = coupon_array.join(",")    
-      save      
+      self.coupon_ids = coupon_array.join(",")
+      save
     end
 
     def split_coupon_ids
       self.coupon_ids ||= ""
-      self.coupon_ids.split(",")      
+      self.coupon_ids.split(",")
     end
 end

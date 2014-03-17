@@ -20,6 +20,7 @@ var OlookApp = (function() {
     if (arguments.length == 0){
       throw "channel name is required";
     }
+    console.log('mediator ' + arguments[0] + ' fired');
     this.mediator.publish.apply(this.mediator, arguments);
   };
 
@@ -29,8 +30,9 @@ var OlookApp = (function() {
     } else if (arguments.length == 1){
       throw "channel facade method is required";
     }
-    var options = (arguments.length >= 3) ? arguments[2] : null; 
-    var context = (arguments.length >= 4) ? arguments[3] : null; 
+    var options = (arguments.length >= 3) ? arguments[2] : null;
+    var context = (arguments.length >= 4) ? arguments[3] : null;
+    console.log('mediator ' + arguments[0] + ' subscribed by ' + arguments[1]);
     this.mediator.subscribe(arguments[0], arguments[1], options, context);
   };
 
