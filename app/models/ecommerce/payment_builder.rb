@@ -136,11 +136,11 @@ class PaymentBuilder
     def notify_big_billet_sail payment
       order = payment.order
       quantity = order.line_items.inject(0){|total, item| total += item.quantity}
-      to = %w(jenny.liu rafael.manoel tiago.almeida carol.sampaio diogo.silva).map{|s| "#{s}@olook.com.br"}.join(",")
+      to = %w(jenny.liu rafael.manoel tiago.almeida carol.sampaio diogo.silva sofia.sanz rafael.rocha).map{|s| "#{s}@olook.com.br"}.join(",")
 
       Resque.enqueue(NotificationWorker, {
         to: to,
-        body: "Pedido acima de 1000 Reais. \nNumero: #{order.number} \nValor: #{order.gross_amount} \nQuantidade: #{quantity}",
+        body: "Pedido acima de 1000 Reais. \nNumero: #{order.number} \nValor total dos produtos: #{order.subtotal} \nQuantidade: #{quantity}",
         subject: "Pedido acima de mil Reais"
       }) if is_a_big_billet_sail?(payment)
     end
