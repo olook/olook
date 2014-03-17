@@ -1,10 +1,11 @@
 # encoding: UTF-8
 class Admin::VisibilityBatchController < Admin::BaseController
+  authorize_resource :class => false
   respond_to :html
   def commit
     LiquidationPreview.update_visibility_in_products
     message = "Produtos atualizados com sucesso!"
-    redirect_to admin_products_path(params: {visibility: 2}), notice: message    
+    redirect_to admin_products_path(params: {visibility: 2}), notice: message
   end
 
   def new
@@ -26,8 +27,6 @@ class Admin::VisibilityBatchController < Admin::BaseController
         csv << [product.id, product.visibility]
       end
     end
-
     send_data out
   end
-
 end

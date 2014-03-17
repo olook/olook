@@ -1,7 +1,7 @@
 #encoding: utf-8
 class Admin::SettingsController < Admin::BaseController
   load_and_authorize_resource
-  
+
   def show
     @settings = Setting.defaults.merge(Setting.all)
   end
