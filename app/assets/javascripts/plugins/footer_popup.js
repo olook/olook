@@ -51,36 +51,36 @@ $(document).ready(function() {
     }
   }).blur();
 
-  $('.js-subscribe.js-footerbox').click(function() {
-    $('.js-newsletter.js-footerbox').each(function() {
+  var prepareForEmailInput = function(prefix) {
+    $('.js-newsletter.js-'+prefix+'box').each(function() {
       var input = $(this);
       if (input.val() == input.attr('default_value')) {
         input.val('');
       }
-      olookApp.publish("footer:newsletter:subscribe", input.val(),".js-footerbox");
+      olookApp.publish("newsletter:subscribe", input.val(),prefix);
     })
-  });
+  };
 
-  $('.js-newsletter.js-footerbox').keypress(function(key){
+  var clickOnReturnKey = function(key, prefix){
     if(key.which == 13) {
-      $('.js-subscribe.js-footerbox').click();
+      $('.js-subscribe.js-'+prefix+'box').click();
     }
+  };
+
+  $('.js-subscribe.js-footerbox').click(function(){
+    prepareForEmailInput("footer");
   });
 
-  $('.js-subscribe.js-middlebox').click(function() {
-    $('.js-newsletter.js-middlebox').each(function() {
-      var input = $(this);
-      if (input.val() == input.attr('default_value')) {
-        input.val('');
-      }
-      olookApp.publish("middle:newsletter:subscribe", input.val(),".js-middlebox");
-    })
+  $('.js-subscribe.js-middlebox').click(function(){
+    prepareForEmailInput("middle");
+  });  
+
+  $('.js-newsletter.js-footerbox').keypress(function(){
+    clickOnReturnKey("footer");
   });
 
   $('.js-newsletter.js-middlebox').keypress(function(key){
-    if(key.which == 13) {
-      $('.js-subscribe.js-middlebox').click();
-    }
+    clickOnReturnKey("middle");
   });    
 
 });
