@@ -3,3 +3,5 @@ StringUtils = {
     return !(str && str!=''); 
   }
 };
+
+String.prototype.isEmpty = StringUtils.isEmpty;
