@@ -75,7 +75,7 @@ $(document).ready(function() {
     prepareForEmailInput("middle");
   });  
 
-  $('.js-newsletter.js-footerbox').keypress(function(){
+  $('.js-newsletter.js-footerbox').keypress(function(key){
     clickOnReturnKey(key,"footer");
   });
 
