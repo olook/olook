@@ -27,7 +27,7 @@ _gaq.push(['_addTrans',
 <% content_for :footer do %>
   <%= javascript_include_tag "carts" %>
 <% end %>
- 
+
 
 
 <section id="cart">
@@ -41,7 +41,7 @@ _gaq.push(['_addTrans',
   <% end %>
 
   <% if @cart.items.count > 0 %>
-    <div id="float_total"> 
+    <div id="float_total">
         <table cellpadding="0" cellspacing="0">
             <tr>
               <td>
@@ -112,35 +112,7 @@ _gaq.push(['_addTrans',
         <tr>
           <td class="icon-credits"></td>
           <td class="check_column">
-            <%= form_for(@cart, :remote => true, html: { :id => "use_credit_form" }) do |f| %>
-              Você pode utilizar seus créditos na etapa de pagamento <a href="#" target="_blank" class="txt-credito">Mais sobre meus créditos</a>
-            <% end %>
-            <div class="modal_credit">
-              <div class="content">
-               <h2>SOBRE OS SEUS CRÉDITOS</h2>
-               <% style = @cart_service.allow_credit_payment? ? 'normal' : 'prohibited' %>
-               <p><span>//</span> Você acumulou <%= number_to_currency @report.available_credits %> créditos que podem ser utilizados nesta compra.</p>
-               <p><span>//</span> O valor do seu pedido é superior ao seu saldo e você deverá pagar a diferença.</p>
-               <h2>ENTENDA SEUS CRÉDITOS</h2>
-               <table cellspacing="0" cellspading="0">
-                <tr class="loyalty_credit">
-                  <td><span>//</span> Créditos por compras realizadas ..............................................</td>
-                  <td class="value <%= style %>"><%= number_to_currency @report.amount_of_loyalty_credits %></td>
-                  <td></td>
-                </tr>
-                <tr class="mgm_credit">
-                  <td><span>//</span> Créditos por indicação .........................................................</td>
-                  <td class="value <%= style %>"><%= number_to_currency @report.amount_of_invite_credits %></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td><span>//</span> Reembolso via Central de Atendimento .....................................</td>
-                  <td><%= number_to_currency @report.amount_of_redeem_credits %></td>
-                  <td></td>
-                </tr>
-               </table>
-              </div>
-            </div>
+            Você pode utilizar seus créditos na etapa de pagamento 
           </td>
           <td class="value" id="total_user_credits">
             <%= number_to_currency(total_user_credits) %>
