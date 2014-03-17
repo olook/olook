@@ -49,7 +49,7 @@ module MultiJobsProcess
   end
 
   def errors
-    REDIS.incr(cache_key + ":errors").to_i
+    REDIS.get(cache_key + ":errors").to_i
   end
 
   def error_messages
