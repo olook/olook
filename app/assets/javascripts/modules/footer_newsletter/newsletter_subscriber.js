@@ -1,49 +1,52 @@
 var NewsletterSubscriber = (function(){
   function NewsletterSubscriber() {};
 
-  var disableOkButton = function(boxClass){
-    $('.js-subscribe'+boxClass).off('click')
+  var boxClass = function(prefix){
+    return ".js-"+prefix+"box";
   };
 
-  var trackEvent = function(message,boxClass){
-    _gaq.push(['_trackEvent', 'FooterNewsletter', message, '', , true]);
+  var disableOkButton = function(prefix){
+    $('.js-subscribe'+boxClass(prefix)).off('click')
   };
 
-  var displayErrorMessage = function(boxClass){
-    $('.js-success'+boxClass).fadeOut();    
-    $('.js-error'+boxClass).fadeIn();
-    trackEvent('Error');
+  var trackEvent = function(message,prefix){
+    _gaq.push(['_trackEvent', prefix.capitalize()+'Newsletter', message, '', , true]);
   };
 
-  var displaySuccessMessage = function(boxClass){
-    $('.js-error'+boxClass).fadeOut();   
-    $('.js-success'+boxClass).fadeIn();
-    trackEvent('Success');            
+  var displayErrorMessage = function(prefix){
+    $('.js-success'+boxClass(prefix)).fadeOut();    
+    $('.js-error'+boxClass(prefix)).fadeIn();
+    trackEvent('Error', prefix);
   };
 
-  var displayFeedbackMessage = function(status,boxClass){
+  var displaySuccessMessage = function(prefix){
+    $('.js-error'+boxClass(prefix)).fadeOut();   
+    $('.js-success'+boxClass(prefix)).fadeIn();
+    trackEvent('Success', prefix);            
+  };
+
+  var displayFeedbackMessage = function(status,prefix){
     if (status == "ok"){ 
-      displaySuccessMessage(boxClass);
-      disableOkButton(boxClass);
+      displaySuccessMessage(prefix);
+      disableOkButton(prefix);
     } else {
-     displayErrorMessage(boxClass);
+     displayErrorMessage(prefix);
     }    
   };
 
-  var subscribe = function(email,boxClass){
-    trackEvent("EmailSubmitted", boxClass);
+  var subscribe = function(email,prefix){
+    trackEvent("EmailSubmitted", prefix);
     $.post('/campaign_email_subscribe', {email: email}, function( data ) {
-      displayFeedbackMessage(data.status, boxClass);
+      displayFeedbackMessage(data.status, prefix);
     });
   };
 
-  NewsletterSubscriber.prototype.facade = function(email, boxClass){
-    subscribe(email, boxClass);
+  NewsletterSubscriber.prototype.facade = function(email, prefix){
+    subscribe(email, prefix);
   };
 
   NewsletterSubscriber.prototype.config = function(){
-    olookApp.subscribe('footer:newsletter:subscribe', this.facade, {}, this);
-    olookApp.subscribe('middle:newsletter:subscribe', this.facade, {}, this);
+    olookApp.subscribe('newsletter:subscribe', this.facade, {}, this);
   };
 
   return NewsletterSubscriber;
