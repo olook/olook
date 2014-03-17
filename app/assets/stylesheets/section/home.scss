@@ -448,10 +448,11 @@ section#home {
     }
   }
   .fdenied{
-    background: image-url('common/sprite_modal_footer.png') no-repeat -122px 2px;
+    background: image-url('common/sprite_modal_footer.png') no-repeat -122px 9px;
     background-color: #ea8596;
     border: 1px solid #e94762;
     height: 23px;
-    padding-top: 4px;
+    padding: 12px 0px 7px 34px;
+    top: -88px;
   }
 }
