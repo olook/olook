@@ -2242,8 +2242,8 @@ product.js: product-7f396a94cd65f9979f5eb6116d647e27.js
 product/index.js: product-7f396a94cd65f9979f5eb6116d647e27.js
 profiles.js: profiles-01471a030ec0b2785d9bea1b08a5d9f4.js
 profiles/index.js: profiles-01471a030ec0b2785d9bea1b08a5d9f4.js
-quiz.js: quiz-2fab20a4ad2fcac815a9b7427bf76b29.js
-quiz/index.js: quiz-2fab20a4ad2fcac815a9b7427bf76b29.js
+quiz.js: quiz-aaeda246ac23ae58387455b58c262b94.js
+quiz/index.js: quiz-aaeda246ac23ae58387455b58c262b94.js
 register.js: register-cc2be65181aef10c48f3cc61191ab28a.js
 register/index.js: register-cc2be65181aef10c48f3cc61191ab28a.js
 reseller.js: reseller-5af2d1f176da392739be9b6c093a6810.js
