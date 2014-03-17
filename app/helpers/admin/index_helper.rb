@@ -6,11 +6,12 @@ module Admin::IndexHelper
   end
 
   def access_link_generic(opts={})
-    name = opts[:name]
+    name = opts[:name].singularize
+    name = name.constantize if opts[:constantize]
     location = opts[:location]
     path = opts[:path]
     action = opts[:action].try(:to_sym) || :index
-    link_to(I18n.t(location), path) if can?(action, name.singularize.constantize)
+    link_to(I18n.t(location), path) if can?(action, name)
   end
 
   def show_link(object, content = "Show")
