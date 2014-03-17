@@ -1,3 +1,5 @@
+//= require application_core/olook_app
+
 quiz = {} || null;
 previous_button = { } || null;
 
