@@ -399,7 +399,7 @@ class User < ActiveRecord::Base
   private
 
   def password_required?
-    !persisted? || (uid.blank? && facebook_token.blank?) || !password.nil? || !password_confirmation.nil?
+    !persisted? && (uid.blank? || facebook_token.blank?) && (password.nil? || password_confirmation.nil?)
   end
 
   def generate_invite_token
