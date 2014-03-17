@@ -39,7 +39,7 @@ $(document).ready(function() {
     }
   }).blur();
 
-  $('.js-subscribe').click(function() {
+  $('.js-subscribe.js-footerbox').click(function() {
     $('.js-footer-newsletter').each(function() {
       var input = $(this);
       if (input.val() == input.attr('default_value')) {

@@ -25,17 +25,17 @@
         %p
           R$30 + 15% do valor do produto em créditos
         %fieldset
-          =text_field_tag :email, "", :class => "box_mail js-footer-newsletter js-upper", :default_value => "Digite aqui seu e-mail"
+          =text_field_tag :email, "", :class => "box_mail js-newsletter js-middlebox", :default_value => "Digite aqui seu e-mail"
         %fieldset.botao
-          =submit_tag "OK", :class => "bt_enviar js-subscribe js-upper"
+          =submit_tag "OK", :class => "bt_enviar js-subscribe js-middlebox"
       =image_tag("home/mkt_home.png")
-    .fback.js-success
+    .fback.js-success.js-middlebox
       %p
         Enviamos para seu e-mail o vale de 
         %span
           R$30,00 GRÁTIS!
         %br
           Acesse seu e-mail agora e aproveite!
-    .fdenied.js-error
+    .fdenied.js-error.js-middlebox
       %p
         Oops! Verificamos que seu e-mail já está cadastrado.

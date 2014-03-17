@@ -1,13 +1,13 @@
 %footer
   %section.newsletter
-    .feedback.js-success
+    .feedback.js-success.js-footerbox
       %p
         Enviamos para seu e-mail o vale de 
         %span
           R$30,00 GRÁTIS!
         %br
           Acesse seu e-mail agora e aproveite!
-    .denied.js-error
+    .denied.js-error.js-footerbox
       %p
         Oops! Verificamos que seu e-mail já está cadastrado.
     %ul.social
@@ -29,9 +29,9 @@
             R$30 GRÁTIS 
           agora
         %fieldset
-          =text_field_tag :email, "", :class => "box_mail js-footer-newsletter js-lower", :default_value => "Digite aqui seu e-mail"
+          =text_field_tag :email, "", :class => "box_mail js-newsletter js-footerbox", :default_value => "Digite aqui seu e-mail"
         %fieldset.botao
-          =submit_tag "CADASTRAR", :class => "bt_enviar js-subscribe js-lower"
+          =submit_tag "CADASTRAR", :class => "bt_enviar js-subscribe js-footerbox"
   %section
     %ul.atendimento
       %li.title
