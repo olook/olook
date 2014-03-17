@@ -69,7 +69,6 @@ $(document).ready(function() {
     var it = $(this);
     FB.ui({
       method: 'send',
-      display: 'iframe',
       link: it.data('href')
     });
   });
