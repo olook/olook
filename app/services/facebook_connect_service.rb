@@ -19,6 +19,7 @@ class FacebookConnectService
       return false
     end
 
+    extend_fb_token
     if existing_user
       @user = update_user
     else
@@ -28,6 +29,18 @@ class FacebookConnectService
   end
 
   private
+
+  def extend_fb_token
+    fb_api('/oauth/access_token', @access_token, {
+      grant_type: 'fb_exchange_token',
+      client_id: FACEBOOK_CONFIG['app_id'],
+      client_secret: FACEBOOK_CONFIG['app_secret'],
+      fb_exchange_token: @access_token })  do |response|
+      /access_token=(?<long_lived_access_token>[^&]+)&expires=(?<long_lived_expires>.+)/ =~ response.read_body
+      @access_token = long_lived_access_token
+      @expires = long_lived_expires
+    end
+  end
 
   def existing_user
     @user = User.find_by_email(@facebook_data['email'])
@@ -69,16 +82,20 @@ class FacebookConnectService
   # of errors it raises a 400 HTTPBadRequest and it doesn't return any content of the body.
   # Therefore, since the errors of a facebook request are inside the body of the response
   # you couldn't get any fb errors from the simple function open.
-  def fb_api(url, access_token, attach = {}, request_type="GET")
+  def fb_api(url, access_token, attach = {}, request_type="GET", &parser)
     uri = URI("https://graph.facebook.com/#{url}")
 
+    if access_token
+      attach.merge!('access_token' => access_token)
+    end
+
     if request_type == "GET"
-      uri.query = URI.encode_www_form(attach.merge('access_token' => access_token))
+      uri.query = URI.encode_www_form(attach)
       req = Net::HTTP::Get.new uri.request_uri
 
     elsif request_type == "POST"
       req = Net::HTTP::Post.new(uri.path)
-      req.set_form_data(attach.merge('access_token' => access_token))
+      req.set_form_data(attach)
     end
 
     res = Net::HTTP.new(uri.host, uri.port)
@@ -89,7 +106,10 @@ class FacebookConnectService
     res.start do |http|
       response = http.request(req)
     end
-
-    return JSON.parse(response.read_body)
+    if parser
+      return parser.call(response)
+    else
+      return JSON.parse(response.read_body)
+    end
   end
 end
