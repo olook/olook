@@ -18,7 +18,7 @@ module MultiJobsProcess
   end
 
   def has_finished?
-    REDIS.get(missing_key).to_i == 0
+    REDIS.get(missing_key).to_i - REDIS.get(cache_key + ":errors").to_i == 0
   end
 
   def sleep
@@ -29,6 +29,8 @@ module MultiJobsProcess
     elapsed_time = Time.zone.now - REDIS.get(cache_key).to_time
     REDIS.del(cache_key)
     REDIS.del(missing_key)
+    REDIS.del(cache_key + ":errors")
+    REDIS.del(cache_key + ":msg")
     elapsed_time.to_i
   end
 
@@ -45,6 +47,15 @@ module MultiJobsProcess
   def missing_key
     cache_key + ":missing"
   end
+
+  def errors
+    REDIS.incr(cache_key + ":errors").to_i
+  end
+
+  def error_messages
+    REDIS.lrange(cache_key + ":msg", 0, -1)
+  end
+
 
   def self.included(base)
     base.extend(ClassMethods)
@@ -64,8 +75,10 @@ module MultiJobsProcess
       begin
         slave_job.execute(data)
       rescue => e
-        # Adicionar o tratamente de erros
-        puts e
+        puts "erro: #{e}"
+        REDIS.incr(cache_key + ":errors")
+        REDIS.lpush(cache_key + ":msg", e.message)
+        puts "Erro: #{e.message}"
       ensure
         missing_key = slave_job.missing_key
         REDIS.decr(missing_key) if REDIS.get(missing_key).to_i > 0
