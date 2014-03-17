@@ -1,4 +1,5 @@
 class Admin::GiftRecipientRelationsController < Admin::BaseController
+  load_and_authorize_resource
   respond_to :html
   def index
     @gift_recipient_relations = GiftRecipientRelation.all

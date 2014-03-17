@@ -260,9 +260,9 @@ Olook::Application.routes.draw do
     namespace :orders do
       resources :deliveries
       resources :statuses
-      resources :billet_reports, only: :index
-      resources :newest_reports, only: :index
     end
+    resources :billet_reports, only: :index
+    resources :newest_reports, only: :index
 
     get 'product_autocomplete' => 'products#autocomplete_information'
     get 'pictures_process' => 'pictures_process#index', as: 'pictures_process'

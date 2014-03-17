@@ -7,9 +7,13 @@
   <% end %>
   <%= form_for([:admin, @product]) do |f| %>
     <div class="field">
-      <%= f.label :picture_for_xml %><br />
       <%= f.file_field :picture_for_xml %>
     </div>
+
+    <p>
+      <%= f.check_box :remove_picture_for_xml %>
+      <%= f.label :remove_picture_for_xml, 'Remover imagem de parceiro' %>
+    </p>
 
     <div class="actions">
       <%= f.submit 'Atualizar Foto' %>
