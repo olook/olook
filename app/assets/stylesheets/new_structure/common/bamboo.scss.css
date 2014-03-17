@@ -24,6 +24,9 @@ header.primary .box_right {float:right;}
 .navigation ul li a:hover ,
 .navigation ul li a:visited ,
 .navigation ul li a:focus { font-family: "Trebuchet Ms";text-decoration: none; color: #cbc4c5; background-color: transparent; display: block; padding: 2px 14px 2px 14px; line-height: 30px;font-size: 12px; font-family: 'Trebuchet Ms';text-transform: uppercase;letter-spacing: 2px;font-weight: lighter; }
+.navigation ul li.leave_acc {width:89%;margin-top:20px;}
+.navigation ul li.leave_acc a {width: 100%;background: red;text-align: center;border-radius: 6px;}
+.navigation ul li.leave_acc a:hover {color:#FFF !important;}
 
 /*	Presentation styles
 =========================== */

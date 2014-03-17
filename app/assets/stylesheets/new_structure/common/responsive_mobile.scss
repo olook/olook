@@ -1,5 +1,5 @@
 @media only screen and (max-width: 600px) {
-	body {overflow:hidden;}
+	body {overflow:hidden;background: #d1d1d1;}
 	@import 'new_structure/common/bamboo';
 
 	#wrapper_new_menu,
@@ -72,7 +72,7 @@
                   height:50px;
                   text-indent: -5000px;
                   position: absolute;
-                  right: 0px;
+                  right: 41px;
                   top: 0px;
                   border-left:1px dotted #d1d1d1;
                   background: image-url('common/ico_acc_mobile.png') no-repeat center center;
@@ -95,7 +95,7 @@
             height:50px;
             background-position: -108px 8px;
             padding:0px;
-            right:39px;
+            right:-1px;
             margin:0px !important;
           }
           #cart_summary {
@@ -142,11 +142,81 @@
 	#content {
 		width:100%;
 		padding:0px;
+    #side_bar_menu {
+      display: none !important;
+    }
+    #collection_theme_content {
+      width:100%;
+      .banner_principal {
+        width:100%;
+        height:164px;
+        img {width:100%;}
+      }
+      #home_collections .left_banner, #home_collections .right_banner {
+        position: relative;
+        width:100%;
+        margin:0px !important;
+        img {
+          width:100%;
+        }
+        .collection {
+          position: absolute;
+          top:160px;
+          left:10px;
+        }
+        .resume {
+          padding:10px 0 0 10px;
+        }
+        .looks {
+          a {
+            padding-left:10px;
+          }
+        }
+      }
+    }
     #cart {
+      * {
+        font-family: "Trebuchet Ms" !important;
+      }
+      .warning-msg {
+        width:100%;
+        font-family: 12px;
+        margin:75px 0 10px 0 !important;
+        p {
+          font-size: 12px;
+        }
+      }
       table#items {
         width:100% !important;
         thead {
-          .item {width:auto;}
+          .item {
+            width:auto;
+          }
+        }
+        tbody {
+          .spy_cart_icon {
+            display: none !important;
+          }
+          a.cart_item {
+            width:50px;
+            margin-right:0px;
+            height:65px;
+            img {
+              width:90%;
+              margin:0px;
+            }
+          }
+          .txt-black {
+            display: block;
+            margin-bottom:20px;
+            span {
+              font-size: 11px !important;
+              font-family: "Trebuchet Ms";
+            }
+          }
+          p {
+            font-size: 11px !important;
+          }
         }
         .delete-item {
           display: none;
@@ -154,9 +224,15 @@
         td.quantidade {
           width:auto;
         }
+        td.value {
+          p {
+            font-size: 14px !important;
+          }
+        }
       }
       table.check tbody tr td input[type="checkbox"] {
         left:-65px;
+        margin-right:-13px;
       }
       table.check tbody tr td.icon-gift {
         left:9px;
@@ -164,7 +240,68 @@
       }
       table.check.gift tbody tr td.check_column {
         font-style: 12px;
+        a.txt-conheca {
+          display: block;
+        }
       }
+      table#cart_subtotal {
+        margin-top:5px !important;
+        tbody tr td:first-child {
+          width:50% !important;
+        }
+        .title_subtotal,
+        .title_total {
+          font-size: 13px !important;
+          padding-left:2px;
+        }
+        .td.value_subtotal,
+        .value_total {
+          font-size: 14px !important;
+        }
+        #total_value {
+          font-size: 16px !important;
+          color:red;
+        }
+        #coupon {
+          width:100%;
+          left:0px;
+          top:0px;
+        }
+      }
+      table.avc-pulseira,
+      td.buy-link {
+        display: none !important;
+      }
+      #close_cart {
+        width:100% !important;
+        .buttons {
+          padding:0px !important;
+          margin:0px !important;
+          a {
+            width: 100%;
+            margin:0px !important;
+            float:none;
+          }
+        }
+      }
+      table#coupon tr td form input[type="text"] {
+        background: none;
+        width:78% !important;
+        border:1px solid #d1d1d1;
+        -webkit-box-shadow: 1px 1px 11px 0px rgba(50, 50, 50, 0.4);
+        -moz-box-shadow:    1px 1px 11px 0px rgba(50, 50, 50, 0.4);
+        box-shadow:         1px 1px 11px 0px rgba(50, 50, 50, 0.4);
+
+      }
+
+      table#coupon tr td .cupom {
+        width:100%;
+        input[type="submit"] {
+          margin:5px 0 0 0 !important;
+          width:92%;
+        }
+      }
+
     }
     #float_total {
       display: none !important;
@@ -289,6 +426,10 @@
         .banner img {
           width:100%;
         }
+        .collections_header,
+        .price-range {
+          display: none !important;
+        }
       }
 
       #products {
@@ -301,12 +442,15 @@
           margin-bottom: 3%;
           height:266px;
           border:1px dotted #d1d1d1;
+          overflow: hidden;
           .async {
             width:100%;
             height:266px;
             img {
               width:100%;
               height:auto;
+              position: absolute;
+              bottom: 50px;
             }
           }
           .spy {
@@ -327,6 +471,9 @@
           }
           .name {
             margin-bottom:0px;
+          }
+          .txt-pink {
+            font-size: 11px !important;
           }
         }
       }
@@ -464,6 +611,25 @@
       display: none !important;
     }
   }
+  .brands {
+    .box {
+      float: left !important;
+      width: 40% !important;
+      margin-left: 23px !important;
+      height: 460px !important;
+    }
+  }
+  .brand-banner, #filters_container {
+    display: none !important;
+  }
+  .calhau {
+    clear:both;
+    border:0px !important;
+    .see-all {
+      top:20px;
+      bottom:0px;
+    }
+  }
   .looks_unlogged {
     height:378px !important;
     .mylook {display:none !important;}
@@ -485,6 +651,7 @@
     }
     .newsletter {
       width:100% !important;
+      background: #232323 !important;
       ul {
         width:100% !important;
         margin: 5px 10px 0 10px !important;
