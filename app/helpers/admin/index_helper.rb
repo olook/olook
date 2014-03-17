@@ -5,6 +5,15 @@ module Admin::IndexHelper
     link_to(I18n.t("activerecord.models.#{object.parameterize('_').singularize}.other"), eval("admin_#{object.split.join.tableize}_path")) if can?(:index, object.singularize.split.join.constantize)
   end
 
+  def access_link_generic(opts={})
+    name = opts[:name].singularize
+    name = name.constantize if opts[:constantize]
+    location = opts[:location]
+    path = opts[:path]
+    action = opts[:action].try(:to_sym) || :index
+    link_to(I18n.t(location), path) if can?(action, name)
+  end
+
   def show_link(object, content = "Show")
     link_to(content, eval("admin_#{object.class.name.downcase}_path(#{object.class.name.downcase})")) if can?(:read, object)
   end

@@ -1,7 +1,9 @@
 class Admin::SimpleEmailServiceInfosController < Admin::BaseController
-  def index
+  load_and_authorize_resource
 
+  def index
   end
+
   def show
     start_at = params[:start_at]
     end_at = params[:ends_at]

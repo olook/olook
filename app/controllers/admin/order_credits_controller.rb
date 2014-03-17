@@ -1,5 +1,4 @@
 class Admin::OrderCreditsController < Admin::BaseController
-  
   def index
     @search = Order.search(params[:search])
     @orders = @search.relation

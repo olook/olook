@@ -1,4 +1,5 @@
 class Admin::ClippingsController < Admin::BaseController
+  load_and_authorize_resource
   def index
     @clippings = Clipping.all
   end

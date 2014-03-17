@@ -1,7 +1,5 @@
 class Admin::HighlightsController <  Admin::BaseController
-
   load_and_authorize_resource
-
   respond_to :haml
 
   def index
