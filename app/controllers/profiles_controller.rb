@@ -17,9 +17,9 @@ class ProfilesController < ApplicationController
       @bags = @recommended.products( category: Category::BAG, collection: @collection, admin: admin)
       @accessories = @recommended.products( category: Category::ACCESSORY, collection: @collection, admin: admin)
 
-      @partner = cookies[:partner]
     end
 
+    @partner = cookies[:partner]
     @profile = current_user.main_profile
     @zanpid = request.referer[/.*=([^=]*)/,1] if request.referer =~ /zanpid/
   end

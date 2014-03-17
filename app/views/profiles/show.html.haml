@@ -47,6 +47,6 @@
     %li
       = link_to("Quero tentar de novo", wysquiz_path, :class => "again", onclick: "_gaq.push(['_trackEvent', 'MeuEstilo', 'TentarDeNovo', ''])")
 - content_for :data_layer do
-  = render "shared/tag/new_user", partner: @partner, register_source: "Q", email: current_user.email if @first_time
+  = render "shared/tag/new_user", partner: @partner, register_source: "Q", email: current_user.email
 - content_for :footer do
   = javascript_include_tag 'profiles'
