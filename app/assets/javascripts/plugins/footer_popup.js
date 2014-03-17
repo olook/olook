@@ -76,11 +76,11 @@ $(document).ready(function() {
   });  
 
   $('.js-newsletter.js-footerbox').keypress(function(){
-    clickOnReturnKey("footer");
+    clickOnReturnKey(key,"footer");
   });
 
   $('.js-newsletter.js-middlebox').keypress(function(key){
-    clickOnReturnKey("middle");
+    clickOnReturnKey(key,"middle");
   });    
 
 });
