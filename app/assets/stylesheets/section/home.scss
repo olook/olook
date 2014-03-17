@@ -16,6 +16,7 @@ section#home {
   #banner {
     width:100%;
     height:430px;
+    margin-bottom: 20px;
     .column {
       width:240px;
       float:left;
@@ -184,9 +185,8 @@ section#home {
   }
   #week_highlights {
     border-top:1px solid #d8b9b7;
-    margin-top:40px;
     position:relative;
-    padding-top:40px;
+    padding-top:25px;
     height:auto !important;
     height:430px;
     min-height:430px;
@@ -312,7 +312,7 @@ section#home {
     }
   }
   .looks_unlogged {
-    height:490px;
+    height:500px;
     .mylook {
       width:30% !important;
       float:left;
@@ -340,5 +340,122 @@ section#home {
       float:right;
       margin-top:12px;
     }
+  }
+}
+#emkt_box{
+  height: 100px;
+  margin-top: 20px;
+  font-family: $verdana;
+  color: #321600;
+  border-top: 1px solid #d8b9b7;
+  padding-top: 43px;
+  ul.mail{
+    position: relative;
+    z-index: 1;
+    height: 110px;
+    li{float: left;}
+    li.promo{
+      width: 100%;
+      height: 82px;
+      padding-left: 44px;
+      background-color: #fef6a9 !important;
+      h2{
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        width: 437px;
+        margin-top: 20px;
+      }
+      p{
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        width: 435px;
+        margin-top: 10px;
+        color: $base_color;
+      }
+      fieldset{
+        display: block;
+        width: 100px;
+        float: left;
+        .box_mail{
+          width: 230px;
+          height: 36px;
+          background-color: #fefced;
+          color: #321600;
+          font-size: 11px;
+          font-family: $bt_font;
+          border: 1px solid #321600;
+          padding-left: 11px;
+          letter-spacing: 1px;
+          margin-top: -42px;
+          position: absolute;
+          left: 497px;
+        }
+      }
+      fieldset.botao{
+        width: 30px;
+        height:30px;
+        border: none;
+        right: 205px;
+        position: absolute;
+        top: 20px;
+        .bt_enviar{
+          background: image-url('home/ok_mkt.png') no-repeat;
+          width: 34px;
+          height: 34px;
+          float: right;
+          position: absolute;
+          margin-top: -8px;
+          border: none;
+          top: 13px;
+          color: #fff;
+          right: 3px;
+          font-size: 15px;
+        }
+      }
+    }
+    img{
+      position: relative;
+      float: right;
+      margin-top: -110px;
+      right: 80px;
+    }
+  }
+  .fback, .fdenied{
+    width: 310px;
+    height: 41px;
+    background: image-url('common/sprite_modal_footer.png') no-repeat 4px -162px;
+    background-color: #bfd7bd;
+    border: 1px solid #81b47e;
+    color: #000;
+    font-size: 9px;
+    font-family: $verdana;
+    letter-spacing: 1px;
+    font-weight: normal;
+    position: relative;
+    padding-left: 34px;
+    position: relative;
+    top: -93px;
+    z-index: 10000;
+    left: 469px;
+    padding-top: 5px;
+    display: none;
+    span{
+      font-weight: bold;
+      font-size: 10px;
+      line-height: 14px;
+    }
+  }
+  .fdenied{
+    background: image-url('common/sprite_modal_footer.png') no-repeat -122px 9px;
+    background-color: #ea8596;
+    border: 1px solid #e94762;
+    height: 23px;
+    padding: 5px 0px 15px 42px;
+    top: -88px;
+    width: 245px;
+    left: 493px;
+    
   }
 }
