@@ -5,7 +5,7 @@
     - if flash[:notice]
       %h2= flash[:notice]
     #sign-in-box
-      .fb-login-button{"data-max-rows" => "1", "data-size" => "large", "data-show-faces" => "false", "data-auto-logout-link" => "false", "data-scope" => "basic_info,email,user_birthday,friends_birthday,user_education_history,user_location", "data-onlogin" => "loginFacebook"}
+      .fb-login-button{"data-max-rows" => "1", "data-size" => "large", "data-show-faces" => "false", "data-auto-logout-link" => "false", "data-scope" => FACEBOOK_CONFIG['login_scope'], "data-onlogin" => "loginFacebook"}
       = render partial: "shared/errors", locals: { object: resource }
       = render partial: "form"
     = render partial: "shared/social_links"

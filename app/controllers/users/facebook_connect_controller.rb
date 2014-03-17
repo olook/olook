@@ -8,7 +8,7 @@ class Users::FacebookConnectController < ApplicationController
       @user = @facebook_connect.user
       sign_in(@facebook_connect.user)
       assign_cart_to_user(current_cart)
-      render json: { redirectTo: request.referer }
+      render json: { redirectTo: request.referer, accessToken: @user.facebook_token }
     else
       render json: { error: 'Failed to connect' }, status: :unprocessable_entity
     end
