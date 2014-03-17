@@ -71,13 +71,17 @@ module MultiJobsProcess
   module ClassMethods
 
     def perform data
+
       slave_job = self.new
       begin
         slave_job.execute(data)
       rescue => e
+        DevAlertMailer.notify({to: 'tech@olook.com.br', 
+          subject: "Erro", body: e.backtrace.join("\n")}).deliver!
+        
         puts "erro: #{e}"
-        REDIS.incr(cache_key + ":errors")
-        REDIS.lpush(cache_key + ":msg", e.message)
+        REDIS.incr(slave_job.cache_key + ":errors")
+        REDIS.lpush(slave_job.cache_key + ":msg", e.message)
         puts "Erro: #{e.message}"
       ensure
         missing_key = slave_job.missing_key
