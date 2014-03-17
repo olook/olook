@@ -46,7 +46,7 @@
               </script>
             </li>
             <li>
-              <%= link_to image_tag('common/fb-post-to-wall.png'), 'javascript:void', id: 'facebook_post_wall', onclick: track_event('MemberInvite', 'FacebookPost') %>
+              <%= content_tag :div, '', class: "fb-share-button", data: {href: accept_invitation_url(:invite_token => @user.invite_token), type: "button"} %>
             </li>
           </ul>
         </li>
@@ -76,7 +76,7 @@
     <fieldset class="buttons invite">
       <ol>
         <li>
-          <%= submit_tag("CONVIDAR", id: "invite_email", onclick: track_event('MemberInvite', 'EmailInvite')) %>          
+          <%= submit_tag("CONVIDAR", id: "invite_email", onclick: track_event('MemberInvite', 'EmailInvite')) %>
         </li>
       </ol>
     </fieldset>
@@ -89,7 +89,7 @@
     <h2>Para convidar, selecione suas amigas<br />na caixa ao lado.
     </h2>
   </hgroup>
-  <%= link_to image_tag('common/bt-face-send-messages.png'), 'javascript:void;', :id => 'facebook_invite_friends', onclick: track_event("MemberInvite","FacebookMessage") %>
+  <%= link_to image_tag('common/bt-face-send-messages.png'), 'javascript:void;', :id => 'facebook_invite_friends', onclick: track_event("MemberInvite","FacebookMessage"), data: { href: accept_invitation_url(:invite_token => @user.invite_token) } %>
 </section>
 
 <section id="credits">

@@ -260,9 +260,9 @@ Olook::Application.routes.draw do
     namespace :orders do
       resources :deliveries
       resources :statuses
-      resources :billet_reports, only: :index
-      resources :newest_reports, only: :index
     end
+    resources :billet_reports, only: :index
+    resources :newest_reports, only: :index
 
     get 'product_autocomplete' => 'products#autocomplete_information'
     get 'pictures_process' => 'pictures_process#index', as: 'pictures_process'
@@ -419,7 +419,7 @@ Olook::Application.routes.draw do
     get "visibility_batch/export", as: :export_visibility_batch_to_csv
 
     post "visibility_batch/create", as: :create_visibility_batch
-    get "visibility_batch/commit", as: :commit_visibility_batch    
+    get "visibility_batch/commit", as: :commit_visibility_batch
     get "visibility_batch/confirmation", as: :confirmation_visibility_batch
 
     resources :itineraries
@@ -433,6 +433,7 @@ Olook::Application.routes.draw do
     delete '/logout' => 'users/sessions#destroy', :as => :destroy_user_session
     get '/registrar' => "users/registrations#new_half", :as => :new_half_user_session
     post '/registrar' => "users/registrations#create_half", :as => :create_half_user
+    post '/facebook_connect' => "users/facebook_connect#create", :as => :facebook_connect
     get '/users/auth/:provider' => 'omniauth_callbacks#passthru' # TODO change to "conta" instead of user
     delete '/conta/remover_facebook' => 'users/registrations#destroy_facebook_account', :as => :destroy_facebook_account
     match '/conta/auth/facebook/setup', :to => 'omniauth_callbacks#setup'

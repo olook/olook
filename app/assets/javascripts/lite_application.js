@@ -24,3 +24,9 @@
 //= require ./partials/_credits_info
 //= require plugins/footer_popup
 //= require common/bamboo.0.1
+//= require modules/facebook/events
+//= require_tree ./modules/facebook/auth
+//= require modules/facebook/auth
+
+new FacebookEvents().config();
+new FacebookAuth().config();

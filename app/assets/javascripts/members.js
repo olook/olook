@@ -22,7 +22,7 @@ function postToFacebookFeed(element) {
   $("#user-info li a.fidelidade_desativado").click(function(e){
     var h;
     $("section.banner").length > 0 ? h = $("#post-to-wall").offset().top - 380 : h = $("#post-to-wall").offset().top - 280;
-        
+
     $('html, body').animate({
       scrollTop: h
     }, 500, 'linear');
@@ -34,14 +34,14 @@ function postToFacebookFeed(element) {
     if (!convide.hasClass("convide_desativado")){
       convide.addClass("convide_desativado");
     }
-    
+
     $("#user-info li a.convide").on("click",function(e){
       $(this).removeClass("convide_desativado").off("click");
       fidelidade = $("#user-info li a.fidelidade_desativado");
       if (fidelidade.hasClass("fidelidade")){
         fidelidade.removeClass("fidelidade");
       }
-      
+
       $('html, body, #user-info').animate({
         scrollTop: 0
       },{
@@ -49,21 +49,29 @@ function postToFacebookFeed(element) {
         complete:function(){
           $('#user-info ul.fixed').removeClass("fixed");
 
-        } 
+        }
       });
 
       e.preventDefault();
-      e.stopPropagation();  
+      e.stopPropagation();
     });
-    
+
     e.preventDefault();
     e.stopPropagation();
-    
+
   });
 })();
 
 
 $(document).ready(function() {
+  $('#facebook_invite_friends').click(function(e){
+    e.preventDefault();
+    var it = $(this);
+    FB.ui({
+      method: 'send',
+      link: it.data('href')
+    });
+  });
 
   $('.import-dropdown').hide();
   $("#import-contacts .gmail").click(function(event){
@@ -95,7 +103,6 @@ $(document).ready(function() {
     }, 'slow');
   });
 
-});
   $("#share-mail a.copy_link").zclip({
     path: "/assets/ZeroClipboard.swf",
     copy: function() { return $("section#share-mail input#link").val(); },
@@ -103,3 +110,5 @@ $(document).ready(function() {
       $("section#share-mail div.box_copy").fadeIn().delay(2000).fadeOut();
     }
   });
+
+});
