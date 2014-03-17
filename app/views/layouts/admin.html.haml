@@ -42,8 +42,8 @@
                 %li= access_link("Braspag Capture Responses")
                 %li= access_link("Payments")
                 %li= access_link_generic(name: "BilletService", location: "admin.billet.santander", path: admin_new_billet_batch_path, action: "create")
-                %li= link_to I18n.t("admin.billet.report"), admin_billet_reports_path
-                %li= link_to I18n.t("admin.users.report"), admin_newest_reports_path
+                %li= access_link_generic(name: "BilletReport", location: "admin.billet.report", path: admin_billet_reports_path, constantize: false)
+                %li= access_link_generic(name: "NewestReport", location: "admin.users.report", path: admin_newest_reports_path, constantize: false)
             %li{class: "submenu#{' active' if params[:controller] =~ /collections|products/}"}
               %span Produtos
               %ul
@@ -55,13 +55,12 @@
               %span Promoções
               %ul
                 %li= access_link("Promotions")
-                %li= link_to I18n.t("admin.product.liquidation"), admin_new_visibility_batch_path
-                / %li= access_link("Liquidations")
+                %li= access_link_generic(name: "VisibilityBatch", location: "admin.product.liquidation", path: admin_new_visibility_batch_path, constantize: false)
                 %li= access_link("Campaigns")
                 %li= access_link("Highlights")
                 %li= access_link("Coupons")
                 %li= access_link("Highlight Campaigns")
-                %li= link_to I18n.t("activerecord.models.catalog_header_catalog_base_banner.other"), admin_catalog_bases_banner_path
+                %li= access_link_generic(name: "CatalogHeader::CatalogBase", location: "activerecord.models.catalog_header_catalog_base_banner.other", path: admin_catalog_bases_banner_path)
             %li{class: "submenu#{' active' if params[:controller] =~ /admins|roles|settings/}"}
               %span Permissões
               %ul
@@ -79,13 +78,12 @@
               %span Conteúdo
               %ul
                 %li= access_link("Clippings")
-                %li= link_to I18n.t("activerecord.models.catalog_header_catalog_base_text.other"), admin_catalog_bases_text_path
+                %li= access_link_generic(name: "CatalogHeader::CatalogBaseText", location: "activerecord.models.catalog_header_catalog_base_text.other", path: admin_catalog_bases_text_path)
                 %li= access_link("Itineraries")
             %li{class: "submenu#{' active' if params[:controller] =~ /simple_email_service/}"}
               %span Marketing
               %ul
-                %li
-                  = link_to I18n.t("activerecord.models.simple_email_service_info.other"), admin_ses_path
+                %li= access_link_generic(name: "SimpleEmailServiceInfo", location: "activerecord.models.simple_email_service_info.other", path: admin_ses_path)
       #wrapper.wat-cf
         .flash
           - flash.each do |type, message|
