@@ -1,8 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Admin::RolesController < Admin::BaseController
-  respond_to :html
-
   load_and_authorize_resource
+  respond_to :html
 
   def index
     @roles = Role.all
