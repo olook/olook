@@ -231,27 +231,7 @@ Olook::Application.routes.draw do
     get "/", :to => "dashboard#index"
     get "/lista_pastas_s3", to: "bucket_s3#index"
 
-    scope defaults: {type: ["CatalogHeader::NoBanner", "CatalogHeader::BigBannerCatalogHeader", "CatalogHeader::SmallBannerCatalogHeader"]} do
-      #Landing page banners
-      get "/catalog_landing", to: "catalog_bases#index", as: 'catalog_bases_banner'
-      post "/catalog_landing", to: "catalog_bases#create"
-      get "/catalog_landing/new", to: "catalog_bases#new", as: 'new_catalog_basis_banner'
-      get "/catalog_landing/:id/edit", to: "catalog_bases#edit", as: 'edit_catalog_basis_banner'
-      get "catalog_landing/:id", to: "catalog_bases#show", as: 'catalog_basis_banner'
-      delete "/catalog_landing/:id", to: "catalog_bases#destroy"
-      put "/catalog_landing/:id", to: "catalog_bases#update"
-    end
-
-    scope defaults: {type: [ "CatalogHeader::TextCatalogHeader" ]} do
-      #Landing page text
-      get "/catalog_landing_text", to: "catalog_bases#index", as: 'catalog_bases_text'
-      get "/catalog_landing_text/new", to: "catalog_bases#new", as: 'new_catalog_basis_text'
-      get "/catalog_landing_text/:id/edit", to: "catalog_bases#edit", as: 'edit_catalog_basis_text'
-      get "catalog_landing_text/:id", to: "catalog_bases#show", as: 'catalog_basis_text'
-      post "/catalog_landing_text", to: "catalog_bases#create"
-      delete "/catalog_landing_text/:id", to: "catalog_bases#destroy"
-      put "/catalog_landing_text/:id", to: "catalog_bases#update"
-    end
+    resources :catalog_bases
 
     resources :clippings
     get "ses" => "simple_email_service_infos#index", as: "ses"

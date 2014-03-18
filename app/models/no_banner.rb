@@ -1,0 +1,3 @@
+class NoBanner < CatalogBase
+
+end
