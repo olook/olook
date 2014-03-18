@@ -11,6 +11,7 @@ module Admin::IndexHelper
     location = opts[:location]
     path = opts[:path]
     action = opts[:action].try(:to_sym) || :index
+    binding.pry
     link_to(I18n.t(location), path) if can?(action, name)
   end
 
