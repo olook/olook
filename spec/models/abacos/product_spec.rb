@@ -59,7 +59,6 @@ describe Abacos::Product do
       subject.should_receive(:integrate_attributes).with(mock_product)
       subject.should_receive(:integrate_details).with(mock_product)
       subject.should_receive(:integrate_profiles).with(mock_product)
-      subject.should_receive(:integrate_catalogs).with(mock_product)
       subject.should_receive(:confirm_product)
 
       subject.integrate
@@ -73,7 +72,6 @@ describe Abacos::Product do
         subject.should_receive(:integrate_attributes).with(mock_product)
         subject.should_receive(:integrate_details).with(mock_product)
         subject.should_receive(:integrate_profiles).with(mock_product)
-        subject.should_receive(:integrate_catalogs).with(mock_product)
         subject.should_receive(:create_kit_variant)
         subject.integrate
       end
@@ -86,14 +84,6 @@ describe Abacos::Product do
         mock_product.should_receive(:'collection=').with(december_collection)
         mock_product.should_receive(:'save!')
         subject.integrate_attributes mock_product
-      end
-
-      it "#integrate_catalogs" do
-        mock_product = mock_model(::Product)
-        CatalogService.should_receive(:save_product)
-                      .with(mock_product, :collection_themes => [collection_theme])
-
-        subject.integrate_catalogs mock_product
       end
 
       it "#integrate_details" do
