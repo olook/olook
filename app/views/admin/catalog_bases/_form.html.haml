@@ -1,7 +1,7 @@
 - content_for :footer do
   = javascript_include_tag 'section/admin/catalog_header'
 
-= form_for([:admin, @catalog_base.becomes(CatalogBase)], :html => { :multipart => true }) do |f|
+= form_for([:admin, @catalog_base], url: admin_catalog_bases_path , :multipart => true ) do |f|
   - if @catalog_base.errors.any?
     #error_explanation
       %h2
@@ -22,7 +22,7 @@
   %fieldset#no_custom_url
     %legend
       Adicionar
-      #{params[:type] == 'CatalogHeader::TextCatalogHeader' ? 'Texto' : 'Banners'}
+      #{params[:type] == 'TextCatalogHeader' ? 'Texto' : 'Banners'}
       a uma URL existente do Site
     .field
       = f.label :old_url
@@ -55,7 +55,7 @@
     .field
       = f.label :type
       %br/
-      = f.select(:type, [['Sem Header', 'CatalogHeader::NoBanner'], ['Texto', 'CatalogHeader::TextCatalogHeader'], ['1 Banner', 'CatalogHeader::BigBannerCatalogHeader'], ['3 Banners','CatalogHeader::SmallBannerCatalogHeader']], value: params[:type].to_a.first)
+      = f.select(:type, [['Sem Header', 'NoBanner'], ['Texto', 'TextCatalogHeader'], ['1 Banner', 'BigBannerCatalogHeader'], ['3 Banners','SmallBannerCatalogHeader']],{ value: params[:type].to_a.first},id: "catalog_base_type")
     .field
       = f.label :seo_text
       %br/
