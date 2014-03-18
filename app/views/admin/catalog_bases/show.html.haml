@@ -12,7 +12,7 @@
   %p
     %b Texto para SEO
     = @catalog_base.seo_text
-  - if @catalog_base.type == 'CatalogHeader::SmallBannerCatalogHeader'
+  - if @catalog_base.type == 'SmallBannerCatalogHeader'
     %p
       %b small_banner1
       = image_tag @catalog_base.small_banner1
@@ -40,7 +40,7 @@
     %p
       %b link_medium_banner
       = @catalog_base.link_medium_banner
-  - if @catalog_base.type == 'CatalogHeader::BigBannerCatalogHeader'
+  - if @catalog_base.type == 'BigBannerCatalogHeader'
     %p
       %b big_banner
       - if @catalog_base.big_banner_url
@@ -51,7 +51,7 @@
     %p
       %b link_big_banner
       = @catalog_base.link_big_banner
-  - if @catalog_base.type == 'CatalogHeader::TextCatalogHeader'
+  - if @catalog_base.type == 'TextCatalogHeader'
     %p
       %b title
       = @catalog_base.title
@@ -68,5 +68,5 @@
     %b Atualizado em
     = @catalog_base.updated_at
 - content_for :secondary_navigation do
-  %li= link_to 'Editar', edit_resource_path(@catalog_base)
-  %li= link_to 'Voltar', resources_path
+  %li= link_to 'Editar', edit_admin_catalog_basis_path(@catalog_base)
+  %li= link_to 'Voltar', admin_catalog_bases_path
