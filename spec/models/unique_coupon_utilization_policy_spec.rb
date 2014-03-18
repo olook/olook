@@ -25,7 +25,7 @@ describe UniqueCouponUtilizationPolicy do
     end
 
     context 'when there is no user_coupon' do
-      subject {UniqueCouponUtilizationPolicy.apply?(coupon: double(Coupon))}
+      subject {UniqueCouponUtilizationPolicy.apply?(coupon: double(Coupon, one_per_user?: nil))}      
       it { should be_true }
     end
 
