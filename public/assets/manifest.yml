@@ -341,10 +341,14 @@ catalog/banner_quiz_sem_mari.jpg: catalog/banner_quiz_sem_mari-fda9f0fdc0bb2c1af
 catalog/banner_quiz_sem_mari/index.jpg: catalog/banner_quiz_sem_mari-fda9f0fdc0bb2c1afbd61cba9a81cb29.jpg
 catalog/sprite.png: catalog/sprite-846f139ebc53c31a3c64dfe9f3e3fda2.png
 catalog/sprite/index.png: catalog/sprite-846f139ebc53c31a3c64dfe9f3e3fda2.png
+collections/animal.jpg: collections/animal-df15cea94dfe495d28e551df8789b8ab.jpg
+collections/animal/index.jpg: collections/animal-df15cea94dfe495d28e551df8789b8ab.jpg
 collections/arrow-black.png: collections/arrow-black-fb49e5a6db6a6f7f18732736fd37e781.png
 collections/arrow-black/index.png: collections/arrow-black-fb49e5a6db6a6f7f18732736fd37e781.png
 collections/arrow-white.png: collections/arrow-white-8ef28c1106b3ec18fb22d91cc4e54315.png
 collections/arrow-white/index.png: collections/arrow-white-8ef28c1106b3ec18fb22d91cc4e54315.png
+collections/azul.jpg: collections/azul-0a84e6250bdb546cb25e7e48464f4e2f.jpg
+collections/azul/index.jpg: collections/azul-0a84e6250bdb546cb25e7e48464f4e2f.jpg
 collections/bg-title-selection.png: collections/bg-title-selection-d23e2e4b3c7f31516935abda01ea95cb.png
 collections/bg-title-selection/index.png: collections/bg-title-selection-d23e2e4b3c7f31516935abda01ea95cb.png
 collections/bullet_arrow.png: collections/bullet_arrow-e1ad441450f4ef03dccb0ab28d4b2156.png
@@ -374,6 +378,8 @@ collections/destaque_capinha_preview_primavera.jpg: collections/destaque_capinha
 collections/destaque_capinha_preview_primavera/index.jpg: collections/destaque_capinha_preview_primavera-5e89fcbf7427ffd867fdab608c57793d.jpg
 collections/destaque_colecao_azulejo.jpg: collections/destaque_colecao_azulejo-8336caa522c94bec6003b2ea39f31fca.jpg
 collections/destaque_colecao_azulejo/index.jpg: collections/destaque_colecao_azulejo-8336caa522c94bec6003b2ea39f31fca.jpg
+collections/destaque_colecao_grunge-1.jpg: collections/destaque_colecao_grunge-1-cd5d8aae39b7bd2501ed5db80243c455.jpg
+collections/destaque_colecao_grunge-1/index.jpg: collections/destaque_colecao_grunge-1-cd5d8aae39b7bd2501ed5db80243c455.jpg
 collections/destaque_colecoes_liquida_final.jpg: collections/destaque_colecoes_liquida_final-96b384398f95089a24a324e200b623f8.jpg
 collections/destaque_colecoes_liquida_final/index.jpg: collections/destaque_colecoes_liquida_final-96b384398f95089a24a324e200b623f8.jpg
 collections/destaque_colecoes_neon_pastel_ok.jpg: collections/destaque_colecoes_neon_pastel_ok-9c0a207fbfea2e5fc306ac2796fac107.jpg
