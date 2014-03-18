@@ -3,7 +3,7 @@ function changeCatalogBaseType(){
   var small_fieldset = $('fieldset#small_banner_catalog_header');
   var big_fieldset = $('fieldset#big_banner_catalog_header');
   var text_fieldset = $('fieldset#text_catalog_header');
-  if(type.val() == 'CatalogHeader::SmallBannerCatalogHeader') {
+  if(type.val() == 'SmallBannerCatalogHeader') {
     small_fieldset.show();
   }else if (type.val() == 'BigBannerCatalogHeader'){
     big_fieldset.show();
