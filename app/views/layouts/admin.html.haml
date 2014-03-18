@@ -41,7 +41,7 @@
                 %li= access_link("Braspag Authorize Responses")
                 %li= access_link("Braspag Capture Responses")
                 %li= access_link("Payments")
-                %li= access_link_generic(name: "BilletService", location: "admin.billet.santander", path: admin_new_billet_batch_path, action: "create")
+                %li= access_link_generic(name: "BilletService", location: "admin.billet.santander", path: admin_new_billet_batch_path, action: "create", constantize: true)
                 %li= access_link_generic(name: "BilletReport", location: "admin.billet.report", path: admin_billet_reports_path, constantize: false)
                 %li= access_link_generic(name: "NewestReport", location: "admin.users.report", path: admin_newest_reports_path, constantize: false)
             %li{class: "submenu#{' active' if params[:controller] =~ /collections|products/}"}
