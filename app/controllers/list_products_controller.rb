@@ -21,7 +21,7 @@ class ListProductsController < ApplicationController
     search_params[:skip_beachwear_on_clothes] = true
     @search = SearchEngineWithDynamicFilters.new(search_params, true).for_page(params[:page]).with_limit(page_size)
     @search.for_admin if current_admin
-
+    @campaign = HighlightCampaign.find_campaign(params[:cmp])
     @url_builder = SeoUrl.new(search_params, site_section, @search)
     @antibounce_box = AntibounceBox.new(params) if AntibounceBox.need_antibounce_box?(@search, @search.expressions["brand"].map{|b| b.downcase}, params)
 
