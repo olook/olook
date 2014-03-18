@@ -5,20 +5,20 @@ function changeCatalogBaseType(){
   var text_fieldset = $('fieldset#text_catalog_header');
   if(type.val() == 'CatalogHeader::SmallBannerCatalogHeader') {
     small_fieldset.show();
-  }else if (type.val() == 'CatalogHeader::BigBannerCatalogHeader'){
+  }else if (type.val() == 'BigBannerCatalogHeader'){
     big_fieldset.show();
-  } else if(type.val() == 'CatalogHeader::TextCatalogHeader'){
+  } else if(type.val() == 'TextCatalogHeader'){
     text_fieldset.show();
   }
   type.change(function(){
     small_fieldset.hide();
     big_fieldset.hide();
     text_fieldset.hide();
-    if($(this).val() == 'CatalogHeader::SmallBannerCatalogHeader') {
+    if($(this).val() == 'SmallBannerCatalogHeader') {
       small_fieldset.show();
-    }else if ($(this).val() == 'CatalogHeader::BigBannerCatalogHeader'){
+    }else if ($(this).val() == 'BigBannerCatalogHeader'){
       big_fieldset.show();
-    } else if($(this).val() == 'CatalogHeader::TextCatalogHeader'){
+    } else if($(this).val() == 'TextCatalogHeader'){
       text_fieldset.show();
     }
   });
