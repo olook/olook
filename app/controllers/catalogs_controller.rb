@@ -29,8 +29,8 @@ class CatalogsController < ApplicationController
 
   def add_antibounce_box(search, params)
     brands = search.expressions["brand"].map{|b| b.downcase}
-    if AntibounceBox.need_antibounce_box?(@search, brands, params)      
-      @antibounce_box = AntibounceBox.new(params) 
+    if AntibounceBox.need_antibounce_box?(@search, brands, params)
+      @antibounce_box = AntibounceBox.new(params)
     end
   end
 
@@ -45,13 +45,17 @@ class CatalogsController < ApplicationController
 
     add_antibounce_box(@search, params)
 
-    
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     @pixel_information = @category = params[:category]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
     @category = @search.expressions[:category].first
     @subcategory = @search.expressions[:subcategory].first
     params[:category] = @search.expressions[:category].first
+
+    @url_builder.set_link_builder do |_param|
+      _param[:parameters].slice!(/^#{@category}-?/)
+      catalog_path(@category, _param)
+    end
     expire_fragment(@cache_key) if params[:force_cache].to_i == 1
   end
 
