@@ -1,7 +1,7 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :catalog_base do
+  factory :header do
     sequence :url do |n|
       "/sapatao_#{n}"
     end
