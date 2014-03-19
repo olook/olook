@@ -7,7 +7,7 @@
       .look{class: ('last' if idx == 3)}
         = link_to product_seo_path(look.product.seo_path), onclick: track_event("LoggedHome", "ClickLook", "#{look.product_id}") do
           %span.look_thumbnail{data: {product: look.front_picture.showroom.url, backside_picture: look.full_look_picture.showroom.url }}
-  #see_too
+  #see_too.js-logged-carousel
     %h4
       Veja Também
     %ul#carousel.elastislide-list

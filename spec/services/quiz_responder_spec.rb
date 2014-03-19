@@ -134,7 +134,7 @@ describe QuizResponder do
         end
         it "should indicate /voce" do
           subject.validate!
-          expect(subject.next_step).to eql(profile_path(f: '1'))
+          expect(subject.next_step).to eql(profile_path)
         end
 
         it 'should destroy eventually saved state' do
