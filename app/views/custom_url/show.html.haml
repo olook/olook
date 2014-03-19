@@ -22,11 +22,11 @@
       .banners_group
         %ul
           %li.big
-            =link_to image_tag(@custom_url.medium_banner, alt: @custom_url.alt_medium_banner, title: @custom_url.alt_medium_banner), @custom_url.link_medium_banner unless @custom_url.medium_banner
+            =link_to image_tag(@custom_url.medium_banner, alt: @custom_url.alt_medium_banner, title: @custom_url.alt_medium_banner), @custom_url.link_medium_banner if @custom_url.medium_banner
           %li.small
-            =link_to image_tag(@custom_url.small_banner1, alt: @custom_url.alt_small_banner1, title: @custom_url.alt_medium_banner), @custom_url.link_small_banner1 unless @custom_url.small_banner1
+            =link_to image_tag(@custom_url.small_banner1, alt: @custom_url.alt_small_banner1, title: @custom_url.alt_medium_banner), @custom_url.link_small_banner1 if @custom_url.small_banner1
           %li
-            =link_to image_tag(@custom_url.small_banner2, alt: @custom_url.alt_small_banner2, title: @custom_url.alt_medium_banner), @custom_url.link_small_banner2 unless @custom_url.small_banner2
+            =link_to image_tag(@custom_url.small_banner2, alt: @custom_url.alt_small_banner2, title: @custom_url.alt_medium_banner), @custom_url.link_small_banner2 if @custom_url.small_banner2
 
     - if @custom_url.text?
       .about_item
