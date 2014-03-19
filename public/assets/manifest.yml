@@ -2152,6 +2152,8 @@ modules/facebook/events.js: modules/facebook/events-d49cb07790ad0233db9273af230e
 modules/facebook/events/index.js: modules/facebook/events-d49cb07790ad0233db9273af230e5453.js
 modules/footer_newsletter/newsletter_subscriber.js: modules/footer_newsletter/newsletter_subscriber-d6c5722006b196be36a0ee33ea5941c0.js
 modules/footer_newsletter/newsletter_subscriber/index.js: modules/footer_newsletter/newsletter_subscriber-d6c5722006b196be36a0ee33ea5941c0.js
+modules/home/home_events.js: modules/home/home_events-004b5e3b485f503b139e15e1bbd19744.js
+modules/home/home_events/index.js: modules/home/home_events-004b5e3b485f503b139e15e1bbd19744.js
 modules/product/add_to_wishlist.js: modules/product/add_to_wishlist-566e4bf86091de355c8519660c177e2f.js
 modules/product/add_to_wishlist/index.js: modules/product/add_to_wishlist-566e4bf86091de355c8519660c177e2f.js
 modules/product/add_to_wishlist_error_message.js: modules/product/add_to_wishlist_error_message-033e40f493193348ec8a6d6dc4f4ef99.js
@@ -2266,8 +2268,8 @@ section/lite_catalog.js: section/lite_catalog-f4d18467ded6a915a40a828624d9cb12.j
 section/lite_catalog/index.js: section/lite_catalog-f4d18467ded6a915a40a828624d9cb12.js
 section/lite_collection_theme.js: section/lite_collection_theme-78f7d886607f0c37225d6a11017fd400.js
 section/lite_collection_theme/index.js: section/lite_collection_theme-78f7d886607f0c37225d6a11017fd400.js
-section/lite_home.js: section/lite_home-6558e4c493f858e78c3bef00718a9a3b.js
-section/lite_home/index.js: section/lite_home-6558e4c493f858e78c3bef00718a9a3b.js
+section/lite_home.js: section/lite_home-c0ae1fb76fd7f333e4911365591aa15a.js
+section/lite_home/index.js: section/lite_home-c0ae1fb76fd7f333e4911365591aa15a.js
 section/lite_showroom.js: section/lite_showroom-8e0bfb2fba7db3b2b24bc435785be9b1.js
 section/lite_showroom/index.js: section/lite_showroom-8e0bfb2fba7db3b2b24bc435785be9b1.js
 section/load_thumbnail_images.js: section/load_thumbnail_images-be6cf301b5dcd4ec8ee0a1d53d344a99.js
