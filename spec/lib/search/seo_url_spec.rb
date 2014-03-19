@@ -19,7 +19,7 @@ describe SeoUrl do
       context "that includes brands" do
         subject { described_class.new('/marcas/olook') }
         it { expect(subject.parse_params).to have_key(:brand)  }
-        it { expect(subject.parse_params[:brand]).to eq('olook') }
+        it { expect(subject.parse_params[:brand]).to eq('Olook') }
       end
       context "that includes brands" do
         subject { described_class.new('/sapato') }
@@ -43,7 +43,8 @@ describe SeoUrl do
           context "multiple brands" do
             subject { described_class.new('/sapato/olook-colcci') }
             it { expect(subject.parse_params[:category]).to eq('sapato') }
-            it { expect(subject.parse_params[:brand]).to eq('Olook-Colcci') }
+            it { expect(subject.parse_params[:brand]).to match(/Olook/i) }
+            it { expect(subject.parse_params[:brand]).to match(/Colcci/i) }
           end
         end
         context "and filtering by care products" do
