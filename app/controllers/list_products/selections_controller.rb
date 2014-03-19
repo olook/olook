@@ -12,7 +12,7 @@ class ListProducts::SelectionsController < ListProductsController
   private
 
   def header
-    @header ||= CatalogBase.for_url("/#{params[:lbl]}").first
+    @header ||= Header.for_url("/#{params[:lbl]}").first
   end
 
 

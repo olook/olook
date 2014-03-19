@@ -1,14 +1,14 @@
 - content_for :footer do
   = javascript_include_tag 'section/admin/catalog_header'
 
-= form_for([:admin, @catalog_base], url: admin_catalog_basis_path , as: "catalog_base", :multipart => true ) do |f|
-  - if @catalog_base.errors.any?
+= form_for([:admin, @header],:multipart => true ) do |f|
+  - if @header.errors.any?
     #error_explanation
       %h2
-        = pluralize(@catalog_base.errors.count, "error")
+        = pluralize(@header.errors.count, "error")
         prohibited this campaign from being saved:
       %ul
-        - @catalog_base.errors.full_messages.each do |msg|
+        - @header.errors.full_messages.each do |msg|
           %li= msg
   .field
     = f.label "Tipo de url"
@@ -27,7 +27,7 @@
     .field
       = f.label :old_url
       %br/
-      = f.text_field :old_url, value: @catalog_base.url
+      = f.text_field :old_url, value: @header.url
 
 
   %fieldset#custom_url
@@ -38,7 +38,7 @@
       = f.label :new_url
       %small Evitar caracteres como espaço, acentos e letras maíusculas
       %br/
-      = f.text_field :new_url, value: @catalog_base.url
+      = f.text_field :new_url, value: @header.url
     .field
       = f.label :organic_url
       %small Essa url define os resultados orgânicos após a lista de produtos. Ela também define os filtros laterais e por isso é obrigatória.
@@ -55,7 +55,7 @@
     .field
       = f.label :type
       %br/
-      = f.select(:type, [['Sem Header', 'NoBanner'], ['Texto', 'TextCatalogHeader'], ['1 Banner', 'BigBannerCatalogHeader'], ['3 Banners','SmallBannerCatalogHeader']],{ value: params[:type].to_a.first},id: "catalog_base_type")
+      = f.select(:type, [['Sem Header', 'NoBanner'], ['Texto', 'TextCatalogHeader'], ['1 Banner', 'BigBannerCatalogHeader'], ['3 Banners','SmallBannerCatalogHeader']],{ value: params[:type].to_a.first},id: "header_type")
     .field
       = f.label :seo_text
       %br/

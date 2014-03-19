@@ -63,7 +63,7 @@ class CatalogsController < ApplicationController
   private
     
     def header
-      @header ||= CatalogBase.for_url(request.path).first
+      @header ||= Header.for_url(request.path).first
     end
 
     def title_text

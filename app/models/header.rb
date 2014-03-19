@@ -1,9 +1,9 @@
 # encoding: utf-8
-class CatalogBase < ActiveRecord::Base
+class Header < ActiveRecord::Base
   attr_accessible :seo_text, :type, :url, :enabled, :organic_url, :product_list, :custom_url, :url_type, :new_url, :old_url
   attr_accessor :new_url, :old_url
 
-  validates :type, :presence => true, :exclusion => ["CatalogBase"]
+  validates :type, :presence => true, :exclusion => ["Header"]
   validates :url, presence: true, uniqueness: true, format: { with: /\A\//, message: 'precisa começar com /' }
   validates :organic_url, format: { with: /\A\//, message: 'precisa começar com / e ser uma url existente de catalogo, marcas ou coleção' }, if: 'self.new_url_type?'
 
