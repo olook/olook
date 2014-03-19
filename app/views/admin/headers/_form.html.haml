@@ -21,9 +21,7 @@
 
   %fieldset#no_custom_url
     %legend
-      Adicionar
-      #{params[:type] == 'TextCatalogHeader' ? 'Texto' : 'Banners'}
-      a uma URL existente do Site
+      Adicionar informações a uma URL existente do Site
     .field
       = f.label :old_url
       %br/
@@ -32,8 +30,7 @@
 
   %fieldset#custom_url
     %legend
-      Criar uma URL nova com cabeçalho de
-      #{params[:type] == 'CatalogHeader::TextCatalogHeader' ? 'Texto' : 'Banners'}
+      Criar uma URL nova
     .field
       = f.label :new_url
       %small Evitar caracteres como espaço, acentos e letras maíusculas
