@@ -9,9 +9,9 @@ describe Header do
   describe ".scopes" do
 
     before do
-      FactoryGirl.create(:catalog_base, :text)
-      FactoryGirl.create(:catalog_base, :big_banner)
-      FactoryGirl.create(:catalog_base, :small_banner)
+      FactoryGirl.create(:header, :text)
+      FactoryGirl.create(:header, :big_banner)
+      FactoryGirl.create(:header, :small_banner)
     end
     it "return only text type" do
       expect(described_class.with_type("TextCatalogHeader").count).to eql(1)
@@ -27,7 +27,7 @@ describe Header do
     end
 
     it "should find exact url" do
-      bota = FactoryGirl.create(:catalog_base, :text, enabled: true, url: '/sapato/bota')
+      bota = FactoryGirl.create(:header, :text, enabled: true, url: '/sapato/bota')
       expect(Header.for_url('/sapato/bota').first.id).to eq(bota.id)
     end
   end
