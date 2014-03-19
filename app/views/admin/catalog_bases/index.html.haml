@@ -1,6 +1,13 @@
 %h2 Listando Landing page de catálogos
 - content_for :secondary_navigation do
   %li= link_to 'Nova landing page de catálogo', new_admin_catalog_basis_path
+- content_for :sidebar do
+  = form_for([:admin, @search], :html => {:class => "form"}) do |f|
+    .group
+      = f.label :type, "Tipo", :class => "label"
+      = f.select :type_equals,[['Sem Header', 'NoBanner'], ['Texto', 'TextCatalogHeader'], ['1 Banner', 'BigBannerCatalogHeader'], ['3 Banners','SmallBannerCatalogHeader']] ,:include_blank => true
+    .group
+      = f.submit 'Procurar', :class => "button"
 .inner
   %table.table
     %tr
