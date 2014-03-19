@@ -4,7 +4,8 @@ class Admin::CatalogBasesController < Admin::BaseController
   respond_to :html, :text
 
   def index
-    @catalog_bases = CatalogBase.page(params[:page]).per_page(100)
+    @search = CatalogBase.search(params[:search])
+    @catalog_bases = @search.relation.page(params[:page]).per_page(50)
   end
 
   def show
