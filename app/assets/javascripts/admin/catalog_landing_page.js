@@ -5,9 +5,15 @@ function changeCatalogBaseType(){
   var text_fieldset = $('fieldset#text_catalog_header');
   if(type.val() == 'SmallBannerCatalogHeader') {
     small_fieldset.show();
+    big_fieldset.hide();
+    text_fieldset.hide();
   }else if (type.val() == 'BigBannerCatalogHeader'){
+    small_fieldset.hide();
     big_fieldset.show();
+    text_fieldset.hide();
   } else if(type.val() == 'TextCatalogHeader'){
+    small_fieldset.hide();
+    big_fieldset.hide();
     text_fieldset.show();
   }
   type.change(function(){
