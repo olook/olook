@@ -9,9 +9,9 @@ describe CatalogBase do
   describe ".scopes" do
 
     before do
-      FactoryGirl.create(:catalog_header, :text)
-      FactoryGirl.create(:catalog_header, :big_banner)
-      FactoryGirl.create(:catalog_header, :small_banner)
+      FactoryGirl.create(:catalog_base, :text)
+      FactoryGirl.create(:catalog_base, :big_banner)
+      FactoryGirl.create(:catalog_base, :small_banner)
     end
     it "return only text type" do
       expect(described_class.with_type("TextCatalogHeader").count).to eql(1)
@@ -27,7 +27,7 @@ describe CatalogBase do
     end
 
     it "should find exact url" do
-      bota = FactoryGirl.create(:catalog_header, :text, enabled: true, url: '/sapato/bota')
+      bota = FactoryGirl.create(:catalog_base, :text, enabled: true, url: '/sapato/bota')
       expect(CatalogBase.for_url('/sapato/bota').first.id).to eq(bota.id)
     end
   end
