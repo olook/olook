@@ -341,10 +341,14 @@ catalog/banner_quiz_sem_mari.jpg: catalog/banner_quiz_sem_mari-fda9f0fdc0bb2c1af
 catalog/banner_quiz_sem_mari/index.jpg: catalog/banner_quiz_sem_mari-fda9f0fdc0bb2c1afbd61cba9a81cb29.jpg
 catalog/sprite.png: catalog/sprite-846f139ebc53c31a3c64dfe9f3e3fda2.png
 catalog/sprite/index.png: catalog/sprite-846f139ebc53c31a3c64dfe9f3e3fda2.png
+collections/animal.jpg: collections/animal-df15cea94dfe495d28e551df8789b8ab.jpg
+collections/animal/index.jpg: collections/animal-df15cea94dfe495d28e551df8789b8ab.jpg
 collections/arrow-black.png: collections/arrow-black-fb49e5a6db6a6f7f18732736fd37e781.png
 collections/arrow-black/index.png: collections/arrow-black-fb49e5a6db6a6f7f18732736fd37e781.png
 collections/arrow-white.png: collections/arrow-white-8ef28c1106b3ec18fb22d91cc4e54315.png
 collections/arrow-white/index.png: collections/arrow-white-8ef28c1106b3ec18fb22d91cc4e54315.png
+collections/azul.jpg: collections/azul-0a84e6250bdb546cb25e7e48464f4e2f.jpg
+collections/azul/index.jpg: collections/azul-0a84e6250bdb546cb25e7e48464f4e2f.jpg
 collections/bg-title-selection.png: collections/bg-title-selection-d23e2e4b3c7f31516935abda01ea95cb.png
 collections/bg-title-selection/index.png: collections/bg-title-selection-d23e2e4b3c7f31516935abda01ea95cb.png
 collections/bullet_arrow.png: collections/bullet_arrow-e1ad441450f4ef03dccb0ab28d4b2156.png
@@ -374,6 +378,8 @@ collections/destaque_capinha_preview_primavera.jpg: collections/destaque_capinha
 collections/destaque_capinha_preview_primavera/index.jpg: collections/destaque_capinha_preview_primavera-5e89fcbf7427ffd867fdab608c57793d.jpg
 collections/destaque_colecao_azulejo.jpg: collections/destaque_colecao_azulejo-8336caa522c94bec6003b2ea39f31fca.jpg
 collections/destaque_colecao_azulejo/index.jpg: collections/destaque_colecao_azulejo-8336caa522c94bec6003b2ea39f31fca.jpg
+collections/destaque_colecao_grunge-1.jpg: collections/destaque_colecao_grunge-1-cd5d8aae39b7bd2501ed5db80243c455.jpg
+collections/destaque_colecao_grunge-1/index.jpg: collections/destaque_colecao_grunge-1-cd5d8aae39b7bd2501ed5db80243c455.jpg
 collections/destaque_colecoes_liquida_final.jpg: collections/destaque_colecoes_liquida_final-96b384398f95089a24a324e200b623f8.jpg
 collections/destaque_colecoes_liquida_final/index.jpg: collections/destaque_colecoes_liquida_final-96b384398f95089a24a324e200b623f8.jpg
 collections/destaque_colecoes_neon_pastel_ok.jpg: collections/destaque_colecoes_neon_pastel_ok-9c0a207fbfea2e5fc306ac2796fac107.jpg
@@ -2146,6 +2152,8 @@ modules/facebook/events.js: modules/facebook/events-d49cb07790ad0233db9273af230e
 modules/facebook/events/index.js: modules/facebook/events-d49cb07790ad0233db9273af230e5453.js
 modules/footer_newsletter/newsletter_subscriber.js: modules/footer_newsletter/newsletter_subscriber-d6c5722006b196be36a0ee33ea5941c0.js
 modules/footer_newsletter/newsletter_subscriber/index.js: modules/footer_newsletter/newsletter_subscriber-d6c5722006b196be36a0ee33ea5941c0.js
+modules/home/home_events.js: modules/home/home_events-004b5e3b485f503b139e15e1bbd19744.js
+modules/home/home_events/index.js: modules/home/home_events-004b5e3b485f503b139e15e1bbd19744.js
 modules/product/add_to_wishlist.js: modules/product/add_to_wishlist-566e4bf86091de355c8519660c177e2f.js
 modules/product/add_to_wishlist/index.js: modules/product/add_to_wishlist-566e4bf86091de355c8519660c177e2f.js
 modules/product/add_to_wishlist_error_message.js: modules/product/add_to_wishlist_error_message-033e40f493193348ec8a6d6dc4f4ef99.js
@@ -2260,8 +2268,8 @@ section/lite_catalog.js: section/lite_catalog-f4d18467ded6a915a40a828624d9cb12.j
 section/lite_catalog/index.js: section/lite_catalog-f4d18467ded6a915a40a828624d9cb12.js
 section/lite_collection_theme.js: section/lite_collection_theme-78f7d886607f0c37225d6a11017fd400.js
 section/lite_collection_theme/index.js: section/lite_collection_theme-78f7d886607f0c37225d6a11017fd400.js
-section/lite_home.js: section/lite_home-6558e4c493f858e78c3bef00718a9a3b.js
-section/lite_home/index.js: section/lite_home-6558e4c493f858e78c3bef00718a9a3b.js
+section/lite_home.js: section/lite_home-c0ae1fb76fd7f333e4911365591aa15a.js
+section/lite_home/index.js: section/lite_home-c0ae1fb76fd7f333e4911365591aa15a.js
 section/lite_showroom.js: section/lite_showroom-8e0bfb2fba7db3b2b24bc435785be9b1.js
 section/lite_showroom/index.js: section/lite_showroom-8e0bfb2fba7db3b2b24bc435785be9b1.js
 section/load_thumbnail_images.js: section/load_thumbnail_images-be6cf301b5dcd4ec8ee0a1d53d344a99.js
