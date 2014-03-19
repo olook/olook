@@ -1,6 +1,6 @@
 %h2 Listando Landing page de catálogos
 - content_for :secondary_navigation do
-  %li= link_to 'Nova landing page de catálogo', new_admin_catalog_basis_path
+  %li= link_to 'Nova landing page de catálogo', new_admin_header_path
 - content_for :sidebar do
   = form_for([:admin, @search], :html => {:class => "form"}) do |f|
     .group
@@ -16,13 +16,13 @@
       %th
       %th
       %th
-    - @catalog_bases.each do |catalog_base|
+    - @headers.each do |header|
       %tr
-        %td= catalog_base.url
-        %td= catalog_base.enabled ? "Sim" : "Não"
-        %td= link_to 'Mostrar', admin_catalog_basis_path(catalog_base), :class => 'button'
-        %td= link_to 'Editar', edit_admin_catalog_basis_path(catalog_base), :class => 'button'
-        %td= link_to 'Apagar', admin_catalog_basis_path(catalog_base), confirm: 'Tem certeza?', method: :delete, :class => 'button danger'
+        %td= header.url
+        %td= header.enabled ? "Sim" : "Não"
+        %td= link_to 'Mostrar', admin_header_path(header), :class => 'button'
+        %td= link_to 'Editar', edit_admin_header_path(header), :class => 'button'
+        %td= link_to 'Apagar', admin_header_path(header), confirm: 'Tem certeza?', method: :delete, :class => 'button danger'
   .actions-bar.wat-cf
     .pagination
-      = will_paginate @catalog_bases
+      = will_paginate @headers

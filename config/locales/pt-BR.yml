@@ -422,7 +422,7 @@
         one: Serviço de email
         other: Serviços de email
 
-      catalog_base:
+      header:
         one: 'Landing Page'
         other: 'Landing Pages'
 
@@ -440,7 +440,7 @@
       credit_card: Cartão de crédito
 
     attributes:
-      catalog_base:
+      header:
         url: 'URL'
         old_url: "URL existente ex.: /sapato"
         new_url: "URL nova ex.: /preto-e-branco"

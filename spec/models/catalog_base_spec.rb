@@ -1,8 +1,8 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe CatalogBase do
-  it { should_not allow_value("CatalogBase").for(:type) }
+describe Header do
+  it { should_not allow_value("Header").for(:type) }
   it { should validate_presence_of(:type) }
   it { should validate_presence_of(:url) }
 
@@ -23,12 +23,12 @@ describe CatalogBase do
 
   describe '.for_url' do
     it "should return Arel" do
-      expect(CatalogBase.for_url('/sapato')).to respond_to(:all)
+      expect(Header.for_url('/sapato')).to respond_to(:all)
     end
 
     it "should find exact url" do
       bota = FactoryGirl.create(:catalog_base, :text, enabled: true, url: '/sapato/bota')
-      expect(CatalogBase.for_url('/sapato/bota').first.id).to eq(bota.id)
+      expect(Header.for_url('/sapato/bota').first.id).to eq(bota.id)
     end
   end
 end

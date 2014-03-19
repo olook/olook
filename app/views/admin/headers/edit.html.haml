@@ -1,0 +1,6 @@
+%h2 Editar Landing page de catálogo
+.inner
+  = render 'form'
+- content_for :secondary_navigation do
+  %li= link_to 'Mostrar', admin_header_path(@header)
+  %li= link_to 'Voltar', admin_headers_path

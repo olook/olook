@@ -1,5 +1,5 @@
 function changeCatalogBaseType(){
-  var type = $('#catalog_base_type');
+  var type = $('#header_type');
   var small_fieldset = $('fieldset#small_banner_catalog_header');
   var big_fieldset = $('fieldset#big_banner_catalog_header');
   var text_fieldset = $('fieldset#text_catalog_header');
@@ -7,7 +7,11 @@ function changeCatalogBaseType(){
     small_fieldset.show();
     big_fieldset.hide();
     text_fieldset.hide();
-  }else if (type.val() == 'BigBannerCatalogHeader'){
+  } else if (type.val() == 'NoBanner'){
+    small_fieldset.hide();
+    big_fieldset.hide();
+    text_fieldset.hide();
+  } else if (type.val() == 'BigBannerCatalogHeader'){
     small_fieldset.hide();
     big_fieldset.show();
     text_fieldset.hide();

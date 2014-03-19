@@ -231,7 +231,7 @@ Olook::Application.routes.draw do
     get "/", :to => "dashboard#index"
     get "/lista_pastas_s3", to: "bucket_s3#index"
 
-    resources :catalog_bases
+    resources :headers
 
     resources :clippings
     get "ses" => "simple_email_service_infos#index", as: "ses"
