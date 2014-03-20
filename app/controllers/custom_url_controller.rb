@@ -4,7 +4,7 @@ class CustomUrlController < ApplicationController
   helper_method :check_organic_url_section
 
   def show
-    @custom_url = CatalogHeader::CatalogBase.for_url(request.path).first
+    @custom_url = Header.for_url(request.path).first
     if @custom_url
       product_list = @custom_url.product_list.to_s.split(/\D/).select{|w|w.present?}.compact
       @custom_search = SearchEngine.new(product_id: product_list.join('-'))
