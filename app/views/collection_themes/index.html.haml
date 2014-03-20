@@ -10,16 +10,16 @@
   #collection_theme_content
     #home_collections
       .banner_principal
-        = link_to image_tag("collections/destaque landing_tendencia_floral_800X341.jpg", alt: "Tendência Floral", title: "Tendência Floral"), '/colecoes/floral', onclick: track_event("Colecoes", "TopBigBanner")
+        = link_to image_tag("collections/destaque_colecao_grunge-1.jpg", alt: "Grunge", title: "Grunge"), collection_theme_path('grunge'), onclick: track_event("Colecoes", "TopBigBanner")
       .left_banner
-        = link_to image_tag("collections/crop_colecoes_380x214_neon.jpg", alt: "NEON", title: "NEON"), collection_theme_path('neon_pastel'), onclick: track_event("Colecoes", "MiddleLeftBanner")
-        %p.collection NEON PASTEL
-        %p.resume O neon pastel protagoniza a tendência do momento
-        %p.looks= link_to "veja a coleção", collection_theme_path('neon_pastel'), target: "_blank"
+        = link_to image_tag("collections/azul.jpg", alt: "azul cobalto", title: "azul cobalto"), collection_theme_path('azul-cobalto'), onclick: track_event("Colecoes", "MiddleLeftBanner")
+        %p.collection Azul
+        %p.resume Cor forte ganha destaque na estação
+        %p.looks= link_to "veja a coleção", collection_theme_path('azul-cobalto'), target: "_blank"
       .right_banner
-        = link_to image_tag("collections/destaquemenor_colecoes_boho.jpg", alt: "Boho Chic", title: "Boho Chic"), collection_theme_path('boho_chic'), onclick: track_event("Colecoes", "MiddleRightBanner")
-        %p.collection BOHO CHIC
-        %p.resume Visual chama atenção pelas peças leves e confortáveis
-        %p.looks= link_to 'veja a coleção', collection_theme_path('boho_chic'), target: "_blank"
+        = link_to image_tag("collections/animal.jpg", alt: "animal print", title: "animal print"), collection_theme_path('animal-print'), onclick: track_event("Colecoes", "MiddleRightBanner")
+        %p.collection Animal Print
+        %p.resume Estampa clássica chega repaginada na nova temporada
+        %p.looks= link_to 'veja a coleção', collection_theme_path('animal-print'), target: "_blank"
 - content_for :footer do
   = javascript_include_tag "collection_themes"
