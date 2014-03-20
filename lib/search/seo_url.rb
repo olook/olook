@@ -27,21 +27,28 @@ class SeoUrl
   PARAMETERS_BLACKLIST = [ "price"]
   PARAMETERS_WHITELIST = [ "price", "sort", "per_page" ]
   MULTISELECTION_SEPARATOR = SearchEngine::MULTISELECTION_SEPARATOR
+  DEFAULT_POSITIONS = '/:category:-:brand:-:subcategory:/:color:-:size:-:heel:'
 
-  def initialize(path, current_key=nil, search=nil, &link_builder)
+  # Interface to initialize product
+  # path as "/sapato/cor_preto"
+  # positions in path as "/:category:-:brand:-:subcategory:/:color:-:size:-:heel:"
+  # search as an object of SearchEngine
+  # blk as a link builder to perform some prefixing such as brand_path
+  # otherwise just return the path as formatted in positions.
+  #
+  # Other fields that are not in positions are automatically put in query string
+  def initialize(optionals={}, &link_builder)
+    @search = optionals[:search]
+
     if link_builder.respond_to?(:call)
       @link_builder = link_builder
     else
       @link_builder = lambda { |a| a }
     end
-    if path.is_a?(Hash)
-      @params = path
-    else
-      @path = path
-      @params = HashWithIndifferentAccess.new
-    end
-    @search = search
-    @current_key = current_key
+
+    @params = HashWithIndifferentAccess.new
+    @path = optionals[:path] || ''
+    @path_positions = optionals[:path_positions] || DEFAULT_POSITIONS
   end
 
   def set_link_builder(&blk)
@@ -106,9 +113,9 @@ class SeoUrl
   end
 
   def add_filter(filter, filter_text, &blk)
-    parameters = HashWithIndifferentAccess.new(@search.filters_applied(filter.to_sym, filter_text.chomp).dup)
-    parameters = build_link_for(parameters)
+    parameters = @search.filters_applied(filter.to_sym, filter_text.chomp).dup
     parameters = blk.call(parameters) if blk
+    parameters = build_link_for(parameters)
     @link_builder.call(parameters)
   end
 
@@ -212,7 +219,12 @@ class SeoUrl
 
       return_hash.delete(@current_key.to_sym) if @current_key
       path = [ return_hash[:category], return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join(MULTISELECTION_SEPARATOR)
-      { parameters: [path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/') }.merge(return_hash[:order_params])
+      url = [path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/')
+      unless return_hash[:order_params].empty?
+        url.concat('?')
+        url.concat(return_hash[:order_params].map { |k,v| "#{k}=#{v}" } .join('&'))
+      end
+      url
     end
 
     def all_brands
