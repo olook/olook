@@ -1,7 +1,7 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :catalog_header, :class => CatalogHeader::CatalogBase  do
+  factory :header do
     sequence :url do |n|
       "/sapatao_#{n}"
     end
@@ -26,13 +26,13 @@ FactoryGirl.define do
     product_list "1001,1002,1003"
 
     trait :text do
-      type "CatalogHeader::TextCatalogHeader"
+      type "TextCatalogHeader"
     end
     trait :big_banner do
-      type "CatalogHeader::BigBannerCatalogHeader"
+      type "BigBannerCatalogHeader"
     end
     trait :small_banner do
-      type "CatalogHeader::SmallBannerCatalogHeader"
+      type "SmallBannerCatalogHeader"
     end
   end
 end

@@ -1,0 +1,28 @@
+%h2 Listando Landing page de catálogos
+- content_for :secondary_navigation do
+  %li= link_to 'Nova landing page de catálogo', new_admin_header_path
+- content_for :sidebar do
+  = form_for([:admin, @search], :html => {:class => "form"}) do |f|
+    .group
+      = f.label :type, "Tipo", :class => "label"
+      = f.select :type_equals,[['Sem Header', 'NoBanner'], ['Texto', 'TextCatalogHeader'], ['1 Banner', 'BigBannerCatalogHeader'], ['3 Banners','SmallBannerCatalogHeader']] ,:include_blank => true
+    .group
+      = f.submit 'Procurar', :class => "button"
+.inner
+  %table.table
+    %tr
+      %th url
+      %th Ativo?
+      %th
+      %th
+      %th
+    - @headers.each do |header|
+      %tr
+        %td= header.url
+        %td= header.enabled ? "Sim" : "Não"
+        %td= link_to 'Mostrar', admin_header_path(header), :class => 'button'
+        %td= link_to 'Editar', edit_admin_header_path(header), :class => 'button'
+        %td= link_to 'Apagar', admin_header_path(header), confirm: 'Tem certeza?', method: :delete, :class => 'button danger'
+  .actions-bar.wat-cf
+    .pagination
+      = will_paginate @headers
