@@ -115,6 +115,11 @@ describe SeoUrl do
       subject { described_class.new(path: '/sapato?preco=100-300') }
       it { expect(subject.parse_params[:price]).to eq('100-300') }
     end
+
+    context "with custom path_positions" do
+      subject { described_class.new(path: '/marcas/olook/sapato', path_positions: '/marcas/:brand:/:category:-:subcategory/:color:-:size:-:heel:') }
+      it { expect(subject.parse_params[:brand]).to eq('olook') }
+    end
   end
 
   describe '#add_filter' do
@@ -142,6 +147,14 @@ describe SeoUrl do
             filters
           }
         ).to eq('blusa-jaqueta')
+      end
+
+      it "should use the link_builder" do
+        search_engine.stub(:filters_applied).and_return({subcategory: ['blusa']})
+        subject.set_link_builder do |path|
+          "TESTE#{path}"
+        end
+        expect(subject.add_filter(:subcategory, 'blusa')).to eq('TESTEblusa')
       end
     end
   end

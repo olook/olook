@@ -56,6 +56,7 @@ class SeoUrl
   end
 
   def parse_params
+    regex_from_path_positions
     if from_brands?
       parse_brands_params
     elsif from_collections?
@@ -124,6 +125,10 @@ class SeoUrl
   end
 
   private
+
+  def regex_from_path_positions
+    @path_positions.gsub(/:(\w+):(.)?/) { |word| "(?<#{$1}>#{$2 ? "[^#{$2}]+" : '[^?]*'})" }
+  end
 
     def parse_query
       if @query.present?
