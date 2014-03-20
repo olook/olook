@@ -22,7 +22,7 @@ module MultiJobsProcess
   end
 
   def sleep
-    Resque.enqueue(MultiWorkersProcessMaster, self.class.to_s)
+    Resque.enqueue_in(5.minutes, MultiWorkersProcessMaster, self.class.to_s)
   end
 
   def finish
