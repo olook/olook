@@ -8,6 +8,7 @@ class Header < ActiveRecord::Base
   validates :organic_url, format: { with: /\A\//, message: 'precisa começar com / e ser uma url existente de catalogo, marcas ou coleção' }, if: 'self.new_url_type?'
 
   scope :with_type, ->(type) {where(type: type)}
+  scope :newest, -> {order('created_at DESC')}
 
   before_validation :set_url
 
