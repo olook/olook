@@ -13,7 +13,7 @@ class ListProducts::OlookletController < ListProductsController
   private
 
   def header
-    @header ||= CatalogHeader::CatalogBase.for_url(request.path).first
-    @header ||= CatalogHeader::CatalogBase.for_url(self.class.url_prefix).first
+    @header ||= Header.for_url(request.path).first
+    @header ||= Header.for_url(self.class.url_prefix).first
   end
 end
