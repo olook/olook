@@ -3,7 +3,8 @@ class Admin::HighlightCampaignsController < Admin::BaseController
   respond_to :html
 
   def index
-    @highlight_campaigns = HighlightCampaign.all
+    @search = HighlightCampaign.newest.search(params[:search])
+    @highlight_campaigns = @search.relation.page(params[:page]).per_page(50)
   end
 
   def show

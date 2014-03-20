@@ -4,7 +4,7 @@ class Admin::HeadersController < Admin::BaseController
   respond_to :html, :text
 
   def index
-    @search = Header.search(params[:search])
+    @search = Header.newest.search(params[:search])
     @headers = @search.relation.page(params[:page]).per_page(50)
   end
 
