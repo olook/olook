@@ -4,7 +4,7 @@ class BrandsController < ApplicationController
   end
 
   def show
-    search_params = SeoUrl.parse(request.fullpath)
+    search_params = SeoUrl.parse(path: request.fullpath)
     Rails.logger.debug("New params: #{params.inspect}")
 
     @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
@@ -15,7 +15,10 @@ class BrandsController < ApplicationController
     @brand = Brand.where(name:  params[:brand].to_s.split("-").map{|brand| ActiveSupport::Inflector.transliterate(brand).downcase.titleize})
     @antibounce_box = AntibounceBox.new(params) if @brand.any? && AntibounceBox.need_antibounce_box?(@search, @brand.map{|b| b.name.downcase}, params)
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
-    @url_builder = SeoUrl.new(search_params, "brand", @search)
+    @url_builder = SeoUrl.new(path: request.fullpath, search: @search, path_positions: '/:brand:/:category:-:subcategory:/:color:-:size:-:heel:')
+    @url_builder.set_link_builder do |_path|
+      brand_path(_path)
+    end
   end
   private
     def title_text
