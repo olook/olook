@@ -118,7 +118,7 @@ describe SeoUrl do
 
     context "with custom path_positions" do
       subject { described_class.new(path: '/marcas/olook/sapato', path_positions: '/marcas/:brand:/:category:-:subcategory/:color:-:size:-:heel:') }
-      it { expect(subject.parse_params[:brand]).to eq('olook') }
+      it { expect(subject.parse_params[:brand]).to eq('Olook') }
     end
   end
 

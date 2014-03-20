@@ -31,7 +31,7 @@ class SeoUrl
 
   # Interface to initialize product
   # path as "/sapato/cor_preto"
-  # positions in path as "/:category:-:brand:-:subcategory:/:color:-:size:-:heel:"
+  # path_positions in path as "/:category:-:brand:-:subcategory:/:color:-:size:-:heel:"
   # search as an object of SearchEngine
   # blk as a link builder to perform some prefixing such as brand_path
   # otherwise just return the path as formatted in positions.
@@ -56,7 +56,7 @@ class SeoUrl
   end
 
   def parse_params
-    regex_from_path_positions
+    parse_path_positions
     if from_brands?
       parse_brands_params
     elsif from_collections?
@@ -126,8 +126,17 @@ class SeoUrl
 
   private
 
-  def regex_from_path_positions
-    @path_positions.gsub(/:(\w+):(.)?/) { |word| "(?<#{$1}>#{$2 ? "[^#{$2}]+" : '[^?]*'})" }
+  def parse_path_positions
+    @sections = []
+    @path_positions.split('/').each do |format|
+      next if format.nil?
+      section = { format: format }
+      if /:\w+:(?<separator>[^:\/]*)/ =~ format
+        section[:separator] = separator
+        section[:fields] = format.scan(/:\w+:/).map { |field| field.to_s[1..-2] }
+      end
+      @sections.push(section)
+    end
   end
 
     def parse_query
