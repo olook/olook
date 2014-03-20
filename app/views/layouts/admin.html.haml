@@ -60,7 +60,7 @@
                 %li= access_link("Highlights")
                 %li= access_link("Coupons")
                 %li= access_link("Highlight Campaigns")
-                %li= access_link_generic(name: "CatalogHeader::CatalogBase", location: "activerecord.models.catalog_header_catalog_base_banner.other", path: admin_catalog_bases_banner_path, constantize: true)
+                %li= access_link("Header")
             %li{class: "submenu#{' active' if params[:controller] =~ /admins|roles|settings/}"}
               %span Permissões
               %ul
@@ -78,7 +78,6 @@
               %span Conteúdo
               %ul
                 %li= access_link("Clippings")
-                %li= access_link_generic(name: "CatalogHeader::CatalogBaseText", location: "activerecord.models.catalog_header_catalog_base_text.other", path: admin_catalog_bases_text_path)
                 %li= access_link("Itineraries")
             %li{class: "submenu#{' active' if params[:controller] =~ /simple_email_service/}"}
               %span Marketing

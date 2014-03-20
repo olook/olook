@@ -1,0 +1,72 @@
+%h2 Landing page de catálogo
+.inner
+  %p
+    %b url
+    = @header.url
+  %p
+    %b Ativo?
+    = @header.enabled ? 'Sim' : 'Não'
+  %p
+    %b tipo
+    = @header.type
+  %p
+    %b Texto para SEO
+    = @header.seo_text
+  - if @header.type == 'SmallBannerCatalogHeader'
+    %p
+      %b small_banner1
+      = image_tag @header.small_banner1
+    %p
+      %b alt_small_banner1
+      = @header.alt_small_banner1
+    %p
+      %b link_small_banner1
+      = @header.link_small_banner1
+    %p
+      %b small_banner2
+      = image_tag @header.small_banner2
+    %p
+      %b alt_small_banner2
+      = @header.alt_small_banner2
+    %p
+      %b link_small_banner2
+      = @header.link_small_banner2
+    %p
+      %b medium_banner
+      = image_tag @header.medium_banner
+    %p
+      %b alt_medium_banner
+      = @header.alt_medium_banner
+    %p
+      %b link_medium_banner
+      = @header.link_medium_banner
+  - if @header.type == 'BigBannerCatalogHeader'
+    %p
+      %b big_banner
+      - if @header.big_banner_url
+        = image_tag @header.big_banner
+    %p
+      %b alt_big_banner
+      = @header.alt_big_banner
+    %p
+      %b link_big_banner
+      = @header.link_big_banner
+  - if @header.type == 'TextCatalogHeader'
+    %p
+      %b title
+      = @header.title
+    %p
+      %b resume_title
+      = @header.resume_title
+    %p
+      %b text_complement
+      = @header.text_complement
+  %p
+    %b Criado em
+    = @header.created_at
+  %p
+    %b Atualizado em
+    = @header.updated_at
+- content_for :secondary_navigation do
+  %li= link_to 'Editar', edit_admin_header_path(@header)
+  %li= link_to 'Voltar', admin_headers_path
