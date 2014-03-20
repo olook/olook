@@ -11,16 +11,15 @@ class Header < ActiveRecord::Base
 
   before_validation :set_url
 
+  HEADER_TYPES = {
+    'BigBannerCatalogHeader' => BigBannerCatalogHeader,
+    'SmallBannerCatalogHeader' => SmallBannerCatalogHeader,
+    'NoBanner' => NoBanner
+  }
+
   def self.factory params
-    if params[:type] == 'BigBannerCatalogHeader'
-      BigBannerCatalogHeader.new(params)
-    elsif params[:type] == 'SmallBannerCatalogHeader'
-      SmallBannerCatalogHeader.new(params)
-    elsif params[:type] == 'NoBanner'
-      NoBanner.new(params)
-    else
-      TextCatalogHeader.new(params)
-    end
+    type = HEADER_TYPES.fetch(params[:type], TextCatalogHeader)
+    type.new(params)
   end
 
   def self.for_url(url)
