@@ -27,7 +27,8 @@ class MktXmlBuilder
     stylight: 'stylight_template.xml.erb',
     all_in: 'all_in.xml.erb',
     zoom: 'zoom_template.xml.erb',
-    buscape: 'buscape_template.xml.erb'
+    buscape: 'buscape_template.xml.erb',
+    ingriffe: 'ingriffe_template.xml.erb'
   }
 
   def self.create_xmls
