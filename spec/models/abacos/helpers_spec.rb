@@ -24,8 +24,8 @@ describe Abacos::Helpers do
     it "should return Category::ACCESSORY when classe is 'Joia'" do
       subject.parse_category('Joia').should == Category::ACCESSORY
     end
-    it "should return Category::CLOTH when classe something else" do
-      subject.parse_category('XXX').should == Category::CLOTH
+    it "should return Category::ACCESSORY when classe something else" do
+      subject.parse_category('XXX').should == Category::ACCESSORY
     end
   end
   

@@ -22,11 +22,11 @@ class MktBaseGenerator
   end
 
   def split_data
-    indexs = prepare_indexs
+    indexes = prepare_indexes
     (0...max).map do |i|
-      first = i * indexs[:num_of_records]
-      last = indexs[:num_of_records] * (i+1) - 1
-      last += indexs[:left] if i == (max - 1)
+      first = i * indexes[:num_of_records]
+      last = indexes[:num_of_records] * (i+1) - 1
+      last += indexes[:left] if i == (max - 1)
       {first: first, last: last}
     end
   end
@@ -48,6 +48,7 @@ class MktBaseGenerator
   end
 
   private
+    # Move the updload/download logic to another place
     def connection
       Fog::Storage.new provider: 'AWS'
     end
@@ -83,7 +84,7 @@ class MktBaseGenerator
       end
     end
 
-    def prepare_indexs
+    def prepare_indexes
       total = User.count
       num_of_records = total / max
       left = total % max + 1

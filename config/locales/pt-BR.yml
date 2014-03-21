@@ -297,6 +297,7 @@
             not_delivered: "Não entregue"
 
     models:
+
       itinerary:
         one: Itinerário
         other: Itinerários
@@ -421,15 +422,15 @@
         one: Serviço de email
         other: Serviços de email
 
-      catalog_header_catalog_base:
-        one: 'Header do Catálogo'
-        other: 'Headers do Catálogo'
+      header:
+        one: 'Landing Page'
+        other: 'Landing Pages'
 
-      catalog_header_catalog_base_text:
+      catalog_base_text:
         one: 'Header Textual do Catálogo para Modelos'
         other: 'Headers Textuais do Catálogo para Modelos'
 
-      catalog_header_catalog_base_banner:
+      catalog_base_banner:
         one: 'Banner Header dos Catálogos'
         other: 'Banner Header dos Catálogos'
 
@@ -439,7 +440,7 @@
       credit_card: Cartão de crédito
 
     attributes:
-      catalog_header/catalog_base:
+      header:
         url: 'URL'
         old_url: "URL existente ex.: /sapato"
         new_url: "URL nova ex.: /preto-e-branco"

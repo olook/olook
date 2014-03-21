@@ -1,26 +1,26 @@
 # encoding: utf-8
-class CatalogHeader::CatalogBase < ActiveRecord::Base
+class Header < ActiveRecord::Base
   attr_accessible :seo_text, :type, :url, :enabled, :organic_url, :product_list, :custom_url, :url_type, :new_url, :old_url
   attr_accessor :new_url, :old_url
 
-  validates :type, :presence => true, :exclusion => ["CatalogHeader::CatalogBase"]
+  validates :type, :presence => true, :exclusion => ["Header"]
   validates :url, presence: true, uniqueness: true, format: { with: /\A\//, message: 'precisa começar com /' }
   validates :organic_url, format: { with: /\A\//, message: 'precisa começar com / e ser uma url existente de catalogo, marcas ou coleção' }, if: 'self.new_url_type?'
 
   scope :with_type, ->(type) {where(type: type)}
+  scope :newest, -> {order('created_at DESC')}
 
   before_validation :set_url
 
+  HEADER_TYPES = {
+    'BigBannerCatalogHeader' => BigBannerCatalogHeader,
+    'SmallBannerCatalogHeader' => SmallBannerCatalogHeader,
+    'NoBanner' => NoBanner
+  }
+
   def self.factory params
-    if params[:type] == 'CatalogHeader::BigBannerCatalogHeader'
-      CatalogHeader::BigBannerCatalogHeader.new(params)
-    elsif params[:type] == 'CatalogHeader::SmallBannerCatalogHeader'
-      CatalogHeader::SmallBannerCatalogHeader.new(params)
-    elsif params[:type] == 'CatalogHeader::NoBanner'
-      CatalogHeader::NoBanner.new(params)
-    else
-      CatalogHeader::TextCatalogHeader.new(params)
-    end
+    type = HEADER_TYPES.fetch(params[:type], TextCatalogHeader)
+    type.new(params)
   end
 
   def self.for_url(url)

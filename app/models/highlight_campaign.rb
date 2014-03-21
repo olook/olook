@@ -2,6 +2,7 @@ class HighlightCampaign < ActiveRecord::Base
   attr_accessible :label, :product_ids
   validates :label, presence: true
 
+  scope :newest, -> {order('created_at DESC')}
 
   def self.find_campaign campaign_name
     Rails.logger.info "Looking for campaign_name #{campaign_name}"
