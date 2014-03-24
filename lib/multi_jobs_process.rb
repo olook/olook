@@ -11,7 +11,7 @@ module MultiJobsProcess
   #
   
   def max
-    10
+    20
   end
 
   def already_started?
