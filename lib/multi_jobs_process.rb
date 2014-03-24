@@ -1,4 +1,5 @@
 module MultiJobsProcess
+  MAX_TIME_IS_SECONDS = 2.hours.to_i
 
   #
   # To use a multijobs process you must overide the following methods:
@@ -18,18 +19,19 @@ module MultiJobsProcess
   end
 
   def has_finished?
-    REDIS.get(missing_key).to_i - REDIS.get(cache_key + ":errors").to_i == 0
+    elapsed_time = Time.zone.now - REDIS.get(cache_key).to_time
+    REDIS.get(missing_key).to_i - REDIS.get(errors_key).to_i == 0 || elapsed_time > MAX_TIME_IS_SECONDS
   end
 
   def sleep
-    Resque.enqueue(MultiWorkersProcessMaster, self.class.to_s)
+    Resque.enqueue_in(5.minutes, MultiWorkersProcessMaster, self.class.to_s)
   end
 
   def finish
     elapsed_time = Time.zone.now - REDIS.get(cache_key).to_time
     REDIS.del(cache_key)
     REDIS.del(missing_key)
-    REDIS.del(cache_key + ":errors")
+    REDIS.del(errors_key)
     REDIS.del(cache_key + ":msg")
     elapsed_time.to_i
   end
@@ -48,8 +50,12 @@ module MultiJobsProcess
     cache_key + ":missing"
   end
 
+  def errors_key
+    cache_key + ":errors"
+  end
+
   def errors
-    REDIS.get(cache_key + ":errors").to_i
+    REDIS.get(errors_key).to_i
   end
 
   def error_messages
@@ -80,7 +86,7 @@ module MultiJobsProcess
           subject: "Erro", body: e.backtrace.join("\n")}).deliver!
         
         puts "erro: #{e}"
-        REDIS.incr(slave_job.cache_key + ":errors")
+        REDIS.incr(slave_job.errors_key)
         REDIS.lpush(slave_job.cache_key + ":msg", e.message)
         puts "Erro: #{e.message}"
       ensure

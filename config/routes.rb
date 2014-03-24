@@ -154,6 +154,7 @@ Olook::Application.routes.draw do
   match "/shopear" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/shopear_data.xml")
   match "/melt" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/melt_data.xml")
   match "/stylight" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/stylight_data.xml") 
+  match "/ingriffe" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/ingriffe_data.xml") 
   match "/all_in" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/all_in_data.xml") 
   match "/buscape" => redirect("https://s3.amazonaws.com/#{ENV["RAILS_ENV"] == 'production' ? 'cdn-app' : 'cdn-app-staging'}/xml/buscape_data.xml") 
   
@@ -231,27 +232,7 @@ Olook::Application.routes.draw do
     get "/", :to => "dashboard#index"
     get "/lista_pastas_s3", to: "bucket_s3#index"
 
-    scope defaults: {type: ["CatalogHeader::NoBanner", "CatalogHeader::BigBannerCatalogHeader", "CatalogHeader::SmallBannerCatalogHeader"]} do
-      #Landing page banners
-      get "/catalog_landing", to: "catalog_bases#index", as: 'catalog_bases_banner'
-      post "/catalog_landing", to: "catalog_bases#create"
-      get "/catalog_landing/new", to: "catalog_bases#new", as: 'new_catalog_basis_banner'
-      get "/catalog_landing/:id/edit", to: "catalog_bases#edit", as: 'edit_catalog_basis_banner'
-      get "catalog_landing/:id", to: "catalog_bases#show", as: 'catalog_basis_banner'
-      delete "/catalog_landing/:id", to: "catalog_bases#destroy"
-      put "/catalog_landing/:id", to: "catalog_bases#update"
-    end
-
-    scope defaults: {type: [ "CatalogHeader::TextCatalogHeader" ]} do
-      #Landing page text
-      get "/catalog_landing_text", to: "catalog_bases#index", as: 'catalog_bases_text'
-      get "/catalog_landing_text/new", to: "catalog_bases#new", as: 'new_catalog_basis_text'
-      get "/catalog_landing_text/:id/edit", to: "catalog_bases#edit", as: 'edit_catalog_basis_text'
-      get "catalog_landing_text/:id", to: "catalog_bases#show", as: 'catalog_basis_text'
-      post "/catalog_landing_text", to: "catalog_bases#create"
-      delete "/catalog_landing_text/:id", to: "catalog_bases#destroy"
-      put "/catalog_landing_text/:id", to: "catalog_bases#update"
-    end
+    resources :headers
 
     resources :clippings
     get "ses" => "simple_email_service_infos#index", as: "ses"
