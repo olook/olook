@@ -61,11 +61,11 @@ class SeoUrl
     parse_path_into_sections
     parse_query
 
-    @parsed_values[:collection_theme] = @params[:collection_theme]
-    @parsed_values[:visibility] = @params[:visibility]
+    @parsed_values[:collection_theme] ||= @params[:collection_theme]
+    @parsed_values[:visibility] ||= @params[:visibility]
 
-    parsed_values.merge!(parse_order)
-    parsed_values
+    @parsed_values.merge!(parse_order)
+    @parsed_values
   end
 
   def self.parse parameters
@@ -106,7 +106,7 @@ class SeoUrl
 
   private
 
-  ['color', 'size', 'heel'].each do |f|
+  ['color', 'size', 'heel', 'care'].each do |f|
     define_method "extract_#{f}" do |path_section|
       parse_filters(path_section)
     end
@@ -117,23 +117,33 @@ class SeoUrl
     path, @query = @path.split('?')
     path.split('/').each do |path_section|
       next if path_section.blank?
-      section_parse(path_section, @sections[index])
+      index += 1 if section_parse(path_section, @sections[index])
     end
   end
 
   def section_parse(path_section, section)
     if section[:fields]
-      section[:fields].each do |field|
-        if respond_to?("extract_#{field}")
+      section[:fields].any? do |field|
+        begin
           @parsed_values[field] = send("extract_#{field}", path_section)
+          !@parsed_values[field].blank?
+        rescue NoMethodError
+          puts "Method extract_#{field} does not exist. Create it please"
+          false
         end
       end
+    else
+      true
     end
+  end
+
+  def extract_collection_theme(path_section)
+    path_section.to_s
   end
 
   def parse_path_positions
     @sections = []
-    @path_position.split('/').each do |format|
+    @path_positions.split('/').each do |format|
       next if format.blank?
       section = { format: format }
       if /:\w+:(?<separator>[^:\/]*)/ =~ format
@@ -287,7 +297,7 @@ class SeoUrl
         true
       end
     end
-    _categories.join(MULTISELECTION_SEPARATOR) if _categories.any?
+    _categories = _categories.join(MULTISELECTION_SEPARATOR) if _categories.any?
     _categories
   end
 

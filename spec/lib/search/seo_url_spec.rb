@@ -9,48 +9,47 @@ describe SeoUrl do
   end
 
   describe "#parse_params" do
-    it { expect(described_class.new.parse_params).to be_a(Hash)  }
     context "Main keys" do
       context "that include collection themes" do
-        subject { described_class.new(path: '/colecoes/p&b') }
+        subject { described_class.new(path: '/colecoes/p&b', path_positions: '/colecoes/:collection_theme:') }
         it { expect(subject.parse_params).to have_key(:collection_theme)  }
         it { expect(subject.parse_params[:collection_theme]).to eq('p&b') }
       end
       context "that includes brands" do
-        subject { described_class.new(path: '/marcas/olook') }
+        subject { described_class.new(path: '/marcas/olook', path_positions: '/marcas/:brand:') }
         it { expect(subject.parse_params).to have_key(:brand)  }
         it { expect(subject.parse_params[:brand]).to eq('Olook') }
       end
-      context "that includes brands" do
-        subject { described_class.new(path: '/sapato') }
+      context "that includes category" do
+        subject { described_class.new(path: '/sapato', path_positions: '/:category:/:brand:-:subcategory:/:color:-:size:-:heel:') }
         it { expect(subject.parse_params).to have_key(:category)  }
-        it { expect(subject.parse_params[:category]).to eq('sapato') }
+        it { expect(subject.parse_params[:category]).to match(/Sapato/i) }
       end
     end
     context "Main keys and filters" do
       context "that includes brands as main category as filter" do
-        subject { described_class.new(path: '/sapato/olook') }
-        it { expect(subject.parse_params[:brand]).to eq('Olook') }
-        it { expect(subject.parse_params[:category]).to eq('sapato') }
+        subject { described_class.new(path: '/sapato/olook', path_positions: '/:category:/:brand:-:subcategory:/:color:-:size:-:heel:') }
+        it { expect(subject.parse_params[:brand]).to match(/Olook/i) }
+        it { expect(subject.parse_params[:category]).to match(/Sapato/i) }
       end
       context "that includes category as main" do
         context "brands as filter" do
           context "one brand" do
-            subject { described_class.new(path: '/sapato/olook') }
-            it { expect(subject.parse_params[:category]).to eq('sapato') }
+            subject { described_class.new(path: '/sapato/olook', path_positions: '/:category:/:brand:-:subcategory:/:color:-:size:-:heel:') }
+            it { expect(subject.parse_params[:category]).to eq('Sapato') }
             it { expect(subject.parse_params[:brand]).to eq('Olook') }
           end
           context "multiple brands" do
-            subject { described_class.new(path: '/sapato/olook-colcci') }
-            it { expect(subject.parse_params[:category]).to eq('sapato') }
+            subject { described_class.new(path: '/sapato/olook-colcci', path_positions: '/:category:/:brand:-:subcategory:/:color:-:size:-:heel:') }
+            it { expect(subject.parse_params[:category]).to eq('Sapato') }
             it { expect(subject.parse_params[:brand]).to match(/Olook/i) }
             it { expect(subject.parse_params[:brand]).to match(/Colcci/i) }
           end
         end
-        context "and filtering by care products" do
-          subject { described_class.new(path: '/sapato/conforto-amaciante-palmilha') }
-          it { expect(subject.parse_params[:category]).to eq('sapato') }
-          it { expect(subject.parse_params[:care]).to eq('amaciante-palmilha') }
+        context "and filtering by care products", focus: true do
+          subject { described_class.new(path: '/sapato/conforto-amaciante-palmilha', path_positions: '/:category:/:brand:-:subcategory:/:care:-:color:-:size:-:heel:') }
+          it { expect(subject.parse_params[:category]).to match(/Sapato/i) }
+          it { expect(subject.parse_params[:care]).to match(/amaciante-palmilha/i) }
         end
       end
       context "filtering by subcategory" do
