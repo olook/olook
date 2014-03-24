@@ -185,42 +185,41 @@ class SeoUrl
 
   def parse_brands_params
     %r{^/marcas(?:/(?<parameters>[^\?]+))?(?:/?\?(?<query>.*))?} =~ @path
-    @params[:parameters] = URI.decode(parameters.to_s)
+    @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
     @query = query
   end
 
   def parse_collections_params
     %r{^/colecoes/(?<collection_theme>[^/\?]*)(?:/(?<parameters>[^\?]+))?(?:/?\?(?<query>.*))?} =~ @path
-    @params[:collection_theme] = URI.decode(collection_theme.to_s)
-    @params[:parameters] = URI.decode(parameters.to_s)
+    @params[:collection_theme] = URI.decode(collection_theme.to_s).force_encoding('utf-8')
+    @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
     @query = query
   end
 
   def parse_catalogs_params
     /^(?:\/catalogo)?\/(?<category>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\/?\?(?<query>.*))?/ =~ @path
-    @params[:category] = URI.decode(category.to_s)
-    @params[:parameters] = URI.decode(parameters.to_s)
+    @params[:category] = URI.decode(category.to_s).force_encoding('utf-8')
+    @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
     @query = query
   end
 
   def parse_olooklet_params
     /^\/olooklet(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
-    @params[:parameters] = URI.decode(parameters.to_s)
+    @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
     @query = query
   end
 
   def parse_newest_params
     /^\/novidades(?:\/(?<parameters>[^\?]+)?)?((?:\/?\?(?<query>.*))?)?/ =~ @path
-    @params[:parameters] = URI.decode(parameters.to_s)
+    @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
     @query = query
   end
 
   def parse_selections_params
     /^\/selecoes(?:\/(?<parameters>[^\?]+)?)?((?:\/?\?(?<query>.*))?)?/ =~ @path
-    @params[:parameters] = URI.decode(parameters.to_s)
+    @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
     @query = query
   end
-
 
   def build_link_for parameters
     other_parameters = @params.dup
