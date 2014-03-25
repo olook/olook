@@ -27,7 +27,7 @@ class SeoUrl
   PARAMETERS_BLACKLIST = [ "price"]
   PARAMETERS_WHITELIST = [ "price", "sort", "per_page" ]
   MULTISELECTION_SEPARATOR = SearchEngine::MULTISELECTION_SEPARATOR
-  DEFAULT_POSITIONS = '/:category:-:brand:-:subcategory:/:color:-:size:-:heel:'
+  DEFAULT_POSITIONS = '/:category:-:brand:-:subcategory:/:care:_:color:_:size:_:heel:'
 
   # Interface to initialize product
   # path as "/sapato/cor_preto"
@@ -68,8 +68,8 @@ class SeoUrl
     @parsed_values
   end
 
-  def self.parse parameters
-    self.new(parameters).parse_params
+  def self.parse(*attrs)
+    self.new(*attrs).parse_params
   end
 
   def current_filters(&blk)

@@ -9,10 +9,6 @@ class CatalogsController < ApplicationController
   helper_method :header
   DEFAULT_PAGE_SIZE = 48
 
-  def parse_parameters_from request
-    SeoUrl.parse(request.fullpath)
-  end
-
   def add_campaign(params)
     HighlightCampaign.find_campaign(params[:cmp])  
   end
@@ -28,33 +24,32 @@ class CatalogsController < ApplicationController
   end
 
   def add_antibounce_box(search, params)
-    brands = search.expressions["brand"].map{|b| b.downcase}
+    brands = search.expressions["brand"].to_a.map {|b| b.downcase }
     if AntibounceBox.need_antibounce_box?(@search, brands, params)
       @antibounce_box = AntibounceBox.new(params)
     end
   end
 
   def index
-    search_params = parse_parameters_from request
+    search_params = SeoUrl.parse(path: request.fullpath, path_positions: '/:category:/:subcategory:-:brand:/:care:_:color:_:size:_:heel:')
     Rails.logger.debug("New params: #{params.inspect}")
 
     @campaign = add_campaign(params)
     @search = add_search_result(search_params, params)
 
-    @url_builder = SeoUrl.new(search_params, "category", @search)
+    @url_builder = SeoUrl.new(path: request.fullpath, path_positions: '/:category:/:subcategory:-:brand:/:care:_:color:_:size:_:heel:', search: @search)
 
     add_antibounce_box(@search, params)
 
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     @pixel_information = @category = params[:category]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
-    @category = @search.expressions[:category].first
-    @subcategory = @search.expressions[:subcategory].first
-    params[:category] = @search.expressions[:category].first
+    @category = @search.expressions[:category].to_a.first
+    @subcategory = @search.expressions[:subcategory].to_a.first
+    params[:category] = @search.expressions[:category].to_a.first
 
     @url_builder.set_link_builder do |_param|
-      _param[:parameters].slice!(/^#{@category}-?/)
-      catalog_path(@category, _param)
+      catalog_path(@category, _param[:parameters])
     end
     expire_fragment(@cache_key) if params[:force_cache].to_i == 1
   end
