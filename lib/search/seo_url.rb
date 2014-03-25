@@ -108,7 +108,7 @@ class SeoUrl
 
   ['color', 'size', 'heel', 'care'].each do |f|
     define_method "extract_#{f}" do |path_section|
-      parse_filters(path_section)
+      parse_filters(path_section)[f]
     end
   end
 
@@ -117,24 +117,32 @@ class SeoUrl
     path, @query = @path.split('?')
     path.split('/').each do |path_section|
       next if path_section.blank?
-      index += 1 if section_parse(path_section, @sections[index])
+      index += 1 if recursive_section_parse(path_section.dup, index)
+    end
+  end
+
+  def recursive_section_parse(path_section, index)
+    return true if @sections[index].nil?
+    ( index .. ( @sections.size - 1 ) ).to_a.any? do |i|
+      section_parse(path_section.dup, @sections[i])
     end
   end
 
   def section_parse(path_section, section)
-    if section[:fields]
-      section[:fields].any? do |field|
-        begin
-          @parsed_values[field] = send("extract_#{field}", path_section)
-          !@parsed_values[field].blank?
-        rescue NoMethodError
-          puts "Method extract_#{field} does not exist. Create it please"
-          false
+    return true if section[:fields].blank?
+    section_proceseed = false
+    section[:fields].each do |field|
+      begin
+        processed = send("extract_#{field}", path_section.dup)
+        if !processed.blank?
+          @parsed_values[field] = processed
+          section_proceseed = true
         end
+      rescue NoMethodError
+        puts "Method extract_#{field} does not exist. Create it please"
       end
-    else
-      true
     end
+    section_proceseed
   end
 
   def extract_collection_theme(path_section)
@@ -161,64 +169,6 @@ class SeoUrl
         @params[k] = v
       end
     end
-  end
-
-  def from_brands?
-    /^\/marcas\// =~ @path
-  end
-
-  def from_collections?
-    /^\/colecoes\// =~ @path
-  end
-
-  def from_olooklet?
-    /^\/olooklet(\/)*/ =~ @path
-  end
-
-  def from_newest?
-    /^\/novidades(\/)*/ =~ @path
-  end
-
-  def from_selections?
-    /^\/selecoes(\/)*/ =~ @path
-  end
-
-  def parse_brands_params
-    %r{^/marcas(?:/(?<parameters>[^\?]+))?(?:/?\?(?<query>.*))?} =~ @path
-    @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
-    @query = query
-  end
-
-  def parse_collections_params
-    %r{^/colecoes/(?<collection_theme>[^/\?]*)(?:/(?<parameters>[^\?]+))?(?:/?\?(?<query>.*))?} =~ @path
-    @params[:collection_theme] = URI.decode(collection_theme.to_s).force_encoding('utf-8')
-    @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
-    @query = query
-  end
-
-  def parse_catalogs_params
-    /^(?:\/catalogo)?\/(?<category>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\/?\?(?<query>.*))?/ =~ @path
-    @params[:category] = URI.decode(category.to_s).force_encoding('utf-8')
-    @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
-    @query = query
-  end
-
-  def parse_olooklet_params
-    /^\/olooklet(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
-    @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
-    @query = query
-  end
-
-  def parse_newest_params
-    /^\/novidades(?:\/(?<parameters>[^\?]+)?)?((?:\/?\?(?<query>.*))?)?/ =~ @path
-    @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
-    @query = query
-  end
-
-  def parse_selections_params
-    /^\/selecoes(?:\/(?<parameters>[^\?]+)?)?((?:\/?\?(?<query>.*))?)?/ =~ @path
-    @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
-    @query = query
   end
 
   def build_link_for parameters
@@ -300,37 +250,39 @@ class SeoUrl
     _categories
   end
 
-  def extract_subcategories(path_section)
+  def extract_subcategory(path_section)
     param_subcategory = path_section
-
     _subcategories = all_subcategories.select do |c|
-      if /#{c.parameterize}/ =~ param_subcategory
+      if CARE_PRODUCTS.include?(c)
+        false
+      elsif /#{c.parameterize}/ =~ param_subcategory
         param_subcategory.slice!(/#{c.parameterize}/)
         true
       end
     end
-    _subcategories.join(MULTISELECTION_SEPARATOR) if _subcategories.any?
+    _subcategories = _subcategories.join(MULTISELECTION_SEPARATOR) if _subcategories.any?
     _subcategories
   end
 
   def all_categories
     cat = YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_categories.yml' ) ) ) )
     cat = cat.keys
-    cat.concat( cat.map{ |s| s.downcase } )
-    cat.concat( cat.map{ |s| ActiveSupport::Inflector.transliterate(s) } )
-    cat.concat( cat.map{ |s| s.parameterize } )
+    cat.concat( cat.map { |s| s.downcase } )
+    cat.concat( cat.map { |s| ActiveSupport::Inflector.transliterate(s) } )
+    cat.concat( cat.map { |s| s.parameterize } )
     cat
   end
 
   def parse_filters(path_section)
     filter_params = path_section
+    parsed_values = {}
     filter_params.to_s.split(FIELD_SEPARATOR).each do |item|
       auxs = item.split(MULTISELECTION_SEPARATOR)
       key = auxs.shift
       vals = auxs.join(MULTISELECTION_SEPARATOR)
-      @parsed_values[VALUES[key]] = vals
+      parsed_values[VALUES[key]] = vals
     end
-    @parsed_values
+    parsed_values
   end
 
   def all_subcategories
