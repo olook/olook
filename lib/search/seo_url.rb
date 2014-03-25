@@ -70,7 +70,7 @@ class SeoUrl
     parsed_values[:brand] = extract_brand
     parsed_values[:excluded_brand] = @params[:excluded_brand] if @params[:excluded_brand]
 
-    matched_categories = categories.uniq.select {|category| @params[:parameters] =~ /#{category}/}
+    matched_categories = categories.uniq.select {|category| /#{category}/ =~ @params[:parameters] }
     parsed_values[:category] = @params[:category] || matched_categories.join(MULTISELECTION_SEPARATOR)
     parsed_values[:subcategory] = extract_subcategories
     parsed_values[:visibility] = @params[:visibility]
@@ -149,39 +149,39 @@ class SeoUrl
 
     def parse_brands_params
       %r{^/marcas(?:/(?<parameters>[^\?]+))?(?:/?\?(?<query>.*))?} =~ @path
-      @params[:parameters] = URI.decode(parameters.to_s)
+      @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
       @query = query
     end
 
     def parse_collections_params
       %r{^/colecoes/(?<collection_theme>[^/\?]*)(?:/(?<parameters>[^\?]+))?(?:/?\?(?<query>.*))?} =~ @path
-      @params[:collection_theme] = URI.decode(collection_theme.to_s)
-      @params[:parameters] = URI.decode(parameters.to_s)
+      @params[:collection_theme] = URI.decode(collection_theme.to_s).force_encoding('utf-8')
+      @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
       @query = query
     end
 
     def parse_catalogs_params
       /^(?:\/catalogo)?\/(?<category>[^\/\?]*)(?:\/(?<parameters>[^\?]+))?(?:\/?\?(?<query>.*))?/ =~ @path
-      @params[:category] = URI.decode(category.to_s)
-      @params[:parameters] = URI.decode(parameters.to_s)
+      @params[:category] = URI.decode(category.to_s).force_encoding('utf-8')
+      @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
       @query = query
     end
 
     def parse_olooklet_params
       /^\/olooklet(?:\/(?<parameters>[^\?]+)?)?((?:\?(?<query>.*))?)?/ =~ @path
-      @params[:parameters] = URI.decode(parameters.to_s)
+      @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
       @query = query
     end
 
     def parse_newest_params
       /^\/novidades(?:\/(?<parameters>[^\?]+)?)?((?:\/?\?(?<query>.*))?)?/ =~ @path
-      @params[:parameters] = URI.decode(parameters.to_s)
+      @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
       @query = query
     end
 
     def parse_selections_params
       /^\/selecoes(?:\/(?<parameters>[^\?]+)?)?((?:\/?\?(?<query>.*))?)?/ =~ @path
-      @params[:parameters] = URI.decode(parameters.to_s)
+      @params[:parameters] = URI.decode(parameters.to_s).force_encoding('utf-8')
       @query = query
     end
 
