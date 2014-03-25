@@ -3,9 +3,10 @@ class ListProducts::OlookletController < ListProductsController
   @url_prefix = '/olooklet'
 
   def index
+    @path_positions = '/olooklet/:category:-:brand:-:subcategory:/:care:_:color:_:size:_:heel:'
     visibility = params[:visibility] || "#{Product::PRODUCT_VISIBILITY[:olooklet]}-#{Product::PRODUCT_VISIBILITY[:all]}"
     request_path = params[:path] || request.fullpath
-    search_params = SeoUrl.parse(request_path).merge({visibility: visibility})
+    search_params = SeoUrl.parse(path: request.fullpath, path_positions: @path_positions).merge({visibility: visibility})
     default_params(search_params,"olooklet")
     @url_builder.set_link_builder { |_param| olooklet_path(_param) }
   end

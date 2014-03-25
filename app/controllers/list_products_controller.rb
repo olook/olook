@@ -22,7 +22,7 @@ class ListProductsController < ApplicationController
     @search = SearchEngineWithDynamicFilters.new(search_params, true).for_page(params[:page]).with_limit(page_size)
     @search.for_admin if current_admin
     @campaign_products = HighlightCampaign.find_campaign(params[:cmp])
-    @url_builder = SeoUrl.new(search_params, site_section, @search)
+    @url_builder = SeoUrl.new(path: request.fullpath, search: @search, path_positions: @path_positions)
     @antibounce_box = AntibounceBox.new(params) if AntibounceBox.need_antibounce_box?(@search, @search.expressions["brand"].map{|b| b.downcase}, params)
 
     @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])

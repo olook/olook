@@ -2,7 +2,7 @@ class SearchController < ApplicationController
   layout "lite_application"
 
   def show
-    search_params = SeoUrl.parse(request.fullpath)
+    search_params = SeoUrl.parse(path: request.fullpath, path_positions: '/busca')
     Rails.logger.debug("New params: #{params.inspect}")
     @q = params[:q] || ""
 
@@ -10,9 +10,10 @@ class SearchController < ApplicationController
     if catalogs_pages.include?(@singular_word)
       redirect_to catalog_path(category: @singular_word)
     else
-      @search = SearchEngine.new(term: @q, brand: search_params[:brand], 
-        subcategory: search_params[:subcategory], 
-        color: search_params[:color], 
+      @search = SearchEngine.new(term: @q,
+        brand: search_params[:brand],
+        subcategory: search_params[:subcategory],
+        color: search_params[:color],
         heel: search_params[:heel])
           .for_page(params[:page])
           .with_limit(48)
