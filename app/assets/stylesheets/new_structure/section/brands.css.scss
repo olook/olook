@@ -6,7 +6,7 @@
 @import 'new_structure/partials/antibounce_box';
 @import 'new_structure/partials/custom_headers';
 
-#result{float:left;width:820px;}
+#result{float:right;width:793px;}
 
 #content{min-height:450px;}
 .brands{
@@ -25,6 +25,7 @@
 }
 
 .collections_header{margin:14px 0 25px;}
+.collections_header img {width:100%;}
 
 /* fix filter price */
 .ui-slider .ui-slider-handle{width:5px !important;}
