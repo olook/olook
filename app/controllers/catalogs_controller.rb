@@ -23,24 +23,13 @@ class CatalogsController < ApplicationController
     search
   end
 
-  def add_antibounce_box(search, params)
-    brands = search.expressions["brand"].to_a.map {|b| b.downcase }
-    if AntibounceBox.need_antibounce_box?(@search, brands, params)
-      @antibounce_box = AntibounceBox.new(params)
-    end
-  end
-
   def index
     search_params = SeoUrl.parse(path: request.fullpath, path_positions: '/:category:/:subcategory:-:brand:/:care:_:color:_:size:_:heel:')
     Rails.logger.debug("New params: #{params.inspect}")
 
     @campaign = add_campaign(params)
     @search = add_search_result(search_params, params)
-
     @url_builder = SeoUrl.new(path: request.fullpath, path_positions: '/:category:/:subcategory:-:brand:/:care:_:color:_:size:_:heel:', search: @search)
-
-    add_antibounce_box(@search, params)
-
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     @pixel_information = @category = params[:category]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
@@ -57,7 +46,6 @@ class CatalogsController < ApplicationController
   add_method_tracer :parse_parameters_from, 'Custom/CatalogsController/parse_parameters_from'
   add_method_tracer :add_campaign, 'Custom/CatalogsController/add_campaign'
   add_method_tracer :add_search_result, 'Custom/CatalogsController/add_search_result'
-  add_method_tracer :add_antibounce_box, 'Custom/CatalogsController/add_antibounce_box'
 
   private
     
