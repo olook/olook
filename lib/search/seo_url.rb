@@ -244,8 +244,10 @@ class SeoUrl
     end
 
     def extract_subcategories
-      subcategories_and_brands = @params[:parameters].to_s.split("/").first.split(MULTISELECTION_SEPARATOR) rescue []
       _all_subcategories = all_subcategories || []
+      subcategories_and_brands = @params[:parameters].to_s.split("/").map do |section|
+        section.split(MULTISELECTION_SEPARATOR) rescue []
+      end.flatten
       unless @params[:search]
         _all_subcategories -= CARE_PRODUCTS.map { |s| ActiveSupport::Inflector.transliterate(s) }
       end
