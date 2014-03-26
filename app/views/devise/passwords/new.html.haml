@@ -1,0 +1,20 @@
+- content_for :head do
+  = stylesheet_link_tag "section/forget_password"
+%section#forget_password
+  %h1 Esqueceu sua senha?
+  = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+    = render :partial => "shared/errors", :locals => { :object => resource }
+    %fieldset.inputs
+      %ol
+        %li
+          = label_tag 'user_email', "Email:"
+          = f.email_field :email
+    %fieldset.buttons
+      %ol
+        %li
+          = f.submit "RECRIAR SENHA"
+  = render :partial => "shared/social_links"
+.quiz_login
+  =image_tag "login/olook_vantagens.png"
+  = link_to image_tag("login/quiz.jpg", :class => "quiz_img"), survey_path, :target => "blank"
+  = link_to 'Responder ao quiz', survey_path, :target => "blank", :class => "bt_quiz"

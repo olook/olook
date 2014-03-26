@@ -5,7 +5,7 @@ class Admin::BraspagAuthorizeResponsesController < Admin::BaseController
 
   def index
   	@search = BraspagAuthorizeResponse.search(params[:search])
-  	@responses = @search.relation.page(params[:page]).per_page(100).order('processed asc, id asc')
+  	@responses = @search.relation.page(params[:page]).per_page(50).order('processed asc, id asc')
   end
 
   def show
