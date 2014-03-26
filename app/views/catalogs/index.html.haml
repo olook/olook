@@ -78,7 +78,7 @@
         .loading
 
       .pagination
-        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @url_builder.current_filters {|_params| _params.merge({por:params[:por]}).merge(hash) }}
+        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @search.current_filters {|_params| _params.merge({por:params[:por]}).merge(hash) }}
 
       .banner
         = banner_for(@category, position: :botton)
