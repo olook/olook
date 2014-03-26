@@ -152,7 +152,7 @@ class SeoUrl
   def build_query_string(parameters)
     parameters.map do |k, v|
       if k.present? && v.present?
-        vs = v.to_a.map do |_v|
+        vs = [v].flatten.map do |_v|
           VALUES_TRANSLATION[_v.to_s] ? VALUES_TRANSLATION[_v.to_s] : _v.to_s
         end.compact
         "#{KEYS_TRANSLATION.invert[k.to_s]}=#{vs.join(MULTISELECTION_SEPARATOR)}"
