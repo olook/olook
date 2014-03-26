@@ -47,18 +47,18 @@ describe SeoUrl do
           end
         end
         context "and filtering by care products" do
-          subject { described_class.new(path: '/sapato/conforto-amaciante-palmilha', path_positions: '/:category:/-:brand::subcategory:-/_:care::color::size::heel:-') }
+          subject { described_class.new(path: '/sapato/conforto-amaciante-palmilha', path_positions: '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_') }
           it { expect(subject.parse_params[:category]).to match(/Sapato/i) }
           it { expect(subject.parse_params[:care]).to match(/amaciante-palmilha/i) }
         end
       end
       context "filtering by subcategory" do
         context "one subcategory" do
-          subject { described_class.new(path: '/sapato/bota', path_positions:  '/:category:/-:brand::subcategory:-/_:care::color::size::heel:-') }
+          subject { described_class.new(path: '/sapato/bota', path_positions:  '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_') }
           it { expect(subject.parse_params[:subcategory]).to match(/bota/i) }
         end
         context "multiple subcategories" do
-          subject { described_class.new(path: '/sapato/bota-scarpin', path_positions: '/:category:/-:brand::subcategory:-/_:care::color::size::heel:-') }
+          subject { described_class.new(path: '/sapato/bota-scarpin', path_positions: '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_') }
           it { expect(subject.parse_params[:category]).to match(/sapato/i) }
           it { expect(subject.parse_params[:subcategory]).to match(/bota/i) }
           it { expect(subject.parse_params[:subcategory]).to match(/scarpin/i) }
@@ -66,27 +66,27 @@ describe SeoUrl do
       end
       context "filtering by colors and size" do
         context "one color" do
-          subject { described_class.new(path: '/sapato/bota/cor-azul', path_positions: '/:category:/-:brand::subcategory:-/_:care::color::size::heel:-') }
+          subject { described_class.new(path: '/sapato/bota/cor-azul', path_positions: '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_') }
           it { expect(subject.parse_params[:subcategory]).to match(/bota/i) }
           it { expect(subject.parse_params[:color]).to match(/azul/i) }
         end
         context "one size" do
-          subject { described_class.new(path: '/sapato/bota/tamanho-37', path_positions: '/:category:/-:brand::subcategory:-/_:care::color::size::heel:-') }
+          subject { described_class.new(path: '/sapato/bota/tamanho-37', path_positions: '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_') }
           it { expect(subject.parse_params[:subcategory]).to match(/bota/i) }
           it { expect(subject.parse_params[:size]).to match(/37/i) }
         end
         context "multiple colors" do
-          subject { described_class.new(path: '/sapato/bota/cor-azul-amarelo', path_positions: '/:category:/-:brand::subcategory:-/_:care::color::size::heel:-') }
+          subject { described_class.new(path: '/sapato/bota/cor-azul-amarelo', path_positions: '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_') }
           it { expect(subject.parse_params[:subcategory]).to match(/bota/i) }
           it { expect(subject.parse_params[:color]).to match(/azul-amarelo/i) }
         end
         context "multiple sizes" do
-          subject { described_class.new(path: '/sapato/bota/tamanho-37-40', path_positions: '/:category:/-:brand::subcategory:-/_:care::color::size::heel:-') }
+          subject { described_class.new(path: '/sapato/bota/tamanho-37-40', path_positions: '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_') }
           it { expect(subject.parse_params[:subcategory]).to match(/bota/i) }
           it { expect(subject.parse_params[:size]).to match(/37-40/i) }
         end
         context "colors and sizes" do
-          subject { described_class.new(path: '/sapato/bota/cor-azul_tamanho-37', path_positions: '/:category:/-:brand::subcategory:-/_:care::color::size::heel:-') }
+          subject { described_class.new(path: '/sapato/bota/cor-azul_tamanho-37', path_positions: '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_') }
           it { expect(subject.parse_params[:subcategory]).to match(/bota/i) }
           it { expect(subject.parse_params[:color]).to match(/azul/i) }
           it { expect(subject.parse_params[:size]).to match(/37/i) }
@@ -119,6 +119,15 @@ describe SeoUrl do
     context "with custom path_positions" do
       subject { described_class.new(path: '/marcas/olook/sapato', path_positions: '/marcas/:brand:/-:category::subcategory-/_:color::size::heel:-') }
       it { expect(subject.parse_params[:brand]).to match(/Olook/i) }
+    end
+
+    context "path with separators" do
+      subject { described_class.new(path: '/sapato-roupa/cor-azul_tamanho-36-M', path_positions: '/-:category:-/-:subcategory:-/-:color::size::heel:_') }
+      it { expect(subject.parse_params[:category]).to match(/sapato/i) }
+      it { expect(subject.parse_params[:category]).to match(/roupa/i) }
+      it { expect(subject.parse_params[:color]).to match(/azul/i) }
+      it { expect(subject.parse_params[:size]).to match(/36/i) }
+      it { expect(subject.parse_params[:size]).to match(/M/i) }
     end
   end
 

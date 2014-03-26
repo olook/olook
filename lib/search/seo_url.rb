@@ -176,8 +176,8 @@ class SeoUrl
   private
 
   ['color', 'size', 'heel', 'care'].each do |f|
-    define_method "extract_#{f}" do |path_section|
-      parse_filters(path_section)[f]
+    define_method "extract_#{f}" do |path_section, section|
+      parse_filters(path_section, section)[f]
     end
   end
 
@@ -202,7 +202,7 @@ class SeoUrl
     section_proceseed = false
     section[:fields].each do |field|
       begin
-        processed = send("extract_#{field}", path_section.dup)
+        processed = send("extract_#{field}", path_section.dup, section)
         if !processed.blank?
           @parsed_values[field] = processed
           section_proceseed = true
@@ -214,7 +214,7 @@ class SeoUrl
     section_proceseed
   end
 
-  def extract_collection_theme(path_section)
+  def extract_collection_theme(path_section, section)
     path_section.to_s
   end
 
@@ -255,7 +255,7 @@ class SeoUrl
     parsed_values
   end
 
-  def extract_brand(path_section)
+  def extract_brand(path_section, section)
     param_brand = path_section
 
     sorted_brands = all_brands.sort do |a,b|
@@ -269,11 +269,11 @@ class SeoUrl
       end
     end
 
-    brands = brands.join(MULTISELECTION_SEPARATOR) if brands.any?
+    brands = brands.join(section[:value_separator]) if brands.any?
     brands
   end
 
-  def extract_category(path_section)
+  def extract_category(path_section, section)
     param_category = path_section
 
     _categories = all_categories.select do |c|
@@ -282,11 +282,11 @@ class SeoUrl
         true
       end
     end
-    _categories = _categories.join(MULTISELECTION_SEPARATOR) if _categories.any?
+    _categories = _categories.join(section[:value_separator]) if _categories.any?
     _categories
   end
 
-  def extract_subcategory(path_section)
+  def extract_subcategory(path_section, section)
     param_subcategory = path_section
     _subcategories = all_subcategories.select do |c|
       if CARE_PRODUCTS.include?(c)
@@ -296,7 +296,7 @@ class SeoUrl
         true
       end
     end
-    _subcategories = _subcategories.join(MULTISELECTION_SEPARATOR) if _subcategories.any?
+    _subcategories = _subcategories.join(section[:value_separator]) if _subcategories.any?
     _subcategories
   end
 
@@ -309,13 +309,13 @@ class SeoUrl
     cat
   end
 
-  def parse_filters(path_section)
+  def parse_filters(path_section, section)
     filter_params = path_section
     parsed_values = {}
-    filter_params.to_s.split(FIELD_SEPARATOR).each do |item|
-      auxs = item.split(MULTISELECTION_SEPARATOR)
+    filter_params.to_s.split(section[:separator]).each do |item|
+      auxs = item.split(section[:value_separator])
       key = auxs.shift
-      vals = auxs.join(MULTISELECTION_SEPARATOR)
+      vals = auxs.join(section[:value_separator])
       parsed_values[KEYS_TRANSLATION[key]] = vals
     end
     parsed_values
