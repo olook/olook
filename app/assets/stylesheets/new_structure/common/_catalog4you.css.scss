@@ -9,7 +9,7 @@ ul#products{
     position: relative;
     height:325px;
     float:left;
-    margin:0 7px 14px 7px;
+    margin:0 5px 14px 5px;
     a{color:#000;
       text-decoration:none;
       font-size:11px !important;
@@ -18,6 +18,7 @@ ul#products{
         font-size:11px !important;
         height:18px;
         overflow:hidden;
+        display: block;
       }
       .brand {
         text-transform: uppercase;
