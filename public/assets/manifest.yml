@@ -335,6 +335,8 @@ cart/warning_coupon.png: cart/warning_coupon-73b5bf0243581e68ccb02b416385200b.pn
 cart/warning_coupon/index.png: cart/warning_coupon-73b5bf0243581e68ccb02b416385200b.png
 catalog/banner_quiz.jpg: catalog/banner_quiz-1733e9226be563371ee489794c3f761f.jpg
 catalog/banner_quiz/index.jpg: catalog/banner_quiz-1733e9226be563371ee489794c3f761f.jpg
+catalog/banner_quiz_catalog.jpg: catalog/banner_quiz_catalog-67c00b887dc04112405e5bd1deb68f1f.jpg
+catalog/banner_quiz_catalog/index.jpg: catalog/banner_quiz_catalog-67c00b887dc04112405e5bd1deb68f1f.jpg
 catalog/banner_quiz_primavera.jpg: catalog/banner_quiz_primavera-e3a05f36e99f66498bcba287961c1c76.jpg
 catalog/banner_quiz_primavera/index.jpg: catalog/banner_quiz_primavera-e3a05f36e99f66498bcba287961c1c76.jpg
 catalog/banner_quiz_sem_mari.jpg: catalog/banner_quiz_sem_mari-fda9f0fdc0bb2c1afbd61cba9a81cb29.jpg
@@ -2030,12 +2032,12 @@ _search_bar.js: _search_bar-d38e31ce57b40c04282902f3b646bcd2.js
 _search_bar/index.js: _search_bar-d38e31ce57b40c04282902f3b646bcd2.js
 addresses.js: addresses-36c60c34d0185f9fad6cfb83a950baa3.js
 addresses/index.js: addresses-36c60c34d0185f9fad6cfb83a950baa3.js
-admin.js: admin-d5db22696a6677113ebb1cbb5ca922bd.js
-admin/index.js: admin-d5db22696a6677113ebb1cbb5ca922bd.js
+admin.js: admin-c625af95dd73d0921af9e95c490d3a57.js
+admin/index.js: admin-c625af95dd73d0921af9e95c490d3a57.js
 admin/bootstrap.js: admin/bootstrap-142c4cbd713d4a86bb9b4ab506d57a15.js
 admin/bootstrap/index.js: admin/bootstrap-142c4cbd713d4a86bb9b4ab506d57a15.js
-admin/catalog_landing_page.js: admin/catalog_landing_page-fa66dfc0484470353039d729ad09d838.js
-admin/catalog_landing_page/index.js: admin/catalog_landing_page-fa66dfc0484470353039d729ad09d838.js
+admin/catalog_landing_page.js: admin/catalog_landing_page-651c9f4f0c876e2057264856da79744f.js
+admin/catalog_landing_page/index.js: admin/catalog_landing_page-651c9f4f0c876e2057264856da79744f.js
 admin/coupons.js: admin/coupons-7e8a80e6371510b26eba129f183c5ae1.js
 admin/coupons/index.js: admin/coupons-7e8a80e6371510b26eba129f183c5ae1.js
 admin/credit.js: admin/credit-75daa25e6fb47938fc8bda89936bdec2.js
@@ -2256,8 +2258,8 @@ register.js: register-cc2be65181aef10c48f3cc61191ab28a.js
 register/index.js: register-cc2be65181aef10c48f3cc61191ab28a.js
 reseller.js: reseller-5af2d1f176da392739be9b6c093a6810.js
 reseller/index.js: reseller-5af2d1f176da392739be9b6c093a6810.js
-section/admin/catalog_header.js: section/admin/catalog_header-6bd21270fa40261f3c780134dc87b8b9.js
-section/admin/catalog_header/index.js: section/admin/catalog_header-6bd21270fa40261f3c780134dc87b8b9.js
+section/admin/catalog_header.js: section/admin/catalog_header-7bf6f61cbbf38b6461e9d42b3ab003c7.js
+section/admin/catalog_header/index.js: section/admin/catalog_header-7bf6f61cbbf38b6461e9d42b3ab003c7.js
 section/admin/clippings.js: section/admin/clippings-c74f0397bcc2180880641c2ad25e33d0.js
 section/admin/clippings/index.js: section/admin/clippings-c74f0397bcc2180880641c2ad25e33d0.js
 section/brands.js: section/brands-f695ac6e409cb04fa9de8197bdfb48c1.js
@@ -2498,8 +2500,8 @@ section/earn_credits.css: section/earn_credits-c828755844c2afda2eb7bb0a49af7d41.
 section/earn_credits/index.css: section/earn_credits-c828755844c2afda2eb7bb0a49af7d41.css
 section/error.css: section/error-6463065577869d51df988ad3f8263209.css
 section/error/index.css: section/error-6463065577869d51df988ad3f8263209.css
-section/forget_password.css: section/forget_password-7ded80f1dd81ab87298322263a6e17b9.css
-section/forget_password/index.css: section/forget_password-7ded80f1dd81ab87298322263a6e17b9.css
+section/forget_password.css: section/forget_password-eb2ad4afceb8efa5020cebf82eb40314.css
+section/forget_password/index.css: section/forget_password-eb2ad4afceb8efa5020cebf82eb40314.css
 section/friends.css: section/friends-f99822cad0d7593268d7c4945314cd36.css
 section/friends/index.css: section/friends-f99822cad0d7593268d7c4945314cd36.css
 section/gift.css: section/gift-c93402f8781f32bfabbb84fe61a0333b.css

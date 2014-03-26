@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe CatalogHeader::SmallBannerCatalogHeader do
+describe SmallBannerCatalogHeader do
   it { should validate_presence_of(:medium_banner) }
   it { should validate_presence_of(:link_medium_banner) }
   it { should validate_presence_of(:alt_medium_banner) }
