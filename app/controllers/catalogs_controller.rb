@@ -14,22 +14,20 @@ class CatalogsController < ApplicationController
   end
 
   def add_search_result(search_params, params)
-    page_size = params[:page_size] || DEFAULT_PAGE_SIZE
+    search_params[:limit] = params[:page_size] || DEFAULT_PAGE_SIZE
+    search_params[:page] = params[:page]
+    search_params[:admin] = !!current_admin
     search = SearchEngineWithDynamicFilters.new(search_params, true)
-      .for_page(params[:page])
-      .with_limit(page_size)
-
-    search.for_admin if current_admin
     search
   end
 
   def index
-    search_params = SeoUrl.parse(path: request.fullpath, path_positions: '/:category:/:subcategory:-:brand:/:care:_:color:_:size:_:heel:')
     Rails.logger.debug("New params: #{params.inspect}")
 
     @campaign = add_campaign(params)
-    @search = add_search_result(search_params, params)
-    @url_builder = SeoUrl.new(path: request.fullpath, path_positions: '/:category:/:subcategory:-:brand:/:care:_:color:_:size:_:heel:', search: @search)
+    @url = SeoUrl.new(path: request.fullpath, path_positions: '/:category:/-:subcategory::brand:-/-:care::color::size::heel:_')
+    @search = add_search_result(@url.parse_params, params)
+    @url.set_search @search
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     @pixel_information = @category = params[:category]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
@@ -37,10 +35,6 @@ class CatalogsController < ApplicationController
     @subcategory = @search.expressions[:subcategory].to_a.first
     params[:category] = @search.expressions[:category].to_a.first
 
-    @url_builder.set_link_builder do |_param|
-      _param.slice!("#{@category}-")
-      catalog_path(@category, _param)
-    end
     expire_fragment(@cache_key) if params[:force_cache].to_i == 1
   end
 
