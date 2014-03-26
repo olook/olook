@@ -91,6 +91,17 @@ class SearchEngine
     self
   end
 
+  def page=(val)
+    for_page(val)
+  end
+
+  def limit=(val)
+    with_limit(val)
+  end
+
+  def admin=(val)
+    for_admin if val
+  end
 
   def category= _category
     if _category == "roupa" && !@skip_beachwear_on_clothes

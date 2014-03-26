@@ -8,6 +8,17 @@ describe SeoUrl do
     described_class.stub(:db_brands).and_return(["Colcci","Olook"])
   end
 
+  context "with params setted in query" do
+    subject { described_class.new(path: '/sapato/boneca-sapatilha/tamanho-37s?page=2&por=maior-preco&preco=50-600', path_positions: '/:category:/-:subcategory:-/-:size:_')}
+    it { expect(subject.parse_params[:category]).to match(/sapato/i) }
+    it { expect(subject.parse_params[:subcategory]).to match(/boneca/i) }
+    it { expect(subject.parse_params[:subcategory]).to match(/sapatilha/i) }
+    it { expect(subject.parse_params[:size]).to match(/37s/i) }
+    it { expect(subject.parse_params[:sort]).to match(/retail_price/i) }
+    it { expect(subject.parse_params[:page]).to match(/2/i) }
+    it { expect(subject.parse_params[:price]).to match(/50-600/i) }
+  end
+
   describe "#parse_params" do
     context "Main keys" do
       context "that include collection themes" do

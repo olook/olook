@@ -61,13 +61,13 @@
         / .chaordic.mostpopular
 
       .row{style: 'position:relative'}
-        = render "ordenation_filters", search: @search, url_builder: @url_builder
+        = render "ordenation_filters", search: @search, url_builder: @url
         - unless @category == 'bolsa'
           .size_top
             %p.title-category Qual seu tamanho?
             %ul.category-list
               - size_list(@category, @search, @category[0].downcase).each do |text, amount|
-                %li{ :class => category_style_class(text)}= filter_link_to(catalog_path(@category, @url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
+                %li{ :class => category_style_class(text)}= filter_link_to(catalog_path(@category, @url.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
             
       = render 'current_section', search: @search
 
@@ -78,7 +78,7 @@
         .loading
 
       .pagination
-        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @url_builder.current_filters {|_params| _params.merge({por:params[:por]}).merge(hash) }}
+        = render "shared/nav_bar_pagination", search: @search, url_builder: @url, link: lambda{ |hash| @url.current_filters {|_params| _params.merge({por:params[:por]}).merge(hash) }}
 
       .banner
         = banner_for(@category, position: :botton)

@@ -57,6 +57,10 @@ class SeoUrl
     @path_positions = optionals[:path_positions] || DEFAULT_POSITIONS
   end
 
+  def set_search(search)
+    @search = search
+  end
+
   def set_link_builder(&blk)
     @link_builder = blk
   end
@@ -80,22 +84,22 @@ class SeoUrl
 
   def current_filters(&blk)
     parameters = HashWithIndifferentAccess.new(@search.current_filters.dup)
-    parameters = build_link_for(parameters)
     parameters = blk.call(parameters) if blk
+    parameters = build_link_for(parameters)
     @link_builder.call(parameters)
   end
 
   def remove_filter_of(filter, &blk)
     parameters = HashWithIndifferentAccess.new(@search.remove_filter(filter.to_sym).dup)
-    parameters = build_link_for(parameters)
     parameters = blk.call(parameters) if blk
+    parameters = build_link_for(parameters)
     @link_builder.call(parameters)
   end
 
   def replace_filter(filter, filter_text, &blk)
     parameters = HashWithIndifferentAccess.new(@search.replace_filter(filter.to_sym, filter_text.chomp).dup)
-    parameters = build_link_for(parameters)
     parameters = blk.call(parameters) if blk
+    parameters = build_link_for(parameters)
     @link_builder.call(parameters)
   end
 
@@ -113,67 +117,48 @@ class SeoUrl
   def build_link_for _parameters={}
     parameters = _parameters.dup
     parse_path_positions if @sections.blank?
-    url = @sections.map do |section|
-      if section[:fields].blank?
-        section[:format]
-      else
-        fields = section[:fields].map do |field|
-          values = parameters.delete(field.to_sym)
-          if values
-            if FIELDS_WITH_KEYS_IN_URL.include?(field)
-              "#{KEYS_TRANSLATION.invert[field.to_s]}#{section[:value_separator]}#{values.join(section[:value_separator])}"
-            else
-              values.join(section[:value_separator])
-            end
-          end
-        end
-        fields.compact!
-        fields.join(section[:separator]) if fields.size > 0
-      end
-    end
-    url.compact!
 
-    query = parameters.map do |k, v|
-      "#{KEYS_TRANSLATION.invert[k.to_s]}=#{v.join(MULTISELECTION_SEPARATOR)}"
-    end
+    url = @sections.map do |section|
+      build_path_string(parameters, section)
+    end.compact
+
+    query = build_query_string(parameters)
 
     full_path = "/#{url.join('/')}"
     full_path.concat("?#{query.join('&')}") if query.present?
     full_path
-    # other_parameters = @params.dup
-    # return_hash = {}
-    # return_hash[:brand] = parameters.delete(:brand).map{|b| b.parameterize }.join(MULTISELECTION_SEPARATOR) if parameters[:brand].present?
-    # return_hash[:subcategory] = ActiveSupport::Inflector.transliterate(parameters.delete(:subcategory).join(MULTISELECTION_SEPARATOR).downcase) if parameters[:subcategory].present?
-    # return_hash[:category] = ActiveSupport::Inflector.transliterate(parameters.delete(:category).first.to_s).downcase if parameters[:category].present?
-
-    # post_parameters = {}
-    # other_parameters.select{|k,v| PARAMETERS_WHITELIST.include?(k.to_s) }.each do |k,v|
-    #   if k.to_s == "sort"
-    #     v = VALUES.invert[v]
-    #   end
-    #   post_parameters[VALUES.invert[k.to_s]] = v.respond_to?(:join) ? v.join(MULTISELECTION_SEPARATOR) : v
-    # end
-
-    # filter_params = []
-    # parameters.each do |k, v|
-    #   if v.respond_to?(:join)
-    #     filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| (_v =~ /heeluint/) ? _v.split(':').last.gsub("..","-") : ActiveSupport::Inflector.transliterate(_v).downcase}.join(MULTISELECTION_SEPARATOR)}" if v.present? && PARAMETERS_BLACKLIST.exclude?(k.to_s) && VALUES.invert[k.to_s]
-    #   end
-    # end
-    # return_hash[:filter_params] = filter_params.join(FIELD_SEPARATOR)
-    # return_hash[:order_params] = post_parameters
-
-    # return_hash.delete(@current_key.to_sym) if @current_key
-    # path = [ return_hash[:category], return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join(MULTISELECTION_SEPARATOR)
-    # url = [path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/')
-    # unless return_hash[:order_params].empty?
-    #   url.concat('?')
-    #   url.concat(return_hash[:order_params].map { |k,v| "#{k}=#{v}" } .join('&'))
-    # end
-    # url
   end
 
   private
+
+  def build_path_string(parameters, section)
+    if section[:fields].blank?
+      section[:format]
+    else
+      fields = section[:fields].map do |field|
+        values = parameters.delete(field.to_sym)
+        if values
+          if FIELDS_WITH_KEYS_IN_URL.include?(field)
+            "#{KEYS_TRANSLATION.invert[field.to_s]}#{section[:value_separator]}#{values.join(section[:value_separator])}"
+          else
+            values.join(section[:value_separator])
+          end
+        end
+      end.compact
+      fields.join(section[:separator]) if fields.size > 0
+    end
+  end
+
+  def build_query_string(parameters)
+    parameters.map do |k, v|
+      if k.present? && v.present?
+        vs = v.to_a.map do |_v|
+          VALUES_TRANSLATION[_v.to_s] ? VALUES_TRANSLATION[_v.to_s] : _v.to_s
+        end.compact
+        "#{KEYS_TRANSLATION.invert[k.to_s]}=#{vs.join(MULTISELECTION_SEPARATOR)}"
+      end
+    end
+  end
 
   ['color', 'size', 'heel', 'care'].each do |f|
     define_method "extract_#{f}" do |path_section, section|
@@ -250,6 +235,8 @@ class SeoUrl
     @params.each do |k, v|
       if KEYS_TRANSLATION[k]
         parsed_values[KEYS_TRANSLATION[k]] = VALUES_TRANSLATION[v].present? ? VALUES_TRANSLATION[v] : v
+      else
+        parsed_values[k] = VALUES_TRANSLATION[v].present? ? VALUES_TRANSLATION[v] : v
       end
     end
     parsed_values
