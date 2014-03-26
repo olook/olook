@@ -33,12 +33,13 @@ class CatalogsController < ApplicationController
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     @pixel_information = @category = params[:category]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
-    @category = @search.expressions[:category].to_a.first
+    @category = @search.expressions[:category].to_a.first.downcase
     @subcategory = @search.expressions[:subcategory].to_a.first
     params[:category] = @search.expressions[:category].to_a.first
 
     @url_builder.set_link_builder do |_param|
-      catalog_path(@category, _param[:parameters])
+      _param.slice!("#{@category}-")
+      catalog_path(@category, _param)
     end
     expire_fragment(@cache_key) if params[:force_cache].to_i == 1
   end
