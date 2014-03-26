@@ -7,7 +7,7 @@ var FacebookAuthSuccess = (function(){
 
   FacebookAuthSuccess.prototype.facade = function (result) {
     if(result.redirectTo){
-      _gaq.push(['_trackEvent', 'FacebookLogin', 'ClickSubmit', true]);
+      _gaq.push(['_trackEvent', 'FacebookLogin', 'ClickSubmit',, true]);
       window.location = result.redirectTo;
     }
   };
