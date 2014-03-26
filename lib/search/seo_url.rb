@@ -2,21 +2,27 @@
 require 'active_support/inflector'
 class SeoUrl
 
-  VALUES = HashWithIndifferentAccess.new({
+  KEYS_TRANSLATION = HashWithIndifferentAccess.new({
     "tamanho" => "size",
     "cor" => "color",
     "preco" => "price",
     "salto" => "heel",
     "colecao" => "collection",
     "por" => "sort",
-    "menor-preco" => "retail_price",
-    "maior-preco" => "-retail_price",
-    "maior-desconto" => "-desconto",
     "novidade" => "age",
     "conforto" => "care",
     "colecao" => "collection",
-    "por_pagina" => "per_page"
+    "por_pagina" => "per_page",
+    "categoria" => "category",
+    "modelo" => "subcategory",
+    "marca" => "brand"
   })
+  VALUES_TRANSLATION = HashWithIndifferentAccess.new({
+    "menor-preco" => "retail_price",
+    "maior-preco" => "-retail_price",
+    "maior-desconto" => "-desconto"
+  })
+  FIELDS_WITH_KEYS_IN_URL = Set.new(['color', 'size', 'heel', 'care'])
   CARE_PRODUCTS = [
     'Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar',
     'amaciante', 'apoio plantar', 'impermeabilizante', 'palmilha', 'proteção para calcanhar',
@@ -104,6 +110,69 @@ class SeoUrl
     YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_categories.yml' ) ) ) )
   end
 
+  def build_link_for _parameters={}
+    parameters = _parameters.dup
+    parse_path_positions if @sections.blank?
+    url = @sections.map do |section|
+      if section[:fields].blank?
+        section[:format]
+      else
+        fields = section[:fields].map do |field|
+          values = parameters.delete(field.to_sym)
+          if values
+            if FIELDS_WITH_KEYS_IN_URL.include?(field)
+              "#{KEYS_TRANSLATION.invert[field.to_s]}#{section[:value_separator]}#{values.join(section[:value_separator])}"
+            else
+              values.join(section[:value_separator])
+            end
+          end
+        end
+        fields.compact!
+        fields.join(section[:separator]) if fields.size > 0
+      end
+    end
+    url.compact!
+
+    query = parameters.map do |k, v|
+      "#{KEYS_TRANSLATION.invert[k.to_s]}=#{v.join(MULTISELECTION_SEPARATOR)}"
+    end
+
+    full_path = "/#{url.join('/')}"
+    full_path.concat("?#{query.join('&')}") if query.present?
+    full_path
+    # other_parameters = @params.dup
+    # return_hash = {}
+    # return_hash[:brand] = parameters.delete(:brand).map{|b| b.parameterize }.join(MULTISELECTION_SEPARATOR) if parameters[:brand].present?
+    # return_hash[:subcategory] = ActiveSupport::Inflector.transliterate(parameters.delete(:subcategory).join(MULTISELECTION_SEPARATOR).downcase) if parameters[:subcategory].present?
+    # return_hash[:category] = ActiveSupport::Inflector.transliterate(parameters.delete(:category).first.to_s).downcase if parameters[:category].present?
+
+    # post_parameters = {}
+    # other_parameters.select{|k,v| PARAMETERS_WHITELIST.include?(k.to_s) }.each do |k,v|
+    #   if k.to_s == "sort"
+    #     v = VALUES.invert[v]
+    #   end
+    #   post_parameters[VALUES.invert[k.to_s]] = v.respond_to?(:join) ? v.join(MULTISELECTION_SEPARATOR) : v
+    # end
+
+    # filter_params = []
+    # parameters.each do |k, v|
+    #   if v.respond_to?(:join)
+    #     filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| (_v =~ /heeluint/) ? _v.split(':').last.gsub("..","-") : ActiveSupport::Inflector.transliterate(_v).downcase}.join(MULTISELECTION_SEPARATOR)}" if v.present? && PARAMETERS_BLACKLIST.exclude?(k.to_s) && VALUES.invert[k.to_s]
+    #   end
+    # end
+    # return_hash[:filter_params] = filter_params.join(FIELD_SEPARATOR)
+    # return_hash[:order_params] = post_parameters
+
+    # return_hash.delete(@current_key.to_sym) if @current_key
+    # path = [ return_hash[:category], return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join(MULTISELECTION_SEPARATOR)
+    # url = [path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/')
+    # unless return_hash[:order_params].empty?
+    #   url.concat('?')
+    #   url.concat(return_hash[:order_params].map { |k,v| "#{k}=#{v}" } .join('&'))
+    # end
+    # url
+  end
+
   private
 
   ['color', 'size', 'heel', 'care'].each do |f|
@@ -154,8 +223,9 @@ class SeoUrl
     @path_positions.split('/').each do |format|
       next if format.blank?
       section = { format: format }
-      if /:\w+:(?<separator>[^:\/]*)/ =~ format
+      if /^(?<value_separator>[^:])?(?::\w+:)+(?<separator>[^:])?$/ =~ format
         section[:separator] = separator
+        section[:value_separator] = value_separator || separator
         section[:fields] = format.scan(/:\w+:/).map { |field| field.to_s[1..-2] }
       end
       @sections.push(section)
@@ -171,40 +241,6 @@ class SeoUrl
     end
   end
 
-  def build_link_for parameters
-    other_parameters = @params.dup
-    return_hash = {}
-    return_hash[:brand] = parameters.delete(:brand).map{|b| b.parameterize }.join(MULTISELECTION_SEPARATOR) if parameters[:brand].present?
-    return_hash[:subcategory] = ActiveSupport::Inflector.transliterate(parameters.delete(:subcategory).join(MULTISELECTION_SEPARATOR).downcase) if parameters[:subcategory].present?
-    return_hash[:category] = ActiveSupport::Inflector.transliterate(parameters.delete(:category).first.to_s).downcase if parameters[:category].present?
-
-    post_parameters = {}
-    other_parameters.select{|k,v| PARAMETERS_WHITELIST.include?(k.to_s) }.each do |k,v|
-      if k.to_s == "sort"
-        v = VALUES.invert[v]
-      end
-      post_parameters[VALUES.invert[k.to_s]] = v.respond_to?(:join) ? v.join(MULTISELECTION_SEPARATOR) : v
-    end
-
-    filter_params = []
-    parameters.each do |k, v|
-      if v.respond_to?(:join)
-        filter_params << "#{VALUES.invert[k.to_s]}-#{v.map{|_v| (_v =~ /heeluint/) ? _v.split(':').last.gsub("..","-") : ActiveSupport::Inflector.transliterate(_v).downcase}.join(MULTISELECTION_SEPARATOR)}" if v.present? && PARAMETERS_BLACKLIST.exclude?(k.to_s) && VALUES.invert[k.to_s]
-      end
-    end
-    return_hash[:filter_params] = filter_params.join(FIELD_SEPARATOR)
-    return_hash[:order_params] = post_parameters
-
-    return_hash.delete(@current_key.to_sym) if @current_key
-    path = [ return_hash[:category], return_hash[:brand], return_hash[:subcategory] ].flatten.select {|p| p.present? }.uniq.map{ |p| ActiveSupport::Inflector.transliterate(p).downcase }.join(MULTISELECTION_SEPARATOR)
-    url = [path, return_hash[:filter_params]].reject { |p| p.blank? }.join('/')
-    unless return_hash[:order_params].empty?
-      url.concat('?')
-      url.concat(return_hash[:order_params].map { |k,v| "#{k}=#{v}" } .join('&'))
-    end
-    url
-  end
-
   def all_brands
     YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_brands.yml' ) ) ) )
   end
@@ -212,8 +248,8 @@ class SeoUrl
   def parse_order
     parsed_values = {}
     @params.each do |k, v|
-      if VALUES[k]
-        parsed_values[VALUES[k]] = VALUES[v].present? ? VALUES[v] : v
+      if KEYS_TRANSLATION[k]
+        parsed_values[KEYS_TRANSLATION[k]] = VALUES_TRANSLATION[v].present? ? VALUES_TRANSLATION[v] : v
       end
     end
     parsed_values
@@ -280,7 +316,7 @@ class SeoUrl
       auxs = item.split(MULTISELECTION_SEPARATOR)
       key = auxs.shift
       vals = auxs.join(MULTISELECTION_SEPARATOR)
-      parsed_values[VALUES[key]] = vals
+      parsed_values[KEYS_TRANSLATION[key]] = vals
     end
     parsed_values
   end
