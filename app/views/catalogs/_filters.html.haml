@@ -29,7 +29,7 @@
         %li= filter_link_to(@url.add_filter(:subcategory, text), text.chomp, search.filter_selected?(:subcategory, text.chomp))
       %li= link_to("Limpar Filtro", @url.remove_filter_of(:subcategory), :class => "clean") if search.filter_value(:subcategory).present?
 
-- if search.filter_value('category').to_a.include?('sapato')
+- if search.filter_value('category').to_a.map(&:downcase).include?('sapato')
   .filter
     %p.title-category Salto
     %ul.category-list
