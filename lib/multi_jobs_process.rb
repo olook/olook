@@ -42,7 +42,6 @@ module MultiJobsProcess
   end
 
   def cache_key
-    puts self.class.name
     self.class.name
   end
 
