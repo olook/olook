@@ -1,0 +1,22 @@
+= stylesheet_link_tag  "common/mkt_breadcrumb"
+%section.newsletter
+  .feedback.js-success.js-footerbox
+    %p
+      Cadastro realizado com sucesso! Utilize o cupom 
+      %span
+        XXXXXXXXX
+      na sacola para receber os R$30 grátis
+  .denied.js-error.js-footerbox
+    %p
+      Oops! Verificamos que seu e-mail já está cadastrado.
+  - unless user_signed_in?
+    %ul.mail
+      %p
+        Nova por aqui?
+        %span
+          R$30 GRÁTIS 
+        na primeira compra cadastre-se agora
+      %fieldset
+        =text_field_tag :email, "", :class => "box_mail js-newsletter js-footerbox", :default_value => "Digite aqui seu e-mail"
+      %fieldset.botao
+        =submit_tag "CADASTRAR", :class => "bt_enviar js-subscribe js-footerbox"
