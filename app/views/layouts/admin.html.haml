@@ -55,7 +55,7 @@
               %span Promoções
               %ul
                 %li= access_link("Promotions")
-                %li= access_link_generic(name: :visibility_batch, location: "admin.product.liquidation", path: admin_new_visibility_batch_path, action: "new")
+                %li= access_link_generic(name: "VisibilityBatch", location: "admin.product.liquidation", path: admin_new_visibility_batch_path, constantize: false, action: "new")
                 %li= access_link("Campaigns")
                 %li= access_link("Highlights")
                 %li= access_link("Coupons")
