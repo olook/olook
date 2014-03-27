@@ -71,10 +71,10 @@ class SeoUrl
     parse_path_into_sections
     parse_query
 
-    @parsed_values[:collection_theme] ||= @params[:collection_theme]
-    @parsed_values[:visibility] ||= @params[:visibility]
+    @params.each do |k, v|
+      @parsed_values[k] = v
+    end
 
-    @parsed_values.merge!(parse_order)
     @parsed_values
   end
 
@@ -137,12 +137,14 @@ class SeoUrl
     else
       fields = section[:fields].map do |field|
         values = parameters.delete(field.to_sym)
+        values = [@params[field.to_sym]].flatten if @params[field.to_sym]
         if values
           if FIELDS_WITH_KEYS_IN_URL.include?(field)
-            "#{KEYS_TRANSLATION.invert[field.to_s]}#{section[:value_separator]}#{values.join(section[:value_separator])}"
+            v = "#{KEYS_TRANSLATION.invert[field.to_s]}#{section[:value_separator]}#{values.join(section[:value_separator])}"
           else
-            values.join(section[:value_separator])
+            v = values.join(section[:value_separator])
           end
+          v.blank? ? nil : v
         end
       end.compact
       fields.join(section[:separator]) if fields.size > 0
@@ -155,9 +157,13 @@ class SeoUrl
         vs = [v].flatten.map do |_v|
           VALUES_TRANSLATION[_v.to_s] ? VALUES_TRANSLATION[_v.to_s] : _v.to_s
         end.compact
-        "#{KEYS_TRANSLATION.invert[k.to_s]}=#{vs.join(MULTISELECTION_SEPARATOR)}"
+        if KEYS_TRANSLATION.invert[k.to_s]
+          "#{KEYS_TRANSLATION.invert[k.to_s]}=#{vs.join(MULTISELECTION_SEPARATOR)}"
+        else
+          "#{k}=#{vs.join(MULTISELECTION_SEPARATOR)}"
+        end
       end
-    end
+    end.compact
   end
 
   ['color', 'size', 'heel', 'care'].each do |f|
@@ -221,25 +227,17 @@ class SeoUrl
     if @query.present?
       @query.split('&').each do |var|
         k, v = var.split('=').map { |i| URI.decode(i.to_s) }
-        @params[k] = v
+        if KEYS_TRANSLATION[k]
+          @parsed_values[KEYS_TRANSLATION[k]] = VALUES_TRANSLATION[v].present? ? VALUES_TRANSLATION[v] : v
+        else
+          @parsed_values[k] = VALUES_TRANSLATION[v].present? ? VALUES_TRANSLATION[v] : v
+        end
       end
     end
   end
 
   def all_brands
     YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_brands.yml' ) ) ) )
-  end
-
-  def parse_order
-    parsed_values = {}
-    @params.each do |k, v|
-      if KEYS_TRANSLATION[k]
-        parsed_values[KEYS_TRANSLATION[k]] = VALUES_TRANSLATION[v].present? ? VALUES_TRANSLATION[v] : v
-      else
-        parsed_values[k] = VALUES_TRANSLATION[v].present? ? VALUES_TRANSLATION[v] : v
-      end
-    end
-    parsed_values
   end
 
   def extract_brand(path_section, section)
@@ -263,11 +261,9 @@ class SeoUrl
   def extract_category(path_section, section)
     param_category = path_section
 
-    _categories = all_categories.select do |c|
-      if /#{c.parameterize}/ =~ param_category
-        param_category.slice!(/#{c.parameterize}/)
-        true
-      end
+    _categories = []
+    all_categories.each do |c|
+      _categories << param_category.slice!(/#{c.parameterize}/) if /#{c.parameterize}/ =~ param_category
     end
     _categories = _categories.join(section[:value_separator]) if _categories.any?
     _categories
@@ -275,12 +271,10 @@ class SeoUrl
 
   def extract_subcategory(path_section, section)
     param_subcategory = path_section
-    _subcategories = all_subcategories.select do |c|
-      if CARE_PRODUCTS.include?(c)
-        false
-      elsif /#{c.parameterize}/ =~ param_subcategory
-        param_subcategory.slice!(/#{c.parameterize}/)
-        true
+    _subcategories = []
+    all_subcategories.each do |c|
+      if !CARE_PRODUCTS.include?(c) && /#{c.parameterize}/ =~ param_subcategory
+        _subcategories << param_subcategory.slice!(/#{c.parameterize}/)
       end
     end
     _subcategories = _subcategories.join(section[:value_separator]) if _subcategories.any?

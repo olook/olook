@@ -22,13 +22,14 @@ class CatalogsController < ApplicationController
   end
 
   def index
-    Rails.logger.debug("New params: #{params.inspect}")
 
     @campaign = add_campaign(params)
-    @url = SeoUrl.new(path: request.fullpath, path_positions: '/:category:/-:subcategory::brand:-/-:care::color::size::heel:_')
+    @url = SeoUrl.new(path: request.fullpath,
+                      path_positions: '/:category:/-:subcategory::brand:-/-:care::color::size::heel:_',
+                      params: { category: params[:category] })
     @search = add_search_result(@url.parse_params, params)
-    @url.set_search @search
-    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
+    @url.set_search(@search)
+    @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])
     @pixel_information = @category = params[:category]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
     @category = @search.expressions[:category].to_a.first.downcase
