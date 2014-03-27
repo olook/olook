@@ -10,7 +10,7 @@ class HeaderPresenter < BasePresenter
   #
   def show_header 
     _header = header || OpenStruct.new({type: "NoBanner"})
-    template_name =  _header.type.tableize.singularize.gsub("_catalog_header", "")
+    template_name =  _header.type.underscore.gsub("_catalog_header", "")
     h.render partial: "headers/#{template_name}", locals: {header: header}
   end
 
