@@ -45,7 +45,10 @@ class SearchEngine
 
     attributes.each do |k, v|
       next if k.blank?
-      self.send("#{k}=", v)
+      begin
+        self.send("#{k}=", v)
+      rescue NoMethodError
+      end
     end
     validate_sort_field
   end
@@ -131,7 +134,7 @@ class SearchEngine
   end
 
   def remove_filter filter
-    parameters = expressions.dup
+    parameters = formatted_filters
     parameters.delete_if {|k| IGNORE_ON_URL.include? k }
     parameters[filter.to_sym] = []
     if NESTED_FILTERS[filter.to_sym]
@@ -144,7 +147,7 @@ class SearchEngine
   end
 
   def replace_filter(filter, filter_value)
-    parameters = expressions.dup
+    parameters = formatted_filters
     parameters.delete_if {|k| IGNORE_ON_URL.include? k }
     parameters[filter.to_sym] = [filter_value]
     if NESTED_FILTERS[filter.to_sym]
@@ -156,7 +159,7 @@ class SearchEngine
   end
 
   def current_filters
-    parameters = expressions.dup
+    parameters = formatted_filters
     parameters.delete_if {|k| IGNORE_ON_URL.include? k }
     parameters
   end
