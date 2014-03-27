@@ -4,7 +4,7 @@
 
 - content_for :footer do
   = javascript_include_tag 'section/brands'
-
+= render "shared/mkt_breadcrumb"
 = first_level_breadcrumb("Marcas")
 
 %section.brands
