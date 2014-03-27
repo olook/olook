@@ -5,8 +5,8 @@ class HeaderPresenter < BasePresenter
   # We use the type name to link to the template, if you need to create a new
   # header, make sure to use a compatible name for your partial template, like:
   #
-  # => NoBanner -> _no_banner.html.haml
-  # => BigBanner -> _big_banner.html.haml
+  # => NoBannerCatalogHeader -> _no_banner.html.haml
+  # => BigBannerCatalogHeader -> _big_banner.html.haml
   #
   def show_header 
     _header = header || OpenStruct.new({type: "NoBanner"})
