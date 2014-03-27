@@ -24,6 +24,8 @@ class SearchEngine
     category: [ :subcategory ]
   }
 
+  DEFAULT_SORT = "age,-inventory,-text_relevance"
+
   attr_accessor :skip_beachwear_on_clothes
   attr_accessor :df
 
@@ -357,7 +359,7 @@ class SearchEngine
           filter_params[k].concat v.map { |_v| _v.downcase }
         end
       end
-      filter_params[:sort] = @sort_field
+      filter_params[:sort] = ( @sort_field == DEFAULT_SORT ? nil : @sort_field )
 
       filter_params
     end
@@ -372,7 +374,7 @@ class SearchEngine
 
     def validate_sort_field
       if @sort_field.nil? || @sort_field == "" || @sort_field == 0 || @sort_field == "0"
-        @sort_field = "age,-inventory,-text_relevance"
+        @sort_field = DEFAULT_SORT
       end
     end
 end

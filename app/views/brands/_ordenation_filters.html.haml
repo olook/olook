@@ -1,32 +1,32 @@
 #filters_container
   - category = params[:category]
   - category = filters_by('category', search, use_fields: [:brand])[0][0] if filters_by('category', search, use_fields: [:brand]).size == 1
+  - category ||= search.filter_value(:category).to_a.first
   - if category == 'curves'
     - filter_category = [category, 'roupa']; category = 'roupa'
   .filter
-    = form_tag brand_path(parameters: params[:parameters]), method: 'get' do
+    = form_tag url_builder.current_filters, method: 'get' do
 
       %fieldset.first_child
         %span.selected-type{ class: ("filter_selected" if category.present?) }= category.present? ? category.pluralize : "VER TUDO"
         %select{ :onchange => ("window.location = $(this.options[this.selectedIndex]).data('href');")}
-          %option{ 'data-href' => brand_path(params[:brand]) } VER TUDO
+          %option{ 'data-href' => url_builder.current_filters } VER TUDO
           - filters_by('category', search, use_fields: [:brand]).each do |text, amount|
-            - description = text == 'curves' ? 'roupa' : text           
-            %option{'data-href' => brand_path(params[:brand], parameters: ActiveSupport::Inflector.transliterate(text.chomp)), selected: category.to_s == text}= description.chomp.titleize.pluralize
+            - description = ( text == 'curves' ? 'roupa' : text )
+            %option{ 'data-href' => url_builder.add_filter(:category, text.chomp), selected: search.filter_selected?(:category, text)}= description.chomp.titleize.pluralize
 
       %fieldset
         %span.selected-type.order{ class: ("filter_selected" if params[:por].present?) }= params[:por].present? ? params[:por].gsub("-", " ").titleize : "NOSSA SELEÇÃO"
         = select_tag('por', options_for_select({"Nossa Seleção" => 0, "Menor Preço" => "menor-preco", "Maior Preço" => "maior-preco", "Maior Desconto" => "maior-desconto"}, :selected => params[:por]), :class => "custom_select", :onchange => ("$(this).parents('form').submit();"))
   - if category.present?
-
     .filter
       %span.selected-type.txt-filter{ class: ("filter_selected" if params[:subcategory].present?) } MODELO
       .tab_bg &nbsp;
       %ul
         - filters_by("subcategory", search, use_fields: [:brand, :category]).each do |text, amount|
-          %li= filter_link_to(brand_path(params[:brand], @url_builder.add_filter(:subcategory, text)), text.chomp, search.filter_selected?(:subcategory, text.chomp))
+          %li= filter_link_to(@url_builder.add_filter(:subcategory, text), text.chomp, search.filter_selected?(:subcategory, text.chomp))
         - if params[:subcategory].present?
-          %li.clear_choice= link_to '[limpar]', brand_path(params[:brand], @url_builder.remove_filter_of(:subcategory))
+          %li.clear_choice= link_to '[limpar]', @url_builder.remove_filter_of(:subcategory)
 
     - unless filters_by("category", search, use_fields: [:brand, :category]).flatten.include? "acessório"
       .filter
@@ -34,18 +34,18 @@
         .tab_bg &nbsp;
         %ul
           -size_list(filter_category, search, category[0].downcase,[:brand,:category]).each do |text, amount|
-            %li= filter_link_to(brand_path(params[:brand], @url_builder.add_filter(:size, text)), format_size(text.chomp), search.filter_selected?(:size, text.chomp))
+            %li= filter_link_to(@url_builder.add_filter(:size, text), format_size(text.chomp), search.filter_selected?(:size, text.chomp))
           - if params[:size].present?
-            %li.clear_choice= link_to '[limpar]', brand_path(params[:brand], @url_builder.remove_filter_of(:size))
+            %li.clear_choice= link_to '[limpar]', @url_builder.remove_filter_of(:size)
 
     .filter
       %span.selected-type.txt-filter{ class: ("filter_selected" if params[:color].present?) } COR
       .tab_bg &nbsp;
       %ul.cores
         - filters_by("color", search, use_fields: [:brand, :category]).each do |text, amount|
-          %li= filter_link_to(brand_path(params[:brand], @url_builder.add_filter(:color, text)), text.chomp, search.filter_selected?(:color, text.chomp))
+          %li= filter_link_to(@url_builder.add_filter(:color, text), text.chomp, search.filter_selected?(:color, text.chomp))
         - if params[:color].present?
-          %li.clear_choice= link_to '[limpar]', brand_path(params[:brand], @url_builder.remove_filter_of(:color))
+          %li.clear_choice= link_to '[limpar]', @url_builder.remove_filter_of(:color)
 
   .price-range
     %p#min-value-label{style:'background-image: none'} 0
