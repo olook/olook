@@ -54,8 +54,8 @@ module Seo
         return "#{subcategory_name} #{color_formatted}" if !subcategory.blank? && !color.blank?
         return "#{subcategory_name}" unless subcategory.blank?
         if category && category_name
-          return "#{CATEGORY_TEXT[category_name.to_sym]} #{color_formatted}" unless color.blank?
-          return "#{CATEGORY_TEXT[category_name.to_sym]}" 
+          return "#{CATEGORY_TEXT[category_name.downcase.to_sym]} #{color_formatted}" unless color.blank?
+          return "#{CATEGORY_TEXT[category_name.downcase.to_sym]}" 
         end
         ""
       end
