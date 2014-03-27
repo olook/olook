@@ -357,6 +357,7 @@ class SearchEngine
           filter_params[k].concat v.map { |_v| _v.downcase }
         end
       end
+      filter_params[:sort] = @sort_field
 
       filter_params
     end

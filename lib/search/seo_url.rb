@@ -20,7 +20,8 @@ class SeoUrl
   VALUES_TRANSLATION = HashWithIndifferentAccess.new({
     "menor-preco" => "retail_price",
     "maior-preco" => "-retail_price",
-    "maior-desconto" => "-desconto"
+    "maior-desconto" => "-desconto",
+    "novidade" => "age,-inventory,-text_relevance"
   })
   FIELDS_WITH_KEYS_IN_URL = Set.new(['color', 'size', 'heel', 'care'])
   CARE_PRODUCTS = [
@@ -155,8 +156,9 @@ class SeoUrl
     parameters.map do |k, v|
       if k.present? && v.present?
         vs = [v].flatten.map do |_v|
-          VALUES_TRANSLATION[_v.to_s] ? VALUES_TRANSLATION[_v.to_s] : _v.to_s
+          VALUES_TRANSLATION.invert[_v.to_s] ? VALUES_TRANSLATION.invert[_v.to_s] : _v.to_s
         end.compact
+
         if KEYS_TRANSLATION.invert[k.to_s]
           "#{KEYS_TRANSLATION.invert[k.to_s]}=#{vs.join(MULTISELECTION_SEPARATOR)}"
         else
