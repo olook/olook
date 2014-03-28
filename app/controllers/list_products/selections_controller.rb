@@ -4,9 +4,8 @@ class ListProducts::SelectionsController < ListProductsController
 
   def index
     @path_positions =  '/selecoes/-:category::brand::subcategory:-/_:care::color::size::heel:-'
-    visibility = "1-2-3"
-    search_params = SeoUrl.parse(path: request.fullpath, path_positions: @path_positions).merge({visibility: visibility})
-    default_params(search_params,"selections")
+    @visibility = "1-2-3"
+    default_params
   end
 
   private
