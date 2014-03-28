@@ -1,0 +1,265 @@
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 3, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits {
+  position: relative;
+  width: 100%;
+  padding: 20px 0;
+  overflow: auto;
+}
+/* line 8, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits > h1 {
+  font-size: 39px;
+  text-transform: uppercase;
+  margin: 0 0 20px;
+}
+/* line 13, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits h2.title {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 22px;
+  font-weight: normal;
+  text-align: center;
+}
+/* line 18, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits h2.title + p {
+  text-align: center;
+  margin: 0 0 15px;
+}
+/* line 23, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits h1 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 32px;
+  font-weight: normal;
+  letter-spacing: -1px;
+  text-align: center;
+}
+/* line 29, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits h1.max {
+  font-size: 26px;
+  width: 440px;
+}
+/* line 34, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits div.bubble {
+  background: url(/dev-assets/credits/bg-bubble.png) top center no-repeat;
+  width: 638px;
+  height: 71px;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+}
+/* line 41, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits div.bubble h1 {
+  color: #333;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: normal;
+  margin: 8px 0 2px;
+  display: inline-block;
+}
+/* line 49, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits div.bubble h1 span {
+  color: #ef3742;
+}
+/* line 53, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits div.bubble p {
+  font-size: 14px;
+}
+/* line 57, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits div.plus {
+  position: absolute;
+  background: url(/dev-assets/credits/plus.png) no-repeat;
+  top: 190px;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 0 0 0 -23px;
+  display: block;
+}
+/* line 67, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section {
+  width: 443px;
+  overflow: auto;
+  display: block;
+  padding: 20px 25px 0;
+  float: left;
+}
+/* line 73, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section > h1 {
+  font-family: Arial, "Trebuchet Ms", Times, "Times New Roman", serif, KeplerStdItalic;
+  font-size: 24px;
+  font-weight: normal;
+  width: 365px;
+  margin: 0 auto 40px;
+}
+/* line 80, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section table {
+  width: 440px;
+  overflow: auto;
+  margin: 0 auto 30px;
+  border-top: 1px #EEE solid;
+}
+/* line 86, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section table tr td {
+  padding: 10px 0;
+}
+/* line 88, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section table tr td.value {
+  text-align: right;
+  padding-right: 10px;
+}
+/* line 95, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section table tbody tr td {
+  font-size: 14px;
+  padding-left: 10px;
+  border-bottom: 1px #EEE solid;
+}
+/* line 99, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section table tbody tr td span {
+  color: #ef3742;
+}
+/* line 101, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section table tbody tr td span.negative {
+  color: #999;
+}
+/* line 105, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section table tbody tr td.value {
+  padding-left: 0;
+}
+/* line 111, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section table tfoot tr td {
+  color: #ef3742;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 24px;
+  font-weight: lighter;
+  text-transform: uppercase;
+}
+/* line 122, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section table.last_orders tfoot tr td {
+  border-top: 1px #EEE solid;
+}
+/* line 129, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section table.last_orders tbody tr td {
+  border: none;
+}
+/* line 133, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section table.last_orders tbody tr.total_month td {
+  font-size: 16px;
+  border-top: 1px #EEE solid;
+}
+/* line 142, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section#friends_credits {
+  width: 470px;
+  min-height: 500px;
+  padding-left: 0;
+  border-right: 2px #CCC solid;
+}
+/* line 147, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section#friends_credits div.social {
+  margin: 0 auto 40px;
+}
+/* line 150, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section#friends_credits div.link_mail {
+  padding: 0;
+}
+/* line 153, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section#friends_credits div.link_mail ul li {
+  margin: 0 10px 0 0;
+  float: left;
+}
+/* line 158, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section#friends_credits div.link_mail div.box_copy {
+  top: 60px;
+  left: 270px;
+}
+/* line 165, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section#purchase_credits div#box_months {
+  position: relative;
+  width: 100%;
+  overflow: auto;
+}
+/* line 169, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section#purchase_credits div#box_months h3 {
+  color: #666;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 19px;
+  font-weight: normal;
+  text-align: center;
+  margin: 0 0 20px;
+}
+/* line 177, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section#purchase_credits div#box_months table {
+  width: 144px;
+  margin: 0 5px 10px 0;
+  border: 1px #E1E1E1 solid;
+  float: left;
+}
+/* line 182, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section#purchase_credits div#box_months table th, section#credits section#purchase_credits div#box_months table td {
+  font-weight: normal;
+  text-align: center;
+  padding: 10px 0;
+}
+/* line 187, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section#purchase_credits div#box_months table th {
+  background: #EEE;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  color: #666;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+/* line 194, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section#purchase_credits div#box_months table td {
+  font-family: Arial, "Trebuchet Ms", Times, "Times New Roman", serif, KeplerStdItalic;
+  color: #999;
+  font-size: 16px;
+}
+/* line 200, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section#purchase_credits div#box_months table.current th {
+  background: #000;
+  color: #FFF;
+}
+/* line 205, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section#purchase_credits div#box_months table.last {
+  margin: 0;
+}
+/* line 209, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section#purchase_credits div#box_months p {
+  text-align: center;
+}
+/* line 211, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section#purchase_credits div#box_months p.current {
+  width: 143px;
+  float: left;
+  clear: both;
+}
+/* line 216, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits section#purchase_credits div#box_months p.next {
+  width: 250px;
+  margin: 0 25px 0 0;
+  float: right;
+}
+/* line 225, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits div.rules {
+  text-align: center;
+  padding: 20px 0;
+  border-top: 2px #EEE solid;
+}
+/* line 229, ../../../app/assets/stylesheets/section/credits.scss */
+section#credits div.rules a {
+  color: #666;
+  font-size: 15px;
+}

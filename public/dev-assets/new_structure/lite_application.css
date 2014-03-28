@@ -1,0 +1,3837 @@
+@charset "UTF-8";
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* HTML5 ✰ Boilerplate
+ * ==|== normalize ==========================================================
+ */
+/* line 5, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {
+  display: block;
+}
+
+/* line 6, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+audio, canvas, video {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+/* line 7, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+audio:not([controls]) {
+  display: none;
+}
+
+/* line 8, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+[hidden] {
+  display: none;
+}
+
+/* line 10, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+html {
+  font-size: 100%;
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+/* line 11, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+body {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.231;
+}
+
+/* line 12, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+body, button, input, select, textarea {
+  font-family: sans-serif;
+  color: #222;
+}
+
+/* line 14, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+::-moz-selection {
+  background: #ef3742;
+  color: #fff;
+  text-shadow: none;
+}
+
+/* line 15, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+::selection {
+  background: #ef3742;
+  color: #fff;
+  text-shadow: none;
+}
+
+/* line 17, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+a {
+  color: #00e;
+}
+
+/*a:visited { color: #551a8b; }
+a:hover { color: #06e; }*/
+/* line 20, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+a:focus {
+  outline: thin dotted;
+}
+
+/* line 21, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+a:hover, a:active {
+  outline: 0;
+}
+
+/* line 23, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+
+/* line 24, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+b, strong {
+  font-weight: bold;
+}
+
+/* line 25, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+blockquote {
+  margin: 1em 40px;
+}
+
+/* line 26, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+dfn {
+  font-style: italic;
+}
+
+/* line 27, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+/* line 28, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+ins {
+  background: #ff9;
+  color: #000;
+  text-decoration: none;
+}
+
+/* line 29, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+mark {
+  background: #ff0;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+/* line 30, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+pre, code, kbd, samp {
+  font-family: monospace, monospace;
+  _font-family: 'courier new', monospace;
+  font-size: 1em;
+}
+
+/* line 31, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* line 32, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+q {
+  quotes: none;
+}
+
+/* line 33, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+/* line 34, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+small {
+  font-size: 85%;
+}
+
+/* line 35, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+/* line 36, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+sup {
+  top: -0.5em;
+}
+
+/* line 37, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+sub {
+  bottom: -0.25em;
+}
+
+/* line 38, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+dd {
+  margin: 0 0 0 40px;
+}
+
+/* line 39, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+nav ul, nav ol {
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* line 40, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+img {
+  border: 0;
+  -ms-interpolation-mode: bicubic;
+  vertical-align: middle;
+}
+
+/* line 41, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/* line 42, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+figure {
+  margin: 0;
+}
+
+/* line 44, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+form {
+  margin: 0;
+}
+
+/* line 45, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* line 46, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+label {
+  cursor: pointer;
+}
+
+/* line 47, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+legend {
+  border: 0;
+  *margin-left: -7px;
+  padding: 0;
+}
+
+/* line 48, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+button, input, select, textarea {
+  font-size: 100%;
+  margin: 0;
+  vertical-align: baseline;
+  *vertical-align: middle;
+}
+
+/* line 49, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+button, input {
+  line-height: normal;
+  *overflow: visible;
+}
+
+/* line 50, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+table button, table input {
+  *overflow: auto;
+}
+
+/* line 51, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+button, input[type="button"], input[type="reset"], input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+
+/* line 52, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+input[type="checkbox"], input[type="radio"] {
+  box-sizing: border-box;
+}
+
+/* line 53, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/* line 54, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/* line 55, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+button::-moz-focus-inner, input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/* line 56, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+textarea {
+  overflow: auto;
+  vertical-align: top;
+  resize: vertical;
+}
+
+/* line 58, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+input:invalid, textarea:invalid {
+  background-color: #f0dddd;
+}
+
+/* line 60, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 61, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+td {
+  vertical-align: top;
+}
+
+/* ==|== primary styles =====================================================
+   Author: 
+   ========================================================================== */
+/* ==|== non-semantic helper classes ======================================== */
+/* line 84, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+.ir {
+  display: block;
+  border: 0;
+  text-indent: -999em;
+  overflow: hidden;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  text-align: left;
+  direction: ltr;
+}
+
+/* line 85, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+.ir br {
+  display: none;
+}
+
+/*.hidden { display: none !important; visibility: hidden; }*/
+/* line 87, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/* line 88, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto;
+}
+
+/* line 89, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+.invisible {
+  visibility: hidden;
+}
+
+/* line 90, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+.clearfix:before, .clearfix:after {
+  content: "";
+  display: table;
+}
+
+/* line 91, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+.clearfix:after {
+  clear: both;
+}
+
+/* line 92, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+.clearfix {
+  zoom: 1;
+}
+
+/* ==|== media queries ====================================================== */
+/* ==|== print styles ======================================================= */
+@media print {
+  /* line 111, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+  * {
+    background: transparent !important;
+    color: black !important;
+    text-shadow: none !important;
+    filter: none !important;
+    -ms-filter: none !important;
+  }
+
+  /* line 112, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+  a, a:visited {
+    text-decoration: underline;
+  }
+
+  /* line 113, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+
+  /* line 114, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+  abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+
+  /* line 115, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+    content: "";
+  }
+
+  /* line 116, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+  pre, blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  /* line 117, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+  thead {
+    display: table-header-group;
+  }
+
+  /* line 118, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+  tr, img {
+    page-break-inside: avoid;
+  }
+
+  /* line 119, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+  img {
+    max-width: 100% !important;
+  }
+
+  @page {
+    margin: 0.5cm;
+}
+
+  /* line 121, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+  p, h2, h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* line 122, ../../../app/assets/stylesheets/new_structure/about/_normalize.scss */
+  h2, h3 {
+    page-break-after: avoid;
+  }
+}
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/************* Banner temporário liquida *************/
+/* line 3, ../../../app/assets/stylesheets/new_structure/partials/_liquida.scss */
+.flash_promo {
+  width: 990px;
+  height: 99px;
+  margin-bottom: 20px;
+}
+/* line 4, ../../../app/assets/stylesheets/new_structure/partials/_liquida.scss */
+.flash_promo ul {
+  width: 990px;
+  height: 98px;
+}
+/* line 6, ../../../app/assets/stylesheets/new_structure/partials/_liquida.scss */
+.flash_promo ul li {
+  float: left;
+  margin-right: 15px;
+}
+/* line 7, ../../../app/assets/stylesheets/new_structure/partials/_liquida.scss */
+.flash_promo ul li.static {
+  width: 582px;
+  margin-right: 0;
+}
+/* line 9, ../../../app/assets/stylesheets/new_structure/partials/_liquida.scss */
+.flash_promo ul li p a {
+  display: inline-block;
+  height: 98px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  color: #000;
+  font-size: 12px;
+  text-align: center;
+  text-decoration: none;
+  text-indent: 99999px;
+}
+/* line 10, ../../../app/assets/stylesheets/new_structure/partials/_liquida.scss */
+.flash_promo ul li p a.cloths {
+  width: 76px;
+  background: url(/dev-assets/common/full_categorias.jpg) no-repeat -11px 0;
+}
+/* line 11, ../../../app/assets/stylesheets/new_structure/partials/_liquida.scss */
+.flash_promo ul li p a.cloths:hover {
+  background: url(/dev-assets/common/full_categorias_hover.jpg) no-repeat -11px 0;
+}
+/* line 13, ../../../app/assets/stylesheets/new_structure/partials/_liquida.scss */
+.flash_promo ul li p a.shoes {
+  width: 76px;
+  background: url(/dev-assets/common/full_categorias.jpg) no-repeat -113px 0;
+}
+/* line 14, ../../../app/assets/stylesheets/new_structure/partials/_liquida.scss */
+.flash_promo ul li p a.shoes:hover {
+  background: url(/dev-assets/common/full_categorias_hover.jpg) no-repeat -113px 0;
+}
+/* line 16, ../../../app/assets/stylesheets/new_structure/partials/_liquida.scss */
+.flash_promo ul li p a.bags {
+  width: 76px;
+  background: url(/dev-assets/common/full_categorias.jpg) no-repeat -215px 0;
+}
+/* line 17, ../../../app/assets/stylesheets/new_structure/partials/_liquida.scss */
+.flash_promo ul li p a.bags:hover {
+  background: url(/dev-assets/common/full_categorias_hover.jpg) no-repeat -215px 0;
+}
+/* line 19, ../../../app/assets/stylesheets/new_structure/partials/_liquida.scss */
+.flash_promo ul li p a.accessories {
+  margin-right: 0;
+  width: 76px;
+  background: url(/dev-assets/common/full_categorias.jpg) no-repeat -317px 0;
+}
+/* line 20, ../../../app/assets/stylesheets/new_structure/partials/_liquida.scss */
+.flash_promo ul li p a.accessories:hover {
+  background: url(/dev-assets/common/full_categorias_hover.jpg) no-repeat -317px 0;
+}
+
+/************* Fim Banner temporário liquida *************/
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 3, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer {
+  clear: both;
+  width: 100%;
+  height: 115px;
+  background-color: #e6aedb;
+  z-index: 9999;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: none;
+}
+/* line 5, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal {
+  position: relative;
+  width: 1025px;
+  height: 115px;
+  margin: 0 auto;
+}
+/* line 6, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .modal_container {
+  position: relative;
+  overflow: hidden;
+  width: 750px;
+  height: 115px;
+}
+/* line 7, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .presentation {
+  position: absolute;
+  top: 28px;
+  left: 20px;
+  z-index: 1;
+}
+/* line 8, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .presentation h2 {
+  font-family: 'johnston', arial, sans-serif;
+  font-size: 27px;
+  line-height: 18px;
+}
+/* line 9, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .presentation h3 {
+  font-family: 'avenir', arial, sans-serif;
+  font-size: 14px;
+  font-weight: lighter;
+  margin-top: 8px;
+}
+/* line 10, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .presentation p {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #000;
+}
+/* line 11, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .presentation input {
+  margin: 0;
+}
+/* line 13, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .form {
+  position: absolute;
+  top: 0px;
+  right: -577px;
+  width: 580px;
+  margin-left: 150px;
+  text-align: center;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir_medium;
+  color: #000;
+  padding-top: 10px;
+  /*display:none;*/
+}
+/* line 14, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .form p {
+  height: 25px;
+  line-height: 25px;
+  font-size: 17px;
+}
+/* line 15, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .form p.error {
+  background: url(/dev-assets/common/sprite_modal_footer.png) no-repeat -45px 0;
+}
+/* line 16, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .form p .error-msg {
+  font-size: 14px;
+  display: none;
+}
+/* line 18, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .form input {
+  width: 570px;
+  height: 48px;
+  border: solid 1px #A7A9AB;
+  font-size: 20px;
+  text-align: center;
+  color: #BCBEC0;
+}
+/* line 19, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .form input.txt-black {
+  color: #000;
+}
+/* line 20, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .form input.error {
+  border: solid 1px #F00;
+}
+/* line 23, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .ok-msg {
+  position: absolute;
+  top: 30px;
+  left: 220px;
+  width: 509px;
+  height: 29px;
+  border: solid 1px #B2D079;
+  background: #D9F99F;
+  padding: 10px 0 10px 20px;
+  display: none;
+}
+/* line 24, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .ok-msg p {
+  height: 30px;
+  font-size: 15px;
+  background: url(/dev-assets/common/sprite_modal_footer.png) no-repeat 0 -165px;
+  padding-left: 40px;
+  color: #000;
+  line-height: 18px;
+}
+/* line 26, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal #ok-msg2 {
+  width: 480px;
+}
+/* line 27, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal #ok-msg2 p {
+  background: none;
+}
+/* line 29, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .register, #modal_footer .modal .register2, #modal_footer .modal .close {
+  position: absolute;
+  cursor: pointer;
+  border: none;
+  text-indent: -99999px;
+  bottom: 35px;
+  right: 40px;
+}
+/* line 30, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .register, #modal_footer .modal .register2 {
+  width: 152px;
+  height: 37px;
+  background: url(/dev-assets/common/sprite_modal_footer.png) 0 -82px;
+}
+/* line 31, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .register:hover, #modal_footer .modal .register2:hover {
+  background: url(/dev-assets/common/sprite_modal_footer.png) 0 -36px;
+}
+/* line 33, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .register2 {
+  display: none;
+}
+/* line 34, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .close {
+  width: 20px;
+  height: 20px;
+  background: url(/dev-assets/common/sprite_modal_footer.png) 0 0;
+  bottom: 105px;
+  right: 20px;
+}
+/* line 36, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .termos {
+  position: absolute;
+  right: 55px;
+  bottom: 13px;
+  font-size: 11px;
+  display: none;
+  color: #000;
+}
+/* line 37, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal .termos a {
+  color: #000;
+  font-size: 11px;
+}
+/* line 39, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+#modal_footer .modal img {
+  position: absolute;
+  bottom: -1px;
+  right: 250px;
+}
+
+/*** BOX REMEMBERED ***/
+/* line 43, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+.box-continue {
+  position: relative;
+  text-align: center;
+  border: solid 1px #000;
+  background: #FFF;
+  width: 540px;
+  height: 270px;
+  margin-top: 10px;
+}
+/* line 45, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+.box-continue h3 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 30px;
+  letter-spacing: 1px;
+  margin-top: 30px;
+  text-transform: uppercase;
+}
+/* line 46, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+.box-continue p {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 14px;
+  margin-top: 25px;
+  line-height: 18px;
+}
+/* line 47, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+.box-continue .desconto {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 14px;
+  margin-top: 40px;
+  margin-bottom: 5px !important;
+  line-height: 18px;
+}
+/* line 48, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+.box-continue .close_pink {
+  width: 255px;
+  height: 55px;
+  cursor: pointer;
+  border: none;
+  font-size: 15px;
+  text-align: center;
+  margin-top: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  -webkit-box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.49);
+  -moz-box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.49);
+  box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.49);
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+.box-continue .close_pink:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+
+/* line 64, ../../../app/assets/stylesheets/new_structure/common/modal_footer.scss */
+.close {
+  top: 0 !important;
+  right: 4px !important;
+}
+
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 3, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box {
+  padding: 0 0 0 70px;
+  width: 102px;
+  height: 140px;
+  float: right;
+  background: url(/dev-assets/common/nav/sprite_header.png) -164px -193px;
+  position: absolute;
+  right: 0px;
+  top: 40px;
+}
+/* line 4, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box img {
+  margin: 0 7px 20px 0;
+  float: left;
+}
+/* line 5, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box h3 {
+  color: #36569e;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 14px;
+  font-weight: lighter;
+}
+/* line 6, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box h3 span {
+  font-size: 17px;
+  font-weight: bold;
+}
+/* line 8, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box .like {
+  clear: both;
+  padding-top: -20px;
+  width: 100px;
+}
+/* line 9, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box .fb-button {
+  width: 100px;
+}
+
+/****** IE8 HACK *******/
+/* line 14, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+html.ie8 section#home li.iehack {
+  margin: 0 !important;
+}
+
+/* AJUSTE FACEBOOK IFRAME */
+/* line 18, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+.fb-button {
+  height: 20px !important;
+  overflow: hidden !important;
+  margin-top: -40px;
+}
+
+/* line 4, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer, .footer_checkout {
+  height: 330px;
+  clear: both;
+  margin-top: 60px;
+  position: relative;
+  background-color: #000;
+  color: #fff !important;
+}
+/* line 12, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section, .footer_checkout section {
+  margin: 0px auto;
+  width: 970px;
+  padding-top: 40px;
+}
+/* line 16, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul, .footer_checkout section ul {
+  width: 165px;
+  float: left;
+  font-family: verdana, arial, tahoma;
+  margin-right: 26px;
+  height: 205px;
+}
+/* line 22, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul.atendimento, .footer_checkout section ul.atendimento {
+  margin-left: 25px;
+  width: 130px;
+}
+/* line 24, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul li, .footer_checkout section ul li {
+  font-size: 11px;
+  padding-top: 5px;
+}
+/* line 27, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul li a, .footer_checkout section ul li a {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+/* line 31, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul li a:hover, .footer_checkout section ul li a:hover {
+  text-decoration: underline;
+}
+/* line 33, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul li.title, .footer_checkout section ul li.title {
+  text-transform: uppercase;
+  font-size: 13px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+/* line 40, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul.payment, .footer_checkout section ul.payment {
+  height: 100px;
+  width: 197px;
+}
+/* line 43, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul.payment li.title, .footer_checkout section ul.payment li.title {
+  width: 195px;
+}
+/* line 44, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul.payment li.credit, footer section ul.payment .billet, footer section ul.payment .online, footer section ul.payment .mpago, .footer_checkout section ul.payment li.credit, .footer_checkout section ul.payment .billet, .footer_checkout section ul.payment .online, .footer_checkout section ul.payment .mpago {
+  height: 50px;
+  float: left;
+  background: url(/dev-assets/footer/payment_icons.png) no-repeat 0 28px;
+  margin-right: 25px;
+}
+/* line 50, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul.payment li.credit, .footer_checkout section ul.payment li.credit {
+  width: 125px;
+}
+/* line 53, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul.payment li.billet, .footer_checkout section ul.payment li.billet {
+  width: 45px;
+  background-position: -149px 28px;
+  margin-right: 0;
+}
+/* line 58, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul.payment li.online, .footer_checkout section ul.payment li.online {
+  width: 82px;
+  background-position: -234px 28px;
+}
+/* line 62, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul.payment li.mpago, .footer_checkout section ul.payment li.mpago {
+  width: 90px;
+  margin-right: 0;
+  background-position: -329px 28px;
+}
+/* line 66, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul.payment li.mpago p, .footer_checkout section ul.payment li.mpago p {
+  text-indent: -9999px;
+}
+/* line 69, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul.security, .footer_checkout section ul.security {
+  height: 107px;
+  width: 170px;
+  margin-right: 0 !important;
+}
+/* line 73, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul.security li, .footer_checkout section ul.security li {
+  float: left;
+}
+/* line 74, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul.security li.title, .footer_checkout section ul.security li.title {
+  width: 250px;
+  padding-left: 10px;
+}
+/* line 79, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section ul.security li.ebit a, .footer_checkout section ul.security li.ebit a {
+  display: block;
+  padding-top: 3px;
+}
+/* line 83, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer section .about_olook, .footer_checkout section .about_olook {
+  width: 990px;
+  background-color: #fff;
+  color: #5c5c5c;
+  float: left;
+  font-family: verdana, arial, tahoma;
+  font-size: 10px;
+  text-align: center;
+  margin-top: 40px;
+  margin-left: -10px;
+  padding-top: 10px;
+  margin-bottom: 10px;
+}
+/* line 97, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer .newsletter, .footer_checkout .newsletter {
+  height: 45px;
+  background-color: #1a1a1a;
+  width: 990px;
+  padding-top: 0;
+}
+/* line 102, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer .newsletter .feedback, footer .newsletter .denied, .footer_checkout .newsletter .feedback, .footer_checkout .newsletter .denied {
+  width: 335px;
+  height: 37px;
+  background: url(/dev-assets/common/sprite_modal_footer.png) no-repeat 6px -162px;
+  background-color: #bfd7bd;
+  border: 1px solid #81b47e;
+  position: absolute;
+  top: 42px;
+  right: 12px;
+  color: #000;
+  font-size: 11px;
+  font-family: "Trebuchet Ms" !important;
+  letter-spacing: 1px;
+  font-weight: normal;
+  padding-left: 40px;
+}
+/* line 117, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer .newsletter .feedback span, footer .newsletter .denied span, .footer_checkout .newsletter .feedback span, .footer_checkout .newsletter .denied span {
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+}
+/* line 123, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer .newsletter .denied, .footer_checkout .newsletter .denied {
+  background: url(/dev-assets/common/sprite_modal_footer.png) no-repeat -122px 2px;
+  background-color: #ea8596;
+  border: 1px solid #e94762;
+  height: 23px;
+  padding-top: 4px;
+}
+/* line 130, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer .newsletter .js-success, footer .newsletter .js-error, .footer_checkout .newsletter .js-success, .footer_checkout .newsletter .js-error {
+  display: none;
+}
+/* line 133, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer .newsletter ul.social, .footer_checkout .newsletter ul.social {
+  width: 400px;
+  height: 30px;
+  padding: 0;
+  margin: 7px 10px 0 33px;
+}
+/* line 138, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer .newsletter ul.social li, .footer_checkout .newsletter ul.social li {
+  position: relative;
+}
+/* line 140, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer .newsletter ul.social li a, .footer_checkout .newsletter ul.social li a {
+  text-indent: 9999px;
+  display: block;
+  width: 100%;
+  height: 27px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+/* line 150, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer .newsletter ul.social li.logo, .footer_checkout .newsletter ul.social li.logo {
+  float: left;
+  width: 240px;
+  margin-right: 6px;
+}
+/* line 155, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer .newsletter ul.social li.icon, footer .newsletter ul.social li.icon-, .footer_checkout .newsletter ul.social li.icon, .footer_checkout .newsletter ul.social li.icon- {
+  float: left;
+  width: 30px;
+  height: 30px;
+  margin-right: 5px;
+  border: 1px solid #fff;
+}
+/* line 163, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer .newsletter ul.mail, .footer_checkout .newsletter ul.mail {
+  width: 465px;
+  height: 30px;
+  margin-right: 0;
+  margin-top: 14px;
+  margin-left: 33px;
+}
+/* line 169, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer .newsletter ul.mail p, .footer_checkout .newsletter ul.mail p {
+  font-size: 13px;
+  font-family: "Trebuchet Ms" !important;
+  letter-spacing: 1px;
+  color: #cccccc;
+  float: left;
+  margin-right: 5px;
+}
+/* line 176, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer .newsletter ul.mail p span, .footer_checkout .newsletter ul.mail p span {
+  color: #ef3742;
+  font-weight: 600;
+  font-size: 14px;
+  font-weight: bold;
+}
+/* line 183, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer .newsletter ul.mail fieldset, .footer_checkout .newsletter ul.mail fieldset {
+  display: block;
+  width: 100px;
+  float: left;
+}
+/* line 187, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer .newsletter ul.mail fieldset .box_mail, .footer_checkout .newsletter ul.mail fieldset .box_mail {
+  width: 205px;
+  height: 23px;
+  background-color: #1a1a1a;
+  color: #cccccc;
+  font-size: 10px;
+  font-family: "Trebuchet Ms" !important;
+  border: 1px solid #cccccc;
+  padding-left: 10px;
+  letter-spacing: 1px;
+  margin-top: -4px;
+  position: absolute;
+}
+/* line 201, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer .newsletter ul.mail fieldset.botao, .footer_checkout .newsletter ul.mail fieldset.botao {
+  width: 30px;
+  height: 30px;
+  border: none;
+}
+/* line 205, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer .newsletter ul.mail fieldset.botao .bt_enviar, .footer_checkout .newsletter ul.mail fieldset.botao .bt_enviar {
+  background: url(/dev-assets/common/nav/sprite_header.png) no-repeat 0 -275px;
+  width: 26px;
+  height: 26px;
+  text-indent: 9999px;
+  float: right;
+  position: absolute;
+  margin-top: -4px;
+  border: none;
+  top: 13px;
+  right: 15px;
+}
+
+/* ----------------- Footer Checkout----------------- */
+/* line 224, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer.footer_checkout {
+  width: 990px !important;
+  margin: 0 auto;
+  height: 230px;
+}
+/* line 229, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer.footer_checkout section ul {
+  float: left;
+  margin-top: 0 !important;
+  height: 160px;
+}
+/* line 230, ../../../app/assets/stylesheets/partials/_footer.scss */
+footer.footer_checkout section ul.payment {
+  margin-left: 0;
+}
+
+/* line 234, ../../../app/assets/stylesheets/partials/_footer.scss */
+.mercado_pago {
+  display: none;
+}
+
+@font-face {
+  font-family: 'icomoon';
+  src: url(/dev-assets/icon/icomoon.eot?-twdbeg);
+  src: url(/dev-assets/icon/icomoon.eot?#iefix-twdbeg) format("embedded-opentype"), url(/dev-assets/icon/icomoon.woff?-twdbeg) format("woff"), url(/dev-assets/icon/icomoon.ttf?-twdbeg) format("truetype"), url(/dev-assets/icon/icomoon.svg?-twdbeg#icomoon) format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* line 247, ../../../app/assets/stylesheets/partials/_footer.scss */
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  float: left;
+  width: 22px;
+  height: 22px;
+  margin-right: 5px;
+  font-size: 19px;
+  color: #cccccc;
+  margin-top: 2px;
+}
+
+/* line 269, ../../../app/assets/stylesheets/partials/_footer.scss */
+.icon-instagram:before {
+  content: "\e600";
+}
+
+/* line 272, ../../../app/assets/stylesheets/partials/_footer.scss */
+.icon-facebook:before {
+  content: "\e601";
+}
+
+/* line 275, ../../../app/assets/stylesheets/partials/_footer.scss */
+.icon-youtube:before {
+  content: "\e603";
+}
+
+/* line 278, ../../../app/assets/stylesheets/partials/_footer.scss */
+.icon-twitter:before {
+  content: "\e602";
+}
+
+/*------------------
+==== CSS RESET ====
+------------------*/
+/* line 9, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  font-size: 100%;
+  line-height: 18px;
+}
+
+/* line 10, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+body {
+  font-size: 14px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+}
+
+/* line 11, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+a {
+  color: #ef3742;
+}
+
+/* line 12, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+li {
+  list-style-type: none;
+}
+
+/*--------------------
+ * == FLASH MESSAGE ==
+--------------------*/
+/* line 18, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+#error-messages {
+  display: none;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #EF3742;
+  padding: 42px 0;
+  z-index: 10001;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+/* line 29, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+#error-messages p {
+  background: transparent;
+  color: #FFF;
+  font-family: "Times New Roman", "Times", serif;
+  font-size: 21px;
+  font-weight: bold;
+  font-style: oblique;
+  text-align: center;
+}
+
+/*------------------
+=====  CONTENT =====
+------------------*/
+/* line 44, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+#container {
+  width: 990px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+/* line 45, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+#content {
+  width: 990px;
+  overflow: visible;
+  margin: 0 auto 0;
+  position: relative;
+}
+
+/***** MODAL STYLE ****/
+/* line 49, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+#modal-campaign, #overlay-campaign {
+  display: none;
+  position: absolute;
+}
+
+/* line 50, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+#overlay-campaign {
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  width: 100%;
+  min-height: 800px;
+  background: #FFF;
+  zoom: 1;
+  opacity: 0.75;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=75);
+  filter: alpha(opacity=75);
+}
+
+/* line 51, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+#modal-campaign {
+  float: left;
+  z-index: 10001;
+  background: transparent;
+  top: 50%;
+  left: 50%;
+}
+/* line 52, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+#modal-campaign iframe {
+  overflow: hidden;
+}
+
+/* line 55, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+#modal {
+  position: absolute;
+  display: none;
+  z-index: 10001;
+  overflow: hidden;
+  background-color: #fff;
+  border: 1px solid #000;
+}
+/* line 56, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+#modal form {
+  padding: 12px;
+  background: #fff;
+  color: #FFF;
+}
+
+/* line 59, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+button.close {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  cursor: pointer;
+  font-size: 20px;
+  background: url(/dev-assets/common/close_dialog.png) no-repeat;
+  text-indent: -9999px;
+  width: 30px;
+  height: 30px;
+  z-index: 10002;
+  border: none;
+}
+
+/* line 73, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+.watermelon {
+  color: #ef3742;
+}
+
+/* line 75, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+.aceitamos_cartoes {
+  width: 172px;
+  height: 131px;
+  display: block;
+  float: left;
+  background: url(/dev-assets/common/nav/sprite_header.png) -360px -16px no-repeat;
+  text-indent: -5000px;
+}
+
+/* line 76, ../../../app/assets/stylesheets/new_structure/common/_lite_structure.scss */
+.mercado_pago_button {
+  width: 125px;
+  height: 125px;
+  display: block;
+  float: left;
+  background: url(/dev-assets/common/nav/sprite_header.png) -361px -153px no-repeat;
+  text-indent: -5000px;
+}
+
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* jQuery UI - v1.10.3 - 2013-05-09
+* http://jqueryui.com
+* Includes: jquery.ui.core.css, jquery.ui.autocomplete.css, jquery.ui.menu.css, jquery.ui.slider.css
+* Copyright 2013 jQuery Foundation and other contributors Licensed MIT */
+/* line 7, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-helper-hidden {
+  display: none;
+}
+
+/* line 8, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-helper-hidden-accessible {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/* line 9, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-helper-reset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  line-height: 1.3;
+  text-decoration: none;
+  font-size: 100%;
+  list-style: none;
+}
+
+/* line 10, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-helper-clearfix:before, .ui-helper-clearfix:after {
+  content: "";
+  display: table;
+  border-collapse: collapse;
+}
+
+/* line 11, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-helper-clearfix:after {
+  clear: both;
+}
+
+/* line 12, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-helper-clearfix {
+  min-height: 0;
+}
+
+/* line 13, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-helper-zfix {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  opacity: 0;
+  filter: Alpha(Opacity=0);
+}
+
+/* line 14, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-front {
+  z-index: 100;
+}
+
+/* line 15, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-state-disabled {
+  cursor: default !important;
+}
+
+/* line 16, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-icon {
+  display: block;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
+/* line 17, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-widget-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* line 18, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-autocomplete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: default;
+}
+
+/* line 19, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu {
+  list-style: none;
+  padding: 2px;
+  margin: 0;
+  display: block;
+  outline: 0;
+  background: #fff;
+  background-color: #fff;
+  border: solid 1px #000;
+  border-top: none;
+  width: 470px !important;
+  -webkit-box-shadow: 3px 3px #000;
+  box-shadow: 3px 3px #000;
+}
+
+/* line 21, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-menu {
+  margin-top: -3px;
+  position: absolute;
+}
+
+/* line 22, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-menu-item {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+}
+
+/* line 23, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-menu-divider {
+  margin: 5px -2px 5px -2px;
+  height: 0;
+  font-size: 0;
+  line-height: 0;
+  border-width: 1px 0 0;
+}
+
+/* line 24, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-menu-item a {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 12px;
+  text-decoration: none;
+  display: block;
+  padding: 2px .4em;
+  line-height: 1.5;
+  min-height: 0;
+  font-weight: 400;
+  color: #000 !important;
+  text-transform: capitalize;
+}
+
+/* line 25, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-menu-item a.ui-state-focus, .ui-menu .ui-menu-item a.ui-state-active {
+  font-weight: 400;
+  /*margin:-1px*/
+}
+
+/* line 26, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-state-disabled {
+  font-weight: 400;
+  margin: .4em 0 .2em;
+  line-height: 1.5;
+}
+
+/* line 27, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-state-disabled a {
+  cursor: default;
+}
+
+/* line 28, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu-icons {
+  position: relative;
+}
+
+/* line 29, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu-icons .ui-menu-item a {
+  position: relative;
+  padding-left: 2em;
+}
+
+/* line 30, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-icon {
+  position: absolute;
+  top: .2em;
+  left: .2em;
+}
+
+/* line 31, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-menu-icon {
+  position: static;
+  float: right;
+}
+
+/* line 32, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider {
+  position: relative;
+  text-align: left;
+  top: 9px;
+}
+
+/* line 33, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider .ui-slider-handle {
+  position: absolute;
+  z-index: 2;
+  width: 4px;
+  height: 11px;
+  cursor: default;
+  background: url(/dev-assets/collections/bullet_range_price.png) -1px 0 no-repeat;
+  cursor: pointer;
+}
+
+/* line 34, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider .ui-slider-handle:last-child {
+  background-position: -15px 0 !important;
+  margin-left: 0;
+}
+
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider .ui-slider-range {
+  position: absolute;
+  z-index: 1;
+  font-size: .7em;
+  display: block;
+  border: 0;
+  background-position: 0 0;
+}
+
+/* line 36, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider .ui-widget-header {
+  background: #000;
+}
+
+/* line 37, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider.ui-state-disabled .ui-slider-handle, .ui-slider.ui-state-disabled .ui-slider-range {
+  filter: inherit;
+}
+
+/* line 38, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-horizontal {
+  height: .2em;
+  background: #CCC;
+}
+
+/* line 39, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-horizontal .ui-slider-handle {
+  top: -.3em;
+  margin-left: -.5em;
+}
+
+/* line 40, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-horizontal .ui-slider-range {
+  top: 0;
+  height: 100%;
+}
+
+/* line 41, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-horizontal .ui-slider-range-min {
+  left: 0;
+}
+
+/* line 42, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-horizontal .ui-slider-range-max {
+  right: 0;
+}
+
+/* line 43, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-vertical {
+  width: .8em;
+  height: 100px;
+}
+
+/* line 44, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-vertical .ui-slider-handle {
+  left: -.3em;
+  margin-left: 0;
+  margin-bottom: -.6em;
+}
+
+/* line 45, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-vertical .ui-slider-range {
+  left: 0;
+  width: 100%;
+}
+
+/* line 46, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-vertical .ui-slider-range-min {
+  bottom: 0;
+}
+
+/* line 47, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-slider-vertical .ui-slider-range-max {
+  top: 0;
+}
+
+/* line 48, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.ui-menu .ui-menu-item a.ui-state-focus, .ui-menu .ui-menu-item a.ui-state-active {
+  color: #000;
+}
+
+/* line 50, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.horizontal-slider .ui-slider-handle {
+  width: 10px;
+}
+
+/* line 51, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.price-range {
+  float: left;
+  margin-top: 2px;
+}
+
+/* Fiquei na duvida em relacao ao merge, entao deixei comentado (Rafael)*/
+/* >>>>>>>>>HEAD */
+/*.price-range .slider{float:left;width:50px;margin-right:20px;}*/
+/*.price-range p{font-family:$avenir;font-weight:bold;width:40px;font-size:11px;padding-left:0;line-height:22px;}*/
+/*=======*/
+/* line 57, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.price-range .slider {
+  float: left;
+  width: 50px;
+  margin-right: 18px;
+  margin-top: -2px;
+}
+
+/* line 58, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.price-range p {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-weight: bold;
+  width: 40px;
+  font-size: 11px;
+  padding-left: 0;
+}
+
+/* line 60, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.price-range p#min-value-label {
+  float: left;
+}
+
+/* line 61, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.price-range p#max-value-label {
+  float: right;
+}
+
+/* line 62, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+.price-range input {
+  display: none;
+  width: 45px;
+}
+
+/* fix to windows */
+/* line 65, ../../../app/assets/stylesheets/new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min.css.scss */
+html.win .price-range .slider {
+  width: 39px !important;
+}
+
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 2, ../../../app/assets/stylesheets/new_structure/partials/_home_stylist_box.css.scss */
+.other-products {
+  clear: both;
+  border-top: solid 1px #CBCBCB;
+  margin: 20px 0 50px;
+  color: #58595B;
+  font-size: 21px;
+  padding-top: 28px;
+  font-style: italic;
+}
+
+/*********************
+ HOME STYLIST PARTIAL
+*********************/
+/* line 6, ../../../app/assets/stylesheets/new_structure/partials/_home_stylist_box.css.scss */
+section#stylists {
+  position: relative;
+  min-height: 270px;
+  margin: 0 0 30px;
+  padding: 10px 0 30px;
+}
+/* line 7, ../../../app/assets/stylesheets/new_structure/partials/_home_stylist_box.css.scss */
+section#stylists p.title {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 22px;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0 0 30px;
+  color: #000;
+  font-weight: lighter;
+  letter-spacing: 3px;
+}
+/* line 8, ../../../app/assets/stylesheets/new_structure/partials/_home_stylist_box.css.scss */
+section#stylists p.title span {
+  color: #ef3742;
+}
+/* line 12, ../../../app/assets/stylesheets/new_structure/partials/_home_stylist_box.css.scss */
+section#stylists h2 {
+  position: absolute;
+  background: url(/dev-assets/home/olook-loved.jpg) no-repeat;
+  text-indent: -99999px;
+  width: 104px;
+  height: 104px;
+  display: block;
+  top: 0;
+  left: 75px;
+}
+/* line 13, ../../../app/assets/stylesheets/new_structure/partials/_home_stylist_box.css.scss */
+section#stylists ul.products_list {
+  width: 100%;
+  overflow: auto;
+}
+/* line 14, ../../../app/assets/stylesheets/new_structure/partials/_home_stylist_box.css.scss */
+section#stylists ul.products_list li {
+  margin: 0 0 0 42px;
+  float: left;
+}
+/* line 15, ../../../app/assets/stylesheets/new_structure/partials/_home_stylist_box.css.scss */
+section#stylists ul.products_list li a {
+  color: #000;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  float: left;
+}
+/* line 16, ../../../app/assets/stylesheets/new_structure/partials/_home_stylist_box.css.scss */
+section#stylists ul.products_list li a h1 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 3, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box {
+  padding: 0 0 0 70px;
+  width: 102px;
+  height: 140px;
+  float: right;
+  background: url(/dev-assets/common/nav/sprite_header.png) -164px -193px;
+  position: absolute;
+  right: 0px;
+  top: 40px;
+}
+/* line 4, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box img {
+  margin: 0 7px 20px 0;
+  float: left;
+}
+/* line 5, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box h3 {
+  color: #36569e;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 14px;
+  font-weight: lighter;
+}
+/* line 6, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box h3 span {
+  font-size: 17px;
+  font-weight: bold;
+}
+/* line 8, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box .like {
+  clear: both;
+  padding-top: -20px;
+  width: 100px;
+}
+/* line 9, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+div#facebook_box .fb-button {
+  width: 100px;
+}
+
+/****** IE8 HACK *******/
+/* line 14, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+html.ie8 section#home li.iehack {
+  margin: 0 !important;
+}
+
+/* AJUSTE FACEBOOK IFRAME */
+/* line 18, ../../../app/assets/stylesheets/new_structure/partials/_facebook_footer.scss */
+.fb-button {
+  height: 20px !important;
+  overflow: hidden !important;
+  margin-top: -40px;
+}
+
+/* line 4, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories {
+  width: 1020px;
+  height: 200px;
+  margin: 0 0 18px;
+  padding: 15px 0 0 0;
+  float: left;
+}
+/* line 5, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories img {
+  margin-left: 7px;
+}
+/* line 8, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul {
+  width: 100%;
+  overflow: auto;
+  margin-top: 35px;
+}
+/* line 10, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li a {
+  width: 63px;
+  height: 100px;
+  background: url(/dev-assets/home/categories.png) no-repeat;
+  color: #000;
+  float: left;
+  text-indent: -9999px;
+  margin-right: 29px;
+}
+/* line 11, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li a:hover {
+  color: #ef3742;
+}
+/* line 13, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.blusa a {
+  background-position: -5px 0px;
+}
+/* line 14, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.blusa a:hover {
+  background-position: -5px -147px;
+}
+/* line 16, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.camisa a {
+  background-position: -100px 0px;
+}
+/* line 17, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.camisa a:hover {
+  background-position: -100px -147px;
+}
+/* line 19, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.calca a {
+  background-position: -196px 0px;
+}
+/* line 20, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.calca a:hover {
+  background-position: -196px -147px;
+}
+/* line 22, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.vestido a {
+  background-position: -293px 0px;
+}
+/* line 23, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.vestido a:hover {
+  background-position: -293px -147px;
+}
+/* line 25, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.anabela a {
+  background-position: -387px 0px;
+}
+/* line 26, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.anabela a:hover {
+  background-position: -387px -147px;
+}
+/* line 28, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.bota a {
+  background-position: -477px 0px;
+}
+/* line 29, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.bota a:hover {
+  background-position: -477px -147px;
+}
+/* line 31, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.sapatilha a {
+  background-position: -570px 0px;
+}
+/* line 32, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.sapatilha a:hover {
+  background-position: -570px -147px;
+}
+/* line 34, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.scarpin a {
+  background-position: -662px 0px;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.scarpin a:hover {
+  background-position: -662px -147px;
+}
+/* line 37, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.rasteira a {
+  background-position: -756px 0px;
+}
+/* line 38, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.rasteira a:hover {
+  background-position: -756px -147px;
+}
+/* line 40, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.bolsas a {
+  background-position: -853px 0px;
+}
+/* line 41, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.bolsas a:hover {
+  background-position: -853px -147px;
+}
+/* line 43, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.acessorios a {
+  background-position: -943px 0px;
+  margin-right: 0 !important;
+}
+/* line 44, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+div#products_categories ul li.acessorios a:hover {
+  background-position: -943px -147px;
+}
+
+/* line 50, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+section#boxes {
+  width: 970px;
+  overflow: auto;
+  margin: 0 10px 55px;
+}
+/* line 52, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+section#boxes ul li {
+  background: #f8f8f8;
+  width: 311px;
+  height: 287px;
+  display: block;
+  margin: 0 15px 0 0;
+  float: left;
+  border: 1px #c2c2c2 solid;
+  overflow: hidden;
+}
+/* line 53, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+section#boxes ul li a {
+  color: #231f20;
+  text-decoration: none;
+}
+/* line 54, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+section#boxes ul li a h1 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 17px;
+  text-transform: uppercase;
+  margin: 16px 0 3px 24px;
+  font-weight: lighter;
+}
+/* line 55, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+section#boxes ul li a p {
+  background: url(/dev-assets/home/arrows-pink.png) right center no-repeat;
+  font-size: 15px;
+  display: inline;
+  margin: 0 0 0 24px;
+  padding: 0 20px 0 0;
+}
+/* line 57, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+section#boxes ul li a:hover p {
+  color: #ef3742;
+}
+/* line 60, ../../../app/assets/stylesheets/new_structure/partials/_lite_boxes_home.scss */
+section#boxes ul li:last-child {
+  margin: 0;
+  float: right;
+}
+
+/*------------------
+====== HEADER ======
+------------------*/
+/* line 7, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+a#go_top {
+  position: fixed;
+  background: url(/dev-assets/common/nav/sprite_header.png) no-repeat -492px -153px;
+  text-indent: -99999px;
+  width: 40px;
+  height: 40px;
+  right: 40px;
+  bottom: 45%;
+  z-index: 5;
+  display: none;
+}
+
+/* line 9, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header {
+  border-top: 2px black solid;
+}
+/* line 10, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .new_content {
+  height: 77px;
+  padding-top: 15px;
+  width: 990px;
+  margin: 0 auto;
+}
+/* line 11, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .new_content .box_left {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 10px;
+  color: #101010;
+  float: left;
+  margin-left: 10px;
+}
+/* line 17, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .new_content .box_left p {
+  line-height: 14px;
+}
+/* line 20, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .new_content .box_left a.contact {
+  text-decoration: none;
+  color: #101010;
+}
+/* line 23, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .new_content .box_left a.contact:hover {
+  color: #ef3742;
+}
+/* line 26, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .new_content .box_left p .earn_credits {
+  color: #ef3742;
+  text-decoration: none;
+  float: left;
+  margin-top: 3px;
+  font-size: 11px;
+}
+/* line 34, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .new_content .box_left a.invite {
+  color: #ef3742;
+  text-decoration: none;
+  float: left;
+  margin-top: 3px;
+  font-size: 11px;
+  width: 275px;
+}
+/* line 44, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .new_content .olook_logo {
+  width: 190px;
+  height: 57px;
+  margin: 9px -2px auto;
+  padding-top: 5px;
+}
+/* line 45, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .new_content .olook_logo h2 a {
+  width: 190px;
+  height: 57px;
+  display: block;
+  background: url(/dev-assets/common/nav/sprite_header.png) no-repeat 0 -74px;
+  text-indent: -9999px;
+}
+/* line 48, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right {
+  color: #000;
+  float: right;
+  margin: -7px 10px 0 0;
+  position: relative;
+  width: 450px;
+  /*------ USER MENU ----*/
+  /*------ END USER MENU ----*/
+  /*------ BOX LOGIN -------*/
+  /*------ END BOX LOGIN -------*/
+}
+/* line 54, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right p {
+  float: right;
+}
+/* line 55, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .new_login {
+  width: 164px;
+  height: 18px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 11px;
+  display: block;
+  text-align: center;
+  line-height: 18px;
+  border-left: 1px #000 solid;
+  border-right: 1px #000 solid;
+  height: 15px;
+}
+/* line 66, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .new_login a {
+  text-decoration: none;
+  color: #000;
+}
+/* line 67, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .new_login a:hover {
+  color: #ef3742;
+}
+/* line 71, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right p.trade {
+  font-size: 11px;
+  color: #000;
+  line-height: 18px;
+  margin-left: 10px;
+}
+/* line 72, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right p.trade a {
+  text-decoration: none;
+  color: #000;
+}
+/* line 73, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right p.trade a:hover {
+  text-decoration: none;
+  color: #ef3742;
+}
+/* line 76, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right p.sac {
+  color: #000;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 11px;
+  line-height: 18px;
+  margin-left: 8px;
+}
+/* line 84, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user {
+  margin: 0;
+  float: right;
+}
+/* line 85, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul {
+  float: right;
+}
+/* line 87, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li {
+  position: relative;
+  color: #282828;
+  font-size: 11px;
+  text-align: right;
+  margin: 0 0 0 3px;
+  padding: 0;
+  display: inline-block;
+  float: left;
+}
+/* line 88, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li.username {
+  border-right: 1px solid #000;
+  height: 15px;
+  padding-right: 8px;
+  background: #FFF;
+}
+/* line 89, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li.first {
+  height: 15px;
+}
+/* line 90, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li.bl {
+  border-left: solid 1px #D7D7D7;
+  padding-left: 8px;
+  line-height: 17px;
+}
+/* line 91, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li.br {
+  border-right: solid 1px #000;
+  padding-right: 8px;
+}
+/* line 92, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li.br a {
+  color: #ef3742;
+  line-height: 17px;
+}
+/* line 94, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li.submenu {
+  padding-right: 5px;
+  border-right: 1px solid #000;
+  height: 15px;
+}
+/* line 98, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li a {
+  color: #282828;
+  text-decoration: none;
+}
+/* line 102, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li a#info_user {
+  color: #000;
+  padding-right: 10px;
+}
+/* line 103, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li a#account {
+  color: #000;
+  text-align: left;
+  width: auto;
+  min-width: 70px;
+  height: 17px;
+  margin: -6px 0 0;
+  padding: 5px 0px 5px 8px;
+  display: inline-block;
+  border: 1px #FFF solid;
+  float: none;
+  line-height: 17px;
+}
+/* line 116, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li a#account:hover, header#new_header .box_right div.user ul li a#account.hover {
+  text-decoration: none;
+  border-color: #CCC;
+  box-shadow: 0px 2px 5px #CCC;
+  color: #ef3742;
+}
+/* line 117, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li a#account:hover {
+  color: #ef3742;
+}
+/* line 120, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li div.my_account {
+  position: absolute;
+  background: #FFF;
+  padding: 5px 0;
+  display: none;
+  top: 17px;
+  left: -10px;
+  z-index: 1000;
+  border-left: 1px #CCC solid;
+  border-right: 1px #CCC solid;
+  border-bottom: 1px #CCC solid;
+  box-shadow: 0px 4px 5px #CCC;
+  width: 100px !important;
+}
+/* line 133, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li div.my_account ul {
+  margin: 0 0 0 5px;
+}
+/* line 135, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li div.my_account ul li {
+  margin-top: 8px;
+  text-align: left;
+  width: 100%;
+  display: block;
+  clear: both;
+  width: 90px !important;
+}
+/* line 136, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li div.my_account ul li a {
+  color: #000;
+  letter-spacing: 0;
+  margin: 0;
+  display: block;
+  clear: both;
+}
+/* line 137, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li div.my_account ul li a:hover {
+  color: #ef3742;
+}
+/* line 140, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li div.my_account ul li:last-child a, header#new_header .box_right div.user ul li div.my_account ul li.last a {
+  margin: 0;
+}
+/* line 146, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right div.user ul li:hover div.my_account {
+  display: block;
+}
+/* line 154, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .sign-in-dropdown {
+  display: none;
+  position: absolute;
+  right: -1px !important;
+  top: 30px;
+  z-index: 9999;
+  background: #FFF;
+  border: 1px solid #BBB;
+  padding: 12px;
+  width: 250px;
+}
+/* line 164, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .sign-in-dropdown.open {
+  display: block;
+}
+/* line 166, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .sign-in-dropdown form {
+  margin-bottom: 15px;
+}
+/* line 168, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .sign-in-dropdown form fieldset label {
+  display: block;
+  font-size: 11px;
+  font-weight: bold;
+  margin: 2px 0;
+}
+/* line 169, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .sign-in-dropdown form fieldset input {
+  background: white url(/dev-assets/common/background-inputs.png) bottom repeat-x;
+  border: 1px solid #BBB;
+  padding: 6px 8px;
+  width: 92%;
+}
+/* line 171, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .sign-in-dropdown form fieldset input#user_remember_me_login {
+  width: auto;
+  float: left;
+}
+/* line 172, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .sign-in-dropdown form fieldset input#login {
+  float: right;
+  margin: -17px 0 0 65px;
+}
+/* line 173, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .sign-in-dropdown form fieldset input#user_password {
+  margin-bottom: 10px;
+}
+/* line 174, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .sign-in-dropdown form fieldset input:focus {
+  outline: none;
+}
+/* line 178, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .sign-in-dropdown form fieldset.buttons label {
+  font-weight: normal !important;
+  width: 103px;
+}
+/* line 179, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .sign-in-dropdown form fieldset.buttons a {
+  font-size: 11px;
+  float: left;
+}
+/* line 180, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .sign-in-dropdown form fieldset.buttons input[type=submit] {
+  font-size: 10px;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  font-weight: bold;
+  letter-spacing: 1px;
+  width: 74px;
+  height: 31px;
+  display: block;
+  border: none;
+  cursor: pointer;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+header#new_header .box_right .sign-in-dropdown form fieldset.buttons input[type=submit]:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 191, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .sign-in-dropdown form fieldset.buttons #user_remember_me_login {
+  background: none;
+  margin-right: 5px;
+}
+/* line 195, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .sign-in-dropdown .login_with_facebook {
+  padding: 10px 0 0 0;
+  border-top: 1px #cfcfcf solid;
+}
+/* line 196, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .sign-in-dropdown .login_with_facebook a.fb_login_button {
+  background: url(/dev-assets/common/fb-loggin-button.png) no-repeat;
+  text-indent: -9999px;
+  width: 194px;
+  height: 25px;
+  margin: 0 auto;
+  display: block;
+}
+/* line 201, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right p.trade {
+  float: left;
+  font-size: 11px;
+  color: #000;
+  line-height: 18px;
+  margin-left: 10px;
+  border-right: 1px solid #000;
+  padding-right: 8px;
+  height: 15px;
+}
+/* line 202, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right p.trade a {
+  text-decoration: none;
+  color: #000;
+}
+/* line 203, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right p.trade a:hover {
+  text-decoration: none;
+  color: #ef3742;
+}
+/* line 206, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+header#new_header .box_right .ui-helper-hidden-accessible {
+  display: none;
+}
+
+/* line 209, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.box_bottom {
+  float: right;
+  height: 55px;
+  margin-right: -155px;
+  margin-top: 30px;
+}
+/* line 215, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.box_bottom ul li {
+  float: left;
+}
+/* line 218, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.box_bottom ul li.search {
+  position: absolute;
+  right: 220px;
+}
+/* line 222, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.box_bottom ul li.wishlist {
+  width: 100px;
+}
+/* line 225, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.box_bottom ul li.wishlist a.wishlist,
+.box_bottom ul li.wishlist a.wishlistHasProduct {
+  text-align: center;
+  color: #000;
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-family: arial, verdana, tahoma;
+  padding-left: 22px;
+  padding-top: 12px;
+  padding-right: 2px;
+  background: url(/dev-assets/common/nav/sprite_header.png) no-repeat 11px -326px;
+  height: 29px;
+  width: 93px;
+  display: block;
+  position: absolute;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 700;
+  border: 1px solid #fff;
+  right: 117px;
+}
+/* line 241, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.box_bottom ul li.wishlist a.wishlist:hover,
+.box_bottom ul li.wishlist a.wishlistHasProduct:hover {
+  color: #ef3742;
+  font-weight: 700;
+}
+/* line 243, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.box_bottom ul li.wishlist a.wishlistHasProduct {
+  background: url(/dev-assets/common/nav/sprite_header.png) no-repeat 11px -363px;
+}
+/* line 246, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.box_bottom ul li.wishlist a.selecionado {
+  background-color: #FFF;
+  border: 1px solid #000 !important;
+  border-bottom: none !important;
+  z-index: 10000;
+}
+/* line 252, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.box_bottom ul li.wishlist a.newest_bag {
+  font-size: 10px;
+  display: block;
+  margin-top: 10px;
+  text-decoration: none;
+  font-weight: lighter;
+  height: 26px;
+  width: 166px;
+  letter-spacing: 2px;
+  padding-top: 9px;
+  text-transform: uppercase;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+.box_bottom ul li.wishlist a.newest_bag:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 265, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.box_bottom ul li.wishlist a.discount {
+  color: #ef3742;
+  background-position: -153px -313px;
+}
+/* line 269, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.box_bottom ul li.wishlist p.sub {
+  font-size: 11px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  color: #000;
+  text-align: left;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #000;
+  position: absolute;
+  right: 117px;
+  z-index: 9999;
+  display: none;
+  top: 71px;
+  letter-spacing: 0.03em;
+}
+/* line 284, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.box_bottom ul li.wishlist p.full {
+  padding: 10px 25px;
+}
+
+/*-----------------------------
+====== MINHA SACOLA BOX =======
+------------------------------*/
+/* line 296, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.new_sacola {
+  position: relative;
+}
+/* line 298, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.new_sacola a {
+  position: absolute;
+  right: 0px;
+  top: -95px;
+  text-decoration: none;
+  display: block;
+  height: 25px;
+  background: url(/dev-assets/common/nav/sprite_header.png) -114px 4px no-repeat;
+  font-family: arial, verdana, tahoma;
+  font-size: 10px;
+  color: #000;
+  letter-spacing: 1px;
+  padding: 6px 0px 15px 27px;
+  clear: both;
+  width: 99px;
+  font-weight: bold;
+}
+/* line 299, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.new_sacola a.full {
+  background: url(/dev-assets/common/nav/sprite_header.png) white -158px -359px no-repeat;
+}
+/* line 300, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.new_sacola a .mini_coupon_tag {
+  background: url(/dev-assets/common/nav/sprite_header.png) -269px -113px no-repeat;
+  width: 60px;
+  height: 28px;
+  top: -23px;
+  right: 0;
+  display: block;
+  position: absolute;
+}
+/* line 302, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.new_sacola a.selecionado {
+  border: 1px solid #000 !important;
+  background-color: #FFF;
+}
+/* line 303, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.new_sacola a.cart {
+  margin-left: 1px;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
+}
+/* line 304, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.new_sacola span {
+  font-family: arial, verdana, tahoma;
+  font-size: 10px;
+  margin: 0;
+  letter-spacing: 0px;
+  font-weight: normal;
+  font-style: italic;
+}
+
+/* line 306, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary {
+  position: absolute;
+  display: none;
+  top: 71px;
+  right: -10px;
+  z-index: 9999;
+  width: 280px;
+  min-height: 135px;
+  max-height: 388px;
+  border: solid 1px #000;
+  background: #FFF;
+  padding: 15px 0;
+}
+/* line 317, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary p {
+  float: none !important;
+}
+/* line 318, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .detalhe {
+  width: 126px;
+  background: #FFF;
+  height: 2px;
+  position: absolute;
+  top: -1px;
+  right: 0px;
+}
+/* line 319, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .scroll {
+  max-height: 297px;
+  overflow-y: auto;
+  padding: 0 32px;
+}
+/* line 322, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .scroll li.coupon_info p {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 12px;
+  color: #000;
+}
+/* line 323, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .scroll li.coupon_info p img {
+  float: left;
+  margin-top: 13px;
+  margin-right: 10px;
+}
+/* line 325, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .scroll li.product_item {
+  border-top: solid 1px #CCC;
+  margin-top: 10px;
+  color: #000;
+  font-size: 12px;
+  padding-top: 10px;
+  height: 80px;
+}
+/* line 326, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .scroll li.product_item p {
+  line-height: 17px;
+  overflow: hidden;
+}
+/* line 327, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .scroll li.product_item img {
+  float: left;
+  margin-right: 14px;
+  margin-top: 10px;
+  width: 46px;
+}
+/* line 328, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .scroll li.product_item h2 {
+  font-family: arial, verdana, tahoma;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 16px;
+}
+/* line 330, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .scroll li.product_item .size,
+#cart_summary .scroll li.product_item .qte {
+  font-size: 11px;
+  font-family: verdana, arial, tahoma;
+}
+/* line 331, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .scroll li.product_item .qte, #cart_summary .scroll li.product_item .qte span {
+  line-height: 13px;
+  height: 17px;
+}
+/* line 332, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .scroll li.product_item .price {
+  font-family: Verdana, "Trebuchet Ms", Arial, Verdana;
+}
+/* line 334, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .scroll li .big_coupon {
+  width: 116px !important;
+  height: 53px !important;
+}
+/* line 335, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .scroll li p.freight {
+  text-align: center;
+  color: #ef3742;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+/* line 336, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .scroll li p.freight span {
+  color: #000;
+  font-size: 10px;
+  text-transform: none;
+  letter-spacing: 1px;
+}
+/* line 338, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .scroll li .empty_cart {
+  text-align: center;
+  font-size: 11px;
+  color: #000;
+}
+/* line 345, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .see_cart {
+  text-align: center;
+  margin: 12px auto 0;
+  clear: both;
+  width: 80%;
+  border-top: 1px solid #cdcdcd;
+}
+/* line 351, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .see_cart a.selecionado {
+  border: 0px !important;
+}
+/* line 352, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .see_cart a.finish {
+  padding-top: 20px;
+  display: block;
+  width: 130px;
+  height: 16px;
+  font-size: 10px;
+  line-height: 0;
+  margin-top: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative !important;
+  top: 0px !important;
+  text-transform: uppercase;
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-bottom: 3px;
+  letter-spacing: 2px;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+#cart_summary .see_cart a.finish:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 371, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .see_cart a.finish:hover {
+  width: 130px;
+  height: 16px;
+  color: #fff;
+  padding-left: 14px;
+  padding-right: 14px;
+  color: #fff !important;
+}
+/* line 373, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .coupon_warn {
+  display: block;
+  position: absolute;
+  background-color: #c1e2be;
+  border-top: 1px #ccc solid;
+  border-left: 1px #ccc solid;
+  border-bottom: 1px #ccc solid;
+  padding: 5px 5px 5px 5px;
+  left: -338px;
+  width: 325px;
+  top: 85px;
+  line-height: 23px;
+}
+/* line 385, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .coupon_warn .check {
+  background: url(/dev-assets/common/check-circle.png) no-repeat top left;
+  display: block;
+  float: left;
+  margin-right: 5px;
+  width: 22px;
+  height: 22px;
+}
+/* line 393, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#cart_summary .coupon_warn .seta {
+  background: url(/dev-assets/common/seta-verde.png) no-repeat top left;
+  display: block;
+  position: absolute;
+  width: 14px;
+  height: 36px;
+  top: -2px;
+  left: 335px;
+}
+
+/*---------------------------------
+====== FIM MINHA SACOLA BOX =======
+----------------------------------*/
+/*-----------------------
+====== SEARCH BOX =======
+-----------------------*/
+/* line 412, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search_box {
+  position: relative;
+  clear: both;
+  float: right;
+}
+/* line 417, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search_box #search_product {
+  float: left;
+  border: solid 1px #000;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 12px;
+  font-weight: 400;
+  width: 475px;
+  height: 35px;
+  line-height: 29px;
+  text-align: left;
+  padding-left: 10px;
+  padding-right: 40px;
+  margin-right: 20px;
+}
+/* line 432, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search_box .default {
+  color: #CDCDCD;
+  font-style: italic;
+  text-transform: none;
+}
+/* line 438, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search_box .enabled {
+  color: #000;
+  font-style: normal;
+  text-transform: capitalize;
+}
+/* line 444, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search_box input[type="submit"] {
+  position: absolute;
+  background: url(/dev-assets/common/nav/sprite_header.png) -165px -147px;
+  width: 32px;
+  height: 28px;
+  left: 486px;
+  text-indent: 9999px;
+  border: none;
+  cursor: pointer;
+}
+
+/* line 455, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.pagination {
+  text-align: center;
+  clear: both;
+}
+/* line 457, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.pagination.topo {
+  clear: none;
+  float: right;
+  margin: 4px 3px 0 0;
+}
+/* line 461, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.pagination a {
+  display: inline-block;
+  font: normal 13px Verdana, Arial, sans-serif;
+  text-decoration: none;
+  color: #A7A9AB;
+  height: 19px;
+  line-height: 22px;
+  margin: 0 3px;
+}
+/* line 468, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.pagination a.anterior, .pagination a.proximo {
+  width: 10px;
+  background: url(/dev-assets/catalog/sprite.png) no-repeat 2px -112px;
+  font-size: 0;
+}
+/* line 472, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.pagination a.proximo {
+  background-position: 0 -137px;
+}
+/* line 474, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.pagination a.current {
+  color: #000 !important;
+}
+/* line 476, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.pagination a:hover {
+  color: #ef3742;
+}
+
+/* line 481, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#filters {
+  float: left;
+  width: 182px;
+}
+
+/* line 484, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+#search_result {
+  float: left;
+  width: 793px;
+  margin-bottom: 20px;
+}
+
+/* line 488, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.cb {
+  clear: both;
+  width: 100%;
+}
+
+/* line 491, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search {
+  margin-left: 15px;
+}
+/* line 492, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search h1 {
+  font-size: 22px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  color: #58595b;
+  font-weight: 500;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #b7b7b7;
+  width: 277px;
+}
+/* line 501, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search h2 {
+  font-size: 17px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  color: #58595B;
+  letter-spacing: 1px;
+  font-weight: lighter;
+  line-height: 25px;
+}
+/* line 508, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search h2 b {
+  font-size: 18px;
+  font-family: verdana;
+  color: #000;
+  font-weight: normal;
+}
+/* line 513, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search h2 span {
+  color: #ef3742;
+}
+/* line 516, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search h2.title-founded {
+  font-size: 21px;
+  color: #58595B;
+  display: inline-block;
+  margin-bottom: 30px;
+  font-family: Verdana;
+  color: #000;
+  letter-spacing: 0px;
+  font-size: 18px;
+}
+/* line 524, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search h2.title-founded span {
+  font-weight: normal;
+}
+/* line 528, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search .title-category {
+  text-transform: uppercase;
+  color: #000;
+  font-size: 12px;
+  font-weight: bold;
+}
+/* line 533, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search .hints {
+  font-size: 14px;
+  font-family: verdana;
+  color: #000;
+  font-weight: normal;
+  margin-top: 20px;
+}
+/* line 539, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search ul {
+  width: 100%;
+  overflow: auto;
+}
+/* line 541, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search ul.hint-list {
+  margin-top: 15px;
+}
+/* line 542, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search ul.hint-list li {
+  height: 22px;
+  display: block;
+  font-size: 14px;
+  font-family: verdana;
+  color: #000;
+  font-weight: lighter;
+}
+/* line 549, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search ul.hint-list li.hint_one {
+  background-position: 0 0;
+}
+/* line 551, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search ul.hint-list li.hint_two {
+  background-position: 0 -22px;
+}
+/* line 553, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search ul.hint-list li.hint_three {
+  background-position: 0 -44px;
+}
+/* line 555, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search ul.hint-list li.hint_four {
+  background-position: 0 -66px;
+}
+/* line 559, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search ul.subcategory-list {
+  color: #000;
+}
+/* line 561, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search ul.subcategory-list li:hover {
+  color: #ef3742;
+}
+/* line 563, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search ul.subcategory-list li a {
+  color: #000;
+  text-decoration: none;
+  margin-right: 3px;
+}
+/* line 566, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search ul.subcategory-list li a:hover {
+  color: #ef3742;
+}
+/* line 573, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters .filter {
+  margin-bottom: 15px;
+  clear: both;
+  overflow: hidden;
+}
+/* line 578, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores {
+  width: 145px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: solid 1px #CCC;
+  padding-left: 5px;
+}
+/* line 585, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span {
+  display: inline-block;
+  height: 15px;
+  padding-left: 19px;
+  background: url(/dev-assets/common/thumbs_cor.png) no-repeat 0 1px;
+}
+/* line 591, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-amarelo {
+  background-position: 0 -302px;
+}
+/* line 592, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-azul {
+  background-position: 0 -382px;
+}
+/* line 593, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-bege {
+  background-position: 0 -239px;
+}
+/* line 594, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-branco {
+  background-position: 0 -416px;
+}
+/* line 595, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-cinza {
+  background-position: 0 -270px;
+}
+/* line 596, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-cobra {
+  background-position: 0 -93px;
+}
+/* line 597, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-cobre {
+  background-position: 0 2px;
+}
+/* line 598, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-dourado {
+  background-position: 0 -13px;
+}
+/* line 599, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-floral {
+  background-position: 0 -77px;
+}
+/* line 600, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-laranja {
+  background-position: 0 -318px;
+}
+/* line 601, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-listras {
+  background-position: 0 -109px;
+}
+/* line 602, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-marrom {
+  background-position: 0 -254px;
+}
+/* line 603, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-multicolorido {
+  background-position: 0 -125px;
+}
+/* line 604, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-nude {
+  background-position: 0 -222px;
+}
+/* line 605, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-off-white {
+  background-position: 0 -432px;
+}
+/* line 606, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-onix {
+  background-position: 0 -29px;
+}
+/* line 607, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-onca {
+  background-position: 0 -141px;
+}
+/* line 608, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-poas {
+  background-position: 0 -157px;
+}
+/* line 609, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-prateado {
+  background-position: 0 -45px;
+}
+/* line 610, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-preto {
+  background-position: 0 -286px;
+}
+/* line 611, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-rosa {
+  background-position: 0 -350px;
+}
+/* line 612, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-rose {
+  background-position: 0 -61px;
+}
+/* line 613, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-roxo {
+  background-position: 0 -366px;
+}
+/* line 614, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-vaca {
+  background-position: 0 -173px;
+}
+/* line 615, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-verde {
+  background-position: 0 -398px;
+}
+/* line 616, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-vermelho {
+  background-position: 0 -334px;
+}
+/* line 617, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-xadrez {
+  background-position: 0 -189px;
+}
+/* line 618, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters ul.cores li span.txt-zebra {
+  background-position: 0 -205px;
+}
+/* line 622, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters p {
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: bold;
+  height: 15px;
+  background: url(/dev-assets/catalog/sprite.png) no-repeat 0 6px;
+  padding-left: 13px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+/* line 631, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters p.close {
+  background-position: 0 -25px !important;
+}
+/* line 633, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters a {
+  display: inline-block;
+  height: 15px;
+  font-size: 11px;
+  text-decoration: none;
+  color: #000;
+  background: url(/dev-assets/catalog/sprite.png) no-repeat 0 -50px;
+  padding-left: 13px;
+  font-family: verdana, arial, tahoma;
+}
+/* line 643, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters a:hover {
+  color: #ef3742;
+}
+/* line 644, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters a.selected {
+  background-position: 0 -86px !important;
+}
+/* line 645, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters a.clean {
+  background: url(/dev-assets/collections/sprite.png) -269px -116px no-repeat !important;
+}
+/* line 647, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters .clean_filter a {
+  font-size: 11px;
+  text-decoration: underline;
+  background: none;
+  padding-left: 0;
+}
+/* line 654, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters .invite_friends a {
+  background: none;
+  padding: 0;
+  height: 100%;
+  margin-bottom: 20px;
+}
+/* line 662, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.search #filters .promo_brands a {
+  background: none;
+  padding: 0;
+  height: 100%;
+  margin-bottom: 20px;
+}
+
+/* line 674, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.show_more {
+  clear: both;
+  height: 100px;
+  margin-left: -12px;
+}
+/* line 678, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.show_more .categories {
+  background: none !important;
+}
+/* line 681, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+.show_more p.title {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: bold;
+  height: 15px;
+  margin-bottom: 5px;
+  background: none !important;
+}
+
+/*---------------------------
+====== FIM SEARCH BOX =======
+---------------------------*/
+/*----------------------
+====== FIM HEADER ======
+-----------------------*/
+/*------------------
+====== MENU =======
+------------------*/
+/* line 702, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+div#replace_new_menu_on_float {
+  height: 42px;
+  display: none;
+}
+
+/* line 706, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+div#wrapper_new_menu {
+  position: relative;
+  z-index: 99;
+  background: #FFF;
+  width: 100%;
+  opacity: 1;
+  *filter: alpha(opacity=90);
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+}
+/* line 717, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+div#wrapper_new_menu.smaller div.content {
+  width: 990px;
+  padding-right: 0;
+}
+/* line 720, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+div#wrapper_new_menu.smaller div.content ul.product_anchors {
+  display: none;
+}
+/* line 725, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+div#wrapper_new_menu.fixed {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 999;
+  padding-top: 5px;
+  height: 31px;
+}
+/* line 733, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+div#wrapper_new_menu .content_new {
+  height: 33px;
+  margin-bottom: 10px;
+}
+
+/* line 736, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+nav.menu_new {
+  margin: 0 auto 5px;
+  width: 990px;
+  line-height: 30px;
+  background-color: #000;
+}
+/* line 741, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+nav.menu_new * {
+  line-height: 30px;
+}
+/* line 742, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+nav.menu_new .default_new {
+  width: 990px;
+  margin: 0 auto;
+  position: relative;
+  display: inline-block;
+}
+/* line 747, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+nav.menu_new .default_new li {
+  margin-left: -1px;
+  font-size: 10px;
+  text-transform: uppercase;
+  display: inline;
+  float: left;
+  height: 30px;
+}
+/* line 754, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+nav.menu_new .default_new li.liquidation {
+  border-right: none;
+}
+/* line 755, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+nav.menu_new .default_new li a {
+  font-weight: bold;
+  border-bottom: 0;
+  display: block;
+  font-family: arial,verdana,tahoma;
+  height: 32px;
+  text-decoration: none;
+  color: #fff;
+  padding: 0 19px;
+  letter-spacing: 0.15em;
+}
+/* line 765, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+nav.menu_new .default_new li a.selecionado {
+  border: 1px solid #000;
+  border-bottom: 0;
+  position: relative;
+  background: #FFF;
+  color: #000;
+  z-index: 99;
+  padding: 0 18px;
+  position: relative;
+  top: -1px;
+}
+/* line 778, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+nav.menu_new li.olooklet {
+  padding-right: 0 !important;
+}
+/* line 779, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+nav.menu_new li.olooklet a {
+  background: none;
+}
+/* line 780, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+nav.menu_new li.showroom a {
+  margin-left: 1px;
+}
+/* line 781, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+nav.menu_new li.brands, nav.menu_new .gift {
+  position: relative;
+}
+
+/* line 786, ../../../app/assets/stylesheets/new_structure/common/_header.css.scss */
+body.mobile .default_new a,
+body.mobile .default_new a:hover,
+body.mobile .default_new a.selecionado {
+  border-top-color: #FFF !important;
+}
+
+/*---------------------
+====== FIM MENU =======
+---------------------*/
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 2, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist {
+  width: 100%;
+}
+/* line 4, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist h1 {
+  width: 100%;
+  display: block;
+  font-size: 14px;
+  margin-bottom: 20px;
+  font-family: verdana, arial, tahoma;
+  text-transform: uppercase;
+  background: url(/dev-assets/common/wishlist/ico_heart.png) no-repeat 0 2px;
+  padding-left: 40px;
+  padding-bottom: 2px;
+}
+/* line 14, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist h1 span {
+  font-weight: normal;
+  text-transform: none;
+  display: block;
+}
+/* line 20, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist div.product {
+  width: 215px;
+  height: 415px;
+  float: left;
+  padding: 10px 10px 0 10px;
+  border: 1px solid #d1d1d1;
+  margin: 0 5px 10px 5px;
+  position: relative;
+  font-family: verdana, arial, tahoma;
+  font-size: 11px;
+}
+/* line 30, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist div.product * {
+  line-height: 17px;
+}
+/* line 31, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist div.product .img {
+  width: 100%;
+  height: 322px;
+  position: relative;
+  margin-bottom: 10px;
+}
+/* line 38, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist div.product .img a.add_product,
+#wishlist div.product .img a.added_product,
+#wishlist div.product .img a.soldOut {
+  position: absolute;
+  z-index: 99;
+  padding: 10px;
+  padding-right: 40px;
+  border: 1px solid #d1d1d1;
+  border-radius: 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+  width: 76px;
+  height: 17px;
+  background: url(/dev-assets/common/wishlist/bg_coracao.png) #f03644 no-repeat 96px -31px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -18px 0 0 -64px;
+  text-align: center;
+  display: none;
+  letter-spacing: 1px;
+}
+/* line 62, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist div.product .img a.added_product {
+  background-position: 96px -70px;
+  background-color: #fff;
+  color: #000;
+  letter-spacing: 0px;
+  cursor: default;
+}
+/* line 69, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist div.product .img a.soldOut {
+  background-color: #000;
+  background-image: none;
+  color: #FFF;
+  padding: 10px;
+  display: block !important;
+  width: 100px;
+  text-align: center;
+  margin-left: -61px;
+  text-transform: uppercase;
+}
+/* line 80, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist div.product .img .async {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+}
+/* line 84, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist div.product .img .async img {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+}
+/* line 90, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist div.product .img .removeFromWishlist {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  background: url(/dev-assets/common/wishlist/ico_close.png) no-repeat center center;
+  width: 30px;
+  height: 30px;
+  display: block;
+  text-indent: -5000px;
+  z-index: 10;
+}
+/* line 101, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist div.product .img p.label_price {
+  background: url(/dev-assets/common/wishlist/label_price.png) no-repeat;
+  width: 59px;
+  height: 26px;
+  font-size: 14px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  color: #fff;
+  font-weight: 600;
+  position: absolute;
+  padding-left: 26px;
+  padding-top: 5px;
+}
+/* line 115, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist div.product h2, #wishlist div.product h3, #wishlist div.product h4 {
+  width: 100%;
+  display: block;
+}
+/* line 119, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist div.product h2 {
+  overflow: hidden;
+  height: 17px;
+}
+/* line 123, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist div.product h3 {
+  font-weight: normal;
+  text-transform: uppercase;
+}
+/* line 127, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist div.product .value {
+  font-weight: bold;
+}
+/* line 130, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist div.product .discounted-price {
+  color: #f00;
+}
+/* line 134, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist ul.size {
+  width: 40%;
+  float: left;
+  display: block;
+  margin: 5px 0;
+}
+/* line 139, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist ul.size li {
+  display: inline;
+  padding: 2px;
+  text-align: center;
+  margin-right: 2px;
+  border: 1px solid #e1e1e1;
+  font-weight: bold;
+  font-size: 10px;
+}
+/* line 147, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist ul.size li.selected {
+  color: red;
+  border-color: red;
+}
+/* line 153, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist a.seeMoreDetails {
+  float: right;
+  border: 1px solid #000;
+  padding: 1px 3px;
+  margin-top: 3px;
+  color: #000;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-family: 'Trebuchet Ms';
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+  text-decoration: none;
+}
+/* line 167, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist a.seeMoreDetails:hover {
+  background-color: #000;
+  color: #FFF;
+}
+/* line 172, ../../../app/assets/stylesheets/new_structure/common/_wishlist.css.scss */
+#wishlist .noProductWished {
+  width: 100%;
+  height: 670px;
+  background: url(/dev-assets/common/wishlist/img_wishlist.png) no-repeat center center;
+  display: none;
+}
+
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 5, ../../../app/assets/stylesheets/new_structure/common/_catalog4you.css.scss */
+.search-results-list li.product,
+ul#products li.product {
+  display: inline-block;
+  width: 170px;
+  border: 1px solid #e1e1e1;
+  padding: 6px;
+  position: relative;
+  height: 325px;
+  float: left;
+  margin: 0 5px 14px 5px;
+}
+/* line 13, ../../../app/assets/stylesheets/new_structure/common/_catalog4you.css.scss */
+.search-results-list li.product a,
+ul#products li.product a {
+  color: #000;
+  text-decoration: none;
+  font-size: 11px !important;
+  font-family: Verdana;
+}
+/* line 17, ../../../app/assets/stylesheets/new_structure/common/_catalog4you.css.scss */
+.search-results-list li.product a .name,
+ul#products li.product a .name {
+  color: #000;
+  font-size: 11px !important;
+  height: 18px;
+  overflow: hidden;
+  display: block;
+}
+/* line 23, ../../../app/assets/stylesheets/new_structure/common/_catalog4you.css.scss */
+.search-results-list li.product a .brand,
+ul#products li.product a .brand {
+  text-transform: uppercase;
+}
+/* line 26, ../../../app/assets/stylesheets/new_structure/common/_catalog4you.css.scss */
+.search-results-list li.product a .price,
+ul#products li.product a .price {
+  font-family: "Trebuchet Ms";
+}
+/* line 29, ../../../app/assets/stylesheets/new_structure/common/_catalog4you.css.scss */
+.search-results-list li.product a b,
+ul#products li.product a b {
+  text-transform: uppercase;
+}
+/* line 31, ../../../app/assets/stylesheets/new_structure/common/_catalog4you.css.scss */
+.search-results-list li.product a img,
+ul#products li.product a img {
+  width: 100%;
+}
+/* line 34, ../../../app/assets/stylesheets/new_structure/common/_catalog4you.css.scss */
+.search-results-list li.product a .old,
+ul#products li.product a .old {
+  text-decoration: line-through;
+}
+/* line 36, ../../../app/assets/stylesheets/new_structure/common/_catalog4you.css.scss */
+.search-results-list li.product a .txt-pink,
+ul#products li.product a .txt-pink {
+  color: #ef3742;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: -1px;
+}
+/* line 42, ../../../app/assets/stylesheets/new_structure/common/_catalog4you.css.scss */
+.search-results-list li.product div.async,
+ul#products li.product div.async {
+  position: relative;
+  height: 256px;
+}
+/* line 45, ../../../app/assets/stylesheets/new_structure/common/_catalog4you.css.scss */
+.search-results-list li.product div.async img,
+ul#products li.product div.async img {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+}
+
+/* line 54, ../../../app/assets/stylesheets/new_structure/common/_catalog4you.css.scss */
+li.product:hover .spy {
+  display: block;
+}
+
+/* line 58, ../../../app/assets/stylesheets/new_structure/common/_catalog4you.css.scss */
+.spy {
+  position: absolute;
+  bottom: 75px;
+  width: 95%;
+  height: 54px;
+  background: url(/dev-assets/FFFFFF-0.6.png) repeat;
+  display: none;
+  cursor: pointer;
+  z-index: 100;
+}
+
+/* line 69, ../../../app/assets/stylesheets/new_structure/common/_catalog4you.css.scss */
+.spy-icon {
+  background: url(/dev-assets/moments/sprite.png) no-repeat right -169px;
+  width: 40px;
+  height: 40px;
+  float: left;
+  margin-left: 36px;
+  margin-top: 4px;
+  display: block;
+}
+
+/* line 78, ../../../app/assets/stylesheets/new_structure/common/_catalog4you.css.scss */
+.spy-txt {
+  display: block;
+  float: left;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 11px;
+  margin-top: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  width: 85px;
+  margin-left: 7px;
+  padding-right: 1px;
+}
+
+/* line 92, ../../../app/assets/stylesheets/new_structure/common/_catalog4you.css.scss */
+.search-results-list .spy {
+  display: none !important;
+}
+
+/* line 9, ../../../app/assets/stylesheets/new_structure/lite_application.css.scss */
+ul.breadcrumb {
+  display: block;
+  width: 100%;
+  height: 20px;
+  position: relative;
+  top: -9px;
+  left: 6px;
+}
+/* line 16, ../../../app/assets/stylesheets/new_structure/lite_application.css.scss */
+ul.breadcrumb li {
+  float: left;
+  display: block;
+  font-family: verdana;
+  font-size: 9px;
+  color: #6d6e71;
+  padding: 0 0 0 10px;
+  color: #000;
+  text-align: left;
+  padding-left: 5px;
+}
+/* line 26, ../../../app/assets/stylesheets/new_structure/lite_application.css.scss */
+ul.breadcrumb li a {
+  font-family: verdana;
+  background: url(/dev-assets/product/breadcrumb.gif) right center no-repeat;
+  color: #6d6e71;
+  display: block;
+  float: left;
+  padding-right: 10px;
+  text-decoration: none;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/lite_application.css.scss */
+ul.breadcrumb li a:hover {
+  color: #ef3742;
+}
+
+/* line 40, ../../../app/assets/stylesheets/new_structure/lite_application.css.scss */
+.cat_olooklet ul {
+  margin-left: 11px;
+  margin-bottom: 9px;
+  display: block;
+  float: left;
+}
+/* line 45, ../../../app/assets/stylesheets/new_structure/lite_application.css.scss */
+.cat_olooklet ul li {
+  margin-bottom: 12px;
+}
+/* line 47, ../../../app/assets/stylesheets/new_structure/lite_application.css.scss */
+.cat_olooklet ul li a {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: bold;
+  height: 15px;
+  background: url(/dev-assets/catalog/sprite.png) no-repeat 0 -25px !important;
+  padding-left: 13px;
+  cursor: pointer;
+  display: block;
+}
+
+/* line 60, ../../../app/assets/stylesheets/new_structure/lite_application.css.scss */
+.mercado_pago {
+  display: none;
+}
+
+/* line 65, ../../../app/assets/stylesheets/new_structure/lite_application.css.scss */
+a.selecionado,
+a.selecionado:hover {
+  color: #ef3742 !important;
+}
+
+/* line 67, ../../../app/assets/stylesheets/new_structure/lite_application.css.scss */
+#modal {
+  position: fixed !important;
+}
+
+/* line 69, ../../../app/assets/stylesheets/new_structure/lite_application.css.scss */
+section.banner {
+  margin-bottom: 10px !important;
+}
+/* line 71, ../../../app/assets/stylesheets/new_structure/lite_application.css.scss */
+section.banner img {
+  width: 100%;
+}

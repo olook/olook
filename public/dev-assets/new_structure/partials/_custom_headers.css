@@ -1,0 +1,178 @@
+/* line 134, ../../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 4, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item {
+  margin-bottom: 25px;
+  color: #000;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+}
+/* line 8, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item h1.title {
+  display: block;
+  padding-top: 8px;
+  width: 770px;
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+/* line 17, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item span.summary, .about_item .full {
+  line-height: 19px;
+  text-transform: none;
+  margin-top: 25px;
+  font-weight: lighter;
+  letter-spacing: 0;
+  font-size: 12px;
+  display: block;
+  width: 770px;
+}
+/* line 27, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item a.more_info_show, .about_item a.more_info_hide {
+  text-decoration: none;
+  color: #000;
+  letter-spacing: 0;
+  font-size: 12px;
+  line-height: 25px;
+}
+/* line 33, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item a.more_info_show:hover, .about_item a.more_info_hide:hover {
+  color: #ef3742;
+}
+/* line 37, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item a.more_info_show {
+  display: block;
+  float: left;
+  margin-right: 8px;
+}
+/* line 38, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item a.more_info_hide {
+  display: none;
+  float: left;
+  margin-right: 8px;
+}
+/* line 39, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item .like {
+  top: 4px;
+  margin-left: 3px;
+}
+/* line 43, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item span.full {
+  display: none;
+  width: 890px;
+}
+
+/* line 48, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.promo_catalog {
+  margin-bottom: 30px;
+  padding-top: 5px;
+}
+
+/* line 52, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.banners_group {
+  height: 330px;
+  margin-bottom: 20px;
+  padding-top: 5px;
+}
+/* line 57, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.banners_group ul li {
+  float: left;
+}
+/* line 59, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.banners_group ul li.big {
+  margin-right: 15px;
+}
+/* line 62, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.banners_group ul li.small {
+  margin-bottom: 20px;
+}
+
+/* line 67, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top {
+  width: 560px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  float: right;
+}
+/* line 73, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top p {
+  float: right;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #000;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 11px;
+  padding-top: 3px;
+}
+/* line 82, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul {
+  float: right;
+  margin-right: 12px;
+}
+/* line 83, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li {
+  float: right;
+  margin-left: 6px;
+}
+/* line 84, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li a {
+  display: block;
+  border: 1px solid #d1d1d1;
+  color: #6d6e71;
+  text-align: center;
+  width: 20px;
+  padding-top: 2px;
+  font-size: 12px;
+  text-decoration: none;
+  height: 18px;
+}
+/* line 85, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li a span.txt-unico {
+  font-size: 12px;
+}
+/* line 86, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li a:hover {
+  border-color: #ef3742;
+  color: #ef3742;
+}
+/* line 90, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li a.selected {
+  background: #000;
+  color: #FFF;
+  border: 1px solid #000;
+  cursor: default;
+}
+/* line 91, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li.unico a {
+  width: 40px;
+}
+/* line 92, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li.tamanho_unico a {
+  width: 112px;
+}
+/* line 93, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li.tamanho_regulavel a {
+  width: 62px;
+}
+/* line 94, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li.bolsa_grande a {
+  width: 82px;
+}
+/* line 95, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li.grande a {
+  width: 50px;
+}

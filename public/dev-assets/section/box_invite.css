@@ -1,0 +1,273 @@
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 1, ../../../app/assets/stylesheets/partials/_social.scss */
+div.social {
+  width: 471px;
+  overflow: auto;
+  margin-bottom: 20px;
+}
+/* line 5, ../../../app/assets/stylesheets/partials/_social.scss */
+div.social ul {
+  width: 360px;
+  margin: 30px auto 0;
+  padding: 0 0;
+  overflow: auto;
+}
+/* line 10, ../../../app/assets/stylesheets/partials/_social.scss */
+div.social ul li {
+  position: relative;
+  width: 115px;
+  margin: 0 0 0 0;
+  float: left;
+  overflow: hidden;
+}
+/* line 16, ../../../app/assets/stylesheets/partials/_social.scss */
+div.social ul li a {
+  color: #5a5a5b;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 12px;
+  text-align: center;
+  text-decoration: none;
+  line-height: 15px;
+  outline: none;
+  width: 114px;
+  height: 20px;
+  display: block;
+  margin: 0 15px 0 0;
+  float: left;
+  padding-top: 80px;
+}
+/* line 32, ../../../app/assets/stylesheets/partials/_social.scss */
+div.social ul li.twitter a {
+  background: url(/dev-assets/new_checkout/sprite.png) no-repeat -195px -284px;
+}
+/* line 37, ../../../app/assets/stylesheets/partials/_social.scss */
+div.social ul li.facebook a {
+  background: url(/dev-assets/new_checkout/sprite.png) no-repeat -88px -285px;
+}
+/* line 42, ../../../app/assets/stylesheets/partials/_social.scss */
+div.social ul li.orkut a {
+  background: url(/dev-assets/common/bt-orkut.jpg) center 10px no-repeat;
+}
+/* line 45, ../../../app/assets/stylesheets/partials/_social.scss */
+div.social ul li.orkut img {
+  position: absolute;
+  width: 105px;
+  height: 150px;
+  left: 0;
+  opacity: 0;
+  -moz-opacity: 0;
+  filter: alpha(opacity=0);
+}
+/* line 56, ../../../app/assets/stylesheets/partials/_social.scss */
+div.social ul li.email a {
+  background: url(/dev-assets/new_checkout/sprite.png) no-repeat -310px -284px;
+  margin: 0;
+}
+/* line 60, ../../../app/assets/stylesheets/partials/_social.scss */
+div.social ul li.email a.selected {
+  background-color: #e4e4e4;
+}
+/* line 67, ../../../app/assets/stylesheets/partials/_social.scss */
+div.social form {
+  background: #e4e4e4 !important;
+  padding: 20px 15px !important;
+  clear: both !important;
+  display: none;
+}
+/* line 72, ../../../app/assets/stylesheets/partials/_social.scss */
+div.social form p {
+  color: #000;
+  font-size: 17px;
+  margin: 0 0 10px;
+}
+/* line 77, ../../../app/assets/stylesheets/partials/_social.scss */
+div.social form textarea {
+  background: white url(/dev-assets/common/bg-textarea-emails.jpg) bottom repeat-x;
+  width: 425px;
+  height: 100px;
+  padding: 7px 8px;
+  resize: none;
+  outline: none;
+  margin: 0 0 20px;
+  border: 1px solid #C1C1C1;
+}
+/* line 87, ../../../app/assets/stylesheets/partials/_social.scss */
+div.social form input[type="submit"] {
+  width: 115px !important;
+  height: 34px !important;
+  display: block !important;
+  margin: 0 auto;
+  border: none !important;
+  cursor: pointer !important;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 14px;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 36, ../../../app/assets/stylesheets/partials/_mixins.scss */
+div.social form input[type="submit"]:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+
+/* line 101, ../../../app/assets/stylesheets/partials/_social.scss */
+div.link_mail {
+  position: relative;
+  padding: 20px 0 10px 30px;
+  border-top: solid 1px #DEDEDE;
+  text-align: left;
+}
+/* line 107, ../../../app/assets/stylesheets/partials/_social.scss */
+div.link_mail h2 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 16px;
+  font-weight: lighter;
+  margin: 0 0 10px;
+}
+/* line 113, ../../../app/assets/stylesheets/partials/_social.scss */
+div.link_mail p.txt-copie {
+  color: #000;
+  margin-bottom: 15px;
+}
+/* line 114, ../../../app/assets/stylesheets/partials/_social.scss */
+div.link_mail ul {
+  overflow: hidden;
+}
+/* line 116, ../../../app/assets/stylesheets/partials/_social.scss */
+div.link_mail ul li {
+  position: relative;
+}
+/* line 118, ../../../app/assets/stylesheets/partials/_social.scss */
+div.link_mail ul li input[type="text"] {
+  color: #666;
+  font-size: 14px;
+  width: 286px;
+  margin: 0 10px 10px 0;
+  padding: 8px 10px;
+  border: 1px #CCC solid;
+  float: left;
+}
+/* line 127, ../../../app/assets/stylesheets/partials/_social.scss */
+div.link_mail ul li a {
+  width: 98px;
+  height: 24px;
+  display: block;
+  float: left;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 2px;
+  font-size: 11px;
+  padding-top: 10px;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 36, ../../../app/assets/stylesheets/partials/_mixins.scss */
+div.link_mail ul li a:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 141, ../../../app/assets/stylesheets/partials/_social.scss */
+div.link_mail ul li div.zclip {
+  z-index: 10000 !important;
+}
+/* line 146, ../../../app/assets/stylesheets/partials/_social.scss */
+div.link_mail div.box_copy {
+  position: absolute;
+  background: url(/dev-assets/common/copy.png) top center no-repeat;
+  width: 236px;
+  height: 42px;
+  padding: 17px 0 0 0;
+  display: none;
+  top: -28px;
+  left: 210px;
+}
+/* line 155, ../../../app/assets/stylesheets/partials/_social.scss */
+div.link_mail div.box_copy p {
+  color: #666;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+}
+/* line 160, ../../../app/assets/stylesheets/partials/_social.scss */
+div.link_mail div.box_copy p strong {
+  color: #666;
+}
+
+/* line 4, ../../../app/assets/stylesheets/section/box_invite.css.scss */
+div.box_invite {
+  width: 815px;
+  padding: 20px 0px;
+  overflow: auto;
+  display: none;
+  background: #FFF;
+  min-height: 400px;
+}
+/* line 11, ../../../app/assets/stylesheets/section/box_invite.css.scss */
+div.box_invite > h1 {
+  font-size: 36px;
+  font-weight: lighter;
+  letter-spacing: -1px;
+  margin: 0 0 10px 10px;
+}
+/* line 16, ../../../app/assets/stylesheets/section/box_invite.css.scss */
+div.box_invite > h1 + p {
+  color: #666;
+  font-size: 15px;
+  margin: 0 0 35px 10px;
+}
+/* line 20, ../../../app/assets/stylesheets/section/box_invite.css.scss */
+div.box_invite > h1 + p strong {
+  color: #666;
+  font-weight: 500;
+}
+/* line 26, ../../../app/assets/stylesheets/section/box_invite.css.scss */
+div.box_invite div.social {
+  float: left;
+}
+/* line 29, ../../../app/assets/stylesheets/section/box_invite.css.scss */
+div.box_invite div.link_mail {
+  width: 314px;
+  float: right;
+}
+/* line 33, ../../../app/assets/stylesheets/section/box_invite.css.scss */
+div.box_invite.clone {
+  display: block;
+}
+
+/* line 38, ../../../app/assets/stylesheets/section/box_invite.css.scss */
+div.box_copy {
+  top: 108px !important;
+  left: 136px !important;
+}

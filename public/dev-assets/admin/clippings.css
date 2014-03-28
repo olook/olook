@@ -1,0 +1,36 @@
+/* line 2, ../../../app/assets/stylesheets/admin/clippings.css.scss */
+form.new_clipping fieldset {
+  display: block;
+  width: 520px;
+}
+/* line 5, ../../../app/assets/stylesheets/admin/clippings.css.scss */
+form.new_clipping fieldset input {
+  width: 300px;
+}
+/* line 8, ../../../app/assets/stylesheets/admin/clippings.css.scss */
+form.new_clipping fieldset.text {
+  width: 345px;
+}
+/* line 10, ../../../app/assets/stylesheets/admin/clippings.css.scss */
+form.new_clipping fieldset.text textarea {
+  width: 518px;
+  height: 160px;
+}
+
+/* line 17, ../../../app/assets/stylesheets/admin/clippings.css.scss */
+.countdown {
+  width: 25px;
+  float: right;
+}
+
+/* line 21, ../../../app/assets/stylesheets/admin/clippings.css.scss */
+h1.subtitle {
+  width: 200px;
+  float: left;
+}
+
+/* line 25, ../../../app/assets/stylesheets/admin/clippings.css.scss */
+.link_above {
+  margin-top: 22px;
+  float: left;
+}

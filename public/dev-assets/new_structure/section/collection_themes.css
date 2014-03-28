@@ -1,0 +1,2575 @@
+@charset "UTF-8";
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 3, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container {
+  height: 37px;
+  border-bottom: solid 1px #CCC;
+  clear: both;
+  padding-top: 5px;
+  color: #000;
+  margin: 5px 0 35px;
+}
+/* line 4, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter {
+  float: left;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 12px;
+  color: #717171;
+  position: relative;
+  top: 1px;
+  margin-right: 10px;
+}
+/* line 6, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter .tab_bg {
+  display: none;
+  position: absolute;
+  z-index: 101;
+  border-left: solid 1px #E2E2E2;
+  border-right: solid 1px #E2E2E2;
+  background: #FFF;
+  height: 17px;
+  width: 98%;
+}
+/* line 8, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter .tab_bg.tab_model {
+  width: 94px;
+}
+/* line 9, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter .tab_bg.tab_color {
+  width: 61px;
+}
+/* line 10, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter .tab_bg.tab_cloth_size {
+  width: 86px;
+}
+/* line 11, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter .tab_bg.tab_cloth_model {
+  width: 114px;
+}
+/* line 12, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter .tab_bg.tab_cloth_size, #filters_container .filter .tab_bg.tab_shoe_size {
+  width: 93px;
+}
+/* line 13, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter .tab_bg.tab_shoe_heel {
+  width: 72px;
+}
+/* line 16, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter span.selected-type {
+  display: inline-block;
+  height: 19px;
+  cursor: pointer;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  line-height: 20px;
+  padding: 0 35px 0 0;
+  text-indent: 6px;
+  border-top: solid 1px #D7D7D7;
+  border-bottom: solid 1px #D7D7D7;
+  border-left: solid 1px #D7D7D7;
+  background: url(/dev-assets/collections/bullet_arrow.png) right -1px no-repeat;
+  color: #000;
+}
+/* line 17, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter span.selected-type.cloth_size {
+  width: 59px;
+}
+/* line 18, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter span.selected-type.cloth_model {
+  width: 80px;
+}
+/* line 19, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter span.selected-type.model {
+  width: 60px;
+}
+/* line 20, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter span.selected-type.filter_selected {
+  color: #EF3742 !important;
+}
+/* line 23, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter fieldset {
+  float: left;
+  position: relative;
+}
+/* line 24, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter fieldset span {
+  width: 99px;
+}
+/* line 25, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter fieldset.first_child {
+  margin-right: 10px;
+}
+/* line 26, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter fieldset.first_child span {
+  width: 80px;
+}
+/* line 29, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter fieldset select {
+  position: absolute;
+  width: 100%;
+  line-height: 26px;
+  top: 0;
+  left: 0;
+  border: solid 1px #D7D7D7;
+  opacity: 0;
+  cursor: pointer;
+}
+/* line 32, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter .clear_filter {
+  background: none;
+  border: none;
+  float: right;
+  color: #717171;
+  display: none;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+/* line 34, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter .bt_clear_size {
+  left: 0;
+  top: 143px !important;
+}
+/* line 35, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter .bt_clear_color {
+  left: -20px;
+  top: 109px;
+  padding-right: 5px;
+  margin-top: 15px;
+}
+/* line 36, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter .bt_clear_heel {
+  left: -18px;
+  top: 166px;
+}
+/* line 37, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter .bt_clear_model {
+  left: 2px;
+  top: 215px !important;
+}
+/* line 38, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter .bt_clear_bag_color {
+  left: -109px;
+  top: 125px !important;
+  margin-top: 10px !important;
+}
+/* line 39, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter .bt_clear_bag {
+  top: 140px !important;
+  right: -160px;
+}
+/* line 40, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter .bt_clear_accessory {
+  left: 1px !important;
+  top: 139px !important;
+}
+/* line 41, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter .bt_clear_cloth {
+  right: -165px !important;
+  top: 180px !important;
+}
+/* line 42, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter .bt_clear_cloth_size {
+  top: 150px !important;
+  right: -110px !important;
+}
+/* line 45, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul {
+  overflow: hidden;
+  z-index: 100;
+  position: absolute;
+  top: 36px;
+  background-color: #FFF;
+  padding: 0 15px 10px;
+  border: 1px solid #E2E2E2;
+  display: none;
+}
+/* line 46, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.color_filter {
+  width: 175px;
+  height: auto;
+  left: 0;
+}
+/* line 47, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.color_filter li {
+  width: 90px !important;
+  height: 18px;
+}
+/* line 49, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.open {
+  width: 185px;
+  height: auto;
+}
+/* line 50, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.open_cloth {
+  width: 220px;
+  height: auto;
+}
+/* line 51, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.column {
+  width: 130px;
+  height: auto;
+}
+/* line 52, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.column-size {
+  width: 130px;
+  height: auto;
+}
+/* line 53, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.column_size_cloth {
+  width: 175px;
+  height: auto;
+}
+/* line 54, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.column_size_cloth li {
+  width: 70px;
+}
+/* line 56, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.open-bags {
+  width: 230px;
+}
+/* line 57, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.open-bags li {
+  width: 110px;
+}
+/* line 59, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.open-accessory {
+  width: 330px;
+  height: 120px;
+}
+/* line 60, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.open-accessory li {
+  width: 110px;
+}
+/* line 62, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul li {
+  width: 130px;
+  height: 20px;
+  position: relative;
+}
+/* line 63, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul li a {
+  display: inline-block;
+  height: 15px;
+  font-size: 13px;
+  text-decoration: none;
+  color: #000;
+  background: url(/dev-assets/catalog/sprite.png) no-repeat 0 -50px;
+  padding-left: 13px;
+  text-transform: capitalize;
+}
+/* line 64, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul li a.selected {
+  background-position: 0 -86px !important;
+}
+/* line 65, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul li a:hover {
+  color: #ef3742;
+}
+/* line 66, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul li a.clean {
+  background: url(/dev-assets/collections/sprite.png) -270px -119px no-repeat !important;
+}
+/* line 68, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul li.clear_choice {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  width: 50px;
+}
+/* line 69, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul li.clear_choice a {
+  background: none;
+  text-transform: none;
+  padding: 0;
+}
+/* line 72, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores {
+  width: 145px;
+  height: 200px;
+  overflow-y: auto;
+  padding-left: 5px;
+}
+/* line 73, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span {
+  display: inline-block;
+  height: 15px;
+  padding-left: 19px;
+  background: url(/dev-assets/common/thumbs_cor.png) no-repeat 0 1px;
+}
+/* line 74, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-amarelo {
+  background-position: 0 -302px;
+}
+/* line 75, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-azul {
+  background-position: 0 -382px;
+}
+/* line 76, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-bege {
+  background-position: 0 -239px;
+}
+/* line 77, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-branco {
+  background-position: 0 -415px;
+}
+/* line 78, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-cinza {
+  background-position: 0 -270px;
+}
+/* line 79, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-cobra {
+  background-position: 0 -93px;
+}
+/* line 80, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-cobre {
+  background-position: 0 2px;
+}
+/* line 81, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-dourado {
+  background-position: 0 -13px;
+}
+/* line 82, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-floral {
+  background-position: 0 -77px;
+}
+/* line 83, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-laranja {
+  background-position: 0 -318px;
+}
+/* line 84, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-listras {
+  background-position: 0 -109px;
+}
+/* line 85, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-marrom {
+  background-position: 0 -254px;
+}
+/* line 86, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-multicolorido {
+  background-position: 0 -125px;
+}
+/* line 87, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-nude {
+  background-position: 0 -222px;
+}
+/* line 88, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-off-white {
+  background-position: 0 -432px;
+}
+/* line 89, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-onix {
+  background-position: 0 -29px;
+}
+/* line 90, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-onca {
+  background-position: 0 -141px;
+}
+/* line 91, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-poas {
+  background-position: 0 -157px;
+}
+/* line 92, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-prateado {
+  background-position: 0 -45px;
+}
+/* line 93, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-preto {
+  background-position: 0 -286px;
+}
+/* line 94, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-rosa {
+  background-position: 0 -350px;
+}
+/* line 95, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-rose {
+  background-position: 0 -61px;
+}
+/* line 96, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-roxo {
+  background-position: 0 -366px;
+}
+/* line 97, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-vaca {
+  background-position: 0 -173px;
+}
+/* line 98, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-verde {
+  background-position: 0 -398px;
+}
+/* line 99, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-vermelho {
+  background-position: 0 -334px;
+}
+/* line 100, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-xadrez {
+  background-position: 0 -189px;
+}
+/* line 101, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+#filters_container .filter ul.cores li span.txt-zebra {
+  background-position: 0 -205px;
+}
+
+/* adjust slider price filter */
+/* line 109, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+.price-range p#min-value-label {
+  margin-right: 5px;
+}
+
+/* fix for windows */
+/* line 114, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+html.win.gecko #filters_container select.first_child, html.win.gecko #filters_container .filter,
+html.win.webkit #filters_container select.first_child, html.win.webkit #filters_container .filter {
+  margin-right: 6px;
+}
+
+/* line 116, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+html.win.gecko #filters_container .filter fieldset span.order, html.win.chrome #filters_container .filter fieldset span.order {
+  width: 112px;
+}
+
+/* line 118, ../../../../app/assets/stylesheets/new_structure/common/filters.css.scss */
+html.win.gecko #filters_container .filter fieldset.first_child span, html.win.chrome #filters_container .filter fieldset.first_child span {
+  width: 73px;
+}
+
+/*******  MENU ******/
+/* line 5, ../../../../app/assets/stylesheets/new_structure/common/side_bar_menu.css.scss */
+#side_bar_menu {
+  margin-left: 10px;
+}
+/* line 7, ../../../../app/assets/stylesheets/new_structure/common/side_bar_menu.css.scss */
+#side_bar_menu dl {
+  font-family: verdana, arial, tahoma;
+  color: #000;
+}
+/* line 8, ../../../../app/assets/stylesheets/new_structure/common/side_bar_menu.css.scss */
+#side_bar_menu dt {
+  float: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-family: verdana, arial, tahoma;
+}
+/* line 9, ../../../../app/assets/stylesheets/new_structure/common/side_bar_menu.css.scss */
+#side_bar_menu dd {
+  clear: both;
+  margin: 0;
+}
+/* line 10, ../../../../app/assets/stylesheets/new_structure/common/side_bar_menu.css.scss */
+#side_bar_menu dd.last {
+  margin-bottom: 25px;
+}
+/* line 11, ../../../../app/assets/stylesheets/new_structure/common/side_bar_menu.css.scss */
+#side_bar_menu dd a {
+  text-decoration: none;
+  color: #000;
+  font-size: 12px;
+  font-family: verdana, arial, tahoma;
+}
+/* line 12, ../../../../app/assets/stylesheets/new_structure/common/side_bar_menu.css.scss */
+#side_bar_menu dd a:hover {
+  color: #EF3742;
+}
+/* line 13, ../../../../app/assets/stylesheets/new_structure/common/side_bar_menu.css.scss */
+#side_bar_menu dd a.selected {
+  color: #EF3742;
+}
+
+/* line 17, ../../../../app/assets/stylesheets/new_structure/common/side_bar_menu.css.scss */
+.show_more {
+  margin-left: 0;
+  margin-top: 20px;
+}
+/* line 20, ../../../../app/assets/stylesheets/new_structure/common/side_bar_menu.css.scss */
+.show_more a {
+  font-size: 13px;
+  color: #000;
+  text-decoration: none;
+}
+/* line 24, ../../../../app/assets/stylesheets/new_structure/common/side_bar_menu.css.scss */
+.show_more a:hover {
+  color: #ef3742;
+}
+
+/******** INTERNAS *******/
+/* line 30, ../../../../app/assets/stylesheets/new_structure/common/side_bar_menu.css.scss */
+section {
+  margin-top: 10px;
+}
+/* line 31, ../../../../app/assets/stylesheets/new_structure/common/side_bar_menu.css.scss */
+section#side_bar_menu {
+  float: left;
+  width: 160px;
+}
+
+/*** PRODUTO DENTRO DO MODAL ESPIAR ***/
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 2, ../../../../app/assets/stylesheets/new_structure/common/jquery.jqzoom.scss */
+.zoomPad {
+  position: relative;
+  float: left;
+  z-index: 99;
+  cursor: crosshair;
+}
+
+/* line 10, ../../../../app/assets/stylesheets/new_structure/common/jquery.jqzoom.scss */
+.zoomPreload {
+  -moz-opacity: 0.8;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  color: #333;
+  font-size: 12px;
+  font-family: Tahoma;
+  text-decoration: none;
+  border: 1px solid #CCC;
+  background-color: white;
+  padding: 8px;
+  text-align: center;
+  background-image: url(/dev-assets/common/ajax-loader.gif);
+  background-repeat: no-repeat;
+  background-position: 43px 30px;
+  z-index: 110;
+  width: 90px;
+  height: 43px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  * width: 100px;
+  * height: 49px;
+}
+
+/* line 36, ../../../../app/assets/stylesheets/new_structure/common/jquery.jqzoom.scss */
+.zoomPup {
+  overflow: hidden;
+  background-color: #FFF;
+  -moz-opacity: 0.6;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+  z-index: 120;
+  position: absolute;
+  border: 1px solid #CCC;
+  z-index: 101;
+  cursor: crosshair;
+}
+
+/* line 49, ../../../../app/assets/stylesheets/new_structure/common/jquery.jqzoom.scss */
+.zoomOverlay {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background: #FFF;
+  /*opacity:0.5;*/
+  z-index: 5000;
+  width: 100%;
+  height: 100%;
+  display: none;
+  z-index: 101;
+}
+
+/* line 62, ../../../../app/assets/stylesheets/new_structure/common/jquery.jqzoom.scss */
+.zoomWindow {
+  position: absolute;
+  left: 110%;
+  top: 40px;
+  background: #FFF;
+  z-index: 6000;
+  height: auto;
+  z-index: 10000;
+  z-index: 110;
+}
+
+/* line 72, ../../../../app/assets/stylesheets/new_structure/common/jquery.jqzoom.scss */
+.zoomWrapper {
+  position: relative;
+  z-index: 110;
+}
+
+/* line 76, ../../../../app/assets/stylesheets/new_structure/common/jquery.jqzoom.scss */
+.zoomWrapperTitle {
+  display: block;
+  background: #999;
+  color: #FFF;
+  height: 18px;
+  line-height: 18px;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  font-size: 10px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 120;
+  -moz-opacity: 0.6;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
+
+/* line 94, ../../../../app/assets/stylesheets/new_structure/common/jquery.jqzoom.scss */
+.zoomWrapperImage {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  z-index: 110;
+}
+
+/* line 101, ../../../../app/assets/stylesheets/new_structure/common/jquery.jqzoom.scss */
+.zoomWrapperImage img {
+  border: 0px;
+  display: block;
+  position: absolute;
+  z-index: 101;
+}
+
+/* line 108, ../../../../app/assets/stylesheets/new_structure/common/jquery.jqzoom.scss */
+.zoomIframe {
+  z-index: -1;
+  filter: alpha(opacity=0);
+  -moz-opacity: 0.80;
+  opacity: 0.80;
+  position: absolute;
+  display: block;
+}
+
+/*********************************************************
+/ When clicking on thumbs jqzoom will add the class
+/ "zoomThumbActive" on the anchor selected
+/*********************************************************/
+/* line 134, ../../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/*** MODAL GUIA DE MEDIDAS ***/
+/* line 5, ../../../../app/assets/stylesheets/common/product_details.scss */
+div#modal_guide {
+  width: 800px;
+  height: 630px;
+  background-color: #fff;
+  border: 1px solid #a7a9ac;
+  position: absolute;
+  z-index: 3000;
+  padding-left: 50px;
+  display: none;
+}
+/* line 6, ../../../../app/assets/stylesheets/common/product_details.scss */
+div#modal_guide h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #58585a;
+  margin-top: 50px;
+  float: left;
+}
+/* line 7, ../../../../app/assets/stylesheets/common/product_details.scss */
+div#modal_guide p {
+  font-size: 14px;
+  color: #58585a;
+  margin-top: 5px;
+  float: left;
+}
+/* line 8, ../../../../app/assets/stylesheets/common/product_details.scss */
+div#modal_guide ul {
+  margin-top: 65px;
+  float: left;
+}
+/* line 9, ../../../../app/assets/stylesheets/common/product_details.scss */
+div#modal_guide ul li {
+  font-size: 14px;
+  color: #58585a;
+  margin-bottom: 25px;
+}
+/* line 10, ../../../../app/assets/stylesheets/common/product_details.scss */
+div#modal_guide ul li span {
+  font-weight: 700;
+}
+/* line 13, ../../../../app/assets/stylesheets/common/product_details.scss */
+div#modal_guide img {
+  float: right;
+  margin-right: 25px;
+}
+
+/* line 18, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product {
+  padding: 0;
+  overflow: visible;
+  margin-bottom: 15px;
+}
+/* line 19, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product .content {
+  width: 970px;
+}
+/* line 21, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product .box-left, #product .box-right {
+  float: left;
+  margin-top: 10px;
+}
+/* line 22, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery, #product div#infos {
+  margin-bottom: 40px;
+}
+/* line 27, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery {
+  width: 520px;
+  float: left;
+}
+/* line 28, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery ul#thumbs {
+  float: left;
+  width: 45px;
+  margin-right: 45px;
+  margin-left: 5px;
+  position: relative;
+  left: 6px;
+}
+/* line 29, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery ul#thumbs li {
+  margin-bottom: 10px;
+  border: solid 1px #cdcdcd;
+  /* new size photo */
+}
+/* line 30, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery ul#thumbs li a:hover img {
+  border: 2px #EF3742 solid;
+}
+/* line 31, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery ul#thumbs li img {
+  width: 39px;
+  height: auto;
+  border: solid 2px #FFF;
+}
+/* line 32, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery ul#thumbs li img.selected {
+  border: 2px #EF3742 solid;
+}
+/* line 36, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery div#full_pic {
+  float: left;
+  position: relative;
+  width: 365px;
+  /* new size photo */
+  height: auto;
+  margin-bottom: 30px;
+}
+/* line 38, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery div#full_pic p.warn {
+  font-weight: 500;
+  position: absolute;
+  color: #fff;
+  font-family: "Trebuchet Ms" !important;
+  font-size: 16px;
+  text-align: center;
+  line-height: 22px;
+  width: 70px;
+  height: 70px;
+  top: 2px;
+  left: 2px;
+  display: none;
+  z-index: 100;
+}
+/* line 39, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery div#full_pic p.warn.sold_out {
+  margin-top: 80px !important;
+  margin-left: 9px !important;
+  background: url(/dev-assets/common/sold_out_big.png) no-repeat;
+  font-size: 18px;
+  line-height: 18px;
+  height: 50px;
+  padding-top: 14px;
+  display: block;
+}
+/* line 40, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery div#full_pic p.warn.percentage, #product div#gallery div#full_pic p.warn.quantity {
+  margin-top: 80px;
+  margin-left: 11px;
+  background: url(/dev-assets/common/quantity_big.png) no-repeat;
+  height: 70px;
+  padding-top: 70px;
+  display: block;
+}
+/* line 41, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery div#full_pic p.warn.percentage span, #product div#gallery div#full_pic p.warn.quantity span {
+  font-size: 14px;
+  line-height: 27px;
+  font-weight: 500;
+}
+/* line 42, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery div#full_pic p.warn.percentage span.more, #product div#gallery div#full_pic p.warn.quantity span.more {
+  font-size: 14px !important;
+  display: block;
+  line-height: 10px;
+}
+/* line 44, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery div#full_pic p.warn.quantity {
+  padding-top: 10px;
+  font-weight: 500;
+}
+/* line 45, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery div#full_pic p.warn.quantity span {
+  font-size: 14px;
+}
+/* line 49, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery div#full_pic ul li {
+  width: 365px;
+  margin: 0 auto;
+  /* new size photo */
+  overflow: visible;
+  display: none;
+}
+/* line 50, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery div#full_pic ul li:first-child {
+  display: block;
+}
+/* line 51, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery div#full_pic ul li a {
+  display: inline-block;
+  max-width: 100%;
+}
+/* line 54, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#gallery div#full_pic ul li a img.full {
+  max-width: 100%;
+}
+/* line 63, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product img.vantagens {
+  margin: 10px 0 auto;
+}
+/* line 64, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product .facebook-comments {
+  width: 517px;
+  margin-left: 0;
+}
+/* line 65, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product .facebook-comments iframe {
+  width: 535px;
+}
+/* line 67, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details {
+  width: 417px;
+  float: right;
+  position: relative;
+  color: #000;
+  margin-left: 45px;
+  margin-top: 10px;
+}
+/* line 68, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .pl9 {
+  padding-left: 9px;
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+/* line 74, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .add_button, #product div#product-details .remove_button {
+  cursor: pointer;
+  background: #cccccc;
+  width: 175px;
+  height: 22px;
+  color: #000;
+  margin-bottom: 20px;
+  margin-left: 13px;
+  padding: 6px 0 0 9px;
+  position: absolute;
+  left: -10px;
+  top: 8px;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  left: 0 !important;
+}
+/* line 91, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .add_button p, #product div#product-details .remove_button p {
+  color: #000;
+  text-decoration: none;
+  font-size: 11px;
+  font-family: 'trebuchet ms';
+  font-weight: bold;
+  text-align: left;
+  float: left;
+  height: 20px;
+  margin-left: 5px;
+}
+/* line 102, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .add_button span, #product div#product-details .remove_button span {
+  background: url(/dev-assets/common/nav/sprite_header.png) no-repeat 0px -374px;
+  width: 18px;
+  height: 20px;
+  display: block;
+  float: left;
+}
+/* line 110, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .remove_button {
+  width: 168px;
+  background-color: #fff;
+}
+/* line 113, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .remove_button span {
+  background: url(/dev-assets/common/nav/sprite_header.png) no-repeat -54px -282px;
+}
+/* line 117, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details h1 {
+  font-family: verdana, arial, tahoma;
+  font-size: 16px;
+  font-weight: lighter;
+  letter-spacing: 0px;
+  padding-bottom: 3px;
+}
+/* line 118, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details h2 {
+  font-family: verdana, arial, tahoma;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+/* line 119, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details a.ver_produto {
+  font-family: avenir, tahoma;
+  position: relative;
+  top: -20px;
+  color: #000;
+  text-decoration: none;
+  color: #ef3742;
+}
+/* line 120, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details a.ver_produto:hover {
+  text-decoration: underline;
+}
+/* line 122, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details p {
+  color: #000;
+  font-size: 15px;
+  font-family: Verdana, "Trebuchet Ms", Arial, Verdana;
+}
+/* line 123, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details p a {
+  color: #ef3742;
+  margin: 0 0 0 5px;
+}
+/* line 124, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details p.price {
+  font-weight: bold;
+  color: #ef3742;
+  margin-bottom: 10px;
+  font-size: verdana, arial, tahoma;
+}
+/* line 125, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details p.plots {
+  color: #6D6E71;
+  font-size: 14px;
+}
+/* line 126, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details p.price_retail {
+  color: #000;
+  font-size: 13px !important;
+  text-decoration: line-through;
+  text-align: center;
+  margin-bottom: 0;
+  font-family: verdana, arial, tahoma;
+}
+/* line 127, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details p.price_retail.left, #product div#product-details p.price_retail.left2 {
+  font-size: 20px;
+  width: 150px;
+  clear: both;
+}
+/* line 129, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details p.left2 {
+  text-align: left;
+  font-size: 15px;
+}
+/* line 130, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details p.left {
+  text-align: left;
+  float: left;
+}
+/* line 131, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details p.promotion_explanation {
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+  width: 175px;
+  margin-top: 15px;
+  float: left;
+  color: #EF3742;
+}
+/* line 132, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details p.validate {
+  clear: both;
+  float: right;
+  margin: -20px 13px 0 0;
+  font-style: italic;
+  font-size: 12px;
+}
+/* line 135, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details p.remaining {
+  color: #101010;
+  font-size: 14px;
+  text-align: center;
+  margin: 10px 0 0 0;
+  display: block;
+}
+/* line 136, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details p.remaining strong {
+  color: #ff0000;
+}
+/* line 139, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .warn_discount {
+  position: absolute;
+  top: 42px;
+  right: 48px;
+  width: 154px;
+  height: 40px;
+  border: solid 1px #000;
+  box-shadow: 3px 3px 0 0 #000;
+  text-align: center;
+}
+/* line 148, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .warn_discount p {
+  font-size: 11px;
+  line-height: 13px;
+  font-weight: 400;
+  font-family: arial, verdana, tahoma;
+  margin-top: 5px;
+  width: 142px;
+  margin-left: 6px;
+}
+/* line 156, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .warn_discount p a {
+  color: #ef3742;
+  text-decoration: underline;
+  font-size: 12px;
+  font-family: verdana, arial, tahoma;
+}
+/* line 164, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .division {
+  border-top: solid 1px #cccccc;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+/* line 165, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .social-media-box {
+  position: relative;
+  overflow: visible;
+  border-top: solid 1px #cccccc;
+  padding-top: 8px;
+  height: 19px;
+  margin: -20px 0 20px 0;
+  width: 416px;
+  margin-left: 0px;
+}
+/* line 174, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .social-media-box .has_bt_face {
+  height: 22px;
+  position: absolute;
+  right: -68px;
+  top: 8px;
+}
+/* line 176, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .social-media-box ul.social-list {
+  float: left;
+  width: 220px;
+  margin-top: 5px;
+  margin-left: 210px;
+}
+/* line 177, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .social-media-box ul.social-list li {
+  padding: 0;
+  margin-right: 10px;
+  display: inline-block;
+  float: left;
+}
+/* line 178, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .social-media-box ul.social-list li.like {
+  margin-right: 4px !important;
+  margin-left: 15px;
+}
+/* line 182, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .social-media-box ul.social-list li a {
+  display: inline;
+  padding: 0;
+  width: 100%;
+  margin: 0;
+}
+/* line 183, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .social-media-box ul.social-list li a.like {
+  top: -8px;
+  position: relative;
+}
+/* line 185, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .social-media-box ul.social-list li.email {
+  margin: 0;
+}
+/* line 186, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .social-media-box ul.social-list li.email a {
+  float: left;
+  font-size: 0;
+  display: block;
+  width: 25px;
+  height: 20px;
+  background: url(/dev-assets/product/new_page_sprite.png) 0 -94px no-repeat;
+  position: relative;
+  margin-bottom: 1px;
+}
+/* line 192, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .social-media-box div.fb-like, #product div#product-details .social-media-box .fb_edge_widget_with_comment {
+  width: 90px;
+  margin: 3px 0 0;
+  float: left;
+  height: 20px;
+}
+/* line 197, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .social-media-box div.fb-like .fb_edge_comment_widget, #product div#product-details .social-media-box div.fb-like .-cx-PRIVATE-pluginPostFlyout__core, #product div#product-details .social-media-box .fb_edge_widget_with_comment .fb_edge_comment_widget, #product div#product-details .social-media-box .fb_edge_widget_with_comment .-cx-PRIVATE-pluginPostFlyout__core {
+  display: none;
+}
+/* line 200, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .social-media-box div.fb-like iframe, #product div#product-details .social-media-box .fb_edge_widget_with_comment iframe {
+  /*height: 20px !important;*/
+  overflow: hidden !important;
+}
+/* line 204, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .social-media-box div.fb-like.bt_face, #product div#product-details .social-media-box .fb_edge_widget_with_comment.bt_face {
+  position: absolute;
+  top: 41px;
+  right: 8px;
+}
+/* line 208, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line {
+  width: 100%;
+  overflow: auto;
+}
+/* line 209, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line p {
+  font-size: 12px;
+  line-height: 30px;
+  text-align: left;
+  width: 90px;
+  float: left;
+}
+/* line 210, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line ol {
+  width: 290px;
+  float: left;
+}
+/* line 211, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line ol li {
+  margin: 0 7px 0 0;
+  float: left;
+}
+/* line 212, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line ol li:first-child {
+  margin-left: 0;
+}
+/* line 213, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line ol li.size_guide, #product div#product-details div.line ol li.size_guide.selected {
+  background: url(/dev-assets/common/guide.png) no-repeat !important;
+  height: 34px;
+  padding-left: 15px;
+  width: 60px;
+  line-height: 13px;
+}
+/* line 214, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line ol li.size_guide a, #product div#product-details div.line ol li.size_guide.selected a {
+  font-size: 12px;
+  color: #ef3742;
+  text-decoration: underline;
+  line-height: 14px;
+}
+/* line 216, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line ol li label {
+  font-weight: normal;
+  line-height: 23px;
+  text-align: center;
+  min-width: 24px;
+  height: 24px;
+  display: inline-block;
+  cursor: pointer;
+  font-family: verdana, arial, tahoma;
+  font-size: 12px;
+}
+/* line 217, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line ol li label span {
+  font-size: 10px;
+}
+/* line 219, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line ol li input[type="radio"] {
+  display: none;
+}
+/* line 222, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line.quantity {
+  margin-top: 12px;
+  position: relative;
+  overflow: hidden;
+}
+/* line 223, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line.quantity .quantity-product {
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  color: #6D6E71;
+  font-size: 13px;
+  font-weight: normal;
+  border: 1px solid #b7b7b7;
+}
+/* line 233, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line.quantity button {
+  position: absolute;
+  width: 14px;
+  height: 12px;
+  border: none;
+  color: #000;
+  background: url(/dev-assets/product/new_page_sprite.png) no-repeat;
+  font-size: 0;
+  cursor: pointer;
+}
+/* line 234, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line.quantity button.minus {
+  background-position: -3px -75px;
+  top: 21px;
+  left: 130px;
+}
+/* line 235, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line.quantity button.plus {
+  background-position: -24px -70px;
+  top: 0;
+  left: 127px;
+}
+/* line 241, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line.color label a {
+  text-indent: -9999px;
+  width: 33px;
+  height: 30px;
+  display: block;
+}
+/* line 248, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line.color ol.colors {
+  width: 280px;
+  margin-left: -2px;
+}
+/* line 249, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line.color ol.colors li {
+  margin-left: -1px;
+}
+/* line 250, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line.color ol.colors li img {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #EF3742;
+}
+/* line 252, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line.color ol.colors li a img {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #FFF;
+}
+/* line 257, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line.size {
+  margin-top: 10px;
+}
+/* line 258, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line.size label {
+  color: #6d6e71;
+  border: 1px solid #b7b7b7;
+}
+/* line 261, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line.size li.selected label {
+  border: solid 2px #EF3742;
+}
+/* line 264, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details div.line.size li.unavailable label {
+  color: #dddee1;
+  text-decoration: line-through;
+  cursor: text;
+  border: 1px #dddee1 solid;
+}
+/* line 269, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details .alert_size {
+  padding-left: 7px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 12px;
+  color: #000;
+  width: 180px;
+  height: 20px;
+  margin-left: 90px;
+  margin-top: 10px;
+  background-color: #eb8793;
+  border: 1px solid #a1a1a1;
+  display: none;
+}
+/* line 270, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details input[type="submit"].add_product, #product div#product-details a.add_product {
+  background: #327f11;
+  background: linear-gradient(to bottom, #48b012 0%, #327f11 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  width: 415px;
+  height: 45px;
+  margin: 17px auto 30px;
+  display: block;
+  border: none;
+  cursor: pointer;
+  clear: both;
+  letter-spacing: 3px;
+  font-size: 16px;
+  padding-top: 2px;
+  /*&:hover{background-position: -25px -51px;}*/
+}
+/* line 35, ../../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+#product div#product-details input[type="submit"].add_product:hover, #product div#product-details a.add_product:hover {
+  background: #48b012;
+  background: linear-gradient(to bottom, #327f11 0%, #48b012 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 284, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details input[type="submit"].add_product.disabled, #product div#product-details a.add_product.disabled {
+  background: #8c8c8c;
+  background: linear-gradient(to bottom, #b1b1b1 0%, #8c8c8c 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+#product div#product-details input[type="submit"].add_product.disabled:hover, #product div#product-details a.add_product.disabled:hover {
+  background: #b1b1b1;
+  background: linear-gradient(to bottom, #8c8c8c 0%, #b1b1b1 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 286, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details input[type="submit"].add_product_to_suggestions {
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 14px;
+  width: 305px;
+  height: 65px;
+  margin: 17px auto 30px auto;
+  display: block;
+  border: none;
+  cursor: pointer;
+  clear: both;
+}
+/* line 35, ../../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+#product div#product-details input[type="submit"].add_product_to_suggestions:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 287, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details input[type="submit"].add_product_to_suggestions.disabled {
+  background: #8c8c8c;
+  background: linear-gradient(to bottom, #b1b1b1 0%, #8c8c8c 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+#product div#product-details input[type="submit"].add_product_to_suggestions.disabled:hover {
+  background: #b1b1b1;
+  background: linear-gradient(to bottom, #8c8c8c 0%, #b1b1b1 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 290, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars * {
+  font-family: verdana, arial, tahoma !important;
+}
+/* line 291, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars div {
+  padding-left: 12px;
+  display: none;
+  margin-bottom: 28px;
+}
+/* line 292, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars div.about {
+  float: left;
+  overflow: hidden;
+}
+/* line 293, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars div.exchange {
+  border-bottom: solid 1px #C2C2C2;
+}
+/* line 294, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars div.exchange p {
+  margin-bottom: 10px;
+}
+/* line 296, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars div.shipping {
+  padding-bottom: 5px;
+  margin-bottom: 18px;
+}
+/* line 297, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars div.shipping form {
+  margin-top: 5px;
+}
+/* line 298, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars div.shipping input[type='text'] {
+  width: 143px;
+  height: 23px;
+  border: solid 1px #000;
+  box-shadow: 1px 2px 0 0 #000;
+  padding-left: 5px;
+}
+/* line 299, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars div.shipping .search {
+  width: 90px;
+  height: 25px;
+  border: none;
+  background: #000;
+  color: #FFF;
+  text-transform: uppercase;
+  font-size: 11px;
+  text-align: center;
+  margin-left: 8px;
+  cursor: pointer;
+}
+/* line 300, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars div.shipping .shipping-msg {
+  margin-top: 15px;
+  width: 350px;
+  height: 33px;
+  border: solid 1px #A1A1A1;
+  padding-left: 35px;
+  line-height: 33px;
+  display: none;
+}
+/* line 301, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars div.shipping .shipping-msg.ok {
+  background: #e6f4d6 url(/dev-assets/product/new_page_sprite.png) -50px -90px no-repeat;
+}
+/* line 302, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars div.shipping .shipping-msg.error {
+  background: #eb8793 url(/dev-assets/product/new_page_sprite.png) -50px -50px no-repeat;
+}
+/* line 305, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars div.open {
+  display: block;
+  padding-right: 20px;
+  text-align: justify;
+}
+/* line 311, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars p {
+  font-size: 12px;
+}
+/* line 314, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars b {
+  display: block;
+}
+/* line 315, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars h3 {
+  float: left;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 12px;
+  clear: both;
+  border-top: solid 1px #C2C2C2;
+  padding: 10px 0 10px 12px;
+  width: 97%;
+  background: url(/dev-assets/product/new_page_sprite.png) 400px -137px no-repeat;
+  cursor: pointer;
+}
+/* line 316, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars h3.open {
+  background-position: 400px -225px;
+  cursor: text;
+  border-bottom: none !important;
+}
+/* line 317, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars h3.exchange-title {
+  border-bottom: solid 1px #C2C2C2;
+}
+/* line 319, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars dl {
+  margin-top: 15px;
+}
+/* line 320, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars dl dt {
+  float: left;
+  clear: left;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+/* line 321, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product div#product-details #product-particulars dl dd {
+  float: left;
+  line-height: 19px;
+  margin-left: 4px;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+
+/* line 328, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content img.vantagens {
+  margin-bottom: 20px !important;
+}
+
+/* line 333, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related {
+  width: 100%;
+  border-top: 2px solid #000;
+  position: relative;
+  margin-top: 40px;
+}
+/* line 338, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper {
+  height: 416px !important;
+}
+/* line 340, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper .plots {
+  letter-spacing: -1px;
+}
+/* line 341, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper .alignImages {
+  height: 241px;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 8px;
+}
+/* line 346, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper .alignImages img {
+  position: absolute;
+  bottom: 0px;
+}
+/* line 352, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related h3 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-weight: lighter;
+  width: 320px;
+  background: #FFF;
+  padding: 0 10px;
+  text-align: center;
+  margin: 0 auto;
+  position: relative;
+  top: -15px;
+}
+/* line 363, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper {
+  width: 640px !important;
+  left: 0px !important;
+}
+/* line 366, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper .error {
+  border: 1px solid #ff0000;
+  font-size: 10px;
+  text-align: center;
+  background: #ff949d;
+  padding: 5px;
+  color: #000;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  display: none;
+  margin-bottom: 10px;
+}
+/* line 378, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper .carousel {
+  left: 20px !important;
+}
+/* line 381, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper #variant_number {
+  width: 100%;
+  margin: 15px 0;
+  letter-spacing: -1px;
+  font-size: 11px;
+}
+/* line 387, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper img {
+  width: 100%;
+}
+/* line 388, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper input {
+  width: 100%;
+  background: #000;
+  border: 0px;
+  color: #FFF;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 11px;
+  text-align: center;
+  padding: 5px 0;
+}
+/* line 399, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper .added_product {
+  background: #acacac;
+  color: #ffffff;
+  font-weight: normal;
+}
+/* line 404, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper li.product {
+  width: 160px;
+  padding: 0 10px;
+  margin: 0 8px;
+  float: left;
+}
+/* line 409, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper li.product a.product_link {
+  text-decoration: none;
+  color: #000;
+}
+/* line 412, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper li.product a.product_link .spy {
+  display: none;
+  position: absolute;
+  top: 206px;
+  width: 160px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 10px 0;
+  font-family: 'avenir';
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-image: url(/dev-assets/moments/sprite.png);
+  background-position: -36px -142px;
+  background-repeat: no-repeat;
+  background-size: 58%;
+  z-index: 99;
+}
+/* line 430, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper li.product a.product_link .info-product {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 13px;
+  text-decoration: none;
+  width: 100%;
+  overflow: hidden;
+}
+/* line 436, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper li.product a.product_link .info-product br {
+  display: none;
+}
+/* line 437, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper li.product a.product_link .info-product span.name {
+  width: 300px;
+  display: block;
+  overflow-x: hidden;
+}
+/* line 442, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper li.product a.product_link .info-product .brand {
+  display: block;
+  text-transform: uppercase;
+}
+/* line 446, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper li.product a.product_link .info-product .old {
+  text-decoration: line-through;
+  letter-spacing: -1px;
+}
+/* line 450, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper li.product a.product_link .info-product .txt-black {
+  color: #ef3742;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  float: right;
+  margin-right: 1px;
+  position: relative;
+  margin-bottom: -3px;
+}
+/* line 462, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper li.product a.product_link:hover .spy {
+  display: block;
+}
+/* line 466, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .caroufredsel_wrapper li.product:hover {
+  border: 0px;
+}
+/* line 471, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .carousel-prev,
+#content #related .carousel-next {
+  background: url(/dev-assets/arrows.png) -17px 0px;
+  display: block;
+  float: left;
+  float: left;
+  width: 20px;
+  height: 50px;
+  text-indent: -9999px;
+  position: absolute;
+  top: 122px;
+}
+/* line 482, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .carousel-next {
+  background-position-x: 37px;
+  left: 618px;
+}
+/* line 486, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .cart_related {
+  float: right;
+  width: 325px;
+  color: #000;
+  padding-top: 70px;
+  background: url(/dev-assets/product/compre_olook_completo.jpg) no-repeat 0px 30px;
+}
+/* line 492, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .cart_related #submit_tooltip {
+  color: #515151;
+  width: 90%;
+  text-align: center;
+  padding: 5%;
+  background: #ededed;
+  border: 1px solid #cccccc;
+  font-size: 12px;
+  margin-top: 10px;
+  position: relative;
+  margin-top: 20px;
+}
+/* line 503, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .cart_related #submit_tooltip div.icon {
+  width: 100%;
+  height: 14px;
+  position: absolute;
+  top: -11px;
+  left: 0px;
+  background: url(/dev-assets/product/arrow_compre_olook.jpg) no-repeat center center;
+}
+/* line 512, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .cart_related #add_product {
+  width: 325px;
+  height: 45px;
+  margin-top: 75px;
+  display: block;
+  border: none;
+  cursor: pointer;
+  clear: both;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-align: center;
+}
+/* line 523, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .cart_related .add_product {
+  background: #327f11;
+  background: linear-gradient(to bottom, #48b012 0%, #327f11 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+#content #related .cart_related .add_product:hover {
+  background: #48b012;
+  background: linear-gradient(to bottom, #327f11 0%, #48b012 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 524, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .cart_related .disabled {
+  background: #8c8c8c;
+  background: linear-gradient(to bottom, #b1b1b1 0%, #8c8c8c 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+#content #related .cart_related .disabled:hover {
+  background: #b1b1b1;
+  background: linear-gradient(to bottom, #8c8c8c 0%, #b1b1b1 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 526, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .cart_related ul li.titulo_minicart,
+#content #related .cart_related .minicart_price {
+  width: 100%;
+  padding: 0px;
+  text-align: left;
+  font-size: 14px;
+  margin-top: 30px;
+  font-family: verdana, arial, tahoma;
+  font-weight: bold;
+  color: #000;
+}
+/* line 536, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .cart_related ul li.titulo_minicart .original_price,
+#content #related .cart_related .minicart_price .original_price {
+  color: #666;
+  display: block;
+  text-decoration: line-through;
+  margin-bottom: 10px;
+}
+/* line 543, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .cart_related ul li.titulo_minicart .discounted_price,
+#content #related .cart_related .minicart_price .discounted_price {
+  color: #ef3742;
+  display: block;
+  font-size: 18px;
+}
+/* line 549, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .cart_related ul li.titulo_minicart .first_price,
+#content #related .cart_related .minicart_price .first_price {
+  color: #000;
+  display: block;
+  font-size: 18px;
+}
+/* line 555, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .cart_related ul li {
+  margin-bottom: 10px;
+}
+/* line 558, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .cart_related li.titulo_minicart {
+  display: none;
+}
+/* line 559, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .cart_related .valor_total {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 20px;
+  text-align: right;
+  color: #000;
+  font-weight: bold;
+}
+/* line 567, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .product_added {
+  background: none;
+  padding: 0px;
+  display: none;
+}
+/* line 571, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .product_added li.titulo_minicart {
+  display: block;
+}
+/* line 572, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .product_added #add_product {
+  background-position: center 0px;
+  margin-top: 35px;
+}
+/* line 576, ../../../../app/assets/stylesheets/common/product_details.scss */
+#content #related .product_added #submit_tooltip {
+  display: none;
+}
+
+/* line 583, ../../../../app/assets/stylesheets/common/product_details.scss */
+a#goRelatedProduct {
+  width: 125px;
+  height: 125px;
+  display: block;
+  background: url(/dev-assets/product/ver_look_completo.png) center center no-repeat;
+  text-indent: -9999px;
+  position: absolute;
+  left: 423px;
+  z-index: 40;
+  top: 111px;
+}
+
+/* line 596, ../../../../app/assets/stylesheets/common/product_details.scss */
+ul.breadcrumb {
+  display: block;
+  width: 100%;
+  height: 20px;
+  position: relative;
+  top: -9px;
+  left: 6px !important;
+}
+/* line 603, ../../../../app/assets/stylesheets/common/product_details.scss */
+ul.breadcrumb li {
+  float: left;
+  display: block;
+  font-family: verdana;
+  font-size: 9px;
+  color: #6d6e71;
+  padding: 0 0 0 10px;
+  color: #000;
+  text-align: left;
+  padding-left: 5px;
+}
+/* line 613, ../../../../app/assets/stylesheets/common/product_details.scss */
+ul.breadcrumb li a {
+  font-family: verdana;
+  background: url(/dev-assets/product/breadcrumb.gif) right center no-repeat;
+  color: #6d6e71;
+  display: block;
+  float: left;
+  padding-right: 10px;
+  text-decoration: none;
+}
+/* line 622, ../../../../app/assets/stylesheets/common/product_details.scss */
+ul.breadcrumb li a:hover {
+  color: #ef3742;
+}
+
+/* line 626, ../../../../app/assets/stylesheets/common/product_details.scss */
+#product .breadcrumb {
+  left: 6px !important;
+}
+
+/* line 628, ../../../../app/assets/stylesheets/common/product_details.scss */
+input.quero_este {
+  cursor: pointer;
+}
+
+/* ENTREGA GARANTIDA ~ REMOVER APÓS TERMINO */
+/* line 632, ../../../../app/assets/stylesheets/common/product_details.scss */
+.delivery {
+  background: url(/dev-assets/product/delivery.gif) no-repeat 7px -5px;
+  border-top: 1px solid #d1d1d1;
+  border-bottom: 1px solid #d1d1d1;
+  margin: 20px 0;
+  padding: 5px 0 10px 13%;
+}
+/* line 639, ../../../../app/assets/stylesheets/common/product_details.scss */
+.delivery div.garantido {
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0px;
+  padding-left: 15px;
+  padding-top: 5px;
+}
+/* line 645, ../../../../app/assets/stylesheets/common/product_details.scss */
+.delivery div.garantido span {
+  font-size: 11px;
+  font-weight: 600;
+  display: block;
+  letter-spacing: -1px;
+}
+/* line 651, ../../../../app/assets/stylesheets/common/product_details.scss */
+.delivery div.garantido p.obs {
+  font-size: 10px !important;
+  color: #6D6E71 !important;
+}
+/* line 655, ../../../../app/assets/stylesheets/common/product_details.scss */
+.delivery div.garantido .formDelivery {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 13px;
+  font-weight: lighter;
+  padding: 10px 0;
+  letter-spacing: 0px;
+  display: none;
+}
+/* line 662, ../../../../app/assets/stylesheets/common/product_details.scss */
+.delivery div.garantido .formDelivery input[type="text"] {
+  width: 143px;
+  height: 23px;
+  border: solid 1px #000;
+  box-shadow: 1px 2px 0 0 #000;
+  padding-left: 5px;
+  margin-top: 5px;
+}
+/* line 670, ../../../../app/assets/stylesheets/common/product_details.scss */
+.delivery div.garantido .formDelivery input[type="button"] {
+  width: 90px;
+  height: 25px;
+  border: none;
+  background: #000;
+  color: #FFF;
+  text-transform: uppercase;
+  font-size: 11px;
+  text-align: center;
+  margin-left: 8px;
+  cursor: pointer;
+}
+/* line 682, ../../../../app/assets/stylesheets/common/product_details.scss */
+.delivery div.garantido .formDelivery p.shipping-msg {
+  margin-top: 15px;
+  width: 300px;
+  height: 33px;
+  border: solid 1px #A1A1A1;
+  padding-left: 35px;
+  line-height: 33px;
+  font-size: 12px !important;
+  display: none;
+}
+/* line 692, ../../../../app/assets/stylesheets/common/product_details.scss */
+.delivery div.garantido .formDelivery p.ok {
+  background: url(/dev-assets/product/new_page_sprite.png) #e6f4d6 -50px -90px no-repeat;
+}
+/* line 695, ../../../../app/assets/stylesheets/common/product_details.scss */
+.delivery div.garantido .formDelivery p.error {
+  background: url(/dev-assets/product/new_page_sprite.png) #eb8793 -50px -50px no-repeat;
+  letter-spacing: -0.05em;
+}
+/* line 701, ../../../../app/assets/stylesheets/common/product_details.scss */
+.delivery br {
+  clear: both;
+}
+
+@-moz-document url-prefix() {
+  /* line 705, ../../../../app/assets/stylesheets/common/product_details.scss */
+  .has_bt_face {
+    position: asbolute;
+    right: -78px !important;
+    top: 8px;
+  }
+}
+
+/****************
+BOX MODAL ESPIAR
+****************/
+/* line 9, ../../../../app/assets/stylesheets/new_structure/partials/_spy.scss */
+#quick_view {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  background-color: #FFF;
+  border: 1px solid #A7A5A6;
+  width: 1000px;
+  /*height:620px;
+   */
+  margin: 0 0 0 -480px;
+  display: none;
+  z-index: 10002;
+}
+/* line 21, ../../../../app/assets/stylesheets/new_structure/partials/_spy.scss */
+#quick_view .size_guide {
+  display: none;
+}
+/* line 24, ../../../../app/assets/stylesheets/new_structure/partials/_spy.scss */
+#quick_view div#gallery {
+  width: 498px;
+  margin-left: 20px;
+}
+/* line 25, ../../../../app/assets/stylesheets/new_structure/partials/_spy.scss */
+#quick_view #close_quick_view {
+  cursor: pointer;
+  font-size: 20px;
+  position: absolute;
+  background: url(/dev-assets/common/close_dialog.png) no-repeat;
+  text-indent: -9999px;
+  width: 30px;
+  height: 30px;
+  top: -17px;
+  right: -17px;
+  z-index: 100;
+}
+
+/*
+.social-media-box{overflow:hidden;border-top:solid 1px #C2C2C2;border-bottom:solid 1px #C2C2C2;padding:10px 0;margin:20px 0;
+  .has_bt_face{height:22px;position:relative;}
+  ul.social-list {float:left; width:417px;margin-top:-7px !important;
+    li {padding:0;margin-right: 10px;display:inline-block;
+      &.like{margin-right: 4px !important;margin-left: 23px;position: relative; top: 8px;}
+      &.twitter{position: relative;top: 17px !important;}
+      &.pinterest{position: relative;top: 10px !important;}
+      &.fb_bt{position: relative;top: 10px !important;}
+      a{display:inline;padding:0;width:100%;margin:0;}
+      }
+    }
+  }
+
+  div.fb-like,.fb_edge_widget_with_comment {
+    width: 90px;
+    margin: 3px 0 0;
+    float: left;
+    height:20px;
+    .fb_edge_comment_widget,.-cx-PRIVATE-pluginPostFlyout__core {
+      display: none;
+    }
+    iframe {
+      overflow:hidden !important;
+    }
+    &.bt_face{position:absolute;top:41px;right:8px;}
+  }
+}
+*/
+/* ENTREGA GARANTIDA ~ REMOVER APÓS TERMINO */
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 2, ../../../../app/assets/stylesheets/new_structure/partials/_pagination.scss */
+.pagination {
+  text-align: center;
+  clear: both;
+}
+/* line 6, ../../../../app/assets/stylesheets/new_structure/partials/_pagination.scss */
+.pagination.topo {
+  clear: none;
+  float: right;
+  margin: 4px 15px 0 0;
+  position: absolute;
+  right: 0;
+}
+/* line 13, ../../../../app/assets/stylesheets/new_structure/partials/_pagination.scss */
+.pagination a {
+  display: inline-block;
+  font: normal 13px Verdana, Arial, sans-serif;
+  text-decoration: none;
+  color: #000;
+  height: 19px;
+  line-height: 22px;
+  margin: 0 3px;
+}
+/* line 22, ../../../../app/assets/stylesheets/new_structure/partials/_pagination.scss */
+.pagination a.anterior, .pagination a.proximo {
+  width: 10px;
+  background: url(/dev-assets/catalog/sprite.png) no-repeat 2px -112px;
+  font-size: 0;
+}
+/* line 27, ../../../../app/assets/stylesheets/new_structure/partials/_pagination.scss */
+.pagination a.proximo {
+  background-position: 0 -137px;
+}
+/* line 30, ../../../../app/assets/stylesheets/new_structure/partials/_pagination.scss */
+.pagination a.current {
+  color: #000 !important;
+  font-weight: bold;
+}
+/* line 34, ../../../../app/assets/stylesheets/new_structure/partials/_pagination.scss */
+.pagination a:hover {
+  color: #ef3742;
+}
+
+/* line 134, ../../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 4, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item {
+  margin-bottom: 25px;
+  color: #000;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+}
+/* line 8, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item h1.title {
+  display: block;
+  padding-top: 8px;
+  width: 770px;
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+/* line 17, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item span.summary, .about_item .full {
+  line-height: 19px;
+  text-transform: none;
+  margin-top: 25px;
+  font-weight: lighter;
+  letter-spacing: 0;
+  font-size: 12px;
+  display: block;
+  width: 770px;
+}
+/* line 27, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item a.more_info_show, .about_item a.more_info_hide {
+  text-decoration: none;
+  color: #000;
+  letter-spacing: 0;
+  font-size: 12px;
+  line-height: 25px;
+}
+/* line 33, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item a.more_info_show:hover, .about_item a.more_info_hide:hover {
+  color: #ef3742;
+}
+/* line 37, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item a.more_info_show {
+  display: block;
+  float: left;
+  margin-right: 8px;
+}
+/* line 38, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item a.more_info_hide {
+  display: none;
+  float: left;
+  margin-right: 8px;
+}
+/* line 39, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item .like {
+  top: 4px;
+  margin-left: 3px;
+}
+/* line 43, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.about_item span.full {
+  display: none;
+  width: 890px;
+}
+
+/* line 48, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.promo_catalog {
+  margin-bottom: 30px;
+  padding-top: 5px;
+}
+
+/* line 52, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.banners_group {
+  height: 330px;
+  margin-bottom: 20px;
+  padding-top: 5px;
+}
+/* line 57, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.banners_group ul li {
+  float: left;
+}
+/* line 59, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.banners_group ul li.big {
+  margin-right: 15px;
+}
+/* line 62, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.banners_group ul li.small {
+  margin-bottom: 20px;
+}
+
+/* line 67, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top {
+  width: 560px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  float: right;
+}
+/* line 73, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top p {
+  float: right;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #000;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 11px;
+  padding-top: 3px;
+}
+/* line 82, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul {
+  float: right;
+  margin-right: 12px;
+}
+/* line 83, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li {
+  float: right;
+  margin-left: 6px;
+}
+/* line 84, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li a {
+  display: block;
+  border: 1px solid #d1d1d1;
+  color: #6d6e71;
+  text-align: center;
+  width: 20px;
+  padding-top: 2px;
+  font-size: 12px;
+  text-decoration: none;
+  height: 18px;
+}
+/* line 85, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li a span.txt-unico {
+  font-size: 12px;
+}
+/* line 86, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li a:hover {
+  border-color: #ef3742;
+  color: #ef3742;
+}
+/* line 90, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li a.selected {
+  background: #000;
+  color: #FFF;
+  border: 1px solid #000;
+  cursor: default;
+}
+/* line 91, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li.unico a {
+  width: 40px;
+}
+/* line 92, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li.tamanho_unico a {
+  width: 112px;
+}
+/* line 93, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li.tamanho_regulavel a {
+  width: 62px;
+}
+/* line 94, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li.bolsa_grande a {
+  width: 82px;
+}
+/* line 95, ../../../../app/assets/stylesheets/new_structure/partials/_custom_headers.css.scss */
+.size_top ul li.grande a {
+  width: 50px;
+}
+
+/* line 8, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#result {
+  float: right;
+  width: 793px;
+  margin-bottom: 25px;
+}
+
+/* line 10, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#collection_theme_content {
+  float: left;
+}
+
+/* line 14, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#home_collections {
+  height: 700px;
+}
+/* line 16, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#home_collections .banner_principal {
+  width: 800px;
+  height: 340px;
+}
+/* line 20, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#home_collections .left_banner, #home_collections .right_banner {
+  width: 380px;
+  height: 320px;
+  float: left;
+  margin-top: 35px;
+}
+/* line 26, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#home_collections .right_banner {
+  margin-left: 38px;
+}
+/* line 29, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#home_collections .collection {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 22px;
+  color: black;
+  margin-top: 25px;
+}
+/* line 35, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#home_collections .resume {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 12px;
+  color: black;
+}
+/* line 40, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#home_collections .looks {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 10px;
+  font-weight: bold;
+  color: black;
+  text-transform: uppercase;
+  margin-top: 7px;
+  background: url(/dev-assets/collections/sprite.png) no-repeat -166px 3px;
+  height: 23px;
+}
+/* line 49, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#home_collections .looks a {
+  text-decoration: none;
+}
+/* line 51, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#home_collections .looks a:hover {
+  color: #ef3742;
+}
+
+/* line 57, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#amamos {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px black dotted;
+  width: 780px;
+  margin-top: 45px;
+}
+/* line 63, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#amamos h1 {
+  margin: 40px 0;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 35px;
+}
+/* line 68, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#amamos #products_amamos {
+  width: 2000px;
+}
+/* line 70, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#amamos #products_amamos p.rotulo {
+  font-size: 12px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  color: white;
+  text-transform: uppercase;
+}
+/* line 75, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#amamos #products_amamos p.rotulo b {
+  position: absolute;
+  left: 10px;
+  top: 5px;
+}
+/* line 81, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#amamos #products_amamos .caroufredsel_wrapper ul {
+  padding-top: 20px;
+  padding-left: 5px;
+}
+/* line 86, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#amamos ul {
+  margin: 0 auto;
+  top: 23px !important;
+}
+/* line 88, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#amamos ul li {
+  position: relative;
+  padding-left: 10px;
+  float: left;
+  margin-right: 15px;
+  width: 200px;
+  height: 300px;
+}
+/* line 95, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#amamos ul li .content-amo {
+  position: absolute;
+  z-index: 98;
+  bottom: 0;
+  left: 10px;
+}
+/* line 96, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#amamos ul li img {
+  width: 200px;
+  height: auto;
+}
+/* line 97, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#amamos ul li .rotulo {
+  position: absolute;
+  z-index: 100;
+  top: -42px;
+  left: -3px;
+  background: url(/dev-assets/collections/sprite.png) no-repeat -100px -72px;
+  height: 36px;
+  width: 175px;
+}
+/* line 106, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#amamos ul li a {
+  display: block;
+}
+/* line 109, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#amamos ul li p {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 12px;
+  color: black;
+  line-height: 18px;
+}
+/* line 114, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#amamos ul li p.brand {
+  font-size: 12px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: black;
+}
+/* line 121, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+#amamos ul li p.price {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 12px;
+  color: black;
+}
+
+/* line 130, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+button.nav {
+  position: absolute;
+  text-indent: -9999px;
+  float: left;
+  border: none;
+  background: no-repeat;
+  cursor: pointer;
+  background: url(/dev-assets/collections/sprite.png) no-repeat 1px -55px;
+  height: 65px;
+  width: 40px;
+  top: 950px;
+}
+/* line 141, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+button.nav.bt_left {
+  left: 133px;
+}
+/* line 145, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+button.nav.bt_right {
+  background: url(/dev-assets/collections/sprite.png) no-repeat -40px -55px;
+  right: -2px;
+}
+
+/* line 150, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+.collections_header {
+  margin-top: 14px;
+  position: relative;
+  margin-bottom: 15px;
+  height: 140px;
+  float: left;
+}
+/* line 156, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+.collections_header a {
+  position: absolute;
+  top: 110px;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: #000;
+  text-decoration: none;
+}
+/* line 157, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+.collections_header a:hover {
+  text-decoration: underline;
+}
+/* line 158, ../../../../app/assets/stylesheets/new_structure/section/collection_themes.css.scss */
+.collections_header a.video_link {
+  left: 28px;
+}

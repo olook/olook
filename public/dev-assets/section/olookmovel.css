@@ -1,0 +1,199 @@
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 2, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi {
+  padding: 30px 0 0;
+}
+/* line 4, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#description {
+  width: 500px;
+  float: left;
+  position: relative;
+}
+/* line 8, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#description h1 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 22px;
+  margin: 0 0 20px;
+}
+/* line 12, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#description h1 span {
+  font-family: Arial, "Trebuchet Ms", Times, "Times New Roman", serif, KeplerStdItalic;
+  font-size: 30px;
+}
+/* line 17, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#description h2 {
+  color: #808285;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 16px;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+}
+/* line 24, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#description p {
+  color: #808285;
+  margin: 0 0 25px;
+}
+/* line 27, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#description p a {
+  color: #ef3742;
+}
+/* line 30, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#pictures {
+  width: 397px;
+  margin: 0 0 60px;
+  float: right;
+}
+/* line 34, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#pictures div#instagram {
+  background: #f1f2f2;
+  margin: 15px 0 15px;
+  padding: 10px;
+  border: 1px #b7b7b7 solid;
+}
+/* line 39, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#pictures div#instagram h1 {
+  background: url(/dev-assets/kombi/instagram.jpg) top left no-repeat;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 15px;
+  font-weight: lighter;
+  text-transform: uppercase;
+  height: 58px;
+  margin: 0 0 20px;
+  padding: 5px 0 0 75px;
+}
+/* line 48, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#pictures div#instagram h1 .test {
+  text-transform: lowercase;
+  font-size: 13px;
+  display: block;
+}
+/* line 54, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#pictures div#instagram h1 a {
+  text-decoration: none;
+  color: #000;
+}
+/* line 57, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#pictures div#instagram h1 a:hover {
+  color: #ef3742;
+}
+/* line 61, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#pictures div#instagram h1 a span {
+  font-family: Arial, "Trebuchet Ms", Times, "Times New Roman", serif, KeplerStdItalic;
+  text-transform: lowercase;
+  font-size: 23px;
+}
+/* line 70, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#pictures div#instagram div.instagram_pictures {
+  width: 381px;
+  overflow: auto;
+}
+/* line 73, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#pictures div#instagram div.instagram_pictures div.instagram-placeholder {
+  position: relative;
+  background: url(/dev-assets/kombi/bg-instagram.jpg) top left no-repeat;
+  width: 122px;
+  height: 122px;
+  display: block;
+  margin: 0 5px 5px 0;
+  float: left;
+}
+/* line 82, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#pictures div#instagram div.instagram_pictures div.instagram-placeholder a img {
+  position: absolute;
+  width: 106px;
+  height: 105px;
+  top: 10px;
+  left: 8px;
+}
+/* line 93, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#pictures p {
+  font-weight: 500;
+  font-size: 15px;
+}
+/* line 96, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#pictures p span {
+  color: #ef3742;
+}
+/* line 101, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#schedule {
+  position: relative;
+  min-height: 435px;
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 25px;
+}
+/* line 108, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#schedule h1 {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 22px;
+  text-transform: uppercase;
+  margin: 0 0 30px;
+  line-height: 18px;
+}
+/* line 114, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#schedule h1 span {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 12px;
+  text-transform: none;
+  color: #808285;
+}
+/* line 121, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#schedule h2 {
+  position: absolute;
+  background: url(/dev-assets/kombi/know-where-to-find.png) no-repeat;
+  text-indent: -99999px;
+  width: 162px;
+  height: 152px;
+  display: block;
+  top: -21px;
+  right: 7px;
+}
+/* line 131, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#schedule table {
+  width: 100%;
+  margin: 0 0 20px;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+/* line 137, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#schedule table tr td {
+  background: #DCDDDE;
+  color: #000;
+  line-height: 34px;
+  height: 34px;
+  padding: 0 0 0 18px;
+}
+/* line 145, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#schedule table tr.selected td {
+  background-position: 0 0;
+}
+/* line 147, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#schedule table tr.selected td:last-child {
+  background-position: -169px 0;
+}
+/* line 153, ../../../app/assets/stylesheets/section/olookmovel.scss */
+section#kombi div#schedule table tr.title td {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-family: 15px;
+  text-transform: uppercase;
+}
+
+/* line 164, ../../../app/assets/stylesheets/section/olookmovel.scss */
+.content {
+  width: 970px !important;
+}

@@ -1,0 +1,782 @@
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* line 134, ../../../app/assets/stylesheets/common/_images.scss */
+.banner_mothers_day {
+  margin-bottom: 10px;
+}
+
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 2, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout {
+  background: none !important;
+  min-height: 70px !important;
+  padding: 30px 0 0 0 !important;
+  border-bottom: solid 2px #DEDDDD;
+  text-align: center;
+  margin-bottom: 30px;
+}
+/* line 4, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout div.head {
+  width: 975px;
+  margin: 0 auto;
+  position: relative;
+}
+/* line 5, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout h1 {
+  float: left;
+}
+/* line 6, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout h1 a {
+  width: 190px;
+  height: 57px;
+  display: block;
+  background: url(/dev-assets/common/nav/sprite_header.png) no-repeat 0 -74px;
+  text-indent: -9999px;
+  margin: -3px 0 0;
+}
+/* line 9, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout p.security {
+  margin: 8px 0 0 60px;
+  color: #91C78C;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir_medium;
+  font-size: 11px;
+  text-transform: uppercase;
+  float: left;
+  height: 24px;
+  padding-left: 30px;
+  line-height: 30px;
+  background: url(/dev-assets/login/ico_security.png) no-repeat;
+}
+/* line 10, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout p.contact {
+  float: right;
+  color: #6D6E71;
+  font-size: 11px;
+  margin-top: 47px;
+}
+/* line 11, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout p.contact span {
+  float: left;
+  font-size: 11px;
+  margin: 0 -43px 0 0;
+  width: 200px;
+}
+/* line 12, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout p.contact a {
+  color: #6D6E71;
+  font-size: 11px;
+  margin-left: 5px;
+}
+/* line 15, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session {
+  position: absolute;
+  right: 0;
+  top: 20px;
+  z-index: 995;
+  overflow: visible;
+}
+/* line 88, ../../../app/assets/stylesheets/partials/_mixins.scss */
+header.checkout #session .sign-in-dropdown, header.checkout #session #sign-in-box {
+  background: #FFF;
+  border: 1px solid #BBB;
+  padding: 12px;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  z-index: 9999;
+  width: 244px;
+}
+/* line 101, ../../../app/assets/stylesheets/partials/_mixins.scss */
+header.checkout #session .sign-in-dropdown form fieldset.buttons label, header.checkout #session #sign-in-box form fieldset.buttons label {
+  font-weight: normal !important;
+  width: 103px;
+}
+/* line 102, ../../../app/assets/stylesheets/partials/_mixins.scss */
+header.checkout #session .sign-in-dropdown form fieldset.buttons a, header.checkout #session #sign-in-box form fieldset.buttons a {
+  font-size: 11px;
+  float: left;
+}
+/* line 104, ../../../app/assets/stylesheets/partials/_mixins.scss */
+header.checkout #session .sign-in-dropdown form fieldset label, header.checkout #session #sign-in-box form fieldset label {
+  display: block;
+  font-size: 11px;
+  font-weight: bold;
+  margin: 2px 0;
+}
+/* line 111, ../../../app/assets/stylesheets/partials/_mixins.scss */
+header.checkout #session .sign-in-dropdown form fieldset input, header.checkout #session #sign-in-box form fieldset input {
+  background: white url(/dev-assets/common/background-inputs.png) bottom repeat-x;
+  border: 1px solid #BBB;
+  padding: 6px 8px;
+  width: 92%;
+}
+/* line 116, ../../../app/assets/stylesheets/partials/_mixins.scss */
+header.checkout #session .sign-in-dropdown form fieldset input#user_remember_me_login, header.checkout #session #sign-in-box form fieldset input#user_remember_me_login {
+  width: auto;
+  float: left;
+}
+/* line 117, ../../../app/assets/stylesheets/partials/_mixins.scss */
+header.checkout #session .sign-in-dropdown form fieldset input#login, header.checkout #session #sign-in-box form fieldset input#login {
+  float: right;
+  margin: -17px 0 0 65px;
+}
+/* line 118, ../../../app/assets/stylesheets/partials/_mixins.scss */
+header.checkout #session .sign-in-dropdown form fieldset input#user_password, header.checkout #session #sign-in-box form fieldset input#user_password {
+  margin-bottom: 10px;
+}
+/* line 119, ../../../app/assets/stylesheets/partials/_mixins.scss */
+header.checkout #session .sign-in-dropdown form fieldset input:focus, header.checkout #session #sign-in-box form fieldset input:focus {
+  outline: none;
+}
+/* line 127, ../../../app/assets/stylesheets/partials/_mixins.scss */
+header.checkout #session .sign-in-dropdown.close, header.checkout #session .close#sign-in-box {
+  display: none;
+}
+/* line 131, ../../../app/assets/stylesheets/partials/_mixins.scss */
+header.checkout #session .sign-in-dropdown.open, header.checkout #session .open#sign-in-box {
+  display: block;
+}
+/* line 18, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right {
+  color: #000;
+  float: right;
+  margin: -41px 10px 0 0;
+  position: relative;
+  width: 450px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  /*------ USER MENU ----*/
+}
+/* line 25, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right p {
+  float: right;
+}
+/* line 26, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right .new_login {
+  width: 164px;
+  height: 18px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 11px;
+  display: block;
+  text-align: center;
+  line-height: 18px;
+  border-left: 1px #000 solid;
+  border-right: 1px #000 solid;
+  height: 15px;
+}
+/* line 37, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right .new_login a {
+  text-decoration: none;
+  color: #000;
+}
+/* line 38, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right .new_login a:hover {
+  color: #ef3742;
+}
+/* line 42, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right p.trade {
+  font-size: 11px;
+  color: #000;
+  line-height: 18px;
+  margin-left: 10px;
+  padding-right: 10px;
+  border-right: 1px solid #000;
+}
+/* line 45, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right p.trade a {
+  text-decoration: none;
+  color: #000;
+}
+/* line 46, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right p.trade a:hover {
+  text-decoration: none;
+  color: #ef3742;
+}
+/* line 49, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right p.sac {
+  color: #000;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 11px;
+  line-height: 18px;
+  margin-left: 8px;
+}
+/* line 58, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user {
+  margin: 0;
+  float: right;
+}
+/* line 59, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul {
+  float: right;
+}
+/* line 61, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li {
+  position: relative;
+  color: #282828;
+  font-size: 11px;
+  text-align: right;
+  margin: 0 0 0 3px;
+  padding: 0;
+  display: inline-block;
+  float: left;
+}
+/* line 62, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li.user {
+  height: 15px;
+  padding-top: 3px;
+}
+/* line 63, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li.username {
+  border-right: 1px solid #000;
+  height: 15px;
+  padding-right: 8px;
+  background: #FFF;
+}
+/* line 64, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li.first {
+  height: 15px;
+}
+/* line 65, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li.bl {
+  border-left: solid 1px #D7D7D7;
+  padding-left: 8px;
+  line-height: 17px;
+}
+/* line 66, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li.br {
+  border-right: solid 1px #000;
+  padding-right: 8px;
+}
+/* line 67, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li.br a {
+  color: #ef3742;
+  line-height: 17px;
+}
+/* line 69, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li.submenu {
+  padding-right: 5px;
+  border-right: 1px solid #000;
+  height: 18px;
+}
+/* line 73, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li a {
+  color: #282828;
+  text-decoration: none;
+}
+/* line 77, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li a#info_user {
+  color: #000;
+  padding-right: 10px;
+}
+/* line 78, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li a#account {
+  color: #000;
+  text-align: left;
+  width: auto;
+  min-width: 70px;
+  height: 17px;
+  margin: -6px 0 0;
+  padding: 7px 0px 5px 8px;
+  display: inline-block;
+  border: 1px #FFF solid;
+  float: none;
+  line-height: 17px;
+}
+/* line 91, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li a#account:hover, header.checkout #session .box_right div.user ul li a#account.hover {
+  text-decoration: none;
+  border-color: #CCC;
+  box-shadow: 0px 2px 5px #CCC;
+  color: #ef3742;
+}
+/* line 92, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li a#account:hover {
+  color: #ef3742;
+}
+/* line 95, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li div.my_account {
+  position: absolute;
+  background: #FFF;
+  padding: 5px 0;
+  display: none;
+  top: 17px;
+  left: -10px;
+  z-index: 1000;
+  border-left: 1px #CCC solid;
+  border-right: 1px #CCC solid;
+  border-bottom: 1px #CCC solid;
+  box-shadow: 0px 4px 5px #CCC;
+  width: 100px !important;
+}
+/* line 108, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li div.my_account ul {
+  margin: 0 0 0 5px;
+}
+/* line 110, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li div.my_account ul li {
+  margin-top: 8px;
+  text-align: left;
+  width: 100%;
+  display: block;
+  clear: both;
+  width: 90px !important;
+}
+/* line 111, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li div.my_account ul li a {
+  color: #000;
+  letter-spacing: 0;
+  margin: 0;
+  display: block;
+  clear: both;
+}
+/* line 112, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li div.my_account ul li a:hover {
+  color: #ef3742;
+}
+/* line 115, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li div.my_account ul li:last-child a, header.checkout #session .box_right div.user ul li div.my_account ul li.last a {
+  margin: 0;
+}
+/* line 121, ../../../app/assets/stylesheets/partials/_header_footer_checkout.scss */
+header.checkout #session .box_right div.user ul li:hover div.my_account {
+  display: block;
+}
+
+/* line 4, ../../../app/assets/stylesheets/section/login_register.scss */
+.txt-black {
+  color: #000 !important;
+}
+
+/* line 5, ../../../app/assets/stylesheets/section/login_register.scss */
+.txt-pink {
+  color: #ef3742 !important;
+}
+
+/* line 7, ../../../app/assets/stylesheets/section/login_register.scss */
+.title-box {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 18px;
+  color: #000;
+  line-height: 18px;
+  margin-bottom: 30px;
+}
+/* line 8, ../../../app/assets/stylesheets/section/login_register.scss */
+.title-box span {
+  font-size: 14px;
+  color: #6D6E71;
+}
+/* line 9, ../../../app/assets/stylesheets/section/login_register.scss */
+.title-box a {
+  font-size: 14px;
+  color: #ef3742;
+}
+
+/* line 12, ../../../app/assets/stylesheets/section/login_register.scss */
+.login {
+  float: left;
+  width: 342px;
+  padding-left: 5px;
+}
+/* line 13, ../../../app/assets/stylesheets/section/login_register.scss */
+.login fieldset {
+  margin-bottom: 13px;
+}
+/* line 14, ../../../app/assets/stylesheets/section/login_register.scss */
+.login fieldset label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+/* line 15, ../../../app/assets/stylesheets/section/login_register.scss */
+.login fieldset input.fields {
+  width: 232px;
+  height: 30px;
+  padding-left: 3px;
+  border: solid 1px #C3C3C3;
+  line-height: 30px;
+}
+/* line 17, ../../../app/assets/stylesheets/section/login_register.scss */
+.login fieldset.buttons label {
+  display: inline;
+  font-size: 12px;
+}
+/* line 18, ../../../app/assets/stylesheets/section/login_register.scss */
+.login fieldset.buttons a {
+  color: #6D6E71;
+  font-size: 12px;
+  margin-left: 8px;
+}
+/* line 19, ../../../app/assets/stylesheets/section/login_register.scss */
+.login fieldset.buttons #login {
+  width: 122px;
+  height: 47px;
+  border: 0;
+  margin-top: 20px;
+  cursor: pointer;
+  letter-spacing: 2px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+.login fieldset.buttons #login:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 33, ../../../app/assets/stylesheets/section/login_register.scss */
+.login .login_with_facebook {
+  margin-top: 15px;
+  border-top: solid 1px #D9D9D9;
+  padding-top: 18px;
+  width: 240px;
+}
+/* line 35, ../../../app/assets/stylesheets/section/login_register.scss */
+.login .login_with_facebook a {
+  display: block;
+  font-size: 0;
+  font-family: a;
+  width: 240px;
+  height: 37px;
+  background: url(/dev-assets/login/sprite.png) no-repeat -124px -52px;
+}
+/* line 37, ../../../app/assets/stylesheets/section/login_register.scss */
+.login #error_explanation li {
+  font-weight: normal;
+}
+
+/* line 40, ../../../app/assets/stylesheets/section/login_register.scss */
+.register {
+  float: left;
+  width: 305px;
+}
+/* line 41, ../../../app/assets/stylesheets/section/login_register.scss */
+.register a {
+  display: block;
+  font-size: 0;
+  width: 206px;
+  height: 34px;
+  cursor: pointer;
+  letter-spacing: 2px;
+  font-size: 13px;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  padding-top: 18px;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+.register a:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+
+/* line 56, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register {
+  float: left;
+  width: 352px;
+  margin-right: 167px;
+  padding-left: 5px;
+}
+/* line 57, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset {
+  margin-bottom: 15px;
+}
+/* line 58, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset div {
+  margin: 0 18px 2px 0;
+  float: left;
+  position: relative;
+}
+/* line 59, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 3px;
+}
+/* line 60, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset label span {
+  font-weight: italic;
+  font-size: 11px;
+}
+/* line 62, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset span.span_error {
+  color: #EA1E40;
+  font-size: 11px;
+  clear: both;
+  float: left;
+}
+/* line 63, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset input {
+  height: 30px;
+  padding-left: 3px;
+  border: solid 1px #C3C3C3;
+}
+/* line 64, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset input.input_error {
+  border-color: #EA1E40 !important;
+  margin-bottom: 4px;
+}
+/* line 65, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset input.first_name, .form_register fieldset input.last_name {
+  width: 152px;
+}
+/* line 66, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset input.email {
+  width: 329px;
+}
+/* line 67, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset input.pass {
+  width: 152px;
+}
+/* line 68, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset input.nasc {
+  width: 152px;
+}
+/* line 69, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset input.cpf {
+  width: 152px;
+  float: left;
+}
+/* line 71, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset select {
+  width: 158px;
+  height: 26px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  position: relative;
+  z-index: 2;
+  top: 10px;
+}
+/* line 72, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset .custom_select {
+  position: absolute;
+  display: block;
+  width: 160px;
+  height: 39px;
+  background: url(/dev-assets/login/sprite.png) no-repeat 0px -104px;
+  z-index: 1;
+  top: 21px;
+  left: 0;
+  line-height: 39px;
+  padding-left: 5px;
+}
+/* line 73, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset .custom_select.input_error {
+  background: url(/dev-assets/login/sprite.png) no-repeat -166px -104px;
+}
+/* line 75, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset .info-cpf {
+  font-size: 10px;
+  float: left;
+  line-height: 16px;
+}
+/* line 76, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset .terms {
+  clear: both;
+  float: left;
+  font-size: 11px;
+  margin-top: 15px;
+}
+/* line 77, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset .terms a {
+  font-size: 12px;
+  color: #ef3742;
+}
+/* line 79, ../../../app/assets/stylesheets/section/login_register.scss */
+.form_register fieldset #register {
+  width: 123px;
+  height: 50px;
+  font-size: 15;
+  border: 0;
+  margin-top: 10px;
+  cursor: pointer;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+.form_register fieldset #register:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+
+/* line 83, ../../../app/assets/stylesheets/section/login_register.scss */
+.signup {
+  float: left;
+  margin-top: 90px;
+}
+
+/* line 85, ../../../app/assets/stylesheets/section/login_register.scss */
+.bg-box {
+  background: url(/dev-assets/login/sprite.png) no-repeat -342px -2px;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: -19px;
+  left: 10px;
+}
+
+/* line 93, ../../../app/assets/stylesheets/section/login_register.scss */
+.products {
+  max-height: 217px;
+  overflow-y: auto;
+}
+
+/* line 97, ../../../app/assets/stylesheets/section/login_register.scss */
+#items {
+  width: 100%;
+}
+/* line 99, ../../../app/assets/stylesheets/section/login_register.scss */
+#items tr {
+  border-bottom: 1px solid #D9D8D8;
+  padding-bottom: 5px;
+}
+/* line 103, ../../../app/assets/stylesheets/section/login_register.scss */
+#items td {
+  vertical-align: middle;
+  padding-bottom: 5px;
+}
+/* line 106, ../../../app/assets/stylesheets/section/login_register.scss */
+#items td.amount {
+  font-size: 12px;
+  text-align: center;
+}
+/* line 111, ../../../app/assets/stylesheets/section/login_register.scss */
+#items td.delete-item input {
+  float: right;
+  background: url(/dev-assets/new_checkout/sprite.png) no-repeat -381px -83px;
+  border: none;
+  color: #6D6E71;
+  cursor: pointer;
+  display: block;
+  height: 26px;
+  width: 70px;
+  padding-left: 20px;
+  text-decoration: underline;
+  font-weight: bold;
+}
+/* line 126, ../../../app/assets/stylesheets/section/login_register.scss */
+#items img {
+  float: left;
+  margin: 10px 50px 5px 15px;
+  width: 46px;
+}
+/* line 131, ../../../app/assets/stylesheets/section/login_register.scss */
+#items ul {
+  float: left;
+  margin-top: 10px;
+}
+/* line 134, ../../../app/assets/stylesheets/section/login_register.scss */
+#items ul li {
+  font-size: 13px;
+}
+/* line 136, ../../../app/assets/stylesheets/section/login_register.scss */
+#items ul li.txt-black {
+  text-transform: uppercase;
+}
+
+/* line 142, ../../../app/assets/stylesheets/section/login_register.scss */
+.cart_details {
+  float: left;
+}
+/* line 144, ../../../app/assets/stylesheets/section/login_register.scss */
+.cart_details p.title {
+  color: #6D6E71;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+/* line 149, ../../../app/assets/stylesheets/section/login_register.scss */
+.cart_details p.important {
+  display: none;
+}
+
+/* line 153, ../../../app/assets/stylesheets/section/login_register.scss */
+#cart-box {
+  float: left;
+  border: solid 1px #D9D8D8;
+  width: 321px;
+  max-height: 345px;
+  position: relative;
+  margin-top: 30px;
+}
+/* line 160, ../../../app/assets/stylesheets/section/login_register.scss */
+#cart-box ul.subtotal {
+  margin: 10px 0 10px 27px;
+  width: 270px;
+  border-bottom: solid 1px #DADADA;
+}
+/* line 164, ../../../app/assets/stylesheets/section/login_register.scss */
+#cart-box ul.subtotal li {
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+/* line 167, ../../../app/assets/stylesheets/section/login_register.scss */
+#cart-box ul.subtotal li.frete {
+  display: none;
+}
+/* line 170, ../../../app/assets/stylesheets/section/login_register.scss */
+#cart-box ul.subtotal li span {
+  width: 109px;
+  color: #6D6E71;
+  display: inline-block;
+}
+/* line 177, ../../../app/assets/stylesheets/section/login_register.scss */
+#cart-box p.total {
+  font-size: 17px;
+  margin-left: 27px;
+  line-height: 18px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+/* line 183, ../../../app/assets/stylesheets/section/login_register.scss */
+#cart-box p.total span {
+  width: 109px;
+  display: inline-block;
+  float: left;
+}
+/* line 187, ../../../app/assets/stylesheets/section/login_register.scss */
+#cart-box p.total span.frete {
+  font-size: 12px;
+  width: 150px;
+}

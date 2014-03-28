@@ -1,0 +1,972 @@
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 2, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+body {
+  margin-top: 0 !important;
+}
+
+/* line 4, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+header .quiz_header {
+  border-top: 8px black solid;
+  height: 95px;
+  width: 990px;
+  margin: 0 auto;
+}
+/* line 5, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+header .quiz_header .olook_logo {
+  width: 240px;
+  height: 70px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+/* line 6, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+header .quiz_header .olook_logo h2 a {
+  width: 240px;
+  height: 70px;
+  display: block;
+  background: url(/dev-assets/common/nav/sprite_header.png) no-repeat 0 -72px;
+  text-indent: -9999px;
+}
+
+/* line 11, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+footer {
+  margin-top: 30px;
+}
+/* line 12, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+footer ul.quiz_footer {
+  width: 775px;
+  height: 155px;
+  border: solid 1px #d7d7d7;
+  margin: 0 auto;
+}
+/* line 13, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+footer ul.quiz_footer li {
+  list-style: none;
+  margin-top: 25px;
+}
+/* line 14, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+footer ul.quiz_footer li p {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 13px;
+  color: #939598;
+}
+/* line 15, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+footer ul.quiz_footer li p span {
+  font-weight: 500;
+}
+/* line 17, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+footer ul.quiz_footer li.about {
+  width: 415px;
+  float: left;
+  margin-right: 65px;
+}
+/* line 18, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+footer ul.quiz_footer li.about_quiz {
+  width: 265px;
+  float: left;
+}
+/* line 24, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+footer .infos {
+  width: 817px;
+  height: 100px;
+  border-top: solid 1px #d7d7d7;
+  margin: 0 auto;
+  margin-top: 45px;
+}
+/* line 31, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+footer .infos p {
+  margin-top: 25px;
+  text-align: center;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 13px;
+  color: #939598;
+}
+/* line 37, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+footer .infos p span {
+  white-space: nowrap;
+}
+/* line 40, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+footer .infos p a {
+  text-decoration: none;
+  color: #939598;
+}
+/* line 43, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+footer .infos p a:hover {
+  color: #ef3742;
+}
+
+/* line 50, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+.arrow_pink {
+  margin-left: 13px;
+}
+
+/* line 51, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+a.b_showroom {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 11px;
+  color: #ef3742;
+}
+
+/* line 52, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager {
+  height: 500px;
+  width: 860px;
+  margin: 0 auto;
+}
+/* line 56, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager fieldset {
+  border: 0px;
+}
+
+/* line 60, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey {
+  position: relative;
+  width: 800px;
+  margin: 0 auto;
+}
+/* line 65, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey #content {
+  width: 830px;
+  height: 555px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+/* line 71, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey #content button#back {
+  background: url(/dev-assets/quiz/back_arrow.png) no-repeat;
+  width: 19px;
+  height: 109px;
+  border: none;
+  position: absolute;
+  top: 205px;
+  left: -23px;
+  display: none;
+}
+/* line 81, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey #content .content-survey {
+  width: 12000px;
+  height: 490px;
+}
+/* line 86, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey .img_style {
+  position: absolute;
+  left: 680px;
+  top: -89px;
+  width: 130px;
+  height: 130px;
+  background: url(/dev-assets/quiz/style.png) no-repeat;
+}
+/* line 94, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey .step, #survey .last_step {
+  float: left;
+  overflow: hidden;
+}
+/* line 97, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey .step h2, #survey .last_step h2 {
+  font-size: 16px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-weight: normal;
+  text-transform: uppercase;
+  text-align: center;
+  width: 840px;
+  margin-top: -10px;
+  margin-bottom: -25px;
+  position: relative;
+}
+/* line 107, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey .step h2 span, #survey .last_step h2 span {
+  font-size: 80px;
+  font-family: Arial, "Trebuchet Ms", Times, "Times New Roman", serif, KeplerStdItalic;
+  font-weight: normal;
+  font-style: normal;
+  position: relative;
+  margin-right: 8px;
+}
+/* line 117, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey .step ol .selected, #survey .last_step ol .selected {
+  border: solid #ef3742 3px;
+}
+/* line 121, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey .step ol li, #survey .last_step ol li {
+  margin-right: 20px;
+  list-style: none;
+  border: solid 1px #b7b7b7;
+  width: 175px;
+  height: 345px;
+  float: left;
+  position: relative;
+}
+/* line 129, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey .step ol li input, #survey .last_step ol li input {
+  display: none;
+}
+/* line 132, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey .step ol li img, #survey .last_step ol li img {
+  width: 175px;
+  height: 263px;
+  position: absolute;
+  bottom: 0;
+}
+/* line 138, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey .step ol li p, #survey .last_step ol li p {
+  position: absolute;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 13px;
+  width: 175px;
+  height: 80px;
+  display: table;
+  margin: 0;
+}
+/* line 146, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey .step ol li p label, #survey .last_step ol li p label {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  padding: 5px;
+}
+/* line 156, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey .last_step {
+  text-align: center;
+  margin-top: 35px;
+  margin-left: 80px;
+}
+/* line 160, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey .last_step fieldset {
+  border: none;
+  margin-bottom: -5px;
+}
+/* line 163, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey .last_step fieldset label {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-align: center;
+}
+/* line 172, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey .last_step ol.options {
+  width: 560px;
+}
+/* line 174, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey .last_step ol.options li {
+  width: 44px;
+  height: 30px;
+  float: none;
+  display: inline-block;
+  color: #6d6e71;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 16px;
+  font-weight: lighter;
+  padding-top: 15px;
+  line-height: 20px;
+  margin-right: 4px !important;
+}
+/* line 186, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey .last_step ol.options li.selected {
+  background: #000 !important;
+  color: #fff !important;
+  border: 1px solid #000 !important;
+}
+/* line 191, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#survey .last_step ol.options li.plus {
+  padding-top: 0px !important;
+  position: relative;
+  top: 6px;
+  height: 37px !important;
+  line-height: 15px !important;
+  padding-top: 8px !important;
+}
+
+/* line 203, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#stylist {
+  margin-top: 20px;
+}
+/* line 205, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#stylist img {
+  float: left;
+}
+/* line 208, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#stylist .go_quiz {
+  margin-left: 60px;
+}
+/* line 211, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#stylist .content-stylist {
+  height: 950px;
+  width: 990px;
+  margin-top: 100px;
+}
+/* line 215, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#stylist .content-stylist ul {
+  width: 990px;
+}
+/* line 217, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#stylist .content-stylist ul li {
+  float: left;
+}
+/* line 219, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#stylist .content-stylist ul li p {
+  font-size: 20px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  line-height: 25px;
+}
+/* line 224, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#stylist .content-stylist ul li.bordoux {
+  width: 578px;
+  margin-right: 65px;
+}
+/* line 227, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#stylist .content-stylist ul li.bordoux img {
+  margin-top: 10px;
+}
+/* line 231, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#stylist .content-stylist ul li.second {
+  margin-top: 30px;
+  margin-right: 43px;
+}
+/* line 235, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#stylist .content-stylist ul li.deco {
+  margin-top: 30px;
+  margin-right: 0 !important;
+}
+
+/* line 243, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+.quiz_black_bar {
+  height: 17px;
+  width: 768px;
+  position: absolute;
+  clear: both;
+  margin: -18px 0 0 40px;
+  padding: 10px 0;
+  background: url(/dev-assets/quiz/quiz_arrow.png) no-repeat;
+}
+/* line 251, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+.quiz_black_bar .quiz_pink_bar {
+  height: 4px;
+  width: 1%;
+  position: absolute;
+  background: #ef3742;
+  top: 7px;
+}
+
+/* line 259, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+.end_quiz_button {
+  width: 319px;
+  height: 60px;
+  z-index: 9999;
+  border: none;
+  position: absolute;
+  left: 255px;
+  top: 500px;
+  cursor: pointer;
+  display: none;
+  font-size: 17px;
+  text-align: center;
+  letter-spacing: 2px;
+}
+/* line 272, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+.end_quiz_button.enable {
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+.end_quiz_button.enable:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 275, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+.end_quiz_button.disable {
+  background: #8c8c8c;
+  background: linear-gradient(to bottom, #b1b1b1 0%, #8c8c8c 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+.end_quiz_button.disable:hover {
+  background: #b1b1b1;
+  background: linear-gradient(to bottom, #8c8c8c 0%, #b1b1b1 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+
+/* line 279, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+ul.tryquiz {
+  width: 576px;
+  float: left;
+  margin-left: 205px;
+  margin-bottom: 20px;
+}
+/* line 284, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+ul.tryquiz li {
+  float: left;
+}
+/* line 286, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+ul.tryquiz li a {
+  font-family: "Trebuchet Ms" !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  text-align: center;
+  font-size: 17px;
+  padding-top: 20px;
+  letter-spacing: 2px;
+}
+/* line 297, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+ul.tryquiz li a.me {
+  width: 222px;
+  height: 38px;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+  display: block;
+  float: left;
+  margin-right: 44px;
+}
+/* line 35, ../../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+ul.tryquiz li a.me:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 305, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+ul.tryquiz li a.again {
+  width: 305px;
+  height: 38px;
+  display: block;
+  float: left;
+  background: #8c8c8c;
+  background: linear-gradient(to bottom, #b1b1b1 0%, #8c8c8c 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+ul.tryquiz li a.again:hover {
+  background: #b1b1b1;
+  background: linear-gradient(to bottom, #8c8c8c 0%, #b1b1b1 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+
+/* line 316, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+.quiz_status {
+  width: 768px;
+  height: 100px;
+  position: relative;
+  margin: 0 0 0 40px;
+}
+/* line 321, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+.quiz_status .start_quiz, .quiz_status .half_quiz, .quiz_status .end_quiz {
+  line-height: 17px;
+  letter-spacing: 2px;
+  width: 295px;
+  height: 100px;
+  position: absolute;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: #ef3742;
+  font-weight: 500;
+  text-align: center;
+}
+/* line 334, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+.quiz_status .half_quiz, .quiz_status .end_quiz {
+  display: none;
+}
+/* line 337, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+.quiz_status .start_quiz {
+  margin-left: 15px;
+}
+/* line 340, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+.quiz_status .half_quiz {
+  left: 33%;
+  margin-top: 10px;
+}
+/* line 344, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+.quiz_status .end_quiz {
+  right: 0;
+  margin-right: -50px;
+}
+
+/* line 350, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles {
+  width: 990px;
+  margin: 0 auto 20px 12px;
+  margin-left: 12px;
+}
+/* line 355, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles a.hoverdiv {
+  position: relative;
+}
+/* line 358, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles a.hoverdiv:hover .hover {
+  display: block;
+}
+/* line 361, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles .hover {
+  display: none;
+  position: absolute;
+  width: 268px;
+  height: 420px;
+  top: -195px;
+  background: url(/dev-assets/FFFFFF-0.6.png);
+}
+/* line 369, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles .hover .boxi {
+  border: 3px solid #ffffff;
+  background: #000;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: normal;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  font-size: 13px;
+  line-height: 15px;
+  width: 170px;
+  padding: 10px;
+  text-align: center;
+  margin: auto;
+  top: 175px;
+  position: relative;
+}
+/* line 385, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles .content-basic, #profiles .content-chic, #profiles .content-sexy, #profiles .content-fashion {
+  width: 940px;
+  height: 560px;
+  background: url(/dev-assets/quiz/profiles/b_1.jpg) center no-repeat;
+  position: relative;
+}
+/* line 390, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles .content-basic .style-basic, #profiles .content-chic .style-basic, #profiles .content-sexy .style-basic, #profiles .content-fashion .style-basic {
+  background: url(/dev-assets/quiz/profiles/b_0.png) center no-repeat;
+  position: absolute;
+  width: 271px;
+  height: 264px;
+  left: 173px;
+  top: 93px;
+}
+/* line 397, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles .content-basic .style-basic p, #profiles .content-chic .style-basic p, #profiles .content-sexy .style-basic p, #profiles .content-fashion .style-basic p {
+  color: #fff;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 28px;
+  text-transform: uppercase;
+  padding-top: 80px;
+  margin-left: -11px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 1px;
+}
+/* line 410, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles .content-chic {
+  background: url(/dev-assets/quiz/profiles/e_1.jpg) center no-repeat;
+  position: relative;
+}
+/* line 413, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles .content-chic .style.chic {
+  background: url(/dev-assets/quiz/profiles/e_0.png) center no-repeat;
+  position: absolute;
+  width: 271px;
+  height: 270px;
+  left: 231px;
+  top: 41px;
+}
+/* line 420, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles .content-chic .style.chic p {
+  color: #000;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 28px;
+  text-transform: uppercase;
+  padding-top: 80px;
+  margin-left: -11px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 1px;
+}
+/* line 433, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles .content-sexy {
+  background: url(/dev-assets/quiz/profiles/s_1.jpg) center no-repeat;
+  position: relative;
+}
+/* line 436, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles .content-sexy .style.sexy {
+  background: url(/dev-assets/quiz/profiles/s_0.png) center no-repeat;
+  position: absolute;
+  width: 271px;
+  height: 270px;
+  left: 430px;
+  top: 130px;
+}
+/* line 443, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles .content-sexy .style.sexy p {
+  color: #fff;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 27px;
+  text-transform: uppercase;
+  padding-top: 87px;
+  margin-left: -11px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 1px;
+}
+/* line 456, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles .content-fashion {
+  background: url(/dev-assets/quiz/profiles/f_1.jpg) center no-repeat;
+  position: relative;
+}
+/* line 459, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles .content-fashion .style.fashion {
+  background: url(/dev-assets/quiz/profiles/f_0.png) center no-repeat;
+  position: absolute;
+  width: 271px;
+  height: 270px;
+  left: 500px;
+  top: 10px;
+}
+/* line 466, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles .content-fashion .style.fashion p {
+  color: #fff;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 28px;
+  text-transform: uppercase;
+  padding-top: 90px;
+  margin-left: -11px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 1px;
+}
+/* line 479, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles ul {
+  margin-top: 30px;
+  height: 485px;
+}
+/* line 482, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles ul li {
+  float: left;
+  width: 268px;
+  height: 285px;
+  margin-right: 65px;
+}
+/* line 487, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles ul li h1 {
+  font-size: 20px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, johnston;
+  color: #000;
+  text-align: center;
+  margin-bottom: 5px;
+}
+/* line 494, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles ul li p {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 13px;
+  color: #000;
+  text-align: center;
+}
+/* line 500, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles ul li img {
+  margin-top: 10px;
+}
+/* line 503, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles ul li.party {
+  margin-right: 0 !important;
+}
+/* line 508, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles .share {
+  top: -60px;
+  right: 10px;
+  font-size: 12px;
+}
+/* line 512, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles .share p {
+  float: left;
+  text-align: left;
+  width: 360px;
+  line-height: 34px;
+  background-color: #fff;
+  font-weight: 500;
+  margin-left: 565px;
+  margin-top: 8px;
+  height: 31px;
+  padding-left: 4px;
+}
+/* line 524, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#profiles .share a#facebook_share, #profiles .share #facebook_share_profile {
+  float: right;
+  font-size: 0;
+  line-height: 0;
+  display: block;
+  width: 125px;
+  height: 25px;
+  background: url(/dev-assets/showroom/sprite.png) no-repeat -108px -32px;
+  margin-top: 5px;
+  margin-right: 4px;
+}
+
+/* line 538, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager {
+  height: 830px;
+  margin-top: 30px;
+  position: relative;
+}
+/* line 542, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager .stamp {
+  position: absolute;
+  left: 710px;
+  top: -113px;
+  width: 106px;
+  height: 106px;
+  background: url(/dev-assets/quiz/style.png) no-repeat;
+}
+/* line 550, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager .left_box {
+  width: 450px;
+  height: 700px;
+  float: left;
+}
+/* line 554, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager .left_box h2 {
+  font-size: 17px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  color: #000;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+/* line 562, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager .left_box p {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-weight: lighter;
+  font-size: 15px;
+  margin-top: -15px;
+  margin-bottom: 35px;
+}
+/* line 568, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager .left_box p.users {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 14px;
+  font-weight: 500 !important;
+  color: #717274;
+  margin-bottom: 10px !important;
+}
+/* line 574, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager .left_box p.users span {
+  color: #f5868d;
+}
+/* line 577, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager .left_box p.users img {
+  margin-top: 5px;
+}
+/* line 581, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager .left_box p.fb {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-size: 15px;
+  color: #676767;
+  margin-bottom: 15px !important;
+  margin-top: 16px;
+}
+/* line 590, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager .left_box input[type=submit] {
+  border: none;
+  width: 319px;
+  height: 60px;
+  margin-top: 22px;
+  letter-spacing: 2px;
+  text-align: center;
+  font-size: 17px;
+  text-transform: uppercase;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+#user_manager .left_box input[type=submit]:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 601, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager .left_box a.fb_login_button {
+  background: url(/dev-assets/quiz/fb.jpg) no-repeat;
+  text-indent: -9999px;
+  width: 231px;
+  height: 34px;
+  display: block;
+  cursor: pointer;
+}
+/* line 609, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager .left_box .notes {
+  font-size: 12px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  line-height: 20px;
+  color: #717274;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+/* line 616, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager .left_box .notes a {
+  color: #ef3742;
+}
+/* line 621, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager .right_box {
+  float: left;
+}
+/* line 623, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager .right_box h2 {
+  font-size: 17px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  color: #000;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 0 !important;
+  margin-left: 50px;
+}
+/* line 633, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+#user_manager .right_box a {
+  font-size: 14px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  line-height: 20px;
+  color: #ef3742;
+  margin-bottom: 0;
+  margin-left: 50px;
+}
+
+/* line 643, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+div.field {
+  display: inline-block;
+  margin-right: 23px;
+  position: relative;
+  height: 60px;
+  width: 146px;
+  margin-top: 5px;
+}
+/* line 650, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+div.field p {
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  font-weight: lighter;
+  font-size: 14px !important;
+  margin-top: -12px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/* line 658, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+div.field.email, div.field.email * {
+  width: 313px;
+}
+/* line 661, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+div.field.cep {
+  display: block;
+}
+/* line 664, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+div.field.gender {
+  float: left;
+  margin-right: 27px;
+}
+/* line 669, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+div.field.gender .text, div.field.state .text, div.field.city .text {
+  position: absolute;
+  z-index: 1;
+  top: 32px;
+  line-height: 32px;
+  font-weight: 500;
+  font-size: 14px;
+  width: 140px;
+  height: 32px;
+  color: #717274;
+  border: solid 1px #c3c3c3;
+  padding-left: 5px;
+  background: url(/dev-assets/quiz/bullet_arrow.png) no-repeat right 3px;
+}
+/* line 683, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+div.field.gender select, div.field.state select, div.field.city select {
+  position: absolute;
+  width: 160px;
+  z-index: 2;
+  opacity: 0;
+  top: 24px;
+  left: 0px;
+}
+/* line 692, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+div.field input#user_birthday {
+  margin-top: -2px;
+}
+/* line 695, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+div.field label {
+  font-size: 14px;
+  font-family: Arial, "Trebuchet Ms", arial, sans-serif, avenir;
+  color: #717274;
+  font-weight: 500;
+  display: block;
+  width: 165px;
+}
+/* line 703, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+div.field input {
+  height: 30px;
+  line-height: 30px;
+  padding-left: 7px;
+  font-size: 14px;
+  border: solid 1px #c3c3c3;
+  width: 140px;
+  margin-bottom: 10px;
+}
+
+/* line 714, ../../../../app/assets/stylesheets/new_structure/section/quiz.css.scss */
+form.login input[type=submit] {
+  width: 74px;
+  height: 31px;
+  display: block;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+form.login input[type=submit]:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}

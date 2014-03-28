@@ -1,0 +1,223 @@
+/*------------------------
+==== GLOBAL VARIABLES ====
+------------------------*/
+/* 
+@include bt_color($primary_bt_color, $primary_bt_color_hover);
+@include bt_color($secondary_bt_color, $secondary_bt_color_hover);
+@include bt_color($terciary_bt_color, $terciary_bt_color_hover);
+*/
+/* line 3, ../../../app/assets/stylesheets/section/half_user.scss */
+body {
+  background: url(/dev-assets/common/bg-modal-login.jpg) 48% 30% no-repeat;
+}
+
+/* line 6, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user {
+  width: 100%;
+  min-height: 520px;
+  padding: 25px 0 0 0;
+  overflow: hidden;
+}
+/* line 11, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#description {
+  width: 350px;
+  overflow: hidden;
+  float: left;
+}
+/* line 15, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#description h1 {
+  color: #ef3742;
+  font-family: "Open Sans", sans-serif;
+  font-size: 50px;
+  font-weight: lighter;
+  letter-spacing: -3px;
+  line-height: 40px;
+  text-transform: uppercase;
+  width: 315px;
+  margin: 10px 0 30px 0;
+}
+/* line 26, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#description p {
+  color: #0f1714;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  letter-spacing: -1px;
+  width: 340px;
+}
+/* line 34, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms {
+  background: #FFF;
+  width: 425px;
+  padding: 30px 35px;
+  border: 1px #d2d2d2 solid;
+  float: right;
+}
+/* line 40, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.new_user {
+  margin: 0 0 30px;
+  padding: 0 0 10px;
+  border-bottom: 1px #d2d2d2 solid;
+}
+/* line 46, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.new_user fieldset ol li {
+  width: 100%;
+  margin: 0 0 12px;
+  overflow: hidden;
+}
+/* line 50, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.new_user fieldset ol li.gender p, section#half_user div#container_forms form.new_user fieldset ol li label {
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 35px;
+  text-align: right;
+  margin-right: 35px;
+  width: 110px;
+  float: left;
+}
+/* line 59, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.new_user fieldset ol li input[type="text"], section#half_user div#container_forms form.new_user fieldset ol li input[type="email"], section#half_user div#container_forms form.new_user fieldset ol li input[type="password"] {
+  background: url(/dev-assets/common/bg-inputs.png) repeat-x;
+  width: 260px;
+  border: 1px solid #C1C1C1;
+  padding: 7px 8px;
+  height: 17px;
+}
+/* line 65, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.new_user fieldset ol li input[type="text"]:focus, section#half_user div#container_forms form.new_user fieldset ol li input[type="email"]:focus, section#half_user div#container_forms form.new_user fieldset ol li input[type="password"]:focus {
+  outline: none;
+}
+/* line 69, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.new_user fieldset ol li input[type="submit"] {
+  float: right;
+}
+/* line 73, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.new_user fieldset ol li.gender label {
+  float: none;
+}
+/* line 77, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.new_user fieldset ol li.terms {
+  width: auto;
+  float: left;
+}
+/* line 80, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.new_user fieldset ol li.terms p {
+  color: #0f1714;
+  font-size: 11px;
+  font-weight: bold;
+  width: 170px;
+  margin: 10px 0 0 20px;
+  float: left;
+}
+/* line 87, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.new_user fieldset ol li.terms p a {
+  color: #0f1714;
+}
+/* line 92, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.new_user fieldset ol li.buttons {
+  width: auto;
+  float: right;
+}
+/* line 95, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.new_user fieldset ol li.buttons input[type="submit"] {
+  color: #FFF;
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  width: 158px;
+  height: 45px;
+  display: block;
+  margin: 0 20px 0 0;
+  border: none;
+  cursor: pointer;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+section#half_user div#container_forms form.new_user fieldset ol li.buttons input[type="submit"]:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 114, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms > p {
+  color: #0f1714;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+/* line 119, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms > p a {
+  color: #ef3742;
+}
+/* line 123, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.login {
+  display: none;
+}
+/* line 127, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.login fieldset ol li {
+  width: 165px;
+  margin: 0 5px 0 0;
+  float: left;
+}
+/* line 131, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.login fieldset ol li label {
+  font-size: 13px;
+  font-weight: bold;
+  margin: 0 0 3px 0;
+  float: left;
+}
+/* line 137, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.login fieldset ol li input[type="email"], section#half_user div#container_forms form.login fieldset ol li input[type="password"] {
+  background: url(/dev-assets/common/bg-inputs.png) repeat-x;
+  width: 140px;
+  border: 1px solid #C1C1C1;
+  padding: 7px 8px;
+  height: 17px;
+}
+/* line 143, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.login fieldset ol li input[type="email"]:focus, section#half_user div#container_forms form.login fieldset ol li input[type="password"]:focus {
+  outline: none;
+}
+/* line 147, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.login fieldset ol li input[type="submit"] {
+  color: #FFF;
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  width: 75px;
+  height: 26px;
+  margin: 20px 0 0;
+  display: block;
+  border: none;
+  cursor: pointer;
+  float: right;
+  background: #e82d3a;
+  background: linear-gradient(to bottom, #eb6a73 0%, #e82d3a 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 35, ../../../app/assets/stylesheets/new_structure/common/_global_stuffs.scss */
+section#half_user div#container_forms form.login fieldset ol li input[type="submit"]:hover {
+  background: #eb6a73;
+  background: linear-gradient(to bottom, #e82d3a 0%, #eb6a73 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  font-family: "Trebuchet Ms" !important;
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+/* line 162, ../../../app/assets/stylesheets/section/half_user.scss */
+section#half_user div#container_forms form.login fieldset ol li.buttons {
+  width: auto;
+  float: right;
+}

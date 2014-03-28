@@ -1,0 +1,31 @@
+#roles
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 12px;
+	margin-bottom: 20px;
+	width: 680px;
+	text-align: left;
+	border-collapse: collapse;
+}
+#roles th
+{
+	font-size: 14px;
+	font-weight: normal;
+	padding: 12px 15px;
+}
+#roles td
+{
+	padding: 10px 15px;
+	border-top: 1px solid #e8edff;
+}
+.oce-first
+{
+	background: #d0dafd;
+	border-right: 10px solid transparent;
+	border-left: 10px solid transparent;
+}
+#roles tr:hover td
+{
+	color: #339;
+	background: #eff2ff;
+}
