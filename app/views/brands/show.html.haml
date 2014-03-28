@@ -36,6 +36,7 @@
 
       %section.container_product
         %ul#products
+          = render_highlighted_products_from(@campaign)
           = render "shared/searched_products", :products => @search.products
         .loading
 

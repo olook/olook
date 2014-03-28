@@ -9,6 +9,7 @@ class BrandsController < ApplicationController
     if search_params['category'] == 'roupa'
       @url_builder.set_params('category', 'roupa')
     end
+    @campaign = HighlightCampaign.find_campaign(params[:cmp])
     @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
     @search.for_admin if current_admin
     @url_builder.set_search @search
