@@ -1,4 +1,4 @@
-- unless current_user
+- unless current_user || params[:controller] == "pages"
   = stylesheet_link_tag  "common/mkt_breadcrumb"
   %section.newsletter
     .feedback.js-success.js-headerbox
@@ -15,7 +15,7 @@
         Nova por aqui?
         %span
           R$30 GRÁTIS 
-        na primeira compra cadastre-se agora
+        na primeira compra. Cadastre-se agora!
       %fieldset
         =text_field_tag :email, "", :class => "box_mail js-newsletter js-headerbox", :default_value => "Digite aqui seu e-mail"
       %fieldset.botao
