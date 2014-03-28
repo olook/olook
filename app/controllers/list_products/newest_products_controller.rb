@@ -4,13 +4,12 @@ class ListProducts::NewestProductsController < ListProductsController
   PRODUCTS_SIZE = 42
 
   def index
-    @path_positions =  '/novidades/:category:-:brand:-:subcategory:/:care:_:color:_:size:_:heel:'
+    @path_positions =  '/novidades/-:category::brand::subcategory:-/_:care::color::size::heel:-'
     visibility = "#{Product::PRODUCT_VISIBILITY[:site]}-#{Product::PRODUCT_VISIBILITY[:all]}"
     search_params = SeoUrl.parse(path: request.fullpath, path_positions: @path_positions).merge({visibility: visibility})
 
     default_params(search_params, "novidades")
 
-    @url_builder.set_link_builder { |_param| newest_path(_param) }
     @search.sort = 'age'
     @search.with_limit(PRODUCTS_SIZE)
     @search.for_page(1)

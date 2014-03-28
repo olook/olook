@@ -21,7 +21,8 @@ class SeoUrl
     "menor-preco" => "retail_price",
     "maior-preco" => "-retail_price",
     "maior-desconto" => "-desconto",
-    "novidade" => "age,-inventory,-text_relevance"
+    "novidade" => "age,-inventory,-text_relevance",
+    "novidades" => "age"
   })
   FIELDS_WITH_KEYS_IN_URL = Set.new(['color', 'size', 'heel', 'care'])
   CARE_PRODUCTS = [
@@ -99,6 +100,21 @@ class SeoUrl
     parameters = blk.call(parameters) if blk
     parameters = build_link_for(parameters)
     @link_builder.call(parameters)
+  end
+
+  def only_filters(filters={}, &blk)
+    parameters = HashWithIndifferentAccess.new(@search.current_filters.dup)
+    only_filters = HashWithIndifferentAccess.new
+    filters.each do |k,v|
+      if v.nil? && parameters[k]
+        only_filters[k] = parameters[k]
+      else
+        only_filters[k] = [v]
+      end
+    end
+    only_filters = blk.call(only_filters) if blk
+    only_filters = build_link_for(only_filters)
+    @link_builder.call(only_filters)
   end
 
   def replace_filter(filter, filter_text, &blk)

@@ -26,8 +26,7 @@ class ListProductsController < ApplicationController
     @campaign_products = HighlightCampaign.find_campaign(params[:cmp])
 
     @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])
-    @category = @search.expressions[:category].try(:first)
-    params[:category] = @search.expressions[:category].try(:first)
+    @category = params[:category] = @search.filter_value(:category).try(:first)
     @cache_key = configure_cache(@search)
   end
 
