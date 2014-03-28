@@ -9,11 +9,6 @@ module MultiJobsProcess
   # join
   #
   #
-  
-  def max
-    20
-  end
-
   def already_started?
     REDIS.exists(cache_key)
   end
@@ -36,13 +31,7 @@ module MultiJobsProcess
     elapsed_time.to_i
   end
 
-  def start
-    REDIS.set(cache_key, Time.zone.now)
-    REDIS.set(missing_key, max)
-  end
-
   def cache_key
-    puts self.class.name
     self.class.name
   end
 
@@ -67,8 +56,9 @@ module MultiJobsProcess
     base.extend(ClassMethods)
   end
 
-  def split
-    split_data.each_with_index do |data, index|
+  def split(max=20)
+    start(max)
+    split_data(max).each_with_index do |data, index|
       data.merge!({index: index})
       Resque.enqueue(self.class, data)
     end
@@ -77,7 +67,6 @@ module MultiJobsProcess
   module ClassMethods
 
     def perform data
-
       slave_job = self.new
       begin
         slave_job.execute(data)
@@ -97,5 +86,11 @@ module MultiJobsProcess
 
   end
 
+  private 
+
+    def start(max)
+      REDIS.set(cache_key, Time.zone.now)
+      REDIS.set(missing_key, max)
+    end  
 
 end
