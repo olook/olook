@@ -4,6 +4,7 @@
   = javascript_include_tag "section/load_thumbnail_images"
   = javascript_include_tag "section/search"
 .search
+  = render "shared/mkt_breadcrumb"
   = first_level_breadcrumb "Busca"
   - if @search.products.size == 0
     %h2
@@ -42,7 +43,7 @@
   .chaordic.mostpopular{"data-skin" => "MP-top-5"}
   %section#stylists.search_result
     %ul.products_list
-      - @recommendation.products(limit: 6).each do |product|
+      - @recommendation.products(limit: 6, category: Category.without_curves).each do |product|
         %li
           = link_to product_seo_path(product.seo_path), onclick: track_event("LoggedHome", "ClickCarouselProduct", "#{product.id}") do
             %span.look_thumbnail{data: {product: product.front_picture.image_url(:showroom), backside_picture: product.full_look_picture.image_url(:showroom) }}

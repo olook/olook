@@ -21,7 +21,7 @@ class ShowroomPresenter
 
   def looks(opts = {})
     @looks_limit = opts[:limit] if opts[:limit]
-    @recommendation.full_looks(limit: @looks_limit)
+    @recommendation.full_looks(limit: @looks_limit, category: Category.without_curves)
   end
 
   def look

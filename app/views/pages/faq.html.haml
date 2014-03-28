@@ -3,8 +3,9 @@
 
 - content_for :footer do
   = javascript_include_tag 'section/faq'
-
+= render "shared/mkt_breadcrumb"
 = first_level_breadcrumb("Central de Atendimento")
+
 #contact
   %h2 
     Entre em contato

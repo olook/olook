@@ -1,6 +1,6 @@
 class CustomUrlController < ApplicationController
   layout "lite_application"
-  DEFAULT_PAGE_SIZE = 48
+  DEFAULT_PAGE_SIZE = 32
   helper_method :check_organic_url_section
 
   def show
