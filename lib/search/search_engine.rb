@@ -53,6 +53,7 @@ class SearchEngine
       end
     end
     validate_sort_field
+    Rails.logger.debug("SearchEngine processed these params: #{@expressions.inspect}")
   end
 
   def term= term
@@ -211,7 +212,7 @@ class SearchEngine
   end
 
   def has_any_filter_selected?
-    _filters = expressions.dup
+    _filters = expressions.clone
     _filters.delete(:category)
     _filters.delete(:price)
     _filters.delete_if{|k,v| IGNORE_ON_URL.include?( k )}
@@ -284,7 +285,7 @@ class SearchEngine
 
   def build_boolean_expression(options={})
     bq = []
-    expressions = @expressions.dup
+    expressions = @expressions.clone
     cares = expressions.delete('care')
     if cares.present?
       subcategories = expressions.delete('subcategory')
@@ -342,7 +343,7 @@ class SearchEngine
 
     def formatted_filters
       filter_params = HashWithIndifferentAccess.new
-      expressions.each do |k, v|
+      expressions.clone.each do |k, v|
         next if IGNORE_ON_URL.include?(k)
         next if k == 'visibility'
         filter_params[k] ||= []

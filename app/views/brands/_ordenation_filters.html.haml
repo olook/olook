@@ -13,7 +13,7 @@
           %option{ 'data-href' => url_builder.current_filters } VER TUDO
           - filters_by('category', search, use_fields: [:brand]).each do |text, amount|
             - description = ( text == 'curves' ? 'roupa' : text )
-            %option{ 'data-href' => url_builder.add_filter(:category, text.chomp), selected: search.filter_selected?(:category, text)}= description.chomp.titleize.pluralize
+            %option{ 'data-href' => url_builder.replace_filter(:category, text.chomp), selected: search.filter_selected?(:category, text)}= description.chomp.titleize.pluralize
 
       %fieldset
         %span.selected-type.order{ class: ("filter_selected" if params[:por].present?) }= params[:por].present? ? params[:por].gsub("-", " ").titleize : "NOSSA SELEÇÃO"
