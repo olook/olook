@@ -1,7 +1,7 @@
 #filters_container
   .filter
     - params[:category] = filters_by('category', search, use_fields: [:collection_theme])[0][0] if filters_by('category', search, use_fields: [:collection_theme]).size == 1
-    = form_tag collection_theme_path(params[:collection_theme], @url_builder.current_filters), method: 'get' do
+    = form_tag url_builder.current_filters , method: 'get' do
       %fieldset.first_child
         %span.selected-type{ class: ("filter_selected" if params[:category].present?) }= params[:category].present? ? params[:category].pluralize : "CATEGORIA"
         %select{ :onchange => ("window.location = $(this.options[this.selectedIndex]).data('href');")}
