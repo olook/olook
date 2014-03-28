@@ -280,8 +280,9 @@ class SeoUrl
     param_subcategory = path_section
     _subcategories = []
     all_subcategories.each do |c|
-      if !CARE_PRODUCTS.include?(c) && /#{c.parameterize}/ =~ param_subcategory
-        _subcategories << param_subcategory.slice!(/#{c.parameterize}/)
+      if !CARE_PRODUCTS.include?(c) && /#{c.parameterize}/i =~ param_subcategory
+        _subcategories << c.parameterize(' ')
+        param_subcategory.slice!(/#{c.parameterize}/i)
       end
     end
     _subcategories = _subcategories.join(section[:value_separator]) if _subcategories.any?
