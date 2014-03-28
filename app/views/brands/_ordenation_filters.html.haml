@@ -6,6 +6,7 @@
     - filter_category = [category, 'roupa']; category = 'roupa'
   .filter
     = form_tag url_builder.current_filters, method: 'get' do
+      %input{type:"hidden", name:"preco", id:"price", value:("#{@search.range_values_for(:price)[:min] rescue 0}-#{@search.range_values_for(:price)[:max] rescue 600}" if @search.filter_value(:price))}
 
       %fieldset.first_child
         %span.selected-type{ class: ("filter_selected" if category.present?) }= category.present? ? category.pluralize : "VER TUDO"
@@ -55,5 +56,4 @@
 
     %input{type: "text", id: "min-value"}
     %input{type:"text", id:"max-value"}
-    %input{type:"hidden", name:"price", id:"price"}
 
