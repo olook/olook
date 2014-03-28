@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ListProducts::NewestProductsController < ListProductsController
   @url_prefix = '/novidades'
-  PRODUCTS_SIZE = 42
+  PRODUCTS_SIZE = 32
 
   def index
     visibility = "#{Product::PRODUCT_VISIBILITY[:site]}-#{Product::PRODUCT_VISIBILITY[:all]}"
