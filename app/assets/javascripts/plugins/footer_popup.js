@@ -71,12 +71,20 @@ $(document).ready(function() {
     prepareForEmailInput("footer");
   });
 
+  $('.js-subscribe.js-headerbox').click(function(){
+    prepareForEmailInput("header");
+  });  
+
   $('.js-subscribe.js-middlebox').click(function(){
     prepareForEmailInput("middle");
   });  
 
   $('.js-newsletter.js-footerbox').keypress(function(key){
     clickOnReturnKey(key,"footer");
+  });
+
+  $('.js-newsletter.js-headerbox').keypress(function(key){
+    clickOnReturnKey(key,"header");
   });
 
   $('.js-newsletter.js-middlebox').keypress(function(key){
