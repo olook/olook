@@ -5,11 +5,8 @@ class ListProducts::NewestProductsController < ListProductsController
 
   def index
     @path_positions =  '/novidades/-:category::brand::subcategory:-/_:care::color::size::heel:-'
-    visibility = "#{Product::PRODUCT_VISIBILITY[:site]}-#{Product::PRODUCT_VISIBILITY[:all]}"
-    search_params = SeoUrl.parse(path: request.fullpath, path_positions: @path_positions).merge({visibility: visibility})
-
-    default_params(search_params, "novidades")
-
+    @visibility = "#{Product::PRODUCT_VISIBILITY[:site]}-#{Product::PRODUCT_VISIBILITY[:all]}"
+    default_params
     @search.sort = 'age'
     @search.with_limit(PRODUCTS_SIZE)
     @search.for_page(1)

@@ -16,11 +16,15 @@ class ListProductsController < ApplicationController
     url_prefix.gsub("/","").capitalize
   end
 
-  def default_params(search_params, site_section)
+  def default_params
+    @url_builder = SeoUrl.new(path: request.fullpath, path_positions: @path_positions)
+
+    search_params = @url_builder.parse_params
     page_size = params[:page_size] || DEFAULT_PAGE_SIZE
     search_params[:skip_beachwear_on_clothes] = true
-    @url_builder = SeoUrl.new(path: request.fullpath, search: @search, path_positions: @path_positions)
-    @search = SearchEngine.new(@url_builder.parse_params).for_page(params[:page]).with_limit(page_size)
+    search_params[:visibility] = @visibility
+
+    @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(page_size)
     @search.for_admin if current_admin
     @url_builder.set_search @search
     @campaign_products = HighlightCampaign.find_campaign(params[:cmp])
