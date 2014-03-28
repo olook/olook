@@ -12,7 +12,6 @@ class BrandsController < ApplicationController
     @url_builder.set_search @search
 
     @brand = Brand.where(name:  params[:brand].to_s.split("-").map{|brand| ActiveSupport::Inflector.transliterate(brand).downcase.titleize})
-    @antibounce_box = AntibounceBox.new(params) if @brand.any? && AntibounceBox.need_antibounce_box?(@search, @brand.map{|b| b.name.downcase}, params)
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
   end
   private
