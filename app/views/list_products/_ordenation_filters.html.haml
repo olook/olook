@@ -1,5 +1,6 @@
 .exhibition-mode.exhibition-olooklet
   = form_tag @url_builder.current_filters, method: 'get' do
+    %input{type:"hidden", name:"preco", id:"price", value:("#{@search.range_values_for(:price)[:min] rescue 0}-#{@search.range_values_for(:price)[:max] rescue 600}" if @search.filter_value(:price))}
     %fieldset
       %p{class: "selected_relevance#{' watermelon' if params[:por].present? && params[:por].to_s != '0'}" }
         - if params[:por].present?
@@ -16,4 +17,3 @@
     #slider-range
   %input{type: "text", id: "min-value"}
   %input{type:"text", id:"max-value"}
-  %input{type:"hidden", name:"price", id:"price"}
