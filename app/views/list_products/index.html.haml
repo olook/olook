@@ -85,8 +85,6 @@
           = render "shared/searched_products", :products => @search.products, campaign_products: @campaign_products.products
         .loading
 
-      = render "shared/antibounce_box", antibounce_box: @antibounce_box if @antibounce_box.present? && @antibounce_box.search.products.count > 0 && Setting.antibounce_enabled
-
       - unless @hide_pagination
         .pagination
           = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @url_builder.current_filters{|p| p.merge({por:params[:por]}).merge(hash)} }
