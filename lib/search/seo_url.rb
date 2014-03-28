@@ -180,7 +180,7 @@ class SeoUrl
 
   def parse_path_into_sections
     index = 0
-    path, @query = @path.split('?')
+    path, @query = URI.decode(@path).split('?')
     path.split('/').each do |path_section|
       next if path_section.blank?
       index += 1 if recursive_section_parse(path_section.dup, index)
@@ -232,7 +232,7 @@ class SeoUrl
   def parse_query
     if @query.present?
       @query.split('&').each do |var|
-        k, v = var.split('=').map { |i| URI.decode(i.to_s) }
+        k, v = var.split('=')
         if KEYS_TRANSLATION[k]
           @parsed_values[KEYS_TRANSLATION[k]] = VALUES_TRANSLATION[v].present? ? VALUES_TRANSLATION[v] : v
         else
@@ -247,7 +247,7 @@ class SeoUrl
   end
 
   def extract_brand(path_section, section)
-    param_brand = URI.decode(path_section).parameterize
+    param_brand = path_section.parameterize
 
     sorted_brands = all_brands.sort do |a,b|
       b.size <=> a.size
@@ -277,7 +277,7 @@ class SeoUrl
   end
 
   def extract_subcategory(path_section, section)
-    param_subcategory = URI.decode(path_section).parameterize
+    param_subcategory = path_section.parameterize
     _subcategories = []
     sorted = all_subcategories.sort{|a,b| b.size <=> a.size}
     sorted.each do |c|
