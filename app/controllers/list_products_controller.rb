@@ -19,15 +19,15 @@ class ListProductsController < ApplicationController
   def default_params(search_params, site_section)
     page_size = params[:page_size] || DEFAULT_PAGE_SIZE
     search_params[:skip_beachwear_on_clothes] = true
-    @search = SearchEngineWithDynamicFilters.new(search_params, true).for_page(params[:page]).with_limit(page_size)
-    @search.for_admin if current_admin
-    @campaign_products = HighlightCampaign.find_campaign(params[:cmp])
     @url_builder = SeoUrl.new(path: request.fullpath, search: @search, path_positions: @path_positions)
+    @search = SearchEngine.new(@url_builder.parse_params).for_page(params[:page]).with_limit(page_size)
+    @search.for_admin if current_admin
+    @url_builder.set_search @search
+    @campaign_products = HighlightCampaign.find_campaign(params[:cmp])
 
     @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])
-    @pixel_information = @category = params[:category]
-    @category = @search.expressions[:category].first
-    params[:category] = @search.expressions[:category].first
+    @category = @search.expressions[:category].try(:first)
+    params[:category] = @search.expressions[:category].try(:first)
     @cache_key = configure_cache(@search)
   end
 
