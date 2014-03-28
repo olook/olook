@@ -277,9 +277,10 @@ class SeoUrl
   end
 
   def extract_subcategory(path_section, section)
-    param_subcategory = path_section
+    param_subcategory = URI.decode(path_section).parameterize
     _subcategories = []
-    all_subcategories.each do |c|
+    sorted = all_subcategories.sort{|a,b| b.size <=> a.size}
+    sorted.each do |c|
       if !CARE_PRODUCTS.include?(c) && /#{c.parameterize}/i =~ param_subcategory
         _subcategories << c.parameterize(' ')
         param_subcategory.slice!(/#{c.parameterize}/i)
@@ -311,9 +312,6 @@ class SeoUrl
   end
 
   def all_subcategories
-    subs = YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_subcategories.yml' ) ) ) )
-    subs.concat( subs.map{ |s| s.downcase } )
-    subs.concat( subs.map{ |s| ActiveSupport::Inflector.transliterate(s) } )
-    subs.concat( subs.map{ |s| s.parameterize } )
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_subcategories.yml' ) ) ) )
   end
 end
