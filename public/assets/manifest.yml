@@ -335,6 +335,8 @@ cart/warning_coupon.png: cart/warning_coupon-440b8674b33af2747881260a06b93487.pn
 cart/warning_coupon/index.png: cart/warning_coupon-440b8674b33af2747881260a06b93487.png
 catalog/banner_quiz.jpg: catalog/banner_quiz-a6f9bc9fdd2eb383a22eae2dd4c592c3.jpg
 catalog/banner_quiz/index.jpg: catalog/banner_quiz-a6f9bc9fdd2eb383a22eae2dd4c592c3.jpg
+catalog/banner_quiz_catalog.jpg: catalog/banner_quiz_catalog-cea1692895f05103b9f578bba393fa59.jpg
+catalog/banner_quiz_catalog/index.jpg: catalog/banner_quiz_catalog-cea1692895f05103b9f578bba393fa59.jpg
 catalog/banner_quiz_primavera.jpg: catalog/banner_quiz_primavera-4648ba05920b1dc44822a97d6e4b419b.jpg
 catalog/banner_quiz_primavera/index.jpg: catalog/banner_quiz_primavera-4648ba05920b1dc44822a97d6e4b419b.jpg
 catalog/banner_quiz_sem_mari.jpg: catalog/banner_quiz_sem_mari-58f90dde245c61988bbfafa5ace80cda.jpg
@@ -2382,8 +2384,8 @@ admin/themes/default/fonts/museosans_500_italic-webfont.woff: admin/themes/defau
 admin/themes/default/fonts/museosans_500_italic-webfont/index.woff: admin/themes/default/fonts/museosans_500_italic-webfont-d075e7cea3b561c378feeeaaf399ab91.woff
 admin/themes/default/style.css: admin/themes/default/style-6717ea4a85c2a58f89286d7530c7709f.css
 admin/themes/default/style/index.css: admin/themes/default/style-6717ea4a85c2a58f89286d7530c7709f.css
-application.css: application-c3ff1e5c492b73aa7024603210426425.css
-application/index.css: application-c3ff1e5c492b73aa7024603210426425.css
+application.css: application-e72cf5901e2fd42065b02fcd4f53c597.css
+application/index.css: application-e72cf5901e2fd42065b02fcd4f53c597.css
 campaign_emails.css: campaign_emails-aa7300ca7269459ce406a1ef0141048a.css
 campaign_emails/index.css: campaign_emails-aa7300ca7269459ce406a1ef0141048a.css
 customlanding.css: customlanding-edc9aa2f9dbdbc2d4070f1b9b3be4ed6.css
@@ -2452,8 +2454,8 @@ new_structure/section/collection_themes.css: new_structure/section/collection_th
 new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-cd4ffb08a09742b955b16b43ba583e21.css
 new_structure/section/join.css: new_structure/section/join-aca92ccd77890f69f5d4836c6b7787f9.css
 new_structure/section/join/index.css: new_structure/section/join-aca92ccd77890f69f5d4836c6b7787f9.css
-new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-91720407c879e08ba8e34624e50a04b8.css
-new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-91720407c879e08ba8e34624e50a04b8.css
+new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-a9f7b224875ba12d99a9f4acc8c582be.css
+new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-a9f7b224875ba12d99a9f4acc8c582be.css
 new_structure/section/lite_product.css: new_structure/section/lite_product-9b3bf8d978ba5d3e7b9cde1099f3c8d8.css
 new_structure/section/lite_product/index.css: new_structure/section/lite_product-9b3bf8d978ba5d3e7b9cde1099f3c8d8.css
 new_structure/section/lite_showroom.css: new_structure/section/lite_showroom-55226374ee84b64b3f97e2a3179d15f5.css

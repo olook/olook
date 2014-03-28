@@ -1,12 +1,12 @@
 @import "new_structure/common/global_stuffs";
 .newsletter{
   height: 20px;
-  width: 62%;
+  width: 63%;
   padding-top: 0;
   float: right;
   margin-top: -6px;
   .feedback, .denied{
-    width: 62%;
+    width: 67%;
     height: 23px;
     background: image-url('common/sprite_modal_footer.png') no-repeat 6px -170px;
     background-color: #bfd7bd;
@@ -24,6 +24,7 @@
     text-align: center;
     span{
       font-weight: bold;
+      text-transform: uppercase;
     }
     p{
       padding-top: 2px;
@@ -34,6 +35,7 @@
     background-color: #ea8596;
     border: 1px solid #e94762;
     height: 23px;
+    width: 62%;
         
   }
   .js-success, .js-error{
@@ -88,7 +90,7 @@
         margin-top: -4px;
         border: none;
         top: -3px;
-        right: 4px;
+        right: 8px;
       }
     }
   }
