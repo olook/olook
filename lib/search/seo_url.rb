@@ -58,6 +58,10 @@ class SeoUrl
     @path_positions = optionals[:path_positions] || DEFAULT_POSITIONS
   end
 
+  def set_params(k, v)
+    @params[k] = v
+  end
+
   def set_search(search)
     @search = search
   end

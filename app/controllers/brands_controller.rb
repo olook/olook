@@ -5,9 +5,11 @@ class BrandsController < ApplicationController
 
   def show
     @url_builder = SeoUrl.new(path: request.fullpath, path_positions: '/marcas/:brand:/-:category::subcategory:-/-:care::color::size::heel:_')
-    Rails.logger.debug("New params: #{params.inspect}")
-
-    @search = SearchEngine.new(@url_builder.parse_params).for_page(params[:page]).with_limit(48)
+    search_params = @url_builder.parse_params
+    if search_params['category'] == 'roupa'
+      @url_builder.set_params('category', 'roupa')
+    end
+    @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
     @search.for_admin if current_admin
     @url_builder.set_search @search
 
