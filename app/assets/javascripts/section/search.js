@@ -12,5 +12,4 @@ o = olook;
 $(function(){
   new ImageLoader().load('look_thumbnail');
   olook.changePictureOnhover('.async');
-
 });
