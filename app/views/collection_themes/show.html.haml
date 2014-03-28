@@ -30,4 +30,4 @@
         .loading
 
     .pagination
-      = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| collection_theme_path(params[:collection_theme], @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
+      = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @url_builder.current_filters{ |_p| _p.merge(hash) }}
