@@ -143,7 +143,7 @@ class SeoUrl
           if FIELDS_WITH_KEYS_IN_URL.include?(field)
             v = "#{KEYS_TRANSLATION.invert[field.to_s]}#{section[:value_separator]}#{values.join(section[:value_separator])}"
           else
-            v = values.map{|val| val.parameterize}.join(section[:value_separator])
+            v = values.join(section[:value_separator])
           end
           v.blank? ? nil : v
         end
@@ -243,17 +243,15 @@ class SeoUrl
   end
 
   def extract_brand(path_section, section)
-    param_brand = path_section
+    param_brand = URI.decode(path_section).parameterize
 
     sorted_brands = all_brands.sort do |a,b|
       b.size <=> a.size
     end
 
-    brands = sorted_brands.select do |b|
-      if /#{b.parameterize}/ =~ param_brand
-        param_brand.slice!(/#{b.parameterize}/)
-        true
-      end
+    brands = []
+    sorted_brands.each do |b|
+      brands << param_brand.slice!(/#{b.parameterize}/) if /#{b.parameterize}/ =~ param_brand
     end
 
     brands = brands.join(section[:value_separator]) if brands.any?
