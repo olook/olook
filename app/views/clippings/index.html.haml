@@ -14,7 +14,7 @@
 
 - content_for(:after_body) do
   = javascript_include_tag "common/fb_like_button"
-
+= render "shared/mkt_breadcrumb"
 = first_level_breadcrumb("Olook na Imprensa")
 
 %section#clipping
