@@ -4,7 +4,7 @@ require 'yaml'
 
 module Seo
   class SeoManager
-    CATEGORY_TEXT = {sapato: 'Sapatos Femininos', roupa: 'Roupas Femininas', acessorio: 'Bijuterias - Semi Joia e Bijuterias Finas', bolsa: 'Bolsas Femininas'}
+    CATEGORY_TEXT = {sapato: 'Sapatos Femininos', roupa: 'Roupas Femininas', acessorio: 'Bijuterias - Semi Joia e Bijuterias Finas', bolsa: 'Bolsas Femininas', curves: 'Roupas Femininas Plus Size'}
     REMOVE_COLOR_REGEX = /\/(cor|tamanho)-(.*)$/
     DEFAULT_META_TAG_TEXT = 'Sapatos Femininos e Roupas Femininas'
 

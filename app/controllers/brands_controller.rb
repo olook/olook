@@ -28,4 +28,8 @@ class BrandsController < ApplicationController
         "http://#{request.host_with_port}/#{brand.name.downcase}"
       end
     end
+
+    def meta_description
+      Seo::DescriptionManager.new(description_key: @brand.try(:first).try(:name)).choose
+    end
 end
