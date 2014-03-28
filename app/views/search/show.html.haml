@@ -4,6 +4,7 @@
   = javascript_include_tag "section/load_thumbnail_images"
   = javascript_include_tag "section/search"
 .search
+  = render "shared/mkt_breadcrumb"
   = first_level_breadcrumb "Busca"
   - if @search.products.size == 0
     %h2
