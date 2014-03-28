@@ -7,7 +7,6 @@ class ListProducts::OlookletController < ListProductsController
     visibility = params[:visibility] || "#{Product::PRODUCT_VISIBILITY[:olooklet]}-#{Product::PRODUCT_VISIBILITY[:all]}"
     search_params = SeoUrl.parse(path: request.fullpath, path_positions: @path_positions).merge({visibility: visibility})
     default_params(search_params,"olooklet")
-    @url_builder.set_link_builder { |_param| olooklet_path(_param) }
   end
 
   private
