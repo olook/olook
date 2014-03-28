@@ -9,6 +9,7 @@
   = javascript_include_tag 'section/lite_collection_theme'
   = javascript_include_tag "section/load_thumbnail_images"
 
+= render "shared/mkt_breadcrumb"
 = cache @cache_key, expire_in: 30.minutes do
   = collection_theme_breadcrumbs_for(@collection_theme.first) if @collection_theme.any?
   #catalog

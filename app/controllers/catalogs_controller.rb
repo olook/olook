@@ -7,7 +7,7 @@ class CatalogsController < ApplicationController
   layout "lite_application"
   prepend_before_filter :verify_if_is_catalog
   helper_method :header
-  DEFAULT_PAGE_SIZE = 48
+  DEFAULT_PAGE_SIZE = 32
 
   def add_campaign(params)
     HighlightCampaign.find_campaign(params[:cmp])  

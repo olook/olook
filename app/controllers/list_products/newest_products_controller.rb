@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ListProducts::NewestProductsController < ListProductsController
   @url_prefix = '/novidades'
-  PRODUCTS_SIZE = 42
+  PRODUCTS_SIZE = 32
 
   def index
     @path_positions =  '/novidades/-:category::brand::subcategory:-/_:care::color::size::heel:-'

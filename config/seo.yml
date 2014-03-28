@@ -1,7 +1,4 @@
-/sapato: 'Sapatos Femininos'
-/roupa: 'Roupas Femininas'
 /acessorio: 'Bijuterias - Semi Joia e Bijuterias Finas'
-/bolsa: 'Bolsas Femininas'
 /marcas: 'Marcas de Roupas'
 /marcas/Olook: 'Olook - Roupas Femininas e Sapatos Femininos'
 /colecoes: 'Moda Feminina'
@@ -37,4 +34,3 @@
 /conta/password/new: 'Senha Olook'
 /conta/sign_in: 'Logar'
 /quiz/new: 'Quiz iniciar'
-/curves: 'Roupas Femininas Plus Size'
