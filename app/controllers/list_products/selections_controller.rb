@@ -3,11 +3,10 @@ class ListProducts::SelectionsController < ListProductsController
   @url_prefix = "/selecoes"
 
   def index
-    @path_positions =  '/selecoes/:category:-:brand:-:subcategory:/:care:_:color:_:size:_:heel:'
+    @path_positions =  '/selecoes/-:category::brand::subcategory:-/_:care::color::size::heel:-'
     visibility = "1-2-3"
     search_params = SeoUrl.parse(path: request.fullpath, path_positions: @path_positions).merge({visibility: visibility})
     default_params(search_params,"selections")
-    @url_builder.set_link_builder { |_param| selections_path(_param) }
   end
 
   private
