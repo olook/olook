@@ -251,7 +251,10 @@ class SeoUrl
 
     brands = []
     sorted_brands.each do |b|
-      brands << param_brand.slice!(/#{b.parameterize}/) if /#{b.parameterize}/ =~ param_brand
+      if /#{b.parameterize}/i =~ param_brand
+        param_brand.slice!(/#{b.parameterize}/i)
+        brands << b.parameterize(' ')
+      end
     end
 
     brands = brands.join(section[:value_separator]) if brands.any?
