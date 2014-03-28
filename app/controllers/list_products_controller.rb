@@ -1,7 +1,7 @@
 class ListProductsController < ApplicationController
   layout "lite_application"
   helper_method :header, :url_prefix
-  DEFAULT_PAGE_SIZE = 48
+  DEFAULT_PAGE_SIZE = 32
   class << self
     attr_reader :url_prefix
   end

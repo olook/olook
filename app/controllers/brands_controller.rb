@@ -7,7 +7,7 @@ class BrandsController < ApplicationController
     search_params = SeoUrl.parse(request.fullpath)
     Rails.logger.debug("New params: #{params.inspect}")
 
-    @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
+    @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(32)
     @search.for_admin if current_admin
 
     params.merge!(search_params)
