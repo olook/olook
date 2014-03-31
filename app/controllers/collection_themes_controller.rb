@@ -7,13 +7,12 @@ class CollectionThemesController < SearchController
   end
 
   def show
-    search_params = SeoUrl.parse(request.fullpath)
+    @url_builder = SeoUrl.new(path: request.fullpath, path_positions: '/colecoes/:collection_theme:/-:category::subcategory::brand:-/-:care::color::size::heel:_')
     Rails.logger.debug("New params: #{params.inspect}")
 
     @campaign = HighlightCampaign.find_campaign(params[:cmp])
-    @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(32)
-    params.merge!(search_params)
-    @url_builder = SeoUrl.new(search_params, "collection_theme", @search)
+    @search = SearchEngine.new(@url_builder.parse_params).for_page(params[:page]).with_limit(48)
+    @url_builder.set_search @search
     @collection_theme = CollectionTheme.where(slug: params[:collection_theme])
     @collection_theme_groups = CollectionThemeGroup.order(:position).includes(:collection_themes)
     @cache_key = "collections#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"

@@ -1,8 +1,8 @@
 - content_for :head do
   = stylesheet_link_tag "new_structure/section/lite_catalog"
-  %meta{:content => @glasses ? "#{@glasses}" : "home/#{params["category"].to_s.titleize}", :name => "chaordic:source"}/
+  %meta{:content => "home/#{params["category"].to_s.titleize}", :name => "chaordic:source"}/
   %meta{:content => @chaordic_user, :name => "chaordic:user"}/
-  %meta{:content => @glasses ? "#{@glasses}" : params["category"].to_s.titleize, :name => "chaordic:category"}/
+  %meta{:content => params["category"].to_s.titleize, :name => "chaordic:category"}/
   %meta{property:"fb:app_id", content:"#{@facebook_app_id}"}
   :javascript
     SOASTA = {};
@@ -62,13 +62,13 @@
         / .chaordic.mostpopular
 
       .row{style: 'position:relative'}
-        = render "ordenation_filters", search: @search, url_builder: @url_builder
+        = render "ordenation_filters", search: @search, url_builder: @url
         - unless @category == 'bolsa'
           .size_top
             %p.title-category Qual seu tamanho?
             %ul.category-list
               - size_list(@category, @search, @category[0].downcase).each do |text, amount|
-                %li{ :class => category_style_class(text)}= filter_link_to(catalog_path(@category, @url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
+                %li{ :class => category_style_class(text)}= filter_link_to( @url.add_filter(:size, text), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
             
       = render 'current_section', search: @search
 
@@ -78,10 +78,8 @@
           = render "shared/searched_products", :products => @search.products, campaign_products: @campaign.products
         .loading
 
-      = render "shared/antibounce_box", antibounce_box: @antibounce_box if @antibounce_box.present? && @antibounce_box.search.products.count > 0 && Setting.antibounce_enabled
-
       .pagination
-        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
+        = render "shared/nav_bar_pagination", search: @search, url_builder: @url, link: lambda { |hash| @url.current_filters { |_p| _p.merge(hash) } }
 
       .banner
         = banner_for(@category, position: :botton)

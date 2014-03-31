@@ -1,8 +1,6 @@
 - content_for :head do
   = stylesheet_link_tag "new_structure/section/lite_catalog"
-  %meta{:content => @glasses ? "#{@glasses}" : "home/#{params["category"].to_s.titleize}", :name => "chaordic:source"}/
   %meta{:content => @chaordic_user, :name => "chaordic:user"}/
-  %meta{:content => @glasses ? "#{@glasses}" : params["category"].to_s.titleize, :name => "chaordic:category"}/
   %meta{property:"fb:app_id", content:"#{@facebook_app_id}"}
 
 - content_for :footer do
@@ -84,15 +82,9 @@
 
       %section.container_product
         %ul#products
-          - if @campaign_products && @campaign_products.products.any?
-            - @campaign.product_ids.split('-').map { |pid| @campaign_products.products.find { |p| p.id.to_i == pid.to_i } }.compact.each do |cp|
-              = render "shared/searched_product_item", :product => cp
-            = render "shared/searched_products", :products => @search.products, campaign_products: @campaign_products.products
-          - else
-            = render "shared/searched_products", :products => @search.products
+          = render_highlighted_products_from(@campaign_products)
+          = render "shared/searched_products", :products => @search.products, campaign_products: @campaign_products.products
         .loading
-
-      = render "shared/antibounce_box", antibounce_box: @antibounce_box if @antibounce_box.present? && @antibounce_box.search.products.count > 0 && Setting.antibounce_enabled
 
       - unless @hide_pagination
         .pagination

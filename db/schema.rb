@@ -600,13 +600,14 @@ ActiveRecord::Schema.define(:version => 20140319151321) do
     t.string   "link"
     t.string   "image"
     t.integer  "position"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.string   "title"
     t.string   "subtitle"
     t.string   "alt_text"
     t.string   "left_image"
     t.string   "right_image"
+    t.integer  "highlight_type"
   end
 
   create_table "holidays", :force => true do |t|
@@ -1062,8 +1063,8 @@ ActiveRecord::Schema.define(:version => 20140319151321) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"

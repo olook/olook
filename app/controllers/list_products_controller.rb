@@ -16,19 +16,21 @@ class ListProductsController < ApplicationController
     url_prefix.gsub("/","").capitalize
   end
 
-  def default_params(search_params, site_section)
+  def default_params
+    @url_builder = SeoUrl.new(path: request.fullpath, path_positions: @path_positions)
+
+    search_params = @url_builder.parse_params
     page_size = params[:page_size] || DEFAULT_PAGE_SIZE
     search_params[:skip_beachwear_on_clothes] = true
-    @search = SearchEngineWithDynamicFilters.new(search_params, true).for_page(params[:page]).with_limit(page_size)
-    @search.for_admin if current_admin
+    search_params[:visibility] = @visibility
 
-    @url_builder = SeoUrl.new(search_params, site_section, @search)
-    @antibounce_box = AntibounceBox.new(params) if AntibounceBox.need_antibounce_box?(@search, @search.expressions["brand"].map{|b| b.downcase}, params)
+    @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(page_size)
+    @search.for_admin if current_admin
+    @url_builder.set_search @search
+    @campaign_products = HighlightCampaign.find_campaign(params[:cmp])
 
     @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])
-    @pixel_information = @category = params[:category]
-    @category = @search.expressions[:category].first
-    params[:category] = @search.expressions[:category].first
+    @category = params[:category] = @search.filter_value(:category).try(:first)
     @cache_key = configure_cache(@search)
   end
 
