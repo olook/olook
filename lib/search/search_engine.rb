@@ -322,9 +322,9 @@ class SearchEngine
   end
 
   def key_for field
-    chosen_filter_values = expressions[field.to_sym] || ""
+    chosen_filter_values = expressions[field.to_sym] || []
     # Use Digest::SHA1.hexdigest ??
-    key = expressions[:category].join("-") + "/" + field.to_s + "/" + chosen_filter_values.join("-")
+    key = expressions[:category].to_a.join("-") + "/" + field.to_s + "/" + chosen_filter_values.join("-")
     Rails.logger.info "[cloudsearch] #{field}_key=#{key}"
     key
   end
