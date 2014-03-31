@@ -24,26 +24,26 @@ class CustomUrlController < ApplicationController
 
   def path_positions_by_section
     case @custom_url.organic_url
-    when /^\/colecoes/
-      '/colecoes/:collection_theme:/:category:-:brand:-:subcategory:/:care:_:color:_:size:_:heel:'
-    when /^\/marcas/
-      '/marcas/:brand:/:category:-:subcategory:/:care:_:color:_:size:_:heel:'
-    when /^\/(?<sec>olooklet|selecoes|novidades)/
-      "/#{sec}/:category:-:brand:-:subcategory:/:care:_:color:_:size:_:heel:"
+    when /^\/colecoes/i
+      '/colecoes/:collection_theme:/-:category::brand::subcategory:-/-:care::color::size::heel:_'
+    when /^\/marcas/i
+      '/marcas/:brand:/-:category::subcategory:-/-:care::color::size::heel:_'
+    when /^\/(?<sec>olooklet|selecoes|novidades)/i
+      "/#{sec}/-:category::brand::subcategory:-/-:care::color::size::heel:_"
     else
-      '/:category:/:brand:-:subcategory:/:care:_:color:_:size:_:heel:'
+      '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_'
     end
   end
 
   def check_organic_url_section(hash)
     case
-    when /^\/?colecoes/ =~ @custom_url.organic_url
+    when /^\/?colecoes/i =~ @custom_url.organic_url
       if hash[:collection].respond_to?(:call)
         hash[:collection].call
       else
         hash[:collection]
       end
-    when /^\/?marcas/ =~ @custom_url.organic_url
+    when /^\/?marcas/i =~ @custom_url.organic_url
       if hash[:brand].respond_to?(:call)
         hash[:brand].call
       else
