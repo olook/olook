@@ -35,11 +35,11 @@ class SeoUrl
   PARAMETERS_BLACKLIST = [ "price"]
   PARAMETERS_WHITELIST = [ "price", "sort", "per_page" ]
   MULTISELECTION_SEPARATOR = SearchEngine::MULTISELECTION_SEPARATOR
-  DEFAULT_POSITIONS = '/:category:-:brand:-:subcategory:/:care:_:color:_:size:_:heel:'
+  DEFAULT_POSITIONS = '/-:category::brand::subcategory:-/-:care::color::size::heel:_'
 
   # Interface to initialize product
-  # path as "/sapato/cor_preto"
-  # path_positions in path as "/:category:-:brand:-:subcategory:/:color:-:size:-:heel:"
+  # path as "/sapato/cor-preto"
+  # path_positions in path as "/-:category::brand::subcategory:-/-:care::color::size::heel:_"
   # search as an object of SearchEngine
   # blk as a link builder to perform some prefixing such as brand_path
   # otherwise just return the path as formatted in positions.
@@ -161,7 +161,9 @@ class SeoUrl
         values = [@params[field.to_sym]].flatten if @params[field.to_sym]
         if values
           if FIELDS_WITH_KEYS_IN_URL.include?(field)
-            v = "#{KEYS_TRANSLATION.invert[field.to_s]}#{section[:value_separator]}#{values.join(section[:value_separator])}"
+            if !values.compact.empty?
+              v = "#{KEYS_TRANSLATION.invert[field.to_s]}#{section[:value_separator]}#{values.join(section[:value_separator])}"
+            end
           else
             v = values.join(section[:value_separator])
           end
