@@ -2,8 +2,8 @@ class SearchController < ApplicationController
   layout "lite_application"
 
   def show
-    search_params = SeoUrl.parse(path: request.fullpath, path_positions: '/busca')
-    Rails.logger.debug("New params: #{params.inspect}")
+    @url_builder = SeoUrl.new(path: request.fullpath, path_positions: '/busca')
+    search_params = @url_builder.parse_params
     @q = params[:q] || ""
 
     @singular_word = @q.singularize
@@ -17,7 +17,7 @@ class SearchController < ApplicationController
         heel: search_params[:heel])
           .for_page(params[:page])
           .with_limit(32)
-      @url_builder = SeoUrl.new(search_params, nil, @search)
+      @url_builder.set_search @search
     end
 
     @recommendation = RecommendationService.new(profiles: current_user.try(:profiles_with_fallback) || [Profile.default])

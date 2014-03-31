@@ -4,16 +4,16 @@
       %p.title-category= category_human
       %ul.subcategory-list
         - _filters.each do |text, amount|
-          %li= filter_link_to(search_path(@url_builder.add_filter(:subcategory, text)), text.chomp, search.filter_selected?(:subcategory, text.chomp))
-        %li= clean_filter_link_to(search_path(@url_builder.remove_filter_of(:subcategory))) if search.filter_value(:subcategory).present?
+          %li= filter_link_to(@url_builder.add_filter(:subcategory, text), text.chomp, search.filter_selected?(:subcategory, text.chomp))
+        %li= clean_filter_link_to(@url_builder.remove_filter_of(:subcategory)) if search.filter_value(:subcategory).present?
 
 - if (_filters = filters_by("heel", search)) && _filters.present?
   .filter
     %p.title-category Salto
     %ul.category-list
       - heels(_filters).each do |heel_range|
-        %li= filter_link_to(search_path(@url_builder.add_filter(:heel, heel_range)), heel_label_for(heel_range), search.filter_selected?(:heel, heel_range))
-      %li= clean_filter_link_to(search_path(@url_builder.remove_filter_of(:heel))) if search.filter_value(:heel).present?
+        %li= filter_link_to(@url_builder.add_filter(:heel, heel_range), heel_label_for(heel_range), search.filter_selected?(:heel, heel_range))
+      %li= clean_filter_link_to(@url_builder.remove_filter_of(:heel)) if search.filter_value(:heel).present?
 
 
 - if (_filters = filters_by("color", search)) && _filters.present?
@@ -21,8 +21,8 @@
     %p.title-category Cores
     %ul.category-list.cores
       - _filters.each do |text, amount|
-        %li{:class => text.chomp.parameterize}= filter_link_to(search_path(@url_builder.add_filter(:color, text)), text.chomp, search.filter_selected?(:color, text.chomp))
-      %li= clean_filter_link_to(search_path(@url_builder.remove_filter_of(:color))) if search.filter_value(:color).present?
+        %li{:class => text.chomp.parameterize}= filter_link_to(@url_builder.add_filter(:color, text), text.chomp, search.filter_selected?(:color, text.chomp))
+      %li= clean_filter_link_to(@url_builder.remove_filter_of(:color)) if search.filter_value(:color).present?
 
 
 - if (_filters = filters_by("brand_facet", search)) && _filters.present?
@@ -30,5 +30,5 @@
     %p.title-category Marca
     %ul.category-list
       - _filters.each do |text|
-        %li= filter_link_to(search_path(@url_builder.add_filter(:brand, text)), text.chomp.gsub('Ç', 'ç').downcase.titleize, search.filter_selected?(:brand, text.chomp))
-      %li= clean_filter_link_to(search_path(@url_builder.remove_filter_of(:brand))) if search.filter_value(:brand).present?        
+        %li= filter_link_to(@url_builder.add_filter(:brand, text), text.chomp.gsub('Ç', 'ç').downcase.titleize, search.filter_selected?(:brand, text.chomp))
+      %li= clean_filter_link_to(@url_builder.remove_filter_of(:brand)) if search.filter_value(:brand).present?
