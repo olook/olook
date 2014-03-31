@@ -7,7 +7,7 @@ class BrandsController < ApplicationController
     search_params = SeoUrl.parse(request.fullpath)
     Rails.logger.debug("New params: #{params.inspect}")
 
-    @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
+    @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(32)
     @search.for_admin if current_admin
 
     params.merge!(search_params)
@@ -27,5 +27,9 @@ class BrandsController < ApplicationController
       if brand
         "http://#{request.host_with_port}/#{brand.name.downcase}"
       end
+    end
+
+    def meta_description
+      Seo::DescriptionManager.new(description_key: @brand.try(:first).try(:name)).choose
     end
 end

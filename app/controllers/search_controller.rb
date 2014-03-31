@@ -15,7 +15,7 @@ class SearchController < ApplicationController
         color: search_params[:color], 
         heel: search_params[:heel])
           .for_page(params[:page])
-          .with_limit(48)
+          .with_limit(32)
       @url_builder = SeoUrl.new(search_params, nil, @search)
     end
 
