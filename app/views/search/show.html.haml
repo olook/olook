@@ -28,7 +28,7 @@
           para você :)
 
       .pagination.topo
-        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| search_path(@url_builder.current_filters.merge({q: @q}).merge(hash)) }
+        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @url_builder.current_filters { |_p| _p.merge(hash).merge({q: @q}) } }
 
     #filters= render "filters", search: @search
     #search_result
@@ -37,7 +37,7 @@
           = render "shared/searched_product_item", product: product
 
       .pagination
-        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| search_path(@url_builder.current_filters.merge({q: @q}).merge(hash)) }
+        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @url_builder.current_filters { |_p| _p.merge(hash).merge({q: @q}) } }
 
 - if @search.products.size == 0
   .chaordic.mostpopular{"data-skin" => "MP-top-5"}
