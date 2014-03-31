@@ -22,7 +22,7 @@
   %meta{content: @chaordic_category, name: "chaordic:category"}/
   %meta{content: current_cart.try(:id), name: "chaordic:cart_id"}/
   = stylesheet_link_tag "new_structure/section/lite_product"
-
+= render "shared/mkt_breadcrumb"
 %section#product
   = product_breadcrumbs_for(@product)
   = link_to "Comprar o look completo", "#", :id => "goRelatedProduct" if @product.related_products.any? && @product.inventory > 0

@@ -14,6 +14,10 @@ class Category < EnumerateIt::Base
     [Category::SHOE,Category::BAG,Category::ACCESSORY,Category::CLOTH, Category::LINGERIE, Category::BEACHWEAR, Category::CURVES]
   end
 
+  def self.without_curves
+    [Category::SHOE,Category::BAG,Category::ACCESSORY,Category::CLOTH, Category::LINGERIE, Category::BEACHWEAR]
+  end
+
   def self.with_name name
     to_a.select{|category_array| category_array.first.pluralize.parameterize.match(name.parameterize)}.flatten.last
   end

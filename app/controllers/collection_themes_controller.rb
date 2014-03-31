@@ -11,7 +11,7 @@ class CollectionThemesController < SearchController
     Rails.logger.debug("New params: #{params.inspect}")
 
     @campaign = HighlightCampaign.find_campaign(params[:cmp])
-    @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(48)
+    @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(32)
     params.merge!(search_params)
     @url_builder = SeoUrl.new(search_params, "collection_theme", @search)
     @collection_theme = CollectionTheme.where(slug: params[:collection_theme])

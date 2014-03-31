@@ -1,5 +1,6 @@
 - content_for(:head) do
   = stylesheet_link_tag  "about/style"
+= render "shared/mkt_breadcrumb"
 = first_level_breadcrumb("Termos e Condições")
 #terms.terms{:role => "main"}
   %h1 Termos de uso
