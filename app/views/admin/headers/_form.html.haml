@@ -52,7 +52,7 @@
     .field
       = f.label :type
       %br/
-      = f.select(:type, [['Sem Header', 'NoBanner'], ['Texto', 'TextCatalogHeader'], ['1 Banner', 'BigBannerCatalogHeader'], ['3 Banners','SmallBannerCatalogHeader']],{ value: params[:type].to_a.first},id: "header_type")
+      = f.select(:type, [['Sem Header', 'NoBanner'], ['Texto', 'TextCatalogHeader'], ['1 Banner', 'BigBannerCatalogHeader'], ['3 Banners','SmallBannerCatalogHeader'], ['Tendencia', 'TrendyCatalogHeader']],{ value: params[:type].to_a.first},id: "header_type")
     .field
       = f.label :seo_text
       %br/
