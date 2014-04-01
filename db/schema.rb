@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140401184313) do
+ActiveRecord::Schema.define(:version => 20140401192416) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -606,6 +606,7 @@ ActiveRecord::Schema.define(:version => 20140401184313) do
     t.text     "product_list"
     t.string   "organic_url"
     t.integer  "url_type"
+    t.string   "page_description"
   end
 
   create_table "highlight_campaigns", :force => true do |t|
