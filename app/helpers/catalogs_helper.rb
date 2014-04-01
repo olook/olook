@@ -15,6 +15,22 @@ module CatalogsHelper
   HIGHLIGHT_BRANDS = {"olook" => 1, "olook concept" => 2, "olook essential" => 3, "olook curves" => 4}
   DOWNCASE_WORDS = Set.new( %w{ e de do da a o } )
 
+  FACEBOOK_TITLES = {
+    sapato: "Olook | Sapatos Femininos Online",
+    bolsa: "Olook | Compre bolsas femininas online",
+    acessorio: "Olook | Acessórios femininos",
+    roupa: "Olook | Roupas Femininas Online",
+    curves: "Olook Curves | Roupas femininas Plus Size"    
+  }
+
+  FACEBOOK_DESCRIPTIONS = {
+    sapato: "Comprar sapatos online é mais fácil e mais seguro quando você compra na Olook. Encontre modelos de sapatilhas, botas e saltos diversos para todas as ocasiões.",
+    bolsa: "Compre bolsas femininas online com facilidade e segurança. Na Olook você encontra bolsas e clutches das melhores marcas.",
+    acessorio: "Na Olook você encontra todos os tipos de acessórios para pontuar seus looks. Compre maxi colares, brincos e carteiras com segurança e praticidade!",
+    roupa: "Na Olook você compra roupas das melhores marcas online com segurança e praticidade. Achados da Colcci, Lez a Lez, Cantão e  M.Officer para todas as ocasiões.",
+    curves: "Encontre roupas femininas com tamanhos grandes ou especiais na Olook. Comprar roupas plus size online ficou mais fácil e seguro!"    
+  }
+
   def clean_filter_link_to(link)
     link += params[:q].blank? ? "" : "?q=#{params[:q]}"
 
@@ -148,4 +164,12 @@ module CatalogsHelper
     search.category = old_categories
     response
   end
+
+  def facebook_title category
+    FACEBOOK_TITLES[category.to_sym]
+  end
+
+  def facebook_description category
+    FACEBOOK_DESCRIPTIONS[category.to_sym]
+  end  
 end
