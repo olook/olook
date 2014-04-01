@@ -7,7 +7,8 @@
   = render "shared/data_layer/category", pixel_information: @pixel_information, catalog_products: @search.products
 - content_for :footer do
   = javascript_include_tag 'section/lite_collection_theme'
-  = javascript_include_tag "section/load_thumbnail_images"  
+  = javascript_include_tag "section/load_thumbnail_images"
+
 = render "shared/mkt_breadcrumb"
 = cache @cache_key, expire_in: 30.minutes do
   = collection_theme_breadcrumbs_for(@collection_theme.first) if @collection_theme.any?
@@ -21,7 +22,7 @@
             { :class => "video_link", :rel => "#{@collection_theme.video_link}" }.                                                                     |
             merge(@collection_theme.text_color ? { style: "color: #{@collection_theme.text_color}" } : {})) unless @collection_theme.video_link.blank? |
           .video_description
-      = render "filters", search: @search
+      = render "filters", search: @search, url_builder: @url_builder
 
       %section.container_product
         %ul#products
@@ -30,4 +31,4 @@
         .loading
 
     .pagination
-      = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| collection_theme_path(params[:collection_theme], @url_builder.current_filters.merge({por:params[:por]}).merge(hash)) }
+      = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @url_builder.current_filters{ |_p| _p.merge(hash) }}

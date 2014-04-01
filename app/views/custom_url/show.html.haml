@@ -62,4 +62,4 @@
         .loading
 
       .pagination
-        = render("shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| check_organic_url_section( catalog: -> { catalog_path(@category, @url_builder.current_filters.merge({por:params[:por]}).merge(hash))}, brand: -> {brand_path(@search.selected_filters_for("brand").join(SeoUrl::MULTISELECTION_SEPARATOR), @url_builder.current_filters.merge({por:params[:por]}).merge(hash))}, collection: -> { collection_theme_path(@search.selected_filters_for("collection_theme").first, @url_builder.current_filters.merge({por:params[:por]}).merge(hash))} ) })
+        = render("shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @url_builder.current_filters{ |_p| _p.merge({por:params[:por]}).merge(hash) } })
