@@ -53,11 +53,18 @@
       = f.label :type
       %br/
       = f.select(:type, [['Sem Header', 'NoBanner'], ['Texto', 'TextCatalogHeader'], ['1 Banner', 'BigBannerCatalogHeader'], ['3 Banners','SmallBannerCatalogHeader']],{ value: params[:type].to_a.first},id: "header_type")
+  %br
+  %fieldset
+    %legend SEO
     .field
       = f.label :page_title
       %br/
       = f.text_field :page_title
       | Olook
+    .field
+      = f.label :page_description
+      %br/
+      = f.text_area :page_description
   %br
   %fieldset#small_banner_catalog_header
     %legend Três banners como na figura abaixo
