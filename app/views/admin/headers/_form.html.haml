@@ -54,9 +54,9 @@
       %br/
       = f.select(:type, [['Sem Header', 'NoBanner'], ['Texto', 'TextCatalogHeader'], ['1 Banner', 'BigBannerCatalogHeader'], ['3 Banners','SmallBannerCatalogHeader']],{ value: params[:type].to_a.first},id: "header_type")
     .field
-      = f.label :seo_text
+      = f.label :page_title
       %br/
-      = f.text_field :seo_text
+      = f.text_field :page_title
       | Olook
   %br
   %fieldset#small_banner_catalog_header
