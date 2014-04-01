@@ -6,7 +6,7 @@ FactoryGirl.define do
       "/sapatao_#{n}"
     end
     type ""
-    seo_text "Sapatos"
+    page_title "Sapatos"
     small_banner1 "MyString"
     alt_small_banner1 "MyString"
     link_small_banner1 "MyString"

@@ -174,7 +174,7 @@ describe Seo::SeoManager do
       end
       context "When the url is '/marcas/Mandi' and dont have title tag" do
         before do
-          @brand = FactoryGirl.build(:brand, name: 'mandi', seo_text: nil)
+          @brand = FactoryGirl.build(:brand, name: 'mandi', page_title: nil)
           @seo_class = Seo::SeoManager.new("/marcas/Mandi", model: @brand)
         end
 
