@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140401164503) do
+ActiveRecord::Schema.define(:version => 20140401184313) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -78,7 +78,6 @@ ActiveRecord::Schema.define(:version => 20140401164503) do
     t.string   "header_image_alt"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
-    t.string   "seo_text"
   end
 
   create_table "braspag_authorize_responses", :force => true do |t|
@@ -342,7 +341,6 @@ ActiveRecord::Schema.define(:version => 20140401164503) do
     t.string   "video_link"
     t.string   "header_image_alt"
     t.string   "text_color"
-    t.string   "seo_text"
   end
 
   add_index "collection_themes", ["collection_theme_group_id"], :name => "index_collection_themes_on_collection_theme_group_id"
