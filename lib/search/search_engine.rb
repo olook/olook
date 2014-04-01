@@ -24,6 +24,8 @@ class SearchEngine
     category: [ :subcategory ]
   }
 
+  DEFAULT_SORT = "age,-inventory,-text_relevance"
+
   attr_accessor :skip_beachwear_on_clothes
   attr_accessor :df
 
@@ -45,9 +47,13 @@ class SearchEngine
 
     attributes.each do |k, v|
       next if k.blank?
-      self.send("#{k}=", v)
+      begin
+        self.send("#{k}=", v)
+      rescue NoMethodError
+      end
     end
     validate_sort_field
+    Rails.logger.debug("SearchEngine processed these params: #{@expressions.inspect}")
   end
 
   def term= term
@@ -91,6 +97,17 @@ class SearchEngine
     self
   end
 
+  def page=(val)
+    for_page(val)
+  end
+
+  def limit=(val)
+    with_limit(val)
+  end
+
+  def admin=(val)
+    for_admin if val
+  end
 
   def category= _category
     if _category == "roupa" && !@skip_beachwear_on_clothes
@@ -120,7 +137,7 @@ class SearchEngine
   end
 
   def remove_filter filter
-    parameters = expressions.dup
+    parameters = formatted_filters
     parameters.delete_if {|k| IGNORE_ON_URL.include? k }
     parameters[filter.to_sym] = []
     if NESTED_FILTERS[filter.to_sym]
@@ -133,7 +150,7 @@ class SearchEngine
   end
 
   def replace_filter(filter, filter_value)
-    parameters = expressions.dup
+    parameters = formatted_filters
     parameters.delete_if {|k| IGNORE_ON_URL.include? k }
     parameters[filter.to_sym] = [filter_value]
     if NESTED_FILTERS[filter.to_sym]
@@ -145,7 +162,7 @@ class SearchEngine
   end
 
   def current_filters
-    parameters = expressions.dup
+    parameters = formatted_filters
     parameters.delete_if {|k| IGNORE_ON_URL.include? k }
     parameters
   end
@@ -195,7 +212,7 @@ class SearchEngine
   end
 
   def has_any_filter_selected?
-    _filters = expressions.dup
+    _filters = expressions.clone
     _filters.delete(:category)
     _filters.delete(:price)
     _filters.delete_if{|k,v| IGNORE_ON_URL.include?( k )}
@@ -268,7 +285,7 @@ class SearchEngine
 
   def build_boolean_expression(options={})
     bq = []
-    expressions = @expressions.dup
+    expressions = @expressions.clone
     cares = expressions.delete('care')
     if cares.present?
       subcategories = expressions.delete('subcategory')
@@ -305,9 +322,9 @@ class SearchEngine
   end
 
   def key_for field
-    chosen_filter_values = expressions[field.to_sym] || ""
+    chosen_filter_values = expressions[field.to_sym] || []
     # Use Digest::SHA1.hexdigest ??
-    key = expressions[:category].join("-") + "/" + field.to_s + "/" + chosen_filter_values.join("-")
+    key = expressions[:category].to_a.join("-") + "/" + field.to_s + "/" + chosen_filter_values.join("-")
     Rails.logger.info "[cloudsearch] #{field}_key=#{key}"
     key
   end
@@ -326,7 +343,7 @@ class SearchEngine
 
     def formatted_filters
       filter_params = HashWithIndifferentAccess.new
-      expressions.each do |k, v|
+      expressions.clone.each do |k, v|
         next if IGNORE_ON_URL.include?(k)
         next if k == 'visibility'
         filter_params[k] ||= []
@@ -343,6 +360,7 @@ class SearchEngine
           filter_params[k].concat v.map { |_v| _v.downcase }
         end
       end
+      filter_params[:sort] = ( @sort_field == DEFAULT_SORT ? nil : @sort_field )
 
       filter_params
     end
@@ -357,7 +375,7 @@ class SearchEngine
 
     def validate_sort_field
       if @sort_field.nil? || @sort_field == "" || @sort_field == 0 || @sort_field == "0"
-        @sort_field = "age,-inventory,-text_relevance"
+        @sort_field = DEFAULT_SORT
       end
     end
 end
