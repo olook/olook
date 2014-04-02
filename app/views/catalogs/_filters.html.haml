@@ -54,14 +54,6 @@
     %li= link_to("Limpar Filtro", @url_builder.remove_filter_of(:color), :class => "clean") if search.filter_value(:color).present?
 .filter
   %p.title-category Preço
-  .price-range
-    %p#min-value-label{style:'background-image: none'} 0
-    %p#max-value-label{style:'background-image: none'} 0
-    .slider
-      #slider-range
-    %input{type: "text", id: "min-value"}
-    %input{type:"text", id:"max-value"}
-    %input{type:"hidden", name:"price", id:"price"}
   %ul.subcategory-list
     %li= link_to("Limpar Filtro", @url_builder.remove_filter_of(:price), :class => "clean") if search.filter_value(:price).present?
 - unless ['bolsa', 'sapato'].include?(category)
