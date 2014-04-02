@@ -24,19 +24,51 @@ aside{
     overflow:hidden;
   }
   ul.cores{
-    width:145px;
+    width:165px;
     max-height:200px;
     overflow-y:auto;
-    border:solid 1px #CCC;
     padding-left:5px;
+    
+    li {
+      width:30px;
+      height:30px;
+      float:left;
+      margin:0 3px 3px 0;
+      a {background: none;
+        padding-left:0px !important;
+        width:30px;
+        height:30px;
+        display: block;
+        background: image-url("common/thumbs_cor.png") no-repeat 0 36px;
+        background-size: 30px;
+      }
+      &.amarelo a {background: yellow;}
+      &.azul a {background: blue;}
+      &.branco a {background: white;border:1px solid #f1f1f1;}
+      &.laranja a {background: orange;}
+      &.cinza a {background: gray;}
+      &.roxo a {background: purple;}
+      &.preto a {background: black;}
+      &.verde a {background: green;}
+      &.vermelho a {background: red;}
+      &.preto a {background: black;}
+      &.rosa a {background: pink;}
+      &.terrosos a {background: brown;}
+      &.bege a {background: beige;}
+      &.onca a {background-position: 0 -332px;}
+      &.xadrez a {background-position: 0 -442px;}
+      &.prateado a {background-position: 0 -110px;}
+      &.listras a {background-position: 0 -258px;}
+      &.floral a {background-position: 0 -185px;}
+    }
 
     li span{
-      display:inline-block;
-      height:15px;
-      padding-left:19px;
-      background: image-url("common/thumbs_cor.png") no-repeat 0 1px;
+      /*background: image-url("common/thumbs_cor.png") no-repeat 0 1px;*/
+      width:30px;
+      height:30px;
+      display: none;
 
-      &.txt-amarelo{background-position: 0 -302px; }
+      /*&.txt-amarelo{background-position: 0 -302px; }
       &.txt-azul{background-position: 0 -382px; }
       &.txt-bege{background-position: 0 -239px; }
       &.txt-branco{background-position: 0 -416px; }
@@ -63,7 +95,14 @@ aside{
       &.txt-verde{background-position: 0 -398px; }
       &.txt-vermelho{background-position: 0 -334px; }
       &.txt-xadrez{background-position: 0 -189px; }
-      &.txt-zebra{background-position: 0 -205px; }
+      &.txt-zebra{background-position: 0 -205px; }*/
+      
+      /*
+      4 - Estampado = poá, camuflado, multicolorido
+      15 - Listras
+      16 - Floral
+      */
+
     }
   }
 
