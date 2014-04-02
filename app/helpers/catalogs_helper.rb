@@ -31,6 +31,13 @@ module CatalogsHelper
     curves: "Encontre roupas femininas com tamanhos grandes ou especiais na Olook. Comprar roupas plus size online ficou mais fácil e seguro!"    
   }
 
+  PRICE_RANGES = {
+    "0-70" => "Até R$ 69,90",
+    "70-130" => "R$ 70 a R$ 129,90",
+    "130-200" => "R$ 130,00 a R$ 199,90",
+    "200-1000" => "Acima de R$ 200"
+  }
+
   def clean_filter_link_to(link)
     link += params[:q].blank? ? "" : "?q=#{params[:q]}"
 
@@ -171,5 +178,9 @@ module CatalogsHelper
 
   def facebook_description category
     FACEBOOK_DESCRIPTIONS[category.to_sym]
+  end
+
+  def label_for_price_range price_range
+    PRICE_RANGES[price_range]
   end  
 end

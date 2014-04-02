@@ -58,7 +58,7 @@
     %li= filter_link_to(@url_builder.add_filter(:price, '0-70'), 'Até R$ 69,90', search.filter_selected?(:price, '0-70'))
     %li= filter_link_to(@url_builder.add_filter(:price, '70-130'), 'R$ 70 a R$ 129,90', search.filter_selected?(:price, '70-130'))
     %li= filter_link_to(@url_builder.add_filter(:price, '130-200'), 'R$ 130,00 a R$ 199,90', search.filter_selected?(:price, '130-200'))
-    %li= filter_link_to(@url_builder.add_filter(:price, '200-'), 'Acima de R$ 200', search.filter_selected?(:price, '200-'))
+    %li= filter_link_to(@url_builder.add_filter(:price, '200-1000'), 'Acima de R$ 200', search.filter_selected?(:price, '200-1000'))
   %ul.subcategory-list
     %li= link_to("Limpar Filtro", @url_builder.remove_filter_of(:price), :class => "clean") if search.filter_value(:price).present?
 - unless ['bolsa', 'sapato'].include?(category)
