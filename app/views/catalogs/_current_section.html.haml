@@ -34,5 +34,9 @@
         %li
           %span= titleize_without_pronoum(brand)
           = %( #{ current_section_link_to(@url_builder.add_filter(:brand, brand))}).html_safe
+      - search.selected_filters_for("price").sort.each do |price|
+        %li
+          %span= label_for_price_range(price)
+          = %( #{ current_section_link_to(@url_builder.add_filter(:price, price))}).html_safe
       %li.clean= link_to "Limpar tudo", catalog_path(params[:category])
 
