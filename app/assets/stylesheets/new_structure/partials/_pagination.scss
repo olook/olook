@@ -15,9 +15,8 @@
     font:normal 13px Verdana, Arial, sans-serif;
     text-decoration:none;
     color:#000;
-    height:19px;
-    line-height:22px;
-    margin:0 3px;
+    padding:5px 10px;
+    border:1px solid #d1d1d1;
 
     &.anterior, &.proximo{
       width:10px;
@@ -28,7 +27,8 @@
       background-position:0 -137px;
     }
     &.current{
-      color:#000 !important;
+      color:#fff !important;
+      background: #ef3741;
       font-weight: bold;
     }
     &:hover{
