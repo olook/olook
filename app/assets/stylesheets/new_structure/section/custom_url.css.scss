@@ -1,0 +1,24 @@
+@import "new_structure/common/global_stuffs";
+
+.editorial{
+	width: 790px;
+	height: 850px;
+	.carousel{
+		ul{
+			li{
+				float: left;
+				&.big{
+					margin-bottom: 15px;
+					width: 790px;
+					height: 560px;
+				}
+				&.thumb{
+					width: 187px;
+					height: 139px;
+					margin-right: 10px;
+				}
+				&.last{margin-right: 0 !important;}
+			}
+		}
+	}
+}
