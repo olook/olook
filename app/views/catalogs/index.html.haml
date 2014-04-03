@@ -50,11 +50,21 @@
       .row{style: 'position:relative'}
         = render "ordenation_filters", search: @search, url_builder: @url_builder
         - unless @category == 'bolsa'
-          .size_top
-            %p.title-category Qual seu tamanho?
-            %ul.category-list
-              - size_list(@category, @search, @category[0].downcase).each do |text, amount|
-                %li{ :class => category_style_class(text)}= filter_link_to( @url_builder.add_filter(:size, text), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
+          .exhibition-mode
+            %fieldset
+              %p
+                %span Qual seu tamanho?
+                %select 
+                  %option PP
+                  %option P
+                  %option M
+                  %option G
+                  %option 30
+                  %option 32
+                  %option 34
+                  %option 36
+                  %option 38
+                  %option 40
             
       = render 'current_section', search: @search
 

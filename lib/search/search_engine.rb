@@ -397,6 +397,7 @@ class SearchEngine
     end
 
     def price_selected_filters expressions
+      return [] unless expressions[:price]
       price_filters = expressions[:price].map do |e| 
         a = e.gsub("retail_price:","").split("..")
         a[0] = (a[0].to_i/100).to_s
