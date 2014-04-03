@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Seo::SeoManager do
   before do
     @seo_class = Seo::SeoManager.new("/sapato")
-    @header = FactoryGirl.create(:header, :no_banner, url: "/sapato", title: "Sapatos Femininos")
+    @header = FactoryGirl.create(:header, :no_banner, url: "/sapato", page_title: "Sapatos Femininos")
   end
   describe "#initialize" do
     it "set url" do
@@ -36,7 +36,7 @@ describe Seo::SeoManager do
     end
     context "When have subcategory" do
       before do
-        @header = FactoryGirl.create(:header, :no_banner, url: "/sapato/alpargata", title: "Alpargatas Femininos")
+        @header_sub = FactoryGirl.create(:header, :no_banner, url: "/sapato/alpargata", page_title: "Alpargatas Femininos")
         @seo_class = Seo::SeoManager.new("/sapato/apargata")
       end
       it "return previous page title" do
@@ -46,6 +46,15 @@ describe Seo::SeoManager do
     context "When have tree sub level on url and dont have subcategory" do
       before do
         @seo_class = Seo::SeoManager.new("/sapato/apargata/low")
+      end
+      it "return previous page title" do
+        expect(@seo_class.select_meta_tag[:title]).to eql("#{@header.page_title} | Olook")
+      end
+    end
+    context "When brand have space" do
+      before do
+        @seo_class = Seo::SeoManager.new("/marcas/Douglas Harris")
+        @header = FactoryGirl.create(:header, :no_banner, url: "/marcas/douglas-harris", page_title: "Douglas Harris")
       end
       it "return previous page title" do
         expect(@seo_class.select_meta_tag[:title]).to eql("#{@header.page_title} | Olook")
