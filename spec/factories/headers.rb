@@ -7,6 +7,8 @@ FactoryGirl.define do
     end
     type ""
     page_title "Sapatos"
+    page_description "Descricao"
+    enabled true
     small_banner1 "MyString"
     alt_small_banner1 "MyString"
     link_small_banner1 "MyString"
@@ -33,6 +35,9 @@ FactoryGirl.define do
     end
     trait :small_banner do
       type "SmallBannerCatalogHeader"
+    end
+    trait :no_banner do
+      type "NoBanner"
     end
   end
 end
