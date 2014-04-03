@@ -73,7 +73,7 @@
       = f.label :small_banner1
       %br/
       = f.file_field :small_banner1
-      - if f.object.small_banner1?
+      - if f.object.small_banner? && f.object.small_banner1?
         = image_tag(f.object.small_banner1, style: 'max-width: 500px')
         %br/
         = f.check_box :remove_small_banner1, style: 'width: 10px'
@@ -90,7 +90,7 @@
       = f.label :small_banner2
       %br/
       = f.file_field :small_banner2
-      - if f.object.small_banner2?
+      - if f.object.small_banner? && f.object.small_banner2?
         = image_tag(f.object.small_banner2, style: 'max-width: 500px')
         %br/
         = f.check_box :remove_small_banner2, style: 'width: 10px'
@@ -107,7 +107,7 @@
       = f.label :medium_banner
       %br/
       = f.file_field :medium_banner
-      - if f.object.medium_banner?
+      - if f.object.small_banner? && f.object.medium_banner?
         = image_tag(f.object.medium_banner, style: 'max-width: 500px')
         %br/
         = f.check_box :remove_medium_banner, style: 'width: 10px'
