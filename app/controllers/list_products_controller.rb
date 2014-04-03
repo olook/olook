@@ -40,20 +40,9 @@ class ListProductsController < ApplicationController
     cache_key
   end
 
-
-  def title_text
-    return "#{prefix_for_page_title} | Sapatos Femininos | Olook" if @category && @category == 'sapato'
-    return "#{prefix_for_page_title} | #{@category}s Femininas | Olook" if @category && @category != 'sapato'
-    "#{prefix_for_page_title} | Roupas Femininas e Sapatos Femininos | Olook"
-  end
-
   def canonical_link
     return "http://#{request.host_with_port}/#{prefix_for_page_title}/#{@category}" if @category
     "http://#{request.host_with_port}/#{prefix_for_page_title}"
-  end
-
-  def meta_description
-    Seo::DescriptionManager.new(description_key: prefix_for_page_title).choose
   end
 
 end

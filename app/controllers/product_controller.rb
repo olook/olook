@@ -67,22 +67,16 @@ class ProductController < ApplicationController
     @shoe_size = @user.try(:shoes_size) || params[:shoe_size].to_i
   end
 
-  def title_text 
-    Seo::SeoManager.new(request.path, model: @product).select_meta_tag
-  end
-
   def canonical_link
     return "http://#{request.host_with_port}#{product_seo_path(@product.all_colors.first.seo_path)}" unless @product.try(:all_colors).blank?
     "http://#{request.host_with_port}#{product_seo_path(@product.seo_path)}" if @product
   end
-
 
   # Custom metrics for new relic
   add_method_tracer :load_show_product, 'Custom/ProductController/load_show_product'
   add_method_tracer :load_product_discount_service, 'Custom/ProductController/load_product_discount_service'
   add_method_tracer :title_text, 'Custom/ProductController/title_text'
   add_method_tracer :canonical_link, 'Custom/ProductController/canonical_link'
-
 
   private
 
