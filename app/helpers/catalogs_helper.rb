@@ -183,4 +183,19 @@ module CatalogsHelper
   def label_for_price_range price_range
     PRICE_RANGES[price_range]
   end  
+
+  def size_select_options(sizes, url_builder)
+    response = {}
+    default_link = url_builder.remove_filter_of(:size)
+    default_link[0] = ''
+    response["Selecione um Tamanho"] = "#{root_url}#{default_link}"
+
+    sizes.each do |s|
+      link = "#{url_builder.replace_filter(:size, s.downcase.parameterize)}"
+      link[0] = ''
+      response[format_size(s)] = "#{root_url}#{link}"
+    end
+
+    response
+  end
 end

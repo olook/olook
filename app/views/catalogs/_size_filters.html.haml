@@ -1,0 +1,11 @@
+= form_tag url_builder.current_filters, method: 'get', class: 'js-size-select' do        
+  - unless category == 'bolsa'
+    .exhibition-mode
+      %fieldset
+        - if search.filter_value(:size).present?
+          %p.selected_relevance.watermelon
+            %span=  "Tamanho #{format_size(@search.filter_value(:size).first)}".titleize
+        - else
+          %p.selected_relevance
+            %span Qual seu tamanho?
+        = select_tag('tamanho', options_for_select(size_select_options(size_list(category, search, category[0].downcase).reverse, url_builder),:class => "custom_select", :selected => params[:tamanho]), :onchange => ("$(this).parents('form').submit();"))

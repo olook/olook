@@ -32,6 +32,12 @@ filter.init = function(){
       content = $("div.mercado_pago");
       olook.newModal(content, 640, 800);
   });
+
+  $("form.js-size-select").submit(function(e){
+      e.preventDefault();
+      window.location = $( "#tamanho" ).val();
+  });
+
 }
 
 
