@@ -6,7 +6,7 @@ class Admin::BrandsController < Admin::BaseController
   respond_to :html, :text
 
   def index
-    @brands = Brand.all
+    @brands = Brand.order(:name)
   end
 
   def show
