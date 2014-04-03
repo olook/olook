@@ -60,5 +60,18 @@ describe Seo::SeoManager do
         expect(@seo_class.select_meta_tag[:title]).to eql("#{@header.page_title} | Olook")
       end
     end
+    context "When have product" do
+      before do
+        @product = FactoryGirl.build(:product, description: "product description")
+        @seo_class = Seo::SeoManager.new("/#{@product.seo_path}", fallback_title: "O Produto",fallback_description: @product.seo_description)
+      end
+      it "return product title" do
+        @product.should_receive(:title_text).and_return("O Produto")
+        expect(@seo_class.select_meta_tag[:title]).to eql ("#{@product.title_text} | Olook")
+      end
+      it "return product description" do
+        expect(@seo_class.select_meta_tag[:description]).to eql (@product.seo_description )
+      end
+    end
   end
 end
