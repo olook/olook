@@ -211,4 +211,8 @@ module CatalogsHelper
     size = selected_size(search, url_builder)
     (size.blank?) ? "Selecione um Tamanho" : format_size(size)
   end
+
+  def whitelisted_color_filters(search)
+    filters_by("color", search, use_fields: [:category]).select{|k,v| SeoUrl.whitelisted_colors.include?(k)}
+  end
 end
