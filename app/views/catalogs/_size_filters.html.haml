@@ -8,4 +8,4 @@
         - else
           %p.selected_relevance
             %span Qual seu tamanho?
-        = select_tag('tamanho', options_for_select(size_select_options(size_list(category, search, category[0].downcase).reverse, url_builder),:class => "custom_select", :selected => params[:tamanho]), :onchange => ("$(this).parents('form').submit();"))
+        = select_tag('tamanho', options_for_select(size_select_options(size_list(category, search, category[0].downcase).reverse, url_builder),:class => "custom_select", :selected => selected_size_link(search, url_builder)), :onchange => ("$(this).parents('form').submit();"))
