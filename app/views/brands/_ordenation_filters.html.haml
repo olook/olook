@@ -1,5 +1,4 @@
 #filters_container
-  - category = search.filter_value(:category)
   - category = filters_by('category', search, use_fields: [:brand])[0][0] if filters_by('category', search, use_fields: [:brand]).size == 1
   - category ||= search.filter_value(:category).to_a.first
   - if category == 'curves'
@@ -11,10 +10,10 @@
       %fieldset.first_child
         %span.selected-type{ class: ("filter_selected" if category.present?) }= category.present? ? category.pluralize : "VER TUDO"
         %select{ :onchange => ("window.location = $(this.options[this.selectedIndex]).data('href');")}
-          %option{ 'data-href' => url_builder.current_filters } VER TUDO
+          %option{ 'data-href' => url_builder.remove_filter_of(:category) } VER TUDO
           - filters_by('category', search, use_fields: [:brand]).each do |text, amount|
             - description = ( text == 'curves' ? 'roupa' : text )
-            %option{ 'data-href' => url_builder.replace_filter(:category, text.chomp), selected: search.filter_selected?(:category, text)}= description.chomp.titleize.pluralize
+            %option{ 'data-href' => url_builder.replace_filter(:category, text.chomp.parameterize), selected: search.filter_selected?(:category, text)}= description.chomp.titleize.pluralize
 
       %fieldset
         %span.selected-type.order{ class: ("filter_selected" if params[:por].present?) }= params[:por].present? ? params[:por].gsub("-", " ").titleize : "NOSSA SELEÇÃO"
