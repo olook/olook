@@ -186,16 +186,29 @@ module CatalogsHelper
 
   def size_select_options(sizes, url_builder)
     response = {}
-    default_link = url_builder.remove_filter_of(:size)
-    default_link[0] = ''
-    response["Selecione um Tamanho"] = "#{root_url}#{default_link}"
 
-    sizes.each do |s|
-      link = "#{url_builder.replace_filter(:size, s.downcase.parameterize)}"
-      link[0] = ''
-      response[format_size(s)] = "#{root_url}#{link}"
-    end
+    response["Selecione um Tamanho"] = size_select_link_for("", url_builder) 
+    sizes.each{|s| response[format_size(s)] = size_select_link_for(s.downcase.parameterize, url_builder)}
 
     response
+  end
+
+  def size_select_link_for(size, url_builder)
+    link = size.blank? ? url_builder.remove_filter_of(:size) : url_builder.replace_filter(:size, size.downcase.parameterize)
+    link[0] = ''
+    "#{root_url}#{link}"
+  end
+
+  def selected_size(search, url_builder)
+    search.filter_value(:size) ? search.filter_value(:size).first : ""
+  end
+
+  def selected_size_link(search, url_builder)
+    size_select_link_for(selected_size(search, url_builder), url_builder)
+  end
+
+  def selected_size_label(search, url_builder)
+    size = selected_size(search, url_builder)
+    (size.blank?) ? "Selecione um Tamanho" : format_size(size)
   end
 end
