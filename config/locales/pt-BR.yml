@@ -442,6 +442,7 @@
     attributes:
       header:
         url: 'URL'
+        url_type: 'Tipo de Url'
         old_url: "URL existente ex.: /sapato"
         new_url: "URL nova ex.: /preto-e-branco"
         enabled: 'Ativar?'
