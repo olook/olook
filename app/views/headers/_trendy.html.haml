@@ -1,3 +1,5 @@
+= javascript_include_tag "jquery.bxslider.min.js"
+= stylesheet_link_tag  "jquery.bxslider"
 = stylesheet_link_tag "new_structure/section/custom_url"
 
 %section
@@ -6,18 +8,42 @@
   %p
     A estampa classica de animal print est´de volta! Agora repaginado com todos os bichos da selva! Escolha a sua e solte as feras que moram em você.
   .carousel
-    %ul
+    %ul.bxslider
       %li.big
         = image_tag("editoriais/big_img.jpg")
-      %li.thumbnail
+      %li.big
+        %iframe{allowfullscreen: "", frameborder: "0", height: "589", src: "//www.youtube.com/embed/QDL9jjqCqmo?list=UUjPbOLQD7X5ef0T29IkkXzQ", width: "792"}
+      %li.big
+        = image_tag("editoriais/big_img.jpg")
+      %li.big
+        = image_tag("editoriais/big_img.jpg")
+      %libig
+        = image_tag("editoriais/big_img.jpg")
+    #bx-pager
+      %a{"data-slide-index" => "0", href: ""}
         = image_tag("editoriais/thumb_1.jpg")
-      %li.thumbnail
+      %a{"data-slide-index" => "1", href: ""}
         = image_tag("editoriais/thumb_2.jpg")
-      %li.thumbnail
+      %a{"data-slide-index" => "2", href: ""}
         = image_tag("editoriais/thumb_3.jpg")
-      %li.thumbnail.last
+      %a{"data-slide-index" => "2", href: ""}
         = image_tag("editoriais/thumb_4.jpg")
+      %a{"data-slide-index" => "2", href: ""}
+        = image_tag("editoriais/thumb_4.jpg")
+      %a{"data-slide-index" => "2", href: ""}
+        = image_tag("editoriais/thumb_4.jpg")
+      %a{"data-slide-index" => "2", href: ""}
+        = image_tag("editoriais/thumb_4.jpg")
+      %a{"data-slide-index" => "2", href: ""}
+        = image_tag("editoriais/thumb_4.jpg", :class => "last")
   %p.box
     VEJA NOSSA COLEÇÃO
 
+:javascript
+  $(document).ready(function(){
+    $('.bxslider').bxSlider({
+      pagerCustom: '#bx-pager'
+    });
+  });
 
+  

@@ -28,6 +28,8 @@ section{
 		font-weight: lighter;
 	}
 	.carousel{
+		float: left;
+		width: 793px !important;
 		ul{
 			li.big{
 				margin-bottom: 15px;
@@ -37,6 +39,18 @@ section{
 				margin-right: 15px;
 			}
 			li.last{margin-right: 0 !important;}
+		}
+		.bx-wrapper{
+			margin: 0 auto 15px !important;
+		}
+	}
+	#bx-pager{
+		img{
+			width: 93px;
+			margin-right: 3px;
+			&.last{
+				margin-right: 0 !important;
+			}
 		}
 	}
 	p.box{
@@ -52,5 +66,8 @@ section{
 		background-color: #e8cad4;
 		font-size: 21px;
 		margin-bottom: 15px;
+	}
+	#bx-pager{
+		a{text-decoration: none;}
 	}
 }
