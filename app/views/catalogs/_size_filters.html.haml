@@ -1,6 +1,6 @@
 - unless ['bolsa', 'acessorio'].include?(category)
   = form_tag url_builder.current_filters, method: 'get', class: 'js-size-select' do
-    .exhibition-mode
+    .exhibition-mode{:style => 'float:right;'}
       %fieldset
         - if search.filter_value(:size).present?
           %p.selected_relevance.watermelon
