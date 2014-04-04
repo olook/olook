@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class SignupNotificationWorker
-  @queue = 'mailer'
+  @queue = 'low'
 
   def self.perform(user_id)
     member = User.find(user_id)

@@ -1,7 +1,7 @@
-                                             # -*- encoding : utf-8 -*-
+# -*- encoding : utf-8 -*-
 module Orders
   class NotificationPaymentRefusedWorker
-    @queue = :order_status
+    @queue = 'low'
 
     def self.perform(order_id)
       order = Order.find(order_id)

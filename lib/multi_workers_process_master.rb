@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class MultiWorkersProcessMaster
-  @queue = :low
+  @queue = 'low'
 
   def self.perform clazz, num_of_process=20
     master = clazz.constantize.new
