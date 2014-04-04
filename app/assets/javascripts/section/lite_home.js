@@ -14,6 +14,11 @@ initHome = function(){
     olookApp.publish('home:load');
   }, 1000);
 
+  $(".js-thumbnail").click(function(e){
+    log_event('click', 'logged_showroom', {'productId': $(this).data().id});
+  });  
+ 
+
 };
 
 olook.carousel = function() {

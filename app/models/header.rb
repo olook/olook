@@ -15,7 +15,8 @@ class Header < ActiveRecord::Base
   HEADER_TYPES = {
     'BigBannerCatalogHeader' => BigBannerCatalogHeader,
     'SmallBannerCatalogHeader' => SmallBannerCatalogHeader,
-    'NoBanner' => NoBanner
+    'NoBanner' => NoBanner,
+    'TrendyCatalogHeader' => TrendyCatalogHeader
   }
 
   def self.factory params
