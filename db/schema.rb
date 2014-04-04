@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140319151321) do
+ActiveRecord::Schema.define(:version => 20140401192416) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -78,7 +78,6 @@ ActiveRecord::Schema.define(:version => 20140319151321) do
     t.string   "header_image_alt"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
-    t.string   "seo_text"
   end
 
   create_table "braspag_authorize_responses", :force => true do |t|
@@ -123,6 +122,27 @@ ActiveRecord::Schema.define(:version => 20140319151321) do
   end
 
   add_index "braspag_capture_responses", ["identification_code"], :name => "index_braspag_capture_responses_on_order_id"
+
+  create_table "braspag_responses", :force => true do |t|
+    t.string   "type"
+    t.string   "correlation_id"
+    t.boolean  "success"
+    t.string   "error_message"
+    t.string   "order_id"
+    t.string   "braspag_order_id"
+    t.string   "braspag_transaction_id"
+    t.string   "amount"
+    t.integer  "payment_method"
+    t.string   "acquirer_transaction_id"
+    t.string   "authorization_code"
+    t.string   "return_code"
+    t.string   "return_message"
+    t.integer  "transaction_status"
+    t.boolean  "processed",               :default => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.string   "credit_card_token"
+  end
 
   create_table "campaign_emails", :force => true do |t|
     t.string   "email"
@@ -321,7 +341,6 @@ ActiveRecord::Schema.define(:version => 20140319151321) do
     t.string   "video_link"
     t.string   "header_image_alt"
     t.string   "text_color"
-    t.string   "seo_text"
   end
 
   add_index "collection_themes", ["collection_theme_group_id"], :name => "index_collection_themes_on_collection_theme_group_id"
@@ -565,7 +584,7 @@ ActiveRecord::Schema.define(:version => 20140319151321) do
   create_table "headers", :force => true do |t|
     t.string   "url"
     t.string   "type"
-    t.string   "seo_text"
+    t.string   "page_title"
     t.string   "small_banner1"
     t.string   "alt_small_banner1"
     t.string   "link_small_banner1"
@@ -587,6 +606,7 @@ ActiveRecord::Schema.define(:version => 20140319151321) do
     t.text     "product_list"
     t.string   "organic_url"
     t.integer  "url_type"
+    t.string   "page_description"
   end
 
   create_table "highlight_campaigns", :force => true do |t|
@@ -600,14 +620,13 @@ ActiveRecord::Schema.define(:version => 20140319151321) do
     t.string   "link"
     t.string   "image"
     t.integer  "position"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "title"
     t.string   "subtitle"
     t.string   "alt_text"
     t.string   "left_image"
     t.string   "right_image"
-    t.integer  "highlight_type"
   end
 
   create_table "holidays", :force => true do |t|
@@ -616,6 +635,15 @@ ActiveRecord::Schema.define(:version => 20140319151321) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "images", :force => true do |t|
+    t.string   "image"
+    t.integer  "lookbook_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "images", ["lookbook_id"], :name => "index_images_on_lookbook_id"
 
   create_table "invites", :force => true do |t|
     t.integer  "user_id"
@@ -673,9 +701,20 @@ ActiveRecord::Schema.define(:version => 20140319151321) do
 
   create_table "liquidation_previews", :force => true do |t|
     t.integer  "product_id"
+    t.string   "name"
+    t.string   "category"
+    t.string   "subcategory"
+    t.decimal  "price",               :precision => 10, :scale => 2
+    t.decimal  "retail_price",        :precision => 10, :scale => 2
+    t.decimal  "discount_percentage", :precision => 10, :scale => 2
+    t.string   "inventory"
+    t.string   "color"
+    t.boolean  "visible"
     t.integer  "visibility"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "picture_url"
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
+    t.string   "collection"
   end
 
   add_index "liquidation_previews", ["product_id"], :name => "index_liquidation_previews_on_product_id"
@@ -732,6 +771,20 @@ ActiveRecord::Schema.define(:version => 20140319151321) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "lookbook_image_maps", :force => true do |t|
+    t.integer  "lookbook_id"
+    t.integer  "image_id"
+    t.integer  "product_id"
+    t.integer  "coord_x"
+    t.integer  "coord_y"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "lookbook_image_maps", ["image_id"], :name => "index_lookbook_image_maps_on_image_id"
+  add_index "lookbook_image_maps", ["lookbook_id"], :name => "index_lookbook_image_maps_on_lookbook_id"
+  add_index "lookbook_image_maps", ["product_id"], :name => "index_lookbook_image_maps_on_product_id"
+
   create_table "lookbooks", :force => true do |t|
     t.string   "name"
     t.string   "thumb_image"
@@ -744,6 +797,14 @@ ActiveRecord::Schema.define(:version => 20140319151321) do
     t.string   "fg_color"
     t.string   "bg_color"
     t.string   "movie_image"
+  end
+
+  create_table "lookbooks_products", :force => true do |t|
+    t.integer  "lookbook_id"
+    t.integer  "product_id"
+    t.boolean  "criteo",      :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "looks", :force => true do |t|
@@ -1063,8 +1124,8 @@ ActiveRecord::Schema.define(:version => 20140319151321) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"

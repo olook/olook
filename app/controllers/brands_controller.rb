@@ -18,18 +18,10 @@ class BrandsController < ApplicationController
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
   end
   private
-    def title_text
-      Seo::SeoManager.new(request.path, model: @brand.try(:first), search: @search).select_meta_tag
-    end
-
     def canonical_link
       brand = Array(@brand).first
       if brand
         "http://#{request.host_with_port}/#{brand.name.downcase}"
       end
-    end
-
-    def meta_description
-      Seo::DescriptionManager.new(description_key: @brand.try(:first).try(:name)).choose
     end
 end
