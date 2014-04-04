@@ -62,6 +62,10 @@ aside{
       &.floral a {background-position: 0 -135px;}
       &.estampado a {background-position: 0 -216px;}
     }
+    li.limparFiltro {
+      width:160px;
+      a {width:160px;padding-left:11px !important;}
+    }
 
     li span{
       /*background: image-url("common/thumbs_cor.png") no-repeat 0 1px;*/
