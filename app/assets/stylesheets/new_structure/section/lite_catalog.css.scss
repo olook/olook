@@ -55,12 +55,12 @@ aside{
       &.rosa a {background: pink;}
       &.terrosos a {background: brown;}
       &.bege a {background: beige;}
-      &.onca a {background-position: 0 -332px;}
-      &.xadrez a {background-position: 0 -324px;}
-      &.prateado a {background-position: 0 -110px;}
-      &.listras a {background-position: 0 -190px;}
-      &.floral a {background-position: 0 -135px;}
-      &.estampado a {background-position: 0 -216px;}
+      &.onca a {background-position: 0 -332px !important;}
+      &.xadrez a {background-position: 0 -324px !important;}
+      &.prateado a {background-position: 0 -110px !important;}
+      &.listras a {background-position: 0 -190px !important;}
+      &.floral a {background-position: 0 -135px !important;}
+      &.estampado a {background-position: 0 -216px !important;}
     }
     li.limparFiltro {
       width:160px;
