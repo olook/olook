@@ -30,17 +30,17 @@ aside{
     padding-left:5px;
     
     li {
-      width:30px;
-      height:30px;
+      width:22px;
+      height:22px;
       float:left;
       margin:0 3px 3px 0;
       a {background: none;
         padding-left:0px !important;
-        width:30px;
-        height:30px;
+        width:22px;
+        height:22px;
         display: block;
         background: image-url("common/thumbs_cor.png") no-repeat 0 36px;
-        background-size: 30px;
+        background-size: 22px;
       }
       &.amarelo a {background: yellow;}
       &.azul a {background: blue;}
@@ -56,10 +56,11 @@ aside{
       &.terrosos a {background: brown;}
       &.bege a {background: beige;}
       &.onca a {background-position: 0 -332px;}
-      &.xadrez a {background-position: 0 -442px;}
+      &.xadrez a {background-position: 0 -324px;}
       &.prateado a {background-position: 0 -110px;}
-      &.listras a {background-position: 0 -258px;}
-      &.floral a {background-position: 0 -185px;}
+      &.listras a {background-position: 0 -190px;}
+      &.floral a {background-position: 0 -135px;}
+      &.estampado a {background-position: 0 -216px;}
     }
 
     li span{
