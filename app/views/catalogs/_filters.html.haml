@@ -51,7 +51,8 @@
   %ul.category-list.cores
     - whitelisted_color_filters(search).each do |text, amount|
       %li{:class => text.chomp.parameterize}= filter_link_to(@url_builder.add_filter(:color, text), text.chomp, search.filter_selected?(:color, text.chomp))
-    %li= link_to("Limpar Filtro", @url_builder.remove_filter_of(:color), :class => "clean") if search.filter_value(:color).present?
+    %li.limparFiltro
+      = link_to("Limpar Filtro", @url_builder.remove_filter_of(:color), :class => "clean") if search.filter_value(:color).present?
 .filter
   %p.title-category Preço
   %ul.category-list

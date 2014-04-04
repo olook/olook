@@ -48,9 +48,11 @@
 .filter
   %p.title-category Cores
   %ul.category-list.cores
-    - filters_by("color", search, use_fields: [:category]).each do |text, amount|
+    - whitelisted_color_filters(search).each do |text, amount|
       %li{:class => text.chomp.parameterize}= filter_link_to(@url_builder.add_filter(:color, text), text.chomp, search.filter_selected?(:color, text.chomp))
-    %li= link_to("Limpar Filtro", @url_builder.remove_filter_of(:color), :class => "clean") if search.filter_value(:color).present?
+    %br{:style => 'clear:both;'}
+    %li.limparFiltro
+      = link_to("Limpar Filtro", @url_builder.remove_filter_of(:color), :class => "clean") if search.filter_value(:color).present?
 
 - if search.filter_value('category').to_a.empty? || (['lingerie','moda praia', 'roupa'] & search.filter_value('category').to_a).present?
   .filter
