@@ -2454,6 +2454,8 @@ customlanding.css: customlanding-edc9aa2f9dbdbc2d4070f1b9b3be4ed6.css
 customlanding/index.css: customlanding-edc9aa2f9dbdbc2d4070f1b9b3be4ed6.css
 desktop.css: desktop-40577d1bb53a09f5af42ded2651a0848.css
 desktop/index.css: desktop-40577d1bb53a09f5af42ded2651a0848.css
+jquery.bxslider.css: jquery.bxslider-14f4ac0d6c08f6b3399f8ceb66ed238c.css
+jquery/index.bxslider.css: jquery.bxslider-14f4ac0d6c08f6b3399f8ceb66ed238c.css
 new_structure/common/_black_friday.css: new_structure/common/_black_friday-b371a7b70d5b0321ac038d8ed7d39d8e.css
 new_structure/common/_black_friday/index.css: new_structure/common/_black_friday-b371a7b70d5b0321ac038d8ed7d39d8e.css
 new_structure/common/_catalog4you.css: new_structure/common/_catalog4you-4f72452749997ccc266b07319ded7d4d.css
