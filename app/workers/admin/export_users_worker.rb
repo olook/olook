@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Admin::ExportUsersWorker
-  @queue = :admin_user_export
+  @queue = 'low'
 
   def self.perform(email)
     UserReport.generate_csv

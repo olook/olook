@@ -3,7 +3,7 @@ module Clearsale
   class CallbackWorker
     extend Payments::Logger
 
-    @queue = :payments
+    @queue = 'low'
 
     def self.perform
       if Setting.send_to_clearsale || Setting.force_send_to_clearsale

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class ImportFreightPricesWorker
-  @queue = :import_freight
+  @queue = 'low'
 
   def self.perform(shipping_service_id, temp_filename)
     Rails.logger.info("Updating FreightPrices for ShippingService#id = #{shipping_service_id} AND temp_filename = #{temp_filename}")

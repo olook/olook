@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class SendEnabledCreditsNotificationWorker
-  @queue = :notification_sender
+  @queue = 'low'
 
   def self.perform
     UserNotifier.send_enabled_credits_notification.each do | reminder |
