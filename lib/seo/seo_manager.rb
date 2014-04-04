@@ -1,84 +1,39 @@
 # -*- encoding : utf-8 -*-
-
-require 'yaml'
-
 module Seo
   class SeoManager
-    CATEGORY_TEXT = {sapato: 'Sapatos Femininos', roupa: 'Roupas Femininas', acessorio: 'Bijuterias - Semi Joia e Bijuterias Finas', bolsa: 'Bolsas Femininas', curves: 'Roupas Femininas Plus Size'}
-    REMOVE_COLOR_REGEX = /\/(cor|tamanho)-(.*)$/
-    DEFAULT_META_TAG_TEXT = 'Sapatos Femininos e Roupas Femininas'
+    DEFAULT_PAGE_TITLE = 'Olook - Roupas e sapatos femininos online'
+    DEFAULT_PAGE_DESCRIPTION = 'Na Olook você compra os sapatos, acessórios e roupas femininas mais visados da moda com segurança e facilidade.'
 
-    attr_accessor :url, :meta_tag, :color, :model, :category, :subcategory
-    FILENAME = File.expand_path(File.join(File.dirname(__FILE__), '../..', 'config/seo.yml'))
-    @@file = YAML::load(File.open(FILENAME))
+    attr_accessor :url, :fallback_title, :fallback_description
 
-    def initialize url_params, options={}
-      @brand = options[:search].expressions[:brand] if options[:search]
-      @collection_theme = options[:search].expressions[:collection_theme] if options[:search]
-      @color = options[:search].expressions[:color] if options[:search]
-      @category = options[:search].expressions[:category] if options[:search]
-      @subcategory = options[:search].expressions[:subcategory] if options[:search]
-      @url = url_params.gsub(REMOVE_COLOR_REGEX,'')
-      @model = options[:model] || OpenStruct.new({title_text: nil})
+    def initialize url, options={}
+      @url = URI.decode(url).gsub(" ", "-").downcase
+      @fallback_title = options[:fallback_title]
+      @fallback_description = options[:fallback_description]
     end
 
     def select_meta_tag
       choose_meta_tag
     end
 
-    def color_formatted
-      color.map(&:capitalize).join(" ") if color
-    end
-
     private
 
       def choose_meta_tag
-        search_meta_tag
-        "#{(extract_meta_tag_text || DEFAULT_META_TAG_TEXT)} | Olook"
-      end
-
-      def extract_meta_tag_text
-        if model.title_text
-          return "#{model.title_text} #{color_formatted}" if color
-          model.title_text
-        elsif category
-          category_meta_tag
-        else
-          get_meta_tags_info[meta_tag.to_s]
-        end
-      end
-
-      def category_meta_tag
-        subcategory_name = extract_subcategories unless subcategory.blank?
-        category_name = category.first unless category.blank?
-        return "#{subcategory_name} #{color_formatted}" if !subcategory.blank? && !color.blank?
-        return "#{subcategory_name}" unless subcategory.blank?
-        if category && category_name
-          return "#{CATEGORY_TEXT[category_name.downcase.to_sym]} #{color_formatted}" unless color.blank?
-          return "#{CATEGORY_TEXT[category_name.downcase.to_sym]}" 
-        end
-        ""
-      end
-
-      def extract_subcategories
-       if subcategory.size > 3
-         "#{subcategory.map(&:capitalize).first(3).join(" - ")} e outros"
-       else
-         subcategory.map(&:capitalize).join(" - ")
-       end
+        title = search_meta_tag[:title] || fallback_title || DEFAULT_PAGE_TITLE
+        description = search_meta_tag[:description] || fallback_description || DEFAULT_PAGE_DESCRIPTION
+        {title: "#{title} | Olook" , description: description}
       end
 
       def search_meta_tag
-        get_meta_tags_info.keys.select do |url_path|
-          if url.downcase == url_path.downcase
-            self.meta_tag = url_path 
-            break
-          end
-        end
+        header = find_parent_meta_tag(url.dup)
+        {title: header.try(:page_title), description: header.try(:page_description)}
       end
 
-      def get_meta_tags_info
-        @@file
+      def find_parent_meta_tag(_url)
+        return nil if _url.blank? || _url[0] != "/"
+        header = Header.for_url(_url).first
+        return header if header
+        find_parent_meta_tag(_url.sub(%r{/[^/]*$}, ''))
       end
   end
 end
