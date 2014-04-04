@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class ProcessBraspagResponsesWorker
-  @queue = :order_status
+  @queue = 'low'
 
   def self.perform
     process_authorize_responses

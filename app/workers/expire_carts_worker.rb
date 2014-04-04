@@ -1,5 +1,5 @@
 class ExpireCartsWorker
-  @queue = 'low_priority'
+  @queue = 'low'
 
   DEFAULT_UPDATED_AT_LIMIT = 7.days.ago
   BKP_TABLE_NAME = 'carts_backup'

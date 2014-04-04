@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class StatisticWorker
-  @queue = :statistics
+  @queue = 'low'
 
   def self.perform(order_id)
     order = Order.find order_id

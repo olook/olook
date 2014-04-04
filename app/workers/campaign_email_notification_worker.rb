@@ -1,5 +1,5 @@
 class CampaignEmailNotificationWorker
-	@queue = :mailer
+	@queue = 'low'
 
 	def self.perform(email)
     if CampaignEmail.where(email: email).first.profile == 'olookmovel'

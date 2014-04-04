@@ -4,4 +4,4 @@
 "*": 3
 
 production:
-  "*": 50
+  "urgent,high,medium,low": 50

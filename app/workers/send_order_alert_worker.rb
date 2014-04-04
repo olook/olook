@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class SendOrderAlertWorker
-  @queue = :order_status_alert
+  @queue = 'low'
 
   def self.perform
     if Time.zone.now.hour == 11
