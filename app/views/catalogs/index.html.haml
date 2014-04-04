@@ -33,6 +33,8 @@
   = first_level_breadcrumb(Category.t(Category.with_name(@category)).pluralize)
   #catalog
     %aside
+      %h5{:style => 'font-size: 11px;margin-bottom: 10px;'}
+        Filtre sua pesquisa:
       = render "filters", search: @search, category: @category
 
     - present 'Header', header: header do |header_presenter| 
