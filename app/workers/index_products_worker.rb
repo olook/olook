@@ -4,7 +4,7 @@ class IndexProductsWorker
 
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
 
-  @queue = :search
+  @queue = 'low'
 
   def self.perform
     d0 = Time.now.to_i

@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class ProcessPaymentCallbacksWorker
-  @queue = :order_status
+  @queue = 'low'
 
   def self.perform
     MoipCallback.where(:processed => false).order(:id).find_each do |moip_callback|
