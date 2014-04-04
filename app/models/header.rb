@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Header < ActiveRecord::Base
-  attr_accessible :seo_text, :type, :url, :enabled, :organic_url, :product_list, :custom_url, :url_type, :new_url, :old_url
+  attr_accessible :page_title, :type, :url, :enabled, :organic_url, :product_list, :custom_url, :url_type, :new_url, :old_url, :page_description
   attr_accessor :new_url, :old_url
 
   validates :type, :presence => true, :exclusion => ["Header"]
@@ -44,7 +44,7 @@ class Header < ActiveRecord::Base
   end
 
   def title_text
-    self[:seo_text]
+    self[:page_title]
   end
 
   def text?

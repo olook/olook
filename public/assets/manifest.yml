@@ -2262,8 +2262,8 @@ register.js: register-cc2be65181aef10c48f3cc61191ab28a.js
 register/index.js: register-cc2be65181aef10c48f3cc61191ab28a.js
 reseller.js: reseller-5af2d1f176da392739be9b6c093a6810.js
 reseller/index.js: reseller-5af2d1f176da392739be9b6c093a6810.js
-section/admin/catalog_header.js: section/admin/catalog_header-7bf6f61cbbf38b6461e9d42b3ab003c7.js
-section/admin/catalog_header/index.js: section/admin/catalog_header-7bf6f61cbbf38b6461e9d42b3ab003c7.js
+section/admin/catalog_header.js: section/admin/catalog_header-82e42ff072011a8d7853d21f1ed78edc.js
+section/admin/catalog_header/index.js: section/admin/catalog_header-82e42ff072011a8d7853d21f1ed78edc.js
 section/admin/clippings.js: section/admin/clippings-c74f0397bcc2180880641c2ad25e33d0.js
 section/admin/clippings/index.js: section/admin/clippings-c74f0397bcc2180880641c2ad25e33d0.js
 section/brands.js: section/brands-f695ac6e409cb04fa9de8197bdfb48c1.js
@@ -2510,8 +2510,8 @@ section/forget_password.css: section/forget_password-eb2ad4afceb8efa5020cebf82eb
 section/forget_password/index.css: section/forget_password-eb2ad4afceb8efa5020cebf82eb40314.css
 section/friends.css: section/friends-f99822cad0d7593268d7c4945314cd36.css
 section/friends/index.css: section/friends-f99822cad0d7593268d7c4945314cd36.css
-section/gift.css: section/gift-c93402f8781f32bfabbb84fe61a0333b.css
-section/gift/index.css: section/gift-c93402f8781f32bfabbb84fe61a0333b.css
+section/gift.css: section/gift-a8b5994fba6139577bf96156564085b5.css
+section/gift/index.css: section/gift-a8b5994fba6139577bf96156564085b5.css
 section/gift_home.css: section/gift_home-74d78b18c751587fadb01ff08710eab6.css
 section/gift_home/index.css: section/gift_home-74d78b18c751587fadb01ff08710eab6.css
 section/half_user.css: section/half_user-d806b2586620fa78693b102849275c10.css
