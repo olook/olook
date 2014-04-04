@@ -59,11 +59,7 @@ class CustomUrlController < ApplicationController
     end
   end
 
-    def title_text
-      Seo::SeoManager.new(request.path, model: @custom_url).select_meta_tag
-    end
-
-    def canonical_link
-      "#{request.protocol}#{request.host_with_port}#{@custom_url.url}"
-    end
+  def canonical_link
+    "#{request.protocol}#{request.host_with_port}#{@custom_url.url}"
+  end
 end
