@@ -44,18 +44,6 @@ class CatalogsController < ApplicationController
   add_method_tracer :add_search_result, 'Custom/CatalogsController/add_search_result'
 
   private
-    
-    def header
-      @header ||= Header.for_url(request.path).first
-    end
-
-    def title_text
-      if header && header.title_text.present?
-        Seo::SeoManager.new(request.path, model: header).select_meta_tag
-      else
-        Seo::SeoManager.new(request.path, search: @search).select_meta_tag
-      end
-    end
 
     def canonical_link
       host =  "http://#{request.host_with_port}/"
@@ -64,10 +52,6 @@ class CatalogsController < ApplicationController
       else
         "#{host}#{@category}"
       end
-    end
-
-    def meta_description
-      Seo::DescriptionManager.new(description_key: @subcategory.blank? ? @category : @subcategory).choose
     end
 
     def verify_if_is_catalog

@@ -16,11 +16,6 @@ class Brand < ActiveRecord::Base
     CATEGORIES[brand] || %w[roupas]
   end
 
-  def title_text
-    return "#{name.capitalize} - #{seo_text}" unless seo_text.blank?
-    name.capitalize
-  end
-
   private
 
     def format_name

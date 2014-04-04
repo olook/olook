@@ -124,6 +124,10 @@ class Product < ActiveRecord::Base
     end
   end
 
+  def seo_description
+    self.description[0..200]
+  end
+
   def model_name
     category_detail = details.find_by_translation_token("Categoria")
     category_detail ? category_detail.description : ""
