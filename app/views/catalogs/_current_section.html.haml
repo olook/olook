@@ -46,5 +46,6 @@
         %li
           %span= label_for_price_range(price)
           = %( #{ current_section_link_to(@url_builder.add_filter(:price, price))}).html_safe
-      %li.clean= link_to "Limpar tudo", catalog_path(params[:category]) if filters_selected
+      - if filters_selected
+        %li.clean= link_to "Limpar tudo", catalog_path(params[:category]) 
 
