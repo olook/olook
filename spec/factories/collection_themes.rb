@@ -6,7 +6,6 @@ FactoryGirl.define do
     slug "dia-a-dia"
     header_image { fixture_file_upload("#{Rails.root}/spec/fixtures/files/shoe02.jpg", "image/jpeg") }
     position 1
-    seo_text 'Saias Longas e Camisetas'
     active true
   end
 

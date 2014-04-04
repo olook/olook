@@ -21,10 +21,6 @@ class CollectionThemesController < SearchController
 
   private
 
-    def title_text 
-      Seo::SeoManager.new(request.path, model: @collection_theme.try(:first), search: @search).select_meta_tag
-    end
-
     def canonical_link
       collection_theme = Array(@collection_theme).first
       if collection_theme 
