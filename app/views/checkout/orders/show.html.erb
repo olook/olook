@@ -38,6 +38,11 @@
 </section>
 
 <% content_for :ecommerce_tracking do %>
+
+<script type="text/javascript">
+  log_event('action','', {'productId': [<%= @order.line_items.map{|li| li.variant.product.id}.join(",") %>]});
+</script> 
+
 <script type="text/javascript">
 _gaq.push(['_addTrans',
    '<%= @order.cart.id %>',
