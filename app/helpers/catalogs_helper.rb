@@ -49,6 +49,8 @@ module CatalogsHelper
     search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
     text += " (#{amount})" if amount
     class_hash = selected ? {class: "selected"} : {}
+    class_hash[:title] = text
+    class_hash[:alt] = text
     link+=search_param
     text = CLOTH_SIZES_TABLE.include?(text) ? text : titleize_without_pronoum(text)
     
