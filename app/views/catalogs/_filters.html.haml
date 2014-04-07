@@ -64,7 +64,7 @@
     %input{type:"hidden", name:"price", id:"price"}
   %ul.subcategory-list
     %li= link_to("Limpar Filtro", @url_builder.remove_filter_of(:price), :class => "clean") if search.filter_value(:price).present?
-- unless ['bolsa', 'sapato'].include?(category)
+- unless ['sapato'].include?(category)
   .filter
     %p.title-category Marca
     %ul.category-list
