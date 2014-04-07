@@ -334,4 +334,8 @@ class SeoUrl
   def all_subcategories
     YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_subcategories.yml' ) ) ) )
   end
+
+  def self.whitelisted_colors
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/whitelisted_colors.yml' ) ) ) )
+  end  
 end
