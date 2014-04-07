@@ -3,36 +3,49 @@
     %p
       Você está em
       =params[:category].try(:capitalize).try(:pluralize)
+      - filters_selected = false
       %span //
     %ul
       - search.selected_filters_for("subcategory").sort.each do |sub|
+        - filters_selected = true
         %li
           %span= titleize_without_pronoum(sub)
           = %( #{ current_section_link_to(@url_builder.add_filter(:subcategory, sub))} ).html_safe
 
       - search.selected_filters_for("color").sort.each do |col|
+        - filters_selected = true
         %li
           %span= titleize_without_pronoum(col)
           = %( #{ current_section_link_to(@url_builder.add_filter(:color, col))}).html_safe
 
       - search.selected_filters_for("heel").map{|h|h.gsub('heeluint:', '')}.sort.each do |hee|
+        - filters_selected = true
         %li
           %span= titleize_without_pronoum(formated_heel(hee))
           = %( #{ current_section_link_to(@url_builder.add_filter(:heel, hee.gsub("..","-")))}).html_safe
 
       - search.selected_filters_for("care").sort.each do |car|
+        - filters_selected = true
         %li
           %span= titleize_without_pronoum(car)
           = %( #{ current_section_link_to(@url_builder.add_filter(:care, car))}).html_safe
 
       - search.selected_filters_for("size").sort.each do |size|
+        - filters_selected = true
         %li
           %span= titleize_without_pronoum(format_size(size.chomp))
           = %( #{ current_section_link_to(@url_builder.add_filter(:size, size))}).html_safe
 
       - search.selected_filters_for("brand").sort.each do |brand|
+        - filters_selected = true
         %li
           %span= titleize_without_pronoum(brand)
           = %( #{ current_section_link_to(@url_builder.add_filter(:brand, brand))}).html_safe
-      %li.clean= link_to "Limpar tudo", catalog_path(params[:category])
+      - search.selected_filters_for("price").sort.each do |price|
+        - filters_selected = true
+        %li
+          %span= label_for_price_range(price)
+          = %( #{ current_section_link_to(@url_builder.add_filter(:price, price))}).html_safe
+      - if filters_selected
+        %li.clean= link_to "Limpar tudo", catalog_path(params[:category]) 
 

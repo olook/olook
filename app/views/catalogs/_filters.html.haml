@@ -33,35 +33,33 @@
   .filter
     %p.title-category Salto
     %ul.category-list
-      %li= filter_link_to(@url_builder.add_filter(:heel, '0-4'), 'Baixo (0cm - 4cm)', search.filter_selected?(:heel, '0-4'))
-      %li= filter_link_to(@url_builder.add_filter(:heel, '5-9'), 'Médio (5cm - 9cm)', search.filter_selected?(:heel, '5-9'))
-      %li= filter_link_to(@url_builder.add_filter(:heel, '10-18'), 'Alto (10cm - 18cm)', search.filter_selected?(:heel, '10-18'))
+      %li= filter_link_to(@url_builder.add_filter(:heel, '0-4'), 'Baixo (0cm - 4cm)', search.filter_selected?(:heel, '0-4')) unless search.filter_value(:heel).present? && !search.filter_selected?(:heel, '0-4')
+      %li= filter_link_to(@url_builder.add_filter(:heel, '5-9'), 'Médio (5cm - 9cm)', search.filter_selected?(:heel, '5-9')) unless search.filter_value(:heel).present? && !search.filter_selected?(:heel, '5-9')
+      %li= filter_link_to(@url_builder.add_filter(:heel, '10-18'), 'Alto (10cm - 18cm)', search.filter_selected?(:heel, '10-18')) unless search.filter_value(:heel).present? && !search.filter_selected?(:heel, '10-18')
       %li= link_to("Limpar Filtro", @url_builder.remove_filter_of(:heel), :class => "clean") if search.filter_value(:heel).present?
 
   .filter
     %p.title-category Conforto & Proteção
     %ul.subcategory-list
       - filters_by("care", search, use_fields: [:category]).each do |text, amount|
-        %li= filter_link_to(@url_builder.add_filter(:care, text), text.chomp, search.filter_selected?(:care, text.chomp))
+        %li= filter_link_to(@url_builder.add_filter(:care, text), text.chomp, search.filter_selected?(:care, text.chomp))  unless search.filter_value(:care).present? && !search.filter_selected?(:care, text.chomp)
       %li= link_to("Limpar Filtro", @url_builder.remove_filter_of(:care), :class => "clean") if search.filter_value(:care).present?
 
 
 .filter
   %p.title-category Cores
   %ul.category-list.cores
-    - filters_by("color", search, use_fields: [:category]).each do |text, amount|
+    - whitelisted_color_filters(search).each do |text, amount|
       %li{:class => text.chomp.parameterize}= filter_link_to(@url_builder.add_filter(:color, text), text.chomp, search.filter_selected?(:color, text.chomp))
-    %li= link_to("Limpar Filtro", @url_builder.remove_filter_of(:color), :class => "clean") if search.filter_value(:color).present?
+    %li.limparFiltro
+      = link_to("Limpar Filtro", @url_builder.remove_filter_of(:color), :class => "clean") if search.filter_value(:color).present?
 .filter
   %p.title-category Preço
-  .price-range
-    %p#min-value-label{style:'background-image: none'} 0
-    %p#max-value-label{style:'background-image: none'} 0
-    .slider
-      #slider-range
-    %input{type: "text", id: "min-value"}
-    %input{type:"text", id:"max-value"}
-    %input{type:"hidden", name:"price", id:"price"}
+  %ul.category-list
+    %li= filter_link_to(@url_builder.add_filter(:price, '0-70'), 'Até R$ 69,90', search.filter_selected?(:price, '0-70')) unless search.filter_value(:price).present? && !search.filter_selected?(:price, '0-70')
+    %li= filter_link_to(@url_builder.add_filter(:price, '70-130'), 'R$ 70 a R$ 129,90', search.filter_selected?(:price, '70-130')) unless search.filter_value(:price).present? && !search.filter_selected?(:price, '70-130')
+    %li= filter_link_to(@url_builder.add_filter(:price, '130-200'), 'R$ 130,00 a R$ 199,90', search.filter_selected?(:price, '130-200')) unless search.filter_value(:price).present? && !search.filter_selected?(:price, '130-200')
+    %li= filter_link_to(@url_builder.add_filter(:price, '200-1000'), 'Acima de R$ 200', search.filter_selected?(:price, '200-1000')) unless search.filter_value(:price).present? && !search.filter_selected?(:price, '200-1000')
   %ul.subcategory-list
     %li= link_to("Limpar Filtro", @url_builder.remove_filter_of(:price), :class => "clean") if search.filter_value(:price).present?
 - unless ['bolsa', 'sapato'].include?(category)
@@ -77,7 +75,7 @@
     %p.title-category Tamanho
     %ul.category-list
       - size_list(category, search, category[0].downcase).reverse.each do |text, amount|
-        %li= filter_link_to(@url_builder.add_filter(:size, text), format_size(text.chomp), search.filter_selected?(:size, text.chomp))
+        %li= filter_link_to(@url_builder.add_filter(:size, text), format_size(text.chomp), search.filter_selected?(:size, text.chomp)) unless search.filter_value(:size).present? && !search.filter_selected?(:size, text.chomp)
       %li= link_to("Limpar Filtro", @url_builder.remove_filter_of(:size), :class => "clean") if search.filter_value(:size).present?
 
 = cache @search.key_for(:category), expire_in: 40.minutes do

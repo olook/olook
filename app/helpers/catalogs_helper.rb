@@ -31,6 +31,13 @@ module CatalogsHelper
     curves: "Encontre roupas femininas com tamanhos grandes ou especiais na Olook. Comprar roupas plus size online ficou mais fácil e seguro!"    
   }
 
+  PRICE_RANGES = {
+    "0-70" => "Até R$ 69,90",
+    "70-130" => "R$ 70 a R$ 129,90",
+    "130-200" => "R$ 130,00 a R$ 199,90",
+    "200-1000" => "Acima de R$ 200"
+  }
+
   def clean_filter_link_to(link)
     link += params[:q].blank? ? "" : "?q=#{params[:q]}"
 
@@ -42,6 +49,8 @@ module CatalogsHelper
     search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
     text += " (#{amount})" if amount
     class_hash = selected ? {class: "selected"} : {}
+    class_hash[:title] = text
+    class_hash[:alt] = text
     link+=search_param
     text = CLOTH_SIZES_TABLE.include?(text) ? text : titleize_without_pronoum(text)
     
@@ -171,5 +180,55 @@ module CatalogsHelper
 
   def facebook_description category
     FACEBOOK_DESCRIPTIONS[category.to_sym]
+  end
+
+  def label_for_price_range price_range
+    PRICE_RANGES[price_range]
   end  
+
+  def size_select_options(sizes, url_builder)
+    response = {}
+
+    response["Selecione um Tamanho"] = size_select_link_for("", url_builder) 
+    sizes.each{|s| response[format_size(s)] = size_select_link_for(s.downcase.parameterize, url_builder)}
+
+    response
+  end
+
+  def size_select_link_for(size, url_builder)
+    link = size.blank? ? url_builder.remove_filter_of(:size) : url_builder.replace_filter(:size, size.downcase.parameterize)
+    link[0] = ''
+    "#{root_url}#{link}"
+  end
+
+  def selected_size(search, url_builder)
+    search.filter_value(:size) ? search.filter_value(:size).first : ""
+  end
+
+  def selected_size_link(search, url_builder)
+    size_select_link_for(selected_size(search, url_builder), url_builder)
+  end
+
+  def selected_size_label(search, url_builder)
+    size = selected_size(search, url_builder)
+    (size.blank?) ? "Selecione um Tamanho" : format_size(size)
+  end
+
+  def whitelisted_color_filters(search)
+    filters_by("color", search, use_fields: [:category]).select{|k,v| SeoUrl.whitelisted_colors.include?(k) && should_color_appear?(search, k)}
+  end
+
+  private
+
+  def should_color_appear?(search, text) 
+    (color_selected?(search, text) && color_filter_present?(search)) || !color_filter_present?(search)
+  end
+
+  def color_selected?(search, text)
+    search.filter_selected?(:color, text.chomp)
+  end
+
+  def color_filter_present?(search)
+    search.filter_value(:color).present?
+  end
 end
