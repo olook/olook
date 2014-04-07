@@ -1,6 +1,6 @@
 module FullLook
   class LookBuilder
-    @queue = 'look'
+    @queue = 'low'
 
     PRODUCTS_MINIMUN_QTY = 2
     MINIMUM_INVENTORY = 1

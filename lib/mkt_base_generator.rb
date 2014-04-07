@@ -1,7 +1,7 @@
 class MktBaseGenerator
   include MultiJobsProcess
 
-  @queue = :low
+  @queue = 'low'
 
   def execute data
     csv_content = CSV.generate(col_sep: ";") do |csv|

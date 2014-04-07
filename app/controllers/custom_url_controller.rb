@@ -29,8 +29,10 @@ class CustomUrlController < ApplicationController
       '/colecoes/:collection_theme:/-:category::brand::subcategory:-/-:care::color::size::heel:_'
     when /^\/marcas/i
       '/marcas/:brand:/-:category::subcategory:-/-:care::color::size::heel:_'
-    when /^\/(?<sec>olooklet|selecoes|novidades)/i
-      "/#{sec}/-:category::brand::subcategory:-/-:care::color::size::heel:_"
+    when /^\/(olooklet|selecoes|novidades)/i
+      "/#{$1}/-:category::brand::subcategory:-/-:care::color::size::heel:_"
+    when /^\/busca/i
+      '/busca'
     else
       '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_'
     end
@@ -59,11 +61,7 @@ class CustomUrlController < ApplicationController
     end
   end
 
-    def title_text
-      Seo::SeoManager.new(request.path, model: @custom_url).select_meta_tag
-    end
-
-    def canonical_link
-      "#{request.protocol}#{request.host_with_port}#{@custom_url.url}"
-    end
+  def canonical_link
+    "#{request.protocol}#{request.host_with_port}#{@custom_url.url}"
+  end
 end
