@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class SendExpirationTomorrowWarningWorker
-  @queue = :notification_sender
+  @queue = 'low'
 
   def self.perform
     UserNotifier.send_expiration_warning(true).each do | reminder |

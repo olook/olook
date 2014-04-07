@@ -1,5 +1,5 @@
 class PictureProcess::ProductPictures
-  @queue = 'normal'
+  @queue = 'low'
   class ProductNotFound < StandardError; end
   def self.perform(key, pictures)
     time_start = Time.zone.now

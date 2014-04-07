@@ -1,6 +1,6 @@
 module Abacos
   class IntegrateProductsObserver
-    @queue = :notify_about_integration
+    @queue = 'low'
     class << self
       def perform opts
         @opts = opts

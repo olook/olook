@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class MailReinviteWorker
-  @queue = :mail_reinvite
+  @queue = 'low'
 
   def self.perform(invite_id)
     invite = Invite.find(invite_id)

@@ -1,5 +1,5 @@
 class SaveSesInfoWorker
-  @queue = :ses
+  @queue = 'low'
 
   def self.perform
     Ses::SesInfo.new.save_ses_info
