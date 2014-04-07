@@ -29,8 +29,10 @@ class CustomUrlController < ApplicationController
       '/colecoes/:collection_theme:/-:category::brand::subcategory:-/-:care::color::size::heel:_'
     when /^\/marcas/i
       '/marcas/:brand:/-:category::subcategory:-/-:care::color::size::heel:_'
-    when /^\/(?<sec>olooklet|selecoes|novidades)/i
-      "/#{sec}/-:category::brand::subcategory:-/-:care::color::size::heel:_"
+    when /^\/(olooklet|selecoes|novidades)/i
+      "/#{$1}/-:category::brand::subcategory:-/-:care::color::size::heel:_"
+    when /^\/busca/i
+      '/busca'
     else
       '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_'
     end

@@ -3,7 +3,7 @@ module Braspag
   class GatewayCaptureWorker
     extend Payments::Logger
     
-    @queue = :payments
+    @queue = 'low'
 
     def self.perform(payment_id)
       begin
