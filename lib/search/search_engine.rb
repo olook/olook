@@ -82,8 +82,12 @@ class SearchEngine
 
   def price= price
     @expressions["price"] = []
-    if /^(?<min>\d+)-(?<max>\d+)$/ =~ price.to_s
-      @expressions["price"] = ["retail_price:#{min.to_i*100}..#{[max.to_i*100-1, 0].max}"]
+    if price.to_s =~ /^(-?\d+-\d+)+$/
+      pvals = price.split('-')
+      while pvals.present?
+        val_arr = pvals.shift(2)
+        @expressions["price"] << "retail_price:#{format_price_range(val_arr.first,val_arr.last)}"
+      end
     end
     self
   end
@@ -194,6 +198,11 @@ class SearchEngine
   end
 
   def filter_selected?(filter_key, filter_value)
+    if filter_key == :price
+      arr = filter_value.split("-")
+      filter_value = format_price_range(arr[0], arr[1])
+    end
+
     if values = expressions[filter_key]
       if RANGED_FIELDS[filter_key]
         values.any? do |v|
@@ -208,7 +217,11 @@ class SearchEngine
   end
 
   def selected_filters_for category
-    expressions[category.to_sym] || []
+    if category == "price"
+      return price_selected_filters expressions
+    else
+      return expressions[category.to_sym] || []
+    end
   end
 
   def has_any_filter_selected?
@@ -377,5 +390,20 @@ class SearchEngine
       if @sort_field.nil? || @sort_field == "" || @sort_field == 0 || @sort_field == "0"
         @sort_field = DEFAULT_SORT
       end
+    end
+
+    def format_price_range(min,max)
+      "#{min.to_i*100}..#{[max.to_i*100-1, 0].max}"
+    end
+
+    def price_selected_filters expressions
+      return [] unless expressions[:price]
+      price_filters = expressions[:price].map do |e| 
+        a = e.gsub("retail_price:","").split("..")
+        a[0] = (a[0].to_i/100).to_s
+        a[1] = ((a[1].to_i+1)/100).to_s
+        a.join("-")
+      end 
+      price_filters || []      
     end
 end
