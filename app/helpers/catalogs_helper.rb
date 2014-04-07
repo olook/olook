@@ -215,6 +215,20 @@ module CatalogsHelper
   end
 
   def whitelisted_color_filters(search)
-    filters_by("color", search, use_fields: [:category]).select{|k,v| SeoUrl.whitelisted_colors.include?(k)}
+    filters_by("color", search, use_fields: [:category]).select{|k,v| SeoUrl.whitelisted_colors.include?(k) && should_color_appear?(search, k)}
+  end
+
+  private
+
+  def should_color_appear?(search, text) 
+    (color_selected?(search, text) && color_filter_present?(search)) || !color_filter_present?(search)
+  end
+
+  def color_selected?(search, text)
+    search.filter_selected?(:color, text.chomp)
+  end
+
+  def color_filter_present?(search)
+    search.filter_value(:color).present?
   end
 end
