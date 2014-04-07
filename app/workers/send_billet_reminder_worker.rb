@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class SendBilletReminderWorker
-  @queue = :send_billet_reminder
+  @queue = 'low'
 
   def self.perform
     BilletNotifier.send_reminder.each do | reminder |

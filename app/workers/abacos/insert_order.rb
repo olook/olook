@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class InsertOrder
-    @queue = :order
+    @queue = 'low'
 
     def self.perform(order_number)
       return true unless Setting.abacos_integrate

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class UpdateOrderStatus
-    @queue = :order_status
+    @queue = 'low'
 
     def self.perform
       return true unless Setting.abacos_integrate

@@ -15,7 +15,8 @@ class SeoUrl
     "por_pagina" => "per_page",
     "categoria" => "category",
     "modelo" => "subcategory",
-    "marca" => "brand"
+    "marca" => "brand",
+    "q" => "term"
   })
   VALUES_TRANSLATION = HashWithIndifferentAccess.new({
     "menor-preco" => "retail_price",
@@ -198,8 +199,9 @@ class SeoUrl
 
   def parse_path_into_sections
     index = 0
-    path, @query = URI.decode(@path).split('?')
-    path.split('/').each do |path_section|
+    /^(?<path>\/[^\?]*)\??(?<query>.*)?$/ =~ URI.decode(@path)
+    @query = query
+    path.to_s.split('/').each do |path_section|
       next if path_section.blank?
       index += 1 if recursive_section_parse(path_section.dup, index)
     end

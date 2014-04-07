@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class MailRegisteredInviteeWorker
-  @queue = :mail_invite
+  @queue ='low'
 
   def self.perform(invitee_id)
     invitee = User.find(invitee_id)
