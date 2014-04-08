@@ -64,7 +64,7 @@
       width: 100px;
       float: left;
       .box_mail{
-        width: 170px;
+        width: 160px !important;
         height: 18px;
         background-color: #fff;
         color: #000;
@@ -73,7 +73,7 @@
         border: 1px solid #000;
         padding-left: 10px;
         letter-spacing: 1px;
-        margin-top: -1px;
+        margin-top: 0px;
         position: absolute;
       }
     }
