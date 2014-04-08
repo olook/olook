@@ -123,27 +123,6 @@ ActiveRecord::Schema.define(:version => 20140401192416) do
 
   add_index "braspag_capture_responses", ["identification_code"], :name => "index_braspag_capture_responses_on_order_id"
 
-  create_table "braspag_responses", :force => true do |t|
-    t.string   "type"
-    t.string   "correlation_id"
-    t.boolean  "success"
-    t.string   "error_message"
-    t.string   "order_id"
-    t.string   "braspag_order_id"
-    t.string   "braspag_transaction_id"
-    t.string   "amount"
-    t.integer  "payment_method"
-    t.string   "acquirer_transaction_id"
-    t.string   "authorization_code"
-    t.string   "return_code"
-    t.string   "return_message"
-    t.integer  "transaction_status"
-    t.boolean  "processed",               :default => false
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
-    t.string   "credit_card_token"
-  end
-
   create_table "campaign_emails", :force => true do |t|
     t.string   "email"
     t.datetime "created_at",                        :null => false
@@ -620,13 +599,14 @@ ActiveRecord::Schema.define(:version => 20140401192416) do
     t.string   "link"
     t.string   "image"
     t.integer  "position"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.string   "title"
     t.string   "subtitle"
     t.string   "alt_text"
     t.string   "left_image"
     t.string   "right_image"
+    t.integer  "highlight_type"
   end
 
   create_table "holidays", :force => true do |t|
@@ -635,15 +615,6 @@ ActiveRecord::Schema.define(:version => 20140401192416) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  create_table "images", :force => true do |t|
-    t.string   "image"
-    t.integer  "lookbook_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "images", ["lookbook_id"], :name => "index_images_on_lookbook_id"
 
   create_table "invites", :force => true do |t|
     t.integer  "user_id"
@@ -701,20 +672,9 @@ ActiveRecord::Schema.define(:version => 20140401192416) do
 
   create_table "liquidation_previews", :force => true do |t|
     t.integer  "product_id"
-    t.string   "name"
-    t.string   "category"
-    t.string   "subcategory"
-    t.decimal  "price",               :precision => 10, :scale => 2
-    t.decimal  "retail_price",        :precision => 10, :scale => 2
-    t.decimal  "discount_percentage", :precision => 10, :scale => 2
-    t.string   "inventory"
-    t.string   "color"
-    t.boolean  "visible"
     t.integer  "visibility"
-    t.string   "picture_url"
-    t.datetime "created_at",                                         :null => false
-    t.datetime "updated_at",                                         :null => false
-    t.string   "collection"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "liquidation_previews", ["product_id"], :name => "index_liquidation_previews_on_product_id"
@@ -771,20 +731,6 @@ ActiveRecord::Schema.define(:version => 20140401192416) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "lookbook_image_maps", :force => true do |t|
-    t.integer  "lookbook_id"
-    t.integer  "image_id"
-    t.integer  "product_id"
-    t.integer  "coord_x"
-    t.integer  "coord_y"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "lookbook_image_maps", ["image_id"], :name => "index_lookbook_image_maps_on_image_id"
-  add_index "lookbook_image_maps", ["lookbook_id"], :name => "index_lookbook_image_maps_on_lookbook_id"
-  add_index "lookbook_image_maps", ["product_id"], :name => "index_lookbook_image_maps_on_product_id"
-
   create_table "lookbooks", :force => true do |t|
     t.string   "name"
     t.string   "thumb_image"
@@ -797,14 +743,6 @@ ActiveRecord::Schema.define(:version => 20140401192416) do
     t.string   "fg_color"
     t.string   "bg_color"
     t.string   "movie_image"
-  end
-
-  create_table "lookbooks_products", :force => true do |t|
-    t.integer  "lookbook_id"
-    t.integer  "product_id"
-    t.boolean  "criteo",      :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "looks", :force => true do |t|
@@ -1124,8 +1062,8 @@ ActiveRecord::Schema.define(:version => 20140401192416) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
@@ -1330,17 +1268,6 @@ ActiveRecord::Schema.define(:version => 20140401192416) do
   add_index "variants", ["number"], :name => "index_variants_on_number"
   add_index "variants", ["product_id", "is_master"], :name => "index_variants_on_product_id_and_is_master"
   add_index "variants", ["product_id"], :name => "index_variants_on_product_id"
-
-  create_table "versions", :force => true do |t|
-    t.string   "item_type",  :null => false
-    t.integer  "item_id",    :null => false
-    t.string   "event",      :null => false
-    t.string   "whodunnit"
-    t.text     "object"
-    t.datetime "created_at"
-  end
-
-  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
   create_table "videos", :force => true do |t|
     t.string   "title"
