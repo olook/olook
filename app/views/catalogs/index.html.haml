@@ -33,6 +33,8 @@
   = first_level_breadcrumb(Category.t(Category.with_name(@category)).pluralize)
   #catalog
     %aside
+      %h5{:style => 'font-size: 11px;margin-bottom: 10px;'}
+        Filtre sua pesquisa:
       = render "filters", search: @search, category: @category
 
     - present 'Header', header: header do |header_presenter| 
@@ -49,13 +51,8 @@
 
       .row{style: 'position:relative'}
         = render "ordenation_filters", search: @search, url_builder: @url_builder
-        - unless @category == 'bolsa'
-          .size_top
-            %p.title-category Qual seu tamanho?
-            %ul.category-list
-              - size_list(@category, @search, @category[0].downcase).each do |text, amount|
-                %li{ :class => category_style_class(text)}= filter_link_to( @url_builder.add_filter(:size, text), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
-            
+        = render "size_filters", search: @search, url_builder: @url_builder, category: @category      
+
       = render 'current_section', search: @search
 
       %section.container_product
