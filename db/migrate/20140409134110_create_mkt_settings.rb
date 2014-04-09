@@ -1,4 +1,4 @@
-class CreateSettings < ActiveRecord::Migration
+class CreateMktSettings < ActiveRecord::Migration
   def self.up
     create_table :mkt_settings do |t|
       t.string :var, :null => false

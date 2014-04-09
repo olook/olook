@@ -126,4 +126,8 @@ Setting.defaults[:mercadolivre_product_ids] = "18541,18519,18539,18537,18525,185
 
 Setting.defaults[:dev_notification_emails] = 'rafael.manoel@olook.com.br,tiago.almeida@olook.com.br,nelson.haraguchi@olook.com.br,luis.daher@olook.com.br'
 
-MktSetting.save_default(:produtos_facebook, "123")
+begin
+	MktSetting.save_default(:facebook_products, "1703103190,1584034001,1525034002")
+rescue => e
+	Rails.logger.info("nao foi possivel inserir as propriedades de marketing")
+end
