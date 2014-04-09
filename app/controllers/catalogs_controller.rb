@@ -39,6 +39,10 @@ class CatalogsController < ApplicationController
     @subcategory = @search.expressions[:subcategory].to_a.first
     params[:category] = @search.expressions[:category].to_a.first
 
+    key = [@search.filter_value(:category).first]
+    key.push(@search.filter_value(:subcategory).first) unless @search.filter_value(:subcategory).blank?
+    @leaderboard = Leaderboard.new(key: key.join(':'))
+
     expire_fragment(@cache_key) if params[:force_cache].to_i == 1
   end
 
