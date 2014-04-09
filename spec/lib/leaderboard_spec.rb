@@ -2,6 +2,14 @@ require File.expand_path(File.join(File.dirname(__FILE__), '../../lib/leaderboar
 require 'fakeredis'
 
 describe Leaderboard do
+  context "in case of error" do
+    it "should not raise an error" do
+      expect {
+        described_class.new(key: 'sapato:anabela', redis: nil).score(1)
+      }.to_not raise_error
+    end
+  end
+
   context "with just one item" do
     subject { described_class.new(key: 'sapato:anabela', redis: Redis.new) }
     before do
