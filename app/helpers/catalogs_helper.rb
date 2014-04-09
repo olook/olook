@@ -218,6 +218,20 @@ module CatalogsHelper
     filters_by("color", search, use_fields: [:category]).select{|k,v| SeoUrl.whitelisted_colors.include?(k) && should_color_appear?(search, k)}
   end
 
+  def show_hot_products?(leaderboard, qty)
+    rank = @leaderboard.rank(qty * 3)
+    unsorted_hot_products = SearchEngine.new(product_id: rank.join('-'), limit: qty * 3).products.inject({}) do |hash, p|
+      hash[p.id.to_i] = p
+      hash
+    end
+    hot_products = rank.map { |product_id| unsorted_hot_products[product_id.to_i] }.compact.first(qty)
+    if hot_products.size == qty
+      hot_products
+    else
+      false
+    end
+  end
+
   private
 
   def should_color_appear?(search, text) 
