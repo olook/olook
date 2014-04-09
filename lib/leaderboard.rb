@@ -1,6 +1,6 @@
 class Leaderboard
   def initialize(options={})
-    @redis = options.delete(:redis)
+    @redis = options.delete(:redis) || Redis.new(url: ENV['REDIS_LEADERBOARD'])
     @key = options.delete(:key)
     @keys = [@key]
     aux_key = @key.split(':')
