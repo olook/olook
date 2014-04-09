@@ -6,6 +6,14 @@ class ListProductsController < ApplicationController
     attr_reader :url_prefix
   end
 
+  def not_found
+    @url_builder = SeoUrl.new(path: request.fullpath, path_positions: @path_positions)
+    search_params = @url_builder.parse_params 
+    @search = SearchEngine.new(search_params)
+    @search.for_admin if current_admin
+    @url_builder.set_search @search
+  end
+
   protected
 
   def url_prefix
@@ -32,6 +40,7 @@ class ListProductsController < ApplicationController
     @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])
     @category = params[:category] = @search.filter_value(:category).try(:first)
     @cache_key = configure_cache(@search)
+    redirect_to Rails.application.routes.url_helpers.send("#{url_prefix.gsub("/", "")}_not_found_path") if Rails.cache.fetch("#{@cache_key}count", expire: 90.minutes) { @search.products.size }.to_i == 0
   end
 
   def configure_cache(search)
