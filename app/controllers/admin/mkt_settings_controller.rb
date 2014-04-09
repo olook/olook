@@ -9,11 +9,8 @@ class Admin::MktSettingsController < Admin::BaseController
   def create
     settings = params[:settings]
     settings.each do |key, value|
-
-      # value = convert_to_appropriate_object(value)
-
       MktSetting.send("#{key}=", value)
     end
-    redirect_to :admin_settings, :notice => "Configurações atualizadas com successo"
+    redirect_to :admin_mkt_settings, :notice => "Configurações atualizadas com successo"
   end
 end

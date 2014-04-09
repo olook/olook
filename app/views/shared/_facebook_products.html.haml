@@ -1,0 +1,6 @@
+<h2>Produtos do facebook</h2>
+.products
+	- products.each do |product|
+		.name= product.formatted_name
+		.price= product.price
+		.brand= product.brand
