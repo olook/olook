@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+# TODO essa classe ainda eh utilizada?
 module Abacos
   class IntegrateOrderStatus
     @queue = 'low'
