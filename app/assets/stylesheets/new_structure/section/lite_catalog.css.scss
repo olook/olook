@@ -162,6 +162,7 @@ aside{
 
 .banner {
   margin-top: 20px;
+  text-align: center;
 }
 
 .about_item{
@@ -323,3 +324,23 @@ span.summary, .full{
   }
 }
 
+.hot_products {
+  h3 {
+    width: 768px;
+    text-align: center;
+    display: block;
+    padding:9px 0;
+    background: #ef3741;
+    color:#FFF;
+    text-transform: uppercase;
+    font-size:20px;
+    font-weight: normal;
+    position: relative;
+    font-family: "Trebuchet Ms", Verdana, Tahoma;
+    letter-spacing: 6px;
+    margin: 10px auto;
+  }
+  ul {
+    padding-left: 10px;
+  }
+}
