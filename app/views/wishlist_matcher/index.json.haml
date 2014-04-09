@@ -1,0 +1,6 @@
+- self.formats = ["html"]
+
+:plain
+  {
+    "message": "#{j(render('wishlist_matcher/modal')).html_safe.gsub("\'","\"")}"
+  }
