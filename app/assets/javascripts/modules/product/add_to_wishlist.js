@@ -12,6 +12,7 @@ var AddToWishlist = (function(){
       var values = {'variant_id': element.val()}
       $.post(action_url, values, function(data) {
           olookApp.publish("wishlist:add:success_message", data.message);
+          olookApp.publish('wishlist:matches');          
         }).fail(function(data){
           if (data.status == 401) {//non authorized
             window.location.href='/entrar/1';

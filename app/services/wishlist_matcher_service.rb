@@ -1,6 +1,6 @@
 class WishlistMatcherService
   def matches? wishlist
-    (product_id_array_for(wishlist) & matching_product_array).size == 3
+    (product_id_array_for(wishlist) & matching_product_array).size >= 3
   end
 
   private
@@ -10,6 +10,6 @@ class WishlistMatcherService
   end
 
   def product_id_array_for wishlist
-    wishlist.wished_products.map{|wp| wp.variant.product_id}
+    wishlist.wished_products.map{|wp| wp.variant.product_id.to_s}
   end
 end
