@@ -10,7 +10,7 @@ class CatalogsController < ApplicationController
   DEFAULT_PAGE_SIZE = 32
 
   def add_campaign(params)
-    HighlightCampaign.find_campaign(params[:cmp])  
+    HighlightCampaign.find_campaign(params[:cmp])
   end
 
   def add_search_result(search_params, params)
@@ -31,6 +31,8 @@ class CatalogsController < ApplicationController
     @url_builder.set_search(@search)
     @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])
     @pixel_information = @category = params[:category]
+    @color = @url_builder.parse_params["color"]
+    @size = @url_builder.parse_params["size"]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
     @category = @search.expressions[:category].to_a.first.downcase
     @subcategory = @search.expressions[:subcategory].to_a.first
