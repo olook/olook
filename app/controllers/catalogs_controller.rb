@@ -13,6 +13,16 @@ class CatalogsController < ApplicationController
     HighlightCampaign.find_campaign(params[:cmp])  
   end
 
+  def not_found
+    @campaign = add_campaign(params)
+    @url_builder = SeoUrl.new(path: request.fullpath,
+                      path_positions: '/:category:/-:subcategory::brand:-/-:care::color::size::heel:_',
+                      params: { category: params[:category] })
+    @search = add_search_result(@url_builder.parse_params, params)
+    @url_builder.set_search(@search)
+    @category = @search.expressions[:category].to_a.first.downcase
+  end
+
   def add_search_result(search_params, params)
     search_params[:limit] = params[:page_size] || DEFAULT_PAGE_SIZE
     search_params[:page] = params[:page]
@@ -29,6 +39,7 @@ class CatalogsController < ApplicationController
                       params: { category: params[:category] })
     @search = add_search_result(@url_builder.parse_params, params)
     @url_builder.set_search(@search)
+    redirect_to catalog_not_found_path if @search.products.size == 0
     @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])
     @pixel_information = @category = params[:category]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
