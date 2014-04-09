@@ -1,6 +1,9 @@
 class BrandsController < ApplicationController
   layout "lite_application"
   def index
+    @url_builder = SeoUrl.new(path: request.fullpath, path_positions: '/marcas/:brand:/-:category::subcategory:-/-:care::color::size::heel:_')
+    @search = SearchEngine.new
+    @url_builder.set_search @search
   end
 
   def show
