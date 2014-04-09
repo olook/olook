@@ -20,7 +20,7 @@ module CatalogsHelper
     bolsa: "Olook | Compre bolsas femininas online",
     acessorio: "Olook | Acessórios femininos",
     roupa: "Olook | Roupas Femininas Online",
-    curves: "Olook Curves | Roupas femininas Plus Size"    
+    curves: "Olook Curves | Roupas femininas Plus Size"
   }
 
   FACEBOOK_DESCRIPTIONS = {
@@ -28,7 +28,7 @@ module CatalogsHelper
     bolsa: "Compre bolsas femininas online com facilidade e segurança. Na Olook você encontra bolsas e clutches das melhores marcas.",
     acessorio: "Na Olook você encontra todos os tipos de acessórios para pontuar seus looks. Compre maxi colares, brincos e carteiras com segurança e praticidade!",
     roupa: "Na Olook você compra roupas das melhores marcas online com segurança e praticidade. Achados da Colcci, Lez a Lez, Cantão e  M.Officer para todas as ocasiões.",
-    curves: "Encontre roupas femininas com tamanhos grandes ou especiais na Olook. Comprar roupas plus size online ficou mais fácil e seguro!"    
+    curves: "Encontre roupas femininas com tamanhos grandes ou especiais na Olook. Comprar roupas plus size online ficou mais fácil e seguro!"
   }
 
   PRICE_RANGES = {
@@ -45,6 +45,7 @@ module CatalogsHelper
   end
 
   def filter_link_to(link, text, selected=false, amount=nil,follow=true)
+    text = text.chomp.gsub('Ç', 'ç').downcase.titleize
     span_class = text.downcase.parameterize
     search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
     text += " (#{amount})" if amount
@@ -77,7 +78,7 @@ module CatalogsHelper
   
   def product_permalink(product)
     "/produto/" + product.formatted_name.parameterize + "-" + product.id.to_s 
-  end  
+  end
   
   def current_section_link_to(link, selected=false)
     search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
