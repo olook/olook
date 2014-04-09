@@ -4,12 +4,14 @@ module Seo
     DEFAULT_PAGE_TITLE = 'Olook - Roupas e sapatos femininos online'
     DEFAULT_PAGE_DESCRIPTION = 'Na Olook você compra os sapatos, acessórios e roupas femininas mais visados da moda com segurança e facilidade.'
 
-    attr_accessor :url, :fallback_title, :fallback_description
+    attr_accessor :url, :fallback_title, :fallback_description, :color, :size
 
     def initialize url, options={}
       @url = URI.decode(url).gsub(" ", "-").downcase
       @fallback_title = options[:fallback_title]
       @fallback_description = options[:fallback_description]
+      @color = options[:color]
+      @size = options[:size].to_s.gsub(/(s|r)/, "")
     end
 
     def select_meta_tag
@@ -21,7 +23,10 @@ module Seo
       def choose_meta_tag
         title = search_meta_tag[:title] || fallback_title || DEFAULT_PAGE_TITLE
         description = search_meta_tag[:description] || fallback_description || DEFAULT_PAGE_DESCRIPTION
-        {title: "#{title} | Olook" , description: description}
+        full_title = title
+        full_title+= " #{color.capitalize}" unless color.blank?
+        full_title+= " Tamanho #{size.capitalize}" unless size.blank?
+        {title: "#{full_title} | Olook" , description: description}
       end
 
       def search_meta_tag
