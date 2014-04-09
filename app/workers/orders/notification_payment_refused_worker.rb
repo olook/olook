@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Orders
   class NotificationPaymentRefusedWorker
-    @queue = 'low'
+    @queue = 'medium'
 
     def self.perform(order_id)
       order = Order.find(order_id)
