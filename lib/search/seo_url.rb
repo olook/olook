@@ -163,10 +163,10 @@ class SeoUrl
         if values
           if FIELDS_WITH_KEYS_IN_URL.include?(field)
             if !values.compact.empty?
-              v = "#{KEYS_TRANSLATION.invert[field.to_s]}#{section[:value_separator]}#{values.join(section[:value_separator])}"
+              v = "#{KEYS_TRANSLATION.invert[field.to_s]}#{section[:value_separator]}#{values.map(&:parameterize).join(section[:value_separator])}"
             end
           else
-            v = values.join(section[:value_separator])
+            v = values.map(&:parameterize).join(section[:value_separator])
           end
           v.blank? ? nil : v
         end
