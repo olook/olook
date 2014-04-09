@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Abacos
   class ConfirmPayment
-    @queue = 'low'
+    @queue = 'medium'
     
     def self.perform(order_number)
       return true unless Setting.abacos_integrate
