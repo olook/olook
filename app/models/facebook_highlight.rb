@@ -1,5 +1,5 @@
 class FacebookHighlight
-	MAX_SIZE = 2
+	MAX_SIZE = 3
 
 	def self.products
 		product_ids = MktSetting.facebook_products
