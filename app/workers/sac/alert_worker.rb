@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module SAC
   class AlertWorker
-    @queue = 'low'
+    @queue = 'medium'
 
     def self.perform(kind, id)
       case kind.to_s
