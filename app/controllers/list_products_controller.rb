@@ -27,8 +27,9 @@ class ListProductsController < ApplicationController
     @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(page_size)
     @search.for_admin if current_admin
     @url_builder.set_search @search
+    @color = @url_builder.parse_params["color"]
+    @size = @url_builder.parse_params["size"]
     @campaign_products = HighlightCampaign.find_campaign(params[:cmp])
-
     @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])
     @category = params[:category] = @search.filter_value(:category).try(:first)
     @cache_key = configure_cache(@search)
