@@ -592,6 +592,17 @@ a#goRelatedProduct {
   top: 111px;
 
 }
+.bunny{
+  position: absolute;
+  top: 60px;
+  width: 85px;
+  left: 110px;
+  top: 45px;
+  z-index: 1;
+  img{
+    width: 100%;
+  }
+}
 
 ul.breadcrumb {
   display: block;

@@ -25,10 +25,10 @@ BOX MODAL ESPIAR
   #close_quick_view{cursor: pointer;
     font-size: 20px;
     position: absolute;
-    background: image-url('common/close_dialog.png') no-repeat;
+    background: image-url('common/close.png') no-repeat 0 -37px; 
     text-indent: -9999px;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 35px;
     top: -17px;
     right: -17px;
     z-index: 100;
