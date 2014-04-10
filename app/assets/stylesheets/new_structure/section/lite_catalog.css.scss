@@ -40,7 +40,6 @@ aside{
         height:22px;
         display: block;
         background: image-url("common/filtro-de-cores.jpg") no-repeat 0 36px;
-        background-size: 22px;
       }
       &.amarelo a {background: #fff673;}
       &.azul a {background: #312c90;}
@@ -52,15 +51,14 @@ aside{
       &.vermelho a {background: #ff0000;}
       &.preto a {background: #000;}
       &.rosa a {background: #f3c1d4;}
-      &.nude a {background:#e7dbd9;}
       &.terrosos a {background: #603916;}
-      /*&.bege a {background: beige;}*/
+      &.bege a {background: #e7dbd9;}
       &.onca a {background-position: -4px -4px !important;}
       &.xadrez a {background-position: -114px -4px !important;}
       &.prateado a {background-position: -143px -4px !important;}
       &.listras a {background-position: -60px -4px !important}
       &.floral a {background-position: -86px -4px !important;}
-      &.estampado a {background-position: -32 -4px !important;}
+      &.estampado a {background-position: -32px -4px !important;}
     }
     li.limparFiltro {
       width:160px;
