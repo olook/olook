@@ -25,6 +25,8 @@
 = render "shared/mkt_breadcrumb"
 %section#product
   = product_breadcrumbs_for(@product)
+  .bunny
+    = image_tag ("campaigns/easter/bunny.png")
   = link_to "Comprar o look completo", "#", :id => "goRelatedProduct" if @product.related_products.any? && @product.inventory > 0
 
   .box-left

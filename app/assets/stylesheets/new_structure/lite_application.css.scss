@@ -78,7 +78,38 @@ section.banner {
   background-color: #efe8ef;
   p.title{
     color: #e53a95;
-    font-size: 21px;
+    font-size: 24px;
+    font-family: $avenir;
+    padding-top: 35px;
+    text-align: center;
+    font-weight: bold;
+  }
+  ul{
+    margin-top: 35px;
+    li{
+      width: 250px;
+      height: 190px;
+      float: left;
+      &.ticket{
+        margin-right: 15px;
+        margin-left: 25px;
+      }
+      &.infos{
+        width: 245px;
+        p{
+          font-family: $bt_font;
+          font-size: 15px;
+          text-align: center;
+          line-height: 23px;
+          margin-top: 4px;
+          span{
+            color: #e53a95;
+            font-weight: bold;
+          }
+        }
+      }
+    }
   }
 }
+
 
