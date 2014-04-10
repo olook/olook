@@ -65,7 +65,10 @@ ul.breadcrumb {
 a.selecionado,
 a.selecionado:hover {color:$pink !important;}
 
-#modal {position: fixed !important;}
+#modal {
+  position: fixed !important;
+  z-index: 100001;
+}
 
 section.banner {
   margin-bottom:10px !important;
