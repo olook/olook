@@ -13,6 +13,8 @@ class CollectionThemesController < SearchController
     @campaign = HighlightCampaign.find_campaign(params[:cmp])
     @search = SearchEngine.new(@url_builder.parse_params).for_page(params[:page]).with_limit(48)
     @url_builder.set_search @search
+    @color = @url_builder.parse_params["color"]
+    @size = @url_builder.parse_params["size"]
     @collection_theme = CollectionTheme.where(slug: params[:collection_theme])
     @collection_theme_groups = CollectionThemeGroup.order(:position).includes(:collection_themes)
     @cache_key = "collections#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
