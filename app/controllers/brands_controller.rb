@@ -13,8 +13,8 @@ class BrandsController < ApplicationController
     @search = SearchEngine.new(search_params).for_page(params[:page]).with_limit(48)
     @search.for_admin if current_admin
     @url_builder.set_search @search
-    @color = @url_builder.parse_params["color"]
-    @size = @url_builder.parse_params["size"]
+    @color = search_params["color"]
+    @size = search_params["size"]
     @brand = Brand.where(name:  params[:brand].to_s.split("-").map{|brand| ActiveSupport::Inflector.transliterate(brand).downcase.titleize})
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
   end
