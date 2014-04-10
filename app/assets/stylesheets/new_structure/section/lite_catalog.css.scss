@@ -39,28 +39,28 @@ aside{
         width:22px;
         height:22px;
         display: block;
-        background: image-url("common/thumbs_cor.png") no-repeat 0 36px;
+        background: image-url("common/filtro-de-cores.jpg") no-repeat 0 36px;
         background-size: 22px;
       }
-      &.amarelo a {background: yellow;}
-      &.azul a {background: blue;}
+      &.amarelo a {background: #fff673;}
+      &.azul a {background: #312c90;}
       &.branco a {background: white;border:1px solid #f1f1f1;}
-      &.laranja a {background: orange;}
-      &.cinza a {background: gray;}
-      &.roxo a {background: purple;}
-      &.preto a {background: black;}
-      &.verde a {background: green;}
-      &.vermelho a {background: red;}
-      &.preto a {background: black;}
-      &.rosa a {background: pink;}
-      &.terrosos a {background: brown;}
-      &.bege a {background: beige;}
-      &.onca a {background-position: 0 -332px !important;}
-      &.xadrez a {background-position: 0 -324px !important;}
-      &.prateado a {background-position: 0 -110px !important;}
-      &.listras a {background-position: 0 -190px !important;}
-      &.floral a {background-position: 0 -135px !important;}
-      &.estampado a {background-position: 0 -216px !important;}
+      &.laranja a {background: #f26526;}
+      &.cinza a {background: #959595;}
+      &.roxo a {background: #ab1ec9;}
+      &.verde a {background: #00a757;}
+      &.vermelho a {background: #ff0000;}
+      &.preto a {background: #000;}
+      &.rosa a {background: #f3c1d4;}
+      &.nude a {background:#e7dbd9;}
+      &.terrosos a {background: #603916;}
+      /*&.bege a {background: beige;}*/
+      &.onca a {background-position: -4px -4px !important;}
+      &.xadrez a {background-position: -114px -4px !important;}
+      &.prateado a {background-position: -143px -4px !important;}
+      &.listras a {background-position: -60px -4px !important}
+      &.floral a {background-position: -86px -4px !important;}
+      &.estampado a {background-position: -32 -4px !important;}
     }
     li.limparFiltro {
       width:160px;
