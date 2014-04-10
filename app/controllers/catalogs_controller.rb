@@ -27,12 +27,13 @@ class CatalogsController < ApplicationController
     @url_builder = SeoUrl.new(path: request.fullpath,
                       path_positions: '/:category:/-:subcategory::brand:-/-:care::color::size::heel:_',
                       params: { category: params[:category] })
-    @search = add_search_result(@url_builder.parse_params, params)
+    search_params = @url_builder.parse_params
+    @search = add_search_result(search_params, params)
     @url_builder.set_search(@search)
     @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])
     @pixel_information = @category = params[:category]
-    @color = @url_builder.parse_params["color"]
-    @size = @url_builder.parse_params["size"]
+    @color = search_params["color"]
+    @size = search_params["size"]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
     @category = @search.expressions[:category].to_a.first.downcase
     @subcategory = @search.expressions[:subcategory].to_a.first
