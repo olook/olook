@@ -560,6 +560,8 @@ common/fb-post-to-wall.png: common/fb-post-to-wall-e7e5f20c3041a626dfe390b379931
 common/fb-post-to-wall/index.png: common/fb-post-to-wall-e7e5f20c3041a626dfe390b379931d7c.png
 common/fidelidade_olook.jpg: common/fidelidade_olook-f7e731fbfd33e6f957cb6439c533e60a.jpg
 common/fidelidade_olook/index.jpg: common/fidelidade_olook-f7e731fbfd33e6f957cb6439c533e60a.jpg
+common/filtro-de-cores.jpg: common/filtro-de-cores-158858efe1dc12ff8ccbb7fd4069acaf.jpg
+common/filtro-de-cores/index.jpg: common/filtro-de-cores-158858efe1dc12ff8ccbb7fd4069acaf.jpg
 common/footer_girl.png: common/footer_girl-f965b07b7ed45fdafefb9395a9974b44.png
 common/footer_girl/index.png: common/footer_girl-f965b07b7ed45fdafefb9395a9974b44.png
 common/frases3.gif: common/frases3-da843b1539e6b5da5403ba40f19d2be6.gif
@@ -2498,8 +2500,8 @@ new_structure/section/custom_url.css: new_structure/section/custom_url-706646de9
 new_structure/section/custom_url/index.css: new_structure/section/custom_url-706646de9f9fbf8f770f29f581edcc18.css
 new_structure/section/join.css: new_structure/section/join-3186f3c8328f7adb40d21a612a7a3325.css
 new_structure/section/join/index.css: new_structure/section/join-3186f3c8328f7adb40d21a612a7a3325.css
-new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-d215f383b4fe14b15800e77241fb48b6.css
-new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-d215f383b4fe14b15800e77241fb48b6.css
+new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-ddb3949b74e19261872dbd7ced24ed01.css
+new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-ddb3949b74e19261872dbd7ced24ed01.css
 new_structure/section/lite_product.css: new_structure/section/lite_product-6bab27ea01fb8ae3bbfbf1f4b9acb047.css
 new_structure/section/lite_product/index.css: new_structure/section/lite_product-6bab27ea01fb8ae3bbfbf1f4b9acb047.css
 new_structure/section/lite_showroom.css: new_structure/section/lite_showroom-d9accb011df9d5cc25540041cc910572.css
