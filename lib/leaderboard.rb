@@ -16,15 +16,19 @@ class Leaderboard
       @keys.push(aux_key.join(':'))
       aux_key.pop
     end
+  rescue
   end
 
   def score(id)
     @keys.each do |key|
       @redis.zincrby("#{PREFIX}#{key}", 1, id)
     end
+  rescue
   end
 
   def rank(limit)
     @redis.zrevrange("#{PREFIX}#{@key}", 0, limit - 1)
+  rescue
+    []
   end
 end
