@@ -1,6 +1,6 @@
 class WishlistMatcherService
   def matches? wishlist
-    (product_id_array_for(wishlist) & matching_product_array).size >= 3
+    (product_id_array_for(wishlist) & matching_product_array).size == 3
   end
 
   private

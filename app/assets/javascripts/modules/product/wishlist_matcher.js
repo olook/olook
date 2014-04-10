@@ -4,7 +4,7 @@ var WishlistMatcher = (function(){
   WishlistMatcher.prototype.facade = function() {
     var action_url = '/wishlist_matcher';
     $.get(action_url, {}, function(data) {
-      olook.newModal(data.message, 504, 610, '#fff');
+      olook.newModal(data.message, 300, 540, '#fff');
     });
   };
 
