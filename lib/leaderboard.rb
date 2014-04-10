@@ -1,7 +1,7 @@
 class Leaderboard
   PREFIX = 'leaderboard/'
   def self.clear
-    redis = Redis.new(url: ENV['REDIS_LEADERBOARD'])
+    redis = Redis.connect(url: ENV['REDIS_LEADERBOARD'])
     keys = redis.keys("#{PREFIX}*")
     redis.del(*keys)
   end
