@@ -64,9 +64,6 @@
       .pagination
         = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda { |hash| @url_builder.current_filters { |_p| _p.merge(hash) } }
 
-      .banner
-        = banner_for(@category, position: :botton)
-
       - if hot_products = show_hot_products?(@leaderboard, 4)
         :javascript
           log_event('view', 'hot_products');
@@ -76,3 +73,5 @@
             - hot_products.each do |hp|
               = render "shared/searched_product_item", :product => hp, :product_source => 'SearchedProduct'
 
+      .banner
+        = banner_for(@category, position: :botton)
