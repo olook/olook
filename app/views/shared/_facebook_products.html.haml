@@ -1,6 +1,14 @@
-<h2>Produtos do facebook</h2>
-.products
-	- products.each do |product|
-		.name= product.formatted_name
-		.price= product.price
-		.brand= product.brand
+- product_source ||= "SearchedProduct"
+.facebook_produtcs
+	%h3
+		Produtos do facebook
+	%ul.products
+		- products.first(3).each do |product|
+			%li.fb_prod
+				= link_to product_seo_path(product.seo_path), :class => "product_link", :rel => "#{product.id}", :alt => product.formatted_name, :title => product.formatted_name, onclick: track_event(product_source, "clickOnProduct", product.id.to_s) do
+					.async{data: {product: product.catalog_image, backside_picture: product.backside_picture}, itemprop: "image", alt: product.formatted_name}
+					- if product.promotion?
+						= render 'shared/searched_product_discount_price', from: number_to_currency(product.price), to: number_to_currency(product.retail_price)
+					- else
+						.price= number_to_currency(product.price)
+					= link_to "Ver Mais", product_seo_path(product.seo_path), :class => 'seeMore'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140401192416) do
+ActiveRecord::Schema.define(:version => 20140409134110) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -599,14 +599,13 @@ ActiveRecord::Schema.define(:version => 20140401192416) do
     t.string   "link"
     t.string   "image"
     t.integer  "position"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.string   "title"
     t.string   "subtitle"
     t.string   "alt_text"
     t.string   "left_image"
     t.string   "right_image"
-    t.integer  "highlight_type"
   end
 
   create_table "holidays", :force => true do |t|
@@ -754,6 +753,17 @@ ActiveRecord::Schema.define(:version => 20140401192416) do
     t.datetime "updated_at",        :null => false
     t.string   "full_look_picture"
   end
+
+  create_table "mkt_settings", :force => true do |t|
+    t.string   "var",                      :null => false
+    t.text     "value"
+    t.integer  "thing_id"
+    t.string   "thing_type", :limit => 30
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "mkt_settings", ["thing_type", "thing_id", "var"], :name => "index_mkt_settings_on_thing_type_and_thing_id_and_var", :unique => true
 
   create_table "moip_callbacks", :force => true do |t|
     t.integer  "order_id"
@@ -1062,8 +1072,8 @@ ActiveRecord::Schema.define(:version => 20140401192416) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
@@ -1268,6 +1278,17 @@ ActiveRecord::Schema.define(:version => 20140401192416) do
   add_index "variants", ["number"], :name => "index_variants_on_number"
   add_index "variants", ["product_id", "is_master"], :name => "index_variants_on_product_id_and_is_master"
   add_index "variants", ["product_id"], :name => "index_variants_on_product_id"
+
+  create_table "versions", :force => true do |t|
+    t.string   "item_type",  :null => false
+    t.integer  "item_id",    :null => false
+    t.string   "event",      :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.datetime "created_at"
+  end
+
+  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
   create_table "videos", :force => true do |t|
     t.string   "title"
