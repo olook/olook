@@ -2294,8 +2294,8 @@ section/brands.js: section/brands-f695ac6e409cb04fa9de8197bdfb48c1.js
 section/brands/index.js: section/brands-f695ac6e409cb04fa9de8197bdfb48c1.js
 section/faq.js: section/faq-8128f03fe940ecee179ff0f994d98ed4.js
 section/faq/index.js: section/faq-8128f03fe940ecee179ff0f994d98ed4.js
-section/lite_catalog.js: section/lite_catalog-fc02214af174d124237c287d46a96cd6.js
-section/lite_catalog/index.js: section/lite_catalog-fc02214af174d124237c287d46a96cd6.js
+section/lite_catalog.js: section/lite_catalog-00a6402b01323d3801cb83a77c3de53d.js
+section/lite_catalog/index.js: section/lite_catalog-00a6402b01323d3801cb83a77c3de53d.js
 section/lite_collection_theme.js: section/lite_collection_theme-78f7d886607f0c37225d6a11017fd400.js
 section/lite_collection_theme/index.js: section/lite_collection_theme-78f7d886607f0c37225d6a11017fd400.js
 section/lite_home.js: section/lite_home-e2b38104e845a3962c53ae54958695ed.js
@@ -2458,8 +2458,8 @@ desktop.css: desktop-5139daa005a0357c603a5ce937c5f355.css
 desktop/index.css: desktop-5139daa005a0357c603a5ce937c5f355.css
 jquery.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
 jquery/index.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
-new_structure/lite_application.css: new_structure/lite_application-0e44868bc994da745ce77d09e82b26ea.css
-new_structure/lite_application/index.css: new_structure/lite_application-0e44868bc994da745ce77d09e82b26ea.css
+new_structure/lite_application.css: new_structure/lite_application-bd6552ecde23b47b99d91466a63a5810.css
+new_structure/lite_application/index.css: new_structure/lite_application-bd6552ecde23b47b99d91466a63a5810.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-ee74a3a0cb810d472cb6e090ac914de1.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-ee74a3a0cb810d472cb6e090ac914de1.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-3e6401d29635e6bcf6d41c8e6cb202f1.css
@@ -2500,8 +2500,8 @@ new_structure/section/custom_url.css: new_structure/section/custom_url-706646de9
 new_structure/section/custom_url/index.css: new_structure/section/custom_url-706646de9f9fbf8f770f29f581edcc18.css
 new_structure/section/join.css: new_structure/section/join-3186f3c8328f7adb40d21a612a7a3325.css
 new_structure/section/join/index.css: new_structure/section/join-3186f3c8328f7adb40d21a612a7a3325.css
-new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-ddb3949b74e19261872dbd7ced24ed01.css
-new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-ddb3949b74e19261872dbd7ced24ed01.css
+new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-0a8b00f359876e34fb35cbe53660545f.css
+new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-0a8b00f359876e34fb35cbe53660545f.css
 new_structure/section/lite_product.css: new_structure/section/lite_product-6bab27ea01fb8ae3bbfbf1f4b9acb047.css
 new_structure/section/lite_product/index.css: new_structure/section/lite_product-6bab27ea01fb8ae3bbfbf1f4b9acb047.css
 new_structure/section/lite_showroom.css: new_structure/section/lite_showroom-d9accb011df9d5cc25540041cc910572.css
