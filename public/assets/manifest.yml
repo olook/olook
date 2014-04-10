@@ -560,6 +560,8 @@ common/fb-post-to-wall.png: common/fb-post-to-wall-e7e5f20c3041a626dfe390b379931
 common/fb-post-to-wall/index.png: common/fb-post-to-wall-e7e5f20c3041a626dfe390b379931d7c.png
 common/fidelidade_olook.jpg: common/fidelidade_olook-f7e731fbfd33e6f957cb6439c533e60a.jpg
 common/fidelidade_olook/index.jpg: common/fidelidade_olook-f7e731fbfd33e6f957cb6439c533e60a.jpg
+common/filtro-de-cores.jpg: common/filtro-de-cores-158858efe1dc12ff8ccbb7fd4069acaf.jpg
+common/filtro-de-cores/index.jpg: common/filtro-de-cores-158858efe1dc12ff8ccbb7fd4069acaf.jpg
 common/footer_girl.png: common/footer_girl-f965b07b7ed45fdafefb9395a9974b44.png
 common/footer_girl/index.png: common/footer_girl-f965b07b7ed45fdafefb9395a9974b44.png
 common/frases3.gif: common/frases3-da843b1539e6b5da5403ba40f19d2be6.gif
@@ -2408,8 +2410,8 @@ admin/themes/default/fonts/museosans_500_italic-webfont.woff: admin/themes/defau
 admin/themes/default/fonts/museosans_500_italic-webfont/index.woff: admin/themes/default/fonts/museosans_500_italic-webfont-e1bcb6fd0cfa7fc553880800308f5cff.woff
 admin/themes/default/style.css: admin/themes/default/style-88eb0610b60a4af46bd00d491b56195a.css
 admin/themes/default/style/index.css: admin/themes/default/style-88eb0610b60a4af46bd00d491b56195a.css
-application.css: application-6547bd44ef23058d95193728690f6b45.css
-application/index.css: application-6547bd44ef23058d95193728690f6b45.css
+application.css: application-2ae7271fa898dd6ef28da60500efd2bc.css
+application/index.css: application-2ae7271fa898dd6ef28da60500efd2bc.css
 campaign_emails.css: campaign_emails-98f740de050c078c5d007ce92e516aaa.css
 campaign_emails/index.css: campaign_emails-98f740de050c078c5d007ce92e516aaa.css
 common/_border-radius.css: common/_border-radius-1b13569e9620782f423d4cd3ce931750.css
@@ -2436,8 +2438,8 @@ common/jquery.ui.core.css: common/jquery.ui.core-f70e3bf791fcfc85db3dc8a9b5f41af
 common/jquery/index.ui.core.css: common/jquery.ui.core-f70e3bf791fcfc85db3dc8a9b5f41afb.css
 common/jquery.ui.dialog.css: common/jquery.ui.dialog-66bd2611081ea57e6a8756dc19eca379.css
 common/jquery/index.ui.dialog.css: common/jquery.ui.dialog-66bd2611081ea57e6a8756dc19eca379.css
-common/mkt_breadcrumb.css: common/mkt_breadcrumb-61fdeeb688ec5d10f66a9ddf651d1c76.css
-common/mkt_breadcrumb/index.css: common/mkt_breadcrumb-61fdeeb688ec5d10f66a9ddf651d1c76.css
+common/mkt_breadcrumb.css: common/mkt_breadcrumb-9498ccfd301ed3a3788db6110eada814.css
+common/mkt_breadcrumb/index.css: common/mkt_breadcrumb-9498ccfd301ed3a3788db6110eada814.css
 common/modal.css: common/modal-b775df3ae72b81fe72f7e86099d33878.css
 common/modal/index.css: common/modal-b775df3ae72b81fe72f7e86099d33878.css
 common/product_details.css: common/product_details-0904ceb74a00033081d7025bba440e38.css
@@ -2452,8 +2454,8 @@ common/typography.css: common/typography-c256a8c32cc6190e88b7c33f036f1f12.css
 common/typography/index.css: common/typography-c256a8c32cc6190e88b7c33f036f1f12.css
 customlanding.css: customlanding-b0c85e58874f23a570a24b1937e1d7fa.css
 customlanding/index.css: customlanding-b0c85e58874f23a570a24b1937e1d7fa.css
-desktop.css: desktop-4fc63810aaffe6bb5cdef8c66f0d8856.css
-desktop/index.css: desktop-4fc63810aaffe6bb5cdef8c66f0d8856.css
+desktop.css: desktop-5139daa005a0357c603a5ce937c5f355.css
+desktop/index.css: desktop-5139daa005a0357c603a5ce937c5f355.css
 jquery.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
 jquery/index.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
 new_structure/lite_application.css: new_structure/lite_application-0e44868bc994da745ce77d09e82b26ea.css
@@ -2498,8 +2500,8 @@ new_structure/section/custom_url.css: new_structure/section/custom_url-706646de9
 new_structure/section/custom_url/index.css: new_structure/section/custom_url-706646de9f9fbf8f770f29f581edcc18.css
 new_structure/section/join.css: new_structure/section/join-3186f3c8328f7adb40d21a612a7a3325.css
 new_structure/section/join/index.css: new_structure/section/join-3186f3c8328f7adb40d21a612a7a3325.css
-new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-d215f383b4fe14b15800e77241fb48b6.css
-new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-d215f383b4fe14b15800e77241fb48b6.css
+new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-ddb3949b74e19261872dbd7ced24ed01.css
+new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-ddb3949b74e19261872dbd7ced24ed01.css
 new_structure/section/lite_product.css: new_structure/section/lite_product-6bab27ea01fb8ae3bbfbf1f4b9acb047.css
 new_structure/section/lite_product/index.css: new_structure/section/lite_product-6bab27ea01fb8ae3bbfbf1f4b9acb047.css
 new_structure/section/lite_showroom.css: new_structure/section/lite_showroom-d9accb011df9d5cc25540041cc910572.css
