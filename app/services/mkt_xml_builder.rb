@@ -73,7 +73,7 @@ class MktXmlBuilder
         renderer = get_renderer(template_name)
         renderer.result(binding)
       rescue => e
-        puts "[XML] Erro ao processar template #{template_name}: #{e}"
+        puts "[XML] Erro ao processar template #{template_name}: #{e.backtrace.join('\n')}"
       end
     end
 
