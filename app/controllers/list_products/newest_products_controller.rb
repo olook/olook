@@ -4,7 +4,7 @@ class ListProducts::NewestProductsController < ListProductsController
   PRODUCTS_SIZE = 32
 
   def index
-    @path_positions =  '/novidades/-:category::brand::subcategory:-/_:care::color::size::heel:-'
+    @path_positions =  '/novidades/-:category::brand::subcategory:-/-:care::color::size::heel:_'
     @visibility = "#{Product::PRODUCT_VISIBILITY[:site]}-#{Product::PRODUCT_VISIBILITY[:all]}"
     default_params
     @search.sort = 'age'

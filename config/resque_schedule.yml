@@ -163,3 +163,9 @@ gather_blog_posts:
   class: PostUpdaterWorker
   queue: low
   description: "Atualiza as chamadas dos posts de hora em hora"
+
+clear_leaderboard:
+  cron: "0 0 * * 0"
+  class: ClearLeaderboardWorker
+  queue: low
+  description: "Limpa o Ranking de Leaderboard"
