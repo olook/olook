@@ -127,8 +127,12 @@ class PictureProcess
     queue = "queue:#{@queue}"
     jobs = Resque.redis.lrange(queue, 0, -1)
     jobs.any? do |job|
-      j = Resque.decode(job)
-      j['args'][0]['key'] == key
+      begin
+        j = Resque.decode(job)
+        j['args'][0]['key'] == key
+      rescue => e
+        Rails.logger.error(e)
+      end
     end
   end
 

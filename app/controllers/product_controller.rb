@@ -55,6 +55,7 @@ class ProductController < ApplicationController
       raise ActiveRecord::RecordNotFound unless p.price > 0
       p
     end
+    Leaderboard.new(key: "#{@product.category_humanize.parameterize}:#{@product.subcategory.parameterize}").score(@product.id)
 
     @google_pixel_information = @product
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
