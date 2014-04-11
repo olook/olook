@@ -2468,8 +2468,8 @@ new_structure/common/_catalog4you.css: new_structure/common/_catalog4you-4f72452
 new_structure/common/_catalog4you/index.css: new_structure/common/_catalog4you-4f72452749997ccc266b07319ded7d4d.css
 new_structure/common/_global_stuffs.css: new_structure/common/_global_stuffs-37ef150c142a979883d04c9b7bc8f406.css
 new_structure/common/_global_stuffs/index.css: new_structure/common/_global_stuffs-37ef150c142a979883d04c9b7bc8f406.css
-new_structure/common/_header.css: new_structure/common/_header-bf8e829e6f491daeab337a38ab9d13b1.css
-new_structure/common/_header/index.css: new_structure/common/_header-bf8e829e6f491daeab337a38ab9d13b1.css
+new_structure/common/_header.css: new_structure/common/_header-4d0b72f5b1ccc1cc112dd9fbaed0cf27.css
+new_structure/common/_header/index.css: new_structure/common/_header-4d0b72f5b1ccc1cc112dd9fbaed0cf27.css
 new_structure/common/_lite_structure.css: new_structure/common/_lite_structure-15a9d604fb331020270e5056343ef88f.css
 new_structure/common/_lite_structure/index.css: new_structure/common/_lite_structure-15a9d604fb331020270e5056343ef88f.css
 new_structure/common/_wishlist.css: new_structure/common/_wishlist-47e22edd6fb6aa84cc0be9567cdd3061.css
@@ -2486,8 +2486,8 @@ new_structure/common/modal_footer.css: new_structure/common/modal_footer-f63ed93
 new_structure/common/modal_footer/index.css: new_structure/common/modal_footer-f63ed936ba8dea75d5ece6d1aa5104d7.css
 new_structure/common/side_bar_menu.css: new_structure/common/side_bar_menu-e57968d0e7b19ec3cf998bbd3c54d9bd.css
 new_structure/common/side_bar_menu/index.css: new_structure/common/side_bar_menu-e57968d0e7b19ec3cf998bbd3c54d9bd.css
-new_structure/lite_application.css: new_structure/lite_application-187992448ffdb26432f233c1dc6be147.css
-new_structure/lite_application/index.css: new_structure/lite_application-187992448ffdb26432f233c1dc6be147.css
+new_structure/lite_application.css: new_structure/lite_application-8057a4da132916d56283731a449aeb9c.css
+new_structure/lite_application/index.css: new_structure/lite_application-8057a4da132916d56283731a449aeb9c.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-620d53ec3dd5ce6ad0aecded76c29e06.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-620d53ec3dd5ce6ad0aecded76c29e06.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-9f37f17da84b144634c83c7ffdd786c3.css
