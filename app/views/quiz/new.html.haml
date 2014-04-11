@@ -21,7 +21,7 @@
         - @quiz.questions.each_with_index do |question, index|
           - question_number = index + 1
           .step
-            %h2
+            %h1
               %span= "#{ question_number }"
               = "#{ question.text}"
             %ol.options
