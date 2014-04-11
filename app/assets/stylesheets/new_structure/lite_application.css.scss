@@ -81,7 +81,7 @@ section.banner {
   background-color: #efe8ef;
   p.title{
     color: #e53a95;
-    font-size: 24px;
+    font-size: 20px;
     font-family: $avenir;
     padding-top: 35px;
     text-align: center;
@@ -100,26 +100,27 @@ section.banner {
     }
   }
   ul{
-    margin-top: 35px;
+    margin-top: 28px;
     li{
       width: 250px;
       height: 190px;
       float: left;
       &.ticket{
-        margin-right: 15px;
+        margin-right: 25px;
         margin-left: 25px;
       }
       &.infos{
-        width: 245px;
+        width: 218px;
         p{
           font-family: $bt_font;
-          font-size: 15px;
+          font-size: 14px;
           text-align: center;
-          line-height: 23px;
+          line-height: 20px;
           margin-top: 4px;
           span{
             color: #e53a95;
             font-weight: bold;
+            font-size: 15px;
           }
         }
       }
