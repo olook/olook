@@ -44,7 +44,7 @@ module CatalogsHelper
     link_to('Limpar Filtro', link, class: 'clean')
   end
 
-  def filter_link_to(link, text, selected=false, amount=nil)
+  def filter_link_to(link, text, selected=false, amount=nil,follow=true)
     text = text.chomp.gsub('Ç', 'ç').downcase.titleize
     span_class = text.downcase.parameterize
     search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
@@ -52,9 +52,9 @@ module CatalogsHelper
     class_hash = selected ? {class: "selected"} : {}
     class_hash[:title] = text
     class_hash[:alt] = text
+    class_hash[:rel] = 'nofollow' unless follow == true
     link+=search_param
     text = CLOTH_SIZES_TABLE.include?(text) ? text : titleize_without_pronoum(text)
-    
     link_to(link, class_hash) do
       content_tag(:span, text, class:"txt-#{span_class}")
     end
@@ -78,7 +78,7 @@ module CatalogsHelper
   
   def product_permalink(product)
     "/produto/" + product.formatted_name.parameterize + "-" + product.id.to_s 
-  end  
+  end
   
   def current_section_link_to(link, selected=false)
     search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
