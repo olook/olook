@@ -41,7 +41,7 @@ update_ses_info:
   description: "Atualiza a tabela ses com as informações "
 
 update_inventory:
-  cron: "*/5 * * * *"
+  cron: "*/20 * * * *"
   class: Abacos::UpdateInventory
   queue: low
   description: "Atualiza o Inventario"
@@ -163,3 +163,9 @@ gather_blog_posts:
   class: PostUpdaterWorker
   queue: low
   description: "Atualiza as chamadas dos posts de hora em hora"
+
+clear_leaderboard:
+  cron: "0 0 * * 0"
+  class: ClearLeaderboardWorker
+  queue: low
+  description: "Limpa o Ranking de Leaderboard"
