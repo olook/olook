@@ -41,7 +41,7 @@ module CatalogsHelper
   def clean_filter_link_to(link)
     link += params[:q].blank? ? "" : "?q=#{params[:q]}"
 
-    link_to('Limpar Filtro', link, class: 'clean', rel: 'nofollow')
+    link_to('Limpar Filtro', link, class: 'clean')
   end
 
   def filter_link_to(link, text, selected=false, amount=nil,follow=true)
