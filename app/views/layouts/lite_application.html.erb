@@ -157,7 +157,7 @@
                </div>
              </div>
              <div class="olook_logo">
-               <h2><%= link_to 'Olook', root_path %></h2>
+               <h1><%= link_to 'Olook', root_path %></h1>
              </div>
            </div>
          </header>
@@ -178,11 +178,11 @@
          </nav>
        </div>
 
-       <div id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
+       <section id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
 
          <%= render_promotion_banner unless error %>
          <%= content_for?(:content) ? yield(:content) : yield %>
-       </div>
+       </section>
 
        <%= render(:partial => "shared/footer") %>
        <%= render(:partial => "shared/footer_bar") %>

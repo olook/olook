@@ -129,23 +129,26 @@ ul.click_show_child ul.question_box, ul.click_show_child .answer {
   width: 970px;
   color: #000;
   margin-bottom: 20px;
-  h2{
+  h1, h2{
     font-family: $johnston;
     font-size: 18px;
     color: #000;
     letter-spacing: 3px;
     text-transform: uppercase;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
     margin-top: 15px;
     font-weight: 700;
+  }
+  h2 {
+    font-size:15px;
   }
   h3{
     font-size: 15px;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 500;
-    margin-left: 75px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    margin-top:10px;
   }
   ul{
     margin-left: 75px;
@@ -276,7 +279,7 @@ width:970px !important;
   height: 240px;
   margin: 0 auto;
   margin-top: 20px;
-  h2{
+  h1, h2{
     font-family: $johnston;
     font-size: 18px;
     color: #000;
