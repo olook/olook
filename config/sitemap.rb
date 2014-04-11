@@ -49,13 +49,13 @@ SitemapGenerator::Sitemap.create do
   # BRANDS
   add new_brands_path
   Brand.all.each do |brand|
-    add brand_path(brand.name.parameterize)
+    add brand_path(brand.name.parameterize) if brand.name
   end
 
   #NEW COLLECTIONS
   add collection_themes_path
   CollectionTheme.active.all.each do |collection|
-    add collection_theme_path(collection.name.parameterize)
+    add collection_theme_path(collection.name.parameterize) if collection.name
   end
 
   #PRODUCT
