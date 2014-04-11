@@ -69,7 +69,7 @@ module XmlHelper
       accessory_subcategories={}
       accessory_subcategories.default=17
 
-      choth_subcategories={
+      cloth_subcategories={
         'saia' => 9,
         'shorts' => 9,
         'calça' => 8,
@@ -79,15 +79,16 @@ module XmlHelper
         'blusa' => 6
       }
 
-      choth_subcategories.default=4
+      cloth_subcategories.default=4
 
       @ilove_categories ||= {
         Category::SHOE       => shoe_subcategories,
         Category::BAG        => bag_subcategories,
         Category::ACCESSORY  => accessory_subcategories,
-        Category::CLOTH  => choth_subcategories,
-        Category::LINGERIE  => choth_subcategories,
-        Category::BEACHWEAR => choth_subcategories
+        Category::CLOTH  => cloth_subcategories,
+        Category::LINGERIE  => cloth_subcategories,
+        Category::BEACHWEAR => cloth_subcategories,
+        Category::CURVES => cloth_subcategories
       }
     end
 
@@ -98,7 +99,8 @@ module XmlHelper
         Category::ACCESSORY => 'Vestuário e acessórios > Acessórios',
         Category::CLOTH => 'Vestuário e acessórios > Roupas',
         Category::LINGERIE  => 'Vestuário e acessórios > Roupas',
-        Category::BEACHWEAR => 'Vestuário e acessórios > Roupas'
+        Category::BEACHWEAR => 'Vestuário e acessórios > Roupas',
+        Category::CURVES => 'Vestuário e acessórios > Roupas'
       }
     end
 end
