@@ -56,6 +56,10 @@ class ProductController < ApplicationController
       p
     end
 
+    unless @current_admin
+      Leaderboard.new(key: "#{@product.category_humanize.parameterize}:#{@product.subcategory.parameterize}").score(@product.id)
+    end
+
     @google_pixel_information = @product
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
     @chaordic_product = ChaordicInfo.product @product
