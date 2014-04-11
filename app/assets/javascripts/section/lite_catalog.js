@@ -38,9 +38,10 @@ filter.init = function(){
       window.location = $( "#tamanho" ).val();
   });
 
+  $('.hot_products li.product').find('p.spy,a.product_link').click(function(){
+    log_event('click', 'hot_products', {'productId': $(this).attr('rel')});
+  });
 }
-
-
 
 $(filter.init);
 

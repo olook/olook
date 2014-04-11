@@ -452,28 +452,49 @@ header#new_header{border-top: 2px black solid;
     cursor: pointer;
   }
 }
-.pagination{text-align:center;
+
+.pagination{
+  text-align:center;
   clear:both;
-  &.topo{clear:none;
+
+  &.topo{
+    clear:none;
     float:right;
-    margin:4px 3px 0 0;
+    margin:4px 15px 0 0;
+    position: absolute;
+    right: 0;
+    top:18px;
   }
-  a{display:inline-block;
+  a{
+    display:inline-block;
     font:normal 13px Verdana, Arial, sans-serif;
     text-decoration:none;
-    color:#A7A9AB;
-    height:19px;
-    line-height:22px;
-    margin:0 3px;
-    &.anterior, &.proximo{width:10px;
+    color:#000;
+    padding:6px 10px 6px;
+    border:1px solid #f1f1f1;
+    font-weight: bold;
+    font-family: 'trebuchet ms';
+
+    &.anterior, &.proximo{
+      width:10px;
       background:image-url('catalog/sprite.png') no-repeat 2px -112px;
       font-size:0;
+      position: relative;
+      top: -11px;
+      padding:0px;
+      border:0px;
     }
-    &.proximo{background-position:0 -137px;
+    &.proximo{
+      background-position:0 -137px;
     }
-    &.current{color:#000 !important;
+    &.current{
+      color:#fff !important;
+      background: #ef3741;
+      font-weight: bold;
     }
-    &:hover{color:$base_color;
+    &:hover{
+      color:$base_color;
+      border-color: #a1a1a1;
     }
   }
 }
