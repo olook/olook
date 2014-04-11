@@ -3,6 +3,7 @@ class ListProducts::SelectionsController < ListProductsController
   @url_prefix = "/selecoes"
 
   def index
+    Rails.logger.debug(params)
     @path_positions =  '/selecoes/-:category::brand::subcategory:-/_:care::color::size::heel:-'
     @visibility = "1-2-3"
     default_params
