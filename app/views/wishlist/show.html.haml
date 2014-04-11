@@ -20,7 +20,7 @@
   %div.noProductWished
   - @wishlist.products.each do |wp|
     %div.product{class: "js-product-#{wp.product_id}"}
-      - if has_easter_egg? wp.id
+      - if has_easter_egg? wp.variant.product_id
         .bunny
           = image_tag ("campaigns/easter/bunny.png")
       %div.img
