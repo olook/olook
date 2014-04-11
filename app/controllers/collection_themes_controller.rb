@@ -18,7 +18,16 @@ class CollectionThemesController < SearchController
     @collection_theme = CollectionTheme.where(slug: params[:collection_theme])
     @collection_theme_groups = CollectionThemeGroup.order(:position).includes(:collection_themes)
     @cache_key = "collections#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
+    redirect_to collection_theme_not_found_path if Rails.cache.fetch("#{@cache_key}count", expire: 90.minutes) { @search.products.size }.to_i == 0
 
+  end
+
+  def not_found
+    @url_builder = SeoUrl.new(path: request.fullpath, path_positions: '/colecoes/:collection_theme:/-:category::subcategory::brand:-/-:care::color::size::heel:_')
+    @search = SearchEngine.new(@url_builder.parse_params).for_page(params[:page]).with_limit(48) 
+    @url_builder.set_search @search
+    @collection_theme = CollectionTheme.where(slug: params[:collection_theme])
+    @collection_theme_groups = CollectionThemeGroup.order(:position).includes(:collection_themes)
   end
 
   private

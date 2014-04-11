@@ -7,16 +7,17 @@ class ListProducts::SelectionsController < ListProductsController
     @path_positions =  '/selecoes/-:category::brand::subcategory:-/_:care::color::size::heel:-'
     @visibility = "1-2-3"
     default_params
+    redirect_to selections_not_found_path if Rails.cache.fetch("#{@cache_key}count", expire: 90.minutes) { @search.products.size }.to_i == 0
+  end
+
+  def not_found
+    @path_positions = '/olooklet/-:category::brand::subcategory:-/-:care::color::size::heel:_'
+    default_params
   end
 
   private
 
   def header
     @header ||= Header.for_url("/#{params[:lbl]}").first
-  end
-
-
-  def title_text
-    "Seleções especiais | Roupas Femininas e Sapatos Femininos | Olook"
   end
 end

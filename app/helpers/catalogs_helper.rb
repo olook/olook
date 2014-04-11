@@ -176,11 +176,11 @@ module CatalogsHelper
   end
 
   def facebook_title category
-    FACEBOOK_TITLES[category.to_sym]
+    FACEBOOK_TITLES[category.to_s.to_sym]
   end
 
   def facebook_description category
-    FACEBOOK_DESCRIPTIONS[category.to_sym]
+    FACEBOOK_DESCRIPTIONS[category.to_s.to_sym]
   end
 
   def label_for_price_range price_range
