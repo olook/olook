@@ -20,7 +20,7 @@ module CatalogsHelper
     bolsa: "Olook | Compre bolsas femininas online",
     acessorio: "Olook | Acessórios femininos",
     roupa: "Olook | Roupas Femininas Online",
-    curves: "Olook Curves | Roupas femininas Plus Size"    
+    curves: "Olook Curves | Roupas femininas Plus Size"
   }
 
   FACEBOOK_DESCRIPTIONS = {
@@ -28,7 +28,7 @@ module CatalogsHelper
     bolsa: "Compre bolsas femininas online com facilidade e segurança. Na Olook você encontra bolsas e clutches das melhores marcas.",
     acessorio: "Na Olook você encontra todos os tipos de acessórios para pontuar seus looks. Compre maxi colares, brincos e carteiras com segurança e praticidade!",
     roupa: "Na Olook você compra roupas das melhores marcas online com segurança e praticidade. Achados da Colcci, Lez a Lez, Cantão e  M.Officer para todas as ocasiões.",
-    curves: "Encontre roupas femininas com tamanhos grandes ou especiais na Olook. Comprar roupas plus size online ficou mais fácil e seguro!"    
+    curves: "Encontre roupas femininas com tamanhos grandes ou especiais na Olook. Comprar roupas plus size online ficou mais fácil e seguro!"
   }
 
   PRICE_RANGES = {
@@ -44,16 +44,17 @@ module CatalogsHelper
     link_to('Limpar Filtro', link, class: 'clean')
   end
 
-  def filter_link_to(link, text, selected=false, amount=nil)
+  def filter_link_to(link, text, selected=false, amount=nil,follow=true)
+    text = text.chomp.gsub('Ç', 'ç').downcase.titleize
     span_class = text.downcase.parameterize
     search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
     text += " (#{amount})" if amount
     class_hash = selected ? {class: "selected"} : {}
     class_hash[:title] = text
     class_hash[:alt] = text
+    class_hash[:rel] = 'nofollow' unless follow == true
     link+=search_param
     text = CLOTH_SIZES_TABLE.include?(text) ? text : titleize_without_pronoum(text)
-    
     link_to(link, class_hash) do
       content_tag(:span, text, class:"txt-#{span_class}")
     end
@@ -77,7 +78,7 @@ module CatalogsHelper
   
   def product_permalink(product)
     "/produto/" + product.formatted_name.parameterize + "-" + product.id.to_s 
-  end  
+  end
   
   def current_section_link_to(link, selected=false)
     search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
@@ -216,6 +217,20 @@ module CatalogsHelper
 
   def whitelisted_color_filters(search)
     filters_by("color", search, use_fields: [:category]).select{|k,v| SeoUrl.whitelisted_colors.include?(k) && should_color_appear?(search, k)}
+  end
+
+  def show_hot_products?(leaderboard, qty)
+    rank = @leaderboard.rank(qty * 3)
+    unsorted_hot_products = SearchEngine.new(product_id: rank.join('-'), limit: qty * 3).products.inject({}) do |hash, p|
+      hash[p.id.to_i] = p
+      hash
+    end
+    hot_products = rank.map { |product_id| unsorted_hot_products[product_id.to_i] }.compact.first(qty)
+    if hot_products.size == qty
+      hot_products
+    else
+      false
+    end
   end
 
   private
