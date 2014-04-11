@@ -23,5 +23,5 @@
       - search.selected_filters_for("brand").each do |brand|
         %li= %( #{ brand } #{ current_section_link_to(brand_path(params[:brand], SeoUrl.build_for('brand',search.filters_applied(:brand, brand))))}).html_safe
 
-      %li.clean= link_to "Limpar tudo", brand_path(params[:brand], rel: 'nofollow')
+      %li.clean= link_to "Limpar tudo", brand_path(params[:brand])
 
