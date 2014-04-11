@@ -8,14 +8,14 @@ class ListProducts::SelectionsController < ListProductsController
     default_params
   end
 
+  def not_found
+    @path_positions = '/olooklet/-:category::brand::subcategory:-/-:care::color::size::heel:_'
+    default_params
+  end
+
   private
 
   def header
     @header ||= Header.for_url("/#{params[:lbl]}").first
-  end
-
-
-  def title_text
-    "Seleções especiais | Roupas Femininas e Sapatos Femininos | Olook"
   end
 end

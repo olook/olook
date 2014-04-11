@@ -13,7 +13,13 @@ class ListProducts::NewestProductsController < ListProductsController
     @hide_pagination = true
   end
 
+  def not_found
+    @path_positions = '/olooklet/-:category::brand::subcategory:-/-:care::color::size::heel:_'
+    default_params
+  end
+
   private
+
   def header
     @header ||= Header.for_url(request.path).first
     @header ||= Header.for_url(self.class.url_prefix).first
