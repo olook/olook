@@ -47,7 +47,6 @@ class ListProductsController < ApplicationController
     @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])
     @category = params[:category] = @search.filter_value(:category).try(:first)
     @cache_key = configure_cache(@search)
-    redirect_to Rails.application.routes.url_helpers.send("#{url_prefix.gsub("/", "")}_not_found_path") if Rails.cache.fetch("#{@cache_key}count", expire: 90.minutes) { @search.products.size }.to_i == 0
   end
 
   def configure_cache(search)
