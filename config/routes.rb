@@ -115,21 +115,21 @@ Olook::Application.routes.draw do
   # BRANDS
   match "/marcas", :to => "brands#index", :as => "new_brands"
 
-  match  "/marcas/:brand/nao-encontrei", to: "brands#not_found", as: 'brand_not_found'
+  match  "/marcas/:brand/nao-encontrado", to: "brands#not_found", as: 'brand_not_found'
   match "/marcas/:brand(/*parameters)", :to => "brands#show", as: "brand"
 
   #NEW OLOOKLET
-  get "/olooklet/nao-encontrei" => "list_products/olooklet#not_found", :as => "olooklet_not_found"
+  get "/olooklet/nao-encontrado" => "list_products/olooklet#not_found", :as => "olooklet_not_found"
   get "/olooklet(/*parameters)" => "list_products/olooklet#index", :as => "olooklet"
-  get "/selecoes/nao-encontrei" => "list_products/selections#not_found", :as => "selections_not_found"
+  get "/selecoes/nao-encontrado" => "list_products/selections#not_found", :as => "selections_not_found"
   get "/selecoes(/*parameters)" => "list_products/selections#index", :as => "selections"
-  get "/novidades/nao-encontrei" => "list_products/newest_products#not_found", :as => "newest_not_found"
+  get "/novidades/nao-encontrado" => "list_products/newest_products#not_found", :as => "newest_not_found"
   get "/novidades(/*parameters)" => "list_products/newest_products#index", as: "newest"
 
   #NEW COLLECTIONS
   get '/colecoes', to: "collection_themes#index", as: "collection_themes"
 
-  match "/colecoes/:collection_theme/nao-encontrei", to: "collection_themes#not_found", as: 'collection_theme_not_found'
+  match "/colecoes/:collection_theme/nao-encontrado", to: "collection_themes#not_found", as: 'collection_theme_not_found'
   get '/colecoes/:collection_theme(/*parameters)', to: "collection_themes#show", as: "collection_theme"
 
   #FRIENDS
@@ -516,7 +516,7 @@ Olook::Application.routes.draw do
 
   # CATALOGO
   match "/catalogo/:category(/*parameters)", to: "catalogs#index"
-  match  "/:category/nao-encontrei", to: "catalogs#not_found", as: 'catalog_not_found'
+  match  "/:category/nao-encontrado", to: "catalogs#not_found", as: 'catalog_not_found'
   match "/:category(/*parameters)", to: "catalogs#index", as: "catalog", constraints: { category: /(?:sapato|roupa|acessorio|bolsa|curves)/i }
 
   get '*custom_url' => 'custom_url#show'
