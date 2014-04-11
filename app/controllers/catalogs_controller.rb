@@ -22,7 +22,6 @@ class CatalogsController < ApplicationController
   end
 
   def index
-
     @campaign = add_campaign(params)
     @url_builder = SeoUrl.new(path: request.fullpath,
                       path_positions: '/:category:/-:subcategory::brand:-/-:care::color::size::heel:_',

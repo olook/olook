@@ -361,6 +361,7 @@ Olook::Application.routes.draw do
     resources :campaigns
 
     resource :settings
+    resource :mkt_settings
 
     resources :moip_callbacks do
       member do

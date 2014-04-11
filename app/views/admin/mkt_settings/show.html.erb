@@ -1,0 +1,22 @@
+
+<div class="inner">
+  <h1>Configurações</h1>
+
+<%= form_for admin_mkt_settings_path do |f|%>
+  <% @settings.each do |setting| 
+    key = setting[0]
+    value = setting[1] 
+  %>
+    <% if value.kind_of?(TrueClass) ||  value.kind_of?(FalseClass) %>
+      <p><%= label_tag("settings[#{key}]") %>&nbsp;:&nbsp;
+      <%= radio_button_tag "settings[#{key}]", 'true', (value == true)%>&nbsp;<%= label_tag("settings[#{key}]_true", "on") %>
+      <%= radio_button_tag "settings[#{key}]", 'false', (value == false)%>&nbsp;<%= label_tag("settings[#{key}]_false", "off") %>
+      </p>
+    <% else%>
+      <p><%= label_tag("settings[#{key}]") %>&nbsp;<%= text_field_tag("settings[#{key}]", value) %></p>
+    <% end %>
+  <% end %>
+  
+  <%= f.submit 'Alterar' %>
+<% end %>
+</div>
