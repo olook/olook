@@ -20,8 +20,9 @@
   %div.noProductWished
   - @wishlist.products.each do |wp|
     %div.product{class: "js-product-#{wp.product_id}"}
-      .bunny
-        = image_tag ("campaigns/easter/bunny.png")
+      - if has_easter_egg? wp.id
+        .bunny
+          = image_tag ("campaigns/easter/bunny.png")
       %div.img
         = link_to 'remover', '#', :class => 'removeFromWishlist js-removeFromWishlistButton', :title => "Remover dos meus favoritos!", :data => {product_id: wp.product_id}
         - data = get_label_and_class_name(@cart, wp)
