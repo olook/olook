@@ -587,6 +587,7 @@ header#new_header{border-top: 2px black solid;
       }
       ul.products {
         width:100%;
+        overflow: hidden;
         li.fb_prod {
           width:90%;
           height: 100px;

@@ -1279,17 +1279,6 @@ ActiveRecord::Schema.define(:version => 20140409134110) do
   add_index "variants", ["product_id", "is_master"], :name => "index_variants_on_product_id_and_is_master"
   add_index "variants", ["product_id"], :name => "index_variants_on_product_id"
 
-  create_table "versions", :force => true do |t|
-    t.string   "item_type",  :null => false
-    t.integer  "item_id",    :null => false
-    t.string   "event",      :null => false
-    t.string   "whodunnit"
-    t.text     "object"
-    t.datetime "created_at"
-  end
-
-  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
-
   create_table "videos", :force => true do |t|
     t.string   "title"
     t.string   "url"
