@@ -87,6 +87,18 @@ section.banner {
     text-align: center;
     font-weight: bold;
   }
+  p.warning{
+    font-size: 10px;
+    color: #000;
+    margin-top: 20px;
+    text-align: right;
+    font-weight: lighter;
+    font-family: $bt_font;
+    margin-right: 28px;
+    span{
+      font-weight: bold;
+    }
+  }
   ul{
     margin-top: 35px;
     li{
