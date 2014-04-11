@@ -6,6 +6,7 @@ class ListProducts::SelectionsController < ListProductsController
     @path_positions =  '/selecoes/-:category::brand::subcategory:-/_:care::color::size::heel:-'
     @visibility = "1-2-3"
     default_params
+    redirect_to selections_not_found_path if Rails.cache.fetch("#{@cache_key}count", expire: 90.minutes) { @search.products.size }.to_i == 0
   end
 
   def not_found

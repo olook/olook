@@ -11,6 +11,7 @@ class ListProducts::NewestProductsController < ListProductsController
     @search.with_limit(PRODUCTS_SIZE)
     @search.for_page(1)
     @hide_pagination = true
+    redirect_to newest_not_found_path if Rails.cache.fetch("#{@cache_key}count", expire: 90.minutes) { @search.products.size }.to_i == 0
   end
 
   def not_found
