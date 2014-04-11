@@ -73,5 +73,41 @@ describe Seo::SeoManager do
         expect(@seo_class.select_meta_tag[:description]).to eql (@product.seo_description )
       end
     end
+    context "When have color" do
+      before do
+        @header = FactoryGirl.create(:header, :no_banner, url: "/sapato/alpargata", page_title: "Alpargatas Femininos")
+        @seo_class = Seo::SeoManager.new("/sapato/alpargata/cor-azul", color: "Azul")
+      end
+      it "return product title" do
+        expect(@seo_class.select_meta_tag[:title]).to eql ("#{@header.page_title} Azul | Olook")
+      end
+    end
+    context "When have size" do
+      before do
+        @header = FactoryGirl.create(:header, :no_banner, url: "/sapato/alpargata", page_title: "Alpargatas Femininos")
+        @seo_class = Seo::SeoManager.new("/sapato/alpargata/tamanho-GG", size: "GG")
+      end
+      it "return product title" do
+        expect(@seo_class.select_meta_tag[:title]).to eql ("#{@header.page_title} Tamanho Gg | Olook")
+      end
+    end
+    context "When have size and color" do
+      before do
+        @header = FactoryGirl.create(:header, :no_banner, url: "/sapato/alpargata", page_title: "Alpargatas Femininos")
+        @seo_class = Seo::SeoManager.new("/sapato/alpargata/tamanho-GG", size: "GG", color: "Azul")
+      end
+      it "return product title" do
+        expect(@seo_class.select_meta_tag[:title]).to eql ("#{@header.page_title} Azul Tamanho Gg | Olook")
+      end
+    end
+    context "When there is empty color" do
+      before do
+        @header = FactoryGirl.create(:header, :no_banner, url: "/sapato/alpargata", page_title: "Alpargatas Femininos")
+        @seo_class = Seo::SeoManager.new("/sapato/alpargata/tamanho-GG", color: " ")
+      end
+      it "return product title" do
+        expect(@seo_class.select_meta_tag[:title]).to eql ("#{@header.page_title} | Olook")
+      end
+    end
   end
 end
