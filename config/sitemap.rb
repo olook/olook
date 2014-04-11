@@ -11,6 +11,65 @@ SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
 
 SitemapGenerator::Sitemap.create do
 
+  #CATALOG
+  ["sapato", "roupa", "acessorio", "bolsa","curves"].each do |category|
+    add catalog_path(category)
+  end
+
+  #SHOE
+  Product.only_visible.where(category: 1).map{|cat| cat.subcategory.parameterize}.uniq.each do |sub|
+    add catalog_path("sapato", sub)
+  end
+
+  #BAG
+  Product.only_visible.where(category: 2).map{|cat| cat.subcategory.parameterize}.uniq.each do |sub|
+    add catalog_path("bolsa", sub)
+  end
+
+  #ACCESSORY
+  Product.only_visible.where(category: 3).map{|cat| cat.subcategory.parameterize}.uniq.each do |sub|
+    add catalog_path("acessorio", sub)
+  end
+
+  #CLOTH
+  Product.only_visible.where(category: [4,5]).map{|cat| cat.subcategory.parameterize}.uniq.each do |sub|
+    add catalog_path("roupa", sub)
+  end
+
+  #lingerie
+  Product.only_visible.where(category: 6).map{|cat| cat.subcategory.parameterize}.uniq.each do |sub|
+    add catalog_path("roupa", "#{sub}-moda-praia")
+  end
+
+  #CURVES
+  Product.only_visible.where(category: 7).map{|cat| cat.subcategory.parameterize}.uniq.each do |sub|
+    add catalog_path("curves", sub)
+  end
+
+  # BRANDS
+  add new_brands_path
+  Brand.all.each do |brand|
+    add brand_path(brand.name.parameterize)
+  end
+
+  #NEW COLLECTIONS
+  add collection_themes_path
+  CollectionTheme.active.all.each do |collection|
+    add collection_theme_path(collection.name.parameterize)
+  end
+
+  #PRODUCT
+  Product.only_visible.each do |product|
+    add product_seo_path(product.seo_path)
+  end
+
+  #LIST PRODUCTS
+  add olooklet_path
+  add newest_path
+
+  #GIFT
+    add gift_root_path
+
   #REGULAR URLS
   add wysquiz_path
   add search_path
@@ -19,7 +78,6 @@ SitemapGenerator::Sitemap.create do
   add return_policy_path
   add privacy_path
   add delivery_time_path
-  add helena_linhares_path
   add contact_path
   add loyalty_path
   add olookmovel_path
@@ -27,51 +85,4 @@ SitemapGenerator::Sitemap.create do
   add press_path
   add "/stylist_news"
 
-  # BRANDS
-  add new_brands_path
-  Brand.all.each do |brand|
-    add brand_path(brand.name)
-  end
-
-  #NEW COLLECTIONS
-  add collection_themes_path
-  CollectionTheme.active.all.each do |collection|
-    add collection_theme_path(collection.name)
-  end
-
-  #PRODUCT
-  Product.only_visible.each do |product|
-    add product_seo_path(product.seo_path)
-  end
-
-  #CATALOG
-  ["sapato", "roupa", "acessorio", "bolsa"].each do |category|
-    add catalog_path(category)
-  end
-
-  #GIFT
-    add gift_root_path
-
-  # Put links creation logic here.
-  #
-  # The root path '/' and sitemap index file are added automatically for you.
-  # Links are added to the Sitemap in the order they are specified.
-  #
-  # Usage: add(path, options={})
-  #        (default options are used if you don't specify)
-  #
-  # Defaults: :priority => 0.5, :changefreq => 'weekly',
-  #           :lastmod => Time.now, :host => default_host
-  #
-  # Examples:
-  #
-  # Add '/articles'
-  #
-  #   add articles_path, :priority => 0.7, :changefreq => 'daily'
-  #
-  # Add all articles:
-  #
-  #   Article.find_each do |article|
-  #     add article_path(article), :lastmod => article.updated_at
-  #   end
 end
