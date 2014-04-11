@@ -17,32 +17,32 @@ SitemapGenerator::Sitemap.create do
   end
 
   #SHOE
-  Product.only_visible.where(category: 1).map{|cat| cat.subcategory.parameterize}.uniq.each do |sub|
+  Product.only_visible.where(category: 1).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
     add catalog_path("sapato", sub)
   end
 
   #BAG
-  Product.only_visible.where(category: 2).map{|cat| cat.subcategory.parameterize}.uniq.each do |sub|
+  Product.only_visible.where(category: 2).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
     add catalog_path("bolsa", sub)
   end
 
   #ACCESSORY
-  Product.only_visible.where(category: 3).map{|cat| cat.subcategory.parameterize}.uniq.each do |sub|
+  Product.only_visible.where(category: 3).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
     add catalog_path("acessorio", sub)
   end
 
   #CLOTH
-  Product.only_visible.where(category: [4,5]).map{|cat| cat.subcategory.parameterize}.uniq.each do |sub|
+  Product.only_visible.where(category: [4,5]).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
     add catalog_path("roupa", sub)
   end
 
   #lingerie
-  Product.only_visible.where(category: 6).map{|cat| cat.subcategory.parameterize}.uniq.each do |sub|
+  Product.only_visible.where(category: 6).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
     add catalog_path("roupa", "#{sub}-moda-praia")
   end
 
   #CURVES
-  Product.only_visible.where(category: 7).map{|cat| cat.subcategory.parameterize}.uniq.each do |sub|
+  Product.only_visible.where(category: 7).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
     add catalog_path("curves", sub)
   end
 
