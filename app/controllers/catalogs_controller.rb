@@ -10,7 +10,7 @@ class CatalogsController < ApplicationController
   DEFAULT_PAGE_SIZE = 32
 
   def add_campaign(params)
-    HighlightCampaign.find_campaign(params[:cmp])  
+    HighlightCampaign.find_campaign(params[:cmp])
   end
 
   def add_search_result(search_params, params)
@@ -26,14 +26,21 @@ class CatalogsController < ApplicationController
     @url_builder = SeoUrl.new(path: request.fullpath,
                       path_positions: '/:category:/-:subcategory::brand:-/-:care::color::size::heel:_',
                       params: { category: params[:category] })
-    @search = add_search_result(@url_builder.parse_params, params)
+    search_params = @url_builder.parse_params
+    @search = add_search_result(search_params, params)
     @url_builder.set_search(@search)
     @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])
     @pixel_information = @category = params[:category]
+    @color = search_params["color"]
+    @size = search_params["size"]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
     @category = @search.expressions[:category].to_a.first.downcase
     @subcategory = @search.expressions[:subcategory].to_a.first
     params[:category] = @search.expressions[:category].to_a.first
+
+    key = [@search.filter_value(:category).first]
+    key.push(@search.filter_value(:subcategory).first) unless @search.filter_value(:subcategory).blank?
+    @leaderboard = Leaderboard.new(key: key.join(':'))
 
     expire_fragment(@cache_key) if params[:force_cache].to_i == 1
   end
