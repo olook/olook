@@ -39,21 +39,17 @@ module CatalogsHelper
   }
 
   def clean_filter_link_to(link)
-    link += params[:q].blank? ? "" : "?q=#{params[:q]}"
-
     link_to('Limpar Filtro', link, class: 'clean')
   end
 
   def filter_link_to(link, text, selected=false, amount=nil,follow=true)
     text = text.chomp.gsub('Ç', 'ç').downcase.titleize
     span_class = text.downcase.parameterize
-    search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
     text += " (#{amount})" if amount
     class_hash = selected ? {class: "selected"} : {}
     class_hash[:title] = text
     class_hash[:alt] = text
     class_hash[:rel] = 'nofollow' unless follow == true
-    link+=search_param
     text = CLOTH_SIZES_TABLE.include?(text) ? text : titleize_without_pronoum(text)
     link_to(link, class_hash) do
       content_tag(:span, text, class:"txt-#{span_class}")
@@ -142,7 +138,6 @@ module CatalogsHelper
   end
 
   def more_products_link_to(link, text, style_class="")
-    span_class = text.downcase.parameterize
     text = titleize_without_pronoum(text)
     link_to(link) do
       content_tag(:span, text, class: "#{style_class}", onclick: track_event("AntibounceBox", "SeeMoreProducts"))
@@ -176,11 +171,11 @@ module CatalogsHelper
   end
 
   def facebook_title category
-    FACEBOOK_TITLES[category.to_sym]
+    FACEBOOK_TITLES[category.to_s.to_sym]
   end
 
   def facebook_description category
-    FACEBOOK_DESCRIPTIONS[category.to_sym]
+    FACEBOOK_DESCRIPTIONS[category.to_s.to_sym]
   end
 
   def label_for_price_range price_range

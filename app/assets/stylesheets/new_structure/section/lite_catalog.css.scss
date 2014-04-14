@@ -54,11 +54,13 @@ aside{
       &.terrosos a {background: #603916;}
       &.bege a {background: #e7dbd9;}
       &.onca a {background-position: -4px -4px !important;}
+      &.animal-print a {background-position: -4px -4px !important;}
       &.xadrez a {background-position: -114px -4px !important;}
       &.prateado a {background-position: -143px -4px !important;}
       &.listras a {background-position: -60px -4px !important}
       &.floral a {background-position: -86px -4px !important;}
       &.estampado a {background-position: -32px -4px !important;}
+      &.metalizados a {background-position: -142px -4px !important;}
     }
     li.limparFiltro {
       width:160px;
@@ -154,6 +156,92 @@ aside{
       padding: 0;
       height:100%;
       margin-bottom: 20px;
+    }
+  }
+  .facebook_produtcs {
+    width:94%;
+    border:1px solid #e1e1e1;
+    h3 {
+      width: 65%;
+      display: block;
+      color: #FFF;
+      font-family: 'Trebuchet Ms';
+      font-size: 12px;
+      text-transform: uppercase;
+      padding: 5% 5% 5% 30%;
+      background: image-url('common/ico_facebook.jpg') #385b9d no-repeat 12px center;
+      line-height: 14px;
+    }
+    ul.products {
+      width:100%;
+      li.fb_prod {
+        width:90%;
+        height: 100px;
+        padding:5%;
+        border-bottom:1px solid #e1e1e1;
+        position: relative;
+        a {
+          padding:0px;
+          background: none;
+          width:100%;
+        }
+        img {
+          width:45%;
+          float:left;
+        }
+        span.price {
+          float:right;
+          width:55%;
+          display: block;
+          .old {
+            font-size: 10px;
+            text-decoration: line-through;
+            color:#999;
+            display: block;
+            text-align: right;
+          }
+          .txt-pink {
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: -1px;
+            display: block;
+            text-align: right;
+            color:#ef3742;
+          }
+        }
+        div.price {
+          float:right;
+          width:55%;
+          display: block;
+          text-align: right;
+          font-size: 11px;
+          font-weight: bold;
+          letter-spacing: -1px;
+        }
+        .seeMore {
+          border: 1px solid #d1d1d1;
+          font-size: 9px;
+          text-transform: uppercase;
+          font-family: 'Trebuchet Ms';
+          letter-spacing: 1px;
+          position: relative;
+          z-index: 10;
+          cursor: pointer;
+          width: 50px;
+          position: absolute;
+          right: 5px;
+          bottom: 7px;
+          text-decoration: none;
+          display: block;
+          text-align: center;
+          color:#939598;
+          padding:0px 0px 2px 0px;
+        }
+        .seeMore:hover {
+          background: #000;
+          color:#FFF;
+        }
+      }
     }
   }
 }

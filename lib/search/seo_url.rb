@@ -25,6 +25,7 @@ class SeoUrl
     "novidade" => "age,-inventory,-text_relevance",
     "novidades" => "age"
   })
+  FIELDS_WITHOUT_KEYS_IN_URL = Set.new(['subcategory', 'category', 'brand'])
   FIELDS_WITH_KEYS_IN_URL = Set.new(['color', 'size', 'heel', 'care'])
   CARE_PRODUCTS = [
     'Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar',
@@ -145,6 +146,9 @@ class SeoUrl
     end.compact
 
     query = build_query_string(parameters)
+    if @search.term
+      query.push("q=#{@search.term}")
+    end
 
     full_path = "/#{url.join('/')}"
     full_path.concat("?#{query.join('&')}") if query.present?
@@ -160,19 +164,41 @@ class SeoUrl
       fields = section[:fields].map do |field|
         values = parameters.delete(field.to_sym)
         values = [@params[field.to_sym]].flatten if @params[field.to_sym]
+
         if values
-          if FIELDS_WITH_KEYS_IN_URL.include?(field)
-            if !values.compact.empty?
-              v = "#{KEYS_TRANSLATION.invert[field.to_s]}#{section[:value_separator]}#{values.join(section[:value_separator])}"
-            end
-          else
-            v = values.join(section[:value_separator])
-          end
-          v.blank? ? nil : v
+          v = send("format_#{field}", values, section[:value_separator]) rescue nil
+          v ||= format_field(field, values, section[:value_separator])
         end
       end.compact
       fields.join(section[:separator]) if fields.size > 0
     end
+  end
+
+  FIELDS_WITHOUT_KEYS_IN_URL.each do |field|
+    define_method("format_#{field}") do |values, value_separator|
+      v = values.map{|_v|_v.parameterize}.join(value_separator)
+      v.blank? ? nil : v
+    end
+  end
+
+  FIELDS_WITH_KEYS_IN_URL.each do |field|
+    define_method("format_#{field}") do |values, value_separator|
+      if !values.compact.empty?
+        v = "#{KEYS_TRANSLATION.invert[field.to_s]}#{value_separator}#{values.join(value_separator)}"
+      end
+      v.blank? ? nil : v
+    end
+  end
+
+  def format_field(field, values, value_separator)
+    if FIELDS_WITH_KEYS_IN_URL.include?(field)
+      if !values.compact.empty?
+        v = "#{KEYS_TRANSLATION.invert[field.to_s]}#{value_separator}#{values.join(value_separator)}"
+      end
+    else
+      v = values.join(value_separator)
+    end
+    v.blank? ? nil : v
   end
 
   def build_query_string(parameters)

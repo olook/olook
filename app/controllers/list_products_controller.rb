@@ -6,6 +6,14 @@ class ListProductsController < ApplicationController
     attr_reader :url_prefix
   end
 
+  def not_found
+    @url_builder = SeoUrl.new(path: request.fullpath, path_positions: @path_positions)
+    search_params = @url_builder.parse_params 
+    @search = SearchEngine.new(search_params)
+    @search.for_admin if current_admin
+    @url_builder.set_search @search
+  end
+
   protected
 
   def url_prefix

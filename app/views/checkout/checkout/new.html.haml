@@ -32,6 +32,10 @@
             = checkout_form.label :shipping_service, "Expressa"
             %p.shipping
               = "(#{@shipping_service_fast.try(:delivery_time)} dias úteis) #{number_to_currency(@shipping_service_fast.try(:price))}"
+        %p.date
+          **O prazo de entrega começa a ser contado a partir
+          %br
+            da confirmação do pagamento.
     .box-step-three
       %h2.step-title PAGAMENTO
       = render "payments_type", checkout_form: checkout_form

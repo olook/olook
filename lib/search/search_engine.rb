@@ -60,6 +60,10 @@ class SearchEngine
     @query = URI.encode(term) if term
   end
 
+  def term
+    @query
+  end
+
   # TODO: Mudar a forma que o recebe o collection_theme pois
   # o ideal é modificar o MULTISELECTION_SEPARATOR para ','
   # e passar a usar parameterize na indexação e mudar as urls.
@@ -149,7 +153,6 @@ class SearchEngine
         parameters[key.to_sym] = []
       end
     end
-    parameters.merge!({q: @query}) if @query
     parameters
   end
 
