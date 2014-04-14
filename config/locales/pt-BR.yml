@@ -422,6 +422,10 @@
         one: Serviço de email
         other: Serviços de email
 
+      mkt_setting:
+        one: Configuração de Marketing
+        other: Configurações de Marketing
+
       header:
         one: 'Landing Page'
         other: 'Landing Pages'
