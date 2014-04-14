@@ -130,5 +130,6 @@ Setting.defaults[:bunny_products] = ""
 
 begin
 	MktSetting.save_default(:facebook_products, "1703103190,1584034001,1525034002")
+rescue => e
 	Rails.logger.info("nao foi possivel inserir as propriedades de marketing")
 end
