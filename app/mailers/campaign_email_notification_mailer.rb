@@ -3,7 +3,7 @@ class CampaignEmailNotificationMailer < ActionMailer::Base
   default :from => "olook <bemvinda@my.olookmail.com.br>"
 
   def welcome_email(email)
-    mail(:to => email, :subject => "Recebemos seu e-mail. Agora é hora de descobrir o seu estilo.")
+    mail(:to => email, :subject => "BEM-VINDA | Conheça a Olook, você vai amar a gente!")
     headers["X-SMTPAPI"] = { 'category' => 'welcome_email' }.to_json
   end
 
