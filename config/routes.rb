@@ -3,7 +3,7 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
-  get "sitemap/index"
+  get "mapa_do_site", to: "sitemap#index", as: "sitemap"
 
   resources :wished_products, only: [:create, :destroy]
 
