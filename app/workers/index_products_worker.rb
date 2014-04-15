@@ -3,6 +3,7 @@ class IndexProductsWorker
   extend Fixes
 
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
+  RATING_POWER = 100
 
   @queue = 'low'
 
@@ -94,10 +95,10 @@ class IndexProductsWorker
         fields['age'] = product.time_in_stock
 
         oldest = older;
-        fields['r_age'] = ((oldest - product.time_in_stock) / oldest.to_f) * 100      
+        fields['r_age'] = normalize((oldest - product.time_in_stock) / oldest.to_f)
         fields['r_brand_regulator'] = 0
 
-        fields['r_inventory'] = ((product.inventory.to_f / max_inventory) * 100).to_i
+        fields['r_inventory'] = normalize(product.inventory.to_f / third_quartile_inventory_for_category(product.category))
 
         if product.shoe?
           product.details.each do |detail|
@@ -172,9 +173,34 @@ class IndexProductsWorker
       @older
     end
 
-    def max_inventory
-      @max_inventory = @max_inventory || Product.joins(:variants).order('sum(variants.inventory) desc').group('product_id').first.inventory
-      @max_inventory
+    def third_quartile_inventory_for_category(category)
+      if @count_by_category.blank? || @third_percentile_inventory.blank?
+        begin
+          sql = Product.only_visible.joins(:variants).group('products.id').having('sum(inventory) > 0').
+            select('products.id, products.category, sum(variants.inventory) sum_inventory').to_sql
+          Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
+          Product.connection.execute("CREATE TEMPORARY TABLE products_with_more_than_one_inventory AS #{sql}")
+          @count_by_category ||= Product.connection.
+            select_all("SELECT category, count(0) `count` from products_with_more_than_one_inventory GROUP BY category").
+            inject({}) {|h,r| h[r['category']] = r['count']; h }
+          @third_quartile_inventory ||= @count_by_category.inject({}) do |hash, aux|
+            category, count = aux
+            third_quartile = ( count*0.75 ).round
+            hash[category] = Product.connection.
+              select("SELECT sum_inventory FROM products_with_more_than_one_inventory
+                     WHERE category = #{category} order by sum_inventory limit 1 offset #{third_quartile}").
+              first['sum_inventory']
+            hash
+          end
+        ensure
+          Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
+        end
+      end
+      @third_quartile_inventory[category]
+    end
+
+    def normalize(factor, power)
+      (factor > 1 ? 1 : factor * RATING_POWER).to_i
     end
 
 end
