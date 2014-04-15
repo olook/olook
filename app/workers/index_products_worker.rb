@@ -98,6 +98,7 @@ class IndexProductsWorker
 
         oldest = older;
         fields['r_age'] = ((oldest - product.time_in_stock) / oldest.to_f) * 100      
+        fields['r_brand_regulator'] = 0
 
         fields['r_coverage_of_days_to_sell'] = ((product.coverage_of_days_to_sell.to_f / max_coverage_of_days_to_sell) * 100).to_i
         fields['r_full_grid'] = product.is_the_size_grid_enough? ? 100 : 0
