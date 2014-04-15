@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 module ProductsHelper
+  HEEL_MODELS = ["anabela","ankle boot","boneca","bota","creeper","oxford","peep toe","sandália","scarpin","sneaker"]
 
   def variant_classes(variant, shoe_size = nil)
     classes = []
@@ -45,6 +46,8 @@ module ProductsHelper
       'Material'
     elsif name == 'detalhe' && product.is_a_shoe_accessory?
       'Instruções'
+    elsif name == 'detalhes' && HEEL_MODELS.include?(product.model_name.downcase)
+      'Salto'
     else
       detail.translation_token
     end
