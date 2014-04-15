@@ -7,7 +7,8 @@
       <p><%= "#{address.neighborhood} - #{address.zip_code}" %></p>
       <p><%= "#{address.city}, #{address.state}" %></p>
       <ul class="links">
-        <li><%= link_to "Alterar endereço", edit_user_address_path(address), :class => 'edit' %></li>
+        <li><%= link_to "Alterar este endereço", edit_user_address_path(address), :class => 'edit' %></li>
+        <li><%= link_to "Excluir este endereço", "#", :class => 'edit' %></li>
       </ul>
     </li>
   <% end %>
