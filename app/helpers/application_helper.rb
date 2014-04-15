@@ -218,6 +218,10 @@ module ApplicationHelper
     wishlist_images.compact
   end
 
+  def has_easter_egg? product_id
+    Setting.bunny_products.split(",").include? product_id.to_s 
+  end
+
   private
 
     def get_image_for product, view_type
