@@ -277,7 +277,7 @@ class SearchEngine
   end
 
   def ranking
-    "rank-exp=(r_full_grid*#{ Setting[:full_grid_weight].to_i })%2B(r_inventory*#{ Setting[:inventory_weight].to_i })%2B(r_qt_sold_per_day*#{ Setting[:qt_sold_per_day_weight].to_i })%2B(r_coverage_of_days_to_sell*#{ Setting[:coverage_of_days_to_sell_weight].to_i })%2B(r_age*#{ Setting[:age_weight].to_i })"
+    "rank-exp=(r_inventory*#{ Setting[:inventory_weight].to_i })%2B(r_age*#{ Setting[:age_weight].to_i })"
   end
 
   def fetch_result(url, options = {})
