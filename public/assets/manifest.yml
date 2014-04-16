@@ -2530,6 +2530,8 @@ new_structure/section/search.css: new_structure/section/search-49024cc68b01fc21c
 new_structure/section/search/index.css: new_structure/section/search-49024cc68b01fc21c42d0a0901be917f.css
 new_structure/section/session.css: new_structure/section/session-02491ad6645a5453c7aa8bd249618266.css
 new_structure/section/session/index.css: new_structure/section/session-02491ad6645a5453c7aa8bd249618266.css
+new_structure/section/sitemap.css: new_structure/section/sitemap-3b2cd7406bb6630cab7249e61199fae4.css
+new_structure/section/sitemap/index.css: new_structure/section/sitemap-3b2cd7406bb6630cab7249e61199fae4.css
 reseller.css: reseller-ee9ee776345ac14e2d0e03fb504f1c0a.css
 reseller/index.css: reseller-ee9ee776345ac14e2d0e03fb504f1c0a.css
 section/avc-campaign.css: section/avc-campaign-2d9df46b5022ada9f0a4eea324e531ac.css
