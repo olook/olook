@@ -192,18 +192,18 @@ class Product < ActiveRecord::Base
   #
   def backside_picture
     return @backside_picture if @backside_picture
-    if pictures.loaded?
+    if self.pictures.loaded?
       if cloth?
-        pictures = pictures.to_a.sort{ |a,b| a.display_on <=> b.display_on }
-        picture = pictures.to_a.size > 1 ? pictures[1] : pictures[0]
+        _pictures = self.pictures.to_a.sort{ |a,b| a.display_on <=> b.display_on }
+        picture = _pictures.to_a.size > 1 ? _pictures[1] : _pictures[0]
       else
-        picture = pictures.to_a.find { |p| p.display_on == DisplayPictureOn::GALLERY_2 }
+        picture = self.pictures.to_a.find { |p| p.display_on == DisplayPictureOn::GALLERY_2 }
       end
     else
       if cloth?
-        picture = pictures.order(:display_on).second
+        picture = self.pictures.order(:display_on).second
       else
-        picture = pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
+        picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
       end
     end
     @backside_picture = picture.try(:image_url, :catalog)
