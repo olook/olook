@@ -401,24 +401,6 @@ describe Product do
       end
     end
 
-    describe '#return_catalog_or_suggestion_image' do
-      context "when product has picture" do
-        it "returns catalog picture" do
-          mock_picture.stub(:image_url).with(:catalog).and_return(:valid_image)
-          mock_picture.stub(:display_on).and_return(1)
-          subject.stub(:main_picture).and_return(mock_picture)
-          subject.return_catalog_or_suggestion_image(mock_picture).should eq(:valid_image)
-        end
-      end
-
-      context "when product has no picture" do
-        it "returns nil" do
-          mock_picture = nil
-          subject.return_catalog_or_suggestion_image(mock_picture).should be_nil
-        end
-      end
-    end
-
     describe '#image_at_position' do
       let!(:shoe)      { FactoryGirl.create(:shoe, :casual) }
       let!(:main_picture)      { FactoryGirl.create(:main_picture) }
