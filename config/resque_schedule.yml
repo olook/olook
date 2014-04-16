@@ -4,7 +4,7 @@ regenerate_looks:
   queue: low
   description: "Gera novamente os Looks"
 
-regenerate_sitemap:
+regenerate_html_sitemap:
   cron: "0 */6 * * *"
   class: SitemapWorker
   queue: low
