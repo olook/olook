@@ -69,7 +69,7 @@
               na Olook e ótimas opções de presente. 
             Não tem como errar!
       %li
-        = link_to(selections_path('tamanho-unico', lbl: 'tamanho-unico'), :class => "price_box") do
+        = link_to(selections_path('tamanho_unico', lbl: 'tamanho-unico'), :class => "price_box") do
           =image_tag ("gift/gift_6.jpg"), :class => "first_block"
           %p.title_box
             está em dúvida?
@@ -81,14 +81,12 @@
             %br 
               que separamos para você
       %li.last
-        = link_to("#", :class => "price_box", :id => "scroll_to_quiz") do
+        = link_to(wysquiz_path, :class => "price_box") do
           =image_tag ("gift/gift_7.jpg"), :class => "first_block"
           %p.title_box
             compre por estilo
           %p.description
-            Confira nossas recomendações
-            %br
-              por perfil ou responda ao stylist quiz 
+            responda ao stylist quiz 
             e descubra o presente ideal de acordo 
             %br
               com o estilo da presentada

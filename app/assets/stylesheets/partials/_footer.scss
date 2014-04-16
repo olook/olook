@@ -114,10 +114,26 @@ footer, .footer_checkout {
       letter-spacing: 1px;
       font-weight: normal;
       padding-left: 40px;
+      p{
+        text-align: left;
+      }
       span{
         font-weight: bold;
         font-size: 12px;
         line-height: 14px;
+      }
+      a{
+        font-size: 9px;
+        font-weight: bold;
+        text-decoration: underline;
+        color: #000;
+        display: block;
+        float: right;
+        margin-top: -18px;
+        margin-right: 54px;
+        &:hover{
+          color: $pink;
+        }
       }
     }
     .denied{

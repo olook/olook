@@ -4,6 +4,7 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
+//= require common/if_console_log
 //= require jquery_ujs
 //= require ./ui/jquery.ui.core.min
 //= require ./ui/jquery.ui.position.min
