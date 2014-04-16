@@ -7,17 +7,17 @@ class SitemapController < ApplicationController
 
   private
   def prepare_sections_variables
-    @brands = retreive_section_info["brands"]
-    @collection_themes = retreive_section_info["collection_themes"]
-    @shoes = retreive_section_info["shoes"]
-    @accessories = retreive_section_info["accessories"]
-    @bags = retreive_section_info["bags"]
-    @cloths = retreive_section_info["cloths"]
+    data = retreive_section_info
+    @brands = data["brands"]
+    @collection_themes = data["collection_themes"]
+    @shoes = data["shoes"]
+    @accessories = data["accessories"]
+    @bags = data["bags"]
+    @cloths = data["cloths"]
   end
 
   def retreive_section_info
-    data = ActiveSupport::JSON.decode(redis.get("sitemap"))
-    data
+    ActiveSupport::JSON.decode(redis.get("sitemap"))
   end
 
   def redis
