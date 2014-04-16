@@ -16,7 +16,7 @@ class IndexProductsWorker
     
     puts "Total time = #{d1-d0}"
 
-    mail = DevAlertMailer.notify_about_products_index
+    mail = DevAlertMailer.notify_about_products_index(d1-d0)
     mail.deliver
   end
 
