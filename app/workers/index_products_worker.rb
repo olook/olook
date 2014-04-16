@@ -116,14 +116,14 @@ class IndexProductsWorker
 
 
         @age_weight ||= Setting[:age_weight].to_i
-        fields['r_age'] = normalize_ranking((older - product.time_in_stock) / older.to_f) * @age_weight
+        fields['r_age'] = normalize_ranking((older.to_i - product.time_in_stock.to_i), older.to_f, @age_weight)
         @max_age_rating ||= ( @age_weight * RANKING_POWER )
         fields['r_brand_regulator'] = 0
         if /olook/i =~ fields['brand']
           fields['r_brand_regulator'] =  rand( @max_age_rating - fields['r_age'] ) / RANKING_POWER
         end
         @inventory_weight ||= Setting[:inventory_weight].to_i
-        fields['r_inventory'] = normalize_ranking(product.inventory.to_f / third_quartile_inventory_for_category(product.category)) * @inventory_weight
+        fields['r_inventory'] = normalize_ranking(product.inventory.to_f, third_quartile_inventory_for_category(product.category), @inventory_weight)
 
         if product.shoe?
           product.details.each do |detail|
@@ -183,20 +183,17 @@ class IndexProductsWorker
     end
 
     def third_quartile_inventory_for_category(category)
-      return @third_quartile_inventory[category] if @third_quartile_inventory[category]
-      unless @third_quartile_inventory
-        save_temporary_table_vars
-        @third_quartile_inventory.default = 1
-      end
+      return @third_quartile_inventory[category] if @third_quartile_inventory
+      save_temporary_table_vars
       @third_quartile_inventory[category]
     end
 
     def save_temporary_table_vars
       create_temporary_products_with_inventory_table do
-        count = Product.connection.select_all("SELECT count(0) qty FROM products_with_more_than_one_inventory WHERE is_visible = TRUE").
+        count = Product.connection.select_all("SELECT count(0) qty FROM products_with_more_than_one_inventory").
           first['qty']
         third_quartile = ( count * 0.75 ).round
-        @older = Product.connection.select("SELECT age FROM products_with_more_than_one_inventory WHERE is_visible = TRUE ORDER BY age LIMIT 1 OFFSET #{third_quartile}").
+        @older = Product.connection.select("SELECT age FROM products_with_more_than_one_inventory ORDER BY age LIMIT 1 OFFSET #{third_quartile}").
           first['age']
 
         count_by_category ||= Product.connection.
@@ -216,8 +213,8 @@ class IndexProductsWorker
 
     def create_temporary_products_with_inventory_table
       begin
-        sql = Product.joins(:variants).group('products.id').having('sum(inventory) > 0').
-          select('products.id, is_visible, IF(products.launch_date = NULL, 365, CURDATE() - products.launch_date) age,
+        sql = Product.only_visible.joins(:variants).group('products.id').having('sum(inventory) > 0').
+          select('products.id, IF(products.launch_date = NULL, 365, CURDATE() - products.launch_date) age,
                  products.category, sum(variants.inventory) sum_inventory').to_sql
           Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
           Product.connection.execute("CREATE TEMPORARY TABLE products_with_more_than_one_inventory AS #{sql}")
@@ -227,7 +224,8 @@ class IndexProductsWorker
       end
     end
 
-    def normalize_ranking(factor)
+    def normalize_ranking(item_value, max, weight)
+      factor = ( item_value.to_f / max.to_f ) * weight rescue 0
       (factor > 1 ? 1 : factor * RANKING_POWER).to_i
     end
 
