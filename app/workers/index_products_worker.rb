@@ -95,10 +95,12 @@ class IndexProductsWorker
         fields['age'] = product.time_in_stock
 
         oldest = older;
-        fields['r_age'] = normalize((oldest - product.time_in_stock) / oldest.to_f)
+        fields['r_age'] = normalize((oldest - product.time_in_stock) / oldest.to_f) * Setting[:inventory_weight].to_i
         fields['r_brand_regulator'] = 0
-
-        fields['r_inventory'] = normalize(product.inventory.to_f / third_quartile_inventory_for_category(product.category))
+        if /olook/i =~ fields['brand']
+          fields['r_brand_regulator'] = Setting[:inventory_weight].to_i * rand( RANKING_POWER - normalize((oldest - product.time_in_stock) / oldest.to_f) ) / RANKING_POWER
+        end
+        fields['r_inventory'] = normalize(product.inventory.to_f / third_quartile_inventory_for_category(product.category)) * Setting[:age_weight].to_i
 
         if product.shoe?
           product.details.each do |detail|
