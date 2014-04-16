@@ -17,10 +17,10 @@ class SitemapController < ApplicationController
   end
 
   def retreive_section_info
-    ActiveSupport::JSON.decode(redis.get("sitemap"))
+    ActiveSupport::JSON.decode(Redis.get("sitemap"))
   end
 
   def redis
-    Redis.new
+    Redis.connect(url: ENV['REDIS_SITEMAP'])
   end
 end
