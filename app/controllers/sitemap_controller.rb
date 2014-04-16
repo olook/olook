@@ -1,17 +1,26 @@
 class SitemapController < ApplicationController
   layout "lite_application"
   def index
+    @url_builder = SeoUrl.new(search: SearchEngine.new)
     prepare_sections_variables
   end
 
   private
   def prepare_sections_variables
-    @url_builder = SeoUrl.new(search: SearchEngine.new)
-    @brands = Product.only_visible.pluck(:brand).uniq.compact
-    @collection_themes = CollectionTheme.active
-    @shoes = Detail.where(translation_token: 'Categoria').joins(:product).where(products: {category: 1, is_visible: true}).pluck(:description).map{|b| b.parameterize}.uniq
-    @accessories = Detail.where(translation_token: 'Categoria').joins(:product).where(products: {category: 3, is_visible: true}).pluck(:description).map{|b| b.parameterize}.uniq
-    @bags = Detail.where(translation_token: 'Categoria').joins(:product).where(products: {category: 2, is_visible: true}).pluck(:description).map{|b| b.parameterize}.uniq
-    @cloths = Detail.where(translation_token: 'Categoria').joins(:product).where(products: {category: 4, is_visible: true}).pluck(:description).map{|b| b.parameterize}.uniq
+    @brands = retreive_section_info["brands"]
+    @collection_themes = retreive_section_info["collection_themes"]
+    @shoes = retreive_section_info["shoes"]
+    @accessories = retreive_section_info["accessories"]
+    @bags = retreive_section_info["bags"]
+    @cloths = retreive_section_info["cloths"]
+  end
+
+  def retreive_section_info
+    data = ActiveSupport::JSON.decode(redis.get("sitemap"))
+    data
+  end
+
+  def redis
+    Redis.new
   end
 end

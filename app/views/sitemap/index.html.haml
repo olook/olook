@@ -7,29 +7,33 @@
       %h2=filter_link_to(@url_builder.add_filter(:category, "sapato"), "Sapato")
       %ul
         -@url_builder.set_params "category".to_sym, "sapato"
-        -@shoes.each do |shoe|
-          %li=filter_link_to(@url_builder.add_filter(:subcategory, shoe), shoe.chomp)
+        -if @shoes
+          -@shoes.each do |shoe|
+            %li=filter_link_to(@url_builder.add_filter(:subcategory, shoe), shoe.chomp)
 
     .small_column
       %h2=filter_link_to(@url_builder.add_filter(:category, "roupa"), "Roupa")
       %ul
         -@url_builder.set_params "category".to_sym, "roupa"
-        -@cloths.each do |cloth|
-          %li=filter_link_to(@url_builder.add_filter(:subcategory, cloth), cloth.chomp)
+        -if @cloths
+          -@cloths.each do |cloth|
+            %li=filter_link_to(@url_builder.add_filter(:subcategory, cloth), cloth.chomp)
 
     .small_column
       %h2=filter_link_to(@url_builder.add_filter(:category, "acessorio"), "Acessório")
       %ul
         -@url_builder.set_params "category".to_sym, "roupa"
-        -@accessories.each do |accessory|
-          %li=filter_link_to(@url_builder.add_filter(:subcategory, accessory), accessory.chomp)
+        -if @accessories
+          -@accessories.each do |accessory|
+            %li=filter_link_to(@url_builder.add_filter(:subcategory, accessory), accessory.chomp)
 
     .small_column
       %h2=filter_link_to(@url_builder.add_filter(:category, "bolsa"), "Bolsa")
       %ul
         -@url_builder.set_params "category".to_sym, "roupa"
-        -@bags.each do |bag|
-          %li=filter_link_to(@url_builder.add_filter(:subcategory, bag), bag.chomp)
+        -if @bags
+          -@bags.each do |bag|
+            %li=filter_link_to(@url_builder.add_filter(:subcategory, bag), bag.chomp)
 
   .last_box
     .small_column
@@ -37,15 +41,17 @@
       -@url_builder.set_params "category".to_sym, nil
       %h2=filter_link_to(@url_builder.current_filters, "Marcas")
       %ul
-        -@brands.each do |brand|
-          %li=filter_link_to(@url_builder.add_filter(:brand, brand), brand.chomp)
+        -if @brands
+          -@brands.each do |brand|
+            %li=filter_link_to(@url_builder.add_filter(:brand, brand), brand.chomp)
 
     .small_column
       -@url_builder.set_path_positions '/colecoes/:collection_theme:/-:category::subcategory::brand:-/-:care::color::size::heel:_'
       -@url_builder.set_params "category".to_sym, nil
       %h2=filter_link_to(@url_builder.current_filters, "Coleções")
       %ul
-        - @collection_themes.each do |collection|
-          %li=filter_link_to(@url_builder.add_filter(:collection_theme, collection.slug.parameterize), collection.name)
+        - if @collection_themes
+          - @collection_themes.each do |collection|
+            %li=filter_link_to(@url_builder.add_filter(:collection_theme, collection[1]), collection[0])
 
 
