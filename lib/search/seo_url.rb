@@ -1,6 +1,7 @@
 # encoding: utf-8
 require 'active_support/inflector'
 class SeoUrl
+  attr_reader :search
 
   KEYS_TRANSLATION = HashWithIndifferentAccess.new({
     "tamanho" => "size",
@@ -59,6 +60,11 @@ class SeoUrl
     @params = HashWithIndifferentAccess.new(optionals[:params])
     @path = optionals[:path] || ''
     @path_positions = optionals[:path_positions] || DEFAULT_POSITIONS
+  end
+
+  def set_path_positions(path)
+    @sections = nil
+    @path_positions = path
   end
 
   def set_params(k, v)
