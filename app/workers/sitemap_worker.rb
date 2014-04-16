@@ -13,7 +13,7 @@ class SitemapWorker
     redis.set("sitemap", sitemap.to_json)
   end
 
-  def redis
+  def self.redis
     Redis.connect(url: ENV['REDIS_SITEMAP'])
   end
 end
