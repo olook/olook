@@ -22,7 +22,7 @@
     .small_column
       %h2=filter_link_to(@url_builder.add_filter(:category, "acessorio"), "Acessório")
       %ul
-        -@url_builder.set_params "category".to_sym, "roupa"
+        -@url_builder.set_params "category".to_sym, "acessorio"
         -if @accessories
           -@accessories.each do |accessory|
             %li=filter_link_to(@url_builder.add_filter(:subcategory, accessory), accessory.chomp)
@@ -30,7 +30,7 @@
     .small_column
       %h2=filter_link_to(@url_builder.add_filter(:category, "bolsa"), "Bolsa")
       %ul
-        -@url_builder.set_params "category".to_sym, "roupa"
+        -@url_builder.set_params "category".to_sym, "bolsa"
         -if @bags
           -@bags.each do |bag|
             %li=filter_link_to(@url_builder.add_filter(:subcategory, bag), bag.chomp)
