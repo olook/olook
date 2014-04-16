@@ -277,7 +277,7 @@ class SearchEngine
   end
 
   def ranking
-    "rank-exp=(r_inventory*#{ Setting[:inventory_weight].to_i })%2B(r_age*#{ Setting[:age_weight].to_i })"
+    "rank-exp=(r_inventory)%2B(r_age)"
   end
 
   def fetch_result(url, options = {})
