@@ -129,7 +129,7 @@ class Product < ActiveRecord::Base
   end
 
   def model_name
-    category_detail = details_by_token("Categoria")
+    category_detail = detail_by_token(SUBCATEGORY_TOKEN)
     category_detail ? category_detail.description : ""
   end
 
