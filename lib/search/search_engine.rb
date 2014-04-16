@@ -32,14 +32,14 @@ class SearchEngine
   attr_reader :current_page, :result
   attr_reader :expressions, :sort_field
 
-  def initialize attributes = {}, is_smart=false
+  def initialize attributes = {}
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
     @expressions['in_promotion'] = [0]
     @expressions['visibility'] = [Product::PRODUCT_VISIBILITY[:site],Product::PRODUCT_VISIBILITY[:all]]
     @facets = []
-    @is_smart = is_smart
+    @is_smart = attributes.delete(:is_smart) || false
     default_facets
 
     Rails.logger.debug("SearchEngine received these params: #{attributes.inspect}")
@@ -100,7 +100,6 @@ class SearchEngine
     @sortables ||= Set.new(['retail_price', '-retail_price', 'desconto', '-desconto','age'])
     if sort_field.present? && @sortables.include?(sort_field)
       @sort_field = "#{ sort_field }"
-      @is_smart = false
     end
     self
   end
@@ -277,7 +276,7 @@ class SearchEngine
   end
 
   def ranking
-    "rank-exp=(r_inventory)%2B(r_age)"
+    "rank-exp=r_inventory%2Br_brand_regulator%2Br_age"
   end
 
   def fetch_result(url, options = {})

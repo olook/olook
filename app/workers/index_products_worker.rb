@@ -226,7 +226,7 @@ class IndexProductsWorker
 
     def normalize_ranking(item_value, max, weight)
       factor = ( item_value.to_f / max.to_f ) * weight rescue 0
-      (factor > 1 ? 1 : factor * RANKING_POWER).to_i
+      ((factor > 1 ? 1 : factor) * RANKING_POWER).to_i
     end
 
 end

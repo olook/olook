@@ -27,7 +27,8 @@ class CatalogsController < ApplicationController
     search_params[:limit] = params[:page_size] || DEFAULT_PAGE_SIZE
     search_params[:page] = params[:page]
     search_params[:admin] = !!current_admin
-    search = SearchEngineWithDynamicFilters.new(search_params, true)
+    search_params[:is_smart] = true
+    search = SearchEngineWithDynamicFilters.new(search_params)
     search
   end
 
