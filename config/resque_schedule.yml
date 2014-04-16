@@ -4,6 +4,12 @@ regenerate_looks:
   queue: low
   description: "Gera novamente os Looks"
 
+regenerate_sitemap:
+  cron: "0 */6 * * *"
+  class: SitemapWorker
+  queue: low
+  description: "Gera sitemap infos"
+
 update_birthday_base:
   cron: "0 5 * * *"
   class: MarketingBaseUploaderWorker
