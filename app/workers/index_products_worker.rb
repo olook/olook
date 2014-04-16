@@ -3,7 +3,7 @@ class IndexProductsWorker
   extend Fixes
 
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
-  RATING_POWER = 100
+  RANKING_POWER = 1000
 
   @queue = 'low'
 
@@ -200,7 +200,7 @@ class IndexProductsWorker
     end
 
     def normalize(factor, power)
-      (factor > 1 ? 1 : factor * RATING_POWER).to_i
+      (factor > 1 ? 1 : factor * RANKING_POWER).to_i
     end
 
 end
