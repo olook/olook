@@ -206,7 +206,7 @@ class Product < ActiveRecord::Base
         picture = pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
       end
     end
-    @backside_picture ||= picture.try(:image_url, :catalog)
+    @backside_picture = picture.try(:image_url, :catalog)
   end
 
   def wearing_picture
