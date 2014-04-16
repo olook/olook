@@ -184,16 +184,19 @@ class IndexProductsWorker
 
     def third_quartile_inventory_for_category(category)
       return @third_quartile_inventory[category] if @third_quartile_inventory[category]
-      save_temporary_table_vars
+      unless @third_quartile_inventory
+        save_temporary_table_vars
+        @third_quartile_inventory.default = 1
+      end
       @third_quartile_inventory[category]
     end
 
     def save_temporary_table_vars
       create_temporary_products_with_inventory_table do
-        count = Product.connection.select_all("SELECT count(0) qty FROM products_with_more_than_one_inventory").
+        count = Product.connection.select_all("SELECT count(0) qty FROM products_with_more_than_one_inventory WHERE is_visible = TRUE").
           first['qty']
         third_quartile = ( count * 0.75 ).round
-        @older = Product.connection.select("SELECT age FROM products_with_more_than_one_inventory ORDER BY age LIMIT 1 OFFSET #{third_quartile}").
+        @older = Product.connection.select("SELECT age FROM products_with_more_than_one_inventory WHERE is_visible = TRUE ORDER BY age LIMIT 1 OFFSET #{third_quartile}").
           first['age']
 
         count_by_category ||= Product.connection.
@@ -206,15 +209,15 @@ class IndexProductsWorker
             select("SELECT sum_inventory FROM products_with_more_than_one_inventory
                      WHERE category = #{category} order by sum_inventory limit 1 offset #{third_quartile}").
             first['sum_inventory']
-            hash
+          hash
         end
       end
     end
 
     def create_temporary_products_with_inventory_table
       begin
-        sql = Product.only_visible.joins(:variants).group('products.id').having('sum(inventory) > 0').
-          select('products.id, IF(products.launch_date = NULL, 365, CURDATE() - products.launch_date) age,
+        sql = Product.joins(:variants).group('products.id').having('sum(inventory) > 0').
+          select('products.id, is_visible, IF(products.launch_date = NULL, 365, CURDATE() - products.launch_date) age,
                  products.category, sum(variants.inventory) sum_inventory').to_sql
           Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
           Product.connection.execute("CREATE TEMPORARY TABLE products_with_more_than_one_inventory AS #{sql}")
