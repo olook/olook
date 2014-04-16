@@ -192,21 +192,21 @@ class Product < ActiveRecord::Base
   #
   def backside_picture
     return @backside_picture if @backside_picture
-    if self.pictures.loaded?
+    if pictures.loaded?
       if cloth?
-        pictures = self.pictures.sort{ |a,b| a.display_on <=> b.display_on }
-        picture = pictures.size > 1 ? pictures[1] : pictures[0]
+        pictures = pictures.to_a.sort{ |a,b| a.display_on <=> b.display_on }
+        picture = pictures.to_a.size > 1 ? pictures[1] : pictures[0]
       else
-        picture = self.pictures.all.find { |p| p.display_on == DisplayPictureOn::GALLERY_2 }
+        picture = pictures.to_a.find { |p| p.display_on == DisplayPictureOn::GALLERY_2 }
       end
     else
       if cloth?
-        picture = self.pictures.order(:display_on).second
+        picture = pictures.order(:display_on).second
       else
-        picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
+        picture = pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
       end
     end
-    @backside_picture ||= return_catalog_or_suggestion_image(picture)
+    @backside_picture ||= picture.try(:image_url, :catalog)
   end
 
   def wearing_picture
@@ -216,7 +216,7 @@ class Product < ActiveRecord::Base
     else
       picture = self.pictures.order(:display_on).last
     end
-    @wearing_picture = return_catalog_or_suggestion_image(picture)
+    @wearing_picture = picture.try(:image_url, :catalog)
   end
 
   def thumb_picture
@@ -232,11 +232,7 @@ class Product < ActiveRecord::Base
   end
 
   def catalog_picture
-    @catalog_picture ||= return_catalog_or_suggestion_image(main_picture)
-  end
-
-  def return_catalog_or_suggestion_image(picture)
-    picture.try(:image_url, :catalog)
+    @catalog_picture ||= main_picture.try(:image_url, :catalog)
   end
 
   def master_variant

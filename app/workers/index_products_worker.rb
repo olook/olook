@@ -92,11 +92,7 @@ class IndexProductsWorker
         fields = {}
 
         fields['product_id'] = product.id
-        fields['name'] = product.formatted_name(150).titleize
         fields['is_visible'] = product.is_visible ? 1 : 0
-        fields['inventory'] = product.inventory.to_i
-        fields['image'] = product.catalog_picture
-        fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
         fields['brand'] = product.brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
         fields['brand_facet'] = ActiveSupport::Inflector.transliterate(product.brand).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
         fields['price'] = (product.price.to_d * 100).round
@@ -105,19 +101,29 @@ class IndexProductsWorker
         fields['in_promotion'] = product.liquidation? ? 1 : 0 
         fields['visibility'] = product.visibility
         fields['category'] = product.category_humanize.downcase
-        fields['size'] = product.variants.select{|v| v.inventory > 0}.map{|b| (b.description.to_i.to_s != "0" ) ? b.description+product.category_humanize[0].downcase : b.description}
-        fields['care'] = product.subcategory.titleize if Product::CARE_PRODUCTS.include?(product.subcategory)
-        fields['collection'] = product.collection.start_date.strftime('%Y%m').to_i
-        fields['collection_theme'] = product.collection_themes.map { |c| c.slug }
         fields['age'] = product.time_in_stock
 
-        fields['r_age'] = normalize_ranking((older - product.time_in_stock) / older.to_f) * Setting[:age_weight].to_i
-        @max_age_rating ||= ( Setting[:age_weight].to_i * RANKING_POWER )
+        # fields that need associations they are all being eager loaded
+        fields['name'] = product.formatted_name(150).titleize
+        fields['inventory'] = product.inventory.to_i
+        fields['care'] = product.subcategory.titleize if Product::CARE_PRODUCTS.include?(product.subcategory)
+
+        fields['image'] = product.catalog_picture
+        fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
+        fields['size'] = product.variants.select{|v| v.inventory > 0}.map{|b| (b.description.to_i.to_s != "0" ) ? b.description+product.category_humanize[0].downcase : b.description}
+        fields['collection'] = product.collection.start_date.strftime('%Y%m').to_i
+        fields['collection_theme'] = product.collection_themes.map { |c| c.slug }
+
+
+        @age_weight ||= Setting[:age_weight].to_i
+        fields['r_age'] = normalize_ranking((older - product.time_in_stock) / older.to_f) * @age_weight
+        @max_age_rating ||= ( @age_weight * RANKING_POWER )
         fields['r_brand_regulator'] = 0
         if /olook/i =~ fields['brand']
           fields['r_brand_regulator'] =  rand( @max_age_rating - fields['r_age'] ) / RANKING_POWER
         end
-        fields['r_inventory'] = normalize_ranking(product.inventory.to_f / third_quartile_inventory_for_category(product.category)) * Setting[:inventory_weight].to_i
+        @inventory_weight ||= Setting[:inventory_weight].to_i
+        fields['r_inventory'] = normalize_ranking(product.inventory.to_f / third_quartile_inventory_for_category(product.category)) * @inventory_weight
 
         if product.shoe?
           product.details.each do |detail|
