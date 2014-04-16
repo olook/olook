@@ -26,8 +26,10 @@ class DevAlertMailer < ActionMailer::Base
     mail(to: "rafael.manoel@olook.com.br", subject: "ProductSearchWorker executado com sucesso!")
   end
 
-  def notify_about_products_index
-    mail(to: %[rafael.manoel@olook.com.br, nelson.haraguchi@olook.com.br, tiago.almeida@olook.com.br], subject: "IndexProductsWorker executado com sucesso!")
+  def notify_about_products_index(execution_time)
+    mail(to: %[rafael.manoel@olook.com.br, nelson.haraguchi@olook.com.br, tiago.almeida@olook.com.br],
+         subject: "IndexProductsWorker executado com sucesso!",
+         body: "Levou %.2f s" % execution_time.to_f )
   end
 
   def notify(opts={})
