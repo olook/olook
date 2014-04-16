@@ -109,5 +109,14 @@ describe Seo::SeoManager do
         expect(@seo_class.select_meta_tag[:title]).to eql ("#{@header.page_title} | Olook")
       end
     end
+    context "When there is some subcategory and brand" do
+      before do
+        @header = FactoryGirl.create(:header, :no_banner, url: "/bolsa/clutch", page_title: "Clutch Femininas")
+        @seo_class = Seo::SeoManager.new("/bolsa/clutch-olook", brand: "Olook")
+      end
+      it "return subcategory with brand" do
+        expect(@seo_class.select_meta_tag[:title]).to eql ("#{@header.page_title} Marca Olook | Olook")
+      end
+    end
   end
 end
