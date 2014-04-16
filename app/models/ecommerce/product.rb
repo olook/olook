@@ -129,7 +129,7 @@ class Product < ActiveRecord::Base
   end
 
   def model_name
-    category_detail = details.find_by_translation_token("Categoria")
+    category_detail = details_by_token("Categoria")
     category_detail ? category_detail.description : ""
   end
 
@@ -165,22 +165,22 @@ class Product < ActiveRecord::Base
 
   def main_picture
     @main_picture ||=
-    if self.pictures.loaded?
-      self.pictures.all.find { |p| p.display_on == DisplayPictureOn::GALLERY_1 }
+    if pictures.loaded?
+      pictures.find { |p| p.display_on == DisplayPictureOn::GALLERY_1 }
     else
-      self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
+      pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
     end
   end
 
   def front_picture
     return @front_picture if @front_picture.present?
-    pics = self.pictures.select { |p| p.display_on <= 10 }.sort { |a,b| a.display_on <=> b.display_on }
+    pics = pictures.select { |p| p.display_on <= 10 }.sort { |a,b| a.display_on <=> b.display_on }
     pics.first
   end
 
   def full_look_picture
     return @full_look_picture if @full_look_picture.present?
-    pics = self.pictures.select { |p| p.display_on <= 10 }.sort { |a,b| b.display_on <=> a.display_on }
+    pics = pictures.select { |p| p.display_on <= 10 }.sort { |a,b| b.display_on <=> a.display_on }
     if cloth?
       pics.first
     else
@@ -517,6 +517,7 @@ class Product < ActiveRecord::Base
     self.description.gsub(/<\/?(?!(?:#{rallow}))[^>\/]*\/?>/, '')
   end
 
+
   def time_in_stock
     if launch_date.blank?
       365
@@ -586,9 +587,9 @@ class Product < ActiveRecord::Base
 
     def detail_by_token token
       if details.loaded?
-        detail = self.details.select { |d| d.translation_token == token }.last
+        detail = details.to_a.select { |d| d.translation_token == token }.last
       else
-        detail = self.details.where(:translation_token => token).last
+        detail = details.where(:translation_token => token).last
       end
       detail.description if detail
     end

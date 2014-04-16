@@ -34,7 +34,10 @@ class IndexProductsWorker
 
   def run slice, index
     begin
-      entries = products_to_index(slice).map { |product| create_sdf_entry_for(product, 'add') }.compact
+      entries = products_to_index(slice).map do |product|
+        create_sdf_entry_for(product, 'add')
+      end
+      entries.compact!
       file_name = "/tmp/base-add#{'%03d' % index}.sdf"
       flush_to_sdf_file file_name, entries
       upload_sdf_file file_name
@@ -49,15 +52,29 @@ class IndexProductsWorker
 
   private
 
-    def initialize products
-      @products = products
-    end
+  attr_reader :products
 
-    def flush_to_sdf_file file_name, all_products
-      File.open("#{file_name}", "w:UTF-8") do |file|
-        file << all_products.to_json
-      end
+  def initialize products
+    @products = products
+  end
+
+  def flush_to_sdf_file file_name, all_products
+    File.open("#{file_name}", "w:UTF-8") do |file|
+      file << all_products.to_json
     end
+  end
+
+  def products_to_index(product_ids)
+    _products = Product.where(id: product_ids).where('price > 0').includes(:pictures, :variants, :details, :collection, :collection_themes).all
+    _products.select! {|p| p.main_picture && p.main_picture[:image] }
+    _products
+  end
+
+  def products_to_remove(product_ids)
+    _products = Product.where(price: 0).where(id: product_ids).includes(:pictures).all
+    _products.select! {|p| p.main_picture.nil? || p.main_picture[:image].nil? }
+    _products
+  end
 
 
     def create_sdf_entry_for product, type
@@ -94,13 +111,13 @@ class IndexProductsWorker
         fields['collection_theme'] = product.collection_themes.map { |c| c.slug }
         fields['age'] = product.time_in_stock
 
-        oldest = older;
-        fields['r_age'] = normalize((oldest - product.time_in_stock) / oldest.to_f) * Setting[:inventory_weight].to_i
+        fields['r_age'] = normalize_ranking((older - product.time_in_stock) / older.to_f) * Setting[:age_weight].to_i
+        @max_age_rating ||= ( Setting[:age_weight].to_i * RANKING_POWER )
         fields['r_brand_regulator'] = 0
         if /olook/i =~ fields['brand']
-          fields['r_brand_regulator'] = Setting[:inventory_weight].to_i * rand( RANKING_POWER - normalize((oldest - product.time_in_stock) / oldest.to_f) ) / RANKING_POWER
+          fields['r_brand_regulator'] =  rand( @max_age_rating - fields['r_age'] ) / RANKING_POWER
         end
-        fields['r_inventory'] = normalize(product.inventory.to_f / third_quartile_inventory_for_category(product.category)) * Setting[:age_weight].to_i
+        fields['r_inventory'] = normalize_ranking(product.inventory.to_f / third_quartile_inventory_for_category(product.category)) * Setting[:inventory_weight].to_i
 
         if product.shoe?
           product.details.each do |detail|
@@ -117,7 +134,7 @@ class IndexProductsWorker
           fields['heel'] ||= '0-4 cm'
           fields['heeluint'] ||= 0
         end
-        
+
         details = product.details.select { |d| d.translation_token.downcase =~ /(categoria|cor filtro|material da sola|material externo|material interno)/i }
         translation_hash = {
           'categoria' => 'subcategory',
@@ -140,21 +157,9 @@ class IndexProductsWorker
       nil
     end
 
-    def products
-      @products
-    end
-
     def upload_sdf_file file_name
       docs_domain =  SEARCH_CONFIG["docs_domain"]
       `curl -X POST --upload-file "#{file_name}" "#{docs_domain}"/2011-02-01/documents/batch --header "Content-Type:application/json"`
-    end
-
-    def products_to_index(product_ids)
-      Product.where(id: product_ids).select{|p| p.price > 0 && p.main_picture.try(:image_url)}
-    end
-
-    def products_to_remove(product_ids)
-      Product.where(id: product_ids).select{|p| p.price == 0 || p.main_picture.try(:image_url).nil?}
     end
 
     def version_based_on_timestamp
@@ -171,37 +176,49 @@ class IndexProductsWorker
     end
 
     def older
-      @older = @older || eager_products.collect(&:time_in_stock).max
+      return @older if @older
+      begin
+        sql = Product.only_visible.joins(:variants).group('products.id').having('sum(inventory) > 0').
+          select('products.id, IF(products.launch_date = NULL, 365, CURDATE() - products.launch_date) age, sum(variants.inventory) sum_inventory').to_sql
+        Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
+        Product.connection.execute("CREATE TEMPORARY TABLE products_with_more_than_one_inventory AS #{sql}")
+        count = Product.connection.select_all("SELECT count(0) qty FROM products_with_more_than_one_inventory").
+          first['qty']
+        third_quartile = ( count * 0.75 ).round
+        @older = Product.connection.select("SELECT age FROM products_with_more_than_one_inventory ORDER BY age LIMIT 1 OFFSET #{third_quartile}").
+          first['age']
+      ensure
+        Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
+      end
       @older
     end
 
     def third_quartile_inventory_for_category(category)
-      if @count_by_category.blank? || @third_percentile_inventory.blank?
-        begin
-          sql = Product.only_visible.joins(:variants).group('products.id').having('sum(inventory) > 0').
-            select('products.id, products.category, sum(variants.inventory) sum_inventory').to_sql
-          Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
-          Product.connection.execute("CREATE TEMPORARY TABLE products_with_more_than_one_inventory AS #{sql}")
-          @count_by_category ||= Product.connection.
-            select_all("SELECT category, count(0) `count` from products_with_more_than_one_inventory GROUP BY category").
-            inject({}) {|h,r| h[r['category']] = r['count']; h }
-          @third_quartile_inventory ||= @count_by_category.inject({}) do |hash, aux|
-            category, count = aux
-            third_quartile = ( count*0.75 ).round
-            hash[category] = Product.connection.
-              select("SELECT sum_inventory FROM products_with_more_than_one_inventory
+      return @third_quartile_inventory[category] if @third_quartile_inventory[category]
+      begin
+        sql = Product.only_visible.joins(:variants).group('products.id').having('sum(inventory) > 0').
+          select('products.id, products.category, sum(variants.inventory) sum_inventory').to_sql
+        Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
+        Product.connection.execute("CREATE TEMPORARY TABLE products_with_more_than_one_inventory AS #{sql}")
+        @count_by_category ||= Product.connection.
+          select_all("SELECT category, count(0) `count` from products_with_more_than_one_inventory GROUP BY category").
+          inject({}) {|h,r| h[r['category']] = r['count']; h }
+        @third_quartile_inventory ||= @count_by_category.inject({}) do |hash, aux|
+          category, count = aux
+          third_quartile = ( count*0.75 ).round
+          hash[category] = Product.connection.
+            select("SELECT sum_inventory FROM products_with_more_than_one_inventory
                      WHERE category = #{category} order by sum_inventory limit 1 offset #{third_quartile}").
-              first['sum_inventory']
+            first['sum_inventory']
             hash
-          end
-        ensure
-          Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
         end
+      ensure
+        Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
       end
       @third_quartile_inventory[category]
     end
 
-    def normalize(factor, power)
+    def normalize_ranking(factor)
       (factor > 1 ? 1 : factor * RANKING_POWER).to_i
     end
 
