@@ -764,8 +764,8 @@ common/wishlist/bg_coracao.png: common/wishlist/bg_coracao-d4135ca2449c25c3a0e0d
 common/wishlist/bg_coracao/index.png: common/wishlist/bg_coracao-d4135ca2449c25c3a0e0d61b66455f14.png
 common/wishlist/bt_remover.png: common/wishlist/bt_remover-0d795f704c0875389becbd1880634c41.png
 common/wishlist/bt_remover/index.png: common/wishlist/bt_remover-0d795f704c0875389becbd1880634c41.png
-common/wishlist/ico_close.png: common/wishlist/ico_close-ee14042e8362f20f3bec9445670080c0.png
-common/wishlist/ico_close/index.png: common/wishlist/ico_close-ee14042e8362f20f3bec9445670080c0.png
+common/wishlist/ico_close.png: common/wishlist/ico_close-83589878cca2b48e83e97646a5e4276c.png
+common/wishlist/ico_close/index.png: common/wishlist/ico_close-83589878cca2b48e83e97646a5e4276c.png
 common/wishlist/ico_heart.png: common/wishlist/ico_heart-4a414c728509dbb1c31ec23c3ea34771.png
 common/wishlist/ico_heart/index.png: common/wishlist/ico_heart-4a414c728509dbb1c31ec23c3ea34771.png
 common/wishlist/img_wishlist.png: common/wishlist/img_wishlist-b964b556e68f9d9e3d6a86526473ca7e.png
@@ -2474,8 +2474,8 @@ desktop.css: desktop-5139daa005a0357c603a5ce937c5f355.css
 desktop/index.css: desktop-5139daa005a0357c603a5ce937c5f355.css
 jquery.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
 jquery/index.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
-new_structure/lite_application.css: new_structure/lite_application-3de2f790be54cc19f71e2429e5946f26.css
-new_structure/lite_application/index.css: new_structure/lite_application-3de2f790be54cc19f71e2429e5946f26.css
+new_structure/lite_application.css: new_structure/lite_application-5da4c9609faa07752100a42491a43280.css
+new_structure/lite_application/index.css: new_structure/lite_application-5da4c9609faa07752100a42491a43280.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-ee74a3a0cb810d472cb6e090ac914de1.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-ee74a3a0cb810d472cb6e090ac914de1.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-b09f6945455ef9b39353b1bef275f7b4.css
@@ -2582,8 +2582,8 @@ section/my_account.css: section/my_account-14b8f5e75f7796a324545fbb981cefef.css
 section/my_account/index.css: section/my_account-14b8f5e75f7796a324545fbb981cefef.css
 section/niver-olook.css: section/niver-olook-d581d616f2fb853813799abef4023d58.css
 section/niver-olook/index.css: section/niver-olook-d581d616f2fb853813799abef4023d58.css
-section/olookmovel.css: section/olookmovel-92458e4cacc198346200bfb057ec4750.css
-section/olookmovel/index.css: section/olookmovel-92458e4cacc198346200bfb057ec4750.css
+section/olookmovel.css: section/olookmovel-b246b9ca13a1ba163d31d68b17b9b620.css
+section/olookmovel/index.css: section/olookmovel-b246b9ca13a1ba163d31d68b17b9b620.css
 section/our_essence.css: section/our_essence-a7ee1075f95d28386a230e9acbde3bb9.css
 section/our_essence/index.css: section/our_essence-a7ee1075f95d28386a230e9acbde3bb9.css
 section/pages.css: section/pages-9a05131dc0050a3a8bc856af26ea99d7.css
