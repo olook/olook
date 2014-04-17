@@ -3,6 +3,8 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+  get "/sitemap", to: "sitemap#index", as: "sitemap"
+
   resources :wished_products, only: [:create, :destroy]
 
   get "/wishlist_matcher", to: 'wishlist_matcher#index', as: 'wishlist_matcher'

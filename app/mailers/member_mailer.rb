@@ -30,10 +30,6 @@ class MemberMailer < ActionMailer::Base
   end
 
   def subject_by_gender_and_kind
-    if @member.half_user
-      "#{@member.name}, seja bem vind#{@member.male? ? 'o' : 'a'}! Seu cadastro foi feito com sucesso!"
-    else
-      "#{@member.name}, bem vinda! Agora que sabemos o seu estilo..."
-    end
+    "BEM-VIND#{@member.male? ? 'O' : 'A'} | Conheça a Olook, você vai amar a gente!"
   end
 end

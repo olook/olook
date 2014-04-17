@@ -6,7 +6,7 @@
   float: right;
   margin-top: -6px;
   .feedback, .denied{
-    width: 67%;
+    width: 74%;
     height: 23px;
     background: image-url('common/sprite_modal_footer.png') no-repeat 6px -170px;
     background-color: #bfd7bd;
@@ -28,6 +28,15 @@
     }
     p{
       padding-top: 2px;
+      a{
+        font-size: 10px;
+        font-weight: bold;
+        text-decoration: underline;
+        color: #000;
+        &:hover{
+          color: $pink;
+        }
+      }
     }
   }
   .denied{
