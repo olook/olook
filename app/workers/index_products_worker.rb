@@ -5,6 +5,7 @@ class IndexProductsWorker
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
   RANKING_POWER = 1000
   DAYS_TO_CONSIDER_OLD = 120
+  PERCENT_OLOOK_TO_REGULATOR = 60
 
   @queue = 'low'
 
@@ -131,7 +132,7 @@ class IndexProductsWorker
         @max_age_rating ||= ( @age_weight * RANKING_POWER )
         fields['r_brand_regulator'] = 0
         if /olook/i =~ fields['brand']
-          fields['r_brand_regulator'] =  rand( @max_age_rating - fields['r_age'] )
+          fields['r_brand_regulator'] = ( rand(100) >= ( 100 - PERCENT_OLOOK_TO_REGULATOR ) ) ? ( @max_age_rating - fields['r_age'] ) : 0
         end
 
         @inventory_weight ||= Setting[:inventory_weight].to_i
