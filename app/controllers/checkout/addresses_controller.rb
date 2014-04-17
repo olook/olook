@@ -3,10 +3,11 @@ class Checkout::AddressesController < Checkout::BaseController
   respond_to :html, :js
   before_filter :authenticate_user!
   before_filter :check_order
+  before_filter :retrieve_address, only: [:edit, :update, :destroy]
 
   def index
     redirect_to new_checkout_address_url(protocol: 'https') unless @user.addresses.any?
-    @addresses = @user.addresses
+    @addresses = @user.addresses.active
   end
 
   def new
@@ -14,7 +15,6 @@ class Checkout::AddressesController < Checkout::BaseController
   end
 
   def edit
-    @address = @user.addresses.find(params[:id])
   end
 
   def create
@@ -28,7 +28,6 @@ class Checkout::AddressesController < Checkout::BaseController
   end
 
   def update
-    @address = @user.addresses.find(params[:id])
     if @address.update_attributes(params[:address])
       redirect_to new_checkout_url(protocol: 'https')
     else
@@ -37,13 +36,17 @@ class Checkout::AddressesController < Checkout::BaseController
   end
 
   def destroy
-    @address = @user.addresses.find(params[:id])
     @address.destroy
     redirect_to(checkout_addresses_path)
   end
 
   def preview
-    address = Address.new(:zip_code => params[:zipcode])
+    Address.new(:zip_code => params[:zipcode])
   end
 
+  private
+
+  def retrieve_address
+    @address = @user.addresses.active.find(params[:id])
+  end
 end
