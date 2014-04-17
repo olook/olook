@@ -4,6 +4,7 @@ class BrandsController < ApplicationController
     @url_builder = SeoUrl.new(path: request.fullpath, path_positions: '/marcas/:brand:/-:category::subcategory:-/-:care::color::size::heel:_')
     @search = SearchEngine.new
     @url_builder.set_search @search
+    @brands = separate_brands_by_capital_letter(ActiveSupport::JSON.decode(REDIS.get("sitemap"))["brands"])
   end
 
   def show
@@ -36,4 +37,17 @@ class BrandsController < ApplicationController
         "http://#{request.host_with_port}/#{brand.name.downcase}"
       end
     end
+
+    def separate_brands_by_capital_letter brands
+      response = {}
+
+      brands.each do |b|
+        index = (b[0] =~ /[A-Z]/i) ? b[0].upcase : "0-9"
+        response[index] ||= []
+        response[index] << b
+        response[index].sort!
+      end
+      response
+    end
+    
 end
