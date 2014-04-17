@@ -117,20 +117,21 @@ class IndexProductsWorker
 
 
         @age_weight ||= Setting[:age_weight].to_i
-        fields['r_age'] = if field['age'].to_i < newest
+        fields['r_age'] = if fields['age'].to_i < newest
                             RANKING_POWER * @age_weight
                           else
-                            diff_age = field['age'].to_i - newest.to_i
+                            diff_age = fields['age'].to_i - newest.to_i
                             proportion = diff_age.to_f / DAYS_TO_CONSIDER_OLD.to_f
                             # 0 / 60 = 1, 60 / 60 = 0, 30 / 60 =  0.5, 90 / 60 = 1.5
                             proportion = 1 if proportion > 1
                             RANKING_POWER * @age_weight * ( 1 - proportion )
                           end
 
+
         @max_age_rating ||= ( @age_weight * RANKING_POWER )
         fields['r_brand_regulator'] = 0
         if /olook/i =~ fields['brand']
-          fields['r_brand_regulator'] =  rand( @max_age_rating - fields['r_age'] ) / RANKING_POWER
+          fields['r_brand_regulator'] =  rand( @max_age_rating - fields['r_age'] )
         end
 
         @inventory_weight ||= Setting[:inventory_weight].to_i
@@ -201,7 +202,7 @@ class IndexProductsWorker
 
     def save_temporary_table_vars
       create_temporary_products_with_inventory_table do
-        count = Product.connection.select_all("SELECT count(0) qty FROM products_with_more_than_one_inventory").
+        count = Product.connection.select_all("SELECT count(0) qty FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD}").
           first['qty']
         third_quartile = ( count * 0.75 ).round
         @newest = Product.connection.select("SELECT age FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD} ORDER BY age desc LIMIT 1 OFFSET #{third_quartile}").
