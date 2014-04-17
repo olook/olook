@@ -1,0 +1,42 @@
+// Place all the styles related to the sitemap controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "new_structure/common/global_stuffs";
+#sitemap{
+  .first_box{
+    margin-bottom: 10px;
+    border-bottom: 1px solid #CDCDCD;
+  }
+  .last_box{
+    margin-top:10px;
+  }
+  .first_box,.last_box{
+    float: left;
+    padding-bottom: 10px;
+  }
+  a{
+    text-decoration: none;
+    color: #000;
+    &:hover{
+      color: $pink;
+    }
+  }
+  h2{
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .small_column{
+    font-size: 14px;
+    width: 230px;
+    float: left;
+    margin-left: 15px;
+    padding-bottom: 10px;
+  }
+
+  .big_column{
+    width: 500px;
+    float: left;
+  }
+}
