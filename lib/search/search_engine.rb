@@ -32,7 +32,7 @@ class SearchEngine
   attr_reader :current_page, :result
   attr_reader :expressions, :sort_field
 
-  def initialize attributes = {}, is_smart=false
+  def initialize attributes = {}, is_smart = false
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
@@ -100,7 +100,6 @@ class SearchEngine
     @sortables ||= Set.new(['retail_price', '-retail_price', 'desconto', '-desconto','age'])
     if sort_field.present? && @sortables.include?(sort_field)
       @sort_field = "#{ sort_field }"
-      @is_smart = false
     end
     self
   end
@@ -277,7 +276,7 @@ class SearchEngine
   end
 
   def ranking
-    "rank-exp=(r_full_grid*#{ Setting[:full_grid_weight].to_i })%2B(r_inventory*#{ Setting[:inventory_weight].to_i })%2B(r_qt_sold_per_day*#{ Setting[:qt_sold_per_day_weight].to_i })%2B(r_coverage_of_days_to_sell*#{ Setting[:coverage_of_days_to_sell_weight].to_i })%2B(r_age*#{ Setting[:age_weight].to_i })"
+    "rank-exp=r_inventory%2Br_brand_regulator%2Br_age"
   end
 
   def fetch_result(url, options = {})
