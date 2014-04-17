@@ -130,7 +130,7 @@ class Checkout::CheckoutController < Checkout::BaseController
       end
 
       unless using_address_form?
-        @addresses = @user.addresses
+        @addresses = @user.addresses.active
         unless address
           @checkout.address = Address.new
           @checkout.errors.add(:address_base, "Para qual endereço devemos mandar?")
