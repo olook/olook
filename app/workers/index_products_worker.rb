@@ -22,6 +22,8 @@ class IndexProductsWorker
     mail.deliver
   end
 
+  attr_reader :log
+
   def add_products
     products.each_slice(500).with_index do |slice, index|
       run slice, index
@@ -54,7 +56,7 @@ class IndexProductsWorker
 
   private
 
-  attr_reader :products, :log
+  attr_reader :products
 
   def initialize products
     @products = products
