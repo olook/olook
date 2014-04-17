@@ -1,0 +1,16 @@
+%ol.addresses
+  - if addresses.any?
+    - addresses.each do |address|
+      %li{:class => "address_item #{cycle('','no_margin')}"}
+        %p
+          %span= address.identification
+        %p
+          = "#{address.street}, #{address.number}"
+          = address.complement? ? ", #{address.complement}" : ""
+        %p= "#{address.neighborhood} - #{address.zip_code}"
+        %p= "#{address.city}, #{address.state}"
+        %ul.links
+          %li= link_to "Alterar este endereço", edit_user_address_path(address), :class => 'edit'
+          %li= link_to "Excluir este endereço", user_address_path(address), confirm: 'Tem certeza?', method: :delete, :class => 'edit'
+  %li.address_item.add
+    = link_to "Adicionar novo endereço".html_safe, new_user_address_path
