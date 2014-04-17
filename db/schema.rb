@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140409134110) do
+ActiveRecord::Schema.define(:version => 20140417155643) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20140409134110) do
     t.string  "first_name"
     t.string  "last_name"
     t.string  "mobile"
+    t.boolean "active"
   end
 
   add_index "addresses", ["user_id"], :name => "index_addresses_on_user_id"

@@ -3,9 +3,10 @@ class Users::AddressesController < ApplicationController
 
   respond_to :html
   before_filter :authenticate_user!
+  before_filter :retrieve_address, only: [:edit, :update, :destroy]
 
   def index
-    @addresses = @user.addresses
+    @addresses = @user.addresses.active
   end
 
   def new
@@ -13,7 +14,6 @@ class Users::AddressesController < ApplicationController
   end
 
   def edit
-    @address = @user.addresses.find(params[:id])
   end
 
   def create
@@ -26,7 +26,6 @@ class Users::AddressesController < ApplicationController
   end
 
   def update
-    @address = @user.addresses.find(params[:id])
     if @address.update_attributes(params[:address])
       redirect_to(user_addresses_path)
     else
@@ -35,17 +34,13 @@ class Users::AddressesController < ApplicationController
   end
 
   def destroy
-    @address = @user.addresses.find(params[:id])
-    if @address.destroy
-      redirect_to(user_addresses_path)
-    else
-      respond_with(@address)
-    end
+   @address.update_attribute(:active, false)
+   redirect_to :back
   end
 
   private
 
-  def load_user
-    @user = current_user
+  def retrieve_address
+    @address = @user.addresses.active.find(params[:id])
   end
 end
