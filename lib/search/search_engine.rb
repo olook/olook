@@ -32,14 +32,14 @@ class SearchEngine
   attr_reader :current_page, :result
   attr_reader :expressions, :sort_field
 
-  def initialize attributes = {}
+  def initialize attributes = {}, is_smart = false
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
     @expressions['in_promotion'] = [0]
     @expressions['visibility'] = [Product::PRODUCT_VISIBILITY[:site],Product::PRODUCT_VISIBILITY[:all]]
     @facets = []
-    @is_smart = attributes.delete(:is_smart) || false
+    @is_smart = is_smart
     default_facets
 
     Rails.logger.debug("SearchEngine received these params: #{attributes.inspect}")
