@@ -80,7 +80,7 @@ class ApplicationController < ActionController::Base
     end
 
     def seo_info
-      @seo_info ||= Seo::SeoManager.new(request.path, fallback_title: @product.try(:title_text),fallback_description: @product.try(:description), color: @color, size: @size, brand: @brand).select_meta_tag
+      @seo_info ||= Seo::SeoManager.new(request.path, fallback_title: @product.try(:title_text),fallback_description: @product.try(:description), color: @color, size: @size, brand: @brand_name).select_meta_tag
     end
 
     def title_text

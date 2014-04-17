@@ -20,6 +20,7 @@ class BrandsController < ApplicationController
     @color = search_params["color"]
     @size = search_params["size"]
     @brand = Brand.where(name:  params[:brand].to_s.split("-").map{|brand| ActiveSupport::Inflector.transliterate(brand).downcase.titleize})
+    @brand_name = @brand.first.name
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
   end
 
