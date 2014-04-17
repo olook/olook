@@ -6,7 +6,7 @@
         'CriteoBasket': [<%= raw @cart.items.map { |item|
 	"{ id:'#{item.product.id}', price:#{number_with_precision(item.variant.retail_price, separator: ".", precision: 2)}, quantity:#{item.quantity} }"}.join(', ') -%>],
         'AllInCart': <%= raw @cart.items.map{|item|
-          [item.id.to_s,item.name,item.retail_price.to_s,(item.price - item.retail_price).to_s,item.quantity.to_s,"",item.product.category_humanize,item.product.subcategory,"","",item.brand]}%>,
+          [item.variant_id.to_s,item.name,item.retail_price.to_s,(item.price - item.retail_price).to_s,item.quantity.to_s,"",item.product.category_humanize,item.product.subcategory,"","",item.brand]}%>,
         'AllInPage': "cart/cart/show",
         //General
         'ProductsList': [<%= @cart.items.map{|item| item.product.id.to_s }.join(",") %>],
