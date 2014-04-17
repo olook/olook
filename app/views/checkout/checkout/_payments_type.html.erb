@@ -2,7 +2,7 @@
   <%= fields_for "checkout[credits]", @cart do |credits_form|%>
   <div class="credits">
     <%= credits_form.check_box :use_credits, onclick: track_event("CheckoutPayment","clickUserCredits") %>
-    <%= credits_form.label :use_credits, "Quer usar os meus créditos" %>
+    <%= credits_form.label :use_credits, "Quero usar os meus créditos" %>
     <p>Você acumulou <span><%= number_to_currency(total_user_credits) %></span> em créditos que podem ser utilizados nesta compra.
        <a href="#" class="more_credits" onclick="<%= track_event("CheckoutPayment","clickUserCreditsInformation") %>">Mais sobre seus créditos</a>
     </p>
