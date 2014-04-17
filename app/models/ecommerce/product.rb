@@ -129,8 +129,7 @@ class Product < ActiveRecord::Base
   end
 
   def model_name
-    category_detail = details.find_by_translation_token("Categoria")
-    category_detail ? category_detail.description : ""
+    subcategory_name || ""
   end
 
   def related_products
@@ -165,22 +164,22 @@ class Product < ActiveRecord::Base
 
   def main_picture
     @main_picture ||=
-    if self.pictures.loaded?
-      self.pictures.all.find { |p| p.display_on == DisplayPictureOn::GALLERY_1 }
+    if pictures.loaded?
+      pictures.find { |p| p.display_on == DisplayPictureOn::GALLERY_1 }
     else
-      self.pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
+      pictures.where(:display_on => DisplayPictureOn::GALLERY_1).first
     end
   end
 
   def front_picture
     return @front_picture if @front_picture.present?
-    pics = self.pictures.select { |p| p.display_on <= 10 }.sort { |a,b| a.display_on <=> b.display_on }
+    pics = pictures.select { |p| p.display_on <= 10 }.sort { |a,b| a.display_on <=> b.display_on }
     pics.first
   end
 
   def full_look_picture
     return @full_look_picture if @full_look_picture.present?
-    pics = self.pictures.select { |p| p.display_on <= 10 }.sort { |a,b| b.display_on <=> a.display_on }
+    pics = pictures.select { |p| p.display_on <= 10 }.sort { |a,b| b.display_on <=> a.display_on }
     if cloth?
       pics.first
     else
@@ -195,10 +194,10 @@ class Product < ActiveRecord::Base
     return @backside_picture if @backside_picture
     if self.pictures.loaded?
       if cloth?
-        pictures = self.pictures.sort{ |a,b| a.display_on <=> b.display_on }
-        picture = pictures.size > 1 ? pictures[1] : pictures[0]
+        _pictures = self.pictures.to_a.sort{ |a,b| a.display_on <=> b.display_on }
+        picture = _pictures.to_a.size > 1 ? _pictures[1] : _pictures[0]
       else
-        picture = self.pictures.all.find { |p| p.display_on == DisplayPictureOn::GALLERY_2 }
+        picture = self.pictures.to_a.find { |p| p.display_on == DisplayPictureOn::GALLERY_2 }
       end
     else
       if cloth?
@@ -207,7 +206,7 @@ class Product < ActiveRecord::Base
         picture = self.pictures.where(:display_on => DisplayPictureOn::GALLERY_2).first
       end
     end
-    @backside_picture ||= return_catalog_or_suggestion_image(picture)
+    @backside_picture = picture.try(:image_url, :catalog)
   end
 
   def wearing_picture
@@ -217,7 +216,7 @@ class Product < ActiveRecord::Base
     else
       picture = self.pictures.order(:display_on).last
     end
-    @wearing_picture = return_catalog_or_suggestion_image(picture)
+    @wearing_picture = picture.try(:image_url, :catalog)
   end
 
   def thumb_picture
@@ -233,11 +232,7 @@ class Product < ActiveRecord::Base
   end
 
   def catalog_picture
-    @catalog_picture ||= return_catalog_or_suggestion_image(main_picture)
-  end
-
-  def return_catalog_or_suggestion_image(picture)
-    picture.try(:image_url, :catalog)
+    @catalog_picture ||= main_picture.try(:image_url, :catalog)
   end
 
   def master_variant
@@ -517,30 +512,6 @@ class Product < ActiveRecord::Base
     self.description.gsub(/<\/?(?!(?:#{rallow}))[^>\/]*\/?>/, '')
   end
 
-  def is_the_size_grid_enough?
-    return true if (bag? || accessory?)
-    variants = self.variants.where("inventory > 0")
-    if shoe?
-      variants.size >= 4
-    else
-      sizes = variants.collect(&:description)
-      (sizes.include?("M") && variants.size >= 2) || ((sizes & %w[38 40]).any? && variants.size >= 3)
-    end
-  end
-
-  def quantity_sold_per_day_in_last_week
-    total_sold = self.consolidated_sells.in_last_week.inject(0) { |sum, x| sum + x.amount }
-    (total_sold.to_f / 7).ceil
-  end
-
-  def coverage_of_days_to_sell
-    quantity = quantity_sold_per_day_in_last_week
-    if quantity > 0
-      (inventory.to_f/quantity).ceil
-    else
-      180 # 6 months
-    end
-  end
 
   def time_in_stock
     if launch_date.blank?
@@ -611,9 +582,9 @@ class Product < ActiveRecord::Base
 
     def detail_by_token token
       if details.loaded?
-        detail = self.details.select { |d| d.translation_token == token }.last
+        detail = details.to_a.select { |d| d.translation_token == token }.last
       else
-        detail = self.details.where(:translation_token => token).last
+        detail = details.where(:translation_token => token).last
       end
       detail.description if detail
     end
