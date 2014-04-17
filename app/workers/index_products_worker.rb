@@ -18,7 +18,7 @@ class IndexProductsWorker
 
     puts "Total time = #{d1-d0}"
 
-    mail = DevAlertMailer.notify_about_products_index(d1-d0)
+    mail = DevAlertMailer.notify_about_products_index(d1-d0, @log.join("\n"))
     mail.deliver
   end
 
@@ -58,6 +58,7 @@ class IndexProductsWorker
 
   def initialize products
     @products = products
+    @log = []
   end
 
   def flush_to_sdf_file file_name, all_products
@@ -141,7 +142,7 @@ class IndexProductsWorker
         fields['r_inventory'] = RANKING_POWER * ( proportion > 1 ? 1 : proportion ) * @inventory_weight rescue 0
 
         if fields['inventory'] > 0 && fields['age'] < DAYS_TO_CONSIDER_OLD
-        puts "age: #{fields['age']}/#{newest} - #{fields['r_age'].to_i} | inventory: #{fields['inventory']}/#{third_quartile_inventory_for_category(product.category)} - #{fields['r_inventory'].to_i} | brand: #{fields['brand']} - #{fields['r_brand_regulator'].to_i} | exp: #{( fields['r_age'] + fields['r_inventory'] + fields['r_brand_regulator'] ).to_i}"
+          @log << "age: #{fields['age']}/#{newest} - #{fields['r_age'].to_i} | inventory: #{fields['inventory']}/#{third_quartile_inventory_for_category(product.category)} - #{fields['r_inventory'].to_i} | brand: #{fields['brand']} - #{fields['r_brand_regulator'].to_i} | exp: #{( fields['r_age'] + fields['r_inventory'] + fields['r_brand_regulator'] ).to_i}"
         end
         if product.shoe?
           product.details.each do |detail|
