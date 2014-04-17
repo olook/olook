@@ -5,7 +5,7 @@ class IndexProductsWorker
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
   RANKING_POWER = 1000
   DAYS_TO_CONSIDER_OLD = 120
-  PERCENT_OLOOK_TO_REGULATOR = 60
+  PERCENT_OLOOK_TO_REGULATOR = 100
 
   @queue = 'low'
 
@@ -132,12 +132,17 @@ class IndexProductsWorker
         @max_age_rating ||= ( @age_weight * RANKING_POWER )
         fields['r_brand_regulator'] = 0
         if /olook/i =~ fields['brand']
-          fields['r_brand_regulator'] = ( rand(100) >= ( 100 - PERCENT_OLOOK_TO_REGULATOR ) ) ? ( @max_age_rating - fields['r_age'] ) : 0
+          #fields['r_brand_regulator'] = ( rand(100) >= ( 100 - PERCENT_OLOOK_TO_REGULATOR ) ) ? ( @max_age_rating - fields['r_age'] ) : 0
+          fields['r_brand_regulator'] = 250
         end
 
         @inventory_weight ||= Setting[:inventory_weight].to_i
-        fields['r_inventory'] = product.inventory.to_f / third_quartile_inventory_for_category(product.category) * @inventory_weight rescue 0
+        proportion = product.inventory.to_f / third_quartile_inventory_for_category(product.category)
+        fields['r_inventory'] = RANKING_POWER * ( proportion > 1 ? 1 : proportion ) * @inventory_weight rescue 0
 
+        if fields['inventory'] > 0 && fields['age'] < DAYS_TO_CONSIDER_OLD
+        puts "age: #{fields['age']}/#{newest} - #{fields['r_age'].to_i} | inventory: #{fields['inventory']}/#{third_quartile_inventory_for_category(product.category)} - #{fields['r_inventory'].to_i} | brand: #{fields['brand']} - #{fields['r_brand_regulator'].to_i} | exp: #{( fields['r_age'] + fields['r_inventory'] + fields['r_brand_regulator'] ).to_i}"
+        end
         if product.shoe?
           product.details.each do |detail|
             if /cm/i =~ detail.description.to_s
@@ -178,7 +183,7 @@ class IndexProductsWorker
 
     def upload_sdf_file file_name
       docs_domain =  SEARCH_CONFIG["docs_domain"]
-      `curl -X POST --upload-file "#{file_name}" "#{docs_domain}"/2011-02-01/documents/batch --header "Content-Type:application/json"`
+      `curl -s -X POST --upload-file "#{file_name}" "#{docs_domain}"/2011-02-01/documents/batch --header "Content-Type:application/json"`
     end
 
     def version_based_on_timestamp
