@@ -4,6 +4,7 @@ class IndexProductsWorker
 
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
   RANKING_POWER = 1000
+  DAYS_TO_CONSIDER_OLD = 90
 
   @queue = 'low'
 
@@ -13,7 +14,7 @@ class IndexProductsWorker
     worker.add_products
     worker.remove_products
     d1 = Time.now.to_i
-    
+
     puts "Total time = #{d1-d0}"
 
     mail = DevAlertMailer.notify_about_products_index(d1-d0)
@@ -47,7 +48,7 @@ class IndexProductsWorker
         to: "tech@olook.com.br",
         subject: "Falha ao rodar a indexacao de produtos"}
       DevAlertMailer.notify(opts).deliver
-    end    
+    end
   end
 
   private
@@ -116,14 +117,24 @@ class IndexProductsWorker
 
 
         @age_weight ||= Setting[:age_weight].to_i
-        fields['r_age'] = normalize_ranking((older.to_i - product.time_in_stock.to_i), older.to_f, @age_weight)
+        fields['r_age'] = if field['age'].to_i < newest
+                            RANKING_POWER * @age_weight
+                          else
+                            diff_age = field['age'].to_i - newest.to_i
+                            proportion = diff_age.to_f / DAYS_TO_CONSIDER_OLD.to_f
+                            # 0 / 60 = 1, 60 / 60 = 0, 30 / 60 =  0.5, 90 / 60 = 1.5
+                            proportion = 1 if proportion > 1
+                            RANKING_POWER * @age_weight * ( 1 - proportion )
+                          end
+
         @max_age_rating ||= ( @age_weight * RANKING_POWER )
         fields['r_brand_regulator'] = 0
         if /olook/i =~ fields['brand']
           fields['r_brand_regulator'] =  rand( @max_age_rating - fields['r_age'] ) / RANKING_POWER
         end
+
         @inventory_weight ||= Setting[:inventory_weight].to_i
-        fields['r_inventory'] = normalize_ranking(product.inventory.to_f, third_quartile_inventory_for_category(product.category), @inventory_weight)
+        fields['r_inventory'] = product.inventory.to_f / third_quartile_inventory_for_category(product.category) * @inventory_weight rescue 0
 
         if product.shoe?
           product.details.each do |detail|
@@ -176,10 +187,10 @@ class IndexProductsWorker
       HeelSanitize.new(word).perform
     end
 
-    def older
-      return @older if @older
+    def newest
+      return @newest if @newest
       save_temporary_table_vars
-      @older
+      @newest
     end
 
     def third_quartile_inventory_for_category(category)
@@ -193,7 +204,7 @@ class IndexProductsWorker
         count = Product.connection.select_all("SELECT count(0) qty FROM products_with_more_than_one_inventory").
           first['qty']
         third_quartile = ( count * 0.75 ).round
-        @older = Product.connection.select("SELECT age FROM products_with_more_than_one_inventory ORDER BY age LIMIT 1 OFFSET #{third_quartile}").
+        @newest = Product.connection.select("SELECT age FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD} ORDER BY age desc LIMIT 1 OFFSET #{third_quartile}").
           first['age']
 
         count_by_category ||= Product.connection.
@@ -223,10 +234,4 @@ class IndexProductsWorker
         Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
       end
     end
-
-    def normalize_ranking(item_value, max, weight)
-      factor = ( item_value.to_f / max.to_f ) * weight rescue 0
-      ((factor > 1 ? 1 : factor) * RANKING_POWER).to_i
-    end
-
 end
