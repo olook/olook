@@ -18,7 +18,7 @@ class IndexProductsWorker
 
     puts "Total time = #{d1-d0}"
 
-    mail = DevAlertMailer.notify_about_products_index(d1-d0, @log.join("\n"))
+    mail = DevAlertMailer.notify_about_products_index(d1-d0, worker.log.join("\n"))
     mail.deliver
   end
 
@@ -54,7 +54,7 @@ class IndexProductsWorker
 
   private
 
-  attr_reader :products
+  attr_reader :products, :log
 
   def initialize products
     @products = products
