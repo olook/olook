@@ -4,7 +4,7 @@ class IndexProductsWorker
 
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
   RANKING_POWER = 1000
-  DAYS_TO_CONSIDER_OLD = 90
+  DAYS_TO_CONSIDER_OLD = 120
 
   @queue = 'low'
 
