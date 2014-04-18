@@ -283,7 +283,8 @@ class SearchEngine
     cache_key = Digest::SHA1.hexdigest(url.to_s)
     Rails.logger.error "[cloudsearch] cache_key: #{cache_key}"
 
-    _response = Rails.cache.fetch(cache_key, expires_in: 15.minutes) do
+    # TODO  => get this cache back asap
+    # _response = Rails.cache.fetch(cache_key, expires_in: 15.minutes) do
       Rails.logger.error "[cloudsearch] cache missed"
       url = URI.parse(url)
       tstart = Time.zone.now.to_f * 1000.0
@@ -292,9 +293,9 @@ class SearchEngine
       Rails.logger.error("[cloudsearch] result_code:#{http_response.code}, result_message:#{http_response.message}")
 
       raise "CloudSearchConnectError" if http_response.code != '200'
-      http_response
-    end
-    SearchResult.new(_response, options)
+      # http_response
+    # end
+    SearchResult.new(http_response, options)
         
   end
 
