@@ -78,46 +78,46 @@
         %li= filter_link_to(@url_builder.add_filter(:size, text), format_size(text.chomp), search.filter_selected?(:size, text.chomp)) unless search.filter_value(:size).present? && !search.filter_selected?(:size, text.chomp)
       %li= link_to("Limpar Filtro", @url_builder.remove_filter_of(:size), :class => "clean") if search.filter_value(:size).present?
 
-= cache @search.key_for(:category), expire_in: 40.minutes do
-  .show_more
-    - if search.filter_value('category').to_a.include?('sapato')
-      %p.title
-        OUTRAS CATEGORIAS
-      %li
-        = link_to "Roupas femininas", catalog_path(category: "roupa"), class: "categories"
-      %li
-        = link_to "Bolsas femininas", catalog_path(category: "bolsa"), class: "categories" 
-      %li
-        = link_to "Acessórios femininos", catalog_path(category: "acessorio"), class: "categories"
-
-    - if search.filter_value('category').to_a.include?('roupa')
-      %p.title
-        OUTRAS CATEGORIAS
-      %li
-        = link_to "Sapatos femininos", catalog_path(category: "sapato"), class: "categories"
-      %li
-        = link_to "Bolsas femininas", catalog_path(category: "bolsa"), class: "categories" 
-      %li
-        = link_to "Acessórios femininos", catalog_path(category: "acessorio"), class: "categories"
-
-    - if search.filter_value('category').to_a.include?('acessorio')
-      %p.title
-        OUTRAS CATEGORIAS
-      %li 
-        = link_to "Roupas femininas", catalog_path(category: "roupa"), class: "categories" 
-      %li
-        = link_to "Sapatos femininos", catalog_path(category: "sapato"), class: "categories"
-      %li
-        = link_to "Bolsas femininas", catalog_path(category: "bolsa"), class: "categories" 
-
-    - if search.filter_value('category').to_a.include?('bolsa')
-      %p.title
-        OUTRAS CATEGORIAS
-      %li
-      = link_to "Roupas femininas", catalog_path(category: "roupa"), class: "categories" 
-      %li
-      = link_to "Sapatos femininos", catalog_path(category: "sapato"), class: "categories"
-      %li
+/ = cache @search.key_for(:category), expire_in: 40.minutes do
+.show_more
+  - if search.filter_value('category').to_a.include?('sapato')
+    %p.title
+      OUTRAS CATEGORIAS
+    %li
+      = link_to "Roupas femininas", catalog_path(category: "roupa"), class: "categories"
+    %li
+      = link_to "Bolsas femininas", catalog_path(category: "bolsa"), class: "categories" 
+    %li
       = link_to "Acessórios femininos", catalog_path(category: "acessorio"), class: "categories"
+
+  - if search.filter_value('category').to_a.include?('roupa')
+    %p.title
+      OUTRAS CATEGORIAS
+    %li
+      = link_to "Sapatos femininos", catalog_path(category: "sapato"), class: "categories"
+    %li
+      = link_to "Bolsas femininas", catalog_path(category: "bolsa"), class: "categories" 
+    %li
+      = link_to "Acessórios femininos", catalog_path(category: "acessorio"), class: "categories"
+
+  - if search.filter_value('category').to_a.include?('acessorio')
+    %p.title
+      OUTRAS CATEGORIAS
+    %li 
+      = link_to "Roupas femininas", catalog_path(category: "roupa"), class: "categories" 
+    %li
+      = link_to "Sapatos femininos", catalog_path(category: "sapato"), class: "categories"
+    %li
+      = link_to "Bolsas femininas", catalog_path(category: "bolsa"), class: "categories" 
+
+  - if search.filter_value('category').to_a.include?('bolsa')
+    %p.title
+      OUTRAS CATEGORIAS
+    %li
+    = link_to "Roupas femininas", catalog_path(category: "roupa"), class: "categories" 
+    %li
+    = link_to "Sapatos femininos", catalog_path(category: "sapato"), class: "categories"
+    %li
+    = link_to "Acessórios femininos", catalog_path(category: "acessorio"), class: "categories"
 
 = render partial: '/shared/facebook_products', locals: {products: FacebookHighlight.products}
