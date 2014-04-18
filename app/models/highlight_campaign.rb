@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class HighlightCampaign < ActiveRecord::Base
   attr_accessible :label, :product_ids
   validates :label, presence: true
