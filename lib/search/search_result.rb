@@ -3,9 +3,9 @@ class SearchResult
 
   attr_reader :products, :facets
 
-  def initialize(response, options = {})
-    @hits = JSON.parse(response.body)["hits"] || empty_hits_result
-    @facets = JSON.parse(response.body)["facets"] || {}
+  def initialize(response_body, options = {})
+    @hits = JSON.parse(response_body)["hits"] || empty_hits_result
+    @facets = JSON.parse(response_body)["facets"] || {}
     parse_facets if options[:parse_facets]
     parse_products if options[:parse_products]
  end
