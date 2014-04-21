@@ -269,7 +269,7 @@ class SearchEngine
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
     q = @query ? "?q=#{@query}&" : "?"
     if @is_smart
-      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&#{ ranking }&rank=-exp,#{ @sort_field }&size=#{ options[:limit] }"
+      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&#{ ranking }&rank=#{smart_ranking_params}&size=#{ options[:limit] }"
     else
       "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }"
     end
@@ -408,4 +408,8 @@ class SearchEngine
       end 
       price_filters || []      
     end
+
+    def smart_ranking_params
+      "#{ @sort_field },-exp".split(",").reject{|v| v.blank?}.join(",")
+    end    
 end
