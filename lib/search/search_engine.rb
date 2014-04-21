@@ -284,7 +284,7 @@ class SearchEngine
     Rails.logger.error "[cloudsearch] cache_key: #{cache_key}"
 
     begin
-      Rails.cache.fetch(cache_key, expires_in: 15.minutes) do
+      _response = Rails.cache.fetch(cache_key, expires_in: 15.minutes) do
         Rails.logger.error "[cloudsearch] cache missed"
         url = URI.parse(url)
         tstart = Time.zone.now.to_f * 1000.0
@@ -293,9 +293,9 @@ class SearchEngine
         Rails.logger.error("[cloudsearch] result_code:#{http_response.code}, result_message:#{http_response.message}")
 
         raise "CloudSearchConnectError" if http_response.code != '200'
-        SearchResult.new(http_response, options)
+        http_response
       end
-
+      SearchResult.new(_response, options)
     rescue => e
       Rails.logger.error("[cloudsearch] Error on unmarshalling the key:#{cache_key}, for url:#{url}, message:#{e.message}")
       SearchResult.new(OpenStruct.new({body: {}}), options)
