@@ -295,7 +295,7 @@ class SearchEngine
       raise "CloudSearchConnectError" if http_response.code != '200'
       http_response
     # end
-    SearchResult.new(_response, options)
+    SearchResult.new(http_response, options)
         
   end
 
