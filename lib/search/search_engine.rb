@@ -54,6 +54,8 @@ class SearchEngine
     end
     validate_sort_field
     Rails.logger.debug("SearchEngine processed these params: #{@expressions.inspect}")
+
+    @redis = Redis.connect(url: ENV['REDIS_CACHE_STORE'])
   end
 
   def term= term
@@ -283,20 +285,27 @@ class SearchEngine
     cache_key = Digest::SHA1.hexdigest(url.to_s)
     Rails.logger.error "[cloudsearch] cache_key: #{cache_key}"
 
+    begin
+      cached_response = if @redis.exists(cache_key)
+        @redis.get(cache_key)
+      else
+        Rails.logger.error "[cloudsearch] cache missed"
+        url = URI.parse(url)
+        tstart = Time.zone.now.to_f * 1000.0
+        http_response = Net::HTTP.get_response(url)
+        Rails.logger.error("GET cloudsearch URL (time=#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
+        Rails.logger.error("[cloudsearch] result_code:#{http_response.code}, result_message:#{http_response.message}")
+        raise "CloudSearchConnectError" if http_response.code != '200'
+        @redis.set(cache_key, http_response.body)
+        http_response.body
+      end
+      SearchResult.new(cached_response, options)
 
-    # _response = Rails.cache.fetch(cache_key, expires_in: 15.minutes) do
-      Rails.logger.error "[cloudsearch] cache missed"
-      url = URI.parse(url)
-      tstart = Time.zone.now.to_f * 1000.0
-      http_response = Net::HTTP.get_response(url)
-      Rails.logger.error("GET cloudsearch URL (time=#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
-      Rails.logger.error("[cloudsearch] result_code:#{http_response.code}, result_message:#{http_response.message}")
+    rescue => e
+      Rails.logger.error("[cloudsearch] Error on unmarshalling the key:#{cache_key}, for url:#{url}, message:#{e.message}")
+      SearchResult.new({:hits => nil, :facets => {} }.to_json, options)
+    end
 
-      raise "CloudSearchConnectError" if http_response.code != '200'
-      http_response
-    # end
-    SearchResult.new(http_response, options)
-        
   end
 
   def build_boolean_expression(options={})
