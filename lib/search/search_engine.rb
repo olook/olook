@@ -297,10 +297,10 @@ class SearchEngine
         Rails.logger.error("[cloudsearch] result_code:#{http_response.code}, result_message:#{http_response.message}")
         raise "CloudSearchConnectError" if http_response.code != '200'
         @redis.set(cache_key, http_response.body)
+        @redis.expire(cache_key, 30.minutes)
         http_response.body
       end
       SearchResult.new(cached_response, options)
-
     rescue => e
       Rails.logger.error("[cloudsearch] Error on unmarshalling the key:#{cache_key}, for url:#{url}, message:#{e.message}")
       SearchResult.new({:hits => nil, :facets => {} }.to_json, options)
