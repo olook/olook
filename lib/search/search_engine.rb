@@ -32,7 +32,7 @@ class SearchEngine
   attr_reader :current_page, :result
   attr_reader :expressions, :sort_field
 
-  def initialize attributes = {}, is_smart=false
+  def initialize attributes = {}, is_smart = false
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
@@ -54,6 +54,8 @@ class SearchEngine
     end
     validate_sort_field
     Rails.logger.debug("SearchEngine processed these params: #{@expressions.inspect}")
+
+    @redis = Redis.connect(url: ENV['REDIS_CACHE_STORE'])
   end
 
   def term= term
@@ -100,7 +102,6 @@ class SearchEngine
     @sortables ||= Set.new(['retail_price', '-retail_price', 'desconto', '-desconto','age'])
     if sort_field.present? && @sortables.include?(sort_field)
       @sort_field = "#{ sort_field }"
-      @is_smart = false
     end
     self
   end
@@ -270,33 +271,41 @@ class SearchEngine
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
     q = @query ? "?q=#{@query}&" : "?"
     if @is_smart
-      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&#{ ranking }&rank=-exp,#{ @sort_field }&size=#{ options[:limit] }"
+      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&#{ ranking }&rank=#{smart_ranking_params}&size=#{ options[:limit] }"
     else
       "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }"
     end
   end
 
   def ranking
-    "rank-exp=(r_full_grid*#{ Setting[:full_grid_weight].to_i })%2B(r_inventory*#{ Setting[:inventory_weight].to_i })%2B(r_qt_sold_per_day*#{ Setting[:qt_sold_per_day_weight].to_i })%2B(r_coverage_of_days_to_sell*#{ Setting[:coverage_of_days_to_sell_weight].to_i })%2B(r_age*#{ Setting[:age_weight].to_i })"
+    "rank-exp=r_inventory%2Br_brand_regulator%2Br_age"
   end
 
   def fetch_result(url, options = {})
     cache_key = Digest::SHA1.hexdigest(url.to_s)
     Rails.logger.error "[cloudsearch] cache_key: #{cache_key}"
 
-    _response = Rails.cache.fetch(cache_key, expires_in: 15.minutes) do
-      Rails.logger.error "[cloudsearch] cache missed"
-      url = URI.parse(url)
-      tstart = Time.zone.now.to_f * 1000.0
-      http_response = Net::HTTP.get_response(url)
-      Rails.logger.error("GET cloudsearch URL (time=#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
-      Rails.logger.error("[cloudsearch] result_code:#{http_response.code}, result_message:#{http_response.message}")
+    begin
+      cached_response = if @redis.exists(cache_key)
+        @redis.get(cache_key)
+      else
+        Rails.logger.error "[cloudsearch] cache missed"
+        url = URI.parse(url)
+        tstart = Time.zone.now.to_f * 1000.0
+        http_response = Net::HTTP.get_response(url)
+        Rails.logger.error("GET cloudsearch URL (time=#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
+        Rails.logger.error("[cloudsearch] result_code:#{http_response.code}, result_message:#{http_response.message}")
+        raise "CloudSearchConnectError" if http_response.code != '200'
+        @redis.set(cache_key, http_response.body)
+        http_response.body
+      end
+      SearchResult.new(cached_response, options)
 
-      raise "CloudSearchConnectError" if http_response.code != '200'
-      http_response
+    rescue => e
+      Rails.logger.error("[cloudsearch] Error on unmarshalling the key:#{cache_key}, for url:#{url}, message:#{e.message}")
+      SearchResult.new({:hits => nil, :facets => {} }.to_json, options)
     end
-    SearchResult.new(_response, options)
-        
+
   end
 
   def build_boolean_expression(options={})
@@ -409,4 +418,8 @@ class SearchEngine
       end 
       price_filters || []      
     end
+
+    def smart_ranking_params
+      "#{ @sort_field },-exp".split(",").reject{|v| v.blank?}.join(",")
+    end    
 end
