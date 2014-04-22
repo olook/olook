@@ -101,6 +101,7 @@ class SearchEngine
   def sort= sort_field
     @sortables ||= Set.new(['retail_price', '-retail_price', 'desconto', '-desconto','age'])
     if sort_field.present? && @sortables.include?(sort_field)
+      @is_smart = false
       @sort_field = "#{ sort_field }"
     end
     self
@@ -415,11 +416,11 @@ class SearchEngine
         a[0] = (a[0].to_i/100).to_s
         a[1] = ((a[1].to_i+1)/100).to_s
         a.join("-")
-      end 
-      price_filters || []      
+      end
+      price_filters || []
     end
 
     def smart_ranking_params
-      "#{ @sort_field },-exp".split(",").reject{|v| v.blank?}.join(",")
-    end    
+      "-exp,#{ @sort_field }".split(",").reject{|v| v.blank?}.join(",")
+    end
 end
