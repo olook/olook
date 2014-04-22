@@ -26,6 +26,7 @@ module FullLook
     def perform
       previous_look_ids = Look.pluck('id')
 
+      new_look_ids = []
       look_structure.each do |master_product_id, struc|
         master_product = struc[:master_product]
         look = {}
@@ -34,10 +35,10 @@ module FullLook
         look[:front_picture] = master_product.front_picture.image_url
         look[:launched_at] = master_product.launch_date
         look[:profile_id] = get_look_profile([master_product])
-        build_and_create_look(look)
+        new_look_ids << build_and_create_look(look).id
       end
 
-      remove previous_look_ids
+      remove(previous_look_ids - new_look_ids)
     end
 
     def remove ids
