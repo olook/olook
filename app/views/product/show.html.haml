@@ -28,7 +28,7 @@
   - if has_easter_egg? @product.id
     .bunny
       = image_tag ("campaigns/easter/bunny.png")
-  = link_to "Comprar o look completo", "#", :id => "goRelatedProduct" if @product.related_products.any? && @product.inventory > 0
+  = product_presenter.render_complete_look_badge(current_admin)
 
   .box-left
     #gallery
