@@ -65,67 +65,10 @@ ul.breadcrumb {
 a.selecionado,
 a.selecionado:hover {color:$pink !important;}
 
-#modal {
-  position: fixed !important;
-  z-index: 100001;
-}
+#modal {position: fixed !important;}
 
 section.banner {
   margin-bottom:10px !important;
   img {width:100%;}
 }
-
-.easter_modal{
-  width: 540px;
-  height: 300px;
-  background-color: #efe8ef;
-  p.title{
-    color: #e53a95;
-    font-size: 20px;
-    font-family: $avenir;
-    padding-top: 35px;
-    text-align: center;
-    font-weight: bold;
-  }
-  p.warning{
-    font-size: 10px;
-    color: #000;
-    margin-top: 20px;
-    text-align: right;
-    font-weight: lighter;
-    font-family: $bt_font;
-    margin-right: 24px;
-    span{
-      font-weight: bold;
-    }
-  }
-  ul{
-    margin-top: 28px;
-    li{
-      width: 250px;
-      height: 190px;
-      float: left;
-      &.ticket{
-        margin-right: 25px;
-        margin-left: 25px;
-      }
-      &.infos{
-        width: 218px;
-        p{
-          font-family: $bt_font;
-          font-size: 14px;
-          text-align: center;
-          line-height: 20px;
-          margin-top: 4px;
-          span{
-            color: #e53a95;
-            font-weight: bold;
-            font-size: 15px;
-          }
-        }
-      }
-    }
-  }
-}
-
 

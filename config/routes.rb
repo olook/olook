@@ -7,8 +7,6 @@ Olook::Application.routes.draw do
 
   resources :wished_products, only: [:create, :destroy]
 
-  get "/wishlist_matcher", to: 'wishlist_matcher#index', as: 'wishlist_matcher'
-
   get "/wishlist", to: 'wishlist#show', as: 'wishlist'
 
   get "/revenda/confirmacao", to: 'reseller#show', as: 'reseller_show'

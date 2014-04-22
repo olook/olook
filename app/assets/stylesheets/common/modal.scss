@@ -74,10 +74,10 @@ html {
         }
         #close_dialog {
           position: absolute;
-          background: image-url('common/close.png') no-repeat 0 -37px;
+          background: image-url('common/close_dialog.png') no-repeat;
           text-indent: -9999px;
-          width: 32px;
-          height: 35px;
+          width: 30px;
+          height: 30px;
           top: -22px;
           right: -22px;
           z-index: 100;
@@ -194,10 +194,10 @@ div#modal {
     }
     #close_dialog {
       position: absolute;
-      background: image-url('common/close.png') no-repeat 0 -37px;
+      background: image-url('common/close_dialog.png') no-repeat;
       text-indent: -9999px;
-      width: 32px;
-      height: 35px;
+      width: 30px;
+      height: 30px;
       top: -22px;
       right: -22px;
       z-index: 100;

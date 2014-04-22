@@ -25,9 +25,6 @@
 = render "shared/mkt_breadcrumb"
 %section#product
   = product_breadcrumbs_for(@product)
-  - if has_easter_egg? @product.id
-    .bunny
-      = image_tag ("campaigns/easter/bunny.png")
   = product_presenter.render_complete_look_badge(current_admin)
 
   .box-left
