@@ -3,16 +3,26 @@ class PostRetrieverService
 
   def initialize(host, path, username, password)
     @wp = Rubypress::Client.new(:host => "stylist-news.olook.com.br", :path => "/xmlrpc.php", :username => "admin", :password => "olooksurubim951")    
+    @redis = Redis.connect(url: ENV['REDIS_CACHE_STORE'])
   end
 
   def retrieve_posts
-    Rails.cache.fetch("sn-post-data", :expires_in => 1.hour) do
-      retrieve_post_data
+    data = if @redis.exists("sn-post-data")
+      JSON.parse(@redis.get("sn-post-data"))["data"]
+    else
+      post_data = retrieve_post_data
+      @redis.set("sn-post-data", {data: post_data}.to_json)
+      @redis.expire("sn-post-data", 1.hour)
+      post_data
     end
+
+    data || []
   end
 
   def gather_posts
-    Rails.cache.write("sn-post-data", retrieve_post_data, :time_to_live => 1.hour)
+    post_data = retrieve_post_data
+    @redis.set("sn-post-data", {data: post_data}.to_json)
+    @redis.expire("sn-post-data", 1.hour)
   end
 
   private
