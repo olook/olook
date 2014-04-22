@@ -47,7 +47,7 @@ update_ses_info:
   description: "Atualiza a tabela ses com as informações "
 
 update_inventory:
-  cron: "*/20 * * * *"
+  cron: "*/45 * * * *"
   class: Abacos::UpdateInventory
   queue: low
   description: "Atualiza o Inventario"
