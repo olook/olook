@@ -11,12 +11,23 @@ class ShowroomPresenter
     @products_limit = args[:products_limit] || 22
     @looks_limit = args[:looks_limit] || 4
     @products = []
+    @redis = Redis.connect(url: ENV['REDIS_CACHE_STORE'])
   end
 
   def products
-    fetched_products = fetch_products_in_each_category
-    organize_fetched_products_in_category_sequence(fetched_products)
-    @products
+    key = @recommendation.profile_name + ":products"
+
+    products = if @redis.exists(key) 
+      Product.where(id: @redis.get(key).split(","))
+    else
+      fetched_products = fetch_products_in_each_category
+      organize_fetched_products_in_category_sequence(fetched_products)
+      _products = @products.first(8)
+      @redis.set(key,_products.map(&:id))
+      @redis.expire(key, 20.minutes)
+
+      _products
+    end
   end
 
   def looks(opts = {})
