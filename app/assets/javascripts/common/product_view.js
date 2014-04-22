@@ -23,7 +23,6 @@ load_all_other_images = function() {
 }
 
 var loadWishlistModules = function() {
-  new WishlistMatcher().config();
   new AddToWishlist().config();
   new AddToWishlistSuccessMessage().config();
   new AddToWishlistErrorMessage().config();  
