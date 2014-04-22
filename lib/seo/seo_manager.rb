@@ -4,7 +4,7 @@ module Seo
     DEFAULT_PAGE_TITLE = 'Olook - Roupas e sapatos femininos online'
     DEFAULT_PAGE_DESCRIPTION = 'Na Olook você compra os sapatos, acessórios e roupas femininas mais visados da moda com segurança e facilidade.'
 
-    attr_accessor :url, :fallback_title, :fallback_description, :color, :size
+    attr_accessor :url, :fallback_title, :fallback_description, :color, :size, :brand
 
     def initialize url, options={}
       @url = URI.decode(url).gsub(" ", "-").downcase
@@ -12,6 +12,7 @@ module Seo
       @fallback_description = options[:fallback_description]
       @color = options[:color]
       @size = options[:size].to_s.gsub(/(s|r)/, "")
+      @brand = options[:brand]
     end
 
     def select_meta_tag
@@ -26,11 +27,14 @@ module Seo
         full_title = title
         full_title+= " #{color.capitalize}" unless color.blank?
         full_title+= " Tamanho #{size.capitalize}" unless size.blank?
+        full_title+= " Marca #{brand.capitalize}" unless brand.blank?
         {title: "#{full_title} | Olook" , description: description}
       end
 
       def search_meta_tag
-        header = find_parent_meta_tag(url.dup)
+        _url = url.dup
+        _url = _url.gsub("-#{brand.downcase}", "") if brand
+        header = find_parent_meta_tag(_url)
         {title: header.try(:page_title), description: header.try(:page_description)}
       end
 

@@ -44,6 +44,7 @@ class CatalogsController < ApplicationController
     @pixel_information = @category = params[:category]
     @color = search_params["color"]
     @size = search_params["size"]
+    @brand_name = search_params["brand"]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
     @category = @search.expressions[:category].to_a.first.downcase
     @subcategory = @search.expressions[:subcategory].to_a.first
