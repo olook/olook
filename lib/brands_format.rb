@@ -1,9 +1,9 @@
 class BrandsFormat
-  MINUSCULAS_COM_ACENTO = 'áéíóúâêîôûàèìòùäëïöüãõñç'
-  MAIUSCULAS_COM_ACENTO = 'ÁÉÍÓÚÂÊÎÔÛÀÈÌÒÙÄËÏÖÜÃÕÑÇ'
+  ACCENTED_LOWERCASE_CHARS = 'áéíóúâêîôûàèìòùäëïöüãõñç'
+  ACCENTED_UPPERCASE_CHARS = 'ÁÉÍÓÚÂÊÎÔÛÀÈÌÒÙÄËÏÖÜÃÕÑÇ'
 
-  MINUSCULAS = "abcdefghijklmnopqrstuvwxyz#{MINUSCULAS_COM_ACENTO}"
-  MAIUSCULAS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#{MAIUSCULAS_COM_ACENTO}"
+  LOWERCASE_CHARS = "abcdefghijklmnopqrstuvwxyz#{ACCENTED_LOWERCASE_CHARS}"
+  UPPERCASE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#{ACCENTED_UPPERCASE_CHARS}"
   def initialize
     @brands = get_sort_brands_from_cache
   end
@@ -28,7 +28,7 @@ class BrandsFormat
   end
 
   def get_sort_brands_from_cache
-    ActiveSupport::JSON.decode(redis.get("sitemap"))["brands"].map{|brand| brand.tr(MAIUSCULAS, MINUSCULAS).titleize}.uniq.sort
+    ActiveSupport::JSON.decode(redis.get("sitemap"))["brands"].map{|brand| brand.tr(UPPERCASE_CHARS, LOWERCASE_CHARS).titleize}.uniq.sort
   end
 
   def redis
