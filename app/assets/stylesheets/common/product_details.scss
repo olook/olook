@@ -2,7 +2,7 @@
 @import 'new_structure/common/global_stuffs';
 
 /*** MODAL GUIA DE MEDIDAS ***/
-div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px solid #a7a9ac; position: absolute;z-index: 3000;padding-left: 50px;display: none;
+div#modal_guide{width:800px;height:630px;background-color: #fff; border: 1px solid #a7a9ac; position: absolute;z-index: 3000;padding-left: 50px;display: none; background: image-url('common/guia_de_medidas_novo.jpg') no-repeat center center #FFF;
   h3{font-size: 20px;font-weight: 600;color: #58585a;margin-top: 50px; float: left;}
   p{font-size: 14px;color: #58585a;margin-top: 5px;float: left;}
   ul{margin-top: 65px;float: left;
@@ -595,10 +595,10 @@ a#goRelatedProduct {
 
 ul.breadcrumb {
   display: block;
-  width:100%;
+  width:37%;
   height:20px;
   position: relative;
-  top:-9px;
+  top:-5px;
   left:6px !important;
   li {
     float:left;

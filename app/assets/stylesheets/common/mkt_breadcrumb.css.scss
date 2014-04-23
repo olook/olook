@@ -1,0 +1,106 @@
+@import "new_structure/common/global_stuffs";
+.newsletter{
+  height: 20px;
+  width: 63%;
+  padding-top: 0;
+  float: right;
+  margin-top: -6px;
+  .feedback, .denied{
+    width: 74%;
+    height: 23px;
+    background: image-url('common/sprite_modal_footer.png') no-repeat 6px -170px;
+    background-color: #bfd7bd;
+    border: 1px solid #81b47e;
+    position: absolute;
+    right: 0px;
+    color: #000;
+    font-size: 11px;
+    font-family: $bt_font;
+    letter-spacing: 1px;
+    font-weight: normal;
+    padding-left: 20px;
+    z-index: 10001;
+    margin-top: -1px;
+    text-align: center;
+    span{
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    p{
+      padding-top: 2px;
+      a{
+        font-size: 10px;
+        font-weight: bold;
+        text-decoration: underline;
+        color: #000;
+        &:hover{
+          color: $pink;
+        }
+      }
+    }
+  }
+  .denied{
+    background: image-url('common/sprite_modal_footer.png') no-repeat -122px 1px;
+    background-color: #ea8596;
+    border: 1px solid #e94762;
+    height: 23px;
+    width: 62%;
+        
+  }
+  .js-success, .js-error{
+    display: none;
+  }
+  ul.mail{
+    width: 100%;
+    height: 20px;
+    position: relative;
+    right:-8px;
+    p{
+      font-size: 11px;
+      font-family: $bt_font;
+      letter-spacing: 1px;
+      color: #000;
+      float: left;
+      margin-right: 5px;
+      span{
+        color: $base_color;
+        font-weight: 600;
+        font-weight: bold;
+      }
+    }
+    fieldset{
+      display: block;
+      width: 100px;
+      float: left;
+      .box_mail{
+        width: 160px !important;
+        height: 18px;
+        background-color: #fff;
+        color: #000;
+        font-size: 10px;
+        font-family: $bt_font;
+        border: 1px solid #000;
+        padding-left: 10px;
+        letter-spacing: 1px;
+        margin-top: 0px;
+        position: absolute;
+      }
+    }
+    fieldset.botao{
+      width: 20px;
+      height:20px;
+      border: none;
+      .bt_enviar{
+        background: image-url('common/ok.png') no-repeat;
+        width: 20px;
+        height: 20px;
+        text-indent: 9999px;
+        float: right;
+        position: absolute;
+        border: none;
+        right: 11px;
+        top:-1px;
+      }
+    }
+  }
+}

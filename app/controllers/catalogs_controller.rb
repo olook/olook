@@ -7,72 +7,61 @@ class CatalogsController < ApplicationController
   layout "lite_application"
   prepend_before_filter :verify_if_is_catalog
   helper_method :header
-  DEFAULT_PAGE_SIZE = 48
-
-  def parse_parameters_from request
-    SeoUrl.parse(request.fullpath)
-  end
+  DEFAULT_PAGE_SIZE = 32
 
   def add_campaign(params)
-    HighlightCampaign.find_campaign(params[:cmp])  
+    HighlightCampaign.find_campaign(params[:cmp])
+  end
+
+  def not_found
+    @campaign = add_campaign(params)
+    @url_builder = SeoUrl.new(path: request.fullpath,
+                      path_positions: '/:category:/-:subcategory::brand:-/-:care::color::size::heel:_',
+                      params: { category: params[:category] })
+    @search = add_search_result(@url_builder.parse_params, params)
+    @url_builder.set_search(@search)
+    @category = @search.expressions[:category].to_a.first.downcase
   end
 
   def add_search_result(search_params, params)
-    page_size = params[:page_size] || DEFAULT_PAGE_SIZE
+    search_params[:limit] = params[:page_size] || DEFAULT_PAGE_SIZE
+    search_params[:page] = params[:page]
+    search_params[:admin] = !!current_admin
     search = SearchEngineWithDynamicFilters.new(search_params, true)
-      .for_page(params[:page])
-      .with_limit(page_size)
-
-    search.for_admin if current_admin
     search
   end
 
-  def add_antibounce_box(search, params)
-    brands = search.expressions["brand"].map{|b| b.downcase}
-    if AntibounceBox.need_antibounce_box?(@search, brands, params)      
-      @antibounce_box = AntibounceBox.new(params) 
-    end
-  end
-
   def index
-    search_params = parse_parameters_from request
-    Rails.logger.debug("New params: #{params.inspect}")
-
     @campaign = add_campaign(params)
+    @url_builder = SeoUrl.new(path: request.fullpath,
+                      path_positions: '/:category:/-:subcategory::brand:-/-:care::color::size::heel:_',
+                      params: { category: params[:category] })
+    search_params = @url_builder.parse_params
     @search = add_search_result(search_params, params)
-
-    @url_builder = SeoUrl.new(search_params, "category", @search)
-
-    add_antibounce_box(@search, params)
-
-    
-    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
+    @url_builder.set_search(@search)
+    redirect_to catalog_not_found_path if @search.products.size == 0
+    @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])
     @pixel_information = @category = params[:category]
+    @color = search_params["color"]
+    @size = search_params["size"]
+    @brand_name = search_params["brand"]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
-    @category = @search.expressions[:category].first
-    @subcategory = @search.expressions[:subcategory].first
-    params[:category] = @search.expressions[:category].first
+    @category = @search.expressions[:category].to_a.first.downcase
+    @subcategory = @search.expressions[:subcategory].to_a.first
+    params[:category] = @search.expressions[:category].to_a.first
+
+    key = [@search.filter_value(:category).first]
+    key.push(@search.filter_value(:subcategory).first) unless @search.filter_value(:subcategory).blank?
+    @leaderboard = Leaderboard.new(key: key.join(':'))
+
     expire_fragment(@cache_key) if params[:force_cache].to_i == 1
   end
 
   add_method_tracer :parse_parameters_from, 'Custom/CatalogsController/parse_parameters_from'
   add_method_tracer :add_campaign, 'Custom/CatalogsController/add_campaign'
   add_method_tracer :add_search_result, 'Custom/CatalogsController/add_search_result'
-  add_method_tracer :add_antibounce_box, 'Custom/CatalogsController/add_antibounce_box'
 
   private
-    
-    def header
-      @header ||= Header.for_url(request.path).first
-    end
-
-    def title_text
-      if header && header.title_text.present?
-        Seo::SeoManager.new(request.path, model: header).select_meta_tag
-      else
-        Seo::SeoManager.new(request.path, search: @search).select_meta_tag
-      end
-    end
 
     def canonical_link
       host =  "http://#{request.host_with_port}/"
@@ -81,10 +70,6 @@ class CatalogsController < ApplicationController
       else
         "#{host}#{@category}"
       end
-    end
-
-    def meta_description
-      Seo::DescriptionManager.new(description_key: @subcategory.blank? ? @category : @subcategory).choose
     end
 
     def verify_if_is_catalog

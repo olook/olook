@@ -1,6 +1,6 @@
 class ClearSaleReportWorker
 
-  @queue = :generate_clear_sale_report
+  @queue = 'low'
 
   def self.perform(start_date, end_date, admin_email)
     parsed_start_date = Date.parse start_date

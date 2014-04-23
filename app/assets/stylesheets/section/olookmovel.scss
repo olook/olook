@@ -36,7 +36,7 @@ section#kombi {
       margin: 15px 0 15px;
       padding: 10px;
       border: 1px #b7b7b7 solid;
-      h1 {
+      h2 {
         background: image-url('kombi/instagram.jpg') top left no-repeat;
         font-family: $avenir;
         font-size: 15px;
@@ -61,7 +61,7 @@ section#kombi {
           span {
             font-family: $kepler;
             text-transform: lowercase;
-            font-size: 23px;
+            font-size: 20px;
           }
           
           
@@ -105,7 +105,7 @@ section#kombi {
 		float:left;
 		width:100%;
 		margin-top:25px;
-    h1 {
+    h2 {
       font-family: $johnston;
       font-size: 22px;
       text-transform: uppercase;
@@ -118,7 +118,7 @@ section#kombi {
 				color:#808285;
       }
     }
-    h2 {
+    h3 {
       position: absolute;
       background: image-url('kombi/know-where-to-find.png') no-repeat;
       text-indent: -99999px;
@@ -127,6 +127,7 @@ section#kombi {
       display: block;
       top: -21px;
       right: 7px;
+      padding-top:140px;
     }
     table {
       width: 100%;

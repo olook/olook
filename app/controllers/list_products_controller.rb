@@ -1,9 +1,17 @@
 class ListProductsController < ApplicationController
   layout "lite_application"
   helper_method :header, :url_prefix
-  DEFAULT_PAGE_SIZE = 48
+  DEFAULT_PAGE_SIZE = 32
   class << self
     attr_reader :url_prefix
+  end
+
+  def not_found
+    @url_builder = SeoUrl.new(path: request.fullpath, path_positions: @path_positions)
+    search_params = @url_builder.parse_params 
+    @search = SearchEngine.new(search_params)
+    @search.for_admin if current_admin
+    @url_builder.set_search @search
   end
 
   protected
@@ -16,19 +24,29 @@ class ListProductsController < ApplicationController
     url_prefix.gsub("/","").capitalize
   end
 
-  def default_params(search_params, site_section)
-    page_size = params[:page_size] || DEFAULT_PAGE_SIZE
+  def add_search_result(search_params, params)
+    search_params[:limit] = params[:page_size] || DEFAULT_PAGE_SIZE
+    search_params[:page] = params[:page]
+    search_params[:admin] = !!current_admin
+    search = SearchEngineWithDynamicFilters.new(search_params, true)
+    search
+  end
+
+  def default_params
+    @url_builder = SeoUrl.new(path: request.fullpath, path_positions: @path_positions)
+
+    search_params = @url_builder.parse_params
     search_params[:skip_beachwear_on_clothes] = true
-    @search = SearchEngineWithDynamicFilters.new(search_params, true).for_page(params[:page]).with_limit(page_size)
+    search_params[:visibility] = @visibility
+    @search = add_search_result(search_params, params)
     @search.for_admin if current_admin
-
-    @url_builder = SeoUrl.new(search_params, site_section, @search)
-    @antibounce_box = AntibounceBox.new(params) if AntibounceBox.need_antibounce_box?(@search, @search.expressions["brand"].map{|b| b.downcase}, params)
-
+    @url_builder.set_search @search
+    @color = search_params["color"]
+    @size = search_params["size"]
+    @brand = search_params["brand"]
+    @campaign_products = HighlightCampaign.find_campaign(params[:cmp])
     @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])
-    @pixel_information = @category = params[:category]
-    @category = @search.expressions[:category].first
-    params[:category] = @search.expressions[:category].first
+    @category = params[:category] = @search.filter_value(:category).try(:first)
     @cache_key = configure_cache(@search)
   end
 
@@ -38,20 +56,9 @@ class ListProductsController < ApplicationController
     cache_key
   end
 
-
-  def title_text
-    return "#{prefix_for_page_title} | Sapatos Femininos | Olook" if @category && @category == 'sapato'
-    return "#{prefix_for_page_title} | #{@category}s Femininas | Olook" if @category && @category != 'sapato'
-    "#{prefix_for_page_title} | Roupas Femininas e Sapatos Femininos | Olook"
-  end
-
   def canonical_link
     return "http://#{request.host_with_port}/#{prefix_for_page_title}/#{@category}" if @category
     "http://#{request.host_with_port}/#{prefix_for_page_title}"
-  end
-
-  def meta_description
-    Seo::DescriptionManager.new(description_key: prefix_for_page_title).choose
   end
 
 end

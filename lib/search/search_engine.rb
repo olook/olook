@@ -24,13 +24,15 @@ class SearchEngine
     category: [ :subcategory ]
   }
 
+  DEFAULT_SORT = "age,-inventory,-text_relevance"
+
   attr_accessor :skip_beachwear_on_clothes
   attr_accessor :df
 
   attr_reader :current_page, :result
   attr_reader :expressions, :sort_field
 
-  def initialize attributes = {}, is_smart=false
+  def initialize attributes = {}, is_smart = false
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
@@ -45,13 +47,23 @@ class SearchEngine
 
     attributes.each do |k, v|
       next if k.blank?
-      self.send("#{k}=", v)
+      begin
+        self.send("#{k}=", v)
+      rescue NoMethodError
+      end
     end
     validate_sort_field
+    Rails.logger.debug("SearchEngine processed these params: #{@expressions.inspect}")
+
+    @redis = Redis.connect(url: ENV['REDIS_CACHE_STORE'])
   end
 
   def term= term
     @query = URI.encode(term) if term
+  end
+
+  def term
+    @query
   end
 
   # TODO: Mudar a forma que o recebe o collection_theme pois
@@ -76,8 +88,12 @@ class SearchEngine
 
   def price= price
     @expressions["price"] = []
-    if /^(?<min>\d+)-(?<max>\d+)$/ =~ price.to_s
-      @expressions["price"] = ["retail_price:#{min.to_i*100}..#{[max.to_i*100-1, 0].max}"]
+    if price.to_s =~ /^(-?\d+-\d+)+$/
+      pvals = price.split('-')
+      while pvals.present?
+        val_arr = pvals.shift(2)
+        @expressions["price"] << "retail_price:#{format_price_range(val_arr.first,val_arr.last)}"
+      end
     end
     self
   end
@@ -85,12 +101,23 @@ class SearchEngine
   def sort= sort_field
     @sortables ||= Set.new(['retail_price', '-retail_price', 'desconto', '-desconto','age'])
     if sort_field.present? && @sortables.include?(sort_field)
-      @sort_field = "#{ sort_field }"
       @is_smart = false
+      @sort_field = "#{ sort_field }"
     end
     self
   end
 
+  def page=(val)
+    for_page(val)
+  end
+
+  def limit=(val)
+    with_limit(val)
+  end
+
+  def admin=(val)
+    for_admin if val
+  end
 
   def category= _category
     if _category == "roupa" && !@skip_beachwear_on_clothes
@@ -120,7 +147,7 @@ class SearchEngine
   end
 
   def remove_filter filter
-    parameters = expressions.dup
+    parameters = formatted_filters
     parameters.delete_if {|k| IGNORE_ON_URL.include? k }
     parameters[filter.to_sym] = []
     if NESTED_FILTERS[filter.to_sym]
@@ -128,12 +155,11 @@ class SearchEngine
         parameters[key.to_sym] = []
       end
     end
-    parameters.merge!({q: @query}) if @query
     parameters
   end
 
   def replace_filter(filter, filter_value)
-    parameters = expressions.dup
+    parameters = formatted_filters
     parameters.delete_if {|k| IGNORE_ON_URL.include? k }
     parameters[filter.to_sym] = [filter_value]
     if NESTED_FILTERS[filter.to_sym]
@@ -145,7 +171,7 @@ class SearchEngine
   end
 
   def current_filters
-    parameters = expressions.dup
+    parameters = formatted_filters
     parameters.delete_if {|k| IGNORE_ON_URL.include? k }
     parameters
   end
@@ -177,6 +203,11 @@ class SearchEngine
   end
 
   def filter_selected?(filter_key, filter_value)
+    if filter_key == :price
+      arr = filter_value.split("-")
+      filter_value = format_price_range(arr[0], arr[1])
+    end
+
     if values = expressions[filter_key]
       if RANGED_FIELDS[filter_key]
         values.any? do |v|
@@ -191,11 +222,15 @@ class SearchEngine
   end
 
   def selected_filters_for category
-    expressions[category.to_sym] || []
+    if category == "price"
+      return price_selected_filters expressions
+    else
+      return expressions[category.to_sym] || []
+    end
   end
 
   def has_any_filter_selected?
-    _filters = expressions.dup
+    _filters = expressions.clone
     _filters.delete(:category)
     _filters.delete(:price)
     _filters.delete_if{|k,v| IGNORE_ON_URL.include?( k )}
@@ -237,38 +272,46 @@ class SearchEngine
     bq += "facet=#{@facets.join(',')}&" if @facets.any?
     q = @query ? "?q=#{@query}&" : "?"
     if @is_smart
-      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&#{ ranking }&rank=-exp,#{ @sort_field }&size=#{ options[:limit] }"
+      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&#{ ranking }&rank=#{smart_ranking_params}&size=#{ options[:limit] }"
     else
       "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }"
     end
   end
 
   def ranking
-    "rank-exp=(r_full_grid*#{ Setting[:full_grid_weight].to_i })%2B(r_inventory*#{ Setting[:inventory_weight].to_i })%2B(r_qt_sold_per_day*#{ Setting[:qt_sold_per_day_weight].to_i })%2B(r_coverage_of_days_to_sell*#{ Setting[:coverage_of_days_to_sell_weight].to_i })%2B(r_age*#{ Setting[:age_weight].to_i })"
+    "rank-exp=r_inventory%2Br_brand_regulator%2Br_age"
   end
 
   def fetch_result(url, options = {})
     cache_key = Digest::SHA1.hexdigest(url.to_s)
     Rails.logger.error "[cloudsearch] cache_key: #{cache_key}"
 
-    _response = Rails.cache.fetch(cache_key, expires_in: 15.minutes) do
-      Rails.logger.error "[cloudsearch] cache missed"
-      url = URI.parse(url)
-      tstart = Time.zone.now.to_f * 1000.0
-      http_response = Net::HTTP.get_response(url)
-      Rails.logger.error("GET cloudsearch URL (time=#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
-      Rails.logger.error("[cloudsearch] result_code:#{http_response.code}, result_message:#{http_response.message}")
-
-      raise "CloudSearchConnectError" if http_response.code != '200'
-      http_response
+    begin
+      cached_response = if @redis.exists(cache_key)
+        @redis.get(cache_key)
+      else
+        Rails.logger.error "[cloudsearch] cache missed"
+        url = URI.parse(url)
+        tstart = Time.zone.now.to_f * 1000.0
+        http_response = Net::HTTP.get_response(url)
+        Rails.logger.error("GET cloudsearch URL (time=#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
+        Rails.logger.error("[cloudsearch] result_code:#{http_response.code}, result_message:#{http_response.message}")
+        raise "CloudSearchConnectError" if http_response.code != '200'
+        @redis.set(cache_key, http_response.body)
+        @redis.expire(cache_key, 30.minutes)
+        http_response.body
+      end
+      SearchResult.new(cached_response, options)
+    rescue => e
+      Rails.logger.error("[cloudsearch] Error on unmarshalling the key:#{cache_key}, for url:#{url}, message:#{e.message}")
+      SearchResult.new({:hits => nil, :facets => {} }.to_json, options)
     end
-    SearchResult.new(_response, options)
-        
+
   end
 
   def build_boolean_expression(options={})
     bq = []
-    expressions = @expressions.dup
+    expressions = @expressions.clone
     cares = expressions.delete('care')
     if cares.present?
       subcategories = expressions.delete('subcategory')
@@ -305,9 +348,9 @@ class SearchEngine
   end
 
   def key_for field
-    chosen_filter_values = expressions[field.to_sym] || ""
+    chosen_filter_values = expressions[field.to_sym] || []
     # Use Digest::SHA1.hexdigest ??
-    key = expressions[:category].join("-") + "/" + field.to_s + "/" + chosen_filter_values.join("-")
+    key = expressions[:category].to_a.join("-") + "/" + field.to_s + "/" + chosen_filter_values.join("-")
     Rails.logger.info "[cloudsearch] #{field}_key=#{key}"
     key
   end
@@ -326,7 +369,7 @@ class SearchEngine
 
     def formatted_filters
       filter_params = HashWithIndifferentAccess.new
-      expressions.each do |k, v|
+      expressions.clone.each do |k, v|
         next if IGNORE_ON_URL.include?(k)
         next if k == 'visibility'
         filter_params[k] ||= []
@@ -343,6 +386,7 @@ class SearchEngine
           filter_params[k].concat v.map { |_v| _v.downcase }
         end
       end
+      filter_params[:sort] = ( @sort_field == DEFAULT_SORT ? nil : @sort_field )
 
       filter_params
     end
@@ -357,7 +401,26 @@ class SearchEngine
 
     def validate_sort_field
       if @sort_field.nil? || @sort_field == "" || @sort_field == 0 || @sort_field == "0"
-        @sort_field = "age,-inventory,-text_relevance"
+        @sort_field = DEFAULT_SORT
       end
+    end
+
+    def format_price_range(min,max)
+      "#{min.to_i*100}..#{[max.to_i*100-1, 0].max}"
+    end
+
+    def price_selected_filters expressions
+      return [] unless expressions[:price]
+      price_filters = expressions[:price].map do |e| 
+        a = e.gsub("retail_price:","").split("..")
+        a[0] = (a[0].to_i/100).to_s
+        a[1] = ((a[1].to_i+1)/100).to_s
+        a.join("-")
+      end
+      price_filters || []
+    end
+
+    def smart_ranking_params
+      "-exp,#{ @sort_field }".split(",").reject{|v| v.blank?}.join(",")
     end
 end

@@ -1,6 +1,6 @@
 class CustomUrlController < ApplicationController
   layout "lite_application"
-  DEFAULT_PAGE_SIZE = 48
+  DEFAULT_PAGE_SIZE = 32
   helper_method :check_organic_url_section
 
   def show
@@ -9,14 +9,11 @@ class CustomUrlController < ApplicationController
       product_list = @custom_url.product_list.to_s.split(/\D/).select{|w|w.present?}.compact
       @custom_search = SearchEngine.new(product_id: product_list.join('-'))
       page_size = params[:page_size] || DEFAULT_PAGE_SIZE
-      search_params = SeoUrl.parse(@custom_url.organic_url)
+      @url_builder = SeoUrl.new(path: @custom_url.organic_url, path_positions: path_positions_by_section)
+      search_params = @url_builder.parse_params
       @search = SearchEngine.new(search_params, true).for_page(params[:page]).with_limit(page_size)
-      @url_builder = check_organic_url_section(
-        catalog: SeoUrl.new(search_params, "category", @search),
-        brand: SeoUrl.new(search_params, "brand", @search),
-        collection: SeoUrl.new(search_params, "collection_theme", @search)
-      )
-      @category = @search.current_filters['category'].first
+      @url_builder.set_search(@search)
+      @category = @search.current_filters['category'].try(:first)
       @collection_theme_groups = CollectionThemeGroup.order(:position).includes(:collection_themes)
       @cache_key = "custom_url#{request.path}|#{@search.cache_key}#{@custom_url.cache_key}"
     else
@@ -26,15 +23,30 @@ class CustomUrlController < ApplicationController
 
   private
 
+  def path_positions_by_section
+    case @custom_url.organic_url
+    when /^\/colecoes/i
+      '/colecoes/:collection_theme:/-:category::brand::subcategory:-/-:care::color::size::heel:_'
+    when /^\/marcas/i
+      '/marcas/:brand:/-:category::subcategory:-/-:care::color::size::heel:_'
+    when /^\/(olooklet|selecoes|novidades)/i
+      "/#{$1}/-:category::brand::subcategory:-/-:care::color::size::heel:_"
+    when /^\/busca/i
+      '/busca'
+    else
+      '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_'
+    end
+  end
+
   def check_organic_url_section(hash)
     case
-    when /^\/?colecoes/ =~ @custom_url.organic_url
+    when /^\/?colecoes/i =~ @custom_url.organic_url
       if hash[:collection].respond_to?(:call)
         hash[:collection].call
       else
         hash[:collection]
       end
-    when /^\/?marcas/ =~ @custom_url.organic_url
+    when /^\/?marcas/i =~ @custom_url.organic_url
       if hash[:brand].respond_to?(:call)
         hash[:brand].call
       else
@@ -49,11 +61,7 @@ class CustomUrlController < ApplicationController
     end
   end
 
-    def title_text
-      Seo::SeoManager.new(request.path, model: @custom_url).select_meta_tag
-    end
-
-    def canonical_link
-      "#{request.protocol}#{request.host_with_port}#{@custom_url.url}"
-    end
+  def canonical_link
+    "#{request.protocol}#{request.host_with_port}#{@custom_url.url}"
+  end
 end

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" dir="ltr" lang="pt-BR">
+<html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" dir="ltr" lang="pt">
   <head>
     <%= render :partial => "shared/errorception" %>
     <%= javascript_include_tag "jquery" %>
+    <%= javascript_include_tag "//d22zjnmu4464ds.cloudfront.net/statistics-002.js" %>
     <%= javascript_include_tag "control.js" %>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -171,7 +172,7 @@
                </div>
              </div>
              <div class="olook_logo">
-               <h2><%= link_to 'Olook', root_path %></h2>
+               <h1><%= link_to 'Olook', root_path %></h1>
              </div>
            </div>
          </header>
@@ -180,9 +181,9 @@
          <nav class="menu_new">
            <div class="content_new">
              <ul class="default_new">
-                <%= cache ["megamenu",mobile?] do %>
+
                    <%= MenuPresenter.new(self, :user => current_user).render_menu(mobile?) %>
-                <% end %>
+
              </ul>
              <div class="new_sacola">
                <%= link_to "SACOLA #{cart_total(@cart)}".html_safe, cart_path, :class => "cart #{'full' if @cart.try(:items_total).to_i > 0}" %>
@@ -192,11 +193,11 @@
          </nav>
        </div>
 
-       <div id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
+       <section id="content" class="<%= error.nil? ? 'content': 'error_content'%>">
 
          <%= render_promotion_banner unless error %>
          <%= content_for?(:content) ? yield(:content) : yield %>
-       </div>
+       </section>
 
        <%= render(:partial => "shared/footer") %>
        <%= render(:partial => "shared/footer_bar") %>

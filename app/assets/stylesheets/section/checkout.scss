@@ -2019,6 +2019,7 @@ section.checkout{
         font-weight: 700;
         padding-top:10px;
       }
+      p.date{font-size: 11px;margin-bottom: 8px;}
       ul {width: 300px;margin-top: 10px;
         li{width: 300px;height: 36px;
           input {float: left;}
@@ -2175,7 +2176,7 @@ section.checkout{
           position:absolute;
           z-index:2;
           left:144px;
-          top:83px;
+          top:65px;
           display:block;
           width:45px;
           height:32px;
@@ -2618,10 +2619,10 @@ p.important {
   display:block;
   width:280px;
   border:1px solid #e1e1e1;
-  margin-bottom:15px;
   font-size: 11px;
   background: "#elelel";
   padding: 4px;
   background:#faffd4;
+  margin-top: 8px
 
 }

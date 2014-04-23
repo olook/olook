@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Orders
   class NotificationOrderRequestedWorker
-    @queue = :order_status
+    @queue = 'medium'
 
     def self.perform(order_id)
       order = Order.find(order_id)

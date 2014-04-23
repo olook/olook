@@ -42,8 +42,8 @@
                 %li= access_link("Braspag Capture Responses")
                 %li= access_link("Payments")
                 %li= access_link_generic(name: "BilletService", location: "admin.billet.santander", path: admin_new_billet_batch_path, action: "create", constantize: true)
-                %li= access_link_generic(name: "BilletReport", location: "admin.billet.report", path: admin_billet_reports_path, constantize: false)
-                %li= access_link_generic(name: "NewestReport", location: "admin.users.report", path: admin_newest_reports_path, constantize: false)
+                %li= link_to(I18n.t("admin.billet.report"), admin_billet_reports_path) if can?(:index, :billet_report)
+                %li= link_to(I18n.t("admin.users.report"), admin_newest_reports_path) if can?(:index, :newest_report)
             %li{class: "submenu#{' active' if params[:controller] =~ /collections|products/}"}
               %span Produtos
               %ul
@@ -55,7 +55,7 @@
               %span Promoções
               %ul
                 %li= access_link("Promotions")
-                %li= access_link_generic(name: "VisibilityBatch", location: "admin.product.liquidation", path: admin_new_visibility_batch_path, constantize: false)
+                %li= link_to(I18n.t("admin.product.liquidation"), admin_new_visibility_batch_path) if can?(:new, :visibility_batch)
                 %li= access_link("Campaigns")
                 %li= access_link("Highlights")
                 %li= access_link("Coupons")
@@ -83,6 +83,7 @@
               %span Marketing
               %ul
                 %li= access_link_generic(name: "SimpleEmailServiceInfo", location: "activerecord.models.simple_email_service_info.other", path: admin_ses_path)
+                %li= access_link("Mkt Settings")
       #wrapper.wat-cf
         .flash
           - flash.each do |type, message|

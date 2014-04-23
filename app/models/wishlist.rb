@@ -29,7 +29,7 @@ class Wishlist < ActiveRecord::Base
   end
 
   def products
-    wished_products.select{|wp| wp.is_visible?}
+    wished_products.limit(60).select{|wp| wp.is_visible?}
   end
 
   def size

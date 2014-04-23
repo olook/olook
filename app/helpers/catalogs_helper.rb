@@ -15,20 +15,42 @@ module CatalogsHelper
   HIGHLIGHT_BRANDS = {"olook" => 1, "olook concept" => 2, "olook essential" => 3, "olook curves" => 4}
   DOWNCASE_WORDS = Set.new( %w{ e de do da a o } )
 
-  def clean_filter_link_to(link)
-    link += params[:q].blank? ? "" : "?q=#{params[:q]}"
+  FACEBOOK_TITLES = {
+    sapato: "Olook | Sapatos Femininos Online",
+    bolsa: "Olook | Compre bolsas femininas online",
+    acessorio: "Olook | Acessórios femininos",
+    roupa: "Olook | Roupas Femininas Online",
+    curves: "Olook Curves | Roupas femininas Plus Size"
+  }
 
+  FACEBOOK_DESCRIPTIONS = {
+    sapato: "Comprar sapatos online é mais fácil e mais seguro quando você compra na Olook. Encontre modelos de sapatilhas, botas e saltos diversos para todas as ocasiões.",
+    bolsa: "Compre bolsas femininas online com facilidade e segurança. Na Olook você encontra bolsas e clutches das melhores marcas.",
+    acessorio: "Na Olook você encontra todos os tipos de acessórios para pontuar seus looks. Compre maxi colares, brincos e carteiras com segurança e praticidade!",
+    roupa: "Na Olook você compra roupas das melhores marcas online com segurança e praticidade. Achados da Colcci, Lez a Lez, Cantão e  M.Officer para todas as ocasiões.",
+    curves: "Encontre roupas femininas com tamanhos grandes ou especiais na Olook. Comprar roupas plus size online ficou mais fácil e seguro!"
+  }
+
+  PRICE_RANGES = {
+    "0-70" => "Até R$ 69,90",
+    "70-130" => "R$ 70 a R$ 129,90",
+    "130-200" => "R$ 130,00 a R$ 199,90",
+    "200-1000" => "Acima de R$ 200"
+  }
+
+  def clean_filter_link_to(link)
     link_to('Limpar Filtro', link, class: 'clean')
   end
 
-  def filter_link_to(link, text, selected=false, amount=nil)
+  def filter_link_to(link, text, selected=false, amount=nil,follow=true)
+    text = text.chomp.gsub('Ç', 'ç').downcase.titleize
     span_class = text.downcase.parameterize
-    search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
     text += " (#{amount})" if amount
     class_hash = selected ? {class: "selected"} : {}
-    link+=search_param
+    class_hash[:title] = text
+    class_hash[:alt] = text
+    class_hash[:rel] = 'nofollow' unless follow == true
     text = CLOTH_SIZES_TABLE.include?(text) ? text : titleize_without_pronoum(text)
-    
     link_to(link, class_hash) do
       content_tag(:span, text, class:"txt-#{span_class}")
     end
@@ -52,7 +74,7 @@ module CatalogsHelper
   
   def product_permalink(product)
     "/produto/" + product.formatted_name.parameterize + "-" + product.id.to_s 
-  end  
+  end
   
   def current_section_link_to(link, selected=false)
     search_param = params[:q].blank? ? "" : "?q=#{params[:q]}"
@@ -116,7 +138,6 @@ module CatalogsHelper
   end
 
   def more_products_link_to(link, text, style_class="")
-    span_class = text.downcase.parameterize
     text = titleize_without_pronoum(text)
     link_to(link) do
       content_tag(:span, text, class: "#{style_class}", onclick: track_event("AntibounceBox", "SeeMoreProducts"))
@@ -147,5 +168,77 @@ module CatalogsHelper
     end
     search.category = old_categories
     response
+  end
+
+  def facebook_title category
+    FACEBOOK_TITLES[category.to_s.to_sym]
+  end
+
+  def facebook_description category
+    FACEBOOK_DESCRIPTIONS[category.to_s.to_sym]
+  end
+
+  def label_for_price_range price_range
+    PRICE_RANGES[price_range]
+  end  
+
+  def size_select_options(sizes, url_builder)
+    response = {}
+
+    response["Selecione um Tamanho"] = size_select_link_for("", url_builder) 
+    sizes.each{|s| response[format_size(s)] = size_select_link_for(s.downcase.parameterize, url_builder)}
+
+    response
+  end
+
+  def size_select_link_for(size, url_builder)
+    link = size.blank? ? url_builder.remove_filter_of(:size) : url_builder.replace_filter(:size, size.downcase.parameterize)
+    link[0] = ''
+    "#{root_url}#{link}"
+  end
+
+  def selected_size(search, url_builder)
+    search.filter_value(:size) ? search.filter_value(:size).first : ""
+  end
+
+  def selected_size_link(search, url_builder)
+    size_select_link_for(selected_size(search, url_builder), url_builder)
+  end
+
+  def selected_size_label(search, url_builder)
+    size = selected_size(search, url_builder)
+    (size.blank?) ? "Selecione um Tamanho" : format_size(size)
+  end
+
+  def whitelisted_color_filters(search)
+    filters_by("color", search, use_fields: [:category]).select{|k,v| SeoUrl.whitelisted_colors.include?(k) && should_color_appear?(search, k)}
+  end
+
+  def show_hot_products?(leaderboard, qty)
+    rank = @leaderboard.rank(qty * 3)
+    unsorted_hot_products = SearchEngine.new(product_id: rank.join('-'), limit: qty * 3).products.inject({}) do |hash, p|
+      hash[p.id.to_i] = p
+      hash
+    end
+    hot_products = rank.map { |product_id| unsorted_hot_products[product_id.to_i] }.compact.first(qty)
+    if hot_products.size == qty
+      hot_products
+    else
+      false
+    end
+  end
+
+  private
+
+  def should_color_appear?(search, text) 
+    (color_selected?(search, text) && color_filter_present?(search)) || !color_filter_present?(search)
+  end
+
+  def color_selected?(search, text)
+    search.filter_selected?(:color, text.chomp)
+  end
+
+  def color_filter_present?(search)
+    search.filter_value(:color).present?
   end
 end

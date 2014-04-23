@@ -1,6 +1,7 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag  "section/how_to" %>
 <% end %>
+<%= render "shared/mkt_breadcrumb" %>
 <%= first_level_breadcrumb("Como Funciona") %>
 <div id="how_to">
   <div id="description">
@@ -13,7 +14,7 @@
 </div>
 
 <div id="steps">
-  <h1>Veja como funciona</h1>
+  <h2>Veja como funciona</h2>
   <ul>
     <li id="left_box"><h3>Responda nosso Style Quiz</h3><p>Desenvolvemos um divertido style quiz para que você entenda melhor suas preferências e receber no final um painel sobre o seu estilo.</p></li>
     <li id="left_box_mid"><h3>Nossos Stylists montam sua vitrine</h3><p>Nossa equipe de stylists trabalhará para criar todos os meses os modelos exclusivos que mais combinam com você.</p></li>

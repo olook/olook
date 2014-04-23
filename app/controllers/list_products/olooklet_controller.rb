@@ -3,11 +3,15 @@ class ListProducts::OlookletController < ListProductsController
   @url_prefix = '/olooklet'
 
   def index
-    visibility = params[:visibility] || "#{Product::PRODUCT_VISIBILITY[:olooklet]}-#{Product::PRODUCT_VISIBILITY[:all]}"
-    request_path = params[:path] || request.fullpath
-    search_params = SeoUrl.parse(request_path).merge({visibility: visibility})
-    default_params(search_params,"olooklet")
-    @url_builder.set_link_builder { |_param| olooklet_path(_param) }
+    @path_positions = '/olooklet/-:category::brand::subcategory:-/-:care::color::size::heel:_'
+    @visibility = params[:visibility] || "#{Product::PRODUCT_VISIBILITY[:olooklet]}-#{Product::PRODUCT_VISIBILITY[:all]}"
+    default_params
+    redirect_to olooklet_not_found_path if Rails.cache.fetch("#{@cache_key}count", expire: 90.minutes) { @search.products.size }.to_i == 0
+  end
+
+  def not_found
+    @path_positions = '/olooklet/-:category::brand::subcategory:-/-:care::color::size::heel:_'
+    default_params
   end
 
   private

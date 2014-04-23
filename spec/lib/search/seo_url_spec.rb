@@ -8,188 +8,166 @@ describe SeoUrl do
     described_class.stub(:db_brands).and_return(["Colcci","Olook"])
   end
 
+  context "with params setted in query" do
+    subject { described_class.new(path: '/sapato/boneca-sapatilha/tamanho-37s?page=2&por=maior-preco&preco=50-600', path_positions: '/:category:/-:subcategory:-/-:size:_')}
+    it { expect(subject.parse_params[:category]).to match(/sapato/i) }
+    it { expect(subject.parse_params[:subcategory]).to match(/boneca/i) }
+    it { expect(subject.parse_params[:subcategory]).to match(/sapatilha/i) }
+    it { expect(subject.parse_params[:size]).to match(/37s/i) }
+    it { expect(subject.parse_params[:sort]).to match(/retail_price/i) }
+    it { expect(subject.parse_params[:page]).to match(/2/i) }
+    it { expect(subject.parse_params[:price]).to match(/50-600/i) }
+
+    context "building" do
+      it { expect(subject.build_link_for(SearchEngine.new(subject.parse_params).current_filters)).to eq( '/sapato/boneca-sapatilha/tamanho-37s?page=2&por=maior-preco&preco=50-600')}
+    end
+  end
+
   describe "#parse_params" do
-    it { expect(described_class.new('').parse_params).to be_a(Hash)  }
     context "Main keys" do
       context "that include collection themes" do
-        subject { described_class.new('/colecoes/p&b') }
+        subject { described_class.new(path: '/colecoes/p&b', path_positions: '/colecoes/:collection_theme:') }
         it { expect(subject.parse_params).to have_key(:collection_theme)  }
-        it { expect(subject.parse_params[:collection_theme]).to eq('p&b') }
+        it { expect(subject.parse_params[:collection_theme]).to match(/p&b/i) }
       end
       context "that includes brands" do
-        subject { described_class.new('/marcas/olook') }
+        subject { described_class.new(path: '/marcas/olook', path_positions: '/marcas/:brand:') }
         it { expect(subject.parse_params).to have_key(:brand)  }
-        it { expect(subject.parse_params[:brand]).to eq('Olook') }
+        it { expect(subject.parse_params[:brand]).to match(/Olook/i) }
       end
-      context "that includes brands" do
-        subject { described_class.new('/sapato') }
+      context "that includes category" do
+        subject { described_class.new(path: '/sapato', path_positions: '/:category:/_:brand::subcategory:-/_:color::size::heel:-') }
         it { expect(subject.parse_params).to have_key(:category)  }
-        it { expect(subject.parse_params[:category]).to eq('sapato') }
+        it { expect(subject.parse_params[:category]).to match(/Sapato/i) }
       end
     end
     context "Main keys and filters" do
       context "that includes brands as main category as filter" do
-        subject { described_class.new('/sapato/olook') }
-        it { expect(subject.parse_params[:brand]).to eq('Olook') }
-        it { expect(subject.parse_params[:category]).to eq('sapato') }
+        subject { described_class.new(path: '/sapato/olook', path_positions: '/:category:/-:brand::subcategory:-/_:color::size::heel:-') }
+        it { expect(subject.parse_params[:brand]).to match(/Olook/i) }
+        it { expect(subject.parse_params[:category]).to match(/Sapato/i) }
       end
       context "that includes category as main" do
         context "brands as filter" do
           context "one brand" do
-            subject { described_class.new('/sapato/olook') }
-            it { expect(subject.parse_params[:category]).to eq('sapato') }
-            it { expect(subject.parse_params[:brand]).to eq('Olook') }
+            subject { described_class.new(path: '/sapato/olook', path_positions: '/:category:/-:brand::subcategory:-/_:color::size::heel:-') }
+            it { expect(subject.parse_params[:category]).to match(/Sapato/i) }
+            it { expect(subject.parse_params[:brand]).to match(/Olook/i) }
           end
           context "multiple brands" do
-            subject { described_class.new('/sapato/olook-colcci') }
-            it { expect(subject.parse_params[:category]).to eq('sapato') }
+            subject { described_class.new(path: '/sapato/olook-colcci', path_positions: '/:category:/-:brand::subcategory:-/_:color::size::heel:-') }
+            it { expect(subject.parse_params[:category]).to match(/Sapato/i) }
             it { expect(subject.parse_params[:brand]).to match(/Olook/i) }
             it { expect(subject.parse_params[:brand]).to match(/Colcci/i) }
           end
         end
         context "and filtering by care products" do
-          subject { described_class.new('/sapato/conforto-amaciante-palmilha') }
-          it { expect(subject.parse_params[:category]).to eq('sapato') }
-          it { expect(subject.parse_params[:care]).to eq('amaciante-palmilha') }
+          subject { described_class.new(path: '/sapato/conforto-amaciante-palmilha', path_positions: '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_') }
+          it { expect(subject.parse_params[:category]).to match(/Sapato/i) }
+          it { expect(subject.parse_params[:care]).to match(/amaciante-palmilha/i) }
         end
       end
       context "filtering by subcategory" do
         context "one subcategory" do
-          subject { described_class.new('/sapato/bota') }
-          it { expect(subject.parse_params[:subcategory]).to eq('bota') }
+          subject { described_class.new(path: '/sapato/bota', path_positions:  '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_') }
+          it { expect(subject.parse_params[:subcategory]).to match(/bota/i) }
         end
         context "multiple subcategories" do
-          subject { described_class.new('/sapato/bota-scarpin') }
-          it { expect(subject.parse_params[:category]).to eq('sapato') }
-          it { expect(subject.parse_params[:subcategory]).to eq('bota-scarpin') }
+          subject { described_class.new(path: '/sapato/bota-scarpin', path_positions: '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_') }
+          it { expect(subject.parse_params[:category]).to match(/sapato/i) }
+          it { expect(subject.parse_params[:subcategory]).to match(/bota/i) }
+          it { expect(subject.parse_params[:subcategory]).to match(/scarpin/i) }
         end
       end
       context "filtering by colors and size" do
         context "one color" do
-          subject { described_class.new('/sapato/bota/cor-azul') }
-          it { expect(subject.parse_params[:subcategory]).to eq('bota') }
-          it { expect(subject.parse_params[:color]).to eq('azul') }
+          subject { described_class.new(path: '/sapato/bota/cor-azul', path_positions: '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_') }
+          it { expect(subject.parse_params[:subcategory]).to match(/bota/i) }
+          it { expect(subject.parse_params[:color]).to match(/azul/i) }
         end
         context "one size" do
-          subject { described_class.new('/sapato/bota/tamanho-37') }
-          it { expect(subject.parse_params[:subcategory]).to eq('bota') }
-          it { expect(subject.parse_params[:size]).to eq('37') }
+          subject { described_class.new(path: '/sapato/bota/tamanho-37', path_positions: '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_') }
+          it { expect(subject.parse_params[:subcategory]).to match(/bota/i) }
+          it { expect(subject.parse_params[:size]).to match(/37/i) }
         end
         context "multiple colors" do
-          subject { described_class.new('/sapato/bota/cor-azul-amarelo') }
-          it { expect(subject.parse_params[:subcategory]).to eq('bota') }
-          it { expect(subject.parse_params[:color]).to eq('azul-amarelo') }
+          subject { described_class.new(path: '/sapato/bota/cor-azul-amarelo', path_positions: '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_') }
+          it { expect(subject.parse_params[:subcategory]).to match(/bota/i) }
+          it { expect(subject.parse_params[:color]).to match(/azul-amarelo/i) }
         end
         context "multiple sizes" do
-          subject { described_class.new('/sapato/bota/tamanho-37-40') }
-          it { expect(subject.parse_params[:subcategory]).to eq('bota') }
-          it { expect(subject.parse_params[:size]).to eq('37-40') }
+          subject { described_class.new(path: '/sapato/bota/tamanho-37-40', path_positions: '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_') }
+          it { expect(subject.parse_params[:subcategory]).to match(/bota/i) }
+          it { expect(subject.parse_params[:size]).to match(/37-40/i) }
         end
         context "colors and sizes" do
-          subject { described_class.new('/sapato/bota/cor-azul_tamanho-37') }
-          it { expect(subject.parse_params[:subcategory]).to eq('bota') }
-          it { expect(subject.parse_params[:color]).to eq('azul') }
-          it { expect(subject.parse_params[:size]).to eq('37') }
+          subject { described_class.new(path: '/sapato/bota/cor-azul_tamanho-37', path_positions: '/:category:/-:brand::subcategory:-/-:care::color::size::heel:_') }
+          it { expect(subject.parse_params[:subcategory]).to match(/bota/i) }
+          it { expect(subject.parse_params[:color]).to match(/azul/i) }
+          it { expect(subject.parse_params[:size]).to match(/37/i) }
         end
       end
     end
 
     context "filtering by ordenation" do
       context "lower price" do
-        subject { described_class.new('/sapato?por=menor-preco') }
-        it { expect(subject.parse_params[:sort]).to eq('retail_price') }
+        subject { described_class.new(path: '/sapato?por=menor-preco') }
+        it { expect(subject.parse_params[:sort]).to match(/retail_price/i) }
       end
 
       context "greater price" do
-        subject { described_class.new('/sapato?por=maior-preco') }
-        it { expect(subject.parse_params[:sort]).to eq('-retail_price') }
+        subject { described_class.new(path: '/sapato?por=maior-preco') }
+        it { expect(subject.parse_params[:sort]).to match(/-retail_price/i) }
       end
 
       context "lower discount" do
-        subject { described_class.new('/sapato?por=maior-desconto') }
-        it { expect(subject.parse_params[:sort]).to eq('-desconto') }
+        subject { described_class.new(path: '/sapato?por=maior-desconto') }
+        it { expect(subject.parse_params[:sort]).to match(/-desconto/i) }
       end
     end
 
     context "ordering by price range" do
-      subject { described_class.new('/sapato?preco=100-300') }
-      it { expect(subject.parse_params[:price]).to eq('100-300') }
+      subject { described_class.new(path: '/sapato?preco=100-300') }
+      it { expect(subject.parse_params[:price]).to match(/100-300/i) }
+    end
+
+    context "with custom path_positions" do
+      subject { described_class.new(path: '/marcas/olook/sapato', path_positions: '/marcas/:brand:/-:category::subcategory-/_:color::size::heel:-') }
+      it { expect(subject.parse_params[:brand]).to match(/Olook/i) }
+    end
+
+    context "path with separators" do
+      subject { described_class.new(path: '/sapato-roupa/cor-azul_tamanho-36-M', path_positions: '/-:category:-/-:subcategory:-/-:color::size::heel:_') }
+      it { expect(subject.parse_params[:category]).to match(/sapato/i) }
+      it { expect(subject.parse_params[:category]).to match(/roupa/i) }
+      it { expect(subject.parse_params[:color]).to match(/azul/i) }
+      it { expect(subject.parse_params[:size]).to match(/36/i) }
+      it { expect(subject.parse_params[:size]).to match(/M/i) }
     end
   end
 
-
-  describe 'add_filter' do
-    let(:search_engine) { SearchEngine.new({ }) }
-    subject { described_class.new({}, "category", search_engine) }
-    context "when given params has subcategory" do
-
-      it "@search receives SearchEngine#filters_applied" do
-        search_engine.should_receive(:filters_applied).and_return({"category"=>["roupa"], "subcategory"=>["blusa"]})
-        subject.add_filter(:subject, "blusa")
-      end
-
-      it { expect(subject.add_filter(:subcategory, 'blusa')).to eq({ parameters: 'blusa' }) }
-
-      context "and filters and care products" do
-        before do
-          search_engine.stub(:filters_applied).and_return({ category: ['sapato'], subcategory: ['Bota'], care: ['amaciante'], size: ['36', 'p'], color: ['azul', 'vermelho']})
-        end
-        it { expect(subject.add_filter(:subcategory, 'blusa')).to eq(parameters: "bota/conforto-amaciante_tamanho-36-p_cor-azul-vermelho") }
-      end
-
-      context "and only filters" do
-        before do
-          search_engine.stub(:filters_applied).and_return({ category: ['sapato'], subcategory: ['Bota'], size: ['36', 'p'], color: ['azul', 'vermelho']})
-        end
-        it { expect(subject.add_filter(:subcategory, 'blusa')).to eq(parameters: "bota/tamanho-36-p_cor-azul-vermelho") }
-      end
-
-      context "and only care products" do
-        before do
-          search_engine.stub(:filters_applied).and_return({ category: ['sapato'], subcategory: ['Bota'], care: ['amaciante']})
-        end
-        it { expect(subject.add_filter(:subcategory, 'blusa')).to eq(parameters: "bota/conforto-amaciante") }
-      end
-
-      context "and brand together" do
-        before do
-          search_engine.stub(:filters_applied).and_return({ category: [ 'roupa' ], subcategory: ['bota'], brand: ['colcci', 'olook'], care:['amaciante']})
-        end
-        it { expect(subject.add_filter(:subcategory, 'blusa')).to eq(parameters: "colcci-olook-bota/conforto-amaciante") }
-      end
+  describe "#build_link_for" do
+    context 'without sections' do
+      subject { described_class.new(path_positions: '') }
+      it { expect(subject.build_link_for(category: [ 'sapato' ])).to eq('/?categoria=sapato') }
+      it { expect(subject.build_link_for(subcategory: [ 'bota' ])).to eq('/?modelo=bota') }
     end
 
-    context "when given params has no subcategories but has filters" do
-      before do
-        search_engine.stub(:filters_applied).and_return({ category: ['sapato'], size: ['36'], color: ['azul', 'preto'] })
-      end
-      it { expect(subject.add_filter(:size, '36')).to eq(parameters: "tamanho-36_cor-azul-preto") }
+    context 'with one section' do
+      subject { described_class.new(path_positions: '/:category:/') }
+      it { expect(subject.build_link_for(category: [ 'sapato' ])).to eq('/sapato') }
+      it { expect(subject.build_link_for(subcategory: [ 'bota' ])).to eq('/?modelo=bota') }
+      it { expect(subject.build_link_for(category: [ 'sapato' ], subcategory: [ 'bota' ])).to eq('/sapato?modelo=bota') }
     end
 
-    context "when has accents" do
-      before do
-        search_engine.stub(:filters_applied).and_return({ category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'onça'] })
-      end
-      it { expect(subject.add_filter(:subcategory, 'Sandália')).to eq({ parameters: "sandalia/tamanho-36-p_cor-azul-onca" }) }
-      it { expect(subject.add_filter(:color, 'Onça' )).to eq({ parameters: "sandalia/tamanho-36-p_cor-azul-onca" }) }
-    end
-
-    context "when paramter price order was passed" do
-      subject { described_class.new({ category: 'sapato', sort: 'retail_price' }, "category", search_engine) }
-      before do
-        search_engine.stub(:filters_applied).and_return({ category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'onça'] })
-      end
-      it { expect(subject.add_filter(:color, 'Onça' )).to eq({ parameters: "sandalia/tamanho-36-p_cor-azul-onca", "por" => 'menor-preco' }) }
-    end
-
-    context "when parameter per-page was passed" do
-      subject { described_class.new({ category: 'sapato', per_page: '30' }, "category", search_engine) }
-      before do
-        search_engine.stub(:filters_applied).and_return({ category: ['sapato'], subcategory: ['Sandália'], size: ['36', 'p'], color: ['azul', 'onça'] })
-      end
-      it { expect(subject.add_filter(:color, 'Onça' )).to eq({ parameters: "sandalia/tamanho-36-p_cor-azul-onca", "por_pagina" => '30' }) }
+    context "with fake section" do
+      subject { described_class.new(path_positions: '/marcas/-:brand:-/-:category::subcategory:-/-:care::color::size::heel:_')}
+      it { expect(subject.build_link_for).to eq('/marcas') }
+      it { expect(subject.build_link_for(brand: ['olook'])).to eq('/marcas/olook') }
+      it { expect(subject.build_link_for(brand: ['olook'], category: ['roupa'])).to eq('/marcas/olook/roupa') }
+      it { expect(subject.build_link_for(brand: ['olook'], category: ['roupa'], size: ['P'])).to eq('/marcas/olook/roupa/tamanho-P') }
+      it { expect(subject.build_link_for(brand: ['olook'], category: ['roupa'], size: ['P'], color: ['azul'])).to eq('/marcas/olook/roupa/cor-azul_tamanho-P') }
     end
   end
-
 end
 

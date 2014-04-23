@@ -4,6 +4,7 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
+//= require common/if_console_log
 //= require application_core/olook_app
 //= require jquery_ujs
 //= require ./plugins/jquery.zoom-min
