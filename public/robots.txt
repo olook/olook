@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: */spy
-Sitemap: https://s3.amazonaws.com/cdn.olook.com.br/sitemaps/sitemap.xml.gz
+Sitemap: http://www.olook.com.br/sitemap.xml.gz
