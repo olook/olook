@@ -6,7 +6,10 @@
   #go_top,
   #week_highlights,
   #emkt_box,
-  #related {
+  #related,
+  .facebook_produtcs,
+  #filters,
+  .hot_products {
 		display: none !important;
 	}
 
@@ -119,7 +122,15 @@
 	}
 
 	/* SEARCH */
-
+  .search {
+    margin-left:5px;
+    .title-founded {
+      width:100%;
+      text-align: center;
+      margin:5px 0 !important;
+      font-size: 13px !important;
+    }
+  }
 	.search_box {
 		float:left;
 		width:263px;
@@ -424,6 +435,13 @@
           margin-left:13px;
           padding:0px;
           border:0px;
+          width:100%;
+          display: block;
+          margin:10px 0 10px 13px;
+          p{
+            display: block;
+            width:100%;
+          }
         }
         .banner img {
           width:100%;
@@ -491,6 +509,9 @@
         .show_more,
         .subcategory-list {
           display: none;
+        }
+        h5 {
+          margin-bottom:0px;
         }
         .filter {
           float:left;
