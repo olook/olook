@@ -23,8 +23,10 @@ class BrandsFormat
     end
     formated_brands
   end
+
   def split_columns
-    separate_by_capital_letter.each_slice(4).to_a
+    brands = separate_by_capital_letter 
+    brands.each_slice((brands.keys.size/4.0).ceil).to_a
   end
 
   def get_sort_brands_from_cache
