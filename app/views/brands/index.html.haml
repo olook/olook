@@ -8,111 +8,11 @@
 = first_level_breadcrumb("Marcas")
 
 %section.brands
-  .box
-    %p.letter 0-9
-    %ul.brands-list
-      %li= link_to("284", brand_path("284"))
-
-    %p.letter A
-    %ul.brands-list
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Afghan"), "Afghan")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "agua doce"), "agua doce")
-
-    %p.letter B
-    %ul.brands-list
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Basico.com"), "Basico.com")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Blue Man"), "Blue Man")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "botswana"), "botswana")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "butterfly"), "Butterfly")
-
-    %p.letter C
-    %ul.brands-list
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Carina Duek"), "Carina Duek")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Canal"), "Canal")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Cantão"), "Cantão")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Colcci"), "Colcci")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Collins"), "Collins")
-
-  .box
-    %p.letter D
-    %ul.brands-list
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Douglas Harris"), "Douglas Harris")
-
-    %p.letter E
-    %ul.brands-list
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Ellus"), "Ellus")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Ellus 2 Nd Floor"), "Ellus 2 Nd Floor")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Espaço Fashion"), "Espaço Fashion")
-
-    %p.letter F
-    %ul.brands-list
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Fellipe Krein"), "Fellipe Krein")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Folic"), "Folic")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Forum"), "Forum")
-
-    / %p.letter G
-    / %ul.brands-list
-    /   %li= link_to("", brand_path(""))
-
-    %p.letter H
-    %ul.brands-list
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Handbook"), "Handbook")
-
-    %p.letter I
-    %ul.brands-list
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Iódice Denim"), "Iódice Denim")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Isabella Piu"), "Isabella Piu")
-
-  .box
-    %p.letter J
-    %ul.brands-list
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Juliana Manzini"), "Juliana Manzini")
-
-    %p.letter L
-    %ul.brands-list
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Lança Perfume"), "Lança Perfume")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Leeloo"), "Leeloo")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Lez a Lez"), "Lez a Lez")
-    
-    %p.letter M
-    %ul.brands-list
-      %li= filter_link_to(@url_builder.add_filter(:brand, "M. Officer"), "M. Officer")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Mandi"), "Mandi")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Mercatto"), "Mercatto")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "mob"), "MOB")
-
-    %p.letter O
-    %ul.brands-list
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Olli"), "Olli")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Olook"), "Olook")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Olook Concept"), "Olook Concept")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Olook Curves"), "Olook Curves")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Olook Essential"), "Olook Essential")
-
-  .box
-    %p.letter Q
-    %ul.brands-list
-      %li= filter_link_to(@url_builder.add_filter(:brand, "queens"), "Queens")
-
-    %p.letter R
-    %ul.brands-list
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Redley"), "Redley")
-
-    %p.letter S
-    %ul.brands-list
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Salinas"), "Salinas")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Scala"), "Scala")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Shoulder"), "Shoulder")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Sommer"), "Sommer")
-
-    %p.letter T
-    %ul.brands-list
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Tan Tan"), "Tan Tan")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Totem"), "Totem")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Triton"), "Triton")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Triya"), "Triya")
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Tvz"), "Tvz")
-
-    %p.letter W
-    %ul.brands-list
-      %li= filter_link_to(@url_builder.add_filter(:brand, "Wollner"), "Wollner")
+  -@brands.each_with_index do |brands,index|
+    .box
+      - brands.each do |b|
+        %p.letter
+          =b[0]
+        %ul.brands-list
+          -b[1].each do |brand_name|
+            %li= filter_link_to(@url_builder.add_filter(:brand, brand_name.capitalize), brand_name.capitalize)
