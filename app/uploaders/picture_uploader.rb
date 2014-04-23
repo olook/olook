@@ -14,7 +14,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   storage :fog
 
   def store_dir
-    "#{self.model.class.name.underscore.pluralize}/#{self.model.product.model_number}/#{self.model.display_on}"
+    "#{self.model.class.name.underscore.pluralize}/#{self.model.product_id}/#{self.model.display_on}"
   end
 
   # Override the directory where uploaded files will be stored.

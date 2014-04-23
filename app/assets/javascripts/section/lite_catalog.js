@@ -32,8 +32,16 @@ filter.init = function(){
       content = $("div.mercado_pago");
       olook.newModal(content, 640, 800);
   });
-}
 
+  $("form.js-size-select").submit(function(e){
+      e.preventDefault();
+      window.location = $( "#tamanho" ).val();
+  });
+
+  $('.hot_products li.product').find('p.spy,a.product_link').click(function(){
+    log_event('click', 'hot_products', {'productId': $(this).attr('rel')});
+  });
+}
 
 $(filter.init);
 

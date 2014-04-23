@@ -52,12 +52,16 @@
     .field
       = f.label :type
       %br/
-      = f.select(:type, [['Sem Header', 'NoBanner'], ['Texto', 'TextCatalogHeader'], ['1 Banner', 'BigBannerCatalogHeader'], ['3 Banners','SmallBannerCatalogHeader']],{ value: params[:type].to_a.first},id: "header_type")
+      = f.select(:type, [['Sem Header', 'NoBanner'], ['Texto', 'TextCatalogHeader'], ['1 Banner', 'BigBannerCatalogHeader'], ['3 Banners','SmallBannerCatalogHeader'], ['Tendencia', 'TrendyCatalogHeader']],{ value: params[:type].to_a.first},id: "header_type")
     .field
-      = f.label :seo_text
+      = f.label :page_title
       %br/
-      = f.text_field :seo_text
+      = f.text_field :page_title
       | Olook
+    .field
+      = f.label :page_description
+      %br/
+      = f.text_area :page_description
   %br
   %fieldset#small_banner_catalog_header
     %legend Três banners como na figura abaixo
@@ -66,7 +70,7 @@
       = f.label :small_banner1
       %br/
       = f.file_field :small_banner1
-      - if f.object.small_banner1?
+      - if f.object.small_banner? && f.object.small_banner1?
         = image_tag(f.object.small_banner1, style: 'max-width: 500px')
         %br/
         = f.check_box :remove_small_banner1, style: 'width: 10px'
@@ -83,7 +87,7 @@
       = f.label :small_banner2
       %br/
       = f.file_field :small_banner2
-      - if f.object.small_banner2?
+      - if f.object.small_banner? && f.object.small_banner2?
         = image_tag(f.object.small_banner2, style: 'max-width: 500px')
         %br/
         = f.check_box :remove_small_banner2, style: 'width: 10px'
@@ -100,7 +104,7 @@
       = f.label :medium_banner
       %br/
       = f.file_field :medium_banner
-      - if f.object.medium_banner?
+      - if f.object.small_banner? && f.object.medium_banner?
         = image_tag(f.object.medium_banner, style: 'max-width: 500px')
         %br/
         = f.check_box :remove_medium_banner, style: 'width: 10px'

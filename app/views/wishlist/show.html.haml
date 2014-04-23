@@ -1,6 +1,17 @@
 - content_for :footer do
   = javascript_include_tag "wishlist"
+= render "shared/mkt_breadcrumb"
 = first_level_breadcrumb("Favoritos")
+
+- content_for(:head) do
+  %meta{property: "og:title", content: "Wishlist | Olook"}/
+  %meta{property: "og:description", content: "Separe seus produtos favoritos e receba notificações de descontos excusivos"}/
+  %meta{property:"og:image", content:"http://d22zjnmu4464ds.cloudfront.net/assets/home/olook-5c5edb27a8d142a5e4b9db909c5bfbde.jpg"}/
+  %meta{property:"og:url", content:"#{root_url}wishlist"}/
+  %meta{property:"og:site_name", content:"Olook"}/
+  %meta{property: "og:type", content:"website"}/
+  %meta{property:"fb:app_id", content:"#{@facebook_app_id}"}/
+
 #wishlist
   %h1 
     Eu Quero!

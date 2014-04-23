@@ -1,7 +1,8 @@
 # -*- encoding : utf-8 -*-
+# TODO essa classe ainda eh utilizada?
 module Abacos
   class IntegrateOrderStatus
-    @queue = :order_status
+    @queue = 'low'
 
     def self.perform(klass, parsed_data)
       entity = klass.constantize.new parsed_data

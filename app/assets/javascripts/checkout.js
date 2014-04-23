@@ -9,7 +9,6 @@
 
 new FacebookEvents().config();
 new FacebookAuth().config();
-
 updateCreditCardSettlementsValue = function(select_box, total, reseller) {
   selected = select_box.val();
   select_box.empty();

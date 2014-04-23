@@ -1,0 +1,29 @@
+- content_for :head do
+  = stylesheet_link_tag "new_structure/section/lite_catalog"
+- content_for :footer do
+  :javascript
+    start_position = #{@search.range_values_for(:price)[:min] rescue 0};
+    final_position = #{@search.range_values_for(:price)[:max] rescue 600};
+  = javascript_include_tag 'section/lite_catalog'
+- content_for :data_layer do
+  = render "shared/data_layer/category", pixel_information: @pixel_information, catalog_products: @search.products
+
+= cache @cache_key, expires_in: 40.minutes do
+  = render "shared/mkt_breadcrumb"
+  = first_level_breadcrumb(Category.t(Category.with_name(@category)).pluralize)
+  #catalog
+    %aside
+      %h5{:style => 'font-size: 11px;margin-bottom: 10px;'}
+        Filtre sua pesquisa:
+      = render "filters", search: @search, category: @category
+
+    - present 'Header', header: header do |header_presenter| 
+      = header_presenter.show_header
+
+    #result
+      %section.container_product
+        %ul#products
+          Poxa, ainda não temos o que você está procurando :( 
+
+      .banner
+        = banner_for(@category, position: :botton)

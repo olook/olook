@@ -1,7 +1,7 @@
 class MktBaseGenerator
   include MultiJobsProcess
 
-  @queue = :low
+  @queue = 'low'
 
   def execute data
     csv_content = CSV.generate(col_sep: ";") do |csv|
@@ -21,8 +21,8 @@ class MktBaseGenerator
   ) as tmp join users on tmp.uuid = users.id")
   end
 
-  def split_data
-    indexes = prepare_indexes
+  def split_data(max)
+    indexes = prepare_indexes(max)
     (0...max).map do |i|
       first = i * indexes[:num_of_records]
       last = indexes[:num_of_records] * (i+1) - 1
@@ -84,7 +84,7 @@ class MktBaseGenerator
       end
     end
 
-    def prepare_indexes
+    def prepare_indexes(max)
       total = User.count
       num_of_records = total / max
       left = total % max + 1

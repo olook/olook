@@ -25,6 +25,7 @@ section.main {
           width: auto;
           margin: 0 auto 5px;
           overflow: auto;
+
           &.address {
             width: 100%;
             clear: both;
@@ -40,8 +41,12 @@ section.main {
             }
             &.edit {
               color: $pink;
-              text-align: center;
+              text-align: left;
               display: block;
+              margin-bottom: 8px;
+              font-size: 14px;
+              font-family: $avenir;
+
             }
           }
         }

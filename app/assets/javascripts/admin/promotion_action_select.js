@@ -19,14 +19,6 @@ $(function(){
     }
   }
   checkUseRuleParameters('.use_rule_parameters')
-  $('.promotion_rule_selection').unbind('change').change(function(){
-    var el = $(this);
-    if(promotionRuleNeedParam && !promotionRuleNeedParam['prule_' + el.val()]) {
-      el.siblings('.rules_params').attr('disabled', 'disabled');
-    } else {
-      el.siblings('.rules_params').removeAttr('disabled').focus();
-    }
-  });
 
   function cleanOnCheck(el) {
     el = $(el);
@@ -39,8 +31,10 @@ $(function(){
   }
 
   function removePromotionRule(){
-    var par = $(this).parents('.promotion_rule');
-    par.siblings('.destroy_rule_parameter').val('1');
+    var name = $(this).siblings('.promotion_rule_selection').attr('name'),
+    par = $(this).parents('.promotion_rule');
+    name = name.replace('promotion_rule_id', '_destroy');
+    $('[name="'+ name +'"]').val('1');
     par.remove();
     updateRuleParameterCount();
   }
@@ -82,6 +76,14 @@ $(function(){
     });
     $('.show_on_select').unbind('change').change(function(){
       showRel($(this), '.action_params_desc');
+    });
+    $('.promotion_rule_selection').unbind('change').change(function(){
+      var el = $(this);
+      if(promotionRuleNeedParam && !promotionRuleNeedParam['prule_' + el.val()]) {
+        el.siblings('.rules_params').attr('disabled', 'disabled');
+      } else {
+        el.siblings('.rules_params').removeAttr('disabled').focus();
+      }
     });
   }
   binds();

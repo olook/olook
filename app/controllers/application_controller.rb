@@ -75,19 +75,26 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def header
+      @header ||= Header.for_url(request.path).first
+    end
+
+    def seo_info
+      @seo_info ||= Seo::SeoManager.new(request.path, fallback_title: @product.try(:title_text),fallback_description: @product.try(:description), color: @color, size: @size, brand: @brand_name).select_meta_tag
+    end
 
     def title_text
-      Seo::SeoManager.new(request.path).select_meta_tag
+      seo_info[:title]
+    end
+
+    def meta_description
+      seo_info[:description]
     end
 
     def canonical_link
       if request.fullpath.match('\?')
         "http://#{request.host_with_port}#{request.path}"
       end
-    end
-
-    def meta_description
-      Seo::DescriptionManager.new.choose
     end
 
     def assign_coupon_to_cart(cart, coupon_code)

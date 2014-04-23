@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class NotificationWorker
-  @queue = :mailer
+  @queue = 'low'
 
   def self.perform opts
     DevAlertMailer.notify(opts).deliver

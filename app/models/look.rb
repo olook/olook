@@ -7,7 +7,7 @@ class Look < ActiveRecord::Base
   mount_uploader :front_picture, LookImageUploader
 
   def self.build_and_create(attr)
-    look = self.new
+    look = self.find_by_product_id(attr[:product_id]) || self.new
     look.product_id = attr[:product_id]
 
     pic_url = attr[:full_look_picture]

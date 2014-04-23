@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Admin::ProcessBilletFileWorker
-  @queue = :process_billet_file
+  @queue = 'low'
 
   def self.perform(file_name)
     processed_billets = BilletService.process_billets(file_name)

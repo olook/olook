@@ -3,8 +3,11 @@ class IndexProductsWorker
   extend Fixes
 
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
+  RANKING_POWER = 1000
+  DAYS_TO_CONSIDER_OLD = 120
+  PERCENT_OLOOK_TO_REGULATOR = 100
 
-  @queue = :search
+  @queue = 'low'
 
   def self.perform
     d0 = Time.now.to_i
@@ -12,12 +15,14 @@ class IndexProductsWorker
     worker.add_products
     worker.remove_products
     d1 = Time.now.to_i
-    
+
     puts "Total time = #{d1-d0}"
 
-    mail = DevAlertMailer.notify_about_products_index
+    mail = DevAlertMailer.notify_about_products_index(d1-d0, worker.log.join("\n"))
     mail.deliver
   end
+
+  attr_reader :log
 
   def add_products
     products.each_slice(500).with_index do |slice, index|
@@ -33,7 +38,10 @@ class IndexProductsWorker
 
   def run slice, index
     begin
-      entries = products_to_index(slice).map { |product| create_sdf_entry_for(product, 'add') }.compact
+      entries = products_to_index(slice).map do |product|
+        create_sdf_entry_for(product, 'add')
+      end
+      entries.compact!
       file_name = "/tmp/base-add#{'%03d' % index}.sdf"
       flush_to_sdf_file file_name, entries
       upload_sdf_file file_name
@@ -43,20 +51,35 @@ class IndexProductsWorker
         to: "tech@olook.com.br",
         subject: "Falha ao rodar a indexacao de produtos"}
       DevAlertMailer.notify(opts).deliver
-    end    
+    end
   end
 
   private
 
-    def initialize products
-      @products = products
-    end
+  attr_reader :products
 
-    def flush_to_sdf_file file_name, all_products
-      File.open("#{file_name}", "w:UTF-8") do |file|
-        file << all_products.to_json
-      end
+  def initialize products
+    @products = products
+    @log = []
+  end
+
+  def flush_to_sdf_file file_name, all_products
+    File.open("#{file_name}", "w:UTF-8") do |file|
+      file << all_products.to_json
     end
+  end
+
+  def products_to_index(product_ids)
+    _products = Product.where(id: product_ids).where('price > 0').includes(:pictures, :variants, :details, :collection, :collection_themes).all
+    _products.select! {|p| p.main_picture && p.main_picture[:image] }
+    _products
+  end
+
+  def products_to_remove(product_ids)
+    _products = Product.where(price: 0).where(id: product_ids).includes(:pictures).all
+    _products.select! {|p| p.main_picture.nil? || p.main_picture[:image].nil? }
+    _products
+  end
 
 
     def create_sdf_entry_for product, type
@@ -74,11 +97,7 @@ class IndexProductsWorker
         fields = {}
 
         fields['product_id'] = product.id
-        fields['name'] = product.formatted_name(150).titleize
         fields['is_visible'] = product.is_visible ? 1 : 0
-        fields['inventory'] = product.inventory.to_i
-        fields['image'] = product.catalog_picture
-        fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
         fields['brand'] = product.brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
         fields['brand_facet'] = ActiveSupport::Inflector.transliterate(product.brand).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
         fields['price'] = (product.price.to_d * 100).round
@@ -87,29 +106,46 @@ class IndexProductsWorker
         fields['in_promotion'] = product.liquidation? ? 1 : 0 
         fields['visibility'] = product.visibility
         fields['category'] = product.category_humanize.downcase
-        fields['size'] = product.variants.select{|v| v.inventory > 0}.map{|b| (b.description.to_i.to_s != "0" ) ? b.description+product.category_humanize[0].downcase : b.description}
+        fields['age'] = product.time_in_stock
+
+        # fields that need associations they are all being eager loaded
+        fields['name'] = product.formatted_name(150).titleize
+        fields['inventory'] = product.inventory.to_i
         fields['care'] = product.subcategory.titleize if Product::CARE_PRODUCTS.include?(product.subcategory)
+
+        fields['image'] = product.catalog_picture
+        fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
+        fields['size'] = product.variants.select{|v| v.inventory > 0}.map{|b| (b.description.to_i.to_s != "0" ) ? b.description+product.category_humanize[0].downcase : b.description}
         fields['collection'] = product.collection.start_date.strftime('%Y%m').to_i
         fields['collection_theme'] = product.collection_themes.map { |c| c.slug }
-        fields['age'] = product.time_in_stock
-        fields['qt_sold_per_day'] = product.quantity_sold_per_day_in_last_week
-        fields['coverage_of_days_to_sell'] = product.coverage_of_days_to_sell
-        fields['full_grid'] = product.is_the_size_grid_enough? ? 1 : 0
 
-        oldest = older;
-        fields['r_age'] = ((oldest - product.time_in_stock) / oldest.to_f) * 100      
 
-        fields['r_coverage_of_days_to_sell'] = ((product.coverage_of_days_to_sell.to_f / max_coverage_of_days_to_sell) * 100).to_i
-        fields['r_full_grid'] = product.is_the_size_grid_enough? ? 100 : 0
+        @age_weight ||= Setting[:age_weight].to_i
+        fields['r_age'] = if fields['age'].to_i < newest
+                            RANKING_POWER * @age_weight
+                          else
+                            diff_age = fields['age'].to_i - newest.to_i
+                            proportion = diff_age.to_f / DAYS_TO_CONSIDER_OLD.to_f
+                            # 0 / 60 = 1, 60 / 60 = 0, 30 / 60 =  0.5, 90 / 60 = 1.5
+                            proportion = 1 if proportion > 1
+                            RANKING_POWER * @age_weight * ( 1 - proportion )
+                          end
 
-        if max_qt_sold_per_day == 0
-          fields['r_qt_sold_per_day'] = 0
-        else
-          fields['r_qt_sold_per_day'] = ((product.quantity_sold_per_day_in_last_week.to_f / max_qt_sold_per_day) * 100).to_i
+
+        @max_age_rating ||= ( @age_weight * RANKING_POWER )
+        fields['r_brand_regulator'] = 0
+        if /olook/i =~ fields['brand']
+          #fields['r_brand_regulator'] = ( rand(100) >= ( 100 - PERCENT_OLOOK_TO_REGULATOR ) ) ? ( @max_age_rating - fields['r_age'] ) : 0
+          fields['r_brand_regulator'] = 250
         end
 
-        fields['r_inventory'] = ((product.inventory.to_f / max_inventory) * 100).to_i
+        @inventory_weight ||= Setting[:inventory_weight].to_i
+        proportion = product.inventory.to_f / third_quartile_inventory_for_category(product.category)
+        fields['r_inventory'] = RANKING_POWER * ( proportion > 1 ? 1 : proportion ) * @inventory_weight rescue 0
 
+        if fields['inventory'] > 0 && fields['age'] < DAYS_TO_CONSIDER_OLD
+          @log << "age: #{fields['age']}/#{newest} - #{fields['r_age'].to_i} | inventory: #{fields['inventory']}/#{third_quartile_inventory_for_category(product.category)} - #{fields['r_inventory'].to_i} | brand: #{fields['brand']} - #{fields['r_brand_regulator'].to_i} | exp: #{( fields['r_age'] + fields['r_inventory'] + fields['r_brand_regulator'] ).to_i}"
+        end
         if product.shoe?
           product.details.each do |detail|
             if /cm/i =~ detail.description.to_s
@@ -125,7 +161,7 @@ class IndexProductsWorker
           fields['heel'] ||= '0-4 cm'
           fields['heeluint'] ||= 0
         end
-        
+
         details = product.details.select { |d| d.translation_token.downcase =~ /(categoria|cor filtro|material da sola|material externo|material interno)/i }
         translation_hash = {
           'categoria' => 'subcategory',
@@ -148,21 +184,9 @@ class IndexProductsWorker
       nil
     end
 
-    def products
-      @products
-    end
-
     def upload_sdf_file file_name
       docs_domain =  SEARCH_CONFIG["docs_domain"]
-      `curl -X POST --upload-file "#{file_name}" "#{docs_domain}"/2011-02-01/documents/batch --header "Content-Type:application/json"`
-    end
-
-    def products_to_index(product_ids)
-      Product.where(id: product_ids).select{|p| p.price > 0 && p.main_picture.try(:image_url)}
-    end
-
-    def products_to_remove(product_ids)
-      Product.where(id: product_ids).select{|p| p.price == 0 || p.main_picture.try(:image_url).nil?}
+      `curl -s -X POST --upload-file "#{file_name}" "#{docs_domain}"/2011-02-01/documents/batch --header "Content-Type:application/json"`
     end
 
     def version_based_on_timestamp
@@ -173,29 +197,51 @@ class IndexProductsWorker
       HeelSanitize.new(word).perform
     end
 
-    def eager_products
-      @eager ||= Product.where(id: products)
-      @eager
+    def newest
+      return @newest if @newest
+      save_temporary_table_vars
+      @newest
     end
 
-    def older
-      @older = @older || eager_products.collect(&:time_in_stock).max
-      @older
+    def third_quartile_inventory_for_category(category)
+      return @third_quartile_inventory[category] if @third_quartile_inventory
+      save_temporary_table_vars
+      @third_quartile_inventory[category]
     end
 
-    def max_coverage_of_days_to_sell
-      @max_coverage = @max_coverage || eager_products.collect(&:coverage_of_days_to_sell).max
-      @max_coverage
+    def save_temporary_table_vars
+      create_temporary_products_with_inventory_table do
+        count = Product.connection.select_all("SELECT count(0) qty FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD}").
+          first['qty']
+        third_quartile = ( count * 0.75 ).round
+        @newest = Product.connection.select("SELECT age FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD} ORDER BY age desc LIMIT 1 OFFSET #{third_quartile}").
+          first['age']
+
+        count_by_category ||= Product.connection.
+          select_all("SELECT category, count(0) `count` from products_with_more_than_one_inventory GROUP BY category").
+          inject({}) {|h,r| h[r['category']] = r['count']; h }
+        @third_quartile_inventory ||= count_by_category.inject({}) do |hash, aux|
+          category, count = aux
+          third_quartile = ( count*0.75 ).round
+          hash[category] = Product.connection.
+            select("SELECT sum_inventory FROM products_with_more_than_one_inventory
+                     WHERE category = #{category} order by sum_inventory limit 1 offset #{third_quartile}").
+            first['sum_inventory']
+          hash
+        end
+      end
     end
 
-    def max_qt_sold_per_day
-      @max_qt_sold_per_day = @max_qt_sold_per_day || eager_products.collect(&:quantity_sold_per_day_in_last_week).max
-      @max_qt_sold_per_day
+    def create_temporary_products_with_inventory_table
+      begin
+        sql = Product.only_visible.joins(:variants).group('products.id').having('sum(inventory) > 0').
+          select('products.id, IF(products.launch_date = NULL, 365, CURDATE() - products.launch_date) age,
+                 products.category, sum(variants.inventory) sum_inventory').to_sql
+          Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
+          Product.connection.execute("CREATE TEMPORARY TABLE products_with_more_than_one_inventory AS #{sql}")
+          yield
+      ensure
+        Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
+      end
     end
-
-    def max_inventory
-      @max_inventory = @max_inventory || Product.joins(:variants).order('sum(variants.inventory) desc').group('product_id').first.inventory
-      @max_inventory
-    end
-
 end

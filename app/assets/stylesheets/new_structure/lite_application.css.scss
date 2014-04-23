@@ -4,14 +4,16 @@
 @import 'new_structure/common/jquery-ui-1.10.3.autocomplete_slider.min';
 @import 'new_structure/common/header';
 @import 'new_structure/common/wishlist';
+@import 'new_structure/partials/spy';
+@import 'new_structure/common/catalog4you';
 @import 'new_structure/common/responsive_mobile';
 
 ul.breadcrumb {
   display: block;
-  width:100%;
+  width:37%;
   height:20px;
   position: relative;
-  top:-9px;
+  top:-5px;
   left:6px;
   li {
     float:left;

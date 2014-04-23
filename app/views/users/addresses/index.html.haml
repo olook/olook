@@ -1,0 +1,12 @@
+- content_for :head do
+  = stylesheet_link_tag "section/my_account"
+#box_title_my_account
+  .content
+    %h1 Minha conta
+    %h2 Acompanhe seus pedidos, altere seus dados e veja seus créditos
+#my_account.addresses
+  #box_menu
+    = render "shared/my_account/menu"
+  #data
+    %section.main
+      = render "shared/address/list", :addresses => @addresses, :my_account => true

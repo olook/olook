@@ -1,67 +1,73 @@
 regenerate_looks:
   cron: "0 */6 * * *"
   class: FullLook::LookBuilder
-  queue: look
+  queue: low
   description: "Gera novamente os Looks"
+
+regenerate_html_sitemap:
+  cron: "0 */6 * * *"
+  class: SitemapWorker
+  queue: low
+  description: "Gera sitemap infos"
 
 update_birthday_base:
   cron: "0 5 * * *"
   class: MarketingBaseUploaderWorker
-  queue: marketing_uploader
+  queue: low
   description: "Atualiza a base de aniversariantes na ExactTarget"
 
 update_sitemap:
   cron: "0 3 * * *"
   class: SitemapWorker
-  queue: sitemap
+  queue: low
   description: "Atualiza o sitemap"
 
 index_suggested_terms:
   cron: "0 */6 * * *"
   class: ProductSearchWorker
-  queue: search
+  queue: low
   description: "Indexa os termos sugeridos para buscas"
 
 index_products_for_searching:
-  cron: "0 */6 * * *"
+  cron: "0 */3 * * *"
   class: IndexProductsWorker
-  queue: search
+  queue: low
   description: "Gera a base (arquivo .sdf) para a busca e faz o upload para amazon CloudSearch"
 
 send_orders_alert:
   cron: "35 * * * *"
   class: SendOrderAlertWorker
-  queue: order_status_alert
+  queue: low
   description: "Envia email avisando pedidos que precisam ser analizados com mais atencao"
 
 update_ses_info:
   cron: "* 22 * * *"
   class: SaveSesInfoWorker
-  queue: ses
+  queue: low
   description: "Atualiza a tabela ses com as informações "
 
 update_inventory:
-  cron: "*/5 * * * *"
+  cron: "*/45 * * * *"
   class: Abacos::UpdateInventory
-  queue: inventory
+  queue: low
   description: "Atualiza o Inventario"
 
 update_order_status:
   cron: "*/30 * * * *"
   class: Abacos::UpdateOrderStatus
-  queue: order_status
+  queue: low
   description: "Atualiza o status dos Pedidos"
 
 update_status:
   cron: "*/15 * * * *"
   class: ProcessPaymentCallbacksWorker
-  queue: order_status
+  queue: low
   description: "Processa callbacks de Pagamento Moip"
 
 update_braspag_responses:
   cron: "*/15 * * * *"
   class: ProcessBraspagResponsesWorker
-  queue: payments
+  queue: low
   description: "Processa respostas de pagamento Braspag"
 
 csv_for_all_in:
@@ -75,7 +81,7 @@ csv_for_all_in:
 userbase_with_auth_token_and_credits:
   cron: "0 2 * * *"
   class: MarketingUploaderWorker
-  queue: marketing_uploader
+  queue: low
   args:
     - userbase_with_auth_token_and_credits
     - basegeral_novos_usuarios.csv
@@ -85,7 +91,7 @@ userbase_with_auth_token_and_credits:
 campaign_emails:
   cron: "0 2 * * *"
   class: MarketingUploaderWorker
-  queue: marketing_uploader
+  queue: low
   args:
     - campaign_emails
     - base_atualizada_emails_promocoes.csv
@@ -95,49 +101,49 @@ campaign_emails:
 send_billet_reminder:
   cron: "0 5 * * 1-5"
   class: SendBilletReminderWorker
-  queue: send_billet_reminder
+  queue: low
   description: "Dispara emails de aviso p/ vencimento do boleto"
 
 send_enabled_credits_notification:
   cron: "0 5 1 * *"
   class: SendEnabledCreditsNotificationWorker
-  queue: notification_sender
+  queue: low
   description: "Dispara emails avisando que os créditos de fidelidade estão disponíveis"
 
 send_seven_days_to_expiration_warning:
   cron: "40 4 23 * *"
   class: SendExpirationWarningWorker
-  queue: notification_sender
+  queue: low
   description: "Dispara emails avisando que os créditos de fidelidade irão expirar"
 
 send_one_day_to_expiration_warning:
   cron: "15 3 27 * *"
   class: SendExpirationTomorrowWarningWorker
-  queue: notification_sender
+  queue: low
   description: "Dispara emails avisando que os créditos de fidelidade irão expirar amanhã"
 
 force_clearsale_callback:
   cron: "*/5 * * * *"
   class: Clearsale::CallbackWorker
-  queue: payments
+  queue: low
   description: "Verifica se o status da avaliação da Clearsale mudou para uma determinada compra (order)"
 
 add_expire_carts_worker:
   cron: "0 0 * * 1"
   class: ExpireCartsWorker
-  queue: low_priority
+  queue: low
   description: "Expira os Carts sem items com mais de 7 dias toda segunda"
 
 update_mkt_xml_builder:
   cron: "30 3 * * *"
   class: MktXmlBuilderWorker
-  queue: mkt_xml_builder
+  queue: low
   description: "Atualiza os xmls"
 
 facebook_friends_list:
   cron: "35 * * * *"
   class: MarketingUploaderWorker
-  queue: marketing_uploader
+  queue: low
   args:
     - facebook_friends_list
     - facebook_friends-%Y-%m-%d.csv
@@ -149,17 +155,23 @@ facebook_friends_list:
 cancel_old_billets:
   cron: "0 12 * * *"
   class: Abacos::CancelExpiredBillet
-  queue: cancel_old_billets
+  queue: low
   description: "Cancela todos os boletos com data de expicacao de um dia antes do ultimo dia util"
 
 cancel_old_mercado_pago:
   cron: "30 12 * * *"
   class: Abacos::CancelExpiredMercadoPagoPayment
-  queue: cancel_old_mercadopago_payments
+  queue: low
   description: "Cancela todos os pagamentos do mercado pago expirados"
 
 gather_blog_posts:
   cron: "0 * * * *"
   class: PostUpdaterWorker
-  queue: blog_posts
+  queue: low
   description: "Atualiza as chamadas dos posts de hora em hora"
+
+clear_leaderboard:
+  cron: "0 0 * * 0"
+  class: ClearLeaderboardWorker
+  queue: low
+  description: "Limpa o Ranking de Leaderboard"

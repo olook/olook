@@ -4,6 +4,10 @@ class RecommendationService
   DAYS_AGO_TO_CONSIDER_NEW_PRODUCTS = 30
   DATE_WHEN_PICTURES_CHANGED = "2013-07-01"
 
+  def profile_name
+    @profiles.first.alternative_name || "casual"
+  end
+
   def initialize(opts = {})
     @profiles = opts[:profiles]
     @shoe_size = opts[:shoe_size]

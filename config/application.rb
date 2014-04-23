@@ -13,7 +13,10 @@ if defined?(Bundler)
 end
 
 host, port = YAML.load_file(File.expand_path(File.join(File.dirname(__FILE__), 'resque.yml')))[Rails.env].split(":")
-ENV['REDIS_CACHE_STORE'] ||= "redis://#{host}:#{port}/3/cache"
+redis_host, redis_port = YAML.load_file(File.expand_path(File.join(File.dirname(__FILE__), 'redis.yml')))[Rails.env].split(":")
+ENV['REDIS_CACHE_STORE'] ||= "redis://#{redis_host}:#{redis_port}/3/cache"
+ENV['REDIS_LEADERBOARD'] ||= "redis://#{host}:#{port}/4"
+ENV['REDIS_SITEMAP'] ||= "redis://#{host}:#{port}/2"
 
 module Olook
   class Application < Rails::Application
@@ -60,7 +63,7 @@ module Olook
     config.assets.initialize_on_precompile = true
     # config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
-    config.assets.precompile += %w(*.js admin.js desktop.css admin.css campaign_emails.css reseller.css admin/*.css admin/*.js about/*.css common/*.js gift/*.js plugins/*.js ui/*.js section/*.css utilities/*.css new_structure/lite_application.css new_structure/section/*.css new_structure/partials/*)
+    config.assets.precompile += %w(*.js admin.js desktop.css admin.css campaign_emails.css reseller.css admin/*.css admin/*.js about/*.css common/* gift/*.js plugins/*.js ui/*.js section/*.css utilities/*.css new_structure/lite_application.css new_structure/section/*.css new_structure/partials/* jquery.bxslider.css)
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
