@@ -36,7 +36,7 @@
           <% @current_order.line_items.each do |item| %>
             <% unless item.is_freebie %>
               <li>
-                <%= image_tag item.variant.showroom_picture %>
+                <%= image_tag(item.variant.showroom_picture) if item.variant.showroom_picture.present? %>
                 <h1><%= item.variant.name %></h1>
                 <p><strong>Cor:</strong> <%= item.variant.color_name %></p>
                 <p><strong>Quantidade:</strong> <%= item.quantity %></p>
