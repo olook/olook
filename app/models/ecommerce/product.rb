@@ -330,13 +330,12 @@ class Product < ActiveRecord::Base
   end
 
   def product_url(options = {})
-    params =
-    {
+    params = {
       :host => "www.olook.com.br",
       :utm_medium => "vitrine",
       :utm_content => id
     }
-    Rails.application.routes.url_helpers.product_url(self, params.merge!(options))
+    Rails.application.routes.url_helpers.product_seo_url(self.seo_path, params.merge!(options))
   end
 
   def subcategory
