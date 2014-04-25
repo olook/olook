@@ -10,7 +10,7 @@
   - content_for(:after_body) do
     = javascript_include_tag "common/fb_like_button"
 
-= cache @cache_key, expires_in: 40.minutes do
+= cache @cache_key, expires_in: 20.minutes, raw: true do
   #catalog
     %aside
       = check_organic_url_section( collection: -> { render("collection_themes/menu", collection_theme_groups: @collection_theme_groups) }, |
@@ -30,6 +30,10 @@
               %ul.category-list
                 - filters_by('size', @search, use_fields: [:category]).reverse.each do |text, amount|
                   %li{ :class => category_style_class(text)}= filter_link_to(catalog_path(@category, @url_builder.add_filter(:size, text)), format_size(text.chomp), @search.filter_selected?(:size, text.chomp))
+      
+
+      = check_organic_url_section( collection: -> { render("collection_themes/filters", search: @search, url_builder: @url_builder) } )
+
       %section.container_product
         %ul#products
           - if @custom_search && @custom_search.products.any?
