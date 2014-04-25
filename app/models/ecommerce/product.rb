@@ -594,7 +594,7 @@ class Product < ActiveRecord::Base
 
     def contains_all_elements_as_look_products? product_ids
       rp_ids = look_product_ids
-      rp_ids & product_ids == rp_ids
+      rp_ids & product_ids == rp_ids && rp_ids.size > 1
     end    
 end
 
