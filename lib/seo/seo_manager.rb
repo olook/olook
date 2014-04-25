@@ -27,7 +27,7 @@ module Seo
         full_title = title
         full_title+= " #{color.capitalize}" unless color.blank?
         full_title+= " Tamanho #{size.capitalize}" unless size.blank?
-        full_title+= " Marca #{brand.capitalize}" unless brand.blank?
+        full_title+= " #{brand.capitalize}" unless brand.blank?
         {title: "#{full_title} | Olook" , description: description}
       end
 
