@@ -15,7 +15,7 @@ class CollectionThemesController < SearchController
     @url_builder.set_search @search
     @color = search_params["color"]
     @size = search_params["size"]
-    @brand = search_params["brand"]
+    @brand_name = search_params["brand"]
     @collection_theme = CollectionTheme.where(slug: params[:collection_theme])
     @collection_theme_groups = CollectionThemeGroup.order(:position).includes(:collection_themes)
     @cache_key = "collections#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
