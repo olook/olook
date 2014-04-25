@@ -45,9 +45,11 @@ section{
 		}
 	}
 	#bx-pager{
+		width: 800px;
 		img{
-			width: 93px;
+			width: 151px;
 			margin-right: 3px;
+			border: 1px solid #dbdbdb;
 			&.last{
 				margin-right: 0 !important;
 			}
