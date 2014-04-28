@@ -61,4 +61,5 @@ protected
       Resque.enqueue(ImportFreightPricesWorker, @shipping_service.id.to_s, temp_file_uploader.filename)
     end
   end
+    
 end

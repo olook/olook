@@ -316,7 +316,6 @@ Olook::Application.routes.draw do
     resources :shipping_services
 
     put 'shipping_policies' => 'shipping_policies#update'
-    delete 'shippings' => 'shippings#destroy'
     put 'shippings' => 'shippings#update'
 
     resources :collections do
