@@ -3,6 +3,7 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+
   get "/sitemap", to: "sitemap#index", as: "sitemap"
 
   resources :wished_products, only: [:create, :destroy]
@@ -411,6 +412,10 @@ Olook::Application.routes.draw do
     post "visibility_batch/create", as: :create_visibility_batch
     get "visibility_batch/commit", as: :commit_visibility_batch
     get "visibility_batch/confirmation", as: :confirmation_visibility_batch
+
+
+    get "html_generator/index", as: :html_generators
+    post "html_generator/create", as: :create_html_generator
 
     resources :itineraries
   end
