@@ -4,6 +4,7 @@ class ShippingService < ActiveRecord::Base
 
   has_many :freight_prices, :dependent => :destroy
   has_many :freights
+  has_many :shippings, :dependent => :destroy
 
   after_initialize :set_default_cubic_weight_factor
 
