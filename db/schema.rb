@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140428160934) do
+ActiveRecord::Schema.define(:version => 20140428161344) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -1185,11 +1185,12 @@ ActiveRecord::Schema.define(:version => 20140428160934) do
     t.string   "carrier"
     t.string   "zip_start"
     t.string   "zip_end"
-    t.decimal  "cost",          :precision => 8, :scale => 2
+    t.decimal  "cost",                :precision => 8, :scale => 2
     t.integer  "delivery_time"
-    t.decimal  "income",        :precision => 8, :scale => 2
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
+    t.decimal  "income",              :precision => 8, :scale => 2
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
+    t.integer  "shipping_service_id"
   end
 
   create_table "simple_email_service_infos", :force => true do |t|
