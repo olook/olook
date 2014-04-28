@@ -5,7 +5,7 @@ class Shipping::Policy
     @amount = amount
   end
 
-  def perform
+  def free_shipping?
     return false unless zip || amount
     return false if seek_policy.blank?
     true
