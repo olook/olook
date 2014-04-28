@@ -87,7 +87,7 @@
             %li{class: "submenu#{' active' if params[:controller] =~ /html_generator/}"}
               %span Comercial
               %ul
-                %li= link_to("Gerar pdf de produtos", admin_html_generators_path) if can?(:indext, :html_generator)
+                %li= link_to("Gerar pdf de produtos", admin_html_generators_path) if can?(:index, :html_generator)
                 
 
       #wrapper.wat-cf
