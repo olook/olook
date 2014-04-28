@@ -15,7 +15,7 @@ class Admin::HtmlGeneratorController < Admin::BaseController
     def generate csv_file
       list = []
 
-      CSV.foreach(csv_file.path, headers: false) do |row|
+      CSV.foreach(csv_file.path, headers: false, col_sep: ';') do |row|
         list << row
       end
 
