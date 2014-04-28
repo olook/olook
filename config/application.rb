@@ -36,7 +36,7 @@ module Olook
     config.autoload_paths += Dir["#{Rails.root}/app/listeners"]
     config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/actions"]
     config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/rules"]
-
+    
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
