@@ -19,7 +19,7 @@
       %tr
         %td= shipping_service.name
         %td= shipping_service.shippings.count
-        %td= link_to 'Remover todos preços de frete', "#", confirm: 'Are you sure?', method: :delete, :class => 'button danger'
+        %td= link_to 'Remover todos preços de frete', admin_shipping_service_path(shipping_service, version: 'new'), confirm: 'Are you sure?', method: :delete, :class => 'button danger'
 
 
 %h2 Listando serviços de entrega
@@ -39,5 +39,5 @@
         %td= shipping_service.freight_prices.count
         %td= link_to 'Mostrar', admin_shipping_service_path(shipping_service), :class => 'button'
         %td= link_to 'Editar', edit_admin_shipping_service_path(shipping_service), :class => 'button'
-        %td= link_to 'Remover todos preços de frete', admin_shipping_service_path(shipping_service), confirm: 'Are you sure?', method: :delete, :class => 'button danger'
+        %td= link_to 'Remover todos preços de frete', admin_shipping_service_path(shipping_service, version: 'old'), confirm: 'Are you sure?', method: :delete, :class => 'button danger'
   %br/

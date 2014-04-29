@@ -48,7 +48,7 @@ class Admin::ShippingServicesController < Admin::BaseController
 
   def destroy
     @shipping_service = ShippingService.find(params[:id])
-    FreightPrice.where(:shipping_service_id => @shipping_service.id).delete_all
+    params[:version] == "new" ? Shipping.where(:shipping_service_id => @shipping_service.id).delete_all : FreightPrice.where(:shipping_service_id => @shipping_service.id).delete_all
     respond_with :admin, @shipping_service
   end
 
