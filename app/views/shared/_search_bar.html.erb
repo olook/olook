@@ -1,7 +1,7 @@
 <% ab_test("searchbar_text", "default", "bold") do |style| %>
   <div class="search_box">
    <%= form_tag(search_path, method: :get, id: "search_form") do  %>
-     <%= text_field_tag "q",nil, id: "search_product", value: "O que você procura?", class: "default" %>
+     <%= text_field_tag "q",nil, id: "search_product", value: "O que você procura?", class: "#{style}" %>
      <%= submit_tag "Buscar" %>
    <% end %>
   </div>
