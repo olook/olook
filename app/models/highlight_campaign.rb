@@ -8,7 +8,7 @@ class HighlightCampaign < ActiveRecord::Base
   def self.find_campaign campaign_name
     Rails.logger.info "Looking for campaign_name #{campaign_name}"
 
-    sanitized_campaign_name = campaign_name.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+    sanitized_campaign_name = campaign_name ? campaign_name.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '') : ""
 
     campaign = find_by_label(sanitized_campaign_name) || dummy_campaign
     Rails.logger.info "found campaign=#{campaign.inspect}"
