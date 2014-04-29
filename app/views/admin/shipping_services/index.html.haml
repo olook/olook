@@ -5,7 +5,7 @@
       = submit_tag "Atualizar tabela de frete"
 
   %li
-    = form_tag admin_shipping_policies_path, method: :put do
+    = form_tag admin_shipping_policies_path, method: :put, multipart: true do
       = file_field_tag :policy_file
       = submit_tag "Atualizar politicas de frete"
 

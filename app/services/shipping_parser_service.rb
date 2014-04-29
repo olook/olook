@@ -9,7 +9,7 @@ class ShippingParserService
   end
 
   def delete_query
-    "DELETE FROM `#{Shipping.table_name}` WHERE shipping_service_id = #{@shipping_service.id}"
+    ActiveRecord::Base.connection.delete "DELETE FROM `#{Shipping.table_name}` WHERE shipping_service_id = #{@shipping_service.id}" unless @shipping_service.blank?
   end
 
   def transform_array_into_query_entries csv_array
