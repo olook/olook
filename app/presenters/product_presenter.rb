@@ -146,8 +146,8 @@ class ProductPresenter < BasePresenter
     "%02d" % ::DiscountExpirationCheckService.discount_expiration_date_for(user).day.to_s
   end
 
-  def render_complete_look_badge admin
-    h.link_to "Comprar o look completo", "#", :id => "goRelatedProduct" if (look_products.size > 1 && product.inventory > 0) || admin
+  def render_complete_look_badge admin, class_name
+      h.link_to "Comprar o look completo", "#", :id => "goRelatedProduct", class: class_name if (look_products.size > 1 && product.inventory > 0) || admin
   end
 
   private
