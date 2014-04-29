@@ -36,9 +36,8 @@ class DevAlertMailer < ActionMailer::Base
     mail(opts)
   end
 
-  def notify_products_list_generated(to, file)
-    attachments['pronta_entrega.pdf'] = file
-    mail(to: to, subject: "Lista de produtos gerada com sucesso.", body: 'Em anexo')
+  def notify_products_list_generated(to, url)
+    mail(to: to, subject: "Lista de produtos gerada com sucesso.", body: "Clique no link: #{url}")
   end
 
 end

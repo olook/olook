@@ -45,7 +45,6 @@ class ProductsListGeneratorWorker
         :disable_smart_shrinking=>false
         }
     end
-    # config.middleware.use PDFKit::Middleware
 
     # PDFKit.new takes the HTML and any options for wkhtmltopdf
     # run `wkhtmltopdf --extended-help` for a full list of options
@@ -53,10 +52,13 @@ class ProductsListGeneratorWorker
 
     # Get an inline PDF
     # file = kit.to_file("pronta_entrega_atacado.pdf")
+    pdf = kit.to_pdf
 
-    DevAlertMailer.notify_products_list_generated(email_to, kit.to_pdf).deliver
-    puts("Email enviado para:#{email_to}")
+    uploader = MarketingReports::S3Uploader.new "olook"
+    filename = "products-#{DateTime.now.to_i}.pdf"
+    url = uploader.upload(filename, pdf, true)
 
+    DevAlertMailer.notify_products_list_generated(email_to, url).deliver
   end
 
 
