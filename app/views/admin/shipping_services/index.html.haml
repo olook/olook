@@ -8,14 +8,14 @@
     = form_tag admin_shipping_policies_path, method: :put, multipart: true do
       = file_field_tag :policy_file
       = submit_tag "Atualizar politicas de frete"
-%h2 Novo Serviço de entrada
+%h2 Serviços de entrega (novo)
 .inner
   %table.table
     %tr
       %th Transportadora
       %th Fretes
       %th
-    - @shipping_services.each do |s|
+    - @shipping_services.each do |shipping_service|
       %tr
         %td= shipping_service.name
         %td= shipping_service.shippings.count
