@@ -15,7 +15,7 @@ class ShippingImporterService
   def import_csv
     csv_array = load_csv
     @parser.prepare csv_array
-    ActiveRecord::Base.connection.delete @parser.delete_query
+    @parser.delete_query
     save_all csv_array
   end
 
