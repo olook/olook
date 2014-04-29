@@ -7,7 +7,7 @@ gem 'rake', '0.9.2'
 
 gem 'pdfkit'
 gem 'wkhtmltopdf-binary'
-
+gem 'split', :require => 'split/dashboard'
 gem 'mysql2'
 gem 'aws-sdk', '~> 1.0'
 gem 'jquery-rails', '~> 1.0.14'
