@@ -11,8 +11,7 @@ class Freebie
   end
 
   def available?
-    Setting.cheirinho_de_graca &&
-    Variant.find(variant_id).inventory > 0
+    false
   end
 
   def can_receive_freebie?
