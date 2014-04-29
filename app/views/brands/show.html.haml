@@ -22,7 +22,7 @@
   = javascript_include_tag 'section/brands'
   = javascript_include_tag "section/load_thumbnail_images"
 = render "shared/mkt_breadcrumb"
-= cache @search.cache_key, expire_in: 30.minutes  do
+= cache @search.cache_key, expire_in: 60.minutes, raw: true  do
   = brand_breadcrumbs_for(@brand.first) if @brand.any?
   #catalog
     = render "side_filters", search: @search
