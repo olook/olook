@@ -3,6 +3,7 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+
   get "/sitemap", to: "sitemap#index", as: "sitemap"
 
   resources :wished_products, only: [:create, :destroy]
@@ -416,6 +417,10 @@ Olook::Application.routes.draw do
     get "visibility_batch/commit", as: :commit_visibility_batch
     get "visibility_batch/confirmation", as: :confirmation_visibility_batch
 
+
+    get "html_generator/index", as: :html_generators
+    post "html_generator/create", as: :create_html_generator
+
     resources :itineraries
   end
 
@@ -517,6 +522,7 @@ Olook::Application.routes.draw do
   match '/novas-marcas' => redirect('/roupa/colcci-douglas%20harris-eclectic-espaco%20fashion-forum-iodice-olli-shop%20126-thelure-triton'), as: 'brands'
   match '/acessorios-sapatos' => redirect('/sapato/conforto-amaciante-apoio%20plantar-impermeabilizante-palmilha-protecao%20para%20calcanhar'), as: 'shoe_accessories'
 
+  mount Split::Dashboard, :at => 'split'
 
   # Produto
   get "/:id", to: "product#show", id: /[\w|-]*\d+/, as: "product_seo"

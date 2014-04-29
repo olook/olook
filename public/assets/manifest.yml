@@ -2466,8 +2466,8 @@ desktop.css: desktop-5139daa005a0357c603a5ce937c5f355.css
 desktop/index.css: desktop-5139daa005a0357c603a5ce937c5f355.css
 jquery.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
 jquery/index.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
-new_structure/lite_application.css: new_structure/lite_application-d5905430829fa7020ee44d5df7d318d9.css
-new_structure/lite_application/index.css: new_structure/lite_application-d5905430829fa7020ee44d5df7d318d9.css
+new_structure/lite_application.css: new_structure/lite_application-27f43b3e7348e39aaea7bde0d0822542.css
+new_structure/lite_application/index.css: new_structure/lite_application-27f43b3e7348e39aaea7bde0d0822542.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-ee74a3a0cb810d472cb6e090ac914de1.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-ee74a3a0cb810d472cb6e090ac914de1.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-b09f6945455ef9b39353b1bef275f7b4.css
@@ -2504,12 +2504,12 @@ new_structure/section/clippings.css: new_structure/section/clippings-421bc729125
 new_structure/section/clippings/index.css: new_structure/section/clippings-421bc7291253307cc6f1ac2c61767d3a.css
 new_structure/section/collection_themes.css: new_structure/section/collection_themes-d2a002a6436f588b75611880f877f65a.css
 new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-d2a002a6436f588b75611880f877f65a.css
-new_structure/section/custom_url.css: new_structure/section/custom_url-706646de9f9fbf8f770f29f581edcc18.css
-new_structure/section/custom_url/index.css: new_structure/section/custom_url-706646de9f9fbf8f770f29f581edcc18.css
+new_structure/section/custom_url.css: new_structure/section/custom_url-1b13569e9620782f423d4cd3ce931750.css
+new_structure/section/custom_url/index.css: new_structure/section/custom_url-1b13569e9620782f423d4cd3ce931750.css
 new_structure/section/join.css: new_structure/section/join-3186f3c8328f7adb40d21a612a7a3325.css
 new_structure/section/join/index.css: new_structure/section/join-3186f3c8328f7adb40d21a612a7a3325.css
-new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-022ed582faaf89a413e867a19129ab87.css
-new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-022ed582faaf89a413e867a19129ab87.css
+new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-d5e2515f2006e029b58dd83bd6cbbf6f.css
+new_structure/section/lite_catalog/index.css: new_structure/section/lite_catalog-d5e2515f2006e029b58dd83bd6cbbf6f.css
 new_structure/section/lite_product.css: new_structure/section/lite_product-b885dfa4ff07d17e773a95fb81202629.css
 new_structure/section/lite_product/index.css: new_structure/section/lite_product-b885dfa4ff07d17e773a95fb81202629.css
 new_structure/section/lite_showroom.css: new_structure/section/lite_showroom-d9accb011df9d5cc25540041cc910572.css

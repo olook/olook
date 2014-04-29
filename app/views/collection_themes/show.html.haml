@@ -10,25 +10,25 @@
   = javascript_include_tag "section/load_thumbnail_images"
 
 = render "shared/mkt_breadcrumb"
-/ = cache @cache_key, expire_in: 30.minutes do
-= collection_theme_breadcrumbs_for(@collection_theme.first) if @collection_theme.any?
-#catalog
-  = render "menu", collection_theme_groups: @collection_theme_groups
-  #result
-    .collections_header
-      - if @collection_theme = @collection_theme.first
-        = image_tag @collection_theme.header_image, alt: @collection_theme.header_image_alt, title: @collection_theme.header_image_alt
-        = link_to(">> Assista ao vídeo", "#",                                                                                                         |
-          { :class => "video_link", :rel => "#{@collection_theme.video_link}" }.                                                                     |
-          merge(@collection_theme.text_color ? { style: "color: #{@collection_theme.text_color}" } : {})) unless @collection_theme.video_link.blank? |
-        .video_description
-    = render "filters", search: @search, url_builder: @url_builder
+= cache @cache_key, expire_in: 30.minutes, raw: true do
+  = collection_theme_breadcrumbs_for(@collection_theme.first) if @collection_theme.any?
+  #catalog
+    = render "menu", collection_theme_groups: @collection_theme_groups
+    #result
+      .collections_header
+        - if @collection_theme = @collection_theme.first
+          = image_tag @collection_theme.header_image, alt: @collection_theme.header_image_alt, title: @collection_theme.header_image_alt
+          = link_to(">> Assista ao vídeo", "#",                                                                                                         |
+            { :class => "video_link", :rel => "#{@collection_theme.video_link}" }.                                                                     |
+            merge(@collection_theme.text_color ? { style: "color: #{@collection_theme.text_color}" } : {})) unless @collection_theme.video_link.blank? |
+          .video_description
+      = render "filters", search: @search, url_builder: @url_builder
 
-    %section.container_product
-      %ul#products
-        = render_highlighted_products_from(@campaign)
-        = render "shared/searched_products", :products => @search.products, campaign_products: @campaign.products
-      .loading
+      %section.container_product
+        %ul#products
+          = render_highlighted_products_from(@campaign)
+          = render "shared/searched_products", :products => @search.products, campaign_products: @campaign.products
+        .loading
 
-  .pagination
-    = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @url_builder.current_filters{ |_p| _p.merge(hash) }}
+    .pagination
+      = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda{ |hash| @url_builder.current_filters{ |_p| _p.merge(hash) }}
