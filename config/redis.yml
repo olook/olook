@@ -1,4 +1,4 @@
-production: cache.o2ltwu.0001.use1.cache.amazonaws.com:6379
+production: redis.o2ltwu.0001.use1.cache.amazonaws.com:6379
 development: 127.0.0.1:6379
 staging: 127.0.0.1:6379
 test: 127.0.0.1:6379
