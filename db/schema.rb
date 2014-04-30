@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140429210416) do
+ActiveRecord::Schema.define(:version => 20140430134352) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -1180,7 +1180,6 @@ ActiveRecord::Schema.define(:version => 20140429210416) do
     t.datetime "updated_at"
     t.integer  "cubic_weight_factor"
     t.integer  "priority"
-    t.string   "erp_delivery_service"
   end
 
   create_table "shippings", :force => true do |t|
