@@ -4,8 +4,7 @@ class ShippingService < ActiveRecord::Base
 
   has_many :freight_prices, :dependent => :destroy
   has_many :freights
-
-  after_initialize :set_default_cubic_weight_factor
+  has_many :shippings, :dependent => :destroy
 
   validates :name, :presence => true
   validates :erp_code, :presence => true
@@ -35,7 +34,10 @@ class ShippingService < ActiveRecord::Base
 
 private
 
-  def set_default_cubic_weight_factor
+  after_initialize do
     self.cubic_weight_factor = DEFAULT_CUBIC_WEIGHT_FACTOR
+    self.erp_code = self.name
+    self.erp_delivery_service = self.name
+    self.priority = 42
   end
 end
