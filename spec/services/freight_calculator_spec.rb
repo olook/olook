@@ -19,10 +19,10 @@ describe FreightCalculator do
       context 'for which there is a freight price' do
         let(:order_value) { 70.1 }
 
-        let(:freight_details1) { {:price => BigDecimal.new("10.0"), :cost => BigDecimal.new("5.0"), :delivery_time => 2 + FreightCalculator::DEFAULT_INVENTORY_TIME, :shipping_service_id => shipping_service1.id, shipping_service_priority: shipping_service1.priority, cost_for_free: "" } }
-        let(:freight_details2) { {:price => BigDecimal.new("5.0"), :cost => BigDecimal.new("3.0"), :delivery_time => 30 + FreightCalculator::DEFAULT_INVENTORY_TIME, :shipping_service_id => shipping_service2.id, shipping_service_priority: shipping_service2.priority, cost_for_free: "" } }
-        let(:shipping_service2) { FactoryGirl.create :shipping_service, :priority => 1 }
-        let(:shipping_service1) { FactoryGirl.create :shipping_service, :priority => 99 }
+        let(:freight_details1) { {:price => BigDecimal.new("10.0"), :cost => BigDecimal.new("5.0"), :delivery_time => 2 + FreightCalculator::DEFAULT_INVENTORY_TIME, :shipping_service_id => shipping_service1.id, cost_for_free: "" } }
+        let(:freight_details2) { {:price => BigDecimal.new("5.0"), :cost => BigDecimal.new("3.0"), :delivery_time => 30 + FreightCalculator::DEFAULT_INVENTORY_TIME, :shipping_service_id => shipping_service2.id, cost_for_free: "" } }
+        let(:shipping_service2) { FactoryGirl.create :shipping_service }
+        let(:shipping_service1) { FactoryGirl.create :shipping_service }
 
         before :each do
           FactoryGirl.create  :freight_price, :shipping_service => shipping_service2,
@@ -54,8 +54,8 @@ describe FreightCalculator do
           end
         end
         context "with tree shipping services" do 
-          let(:shipping_service3) { FactoryGirl.create :shipping_service, :priority => 10 }
-          let(:freight_details3) { {:price => BigDecimal.new("5.0"), :cost => BigDecimal.new("3.0"), :delivery_time => 30 + FreightCalculator::DEFAULT_INVENTORY_TIME, :shipping_service_id => shipping_service3.id, shipping_service_priority: shipping_service3.priority, cost_for_free: "" } }
+          let(:shipping_service3) { FactoryGirl.create :shipping_service}
+          let(:freight_details3) { {:price => BigDecimal.new("5.0"), :cost => BigDecimal.new("3.0"), :delivery_time => 30 + FreightCalculator::DEFAULT_INVENTORY_TIME, :shipping_service_id => shipping_service3.id, cost_for_free: "" } }
           before do
             FactoryGirl.create  :freight_price, :shipping_service => shipping_service3,
                                 :zip_start => 5379016, :zip_end => 5379100,

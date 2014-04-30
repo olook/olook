@@ -32,7 +32,6 @@ module FreightCalculator
       :cost => freight.try(:cost) || DEFAULT_FREIGHT_COST,
       :delivery_time => (freight.try(:delivery_time) || 0) + DEFAULT_INVENTORY_TIME,
       :shipping_service_id => freight.try(:shipping_service_id) || DEFAULT_FREIGHT_SERVICE,
-      :shipping_service_priority => freight.try(:shipping_service).try(:priority),
       :cost_for_free => (freight.price != 0.0) && use_message ? FreightPrice.free_cost(clean_zip_code, order_value,freight.shipping_service_id).first.try(:order_value_start) : ''
     }
     end

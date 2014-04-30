@@ -13,10 +13,6 @@ describe ShippingService do
 
     it { should_not allow_value(0).for(:cubic_weight_factor) }
     it { should_not allow_value(-1).for(:cubic_weight_factor) }
-
-    it { should validate_presence_of(:priority) }
-    it { should_not allow_value(0).for(:priority) }
-    it { should_not allow_value(-1).for(:priority) }
   end
   describe '#find_freight_for_zip' do
     let(:zip_code) { '05379020' }
