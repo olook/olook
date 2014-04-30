@@ -2360,10 +2360,10 @@ about/normalize.css: about/normalize-b3a32727781c89e0bd714269e2f853f0.css
 about/normalize/index.css: about/normalize-b3a32727781c89e0bd714269e2f853f0.css
 about/style.css: about/style-cf1c0dad53d45dadda9c354c8f85d759.css
 about/style/index.css: about/style-cf1c0dad53d45dadda9c354c8f85d759.css
-admin.css: admin-6f79daad729b596d309f5034a965d8ce.css
-admin/index.css: admin-6f79daad729b596d309f5034a965d8ce.css
-admin/base.css: admin/base-96e5214e25a9324f01841de103ae3ca6.css
-admin/base/index.css: admin/base-96e5214e25a9324f01841de103ae3ca6.css
+admin.css: admin-1e099015ac7cc6b2fd6ec37df41664fd.css
+admin/index.css: admin-1e099015ac7cc6b2fd6ec37df41664fd.css
+admin/base.css: admin/base-ce0c05440953df44bdeeca29a0eaa073.css
+admin/base/index.css: admin/base-ce0c05440953df44bdeeca29a0eaa073.css
 admin/bootstrap.css: admin/bootstrap-15af02f0efa12f3f692188b3646254f1.css
 admin/bootstrap/index.css: admin/bootstrap-15af02f0efa12f3f692188b3646254f1.css
 admin/braspag_authorize_responses.css: admin/braspag_authorize_responses-1b13569e9620782f423d4cd3ce931750.css
@@ -2516,8 +2516,8 @@ new_structure/section/clippings.css: new_structure/section/clippings-421bc729125
 new_structure/section/clippings/index.css: new_structure/section/clippings-421bc7291253307cc6f1ac2c61767d3a.css
 new_structure/section/collection_themes.css: new_structure/section/collection_themes-4bd9eb847df3ef3874b79285a73beb60.css
 new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-4bd9eb847df3ef3874b79285a73beb60.css
-new_structure/section/custom_url.css: new_structure/section/custom_url-1b13569e9620782f423d4cd3ce931750.css
-new_structure/section/custom_url/index.css: new_structure/section/custom_url-1b13569e9620782f423d4cd3ce931750.css
+new_structure/section/custom_url.css: new_structure/section/custom_url-e58fdd8b9d92efbf409331e306dfb261.css
+new_structure/section/custom_url/index.css: new_structure/section/custom_url-e58fdd8b9d92efbf409331e306dfb261.css
 new_structure/section/join.css: new_structure/section/join-3186f3c8328f7adb40d21a612a7a3325.css
 new_structure/section/join/index.css: new_structure/section/join-3186f3c8328f7adb40d21a612a7a3325.css
 new_structure/section/lite_catalog.css: new_structure/section/lite_catalog-6198d0b0fc19bad196731e4ad8d0acb7.css
