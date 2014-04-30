@@ -1,13 +1,17 @@
-- content_for :secondary_navigation do
-  %li
-    = form_tag admin_shippings_path, method: :put, multipart: true do
-      = file_field_tag :shipping_file
-      = submit_tag "Atualizar tabela de frete"
+%h2 Atualização de tabelas
+.inner
+  = form_tag admin_shippings_path, method: :put, multipart: true do
+    = file_field_tag :shipping_file
+    = submit_tag "Atualizar"
 
-  %li
-    = form_tag admin_shipping_policies_path, method: :put, multipart: true do
-      = file_field_tag :policy_file
-      = submit_tag "Atualizar politicas de frete"
+%h2 Atualizar políticas de fretes
+.inner
+  = form_tag admin_shipping_policies_path, method: :put, multipart: true do
+    = file_field_tag :policy_file
+    = submit_tag "Atualizar"
+
+%hr
+
 %h2 Serviços de entrega (novo)
 .inner
   %table.table
@@ -19,8 +23,9 @@
       %tr
         %td= shipping_service.name
         %td= shipping_service.shippings.count
-        %td= link_to 'Remover todos preços de frete', admin_shipping_service_path(shipping_service, version: 'new'), confirm: 'Are you sure?', method: :delete, :class => 'button danger'
+        %td.removing-column= link_to 'Remover', admin_shipping_service_path(shipping_service, version: 'new'), confirm: "Tem certeza que deseja remover TODOS os preços de frete para #{shipping_service.name}?", method: :delete, :class => 'button danger'
 
+%hr
 
 %h2 Listando serviços de entrega
 .inner
