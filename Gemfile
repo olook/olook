@@ -5,6 +5,9 @@ ruby "2.0.0"
 gem 'rails', '3.2.13'
 gem 'rake', '0.9.2'
 
+gem 'pdfkit'
+gem 'wkhtmltopdf-binary'
+gem 'split', :require => 'split/dashboard'
 gem 'mysql2'
 gem 'aws-sdk', '~> 1.0'
 gem 'jquery-rails', '~> 1.0.14'
@@ -13,9 +16,9 @@ gem 'omniauth', '= 1.0.3'
 gem 'omniauth-facebook'
 gem 'oa-oauth', '~> 0.3.0', :require => 'omniauth/oauth'
 gem 'therubyracer', '~> 0.12.0'
-gem 'resque', '~> 1.20.0', :require => 'resque/server'
+gem 'resque', '~> 1.25', :require => 'resque/server'
 gem 'resque_mailer', '~> 2.0.2'
-gem 'resque-scheduler', '~>2.0.1', :require => ['resque_scheduler', 'resque_scheduler/server']
+gem 'resque-scheduler', '~>2.5.5', :require => ['resque_scheduler', 'resque_scheduler/server']
 gem 'rufus-scheduler', '~>2.0.24'
 gem 'resque-pool'
 gem 'puma', require: false #for resque web in rubber

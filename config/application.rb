@@ -14,7 +14,7 @@ end
 
 host, port = YAML.load_file(File.expand_path(File.join(File.dirname(__FILE__), 'resque.yml')))[Rails.env].split(":")
 redis_host, redis_port = YAML.load_file(File.expand_path(File.join(File.dirname(__FILE__), 'redis.yml')))[Rails.env].split(":")
-ENV['REDIS_CACHE_STORE'] ||= "redis://#{redis_host}:#{redis_port}/3/cache"
+ENV['REDIS_CACHE_STORE'] ||= "redis://#{host}:#{port}/3/cache"
 ENV['REDIS_LEADERBOARD'] ||= "redis://#{host}:#{port}/4"
 ENV['REDIS_SITEMAP'] ||= "redis://#{host}:#{port}/2"
 
@@ -36,7 +36,7 @@ module Olook
     config.autoload_paths += Dir["#{Rails.root}/app/listeners"]
     config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/actions"]
     config.autoload_paths += Dir["#{Rails.root}/app/models/promotions/rules"]
-
+    
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]

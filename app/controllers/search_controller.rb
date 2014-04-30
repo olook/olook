@@ -2,6 +2,7 @@ class SearchController < ApplicationController
   layout "lite_application"
 
   def show
+    finished("searchbar_text", reset: false)
     @url_builder = SeoUrl.new(path: request.fullpath, path_positions: '/busca')
     search_params = @url_builder.parse_params
     @q = params[:q] || ""

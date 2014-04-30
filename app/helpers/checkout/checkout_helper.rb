@@ -49,7 +49,7 @@ module Checkout::CheckoutHelper
   end
 
   def gift_wrap_price(cart)
-    cart.free_gift_wrap? ? "GRÁTIS" : number_to_currency(CartService.gift_wrap_price)
+    number_to_currency(CartService.gift_wrap_price)
   end
 
   def show_freight_message

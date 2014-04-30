@@ -28,7 +28,7 @@ class QuizResponder
       profile: @profile,
       user_data: @user_data
     }
-    redis.set(self.class.redis_key(uuid), JSON.generate(serial))
+    redis.setex(self.class.redis_key(uuid), 24*3600, JSON.generate(serial))
   end
 
   def destroy
