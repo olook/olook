@@ -10,9 +10,6 @@ describe ShippingService do
 
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:erp_code) }
-
-    it { should_not allow_value(0).for(:cubic_weight_factor) }
-    it { should_not allow_value(-1).for(:cubic_weight_factor) }
   end
   describe '#find_freight_for_zip' do
     let(:zip_code) { '05379020' }
@@ -35,32 +32,6 @@ describe ShippingService do
     it 'should return nil if no freight_price was found' do
       freight = subject.find_freight_for_zip '', 0.0
       freight.should be_nil
-    end
-  end
-  
-  describe '#freight_weight, should return the biggest weight between the real weight and the cubic weight' do
-    let(:volume) { 0.019008 } # 11x54x32 cm, cubic weight == 3,174336
-    let(:cubic_weight) { volume * subject.cubic_weight_factor }
-
-    context 'given a bigger real weight' do
-      let(:weight) { 3.2 }
-      it 'should return the real weight' do
-        subject.freight_weight(weight, volume).should == weight
-      end
-    end
-    context 'given a bigger cubic weight' do
-      let(:weight) { 3.0 }
-      it 'should return the cubic weight' do
-        subject.freight_weight(weight, volume).should == cubic_weight
-      end
-    end
-  end
-  
-  describe '#cubic_weight_factor' do
-    subject { FactoryGirl.create :shipping_service }
-
-    it 'should return 167 by default' do
-      subject.cubic_weight_factor.should == 167
     end
   end
 end
