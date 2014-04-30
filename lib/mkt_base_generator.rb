@@ -11,9 +11,22 @@ class MktBaseGenerator
   end
 
   def map data
-    User.find_by_sql("select uuid, first_name, DATE_FORMAT(created_at,'%Y-%m-%d') as criado_em, email, DATE_FORMAT(birthday,'%Y-%m-%d') as birthday, authentication_token, tem_pedido, ticket_medio, qtde_pedido,
-    DATE_FORMAT(ultimo_pedido, '%Y-%m-%d') as ultimo_pedido, IF(half_user = 'TRUE', 'Half', 'Full') as tipo, profile , total from (select u.id as uuid, (
-    IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0 and c.activates_at <= date(now()) and c.expires_at >= date(now())),0) -
+    User.find_by_sql("select uuid,
+    first_name,
+    DATE_FORMAT(created_at,'%Y-%m-%d') as criado_em,
+    email,
+    DATE_FORMAT(birthday,'%Y-%m-%d') as birthday,
+    authentication_token,
+    tem_pedido,
+    ticket_medio,
+    qtde_pedido,
+    DATE_FORMAT(ultimo_pedido, '%Y-%m-%d') as ultimo_pedido,
+    IF(half_user = 'TRUE', 'Half', 'Full') as tipo,
+    profile,
+    total
+    from (
+      select u.id as uuid,
+      (IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 0 and c.activates_at <= date(now()) and c.expires_at >= date(now())),0) -
     IFNULL((select sum(c.value) from credits c where c.user_credit_id = uc.id and c.is_debit = 1 and c.activates_at <= date(now()) and c.expires_at >= date(now())), 0)
   ) total, ( select IF(count(o.id) > 0, 'SIM', 'NAO' )) tem_pedido, count(o.id) qtde_pedido,  IFNULL((sum(o.gross_amount) / count(o.id)), 0) ticket_medio, (select MAX(o.created_at)) ultimo_pedido from users u left join user_credits uc on u.id = uc.user_id and uc.credit_type_id = 1 left join orders o on u.id = o.user_id and o.state in ('authorized', 'delivery', 'picking', 'delivering')
       where u.id >= #{data['first']} and u.id < #{data['last']} AND u.reseller = false
@@ -73,7 +86,18 @@ class MktBaseGenerator
       ['first_name', 'email address', 'criado_em', 'aniversario', 'auth_token' , 'total', 'tem_pedido', 'ticket_medio','quantidade_pedidos','ultimo_pedido','tipo', 'perfil'].join(';') + "\n"
     end
     def create_csv_line u
-      [u.first_name, u.email, u.criado_em, u.birthday,u.authentication_token,u.total.to_s,u.tem_pedido,u.ticket_medio,u.qtde_pedido ,u.ultimo_pedido,u.tipo, u.profile]
+      [u[ 'first_name' ],
+       u[ 'email' ],
+       u[ 'criado_em' ],
+       u[ 'birthday' ],
+       u[ 'authentication_token' ],
+       u[ 'total' ].to_s,
+       u[ 'tem_pedido' ],
+       u[ 'ticket_medio' ],
+       u[ 'qtde_pedido' ],
+       u[ 'ultimo_pedido' ],
+       u[ 'tipo' ],
+       u[ 'profile' ]]
     end
 
     def merge_csv_files_to file

@@ -227,8 +227,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.1.2)
       i18n (~> 0.5)
-    fakeredis (0.3.3)
-      redis (~> 2.2.0)
+    fakeredis (0.4.3)
+      redis (~> 3.0.0)
     faraday (0.7.6)
       addressable (~> 2.2)
       multipart-post (~> 1.1)
@@ -323,6 +323,7 @@ GEM
       subexec (~> 0.1.0)
     mocha (0.10.5)
       metaclass (~> 0.0.1)
+    mono_logger (1.1.0)
     multi_json (1.0.4)
     multi_xml (0.4.4)
     multipart-post (1.2.0)
@@ -367,6 +368,7 @@ GEM
       daemon_controller (>= 1.1.0)
       rack
       rake (>= 0.8.1)
+    pdfkit (0.6.2)
     png_quantizator (0.1.0)
     poltergeist (1.1.2)
       capybara (~> 2.0.1)
@@ -388,7 +390,7 @@ GEM
       rack (>= 0.4)
     rack-mini-profiler (0.1.31)
       rack (>= 1.1.3)
-    rack-protection (1.5.2)
+    rack-protection (1.5.3)
       rack
     rack-ssl (1.3.3)
       rack
@@ -425,7 +427,7 @@ GEM
       ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
-    redis (2.2.2)
+    redis (3.0.7)
     redis-actionpack (3.2.4)
       actionpack (~> 3.2.0)
       redis-rack (~> 1.4.4)
@@ -433,8 +435,8 @@ GEM
     redis-activesupport (3.2.5)
       activesupport (~> 3.2.0)
       redis-store (~> 1.1.0)
-    redis-namespace (1.0.4)
-      redis (< 3.0.0)
+    redis-namespace (1.4.1)
+      redis (~> 3.0.4)
     redis-rack (1.4.4)
       rack (~> 1.4.0)
       redis-store (~> 1.1.4)
@@ -445,19 +447,21 @@ GEM
     redis-store (1.1.4)
       redis (>= 2.2)
     ref (1.0.5)
-    resque (1.20.0)
+    resque (1.25.2)
+      mono_logger (~> 1.0)
       multi_json (~> 1.0)
-      redis-namespace (~> 1.0.2)
+      redis-namespace (~> 1.3)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
     resque-pool (0.3.0)
       rake
       resque (~> 1.20)
       trollop (~> 1.16)
-    resque-scheduler (2.0.1)
-      redis (>= 2.0.1)
-      resque (>= 1.20.0)
-      rufus-scheduler
+    resque-scheduler (2.5.5)
+      mono_logger (~> 1.0)
+      redis (~> 3.0.4)
+      resque (~> 1.25.1)
+      rufus-scheduler (~> 2.0.24)
     resque_mailer (2.0.3)
       actionmailer (>= 3.0.0)
       resque (>= 1.2.3)
@@ -505,19 +509,25 @@ GEM
     shoulda-matchers (1.4.2)
       activesupport (>= 3.0.0)
       bourne (~> 1.1.2)
+    simple-random (0.10.0)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
     simplecov-rcov (0.2.3)
       simplecov (>= 0.4.1)
-    sinatra (1.4.4)
+    sinatra (1.4.5)
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
     sitemap_generator (4.2.0)
       builder
     slop (3.4.7)
+    split (0.7.1)
+      redis (>= 2.1)
+      redis-namespace (>= 1.1.0)
+      simple-random
+      sinatra (>= 1.2.6)
     spork (0.9.2)
     sprockets (2.2.2)
       hike (~> 1.2)
@@ -544,7 +554,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     trollop (1.16.2)
-    tzinfo (0.3.38)
+    tzinfo (0.3.39)
     uglifier (1.0.4)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
@@ -567,6 +577,7 @@ GEM
       crack (>= 0.3.2)
     websocket (1.0.7)
     will_paginate (3.0.4)
+    wkhtmltopdf-binary (0.9.9.1)
     xpath (1.0.0)
       nokogiri (~> 1.3)
     yui-compressor (0.9.6)
@@ -638,6 +649,7 @@ DEPENDENCIES
   open4
   paper_trail (~> 2)
   passenger
+  pdfkit
   piet!
   poltergeist
   pry
@@ -652,9 +664,9 @@ DEPENDENCIES
   rb-fsevent
   rb-inotify (~> 0.9)
   redis-rails
-  resque (~> 1.20.0)
+  resque (~> 1.25)
   resque-pool
-  resque-scheduler (~> 2.0.1)
+  resque-scheduler (~> 2.5.5)
   resque_mailer (~> 2.0.2)
   rspec-rails (~> 2.12.0)
   rubber (~> 2.0)!
@@ -666,6 +678,7 @@ DEPENDENCIES
   simplecov
   simplecov-rcov
   sitemap_generator
+  split
   spork (~> 0.9.2)
   sqlite3 (~> 1.3.6)
   state_machine (~> 1.1.0)
@@ -679,5 +692,6 @@ DEPENDENCIES
   watchr
   webmock
   will_paginate
+  wkhtmltopdf-binary
   yui-compressor
   zipruby

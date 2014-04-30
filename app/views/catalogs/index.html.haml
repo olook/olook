@@ -28,50 +28,50 @@
 - content_for :data_layer do
   = render "shared/data_layer/category", pixel_information: @pixel_information, catalog_products: @search.products
 
-/ = cache @cache_key, expires_in: 40.minutes do
-= render "shared/mkt_breadcrumb"
-= first_level_breadcrumb(Category.t(Category.with_name(@category)).pluralize)
-#catalog
-  %aside
-    %h5{:style => 'font-size: 11px;margin-bottom: 10px;'}
-      Filtre sua pesquisa:
-    = render "filters", search: @search, category: @category
+= cache @cache_key, expires_in: 40.minutes, raw: true do
+  = render "shared/mkt_breadcrumb"
+  = first_level_breadcrumb(Category.t(Category.with_name(@category)).pluralize)
+  #catalog
+    %aside
+      %h5{:style => 'font-size: 11px;margin-bottom: 10px;'}
+        Filtre sua pesquisa:
+      = render "filters", search: @search, category: @category
 
-  - present 'Header', header: header do |header_presenter| 
-    = header_presenter.show_header
+    - present 'Header', header: header do |header_presenter| 
+      = header_presenter.show_header
 
-  #result
-    - unless @search.has_any_filter_selected? || params[:cmp].present?
-      / local onde o viewpersonalized será exibido
-      .chaordic.viewpersonalized
-      / local onde o purchasepersonalized será exibido
-      / .chaordic.purchasepersonalized
-      / local onde o mostpopular será exibido
-      / .chaordic.mostpopular
+    #result
+      - unless @search.has_any_filter_selected? || params[:cmp].present?
+        / local onde o viewpersonalized será exibido
+        .chaordic.viewpersonalized
+        / local onde o purchasepersonalized será exibido
+        / .chaordic.purchasepersonalized
+        / local onde o mostpopular será exibido
+        / .chaordic.mostpopular
 
-    .row{style: 'position:relative'}
-      = render "ordenation_filters", search: @search, url_builder: @url_builder
-      = render "size_filters", search: @search, url_builder: @url_builder, category: @category      
+      .row{style: 'position:relative'}
+        = render "ordenation_filters", search: @search, url_builder: @url_builder
+        = render "size_filters", search: @search, url_builder: @url_builder, category: @category      
 
-    = render 'current_section', search: @search
+      = render 'current_section', search: @search
 
-    %section.container_product
-      %ul#products
-        = render_highlighted_products_from(@campaign)
-        = render "shared/searched_products", :products => @search.products, campaign_products: @campaign.products
-      .loading
+      %section.container_product
+        %ul#products
+          = render_highlighted_products_from(@campaign)
+          = render "shared/searched_products", :products => @search.products, campaign_products: @campaign.products
+        .loading
 
-    .pagination
-      = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda { |hash| @url_builder.current_filters { |_p| _p.merge(hash) } }
+      .pagination
+        = render "shared/nav_bar_pagination", search: @search, url_builder: @url_builder, link: lambda { |hash| @url_builder.current_filters { |_p| _p.merge(hash) } }
 
-    - if hot_products = show_hot_products?(@leaderboard, 4)
-      :javascript
-        log_event('view', 'hot_products');
-      %section.hot_products
-        %h3 Os mais clicados
-        %ul
-          - hot_products.each do |hp|
-            = render "shared/searched_product_item", :product => hp, :product_source => 'SearchedProduct'
+      - if hot_products = show_hot_products?(@leaderboard, 4)
+        :javascript
+          log_event('view', 'hot_products');
+        %section.hot_products
+          %h3 Os mais clicados
+          %ul
+            - hot_products.each do |hp|
+              = render "shared/searched_product_item", :product => hp, :product_source => 'SearchedProduct'
 
-    .banner
-      = banner_for(@category, position: :botton)
+      .banner
+        = banner_for(@category, position: :botton)

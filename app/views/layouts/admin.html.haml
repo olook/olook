@@ -84,6 +84,12 @@
               %ul
                 %li= access_link_generic(name: "SimpleEmailServiceInfo", location: "activerecord.models.simple_email_service_info.other", path: admin_ses_path)
                 %li= access_link("Mkt Settings")
+            %li{class: "submenu#{' active' if params[:controller] =~ /html_generator/}"}
+              %span Comercial
+              %ul
+                %li= link_to("Gerar pdf de produtos", admin_html_generators_path) if can?(:index, :html_generator)
+                
+
       #wrapper.wat-cf
         .flash
           - flash.each do |type, message|

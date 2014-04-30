@@ -101,7 +101,6 @@ class CartService
 
   def total_discount(payment=nil)
     discounts_value = calculate_discounts(payment).fetch(:total_discount)
-    discounts_value += CartService.gift_wrap_price if cart.free_gift_wrap?
     discounts_value
   end
 

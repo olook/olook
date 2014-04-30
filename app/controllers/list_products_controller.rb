@@ -43,7 +43,7 @@ class ListProductsController < ApplicationController
     @url_builder.set_search @search
     @color = search_params["color"]
     @size = search_params["size"]
-    @brand = search_params["brand"]
+    @brand_name = search_params["brand"]
     @campaign_products = HighlightCampaign.find_campaign(params[:cmp])
     @chaordic_user = ChaordicInfo.user(current_user, cookies[:ceid])
     @category = params[:category] = @search.filter_value(:category).try(:first)
