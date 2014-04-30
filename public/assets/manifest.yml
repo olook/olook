@@ -2350,10 +2350,10 @@ about/normalize.css: about/normalize-8ddcc40aa5a64b01c26953ed680d44c9.css
 about/normalize/index.css: about/normalize-8ddcc40aa5a64b01c26953ed680d44c9.css
 about/style.css: about/style-aa625c47f81e17578498793ea2a206b4.css
 about/style/index.css: about/style-aa625c47f81e17578498793ea2a206b4.css
-admin.css: admin-5f15a30b170acd7f1eaba3e8038b440e.css
-admin/index.css: admin-5f15a30b170acd7f1eaba3e8038b440e.css
-admin/base.css: admin/base-607cc308932866138143e0fcb48da70b.css
-admin/base/index.css: admin/base-607cc308932866138143e0fcb48da70b.css
+admin.css: admin-7e3a7dce51de6741ae4082661871f367.css
+admin/index.css: admin-7e3a7dce51de6741ae4082661871f367.css
+admin/base.css: admin/base-5b14277178fb2e05b949da11629a49f8.css
+admin/base/index.css: admin/base-5b14277178fb2e05b949da11629a49f8.css
 admin/bootstrap.css: admin/bootstrap-6aec27574fffd0d4e5c50cbe8ad48984.css
 admin/bootstrap/index.css: admin/bootstrap-6aec27574fffd0d4e5c50cbe8ad48984.css
 admin/braspag_authorize_responses.css: admin/braspag_authorize_responses-37ef150c142a979883d04c9b7bc8f406.css
