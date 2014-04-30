@@ -6,7 +6,6 @@ describe TransportShippingService do
       :cost => 0.0,
       :delivery_time => 2,
       :shipping_service_id => 2,
-      :shipping_service_priority => "1",
       :cost_for_free => ''
     }
   end
@@ -31,7 +30,6 @@ describe TransportShippingService do
         :cost => 1.0,
         :delivery_time => 1,
         :shipping_service_id => 4,
-        :shipping_service_priority => "2",
         :cost_for_free => ''
       }
     end
@@ -50,7 +48,6 @@ describe TransportShippingService do
           :cost => 4.0,
           :delivery_time => 1,
           :shipping_service_id => 4,
-          :shipping_service_priority => "3",
           :cost_for_free => ''
         }
         @transport_service = TransportShippingService.new([@defaut_transport_service, @transport_service_1,@transport_service_2])
