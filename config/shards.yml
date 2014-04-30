@@ -1,0 +1,16 @@
+octopus:
+  environments:
+    - development
+    - production
+  replicated: true
+  fully_replicated: true
+  production:
+    slave1:
+      adapter: mysql2
+      host: localhost
+      database: olook_production
+  development:
+    slave1:
+      adapter: mysql2
+      host: 172.16.2.45
+      database: olook_development
