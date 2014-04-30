@@ -12,5 +12,5 @@ octopus:
   development:
     slave1:
       adapter: mysql2
-      host: 172.16.2.45
+      host: localhost
       database: olook_development
