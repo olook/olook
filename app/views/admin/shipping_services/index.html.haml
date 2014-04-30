@@ -1,3 +1,6 @@
+- content_for :secondary_navigation do
+  %li= link_to 'Novo serviço de entrega', new_admin_shipping_service_path
+
 %h2 Atualização de tabelas
 .inner
   = form_tag admin_shippings_path, method: :put, multipart: true do
