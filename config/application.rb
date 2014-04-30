@@ -12,11 +12,10 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-host, port = YAML.load_file(File.expand_path(File.join(File.dirname(__FILE__), 'resque.yml')))[Rails.env].split(":")
 redis_host, redis_port = YAML.load_file(File.expand_path(File.join(File.dirname(__FILE__), 'redis.yml')))[Rails.env].split(":")
-ENV['REDIS_CACHE_STORE'] ||= "redis://#{host}:#{port}/3/cache"
-ENV['REDIS_LEADERBOARD'] ||= "redis://#{host}:#{port}/4"
-ENV['REDIS_SITEMAP'] ||= "redis://#{host}:#{port}/2"
+ENV['REDIS_CACHE_STORE'] ||= "redis://#{redis_host}:#{redis_port}/3/cache"
+ENV['REDIS_LEADERBOARD'] ||= "redis://#{redis_host}:#{redis_port}/4"
+ENV['REDIS_SITEMAP'] ||= "redis://#{redis_host}:#{redis_port}/2"
 
 module Olook
   class Application < Rails::Application
