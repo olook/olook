@@ -15,11 +15,12 @@ section{
  	padding-top: 3px;
  	letter-spacing: 1px;
  	text-transform: uppercase;
+ 	margin-left: 26px;
  }
  p{
  	display: block;
  	float: left;
- 	width: 600px;
+ 	width: 575px;
  	height: 40px;
  	color: #a3a3a5;
  	font-size: 13px;
@@ -30,6 +31,7 @@ section{
  .carousel{
  	float: left;
  	width: 793px !important;
+ 	margin-left: 26px;
  	ul{
  		li.big{
  			margin-bottom: 15px;
@@ -68,6 +70,7 @@ section{
  	background-color: #e8cad4;
  	font-size: 21px;
  	margin-bottom: 15px;
+ 	margin-left: 196px;
  }
  #bx-pager{
  	a{text-decoration: none;}
