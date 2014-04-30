@@ -10,7 +10,6 @@ class ShippingService < ActiveRecord::Base
   validates :erp_code, :presence => true
   validates :cubic_weight_factor, :presence => true, :numericality => {:only_integer => true, :greater_than => 0}
   validates :priority, :presence => true, :numericality => {:only_integer => true, :greater_than => 0}
-  validates :erp_delivery_service, :presence => true
 
   def find_freight_for_zip(zip_code, order_value)
     self.freight_prices.where('(:zip >= zip_start) AND (:zip <= zip_end) AND ' +
@@ -37,7 +36,6 @@ private
   after_initialize do
     self.cubic_weight_factor = DEFAULT_CUBIC_WEIGHT_FACTOR
     self.erp_code = self.name
-    self.erp_delivery_service = self.name
     self.priority = 42
   end
 end
