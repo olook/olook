@@ -186,7 +186,7 @@ class IndexProductsWorker
 
     def upload_sdf_file file_name
       docs_domain =  SEARCH_CONFIG["docs_domain"]
-      `curl -s -X POST --upload-file "#{file_name}" "#{docs_domain}"/2013-01-01/documents/batch --header "Content-Type:application/json"`
+      `curl -s -X POST --upload-file "#{file_name}" "#{docs_domain}"/2011-02-01/documents/batch --header "Content-Type:application/json"`
     end
 
     def version_based_on_timestamp
