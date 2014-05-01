@@ -211,10 +211,10 @@ class IndexProductsWorker
 
     def save_temporary_table_vars
       create_temporary_products_with_inventory_table do
-        count = Product.connection.select_all("SELECT count(0) qty FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD}").
+        count = Product.using(:master).connection.select_all("SELECT count(0) qty FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD}").
           first['qty']
         third_quartile = ( count * 0.75 ).round
-        @newest = Product.connection.select("SELECT age FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD} ORDER BY age desc LIMIT 1 OFFSET #{third_quartile}").
+        @newest = Product.using(:master).connection.select("SELECT age FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD} ORDER BY age desc LIMIT 1 OFFSET #{third_quartile}").
           first['age']
 
         count_by_category ||= Product.connection.
@@ -223,7 +223,7 @@ class IndexProductsWorker
         @third_quartile_inventory ||= count_by_category.inject({}) do |hash, aux|
           category, count = aux
           third_quartile = ( count*0.75 ).round
-          hash[category] = Product.connection.
+          hash[category] = Product.using(:master).connection.
             select("SELECT sum_inventory FROM products_with_more_than_one_inventory
                      WHERE category = #{category} order by sum_inventory limit 1 offset #{third_quartile}").
             first['sum_inventory']
@@ -237,11 +237,11 @@ class IndexProductsWorker
         sql = Product.only_visible.joins(:variants).group('products.id').having('sum(inventory) > 0').
           select('products.id, IF(products.launch_date = NULL, 365, CURDATE() - products.launch_date) age,
                  products.category, sum(variants.inventory) sum_inventory').to_sql
-          Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
-          Product.connection.execute("CREATE TEMPORARY TABLE products_with_more_than_one_inventory AS #{sql}")
+          Product.using(:master).connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
+          Product.using(:master).connection.execute("CREATE TEMPORARY TABLE products_with_more_than_one_inventory AS #{sql}")
           yield
       ensure
-        Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
+        Product.using(:master).connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
       end
     end
 end
