@@ -2,7 +2,7 @@ require 'active_support/inflector'
 class SearchEngine
   include Search::Paginable
   SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
-  BASE_URL = SEARCH_CONFIG["search_domain"] + "/2013-01-01/search"
+  BASE_URL = SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
 
   MULTISELECTION_SEPARATOR = '-'
   RANGED_FIELDS = HashWithIndifferentAccess.new({'price' => '', 'heel' => '', 'inventory' => ''})
