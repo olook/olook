@@ -1,6 +1,5 @@
 octopus:
   environments:
-    - development
     - production
   replicated: true
   fully_replicated: true
@@ -9,8 +8,3 @@ octopus:
       adapter: mysql2
       host: localhost
       database: olook_production
-  development:
-    slave1:
-      adapter: mysql2
-      host: localhost
-      database: olook_development
