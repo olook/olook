@@ -2,7 +2,7 @@ class QuizController < ApplicationController
   layout 'quiz'
   def new
     @email = cookies['newsletterEmail']
-    @quiz = WhatsYourStyle::Quiz.new
+    @quiz = WhatsYourStyle::Quiz.new(logger: Rails.logger, config_dir: "#{Rails.root}/config")
   end
 
   def create
