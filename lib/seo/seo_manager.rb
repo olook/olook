@@ -22,8 +22,10 @@ module Seo
     private
 
       def choose_meta_tag
-        title = search_meta_tag[:title] || fallback_title || DEFAULT_PAGE_TITLE
-        description = search_meta_tag[:description] || fallback_description || DEFAULT_PAGE_DESCRIPTION
+        meta_tag = search_meta_tag
+
+        title = meta_tag[:title] || fallback_title || DEFAULT_PAGE_TITLE
+        description = meta_tag[:description] || fallback_description || DEFAULT_PAGE_DESCRIPTION
         full_title = title
         full_title+= " #{color.capitalize}" unless color.blank?
         full_title+= " Tamanho #{size.capitalize}" unless size.blank?
