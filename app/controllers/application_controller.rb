@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   layout "lite_application"
 
   before_filter :load_user,
-                :create_cart,
+                # :create_cart,
+                :load_campaign,
                 :load_cart,
                 :load_coupon,
                 :load_cart_service,
@@ -31,6 +32,10 @@ class ApplicationController < ActionController::Base
 
   def after_login_return_to path
     session[:previous_url] = path
+  end
+
+  def load_campaign
+    @current_campaign = Campaign.activated_campaign
   end
 
   def render_public_exception
