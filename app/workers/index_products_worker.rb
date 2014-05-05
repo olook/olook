@@ -122,13 +122,13 @@ class IndexProductsWorker
 
         @age_weight ||= Setting[:age_weight].to_i
         fields['r_age'] = if fields['age'].to_i < newest
-                            RANKING_POWER * @age_weight
+                            ( RANKING_POWER * @age_weight ).to_i
                           else
                             diff_age = fields['age'].to_i - newest.to_i
                             proportion = diff_age.to_f / DAYS_TO_CONSIDER_OLD.to_f
                             # 0 / 60 = 1, 60 / 60 = 0, 30 / 60 =  0.5, 90 / 60 = 1.5
                             proportion = 1 if proportion > 1
-                            RANKING_POWER * @age_weight * ( 1 - proportion )
+                            ( RANKING_POWER * @age_weight * ( 1 - proportion ) ).to_i
                           end
 
 
@@ -141,7 +141,7 @@ class IndexProductsWorker
 
         @inventory_weight ||= Setting[:inventory_weight].to_i
         proportion = product.inventory.to_f / third_quartile_inventory_for_category(product.category)
-        fields['r_inventory'] = RANKING_POWER * ( proportion > 1 ? 1 : proportion ) * @inventory_weight rescue 0
+        fields['r_inventory'] = ( RANKING_POWER * ( proportion > 1 ? 1 : proportion ) * @inventory_weight ).to_i rescue 0
 
         if fields['inventory'] > 0 && fields['age'] < DAYS_TO_CONSIDER_OLD
           @log << "age: #{fields['age']}/#{newest} - #{fields['r_age'].to_i} | inventory: #{fields['inventory']}/#{third_quartile_inventory_for_category(product.category)} - #{fields['r_inventory'].to_i} | brand: #{fields['brand']} - #{fields['r_brand_regulator'].to_i} | exp: #{( fields['r_age'] + fields['r_inventory'] + fields['r_brand_regulator'] ).to_i}"
@@ -233,15 +233,17 @@ class IndexProductsWorker
     end
 
     def create_temporary_products_with_inventory_table
-      begin
-        sql = Product.only_visible.joins(:variants).group('products.id').having('sum(inventory) > 0').
-          select('products.id, IF(products.launch_date = NULL, 365, CURDATE() - products.launch_date) age,
-                 products.category, sum(variants.inventory) sum_inventory').to_sql
+      Octopus.using(:master) do
+        begin
+          sql = Product.only_visible.joins(:variants).group('products.id').having('sum(inventory) > 0').
+            select('products.id, IF(products.launch_date = NULL, 365, CURDATE() - products.launch_date) age,
+                   products.category, sum(variants.inventory) sum_inventory').to_sql
+            Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
+            Product.connection.execute("CREATE TEMPORARY TABLE products_with_more_than_one_inventory AS #{sql}")
+            yield
+        ensure
           Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
-          Product.connection.execute("CREATE TEMPORARY TABLE products_with_more_than_one_inventory AS #{sql}")
-          yield
-      ensure
-        Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
+        end
       end
     end
 end
