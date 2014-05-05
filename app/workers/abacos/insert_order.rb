@@ -4,6 +4,7 @@ module Abacos
     @queue = 'medium'
 
     def self.perform(order_number)
+      Rails.logger.info("[BUG] integrating order:#{order_number}")
       return true unless Setting.abacos_integrate
       
       order = parse_and_check_order order_number
@@ -12,6 +13,7 @@ module Abacos
           Resque.enqueue(Abacos::CancelOrder, order_number) if order.canceled?
         end
       end
+      Rails.logger.info("[BUG] order:#{order} integrated successfully")
     end
 
   private
@@ -19,10 +21,13 @@ module Abacos
       order = Order.find_by_number order_number
       raise "Order number #{order_number} doesn't have an associated payment" unless order.erp_payment
       raise "Order number #{order_number} already exist on Abacos" if Abacos::OrderAPI.order_exists?(order_number)
+      Rails.logger.info("[BUG] Found order:#{order}")
       order
     end
 
     def self.export_client(order)
+      Rails.logger.info("[BUG] freight:#{order.freight}")
+      Rails.logger.info("[BUG] address:#{order.address}")
       cliente = Abacos::Cliente.new order.user, order.freight.address
       Abacos::ClientAPI.export_client cliente
     end
