@@ -21,13 +21,13 @@ module Abacos
       order = Order.find_by_number order_number
       raise "Order number #{order_number} doesn't have an associated payment" unless order.erp_payment
       raise "Order number #{order_number} already exist on Abacos" if Abacos::OrderAPI.order_exists?(order_number)
-      Rails.logger.info("[BUG] Found order:#{order}")
+      Rails.logger.info("[BUG] Found order:#{order.to_s}")
       order
     end
 
     def self.export_client(order)
-      Rails.logger.info("[BUG] freight:#{order.freight}")
-      Rails.logger.info("[BUG] address:#{order.address}")
+      Rails.logger.info("[BUG] freight:#{order.freight.to_s}")
+      Rails.logger.info("[BUG] address:#{order.freight.address.to_s}")
       cliente = Abacos::Cliente.new order.user, order.freight.address
       Abacos::ClientAPI.export_client cliente
     end
