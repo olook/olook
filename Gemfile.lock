@@ -140,9 +140,6 @@ GEM
     akami (1.2.0)
       gyoku (>= 0.4.0)
       nokogiri (>= 1.4.0)
-    ar-octopus (0.8.1)
-      activerecord (>= 3.2.0)
-      activesupport (>= 3.2.0)
     arel (3.0.2)
     asset_sync (0.5.4)
       activemodel
@@ -594,7 +591,6 @@ DEPENDENCIES
   SyslogLogger (~> 1.4.1)
   acts_as_list
   airbrake (~> 3.1.6)
-  ar-octopus
   asset_sync (~> 0.5.0)
   awesome_print
   aws-sdk (~> 1.0)
