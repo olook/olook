@@ -35,7 +35,7 @@ section{
  		margin: 0 auto 15px !important;
  	}
  }
- #bx-pager{
+ #bx-pager, .matelasse{
  	width: 800px;
  	img{
  		width: 151px;
@@ -64,4 +64,10 @@ section{
  #bx-pager{
  	a{text-decoration: none;}
 	}
+ }
+
+ .matelasse{
+ 	img {
+ 		width: 105px !important;
+ 	}
  }
