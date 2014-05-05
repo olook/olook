@@ -23,11 +23,6 @@ module Abacos
       product.master_variant.retail_price = product.retail_price
       product.master_variant.save!
       
-
-      if product.save!
-        CatalogService.save_product product, :update_price => true
-      end
-
       if product.is_kit
         update_kit_variant_price
       else
