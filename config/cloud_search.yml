@@ -12,4 +12,4 @@ staging:
 
 production:
   docs_domain: doc-olook-yrzuepka6xopzn7xlijrm7l3wq.us-east-1.cloudsearch.amazonaws.com
-  search_domain: busca.olook.com.br
+  search_domain: search-olook-yrzuepka6xopzn7xlijrm7l3wq.us-east-1.cloudsearch.amazonaws.com

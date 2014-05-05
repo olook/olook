@@ -1,15 +1,18 @@
-require 'spec_helper'
+require File.expand_path(File.join(__dir__, '../../../lib/whats_your_style/quiz'))
 
 describe WhatsYourStyle::Quiz, vcr: {cassette_name: 'whats_your_style', record: :new_episodes} do
+  let(:config_dir) { File.expand_path(File.join(__dir__, '../../../config')) }
+  subject { described_class.new(config_dir: config_dir) }
+
   describe "#questions" do
-    subject { described_class.new.questions }
+    subject { described_class.new(config_dir: config_dir).questions }
     it { should be_a(Array) }
     it { expect(subject.first).to respond_to(:answers) }
     it { expect(subject.first.answers).to_not be_nil }
 
     it "creates questions" do
       WhatsYourStyle::Question.should_receive(:new).exactly(12).times
-      described_class.new.questions
+      described_class.new(config_dir: config_dir).questions
     end
   end
 

@@ -32,6 +32,9 @@ class CreditCard < Payment
   validates_with UserIdentificationValidator, :attributes => [:user_identification], :on => :create
 
   before_create :set_payment_expiration_date
+  before_validation(on: :create) do
+    detect_credit_card_type
+  end
 
   def to_s
     "CartaoCredito"
@@ -97,4 +100,8 @@ class CreditCard < Payment
     end
   end
 
+  def detect_credit_card_type
+    return bank unless bank.blank?
+    self.bank = CreditCardDetectorService.detect(credit_card_number)
+  end
 end
