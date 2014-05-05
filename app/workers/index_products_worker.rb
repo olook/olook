@@ -84,47 +84,43 @@ class IndexProductsWorker
 
     def create_sdf_entry_for product, type
       version = version_based_on_timestamp
+      product_doc = ProductDocument.new
 
-      values = {
-        'type' => type,
-        'version' => version,
-        'id' => product.id
-      }
+      product_doc.type = type
+      product_doc.version = version
+      product_doc.id = product.id
 
       if type == 'add'
-        values['lang'] = 'pt'
+        product_doc.lang = 'pt'
 
-        fields = {}
-
-        fields['product_id'] = product.id
-        fields['is_visible'] = product.is_visible ? 1 : 0
-        fields['brand'] = product.brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
-        fields['brand_facet'] = ActiveSupport::Inflector.transliterate(product.brand).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
-        fields['price'] = (product.price.to_d * 100).round
-        fields['retail_price'] = (product.retail_price.to_d * 100).round
-        fields['discount'] = (fields['retail_price'].to_i * 100) / fields['price'].to_i
-        fields['in_promotion'] = product.liquidation? ? 1 : 0 
-        fields['visibility'] = product.visibility
-        fields['category'] = product.category_humanize.downcase
-        fields['age'] = product.time_in_stock
+        product_doc.product_id = product.id
+        product_doc.is_visible = product.is_visible ? 1 : 0
+        product_doc.brand = product.brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
+        product_doc.brand_facet = ActiveSupport::Inflector.transliterate(product.brand).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
+        product_doc.price = (product.price.to_d * 100).round
+        product_doc.retail_price = (product.retail_price.to_d * 100).round
+        product_doc.discount = (product_doc.retail_price.to_i * 100) / product_doc.price.to_i
+        product_doc.in_promotion = product.liquidation? ? 1 : 0 
+        product_doc.visibility = product.visibility
+        product_doc.category = product.category_humanize.downcase
+        product_doc.age = product.time_in_stock
 
         # fields that need associations they are all being eager loaded
-        fields['name'] = product.formatted_name(150).titleize
-        fields['inventory'] = product.inventory.to_i
-        fields['care'] = product.subcategory.titleize if Product::CARE_PRODUCTS.include?(product.subcategory)
+        product_doc.name = product.formatted_name(150).titleize
+        product_doc.inventory = product.inventory.to_i
+        product_doc.care = product.subcategory.titleize if Product::CARE_PRODUCTS.include?(product.subcategory)
 
-        fields['image'] = product.catalog_picture
-        fields['backside_image'] = product.backside_picture unless product.backside_picture.nil?
-        fields['size'] = product.variants.select{|v| v.inventory > 0}.map{|b| (b.description.to_i.to_s != "0" ) ? b.description+product.category_humanize[0].downcase : b.description}
-        fields['collection'] = product.collection.start_date.strftime('%Y%m').to_i
-        fields['collection_theme'] = product.collection_themes.map { |c| c.slug }
-
+        product_doc.image = product.catalog_picture
+        product_doc.backside_image = product.backside_picture unless product.backside_picture.nil?
+        product_doc.size = product.variants.select{|v| v.inventory > 0}.map{|b| (b.description.to_i.to_s != "0" ) ? b.description+product.category_humanize[0].downcase : b.description}
+        product_doc.collection = product.collection.start_date.strftime('%Y%m').to_i
+        product_doc.collection_theme = product.collection_themes.map { |c| c.slug }
 
         @age_weight ||= Setting[:age_weight].to_i
-        fields['r_age'] = if fields['age'].to_i < newest
+        product_doc.r_age = if product_doc.age.to_i < newest
                             ( RANKING_POWER * @age_weight ).to_i
                           else
-                            diff_age = fields['age'].to_i - newest.to_i
+                            diff_age = product_doc.age.to_i - newest.to_i
                             proportion = diff_age.to_f / DAYS_TO_CONSIDER_OLD.to_f
                             # 0 / 60 = 1, 60 / 60 = 0, 30 / 60 =  0.5, 90 / 60 = 1.5
                             proportion = 1 if proportion > 1
@@ -133,33 +129,33 @@ class IndexProductsWorker
 
 
         @max_age_rating ||= ( @age_weight * RANKING_POWER )
-        fields['r_brand_regulator'] = 0
-        if /olook/i =~ fields['brand']
-          #fields['r_brand_regulator'] = ( rand(100) >= ( 100 - PERCENT_OLOOK_TO_REGULATOR ) ) ? ( @max_age_rating - fields['r_age'] ) : 0
-          fields['r_brand_regulator'] = 250
+        product_doc.r_brand_regulator = 0
+        if /olook/i =~ product_doc.brand
+          #product_doc.r_brand_regulator = ( rand(100) >= ( 100 - PERCENT_OLOOK_TO_REGULATOR ) ) ? ( @max_age_rating - product_doc.r_age ) : 0
+          product_doc.r_brand_regulator = 250
         end
 
         @inventory_weight ||= Setting[:inventory_weight].to_i
         proportion = product.inventory.to_f / third_quartile_inventory_for_category(product.category)
-        fields['r_inventory'] = ( RANKING_POWER * ( proportion > 1 ? 1 : proportion ) * @inventory_weight ).to_i rescue 0
+        product_doc.r_inventory = ( RANKING_POWER * ( proportion > 1 ? 1 : proportion ) * @inventory_weight ).to_i rescue 0
 
-        if fields['inventory'] > 0 && fields['age'] < DAYS_TO_CONSIDER_OLD
-          @log << "age: #{fields['age']}/#{newest} - #{fields['r_age'].to_i} | inventory: #{fields['inventory']}/#{third_quartile_inventory_for_category(product.category)} - #{fields['r_inventory'].to_i} | brand: #{fields['brand']} - #{fields['r_brand_regulator'].to_i} | exp: #{( fields['r_age'] + fields['r_inventory'] + fields['r_brand_regulator'] ).to_i}"
+        if product_doc.inventory > 0 && product_doc.age < DAYS_TO_CONSIDER_OLD
+          @log << "age: #{product_doc.age}/#{newest} - #{product_doc.r_age.to_i} | inventory: #{product_doc.inventory}/#{third_quartile_inventory_for_category(product.category)} - #{product_doc.r_inventory.to_i} | brand: #{product_doc.brand} - #{product_doc.r_brand_regulator.to_i} | exp: #{( product_doc.r_age + product_doc.r_inventory + product_doc.r_brand_regulator ).to_i}"
         end
         if product.shoe?
           product.details.each do |detail|
             if /cm/i =~ detail.description.to_s
               if /\A\d+ ?cm\Z/ =~ detail.description.to_s
-                fields['heel'] = heel_range(detail.description)
-                fields['heeluint'] = detail.description.to_i
+                product_doc.heel = heel_range(detail.description)
+                product_doc.heeluint = detail.description.to_i
               elsif /salto: (?:<heel>\d+ ?cm)/i =~ detail.description.to_s
-                fields['heel'] = heel_range(heel)
-                fields['heeluint'] = heel.to_i
+                product_doc.heel = heel_range(heel)
+                product_doc.heeluint = heel.to_i
               end
             end
           end
-          fields['heel'] ||= '0-4 cm'
-          fields['heeluint'] ||= 0
+          product_doc.heel ||= '0-4 cm'
+          product_doc.heeluint ||= 0
         end
 
         details = product.details.select { |d| d.translation_token.downcase =~ /(categoria|cor filtro|material da sola|material externo|material interno)/i }
@@ -169,16 +165,14 @@ class IndexProductsWorker
         }
         details.each do |detail|
           field_key = translation_hash.include?(detail.translation_token.downcase) ? translation_hash[detail.translation_token.downcase] : detail.translation_token.downcase.gsub(" ","_")
-          if field_key == 'subcategory' && fields['category'] == 'moda praia'
+          if field_key == 'subcategory' && product_doc.category == 'moda praia'
             fields[field_key] = detail.description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize.gsub(" Moda Praia", "") + ' Moda Praia'
           else
             fields[field_key] = detail.description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
           end
         end
-        fields['keywords'] = fields.select{|k,v| ['category', 'subcategory', 'color', 'size', 'name', 'brand', 'material externo', 'material interno', 'material da sola'].include?(k)}.values.join(" ")
-        values['fields'] = fields
       end
-      values
+      product_doc.to_document
     rescue => e
       Rails.logger.error("Failed to generate sdf of product: #{product.inspect}. Error: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}")
       nil
