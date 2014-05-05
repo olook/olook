@@ -21,7 +21,7 @@ module Abacos
         error_container = response[:rows][:dados_pedidos_resultado][:resultado][:exception_message] || response[:resultado_operacao]
         order.update_attribute(:erp_integrate_error, error_container)
         # raise_webservice_error error_container
-        raise "Erro ao inserir o pedido:#{order.numero},erro:#{error_container}"
+        raise "Erro ao inserir o pedido:#{order.number},erro:#{error_container}"
       end
     end
 
