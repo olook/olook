@@ -55,14 +55,8 @@ class MercadoPago
 
   # Get information for specific payment
   def get_payment(id)
-    begin
-      access_token = get_access_token
-    rescue => e
-      return e.message
-    end
-
     uri_prefix = @sandbox ? "/sandbox" : ""
-    @rest_client.get(uri_prefix + "/collections/notifications/" + id + "?access_token=" + access_token)
+    request(:get, uri_prefix + "/collections/notifications/" + id)
   end
 
   def get_payment_info(id)
@@ -71,121 +65,61 @@ class MercadoPago
 
   # Get information for specific authorized payment
   def get_authorized_payment(id)
-    begin
-      access_token = get_access_token
-    rescue => e
-      return e.message
-    end
-
-    @rest_client.get("/authorized_payments/" + id + "?access_token=" + access_token)
+    request(:get, "/authorized_payments/" + id)
   end
 
   # Refund accredited payment
   def refund_payment(id)
-    begin
-      access_token = get_access_token
-    rescue => e
-      return e.message
-    end
-
     refund_status = {"status" => "refunded"}
-    @rest_client.put("/collections/" + id + "?access_token=" + access_token, refund_status)
+    request(:put, "/collections/" + id, refund_status)
   end
 
   # Cancel pending payment
   def cancel_payment(id)
-    begin
-      access_token = get_access_token
-    rescue => e
-      return e.message
-    end
-
     cancel_status = {"status" => "cancelled"}
-    @rest_client.put("/collections/#{id}?access_token=" + access_token, cancel_status)
+    request(:put, "/collections/#{id}", cancel_status)
   end
 
   # Cancel preapproval payment
   def cancel_preapproval_payment(id)
-    begin
-      access_token = get_access_token
-    rescue => e
-      return e.message
-    end
-
     cancel_status = {"status" => "cancelled"}
-    @rest_client.put("/preapproval/" + id + "?access_token=" + access_token, cancel_status)
+    request(:put, "/preapproval/" + id, cancel_status)
   end
 
   # Search payments according to filters, with pagination
   def search_payment(filters, offset=0, limit=0)
-    begin
-      access_token = get_access_token
-    rescue => e
-      return e.message
-    end
-
     filters["offset"] = offset
     filters["limit"] = limit
 
     filters = build_query(filters)
 
     uri_prefix = @sandbox ? "/sandbox" : ""
-    @rest_client.get(uri_prefix + "/collections/search?" + filters + "&access_token=" + access_token)
+    request(:get, uri_prefix + "/collections/search?" + filters)
   end
 
   # Create a checkout preference
   def create_preference(preference)
-    begin
-      access_token = get_access_token
-    rescue => e
-      return e.message
-    end
-
-    @rest_client.post("/checkout/preferences?access_token=" + access_token, preference)
+    request(:post, "/checkout/preferences", preference)
   end
 
   # Update a checkout preference
   def update_preference(id, preference)
-    begin
-      access_token = get_access_token
-    rescue => e
-      return e.message
-    end
-
-    @rest_client.put("/checkout/preferences/" + id + "?access_token=" + access_token, preference)
+    request(:put, "/checkout/preferences/" + id, preference)
   end
 
   # Get a checkout preference
   def get_preference(id)
-    begin
-      access_token = get_access_token
-    rescue => e
-      return e.message
-    end
-
-    @rest_client.get("/checkout/preferences/" + id + "?access_token=" + access_token)
+    request(:get, "/checkout/preferences/" + id)
   end
 
   # Create a preapproval payment
   def create_preapproval_payment(preapproval_payment)
-    begin
-      access_token = get_access_token
-    rescue => e
-      return e.message
-    end
-
-    @rest_client.post("/preapproval?access_token=" + access_token, preapproval_payment)
+    request(:post, "/preapproval", preapproval_payment)
   end
 
   # Get a preapproval payment
   def get_preapproval_payment(id)
-    begin
-      access_token = get_access_token
-    rescue => e
-      return e.message
-    end
-
-    @rest_client.get("/preapproval/" + id + "?access_token=" + access_token)
+    request(:get, "/preapproval/" + id)
   end
 
   def build_query(params)
@@ -193,6 +127,24 @@ class MercadoPago
   end
 
   private
+
+  def request(method, uri, data=nil)
+    begin
+      access_token = get_access_token
+    rescue => e
+      return e.message
+    end
+
+    fs = /\?/ =~ uri.to_s ? "&" : "?"
+    case method
+    when :get
+      @rest_client.get("#{uri}#{fs}access_token=#{access_token}")
+    when :post
+      @rest_client.post("#{uri}#{fs}access_token=#{access_token}", data)
+    when :put
+      @rest_client.put("#{uri}#{fs}access_token=#{access_token}", data)
+    end
+  end
 
     class RestClient
 
