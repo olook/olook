@@ -1,5 +1,6 @@
 [![Build Status](https://jenkins.olook.com.br:8080/job/olook/badge/icon)](https://jenkins.olook.com.br:8080/job/olook/)
-
+[![Code Climate](https://codeclimate.com/repos/515c7412f3ea006350000d2a/badges/bc2841a8d520f0ae47dc/gpa.png)](https://codeclimate.com/repos/515c7412f3ea006350000d2a/feed)
+[![Coverage](https://codeclimate.com/repos/515c7412f3ea006350000d2a/badges/bc2841a8d520f0ae47dc/coverage.png)](https://codeclimate.com/repos/515c7412f3ea006350000d2a/feed)
 
 Requirements
 ============
