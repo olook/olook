@@ -108,15 +108,43 @@ class IndexProductsWorker
     end
 
     def populate_associated_fields(product, product_doc)
-      product_doc.name = product.formatted_name(150).titleize
-      product_doc.inventory = product.inventory.to_i
-      product_doc.care = product.subcategory.titleize if Product::CARE_PRODUCTS.include?(product.subcategory)
+      product_doc.name = product.formatted_name(150)
+      product_doc.inventory = product.inventory
+      product_doc.care = product.subcategory if belongs_to_care?(product)
 
       product_doc.image = product.catalog_picture
-      product_doc.backside_image = product.backside_picture unless product.backside_picture.nil?
-      product_doc.size = product.variants.select{|v| v.inventory > 0}.map{|b| (b.description.to_i.to_s != "0" ) ? b.description+product.category_humanize[0].downcase : b.description}
-      product_doc.collection = product.collection.start_date.strftime('%Y%m').to_i
-      product_doc.collection_theme = product.collection_themes.map { |c| c.slug }      
+      product_doc.backside_image = product.backside_picture
+      product_doc.size = size_array_for(product)
+      product_doc.collection = product.collection.start_date
+      product_doc.collection_theme = collection_theme_slugs_for(product)      
+    end
+
+    def size_array_for product
+      format_variant_descriptions(existent_variants_for(product))      
+    end
+
+    def format_variant_descriptions variants
+      variants.map{|b| format_variant_description(b)}
+    end
+
+    def format_variant_description variant
+      string_empty?(variant.description) ? variant.description+product.category_humanize[0].downcase : variant.description
+    end
+
+    def string_empty? str
+      str.to_i.to_s != "0"
+    end
+
+    def existent_variants_for product
+      product.variants.select{|v| v.inventory > 0}
+    end
+
+    def belongs_to_care? product
+      Product::CARE_PRODUCTS.include?(product.subcategory)      
+    end
+
+    def collection_theme_slugs_for product
+      product.collection_themes.map { |c| c.slug }
     end
 
     def populate_ranking_fields(product, product_doc)
