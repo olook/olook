@@ -72,6 +72,20 @@ section{
  	}
  }
 
+ .edit_matelasse{
+ 	margin-left: 5px !important;
+ }
+
  .htrendy {
  	width: 190px !important;
+ }
+
+ section.edit_filter {
+ 	min-height: 830px;
+	float: left;
+	width: 790px;
+	margin-top: 15px;
+	p.box {
+		margin-left:5px !important;
+	}
  }
