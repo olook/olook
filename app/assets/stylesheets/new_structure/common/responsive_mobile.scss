@@ -9,7 +9,9 @@
   #related,
   .facebook_produtcs,
   #filters,
-  .hot_products {
+  .hot_products,
+  .social-media,
+  .quiz_login {
 		display: none !important;
 	}
 
@@ -695,12 +697,41 @@
       font-family: "Trebuchet Ms" !important;
     }
   }
-}
 
-@media only screen and (min-width: 641px) {
-	header.primary,
-	#console, 
-	#main-nav {display: none !important;}
-}
+  /* ENTRAR */
 
-.profiler-results {display: none !important;}
+  .sign-in {
+    width:100% !important;
+    margin-left:0px !important;
+    padding-left:0px !important;
+    height:325px !important;
+    .login {
+      width:100% !important;
+      height:325px !important;
+      #sign-in-box {
+        padding:0px !important;
+        margin-top:-6px !important;
+        width:100% !important;
+        label {
+          display: block;
+          text-align: right;
+          width:60px;
+        }
+        .remember-me {
+          display: none !important;
+        }
+      }
+    }
+  }
+
+  #error_explanation {
+    ul li {
+      text-align: center;
+      padding: 10px;
+      background: #fcffb8;
+      margin-bottom: 20px;
+      font-family: tahoma;
+      letter-spacing: 2px;
+    }
+  }
+}
