@@ -180,27 +180,30 @@ class IndexProductsWorker
 
     def populate_shoe_fields(product, product_doc)
       product.details.each do |detail|
-        if /cm/i =~ detail.description.to_s
-          if /\A\d+ ?cm\Z/ =~ detail.description.to_s
-            product_doc.heel = heel_range(detail.description)
-            product_doc.heeluint = detail.description.to_i
-          elsif /salto: (?:<heel>\d+ ?cm)/i =~ detail.description.to_s
-            product_doc.heel = heel_range(heel)
-            product_doc.heeluint = heel.to_i
-          end
-        end
+        return populate_heel_data(product_doc,heel_range(detail.description),detail.description.to_i) if matches_heel_regex?(detail.description.to_s)
+        return populate_heel_data(product_doc,heel_range(heel),heel.to_i) if matches_alternate_heel_regex?(detail.description.to_s)
       end
-      product_doc.heel ||= '0-4 cm'
-      product_doc.heeluint ||= 0
+      populate_heel_data(product_doc, '0-4 cm', 0)
+    end
+
+    def matches_heel_regex? description
+      /\A\d+ ?cm\Z/ =~ description
+    end
+
+    def matches_alternate_heel_regex? description
+      /salto: (?<heel>\d+ ?cm)/i =~ description
+    end
+
+    def populate_heel_data(product_doc,heel, heeluint)
+      product_doc.heel = heel
+      product_doc.heeluint = heeluint
       product_doc
     end
 
+
     def populate_details(product, product_doc)
       details = product.details.select { |d| d.translation_token.downcase =~ /(categoria|cor filtro|material da sola|material externo|material interno)/i }
-      translation_hash = {
-        'categoria' => 'subcategory',
-        'cor filtro' => 'color'
-      }
+      translation_hash = { 'categoria' => 'subcategory', 'cor filtro' => 'color' }
       details.each do |detail|
         field_key = translation_hash.include?(detail.translation_token.downcase) ? translation_hash[detail.translation_token.downcase] : detail.translation_token.downcase.gsub(" ","_")
         if field_key == 'subcategory' && product_doc.category == 'moda praia'
