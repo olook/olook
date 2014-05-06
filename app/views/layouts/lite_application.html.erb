@@ -71,7 +71,9 @@
           <%= cache ["megamenu",mobile?] do %>
              <%= MenuPresenter.new(self, :user => current_user).render_menu(mobile?) %>
           <% end %>
-          <li class="leave_acc"><%= link_to "sair da minha conta", destroy_user_session_path, :method => :delete, onclick: track_event("Checkout","clickSignOut") %></li>
+          <% if user_signed_in? %>
+            <li class="leave_acc"><%= link_to "sair da minha conta", destroy_user_session_path, :method => :delete, onclick: track_event("Checkout","clickSignOut") %></li>
+          <% end %>
        </ul>
     </nav>
     <div id="container">
