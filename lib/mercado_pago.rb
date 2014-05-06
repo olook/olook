@@ -135,7 +135,7 @@ class MercadoPago
       return e.message
     end
 
-    fs = /\?/ =~ uri.to_s ? "&" : "?"
+    fs = ( /\?/ =~ uri.to_s ? "&" : "?" )
     case method
     when :get
       @rest_client.get("#{uri}#{fs}access_token=#{access_token}")
