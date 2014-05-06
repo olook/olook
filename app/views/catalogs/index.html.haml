@@ -48,7 +48,8 @@
         / .chaordic.purchasepersonalized
         / local onde o mostpopular será exibido
         / .chaordic.mostpopular
-
+      %h1.title_catalog
+        = Category.t(Category.with_name(@category)).pluralize
       .row{style: 'position:relative'}
         = render "ordenation_filters", search: @search, url_builder: @url_builder
         = render "size_filters", search: @search, url_builder: @url_builder, category: @category      
