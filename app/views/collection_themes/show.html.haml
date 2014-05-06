@@ -16,11 +16,15 @@
     = render "menu", collection_theme_groups: @collection_theme_groups
     #result
       .collections_header
-        - if @collection_theme = @collection_theme.first
-          = image_tag @collection_theme.header_image, alt: @collection_theme.header_image_alt, title: @collection_theme.header_image_alt
-          = link_to(">> Assista ao vídeo", "#",                                                                                                         |
-            { :class => "video_link", :rel => "#{@collection_theme.video_link}" }.                                                                     |
-            merge(@collection_theme.text_color ? { style: "color: #{@collection_theme.text_color}" } : {})) unless @collection_theme.video_link.blank? |
+        / - if @collection_theme = @collection_theme.first
+        %ul.cover
+          %li.pic
+            = image_tag("collections/mini_cover.jpg")
+          %li.info
+            %p
+              %span
+                Forum
+              A Forum surgiu através de uma parceria de Tufi Duek com seu irmão, Isaac Duek e ao longo dos anos, a marca sempre se caracterizou com uma identidade urbana e moderna, onde tornou-se referência na moda brasileira. Todos os produtos que a marca possui têm uma pegada urbana e moderna, trazendo assim um público 
           .video_description
       = render "filters", search: @search, url_builder: @url_builder
 

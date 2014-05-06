@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20140429210416) do
     t.string  "first_name"
     t.string  "last_name"
     t.string  "mobile"
-    t.boolean "active"
+    t.boolean "active",       :default => true
   end
 
   add_index "addresses", ["user_id"], :name => "index_addresses_on_user_id"
