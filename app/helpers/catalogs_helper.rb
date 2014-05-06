@@ -253,6 +253,7 @@ module CatalogsHelper
     return true if search.selected_filters_for("care").size > 0
     return true if search.selected_filters_for("brand").size > 0
     return true if search.selected_filters_for("size").size > 0
+    return true if search.selected_filters_for("price").size > 0
     return false
   end
 end
