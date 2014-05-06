@@ -4,7 +4,6 @@
       Você está em
       =params[:category].try(:capitalize).try(:pluralize)
       - filters_selected = false
-      %span //
     %ul
       - search.selected_filters_for("subcategory").sort.each do |sub|
         - filters_selected = true
