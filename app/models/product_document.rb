@@ -61,6 +61,26 @@ class ProductDocument
     @discount = (@retail_price.to_i * 100) / @price.to_i
   end
 
+  def collection= collection
+    @collection = collection.strftime('%Y%m').to_i
+  end
+
+  def backside_image= backside_image
+    @backside_image = backside_image unless backside_picture.nil?
+  end
+
+  def name= name
+    @name = name.titleize
+  end
+
+  def inventory= inventory
+    @inventory = inventory.to_i
+  end
+
+  def care= care
+    @care = care.titleize
+  end
+
   def keywords
     ['category', 'subcategory', 'color', 'size', 'name', 'brand', 'material externo', 'material interno', 'material da sola']
   end
