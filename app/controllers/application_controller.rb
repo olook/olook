@@ -46,6 +46,14 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def load_chaordic_user
+    @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
+  end
+
+  def load_cmp
+    @campaign = HighlightCampaign.find_campaign(params[:cmp])
+  end
+
     # making this method public so it can be stubbed in tests
     # TODO: find a way to stub without this ugly hack
     def current_cart
