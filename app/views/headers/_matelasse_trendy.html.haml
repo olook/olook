@@ -2,12 +2,12 @@
 = stylesheet_link_tag  "jquery.bxslider"
 = stylesheet_link_tag "new_structure/section/custom_url"
 
-%section
+%section.edit_filter
   %h2.htrendy
     MATELASSÊ
   %p
     O efeito é um tipo de costura que produz relevo e textura sobre tecidos. Neste editorial, você vai ver looks quentinhos e estilosos para usar e abusar da tendência no Inverno.
-  .carousel
+  .carousel.edit_matelasse
     %ul.bxslider
       %li.big
         = image_tag("editoriais/matelasse/editorial_matelasse_capa.jpg")
@@ -38,6 +38,7 @@
         = image_tag("editoriais/matelasse/editorial_matelasse_pag5.jpg")
       %a{"data-slide-index" => "6", href: ""}
         = image_tag("editoriais/matelasse/editorial_matelasse_pag6.jpg", :class => "last")
+  %br{style:'clear:both;'}
   %p.box
     VEJA NOSSA COLEÇÃO
 
