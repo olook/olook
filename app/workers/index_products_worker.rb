@@ -94,13 +94,12 @@ class IndexProductsWorker
       product_doc.lang = 'pt'
 
       product_doc.product_id = product.id
-      product_doc.is_visible = product.is_visible ? 1 : 0
-      product_doc.brand = product.brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
-      product_doc.brand_facet = ActiveSupport::Inflector.transliterate(product.brand).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
-      product_doc.price = (product.price.to_d * 100).round
-      product_doc.retail_price = (product.retail_price.to_d * 100).round
-      product_doc.discount = (product_doc.retail_price.to_i * 100) / product_doc.price.to_i
-      product_doc.in_promotion = product.liquidation? ? 1 : 0 
+      product_doc.is_visible = product.is_visible
+      product_doc.brand = product.brand
+      product_doc.price = product.price
+      product_doc.retail_price = product.retail_price
+      product_doc.calculate_discount
+      product_doc.in_promotion = product.liquidation? 
       product_doc.visibility = product.visibility
       product_doc.category = product.category_humanize.downcase
       product_doc.age = product.time_in_stock

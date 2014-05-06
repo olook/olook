@@ -28,6 +28,39 @@ class ProductDocument
     }
   end
 
+  def is_visible= is_visible
+    @is_visible = is_visible ? 1 : 0
+  end
+
+  def brand= brand
+    @brand = brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
+    set_brand_facet brand
+  end
+
+  def set_brand_facet brand
+    @brand_facet = ActiveSupport::Inflector.transliterate(brand).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
+  end
+
+  def price= price
+    @price = (price.to_d * 100).round
+  end
+
+  def retail_price= retail_price
+    @retail_price = (retail_price.to_d * 100).round  
+  end
+
+  def in_promotion= in_promotion 
+    @in_promotion = in_promotion ? 1 : 0 
+  end
+
+  def category= category
+    @category = category.downcase
+  end
+
+  def calculate_discount
+    @discount = (@retail_price.to_i * 100) / @price.to_i
+  end
+
   def keywords
     ['category', 'subcategory', 'color', 'size', 'name', 'brand', 'material externo', 'material interno', 'material da sola']
   end
