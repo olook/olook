@@ -104,7 +104,7 @@ class IndexProductsWorker
       product_doc.category = product.category_humanize.downcase
       product_doc.age = product.time_in_stock
 
-      product_doc      
+      product_doc
     end
 
     def populate_associated_fields(product, product_doc)
@@ -116,7 +116,8 @@ class IndexProductsWorker
       product_doc.backside_image = product.backside_picture
       product_doc.size = size_array_for(product)
       product_doc.collection = product.collection.start_date
-      product_doc.collection_theme = collection_theme_slugs_for(product)      
+      product_doc.collection_theme = collection_theme_slugs_for(product)
+      product_doc
     end
 
     def size_array_for product
@@ -163,7 +164,6 @@ class IndexProductsWorker
       product_doc.r_inventory = ( RANKING_POWER * ( proportion > 1 ? 1 : proportion ) * @inventory_weight ).to_i rescue 0
 
       generate_log(product_doc) if product_doc.inventory > 0 && product_doc.age < DAYS_TO_CONSIDER_OLD
-
       product_doc      
     end
 
@@ -274,7 +274,7 @@ class IndexProductsWorker
     end
 
     def create_sdf_entry_for(product, type)
-      product_doc = populate_common_fields(product)
+      product_doc = populate_common_fields(product, type)
 
       product_doc = populate_addition_fields(product, product_doc) if type == 'add'
 
@@ -313,6 +313,7 @@ class IndexProductsWorker
       create_temporary_products_with_inventory_table do
         count = Product.connection.select_all("SELECT count(0) qty FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD}").first['qty']
         third_quartile = ( count * 0.75 ).round
+
         @newest = Product.connection.select("SELECT age FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD} ORDER BY age desc LIMIT 1 OFFSET #{third_quartile}").first['age']
 
         count_by_category ||= Product.connection.
