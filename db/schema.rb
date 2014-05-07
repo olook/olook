@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(:version => 20140507193820) do
     t.string   "header_image_alt"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
-    t.string   "info"
+    t.text     "info"
   end
 
   create_table "braspag_authorize_responses", :force => true do |t|
