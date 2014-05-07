@@ -88,6 +88,7 @@ class PromotionAction < ActiveRecord::Base
     cis = cart_items.dup
 
     filters.keys.each do |fn|
+      next if filters[fn].blank?
       send("apply_filter_#{fn}", cis, filters) rescue NoMethodError
     end
 
@@ -141,6 +142,7 @@ class PromotionAction < ActiveRecord::Base
   end
 
   def filter_by(cis, filters, filter_name, opts={})
+    
     formatted_filters = filters[filter_name].to_s.split(/[\n ]*,[\n ]*/)
     formatted_filters.map! { |w| w.to_s.strip.parameterize }
     formatted_filters = Set.new(formatted_filters)
