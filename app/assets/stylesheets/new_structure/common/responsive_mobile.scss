@@ -11,7 +11,8 @@
   #filters,
   .hot_products,
   .social-media,
-  .quiz_login {
+  .quiz_login,
+  .mail {
 		display: none !important;
 	}
 
@@ -157,6 +158,7 @@
 	#content {
 		width:100%;
 		padding:0px;
+    min-height: 320px !important;
     #side_bar_menu {
       display: none !important;
     }
@@ -520,7 +522,7 @@
           margin:0px;
           clear:none;
           margin-top:5px;
-          margin-right:3px;
+          margin-right:1px;
           .cores {
             max-height: 500px !important;
           }
@@ -661,6 +663,7 @@
     .banner_unlogged,
     .banner_unlogged  img {
       width:100%;
+      margin-bottom:12px;
     }
   }
 
@@ -681,6 +684,14 @@
         width:100% !important;
         margin: 5px 10px 0 10px !important;
       }
+    }
+  }
+
+  footer .newsletter ul.social li.logo, 
+  .footer_checkout .newsletter ul.social li.logo {
+    width:200px !important;
+    img {
+      width:100% !important;
     }
   }
 
