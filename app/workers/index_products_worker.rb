@@ -202,17 +202,34 @@ class IndexProductsWorker
 
 
     def populate_details(product, product_doc)
-      details = product.details.select { |d| d.translation_token.downcase =~ /(categoria|cor filtro|material da sola|material externo|material interno)/i }
-      translation_hash = { 'categoria' => 'subcategory', 'cor filtro' => 'color' }
-      details.each do |detail|
-        field_key = translation_hash.include?(detail.translation_token.downcase) ? translation_hash[detail.translation_token.downcase] : detail.translation_token.downcase.gsub(" ","_")
-        if field_key == 'subcategory' && product_doc.category == 'moda praia'
-          fields[field_key] = detail.description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize.gsub(" Moda Praia", "") + ' Moda Praia'
-        else
-          fields[field_key] = detail.description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
-        end
+      
+      selected_details.each do |detail|
+        field_key = get_field_key(detail.translation_token.downcase)
+        product_doc[field_key] = format_detail_value(detail.description)
+        product_doc[field_key] = product_doc[field_key].gsub(" Moda Praia", "") + ' Moda Praia' if is_beachwear?(field_key,product_doc.category)          
       end
+
       product_doc      
+    end
+
+    def get_field_key translation_token
+      translation_hash.include?(translation_token) ? translation_hash[translation_token] : translation_token.gsub(" ","_")
+    end
+
+    def translation_hash
+      { 'categoria' => 'subcategory', 'cor filtro' => 'color' }
+    end
+
+    def format_detail_value description
+      description.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
+    end
+
+    def selected_details(product)
+      product.details.select { |d| d.translation_token.downcase =~ /(categoria|cor filtro|material da sola|material externo|material interno)/i }
+    end
+
+    def is_beachwear?(field_key,category)
+      field_key == 'subcategory' && category == 'moda praia'
     end
 
     def populate_addition_fields(product, product_doc)
