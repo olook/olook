@@ -18,6 +18,14 @@ class ProductDocument
     end
   end
 
+  def []=(key, value)
+    @fields[key] = value
+  end
+
+  def [](key)
+    @fields[key]
+  end
+
   def to_document
     {
       type: @type,
