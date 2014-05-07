@@ -19,6 +19,27 @@ describe PromotionAction do
 
   describe "#filter_items" do
     subject { described_class.new.filter_items(@cart_items, @filters) }
+
+    context "with filter ''" do
+      before do
+        @cart_items = [
+          mock_model(CartItem, product: mock_model(Product, category_humanize: 'sapato'))
+        ]
+        @filters = {'category' => ''}
+      end
+      it { expect(subject).to eq @cart_items}
+    end
+
+    context "with filter nil" do
+      before do
+        @cart_items = [
+          mock_model(CartItem, product: mock_model(Product, subcategory: 'anabela'))
+        ]
+        @filters = {'subcategory' => nil}
+      end
+      it { expect(subject).to eq @cart_items}
+    end
+
     context "filtering by full_price" do
       context "when is 0" do
         before do
