@@ -86,7 +86,7 @@ class IndexProductsWorker
       product_doc.type = type
       product_doc.version = version_based_on_timestamp
       product_doc.id = product.id
-      product_doc    
+      product_doc
     end
 
 
@@ -129,7 +129,7 @@ class IndexProductsWorker
     end
 
     def format_variant_description variant
-      string_empty?(variant.description) ? variant.description+product.category_humanize[0].downcase : variant.description
+      string_empty?(variant.description) ? variant.description + variant.product.category_humanize[0].downcase : variant.description
     end
 
     def string_empty? str
@@ -163,8 +163,8 @@ class IndexProductsWorker
 
       product_doc.r_inventory = ( RANKING_POWER * ( proportion > 1 ? 1 : proportion ) * @inventory_weight ).to_i rescue 0
 
-      generate_log(product_doc) if product_doc.inventory > 0 && product_doc.age < DAYS_TO_CONSIDER_OLD
-      product_doc      
+      generate_log(product_doc, product) if product_doc.inventory > 0 && product_doc.age < DAYS_TO_CONSIDER_OLD
+      product_doc
     end
 
     def calculate_proportion_for_ranking_fields product
@@ -175,15 +175,15 @@ class IndexProductsWorker
       (/olook/i =~ brand) ? 250 : 0
     end
 
-    def generate_log product_doc
-      @log << [age_log(product_doc), inventory_log(product_doc), brand_log(product_doc), exp_log(product_doc)].join(" | ")
+    def generate_log product_doc, product
+      @log << [age_log(product_doc), inventory_log(product_doc, product), brand_log(product_doc), exp_log(product_doc)].join(" | ")
     end
 
     def age_log product_doc
       "age: #{product_doc.age}/#{newest} - #{product_doc.r_age.to_i}"
     end
 
-    def inventory_log product_doc
+    def inventory_log product_doc, product
       "inventory: #{product_doc.inventory}/#{third_quartile_inventory_for_category(product.category)} - #{product_doc.r_inventory.to_i}"
     end
 
@@ -198,7 +198,7 @@ class IndexProductsWorker
     def calculate_ranking_age product_doc
       result = ( RANKING_POWER * @age_weight ).to_i
       result = calculate_proportion_for_ranking_age(product_doc) unless product_doc.age.to_i < newest
-      result        
+      result
     end
 
     def calculate_proportion_for_ranking_age product_doc
@@ -212,7 +212,9 @@ class IndexProductsWorker
     def populate_shoe_fields(product, product_doc)
       product.details.each do |detail|
         return populate_heel_data(product_doc,detail.description) if matches_heel_regex?(detail.description)
-        return populate_heel_data(product_doc,heel) if matches_alternate_heel_regex?(detail.description)
+        if /salto: (?<heel>\d+ ?cm)/i =~ detail.description.to_s
+          return populate_heel_data(product_doc, heel)
+        end
       end
       populate_heel_data(product_doc, '0-4 cm', 0)
     end
@@ -221,26 +223,21 @@ class IndexProductsWorker
       /\A\d+ ?cm\Z/ =~ description.to_s
     end
 
-    def matches_alternate_heel_regex? description
-      /salto: (?<heel>\d+ ?cm)/i =~ description.to_s
-    end
-
-    def populate_heel_data(product_doc,heel)
+    def populate_heel_data(product_doc, heel, heeluint=nil)
       product_doc.heel = heel_range(heel)
-      product_doc.heeluint = heel.to_i
+      product_doc.heeluint = heeluint || heel.to_i
       product_doc
     end
 
-
     def populate_details(product, product_doc)
-      
-      selected_details.each do |detail|
+
+      selected_details(product).each do |detail|
         field_key = get_field_key(detail.translation_token.downcase)
         product_doc[field_key] = format_detail_value(detail.description)
         product_doc[field_key] = product_doc[field_key].gsub(" Moda Praia", "") + ' Moda Praia' if is_beachwear?(field_key,product_doc.category)          
       end
 
-      product_doc      
+      product_doc
     end
 
     def get_field_key translation_token
@@ -256,7 +253,7 @@ class IndexProductsWorker
     end
 
     def selected_details(product)
-      product.details.select { |d| d.translation_token.downcase =~ /(categoria|cor filtro|material da sola|material externo|material interno)/i }
+      product.details.to_a.select { |d| d.translation_token.downcase =~ /(categoria|cor filtro|material da sola|material externo|material interno)/i }
     end
 
     def is_beachwear?(field_key,category)
@@ -264,19 +261,19 @@ class IndexProductsWorker
     end
 
     def populate_addition_fields(product, product_doc)
-      product_doc = populate_simple_fields(product, product_doc)
-      product_doc = populate_associated_fields(product, product_doc)
-      product_doc = populate_ranking_fields(product,product_doc)
-      product_doc = populate_shoe_fields(product, product_doc) if product.shoe?
-      product_doc = populate_details(product, product_doc)
+      populate_simple_fields(product, product_doc)
+      populate_associated_fields(product, product_doc)
+      populate_ranking_fields(product,product_doc)
+      populate_shoe_fields(product, product_doc) if product.shoe?
+      populate_details(product, product_doc)
 
-      product_doc    
+      product_doc
     end
 
     def create_sdf_entry_for(product, type)
       product_doc = populate_common_fields(product, type)
 
-      product_doc = populate_addition_fields(product, product_doc) if type == 'add'
+      populate_addition_fields(product, product_doc) if type == 'add'
 
       product_doc.to_document
     rescue => e
