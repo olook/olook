@@ -74,7 +74,7 @@ class ProductDocument
   end
 
   def backside_image= backside_image
-    @backside_image = backside_image unless backside_picture.nil?
+    @backside_image = backside_image unless backside_image.nil?
   end
 
   def name= name
@@ -99,5 +99,9 @@ class ProductDocument
     else
       @filters[m] || super
     end
+  end
+
+  def initialize
+    @fields = {}
   end
 end
