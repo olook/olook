@@ -176,7 +176,23 @@ class IndexProductsWorker
     end
 
     def generate_log product_doc
-      @log << "age: #{product_doc.age}/#{newest} - #{product_doc.r_age.to_i} | inventory: #{product_doc.inventory}/#{third_quartile_inventory_for_category(product.category)} - #{product_doc.r_inventory.to_i} | brand: #{product_doc.brand} - #{product_doc.r_brand_regulator.to_i} | exp: #{( product_doc.r_age + product_doc.r_inventory + product_doc.r_brand_regulator ).to_i}"
+      @log << [age_log(product_doc), inventory_log(product_doc), brand_log(product_doc), exp_log(product_doc)].join(" | ")
+    end
+
+    def age_log product_doc
+      "age: #{product_doc.age}/#{newest} - #{product_doc.r_age.to_i}"
+    end
+
+    def inventory_log product_doc
+      "inventory: #{product_doc.inventory}/#{third_quartile_inventory_for_category(product.category)} - #{product_doc.r_inventory.to_i}"
+    end
+
+    def brand_log product_doc
+      "brand: #{product_doc.brand} - #{product_doc.r_brand_regulator.to_i}"
+    end
+
+    def exp_log product_doc
+      "exp: #{( product_doc.r_age + product_doc.r_inventory + product_doc.r_brand_regulator ).to_i}"
     end
 
     def calculate_ranking_age product_doc
