@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Brand < ActiveRecord::Base
-  attr_accessible :header_image, :header_image_alt, :name, :seo_text
+  attr_accessible :header_image, :header_image_alt, :name, :info
   validates :name, presence: true
   mount_uploader :header_image, BannerUploader
   before_save :format_name
