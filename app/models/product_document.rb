@@ -1,12 +1,12 @@
 class ProductDocument
   attr_writer :type, :version, :id, :lang
   FIELDS = [
-    :product_id, :is_visible, :brand, :brand_facet, :price,
-    :retail_price, :discount, :in_promotion, :visibility,
-    :category, :age, :name, :inventory, :care, :image,
-    :backside_image, :size, :collection, :collection_theme,
-    :r_age, :r_brand_regulator, :r_inventory, :heel, :heeluint,
-    :subcategory, :color, :keywords
+    'product_id', 'is_visible', 'brand', 'brand_facet', 'price',
+    'retail_price', 'discount', 'in_promotion', 'visibility',
+    'category', 'age', 'name', 'inventory', 'care', 'image',
+    'backside_image', 'size', 'collection', 'collection_theme',
+    'r_age', 'r_brand_regulator', 'r_inventory', 'heel', 'heeluint',
+    'subcategory', 'color', 'keywords'
   ]
   FIELDS.each do |f|
     define_method "#{f}" do
@@ -19,11 +19,11 @@ class ProductDocument
   end
 
   def []=(key, value)
-    @fields[key] = value
+    @fields[key.to_s] = value
   end
 
   def [](key)
-    @fields[key]
+    @fields[key.to_s]
   end
 
   def to_document
@@ -37,56 +37,56 @@ class ProductDocument
   end
 
   def is_visible= is_visible
-    @is_visible = is_visible ? 1 : 0
+    @fields['is_visible'] = is_visible ? 1 : 0
   end
 
   def brand= brand
-    @brand = brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
+    @fields['brand'] = brand.gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
     set_brand_facet brand
   end
 
   def set_brand_facet brand
-    @brand_facet = ActiveSupport::Inflector.transliterate(brand).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
+    @fields['brand_facet'] = ActiveSupport::Inflector.transliterate(brand).gsub(/[\.\/\?]/, ' ').gsub('  ', ' ').strip.titleize
   end
 
   def price= price
-    @price = (price.to_d * 100).round
+    @fields['price'] = (price.to_d * 100).round
   end
 
   def retail_price= retail_price
-    @retail_price = (retail_price.to_d * 100).round  
+    @fields['retail_price'] = (retail_price.to_d * 100).round  
   end
 
   def in_promotion= in_promotion 
-    @in_promotion = in_promotion ? 1 : 0 
+    @fields['in_promotion'] = in_promotion ? 1 : 0 
   end
 
   def category= category
-    @category = category.downcase
+    @fields['category'] = category.downcase
   end
 
   def calculate_discount
-    @discount = (@retail_price.to_i * 100) / @price.to_i
+    @fields['discount'] = (@fields['retail_price'].to_i * 100) / @fields['price'].to_i
   end
 
   def collection= collection
-    @collection = collection.strftime('%Y%m').to_i
+    @fields['collection'] = collection.strftime('%Y%m').to_i
   end
 
   def backside_image= backside_image
-    @backside_image = backside_image unless backside_image.nil?
+    @fields['backside_image'] = backside_image unless backside_image.nil?
   end
 
   def name= name
-    @name = name.titleize
+    @fields['name'] = name.titleize
   end
 
   def inventory= inventory
-    @inventory = inventory.to_i
+    @fields['inventory'] = inventory.to_i
   end
 
   def care= care
-    @care = care.titleize
+    @fields['care'] = care.titleize
   end
 
   def keywords
