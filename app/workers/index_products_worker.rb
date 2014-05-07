@@ -158,7 +158,7 @@ class IndexProductsWorker
 
       @inventory_weight ||= Setting[:inventory_weight].to_i
 
-      proportion = calculate_proportion(product)
+      proportion = calculate_proportion_for_ranking_fields(product)
 
       product_doc.r_inventory = ( RANKING_POWER * ( proportion > 1 ? 1 : proportion ) * @inventory_weight ).to_i rescue 0
 
@@ -167,7 +167,7 @@ class IndexProductsWorker
       product_doc      
     end
 
-    def calculate_proportion product
+    def calculate_proportion_for_ranking_fields product
       product.inventory.to_f / third_quartile_inventory_for_category(product.category)
     end
 
@@ -180,15 +180,17 @@ class IndexProductsWorker
     end
 
     def calculate_ranking_age product_doc
-      if product_doc.age.to_i < newest
-        ( RANKING_POWER * @age_weight ).to_i
-      else
-        diff_age = product_doc.age.to_i - newest.to_i
-        proportion = diff_age.to_f / DAYS_TO_CONSIDER_OLD.to_f
-        # 0 / 60 = 1, 60 / 60 = 0, 30 / 60 =  0.5, 90 / 60 = 1.5
-        proportion = 1 if proportion > 1
-        ( RANKING_POWER * @age_weight * ( 1 - proportion ) ).to_i
-      end
+      result = ( RANKING_POWER * @age_weight ).to_i
+      result = calculate_proportion_for_ranking_age(product_doc) unless product_doc.age.to_i < newest
+      result        
+    end
+
+    def calculate_proportion_for_ranking_age product_doc
+      diff_age = product_doc.age.to_i - newest.to_i
+      proportion = diff_age.to_f / DAYS_TO_CONSIDER_OLD.to_f
+      # 0 / 60 = 1, 60 / 60 = 0, 30 / 60 =  0.5, 90 / 60 = 1.5
+      proportion = 1 if proportion > 1
+      ( 1 - proportion ).to_i
     end
 
     def populate_shoe_fields(product, product_doc)
