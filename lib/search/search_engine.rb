@@ -180,7 +180,7 @@ class SearchEngine
     @filters_result ||= {}
     url = build_filters_url(options)
     @filters_result[url] ||= -> {
-      f = fetch_result(url, parse_facets: true)
+      f = fetch_result(url, parse_facets: true, parser: SearchedProduct)
       f.set_groups('subcategory', subcategory_without_care_products(f))
       f
     }.call
@@ -188,7 +188,7 @@ class SearchEngine
 
   def products(pagination = true)
     url = build_url_for(pagination ? {limit: @limit, start: self.start_item} : {})
-    @result ||= fetch_result(url, {parse_products: true})
+    @result ||= fetch_result(url, parse_products: true, parser: SearchedProduct)
     @result.products
   end
 
@@ -282,32 +282,6 @@ class SearchEngine
     "rank-exp=r_inventory%2Br_brand_regulator%2Br_age"
   end
 
-  def fetch_result(url, options = {})
-    cache_key = Digest::SHA1.hexdigest(url.to_s)
-    Rails.logger.error "[cloudsearch] cache_key: #{cache_key}"
-
-    begin
-      cached_response = if @redis.exists(cache_key)
-        @redis.get(cache_key)
-      else
-        Rails.logger.error "[cloudsearch] cache missed"
-        url = URI.parse(url)
-        tstart = Time.zone.now.to_f * 1000.0
-        http_response = Net::HTTP.get_response(url)
-        Rails.logger.error("GET cloudsearch URL (time=#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
-        Rails.logger.error("[cloudsearch] result_code:#{http_response.code}, result_message:#{http_response.message}")
-        raise "CloudSearchConnectError" if http_response.code != '200'
-        @redis.set(cache_key, http_response.body)
-        @redis.expire(cache_key, 30.minutes)
-        http_response.body
-      end
-      SearchResult.new(cached_response, options)
-    rescue => e
-      Rails.logger.error("[cloudsearch] Error on unmarshalling the key:#{cache_key}, for url:#{url}, message:#{e.message}")
-      SearchResult.new({:hits => nil, :facets => {} }.to_json, options)
-    end
-
-  end
 
   def build_boolean_expression(options={})
     bq = []
@@ -356,6 +330,11 @@ class SearchEngine
   end
 
   private
+
+  def fetch_result(url, options={})
+    Search::Retriever.new(redis: @redis, logger: Rails.logger).fetch_result(url, options)
+  end
+
     def append_or_remove_filter(filter_key, filter_value, filter_params)
       filter_params[filter_key] ||= [filter_value.downcase]
       if filter_selected?(filter_key, filter_value)

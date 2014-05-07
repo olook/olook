@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'json'
 class SearchResult
 
   attr_reader :products, :facets
@@ -6,9 +7,10 @@ class SearchResult
   def initialize(response_body, options = {})
     @hits = JSON.parse(response_body)["hits"] || empty_hits_result
     @facets = JSON.parse(response_body)["facets"] || {}
+    @parser = options[:parser] || SearchedProduct
     parse_facets if options[:parse_facets]
     parse_products if options[:parse_products]
- end
+  end
 
   def found_products
     @hits["found"]
@@ -29,28 +31,27 @@ class SearchResult
 
   private
 
-    def empty_hits_result
-      {"hit" => []}
-    end
+  def empty_hits_result
+    {"hit" => []}
+  end
 
-    def parse_facets
-      @groups = {}
-      @facets.map do |group_name, constraints|
-        @groups[group_name] = {}
-        if constraints["constraints"]
-          constraints["constraints"].each do |c|
-            @groups[group_name][c["value"]] = c['count']
-          end
+  def parse_facets
+    @groups = {}
+    @facets.map do |group_name, constraints|
+      @groups[group_name] = {}
+      if constraints["constraints"]
+        constraints["constraints"].each do |c|
+          @groups[group_name][c["value"]] = c['count']
         end
       end
     end
+  end
 
-    def parse_products
-      @products = @hits["hit"].map do |hit|
-        SearchedProduct.new(hit["id"].to_i, hit["data"])
-      end
-
-      @products.compact!
+  def parse_products
+    @products = @hits["hit"].map do |hit|
+      @parser.new(hit["id"].to_i, hit["data"])
     end
 
+    @products.compact!
+  end
 end
