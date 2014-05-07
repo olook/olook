@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140507175656) do
+ActiveRecord::Schema.define(:version => 20140507193820) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20140507175656) do
     t.string   "header_image_alt"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.string   "info"
   end
 
   create_table "braspag_authorize_responses", :force => true do |t|

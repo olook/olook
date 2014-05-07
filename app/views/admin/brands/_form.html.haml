@@ -13,11 +13,13 @@
   %fieldset
     =f.label :header_image_alt
     =f.text_field :header_image_alt
-
   %br
   %fieldset
     =f.label :header_image
     =f.file_field :header_image
-  
+  %br
+  %fieldset
+    =f.label :info
+    =f.text_field :info
   .actions
     = f.submit 'Save'
