@@ -87,27 +87,8 @@ class PromotionAction < ActiveRecord::Base
   def filter_items(cart_items, filters)
     cis = cart_items.dup
 
-    apply_full_price(cis, filters)
-
-    filter_by(cis, filters, 'product_id') do |item|
-      item.product_id
-    end
-    filter_by(cis, filters, 'subcategory') do |item|
-      item.product.subcategory
-    end
-    filter_by(cis, filters, 'category') do |item|
-      item.product.category_humanize
-    end
-    filter_by(cis, filters, 'brand') do |item|
-      item.product.brand
-    end
-
-    filter_by(cis, filters, 'collection_theme', condition: lambda { |collection_theme, item|
-      (collection_theme & item.product.collection_themes.map { |c| c.name.to_s.strip.parameterize} ).size > 0
-    })
-
-    if filters['complete_look_products'] == '1'
-      cis.select! { |item| item.cart.complete_look_product_ids_in_cart.include?(item.product_id) }
+    filters.keys.each do |fn|
+      send("apply_filter_#{fn}", cis, filters) rescue NoMethodError
     end
 
     cis
@@ -115,7 +96,7 @@ class PromotionAction < ActiveRecord::Base
 
   private
 
-  def apply_full_price(cis, filters)
+  def apply_filter_full_price(cis, filters)
     if filters['full_price'] == '1'
       cis.select! { |item| item.product.price == item.product.retail_price }
     elsif filters['full_price'] == '0'
@@ -123,9 +104,47 @@ class PromotionAction < ActiveRecord::Base
     end
   end
 
+  def apply_filter_product_id(cis, filters)
+    filter_by(cis, filters, 'product_id') do |item|
+      item.product_id
+    end
+  end
+
+  def apply_filter_subcategory(cis, filters)
+    filter_by(cis, filters, 'subcategory') do |item|
+      item.product.subcategory
+    end
+  end
+
+  def apply_filter_category(cis, filters)
+    filter_by(cis, filters, 'category') do |item|
+      item.product.category_humanize
+    end
+  end
+
+  def apply_filter_brand(cis, filters)
+    filter_by(cis, filters, 'brand') do |item|
+      item.product.brand
+    end
+  end
+
+  def apply_filter_collection_theme(cis, filters)
+    filter_by(cis, filters, 'collection_theme', condition: lambda { |collection_theme, item|
+      (collection_theme & item.product.collection_themes.map { |c| c.name.to_s.strip.parameterize} ).size > 0
+    })
+  end
+
+  def apply_filter_complete_look_products(cis, filters)
+    if filters['complete_look_products'] == '1'
+      cis.select! { |item| item.cart.complete_look_product_ids_in_cart.include?(item.product_id) }
+    end
+  end
+
   def filter_by(cis, filters, filter_name, opts={})
-    return if filters[filter_name].blank?
-    formatted_filters = Set.new(filters[filter_name].to_s.split(/[\n ]*,[\n ]*/).map { |w| w.to_s.strip.parameterize })
+    formatted_filters = filters[filter_name].to_s.split(/[\n ]*,[\n ]*/)
+    formatted_filters.map! { |w| w.to_s.strip.parameterize }
+    formatted_filters = Set.new(formatted_filters)
+
     if opts[:condition] && opts[:condition].respond_to?(:call)
       cis.select! { |item| opts[:condition].call(formatted_filters, item) }
     else
@@ -133,3 +152,4 @@ class PromotionAction < ActiveRecord::Base
     end
   end
 end
+
