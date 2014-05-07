@@ -470,7 +470,6 @@
         link_big_banner: 'Link (url completa, com Http://)'
         title: 'Título para o modelo'
         resume_title: 'Texto resumido'
-        text_complement: 'Complemento do texto'
       highlight_campaign:
         label: Nome da campanha
         product_ids: Ids dos produtos
