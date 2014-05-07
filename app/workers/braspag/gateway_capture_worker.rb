@@ -13,7 +13,7 @@ module Braspag
         strategy.credit_card_number = payment.credit_card_number
         strategy.process_capture_request
       rescue Exception => e
-        log("Error when trying to capture transaction for payment [#{payment_id}]: #{e.message}")
+        log("#{Time.zone.now.strftime("[%Y-%m-%d %H:%M:%s]")} - Error when trying to capture transaction for payment [#{payment_id}]: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}")
         Resque.enqueue_in(15.minutes, Braspag::GatewayCaptureWorker, payment_id)
       end
     end
