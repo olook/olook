@@ -149,33 +149,46 @@ class IndexProductsWorker
 
     def populate_ranking_fields(product, product_doc)
       @age_weight ||= Setting[:age_weight].to_i
-      product_doc.r_age = if product_doc.age.to_i < newest
-                          ( RANKING_POWER * @age_weight ).to_i
-                        else
-                          diff_age = product_doc.age.to_i - newest.to_i
-                          proportion = diff_age.to_f / DAYS_TO_CONSIDER_OLD.to_f
-                          # 0 / 60 = 1, 60 / 60 = 0, 30 / 60 =  0.5, 90 / 60 = 1.5
-                          proportion = 1 if proportion > 1
-                          ( RANKING_POWER * @age_weight * ( 1 - proportion ) ).to_i
-                        end
 
+      product_doc.r_age = calculate_ranking_age(product_doc)
 
       @max_age_rating ||= ( @age_weight * RANKING_POWER )
-      product_doc.r_brand_regulator = 0
-      if /olook/i =~ product_doc.brand
-        #product_doc.r_brand_regulator = ( rand(100) >= ( 100 - PERCENT_OLOOK_TO_REGULATOR ) ) ? ( @max_age_rating - product_doc.r_age ) : 0
-        product_doc.r_brand_regulator = 250
-      end
+
+      product_doc.r_brand_regulator = brand_regulator(product_doc.brand)
 
       @inventory_weight ||= Setting[:inventory_weight].to_i
-      proportion = product.inventory.to_f / third_quartile_inventory_for_category(product.category)
+
+      proportion = calculate_proportion(product)
+
       product_doc.r_inventory = ( RANKING_POWER * ( proportion > 1 ? 1 : proportion ) * @inventory_weight ).to_i rescue 0
 
-      if product_doc.inventory > 0 && product_doc.age < DAYS_TO_CONSIDER_OLD
-        @log << "age: #{product_doc.age}/#{newest} - #{product_doc.r_age.to_i} | inventory: #{product_doc.inventory}/#{third_quartile_inventory_for_category(product.category)} - #{product_doc.r_inventory.to_i} | brand: #{product_doc.brand} - #{product_doc.r_brand_regulator.to_i} | exp: #{( product_doc.r_age + product_doc.r_inventory + product_doc.r_brand_regulator ).to_i}"
-      end
+      generate_log(product_doc) if product_doc.inventory > 0 && product_doc.age < DAYS_TO_CONSIDER_OLD
 
       product_doc      
+    end
+
+    def calculate_proportion product
+      product.inventory.to_f / third_quartile_inventory_for_category(product.category)
+    end
+
+    def brand_regulator brand
+      (/olook/i =~ brand) ? 250 : 0
+    end
+
+    def generate_log product_doc
+      @log << "age: #{product_doc.age}/#{newest} - #{product_doc.r_age.to_i} | inventory: #{product_doc.inventory}/#{third_quartile_inventory_for_category(product.category)} - #{product_doc.r_inventory.to_i} | brand: #{product_doc.brand} - #{product_doc.r_brand_regulator.to_i} | exp: #{( product_doc.r_age + product_doc.r_inventory + product_doc.r_brand_regulator ).to_i}"
+    end
+
+    def calculate_ranking_age product_doc
+      if product_doc.age.to_i < newest
+        ( RANKING_POWER * @age_weight ).to_i
+      else
+        diff_age = product_doc.age.to_i - newest.to_i
+        proportion = diff_age.to_f / DAYS_TO_CONSIDER_OLD.to_f
+        # 0 / 60 = 1, 60 / 60 = 0, 30 / 60 =  0.5, 90 / 60 = 1.5
+        proportion = 1 if proportion > 1
+        ( RANKING_POWER * @age_weight * ( 1 - proportion ) ).to_i
+      end
     end
 
     def populate_shoe_fields(product, product_doc)
