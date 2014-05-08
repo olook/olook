@@ -1,5 +1,5 @@
 @media only screen and (max-width: 640px) {
-	body {background: #d1d1d1;}
+	body {background: #232323;}
 	@import 'new_structure/common/bamboo';
 
 	#wrapper_new_menu,
@@ -205,6 +205,10 @@
         p {
           font-size: 12px;
         }
+      }
+      table.credits,
+      p.credits {
+        display: none !important;
       }
       table#items {
         width:100% !important;
@@ -602,8 +606,9 @@
       }
       #product-details {
         position: initial !important;
-        width:100%;
+        width:80%;
         margin:0px;
+        float:left !important;
         #product-particulars {
           width:100%;
           .open {
@@ -621,6 +626,7 @@
         }
         input[type="submit"].add_product {
           width:100%;
+          border-radius: 0px !important;
         }
         #product-info {
           position: absolute;
