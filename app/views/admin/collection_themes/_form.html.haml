@@ -7,53 +7,78 @@
       %ul
         - @collection_theme.errors.full_messages.each do |msg|
           %li= msg
-  .field
+  %fieldset
     = f.label :collection_theme_group
     %br/
     = f.collection_select :collection_theme_group_id, CollectionThemeGroup.all, :id, :name
+  %br
   = f.fields_for :collection_theme_group_attributes, CollectionThemeGroup.new do |group|
-    .field
+    %fieldset
       = group.label :name, 'OU Crie um novo Grupo'
       %br/
       = group.text_field :name
-  .field
-    = f.label :name, 'Tema'
+    %br
+  %fieldset
+    = f.label :name
     %br/
     = f.text_field :name
-  .field
-    = f.label :slug, 'URL Amigável'
+  %br
+  %fieldset
+    = f.label :slug
     %br/
     = f.text_field :slug
     %br/
     %small
       %i O valor ficará na url www.olook.com.br/colecoes/&lt;url-amigavel&gt; e por isso deve ser único
-  .field
+  %br
+  %fieldset
     = f.label :active
     %br/
     = f.check_box :active
-  .field
+  %br
+  %fieldset
     = f.label :text_color
     %br/
     = f.text_field :text_color
-  .field
+  %br
+  %fieldset
     = f.label :header_image
     %br/
     = f.file_field :header_image
-  .field
+  %br
+  %fieldset
     = f.label :header_image_alt
     %br/
     = f.text_field :header_image_alt
-  .field
+  %br
+  %fieldset
     = f.label :video_link
     %br/
     = f.text_field :video_link
-  .field
+  %br
+  %fieldset
+    =f.label :info
+    %br
+    =f.text_area :info
+  %br
+  %fieldset
+    =f.label :bg_color
+    =f.text_field :bg_color
+    #picker
+  %br
+  %fieldset
+    =f.label :font_color
+    =f.text_field :font_color
+  %br
+  %fieldset
     = f.label :product_associate_ids
     %br/
     = f.text_area :product_associate_ids, value: @collection_theme.product_ids.join(', ')
-  .field
+  %br
+  %fieldset
     = f.label :product_associate_ids_file
     %br/
     = f.file_field :product_associate_ids_file
+  %br
   .actions
     = f.submit

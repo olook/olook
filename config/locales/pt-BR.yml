@@ -495,14 +495,19 @@
         zip_code: CEP
       collection_theme:
         active: 'Ativo'
+        name: 'Tema'
         collection_theme_group: 'Grupo'
         header_image: 'Banner (Altura 138 x Largura 813)'
         header_image_alt: "Alt/title do Banner"
-        position: 'Posição'
+        position: 'Posição no Grupo'
         video_link: 'Link do Vídeo no Youtube'
         video_title: 'Título do Vídeo'
         text_color: 'Cor do Texto do link do vídeo no banner'
         product_associate_ids: 'Ids dos produtos associados'
+        slug: 'URL Amigável'
+        info: 'Descrição da coleção (Aparece ao lado da imagem)'
+        bg_color: 'Cor do fundo da imagem'
+        font_color: 'Cor da fonte da imagem'
       clipping:
         logo: 'Logo do veículo (imagem em JPG)'
         title: 'Título (chamada da matéria)'
@@ -513,12 +518,12 @@
         pdf_file: "Arquivo PDF"
         alt: 'ALT da imagem'
       brand:
-        name: 'Nome:'
-        header_image_alt: 'ALT da imagem:'
-        header_image: 'Imagem (269x134):'
-        info: 'Descrição da marca (Aparece do lado da imagem):'
-        bg_color: 'Cor do fundo:'
-        font_color: 'Cor do fonte:'
+        name: 'Nome'
+        header_image_alt: 'ALT da imagem'
+        header_image: 'Imagem (269x134)'
+        info: 'Descrição da marca (Aparece ao lado da imagem)'
+        bg_color: 'Cor do fundo da imagem'
+        font_color: 'Cor da fonte da imagem'
       credit_card:
         credit_card_number: "Número do cartão"
         expiration_date: "Validade (MM/AA)"

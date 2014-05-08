@@ -15,16 +15,16 @@
   #catalog
     = render "menu", collection_theme_groups: @collection_theme_groups
     #result
-      .collections_header
-        / - if @collection_theme = @collection_theme.first
-        %ul.cover
-          %li.pic
-            = image_tag("collections/mini_cover.jpg")
-          %li.info
-            %h1
-              Forum
-            %h2
-              A Forum surgiu através de uma parceria de Tufi Duek com seu irmão, Isaac Duek e ao longo dos anos, a marca sempre se caracterizou com uma identidade urbana e moderna, onde tornou-se referência na moda brasileira. Todos os produtos que a marca possui têm uma pegada urbana e moderna, trazendo assim um público 
+      - if @collection_theme = @collection_theme.first
+        .collections_header
+          %ul.cover{style: "background-color:##{@collection_theme.bg_color}"}
+            %li.pic
+              = image_tag(@collection_theme.header_image)
+            %li.info
+              %h1{style: "color:##{@collection_theme.font_color}"}
+                = @collection_theme.name
+              %h2{style: "color:##{@collection_theme.font_color}"}
+                = @collection_theme.info
           .video_description
       = render "filters", search: @search, url_builder: @url_builder
 
