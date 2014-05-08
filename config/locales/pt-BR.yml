@@ -515,7 +515,7 @@
       brand:
         name: 'Nome:'
         header_image_alt: 'ALT da imagem:'
-        header_image: 'Imagem:'
+        header_image: 'Imagem (269x134):'
         info: 'Descrição da marca (Aparece do lado da imagem):'
         bg_color: 'Cor do fundo:'
         font_color: 'Cor do fonte:'
