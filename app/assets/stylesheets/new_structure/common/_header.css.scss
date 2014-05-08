@@ -461,6 +461,55 @@ header#new_header{border-top: 2px black solid;
   }
 }
 
+/*---------------------------------
+====== teste AB barra busca =======
+---------------------------------*/
+
+.barra_thai{
+  margin-right: 26px;
+  #search_product{
+  float: left;
+  font-family: $avenir;
+  font-weight: 400;
+  width: 376px;
+  height: 35px;
+  line-height: 29px;
+  text-align: left;
+  padding-left: 40px;
+  padding-right: 78px;
+  margin-right: 20px;
+  border: 1px solid #dfdfdf;
+  background: image-url('common/nav/magnifierT.png') no-repeat 10px;
+  font-family: $verdana;
+  background-color: #dfdfdf;
+  font-size: 13px;
+  }
+  input[type="submit"]{
+    position: absolute;
+    display: block;
+    left: 427px;
+    border:none;
+    cursor: pointer;
+    background: none;
+    text-indent: 0 !important;
+    font-family: $verdana;
+    font-size: 11px;
+    text-align: center;
+    width: 80px;
+    height: 37px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+    background-color: #01aeb4 ;
+  }
+}
+
+/*-----------------------------------
+====== teste AB barra busca =======
+-----------------------------------*/
+
+
 .pagination{
   text-align:center;
   clear:both;
