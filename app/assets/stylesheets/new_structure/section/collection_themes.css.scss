@@ -163,19 +163,24 @@ button.nav{
     }
     li.info{
       width: 524px;
-      p{
+      h1{
+        font-weight: bold;
+        display: block;
+        margin-bottom: 10px;
+        font-size: 11px;
+        margin-top: 20px;
+        margin-left: 20px;
         width: 472px;
         font-family: $verdana;
+      }
+      h2{
+        font-family: $verdana;
+        width: 472px;
         font-size: 11px;
         text-align: left;
         line-height: 16px;
-        margin-top: 20px;
         margin-left: 20px;
-        span{
-          font-weight: bold;
-          display: block;
-          margin-bottom: 10px;
-        }
+        font-weight: lighter;
       }
     }
   }
