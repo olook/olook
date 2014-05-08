@@ -1,5 +1,5 @@
 @media only screen and (max-width: 640px) {
-	body {overflow:hidden;background: #d1d1d1;}
+	body {background: #d1d1d1;}
 	@import 'new_structure/common/bamboo';
 
 	#wrapper_new_menu,
@@ -132,6 +132,9 @@
       text-align: center;
       margin:5px 0 !important;
       font-size: 13px !important;
+    }
+    .topo {
+      display: none;
     }
   }
 	.search_box {
@@ -426,6 +429,57 @@
 
     /* CATALOG */
 
+    #search_result {
+      width:100% !important;
+    }
+
+    #search_result, #products{
+      li.product {
+        margin:0px;
+        width:45% !important;
+        padding:0px;
+        float:left;
+        margin-left: 3%;
+        margin-bottom: 3%;
+        height:266px;
+        border:1px dotted #d1d1d1;
+        overflow: hidden;
+        .async {
+          width:100%;
+          height:266px;
+          img {
+            width:100%;
+            height:auto;
+            position: absolute;
+            bottom: 50px;
+          }
+        }
+        .spy {
+          display: none !important;
+        }
+        .info-product {
+          position: absolute;
+          bottom:0px;
+          background: #fff;
+          width:92%;
+          padding:0 4%;
+        }
+        .price {
+          font-size: 10px;
+          letter-spacing: -1px;
+        }
+        .brand {
+          font-size: 11px;
+        }
+        .name {
+          margin-bottom:0px;
+        }
+        .txt-pink {
+          font-size: 11px !important;
+        }
+      }
+    }
+
     #catalog {
       .promo_catalog,
       .row,
@@ -456,62 +510,19 @@
         }
       }
 
-      #products {
-        li.product {
-          margin:0px;
-          width:45%;
-          padding:0px;
-          float:left;
-          margin-left: 3%;
-          margin-bottom: 3%;
-          height:266px;
-          border:1px dotted #d1d1d1;
-          overflow: hidden;
-          .async {
-            width:100%;
-            height:266px;
-            img {
-              width:100%;
-              height:auto;
-              position: absolute;
-              bottom: 50px;
-            }
-          }
-          .spy {
-            display: none !important;
-          }
-          .info-product {
-            position: absolute;
-            bottom:0px;
-            background: #fff;
-            width:92%;
-            padding:0 4%;
-          }
-          .price {
-            font-size: 10px;
-          }
-          .brand {
-            font-size: 11px;
-          }
-          .name {
-            margin-bottom:0px;
-          }
-          .txt-pink {
-            font-size: 11px !important;
-          }
-        }
-      }
+      
       aside {
-        width:97%;
+        width:100%;
         margin:0px;
         margin-bottom:10px;
         overflow-y:auto;
-        margin-left:12px;
         margin-top:4px;
+        background: #000;
         ul.category-list,
         .preco,
         .show_more,
-        .subcategory-list {
+        .subcategory-list,
+        h5 {
           display: none;
         }
         h5 {
@@ -521,8 +532,7 @@
           float:left;
           margin:0px;
           clear:none;
-          margin-top:5px;
-          margin-right:1px;
+          margin-left:2px;
           .cores {
             max-height: 500px !important;
           }
@@ -534,10 +544,9 @@
             font-weight: normal;
             text-transform: none;
             font-family: "Trebuchet Ms";
-            border:1px dotted #d1d1d1;
             background: #000;
             color:#FFF;
-            padding:5px;
+            padding:4px 2px;
             line-height: 14px;
           }
           .category-list,
@@ -548,6 +557,22 @@
             background: #FFF;
             border: 1px dotted #d1d1d1;
             padding: 5px;
+            position: absolute;
+            left: 0px;
+            width: 100%;
+            li {
+              float: left;
+              width: 49%;
+            }
+          }
+          .cores {
+            a {
+              span {
+                display: block !important;
+                padding-left:30px;
+                width:80px;
+              }
+            }
           }
         }
       }
