@@ -21,5 +21,14 @@
   %fieldset
     =f.label :info
     =f.text_field :info
+  %br
+  %fieldset
+    =f.label :bg_color
+    =f.text_field :bg_color, class: 'minicolors'
+    #picker
+  %br
+  %fieldset
+    =f.label :font_color
+    =f.text_field :font_color
   .actions
     = f.submit 'Save'
