@@ -1,0 +1,35 @@
+%h2 Coleções Temáticas
+.inner
+  %p#notice= notice
+  %p
+    %b
+      Cor do link do vídeo:
+      %span{:style => "background-color: #{@collection_theme.text_color};"}= ( '&nbsp' * 10 ).html_safe
+  %p
+    %b
+      Header: (alt: #{@collection_theme.header_image_alt})
+    %br/
+    = image_tag(@collection_theme.header_image.url, alt: @collection_theme.header_image_alt, title: @collection_theme.header_image_alt) unless @collection_theme.header_image.blank?
+  %p
+    %b Abacos ID:
+    = @collection_theme.id
+  %p
+    %b Tema:
+    = @collection_theme.name
+  %p
+    %b Link do vídeo:
+    = @collection_theme.video_link
+    %br/
+    - unless @collection_theme.video_link.blank?
+      %iframe{:allowfullscreen => "", :frameborder => "0", :height => "315", :src => "http://www.youtube.com/embed/#{@collection_theme.video_id}?#{ @collection_theme.video_options.to_a.map { |k,v| "#{k}=#{v}" }.join('&') }", :width => "560"}
+  %p
+    %b Posição no Grupo:
+    = @collection_theme.position
+  %p
+    %b Produtos da coleção
+  %ul
+    - @collection_theme.products.each do |product|
+      %li= product.id
+  - content_for :secondary_navigation do
+    %li= link_to 'Alterar', edit_admin_collection_theme_path(@collection_theme)
+    %li= link_to 'Lista', admin_collection_themes_path
