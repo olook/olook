@@ -1,3 +1,5 @@
+- content_for :head do
+  = javascript_include_tag "section/admin/collection_themes"
 = form_for([:admin,@collection_theme], multipart: true) do |f|
   - if @collection_theme.errors.any?
     #error_explanation
