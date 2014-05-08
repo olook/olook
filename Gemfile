@@ -80,6 +80,7 @@ end
 
 gem 'piet', :git => 'git://github.com/albertbellonch/piet.git', ref: "630a98bef1595fb2a138e98ff9aaefbca987a999"
 
+gem "spring", group: :development
 group :development, :test do
   gem 'better_errors'
   gem 'faker'
