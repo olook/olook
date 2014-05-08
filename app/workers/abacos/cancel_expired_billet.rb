@@ -5,7 +5,7 @@ module Abacos
 
     def self.perform
       errors = []
-      default_expiration_date = 2.business_day.ago
+      default_expiration_date = 1.business_day.ago
       billets = Billet.to_expire(default_expiration_date)
       billets.each do |billet|
         begin
