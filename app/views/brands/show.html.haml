@@ -44,9 +44,10 @@
                 = image_tag(@brand.header_image)
               %li.info
                 %p{style: "color:##{@brand.font_color}"}
-                  %span
+                  %h1
                     = @brand.name
-                  = @brand.info
+                  %h2
+                    = @brand.info
 
       = render "ordenation_filters", search: @search, url_builder: @url_builder
 
