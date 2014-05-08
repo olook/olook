@@ -60,7 +60,7 @@ module Admin::ApplicationHelper
   end
 
   def translate_field(opts={})
-    I18n.t opts.fetch(:attribute).to_sym, scope: [:activerecord, :attributes, opts.fetch(:field).to_sym]
+    "#{I18n.t opts.fetch(:attribute).to_sym, scope: [:activerecord, :attributes, opts.fetch(:field).to_sym]}:"
   end
 
 end
