@@ -644,8 +644,12 @@ common/nav/heart.gif: common/nav/heart-056c571ab259c87570c5f3b4f1a4c13b.gif
 common/nav/heart/index.gif: common/nav/heart-056c571ab259c87570c5f3b4f1a4c13b.gif
 common/nav/icon-spy-on.png: common/nav/icon-spy-on-f620aedab054b7ca9325fe6820ee39b9.png
 common/nav/icon-spy-on/index.png: common/nav/icon-spy-on-f620aedab054b7ca9325fe6820ee39b9.png
+common/nav/icon-spy-on2.png: common/nav/icon-spy-on2-c2480ef0881cb42a9f83d36ebfb1b949.png
+common/nav/icon-spy-on2/index.png: common/nav/icon-spy-on2-c2480ef0881cb42a9f83d36ebfb1b949.png
 common/nav/magnifier.png: common/nav/magnifier-acd057b52e0973a87939b272675e3e4d.png
 common/nav/magnifier/index.png: common/nav/magnifier-acd057b52e0973a87939b272675e3e4d.png
+common/nav/magnifierT.png: common/nav/magnifierT-a677285ceed9ecfdca9f7cb089448452.png
+common/nav/magnifierT/index.png: common/nav/magnifierT-a677285ceed9ecfdca9f7cb089448452.png
 common/nav/magnifier_b.png: common/nav/magnifier_b-29369d09f950c890eb62afdfae7604a2.png
 common/nav/magnifier_b/index.png: common/nav/magnifier_b-29369d09f950c890eb62afdfae7604a2.png
 common/nav/megamenucolecoes.jpg: common/nav/megamenucolecoes-e0ba9e26ebdb5bafc1de2559854349c4.jpg
@@ -2376,8 +2380,8 @@ about/normalize.css: about/normalize-b3a32727781c89e0bd714269e2f853f0.css
 about/normalize/index.css: about/normalize-b3a32727781c89e0bd714269e2f853f0.css
 about/style.css: about/style-cf1c0dad53d45dadda9c354c8f85d759.css
 about/style/index.css: about/style-cf1c0dad53d45dadda9c354c8f85d759.css
-admin.css: admin-1e099015ac7cc6b2fd6ec37df41664fd.css
-admin/index.css: admin-1e099015ac7cc6b2fd6ec37df41664fd.css
+admin.css: admin-0db87794cb175c4563c08120bbd73909.css
+admin/index.css: admin-0db87794cb175c4563c08120bbd73909.css
 admin/base.css: admin/base-ce0c05440953df44bdeeca29a0eaa073.css
 admin/base/index.css: admin/base-ce0c05440953df44bdeeca29a0eaa073.css
 admin/bootstrap.css: admin/bootstrap-15af02f0efa12f3f692188b3646254f1.css
@@ -2446,8 +2450,8 @@ admin/themes/default/fonts/museosans_500_italic-webfont.woff: admin/themes/defau
 admin/themes/default/fonts/museosans_500_italic-webfont/index.woff: admin/themes/default/fonts/museosans_500_italic-webfont-e1bcb6fd0cfa7fc553880800308f5cff.woff
 admin/themes/default/style.css: admin/themes/default/style-88eb0610b60a4af46bd00d491b56195a.css
 admin/themes/default/style/index.css: admin/themes/default/style-88eb0610b60a4af46bd00d491b56195a.css
-application.css: application-0ed59fe912f768af6b23982ddc7d15db.css
-application/index.css: application-0ed59fe912f768af6b23982ddc7d15db.css
+application.css: application-e4a6dfc33e8e3b69bf79c37b587471f3.css
+application/index.css: application-e4a6dfc33e8e3b69bf79c37b587471f3.css
 campaign_emails.css: campaign_emails-98f740de050c078c5d007ce92e516aaa.css
 campaign_emails/index.css: campaign_emails-98f740de050c078c5d007ce92e516aaa.css
 common/_border-radius.css: common/_border-radius-1b13569e9620782f423d4cd3ce931750.css
@@ -2464,8 +2468,8 @@ common/_support.css: common/_support-1b13569e9620782f423d4cd3ce931750.css
 common/_support/index.css: common/_support-1b13569e9620782f423d4cd3ce931750.css
 common/carousel.css: common/carousel-c41e8648a1731eb3ed4fe86fd0e9c817.css
 common/carousel/index.css: common/carousel-c41e8648a1731eb3ed4fe86fd0e9c817.css
-common/jquery-ui-1.10.3.autocomplete_slider.min.css: common/jquery-ui-1.10.3.autocomplete_slider.min-2e65a6f0762ce356e781f6bd00b372c9.css
-common/jquery-ui-1/index.10.3.autocomplete_slider.min.css: common/jquery-ui-1.10.3.autocomplete_slider.min-2e65a6f0762ce356e781f6bd00b372c9.css
+common/jquery-ui-1.10.3.autocomplete_slider.min.css: common/jquery-ui-1.10.3.autocomplete_slider.min-772e257b680a664e84f13629a3b39b69.css
+common/jquery-ui-1/index.10.3.autocomplete_slider.min.css: common/jquery-ui-1.10.3.autocomplete_slider.min-772e257b680a664e84f13629a3b39b69.css
 common/jquery.jqzoom.css: common/jquery.jqzoom-fcb60d189fd38726806ad9ad6b79c6e3.css
 common/jquery/index.jqzoom.css: common/jquery.jqzoom-fcb60d189fd38726806ad9ad6b79c6e3.css
 common/jquery.jscrollpane.css: common/jquery.jscrollpane-9a5009d767fd59f35c6e7545b333b0d0.css
@@ -2494,8 +2498,8 @@ desktop.css: desktop-5139daa005a0357c603a5ce937c5f355.css
 desktop/index.css: desktop-5139daa005a0357c603a5ce937c5f355.css
 jquery.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
 jquery/index.bxslider.css: jquery.bxslider-17d3e922a1476716cd2c5ce626c1aafe.css
-new_structure/lite_application.css: new_structure/lite_application-1c0bee8f999be0a275084b62417b1681.css
-new_structure/lite_application/index.css: new_structure/lite_application-1c0bee8f999be0a275084b62417b1681.css
+new_structure/lite_application.css: new_structure/lite_application-a2afd1c190be7f38cdca857acb359572.css
+new_structure/lite_application/index.css: new_structure/lite_application-a2afd1c190be7f38cdca857acb359572.css
 new_structure/partials/_antibounce_box.css: new_structure/partials/_antibounce_box-ee74a3a0cb810d472cb6e090ac914de1.css
 new_structure/partials/_antibounce_box/index.css: new_structure/partials/_antibounce_box-ee74a3a0cb810d472cb6e090ac914de1.css
 new_structure/partials/_custom_headers.css: new_structure/partials/_custom_headers-b09f6945455ef9b39353b1bef275f7b4.css
