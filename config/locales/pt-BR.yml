@@ -495,10 +495,10 @@
         zip_code: CEP
       collection_theme:
         active: 'Ativo'
-        name: 'Tema'
+        name: 'Título'
         collection_theme_group: 'Grupo'
-        header_image: 'Banner (Altura 138 x Largura 813)'
-        header_image_alt: "Alt/title do Banner"
+        header_image: 'Imagem (Altura 138 x Largura 813)'
+        header_image_alt: "Alt"
         position: 'Posição no Grupo'
         video_link: 'Link do Vídeo no Youtube'
         video_title: 'Título do Vídeo'
