@@ -39,10 +39,10 @@
       - if @brand = @brand.first
         - if @brand.header_image.present?
           %div.collections_header
-            %ul.cover
+            %ul.cover{style: "background-color:##{@brand.bg_color}"}
               %li.pic
-                = image_tag("collections/mini_cover.jpg")
-              %li.info
+                = image_tag(@brand.header_image)
+              %li.info{style: "color:##{@brand.font_color}"}
                 %h1
                   Forum
                 %h2

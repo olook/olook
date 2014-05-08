@@ -14,6 +14,7 @@
         %td= image_tag(brand.header_image_url(:thumb)) unless brand.header_image_url(:thumb).nil?
         %td= brand.name
         %td= brand.header_image_alt
+        %td= brand.info
         %td= link_to 'Exibir', [:admin, brand]
         %td= link_to 'Editar', edit_admin_brand_path(brand)
         %td= link_to 'Apagar', [:admin, brand], :method => :delete, :data => { :confirm => 'Tem certeza ?' }

@@ -470,7 +470,6 @@
         link_big_banner: 'Link (url completa, com Http://)'
         title: 'Título para o modelo'
         resume_title: 'Texto resumido'
-        text_complement: 'Complemento do texto'
       highlight_campaign:
         label: Nome da campanha
         product_ids: Ids dos produtos
@@ -514,9 +513,12 @@
         pdf_file: "Arquivo PDF"
         alt: 'ALT da imagem'
       brand:
-        name: 'Nome'
-        header_image_alt: 'ALT da imagem'
-        header_image: 'Imagem'
+        name: 'Nome:'
+        header_image_alt: 'ALT da imagem:'
+        header_image: 'Imagem (269x134):'
+        info: 'Descrição da marca (Aparece do lado da imagem):'
+        bg_color: 'Cor do fundo:'
+        font_color: 'Cor do fonte:'
       credit_card:
         credit_card_number: "Número do cartão"
         expiration_date: "Validade (MM/AA)"

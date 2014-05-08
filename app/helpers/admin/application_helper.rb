@@ -57,7 +57,11 @@ module Admin::ApplicationHelper
       render(association.to_s.singularize + "_fields", f: builder)
     end
     link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
-  end  
+  end
+
+  def translate_field(opts={})
+    I18n.t opts.fetch(:attribute).to_sym, scope: [:activerecord, :attributes, opts.fetch(:field).to_sym]
+  end
 
 end
 

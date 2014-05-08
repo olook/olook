@@ -1,3 +1,5 @@
+- content_for :head do
+  = javascript_include_tag "section/admin/brands"
 = form_for [:admin, @brand] do |f|
   - if @brand.errors.any?
     #error_explanation
@@ -13,11 +15,23 @@
   %fieldset
     =f.label :header_image_alt
     =f.text_field :header_image_alt
-
   %br
   %fieldset
     =f.label :header_image
     =f.file_field :header_image
-  
+  %br
+  %fieldset
+    =f.label :info
+    %br
+    =f.text_area :info
+  %br
+  %fieldset
+    =f.label :bg_color
+    =f.text_field :bg_color
+    #picker
+  %br
+  %fieldset
+    =f.label :font_color
+    =f.text_field :font_color
   .actions
     = f.submit 'Save'
