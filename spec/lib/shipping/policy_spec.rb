@@ -1,4 +1,4 @@
-describe Shipping::Policy, focus: true do
+describe Shipping::Policy do
   before do
     @default_zip_code = "05302030"
     @default_amount = "89.9"
