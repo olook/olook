@@ -513,10 +513,12 @@
         pdf_file: "Arquivo PDF"
         alt: 'ALT da imagem'
       brand:
-        name: 'Nome'
-        header_image_alt: 'ALT da imagem'
-        header_image: 'Imagem'
-        info: 'Descrição da marca (Aparece do lado da imagem)'
+        name: 'Nome:'
+        header_image_alt: 'ALT da imagem:'
+        header_image: 'Imagem:'
+        info: 'Descrição da marca (Aparece do lado da imagem):'
+        bg_color: 'Cor do fundo:'
+        font_color: 'Cor do fonte:'
       credit_card:
         credit_card_number: "Número do cartão"
         expiration_date: "Validade (MM/AA)"

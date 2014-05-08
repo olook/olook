@@ -8,14 +8,25 @@
   -else
     %p= image_tag @brand.header_image unless @brand.header_image_url.nil?
   %p
-    Nome:
+    %b
+      = translate_field(attribute: 'name', field: 'brand')
     = @brand.name
   %p
-    Alt da imagem:
+    %b
+      = translate_field(attribute: 'header_image_alt', field: 'brand')
     = @brand.header_image_alt
   %p
-    Descrição da marca(Aparece do lado da imagem):
+    %b
+      = translate_field(attribute: 'info', field: 'brand')
     = @brand.info
+  %p
+    %b
+      = translate_field(attribute: 'bg_color', field: 'brand')
+    = "##{@brand.bg_color}"
+  %p
+    %b
+      = translate_field(attribute: 'font_color', field: 'brand')
+    = "##{@brand.font_color}"
 = link_to 'Editar', edit_admin_brand_path(@brand)
 \|
 = link_to 'Voltar', admin_brands_path
