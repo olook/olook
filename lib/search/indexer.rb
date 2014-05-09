@@ -15,7 +15,7 @@ module Search
       remove_documents  
     end
 
-    private
+    protected
 
       def flush_to_sdf_file file_name, all_documents
         File.open("#{file_name}", "w:UTF-8") do |file|
@@ -59,7 +59,7 @@ module Search
       def run(slice, index)
         begin
           file_name = "/tmp/base-add#{'%03d' % index}.sdf"
-          flush_to_sdf_file file_name, sdf_entries(entities_to_index(entities), 'add')
+          flush_to_sdf_file file_name, sdf_entries(entities_to_index(slice), 'add')
           upload_sdf_file file_name
         rescue => e
           send_failure_mail e.backtrace

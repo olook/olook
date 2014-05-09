@@ -10,7 +10,6 @@ class ProductProductDocumentAdapter
   def adapt(product, type)
     product_doc = populate_common_fields(product, type)
     product_doc = populate_addition_fields(product, product_doc) if type == 'add'
-    generate_log(product_doc, product) if product_doc.inventory > 0 && product_doc.age < RankingCalculator::DAYS_TO_CONSIDER_OLD
     product_doc
   rescue => e
     Rails.logger.error("Failed to generate sdf of product: #{product.inspect}. Error: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}")
@@ -85,56 +84,19 @@ class ProductProductDocumentAdapter
       product.collection_themes.map { |c| c.slug }
     end
 
-    def generate_log product_doc, product
-      @log << [age_log(product_doc), inventory_log(product_doc, product), brand_log(product_doc), exp_log(product_doc)].join(" | ")
-    end
-
-    def age_log product_doc
-      "age: #{product_doc.age}/#{ranking_calculator.newest} - #{product_doc.r_age.to_i}"
-    end
-
-    def inventory_log product_doc, product
-      "inventory: #{product_doc.inventory}/#{ranking_calculator.third_quartile_inventory_for_category(product.category)} - #{product_doc.r_inventory.to_i}"
-    end
-
-    def brand_log product_doc
-      "brand: #{product_doc.brand} - #{product_doc.r_brand_regulator.to_i}"
-    end
-
-    def exp_log product_doc
-      "exp: #{( product_doc.r_age + product_doc.r_inventory + product_doc.r_brand_regulator ).to_i}"
+    def add_log_line(product_doc, product)
+      @log << ranking_calculator.generate_log_line(product_doc, product)
     end
 
     def populate_ranking_fields(product, product_doc)
-      product_doc.r_age = calculate_ranking_age(product_doc)
-      product_doc.r_brand_regulator = brand_regulator(product_doc.brand)
-      proportion = calculate_proportion_for_ranking_fields(product)
-      product_doc.r_inventory = ( RankingCalculator::RANKING_POWER * ( proportion > 1 ? 1 : proportion ) * ranking_calculator.inventory_weight ).to_i rescue 0
+      product_doc.r_age = ranking_calculator.calculate_ranking_age(product_doc)
+      product_doc.r_brand_regulator = ranking_calculator.brand_regulator(product_doc.brand)
+      proportion = ranking_calculator.calculate_proportion_for_ranking_fields(product)
+      product_doc.r_inventory = calculate_r_inventory(proportion) rescue 0
+
+      add_log_line(product_doc, product) if product_doc.inventory > 0 && product_doc.age < RankingCalculator::DAYS_TO_CONSIDER_OLD
 
       product_doc
-    end
-
-    def calculate_proportion_for_ranking_fields product
-      product.inventory.to_f / ranking_calculator.third_quartile_inventory_for_category(product.category)
-    end
-
-    def brand_regulator brand
-      (/olook/i =~ brand) ? 250 : 0
-    end
-
-
-    def calculate_ranking_age product_doc
-      result = ( RankingCalculator::RANKING_POWER * ranking_calculator.age_weight ).to_i
-      result = calculate_proportion_for_ranking_age(product_doc) unless product_doc.age.to_i < ranking_calculator.newest
-      result
-    end
-
-    def calculate_proportion_for_ranking_age product_doc
-      diff_age = product_doc.age.to_i - ranking_calculator.newest.to_i
-      proportion = diff_age.to_f / RankingCalculator::DAYS_TO_CONSIDER_OLD.to_f
-      # 0 / 60 = 1, 60 / 60 = 0, 30 / 60 =  0.5, 90 / 60 = 1.5
-      proportion = 1 if proportion > 1
-      ( 1 - proportion ).to_i
     end
 
     def populate_shoe_fields(product, product_doc)

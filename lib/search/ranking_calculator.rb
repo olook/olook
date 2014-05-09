@@ -10,8 +10,36 @@ class RankingCalculator
     @age_weight ||= Setting[:age_weight].to_i
     @max_age_rating ||= ( @age_weight * RankingCalculator::RANKING_POWER )
     @inventory_weight ||= Setting[:inventory_weight].to_i
-    initialize_count_by_category
   end
+
+
+  def calculate_proportion_for_ranking_fields product
+    product.inventory.to_f / third_quartile_inventory_for_category(product.category)
+  end
+
+  def brand_regulator brand
+    (/olook/i =~ brand) ? 250 : 0
+  end
+
+
+  def calculate_ranking_age product_doc
+    result = ( RANKING_POWER * age_weight ).to_i
+    result = calculate_proportion_for_ranking_age(product_doc) unless product_doc.age.to_i < newest
+    result
+  end
+
+  def calculate_proportion_for_ranking_age product_doc
+    diff_age = product_doc.age.to_i - newest.to_i
+    proportion = diff_age.to_f / DAYS_TO_CONSIDER_OLD.to_f
+    # 0 / 60 = 1, 60 / 60 = 0, 30 / 60 =  0.5, 90 / 60 = 1.5
+    proportion = 1 if proportion > 1
+    ( 1 - proportion ).to_i
+  end
+
+  def calculate_r_inventory proportion
+    ( RANKING_POWER * ( proportion > 1 ? 1 : proportion ) * inventory_weight ).to_i 
+  end
+
 
   def newest
     return @newest if @newest
@@ -27,7 +55,7 @@ class RankingCalculator
 
   def save_temporary_table_vars
     create_temporary_products_with_inventory_table do
-      initialize_newest
+      initialize_count_by_category
       initialize_third_quartile_inventory
     end
   end
@@ -40,22 +68,30 @@ class RankingCalculator
     ensure
       drop_existent_temporary_table
     end
-  end
+  end  
+
+  def generate_log_line(product_doc, product)
+    [age_log(product_doc), inventory_log(product_doc, product), brand_log(product_doc), exp_log(product_doc)].join(" | ")
+  end  
 
   private
 
     def initialize_third_quartile_inventory
       count = valid_products_count 
-
-      third_quartile = ( count * 0.75 ).round
-      @third_quartile_inventory ||= count_by_category.inject({}) do |hash, aux|
+      initialize_newest(third_quartile(count))
+      @third_quartile_inventory ||= @count_by_category.inject({}) do |hash, aux|
         category, count = aux
+    
         hash[category] = Product.connection.
           select("SELECT sum_inventory FROM products_with_more_than_one_inventory
-                   WHERE category = #{category} order by sum_inventory limit 1 offset #{third_quartile}").
+                   WHERE category = #{category} order by sum_inventory limit 1 offset #{third_quartile(count)}").
           first['sum_inventory']
         hash
       end        
+    end
+
+    def third_quartile count
+      ( count * 0.75 ).round
     end
 
     def initialize_count_by_category
@@ -68,7 +104,7 @@ class RankingCalculator
       Product.connection.select_all("SELECT count(0) qty FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD}").first['qty']      
     end
 
-    def initialize_newest
+    def initialize_newest third_quartile
       @newest = Product.connection.select("SELECT age FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD} ORDER BY age desc LIMIT 1 OFFSET #{third_quartile}").first['age']      
     end
 
@@ -83,4 +119,20 @@ class RankingCalculator
 
       Product.connection.execute("CREATE TEMPORARY TABLE products_with_more_than_one_inventory AS #{sql}")      
     end
+
+    def age_log product_doc
+      "age: #{product_doc.age}/#{newest} - #{product_doc.r_age.to_i}"
+    end
+
+    def inventory_log product_doc, product
+      "inventory: #{product_doc.inventory}/#{third_quartile_inventory_for_category(product.category)} - #{product_doc.r_inventory.to_i}"
+    end
+
+    def brand_log product_doc
+      "brand: #{product_doc.brand} - #{product_doc.r_brand_regulator.to_i}"
+    end
+
+    def exp_log product_doc
+      "exp: #{( product_doc.r_age + product_doc.r_inventory + product_doc.r_brand_regulator ).to_i}"
+    end    
 end
