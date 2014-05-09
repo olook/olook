@@ -2540,12 +2540,12 @@ new_structure/partials/_voce_esta_em.css: new_structure/partials/_voce_esta_em-d
 new_structure/partials/_voce_esta_em/index.css: new_structure/partials/_voce_esta_em-d38f2abebfaef67e798f0da5623f2ab5.css
 new_structure/section/address_combo.css: new_structure/section/address_combo-566ca8721503c370f06f6a550e5cf829.css
 new_structure/section/address_combo/index.css: new_structure/section/address_combo-566ca8721503c370f06f6a550e5cf829.css
-new_structure/section/brands.css: new_structure/section/brands-40eee3afa3d8c224d99bd8036e817590.css
-new_structure/section/brands/index.css: new_structure/section/brands-40eee3afa3d8c224d99bd8036e817590.css
+new_structure/section/brands.css: new_structure/section/brands-5a7f6f7169f59e40abde0d72f3b76d50.css
+new_structure/section/brands/index.css: new_structure/section/brands-5a7f6f7169f59e40abde0d72f3b76d50.css
 new_structure/section/clippings.css: new_structure/section/clippings-421bc7291253307cc6f1ac2c61767d3a.css
 new_structure/section/clippings/index.css: new_structure/section/clippings-421bc7291253307cc6f1ac2c61767d3a.css
-new_structure/section/collection_themes.css: new_structure/section/collection_themes-2d4d839562bb6f1b2bcd807979c98f6d.css
-new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-2d4d839562bb6f1b2bcd807979c98f6d.css
+new_structure/section/collection_themes.css: new_structure/section/collection_themes-1641799b3f76d9c11e0d70a8b2f6d5b4.css
+new_structure/section/collection_themes/index.css: new_structure/section/collection_themes-1641799b3f76d9c11e0d70a8b2f6d5b4.css
 new_structure/section/custom_url.css: new_structure/section/custom_url-4c47ecbf51c4cf1b9265c8d44fa18918.css
 new_structure/section/custom_url/index.css: new_structure/section/custom_url-4c47ecbf51c4cf1b9265c8d44fa18918.css
 new_structure/section/join.css: new_structure/section/join-3186f3c8328f7adb40d21a612a7a3325.css
