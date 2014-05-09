@@ -1,5 +1,5 @@
 @media only screen and (max-width: 640px) {
-	body {background: #232323;}
+	body {overflow:hidden;background: #232323;}
 	@import 'new_structure/common/bamboo';
 
 	#wrapper_new_menu,
@@ -12,7 +12,11 @@
   .hot_products,
   .social-media,
   .quiz_login,
-  .mail {
+  .mail,
+  .other-products,
+  #stylists,
+  #boxes,
+  #products_categories  {
 		display: none !important;
 	}
 
@@ -162,6 +166,22 @@
 		width:100%;
 		padding:0px;
     min-height: 320px !important;
+    .message {
+      padding:20px !important;
+      p {
+        font-size: 16px !important;
+      }
+      a {
+        font-size: 13px !important;
+      }
+      .opsss {font-size: 70px !important;}
+      .other-products,
+      .stylists,
+      #boxes,
+      .products_categories {
+        display: none !important;
+      }
+    }
     #side_bar_menu {
       display: none !important;
     }
@@ -513,8 +533,6 @@
           display: none !important;
         }
       }
-
-      
       aside {
         width:100%;
         margin:0px;
@@ -537,6 +555,7 @@
           margin:0px;
           clear:none;
           margin-left:2px;
+          border-right:1px dotted #d1d1d1;
           .cores {
             max-height: 500px !important;
           }

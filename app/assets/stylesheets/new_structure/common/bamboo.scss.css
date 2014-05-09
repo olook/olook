@@ -17,7 +17,7 @@ header.primary .box_right {float:right;}
 
 /*	Navigation
 =========================== */
-.navigation { background: #232323; color: #cbc4c5; z-index: 1; width: 385px; position: absolute; top: 0; right: 0; bottom: 0; left: 0;height:600px;}
+.navigation { background: #232323; color: #cbc4c5; z-index: 1; width: 100%; position: absolute; top: 0; right: 0; bottom: 0; left: 0;height:600px;}
 .navigation ul { list-style: none; padding: 0; margin: 0; width: 265px; position: relative; }
 .navigation li { font-size: 18px; position: relative; font-weight: 100; border-bottom: solid 1px rgba(0,0,0,0.1); border-top: solid 1px rgba(255,255,255,0.05); }
 .navigation ul li a ,
