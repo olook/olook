@@ -84,7 +84,7 @@ class QuizResponder
     update_profile
     destroy unless @uuid == api.default_quiz_response["uuid"]
 
-    @next_step = ROUTES.profile_path()
+    @next_step = ROUTES.profile_path
     self
   end
 

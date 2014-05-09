@@ -41,6 +41,9 @@
       = header_presenter.show_header
 
     #result
+      - unless has_filters_selected?(@search)
+        %h1.title_catalog
+          = Category.t(Category.with_name(@category)).pluralize
       - unless @search.has_any_filter_selected? || params[:cmp].present?
         / local onde o viewpersonalized será exibido
         .chaordic.viewpersonalized
@@ -48,12 +51,14 @@
         / .chaordic.purchasepersonalized
         / local onde o mostpopular será exibido
         / .chaordic.mostpopular
+      = render('current_section', search: @search)
 
-      .row{style: 'position:relative'}
+      %br{style:'clear:both'}
+      .row.cata_filters{style: 'position:relative'}
         = render "ordenation_filters", search: @search, url_builder: @url_builder
         = render "size_filters", search: @search, url_builder: @url_builder, category: @category      
 
-      = render 'current_section', search: @search
+      
 
       %section.container_product
         %ul#products
