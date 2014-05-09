@@ -14,4 +14,17 @@
 $(function() {
   $("#search_custom_cpf_finder").setMask("999.999.999-99")
   $("#search_cnpj_contains").setMask("99.999.999/9999-99")
+  $("#brand_bg_color, #brand_font_color, #collection_theme_bg_color, #collection_theme_font_color").colpick({
+    layout:'hex',
+    submit:0,
+    colorScheme:'dark',
+    onChange:function(hsb,hex,rgb,el,bySetColor) {
+      $(el).css('border-color','#'+hex);
+      if(!bySetColor) $(el).val(hex);
+	  }
+  }).keyup(function(){
+    $(this).colpickSetColor(this.value);
+  });
 });
+
+

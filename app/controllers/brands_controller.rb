@@ -35,7 +35,7 @@ class BrandsController < ApplicationController
   end
 
   def set_brand
-    @brand = Brand.where(name: params[:brand].to_s.split("-").map{|brand| ActiveSupport::Inflector.transliterate(brand).downcase.titleize})
+    @brand = Brand.where(name: params[:brand].to_s.split("-").map{|brand| ActiveSupport::Inflector.transliterate(brand).downcase.titleize}.join(' '))
   end
 
   def set_url_builder

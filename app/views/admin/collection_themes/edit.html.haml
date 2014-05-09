@@ -1,0 +1,6 @@
+%h2 Alterando Coleção Temática
+.inner
+  = render 'form'
+- content_for :secondary_navigation do
+  %li= link_to 'Cancelar', admin_collection_theme_path(@collection_theme)
+  %li= link_to 'Voltar', admin_collection_themes_path
