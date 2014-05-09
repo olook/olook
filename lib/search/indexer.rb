@@ -52,27 +52,30 @@ module Search
       end
 
       def remove_documents
-        documents = entities_to_remove(entities).map { |entity| create_sdf_entry_for(entity, 'delete') }.compact
-        flush_to_sdf_file "/tmp/base-remove.sdf", documents
+        flush_to_sdf_file "/tmp/base-remove.sdf", sdf_entries(entities_to_remove(entities), 'delete')
         upload_sdf_file "/tmp/base-remove.sdf"
       end
 
       def run(slice, index)
         begin
-          entries = entities_to_index(slice).map do |entities|
-            create_sdf_entry_for(entities, 'add')
-          end
-          entries.compact!
           file_name = "/tmp/base-add#{'%03d' % index}.sdf"
-          flush_to_sdf_file file_name, entries
+          flush_to_sdf_file file_name, sdf_entries(entities_to_index(entities), 'add')
           upload_sdf_file file_name
         rescue => e
-          opts = {
-            body: "Falha ao gerar o arquivo para indexacao: #{index}-add<br> #{e} <br> #{e.backtrace}",
-            to: "tech@olook.com.br",
-            subject: "Falha ao rodar a indexacao de produtos"}
-          DevAlertMailer.notify(opts).deliver
+          send_failure_mail e.backtrace
         end
+      end
+
+      def send_failure_mail backtrace
+        opts = {
+          body: "Falha ao gerar o arquivo para indexacao: #{index}-add<br> #{e} <br> #{e.backtrace}",
+          to: "tech@olook.com.br",
+          subject: "Falha ao rodar a indexacao de produtos"}
+        DevAlertMailer.notify(opts).deliver        
+      end
+
+      def sdf_entries(entities, type)
+        entities.map { |entity| create_sdf_entry_for(entity, type) }.compact
       end
   end
 end
