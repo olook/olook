@@ -228,6 +228,10 @@ module CatalogsHelper
     end
   end
 
+  def has_subcategory?
+    !@search.expressions["subcategory"].blank?
+  end 
+
   private
 
   def should_color_appear?(search, text) 
@@ -240,5 +244,16 @@ module CatalogsHelper
 
   def color_filter_present?(search)
     search.filter_value(:color).present?
+  end
+
+  def has_filters_selected? search
+    return true if search.selected_filters_for("subcategory").size > 0 
+    return true if search.selected_filters_for("color").size > 0 
+    return true if search.selected_filters_for("heel").size > 0
+    return true if search.selected_filters_for("care").size > 0
+    return true if search.selected_filters_for("brand").size > 0
+    return true if search.selected_filters_for("size").size > 0
+    return true if search.selected_filters_for("price").size > 0
+    return false
   end
 end

@@ -9,7 +9,6 @@ new Countdown('#header_alt_medium_banner', 40).placer().attach();
 new Countdown('#header_alt_big_banner', 40).placer().attach();
 new Countdown('#header_title', 40).placer().attach();
 new Countdown('#header_resume_title', 200).placer().attach();
-new Countdown('#header_text_complement', 600).placer().attach();
 new Countdown('#header_page_title', 62).placer().attach();
 new Countdown('#header_page_description', 200).placer().attach();
 $(document).ready(function() {

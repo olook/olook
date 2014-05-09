@@ -1,0 +1,52 @@
+%p#notice= notice
+- content_for :secondary_navigation do
+  %li= link_to 'Alterar', edit_admin_collection_theme_path(@collection_theme)
+  %li= link_to 'Lista', admin_collection_themes_path
+%h2 Coleções Temáticas
+.inner
+  %p
+    %b
+      = translate_field(attribute: 'text_color', field: 'collection_theme')
+      %span{:style => "background-color: #{@collection_theme.text_color};"}= ( '&nbsp' * 10 ).html_safe
+  %p
+    %b
+      = "Header: (alt:#{translate_field(attribute: 'header_image_alt', field: 'collection_theme')})"
+    %br/
+    = image_tag(@collection_theme.header_image.url, alt: @collection_theme.header_image_alt, title: @collection_theme.header_image_alt) unless @collection_theme.header_image.blank?
+  %p
+    %b Abacos ID:
+    = @collection_theme.id
+  %p
+    %b
+      = translate_field(attribute: 'name', field: 'collection_theme')
+    = @collection_theme.name
+  %p
+    %b
+      = translate_field(attribute: 'video_link', field: 'collection_theme')
+    = @collection_theme.video_link
+    %br/
+    - unless @collection_theme.video_link.blank?
+      %iframe{:allowfullscreen => "", :frameborder => "0", :height => "315", :src => "http://www.youtube.com/embed/#{@collection_theme.video_id}?#{ @collection_theme.video_options.to_a.map { |k,v| "#{k}=#{v}" }.join('&') }", :width => "560"}
+  %p
+    %b
+      = translate_field(attribute: 'position', field: 'collection_theme')
+    = @collection_theme.position
+  %p
+    %b
+      = translate_field(attribute: 'info', field: 'collection_theme')
+    = @collection_theme.info
+  %p
+    %b
+      = translate_field(attribute: 'bg_color', field: 'collection_theme')
+    = "##{@collection_theme.bg_color}"
+  %p
+    %b
+      = translate_field(attribute: 'font_color', field: 'collection_theme')
+    = "##{@collection_theme.font_color}"
+  %p
+    %b
+      = translate_field(attribute: 'product_associate_ids', field: 'collection_theme')
+  %ul
+    - @collection_theme.products.each do |product|
+      %li= product.id
+
