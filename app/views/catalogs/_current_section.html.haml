@@ -1,10 +1,9 @@
-- if search.has_any_filter_selected?
+- if has_filters_selected?(@search)
   %section.filters
     %p
       Você está em
       =params[:category].try(:capitalize).try(:pluralize)
       - filters_selected = false
-      %span //
     %ul
       - search.selected_filters_for("subcategory").sort.each do |sub|
         - filters_selected = true

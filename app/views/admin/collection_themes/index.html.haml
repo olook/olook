@@ -1,0 +1,10 @@
+- content_for :secondary_navigation do
+  %li= link_to 'Nova Coleção Temática', new_admin_collection_theme_path
+  %li= link_to 'Gerenciar Grupos de Coleção Temática', admin_collection_theme_groups_path
+  %li= link_to 'Importação geral de coleções', import_index_admin_collection_themes_path
+%h2 Coleções Temáticas
+.inner
+  - @groups.each do |group|
+    %div{:id => "collection_theme_group_#{group.id}"}
+      = render 'admin/collection_themes/group_table', group: group, groups_size: @groups.size
+  %br/
