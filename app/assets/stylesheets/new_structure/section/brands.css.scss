@@ -24,8 +24,40 @@
   }
 }
 
-.collections_header{margin:14px 0 25px;}
-.collections_header img {width:100%;}
+.collections_header{
+  margin:14px 0 25px;
+  ul.cover{
+    width: 793px;
+    height:134px;
+    li{float: left;}
+    li.pic{
+      width: 269px;
+    }
+    li.info{
+      width: 524px;
+      h1{
+        font-weight: bold;
+        display: block;
+        margin-bottom: 10px;
+        font-size: 11px;
+        margin-top: 20px;
+        margin-left: 20px;
+        width: 472px;
+        font-family: $verdana;
+      }
+      h2{
+        font-family: $verdana;
+        width: 472px;
+        font-size: 11px;
+        text-align: left;
+        line-height: 16px;
+        margin-left: 20px;
+        font-weight: lighter;
+      }
+    }
+  }
+
+}
 
 /* fix filter price */
 .ui-slider .ui-slider-handle{width:5px !important;}
