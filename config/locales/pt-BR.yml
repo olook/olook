@@ -454,8 +454,8 @@
         product_list: 'Produtos para aparecer antes do resultado orgânico'
         organic_url: 'Url do resultado organico (ex: /sapato/bota/cor_vermelho-tamanho_38)'
         type: 'Tipo'
-        page_title: 'Título da página'
-        page_description: 'Descrição da página'
+        page_title: 'Titulo'
+        page_description: 'Descrição'
         small_banner1: 'Destaque menor/superior (260px x 155px)'
         small_banner2: 'Destaque menor/inferior (260px x 155px)'
         medium_banner: 'Destaque maior (526px x 330px)'
@@ -468,8 +468,8 @@
         link_small_banner2: 'Link (url completa, com Http://)'
         link_medium_banner: 'Link (url completa, com Http://)'
         link_big_banner: 'Link (url completa, com Http://)'
-        title: 'Título para o modelo'
-        resume_title: 'Texto resumido'
+        title: 'Título principal (h1)'
+        resume_title: 'Texto descritivo'
       highlight_campaign:
         label: Nome da campanha
         product_ids: Ids dos produtos
