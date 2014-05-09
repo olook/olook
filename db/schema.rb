@@ -205,6 +205,7 @@ ActiveRecord::Schema.define(:version => 20140508143916) do
   end
 
   add_index "cart_item_adjustments", ["cart_item_id"], :name => "index_cart_item_adjustments_on_cart_item_id"
+  add_index "cart_item_adjustments", ["cart_item_id"], :name => "index_on_cart_item_id"
 
   create_table "cart_items", :force => true do |t|
     t.integer "variant_id",                       :null => false
@@ -1055,7 +1056,9 @@ ActiveRecord::Schema.define(:version => 20140508143916) do
   add_index "products", ["category"], :name => "index_products_on_category"
   add_index "products", ["collection_id"], :name => "index_products_on_collection_id"
   add_index "products", ["color_category"], :name => "index_products_on_color_category"
+  add_index "products", ["id", "is_visible"], :name => "primary_is_visible"
   add_index "products", ["is_visible", "collection_id", "category"], :name => "index_products_on_is_visible_and_collection_id_and_category"
+  add_index "products", ["is_visible", "id"], :name => "primary_is_visible2"
   add_index "products", ["is_visible"], :name => "index_products_on_is_visible"
   add_index "products", ["model_number"], :name => "index_products_on_model_number"
 
