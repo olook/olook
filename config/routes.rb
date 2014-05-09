@@ -3,6 +3,7 @@ require 'resque/server'
 # -*- encoding : utf-8 -*-
 Olook::Application.routes.draw do
 
+
   get "/sitemap", to: "sitemap#index", as: "sitemap"
 
   resources :wished_products, only: [:create, :destroy]
@@ -180,6 +181,7 @@ Olook::Application.routes.draw do
   get "/produto/:id" => "product#show", :as => "product"
   get "/produto/:id/spy" => "product#spy", as: 'spy_product'
   post "/produto/share" => "product#share_by_email", as: 'product_share_by_email'
+  post "/produto/ab_test" => "product#ab_test", as: 'product_ab_test'
 
   # get "/dia_dos_namorados/:encrypted_id/:id" => "product#product_valentines_day"
   get "/quero_ganhar/:encrypted_id/:id" => "product#product_valentines_day"
@@ -314,6 +316,10 @@ Olook::Application.routes.draw do
       end
     end
     resources :shipping_services
+
+    put 'shipping_policies' => 'shipping_policies#update'
+    put 'shippings' => 'shippings#update'
+
     resources :collections do
       get 'mark_all_products_as_visible' => 'collections#mark_all_products_as_visible', as: 'display_products'
       get 'mark_all_products_as_invisible' => 'collections#mark_all_products_as_invisible', as: 'hide_products'
@@ -411,6 +417,10 @@ Olook::Application.routes.draw do
     post "visibility_batch/create", as: :create_visibility_batch
     get "visibility_batch/commit", as: :commit_visibility_batch
     get "visibility_batch/confirmation", as: :confirmation_visibility_batch
+
+
+    get "html_generator/index", as: :html_generators
+    post "html_generator/create", as: :create_html_generator
 
     resources :itineraries
   end
@@ -513,6 +523,7 @@ Olook::Application.routes.draw do
   match '/novas-marcas' => redirect('/roupa/colcci-douglas%20harris-eclectic-espaco%20fashion-forum-iodice-olli-shop%20126-thelure-triton'), as: 'brands'
   match '/acessorios-sapatos' => redirect('/sapato/conforto-amaciante-apoio%20plantar-impermeabilizante-palmilha-protecao%20para%20calcanhar'), as: 'shoe_accessories'
 
+  mount Split::Dashboard, :at => 'split'
 
   # Produto
   get "/:id", to: "product#show", id: /[\w|-]*\d+/, as: "product_seo"

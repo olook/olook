@@ -108,11 +108,6 @@ class Cart < ActiveRecord::Base
     gift_wrap ? CartService.gift_wrap_price : 0
   end
 
-  def free_gift_wrap?
-    coupon_code = coupon.try(:code)
-    Setting.valentines_day_coupon_code == (coupon_code)
-  end
-
   def has_appliable_percentage_coupon?
     coupon && coupon.is_percentage? && items.select{|item| coupon.apply_discount_to?(item.product)}.any?
   end
@@ -144,7 +139,6 @@ class Cart < ActiveRecord::Base
         if UniqueCouponUtilizationPolicy.apply?(coupon: _coupon, user_coupon: _user_coupon)
           self.coupon = _coupon 
         end
-        self.gift_wrap = true if free_gift_wrap?
       end
     end
 

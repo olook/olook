@@ -72,7 +72,7 @@ module MultiJobsProcess
         slave_job.execute(data)
       rescue => e
         DevAlertMailer.notify({to: 'tech@olook.com.br', 
-          subject: "Erro", body: e.backtrace.join("\n")}).deliver!
+          subject: "Erro", body: "#{e.class}: #{e.message}\n#{e.backtrace.join("\n")}" }).deliver!
         
         puts "erro: #{e}"
         REDIS.incr(slave_job.errors_key)

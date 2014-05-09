@@ -5,9 +5,10 @@ def sitemap_directory
 end
 SitemapGenerator::Sitemap.default_host = "http://www.olook.com.br"
 SitemapGenerator::Sitemap.public_path = 'tmp/'
+SitemapGenerator::Sitemap.filename = 'sitemap'
+SitemapGenerator::Sitemap.create_index = false
+
 SitemapGenerator::Sitemap.adapter = SitemapGenerator::S3Adapter.new(Fog.credentials.merge({:fog_provider => "AWS", :fog_directory => sitemap_directory}))
-SitemapGenerator::Sitemap.sitemaps_host = "http://#{sitemap_directory}.s3.amazonaws.com/"
-SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
 
 SitemapGenerator::Sitemap.create do
 
@@ -17,32 +18,32 @@ SitemapGenerator::Sitemap.create do
   end
 
   #SHOE
-  Product.only_visible.where(category: 1).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
+  Product.only_visible.where(category: 1).includes(:details).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
     add catalog_path("sapato", sub)
   end
 
   #BAG
-  Product.only_visible.where(category: 2).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
+  Product.only_visible.where(category: 2).includes(:details).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
     add catalog_path("bolsa", sub)
   end
 
   #ACCESSORY
-  Product.only_visible.where(category: 3).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
+  Product.only_visible.where(category: 3).includes(:details).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
     add catalog_path("acessorio", sub)
   end
 
   #CLOTH
-  Product.only_visible.where(category: [4,5]).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
+  Product.only_visible.where(category: [4,5]).includes(:details).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
     add catalog_path("roupa", sub)
   end
 
   #lingerie
-  Product.only_visible.where(category: 6).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
+  Product.only_visible.where(category: 6).includes(:details).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
     add catalog_path("roupa", "#{sub}-moda-praia")
   end
 
   #CURVES
-  Product.only_visible.where(category: 7).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
+  Product.only_visible.where(category: 7).includes(:details).map{|cat| cat.subcategory.try(:parameterize)}.uniq.compact.each do |sub|
     add catalog_path("curves", sub)
   end
 
@@ -59,7 +60,7 @@ SitemapGenerator::Sitemap.create do
   end
 
   #PRODUCT
-  Product.only_visible.each do |product|
+  Product.only_visible.includes(:details).each do |product|
     add product_seo_path(product.seo_path)
   end
 

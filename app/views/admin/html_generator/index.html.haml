@@ -1,0 +1,8 @@
+.batch_form
+  %h1 Gerar pdf de produtos
+.batch_form_content
+  %p Clique em 'importar arquivos' apenas uma vez e aguarde o download do arquivo
+  
+  = form_tag admin_create_html_generator_path, multipart: true do
+    = file_field_tag :file
+    = submit_tag "Importar arquivo"
