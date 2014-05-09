@@ -1,17 +1,16 @@
 class ProductProductDocumentAdapter
-  RANKING_POWER = 1000
-  DAYS_TO_CONSIDER_OLD = 120
-  PERCENT_OLOOK_TO_REGULATOR = 100
 
-  attr_reader :log
+  attr_reader :log, :ranking_calculator
 
   def initialize
     @log = []
+    @ranking_calculator = RankingCalculator.new
   end
 
   def adapt(product, type)
     product_doc = populate_common_fields(product, type)
     product_doc = populate_addition_fields(product, product_doc) if type == 'add'
+    generate_log(product_doc, product) if product_doc.inventory > 0 && product_doc.age < RankingCalculator::DAYS_TO_CONSIDER_OLD
     product_doc
   rescue => e
     Rails.logger.error("Failed to generate sdf of product: #{product.inspect}. Error: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}")
@@ -86,44 +85,16 @@ class ProductProductDocumentAdapter
       product.collection_themes.map { |c| c.slug }
     end
 
-    def populate_ranking_fields(product, product_doc)
-      @age_weight ||= Setting[:age_weight].to_i
-
-      product_doc.r_age = calculate_ranking_age(product_doc)
-
-      @max_age_rating ||= ( @age_weight * RANKING_POWER )
-
-      product_doc.r_brand_regulator = brand_regulator(product_doc.brand)
-
-      @inventory_weight ||= Setting[:inventory_weight].to_i
-
-      proportion = calculate_proportion_for_ranking_fields(product)
-
-      product_doc.r_inventory = ( RANKING_POWER * ( proportion > 1 ? 1 : proportion ) * @inventory_weight ).to_i rescue 0
-
-      generate_log(product_doc, product) if product_doc.inventory > 0 && product_doc.age < DAYS_TO_CONSIDER_OLD
-
-      product_doc
-    end
-
-    def calculate_proportion_for_ranking_fields product
-      product.inventory.to_f / third_quartile_inventory_for_category(product.category)
-    end
-
-    def brand_regulator brand
-      (/olook/i =~ brand) ? 250 : 0
-    end
-
     def generate_log product_doc, product
       @log << [age_log(product_doc), inventory_log(product_doc, product), brand_log(product_doc), exp_log(product_doc)].join(" | ")
     end
 
     def age_log product_doc
-      "age: #{product_doc.age}/#{newest} - #{product_doc.r_age.to_i}"
+      "age: #{product_doc.age}/#{ranking_calculator.newest} - #{product_doc.r_age.to_i}"
     end
 
     def inventory_log product_doc, product
-      "inventory: #{product_doc.inventory}/#{third_quartile_inventory_for_category(product.category)} - #{product_doc.r_inventory.to_i}"
+      "inventory: #{product_doc.inventory}/#{ranking_calculator.third_quartile_inventory_for_category(product.category)} - #{product_doc.r_inventory.to_i}"
     end
 
     def brand_log product_doc
@@ -134,15 +105,33 @@ class ProductProductDocumentAdapter
       "exp: #{( product_doc.r_age + product_doc.r_inventory + product_doc.r_brand_regulator ).to_i}"
     end
 
+    def populate_ranking_fields(product, product_doc)
+      product_doc.r_age = calculate_ranking_age(product_doc)
+      product_doc.r_brand_regulator = brand_regulator(product_doc.brand)
+      proportion = calculate_proportion_for_ranking_fields(product)
+      product_doc.r_inventory = ( RankingCalculator::RANKING_POWER * ( proportion > 1 ? 1 : proportion ) * ranking_calculator.inventory_weight ).to_i rescue 0
+
+      product_doc
+    end
+
+    def calculate_proportion_for_ranking_fields product
+      product.inventory.to_f / ranking_calculator.third_quartile_inventory_for_category(product.category)
+    end
+
+    def brand_regulator brand
+      (/olook/i =~ brand) ? 250 : 0
+    end
+
+
     def calculate_ranking_age product_doc
-      result = ( RANKING_POWER * @age_weight ).to_i
-      result = calculate_proportion_for_ranking_age(product_doc) unless product_doc.age.to_i < newest
+      result = ( RankingCalculator::RANKING_POWER * ranking_calculator.age_weight ).to_i
+      result = calculate_proportion_for_ranking_age(product_doc) unless product_doc.age.to_i < ranking_calculator.newest
       result
     end
 
     def calculate_proportion_for_ranking_age product_doc
-      diff_age = product_doc.age.to_i - newest.to_i
-      proportion = diff_age.to_f / DAYS_TO_CONSIDER_OLD.to_f
+      diff_age = product_doc.age.to_i - ranking_calculator.newest.to_i
+      proportion = diff_age.to_f / RankingCalculator::DAYS_TO_CONSIDER_OLD.to_f
       # 0 / 60 = 1, 60 / 60 = 0, 30 / 60 =  0.5, 90 / 60 = 1.5
       proportion = 1 if proportion > 1
       ( 1 - proportion ).to_i
@@ -169,7 +158,6 @@ class ProductProductDocumentAdapter
     end
 
     def populate_details(product, product_doc)
-
       selected_details(product).each do |detail|
         field_key = get_field_key(detail.translation_token.downcase)
         product_doc[field_key] = format_detail_value(detail.description)
@@ -217,52 +205,4 @@ class ProductProductDocumentAdapter
     def heel_range word
       HeelSanitize.new(word).perform
     end
-
-    def newest
-      return @newest if @newest
-      save_temporary_table_vars
-      @newest
-    end
-
-    def third_quartile_inventory_for_category category
-      return @third_quartile_inventory[category] if @third_quartile_inventory
-      save_temporary_table_vars
-      @third_quartile_inventory[category]
-    end
-
-    def save_temporary_table_vars
-      create_temporary_products_with_inventory_table do
-        count = Product.connection.select_all("SELECT count(0) qty FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD}").first['qty']
-        third_quartile = ( count * 0.75 ).round
-
-        @newest = Product.connection.select("SELECT age FROM products_with_more_than_one_inventory WHERE age < #{DAYS_TO_CONSIDER_OLD} ORDER BY age desc LIMIT 1 OFFSET #{third_quartile}").first['age']
-
-        count_by_category ||= Product.connection.
-          select_all("SELECT category, count(0) `count` from products_with_more_than_one_inventory GROUP BY category").
-          inject({}) {|h,r| h[r['category']] = r['count']; h }
-
-        @third_quartile_inventory ||= count_by_category.inject({}) do |hash, aux|
-          category, count = aux
-          third_quartile = ( count*0.75 ).round
-          hash[category] = Product.connection.
-            select("SELECT sum_inventory FROM products_with_more_than_one_inventory
-                     WHERE category = #{category} order by sum_inventory limit 1 offset #{third_quartile}").
-            first['sum_inventory']
-          hash
-        end
-      end
-    end
-
-    def create_temporary_products_with_inventory_table
-      begin
-        sql = Product.only_visible.joins(:variants).group('products.id').having('sum(inventory) > 0').
-          select('products.id, IF(products.launch_date = NULL, 365, CURDATE() - products.launch_date) age,
-                 products.category, sum(variants.inventory) sum_inventory').to_sql
-          Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
-          Product.connection.execute("CREATE TEMPORARY TABLE products_with_more_than_one_inventory AS #{sql}")
-          yield
-      ensure
-        Product.connection.execute('DROP TEMPORARY TABLE IF EXISTS products_with_more_than_one_inventory')
-      end
-    end  
 end

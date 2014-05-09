@@ -36,6 +36,10 @@ class ProductDocument
     }
   end
 
+  def initialize
+    @fields = {}
+  end
+
   def is_visible= is_visible
     @fields['is_visible'] = is_visible ? 1 : 0
   end
@@ -101,7 +105,4 @@ class ProductDocument
     end
   end
 
-  def initialize
-    @fields = {}
-  end
 end
