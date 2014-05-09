@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe BrandsController do
+  before do
+    BrandsFormat.any_instance.stub(:get_sort_brands_from_cache).and_return([])
+  end
 
   describe "GET 'index'" do
     it "returns http success" do
@@ -8,13 +11,4 @@ describe BrandsController do
       response.should be_success
     end
   end
-
-  describe "GET 'show'" do
-    it "returns http success" do
-      pending
-      get 'show'
-      response.should be_success
-    end
-  end
-
 end

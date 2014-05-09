@@ -83,10 +83,10 @@ class MktXmlBuilder
         ERB.new(File.read(template_file_path))
       rescue KeyError
         OpenStruct.new({result: ""})
-      end      
+      end
     end
 
     def self.load_products
-      Product.valid_for_xml(Product.xml_blacklist("products_blacklist").join(','))
+      Product.includes(:pictures,:details).valid_for_xml(Product.xml_blacklist("products_blacklist").join(','))
     end
 end

@@ -28,7 +28,7 @@ class QuizResponder
       profile: @profile,
       user_data: @user_data
     }
-    redis.set(self.class.redis_key(uuid), JSON.generate(serial))
+    redis.setex(self.class.redis_key(uuid), 24*3600, JSON.generate(serial))
   end
 
   def destroy
@@ -82,7 +82,7 @@ class QuizResponder
       return self
     end
     update_profile
-    destroy unless @uuid == WhatsYourStyle::Quiz::DEFAULT_QUIZ_RESPONSE["uuid"]
+    destroy unless @uuid == api.default_quiz_response["uuid"]
 
     @next_step = ROUTES.profile_path()
     self
@@ -99,9 +99,7 @@ class QuizResponder
   end
 
   def api
-    @api = WhatsYourStyle::Quiz.new
-    @api.logger = Rails.logger
-    @api
+    @api ||= WhatsYourStyle::Quiz.new(logger: Rails.logger, config_dir: "#{Rails.root}/config")
   end
 
   def self.redis

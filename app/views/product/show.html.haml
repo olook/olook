@@ -25,7 +25,8 @@
 = render "shared/mkt_breadcrumb"
 %section#product
   = product_breadcrumbs_for(@product)
-  = product_presenter.render_complete_look_badge(current_admin)
+  - ab_test("complete_look_button", "bt_angel", "bt_domit") do |class_name|
+    = product_presenter.render_complete_look_badge(current_admin, class_name)
 
   .box-left
     #gallery

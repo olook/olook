@@ -4,6 +4,7 @@ class BrandsController < ApplicationController
     @url_builder = SeoUrl.new(path: request.fullpath, path_positions: '/marcas/:brand:/-:category::subcategory:-/-:care::color::size::heel:_')
     @search = SearchEngine.new
     @url_builder.set_search @search
+    @brands = BrandsFormat.new.retrieve_brands
   end
 
   def show
@@ -20,7 +21,6 @@ class BrandsController < ApplicationController
     @color = search_params["color"]
     @size = search_params["size"]
     @brand = Brand.where(name:  params[:brand].to_s.split("-").map{|brand| ActiveSupport::Inflector.transliterate(brand).downcase.titleize})
-    @brand_name = @brand.first.try(:name)
     @chaordic_user = ChaordicInfo.user(current_user,cookies[:ceid])
   end
 
@@ -31,10 +31,10 @@ class BrandsController < ApplicationController
     @brand = Brand.where(name:  params[:brand].to_s.split("-").map{|brand| ActiveSupport::Inflector.transliterate(brand).downcase.titleize})
   end
   private
-    def canonical_link
-      brand = Array(@brand).first
-      if brand
-        "http://#{request.host_with_port}/#{brand.name.downcase}"
-      end
+  def canonical_link
+    brand = Array(@brand).first
+    if brand
+      "http://#{request.host_with_port}/#{brand.name.downcase}"
     end
+  end
 end
