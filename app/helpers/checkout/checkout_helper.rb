@@ -12,8 +12,7 @@ module Checkout::CheckoutHelper
   end
 
   def show_motoboy_freight?
-    is_special_saturday = DateTime.now.wday == SATURDAY && DateTime.now.hour < 17 &&  DateTime.now.hour > 8
-    @shipping_service_fast.shipping_service_id == MOTOBOY_FREIGHT_SERVICE_ID #&& (work_time? || is_special_saturday)
+    @shipping_service_fast.shipping_service_id == MOTOBOY_FREIGHT_SERVICE_ID && work_time?
   end
 
   def error_class_if_needed(object, field)
