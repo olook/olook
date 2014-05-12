@@ -89,7 +89,7 @@ class ProductController < ApplicationController
   end
 
   def meta_description
-    modify_meta_description(@product.description, @product.product_color)
+    modify_meta_description(@product.try(:description), @product.try(:product_color))
   end
 
   private
