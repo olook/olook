@@ -1,14 +1,14 @@
 class SearchedProduct
   include Search::Searchable
-  field :name, :literal
-  field :model_name, :literal
-  field :category, :literal
-  field :image, :literal
-  field :backside_image, :literal
-  field :price, :decimal, scale: 2
-  field :brand, :literal
-  field :retail_price, :decimal, scale: 2
-  field :inventory, :uint
+  add_field :name, :literal
+  add_field :model_name, :literal
+  add_field :category, :literal
+  add_field :image, :literal
+  add_field :backside_image, :literal
+  add_field :price, :decimal, scale: 2
+  add_field :brand, :literal
+  add_field :retail_price, :decimal, scale: 2
+  add_field :inventory, :uint
 
   alias :formatted_name :name
   alias :catalog_image :image
