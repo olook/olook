@@ -16,7 +16,8 @@
   .other-products,
   #stylists,
   #boxes,
-  #products_categories  {
+  #products_categories,
+  .warn_discount  {
 		display: none !important;
 	}
 
@@ -636,6 +637,9 @@
               width:96%;
             }
           }
+        }
+        .colors {
+          margin-left:0px !important;
         }
         .size_guide {
           display: none !important;
