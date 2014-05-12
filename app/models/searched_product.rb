@@ -9,6 +9,10 @@ class SearchedProduct
   add_field :brand, :literal
   add_field :retail_price, :decimal, scale: 2
   add_field :inventory, :uint
+  add_field :is_visible, :boolean
+  add_field :in_promotion, :boolean
+  add_field :visibility, :text, array: true
+  add_field :heeluint, :uint
 
   alias :formatted_name :name
   alias :catalog_image :image

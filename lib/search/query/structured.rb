@@ -1,38 +1,42 @@
 module Search
   module Query
     class Structured
-      def initialize(base_class, parent_node)
+      def initialize(base_class)
         @base = base_class
-        @parent_node = parent_node
         @nodes = []
       end
 
-      def field(key, value)
-        @nodes << Field.new(key, value, @base)
+      def field(key, value, options={})
+        node = @base.field(key.to_s, options) || Field.new(key, @base, options)
+        node.value = value
+        @nodes << node
       end
 
       def and(&block)
-        add_node(:and, block)
+        add_operator_node(:and, block)
       end
 
       def or(&block)
-        add_node(:or, block)
+        add_operator_node(:or, block)
       end
 
       def not(&block)
-        add_node(:not, block)
+        add_operator_node(:not, block)
       end
 
       def to_url
         url = @nodes.map do |node|
           node.to_url
         end
-        url.join
+        url.join(' ')
       end
 
       private
       def add_operator_node(kind, block)
-        @nodes << Operator.new(kind, block.call(self.new(@base, self)))
+        child_structured = self.class.new(@base)
+        block.call(child_structured)
+        @nodes << Operator.new(kind, child_structured)
+        self
       end
     end
   end
