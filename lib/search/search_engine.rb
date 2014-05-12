@@ -74,9 +74,7 @@ class SearchEngine
   # e passar a usar parameterize na indexação e mudar as urls.
   # Depende de fazer um tradutor dos links antigos para os novos.
   def collection_theme=(val)
-    @structured.and do |s|
-      s.field 'collection_theme', val.to_s
-    end unless val.blank?
+    @structured.and 'collection_theme', val.to_s unless val.blank?
   end
 
   def heel= heel
@@ -84,23 +82,18 @@ class SearchEngine
       hvals = heel.split('-')
       while hvals.present?
         val = hvals.shift(2)
-        @structured.and do |s|
-          s.field "heeluint", val
-        end
+        @structured.and "heeluint", val
       end
     end
     self
   end
 
   def price= price
-    @expressions["price"] = []
     if price.to_s =~ /^(-?\d+-\d+)+$/
       pvals = price.split('-')
       while pvals.present?
         val_arr = pvals.shift(2)
-        @structured.and do |s|
-          s.field "retail_price", val_arr
-        end
+        @structured.and "retail_price", val_arr
       end
     end
     self
