@@ -12,15 +12,15 @@ module Search
     end
 
     def value=(val)
-      if(@options[:array])
-        @value = val.is_a?(Array) ? val : [val]
-      else
-        @value = val.is_a?(Array) ? val[0] : val
-      end
+      @value = val
     end
 
     def value
-      @value
+      if(@options[:array])
+        @value.is_a?(Array) ? @value : [val]
+      else
+        @value.is_a?(Array) ? @value[0] : val
+      end
     end
 
     def to_url

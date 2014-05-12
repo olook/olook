@@ -12,16 +12,14 @@ module Search
         @nodes << node
       end
 
-      def and(&block)
-        add_operator_node(:and, block)
-      end
-
-      def or(&block)
-        add_operator_node(:or, block)
-      end
-
-      def not(&block)
-        add_operator_node(:not, block)
+      [:and, :or, :not].each do |m|
+        define_method m do |field=nil, value=nil, &block|
+          if block
+            add_operator_node(m, block)
+          else
+            add_single_field(m, field, value)
+          end
+        end
       end
 
       def to_url
@@ -36,6 +34,15 @@ module Search
         child_structured = self.class.new(@base)
         block.call(child_structured)
         @nodes << Operator.new(kind, child_structured)
+        self
+      end
+
+      def add_single_field(kind, name, value)
+        child_structured = self.class.new(@base)
+        child_structured.send(kind) do |s|
+          s.field name, value
+        end
+        @nodes << child_structured
         self
       end
     end
