@@ -1,10 +1,6 @@
 module Search
   module Query
-    module Structured
-      def self.included(base)
-        base.extend(ClassMethods)
-      end
-
+    class Structured
       def initialize(base_class, parent_node)
         @base = base_class
         @parent_node = parent_node
