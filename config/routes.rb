@@ -110,6 +110,7 @@ Olook::Application.routes.draw do
   match "/olookmovel", to: "pages#olookmovel", as: "olookmovel"
   match "/troca_e_devolucao", to: "pages#troca", as: "troca"
   match "/half_newsletter", to: "landing_pages#half_newsletter", as: "newsletter"
+  match "/faq", :to => "pages#faq", :as => "faq"
 
   # TODO use clippings when press page change
   match "/olook-na-imprensa", :to => "clippings#index", :as => "press"
