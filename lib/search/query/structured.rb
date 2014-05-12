@@ -5,15 +5,23 @@ module Search
         base.extend(ClassMethods)
       end
 
-      def initialize(base_class)
+      def initialize(base_class, parent_node)
         @base = base_class
+        @parent_node = parent_node
+        @nodes = []
       end
 
-      def and(filter)
-        add_node(filter.map { |field, value| Node})
+      def field(key, value)
+        Field.new(key, value, @base)
       end
 
-      def or(filter)
+      def and(&block)
+      end
+
+      def or(&block)
+      end
+
+      def not(&block)
       end
     end
   end
