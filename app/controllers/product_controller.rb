@@ -3,6 +3,7 @@ require 'new_relic/agent/method_tracer'
 
 class ProductController < ApplicationController
   include ::NewRelic::Agent::MethodTracer 
+  include ProductsHelper
 
   respond_to :html
   before_filter :load_show_product, :load_product_discount_service, only: [:show, :spy, :product_valentines_day]
@@ -85,6 +86,10 @@ class ProductController < ApplicationController
   def ab_test
     finished("complete_look_button", reset: false)
     render json: {status: :ok}.to_json
+  end
+
+  def meta_description
+    modify_meta_description(@product.description, @product.product_color)
   end
 
   private
