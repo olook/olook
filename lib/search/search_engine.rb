@@ -33,11 +33,14 @@ class SearchEngine
   attr_reader :expressions, :sort_field
 
   def initialize attributes = {}, is_smart = false
+    @structured = SearchedProduct.structured
     @expressions = HashWithIndifferentAccess.new
-    @expressions['is_visible'] = [1]
-    @expressions['inventory'] = ['inventory:1..']
-    @expressions['in_promotion'] = [0]
-    @expressions['visibility'] = [Product::PRODUCT_VISIBILITY[:site],Product::PRODUCT_VISIBILITY[:all]]
+    @structured.and do |s|
+      s.field 'is_visible', 1
+      s.field 'inventory', [1, nil]
+      s.field 'in_promotion', 0
+      s.field 'visibility', [Product::PRODUCT_VISIBILITY[:site], Product::PRODUCT_VISIBILITY[:all]]
+    end
     @facets = []
     @is_smart = is_smart
     default_facets
@@ -71,16 +74,19 @@ class SearchEngine
   # e passar a usar parameterize na indexação e mudar as urls.
   # Depende de fazer um tradutor dos links antigos para os novos.
   def collection_theme=(val)
-    @expressions['collection_theme'] = [val.to_s] unless val.blank?
+    @structured.and do |s|
+      s.field 'collection_theme', val.to_s
+    end unless val.blank?
   end
 
   def heel= heel
-    @expressions["heel"] = []
     if heel =~ /^(-?\d+-\d+)+$/
       hvals = heel.split('-')
       while hvals.present?
-        val = hvals.shift(2).join('..')
-        @expressions["heel"] << "heeluint:#{val}"
+        val = hvals.shift(2)
+        @structured.and do |s|
+          s.field "heeluint", val
+        end
       end
     end
     self
@@ -92,7 +98,9 @@ class SearchEngine
       pvals = price.split('-')
       while pvals.present?
         val_arr = pvals.shift(2)
-        @expressions["price"] << "retail_price:#{format_price_range(val_arr.first,val_arr.last)}"
+        @structured.and do |s|
+          s.field "retail_price", val_arr
+        end
       end
     end
     self
@@ -307,9 +315,9 @@ class SearchEngine
     end
 
     if bq.size == 1
-      "bq=#{ERB::Util.url_encode bq.first}&"
+      "bq=#{ERB::Util.url_encode "(and #{@structured.to_url} #{bq.first})"}&"
     elsif bq.size > 1
-      "bq=#{ERB::Util.url_encode "(and #{bq.join(' ')})"}&"
+      "bq=#{ERB::Util.url_encode "(and #{@structured.to_url} #{bq.join(' ')})"}&"
     else
       ""
     end
