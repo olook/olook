@@ -38,7 +38,7 @@ class SearchEngine
   attr_accessor :df
 
   attr_reader :current_page, :result
-  attr_reader :expressions, :sort_field
+  attr_reader :structured, :sort_field
 
   def initialize attributes = {}, is_smart = false
     @structured = SearchedProduct.structured(:and)
@@ -47,7 +47,10 @@ class SearchEngine
       s.field 'is_visible', 1
       s.field 'inventory', [1, nil]
       s.field 'in_promotion', 0
-      s.field 'visibility', [Product::PRODUCT_VISIBILITY[:site], Product::PRODUCT_VISIBILITY[:all]]
+      s.or do |_s|
+        _s.field 'visibility', Product::PRODUCT_VISIBILITY[:site]
+        _s.field 'visibility', Product::PRODUCT_VISIBILITY[:all]
+      end
     end
     @facets = []
     @is_smart = is_smart
@@ -64,7 +67,7 @@ class SearchEngine
       end
     end
     validate_sort_field
-    Rails.logger.debug("SearchEngine processed these params: #{@expressions.inspect}")
+    Rails.logger.debug("SearchEngine processed these params: #{expressions.inspect}")
 
     @redis = Redis.connect(url: ENV['REDIS_CACHE_STORE'])
   end
@@ -90,7 +93,7 @@ class SearchEngine
       hvals = heel.split('-')
       while hvals.present?
         val = hvals.shift(2)
-        @structured.and "heeluint", val
+        @structured.or "heeluint", val
       end
     end
     self
@@ -101,7 +104,7 @@ class SearchEngine
       pvals = price.split('-')
       while pvals.present?
         val_arr = pvals.shift(2)
-        @structured.and "retail_price", val_arr
+        @structured.or "retail_price", val_arr
       end
     end
     self
@@ -130,14 +133,30 @@ class SearchEngine
 
   def category= _category
     if _category == "roupa" && !@skip_beachwear_on_clothes
-      @expressions["category"] = ["roupa","moda praia", "lingerie"]
+      @structured.or do |s|
+        s.field "category", "roupa"
+        s.field "category", "moda praia"
+        s.field "category", "lingerie"
+      end
     elsif _category.is_a?(Array) 
-      @expressions["category"] = _category
+      @structured.or do |s|
+        _category.each do |c|
+          s.field "category", c
+        end
+      end
     elsif _category == 'plus-size'
-      @expressions["category"] = [_category]
+      @structured.and("category", _category)
     else
-      @expressions["category"] = _category.to_s.split(MULTISELECTION_SEPARATOR)
+      @structured.or do |s|
+        _category.to_s.split(MULTISELECTION_SEPARATOR).each do |c|
+          s.field "category", c
+        end
+      end
     end
+  end
+
+  def expressions
+    HashWithIndifferentAccess.new(@structured.nodes_by_field)
   end
 
   def total_results
@@ -256,9 +275,17 @@ class SearchEngine
 
 
   def for_admin
-    @expressions['is_visible'] = [0,1]
-    @expressions['in_promotion'] = [0,1]
-    @expressions['inventory'] = ['inventory:0..']
+    @structured.and do |s|
+      s.or do |_s|
+        _s.field 'is_visible', 0
+        _s.field 'is_visible', 1
+      end
+      s.or do |_s|
+       _s.field 'in_promotion', 0
+       _s.field 'in_promotion', 1
+      end
+      s.field 'inventory', [0, nil]
+    end
     self
   end
 
@@ -294,17 +321,17 @@ class SearchEngine
 
   def build_boolean_expression(options={})
     bq = []
-    expressions = @expressions.clone
-    cares = expressions.delete('care')
+    _expressions = @expressions.clone
+    cares = _expressions.delete('care')
     if cares.present?
-      subcategories = expressions.delete('subcategory')
+      subcategories = _expressions.delete('subcategory')
       vals = cares.map { |v| "(field care '#{v}')" }
       vals.concat(subcategories.map { |v| "(field subcategory '#{v}')" }) if subcategories.present?
       bq << ( vals.size > 1 ? "(or #{vals.join(' ')})" : vals.first )
     end
 
-    remove_excluded_brands(bq, expressions)
-    expressions.each do |field, values|
+    remove_excluded_brands(bq, _expressions)
+    _expressions.each do |field, values|
       next if options[:use_fields] && !options[:use_fields].include?(field.to_sym) && PERMANENT_FIELDS_ON_URL.exclude?(field.to_sym)
       next if values.empty?
       if RANGED_FIELDS[field]
@@ -344,71 +371,71 @@ class SearchEngine
     Search::Retriever.new(redis: @redis, logger: Rails.logger).fetch_result(url, options)
   end
 
-    def append_or_remove_filter(filter_key, filter_value, filter_params)
-      filter_params[filter_key] ||= [filter_value.downcase]
-      if filter_selected?(filter_key, filter_value)
-        filter_params[filter_key] -= [ filter_value.downcase ]
-      else
-        filter_params[filter_key] << filter_value.downcase
-      end
-      filter_params[filter_key].uniq!
-      filter_params
+  def append_or_remove_filter(filter_key, filter_value, filter_params)
+    filter_params[filter_key] ||= [filter_value.downcase]
+    if filter_selected?(filter_key, filter_value)
+      filter_params[filter_key] -= [ filter_value.downcase ]
+    else
+      filter_params[filter_key] << filter_value.downcase
     end
+    filter_params[filter_key].uniq!
+    filter_params
+  end
 
-    def formatted_filters
-      filter_params = HashWithIndifferentAccess.new
-      expressions.clone.each do |k, v|
-        next if IGNORE_ON_URL.include?(k)
-        next if k == 'visibility'
-        filter_params[k] ||= []
-        if RANGED_FIELDS[k]
-          v.each do |_v|
-            /(?<min>\d+)\.\.(?<max>\d+)/ =~ _v.to_s
-            if k.to_s == 'price'
-              min = (min.to_d / 100.0).round
-              max = (max.to_d / 100.0).round
-            end
-            filter_params[k] << "#{min}-#{max}"
+  def formatted_filters
+    filter_params = HashWithIndifferentAccess.new
+    @expressions.clone.each do |k, v|
+      next if IGNORE_ON_URL.include?(k)
+      next if k == 'visibility'
+      filter_params[k] ||= []
+      if RANGED_FIELDS[k]
+        v.each do |_v|
+          /(?<min>\d+)\.\.(?<max>\d+)/ =~ _v.to_s
+          if k.to_s == 'price'
+            min = (min.to_d / 100.0).round
+            max = (max.to_d / 100.0).round
           end
-        else
-          filter_params[k].concat v.map { |_v| _v.downcase }
+          filter_params[k] << "#{min}-#{max}"
         end
-      end
-      filter_params[:sort] = ( @sort_field == DEFAULT_SORT ? nil : @sort_field )
-
-      filter_params
-    end
-
-    def remove_excluded_brands(bq, expressions)
-      return unless expressions["excluded_brand"].present?
-      excluded_brands = expressions["excluded_brand"]
-      expressions.delete("excluded_brand")
-      vals = excluded_brands.map { |v| "(field brand '#{v}')" } unless excluded_brands.empty?
-      bq << ( "(not (or #{vals.join(' ')}))" )
-    end
-
-    def validate_sort_field
-      if @sort_field.nil? || @sort_field == "" || @sort_field == 0 || @sort_field == "0"
-        @sort_field = DEFAULT_SORT
+      else
+        filter_params[k].concat v.map { |_v| _v.downcase }
       end
     end
+    filter_params[:sort] = ( @sort_field == DEFAULT_SORT ? nil : @sort_field )
 
-    def format_price_range(min,max)
-      "#{min.to_i*100}..#{[max.to_i*100-1, 0].max}"
-    end
+    filter_params
+  end
 
-    def price_selected_filters expressions
-      return [] unless expressions[:price]
-      price_filters = expressions[:price].map do |e| 
-        a = e.gsub("retail_price:","").split("..")
-        a[0] = (a[0].to_i/100).to_s
-        a[1] = ((a[1].to_i+1)/100).to_s
-        a.join("-")
-      end
-      price_filters || []
-    end
+  def remove_excluded_brands(bq, _expressions)
+    return unless _expressions["excluded_brand"].present?
+    excluded_brands = _expressions["excluded_brand"]
+    _expressions.delete("excluded_brand")
+    vals = excluded_brands.map { |v| "(field brand '#{v}')" } unless excluded_brands.empty?
+    bq << ( "(not (or #{vals.join(' ')}))" )
+  end
 
-    def smart_ranking_params
-      "-exp,#{ @sort_field }".split(",").reject{|v| v.blank?}.join(",")
+  def validate_sort_field
+    if @sort_field.nil? || @sort_field == "" || @sort_field == 0 || @sort_field == "0"
+      @sort_field = DEFAULT_SORT
     end
+  end
+
+  def format_price_range(min,max)
+    "#{min.to_i*100}..#{[max.to_i*100-1, 0].max}"
+  end
+
+  def price_selected_filters _expressions
+    return [] unless _expressions[:price]
+    price_filters = _expressions[:price].map do |e| 
+      a = e.gsub("retail_price:","").split("..")
+      a[0] = (a[0].to_i/100).to_s
+      a[1] = ((a[1].to_i+1)/100).to_s
+      a.join("-")
+    end
+    price_filters || []
+  end
+
+  def smart_ranking_params
+    "-exp,#{ @sort_field }".split(",").reject{|v| v.blank?}.join(",")
+  end
 end
