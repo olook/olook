@@ -20,6 +20,14 @@ class SearchEngine
     end
   end
 
+  def product_id=(v)
+    @structured.or do |s|
+      v.to_s.split(MULTISELECTION_SEPARATOR).each do |_v|
+        s.field :product_id, _v
+      end
+    end
+  end
+
   NESTED_FILTERS = {
     category: [ :subcategory ]
   }
@@ -33,7 +41,7 @@ class SearchEngine
   attr_reader :expressions, :sort_field
 
   def initialize attributes = {}, is_smart = false
-    @structured = SearchedProduct.structured
+    @structured = SearchedProduct.structured(:and)
     @expressions = HashWithIndifferentAccess.new
     @structured.and do |s|
       s.field 'is_visible', 1
@@ -312,7 +320,7 @@ class SearchEngine
     elsif bq.size > 1
       "bq=#{ERB::Util.url_encode "(and #{@structured.to_url} #{bq.join(' ')})"}&"
     else
-      ""
+      "bq=#{ERB::Util.url_encode @structured.to_url}&"
     end
   end
 

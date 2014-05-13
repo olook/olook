@@ -25,11 +25,9 @@ module Search
 
     def to_url
       if @options[:array]
-        structured = Search::Query::Structured.new(@base)
-        structured.or do |s|
-          value.map do |v|
-            s.field @name, v, array: false
-          end
+        structured = Search::Query::Structured.new(@base, :or)
+        value.map do |v|
+          structured.field @name, v, array: false
         end
         structured.to_url
       else

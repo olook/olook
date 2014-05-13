@@ -2,7 +2,9 @@ class SearchedProduct
   include Search::Searchable
   add_field :name, :literal
   add_field :model_name, :literal
+  add_field :product_id, :literal
   add_field :category, :literal
+  add_field :collection_theme, :literal
   add_field :image, :literal
   add_field :backside_image, :literal
   add_field :price, :decimal, scale: 2
@@ -13,6 +15,7 @@ class SearchedProduct
   add_field :in_promotion, :boolean
   add_field :visibility, :text, array: true
   add_field :heeluint, :uint
+  add_field :size, :literal, array: true
 
   alias :formatted_name :name
   alias :catalog_image :image
