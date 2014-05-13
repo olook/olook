@@ -11,19 +11,20 @@ class SearchEngine
 
   RETURN_FIELDS = [:subcategory,:name,:brand,:image,:retail_price,:price,:backside_image,:category,:text_relevance,:inventory]
 
-  SEARCHABLE_FIELDS = [:category, :subcategory, :color, :brand, :heel,
-                :care, :price, :size, :product_id, :collection_theme,
-                :sort, :term, :excluded_brand, :visibility]
+  SEARCHABLE_FIELDS = [ :care, :sort, :term, :excluded_brand]
   SEARCHABLE_FIELDS.each do |attr|
     define_method "#{attr}=" do |v|
       @expressions[attr] = v.to_s.split(MULTISELECTION_SEPARATOR)
     end
   end
 
-  def product_id=(v)
-    @structured.or do |s|
-      v.to_s.split(MULTISELECTION_SEPARATOR).each do |_v|
-        s.field :product_id, _v
+  [:product_id, :brand, :subcategory, :visibility,
+  :color, :size].each do |attr|
+    define_method "#{attr}=" do |v|
+      @structured.or do |s|
+        v.to_s.split(MULTISELECTION_SEPARATOR).each do |_v|
+          s.field attr, _v
+        end
       end
     end
   end
@@ -384,7 +385,7 @@ class SearchEngine
 
   def formatted_filters
     filter_params = HashWithIndifferentAccess.new
-    @expressions.clone.each do |k, v|
+    expressions.clone.each do |k, v|
       next if IGNORE_ON_URL.include?(k)
       next if k == 'visibility'
       filter_params[k] ||= []

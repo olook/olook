@@ -36,6 +36,7 @@ module Search
       end
 
       def field(name, options={})
+        raise ArgumentError.new("field #{name} is missing in #{self}, declare it in the class body.") unless @@fields[name.to_s]
         field = @@fields[name.to_s].clone
         field.set_options(options) if field && options.size > 0
         field
