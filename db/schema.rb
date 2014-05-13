@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140429210416) do
+ActiveRecord::Schema.define(:version => 20140508143916) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20140429210416) do
     t.string  "first_name"
     t.string  "last_name"
     t.string  "mobile"
-    t.boolean "active"
+    t.boolean "active",       :default => true
   end
 
   add_index "addresses", ["user_id"], :name => "index_addresses_on_user_id"
@@ -79,6 +79,9 @@ ActiveRecord::Schema.define(:version => 20140429210416) do
     t.string   "header_image_alt"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.text     "info"
+    t.string   "bg_color"
+    t.string   "font_color"
   end
 
   create_table "braspag_authorize_responses", :force => true do |t|
@@ -305,6 +308,9 @@ ActiveRecord::Schema.define(:version => 20140429210416) do
     t.string   "video_link"
     t.string   "header_image_alt"
     t.string   "text_color"
+    t.string   "bg_color"
+    t.string   "font_color"
+    t.text     "info"
   end
 
   add_index "collection_themes", ["collection_theme_group_id"], :name => "index_collection_themes_on_collection_theme_group_id"
@@ -552,7 +558,6 @@ ActiveRecord::Schema.define(:version => 20140429210416) do
     t.string   "link_big_banner"
     t.string   "title"
     t.string   "resume_title"
-    t.text     "text_complement"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.boolean  "enabled"

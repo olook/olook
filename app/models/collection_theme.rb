@@ -1,5 +1,5 @@
 class CollectionTheme < ActiveRecord::Base
-  attr_accessible :product_associate_ids, :product_associate_ids_file, :name, :slug, :video_link, :header_image_alt, :text_color, :active, :header_image, :position, :collection_theme_group_id, :fail_product_ids
+  attr_accessible :product_associate_ids, :product_associate_ids_file, :name, :slug, :video_link, :header_image_alt, :text_color, :active, :header_image, :position, :collection_theme_group_id, :fail_product_ids, :info, :bg_color, :font_color
   attr_reader :product_associate_ids, :product_associate_ids_file
   attr_accessor :fail_product_ids
 

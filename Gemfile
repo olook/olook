@@ -4,7 +4,6 @@ ruby "2.0.0"
 
 gem 'rails', '3.2.13'
 gem 'rake', '0.9.2'
-gem 'ar-octopus'
 
 gem 'pdfkit'
 gem 'wkhtmltopdf-binary'
@@ -66,7 +65,6 @@ gem 'business_time'
 gem "rails-settings-cached"
 gem "rubypress", :git => 'git://github.com/olook/rubypress.git', :branch => 'master'
 
-
 gem "boleto_bancario", :git => 'git@github.com:olook/boleto_bancario.git', :branch => 'homologacao_santander', require: false
 gem 'fb-channel-file'
 
@@ -81,6 +79,8 @@ end
 
 gem 'piet', :git => 'git://github.com/albertbellonch/piet.git', ref: "630a98bef1595fb2a138e98ff9aaefbca987a999"
 
+gem "spring", group: :development
+gem "spring-commands-rspec", group: :development
 group :development, :test do
   gem 'better_errors'
   gem 'faker'
@@ -108,9 +108,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'simplecov', :require => false
   gem 'simplecov-rcov', :require => false
-  gem 'spork', '~> 0.9.2'
   gem 'guard-rspec'
-  gem 'guard-spork'
   gem 'fuubar'
   gem "vcr", "~> 2.5.0"
   gem 'ci_reporter', :git => 'git://github.com/nicksieger/ci_reporter.git', require: false

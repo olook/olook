@@ -23,7 +23,6 @@ FactoryGirl.define do
     link_big_banner "MyString"
     title "MyString"
     resume_title "MyString"
-    text_complement "MyText"
     organic_url "/sapatos"
     product_list "1001,1002,1003"
 

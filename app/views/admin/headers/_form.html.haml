@@ -1,6 +1,5 @@
 - content_for :footer do
   = javascript_include_tag 'section/admin/catalog_header'
-
 = form_for([:admin, @header],:multipart => true ) do |f|
   - if @header.errors.any?
     #error_explanation
@@ -10,13 +9,16 @@
       %ul
         - @header.errors.full_messages.each do |msg|
           %li= msg
-  .field
-    = f.label "Tipo de url"
-    = f.select(:url_type, [["Nova url", 2], ["Url existente", 1]])
-
-  .inline_field
-    = f.check_box :enabled
-    = f.label :enabled
+  %fieldset
+    .field
+      = f.label :url_type
+      %br
+      = f.select(:url_type, [["Nova url", 2], ["Url existente", 1]])
+    %br/
+    .inline_field
+      = f.check_box :enabled
+      %br/
+      = f.label :enabled
   %br
 
   %fieldset#no_custom_url
@@ -48,16 +50,17 @@
 
   %br
   %fieldset
-    %legend Tipo do Cabeçalho
+    %legend SEO
     .field
       = f.label :type
       %br/
-      = f.select(:type, [['Sem Header', 'NoBanner'], ['Texto', 'TextCatalogHeader'], ['1 Banner', 'BigBannerCatalogHeader'], ['3 Banners','SmallBannerCatalogHeader'], ['Tendencia', 'TrendyCatalogHeader']],{ value: params[:type].to_a.first},id: "header_type")
+      = f.select(:type, [['Sem Header', 'NoBanner'], ['Texto', 'TextCatalogHeader'], ['1 Banner', 'BigBannerCatalogHeader'], ['3 Banners','SmallBannerCatalogHeader'], ['Tendencia', 'TrendyCatalogHeader'],['Tendencia-Matelasse', 'MatelasseTrendyCatalogHeader'],['Tendencia-Basico', 'BasicoTrendyCatalogHeader']],{ value: params[:type].to_a.first},id: "header_type")
     .field
       = f.label :page_title
       %br/
       = f.text_field :page_title
       | Olook
+    %br/
     .field
       = f.label :page_description
       %br/
@@ -66,6 +69,7 @@
   %fieldset#small_banner_catalog_header
     %legend Três banners como na figura abaixo
     = image_tag('admin/catalog_header/3banner.jpg')
+    %br/
     .field
       = f.label :small_banner1
       %br/
@@ -75,14 +79,17 @@
         %br/
         = f.check_box :remove_small_banner1, style: 'width: 10px'
         = f.label :remove_small_banner1, 'Remover imagem acima salva previamente'
+    %br/
     .field
       = f.label :alt_small_banner1
       %br/
       = f.text_field :alt_small_banner1
+    %br/
     .field
       = f.label :link_small_banner1
       %br/
       = f.text_field :link_small_banner1
+    %br/
     .field
       = f.label :small_banner2
       %br/
@@ -92,14 +99,17 @@
         %br/
         = f.check_box :remove_small_banner2, style: 'width: 10px'
         = f.label :remove_small_banner2, 'Remover imagem acima salva previamente'
+    %br/
     .field
       = f.label :alt_small_banner2
       %br/
       = f.text_field :alt_small_banner2
+    %br/
     .field
       = f.label :link_small_banner2
       %br/
       = f.text_field :link_small_banner2
+    %br/
     .field
       = f.label :medium_banner
       %br/
@@ -109,17 +119,21 @@
         %br/
         = f.check_box :remove_medium_banner, style: 'width: 10px'
         = f.label :remove_medium_banner, 'Remover imagem acima salva previamente'
+    %br/
     .field
       = f.label :alt_medium_banner
       %br/
       = f.text_field :alt_medium_banner
+    %br/
     .field
       = f.label :link_medium_banner
       %br/
       = f.text_field :link_medium_banner
+    %br/
   %fieldset#big_banner_catalog_header
     %legend Um banner como na figura abaixo
     = image_tag('admin/catalog_header/1banner.jpg')
+    %br/
     .field
       = f.label :big_banner
       %br/
@@ -129,28 +143,31 @@
         %br/
         = f.check_box :remove_big_banner, style: 'width: 10px'
         = f.label :remove_big_banner, 'Remover imagem acima salva previamente'
+    %br/
     .field
       = f.label :alt_big_banner
       %br/
       = f.text_field :alt_big_banner
+    %br/
     .field
       = f.label :link_big_banner
       %br/
       = f.text_field :link_big_banner
+    %br/
   %fieldset#text_catalog_header
-    %legend Texto como na figura abaixo
+    %legend Topo da página
+    %br/
     = image_tag('admin/catalog_header/texto.jpg')
+    %br/
     .field
       = f.label :title
       %br/
       = f.text_field :title
+    %br/
     .field
       = f.label :resume_title
       %br/
       = f.text_area :resume_title
-    .field
-      = f.label :text_complement
-      %br/
-      = f.text_area :text_complement
+    %br/
   .actions
     = f.submit "Salvar"
