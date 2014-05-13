@@ -1,5 +1,6 @@
 module Search
   class Field
+    attr_reader :name
     def initialize(name, base_class, options={})
       @name = name
       @value = nil
@@ -17,22 +18,14 @@ module Search
 
     def value
       if(@options[:array])
-        @value.is_a?(Array) ? @value : [val]
+        @value.is_a?(Array) ? @value : [@value]
       else
-        @value.is_a?(Array) ? @value[0] : val
+        @value.is_a?(Array) ? @value[0] : @value
       end
     end
 
     def to_url
-      if @options[:array]
-        structured = Search::Query::Structured.new(@base, :or)
-        value.map do |v|
-          structured.field @name, v, array: false
-        end
-        structured.to_url
-      else
-        "(field #{@name} '#{@value}')"
-      end
+      "(field #{@name} '#{@value}')"
     end
 
     class << self

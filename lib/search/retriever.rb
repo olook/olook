@@ -25,7 +25,7 @@ module Search
           http_response = Net::HTTP.get_response(url)
           @logger.error("GET cloudsearch URL (time=#{'%0.5fms' % ( (Time.now.to_f*1000.0) - tstart )}): #{url}")
           @logger.error("[cloudsearch] result_code:#{http_response.code}, result_message:#{http_response.message}")
-          raise "CloudSearchConnectError" if http_response.code != '200'
+          raise "CloudSearchError" if http_response.code != '200'
           if @redis
             @redis.set(cache_key, http_response.body)
             @redis.expire(cache_key, 30.minutes)
@@ -34,7 +34,7 @@ module Search
         end
         SearchResult.new(cached_response, options)
       rescue => e
-        @logger.error("[cloudsearch] Error on retrieving url: #{url} with cache_key: #{cache_key}, error: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}")
+        @logger.error("[cloudsearch] Error on retrieving url: #{URI.decode url.to_s} with cache_key: #{cache_key}, error: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}")
         SearchResult.new({:hits => nil, :facets => {} }.to_json, options)
       end
     end

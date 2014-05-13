@@ -1,6 +1,7 @@
 module Search
   module Query
     class Structured
+      attr_reader :nodes
       def initialize(base_class, operator)
         @base = base_class
         @operator = operator
@@ -11,6 +12,19 @@ module Search
         node = @base.field(key.to_s, options) || Field.new(key, @base, options)
         node.value = value
         @nodes << node
+      end
+
+      def nodes_by_field(_nodes_by_field={})
+        nodes.each do |node|
+          if node.respond_to?(:name)
+            _nodes_by_field[node.name.to_s] ||= []
+            _nodes_by_field[node.name.to_s].push(node.value)
+            _nodes_by_field[node.name.to_s].flatten!
+          elsif node.respond_to?(:nodes_by_field)
+            node.nodes_by_field(_nodes_by_field)
+          end
+        end
+        _nodes_by_field
       end
 
       [:and, :or, :not].each do |m|
@@ -37,7 +51,11 @@ module Search
         else
           child_structured = self.class.new(@base, kind)
           block.call(child_structured)
-          @nodes.push child_structured
+          if child_structured.nodes.size < 2
+            @nodes.concat(child_structured.nodes)
+          else
+            @nodes.push child_structured
+          end
         end
         self
       end
