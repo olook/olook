@@ -55,8 +55,8 @@ module Search
         end
       end
 
-      def structured
-        Search::Query::Structured.new(self)
+      def structured(kind)
+        Search::Query::Structured.new(self, kind)
       end
     end
   end

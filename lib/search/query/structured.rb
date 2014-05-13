@@ -1,8 +1,9 @@
 module Search
   module Query
     class Structured
-      def initialize(base_class)
+      def initialize(base_class, operator)
         @base = base_class
+        @operator = operator
         @nodes = []
       end
 
@@ -26,23 +27,29 @@ module Search
         url = @nodes.map do |node|
           node.to_url
         end
-        url.join(' ')
+        "(#{@operator} #{url.join(' ')})"
       end
 
       private
       def add_operator_node(kind, block)
-        child_structured = self.class.new(@base)
-        block.call(child_structured)
-        @nodes << Operator.new(kind, child_structured)
+        if kind == @operator
+          block.call(self)
+        else
+          child_structured = self.class.new(@base, kind)
+          block.call(child_structured)
+          @nodes.push child_structured
+        end
         self
       end
 
       def add_single_field(kind, name, value)
-        child_structured = self.class.new(@base)
-        child_structured.send(kind) do |s|
-          s.field name, value
+        if kind == @operator
+          self.field(name, value)
+        else
+          self.send(kind) do |s|
+            s.field name, value
+          end
         end
-        @nodes << child_structured
         self
       end
     end
