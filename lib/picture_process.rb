@@ -29,7 +29,7 @@ class PictureProcess
       jobs = Resque.redis.lrange(queue, 0, -1)
       jobs.any? do |job|
         j = Resque.decode(job)
-        existent_product_ids.include?(j['args'][0].to_i)
+        existent_product_ids.include?(j['args'][0].to_i) rescue false
       end
     }.call
   end
@@ -130,8 +130,8 @@ class PictureProcess
       begin
         j = Resque.decode(job)
         j['args'][0]['key'] == key
-      rescue => e
-        Rails.logger.error(e)
+      rescue
+        false
       end
     end
   end

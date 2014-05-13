@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 class BilletService
 
+  ALLOWED_PAYMENT_TYPES_REGEX = [/LIQ\.I\.BANKING/, /LIQ\.\ AUTOATEN/, /LIQ\ COMPENS/,/LIQ\.CX\.DINH\./]
+
   def self.process_billets(file_name)
     billet_numbers_array, successful_value = parse_file(file_name)
     sanitize_billets(billet_numbers_array, successful_value)
@@ -21,9 +23,13 @@ class BilletService
     def self.sanitize_billets billets_array, successful_value
       successful_array, unsuccessful_array = [],[]
       billets_array.each do |line_billet|
+
         billet_id = billet_info_id(line_billet)
         billet = Billet.find_by_id billet_id
-        if billet.blank?
+       
+        if block_payment?(line_billet)
+          unsuccessful_array << {id: billet_id, message: "Meio de pagamento não permitido: #{line_billet[120..133]}", order_number: billet.try(:order).try(:number)}
+        elsif billet.blank?
           unsuccessful_array << {id: billet_id, message: "Pedido não encontrado", order_number: ""}
         elsif billet.state != "waiting_payment"
           unsuccessful_array << {id: billet_id, message: "Estado '#{billet.state}' não elegível para autorização de pagamento", order_number: billet.try(:order).try(:number)}
@@ -44,6 +50,11 @@ class BilletService
       end
       { successful: successful_array, unsuccessful: unsuccessful_array, successful_value: successful_value }
     end
+
+    def self.block_payment? line_billet
+      ALLOWED_PAYMENT_TYPES_REGEX.select{|regex| line_billet =~ regex}.empty?
+    end
+
 
     def self.billet_info_id billet_info
       billet_info[27..38].to_i.to_s

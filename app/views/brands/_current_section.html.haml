@@ -2,7 +2,6 @@
   %section.filters
     %p
       Você está em
-      %span //
     %ul
       - search.selected_filters_for("subcategory").each do |sub|
         %li= %( #{ sub } #{ current_section_link_to(brand_path(params[:brand], SeoUrl.build_for('brand',search.filters_applied(:subcategory, sub))))}).html_safe

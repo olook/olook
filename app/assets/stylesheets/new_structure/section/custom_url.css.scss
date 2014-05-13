@@ -35,7 +35,7 @@ section{
  		margin: 0 auto 15px !important;
  	}
  }
- #bx-pager{
+ #bx-pager, .matelasse{
  	width: 800px;
  	img{
  		width: 151px;
@@ -64,4 +64,51 @@ section{
  #bx-pager{
  	a{text-decoration: none;}
 	}
+ }
+
+ .matelasse{
+ 	img {
+ 		width: 105px !important;
+ 	}
+ }
+
+ .edit_matelasse{
+ 	margin-left: 5px !important;
+ }
+
+ .htrendy {
+ 	width: 190px !important;
+ }
+
+ section.edit_filter {
+ 	min-height: 830px;
+	float: left;
+	width: 790px;
+	margin-top: 15px;
+	p.box {
+		margin-left:5px !important;
+	}
+ }
+
+ .basico{
+ 	 	img {
+ 		width: 122px !important;
+ 	}
+ }
+ .basic{
+ 	width: 780px !important;
+ 	margin-left: 26px !important;
+ 	width: 793px;
+ 	height: 30px;
+ 	text-transform: uppercase;
+ 	color: #fff;
+ 	font-family: $bt_font;
+ 	letter-spacing: 7px;
+ 	text-align: center;
+ 	padding-top: 15px;
+ 	margin-top: 25px;
+ 	background-color: #e8cad4;
+ 	font-size: 21px;
+ 	margin-bottom: 15px;
+ 	margin-left: 196px;
  }
