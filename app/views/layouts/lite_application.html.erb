@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/" dir="ltr" lang="pt">
   <head>
-
     <%= render :partial => "shared/errorception" %>
     <%= javascript_include_tag "jquery" %>
     <%= javascript_include_tag "//d22zjnmu4464ds.cloudfront.net/statistics-002.js" %>
     <%= javascript_include_tag "control.js" %>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>
       <%= title_text %>
     </title>
@@ -24,6 +25,7 @@
     <%= stylesheet_link_tag  "//olook.neoassist.com/clients/olook/novo/modal.css" %>
     <%= stylesheet_link_tag  "new_structure/lite_application" %>
     <%= stylesheet_link_tag  "desktop" unless mobile? %>
+    <!-- <%= stylesheet_link_tag  "new_structure/common/responsive_mobile" if mobile? %> -->
 
     <%- unless @hide_fb_page_id -%>
       <meta property="fb:page_id" content="157293541026960" />
@@ -60,8 +62,24 @@
     <div id="modalneo" align="right" style="display:none;border:0px;">
       <a href="javascript: var a=null;" onclick="window.open(' http://olook.neoassist.com/?action=neolive&th=moda&scr=request&ForcaAutenticar=1&UMail=%User[EMail]%&email=%User[EMail]%&name=%User[Name]%&uName=%User[Name]%', 'Chat' , 'status , scrollbars=no ,width=500, height=580, resizable=no, top=30 , left=30');"><img src=" http://olook.neoassist.com/clients/olook/novo/images/chatmsg.png" border="0" onclick="javascript:this.style.display='none';" id="chatmsg"  /></a>
     </div>
-    <%= render 'shared/admin_label' if current_admin %>
+    
+    <nav id="main-nav" class="navigation overflow">
+      <%= render 'shared/search_bar' %>
+      <br style="clear:both;">
+      <ul class="default_new">
+          <%= cache ["megamenu",mobile?] do %>
+             <%= MenuPresenter.new(self, :user => current_user).render_menu(mobile?) %>
+          <% end %>
+          <% if user_signed_in? %>
+            <li class="leave_acc"><%= link_to "sair da minha conta", destroy_user_session_path, :method => :delete, onclick: track_event("Checkout","clickSignOut") %></li>
+          <% end %>
+       </ul>
+    </nav>
     <div id="container">
+      <header class="primary">
+        <span class="open icon"></span>
+        <hgroup><h1></h1></hgroup>
+      </header>
        <div id="error-messages">
          <p class="notice"><%= notice %></p>
          <p class="alert"><%= alert %></p>
@@ -204,5 +222,8 @@
        <%= javascript_include_tag "//olook.neoassist.com/clients/olook/js/chat.js" %>
        <%= render :partial => "shared/metrics/master_tags" %>
     </div>
+    <script>
+      var site = new Bamboo();
+    </script>
   </body>
 </html>
