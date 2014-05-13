@@ -31,7 +31,7 @@ class CatalogsController < ApplicationController
     # Teste AB para ver qual ordenação de catalogo é melhor.
 
     variation = ab_test('catalog', 'smart', 'by_age') 
-    if variation == 'standard' && search_params[:sort].nil?
+    if variation == 'by_age' && search_params[:sort].nil?
       search_params[:sort] = 'age'
     end
     use_smart_catalog = variation == 'smart'
