@@ -72,11 +72,11 @@ section.banner {
   margin-bottom:10px !important;
   img {width:100%;}
 }
-
+.profiler-results {display: none;}
 @media only screen and (min-width: 641px) {
   header.primary,
   #console, 
   #main-nav {display: none !important;}
+  .profiler-results {display: block;}
 }
 
-.profiler-results {display: none !important;}
