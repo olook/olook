@@ -2,8 +2,12 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def facebook
+    
+    Rails.logger.error("[FACEBOOK] omniauth data:#{env['omniauth.auth']}")
+
     if current_user
       current_user.set_facebook_data(env["omniauth.auth"])
+      current_user.add_event(EventType::FACEBOOK_CONNECT)
       session[:facebook_scopes] = nil if session[:facebook_scopes]
       path_key = session[:facebook_redirect_paths] || :showroom
       redirect_path = facebook_redirect_paths[path_key.to_sym]
@@ -13,6 +17,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       if user
         user.set_facebook_data(env["omniauth.auth"])
         sign_in user
+        current_user.add_event(EventType::FACEBOOK_LOGIN)
         set_user_profile(user) if session[:qr]
         flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
         redirect user
