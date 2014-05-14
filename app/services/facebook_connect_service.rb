@@ -64,12 +64,13 @@ class FacebookConnectService
       last_name: @facebook_data['last_name'],
       facebook_token: @access_token,
       uid: @facebook_data['id'],
-      birthday: "#{us_birthday[2]}-#{us_birthday[0]}-#{us_birthday[1]}"
+      birthday: "#{us_birthday[2]}-#{us_birthday[0]}-#{us_birthday[1]}",
+      facebook_data: @facebook_data
     }
   end
 
   def create_user
-    @user = User.create(data_for_user.merge(email: @facebook_data['email']))
+    @user = User.create(data_for_user.merge(email: @facebook_data['email'], facebook_data: facebook_data))
     @user
   end
 
