@@ -32,14 +32,11 @@ module Search
       end
 
       def to_url
-        url = @nodes.map do |node|
-          node.to_url
-        end
-        "(#{@operator} #{url.join(' ')})"
+        "(#{@operator} #{url})"
       end
 
-      def to_param
-        "bq=#{CGI.escape to_url}"
+      def query_url
+        "bq=#{CGI.escape to_url}" if url.size > 0
       end
 
       def map_recursively_nodes(start=nil, &block)
@@ -54,6 +51,12 @@ module Search
       end
 
       private
+
+      def url
+        @url ||= @nodes.map do |node|
+          node.to_url
+        end.join(' ')
+      end
 
       def create_field(key, value=nil, options={})
         node = @base.field(key.to_s, options) || Field.new(key, @base, options)

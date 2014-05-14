@@ -9,8 +9,8 @@ module Search
         @term.to_s
       end
 
-      def to_param
-        "q=#{URI.encode @term.to_s}"
+      def query_url
+        "q=#{URI.encode @term.to_s}" if @term
       end
     end
   end
