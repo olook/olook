@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 module ProductsHelper
   HEEL_MODELS = ["anabela","ankle boot","boneca","bota","creeper","oxford","peep toe","sandália","scarpin","sneaker"]
+  SORT_WORDS = ["Confira!","Clique e confira!", "Veja mais!","Conheça!"]
 
   def variant_classes(variant, shoe_size = nil)
     classes = []
@@ -79,6 +80,16 @@ module ProductsHelper
 
   def calculate_look_product_discount_for(product, discount)
     (product.price * (1 - (discount/100.0)))
+  end
+
+  def modify_meta_description description, color
+    _description = description || ""
+    _description = "#{_description} Cor #{color}" unless color == "Não informado" || color.blank?
+    "#{_description}. #{sort_words}"
+  end
+
+  def sort_words
+    SORT_WORDS.sample
   end
 
 end

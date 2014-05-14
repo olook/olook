@@ -31,7 +31,7 @@ Olook::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = false
+  config.assets.debug = !!ENV['DEBUG_ASSETS']
   config.assets.prefix = "/dev-assets"
   config.action_mailer.asset_host = "http://localhost:3000"
 
