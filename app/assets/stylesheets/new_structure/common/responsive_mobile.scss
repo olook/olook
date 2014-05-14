@@ -149,7 +149,7 @@
 			border:0px;
 		}
 		.search_product {
-			width:214px;
+			width:263px;
 			margin-right:0px;
       height:49px !important;
       border-bottom:1px dotted #d1d1d1;
@@ -159,6 +159,12 @@
       top:6px;
 			background-position: -165px -149px;
 		}
+    input.default[type="submit"] {
+      left: 217px !important;
+      letter-spacing: 0px !important;
+      font-size: 9px !important;
+      width:40px !important;
+    }
 	}
 
 	/* CONTENT */
