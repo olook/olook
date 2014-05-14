@@ -413,61 +413,8 @@ header#new_header{border-top: 2px black solid;
   position: relative;
   clear:both;
   float:right;
-
-  #search_product{
-    float: left;
-    border: solid 1px #000;
-    font-family: $avenir;
-    font-weight: 400;
-    width: 475px;
-    height: 35px;
-    line-height: 29px;
-    text-align: left;
-    padding-left: 10px;
-    padding-right: 40px;
-    margin-right: 20px;
-  }
-
-  .default {
-    font-size: 12px;
-    color: #CDCDCD;
-    font-style: italic;
-    text-transform: none;
-  }
-
-  .bold {
-    font-size: 14px;
-    color: #ef3742;
-    font-style: italic;
-    text-transform: none;
-  }
-
-
-  .enabled {
-    color: #000;
-    font-style: normal;
-    text-transform: capitalize;
-  }
-
-  input[type="submit"]{
-    position: absolute;
-    background: image-url('common/nav/sprite_header.png') -165px -147px;
-    width: 32px;
-    height: 28px;
-    left: 486px;
-    text-indent: 9999px;
-    border:none;
-    cursor: pointer;
-  }
-}
-
-/*---------------------------------
-====== teste AB barra busca =======
----------------------------------*/
-
-.barra_thai{
   margin-right: 26px;
-  #search_product{
+  .search_product{
   float: left;
   font-family: $avenir;
   font-weight: 400;
@@ -484,7 +431,12 @@ header#new_header{border-top: 2px black solid;
   background-color: #dfdfdf;
   font-size: 13px;
   }
-  input[type="submit"]{
+
+  /*---------------------------------
+====== teste AB barra busca =======
+---------------------------------*/
+  
+  input.bverde[type="submit"]{
     position: absolute;
     display: block;
     left: 427px;
@@ -501,9 +453,32 @@ header#new_header{border-top: 2px black solid;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-size: 12px;
-    background-color: #01aeb4 ;
+    background-color: #01aeb4;
+  }
+  input.default[type="submit"]{
+    position: absolute;
+    display: block;
+    left: 427px;
+    border:none;
+    cursor: pointer;
+    background: none;
+    text-indent: 0 !important;
+    font-family: $verdana;
+    font-size: 11px;
+    text-align: center;
+    width: 80px;
+    height: 37px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
+    background-color: #ef3742;
+    
   }
 }
+
+
+
 
 /*-----------------------------------
 ====== teste AB barra busca =======

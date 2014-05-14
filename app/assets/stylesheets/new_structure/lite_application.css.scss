@@ -6,6 +6,7 @@
 @import 'new_structure/common/wishlist';
 @import 'new_structure/partials/spy';
 @import 'new_structure/common/catalog4you';
+@import 'new_structure/common/responsive_mobile';
 
 ul.breadcrumb {
   display: block;
@@ -70,5 +71,12 @@ a.selecionado:hover {color:$pink !important;}
 section.banner {
   margin-bottom:10px !important;
   img {width:100%;}
+}
+.profiler-results {display: none;}
+@media only screen and (min-width: 641px) {
+  header.primary,
+  #console, 
+  #main-nav {display: none !important;}
+  .profiler-results {display: block;}
 }
 

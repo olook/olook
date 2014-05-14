@@ -16,6 +16,7 @@
 //= require ui/jquery.ui.autocomplete
 //= require ui/jquery.ui.slider
 //= require common/jquery.cookie
+//= require bamboo.0.1
 //= require plugins/jquery.carouFredSel-6.2.1-packed
 //= require plugins/css_browser_selector
 //= require plugins/change_picture_onhover
