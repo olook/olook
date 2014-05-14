@@ -18,7 +18,8 @@ class Header < ActiveRecord::Base
     'NoBanner' => NoBanner,
     'TrendyCatalogHeader' => TrendyCatalogHeader,
     'MatelasseTrendyCatalogHeader' => MatelasseTrendyCatalogHeader,
-    'BasicoTrendyCatalogHeader' => BasicoTrendyCatalogHeader
+    'BasicoTrendyCatalogHeader' => BasicoTrendyCatalogHeader,
+    'CurvesTrendyCatalogHeader' => CurvesTrendyCatalogHeader
   }
 
   def self.factory params
