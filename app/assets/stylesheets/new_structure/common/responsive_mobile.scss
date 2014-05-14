@@ -1,6 +1,6 @@
 @media only screen and (max-width: 640px) {
 	body {overflow:hidden;background: #232323;}
-	@import 'new_structure/common/bamboo';
+	@import 'bamboo';
 
 	#wrapper_new_menu,
   #go_top,
@@ -145,10 +145,10 @@
 	.search_box {
 		float:left;
 		width:263px;
-		#search_product {
+		.search_product {
 			border:0px;
 		}
-		#search_product {
+		.search_product {
 			width:214px;
 			margin-right:0px;
       height:49px !important;
