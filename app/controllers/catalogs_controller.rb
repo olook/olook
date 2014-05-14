@@ -55,7 +55,7 @@ class CatalogsController < ApplicationController
     @size = search_params["size"]
     @brand_name = search_params["brand"]
     @cache_key = "catalogs#{request.path}|#{@search.cache_key}#{@campaign.cache_key}"
-    @category = @search.expressions[:category].to_a.first.downcase
+    @category = @search.expressions[:category].to_a.first.to_s.downcase
     @subcategory = @search.expressions[:subcategory].to_a.first
     params[:category] = @search.expressions[:category].to_a.first
 
