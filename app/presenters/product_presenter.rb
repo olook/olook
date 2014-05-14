@@ -147,7 +147,9 @@ class ProductPresenter < BasePresenter
   end
 
   def render_complete_look_badge admin, class_name
-      h.link_to "Comprar o look completo", "#", :id => "goRelatedProduct", class: class_name if (look_products.size > 1 && product.inventory > 0) || admin
+    if (look_products.size > 1 && product.inventory > 0) || admin
+      h.link_to "Comprar o look completo", "#", :id => "goRelatedProduct", class: class_name 
+    end
   end
 
   private
