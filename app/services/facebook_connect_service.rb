@@ -15,14 +15,24 @@ class FacebookConnectService
 
   def connect!
     @facebook_data = get_facebook_data
+    
+    Rails.logger.info("[FACEBOOK] Retrieved data from facebook:#{@facebook_data}")
+    
     if(@facebook_data.respond_to?(:[]) && @facebook_data['error'])
       return false
     end
 
+    Rails.logger.info("[FACEBOOK] extending FB token.")
     extend_fb_token
+    Rails.logger.info("[FACEBOOK] new token got:#{@access_token}")
+
     if existing_user
+      Rails.logger.info("[FACEBOOK] this is existent user. Just update facebook data")
       @user = update_user
+      @user.add_event(EventType::FACEBOOK_LOGIN)
     else
+      Rails.logger.info("[FACEBOOK] this is a new user. Storing it in the database")
+      @user.add_event(EventType::FACEBOOK_CONNECT)
       @user = create_user
     end
     return true
