@@ -1,8 +1,6 @@
 require 'active_support/inflector'
 class SearchEngine
   include Search::Paginable
-  SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
-  BASE_URL = SEARCH_CONFIG["search_domain"] + "/2011-02-01/search"
 
   MULTISELECTION_SEPARATOR = '-'
   RANGED_FIELDS = HashWithIndifferentAccess.new({'price' => '', 'heel' => '', 'inventory' => ''})
@@ -13,7 +11,7 @@ class SearchEngine
 
   SEARCHABLE_FIELDS = [:category, :subcategory, :color, :brand, :heel,
                 :care, :price, :size, :product_id, :collection_theme,
-                :sort, :term, :excluded_brand, :visibility]
+                :sort, :term, :visibility]
   SEARCHABLE_FIELDS.each do |attr|
     define_method "#{attr}=" do |v|
       @expressions[attr] = v.to_s.split(MULTISELECTION_SEPARATOR)
@@ -38,7 +36,7 @@ class SearchEngine
     @expressions['inventory'] = ['inventory:1..']
     @expressions['in_promotion'] = [0]
     @expressions['visibility'] = [Product::PRODUCT_VISIBILITY[:site],Product::PRODUCT_VISIBILITY[:all]]
-    @facets = []
+    @facets = Search::Query::Facets.new
     @is_smart = is_smart
     default_facets
 
@@ -59,11 +57,11 @@ class SearchEngine
   end
 
   def term= term
-    @query = URI.encode(term) if term
+    @query = Search::Query::Term.new(term) if term
   end
 
   def term
-    @query
+    @query.value if @query
   end
 
   # TODO: Mudar a forma que o recebe o collection_theme pois
@@ -240,9 +238,7 @@ class SearchEngine
 
   def build_filters_url(options={})
     bq = build_boolean_expression(options)
-    bq += "facet=#{@facets.join(',')}&facet-brand_facet-top-n=100" if @facets.any?
-    q = @query ? "q=#{@query}&" : ""
-    "http://#{BASE_URL}?#{q}#{bq}"
+    Search::Query::Url.new(structured: bq, facets: @facets, term: @query).url
   end
 
 
@@ -269,17 +265,19 @@ class SearchEngine
     options[:start] ||= 0
     options[:limit] ||= 50
     bq = build_boolean_expression
-    bq += "facet=#{@facets.join(',')}&" if @facets.any?
-    q = @query ? "?q=#{@query}&" : "?"
+    url = Search::Query::Url.new(structured: bq, facets: @facets, term: @term,
+                                 "return-fields" => RETURN_FIELDS.join(','),
+                                 start: options[:start], size: options[:limit] )
     if @is_smart
-      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&#{ ranking }&rank=#{smart_ranking_params}&size=#{ options[:limit] }"
+      url.set_params("rank-exp" => ranking, rank: smart_ranking_params)
     else
-      "http://#{BASE_URL}#{q}#{bq}return-fields=#{RETURN_FIELDS.join(',')}&start=#{ options[:start] }&rank=#{ @sort_field }&size=#{ options[:limit] }"
+      url.set_params(rank: @sort_field)
     end
+    url.url
   end
 
   def ranking
-    "rank-exp=r_inventory%2Br_brand_regulator%2Br_age"
+    "r_inventory%2Br_brand_regulator%2Br_age"
   end
 
   def fetch_result(url, options = {})
@@ -287,7 +285,6 @@ class SearchEngine
   end
 
   def build_boolean_expression(options={})
-    bq = []
     expressions = @expressions.clone
     structured = SearchedProduct.structured(:and)
     cares = expressions.delete('care')
@@ -305,8 +302,6 @@ class SearchEngine
         structured.or(*vals.first)
       end
     end
-
-    remove_excluded_brands(bq, expressions)
 
     expressions.each do |field, values|
       next if options[:use_fields] && !options[:use_fields].include?(field.to_sym) && PERMANENT_FIELDS_ON_URL.exclude?(field.to_sym)
@@ -334,7 +329,7 @@ class SearchEngine
       end
     end
 
-    "bq=#{ERB::Util.url_encode structured.to_url}&"
+    structured
   end
 
   def subcategory_without_care_products(filters)
@@ -385,14 +380,6 @@ class SearchEngine
       filter_params[:sort] = ( @sort_field == DEFAULT_SORT ? nil : @sort_field )
 
       filter_params
-    end
-
-    def remove_excluded_brands(bq, expressions)
-      return unless expressions["excluded_brand"].present?
-      excluded_brands = expressions["excluded_brand"]
-      expressions.delete("excluded_brand")
-      vals = excluded_brands.map { |v| "(field brand '#{v}')" } unless excluded_brands.empty?
-      bq << ( "(not (or #{vals.join(' ')}))" )
     end
 
     def validate_sort_field

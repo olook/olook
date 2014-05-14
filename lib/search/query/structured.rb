@@ -38,6 +38,10 @@ module Search
         "(#{@operator} #{url.join(' ')})"
       end
 
+      def to_param
+        "bq=#{CGI.escape to_url}"
+      end
+
       def map_recursively_nodes(start=nil, &block)
         @nodes.each do |node|
           if node.respond_to?(:name)
