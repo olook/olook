@@ -283,62 +283,58 @@ class SearchEngine
   end
 
   def fetch_result(url, options = {})
-    cache_key = Digest::SHA1.hexdigest(url.to_s)
-    Rails.logger.error "[cloudsearch] cache_key: #{cache_key}"
-
-    begin
-      cached_response = if @redis.exists(cache_key)
-        @redis.get(cache_key)
-      else
-        Rails.logger.error "[cloudsearch] cache missed"
-        url = URI.parse(url)
-        tstart = Time.zone.now.to_f * 1000.0
-        http_response = Net::HTTP.get_response(url)
-        Rails.logger.error("GET cloudsearch URL (time=#{'%0.5fms' % ( (Time.zone.now.to_f*1000.0) - tstart )}): #{url}")
-        Rails.logger.error("[cloudsearch] result_code:#{http_response.code}, result_message:#{http_response.message}")
-        raise "CloudSearchConnectError" if http_response.code != '200'
-        @redis.set(cache_key, http_response.body)
-        @redis.expire(cache_key, 30.minutes)
-        http_response.body
-      end
-      SearchResult.new(cached_response, options)
-    rescue => e
-      Rails.logger.error("[cloudsearch] Error on unmarshalling the key:#{cache_key}, for url:#{url}, message:#{e.message}")
-      SearchResult.new({:hits => nil, :facets => {} }.to_json, options)
-    end
-
+    Search::Retriever.new(redis: @redis, logger: Rails.logger).fetch_result(url, options)
   end
 
   def build_boolean_expression(options={})
     bq = []
     expressions = @expressions.clone
+    structured = SearchedProduct.structured(:and)
     cares = expressions.delete('care')
     if cares.present?
       subcategories = expressions.delete('subcategory')
-      vals = cares.map { |v| "(field care '#{v}')" }
-      vals.concat(subcategories.map { |v| "(field subcategory '#{v}')" }) if subcategories.present?
-      bq << ( vals.size > 1 ? "(or #{vals.join(' ')})" : vals.first )
-    end
-
-    remove_excluded_brands(bq, expressions)
-    expressions.each do |field, values|
-      next if options[:use_fields] && !options[:use_fields].include?(field.to_sym) && PERMANENT_FIELDS_ON_URL.exclude?(field.to_sym)
-      next if values.empty?
-      if RANGED_FIELDS[field]
-        bq << "(or #{values.join(' ')})"
-      elsif values.is_a?(Array) && values.any?
-        vals = values.map { |v| "(field #{field} '#{v}')" } unless values.empty?
-        bq << ( vals.size > 1 ? "(or #{vals.join(' ')})" : vals.first )
+      vals = cares.map { |v| ["care", v] }
+      vals.concat(subcategories.map { |v| ["subcategory", v] }) if subcategories.present?
+      if vals.size > 1
+        structured.or do |s|
+          vals.each do |k, v|
+            s.field(k, v)
+          end
+        end
+      else
+        structured.or(*vals.first)
       end
     end
 
-    if bq.size == 1
-      "bq=#{ERB::Util.url_encode bq.first}&"
-    elsif bq.size > 1
-      "bq=#{ERB::Util.url_encode "(and #{bq.join(' ')})"}&"
-    else
-      ""
+    remove_excluded_brands(bq, expressions)
+
+    expressions.each do |field, values|
+      next if options[:use_fields] && !options[:use_fields].include?(field.to_sym) && PERMANENT_FIELDS_ON_URL.exclude?(field.to_sym)
+      next if values.empty?
+
+      if RANGED_FIELDS[field]
+        structured.or do |s|
+          values.each do |value|
+            k, r = value.split(':')
+            min,max = r.split('..')
+            s.field(k, [min,max])
+          end
+        end
+        next
+      end
+
+      if values.size > 1
+        structured.or do |s|
+          values.each do |v|
+            s.field field, v
+          end
+        end
+      else
+        structured.field field, values.first
+      end
     end
+
+    "bq=#{ERB::Util.url_encode structured.to_url}&"
   end
 
   def subcategory_without_care_products(filters)
