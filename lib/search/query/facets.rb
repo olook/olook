@@ -14,7 +14,8 @@ module Search
         @facets << facet
       end
 
-      def to_param
+      def query_url
+        return if @facets.size == 0
         param = ["facet=#{@facets.join(',')}"]
         @top.each do |field, top|
           param << "facet-#{field}-top-n=#{top}"

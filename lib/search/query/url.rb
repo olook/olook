@@ -11,19 +11,21 @@ module Search
       end
 
       def set_params(args)
-        [:facets, :structured, :term, :sort].each do |k|
-          @parameters << args.delete(k) if args[k] && args[k].respond_to?(:to_param)
-        end
         args.each do |k, v|
-          @str_params << "#{k}=#{v}"
+          if args[k].respond_to?(:query_url)
+            @parameters << args.delete(k) if args[k]
+          else
+            @str_params << "#{k}=#{v}"
+          end
         end
       end
 
       def url
         params = @parameters.map do |param|
-          param.to_param
+          param.query_url
         end
         params.flatten!
+        params.reject! { |p| p.nil? || p == '' }
         params.concat(@str_params)
         "http://#{BASE_URL}?#{params.join('&')}"
       end

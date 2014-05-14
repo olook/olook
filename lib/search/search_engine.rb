@@ -31,14 +31,15 @@ class SearchEngine
   attr_reader :expressions, :sort_field
 
   def initialize attributes = {}, is_smart = false
+    @return_fields = Search::Query::ReturnFields.new(RETURN_FIELDS)
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
     @expressions['in_promotion'] = [0]
     @expressions['visibility'] = [Product::PRODUCT_VISIBILITY[:site],Product::PRODUCT_VISIBILITY[:all]]
     @facets = Search::Query::Facets.new
-    @is_smart = is_smart
     default_facets
+    @is_smart = is_smart
 
     Rails.logger.debug("SearchEngine received these params: #{attributes.inspect}")
     @current_page = 1
@@ -90,7 +91,7 @@ class SearchEngine
       pvals = price.split('-')
       while pvals.present?
         val_arr = pvals.shift(2)
-        @expressions["price"] << "retail_price:#{format_price_range(val_arr.first,val_arr.last)}"
+        @expressions["price"] << "retail_price:#{val_arr.first}..#{val_arr.last}"
       end
     end
     self
@@ -102,6 +103,7 @@ class SearchEngine
       @is_smart = false
       @sort_field = "#{ sort_field }"
     end
+
     self
   end
 
@@ -201,11 +203,6 @@ class SearchEngine
   end
 
   def filter_selected?(filter_key, filter_value)
-    if filter_key == :price
-      arr = filter_value.split("-")
-      filter_value = format_price_range(arr[0], arr[1])
-    end
-
     if values = expressions[filter_key]
       if RANGED_FIELDS[filter_key]
         values.any? do |v|
@@ -258,6 +255,7 @@ class SearchEngine
     @facets << "size"
     @facets << "category"
     @facets << 'collection_theme'
+    @facets.set_top_for('brand_facet', 100)
     self
   end
 
@@ -265,19 +263,19 @@ class SearchEngine
     options[:start] ||= 0
     options[:limit] ||= 50
     bq = build_boolean_expression
-    url = Search::Query::Url.new(structured: bq, facets: @facets, term: @term,
-                                 "return-fields" => RETURN_FIELDS.join(','),
-                                 start: options[:start], size: options[:limit] )
-    if @is_smart
-      url.set_params("rank-exp" => ranking, rank: smart_ranking_params)
-    else
-      url.set_params(rank: @sort_field)
-    end
-    url.url
-  end
 
-  def ranking
-    "r_inventory%2Br_brand_regulator%2Br_age"
+    @sort = Search::Query::Sort.new
+    if @is_smart
+      @sort.add_ranking("exp", "r_inventory+r_brand_regulator+r_age")
+      @sort.use("-exp", *@sort_field.to_s.split(",").reject{|v| v.blank?})
+    else
+      @sort.use(@sort_field)
+    end
+
+    url = Search::Query::Url.new(structured: bq, facets: @facets, term: @term,
+                                 "return-fields" => @return_fields, sort: @sort,
+                                 start: options[:start], size: options[:limit] )
+    url.url
   end
 
   def fetch_result(url, options = {})
@@ -367,10 +365,6 @@ class SearchEngine
         if RANGED_FIELDS[k]
           v.each do |_v|
             /(?<min>\d+)\.\.(?<max>\d+)/ =~ _v.to_s
-            if k.to_s == 'price'
-              min = (min.to_d / 100.0).round
-              max = (max.to_d / 100.0).round
-            end
             filter_params[k] << "#{min}-#{max}"
           end
         else
@@ -388,22 +382,13 @@ class SearchEngine
       end
     end
 
-    def format_price_range(min,max)
-      "#{min.to_i*100}..#{[max.to_i*100-1, 0].max}"
-    end
-
     def price_selected_filters expressions
       return [] unless expressions[:price]
       price_filters = expressions[:price].map do |e| 
         a = e.gsub("retail_price:","").split("..")
-        a[0] = (a[0].to_i/100).to_s
-        a[1] = ((a[1].to_i+1)/100).to_s
         a.join("-")
       end
       price_filters || []
     end
 
-    def smart_ranking_params
-      "-exp,#{ @sort_field }".split(",").reject{|v| v.blank?}.join(",")
-    end
 end
