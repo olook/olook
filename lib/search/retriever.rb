@@ -3,7 +3,7 @@ require 'logger'
 require 'net/http'
 require 'digest/sha1'
 
-require 'search_result'
+require 'result'
 module Search
   class Retriever
     def initialize(options={})
@@ -32,10 +32,10 @@ module Search
           end
           cached_response =  http_response.body
         end
-        SearchResult.new(cached_response, options)
+        Search::Result.new(cached_response, options)
       rescue => e
         @logger.error("[cloudsearch] Error on retrieving url: #{URI.decode url.to_s} with cache_key: #{cache_key}, error: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}")
-        SearchResult.new({:hits => nil, :facets => {} }.to_json, options)
+        Search::Result.new({:hits => nil, :facets => {} }.to_json, options)
       end
     end
   end
