@@ -449,4 +449,14 @@ h1.title_catalog{
       margin-top:9px !important;
     }
   }
+  .row_olooklet {
+    position: fixed;
+    top: 33px;
+    background: #FFF;
+    z-index: 99;
+    width: 793px;
+    height: 40px !important;
+    min-height:40px !important;
+    padding-top:10px !important;
+  }
 }
