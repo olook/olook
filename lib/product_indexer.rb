@@ -23,22 +23,6 @@ class ProductIndexer
     _products
   end
 
-  def create_sdf_entry_for(entity, type)
-    document = @adapter.adapt(entity,type)
-    document.to_document
-  end
-
-  def add_documents
-    entities.each_slice(500).with_index do |slice, index|
-      run(sdf_entries(entities_to_index(slice)), index)
-    end
-  end
-
-  def remove_documents
-    flush_to_sdf_file "/tmp/base-remove.sdf", sdf_entries(entities_to_remove(entities), 'delete')
-    upload_sdf_file "/tmp/base-remove.sdf"
-  end
-
   def send_failure_mail e
     opts = {
       body: "Falha ao gerar o arquivo para indexacao: #{index}-add<br> #{e} <br> #{e.backtrace}",

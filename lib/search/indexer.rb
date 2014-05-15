@@ -20,7 +20,8 @@ module Search
 
     def add_documents
       entities.each_slice(500).with_index do |slice, index|
-        run(sdf_entries(entities_to_index(slice)), index)
+        documents = sdf_entries(entities_to_index(slice), 'add')
+        save(documents, index)
       end
     end
 
@@ -30,15 +31,15 @@ module Search
     end
 
     def flush_to_sdf_file file_name, all_documents
-      File.open("#{file_name}", "w:UTF-8") do |file|
-        file << all_documents.to_json
+      File.open(file_name, "w:UTF-8") do |file|
+        file.puts all_documents.to_json
       end
     end
 
-    def run(documents, index)
+    def save(documents, index)
       begin
         file_name = "/tmp/base-add#{'%03d' % index}.sdf"
-        flush_to_sdf_file(file_name, documents, 'add')
+        flush_to_sdf_file(file_name, documents)
         upload_sdf_file file_name
       rescue => e
         send_failure_mail e
