@@ -28,6 +28,9 @@
 //= require modules/facebook/events
 //= require_tree ./modules/facebook/auth
 //= require modules/facebook/auth
+//= require modules/modal/show
 
 new FacebookEvents().config();
 new FacebookAuth().config();
+new ModalShow().config();
+
