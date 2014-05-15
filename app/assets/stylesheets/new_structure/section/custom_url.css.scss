@@ -3,7 +3,6 @@
 section{
  margin-right: 0;
  margin: 0 auto;
- height: 800px;
  h2{
  	display: block;
  	width: 215px;
@@ -72,12 +71,23 @@ section{
  	}
  }
 
+ .curves{
+ 	img {
+ 		width: 124px !important;
+ 	}
+ }
+
  .edit_matelasse{
  	margin-left: 5px !important;
  }
 
  .htrendy {
  	width: 190px !important;
+ }
+
+ .hcurves {
+ 	width: 210px !important;
+ 	margin-left: 5px;
  }
 
  section.edit_filter {
