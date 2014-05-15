@@ -32,8 +32,8 @@ class FacebookConnectService
       @user.add_event(EventType::FACEBOOK_LOGIN)
     else
       Rails.logger.info("[FACEBOOK] this is a new user. Storing it in the database")
-      @user.add_event(EventType::FACEBOOK_CONNECT)
       @user = create_user
+      @user.add_event(EventType::FACEBOOK_CONNECT)
     end
     return true
   end
