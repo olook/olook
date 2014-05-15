@@ -1,0 +1,22 @@
+<%= form_for(:user, :as => :user, :url => session_url(:user, :protocol => protocol)) do |f| %>
+  <fieldset>
+    <%= f.label :email, "E-mail" %>
+    <%= f.email_field :email, class: "fields" %>
+  </fieldset>
+  <fieldset>
+    <%= f.label :password, "Senha" %>
+    <%= f.password_field :password, class: "fields" %>
+  </fieldset>
+
+  <%
+    checkout_login ||= params[:checkout_login]
+    checkout_login ||= false
+  %>
+  <%= hidden_field_tag :checkout_login, checkout_login %>
+
+  <fieldset class='buttons'>
+    <%= f.check_box :remember_me, :id => "user_remember_me_login", :checked => true %> <%= f.label :remember_me_login, "Lembrar de mim" %>
+    <%= link_to "Esqueceu sua senha?", new_password_path(:user) %>
+    <%= f.submit "ENTRAR", :id => "login" %>
+  </fieldset>
+<% end %>
