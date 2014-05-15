@@ -33,4 +33,7 @@
 new FacebookEvents().config();
 new FacebookAuth().config();
 new ModalShow().config();
+$(function(){
+  olookApp.publish('modal:show', document.location.pathname);
+});
 
