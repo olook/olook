@@ -140,7 +140,7 @@ class SeoUrl
   end
 
   def self.all_categories
-    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_categories.yml' ) ) ) )
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_categories.yml' ) ) ) )
   end
 
   def build_link_for _parameters={}
@@ -295,7 +295,7 @@ class SeoUrl
   end
 
   def all_brands
-    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_brands.yml' ) ) ) )
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_brands.yml' ) ) ) )
   end
 
   def extract_brand(path_section, section)
@@ -343,7 +343,7 @@ class SeoUrl
   end
 
   def all_categories
-    cat = YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_categories.yml' ) ) ) )
+    cat = YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_categories.yml' ) ) ) )
     cat = cat.keys
     cat.concat( cat.map { |s| s.downcase } )
     cat.concat( cat.map { |s| ActiveSupport::Inflector.transliterate(s) } )
@@ -364,10 +364,10 @@ class SeoUrl
   end
 
   def all_subcategories
-    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/seo_url_subcategories.yml' ) ) ) )
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/seo_url_subcategories.yml' ) ) ) )
   end
 
   def self.whitelisted_colors
-    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../../config/whitelisted_colors.yml' ) ) ) )
+    YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/whitelisted_colors.yml' ) ) ) )
   end  
 end

@@ -18,6 +18,8 @@ class SearchEngine
     end
   end
 
+  SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
+
   NESTED_FILTERS = {
     category: [ :subcategory ]
   }
@@ -58,11 +60,11 @@ class SearchEngine
   end
 
   def term= term
-    @query = Search::Query::Term.new(term) if term
+    @term = Search::Query::Term.new(term) if term
   end
 
   def term
-    @query.value if @query
+    @term.value if @term
   end
 
   # TODO: Mudar a forma que o recebe o collection_theme pois
@@ -194,7 +196,7 @@ class SearchEngine
 
   def range_values_for(filter)
     if /(?<min>\d+)\.\.(?<max>\d+)/ =~ expressions[filter].to_s
-      { min: (min.to_d/100.0).round.to_s, max: (max.to_d/100.0).round.to_s }
+      { min: min.to_d.round.to_s, max: max.to_d.round.to_s }
     end
   end
 
@@ -235,7 +237,7 @@ class SearchEngine
 
   def build_filters_url(options={})
     bq = build_boolean_expression(options)
-    Search::Query::Url.new(structured: bq, facets: @facets, term: @query).url
+    Search::Url.new(structured: bq, facets: @facets, term: @term, config: SEARCH_CONFIG).url
   end
 
 
@@ -272,9 +274,10 @@ class SearchEngine
       @sort.use(@sort_field)
     end
 
-    url = Search::Query::Url.new(structured: bq, facets: @facets, term: @term,
-                                 "return-fields" => @return_fields, sort: @sort,
-                                 start: options[:start], size: options[:limit] )
+    url = Search::Url.new(structured: bq, facets: @facets, term: @term,
+                          "return-fields" => @return_fields, sort: @sort,
+                          start: options[:start], size: options[:limit],
+                          config: SEARCH_CONFIG)
     url.url
   end
 

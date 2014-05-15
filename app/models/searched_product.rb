@@ -6,6 +6,7 @@ class SearchedProduct
   add_field :category, :literal
   add_field :subcategory, :literal
   add_field :care, :literal
+  add_field :color, :literal
   add_field :collection_theme, :literal
   add_field :image, :literal
   add_field :backside_image, :literal
