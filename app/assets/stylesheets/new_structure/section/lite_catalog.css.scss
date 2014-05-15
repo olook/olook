@@ -436,3 +436,17 @@ h1.title_catalog{
   height: 60px;
   width: 100%;
 }
+
+.js_fixed {
+  height:50px !important;
+  .cata_filters {
+    position: fixed !important;;
+    top: 38px;
+    background: #FFF;
+    width: 793px;
+    z-index: 99;
+    .exhibition-mode {
+      margin-top:9px !important;
+    }
+  }
+}
