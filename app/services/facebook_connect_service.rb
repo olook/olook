@@ -70,7 +70,7 @@ class FacebookConnectService
   end
 
   def create_user
-    @user = User.create(data_for_user.merge(email: @facebook_data['email'], facebook_data: facebook_data))
+    @user = User.create(data_for_user.merge(email: @facebook_data['email'], facebook_data: @facebook_data))
     @user
   end
 
