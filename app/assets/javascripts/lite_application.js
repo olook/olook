@@ -28,12 +28,11 @@
 //= require modules/facebook/events
 //= require_tree ./modules/facebook/auth
 //= require modules/facebook/auth
-//= require modules/modal/show
+//= require modules/modal/load
 
 new FacebookEvents().config();
 new FacebookAuth().config();
-new ModalShow().config();
 $(function(){
-  olookApp.publish('modal:show', document.location.pathname);
+  olookApp.publish('modal:request', document.location.pathname);
 });
 
