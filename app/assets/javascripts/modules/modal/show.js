@@ -6,7 +6,7 @@ var ModalShow = (function(){
 
   ModalShow.prototype.facade = function(path){
     $.get("/modal", {path: path}).done(function(data){
-      olook.newModal(data.html, data.width, date.height, data.color);
+      olook.newModal(data.html, data.width, data.height, data.color);
     }).fail(function() {
       olookApp.publish("modal:error");
     });
