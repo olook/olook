@@ -71,8 +71,8 @@ describe Wishlist do
 
     context "wishlist with one variant of product 123" do
       let(:wished_product) {OpenStruct.new({product_id: '123', variant_number: '123-P', is_visible?: true})}
-      let(:already_added_variant) {OpenStruct.new({number: '123-P', product_id: '123', valid?: true})}
-      let(:new_variant) {OpenStruct.new({number: '123-G', product_id: '123', valid?: true})}
+      let(:already_added_variant) {double('Variant', id: 1230, number: '123-P', product_id: '123', retail_price: 100, valid?: true, product: double(is_visible?: true))}
+      let(:new_variant) {double('Variant', id: 1231, number: '123-G', product_id: '123', retail_price: 100, valid?: true, product: double(is_visible?: true))}
 
       before(:each) do
         wishlist.stub(:wished_products).and_return([wished_product])
