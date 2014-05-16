@@ -66,7 +66,19 @@ ul.breadcrumb {
 a.selecionado,
 a.selecionado:hover {color:$pink !important;}
 
-#modal {position: fixed !important;}
+#modal {
+  position: fixed !important;
+  .hello {
+    width:100%;
+    height:100%;
+    background: image-url('common/modal_1.jpg') no-repeat center center;
+    iframe {
+      position: absolute;
+      top: 400px;
+      left: 495px;
+    }
+  }
+}
 
 section.banner {
   margin-bottom:10px !important;
@@ -79,4 +91,5 @@ section.banner {
   #main-nav {display: none !important;}
   .profiler-results {display: block;}
 }
+
 
