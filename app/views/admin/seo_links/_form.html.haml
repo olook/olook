@@ -1,0 +1,16 @@
+= form_for [:admin, @seo_link] do |f|
+  - if @seo_link.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@seo_link.errors.count, "error")} impediram o link de criar:"
+      %ul
+        - @brand.errors.full_messages.each do |msg|
+          %li= msg
+  %fieldset
+    =f.label :name
+    =f.text_field :name
+  %br
+  %fieldset
+    =f.label :path
+    =f.text_field :path
+  .actions
+    = f.submit 'Save'
