@@ -32,14 +32,14 @@ class Admin::SeoLinksController < Admin::BaseController
 
   def update
     @seo_link = SeoLink.find(params[:id])
-    flash[:notice] = 'Link foi atualizada com sucesso.' if @seo_link.update_attributes(params[:seo_link])
+    flash[:notice] = 'Link foi atualizado com sucesso.' if @seo_link.update_attributes(params[:seo_link])
     respond_with :admin, @seo_link
   end
 
   def destroy
     @seo_link = SeoLink.find(params[:id])
     @seo_link.destroy
-    flash[:notice] = 'link destruída com sucesso.'
+    flash[:notice] = 'link destruído com sucesso.'
     respond_with :admin, @seo_link
   end
 end
