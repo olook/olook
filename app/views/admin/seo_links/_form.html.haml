@@ -1,9 +1,9 @@
 = form_for [:admin, @seo_link] do |f|
   - if @seo_link.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@seo_link.errors.count, "error")} impediram o link de criar:"
+      %h2= "#{pluralize(@seo_link.errors.count, "error")} erros:"
       %ul
-        - @brand.errors.full_messages.each do |msg|
+        - @seo_link.errors.full_messages.each do |msg|
           %li= msg
   %fieldset
     =f.label :name
@@ -12,5 +12,7 @@
   %fieldset
     =f.label :path
     =f.text_field :path
+    %br
+    %small http://www.olook.com.br já é adicionado automaticamente
   .actions
     = f.submit 'Save'
