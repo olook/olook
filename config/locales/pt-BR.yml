@@ -297,6 +297,9 @@
             not_delivered: "Não entregue"
 
     models:
+      seo_link:
+        one: Link para SEO
+        other: Links para SEO
 
       itinerary:
         one: Itinerário
