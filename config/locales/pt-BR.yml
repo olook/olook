@@ -444,6 +444,9 @@
       credit_card: Cartão de crédito
 
     attributes:
+      seo_link:
+        name: 'Nome'
+        path: 'Link'
       header:
         url: 'URL'
         url_type: 'Tipo de Url'
