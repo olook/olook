@@ -27,16 +27,6 @@ class CatalogsController < ApplicationController
     search_params[:limit] = params[:page_size] || DEFAULT_PAGE_SIZE
     search_params[:page] = params[:page]
     search_params[:admin] = !!current_admin
-
-    # Teste AB para ver qual ordenação de catalogo é melhor.
-
-    variation = ab_test('catalog', 'smart', 'by_age') 
-    if variation == 'by_age' && search_params[:sort].nil?
-      search_params[:sort] = 'age'
-    end
-    use_smart_catalog = variation == 'smart'
-    # Fim
-
     SearchEngineWithDynamicFilters.new(search_params, use_smart_catalog)
   end
 

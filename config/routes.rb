@@ -4,6 +4,8 @@ require 'resque/server'
 Olook::Application.routes.draw do
 
 
+  get "/modal", to: "modal#show", as: "modal"
+
   get "/sitemap", to: "sitemap#index", as: "sitemap"
 
   resources :wished_products, only: [:create, :destroy]

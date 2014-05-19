@@ -84,7 +84,6 @@ class ProductController < ApplicationController
   add_method_tracer :canonical_link, 'Custom/ProductController/canonical_link'
 
   def ab_test
-    finished("complete_look_button", reset: false)
     render json: {status: :ok}.to_json
   end
 
