@@ -22,7 +22,7 @@ module Search
     end
 
     def []=(key, val)
-      ( @fields[key.to_s] || Field.new(key, self.class)).value = val
+      ( @fields[key.to_s] || Field.factory.new(key, self.class)).value = val
     end
 
     private
@@ -31,7 +31,7 @@ module Search
       def add_field(name, kind=:text, options={})
         name = name.to_s
         @@fields ||= {}
-        @@fields[name] = Field.factory(kind, name, self, options)
+        @@fields[name] = Field.factory.factory(kind, name, self, options)
         define_field_methods(name, kind, options)
       end
 
@@ -57,7 +57,7 @@ module Search
       end
 
       def structured(kind)
-        Search::Query::Structured.factory(self, kind)
+        Search::Query::Structured.factory.new(self, kind)
       end
     end
   end
