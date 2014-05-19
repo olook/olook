@@ -1,15 +1,19 @@
 test:
   search_domain: search-test-olook-products-2ykpfrclwbu55oirdfgjmvuvsu.us-east-1.cloudsearch.amazonaws.com
   docs_domain: doc-test-olook-products-2ykpfrclwbu55oirdfgjmvuvsu.us-east-1.cloudsearch.amazonaws.com
+  api_version:  "2011-02-01"
 
 development:
   docs_domain: doc-test-olook-products-2ykpfrclwbu55oirdfgjmvuvsu.us-east-1.cloudsearch.amazonaws.com
   search_domain: search-test-olook-products-2ykpfrclwbu55oirdfgjmvuvsu.us-east-1.cloudsearch.amazonaws.com
+  api_version:  "2011-02-01"
 
 staging:
   search_domain: search-test-olook-products-2ykpfrclwbu55oirdfgjmvuvsu.us-east-1.cloudsearch.amazonaws.com
   docs_domain: doc-test-olook-products-2ykpfrclwbu55oirdfgjmvuvsu.us-east-1.cloudsearch.amazonaws.com
+  api_version:  "2011-02-01"
 
 production:
   docs_domain: doc-olook-yrzuepka6xopzn7xlijrm7l3wq.us-east-1.cloudsearch.amazonaws.com
   search_domain: search-olook-yrzuepka6xopzn7xlijrm7l3wq.us-east-1.cloudsearch.amazonaws.com
+  api_version:  "2011-02-01"

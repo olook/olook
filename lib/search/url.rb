@@ -5,7 +5,7 @@ module Search
     def initialize(args={})
       @parameters = []
       @str_params = []
-      @base_url = Search::Config["search_domain"] + "/2011-02-01/search"
+      @base_url = File.join(Search::Config["search_domain"], Search::Config['api_version'], 'search')
       set_params(args)
     end
 
