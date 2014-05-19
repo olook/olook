@@ -6,8 +6,6 @@
     %br
       e conheça novos produtos toda semana.
   .login_with_facebook
-    %p.joinfb
-      Ou entre com sua conta do Facebook
     .fb-login-button{:data => {'max-rows' => "1", 'size' => "large", 'show-faces' => "false", 'auto-logout-link' => "false", 'scope' => FACEBOOK_CONFIG['login_scope'], 'onlogin' => "loginFacebook"}}
   .modal_newsletter
     %p.join
@@ -15,6 +13,8 @@
     = form_tag subscribe_campaign_email_path, remote: true do
       = text_field_tag :email, "",placeholder:"Digite aqui seu e-mail", class: "email"
       = submit_tag "Cadastrar", class: "", onclick: "#{track_event('EmailModal', 'CampaignEmailRegistered')}; $('#modal button.close').click()"
+  %p.joinfb
+    Ou entre com sua conta do Facebook
 
-
-
+:javascript
+  FB.XFBML.parse(document.getElementById('modal_face'));
