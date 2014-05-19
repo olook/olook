@@ -29,8 +29,6 @@ class ProductDocument
   def to_document
     {
       type: @type,
-      version: @version,
-      lang: @lang,
       id: @id,
       fields: @fields
     }
@@ -94,7 +92,7 @@ class ProductDocument
   end
 
   def keywords
-    ['category', 'subcategory', 'color', 'size', 'name', 'brand', 'material externo', 'material interno', 'material da sola']
+    ['category', 'subcategory', 'color', 'size', 'name', 'brand']
   end
 
   def method_missing(m, *args, &block)

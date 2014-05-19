@@ -142,7 +142,7 @@ class ProductProductDocumentAdapter
     end
 
     def selected_details product
-      product.details.to_a.select { |d| d.translation_token.downcase =~ /(categoria|cor filtro|material da sola|material externo|material interno)/i }
+      product.details.to_a.select { |d| d.translation_token.downcase =~ /(categoria|cor filtro)/i }
     end
 
     def is_beachwear?(field_key,category)

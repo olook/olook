@@ -42,13 +42,21 @@ module Search
         flush_to_sdf_file(file_name, documents)
         upload_sdf_file file_name
       rescue => e
+        Rails.logger.info("Erro ao enviar para amazon: #{e}")
         send_failure_mail e
       end
     end
 
     def upload_sdf_file file_name
       docs_domain = @config["docs_domain"]
-      `curl -s -X POST --upload-file "#{file_name}" "#{docs_domain}"/2011-02-01/documents/batch --header "Content-Type:application/json"`
+      api_version = @config["api_version"]
+      result = `curl -s -X POST --upload-file "#{file_name}" "#{docs_domain}"/"#{api_version}"/documents/batch --header "Content-Type:application/json"`
+
+      errors = JSON.parse(result)['errors']
+      if errors
+        Rails.logger.info("Erro no arquivo #{file_name}: #{errors.map{|a| a.values.first.split(/\(near/).first}.uniq}")
+      end
+      result
     end
 
     def send_failure_mail e
