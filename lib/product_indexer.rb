@@ -1,12 +1,11 @@
 class ProductIndexer
   include Search::Indexer
   extend Fixes
-  SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
 
   def initialize(entities, adapter)
     @entities = entities
     @adapter = adapter
-    @config = SEARCH_CONFIG
+    @config = Search::Config
   end
 
   protected
