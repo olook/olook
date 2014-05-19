@@ -95,6 +95,10 @@ class ProductDocument
     ['category', 'subcategory', 'color', 'size', 'name', 'brand']
   end
 
+  def keywords= keywords
+    @fields['keywords'] = keywords
+  end
+
   def method_missing(m, *args, &block)
     if /(?<filter_name>.*)=/ =~ m
       @filters[filter_name] = args

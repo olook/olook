@@ -43,6 +43,16 @@ class ProductProductDocumentAdapter
       product_doc
     end
 
+    def populate_keywords_field(product, product_doc)
+      color = product.details.find_by_translation_token("Cor filtro").try(:description)
+      material = product.details.find_by_translation_token('material').try(:description)
+      
+      keywords = [product.category_humanize, product.subcategory, color, material]
+            
+      product_doc.keywords = keywords.compact.join(" ")
+    end
+
+
     def populate_associated_fields(product, product_doc)
       product_doc.name = product.formatted_name(150)
       product_doc.inventory = product.inventory
@@ -152,6 +162,7 @@ class ProductProductDocumentAdapter
     def populate_addition_fields(product, product_doc)
       populate_simple_fields(product, product_doc)
       populate_associated_fields(product, product_doc)
+      populate_keywords_field(product, product_doc)
       populate_ranking_fields(product,product_doc)
       populate_shoe_fields(product, product_doc) if product.shoe?
       populate_details(product, product_doc)
