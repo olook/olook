@@ -74,7 +74,7 @@
        </ul>
     </nav>
     <%= render 'shared/admin_label' if current_admin %>
-    <div id="container">
+    <section id="container">
       <header class="primary">
         <span class="open icon"></span>
         <hgroup><h1></h1></hgroup>
@@ -220,7 +220,7 @@
 
        <%= javascript_include_tag "//olook.neoassist.com/clients/olook/js/chat.js" %>
        <%= render :partial => "shared/metrics/master_tags" %>
-    </div>
+    </section>
     <script>
       var site = new Bamboo();
     </script>
