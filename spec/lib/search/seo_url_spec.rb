@@ -19,7 +19,13 @@ describe SeoUrl do
     it { expect(subject.parse_params[:price]).to match(/50-600/i) }
 
     context "building" do
-      it { expect(subject.build_link_for(SearchEngine.new(subject.parse_params).current_filters)).to eq( '/sapato/boneca-sapatilha/tamanho-37s?page=2&por=maior-preco&preco=50-600')}
+      before do
+        se = SearchEngine.new(subject.parse_params)
+        @current_filters = se.current_filters
+        subject.set_search(se)
+      end
+
+      it { expect(subject.build_link_for(@current_filters)).to eq( '/sapato/boneca-sapatilha/tamanho-37s?page=2&por=maior-preco&preco=50-600')}
     end
   end
 
@@ -147,6 +153,11 @@ describe SeoUrl do
   end
 
   describe "#build_link_for" do
+
+    before do
+      subject.set_search(SearchEngine.new())
+    end
+
     context 'without sections' do
       subject { described_class.new(path_positions: '') }
       it { expect(subject.build_link_for(category: [ 'sapato' ])).to eq('/?categoria=sapato') }
