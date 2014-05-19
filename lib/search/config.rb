@@ -11,7 +11,7 @@ end
 
 module Search
   class Config
-    @@config = {}
+    @@config ||= {}
     def self.[]=(key, val)
       @@config[key.to_s] = val
     end
