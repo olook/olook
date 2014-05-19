@@ -16,3 +16,7 @@
       = text_field_tag :email, "",placeholder:"Digite aqui seu e-mail", class: "email"
       = submit_tag "Cadastrar", class: "", onclick: "#{track_event('EmailModal', 'CampaignEmailRegistered')}; $('#modal button.close').click()"
 
+:javascript
+  FB.XFBML.parse(document.getElementById('modal_face'));
+
+
