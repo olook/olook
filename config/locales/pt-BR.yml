@@ -297,6 +297,9 @@
             not_delivered: "Não entregue"
 
     models:
+      seo_link:
+        one: Link para SEO
+        other: Links para SEO
 
       itinerary:
         one: Itinerário
@@ -444,6 +447,9 @@
       credit_card: Cartão de crédito
 
     attributes:
+      seo_link:
+        name: 'Nome'
+        path: 'Link'
       header:
         url: 'URL'
         url_type: 'Tipo de Url'
