@@ -12,16 +12,41 @@ end
 module Search
   class Config
     @@config ||= {}
+    @@config_file ||= nil
+    @@config_env ||= nil
     def self.[]=(key, val)
       @@config[key.to_s] = val
     end
 
     def self.[](key)
+      read_config_file_if_empty
       @@config[key.to_s]
     end
 
-    def self.load_config(file, env='production')
-      @@config.merge!(YAML.load_file(file)[env])
+    def self.read_config_file_if_empty
+      if @@config.size == 0
+        read_config_file
+      end
+    end
+
+    def self.read_config_file
+      @@config = YAML.load_file(config_file)[config_env].merge(@@config)
+    end
+
+    def self.config_file
+      if defined?(Rails)
+        File.join(Rails.root, 'config', 'cloud_search.yml')
+      else
+        File.join('.', 'config', 'cloud_search.yml')
+      end
+    end
+
+    def self.config_env
+      if defined?(Rails)
+        Rails.env
+      else
+        'production'
+      end
     end
 
     def self.api_version_module_name
@@ -30,9 +55,9 @@ module Search
 
     def self.method_missing(m, *args, &block)
       if /(?<met_name>\w+)=/ =~ m.to_s
-        @@config[met_name] = args.first
+        self[met_name] = args.first
       else
-        @@config[m.to_s]
+        self[m.to_s]
       end
     end
   end
