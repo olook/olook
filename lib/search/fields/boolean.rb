@@ -1,8 +1,8 @@
 module Search
   module Fields
-    class Boolean < Search::Field
-      def value
-        @value == '1'
+    class Boolean
+      def self.factory
+        eval("Search::Fields::#{Search::Config.api_version_module_name}::Boolean")
       end
     end
   end

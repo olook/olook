@@ -60,7 +60,7 @@ module Search
         end
 
         def create_field(key, value=nil, options={})
-          node = @base.field(key.to_s, options) || Field.new(key, @base, options)
+          node = @base.field(key.to_s, options) || Field.factory.new(key, @base, options)
           node.value = value
           node
         end
