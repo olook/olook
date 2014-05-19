@@ -1,3 +1,4 @@
+require 'yaml'
 module Search
   def self.config &block
     if block
@@ -17,6 +18,10 @@ module Search
 
     def self.[](key)
       @@config[key.to_s]
+    end
+
+    def load_config(file, env='production')
+      @@config.merge(YAML.load_file(file)[env])
     end
 
     def self.method_missing(m, *args, &block)

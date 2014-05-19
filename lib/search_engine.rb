@@ -18,7 +18,6 @@ class SearchEngine
     end
   end
 
-  SEARCH_CONFIG = YAML.load_file("#{Rails.root}/config/cloud_search.yml")[Rails.env]
 
   NESTED_FILTERS = {
     category: [ :subcategory ]
@@ -237,7 +236,7 @@ class SearchEngine
 
   def build_filters_url(options={})
     bq = build_boolean_expression(options)
-    Search::Url.new(structured: bq, facets: @facets, term: @term, config: SEARCH_CONFIG).url
+    Search::Url.new(structured: bq, facets: @facets, term: @term).url
   end
 
 
@@ -276,8 +275,7 @@ class SearchEngine
 
     url = Search::Url.new(structured: bq, facets: @facets, term: @term,
                           "return-fields" => @return_fields, sort: @sort,
-                          start: options[:start], size: options[:limit],
-                          config: SEARCH_CONFIG)
+                          start: options[:start], size: options[:limit])
     url.url
   end
 
