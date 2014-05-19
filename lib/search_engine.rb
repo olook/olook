@@ -32,13 +32,13 @@ class SearchEngine
   attr_reader :expressions, :sort_field
 
   def initialize attributes = {}, is_smart = false
-    @return_fields = Search::Query::ReturnFields.factory(RETURN_FIELDS)
+    @return_fields = Search::Query::ReturnFields.factory.new(RETURN_FIELDS)
     @expressions = HashWithIndifferentAccess.new
     @expressions['is_visible'] = [1]
     @expressions['inventory'] = ['inventory:1..']
     @expressions['in_promotion'] = [0]
     @expressions['visibility'] = [Product::PRODUCT_VISIBILITY[:site],Product::PRODUCT_VISIBILITY[:all]]
-    @facets = Search::Query::Facets.factory
+    @facets = Search::Query::Facets.factory.new
     default_facets
     @is_smart = is_smart
 
@@ -59,7 +59,7 @@ class SearchEngine
   end
 
   def term= term
-    @term = Search::Query::Term.factory(term) if term
+    @term = Search::Query::Term.factory.new(term) if term
   end
 
   def term
@@ -265,7 +265,7 @@ class SearchEngine
     options[:limit] ||= 50
     bq = build_boolean_expression
 
-    @sort = Search::Query::Sort.factory
+    @sort = Search::Query::Sort.factory.new
     if @is_smart
       @sort.add_ranking("exp", "r_inventory+r_brand_regulator+r_age")
       @sort.use("-exp", *@sort_field.to_s.split(",").reject{|v| v.blank?})

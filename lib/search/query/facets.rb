@@ -1,8 +1,8 @@
 module Search
   module Query
     class Facets
-      def self.factory(*args)
-        eval("#{Search::Config.api_version_module_name}::Facets").new(*args)
+      def self.factory
+        eval("#{Search::Config.api_version_module_name}::Facets")
       end
     end
   end
