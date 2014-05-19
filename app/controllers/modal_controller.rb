@@ -1,7 +1,6 @@
 class ModalController < ApplicationController
   layout false
   def show
-
     if ModalExhibitionPolicy.apply?(path: params["path"], cookie: cookies[:sm], user: current_user)
       set_modal_cookie if cookies[:sm].blank?
       variation = ab_test('acquisition_popup_test', 'facebook', 'email')
