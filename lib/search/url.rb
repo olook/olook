@@ -1,10 +1,11 @@
+require 'config'
 module Search
   class Url
 
     def initialize(args={})
       @parameters = []
       @str_params = []
-      @base_url = Search.config["search_domain"] + "/2011-02-01/search"
+      @base_url = Search::Config["search_domain"] + "/2011-02-01/search"
       set_params(args)
     end
 
