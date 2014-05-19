@@ -342,29 +342,30 @@ section#home {
     }
   }
 }
-#emkt_box{
+.emkt_box{
   height: 100px;
   margin-top: 20px;
   font-family: $verdana;
   color: #321600;
   border-top: 1px solid #d8b9b7;
-  padding-top: 43px;
+  padding-top: 50px;
   ul.mail{
     position: relative;
     z-index: 1;
     height: 110px;
-    li{float: left;}
+    width: 100%;
+    height: 82px;
+    border: 2px solid #000;
+    li{float: left; height: 83px;}
     li.promo{
-      width: 100%;
-      height: 82px;
-      padding-left: 44px;
-      background-color: #fef6a9 !important;
+      background-color: #000;
       h2{
         font-size: 20px;
         font-weight: bold;
         text-align: center;
         width: 437px;
         margin-top: 20px;
+        color: #fff;
       }
       p{
         font-size: 16px;
@@ -374,56 +375,59 @@ section#home {
         margin-top: 10px;
         color: $base_color;
       }
+    }
+    li.mail_bar{
       fieldset{
         display: block;
         width: 100px;
         float: left;
         .box_mail{
-          width: 230px;
-          height: 36px;
-          background-color: #fefced;
+          width: 260px;
+          height: 48px;
+          background-color: #cccccc;
           color: #321600;
           font-size: 11px;
           font-family: $bt_font;
-          border: 1px solid #321600;
           padding-left: 11px;
           letter-spacing: 1px;
-          margin-top: -42px;
+          margin-top: 19px;
           position: absolute;
-          left: 497px;
+          left: 455px;
+          border: none;
         }
       }
       fieldset.botao{
         width: 30px;
         height:30px;
         border: none;
-        right: 205px;
+        right: 190px;
         position: absolute;
         top: 20px;
         .bt_enviar{
-          background: image-url('home/ok_mkt.png') no-repeat;
-          width: 34px;
-          height: 34px;
+          width: 103px;
+          height: 48px;
           float: right;
           position: absolute;
           margin-top: -8px;
           border: none;
-          top: 13px;
+          top: 7px;
           color: #fff;
-          right: 3px;
-          font-size: 15px;
+          right: -28px;
+          font-size: 12px;
+          background-color: $base_color;
+          letter-spacing: 1px;
         }
       }
     }
     img{
       position: relative;
       float: right;
-      margin-top: -110px;
-      right: 80px;
+      margin-top: -41px;
+      right: 36px;
     }
   }
   .fback, .fdenied{
-    width: 310px;
+    width: 343px;
     height: 41px;
     background: image-url('common/sprite_modal_footer.png') no-repeat 4px -162px;
     background-color: #bfd7bd;
@@ -436,9 +440,9 @@ section#home {
     position: relative;
     padding-left: 34px;
     position: relative;
-    top: -93px;
+    top: -65px;
     z-index: 10000;
-    left: 469px;
+    left: 453px;
     padding-top: 5px;
     display: none;
     span{
@@ -461,14 +465,20 @@ section#home {
     }
   }
   .fdenied{
-    background: image-url('common/sprite_modal_footer.png') no-repeat -122px 9px;
+    background: image-url('common/sprite_modal_footer.png') no-repeat -122px 13px;
     background-color: #ea8596;
     border: 1px solid #e94762;
-    height: 23px;
+    height: 28px;
     padding: 5px 0px 15px 42px;
     top: -88px;
-    width: 245px;
-    left: 493px;
+    width: 334px;
+    left: 456px;
     
   }
 }
+
+
+/* ---------- AB Angela - MKT BAR  ----------*/
+
+
+/* ---------- AB Angela - MKT BAR  ----------*/
