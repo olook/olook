@@ -20,8 +20,8 @@ module Search
       @@config[key.to_s]
     end
 
-    def load_config(file, env='production')
-      @@config.merge(YAML.load_file(file)[env])
+    def self.load_config(file, env='production')
+      @@config.merge!(YAML.load_file(file)[env])
     end
 
     def self.method_missing(m, *args, &block)
