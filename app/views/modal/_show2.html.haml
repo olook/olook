@@ -1,9 +1,11 @@
 .hello
-  .login_with_facebook
+  #modal_face.login_with_facebook
     .fb-login-button{:data => {'max-rows' => "1", 'size' => "large", 'show-faces' => "false", 'auto-logout-link' => "false", 'scope' => FACEBOOK_CONFIG['login_scope'], 'onlogin' => "loginFacebook"}}
   .modal_newsletter
     = form_tag subscribe_campaign_email_path, remote: true do
       = text_field_tag :email, "",placeholder:"seunomeaqui@email.com.br", class: "email"
       %button
         = submit_tag "Cadastrar", class: "", onclick: "#{track_event('EmailModal', 'CampaignEmailRegistered')}; $('#modal button.close').click()"
+:javascript
+  FB.XFBML.parse(document.getElementById('modal_face'));
 
