@@ -14,5 +14,4 @@ class ModalExhibitionPolicy
   def self.without_cookie?(cookie)
     cookie.blank?
   end
-
 end
