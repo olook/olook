@@ -24,6 +24,10 @@ module Search
       @@config.merge!(YAML.load_file(file)[env])
     end
 
+    def self.api_version_module_name
+      "V#{self['api_version'].to_s.gsub('-', '')}"
+    end
+
     def self.method_missing(m, *args, &block)
       if /(?<met_name>\w+)=/ =~ m.to_s
         @@config[met_name] = args.first
