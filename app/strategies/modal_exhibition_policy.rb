@@ -2,7 +2,7 @@ class ModalExhibitionPolicy
   BLACK_LIST = /(sacola|pagamento)/
 
   def self.apply?(opts={})
-     avaliable_path?(opts[:path]) && without_cookie?(opts[:cookie]) && opts[:user].blank?
+     avaliable_path?(opts[:path]) && without_cookie?(opts[:cookie]) && opts[:user].blank? && opts[:mobile] == false
   end
 
   private
@@ -14,4 +14,5 @@ class ModalExhibitionPolicy
   def self.without_cookie?(cookie)
     cookie.blank?
   end
+
 end
