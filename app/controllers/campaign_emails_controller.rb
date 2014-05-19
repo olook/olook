@@ -37,8 +37,6 @@ class CampaignEmailsController < ApplicationController
   end
 
   def subscribe
-    email = params[:email]
-
     @campaign_email = CampaignEmail.new(email: params[:email])
     if @campaign_email.save
       finished("acquisition_popup_test", reset: false)
