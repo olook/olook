@@ -4,8 +4,7 @@ module Search
     def initialize(args={})
       @parameters = []
       @str_params = []
-      @config = args.delete(:config)
-      @base_url = @config["search_domain"] + "/2011-02-01/search"
+      @base_url = Search.config["search_domain"] + "/2011-02-01/search"
       set_params(args)
     end
 
