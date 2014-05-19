@@ -8,15 +8,21 @@ module Search
         end
 
         def use(*use)
-          @use=use
+          @use = use.map do |u|
+            if u[0] == '-'
+              "#{u[1..-1]} desc"
+            else
+              "#{u} asc"
+            end
+          end
         end
 
         def query_url
           param = []
           @rankings.each do |name, alg|
-            param << "rank-#{name}=#{CGI.escape alg}"
+            param << "expr.#{name}=#{CGI.escape alg}"
           end
-          param << "rank=#{@use.join(',')}"
+          param << "sort=#{@use.join(',')}"
         end
 
         def add_ranking(name, alg)

@@ -13,7 +13,7 @@ module Search
         end
 
         def query_url
-          "return-fields=#{@fields.join(',')}" if @fields.size > 0
+          "return=#{@fields.join(',')}" if @fields.size > 0
         end
       end
     end

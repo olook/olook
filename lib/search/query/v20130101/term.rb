@@ -11,7 +11,7 @@ module Search
         end
 
         def query_url
-          "q=#{URI.encode @term.to_s}" if @term
+          return nil
         end
       end
     end

@@ -20,6 +20,8 @@ module Search
           "#{@name}:#{scale_decimal(@value[0])}..#{scale_decimal(@value[1])}"
         end
 
+        private
+
         def scale
           (@options[:scale] || 2).to_i
         end
