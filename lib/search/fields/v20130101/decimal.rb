@@ -1,7 +1,7 @@
 module Search
   module Fields
     module V20130101
-      class Decimal < Search::V20110201::Field
+      class Decimal < Search::V20130101::Field
         def value
           if @options[:array]
             if @value.is_a?(Array)
@@ -17,8 +17,14 @@ module Search
         end
 
         def to_url
-          "#{@name}:#{scale_decimal(@value[0])}..#{scale_decimal(@value[1])}"
+          min = scale_decimal(@value[0])
+          max = scale_decimal(@value[1])
+          min = min ? "[#{min}" : '{'
+          max = max ? "#{max}]" : '}'
+          "#{@name}:#{},#{}"
         end
+
+        private
 
         def scale
           (@options[:scale] || 2).to_i
@@ -29,7 +35,7 @@ module Search
         end
 
         def scale_decimal(val)
-          ( val.to_d * 10 ** scale.to_d ).to_i
+          ( val.to_d * 10 ** scale.to_d ).to_i if val
         end
       end
     end

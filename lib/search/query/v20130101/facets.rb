@@ -17,11 +17,9 @@ module Search
 
         def query_url
           return if @facets.size == 0
-          param = ["facet=#{@facets.join(',')}"]
-          @top.each do |field, top|
-            param << "facet-#{field}-top-n=#{top}"
+          @facets.map do |f|
+            "facet.#{f}={sort:'bucket'#{",size:#{@top[f]}" if @top[f]}}"
           end
-          param
         end
       end
     end

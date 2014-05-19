@@ -7,7 +7,7 @@ class SearchEngine
   IGNORE_ON_URL = Set.new(['inventory', :inventory, 'is_visible', :is_visible, 'in_promotion', :in_promotion])
   PERMANENT_FIELDS_ON_URL = Set.new([:is_visible, :inventory])
 
-  RETURN_FIELDS = [:subcategory,:name,:brand,:image,:retail_price,:price,:backside_image,:category,:text_relevance,:inventory]
+  RETURN_FIELDS = [:subcategory,:name,:brand,:image,:retail_price,:price,:backside_image,:category,:inventory]
 
   SEARCHABLE_FIELDS = [:category, :subcategory, :color, :brand, :heel,
                 :care, :price, :size, :product_id, :collection_theme,
@@ -23,7 +23,7 @@ class SearchEngine
     category: [ :subcategory ]
   }
 
-  DEFAULT_SORT = "age,-inventory,-text_relevance"
+  DEFAULT_SORT = "age,-inventory"
 
   attr_accessor :skip_beachwear_on_clothes
   attr_accessor :df
@@ -270,7 +270,7 @@ class SearchEngine
       @sort.add_ranking("exp", "r_inventory+r_brand_regulator+r_age")
       @sort.use("-exp", *@sort_field.to_s.split(",").reject{|v| v.blank?})
     else
-      @sort.use(@sort_field)
+      @sort.use(*@sort_field.to_s.split(",").reject{|v| v.blank?})
     end
 
     url = Search::Url.new(structured: bq, facets: @facets, term: @term,

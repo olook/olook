@@ -11,10 +11,10 @@ module Search
 
     def set_params(args)
       args.each do |k, v|
-        if args[k].respond_to?(:query_url)
-          @parameters << args.delete(k) if args[k]
+        if v.respond_to?(:query_url)
+          @parameters << v if v
         else
-          @str_params << "#{k}=#{v}"
+          @str_params << "#{k}=#{v}" if v.to_s != ''
         end
       end
     end
@@ -26,6 +26,7 @@ module Search
       params.flatten!
       params.reject! { |p| p.nil? || p == '' }
       params.concat(@str_params)
+      params.uniq!
       "http://#{@base_url}?#{params.join('&')}"
     end
   end

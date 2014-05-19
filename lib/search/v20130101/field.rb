@@ -26,7 +26,7 @@ module Search
       end
 
       def to_url
-        "(field #{@name} '#{@value}')"
+        "#{@name}:'#{@value}'"
       end
 
       class << self
