@@ -5,7 +5,7 @@ class ModalController < ApplicationController
       set_modal_cookie if cookies[:sm].blank?
       variation = ab_test('acquisition_popup_test', 'facebook', 'email')
       if variation == 'facebook'
-        render json: {html: render_to_string(partial: 'show1.html.erb'), name: variation, width: "493",height: "764", color: "#fff" }
+        render json: {html: render_to_string(partial: 'show2.html.erb'), name: variation, width: "493",height: "764", color: "#fff" }
       else
         render json: {html: render_to_string(partial: 'show2.html.erb'), name: variation, width: "493",height: "764", color: "#fff" }
       end
