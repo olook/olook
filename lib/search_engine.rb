@@ -181,7 +181,7 @@ class SearchEngine
     @filters_result ||= {}
     url = build_filters_url(options)
     @filters_result[url] ||= -> {
-      f = fetch_result(url, parse_facets: true)
+      f = fetch_result(url, parser: SearchedProduct, parse_facets: true)
       f.set_groups('subcategory', subcategory_without_care_products(f))
       f
     }.call
@@ -189,7 +189,7 @@ class SearchEngine
 
   def products(pagination = true)
     url = build_url_for(pagination ? {limit: @limit, start: self.start_item} : {})
-    @result ||= fetch_result(url, {parse_products: true})
+    @result ||= fetch_result(url, parser: SearchedProduct, parse_products: true)
     @result.products
   end
 

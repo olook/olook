@@ -20,9 +20,9 @@ module Search
         def query_url
           param = []
           @rankings.each do |name, alg|
-            param << "expr.#{name}=#{CGI.escape alg}"
+            param << "expr.#{name}=#{Search::Util.encode alg}"
           end
-          param << "sort=#{@use.join(',')}"
+          param << "sort=#{Search::Util.encode @use.join(',')}"
         end
 
         def add_ranking(name, alg)

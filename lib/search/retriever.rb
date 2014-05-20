@@ -20,9 +20,9 @@ module Search
           cached_response = @redis.get(cache_key)
         else
           @logger.error "[cloudsearch] cache missed"
-          url = URI.parse(url)
+          %r{http://(?<host>[^/]+)(?<resource>/.*)} =~ url
           tstart = Time.now.to_f * 1000.0
-          http_response = Net::HTTP.get_response(url)
+          http_response = Net::HTTP.get_response(host, resource)
           @logger.error("GET cloudsearch URL (time=#{'%0.5fms' % ( (Time.now.to_f*1000.0) - tstart )}): #{url}")
           @logger.error("[cloudsearch] result_code:#{http_response.code}, result_message:#{http_response.message}")
           raise "CloudSearchError" if http_response.code != '200'
@@ -32,10 +32,10 @@ module Search
           end
           cached_response =  http_response.body
         end
-        Search::Result.new(cached_response, options)
+        Search::Result.factory.new(cached_response, options)
       rescue => e
-        @logger.error("[cloudsearch] Error on retrieving url: #{URI.decode url.to_s} with cache_key: #{cache_key}, error: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}")
-        Search::Result.new({:hits => nil, :facets => {} }.to_json, options)
+        @logger.error("[cloudsearch] Error on retrieving url: #{host}#{resource} with cache_key: #{cache_key}, error: #{e.class} #{e.message}\n#{e.backtrace.join("\n")}")
+        Search::Result.factory.new({:hits => nil, :facets => {} }.to_json, options)
       end
     end
   end

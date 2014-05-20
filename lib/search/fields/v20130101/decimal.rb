@@ -21,7 +21,7 @@ module Search
           max = scale_decimal(@value[1])
           min = min ? "[#{min}" : '{'
           max = max ? "#{max}]" : '}'
-          "#{@name}:#{},#{}"
+          "#{@name}:#{min},#{max}"
         end
 
         private

@@ -16,7 +16,7 @@ class SearchedProduct
   add_field :inventory, :uint
   add_field :is_visible, :boolean
   add_field :in_promotion, :boolean
-  add_field :visibility, :text, array: true
+  add_field :visibility, :text
   add_field :heeluint, :uint
   add_field :size, :literal, array: true
 
