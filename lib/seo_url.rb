@@ -27,7 +27,7 @@ class SeoUrl
     "novidades" => "age"
   })
   FIELDS_WITHOUT_KEYS_IN_URL = Set.new(['subcategory', 'category', 'brand'])
-  FIELDS_WITH_KEYS_IN_URL = Set.new(['color', 'size', 'heel', 'care'])
+  FIELDS_WITH_KEYS_IN_URL = Set.new(['color', 'size', 'heel', 'care', 'price'])
   CARE_PRODUCTS = [
     'Amaciante', 'Apoio plantar', 'Impermeabilizante', 'Palmilha', 'Proteção para calcanhar',
     'amaciante', 'apoio plantar', 'impermeabilizante', 'palmilha', 'proteção para calcanhar',
@@ -223,7 +223,7 @@ class SeoUrl
     end.compact
   end
 
-  ['color', 'size', 'heel', 'care'].each do |f|
+  FIELDS_WITH_KEYS_IN_URL.each do |f|
     define_method "extract_#{f}" do |path_section, section|
       parse_filters(path_section, section)[f]
     end
