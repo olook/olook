@@ -611,7 +611,6 @@
       width:100%;
       clear:both;
       margin:0px;
-      padding-top:30px;
       margin-top:0px !important;
       #gallery {
         width:100%;
@@ -632,9 +631,10 @@
       }
       #product-details {
         position: initial !important;
-        width:80%;
+        width:90%;
         margin:0px;
         float:left !important;
+        
         #product-particulars {
           width:100%;
           .open {
@@ -658,7 +658,6 @@
           border-radius: 0px !important;
         }
         #product-info {
-          position: absolute;
           top:0px;
           border: 0px;
           width: 100%;
@@ -666,6 +665,7 @@
           padding: 5px;
           height: 20px;
           left: 0px;
+          margin-bottom:50px !important;
           h1, h2 {
             font-size: 12px;
           }
@@ -676,16 +676,21 @@
 
           }
           h2 {
-            position: absolute;
             color: #FFF;
-            top: 6px;
-            right: 14px;
             text-align: right;
           }
-          .plots,
-          .price {
-            display: none;
+          .price_retail {
+            float:left;
+            font-size: 11px;
+            width:100px !important;
           }
+          .price,
+          .plots {
+            float:left;
+            padding-left:10px;
+            
+          }
+          
         }
       }
       
