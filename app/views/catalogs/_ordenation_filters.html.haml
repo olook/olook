@@ -1,5 +1,8 @@
 .exhibition-mode
   = form_tag url_builder.current_filters, method: 'get' do
+    - url_builder.filters_outside_path.each do |k, v|
+      = hidden_field_tag(k, v) if k.to_s != 'por'
+
     %fieldset
       %p{class: "selected_relevance#{' watermelon' if params[:por].present? && params[:por].to_s != '0'}" }
         - if params[:por].present?

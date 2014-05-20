@@ -16,7 +16,7 @@ class CatalogsController < ApplicationController
   def not_found
     @campaign = add_campaign(params)
     @url_builder = SeoUrl.new(path: request.fullpath,
-                      path_positions: '/:category:/-:subcategory::brand:-/-:care::color::size::heel::price:_',
+                      path_positions: '/:category:/-:subcategory::brand:-/-:care::color::size::heel:_',
                       params: { category: params[:category] })
     @search = add_search_result(@url_builder.parse_params, params)
     @url_builder.set_search(@search)
@@ -43,7 +43,7 @@ class CatalogsController < ApplicationController
   def index
     @campaign = add_campaign(params)
     @url_builder = SeoUrl.new(path: request.fullpath,
-                      path_positions: '/:category:/-:subcategory::brand:-/-:care::color::size::heel::price:_',
+                      path_positions: '/:category:/-:subcategory::brand:-/-:care::color::size::heel:_',
                       params: { category: params[:category] })
     search_params = @url_builder.parse_params
     @search = add_search_result(search_params, params)

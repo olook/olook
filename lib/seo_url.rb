@@ -161,6 +161,32 @@ class SeoUrl
     full_path
   end
 
+  def filters_outside_path
+    parameters = HashWithIndifferentAccess.new(@search.current_filters.dup)
+    @sections.each do |section|
+      next if section[:fields].blank?
+      section[:fields].each do |field|
+        parameters.delete(field)
+      end
+    end
+    HashWithIndifferentAccess[parameters.map { |k, v| translate_field(k,v)}.compact ]
+  end
+
+  def translate_field(k,v)
+    if k.present? && v.present?
+      vs = [v].flatten.map do |_v|
+        VALUES_TRANSLATION.invert[_v.to_s] ? VALUES_TRANSLATION.invert[_v.to_s] : _v.to_s
+      end.compact
+
+      if KEYS_TRANSLATION.invert[k.to_s]
+        ks = KEYS_TRANSLATION.invert[k.to_s]
+      else
+        ks = k
+      end
+      return [ ks,vs.join(MULTISELECTION_SEPARATOR) ]
+    end
+  end
+
   private
 
   def build_path_string(parameters, section)
@@ -209,16 +235,9 @@ class SeoUrl
 
   def build_query_string(parameters)
     parameters.map do |k, v|
-      if k.present? && v.present?
-        vs = [v].flatten.map do |_v|
-          VALUES_TRANSLATION.invert[_v.to_s] ? VALUES_TRANSLATION.invert[_v.to_s] : _v.to_s
-        end.compact
-
-        if KEYS_TRANSLATION.invert[k.to_s]
-          "#{KEYS_TRANSLATION.invert[k.to_s]}=#{vs.join(MULTISELECTION_SEPARATOR)}"
-        else
-          "#{k}=#{vs.join(MULTISELECTION_SEPARATOR)}"
-        end
+      ks,vs = translate_field(k, v)
+      if ks.present? && vs.present?
+        "#{ks}=#{vs}"
       end
     end.compact
   end
@@ -369,5 +388,5 @@ class SeoUrl
 
   def self.whitelisted_colors
     YAML.load( File.read( File.expand_path( File.join( File.dirname(__FILE__), '../config/whitelisted_colors.yml' ) ) ) )
-  end  
+  end
 end
