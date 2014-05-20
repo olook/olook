@@ -2,7 +2,7 @@ module Search
   module Query
     module V20130101
       class Term
-        def initialize(term)
+        def initialize(term=nil)
           @term = term
         end
 
@@ -10,8 +10,16 @@ module Search
           @term.to_s
         end
 
+        def value=(val)
+          @term = val
+        end
+
         def query_url
-          return nil
+          if @term && @term.to_s != ''
+            "q=#{Search::Util.encode @term.to_s}"
+          else
+            ["q=matchall", "q.parser=structured"]
+          end
         end
       end
     end

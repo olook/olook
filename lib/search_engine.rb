@@ -38,6 +38,7 @@ class SearchEngine
     @expressions['inventory'] = ['inventory:1..']
     @expressions['in_promotion'] = [0]
     @expressions['visibility'] = [Product::PRODUCT_VISIBILITY[:site],Product::PRODUCT_VISIBILITY[:all]]
+    @term = Search::Query::Term.factory.new
     @facets = Search::Query::Facets.factory.new
     default_facets
     @is_smart = is_smart
@@ -59,11 +60,11 @@ class SearchEngine
   end
 
   def term= term
-    @term = Search::Query::Term.factory.new(term) if term
+    @term.value = term
   end
 
   def term
-    @term.value if @term
+    @term.value
   end
 
   # TODO: Mudar a forma que o recebe o collection_theme pois
