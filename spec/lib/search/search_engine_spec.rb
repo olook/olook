@@ -59,7 +59,8 @@ describe SearchEngine do
                          "care" => [],
                          "price" => [],
                          "size" => [],
-                         "product_id" => []} }
+                         "product_id" => [],
+                         "sort" => []} }
 
     let(:expected_parameters) { { "category" => [],
                          "subcategory" => [],
