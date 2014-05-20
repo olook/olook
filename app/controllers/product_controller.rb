@@ -58,7 +58,7 @@ class ProductController < ApplicationController
     end
 
     unless @current_admin
-      Leaderboard.new(key: "#{@product.category_humanize.parameterize}:#{@product.subcategory.parameterize}").score(@product.id)
+      Leaderboard.new(key: "#{@product.category_humanize.to_s.parameterize}:#{@product.subcategory.to_s.parameterize}").score(@product.id)
     end
 
     @google_pixel_information = @product
