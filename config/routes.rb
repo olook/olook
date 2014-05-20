@@ -4,6 +4,8 @@ require 'resque/server'
 Olook::Application.routes.draw do
 
 
+  get "/modal", to: "modal#show", as: "modal"
+
   get "/sitemap", to: "sitemap#index", as: "sitemap"
 
   resources :wished_products, only: [:create, :destroy]
@@ -244,6 +246,7 @@ Olook::Application.routes.draw do
     get "/lista_pastas_s3", to: "bucket_s3#index"
 
     resources :headers
+    resources :seo_links
 
     resources :clippings
     get "ses" => "simple_email_service_infos#index", as: "ses"
