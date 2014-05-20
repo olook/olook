@@ -194,30 +194,27 @@
     }
     #collection_theme_content {
       width:100%;
-      .ul{
-        width:100%;
-        height:164px;
-        img {width:100%;}
-      }
-      #home_collections .left_banner, #home_collections .right_banner {
-        position: relative;
-        width:100%;
-        margin:0px !important;
-        img {
+      #home_collections {
+        ul {
           width:100%;
         }
-        .collection {
-          position: absolute;
-          top:160px;
-          left:10px;
+        li {
+          float:left;
         }
-        .resume {
-          padding:10px 0 0 10px;
+        li.big {
+          width:100%;
+          background:red;
         }
-        .looks {
-          a {
-            padding-left:10px;
-          }
+        li.small {
+          width:31.9%;
+          margin-right:8px;
+          float:left;
+        }
+        li.last {
+          margin-right:0px;
+        }
+        img {
+          width:98%;
         }
       }
     }
