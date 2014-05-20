@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140508143916) do
+ActiveRecord::Schema.define(:version => 20140517173814) do
 
   create_table "action_parameters", :force => true do |t|
     t.integer  "matchable_id"
@@ -1145,6 +1145,13 @@ ActiveRecord::Schema.define(:version => 20140508143916) do
 
   add_index "rule_parameters", ["matchable_id", "matchable_type"], :name => "index_rule_parameters_on_matchable_id_and_matchable_type"
 
+  create_table "seo_links", :force => true do |t|
+    t.string   "name"
+    t.string   "path"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
@@ -1335,6 +1342,7 @@ ActiveRecord::Schema.define(:version => 20140508143916) do
     t.boolean  "has_corporate"
     t.string   "fantasy_name"
     t.integer  "orders_count",                                    :default => 0
+    t.text     "facebook_data"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token"

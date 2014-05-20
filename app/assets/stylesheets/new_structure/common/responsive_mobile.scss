@@ -194,30 +194,27 @@
     }
     #collection_theme_content {
       width:100%;
-      .banner_principal {
-        width:100%;
-        height:164px;
-        img {width:100%;}
-      }
-      #home_collections .left_banner, #home_collections .right_banner {
-        position: relative;
-        width:100%;
-        margin:0px !important;
-        img {
+      #home_collections {
+        ul {
           width:100%;
         }
-        .collection {
-          position: absolute;
-          top:160px;
-          left:10px;
+        li {
+          float:left;
         }
-        .resume {
-          padding:10px 0 0 10px;
+        li.big {
+          width:100%;
+          background:red;
         }
-        .looks {
-          a {
-            padding-left:10px;
-          }
+        li.small {
+          width:31.9%;
+          margin-right:8px;
+          float:left;
+        }
+        li.last {
+          margin-right:0px;
+        }
+        img {
+          width:98%;
         }
       }
     }
@@ -611,7 +608,6 @@
       width:100%;
       clear:both;
       margin:0px;
-      padding-top:30px;
       margin-top:0px !important;
       #gallery {
         width:100%;
@@ -632,9 +628,10 @@
       }
       #product-details {
         position: initial !important;
-        width:80%;
+        width:90%;
         margin:0px;
         float:left !important;
+        
         #product-particulars {
           width:100%;
           .open {
@@ -658,7 +655,6 @@
           border-radius: 0px !important;
         }
         #product-info {
-          position: absolute;
           top:0px;
           border: 0px;
           width: 100%;
@@ -666,6 +662,7 @@
           padding: 5px;
           height: 20px;
           left: 0px;
+          margin-bottom:50px !important;
           h1, h2 {
             font-size: 12px;
           }
@@ -676,16 +673,21 @@
 
           }
           h2 {
-            position: absolute;
             color: #FFF;
-            top: 6px;
-            right: 14px;
             text-align: right;
           }
-          .plots,
-          .price {
-            display: none;
+          .price_retail {
+            float:left;
+            font-size: 11px;
+            width:100px !important;
           }
+          .price,
+          .plots {
+            float:left;
+            padding-left:10px;
+            
+          }
+          
         }
       }
       

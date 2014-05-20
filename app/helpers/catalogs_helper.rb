@@ -1,6 +1,6 @@
 # encoding: utf-8
 module CatalogsHelper
-  CLOTH_SIZES_TABLE = ["PP","P","M","G","GG","EXG","33","34","35","36","37","38","39","40","42","44","46","Único","Tamanho único"]
+  CLOTH_SIZES_TABLE = ["PP","P","M","G","GG","EXG","33","34","35","36","37","38","39","40","42","44","46","48","50","52","54","56","58","Único","Tamanho único"]
   CLOTH_CLASSES_HASH = {
     "Único" => "unico",
     "Unico" => "unico",

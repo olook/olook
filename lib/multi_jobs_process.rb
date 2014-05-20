@@ -1,5 +1,5 @@
 module MultiJobsProcess
-  MAX_TIME_IS_SECONDS = 2.hours.to_i
+  MAX_TIME_IS_SECONDS = 30.minutes.to_i
 
   #
   # To use a multijobs process you must overide the following methods:

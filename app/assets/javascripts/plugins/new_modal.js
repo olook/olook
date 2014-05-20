@@ -1,6 +1,6 @@
 if(!olook) var olook = {};
 
-olook.newModal = function(content, a, l, backgroud_color){
+olook.newModal = function(content, a, l, backgroud_color, close_callback){
   var $modal = $("div#modal.promo-olook"),
   h = a > 0 ? a : $("img",content).outerHeight(),
   w = l > 0 ? l : $("img",content).outerWidth(),
@@ -20,6 +20,7 @@ olook.newModal = function(content, a, l, backgroud_color){
     $("button.close").remove();
     $modal.fadeOut();
     $(this).fadeOut();
+    close_callback();
   });
 
   $modal.html(content)
@@ -44,6 +45,7 @@ olook.newModal = function(content, a, l, backgroud_color){
     $("button.close").remove();
     $modal.fadeOut();
     $("#overlay-campaign").fadeOut();
+    close_callback();
   })
 
 };
