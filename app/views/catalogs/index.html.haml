@@ -52,11 +52,11 @@
         / local onde o mostpopular será exibido
         / .chaordic.mostpopular
       = render('current_section', search: @search)
-
       %br{style:'clear:both'}
-      .row.cata_filters{style: 'position:relative'}
-        = render "ordenation_filters", search: @search, url_builder: @url_builder
-        = render "size_filters", search: @search, url_builder: @url_builder, category: @category      
+      .fixed_filter
+        .row.cata_filters{style: 'position:relative'}
+          = render "ordenation_filters", search: @search, url_builder: @url_builder
+          = render "size_filters", search: @search, url_builder: @url_builder, category: @category      
 
       
 

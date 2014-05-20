@@ -27,4 +27,16 @@ $(function() {
         $(".search_form").submit();
       }
   }).parents('form').submit(olook.perform_search);
+
+  var num = 37;
+  $(window).bind('scroll', function () {
+    var element = $('.fixed_filter')[0];
+    var top = element.getBoundingClientRect().top;
+    if (top <= num) {
+      $('.fixed_filter').addClass('js_fixed');
+    } else {
+      $('.fixed_filter').removeClass('js_fixed');
+    }
+  });
+
 });
