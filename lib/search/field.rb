@@ -28,5 +28,18 @@ module Search
         @value.is_a?(Array) ? @value[0] : @value
       end
     end
+
+    def self.factory_for_type(kind, name, base_class, options={})
+      case kind
+      when :uint
+        Search::Fields::Uint.factory.new(name, base_class, options)
+      when :boolean
+        Search::Fields::Boolean.factory.new(name, base_class, options)
+      when :decimal
+        Search::Fields::Decimal.factory.new(name, base_class, options)
+      else
+        self.new(name, base_class, options)
+      end
+    end
   end
 end
