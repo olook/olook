@@ -18,7 +18,8 @@ module Search
         def query_url
           return if @facets.size == 0
           @facets.map do |f|
-            "facet.#{f}={sort:'bucket'#{",size:#{@top[f]}" if @top[f]}}"
+            "facet.#{f}=" +
+            Search::Util.encode("{sort:'bucket'#{",size:#{@top[f]}" if @top[f]}}")
           end
         end
       end
