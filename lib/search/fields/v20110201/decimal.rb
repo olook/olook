@@ -12,7 +12,7 @@ module Search
               normalize_decimal_numbers(@value)
             end
           else
-            normalize_decimal_numbers(@value.is_a?(Array) ? @value[0] : val)
+            normalize_decimal_numbers(@value.is_a?(Array) ? @value[0] : @value)
           end
         end
 

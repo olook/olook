@@ -41,7 +41,7 @@ module Search
         end
 
         def query_url
-          ["q=#{Search::Util.encode to_url}", "q.parser=structured"] if url.size > 0
+          "fq=#{Search::Util.encode to_url}" if url.size > 0
         end
 
         def map_recursively_nodes(start=nil, &block)
