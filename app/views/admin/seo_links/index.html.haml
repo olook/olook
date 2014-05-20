@@ -1,0 +1,21 @@
+- content_for :secondary_navigation do
+  %li= link_to 'Novo link', new_admin_seo_link_path
+%h1 Links para SEO
+%div.inner
+  %table.table
+    %tr
+      %th nome
+      %th Url
+      %th
+      %th
+      %th
+
+    - @seo_links.each do |seo_link|
+      %tr
+        %td= seo_link.name
+        %td= seo_link.path
+        %td= link_to 'Exibir', [:admin, seo_link]
+        %td= link_to 'Editar', edit_admin_seo_link_path(seo_link)
+        %td= link_to 'Apagar', [:admin, seo_link], :method => :delete, :data => { :confirm => 'Tem certeza ?' }
+
+  %br

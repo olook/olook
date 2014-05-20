@@ -3,8 +3,6 @@ class Checkout::OrdersController < Checkout::BaseController
   before_filter :authenticate_user!
 
   def show
-    finished('catalog', reset: false)
-
     @order = @user.orders.find_by_number!(params[:number])
     @payment = @order.erp_payment
     promotion = @order.payments.where(:type => "PromotionPayment").first.try(:promotion)

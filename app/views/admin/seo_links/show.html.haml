@@ -1,0 +1,15 @@
+%p#notice= notice
+%h2 Link
+.inner
+  %p
+    %b
+      = translate_field(attribute: 'name', field: 'seo_link')
+    = @seo_link.name
+  %p
+    %b
+      = translate_field(attribute: 'path', field: 'seo_link')
+    = @seo_link.path
+= link_to 'Editar', edit_admin_seo_link_path(@seo_link)
+\|
+= link_to 'Voltar', admin_seo_links_path
+
