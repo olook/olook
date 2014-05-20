@@ -16,7 +16,7 @@ module Search
 
         def query_url
           if @term && @term.to_s != ''
-            "q=#{Search::Util.encode @term.to_s}"
+            "q=#{URI.encode @term.to_s}"
           else
             ["q=matchall", "q.parser=structured"]
           end
