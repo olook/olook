@@ -16,18 +16,19 @@
           = link_to "Ver Mais", product_seo_path(product.seo_path), :class => 'seeMore'
   = link_to image_tag("home/banner_deslogado.jpg"), wysquiz_path, :class => "banner_unlogged", onclick: track_event("UnloggedHome", "ClickBanner")
 
-#emkt_box
+%section{class: "emkt_box"}
   %ul.mail
     %li.promo
       %h2
         CADASTRE-SE E GANHE AGORA! 
       %p
         R$30 + 15% do valor do produto em créditos
+    %li.mail_bar
       %fieldset
         =text_field_tag :email, "", :class => "box_mail js-newsletter js-middlebox", :default_value => "Digite aqui seu e-mail"
       %fieldset.botao
-        =submit_tag "OK", :class => "bt_enviar js-subscribe js-middlebox"
-    =image_tag("home/mkt_home.png")
+        =submit_tag "CADASTRAR", :class => "bt_enviar js-subscribe js-middlebox"
+    =image_tag("home/mkt_home.gif")
   .fback.js-success.js-middlebox
     %p
       Enviamos para seu e-mail o vale de 
